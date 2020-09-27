@@ -1,6 +1,6 @@
-import { createSlice } from '@reduxjs/toolkit'
-import { SUPPORTED_BATTLE_REALMS } from 'types/realmscapes'
-import { IRealmscapeStore, IStore } from 'types/store'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { SUPPORTED_BATTLE_REALMS, TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { IRealmscapeStore } from 'types/store'
 
 const initialState: IRealmscapeStore = {
   origin_realm: null,
@@ -8,42 +8,37 @@ const initialState: IRealmscapeStore = {
   realmscape_feature: null,
 }
 
-const setOriginRealm = (state: IStore['realmscape'], action) => {
-  state.origin_realm = action.payload
-}
-
-const setRealmscape = (state: IStore['realmscape'], action) => {
-  const realmscape = action.payload
-  let realmscape_feature = state.realmscape_feature
-  if (realmscape && realmscape_feature && !realmscape_feature.includes(realmscape)) {
-    realmscape_feature = null // Reset the realmscape_feature
-  }
-  return { ...state, realmscape, realmscape_feature }
-}
-
-const getRealmscapeFromFeature = (feature: string): string | null => {
+const getRealmscapeFromFeature = (feature: string): TBattleRealms | null => {
   return SUPPORTED_BATTLE_REALMS.find(realm => feature.includes(realm)) || null
 }
 
-const setRealmscapeFeature = (state: IStore['realmscape'], action) => {
-  let realmscape = state.realmscape
-  if (!state.realmscape && action.payload) {
-    realmscape = getRealmscapeFromFeature(action.payload) as any
-  }
-  return {
-    ...state,
-    realmscape,
-    realmscape_feature: action.payload,
-  }
-}
-
-export const realmscape = createSlice({
+const realmscape = createSlice({
   name: 'realmscape',
   initialState,
   reducers: {
-    resetRealmscapeStore: (state, action) => initialState,
-    setOriginRealm,
-    setRealmscape,
-    setRealmscapeFeature,
+    resetRealmscapeStore: () => initialState,
+
+    setOriginRealm: (state, action: PayloadAction<TOriginRealms | null>) => {
+      state.origin_realm = action.payload
+    },
+
+    setRealmscape: (state, action: PayloadAction<TBattleRealms | null>) => {
+      const realmscape = action.payload
+      let realmscape_feature = state.realmscape_feature
+      if (realmscape && realmscape_feature && !realmscape_feature.includes(realmscape)) {
+        state.realmscape_feature = null // Reset the realmscape_feature
+      }
+      state.realmscape = realmscape
+    },
+
+    setRealmscapeFeature: (state, action: PayloadAction<string | null>) => {
+      if (!state.realmscape && action.payload) {
+        state.realmscape = getRealmscapeFromFeature(action.payload)
+      }
+      state.realmscape_feature = action.payload
+    },
   },
 })
+
+export const realmscapeActions = realmscape.actions
+export default realmscape.reducer

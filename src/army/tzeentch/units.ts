@@ -523,7 +523,7 @@ export const Units: TUnits = [
 ]
 
 // Battalions
-export const TzeentchBattalions: TBattalions = [
+const TzeentchBattalions: TBattalions = [
   {
     name: `Witchfyre Coven`,
     effects: [

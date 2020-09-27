@@ -5,9 +5,8 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { logClick, logDisplay } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
-import { componentWithSize } from 'utils/mapSizesToProps'
 
-// const AppBanner = componentWithSize(({ isMobile = false }) => {
+// const AppBanner = () => {
 //   const { isDark } = useTheme()
 //   const name = 'GHB_2020_Release'
 
@@ -22,11 +21,10 @@ import { componentWithSize } from 'utils/mapSizesToProps'
 //       <span>Lumineth Realmlords are live!</span>
 //     </NotificationBanner>
 //   )
-// })
+// }
 
 // Sale Banner
-const AppBanner = componentWithSize(props => {
-  // const { isTinyMobile } = props
+const AppBanner = () => {
   const { isDark } = useTheme()
   const { isNotSubscribed } = useSubscription()
   const name = 'Paypal_Launch_2020'
@@ -54,6 +52,6 @@ const AppBanner = componentWithSize(props => {
       </Link>
     </NotificationBanner>
   )
-})
+}
 
 export default AppBanner

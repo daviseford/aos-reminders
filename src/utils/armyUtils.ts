@@ -5,7 +5,7 @@ import { IImportedArmy } from 'types/import'
 import { ISavedArmy } from 'types/savedArmy'
 import { IAllySelections } from 'types/selections'
 
-export const armyHasEntries = (army: ISavedArmy) => {
+export const armyHasEntries = (army: ISavedArmy | ICurrentArmy) => {
   const { allySelections, origin_realm, realmscape_feature, realmscape, selections } = army
 
   if (Object.values(selections).some(x => x.length)) return true

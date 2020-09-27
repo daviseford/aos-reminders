@@ -15,7 +15,7 @@ import {
   WOUND_ALLOCATION,
 } from 'types/phases'
 
-export const MonstrousArcanumChaos: TUnits = [
+const MonstrousArcanumChaos: TUnits = [
   {
     name: `Chaos Siege Gargant`,
     effects: [

@@ -1,24 +1,23 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import AlreadySubscribed from 'components/helpers/alreadySubscribed'
 import { LinkNewTab } from 'components/helpers/link'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
-import { ContactComponent } from 'components/page/contact'
+import Contact from 'components/page/contact'
 import { PricingPlans } from 'components/payment/pricingPlans'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { Link } from 'react-router-dom'
-import { IUseAuth0 } from 'types/auth0'
 import { logClick, logPageView } from 'utils/analytics'
 import { GITHUB_URL, ROUTES } from 'utils/env'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useWindowSize from 'utils/hooks/useWindowSize'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
 const headerClass = `col-12 col-lg-8 col-xl-8 pt-5 mx-auto`
 
-const Subscribe: React.FC = () => {
-  const { loading }: IUseAuth0 = useAuth0()
+const Subscribe = () => {
+  const { isLoading } = useAuth0()
   const { isSubscribed, isActive, getSubscription } = useSubscription()
   const { theme } = useTheme()
 
@@ -31,7 +30,7 @@ const Subscribe: React.FC = () => {
     getSubscription()
   }, [getSubscription])
 
-  if (loading) return <LoadingBody />
+  if (isLoading) return <LoadingBody />
   if (isSubscribed && isActive) return <AlreadySubscribed />
 
   return (
@@ -58,7 +57,7 @@ const Subscribe: React.FC = () => {
       <ExamplesRow />
 
       <div className={`container ${theme.bgColor} ${theme.text} text-center py-4`}>
-        <ContactComponent size={'small'} />
+        <Contact size={'small'} />
       </div>
     </div>
   )
@@ -91,13 +90,14 @@ const ExamplesRow = () => {
   )
 }
 
-const StatsDemo = componentWithSize(props => {
+const StatsDemo = () => {
+  const { isMobile } = useWindowSize()
   return (
     <div className={'col-12 col-xl-8 col-xxl-5 text-center'}>
       <figure className="figure">
         <img
           className={`figure-img img-fluid rounded img-thumbnail`}
-          src={`/img/stats_demo_${props.isMobile ? `mobile` : `desktop`}.png`}
+          src={`/img/stats_demo_${isMobile ? `mobile` : `desktop`}.png`}
           alt="Subscribe to access advanced stats"
         />
         <figcaption className="figure-caption text-center">
@@ -106,10 +106,11 @@ const StatsDemo = componentWithSize(props => {
       </figure>
     </div>
   )
-})
+}
 
-const MobileDarkModeDemo = componentWithSize(props => {
-  if (!props.isMobile) return null
+const MobileDarkModeDemo = () => {
+  const { isMobile } = useWindowSize()
+  if (!isMobile) return null
   return (
     <div className={'col-12'}>
       <WebmWithFallback
@@ -120,7 +121,7 @@ const MobileDarkModeDemo = componentWithSize(props => {
       />
     </div>
   )
-})
+}
 
 const Intro = () => {
   const { theme } = useTheme()

@@ -21,20 +21,20 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
   const [processing, setProcessing] = useState(false)
 
   const handleUpdateName = (e: any) => {
-    e.preventDefault()
+    e?.preventDefault?.()
     setArmyName(e.target.value)
   }
 
   const handleKeyDown = e => {
     if (e.key === 'Enter') {
       e.stopPropagation()
-      e.preventDefault()
+      e?.preventDefault?.()
       handleUpdateClick(e)
     }
   }
 
   const handleUpdateClick = async e => {
-    e.preventDefault()
+    e?.preventDefault?.()
     if (armyName === currentArmyName) {
       closeModal()
       return // Don't hit the API if they don't make a change :)

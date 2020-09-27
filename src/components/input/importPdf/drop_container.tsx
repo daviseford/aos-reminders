@@ -10,7 +10,7 @@ import { GITHUB_URL, ROUTES } from 'utils/env'
 import { hasFatalError } from 'utils/import/warnings'
 import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
 
-const ImportContainer: React.FC = () => {
+const ImportContainer = () => {
   const [errors, setErrors] = useState<IImportedArmy['errors']>([])
   const { isSubscribed } = useSubscription()
   const { saveArmyToS3 } = useSavedArmies()

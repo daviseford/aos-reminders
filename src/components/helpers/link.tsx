@@ -2,7 +2,7 @@ import React from 'react'
 import { IconType } from 'react-icons'
 import { centerContentClass } from 'theme/helperClasses'
 import { logClick } from 'utils/analytics'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useWindowSize from 'utils/hooks/useWindowSize'
 
 interface ILinkProps {
   className?: string
@@ -18,15 +18,15 @@ export const LinkNewTab: React.FC<ILinkProps> = ({ href, children, label, ...pro
 )
 
 interface ILinkBtnProps {
-  isMobile: boolean
   href: string
   btnClass: string
   Icon: IconType
   text: string
 }
 
-const LinkBtnComponent: React.FC<ILinkBtnProps> = props => {
-  const { Icon, href, btnClass, isMobile, text } = props
+export const LinkButton: React.FC<ILinkBtnProps> = props => {
+  const { Icon, href, btnClass, text } = props
+  const { isMobile } = useWindowSize()
 
   return (
     <LinkNewTab
@@ -42,5 +42,3 @@ const LinkBtnComponent: React.FC<ILinkBtnProps> = props => {
     </LinkNewTab>
   )
 }
-
-export const LinkButton = componentWithSize(LinkBtnComponent)

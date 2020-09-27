@@ -1,6 +1,12 @@
 import { PreferenceApi } from 'api/preferenceApi'
-import { army, factionNames, realmscape, selections, visibility } from 'ducks'
-import { store } from 'index'
+import {
+  armyActions,
+  factionNamesActions,
+  realmscapeActions,
+  selectionActions,
+  visibilityActions,
+} from 'ducks'
+import { store } from 'store'
 import { IArmy } from 'types/army'
 import { TLoadedArmy } from 'types/import'
 import { ILinkedArmy } from 'types/savedArmy'
@@ -25,7 +31,9 @@ export const loadArmyFromLink = async (id: string) => {
 
 export const addArmyToStore = (loadedArmy: TLoadedArmy) => {
   try {
-    store.dispatch(factionNames.actions.setFactionName(loadedArmy.factionName))
+    const { dispatch } = store
+
+    dispatch(factionNamesActions.setFactionName(loadedArmy.factionName))
 
     // Add Ally Game data to the store
     if (loadedArmy.allyFactionNames.length) {
@@ -33,24 +41,24 @@ export const addArmyToStore = (loadedArmy: TLoadedArmy) => {
         const Army = getArmy(factionName) as IArmy
         return { factionName, Army }
       })
-      store.dispatch(army.actions.updateAllyArmies(armies))
+      dispatch(armyActions.updateAllyArmies(armies))
     }
 
     // Add our unit selections to the store
-    store.dispatch(selections.actions.updateSelections(loadedArmy.selections))
+    dispatch(selectionActions.updateSelections(loadedArmy.selections))
 
     // Add our allied unit selections to the store
-    store.dispatch(selections.actions.updateAllySelections(loadedArmy.allySelections))
+    dispatch(selectionActions.updateAllySelections(loadedArmy.allySelections))
 
     // Add Realm info to the store
-    store.dispatch(realmscape.actions.setOriginRealm(loadedArmy.origin_realm || null))
-    store.dispatch(realmscape.actions.setRealmscape(loadedArmy.realmscape || null))
-    store.dispatch(realmscape.actions.setRealmscapeFeature(loadedArmy.realmscape_feature || null))
+    dispatch(realmscapeActions.setOriginRealm(loadedArmy.origin_realm || null))
+    dispatch(realmscapeActions.setRealmscape(loadedArmy.realmscape || null))
+    dispatch(realmscapeActions.setRealmscapeFeature(loadedArmy.realmscape_feature || null))
 
     // Hide any reminders necessary
     if (loadedArmy.hiddenReminders) {
-      store.dispatch(visibility.actions.clearReminder())
-      store.dispatch(visibility.actions.addReminders(loadedArmy.hiddenReminders))
+      dispatch(visibilityActions.clearReminders())
+      dispatch(visibilityActions.addReminders(loadedArmy.hiddenReminders))
     }
 
     // Log our army to GA

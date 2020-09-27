@@ -777,7 +777,7 @@ export const Units: TUnits = [
 ]
 
 // Battalions
-export const NurgleBattalions: TBattalions = [
+const NurgleBattalions: TBattalions = [
   {
     name: `The Munificent Wanderers`,
     effects: [

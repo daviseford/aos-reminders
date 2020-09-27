@@ -1,70 +1,59 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { uniq, without } from 'lodash'
-import { IVisibilityStore as IHiddenStore } from 'types/store'
+import { IVisibilityStore } from 'types/store'
 
-const initialState: IHiddenStore = {
+const initialState: IVisibilityStore = {
   allies: [],
   reminders: [],
   selectors: [],
   when: [],
 }
 
-const addSelector = (state: IHiddenStore, action: { payload: string }) => {
-  state.selectors = uniq([...state.selectors, action.payload])
-}
-const deleteSelector = (state: IHiddenStore, action: { payload: string }) => {
-  state.selectors = without(state.selectors, action.payload)
-}
-const addAlly = (state: IHiddenStore, action: { payload: string }) => {
-  state.allies = uniq([...state.allies, action.payload])
-}
-const deleteAlly = (state: IHiddenStore, action: { payload: string }) => {
-  state.allies = without(state.allies, action.payload)
-}
-const addReminder = (state: IHiddenStore, action: { payload: string }) => {
-  state.reminders = uniq([...state.reminders, action.payload])
-}
-const addReminders = (state: IHiddenStore, action: { payload: string[] }) => {
-  state.reminders = uniq([...state.reminders, ...action.payload])
-}
-const deleteReminder = (state: IHiddenStore, action: { payload: string }) => {
-  state.reminders = without(state.reminders, action.payload)
-}
-const addWhen = (state: IHiddenStore, action: { payload: string }) => {
-  state.when = uniq([...state.when, action.payload])
-}
-const addWhens = (state: IHiddenStore, action: { payload: string[] }) => {
-  state.when = uniq([...state.when, ...action.payload])
-}
-const deleteWhen = (state: IHiddenStore, action: { payload: string }) => {
-  state.when = without(state.when, action.payload)
-}
-const deleteWhens = (state: IHiddenStore, action: { payload: string[] }) => {
-  state.when = without(state.when, ...action.payload)
-}
-const clearWhen = (state: IHiddenStore) => {
-  state.when = initialState.when
-}
-const clearReminder = (state: IHiddenStore) => {
-  state.reminders = initialState.reminders
-}
-
-export const visibility = createSlice({
+const visibility = createSlice({
   name: 'visibility',
   initialState,
   reducers: {
-    addAlly,
-    addReminder,
-    addReminders,
-    addSelector,
-    addWhen,
-    addWhens,
-    clearReminder,
-    clearWhen,
-    deleteAlly,
-    deleteReminder,
-    deleteSelector,
-    deleteWhen,
-    deleteWhens,
+    addSelector: (state, action: PayloadAction<string>) => {
+      state.selectors = uniq([...state.selectors, action.payload])
+    },
+    deleteSelector: (state, action: PayloadAction<string>) => {
+      state.selectors = without(state.selectors, action.payload)
+    },
+    addAlly: (state, action: PayloadAction<string>) => {
+      state.allies = uniq([...state.allies, action.payload])
+    },
+    deleteAlly: (state, action: PayloadAction<string>) => {
+      state.allies = without(state.allies, action.payload)
+    },
+    addReminder: (state, action: PayloadAction<string>) => {
+      state.reminders = uniq([...state.reminders, action.payload])
+    },
+    addReminders: (state, action: PayloadAction<string[]>) => {
+      state.reminders = uniq([...state.reminders, ...action.payload])
+    },
+    deleteReminder: (state, action: PayloadAction<string>) => {
+      state.reminders = without(state.reminders, action.payload)
+    },
+    addWhen: (state, action: PayloadAction<string>) => {
+      state.when = uniq([...state.when, action.payload])
+    },
+    addWhens: (state, action: PayloadAction<string[]>) => {
+      state.when = uniq([...state.when, ...action.payload])
+    },
+    deleteWhen: (state, action: PayloadAction<string>) => {
+      state.when = without(state.when, action.payload)
+    },
+    deleteWhens: (state, action: PayloadAction<string[]>) => {
+      state.when = without(state.when, ...action.payload)
+    },
+    clearWhen: state => {
+      state.when = initialState.when
+    },
+    clearReminders: state => {
+      state.reminders = initialState.reminders
+    },
   },
 })
+
+export const visibilityActions = visibility.actions
+export default visibility.reducer

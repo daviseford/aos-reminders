@@ -1,56 +1,34 @@
 import { Reminder } from 'components/info/reminder'
 import { useAppStatus } from 'context/useAppStatus'
-import { selectors, visibility } from 'ducks'
+import { selectors, visibilityActions } from 'ducks'
 import { without } from 'lodash'
 import React, { useEffect, useMemo, useState } from 'react'
-import { connect } from 'react-redux'
-import { IArmy, ICurrentArmy, TAllyArmies } from 'types/army'
-import { IStore } from 'types/store'
-import { componentWithSize } from 'utils/mapSizesToProps'
-import { processReminders } from 'utils/processReminders'
+import { useDispatch, useSelector } from 'react-redux'
+import { TTurnWhen } from 'types/phases'
+import useGetReminders from 'utils/hooks/useGetReminders'
+import useWindowSize from 'utils/hooks/useWindowSize'
 import { getVisibleReminders } from 'utils/reminderUtils'
 import { reorderReminders } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
 
-interface IRemindersProps extends ICurrentArmy {
-  allyArmies: TAllyArmies
-  army: IArmy
-  hiddenReminders: string[]
-  hideWhens: (values: string[]) => void
-  isMobile: boolean
-  showWhen: (value: string) => void
-  visibleWhens: string[]
-}
+const { deleteWhens: hideWhens, addWhen: showWhen } = visibilityActions
 
-const RemindersComponent = (props: IRemindersProps) => {
-  const {
-    allyArmies,
-    army,
-    hiddenReminders,
-    hideWhens,
-    isMobile,
-    showWhen,
-    visibleWhens,
-    ...currentArmy
-  } = props
+const Reminders = () => {
+  const dispatch = useDispatch()
 
+  const currentArmy = useSelector(selectors.selectCurrentArmy)
+  const hiddenReminders = useSelector(selectors.selectReminders)
+  const visibleWhens = useSelector(selectors.selectWhen)
+
+  const { isMobile } = useWindowSize()
   const { isGameMode } = useAppStatus()
 
-  let reminders = useMemo(() => {
-    return processReminders(
-      army,
-      currentArmy.factionName,
-      currentArmy.selections,
-      currentArmy.realmscape_feature,
-      currentArmy.allyFactionNames,
-      allyArmies,
-      currentArmy.allySelections
-    )
-  }, [army, allyArmies, currentArmy])
+  // Generate reminders
+  let reminders = useGetReminders()
 
   if (isGameMode) reminders = reorderReminders(getVisibleReminders(reminders, hiddenReminders))
 
-  const whens = useMemo(() => Object.keys(reminders), [reminders])
+  const whens = useMemo(() => Object.keys(reminders) as TTurnWhen[], [reminders])
   const titles = useMemo(() => whens.map(titleCase), [whens])
 
   const [firstLoad, setFirstLoad] = useState(true)
@@ -63,15 +41,15 @@ const RemindersComponent = (props: IRemindersProps) => {
     // Remove orphaned phases
     // (phases where the rules have been removed via army_builder)
     const orphans = without(visibleWhens, ...titles)
-    if (orphans.length) hideWhens(orphans)
+    if (orphans.length) dispatch(hideWhens(orphans))
 
     // If we're on mobile AND it's our first load of a new army AND
     // we have no phases displayed AND there are phases that could be displayed
     if (isMobile && firstLoad && !visibleWhens.length && titles.length) {
       setFirstLoad(false)
-      showWhen(titles[0]) // Show the first phase
+      dispatch(showWhen(titles[0])) // Show the first phase
     }
-  }, [isGameMode, isMobile, firstLoad, visibleWhens, titles, showWhen, hideWhens])
+  }, [isGameMode, isMobile, firstLoad, visibleWhens, titles, dispatch])
 
   return (
     <div className={`row mx-auto ${isGameMode ? `mt-0` : `mt-3`} d-flex justify-content-center`}>
@@ -83,21 +61,5 @@ const RemindersComponent = (props: IRemindersProps) => {
     </div>
   )
 }
-
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  ...selectors.getCurrentArmy(state),
-  allyArmies: selectors.getAllyArmies(state),
-  army: selectors.getArmy(state),
-  hiddenReminders: selectors.getReminders(state),
-  visibleWhens: selectors.getWhen(state),
-})
-
-const mapDispatchToProps = {
-  hideWhens: visibility.actions.deleteWhens,
-  showWhen: visibility.actions.addWhen,
-}
-
-const Reminders = connect(mapStateToProps, mapDispatchToProps)(componentWithSize(RemindersComponent))
 
 export default Reminders

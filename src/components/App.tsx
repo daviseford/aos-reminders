@@ -1,10 +1,10 @@
 import { LoadingBody } from 'components/helpers/suspenseFallbacks'
-import { PrivateRoute } from 'components/page/privateRoute'
+import ProtectedRoute from 'components/page/privateRoute'
 import React, { lazy, Suspense, useEffect } from 'react'
-// Auth
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
+import { Route, Router, Switch } from 'react-router-dom'
 import { ROUTES } from 'utils/env'
 import { handleArmyLink, handleStripeCheckout } from 'utils/handleQueryParams'
+import history from 'utils/history'
 
 // Lazy loading routes (takes advantage of code splitting)
 const Home = lazy(() => import('components/routes/Home'))
@@ -22,7 +22,7 @@ const App = () => {
 
   return (
     <div className={`d-block`}>
-      <BrowserRouter>
+      <Router history={history}>
         <Suspense fallback={<LoadingBody />}>
           <Switch>
             {/* Main page of the app */}
@@ -41,10 +41,10 @@ const App = () => {
             <Route path={ROUTES.STATS} component={Stats} />
 
             {/* Profile page */}
-            <PrivateRoute path={ROUTES.PROFILE} component={Profile} />
+            <ProtectedRoute path={ROUTES.PROFILE} component={Profile} />
           </Switch>
         </Suspense>
-      </BrowserRouter>
+      </Router>
     </div>
   )
 }

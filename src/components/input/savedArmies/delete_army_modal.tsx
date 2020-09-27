@@ -22,7 +22,7 @@ export const DeleteArmyModal: React.FC<IModalComponentProps> = props => {
   const [processing, setProcessing] = useState(false)
 
   const handleDelete = async e => {
-    e.preventDefault()
+    e?.preventDefault?.()
     setProcessing(true)
     await deleteSavedArmy(id)
     setProcessing(false)

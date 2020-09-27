@@ -414,7 +414,7 @@ export type TNameMap = { [key: string]: string }
 // the Azyr string, which just means there is a unit exactly called what Azyr lists multiple
 // units as, or it can be different, meaning multiple units from Azyr map to one in AoS Reminders
 // by a partial match.
-export const azyrAmbiguousNamesMap = {
+const azyrAmbiguousNamesMap = {
   'Abhorrant Ghoul King': 'Abhorrant Ghoul King',
   'Arachnarok Spider with Flinger': 'Arachnarok Spider',
   'Auric Runefather': 'Auric Runefather',

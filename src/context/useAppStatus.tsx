@@ -95,7 +95,7 @@ const useAppStatus = () => {
   if (context === undefined) {
     throw new Error('useAppStatus must be used within a AppStatusProvider')
   }
-  return context as IAppStatusProvider
+  return context
 }
 
 export { AppStatusProvider, useAppStatus }

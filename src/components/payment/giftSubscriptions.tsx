@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { Elements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import GenericButton from 'components/input/generic_button'
@@ -6,25 +7,19 @@ import { useTheme } from 'context/useTheme'
 import { capitalize } from 'lodash'
 import qs from 'qs'
 import React, { useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { FaCheck, FaGift, FaRegSmileBeam } from 'react-icons/fa'
 import { centerContentClass } from 'theme/helperClasses'
-import { IUseAuth0 } from 'types/auth0'
 import { IGiftSubscription } from 'types/subscription'
-import { IUser } from 'types/user'
 import { logClick } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useLogin from 'utils/hooks/useLogin'
+import useWindowSize from 'utils/hooks/useWindowSize'
 import { GiftedSubscriptionPlans, IGiftedSubscriptionPlans } from 'utils/plans'
 
 const COL_SIZE = `col-12 col-sm-12 col-md-10 col-xl-8 col-xxl-6`
 
-interface ICheckoutProps {
-  isMobile?: boolean
-}
-
-const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = componentWithSize(props => {
+const GiftSubscriptionsComponent = () => {
   const stripe = useStripe()
   const { isActive } = useSubscription()
 
@@ -34,14 +29,15 @@ const GiftSubscriptionsComponent: React.FC<ICheckoutProps> = componentWithSize(p
     <div className="container">
       <GiftTable />
       <PlansHeader />
-      <PurchaseTable {...props} />
+      <PurchaseTable />
     </div>
   )
-})
+}
 
-const GiftTable = componentWithSize(({ isMobile = false }) => {
+const GiftTable = () => {
   const { theme, isDark } = useTheme()
   const { subscription } = useSubscription()
+  const { isMobile } = useWindowSize()
   const { giftSubscriptions = [] } = subscription
 
   const border = `border border-${isDark ? `dark` : `light-gray`} rounded`
@@ -70,7 +66,7 @@ const GiftTable = componentWithSize(({ isMobile = false }) => {
             <div className={rowClass}>
               <div className={`${theme.text}`}>
                 {purchasedSubs.map((x, i) => (
-                  <GiftButton isMobile={isMobile} {...x} key={i} />
+                  <GiftButton {...x} key={i} />
                 ))}
               </div>
             </div>
@@ -88,7 +84,7 @@ const GiftTable = componentWithSize(({ isMobile = false }) => {
               </div>
               <div className={rowClass}>
                 {adminCreatedSubs.map((x, i) => (
-                  <GiftButton isMobile={isMobile} {...x} key={i} />
+                  <GiftButton {...x} key={i} />
                 ))}
               </div>
             </>
@@ -97,15 +93,12 @@ const GiftTable = componentWithSize(({ isMobile = false }) => {
       </div>
     </>
   )
-})
-
-interface IGiftButtonProps extends IGiftSubscription {
-  isMobile: boolean
 }
 
-const GiftButton = (props: IGiftButtonProps) => {
-  const { planInterval, planIntervalCount, isMobile } = props
+const GiftButton = (props: IGiftSubscription) => {
+  const { planInterval, planIntervalCount } = props
   const { theme } = useTheme()
+  const { isMobile } = useWindowSize()
   const [copied, setCopied] = useState(false)
 
   const label = `${planIntervalCount} ${capitalize(planInterval)}${planIntervalCount > 1 ? `s` : ``}`
@@ -128,9 +121,9 @@ const GiftButton = (props: IGiftButtonProps) => {
   )
 }
 
-const PurchaseTable = componentWithSize(({ isMobile = false }) => {
+const PurchaseTable = () => {
   const { theme } = useTheme()
-  const { user }: IUseAuth0 = useAuth0()
+  const { isMobile } = useWindowSize()
 
   return (
     <>
@@ -147,7 +140,7 @@ const PurchaseTable = componentWithSize(({ isMobile = false }) => {
             </thead>
             <tbody>
               {GiftedSubscriptionPlans.map((plan, i) => (
-                <PlanComponent isMobile={isMobile} user={user} supportPlan={plan} key={i} />
+                <PlanComponent supportPlan={plan} key={i} />
               ))}
             </tbody>
           </table>
@@ -168,7 +161,7 @@ const PurchaseTable = componentWithSize(({ isMobile = false }) => {
       </div>
     </>
   )
-})
+}
 
 const PlansHeader = () => {
   const { theme } = useTheme()
@@ -180,26 +173,26 @@ const PlansHeader = () => {
 }
 
 interface IPlanProps {
-  user: IUser
   supportPlan: IGiftedSubscriptionPlans
-  isMobile: boolean
 }
 
-const PlanComponent: React.FC<IPlanProps> = props => {
-  const { user, supportPlan, isMobile } = props
+const PlanComponent: React.FC<IPlanProps> = ({ supportPlan }) => {
+  const origin = `${supportPlan.title}-GiftedSubscription`
+  const { user, isAuthenticated } = useAuth0()
+  const { login } = useLogin({ origin })
   const stripe = useStripe()
-  const { isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
+  const { isMobile } = useWindowSize()
   const [quantity, setQuantity] = useState(1)
 
   if (!stripe) return null
 
   // When the customer clicks on the button, redirect them to Checkout.
   const handleCheckout = async e => {
-    e.preventDefault()
+    e?.preventDefault?.()
 
     if (quantity === 0) return // Can't do anything with zero quantity
 
-    logClick(`${supportPlan.title}-GiftedSubscription`)
+    logClick(origin)
 
     const sku = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
@@ -262,7 +255,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
         <button
           type="button"
           className={`btn btn ${isMobile ? `btn-sm` : ``} btn-block btn-primary`}
-          onClick={isAuthenticated ? handleCheckout : () => loginWithRedirect()}
+          onClick={isAuthenticated ? handleCheckout : login}
         >
           {isMobile ? `Buy` : `Purchase`}
         </button>

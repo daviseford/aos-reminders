@@ -1,10 +1,13 @@
+import { useAuth0 } from '@auth0/auth0-react'
+import {
+  IApprovalActions,
+  IApprovalResponse,
+  ICreateSubscriptionsActions,
+} from 'components/payment/paypal/paypalTypes'
 import { usePaypal } from 'context/usePaypal'
 import React from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import ReactDOM from 'react-dom'
-import { IUseAuth0 } from 'types/auth0'
-import { isDev } from 'utils/env'
-import { IApprovalActions, IApprovalResponse, ICreateSubscriptionsActions } from './paypalTypes'
+import useLogin from 'utils/hooks/useLogin'
 
 declare global {
   interface Window {
@@ -22,13 +25,15 @@ interface IStyle {
 
 interface IPayPalButtonProps {
   planId: string
+  planTitle: string
   onSuccess?: (data: IApprovalResponse) => any
   onCancel?: (data: any) => any
   style?: IStyle
 }
 
 const PaypalButton: React.FC<IPayPalButtonProps> = props => {
-  const { user, isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
+  const { user, isAuthenticated } = useAuth0()
+  const { login } = useLogin({ origin: props.planTitle })
   const { paypalIsReady } = usePaypal()
 
   const { onSuccess = undefined, onCancel = undefined, planId, style = {} } = props
@@ -38,12 +43,10 @@ const PaypalButton: React.FC<IPayPalButtonProps> = props => {
   }
 
   const _onApprove = (data: IApprovalResponse, actions: IApprovalActions) => {
-    if (isDev) console.log('_onApprove', data, actions)
     if (onSuccess) onSuccess(data)
   }
 
   const _createSubscription = async (data, actions: ICreateSubscriptionsActions) => {
-    if (isDev) console.log('_createSubscription', data, actions)
     return actions.subscription.create({
       plan_id: planId,
       subscriber: {
@@ -72,7 +75,7 @@ const PaypalButton: React.FC<IPayPalButtonProps> = props => {
       createSubscription={!isAuthenticated ? undefined : _createSubscription}
       onApprove={(data: IApprovalResponse, actions: IApprovalActions) => _onApprove(data, actions)}
       style={btnStyle}
-      onClick={isAuthenticated ? undefined : () => loginWithRedirect({ redirect_uri: window.location.href })}
+      onClick={isAuthenticated ? undefined : login}
       onCancel={onCancel}
     />
   )

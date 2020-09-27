@@ -5,18 +5,21 @@ import ToggleGameMode from 'components/input/toggle_game_mode'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
-import { factionNames, realmscape, selections, selectors } from 'ducks'
+import { factionNamesActions, realmscapeActions, selectionActions, selectors } from 'ducks'
 import { PRIMARY_FACTIONS, TPrimaryFactions } from 'meta/factions'
 import React, { lazy, Suspense, useEffect } from 'react'
-import { connect } from 'react-redux'
-import { IStore } from 'types/store'
+import { useDispatch, useSelector } from 'react-redux'
 import { logFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
 import { getArmyLink } from 'utils/handleQueryParams'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useWindowSize from 'utils/hooks/useWindowSize'
 import { titleCase } from 'utils/textUtils'
 import { withSelectOne } from 'utils/withSelect'
 
 const Navbar = lazy(() => import('./navbar'))
+
+const { resetAllySelections, resetSelections } = selectionActions
+const { resetRealmscapeStore } = realmscapeActions
+const { setFactionName } = factionNamesActions
 
 export const Header = () => {
   const { theme } = useTheme()
@@ -30,29 +33,15 @@ export const Header = () => {
   )
 }
 
-interface IJumbotronProps {
-  factionName: TPrimaryFactions
-  hasSelections: boolean
-  isMobile: boolean
-  resetAllySelections: () => void
-  resetRealmscapeStore: () => void
-  resetSelections: () => void
-  setFactionName: (value: string | null) => void
-}
-
-const JumbotronComponent: React.FC<IJumbotronProps> = props => {
-  const {
-    factionName,
-    hasSelections,
-    isMobile,
-    resetAllySelections,
-    resetRealmscapeStore,
-    resetSelections,
-    setFactionName,
-  } = props
+const Jumbotron: React.FC = () => {
+  const dispatch = useDispatch()
   const { isOnline, isGameMode } = useAppStatus()
   const { setLoadedArmy, getFavoriteFaction, favoriteFaction, loadedArmy } = useSavedArmies()
   const { theme } = useTheme()
+  const { isMobile } = useWindowSize()
+
+  const factionName = useSelector(selectors.selectFactionName)
+  const hasSelections = useSelector(selectors.hasSelections)
 
   // Get our user's favorite faction from localStorage/API
   useEffect(() => {
@@ -62,20 +51,20 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
   // Set our favorite faction
   useEffect(() => {
     if (favoriteFaction && !hasSelections && getArmyLink() === null) {
-      setFactionName(favoriteFaction)
+      dispatch(setFactionName(favoriteFaction))
     }
     // Don't want to refresh this on hasSelections, so we need to ignore that piece of state
     // eslint-disable-next-line
-  }, [favoriteFaction, setFactionName])
+  }, [dispatch, favoriteFaction])
 
-  const setValue = withSelectOne((value: string | null) => {
+  const setValue = withSelectOne(value => {
     setLoadedArmy(null)
-    resetSelections()
-    resetRealmscapeStore()
-    resetAllySelections()
+    dispatch(resetSelections())
+    dispatch(resetRealmscapeStore())
+    dispatch(resetAllySelections())
     resetAnalyticsStore()
     if (isOnline) logFactionSwitch(value)
-    setFactionName(value)
+    dispatch(setFactionName(value as TPrimaryFactions))
   })
 
   const jumboClass = `jumbotron jumbotron-fluid text-center ${theme.headerColor} d-print-none mb-0 pt-4 ${
@@ -119,20 +108,3 @@ const JumbotronComponent: React.FC<IJumbotronProps> = props => {
     </div>
   )
 }
-
-const mapStateToProps = (state: IStore, ownProps) => {
-  return {
-    ...ownProps,
-    factionName: selectors.getFactionName(state),
-    hasSelections: selectors.hasSelections(state),
-  }
-}
-
-const mapDispatchToProps = {
-  resetAllySelections: selections.actions.resetAllySelections,
-  resetRealmscapeStore: realmscape.actions.resetRealmscapeStore,
-  resetSelections: selections.actions.resetSelections,
-  setFactionName: factionNames.actions.setFactionName,
-}
-
-const Jumbotron = connect(mapStateToProps, mapDispatchToProps)(componentWithSize(JumbotronComponent))

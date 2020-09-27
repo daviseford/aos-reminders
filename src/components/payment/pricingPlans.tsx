@@ -1,23 +1,20 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { Elements, useStripe } from '@stripe/react-stripe-js'
 import { loadStripe } from '@stripe/stripe-js'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import GenericButton from 'components/input/generic_button'
 import { PaypalPostSubscribeModal } from 'components/input/paypal_post_subscribe_modal'
+import PayPalButton from 'components/payment/paypal/paypalButton'
 import { PaypalProvider } from 'context/usePaypal'
 import qs from 'qs'
 import React, { useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { IconContext } from 'react-icons'
-import { IUseAuth0 } from 'types/auth0'
-import { IUser } from 'types/user'
 import { logClick, logEvent, logSubscription } from 'utils/analytics'
 import { isDev, STRIPE_KEY } from 'utils/env'
+import useLogin from 'utils/hooks/useLogin'
 import { ISubscriptionPlan, SubscriptionPlans } from 'utils/plans'
-import PayPalButton from './paypal/paypalButton'
 
-const PricingPlansComponent: React.FC = () => {
-  const { user }: IUseAuth0 = useAuth0()
-
+const PricingPlansComponent = () => {
   const [paypalModalIsOpen, setPaypalModalIsOpen] = useState(false)
 
   return (
@@ -28,7 +25,6 @@ const PricingPlansComponent: React.FC = () => {
         <div className="row row-cols-1 row-cols-md-2 row-cols-lg-3 justify-content-center text-center">
           {SubscriptionPlans.map((plan, i) => (
             <PlanComponent
-              user={user}
               supportPlan={plan}
               paypalModalIsOpen={paypalModalIsOpen}
               setPaypalModalIsOpen={setPaypalModalIsOpen}
@@ -69,22 +65,22 @@ const PlansHeader = () => {
 }
 
 interface IPlanProps {
-  user: IUser
   supportPlan: ISubscriptionPlan
   paypalModalIsOpen: boolean
   setPaypalModalIsOpen: (x: boolean) => void
 }
 
 const PlanComponent: React.FC<IPlanProps> = props => {
-  const { user, supportPlan } = props
+  const { supportPlan } = props
+  const { user, isAuthenticated } = useAuth0()
+  const { login } = useLogin({ origin: supportPlan.title })
   const stripe = useStripe()
-  const { isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
 
   if (!stripe) return null
 
   // When the customer clicks on the Subscribe button, redirect them to Stripe Checkout.
   const handleStripeCheckout = async e => {
-    e.preventDefault()
+    e?.preventDefault?.()
 
     logClick(supportPlan.title)
 
@@ -149,11 +145,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
             <GenericButton
               type="button"
               className="btn btn btn-block btn-primary btn-pill py-2"
-              onClick={
-                isAuthenticated
-                  ? handleStripeCheckout
-                  : () => loginWithRedirect({ redirect_uri: window.location.href })
-              }
+              onClick={isAuthenticated ? handleStripeCheckout : login}
             >
               Subscribe for {supportPlan.title}
             </GenericButton>
@@ -167,7 +159,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
 }
 
 const PayPalComponent = (props: IPlanProps) => {
-  const { user }: IUseAuth0 = useAuth0()
+  const { user } = useAuth0()
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const { paypal_dev, paypal_prod, title } = props.supportPlan
@@ -198,9 +190,10 @@ const PayPalComponent = (props: IPlanProps) => {
     <div className="col mt-2">
       {!props.paypalModalIsOpen && (
         <PayPalButton
-          planId={isDev ? paypal_dev : paypal_prod}
-          onSuccess={handleSuccess}
           onCancel={handleCancel}
+          onSuccess={handleSuccess}
+          planId={isDev ? paypal_dev : paypal_prod}
+          planTitle={title}
         />
       )}
       {modalIsOpen && <PaypalPostSubscribeModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}

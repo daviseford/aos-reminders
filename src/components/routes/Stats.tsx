@@ -1,23 +1,23 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { LinkNewTab } from 'components/helpers/link'
 import { LargeSpinner, LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
-import FooterComponent from 'components/page/footer'
+import Footer from 'components/page/footer'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSignInAlt, FaUserGraduate } from 'react-icons/fa'
 import { Link } from 'react-router-dom'
 import { centerContentClass } from 'theme/helperClasses'
-import { IUseAuth0 } from 'types/auth0'
 import { logClick, logPageView } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useLogin from 'utils/hooks/useLogin'
+import useWindowSize from 'utils/hooks/useWindowSize'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
-const Stats: React.FC = componentWithSize(({ isMobile = false }) => {
-  const { loading }: IUseAuth0 = useAuth0()
+const Stats = () => {
+  const { isLoading } = useAuth0()
   const { isActive, getSubscription, subscriptionLoading } = useSubscription()
   const { theme } = useTheme()
 
@@ -30,7 +30,7 @@ const Stats: React.FC = componentWithSize(({ isMobile = false }) => {
     getSubscription()
   }, [getSubscription])
 
-  if (loading || subscriptionLoading) return <LoadingBody />
+  if (isLoading || subscriptionLoading) return <LoadingBody />
 
   return (
     <div className={`d-block ${theme.bgColor}`}>
@@ -41,13 +41,14 @@ const Stats: React.FC = componentWithSize(({ isMobile = false }) => {
       </div>
       <PageHeader />
       {isActive ? <SubscribedView /> : <UnsubscribedView />}
-      <FooterComponent />
+      <Footer />
     </div>
   )
-})
+}
 
-const SubscribedView: React.FC = componentWithSize(({ isMobile = false, width = 320 }) => {
+const SubscribedView = () => {
   const { theme, isDark } = useTheme()
+  const { width } = useWindowSize()
 
   const reportUrl = {
     dark: {
@@ -58,7 +59,7 @@ const SubscribedView: React.FC = componentWithSize(({ isMobile = false, width = 
       desktop: `mqjCB`,
       mobile: `tqjCB`,
     },
-  }[isDark ? 'dark' : 'light'][width < 1000 ? 'mobile' : 'desktop']
+  }[isDark ? 'dark' : 'light'][width && width < 1000 ? 'mobile' : 'desktop']
 
   const [iframeIsLoaded, setIFrameIsLoaded] = useState(false)
 
@@ -86,7 +87,7 @@ const SubscribedView: React.FC = componentWithSize(({ isMobile = false, width = 
       </div>
     </>
   )
-})
+}
 
 const Methodology = () => {
   const { theme } = useTheme()
@@ -203,10 +204,12 @@ const SubscribeBtn = () => {
   )
 }
 
-const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
-  const { isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
+const UnsubscribedView = () => {
+  const { isAuthenticated } = useAuth0()
+  const { login } = useLogin({ origin: 'Before-Redeem' })
   const { isActive } = useSubscription()
   const { theme } = useTheme()
+  const { isMobile } = useWindowSize()
 
   return (
     <div className={`container-fluid ${theme.bgColor} ${theme.text} pb-4`}>
@@ -222,10 +225,7 @@ const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
 
       <div className={`row align-items-center justify-content-center mt-2`}>
         {!isAuthenticated && (
-          <GenericButton
-            onClick={() => loginWithRedirect({ redirect_uri: window.location.href })}
-            className={`${theme.genericButton} btn-lg`}
-          >
+          <GenericButton onClick={login} className={`${theme.genericButton} btn-lg`}>
             <FaSignInAlt className="mr-2" />
             Login
           </GenericButton>
@@ -262,8 +262,11 @@ const UnsubscribedView = componentWithSize(({ isMobile = false }) => {
       </div>
 
       <CoachShoutout />
+      <div className="row px-5">
+        <Methodology />
+      </div>
     </div>
   )
-})
+}
 
 export default Stats

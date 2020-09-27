@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import AlreadySubscribed from 'components/helpers/alreadySubscribed'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
@@ -8,9 +9,8 @@ import { useTheme } from 'context/useTheme'
 import { isString } from 'lodash'
 import qs from 'qs'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
-import { IUseAuth0 } from 'types/auth0'
-import { logClick, logEvent, logPageView } from 'utils/analytics'
+import { logEvent, logPageView } from 'utils/analytics'
+import useLogin from 'utils/hooks/useLogin'
 import { LocalRedemptionKey } from 'utils/localStore'
 
 const Navbar = lazy(() => import('components/page/navbar'))
@@ -18,8 +18,8 @@ const Navbar = lazy(() => import('components/page/navbar'))
 /**
  * This Route is used for coupon code redemption
  */
-const Redeem: React.FC = () => {
-  const { loading, user }: IUseAuth0 = useAuth0()
+const Redeem = () => {
+  const { isLoading, user } = useAuth0()
   const { getSubscription, isActive } = useSubscription()
   const { theme, isDark, setLightTheme } = useTheme()
 
@@ -35,7 +35,7 @@ const Redeem: React.FC = () => {
   }, [getSubscription])
 
   if (isDark) setLightTheme()
-  if (loading) return <LoadingBody />
+  if (isLoading) return <LoadingBody />
   if (isActive) return <AlreadySubscribed />
 
   return (
@@ -76,7 +76,7 @@ const getRedemptionInfo = (): { giftId: string; userId: string } | null => {
 }
 
 const RedeemSection = () => {
-  const { user }: IUseAuth0 = useAuth0()
+  const { user } = useAuth0()
   const redeemInfo = getRedemptionInfo()
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
@@ -89,7 +89,7 @@ const RedeemSection = () => {
 
   const handleClickRedeem = async e => {
     try {
-      e.preventDefault()
+      e?.preventDefault?.()
       const { body } = await SubscriptionApi.redeemGift({ giftId, userId, userName: user.email })
       LocalRedemptionKey.clear()
       if (body.error) return setError(body.error)
@@ -108,8 +108,9 @@ const RedeemSection = () => {
       {!error && !success && <Preamble />}
       {!error && !success && (
         <p>
-          You're currently logged in as <strong>{user.email}</strong>. If you're ready to redeem this gifted
-          subscription, click the button below!
+          You're currently logged in as <strong>{user.email}</strong>.
+          <br />
+          If you're ready to redeem this gifted subscription, click the button below!
         </p>
       )}
 
@@ -138,13 +139,12 @@ const setLocalRedemptionKey = () => {
   }
 }
 const Login = () => {
-  const { loginWithRedirect }: IUseAuth0 = useAuth0()
+  const { login } = useLogin({ origin: 'Before-Redeem' })
 
   const handleClick = e => {
-    e.preventDefault()
+    e?.preventDefault?.()
     setLocalRedemptionKey()
-    logClick('Login-Before-Redeem')
-    return loginWithRedirect({ redirect_uri: window.location.href })
+    login()
   }
 
   return (

@@ -1,7 +1,7 @@
 import { ICurrentArmy } from 'types/army'
 import { IReminder } from 'types/data'
 
-export type TPdfStylePdf =
+type TPdfStylePdf =
   | 'army'
   | 'armyEnd'
   | 'armyFooter'
@@ -35,10 +35,4 @@ export interface ICompactPdfTextObj {
 export interface IPrintPdf extends ICurrentArmy {
   hiddenReminders: string[]
   reminders: IReminder
-}
-
-export interface IPdfPhaseText {
-  canFitOnPage: boolean
-  yHeight: number
-  phase: string
 }

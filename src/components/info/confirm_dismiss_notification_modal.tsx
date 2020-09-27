@@ -15,7 +15,7 @@ export const ConfirmDismissNotificationModal: React.FC<IModalComponentProps> = p
   const { theme } = useTheme()
 
   const handleConfirm = e => {
-    e.preventDefault()
+    e?.preventDefault?.()
     visibilityHandler(e)
     closeModal()
   }

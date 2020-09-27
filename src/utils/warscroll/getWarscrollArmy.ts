@@ -14,7 +14,7 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   return errorChecked
 }
 
-const unitIndicatorsTxt = [
+const unitIndicatorsPdf = [
   'Artillery',
   'Leaders',
   'Units',
@@ -24,8 +24,7 @@ const unitIndicatorsTxt = [
   'Spearhead',
   'Main Body',
   'Rearguard',
-]
-const unitIndicatorsPdf = unitIndicatorsTxt.map(x => x.toUpperCase())
+].map(x => x.toUpperCase())
 
 const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(pdfText)
@@ -181,7 +180,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         }
         // General handling of Command Traits, checks for attached spells
         if (txt.startsWith('- Command Trait : ')) {
-          const [trait, spell] = getTraitWithSpell('Command Trait', txt)
+          const { trait, spell } = getTraitWithSpell('Command Trait', txt)
           accum.traits = accum.traits.concat(trait)
           if (spell) accum.spells = accum.spells.concat(spell)
           return accum
@@ -202,7 +201,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           return accum
         }
         if (txt.startsWith('- Artefact : ')) {
-          const [artifact, spell] = getTraitWithSpell('Artefact', txt)
+          const { trait: artifact, spell } = getTraitWithSpell('Artefact', txt)
           accum.artifacts = accum.artifacts.concat(artifact)
           if (spell) accum.spells = accum.spells.concat(spell)
           return accum
@@ -360,15 +359,15 @@ const traitToSpellMapper = [
  * Extracts a given trait, and optionally, a spell associated with it
  * @param txt
  */
-const getTraitWithSpell = (type: TTraitType, txt: string, addSpace = true): [string, string | null] => {
+const getTraitWithSpell = (type: TTraitType, txt: string, addSpace = true) => {
   const cleaned = getTrait(type, txt, addSpace)
   const hasSpell = traitToSpellMapper.some(x => cleaned.startsWith(x))
 
-  if (!hasSpell) return [cleaned, null]
+  if (!hasSpell) return { trait: cleaned, spell: null }
 
   const [trait, spell] = cleaned.split(' - ').map(x => x.trim())
 
-  return [trait, spell === 'All Spells' ? null : spell]
+  return { trait, spell: spell === 'All Spells' ? null : spell }
 }
 
 /**

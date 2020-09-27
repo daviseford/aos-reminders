@@ -9,10 +9,9 @@ interface IContactProps {
   size?: 'normal' | 'small' | 'large'
 }
 
-export const ContactComponent: React.FC<IContactProps> = props => {
+const Contact: React.FC<IContactProps> = ({ size = 'normal' }) => {
   const { isOffline } = useAppStatus()
   const { isDark } = useTheme()
-  const { size = 'normal' } = props
   const btnSize = size === 'small' ? 'btn-sm' : size === 'large' ? 'btn-lg' : ''
   const btnClass = `btn ${btnSize} btn-outline-${isDark ? `light` : `dark`} mx-1`
 
@@ -33,3 +32,5 @@ export const ContactComponent: React.FC<IContactProps> = props => {
     </>
   )
 }
+
+export default Contact

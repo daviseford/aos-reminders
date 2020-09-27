@@ -46,7 +46,7 @@ export interface IParsedRoot {
   }
 }
 
-export interface IAttrs {
+interface IAttrs {
   name: string
   value: string
 }

@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import config from 'auth_config.json'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
 import NavbarWrapper from 'components/page/navbar_wrapper'
@@ -5,20 +6,22 @@ import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { max } from 'lodash'
 import React from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { Link } from 'react-router-dom'
 import { navbarStyles } from 'theme/helperClasses'
-import { IUseAuth0 } from 'types/auth0'
 import { logClick } from 'utils/analytics'
 import { BASE_URL, ROUTES } from 'utils/env'
+import useLogin from 'utils/hooks/useLogin'
+import useWindowSize from 'utils/hooks/useWindowSize'
 import { LocalFavoriteFaction, LocalSavedArmies, LocalTheme, LocalUserName } from 'utils/localStore'
-import { componentWithSize } from 'utils/mapSizesToProps'
 import { SubscriptionPlans } from 'utils/plans'
 
-const Navbar: React.FC = componentWithSize(({ isTinyMobile = false }) => {
+const Navbar = () => {
   const { isOffline } = useAppStatus()
-  const { isAuthenticated, logout, loading, loginWithRedirect }: IUseAuth0 = useAuth0()
+  const { isAuthenticated, logout } = useAuth0()
+  const { login, isLoggingIn } = useLogin({ origin: 'Navbar' })
   const { isActive, subscriptionLoading } = useSubscription()
+  const { isTinyMobile } = useWindowSize()
+
   const { pathname } = window.location
   const loginBtnText = !isAuthenticated ? `Log in` : `Log out`
 
@@ -31,13 +34,12 @@ const Navbar: React.FC = componentWithSize(({ isTinyMobile = false }) => {
       LocalTheme.clear() // Revert back to default theme settings
       return logout({ client_id: config.clientId, returnTo: BASE_URL })
     } else {
-      logClick('Navbar-Login')
-      return loginWithRedirect()
+      return login()
     }
   }
 
   if (isOffline) return <OfflineHeader />
-  if (loading || subscriptionLoading) return <LoadingHeader />
+  if (isLoggingIn || subscriptionLoading) return <LoadingHeader />
 
   const discount = SubscriptionPlans.some(x => x.sale) ? max(SubscriptionPlans.map(x => x.discount_pct)) : 0
 
@@ -76,6 +78,6 @@ const Navbar: React.FC = componentWithSize(({ isTinyMobile = false }) => {
       </button>
     </NavbarWrapper>
   )
-})
+}
 
 export default Navbar

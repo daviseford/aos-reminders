@@ -1,8 +1,9 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import { CancelPaypalSubscriptionModal } from 'components/input/paypal_cancellation_modal'
 import { SelectOne } from 'components/input/select'
 import { CancelStripeSubscriptionModal } from 'components/input/stripe_cancellation_modal'
-import { ContactComponent } from 'components/page/contact'
+import Contact from 'components/page/contact'
 import { GiftSubscriptions } from 'components/payment/giftSubscriptions'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
@@ -10,13 +11,11 @@ import { useTheme } from 'context/useTheme'
 import { DateTime } from 'luxon'
 import { PRIMARY_FACTIONS } from 'meta/factions'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { FaGift, FaPaypal, FaSearchDollar } from 'react-icons/fa'
 import { MdCheckCircle, MdNotInterested, MdVerifiedUser } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import Switch from 'react-switch'
 import { centerContentClass } from 'theme/helperClasses'
-import { IUseAuth0 } from 'types/auth0'
 import { logClick, logPageView } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 import { titleCase } from 'utils/textUtils'
@@ -24,8 +23,8 @@ import { withSelectOne } from 'utils/withSelect'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
-const Profile: React.FC = () => {
-  const { loading, user }: IUseAuth0 = useAuth0()
+const Profile = () => {
+  const { isLoading, user } = useAuth0()
   const { getSubscription } = useSubscription()
   const { theme } = useTheme()
 
@@ -37,7 +36,7 @@ const Profile: React.FC = () => {
     getSubscription()
   }, [getSubscription])
 
-  if (loading || !user) return <LoadingBody />
+  if (isLoading || !user) return <LoadingBody />
 
   const userCardWrapperClass = `col-12 col-md-8 col-lg-6 col-xl-6`
 
@@ -64,9 +63,8 @@ const Profile: React.FC = () => {
 
 export default Profile
 
-const UserCard: React.FC = () => {
-  const { user }: IUseAuth0 = useAuth0()
-  const { isActive, isSubscribed, isCanceled, isGifted, subscription } = useSubscription()
+const UserCard = () => {
+  const { isSubscribed, subscription } = useSubscription()
   const { theme } = useTheme()
 
   return (
@@ -75,10 +73,8 @@ const UserCard: React.FC = () => {
       <FavoriteArmySelect />
       <ToggleTheme />
       <SubscriptionInfo />
-      {isSubscribed && subscription.subscriptionStatus !== 'temporary_grant' && (
-        <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} isGifted={isGifted} />
-      )}
-      <EmailVerified email_verified={user.email_verified} email={user.email} />
+      {isSubscribed && subscription.subscriptionStatus !== 'temporary_grant' && <RecurringPaymentInfo />}
+      <EmailVerified />
       <Help />
     </div>
   )
@@ -135,11 +131,7 @@ const FavoriteArmySelect = () => {
   )
 }
 
-interface IStripeCancelBtnProps {
-  stripe?: any
-}
-
-const CancelBtn: React.FC<IStripeCancelBtnProps> = () => {
+const CancelBtn = () => {
   const { isActive, isCanceled, createdByPaypal } = useSubscription()
   const { isLight } = useTheme()
 
@@ -166,12 +158,12 @@ const CancelBtn: React.FC<IStripeCancelBtnProps> = () => {
 
 const SubscriptionInfo = () => {
   const {
-    subscription,
-    isSubscribed,
-    isActive,
-    isPending,
     hasActiveGrant,
     hasExpiredGrant,
+    isActive,
+    isPending,
+    isSubscribed,
+    subscription,
   } = useSubscription()
   const { theme } = useTheme()
 
@@ -265,7 +257,8 @@ const TemporaryGrantComponent = () => {
   )
 }
 
-const RecurringPaymentInfo = ({ isActive, isCanceled, isGifted }) => {
+const RecurringPaymentInfo = () => {
+  const { isActive, isCanceled, isGifted } = useSubscription()
   const { theme } = useTheme()
   return (
     <div className={`${theme.card} mt-2`}>
@@ -299,8 +292,10 @@ const RecurringPaymentInfo = ({ isActive, isCanceled, isGifted }) => {
   )
 }
 
-const EmailVerified = ({ email_verified, email }) => {
+const EmailVerified = () => {
+  const { user } = useAuth0()
   const { theme } = useTheme()
+  const { email_verified, email } = user
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
@@ -330,7 +325,7 @@ const Help = () => {
         <h4>Need help?</h4>
       </div>
       <div className={theme.cardBody}>
-        <ContactComponent size="normal" />
+        <Contact size="normal" />
       </div>
     </div>
   )
@@ -343,7 +338,7 @@ const ToggleTheme = () => {
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
-        <h4>Visual Theme</h4>
+        <h4>Visual Theme: {isDark ? 'Dark' : 'Light'}</h4>
       </div>
       <div className={`${theme.cardBody} ${centerContentClass} pb-0`}>
         {isActive && (

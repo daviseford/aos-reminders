@@ -5,12 +5,6 @@ import { TUnits } from 'types/army'
 import { TEffects } from 'types/data'
 
 /**
- * Returns true if an effect has any Mark of Chaos in its name
- * @param effect
- */
-export const hasMarkOfChaos = (effect: TEffects) => MARKS_OF_CHAOS.some(mark => effect.name.includes(mark))
-
-/**
  * Returns only effects where invalid Marks are not present
  * @param mark
  */

@@ -16,12 +16,12 @@ export const PaginateButtons: React.FC<IPaginateButtonsProps> = props => {
   const canDecrement = pageNum !== 1
 
   const increment = e => {
-    e.preventDefault()
+    e?.preventDefault?.()
     if (canIncrement) setPageNum(pageNum + 1)
   }
 
   const decrement = e => {
-    e.preventDefault()
+    e?.preventDefault?.()
     if (canDecrement) setPageNum(pageNum - 1)
   }
 

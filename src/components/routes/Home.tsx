@@ -17,7 +17,7 @@ const Reminders = lazy(() => import('components/info/reminders'))
 const Toolbar = lazy(() => import('components/input/toolbar/toolbar'))
 const UpdateBanner = lazy(() => import('components/info/banners/update_banner'))
 
-const Home: React.FC = () => {
+const Home = () => {
   const { getSubscription } = useSubscription()
   const { theme } = useTheme()
   const { isGameMode } = useAppStatus()

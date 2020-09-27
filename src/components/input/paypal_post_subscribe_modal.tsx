@@ -5,7 +5,7 @@ import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
-import { useSetInterval } from 'utils/useInterval'
+import { useSetInterval } from 'utils/hooks/useInterval'
 
 interface IModalComponentProps {
   modalIsOpen: boolean

@@ -1,18 +1,13 @@
 import { AllyArmyBuilder } from 'components/input/ally_army_builder'
 import { selectors } from 'ducks'
 import { without } from 'lodash'
-import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
+import { SUPPORTED_FACTIONS } from 'meta/factions'
 import React, { useMemo } from 'react'
-import { connect } from 'react-redux'
-import { IStore } from 'types/store'
+import { useSelector } from 'react-redux'
 
-interface IAlliedArmiesProps {
-  allyFactionNames: TSupportedFaction[]
-  factionName: TSupportedFaction
-}
-
-const AlliedArmiesComponent = (props: IAlliedArmiesProps) => {
-  const { factionName, allyFactionNames } = props
+const AlliedArmies = () => {
+  const allyFactionNames = useSelector(selectors.selectAllyFactionNames)
+  const factionName = useSelector(selectors.selectFactionName)
   const allySelectOptions = useMemo(() => without(SUPPORTED_FACTIONS, factionName), [factionName])
 
   return (
@@ -29,13 +24,5 @@ const AlliedArmiesComponent = (props: IAlliedArmiesProps) => {
     </div>
   )
 }
-
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  factionName: selectors.getFactionName(state),
-  allyFactionNames: selectors.getAllyFactionNames(state),
-})
-
-const AlliedArmies = connect(mapStateToProps, null)(AlliedArmiesComponent)
 
 export default AlliedArmies

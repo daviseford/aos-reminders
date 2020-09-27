@@ -1,27 +1,35 @@
 import { useTheme } from 'context/useTheme'
 import { sortBy } from 'lodash'
-import React from 'react'
+import React, { useMemo } from 'react'
+import { ICurrentArmy } from 'types/army'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { IAllySelections } from 'types/selections'
 import { ITheme } from 'types/theme'
 import { titleCase } from 'utils/textUtils'
 
 interface ISavedArmyTable {
-  army: ISavedArmyFromApi | ISavedArmy
+  army: ISavedArmyFromApi | ISavedArmy | ICurrentArmy
 }
 
 export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
   const { selections, allySelections, origin_realm, realmscape, realmscape_feature } = army
   const { theme } = useTheme()
 
-  const armySelectionKeys = sortBy(Object.keys(selections).filter(key => selections[key].length))
-  const allies: IAllySelections = Object.keys(allySelections).reduce(
-    (a, factionName) => {
-      a.units = a.units.concat(allySelections[factionName].units || [])
-      a.battalions = a.battalions.concat(allySelections[factionName].battalions || [])
-      return a
-    },
-    { units: [], battalions: [] } as IAllySelections
+  const armySelectionKeys = useMemo(
+    () => sortBy(Object.keys(selections).filter(key => selections[key].length)),
+    [selections]
+  )
+  const allies = useMemo(
+    () =>
+      Object.keys(allySelections).reduce(
+        (a, factionName) => {
+          a.units = a.units.concat(allySelections[factionName].units || [])
+          a.battalions = a.battalions.concat(allySelections[factionName].battalions || [])
+          return a
+        },
+        { units: [], battalions: [] } as IAllySelections
+      ),
+    [allySelections]
   )
 
   return (

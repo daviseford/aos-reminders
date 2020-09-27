@@ -22,11 +22,8 @@ export const createWarning = (text: string): { text: string; severity: 'warn' } 
 export const getAllWarnings = (errors: TImportError[]) =>
   errors.filter(e => e.severity === 'ally-warn' || e.severity === 'ambiguity-warn' || e.severity === 'warn')
 export const getAllyWarnings = (errors: TImportError[]) => errors.filter(e => e.severity === 'ally-warn')
-export const getAmbiguityWarnings = (errors: TImportError[]) =>
-  errors.filter(e => e.severity === 'ambiguity-warn')
-export const getFatalErrors = (errors: TImportError[]) => errors.filter(e => e.severity === 'error')
 export const getWarnings = (errors: TImportError[]) => errors.filter(e => e.severity === 'warn')
-export const hasWarning = (errors: TImportError[]) => errors.some(e => e.severity === 'warn')
+const hasWarning = (errors: TImportError[]) => errors.some(e => e.severity === 'warn')
 export const hasFatalError = (errors: TImportError[]) => errors.some(e => e.severity === 'error')
 /**
  * Ignores ally warnings and ambiguity warnings

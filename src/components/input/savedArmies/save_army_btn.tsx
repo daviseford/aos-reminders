@@ -1,3 +1,4 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { OfflineBtn } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
 import { SaveArmyModal } from 'components/input/savedArmies/save_army_modal'
@@ -6,31 +7,26 @@ import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { selectors } from 'ducks'
 import React, { useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
 import { FaSave } from 'react-icons/fa'
-import { connect } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { centerContentClass } from 'theme/helperClasses'
-import { IUseAuth0 } from 'types/auth0'
-import { ISavedArmy } from 'types/savedArmy'
-import { IStore, IVisibilityStore } from 'types/store'
 import { logClick } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
+import useLogin from 'utils/hooks/useLogin'
 
 interface ISaveArmyProps {
-  currentArmy: ISavedArmy
   showSavedArmies: () => void
-  hiddenReminders: IVisibilityStore['reminders']
 }
 
-const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
-  currentArmy,
-  showSavedArmies,
-  hiddenReminders,
-}) => {
+const SaveArmyBtn: React.FC<ISaveArmyProps> = ({ showSavedArmies }) => {
   const { isOffline } = useAppStatus()
-  const { isAuthenticated, loginWithRedirect }: IUseAuth0 = useAuth0()
+  const { isAuthenticated } = useAuth0()
   const { isActive } = useSubscription()
+  const { login } = useLogin({ origin: 'SaveArmyBtn' })
+
+  const currentArmy = useSelector(selectors.selectCurrentArmy)
+  const hiddenReminders = useSelector(selectors.selectReminders)
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
@@ -41,7 +37,7 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
 
   return (
     <>
-      {!isAuthenticated && <SaveButton handleClick={loginWithRedirect} />}
+      {!isAuthenticated && <SaveButton handleClick={login} />}
 
       {isAuthenticated && !isActive && <SubscribeBtn />}
 
@@ -60,14 +56,6 @@ const SaveArmyBtnComponent: React.FC<ISaveArmyProps> = ({
   )
 }
 
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  currentArmy: selectors.getCurrentArmy(state),
-  hiddenReminders: selectors.getReminders(state),
-})
-
-const SaveArmyBtn = connect(mapStateToProps, null)(SaveArmyBtnComponent)
-
 export default SaveArmyBtn
 
 const SubscribeBtn = () => {
@@ -85,11 +73,7 @@ const SubscribeBtn = () => {
   )
 }
 
-interface ISaveButtonProps {
-  handleClick?: () => void
-}
-
-const SaveButton = ({ handleClick = () => null }: ISaveButtonProps) => {
+const SaveButton = ({ handleClick }: { handleClick: () => void }) => {
   return (
     <GenericButton onClick={handleClick}>
       <FaSave className="mr-2" /> Save Army

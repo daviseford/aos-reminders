@@ -1,6 +1,6 @@
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
-import { ISavedArmyFromApi } from 'types/savedArmy'
+import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { IAllySelections, ISelections } from 'types/selections'
 import { TSideEffectTypes } from 'utils/withSelect'
 
@@ -14,12 +14,10 @@ export interface IFactionNameStore {
 }
 
 export interface IRealmscapeStore {
-  origin_realm: string | null
-  realmscape: string | null
+  origin_realm: TOriginRealms | null
+  realmscape: TBattleRealms | null
   realmscape_feature: string | null
 }
-
-export type TSavedArmiesStore = ISavedArmyFromApi[]
 
 export type TAllySelectionStore = { [key in TSupportedFaction]?: IAllySelections }
 

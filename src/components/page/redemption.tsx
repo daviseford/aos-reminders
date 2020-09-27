@@ -1,5 +1,5 @@
 import GenericButton from 'components/input/generic_button'
-import { ContactComponent } from 'components/page/contact'
+import Contact from 'components/page/contact'
 import React from 'react'
 import { FaRegFrown, FaRegSmileBeam } from 'react-icons/fa'
 import { ROUTES } from 'utils/env'
@@ -31,7 +31,7 @@ export const RedemptionSuccess = () => {
   return (
     <>
       <h5>Woohoo! You're all set!</h5>
-      <h2>
+      <h2 className="my-2">
         <FaRegSmileBeam />
       </h2>
       <GenericButton className={`btn btn-success btn-lg`} onClick={handleClickSuccess}>
@@ -59,7 +59,7 @@ export const RedemptionError: React.FC<{ error: string; showButton: boolean }> =
 
       <div className="row text-center pt-2 pb-3">
         <div className="col">
-          <ContactComponent size="small" />
+          <Contact size="small" />
         </div>
       </div>
     </>

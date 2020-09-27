@@ -1,7 +1,7 @@
 import { LinkNewTab } from 'components/helpers/link'
 import { DonateComponent } from 'components/info/donate'
 import OfflineComponent from 'components/info/offline'
-import { ContactComponent } from 'components/page/contact'
+import Contact from 'components/page/contact'
 import { useTheme } from 'context/useTheme'
 import React from 'react'
 import { version } from '../../../package.json'
@@ -9,25 +9,25 @@ import { version } from '../../../package.json'
 /**
  * Hidden when printing
  */
-const FooterComponent = () => {
+const Footer = () => {
   return (
     <div className="container d-print-none">
       <DonateComponent />
       <OfflineComponent />
-      <DisclaimerComponent />
+      <Disclaimer />
       <div className="row text-center pt-2">
         <div className="col">
-          <ContactComponent size="small" />
+          <Contact size="small" />
         </div>
       </div>
-      <VersionComponent />
+      <ReleaseNotes />
     </div>
   )
 }
 
-export default FooterComponent
+export default Footer
 
-const DisclaimerComponent = () => {
+const Disclaimer = () => {
   const { theme } = useTheme()
 
   return (
@@ -43,7 +43,7 @@ const DisclaimerComponent = () => {
   )
 }
 
-const VersionComponent = () => {
+const ReleaseNotes = () => {
   const { theme } = useTheme()
 
   return (

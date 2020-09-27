@@ -18,15 +18,15 @@ import {
   WARSCROLL_BUILDER,
 } from 'types/import'
 import { resetAnalyticsStore } from 'utils/analytics'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import useWindowSize from 'utils/hooks/useWindowSize'
 
 interface IDropzoneProps {
   handleDrop: (army: IImportedArmy) => void
-  isMobile: boolean
 }
 
-export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
-  const { handleDrop, isMobile } = props
+const ImportDropzone: React.FC<IDropzoneProps> = props => {
+  const { handleDrop } = props
+  const { isMobile } = useWindowSize()
   const { isOnline } = useAppStatus()
   const { setLoadedArmy } = useSavedArmies()
   const { theme } = useTheme()
@@ -104,7 +104,5 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
     </div>
   )
 }
-
-const ImportDropzone = componentWithSize(ImportDropzoneComponent)
 
 export default ImportDropzone

@@ -19,7 +19,7 @@ const ImportArmyButton: React.FC<IImportArmyButtonProps> = props => {
   const { theme } = useTheme()
 
   const handleClick = e => {
-    e.preventDefault()
+    e?.preventDefault?.()
     isShowing ? hide() : show()
   }
 

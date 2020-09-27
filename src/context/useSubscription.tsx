@@ -1,7 +1,6 @@
+import { useAuth0 } from '@auth0/auth0-react'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
-import { IUseAuth0 } from 'types/auth0'
 import { ISubscription } from 'types/subscription'
 import { LocalFavoriteFaction } from 'utils/localStore'
 import {
@@ -82,7 +81,7 @@ interface ISubscriptionContext {
 const SubscriptionContext = React.createContext<ISubscriptionContext | void>(undefined)
 
 const SubscriptionProvider: React.FC = ({ children }) => {
-  const { user, loading }: IUseAuth0 = useAuth0()
+  const { user, isLoading } = useAuth0()
   const [subscription, setSubscription] = useState<ISubscription>(initialState.subscription)
   const [subscriptionLoading, setSubscriptionLoading] = useState(initialState.subscriptionLoading)
   const [isNotSubscribed, setIsNotSubscribed] = useState(initialState.isNotSubscribed)
@@ -96,9 +95,9 @@ const SubscriptionProvider: React.FC = ({ children }) => {
   const isSubscribed = isSubscriber(subscription)
 
   useEffect(() => {
-    if (loading) return
+    if (isLoading) return
     if (!user) setIsNotSubscribed(true)
-  }, [loading, user])
+  }, [isLoading, user])
 
   const getSubscription = useCallback(async () => {
     if (!user) return setSubscription(initialState.subscription)
@@ -174,7 +173,7 @@ const useSubscription = () => {
   if (context === undefined) {
     throw new Error('useSubscription must be used within a SubscriptionProvider')
   }
-  return context as ISubscriptionContext
+  return context
 }
 
 export { SubscriptionProvider, useSubscription }

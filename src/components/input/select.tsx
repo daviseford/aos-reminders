@@ -7,7 +7,7 @@ import { titleCase } from 'utils/textUtils'
 
 export type TDropdownOption = { value: string; label: string }
 export type TSelectOneSetValueFn = (value: ValueType<TDropdownOption>, action: ActionMeta<any>) => void
-export type TSelectMultiSetValueFn = (value: ValueType<TDropdownOption>[], action: ActionMeta<any>) => void
+type TSelectMultiSetValueFn = (value: ValueType<TDropdownOption>[], action: ActionMeta<any>) => void
 
 interface ISelectOneProps {
   hasDefault?: boolean

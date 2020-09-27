@@ -249,7 +249,7 @@ const allegianceCategoryLookup = (childNodes: Array<IParentNode | IChildNode>): 
   }
 }
 
-export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
+const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
   const allegianceInfo = { faction: null, allegiance: null }
 
   let liNode = obj
