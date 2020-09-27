@@ -1198,6 +1198,16 @@ const KhorneBattalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Skall'uk's Slaughterband`,
+    effects: [
+      {
+        name: `Cometh the Slaughter`,
+        desc: `In each of your hero phases, pick one Slaughterband unit that is within 3" of the enemy. All models in the unit you pick can immediately pile in and attack with their Hellbdades and Blades of Blood.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
 
 // Combine lists together to make army battalion entry.

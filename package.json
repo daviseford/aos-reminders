@@ -41,6 +41,7 @@
     "format": "yarn prettier --write \"**/*.*(js|jsx|ts|tsx)\"",
     "gitclean:win": "git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }",
     "gitclean": "git branch | grep -v \"master\" | xargs git branch -D",
+    "intake:win": "ts-node-dev --respawn --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --transpile-only -r tsconfig-paths/register src/utils/dev/intakeTests.ts",
     "intake": "ts-node-dev --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/intakeTests.ts",
     "lint": "eslint --max-warnings 0 --ext ts,tsx src",
     "start": "react-app-rewired start",
