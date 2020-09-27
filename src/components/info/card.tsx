@@ -1,3 +1,4 @@
+import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { TVisibilityIconType, VisibilityToggle } from 'components/info/visibilityToggle'
 import { SelectMulti, SelectOne, TDropdownOption, TSelectOneSetValueFn } from 'components/input/select'
 import { useTheme } from 'context/useTheme'
@@ -39,6 +40,8 @@ const CardComponent: React.FC<ICardProps> = props => {
           title={title}
           mobileTitle={mobileTitle}
           selectionCount={selectionCount}
+          show={visibilityActions.addSelector}
+          hide={visibilityActions.deleteSelector}
         />
         <div className={bodyClass}>{children}</div>
       </div>
@@ -109,19 +112,22 @@ interface ICardHeaderProps extends IBaseCardProps {
   isVisible: boolean
   selectionCount?: number
   type?: TVisibilityIconType
+  hide: ActionCreatorWithPayload<any>
+  show: ActionCreatorWithPayload<any>
 }
 
 export const CardHeader = (props: ICardHeaderProps) => {
-  const { title, mobileTitle, isVisible, type = 'minus', iconSize = 1, selectionCount } = props
+  const { title, mobileTitle, isVisible, type = 'minus', iconSize = 1, selectionCount, show, hide } = props
   const dispatch = useDispatch()
   const { theme } = useTheme()
   const { isMobile } = useWindowSize()
 
-  const handleVisibility = () => dispatch(isVisible ? deleteWhen(title) : addWhen(title))
+  // const handleVisibility = () => dispatch(isVisible ? deleteWhen(title) : addWhen(title))
+  const handleVisibility = () => dispatch(isVisible ? hide(title) : show(title))
 
   useEffect(() => {
-    if (isMobile && title !== 'Units') dispatch(deleteWhen(title))
-  }, [dispatch, isMobile, title])
+    if (isMobile && title !== 'Units') dispatch(hide(title))
+  }, [dispatch, hide, isMobile, title])
 
   const styles = {
     cardHeader: `${theme.cardHeader} py-${isMobile ? 3 : 2} ${isMobile ? `px-3` : ``}`,

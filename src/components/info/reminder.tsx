@@ -93,6 +93,8 @@ export const Reminder: React.FC<IReminderProps> = props => {
                 isVisible={isVisible}
                 headerClassName={`${theme.reminderHeader} text-white`}
                 iconSize={1.2}
+                show={visibilityActions.addWhen}
+                hide={visibilityActions.deleteWhen}
               />
               <div className={bodyClass}>
                 {actionsState.map((action, i) => {

@@ -26,8 +26,6 @@ const Reminders = () => {
   // Generate reminders
   let reminders = useGetReminders()
 
-  console.log('hi', reminders)
-
   if (isGameMode) reminders = reorderReminders(getVisibleReminders(reminders, hiddenReminders))
 
   const whens = useMemo(() => Object.keys(reminders) as TTurnWhen[], [reminders])
