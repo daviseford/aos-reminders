@@ -61,5 +61,4 @@ const army = createSlice({
 })
 
 export const armyActions = army.actions
-
 export default army.reducer

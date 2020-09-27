@@ -116,7 +116,6 @@ const selections = createSlice({
 })
 
 export const selectionActions = selections.actions
-
 export default selections.reducer
 
 const handleSideEffects = (state: IStore['selections'], payload: string[], type: TSelectionTypes) => {

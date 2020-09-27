@@ -56,5 +56,4 @@ const visibility = createSlice({
 })
 
 export const visibilityActions = visibility.actions
-
 export default visibility.reducer
