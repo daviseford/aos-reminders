@@ -1595,4 +1595,14 @@ export const Battalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Stormcast Eternals Blessed Host`,
+    effects: [
+      {
+        name: `Star-blessed Sigmarite`,
+        desc: `Blessed Host units have a Save characteristic of 3+ whilst they are within 12" of their Lord-Celestant.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
 ]
