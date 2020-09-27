@@ -408,4 +408,14 @@ export const Battalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Hajkarl's Sons of Fortune`,
+    effects: [
+      {
+        name: `Quest for Ur-gold`,
+        desc: `Once per battle, in your hero phase, choose one enemy unit on the battlefield to be the target of the Runesmiter's appraising eye; unless they are already within 3" of any enemy units, all Hajkarl's Sons of Fortune units can immediately move up to 4" towards the unit you picked, provided that they end this move closer to the target unit than where they started.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
