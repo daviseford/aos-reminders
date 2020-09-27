@@ -728,4 +728,14 @@ export const Battalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Gul'Rok's Starhost`,
+    effects: [
+      {
+        name: `Reform Ranks`,
+        desc: `In each of your hero phases, a Starhost unit within 10" of their Scar-Veteran can reform. To do so, choose one model in the unit to be the lynchpin. Remove all other models in the unit from the battlefield and then set them up again within 5" of the lynchpin. The unit can move normally in the same turn.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
