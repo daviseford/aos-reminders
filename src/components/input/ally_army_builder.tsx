@@ -112,7 +112,7 @@ interface IAllyCardProps {
   battalionItems: TBattalions
   battalionValues: string[]
   factionName: TSupportedFaction
-  handleClose: (e: any) => void
+  handleClose: (e: React.MouseEvent) => void
   isVisible: boolean
   setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
   setBattalions: (selectValues: ValueType<TDropdownOption>[]) => void

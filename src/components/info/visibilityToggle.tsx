@@ -1,6 +1,6 @@
 import { ConfirmDismissNotificationModal } from 'components/info/confirm_dismiss_notification_modal'
 import { useTheme } from 'context/useTheme'
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import { IconContext, IconType } from 'react-icons'
 import {
   MdAdd,
@@ -12,6 +12,7 @@ import {
   MdVisibility,
   MdVisibilityOff,
 } from 'react-icons/md'
+import useClickHandler from 'utils/hooks/useClickHandler'
 
 export type TVisibilityIconType = 'clear' | 'eye' | 'fold' | 'minus'
 
@@ -61,18 +62,11 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  const handleClick = e => {
-    e?.preventDefault?.()
-    withConfirmation ? openModal() : handleSetVisibility(e)
-  }
+  const handleClick = useClickHandler(e => {
+    withConfirmation ? openModal() : handleSetVisibility()
+  })
 
-  const handleSetVisibility = useCallback(
-    e => {
-      e?.preventDefault?.()
-      return setVisibility ? setVisibility() : null
-    },
-    [setVisibility]
-  )
+  const handleSetVisibility = useClickHandler(e => setVisibility?.() ?? null)
 
   return (
     <>

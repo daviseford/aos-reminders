@@ -6,7 +6,7 @@ import { FaCheck } from 'react-icons/fa'
 
 interface IModalComponentProps {
   closeModal: () => void
-  visibilityHandler: (e: any) => void | null
+  visibilityHandler: (e: React.MouseEvent) => void | null
   modalIsOpen: boolean
 }
 

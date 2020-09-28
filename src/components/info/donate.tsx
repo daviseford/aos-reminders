@@ -1,10 +1,11 @@
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
-import React, { useCallback, useState } from 'react'
+import React, { useState } from 'react'
 import CopyToClipboard from 'react-copy-to-clipboard'
 import { IconContext } from 'react-icons'
 import { FaBtc, FaCcPaypal, FaEthereum, FaRegCopy } from 'react-icons/fa'
 import { logClick } from 'utils/analytics'
+import useClickHandler from 'utils/hooks/useClickHandler'
 
 export const DonateComponent = () => {
   const { isOffline } = useAppStatus()
@@ -12,19 +13,22 @@ export const DonateComponent = () => {
   const [ethClicked, setEthClicked] = useState(false)
   const [btcClicked, setBtcClicked] = useState(false)
 
-  const handleEthClick = useCallback(e => {
-    e?.preventDefault?.()
+  const handleEthClick = useClickHandler(e => {
     logClick('DonateETH')
     setEthClicked(true)
     setBtcClicked(false)
-  }, [])
+  })
 
-  const handleBtcClick = useCallback(e => {
-    e?.preventDefault?.()
+  const handleBtcClick = useClickHandler(e => {
     logClick('DonateBTC')
     setBtcClicked(true)
     setEthClicked(false)
-  }, [])
+  })
+
+  const handlePaypalClick = useClickHandler(e => {
+    logClick('DonatePayPal')
+    window.open('//paypal.me/daviseford')
+  })
 
   if (isOffline) return null
 
@@ -44,7 +48,7 @@ export const DonateComponent = () => {
               <div className="btn-group btn-group-lg" role="group" aria-label="Donate">
                 <div className="btn-group mr-2" role="group" aria-label="Donate options">
                   <IconContext.Provider value={{ size: '2.2em' }}>
-                    <PayPalButton />
+                    <PayPalButton handleClick={handlePaypalClick} />
                     <EthButton handleClick={handleEthClick} />
                     <BtcButton handleClick={handleBtcClick} />
                   </IconContext.Provider>
@@ -105,28 +109,8 @@ const WalletCopyInput = ({ currentWallet, setCopied }: { currentWallet: string; 
   </div>
 )
 
-const EthButton = ({ handleClick }: { handleClick: (e: any) => void }) => (
-  <>
-    <FaEthereum onClick={handleClick} className={'mx-2'} />
-  </>
-)
+type TBtnProps = React.FC<{ handleClick: (e: React.MouseEvent) => void }>
 
-const BtcButton = ({ handleClick }: { handleClick: (e: any) => void }) => (
-  <>
-    <FaBtc onClick={handleClick} className={'mx-2'} />
-  </>
-)
-
-const PayPalButton = () => {
-  const handleClick = e => {
-    e?.preventDefault?.()
-    logClick('DonatePayPal')
-    window.open('//paypal.me/daviseford')
-  }
-
-  return (
-    <>
-      <FaCcPaypal onClick={handleClick} className={'mx-2'} />
-    </>
-  )
-}
+const BtcButton: TBtnProps = ({ handleClick }) => <FaBtc onClick={handleClick} className={'mx-2'} />
+const EthButton: TBtnProps = ({ handleClick }) => <FaEthereum onClick={handleClick} className={'mx-2'} />
+const PayPalButton: TBtnProps = ({ handleClick }) => <FaCcPaypal onClick={handleClick} className={'mx-2'} />

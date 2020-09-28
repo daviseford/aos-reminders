@@ -1,7 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import { useMemo, useState } from 'react'
+import { useCallback, useMemo, useState } from 'react'
 import { logClick, logEvent } from 'utils/analytics'
 import openPopup from 'utils/openPopup'
+import useWindowSize from './useWindowSize'
 
 interface IUseLoginProps {
   /**
@@ -26,34 +27,48 @@ interface IUseLoginProps {
  * @example const { login } =  useLogin({ origin: 'Navbar' })
  */
 const useLogin = (props: IUseLoginProps) => {
-  const { isLoading, loginWithPopup } = useAuth0()
+  const { isLoading, loginWithPopup, loginWithRedirect } = useAuth0()
+  const { isMobile } = useWindowSize()
   const [popupIsClosed, setPopupIsClosed] = useState(false)
+
+  const desktopLogin = useCallback(
+    (e?: React.MouseEvent) => {
+      e?.preventDefault?.()
+      logClick(`${props.origin}-Desktop-Login`)
+
+      const popup = openPopup()
+      setPopupIsClosed(false)
+
+      // https://stackoverflow.com/a/48240128
+      const timer = setInterval(() => {
+        if (popup?.closed) {
+          clearInterval(timer)
+          setPopupIsClosed(true)
+          logEvent(`${props.origin}-Login-Closed`)
+          if (props.onPopupClose) props.onPopupClose()
+        }
+      }, 1000)
+
+      return loginWithPopup({ redirect_uri: window.location.href }, { popup })
+    },
+    [loginWithPopup, props]
+  )
+
+  const mobileLogin = useCallback(
+    (e?: React.MouseEvent) => {
+      e?.preventDefault?.()
+      return loginWithRedirect({ redirect_uri: window.location.href })
+    },
+    [loginWithRedirect]
+  )
 
   const value = useMemo(
     () => ({
-      isLoggingIn: isLoading && !popupIsClosed,
+      isLoggingIn: isMobile ? isLoading : isLoading && !popupIsClosed,
       popupIsClosed,
-      login: (e?: any) => {
-        e?.preventDefault?.()
-        logClick(`${props.origin}-Login`)
-
-        const popup = openPopup()
-        setPopupIsClosed(false)
-
-        // https://stackoverflow.com/a/48240128
-        const timer = setInterval(() => {
-          if (popup?.closed) {
-            clearInterval(timer)
-            setPopupIsClosed(true)
-            logEvent(`${props.origin}-Login-Closed`)
-            if (props.onPopupClose) props.onPopupClose()
-          }
-        }, 1000)
-
-        return loginWithPopup({ redirect_uri: window.location.href }, { popup })
-      },
+      login: isMobile ? mobileLogin : desktopLogin,
     }),
-    [isLoading, loginWithPopup, popupIsClosed, props]
+    [isLoading, isMobile, popupIsClosed, desktopLogin, mobileLogin]
   )
 
   return value
