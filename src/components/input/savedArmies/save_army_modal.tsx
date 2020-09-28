@@ -11,6 +11,7 @@ import { ISavedArmy } from 'types/savedArmy'
 import { IVisibilityStore } from 'types/store'
 import { logEvent } from 'utils/analytics'
 import { prepareArmy } from 'utils/armyUtils'
+import { stopEvents } from 'utils/hooks/eventHandlers'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -28,10 +29,8 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const [armyName, setArmyName] = useState('')
   const [processing, setProcessing] = useState(false)
 
-  const handleUpdateName = (e: any) => {
-    e?.preventDefault?.()
-    setArmyName(e.target.value)
-  }
+  // const handleUpdateName = stopInputEvents(e => setArmyName(e.target.value))
+  const handleUpdateName = stopEvents(e => setArmyName(e.target.value), 'key')
 
   const handleKeyDown = e => {
     if (e.key === 'Enter') {

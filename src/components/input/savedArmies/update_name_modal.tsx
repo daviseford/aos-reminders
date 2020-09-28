@@ -5,6 +5,7 @@ import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'
 import { FaSave } from 'react-icons/fa'
 import { logEvent } from 'utils/analytics'
+import { stopEvents } from 'utils/hooks/eventHandlers'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -20,10 +21,7 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
   const [armyName, setArmyName] = useState(currentArmyName)
   const [processing, setProcessing] = useState(false)
 
-  const handleUpdateName = (e: any) => {
-    e?.preventDefault?.()
-    setArmyName(e.target.value)
-  }
+  const handleUpdateName = stopEvents(e => setArmyName(e.target.value), 'input')
 
   const handleKeyDown = e => {
     if (e.key === 'Enter') {
