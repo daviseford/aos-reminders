@@ -27,4 +27,5 @@ type TEvent<EventType extends keyof IEvents, Res> = (e?: IEvents[EventType]) => 
 type TStopEvents = <M extends TEvent<S, ReturnType<M>>, S extends keyof IEvents>(
   method: M,
   eventType: S
-) => TEvent<S, ReturnType<M>>
+) => (e?: IEvents[S]) => ReturnType<M>
+// ) => TEvent<S, ReturnType<M>>

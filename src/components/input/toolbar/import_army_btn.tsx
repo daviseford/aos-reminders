@@ -6,6 +6,7 @@ import { Link } from 'react-router-dom'
 import { centerContentClass } from 'theme/helperClasses'
 import { logClick } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
+import { stopEvents } from 'utils/hooks/eventHandlers'
 
 interface IImportArmyButtonProps {
   isSubscribed: boolean
@@ -18,10 +19,7 @@ const ImportArmyButton: React.FC<IImportArmyButtonProps> = props => {
   const { show, hide, isShowing, isSubscribed } = props
   const { theme } = useTheme()
 
-  const handleClick = e => {
-    e?.preventDefault?.()
-    isShowing ? hide() : show()
-  }
+  const handleClick = stopEvents(() => (isShowing ? hide() : show()), 'mouse')
 
   const btnTxt = isShowing ? `Hide Import` : `Import List`
 
