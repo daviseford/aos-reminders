@@ -2,15 +2,15 @@ import { LoadingBtn } from 'components/helpers/suspenseFallbacks'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
-import { armyActions, realmscapeActions, selectionActions, selectors } from 'ducks'
+import { armyActions, selectionActions, selectors } from 'ducks'
 import { without } from 'lodash'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
-import React, { lazy, Suspense, useCallback, useMemo, useState } from 'react'
+import React, { lazy, Suspense, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { IArmy } from 'types/army'
-import { logClick } from 'utils/analytics'
 import { armyHasEntries } from 'utils/armyUtils'
 import { getArmy } from 'utils/getArmy/getArmy'
+import { stopEvents } from 'utils/hooks/eventHandlers'
 
 const AddAllyButton = lazy(() => import('./add_ally_btn'))
 const ClearArmyButton = lazy(() => import('./clear_army_btn'))
@@ -25,15 +25,14 @@ const ShowSavedArmiesBtn = lazy(() => import('../savedArmies/show_saved_armies_b
 const UpdateArmyBtn = lazy(() => import('../savedArmies/update_army_btn'))
 
 const { updateAllyArmy } = armyActions
-const { resetAllySelections, resetSelections, resetAllySelection } = selectionActions
-const { resetRealmscapeStore } = realmscapeActions
+const { resetAllySelection } = selectionActions
 
 const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-2 px-sm-3 pb-2`
 
 const Toolbar = () => {
   const dispatch = useDispatch()
   const { isGameMode, isOnline } = useAppStatus()
-  const { loadedArmy, armyHasChanges, setLoadedArmy } = useSavedArmies()
+  const { loadedArmy, armyHasChanges } = useSavedArmies()
   const { isSubscribed, isActive } = useSubscription()
 
   const currentArmy = useSelector(selectors.selectCurrentArmy)
@@ -62,27 +61,11 @@ const Toolbar = () => {
   const showImportArmy = () => setIsShowingWarscrollImport(true)
   const hideImportArmy = () => setIsShowingWarscrollImport(false)
 
-  const handleAllyClick = useCallback(
-    e => {
-      e?.preventDefault?.()
-      const newAllyFaction = without(SUPPORTED_FACTIONS, factionName, ...allyFactionNames)[0]
-      dispatch(resetAllySelection(newAllyFaction))
-      dispatch(updateAllyArmy({ factionName: newAllyFaction, Army: getArmy(newAllyFaction) as IArmy }))
-    },
-    [factionName, allyFactionNames, dispatch]
-  )
-
-  const clearArmyClick = useCallback(
-    e => {
-      e?.preventDefault?.()
-      dispatch(resetAllySelections())
-      dispatch(resetRealmscapeStore())
-      dispatch(resetSelections())
-      logClick('ClearArmy')
-      setLoadedArmy(null)
-    },
-    [dispatch, setLoadedArmy]
-  )
+  const handleAllyClick = stopEvents(() => {
+    const newAllyFaction = without(SUPPORTED_FACTIONS, factionName, ...allyFactionNames)[0]
+    dispatch(resetAllySelection(newAllyFaction))
+    dispatch(updateAllyArmy({ factionName: newAllyFaction, Army: getArmy(newAllyFaction) as IArmy }))
+  }, 'mouse')
 
   if (isGameMode) return <></>
 
@@ -91,7 +74,7 @@ const Toolbar = () => {
       <div className={`row justify-content-center pt-3 mx-xl-5 px-xl-5`}>
         <div className={btnWrapperClass}>
           <Suspense fallback={<LoadingBtn />}>
-            <ClearArmyButton clearArmyClick={clearArmyClick} />
+            <ClearArmyButton />
           </Suspense>
         </div>
         <div className={btnWrapperClass}>

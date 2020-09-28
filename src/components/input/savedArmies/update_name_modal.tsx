@@ -2,7 +2,7 @@ import GenericButton from 'components/input/generic_button'
 import GenericModal from 'components/page/genericModal'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { FaSave } from 'react-icons/fa'
 import { logEvent } from 'utils/analytics'
 import { stopEvents } from 'utils/hooks/eventHandlers'
@@ -21,29 +21,31 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
   const [armyName, setArmyName] = useState(currentArmyName)
   const [processing, setProcessing] = useState(false)
 
-  const handleUpdateName = stopEvents(e => setArmyName(e.target.value), 'input')
-
-  const handleKeyDown = e => {
+  const handleUpdateName = stopEvents(e => setArmyName(e?.target?.value || ''), 'input')
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    console.log('asdasdasd', e, e.key)
     if (e.key === 'Enter') {
       e.stopPropagation()
-      e?.preventDefault?.()
-      handleUpdateClick(e)
+      e.preventDefault()
+      handleUpdateClick()
     }
   }
 
-  const handleUpdateClick = async e => {
-    e?.preventDefault?.()
-    if (armyName === currentArmyName) {
+  const handleUpdateClick = useCallback(
+    stopEvents(async () => {
+      if (armyName === currentArmyName) {
+        closeModal()
+        return // Don't hit the API if they don't make a change :)
+      }
+      setProcessing(true)
+      await updateArmyName(id, armyName || 'Untitled')
+      setProcessing(false)
+      setArmyName(armyName || 'Untitled')
       closeModal()
-      return // Don't hit the API if they don't make a change :)
-    }
-    setProcessing(true)
-    await updateArmyName(id, armyName || 'Untitled')
-    setProcessing(false)
-    setArmyName(armyName || 'Untitled')
-    closeModal()
-    logEvent(`UpdateArmyName`)
-  }
+      logEvent(`UpdateArmyName`)
+    }, 'mouse'),
+    [armyName, closeModal, currentArmyName, id, updateArmyName]
+  )
 
   return (
     <GenericModal

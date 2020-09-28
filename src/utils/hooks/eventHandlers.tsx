@@ -8,11 +8,10 @@
  * @param eventType
  */
 export const stopEvents: TStopEvents = (method, eventType) => {
-  console.log('INPUT EVENTS', eventType)
   return e => {
     e?.preventDefault?.()
     e?.stopPropagation?.()
-    console.log('What up, INPUT EVENTS!', eventType)
+    console.log('What up, EVENTS!', eventType, e)
     return method(e)
   }
 }
@@ -23,7 +22,7 @@ interface IEvents {
   input: React.ChangeEvent<HTMLInputElement>
 }
 
-type TEvent<EventType extends keyof IEvents, Res> = (e: IEvents[EventType]) => Res
+type TEvent<EventType extends keyof IEvents, Res> = (e?: IEvents[EventType]) => Res
 
 type TStopEvents = <M extends TEvent<S, ReturnType<M>>, S extends keyof IEvents>(
   method: M,

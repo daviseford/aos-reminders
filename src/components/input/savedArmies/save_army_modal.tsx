@@ -4,7 +4,7 @@ import GenericModal from 'components/page/genericModal'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
-import React, { useState } from 'react'
+import React, { useCallback, useState } from 'react'
 import { FaSave } from 'react-icons/fa'
 import { ICurrentArmy } from 'types/army'
 import { ISavedArmy } from 'types/savedArmy'
@@ -29,22 +29,31 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const [armyName, setArmyName] = useState('')
   const [processing, setProcessing] = useState(false)
 
-  const handleUpdateName = stopEvents(e => setArmyName(e.target.value), 'input')
-  const handleKeyDown = stopEvents(e => e.key === 'Enter' && handleSaveClick(e), 'key')
-
-  const handleSaveClick = async e => {
-    e?.preventDefault?.()
-    if (isActive) {
-      setProcessing(true)
-      const payload = prepareArmy({ ...army, hiddenReminders, armyName }, 'save')
-      await saveArmy(payload as ISavedArmy)
-      setProcessing(false)
-      setArmyName('')
-      closeModal()
-      showSavedArmies()
-      logEvent(`SaveArmy-${army.factionName}`)
+  const handleUpdateName = stopEvents(e => setArmyName(e?.target?.value || ''), 'input')
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.stopPropagation()
+      e.preventDefault()
+      handleSaveClick()
     }
   }
+
+  const handleSaveClick = useCallback(
+    () =>
+      stopEvents(async () => {
+        if (isActive) {
+          setProcessing(true)
+          const payload = prepareArmy({ ...army, hiddenReminders, armyName }, 'save')
+          await saveArmy(payload as ISavedArmy)
+          setProcessing(false)
+          setArmyName('')
+          closeModal()
+          showSavedArmies()
+          logEvent(`SaveArmy-${army.factionName}`)
+        }
+      }, 'mouse'),
+    [army, armyName, closeModal, hiddenReminders, isActive, saveArmy, showSavedArmies]
+  )
 
   return (
     <GenericModal

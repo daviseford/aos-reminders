@@ -3,7 +3,7 @@ import React from 'react'
 import { FaPlus } from 'react-icons/fa'
 
 interface IAddAllyButton {
-  setAllyClick: (e: any) => void
+  setAllyClick: (e: React.MouseEvent) => void
 }
 
 const AddAllyButton: React.FC<IAddAllyButton> = ({ setAllyClick }) => {
