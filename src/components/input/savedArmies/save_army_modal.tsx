@@ -29,16 +29,8 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const [armyName, setArmyName] = useState('')
   const [processing, setProcessing] = useState(false)
 
-  // const handleUpdateName = stopInputEvents(e => setArmyName(e.target.value))
-  const handleUpdateName = stopEvents(e => setArmyName(e.target.value), 'key')
-
-  const handleKeyDown = e => {
-    if (e.key === 'Enter') {
-      e.stopPropagation()
-      e?.preventDefault?.()
-      handleSaveClick(e)
-    }
-  }
+  const handleUpdateName = stopEvents(e => setArmyName(e.target.value), 'input')
+  const handleKeyDown = stopEvents(e => e.key === 'Enter' && handleSaveClick(e), 'key')
 
   const handleSaveClick = async e => {
     e?.preventDefault?.()

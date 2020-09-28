@@ -5,7 +5,7 @@ import CopyToClipboard from 'react-copy-to-clipboard'
 import { IconContext } from 'react-icons'
 import { FaBtc, FaCcPaypal, FaEthereum, FaRegCopy } from 'react-icons/fa'
 import { logClick } from 'utils/analytics'
-import { stopClickEvents } from 'utils/hooks/eventHandlers'
+import { stopEvents } from 'utils/hooks/eventHandlers'
 
 export const DonateComponent = () => {
   const { isOffline } = useAppStatus()
@@ -13,22 +13,22 @@ export const DonateComponent = () => {
   const [ethClicked, setEthClicked] = useState(false)
   const [btcClicked, setBtcClicked] = useState(false)
 
-  const handleEthClick = stopClickEvents(() => {
+  const handleEthClick = stopEvents(() => {
     logClick('DonateETH')
     setEthClicked(true)
     setBtcClicked(false)
-  })
+  }, 'mouse')
 
-  const handleBtcClick = stopClickEvents(() => {
+  const handleBtcClick = stopEvents(() => {
     logClick('DonateBTC')
     setBtcClicked(true)
     setEthClicked(false)
-  })
+  }, 'mouse')
 
-  const handlePaypalClick = stopClickEvents(() => {
+  const handlePaypalClick = stopEvents(() => {
     logClick('DonatePayPal')
     window.open('//paypal.me/daviseford')
-  })
+  }, 'mouse')
 
   if (isOffline) return null
 
