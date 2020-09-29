@@ -54,7 +54,7 @@ const Reminders = () => {
   return (
     <div className={`row mx-auto ${isGameMode ? `mt-0` : `mt-3`} d-flex justify-content-center`}>
       <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8 ReminderContainer">
-        {whens.map((when, i) => {
+        {whens.map(when => {
           return <Reminder isMobile={isMobile} when={when} actions={reminders[when]} key={when} />
         })}
       </div>
