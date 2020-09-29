@@ -10,7 +10,7 @@ import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { logEvent, logPageView } from 'utils/analytics'
 import useLogin from 'utils/hooks/useLogin'
 
-const Navbar = lazy(() => import('components/page/navbar'))
+const Navbar = lazy(() => import(/* webpackChunkName: "Navbar" */ 'components/page/navbar'))
 
 /**
  * This Route is used for coupon code redemption
