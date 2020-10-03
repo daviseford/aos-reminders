@@ -12,7 +12,7 @@ import { DateTime } from 'luxon'
 import { PRIMARY_FACTIONS } from 'meta/factions'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { FaGift, FaPaypal, FaSearchDollar } from 'react-icons/fa'
-import { MdCheckCircle, MdNotInterested, MdVerifiedUser } from 'react-icons/md'
+import { MdCheckCircle, MdNotInterested } from 'react-icons/md'
 import { Link } from 'react-router-dom'
 import Switch from 'react-switch'
 import { centerContentClass } from 'theme/helperClasses'
@@ -295,23 +295,15 @@ const RecurringPaymentInfo = () => {
 const EmailVerified = () => {
   const { user } = useAuth0()
   const { theme } = useTheme()
-  const { email_verified, email } = user
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
         <h4>
-          <div className={centerContentClass}>
-            Email Verified:{' '}
-            {email_verified ? (
-              <MdVerifiedUser className="text-success ml-2" />
-            ) : (
-              <MdNotInterested className="text-danger ml-2" />
-            )}
-          </div>
+          <div className={centerContentClass}>User Email:</div>
         </h4>
       </div>
       <div className={theme.cardBody}>
-        <h5 className="lead">{email}</h5>
+        <h5 className="lead">{user.email}</h5>
       </div>
     </div>
   )
