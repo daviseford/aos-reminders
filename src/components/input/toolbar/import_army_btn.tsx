@@ -19,7 +19,7 @@ const ImportArmyButton: React.FC<IImportArmyButtonProps> = props => {
   const { show, hide, isShowing, isSubscribed } = props
   const { theme } = useTheme()
 
-  const handleClick = stopEvents(() => (isShowing ? hide() : show()), 'mouse')
+  const handleClick = e => stopEvents(e) && (isShowing ? hide() : show())
 
   const btnTxt = isShowing ? `Hide Import` : `Import List`
 

@@ -14,13 +14,14 @@ const ClearArmyButton = () => {
   const dispatch = useDispatch()
   const { setLoadedArmy } = useSavedArmies()
 
-  const clearArmyClick = stopEvents(() => {
+  const clearArmyClick = e => {
+    stopEvents(e)
     dispatch(resetAllySelections())
     dispatch(resetRealmscapeStore())
     dispatch(resetSelections())
     logClick('ClearArmy')
     setLoadedArmy(null)
-  }, 'mouse')
+  }
 
   return (
     <GenericButton onClick={clearArmyClick}>

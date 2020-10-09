@@ -13,22 +13,22 @@ export const DonateComponent = () => {
   const [ethClicked, setEthClicked] = useState(false)
   const [btcClicked, setBtcClicked] = useState(false)
 
-  const handleEthClick = stopEvents(() => {
-    logClick('DonateETH')
+  const handleEthClick = e => {
+    stopEvents(e) && logClick('DonateETH')
     setEthClicked(true)
     setBtcClicked(false)
-  }, 'mouse')
+  }
 
-  const handleBtcClick = stopEvents(() => {
-    logClick('DonateBTC')
+  const handleBtcClick = e => {
+    stopEvents(e) && logClick('DonateBTC')
     setBtcClicked(true)
     setEthClicked(false)
-  }, 'mouse')
+  }
 
-  const handlePaypalClick = stopEvents(() => {
-    logClick('DonatePayPal')
+  const handlePaypalClick = e => {
+    stopEvents(e) && logClick('DonatePayPal')
     window.open('//paypal.me/daviseford')
-  }, 'mouse')
+  }
 
   if (isOffline) return null
 
