@@ -63,7 +63,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Blood Blessings of Khorne`,
-    desc: `KHORNE PRIESTS can attempt to bestow their blood blessing at the start of each of your hero phases. If they do roll a D6. On a 1 they suffer D3 mortal wounds. Otherwise on a 4+ the prayer is successful and you may carry out the effect.`,
+    desc: `KHORNE PRIESTS can attempt to bestow their blood blessing at the start of each of your hero phases. If they do roll a D6. On a 1 they suffer 1 mortal wounds and the prayer is not answered. On a 4+ the prayer is successful and you may carry out the effect.`,
     when: [START_OF_HERO_PHASE],
   },
   {
