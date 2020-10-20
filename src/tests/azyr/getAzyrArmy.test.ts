@@ -37,6 +37,19 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getAzyrArmyFromPdf', () => {
+  it('should correctly read ScarVeteran (issue #1037)', () => {
+    const fileTxt = getFile('ScarVeteran')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
   it('should correctly read Lumineth1', () => {
     const fileTxt = getFile('Lumineth1')
     const pages = handleAzyrPages(fileTxt)
@@ -296,35 +309,65 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('1584593035311-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles 1584593121651-Azyr', () => {
     const fileTxt = getFile('1584593121651-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles 1584757344425-Azyr', () => {
     const fileTxt = getFile('1584757344425-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles 1585918489536-Azyr', () => {
     const fileTxt = getFile('1585918489536-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles 1585918507211-Azyr', () => {
     const fileTxt = getFile('1585918507211-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles Seraphon5', () => {
@@ -333,7 +376,13 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.allegiances).toContain(SeraphonConstellations.COALESCED)
     expect(res.selections.allegiances).toContain(SeraphonConstellations.THUNDER_LIZARD)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles 1582094113733-Azyr', () => {
@@ -414,7 +463,13 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.allegiances).toContain('Coalesced')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+      },
+    ])
   })
 
   it('handles 1584242711185-Azyr', () => {
@@ -1233,6 +1288,11 @@ describe('getAzyrArmyFromPdf', () => {
       {
         severity: 'warn',
         text: 'Skink Handlers',
+      },
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
       },
     ])
   })
