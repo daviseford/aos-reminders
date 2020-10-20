@@ -79,8 +79,8 @@ const PlanComponent: React.FC<IPlanProps> = props => {
   if (!stripe) return null
 
   // When the customer clicks on the Subscribe button, redirect them to Stripe Checkout.
-  const handleStripeCheckout = async e => {
-    e?.preventDefault?.()
+  const handleStripeCheckout = async (e: React.MouseEvent) => {
+    e.preventDefault()
 
     logClick(supportPlan.title)
 

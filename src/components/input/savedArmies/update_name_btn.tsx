@@ -11,8 +11,8 @@ const UpdateNameButton: TUpdateName = ({ id, armyName, className = '', size = '1
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  const handleClick = e => {
-    e?.preventDefault?.()
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault()
     openModal()
   }
 

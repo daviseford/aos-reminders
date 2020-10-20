@@ -38,20 +38,20 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
     setFileName(defaultName)
   }, [factionName, defaultName])
 
-  const handleUpdateName = (e: any) => {
+  const handleUpdateName = (e: React.ChangeEvent<HTMLInputElement>) => {
     e?.preventDefault?.()
     setFileName(e.target.value)
   }
 
-  const handleKeyDown = e => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
-      e?.preventDefault?.()
+      e.preventDefault()
       e.stopPropagation()
-      handleSaveClick(e)
+      handleSaveClick()
     }
   }
 
-  const handleSaveClick = e => {
+  const handleSaveClick = (e?: React.MouseEvent) => {
     e?.preventDefault?.()
     setProcessing(true)
     pdf[layout].save(`${fileName}.pdf`)

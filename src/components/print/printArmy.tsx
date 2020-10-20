@@ -31,7 +31,7 @@ const PrintArmy = () => {
         {Object.keys(allySelections).map(name => (
           <ItemsDisplayComponent
             name={`Allied ${titleCase(name)} Unit`}
-            items={allySelections[name].units}
+            items={allySelections[name as keyof typeof allySelections]?.units || []}
             key={name}
           />
         ))}
@@ -42,7 +42,7 @@ const PrintArmy = () => {
         {Object.keys(allySelections).map(name => (
           <ItemsDisplayComponent
             name={`Allied ${titleCase(name)} Battalion`}
-            items={allySelections[name].battalions || []}
+            items={allySelections[name as keyof typeof allySelections]?.battalions || []}
             key={name}
           />
         ))}

@@ -57,8 +57,8 @@ export const AllyArmyBuilder = ({ allyFactionName, allySelectOptions }: IAllyArm
   })
 
   const handleClose = useCallback(
-    e => {
-      e?.preventDefault?.()
+    (e: React.MouseEvent) => {
+      e.preventDefault()
       dispatch(deleteAllySelection(allyFactionName))
       dispatch(deleteAllyArmy(allyFactionName))
       dispatch(hideAlly(allyFactionName))
@@ -112,7 +112,7 @@ interface IAllyCardProps {
   battalionItems: TBattalions
   battalionValues: string[]
   factionName: TSupportedFaction
-  handleClose: (e: any) => void
+  handleClose: (e: React.MouseEvent) => void
   isVisible: boolean
   setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
   setBattalions: (selectValues: ValueType<TDropdownOption>[]) => void

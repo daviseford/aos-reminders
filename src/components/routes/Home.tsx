@@ -6,16 +6,22 @@ import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect } from 'react'
 import { logPageView } from 'utils/analytics'
 
-const AlliedArmies = lazy(() => import('components/input/ally_armies'))
-// const AppBanner = lazy(() => import('components/info/banners/app_banner'))
-const ArmyBuilder = lazy(() => import('components/input/army_builder'))
-const FooterComponent = lazy(() => import('components/page/footer'))
-const LoadedArmyHeader = lazy(() => import('components/input/savedArmies/loaded_army_header'))
-const PrintArmy = lazy(() => import('components/print/printArmy'))
-const PrintFooter = lazy(() => import('components/print/printFooter'))
-const Reminders = lazy(() => import('components/info/reminders'))
-const Toolbar = lazy(() => import('components/input/toolbar/toolbar'))
-const UpdateBanner = lazy(() => import('components/info/banners/update_banner'))
+const AlliedArmies = lazy(() => import(/* webpackChunkName: "ally_armies" */ 'components/input/ally_armies'))
+// const AppBanner = lazy(
+//   () => import(/* webpackChunkName: "app_banner" */ 'components/info/banners/app_banner')
+// )
+const ArmyBuilder = lazy(() => import(/* webpackChunkName: "army_builder" */ 'components/input/army_builder'))
+const FooterComponent = lazy(() => import(/* webpackChunkName: "footer" */ 'components/page/footer'))
+const LoadedArmyHeader = lazy(
+  () => import(/* webpackChunkName: "loaded_army_header" */ 'components/input/savedArmies/loaded_army_header')
+)
+const PrintArmy = lazy(() => import(/* webpackChunkName: "printArmy" */ 'components/print/printArmy'))
+const PrintFooter = lazy(() => import(/* webpackChunkName: "printFooter" */ 'components/print/printFooter'))
+const Reminders = lazy(() => import(/* webpackChunkName: "reminders" */ 'components/info/reminders'))
+const Toolbar = lazy(() => import(/* webpackChunkName: "toolbar" */ 'components/input/toolbar/toolbar'))
+const UpdateBanner = lazy(
+  () => import(/* webpackChunkName: "update_banner" */ 'components/info/banners/update_banner')
+)
 
 const Home = () => {
   const { getSubscription } = useSubscription()

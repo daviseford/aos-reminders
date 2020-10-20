@@ -78,7 +78,9 @@ const selections = createSlice({
      */
     addToSelections: (state, action: TAddToSelectionsAction) => {
       const { value, slice, values } = action.payload
-      state.selections[slice] = uniq(state.selections[slice].concat(values))
+      state.selections[slice as keyof typeof state.selections] = uniq(
+        state.selections[slice as keyof typeof state.selections].concat(values)
+      )
       state.sideEffects[value] = { ...state.sideEffects[value], [slice]: values }
     },
 
@@ -131,7 +133,10 @@ const handleSideEffects = (state: IStore['selections'], payload: string[], type:
   removedSideEffects.forEach(r => {
     const sideEffect = state.sideEffects[r]
     Object.keys(sideEffect).forEach(slice => {
-      state.selections[slice] = without(state.selections[slice], ...sideEffect[slice])
+      state.selections[slice as keyof typeof state.selections] = without(
+        state.selections[slice as keyof typeof state.selections],
+        ...sideEffect[slice as keyof typeof sideEffect]
+      )
     })
   })
 }

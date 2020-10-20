@@ -438,7 +438,6 @@ const azyrAmbiguousNamesMap = {
   'Prosecutors with Celestial Hammers': 'Prosecutors',
   'Prosecutors with Stormcall Javelins': 'Prosecutors',
   'Saurus Scar-Veteran on Carnosaur': 'Saurus Scar-Veteran',
-  'Saurus Scar-Veteran on Cold One': 'Saurus Scar-Veteran',
   'Vanguard-Raptors with Hurricane Crossbows': 'Vanguard-Raptors',
   'Wight King with Baleful Tomb Blade': 'Wight King',
   Evocators: 'Evocators',

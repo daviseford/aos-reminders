@@ -13,7 +13,7 @@ import { logEvent, logPageView } from 'utils/analytics'
 import useLogin from 'utils/hooks/useLogin'
 import { LocalRedemptionKey } from 'utils/localStore'
 
-const Navbar = lazy(() => import('components/page/navbar'))
+const Navbar = lazy(() => import(/* webpackChunkName: "Navbar" */ 'components/page/navbar'))
 
 /**
  * This Route is used for coupon code redemption
@@ -87,9 +87,9 @@ const RedeemSection = () => {
 
   const { giftId, userId } = redeemInfo
 
-  const handleClickRedeem = async e => {
+  const handleClickRedeem = async (e: React.MouseEvent) => {
     try {
-      e?.preventDefault?.()
+      e.preventDefault()
       const { body } = await SubscriptionApi.redeemGift({ giftId, userId, userName: user.email })
       LocalRedemptionKey.clear()
       if (body.error) return setError(body.error)
@@ -141,8 +141,8 @@ const setLocalRedemptionKey = () => {
 const Login = () => {
   const { login } = useLogin({ origin: 'Before-Redeem' })
 
-  const handleClick = e => {
-    e?.preventDefault?.()
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault()
     setLocalRedemptionKey()
     login()
   }

@@ -18,8 +18,8 @@ export const CancelStripeSubscriptionModal: React.FC<IModalComponentProps> = pro
   const { theme } = useTheme()
   const [processing, setProcessing] = useState(false)
 
-  const handleClick = async e => {
-    e?.preventDefault?.()
+  const handleClick = async (e: React.MouseEvent) => {
+    e.preventDefault()
     setProcessing(true)
     await cancelSubscription()
     logClick('CancelSubscription')

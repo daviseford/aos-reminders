@@ -9,7 +9,7 @@ interface IAppStatusProvider {
   toggleGameMode: () => void
 }
 
-const timeout = (ms: number, promise) => {
+const timeout = (ms: number, promise: Promise<any>) => {
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
       reject(new Error('timeout'))

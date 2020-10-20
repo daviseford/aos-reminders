@@ -28,20 +28,20 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const [armyName, setArmyName] = useState('')
   const [processing, setProcessing] = useState(false)
 
-  const handleUpdateName = (e: any) => {
+  const handleUpdateName = (e: React.ChangeEvent<HTMLInputElement>) => {
     e?.preventDefault?.()
     setArmyName(e.target.value)
   }
 
-  const handleKeyDown = e => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.stopPropagation()
       e?.preventDefault?.()
-      handleSaveClick(e)
+      handleSaveClick()
     }
   }
 
-  const handleSaveClick = async e => {
+  const handleSaveClick = async (e?: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     e?.preventDefault?.()
     if (isActive) {
       setProcessing(true)

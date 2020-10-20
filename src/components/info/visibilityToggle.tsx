@@ -61,15 +61,15 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  const handleClick = e => {
-    e?.preventDefault?.()
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault()
     withConfirmation ? openModal() : handleSetVisibility(e)
   }
 
   const handleSetVisibility = useCallback(
-    e => {
-      e?.preventDefault?.()
-      return setVisibility ? setVisibility() : null
+    (e: React.MouseEvent) => {
+      e.preventDefault()
+      setVisibility?.()
     },
     [setVisibility]
   )

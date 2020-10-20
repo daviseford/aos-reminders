@@ -17,7 +17,7 @@ import * as serviceWorker from 'serviceWorker'
 import { persistor, store } from 'store'
 import history from 'utils/history'
 
-const onRedirectCallback = appState => {
+const onRedirectCallback = (appState: any) => {
   // Use the router's history module to replace the url
   history.replace(appState?.returnTo || window.location.pathname)
 }

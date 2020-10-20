@@ -21,7 +21,7 @@ import { ROUTES } from 'utils/env'
 import { titleCase } from 'utils/textUtils'
 import { withSelectOne } from 'utils/withSelect'
 
-const Navbar = lazy(() => import('components/page/navbar'))
+const Navbar = lazy(() => import(/* webpackChunkName: "Navbar" */ 'components/page/navbar'))
 
 const Profile = () => {
   const { isLoading, user } = useAuth0()

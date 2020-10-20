@@ -1,9 +1,10 @@
 import { useTheme } from 'context/useTheme'
 import { sortBy } from 'lodash'
+import { TSupportedFaction } from 'meta/factions'
 import React, { useMemo } from 'react'
 import { ICurrentArmy } from 'types/army'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
-import { IAllySelections } from 'types/selections'
+import { IAllySelections, ISelections } from 'types/selections'
 import { ITheme } from 'types/theme'
 import { titleCase } from 'utils/textUtils'
 
@@ -16,15 +17,18 @@ export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
   const { theme } = useTheme()
 
   const armySelectionKeys = useMemo(
-    () => sortBy(Object.keys(selections).filter(key => selections[key].length)),
+    () => sortBy(Object.keys(selections).filter(key => selections[key as keyof typeof selections].length)),
     [selections]
   )
+
   const allies = useMemo(
     () =>
       Object.keys(allySelections).reduce(
         (a, factionName) => {
-          a.units = a.units.concat(allySelections[factionName].units || [])
-          a.battalions = a.battalions.concat(allySelections[factionName].battalions || [])
+          const allyUnits = allySelections[factionName as TSupportedFaction]?.units || []
+          const allyBattalions = allySelections[factionName as TSupportedFaction]?.battalions || []
+          a.units = a.units.concat(allyUnits)
+          a.battalions = a.battalions.concat(allyBattalions)
           return a
         },
         { units: [], battalions: [] } as IAllySelections
@@ -37,7 +41,14 @@ export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
       <table className={`table table-sm`}>
         <tbody>
           {armySelectionKeys.map((key, i) => {
-            return <Tr theme={theme} items={sortBy(selections[key])} title={key} key={`${key}_${i}`} />
+            return (
+              <Tr
+                theme={theme}
+                items={sortBy(selections[key as keyof ISelections])}
+                title={key}
+                key={`${key}_${i}`}
+              />
+            )
           })}
 
           {allies.units.length > 0 && (

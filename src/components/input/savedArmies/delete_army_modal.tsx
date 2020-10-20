@@ -21,8 +21,8 @@ export const DeleteArmyModal: React.FC<IModalComponentProps> = props => {
   const { theme } = useTheme()
   const [processing, setProcessing] = useState(false)
 
-  const handleDelete = async e => {
-    e?.preventDefault?.()
+  const handleDelete = async (e: React.MouseEvent) => {
+    e.preventDefault()
     setProcessing(true)
     await deleteSavedArmy(id)
     setProcessing(false)

@@ -22,8 +22,8 @@ const DownloadPDFButton = () => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
   const handleDownload = useCallback(
-    e => {
-      e?.preventDefault?.()
+    (e: React.MouseEvent) => {
+      e.preventDefault()
 
       // Get the PDF ready to be saved
       const pdfs = savePdf({ ...currentArmy, hiddenReminders, reminders })

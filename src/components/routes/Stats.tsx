@@ -14,7 +14,7 @@ import { ROUTES } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 import useWindowSize from 'utils/hooks/useWindowSize'
 
-const Navbar = lazy(() => import('components/page/navbar'))
+const Navbar = lazy(() => import(/* webpackChunkName: "Navbar" */ 'components/page/navbar'))
 
 const Stats = () => {
   const { isLoading } = useAuth0()
