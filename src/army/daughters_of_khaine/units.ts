@@ -459,7 +459,7 @@ export const Units: TUnits = [
         when: [MOVEMENT_PHASE],
       },
       {
-        name: `Cursed Missles`,
+        name: `Cursed Missiles`,
         desc: `Unmodified hits of 6 for this weapon inflict 1 mortal wound instead of normal damage (attack ends).`,
         when: [SHOOTING_PHASE],
       },
