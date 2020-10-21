@@ -1189,6 +1189,31 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Scions of the Flame`,
+    effects: [
+      {
+        name: `Blazing Lord / Immolator`,
+        desc: `Add 1 to the attacks characteristic of any Blazing Lord's or Immolator's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Brazen Champion`,
+        desc: `This model has a wounds characteristic of 2.`,
+        when: [WOUND_ALLOCATION],
+      },
+      {
+        name: `Inferno Priest`,
+        desc: `If this model is present in the unit, you may reroll hits of 1 for the unit's Flameburst Pots.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `All Shall Burn`,
+        desc: `Unmodified hits of 6 made with this unit's missle weapons score 2 hits instead of 1. Make a wound/save roll for each hit.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
 ]
 
 // Battalions

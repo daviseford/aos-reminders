@@ -445,6 +445,31 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `Khainite Shadowstalkers`,
+    effects: [
+      {
+        name: `Shroud Queen`,
+        desc: `This model has a Wounds characteristic of 3.`,
+        when: [WOUND_ALLOCATION],
+      },
+      {
+        name: `Shadow Leap`,
+        desc: `Instead of making a normal move, you can remove this unit and set it up again on the battlefield more than 9" from enemy units.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Cursed Missles`,
+        desc: `Unmodified hits of 6 for this weapon inflict 1 mortal wound instead of normal damage (attack ends).`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Harness Shadow`,
+        desc: `Subtract 1 from melee attack hit rolls targeting this unit.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
 ]
 
 // Battalions
