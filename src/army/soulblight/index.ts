@@ -5,7 +5,7 @@ import Spells from './spells'
 import Traits from './traits'
 import { Battalions, Units } from './units'
 
-export default {
+const SoulblightArmy = {
   Abilities,
   Allegiances,
   AllegianceType: 'Bloodlines',
@@ -15,3 +15,5 @@ export default {
   Traits,
   Units,
 }
+
+export default SoulblightArmy

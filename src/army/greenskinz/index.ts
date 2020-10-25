@@ -1,5 +1,5 @@
 import { Units } from './units'
 
-export default {
-  Units,
-}
+const GreenskinzArmy = { Units }
+
+export default GreenskinzArmy

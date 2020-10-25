@@ -6,7 +6,7 @@ import Spells from './spells'
 import Traits from './traits'
 import { Battalions, Units } from './units'
 
-export default {
+const SlavesToDarknessArmy = {
   Abilities,
   Allegiances,
   AllegianceType: 'Damned Legions',
@@ -17,3 +17,5 @@ export default {
   Traits,
   Units,
 }
+
+export default SlavesToDarknessArmy

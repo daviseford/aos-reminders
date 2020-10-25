@@ -6,12 +6,10 @@ import Spells from './spells'
 import Traits from './traits'
 import { AlliedUnits, Battalions, Units } from './units'
 
-const AllegianceType = 'Great Nations'
-
-export default {
+const LuminethArmy = {
   Abilities,
   Allegiances,
-  AllegianceType,
+  AllegianceType: 'Great Nations',
   AlliedUnits,
   Artifacts,
   Battalions,
@@ -20,3 +18,5 @@ export default {
   Traits,
   Units,
 }
+
+export default LuminethArmy

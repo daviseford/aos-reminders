@@ -6,7 +6,7 @@ import Spells from './spells'
 import Traits from './traits'
 import { AlliedUnits, Battalions, Units } from './units'
 
-export default {
+const NurgleArmy = {
   Abilities,
   Allegiances,
   AllegianceType: 'Plague Legions',
@@ -18,3 +18,5 @@ export default {
   Traits,
   Units,
 }
+
+export default NurgleArmy

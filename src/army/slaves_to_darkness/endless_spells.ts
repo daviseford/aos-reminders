@@ -107,4 +107,4 @@ const EndlessSpells: TEndlessSpells = [
   },
 ]
 
-export default [...EndlessSpells]
+export default EndlessSpells

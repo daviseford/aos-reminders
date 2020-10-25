@@ -1,4 +1,4 @@
-import idoneth from 'army/idoneth'
+import idoneth from 'army/idoneth_deepkin'
 import { TBattalions, TUnits } from 'types/army'
 import {
   CHARGE_PHASE,

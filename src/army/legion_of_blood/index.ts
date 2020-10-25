@@ -5,7 +5,7 @@ import Spells from './spells'
 import Traits from './traits'
 import { Battalions, Units } from './units'
 
-export default {
+const LegionOfBloodArmy = {
   Abilities,
   Artifacts,
   Battalions,
@@ -14,3 +14,5 @@ export default {
   Traits,
   Units,
 }
+
+export default LegionOfBloodArmy

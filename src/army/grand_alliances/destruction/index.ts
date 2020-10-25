@@ -2,8 +2,7 @@ import DestructionArtifacts from './artifacts'
 import DestructionTraits from './traits'
 import { DestructionUnits, Units } from './units'
 
-export { DestructionArtifacts, DestructionTraits, DestructionUnits }
+const DestructionArmy = { Units }
 
-export default {
-  Units,
-}
+export { DestructionArtifacts, DestructionTraits, DestructionUnits }
+export default DestructionArmy

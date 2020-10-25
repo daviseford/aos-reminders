@@ -7,7 +7,7 @@ import Spells from './spells'
 import Traits from './traits'
 import { AlliedUnits, Battalions, Units } from './units'
 
-export default {
+const OssiarchBonereapersArmy = {
   Abilities,
   Allegiances,
   AllegianceType: 'Legions',
@@ -20,3 +20,5 @@ export default {
   Traits,
   Units,
 }
+
+export default OssiarchBonereapersArmy

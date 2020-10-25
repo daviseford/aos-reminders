@@ -3,10 +3,12 @@ import Artifacts from './artifacts'
 import Traits from './traits'
 import { Battalions, Units } from './units'
 
-export default {
+const DispossessedArmy = {
   Abilities,
   Artifacts,
   Battalions,
   Traits,
   Units,
 }
+
+export default DispossessedArmy
