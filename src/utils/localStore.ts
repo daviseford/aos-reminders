@@ -1,6 +1,7 @@
+import { omit } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { TTurnWhen } from 'types/phases'
-import { ISavedArmyFromApi, TOrderedReminders } from 'types/savedArmy'
+import { ISavedArmyFromApi } from 'types/savedArmy'
 import { TThemeType } from 'types/theme'
 
 const LOCAL_FAVORITE_KEY = 'favoriteFaction'
@@ -74,20 +75,39 @@ export const LocalLoadedArmy = {
 
 export const LocalReminderOrder = {
   clear: () => localStorage.setItem(LOCAL_REMINDER_ORDER, JSON.stringify({})),
-  get: () => {
-    const reminders = localStorage.getItem(LOCAL_REMINDER_ORDER)
-    if (!reminders) return {}
-    return JSON.parse(reminders) as TOrderedReminders
+  get: (armyId?: string): Record<string, string[]> => {
+    const str = localStorage.getItem(LOCAL_REMINDER_ORDER)
+    if (!str) return {}
+    const reminders = JSON.parse(str) || {}
+    if (!armyId) return omit(reminders, 'army')
+    return reminders?.army?.[armyId] || {}
   },
-  getWhen: (when: TTurnWhen) => {
-    const reminders = localStorage.getItem(LOCAL_REMINDER_ORDER)
-    if (!reminders) return undefined
-    const parsed = JSON.parse(reminders) as TOrderedReminders
-    return parsed[when]
+  getWhen: (when: TTurnWhen, armyId?: string): string[] => {
+    const existingReminders = LocalReminderOrder.get(armyId)
+    return existingReminders[when] || []
   },
-  set: (when: TTurnWhen, ids: string[]) => {
+  set: (when: TTurnWhen, ids: string[], armyId?: string): void => {
     const existingReminders = LocalReminderOrder.get()
-    const reminders = { ...existingReminders, [when]: ids }
+
+    let reminders = {
+      ...existingReminders,
+      [when]: ids,
+      army: existingReminders?.army || {},
+    }
+
+    if (armyId) {
+      reminders = {
+        ...reminders,
+        army: {
+          ...reminders.army,
+          [armyId]: {
+            ...(reminders.army?.[armyId] || {}),
+            [when]: ids,
+          },
+        },
+      }
+    }
+
     localStorage.setItem(LOCAL_REMINDER_ORDER, JSON.stringify(reminders))
   },
 }

@@ -14,10 +14,16 @@ import { logEvent } from 'utils/analytics'
 import { isValidFactionName, prepareArmy, prepareArmyForS3 } from 'utils/armyUtils'
 import { isDev } from 'utils/env'
 import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
-import { LocalFavoriteFaction, LocalLoadedArmy, LocalSavedArmies, LocalUserName } from 'utils/localStore'
+import {
+  LocalFavoriteFaction,
+  LocalLoadedArmy,
+  LocalReminderOrder,
+  LocalSavedArmies,
+  LocalUserName,
+} from 'utils/localStore'
 import { unTitleCase } from 'utils/textUtils'
 
-type TLoadedArmy = { id: string; armyName: string } | null
+export type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
 
 interface ISavedArmiesContext {
@@ -25,7 +31,7 @@ interface ISavedArmiesContext {
   deleteSavedArmy: (id: string) => Promise<void>
   favoriteFaction: TSupportedFaction | null
   getFavoriteFaction: () => Promise<void>
-  loadedArmy: { id: string; armyName: string } | null
+  loadedArmy: TLoadedArmy | null
   loadSavedArmies: () => Promise<void>
   reloadArmy: () => void
   saveArmy: (army: ISavedArmy) => Promise<void>
@@ -66,32 +72,45 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
 
   const armyHasChanges: THasChanges = useCallback(
     currentArmy => {
-      const noChanges = { hasChanges: false, changedKeys: [] }
-      if (!loadedArmy || !currentArmy || !savedArmiesPopulated) return noChanges
+      const noChangesResponse = { hasChanges: false, changedKeys: [] }
+      if (!loadedArmy || !currentArmy || !savedArmiesPopulated) return noChangesResponse
 
       const original = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
       if (!original) {
         setLoadedArmy(null)
-        return noChanges
+        return noChangesResponse
       }
       const { id, armyName, userName, createdAt, updatedAt, ...loaded } = original
 
       const hiddenReminders = store.getState().visibility.reminders
-      currentArmy = prepareArmy({ ...currentArmy, hiddenReminders, armyName }, 'update') as ISavedArmy
+      const current = prepareArmy({ ...currentArmy, hiddenReminders, armyName }, 'update') as ISavedArmy
 
       // This fixes an issue where the names are not in exactly the same order
       loaded.allyFactionNames = sortBy(loaded.allyFactionNames || [])
-      currentArmy.allyFactionNames = sortBy(currentArmy.allyFactionNames || [])
+      current.allyFactionNames = sortBy(current.allyFactionNames || [])
 
       // Since origin_realm was introduced later, sometimes it's undefined in saved armies
       loaded.origin_realm = loaded.origin_realm || null
 
-      const changedKeys = Object.keys(currentArmy).reduce((a, key) => {
-        if (!isEqual(currentArmy[key], loaded[key])) a.push(key)
+      // Have we updated our reminder ordering?
+      loaded.orderedReminders = LocalReminderOrder.get(loadedArmy.id)
+
+      const changedKeys = Object.keys(current).reduce((a, key) => {
+        if (!isEqual(current[key], loaded[key])) a.push(key)
         return a
       }, [] as string[])
 
-      if (changedKeys.length && isDev) console.log('Changed keys are: ', changedKeys)
+      if (changedKeys.length && isDev) {
+        console.log('Changed keys are: ', changedKeys)
+        changedKeys.forEach(k => console.log(k, 'current: ', current[k], 'loaded: ', loaded[k]))
+        const a = changedKeys.map(k => {
+          return {
+            [`${k} new: `]: current[k],
+            [`${k} old: `]: loaded[k],
+          }
+        })
+        console.table(a)
+      }
 
       return { hasChanges: changedKeys.length > 0, changedKeys }
     },

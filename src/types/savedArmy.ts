@@ -2,7 +2,11 @@ import { ICurrentArmy } from 'types/army'
 import { IVisibilityStore } from 'types/store'
 import { TTurnWhen } from './phases'
 
-export type TOrderedReminders = Record<TTurnWhen, string[]>
+export type TOrderedReminders = Record<TTurnWhen, string[]> & {
+  army?: {
+    [id: string]: Record<TTurnWhen, string[]>
+  }
+}
 
 export interface ISavedArmy extends ICurrentArmy {
   armyName: string
