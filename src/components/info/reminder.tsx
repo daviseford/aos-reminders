@@ -52,7 +52,9 @@ export const Reminder: React.FC<IReminderProps> = props => {
       const ids = orderedActions.map(x => x.id)
 
       setActionsState(orderedActions)
+
       LocalReminderOrder.set(when, ids)
+      console.log('New local order: ', LocalReminderOrder.get())
     },
     [actionsState, when]
   )

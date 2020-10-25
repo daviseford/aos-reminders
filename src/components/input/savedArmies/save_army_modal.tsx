@@ -4,11 +4,11 @@ import GenericModal from 'components/page/genericModal'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
+import { selectors } from 'ducks'
 import React, { useState } from 'react'
 import { FaSave } from 'react-icons/fa'
-import { ICurrentArmy } from 'types/army'
+import { useSelector } from 'react-redux'
 import { ISavedArmy } from 'types/savedArmy'
-import { IVisibilityStore } from 'types/store'
 import { logEvent } from 'utils/analytics'
 import { prepareArmy } from 'utils/armyUtils'
 
@@ -16,12 +16,12 @@ interface IModalComponentProps {
   modalIsOpen: boolean
   closeModal: () => void
   showSavedArmies: () => void
-  army: ICurrentArmy
-  hiddenReminders: IVisibilityStore['reminders']
 }
 
 export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
-  const { closeModal, modalIsOpen, army, hiddenReminders, showSavedArmies } = props
+  const { closeModal, modalIsOpen, showSavedArmies } = props
+  const army = useSelector(selectors.selectCurrentArmy)
+  const hiddenReminders = useSelector(selectors.selectReminders)
   const { isActive } = useSubscription()
   const { saveArmy } = useSavedArmies()
   const { theme } = useTheme()
@@ -29,14 +29,14 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const [processing, setProcessing] = useState(false)
 
   const handleUpdateName = (e: React.ChangeEvent<HTMLInputElement>) => {
-    e?.preventDefault?.()
+    e.preventDefault()
     setArmyName(e.target.value)
   }
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.stopPropagation()
-      e?.preventDefault?.()
+      e.preventDefault()
       handleSaveClick()
     }
   }

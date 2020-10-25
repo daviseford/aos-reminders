@@ -5,10 +5,8 @@ import { SaveArmyModal } from 'components/input/savedArmies/save_army_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
-import { selectors } from 'ducks'
 import React, { useState } from 'react'
 import { FaSave } from 'react-icons/fa'
-import { useSelector } from 'react-redux'
 import { Link } from 'react-router-dom'
 import { centerContentClass } from 'theme/helperClasses'
 import { logClick } from 'utils/analytics'
@@ -24,9 +22,6 @@ const SaveArmyBtn: React.FC<ISaveArmyProps> = ({ showSavedArmies }) => {
   const { isAuthenticated } = useAuth0()
   const { isActive } = useSubscription()
   const { login } = useLogin({ origin: 'SaveArmyBtn' })
-
-  const currentArmy = useSelector(selectors.selectCurrentArmy)
-  const hiddenReminders = useSelector(selectors.selectReminders)
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
@@ -44,13 +39,7 @@ const SaveArmyBtn: React.FC<ISaveArmyProps> = ({ showSavedArmies }) => {
       {isActive && <SaveButton handleClick={openModal} />}
 
       {modalIsOpen && (
-        <SaveArmyModal
-          showSavedArmies={showSavedArmies}
-          army={currentArmy}
-          modalIsOpen={modalIsOpen}
-          closeModal={closeModal}
-          hiddenReminders={hiddenReminders}
-        />
+        <SaveArmyModal showSavedArmies={showSavedArmies} modalIsOpen={modalIsOpen} closeModal={closeModal} />
       )}
     </>
   )
