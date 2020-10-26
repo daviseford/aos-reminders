@@ -68,6 +68,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const setLoadedArmy = useCallback((army: TLoadedArmy) => {
     LocalLoadedArmy.set(army)
     setLoadedArmyState(army)
+    if (army?.id) LocalReminderOrder.makeIdActive(army.id)
   }, [])
 
   const armyHasChanges: THasChanges = useCallback(
@@ -103,13 +104,6 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       if (changedKeys.length && isDev) {
         console.log('Changed keys are: ', changedKeys)
         changedKeys.forEach(k => console.log(k, 'current: ', current[k], 'loaded: ', loaded[k]))
-        const a = changedKeys.map(k => {
-          return {
-            [`${k} new: `]: current[k],
-            [`${k} old: `]: loaded[k],
-          }
-        })
-        console.table(a)
       }
 
       return { hasChanges: changedKeys.length > 0, changedKeys }
@@ -132,6 +126,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       const savedArmies = sortBy(res.body as ISavedArmyFromApi[], 'createdAt').reverse()
       setSavedArmies(savedArmies)
       LocalSavedArmies.set(savedArmies)
+      savedArmies.forEach(a => LocalReminderOrder.setById(a.id, a.orderedReminders))
       setSavedArmiesPopulated(true)
     } catch (err) {
       console.error(err)

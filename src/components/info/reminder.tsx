@@ -55,7 +55,7 @@ export const Reminder: React.FC<IReminderProps> = props => {
 
       setActionsState(orderedActions)
 
-      LocalReminderOrder.set(when, ids)
+      LocalReminderOrder.setByWhen(when, ids)
       console.log('New current local order: ', LocalReminderOrder.get())
     },
     [actionsState, when]
@@ -70,7 +70,7 @@ export const Reminder: React.FC<IReminderProps> = props => {
     // and the stored reminder order has the same ids as our current actions
     // Go ahead and set the actionState to be ordered properly
     const currentIds = sortBy(actions.map(x => x.id))
-    const storedIds = LocalReminderOrder.getWhen(when, loadedArmy?.id)
+    const storedIds = LocalReminderOrder.getWhen(when)
 
     if (storedIds.length > 0 && isEqual(currentIds, sortBy(storedIds))) {
       const reordered = reorderViaIndex(actions, storedIds)

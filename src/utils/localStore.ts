@@ -1,4 +1,3 @@
-import { omit } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { TTurnWhen } from 'types/phases'
 import { ISavedArmyFromApi } from 'types/savedArmy'
@@ -73,41 +72,69 @@ export const LocalLoadedArmy = {
   },
 }
 
+interface IGetAll {
+  byId: {
+    [id: string]: Record<string, string[]>
+  }
+  current: Record<string, string[]>
+}
+
 export const LocalReminderOrder = {
-  clear: () => localStorage.setItem(LOCAL_REMINDER_ORDER, JSON.stringify({})),
+  clear: () => localStorage.setItem(LOCAL_REMINDER_ORDER, JSON.stringify({ byId: {}, current: {} })),
   get: (armyId?: string): Record<string, string[]> => {
     const str = localStorage.getItem(LOCAL_REMINDER_ORDER)
     if (!str) return {}
-    const reminders = JSON.parse(str) || {}
-    if (!armyId) return omit(reminders, 'army')
-    return reminders?.army?.[armyId] || {}
+    const reminders = JSON.parse(str) as IGetAll
+    if (!armyId) return reminders.current || {}
+    return reminders.byId?.[armyId] || {}
   },
-  getWhen: (when: TTurnWhen, armyId?: string): string[] => {
-    const existingReminders = LocalReminderOrder.get(armyId)
+  getAll: (): IGetAll => {
+    const str = localStorage.getItem(LOCAL_REMINDER_ORDER)
+    if (!str) return { byId: {}, current: {} }
+    const parsed = JSON.parse(str) as IGetAll
+    return parsed
+  },
+  getWhen: (when: TTurnWhen): string[] => {
+    const existingReminders = LocalReminderOrder.get()
     return existingReminders[when] || []
   },
-  set: (when: TTurnWhen, ids: string[], armyId?: string): void => {
-    const existingReminders = LocalReminderOrder.get()
+  setByWhen: (when: TTurnWhen, ids: string[]): void => {
+    const existingData = LocalReminderOrder.getAll()
 
-    let reminders = {
-      ...existingReminders,
-      [when]: ids,
-      army: existingReminders?.army || {},
+    const newData = {
+      current: {
+        ...(existingData.current || {}),
+        [when]: ids,
+      },
+      byId: existingData.byId || {},
     }
 
-    if (armyId) {
-      reminders = {
-        ...reminders,
-        army: {
-          ...reminders.army,
-          [armyId]: {
-            ...(reminders.army?.[armyId] || {}),
-            [when]: ids,
-          },
-        },
-      }
+    localStorage.setItem(LOCAL_REMINDER_ORDER, JSON.stringify(newData))
+  },
+
+  setById: (armyId: string, orderedReminders?: Record<string, string[]>): void => {
+    const existingData = LocalReminderOrder.getAll()
+
+    const newData = {
+      current: existingData.current,
+      byId: {
+        ...(existingData?.byId || {}),
+        [armyId]: orderedReminders || {},
+      },
     }
 
-    localStorage.setItem(LOCAL_REMINDER_ORDER, JSON.stringify(reminders))
+    localStorage.setItem(LOCAL_REMINDER_ORDER, JSON.stringify(newData))
+  },
+
+  makeIdActive: (armyId: string): void => {
+    const dataFromId = LocalReminderOrder.get(armyId)
+    console.log('making active', dataFromId)
+
+    const newData = {
+      current: dataFromId,
+      byId: LocalReminderOrder.getAll().byId,
+    }
+
+    localStorage.setItem(LOCAL_REMINDER_ORDER, JSON.stringify(newData))
   },
 }
