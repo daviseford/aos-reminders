@@ -12,7 +12,7 @@ import { logClick, logPageView } from 'utils/analytics'
 import { GITHUB_URL, ROUTES } from 'utils/env'
 import useWindowSize from 'utils/hooks/useWindowSize'
 
-const Navbar = lazy(() => import(/* webpackChunkName: "Navbar" */ 'components/page/navbar'))
+const Navbar = lazy(() => import('components/page/navbar'))
 
 const headerClass = `col-12 col-lg-8 col-xl-8 pt-5 mx-auto`
 

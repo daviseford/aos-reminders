@@ -13,7 +13,7 @@ import { logEvent, logPageView } from 'utils/analytics'
 import useLogin from 'utils/hooks/useLogin'
 import { LocalRedemptionKey } from 'utils/localStore'
 
-const Navbar = lazy(() => import(/* webpackChunkName: "Navbar" */ 'components/page/navbar'))
+const Navbar = lazy(() => import('components/page/navbar'))
 
 /**
  * This Route is used for coupon code redemption

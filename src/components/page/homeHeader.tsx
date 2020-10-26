@@ -15,7 +15,7 @@ import useWindowSize from 'utils/hooks/useWindowSize'
 import { titleCase } from 'utils/textUtils'
 import { withSelectOne } from 'utils/withSelect'
 
-const Navbar = lazy(() => import(/* webpackChunkName: "Navbar" */ './navbar'))
+const Navbar = lazy(() => import('./navbar'))
 
 const { resetAllySelections, resetSelections } = selectionActions
 const { resetRealmscapeStore } = realmscapeActions

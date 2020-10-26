@@ -11,40 +11,17 @@ import { IArmy } from 'types/army'
 import { armyHasEntries } from 'utils/armyUtils'
 import { getArmy } from 'utils/getArmy/getArmy'
 
-const AddAllyButton = lazy(
-  () => import(/* webpackChunkName: "add_ally_btn" */ 'components/input/toolbar/add_ally_btn')
-)
-const ClearArmyButton = lazy(
-  () => import(/* webpackChunkName: "clear_army_btn" */ 'components/input/toolbar/clear_army_btn')
-)
-const DownloadPDFButton = lazy(() => import(/* webpackChunkName: "pdfButton" */ 'components/print/pdfButton'))
-const ImportArmyButton = lazy(
-  () => import(/* webpackChunkName: "import_army_btn" */ 'components/input/toolbar/import_army_btn')
-)
-const ImportContainer = lazy(
-  () => import(/* webpackChunkName: "drop_container" */ 'components/input/importPdf/drop_container')
-)
-const ResetChangesBtn = lazy(
-  () => import(/* webpackChunkName: "reset_changes_btn" */ 'components/input/savedArmies/reset_changes_btn')
-)
-const SaveArmyBtn = lazy(
-  () => import(/* webpackChunkName: "save_army_btn" */ 'components/input/savedArmies/save_army_btn')
-)
-const ShareArmyBtn = lazy(
-  () => import(/* webpackChunkName: "share_army_btn" */ 'components/input/shareArmy/share_army_btn')
-)
-const ShowSavedArmies = lazy(
-  () => import(/* webpackChunkName: "saved_armies" */ 'components/input/savedArmies/saved_armies')
-)
-const ShowSavedArmiesBtn = lazy(
-  () =>
-    import(
-      /* webpackChunkName: "show_saved_armies_btn" */ 'components/input/savedArmies/show_saved_armies_btn'
-    )
-)
-const UpdateArmyBtn = lazy(
-  () => import(/* webpackChunkName: "update_army_btn" */ 'components/input/savedArmies/update_army_btn')
-)
+const AddAllyButton = lazy(() => import('components/input/toolbar/add_ally_btn'))
+const ClearArmyButton = lazy(() => import('components/input/toolbar/clear_army_btn'))
+const DownloadPDFButton = lazy(() => import('components/print/pdfButton'))
+const ImportArmyButton = lazy(() => import('components/input/toolbar/import_army_btn'))
+const ImportContainer = lazy(() => import('components/input/importPdf/drop_container'))
+const ResetChangesBtn = lazy(() => import('components/input/savedArmies/reset_changes_btn'))
+const SaveArmyBtn = lazy(() => import('components/input/savedArmies/save_army_btn'))
+const ShareArmyBtn = lazy(() => import('components/input/shareArmy/share_army_btn'))
+const ShowSavedArmies = lazy(() => import('components/input/savedArmies/saved_armies'))
+const ShowSavedArmiesBtn = lazy(() => import('components/input/savedArmies/show_saved_armies_btn'))
+const UpdateArmyBtn = lazy(() => import('components/input/savedArmies/update_army_btn'))
 
 const { updateAllyArmy } = armyActions
 const { resetAllySelection } = selectionActions

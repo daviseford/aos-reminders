@@ -7,12 +7,12 @@ import { handleArmyLink, handleStripeCheckout } from 'utils/handleQueryParams'
 import history from 'utils/history'
 
 // Lazy loading routes (takes advantage of code splitting)
-const Home = lazy(() => import(/* webpackChunkName: "Home" */ 'components/routes/Home'))
-const Join = lazy(() => import(/* webpackChunkName: "Join" */ 'components/routes/Join'))
-const Profile = lazy(() => import(/* webpackChunkName: "Profile" */ 'components/routes/Profile'))
-const Redeem = lazy(() => import(/* webpackChunkName: "Redeem" */ 'components/routes/Redeem'))
-const Stats = lazy(() => import(/* webpackChunkName: "Stats" */ 'components/routes/Stats'))
-const Subscribe = lazy(() => import(/* webpackChunkName: "Subscribe" */ 'components/routes/Subscribe'))
+const Home = lazy(() => import('components/routes/Home'))
+const Join = lazy(() => import('components/routes/Join'))
+const Profile = lazy(() => import('components/routes/Profile'))
+const Redeem = lazy(() => import('components/routes/Redeem'))
+const Stats = lazy(() => import('components/routes/Stats'))
+const Subscribe = lazy(() => import('components/routes/Subscribe'))
 
 const App = () => {
   useEffect(() => {
