@@ -6,7 +6,7 @@ import { FaCheck } from 'react-icons/fa'
 
 interface IModalComponentProps {
   closeModal: () => void
-  visibilityHandler: (e: any) => void | null
+  visibilityHandler: (e: React.MouseEvent) => void | null
   modalIsOpen: boolean
 }
 
@@ -14,8 +14,8 @@ export const ConfirmDismissNotificationModal: React.FC<IModalComponentProps> = p
   const { closeModal, modalIsOpen, visibilityHandler } = props
   const { theme } = useTheme()
 
-  const handleConfirm = e => {
-    e?.preventDefault?.()
+  const handleConfirm = (e: React.MouseEvent) => {
+    e.preventDefault()
     visibilityHandler(e)
     closeModal()
   }

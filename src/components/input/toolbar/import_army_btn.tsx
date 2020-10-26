@@ -18,8 +18,8 @@ const ImportArmyButton: React.FC<IImportArmyButtonProps> = props => {
   const { show, hide, isShowing, isSubscribed } = props
   const { theme } = useTheme()
 
-  const handleClick = e => {
-    e?.preventDefault?.()
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault()
     isShowing ? hide() : show()
   }
 

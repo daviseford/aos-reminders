@@ -5,7 +5,7 @@ import { FaRegFrown, FaRegSmileBeam } from 'react-icons/fa'
 import { ROUTES } from 'utils/env'
 
 interface ILoginSectionProps {
-  handleClick: (e: any) => any
+  handleClick: (e: React.MouseEvent) => any
 }
 
 export const RedemptionLogin: React.FC<ILoginSectionProps> = props => {

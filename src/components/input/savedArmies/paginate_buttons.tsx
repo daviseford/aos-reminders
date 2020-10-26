@@ -15,13 +15,13 @@ export const PaginateButtons: React.FC<IPaginateButtonsProps> = props => {
   const canIncrement = pageNum !== numPages
   const canDecrement = pageNum !== 1
 
-  const increment = e => {
-    e?.preventDefault?.()
+  const increment = (e: React.MouseEvent) => {
+    e.preventDefault()
     if (canIncrement) setPageNum(pageNum + 1)
   }
 
-  const decrement = e => {
-    e?.preventDefault?.()
+  const decrement = (e: React.MouseEvent) => {
+    e.preventDefault()
     if (canDecrement) setPageNum(pageNum - 1)
   }
 

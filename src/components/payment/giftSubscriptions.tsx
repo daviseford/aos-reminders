@@ -187,8 +187,8 @@ const PlanComponent: React.FC<IPlanProps> = ({ supportPlan }) => {
   if (!stripe) return null
 
   // When the customer clicks on the button, redirect them to Checkout.
-  const handleCheckout = async e => {
-    e?.preventDefault?.()
+  const handleCheckout = async (e: React.MouseEvent) => {
+    e.preventDefault()
 
     if (quantity === 0) return // Can't do anything with zero quantity
 
@@ -229,9 +229,9 @@ const PlanComponent: React.FC<IPlanProps> = ({ supportPlan }) => {
       })
   }
 
-  const handleChange = e => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value
-    setQuantity(value)
+    setQuantity(parseInt(value, 10))
   }
 
   return (

@@ -1,7 +1,9 @@
 import Abilities from './abilities'
 import { Units } from './units'
 
-export default {
+const TombKingsArmy = {
   Abilities,
   Units,
 }
+
+export default TombKingsArmy

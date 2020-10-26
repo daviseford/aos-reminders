@@ -30,11 +30,11 @@ interface IUseParseArgs {
 
 type TUseParse = (args: IUseParseArgs) => (acceptedFiles: any[]) => void
 
-const arrayBufferToString = buf => {
+const arrayBufferToString = (buf: any) => {
   return new TextDecoder('utf-8').decode(new Uint8Array(buf))
 }
 
-const checkFileInformation = async typedArray => {
+const checkFileInformation = async (typedArray: any) => {
   const { pdfPages, parser } = await getPdfPages(typedArray)
   return { pdfPages, parser }
 }

@@ -27,11 +27,16 @@ const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
 
   const canUpdate = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
 
-  const handleClick = async e => {
-    e?.preventDefault?.()
+  const handleClick = async (e: React.MouseEvent) => {
+    e.preventDefault()
     setIsSaving(true)
     const payload = prepareArmy({ ...currentArmy, hiddenReminders }, 'update', changedKeys)
-    await updateArmy(id, payload)
+    try {
+      await updateArmy(id, payload)
+    } catch (err) {
+      console.error(err)
+    }
+    setIsSaving(false)
     logEvent(`UpdateArmy-${currentArmy.factionName}`)
   }
 

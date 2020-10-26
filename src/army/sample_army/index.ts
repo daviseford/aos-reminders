@@ -11,7 +11,9 @@ import { AlliedUnits, Battalions, Units } from './units'
 // Remember to add your army to:
 //      - meta/factions.ts
 //      - meta/army_list.ts
-export default {
+
+// Be sure to rename this variable to `[FactionName]Army`
+const SampleArmy = {
   Abilities,
   Allegiances,
   AllegianceType: 'Allegiances',
@@ -24,3 +26,5 @@ export default {
   Traits,
   Units,
 }
+
+export default SampleArmy

@@ -28,7 +28,7 @@ export const reorderReminders = (reminders: IReminder): IReminder => {
   return Object.keys(reminders).reduce((accum, when) => {
     const actions = reminders[when]
     const currentIds = sortBy(actions.map(x => x.id))
-    const storedIds = LocalReminderOrder.getWhen(when as TTurnWhen) || []
+    const storedIds = LocalReminderOrder.getWhen(when as TTurnWhen)
 
     if (storedIds.length > 0 && difference(currentIds, sortBy(storedIds)).length === 0) {
       const reordered = reorderViaIndex(actions, storedIds)

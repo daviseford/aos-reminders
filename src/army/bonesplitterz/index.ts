@@ -5,7 +5,7 @@ import Spells from './spells'
 import Traits from './traits'
 import { Battalions, Units } from './units'
 
-export default {
+const BonesplitterzArmy = {
   Abilities,
   Allegiances,
   AllegianceType: 'Warclans',
@@ -15,3 +15,5 @@ export default {
   Traits,
   Units,
 }
+
+export default BonesplitterzArmy

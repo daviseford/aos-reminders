@@ -5,7 +5,7 @@ import Artifacts from './artifacts'
 import Traits from './traits'
 import { Battalions, Units } from './units'
 
-export default {
+const TamurkhansHordeArmy = {
   Abilities,
   AlliedUnits: [...NurgleUnits],
   Artifacts,
@@ -13,3 +13,5 @@ export default {
   Traits,
   Units,
 }
+
+export default TamurkhansHordeArmy

@@ -10,7 +10,7 @@ import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { logEvent, logPageView } from 'utils/analytics'
 import useLogin from 'utils/hooks/useLogin'
 
-const Navbar = lazy(() => import('components/page/navbar'))
+const Navbar = lazy(() => import(/* webpackChunkName: "Navbar" */ 'components/page/navbar'))
 
 /**
  * This Route is used for coupon code redemption
@@ -63,14 +63,14 @@ const RedeemSection = () => {
   if (!couponId && success) return <RedemptionSuccess />
   if (!couponId && error) return <RedemptionError error={error} showButton={false} />
 
-  const handleChange = e => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value
     setCouponId(val || null)
   }
 
-  const handleClickRedeem = async e => {
+  const handleClickRedeem = async (e: React.MouseEvent) => {
     try {
-      e?.preventDefault?.()
+      e.preventDefault()
       if (!couponId) return
       const { body } = await SubscriptionApi.redeemCoupon({ couponId, userName: user.email })
       if (body.error) {

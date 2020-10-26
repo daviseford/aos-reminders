@@ -4,7 +4,7 @@ import Artifacts from './artifacts'
 import Traits from './traits'
 import { Battalions, Units } from './units'
 
-export default {
+const KharadronOverlordsArmy = {
   Abilities,
   Allegiances,
   AllegianceType: 'Skyports',
@@ -13,3 +13,5 @@ export default {
   Traits,
   Units,
 }
+
+export default KharadronOverlordsArmy

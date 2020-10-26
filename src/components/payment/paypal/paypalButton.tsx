@@ -46,7 +46,7 @@ const PaypalButton: React.FC<IPayPalButtonProps> = props => {
     if (onSuccess) onSuccess(data)
   }
 
-  const _createSubscription = async (data, actions: ICreateSubscriptionsActions) => {
+  const _createSubscription = async (data: any, actions: ICreateSubscriptionsActions) => {
     return actions.subscription.create({
       plan_id: planId,
       subscriber: {

@@ -4,6 +4,7 @@ import { TEntry } from 'types/data'
 import { IImportedArmy } from 'types/import'
 import { ISavedArmy } from 'types/savedArmy'
 import { IAllySelections } from 'types/selections'
+import { LocalReminderOrder } from './localStore'
 
 export const armyHasEntries = (army: ISavedArmy | ICurrentArmy) => {
   const { allySelections, origin_realm, realmscape_feature, realmscape, selections } = army
@@ -27,6 +28,7 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
     armyName,
     factionName,
     hiddenReminders = [],
+    orderedReminders = LocalReminderOrder.get(),
     origin_realm = null,
     realmscape = null,
     realmscape_feature = null,
@@ -39,6 +41,7 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
     armyName: armyName || 'Untitled',
     factionName,
     hiddenReminders,
+    orderedReminders,
     origin_realm,
     realmscape_feature,
     realmscape,

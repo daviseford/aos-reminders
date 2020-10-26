@@ -1,5 +1,5 @@
 import Fyreslayers from 'army/fyreslayers'
-import IdonethDeepkin from 'army/idoneth'
+import IdonethDeepkin from 'army/idoneth_deepkin'
 import KharadronOverlords from 'army/kharadron_overlords'
 import StormcastEternals from 'army/stormcast_eternals'
 import { TBattalions, TUnits } from 'types/army'

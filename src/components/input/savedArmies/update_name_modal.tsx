@@ -20,20 +20,20 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
   const [armyName, setArmyName] = useState(currentArmyName)
   const [processing, setProcessing] = useState(false)
 
-  const handleUpdateName = (e: any) => {
-    e?.preventDefault?.()
+  const handleUpdateName = (e: React.ChangeEvent<HTMLInputElement>) => {
+    e.preventDefault()
     setArmyName(e.target.value)
   }
 
-  const handleKeyDown = e => {
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
       e.stopPropagation()
-      e?.preventDefault?.()
-      handleUpdateClick(e)
+      e.preventDefault()
+      handleUpdateClick()
     }
   }
 
-  const handleUpdateClick = async e => {
+  const handleUpdateClick = async (e?: React.MouseEvent) => {
     e?.preventDefault?.()
     if (armyName === currentArmyName) {
       closeModal()

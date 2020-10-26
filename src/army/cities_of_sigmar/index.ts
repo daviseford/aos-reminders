@@ -5,7 +5,7 @@ import Spells from './spells'
 import Traits from './traits'
 import { AlliedUnits, Battalions, Units } from './units'
 
-export default {
+const CitiesOfSigmarArmy = {
   Abilities,
   Allegiances,
   AllegianceType: 'Cities',
@@ -16,3 +16,5 @@ export default {
   Traits,
   Units,
 }
+
+export default CitiesOfSigmarArmy

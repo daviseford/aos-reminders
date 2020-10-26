@@ -24,7 +24,7 @@ export type TPdfStyles = Record<
   }
 >
 
-export type TSavePdfType = 'default' | 'compact' | 'title-only'
+export type TSavePdfType = 'default' | 'compact'
 
 export interface ICompactPdfTextObj {
   type: TPdfStylePdf

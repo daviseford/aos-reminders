@@ -4,6 +4,7 @@ import { IVisibilityStore } from 'types/store'
 export interface ISavedArmy extends ICurrentArmy {
   armyName: string
   hiddenReminders?: IVisibilityStore['reminders']
+  orderedReminders?: Record<string, string[]>
 }
 
 export interface ISavedArmyFromApi extends ISavedArmy {

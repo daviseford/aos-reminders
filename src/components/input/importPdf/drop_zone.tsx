@@ -24,8 +24,7 @@ interface IDropzoneProps {
   handleDrop: (army: IImportedArmy) => void
 }
 
-const ImportDropzone: React.FC<IDropzoneProps> = props => {
-  const { handleDrop } = props
+const ImportDropzone: React.FC<IDropzoneProps> = ({ handleDrop }) => {
   const { isMobile } = useWindowSize()
   const { isOnline } = useAppStatus()
   const { setLoadedArmy } = useSavedArmies()
@@ -65,6 +64,7 @@ const ImportDropzone: React.FC<IDropzoneProps> = props => {
     return true
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onDrop = useCallback(
     handleParseFile({
       handleDrop,

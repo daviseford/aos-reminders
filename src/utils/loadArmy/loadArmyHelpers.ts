@@ -9,9 +9,10 @@ import {
 import { store } from 'store'
 import { IArmy } from 'types/army'
 import { TLoadedArmy } from 'types/import'
-import { ILinkedArmy } from 'types/savedArmy'
+import { ILinkedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { logEvent, logLoadedArmy } from 'utils/analytics'
 import { getArmy } from 'utils/getArmy/getArmy'
+import { LocalReminderOrder } from 'utils/localStore'
 
 export const loadArmyFromLink = async (id: string) => {
   try {
@@ -59,6 +60,13 @@ export const addArmyToStore = (loadedArmy: TLoadedArmy) => {
     if (loadedArmy.hiddenReminders) {
       dispatch(visibilityActions.clearReminders())
       dispatch(visibilityActions.addReminders(loadedArmy.hiddenReminders))
+    }
+
+    // Hide any reminders necessary
+    if ((loadedArmy as ISavedArmyFromApi).orderedReminders && (loadedArmy as ISavedArmyFromApi).id) {
+      loadedArmy = loadedArmy as ISavedArmyFromApi
+      LocalReminderOrder.setById(loadedArmy.id, loadedArmy.orderedReminders)
+      LocalReminderOrder.makeIdActive(loadedArmy.id)
     }
 
     // Log our army to GA

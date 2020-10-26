@@ -5,7 +5,7 @@ import Spells from './spells'
 import Traits from './traits'
 import { AlliedUnits, Battalions, Units } from './units'
 
-export default {
+const LegionsOfChaosAscendantArmy = {
   Abilities,
   Allegiances,
   AllegianceType: 'Hosts of Change',
@@ -16,3 +16,5 @@ export default {
   Traits,
   Units,
 }
+
+export default LegionsOfChaosAscendantArmy

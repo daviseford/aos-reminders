@@ -6,7 +6,7 @@ import Spells from './spells'
 import Traits from './traits'
 import { AlliedUnits, Battalions, Units } from './units'
 
-export default {
+const OgorMawtribesArmy = {
   Abilities,
   Allegiances,
   AllegianceType: 'Mawtribes',
@@ -18,3 +18,5 @@ export default {
   Traits,
   Units,
 }
+
+export default OgorMawtribesArmy

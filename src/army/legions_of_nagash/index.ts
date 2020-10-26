@@ -2,9 +2,11 @@ import Abilities from './abilities'
 import Spells from './spells'
 import { Battalions, Units } from './units'
 
-export default {
+const LegionsOfNagashArmy = {
   Abilities,
   Battalions,
   Spells,
   Units,
 }
+
+export default LegionsOfNagashArmy

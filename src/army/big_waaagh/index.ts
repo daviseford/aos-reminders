@@ -4,7 +4,7 @@ import Spells from './spells'
 import Traits from './traits'
 import { AlliedUnits, Battalions } from './units'
 
-export default {
+const BigWaaaghArmy = {
   Abilities,
   AlliedUnits,
   Artifacts,
@@ -12,3 +12,5 @@ export default {
   Spells,
   Traits,
 }
+
+export default BigWaaaghArmy

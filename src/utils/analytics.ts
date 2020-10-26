@@ -1,6 +1,7 @@
 import ReactGA from 'react-ga'
 import { TImportParsers, TLoadedArmy } from 'types/import'
 import { TSavePdfType } from 'types/pdf'
+import { ISelections } from 'types/selections'
 import { isValidFactionName } from 'utils/armyUtils'
 import { isDev, isProd, isTest } from 'utils/env'
 import { GiftedSubscriptionPlans, SubscriptionPlans } from 'utils/plans'
@@ -219,7 +220,7 @@ export const logGiftedSubscription = (planTitle: string, quantity: string) => {
 export const logLoadedArmy = (army: TLoadedArmy) => {
   try {
     const {
-      selections = [],
+      selections = ([] as unknown) as ISelections,
       allySelections = {},
       origin_realm = null,
       realmscape = null,
@@ -233,14 +234,15 @@ export const logLoadedArmy = (army: TLoadedArmy) => {
     // Log each selection
     Object.keys(selections).forEach(key => {
       const trait = titleCase(key)
-      selections[key].forEach((name: string) => logIndividualSelection(trait, name, factionName))
+      const _selections = selections[key as keyof typeof selections] || []
+      _selections.forEach((name: string) => logIndividualSelection(trait, name, factionName))
     })
 
     // Log each allied faction + selection
     Object.keys(allySelections).forEach(allyFactionName => {
       logAllyFaction(allyFactionName)
-      const units: string[] = allySelections[allyFactionName].units || []
-      units.forEach(name => logIndividualSelection('AlliedUnits', name, allyFactionName))
+      const _units = allySelections[allyFactionName as keyof typeof allySelections]?.units || []
+      _units.forEach(name => logIndividualSelection('AlliedUnits', name, allyFactionName))
     })
 
     // Log Realm information

@@ -7,7 +7,7 @@ import Spells from './spells'
 import Traits from './traits'
 import { Battalions, Units } from './units'
 
-export default {
+const FyreslayersArmy = {
   Abilities,
   Allegiances,
   AllegianceType: 'Lodges',
@@ -19,3 +19,5 @@ export default {
   Traits,
   Units,
 }
+
+export default FyreslayersArmy

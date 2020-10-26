@@ -28,8 +28,8 @@ const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
 
   const btnText = `${isShowingSavedArmies ? `Hide` : `Show`} Saved ${isMobile ? `` : `Armies`}`
 
-  const handleClick = e => {
-    e?.preventDefault?.()
+  const handleClick = (e: React.MouseEvent) => {
+    e.preventDefault()
     return isShowingSavedArmies ? hideSavedArmies() : showSavedArmies()
   }
 

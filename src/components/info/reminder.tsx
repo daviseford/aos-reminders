@@ -1,6 +1,7 @@
 import { CardHeader } from 'components/info/card'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
 import { useAppStatus } from 'context/useAppStatus'
+import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { selectors, visibilityActions } from 'ducks'
 import { isEqual, sortBy } from 'lodash'
@@ -23,6 +24,7 @@ interface IReminderProps {
 
 export const Reminder: React.FC<IReminderProps> = props => {
   const { actions, isMobile, when } = props
+  const { loadedArmy, setHasOrderChanges } = useSavedArmies()
   const dispatch = useDispatch()
   const { theme } = useTheme()
 
@@ -52,9 +54,11 @@ export const Reminder: React.FC<IReminderProps> = props => {
       const ids = orderedActions.map(x => x.id)
 
       setActionsState(orderedActions)
-      LocalReminderOrder.set(when, ids)
+
+      LocalReminderOrder.setByWhen(when, ids)
+      setHasOrderChanges(true) // Make our context aware that we've updated the order
     },
-    [actionsState, when]
+    [actionsState, setHasOrderChanges, when]
   )
 
   useEffect(() => {
@@ -66,7 +70,7 @@ export const Reminder: React.FC<IReminderProps> = props => {
     // and the stored reminder order has the same ids as our current actions
     // Go ahead and set the actionState to be ordered properly
     const currentIds = sortBy(actions.map(x => x.id))
-    const storedIds = LocalReminderOrder.getWhen(when) || []
+    const storedIds = LocalReminderOrder.getWhen(when)
 
     if (storedIds.length > 0 && isEqual(currentIds, sortBy(storedIds))) {
       const reordered = reorderViaIndex(actions, storedIds)
@@ -74,7 +78,7 @@ export const Reminder: React.FC<IReminderProps> = props => {
     } else {
       setActionsState(actions)
     }
-  }, [actions, when])
+  }, [actions, when, loadedArmy])
 
   const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
 
