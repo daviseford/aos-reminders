@@ -62,7 +62,7 @@ export const addArmyToStore = (loadedArmy: TLoadedArmy) => {
       dispatch(visibilityActions.addReminders(loadedArmy.hiddenReminders))
     }
 
-    // Hide any reminders necessary
+    // Re-organize reminder ordering if needed
     if ((loadedArmy as ISavedArmyFromApi).orderedReminders && (loadedArmy as ISavedArmyFromApi).id) {
       loadedArmy = loadedArmy as ISavedArmyFromApi
       LocalReminderOrder.setById(loadedArmy.id, loadedArmy.orderedReminders)
