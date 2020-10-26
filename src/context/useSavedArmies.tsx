@@ -103,10 +103,8 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         return a
       }, [] as string[])
 
-      if (changedKeys.length && isDev) {
-        console.log('Changed keys are: ', changedKeys)
-        changedKeys.forEach(k => console.log(k, 'current: ', current[k], 'loaded: ', loaded[k]))
-      }
+      if (changedKeys.length && isDev) console.log('Changed keys are: ', changedKeys)
+      if (hasOrderChanges && isDev) console.log(`hasOrderChanges: ${hasOrderChanges}`)
 
       return { hasChanges: changedKeys.length > 0 || hasOrderChanges, changedKeys }
     },
@@ -139,6 +137,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const saveArmy = useCallback(
     async (savedArmy: ISavedArmy) => {
       try {
+        setHasOrderChanges(false)
         const { body } = await PreferenceApi.createSavedArmy({ userName: user.email, ...savedArmy })
         saveArmyToS3(savedArmy)
         await loadSavedArmies()

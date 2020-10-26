@@ -56,8 +56,7 @@ export const Reminder: React.FC<IReminderProps> = props => {
       setActionsState(orderedActions)
 
       LocalReminderOrder.setByWhen(when, ids)
-      setHasOrderChanges(true)
-      console.log('New current local order: ', LocalReminderOrder.get())
+      setHasOrderChanges(true) // Make our context aware that we've updated the order
     },
     [actionsState, setHasOrderChanges, when]
   )
