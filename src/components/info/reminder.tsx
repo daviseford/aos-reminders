@@ -24,7 +24,7 @@ interface IReminderProps {
 
 export const Reminder: React.FC<IReminderProps> = props => {
   const { actions, isMobile, when } = props
-  const { loadedArmy } = useSavedArmies()
+  const { loadedArmy, setHasOrderChanges } = useSavedArmies()
   const dispatch = useDispatch()
   const { theme } = useTheme()
 
@@ -56,9 +56,10 @@ export const Reminder: React.FC<IReminderProps> = props => {
       setActionsState(orderedActions)
 
       LocalReminderOrder.setByWhen(when, ids)
+      setHasOrderChanges(true)
       console.log('New current local order: ', LocalReminderOrder.get())
     },
-    [actionsState, when]
+    [actionsState, setHasOrderChanges, when]
   )
 
   useEffect(() => {

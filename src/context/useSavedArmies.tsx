@@ -39,6 +39,7 @@ interface ISavedArmiesContext {
   savedArmies: ISavedArmyFromApi[]
   saveLink: (army: ISavedArmy) => Promise<string | null>
   setLoadedArmy: (army: TLoadedArmy) => void
+  setHasOrderChanges: (hasChanged: boolean) => void
   updateArmy: (id: string, data: Record<string, any>) => Promise<void>
   updateArmyName: (id: string, armyName: string) => Promise<void>
   updateFavoriteFaction: (factionName: string | null) => Promise<void>
@@ -64,6 +65,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const [loadedArmy, setLoadedArmyState] = useState<TLoadedArmy>(LocalLoadedArmy.get())
   const [favoriteFaction, setFavoriteFaction] = useState<TSupportedFaction | null>(null)
   const [waitingForApi, setWaitingForApi] = useState(false)
+  const [hasOrderChanges, setHasOrderChanges] = useState(false)
 
   const setLoadedArmy = useCallback((army: TLoadedArmy) => {
     LocalLoadedArmy.set(army)
@@ -94,7 +96,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       loaded.origin_realm = loaded.origin_realm || null
 
       // Have we updated our reminder ordering?
-      loaded.orderedReminders = LocalReminderOrder.get(loadedArmy.id)
+      loaded.orderedReminders = loaded.orderedReminders || LocalReminderOrder.get(loadedArmy.id)
 
       const changedKeys = Object.keys(current).reduce((a, key) => {
         if (!isEqual(current[key], loaded[key])) a.push(key)
@@ -106,9 +108,9 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         changedKeys.forEach(k => console.log(k, 'current: ', current[k], 'loaded: ', loaded[k]))
       }
 
-      return { hasChanges: changedKeys.length > 0, changedKeys }
+      return { hasChanges: changedKeys.length > 0 || hasOrderChanges, changedKeys }
     },
-    [loadedArmy, savedArmies, savedArmiesPopulated, setLoadedArmy]
+    [hasOrderChanges, loadedArmy, savedArmies, savedArmiesPopulated, setLoadedArmy]
   )
 
   const loadSavedArmies = useCallback(async () => {
@@ -175,6 +177,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const updateArmy = useCallback(
     async (id: string, data: Record<string, any>) => {
       try {
+        setHasOrderChanges(false)
         const payload = { ...data, userName: user.email }
         await PreferenceApi.updateItem(id, payload)
         await loadSavedArmies()
@@ -274,6 +277,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       saveArmyToS3,
       savedArmies,
       saveLink,
+      setHasOrderChanges,
       setLoadedArmy,
       updateArmy,
       updateArmyName,
@@ -290,6 +294,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       saveArmy,
       savedArmies,
       saveLink,
+      setHasOrderChanges,
       setLoadedArmy,
       updateArmy,
       updateArmyName,
