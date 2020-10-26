@@ -34,6 +34,7 @@ import SeraphonArmy from 'army/seraphon'
 import SkavenArmy from 'army/skaven'
 import SlaaneshArmy from 'army/slaanesh'
 import SlavesToDarknessArmy from 'army/slaves_to_darkness'
+import SonsOfBehematArmy from 'army/sons_of_behemat'
 import SoulblightArmy from 'army/soulblight'
 import StormcastEternalsArmy from 'army/stormcast_eternals'
 import SylvanethArmy from 'army/sylvaneth'
@@ -79,6 +80,7 @@ import {
   SKAVEN,
   SLAANESH,
   SLAVES_TO_DARKNESS,
+  SONS_OF_BEHEMAT,
   SOULBLIGHT,
   STORMCAST_ETERNALS,
   SYLVANETH,
@@ -235,6 +237,10 @@ const ArmyList: TArmyList = {
   [SLAVES_TO_DARKNESS]: {
     Army: { ...SlavesToDarknessArmy },
     GrandAlliance: CHAOS,
+  },
+  [SONS_OF_BEHEMAT]: {
+    Army: { ...SonsOfBehematArmy },
+    GrandAlliance: DESTRUCTION,
   },
   [SOULBLIGHT]: {
     Army: { ...SoulblightArmy },

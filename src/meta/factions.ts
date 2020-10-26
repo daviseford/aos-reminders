@@ -37,6 +37,7 @@ type TSeraphon = 'SERAPHON'
 type TSkaven = 'SKAVEN'
 type TSlaanesh = 'SLAANESH'
 type TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
+type TSonsOfBehemat = 'SONS_OF_BEHEMAT'
 type TSoulblight = 'SOULBLIGHT'
 type TStormcastEternals = 'STORMCAST_ETERNALS'
 type TSylvaneth = 'SYLVANETH'
@@ -82,6 +83,7 @@ export const SERAPHON: TSeraphon = 'SERAPHON'
 export const SKAVEN: TSkaven = 'SKAVEN'
 export const SLAANESH: TSlaanesh = 'SLAANESH'
 export const SLAVES_TO_DARKNESS: TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
+export const SONS_OF_BEHEMAT: TSonsOfBehemat = 'SONS_OF_BEHEMAT'
 export const SOULBLIGHT: TSoulblight = 'SOULBLIGHT'
 export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
@@ -131,6 +133,7 @@ export type TPrimaryFactions =
   | TSkaven
   | TSlaanesh
   | TSlavesToDarkness
+  | TSonsOfBehemat
   | TSoulblight
   | TStormcastEternals
   | TSylvaneth
@@ -178,6 +181,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   SKAVEN,
   SLAANESH,
   SLAVES_TO_DARKNESS,
+  SONS_OF_BEHEMAT,
   SOULBLIGHT,
   STORMCAST_ETERNALS,
   SYLVANETH,
