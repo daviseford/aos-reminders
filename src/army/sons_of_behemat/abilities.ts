@@ -10,10 +10,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Chuck Rocks`,
-    desc: `In your shooting phase, you can pick 1 friendly MANCRUSHER GARGANT unit wholly within 18" of your general. Each model in that unit can make a shooting attack with the Chuck Rocks missile weapon below:
-    
-    Range   Attacks   To Hit   To Wound   Rend   Damage
-     18"      D3        4+        3+       -1      D3`,
+    desc: `In your shooting phase, you can pick 1 friendly MANCRUSHER GARGANT unit wholly within 18" of your general. Each model in that unit can make a shooting attack with the Chuck Rocks missile weapon.`,
     when: [SHOOTING_PHASE],
   },
 ]
