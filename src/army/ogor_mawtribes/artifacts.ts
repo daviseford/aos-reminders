@@ -177,6 +177,16 @@ const Artifacts: TArtifacts = [
         desc: `Once per battle, at the start of your hero phase, the bearer can use this artefact. If they do so, until the start of your next hero phase, you can reroll hit and wound rolls for attacks made by the bearer and reroll save rolls for attacks that target the bearer.`,
         when: [START_OF_HERO_PHASE],
       },
+      {
+        name: `Alvagr Rune-tokens`,
+        desc: `If active, you can reroll hit and wound rolls for attacks made by the bearer.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Alvagr Rune-tokens`,
+        desc: `If active, you can reroll save rolls for attacks that target the bearer.`,
+        when: [SAVES_PHASE],
+      },
     ],
   },
   {

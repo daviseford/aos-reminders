@@ -7,6 +7,7 @@ import {
   DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
@@ -148,7 +149,7 @@ const BladedBucklersEffect = {
 const BloodshieldEffect = {
   name: `Bloodshield`,
   desc: `Add 1 to the save rolls for friendly Daughters of Khaine units that are wholly within range of this model.`,
-  when: [SHOOTING_PHASE, COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 const BladedImpactEffect = {
   name: `Bladed Impact`,

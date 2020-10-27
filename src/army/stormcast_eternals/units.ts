@@ -736,7 +736,7 @@ export const Units: TUnits = [
       {
         name: `Implacable Determination`,
         desc: `When you make save rolls for this model, ignore the enemy's Rend characteristic.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Oathsworn`,
@@ -772,7 +772,7 @@ export const Units: TUnits = [
       {
         name: `Sigmarite Shield`,
         desc: `Reroll failed save rolls for attacks that target this model.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -1176,7 +1176,7 @@ export const Units: TUnits = [
       {
         name: `Bastions of Death`,
         desc: `If this unit is in cover, add 2 to its save rolls for being in cover instead of 1.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Chained Lightning`,

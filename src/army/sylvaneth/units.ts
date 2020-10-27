@@ -387,6 +387,11 @@ export const Units: TUnits = [
         when: [START_OF_CHARGE_PHASE],
       },
       {
+        name: `Tanglethorn Thicket`,
+        desc: `If active, you can reroll save rolls for attacks that target this unit.`,
+        when: [SAVES_PHASE],
+      },
+      {
         name: `Trample Underfoot`,
         desc: `At the end of the combat phase, you can pick 1 enemy unit within 1" of this unit and roll 1 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],

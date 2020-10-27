@@ -6,6 +6,7 @@ import {
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -99,7 +100,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Drakescale Armour`,
         desc: `You can reroll failed save rolls for attacks that target the bearer with a Damage characteristic greater than 1 (i.e. 2, D3 etc).`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },

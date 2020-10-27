@@ -576,7 +576,7 @@ export const Units: TUnits = [
       {
         name: `Curse of the Leper`,
         desc: `If active, subtract 1 from the save rolls for the debuffed unit for the rest of the battle.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },

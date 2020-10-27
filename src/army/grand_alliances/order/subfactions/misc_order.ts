@@ -229,6 +229,21 @@ export const LegacyOrderUnits: TUnits = [
         desc: `In your hero phase, you may declare that this model is performing a rite to harness the power of the heavens. If you do so, roll a dice. If the result is 4+ you can reroll run rolls, charge rolls and save rolls for this model until your next hero phase.`,
         when: [HERO_PHASE],
       },
+      {
+        name: `Priestly Rites`,
+        desc: `If active, you can reroll run rolls for this model until your next hero phase.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Priestly Rites`,
+        desc: `If active, you can reroll charge rolls for this model until your next hero phase.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Priestly Rites`,
+        desc: `If active, you can reroll save rolls for this model until your next hero phase.`,
+        when: [SAVES_PHASE],
+      },
     ],
   },
   {
@@ -242,7 +257,7 @@ export const LegacyOrderUnits: TUnits = [
       {
         name: `Star-buckler`,
         desc: `When making save rolls for this model, ignore the attacking weapon's Rend characteristic unless it is -2 or better.`,
-        when: [SHOOTING_PHASE, CHARGE_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

@@ -6,6 +6,7 @@ import {
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
 
@@ -33,11 +34,18 @@ const RunicIconAndClanBannerEffects = [
     when: [BATTLESHOCK_PHASE],
   },
 ]
-const GromrilShieldsEffect = {
-  name: `Gromril Shields`,
-  desc: `This unit can create a shield wall instead of running or charging in its turn. If it does so, reroll all failed save rolls for the unit in the combat phase until its next movement phase.`,
-  when: [MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE],
-}
+const GromrilShieldsEffects = [
+  {
+    name: `Gromril Shields`,
+    desc: `This unit can create a shield wall instead of running or charging in its turn. If it does so, reroll all failed save rolls for the unit in the combat phase until its next movement phase.`,
+    when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  },
+  {
+    name: `Gromril Shields`,
+    desc: `If active, reroll all failed save rolls for the unit in the combat phase until its next movement phase.`,
+    when: [SAVES_PHASE],
+  },
+]
 const HornblowersEffect = {
   name: `Hornblowers`,
   desc: `When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
@@ -48,11 +56,18 @@ const DrummersEffect = {
   desc: `When a unit containing any Drummers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
   when: [MOVEMENT_PHASE],
 }
-const DuardinBucklersEffect = {
-  name: `Duardin Bucklers`,
-  desc: `If a unit is equipped with Duardin Bucklers, it can create a shield wall instead of running or charging in its turn. If it does so, reroll all failed save rolls for the unit in the combat phase until its next movement phase.`,
-  when: [MOVEMENT_PHASE, COMBAT_PHASE],
-}
+const DuardinBucklersEffects = [
+  {
+    name: `Duardin Bucklers`,
+    desc: `If a unit is equipped with Duardin Bucklers, it can create a shield wall instead of running or charging in its turn. If it does so, reroll all failed save rolls for the unit in the combat phase until its next movement phase.`,
+    when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  },
+  {
+    name: `Duardin Bucklers`,
+    desc: `If active, reroll all failed save rolls for the unit in the combat phase until its next movement phase.`,
+    when: [SAVES_PHASE],
+  },
+]
 const IconBearerEffect = {
   name: `Icon Bearer`,
   desc: `Roll a D6 if an enemy spell affects a unit with any Icon Bearers. On a roll of 5 or more, that spell has no effect on the unit (but it will affect other units normally).`,
@@ -61,7 +76,7 @@ const IconBearerEffect = {
 const ForgeProvenGromrilArmorEffect = {
   name: `Forge-proven Gromril Armour`,
   desc: `When you make save rolls for this unit, ignore the enemy's Rend characteristic unless it is -2 or better.`,
-  when: [SHOOTING_PHASE, COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 const CinderblastBombEffect = {
   name: `Cinderblast Bomb`,
@@ -153,7 +168,7 @@ export const Units: TUnits = [
       IconBearerEffect,
       DrummersEffect,
       CinderblastBombEffect,
-      GromrilShieldsEffect,
+      ...GromrilShieldsEffects,
       ForgeProvenGromrilArmorEffect,
     ],
   },
@@ -180,7 +195,7 @@ export const Units: TUnits = [
     name: `Longbeards`,
     effects: [
       ...ThrongMusiciansAndStandardBearerEffects,
-      GromrilShieldsEffect,
+      ...GromrilShieldsEffects,
       {
         name: `Old Grumblers`,
         desc: `In your hero phase, pick one of the grumblings listed below. The effects last until your next hero phase.
@@ -204,7 +219,7 @@ export const Units: TUnits = [
         desc: `You can add 1 to the Attacks characteristic of this unit's missile weapons if it has at least 20 models and is more than 3" from any enemy units.`,
         when: [SHOOTING_PHASE],
       },
-      DuardinBucklersEffect,
+      ...DuardinBucklersEffects,
     ],
   },
   {
@@ -217,7 +232,7 @@ export const Units: TUnits = [
         desc: `You can add 1 to all hit rolls for a Thunderer if its unit has 20 or more models and there are no enemy models within 3".`,
         when: [SHOOTING_PHASE],
       },
-      DuardinBucklersEffect,
+      ...DuardinBucklersEffects,
     ],
   },
   {
@@ -230,7 +245,7 @@ export const Units: TUnits = [
         desc: `You can reroll failed wound rolls of 1 when attacking with a Warrior in your opponent's combat phase. You can instead reroll all failed wound rolls for a Warrior if its unit has 20 or more models when it attacks in your opponent's combat phase.`,
         when: [COMBAT_PHASE],
       },
-      DuardinBucklersEffect,
+      ...DuardinBucklersEffects,
     ],
   },
 ]

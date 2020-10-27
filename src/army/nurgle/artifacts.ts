@@ -5,6 +5,7 @@ import {
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -188,7 +189,7 @@ const Artifacts: TArtifacts = [
       {
         name: `The Shield of Growths (Mortal)`,
         desc: `You can reroll failed save rolls for the bearer if the roll is equal to or less than the number of wounds currently allocated to the bearer.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },

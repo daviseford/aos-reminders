@@ -198,8 +198,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Burning Bright`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this unit. In addition, this unit can run and still charge later in the same turn.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE, MOVEMENT_PHASE, CHARGE_PHASE],
+        desc: `This unit can run and still charge later in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Burning Bright`,
+        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this unit.`,
+        when: [SAVES_PHASE],
       },
       {
         name: `Kiss of Fire`,

@@ -127,8 +127,13 @@ export const Units: TUnits = [
       },
       {
         name: `Spirit Armour`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model. In addition, halve the damage inflicted by attacks made with missile weapons or melee weapons that target this model (rounding up).`,
+        desc: `Halve the damage inflicted by attacks made with missile weapons or melee weapons that target this model (rounding up).`,
         when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Spirit Armour`,
+        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
+        when: [SAVES_PHASE],
       },
       {
         name: `Supreme Swordmaster`,

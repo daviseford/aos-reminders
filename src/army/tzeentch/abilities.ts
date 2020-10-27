@@ -6,6 +6,7 @@ import {
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
+  SAVES_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
@@ -103,7 +104,7 @@ const Abilities: TAbilities = [
   {
     name: `Agendas of Anarchy: Overthrow Leaders`,
     desc: `If active, add 1 to the save rolls for the buffed unit.`,
-    when: [COMBAT_PHASE],
+    when: [SAVES_PHASE],
   },
   {
     name: `Agendas of Anarchy: Reckless Abandon`,

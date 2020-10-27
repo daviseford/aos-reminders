@@ -11,6 +11,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
@@ -412,7 +413,7 @@ export const Units: TUnits = [
       {
         name: `Hovering Disc of Tzeentch`,
         desc: `Add 2 to the result of any save rolls for this model in the combat phase unless the attacker is a Monster or can fly.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Lord of Fate`,

@@ -63,11 +63,18 @@ const ColdFerocityEffect = {
   desc: `If the unmodified hit roll for an attack made with a Celestite weapon by this model is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
   when: [COMBAT_PHASE],
 }
-const ArmouredCrestEffect = {
-  name: `Armoured Crest`,
-  desc: `At the start of the combat phase, you can pick 1 enemy unit within 3" of this model and that has up to 5 models. If you do so, until the end of that phase, add 1 to save rolls for attacks made by that unit that target this model.`,
-  when: [START_OF_COMBAT_PHASE],
-}
+const ArmouredCrestEffects = [
+  {
+    name: `Armoured Crest`,
+    desc: `At the start of the combat phase, you can pick 1 enemy unit within 3" of this model and that has up to 5 models. If you do so, until the end of that phase, add 1 to save rolls for attacks made by that unit that target this model.`,
+    when: [START_OF_COMBAT_PHASE],
+  },
+  {
+    name: `Armoured Crest`,
+    desc: `If active, until the end of the combat phase, add 1 to save rolls for attacks made by that unit that target this model.`,
+    when: [SAVES_PHASE],
+  },
+]
 const SkinkChiefEffect = {
   name: `Skink Chief`,
   desc: `This model can include 1 Skink Chief armed with a Meteoric Warspear. If it does, this model has the HERO keyword but any command traits or artefacts of power this model has only affect attacks made by the Skink Chief.`,
@@ -116,7 +123,7 @@ const GoutOfSunfireEffect = {
   desc: `Do not use the attack sequence for an attack made with Sunfire Throwers. Instead, roll a number of dice equal to the number of models from the target unit within 8" of the attacking model. For each 5+, the target unit suffers 1 mortal wound.`,
   when: [SHOOTING_PHASE],
 }
-const StegadonBaseEffects = [ArmouredCrestEffect, SteadfastMajestyEffect, UnstoppableStampedeEffect]
+const StegadonBaseEffects = [...ArmouredCrestEffects, SteadfastMajestyEffect, UnstoppableStampedeEffect]
 const StardrakeIconEffect = {
   name: `Stardrake Icon`,
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly Stardrake Icon Bearers.`,

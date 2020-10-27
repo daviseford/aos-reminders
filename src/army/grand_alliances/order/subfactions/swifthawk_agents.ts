@@ -6,6 +6,7 @@ import {
   COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
 
@@ -119,19 +120,17 @@ export const LegacySwifthawkAgentUnits: TUnits = [
       {
         name: `Enchanted Shield`,
         desc: `You can reroll all failed save rolls for this model.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Swifthawk Pennant`,
-        desc: `A Skywarden with a Swifthawk Pennant gains the Totem keyword.
-        You can add 1 to all wound rolls for all Swifthawk Agents from your
-        army if they are within 16" of this model when they attack.`,
+        desc: `A Skywarden with a Swifthawk Pennant gains the Totem keyword. You can add 1 to all wound rolls for all Swifthawk Agents from your army if they are within 16" of this model when they attack.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Windrider`,
         desc: `A Skywarden has a Save of 4+ instead of 5+ in the shooting phase.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       FleetOfWingEffect,
       {

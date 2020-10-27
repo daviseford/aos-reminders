@@ -1,5 +1,12 @@
 import { TArtifacts } from 'types/army'
-import { COMBAT_PHASE, DURING_GAME, HERO_PHASE, MOVEMENT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import {
+  COMBAT_PHASE,
+  DURING_GAME,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SAVES_PHASE,
+  WOUND_ALLOCATION_PHASE,
+} from 'types/phases'
 
 const Artifacts: TArtifacts = [
   // Gifts of Morathi
@@ -49,7 +56,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Thousand and One Dark Blessings`,
         desc: `Add 1 to the save rolls for the bearer.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },

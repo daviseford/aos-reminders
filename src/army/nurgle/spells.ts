@@ -5,6 +5,7 @@ import {
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
 
@@ -100,7 +101,7 @@ const Spells: TSpells = [
       {
         name: `Favoured Poxes`,
         desc: `If active, subtract 1 from hit, wound, and save rolls for the debuffed unit.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SHOOTING_PHASE, COMBAT_PHASE, SAVES_PHASE],
       },
     ],
   },

@@ -3,6 +3,7 @@ import {
   DURING_GAME,
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
+  SAVES_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
@@ -16,7 +17,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Heavy Metal Ingot`,
         desc: `You can reroll failed save rolls for the bearer as long as they have not made a move in the same turn.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },

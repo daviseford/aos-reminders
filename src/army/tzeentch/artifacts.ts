@@ -4,6 +4,7 @@ import {
   DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -96,7 +97,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Paradoxical Shield`,
         desc: `Add 2 to the save rolls for attacks that target the bearer. However, you must reroll any successful save rolls made for the bearer.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

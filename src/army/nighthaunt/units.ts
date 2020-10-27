@@ -8,7 +8,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SHOOTING_PHASE,
+  SAVES_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -21,7 +21,7 @@ import {
 const EtherealEffect = {
   name: `Ethereal`,
   desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-  when: [SHOOTING_PHASE, COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 const StolenHoursEffect = {
   name: `Stolen Hours`,
@@ -695,6 +695,11 @@ export const Battalions: TBattalions = [
         name: `The Emerald Curse`,
         desc: `After armies are set up, but before the first battle round begins, you can pick 1 enemy HERO. Subtract 1 from save rolls for attacks that target that HERO.`,
         when: [END_OF_SETUP],
+      },
+      {
+        name: `The Emerald Curse`,
+        desc: `If active, subtract 1 from save rolls for attacks that target that HERO.`,
+        when: [SAVES_PHASE],
       },
     ],
   },

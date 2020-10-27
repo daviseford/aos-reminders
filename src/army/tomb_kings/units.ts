@@ -228,7 +228,7 @@ export const Units: TUnits = [
       {
         name: `Casket`,
         desc: `You can add 1 to all save rolls for this model in the shooting phase.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Keeper's Scrolls`,
@@ -300,7 +300,7 @@ export const Units: TUnits = [
       {
         name: `Horsemen's Shield`,
         desc: `Add 1 to the save rolls for this unit in the combat phase.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `First to Face the Foe`,
@@ -389,7 +389,7 @@ export const Units: TUnits = [
       {
         name: `Necropolis Shield`,
         desc: `Add 1 to the save rolls for a unit of Necropolis Knights with Necropolis shields in the combat phase.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

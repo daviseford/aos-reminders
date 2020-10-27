@@ -426,7 +426,7 @@ export const LegacyBretonnianUnits: TUnits = [
       {
         name: `Ethereal`,
         desc: `When making save rolls for this unit, ignore the attacking weapon's Rend characteristic.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Shield of the Ancient Forests`,

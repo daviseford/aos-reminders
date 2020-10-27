@@ -4,7 +4,6 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  DURING_ROUND,
   END_OF_ROUND,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -35,7 +34,12 @@ export const ChronomanticCogsEffects = [
   {
     name: `Slow Down Time`,
     desc: `The wizard manipulating the cogs can cast 1 additional spell in this hero phase. In addition, reroll failed save rolls for that wizard.`,
-    when: [HERO_PHASE, DURING_ROUND],
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Slow Down Time`,
+    desc: `The wizard manipulating the cogs can reroll failed save rolls.`,
+    when: [SAVES_PHASE],
   },
 ]
 export const EmeraldLifeswarmEffects = [

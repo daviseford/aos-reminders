@@ -110,7 +110,13 @@ const whitelist = [
   'Runemarked Shield',
   'Seeker of Souls',
   'Violent Fury',
+  'Beastshield',
   'Whirling Death',
+  'Warding Lantern',
+  'Attuned to Magic',
+  'Tanglethorn Thicket',
+  'Grand Ritual of Awakening',
+  'Strike the Runes',
 ]
 
 const verify = () => {

@@ -132,7 +132,7 @@ const BarbarianHordesEffect = {
 const DarkwoodShieldEffect = {
   name: `Darkwood Shield`,
   desc: `Add 1 to the save rolls for attacks that target this unit.`,
-  when: [DURING_GAME],
+  when: [SAVES_PHASE],
 }
 
 // Chariot specific effects.
@@ -266,7 +266,7 @@ export const Units: TUnits = [
       {
         name: `Hovering Disc of Tzeentch`,
         desc: `Add 2 to this model's save rolls for attacks made with melee weapons unless the attacker is a monster or can fly.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Warptongue Blade`,
@@ -1024,7 +1024,7 @@ export const Units: TUnits = [
       {
         name: `Shadow Form`,
         desc: `Ignore positive and negative modifiers when making save rolls for this model.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `The Dark Master`,

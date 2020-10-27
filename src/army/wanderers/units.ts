@@ -8,6 +8,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
 
@@ -54,7 +55,7 @@ export const Units: TUnits = [
       {
         name: `Deepwood Shield`,
         desc: `You can reroll any failed save rolls for a Nomad Prince.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Lord of the Deepwood Host`,

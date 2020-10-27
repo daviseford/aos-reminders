@@ -101,7 +101,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Thronebreaker's Torc`,
         desc: `Ignore modifiers (positive and negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
         artifact: true,
       },
     ],

@@ -6,7 +6,7 @@ import {
   COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SHOOTING_PHASE,
+  SAVES_PHASE,
 } from 'types/phases'
 
 const TalismanOfArcanePowerEffect = {
@@ -22,7 +22,7 @@ const InfantryHornblowerEffect = {
 const DeflectShotsEffect = {
   name: `Deflect Shots`,
   desc: `You can reroll failed save rolls for this unit in the shooting phase.`,
-  when: [SHOOTING_PHASE],
+  when: [SAVES_PHASE],
 }
 export const LegacyEldritchUnits: TUnits = [
   {

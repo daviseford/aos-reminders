@@ -9,6 +9,7 @@ import {
   END_OF_BATTLESHOCK_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
@@ -111,6 +112,11 @@ export const Units: TUnits = [
         name: `Storm of Blows`,
         desc: `At the start of the combat phase, you can say that this model will draw their Falchion. If you do so, subtract 1 from save rolls for this model in that combat phase, but this model can attack with its Falchion in that combat phase. If you do not do so, this model cannot attack with its Falchion in that combat phase.`,
         when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Storm of Blows`,
+        desc: `If active, subtract 1 from save rolls for this model in that combat phase.`,
+        when: [SAVES_PHASE],
       },
       {
         name: `Wave Rider`,
@@ -242,7 +248,7 @@ export const Units: TUnits = [
       {
         name: `Biovoltaic Barrier`,
         desc: `Ignore the Rend characteristic of attacks against this unit when making save rolls for this unit. In addition, this unit has a Save characteristic of 3+ instead of 4+ if it made a charge move in the same turn.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

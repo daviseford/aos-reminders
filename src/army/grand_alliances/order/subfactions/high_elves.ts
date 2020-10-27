@@ -23,7 +23,7 @@ const HornblowerEffect = {
 const EnchantedShieldEffect = {
   name: `Enchanted Shield`,
   desc: `Reroll failed save rolls for this model.`,
-  when: [SHOOTING_PHASE, COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 
 export const LegacyHighElvesUnits: TUnits = [

@@ -57,7 +57,12 @@ const Spells: TSpells = [
       {
         name: `Kunnin' Beast Spirits`,
         desc: `Casting value of 6. Pick a unit wholly within 24". Add 1 to save rolls for that unit until your next hero phase.`,
-        when: [HERO_PHASE, SAVES_PHASE],
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Kunnin' Beast Spirits`,
+        desc: `If active, add 1 to save rolls for that unit until your next hero phase.`,
+        when: [SAVES_PHASE],
       },
     ],
   },

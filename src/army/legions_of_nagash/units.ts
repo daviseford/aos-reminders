@@ -388,7 +388,7 @@ export const Units: TUnits = [
       {
         name: `Bloodshields`,
         desc: `Add 1 to the save rolls for a unit carrying Bloodshields against attacks that have a Rend characteristic of '-'.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
