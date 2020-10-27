@@ -1,8 +1,11 @@
 const CommonSonsOfBehematData = {
   TRIBES: {
-    Taker: 'Taker',
-    Breaker: 'Breaker',
-    Stomper: 'Stomper',
+    Breaker: `Breaker`,
+    BreakerTag: `(Breaker Tribe)`,
+    Stomper: `Stomper`,
+    StomperTag: `(Stomper Tribe)`,
+    Taker: `Taker`,
+    TakerTag: `(Taker Tribe)`,
   },
 }
 
