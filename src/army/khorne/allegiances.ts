@@ -3,10 +3,10 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -144,6 +144,11 @@ const Allegiances: TAllegiances = [
         when: [END_OF_COMBAT_PHASE],
       },
       {
+        name: `Blood-woken Runes`,
+        desc: `If active, you can add 1 to save rolls for attacks that target the Flayed Mortal unit.`,
+        when: [SAVES_PHASE],
+      },
+      {
         name: `Wrathspeaker`,
         desc: `Pick 1 friendly Flayed mortal unit wholly within 12" of a friendly Flayed mortal hero with this ability. Add 1 to the hit rolls for melee weapon attacks made by the selected unit if it made a charge move this turn.`,
         when: [START_OF_COMBAT_PHASE],
@@ -191,7 +196,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Black Brass Crown`,
         desc: `Add 1 to save rolls for attacks that target the bearer.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
         artifact: true,
       },
     ],

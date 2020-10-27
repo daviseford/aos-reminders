@@ -1,6 +1,6 @@
 import LegionsOfNagash from 'army/legions_of_nagash'
 import { TAbilities } from 'types/army'
-import { COMBAT_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { DURING_SETUP, END_OF_MOVEMENT_PHASE, SAVES_PHASE } from 'types/phases'
 
 // Importing from LoN
 const getLegionsOfNagashAbilities = () => LegionsOfNagash.Abilities
@@ -11,7 +11,7 @@ const Abilities: TAbilities = [
   {
     name: `The Bait`,
     desc: `Add 1 to save rolls for friendly LEGION OF NIGHT DEATHRATTLE units that are wholly within your territory.`,
-    when: [COMBAT_PHASE, SHOOTING_PHASE],
+    when: [SAVES_PHASE],
   },
   {
     name: `Ageless Cunning`,

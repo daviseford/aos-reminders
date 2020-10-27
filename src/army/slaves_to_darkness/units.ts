@@ -10,6 +10,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
@@ -613,7 +614,7 @@ export const Units: TUnits = [
       {
         name: `Shadow-kin`,
         desc: `Add 1 to save rolls for attacks made when missile weapons that target this model.`,
-        when: [HERO_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Shadow-kin`,
@@ -719,7 +720,7 @@ export const Units: TUnits = [
       {
         name: `Legions of Chaos`,
         desc: `You can reroll save rolls for attacks that target this unit while it has at least 10 models.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Pair of Chaos Hand Weapons`,
@@ -785,13 +786,23 @@ export const Units: TUnits = [
       },
       {
         name: `Favour: ${MARK_TZEENTCH}`,
-        desc: `If active, you can reroll save rolls for the buffed unit. If you buffed a Tzeentch unit, whenever the buffed unit is targeted by a spell roll a D6. On a 4+ ignore the effects.`,
-        when: [DURING_GAME],
+        desc: `If active, you can reroll save rolls for the buffed unit.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Favour: ${MARK_TZEENTCH}`,
+        desc: `If active, and if you buffed a Tzeentch unit, whenever the buffed unit is targeted by a spell roll a D6. On a 4+ ignore the effects.`,
+        when: [HERO_PHASE],
       },
       {
         name: `Favour: ${MARK_NURGLE}`,
-        desc: `If active, you can reroll wound rolls for the buffed unit. If you buffed a Nurgle unit, add 1 to its save rolls as well.`,
-        when: [DURING_GAME],
+        desc: `If active, you can reroll wound rolls for the buffed unit.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Favour: ${MARK_NURGLE}`,
+        desc: `If active, and if you buffed a Nurgle unit, add 1 to its save rolls.`,
+        when: [SAVES_PHASE],
       },
       {
         name: `Favour: ${MARK_SLAANESH}`,
@@ -978,7 +989,7 @@ export const Units: TUnits = [
       {
         name: `Iron Resilience`,
         desc: `You can reroll save rolls for attacks that target this unit if this unit has not made a normal move in the same turn.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -1209,7 +1220,7 @@ export const Units: TUnits = [
       },
       {
         name: `All Shall Burn`,
-        desc: `Unmodified hits of 6 made with this unit's missle weapons score 2 hits instead of 1. Make a wound/save roll for each hit.`,
+        desc: `Unmodified hits of 6 made with this unit's missile weapons score 2 hits instead of 1. Make a wound/save roll for each hit.`,
         when: [SHOOTING_PHASE],
       },
     ],

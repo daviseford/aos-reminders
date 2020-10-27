@@ -5,6 +5,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
@@ -142,7 +143,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Sacred Stegadon Helm`,
         desc: `Add 1 to save rolls for attacks that target the bearer.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Sacred Stegadon Helm`,

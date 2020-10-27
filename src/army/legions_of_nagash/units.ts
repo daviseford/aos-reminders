@@ -13,6 +13,7 @@ import {
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
@@ -99,7 +100,7 @@ const CryptSwordEffect = {
 const CryptShieldsEffect = {
   name: `Crypt Shields`,
   desc: `Add 1 to save rolls for a unit carrying Crypt Shields against attacks that have a Rend characteristic of '-'.`,
-  when: [SHOOTING_PHASE, COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 
 // Units
@@ -811,7 +812,7 @@ export const Units: TUnits = [
       {
         name: `Vigour Necris`,
         desc: `Add 1 to save rolls for this unit if it is within 9" of any friendly CORPSE CARTS.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -845,7 +846,7 @@ export const Battalions: TBattalions = [
       {
         name: `Swirling Spirits`,
         desc: `In the shooting phase, add 1 to save rolls for units from the Lords of Sacrament whilst they are within 6" of the battalion's Mortis Engine.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

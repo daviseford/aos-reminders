@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_HERO_PHASE,
@@ -37,12 +38,12 @@ const SoporificBreathEffect = {
 const KindredShieldEffect = {
   name: `Kindred Shield`,
   desc: `Reroll failed save rolls for this model.`,
-  when: [SHOOTING_PHASE, COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 const LionCloakEffect = {
   name: `Lion Cloak`,
   desc: `You can reroll save rolls of 1 for this unit in the shooting phase.`,
-  when: [SHOOTING_PHASE],
+  when: [SAVES_PHASE],
 }
 
 export const LegacyWoodElvesUnits: TUnits = [

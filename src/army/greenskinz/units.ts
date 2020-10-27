@@ -6,6 +6,7 @@ import {
   END_OF_TURN,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -127,7 +128,7 @@ export const Units: TUnits = [
       {
         name: `Waaagh! Shield`,
         desc: `You can reroll save rolls for a unit with Waaagh! Shields in the combat phase.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Ready Boyz! Aim! Fire!`,
@@ -172,7 +173,7 @@ export const Units: TUnits = [
       {
         name: `Tusker Shield`,
         desc: `You can reroll save rolls for a unit with Tusker Shields in the combat phase.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

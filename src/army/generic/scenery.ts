@@ -7,6 +7,7 @@ import {
   DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
@@ -223,7 +224,7 @@ const PenumbralEffects: TEffects[] = [
   {
     name: `Orrery of Obfuscation`,
     desc: `Reroll save rolls of 1 for units wholly within 12" any Penumbral terrain features.`,
-    when: [DURING_GAME],
+    when: [SAVES_PHASE],
   },
   {
     name: `Orrery of Illumination`,

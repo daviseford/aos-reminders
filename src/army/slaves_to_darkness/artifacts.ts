@@ -146,7 +146,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Crown of Hellish Adoration (Despoilers)`,
-        desc: `Subtract 1 from wound rolls for attacks made with missle weapons targeting the bearer while they are within 3" of any friendly Despoilers units with at least 3 models.`,
+        desc: `Subtract 1 from wound rolls for attacks made with missile weapons targeting the bearer while they are within 3" of any friendly Despoilers units with at least 3 models.`,
         when: [SHOOTING_PHASE],
       },
     ],

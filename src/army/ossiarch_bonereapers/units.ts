@@ -10,6 +10,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -182,7 +183,7 @@ export const Units: TUnits = [
       {
         name: `Shieldwall`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly MORTEK GUARD unit that includes a Mortek Hekatos. You can reroll save rolls for attacks that target that unit until the end of that combat phase.`,
-        when: [START_OF_COMBAT_PHASE],
+        when: [START_OF_COMBAT_PHASE, SAVES_PHASE],
         command_ability: true,
       },
     ],

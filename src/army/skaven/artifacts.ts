@@ -2,12 +2,12 @@ import { TArtifacts } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_ROUND,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -224,7 +224,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Shield of Distraction (Verminus)`,
         desc: `Reroll save rolls of 1 for attacks that target the bearer.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Shield of Distraction (Verminus)`,
@@ -259,7 +259,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Rustcursed Armour (Verminus)`,
         desc: `Reroll save rolls of 1 for attacks that target the bearer.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Rustcursed Armour (Verminus)`,

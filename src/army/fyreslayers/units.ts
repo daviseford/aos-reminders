@@ -4,10 +4,11 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
+  DURING_ROUND,
   DURING_SETUP,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
@@ -138,6 +139,11 @@ export const Units: TUnits = [
         desc: `Once per battle, you can say this model has consumed a nugget of ur-gold. If you do so, add 1 to save rolls for attacks that target friendly FYRESLAYERS units wholly within 12" of this model until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
+      {
+        name: `Grand Ritual of Awakening`,
+        desc: `If active, add 1 to save rolls for attacks that target friendly FYRESLAYERS units wholly within 12" of this model until the start of your next hero phase.`,
+        when: [SAVES_PHASE],
+      },
       RunicEmpowermentEffect,
     ],
   },
@@ -203,6 +209,11 @@ export const Units: TUnits = [
         name: `Icon of Grimnir`,
         desc: `You can say that this model is raising its icon of Grimnir. If it does so, add 1 to save rolls for attacks that target friendly FYRESLAYERS units wholly within 12" of this model until the start of your next hero phase. However, if you do so, until the start of your next hero phase, friendly FYRESLAYERS units wholly within 12" of this model cannot retreat. A unit cannot benefit from this ability more than once per phase.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Icon of Grimnir`,
+        desc: `If active, add 1 to save rolls for attacks that target friendly FYRESLAYERS units wholly within 12" of this model until the start of your next hero phase.`,
+        when: [SAVES_PHASE],
       },
       {
         name: `None Shall Defile the Icon`,
@@ -290,7 +301,7 @@ export const Units: TUnits = [
       {
         name: `Bladed Slingshield`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit armed with Bladed Slingshields if the target unit did not make a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -373,8 +384,13 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Bulwark of Molten Stone`,
-        desc: `At the start of the enemy hero phase, you can pick 1 friendly unit wholly within 18" of any units of AURIC HEARTHGUARD from this battalion. If you do so add 1 to save rolls for that target until your next hero.`,
+        desc: `At the start of the enemy hero phase, you can pick 1 friendly unit wholly within 18" of any units of AURIC HEARTHGUARD from this battalion. If you do so add 1 to save rolls for that target until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Bulwark of Molten Stone`,
+        desc: `If active, add 1 to save rolls for that target until your next hero phase.`,
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -384,7 +400,7 @@ export const Battalions: TBattalions = [
       {
         name: `Strength in Tradition`,
         desc: `Once per battle round, a HERO from this battalion can use a command ability without spending a command point.`,
-        when: [DURING_GAME],
+        when: [DURING_ROUND],
       },
     ],
   },

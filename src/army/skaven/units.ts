@@ -9,6 +9,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
@@ -45,7 +46,7 @@ const GnashGnawOnTheirBonesEffect = {
 const ClanshieldEffect = {
   name: `Clanshields`,
   desc: `Add 1 to save rolls for attacks that target a unit that carries Clanshields while it has 10 or more models.`,
-  when: [COMBAT_PHASE, SHOOTING_PHASE],
+  when: [SAVES_PHASE],
 }
 const RegeneratingMonstrosityEffect = {
   name: `Regenerating Monstrosity`,
@@ -178,7 +179,7 @@ export const Units: TUnits = [
       {
         name: `Scry-orb`,
         desc: `You can reroll save rolls for attacks that target this model.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Scry-orb`,
@@ -369,7 +370,7 @@ export const Units: TUnits = [
       {
         name: `Pavise`,
         desc: `You can reroll hit rolls for attacks made with this unit's Warplock Jezzails if this unit has not made a move in the same turn. In addition, add 2 to save rolls for attacks made with missile weapons that target this unit.`,
-        when: [SHOOTING_PHASE],
+        when: [SHOOTING_PHASE, SAVES_PHASE],
       },
     ],
   },

@@ -2,9 +2,9 @@ import { TBattalions, TUnits } from 'types/army'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
@@ -92,7 +92,7 @@ export const Units: TUnits = [
       {
         name: `Locus of Fecundity`,
         desc: `You can reroll save rolls of 1 for attacks that target this unit while this unit is wholly within 14" of a friendly Nurgle Hero.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Rot-eaters`,

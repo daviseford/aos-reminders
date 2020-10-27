@@ -8,6 +8,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -95,7 +96,7 @@ export const Units: TUnits = [
       {
         name: `Beastshield`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Beastshields.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Anarchy and Mayhem`,
@@ -117,7 +118,7 @@ export const Units: TUnits = [
       {
         name: `Half-shields`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -227,7 +228,7 @@ export const Units: TUnits = [
       {
         name: `Bullshields`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Bullshields.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -239,7 +240,7 @@ export const Units: TUnits = [
       {
         name: `Beastbucklers`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Beastbucklers.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Charging Spear`,

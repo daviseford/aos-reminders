@@ -1,6 +1,6 @@
 import LegionsOfNagash from 'army/legions_of_nagash'
 import { TBattalions, TUnits } from 'types/army'
-import { HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { HERO_PHASE, SAVES_PHASE } from 'types/phases'
 import { filterBattalions } from 'utils/filterUtils'
 
 // Importing from LoN
@@ -25,7 +25,7 @@ export const Battalions: TBattalions = [
       {
         name: `Swirling Spirits`,
         desc: `In the shooting phase, add 1 to save rolls for units from the Lords of Sacrament whilst they are within 6" of the battalion's Mortis Engine.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

@@ -13,6 +13,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
@@ -621,7 +622,7 @@ export const Units: TUnits = [
       {
         name: `Cloak of Skulls`,
         desc: `You can reroll save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Decapitating Strike`,

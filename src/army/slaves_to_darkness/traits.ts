@@ -130,7 +130,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Lightning Reflexes (Despoilers)`,
-        desc: `Subtract 1 from hit rolls for attacks made with missle weapons targeting this general.`,
+        desc: `Subtract 1 from hit rolls for attacks made with missile weapons targeting this general.`,
         when: [SHOOTING_PHASE],
       },
     ],

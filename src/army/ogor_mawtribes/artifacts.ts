@@ -5,6 +5,7 @@ import {
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
@@ -214,7 +215,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Kattanak Browplate`,
         desc: `Add 1 to save rolls for attacks that target the bearer.`,
-        when: [SHOOTING_PHASE, DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Kattanak Browplate`,

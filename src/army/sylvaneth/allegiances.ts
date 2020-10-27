@@ -5,6 +5,7 @@ import {
   DURING_GAME,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
@@ -117,7 +118,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Mere Rainfall`,
         desc: `You can reroll save rolls for attacks made with missile weapons that target this general.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
         command_trait: true,
       },
       {

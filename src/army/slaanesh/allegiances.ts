@@ -42,7 +42,7 @@ const PretendersEffects = [
   },
   {
     name: `Heir to the Throne`,
-    desc: `You can reroll hit rolls of 1 for attacks made with melee and missle weapons by Pretenders Host units while they have 10 or more models.`,
+    desc: `You can reroll hit rolls of 1 for attacks made with melee and missile weapons by Pretenders Host units while they have 10 or more models.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
   {

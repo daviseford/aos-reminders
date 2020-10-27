@@ -1,5 +1,5 @@
 import { TSpells } from 'types/army'
-import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { CHARGE_PHASE, HERO_PHASE, MOVEMENT_PHASE, SAVES_PHASE } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
 // Realm Spells
@@ -25,7 +25,7 @@ const Spells: TSpells = [
       {
         name: `Metamorphic Warding (${CHAMON})`,
         desc: `If active, add 1 to save rolls for attacks that target the buffed unit.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -75,7 +75,7 @@ const Spells: TSpells = [
       {
         name: `Purity of Defence (${HYSH})`,
         desc: `If active, you can reroll save rolls of 1 for attacks that target the buffed unit.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

@@ -6,6 +6,7 @@ import {
   COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -43,7 +44,7 @@ const SpiritOfGorkamorkaEffect = {
 const BoneShieldEffect = {
   name: `Bone Shield`,
   desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit.`,
-  when: [COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 
 // Unit Names

@@ -1,5 +1,5 @@
 import { TSpells } from 'types/army'
-import { COMBAT_PHASE, DURING_GAME, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { COMBAT_PHASE, HERO_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 // Prayers
 const Spells: TSpells = [
@@ -41,7 +41,7 @@ const Spells: TSpells = [
       {
         name: `Morrda's Embrace`,
         desc: `If active, reroll save rolls of 1 for friendly units wholly within 12" of the priest.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
     prayer: true,

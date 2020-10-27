@@ -6,9 +6,13 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
+  TURN_FIVE_HERO_PHASE,
+  TURN_ONE_HERO_PHASE,
+  TURN_THREE_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
@@ -18,7 +22,7 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Twisters of Materiality`,
-        desc: `Improve the Rend characteristic of friendly Eternal Conflagration units' Warpflame, Billowing Warpflame, and Magical Flames missle weapons by 1.`,
+        desc: `Improve the Rend characteristic of friendly Eternal Conflagration units' Warpflame, Billowing Warpflame, and Magical Flames missile weapons by 1.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -29,7 +33,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Coruscating Flames`,
-        desc: `Subtract 1 from hit rolls for attacks made with missle weapons that target friendly Eternal Conflagration Daemon units wholly within 12" of this general.`,
+        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target friendly Eternal Conflagration Daemon units wholly within 12" of this general.`,
         when: [SHOOTING_PHASE],
         command_trait: true,
       },
@@ -64,7 +68,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Brand of the Split Daemon`,
         desc: `Add 1 to save rolls for attacks that target the bearer.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
         artifact: true,
       },
     ],
@@ -74,8 +78,8 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Thieves of All Things Arcane`,
-        desc: `Once per turn, in the first, third, and fifth battle rounds, when a friendly Host Arcanum Wizard attempts to unbind a spell, the spell is automatically unbound.(do not roll 2D6).`,
-        when: [HERO_PHASE],
+        desc: `Once per turn, in the first, third, and fifth battle rounds, when a friendly Host Arcanum Wizard attempts to unbind a spell, the spell is automatically unbound. (Do not roll 2D6).`,
+        when: [TURN_ONE_HERO_PHASE, TURN_THREE_HERO_PHASE, TURN_FIVE_HERO_PHASE],
       },
       {
         name: `Entourage of Sky-Sharks`,
@@ -237,7 +241,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Crown of Whispers`,
         desc: `Add 1 to save rolls for attacks that target the bearer.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
         artifact: true,
       },
     ],

@@ -27,7 +27,7 @@ const Abilities: TAbilities = [
     If you spend a Destiny Dice to replace a battleshock test, the result of that Destiny Dice is modified by the number of models slain from that unit as normal.
     
     Destiny Dice can be spent in place of the following rolls:
-    Casting, Unbinding, Dispelling, Run, Charge, Hit, Wound, Save, Damage characteristic of missles/melee weapons, Battleshock`,
+    Casting, Unbinding, Dispelling, Run, Charge, Hit, Wound, Save, Damage characteristic of missiles/melee weapons, Battleshock`,
     when: [DURING_GAME],
   },
   {

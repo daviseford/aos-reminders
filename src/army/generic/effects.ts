@@ -2,6 +2,7 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_MOVEMENT_PHASE,
   WOUND_ALLOCATION_PHASE,
@@ -69,18 +70,11 @@ const GenericEffects = {
       when: [COMBAT_PHASE, SHOOTING_PHASE],
     },
   ],
-  AelvenShield: [
-    {
-      name: `Aelven Shield`,
-      desc: `You can reroll save rolls of 1 for a unit with Aelven Shields.`,
-      when: [COMBAT_PHASE],
-    },
-    {
-      name: `Aelven Shield`,
-      desc: `You can reroll failed save rolls of 1 or 2 for this unit in the shooting phase.`,
-      when: [SHOOTING_PHASE],
-    },
-  ],
+  AelvenShield: {
+    name: `Aelven Shield`,
+    desc: `You can reroll save rolls of 1 for a unit with Aelven Shields. You can reroll failed save rolls of 1 or 2 for this unit in the shooting phase.`,
+    when: [SAVES_PHASE],
+  },
   Dragonfire: {
     name: `Dragonfire`,
     desc: `A Dragon can unleash a blast of Dragonfire in your shooting phase. When it does so, pick a visible unit within 12" and roll a dice; on a 1 or 2 that unit suffers a mortal wound, on a 3 or 4 that unit suffers D3 mortal wounds, and on a 5 or 6 that unit suffers D6 mortal wounds.`,

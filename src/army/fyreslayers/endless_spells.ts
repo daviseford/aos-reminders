@@ -2,11 +2,10 @@ import { TEndlessSpells } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
-  COMBAT_PHASE,
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SHOOTING_PHASE,
+  SAVES_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
@@ -53,7 +52,7 @@ const EndlessSpells: TEndlessSpells = [
       {
         name: `Awakened Runes`,
         desc: `Reroll save rolls of 1 for attacks that target FYRESLAYERS units wholly within 12" of this model.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Impervious to Heat`,

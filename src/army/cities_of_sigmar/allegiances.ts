@@ -8,6 +8,7 @@ import {
   END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
@@ -186,7 +187,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Alert and Forewarned`,
         desc: `Add 1 to save rolls for attacks that target friendly TEMPEST'S EYE units in the first battle round.`,
-        when: [TURN_ONE_DURING_ROUND],
+        when: [TURN_ONE_DURING_ROUND, SAVES_PHASE],
       },
       {
         name: `Outriders of the Realms`,

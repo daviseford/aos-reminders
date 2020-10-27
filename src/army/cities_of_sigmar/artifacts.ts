@@ -7,6 +7,7 @@ import {
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   TURN_ONE_START_OF_ROUND,
@@ -20,7 +21,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Armour of Mallus (Hammerhal)`,
         desc: `Add 1 to save rolls for attacks that target the bearer.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -91,7 +92,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Steam-piston Plate Mail (Greywater Fastness)`,
         desc: `Add 1 to save rolls for attacks that target the bearer.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Steam-piston Plate Mail (Greywater Fastness)`,
@@ -230,7 +231,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Seerstone Amulet (Tempest's Eye)`,
-        desc: `At the start of your hero phase, if the bearer is on the battlefield,roll a D6. On a 4+, you receive 1 extra command point.`,
+        desc: `At the start of your hero phase, if the bearer is on the battlefield, roll a D6. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

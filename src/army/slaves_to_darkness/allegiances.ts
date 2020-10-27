@@ -158,7 +158,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `The Third Circle`,
-        desc: `Subtract 1 from hit rolls by missle weapons targetting Third Circle units.`,
+        desc: `Subtract 1 from hit rolls by missile weapons targetting Third Circle units.`,
         when: [SHOOTING_PHASE],
       },
       {

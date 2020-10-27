@@ -1,9 +1,9 @@
 import { TTraits } from 'types/army'
 import {
   COMBAT_PHASE,
-  DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
@@ -55,7 +55,7 @@ const CommandTraits: TTraits = [
       {
         name: `Thickly Scaled Hide`,
         desc: `You can reroll save rolls of 1 for attacks that target this general.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -86,7 +86,7 @@ const CommandTraits: TTraits = [
       {
         name: `Nimble`,
         desc: `Add 1 to save rolls for attacks that target this general.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Nimble`,

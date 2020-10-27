@@ -11,6 +11,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
@@ -19,8 +20,6 @@ import {
   START_OF_ROUND,
   START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
-  TURN_ONE_DURING_TURN,
-  TURN_TWO_DURING_TURN,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { StabEmGoodEffect } from './traits'
@@ -47,7 +46,7 @@ const GrotBaseEffects = [
   {
     name: `Bad Moon Icon Bearers`,
     desc: `Add 1 to save rolls for attacks made with missile weapons that target a unit that includes any Bad Moon Icon Bearers.`,
-    when: [SHOOTING_PHASE],
+    when: [SAVES_PHASE],
   },
   {
     name: `Backstabbing Mob`,
@@ -75,20 +74,27 @@ const FanaticsBaseEffects = [
 const HallucinogenicFungusBrewsEffects = [
   {
     name: `Hallucinogenic Fungus Brews`,
-    desc: `Add 2 to save rolls for attacks that target this model.`,
-    when: [TURN_ONE_DURING_TURN],
+    desc: `During turn one, add 2 to save rolls for attacks that target this model.`,
+    when: [SAVES_PHASE],
   },
   {
     name: `Hallucinogenic Fungus Brews`,
-    desc: `Add 1 to save rolls for attacks that target this model.`,
-    when: [TURN_TWO_DURING_TURN],
+    desc: `During turn two, add 1 to save rolls for attacks that target this model.`,
+    when: [SAVES_PHASE],
   },
 ]
-const RedcapMushroomsEffect = {
-  name: `Redcap Mushrooms`,
-  desc: `Once per battle, in your hero phase, you can say that this model is eating a redcap mushroom. If you do so, you can reroll hit and wound rolls for this model's Moon-cutta or Moonclan Stabba until your next hero phase.`,
-  when: [HERO_PHASE],
-}
+const RedcapMushroomsEffect = [
+  {
+    name: `Redcap Mushrooms`,
+    desc: `Once per battle, in your hero phase, you can say that this model is eating a redcap mushroom. If you do so, you can reroll hit and wound rolls for this model's Moon-cutta or Moonclan Stabba until your next hero phase.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Redcap Mushrooms`,
+    desc: `If active, you can reroll hit and wound rolls for this model's Moon-cutta or Moonclan Stabba until your next hero phase.`,
+    when: [COMBAT_PHASE],
+  },
+]
 const WatchOutEffect = {
   name: `Watch Out!`,
   desc: `If a Mangler Squig is slain, before the model is removed from play roll a D6 for each unit within 6" of this model. On a 4+ that unit suffers D3 mortal wounds.`,
@@ -189,7 +195,7 @@ export const Units: TUnits = [
   {
     name: `Loonboss on Mangler Squigs`,
     effects: [
-      RedcapMushroomsEffect,
+      ...RedcapMushroomsEffect,
       WatchOutEffect,
       {
         name: `Bite Da Moon!`,
@@ -203,7 +209,7 @@ export const Units: TUnits = [
   {
     name: `Loonboss on Giant Cave Squig`,
     effects: [
-      RedcapMushroomsEffect,
+      ...RedcapMushroomsEffect,
       {
         name: `Let's Get Bouncing!`,
         desc: `You can use this command ability at the start of your movement phase. If you do so, pick 1 friendly model with this command ability. All friendly SQUIG units wholly within 12" of that model at the start of that phase can move an extra 3" if they make a move in that phase. A unit cannot benefit from this command ability more than once per movement phase.`,
@@ -281,7 +287,7 @@ export const Units: TUnits = [
       {
         name: `Moon Shields`,
         desc: `Add 1 to save rolls for attacks that target this unit while it has at least 10 models with Moon Shields.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -777,7 +783,7 @@ export const Battalions: TBattalions = [
       {
         name: `Power of the Spider God`,
         desc: `You can reroll save rolls of 1 for attacks that target a unit from a Spiderfang Stalk Tribe battalion while the target unit is wholly within 24" of a SPIDERFANG WIZARD from the same battalion.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },

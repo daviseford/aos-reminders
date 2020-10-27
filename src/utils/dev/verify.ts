@@ -79,7 +79,10 @@ const phaseMap = {
   'you allocate a wound': WOUND_ALLOCATION_PHASE,
   'you allocate a mortal wound': WOUND_ALLOCATION_PHASE,
 
-  'Reroll save rolls': SAVES_PHASE,
+  'Reroll save roll': SAVES_PHASE,
+  'reroll save roll': SAVES_PHASE,
+  'to save roll': SAVES_PHASE,
+  'Worsen the rend of': SAVES_PHASE,
 }
 
 // Effect names that are flagged by the script, but have been verified and should be ignored

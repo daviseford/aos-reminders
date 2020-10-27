@@ -11,6 +11,7 @@ import {
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
@@ -217,7 +218,7 @@ export const Units: TUnits = [
       {
         name: `Cloak of Constriction`,
         desc: `Add 1 to save rolls for attacks made with melee weapons by enemy HEROES that target this model.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Delicate Precision`,
@@ -262,8 +263,8 @@ export const Units: TUnits = [
       },
       {
         name: `Refine Senses`,
-        desc: `If active, and you can reroll save rolls for attacks made by Heroes that target the buffed unit.`,
-        when: [DURING_GAME],
+        desc: `If active, you can reroll save rolls for attacks made by Heroes that target the buffed unit.`,
+        when: [SAVES_PHASE],
       },
     ],
   },

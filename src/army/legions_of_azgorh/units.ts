@@ -7,6 +7,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
@@ -61,7 +62,7 @@ const SiegeArtilleryEffects = [
   {
     name: `Siege Artillery`,
     desc: `Add 1 to save rolls for attacks made with missile weapons that target this model.`,
-    when: [SHOOTING_PHASE],
+    when: [SAVES_PHASE],
   },
 ]
 

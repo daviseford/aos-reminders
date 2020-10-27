@@ -7,7 +7,7 @@ import {
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SHOOTING_PHASE,
+  SAVES_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
@@ -65,7 +65,7 @@ const Artifacts: TArtifacts = [
       {
         name: `The Crimson Plate`,
         desc: `You can reroll save rolls of 1 for attacks that target the bearer.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -265,7 +265,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Mark of the Bloodreaper`,
         desc: `You can reroll save rolls of 1 for attacks that target the bearer.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

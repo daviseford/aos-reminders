@@ -10,6 +10,7 @@ import {
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
@@ -129,7 +130,7 @@ const WardrummerEffect = {
 const StarbucklersEffect = {
   name: `Star-bucklers`,
   desc: `Add 1 to save rolls for attacks that target a unit armed with Star-bucklers.`,
-  when: [COMBAT_PHASE, SHOOTING_PHASE],
+  when: [SAVES_PHASE],
 }
 
 // Unit Names
@@ -250,8 +251,18 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Star-stone Staff`,
-        desc: `In your hero phase, you can pick 1 friendly SKINK unit wholly within 12" of this model and roll a D6, On a 3+, until your next hero phase, that unit can run and still shoot and/or charge in the same turn, and you can add 1 to save rolls for attacks that target that unit. A unit cannot benefit from this ability more than once per phase.`,
+        desc: `In your hero phase, you can pick 1 friendly SKINK unit wholly within 12" of this model and roll a D6. On a 3+, until your next hero phase, that unit can run and still shoot and/or charge in the same turn, and you can add 1 to save rolls for attacks that target that unit. A unit cannot benefit from this ability more than once per phase.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Star-stone Staff`,
+        desc: `If active, until your next hero phase, that unit can run and still shoot and/or charge in the same turn.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Star-stone Staff`,
+        desc: `If active, until your next hero phase, you can add 1 to save rolls for attacks that target that unit.`,
+        when: [SAVES_PHASE],
       },
       {
         name: `Herald of the Old Ones`,
@@ -397,7 +408,7 @@ export const Units: TUnits = [
       {
         name: `Perfect Mimicry`,
         desc: `The cover modifier adds 3 to save rolls for attacks that target this unit, instead of 1.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Star-venom`,

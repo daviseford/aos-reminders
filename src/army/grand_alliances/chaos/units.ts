@@ -8,6 +8,7 @@ import {
   DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
@@ -27,7 +28,7 @@ const MonstrousArcanumChaos: TUnits = [
       {
         name: `Siege Armour`,
         desc: `You can reroll save rolls for attacks made with ranged weapons that target this unit.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       ...GenericEffects.Gargant,
     ],

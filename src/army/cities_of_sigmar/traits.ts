@@ -6,6 +6,7 @@ import {
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -49,7 +50,12 @@ const CommandTraits: TTraits = [
       {
         name: `Ironoak Artisan (Living City)`,
         desc: `Add 1 to save rolls for attacks that target this general. In addition, add 1 to wound rolls for attacks made with melee weapons by this general.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Ironoak Artisan (Living City)`,
+        desc: `Add 1 to wound rolls for attacks made with melee weapons by this general.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -58,8 +64,13 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Forest Strider (Living City)`,
-        desc: `This general can run and still charge in the same turn. In addition, friendly units are not affected by the Deadly scenery rule if they start a move wholly within 12" of this general.`,
-        when: [DURING_GAME],
+        desc: `This general can run and still charge in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Forest Strider (Living City)`,
+        desc: `Friendly units are not affected by the Deadly scenery rule if they start a move wholly within 12" of this general.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
@@ -78,7 +89,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Seat on the Council (Greywater Fastness)`,
-        desc: `At the start of your hero phase, if this general is on the battlefield,roll a D6. On a 4+, you receive 1 extra command point.`,
+        desc: `At the start of your hero phase, if this general is on the battlefield, roll a D6. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

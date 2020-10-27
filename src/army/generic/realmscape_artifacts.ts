@@ -1,5 +1,5 @@
 import { TArtifacts } from 'types/army'
-import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
 const RealmArtifacts: TArtifacts = [
@@ -49,7 +49,7 @@ const RealmArtifacts: TArtifacts = [
       {
         name: `Gravesand Brooch (${SHYISH})`,
         desc: `You can reroll save rolls of 1 for attacks that target the bearer.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

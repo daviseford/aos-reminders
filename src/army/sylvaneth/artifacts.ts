@@ -5,6 +5,7 @@ import {
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -78,7 +79,7 @@ const Artifacts: TArtifacts = [
       {
         name: `The Oaken Armour`,
         desc: `You can reroll save rolls of 1 made for attacks that target the bearer.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

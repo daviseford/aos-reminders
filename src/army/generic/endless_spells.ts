@@ -8,6 +8,7 @@ import {
   END_OF_ROUND,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
@@ -266,7 +267,7 @@ export const BalewindVortexEffects = [
   {
     name: `Against the Aetheric Wind`,
     desc: `Add 1 to save rolls for a Wizard on a Balewind Vortex.`,
-    when: [COMBAT_PHASE, SHOOTING_PHASE],
+    when: [SAVES_PHASE],
   },
   {
     name: `Arcane Invigoration`,

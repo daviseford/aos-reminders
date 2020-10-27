@@ -2,11 +2,11 @@ import { TAllegiances } from 'types/army'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_COMBAT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   START_OF_COMBAT_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -103,7 +103,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Blotshell Bileplate`,
         desc: `You can reroll save rolls for attacks targeting the bearer.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
         artifact: true,
       },
     ],

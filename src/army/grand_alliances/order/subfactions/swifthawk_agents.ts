@@ -93,7 +93,7 @@ export const LegacySwifthawkAgentUnits: TUnits = [
   {
     name: `Skycutters`,
     effects: [
-      ...GenericEffects.AelvenShield,
+      GenericEffects.AelvenShield,
       {
         name: `Agents' Blades and Spears`,
         desc: `If a Skycutter is crewed by a trio of Agents, it makes 3 attacks with its Agents' Blades and Spears instead of 2.`,
@@ -157,7 +157,7 @@ export const LegacySwifthawkAgentUnits: TUnits = [
         desc: `Models in this unit may be Standard Bearers. If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 to their Bravery instead if the unit is within 8" of another Swifthawk Agents unit from your army that includes a Standard Bearer.`,
         when: [BATTLESHOCK_PHASE],
       },
-      ...GenericEffects.AelvenShield,
+      GenericEffects.AelvenShield,
       {
         name: `Strength of the Spireguard`,
         desc: `You can reroll hit rolls of 1 for a Spireguard if its unit has 20 or more models.`,

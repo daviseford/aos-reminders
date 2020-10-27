@@ -297,6 +297,11 @@ export const Units: TUnits = [
         when: [CHARGE_PHASE],
       },
       {
+        name: `Heroic Guard`,
+        desc: `If active, add 1 to save rolls for attacks that target this unit, but this unit does not receive the benefit of cover for the rest of the turn.`,
+        when: [SAVES_PHASE],
+      },
+      {
         name: `Lay Low the Tyrants`,
         desc: `Add 1 to hit rolls for attacks made by this unit that target an enemy unit with a Wounds characteristic of 5 or more.`,
         when: [COMBAT_PHASE],
@@ -427,7 +432,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Lord of the Azyrite Hurricane`,
-        desc: `Pick a friendly model with this command ability. Remove that model, and/or one friendly unit of VANGUARD-HUNTERS,VANGUARD-PALLADORS, VANGUARD-RAPTORS or AETHERWINGS wholly within 24" of that model, from the battlefield and set them up wholly within 6" of any edge of the battlefield, more than 7" from any enemy units.`,
+        desc: `Pick a friendly model with this command ability. Remove that model, and/or one friendly unit of VANGUARD-HUNTERS, VANGUARD-PALLADORS, VANGUARD-RAPTORS or AETHERWINGS wholly within 24" of that model, from the battlefield and set them up wholly within 6" of any edge of the battlefield, more than 7" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
         command_ability: true,
       },
@@ -549,6 +554,11 @@ export const Units: TUnits = [
         name: `Warding Lantern`,
         desc: `Pick either a STORMCAST ETERNAL unit or a CHAOS unit wholly within 18". The same unit cannot be the target of Warding Lantern more than once per hero phase. If a CHAOS unit is picked, it suffers 1 mortal wound. CHAOS DAEMON units suffer D3 mortal wounds instead. If a STORMCAST ETERNAL unit is picked, add 1 to save rolls for attacks that target that unit until your next hero phase. In addition, each time you make a save roll of 7 for an attack that targets that unit, you can heal 1 wound allocated to a model from that unit.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Warding Lantern`,
+        desc: `If active (and the target unit is STORMCAST ETERNAL), add 1 to save rolls for attacks that target that unit until your next hero phase. In addition, each time you make a save roll of 7 for an attack that targets that unit, you can heal 1 wound allocated to a model from that unit.`,
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -782,7 +792,7 @@ export const Units: TUnits = [
       {
         name: `Protector Discipline`,
         desc: `Add 1 to save rolls for attacks made with missile weapons that target this model.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `The Shadowstalker's Quarry`,
@@ -895,7 +905,7 @@ export const Units: TUnits = [
       {
         name: `Glaivewall`,
         desc: `Add 1 to save rolls for attacks made with missiles weapons that target this unit.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -1286,7 +1296,7 @@ export const Units: TUnits = [
       SpiritFlaskEffect,
       {
         name: `Shield of the Pale Knight`,
-        desc: `You can reroll save rolls of 1 for attacks made with missle weapons that target this model or any friendly ANVILS OF HELDENHAMMER units wholly within 12" of this model.`,
+        desc: `You can reroll save rolls of 1 for attacks made with missile weapons that target this model or any friendly ANVILS OF HELDENHAMMER units wholly within 12" of this model.`,
         when: [SAVES_PHASE],
       },
       {
@@ -1581,7 +1591,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Deadly Hail`,
-        desc: `You can reroll wound rolls of 1 for attacks made with missle weapons by units from this battalion if they are wholly within 12" of the LORD-ORDINATOR from this battalion.`,
+        desc: `You can reroll wound rolls of 1 for attacks made with missile weapons by units from this battalion if they are wholly within 12" of the LORD-ORDINATOR from this battalion.`,
         when: [SHOOTING_PHASE],
       },
     ],

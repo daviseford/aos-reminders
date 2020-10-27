@@ -1,5 +1,5 @@
 import { TSpells } from 'types/army'
-import { DURING_GAME, HERO_PHASE } from 'types/phases'
+import { HERO_PHASE, SAVES_PHASE } from 'types/phases'
 
 // Spells, Prayers, etc. go here
 const Spells: TSpells = [
@@ -24,8 +24,8 @@ const Spells: TSpells = [
       },
       {
         name: `Mystic Shield`,
-        desc: `Reroll save rolls of 1 for that unit until your next hero phase.`,
-        when: [DURING_GAME],
+        desc: `If active, reroll save rolls of 1 for the chosen unit until your next hero phase.`,
+        when: [SAVES_PHASE],
       },
     ],
   },

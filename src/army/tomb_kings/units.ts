@@ -6,6 +6,7 @@ import {
   DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -18,7 +19,6 @@ const getIconBearerEffect = (strength: `1` | `D3` | `D6`) => {
     when: [HERO_PHASE],
   }
 }
-
 const HornblowerEffect = {
   name: `Hornblower`,
   desc: `A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
@@ -36,6 +36,11 @@ const WarsphinxBaseEffects = [
     when: [WOUND_ALLOCATION_PHASE],
   },
 ]
+const TombShieldEffect = {
+  name: `Tomb Shield`,
+  desc: `This unit can create a shield fortress instead of running or charging in its turn. If it does so, add 1 to save rolls for the unit until its next movement phase.`,
+  when: [SAVES_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -257,11 +262,7 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if it has 20 or more models. If it has 30 or more models, add 2 instead.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Tomb Shield`,
-        desc: `A unit carrying Tomb Shields can create a shield fortress instead of running or charging in its turn. If it does so, add 1 to save rolls for the unit until its next movement phase.`,
-        when: [COMBAT_PHASE],
-      },
+      TombShieldEffect,
     ],
   },
   {
@@ -357,11 +358,7 @@ export const Units: TUnits = [
         desc: `If the wound roll for an attack made by a model from this unit is 6+, add 1 to the Damage characteristic of their Tomb Blade or Bronze Halberd for that attack.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Tomb Shield`,
-        desc: `This unit can create a shield fortress instead of running or charging in its turn. If it does so, add 1 to save rolls for the unit until its next movement phase.`,
-        when: [COMBAT_PHASE],
-      },
+      TombShieldEffect,
     ],
   },
   {
@@ -407,7 +404,7 @@ export const Units: TUnits = [
       {
         name: `Liche Priest's Sarcophagi`,
         desc: `Roll a D6 each time a model in this unit suffers a wound or a mortal wound caused by a spell. Add 1 to the roll if the model is within 18" of a friendly Necrotect. On a 5+ that wound or mortal wound is negated and has no effect.`,
-        when: [HERO_PHASE],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -417,12 +414,12 @@ export const Units: TUnits = [
       {
         name: `War-Statuary`,
         desc: `Add 2 to save rolls for this unit against attacks that have a Damage characteristic of 1.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `The Likeness of Ancient Gods`,
         desc: `Reroll save rolls of 1 for this unit while it is within 18" of a friendly Necrotect.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

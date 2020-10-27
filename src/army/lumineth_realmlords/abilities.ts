@@ -7,6 +7,7 @@ import {
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
@@ -21,7 +22,7 @@ const Abilities: TAbilities = [
   {
     name: `Aetherquartz Reserve - Heightened Reflexes`,
     desc: `Can be used when a unit is picked to be the target of an enemy attack. Add 1 to save rolls for attacks that target the unit until the end of the phase.`,
-    when: [WOUND_ALLOCATION_PHASE],
+    when: [SAVES_PHASE],
   },
   {
     name: `Aetherquartz Reserve - Heightened Senses`,

@@ -9,6 +9,7 @@ import {
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
@@ -236,7 +237,7 @@ export const Units: TUnits = [
       {
         name: `Crescent Shield`,
         desc: `At the start of the combat phase, say whether this model is using their shield for protection or to steady their weapon. If they use their shield for protection, you can reroll save rolls of 1 for attacks that target this model in that phase. If they use the shield to steady their weapon, you can reroll hit rolls of 1 for attacks made with this model's Revenant's Glaive in that phase.`,
-        when: [START_OF_COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Champion of Kurnoth`,
@@ -414,7 +415,7 @@ export const Units: TUnits = [
       {
         name: `Impenetrable Thicket`,
         desc: `Add 1 to save rolls for attacks that target this unit while it contains 10 or more models.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },

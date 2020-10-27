@@ -17,6 +17,7 @@ import {
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_GAME,
@@ -313,7 +314,7 @@ export const Units: TUnits = [
       {
         name: `Locus of Fecundity`,
         desc: `Reroll save rolls of 1 for this unit while it is within 7" of a Nurgle Daemon hero.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -614,13 +615,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Munificent Bounty`,
-        desc: `You can pick 1 friendly unit of Putrid Blightkings that is within 3" of this model. That unit can shoot in the shooting phase using the Munificent Bounty Death's Head missle weapon.`,
+        desc: `You can pick 1 friendly unit of Putrid Blightkings that is within 3" of this model. That unit can shoot in the shooting phase using the Munificent Bounty Death's Head missile weapon.`,
         when: [START_OF_SHOOTING_PHASE],
       },
       {
         name: `Vermid Shield`,
         desc: `Reroll save rolls of 1 for this model.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Plague of Flies`,

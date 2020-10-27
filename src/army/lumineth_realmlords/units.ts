@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
@@ -249,6 +250,11 @@ export const Battalions: TBattalions = [
         desc: `Any friendly STONEGUARD units from this battalion that are wholly within 12" of a friendly HERO from the same battalion can turn their skin to stone until the end of the phase. Reroll save rolls for attacks that target a unit that has turned its skin to stone. Models in the unit that has turned its skin to stone can only move 1" when they pile in.`,
         when: [START_OF_COMBAT_PHASE],
       },
+      {
+        name: `Skin to Stone`,
+        desc: `Reroll save rolls for attacks that target a unit that has turned its skin to stone.`,
+        when: [SAVES_PHASE],
+      },
     ],
   },
   {
@@ -257,7 +263,7 @@ export const Battalions: TBattalions = [
       {
         name: `Shield of Light`,
         desc: `You can reroll save rolls of 1 for attacks that target a friendly unit from this battalion whilst it is within 3" of any other friendly unit from the same battalion.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

@@ -10,6 +10,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -88,7 +89,7 @@ export const LegacyOrderUnits: TUnits = [
       {
         name: `Shield`,
         desc: `Reroll save rolls of 1 for a unit equipped with Shields.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Charging Lance`,
