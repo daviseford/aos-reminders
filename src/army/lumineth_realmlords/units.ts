@@ -11,7 +11,7 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import * as CommonUnitEffects from './commonUnitEffects'
+import CommonLuminethRealmlordsData from './common'
 
 export const Units: TUnits = [
   {
@@ -59,22 +59,22 @@ export const Units: TUnits = [
         desc: `Once per battle, you can pick 1 enemy unit within 3" of this unit's High Warden and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [START_OF_COMBAT_PHASE],
       },
-      CommonUnitEffects.getSunmetalWeaponsEffect(`Warden's Pike`),
+      CommonLuminethRealmlordsData.getSunmetalWeaponsEffect(`Warden's Pike`),
       {
         name: `Wall of Blades`,
         desc: `If the target unit made a charge move in the same turn, add 1 to wound rolls for attacks made with this unit's Warden's Pikes and improve the Rend characteristic of that weapon by 1.`,
         when: [COMBAT_PHASE],
       },
-      CommonUnitEffects.getVanariWizardsEffect(5),
-      CommonUnitEffects.PowerOfHyshEffect,
+      CommonLuminethRealmlordsData.getVanariWizardsEffect(5),
+      CommonLuminethRealmlordsData.PowerOfHyshEffect,
     ],
   },
   {
     name: `Vanari Auralan Sentinels`,
     effects: [
-      CommonUnitEffects.getVanariWizardsEffect(5),
-      CommonUnitEffects.getSunmetalWeaponsEffect(`Auralan Bow`),
-      CommonUnitEffects.PowerOfHyshEffect,
+      CommonLuminethRealmlordsData.getVanariWizardsEffect(5),
+      CommonLuminethRealmlordsData.getSunmetalWeaponsEffect(`Auralan Bow`),
+      CommonLuminethRealmlordsData.PowerOfHyshEffect,
       {
         name: `Scryhawk Lantern`,
         desc: `Pick one enemy unit within 30" of this unit's High Sentinel that is not visible to them. Choose the Lofted missile weapon characteristic for this unit's Auralan Bows in that phase, but that enemy unit is treated as being visible to all friendly models from that unit until the end of the phase.`,
@@ -100,10 +100,10 @@ export const Units: TUnits = [
         desc: `If this unit made a charge move in the same turn, add 1 to wound rolls for attacks made with this unit's Sunmetal Lances and improve the Rend characteristic of that weapon by 1.`,
         when: [COMBAT_PHASE],
       },
-      CommonUnitEffects.getSunmetalWeaponsEffect(`Sunmetal Lance`),
-      CommonUnitEffects.getVanariWizardsEffect(3),
-      CommonUnitEffects.PowerOfHyshEffect,
-      CommonUnitEffects.StandardBearerEffect,
+      CommonLuminethRealmlordsData.getSunmetalWeaponsEffect(`Sunmetal Lance`),
+      CommonLuminethRealmlordsData.getVanariWizardsEffect(3),
+      CommonLuminethRealmlordsData.PowerOfHyshEffect,
+      CommonLuminethRealmlordsData.StandardBearerEffect,
     ],
   },
   {
@@ -177,7 +177,7 @@ export const Units: TUnits = [
   {
     name: `Alarith Stoneguard`,
     effects: [
-      CommonUnitEffects.StandardBearerEffect,
+      CommonLuminethRealmlordsData.StandardBearerEffect,
       {
         name: `Crushing Blow`,
         desc: `Unmodified hit rolls of 6 with Stone Mallets add 1 to the damage inflicted if the attack is successful.`,
@@ -198,10 +198,14 @@ export const Units: TUnits = [
   {
     name: `Alarith Spirit of the Mountain`,
     effects: [
-      CommonUnitEffects.StonemageSymbiosisEffect,
-      CommonUnitEffects.AllButImmovableEffect,
-      CommonUnitEffects.alarithSpiritFreeCommandAbilityEffect(`Ponderous Advice`, 3),
-      CommonUnitEffects.alarithSpiritExtraAttackCommandAbilityEffect(`Faith of the Mountains`, `1`, 18),
+      CommonLuminethRealmlordsData.StonemageSymbiosisEffect,
+      CommonLuminethRealmlordsData.AllButImmovableEffect,
+      CommonLuminethRealmlordsData.alarithSpiritFreeCommandAbilityEffect(`Ponderous Advice`, 3),
+      CommonLuminethRealmlordsData.alarithSpiritExtraAttackCommandAbilityEffect(
+        `Faith of the Mountains`,
+        `1`,
+        18
+      ),
       {
         name: `Stoneheart Shockwave`,
         desc: `Pick 1 enemy unit within range of this ability that is visible to this model. Subtract 1 from to hit rolls until the end of that phase. A unit cannot be affected by this ability more than once per phase.`,
@@ -212,10 +216,10 @@ export const Units: TUnits = [
   {
     name: `Avalenor, the Stoneheart King`,
     effects: [
-      CommonUnitEffects.StonemageSymbiosisEffect,
-      CommonUnitEffects.AllButImmovableEffect,
-      CommonUnitEffects.alarithSpiritFreeCommandAbilityEffect(`Eldar Wisdom`, 6),
-      CommonUnitEffects.alarithSpiritExtraAttackCommandAbilityEffect(
+      CommonLuminethRealmlordsData.StonemageSymbiosisEffect,
+      CommonLuminethRealmlordsData.AllButImmovableEffect,
+      CommonLuminethRealmlordsData.alarithSpiritFreeCommandAbilityEffect(`Eldar Wisdom`, 6),
+      CommonLuminethRealmlordsData.alarithSpiritExtraAttackCommandAbilityEffect(
         `Unshakeable Faith of the Mountains`,
         `D3`,
         24
