@@ -19,7 +19,7 @@ const getRogueIdol = () => filterUnits(DestructionUnits, [`Rogue Idol`])[0]
 const MegabossEffects = [
   {
     name: `Rip-toof Fist`,
-    desc: `If the unmodified save roll for an attack that targets this model is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+    desc: `If the unmodified save roll for an attack made with a melee weapon that targets a model with a Riptoof-fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
     when: [COMBAT_PHASE],
   },
   {
@@ -208,7 +208,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Drawn to the Waaagh!`,
-        desc: `You can use this command ability if the Orruk Warchanter from this battalion is on the battlefield when a unit from this battalion is destroyed. If you do so, roll a D6. On a 4+, a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
+        desc: `You can use this command ability if the Orruk Warchanter from this battalion is on the battlefield when a unit from this battalion is destroyed. If you do so, roll a dice. On a 4+, a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
         when: [DURING_GAME],
         command_ability: true,
       },
