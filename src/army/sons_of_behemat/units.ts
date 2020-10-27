@@ -11,6 +11,11 @@ const CrushingChargeEffect = {
   desc: `After this model makes a charge move, roll a dice for each enemy unit within 1" of this model. On a 24, that unit suffers D3 mortal wounds if it is a MONSTER, or D6 mortal wounds if it is not a MONSTER.`,
   when: [CHARGE_PHASE],
 }
+const DeathGripEffect = {
+  name: `Death Grip`,
+  desc: `You can reroll hit rolls of 1 for Death Grip attacks that target a MONSTER-`,
+  when: [HERO_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
