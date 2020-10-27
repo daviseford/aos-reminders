@@ -6,9 +6,10 @@ import {
   END_OF_CHARGE_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 // This is where we store sub-allegiances such as
@@ -49,7 +50,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Unstoppable Juggernauts`,
         desc: `Reroll save rolls of 1 for attacks made with melee weapons that target PETRIFEX ELITE units.'`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
         allegiance_ability: true,
       },
       {
@@ -177,7 +178,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Wrathful Avenger`,
         desc: `If this general is slain, add 2 to the Immolation dice roll instead of 1, and if the roll is successful inflict D3 mortal wounds on the enemy unit instead of 1.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
         command_trait: true,
       },
       {

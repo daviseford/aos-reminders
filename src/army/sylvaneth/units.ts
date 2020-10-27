@@ -9,12 +9,13 @@ import {
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const MartialMemoriesEffects = [
@@ -236,7 +237,7 @@ export const Units: TUnits = [
       {
         name: `Crescent Shield`,
         desc: `At the start of the combat phase, say whether this model is using their shield for protection or to steady their weapon. If they use their shield for protection, you can reroll save rolls of 1 for attacks that target this model in that phase. If they use the shield to steady their weapon, you can reroll hit rolls of 1 for attacks made with this model's Revenant's Glaive in that phase.`,
-        when: [START_OF_COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Champion of Kurnoth`,
@@ -246,7 +247,7 @@ export const Units: TUnits = [
       {
         name: `Ultimate Sacrifice`,
         desc: `Once per battle, when you allocate a wound or mortal wound to this model, you can choose to negate it. If you do so, this model cannot fly or use its Zephyrspite's Tail Pincers attack for the rest of the battle.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Call to Battle`,
@@ -386,6 +387,11 @@ export const Units: TUnits = [
         when: [START_OF_CHARGE_PHASE],
       },
       {
+        name: `Tanglethorn Thicket`,
+        desc: `If active, you can reroll save rolls for attacks that target this unit.`,
+        when: [SAVES_PHASE],
+      },
+      {
         name: `Trample Underfoot`,
         desc: `At the end of the combat phase, you can pick 1 enemy unit within 1" of this unit and roll 1 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
@@ -414,7 +420,7 @@ export const Units: TUnits = [
       {
         name: `Impenetrable Thicket`,
         desc: `Add 1 to save rolls for attacks that target this unit while it contains 10 or more models.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },

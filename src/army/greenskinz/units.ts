@@ -6,8 +6,9 @@ import {
   END_OF_TURN,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const WarbossBaseEffects = [
@@ -19,7 +20,7 @@ const WarbossBaseEffects = [
   {
     name: `Boss Shield`,
     desc: `You can reroll all failed save rolls for a model with a Boss Shield.`,
-    when: [COMBAT_PHASE, SHOOTING_PHASE],
+    when: [SAVES_PHASE],
   },
   {
     name: `Waaagh!`,
@@ -90,7 +91,7 @@ export const Units: TUnits = [
       {
         name: `Trophy Pole`,
         desc: `Roll a D6 whenever this model suffers a wound or a mortal wound; on a 4+ it is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       WaaaghDrummersEffect,
       {
@@ -127,7 +128,7 @@ export const Units: TUnits = [
       {
         name: `Waaagh! Shield`,
         desc: `You can reroll save rolls for a unit with Waaagh! Shields in the combat phase.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Ready Boyz! Aim! Fire!`,
@@ -172,7 +173,7 @@ export const Units: TUnits = [
       {
         name: `Tusker Shield`,
         desc: `You can reroll save rolls for a unit with Tusker Shields in the combat phase.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

@@ -5,10 +5,11 @@ import {
   COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const getShadowdancerBaseEffects = (attacks: 1 | 2) => [
@@ -26,7 +27,7 @@ const getShadowdancerBaseEffects = (attacks: 1 | 2) => [
   {
     name: `Talismanic Tattoos`,
     desc: `Roll a D6 each time a wound or mortal is allocated to this unit. On a 6 the wound or mortal wound is negated.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
 ]
 const SoporificBreathEffect = {
@@ -37,12 +38,12 @@ const SoporificBreathEffect = {
 const KindredShieldEffect = {
   name: `Kindred Shield`,
   desc: `Reroll failed save rolls for this model.`,
-  when: [SHOOTING_PHASE, COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 const LionCloakEffect = {
   name: `Lion Cloak`,
   desc: `You can reroll save rolls of 1 for this unit in the shooting phase.`,
-  when: [SHOOTING_PHASE],
+  when: [SAVES_PHASE],
 }
 
 export const LegacyWoodElvesUnits: TUnits = [
@@ -237,7 +238,7 @@ export const LegacyWoodElvesUnits: TUnits = [
       {
         name: `To Their Dying Breath`,
         desc: `If this model is slain in the combat phase, before you remove it you can immediately make a pile in move and then attack with it.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Banner of the Forests`,

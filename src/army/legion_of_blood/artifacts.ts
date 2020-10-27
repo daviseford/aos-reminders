@@ -1,5 +1,5 @@
 import { TArtifacts } from 'types/army'
-import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
+import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE, SAVES_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
 const Artifacts: TArtifacts = [
   {
@@ -38,7 +38,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Soulbound Garments`,
         desc: `Reroll save rolls of 1 for the bearer.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

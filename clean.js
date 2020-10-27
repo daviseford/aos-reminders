@@ -15,27 +15,29 @@ const replaceOptions = {
     /[,] {2,5}/g, // Replace extra spaces after punctuation
     /(?<=[name|desc|tag]: )` +(?=.+`)/g, // Remove leading whitespaces
     /(?<!:)(?<=[name|desc|tag]: `.+) +`/g, // Remove trailing whitespaces
+    /(?<!:)(?<=desc: `.+\w)[,(/#!$^&;=\-_~]`/g, // Replace trailing punctuation with periods in descriptions
     /(?<!:)(?<=desc: `.+\w)`/g, // Add a period to descriptions
     /(?<=[desc]: `)[\w' ]+ has a casting value of+(?=.+`)/g, // Shorten casting descriptions
     /R[eE] ?- ?[rR][oO][lL]{2}/g, // Handle "Re - roll" -> "Reroll"
     /r[eE] ?- ?[rR][oO][lL]{2}/g, // Handle "re-roll" -> "reroll"
   ],
   to: [
-    `'`,
-    `"`,
-    '-',
-    ' ',
-    '1/2',
-    '',
-    '. ',
-    ': ',
-    ', ',
-    '`',
-    '`',
-    '.`',
-    `Casting value of`,
-    `Reroll`,
-    `reroll`,
+    `'`, // Replace special apostrophes
+    `"`, // Replace special quotes
+    '-', // Replace special dashes
+    ' ', // Remove non ASCII-spaces
+    '1/2', // Remove 1/2 character
+    '', // Remove all other non-ASCII characters
+    '. ', // Replace extra spaces after punctuation
+    ': ', // Replace extra spaces after punctuation
+    ', ', // Replace extra spaces after punctuation
+    '`', // Remove leading whitespaces
+    '`', // Remove leading whitespaces
+    '.`', // Replace trailing punctuation with periods in descriptions
+    '.`', // Add a period to descriptions
+    `Casting value of`, // Shorten casting descriptions
+    `Reroll`, // Handle "Re - roll" -> "Reroll"
+    `reroll`, // Handle "re-roll" -> "reroll"
   ],
 }
 

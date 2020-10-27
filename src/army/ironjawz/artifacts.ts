@@ -5,7 +5,7 @@ import {
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -35,7 +35,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Daubing of Mork`,
         desc: `Roll a D6 each time a wound or mortal wound is allocated to the bearer. On a 6+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

@@ -5,10 +5,11 @@ import {
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -78,7 +79,7 @@ const Artifacts: TArtifacts = [
       {
         name: `The Oaken Armour`,
         desc: `You can reroll save rolls of 1 made for attacks that target the bearer.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -98,7 +99,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Glamourweave`,
         desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -138,7 +139,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Seed of Rebirth`,
         desc: `The first time the bearer is slain, before removing them from the battlefield, roll a D6. On a 1, the bearer is slain. On a 2+ the bearer is not slain, you can heal up to D3 wounds allocated to them, and any wounds that remain to be allocated to them are negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

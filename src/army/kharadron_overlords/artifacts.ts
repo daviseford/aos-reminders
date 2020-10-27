@@ -11,7 +11,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 export const GreatEndrinworks: TArtifacts = [
@@ -51,7 +51,7 @@ export const GreatEndrinworks: TArtifacts = [
       {
         name: `Prudency Chutes (Great Endrinwork)`,
         desc: `If this model is destroyed, you do not have to roll to see if models in its garrison are slain (they all survive).`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -124,7 +124,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Masterwrought Armour`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 6, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -214,7 +214,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Cogmonculus`,
         desc: `Once per phase, you can reroll 1 hit or wound roll for an attack made by the bearer, or reroll 1 save roll for an attack that targets the bearer. You cannot use this ability to reroll more than 1 dice per phase.`,
-        when: [DURING_GAME],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -233,7 +233,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Seismic Shock-gauntlets`,
-        desc: `After the bearer makes a charge move, you can pick 1 enemy unit within l" of the bearer and roll a D6, On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `After the bearer makes a charge move, you can pick 1 enemy unit within 1" of the bearer and roll a D6, On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],

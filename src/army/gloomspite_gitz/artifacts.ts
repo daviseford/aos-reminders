@@ -5,10 +5,11 @@ import {
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -38,7 +39,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Loonstone Talisman`,
         desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -68,7 +69,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Leering Gitshield`,
         desc: `If the unmodified save roll for an attack made with a melee weapon that targets the bearer is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -89,6 +90,11 @@ const Artifacts: TArtifacts = [
         name: `Moonface Mommet`,
         desc: `At the start of the combat phase, pick 1 enemy unit within 12" of the bearer. Subtract 1 from save rolls for attacks that target that unit until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Moonface Mommet`,
+        desc: `If active, subtract 1 from save rolls for attacks that target that unit until the end of the phase.`,
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -178,7 +184,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Glowy Howzit`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 4+ that wound is negated. On a 1, the bearer eats the Glowy Howzit and it cannot be used again for the rest of the battle.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

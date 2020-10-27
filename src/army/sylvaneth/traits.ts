@@ -5,6 +5,7 @@ import {
   DURING_GAME,
   END_OF_HERO_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
 
@@ -25,7 +26,7 @@ const CommandTraits: TTraits = [
       {
         name: `Gnarled Warrior`,
         desc: `You can reroll save rolls of 1 for attacks that target this general.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },

@@ -14,7 +14,7 @@ import {
   START_OF_SETUP,
   TURN_FOUR_START_OF_TURN,
   TURN_ONE_MOVEMENT_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 // These are sub-allegiances
@@ -131,7 +131,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Godbeast Pendant`,
         desc: `The first time the bearer is slain, before removing them from the battlefield, roll a D6. On a 1-3, the bearer is slain. On a 4-6, the bearer is not slain, all wounds allocated to them are healed, and any wounds that currently remain to be allocated to them are negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
         artifact: true,
       },
     ],
@@ -198,7 +198,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Mighty Beasts of War`,
         desc: `Add 2 to the Wounds characteristic of THUNDER LIZARD MONSTERS.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Trove of Old One Technology`,

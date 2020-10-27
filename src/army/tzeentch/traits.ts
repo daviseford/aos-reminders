@@ -3,6 +3,7 @@ import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
@@ -95,7 +96,7 @@ const CommandTraits: TTraits = [
       {
         name: `Aether Tether`,
         desc: `Add 1 to save rolls for attacks that target this general.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

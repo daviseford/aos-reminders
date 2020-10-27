@@ -1,3 +1,4 @@
+import GenericEffects from 'army/generic/effects'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -9,6 +10,7 @@ import {
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
@@ -16,13 +18,13 @@ import {
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
   TURN_FOUR_START_OF_TURN,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const SelflessProtectorEffect = {
   name: `Selfless Protector`,
   desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly SLANN while it is within 3" of any friendly units with this ability, On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that SLANN, instead of to that SLANN.`,
-  when: [WOUND_ALLOCATION],
+  when: [WOUND_ALLOCATION_PHASE],
 }
 const VoraciousAppetiteEffect = {
   name: `Voracious Appetite`,
@@ -46,11 +48,6 @@ const WrathOfTheSeraphonEffect = {
   when: [COMBAT_PHASE],
   command_ability: true,
 }
-const TerrorEffect = {
-  name: `Terror`,
-  desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any friendly units with this ability.`,
-  when: [BATTLESHOCK_PHASE],
-}
 const UnstoppableStampedeEffect = {
   name: `Unstoppable Stampede`,
   desc: `Roll 1 dice for each enemy unit that is within 1" of this model when this model finishes a charge move. On a 3+, that enemy unit suffers D3 mortal wounds.`,
@@ -66,11 +63,18 @@ const ColdFerocityEffect = {
   desc: `If the unmodified hit roll for an attack made with a Celestite weapon by this model is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
   when: [COMBAT_PHASE],
 }
-const ArmouredCrestEffect = {
-  name: `Armoured Crest`,
-  desc: `At the start of the combat phase, you can pick 1 enemy unit within 3" of this model and that has up to 5 models. If you do so, until the end of that phase, add 1 to save rolls for attacks made by that unit that target this model.`,
-  when: [START_OF_COMBAT_PHASE],
-}
+const ArmouredCrestEffects = [
+  {
+    name: `Armoured Crest`,
+    desc: `At the start of the combat phase, you can pick 1 enemy unit within 3" of this model and that has up to 5 models. If you do so, until the end of that phase, add 1 to save rolls for attacks made by that unit that target this model.`,
+    when: [START_OF_COMBAT_PHASE],
+  },
+  {
+    name: `Armoured Crest`,
+    desc: `If active, until the end of the combat phase, add 1 to save rolls for attacks made by that unit that target this model.`,
+    when: [SAVES_PHASE],
+  },
+]
 const SkinkChiefEffect = {
   name: `Skink Chief`,
   desc: `This model can include 1 Skink Chief armed with a Meteoric Warspear. If it does, this model has the HERO keyword but any command traits or artefacts of power this model has only affect attacks made by the Skink Chief.`,
@@ -87,7 +91,7 @@ const CarnosaurBaseEffects = [
     desc: `If any enemy models are slain by wounds inflicted by this model's attacks, for the rest of the battle this model can run and still charge in the same turn.`,
     when: [DURING_GAME],
   },
-  TerrorEffect,
+  GenericEffects.Terror,
 ]
 const CometsCallEffect = {
   name: `Comet's Call`,
@@ -119,7 +123,7 @@ const GoutOfSunfireEffect = {
   desc: `Do not use the attack sequence for an attack made with Sunfire Throwers. Instead, roll a number of dice equal to the number of models from the target unit within 8" of the attacking model. For each 5+, the target unit suffers 1 mortal wound.`,
   when: [SHOOTING_PHASE],
 }
-const StegadonBaseEffects = [ArmouredCrestEffect, SteadfastMajestyEffect, UnstoppableStampedeEffect]
+const StegadonBaseEffects = [...ArmouredCrestEffects, SteadfastMajestyEffect, UnstoppableStampedeEffect]
 const StardrakeIconEffect = {
   name: `Stardrake Icon`,
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly Stardrake Icon Bearers.`,
@@ -133,7 +137,7 @@ const WardrummerEffect = {
 const StarbucklersEffect = {
   name: `Star-bucklers`,
   desc: `Add 1 to save rolls for attacks that target a unit armed with Star-bucklers.`,
-  when: [COMBAT_PHASE, SHOOTING_PHASE],
+  when: [SAVES_PHASE],
 }
 
 // Unit Names
@@ -150,7 +154,7 @@ export const Units: TUnits = [
       {
         name: `Dead for Innumerable Ages`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Impeccable Foresight`,
@@ -245,7 +249,7 @@ export const Units: TUnits = [
       {
         name: `Revivifying Energies`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly SERAPHON unit wholly within 12" of any models with this ability. On a 6, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -254,8 +258,18 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Star-stone Staff`,
-        desc: `In your hero phase, you can pick 1 friendly SKINK unit wholly within 12" of this model and roll a D6, On a 3+, until your next hero phase, that unit can run and still shoot and/or charge in the same turn, and you can add 1 to save rolls for attacks that target that unit. A unit cannot benefit from this ability more than once per phase.`,
+        desc: `In your hero phase, you can pick 1 friendly SKINK unit wholly within 12" of this model and roll a D6. On a 3+, until your next hero phase, that unit can run and still shoot and/or charge in the same turn, and you can add 1 to save rolls for attacks that target that unit. A unit cannot benefit from this ability more than once per phase.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Star-stone Staff`,
+        desc: `If active, until your next hero phase, that unit can run and still shoot and/or charge in the same turn.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Star-stone Staff`,
+        desc: `If active, until your next hero phase, you can add 1 to save rolls for attacks that target that unit.`,
+        when: [SAVES_PHASE],
       },
       {
         name: `Herald of the Old Ones`,
@@ -329,7 +343,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Ordered Cohort`,
-        desc: `Add 1 to the Attacks characteristic of this unit's Celestite Clubs or Celestite Spears while this unit has 15 or more models,`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Celestite Clubs or Celestite Spears while this unit has 15 or more models.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -377,7 +391,7 @@ export const Units: TUnits = [
       },
       {
         name: `Swarming Cohort`,
-        desc: `Add 1 to the Attacks characteristic of weapons used by this unit while it has 15 or more models,`,
+        desc: `Add 1 to the Attacks characteristic of weapons used by this unit while it has 15 or more models.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       StarbucklersEffect,
@@ -401,7 +415,7 @@ export const Units: TUnits = [
       {
         name: `Perfect Mimicry`,
         desc: `The cover modifier adds 3 to save rolls for attacks that target this unit, instead of 1.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Star-venom`,
@@ -458,7 +472,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Ripperdactyl Rider Alpha`,
-        desc: `1 model in this unit can be a Ripperdactyl Rider Alpha. Add 1 to the Attacks characteristic of that model's Moonstone Warspear,`,
+        desc: `1 model in this unit can be a Ripperdactyl Rider Alpha. Add 1 to the Attacks characteristic of that model's Moonstone Warspear.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -511,7 +525,7 @@ export const Units: TUnits = [
       },
       {
         name: `Jaws Like a Steel Trap`,
-        desc: `If the unmodified hit roll for an attack made with Vice-like Jaws is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage,`,
+        desc: `If the unmodified hit roll for an attack made with Vice-like Jaws is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -573,7 +587,7 @@ export const Units: TUnits = [
         desc: `If any wounds inflicted by this model's Noxious Spittle are allocated to an enemy model and not negated, until the end of the turn, you can reroll charge rolls for this model.`,
         when: [SHOOTING_PHASE, CHARGE_PHASE],
       },
-      TerrorEffect,
+      GenericEffects.Terror,
     ],
   },
   {
@@ -592,7 +606,7 @@ export const Units: TUnits = [
       {
         name: `Death Throes`,
         desc: `If this model is slain, before removing it from the battlefield, roll a D6 for each enemy unit within 3" of it that is not a Monster. On a 4+, that unit suffers D3 mortal wounds.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Roar of Ruin`,
@@ -601,7 +615,7 @@ export const Units: TUnits = [
         Designer's Note: If a unit is affected by both the Roar of Ruin and Terror abilities, its Bravery characteristic is first halved (rounding up), and then 1 is subtracted from it.`,
         when: [START_OF_BATTLESHOCK_PHASE],
       },
-      TerrorEffect,
+      GenericEffects.Terror,
     ],
   },
 ]

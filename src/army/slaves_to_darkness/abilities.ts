@@ -4,12 +4,13 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   DURING_SETUP,
   END_OF_COMBAT_PHASE,
+  HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -21,15 +22,18 @@ const Abilities: TAbilities = [
   },
   {
     name: `Aura of ${MARK_KHORNE}`,
-    desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by friendly Slaves to Darkness Khorne units wholly within 12" of this model.
-           If this model is a general, additionally add 1 to the wound rolls of those units.`,
+    desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by friendly Slaves to Darkness Khorne units wholly within 12" of this model. If this model is a general, additionally add 1 to the wound rolls of those units.`,
     when: [COMBAT_PHASE],
   },
   {
     name: `Aura of ${MARK_TZEENTCH}`,
-    desc: `You can reroll save rolls of 1 for attacks that target friendly Slaves to Darkness Tzeentch units wholly within 12" of this model.
-           If this model is a general, additionally each time a friendly Slaves to Darkness Tzeentch unit in range of this aura is affected by a spell or endless spell, you can roll a D6. On a 5+ it has no effect on the unit.`,
-    when: [DURING_GAME],
+    desc: `You can reroll save rolls of 1 for attacks that target friendly Slaves to Darkness Tzeentch units wholly within 12" of this model.`,
+    when: [SAVES_PHASE],
+  },
+  {
+    name: `Aura of ${MARK_TZEENTCH}`,
+    desc: `If this model is a general, additionally each time a friendly Slaves to Darkness Tzeentch unit in range of this aura is affected by a spell or endless spell, you can roll a D6. On a 5+ it has no effect on the unit.`,
+    when: [HERO_PHASE],
   },
   {
     name: `Aura of ${MARK_NURGLE}`,
@@ -38,7 +42,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Aura of ${MARK_NURGLE}`,
-    desc: `If this model is a general, subtract 1 from missle attacks made against friendly Slaves to Darkness Nurgle units wholly within 12" of this model.`,
+    desc: `If this model is a general, subtract 1 from missile attacks made against friendly Slaves to Darkness Nurgle units wholly within 12" of this model.`,
     when: [SHOOTING_PHASE],
   },
   {
@@ -59,7 +63,7 @@ const Abilities: TAbilities = [
   {
     name: `Aura of ${MARK_UNDIVIDED}`,
     desc: `If this model is a general, roll a D6 each time a friendly Slaves to Darkness Undivided unit wholly within 12" of this model allocates a wound or mortal wound. On a 6 it is negated.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Eye of the Gods`,
@@ -94,12 +98,12 @@ const Abilities: TAbilities = [
   {
     name: `Eye of the Gods: Iron Flesh`,
     desc: `Add 1 to save rolls for attacks targeting this hero.`,
-    when: [DURING_GAME],
+    when: [SAVES_PHASE],
   },
   {
     name: `Eye of the Gods: Flames of Chaos`,
     desc: `Each time this hero is affected by a spell or endless spell you can roll a D6. On a 4+ ignore the effects on this hero.`,
-    when: [DURING_GAME],
+    when: [HERO_PHASE],
   },
   {
     name: `Eye of the Gods: Snubbed by the Gods`,
@@ -109,7 +113,7 @@ const Abilities: TAbilities = [
   {
     name: `Eye of the Gods: Unholy Resilience`,
     desc: `Roll a D6 each time you allocate a wound or mortal wound to this hero. On a 5+ it is negated.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Eye of the Gods: Daemonic Legions`,

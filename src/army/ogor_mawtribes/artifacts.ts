@@ -5,11 +5,12 @@ import {
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
   TURN_ONE_START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -54,7 +55,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Flask of Stonehorn Blood`,
         desc: `If active, roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 4+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -94,7 +95,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Shrunken Priest Head`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 5+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -176,6 +177,16 @@ const Artifacts: TArtifacts = [
         desc: `Once per battle, at the start of your hero phase, the bearer can use this artefact. If they do so, until the start of your next hero phase, you can reroll hit and wound rolls for attacks made by the bearer and reroll save rolls for attacks that target the bearer.`,
         when: [START_OF_HERO_PHASE],
       },
+      {
+        name: `Alvagr Rune-tokens`,
+        desc: `If active, you can reroll hit and wound rolls for attacks made by the bearer.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Alvagr Rune-tokens`,
+        desc: `If active, you can reroll save rolls for attacks that target the bearer.`,
+        when: [SAVES_PHASE],
+      },
     ],
   },
   {
@@ -214,7 +225,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Kattanak Browplate`,
         desc: `Add 1 to save rolls for attacks that target the bearer.`,
-        when: [SHOOTING_PHASE, DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Kattanak Browplate`,

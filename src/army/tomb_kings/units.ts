@@ -6,8 +6,9 @@ import {
   DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const getIconBearerEffect = (strength: `1` | `D3` | `D6`) => {
@@ -18,7 +19,6 @@ const getIconBearerEffect = (strength: `1` | `D3` | `D6`) => {
     when: [HERO_PHASE],
   }
 }
-
 const HornblowerEffect = {
   name: `Hornblower`,
   desc: `A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
@@ -33,9 +33,14 @@ const WarsphinxBaseEffects = [
   {
     name: `Sacred War Statue`,
     desc: `Halve the Damage characteristic (rounding up) of weapons that target this model. In addition, halve the number of mortal wounds this model suffers from spells and abilities (rounding up).`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
 ]
+const TombShieldEffect = {
+  name: `Tomb Shield`,
+  desc: `This unit can create a shield fortress instead of running or charging in its turn. If it does so, add 1 to save rolls for the unit until its next movement phase.`,
+  when: [SAVES_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -65,7 +70,7 @@ export const Units: TUnits = [
       {
         name: `Ancient Curse`,
         desc: `If this model is slain, the unit that inflicted the final wound upon him suffers D6 mortal wounds after all of its attacks have been made.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
         command_ability: true,
       },
       {
@@ -82,7 +87,7 @@ export const Units: TUnits = [
       {
         name: `The Tomb Queen's Curse`,
         desc: `If this model is slain, the unit that inflicted the final wound upon it suffers D3 mortal wounds after all of its attacks have been made.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Supernatural Speed`,
@@ -104,7 +109,7 @@ export const Units: TUnits = [
       {
         name: `The Tomb King's Curse`,
         desc: `If a Tomb King is slain, the unit that inflicted the final wound upon him suffers D3 mortal wounds after all of its attacks have been made.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Royal Tomb Shield`,
@@ -126,7 +131,7 @@ export const Units: TUnits = [
       {
         name: `The Tomb King's Curse`,
         desc: `If a Tomb King in Royal Chariot is slain, the unit that inflicted the final wound upon him suffers D3 mortal wounds after all of its attacks have been made.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Royal Chariot`,
@@ -152,7 +157,7 @@ export const Units: TUnits = [
       {
         name: `Scarab Prince`,
         desc: `If this model is slain, before it is removed it can immediately make a Tide of Scuttling Scarabs attack as if it were the shooting phase.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Desert Revenant`,
@@ -172,7 +177,7 @@ export const Units: TUnits = [
       {
         name: `Sworn Bodyguard`,
         desc: `If a friendly Embalmed model from your army is allocated a wound or mortal wound while within 3" of this model, the Tomb Herald can leap in front of the attack. Roll a D6 for each wound or mortal wound. On a 2+ that wound or mortal wound is allocated to the Tomb Herald instead.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Standard of the Undying Legion`,
@@ -223,7 +228,7 @@ export const Units: TUnits = [
       {
         name: `Casket`,
         desc: `You can add 1 to all save rolls for this model in the shooting phase.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Keeper's Scrolls`,
@@ -257,11 +262,7 @@ export const Units: TUnits = [
         desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if it has 20 or more models. If it has 30 or more models, add 2 instead.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Tomb Shield`,
-        desc: `A unit carrying Tomb Shields can create a shield fortress instead of running or charging in its turn. If it does so, add 1 to save rolls for the unit until its next movement phase.`,
-        when: [COMBAT_PHASE],
-      },
+      TombShieldEffect,
     ],
   },
   {
@@ -299,7 +300,7 @@ export const Units: TUnits = [
       {
         name: `Horsemen's Shield`,
         desc: `Add 1 to the save rolls for this unit in the combat phase.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `First to Face the Foe`,
@@ -357,11 +358,7 @@ export const Units: TUnits = [
         desc: `If the wound roll for an attack made by a model from this unit is 6+, add 1 to the Damage characteristic of their Tomb Blade or Bronze Halberd for that attack.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Tomb Shield`,
-        desc: `This unit can create a shield fortress instead of running or charging in its turn. If it does so, add 1 to save rolls for the unit until its next movement phase.`,
-        when: [COMBAT_PHASE],
-      },
+      TombShieldEffect,
     ],
   },
   {
@@ -392,7 +389,7 @@ export const Units: TUnits = [
       {
         name: `Necropolis Shield`,
         desc: `Add 1 to the save rolls for a unit of Necropolis Knights with Necropolis shields in the combat phase.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -407,7 +404,7 @@ export const Units: TUnits = [
       {
         name: `Liche Priest's Sarcophagi`,
         desc: `Roll a D6 each time a model in this unit suffers a wound or a mortal wound caused by a spell. Add 1 to the roll if the model is within 18" of a friendly Necrotect. On a 5+ that wound or mortal wound is negated and has no effect.`,
-        when: [HERO_PHASE],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -417,12 +414,12 @@ export const Units: TUnits = [
       {
         name: `War-Statuary`,
         desc: `Add 2 to save rolls for this unit against attacks that have a Damage characteristic of 1.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `The Likeness of Ancient Gods`,
         desc: `Reroll save rolls of 1 for this unit while it is within 18" of a friendly Necrotect.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -437,7 +434,7 @@ export const Units: TUnits = [
       {
         name: `The Tomb King's Curse`,
         desc: `If a Royal Warsphinx is slain, the unit that inflicted the final wound upon it suffers D3 mortal wounds after all of its attacks have been made.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Who Dares Disturb My Slumber?`,

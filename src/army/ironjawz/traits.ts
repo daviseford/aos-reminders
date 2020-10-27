@@ -6,7 +6,7 @@ import {
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SHOOTING_PHASE,
+  SAVES_PHASE,
   START_OF_COMBAT_PHASE,
   TURN_ONE_HERO_PHASE,
 } from 'types/phases'
@@ -68,7 +68,7 @@ const CommandTraits: TTraits = [
       {
         name: `Ironclad`,
         desc: `Add 1 to the save rolls for this general.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

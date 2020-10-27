@@ -6,6 +6,7 @@ import {
   DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
@@ -66,8 +67,8 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Defenders of the Realm (Delusion)`,
-        desc: `You can reroll save rolls of 1 for friendly FLESH- EATER COURTS units that have at least half their models wholly within their own territory.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        desc: `You can reroll save rolls of 1 for friendly FLESH-EATER COURTS units that have at least half their models wholly within their own territory.`,
+        when: [SAVES_PHASE],
       },
     ],
   },

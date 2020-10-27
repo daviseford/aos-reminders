@@ -20,6 +20,7 @@ import {
   SERAPHON,
   SKAVEN,
   SLAANESH,
+  SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
@@ -34,6 +35,48 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should correctly read SoB3', () => {
+    const pdfText = getFile('SoB3')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read SoB2', () => {
+    const pdfText = getFile('SoB2')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
+    expect(res.selections.allegiances).toEqual(['Breaker Tribe'])
+    expect(res.selections.traits).toEqual([
+      "Shiny 'Uns (Fierce Loathing)",
+      'Extremely Bitter (Breaker Tribe)',
+    ])
+    expect(res.selections.artifacts).toEqual([
+      'Enchanted Portcullis (Breaker Tribe)',
+      'Incandescent Rageblade (Aqshy)',
+      'The Great Wrecka (Breaker Tribe)',
+      'Kingslaughter Cowl (Breaker Tribe)',
+    ])
+    expect(res.selections.units).toEqual(['Gatebreaker', 'Kraken-Eater', 'Warstomper', 'Mancrusher Gargants'])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read SoB1', () => {
+    const pdfText = getFile('SoB1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
+    expect(res.selections.allegiances).toEqual(['Taker Tribe'])
+    expect(res.selections.units).toEqual(['Gatebreaker', 'Kraken-Eater', 'Warstomper', 'Mancrusher Gargants'])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Bonegrinder Mega-Gargant',
+      },
+    ])
+  })
+
   it('should correctly read Warscroll_Builder_Order_Legacy', () => {
     const pdfText = getFile('Warscroll_Builder_Order_Legacy')
     const parsedText = parsePdf(pdfText)

@@ -6,6 +6,7 @@ import {
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -38,7 +39,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Gut-plate of Ghur`,
         desc: `You can reroll save rolls of 1 for attacks that target the bearer.`,
-        when: [SHOOTING_PHASE, CHARGE_PHASE],
+        when: [SAVES_PHASE],
         artifact: true,
       },
     ],

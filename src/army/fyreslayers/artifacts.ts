@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   HERO_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -87,7 +88,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Bracers of Ember Iron`,
         desc: `Add 1 to save rolls for attacks that target the bearer.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

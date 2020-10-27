@@ -1,5 +1,5 @@
 import { TArtifacts } from 'types/army'
-import { COMBAT_PHASE, DURING_GAME } from 'types/phases'
+import { COMBAT_PHASE, DURING_GAME, SAVES_PHASE } from 'types/phases'
 
 const Artifacts: TArtifacts = [
   {
@@ -18,7 +18,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Armour of the Pact`,
         desc: `You can reroll save rolls for attacks made with melee weapons that target the bearer.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

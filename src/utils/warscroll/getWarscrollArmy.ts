@@ -1,5 +1,6 @@
 import GenericScenery from 'army/generic/scenery'
 import { SeraphonConstellations } from 'army/seraphon/allegiances'
+import CommonSonsOfBehematData from 'army/sons_of_behemat/common'
 import { last, uniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
@@ -106,6 +107,15 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (txt.startsWith('- City Role')) return accum
         if (txt.startsWith('- Mark of Chaos : ')) return accum
 
+        if (txt.startsWith('- Tribe: ')) {
+          const { allegiance, trait } = getTribe(txt)
+          accum.allegiances = accum.allegiances.concat(allegiance)
+          if (trait) {
+            accum.traits = accum.traits.concat(trait)
+          }
+          return accum
+        }
+
         if (txt.startsWith('- Lodge: ')) {
           const allegiance = txt.replace('- Lodge: ', '').trim()
           if (allegiance) {
@@ -167,6 +177,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           }
           return accum
         }
+
         // Handle cases where two command traits are in the same entry
         if (txt.startsWith('- Command Trait : ') && txt.replace('- Command Trait : ', '').match(':')) {
           // e.g. "- Command Trait : Killer Reputation: Fateseeker"
@@ -178,6 +189,16 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           accum.traits = accum.traits.concat(...traits)
           return accum
         }
+
+        // Handles Sons of Behemat issue with double command traits
+        if (txt.startsWith('- Command Trait: Extremely Bitter')) {
+          let traits = ['Extremely Bitter (Breaker Tribe)']
+          const secondTrait = txt.replace('- Command Trait: Extremely Bitter - ', '').trim()
+          if (secondTrait) traits.push(secondTrait)
+          accum.traits = accum.traits.concat(...traits)
+          return accum
+        }
+
         // General handling of Command Traits, checks for attached spells
         if (txt.startsWith('- Command Trait : ')) {
           const { trait, spell } = getTraitWithSpell('Command Trait', txt)
@@ -309,6 +330,7 @@ const getTrait = (type: TTraitType, txt: string, addSpace = true) => {
 const removePrefix = (txt: string) => {
   const prefixes = [
     'Court of Delusion -',
+    'Extremely Bitter -',
     'Lore of Cinder -',
     'Lore of Dark Sorcerey -',
     'Lore of Eagles -',
@@ -319,6 +341,18 @@ const removePrefix = (txt: string) => {
   ]
   const regexp = new RegExp(`${prefixes.join('|')}`, 'g')
   return txt.replace(regexp, '').trim()
+}
+
+const getTribe = (txt: string) => {
+  const tribe = txt.split('- Tribe: ')[1].split('(')
+  const allegiance = tribe[0].trim()
+  try {
+    let trait = tribe[1] ? tribe[1].split('Fierce Loathing: ')[1].replace(')', '').trim() : null
+    trait = trait ? `${trait} ${CommonSonsOfBehematData.TAGS.FierceLoathingTag}` : null //  e.g. "Shiny 'Uns (Fierce Loathing)"
+    return { allegiance, trait }
+  } catch (err) {
+    return { allegiance, trait: null }
+  }
 }
 
 const getCity = (txt: string) => {

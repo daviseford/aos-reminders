@@ -10,7 +10,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   TURN_TWO_END_OF_MOVEMENT_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const ShroudingMistEffects: TEffects[] = [
@@ -22,7 +22,7 @@ const ShroudingMistEffects: TEffects[] = [
   {
     name: `Shrouding Mists`,
     desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 5+ that mortal wound is negated.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
 ]
 
@@ -53,7 +53,7 @@ const MonstrousArcanumDestruction: TUnits = [
       {
         name: `Impenetrable Hide`,
         desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 4+ that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Yawning Maw`,
@@ -111,7 +111,7 @@ const MonstrousArcanumDestruction: TUnits = [
       {
         name: `Savage Frenzy`,
         desc: `If this model is slain, before removing the model from play, it can make a pile-in move and then attack with all of the melee weapons it is armed with. This model is then removed from play.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Incarnate of Ghur`,
@@ -186,12 +186,12 @@ const MonstrousArcanumDestruction: TUnits = [
       {
         name: `Avalanche!`,
         desc: `If this model is slain, before removing the model from play, roll a D6 for each unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds. This model is then removed from play.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Da Big' Un`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Livin' Idol`,
@@ -216,7 +216,7 @@ const MonstrousArcanumDestruction: TUnits = [
       {
         name: `Deadly Demise`,
         desc: `If this model is slain, before this model is removed from play, roll a D6 for each unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds. This model is then removed from play.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Warpfire`,

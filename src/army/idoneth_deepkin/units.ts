@@ -9,12 +9,13 @@ import {
   END_OF_BATTLESHOCK_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_ROUND,
   TURN_ONE_START_OF_ROUND,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const DeepmareHornEffect = {
@@ -113,6 +114,11 @@ export const Units: TUnits = [
         when: [START_OF_COMBAT_PHASE],
       },
       {
+        name: `Storm of Blows`,
+        desc: `If active, subtract 1 from save rolls for this model in that combat phase.`,
+        when: [SAVES_PHASE],
+      },
+      {
         name: `Wave Rider`,
         desc: `In the combat phase, this model's Bladed Polearm has a Damage characteristic of 3 if the model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
@@ -202,7 +208,7 @@ export const Units: TUnits = [
       {
         name: `Writhing Tentacles`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, the wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -242,7 +248,7 @@ export const Units: TUnits = [
       {
         name: `Biovoltaic Barrier`,
         desc: `Ignore the Rend characteristic of attacks against this unit when making save rolls for this unit. In addition, this unit has a Save characteristic of 3+ instead of 4+ if it made a charge move in the same turn.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

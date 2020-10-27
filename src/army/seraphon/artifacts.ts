@@ -5,9 +5,10 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -27,7 +28,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Incandescent Rectrices`,
         desc: `The first time bearer is slain, before removing them from the battlefield, roll a D6. On a 1-3, the bearer is slain. On a 4-6, the bearer is not slain, all wounds allocated to them are healed, and any wounds that currently remain to be allocated to them are negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -92,7 +93,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Throne of the Lost Gods`,
         desc: `Add 1 to the bearer's Wounds characteristic.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Throne of the Lost Gods`,
@@ -142,7 +143,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Sacred Stegadon Helm`,
         desc: `Add 1 to save rolls for attacks that target the bearer.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Sacred Stegadon Helm`,

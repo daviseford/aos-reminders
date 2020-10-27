@@ -17,6 +17,7 @@ import {
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_GAME,
@@ -24,7 +25,7 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { getChaosSlaves } from 'utils/chaosUtils'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
@@ -96,7 +97,7 @@ const SorcererBaseEffects = [
 const BlubberAndBileEffect = {
   name: `Blubber and Bile`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated. In addition, on a 6, if the attacking unit is within 3" of this model, it suffers 1 mortal wound.`,
-  when: [WOUND_ALLOCATION],
+  when: [WOUND_ALLOCATION_PHASE],
 }
 const CorpulentMassEffect = {
   name: `Corpulent Mass`,
@@ -106,7 +107,7 @@ const CorpulentMassEffect = {
 const DisgustinglyResilientEffect = {
   name: `Disgustingly Resilient`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 5+ the wound is negated.`,
-  when: [WOUND_ALLOCATION],
+  when: [WOUND_ALLOCATION_PHASE],
 }
 const MountainOfLoathsomeFleshEffect = {
   name: `Mountain of Loathsome Flesh`,
@@ -313,7 +314,7 @@ export const Units: TUnits = [
       {
         name: `Locus of Fecundity`,
         desc: `Reroll save rolls of 1 for this unit while it is within 7" of a Nurgle Daemon hero.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -417,7 +418,7 @@ export const Units: TUnits = [
       {
         name: `Fleshy Abundance`,
         desc: `If active, add 1 to the wounds characteristic of all models in the buffed unit.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Lord of Nurgle`,
@@ -575,7 +576,7 @@ export const Units: TUnits = [
       {
         name: `Curse of the Leper`,
         desc: `If active, subtract 1 from the save rolls for the debuffed unit for the rest of the battle.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -585,7 +586,7 @@ export const Units: TUnits = [
       {
         name: `Soulbound Shield`,
         desc: `Roll a D6 each time you allocate a wound to this model as a result of a spell. On a 4+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Rotsword`,
@@ -601,7 +602,7 @@ export const Units: TUnits = [
       {
         name: `Morbid Vigour`,
         desc: `If active, roll a D6 each time you allocate a wound or mortal wound to a friendly Nurgle unit within 7" of this model. On a 5+ the wound is negated. The same unit cannot benefit from this ability more than once in the same phase.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -614,13 +615,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Munificent Bounty`,
-        desc: `You can pick 1 friendly unit of Putrid Blightkings that is within 3" of this model. That unit can shoot in the shooting phase using the Munificent Bounty Death's Head missle weapon.`,
+        desc: `You can pick 1 friendly unit of Putrid Blightkings that is within 3" of this model. That unit can shoot in the shooting phase using the Munificent Bounty Death's Head missile weapon.`,
         when: [START_OF_SHOOTING_PHASE],
       },
       {
         name: `Vermid Shield`,
         desc: `Reroll save rolls of 1 for this model.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Plague of Flies`,
@@ -770,7 +771,7 @@ export const Units: TUnits = [
       {
         name: `Festering Bodyguards`,
         desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly Fecula Flyblown while she is within 3" of this unit. On a 4+, that wound or mortal wound is allocated to this unit instead of Fecula Flyblown.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

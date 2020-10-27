@@ -2,19 +2,19 @@ import { TArtifacts } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_ROUND,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
   START_OF_SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -34,7 +34,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Suspicious Stone (Masterclan)`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 5+ that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -224,7 +224,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Shield of Distraction (Verminus)`,
         desc: `Reroll save rolls of 1 for attacks that target the bearer.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Shield of Distraction (Verminus)`,
@@ -259,7 +259,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Rustcursed Armour (Verminus)`,
         desc: `Reroll save rolls of 1 for attacks that target the bearer.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Rustcursed Armour (Verminus)`,
@@ -314,7 +314,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Rat-tail Snake (Moulder)`,
         desc: `If the unmodified save roll for an attack that targets the bearer is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

@@ -17,7 +17,7 @@ import {
   START_OF_SHOOTING_PHASE,
   TURN_ONE_MOVEMENT_PHASE,
   TURN_ONE_SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { GreatEndrinworks } from './artifacts'
 
@@ -64,7 +64,7 @@ export const SeekNewProspectsEffect = {
 }
 export const DontArgueWithTheWindEffect = {
   name: `AMENDMENT: Don't Argue With the Wind`,
-  desc: `In your movement phase, if you declare a friendly BARAK- ZILFIN unit will run, do not make a run roll Instead, add 6" to the Move characteristic of all models in that unit for that phase.`,
+  desc: `In your movement phase, if you declare a friendly BARAK-ZILFIN unit will run, do not make a run roll Instead, add 6" to the Move characteristic of all models in that unit for that phase.`,
   when: [MOVEMENT_PHASE],
   command_trait: true,
 }
@@ -170,7 +170,7 @@ const CommandTraits: TTraits = [
       {
         name: `Tough as Old Boots`,
         desc: `Add 2 to this general's Wounds characteristic.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

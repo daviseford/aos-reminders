@@ -23,8 +23,9 @@ import LegionOfBloodArmy from 'army/legion_of_blood'
 import LegionOfChaosAscendantArmy from 'army/legion_of_chaos_ascendant'
 import LegionOfNightArmy from 'army/legion_of_night'
 import LegionOfSacramentArmy from 'army/legion_of_sacrament'
-import LethisianArmyArmy from 'army/lethisian_army'
-import LuminethRealmlordsArmy from 'army/lumineth'
+import LethisianArmyArmy from 'army/lethisian_defenders'
+import LuminethRealmlordsArmy from 'army/lumineth_realmlords'
+import MegaGargantMercenariesArmy from 'army/mega_gargant_mercenaries'
 import MercenaryCompaniesArmy from 'army/mercenary_companies'
 import NighthauntArmy from 'army/nighthaunt'
 import NurgleArmy from 'army/nurgle'
@@ -34,6 +35,7 @@ import SeraphonArmy from 'army/seraphon'
 import SkavenArmy from 'army/skaven'
 import SlaaneshArmy from 'army/slaanesh'
 import SlavesToDarknessArmy from 'army/slaves_to_darkness'
+import SonsOfBehematArmy from 'army/sons_of_behemat'
 import SoulblightArmy from 'army/soulblight'
 import StormcastEternalsArmy from 'army/stormcast_eternals'
 import SylvanethArmy from 'army/sylvaneth'
@@ -69,6 +71,7 @@ import {
   LEGION_OF_SACRAMENT,
   LETHISIAN_DEFENDERS,
   LUMINETH_REALMLORDS,
+  MEGA_GARGANT_MERCENARIES,
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
@@ -79,6 +82,7 @@ import {
   SKAVEN,
   SLAANESH,
   SLAVES_TO_DARKNESS,
+  SONS_OF_BEHEMAT,
   SOULBLIGHT,
   STORMCAST_ETERNALS,
   SYLVANETH,
@@ -195,10 +199,13 @@ const ArmyList: TArmyList = {
     Army: { ...LuminethRealmlordsArmy },
     GrandAlliance: ORDER,
   },
+  [MEGA_GARGANT_MERCENARIES]: {
+    Army: { ...MegaGargantMercenariesArmy },
+    GrandAlliance: DESTRUCTION,
+  },
   [MERCENARY_COMPANIES]: {
     Army: { ...MercenaryCompaniesArmy },
     GrandAlliance: ORDER,
-    //TODO: Add allyOnly tag
   },
   [NIGHTHAUNT]: {
     Army: { ...NighthauntArmy },
@@ -235,6 +242,10 @@ const ArmyList: TArmyList = {
   [SLAVES_TO_DARKNESS]: {
     Army: { ...SlavesToDarknessArmy },
     GrandAlliance: CHAOS,
+  },
+  [SONS_OF_BEHEMAT]: {
+    Army: { ...SonsOfBehematArmy },
+    GrandAlliance: DESTRUCTION,
   },
   [SOULBLIGHT]: {
     Army: { ...SoulblightArmy },

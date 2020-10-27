@@ -1,5 +1,5 @@
 import { TScenery } from 'types/army'
-import { BATTLESHOCK_PHASE, DURING_GAME, START_OF_SETUP } from 'types/phases'
+import { BATTLESHOCK_PHASE, SAVES_PHASE, START_OF_SETUP } from 'types/phases'
 
 const Scenery: TScenery = [
   {
@@ -13,7 +13,7 @@ const Scenery: TScenery = [
       {
         name: `Entropic Lodestone`,
         desc: `Subtract 1 from save rolls for attacks that target units within 6" of this terrain feature. At the start of each battle round after the first, add 6" to the range of this ability. BEASTS OF CHAOS units are not affected by this ability.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Locus of Savagery`,

@@ -27,6 +27,7 @@ type TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 type TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 type TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 type TLuminethRealmlords = 'LUMINETH_REALMLORDS'
+type TMegaGargantMercenaries = 'MEGA_GARGANT_MERCENARIES'
 type TMercenaryCompanies = 'MERCENARY_COMPANIES'
 type TNighthaunt = 'NIGHTHAUNT'
 type TNurgle = 'NURGLE'
@@ -37,6 +38,7 @@ type TSeraphon = 'SERAPHON'
 type TSkaven = 'SKAVEN'
 type TSlaanesh = 'SLAANESH'
 type TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
+type TSonsOfBehemat = 'SONS_OF_BEHEMAT'
 type TSoulblight = 'SOULBLIGHT'
 type TStormcastEternals = 'STORMCAST_ETERNALS'
 type TSylvaneth = 'SYLVANETH'
@@ -72,6 +74,7 @@ export const LEGIONS_OF_AZGORH: TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 export const LEGIONS_OF_GRIEF: TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export const LUMINETH_REALMLORDS: TLuminethRealmlords = 'LUMINETH_REALMLORDS'
+export const MEGA_GARGANT_MERCENARIES: TMegaGargantMercenaries = 'MEGA_GARGANT_MERCENARIES'
 export const MERCENARY_COMPANIES: TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
 export const NURGLE: TNurgle = 'NURGLE'
@@ -82,6 +85,7 @@ export const SERAPHON: TSeraphon = 'SERAPHON'
 export const SKAVEN: TSkaven = 'SKAVEN'
 export const SLAANESH: TSlaanesh = 'SLAANESH'
 export const SLAVES_TO_DARKNESS: TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
+export const SONS_OF_BEHEMAT: TSonsOfBehemat = 'SONS_OF_BEHEMAT'
 export const SOULBLIGHT: TSoulblight = 'SOULBLIGHT'
 export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
@@ -91,8 +95,9 @@ export const TZEENTCH: TTzeentch = 'TZEENTCH'
 export const WANDERERS: TWanderers = 'WANDERERS'
 
 /**
- * Primary factions - excluding mercenary armies that are only taken as allies
- * e.g. Mercenary Companies
+ * Primary factions
+ *
+ * Excludes mercenary armies that are only taken as allies e.g. Mercenary Companies and Mega Gargant Mercenaries
  */
 export type TPrimaryFactions =
   | TBeastsOfChaos
@@ -121,6 +126,7 @@ export type TPrimaryFactions =
   | TLegionsOfGrief
   | TLethisianDefenders
   | TLuminethRealmlords
+  | TMegaGargantMercenaries
   | TMercenaryCompanies
   | TNighthaunt
   | TNurgle
@@ -131,6 +137,7 @@ export type TPrimaryFactions =
   | TSkaven
   | TSlaanesh
   | TSlavesToDarkness
+  | TSonsOfBehemat
   | TSoulblight
   | TStormcastEternals
   | TSylvaneth
@@ -140,7 +147,7 @@ export type TPrimaryFactions =
   | TWanderers
 
 // Supported Factions
-export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies
+export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies | TMegaGargantMercenaries
 
 export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   BEASTS_OF_CHAOS,
@@ -178,6 +185,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   SKAVEN,
   SLAANESH,
   SLAVES_TO_DARKNESS,
+  SONS_OF_BEHEMAT,
   SOULBLIGHT,
   STORMCAST_ETERNALS,
   SYLVANETH,
@@ -187,4 +195,8 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   WANDERERS,
 ]
 
-export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([...PRIMARY_FACTIONS, MERCENARY_COMPANIES])
+export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
+  ...PRIMARY_FACTIONS,
+  MEGA_GARGANT_MERCENARIES,
+  MERCENARY_COMPANIES,
+])

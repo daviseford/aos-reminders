@@ -10,7 +10,7 @@ import {
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
   TURN_ONE_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { filterUnits } from 'utils/filterUtils'
 
@@ -147,7 +147,7 @@ export const Units: TUnits = [
       {
         name: `Orruk-forged Shields!`,
         desc: `Roll a D6 each time you allocate a wound to a model carrying an Orruk-forged Shield. On a 6, that wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -173,7 +173,7 @@ export const Units: TUnits = [
       {
         name: `Dead 'Ard`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit. On a 6, the wound or mortal wound is negated. Wounds or mortal wounds allocated to Gurzag Ironskull are negated on a 5+ instead of a 6.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Paired Choppas`,
@@ -274,7 +274,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Smash 'em`,
-        desc: `You can add 1 to all hit rolls made for Smasha Boyz units in the combat phase whilst they are within 10" of their Warchanter. Note that if the Warchanter uses his Frenzy of Violence ability on a Smasha Boyz unit, you would add 2 to their hit rolls instead!`,
+        desc: `You can add 1 to all hit rolls made for Smasha Boyz units in the combat phase whilst they are within 10" of their Warchanter. Note that if the Warchanter uses his Frenzy of Violence ability on a Smasha Boyz unit, you would add 2 to their hit rolls instead.`,
         when: [COMBAT_PHASE],
       },
     ],

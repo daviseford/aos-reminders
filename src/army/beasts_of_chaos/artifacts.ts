@@ -7,7 +7,7 @@ import {
   HERO_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -107,7 +107,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Blackened Armour of Chaos (Warherds)`,
         desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 4+ that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

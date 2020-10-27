@@ -1,5 +1,5 @@
 import { TSpells } from 'types/army'
-import { HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 // Spells, Prayers, etc. go here
 
@@ -45,7 +45,7 @@ const Spells: TSpells = [
       {
         name: `Reinforce Battle-shields`,
         desc: `If active, roll a D6 each time you allocate a mortal wound to that unit. On a 5+ that wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

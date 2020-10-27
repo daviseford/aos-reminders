@@ -1,5 +1,11 @@
 import { TArtifacts } from 'types/army'
-import { COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE, START_OF_HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import {
+  COMBAT_PHASE,
+  HERO_PHASE,
+  SHOOTING_PHASE,
+  START_OF_HERO_PHASE,
+  WOUND_ALLOCATION_PHASE,
+} from 'types/phases'
 
 const Artifacts: TArtifacts = [
   {
@@ -43,7 +49,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Ossific Diadem`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly DEATHRATTLE model within 12" of the bearer. On a 6+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

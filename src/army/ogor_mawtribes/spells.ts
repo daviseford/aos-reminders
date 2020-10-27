@@ -1,5 +1,5 @@
 import { TSpells } from 'types/army'
-import { HERO_PHASE } from 'types/phases'
+import { HERO_PHASE, SAVES_PHASE } from 'types/phases'
 
 // Spells, Prayers, etc. go here
 const Spells: TSpells = [
@@ -30,6 +30,11 @@ const Spells: TSpells = [
         name: `Ribcracker`,
         desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster that is visible to them. Subtract 1 from save rolls for attacks that target that unit until the start of your next hero phase.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Ribcracker`,
+        desc: `If active, subtract 1 from save rolls for attacks that target that unit until the start of your next hero phase.`,
+        when: [SAVES_PHASE],
       },
     ],
   },

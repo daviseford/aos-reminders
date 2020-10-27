@@ -4,16 +4,17 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
+  DURING_ROUND,
   DURING_SETUP,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const AuricRunesonEffects = [
@@ -94,7 +95,7 @@ export const Units: TUnits = [
       {
         name: `Furious Endurance`,
         desc: `6+ to negate an allocated wound or mortal wound to this model.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       ...MagmadrothEffects,
       {
@@ -138,6 +139,11 @@ export const Units: TUnits = [
         desc: `Once per battle, you can say this model has consumed a nugget of ur-gold. If you do so, add 1 to save rolls for attacks that target friendly FYRESLAYERS units wholly within 12" of this model until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
+      {
+        name: `Grand Ritual of Awakening`,
+        desc: `If active, add 1 to save rolls for attacks that target friendly FYRESLAYERS units wholly within 12" of this model until the start of your next hero phase.`,
+        when: [SAVES_PHASE],
+      },
       RunicEmpowermentEffect,
     ],
   },
@@ -147,7 +153,7 @@ export const Units: TUnits = [
       {
         name: `Grimnir's Blessing`,
         desc: `5+ to negate an allocated a wound or mortal wound to Fjul-Grimnir while this model is within 3" of a friendly Chosen Axes unit.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       StareDownEffect,
       WeaponBreakerEffect,
@@ -205,9 +211,14 @@ export const Units: TUnits = [
         when: [HERO_PHASE],
       },
       {
+        name: `Icon of Grimnir`,
+        desc: `If active, add 1 to save rolls for attacks that target friendly FYRESLAYERS units wholly within 12" of this model until the start of your next hero phase.`,
+        when: [SAVES_PHASE],
+      },
+      {
         name: `None Shall Defile the Icon`,
         desc: `If this model is slain, before it is removed from play, friendly FYRESLAYERS units wholly within 12" of this model can swear to protect the fallen icon. If a unit does so, that unit cannot make normal moves and charge moves for the rest of the battle, but you can reroll hit and wound rolls for attacks made with melee weapons by that unit.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -232,7 +243,7 @@ export const Units: TUnits = [
       {
         name: `Unstoppable Berzerker`,
         desc: `6+ to negate a wound or mortal wound allocated to this model. Add 1 to the roll if there are any enemy units within 3" of this model.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Battlefury`,
@@ -242,7 +253,7 @@ export const Units: TUnits = [
       {
         name: `Dead, But Not Defeated`,
         desc: `If this model is slain, before it is removed from play, it can make a pile-in move and then attack with all of the melee weapons it is armed with.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -290,7 +301,7 @@ export const Units: TUnits = [
       {
         name: `Bladed Slingshield`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit armed with Bladed Slingshields if the target unit did not make a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -305,7 +316,7 @@ export const Units: TUnits = [
       {
         name: `Sworn Protectors`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly FYRESLAYERS HERO that is not mounted on a MAGMADROTH and is within 3" of any friendly units with this ability. On a 4+ that wound or mortal wound is negated, and you must choose a friendly unit with this ability that is within 3" to suffer 1 mortal wound after all wounds or mortal wounds have been allocated to that friendly HERO.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -315,7 +326,7 @@ export const Units: TUnits = [
       {
         name: `Duty Unto Death`,
         desc: `6+ to negate a wound or mortal wound allocated to this unit. Add 2 to the roll if there are any friendly FYRESLAYERS HEROES within 10" of this unit.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Smouldering Braziers`,
@@ -373,8 +384,13 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Bulwark of Molten Stone`,
-        desc: `At the start of the enemy hero phase, you can pick 1 friendly unit wholly within 18" of any units of AURIC HEARTHGUARD from this battalion. If you do so add 1 to save rolls for that target until your next hero.`,
+        desc: `At the start of the enemy hero phase, you can pick 1 friendly unit wholly within 18" of any units of AURIC HEARTHGUARD from this battalion. If you do so add 1 to save rolls for that target until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Bulwark of Molten Stone`,
+        desc: `If active, add 1 to save rolls for that target until your next hero phase.`,
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -384,7 +400,7 @@ export const Battalions: TBattalions = [
       {
         name: `Strength in Tradition`,
         desc: `Once per battle round, a HERO from this battalion can use a command ability without spending a command point.`,
-        when: [DURING_GAME],
+        when: [DURING_ROUND],
       },
     ],
   },

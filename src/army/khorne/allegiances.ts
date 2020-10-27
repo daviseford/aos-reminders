@@ -3,10 +3,10 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -101,7 +101,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Thronebreaker's Torc`,
         desc: `Ignore modifiers (positive and negative) when making save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
         artifact: true,
       },
     ],
@@ -142,6 +142,11 @@ const Allegiances: TAllegiances = [
         name: `Blood-woken Runes`,
         desc: `If any enemy heroes or monsters were slain by attacks made by friendly Flayed mortal units in this phase, you can add 1 to save rolls for attacks that target the Flayed Mortal unit for the rest of the battle. A unit cannot benefit from this more than once per battle.`,
         when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Blood-woken Runes`,
+        desc: `If active, you can add 1 to save rolls for attacks that target the Flayed Mortal unit.`,
+        when: [SAVES_PHASE],
       },
       {
         name: `Wrathspeaker`,
@@ -191,7 +196,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Black Brass Crown`,
         desc: `Add 1 to save rolls for attacks that target the bearer.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
         artifact: true,
       },
     ],

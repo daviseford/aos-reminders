@@ -13,6 +13,7 @@ import {
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
@@ -20,7 +21,7 @@ import {
   START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
   TURN_FOUR_START_OF_ROUND,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
@@ -76,7 +77,7 @@ const LuminarkEffects = [
   {
     name: `Aura of Protection`,
     desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly CITIES OF SIGMAR model within range of any friendly LUMINARKS OF HYSH. On a 6+, that wound or mortal wound is negated. The range of this ability is shown on the damage table.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Locus of Hysh`,
@@ -127,13 +128,20 @@ const NoxiousBreathEffect = {
 const WitnessToDestinyEffect = {
   name: `Witness to Destiny`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
-  when: [WOUND_ALLOCATION],
+  when: [WOUND_ALLOCATION_PHASE],
 }
-const AttunedToMagicEffect = {
-  name: `Attuned to Magic`,
-  desc: `If a friendly WIZARD within 12" of this model casts a spell that is not unbound, this model is imbued with magical energy until the start of your next hero phase. Add 1 to save rolls for attacks that target this model while it is imbued with magical energy (this ability can never add more than 1 to the save roll).`,
-  when: [HERO_PHASE],
-}
+const AttunedToMagicEffects = [
+  {
+    name: `Attuned to Magic`,
+    desc: `If a friendly WIZARD within 12" of this model casts a spell that is not unbound, this model is imbued with magical energy until the start of your next hero phase. Add 1 to save rolls for attacks that target this model while it is imbued with magical energy (this ability can never add more than 1 to the save roll).`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Attuned to Magic`,
+    desc: `Add 1 to save rolls for attacks that target this model while it is imbued with magical energy (this ability can never add more than 1 to the save roll).`,
+    when: [SAVES_PHASE],
+  },
+]
 const LordlingAndRanksOfColdSteelEffects = [
   {
     name: `Lordling`,
@@ -164,7 +172,7 @@ const MusicianEffect = {
 const SeaDragonCloakEffect = {
   name: `Sea Dragon Cloak`,
   desc: `Add 1 to save rolls for attacks made with missile weapons that target this unit.`,
-  when: [SHOOTING_PHASE],
+  when: [SAVES_PHASE],
 }
 const StandardBearerEffect = {
   name: `Standard Bearer`,
@@ -187,7 +195,7 @@ const QuickWithTheLashEffect = {
   when: [CHARGE_PHASE],
 }
 const FrostheartPhoenixEffects = [
-  AttunedToMagicEffect,
+  ...AttunedToMagicEffects,
   {
     name: `Blizzard Aura`,
     desc: `Subtract 1 from wound rolls for attacks made with melee weapons by enemy units within range of the Blizzard Aura ability of any friendly models. The range of the Blizzard Aura ability for this model is shown on the damage table.`,
@@ -195,11 +203,11 @@ const FrostheartPhoenixEffects = [
   },
 ]
 const FlamespyrePhoenixEffects = [
-  AttunedToMagicEffect,
+  ...AttunedToMagicEffects,
   {
     name: `Phoenix Reborn`,
     desc: `The first time this model is slain, before removing it from the battlefield, roll a D6. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Wake of Fire`,
@@ -658,7 +666,7 @@ export const Units: TUnits = [
       {
         name: `Rune Lore: Ancestral Shield`,
         desc: `If active, roll a D6 each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Rune Lore: Forge Fire`,
@@ -681,7 +689,7 @@ export const Units: TUnits = [
       {
         name: `Gromril Shieldwall`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Gromril Shields.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Old Grumblers`,
@@ -750,7 +758,7 @@ export const Units: TUnits = [
       {
         name: `Forge-proven Gromril Armour`,
         desc: `Add 1 to save rolls for attacks made with missile weapons that target this unit.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Grudgehammer Torpedo`,
@@ -1085,7 +1093,7 @@ export const Units: TUnits = [
       {
         name: `Tyrant Shield`,
         desc: `Add 1 to save rolls for attacks that target this model if it is armed with a Tyrant Shield.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Do Not Disappoint Me`,
@@ -1304,7 +1312,7 @@ export const Units: TUnits = [
       {
         name: `Fortress of Boughs`,
         desc: `Add 1 to save rolls for attacks that target this unit if this unit has not made a move in the same turn.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Form Fortress of Boughs`,

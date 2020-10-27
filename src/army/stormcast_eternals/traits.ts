@@ -8,6 +8,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
@@ -59,7 +60,7 @@ const CommandTraits: TTraits = [
       {
         name: `Staunch Defender`,
         desc: `Add 1 to save rolls for attacks that target friendly STORMCAST ETERNAL units wholly within 9" of this general if that STORMCAST ETERNAL unit has not made a charge move the same turn.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },

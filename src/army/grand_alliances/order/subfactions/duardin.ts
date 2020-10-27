@@ -8,6 +8,7 @@ import {
   DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
@@ -162,7 +163,7 @@ export const LegacyDuardinUnits: TUnits = [
       {
         name: `Ancestral Armour`,
         desc: `Reroll failed save rolls for this model.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Great Book of Grudges`,

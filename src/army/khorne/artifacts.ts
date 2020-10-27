@@ -7,10 +7,10 @@ import {
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SHOOTING_PHASE,
+  SAVES_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -65,7 +65,7 @@ const Artifacts: TArtifacts = [
       {
         name: `The Crimson Plate`,
         desc: `You can reroll save rolls of 1 for attacks that target the bearer.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -125,7 +125,7 @@ const Artifacts: TArtifacts = [
       {
         name: `The Blood-forged Armour`,
         desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -255,7 +255,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Armour of Scorn`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. Add 2 to the roll if that wound or mortal wound was caused by a spell. On a 6+ that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -265,7 +265,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Mark of the Bloodreaper`,
         desc: `You can reroll save rolls of 1 for attacks that target the bearer.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

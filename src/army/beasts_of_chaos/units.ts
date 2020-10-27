@@ -8,12 +8,13 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_TURN,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const InfuseWithBestialVigorEffect = {
@@ -95,7 +96,7 @@ export const Units: TUnits = [
       {
         name: `Beastshield`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Beastshields.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Anarchy and Mayhem`,
@@ -117,7 +118,7 @@ export const Units: TUnits = [
       {
         name: `Half-shields`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -227,7 +228,7 @@ export const Units: TUnits = [
       {
         name: `Bullshields`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Bullshields.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -239,7 +240,7 @@ export const Units: TUnits = [
       {
         name: `Beastbucklers`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Beastbucklers.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Charging Spear`,
@@ -463,7 +464,7 @@ export const Units: TUnits = [
       {
         name: `Arcanite Shield`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a unit that has any models armed with Arcanite Shields. On a 6, that wound or mortal wound is negated. When you allocate wounds or mortal wounds to this unit, you must allocate them to a model armed with an Arcanite Shield if it is possible to do so.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Paired Savage Blades`,

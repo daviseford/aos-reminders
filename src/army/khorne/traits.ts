@@ -7,7 +7,7 @@ import {
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
@@ -117,7 +117,7 @@ const CommandTraits: TTraits = [
       {
         name: `Berserker Lord (Mortal)`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this general. On a 5+ that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

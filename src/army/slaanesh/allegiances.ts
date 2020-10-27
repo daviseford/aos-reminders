@@ -13,7 +13,7 @@ import {
   START_OF_GAME,
   START_OF_HERO_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const InvadersEffects = [
@@ -42,7 +42,7 @@ const PretendersEffects = [
   },
   {
     name: `Heir to the Throne`,
-    desc: `You can reroll hit rolls of 1 for attacks made with melee and missle weapons by Pretenders Host units while they have 10 or more models.`,
+    desc: `You can reroll hit rolls of 1 for attacks made with melee and missile weapons by Pretenders Host units while they have 10 or more models.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
   {
@@ -137,7 +137,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Oil of Exultation`,
         desc: `Add 1 to the wounds characteristic of the bearer.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
         artifact: true,
       },
     ],

@@ -1,5 +1,5 @@
 import { TTriumphs } from 'types/army'
-import { COMBAT_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { COMBAT_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 // General triumphs available from GHB 2020
 const GenericTriumphs: TTriumphs = [
@@ -29,7 +29,7 @@ const GenericTriumphs: TTriumphs = [
       {
         name: `Indomitable`,
         desc: `Once per battle, before making a save roll for a selected friendly unit, you may reroll save rolls for attacks made against the target.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

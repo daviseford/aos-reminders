@@ -9,7 +9,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   TURN_ONE_START_OF_ROUND,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -30,7 +30,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Blasphemous Cuirass (Ravagers)`,
         desc: `Roll a D6 each time a mortal wound is allocated to the bearer. On a 5+ it is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -146,7 +146,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Crown of Hellish Adoration (Despoilers)`,
-        desc: `Subtract 1 from wound rolls for attacks made with missle weapons targeting the bearer while they are within 3" of any friendly Despoilers units with at least 3 models.`,
+        desc: `Subtract 1 from wound rolls for attacks made with missile weapons targeting the bearer while they are within 3" of any friendly Despoilers units with at least 3 models.`,
         when: [SHOOTING_PHASE],
       },
     ],

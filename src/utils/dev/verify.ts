@@ -13,6 +13,7 @@ import {
   END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
@@ -21,7 +22,7 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
   START_OF_SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const phaseMap = {
@@ -73,10 +74,15 @@ const phaseMap = {
   'end of your movement phase': END_OF_MOVEMENT_PHASE,
   'end of your shooting phase': END_OF_SHOOTING_PHASE,
 
-  'If this model is slain': WOUND_ALLOCATION,
-  'If this unit is slain': WOUND_ALLOCATION,
-  'you allocate a wound': WOUND_ALLOCATION,
-  'you allocate a mortal wound': WOUND_ALLOCATION,
+  'If this model is slain': WOUND_ALLOCATION_PHASE,
+  'If this unit is slain': WOUND_ALLOCATION_PHASE,
+  'you allocate a wound': WOUND_ALLOCATION_PHASE,
+  'you allocate a mortal wound': WOUND_ALLOCATION_PHASE,
+
+  'Reroll save roll': SAVES_PHASE,
+  'reroll save roll': SAVES_PHASE,
+  'to save roll': SAVES_PHASE,
+  'Worsen the rend of': SAVES_PHASE,
 }
 
 // Effect names that are flagged by the script, but have been verified and should be ignored
@@ -104,7 +110,13 @@ const whitelist = [
   'Runemarked Shield',
   'Seeker of Souls',
   'Violent Fury',
+  'Beastshield',
   'Whirling Death',
+  'Warding Lantern',
+  'Attuned to Magic',
+  'Tanglethorn Thicket',
+  'Grand Ritual of Awakening',
+  'Strike the Runes',
 ]
 
 const verify = () => {

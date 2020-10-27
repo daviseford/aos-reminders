@@ -38,6 +38,7 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [dccourt](https://github.com/dccourt)
 + Lorax
 + [amcalvert](https://github.com/amcalvert)
++ [drmartin1998](https://github.com/drmartin1998)
 
 ## Available Scripts
 

@@ -6,7 +6,7 @@ import {
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Abilities: TAbilities = [
@@ -33,7 +33,7 @@ const Abilities: TAbilities = [
   {
     name: `Laugh at 'Em - 12+ points`,
     desc: `Roll a D6 when you take a wound or mortal wound, on a 6+ it is ignored.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Smash 'Em - 16+ points`,

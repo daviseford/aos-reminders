@@ -6,10 +6,11 @@ import {
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -99,7 +100,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Drakescale Armour`,
         desc: `You can reroll failed save rolls for attacks that target the bearer with a Damage characteristic greater than 1 (i.e. 2, D3 etc).`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -179,7 +180,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Sigmarite Pendant`,
         desc: `If the bearer is slain by wounds or mortal wounds inflicted by an enemy unit, roll a D6. On a 4+ that enemy unit suffers D6 mortal wounds.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

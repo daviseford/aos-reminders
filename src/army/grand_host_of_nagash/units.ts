@@ -1,6 +1,6 @@
 import LegionsOfNagash from 'army/legions_of_nagash'
 import { TBattalions, TUnits } from 'types/army'
-import { START_OF_HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { START_OF_HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 import { filterBattalions } from 'utils/filterUtils'
 
 // Importing from LoN
@@ -21,7 +21,7 @@ export const Battalions: TBattalions = [
       {
         name: `Ceaseless Vigil`,
         desc: `Before you allocate a wound or mortal wound to Nagash, you can pick a friendly Morghast unit from this battalion within 3" of Nagash and roll a D6. On a 3+ the wound or mortal wound is allocated to that unit instead.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Eternal Servitude`,

@@ -9,6 +9,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
@@ -18,7 +19,7 @@ import {
   TURN_FOUR_START_OF_ROUND,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
   TURN_THREE_END_OF_MOVEMENT_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const AltarOfTheHornedRatEffect = {
@@ -45,7 +46,7 @@ const GnashGnawOnTheirBonesEffect = {
 const ClanshieldEffect = {
   name: `Clanshields`,
   desc: `Add 1 to save rolls for attacks that target a unit that carries Clanshields while it has 10 or more models.`,
-  when: [COMBAT_PHASE, SHOOTING_PHASE],
+  when: [SAVES_PHASE],
 }
 const RegeneratingMonstrosityEffect = {
   name: `Regenerating Monstrosity`,
@@ -72,7 +73,7 @@ const TerrifyingEffect = {
 const ProtectionOfTheHornedRatEffect = {
   name: `Protection of the Horned Rat`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
-  when: [WOUND_ALLOCATION],
+  when: [WOUND_ALLOCATION_PHASE],
 }
 const PoisonousFumesEffect = {
   name: `Poisonous Fumes`,
@@ -177,8 +178,8 @@ export const Units: TUnits = [
       },
       {
         name: `Scry-orb`,
-        desc: `You can reroll save rolls for attacks that target this model.`,
-        when: [DURING_GAME],
+        desc: `If active, you can reroll save rolls for attacks that target this model.`,
+        when: [SAVES_PHASE],
       },
       {
         name: `Scry-orb`,
@@ -369,7 +370,7 @@ export const Units: TUnits = [
       {
         name: `Pavise`,
         desc: `You can reroll hit rolls for attacks made with this unit's Warplock Jezzails if this unit has not made a move in the same turn. In addition, add 2 to save rolls for attacks made with missile weapons that target this unit.`,
-        when: [SHOOTING_PHASE],
+        when: [SHOOTING_PHASE, SAVES_PHASE],
       },
     ],
   },
@@ -620,7 +621,7 @@ export const Units: TUnits = [
       {
         name: `Standard Bearers`,
         desc: `While this unit includes any Standard Bearers, each time a model from this unit is slain by an attack made with a melee weapon, before the model is removed from play, roll a D6. On a 6, pick 1 enemy unit within 3" of the slain model. That unit suffers 1 mortal wound.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Plague Harbingers`,
@@ -751,7 +752,7 @@ export const Units: TUnits = [
       {
         name: `Too Horrible to Die`,
         desc: `The first time this model is slain, before removing it from the battlefield, roll a D6 and look up the roll on warscroll.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -908,7 +909,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `More-more-more Beasts!`,
-        desc: `When the Master Moulder from this battalion uses the Unleash More- more Beasts! command ability for a unit from the same battalion that has been destroyed, a new unit is added to your army on a roll of 4+ instead of 5+.`,
+        desc: `When the Master Moulder from this battalion uses the Unleash More-more Beasts! command ability for a unit from the same battalion that has been destroyed, a new unit is added to your army on a roll of 4+ instead of 5+.`,
         when: [DURING_GAME],
       },
     ],
@@ -1004,7 +1005,7 @@ export const Battalions: TBattalions = [
       {
         name: `Plague Altar`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a PLAGUE MONKS unit from this battalion while it is wholly within 18" of the same battalion's PLAGUE PRIEST. On a 6 that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

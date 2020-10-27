@@ -5,7 +5,7 @@ import {
   HERO_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -65,7 +65,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Ring of Immortality (${DEATH})`,
         desc: `The first time the bearer is slain, before removing them from the battlefield, roll a D6. On a 3+ the bearer is not slain and D3 wounds allocated to them are healed (any excess damage is negated). Then, remove the bearer from the battlefield and set them up again within 18" of their original location and more than 3" from any enemy models.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

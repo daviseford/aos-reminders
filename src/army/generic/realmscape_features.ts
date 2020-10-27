@@ -5,7 +5,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 import { DEADLY, ENTANGLING, HEALING, MYSTICAL, NULLIFICATION, OVERGROWN, VOLCANIC } from 'types/terrain'
@@ -39,7 +39,7 @@ const RealmscapeFeatures: TEffects[] = [
   {
     name: `Dazzling Lands (${HYSH})`,
     desc: `Terrain features (including faction terrain) have the ${MYSTICAL} scenery rule in addition to any other scenery rules that they have.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Dazzling Lands (${ULGU})`,

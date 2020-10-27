@@ -8,20 +8,20 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SHOOTING_PHASE,
+  SAVES_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
   START_OF_SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const EtherealEffect = {
   name: `Ethereal`,
   desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-  when: [SHOOTING_PHASE, COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 const StolenHoursEffect = {
   name: `Stolen Hours`,
@@ -281,7 +281,7 @@ export const Units: TUnits = [
       {
         name: `Disembodied Skulls`,
         desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 5+, the wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -584,7 +584,7 @@ export const Battalions: TBattalions = [
       {
         name: `Nighthaunt Procession`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly NIGHTHAUNT model from this battalion within 12" of your general or a friendly NIGHTHAUNT HERO from the battalion. On a 6+ the wound is negated. If this battalion is part of a Nighthaunt army, this ability replaces the Deathless Spirits battle trait for all units in this battalion.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -594,7 +594,7 @@ export const Battalions: TBattalions = [
       {
         name: `Shroudguard`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a BLADEGHEIST REVENANT model from a unit in this battalion wholly within 12" of a KNIGHT OF SHROUDS or REIKENOR THE GRIMHAILER from the same battalion. On a 5+, that wound or mortal wound is negated. If you use this ability, you cannot also use the Deathless Spirits battle trait to try to negate the same wound or mortal wound.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -684,7 +684,7 @@ export const Battalions: TBattalions = [
       {
         name: `Knights of Regret`,
         desc: `Roll a D6 before you allocate a wound or mortal wound to your general if your general is within 3" of any friendly units with this ability. On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of your general, instead of to your general.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -695,6 +695,11 @@ export const Battalions: TBattalions = [
         name: `The Emerald Curse`,
         desc: `After armies are set up, but before the first battle round begins, you can pick 1 enemy HERO. Subtract 1 from save rolls for attacks that target that HERO.`,
         when: [END_OF_SETUP],
+      },
+      {
+        name: `The Emerald Curse`,
+        desc: `If active, subtract 1 from save rolls for attacks that target that HERO.`,
+        when: [SAVES_PHASE],
       },
     ],
   },

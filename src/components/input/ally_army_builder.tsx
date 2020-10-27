@@ -187,14 +187,18 @@ const AllyCardComponent = (props: IAllyCardProps) => {
           isClearable={true}
           log={{ title: 'AlliedUnits', label: factionName }}
         />
-        <h5 className={`text-center ${theme.text} mt-2`}>Allied Battalions</h5>
-        <SelectMulti
-          values={battalionValues}
-          items={selectBattalionItems}
-          setValues={setBattalions}
-          isClearable={true}
-          log={{ title: 'AlliedBattalions', label: factionName }}
-        />
+        {selectBattalionItems.length > 0 && (
+          <>
+            <h5 className={`text-center ${theme.text} mt-2`}>Allied Battalions</h5>
+            <SelectMulti
+              values={battalionValues}
+              items={selectBattalionItems}
+              setValues={setBattalions}
+              isClearable={true}
+              log={{ title: 'AlliedBattalions', label: factionName }}
+            />
+          </>
+        )}
       </div>
     </div>
   )

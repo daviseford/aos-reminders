@@ -2,9 +2,10 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_MOVEMENT_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 // This file is useful when storing effects for units that we'd like to re-use
@@ -15,7 +16,7 @@ const GenericEffects = {
     {
       name: `Timber!`,
       desc: `If this model is slain, before removing the model from the battlefield the players must roll off. The player who wins the roll-off picks a point on the battlefield 3" from this model. Each unit within 2" of that point suffers D3 mortal wounds. This model is then removed from the battlefield.`,
-      when: [WOUND_ALLOCATION],
+      when: [WOUND_ALLOCATION_PHASE],
     },
   ],
   Terrorgheist: [
@@ -32,7 +33,7 @@ const GenericEffects = {
     {
       name: `Infested`,
       desc: `If this model is slain, before this model is removed from play each unit within 3" of this model suffers D3 mortal wounds.`,
-      when: [WOUND_ALLOCATION],
+      when: [WOUND_ALLOCATION_PHASE],
     },
   ],
   ZombieDragon: [
@@ -69,22 +70,20 @@ const GenericEffects = {
       when: [COMBAT_PHASE, SHOOTING_PHASE],
     },
   ],
-  AelvenShield: [
-    {
-      name: `Aelven Shield`,
-      desc: `You can reroll save rolls of 1 for a unit with Aelven Shields.`,
-      when: [COMBAT_PHASE],
-    },
-    {
-      name: `Aelven Shield`,
-      desc: `You can reroll failed save rolls of 1 or 2 for this unit in the shooting phase.`,
-      when: [SHOOTING_PHASE],
-    },
-  ],
+  AelvenShield: {
+    name: `Aelven Shield`,
+    desc: `You can reroll save rolls of 1 for a unit with Aelven Shields. You can reroll failed save rolls of 1 or 2 for this unit in the shooting phase.`,
+    when: [SAVES_PHASE],
+  },
   Dragonfire: {
     name: `Dragonfire`,
     desc: `A Dragon can unleash a blast of Dragonfire in your shooting phase. When it does so, pick a visible unit within 12" and roll a dice; on a 1 or 2 that unit suffers a mortal wound, on a 3 or 4 that unit suffers D3 mortal wounds, and on a 5 or 6 that unit suffers D6 mortal wounds.`,
     when: [SHOOTING_PHASE],
+  },
+  Terror: {
+    name: `Terror`,
+    desc: `Subtract 1 from the Bravery characteristic of enemy units if they are within 3" of any friendly units with this ability.`,
+    when: [BATTLESHOCK_PHASE],
   },
 }
 

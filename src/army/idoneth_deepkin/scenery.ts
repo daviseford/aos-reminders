@@ -1,5 +1,5 @@
 import { TScenery } from 'types/army'
-import { START_OF_HERO_PHASE, START_OF_SETUP, WOUND_ALLOCATION } from 'types/phases'
+import { START_OF_HERO_PHASE, START_OF_SETUP, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 // In anticipation of GW adding more Etheric Vortex scenery
 // I've broken these rules out separately
@@ -7,7 +7,7 @@ const EthericVortexEffects = [
   {
     name: `Guardians of the Deep`,
     desc: `Roll a D6 each time a wound or mortal wound is allocated to an IDONETH DEEPKIN unit wholly within 6" of an Etheric Vortex. On a 6+ the wound is negated.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Predators of the Ethersea`,

@@ -10,8 +10,9 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const DeadlyVenomEffect = {
@@ -88,7 +89,7 @@ export const LegacyOrderUnits: TUnits = [
       {
         name: `Shield`,
         desc: `Reroll save rolls of 1 for a unit equipped with Shields.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Charging Lance`,
@@ -189,7 +190,7 @@ export const LegacyOrderUnits: TUnits = [
       {
         name: `Sigmar's Shield`,
         desc: `If a friendly Devoted of Sigmar model is slain by a wound or mortal wound that has been allocated to the model while it is within range of any friendly models with the Sigmar's Shield ability, roll a dice before the slain model is removed from play. On a 6, the wound or mortal wound is negated and the model is not slain. The range of the Sigmar's Shield ability for this model is shown on the damage table on the warscroll.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `The Power of Faith`,
@@ -228,6 +229,21 @@ export const LegacyOrderUnits: TUnits = [
         desc: `In your hero phase, you may declare that this model is performing a rite to harness the power of the heavens. If you do so, roll a dice. If the result is 4+ you can reroll run rolls, charge rolls and save rolls for this model until your next hero phase.`,
         when: [HERO_PHASE],
       },
+      {
+        name: `Priestly Rites`,
+        desc: `If active, you can reroll run rolls for this model until your next hero phase.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Priestly Rites`,
+        desc: `If active, you can reroll charge rolls for this model until your next hero phase.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Priestly Rites`,
+        desc: `If active, you can reroll save rolls for this model until your next hero phase.`,
+        when: [SAVES_PHASE],
+      },
     ],
   },
   {
@@ -241,7 +257,7 @@ export const LegacyOrderUnits: TUnits = [
       {
         name: `Star-buckler`,
         desc: `When making save rolls for this model, ignore the attacking weapon's Rend characteristic unless it is -2 or better.`,
-        when: [SHOOTING_PHASE, CHARGE_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

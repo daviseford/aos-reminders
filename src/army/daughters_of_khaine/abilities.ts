@@ -4,9 +4,10 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_ROUND,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -14,7 +15,7 @@ const Abilities: TAbilities = [
   {
     name: `Fanatical Faith`,
     desc: `Roll a D6 each time a wound or mortal wound is allocated to a friendly Daughter of Khaine model. On a 6+ the wound is negated.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Blood Rites`,
@@ -44,7 +45,7 @@ const Abilities: TAbilities = [
   {
     name: `Blood Rites - Battle Round 5+: Unquenchable Fervour`,
     desc: `Reroll save rolls of 1 for friendly Daughters of Khaine units.`,
-    when: [SHOOTING_PHASE, COMBAT_PHASE],
+    when: [SAVES_PHASE],
   },
   {
     name: `Blood Rites - Battle Round 5+: Unquenchable Fervour`,

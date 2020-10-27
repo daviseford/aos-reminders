@@ -1,5 +1,5 @@
 import { TUnits } from 'types/army'
-import { DURING_GAME, SHOOTING_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { DURING_GAME, SHOOTING_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 export const MonstrousArcanumOrder: TUnits = [
   {
@@ -8,7 +8,7 @@ export const MonstrousArcanumOrder: TUnits = [
       {
         name: `Deathly Dark Scales`,
         desc: `Roll a D6 each time you allocate a mortal wound to this unit. On a 5+, that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Soul-sheering Blast`,

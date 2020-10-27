@@ -11,12 +11,13 @@ import {
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { getChaosSlaves } from 'utils/chaosUtils'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
@@ -145,7 +146,7 @@ export const Units: TUnits = [
       {
         name: `Shining Aegis`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -217,7 +218,7 @@ export const Units: TUnits = [
       {
         name: `Cloak of Constriction`,
         desc: `Add 1 to save rolls for attacks made with melee weapons by enemy HEROES that target this model.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Delicate Precision`,
@@ -237,7 +238,7 @@ export const Units: TUnits = [
       {
         name: `Shining Aegis`,
         desc: `If this model is armed with a Shining Aegis, roll a D6 each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `The Killing Stroke`,
@@ -262,8 +263,8 @@ export const Units: TUnits = [
       },
       {
         name: `Refine Senses`,
-        desc: `If active, and you can reroll save rolls for attacks made by Heroes that target the buffed unit.`,
-        when: [DURING_GAME],
+        desc: `If active, you can reroll save rolls for attacks made by Heroes that target the buffed unit.`,
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -278,7 +279,7 @@ export const Units: TUnits = [
       {
         name: `Swallow Energy`,
         desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 2+, that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Horrible Fascination`,
@@ -345,7 +346,7 @@ export const Units: TUnits = [
       {
         name: `Inhuman Reflexes`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -355,7 +356,7 @@ export const Units: TUnits = [
       {
         name: `Lightning Reflexes`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       LitheAndSwiftEffect,
       {

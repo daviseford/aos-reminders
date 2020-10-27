@@ -5,6 +5,7 @@ import {
   CHAOS_GRAND_ALLIANCE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
+  MEGA_GARGANT_MERCENARIES,
   MERCENARY_COMPANIES,
   ORDER_GRAND_ALLIANCE,
   TSupportedFaction,
@@ -28,7 +29,7 @@ export const getAllyArmyItems: TGetAllyArmyItems = factionName => {
     without(
       Object.keys(ArmyList)
         .filter(x => ArmyList[x].GrandAlliance === GrandAlliance)
-        .concat(MERCENARY_COMPANIES),
+        .concat(MERCENARY_COMPANIES, MEGA_GARGANT_MERCENARIES),
       ...[
         factionName,
         CHAOS_GRAND_ALLIANCE,

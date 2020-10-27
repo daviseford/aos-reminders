@@ -10,12 +10,13 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   TURN_ONE_MOVEMENT_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { filterUnits } from 'utils/filterUtils'
 
@@ -54,7 +55,7 @@ export const getSlavesUnits = () => {
 const ChaosRuneshieldEffect = {
   name: `Chaos Runeshield / Rune-etched Plating / Dark Blessings`,
   desc: `Roll a D6 each time the equipped model suffers a mortal wound. On a 5+ it is negated.`,
-  when: [WOUND_ALLOCATION],
+  when: [WOUND_ALLOCATION_PHASE],
 }
 const OracularVisionsEffect = {
   name: `Oracular Visions`,
@@ -131,7 +132,7 @@ const BarbarianHordesEffect = {
 const DarkwoodShieldEffect = {
   name: `Darkwood Shield`,
   desc: `Add 1 to the save rolls for attacks that target this unit.`,
-  when: [DURING_GAME],
+  when: [SAVES_PHASE],
 }
 
 // Chariot specific effects.
@@ -181,7 +182,7 @@ export const Units: TUnits = [
       {
         name: `The Armour of Morkar`,
         desc: `Roll a D6 each time a mortal wound is allocated to this model. On a 4-6 the wound is negated. On a 6 the attacking unit also suffers 1 mortal wound.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `The Crown of Domination`,
@@ -265,7 +266,7 @@ export const Units: TUnits = [
       {
         name: `Hovering Disc of Tzeentch`,
         desc: `Add 2 to this model's save rolls for attacks made with melee weapons unless the attacker is a monster or can fly.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Warptongue Blade`,
@@ -535,7 +536,7 @@ export const Units: TUnits = [
       {
         name: `Infernal Runeshield`,
         desc: `Each time you allocate a wound or mortal wound to this model, roll a D6. On a 6 the wound is negated and the attacking model suffers 1 mortal wound.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Savage Duellist`,
@@ -582,7 +583,7 @@ export const Units: TUnits = [
       {
         name: `'Nightmaw, my pet, protect me!'`,
         desc: `Roll a D6 before you allocate a wound or mortal wound to this model while this model is within 3" of Nightmaw. On a 4+, that wound or mortal wound is allocated to Nightmaw instead of to this model.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Schalkain's Teeth`,
@@ -613,12 +614,12 @@ export const Units: TUnits = [
       {
         name: `Shadow-kin`,
         desc: `Add 1 to save rolls for attacks made when missile weapons that target this model.`,
-        when: [HERO_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Shadow-kin`,
         desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 5+, that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Writhing Tentacles`,
@@ -719,7 +720,7 @@ export const Units: TUnits = [
       {
         name: `Legions of Chaos`,
         desc: `You can reroll save rolls for attacks that target this unit while it has at least 10 models.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Pair of Chaos Hand Weapons`,
@@ -770,7 +771,7 @@ export const Units: TUnits = [
       {
         name: `Protection of the Dark Gods`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly mortal Slaves to Darkness unit wholly within range of any model with this ability. On a 6+ the allocated wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Favour of the Ruinous Powers`,
@@ -785,13 +786,23 @@ export const Units: TUnits = [
       },
       {
         name: `Favour: ${MARK_TZEENTCH}`,
-        desc: `If active, you can reroll save rolls for the buffed unit. If you buffed a Tzeentch unit, whenever the buffed unit is targeted by a spell roll a D6. On a 4+ ignore the effects.`,
-        when: [DURING_GAME],
+        desc: `If active, you can reroll save rolls for the buffed unit.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Favour: ${MARK_TZEENTCH}`,
+        desc: `If active, and if you buffed a Tzeentch unit, whenever the buffed unit is targeted by a spell roll a D6. On a 4+ ignore the effects.`,
+        when: [HERO_PHASE],
       },
       {
         name: `Favour: ${MARK_NURGLE}`,
-        desc: `If active, you can reroll wound rolls for the buffed unit. If you buffed a Nurgle unit, add 1 to its save rolls as well.`,
-        when: [DURING_GAME],
+        desc: `If active, you can reroll wound rolls for the buffed unit.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Favour: ${MARK_NURGLE}`,
+        desc: `If active, and if you buffed a Nurgle unit, add 1 to its save rolls.`,
+        when: [SAVES_PHASE],
       },
       {
         name: `Favour: ${MARK_SLAANESH}`,
@@ -823,7 +834,7 @@ export const Units: TUnits = [
       {
         name: `Crushing Fall`,
         desc: `If this model is slain, before this model is removed from play, the players must roll off. The player who wins the roll-off picks a point on the battlefield 4" from this model. Each unit within 3" of that point suffers D6 mortal wounds. This model is then removed from play.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Earth-shaking charge`,
@@ -888,7 +899,7 @@ export const Units: TUnits = [
       {
         name: `Serpents`,
         desc: `Serpents models have a wounds characteristic of 2.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `One Cut, One Kill`,
@@ -973,12 +984,12 @@ export const Units: TUnits = [
       {
         name: `Ogor Breacher`,
         desc: `Ogor Breachers have a Wounds characteristic of 3.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Iron Resilience`,
         desc: `You can reroll save rolls for attacks that target this unit if this unit has not made a normal move in the same turn.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -993,7 +1004,7 @@ export const Units: TUnits = [
       {
         name: `Rocktusk Prowlers`,
         desc: `Rocktusk Prowlers have a Wounds characteristic of 2.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Unleash the Beast`,
@@ -1013,7 +1024,7 @@ export const Units: TUnits = [
       {
         name: `Shadow Form`,
         desc: `Ignore positive and negative modifiers when making save rolls for this model.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `The Dark Master`,
@@ -1200,7 +1211,7 @@ export const Units: TUnits = [
       {
         name: `Brazen Champion`,
         desc: `This model has a wounds characteristic of 2.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Inferno Priest`,
@@ -1209,7 +1220,7 @@ export const Units: TUnits = [
       },
       {
         name: `All Shall Burn`,
-        desc: `Unmodified hits of 6 made with this unit's missle weapons score 2 hits instead of 1. Make a wound/save roll for each hit.`,
+        desc: `Unmodified hits of 6 made with this unit's missile weapons score 2 hits instead of 1. Make a wound/save roll for each hit.`,
         when: [SHOOTING_PHASE],
       },
     ],

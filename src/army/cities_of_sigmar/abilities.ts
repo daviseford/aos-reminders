@@ -1,5 +1,5 @@
 import { TAbilities } from 'types/army'
-import { HERO_PHASE, START_OF_HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { HERO_PHASE, START_OF_HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: TAbilities = [
@@ -11,7 +11,7 @@ const Abilities: TAbilities = [
   {
     name: `Loyal Shields`,
     desc: `If your general is within 3" of their retinue, roll a D6 before allocating a wound or mw to the general. On a 4+ allocate the wound or mortal wound to the retinue.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Wise Council`,

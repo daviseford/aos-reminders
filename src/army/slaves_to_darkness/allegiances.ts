@@ -15,7 +15,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_ROUND,
   TURN_ONE_START_OF_ROUND,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Allegiances: TAllegiances = [
@@ -77,7 +77,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Sacrilegious Might`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a Despoilers Daemon Prince. On a 5+ it is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Blessed by the Unholy`,
@@ -158,7 +158,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `The Third Circle`,
-        desc: `Subtract 1 from hit rolls by missle weapons targetting Third Circle units.`,
+        desc: `Subtract 1 from hit rolls by missile weapons targetting Third Circle units.`,
         when: [SHOOTING_PHASE],
       },
       {

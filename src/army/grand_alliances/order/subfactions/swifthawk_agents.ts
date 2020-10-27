@@ -6,6 +6,7 @@ import {
   COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
 
@@ -93,7 +94,7 @@ export const LegacySwifthawkAgentUnits: TUnits = [
   {
     name: `Skycutters`,
     effects: [
-      ...GenericEffects.AelvenShield,
+      GenericEffects.AelvenShield,
       {
         name: `Agents' Blades and Spears`,
         desc: `If a Skycutter is crewed by a trio of Agents, it makes 3 attacks with its Agents' Blades and Spears instead of 2.`,
@@ -119,19 +120,17 @@ export const LegacySwifthawkAgentUnits: TUnits = [
       {
         name: `Enchanted Shield`,
         desc: `You can reroll all failed save rolls for this model.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Swifthawk Pennant`,
-        desc: `A Skywarden with a Swifthawk Pennant gains the Totem keyword.
-        You can add 1 to all wound rolls for all Swifthawk Agents from your
-        army if they are within 16" of this model when they attack.`,
+        desc: `A Skywarden with a Swifthawk Pennant gains the Totem keyword. You can add 1 to all wound rolls for all Swifthawk Agents from your army if they are within 16" of this model when they attack.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Windrider`,
         desc: `A Skywarden has a Save of 4+ instead of 5+ in the shooting phase.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       FleetOfWingEffect,
       {
@@ -157,7 +156,7 @@ export const LegacySwifthawkAgentUnits: TUnits = [
         desc: `Models in this unit may be Standard Bearers. If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 to their Bravery instead if the unit is within 8" of another Swifthawk Agents unit from your army that includes a Standard Bearer.`,
         when: [BATTLESHOCK_PHASE],
       },
-      ...GenericEffects.AelvenShield,
+      GenericEffects.AelvenShield,
       {
         name: `Strength of the Spireguard`,
         desc: `You can reroll hit rolls of 1 for a Spireguard if its unit has 20 or more models.`,

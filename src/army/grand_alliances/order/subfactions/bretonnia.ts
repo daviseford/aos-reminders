@@ -8,11 +8,12 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const BannerBearerEffect = {
@@ -33,7 +34,7 @@ const PendantLancesEffect = {
 const KnightsShieldEffect = {
   name: `Knight's Shield`,
   desc: `In the combat phase, reroll save rolls of 1 for this unit if it made a charge move in the same turn.`,
-  when: [COMBAT_PHASE],
+  when: [COMBAT_PHASE, SAVES_PHASE],
 }
 const BretonnianInfantryBaseEffects = [
   {
@@ -75,7 +76,7 @@ export const LegacyBretonnianUnits: TUnits = [
       {
         name: `Ducal Shield`,
         desc: `In the combat phase, reroll save rolls of 1 for this model if it made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
+        when: [COMBAT_PHASE, SAVES_PHASE],
       },
       {
         name: `Lord of the Realm`,
@@ -129,7 +130,7 @@ export const LegacyBretonnianUnits: TUnits = [
       {
         name: `Pilgrim Shields`,
         desc: `Reroll save rolls of 1 for this unit. Reroll save rolls of 1 or 2 instead if this unit includes a Grail Reliquae when the save roll is made.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -222,7 +223,7 @@ export const LegacyBretonnianUnits: TUnits = [
       {
         name: `Lion Shield`,
         desc: `In the combat phase, reroll save rolls of 1 for this model if it made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
+        when: [COMBAT_PHASE, SAVES_PHASE],
       },
       {
         name: `Sword of the King`,
@@ -297,7 +298,7 @@ export const LegacyBretonnianUnits: TUnits = [
       {
         name: `Tower Shields`,
         desc: `Add 1 to save rolls for this unit unless it made charge move in the same turn.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -319,7 +320,7 @@ export const LegacyBretonnianUnits: TUnits = [
       {
         name: `Wooden Shields`,
         desc: `In the combat phase, reroll save rolls of 1 for this model if it made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
+        when: [COMBAT_PHASE, SAVES_PHASE],
       },
     ],
   },
@@ -425,12 +426,12 @@ export const LegacyBretonnianUnits: TUnits = [
       {
         name: `Ethereal`,
         desc: `When making save rolls for this unit, ignore the attacking weapon's Rend characteristic.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Shield of the Ancient Forests`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a roll of 6+ that wound is negated and has no effect.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Summoned from the Mists`,

@@ -6,6 +6,7 @@ import {
   COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
 
@@ -22,7 +23,7 @@ const HornblowerEffect = {
 const EnchantedShieldEffect = {
   name: `Enchanted Shield`,
   desc: `Reroll failed save rolls for this model.`,
-  when: [SHOOTING_PHASE, COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 
 export const LegacyHighElvesUnits: TUnits = [
@@ -69,7 +70,7 @@ export const LegacyHighElvesUnits: TUnits = [
       },
       StandardBearerEffect,
       HornblowerEffect,
-      ...GenericEffects.AelvenShield,
+      GenericEffects.AelvenShield,
       {
         name: `Militia`,
         desc: `Add 1 to the Attacks characteristic of this unit's Silverwood Spears while it has 20 or more models. Spear Phalanx.`,
@@ -92,7 +93,7 @@ export const LegacyHighElvesUnits: TUnits = [
       },
       HornblowerEffect,
       StandardBearerEffect,
-      ...GenericEffects.AelvenShield,
+      GenericEffects.AelvenShield,
       {
         name: `Lance Charge`,
         desc: `Add 1 to wound rolls for this unit's Ithilmar Lances and Swords and increase the Damage characteristic of the weapons by 1 if it made a charge move in the same turn.`,
@@ -122,7 +123,7 @@ export const LegacyHighElvesUnits: TUnits = [
       {
         name: `Drake Shield`,
         desc: `You can reroll save rolls of 1 for a unit with Drake Shields. You can instead reroll failed save rolls of 1 or 2 for this unit in the shooting phase.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Ancient Dignity`,
@@ -153,7 +154,7 @@ export const LegacyHighElvesUnits: TUnits = [
     effects: [
       {
         name: `Aelven Purebred`,
-        desc: `Some Dragon Nobles ride to battle on Aelven Purebreeds; these models have Move 12" instead of 6" and gain the steed's lthilmar- shod Hooves attack.`,
+        desc: `Some Dragon Nobles ride to battle on Aelven Purebreeds; these models have Move 12" instead of 6" and gain the steed's lthilmar-shod Hooves attack.`,
         when: [MOVEMENT_PHASE, COMBAT_PHASE],
       },
       {

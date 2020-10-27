@@ -4,8 +4,9 @@ import {
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 // Spell Lores of Tzeentch
@@ -69,7 +70,7 @@ const Spells: TSpells = [
                1-3: You can reroll save rolls of 1 for attacks that target that unit.
                4-6: You can reroll save rolls for attacks that target that unit.
                7-9: You can roll a D6 each time that unit is affected by a spell or endless spell. On a 4+, ignore the effects of that spell or endless spell. In addition, you can reroll save rolls for attacks that target that unit.`,
-        when: [HERO_PHASE, DURING_GAME],
+        when: [HERO_PHASE, SAVES_PHASE],
       },
     ],
   },
@@ -99,7 +100,7 @@ const Spells: TSpells = [
       {
         name: `Treacherous Bond`,
         desc: `If active, roll a D6 before allocating wounds/mortal wounds to the caster. On a 3+, you must allocate those wounds to the bonded friendly unit instead.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

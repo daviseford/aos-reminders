@@ -7,13 +7,14 @@ import {
   DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
   START_OF_SETUP,
   TURN_ONE_START_OF_ROUND,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import {
   ARCANE,
@@ -86,7 +87,7 @@ const DefaultScenery: TScenery = [
       {
         name: MYSTICAL,
         desc: `Roll a D6 each time a unit within 1" of this terrain suffers a wound or mortal wound. On a 6+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -223,7 +224,7 @@ const PenumbralEffects: TEffects[] = [
   {
     name: `Orrery of Obfuscation`,
     desc: `Reroll save rolls of 1 for units wholly within 12" any Penumbral terrain features.`,
-    when: [DURING_GAME],
+    when: [SAVES_PHASE],
   },
   {
     name: `Orrery of Illumination`,

@@ -1,5 +1,5 @@
 import { TTraits } from 'types/army'
-import { CHARGE_PHASE, END_OF_MOVEMENT_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { CHARGE_PHASE, END_OF_MOVEMENT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 const CommandTraits: TTraits = [
   {
@@ -18,7 +18,7 @@ const CommandTraits: TTraits = [
       {
         name: `Ruinous Aura`,
         desc: `Add 1 to Infernal Realmwalkers rolls for Chaos Ascendant Daemon units wholly within 8" of this general.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

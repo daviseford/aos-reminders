@@ -13,6 +13,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
@@ -20,7 +21,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_TURN,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { getChaosSlaves } from 'utils/chaosUtils'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
@@ -134,7 +135,7 @@ export const Units: TUnits = [
       {
         name: `Undying Hate`,
         desc: `If this model is slain, before removing the model from play, roll a D6 for each enemy model within 3" of this model. On a 4+, that model's unit suffers 1 mortal wound. This model is then removed from play.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
 
       {
@@ -302,7 +303,7 @@ export const Units: TUnits = [
       {
         name: `Gorefists`,
         desc: `If an unmodified save roll for an attack made with a melee weapon that targets a unit that includes any models armed with a Goreaxe and Gorefist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -337,7 +338,7 @@ export const Units: TUnits = [
       {
         name: `Bloodfury`,
         desc: `If a model in this unit is slain, before it is removed from play roll a D6 for each enemy unit within 1" of that model. Add 1 to the dice roll if 2 or more models from that enemy unit are within 1" of the slain model. On a 1, nothing happens. On a 2-5, that enemy unit suffers 1 mortal wound after all of its attacks have been resolved. On a 6+ that enemy unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Crimson Haze`,
@@ -367,7 +368,7 @@ export const Units: TUnits = [
       {
         name: `Gorefists`,
         desc: `If an unmodified save roll for an attack made with a melee weapon that targets a unit that includes any models armed with a Goreaxe and Gorefist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -621,7 +622,7 @@ export const Units: TUnits = [
       {
         name: `Cloak of Skulls`,
         desc: `You can reroll save rolls for attacks that target this model.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Decapitating Strike`,
@@ -786,7 +787,7 @@ export const Units: TUnits = [
       {
         name: `Skullgouger`,
         desc: `In the combat phase, if the unmodified save roll for an attack that targets a model armed with a Skullgouger is 6, the attacking unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Brutal Impalement`,

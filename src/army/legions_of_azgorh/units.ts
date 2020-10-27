@@ -7,6 +7,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
@@ -45,7 +46,7 @@ const PyrelockPistolEffect = {
 const SpiteshieldEffect = {
   name: `Spiteshield`,
   desc: `If the unmodified save roll for an attack with a melee weapon that targets a unit that includes any models carrying a Spiteshield is 6, the attacking unit suffers 1 mortal wound.`,
-  when: [COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 const CarriageHaulerEffect = {
   name: `Carriage Hauler`,
@@ -61,7 +62,7 @@ const SiegeArtilleryEffects = [
   {
     name: `Siege Artillery`,
     desc: `Add 1 to save rolls for attacks made with missile weapons that target this model.`,
-    when: [SHOOTING_PHASE],
+    when: [SAVES_PHASE],
   },
 ]
 
@@ -197,8 +198,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Burning Bright`,
-        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this unit. In addition, this unit can run and still charge later in the same turn.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE, MOVEMENT_PHASE, CHARGE_PHASE],
+        desc: `This unit can run and still charge later in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Burning Bright`,
+        desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this unit.`,
+        when: [SAVES_PHASE],
       },
       {
         name: `Kiss of Fire`,

@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_SETUP,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
@@ -56,7 +57,7 @@ const CommandTraits: TTraits = [
       {
         name: `Iron Will of the Guardian`,
         desc: `Add 1 to save rolls for attacks that target this general.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -180,7 +181,7 @@ const CommandTraits: TTraits = [
       {
         name: `Coal-heart Ancient`,
         desc: `Worsen the rend of melee weapons that attack this target by 1 to a minimum of 0.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
         mount_trait: true,
       },
     ],
@@ -191,7 +192,7 @@ const CommandTraits: TTraits = [
       {
         name: `Ash-horn Ancient`,
         desc: `You can reroll save rolls of 1 for attacks that target this model and friendly MAGMADROTHS within 6".`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
         mount_trait: true,
       },
     ],
