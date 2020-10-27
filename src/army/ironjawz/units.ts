@@ -274,7 +274,7 @@ export const Battalions: TBattalions = [
     effects: [
       {
         name: `Smash 'em`,
-        desc: `You can add 1 to all hit rolls made for Smasha Boyz units in the combat phase whilst they are within 10" of their Warchanter. Note that if the Warchanter uses his Frenzy of Violence ability on a Smasha Boyz unit, you would add 2 to their hit rolls instead!`,
+        desc: `You can add 1 to all hit rolls made for Smasha Boyz units in the combat phase whilst they are within 10" of their Warchanter. Note that if the Warchanter uses his Frenzy of Violence ability on a Smasha Boyz unit, you would add 2 to their hit rolls instead.`,
         when: [COMBAT_PHASE],
       },
     ],

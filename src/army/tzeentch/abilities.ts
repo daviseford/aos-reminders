@@ -32,7 +32,7 @@ const Abilities: TAbilities = [
   },
   {
     name: `Summon Daemons of Tzeentch`,
-    desc: `You can summon units of Tzeentch Daemons to the battlefield by expending Fate Points. You receive 1 Fate Point each time a casting roll is successful, and the spell is not unbound. Note that you receive Fate Points whenever a spell is cast, be it by friend or foe - Tzeentch cares not from whence the magic flows!`,
+    desc: `You can summon units of Tzeentch Daemons to the battlefield by expending Fate Points. You receive 1 Fate Point each time a casting roll is successful, and the spell is not unbound. Note that you receive Fate Points whenever a spell is cast, be it by friend or foe - Tzeentch cares not from whence the magic flows.`,
     when: [HERO_PHASE],
   },
   {

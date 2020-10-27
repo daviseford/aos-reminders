@@ -13,7 +13,7 @@ const CrushingChargeEffect = {
 }
 const DeathGripEffect = {
   name: `Death Grip`,
-  desc: `You can reroll hit rolls of 1 for Death Grip attacks that target a MONSTER-`,
+  desc: `You can reroll hit rolls of 1 for Death Grip attacks that target a MONSTER.`,
   when: [HERO_PHASE],
 }
 
