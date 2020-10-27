@@ -105,19 +105,6 @@ const AvatarOfKhaineEffects = [
     when: [DURING_GAME],
   },
 ]
-const MorathiEffects = [
-  {
-    name: `The Iron Heart of Khaine`,
-    desc: `Morathi cannot be healed, but no more than 3 wounds can be allocated to her in any one turn. Any additional wounds and/or mortal wounds allocated to her in the same turn are ignored and have no effect.`,
-    when: [DURING_GAME],
-  },
-  {
-    name: `Arnzipal's Black Horror`,
-    desc: `Casting value of 7. Pick an enemy unit within 18" visible to the caster and roll a D6. On a 1 that unit suffers 1 mortal wound. On a 2 or 3 it suffers D3 mortal wounds. On a 4+ it suffers D6 mortal wounds.`,
-    when: [HERO_PHASE],
-    spell: true,
-  },
-]
 const StandardBearerAndHornblowerEffects = [
   {
     name: `Standard Bearer`,
@@ -166,44 +153,43 @@ export const Units: TUnits = [
   {
     name: `Morathi, High Oracle of Khaine`,
     effects: [
-      ...MorathiEffects,
       {
         name: `Monstrous Transformation`,
         desc: `Morathi can transform into her monstrous aspect.`,
         when: [START_OF_HERO_PHASE],
+        tag: 'High Oracle',
       },
       {
         name: `The Truth Revealed.`,
         desc: `Roll a D6 and if the result is equal to or less than the number of wounds currently allocated to Morathi, she transforms into Morathi, the Shadow Queen.`,
         when: [START_OF_HERO_PHASE],
+        tag: 'High Oracle',
       },
       {
         name: `Sorceress Supreme`,
         desc: `Add 1 to casting and unbinding rolls made for Morathi, High Oracle of Khaine. In addition, double the range of spells she attempts to cast.`,
         when: [HERO_PHASE],
+        tag: 'High Oracle',
       },
       {
         name: `Enchanting Beauty`,
         desc: `Subtract 1 from the hit rolls of attacks that target Morathi, High Oracle of Khaine.`,
         when: [DURING_GAME],
+        tag: 'High Oracle',
       },
       {
         name: `Magic`,
         desc: `This model is a wizard. Can attempt to cast 3 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Arnzipal's Black Horror.`,
         when: [HERO_PHASE],
+        tag: 'High Oracle',
       },
       {
         name: `Worship Through Bloodshed`,
         desc: `If Morathi, High Oracle of Khaine is your general, you can use this ability. If you do, pick up to 2 friendly Daughters of Khaine units within 14" of Morathi (you cannot choose Morathi herself ). Those units can immediately shoot as if it were the shooting phase. Alternatively, if either unit is within 3" of an enemy unit, it can instead be chosen to pile in and attack as if it were the combat phase. The same unit cannot be picked to benefit from this command ability more than once per hero phase.`,
         when: [HERO_PHASE],
         command_ability: true,
+        tag: 'High Oracle',
       },
-    ],
-  },
-  {
-    name: `Morathi, the Shadow Queen`,
-    effects: [
-      ...MorathiEffects,
       {
         name: `Monstrous Revelation`,
         desc: `When Morathi transforms, her High Oracle of Khaine model is removed from the battlefield and her Shadow Queen model is set up on the spot where she was standing before her transformation.
@@ -216,16 +202,30 @@ export const Units: TUnits = [
 
                Morathi remains in this form for the remainder of the battle. If she was your general in the High Oracle form she remains your general.`,
         when: [HERO_PHASE],
+        tag: 'Shadow Queen',
       },
       {
         name: `Gaze of Morathi`,
         desc: `If a target is hit by the Gaze of Morathi, pick a model in the target unit and roll a D6. If the result exceeds that model's Wounds characteristic, it is slain.`,
         when: [SHOOTING_PHASE],
+        tag: 'Shadow Queen',
       },
       {
         name: `Magic`,
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Arnzipal's Black Horror.`,
         when: [HERO_PHASE],
+        tag: 'Shadow Queen',
+      },
+      {
+        name: `The Iron Heart of Khaine`,
+        desc: `Morathi cannot be healed, but no more than 3 wounds can be allocated to her in any one turn. Any additional wounds and/or mortal wounds allocated to her in the same turn are ignored and have no effect.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Arnzipal's Black Horror`,
+        desc: `Casting value of 7. Pick an enemy unit within 18" visible to the caster and roll a D6. On a 1 that unit suffers 1 mortal wound. On a 2 or 3 it suffers D3 mortal wounds. On a 4+ it suffers D6 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
     ],
   },

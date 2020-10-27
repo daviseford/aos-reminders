@@ -20,9 +20,9 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Summon`,
-        desc: `Prayer value of 3+. Only friendly Khorne Priests can attempt this. If successful, set up both of these models wholly within 8" of the Priest and within 6" of each other. You may then immediately move these models 8" ending the movement with each model 6" from the other.`,
+        desc: `Summon value of 3+. Only friendly Khorne Priests can attempt this. If successful, set up both of these models wholly within 8" of the Priest and within 6" of each other. You may then immediately move these models 8" ending the movement with each model 6" from the other.`,
         when: [START_OF_HERO_PHASE],
-        prayer: true,
+        tag: 'Judgement',
       },
       {
         name: `Hexgorgers`,
@@ -41,9 +41,9 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Summon`,
-        desc: `Prayer value of 4+. Only friendly Khorne Priests can attempt this. If successful, set up one of these models wholly within 8" of the Priest. You may then move this flying model 8".`,
+        desc: `Summon value of 4+. Only friendly Khorne Priests can attempt this. If successful, set up one of these models wholly within 8" of the Priest. You may then move this flying model 8".`,
         when: [HERO_PHASE],
-        prayer: true,
+        tag: 'Judgement',
       },
       {
         name: `Crushing Retribution`,
@@ -67,9 +67,9 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Summon`,
-        desc: `Prayer value of 5+. Only friendly Khorne Priests can attempt this. If successful, set up one of these models wholly within 8" of the Priest. You may then move this flying model 8".`,
+        desc: `Summon value of 5+. Only friendly Khorne Priests can attempt this. If successful, set up one of these models wholly within 8" of the Priest. You may then move this flying model 8".`,
         when: [START_OF_HERO_PHASE],
-        prayer: true,
+        tag: 'Judgement',
       },
       {
         name: `Hatred's Edge`,
