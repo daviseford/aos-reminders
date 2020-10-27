@@ -2,6 +2,8 @@ import { TTraits } from 'types/army'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_COMBAT_PHASE,
   HERO_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
@@ -11,45 +13,43 @@ import {
 } from 'types/phases'
 import CommonSonsOfBehematData from './common'
 
-const { Breaker, TakerTag, Taker, Stomper, StomperTag, BreakerTag } = CommonSonsOfBehematData.TRIBES
+const { TakerTag, StomperTag, BreakerTag } = CommonSonsOfBehematData.TRIBES
 
-const getMonstrouslyToughEffect = (tribe: string) => ({
-  name: `Monstrously Tough (${tribe} Tribe)`,
+const getLouderThanWordsEffect = (numAttacks: number, weaponName: string, tag: string) => ({
+  name: `Louder than Words ${tag}`,
   effects: [
     {
-      name: `Monstrously Tough (${tribe} Tribe)`,
-      desc: `This general has a Wounds characteristic of 40 instead of 35.`,
-      when: [WOUND_ALLOCATION_PHASE],
-    },
-  ],
-})
-
-const getOldAndGnarlyEffect = (tribe: string) => ({
-  name: `Old and Gnarly (${tribe} Tribe)`,
-  effects: [
-    {
-      name: `Old and Gnarly (${tribe} Tribe)`,
-      desc: `You can reroll save rolls of 1 for attacks that target this general.`,
-      when: [SAVES_PHASE],
-    },
-  ],
-})
-
-const getLouderThanWordsEffect = (tribe: string) => ({
-  name: `Louder than Words (${tribe} Tribe)`,
-  effects: [
-    {
-      name: `Louder than Words (${tribe} Tribe)`,
-      desc: `Add 1 to the Attacks characteristic of this general's Shipwrecka Warclub.`,
+      name: `Louder than Words ${tag}`,
+      desc: `Add ${numAttacks} to the Attacks characteristic of this general's ${weaponName}.`,
       when: [COMBAT_PHASE],
     },
   ],
 })
 
 const CommandTraits: TTraits = [
-  getMonstrouslyToughEffect(Taker),
-  getOldAndGnarlyEffect(Taker),
-  getLouderThanWordsEffect(Taker),
+  // Shared Traits
+  {
+    name: `Monstrously Tough`,
+    effects: [
+      {
+        name: `Monstrously Tough`,
+        desc: `This general has a Wounds characteristic of 40 instead of 35.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Old and Gnarly`,
+    effects: [
+      {
+        name: `Old and Gnarly`,
+        desc: `You can reroll save rolls of 1 for attacks that target this general.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+  // Taker Tribe
+  getLouderThanWordsEffect(1, 'Shipwrecka Warclub', TakerTag),
   {
     name: `Strong Right Foot ${TakerTag}`,
     effects: [
@@ -80,11 +80,8 @@ const CommandTraits: TTraits = [
       },
     ],
   },
-
-  getMonstrouslyToughEffect(Stomper),
-  getOldAndGnarlyEffect(Stomper),
-  getLouderThanWordsEffect(Stomper),
-
+  // Stomper Tribe
+  getLouderThanWordsEffect(1, 'Titanic Boulderclub (to a maximum of 10)', StomperTag),
   {
     name: `Inescapable Grip ${StomperTag}`,
     effects: [
@@ -115,14 +112,35 @@ const CommandTraits: TTraits = [
       },
     ],
   },
-
+  // Breaker Tribe
+  getLouderThanWordsEffect(2, 'Fortcrusha Flail', BreakerTag),
   {
-    name: ``,
+    name: `Extremely Bitter ${BreakerTag}`,
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Extremely Bitter ${BreakerTag}`,
+        desc: `You can choose or roll for 2 abilities from the Fierce Loathings table for your army instead of 1. If you randomly generate the second, roll again if it is the same as the first. The second ability only applies to the general.`,
+        when: [START_OF_SETUP],
+      },
+    ],
+  },
+  {
+    name: `Smasher ${BreakerTag}`,
+    effects: [
+      {
+        name: `Smasher ${BreakerTag}`,
+        desc: `When you use this general's Smash Down ability, you can reroll the dice roll that determines if the terrain feature is turned into rubble.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Sees Red ${BreakerTag}`,
+    effects: [
+      {
+        name: `Sees Red ${BreakerTag}`,
+        desc: `While this general is within 9" of a terrain feature that can have a garrison, when you look up a value on this general's damage table, they are treated as if they have suffered 0 wounds.`,
+        when: [DURING_GAME],
       },
     ],
   },
