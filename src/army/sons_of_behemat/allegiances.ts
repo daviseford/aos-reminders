@@ -1,5 +1,13 @@
 import { TAllegiances } from 'types/army'
-import { DURING_GAME } from 'types/phases'
+import {
+  COMBAT_PHASE,
+  DURING_GAME,
+  START_OF_BATTLESHOCK_PHASE,
+  START_OF_CHARGE_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_MOVEMENT_PHASE,
+  START_OF_SHOOTING_PHASE,
+} from 'types/phases'
 import CommonSonsOfBehematData from './common'
 
 const { Breaker, Taker, Stomper } = CommonSonsOfBehematData.TRIBES
@@ -22,7 +30,49 @@ const Allegiances: TAllegiances = [
   },
   {
     name: `${Stomper} Tribe`,
-    effects: [{ name: ``, desc: ``, when: [] }],
+    effects: [
+      {
+        name: `Getting Stuck In`,
+        desc: `Add 1 to the damage inflicted by each successful attack made by a friendly MANCRUSHER GARGANT unit that targets a unit with 10 or more models. Add 2 instead of 1 to the damage inflicted by each successful attack made by a friendly MANCRUSHER GARGANT unit that targets a unit with 20 or more models.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Get a Move On, You Slackers!`,
+        desc: `You can use this command ability at the start of your movement phase. If you do so, until the end of that phase, if you make a run roll for a friendly MANCRUSHER GARGANT unit that is within 18" of your general, that roll is treated as being 6.`,
+        when: [START_OF_MOVEMENT_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Grab Those Rocks and Chuck 'Em at Somethin'!`,
+        desc: `You can use this command ability at the start of your shooting phase. If you do so, when you use the Chuck Rocks battle trait, you can pick all friendly MANCRUSHER GARGANT units within 18" of your general to make Chuck Rocks shooting attacks, instead of only 1 unit.`,
+        when: [START_OF_SHOOTING_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Oi, You! Yes, You! Charge!`,
+        desc: `You can use this command ability at the start of your charge phase. If you do so, until the end of that phase, you can reroll charge rolls for friendly MANCRUSHER GARGANT units that are within 18" of your general.`,
+        when: [START_OF_CHARGE_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Stop Muckin' About and Hit 'Em!`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, until the end of that phase, you can reroll hit rolls of 1 for attacks made by friendly MANCRUSHER GARGANT units that are within 18" of your general.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Watch Yer Backs, You Gormless Lot!`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, until the end of that phase, you can reroll save rolls of for attacks that target friendly MANCRUSHER GARGANT units that are within 18" of your general.`,
+        when: [START_OF_COMBAT_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Where Do You Think You're Going?`,
+        desc: `You can use this command ability at the start of your battleshock phase. If you do so, until the end of that phase, do not take battleshock tests for friendly MANCRUSHER GARGANT units that are within 18" of your general.`,
+        when: [START_OF_BATTLESHOCK_PHASE],
+        command_ability: true,
+      },
+    ],
   },
   {
     name: `${Breaker} Tribe`,
