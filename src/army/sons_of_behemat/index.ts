@@ -10,7 +10,7 @@ import { AlliedUnits, Battalions, Units } from './units'
 const SonsOfBehematArmy = {
   Abilities,
   Allegiances,
-  AllegianceType: 'Allegiances',
+  AllegianceType: 'Tribes',
   AlliedUnits,
   Artifacts,
   Battalions,
