@@ -15,6 +15,8 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
+const BigNameTag = `(Big Name)`
+
 const CommandTraits: TTraits = [
   {
     name: `Furious Guzzler`,
@@ -383,60 +385,60 @@ const CommandTraits: TTraits = [
     ],
   },
   {
-    name: `Deathcheater (Big Name)`,
+    name: `Deathcheater ${BigNameTag}`,
     effects: [
       {
-        name: `Deathcheater (Big Name)`,
+        name: `Deathcheater ${BigNameTag}`,
         desc: `This model has a Wounds characteristic of 9 instead of 8.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
   {
-    name: `Brawlerguts (Big Name)`,
+    name: `Brawlerguts ${BigNameTag}`,
     effects: [
       {
-        name: `Brawlerguts (Big Name)`,
+        name: `Brawlerguts ${BigNameTag}`,
         desc: `You can add 1 to wound rolls for attacks made by this model if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
   {
-    name: `Fateseeker (Big Name)`,
+    name: `Fateseeker ${BigNameTag}`,
     effects: [
       {
-        name: `Fateseeker (Big Name)`,
+        name: `Fateseeker ${BigNameTag}`,
         desc: `This model has a Save characteristic of 3+ instead of 4+.`,
         when: [DURING_GAME],
       },
     ],
   },
   {
-    name: `Longstrider (Big Name)`,
+    name: `Longstrider ${BigNameTag}`,
     effects: [
       {
-        name: `Longstrider (Big Name)`,
+        name: `Longstrider ${BigNameTag}`,
         desc: `This model has a Move characteristic of 8" instead of 6".`,
         when: [MOVEMENT_PHASE],
       },
     ],
   },
   {
-    name: `Giantbreaker (Big Name)`,
+    name: `Giantbreaker ${BigNameTag}`,
     effects: [
       {
-        name: `Giantbreaker (Big Name)`,
+        name: `Giantbreaker ${BigNameTag}`,
         desc: `Add 1 to the damage inflicted by this model's weapons when they are used for an attack that targets a MONSTER.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
   {
-    name: `Wallcrusher (Big Name)`,
+    name: `Wallcrusher ${BigNameTag}`,
     effects: [
       {
-        name: `Wallcrusher (Big Name)`,
+        name: `Wallcrusher ${BigNameTag}`,
         desc: `You can reroll 1 wound roll for 1 attack made with 1 melee weapon each time this model attacks. In addition, you can reroll wound rolls for attacks made with melee weapons by this model that target a unit that is part of a garrison.`,
         when: [COMBAT_PHASE],
       },

@@ -2,15 +2,21 @@ import { TAllegiances } from 'types/army'
 import {
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_COMBAT_PHASE,
+  SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_MOVEMENT_PHASE,
+  START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 import CommonSonsOfBehematData from './common'
 
 const { Breaker, Taker, Stomper } = CommonSonsOfBehematData.TRIBES
+
+const BigShoutTag = `(Big Shout)`
+const FierceLoathingTag = `(Fierce Loathing)`
 
 const Allegiances: TAllegiances = [
   {
@@ -37,37 +43,42 @@ const Allegiances: TAllegiances = [
         when: [COMBAT_PHASE],
       },
       {
-        name: `Get a Move On, You Slackers!`,
+        name: `Big Shouts`,
+        desc: `If your army is a ${Stomper} Tribe, your general must use the Big Shout command abilities (they cannot use any other command abilities)`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Get a Move On, You Slackers! ${BigShoutTag}`,
         desc: `You can use this command ability at the start of your movement phase. If you do so, until the end of that phase, if you make a run roll for a friendly MANCRUSHER GARGANT unit that is within 18" of your general, that roll is treated as being 6.`,
         when: [START_OF_MOVEMENT_PHASE],
         command_ability: true,
       },
       {
-        name: `Grab Those Rocks and Chuck 'Em at Somethin'!`,
+        name: `Grab Those Rocks and Chuck 'Em at Somethin'! ${BigShoutTag}`,
         desc: `You can use this command ability at the start of your shooting phase. If you do so, when you use the Chuck Rocks battle trait, you can pick all friendly MANCRUSHER GARGANT units within 18" of your general to make Chuck Rocks shooting attacks, instead of only 1 unit.`,
         when: [START_OF_SHOOTING_PHASE],
         command_ability: true,
       },
       {
-        name: `Oi, You! Yes, You! Charge!`,
+        name: `Oi, You! Yes, You! Charge! ${BigShoutTag}`,
         desc: `You can use this command ability at the start of your charge phase. If you do so, until the end of that phase, you can reroll charge rolls for friendly MANCRUSHER GARGANT units that are within 18" of your general.`,
         when: [START_OF_CHARGE_PHASE],
         command_ability: true,
       },
       {
-        name: `Stop Muckin' About and Hit 'Em!`,
+        name: `Stop Muckin' About and Hit 'Em! ${BigShoutTag}`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, until the end of that phase, you can reroll hit rolls of 1 for attacks made by friendly MANCRUSHER GARGANT units that are within 18" of your general.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
       {
-        name: `Watch Yer Backs, You Gormless Lot!`,
+        name: `Watch Yer Backs, You Gormless Lot! ${BigShoutTag}`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, until the end of that phase, you can reroll save rolls of for attacks that target friendly MANCRUSHER GARGANT units that are within 18" of your general.`,
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
       {
-        name: `Where Do You Think You're Going?`,
+        name: `Where Do You Think You're Going? ${BigShoutTag}`,
         desc: `You can use this command ability at the start of your battleshock phase. If you do so, until the end of that phase, do not take battleshock tests for friendly MANCRUSHER GARGANT units that are within 18" of your general.`,
         when: [START_OF_BATTLESHOCK_PHASE],
         command_ability: true,
@@ -76,7 +87,53 @@ const Allegiances: TAllegiances = [
   },
   {
     name: `${Breaker} Tribe`,
-    effects: [{ name: ``, desc: ``, when: [] }],
+    effects: [
+      {
+        name: `Breaking Down The Houses`,
+        desc: `Add 1 to the damage inflicted by each successful attack made by a friendly MANCRUSHER GARGANT unit that targets a unit that is part of a garrison or is wholly on or within a terrain feature.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Breaking Down The Houses`,
+        desc: `At the end of the combat phase, you can pick 1 terrain feature within 3" of a friendly MANCRUSHER GARGANT unit and roll a dice. Add the number of models in that unit to the roll. On a 7+, that terrain feature is reduced to rubble: all of its scenery rules are replaced with the Deadly scenery rule, and its keywords are changed to SCENERY, RUBBLE.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Fierce Loathings`,
+        desc: `When you pick a ${Breaker} Tribe army, you can choose or roll for 1 ability from the Fierce Loathings table. The ability applies to friendly GATEBREAKER MEGA-GARGANTS and friendly MANCRUSHER GARGANT units.`,
+        when: [START_OF_SETUP],
+      },
+      {
+        name: `Bossy Pants and Clever Clogs ${FierceLoathingTag}`,
+        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a HERO or WIZARD.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Idiots with Flags ${FierceLoathingTag}`,
+        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a TOTEM or a unit with any command models.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Shiny 'Uns ${FierceLoathingTag}`,
+        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a unit with a Save characteristic of 1+, 2+, 3+ or 4+ and that is not a HERO or MONSTER.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Crowds ${FierceLoathingTag}`,
+        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a unit with 20 or more models.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Wannabes ${FierceLoathingTag}`,
+        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a WAR MACHINE or MONSTER.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Piggybackers ${FierceLoathingTag}`,
+        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a unit with a mount and that is not a MONSTER.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
   },
 ]
 
