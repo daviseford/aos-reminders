@@ -178,7 +178,7 @@ export const Units: TUnits = [
       },
       {
         name: `Scry-orb`,
-        desc: `You can reroll save rolls for attacks that target this model.`,
+        desc: `If active, you can reroll save rolls for attacks that target this model.`,
         when: [SAVES_PHASE],
       },
       {

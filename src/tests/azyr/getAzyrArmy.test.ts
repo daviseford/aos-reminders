@@ -15,6 +15,7 @@ import {
   KHORNE,
   LEGIONS_OF_GRIEF,
   LUMINETH_REALMLORDS,
+  MEGA_GARGANT_MERCENARIES,
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   OGOR_MAWTRIBES,
@@ -43,6 +44,10 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
+    expect(res.allyFactionNames).toEqual([MEGA_GARGANT_MERCENARIES])
+    expect(res.allySelections).toEqual({
+      [MEGA_GARGANT_MERCENARIES]: { battalions: [], units: ['One-Eyed Grunnock - Warstomper'] },
+    })
     expect(res.errors).toEqual([])
   })
 
@@ -51,6 +56,11 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
+    expect(res.allyFactionNames).toContain(MEGA_GARGANT_MERCENARIES)
+    expect(res.allySelections).toEqual({
+      [GLOOMSPITE_GITZ]: { battalions: [], units: ['Fungoid Cave-Shaman'] },
+      [MEGA_GARGANT_MERCENARIES]: { battalions: [], units: ['Big Drogg Fort-Kicka - Gatebreaker'] },
+    })
     expect(res.errors).toEqual([])
   })
 
@@ -59,7 +69,37 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
-    expect(res.errors).toEqual([])
+    expect(res.allyFactionNames).toContain(GLOOMSPITE_GITZ)
+    expect(res.allyFactionNames).toContain(MEGA_GARGANT_MERCENARIES)
+    expect(res.selections).toEqual({
+      allegiances: [],
+      artifacts: [
+        'The Great Wrecka (Breaker Tribe)',
+        'Kingslaughter Cowl (Breaker Tribe)',
+        "Wallopin' Tentacle (Taker Tribe)",
+        'Net of the Beast-reaver (Taker Tribe)',
+        'Jaws of the Mogalodon (Taker Tribe)',
+        'Mantle of the Destroyer (Stomper Tribe)',
+      ],
+      battalions: [],
+      commands: [],
+      endless_spells: [],
+      scenery: [],
+      spells: [],
+      traits: ['Extremely Bitter (Breaker Tribe)'],
+      triumphs: [],
+      units: ['Gatebreaker', 'Kraken-Eater', 'Warstomper', 'Mancrusher Gargants'],
+    })
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Hypersnare Seeds',
+      },
+      {
+        severity: 'warn',
+        text: 'Arboreal Stave',
+      },
+    ])
   })
 
   it('should correctly read ScarVeteran (issue #1037)', () => {

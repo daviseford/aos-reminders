@@ -3,7 +3,6 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_COMBAT_PHASE,
-  SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
@@ -14,9 +13,7 @@ import {
 import CommonSonsOfBehematData from './common'
 
 const { Breaker, Taker, Stomper } = CommonSonsOfBehematData.TRIBES
-
-const BigShoutTag = `(Big Shout)`
-const FierceLoathingTag = `(Fierce Loathing)`
+const { BigShoutTag } = CommonSonsOfBehematData.TAGS
 
 const Allegiances: TAllegiances = [
   {
@@ -102,36 +99,6 @@ const Allegiances: TAllegiances = [
         name: `Fierce Loathings`,
         desc: `When you pick a ${Breaker} Tribe army, you can choose or roll for 1 ability from the Fierce Loathings table. The ability applies to friendly GATEBREAKER MEGA-GARGANTS and friendly MANCRUSHER GARGANT units.`,
         when: [START_OF_SETUP],
-      },
-      {
-        name: `Bossy Pants and Clever Clogs ${FierceLoathingTag}`,
-        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a HERO or WIZARD.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Idiots with Flags ${FierceLoathingTag}`,
-        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a TOTEM or a unit with any command models.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Shiny 'Uns ${FierceLoathingTag}`,
-        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a unit with a Save characteristic of 1+, 2+, 3+ or 4+ and that is not a HERO or MONSTER.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Crowds ${FierceLoathingTag}`,
-        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a unit with 20 or more models.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Wannabes ${FierceLoathingTag}`,
-        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a WAR MACHINE or MONSTER.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Piggybackers ${FierceLoathingTag}`,
-        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a unit with a mount and that is not a MONSTER.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },

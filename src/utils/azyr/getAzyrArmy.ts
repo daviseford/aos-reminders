@@ -11,7 +11,6 @@ import { titleCase } from 'utils/textUtils'
 export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialAzyrArmy(pdfText)
   const errorChecked = importErrorChecker(army, AZYR)
-
   return errorChecked
 }
 
@@ -133,7 +132,7 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
 const getFactionName = (val: string): { faction: string | null; allegiance: string | null } => {
   const name = val.replace('FACTION: ', '')
   const faction = importFactionNameMap[name] || null
-  if (!faction) console.log('ALERT: Missing this faction: ' + name)
+  if (!faction) console.error('ALERT: Missing this faction: ' + name)
   const allegiance = faction ? factionToAllegianceMap[name] : null
   return { faction: faction || null, allegiance: allegiance || null }
 }

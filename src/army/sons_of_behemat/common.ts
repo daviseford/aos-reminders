@@ -51,7 +51,7 @@ const BaseMegaGargantEffects = [
 
 const CommonSonsOfBehematData = {
   EFFECTS: {
-    WarstomperMegaGargantEffects: [
+    WarstomperEffects: [
       ...BaseMegaGargantEffects,
       {
         name: `Hurled Body`,
@@ -64,7 +64,7 @@ const CommonSonsOfBehematData = {
         when: [COMBAT_PHASE],
       },
     ],
-    GatebreakerMegaGargantEffects: [
+    GatebreakerEffects: [
       ...BaseMegaGargantEffects,
       {
         name: `Smash Down`,
@@ -77,7 +77,7 @@ const CommonSonsOfBehematData = {
         when: [END_OF_COMBAT_PHASE],
       },
     ],
-    KrakenEaterMegaGargantEffects: [
+    KrakenEaterEffects: [
       ...BaseMegaGargantEffects,
       {
         name: `Get Orf Me Land!`,
@@ -98,6 +98,10 @@ const CommonSonsOfBehematData = {
     StomperTag: `(Stomper Tribe)`,
     Taker: `Taker`,
     TakerTag: `(Taker Tribe)`,
+  },
+  TAGS: {
+    BigShoutTag: `(Big Shout)`,
+    FierceLoathingTag: `(Fierce Loathing)`,
   },
 }
 

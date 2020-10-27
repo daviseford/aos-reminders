@@ -14,6 +14,7 @@ import {
 import CommonSonsOfBehematData from './common'
 
 const { TakerTag, StomperTag, BreakerTag } = CommonSonsOfBehematData.TRIBES
+const { FierceLoathingTag } = CommonSonsOfBehematData.TAGS
 
 const getLouderThanWordsEffect = (numAttacks: number, weaponName: string, tag: string) => ({
   name: `Louder than Words ${tag}`,
@@ -113,6 +114,73 @@ const CommandTraits: TTraits = [
     ],
   },
   // Breaker Tribe
+
+  {
+    name: `Bossy Pants and Clever Clogs ${FierceLoathingTag}`,
+    effects: [
+      {
+        name: `Bossy Pants and Clever Clogs ${FierceLoathingTag}`,
+        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a HERO or WIZARD.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        command_trait: true,
+      },
+    ],
+  },
+  {
+    name: `Idiots with Flags ${FierceLoathingTag}`,
+    effects: [
+      {
+        name: `Idiots with Flags ${FierceLoathingTag}`,
+        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a TOTEM or a unit with any command models.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        command_trait: true,
+      },
+    ],
+  },
+  {
+    name: `Shiny 'Uns ${FierceLoathingTag}`,
+    effects: [
+      {
+        name: `Shiny 'Uns ${FierceLoathingTag}`,
+        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a unit with a Save characteristic of 1+, 2+, 3+ or 4+ and that is not a HERO or MONSTER.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        command_trait: true,
+      },
+    ],
+  },
+  {
+    name: `Crowds ${FierceLoathingTag}`,
+    effects: [
+      {
+        name: `Crowds ${FierceLoathingTag}`,
+        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a unit with 20 or more models.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        command_trait: true,
+      },
+    ],
+  },
+  {
+    name: `Wannabes ${FierceLoathingTag}`,
+    effects: [
+      {
+        name: `Wannabes ${FierceLoathingTag}`,
+        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a WAR MACHINE or MONSTER.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        command_trait: true,
+      },
+    ],
+  },
+  {
+    name: `Piggybackers ${FierceLoathingTag}`,
+    effects: [
+      {
+        name: `Piggybackers ${FierceLoathingTag}`,
+        desc: `Add 1 to hit rolls for attacks made by units with this ability that target a unit with a mount and that is not a MONSTER.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        command_trait: true,
+      },
+    ],
+  },
   getLouderThanWordsEffect(2, 'Fortcrusha Flail', BreakerTag),
   {
     name: `Extremely Bitter ${BreakerTag}`,

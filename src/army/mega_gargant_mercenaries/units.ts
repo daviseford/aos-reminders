@@ -5,9 +5,9 @@ import { COMBAT_PHASE, END_OF_COMBAT_PHASE, START_OF_COMBAT_PHASE } from 'types/
 // Unit Names
 export const Units: TUnits = [
   {
-    name: `Bundo Whalebiter`,
+    name: `Bundo Whalebiter - Kraken-Eater`,
     effects: [
-      ...CommonSonsOfBehematData.EFFECTS.KrakenEaterMegaGargantEffects,
+      ...CommonSonsOfBehematData.EFFECTS.KrakenEaterEffects,
       {
         name: `Dead Cunning, For a Gargant`,
         desc: `At the start of the combat phase. you can say that this model will be uncannily cunning. If you do so, this model fights at the end of that phase, but you can reroll hit rolls for attacks made by this model in that phase.`,
@@ -16,9 +16,9 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `One-Eyed Grunnock`,
+    name: `One-Eyed Grunnock - Warstomper`,
     effects: [
-      ...CommonSonsOfBehematData.EFFECTS.WarstomperMegaGargantEffects,
+      ...CommonSonsOfBehematData.EFFECTS.WarstomperEffects,
       {
         name: `Shake The Earth`,
         desc: `You can reroll hit rolls of 1 for Jump Up and Down attacks made by this model. In addition, subtract 1 from hit rolls for attacks made by enemy units that are within 6" of this model if this model made any Jump Up and Down attacks earlier in the same phase.`,
@@ -27,9 +27,9 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Big Drogg Fort-Kicka`,
+    name: `Big Drogg Fort-Kicka - Gatebreaker`,
     effects: [
-      ...CommonSonsOfBehematData.EFFECTS.GatebreakerMegaGargantEffects,
+      ...CommonSonsOfBehematData.EFFECTS.GatebreakerEffects,
       {
         name: `Grievous Halitosis`,
         desc: `At the end of the combat phase, you can pick 1 enemy unit within 3" of this model and roll a number of dice equal to the number of models from that unit that are within 3" of this model. For each 6, that unit suffers 1 mortal wound.`,

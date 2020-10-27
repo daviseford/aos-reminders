@@ -5,16 +5,16 @@ import CommonSonsOfBehematData from './common'
 // Unit Names
 export const Units: TUnits = [
   {
-    name: `Gatebreaker Mega-Gargant`,
-    effects: CommonSonsOfBehematData.EFFECTS.GatebreakerMegaGargantEffects,
+    name: `Gatebreaker`,
+    effects: CommonSonsOfBehematData.EFFECTS.GatebreakerEffects,
   },
   {
-    name: `Kraken-eater Mega-Gargant`,
-    effects: CommonSonsOfBehematData.EFFECTS.KrakenEaterMegaGargantEffects,
+    name: `Kraken-Eater`,
+    effects: CommonSonsOfBehematData.EFFECTS.KrakenEaterEffects,
   },
   {
-    name: `Warstomper Mega-Gargant`,
-    effects: CommonSonsOfBehematData.EFFECTS.WarstomperMegaGargantEffects,
+    name: `Warstomper`,
+    effects: CommonSonsOfBehematData.EFFECTS.WarstomperEffects,
   },
   {
     name: `Mancrusher Gargants`,

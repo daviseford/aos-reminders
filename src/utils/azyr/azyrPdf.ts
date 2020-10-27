@@ -107,6 +107,7 @@ const handlePages = (text: string): string[] => {
     .replace(/Role: {1,}(Behemoth)( {1,})?, {1,}Artillery /g, 'Role: Leader  ')
     .replace(/( )?[‘’]/g, `'`) // Replace special quotes
     .replace(/[“”]/g, `"`) // Replace special quotes
+    .replace(/[‑–—]/g, `-`) // Replace special dashes
     .replace(/([a-z])- ([a-z])/g, `$1-$2`) // Flesh- eater Courts -> Flesh-eater Courts
     .replace(/([\w]) {1,3}'s /g, `$1's `) // Ford 's -> Ford's
     .replace(typoRegexp, match => commonTypos[match]) // Handle any known typos
@@ -186,6 +187,7 @@ const handleTitle = (text: string): string[] => {
     .replace(/ITEM: /g, sep) // Replace ITEM placeholder with commas
     .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whitespace in front of existing commas
     .replace(/Mercenary Company: {1,3}([\w-' ]+)(HEADER|Extra Command|(?:$))/g, mercenaryReplacer)
+    .replace(/Mercenary Company:/g, 'MERCENARY COMPANY:') // Needed for Sons of Behemat for some reason
     .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '') // Get rid of command point info
     .replace(/(\w) +Kharadron Code: /g, `$1${sep}Kharadron Code: `)
 
