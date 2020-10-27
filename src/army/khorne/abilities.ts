@@ -6,7 +6,7 @@ import {
   HERO_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -49,7 +49,7 @@ const Abilities: TAbilities = [
   {
     name: `Blood Tithe: Relentless Fury`,
     desc: `If active, before the buffed model is removed from play, it may pile-in and attack with all of its melee weapons.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Blood Tithe: Crimson Rain`,

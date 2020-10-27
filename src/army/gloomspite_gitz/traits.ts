@@ -9,7 +9,7 @@ import {
   MOVEMENT_PHASE,
   START_OF_COMBAT_PHASE,
   TURN_ONE_START_OF_ROUND,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 export const StabEmGoodEffect = {
@@ -96,7 +96,7 @@ const CommandTraits: TTraits = [
       {
         name: `Spiteful Git`,
         desc: `Roll a D6 each time a wound or mortal wound is allocated to this model. On a 4+ the unit that inflicted the wound or mortal wound suffers 1 mortal wound. On a 6, it suffers D3 mortal wounds instead.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

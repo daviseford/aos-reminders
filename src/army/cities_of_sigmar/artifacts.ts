@@ -10,7 +10,7 @@ import {
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   TURN_ONE_START_OF_ROUND,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -161,7 +161,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Drakescale Cloak (Anvilgard)`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 5+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

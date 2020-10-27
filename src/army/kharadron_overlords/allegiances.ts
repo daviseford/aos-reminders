@@ -9,7 +9,7 @@ import {
   START_OF_CHARGE_PHASE,
   START_OF_SETUP,
   TURN_ONE_START_OF_ROUND,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import {
   AlwaysABreezeIfYouLookForItEffect,
@@ -71,7 +71,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Bearer of the Ironstar`,
         desc: `The first time this general is slain, before removing them, roll a D6. On a 2+ they are not slain, you can heal up to D3 wounds allocated to them, and any wounds remaining to be allocated to them are negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
         command_trait: true,
       },
       {
@@ -143,12 +143,12 @@ const Allegiances: TAllegiances = [
       {
         name: `Incredibly Stubborn`,
         desc: `If a friendly SKYFARERS model is slain while it is within 3" of an enemy unit, roll a D6. On a 4+, that model can fight before it is removed from play.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Supremely Stubborn`,
         desc: `When you use the Incredibly Stubborn ability for this general, they can fight on a roll of 2+ instead of 4+.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
         command_trait: true,
       },
       {

@@ -1,12 +1,12 @@
 import { TAbilities } from 'types/army'
-import { END_OF_MOVEMENT_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { END_OF_MOVEMENT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: TAbilities = [
   {
     name: `Infernal Realmwalkers`,
     desc: `Roll a D6 each time a Chaos Ascendant Daemon unit suffers a wound or mortal wound. On a 6+ it is negated.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Unyielding Legions`,

@@ -13,7 +13,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const AuricRunesonEffects = [
@@ -94,7 +94,7 @@ export const Units: TUnits = [
       {
         name: `Furious Endurance`,
         desc: `6+ to negate an allocated wound or mortal wound to this model.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       ...MagmadrothEffects,
       {
@@ -147,7 +147,7 @@ export const Units: TUnits = [
       {
         name: `Grimnir's Blessing`,
         desc: `5+ to negate an allocated a wound or mortal wound to Fjul-Grimnir while this model is within 3" of a friendly Chosen Axes unit.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       StareDownEffect,
       WeaponBreakerEffect,
@@ -207,7 +207,7 @@ export const Units: TUnits = [
       {
         name: `None Shall Defile the Icon`,
         desc: `If this model is slain, before it is removed from play, friendly FYRESLAYERS units wholly within 12" of this model can swear to protect the fallen icon. If a unit does so, that unit cannot make normal moves and charge moves for the rest of the battle, but you can reroll hit and wound rolls for attacks made with melee weapons by that unit.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -232,7 +232,7 @@ export const Units: TUnits = [
       {
         name: `Unstoppable Berzerker`,
         desc: `6+ to negate a wound or mortal wound allocated to this model. Add 1 to the roll if there are any enemy units within 3" of this model.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Battlefury`,
@@ -242,7 +242,7 @@ export const Units: TUnits = [
       {
         name: `Dead, But Not Defeated`,
         desc: `If this model is slain, before it is removed from play, it can make a pile-in move and then attack with all of the melee weapons it is armed with.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -305,7 +305,7 @@ export const Units: TUnits = [
       {
         name: `Sworn Protectors`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly FYRESLAYERS HERO that is not mounted on a MAGMADROTH and is within 3" of any friendly units with this ability. On a 4+ that wound or mortal wound is negated, and you must choose a friendly unit with this ability that is within 3" to suffer 1 mortal wound after all wounds or mortal wounds have been allocated to that friendly HERO.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -315,7 +315,7 @@ export const Units: TUnits = [
       {
         name: `Duty Unto Death`,
         desc: `6+ to negate a wound or mortal wound allocated to this unit. Add 2 to the roll if there are any friendly FYRESLAYERS HEROES within 10" of this unit.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Smouldering Braziers`,

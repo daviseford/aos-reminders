@@ -6,7 +6,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Spells: TSpells = [
@@ -66,7 +66,7 @@ const Spells: TSpells = [
       {
         name: `Protection of Hysh`,
         desc: `Casting value of 8. Until your next hero phase, roll a D6 each time you allocate a wound or mortal wound to a friendly unit wholly within 9" of the caster. On a 5+ the wound or mortal wound is negated. Cannot be saved in the same hero phase as Protection of Teclis.`,
-        when: [HERO_PHASE, WOUND_ALLOCATION],
+        when: [HERO_PHASE, WOUND_ALLOCATION_PHASE],
       },
     ],
   },

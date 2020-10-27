@@ -153,7 +153,7 @@ export const LegacyHighElvesUnits: TUnits = [
     effects: [
       {
         name: `Aelven Purebred`,
-        desc: `Some Dragon Nobles ride to battle on Aelven Purebreeds; these models have Move 12" instead of 6" and gain the steed's lthilmar- shod Hooves attack.`,
+        desc: `Some Dragon Nobles ride to battle on Aelven Purebreeds; these models have Move 12" instead of 6" and gain the steed's lthilmar-shod Hooves attack.`,
         when: [MOVEMENT_PHASE, COMBAT_PHASE],
       },
       {

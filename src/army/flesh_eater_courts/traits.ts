@@ -66,7 +66,7 @@ const CommandTraits: TTraits = [
     effects: [
       {
         name: `Defenders of the Realm (Delusion)`,
-        desc: `You can reroll save rolls of 1 for friendly FLESH- EATER COURTS units that have at least half their models wholly within their own territory.`,
+        desc: `You can reroll save rolls of 1 for friendly FLESH-EATER COURTS units that have at least half their models wholly within their own territory.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],

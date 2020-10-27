@@ -8,7 +8,7 @@ import {
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 export const getTamurkhansUnits = () => Units
@@ -17,7 +17,7 @@ export const getTamurkhansBattalions = () => Battalions
 const BloatedFleshEffect = {
   name: `Bloated Flesh`,
   desc: `Roll a D6 each time you allocate a mortal wound to a model in this unit. On a 4+, that mortal wound is negated.`,
-  when: [WOUND_ALLOCATION],
+  when: [WOUND_ALLOCATION_PHASE],
 }
 
 // Unit Names
@@ -28,7 +28,7 @@ export const Units: TUnits = [
       {
         name: `Feast of the Maggot Lord`,
         desc: `If this model is slain, before this model is removed from play, you can pick 1 enemy HERO within 3" of this model. That Hero suffers D3 mortal wounds. If that HERO is slain by these mortal wounds, this model is not slain, D6 wounds allocated to this model are healed, and any that remain to be allocated to it are negated. If that HERO is not slain by these mortal wounds, this model is removed from play.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Killer of Kings`,
@@ -54,7 +54,7 @@ export const Units: TUnits = [
       {
         name: `Corrupted Flesh`,
         desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 4+, that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Noxious Blades`,
@@ -107,7 +107,7 @@ export const Units: TUnits = [
       {
         name: `Damned Flesh`,
         desc: `If a model from this unit is slain after a wound or mortal wound is allocated to it, roll a D6 before the slain model is removed from play. On a 5+, that wound or mortal wound is negated and the model is not slain.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Insatiably Famished`,
@@ -142,7 +142,7 @@ export const Units: TUnits = [
       {
         name: `Corrupted Flesh`,
         desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 4+, that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Noxious Blades`,

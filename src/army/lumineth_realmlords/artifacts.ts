@@ -1,5 +1,5 @@
 import { TArtifacts } from 'types/army'
-import { COMBAT_PHASE, HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { COMBAT_PHASE, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 const Artifacts: TArtifacts = [
   {
@@ -8,7 +8,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Pheonix Stone`,
         desc: `If a friendly LUMINETH REALM-LORDS HERO is slain within 12" of the bearer, roll a D6. On a 6 the model is not slain, all wounds allocated to them are healed and any wounds that currently remain to be allocated to them are negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -38,7 +38,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Hearthstone Amulet`,
         desc: `Each time you allocate a wound or mortal wound to the bearer, roll a D6. On a 5+ the wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

@@ -13,7 +13,7 @@ import {
   START_OF_GAME,
   START_OF_HERO_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const InvadersEffects = [
@@ -137,7 +137,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Oil of Exultation`,
         desc: `Add 1 to the wounds characteristic of the bearer.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
         artifact: true,
       },
     ],

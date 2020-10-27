@@ -10,7 +10,7 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 // Common traits shared by Damned Legions.
@@ -20,7 +20,7 @@ const LegionTraitBolstered = {
     {
       name: `Bolstered by Hate (Ravagers, Cabalists, Despoilers)`,
       desc: `Add 2 to this general's wounds characteristic.`,
-      when: [WOUND_ALLOCATION],
+      when: [WOUND_ALLOCATION_PHASE],
     },
   ],
 }

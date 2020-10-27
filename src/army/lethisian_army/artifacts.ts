@@ -1,5 +1,5 @@
 import { TArtifacts } from 'types/army'
-import { COMBAT_PHASE, START_OF_COMBAT_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { COMBAT_PHASE, START_OF_COMBAT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 const Artifacts: TArtifacts = [
   {
@@ -8,7 +8,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Crown of Raven Feathers`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 5+ it is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

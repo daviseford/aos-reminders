@@ -11,7 +11,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const DeadlyVenomEffect = {
@@ -189,7 +189,7 @@ export const LegacyOrderUnits: TUnits = [
       {
         name: `Sigmar's Shield`,
         desc: `If a friendly Devoted of Sigmar model is slain by a wound or mortal wound that has been allocated to the model while it is within range of any friendly models with the Sigmar's Shield ability, roll a dice before the slain model is removed from play. On a 6, the wound or mortal wound is negated and the model is not slain. The range of the Sigmar's Shield ability for this model is shown on the damage table on the warscroll.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `The Power of Faith`,

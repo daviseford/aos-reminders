@@ -12,7 +12,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   TURN_ONE_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const MonstrousArcanumChaos: TUnits = [
@@ -123,7 +123,7 @@ export const Units: TUnits = [
       {
         name: `Chaos Runeshield`,
         desc: `Roll a D6 each time this model is allocated a mortal wound. On a 5+ that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Eager for Glory`,

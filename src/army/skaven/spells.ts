@@ -1,5 +1,5 @@
 import { TSpells } from 'types/army'
-import { DURING_GAME, END_OF_HERO_PHASE, HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { DURING_GAME, END_OF_HERO_PHASE, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 // Spell Lores of Skaventide
 const Spells: TSpells = [
@@ -55,7 +55,7 @@ const Spells: TSpells = [
       {
         name: `Death Frenzy`,
         desc: `If active, when a model from the target unit is slain, it may make a pile-in move and attack with all of its melee weapons.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

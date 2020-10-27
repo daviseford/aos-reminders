@@ -8,7 +8,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts: TArtifacts = [
@@ -38,7 +38,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Loonstone Talisman`,
         desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -178,7 +178,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Glowy Howzit`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 4+ that wound is negated. On a 1, the bearer eats the Glowy Howzit and it cannot be used again for the rest of the battle.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

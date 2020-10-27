@@ -8,7 +8,7 @@ import {
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Allegiances: TAllegiances = [
@@ -36,7 +36,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Dawnflask`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 6+ that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
         artifact: true,
       },
     ],
@@ -88,7 +88,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Legacy of Valour`,
         desc: `If this general is slain, you can pick 1 enemy unit within 1" of this general before they are removed from play and roll a D6. On a 2-5 that unit suffers D3 mortal wounds. On a 6, that unit suffers D6 mortal wounds.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
         command_trait: true,
       },
       {

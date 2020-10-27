@@ -12,7 +12,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const BannerBearerEffect = {
@@ -430,7 +430,7 @@ export const LegacyBretonnianUnits: TUnits = [
       {
         name: `Shield of the Ancient Forests`,
         desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a roll of 6+ that wound is negated and has no effect.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Summoned from the Mists`,

@@ -1,5 +1,5 @@
 import { TSpells } from 'types/army'
-import { COMBAT_PHASE, HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { COMBAT_PHASE, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 const Spells: TSpells = [
   {
@@ -23,7 +23,7 @@ const Spells: TSpells = [
       {
         name: `Echo of Hatred`,
         desc: `If active, when a model from the buffed unit is slain it may fight before it is removed from play.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

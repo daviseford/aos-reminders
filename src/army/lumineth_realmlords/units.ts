@@ -9,7 +9,7 @@ import {
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import * as CommonUnitEffects from './commonUnitEffects'
 
@@ -35,12 +35,12 @@ export const Units: TUnits = [
       {
         name: `Seeing Stone of Celennar`,
         desc: `Each time a friendly model within range of this model's Aura of Celennar ability is affected by a spell or endless spell cast by an enemy WIZARD, you can roll a D6. On a 4+, ignore the effects. Then, pick 1 enemy unit within 18" of that unit. That enemy unit suffers D3 mortal wounds.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Protection of Teclis`,
         desc: `Casting value of 10. Until your next hero phase, roll a D6 each time you allocate a wound or mortal wound to a friendly unit wholly within 18" of the caster. On a 5+ the wound or mortal wound is negated. Cannot be used in the same hero phase as Protection of Hysh.`,
-        when: [HERO_PHASE, WOUND_ALLOCATION],
+        when: [HERO_PHASE, WOUND_ALLOCATION_PHASE],
         spell: true,
       },
       {
@@ -127,7 +127,7 @@ export const Units: TUnits = [
       {
         name: `Spirit Armour`,
         desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model. In addition, halve the damage inflicted by attacks made with missile weapons or melee weapons that target this model (rounding up).`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Supreme Swordmaster`,
@@ -253,7 +253,7 @@ export const Battalions: TBattalions = [
       {
         name: `Shield of Light`,
         desc: `You can reroll save rolls of 1 for attacks that target a friendly unit from this battalion whilst it is within 3" of any other friendly unit from the same battalion.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -273,7 +273,7 @@ export const Battalions: TBattalions = [
       {
         name: `Blessing of Teclis`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly unit from this battalion while it is wholly within its own territory. On a 6, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

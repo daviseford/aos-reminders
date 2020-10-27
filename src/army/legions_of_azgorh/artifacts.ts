@@ -1,5 +1,5 @@
 import { TArtifacts } from 'types/army'
-import { COMBAT_PHASE, START_OF_HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { COMBAT_PHASE, START_OF_HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 const Artifacts: TArtifacts = [
   {
@@ -18,7 +18,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Armour of Bazherak the Cruel`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 5+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

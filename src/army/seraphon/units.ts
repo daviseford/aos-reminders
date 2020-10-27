@@ -16,13 +16,13 @@ import {
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
   TURN_FOUR_START_OF_TURN,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const SelflessProtectorEffect = {
   name: `Selfless Protector`,
   desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly SLANN while it is within 3" of any friendly units with this ability, On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that SLANN, instead of to that SLANN.`,
-  when: [WOUND_ALLOCATION],
+  when: [WOUND_ALLOCATION_PHASE],
 }
 const VoraciousAppetiteEffect = {
   name: `Voracious Appetite`,
@@ -150,7 +150,7 @@ export const Units: TUnits = [
       {
         name: `Dead for Innumerable Ages`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Impeccable Foresight`,
@@ -245,7 +245,7 @@ export const Units: TUnits = [
       {
         name: `Revivifying Energies`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly SERAPHON unit wholly within 12" of any models with this ability. On a 6, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -592,7 +592,7 @@ export const Units: TUnits = [
       {
         name: `Death Throes`,
         desc: `If this model is slain, before removing it from the battlefield, roll a D6 for each enemy unit within 3" of it that is not a Monster. On a 4+, that unit suffers D3 mortal wounds.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Roar of Ruin`,

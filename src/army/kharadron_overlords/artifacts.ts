@@ -11,7 +11,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 export const GreatEndrinworks: TArtifacts = [
@@ -51,7 +51,7 @@ export const GreatEndrinworks: TArtifacts = [
       {
         name: `Prudency Chutes (Great Endrinwork)`,
         desc: `If this model is destroyed, you do not have to roll to see if models in its garrison are slain (they all survive).`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -124,7 +124,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Masterwrought Armour`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 6, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

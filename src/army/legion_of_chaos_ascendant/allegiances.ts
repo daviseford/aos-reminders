@@ -1,5 +1,5 @@
 import { TAllegiances } from 'types/army'
-import { COMBAT_PHASE, END_OF_BATTLESHOCK_PHASE, HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { COMBAT_PHASE, END_OF_BATTLESHOCK_PHASE, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 const Allegiances: TAllegiances = [
   {
@@ -13,7 +13,7 @@ const Allegiances: TAllegiances = [
       {
         name: `First-Damned Prince`,
         desc: `Before you allocate a wound or mortal wound to Be'lakor, pick 1 friendly Bloodletters, Plaguebearers, Daemonettes, or Horrors of Tzeentch unit within 8" of him an roll a D6. On a 4+ that wound/mortal wound is allocated to the selected unit instead.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `The Shadow Legion`,

@@ -5,7 +5,7 @@ import {
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   START_OF_GAME,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { LegacyBretonnianUnits } from './subfactions/bretonnia'
 import { LegacyDuardinUnits } from './subfactions/duardin'
@@ -46,7 +46,7 @@ export const OrderUnits: TUnits = [
       {
         name: `Shoulder Plate of Edassa`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 3+, that wound or mortal wound is ignored.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

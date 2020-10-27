@@ -11,7 +11,7 @@ import {
   HERO_PHASE,
   SHOOTING_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const NobleBloodEffect = {
@@ -240,7 +240,7 @@ export const Units: TUnits = [
       {
         name: `Royal Retinue`,
         desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly Duke Crakmarrow while he is within 3" of this unit. On a 4+, that wound is allocate to this unit instead.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Quest to Slay the Monster`,

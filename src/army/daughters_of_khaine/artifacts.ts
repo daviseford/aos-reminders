@@ -1,5 +1,5 @@
 import { TArtifacts } from 'types/army'
-import { COMBAT_PHASE, DURING_GAME, HERO_PHASE, MOVEMENT_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { COMBAT_PHASE, DURING_GAME, HERO_PHASE, MOVEMENT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 const Artifacts: TArtifacts = [
   // Gifts of Morathi
@@ -151,7 +151,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Rune of Khaine (Priest)`,
         desc: `When the bearer is slain, roll a D6. On a 1 nothing happens. On a 2-5 the unit that slew the bearer suffers D3 mortal wounds. On a 6 the slayer suffers D6 mortal wounds.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

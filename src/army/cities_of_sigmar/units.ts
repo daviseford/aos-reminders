@@ -20,7 +20,7 @@ import {
   START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
   TURN_FOUR_START_OF_ROUND,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
@@ -76,7 +76,7 @@ const LuminarkEffects = [
   {
     name: `Aura of Protection`,
     desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly CITIES OF SIGMAR model within range of any friendly LUMINARKS OF HYSH. On a 6+, that wound or mortal wound is negated. The range of this ability is shown on the damage table.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Locus of Hysh`,
@@ -127,7 +127,7 @@ const NoxiousBreathEffect = {
 const WitnessToDestinyEffect = {
   name: `Witness to Destiny`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
-  when: [WOUND_ALLOCATION],
+  when: [WOUND_ALLOCATION_PHASE],
 }
 const AttunedToMagicEffect = {
   name: `Attuned to Magic`,
@@ -199,7 +199,7 @@ const FlamespyrePhoenixEffects = [
   {
     name: `Phoenix Reborn`,
     desc: `The first time this model is slain, before removing it from the battlefield, roll a D6. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Wake of Fire`,
@@ -658,7 +658,7 @@ export const Units: TUnits = [
       {
         name: `Rune Lore: Ancestral Shield`,
         desc: `If active, roll a D6 each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Rune Lore: Forge Fire`,

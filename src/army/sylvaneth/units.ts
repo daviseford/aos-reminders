@@ -14,7 +14,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const MartialMemoriesEffects = [
@@ -246,7 +246,7 @@ export const Units: TUnits = [
       {
         name: `Ultimate Sacrifice`,
         desc: `Once per battle, when you allocate a wound or mortal wound to this model, you can choose to negate it. If you do so, this model cannot fly or use its Zephyrspite's Tail Pincers attack for the rest of the battle.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Call to Battle`,

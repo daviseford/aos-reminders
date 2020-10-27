@@ -10,7 +10,7 @@ import {
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const HagQueenEffects = [
@@ -435,13 +435,13 @@ export const Units: TUnits = [
       {
         name: `Kyrae`,
         desc: `Kyrae has a Wounds characteristic of 2.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       HeartseekersEffect,
       {
         name: `Daughters of the First Temple`,
         desc: `Roll a D6 each time a friendly Morgwaeth the Bloodied unit within 3" of this unit suffers a wound or mortal wound. On a 4+ this unit is allocated the wound instead.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -451,7 +451,7 @@ export const Units: TUnits = [
       {
         name: `Shroud Queen`,
         desc: `This model has a Wounds characteristic of 3.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Shadow Leap`,

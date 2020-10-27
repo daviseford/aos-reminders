@@ -95,7 +95,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Flayed Pennant (Noble Heirlooms)`,
-        desc: `You can reroll charge rolls for friendly FLESH- EATER COURTS units wholly within 12" of the bearer.`,
+        desc: `You can reroll charge rolls for friendly FLESH-EATER COURTS units wholly within 12" of the bearer.`,
         when: [CHARGE_PHASE],
       },
     ],

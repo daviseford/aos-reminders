@@ -4,23 +4,23 @@ import {
   COMBAT_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_GAME,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: TAbilities = [
   {
     name: `Warpaint`,
-    desc: `When a model in this army is allocated a wound or mortal wound roll a D6. on a 6+, that wound or mortal wound is negated.`,
-    when: [WOUND_ALLOCATION],
+    desc: `When a model in this army is allocated a wound or mortal wound roll a D6. On a 6+, that wound or mortal wound is negated.`,
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Monster Hunters`,
     desc: `If a Bonesplitterz unit is chosen to make its attacks and it is within 3" of an enemy MONSTER, you can choose one of the benefits below before piling in.
 
       - Wild Abandon: The unit can pile in 6" this phase.
-      - Stab! Stab! Stab!: Add 1 to hit rolls for attacks against a monster this phase.
-      - Berserk Strength: Each time a model in this unit rolls an unmodified wound roll of 6 against a monster, the monster suffers a mortal wound in addition to the normal damage.`,
+      - Stab! Stab! Stab!: Add 1 to hit rolls for attacks against a MONSTER this phase.
+      - Berserk Strength: Each time a model in this unit rolls an unmodified wound roll of 6 against a MONSTER, the MONSTER suffers a mortal wound in addition to the normal damage.`,
     when: [COMBAT_PHASE],
   },
   {

@@ -15,7 +15,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   TURN_ONE_MOVEMENT_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { filterUnits } from 'utils/filterUtils'
 
@@ -54,7 +54,7 @@ export const getSlavesUnits = () => {
 const ChaosRuneshieldEffect = {
   name: `Chaos Runeshield / Rune-etched Plating / Dark Blessings`,
   desc: `Roll a D6 each time the equipped model suffers a mortal wound. On a 5+ it is negated.`,
-  when: [WOUND_ALLOCATION],
+  when: [WOUND_ALLOCATION_PHASE],
 }
 const OracularVisionsEffect = {
   name: `Oracular Visions`,
@@ -181,7 +181,7 @@ export const Units: TUnits = [
       {
         name: `The Armour of Morkar`,
         desc: `Roll a D6 each time a mortal wound is allocated to this model. On a 4-6 the wound is negated. On a 6 the attacking unit also suffers 1 mortal wound.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `The Crown of Domination`,
@@ -535,7 +535,7 @@ export const Units: TUnits = [
       {
         name: `Infernal Runeshield`,
         desc: `Each time you allocate a wound or mortal wound to this model, roll a D6. On a 6 the wound is negated and the attacking model suffers 1 mortal wound.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Savage Duellist`,
@@ -582,7 +582,7 @@ export const Units: TUnits = [
       {
         name: `'Nightmaw, my pet, protect me!'`,
         desc: `Roll a D6 before you allocate a wound or mortal wound to this model while this model is within 3" of Nightmaw. On a 4+, that wound or mortal wound is allocated to Nightmaw instead of to this model.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Schalkain's Teeth`,
@@ -618,7 +618,7 @@ export const Units: TUnits = [
       {
         name: `Shadow-kin`,
         desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 5+, that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Writhing Tentacles`,
@@ -770,7 +770,7 @@ export const Units: TUnits = [
       {
         name: `Protection of the Dark Gods`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly mortal Slaves to Darkness unit wholly within range of any model with this ability. On a 6+ the allocated wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Favour of the Ruinous Powers`,
@@ -823,7 +823,7 @@ export const Units: TUnits = [
       {
         name: `Crushing Fall`,
         desc: `If this model is slain, before this model is removed from play, the players must roll off. The player who wins the roll-off picks a point on the battlefield 4" from this model. Each unit within 3" of that point suffers D6 mortal wounds. This model is then removed from play.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Earth-shaking charge`,
@@ -888,7 +888,7 @@ export const Units: TUnits = [
       {
         name: `Serpents`,
         desc: `Serpents models have a wounds characteristic of 2.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `One Cut, One Kill`,
@@ -973,7 +973,7 @@ export const Units: TUnits = [
       {
         name: `Ogor Breacher`,
         desc: `Ogor Breachers have a Wounds characteristic of 3.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Iron Resilience`,
@@ -993,7 +993,7 @@ export const Units: TUnits = [
       {
         name: `Rocktusk Prowlers`,
         desc: `Rocktusk Prowlers have a Wounds characteristic of 2.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Unleash the Beast`,
@@ -1200,7 +1200,7 @@ export const Units: TUnits = [
       {
         name: `Brazen Champion`,
         desc: `This model has a wounds characteristic of 2.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Inferno Priest`,

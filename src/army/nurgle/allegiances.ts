@@ -8,7 +8,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   START_OF_COMBAT_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const LocusOfCorrosionEffect = {
@@ -132,7 +132,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Rot-kraken Hide`,
         desc: `Add 1 to the bearer's wounds characteristic.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
         artifact: true,
       },
     ],

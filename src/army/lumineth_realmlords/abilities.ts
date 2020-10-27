@@ -9,7 +9,7 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Abilities: TAbilities = [
@@ -21,7 +21,7 @@ const Abilities: TAbilities = [
   {
     name: `Aetherquartz Reserve - Heightened Reflexes`,
     desc: `Can be used when a unit is picked to be the target of an enemy attack. Add 1 to save rolls for attacks that target the unit until the end of the phase.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Aetherquartz Reserve - Heightened Senses`,
@@ -41,7 +41,7 @@ const Abilities: TAbilities = [
   {
     name: `Absorb Dispair`,
     desc: `If a friendly unit uses its aetherquartz reserve while it is wholly within 18" of any friendly CATHALLARS, you can pick 1 to absorb the negative energy. A CATHALLAR cannot absorb negative energy more than once per phase. If a CATHALLAR absorbs the negative energy, do not subtract 1 from the units Bravery characteristic. Instead pick 1 enemy unit within 18" of that CATHALLAR and subtract 1 from their Bravery characteristic for the rest of the battle. An enemy unit cannot be affected by this ability more than once per battle.`,
-    when: [WOUND_ALLOCATION, COMBAT_PHASE, SHOOTING_PHASE, HERO_PHASE],
+    when: [WOUND_ALLOCATION_PHASE, COMBAT_PHASE, SHOOTING_PHASE, HERO_PHASE],
   },
   {
     name: `Lightning Reactions`,

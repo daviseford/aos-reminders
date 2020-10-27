@@ -18,7 +18,7 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
   TURN_ONE_START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const SigmariteThundershield = {
@@ -69,7 +69,7 @@ const RideTheWindsAethericEffect = {
 const CycleOfTheStormEffect = {
   name: `Cycle of the Storm`,
   desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
-  when: [WOUND_ALLOCATION],
+  when: [WOUND_ALLOCATION_PHASE],
 }
 const SigmariteShieldsEffect = {
   name: `Sigmarite Shields`,

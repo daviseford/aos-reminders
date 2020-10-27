@@ -21,7 +21,7 @@ import {
   START_OF_SHOOTING_PHASE,
   TURN_ONE_DURING_TURN,
   TURN_TWO_DURING_TURN,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { StabEmGoodEffect } from './traits'
 
@@ -92,7 +92,7 @@ const RedcapMushroomsEffect = {
 const WatchOutEffect = {
   name: `Watch Out!`,
   desc: `If a Mangler Squig is slain, before the model is removed from play roll a D6 for each unit within 6" of this model. On a 4+ that unit suffers D3 mortal wounds.`,
-  when: [WOUND_ALLOCATION],
+  when: [WOUND_ALLOCATION_PHASE],
 }
 const KersplatEffect = {
   name: `Ker-splat!`,
@@ -166,7 +166,7 @@ export const Units: TUnits = [
       {
         name: `Loonking's Crown`,
         desc: `Roll a D6 each time a wound or mortal wound is allocated to this model. On a 4+ that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Nikkit! Nikkit!`,
@@ -248,7 +248,7 @@ export const Units: TUnits = [
       {
         name: `Spore Squig`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a Fungoid Cave-Shaman. On a 4+ the wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Spore Maws`,
@@ -432,7 +432,7 @@ export const Units: TUnits = [
       {
         name: `Fungoid Squig Explosion`,
         desc: `If this model is slain, before removing the model from the battlefield, roll a D6 for each enemy unit within 3" of it. On a 2+, that unit suffers D3 mortal wounds. After allocating all of the mortal wounds to all of the units affected by this ability, you can add 1 Squig Herd unit of up to 5 models to your army. Set up the Squig Herd unit wholly within 9" of this model and more than 3" from any enemy models. This model is then removed from the battlefield.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Puff Spores`,
@@ -496,7 +496,7 @@ export const Units: TUnits = [
       {
         name: `Touched by the Spider God`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a Webspinner Shaman. On a 5+ that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Speed of the Spider God`,
@@ -611,7 +611,7 @@ export const Units: TUnits = [
       {
         name: `Minion Abilities: Loyal to the End`,
         desc: `Each time a wound or mortal wound is allocated to this model and not negated, you can choose to remove 1 minion. If you do so, the wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -631,7 +631,7 @@ export const Units: TUnits = [
       {
         name: `Too Dumb to Die`,
         desc: `Roll a D6 each time a Sourbreath Troggoth suffers a wound or mortal wound that would slay it. On a 4+ that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -642,7 +642,7 @@ export const Units: TUnits = [
       {
         name: `Stony Skin`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to Rockgut Troggoths. On a 5+ that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Throwin' Boulders`,

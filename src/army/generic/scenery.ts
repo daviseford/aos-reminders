@@ -13,7 +13,7 @@ import {
   START_OF_ROUND,
   START_OF_SETUP,
   TURN_ONE_START_OF_ROUND,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import {
   ARCANE,
@@ -86,7 +86,7 @@ const DefaultScenery: TScenery = [
       {
         name: MYSTICAL,
         desc: `Roll a D6 each time a unit within 1" of this terrain suffers a wound or mortal wound. On a 6+ the wound is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

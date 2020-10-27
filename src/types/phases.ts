@@ -29,8 +29,11 @@ type TBattleshockPhaseStart = 'START_OF_BATTLESHOCK_PHASE'
 type TBattleshockPhase = 'DURING_BATTLESHOCK_PHASE'
 type TBattleshockPhaseEnd = 'END_OF_BATTLESHOCK_PHASE'
 
+// Global Saves
+type TSavesPhase = 'SAVES'
+
 // Global Wound Allocation
-type TWoundAllocation = 'WOUND_ALLOCATION'
+type TWoundAllocationPhase = 'WOUND_ALLOCATION'
 
 // Phases Exports
 export const START_OF_HERO_PHASE: THeroPhaseStart = 'START_OF_HERO_PHASE'
@@ -51,7 +54,10 @@ export const END_OF_COMBAT_PHASE: TCombatPhaseEnd = 'END_OF_COMBAT_PHASE'
 export const START_OF_BATTLESHOCK_PHASE: TBattleshockPhaseStart = 'START_OF_BATTLESHOCK_PHASE'
 export const BATTLESHOCK_PHASE: TBattleshockPhase = 'DURING_BATTLESHOCK_PHASE'
 export const END_OF_BATTLESHOCK_PHASE: TBattleshockPhaseEnd = 'END_OF_BATTLESHOCK_PHASE'
-export const WOUND_ALLOCATION: TWoundAllocation = 'WOUND_ALLOCATION'
+
+// Artificial phases that help organize the game better
+export const SAVES_PHASE: TSavesPhase = 'SAVES'
+export const WOUND_ALLOCATION_PHASE: TWoundAllocationPhase = 'WOUND_ALLOCATION'
 
 // Turn Types
 type TSetupStart = 'START_OF_SETUP'
@@ -510,4 +516,5 @@ export type TTurnWhen =
   | TTurnFive_END_OF_ROUND
   | TTurnDuring
   | TRoundDuring
-  | TWoundAllocation
+  | TSavesPhase
+  | TWoundAllocationPhase

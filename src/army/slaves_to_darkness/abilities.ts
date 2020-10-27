@@ -9,7 +9,7 @@ import {
   END_OF_COMBAT_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
@@ -59,7 +59,7 @@ const Abilities: TAbilities = [
   {
     name: `Aura of ${MARK_UNDIVIDED}`,
     desc: `If this model is a general, roll a D6 each time a friendly Slaves to Darkness Undivided unit wholly within 12" of this model allocates a wound or mortal wound. On a 6 it is negated.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Eye of the Gods`,
@@ -109,7 +109,7 @@ const Abilities: TAbilities = [
   {
     name: `Eye of the Gods: Unholy Resilience`,
     desc: `Roll a D6 each time you allocate a wound or mortal wound to this hero. On a 5+ it is negated.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Eye of the Gods: Daemonic Legions`,

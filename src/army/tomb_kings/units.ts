@@ -7,7 +7,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const getIconBearerEffect = (strength: `1` | `D3` | `D6`) => {
@@ -33,7 +33,7 @@ const WarsphinxBaseEffects = [
   {
     name: `Sacred War Statue`,
     desc: `Halve the Damage characteristic (rounding up) of weapons that target this model. In addition, halve the number of mortal wounds this model suffers from spells and abilities (rounding up).`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
 ]
 
@@ -65,7 +65,7 @@ export const Units: TUnits = [
       {
         name: `Ancient Curse`,
         desc: `If this model is slain, the unit that inflicted the final wound upon him suffers D6 mortal wounds after all of its attacks have been made.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
         command_ability: true,
       },
       {
@@ -82,7 +82,7 @@ export const Units: TUnits = [
       {
         name: `The Tomb Queen's Curse`,
         desc: `If this model is slain, the unit that inflicted the final wound upon it suffers D3 mortal wounds after all of its attacks have been made.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Supernatural Speed`,
@@ -104,7 +104,7 @@ export const Units: TUnits = [
       {
         name: `The Tomb King's Curse`,
         desc: `If a Tomb King is slain, the unit that inflicted the final wound upon him suffers D3 mortal wounds after all of its attacks have been made.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Royal Tomb Shield`,
@@ -126,7 +126,7 @@ export const Units: TUnits = [
       {
         name: `The Tomb King's Curse`,
         desc: `If a Tomb King in Royal Chariot is slain, the unit that inflicted the final wound upon him suffers D3 mortal wounds after all of its attacks have been made.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Royal Chariot`,
@@ -152,7 +152,7 @@ export const Units: TUnits = [
       {
         name: `Scarab Prince`,
         desc: `If this model is slain, before it is removed it can immediately make a Tide of Scuttling Scarabs attack as if it were the shooting phase.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Desert Revenant`,
@@ -172,7 +172,7 @@ export const Units: TUnits = [
       {
         name: `Sworn Bodyguard`,
         desc: `If a friendly Embalmed model from your army is allocated a wound or mortal wound while within 3" of this model, the Tomb Herald can leap in front of the attack. Roll a D6 for each wound or mortal wound. On a 2+ that wound or mortal wound is allocated to the Tomb Herald instead.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Standard of the Undying Legion`,
@@ -437,7 +437,7 @@ export const Units: TUnits = [
       {
         name: `The Tomb King's Curse`,
         desc: `If a Royal Warsphinx is slain, the unit that inflicted the final wound upon it suffers D3 mortal wounds after all of its attacks have been made.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Who Dares Disturb My Slumber?`,

@@ -9,7 +9,7 @@ import {
   SHOOTING_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Allegiances: TAllegiances = [
@@ -36,7 +36,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Shroud of Warpflame`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound inflicted by a melee weapon to the bearer. On a 3+, the attacking unit suffers 1 mortal wound.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
         artifact: true,
       },
     ],
@@ -52,7 +52,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Impossible to Anticipate`,
         desc: `You can use this command ability once per battle, immediately after a friendly Hosts Duplicitous Horrors of Tzeentch unit is destroyed. If you do so, roll a D6. On a 5+, a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 12" of a friendly Hosts Duplicitious Hero and more than 9" from any enemy units.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
         command_ability: true,
       },
       {

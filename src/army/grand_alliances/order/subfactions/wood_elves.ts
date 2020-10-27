@@ -8,7 +8,7 @@ import {
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const getShadowdancerBaseEffects = (attacks: 1 | 2) => [
@@ -26,7 +26,7 @@ const getShadowdancerBaseEffects = (attacks: 1 | 2) => [
   {
     name: `Talismanic Tattoos`,
     desc: `Roll a D6 each time a wound or mortal is allocated to this unit. On a 6 the wound or mortal wound is negated.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
 ]
 const SoporificBreathEffect = {
@@ -237,7 +237,7 @@ export const LegacyWoodElvesUnits: TUnits = [
       {
         name: `To Their Dying Breath`,
         desc: `If this model is slain in the combat phase, before you remove it you can immediately make a pile in move and then attack with it.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Banner of the Forests`,

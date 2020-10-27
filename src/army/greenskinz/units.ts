@@ -7,7 +7,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const WarbossBaseEffects = [
@@ -90,7 +90,7 @@ export const Units: TUnits = [
       {
         name: `Trophy Pole`,
         desc: `Roll a D6 whenever this model suffers a wound or a mortal wound; on a 4+ it is negated.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       WaaaghDrummersEffect,
       {

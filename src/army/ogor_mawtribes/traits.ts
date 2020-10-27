@@ -12,7 +12,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
@@ -388,7 +388,7 @@ const CommandTraits: TTraits = [
       {
         name: `Deathcheater (Big Name)`,
         desc: `This model has a Wounds characteristic of 9 instead of 8.`,
-        when: [WOUND_ALLOCATION],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

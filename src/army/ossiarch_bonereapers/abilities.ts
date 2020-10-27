@@ -1,12 +1,12 @@
 import { TAbilities } from 'types/army'
-import { BATTLESHOCK_PHASE, MOVEMENT_PHASE, START_OF_ROUND, WOUND_ALLOCATION } from 'types/phases'
+import { BATTLESHOCK_PHASE, MOVEMENT_PHASE, START_OF_ROUND, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 // General Allegiance Abilities
 const Abilities: TAbilities = [
   {
     name: `Deathless Warriors`,
     desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly unit that has the HEKATOS keyword, or is wholly within 6" of a friendly Mortek Hekatos, or is wholly within 12" of a friendly OSSIARCH BONEREAPERS HERO. On a 6, that wound or mortal wound is negated.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Ranks Unbroken By Dissent`,

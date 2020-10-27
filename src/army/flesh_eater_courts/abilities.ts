@@ -1,12 +1,12 @@
 import { TAbilities } from 'types/army'
-import { COMBAT_PHASE, DURING_GAME, HERO_PHASE, WOUND_ALLOCATION } from 'types/phases'
+import { COMBAT_PHASE, DURING_GAME, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
 const Abilities: TAbilities = [
   {
     name: `Deathless Courtiers`,
     desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly FLESH-EATER COURTS unit wholly within 12" of a friendly FLESH-EATER COURTS HERO. On a 6 that wound or mortal wound is negated.`,
-    when: [WOUND_ALLOCATION],
+    when: [WOUND_ALLOCATION_PHASE],
   },
   {
     name: `Feeding Frenzy`,
