@@ -3,6 +3,7 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  END_OF_COMBAT_PHASE,
   HERO_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
@@ -14,6 +15,7 @@ import CommonSonsOfBehematData from './common'
 const { BreakerTag, TakerTag, StomperTag } = CommonSonsOfBehematData.TRIBES
 
 const Artifacts: TArtifacts = [
+  // Taker Tribe
   {
     name: `Jaws of the Mogalodon ${TakerTag}`,
     effects: [
@@ -74,7 +76,7 @@ const Artifacts: TArtifacts = [
       },
     ],
   },
-
+  // Stomper Tribe
   {
     name: `Ironweld Cestus ${StomperTag}`,
     effects: [
@@ -115,14 +117,39 @@ const Artifacts: TArtifacts = [
       },
     ],
   },
-
+  // Breaker Tribe
   {
-    name: `${BreakerTag}`,
+    name: `Enchanted Portcullis ${BreakerTag}`,
     effects: [
       {
-        name: `${BreakerTag}`,
-        desc: ``,
-        when: [HERO_PHASE],
+        name: `Enchanted Portcullis ${BreakerTag}`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to the bearer. On a 6, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  {
+    name: `The Great Wrecka ${BreakerTag}`,
+    effects: [
+      {
+        name: `The Great Wrecka ${BreakerTag}`,
+        desc: `If the unmodified hit roll for an attack made with the bearer's Fortcrusha Flail is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `The Great Wrecka ${BreakerTag}`,
+        desc: `When you use the bearer's Smash Down ability, you can add 1 to the dice roll that determines if the terrain feature is reduced to rubble.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Kingslaughter Cowl ${BreakerTag}`,
+    effects: [
+      {
+        name: `Kingslaughter Cowl ${BreakerTag}`,
+        desc: `You can reroll wound rolls of 1 for attacks made by the bearer that target a HERO. In addition, you can reroll wound rolls for attacks made by the bearer that target a general.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
