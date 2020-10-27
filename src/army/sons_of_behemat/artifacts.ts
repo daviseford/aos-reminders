@@ -22,7 +22,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Jaws of the Mogalodon ${TakerTag}`,
         desc: `Once per phase, you can reroll 1 hit roll or 1 wound roll for an attack made by the bearer, or 1 save roll for an attack that targets the bearer. You cannot use this ability to reroll more than one dice for the bearer in the same phase.`,
-        when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },

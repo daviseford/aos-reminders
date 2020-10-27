@@ -51,7 +51,7 @@ const StonehornEffects = [
 const IronfistEffect = {
   name: `Ironfist`,
   desc: `If the unmodified save roll for an attack made with a melee weapon that targets a unit armed with Ironfists is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-  when: [COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 const BellowerEffect = {
   name: `Bellower`,

@@ -36,8 +36,8 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Spiteful Shield`,
-        desc: `I f the unmodified save roll for an attack made with a melee weapon that targets the bearer is 6, the attacking unit suffers 2 mortal wounds afer all of its attacks have been resolved.`,
-        when: [COMBAT_PHASE],
+        desc: `If the unmodified save roll for an attack made with a melee weapon that targets the bearer is 6, the attacking unit suffers 2 mortal wounds afer all of its attacks have been resolved.`,
+        when: [SAVES_PHASE],
       },
     ],
   },

@@ -46,7 +46,7 @@ const PyrelockPistolEffect = {
 const SpiteshieldEffect = {
   name: `Spiteshield`,
   desc: `If the unmodified save roll for an attack with a melee weapon that targets a unit that includes any models carrying a Spiteshield is 6, the attacking unit suffers 1 mortal wound.`,
-  when: [COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 const CarriageHaulerEffect = {
   name: `Carriage Hauler`,

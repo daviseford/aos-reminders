@@ -69,7 +69,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Leering Gitshield`,
         desc: `If the unmodified save roll for an attack made with a melee weapon that targets the bearer is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

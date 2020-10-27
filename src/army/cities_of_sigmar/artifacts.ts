@@ -152,7 +152,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Phoenix Pyre Ashes (The Phoenicium)`,
         desc: `If the unmodified save roll for an attack that targets the bearer is 6, you can heal 1 wound allocated to the bearer.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },
