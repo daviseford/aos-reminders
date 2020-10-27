@@ -13,6 +13,7 @@ import {
   END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
@@ -77,6 +78,8 @@ const phaseMap = {
   'If this unit is slain': WOUND_ALLOCATION_PHASE,
   'you allocate a wound': WOUND_ALLOCATION_PHASE,
   'you allocate a mortal wound': WOUND_ALLOCATION_PHASE,
+
+  'Reroll save rolls': SAVES_PHASE,
 }
 
 // Effect names that are flagged by the script, but have been verified and should be ignored

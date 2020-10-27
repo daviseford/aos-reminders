@@ -4,6 +4,46 @@ import { HERO_PHASE } from 'types/phases'
 // Unit Names
 export const Units: TUnits = [
   {
+    name: `Kraken-eater Mega-Gargant`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Gatebreaker Mega-Gargant`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Warstomper Mega-Gargant`,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: ``,
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
     name: ``,
     effects: [
       {

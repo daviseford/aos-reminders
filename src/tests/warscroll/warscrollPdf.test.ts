@@ -20,6 +20,7 @@ import {
   SERAPHON,
   SKAVEN,
   SLAANESH,
+  SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
@@ -34,6 +35,14 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should correctly read SoB1', () => {
+    const pdfText = getFile('SoB1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read Warscroll_Builder_Order_Legacy', () => {
     const pdfText = getFile('Warscroll_Builder_Order_Legacy')
     const parsedText = parsePdf(pdfText)

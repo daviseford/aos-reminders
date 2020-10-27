@@ -7,6 +7,8 @@ import Spells from './spells'
 import Traits from './traits'
 import { AlliedUnits, Battalions, Units } from './units'
 
+// TODO: Handle Mercenary aspect
+
 const SonsOfBehematArmy = {
   Abilities,
   Allegiances,

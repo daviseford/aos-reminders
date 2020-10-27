@@ -11,6 +11,7 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
@@ -24,7 +25,7 @@ import {
 const SigmariteThundershield = {
   name: `Sigmarite Thundershield`,
   desc: `Reroll save rolls of 1 for this model. If the rerolled save is successful, each enemy unit within 3" of this model suffers 1 mortal wound.`,
-  when: [SHOOTING_PHASE, COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 const CometTrailEffect = {
   name: `Comet Trail`,
@@ -74,7 +75,7 @@ const CycleOfTheStormEffect = {
 const SigmariteShieldsEffect = {
   name: `Sigmarite Shields`,
   desc: `You can reroll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
-  when: [SHOOTING_PHASE, COMBAT_PHASE],
+  when: [SAVES_PHASE],
 }
 const CelestialLightningArcEffects = [
   {
@@ -85,7 +86,7 @@ const CelestialLightningArcEffects = [
   {
     name: `Celestial Lightning Arc`,
     desc: `You can reroll save rolls of 1 for missile attacks that target this unit.`,
-    when: [SHOOTING_PHASE],
+    when: [SAVES_PHASE],
   },
 ]
 const IntolerableDamageEffect = {
@@ -303,7 +304,7 @@ export const Units: TUnits = [
       {
         name: `Sigmarite Shields`,
         desc: `You can reroll save rolls of 1 for attacks that target this unit while it includes Angharad Brightshield.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -1220,7 +1221,7 @@ export const Units: TUnits = [
       {
         name: `Soulshields`,
         desc: `You can reroll save rolls of 1 for attacks that target this unit if any models from this unit are carrying a Soulshield.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -1286,7 +1287,7 @@ export const Units: TUnits = [
       {
         name: `Shield of the Pale Knight`,
         desc: `You can reroll save rolls of 1 for attacks made with missle weapons that target this model or any friendly ANVILS OF HELDENHAMMER units wholly within 12" of this model.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Amethyst Gale`,
@@ -1511,7 +1512,7 @@ export const Battalions: TBattalions = [
       {
         name: `Sigmarite Shieldwall`,
         desc: `You can reroll save rolls of 1 for attacks that target a unit of JUDICATORS from this battalion if that unit is wholly within 3" of a unit of LIBERATORS from the same battalion that has any models carrying a Sigmarite Shield.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
