@@ -48,7 +48,7 @@ const RealmArtifacts: TArtifacts = [
     effects: [
       {
         name: `Gravesand Brooch (${SHYISH})`,
-        desc: `You can reroll save rolls of 1 for attacks that target the bearer,`,
+        desc: `You can reroll save rolls of 1 for attacks that target the bearer.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],

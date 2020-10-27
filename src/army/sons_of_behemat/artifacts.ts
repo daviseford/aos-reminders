@@ -31,7 +31,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Wallopin' Tentacle ${TakerTag}`,
-        desc: `At the start of the combat phase, you can pick 1 enemy HERO within 3" of the bearer and roll a dice, On a 4+, that HERO suffers 1 mortal wound, and you can reroll hit rolls of 1 for attacks that target that HERO until the end of that phase,`,
+        desc: `At the start of the combat phase, you can pick 1 enemy HERO within 3" of the bearer and roll a dice, On a 4+, that HERO suffers 1 mortal wound, and you can reroll hit rolls of 1 for attacks that target that HERO until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -71,7 +71,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Krakenskin Sandals ${TakerTag}`,
-        desc: `The bearer's Almighty Stomp has an Attacks characteristic of 3 instead of 2, a Rend characteristic of -3 instead of -2, and a Damage characteristic of 3 instead of D3,`,
+        desc: `The bearer's Almighty Stomp has an Attacks characteristic of 3 instead of 2, a Rend characteristic of -3 instead of -2, and a Damage characteristic of 3 instead of D3.`,
         when: [COMBAT_PHASE],
       },
     ],

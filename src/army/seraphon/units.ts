@@ -329,7 +329,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Ordered Cohort`,
-        desc: `Add 1 to the Attacks characteristic of this unit's Celestite Clubs or Celestite Spears while this unit has 15 or more models,`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Celestite Clubs or Celestite Spears while this unit has 15 or more models.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -377,7 +377,7 @@ export const Units: TUnits = [
       },
       {
         name: `Swarming Cohort`,
-        desc: `Add 1 to the Attacks characteristic of weapons used by this unit while it has 15 or more models,`,
+        desc: `Add 1 to the Attacks characteristic of weapons used by this unit while it has 15 or more models.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       StarbucklersEffect,
@@ -458,7 +458,7 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Ripperdactyl Rider Alpha`,
-        desc: `1 model in this unit can be a Ripperdactyl Rider Alpha. Add 1 to the Attacks characteristic of that model's Moonstone Warspear,`,
+        desc: `1 model in this unit can be a Ripperdactyl Rider Alpha. Add 1 to the Attacks characteristic of that model's Moonstone Warspear.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -511,7 +511,7 @@ export const Units: TUnits = [
       },
       {
         name: `Jaws Like a Steel Trap`,
-        desc: `If the unmodified hit roll for an attack made with Vice-like Jaws is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage,`,
+        desc: `If the unmodified hit roll for an attack made with Vice-like Jaws is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
