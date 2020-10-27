@@ -18,7 +18,7 @@ const AlmightyStompEffect = {
 }
 const CrushingChargeEffect = {
   name: `Crushing Charge`,
-  desc: `After this model makes a charge move, roll a dice for each enemy unit within 1" of this model. On a 24, that unit suffers D3 mortal wounds if it is a MONSTER, or D6 mortal wounds if it is not a MONSTER.`,
+  desc: `After this model makes a charge move, roll a dice for each enemy unit within 1" of this model. On a 2+, that unit suffers D3 mortal wounds if it is a MONSTER, or D6 mortal wounds if it is not a MONSTER.`,
   when: [CHARGE_PHASE],
 }
 const DeathGripEffect = {
@@ -45,9 +45,9 @@ const BaseMegaGargantEffects = [
   AlmightyStompEffect,
   CrushingChargeEffect,
   DeathGripEffect,
+  GenericEffects.Terror,
   LongshanksEffect,
   SonOfBehematEffect,
-  GenericEffects.Terror,
   TimberrrrrEffect,
 ]
 
