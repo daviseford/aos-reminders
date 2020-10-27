@@ -86,6 +86,11 @@ const GenericEffects = {
     desc: `A Dragon can unleash a blast of Dragonfire in your shooting phase. When it does so, pick a visible unit within 12" and roll a dice; on a 1 or 2 that unit suffers a mortal wound, on a 3 or 4 that unit suffers D3 mortal wounds, and on a 5 or 6 that unit suffers D6 mortal wounds.`,
     when: [SHOOTING_PHASE],
   },
+  Terror: {
+    name: `Terror`,
+    desc: `Subtract 1 from the Bravery characteristic of enemy units if they are within 3" of any friendly units with this ability.`,
+    when: [BATTLESHOCK_PHASE],
+  },
 }
 
 export default GenericEffects

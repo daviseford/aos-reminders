@@ -233,7 +233,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Seismic Shock-gauntlets`,
-        desc: `After the bearer makes a charge move, you can pick 1 enemy unit within l" of the bearer and roll a D6, On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `After the bearer makes a charge move, you can pick 1 enemy unit within 1" of the bearer and roll a D6, On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],

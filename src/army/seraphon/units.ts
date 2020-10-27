@@ -1,3 +1,4 @@
+import GenericEffects from 'army/generic/effects'
 import { TBattalions, TUnits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
@@ -46,11 +47,6 @@ const WrathOfTheSeraphonEffect = {
   when: [COMBAT_PHASE],
   command_ability: true,
 }
-const TerrorEffect = {
-  name: `Terror`,
-  desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any friendly units with this ability.`,
-  when: [BATTLESHOCK_PHASE],
-}
 const UnstoppableStampedeEffect = {
   name: `Unstoppable Stampede`,
   desc: `Roll 1 dice for each enemy unit that is within 1" of this model when this model finishes a charge move. On a 3+, that enemy unit suffers D3 mortal wounds.`,
@@ -87,7 +83,7 @@ const CarnosaurBaseEffects = [
     desc: `If any enemy models are slain by wounds inflicted by this model's attacks, for the rest of the battle this model can run and still charge in the same turn.`,
     when: [DURING_GAME],
   },
-  TerrorEffect,
+  GenericEffects.Terror,
 ]
 const CometsCallEffect = {
   name: `Comet's Call`,
@@ -573,7 +569,7 @@ export const Units: TUnits = [
         desc: `If any wounds inflicted by this model's Noxious Spittle are allocated to an enemy model and not negated, until the end of the turn, you can reroll charge rolls for this model.`,
         when: [SHOOTING_PHASE, CHARGE_PHASE],
       },
-      TerrorEffect,
+      GenericEffects.Terror,
     ],
   },
   {
@@ -601,7 +597,7 @@ export const Units: TUnits = [
         Designer's Note: If a unit is affected by both the Roar of Ruin and Terror abilities, its Bravery characteristic is first halved (rounding up), and then 1 is subtracted from it.`,
         when: [START_OF_BATTLESHOCK_PHASE],
       },
-      TerrorEffect,
+      GenericEffects.Terror,
     ],
   },
 ]
