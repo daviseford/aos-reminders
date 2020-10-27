@@ -23,6 +23,7 @@ import {
   SKAVEN,
   SLAANESH,
   SLAVES_TO_DARKNESS,
+  SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
   TZEENTCH,
 } from 'meta/factions'
@@ -37,6 +38,14 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getAzyrArmyFromPdf', () => {
+  it('should correctly read SoB1', () => {
+    const fileTxt = getFile('SoB1')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read ScarVeteran (issue #1037)', () => {
     const fileTxt = getFile('ScarVeteran')
     const pages = handleAzyrPages(fileTxt)
