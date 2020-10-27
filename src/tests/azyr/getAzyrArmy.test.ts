@@ -46,6 +46,22 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
+  it('should correctly read SoB2', () => {
+    const fileTxt = getFile('SoB2')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read SoB3', () => {
+    const fileTxt = getFile('SoB3')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read ScarVeteran (issue #1037)', () => {
     const fileTxt = getFile('ScarVeteran')
     const pages = handleAzyrPages(fileTxt)
