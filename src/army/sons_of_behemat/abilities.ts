@@ -5,7 +5,7 @@ import { DURING_GAME, SHOOTING_PHASE } from 'types/phases'
 const Abilities: TAbilities = [
   {
     name: `Mightier Makes Rightier`,
-    desc: `When determining control of an objective, each friendly MANCRUSHER GARGANT model counts as 10 models instead of I, and each friendly MEGA. GARGANT counts as 20 models instead of 1.`,
+    desc: `When determining control of an objective, each friendly MANCRUSHER GARGANT model counts as 10 models instead of I, and each friendly MEGA-GARGANT counts as 20 models instead of 1.`,
     when: [DURING_GAME],
   },
   {

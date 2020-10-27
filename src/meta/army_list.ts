@@ -25,6 +25,7 @@ import LegionOfNightArmy from 'army/legion_of_night'
 import LegionOfSacramentArmy from 'army/legion_of_sacrament'
 import LethisianArmyArmy from 'army/lethisian_defenders'
 import LuminethRealmlordsArmy from 'army/lumineth_realmlords'
+import MegaGargantMercenariesArmy from 'army/mega_gargant_mercenaries'
 import MercenaryCompaniesArmy from 'army/mercenary_companies'
 import NighthauntArmy from 'army/nighthaunt'
 import NurgleArmy from 'army/nurgle'
@@ -70,6 +71,7 @@ import {
   LEGION_OF_SACRAMENT,
   LETHISIAN_DEFENDERS,
   LUMINETH_REALMLORDS,
+  MEGA_GARGANT_MERCENARIES,
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   NURGLE,
@@ -197,10 +199,13 @@ const ArmyList: TArmyList = {
     Army: { ...LuminethRealmlordsArmy },
     GrandAlliance: ORDER,
   },
+  [MEGA_GARGANT_MERCENARIES]: {
+    Army: { ...MegaGargantMercenariesArmy },
+    GrandAlliance: DESTRUCTION,
+  },
   [MERCENARY_COMPANIES]: {
     Army: { ...MercenaryCompaniesArmy },
     GrandAlliance: ORDER,
-    //TODO: Add allyOnly tag
   },
   [NIGHTHAUNT]: {
     Army: { ...NighthauntArmy },

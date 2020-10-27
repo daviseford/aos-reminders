@@ -27,6 +27,7 @@ type TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 type TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 type TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 type TLuminethRealmlords = 'LUMINETH_REALMLORDS'
+type TMegaGargantMercenaries = 'MEGA_GARGANT_MERCENARIES'
 type TMercenaryCompanies = 'MERCENARY_COMPANIES'
 type TNighthaunt = 'NIGHTHAUNT'
 type TNurgle = 'NURGLE'
@@ -73,6 +74,7 @@ export const LEGIONS_OF_AZGORH: TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 export const LEGIONS_OF_GRIEF: TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export const LUMINETH_REALMLORDS: TLuminethRealmlords = 'LUMINETH_REALMLORDS'
+export const MEGA_GARGANT_MERCENARIES: TMegaGargantMercenaries = 'MEGA_GARGANT_MERCENARIES'
 export const MERCENARY_COMPANIES: TMercenaryCompanies = 'MERCENARY_COMPANIES'
 export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
 export const NURGLE: TNurgle = 'NURGLE'
@@ -93,8 +95,9 @@ export const TZEENTCH: TTzeentch = 'TZEENTCH'
 export const WANDERERS: TWanderers = 'WANDERERS'
 
 /**
- * Primary factions - excluding mercenary armies that are only taken as allies
- * e.g. Mercenary Companies
+ * Primary factions
+ *
+ * Excludes mercenary armies that are only taken as allies e.g. Mercenary Companies and Mega Gargant Mercenaries
  */
 export type TPrimaryFactions =
   | TBeastsOfChaos
@@ -123,6 +126,7 @@ export type TPrimaryFactions =
   | TLegionsOfGrief
   | TLethisianDefenders
   | TLuminethRealmlords
+  | TMegaGargantMercenaries
   | TMercenaryCompanies
   | TNighthaunt
   | TNurgle
@@ -143,7 +147,7 @@ export type TPrimaryFactions =
   | TWanderers
 
 // Supported Factions
-export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies
+export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies | TMegaGargantMercenaries
 
 export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   BEASTS_OF_CHAOS,
@@ -191,4 +195,8 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   WANDERERS,
 ]
 
-export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([...PRIMARY_FACTIONS, MERCENARY_COMPANIES])
+export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
+  ...PRIMARY_FACTIONS,
+  MEGA_GARGANT_MERCENARIES,
+  MERCENARY_COMPANIES,
+])
