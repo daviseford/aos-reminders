@@ -1,5 +1,5 @@
 import { uniq, without } from 'lodash'
-import { SOULBLIGHT, TPrimaryFactions, TSupportedFaction } from 'meta/factions'
+import { LUMINETH_REALMLORDS, SOULBLIGHT, TPrimaryFactions, TSupportedFaction } from 'meta/factions'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { isValidFactionName } from 'utils/armyUtils'
 import { cleanText, fixKeys, ignoredValues } from 'utils/battlescribe/battlescribeUtils'
@@ -394,6 +394,17 @@ const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     if ((way || constellation) && !fixedKeys.allegiance) fixedKeys.allegiance = []
     if (way) fixedKeys.allegiance?.push(way)
     if (constellation) fixedKeys.allegiance?.push(constellation)
+  }
+
+  // Horrible Lumineth hotfix - 10/28/20
+  // @ts-ignore
+  if (liNode?.childNodes?.[0]?.childNodes?.[0].value === 'Allegiance: Lumineth') {
+    // @ts-ignore
+    const luminethAllegiance = liNode?.childNodes?.[2]?.childNodes?.[1]?.childNodes?.[0]?.value
+    if (luminethAllegiance) {
+      fixedKeys.allegiance = [luminethAllegiance]
+      fixedKeys.faction = LUMINETH_REALMLORDS
+    }
   }
 
   return fixedKeys

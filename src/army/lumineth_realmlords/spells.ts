@@ -2,9 +2,9 @@ import { TSpells } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
-  COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -46,7 +46,12 @@ const Spells: TSpells = [
       {
         name: `Etheral Blessings`,
         desc: `Casting value of 6. Pick 1 friendly LUMINETH REALM-LORDS unit wholly within 18" and visible to them. Until your next hero phase, ignore modifiers (positive and negative) when making saving throws for attacks that target the unit.`,
-        when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Etheral Blessings`,
+        desc: `If active, until your next hero phase, ignore modifiers (positive and negative) when making saving throws for attacks that target the unit.`,
+        when: [SAVES_PHASE],
       },
     ],
   },
