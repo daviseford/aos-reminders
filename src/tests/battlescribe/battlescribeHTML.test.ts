@@ -1537,7 +1537,6 @@ describe('getBattlescribeArmy', () => {
         'Hag Queen',
         'Hag Queen on Cauldron of Blood',
         'Morathi, High Oracle of Khaine',
-        'Morathi, the Shadow Queen',
         'Slaughter Queen',
         'Slaughter Queen on Cauldron of Blood',
         'Avatar of Khaine',

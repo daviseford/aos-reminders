@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   END_OF_CHARGE_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_GAME,
@@ -35,7 +36,7 @@ const Allegiances: TAllegiances = [
       {
         name: `Sunzblessed Armour`,
         desc: `Attacks that target the bearer have their rend reduced by 1, to a minimum of 0.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
         artifact: true,
       },
     ],
