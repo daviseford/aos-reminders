@@ -9,6 +9,8 @@ import {
   END_OF_HERO_PHASE,
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_SETUP,
   TURN_ONE_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -275,6 +277,26 @@ export const Battalions: TBattalions = [
       {
         name: `Smash 'em`,
         desc: `You can add 1 to all hit rolls made for Smasha Boyz units in the combat phase whilst they are within 10" of their Warchanter. Note that if the Warchanter uses his Frenzy of Violence ability on a Smasha Boyz unit, you would add 2 to their hit rolls instead.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Da Bossfist`,
+    effects: [
+      {
+        name: `Da Boss 'Imself`,
+        desc: `Dakkbad must have the Right Fist of Dakkbad command trait.`,
+        when: [START_OF_SETUP],
+      },
+      {
+        name: `Da Boss 'Imself`,
+        desc: `If Dakkbad is on the battlefield at the start of your hero phase, roll a dice. On a 4+, you receive 1 extra command point.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Battlescarred Veterans`,
+        desc: `Add 1 to the Attacks characteristic of melee weapons used by models in this battalion (including those used by their mounts).`,
         when: [COMBAT_PHASE],
       },
     ],
