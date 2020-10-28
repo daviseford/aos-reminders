@@ -182,6 +182,7 @@ const battlescribeTypoMap: TNameMap = {
   'Mazrall the Butcher, Daemon Prince of Khorne': 'Mazarall the Butcher',
   'Mazrall the Butcher': 'Mazarall the Butcher',
   'Miniaturized Aethermatic Repulsion Field': 'Miniaturised Aethermatic Repulsion Field',
+  'Moon-bitter Squigalanche': 'Moon-Biter Squigalanche',
   'Morathi, The Shadow Queen': 'Morathi, High Oracle of Khaine',
   'Mortek Shied-corps': 'Mortek Shield-Corps',
   'Prosecutor with Celestial Hammers': 'Prosecutors with Celestial Hammers',

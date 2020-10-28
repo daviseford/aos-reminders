@@ -25,6 +25,7 @@ import {
   SKAVEN,
   SLAANESH,
   SLAVES_TO_DARKNESS,
+  SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
   SYLVANETH,
   TZEENTCH,
@@ -38,6 +39,39 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  // TODO: Add Stoneklaw's Gutstompas
+  // https://github.com/daviseford/aos-reminders/issues/1053
+  xit('should correctly read 1601977490829-Warscroll_Builder', () => {
+    const parsedText = getFile('1601977490829-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([
+      // {
+      //   severity: 'error',
+      //   text: "Stoneklaw's Gutstompas are not supported.",
+      // },
+    ])
+  })
+
+  // TODO: Add War Hydra
+  // https://github.com/daviseford/aos-reminders/issues/1054
+  xit('should correctly read 1603491054480-Warscroll_Builder', () => {
+    const parsedText = getFile('1603491054480-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([
+      // {
+      //   severity: 'warn',
+      //   text: 'War Hydra',
+      // },
+    ])
+  })
+
+  it('should correctly read 1603703587229-Warscroll_Builder', () => {
+    const parsedText = getFile('1603703587229-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1598074473619-Warscroll_Builder', () => {
     const parsedText = getFile('1598074473619-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
