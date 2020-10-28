@@ -847,4 +847,14 @@ export const Battalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Stomping Megamob`,
+    effects: [
+      {
+        name: `One-track Minds`,
+        desc: `Units from this battalion can retreat and still shoot and/or charge later in the same turn.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE, CHARGE_PHASE],
+      },
+    ],
+  },
 ]

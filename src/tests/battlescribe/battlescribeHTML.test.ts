@@ -17,6 +17,7 @@ import {
   LEGIONS_OF_GRIEF,
   LEGION_OF_BLOOD,
   LEGION_OF_SACRAMENT,
+  LUMINETH_REALMLORDS,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -40,6 +41,76 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should not work with The Choir of Torments battalion (not in current book)', () => {
+    const parsedText = getFile('1601345187171-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'The Choir of Torment',
+      },
+    ])
+  })
+
+  // TODO
+  xit('should correctly read 1601408881720-Battlescribe', () => {
+    const parsedText = getFile('1601408881720-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Fungoid Cloud',
+      },
+      {
+        severity: 'warn',
+        text: 'Mesmerise',
+      },
+      {
+        severity: 'warn',
+        text: 'Gobbapalooza',
+      },
+    ])
+  })
+
+  it('should correctly read 1601411067591-Battlescribe', () => {
+    const parsedText = getFile('1601411067591-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1602294536060-Battlescribe', () => {
+    const parsedText = getFile('1602294536060-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1602294559289-Battlescribe', () => {
+    const parsedText = getFile('1602294559289-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.factionName).toEqual(LUMINETH_REALMLORDS)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1602790654401-Battlescribe', () => {
+    const parsedText = getFile('1602790654401-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.artifacts).toContain('Bracers of Ember Iron')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1603428388643-Battlescribe', () => {
+    const parsedText = getFile('1603428388643-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1603737835449-Battlescribe', () => {
+    const parsedText = getFile('1603737835449-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.battalions).toContain('Moon-Biter Squigalanche')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1600111513593-Battlescribe', () => {
     const parsedText = getFile('1600111513593-Battlescribe')
     const res = getBattlescribeArmy(parsedText)

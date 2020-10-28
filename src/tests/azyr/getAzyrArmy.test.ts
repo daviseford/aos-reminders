@@ -39,6 +39,15 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getAzyrArmyFromPdf', () => {
+  // TODO: Add Dimensional Blade
+  // https://github.com/daviseford/aos-reminders/issues/1055
+  xit('should correctly read 1602264690883-Azyr', () => {
+    const fileTxt = getFile('1602264690883-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read SoB1', () => {
     const fileTxt = getFile('SoB1')
     const pages = handleAzyrPages(fileTxt)
@@ -93,10 +102,12 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
+        // TODO: https://github.com/daviseford/aos-reminders/issues/1056
         text: 'Hypersnare Seeds',
       },
       {
         severity: 'warn',
+        // TODO: https://github.com/daviseford/aos-reminders/issues/1057
         text: 'Arboreal Stave',
       },
     ])
