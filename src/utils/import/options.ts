@@ -70,6 +70,7 @@ const warscrollTypoMap: TNameMap = {
   'Dabbling in Sorcery': 'Dabblings in Sorcery (Anvilgard Battle Trait)',
   'Dark Wizardy': 'Dark Wizardry (Royalty)',
   'Devoted Desciples': 'Devoted Disciples',
+  'Eternal Conflaguration': 'Eternal Conflagration',
   'Ethereal Blessing': 'Etheral Blessings',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
   'Exalted Deathbringer with Impaling Spear': 'Exalted Deathbringer',
