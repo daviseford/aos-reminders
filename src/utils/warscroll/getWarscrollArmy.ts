@@ -2,6 +2,7 @@ import GenericScenery from 'army/generic/scenery'
 import { SeraphonConstellations } from 'army/seraphon/allegiances'
 import CommonSonsOfBehematData from 'army/sons_of_behemat/common'
 import { last, uniq } from 'lodash'
+import { getArmyList } from 'meta/army_list'
 import { TSupportedFaction } from 'meta/factions'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 import { importErrorChecker } from 'utils/import'
@@ -13,6 +14,12 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const errorChecked = importErrorChecker(army, WARSCROLL_BUILDER)
 
   return errorChecked
+}
+
+const getAllegianceTypes = () => {
+  return Object.values(getArmyList())
+    .map(v => (v.Army?.AllegianceType || '').replace(/s$/, '')) // Remove trailing s
+    .filter(x => !!x)
 }
 
 const unitIndicatorsPdf = [
@@ -30,6 +37,8 @@ const unitIndicatorsPdf = [
 const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(pdfText)
   const genericScenery = GenericScenery.map(x => x.name)
+
+  const allegianceTypes = getAllegianceTypes()
 
   let allyUnits: string[] = []
   let factionName = ''
@@ -114,14 +123,6 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
             accum.traits = accum.traits.concat(trait)
           }
           return accum
-        }
-
-        if (txt.startsWith('- Lodge: ')) {
-          const allegiance = txt.replace('- Lodge: ', '').trim()
-          if (allegiance) {
-            accum.allegiances = accum.allegiances.concat(allegiance)
-            return accum
-          }
         }
 
         if (txt.startsWith('- Additional Footnote: ')) {
@@ -221,6 +222,21 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           accum.traits = accum.traits.concat(trait)
           return accum
         }
+
+        // Handle allegiances programmatically
+        let stop = false
+        allegianceTypes.forEach(t => {
+          if (!stop) return
+          if (txt.startsWith(`- ${t}: `)) {
+            const allegiance = txt.replace(`- ${t}: `, '').trim()
+            if (allegiance && allegiance !== 'None') {
+              accum.allegiances = accum.allegiances.concat(allegiance)
+              stop = true
+            }
+          }
+        })
+        if (stop) return accum
+
         if (txt.startsWith('- Artefact : ')) {
           const { trait: artifact, spell } = getTraitWithSpell('Artefact', txt)
           accum.artifacts = accum.artifacts.concat(artifact)
