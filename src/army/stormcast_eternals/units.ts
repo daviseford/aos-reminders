@@ -1616,4 +1616,94 @@ export const Battalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Hammerhands Warrior Chamber`,
+    effects: [
+      {
+        name: `Exemplars to All`,
+        desc: `You can reroll saves of 1 for this battallion's units wholly within 8" of any of this battalion's heros.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Blood Feud`,
+        desc: `You can reroll hits of 1 for attacks targeting Bloodbound units.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Hammerhands Lords of the Storm`,
+    effects: [
+      {
+        name: `Stand Firm, Brothers`,
+        desc: `If a hero from this battalion is slain by a wound or mortal wound while wholly within 6" of any other heros from this battalion, roll a D6. On a 5+ the wound is negated and the model is not slain.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Hammerhands Thunderhead Brotherhood`,
+    effects: [
+      {
+        name: `Storied Veterans`,
+        desc: `You can reroll hits of 1 for this batallion's Liberator units targetting units that have had at least one wound inflicted by any of this battalion's Judicators.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Hammerhands Hammerstrike Force`,
+    effects: [
+      {
+        name: `Dauntless Spirit`,
+        desc: `You can reroll wounds of 1 for this battalion's melee attacks targeting units with greater number of models than the attacking unit.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Steel Souls Warrior Chamber`,
+    effects: [
+      {
+        name: `Purifying Purge`,
+        desc: `You can heal 1 wound allocated to each unit in this battalion.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Steel Souls Lords of the Storm`,
+    effects: [
+      {
+        name: `Saintly Assault`,
+        desc: `Once per battle, you can reroll charge rolls from units in this battalion until the end of the phase.`,
+        when: [START_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Saintly Assault`,
+        desc: `If active, add 1 to the melee attacks characteristic from this battalion's units until the end of the turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Steel Souls Thunderhead Brotherhood`,
+    effects: [
+      {
+        name: `Strength Through Sacrifice`,
+        desc: `If any models from a unit in this battalion were slain in this combat phase, add 1 to the bravery characteristic of that unit until the end of the turn.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Steel Souls Hammerstrike Force`,
+    effects: [
+      {
+        name: `Beacons of Faith`,
+        desc: `Subtract 1 from enemy wizard casting rolls while they are within 8" of this battalion's units.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 ]
