@@ -194,14 +194,15 @@ const PlanComponent: React.FC<IPlanProps> = ({ supportPlan }) => {
 
     logClick(origin)
 
-    const sku = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
+    const price = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
 
-    const item = { sku, quantity: typeof quantity === 'string' ? parseInt(quantity) : quantity }
+    const item = { price, quantity: typeof quantity === 'string' ? parseInt(quantity) : quantity }
 
     stripe
       .redirectToCheckout({
-        items: [item],
+        mode: 'payment',
+        lineItems: [item],
 
         // Meta
         customerEmail: user.email, // Used to prefill checkout
