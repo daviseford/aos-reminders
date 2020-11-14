@@ -17,6 +17,7 @@ const DownloadPDFButton = () => {
 
   const currentArmy = useSelector(selectors.selectCurrentArmy)
   const hiddenReminders = useSelector(selectors.selectReminders)
+  const notes = useSelector(selectors.selectNotes)
 
   const [pdf, setPdf] = useState<{ default: jsPDF; compact: jsPDF } | null>(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -26,13 +27,13 @@ const DownloadPDFButton = () => {
       e.preventDefault()
 
       // Get the PDF ready to be saved
-      const pdfs = savePdf({ ...currentArmy, hiddenReminders, reminders })
+      const pdfs = savePdf({ ...currentArmy, hiddenReminders, reminders, notes })
 
       setPdf(pdfs)
       saveArmyToS3(currentArmy)
       setModalIsOpen(true)
     },
-    [currentArmy, hiddenReminders, reminders, saveArmyToS3]
+    [currentArmy, hiddenReminders, reminders, notes, saveArmyToS3]
   )
 
   const text = `Download${isMobile ? `` : ` PDF`}`

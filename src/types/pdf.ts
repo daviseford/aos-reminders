@@ -1,5 +1,6 @@
 import { ICurrentArmy } from 'types/army'
 import { IReminder } from 'types/data'
+import { INote } from './notes'
 
 type TPdfStylePdf =
   | 'army'
@@ -8,6 +9,7 @@ type TPdfStylePdf =
   | 'armyName'
   | 'break'
   | 'desc'
+  | 'note'
   | 'phase'
   | 'spacer'
   | 'title'
@@ -35,4 +37,5 @@ export interface ICompactPdfTextObj {
 export interface IPrintPdf extends ICurrentArmy {
   hiddenReminders: string[]
   reminders: IReminder
+  notes: INote[]
 }

@@ -1,7 +1,9 @@
 @import "./theme.scss";
 
 /* Make sure our document fills the page - important for dark theme! */
-html, body, #root {
+html,
+body,
+#root {
     margin: 0;
     height: 100%;
 }
@@ -9,13 +11,14 @@ html, body, #root {
 /* Elements */
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+        "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 small {
@@ -33,7 +36,7 @@ small {
 }
 
 .DisclaimerText {
-  font-size: 11px;
+    font-size: 11px;
 }
 
 .text-white-75 {
@@ -41,7 +44,7 @@ small {
 }
 
 .border-light-gray {
-    border:1px solid $themeLightGray;
+    border: 1px solid $themeLightGray;
 }
 
 .bg-themeDarkBluePrimary {
@@ -54,7 +57,7 @@ small {
     background-color: $themeLightBlue;
 }
 .bg-profileHeader {
-    background-color: rgba(28,117,149, .15); // $themeLightBlue
+    background-color: rgba(28, 117, 149, 0.15); // $themeLightBlue
 }
 .bg-themeLightGray {
     background-color: $themeLightGray;
@@ -83,16 +86,24 @@ small {
     margin-block-start: 2px;
 }
 
-.EntryNoteText {
+.NoteInput {
+    min-width: 45%;
+    width: 95%;
+    height: 7em;
+    resize: both;
+}
+
+.NoteText {
     font-style: italic;
 }
 
 .NoteDiv {
-     width: max-content;
-    border: 3px dashed $themeLightGray;
-    border-width:3px;
-    border-style:dashed;
-    border-color:$themeLightGray;
+    max-width: 95%;
+    width: max-content;
+    border: 2px dashed $themeLightGray;
+    border-width: 2px;
+    border-style: dashed;
+    border-color: $themeLightGray;
 }
 
 /* Modal */
@@ -106,19 +117,19 @@ small {
     bottom: auto;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    border:1px solid #000000;
+    border: 1px solid #000000;
     background-color: rgba(255, 255, 255, 1);
 }
 
 .Modal-Dark {
     @extend .Modal-Light;
-    border:1px solid $themeLightGray;
+    border: 1px solid $themeLightGray;
     background-color: $themeDarkBlueSecondary;
 }
 
 .Modal-Transparent {
     @extend .Modal-Light;
-    background-color: rgba(0, 0, 0, 0.0);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .Overlay-Light {
@@ -149,34 +160,33 @@ small {
     background-color: #fafafa;
     color: #bdbdbd;
     outline: none;
-    transition: border .24s ease-in-out;
-  }
-  
-  .dropzone:focus {
-    border-color: #2196f3;
-  }
-  
-  .dropzone.disabled {
-    opacity: 0.6;
-  }
+    transition: border 0.24s ease-in-out;
+}
 
-  /* Dropzone Dark Mode */
+.dropzone:focus {
+    border-color: #2196f3;
+}
+
+.dropzone.disabled {
+    opacity: 0.6;
+}
+
+/* Dropzone Dark Mode */
 .dropzone-dark {
     @extend .dropzone;
-    background-color:black;
+    background-color: black;
     color: whitesmoke;
-  }
-  
-  .dropzone-dark:focus {
+}
+
+.dropzone-dark:focus {
     border-color: #2196f3;
-  }
-  
-  .dropzone-dark.disabled {
+}
+
+.dropzone-dark.disabled {
     opacity: 0.6;
-  }
+}
 
-
-  /* IFrame sizes for stats */
+/* IFrame sizes for stats */
 .StatsIFrame {
     height: 900px;
 }
@@ -225,12 +235,14 @@ small {
 }
 
 @media print {
-
-    .text-white, .text-light, .text-white-50, .text-white-75 {
+    .text-white,
+    .text-light,
+    .text-white-50,
+    .text-white-75 {
         color: black !important;
     }
 
-    header>h1 {
+    header > h1 {
         font-size: 1.5rem;
     }
 
@@ -265,5 +277,4 @@ small {
     .ReminderEntry {
         font-size: 0.9rem;
     }
-
 }

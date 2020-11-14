@@ -37,6 +37,11 @@ const Styles: TPdfStyles = {
     spacing: 0.18,
     style: 'normal',
   },
+  note: {
+    fontSize: 9.5,
+    spacing: 0.18,
+    style: 'italic',
+  },
   phase: {
     fontSize: 12,
     spacing: 0.24,
@@ -71,7 +76,7 @@ const PageOpts = {
 }
 
 export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
-  const { factionName, hiddenReminders, reminders, ...currentArmy } = data
+  const { factionName, hiddenReminders, reminders, notes, ...currentArmy } = data
 
   const orderedReminders = reorderReminders(getVisibleReminders(reminders, hiddenReminders))
 
@@ -90,7 +95,7 @@ export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
 
-  Layout.getReminderText(orderedReminders)
+  Layout.getReminderText(orderedReminders, notes)
   const pages = Layout.splitTextToPages()
 
   pages.forEach((page, pageNum) => {

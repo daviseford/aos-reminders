@@ -238,7 +238,6 @@ type TNoteInputProps = {
 }
 
 const NoteInput = (props: TNoteInputProps) => {
-  const { theme } = useTheme()
   const [inputValue, setInputValue] = React.useState(props.note.content || '')
 
   return (
@@ -247,6 +246,7 @@ const NoteInput = (props: TNoteInputProps) => {
         <div className="col-12">
           <textarea
             name="name"
+            className={'NoteInput'}
             onChange={e => {
               e.preventDefault()
               setInputValue(e.target.value)
@@ -290,15 +290,19 @@ const NoteDisplay = ({ note, handleEditNote }: { note: INote; handleEditNote: ()
   if (!note || !note.content) return <></>
 
   return (
-    <div className={`NoteDiv px-2 py-1`}>
-      {splitText.map((text, i) => (
-        <p className={`EntryNoteText ${theme.text}`} key={i}>
-          {text}
-        </p>
-      ))}
-      <button type="button" className="btn btn-link" onClick={handleEditNote}>
-        edit
-      </button>
+    <div className={`NoteDiv d-flex align-items-center ml-3 px-2 py-1 mb-1`}>
+      <div className="flex-grow-1">
+        {splitText.map((text, i) => (
+          <p className={`NoteText ${theme.text} mb-0`} key={i}>
+            {text}
+          </p>
+        ))}
+      </div>
+      <div className={'pl-4 pr-1'}>
+        <button type="button" className="btn btn-sm btn-secondary" onClick={handleEditNote}>
+          Edit
+        </button>
+      </div>
     </div>
   )
 }

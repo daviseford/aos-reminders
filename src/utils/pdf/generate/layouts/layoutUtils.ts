@@ -2,6 +2,7 @@ import jsPDF from 'jspdf'
 import { slice, sum } from 'lodash'
 import { ICurrentArmy } from 'types/army'
 import { IReminder, TTurnAction } from 'types/data'
+import { INote } from 'types/notes'
 import { ICompactPdfTextObj, TPdfStyles, TSavePdfType } from 'types/pdf'
 import { IAllySelections } from 'types/selections'
 import { getActionTitle, titleCase } from 'utils/textUtils'
@@ -262,7 +263,7 @@ export default class CompactPdfLayout {
     return this._pages
   }
 
-  getReminderText = (reminders: IReminder): void => {
+  getReminderText = (reminders: IReminder, notes: INote[]): void => {
     const Phases: IPhaseAndRuleObj[] = []
 
     Object.keys(reminders).forEach(phase => {
@@ -279,7 +280,7 @@ export default class CompactPdfLayout {
       const numRulesInPhase = reminders[phase].length
 
       reminders[phase].forEach((action, i) => {
-        const ruleObj = [] as ICompactPdfTextObj[]
+        const ruleObj: ICompactPdfTextObj[] = []
         // Handle action title
 
         // Display last rules in full since they won't have a matching partner
@@ -319,6 +320,21 @@ export default class CompactPdfLayout {
             position,
           })
         })
+
+        // Handle note
+        const note = notes.find(x => x.linked_hash === action.id)
+        if (note && note.content) {
+          const noteLines: string[] = this._doc.splitTextToSize(note.content, lineWidth)
+          noteLines.forEach(text => {
+            const trimmed = text.trim()
+            const type = trimmed === '' ? 'break' : 'note'
+            ruleObj.push({
+              type,
+              text: trimmed,
+              position,
+            })
+          })
+        }
 
         phaseObj.rules.push(ruleObj)
       })
