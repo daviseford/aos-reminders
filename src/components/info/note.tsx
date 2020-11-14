@@ -26,7 +26,7 @@ type TNoteInputProps = {
 export const NoteInput = (props: TNoteInputProps) => {
   const { note, handleCancel, handleDeleteNote, handleSaveNote } = props
   const [inputValue, setInputValue] = React.useState(note.content || '')
-  const isDirty = inputValue !== note.content
+  const canSave = inputValue !== note.content
   const btn = 'btn btn-sm btn-'
 
   return (
@@ -45,7 +45,7 @@ export const NoteInput = (props: TNoteInputProps) => {
         </div>
         <div className="col-12">
           <div className="btn-group" role="group">
-            {isDirty && (
+            {canSave && (
               <button
                 type="button"
                 className={`${btn}success mr-1`}
@@ -74,15 +74,16 @@ type TNoteDisplayProps = { note: INote; handleEditNote: () => void; handleDelete
 export const NoteDisplay = ({ note, handleEditNote, handleDeleteNote }: TNoteDisplayProps) => {
   const { theme } = useTheme()
   const { isGameMode } = useAppStatus()
-  const splitText = note.content
+
+  if (!note) return <></>
+
+  const splitText = (note.content || `Empty note`)
     .split('\n')
     .map(t => t.trim())
     .filter(t => !!t)
 
-  if (!note || !note.content) return <></>
-
   return (
-    <div className={`${theme.noteBorder} d-flex align-items-center ml-3 px-2 pb-1 mb-1 mt-0 pt-0`}>
+    <div className={`${theme.noteBorder} d-flex align-items-center ml-3 px-2 py-1 mb-1`}>
       <div className="flex-grow-1">
         {splitText.map((text, i) => (
           <p className={`NoteText ${theme.text} mb-0`} key={i}>
