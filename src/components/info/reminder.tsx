@@ -5,13 +5,15 @@ import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { selectors, visibilityActions } from 'ducks'
 import { notesActions } from 'ducks/notes'
+import { selectNotes } from 'ducks/selectors'
 import { isEqual, sortBy } from 'lodash'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
-import { IconContext, IconType } from 'react-icons'
-import { AiFillFileText } from 'react-icons/ai'
+import { IconBaseProps, IconContext } from 'react-icons'
+import { MdNoteAdd } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
+import { INote } from 'types/notes'
 import { TTurnWhen } from 'types/phases'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
@@ -138,21 +140,45 @@ interface IActionTextProps extends TTurnAction {
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { isVisible, desc, draggableProps, id, when } = props
+  const { isVisible, desc, draggableProps, id } = props
   const dispatch = useDispatch()
   const { isGameMode } = useAppStatus()
+  const notes = useSelector(selectNotes)
+
+  const [isEditingNote, setIsEditingNote] = useState(false)
 
   const handleVisibility = () => dispatch(!isVisible ? showReminder(id) : hideReminder(id))
-  const handleNoteClick = () =>
+
+  const note = notes.find(x => x.linked_hash === id)
+
+  const handleAddNote = () => {
     dispatch(
       notesActions.addNote({
         id: generateUUID(),
-        when,
         linked_hash: id,
         content: '',
       })
     )
-  // : notesActions.deleteNote(id)
+    setIsEditingNote(true)
+    dispatch(showReminder(id))
+  }
+
+  const handleDeleteNote = () => {
+    if (!note) return
+    setIsEditingNote(false)
+    dispatch(notesActions.deleteNote(note.id))
+  }
+
+  const handleSaveNote = (content: string) => {
+    if (!note) return
+    dispatch(notesActions.updateNote({ ...note, content }))
+    setIsEditingNote(false)
+  }
+
+  const handleEditNote = () => {
+    if (!note) return
+    setIsEditingNote(true)
+  }
 
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
@@ -175,24 +201,94 @@ const ActionText = (props: IActionTextProps) => {
             ) : (
               <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
             )}
-            <Note onClick={handleNoteClick} />
+            {!isEditingNote && <NoteIcon onClick={note ? handleEditNote : handleAddNote} />}
           </div>
         </div>
 
         {isVisible && <ActionDescription text={desc} />}
+        {isVisible && note && isEditingNote && (
+          <NoteInput
+            note={note}
+            handleSaveNote={handleSaveNote}
+            handleDeleteNote={handleDeleteNote}
+            handleCancel={() => setIsEditingNote(false)}
+          />
+        )}
+        {isVisible && note && !isEditingNote && <NoteDisplay note={note} handleEditNote={handleEditNote} />}
       </div>
     </div>
   )
 }
 
-const Note: IconType = props => {
+const NoteIcon = (props: IconBaseProps) => {
   const { theme } = useTheme()
 
   return (
+    <IconContext.Provider value={{ size: `1em`, className: theme.text }}>
+      <MdNoteAdd {...props} />
+    </IconContext.Provider>
+  )
+}
+
+type TNoteInputProps = {
+  note: INote
+  handleDeleteNote: () => void
+  handleSaveNote: (content: string) => void
+  handleCancel: () => void
+}
+
+const NoteInput = (props: TNoteInputProps) => {
+  const [inputValue, setInputValue] = React.useState(props.note.content || '')
+
+  return (
     <>
-      <IconContext.Provider value={{ size: `1em`, className: theme.text }}>
-        <AiFillFileText {...props} />
-      </IconContext.Provider>
+      <div>
+        <textarea
+          name="name"
+          onChange={e => {
+            e.preventDefault()
+            setInputValue(e.target.value)
+          }}
+          value={inputValue}
+        />
+
+        {inputValue !== props.note.content && (
+          <button type="button" onClick={() => props.handleSaveNote(inputValue)}>
+            Save
+          </button>
+        )}
+
+        <button type="button" onClick={props.handleDeleteNote}>
+          Delete
+        </button>
+
+        <button type="button" onClick={props.handleCancel}>
+          Cancel
+        </button>
+      </div>
+    </>
+  )
+}
+
+const NoteDisplay = ({ note, handleEditNote }: { note: INote; handleEditNote: () => void }) => {
+  const { theme } = useTheme()
+  const splitText = note.content
+    .split('\n')
+    .map(t => t.trim())
+    .filter(t => !!t)
+
+  if (!note || !note.content) return <></>
+
+  return (
+    <>
+      {splitText.map((text, i) => (
+        <p className={`EntryNoteText ${theme.text}`} key={i}>
+          {text}
+        </p>
+      ))}
+      <button type="button" onClick={handleEditNote}>
+        Edit This
+      </button>
     </>
   )
 }
@@ -223,7 +319,7 @@ const ActionDescription = (props: { text: string }) => {
   return (
     <>
       {splitText.map((text, i) => (
-        <p className={`EntryText ${theme.text}`} key={i}>
+        <p className={theme.text} key={i}>
           {text}
         </p>
       ))}
