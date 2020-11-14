@@ -87,6 +87,14 @@ small {
     font-style: italic;
 }
 
+.NoteDiv {
+     width: max-content;
+    border: 3px dashed $themeLightGray;
+    border-width:3px;
+    border-style:dashed;
+    border-color:$themeLightGray;
+}
+
 /* Modal */
 
 .Modal-Light {

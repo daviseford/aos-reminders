@@ -201,7 +201,7 @@ const ActionText = (props: IActionTextProps) => {
             ) : (
               <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
             )}
-            {!isEditingNote && <NoteIcon onClick={note ? handleEditNote : handleAddNote} />}
+            <NoteIcon onClick={isEditingNote ? undefined : note ? handleEditNote : handleAddNote} />
           </div>
         </div>
 
@@ -224,7 +224,7 @@ const NoteIcon = (props: IconBaseProps) => {
   const { theme } = useTheme()
 
   return (
-    <IconContext.Provider value={{ size: `1em`, className: theme.text }}>
+    <IconContext.Provider value={{ size: `1.3em`, className: theme.text }}>
       <MdNoteAdd {...props} />
     </IconContext.Provider>
   )
@@ -238,33 +238,43 @@ type TNoteInputProps = {
 }
 
 const NoteInput = (props: TNoteInputProps) => {
+  const { theme } = useTheme()
   const [inputValue, setInputValue] = React.useState(props.note.content || '')
 
   return (
     <>
-      <div>
-        <textarea
-          name="name"
-          onChange={e => {
-            e.preventDefault()
-            setInputValue(e.target.value)
-          }}
-          value={inputValue}
-        />
+      <div className="row">
+        <div className="col-12">
+          <textarea
+            name="name"
+            onChange={e => {
+              e.preventDefault()
+              setInputValue(e.target.value)
+            }}
+            value={inputValue}
+          />
+        </div>
+        <div className="col-12">
+          <div className="btn-group" role="group">
+            {inputValue !== props.note.content && (
+              <button
+                type="button"
+                className={'btn btn-success'}
+                onClick={() => props.handleSaveNote(inputValue)}
+              >
+                Save
+              </button>
+            )}
 
-        {inputValue !== props.note.content && (
-          <button type="button" onClick={() => props.handleSaveNote(inputValue)}>
-            Save
-          </button>
-        )}
+            <button type="button" className={'btn btn-danger'} onClick={props.handleDeleteNote}>
+              Delete
+            </button>
 
-        <button type="button" onClick={props.handleDeleteNote}>
-          Delete
-        </button>
-
-        <button type="button" onClick={props.handleCancel}>
-          Cancel
-        </button>
+            <button type="button" className={'btn btn-secondary'} onClick={props.handleCancel}>
+              Cancel
+            </button>
+          </div>
+        </div>
       </div>
     </>
   )
@@ -280,16 +290,16 @@ const NoteDisplay = ({ note, handleEditNote }: { note: INote; handleEditNote: ()
   if (!note || !note.content) return <></>
 
   return (
-    <>
+    <div className={`NoteDiv px-2 py-1`}>
       {splitText.map((text, i) => (
         <p className={`EntryNoteText ${theme.text}`} key={i}>
           {text}
         </p>
       ))}
-      <button type="button" onClick={handleEditNote}>
-        Edit This
+      <button type="button" className="btn btn-link" onClick={handleEditNote}>
+        edit
       </button>
-    </>
+    </div>
   )
 }
 
