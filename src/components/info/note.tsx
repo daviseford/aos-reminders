@@ -1,6 +1,9 @@
+import GenericButton from 'components/input/generic_button'
+import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
 import React from 'react'
 import { IconBaseProps, IconContext } from 'react-icons'
+import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa'
 import { MdNoteAdd } from 'react-icons/md'
 import { INote } from 'types/notes'
 
@@ -23,7 +26,7 @@ type TNoteInputProps = {
 export const NoteInput = (props: TNoteInputProps) => {
   const { note, handleCancel, handleDeleteNote, handleSaveNote } = props
   const [inputValue, setInputValue] = React.useState(note.content || '')
-
+  const isDirty = inputValue !== note.content
   const btn = 'btn btn-sm btn-'
 
   return (
@@ -42,13 +45,17 @@ export const NoteInput = (props: TNoteInputProps) => {
         </div>
         <div className="col-12">
           <div className="btn-group" role="group">
-            {inputValue !== note.content && (
-              <button type="button" className={`${btn}success`} onClick={() => handleSaveNote(inputValue)}>
+            {isDirty && (
+              <button
+                type="button"
+                className={`${btn}success mr-1`}
+                onClick={() => handleSaveNote(inputValue)}
+              >
                 Save
               </button>
             )}
 
-            <button type="button" className={`${btn}danger`} onClick={handleDeleteNote}>
+            <button type="button" className={`${btn}danger mr-1`} onClick={handleDeleteNote}>
               Delete
             </button>
 
@@ -62,10 +69,11 @@ export const NoteInput = (props: TNoteInputProps) => {
   )
 }
 
-type TNoteDisplayProps = { note: INote; handleEditNote: () => void }
+type TNoteDisplayProps = { note: INote; handleEditNote: () => void; handleDeleteNote: () => void }
 
-export const NoteDisplay = ({ note, handleEditNote }: TNoteDisplayProps) => {
+export const NoteDisplay = ({ note, handleEditNote, handleDeleteNote }: TNoteDisplayProps) => {
   const { theme } = useTheme()
+  const { isGameMode } = useAppStatus()
   const splitText = note.content
     .split('\n')
     .map(t => t.trim())
@@ -74,7 +82,7 @@ export const NoteDisplay = ({ note, handleEditNote }: TNoteDisplayProps) => {
   if (!note || !note.content) return <></>
 
   return (
-    <div className={`NoteDiv d-flex align-items-center ml-3 px-2 py-1 mb-1`}>
+    <div className={`${theme.noteBorder} d-flex align-items-center ml-3 px-2 pb-1 mb-1 mt-0 pt-0`}>
       <div className="flex-grow-1">
         {splitText.map((text, i) => (
           <p className={`NoteText ${theme.text} mb-0`} key={i}>
@@ -82,11 +90,16 @@ export const NoteDisplay = ({ note, handleEditNote }: TNoteDisplayProps) => {
           </p>
         ))}
       </div>
-      <div className={'pl-4 pr-1'}>
-        <button type="button" className="btn btn-sm btn-secondary" onClick={handleEditNote}>
-          Edit
-        </button>
-      </div>
+      {!isGameMode && (
+        <div className={'pl-4 pr-1'}>
+          <GenericButton className="btn btn-secondary mr-2" onClick={handleEditNote}>
+            <FaPencilAlt />
+          </GenericButton>
+          <GenericButton className="btn btn-danger" onClick={handleDeleteNote}>
+            <FaTrashAlt />
+          </GenericButton>
+        </div>
+      )}
     </div>
   )
 }

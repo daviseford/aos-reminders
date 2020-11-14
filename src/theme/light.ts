@@ -13,6 +13,7 @@ const LightTheme: ITheme = {
   headerColor: `bg-themeDarkBluePrimary`,
   modalConfirmClass: `btn btn-outline-dark ml-3 mr-5`,
   modalDangerClass: `btn btn-outline-danger ml-3`,
+  noteBorder: `NoteBorder`,
   profileCardHeader: `card-header bg-profileHeader text-dark mb-0 pb-1`,
   reminderHeader: `bg-themeDarkBluePrimary`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,

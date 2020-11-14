@@ -199,7 +199,7 @@ const ActionText = (props: IActionTextProps) => {
             ) : (
               <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
             )}
-            <NoteIcon onClick={isEditingNote ? undefined : note ? handleEditNote : handleAddNote} />
+            {!note && <NoteIcon onClick={handleAddNote} />}
           </div>
         </div>
 
@@ -212,7 +212,9 @@ const ActionText = (props: IActionTextProps) => {
             handleCancel={() => setIsEditingNote(false)}
           />
         )}
-        {isVisible && note && !isEditingNote && <NoteDisplay note={note} handleEditNote={handleEditNote} />}
+        {isVisible && note && !isEditingNote && (
+          <NoteDisplay note={note} handleEditNote={handleEditNote} handleDeleteNote={handleDeleteNote} />
+        )}
       </div>
     </div>
   )

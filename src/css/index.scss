@@ -99,17 +99,21 @@ small {
     font-style: italic;
 }
 
-.NoteDiv {
+.NoteBorder {
     max-width: 95%;
     width: max-content;
-    border: 2px dashed $themeLightGray;
+    border: 2px dashed $themeDarkBlueSecondary;
     border-width: 2px;
     border-style: dashed;
-    border-color: $themeLightGray;
+    border-color: $themeDarkBlueSecondary;
+
+    &-Dark {
+        @extend .NoteBorder;
+        border-color: $themeLightGray;
+    }
 }
 
 /* Modal */
-
 .Modal-Light {
     padding: 1.5%;
     position: absolute;

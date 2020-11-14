@@ -72,6 +72,7 @@ const DarkTheme: ITheme = {
   headerColor: bgColor,
   modalConfirmClass: `btn btn-outline-light ml-3 mr-5`,
   modalDangerClass: `btn btn-danger ml-3`,
+  noteBorder: `NoteBorder-Dark`,
   profileCardHeader: `card-header bg-profileHeader text-dark mb-0 pb-1`,
   reminderHeader: `bg-themeLightBlue`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,

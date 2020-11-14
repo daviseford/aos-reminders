@@ -9,6 +9,7 @@ export interface ITheme {
   headerColor: string
   modalConfirmClass: string
   modalDangerClass: string
+  noteBorder: string
   profileCardHeader: string
   reminderHeader: string
   secondaryButton: string
