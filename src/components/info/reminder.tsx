@@ -9,15 +9,13 @@ import { selectNotes } from 'ducks/selectors'
 import { isEqual, sortBy } from 'lodash'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
-import { IconBaseProps, IconContext } from 'react-icons'
-import { MdNoteAdd } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
-import { INote } from 'types/notes'
 import { TTurnWhen } from 'types/phases'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { generateUUID, titleCase } from 'utils/textUtils'
+import { NoteDisplay, NoteIcon, NoteInput } from './note'
 
 const { addReminder: hideReminder, deleteReminder: showReminder, addWhen: showWhen } = visibilityActions
 
@@ -215,93 +213,6 @@ const ActionText = (props: IActionTextProps) => {
           />
         )}
         {isVisible && note && !isEditingNote && <NoteDisplay note={note} handleEditNote={handleEditNote} />}
-      </div>
-    </div>
-  )
-}
-
-const NoteIcon = (props: IconBaseProps) => {
-  const { theme } = useTheme()
-
-  return (
-    <IconContext.Provider value={{ size: `1.3em`, className: theme.text }}>
-      <MdNoteAdd {...props} />
-    </IconContext.Provider>
-  )
-}
-
-type TNoteInputProps = {
-  note: INote
-  handleDeleteNote: () => void
-  handleSaveNote: (content: string) => void
-  handleCancel: () => void
-}
-
-const NoteInput = (props: TNoteInputProps) => {
-  const [inputValue, setInputValue] = React.useState(props.note.content || '')
-
-  return (
-    <>
-      <div className="row">
-        <div className="col-12">
-          <textarea
-            name="name"
-            className={'NoteInput'}
-            onChange={e => {
-              e.preventDefault()
-              setInputValue(e.target.value)
-            }}
-            value={inputValue}
-          />
-        </div>
-        <div className="col-12">
-          <div className="btn-group" role="group">
-            {inputValue !== props.note.content && (
-              <button
-                type="button"
-                className={'btn btn-success'}
-                onClick={() => props.handleSaveNote(inputValue)}
-              >
-                Save
-              </button>
-            )}
-
-            <button type="button" className={'btn btn-danger'} onClick={props.handleDeleteNote}>
-              Delete
-            </button>
-
-            <button type="button" className={'btn btn-secondary'} onClick={props.handleCancel}>
-              Cancel
-            </button>
-          </div>
-        </div>
-      </div>
-    </>
-  )
-}
-
-const NoteDisplay = ({ note, handleEditNote }: { note: INote; handleEditNote: () => void }) => {
-  const { theme } = useTheme()
-  const splitText = note.content
-    .split('\n')
-    .map(t => t.trim())
-    .filter(t => !!t)
-
-  if (!note || !note.content) return <></>
-
-  return (
-    <div className={`NoteDiv d-flex align-items-center ml-3 px-2 py-1 mb-1`}>
-      <div className="flex-grow-1">
-        {splitText.map((text, i) => (
-          <p className={`NoteText ${theme.text} mb-0`} key={i}>
-            {text}
-          </p>
-        ))}
-      </div>
-      <div className={'pl-4 pr-1'}>
-        <button type="button" className="btn btn-sm btn-secondary" onClick={handleEditNote}>
-          Edit
-        </button>
       </div>
     </div>
   )
