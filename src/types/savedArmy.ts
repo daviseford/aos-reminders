@@ -12,6 +12,7 @@ export interface ISavedArmy extends ICurrentArmy {
 export interface ISavedArmyFromApi extends ISavedArmy {
   id: string
   userName: string
+  notes?: INote[]
   /**
    * Unix time (milliseconds)
    */

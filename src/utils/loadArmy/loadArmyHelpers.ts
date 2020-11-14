@@ -6,6 +6,7 @@ import {
   selectionActions,
   visibilityActions,
 } from 'ducks'
+import { notesActions } from 'ducks/notes'
 import { store } from 'store'
 import { IArmy } from 'types/army'
 import { TLoadedArmy } from 'types/import'
@@ -62,9 +63,15 @@ export const addArmyToStore = (loadedArmy: TLoadedArmy) => {
       dispatch(visibilityActions.addReminders(loadedArmy.hiddenReminders))
     }
 
+    loadedArmy = loadedArmy as ISavedArmyFromApi
+
+    // Add notes if necessary
+    if (loadedArmy.notes) {
+      dispatch(notesActions.setNotes(loadedArmy.notes))
+    }
+
     // Re-organize reminder ordering if needed
     if ((loadedArmy as ISavedArmyFromApi).orderedReminders && (loadedArmy as ISavedArmyFromApi).id) {
-      loadedArmy = loadedArmy as ISavedArmyFromApi
       LocalReminderOrder.setById(loadedArmy.id, loadedArmy.orderedReminders)
       LocalReminderOrder.makeIdActive(loadedArmy.id)
     }
