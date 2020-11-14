@@ -4,15 +4,18 @@ import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { selectors, visibilityActions } from 'ducks'
+import { notesActions } from 'ducks/notes'
 import { isEqual, sortBy } from 'lodash'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
+import { IconContext, IconType } from 'react-icons'
+import { AiFillFileText } from 'react-icons/ai'
 import { useDispatch, useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
-import { titleCase } from 'utils/textUtils'
+import { generateUUID, titleCase } from 'utils/textUtils'
 
 const { addReminder: hideReminder, deleteReminder: showReminder, addWhen: showWhen } = visibilityActions
 
@@ -135,11 +138,21 @@ interface IActionTextProps extends TTurnAction {
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { isVisible, desc, draggableProps, id } = props
+  const { isVisible, desc, draggableProps, id, when } = props
   const dispatch = useDispatch()
   const { isGameMode } = useAppStatus()
 
   const handleVisibility = () => dispatch(!isVisible ? showReminder(id) : hideReminder(id))
+  const handleNoteClick = () =>
+    dispatch(
+      notesActions.addNote({
+        id: generateUUID(),
+        when,
+        linked_hash: id,
+        content: '',
+      })
+    )
+  // : notesActions.deleteNote(id)
 
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
@@ -162,12 +175,25 @@ const ActionText = (props: IActionTextProps) => {
             ) : (
               <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
             )}
+            <Note onClick={handleNoteClick} />
           </div>
         </div>
 
         {isVisible && <ActionDescription text={desc} />}
       </div>
     </div>
+  )
+}
+
+const Note: IconType = props => {
+  const { theme } = useTheme()
+
+  return (
+    <>
+      <IconContext.Provider value={{ size: `1em`, className: theme.text }}>
+        <AiFillFileText {...props} />
+      </IconContext.Provider>
+    </>
   )
 }
 

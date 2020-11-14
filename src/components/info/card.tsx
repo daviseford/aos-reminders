@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { ValueType } from 'react-select/src/types'
 import { TAllegiances, TArtifacts, TBattalions, TEndlessSpells, TSpells, TTraits, TUnits } from 'types/army'
 import useWindowSize from 'utils/hooks/useWindowSize'
+// import { RiChatQuoteLine} from 'react-icons/ri'
 
 interface IBaseCardProps {
   label?: string
@@ -154,6 +155,9 @@ export const CardHeader = (props: ICardHeaderProps) => {
             </h4>
           )}
         </div>
+        {/* <div className={styles.vizWrapper}>
+          <RiChatQuoteLine /> 
+        </div> */}
         <div className={styles.vizWrapper}>
           <VisibilityToggle isVisible={isVisible} size={iconSize} type={type} />
         </div>

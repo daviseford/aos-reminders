@@ -1,5 +1,6 @@
 import armyReducer from 'ducks/army'
 import factionNamesReducer from 'ducks/factionNames'
+import notesReducer from 'ducks/notes'
 import realmscapeReducer from 'ducks/realmscape'
 import selectionsReducer from 'ducks/selections'
 import visibilityReducer from 'ducks/visibility'
@@ -15,6 +16,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   army: armyReducer,
   factionNames: factionNamesReducer,
+  notes: notesReducer,
   realmscape: realmscapeReducer,
   selections: selectionsReducer,
   visibility: visibilityReducer,
