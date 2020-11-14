@@ -24,7 +24,7 @@ const Reminders = () => {
   const { isGameMode } = useAppStatus()
 
   // Generate reminders
-  let reminders = useGetReminders()
+  let { reminders } = useGetReminders()
 
   if (isGameMode) reminders = reorderReminders(getVisibleReminders(reminders, hiddenReminders))
 

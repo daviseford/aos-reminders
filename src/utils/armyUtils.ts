@@ -28,6 +28,7 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
     armyName,
     factionName,
     hiddenReminders = [],
+    notes = [],
     orderedReminders = LocalReminderOrder.get(),
     origin_realm = null,
     realmscape = null,
@@ -41,6 +42,7 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
     armyName: armyName || 'Untitled',
     factionName,
     hiddenReminders,
+    notes,
     orderedReminders,
     origin_realm,
     realmscape_feature,
@@ -61,6 +63,7 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
 
 /**
  * Prepares an army to be uploaded to S3 for later analysis
+ * We don't store "extra" data (notes, ordering, visibility) with these payloads.
  * @param army
  */
 export const prepareArmyForS3 = (army: ISavedArmy | IImportedArmy | ICurrentArmy): ICurrentArmy => {

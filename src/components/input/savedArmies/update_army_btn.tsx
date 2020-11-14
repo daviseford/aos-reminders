@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux'
 import { ISavedArmy } from 'types/savedArmy'
 import { logEvent } from 'utils/analytics'
 import { armyHasEntries, prepareArmy } from 'utils/armyUtils'
+import useGetReminders from 'utils/hooks/useGetReminders'
 
 type TUpdateArmyBtn = React.FC<{
   id: string
@@ -18,6 +19,7 @@ type TUpdateArmyBtn = React.FC<{
 
 const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
   const { isGameMode } = useAppStatus()
+  const { relevantNotes } = useGetReminders()
   const { updateArmy } = useSavedArmies()
   const { isDark } = useTheme()
 
@@ -30,7 +32,11 @@ const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault()
     setIsSaving(true)
-    const payload = prepareArmy({ ...currentArmy, hiddenReminders }, 'update', changedKeys)
+    const payload = prepareArmy(
+      { ...currentArmy, hiddenReminders, notes: relevantNotes },
+      'update',
+      changedKeys
+    )
     try {
       await updateArmy(id, payload)
     } catch (err) {

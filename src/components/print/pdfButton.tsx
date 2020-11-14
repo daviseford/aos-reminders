@@ -11,7 +11,7 @@ import useWindowSize from 'utils/hooks/useWindowSize'
 import { savePdf } from 'utils/pdf/generate/generatePdf'
 
 const DownloadPDFButton = () => {
-  const reminders = useGetReminders()
+  const { reminders } = useGetReminders()
   const { saveArmyToS3 } = useSavedArmies()
   const { isMobile } = useWindowSize()
 

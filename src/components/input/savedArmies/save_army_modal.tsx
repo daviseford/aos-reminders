@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import { ISavedArmy } from 'types/savedArmy'
 import { logEvent } from 'utils/analytics'
 import { prepareArmy } from 'utils/armyUtils'
+import useGetReminders from 'utils/hooks/useGetReminders'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -21,6 +22,7 @@ interface IModalComponentProps {
 export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
   const { closeModal, modalIsOpen, showSavedArmies } = props
   const army = useSelector(selectors.selectCurrentArmy)
+  const { relevantNotes } = useGetReminders()
   const hiddenReminders = useSelector(selectors.selectReminders)
   const { isActive } = useSubscription()
   const { saveArmy } = useSavedArmies()
@@ -45,7 +47,7 @@ export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
     e?.preventDefault?.()
     if (isActive) {
       setProcessing(true)
-      const payload = prepareArmy({ ...army, hiddenReminders, armyName }, 'save')
+      const payload = prepareArmy({ ...army, hiddenReminders, armyName, notes: relevantNotes }, 'save')
       await saveArmy(payload as ISavedArmy)
       setProcessing(false)
       setArmyName('')

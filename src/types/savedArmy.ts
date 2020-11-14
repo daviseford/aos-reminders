@@ -1,10 +1,12 @@
 import { ICurrentArmy } from 'types/army'
+import { INote } from 'types/notes'
 import { IVisibilityStore } from 'types/store'
 
 export interface ISavedArmy extends ICurrentArmy {
   armyName: string
   hiddenReminders?: IVisibilityStore['reminders']
   orderedReminders?: Record<string, string[]>
+  notes?: INote[]
 }
 
 export interface ISavedArmyFromApi extends ISavedArmy {
@@ -31,4 +33,5 @@ export interface ILinkedArmy extends ISavedArmy {
    */
   updatedAt: number
   hiddenReminders: IVisibilityStore['reminders']
+  notes: INote[]
 }
