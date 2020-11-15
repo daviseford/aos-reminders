@@ -172,7 +172,11 @@ const ActionText = (props: IActionTextProps) => {
       handleDeleteNote: () => {
         if (!note) return
         setIsEditingNote(false)
-        setNoteModalIsOpen(true)
+        if (note.content || noteValue) {
+          setNoteModalIsOpen(true) // If there is content, confirm before deletion
+        } else {
+          dispatch(notesActions.deleteNote(note.id)) // Otherwise just delete silently
+        }
       },
       handleEditNote: () => {
         if (!note) return
