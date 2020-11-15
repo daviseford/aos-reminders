@@ -41,6 +41,7 @@ const Styles: TPdfStyles = {
     fontSize: 9.5,
     spacing: 0.18,
     style: 'italic',
+    textColor: [18, 55, 199], // $themeRoyalBlue: #1237c7;
   },
   phase: {
     fontSize: 12,
@@ -112,7 +113,15 @@ export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
       const textX = isPhase || isArmy ? centerX : x
       const textAlign = isPhase || isArmy ? 'center' : 'left'
 
-      doc.setFontSize(style.fontSize).setFontStyle(style.style).text(t.text, textX, y, null, null, textAlign)
+      doc.setFontSize(style.fontSize).setFontStyle(style.style)
+
+      if (style.textColor) {
+        doc.setTextColor(style.textColor[0], style.textColor[1], style.textColor[2])
+      }
+
+      doc.text(t.text, textX, y, null, null, textAlign)
+
+      if (style.textColor) doc.setTextColor(0, 0, 0) // reset to black
 
       if (isPhase) {
         doc

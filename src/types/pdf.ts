@@ -25,6 +25,11 @@ export type TPdfStyles = Record<
     fontSize: number
     spacing: number
     style: TPdfTextStyle
+    /**
+     * Optional R, G, B values
+     * Default is [0, 0, 0] (black)
+     */
+    textColor?: number[]
   }
 >
 
