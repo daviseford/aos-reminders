@@ -42,13 +42,12 @@ const DeleteConfirmModal: React.FC<IModalComponentProps> = props => {
     e.preventDefault()
 
     if (onConfirmAsync) {
-      setIsProcessing(true)
       try {
+        setIsProcessing(true)
         await onConfirmAsync()
       } catch (err) {
         console.error(err)
       }
-      setIsProcessing(false)
     }
 
     if (onConfirm) onConfirm()
