@@ -192,7 +192,7 @@ const ActionText = (props: IActionTextProps) => {
             isOpen={noteProps.modal.isOpen}
             onConfirm={noteProps.remove}
             closeModal={noteProps.modal.close}
-            promptText={'Delete this note?'}
+            headerText={'Delete this note?'}
           />
         )}
       </div>

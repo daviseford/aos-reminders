@@ -2,13 +2,14 @@ import GenericButton from 'components/input/generic_button'
 import { LoadArmyBtn } from 'components/input/savedArmies/load_army_btn'
 import { SavedArmyTable } from 'components/input/savedArmies/saved_army_table'
 import UpdateNameButton from 'components/input/savedArmies/update_name_btn'
-import { DeleteArmyModal } from 'components/modals/delete_army_modal'
+import DeleteConfirmModal from 'components/modals/delete_confirm_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { DateTime } from 'luxon'
 import React, { useEffect, useState } from 'react'
 import { ISavedArmyFromApi } from 'types/savedArmy'
+import { logEvent } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 
 interface ISavedArmyCardProps {
@@ -19,6 +20,7 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
   const { army } = props
   const { isOffline } = useAppStatus()
   const { theme } = useTheme()
+  const { deleteSavedArmy } = useSavedArmies()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
   const [border, setBorder] = useState('')
@@ -44,6 +46,11 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
     }
   }, [loadedArmy, army.id, border])
 
+  const handleDelete = async () => {
+    await deleteSavedArmy(army.id)
+    logEvent(`DeleteArmy-${army.factionName}`)
+  }
+
   // TODO Make the table stuff collapsable
   return (
     <div className="col-12 col-lg-6 col-xl-6 col-xxl-4 mb-2">
@@ -63,13 +70,15 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
             <GenericButton className="btn btn-sm btn-danger mx-3" onClick={openModal} disabled={isOffline}>
               Delete
             </GenericButton>
+
             {modalIsOpen && (
-              <DeleteArmyModal
-                modalIsOpen={modalIsOpen}
+              <DeleteConfirmModal
+                isOpen={modalIsOpen}
                 closeModal={closeModal}
-                armyName={army.armyName}
-                factionName={army.factionName}
-                id={army.id}
+                headerText={`Delete ${army.armyName}?`}
+                bodyText={`This action is irreversible!`}
+                onConfirmAsync={handleDelete}
+                confirmText={'Delete'}
               />
             )}
           </div>

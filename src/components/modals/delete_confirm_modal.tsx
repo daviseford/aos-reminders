@@ -1,17 +1,19 @@
 import GenericButton from 'components/input/generic_button'
 import GenericModal from 'components/modals/generic_modal'
 import { useTheme } from 'context/useTheme'
-import React from 'react'
+import React, { useState } from 'react'
 import { FaCheck } from 'react-icons/fa'
 
 interface IModalComponentProps {
-  closeModal: () => void
+  closeModal: () => any
   confirmText?: string
   denyText?: string
   isOpen: boolean
-  onConfirm: () => void
-  onDeny?: () => void
-  promptText: string
+  onConfirmAsync?: () => Promise<any>
+  onConfirm?: () => any
+  onDeny?: () => any
+  headerText: string
+  bodyText?: string
 }
 
 /**
@@ -23,36 +25,58 @@ interface IModalComponentProps {
  */
 const DeleteConfirmModal: React.FC<IModalComponentProps> = props => {
   const {
+    bodyText = '',
     closeModal,
     confirmText = 'Confirm',
-    denyText = 'Never mind',
+    denyText = 'Cancel',
+    headerText,
     isOpen,
-    onConfirm,
+    onConfirm = null,
+    onConfirmAsync = null,
     onDeny = null,
-    promptText,
   } = props
   const { theme } = useTheme()
+  const [isProcessing, setIsProcessing] = useState(false)
 
-  const handleConfirm = (e: React.MouseEvent) => {
+  const handleConfirm = async (e: React.MouseEvent) => {
     e.preventDefault()
-    onConfirm()
+
+    if (onConfirmAsync) {
+      setIsProcessing(true)
+      try {
+        await onConfirmAsync()
+      } catch (err) {
+        console.error(err)
+      }
+      setIsProcessing(false)
+    }
+
+    if (onConfirm) onConfirm()
+
     closeModal()
   }
-  const handleDeny = (e: React.MouseEvent) => {
+
+  const handleDeny = async (e: React.MouseEvent) => {
     e.preventDefault()
     if (onDeny) onDeny()
     closeModal()
   }
 
   return (
-    <GenericModal isOpen={isOpen} closeModal={closeModal} label="Confirmation Modal">
+    <GenericModal
+      isOpen={isOpen}
+      isProcessing={isProcessing}
+      closeModal={closeModal}
+      label={`${headerText} Confirmation Modal`}
+    >
       <div className="flex-row">
         <div className={`col ${theme.text} text-center`}>
-          <h4 className="mb-3">{promptText}</h4>
+          <h4 className="mb-3">{headerText}</h4>
+          {bodyText && <p className="mb-3">{bodyText}</p>}
         </div>
       </div>
 
-      <div className="d-flex flex-row justify-content-center">
+      <div className="d-flex flex-row justify-content-between">
         <GenericButton className={theme.modalDangerClass} onClick={handleConfirm}>
           <FaCheck className="mr-2" /> {confirmText}
         </GenericButton>

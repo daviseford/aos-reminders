@@ -98,7 +98,7 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
           confirmText={'Hide'}
           isOpen={modalIsOpen}
           onConfirm={handleSetVisibility}
-          promptText={'Hide Rule?'}
+          headerText={'Hide Rule?'}
         />
       )}
     </>
