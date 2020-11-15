@@ -2,7 +2,6 @@ import GenericButton from 'components/input/generic_button'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
 import React from 'react'
-import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa'
 import { INote } from 'types/notes'
 
 export const NoteMenu = (props: TNoteInputProps) => {
@@ -106,7 +105,7 @@ export const NoteDisplay = ({ note, handleEditNote, handleDeleteNote }: TNoteInp
           </p>
         ))}
       </div>
-      {!isGameMode && (
+      {/* {!isGameMode && (
         <div className={'pl-4 pr-1'}>
           <GenericButton className="btn btn-secondary mr-2" onClick={handleEditNote}>
             <FaPencilAlt />
@@ -115,7 +114,7 @@ export const NoteDisplay = ({ note, handleEditNote, handleDeleteNote }: TNoteInp
             <FaTrashAlt />
           </GenericButton>
         </div>
-      )}
+      )} */}
     </div>
   )
 }

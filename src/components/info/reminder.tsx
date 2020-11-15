@@ -212,7 +212,7 @@ const ActionText = (props: IActionTextProps) => {
                 setVisibility={handleVisibility}
               />
             )}
-            {!isGameMode && <NoteMenu {...noteProps} />}
+            {!isGameMode && isVisible && <NoteMenu {...noteProps} />}
           </div>
         </div>
 
