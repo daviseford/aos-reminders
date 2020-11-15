@@ -108,16 +108,20 @@ export const Reminder: React.FC<IReminderProps> = props => {
                   const isHidden = !!hidden.find(k => action.id === k)
 
                   return (
-                    <Draggable draggableId={action.id} index={i} key={action.id}>
-                      {provided => (
-                        <ActionText
-                          {...action}
-                          isVisible={!isHidden}
-                          key={action.id}
-                          draggableProps={provided}
-                        />
-                      )}
-                    </Draggable>
+                    <>
+                      {/* Add a spacer between rules */}
+                      {i !== 0 && <hr className={`${theme.reminderHr} mx-1`} />}
+                      <Draggable draggableId={action.id} index={i} key={action.id}>
+                        {provided => (
+                          <ActionText
+                            {...action}
+                            isVisible={!isHidden}
+                            key={action.id}
+                            draggableProps={provided}
+                          />
+                        )}
+                      </Draggable>
+                    </>
                   )
                 })}
               </div>
@@ -195,6 +199,7 @@ const ActionText = (props: IActionTextProps) => {
             </div>
           </div>
           <div className="px-2 d-print-none">
+            {!isGameMode && isVisible && <NoteMenu {...noteProps} />}
             {isGameMode ? (
               <VisibilityToggle
                 appearance={'icon'}
@@ -213,7 +218,6 @@ const ActionText = (props: IActionTextProps) => {
                 setVisibility={handleVisibility}
               />
             )}
-            {!isGameMode && isVisible && <NoteMenu {...noteProps} />}
           </div>
         </div>
 

@@ -6,7 +6,7 @@ import { INote } from 'types/notes'
 const BADGE_CLASS = `badge badge-pill badge-`
 
 export const NoteMenu = (props: TNoteInputProps) => {
-  const { note, handleAddNote, handleEditNote, handleSaveNote, handleDeleteNote, isEditingNote } = props
+  const { note, handleAddNote, handleEditNote, handleSaveNote, isEditingNote } = props
 
   const [txt, handleClick, btnClass] = !note
     ? ['Add', handleAddNote, 'light']
@@ -15,17 +15,9 @@ export const NoteMenu = (props: TNoteInputProps) => {
     : ['Edit', handleEditNote, 'light']
 
   return (
-    <>
-      <GenericButton className={`${BADGE_CLASS}${btnClass} ml-1`} onClick={handleClick}>
-        {txt} Note
-      </GenericButton>
-
-      {note && !isEditingNote && (
-        <GenericButton className={`${BADGE_CLASS}light ml-1`} onClick={handleDeleteNote}>
-          Delete Note
-        </GenericButton>
-      )}
-    </>
+    <GenericButton className={`${BADGE_CLASS}${btnClass} ml-1`} onClick={handleClick}>
+      {txt} Note
+    </GenericButton>
   )
 }
 

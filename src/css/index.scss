@@ -74,6 +74,14 @@ small {
     margin-block-end: 0px;
 }
 
+.ReminderHr {
+    background-color: rgba(255, 255, 255, 0.15);
+    &-Dark {
+        @extend .ReminderHr;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+}
+
 .SelectArmy {
     margin-block-start: 2rem;
     margin-inline-end: 5%;
@@ -102,13 +110,14 @@ small {
 .NoteBorder {
     max-width: 95%;
     width: max-content;
-    border: 2px dashed $themeDarkBlueSecondary;
-    border-width: 2px;
+    border: 1px dashed $themeDarkBlueSecondary;
+    border-width: 1px;
     border-style: dashed;
     border-color: $themeDarkBlueSecondary;
 
     &-Dark {
         @extend .NoteBorder;
+        border-width: 2px;
         border-color: $themeLightGray;
     }
 }

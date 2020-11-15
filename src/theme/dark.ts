@@ -75,6 +75,7 @@ const DarkTheme: ITheme = {
   noteBorder: `NoteBorder-Dark`,
   profileCardHeader: `card-header bg-profileHeader text-dark mb-0 pb-1`,
   reminderHeader: `bg-themeLightBlue`,
+  reminderHr: `ReminderHr-Dark`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,
   selectTheme,
   text: `text-white`,
