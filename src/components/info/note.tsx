@@ -1,7 +1,9 @@
 import GenericButton from 'components/input/generic_button'
+import SubscriberOnlyModal from 'components/input/subscriber_only_modal'
 import { useAppStatus } from 'context/useAppStatus'
+import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
-import React from 'react'
+import React, { useState } from 'react'
 import { EMPTY_NOTE_TEXT } from 'types/pdf'
 import { TUseNoteValue } from 'utils/hooks/useNote'
 
@@ -9,17 +11,34 @@ const BADGE_CLASS = `badge badge-pill badge-`
 
 export const NoteMenu = (props: TUseNoteValue) => {
   const { note, add, edit, save, isEditing } = props
+  const { isSubscribed } = useSubscription()
+  const [modalIsOpen, setModalIsOpen] = useState(false)
 
-  const [txt, handleClick, btnClass] = !note
+  let [txt, handleClick, btnClass] = !note
     ? ['Add', add, 'light']
     : isEditing
     ? ['Save', save, 'success']
     : ['Edit', edit, 'light']
 
+  if (!isSubscribed) {
+    handleClick = () => setModalIsOpen(true)
+    txt = 'Add'
+    btnClass = 'light'
+  }
+
   return (
-    <GenericButton className={`${BADGE_CLASS}${btnClass} mr-1`} onClick={handleClick}>
-      {txt} Note
-    </GenericButton>
+    <>
+      <GenericButton className={`${BADGE_CLASS}${btnClass} mr-1`} onClick={handleClick}>
+        {txt} Note
+      </GenericButton>
+      {modalIsOpen && (
+        <SubscriberOnlyModal
+          isOpen={modalIsOpen}
+          closeModal={() => setModalIsOpen(false)}
+          featureName={'Add Note'}
+        />
+      )}
+    </>
   )
 }
 

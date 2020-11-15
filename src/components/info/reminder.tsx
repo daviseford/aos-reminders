@@ -3,6 +3,7 @@ import { VisibilityToggle } from 'components/info/visibilityToggle'
 import DeleteConfirmModal from 'components/input/delete_confirm_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
+import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { selectors, visibilityActions } from 'ducks'
 import { isEqual, sortBy } from 'lodash'
@@ -144,6 +145,7 @@ interface IActionTextProps extends TTurnAction {
 const ActionText = (props: IActionTextProps) => {
   const { isVisible, desc, draggableProps, id } = props
   const dispatch = useDispatch()
+  const { isSubscribed } = useSubscription()
   const { isGameMode } = useAppStatus()
   const handleVisibility = () => dispatch(!isVisible ? showReminder(id) : hideReminder(id))
 
@@ -182,8 +184,8 @@ const ActionText = (props: IActionTextProps) => {
         </div>
 
         {isVisible && <ActionDescription text={desc} />}
-        {isVisible && !isGameMode && <NoteInput {...noteProps} />}
-        {isVisible && <NoteDisplay {...noteProps} />}
+        {isVisible && !isGameMode && isSubscribed && <NoteInput {...noteProps} />}
+        {isVisible && isSubscribed && <NoteDisplay {...noteProps} />}
 
         {noteProps.modal.isOpen && (
           <DeleteConfirmModal

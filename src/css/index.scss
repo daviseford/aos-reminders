@@ -147,18 +147,13 @@ small {
     background-color: rgba(0, 0, 0, 0);
 }
 
-.Overlay-Light {
+.Modal-Overlay {
     position: fixed;
     top: 0px;
     left: 0px;
     right: 0px;
     bottom: 0px;
-    background-color: rgba(255, 255, 255, 0.75);
-}
-
-.Overlay-Dark {
-    @extend .Overlay-Light;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 /* Dropzone */
