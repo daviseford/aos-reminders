@@ -1,31 +1,28 @@
 import GenericButton from 'components/input/generic_button'
-import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
 import React from 'react'
 import { INote } from 'types/notes'
 
+const BADGE_CLASS = `badge badge-pill badge-`
+
 export const NoteMenu = (props: TNoteInputProps) => {
   const { note, handleAddNote, handleEditNote, handleSaveNote, handleDeleteNote, isEditingNote } = props
 
-  let [txt, handleClick, btnClass] = !note
-    ? ['Add', handleAddNote, 'primary']
+  const [txt, handleClick, btnClass] = !note
+    ? ['Add', handleAddNote, 'light']
     : isEditingNote
     ? ['Save', handleSaveNote, 'success']
-    : ['Edit', handleEditNote, 'warning']
+    : ['Edit', handleEditNote, 'light']
 
   return (
     <>
-      <GenericButton className={`badge badge-pill badge-${btnClass}`} onClick={handleClick}>
+      <GenericButton className={`${BADGE_CLASS}${btnClass} ml-1`} onClick={handleClick}>
         {txt} Note
       </GenericButton>
-      {note && (
-        <GenericButton className={`badge badge-pill badge-danger`} onClick={handleDeleteNote}>
+
+      {note && !isEditingNote && (
+        <GenericButton className={`${BADGE_CLASS}light ml-1`} onClick={handleDeleteNote}>
           Delete Note
-        </GenericButton>
-      )}
-      {isEditingNote && (
-        <GenericButton className={`badge badge-pill badge-secondary`} onClick={handleDeleteNote}>
-          Cancel
         </GenericButton>
       )}
     </>
@@ -49,8 +46,6 @@ export const NoteInput = (props: TNoteInputProps) => {
 
   if (!note) return <></>
 
-  const btn = 'btn btn-sm btn-'
-
   return (
     <>
       <div className="row">
@@ -67,15 +62,15 @@ export const NoteInput = (props: TNoteInputProps) => {
         </div>
         <div className="col-12">
           <div className="btn-group" role="group">
-            <GenericButton className={`${btn}success mr-1`} onClick={handleSaveNote}>
+            <GenericButton className={`${BADGE_CLASS}success mr-1`} onClick={handleSaveNote}>
               Save
             </GenericButton>
 
-            <GenericButton className={`${btn}danger mr-1`} onClick={handleDeleteNote}>
+            <GenericButton className={`${BADGE_CLASS}danger mr-1`} onClick={handleDeleteNote}>
               Delete
             </GenericButton>
 
-            <GenericButton className={`${btn}secondary`} onClick={handleCancel}>
+            <GenericButton className={`${BADGE_CLASS}light`} onClick={handleCancel}>
               Cancel
             </GenericButton>
           </div>
@@ -85,9 +80,8 @@ export const NoteInput = (props: TNoteInputProps) => {
   )
 }
 
-export const NoteDisplay = ({ note, handleEditNote, handleDeleteNote }: TNoteInputProps) => {
+export const NoteDisplay = ({ note }: TNoteInputProps) => {
   const { theme } = useTheme()
-  const { isGameMode } = useAppStatus()
 
   if (!note) return <></>
 
@@ -97,24 +91,12 @@ export const NoteDisplay = ({ note, handleEditNote, handleDeleteNote }: TNoteInp
     .filter(t => !!t)
 
   return (
-    <div className={`${theme.noteBorder} d-flex align-items-center ml-3 px-2 py-1 mb-1`}>
-      <div className="flex-grow-1">
-        {splitText.map((text, i) => (
-          <p className={`NoteText ${theme.text} mb-0`} key={i}>
-            {text}
-          </p>
-        ))}
-      </div>
-      {/* {!isGameMode && (
-        <div className={'pl-4 pr-1'}>
-          <GenericButton className="btn btn-secondary mr-2" onClick={handleEditNote}>
-            <FaPencilAlt />
-          </GenericButton>
-          <GenericButton className="btn btn-danger" onClick={handleDeleteNote}>
-            <FaTrashAlt />
-          </GenericButton>
-        </div>
-      )} */}
+    <div className={`${theme.noteBorder} align-items-center ml-3 px-2 py-1 mb-1`}>
+      {splitText.map((text, i) => (
+        <p className={`NoteText ${theme.text} mb-0`} key={i}>
+          {text}
+        </p>
+      ))}
     </div>
   )
 }

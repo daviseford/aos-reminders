@@ -208,6 +208,7 @@ const ActionText = (props: IActionTextProps) => {
               <VisibilityToggle
                 appearance={'pill'}
                 pillText={'Rule'}
+                className={`badge badge-pill badge-light`}
                 isVisible={isVisible}
                 setVisibility={handleVisibility}
               />
