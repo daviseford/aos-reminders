@@ -10,7 +10,7 @@ const ResetChangesBtn = () => {
   const { reloadArmy } = useSavedArmies()
   const { isTinyMobile } = useWindowSize()
 
-  const btnClass = `btn ${isDark ? `btn-outline-light` : ``} btn-block`
+  const btnClass = `btn btn-outline-${isDark ? `light` : `dark`} btn-block`
   const btnText = `Reset${isTinyMobile ? `` : ` Changes`}`
 
   return (
