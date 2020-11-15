@@ -283,7 +283,6 @@ export default class CompactPdfLayout {
 
       reminders[phase].forEach((action, i) => {
         const ruleObj: ICompactPdfTextObj[] = []
-        // Handle action title
 
         // Display last rules in full since they won't have a matching partner
         const isLastRuleAndOdd = i + 1 === numRulesInPhase && (i + 1) % 2 === 1
@@ -294,50 +293,39 @@ export default class CompactPdfLayout {
         const lineWidth = position === 'full' ? this._opts.maxLineWidth : this._opts.colLineWidth
         const noteLintWidth = position === 'full' ? this._opts.maxNoteLineWidth : this._opts.colNoteLineWidth
 
+        const addBreak = () => ruleObj.push({ type: 'break', text: '', position })
+
         // Add a titlespacer
-        ruleObj.push({
-          type: 'titlespacer',
-          text: '',
-          position,
-        })
+        ruleObj.push({ type: 'titlespacer', text: '', position })
 
         // Add the title itself
         const titleLines: string[] = this._doc.splitTextToSize(this._getTitle(action), titleWidth)
         titleLines.forEach(text => {
-          ruleObj.push({
-            type: 'title',
-            text: text.trim(),
-            position,
-          })
+          ruleObj.push({ type: 'title', text: text.trim(), position })
         })
 
         // Handle description
         const descLines: string[] = this._doc.splitTextToSize(action.desc, lineWidth)
         descLines.forEach(text => {
           const trimmed = text.trim()
-          const type = trimmed === '' ? 'break' : 'desc'
-          ruleObj.push({
-            type,
-            text: trimmed,
-            position,
-          })
+          if (!trimmed) addBreak()
+          ruleObj.push({ type: 'desc', text: trimmed, position })
         })
 
         // Handle note
         const note = notes.find(x => x.linked_hash === action.id)
         if (note && note.content && note.content !== EMPTY_NOTE_TEXT) {
-          const TAB = `     ` // Add tabbed spacing here
-          const noteLines: string[] = this._doc.splitTextToSize(note.content, noteLintWidth)
+          addBreak() // Add spacer before the note
 
+          const noteLines: string[] = this._doc.splitTextToSize(note.content, noteLintWidth)
           noteLines.forEach(text => {
             const trimmed = text.trim()
-            const type = trimmed === '' ? 'break' : 'note'
-            ruleObj.push({
-              type,
-              text: `${trimmed ? TAB : ''}${trimmed}`,
-              position,
-            })
+            if (!trimmed) addBreak()
+            // Add tabbed prefix to emulate the UI
+            ruleObj.push({ type: 'note', text: `     ${trimmed}`, position })
           })
+
+          addBreak() // Add spacer after the note
         }
 
         phaseObj.rules.push(ruleObj)
