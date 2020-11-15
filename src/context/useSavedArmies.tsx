@@ -24,7 +24,7 @@ import {
 } from 'utils/localStore'
 import { unTitleCase } from 'utils/textUtils'
 
-export type TLoadedArmy = { id: string; armyName: string } | null
+type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
 
 interface ISavedArmiesContext {

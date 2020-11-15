@@ -7,9 +7,7 @@ import React, { lazy, Suspense, useEffect } from 'react'
 import { logPageView } from 'utils/analytics'
 
 const AlliedArmies = lazy(() => import('components/input/ally_armies'))
-// const AppBanner = lazy(
-//   () => import( 'components/info/banners/app_banner')
-// )
+const AppBanner = lazy(() => import('components/info/banners/app_banner'))
 const ArmyBuilder = lazy(() => import('components/input/army_builder'))
 const FooterComponent = lazy(() => import('components/page/footer'))
 const LoadedArmyHeader = lazy(() => import('components/input/savedArmies/loaded_army_header'))
@@ -36,9 +34,9 @@ const Home = () => {
     <div className={theme.bgColor}>
       <Header />
 
-      {/* <Suspense fallback={<></>}>
+      <Suspense fallback={<></>}>
         <AppBanner />
-      </Suspense> */}
+      </Suspense>
 
       <Suspense fallback={<></>}>
         <UpdateBanner />

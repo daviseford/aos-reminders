@@ -1,4 +1,4 @@
-import { ConfirmDismissNotificationModal } from 'components/info/confirm_dismiss_notification_modal'
+import DeleteConfirmModal from 'components/input/delete_confirm_modal'
 import GenericButton from 'components/input/generic_button'
 import { useTheme } from 'context/useTheme'
 import React, { useCallback, useState } from 'react'
@@ -72,8 +72,8 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
   }
 
   const handleSetVisibility = useCallback(
-    (e: React.MouseEvent) => {
-      e.preventDefault()
+    (e?: React.MouseEvent) => {
+      e?.preventDefault?.()
       setVisibility?.()
     },
     [setVisibility]
@@ -93,10 +93,12 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
         </GenericButton>
       )}
       {modalIsOpen && (
-        <ConfirmDismissNotificationModal
-          modalIsOpen={modalIsOpen}
+        <DeleteConfirmModal
           closeModal={closeModal}
-          visibilityHandler={handleSetVisibility}
+          confirmText={'Hide'}
+          isOpen={modalIsOpen}
+          onConfirm={handleSetVisibility}
+          promptText={'Hide Rule?'}
         />
       )}
     </>

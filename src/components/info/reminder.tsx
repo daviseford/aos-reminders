@@ -1,5 +1,6 @@
 import { CardHeader } from 'components/info/card'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
+import DeleteConfirmModal from 'components/input/delete_confirm_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
@@ -7,7 +8,7 @@ import { selectors, visibilityActions } from 'ducks'
 import { notesActions } from 'ducks/notes'
 import { selectNotes } from 'ducks/selectors'
 import { isEqual, sortBy } from 'lodash'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
 import { useDispatch, useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
@@ -108,7 +109,7 @@ export const Reminder: React.FC<IReminderProps> = props => {
                   const isHidden = !!hidden.find(k => action.id === k)
 
                   return (
-                    <>
+                    <Fragment key={i}>
                       {/* Add a spacer between rules */}
                       {i !== 0 && <hr className={`${theme.reminderHr} mx-1`} />}
                       <Draggable draggableId={action.id} index={i} key={action.id}>
@@ -121,7 +122,7 @@ export const Reminder: React.FC<IReminderProps> = props => {
                           />
                         )}
                       </Draggable>
-                    </>
+                    </Fragment>
                   )
                 })}
               </div>
@@ -145,13 +146,14 @@ const ActionText = (props: IActionTextProps) => {
   const { isVisible, desc, draggableProps, id } = props
   const dispatch = useDispatch()
   const { isGameMode } = useAppStatus()
+  const handleVisibility = () => dispatch(!isVisible ? showReminder(id) : hideReminder(id))
+
+  // Notes
   const notes = useSelector(selectNotes)
   const note = notes.find(x => x.linked_hash === id)
-
   const [isEditingNote, setIsEditingNote] = useState(false)
   const [noteValue, setNoteValue] = React.useState(note?.content || '')
-
-  const handleVisibility = () => dispatch(!isVisible ? showReminder(id) : hideReminder(id))
+  const [noteModalIsOpen, setNoteModalIsOpen] = React.useState(false)
 
   const noteProps = useMemo(
     () => ({
@@ -170,7 +172,7 @@ const ActionText = (props: IActionTextProps) => {
       handleDeleteNote: () => {
         if (!note) return
         setIsEditingNote(false)
-        dispatch(notesActions.deleteNote(note.id))
+        setNoteModalIsOpen(true)
       },
       handleEditNote: () => {
         if (!note) return
@@ -224,6 +226,15 @@ const ActionText = (props: IActionTextProps) => {
         {isVisible && <ActionDescription text={desc} />}
         {isVisible && note && isEditingNote && !isGameMode && <NoteInput {...noteProps} />}
         {isVisible && note && (!isEditingNote || isGameMode) && <NoteDisplay {...noteProps} />}
+
+        {noteModalIsOpen && (
+          <DeleteConfirmModal
+            isOpen={noteModalIsOpen}
+            onConfirm={() => note && dispatch(notesActions.deleteNote(note.id))}
+            closeModal={() => setNoteModalIsOpen(false)}
+            promptText={'Delete this note?'}
+          />
+        )}
       </div>
     </div>
   )

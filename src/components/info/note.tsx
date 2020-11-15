@@ -15,7 +15,7 @@ export const NoteMenu = (props: TNoteInputProps) => {
     : ['Edit', handleEditNote, 'light']
 
   return (
-    <GenericButton className={`${BADGE_CLASS}${btnClass} ml-1`} onClick={handleClick}>
+    <GenericButton className={`${BADGE_CLASS}${btnClass} mr-1`} onClick={handleClick}>
       {txt} Note
     </GenericButton>
   )
