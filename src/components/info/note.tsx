@@ -2,31 +2,54 @@ import GenericButton from 'components/input/generic_button'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
 import React from 'react'
-import { IconBaseProps, IconContext } from 'react-icons'
 import { FaPencilAlt, FaTrashAlt } from 'react-icons/fa'
-import { MdNoteAdd } from 'react-icons/md'
 import { INote } from 'types/notes'
 
-export const NoteIcon = (props: IconBaseProps) => {
-  const { theme } = useTheme()
+export const NoteMenu = (props: TNoteInputProps) => {
+  const { note, handleAddNote, handleEditNote, handleSaveNote, handleDeleteNote, isEditingNote } = props
+
+  let [txt, handleClick, btnClass] = !note
+    ? ['Add', handleAddNote, 'primary']
+    : isEditingNote
+    ? ['Save', handleSaveNote, 'success']
+    : ['Edit', handleEditNote, 'warning']
+
   return (
-    <IconContext.Provider value={{ size: `1.3em`, className: theme.text }}>
-      <MdNoteAdd {...props} />
-    </IconContext.Provider>
+    <>
+      <span className={`badge badge-pill badge-${btnClass}`} onClick={handleClick}>
+        {txt} Note
+      </span>
+      {note && (
+        <span className={`badge badge-pill badge-danger`} onClick={handleDeleteNote}>
+          Delete Note
+        </span>
+      )}
+      {isEditingNote && (
+        <span className={`badge badge-pill badge-secondary`} onClick={handleDeleteNote}>
+          Cancel
+        </span>
+      )}
+    </>
   )
 }
 
 type TNoteInputProps = {
-  note: INote
-  handleDeleteNote: () => void
-  handleSaveNote: (content: string) => void
+  handleAddNote: () => void
   handleCancel: () => void
+  handleDeleteNote: () => void
+  handleEditNote: () => void
+  handleSaveNote: () => void
+  isEditingNote: boolean
+  note?: INote
+  noteValue: string
+  setNoteValue: (txt: string) => void
 }
 
 export const NoteInput = (props: TNoteInputProps) => {
-  const { note, handleCancel, handleDeleteNote, handleSaveNote } = props
-  const [inputValue, setInputValue] = React.useState(note.content || '')
-  const canSave = inputValue !== note.content
+  const { note, handleCancel, handleDeleteNote, handleSaveNote, noteValue, setNoteValue } = props
+
+  if (!note) return <></>
+
   const btn = 'btn btn-sm btn-'
 
   return (
@@ -38,22 +61,16 @@ export const NoteInput = (props: TNoteInputProps) => {
             className={'NoteInput'}
             onChange={e => {
               e.preventDefault()
-              setInputValue(e.target.value)
+              setNoteValue(e.target.value)
             }}
-            value={inputValue}
+            value={noteValue}
           />
         </div>
         <div className="col-12">
           <div className="btn-group" role="group">
-            {canSave && (
-              <button
-                type="button"
-                className={`${btn}success mr-1`}
-                onClick={() => handleSaveNote(inputValue)}
-              >
-                Save
-              </button>
-            )}
+            <button type="button" className={`${btn}success mr-1`} onClick={handleSaveNote}>
+              Save
+            </button>
 
             <button type="button" className={`${btn}danger mr-1`} onClick={handleDeleteNote}>
               Delete
@@ -69,9 +86,7 @@ export const NoteInput = (props: TNoteInputProps) => {
   )
 }
 
-type TNoteDisplayProps = { note: INote; handleEditNote: () => void; handleDeleteNote: () => void }
-
-export const NoteDisplay = ({ note, handleEditNote, handleDeleteNote }: TNoteDisplayProps) => {
+export const NoteDisplay = ({ note, handleEditNote, handleDeleteNote }: TNoteInputProps) => {
   const { theme } = useTheme()
   const { isGameMode } = useAppStatus()
 

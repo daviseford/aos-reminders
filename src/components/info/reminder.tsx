@@ -15,7 +15,7 @@ import { TTurnWhen } from 'types/phases'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { generateUUID, titleCase } from 'utils/textUtils'
-import { NoteDisplay, NoteIcon, NoteInput } from './note'
+import { NoteDisplay, NoteInput, NoteMenu } from './note'
 
 const { addReminder: hideReminder, deleteReminder: showReminder, addWhen: showWhen } = visibilityActions
 
@@ -142,41 +142,48 @@ const ActionText = (props: IActionTextProps) => {
   const dispatch = useDispatch()
   const { isGameMode } = useAppStatus()
   const notes = useSelector(selectNotes)
+  const note = notes.find(x => x.linked_hash === id)
 
   const [isEditingNote, setIsEditingNote] = useState(false)
+  const [noteValue, setNoteValue] = React.useState(note?.content || '')
 
   const handleVisibility = () => dispatch(!isVisible ? showReminder(id) : hideReminder(id))
 
-  const note = notes.find(x => x.linked_hash === id)
-
-  const handleAddNote = () => {
-    dispatch(
-      notesActions.addNote({
-        id: generateUUID(),
-        linked_hash: id,
-        content: '',
-      })
-    )
-    setIsEditingNote(true)
-    dispatch(showReminder(id))
-  }
-
-  const handleDeleteNote = () => {
-    if (!note) return
-    setIsEditingNote(false)
-    dispatch(notesActions.deleteNote(note.id))
-  }
-
-  const handleSaveNote = (content: string) => {
-    if (!note) return
-    dispatch(notesActions.updateNote({ ...note, content }))
-    setIsEditingNote(false)
-  }
-
-  const handleEditNote = () => {
-    if (!note) return
-    setIsEditingNote(true)
-  }
+  const noteProps = useMemo(
+    () => ({
+      handleAddNote: () => {
+        dispatch(
+          notesActions.addNote({
+            id: generateUUID(),
+            linked_hash: id,
+            content: '',
+          })
+        )
+        setIsEditingNote(true)
+        dispatch(showReminder(id))
+      },
+      handleCancel: () => setIsEditingNote(false),
+      handleDeleteNote: () => {
+        if (!note) return
+        setIsEditingNote(false)
+        dispatch(notesActions.deleteNote(note.id))
+      },
+      handleEditNote: () => {
+        if (!note) return
+        setIsEditingNote(true)
+      },
+      handleSaveNote: () => {
+        if (!note) return
+        dispatch(notesActions.updateNote({ ...note, content: noteValue }))
+        setIsEditingNote(false)
+      },
+      isEditingNote,
+      note,
+      noteValue,
+      setNoteValue,
+    }),
+    [dispatch, id, isEditingNote, note, noteValue]
+  )
 
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
@@ -199,22 +206,13 @@ const ActionText = (props: IActionTextProps) => {
             ) : (
               <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
             )}
-            {!note && <NoteIcon onClick={handleAddNote} />}
+            <NoteMenu {...noteProps} />
           </div>
         </div>
 
         {isVisible && <ActionDescription text={desc} />}
-        {isVisible && note && isEditingNote && (
-          <NoteInput
-            note={note}
-            handleSaveNote={handleSaveNote}
-            handleDeleteNote={handleDeleteNote}
-            handleCancel={() => setIsEditingNote(false)}
-          />
-        )}
-        {isVisible && note && !isEditingNote && (
-          <NoteDisplay note={note} handleEditNote={handleEditNote} handleDeleteNote={handleDeleteNote} />
-        )}
+        {isVisible && note && isEditingNote && <NoteInput {...noteProps} />}
+        {isVisible && note && !isEditingNote && <NoteDisplay {...noteProps} />}
       </div>
     </div>
   )
