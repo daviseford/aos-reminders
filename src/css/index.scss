@@ -124,10 +124,7 @@ small {
 
 /* Modal */
 .Modal-Light {
-    padding-top: 5%;
-    padding-bottom: 5%;
-    padding-left: 1.5%;
-    padding-right: 1.5%;
+    padding: 1.5%;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -208,6 +205,10 @@ small {
     .StatsIFrame {
         height: 920px;
     }
+    .Modal-Light {
+        padding-top: 4%;
+        padding-bottom: 4%;
+    }
 }
 
 @media (max-width: 575.98px) {
@@ -221,6 +222,10 @@ small {
     .StatsIFrame {
         height: 600px;
     }
+    .Modal-Light {
+        padding-top: 6%;
+        padding-bottom: 6%;
+    }
 }
 
 @media (max-width: 395px) {
@@ -229,6 +234,10 @@ small {
     }
     .StatsIFrame {
         height: 540px;
+    }
+    .Modal-Light {
+        padding-top: 5%;
+        padding-bottom: 5%;
     }
 }
 

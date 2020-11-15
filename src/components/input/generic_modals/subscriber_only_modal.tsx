@@ -47,12 +47,12 @@ const SubscriberOnlyModal: React.FC<IModalComponentProps> = props => {
       </div>
 
       <div className="d-flex flex-row justify-content-center">
-        <GenericButton className={'btn btn-primary ml-3 mr-5'} onClick={handleConfirm}>
+        <GenericButton className={'btn btn-primary ml-3 mr-2'} onClick={handleConfirm}>
           <FaCheck className="mr-2" /> Subscribe
         </GenericButton>
 
         <GenericButton className={theme.modalConfirmClass} onClick={closeModal}>
-          Not now
+          Cancel
         </GenericButton>
       </div>
     </GenericModal>
