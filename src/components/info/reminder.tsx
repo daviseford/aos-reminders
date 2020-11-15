@@ -5,17 +5,16 @@ import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { selectors, visibilityActions } from 'ducks'
-import { notesActions } from 'ducks/notes'
-import { selectNotes } from 'ducks/selectors'
 import { isEqual, sortBy } from 'lodash'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
 import { useDispatch, useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
+import useNote from 'utils/hooks/useNote'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
-import { generateUUID, titleCase } from 'utils/textUtils'
+import { titleCase } from 'utils/textUtils'
 import { NoteDisplay, NoteInput, NoteMenu } from './note'
 
 const { addReminder: hideReminder, deleteReminder: showReminder, addWhen: showWhen } = visibilityActions
@@ -148,52 +147,7 @@ const ActionText = (props: IActionTextProps) => {
   const { isGameMode } = useAppStatus()
   const handleVisibility = () => dispatch(!isVisible ? showReminder(id) : hideReminder(id))
 
-  // Notes
-  const notes = useSelector(selectNotes)
-  const note = notes.find(x => x.linked_hash === id)
-  const [isEditingNote, setIsEditingNote] = useState(false)
-  const [noteValue, setNoteValue] = React.useState(note?.content || '')
-  const [noteModalIsOpen, setNoteModalIsOpen] = React.useState(false)
-
-  const noteProps = useMemo(
-    () => ({
-      handleAddNote: () => {
-        dispatch(
-          notesActions.addNote({
-            id: generateUUID(),
-            linked_hash: id,
-            content: '',
-          })
-        )
-        setIsEditingNote(true)
-        dispatch(showReminder(id))
-      },
-      handleCancel: () => setIsEditingNote(false),
-      handleDeleteNote: () => {
-        if (!note) return
-        setIsEditingNote(false)
-        if (note.content || noteValue) {
-          setNoteModalIsOpen(true) // If there is content, confirm before deletion
-        } else {
-          dispatch(notesActions.deleteNote(note.id)) // Otherwise just delete silently
-        }
-      },
-      handleEditNote: () => {
-        if (!note) return
-        setIsEditingNote(true)
-      },
-      handleSaveNote: () => {
-        if (!note) return
-        dispatch(notesActions.updateNote({ ...note, content: noteValue }))
-        setIsEditingNote(false)
-      },
-      isEditingNote,
-      note,
-      noteValue,
-      setNoteValue,
-    }),
-    [dispatch, id, isEditingNote, note, noteValue]
-  )
+  const noteProps = useNote(id)
 
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
@@ -205,7 +159,7 @@ const ActionText = (props: IActionTextProps) => {
             </div>
           </div>
           <div className="px-2 d-print-none">
-            {!isGameMode && isVisible && <NoteMenu {...noteProps} />}
+            {isVisible && !isGameMode && <NoteMenu {...noteProps} />}
             {isGameMode ? (
               <VisibilityToggle
                 appearance={'icon'}
@@ -228,14 +182,14 @@ const ActionText = (props: IActionTextProps) => {
         </div>
 
         {isVisible && <ActionDescription text={desc} />}
-        {isVisible && note && isEditingNote && !isGameMode && <NoteInput {...noteProps} />}
-        {isVisible && note && (!isEditingNote || isGameMode) && <NoteDisplay {...noteProps} />}
+        {isVisible && !isGameMode && <NoteInput {...noteProps} />}
+        {isVisible && <NoteDisplay {...noteProps} />}
 
-        {noteModalIsOpen && (
+        {noteProps.modal.isOpen && (
           <DeleteConfirmModal
-            isOpen={noteModalIsOpen}
-            onConfirm={() => note && dispatch(notesActions.deleteNote(note.id))}
-            closeModal={() => setNoteModalIsOpen(false)}
+            isOpen={noteProps.modal.isOpen}
+            onConfirm={noteProps.remove}
+            closeModal={noteProps.modal.close}
             promptText={'Delete this note?'}
           />
         )}
