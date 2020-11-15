@@ -91,15 +91,15 @@ export const LegacyDwarfUnits: TUnits = [
       },
       {
         name: `Strike the Runes`,
-        desc: `In your hero phase, you can declare that the Runelord will strike a rune of power. If you do so, pick one of the following runes and roll a dice. 
-        
-        On a 1 the rune is struck incorrectly and nothing happens. 
-        On a roll of 2+ the rune is struck correctly and you may apply its effects. 
+        desc: `In your hero phase, you can declare that the Runelord will strike a rune of power. If you do so, pick one of the following runes and roll a dice.
 
-        If this model is within 4" of a friendly Apprentice Runesmith, then the Runelord can attempt to strike two different runes in your hero phase rather than one. 
-        
-        Rune of Hearth and Home: Reroll failed hit rolls for this unit until your next hero phase. 
-        Rune of Oath and Steel: Add 1 to save rolls for this unit until your next hero phase. 
+        On a 1 the rune is struck incorrectly and nothing happens.
+        On a roll of 2+ the rune is struck correctly and you may apply its effects.
+
+        If this model is within 4" of a friendly Apprentice Runesmith, then the Runelord can attempt to strike two different runes in your hero phase rather than one.
+
+        Rune of Hearth and Home: Reroll failed hit rolls for this unit until your next hero phase.
+        Rune of Oath and Steel: Add 1 to save rolls for this unit until your next hero phase.
         Rune of Wrath and Ruin: Pick an enemy unit that is visible to the Runelord and is within 24" of him. That unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },

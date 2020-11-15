@@ -163,7 +163,7 @@ export const Units: TUnits = [
       {
         name: `Gore-grunta Charge`,
         desc: `Roll a D6 for each enemy unit that is within 1" of a model from this unit after the model from this unit finishesa charge move. On a 4+, that enemy unit suffers 1 mortal wound. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved.
-        
+
         In addition, add 1 to hit rolls and wound rolls for attacks made with this unit's Jagged Gore-hackas and Tusks and Hooves if this unit made a charge move in the same turn.`,
         when: [CHARGE_PHASE],
       },

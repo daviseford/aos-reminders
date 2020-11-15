@@ -81,7 +81,7 @@ export const Units: TUnits = [
         3 Kurnoth Hunters
         1 Branchwych
         1 Treelord
-        
+
         The summoned unit is added to your army, and must be set up wholly within 9" of this model and more than 9" from any enemy units`,
         when: [END_OF_MOVEMENT_PHASE],
       },

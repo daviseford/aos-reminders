@@ -741,7 +741,7 @@ export const Units: TUnits = [
       {
         name: `Oathsworn`,
         desc: `After setup, you must declare an oath for each Errant-Questor in your army to fulfil:
-        
+
         Sworn Protector: Pick a HERO in your army for the Errant-Questor to protect. Whilst this model is within 3" of the HERO you picked, you can choose to allocate any unsanved or mortal wound inflicted upon that model to the Errant-Questor instead.
 
         Blood Feud: Pick a HERO in the enemy army. You can reroll all failed hit and wound rolls when attacking that HERO with this model. If you have more than one Errant-Questor in your army that chooses this oath, you must pick a different enemy HERO to be the target of each blood feud.

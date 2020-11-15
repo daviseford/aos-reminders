@@ -118,9 +118,9 @@ export const Units: TUnits = [
       {
         name: `Rune Lore`,
         desc: `In your hero phase a Runelord can use this ability. If he does so, pick a DISPOSSESSED unit within 16", select a power and roll a D6; on a 1 the Runelord has failed and nothing happens. On a roll of 2 or more the runes hammered into his allies' wargear glow white-hot with rune magic and the power takes effect.
-        
-        Ancestral Shield: Until your next hero phase, you can roll a D6 whenever a model in this unit suffers a wound or a mortal wound. On a 6, that wound or mortal wound is ignored. 
-        
+
+        Ancestral Shield: Until your next hero phase, you can roll a D6 whenever a model in this unit suffers a wound or a mortal wound. On a 6, that wound or mortal wound is ignored.
+
         Forgefire: Until your next hero phase, increase the Rend characteristics of the unit's weapons by 1 (i.e. '-' becomes -1, -1 becomes -2 and so on).`,
         when: [HERO_PHASE],
       },
@@ -199,11 +199,11 @@ export const Units: TUnits = [
       {
         name: `Old Grumblers`,
         desc: `In your hero phase, pick one of the grumblings listed below. The effects last until your next hero phase.
-        
+
         "I thought duardin were made of sterner stuff!": Roll a D6 each time a DISPOSSESSED model from your army flees whilst within 8" of this unit; on a 5 or more that model stands firm under the Longbeards' stern gaze and does not flee.
-        
+
         "Who does this beardling think he is?": Friendly DISPOSSESSED HEROES within 8" of this unit are treated as if they were your general when working out the range of command abilities.
-        
+
         "Grots are weedier these days!": You can reroll wound rolls of 1 for DISPOSSESSED models from your army that are within 8" of this unit when they attack in the combat phase.`,
         when: [HERO_PHASE],
       },

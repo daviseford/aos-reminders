@@ -144,17 +144,17 @@ export const Units: TUnits = [
       {
         name: `Freakish Mutations`,
         desc: `Before this unit makes its attacks in the combat phase, roll a D6 to see what mutation they have for the duration of that phase:
-        
+
         1 - Writhing Tentacles: This unit's Freakish Mutations have a Range characteristic of 3" instead of 1".
-        
+
         2 - Razor Talons: This unit's Freakish Mutations have a Rend characteristic of -1 instead of '-'.
-        
+
         3 - Extra Arms: Add 1 to the result of the roll when determining the Attacks characteristic for this unit's Freakish Mutations.
-        
+
         4 - Lashing Tongues: Add 1 to hit rolls for this unit's Freakish Mutations.
-        
+
         5 - Venomous Fangs: Add 1 to wound rolls for this unit's Freakish Mutations.
-        
+
         6 - Decapitating Claws: Add 1 to the Damage characteristic of this unit's Freakish Mutations.`,
         when: [COMBAT_PHASE],
       },

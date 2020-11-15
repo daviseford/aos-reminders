@@ -27,10 +27,10 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Arcane Suggestion`,
-        desc: `Casting value of 8. Pick an enemy unit within 18" of the caster that is visible to them and pick one of the following: 
-        
+        desc: `Casting value of 8. Pick an enemy unit within 18" of the caster that is visible to them and pick one of the following:
+
         - The unit suffers D3 mortal wounds.
-        - Subtract 1 from hit and wound rolls made by that unit until your next hero phase. 
+        - Subtract 1 from hit and wound rolls made by that unit until your next hero phase.
         - Subtract 1 from save rolls for attacks that target that unit until your next hero phase`,
         when: [HERO_PHASE],
       },

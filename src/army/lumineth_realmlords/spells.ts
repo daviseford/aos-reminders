@@ -80,7 +80,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Unyielding Calm`,
-        desc: `Casting value of 4. Pick 1 friendly LUMINETH REALM-LORDS unit wholly within 18" of the caster. 
+        desc: `Casting value of 4. Pick 1 friendly LUMINETH REALM-LORDS unit wholly within 18" of the caster.
               Until you next hero phase, do not take battleshock tests for that unit.`,
         when: [HERO_PHASE, BATTLESHOCK_PHASE],
       },
@@ -91,8 +91,8 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Crippling Vertigo`,
-        desc: `Casting value of 6. Pick 1 enemy unit wholly within 18" of the caster and visible to them. 
-              Until your next hero phase, roll 2D6 before that unit makes a normal move, charge move or pile-in move. 
+        desc: `Casting value of 6. Pick 1 enemy unit wholly within 18" of the caster and visible to them.
+              Until your next hero phase, roll 2D6 before that unit makes a normal move, charge move or pile-in move.
               If the roll is greater than that unit's bravery, it cannot make that move.`,
         when: [HERO_PHASE, MOVEMENT_PHASE, CHARGE_PHASE],
       },
@@ -103,7 +103,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Voice of the Mountains`,
-        desc: `Casting value of 6. Until the end of the turn, subtract 2 from the bravery of all enemy units. 
+        desc: `Casting value of 6. Until the end of the turn, subtract 2 from the bravery of all enemy units.
               Then, until your next hero phase, subtract 1 from the bravery of all enemy units.`,
         when: [HERO_PHASE, BATTLESHOCK_PHASE],
       },
@@ -114,8 +114,8 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Living Fissure`,
-        desc: `Casting value of 6. Pick one point on the battlefield within 9" of the caster and visible to them. 
-              Draw a straight line 1mm wide between that point and the closest part of the caster's base. 
+        desc: `Casting value of 6. Pick one point on the battlefield within 9" of the caster and visible to them.
+              Draw a straight line 1mm wide between that point and the closest part of the caster's base.
               Roll a D6 for each unt that has models passed by the line. On a 2+ the unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
@@ -126,8 +126,8 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Entomb`,
-        desc: `Casting value of 7. Pick one enemy model within 18" of the caster and visible to them. 
-              Roll a D6, if the roll is greater than the model's Wounds characteristic, that model is slain. 
+        desc: `Casting value of 7. Pick one enemy model within 18" of the caster and visible to them.
+              Roll a D6, if the roll is greater than the model's Wounds characteristic, that model is slain.
               If the roll is 6 but not greater than the model's Wounds characteristic, the model suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
@@ -138,8 +138,8 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Assault of Stone`,
-        desc: `Casting value of 8. Pick one enemy model within 24" of the caster and visible to them. 
-              Roll a number of dice equal to the casting roll. For each roll that is less than the units Save characteristic, that unit suffers 1 mortal wound. 
+        desc: `Casting value of 8. Pick one enemy model within 24" of the caster and visible to them.
+              Roll a number of dice equal to the casting roll. For each roll that is less than the units Save characteristic, that unit suffers 1 mortal wound.
               Rolls of 1 or 2 always fail. A Save characteristic of '-' counts as a 6.`,
         when: [HERO_PHASE],
       },

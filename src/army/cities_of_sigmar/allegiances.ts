@@ -78,8 +78,8 @@ const Allegiances: TAllegiances = [
     effects: [
       {
         name: `Rune Lore`,
-        desc: `In your hero phase, 1 friendly GREYWATER FASTNESS RUNELORD can chant the following prayer in addition to any prayer on their warscroll. If they do so, make a prayer roll by rolling a dice. On a 1, the prayer is not answered. On a 2+, the prayer is answered. 
-        
+        desc: `In your hero phase, 1 friendly GREYWATER FASTNESS RUNELORD can chant the following prayer in addition to any prayer on their warscroll. If they do so, make a prayer roll by rolling a dice. On a 1, the prayer is not answered. On a 2+, the prayer is answered.
+
         Rune of Unfaltering Aim: If this prayer is answered, pick 1 friendly IRONWELD ARSENAL WAR MACHINE unit within 3" of this model. Until the start of your next hero phase, add 1 to hit rolls for attacks made with missile weapons by that unit.`,
         when: [HERO_PHASE],
         allegiance_ability: true,
@@ -128,11 +128,11 @@ const Allegiances: TAllegiances = [
       {
         name: `Illicit Dealings`,
         desc: `When you choose an Anvilgard army, you can profit from one of the following benefits of illicit dealings:
-        
+
         Black Market Bounty: 1 additional friendly ANVILGARD HERO can bear an artefact of power from the Anvilgard Artefacts of Power table.
-        
+
         Dabblings in Sorcery: 1 additional friendly ANVILGARD DRAGON, ANVILGARD KHARIBDYSS or ANVILGARD WAR HYDRA can have a Drakeblood curse from the Drakeblood Curses table.
-        
+
         Hidden Agents: You receive D3 extra command points.`,
         when: [START_OF_SETUP],
         allegiance_ability: true,

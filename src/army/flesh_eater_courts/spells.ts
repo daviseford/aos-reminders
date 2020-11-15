@@ -58,7 +58,7 @@ const Spells: TSpells = [
       {
         name: `Blood Feast`,
         desc: `Casting value of 7. Pick 1 enemy unit within 12" of the caster that is visible to them, and a friendly FLESH-EATER COURTS unit within 6" of that enemy unit. The enemy unit suffers D3 mortal wounds. If the casting roll was 10 or more, the enemy unit suffers D6 mortal wounds instead of D3 mortal wounds.
-        
+
         Then, for each mortal wound that was inflicted on the enemy unit, you can heal 1 wound allocated to the friendly unit. If the friendly unit has a Wounds characteristic of 1, for each mortal wound that was inflicted on the enemy unit, you can return 1 slain model to the friendly unit instead.`,
         when: [HERO_PHASE],
       },
