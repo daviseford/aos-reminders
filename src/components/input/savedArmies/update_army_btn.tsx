@@ -27,7 +27,7 @@ const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
 
   const [isSaving, setIsSaving] = useState(false)
 
-  const canUpdate = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
+  const canUpdate = useMemo(() => armyHasEntries(currentArmy, relevantNotes), [currentArmy, relevantNotes])
 
   const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault()

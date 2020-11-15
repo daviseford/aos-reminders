@@ -10,6 +10,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { IArmy } from 'types/army'
 import { armyHasEntries } from 'utils/armyUtils'
 import { getArmy } from 'utils/getArmy/getArmy'
+import useGetReminders from 'utils/hooks/useGetReminders'
 
 const AddAllyButton = lazy(() => import('components/input/toolbar/add_ally_btn'))
 const ClearArmyButton = lazy(() => import('components/input/toolbar/clear_army_btn'))
@@ -31,6 +32,7 @@ const btnWrapperClass = `col-6 col-sm-6 col-md-6 col-lg-3 col-xl-3 col-xxl-2 px-
 const Toolbar = () => {
   const dispatch = useDispatch()
   const { isGameMode, isOnline } = useAppStatus()
+  const { relevantNotes } = useGetReminders()
   const { loadedArmy, armyHasChanges } = useSavedArmies()
   const { isSubscribed, isActive } = useSubscription()
 
@@ -48,7 +50,7 @@ const Toolbar = () => {
     armyHasChanges,
   ])
 
-  const hasEntries = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
+  const hasEntries = useMemo(() => armyHasEntries(currentArmy, relevantNotes), [currentArmy, relevantNotes])
 
   const showOrHideSavedArmies = (show: boolean) => {
     setIsShowingSavedArmies(s => ({ ...s, [currentViewMode]: show }))

@@ -2,13 +2,15 @@ import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { ICurrentArmy } from 'types/army'
 import { TEntry } from 'types/data'
 import { IImportedArmy } from 'types/import'
+import { INote } from 'types/notes'
 import { ISavedArmy } from 'types/savedArmy'
 import { IAllySelections } from 'types/selections'
 import { LocalReminderOrder } from './localStore'
 
-export const armyHasEntries = (army: ISavedArmy | ICurrentArmy) => {
+export const armyHasEntries = (army: ISavedArmy | ICurrentArmy, notes: INote[]) => {
   const { allySelections, origin_realm, realmscape_feature, realmscape, selections } = army
 
+  if (notes.length > 0) return true
   if (Object.values(selections).some(x => x.length)) return true
   if (Object.values(allySelections).some(x => Object.values(x as IAllySelections).some(x => x.length)))
     return true
