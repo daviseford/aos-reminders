@@ -65,16 +65,19 @@ const useNote = (actionId: string): TUseNoteValue => {
       },
       remove: () => {
         if (!note) return
-        setIsEditing(false)
 
         // If we've already had the modal open, we confirmed the delete - do it!
-        if (modalIsOpen) return dispatch(notesActions.deleteNote(note.id))
+        if (modalIsOpen) {
+          setIsEditing(false)
+          return dispatch(notesActions.deleteNote(note.id))
+        }
 
         // If there is content, confirm before deletion
         if (note.content || noteValue) return setModalIsOpen(true)
 
         // Otherwise just delete
-        return dispatch(notesActions.deleteNote(note.id))
+        setIsEditing(false)
+        dispatch(notesActions.deleteNote(note.id))
       },
       save: () => {
         if (!note) return

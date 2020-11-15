@@ -2,6 +2,7 @@ import GenericButton from 'components/input/generic_button'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
 import React from 'react'
+import { EMPTY_NOTE_TEXT } from 'types/pdf'
 import { TUseNoteValue } from 'utils/hooks/useNote'
 
 const BADGE_CLASS = `badge badge-pill badge-`
@@ -67,13 +68,17 @@ export const NoteDisplay = ({ note, isEditing }: TUseNoteValue) => {
 
   if (!note || (isEditing && !isGameMode)) return <></>
 
-  const splitText = (note.content || `Empty note`)
+  const splitText = (note.content || EMPTY_NOTE_TEXT)
     .split('\n')
     .map(t => t.trim())
     .filter(t => !!t)
 
+  const borderClass = `${theme.noteBorder} ${
+    !note.content ? 'd-print-none' : ''
+  } align-items-center ml-3 px-2 py-1 mb-1`
+
   return (
-    <div className={`${theme.noteBorder} align-items-center ml-3 px-2 py-1 mb-1`}>
+    <div className={borderClass}>
       {splitText.map((text, i) => (
         <p className={`NoteText ${theme.text} mb-0`} key={i}>
           {text}

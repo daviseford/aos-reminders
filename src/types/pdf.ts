@@ -1,6 +1,8 @@
 import { ICurrentArmy } from 'types/army'
 import { IReminder } from 'types/data'
-import { INote } from './notes'
+import { INote } from 'types/notes'
+
+export const EMPTY_NOTE_TEXT = `Empty note`
 
 type TPdfStylePdf =
   | 'army'
