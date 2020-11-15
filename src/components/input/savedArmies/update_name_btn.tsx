@@ -1,4 +1,4 @@
-import UpdateArmyNameModal from 'components/input/savedArmies/update_name_modal'
+import UpdateArmyNameModal from 'components/modals/update_name_modal'
 import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
 import { FaPencilAlt } from 'react-icons/fa'

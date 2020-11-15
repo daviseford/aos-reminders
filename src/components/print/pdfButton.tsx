@@ -1,5 +1,5 @@
 import GenericButton from 'components/input/generic_button'
-import { DownloadPDFModal } from 'components/print/pdfModal'
+import { DownloadPDFModal } from 'components/modals/download_pdf_modal'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { selectors } from 'ducks'
 import jsPDF from 'jspdf'

@@ -1,6 +1,6 @@
 import { LinkNewTab } from 'components/helpers/link'
 import GenericButton from 'components/input/generic_button'
-import GenericModal from 'components/input/generic_modals/genericModal'
+import GenericModal from 'components/modals/generic_modal'
 import { useTheme } from 'context/useTheme'
 import React from 'react'
 import { FaCheck } from 'react-icons/fa'
@@ -47,7 +47,7 @@ const SubscriberOnlyModal: React.FC<IModalComponentProps> = props => {
       </div>
 
       <div className="d-flex flex-row justify-content-center">
-        <GenericButton className={'btn btn-primary ml-3 mr-2'} onClick={handleConfirm}>
+        <GenericButton className={'btn btn-primary'} onClick={handleConfirm}>
           <FaCheck className="mr-2" /> Subscribe
         </GenericButton>
 

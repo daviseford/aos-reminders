@@ -1,5 +1,5 @@
 import GenericButton from 'components/input/generic_button'
-import SubscriberOnlyModal from 'components/input/generic_modals/subscriber_only_modal'
+import SubscriberOnlyModal from 'components/modals/subscriber_only_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'

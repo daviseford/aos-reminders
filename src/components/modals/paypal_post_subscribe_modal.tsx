@@ -1,6 +1,6 @@
 import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
-import GenericModal from 'components/input/generic_modals/genericModal'
+import GenericModal from 'components/modals/generic_modal'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'
