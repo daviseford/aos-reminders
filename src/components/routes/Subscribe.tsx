@@ -155,7 +155,10 @@ const CurrentFeatures = () => (
     </p>
     <ul className="lead">
       <li>
-        <strong>NEW:</strong> Access to <Link to={ROUTES.STATS}>advanced stats!</Link>
+        <strong>NEW:</strong> Write, edit, and save notes!
+      </li>
+      <li>
+        Access to <Link to={ROUTES.STATS}>advanced stats!</Link>
       </li>
       <li>Share army lists with your friends!</li>
       <li>Spare your eyes! Turn on dark mode!</li>
@@ -179,9 +182,6 @@ const ComingSoon = () => (
     <ul className="lead">
       <li>
         <i>Add custom reminders to any phase</i>
-      </li>
-      <li>
-        <i>Add your own Notes to phases and rules</i>
       </li>
       <li>
         <i>Attach PDF/HTML lists to your Saved Army</i>
