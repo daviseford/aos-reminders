@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf'
 import { IPrintPdf, TPdfStyles } from 'types/pdf'
-import CompactPDFLayout from 'utils/pdf/generate/layouts/layoutUtils'
+import CompactPDFLayout, { IPageOpts } from 'utils/pdf/generate/layouts/layoutUtils'
 import { Logo } from 'utils/pdf/generate/logo'
 import { getVisibleReminders } from 'utils/reminderUtils'
 import { reorderReminders } from 'utils/reorder'
@@ -65,15 +65,17 @@ const Styles: TPdfStyles = {
   },
 }
 
-const PageOpts = {
+const PageOpts: IPageOpts = {
+  colLineWidth: 8.5,
+  colNoteLineWidth: 8,
+  colTitleLineWidth: 8,
+  maxLineWidth: 17,
+  maxNoteLineWidth: 17 - 0.5,
+  maxTitleLineWidth: 17 - 2,
+  pageBottom: 10.5, // pageHeight - yMargin,
+  pageHeight: 11.45,
   xMargin: 0.3,
   yMargin: 0.75,
-  pageHeight: 11.45,
-  pageBottom: 11.45 - 0.75, // pageHeight - yMargin,
-  colLineWidth: 8.5,
-  colTitleLineWidth: 8, // colLineWidth - 2,
-  maxLineWidth: 17,
-  maxTitleLineWidth: 17 - 2, // maxLineWidth - 2,
 }
 
 export const saveCompactPdf = (data: IPrintPdf): jsPDF => {

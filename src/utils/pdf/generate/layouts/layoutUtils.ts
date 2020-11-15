@@ -3,7 +3,7 @@ import { slice, sum } from 'lodash'
 import { ICurrentArmy } from 'types/army'
 import { IReminder, TTurnAction } from 'types/data'
 import { INote } from 'types/notes'
-import { ICompactPdfTextObj, TPdfStyles, TSavePdfType } from 'types/pdf'
+import { EMPTY_NOTE_TEXT, ICompactPdfTextObj, TPdfStyles, TSavePdfType } from 'types/pdf'
 import { IAllySelections } from 'types/selections'
 import { getActionTitle, titleCase } from 'utils/textUtils'
 
@@ -12,10 +12,12 @@ interface IPhaseAndRuleObj {
   rules: ICompactPdfTextObj[][]
 }
 
-interface IPageOpts {
+export interface IPageOpts {
   colLineWidth: number
+  colNoteLineWidth: number
   colTitleLineWidth: number
   maxLineWidth: number
+  maxNoteLineWidth: number
   maxTitleLineWidth: number
   pageBottom: number
   pageHeight: number
@@ -289,8 +291,8 @@ export default class CompactPdfLayout {
         const position = this._type === 'default' || isLastRuleAndOdd ? 'full' : 'col'
 
         const titleWidth = position === 'full' ? this._opts.maxTitleLineWidth : this._opts.colTitleLineWidth
-
         const lineWidth = position === 'full' ? this._opts.maxLineWidth : this._opts.colLineWidth
+        const noteLintWidth = position === 'full' ? this._opts.maxNoteLineWidth : this._opts.colNoteLineWidth
 
         // Add a titlespacer
         ruleObj.push({
@@ -323,14 +325,16 @@ export default class CompactPdfLayout {
 
         // Handle note
         const note = notes.find(x => x.linked_hash === action.id)
-        if (note && note.content) {
-          const noteLines: string[] = this._doc.splitTextToSize(note.content, lineWidth)
+        if (note && note.content && note.content !== EMPTY_NOTE_TEXT) {
+          const TAB = `     ` // Add tabbed spacing here
+          const noteLines: string[] = this._doc.splitTextToSize(note.content, noteLintWidth)
+
           noteLines.forEach(text => {
             const trimmed = text.trim()
             const type = trimmed === '' ? 'break' : 'note'
             ruleObj.push({
               type,
-              text: trimmed,
+              text: `${trimmed ? TAB : ''}${trimmed}`,
               position,
             })
           })
