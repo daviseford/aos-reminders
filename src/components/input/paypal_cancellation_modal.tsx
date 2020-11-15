@@ -1,6 +1,6 @@
 import { LinkNewTab } from 'components/helpers/link'
 import GenericButton from 'components/input/generic_button'
-import GenericModal from 'components/page/genericModal'
+import GenericModal from 'components/input/generic_modals/genericModal'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'

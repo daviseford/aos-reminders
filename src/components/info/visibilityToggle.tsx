@@ -1,5 +1,5 @@
-import DeleteConfirmModal from 'components/input/delete_confirm_modal'
 import GenericButton from 'components/input/generic_button'
+import DeleteConfirmModal from 'components/input/generic_modals/delete_confirm_modal'
 import { useTheme } from 'context/useTheme'
 import React, { useCallback, useState } from 'react'
 import { IconContext, IconType } from 'react-icons'

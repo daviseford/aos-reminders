@@ -1,10 +1,10 @@
+import GenericButton from 'components/input/generic_button'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import React from 'react'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { logEvent, resetAnalyticsStore } from 'utils/analytics'
 import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
-import GenericButton from '../generic_button'
 
 interface ILoadButtonProps {
   army: ISavedArmyFromApi

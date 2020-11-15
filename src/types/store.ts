@@ -1,9 +1,9 @@
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
+import { INote } from 'types/notes'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { IAllySelections, ISelections } from 'types/selections'
 import { TSideEffectTypes } from 'utils/withSelect'
-import { INote } from './notes'
 
 export interface IArmyStore {
   army: IArmy

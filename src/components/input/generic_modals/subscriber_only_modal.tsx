@@ -1,6 +1,6 @@
 import { LinkNewTab } from 'components/helpers/link'
 import GenericButton from 'components/input/generic_button'
-import GenericModal from 'components/page/genericModal'
+import GenericModal from 'components/input/generic_modals/genericModal'
 import { useTheme } from 'context/useTheme'
 import React from 'react'
 import { FaCheck } from 'react-icons/fa'
@@ -31,9 +31,9 @@ const SubscriberOnlyModal: React.FC<IModalComponentProps> = props => {
     <GenericModal isOpen={isOpen} closeModal={closeModal} label={`Subscribe for ${featureName} Modal`}>
       <div className="flex-row">
         <div className={`col ${theme.text} text-center`}>
-          <h4 className="mb-3">This feature is available only to subscribers.</h4>
+          <h4 className="mb-3">Subscriber-Only Feature</h4>
           <p>Saving data to the cloud increases the hosting fees for AoS Reminders. </p>
-          <p>Please consider subscribing to utilize this feature (and many more!)</p>
+          <p>Please consider subscribing to use this feature (and many more!)</p>
 
           <p>
             <small>
@@ -47,11 +47,11 @@ const SubscriberOnlyModal: React.FC<IModalComponentProps> = props => {
       </div>
 
       <div className="d-flex flex-row justify-content-center">
-        <GenericButton className={theme.modalConfirmClass} onClick={handleConfirm}>
+        <GenericButton className={'btn btn-primary ml-3 mr-5'} onClick={handleConfirm}>
           <FaCheck className="mr-2" /> Subscribe
         </GenericButton>
 
-        <GenericButton className={theme.modalDangerClass} onClick={closeModal}>
+        <GenericButton className={theme.modalConfirmClass} onClick={closeModal}>
           Not now
         </GenericButton>
       </div>

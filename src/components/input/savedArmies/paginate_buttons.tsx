@@ -1,6 +1,6 @@
+import GenericButton from 'components/input/generic_button'
 import React from 'react'
 import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
-import GenericButton from '../generic_button'
 
 interface IPaginateButtonsProps {
   pageNum: number

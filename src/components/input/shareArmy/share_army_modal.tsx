@@ -1,6 +1,6 @@
 import Spinner from 'components/helpers/spinner'
 import GenericButton from 'components/input/generic_button'
-import GenericModal from 'components/page/genericModal'
+import GenericModal from 'components/input/generic_modals/genericModal'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { selectors } from 'ducks'

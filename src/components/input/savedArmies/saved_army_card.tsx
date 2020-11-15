@@ -1,3 +1,4 @@
+import GenericButton from 'components/input/generic_button'
 import { DeleteArmyModal } from 'components/input/savedArmies/delete_army_modal'
 import { LoadArmyBtn } from 'components/input/savedArmies/load_army_btn'
 import { SavedArmyTable } from 'components/input/savedArmies/saved_army_table'
@@ -9,7 +10,6 @@ import { DateTime } from 'luxon'
 import React, { useEffect, useState } from 'react'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { titleCase } from 'utils/textUtils'
-import GenericButton from '../generic_button'
 
 interface ISavedArmyCardProps {
   army: ISavedArmyFromApi

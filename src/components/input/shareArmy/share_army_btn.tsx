@@ -1,15 +1,11 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import GenericButton from 'components/input/generic_button'
+import SubscriberOnlyModal from 'components/input/generic_modals/subscriber_only_modal'
 import { ShareArmyModal } from 'components/input/shareArmy/share_army_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
-import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'
 import { FaLink } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-import { centerContentClass } from 'theme/helperClasses'
-import { logClick } from 'utils/analytics'
-import { ROUTES } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 
 const ShareArmyBtn = () => {
@@ -18,10 +14,8 @@ const ShareArmyBtn = () => {
   const { isActive } = useSubscription()
   const { login } = useLogin({ origin: 'ShareArmyBtn' })
 
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-
-  const openModal = () => setModalIsOpen(true)
-  const closeModal = () => setModalIsOpen(false)
+  const [shareModalIsOpen, setShareModalIsOpen] = useState(false)
+  const [subscribeModalIsOpen, setSubscribeModalIsOpen] = useState(false)
 
   if (isOffline) return <></>
 
@@ -29,36 +23,31 @@ const ShareArmyBtn = () => {
     <>
       {!isAuthenticated && <ShareButton handleClick={login} />}
 
-      {isAuthenticated && !isActive && <SubscribeBtn />}
+      {isAuthenticated && !isActive && <ShareButton handleClick={() => setSubscribeModalIsOpen(true)} />}
 
-      {isActive && <ShareButton handleClick={openModal} />}
+      {isActive && <ShareButton handleClick={() => setShareModalIsOpen(true)} />}
 
-      {modalIsOpen && <ShareArmyModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}
+      {shareModalIsOpen && (
+        <ShareArmyModal modalIsOpen={shareModalIsOpen} closeModal={() => setShareModalIsOpen(false)} />
+      )}
+
+      {subscribeModalIsOpen && (
+        <SubscriberOnlyModal
+          isOpen={subscribeModalIsOpen}
+          featureName={'ShareLink'}
+          closeModal={() => setSubscribeModalIsOpen(false)}
+        />
+      )}
     </>
   )
 }
 
 export default ShareArmyBtn
 
-const ShareButton = ({ handleClick }: { handleClick: () => void }) => {
+const ShareButton = (props: { handleClick: () => void }) => {
   return (
-    <GenericButton onClick={handleClick}>
+    <GenericButton onClick={props.handleClick}>
       <FaLink className="mr-2" /> Share
     </GenericButton>
-  )
-}
-
-const SubscribeBtn = () => {
-  const { theme } = useTheme()
-  return (
-    <Link
-      to={ROUTES.SUBSCRIBE}
-      className={theme.genericButtonBlock}
-      onClick={() => logClick('ShareLink-Subscribe')}
-    >
-      <div className={centerContentClass}>
-        <FaLink className="mr-2" /> Share
-      </div>
-    </Link>
   )
 }

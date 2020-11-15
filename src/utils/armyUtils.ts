@@ -5,7 +5,7 @@ import { IImportedArmy } from 'types/import'
 import { INote } from 'types/notes'
 import { ISavedArmy } from 'types/savedArmy'
 import { IAllySelections } from 'types/selections'
-import { LocalReminderOrder } from './localStore'
+import { LocalReminderOrder } from 'utils/localStore'
 
 export const armyHasEntries = (army: ISavedArmy | ICurrentArmy, notes: INote[]) => {
   const { allySelections, origin_realm, realmscape_feature, realmscape, selections } = army

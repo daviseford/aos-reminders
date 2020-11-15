@@ -1,6 +1,7 @@
 import { CardHeader } from 'components/info/card'
+import { NoteDisplay, NoteInput, NoteMenu } from 'components/info/note'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
-import DeleteConfirmModal from 'components/input/delete_confirm_modal'
+import DeleteConfirmModal from 'components/input/generic_modals/delete_confirm_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
@@ -16,7 +17,6 @@ import useNote from 'utils/hooks/useNote'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
-import { NoteDisplay, NoteInput, NoteMenu } from './note'
 
 const { addReminder: hideReminder, deleteReminder: showReminder, addWhen: showWhen } = visibilityActions
 
