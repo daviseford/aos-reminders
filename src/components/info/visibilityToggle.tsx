@@ -1,4 +1,5 @@
 import { ConfirmDismissNotificationModal } from 'components/info/confirm_dismiss_notification_modal'
+import GenericButton from 'components/input/generic_button'
 import { useTheme } from 'context/useTheme'
 import React, { useCallback, useState } from 'react'
 import { IconContext, IconType } from 'react-icons'
@@ -16,11 +17,13 @@ import {
 export type TVisibilityIconType = 'clear' | 'eye' | 'fold' | 'minus'
 
 interface IVisibilityToggleProps {
+  appearance?: 'icon' | 'pill'
+  className?: string
   isVisible: boolean
+  pillText?: string
   setVisibility?: () => void
   size?: number
   type?: TVisibilityIconType
-  className?: string
   withConfirmation?: boolean
 }
 
@@ -49,6 +52,8 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
     setVisibility,
     size = 1.4,
     type = 'eye',
+    appearance = 'icon',
+    pillText = '',
     className = '',
     withConfirmation = false,
   } = props
@@ -76,9 +81,17 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
 
   return (
     <>
-      <IconContext.Provider value={{ size: `${size}em`, className: className || theme.text }}>
-        <VisibilityComponent onClick={handleClick} />
-      </IconContext.Provider>
+      {appearance === 'icon' && (
+        <IconContext.Provider value={{ size: `${size}em`, className: className || theme.text }}>
+          <VisibilityComponent onClick={handleClick} />
+        </IconContext.Provider>
+      )}
+      {appearance === 'pill' && (
+        <GenericButton className={className || `badge badge-pill badge-secondary`} onClick={handleClick}>
+          {isVisible ? `Hide` : `Show`}
+          {pillText && ` ${pillText}`}
+        </GenericButton>
+      )}
       {modalIsOpen && (
         <ConfirmDismissNotificationModal
           modalIsOpen={modalIsOpen}

@@ -197,6 +197,7 @@ const ActionText = (props: IActionTextProps) => {
           <div className="px-2 d-print-none">
             {isGameMode ? (
               <VisibilityToggle
+                appearance={'icon'}
                 isVisible={isVisible}
                 setVisibility={handleVisibility}
                 withConfirmation={true}
@@ -204,15 +205,20 @@ const ActionText = (props: IActionTextProps) => {
                 size={1}
               />
             ) : (
-              <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
+              <VisibilityToggle
+                appearance={'pill'}
+                pillText={'Rule'}
+                isVisible={isVisible}
+                setVisibility={handleVisibility}
+              />
             )}
-            <NoteMenu {...noteProps} />
+            {!isGameMode && <NoteMenu {...noteProps} />}
           </div>
         </div>
 
         {isVisible && <ActionDescription text={desc} />}
-        {isVisible && note && isEditingNote && <NoteInput {...noteProps} />}
-        {isVisible && note && !isEditingNote && <NoteDisplay {...noteProps} />}
+        {isVisible && note && isEditingNote && !isGameMode && <NoteInput {...noteProps} />}
+        {isVisible && note && (!isEditingNote || isGameMode) && <NoteDisplay {...noteProps} />}
       </div>
     </div>
   )

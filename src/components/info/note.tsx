@@ -16,18 +16,18 @@ export const NoteMenu = (props: TNoteInputProps) => {
 
   return (
     <>
-      <span className={`badge badge-pill badge-${btnClass}`} onClick={handleClick}>
+      <GenericButton className={`badge badge-pill badge-${btnClass}`} onClick={handleClick}>
         {txt} Note
-      </span>
+      </GenericButton>
       {note && (
-        <span className={`badge badge-pill badge-danger`} onClick={handleDeleteNote}>
+        <GenericButton className={`badge badge-pill badge-danger`} onClick={handleDeleteNote}>
           Delete Note
-        </span>
+        </GenericButton>
       )}
       {isEditingNote && (
-        <span className={`badge badge-pill badge-secondary`} onClick={handleDeleteNote}>
+        <GenericButton className={`badge badge-pill badge-secondary`} onClick={handleDeleteNote}>
           Cancel
-        </span>
+        </GenericButton>
       )}
     </>
   )
@@ -68,17 +68,17 @@ export const NoteInput = (props: TNoteInputProps) => {
         </div>
         <div className="col-12">
           <div className="btn-group" role="group">
-            <button type="button" className={`${btn}success mr-1`} onClick={handleSaveNote}>
+            <GenericButton className={`${btn}success mr-1`} onClick={handleSaveNote}>
               Save
-            </button>
+            </GenericButton>
 
-            <button type="button" className={`${btn}danger mr-1`} onClick={handleDeleteNote}>
+            <GenericButton className={`${btn}danger mr-1`} onClick={handleDeleteNote}>
               Delete
-            </button>
+            </GenericButton>
 
-            <button type="button" className={`${btn}secondary`} onClick={handleCancel}>
+            <GenericButton className={`${btn}secondary`} onClick={handleCancel}>
               Cancel
-            </button>
+            </GenericButton>
           </div>
         </div>
       </div>

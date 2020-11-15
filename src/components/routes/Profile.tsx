@@ -1,5 +1,6 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
+import GenericButton from 'components/input/generic_button'
 import { CancelPaypalSubscriptionModal } from 'components/input/paypal_cancellation_modal'
 import { SelectOne } from 'components/input/select'
 import { CancelStripeSubscriptionModal } from 'components/input/stripe_cancellation_modal'
@@ -148,9 +149,9 @@ const CancelBtn = () => {
 
   return (
     <>
-      <button className={btnClass} onClick={openModal}>
+      <GenericButton className={btnClass} onClick={openModal}>
         Cancel Subscription
-      </button>
+      </GenericButton>
       {modalIsOpen && <ModelComponent modalIsOpen={modalIsOpen} closeModal={closeModal} />}
     </>
   )

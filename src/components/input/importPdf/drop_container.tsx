@@ -9,6 +9,7 @@ import { logClick } from 'utils/analytics'
 import { GITHUB_URL, ROUTES } from 'utils/env'
 import { hasFatalError } from 'utils/import/warnings'
 import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
+import GenericButton from '../generic_button'
 
 const ImportContainer = () => {
   const [errors, setErrors] = useState<IImportedArmy['errors']>([])
@@ -90,9 +91,9 @@ const ErrorAlert = (props: TImportError) => {
           </small>
         </div>
         <div className={`align-self-start ml-2`}>
-          <button type="button" className="close" aria-label="Close" onClick={() => setIsOn(false)}>
+          <GenericButton className="close" aria-label="Close" onClick={() => setIsOn(false)}>
             <span aria-hidden="true">&times;</span>
-          </button>
+          </GenericButton>
         </div>
       </div>
     </div>

@@ -4,6 +4,7 @@ import React from 'react'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { logEvent, resetAnalyticsStore } from 'utils/analytics'
 import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
+import GenericButton from '../generic_button'
 
 interface ILoadButtonProps {
   army: ISavedArmyFromApi
@@ -22,8 +23,8 @@ export const LoadArmyBtn: React.FC<ILoadButtonProps> = ({ army }) => {
   }
 
   return (
-    <button className="btn btn-sm btn-primary mx-3" onClick={handleLoadClick}>
+    <GenericButton className="btn btn-sm btn-primary mx-3" onClick={handleLoadClick}>
       Load Army
-    </button>
+    </GenericButton>
   )
 }

@@ -9,6 +9,7 @@ import { DateTime } from 'luxon'
 import React, { useEffect, useState } from 'react'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { titleCase } from 'utils/textUtils'
+import GenericButton from '../generic_button'
 
 interface ISavedArmyCardProps {
   army: ISavedArmyFromApi
@@ -59,9 +60,9 @@ export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
           </div>
           <div className="d-flex justify-content-center">
             <LoadArmyBtn army={army} />
-            <button className="btn btn-sm btn-danger mx-3" onClick={openModal} disabled={isOffline}>
+            <GenericButton className="btn btn-sm btn-danger mx-3" onClick={openModal} disabled={isOffline}>
               Delete
-            </button>
+            </GenericButton>
             {modalIsOpen && (
               <DeleteArmyModal
                 modalIsOpen={modalIsOpen}

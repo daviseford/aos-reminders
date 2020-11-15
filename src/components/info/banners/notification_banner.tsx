@@ -1,3 +1,4 @@
+import GenericButton from 'components/input/generic_button'
 import React, { useEffect, useState } from 'react'
 import { centerContentClass } from 'theme/helperClasses'
 import { logClick, logDisplay } from 'utils/analytics'
@@ -47,9 +48,9 @@ export const NotificationBanner: React.FC<IBannerProps> = props => {
     <div className={`alert alert-${variant} text-center fade show d-flex my-0`} role="alert">
       <div className={`flex-grow-1 ${centerContentClass}`}>{children}</div>
       <div className={`align-self-start ml-2`}>
-        <button type="button" className="close" aria-label="Close" onClick={handleClose}>
+        <GenericButton className="close" aria-label="Close" onClick={handleClose}>
           <span aria-hidden="true">&times;</span>
-        </button>
+        </GenericButton>
       </div>
     </div>
   )

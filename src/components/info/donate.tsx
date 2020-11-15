@@ -1,3 +1,4 @@
+import GenericButton from 'components/input/generic_button'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'
@@ -103,9 +104,9 @@ const WalletCopyInput = ({ currentWallet, setCopied }: { currentWallet: string; 
     />
     <div className="input-group-append">
       <CopyToClipboard text={currentWallet} onCopy={setCopied}>
-        <button className="btn btn-light">
+        <GenericButton className="btn btn-light">
           <FaRegCopy />
-        </button>
+        </GenericButton>
       </CopyToClipboard>
     </div>
   </div>
