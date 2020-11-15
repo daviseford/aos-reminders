@@ -110,7 +110,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Warp Lightning Shield`,
-        desc: `Casting value of 6. Until you next hero phase, the first 3 wounds allocated to the caster in each phase are negated. If a fourth wound is allocated, then the caster suffers D6 mortal wounds and the spell is unbound (the first three wounds are still negated).`,
+        desc: `Casting value of 6. Until your next hero phase, the first 3 wounds allocated to the caster in each phase are negated. If a fourth wound is allocated, then the caster suffers D6 mortal wounds and the spell is unbound (the first three wounds are still negated).`,
         when: [HERO_PHASE],
       },
       {

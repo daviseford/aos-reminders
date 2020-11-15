@@ -168,7 +168,7 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `The Eye of Nurgle (Mortal)`,
-        desc: `Once per battle, you can roll 2D6 if there are any enemy models within 12" of the bearer. If the result is exactly 7, the the closest enemy model to the bearer is slain.`,
+        desc: `Once per battle, you can roll 2D6 if there are any enemy models within 12" of the bearer. If the result is exactly 7, the closest enemy model to the bearer is slain.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

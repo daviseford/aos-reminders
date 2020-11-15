@@ -59,7 +59,7 @@ const ChaosRuneshieldEffect = {
 }
 const OracularVisionsEffect = {
   name: `Oracular Visions`,
-  desc: `Pick a friendly Slaves to Darkness unit within 12" of this model. Until you next hero phase you can reroll saves on that unit.`,
+  desc: `Pick a friendly Slaves to Darkness unit within 12" of this model. Until your next hero phase you can reroll saves on that unit.`,
   when: [HERO_PHASE],
 }
 const DaemonforgedWeaponEffect = {
@@ -387,7 +387,7 @@ export const Units: TUnits = [
       },
       {
         name: `Iron-willed Overlord`,
-        desc: `Select a friendly Chaos Warriors unit within 18". Until your next hero phase you can reroll charge rolls and battleshock tests for that unit until you next hero phase.`,
+        desc: `Select a friendly Chaos Warriors unit within 18". Until your next hero phase you can reroll charge rolls and battleshock tests for that unit.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
