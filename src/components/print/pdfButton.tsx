@@ -1,5 +1,5 @@
 import GenericButton from 'components/input/generic_button'
-import { DownloadPDFModal } from 'components/print/pdfModal'
+import { DownloadPDFModal } from 'components/modals/download_pdf_modal'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { selectors } from 'ducks'
 import jsPDF from 'jspdf'
@@ -11,12 +11,13 @@ import useWindowSize from 'utils/hooks/useWindowSize'
 import { savePdf } from 'utils/pdf/generate/generatePdf'
 
 const DownloadPDFButton = () => {
-  const reminders = useGetReminders()
+  const { reminders } = useGetReminders()
   const { saveArmyToS3 } = useSavedArmies()
   const { isMobile } = useWindowSize()
 
   const currentArmy = useSelector(selectors.selectCurrentArmy)
   const hiddenReminders = useSelector(selectors.selectReminders)
+  const notes = useSelector(selectors.selectNotes)
 
   const [pdf, setPdf] = useState<{ default: jsPDF; compact: jsPDF } | null>(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -26,13 +27,13 @@ const DownloadPDFButton = () => {
       e.preventDefault()
 
       // Get the PDF ready to be saved
-      const pdfs = savePdf({ ...currentArmy, hiddenReminders, reminders })
+      const pdfs = savePdf({ ...currentArmy, hiddenReminders, reminders, notes })
 
       setPdf(pdfs)
       saveArmyToS3(currentArmy)
       setModalIsOpen(true)
     },
-    [currentArmy, hiddenReminders, reminders, saveArmyToS3]
+    [currentArmy, hiddenReminders, reminders, notes, saveArmyToS3]
   )
 
   const text = `Download${isMobile ? `` : ` PDF`}`

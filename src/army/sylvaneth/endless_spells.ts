@@ -38,10 +38,10 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `The Hive Nourishes`,
-        desc: `At the end of the hero phase, if this model is on the battlefield, the player who set it up can pick one of the effects below and immediately resolve that effect. The same unit cannot be picked to be affected by this ability more than once per hero phase. 
-        
+        desc: `At the end of the hero phase, if this model is on the battlefield, the player who set it up can pick one of the effects below and immediately resolve that effect. The same unit cannot be picked to be affected by this ability more than once per hero phase.
+
         Vital Venoms: Roll a D6 for each SYLVANETH unit wholly within 8" of this model. On a 2+ add 3" to that unit's normal moves and charge moves until the end of the turn.
-         
+
         Shielding Swarm: Roll a D6 for each SYLVANETH unit wholly within 8" of this model. On a 2+ reroll save rolls of 1 for attacks that target that unit until the end of the turn.`,
         when: [END_OF_HERO_PHASE],
       },

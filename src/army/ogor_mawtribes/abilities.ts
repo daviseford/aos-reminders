@@ -43,10 +43,10 @@ const Abilities: TAbilities = [
   {
     name: `Everwinter Prayers`,
     desc: `Each BEASTCLAW RAIDERS PRIEST in an Ogor Mawtribes army knows 1 Everwinter prayer from the Manifestations of the Eternal Snowstorm table in addition to any other prayers they know.
-    
-    In your hero phase, each friendly BEASTCLAW RAIDERS PRIEST that knows any Everwinter prayers can chant 1 Everwinter prayer. If they do so, make a prayer roll by rolling a dice. 
 
-    Each Everwinter prayer has a chanting value. If the prayer roll is equal to or greater than the chanting value of the Everwinter prayer, the prayer is answered. 
+    In your hero phase, each friendly BEASTCLAW RAIDERS PRIEST that knows any Everwinter prayers can chant 1 Everwinter prayer. If they do so, make a prayer roll by rolling a dice.
+
+    Each Everwinter prayer has a chanting value. If the prayer roll is equal to or greater than the chanting value of the Everwinter prayer, the prayer is answered.
 
     Each Everwinter prayer can only be attempted once per turn, regardless of how many BEASTCLAW RAIDERS PRIESTS know that Everwinter prayer.`,
     when: [HERO_PHASE],

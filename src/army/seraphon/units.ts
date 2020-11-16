@@ -163,10 +163,10 @@ export const Units: TUnits = [
       },
       {
         name: `Celestial Deliverance`,
-        desc: `The caster can attempt to cast this spell up to 3 times in the same hero phase. 
-        
+        desc: `The caster can attempt to cast this spell up to 3 times in the same hero phase.
+
         Casting value of 7 the first time it is attempted in a phase, a casting value of 8 the second time it is attempted in a phase, and a casting value of 9 the third time it is attempted in a phase.
-        
+
         Each time this spell is successfully cast, pick up to 3 different enemy units within 10" of the caster and visible to them, and roll 1 dice for each unit you pick. On a 2+, that unit suffers D3 mortal wounds, If that unit is a CHAOS DAEMON unit, on a 2+ it suffers 3 mortal wounds instead of D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
@@ -328,7 +328,7 @@ export const Units: TUnits = [
       {
         name: `Cosmic Engine`,
         desc: `At the start of your shooting phase, you can make 1 cosmic engine roll for 1 model with this ability. Roll 2D6 and look up the roll on the table. If there is a friendly SLANN within 12" of this model, you can choose to roll 3D6.
-        
+
         2-3: This model suffers D3 mortal wounds.
         4-8: Heal D3 wounds allocated to each friendly SERAPHON unit wholly within 12" of this model (roll separately for each unit).
         9-12: You can either pick 1 enemy unit within 24" this model that is visible to it and roll 1 dice, or roll 1 dice for each enemy unit within 12" of this model that is visible to it. On a 2+, that unit suffers D3 mortal wounds.
@@ -408,7 +408,7 @@ export const Units: TUnits = [
       {
         name: `Chameleon Ambush`,
         desc: `If you set this unit up in reserve, at the end of any of your movement phases, you can set up this unit on the battlefield more than 9" from any enemy units.
-    
+
         If this unit is on the battlefield at the end of your movement phase, you can remove it and say that it is hiding as a reserve unit. You can reveal it as described above at the end of any of your subsequent movement phases.`,
         when: [END_OF_MOVEMENT_PHASE],
       },

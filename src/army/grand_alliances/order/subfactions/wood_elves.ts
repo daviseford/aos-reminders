@@ -20,7 +20,7 @@ const getShadowdancerBaseEffects = (attacks: 1 | 2) => [
     Whirling Death: Add 1 to wound rolls for this unit's Weaving Blades and change their Rend characteristic to -1.
 
     Storm of Blades: Add ${attacks} to the Attacks characteristic of this unit's Weaving Blades.
-    
+
     The Shadow's Coil: Add 2 to this unit's save rolls.`,
     when: [START_OF_HERO_PHASE],
   },
@@ -136,7 +136,7 @@ export const LegacyWoodElvesUnits: TUnits = [
       {
         name: `Hawk-eyed Archers`,
         desc: `Each time this unit shoots its Longbows, you can declare that it will make either Fast Shots or Precise Shots:
-        
+
         Fast Shots: Add 1 to the Attacks characteristic of this unit's Longbows until the end of this phase. In addition, for each hit roll of 6+, the attacking model can make one additional attack with its Longbow.
 
         Precise Shots: Add 1 to the Damage characteristic of this unit's Longbows until the end of this phase. In addition, for each wound roll of 6+, that attack is resolved with a Rend characteristic of -2 instead of '-'. `,

@@ -1,5 +1,8 @@
 import { ICurrentArmy } from 'types/army'
 import { IReminder } from 'types/data'
+import { INote } from 'types/notes'
+
+export const EMPTY_NOTE_TEXT = `Empty note`
 
 type TPdfStylePdf =
   | 'army'
@@ -8,6 +11,7 @@ type TPdfStylePdf =
   | 'armyName'
   | 'break'
   | 'desc'
+  | 'note'
   | 'phase'
   | 'spacer'
   | 'title'
@@ -21,6 +25,11 @@ export type TPdfStyles = Record<
     fontSize: number
     spacing: number
     style: TPdfTextStyle
+    /**
+     * Optional R, G, B values
+     * Default is [0, 0, 0] (black)
+     */
+    textColor?: number[]
   }
 >
 
@@ -35,4 +44,5 @@ export interface ICompactPdfTextObj {
 export interface IPrintPdf extends ICurrentArmy {
   hiddenReminders: string[]
   reminders: IReminder
+  notes: INote[]
 }

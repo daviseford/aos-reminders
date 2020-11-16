@@ -48,8 +48,8 @@ const EndlessSpells: TEndlessSpells = [
       },
       {
         name: `Gaze Not into its Depths`,
-        desc: `After this model is set up, and after this model has moved, roll 6 dice for each HERO within 6" of this model (roll separately for each HERO). For each 6, that HERO suffers a number of mortal wounds equal to the number of 6s that were rolled for that HERO. This ability has no effect on Chaos Slaanesh Heroes. 
-  
+        desc: `After this model is set up, and after this model has moved, roll 6 dice for each HERO within 6" of this model (roll separately for each HERO). For each 6, that HERO suffers a number of mortal wounds equal to the number of 6s that were rolled for that HERO. This ability has no effect on Chaos Slaanesh Heroes.
+
         For example, if you rolled one 6 for a HERO, that HERO would suffer 1 x 1 = 1 mortal wound. If you rolled two 6s, that HERO would suffer 2 x 2 = 4 mortal wounds, if you rolled three 6s, that HERO would suffer 3 x 3 = 9 mortal wounds, and so on.`,
         when: [START_OF_ROUND],
       },

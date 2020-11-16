@@ -231,8 +231,8 @@ const Artifacts: TArtifacts = [
     effects: [
       {
         name: `Bindings of Slaanesh (Godseekers)`,
-        desc: `You can pick 1 enemy hero within 3" of the bearer and roll 2D6. If the roll is greater than the targets move characteristic, subtract 1 from hit rolls for attacks made by that enemy. 
-        
+        desc: `You can pick 1 enemy hero within 3" of the bearer and roll 2D6. If the roll is greater than the targets move characteristic, subtract 1 from hit rolls for attacks made by that enemy.
+
                In addition, if the roll is greater than the target's wounds characteristic that enemy suffers D3 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },

@@ -19,14 +19,14 @@ const Abilities: TAbilities = [
   },
   {
     name: `Masters of Destiny`,
-    desc: `Before rolling any dice for a TZEENTCH unit, you can use one or more of the remaining Destiny Dice from your pool in their stead; the result of the roll you would have made is automatically substituted with the result shown on the Destiny Dice you have chosen to use. 
-    
+    desc: `Before rolling any dice for a TZEENTCH unit, you can use one or more of the remaining Destiny Dice from your pool in their stead; the result of the roll you would have made is automatically substituted with the result shown on the Destiny Dice you have chosen to use.
+
     Each Destiny Dice spent only allows you to replace a single dice roll. If you want to replace a 2D6 roll (such as a casting roll or charge roll), you must spend 2 Destiny Dice. In addition, any rolls that have been replaced count as unmodified rolls and cannot be rerolled. They also cannot be modified, with the following two exceptions:
 
     If you spend a Destiny Dice to replace a save roll, the result of that Destiny Dice is modified by the Rend characteristic of the attack as normal.
-    
+
     If you spend a Destiny Dice to replace a battleshock test, the result of that Destiny Dice is modified by the number of models slain from that unit as normal.
-    
+
     Destiny Dice can be spent in place of the following rolls:
     Casting, Unbinding, Dispelling, Run, Charge, Hit, Wound, Save, Damage characteristic of missiles/melee weapons, Battleshock`,
     when: [DURING_GAME],

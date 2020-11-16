@@ -1,4 +1,4 @@
-import UpdateArmyNameModal from 'components/input/savedArmies/update_name_modal'
+import UpdateArmyNameModal from 'components/modals/update_name_modal'
 import React, { useState } from 'react'
 import { IconContext } from 'react-icons'
 import { FaPencilAlt } from 'react-icons/fa'
@@ -8,18 +8,17 @@ type TUpdateName = React.FC<{ id: string; armyName: string; className?: string; 
 const UpdateNameButton: TUpdateName = ({ id, armyName, className = '', size = '1rem' }) => {
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
-  const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
-    openModal()
+    setModalIsOpen(true)
   }
 
   return (
     <>
       <IconContext.Provider value={{ size }}>
-        <FaPencilAlt className={className} onClick={handleClick} />
+        <FaPencilAlt className={`${className} d-print-none`} onClick={handleClick} />
         {modalIsOpen && (
           <UpdateArmyNameModal
             modalIsOpen={modalIsOpen}

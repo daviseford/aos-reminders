@@ -77,8 +77,8 @@ export const LegacyDuardinUnits: TUnits = [
       },
       {
         name: `Mining Cart`,
-        desc: `A unit of Miners can have one Mining Cart. A Mining Cart has a Wounds characteristic of 4 instead of 1. It is pulled by a stubborn Mule that will Bite any foe that annoys it - it cannot attack with any other weapons. 
-        
+        desc: `A unit of Miners can have one Mining Cart. A Mining Cart has a Wounds characteristic of 4 instead of 1. It is pulled by a stubborn Mule that will Bite any foe that annoys it - it cannot attack with any other weapons.
+
         Whilst a unit of Miners includes a Mining Cart they gain the Blasting Charges weapon. Some Mining Carts also carry Steam Harpoons.`,
         when: [DURING_GAME],
       },

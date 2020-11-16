@@ -107,12 +107,12 @@ export const LegacyEldritchUnits: TUnits = [
       },
       {
         name: `Flames of the Phoenix`,
-        desc: `Casting value of 7. Pick a visible enemy unit within 18". That unit suffers a mortal wound as it is set ablaze. 
-        
-        Then, roll another dice - if the result is a 3 or less the flames die out and this spell ends. 
-        
-        On a 4 or more, however, the unit suffers an additional 2 mortal wounds and continues to burn; roll another dice - if the result is a 3 or less the fire dies out, but on a 4 or more, the unit suffers an additional 3 mortal wounds and the conflagration continues. 
-        
+        desc: `Casting value of 7. Pick a visible enemy unit within 18". That unit suffers a mortal wound as it is set ablaze.
+
+        Then, roll another dice - if the result is a 3 or less the flames die out and this spell ends.
+
+        On a 4 or more, however, the unit suffers an additional 2 mortal wounds and continues to burn; roll another dice - if the result is a 3 or less the fire dies out, but on a 4 or more, the unit suffers an additional 3 mortal wounds and the conflagration continues.
+
         Keep rolling extra dice in this way, inflicting 1 more mortal wound than last time you rolled, until either the flames die out or the unit does!`,
         when: [HERO_PHASE],
         spell: true,

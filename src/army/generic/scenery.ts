@@ -182,23 +182,23 @@ const DefaultScenery: TScenery = [
       {
         name: GARRISONS,
         desc: `Units can be set up as a garrison if this terrain is wholly within your territory.
-              
+
                The models garrisoning this terrain feature must have a combined wounds characteristic of 30 or less.`,
         when: [DURING_SETUP],
       },
       {
         name: GARRISONS,
         desc: `A unit that is wholly within 6" of this terrain and no enemy models within 3" of this terrain may garrison instead of moving.
-        
+
                A unit may exit the terrain if it can be set up wholly within 6" of the terrain and more than 3" from enemy models. This counts as the unit's move.
-               
+
                The models garrisoning this terrain feature must have a combined wounds characteristic of 30 or less.`,
         when: [MOVEMENT_PHASE],
       },
       {
         name: GARRISONS,
         desc: `A garrisoned unit is assumed to be in cover. In addition, subtract 1 from hit rolls against a garrisoned unit.
-              
+
               Models cannot finish any move onto this terrain feature.`,
         when: [DURING_GAME],
       },
@@ -216,7 +216,7 @@ const PenumbralEffects: TEffects[] = [
   {
     name: `Repercussions of the Necroquake`,
     desc: `After determining who has the first turn, roll a D6 to determine the function of all Penumbral terrain features for the duration of the battle:
-             
+
       1-3: Orrery of Obfuscation.
       4-6: Orrery of Illumination`,
     when: [TURN_ONE_START_OF_ROUND],
@@ -296,7 +296,7 @@ const OfficialScenery: TScenery = [
       {
         name: `Rune-locked Vault`,
         desc: `1 friendly hero within 1" of this terrain feature can roll a D6. On a 1, the hero suffers D3 mortal wounds. On a 2-5, no effect. On a 6 roll a D3 to determine the effect:
-              
+
                1 - Add 1 to the damage characteristic of one of the hero's melee weapons for the remainder of the battle.
                2 - Hero can attempt to cast 1 arcane bolt spell as if it were a wizard. This counts as 1 extra spell on wizards.
                3 - Immeadiately set up an endless spell wholly within 12" of the hero as if they had cast it.`,
@@ -445,7 +445,7 @@ const OfficialScenery: TScenery = [
       {
         name: `Crenellated Battlements`,
         desc: `A model with a wounds characteristic of 10+ cannot garrison this terrain unless the terrain has crenellated battlements.
-              
+
                If this terrain has crenellated battlements, it can be garrisoned by a single monster that can fly in addition to the other models that can garrison it.`,
         when: [DURING_SETUP, MOVEMENT_PHASE],
       },

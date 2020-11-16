@@ -1,6 +1,6 @@
 import Spinner from 'components/helpers/spinner'
 import GenericButton from 'components/input/generic_button'
-import GenericModal from 'components/page/genericModal'
+import GenericModal from 'components/modals/generic/generic_modal'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { selectors } from 'ducks'
@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import { ISavedArmy } from 'types/savedArmy'
 import { logEvent } from 'utils/analytics'
 import { prepareArmy } from 'utils/armyUtils'
+import useGetReminders from 'utils/hooks/useGetReminders'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -18,6 +19,7 @@ interface IModalComponentProps {
 }
 
 export const ShareArmyModal: React.FC<IModalComponentProps> = ({ closeModal, modalIsOpen }) => {
+  const { relevantNotes } = useGetReminders()
   const { saveLink } = useSavedArmies()
   const { theme, isDark } = useTheme()
 
@@ -29,7 +31,7 @@ export const ShareArmyModal: React.FC<IModalComponentProps> = ({ closeModal, mod
   const [copied, setCopied] = useState(false)
 
   const handleLinkGeneration = async () => {
-    const payload = prepareArmy({ ...army, hiddenReminders } as ISavedArmy, 'save')
+    const payload = prepareArmy({ ...army, hiddenReminders, notes: relevantNotes } as ISavedArmy, 'save')
     const url = await saveLink(payload as ISavedArmy)
 
     setLink(url)

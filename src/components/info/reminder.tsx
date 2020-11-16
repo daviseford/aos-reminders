@@ -1,15 +1,20 @@
 import { CardHeader } from 'components/info/card'
+import { NoteDisplay, NoteInput, NoteMenu } from 'components/info/note'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
+import GenericDestructiveModal from 'components/modals/generic/generic_destructive_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
+import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { selectors, visibilityActions } from 'ducks'
 import { isEqual, sortBy } from 'lodash'
-import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
 import { useDispatch, useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
+import useNote from 'utils/hooks/useNote'
+import useWindowSize from 'utils/hooks/useWindowSize'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
@@ -105,16 +110,20 @@ export const Reminder: React.FC<IReminderProps> = props => {
                   const isHidden = !!hidden.find(k => action.id === k)
 
                   return (
-                    <Draggable draggableId={action.id} index={i} key={action.id}>
-                      {provided => (
-                        <ActionText
-                          {...action}
-                          isVisible={!isHidden}
-                          key={action.id}
-                          draggableProps={provided}
-                        />
-                      )}
-                    </Draggable>
+                    <Fragment key={i}>
+                      {/* Add a spacer between rules */}
+                      {i !== 0 && <hr className={`${theme.reminderHr} mx-1`} />}
+                      <Draggable draggableId={action.id} index={i} key={action.id}>
+                        {provided => (
+                          <ActionText
+                            {...action}
+                            isVisible={!isHidden}
+                            key={action.id}
+                            draggableProps={provided}
+                          />
+                        )}
+                      </Draggable>
+                    </Fragment>
                   )
                 })}
               </div>
@@ -137,22 +146,27 @@ interface IActionTextProps extends TTurnAction {
 const ActionText = (props: IActionTextProps) => {
   const { isVisible, desc, draggableProps, id } = props
   const dispatch = useDispatch()
+  const { isSubscribed } = useSubscription()
   const { isGameMode } = useAppStatus()
-
+  const { isMobile } = useWindowSize()
   const handleVisibility = () => dispatch(!isVisible ? showReminder(id) : hideReminder(id))
+
+  const noteProps = useNote(id)
 
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
       <div className={`mb-2 ${!isVisible ? `d-print-none` : ``}`}>
-        <div className="d-flex mb-1">
+        <div className={`d-flex ${isMobile && isVisible ? 'flex-column' : ''} mb-1`}>
           <div className="flex-grow-1">
             <div {...draggableProps.dragHandleProps}>
               <ActionTitle {...props} />
             </div>
           </div>
-          <div className="px-2 d-print-none">
+          <div className={`flex-shrink-0 ${isMobile ? 'align-self-center' : 'px-2'} d-print-none`}>
+            {isVisible && !isGameMode && <NoteMenu {...noteProps} />}
             {isGameMode ? (
               <VisibilityToggle
+                appearance={'icon'}
                 isVisible={isVisible}
                 setVisibility={handleVisibility}
                 withConfirmation={true}
@@ -160,12 +174,29 @@ const ActionText = (props: IActionTextProps) => {
                 size={1}
               />
             ) : (
-              <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
+              <VisibilityToggle
+                appearance={'pill'}
+                pillText={'Rule'}
+                className={`badge badge-pill badge-light`}
+                isVisible={isVisible}
+                setVisibility={handleVisibility}
+              />
             )}
           </div>
         </div>
 
         {isVisible && <ActionDescription text={desc} />}
+        {isVisible && !isGameMode && isSubscribed && <NoteInput {...noteProps} />}
+        {isVisible && isSubscribed && <NoteDisplay {...noteProps} />}
+
+        {noteProps.modal.isOpen && (
+          <GenericDestructiveModal
+            isOpen={noteProps.modal.isOpen}
+            onConfirm={noteProps.remove}
+            closeModal={noteProps.modal.close}
+            headerText={'Delete this note?'}
+          />
+        )}
       </div>
     </div>
   )
@@ -197,7 +228,7 @@ const ActionDescription = (props: { text: string }) => {
   return (
     <>
       {splitText.map((text, i) => (
-        <p className={`EntryText ${theme.text}`} key={i}>
+        <p className={theme.text} key={i}>
           {text}
         </p>
       ))}

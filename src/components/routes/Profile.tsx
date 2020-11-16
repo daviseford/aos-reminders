@@ -1,8 +1,9 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
-import { CancelPaypalSubscriptionModal } from 'components/input/paypal_cancellation_modal'
+import GenericButton from 'components/input/generic_button'
 import { SelectOne } from 'components/input/select'
-import { CancelStripeSubscriptionModal } from 'components/input/stripe_cancellation_modal'
+import { CancelPaypalSubscriptionModal } from 'components/modals/paypal_cancellation_modal'
+import { CancelStripeSubscriptionModal } from 'components/modals/stripe_cancellation_modal'
 import Contact from 'components/page/contact'
 import { GiftSubscriptions } from 'components/payment/giftSubscriptions'
 import { useSavedArmies } from 'context/useSavedArmies'
@@ -148,9 +149,9 @@ const CancelBtn = () => {
 
   return (
     <>
-      <button className={btnClass} onClick={openModal}>
+      <GenericButton className={btnClass} onClick={openModal}>
         Cancel Subscription
-      </button>
+      </GenericButton>
       {modalIsOpen && <ModelComponent modalIsOpen={modalIsOpen} closeModal={closeModal} />}
     </>
   )
@@ -314,7 +315,7 @@ const Help = () => {
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
-        <h4>Need help?</h4>
+        <h4>Contact Us</h4>
       </div>
       <div className={theme.cardBody}>
         <Contact size="normal" />

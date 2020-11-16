@@ -69,19 +69,19 @@ const Abilities: TAbilities = [
     name: `Eye of the Gods`,
     desc: `If any attacks made by a friendly Slaves to Darkness hero with the Eye of the Gods keyword kills a hero or monster you can make a 2D6 roll for that hero. Apply the reward based on the result for the rest of the battle. Duplicate rewards are treated as 'Snubbed by the Gods' instead.
            2: Spawndom
-           3: Slaughterer's Strength 
+           3: Slaughterer's Strength
            4: Murderous Mutation
-           5: Iron Flesh 
-           6: Flames of Chaos 
+           5: Iron Flesh
+           6: Flames of Chaos
            7: Snubbed by the Gods
            8: Unholy Resilience
-           9-10: Daemonic Legions   
+           9-10: Daemonic Legions
            11-12: Dark Apotheosis`,
     when: [END_OF_COMBAT_PHASE],
   },
   {
     name: `Eye of the Gods: Spawndom`,
-    desc: `You can add 1 Slaves to Darkness Chaos Spawn to your army. Set up the new model within 1" of the hero then remove the hero as slain. 
+    desc: `You can add 1 Slaves to Darkness Chaos Spawn to your army. Set up the new model within 1" of the hero then remove the hero as slain.
            If you don't add a spawn, the hero suffers D3 mortal wounds instead.`,
     when: [END_OF_COMBAT_PHASE],
   },
@@ -122,11 +122,11 @@ const Abilities: TAbilities = [
   },
   {
     name: `Eye of the Gods: Dark Apotheosis`,
-    desc: `You can add 1 Slaves to Darkness Daemon Prince to your army. Set up the new model within 1" of the hero then remove the hero from play. 
-           The Daemon Prince has the same Mark of Chaos as the hero (select a new one if the hero was Undivided). 
-           The Daemon Prince keeps any command traits and artefacts owned by the hero. 
-           If the hero was a wizard this Daemon Prince is also a wizard making the same number of casting, dispelling, and unbinding rolls while also knowing the same spells as the hero. 
-           If the hero was your general, the Daemon Prince is now your general. 
+    desc: `You can add 1 Slaves to Darkness Daemon Prince to your army. Set up the new model within 1" of the hero then remove the hero from play.
+           The Daemon Prince has the same Mark of Chaos as the hero (select a new one if the hero was Undivided).
+           The Daemon Prince keeps any command traits and artefacts owned by the hero.
+           If the hero was a wizard this Daemon Prince is also a wizard making the same number of casting, dispelling, and unbinding rolls while also knowing the same spells as the hero.
+           If the hero was your general, the Daemon Prince is now your general.
            If you choose not to add a Daemon Prince, this hero can heal D3 wounds instead.`,
     when: [END_OF_COMBAT_PHASE],
   },

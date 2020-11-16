@@ -13,6 +13,7 @@ import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { logEvent } from 'utils/analytics'
 import { isValidFactionName, prepareArmy, prepareArmyForS3 } from 'utils/armyUtils'
 import { isDev } from 'utils/env'
+import useGetReminders from 'utils/hooks/useGetReminders'
 import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
 import {
   LocalFavoriteFaction,
@@ -23,7 +24,7 @@ import {
 } from 'utils/localStore'
 import { unTitleCase } from 'utils/textUtils'
 
-export type TLoadedArmy = { id: string; armyName: string } | null
+type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
 
 interface ISavedArmiesContext {
@@ -59,6 +60,7 @@ const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undef
 const SavedArmiesProvider: React.FC = ({ children }) => {
   const { isOffline } = useAppStatus()
   const { user } = useAuth0()
+  const { relevantNotes } = useGetReminders()
   const { subscription, isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
   const [savedArmiesPopulated, setSavedArmiesPopulated] = useState(false)
@@ -86,7 +88,12 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       const { id, armyName, userName, createdAt, updatedAt, ...loaded } = original
 
       const hiddenReminders = store.getState().visibility.reminders
-      const current = prepareArmy({ ...currentArmy, hiddenReminders, armyName }, 'update') as ISavedArmy
+      const current = prepareArmy(
+        { ...currentArmy, hiddenReminders, armyName, notes: relevantNotes },
+        'update'
+      ) as ISavedArmy
+
+      console.log(current, loaded)
 
       // This fixes an issue where the names are not in exactly the same order
       loaded.allyFactionNames = sortBy(loaded.allyFactionNames || [])
@@ -108,7 +115,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
 
       return { hasChanges: changedKeys.length > 0 || hasOrderChanges, changedKeys }
     },
-    [hasOrderChanges, loadedArmy, savedArmies, savedArmiesPopulated, setLoadedArmy]
+    [hasOrderChanges, loadedArmy, relevantNotes, savedArmies, savedArmiesPopulated, setLoadedArmy]
   )
 
   const loadSavedArmies = useCallback(async () => {

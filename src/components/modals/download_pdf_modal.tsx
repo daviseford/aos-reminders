@@ -1,5 +1,4 @@
-import GenericButton from 'components/input/generic_button'
-import GenericModal from 'components/page/genericModal'
+import GenericTwoButtonModal from 'components/modals/generic/generic_two_button_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
@@ -31,7 +30,6 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
   const { theme } = useTheme()
   const defaultName = getDefaultName(loadedArmy ? loadedArmy.armyName : factionName)
   const [fileName, setFileName] = useState(defaultName)
-  const [processing, setProcessing] = useState(false)
   const [layout, setLayout] = useState<TSavePdfType>('compact')
 
   useEffect(() => {
@@ -51,24 +49,23 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
     }
   }
 
-  const handleSaveClick = (e?: React.MouseEvent) => {
-    e?.preventDefault?.()
-    setProcessing(true)
+  const handleSaveClick = async () => {
     pdf[layout].save(`${fileName}.pdf`)
     if (isOnline) logDownloadEvent(factionName, layout)
-    setProcessing(false)
     setFileName('')
-    closeModal()
   }
 
   return (
-    <GenericModal
-      isProcessing={processing}
-      isOpen={modalIsOpen}
+    <GenericTwoButtonModal
       closeModal={closeModal}
-      label="Save Army Modal"
+      confirmBtnClass={theme.modalConfirmClass}
+      confirmIcon={MdFileDownload}
+      confirmText={'Download'}
+      denyBtnClass={theme.modalDangerClass}
+      isOpen={modalIsOpen}
+      onConfirmAsync={handleSaveClick}
     >
-      <div className="row">
+      <div className="row mx-3">
         <div className="col">
           <form>
             <div className="form-group">
@@ -126,18 +123,6 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
           </span>
         </div>
       </div>
-
-      <div className="row">
-        <div className="col px-0">
-          <GenericButton className={theme.modalConfirmClass} onClick={handleSaveClick}>
-            <MdFileDownload className="mr-2" /> Download
-          </GenericButton>
-
-          <GenericButton className={theme.modalDangerClass} onClick={closeModal}>
-            Cancel
-          </GenericButton>
-        </div>
-      </div>
-    </GenericModal>
+    </GenericTwoButtonModal>
   )
 }

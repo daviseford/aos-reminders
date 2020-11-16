@@ -173,6 +173,14 @@ export const logDisplay = (element: string) => {
   }
 }
 
+export const logNote = (action: string, factionName: string) => {
+  logToGA({
+    category: 'Note',
+    action: `${action}-Note-${factionName}`,
+    label: factionName,
+  })
+}
+
 export const logSubscription = (planTitle: string, provider: 'stripe' | 'paypal') => {
   const plan = SubscriptionPlans.find(x => x.title === planTitle)
   if (!isProd || !plan) return

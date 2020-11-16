@@ -1,3 +1,4 @@
+import GenericButton from 'components/input/generic_button'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import React from 'react'
@@ -22,8 +23,8 @@ export const LoadArmyBtn: React.FC<ILoadButtonProps> = ({ army }) => {
   }
 
   return (
-    <button className="btn btn-sm btn-primary mx-3" onClick={handleLoadClick}>
+    <GenericButton className="btn btn-sm btn-primary mx-3" onClick={handleLoadClick}>
       Load Army
-    </button>
+    </GenericButton>
   )
 }

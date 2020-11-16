@@ -9,6 +9,9 @@ export const selectAllyArmies = (state: IStore) => state.army.allyArmies
 // Faction Name
 export const selectFactionName = (state: IStore) => state.factionNames.factionName
 
+// Notes
+export const selectNotes = (state: IStore) => state.notes.notes
+
 // Realmscape
 export const selectOriginRealm = (state: IStore) => state.realmscape.origin_realm
 export const selectRealmscape = (state: IStore) => state.realmscape.realmscape

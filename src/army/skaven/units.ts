@@ -434,7 +434,7 @@ export const Units: TUnits = [
       {
         name: `Realm Guide`,
         desc: `Instead of setting up this model on the battlefield, you can place this model to one side and say that it is moving through the cracks in reality as a reserve unit.
-        
+
         Any units moving through the cracks in reality that are not set up on the battlefield before the start of the fourth battle round are slain.`,
         when: [START_OF_SETUP, TURN_FOUR_START_OF_ROUND],
       },
@@ -653,9 +653,9 @@ export const Units: TUnits = [
       {
         name: `Plague Prayers`,
         desc: `In your hero phase, this model can chant one of the following prayers. If it does so, pick 1 of the prayers and then make a prayer roll by rolling a dice. On a 1, this model suffers 1 mortal wound and the prayer is not answered. On a 2, the prayer is not answered. On a 3+ the prayer is answered.
-        
+
         Disease-disease!: If this prayer is answered, pick 1 enemy unit within 13" of this model, and roll 1 dice for each model in that unit. For each 6, that unit suffers 1 mortal wound. This prayer has no effect on CLANS PESTILENS units.
-        
+
         Pestilence-pestilence!: If this prayer is answered, pick a point on the battlefield that is within 13" of this model. Roll a D6 for each unit within 3" of that point. On 4+ that unit suffers D3 mortal wounds. This prayer has no effect on CLANS PESTILENS units.`,
         when: [HERO_PHASE],
       },
@@ -675,9 +675,9 @@ export const Units: TUnits = [
       {
         name: `Noxious Prayers`,
         desc: `In your hero phase, this model can chant one of the following prayers. If it does so, pick 1 of the prayers and then make a prayer roll by rolling a dice. On a 1, this model suffers 1 mortal wound and the prayer is not answered. On a 2, the prayer is not answered. On a 3+ the prayer is answered.
-        
+
         Filth-filth!: If this prayer is answered, pick 1 friendly CLANS PESTILENS unit wholly within 13" of this model. You can reroll wound rolls for attacks made by that unit until your next hero phase.
-        
+
         Rabid-rabid!: If this prayer is answered, pick 1 friendly CLANS PESTILENS unit wholly within 13" of this model. Add 1 to the Attacks characteristic of melee weapons used by that unit until your next hero phase. You cannot pick the same unit to be affected by this prayer more than once per hero phase.`,
         when: [HERO_PHASE],
       },

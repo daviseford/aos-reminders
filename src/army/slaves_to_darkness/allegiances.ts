@@ -86,7 +86,7 @@ const Allegiances: TAllegiances = [
       },
       {
         name: `Twisted Dominion`,
-        desc: `If a friendly Despoilers Daemon Prince finishes a move within 6" of a terrain feature, you can give that terrain feature the Pitch-black and Nightmare Chasm scenery rules until you next hero phase. Despoilers Daemon Princes and Despoilers monsters are unaffected by these scenery rules.`,
+        desc: `If a friendly Despoilers Daemon Prince finishes a move within 6" of a terrain feature, you can give that terrain feature the Pitch-black and Nightmare Chasm scenery rules until your next hero phase. Despoilers Daemon Princes and Despoilers monsters are unaffected by these scenery rules.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE],
       },
       {

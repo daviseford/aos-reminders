@@ -1,7 +1,9 @@
 @import "./theme.scss";
 
 /* Make sure our document fills the page - important for dark theme! */
-html, body, #root {
+html,
+body,
+#root {
     margin: 0;
     height: 100%;
 }
@@ -9,13 +11,14 @@ html, body, #root {
 /* Elements */
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+        "Droid Sans", "Helvetica Neue", sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
 }
 
 small {
@@ -33,7 +36,7 @@ small {
 }
 
 .DisclaimerText {
-  font-size: 11px;
+    font-size: 11px;
 }
 
 .text-white-75 {
@@ -41,7 +44,7 @@ small {
 }
 
 .border-light-gray {
-    border:1px solid $themeLightGray;
+    border: 1px solid $themeLightGray;
 }
 
 .bg-themeDarkBluePrimary {
@@ -54,7 +57,7 @@ small {
     background-color: $themeLightBlue;
 }
 .bg-profileHeader {
-    background-color: rgba(28,117,149, .15); // $themeLightBlue
+    background-color: rgba(28, 117, 149, 0.15); // $themeLightBlue
 }
 .bg-themeLightGray {
     background-color: $themeLightGray;
@@ -71,6 +74,14 @@ small {
     margin-block-end: 0px;
 }
 
+.ReminderHr {
+    background-color: rgba(255, 255, 255, 0.15);
+    &-Dark {
+        @extend .ReminderHr;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+}
+
 .SelectArmy {
     margin-block-start: 2rem;
     margin-inline-end: 5%;
@@ -83,8 +94,35 @@ small {
     margin-block-start: 2px;
 }
 
-/* Modal */
+.NoteInput {
+    min-width: 45%;
+    width: 95%;
+    height: 7em;
+    resize: both;
+    padding: 8px;
+    box-sizing: border-box;
+}
 
+.NoteText {
+    font-style: italic;
+}
+
+.NoteBorder {
+    max-width: 95%;
+    width: max-content;
+    border: 1px dashed $themeDarkBlueSecondary;
+    border-width: 1px;
+    border-style: dashed;
+    border-color: $themeDarkBlueSecondary;
+
+    &-Dark {
+        @extend .NoteBorder;
+        border-width: 2px;
+        border-color: $themeLightGray;
+    }
+}
+
+/* Modal */
 .Modal-Light {
     padding: 1.5%;
     position: absolute;
@@ -94,33 +132,28 @@ small {
     bottom: auto;
     margin-right: -50%;
     transform: translate(-50%, -50%);
-    border:1px solid #000000;
+    border: 1px solid #000000;
     background-color: rgba(255, 255, 255, 1);
 }
 
 .Modal-Dark {
     @extend .Modal-Light;
-    border:1px solid $themeLightGray;
+    border: 1px solid $themeLightGray;
     background-color: $themeDarkBlueSecondary;
 }
 
 .Modal-Transparent {
     @extend .Modal-Light;
-    background-color: rgba(0, 0, 0, 0.0);
+    background-color: rgba(0, 0, 0, 0);
 }
 
-.Overlay-Light {
+.Modal-Overlay {
     position: fixed;
     top: 0px;
     left: 0px;
     right: 0px;
     bottom: 0px;
-    background-color: rgba(255, 255, 255, 0.75);
-}
-
-.Overlay-Dark {
-    @extend .Overlay-Light;
-    background-color: rgba(0, 0, 0, 0.7);
+    background-color: rgba(0, 0, 0, 0.9);
 }
 
 /* Dropzone */
@@ -137,34 +170,33 @@ small {
     background-color: #fafafa;
     color: #bdbdbd;
     outline: none;
-    transition: border .24s ease-in-out;
-  }
-  
-  .dropzone:focus {
-    border-color: #2196f3;
-  }
-  
-  .dropzone.disabled {
-    opacity: 0.6;
-  }
+    transition: border 0.24s ease-in-out;
+}
 
-  /* Dropzone Dark Mode */
+.dropzone:focus {
+    border-color: #2196f3;
+}
+
+.dropzone.disabled {
+    opacity: 0.6;
+}
+
+/* Dropzone Dark Mode */
 .dropzone-dark {
     @extend .dropzone;
-    background-color:black;
+    background-color: black;
     color: whitesmoke;
-  }
-  
-  .dropzone-dark:focus {
+}
+
+.dropzone-dark:focus {
     border-color: #2196f3;
-  }
-  
-  .dropzone-dark.disabled {
+}
+
+.dropzone-dark.disabled {
     opacity: 0.6;
-  }
+}
 
-
-  /* IFrame sizes for stats */
+/* IFrame sizes for stats */
 .StatsIFrame {
     height: 900px;
 }
@@ -172,6 +204,10 @@ small {
 @media (max-width: 768px) {
     .StatsIFrame {
         height: 920px;
+    }
+    .Modal-Light {
+        padding-top: 4%;
+        padding-bottom: 4%;
     }
 }
 
@@ -186,6 +222,10 @@ small {
     .StatsIFrame {
         height: 600px;
     }
+    .Modal-Light {
+        padding-top: 6%;
+        padding-bottom: 6%;
+    }
 }
 
 @media (max-width: 395px) {
@@ -194,6 +234,10 @@ small {
     }
     .StatsIFrame {
         height: 540px;
+    }
+    .Modal-Light {
+        padding-top: 5%;
+        padding-bottom: 5%;
     }
 }
 
@@ -213,12 +257,14 @@ small {
 }
 
 @media print {
-
-    .text-white, .text-light, .text-white-50, .text-white-75 {
+    .text-white,
+    .text-light,
+    .text-white-50,
+    .text-white-75 {
         color: black !important;
     }
 
-    header>h1 {
+    header > h1 {
         font-size: 1.5rem;
     }
 
@@ -253,5 +299,4 @@ small {
     .ReminderEntry {
         font-size: 0.9rem;
     }
-
 }

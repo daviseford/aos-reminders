@@ -17,7 +17,7 @@ import {
 const SoulLinkedEffect = {
   name: `Soul-linked`,
   desc: `This spell is soul-linked to the caster. When predatory endless spells are moved at the start of the battle round, any that are soul-linked to a caster are moved first, followed by any endless spells that are not. Soul-linked spells are always moved by the player whose army includes the caster the spell is soul-linked to. The player that won the roll-off to determine who moves an endless spell first must move all their soul-linked spells first, followed by their opponent.
-  
+
   You must subtract 1 from casting rolls for a WIZARD that is soul-linked to an endless spell. A caster cannot be soul-linked to more than one endless spell at the same time. If the caster is slain, then any endless spell they are soul-linked to is dispelled.`,
   when: [START_OF_ROUND],
 }

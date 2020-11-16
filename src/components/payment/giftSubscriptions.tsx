@@ -253,13 +253,12 @@ const PlanComponent: React.FC<IPlanProps> = ({ supportPlan }) => {
       <td>${(parseFloat(supportPlan.cost) * quantity).toFixed(2)}</td>
 
       <td>
-        <button
-          type="button"
+        <GenericButton
           className={`btn btn ${isMobile ? `btn-sm` : ``} btn-block btn-primary`}
           onClick={isAuthenticated ? handleCheckout : login}
         >
           {isMobile ? `Buy` : `Purchase`}
-        </button>
+        </GenericButton>
       </td>
     </tr>
   )

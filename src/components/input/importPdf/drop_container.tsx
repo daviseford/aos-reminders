@@ -1,4 +1,5 @@
 import { LinkNewTab } from 'components/helpers/link'
+import GenericButton from 'components/input/generic_button'
 import ImportDropzone from 'components/input/importPdf/drop_zone'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
@@ -90,9 +91,9 @@ const ErrorAlert = (props: TImportError) => {
           </small>
         </div>
         <div className={`align-self-start ml-2`}>
-          <button type="button" className="close" aria-label="Close" onClick={() => setIsOn(false)}>
+          <GenericButton className="close" aria-label="Close" onClick={() => setIsOn(false)}>
             <span aria-hidden="true">&times;</span>
-          </button>
+          </GenericButton>
         </div>
       </div>
     </div>

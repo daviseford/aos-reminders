@@ -2,13 +2,15 @@ import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { ICurrentArmy } from 'types/army'
 import { TEntry } from 'types/data'
 import { IImportedArmy } from 'types/import'
+import { INote } from 'types/notes'
 import { ISavedArmy } from 'types/savedArmy'
 import { IAllySelections } from 'types/selections'
-import { LocalReminderOrder } from './localStore'
+import { LocalReminderOrder } from 'utils/localStore'
 
-export const armyHasEntries = (army: ISavedArmy | ICurrentArmy) => {
+export const armyHasEntries = (army: ISavedArmy | ICurrentArmy, notes: INote[]) => {
   const { allySelections, origin_realm, realmscape_feature, realmscape, selections } = army
 
+  if (notes.length > 0) return true
   if (Object.values(selections).some(x => x.length)) return true
   if (Object.values(allySelections).some(x => Object.values(x as IAllySelections).some(x => x.length)))
     return true
@@ -28,6 +30,7 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
     armyName,
     factionName,
     hiddenReminders = [],
+    notes = [],
     orderedReminders = LocalReminderOrder.get(),
     origin_realm = null,
     realmscape = null,
@@ -41,6 +44,7 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
     armyName: armyName || 'Untitled',
     factionName,
     hiddenReminders,
+    notes,
     orderedReminders,
     origin_realm,
     realmscape_feature,
@@ -61,6 +65,7 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
 
 /**
  * Prepares an army to be uploaded to S3 for later analysis
+ * We don't store "extra" data (notes, ordering, visibility) with these payloads.
  * @param army
  */
 export const prepareArmyForS3 = (army: ISavedArmy | IImportedArmy | ICurrentArmy): ICurrentArmy => {

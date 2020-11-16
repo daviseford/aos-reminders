@@ -11,17 +11,17 @@ const Abilities: TAbilities = [
   {
     name: `Grudgebound`,
     desc: `After set-up is complete, but before the battle begins, choose or roll for a grudge from the table below. The rules for that grudge apply to all friendly DISPOSSESSED units for the duration of the battle.
-    
-    1: Stuck-up - You can reroll hit rolls of 1 for friendly DISPOSSESSED units if the target of the attack is an enemy HERO. 
-    
+
+    1: Stuck-up - You can reroll hit rolls of 1 for friendly DISPOSSESSED units if the target of the attack is an enemy HERO.
+
     2: Speed Merchants - You can reroll hit rolls of 1 for friendly DISPOSSESSED units if the target of the attack has a Move characteristic of 10+.
-    
-    3: Monstrous Cheaters - You can reroll hit rolls of 1 for friendly DISPOSSESSED units if the target of the attack is an enemy MONSTER. 
-    
-    4: Cowardly Hordes - You can reroll hit rolls of 1 for friendly DISPOSSESSED units if the target of the attack is in an enemy unit that had twenty or more models when it was set up. 
-    
-    5: Shoddy Craftsmanship - You can reroll hit rolls of 1 for friendly DISPOSSESSED units if the target of the attack has a Save characteristic of 2+, 3+, or 4+ . 
-    
+
+    3: Monstrous Cheaters - You can reroll hit rolls of 1 for friendly DISPOSSESSED units if the target of the attack is an enemy MONSTER.
+
+    4: Cowardly Hordes - You can reroll hit rolls of 1 for friendly DISPOSSESSED units if the target of the attack is in an enemy unit that had twenty or more models when it was set up.
+
+    5: Shoddy Craftsmanship - You can reroll hit rolls of 1 for friendly DISPOSSESSED units if the target of the attack has a Save characteristic of 2+, 3+, or 4+ .
+
     6: Sneaky Ambushers - You can reroll hit rolls of 1 for friendly DISPOSSESSED units if the target of the attack is in cover, or did not start the battle set up on the battlefield.`,
     when: [END_OF_SETUP],
   },

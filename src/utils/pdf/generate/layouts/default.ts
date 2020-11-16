@@ -1,6 +1,6 @@
 import jsPDF from 'jspdf'
 import { IPrintPdf, TPdfStyles } from 'types/pdf'
-import PdfLayout from 'utils/pdf/generate/layouts/layoutUtils'
+import PdfLayout, { IPageOpts } from 'utils/pdf/generate/layouts/layoutUtils'
 import { Logo } from 'utils/pdf/generate/logo'
 import { getVisibleReminders } from 'utils/reminderUtils'
 import { reorderReminders } from 'utils/reorder'
@@ -37,6 +37,12 @@ const Styles: TPdfStyles = {
     spacing: 0.18,
     style: 'normal',
   },
+  note: {
+    fontSize: 9.5,
+    spacing: 0.18,
+    style: 'italic',
+    textColor: [18, 55, 199], // $themeRoyalBlue: #1237c7;
+  },
   phase: {
     fontSize: 12,
     spacing: 0.24,
@@ -59,19 +65,21 @@ const Styles: TPdfStyles = {
   },
 }
 
-const PageOpts = {
-  xMargin: 0.5,
-  yMargin: 0.75,
-  pageHeight: 12.4,
-  pageBottom: 12.4 - 0.75, // pageHeight - yMargin,
+const PageOpts: IPageOpts = {
   colLineWidth: 0,
+  colNoteLineWidth: 0,
   colTitleLineWidth: 0,
   maxLineWidth: 10.8,
-  maxTitleLineWidth: 10.8 - 2, // maxLineWidth - 2,
+  maxNoteLineWidth: 10.8 - 2,
+  maxTitleLineWidth: 10.8 - 2,
+  pageBottom: 12.4 - 0.75, // pageHeight - yMargin,
+  pageHeight: 12.4,
+  xMargin: 0.5,
+  yMargin: 0.75,
 }
 
 export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
-  const { factionName, hiddenReminders, reminders, ...currentArmy } = data
+  const { factionName, hiddenReminders, reminders, notes, ...currentArmy } = data
 
   const orderedReminders = reorderReminders(getVisibleReminders(reminders, hiddenReminders))
 
@@ -90,7 +98,7 @@ export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
 
-  Layout.getReminderText(orderedReminders)
+  Layout.getReminderText(orderedReminders, notes)
   const pages = Layout.splitTextToPages()
 
   pages.forEach((page, pageNum) => {
@@ -107,7 +115,15 @@ export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
       const textX = isPhase || isArmy ? centerX : x
       const textAlign = isPhase || isArmy ? 'center' : 'left'
 
-      doc.setFontSize(style.fontSize).setFontStyle(style.style).text(t.text, textX, y, null, null, textAlign)
+      doc.setFontSize(style.fontSize).setFontStyle(style.style)
+
+      if (style.textColor) {
+        doc.setTextColor(style.textColor[0], style.textColor[1], style.textColor[2])
+      }
+
+      doc.text(t.text, textX, y, null, null, textAlign)
+
+      if (style.textColor) doc.setTextColor(0, 0, 0) // reset to black
 
       if (isPhase) {
         doc

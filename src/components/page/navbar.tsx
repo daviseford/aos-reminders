@@ -1,6 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import config from 'auth_config.json'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
+import GenericButton from 'components/input/generic_button'
 import NavbarWrapper from 'components/page/navbar_wrapper'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
@@ -73,9 +74,9 @@ const Navbar = () => {
         </Link>
       )}
 
-      <button className={navbarStyles.btn} onClick={handleLoginBtn}>
+      <GenericButton className={navbarStyles.btn} onClick={handleLoginBtn}>
         {loginBtnText}
-      </button>
+      </GenericButton>
     </NavbarWrapper>
   )
 }

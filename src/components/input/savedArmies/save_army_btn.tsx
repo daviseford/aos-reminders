@@ -1,16 +1,12 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { OfflineBtn } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
-import { SaveArmyModal } from 'components/input/savedArmies/save_army_modal'
+import { SaveArmyModal } from 'components/modals/save_army_modal'
+import SubscriberOnlyModal from 'components/modals/subscriber_only_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
-import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'
 import { FaSave } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
-import { centerContentClass } from 'theme/helperClasses'
-import { logClick } from 'utils/analytics'
-import { ROUTES } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 
 interface ISaveArmyProps {
@@ -23,10 +19,8 @@ const SaveArmyBtn: React.FC<ISaveArmyProps> = ({ showSavedArmies }) => {
   const { isActive } = useSubscription()
   const { login } = useLogin({ origin: 'SaveArmyBtn' })
 
-  const [modalIsOpen, setModalIsOpen] = useState(false)
-
-  const openModal = () => setModalIsOpen(true)
-  const closeModal = () => setModalIsOpen(false)
+  const [saveModalIsOpen, setSaveModalIsOpen] = useState(false)
+  const [subscribeModalIsOpen, setSubscribeModalIsOpen] = useState(false)
 
   if (isOffline) return <OfflineBtn text="Save Army" />
 
@@ -34,12 +28,23 @@ const SaveArmyBtn: React.FC<ISaveArmyProps> = ({ showSavedArmies }) => {
     <>
       {!isAuthenticated && <SaveButton handleClick={login} />}
 
-      {isAuthenticated && !isActive && <SubscribeBtn />}
+      {isAuthenticated && !isActive && <SaveButton handleClick={() => setSubscribeModalIsOpen(true)} />}
 
-      {isActive && <SaveButton handleClick={openModal} />}
+      {isActive && <SaveButton handleClick={() => setSaveModalIsOpen(true)} />}
 
-      {modalIsOpen && (
-        <SaveArmyModal showSavedArmies={showSavedArmies} modalIsOpen={modalIsOpen} closeModal={closeModal} />
+      {saveModalIsOpen && (
+        <SaveArmyModal
+          showSavedArmies={showSavedArmies}
+          modalIsOpen={saveModalIsOpen}
+          closeModal={() => setSaveModalIsOpen(false)}
+        />
+      )}
+      {subscribeModalIsOpen && (
+        <SubscriberOnlyModal
+          isOpen={subscribeModalIsOpen}
+          featureName={'SaveArmy'}
+          closeModal={() => setSubscribeModalIsOpen(false)}
+        />
       )}
     </>
   )
@@ -47,24 +52,9 @@ const SaveArmyBtn: React.FC<ISaveArmyProps> = ({ showSavedArmies }) => {
 
 export default SaveArmyBtn
 
-const SubscribeBtn = () => {
-  const { theme } = useTheme()
+const SaveButton = (props: { handleClick: () => void }) => {
   return (
-    <Link
-      to={ROUTES.SUBSCRIBE}
-      className={theme.genericButtonBlock}
-      onClick={() => logClick('SaveArmy-Subscribe')}
-    >
-      <div className={centerContentClass}>
-        <FaSave className="mr-2" /> Save Army
-      </div>
-    </Link>
-  )
-}
-
-const SaveButton = ({ handleClick }: { handleClick: () => void }) => {
-  return (
-    <GenericButton onClick={handleClick}>
+    <GenericButton onClick={props.handleClick}>
       <FaSave className="mr-2" /> Save Army
     </GenericButton>
   )

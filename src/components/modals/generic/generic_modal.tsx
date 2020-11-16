@@ -18,7 +18,6 @@ const GenericModal: React.FC<IGenericModalProps> = props => {
 
   const themeType = isDark ? 'Dark' : 'Light'
   const modalClassName = `Modal-${isProcessing ? `Transparent` : themeType}`
-  const overlayClassName = `Overlay-${themeType}`
 
   return (
     <Modal
@@ -26,9 +25,9 @@ const GenericModal: React.FC<IGenericModalProps> = props => {
       contentLabel={label}
       isOpen={isOpen}
       onRequestClose={closeModal}
-      overlayClassName={overlayClassName}
+      overlayClassName={'Modal-Overlay'}
     >
-      <div className={`container ${isProcessing ? `` : `mr-3 pl-0`}`}>
+      <div className={`container`}>
         {isProcessing && <ModalSpinner />}
         <div hidden={isProcessing}>{children}</div>
       </div>
