@@ -315,7 +315,7 @@ const Help = () => {
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
-        <h4>Need help?</h4>
+        <h4>Contact Us</h4>
       </div>
       <div className={theme.cardBody}>
         <Contact size="normal" />
