@@ -1,7 +1,7 @@
 import { CardHeader } from 'components/info/card'
 import { NoteDisplay, NoteInput, NoteMenu } from 'components/info/note'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
-import DeleteConfirmModal from 'components/modals/delete_confirm_modal'
+import GenericDestructiveModal from 'components/modals/generic_destructive_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
@@ -188,7 +188,7 @@ const ActionText = (props: IActionTextProps) => {
         {isVisible && isSubscribed && <NoteDisplay {...noteProps} />}
 
         {noteProps.modal.isOpen && (
-          <DeleteConfirmModal
+          <GenericDestructiveModal
             isOpen={noteProps.modal.isOpen}
             onConfirm={noteProps.remove}
             closeModal={noteProps.modal.close}

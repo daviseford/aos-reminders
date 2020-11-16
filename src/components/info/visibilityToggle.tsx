@@ -1,5 +1,5 @@
 import GenericButton from 'components/input/generic_button'
-import DeleteConfirmModal from 'components/modals/delete_confirm_modal'
+import GenericDestructiveModal from 'components/modals/generic_destructive_modal'
 import { useTheme } from 'context/useTheme'
 import React, { useCallback, useState } from 'react'
 import { IconContext, IconType } from 'react-icons'
@@ -93,7 +93,7 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
         </GenericButton>
       )}
       {modalIsOpen && (
-        <DeleteConfirmModal
+        <GenericDestructiveModal
           closeModal={closeModal}
           confirmText={'Hide'}
           isOpen={modalIsOpen}

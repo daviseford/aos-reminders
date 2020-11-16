@@ -23,9 +23,10 @@ interface IModalComponentProps {
  *
  * @param props
  */
-const DeleteConfirmModal: React.FC<IModalComponentProps> = props => {
+const GenericDestructiveModal: React.FC<IModalComponentProps> = props => {
   const {
     bodyText = '',
+    children,
     closeModal,
     confirmText = 'Confirm',
     denyText = 'Cancel',
@@ -72,10 +73,11 @@ const DeleteConfirmModal: React.FC<IModalComponentProps> = props => {
         <div className={`col ${theme.text} text-center`}>
           <h4 className="mb-3">{headerText}</h4>
           {bodyText && <p className="mb-3">{bodyText}</p>}
+          {children ? <div className={`mb-3`}>{children}</div> : null}
         </div>
       </div>
 
-      <div className="d-flex flex-row justify-content-between">
+      <div className="d-flex flex-row justify-content-around">
         <GenericButton className={theme.modalDangerClass} onClick={handleConfirm}>
           <FaCheck className="mr-2" /> {confirmText}
         </GenericButton>
@@ -87,4 +89,4 @@ const DeleteConfirmModal: React.FC<IModalComponentProps> = props => {
   )
 }
 
-export default DeleteConfirmModal
+export default GenericDestructiveModal
