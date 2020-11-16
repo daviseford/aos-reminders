@@ -156,7 +156,7 @@ const ActionText = (props: IActionTextProps) => {
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
       <div className={`mb-2 ${!isVisible ? `d-print-none` : ``}`}>
-        <div className={`d-flex ${isMobile ? 'flex-column' : ''} mb-1`}>
+        <div className={`d-flex ${isMobile && isVisible ? 'flex-column' : ''} mb-1`}>
           <div className="flex-grow-1">
             <div {...draggableProps.dragHandleProps}>
               <ActionTitle {...props} />
