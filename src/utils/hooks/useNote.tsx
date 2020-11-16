@@ -1,9 +1,10 @@
 import { visibilityActions } from 'ducks'
 import { notesActions } from 'ducks/notes'
-import { selectNotes } from 'ducks/selectors'
+import { selectFactionName, selectNotes } from 'ducks/selectors'
 import { useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { INote } from 'types/notes'
+import { logNote } from 'utils/analytics'
 import { generateUUID } from 'utils/textUtils'
 
 export interface TUseNoteValue {
@@ -28,6 +29,7 @@ export interface TUseNoteValue {
 
 const useNote = (actionId: string): TUseNoteValue => {
   const dispatch = useDispatch()
+  const factionName = useSelector(selectFactionName)
 
   const notes = useSelector(selectNotes)
   const note = useMemo(() => notes.find(x => x.linked_hash === actionId), [actionId, notes])
@@ -56,11 +58,16 @@ const useNote = (actionId: string): TUseNoteValue => {
           })
         )
         setIsEditing(true)
-        dispatch(visibilityActions.deleteReminder(actionId))
+        logNote('Add', factionName)
+        dispatch(visibilityActions.deleteReminder(actionId)) // Show this rule
       },
-      cancel: () => setIsEditing(false),
+      cancel: () => {
+        logNote('Cancel', factionName)
+        setIsEditing(false)
+      },
       edit: () => {
         if (!note) return
+        logNote('Edit', factionName)
         setIsEditing(true)
       },
       remove: () => {
@@ -69,6 +76,7 @@ const useNote = (actionId: string): TUseNoteValue => {
         // If we've already had the modal open, we confirmed the delete - do it!
         if (modalIsOpen) {
           setIsEditing(false)
+          logNote('Delete', factionName)
           return dispatch(notesActions.deleteNote(note.id))
         }
 
@@ -77,15 +85,17 @@ const useNote = (actionId: string): TUseNoteValue => {
 
         // Otherwise just delete
         setIsEditing(false)
+        logNote('Delete', factionName)
         dispatch(notesActions.deleteNote(note.id))
       },
       save: () => {
         if (!note) return
+        logNote('Save', factionName)
         dispatch(notesActions.updateNote({ ...note, content: noteValue }))
         setIsEditing(false)
       },
     }),
-    [modalIsOpen, isEditing, note, noteValue, dispatch, actionId]
+    [isEditing, note, noteValue, modalIsOpen, dispatch, actionId, factionName]
   )
 
   return noteProps
