@@ -57,13 +57,13 @@ export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
 
   return (
     <GenericTwoButtonModal
-      isOpen={modalIsOpen}
-      onConfirmAsync={handleSaveClick}
       closeModal={closeModal}
-      denyBtnClass={theme.modalDangerClass}
       confirmBtnClass={theme.modalConfirmClass}
       confirmIcon={MdFileDownload}
       confirmText={'Download'}
+      denyBtnClass={theme.modalDangerClass}
+      isOpen={modalIsOpen}
+      onConfirmAsync={handleSaveClick}
     >
       <div className="row mx-3">
         <div className="col">

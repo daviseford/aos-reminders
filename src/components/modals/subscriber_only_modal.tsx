@@ -1,11 +1,10 @@
 import { LinkNewTab } from 'components/helpers/link'
-import GenericButton from 'components/input/generic_button'
-import GenericModal from 'components/modals/generic_modal'
 import { useTheme } from 'context/useTheme'
 import React from 'react'
 import { FaCheck } from 'react-icons/fa'
 import { logClick } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
+import GenericTwoButtonModal from './generic_two_button_modal'
 
 interface IModalComponentProps {
   closeModal: () => void
@@ -28,34 +27,29 @@ const SubscriberOnlyModal: React.FC<IModalComponentProps> = props => {
   }
 
   return (
-    <GenericModal isOpen={isOpen} closeModal={closeModal} label={`Subscribe for ${featureName} Modal`}>
-      <div className="flex-row">
-        <div className={`col ${theme.text} text-center`}>
-          <h4 className="mb-3">Subscriber-Only Feature</h4>
-          <p>Saving data to the cloud increases the hosting fees for AoS Reminders. </p>
-          <p>Please consider subscribing to use this feature (and many more!)</p>
-
-          <p>
-            <small>
-              <LinkNewTab href="mailto:aosreminders@gmail.com" label={'Email me'}>
-                Send me an email
-              </LinkNewTab>{' '}
-              if you have feedback or ideas.
-            </small>
-          </p>
-        </div>
-      </div>
-
-      <div className="d-flex flex-row justify-content-center">
-        <GenericButton className={'btn btn-primary'} onClick={handleConfirm}>
-          <FaCheck className="mr-2" /> Subscribe
-        </GenericButton>
-
-        <GenericButton className={theme.modalConfirmClass} onClick={closeModal}>
-          Cancel
-        </GenericButton>
-      </div>
-    </GenericModal>
+    <GenericTwoButtonModal
+      closeModal={closeModal}
+      confirmBtnClass={'btn btn-primary'}
+      confirmIcon={FaCheck}
+      confirmText={'Subscribe'}
+      denyBtnClass={theme.modalConfirmClass}
+      headerText={`Subscriber-Only Feature`}
+      isOpen={isOpen}
+      onConfirm={handleConfirm}
+    >
+      <>
+        <p>Saving data to the cloud increases the hosting fees for AoS Reminders.</p>
+        <p>Please consider subscribing to use this feature (and many more!)</p>
+        <p>
+          <small>
+            <LinkNewTab href="mailto:aosreminders@gmail.com" label={'Email me'}>
+              Send me an email
+            </LinkNewTab>{' '}
+            if you have feedback or questions.
+          </small>
+        </p>
+      </>
+    </GenericTwoButtonModal>
   )
 }
 

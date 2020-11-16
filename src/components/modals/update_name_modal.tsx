@@ -1,10 +1,9 @@
-import GenericButton from 'components/input/generic_button'
-import GenericModal from 'components/modals/generic_modal'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'
 import { FaSave } from 'react-icons/fa'
 import { logEvent } from 'utils/analytics'
+import GenericTwoButtonModal from './generic_two_button_modal'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
@@ -18,7 +17,6 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
   const { updateArmyName } = useSavedArmies()
   const { theme } = useTheme()
   const [armyName, setArmyName] = useState(currentArmyName)
-  const [processing, setProcessing] = useState(false)
 
   const handleUpdateName = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault()
@@ -33,26 +31,24 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
     }
   }
 
-  const handleUpdateClick = async (e?: React.MouseEvent) => {
-    e?.preventDefault?.()
-    if (armyName === currentArmyName) {
-      closeModal()
-      return // Don't hit the API if they don't make a change :)
-    }
-    setProcessing(true)
+  const handleUpdateClick = async () => {
+    // Don't hit the API if they don't make a change :)
+    if (armyName === currentArmyName) return
+
     await updateArmyName(id, armyName || 'Untitled')
-    setProcessing(false)
     setArmyName(armyName || 'Untitled')
-    closeModal()
     logEvent(`UpdateArmyName`)
   }
 
   return (
-    <GenericModal
-      isOpen={modalIsOpen}
+    <GenericTwoButtonModal
       closeModal={closeModal}
-      label="Update Army Name Modal"
-      isProcessing={processing}
+      confirmBtnClass={theme.modalConfirmClass}
+      confirmIcon={FaSave}
+      confirmText={'Update'}
+      denyBtnClass={theme.modalDangerClass}
+      isOpen={modalIsOpen}
+      onConfirmAsync={handleUpdateClick}
     >
       <div className="row">
         <div className="col">
@@ -77,19 +73,7 @@ const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
           </form>
         </div>
       </div>
-
-      <div className="row">
-        <div className="col px-0">
-          <GenericButton className={theme.modalConfirmClass} onClick={handleUpdateClick}>
-            <FaSave className="mr-2" /> Update
-          </GenericButton>
-
-          <GenericButton className={theme.modalDangerClass} onClick={closeModal}>
-            Cancel
-          </GenericButton>
-        </div>
-      </div>
-    </GenericModal>
+    </GenericTwoButtonModal>
   )
 }
 
