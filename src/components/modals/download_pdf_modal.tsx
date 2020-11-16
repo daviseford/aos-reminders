@@ -1,3 +1,4 @@
+import GenericTwoButtonModal from 'components/modals/generic/generic_two_button_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
@@ -9,7 +10,6 @@ import { TSavePdfType } from 'types/pdf'
 import { logDownloadEvent } from 'utils/analytics'
 import { isValidFactionName } from 'utils/armyUtils'
 import { stripPunctuation, titleCase } from 'utils/textUtils'
-import GenericTwoButtonModal from './generic_two_button_modal'
 
 interface IModalComponentProps {
   modalIsOpen: boolean

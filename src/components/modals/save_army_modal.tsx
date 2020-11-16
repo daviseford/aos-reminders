@@ -1,6 +1,6 @@
 import GenericButton from 'components/input/generic_button'
 import { SavedArmyTable } from 'components/input/savedArmies/saved_army_table'
-import GenericModal from 'components/modals/generic_modal'
+import GenericModal from 'components/modals/generic/generic_modal'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'

@@ -1,9 +1,9 @@
+import GenericTwoButtonModal from 'components/modals/generic/generic_two_button_modal'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'
 import { FaSave } from 'react-icons/fa'
 import { logEvent } from 'utils/analytics'
-import GenericTwoButtonModal from './generic_two_button_modal'
 
 interface IModalComponentProps {
   modalIsOpen: boolean

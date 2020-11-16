@@ -1,7 +1,7 @@
 import { CardHeader } from 'components/info/card'
 import { NoteDisplay, NoteInput, NoteMenu } from 'components/info/note'
 import { VisibilityToggle } from 'components/info/visibilityToggle'
-import GenericDestructiveModal from 'components/modals/generic_destructive_modal'
+import GenericDestructiveModal from 'components/modals/generic/generic_destructive_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'

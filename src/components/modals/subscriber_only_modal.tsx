@@ -1,10 +1,10 @@
 import { LinkNewTab } from 'components/helpers/link'
+import GenericTwoButtonModal from 'components/modals/generic/generic_two_button_modal'
 import { useTheme } from 'context/useTheme'
 import React from 'react'
 import { FaCheck } from 'react-icons/fa'
 import { logClick } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
-import GenericTwoButtonModal from './generic_two_button_modal'
 
 interface IModalComponentProps {
   closeModal: () => void
