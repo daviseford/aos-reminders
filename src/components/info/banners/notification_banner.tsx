@@ -1,6 +1,7 @@
 import GenericButton from 'components/input/generic_button'
 import React, { useEffect, useState } from 'react'
 import { centerContentClass } from 'theme/helperClasses'
+import { TBootstrapTypes } from 'types/theme'
 import { logClick, logDisplay } from 'utils/analytics'
 import { getNotificationBanner, hideNotificationBanner } from 'utils/localStore'
 
@@ -9,7 +10,7 @@ interface IBannerProps {
   enableLog?: boolean
   name: string
   persistClose?: boolean
-  variant?: TAlertTypes
+  variant?: TBootstrapTypes
 }
 
 /**
@@ -55,5 +56,3 @@ export const NotificationBanner: React.FC<IBannerProps> = props => {
     </div>
   )
 }
-
-type TAlertTypes = 'primary' | 'secondary' | 'danger' | 'info' | 'warning' | 'success' | 'light' | 'dark'
