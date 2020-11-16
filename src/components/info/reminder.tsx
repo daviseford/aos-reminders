@@ -162,7 +162,7 @@ const ActionText = (props: IActionTextProps) => {
               <ActionTitle {...props} />
             </div>
           </div>
-          <div className="flex-shrink-0 px-2 d-print-none">
+          <div className={`flex-shrink-0 ${isMobile ? 'align-self-center' : 'px-2'} d-print-none`}>
             {isVisible && !isGameMode && <NoteMenu {...noteProps} />}
             {isGameMode ? (
               <VisibilityToggle
