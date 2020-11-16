@@ -8,14 +8,14 @@ const AppBanner = () => {
 
   return (
     <NotificationBanner
-      // displayOnce={true}
+      displayOnce={true}
       enableLog={true}
       name={name}
       persistClose={true}
       variant={isDark ? `dark` : `secondary`}
     >
       <span>
-        <strong>NEW!</strong> Add notes to your lists!
+        <strong>NEW!</strong> Add your own notes to your list!
       </span>
     </NotificationBanner>
   )
