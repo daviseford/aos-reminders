@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
 import useNote from 'utils/hooks/useNote'
+import useWindowSize from 'utils/hooks/useWindowSize'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
@@ -147,6 +148,7 @@ const ActionText = (props: IActionTextProps) => {
   const dispatch = useDispatch()
   const { isSubscribed } = useSubscription()
   const { isGameMode } = useAppStatus()
+  const { isMobile } = useWindowSize()
   const handleVisibility = () => dispatch(!isVisible ? showReminder(id) : hideReminder(id))
 
   const noteProps = useNote(id)
@@ -154,13 +156,13 @@ const ActionText = (props: IActionTextProps) => {
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
       <div className={`mb-2 ${!isVisible ? `d-print-none` : ``}`}>
-        <div className="d-flex mb-1">
+        <div className={`d-flex ${isMobile ? 'flex-column' : ''} mb-1`}>
           <div className="flex-grow-1">
             <div {...draggableProps.dragHandleProps}>
               <ActionTitle {...props} />
             </div>
           </div>
-          <div className="px-2 d-print-none">
+          <div className="flex-shrink-0 px-2 d-print-none">
             {isVisible && !isGameMode && <NoteMenu {...noteProps} />}
             {isGameMode ? (
               <VisibilityToggle
