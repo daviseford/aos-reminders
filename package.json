@@ -27,8 +27,8 @@
     "react-modal": "3.12.1",
     "react-redux": "7.2.2",
     "react-router-dom": "5.2.0",
-    "react-scripts": "3.4.3",
     "react-select": "3.1.1",
+    "react-scripts": "4.0.0",
     "react-switch": "5.0.1",
     "redux": "4.0.5",
     "redux-persist": "6.0.0",
@@ -53,7 +53,10 @@
     "xlsx": "ts-node-dev --compiler-options '{ \"module\": \"commonjs\"}' --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/exportToSheet.ts"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
   },
   "husky": {
     "hooks": {
@@ -75,6 +78,7 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/react": "11.2.2",
     "@types/jest": "26.0.15",
     "@types/jspdf": "1.3.3",
     "@types/lodash": "4.14.165",
@@ -93,7 +97,7 @@
     "@types/react-select": "3.0.26",
     "@types/superagent": "4.1.10",
     "@types/webpack-env": "1.15.3",
-    "babel-jest": "24.9.0",
+    "babel-jest": "26.6.3",
     "husky": "4.3.0",
     "prettier": "2.2.0",
     "prettier-plugin-organize-imports": "1.1.1",
@@ -104,6 +108,19 @@
     "ts-node-dev": "1.0.0",
     "tsconfig-paths": "3.9.0",
     "typescript": "4.1.2",
+    "web-vitals": "1.0.1",
+    "workbox-background-sync": "5.1.4",
+    "workbox-broadcast-update": "5.1.4",
+    "workbox-cacheable-response": "5.1.4",
+    "workbox-core": "5.1.4",
+    "workbox-expiration": "5.1.4",
+    "workbox-google-analytics": "5.1.4",
+    "workbox-navigation-preload": "5.1.4",
+    "workbox-precaching": "5.1.4",
+    "workbox-range-requests": "5.1.4",
+    "workbox-routing": "5.1.4",
+    "workbox-strategies": "5.1.4",
+    "workbox-streams": "5.1.4",
     "xlsx": "0.16.9"
   }
 }
