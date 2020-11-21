@@ -3,7 +3,6 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -132,7 +131,7 @@ const Artifacts: TArtifacts = [
       {
         name: `Amber Armour (The Phoenicium)`,
         desc: `If the weapon used for an attack that targets the bearer has a Rend characteristic of -1, change the Rend characteristic for that attack to '-'.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
     ],
   },

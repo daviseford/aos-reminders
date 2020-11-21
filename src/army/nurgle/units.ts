@@ -538,7 +538,7 @@ export const Units: TUnits = [
       VirulentDischargeEffect,
       {
         name: `Spearhead of Contagion`,
-        desc: `If this model is your general, you can pick a friendly Pusgoyle Blightlords unit within 14" and add 8" to that units move characteristic until your next hero phase. The same unit cannot benefit from this ability more than once in the same phase.`,
+        desc: `If this model is your general, you can pick a friendly Pusgoyle Blightlords unit within 14" and add 8" to that unit's move characteristic until your next hero phase. The same unit cannot benefit from this ability more than once in the same phase.`,
         when: [HERO_PHASE],
         command_ability: true,
       },

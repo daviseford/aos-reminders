@@ -149,7 +149,7 @@ const Spells: TSpells = [
     effects: [
       {
         name: `Dark Delusions`,
-        desc: `Casting value of 5. Pick 1 enemy unit wholly within 18" of the caster and visible. Roll 2D6 and if the roll is equal to or greater than that units bravery characteristic, add 1 to the hit rolls for attacks that target that unit until your next hero phase.`,
+        desc: `Casting value of 5. Pick 1 enemy unit wholly within 18" of the caster and visible. Roll 2D6 and if the roll is equal to or greater than that unit's bravery characteristic, add 1 to the hit rolls for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
       },

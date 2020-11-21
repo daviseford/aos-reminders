@@ -13,7 +13,7 @@ import {
 
 const LocusOfCorrosionEffect = {
   name: `Locus of Corrosion`,
-  desc: `While an enemy unit is within 3" of any friendly Munificent Wanderers/Droning Guard daemon units, worsen the rend characteristic of that units melee weapons by 1 (to a minimum of '-'). Nurgle units are unaffected by this ability.`,
+  desc: `While an enemy unit is within 3" of any friendly Munificent Wanderers/Droning Guard daemon units, worsen the rend characteristic of that unit's melee weapons by 1 (to a minimum of '-'). Nurgle units are unaffected by this ability.`,
   when: [COMBAT_PHASE],
 }
 

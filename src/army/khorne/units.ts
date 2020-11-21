@@ -1000,7 +1000,7 @@ const KhorneBattalions: TBattalions = [
       {
         name: `Inured to Bloodshed`,
         desc: `Worsen the Rend characteristic of melee weapons used for attacks that target a unit from this battalion by 1 (to a minimum of 0).`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },

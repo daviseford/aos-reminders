@@ -1,5 +1,5 @@
 import { TSpells } from 'types/army'
-import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 // Lore of the Deep
 const Spells: TSpells = [
@@ -95,6 +95,11 @@ const Spells: TSpells = [
         name: `Nautilar: Protective Barrier`,
         desc: `Casting value of 4. Pick a friendly Nautilar unit within 12" of the caster that is visible to them. Until your next hero phase, worsen the rend characteristic of attacks that target that unit by 1 (to a minimum of '-').`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Nautilar: Protective Barrier`,
+        desc: `If active, until your next hero phase, worsen the rend characteristic of attacks that target that unit by 1 (to a minimum of '-').`,
+        when: [SAVES_PHASE],
       },
     ],
   },
