@@ -51,13 +51,13 @@ render(
 // https://github.com/facebook/create-react-app/issues/7237
 serviceWorker.register({
   onUpdate: async registration => {
-    // We prefer using the BroadcastChannel as it can reach across tabs
     // We post a message letting the rest of the app know that we have updated content
     if (typeof BroadcastChannel !== 'undefined') {
       const bc = new BroadcastChannel('app-update')
       bc.postMessage('App has updated.')
     }
 
+    // We prefer using the BroadcastChannel (above) as it can reach across tabs
     // But it won't always work due to browser limitations.
     // So we always dispatch an event to the window just in case.
     window.dispatchEvent(new Event('hasNewContent'))

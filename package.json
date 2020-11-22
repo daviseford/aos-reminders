@@ -22,7 +22,7 @@
     "react-copy-to-clipboard": "5.0.2",
     "react-dom": "17.0.1",
     "react-dropzone": "11.2.4",
-    "react-ga": "3.2.1",
+    "react-ga": "3.3.0",
     "react-icons": "3.11.0",
     "react-modal": "3.11.2",
     "react-redux": "7.2.2",
