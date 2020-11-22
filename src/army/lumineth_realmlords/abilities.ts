@@ -1,10 +1,12 @@
 import { TAbilities } from 'types/army'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
   END_OF_COMBAT_PHASE,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
@@ -18,6 +20,11 @@ const Abilities: TAbilities = [
     name: `Aetherquartz Reserve`,
     desc: `Each unit in a Lumineth Realm-Lords army starts the battle with 1 aetherquartz reserve. Once per phase you can say a unit will use its reserve to trigger 1 aetherquartz ability. However, if you do so, subtract 1 from the unit's Bravery characteristic for the remainder of the battle.`,
     when: [DURING_GAME],
+  },
+  {
+    name: `Aetherquartz Reserve`,
+    desc: `If a unit has triggered an aetherquartz ability, subtract 1 from the unit's Bravery characteristic for the remainder of the battle.`,
+    when: [BATTLESHOCK_PHASE],
   },
   {
     name: `Aetherquartz Reserve - Heightened Reflexes`,
@@ -51,13 +58,33 @@ const Abilities: TAbilities = [
   },
   {
     name: `Shining Company`,
-    desc: `After a VANARI unit is setup, if the base of each model touches the bases of 2 other models in the same unit, they become a shining company. They remain a shining company until each model is no longer touching 2 other models from the same unit. Subtract 1 from hit rolls that target a shining company. However, a shining company cannot run or charge and can only move 1" when they pile-in.`,
+    desc: `After a VANARI unit is set up, if the base of each model touches the bases of 2 other models in the same unit, they become a shining company. They remain a shining company until each model is no longer touching 2 other models from the same unit. Subtract 1 from hit rolls that target a shining company. However, a shining company cannot run or charge and can only move 1" when they pile-in.`,
     when: [DURING_SETUP, COMBAT_PHASE, SHOOTING_PHASE, MOVEMENT_PHASE, CHARGE_PHASE],
+  },
+  {
+    name: `Shining Company`,
+    desc: `Subtract 1 from hit rolls that target a shining company.`,
+    when: [COMBAT_PHASE, SHOOTING_PHASE],
+  },
+  {
+    name: `Shining Company`,
+    desc: `A shining company can only move 1" when they pile-in.`,
+    when: [COMBAT_PHASE],
+  },
+  {
+    name: `Shining Company`,
+    desc: `A shining company cannot run or charge.`,
+    when: [MOVEMENT_PHASE, CHARGE_PHASE],
   },
   {
     name: `Enduring as Rock`,
     desc: `Before the first battle round, or at the start of your hero phase, pick any number of ALARITH units and say they are adopting a mountain stance. If they do so, weapons that target them with Rend -1 count as Rend -.`,
-    when: [START_OF_HERO_PHASE, DURING_SETUP, SHOOTING_PHASE, COMBAT_PHASE],
+    when: [START_OF_HERO_PHASE, END_OF_SETUP],
+  },
+  {
+    name: `Enduring as Rock`,
+    desc: `If a unit has adopted a mountain stance, weapons that target them with Rend -1 count as Rend -.`,
+    when: [SAVES_PHASE],
   },
   {
     name: `Tectonic Force`,

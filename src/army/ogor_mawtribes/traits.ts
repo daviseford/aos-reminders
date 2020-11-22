@@ -8,6 +8,7 @@ import {
   DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -286,7 +287,7 @@ const CommandTraits: TTraits = [
       {
         name: `Rimefrost Hide`,
         desc: `Worsen the Rend characteristic of melee weapons that target this model by 1 (to a minimum of '-').`,
-        when: [COMBAT_PHASE],
+        when: [SAVES_PHASE],
         mount_trait: true,
       },
     ],

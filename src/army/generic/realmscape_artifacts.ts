@@ -1,5 +1,5 @@
 import { TArtifacts } from 'types/army'
-import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, SAVES_PHASE } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
 const RealmArtifacts: TArtifacts = [
@@ -29,7 +29,7 @@ const RealmArtifacts: TArtifacts = [
       {
         name: `Plate of Perfect Protection (${CHAMON})`,
         desc: `If a weapon used for an attack that targets the bearer has a Rend characteristic of -1, change the Rend characteristic for that attack to '-'`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
