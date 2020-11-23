@@ -2,7 +2,7 @@ import { LinkNewTab } from 'components/helpers/link'
 import GenericTwoButtonModal from 'components/modals/generic/generic_two_button_modal'
 import { useTheme } from 'context/useTheme'
 import React from 'react'
-import { FaCheck } from 'react-icons/fa'
+import { FaCartPlus } from 'react-icons/fa'
 import { logClick } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 
@@ -30,7 +30,7 @@ const SubscriberOnlyModal: React.FC<IModalComponentProps> = props => {
     <GenericTwoButtonModal
       closeModal={closeModal}
       confirmBtnClass={'btn btn-primary'}
-      confirmIcon={FaCheck}
+      confirmIcon={FaCartPlus}
       confirmText={'Subscribe'}
       denyBtnClass={theme.modalConfirmClass}
       headerText={`Subscriber-Only Feature`}

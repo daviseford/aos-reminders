@@ -62,6 +62,8 @@ const GenericDestructiveModal: React.FC<IModalComponentProps> = props => {
     closeModal()
   }
 
+  const btnReponsiveClass = `mx-2 mx-sm-1`
+
   return (
     <GenericModal
       isOpen={isOpen}
@@ -78,10 +80,10 @@ const GenericDestructiveModal: React.FC<IModalComponentProps> = props => {
       </div>
 
       <div className="d-flex flex-row justify-content-around">
-        <GenericButton className={theme.modalDangerClass} onClick={handleConfirm}>
+        <GenericButton className={`${theme.modalDangerClass} ${btnReponsiveClass}`} onClick={handleConfirm}>
           <FaCheck className="mr-2" /> {confirmText}
         </GenericButton>
-        <GenericButton className={theme.modalConfirmClass} onClick={handleDeny}>
+        <GenericButton className={`${theme.modalConfirmClass} ${btnReponsiveClass}`} onClick={handleDeny}>
           {denyText}
         </GenericButton>
       </div>
