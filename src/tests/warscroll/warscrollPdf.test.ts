@@ -329,7 +329,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('imports Seraphon Constellations properly', () => {
+  it('imports Seraphon Constellations properly (1)', () => {
     const pdfText = getFile('1000-Sunclaw_Temple-host')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -1021,7 +1021,7 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  it('reads a basic warscroll pdf file (no metadata) correctly', () => {
+  it('reads a basic warscroll pdf file (no metadata) correctly (1)', () => {
     const pdfText = getFile('NightHauntIssue')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)

@@ -7,3 +7,4 @@ src/tests/fixtures/**/*.json
 *.sh
 *.log
 *.lock
+.vscode/

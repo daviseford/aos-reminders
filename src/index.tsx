@@ -13,9 +13,9 @@ import { PersistGate } from 'redux-persist/integration/react'
 import { installNewWorker } from 'utils/installNewWorker'
 import config from './auth_config.json'
 import { Auth0Provider } from '@auth0/auth0-react'
-import * as serviceWorker from 'serviceWorker'
 import { persistor, store } from 'store'
 import history from 'utils/history'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
 const onRedirectCallback = (appState: any) => {
   // Use the router's history module to replace the url
@@ -46,10 +46,10 @@ render(
   document.getElementById('root')
 )
 
-// Learn more about service workers: https://bit.ly/CRA-PWA
+// Learn more about service workers: https://cra.link/PWA
 // https://github.com/facebook/create-react-app/issues/5316
 // https://github.com/facebook/create-react-app/issues/7237
-serviceWorker.register({
+serviceWorkerRegistration.register({
   onUpdate: async registration => {
     // We post a message letting the rest of the app know that we have updated content
     if (typeof BroadcastChannel !== 'undefined') {
