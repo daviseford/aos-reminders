@@ -16,8 +16,6 @@ import { Auth0Provider } from '@auth0/auth0-react'
 import { persistor, store } from 'store'
 import history from 'utils/history'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
-import reportWebVitals from './reportWebVitals'
-import { isDev } from 'utils/env'
 
 const onRedirectCallback = (appState: any) => {
   // Use the router's history module to replace the url
@@ -70,8 +68,3 @@ serviceWorkerRegistration.register({
     installNewWorker()
   },
 })
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
-reportWebVitals(isDev ? console.log : undefined)
