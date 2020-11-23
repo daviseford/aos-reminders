@@ -844,7 +844,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with Slaves to Darkness Daemon Prince ', () => {
+  it('should work with Slaves to Darkness Daemon Prince', () => {
     const parsedText = getFile('1576502239768-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Daemon Prince')
@@ -856,7 +856,7 @@ describe('getWarscrollArmyFromJson', () => {
     ])
   })
 
-  it('should work with Warcry scrolls', () => {
+  it('should work with Warcry scrolls 1', () => {
     const parsedText = getFile('1574613528170-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
@@ -955,7 +955,7 @@ describe('getWarscrollArmyFromJson', () => {
     ])
   })
 
-  it('should work with OBR', () => {
+  it('should work with OBR 1', () => {
     const parsedText = getFile('1575078564630-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
@@ -1027,7 +1027,7 @@ describe('getWarscrollArmyFromJson', () => {
     ])
   })
 
-  it('should work with OBR', () => {
+  it('should work with OBR 2', () => {
     const parsedText = getFile('1574746733739-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
@@ -1045,7 +1045,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with Vokmortians Retinue', () => {
+  it('should work with Vokmortians Retinue 2', () => {
     const parsedText = getFile('1574249013027-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
@@ -1077,7 +1077,7 @@ describe('getWarscrollArmyFromJson', () => {
       },
     ])
   })
-  it('should work with OBR', () => {
+  it('should work with OBR 3', () => {
     const parsedText = getFile('1574207831990-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
@@ -1119,7 +1119,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with Fyreslayers', () => {
+  it('should work with Fyreslayers 2', () => {
     const parsedText = getFile('1573484994551-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
@@ -1164,7 +1164,7 @@ describe('getWarscrollArmyFromJson', () => {
       },
     ])
   })
-  it('should work with Ogor Mawtribes', () => {
+  it('should work with Ogor Mawtribes 2', () => {
     const parsedText = getFile('1573208101434-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
@@ -1259,7 +1259,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it("should work with Burstin' with Power", () => {
+  it("should work with Burstin' with Power 2", () => {
     const parsedText = getFile('1573018890027-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
@@ -1268,7 +1268,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with Ogor Mawtribes', () => {
+  it('should work with Ogor Mawtribes 3', () => {
     const parsedText = getFile('1573020637936-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
@@ -1276,7 +1276,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with Ogor Mawtribes', () => {
+  it('should work with Ogor Mawtribes 4', () => {
     const parsedText = getFile('1573045302823-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
@@ -1293,7 +1293,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with OBR', () => {
+  it('should work with OBR 4', () => {
     const parsedText = getFile('1572884424770-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
@@ -1592,7 +1592,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with Cities of Sigmar and allies', () => {
+  it('should work with Cities of Sigmar and allies 1', () => {
     const parsedText = getFile('1571233444845-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
@@ -1644,7 +1644,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with Orruk Warboss', () => {
+  it('should work with Orruk Warboss 2', () => {
     const parsedText = getFile('1571171962804-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 

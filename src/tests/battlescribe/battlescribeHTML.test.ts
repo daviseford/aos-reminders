@@ -671,7 +671,7 @@ describe('getBattlescribeArmy', () => {
       },
     ])
   })
-  it('should work with LoG1', () => {
+  it('should work with LoG1 2', () => {
     const parsedText = getFile('LoG1')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([
