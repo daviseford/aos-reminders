@@ -123,30 +123,30 @@ const Spells: TSpells = [
     ],
   },
   {
-    name: `Sap Strength (Anvilgard)`,
+    name: `Sap Strength (Anvilgard, Har Kuron)`,
     effects: [
       {
-        name: `Sap Strength (Anvilgard)`,
+        name: `Sap Strength (Anvilgard, Har Kuron)`,
         desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster that is visible to them. Subtract 1 from hit rolls for attacks made by that unit until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `Shadow Daggers (Anvilgard)`,
+    name: `Shadow Daggers (Anvilgard, Har Kuron)`,
     effects: [
       {
-        name: `Shadow Daggers (Anvilgard)`,
+        name: `Shadow Daggers (Anvilgard, Har Kuron)`,
         desc: `Casting value of 7. Pick 1 enemy unit within 9" of the caster that is visible to them. That unit suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
   },
   {
-    name: `Vitriolic Spray (Anvilgard)`,
+    name: `Vitriolic Spray (Anvilgard, Har Kuron)`,
     effects: [
       {
-        name: `Vitriolic Spray (Anvilgard)`,
+        name: `Vitriolic Spray (Anvilgard, Har Kuron)`,
         desc: `Casting value of 8. Pick 1 enemy unit within 6" of the caster that is visible to them. Until the start of your next hero phase, that unit has a Save characteristic of '-'.`,
         when: [HERO_PHASE],
       },
@@ -238,6 +238,36 @@ const Spells: TSpells = [
       {
         name: `Celestial Visions (Tempest's Eye)`,
         desc: `Casting value of 7. You receive 1 extra command point.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `The Withering (Har Kuron)`,
+    effects: [
+      {
+        name: `The Withering (Har Kuron)`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible. Add 1 to wound rolls against the targeted unit until the start of your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Steed of Shadows (Har Kuron)`,
+    effects: [
+      {
+        name: `Steed of Shadows (Har Kuron)`,
+        desc: `Casting value of 6. The caster can fly and has a move characteristic of 16" until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Pit of Shadows (Har Kuron)`,
+    effects: [
+      {
+        name: `Pit of Shadows (Har Kuron)`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible. Roll 2D6. If the roll is higher than the targets move characteristic, it suffers a number of mortal wounds equal to the difference of the roll and the move characterisitc.`,
         when: [HERO_PHASE],
       },
     ],

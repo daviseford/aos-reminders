@@ -1,8 +1,10 @@
 import { TAllegiances } from 'types/army'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_COMBAT_PHASE,
   HERO_PHASE,
   SHOOTING_PHASE,
   START_OF_GAME,
@@ -91,6 +93,27 @@ const Allegiances: TAllegiances = [
         name: `Temple Nest`,
         desc: `A Khailebron Temple Nest battalion can include up to 2 additional Melusai units.`,
         when: [START_OF_GAME],
+      },
+    ],
+  },
+  {
+    name: `Zainthar Kai (Temple)`,
+    effects: [
+      {
+        name: `Khaine's Essence`,
+        desc: `Add 1 to the bravery characteristic of Zainthar Kai Melusai and Khinerai Harpies units.`,
+        when: [DURING_GAME, BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Power in the Blood`,
+        desc: `Once per phase, you can use this ability when you select a friendly Zainthar Kai Melusai or Khinerai Harpies unit to fight wholly within 12" of a Zainthar Kai hero. Add 1 to the attacks characteristic of melee weapons used by the target.`,
+        when: [COMBAT_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Curse of the Bloody-Handed`,
+        desc: `Roll a dice for each enemy unit within 3" of the general. On a 5+ that unit suffers D3 mortal wounds.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },

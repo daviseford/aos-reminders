@@ -93,6 +93,11 @@ const BannerBearerEffect = {
   desc: `You can reroll charge rolls for this unit while it includes any Banner Bearers.`,
   when: [CHARGE_PHASE],
 }
+const IconBearerEffect = {
+  name: `Icon Bearer`,
+  desc: `Add 2 to the Bravery characteristic of this unit while it includes any Icon Bearers.`,
+  when: [BATTLESHOCK_PHASE],
+}
 const HornBlowerEffect = {
   name: `Hornblower`,
   desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Hornblowers is 1, that battleshock test must be rerolled.`,
@@ -566,7 +571,7 @@ export const Units: TUnits = [
     ],
   },
   {
-    name: `Hellstriders`,
+    name: `Hellstriders with Hellscourges`,
     effects: [
       {
         name: `Hellreaver`,
@@ -574,15 +579,29 @@ export const Units: TUnits = [
         when: [COMBAT_PHASE],
       },
       BannerBearerEffect,
-      {
-        name: `Icon Bearer`,
-        desc: `Add 2 to the Bravery characteristic of this unit while it includes any Icon Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      IconBearerEffect,
       HornBlowerEffect,
       {
-        name: `Soul Hunters`,
-        desc: `If any enemy models were slain by wounds inflicted by this unit's attacks in this phase, add 1 to the Attacks characteristic of this unit's melee weapons in the next combat phase.`,
+        name: `Hooked Tendrils`,
+        desc: `Subtract 1 from enemy hit rolls made against this unit if this unit charged this turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Hellstriders with Claw-spears`,
+    effects: [
+      {
+        name: `Hellreaver`,
+        desc: `Add 1 to the Attacks characteristic of a Hellreaver's Claw-spear.`,
+        when: [COMBAT_PHASE],
+      },
+      BannerBearerEffect,
+      IconBearerEffect,
+      HornBlowerEffect,
+      {
+        name: `Piercing Strike`,
+        desc: `Add 1 to the damage characteristic of this unit's Claw-spears if it charged this turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -615,6 +634,27 @@ export const Units: TUnits = [
         desc: `Casting value of 6. Roll 2D6. Each enemy unit within 6" of the caster that has a bravery characteristic of less than the roll suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
+      },
+    ],
+  },
+  {
+    name: `Lord of Pain`,
+    effects: [
+      {
+        name: `Share the Pain`,
+        desc: `Each time you allocate a wound or mortal wound to this model roll a D6. On a 5+ the wound is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Share the Pain`,
+        desc: `If this model negated a wound in this phase, the attacking unit suffers 1 mortal wound after resolving all of its attacks.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Paragon of Depravity`,
+        desc: `You may pick 1 friendly Hedonite mortal unit wholly within 12". The target unit may reroll hit rolls in this phase.`,
+        when: [COMBAT_PHASE],
+        command_ability: true,
       },
     ],
   },
@@ -715,6 +755,16 @@ const SlaaneshBattalions: TBattalions = [
         desc: `Add 1 to the hit rolls for attacks made by Soul Grinders in this battalion.
                Add 1 to the save rolls made by Soul Grinders in this battalion.`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Gestharyx's Cavalcade`,
+    effects: [
+      {
+        name: `Unyielding Seekers`,
+        desc: `Do not take battleshock tests for this battalion's units.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },

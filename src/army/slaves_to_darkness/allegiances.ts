@@ -19,7 +19,7 @@ import {
 } from 'types/phases'
 
 const Allegiances: TAllegiances = [
-  // Ravagers Allegiance
+  // Ravagers Legion
   {
     name: `Ravagers`,
     effects: [
@@ -41,7 +41,7 @@ const Allegiances: TAllegiances = [
       },
     ],
   },
-  // Cabalists Allegiance
+  // Cabalists Legion
   {
     name: `Cabalists`,
     effects: [
@@ -65,7 +65,7 @@ const Allegiances: TAllegiances = [
       },
     ],
   },
-  // Despoilers Allegiance
+  // Despoilers Legion
   {
     name: `Despoilers`,
     effects: [
@@ -101,7 +101,7 @@ const Allegiances: TAllegiances = [
       },
     ],
   },
-  // Host of the Everchosen Allegiance
+  // Host of the Everchosen Legion
   {
     name: `Host of the Everchosen`,
     effects: [
@@ -212,6 +212,33 @@ const Allegiances: TAllegiances = [
         name: `Failure is Not an Option`,
         desc: `You may use this ability when a friendly Knights of the Empty Throne Varanguard unit is destroyed. Roll a D6 and on a 5+ a new Varanguard unit of 3 models is added to your army. Set this unit up wholly within 6" of the battlefield edge and more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
         when: [DURING_GAME],
+        command_ability: true,
+      },
+    ],
+  },
+  // Idolators Legion
+  {
+    name: `Idolators`,
+    effects: [
+      {
+        name: `Blessed of Chaos`,
+        desc: `Add 1 to prayer rolls for Idolators Priests.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Panopy of Ruin`,
+        desc: `When an Idolators Cultists unit charges, change the lowest dice to a 6. Change 1 dice to a 6 on a double result.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Destroy the False Idols`,
+        desc: `Add 1 to wound rolls made by Idolators models targetting enemy priests.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Desecrate`,
+        desc: `Pick 1 friendly Idolators unit wholly within 12" of a friendly Idolator Lord and within 3" of a terrain feature. Roll a D6. If the roll is greater than the number of enemy models within 3" of ther terrain, the terrain becomes Descrated (deactivating the terrain feature's rules).`,
+        when: [HERO_PHASE],
         command_ability: true,
       },
     ],

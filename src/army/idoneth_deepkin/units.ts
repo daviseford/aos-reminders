@@ -23,6 +23,11 @@ const DeepmareHornEffect = {
   desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+, the nearest enemy unit suffers D3 mortal wounds.`,
   when: [CHARGE_PHASE],
 }
+const StormshoalEffect = {
+  name: `Stormshoal`,
+  desc: `Roll a dice for each wound or mortal wound allocated to this model. On a 5+ the wound is negated.`,
+  when: [WOUND_ALLOCATION_PHASE],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -31,19 +36,30 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Crashing Upon the Foe`,
-        desc: `Reroll hit rolls of 1 and add 1 to the Damage characteristic for this model's Fuathtar, Spear of Repressed Fury if this model made a charge move in the same turn. In addition, this model can charge in the same turn that it made a retreat move. Finally, heal D3 wounds allocated to this model after it makes a charge move.`,
-        when: [COMBAT_PHASE, CHARGE_PHASE],
+        desc: `You can heal up to D3 wounds allocated to this model after making a charge move.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Crashing Upon the Foe`,
+        desc: `Add 1 to to the attacks characteristic of this model's Spear of Repressed Fury if it charged this turn.`,
+        when: [CHARGE_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Crashing Upon the Foe`,
+        desc: `This model can retreat and charge in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Drench with Hate`,
-        desc: `Reroll wound rolls of 1 for friendly IDONETH DEEPKIN units while they are within 9" of this model.`,
+        desc: `Add 1 to wound rolls for friendly Idoneth Deepkin units wholly within 18" of any friendly model with this ability.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Pulled Into the Depths`,
-        desc: `At the start of the combat phase, you can pick an enemy HERO with a Wounds characteristic of less than 8 that is within 3" of this model. Subtract 1 from hit rolls for that HERO for the rest of that combat phase.`,
+        desc: `You can pick an enemy hero with a wounds characteristic of 8 or less within 3" of this model. Add 1 to hit rolls for this model's attacks made against the target in this phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
+      StormshoalEffect,
     ],
   },
   {
@@ -51,17 +67,18 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Dormant Energies`,
-        desc: `You can reroll one casting roll for this model in each of your hero phases. If you do not reroll a casting roll, then you can heal D3 wounds allocated to this model at the end of your hero phase instead.`,
+        desc: `You can reroll casting, dispelling, and unbinding rolls for this model. If you do not use these rerolls, you can heal up to D3 wounds allocated to this model instead.`,
         when: [HERO_PHASE],
       },
       {
         name: `Tranquility of the Abyss`,
-        desc: `Add 3 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are within 9" of this model.`,
+        desc: `Add 3 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are wholly within 18" of any friendly models with this ability.`,
         when: [DURING_GAME, BATTLESHOCK_PHASE],
       },
+      StormshoalEffect,
       {
         name: `Cloying Seas Mists`,
-        desc: `Casting value of 6. Pick a unit within 12" of the caster and that is visible. If a deepkin unit heald D3 wounds allocated to them. Any other unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 6. Pick a unit within 12" of the caster and that is visible. If a friendly Deepkin unit selected, heal D3 wounds allocated to them. Any other unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -70,6 +87,16 @@ export const Units: TUnits = [
         desc: `Casting value of 7. Pick D6 enemy units within 12" of the caster that are visible. Subtract 1 from hit rolls made for those units, and 1 from the Bravery characteristic of those units, until your next hero phase.`,
         when: [HERO_PHASE],
         spell: true,
+      },
+      {
+        name: `Tsunami of Terror`,
+        desc: `If active, subtract 1 from hit rolls made by debuffed units.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Tsunami of Terror`,
+        desc: `If active, subtract 1 from the Bravery characteristic of debuffed units.`,
+        when: [DURING_GAME, BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -187,8 +214,13 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Bloodthirsty Predators`,
-        desc: `At the start of your charge phase, if this unit is within 12" of any enemy models that have been allocated any wounds, you can reroll charge rolls for this unit in that charge phase.`,
-        when: [START_OF_CHARGE_PHASE],
+        desc: `Add 1 to the attacks characteristic of this unit's Ferocious Bite if it is within 3" of enemy models that have had wounds allocated or models slain this turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Entangled`,
+        desc: `Units that have been hit by Retarius Net Launcher attacks this turn cannot pile-in.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -216,13 +248,23 @@ export const Units: TUnits = [
     name: `Akhelian Leviadon`,
     effects: [
       {
+        name: `Crushing Charge`,
+        desc: `After this model finishes a charge move, roll a dice for each enemy unit within 1". On a 2+, that unit suffers D3 mortal wounds. Enemy units with a wounds characteristic of 1 suffer D6 mortal wounds instead.`,
+        when: [CHARGE_PHASE],
+      },
+      {
         name: `Jaws of Death`,
-        desc: `Each time you make a hit roll of 6+ for this model's Leviadon's Crushing Jaws attack, that attack inflicts 6 mortal wounds instead of the normal damage.`,
+        desc: `Each time you make an unmodifed hit roll of 6 for this model's Leviadon's Crushing Jaws attack, that attack inflicts 3 mortal wounds (6 if target is a monster) and the attack sequence ends.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Void Drum`,
-        desc: `IDONETH DEEPKIN units are treated as being in cover while they are wholly within 12" of any friendly Akhelian Leviadons.`,
+        desc: `Add 1 to save rolls for friendly Idoneth Deepkin units with wounds characteristic of 8 or less wholly within 12" of any friendly Leviadons.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Void Drum`,
+        desc: `Add 1 to Namarti hit rolls targeting enemy units wholly within 12" of any friendly Leviadons.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -339,6 +381,21 @@ export const Battalions: TBattalions = [
         name: `Strength of the Ethersea`,
         desc: `SYLVANETH units from this battalion have the Tides of Death battle trait, and gain abilities from the Tides of Death table in the same manner as IDONETH DEEPKIN units.`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `The Bloodsurf Hunt`,
+    effects: [
+      {
+        name: `Deadly Guardians`,
+        desc: `Add 1 to hit rolls made by battallion Allopex Barbed Hooks and Blades wholly within 12" of the battalion's Akhelian King.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Deadly Guardians`,
+        desc: `Each time a wound or mortal would would be allocated to the battalion's Akhelian King within 3" of battalion Allopex units, roll a D6. On a 2+ you must allocate the wounds to one of those Allopex units instead.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

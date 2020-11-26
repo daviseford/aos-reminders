@@ -1,3 +1,4 @@
+import DaughtersOfKhaineArmy from 'army/daughters_of_khaine'
 import KharadronOverlords from 'army/kharadron_overlords'
 import Stormcast from 'army/stormcast_eternals'
 import Sylvaneth from 'army/sylvaneth'
@@ -21,6 +22,7 @@ import {
   START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
   TURN_FOUR_START_OF_ROUND,
+  TURN_ONE_START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
@@ -28,6 +30,7 @@ import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscap
 const getKharadronUnits = () => KharadronOverlords.Units
 const getStormcastUnits = () => Stormcast.Units
 const getSylvanethUnits = () => Sylvaneth.Units
+const getDaughtersUnits = () => DaughtersOfKhaineArmy.Units
 
 const DuardinArtilleryEffects = [
   {
@@ -1438,7 +1441,12 @@ export const Units: TUnits = [
 ]
 
 // Allied units
-export const AlliedUnits: TUnits = [...getStormcastUnits(), ...getKharadronUnits(), ...getSylvanethUnits()]
+export const AlliedUnits: TUnits = [
+  ...getStormcastUnits(),
+  ...getKharadronUnits(),
+  ...getSylvanethUnits(),
+  ...getDaughtersUnits(),
+]
 
 // Battalions
 export const Battalions: TBattalions = [
@@ -1519,6 +1527,42 @@ export const Battalions: TBattalions = [
         name: `Oathsworn Defenders`,
         desc: `Add 1 to hit rolls for attacks made by units from this battalion if they did not move in the same turn and are wholly within 12" of a HERO from the same battalion.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Greywater Shieldband (Greywater Fastness)`,
+    effects: [
+      {
+        name: `Oathsworn Defenders`,
+        desc: `Add 1 to hit rolls for attacks made by units from this battalion if they did not move in the same turn and are wholly within 12" of a HERO from the same battalion.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Kraeth's Shadowhost`,
+    effects: [
+      {
+        name: `Subjugated`,
+        desc: `If this battalion's sorceress is on the battlefield, you can add 1 to the attacks characteristic of Dreadspears and Darkshards in this battalion until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Subjugated`,
+        desc: `If active, you can add 1 to the attacks characteristic of Dreadspears and Darkshards in this battalion.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Subjugated`,
+        desc: `If active, subtract 1 from the save rolls of Dreadspears and Darkshards in this battalion.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `The Whisperers`,
+        desc: `You receive one extra command point.`,
+        when: [TURN_ONE_START_OF_HERO_PHASE],
+        command_trait: true,
       },
     ],
   },

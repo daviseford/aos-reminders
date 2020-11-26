@@ -5,15 +5,25 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
+  TURN_FOUR_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
+const MorathiEffect = {
+  name: `One Soul, Two Bodies / Two Bodies, One Soul`,
+  desc: `Wounds and mortal wounds allocated to Morathi-Khaine have no effect and are instead allocated to the Shadow Queen. Wounds allocated to the Shadow Queen in this manner cannot be negated.
+           If a spell or ability would cause Morathi-Khaine or the Shadow Queen to be slain without wounds being allocated is instead not slain and 3 wounds are allocated to the Shadow Queen.
+           If the Shadow Queen is slain, Morathi-Khaine is also slain after the Shadow Queen is removed from play.`,
+  when: [WOUND_ALLOCATION_PHASE],
+}
 const HagQueenEffects = [
   {
     name: `Priestess of Khaine`,
@@ -120,14 +130,26 @@ const StandardBearerAndHornblowerEffects = [
 ]
 const HeartpiercerShieldEffect = {
   name: `Heartpiercer Shield`,
-  desc: `This unit has a Save characteristic of 5+. In addition, each time you make an unmodified save roll of 6, the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
-  when: [COMBAT_PHASE],
+  desc: `Add 1 to the save rolls of this unit against melee attacks. If the unmodified melee save is a 6, the attacking unit suffers 1 mortal wound after all its attacks have resolved.`,
+  when: [SAVES_PHASE],
 }
-const DescendToBattleEffect = {
-  name: `Descend to Battle`,
-  desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say it is circling high above. In any of your movement phases, it can descend to battle - set up the unit anywhere on the battlefield that is more than 9" from any enemy models. This is their move for that movement phase.`,
-  when: [DURING_SETUP],
-}
+const DescendToBattleEffects = [
+  {
+    name: `Descend to Battle`,
+    desc: `Instead of setting up this unit on the battlefield, you can set it aside to be deployed later in the game.`,
+    when: [DURING_SETUP],
+  },
+  {
+    name: `Descend to Battle`,
+    desc: `If this unit is still off the battlefield, it is slain.`,
+    when: [TURN_FOUR_START_OF_ROUND],
+  },
+  {
+    name: `Descend to Battle`,
+    desc: `If set aside, you may set up this unit anywhere on the battlefield that is more than 9" from any enemy models.`,
+    when: [END_OF_MOVEMENT_PHASE],
+  },
+]
 const BladedBucklersEffect = {
   name: `Bladed Bucklers`,
   desc: `Units with bladed bucklers have a save characteristic of 5+ in this phase. In addition, each time you make an unmodified save roll of 6 in this phase, the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
@@ -145,88 +167,62 @@ const BladedImpactEffect = {
 }
 const HeartseekersEffect = {
   name: `Heartseekers`,
-  desc: `Each time you make a hit roll of 6+ for this unit, the target suffers 1 mortal wound instead of the normal damage.`,
+  desc: `Each time you make an unmodified hit roll of 6 for this unit's Heartseeker Bow, the target suffers 1 mortal wound instead of the normal damage.`,
   when: [SHOOTING_PHASE],
+}
+const TurnedCrystalEffect = {
+  name: `Turned to Crystal`,
+  desc: `You can pick 1 enemy unit within 1" of this unit and roll D6 for each model in this unit. On each 3+ the target suffers 1 mortal wound.`,
+  when: [END_OF_COMBAT_PHASE],
 }
 
 // Unit Names
 export const Units: TUnits = [
   {
-    name: `Morathi, High Oracle of Khaine`,
+    name: `Morathi-Khaine`,
     effects: [
       {
-        name: `Monstrous Transformation`,
-        desc: `Morathi can transform into her monstrous aspect.`,
-        when: [START_OF_HERO_PHASE],
-        tag: 'High Oracle',
+        name: `Commanding Presence`,
+        desc: `Subtract 1 from hit rolls targeting this model.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `The Truth Revealed.`,
-        desc: `Roll a D6 and if the result is equal to or less than the number of wounds currently allocated to Morathi, she transforms into Morathi, the Shadow Queen.`,
-        when: [START_OF_HERO_PHASE],
-        tag: 'High Oracle',
-      },
-      {
-        name: `Sorceress Supreme`,
-        desc: `Add 1 to casting and unbinding rolls made for Morathi, High Oracle of Khaine. In addition, double the range of spells she attempts to cast.`,
-        when: [HERO_PHASE],
-        tag: 'High Oracle',
-      },
-      {
-        name: `Enchanting Beauty`,
-        desc: `Subtract 1 from the hit rolls of attacks that target Morathi, High Oracle of Khaine.`,
-        when: [DURING_GAME],
-        tag: 'High Oracle',
-      },
+      MorathiEffect,
       {
         name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 3 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Arnzipal's Black Horror.`,
+        desc: `This model is a wizard. Can attempt to cast 3 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Black Horror of Ulgu.`,
         when: [HERO_PHASE],
-        tag: 'High Oracle',
+      },
+      {
+        name: `Black Horror of Ulgu`,
+        desc: `Casting value of 7. Pick a unit within 36" and visible to the caster. Roll a D6. On a 1, target suffers 1 mortal wound. On a 2-3 target suffers D3 mortal wounds. On a 4+ target suffers D6 mortal wounds.`,
+        when: [HERO_PHASE],
+        spell: true,
       },
       {
         name: `Worship Through Bloodshed`,
-        desc: `If Morathi, High Oracle of Khaine is your general, you can use this ability. If you do, pick up to 2 friendly Daughters of Khaine units within 14" of Morathi (you cannot choose Morathi herself ). Those units can immediately shoot as if it were the shooting phase. Alternatively, if either unit is within 3" of an enemy unit, it can instead be chosen to pile in and attack as if it were the combat phase. The same unit cannot be picked to benefit from this command ability more than once per hero phase.`,
+        desc: `If this model is on the battlefield, you can pick 1 other friendly Daughters of Khaine unit wholly within 24". The target can shoot or fight if it is within 3" of enemy units. Cannot be used more than once in the same phase.`,
         when: [HERO_PHASE],
         command_ability: true,
-        tag: 'High Oracle',
       },
+    ],
+  },
+  {
+    name: `The Shadow Queen`,
+    effects: [
       {
-        name: `Monstrous Revelation`,
-        desc: `When Morathi transforms, her High Oracle of Khaine model is removed from the battlefield and her Shadow Queen model is set up on the spot where she was standing before her transformation.
-
-               Morathi's Shadow Queen model can only be set up within 3" of an enemy unit if her High Oracle of Khaine model was within 3" of that unit before her transformation.
-
-               If there is insufficient room to place Morathi exactly where she was standing before her transformation, simply place the model as close as possible to that spot where there is room. If, after her Shadow Queen model has been set up, Morathi is more than 14" away from the spot where she was standing before her transformation, she cannot move in the following movement phase.
-
-               Any wounds allocated to Morathi in her High Oracle of Khaine form prior to her transformation are carried over to her Shadow Queen form and then doubled.
-
-               Morathi remains in this form for the remainder of the battle. If she was your general in the High Oracle form she remains your general.`,
-        when: [HERO_PHASE],
-        tag: 'Shadow Queen',
+        name: `Fury of the Shadow Queen`,
+        desc: `While this model is within 3" of enemy units, friendly Harpies and Melusai units wholly within 18" of this model add 1 to their melee attacks characteristics.`,
+        when: [COMBAT_PHASE],
       },
+      MorathiEffect,
       {
-        name: `Gaze of Morathi`,
-        desc: `If a target is hit by the Gaze of Morathi, pick a model in the target unit and roll a D6. If the result exceeds that model's Wounds characteristic, it is slain.`,
-        when: [SHOOTING_PHASE],
-        tag: 'Shadow Queen',
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Arnzipal's Black Horror.`,
-        when: [HERO_PHASE],
-        tag: 'Shadow Queen',
-      },
-      {
-        name: `The Iron Heart of Khaine`,
-        desc: `Morathi cannot be healed, but no more than 3 wounds can be allocated to her in any one turn. Any additional wounds and/or mortal wounds allocated to her in the same turn are ignored and have no effect.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Arnzipal's Black Horror`,
-        desc: `Casting value of 7. Pick an enemy unit within 18" visible to the caster and roll a D6. On a 1 that unit suffers 1 mortal wound. On a 2 or 3 it suffers D3 mortal wounds. On a 4+ it suffers D6 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
+        name: `Iron Heart of Khaine`,
+        desc: `No more than 3 non-negated wounds/mortal wounds can be allocated to this model in a turn. Further wounds are ignored with no effect.
+               Wounds/mortal wounds allocated to this model at the start of the battle round count towards the first turn of that round.
+               Wounds/mortal wounds allocated to this model at the end of the battle round count towards the second turn of that round.
+               Spells/abilities causing this model to be slain with no wounds allocated instead allocates 3 unnegatable wounds, subject to the 3 wound per turn limit.
+               Wounds allocated to this model cannot be healed.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -326,26 +322,15 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Gorgai`,
-        desc: `Add 1 to hit rolls for a Gorgai.`,
+        desc: `Add 1 to the attacks characteristic of a Gorgai's Heartshard Glaive.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Turned to Crystal`,
-        desc: `Each time you score a hit with a Crystal Touch, the target suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
+      TurnedCrystalEffect,
     ],
   },
   {
     name: `Blood Stalkers`,
-    effects: [
-      {
-        name: `Krone`,
-        desc: `Add 1 to hit rolls for a Krone.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      HeartseekersEffect,
-    ],
+    effects: [HeartseekersEffect],
   },
   {
     name: `Bloodwrack Medusa`,
@@ -387,10 +372,10 @@ export const Units: TUnits = [
     effects: [
       {
         name: `Shryke`,
-        desc: `Add 1 to hit rolls for a Shryke.`,
+        desc: `Add 1 to the attacks characteristic for a Shryke.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
-      DescendToBattleEffect,
+      ...DescendToBattleEffects,
       {
         name: `Fire and Flight`,
         desc: `After this unit has finished making all of its attacks, roll a D6: on a 4+ it can make a 6" normal move as if it were your movement phase, but it cannot retreat or run as part of this move.`,
@@ -398,8 +383,13 @@ export const Units: TUnits = [
       },
       {
         name: `Death From Above`,
-        desc: `This unit can shoot even it ran in the same turn. In addition, change the Rend characteristic of this unit's Barbed Javelins to -2 if it was set up on the battlefield in the same turn.`,
-        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+        desc: `This unit can run and shoot in the same turn.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Death From Above`,
+        desc: `Change the Rend characteristic of this unit's Barbed Javelins to -2 if it was set up on the battlefield in this turn.`,
+        when: [SHOOTING_PHASE],
       },
       HeartpiercerShieldEffect,
     ],
@@ -412,7 +402,7 @@ export const Units: TUnits = [
         desc: `Add 1 to hit rolls for a Harridynn.`,
         when: [COMBAT_PHASE],
       },
-      DescendToBattleEffect,
+      ...DescendToBattleEffects,
       {
         name: `Fight and Flight`,
         desc: `After this unit has finished making all of its attacks, roll a D6: on a 4+ it can make a 6" normal move as if it were your movement phase, but it cannot run as part of this move.`,
@@ -468,6 +458,33 @@ export const Units: TUnits = [
         name: `Harness Shadow`,
         desc: `Subtract 1 from melee attack hit rolls targeting this unit.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Melusai Ironscale`,
+    effects: [
+      {
+        name: `Blood of the Oracle`,
+        desc: `Roll a D6 each time this unit is affected by a spell or endless spell. On a 5+, ignore the effects on this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Gory Offering`,
+        desc: `If any enemy models were slain by this model in this phase, you can add 1 to the attacks characteristic of friendly Melusai units wholly within 12". Effect lasts until the end of the phase.`,
+        when: [COMBAT_PHASE],
+      },
+      TurnedCrystalEffect,
+      {
+        name: `Wrath of the Scathborn`,
+        desc: `Once per turn you can pick 1 friendly Melusai unit wholly within 12". Until your next hero phase, the target can run using 2D6 distance and still shoot and/or charge in the same turn.`,
+        when: [HERO_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Wrath of the Scathborn`,
+        desc: `If active, unit can roll 2D6 when making the run roll. Unit may still shoot and/or charge in subsequent phases this turn.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
@@ -546,6 +563,46 @@ export const Battalions: TBattalions = [
       {
         name: `Righteous Fervour`,
         desc: `Choose one Daughters of Khaine unit from this battalion and one Stormcast Eternals unit from this battalion that are within 6" of each other. Both units can either make a normal move (as though in the movement phase), shoot (as though in the shooting phase), or pile in and attack (as though in the combat phase). Both units must perform the same action. If only one can perform the selected action you may use the valid unit while the other does nothing.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Tyralla's Scathcoven`,
+    effects: [
+      {
+        name: `Devoted to the Oracle`,
+        desc: `You can reroll 1's to save for attacks against this battalion's units.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Vyperic Guard`,
+    effects: [
+      {
+        name: `Vaunted Slayers`,
+        desc: `Once per battle, a hero from this battalion can use a command ability without spending a command point.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Scathcoven`,
+    effects: [
+      {
+        name: `Devoted to Morathi`,
+        desc: `Do not take battleshocks test for this battalion's units.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Shrine Blood`,
+    effects: [
+      {
+        name: `Blood Sacrifice`,
+        desc: `You can pick any number this battalion's units within 6" of a battallion Bloodwrack Shrine. 1 model from each selected unit is slain. Heal 1 allocated wound for each slain Harpy or 2 allocated wounds for each slain Melusai on the Shrine.`,
         when: [HERO_PHASE],
       },
     ],

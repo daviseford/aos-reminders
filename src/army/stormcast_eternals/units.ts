@@ -1706,4 +1706,26 @@ export const Battalions: TBattalions = [
       },
     ],
   },
+  {
+    name: `Ven Brecht's Black Watch`,
+    effects: [
+      {
+        name: `Ever Vigilent`,
+        desc: `You can remove the battalion units from the battlefield. You may then set up the Lord-Veritant more than 9" from enemy units followed by the remaining battalion units, again more than 9" from the enemy and wholly within 12" of the Lord-Veritant.`,
+        when: [END_OF_SETUP],
+      },
+      {
+        name: `Fiendslayer`,
+        desc: `You may target enemy Chaos or Death heros instead of enemy wizards with Sanction.`,
+        when: [HERO_PHASE],
+        command_trait: true,
+      },
+      {
+        name: `Fiendslayer`,
+        desc: `Add 1 to hit rolls made by this general targeting Vampires.`,
+        when: [COMBAT_PHASE],
+        command_trait: true,
+      },
+    ],
+  },
 ]

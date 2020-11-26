@@ -540,7 +540,7 @@ describe('getBattlescribeArmy', () => {
   it('should work with Slaanesh5', () => {
     const parsedText = getFile('Slaanesh5')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.units).toContain('Hellstriders')
+    expect(res.selections.units).toContain('Hellstriders with Claw-spears')
     expect(res.selections.units).toContain('Bladebringer, Herald on Exalted Chariot')
     expect(res.errors).toEqual([])
   })
@@ -1125,14 +1125,19 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(DAUGHTERS_OF_KHAINE)
-    expect(res.selections.spells).toEqual(['Arcane Bolt', 'Mystic Shield', "Arnzipal's Black Horror"])
+    expect(res.selections.spells).toEqual(['Arcane Bolt', 'Mystic Shield', 'Black Horror of Ulgu'])
     expect(res.selections.allegiances).toEqual([
       'Hagg Nar (Temple)',
       'Draichi Ganeth (Temple)',
       'The Kraith (Temple)',
       'Khailebron (Temple)',
     ])
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: "Arnzipal's Black Horror",
+      },
+    ])
   })
 
   it('should work with Fyreslayers2', () => {
@@ -1597,7 +1602,7 @@ describe('getBattlescribeArmy', () => {
         'Mystic Shield',
         'The Withering (Wizard)',
         'Enfeebling Foe',
-        "Arnzipal's Black Horror",
+        'Black Horror of Ulgu',
         'Doomfire',
       ],
       traits: ['Devoted Disciples'],
@@ -1607,7 +1612,8 @@ describe('getBattlescribeArmy', () => {
         'Bloodwrack Shrine',
         'Hag Queen',
         'Hag Queen on Cauldron of Blood',
-        'Morathi, High Oracle of Khaine',
+        'Morathi-Khaine',
+        'The Shadow Queen',
         'Slaughter Queen',
         'Slaughter Queen on Cauldron of Blood',
         'Avatar of Khaine',
@@ -1644,6 +1650,10 @@ describe('getBattlescribeArmy', () => {
       {
         severity: 'warn',
         text: 'Magmadroth Blood Vials',
+      },
+      {
+        severity: 'warn',
+        text: "Arnzipal's Black Horror",
       },
     ])
   })
@@ -1835,6 +1845,16 @@ describe('getBattlescribeArmy', () => {
         severity: 'warn',
         text: 'Aetherstrike Force',
       },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Prosecutors with Celestial Hammers can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Prosecutors with Stormcall Javelins can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+      },
     ])
   })
 
@@ -1953,7 +1973,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(SERAPHON)
-    expect(res.allyFactionNames).toEqual([STORMCAST_ETERNALS])
+    expect(res.allyFactionNames).toEqual([])
     expect(res.errors).toEqual([
       {
         severity: 'warn',
@@ -1966,6 +1986,14 @@ describe('getBattlescribeArmy', () => {
       {
         severity: 'warn',
         text: "Klaq-Tor's Talons",
+      },
+      {
+        severity: 'warn',
+        text: 'Lightning Echelon',
+      },
+      {
+        severity: 'warn',
+        text: 'Skyborne Slayers',
       },
       {
         severity: 'warn',
@@ -1983,19 +2011,33 @@ describe('getBattlescribeArmy', () => {
         severity: 'warn',
         text: 'Skink Handlers',
       },
-    ])
-    expect(res.allySelections).toEqual({
-      STORMCAST_ETERNALS: {
-        battalions: ['Lightning Echelon', 'Skyborne Slayers'],
-        units: [
-          'Drakesworn Templar',
-          'Knight-Zephyros',
-          'Celestar Ballista',
-          'Protectors',
-          'Vanguard-Raptors with Hurricane Crossbows',
-        ],
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Drakesworn Templar can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
       },
-    })
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Knight-Zephyros can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Celestar Ballista can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Protectors can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Vanguard-Raptors with Hurricane Crossbows can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+      },
+    ])
+    expect(res.allySelections).toEqual({})
     expect(res.selections).toEqual({
       allegiances: [],
       artifacts: ['Blade of Realities', 'Light of Dracothion'],

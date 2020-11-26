@@ -4,7 +4,7 @@ import React from 'react'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = 'Notes_2020_Release'
+  const name = 'Broken_Realms_2020'
 
   return (
     <NotificationBanner
@@ -15,7 +15,7 @@ const AppBanner = () => {
       variant={isDark ? `dark` : `secondary`}
     >
       <span>
-        <strong>NEW!</strong> Add your own notes to your list!
+        <strong>NEW!</strong> Shadow & Pain and Broken Realms rules have been added!
       </span>
     </NotificationBanner>
   )

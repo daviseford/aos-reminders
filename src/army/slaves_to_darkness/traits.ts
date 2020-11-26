@@ -196,6 +196,67 @@ const CommandTraits: TTraits = [
       },
     ],
   },
+  // Idolators Traits
+  {
+    name: `Bolstered by Hate (Idolators)`,
+    effects: [
+      {
+        name: `Bolstered by Hate (Idolators)`,
+        desc: `Add 2 to this general's Wounds characteristic.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Lord of Terror (Idolators)`,
+    effects: [
+      {
+        name: `Lord of Terror (Idolators)`,
+        desc: `Subtract 1 from the bravery characteristic of enemy units within 6" of this general.`,
+        when: [DURING_GAME, BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Favoured of the Pantheon (Idolators)`,
+    effects: [
+      {
+        name: `Favoured of the Pantheon (Idolators)`,
+        desc: `You can add or subtract 2 from the result of any rolls by this general on the Eye of the God's table.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Fiery Orator (Idolators)`,
+    effects: [
+      {
+        name: `Fiery Orator (Idolators)`,
+        desc: `This general can chant 2 prayers instead of 1. The same prayer may be chanted more than once.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Bane of the False Idols (Idolators)`,
+    effects: [
+      {
+        name: `Bane of the False Idols (Idolators)`,
+        desc: `Once per hero phase, this general can use Desecrate without spending a command point.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Smite the Unbeliever (Idolators)`,
+    effects: [
+      {
+        name: `Smite the Unbeliever (Idolators)`,
+        desc: `Add 2 to the attacks characteristic of this general's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
 ]
 
 export default CommandTraits
