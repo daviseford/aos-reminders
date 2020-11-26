@@ -17,7 +17,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const MorthaiEffect = {
+const MorathiEffect = {
   name: `One Soul, Two Bodies / Two Bodies, One Soul`,
   desc: `Wounds and mortal wounds allocated to Morathi-Khaine have no effect and are instead allocated to the Shadow Queen. Wounds allocated to the Shadow Queen in this manner cannot be negated.
            If a spell or ability would cause Morathi-Khaine or the Shadow Queen to be slain without wounds being allocated is instead not slain and 3 wounds are allocated to the Shadow Queen.
@@ -186,7 +186,7 @@ export const Units: TUnits = [
         desc: `Subtract 1 from hit rolls targeting this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
-      MorthaiEffect,
+      MorathiEffect,
       {
         name: `Magic`,
         desc: `This model is a wizard. Can attempt to cast 3 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Black Horror of Ulgu.`,
@@ -214,7 +214,7 @@ export const Units: TUnits = [
         desc: `While this model is within 3" of enemy units, friendly Harpies and Melusai units wholly within 18" of this model add 1 to their melee attacks characteristics.`,
         when: [COMBAT_PHASE],
       },
-      MorthaiEffect,
+      MorathiEffect,
       {
         name: `Iron Heart of Khaine`,
         desc: `No more than 3 non-negated wounds/mortal wounds can be allocated to this model in a turn. Further wounds are ignored with no effect.
