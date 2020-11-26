@@ -100,6 +100,62 @@ const PactOfSoulAndIronEffect = {
   desc: `You can reroll hit rolls for attacks made by this model. In addition you can reroll wound rolls for attacks made by this model that target a Stormcast Eternal.`,
   when: [COMBAT_PHASE],
 }
+const ChaosChariotEffects = [
+  {
+    name: `Don't Spare the Lash`,
+    desc: `Once per battle, this unit can run and still charge later in the same turn.`,
+    when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  },
+  {
+    name: `Swift Death`,
+    desc: `After finishing a charge move with this unit, pick 1 enemy unit within 1". Roll a number of dice equal to the charge roll. For each 5+ that enemy suffers 1 mortal wound.`,
+    when: [CHARGE_PHASE],
+  },
+]
+const GorebeastChariotEffects = [
+  {
+    name: `Crashing Charge`,
+    desc: `After this unit has finished a charge move, roll a D6 for each enemy model within 1". On a 2+ the target suffers D3 mortal wounds.`,
+    when: [CHARGE_PHASE],
+  },
+  {
+    name: `Explosive Brutality`,
+    desc: `If this unit makes a charge move and the unmodified roll was an 8+, add 1 to the hit and wound rolls for attacks made by this unit's Crushing Fists until your next hero phase.`,
+    when: [CHARGE_PHASE, COMBAT_PHASE],
+  },
+]
+const IdolatorsPrayersEffects = [
+  {
+    name: `Idolators Prayers`,
+    desc: `This model may chant a prayer by rolling a D6 on a friendly Idolators target within 12". On a 3+ the prayer is answered.`,
+    when: [START_OF_HERO_PHASE],
+  },
+  {
+    name: `Blessings of Khorne`,
+    desc: `If answered, targeted Khorne unit can reroll melee attack hit rolls until your next hero phase.`,
+    when: [COMBAT_PHASE],
+  },
+  {
+    name: `Blessings of Tzeentch`,
+    desc: `If answered, targeted Tzeentch unit can reroll save rolls until your next hero phase.`,
+    when: [SAVES_PHASE],
+  },
+  {
+    name: `Blessings of Nurgle`,
+    desc: `If answered, targeted Nurgle unit can reroll melee attack wound rolls until your next hero phase.`,
+    when: [COMBAT_PHASE],
+  },
+  {
+    name: `Blessings of Slaanesh`,
+    desc: `If answered, targeted Slaanesh unit can reroll charge rolls until your next hero phase.`,
+    when: [CHARGE_PHASE],
+  },
+  {
+    name: `Blessings of Chaos Undivided`,
+    desc: `If answered, you can heal D3 wounds allocated to targeted Idolators model.`,
+    when: [HERO_PHASE],
+  },
+]
 
 // Common unit composition effects.
 const UnitLeaderEffect = {
@@ -677,37 +733,19 @@ export const Units: TUnits = [
   },
   {
     name: `Chaos Chariots`,
-    effects: [
-      ChaosMarkAll,
-      ExaltedCharioteerEffect,
-      {
-        name: `Don't Spare the Lash`,
-        desc: `Once per battle, this unit can run and still charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-      {
-        name: `Swift Death`,
-        desc: `After finishing a charge move with this unit, pick 1 enemy unit within 1". Roll a number of dice equal to the charge roll. For each 5+ that enemy suffers 1 mortal wound.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
+    effects: [ChaosMarkAll, ExaltedCharioteerEffect, ...ChaosChariotEffects],
+  },
+  {
+    name: `Idolator Lord on Chaos Chariot`,
+    effects: [ChaosMarkAll, ExaltedCharioteerEffect, ...ChaosChariotEffects, ...IdolatorsPrayersEffects],
   },
   {
     name: `Gorebeast Chariots`,
-    effects: [
-      ChaosMarkAll,
-      ExaltedCharioteerEffect,
-      {
-        name: `Crashing Charge`,
-        desc: `After this unit has finished a charge move, roll a D6 for each enemy model within 1". On a 2+ the target suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Explosive Brutality`,
-        desc: `If this unit makes a charge move and the unmodified roll was an 8+, add 1 to the hit and wound rolls for attacks made by this unit's Crushing Fists until your next hero phase.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
-      },
-    ],
+    effects: [ChaosMarkAll, ExaltedCharioteerEffect, ...GorebeastChariotEffects],
+  },
+  {
+    name: `Idolator Lord on Gorebeast Chariot`,
+    effects: [ChaosMarkAll, ExaltedCharioteerEffect, ...GorebeastChariotEffects, ...IdolatorsPrayersEffects],
   },
   {
     name: `Chaos Warriors`,
@@ -1332,6 +1370,21 @@ export const Battalions: TBattalions = [
         name: `The Circles Unleashed`,
         desc: `You can replace one of The Eight Circles of the Varanguard keywords with a different keyword from the same list for each unit in this battalion.`,
         when: [DURING_SETUP],
+      },
+    ],
+  },
+  {
+    name: `Gresh's Iron Reapers`,
+    effects: [
+      {
+        name: `Soulbutcher`,
+        desc: `The Idolator Lord's Chaos Greatblade has an attacks characteristic of 4 and a damage characteristic of D3. Unmodified hit rolls of 6 with this weapon inflict D3 mortal wounds and ends the attack sequence.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Profane Oratory`,
+        desc: `You can pick 1 friendly Slaves to Darkness unit wholly within 18" of this general and add 1 to their hit rolls until the end of the phase.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },

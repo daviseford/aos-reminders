@@ -45,9 +45,12 @@ export const processReminders: TProcessReminders = (
     }, reminders)
   }
 
+  // !!!-- DAVIS UPDATE THIS TO USE ABILITY SELECTION FROM GUI --!!!
+  // Currently hardcoded to use the first entry in abilities.ts.
   // Add Abilities
   if (army.Abilities && army.Abilities.length) {
-    army.Abilities.forEach((a: TEffects) => {
+    const selectedAbility = army.Abilities[0]
+    selectedAbility.effects.forEach((a: TEffects) => {
       const command_ability = a.command_ability || false
       a.when.forEach(when => {
         const t: TTurnAction = {

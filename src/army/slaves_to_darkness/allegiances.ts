@@ -5,10 +5,8 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
-  END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
-  END_OF_TURN,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -19,7 +17,7 @@ import {
 } from 'types/phases'
 
 const Allegiances: TAllegiances = [
-  // Ravagers Allegiance
+  // Ravagers Legion
   {
     name: `Ravagers`,
     effects: [
@@ -41,7 +39,7 @@ const Allegiances: TAllegiances = [
       },
     ],
   },
-  // Cabalists Allegiance
+  // Cabalists Legion
   {
     name: `Cabalists`,
     effects: [
@@ -65,7 +63,7 @@ const Allegiances: TAllegiances = [
       },
     ],
   },
-  // Despoilers Allegiance
+  // Despoilers Legion
   {
     name: `Despoilers`,
     effects: [
@@ -101,7 +99,7 @@ const Allegiances: TAllegiances = [
       },
     ],
   },
-  // Host of the Everchosen Allegiance
+  // Host of the Everchosen Legion
   {
     name: `Host of the Everchosen`,
     effects: [
@@ -188,30 +186,29 @@ const Allegiances: TAllegiances = [
       },
     ],
   },
-  // The Knights of the Empty Throne Allegiance
+  // Idolators Legion
   {
-    name: `The Knights of the Empty Throne`,
+    name: `Idolators`,
     effects: [
       {
-        name: `Fists of the Everchosen`,
-        desc: `Varanguard units gain the HERO keyword. The 'Look Out, Sir!' rule does not apply to them.`,
-        when: [DURING_GAME],
+        name: `Blessed of Chaos`,
+        desc: `Add 1 to prayer rolls for Idolators Priests.`,
+        when: [HERO_PHASE],
       },
       {
-        name: `Unmatched Conquerors`,
-        desc: `Pick 1 enemy unit controlling an objective within 12" of a friendly Knights of the Empty Throne HERO. Roll a number of dice equal to the number of models in the target. For each 3+, until the end of the battle round, the number of models in that unit counted towards the objective control is reduced by 1. A unit cannot be affected by this more than once per turn.`,
-        when: [END_OF_CHARGE_PHASE],
-        command_ability: true,
+        name: `Panopy of Ruin`,
+        desc: `When an Idolators Cultists unit charges, change the lowest dice to a 6. Change 1 dice to a 6 on a double result.`,
+        when: [CHARGE_PHASE],
       },
       {
-        name: `Unmatched Conquerors`,
-        desc: `If active, reduce the debuffed unit's total model count by the rolled value when determining control.`,
-        when: [END_OF_TURN],
+        name: `Destroy the False Idols`,
+        desc: `Add 1 to wound rolls made by Idolators models targetting enemy priests.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
-        name: `Failure is Not an Option`,
-        desc: `You may use this ability when a friendly Knights of the Empty Throne Varanguard unit is destroyed. Roll a D6 and on a 5+ a new Varanguard unit of 3 models is added to your army. Set this unit up wholly within 6" of the battlefield edge and more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
-        when: [DURING_GAME],
+        name: `Desecrate`,
+        desc: `Pick 1 friendly Idolators unit wholly within 12" of a friendly Idolator Lord and within 3" of a terrain feature. Roll a D6. If the roll is greater than the number of enemy models within 3" of ther terrain, the terrain becomes Descrated (deactivating the terrain feature's rules).`,
+        when: [HERO_PHASE],
         command_ability: true,
       },
     ],

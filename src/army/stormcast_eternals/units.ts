@@ -114,6 +114,11 @@ const TirelessHuntersEffect = {
   desc: `This unit can run and still shoot in the same turn.`,
   when: [SHOOTING_PHASE],
 }
+const EverVigilantEffect = {
+  name: `Ever Vigilent`,
+  desc: `You can remove the battalion units from the battlefield. You may then set up the Lord-Veritant more than 9" from enemy units followed by the remaining battalion units, again more than 9" from the enemy and wholly within 12" of the Lord-Veritant.`,
+  when: [END_OF_SETUP],
+}
 
 // Unit Names
 export const Units: TUnits = [
@@ -1703,6 +1708,58 @@ export const Battalions: TBattalions = [
         name: `Beacons of Faith`,
         desc: `Subtract 1 from enemy wizard casting rolls while they are within 8" of this battalion's units.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Wardens of the Stormkeep`,
+    effects: [
+      {
+        name: `Watchful Commanders`,
+        desc: `Roll 1 dice for each hero from this battalion, adding 3 to the roll if the hero is the general. On each 5+ you receive 1 command point.`,
+        when: [TURN_ONE_START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Stormtower Garrison`,
+    effects: [
+      {
+        name: `Brothers in Arms`,
+        desc: `Paladin and Justicar battalion units wholly within 12" of any battalion Liberators units can use the Shield of Civilisation trait.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Stormkeep Patrol`,
+    effects: [EverVigilantEffect],
+  },
+  {
+    name: `Stormkeep Brotherhood`,
+    effects: [
+      {
+        name: `Defenders of the Faithful`,
+        desc: `You can add 1 to wound rolls for this battalion's units while any of those unit's models are in your territory.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Ven Brecht's Black Watch`,
+    effects: [
+      EverVigilantEffect,
+      {
+        name: `Fiendslayer`,
+        desc: `You may target enemy Chaos or Death heros instead of enemy wizards with Sanction.`,
+        when: [HERO_PHASE],
+        command_trait: true,
+      },
+      {
+        name: `Fiendslayer`,
+        desc: `Add 1 to hit rolls made by this general targeting Vampires.`,
+        when: [COMBAT_PHASE],
+        command_trait: true,
       },
     ],
   },

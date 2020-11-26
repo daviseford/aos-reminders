@@ -298,6 +298,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
       return accum
     },
     {
+      abilities: [] as string[],
       allegiances: [] as string[],
       artifacts: [] as string[],
       battalions: [] as string[],

@@ -4,6 +4,7 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
@@ -11,6 +12,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const CommandTraits: TTraits = [
@@ -296,6 +298,71 @@ const CommandTraits: TTraits = [
         name: `Swift as the Wind (Tempest's Eye)`,
         desc: `This general (and their mount) fights at the start of the combat phase.`,
         when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Shadowlord (Misthavn)`,
+    effects: [
+      {
+        name: `Shadowlord (Misthavn)`,
+        desc: `Once per battle round, the general can use Shadowstrike without spending a command point.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Wily Foe (Misthavn)`,
+    effects: [
+      {
+        name: `Wily Foe (Misthavn)`,
+        desc: `Roll a D6 each time a wound or mortal wound is allocated to this general. On a 6 it is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Shade Warlock (Misthavn)`,
+    effects: [
+      {
+        name: `Shade Warlock (Misthavn)`,
+        desc: `This general is able to cast 1 spell (or gets an additional spell attempt if already a wizard). It knows Arcane Bolt and Mystic Shield.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Bathed in Blood (Har Kuron)`,
+    effects: [
+      {
+        name: `Bathed in Blood (Har Kuron)`,
+        desc: `Add 1 to the wounds characteristic of this general.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Bathed in Blood (Har Kuron)`,
+        desc: `You may heal 1 wound allocated to this general.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Murderous Zeal (Har Kuron)`,
+    effects: [
+      {
+        name: `Murderous Zeal (Har Kuron)`,
+        desc: `This general can attempt to use Incitement to Murder. If this general is already a priest it may attempt it twice.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Dark Adept (Har Kuron)`,
+    effects: [
+      {
+        name: `Dark Adept (Har Kuron)`,
+        desc: `This general is able to cast 1 spell (or gets an additional spell attempt if already a wizard). It knows Arcane Bolt and Mystic Shield.`,
+        when: [HERO_PHASE],
       },
     ],
   },

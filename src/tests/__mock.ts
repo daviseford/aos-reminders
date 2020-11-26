@@ -11,6 +11,7 @@ interface ISelectionsFactoryOptions {
   traits?: string[]
   triumphs?: string[]
   units?: string[]
+  abilities?: string[]
 }
 
 export const selectionsFactory = (options: ISelectionsFactoryOptions): ISelections => {
@@ -25,6 +26,7 @@ export const selectionsFactory = (options: ISelectionsFactoryOptions): ISelectio
     traits = [],
     triumphs = [],
     units = [],
+    abilities = [],
   } = options
   return {
     allegiances,
@@ -37,6 +39,7 @@ export const selectionsFactory = (options: ISelectionsFactoryOptions): ISelectio
     traits,
     triumphs,
     units,
+    abilities,
   }
 }
 

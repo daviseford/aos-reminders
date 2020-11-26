@@ -9,6 +9,7 @@ export type TSelectionTypes =
   | 'traits'
   | 'triumphs'
   | 'units'
+  | 'abilities'
 
 export interface ISelections {
   allegiances: string[]
@@ -21,6 +22,7 @@ export interface ISelections {
   traits: string[]
   triumphs: string[]
   units: string[]
+  abilities: string[]
 }
 
 export interface IAllySelections {

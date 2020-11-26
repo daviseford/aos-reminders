@@ -8,7 +8,9 @@ import {
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_SHOOTING_PHASE,
   TURN_ONE_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -242,6 +244,131 @@ const Artifacts: TArtifacts = [
         name: `Zephyrite Banner (Tempest's Eye)`,
         desc: `You can reroll charge rolls for friendly TEMPEST'S EYE units while they are wholly within 12" of the bearer.`,
         when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Gloom Bell (Misthavn)`,
+    effects: [
+      {
+        name: `Gloom Bell (Misthavn)`,
+        desc: `Once per battle, during the enemy turn and until the end of the phase, subtract 1 from hit rolls made against units wholly within 12" of the bearer.`,
+        when: [START_OF_SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Strangler-kelp Noose (Misthavn)`,
+    effects: [
+      {
+        name: `Strangler-kelp Noose (Misthavn)`,
+        desc: `Once per battle, you can pick 1 enemy model within 3" of the bearer and roll a D6. If the roll is 6 or is less than the target's wound characteristic, the target cannot attack in this combat phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Shadowsilk Armour (Misthavn)`,
+    effects: [
+      {
+        name: `Shadowsilk Armour (Misthavn)`,
+        desc: `Add 1 to the save rolls made by the bearer.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Synesthalcum (Misthavn Narcotic)`,
+    effects: [
+      {
+        name: `Synesthalcum (Misthavn Narcotic)`,
+        desc: `Until your next hero phase, add 1 to hit rolls for attacks made by the user.`,
+        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Witch-mist (Misthavn Narcotic)`,
+    effects: [
+      {
+        name: `Witch-mist (Misthavn Narcotic)`,
+        desc: `Until your next hero phase, ignore modifiers when making save rolls for attacks that target the user.`,
+        when: [HERO_PHASE, SAVES_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Skiffer's Salve (Misthavn Narcotic)`,
+    effects: [
+      {
+        name: `Skiffer's Salve (Misthavn Narcotic)`,
+        desc: `You can heal up to D6 wounds allocated to the user.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Skiffer's Salve (Misthavn Narcotic)`,
+        desc: `If used, the user cannot run or charge until your next hero phase.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Float (Misthavn Narcotic)`,
+    effects: [
+      {
+        name: `Float (Misthavn Narcotic)`,
+        desc: `Until your next hero phase, the user can fly. This has no effect if the user has a mount.`,
+        when: [HERO_PHASE, MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Sawfang Dust (Misthavn Narcotic)`,
+    effects: [
+      {
+        name: `Sawfang Dust (Misthavn Narcotic)`,
+        desc: `Until your next hero phase, each time this user has resolved all attacks, you may pick 1 enemy unit within 1" and roll a D6. On a 4+ the unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Glatch Ink (Misthavn Narcotic)`,
+    effects: [
+      {
+        name: `Glatch Ink (Misthavn Narcotic)`,
+        desc: `Until your next hero phase, you can add 1 to casting, dispelling, and unbinding rolls for the user.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Lifetaker (Har Kuron)`,
+    effects: [
+      {
+        name: `Lifetaker (Har Kuron)`,
+        desc: `You can pick 1 enemy unit within 36" of the bearer and visible. Roll a D6. On a 3-5 the target suffers 1 mortal wound. On a 6 it suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Traitor's Banner (Har Kuron)`,
+    effects: [
+      {
+        name: `Traitor's Banner (Har Kuron)`,
+        desc: `Subtract 1 from missle attack hit rolls made against units wholly within 12" of the bearer.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Nullstone Vizard (Har Kuron)`,
+    effects: [
+      {
+        name: `Nullstone Vizard (Har Kuron)`,
+        desc: `If the bearer is on the battlefield during your turn, roll a D6. On a 5+ you receive 1 command point.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

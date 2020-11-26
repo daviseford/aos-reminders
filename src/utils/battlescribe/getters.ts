@@ -413,6 +413,7 @@ const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
 const stripAllegiancePrefix = (str: string) => str.replace(/(Legion: )/g, '')
 
 interface ICollection {
+  abilities: string[]
   allegiances: string[]
   artifacts: string[]
   battalions: string[]
@@ -427,6 +428,7 @@ interface ICollection {
 
 export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianceInfo[]) => {
   const Collection: ICollection = {
+    abilities: [],
     allegiances: [],
     artifacts: [],
     battalions: [],

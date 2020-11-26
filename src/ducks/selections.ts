@@ -17,6 +17,7 @@ const initialState: ISelectionStore = {
     traits: [],
     triumphs: [],
     units: [],
+    abilities: [],
   },
   allySelections: {},
   sideEffects: {},

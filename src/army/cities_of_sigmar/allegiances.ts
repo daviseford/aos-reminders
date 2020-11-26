@@ -5,6 +5,7 @@ import {
   DURING_GAME,
   DURING_SETUP,
   END_OF_COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
   END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -14,6 +15,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
+  TURN_FOUR_START_OF_ROUND,
   TURN_ONE_DURING_ROUND,
   TURN_ONE_MOVEMENT_PHASE,
   TURN_ONE_START_OF_HERO_PHASE,
@@ -146,7 +148,7 @@ const Allegiances: TAllegiances = [
         allegiance_ability: true,
       },
       {
-        name: `Make an Example of the Weak`,
+        name: `Make an Example of the Weak (Anvilgard)`,
         desc: `You can use this command ability at the start of the battleshock phase. If you do so, pick 1 friendly ANVILGARD unit wholly within 12" of a friendly ANVILGARD HERO. 1 model in that unit is slain. However, in that phase, you do not need to take battleshock tests for friendly ANVILGARD units wholly within 18" of that unit.`,
         when: [START_OF_BATTLESHOCK_PHASE],
         command_ability: true,
@@ -198,6 +200,65 @@ const Allegiances: TAllegiances = [
         name: `Rapid Redeploy`,
         desc: `You can use this command ability in your shooting phase. If you do so, pick 1 friendly TEMPEST'S EYE unit that is wholly within 12" of a friendly TEMPEST'S EYE HERO. That unit can shoot even if it ran in the same turn.`,
         when: [SHOOTING_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Misthavn`,
+    effects: [
+      {
+        name: `Underhanded Tactics`,
+        desc: `You may set up the following units in reserve (max size 10 models per unit) : Misthavn Order Sepentis, Shadowblades or Scourge Privateers. 
+               1 unit may be in reserve for each Darkling Covens, Freeguild, or Duardin unit already on the battlefield.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Underhanded Tactics`,
+        desc: `You may set up 1 or more units from reserve more than 9" from enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Underhanded Tactics`,
+        desc: `Any of your units still in reserve are slain.`,
+        when: [TURN_FOUR_START_OF_ROUND],
+      },
+      {
+        name: `Misthavn Narcotics`,
+        desc: `An equipped hero can use its narcotic once per battle. It has no effect on the bearer's mount.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Shadowstrike`,
+        desc: `Once per turn, when you set up a flanking force from your reserve wholly within 12" of a friendly Misthavn hero, that unit can move up to D6" (it cannot run).`,
+        when: [END_OF_MOVEMENT_PHASE],
+        command_ability: true,
+      },
+    ],
+  },
+  {
+    name: `Har Kuron`,
+    effects: [
+      {
+        name: `Temples of Khaine`,
+        desc: `You can pick 1 friendly Daughters of Khaine priest to attempt the Incitement to Murder prayer in addition to their 1 normal prayer.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Incitement to Murder`,
+        desc: `If successful, pick 1 friendly Har Kuron unit wholly within 12" of the priest. Until the start of your next hero phase, unmodified hits of 6 made by the target score 2 hits instead of 1.
+               The same unit cannot benefit from this ability more that once per phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Incitement to Murder`,
+        desc: `If active, unmodified hits of 6 made by the target score 2 hits instead of 1.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Make an Example of the Weak (Har Kuron)`,
+        desc: `Pick 1 friendly Har Kuron unit wholly within 12" of a friendly Har Kuron hero. 1 model in the target unit is slain. Friendly Har Kuron units within 18" of the targeted unit do not need to take battleshock tests.`,
+        when: [START_OF_BATTLESHOCK_PHASE],
         command_ability: true,
       },
     ],
