@@ -17,7 +17,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const MorthaiEffects = {
+const MorthaiEffect = {
   name: `One Soul, Two Bodies / Two Bodies, One Soul`,
   desc: `Wounds and mortal wounds allocated to Morathi-Khaine have no effect and are instead allocated to the Shadow Queen. Wounds allocated to the Shadow Queen in this manner cannot be negated.
            If a spell or ability would cause Morathi-Khaine or the Shadow Queen to be slain without wounds being allocated is instead not slain and 3 wounds are allocated to the Shadow Queen.
