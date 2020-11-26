@@ -9,7 +9,7 @@ import { AlliedUnits, Battalions, Units } from './units'
 const StormcastEternalsStormkeepArmy = {
   Abilities,
   Allegiances,
-  AllegianceType: 'Stormkeeps',
+  AllegianceType: 'Stormhosts',
   AlliedUnits,
   Artifacts,
   Battalions,
