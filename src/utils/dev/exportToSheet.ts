@@ -38,7 +38,7 @@ const makeWorksheet = (workbook: XLSX.WorkBook, factionName: TSupportedFaction) 
     Traits = [],
   } = Army
 
-  const abilities = [...Abilities].map(x => [x.name, ...x.effects.map(y => y.desc)])
+  const abilities = [...Abilities].map(x => [x.name, x.desc])
   const allegiances = [...Allegiances].map(x => [x.name, ...x.effects.map(y => y.desc)])
   const artifacts = [...Artifacts].map(x => [x.name, ...x.effects.map(y => y.desc)])
   const battalions = [...Battalions].map(x => [x.name, ...x.effects.map(y => y.desc)])

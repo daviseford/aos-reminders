@@ -1,13 +1,13 @@
 import { TSupportedFaction } from 'meta/factions'
 import { TGameStructure } from 'meta/game_structure'
-import { TEntry } from 'types/data'
+import { TEffects, TEntry } from 'types/data'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { ISelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 
 export type TAllyArmies = { [key: string]: IArmy }
 
-export type TAbilities = TEntry[]
+export type TAbilities = TEffects[]
 export type TAllegiances = TEntry[]
 export type TArtifacts = TEntry[]
 export type TBattalions = TEntry[]

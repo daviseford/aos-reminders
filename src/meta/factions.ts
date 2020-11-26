@@ -41,6 +41,7 @@ type TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 type TSonsOfBehemat = 'SONS_OF_BEHEMAT'
 type TSoulblight = 'SOULBLIGHT'
 type TStormcastEternals = 'STORMCAST_ETERNALS'
+type TStormcastEternalsStormkeep = 'STORMCAST_ETERNALS_STORMKEEP'
 type TSylvaneth = 'SYLVANETH'
 type TTamurkhansHorde = 'TAMURKHANS_HORDE'
 type TTombKings = 'TOMB_KINGS'
@@ -88,6 +89,7 @@ export const SLAVES_TO_DARKNESS: TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 export const SONS_OF_BEHEMAT: TSonsOfBehemat = 'SONS_OF_BEHEMAT'
 export const SOULBLIGHT: TSoulblight = 'SOULBLIGHT'
 export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
+export const STORMCAST_ETERNALS_STORMKEEP: TStormcastEternalsStormkeep = 'STORMCAST_ETERNALS_STORMKEEP'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
 export const TAMURKHANS_HORDE: TTamurkhansHorde = 'TAMURKHANS_HORDE'
 export const TOMB_KINGS: TTombKings = 'TOMB_KINGS'
@@ -140,6 +142,7 @@ export type TPrimaryFactions =
   | TSonsOfBehemat
   | TSoulblight
   | TStormcastEternals
+  | TStormcastEternalsStormkeep
   | TSylvaneth
   | TTamurkhansHorde
   | TTombKings
@@ -188,6 +191,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   SONS_OF_BEHEMAT,
   SOULBLIGHT,
   STORMCAST_ETERNALS,
+  STORMCAST_ETERNALS_STORMKEEP,
   SYLVANETH,
   TAMURKHANS_HORDE,
   TOMB_KINGS,

@@ -38,6 +38,7 @@ import SlavesToDarknessArmy from 'army/slaves_to_darkness'
 import SonsOfBehematArmy from 'army/sons_of_behemat'
 import SoulblightArmy from 'army/soulblight'
 import StormcastEternalsArmy from 'army/stormcast_eternals'
+import StormcastEternalsStormkeepArmy from 'army/stormcast_eternals_stormkeep'
 import SylvanethArmy from 'army/sylvaneth'
 import TamurkhansHordeArmy from 'army/tamurkhans_horde'
 import TombKingsArmy from 'army/tomb_kings'
@@ -85,6 +86,7 @@ import {
   SONS_OF_BEHEMAT,
   SOULBLIGHT,
   STORMCAST_ETERNALS,
+  STORMCAST_ETERNALS_STORMKEEP,
   SYLVANETH,
   TAMURKHANS_HORDE,
   TOMB_KINGS,
@@ -253,6 +255,10 @@ const ArmyList: TArmyList = {
   },
   [STORMCAST_ETERNALS]: {
     Army: { ...StormcastEternalsArmy },
+    GrandAlliance: ORDER,
+  },
+  [STORMCAST_ETERNALS_STORMKEEP]: {
+    Army: { ...StormcastEternalsStormkeepArmy },
     GrandAlliance: ORDER,
   },
   [SYLVANETH]: {
