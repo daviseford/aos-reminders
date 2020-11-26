@@ -17,7 +17,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const MorthaiEffects = {
+const MorthaiEffect = {
   name: `One Soul, Two Bodies / Two Bodies, One Soul`,
   desc: `Wounds and mortal wounds allocated to Morathi-Khaine have no effect and are instead allocated to the Shadow Queen. Wounds allocated to the Shadow Queen in this manner cannot be negated.
            If a spell or ability would cause Morathi-Khaine or the Shadow Queen to be slain without wounds being allocated is instead not slain and 3 wounds are allocated to the Shadow Queen.
@@ -133,7 +133,7 @@ const HeartpiercerShieldEffect = {
   desc: `Add 1 to the save rolls of this unit against melee attacks. If the unmodified melee save is a 6, the attacking unit suffers 1 mortal wound after all its attacks have resolved.`,
   when: [SAVES_PHASE],
 }
-const DescendToBattleEffect = [
+const DescendToBattleEffects = [
   {
     name: `Descend to Battle`,
     desc: `Instead of setting up this unit on the battlefield, you can set it aside to be deployed later in the game.`,
@@ -186,7 +186,7 @@ export const Units: TUnits = [
         desc: `Subtract 1 from hit rolls targeting this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
-      MorthaiEffects,
+      MorthaiEffect,
       {
         name: `Magic`,
         desc: `This model is a wizard. Can attempt to cast 3 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Black Horror of Ulgu.`,
@@ -212,7 +212,7 @@ export const Units: TUnits = [
         desc: `While this model is within 3" of enemy units, friendly Harpies and Melusai units wholly within 18" of this model add 1 to their melee attacks characteristics.`,
         when: [COMBAT_PHASE],
       },
-      MorthaiEffects,
+      MorthaiEffect,
       {
         name: `Iron Heart of Khaine`,
         desc: `No more than 3 non-negated wounds/mortal wounds can be allocated to this model in a turn. Further wounds are ignored with no effect.
@@ -373,7 +373,7 @@ export const Units: TUnits = [
         desc: `Add 1 to the attacks characteristic for a Shryke.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
-      ...DescendToBattleEffect,
+      ...DescendToBattleEffects,
       {
         name: `Fire and Flight`,
         desc: `After this unit has finished making all of its attacks, roll a D6: on a 4+ it can make a 6" normal move as if it were your movement phase, but it cannot retreat or run as part of this move.`,
@@ -400,7 +400,7 @@ export const Units: TUnits = [
         desc: `Add 1 to hit rolls for a Harridynn.`,
         when: [COMBAT_PHASE],
       },
-      ...DescendToBattleEffect,
+      ...DescendToBattleEffects,
       {
         name: `Fight and Flight`,
         desc: `After this unit has finished making all of its attacks, roll a D6: on a 4+ it can make a 6" normal move as if it were your movement phase, but it cannot run as part of this move.`,
