@@ -1473,10 +1473,10 @@ describe('getAzyrArmyFromPdf', () => {
       commands: ['Worship Through Bloodshed'],
       endless_spells: [],
       scenery: [],
-      spells: ["Martyr's Sacrifice (Priest)", 'Mindrazor (Wizard)', "Arnzipal's Black Horror"],
+      spells: ["Martyr's Sacrifice (Priest)", 'Mindrazor (Wizard)', 'Black Horror of Ulgu'],
       traits: [],
       triumphs: [],
-      units: ['Hag Queen on Cauldron of Blood', 'Morathi, High Oracle of Khaine', 'Sisters of Slaughter'],
+      units: ['Hag Queen on Cauldron of Blood', 'Morathi-Khaine', 'Sisters of Slaughter'],
     })
   })
 
@@ -1638,10 +1638,10 @@ describe('getAzyrArmyFromPdf', () => {
       allegiances: ['Anvilgard'],
       artifacts: ['Venomfang Blade (Anvilgard)'],
       battalions: [],
-      commands: ['Make an Example of the Weak'],
+      commands: ['Make an Example of the Weak (Anvilgard)'],
       endless_spells: [],
       scenery: [],
-      spells: ['Sap Strength (Anvilgard)', 'Amber Spear', 'Wildform (Ghur)'],
+      spells: ['Sap Strength (Anvilgard, Har Kuron)', 'Amber Spear', 'Wildform (Ghur)'],
       traits: ['Blackfang Crimelord (Anvilgard)', 'Hidden Agents (Anvilgard Battle Trait)'],
       triumphs: [],
       units: ['Battlemage on Griffon', 'Freeguild Handgunners', 'War Hydra'],
@@ -2083,40 +2083,6 @@ describe('getAzyrArmyFromPdf', () => {
         severity: 'ambiguity-warn',
         text:
           "Azyr lists more than one unit as 'Vanguard-Raptors'. Please check that we have imported the correct one.",
-      },
-    ])
-  })
-
-  it('warns about ambiguous selections in allies', () => {
-    const fileTxt = getFile('Fyreslayers3')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.selections.units).toEqual(['Auric Runeson', 'Vulkite Berzerkers'])
-    expect(res.allySelections[STORMCAST_ETERNALS]).toEqual({
-      battalions: [],
-      units: ['Lord-Arcanum', 'Evocators', 'Prosecutors with Stormcall Javelins'],
-    })
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Auric Runeson'. Please check that we have imported the correct one.",
-      },
-      {
-        severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
-      },
-      {
-        severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Evocators'. Please check that we have imported the correct one.",
-      },
-      {
-        severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Prosecutors'. Please check that we have imported the correct one.",
       },
     ])
   })

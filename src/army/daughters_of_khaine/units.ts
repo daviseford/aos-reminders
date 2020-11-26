@@ -196,11 +196,13 @@ export const Units: TUnits = [
         name: `Black Horror of Ulgu`,
         desc: `Casting value of 7. Pick a unit within 36" and visible to the caster. Roll a D6. On a 1, target suffers 1 mortal wound. On a 2-3 target suffers D3 mortal wounds. On a 4+ target suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
+        spell: true,
       },
       {
         name: `Worship Through Bloodshed`,
         desc: `If this model is on the battlefield, you can pick 1 other friendly Daughters of Khaine unit wholly within 24". The target can shoot or fight if it is within 3" of enemy units. Cannot be used more than once in the same phase.`,
         when: [HERO_PHASE],
+        command_ability: true,
       },
     ],
   },

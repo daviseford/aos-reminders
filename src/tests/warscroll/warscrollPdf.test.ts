@@ -12,6 +12,7 @@ import {
   KHARADRON_OVERLORDS,
   KHORNE,
   LUMINETH_REALMLORDS,
+  MEGA_GARGANT_MERCENARIES,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -22,6 +23,7 @@ import {
   SLAANESH,
   SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
+  STORMCAST_ETERNALS_STORMKEEP,
   SYLVANETH,
   TZEENTCH,
 } from 'meta/factions'
@@ -35,6 +37,79 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should correctly read StormcastStormkeep1', () => {
+    const pdfText = getFile('StormcastStormkeep1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res).toEqual({
+      allyFactionNames: [STORMCAST_ETERNALS_STORMKEEP, MEGA_GARGANT_MERCENARIES],
+      allySelections: {
+        [STORMCAST_ETERNALS_STORMKEEP]: {
+          battalions: ['Stormkeep Patrol', 'Stormtower Garrison', 'Stormkeep Brotherhood'],
+          units: [],
+        },
+        [MEGA_GARGANT_MERCENARIES]: { battalions: [], units: ['Bundo Whalebiter - Kraken-Eater'] },
+      },
+      allyUnits: ['Bundo Whalebiter'],
+      errors: [],
+      factionName: STORMCAST_ETERNALS,
+      origin_realm: 'Ghur',
+      realmscape_feature: null,
+      realmscape: null,
+      selections: {
+        allegiances: ['Hammers of Sigmar (Stormhost)'],
+        artifacts: [
+          'Scroll of Condemnation',
+          'Staff of Focus',
+          'Hammer of Might',
+          'Blade of Heroes',
+          'Gift of the Six Smiths',
+          'Staff of Azyr',
+          'Scroll of Unravelling',
+          'God-forged Blade',
+        ],
+        battalions: ['Soulstrike Brotherhood', 'Skyborne Slayers', 'Cleansing Phalanx'],
+        commands: [
+          'Soul of the Stormhost',
+          'Soul Energy of the First Host',
+          'Vengeful Determination',
+          'Sombre Exemplar',
+        ],
+        endless_spells: ['The Burning Head'],
+        scenery: [],
+        spells: [
+          'Terrifying Aspect',
+          'Azyrite Halo',
+          'Lightning Blast',
+          'Celestial Blades',
+          'Lightning Pulse',
+          'Healing Light',
+          'Amethyst Gale',
+          'Empower',
+        ],
+        traits: ['Savage Loyalty', 'Keen-clawed', 'Thunder Caller', 'Lithe-Limbed', 'We Cannot Fail'],
+        triumphs: [],
+        units: [
+          'Astreia Solbright',
+          'Errant-Questor',
+          'Knight-Questor',
+          'Lord-Arcanum on Gryph-Charger',
+          'Neave Blacktalon',
+          'Vandus Hammerhand',
+          'Lynus Ghalmorian on Gryph Charger',
+          'Evocators on Celestial Dracolines',
+          'Vanguard-Raptors with Longstrike Crossbows',
+          'The Farstriders',
+          'Prosecutors with Celestial Hammers',
+          'Decimators',
+          'Celestar Ballista',
+        ],
+      },
+      unknownSelections: [],
+    })
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read Tzeentch1', () => {
     const pdfText = getFile('Tzeentch1')
     const parsedText = parsePdf(pdfText)
@@ -644,7 +719,7 @@ describe('getWarscrollArmyFromPdf', () => {
       ],
       battalions: ['Greywater Artillery Company'],
       commands: [
-        'Make an Example of the Weak',
+        'Make an Example of the Weak (Anvilgard)',
         'Command Underlings',
         'Inspire Hatred',
         'Target Sighted',
@@ -660,7 +735,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Choking Fumes (Greywater Fastness)',
         'Crystal Aegis (Hallowheart)',
         'Twin-Tailed Comet (Hammerhal)',
-        'Sap Strength (Anvilgard)',
+        'Sap Strength (Anvilgard, Har Kuron)',
         'Sear Wounds (Hallowheart)',
         'Warding Brand (Hallowheart)',
         'Ignite Weapons (Hallowheart)',
@@ -837,7 +912,10 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.errors).toEqual([])
     expect(res.selections.artifacts).toEqual(['Whitefire Tome (Hallowheart)'])
     expect(res.selections.traits).toEqual(['Secretive Warlock (Anvilgard)'])
-    expect(res.selections.spells).toEqual(['Sap Strength (Anvilgard)', 'Elemental Cyclone (Hallowheart)'])
+    expect(res.selections.spells).toEqual([
+      'Sap Strength (Anvilgard, Har Kuron)',
+      'Elemental Cyclone (Hallowheart)',
+    ])
   })
 
   it('reads a deprecated KO warscroll pdf file correctly', () => {
@@ -1046,21 +1124,32 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Knight-Incantor can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Concussors can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+      },
+    ])
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.allySelections).toEqual({
       DAUGHTERS_OF_KHAINE: {
         battalions: [],
-        units: ['Sisters of Slaughter', 'Morathi, High Oracle of Khaine'],
+        units: ['Sisters of Slaughter', 'Morathi-Khaine'],
       },
       KHARADRON_OVERLORDS: { battalions: [], units: ['Grundstok Gunhauler'] },
-      STORMCAST_ETERNALS: { battalions: [], units: ['Knight-Incantor', 'Concussors'] },
+      // STORMCAST_ETERNALS: { battalions: [], units: ['Knight-Incantor', 'Concussors'] },
       SYLVANETH: { battalions: [], units: ['Kurnoth Hunters'] },
     })
     expect(res.allyFactionNames).toEqual([
       DAUGHTERS_OF_KHAINE,
       KHARADRON_OVERLORDS,
-      STORMCAST_ETERNALS,
+      // STORMCAST_ETERNALS,
       SYLVANETH,
     ])
     expect(res.allyUnits).toEqual([
@@ -1231,19 +1320,21 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res).toEqual({
-      allyFactionNames: [STORMCAST_ETERNALS],
+      allyFactionNames: [
+        // STORMCAST_ETERNALS
+      ],
       allySelections: {
-        STORMCAST_ETERNALS: {
-          battalions: [],
-          units: [
-            'Celestant-Prime',
-            'Knight-Vexillor',
-            'Lynus Ghalmorian on Gryph Charger',
-            'Concussors',
-            'Evocators',
-            'Celestar Ballista',
-          ],
-        },
+        // STORMCAST_ETERNALS: {
+        //   battalions: [],
+        //   units: [
+        //     'Celestant-Prime',
+        //     'Knight-Vexillor',
+        //     'Lynus Ghalmorian on Gryph Charger',
+        //     'Concussors',
+        //     'Evocators',
+        //     'Celestar Ballista',
+        //   ],
+        // },
       },
       allyUnits: [
         'Celestant-Prime',
@@ -1256,7 +1347,38 @@ describe('getWarscrollArmyFromPdf', () => {
         // TODO: Why is Dread Saurian here?
         'Dread Saurian',
       ],
-      errors: [],
+      errors: [
+        {
+          severity: 'ally-warn',
+          text:
+            'Allied Celestant-Prime can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+        },
+        {
+          severity: 'ally-warn',
+          text:
+            'Allied Knight-Vexillor can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+        },
+        {
+          severity: 'ally-warn',
+          text:
+            'Allied Lynus Ghalmorian on Gryph Charger can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+        },
+        {
+          severity: 'ally-warn',
+          text:
+            'Allied Concussors can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+        },
+        {
+          severity: 'ally-warn',
+          text:
+            'Allied Evocators can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+        },
+        {
+          severity: 'ally-warn',
+          text:
+            'Allied Celestar Ballista can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+        },
+      ],
       factionName: SERAPHON,
       origin_realm: 'Ghyran',
       realmscape_feature: null,

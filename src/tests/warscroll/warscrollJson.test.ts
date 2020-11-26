@@ -27,6 +27,7 @@ import {
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
+  STORMCAST_ETERNALS_STORMKEEP,
   SYLVANETH,
   TZEENTCH,
 } from 'meta/factions'
@@ -466,11 +467,11 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with Morathi, High Oracle of Khaine', () => {
+  it('should work with Morathi, High Oracle of Khaine (pre-Broken Realms)', () => {
     const parsedText = getFile('1582028528350-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     // @ts-ignore
-    expect(res.allySelections[DAUGHTERS_OF_KHAINE].units).toContain('Morathi, High Oracle of Khaine')
+    expect(res.allySelections[DAUGHTERS_OF_KHAINE].units).toContain('Morathi-Khaine')
     expect(res.errors).toEqual([])
   })
 
@@ -703,7 +704,7 @@ describe('getWarscrollArmyFromJson', () => {
   it('should work with Vitriolic Spray (Anvilgard)', () => {
     const parsedText = getFile('1577866703167-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.spells).toContain('Vitriolic Spray (Anvilgard)')
+    expect(res.selections.spells).toContain('Vitriolic Spray (Anvilgard, Har Kuron)')
     expect(res.errors).toEqual([])
   })
 
@@ -896,6 +897,10 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.allySelections).toEqual({
       [STORMCAST_ETERNALS]: {
+        battalions: ['Hailstorm Battery'],
+        units: [],
+      },
+      [STORMCAST_ETERNALS_STORMKEEP]: {
         battalions: ['Hailstorm Battery'],
         units: [],
       },
@@ -1482,6 +1487,11 @@ describe('getWarscrollArmyFromJson', () => {
         severity: 'warn',
         text: 'Razordons',
       },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Knight-Incantor can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
+      },
     ])
   })
 
@@ -1585,7 +1595,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections.spells).toContain('Vitriolic Spray (Anvilgard)')
+    expect(res.selections.spells).toContain('Vitriolic Spray (Anvilgard, Har Kuron)')
     expect(res.selections.traits).toContain('Secretive Warlock (Anvilgard)')
     expect(res.selections.units).toContain('Knight-Azyros')
     expect(res.selections.units).toContain('Prosecutors with Celestial Hammers')
