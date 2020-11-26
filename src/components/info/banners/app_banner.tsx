@@ -15,7 +15,7 @@ const AppBanner = () => {
       variant={isDark ? `dark` : `secondary`}
     >
       <span>
-        <strong>NEW!</strong> Broken Realms have been added!
+        <strong>NEW!</strong> Shadow & Pain/Broken Realms rules have been added!
       </span>
     </NotificationBanner>
   )
