@@ -5,8 +5,10 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
+  END_OF_TURN,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -183,6 +185,34 @@ const Allegiances: TAllegiances = [
         name: `The Eighth Circle`,
         desc: `Eighth Circle units can fly.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  // The Knights of the Empty Throne Allegiance
+  {
+    name: `The Knights of the Empty Throne`,
+    effects: [
+      {
+        name: `Fists of the Everchosen`,
+        desc: `Varanguard units gain the HERO keyword. The 'Look Out, Sir!' rule does not apply to them.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Unmatched Conquerors`,
+        desc: `Pick 1 enemy unit controlling an objective within 12" of a friendly Knights of the Empty Throne HERO. Roll a number of dice equal to the number of models in the target. For each 3+, until the end of the battle round, the number of models in that unit counted towards the objective control is reduced by 1. A unit cannot be affected by this more than once per turn.`,
+        when: [END_OF_CHARGE_PHASE],
+        command_ability: true,
+      },
+      {
+        name: `Unmatched Conquerors`,
+        desc: `If active, reduce the debuffed unit's total model count by the rolled value when determining control.`,
+        when: [END_OF_TURN],
+      },
+      {
+        name: `Failure is Not an Option`,
+        desc: `You may use this ability when a friendly Knights of the Empty Throne Varanguard unit is destroyed. Roll a D6 and on a 5+ a new Varanguard unit of 3 models is added to your army. Set this unit up wholly within 6" of the battlefield edge and more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
+        when: [DURING_GAME],
+        command_ability: true,
       },
     ],
   },
