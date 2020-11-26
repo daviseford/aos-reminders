@@ -6,13 +6,7 @@ import Spells from './spells'
 import Traits from './traits'
 import { AlliedUnits, Battalions, Units } from './units'
 
-// Copy paste this directory to kickstart a new army
-// Remember to add your army to:
-//      - meta/factions.ts
-//      - meta/army_list.ts
-
-// Be sure to rename this variable to `[FactionName]Army`
-const SampleArmy = {
+const StormcastEternalsStormkeepArmy = {
   Abilities,
   Allegiances,
   AllegianceType: 'Stormkeeps',
@@ -25,4 +19,4 @@ const SampleArmy = {
   Units,
 }
 
-export default SampleArmy
+export default StormcastEternalsStormkeepArmy

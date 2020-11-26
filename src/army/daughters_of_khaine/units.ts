@@ -474,13 +474,13 @@ export const Units: TUnits = [
       },
       TurnedCrystalEffect,
       {
-        name: `Wrath of the Scthborn`,
+        name: `Wrath of the Scathborn`,
         desc: `Once per turn you can pick 1 friendly Melusai unit wholly within 12". Until your next hero phase, the target can run using 2D6 distance and still shoot and/or charge in the same turn.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
       {
-        name: `Wrath of the Scthborn`,
+        name: `Wrath of the Scathborn`,
         desc: `If active, unit can roll 2D6 when making the run roll. Unit may still shoot and/or charge in subsequent phases this turn.`,
         when: [MOVEMENT_PHASE],
       },
