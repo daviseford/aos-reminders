@@ -133,7 +133,7 @@ const HeartpiercerShieldEffect = {
   desc: `Add 1 to the save rolls of this unit against melee attacks. If the unmodified melee save is a 6, the attacking unit suffers 1 mortal wound after all its attacks have resolved.`,
   when: [SAVES_PHASE],
 }
-const DescendToBattleEffect = [
+const DescendToBattleEffects = [
   {
     name: `Descend to Battle`,
     desc: `Instead of setting up this unit on the battlefield, you can set it aside to be deployed later in the game.`,
