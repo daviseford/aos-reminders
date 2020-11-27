@@ -77,14 +77,7 @@ The new Seraphon book is a good example.
 
 |              |                                                                 |                                                                        |
 | ------------ | --------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| Faction      | 'SERAPHON'                                                      | -                                                                      |
-| Sub-Factions | 'COALESCED' or 'STARBORNE'                                      | one of these would be the **Base Sub-Faction**                         |
-| Allegiances  | 'KOATLS_CLAW, THUNDER_LIZARD, DRACOTHIONS_TAIL, FANGS_OF_SOTEK' | the **Sub-Factions** will list which **Allegiances** they want to list |
-
-
-|              |                                                                 |                                                                        |
-| ------------ | --------------------------------------------------------------- | ---------------------------------------------------------------------- |
-| Faction      | 'SERAPHON'                                                      | asd                                                                    |
+| Faction      | 'SERAPHON'                                                      |                                                                        |
 | Sub-Factions | 'COALESCED' or 'STARBORNE'                                      | one would be **Base Sub-Faction**                                      |
 | Allegiances  | 'KOATLS_CLAW, THUNDER_LIZARD, DRACOTHIONS_TAIL, FANGS_OF_SOTEK' | the **Sub-Factions** will list which **Allegiances** they want to list |
 
