@@ -2,6 +2,7 @@
   - [Glossary](#glossary)
     - [Faction](#faction)
     - [Sub-Factions](#sub-factions)
+      - [Base Sub-Faction](#base-sub-faction)
     - [Allegiances](#allegiances)
   - [Examples](#examples)
 
@@ -27,14 +28,25 @@ First, let's define a **Faction**
 Next, **Sub-Factions**.
 
 - A Sub-Faction belongs to a **Faction**
-- A **Sub-Faction** may be a **Base Sub-Faction**
-  - We generally will try to extend other **Sub-Factions** from the **Base Sub-Faction**
 - A **Sub-Faction** can dictate:
   - What **Allegiances** it may contain
   - What units it has
   - What battalions it has
 - A **Sub-Faction** may also apply certain Abilities or effects, units, spells, etc
 
+#### Base Sub-Faction
+
+A **Sub-Faction** may be a **Base Sub-Faction**
+
+A **Base Sub-Faction** can mark itself as **Not Visible**
+
+We generally will try to extend other **Sub-Factions** from the **Base Sub-Faction**
+
+  - For example - `Ironjawz` and `Bonesplitterz` (**Sub-Factions**) share a lot of data from the `Orruk Warclans` (**Faction**) book. 
+  - So we would want three **Sub-Factions** in total:
+    - **Base Sub-Faction** - marked as **Not Visible**
+    - **`Ironjawz` Sub-Faction**
+    - **`Bonesplitterz` Sub-Faction**
 
 ### Allegiances
 
@@ -63,9 +75,16 @@ The new Seraphon book is a good example.
 
 ---
 
-|              | value                      | notes |
-| ------------ | -------------------------- | ----- |
-| Faction      | 'SERAPHON'                 |    -   |
-| Sub-Factions | 'COALESCED' or 'STARBORNE' | one of these would be the **Base Sub-Faction** |
-| Allegiances  | 'KOATLS_CLAW, THUNDER_LIZARD, DRACOTHIONS_TAIL, FANGS_OF_SOTEK'  | the **Sub-Factions** will list which **Allegiances** they want to list |
+|              |                                                                 |                                                                        |
+| ------------ | --------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Faction      | 'SERAPHON'                                                      | -                                                                      |
+| Sub-Factions | 'COALESCED' or 'STARBORNE'                                      | one of these would be the **Base Sub-Faction**                         |
+| Allegiances  | 'KOATLS_CLAW, THUNDER_LIZARD, DRACOTHIONS_TAIL, FANGS_OF_SOTEK' | the **Sub-Factions** will list which **Allegiances** they want to list |
+
+
+|              |                                                                 |                                                                        |
+| ------------ | --------------------------------------------------------------- | ---------------------------------------------------------------------- |
+| Faction      | 'SERAPHON'                                                      | asd                                                                    |
+| Sub-Factions | 'COALESCED' or 'STARBORNE'                                      | one would be **Base Sub-Faction**                                      |
+| Allegiances  | 'KOATLS_CLAW, THUNDER_LIZARD, DRACOTHIONS_TAIL, FANGS_OF_SOTEK' | the **Sub-Factions** will list which **Allegiances** they want to list |
 
