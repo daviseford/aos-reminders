@@ -17,7 +17,7 @@ const subFactions = {
     traits: keyPicker(Traits, 'Thickly Scaled Hide', 'Cunning'),
 
     // And it enables either of these two flavors to be selected in the UI
-    flavors: keyPicker(Flavors, "Dracothion's Tail", 'Fangs of Sotek'),
+    flavors: keyPicker(Flavors, 'A Different Flavor', 'Made Up Flavor'),
 
     // General rules to be added because of this subfaction being selected
     effects: [
