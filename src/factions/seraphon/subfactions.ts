@@ -1,19 +1,35 @@
-import { keyOmitter, keyPicker } from './metatagger'
+import { BATTLESHOCK_PHASE } from 'types/phases'
+import Flavors from './flavors'
+import { keyPicker } from './metatagger'
+import Traits from './traits'
 import { Units } from './units'
 
 const subFactions = {
-  COALESCED: {
-    units: {},
-  },
+  COALESCED: {},
+  STARBORNE: {},
 
   // Example structure of a subfaction, imagine this repeated for traits, spells, etc
-  STARBORNE: {
-    units: {
-      all: keyOmitter(Units, 'Lord Kroak'), // Let;s pretend we can't have Lord Kroak
-      mandatory: keyPicker(Units, 'Bastiladon'), // pretend we need a bastiladon
-      not_allowed: keyPicker(Units, 'Saurus Warriors', 'Skinks'), // and pretend we can't have a saurus gaurd oor skinks
-    },
+  MADE_UP: {
+    // Let's pretend this subfaction mandates that you take a Skink Priest + Trog
+    units: keyPicker(Units, 'Skink Priest', 'Skink Oracle on Troglodon'),
+
+    // It applies these traits
+    traits: keyPicker(Traits, 'Thickly Scaled Hide', 'Cunning'),
+
+    // And it enables either of these two flavors to be selected in the UI
+    flavors: keyPicker(Flavors, "Dracothion's Tail", 'Fangs of Sotek'),
+
+    // General rules to be added because of this subfaction being selected
+    effects: [
+      {
+        name: `Cold-blooded`,
+        desc: `Ignore modifiers (positive or negative) to the Bravery characteristic of MADE_UP units.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      // etc
+    ],
   },
 }
 
+// subFactions.MADE_UP.units.
 export default subFactions
