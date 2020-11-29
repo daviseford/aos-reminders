@@ -1,4 +1,4 @@
-import { keyOmitter, keyPicker } from 'factions/seraphon/metatagger'
+import { keyOmitter, keyPicker } from 'factions/metatagger'
 import { MARK_SLAANESH } from 'meta/alliances'
 import { getChaosSlaves } from 'utils/chaosUtils'
 import { Artifacts } from './artifacts'
