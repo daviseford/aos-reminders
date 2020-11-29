@@ -33,7 +33,6 @@ import OgorMawtribesArmy from 'army/ogor_mawtribes'
 import OssiarchBonereapersArmy from 'army/ossiarch_bonereapers'
 import SeraphonArmy from 'army/seraphon'
 import SkavenArmy from 'army/skaven'
-import SlaaneshArmy from 'army/slaanesh'
 import SlavesToDarknessArmy from 'army/slaves_to_darkness'
 import SonsOfBehematArmy from 'army/sons_of_behemat'
 import SoulblightArmy from 'army/soulblight'
@@ -44,6 +43,8 @@ import TamurkhansHordeArmy from 'army/tamurkhans_horde'
 import TombKingsArmy from 'army/tomb_kings'
 import TzeentchArmy from 'army/tzeentch'
 import WanderersArmy from 'army/wanderers'
+import { SlaaneshFaction } from 'factions/slaanesh'
+import { temporaryAdapter } from 'factions/temporaryAdapter'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
 import {
   BEASTS_OF_CHAOS,
@@ -95,6 +96,9 @@ import {
   WANDERERS,
 } from 'meta/factions'
 import { IInitialArmy } from 'types/army'
+
+const SlaaneshNew = temporaryAdapter(SlaaneshFaction, 'INVADERS')
+console.log(SlaaneshNew)
 
 const ArmyList: TArmyList = {
   [BEASTS_OF_CHAOS]: {
@@ -238,7 +242,8 @@ const ArmyList: TArmyList = {
     GrandAlliance: CHAOS,
   },
   [SLAANESH]: {
-    Army: { ...SlaaneshArmy },
+    // Army: { ...SlaaneshArmy },
+    Army: { ...SlaaneshNew },
     GrandAlliance: CHAOS,
   },
   [SLAVES_TO_DARKNESS]: {
