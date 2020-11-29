@@ -1,16 +1,19 @@
-export type TObjWithEffects = Record<string, object & { effects: unknown[] }>
+import { TEffects } from 'types/data'
+
+export type TObjWithEffects = object & { effects: TEffects[] }
+export type TParentEffectsObjWithEffects = Record<string, TObjWithEffects>
 
 export type TSubFaction = {
-  units?: TObjWithEffects[]
-  battalions?: TObjWithEffects[]
-  traits?: TObjWithEffects[]
-  spells?: TObjWithEffects[]
-  battle_traits?: TObjWithEffects[]
-  command_traits?: TObjWithEffects[]
-  flavors?: TObjWithEffects[]
-  artifacts?: TObjWithEffects[]
-  endless_spells?: TObjWithEffects[]
-  scenery?: TObjWithEffects[]
+  units?: TParentEffectsObjWithEffects[]
+  battalions?: TParentEffectsObjWithEffects[]
+  traits?: TParentEffectsObjWithEffects[]
+  spells?: TParentEffectsObjWithEffects[]
+  battle_traits?: TParentEffectsObjWithEffects[]
+  command_traits?: TParentEffectsObjWithEffects[]
+  flavors?: TParentEffectsObjWithEffects[]
+  artifacts?: TParentEffectsObjWithEffects[]
+  endless_spells?: TParentEffectsObjWithEffects[]
+  scenery?: TParentEffectsObjWithEffects[]
 }
 
 export type TSubFactions = Record<string, TSubFaction>
