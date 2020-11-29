@@ -11,8 +11,8 @@ export const SeraphonFaction = {
 
   grandAlliance: ORDER,
 
-  subFactionLabel: 'Constellations', // similar to AllegianceType in the old structure
-  flavorLabel: 'Flavor', // This will be used in place of "Flavor" in the UI eventually
+  subFactionLabel: 'Idk yet', // similar to AllegianceType in the old structure
+  flavorLabel: 'Constellations', // This will be used in place of "Flavor" in the UI eventually
 
   // Export everything (to be used for imports/ally stuff)
   // units,
