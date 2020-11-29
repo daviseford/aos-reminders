@@ -6,15 +6,27 @@ import { Units } from './units'
 
 const subFactions: TSubFactions = {
   COALESCED: {
-    units: [Units],
+    units: {
+      available: [Units],
+      mandatory: [],
+    },
 
     // It applies these traits
-    traits: [keyPicker(Traits, ['Thickly Scaled Hide', 'Cunning'])],
+    traits: {
+      available: [],
+      mandatory: [keyPicker(Traits, ['Thickly Scaled Hide', 'Cunning'])],
+    },
 
-    flavors: [keyPicker(Flavors, ["Koatl's Claw", 'Thunder Lizard'])],
+    flavors: {
+      available: [keyPicker(Flavors, ["Koatl's Claw", 'Thunder Lizard'])],
+      mandatory: [],
+    },
   },
   STARBORNE: {
-    units: [Units],
+    units: {
+      available: [Units],
+      mandatory: [],
+    },
   },
 }
 
