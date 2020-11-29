@@ -29,6 +29,7 @@ export interface IInitialArmy {
   EndlessSpells?: TEndlessSpells
   Scenery?: TScenery
   Spells?: TSpells
+  SubFactions?: TEntry[]
   Traits?: TTraits
   Units?: TUnits
   Game?: TGameStructure
