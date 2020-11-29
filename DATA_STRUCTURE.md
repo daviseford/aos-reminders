@@ -2,7 +2,7 @@
   - [Glossary](#glossary)
     - [Faction](#faction)
     - [Sub-Factions](#sub-factions)
-      - [Base Sub-Faction](#base-sub-faction)
+      - [Default Sub-Faction](#default-sub-faction)
     - [Flavors](#flavors)
   - [Examples](#examples)
 
@@ -11,16 +11,21 @@
 
 ## Glossary
 
+- A **Faction** must have at least one **Sub-Faction**
+- A **Faction** must have a **Default Sub-Faction**
+- Any **Sub-Faction** can be extended by other **Sub-Factions**
+- Any **Sub-Faction** can mark itself as **Not Visible** if it exists only to be extended by other Sub-Factions; by convention this would have something like "Base" in its name to indicate its purpose
+
 ### Faction
 
 First, let's define a **Faction**
 
 - A **Faction** is the highest-level representation of a army/faction in AoS.
 - A **Faction** is the aggregate set of rules that govern many **Sub-Factions**. 
-- If a **Faction** only has one **Sub-Faction**, that will be considered the **Base Sub-Faction**
- - A **Faction** must have a **Base Sub-Faction** 
+- If a **Faction** only has one **Sub-Faction**, that will be considered the **Default Sub-Faction**
+ - A **Faction** must have a **Default Sub-Faction** 
 - If a **Faction** has multiple **Sub Factions**, 
-  - It must assign one as a **Base Sub-Faction**
+  - It must assign one as a **Default Sub-Faction**
  - And the user will be allowed to select a variant
 
 ### Sub-Factions
@@ -34,9 +39,9 @@ Next, **Sub-Factions**.
   - What battalions it has
 - A **Sub-Faction** may also apply certain Abilities or effects, units, spells, etc
 
-#### Base Sub-Faction
+#### Default Sub-Faction
 
-A **Sub-Faction** may be a **Base Sub-Faction**
+A **Sub-Faction** may be a **Default Sub-Faction**
 
 ~~A **Base Sub-Faction** can mark itself as **Not Visible**~~
 
@@ -48,7 +53,7 @@ We generally will try to extend other **Sub-Factions** from the **Base Sub-Facti
     ~~- **`Ironjawz` Sub-Faction**~~
     ~~- **`Bonesplitterz` Sub-Faction**~~
 
-For example, `Stormcast` would probably be the **Base Sub-Faction** for the **STORMCAST** **Faction**, and then `Stormcast Stormkeep` could potentially extend it and modify it.
+For example, `Stormcast` would probably be the **Default Sub-Faction** for the **STORMCAST** **Faction**, and then `Stormcast Stormkeep` could potentially extend it and modify it.
 
 ### Flavors
 
@@ -80,7 +85,7 @@ The new Seraphon book is a good example.
 |              |                                                                 |                                                                        |
 | ------------ | --------------------------------------------------------------- | ---------------------------------------------------------------------- |
 | Faction      | 'SERAPHON'                                                      |                                                                        |
-| Sub-Factions | 'COALESCED' or 'STARBORNE'                                      | one would be **Base Sub-Faction**                                      |
+| Sub-Factions | 'COALESCED' or 'STARBORNE'                                      | one would be **Default Sub-Faction**                                      |
 | Flavors  | 'KOATLS_CLAW, THUNDER_LIZARD, DRACOTHIONS_TAIL, FANGS_OF_SOTEK' | the **Sub-Factions** will describe which **Flavors** they want to list |
 
 ---
