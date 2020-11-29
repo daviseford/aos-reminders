@@ -11,7 +11,7 @@ import {
 // Spell Lores of Slaanesh (Daemons Only)
 export const Spells = {
   // Lore of Slaanesh
-  'Lord of Slaanesh': {
+  'Lore of Slaanesh': {
     effects: [
       {
         name: `Lash of Slaanesh`,
