@@ -33,31 +33,13 @@ import { Units } from './units'
 const subFactions: TSubFaction = {
   INVADERS: {
     // Battle Traits
-    battle_traits: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Invaders Host'])],
+    battle_traits: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'The Despoiler`s Art'])],
 
     // Command Traits
-    command_traits: [
-      keyPicker(CommandTraits, [
-        'Best of the Best',
-        'Glory Hog',
-        'Hurler of Obscenities',
-        'Territorial',
-        'Skin-taker',
-        'Delusions of Infallibility',
-      ]),
-    ],
+    command_traits: [keyPicker(CommandTraits, ['Obessions of the Invader'])],
 
     // Artifacts
-    artifacts: [
-      keyPicker(Artifacts, [
-        'The Rod of Misrule',
-        'Rapier of Ecstatic Conquest',
-        'Whip of Subversion',
-        'Icon of Infinite Excess',
-        'Fallacious Gift',
-        'The Beguiling Gem',
-      ]),
-    ],
+    artifacts: [keyPicker(Artifacts, ['Sacred Spoils of War'])],
 
     // Spells
     spells: [Spells],
@@ -93,31 +75,13 @@ const subFactions: TSubFaction = {
 
   PRETENDERS: {
     // Battle Traits
-    battle_traits: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Pretenders Host'])],
+    battle_traits: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Magnificence Made Flesh'])],
 
     // Command Traits
-    command_traits: [
-      keyPicker(CommandTraits, [
-        'Strength of Godhood',
-        'Monarch of Lies',
-        'True Child of Slaanesh',
-        'Strongest Alone',
-        'Hunter of Godbeasts',
-        'Inspirer',
-      ]),
-    ],
+    command_traits: [keyPicker(CommandTraits, ['Aspects of the Perfect Liege'])],
 
     // Artifacts
-    artifacts: [
-      keyPicker(Artifacts, [
-        'The Crown of Dark Secrets',
-        'Pendant of Slaanesh',
-        'Sliverslash',
-        'Sceptre of Domination',
-        'Breathtaker',
-        'Mask of Spiteful Beauty',
-      ]),
-    ],
+    artifacts: [keyPicker(Artifacts, ['Regalia of the Rightful Heir'])],
 
     // Spells
     spells: [Spells],
@@ -152,31 +116,13 @@ const subFactions: TSubFaction = {
 
   GODSEEKERS: {
     // Battle Traits
-    battle_traits: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Godseekers Host'])],
+    battle_traits: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Blessings of the Gleeful Chase'])],
 
     // Command Traits
-    command_traits: [
-      keyPicker(CommandTraits, [
-        'Hunter Supreme',
-        'Thrill-seeker',
-        'Into the Fray',
-        'Trail-sniffer',
-        'Symphoniac',
-        'Speed-chaser',
-      ]),
-    ],
+    command_traits: [keyPicker(CommandTraits, ['Traits of the Seeker Supreme'])],
 
     // Artifacts
-    artifacts: [
-      keyPicker(Artifacts, [
-        'Cameo of the Dark Prince',
-        'Girdle of the Realm-racer',
-        'Threnody Voicebox',
-        'Lash of Despair',
-        'Enrapturing Circlet',
-        'Bindings of Slaanesh',
-      ]),
-    ],
+    artifacts: [keyPicker(Artifacts, ['Treasures of the Hunt'])],
 
     // Spells
     spells: [Spells],
@@ -211,7 +157,7 @@ const subFactions: TSubFaction = {
 
   SYLLESSKAN: {
     // Battle Traits
-    battle_traits: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Syll`Esskan Host'])],
+    battle_traits: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Vengeance Unleashed'])],
 
     // Command Traits
     //command_traits:
