@@ -14,19 +14,26 @@ export const temporaryAdapter = <
 ): IInitialArmy => {
   const data = newFaction.subFactions[whichSubFaction]
 
-  const mergedUnits = mergeAvailableMandatory(data.units)
-  const mergedFlavors = mergeAvailableMandatory(data.flavors)
-
-  console.log(mergedUnits)
-
   const initialArmy: IInitialArmy = {
-    // SubFactions: newFaction.subFactions,
+    Abilities: data.effects,
+    Allegiances: mergeData(data.flavors),
     AllegianceType: newFaction.flavorLabel,
-    Allegiances: mergeAll(mergedFlavors),
-    Units: mergeAll(mergedUnits),
+    Artifacts: mergeData(data.artifacts),
+    Battalions: mergeData(data.battalions),
+    EndlessSpells: mergeData(data.endless_spells),
+    Scenery: mergeData(data.scenery),
+    Spells: mergeData(data.spells),
+    // SubFactions: newFaction.subFactions,
+    Traits: mergeData(data.command_traits),
+    Units: mergeData(data.units),
   }
 
   return initialArmy
+}
+
+const mergeData = (entry?: TSubFactionEntry) => {
+  const merged = mergeAvailableMandatory(entry)
+  return mergeAll(merged)
 }
 
 type TObjWithName = TObjWithEffects & { name: string }
