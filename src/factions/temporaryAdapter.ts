@@ -9,10 +9,10 @@ export const temporaryAdapter = <F extends typeof SlaaneshFaction>(
   newFaction: F,
   whichSubFaction: Extract<keyof F['subFactions'], string>
 ): IInitialArmy => {
-  const thisSubFactionsData = newFaction.subFactions[whichSubFaction]
+  const data = newFaction.subFactions[whichSubFaction]
 
-  const mergedUnits = mergeAvailableMandatory(thisSubFactionsData.units)
-  const mergedFlavors = mergeAvailableMandatory(thisSubFactionsData.flavors)
+  const mergedUnits = mergeAvailableMandatory(data.units)
+  const mergedFlavors = mergeAvailableMandatory(data.flavors)
 
   const Units = mergeAll(mergedUnits)
   const Allegiances = mergeAll(mergedFlavors)
