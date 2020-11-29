@@ -1,22 +1,59 @@
-import { TSubFactions } from 'factions/factionTypes'
+import { TSubFaction, TSubFactions } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from '../metatagger'
+import Artifacts from './artifacts'
+import { Battalions } from './battalions'
 import { SeraphonBattleTraits } from './battle_traits'
 import CommandTraits from './command_traits'
+import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
+import Scenery from './scenery'
+import Spells from './spells'
 import { Units } from './units'
+
+const baseSeraphonSubfaction: TSubFaction = {
+  effects: [],
+
+  units: {
+    available: [Units],
+    mandatory: [],
+  },
+
+  battalions: {
+    available: [Battalions],
+    mandatory: [],
+  },
+
+  command_traits: {
+    available: [CommandTraits],
+    mandatory: [],
+  },
+
+  spells: {
+    available: [Spells],
+    mandatory: [],
+  },
+
+  scenery: {
+    available: [Scenery],
+    mandatory: [],
+  },
+
+  endless_spells: {
+    available: [EndlessSpells],
+    mandatory: [],
+  },
+
+  artifacts: {
+    available: [Artifacts],
+    mandatory: [],
+  },
+}
 
 const subFactions: TSubFactions = {
   COALESCED: {
-    effects: pickEffects(SeraphonBattleTraits, ['COALESCED']),
-    units: {
-      available: [Units],
-      mandatory: [],
-    },
+    ...baseSeraphonSubfaction,
 
-    command_traits: {
-      available: [CommandTraits],
-      mandatory: [],
-    },
+    effects: pickEffects(SeraphonBattleTraits, ['COALESCED', 'SERAPHON']),
 
     flavors: {
       available: [keyPicker(Flavors, ["Koatl's Claw", 'Thunder Lizard'])],
@@ -26,16 +63,9 @@ const subFactions: TSubFactions = {
 
   // Starborne Constellation
   STARBORNE: {
-    effects: pickEffects(SeraphonBattleTraits, ['STARBORNE']),
-    units: {
-      available: [Units],
-      mandatory: [],
-    },
+    ...baseSeraphonSubfaction,
 
-    command_traits: {
-      available: [CommandTraits],
-      mandatory: [],
-    },
+    effects: pickEffects(SeraphonBattleTraits, ['STARBORNE', 'SERAPHON']),
 
     flavors: {
       available: [keyPicker(Flavors, ["Dracothion's Tail", 'Fangs of Sotek'])],
