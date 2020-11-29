@@ -1,12 +1,21 @@
 import {
+  CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_CHARGE_PHASE,
   END_OF_MOVEMENT_PHASE,
+  END_OF_SETUP,
+  SHOOTING_PHASE,
+  START_OF_CHARGE_PHASE,
+  START_OF_GAME,
+  START_OF_HERO_PHASE,
+  TURN_ONE_END_OF_MOVEMENT_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 // Battle traits available to factions and subfactions.
 export const BattleTraits = {
+  // Slaanesh Allegiance
   'Thrilling Compulsions': {
     effects: [
       {
@@ -54,7 +63,8 @@ export const BattleTraits = {
       },
     ],
   },
-  'Invaders Host': {
+  // Invaders Host
+  'The Despoiler`s Art': {
     effects: [
       {
         name: `Figureheads of the Dark Prince`,
@@ -73,7 +83,8 @@ export const BattleTraits = {
       },
     ],
   },
-  'Pretenders Host': {
+  // Pretenders Host
+  'Magnificence Made Flesh': {
     effects: [
       {
         name: `Heir to the Throne`,
@@ -97,7 +108,8 @@ export const BattleTraits = {
       },
     ],
   },
-  'Godseekers Host': {
+  // Godseekers Host
+  'Blessings of the Gleeful Chase': {
     effects: [
       {
         name: `Thundering Cavalcade`,
@@ -116,7 +128,8 @@ export const BattleTraits = {
       },
     ],
   },
-  'Syll`Esskan Host': {
+  // Syll'Esskan Host
+  'Vengeance Unleashed': {
     effects: [
       {
         name: `Common Purpose`,
@@ -132,6 +145,41 @@ export const BattleTraits = {
         name: `Syll'Esskan Host`,
         desc: `A Syll'Esskan host can include only include the following battalions: The Vengeful Alliance, Epicurean Revellers, Seeker Cavalcade, Devout Supplicants, Vengeful Throng, and Daemonsteel Contingent. The Syll'Esskan specific battalions can only be used by an army that is a Syll'Esskan Host.`,
         when: [START_OF_GAME],
+      },
+    ],
+  },
+  // Lurid Haze
+  'Lurid Haze': {
+    effects: [
+      {
+        name: `Billowing Mists`,
+        desc: `After set up is complete before the first battle round, you can remove D3 friendly Lurid Haze Invaders Host units from the battlefield and say that they are in ambush as reserves (following any battleplan set-up restrictions). At the end of your first movement phase, you must set up these reserves within 6" of a battlefield edge and more than 9" away from any enemy units.`,
+        when: [END_OF_SETUP],
+      },
+      {
+        name: `Billowing Mists`,
+        desc: `You must set up the selected reserves within 6" of a battlefield edge and more than 9" away from any enemy units.`,
+        when: [TURN_ONE_END_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
+  // Faultless Blades
+  'Faultless Blades': {
+    effects: [
+      {
+        name: `Send Me Your Best`,
+        desc: `Add 1 to the hit rolls for melee attacks made by friendly Faultless Blades Pretenders Host units that target a hero if that friendly unit made a charge move this turn.`,
+        when: [CHARGE_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  // Scarlet Cavalcade
+  'Scarlet Cavalcade': {
+    effects: [
+      {
+        name: `Excessive Swiftness`,
+        desc: `If 2 friendly Scarlet Cavalcade Godseekers Host units that each have 10 or more models are within 6" of each other, you can make 1 charge roll to determine the distance for both units.`,
+        when: [START_OF_CHARGE_PHASE],
       },
     ],
   },
