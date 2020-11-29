@@ -5,22 +5,25 @@ import { SlaaneshFaction } from './slaanesh'
 /**
  * To see how a new data-structure army might feel in the UI as-is
  */
-export const temporaryAdapter = <F extends typeof SlaaneshFaction>(
+export const temporaryAdapter = <
+  F extends typeof SlaaneshFaction,
+  W extends Extract<keyof F['subFactions'], string>
+>(
   newFaction: F,
-  whichSubFaction: Extract<keyof F['subFactions'], string>
+  whichSubFaction: W
 ): IInitialArmy => {
   const data = newFaction.subFactions[whichSubFaction]
 
   const mergedUnits = mergeAvailableMandatory(data.units)
   const mergedFlavors = mergeAvailableMandatory(data.flavors)
 
-  const Units = mergeAll(mergedUnits)
-  const Allegiances = mergeAll(mergedFlavors)
+  console.log(mergedUnits)
 
   const initialArmy: IInitialArmy = {
+    // SubFactions: newFaction.subFactions,
     AllegianceType: newFaction.flavorLabel,
-    Allegiances,
-    Units,
+    Allegiances: mergeAll(mergedFlavors),
+    Units: mergeAll(mergedUnits),
   }
 
   return initialArmy

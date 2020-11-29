@@ -6,6 +6,7 @@ import { Units } from './units'
 
 const subFactions: TSubFactions = {
   COALESCED: {
+    effects: [],
     units: {
       available: [Units],
       mandatory: [],
@@ -23,6 +24,7 @@ const subFactions: TSubFactions = {
     },
   },
   STARBORNE: {
+    effects: [],
     units: {
       available: [Units],
       mandatory: [],
