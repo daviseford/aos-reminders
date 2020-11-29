@@ -1,8 +1,8 @@
 import { TSubFactions } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from '../metatagger'
 import { SeraphonBattleTraits } from './battle_traits'
+import CommandTraits from './command_traits'
 import Flavors from './flavors'
-import Traits from './traits'
 import { Units } from './units'
 
 const subFactions: TSubFactions = {
@@ -13,10 +13,9 @@ const subFactions: TSubFactions = {
       mandatory: [],
     },
 
-    // It applies these traits
     command_traits: {
-      available: [],
-      mandatory: [keyPicker(Traits, ['Thickly Scaled Hide', 'Cunning'])],
+      available: [CommandTraits],
+      mandatory: [],
     },
 
     flavors: {
@@ -24,10 +23,22 @@ const subFactions: TSubFactions = {
       mandatory: [],
     },
   },
+
+  // Starborne Constellation
   STARBORNE: {
-    effects: [],
+    effects: pickEffects(SeraphonBattleTraits, ['STARBORNE']),
     units: {
       available: [Units],
+      mandatory: [],
+    },
+
+    command_traits: {
+      available: [CommandTraits],
+      mandatory: [],
+    },
+
+    flavors: {
+      available: [keyPicker(Flavors, ["Dracothion's Tail", 'Fangs of Sotek'])],
       mandatory: [],
     },
   },
