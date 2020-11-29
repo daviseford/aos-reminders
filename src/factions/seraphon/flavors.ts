@@ -1,14 +1,14 @@
 import { DURING_SETUP, HERO_PHASE } from 'types/phases'
-import { keyPicker } from './metatagger'
+import { keyPicker } from '../metatagger'
 import { Battalions, Units } from './units'
 
 const Flavors = {
   'Made Up Flavor': {
     // Let's pretend this Flavor mandates a Sunblood
-    units: keyPicker(Units, 'Saurus Sunblood'),
+    units: keyPicker(Units, ['Saurus Sunblood']),
 
     // And two battalions (sure, whatever)
-    battalions: keyPicker(Battalions, 'Eternal Starhost', "Gul'Rok's Starhost"),
+    battalions: keyPicker(Battalions, ['Eternal Starhost', "Gul'Rok's Starhost"]),
 
     // And this rule
     effects: [
