@@ -1,12 +1,13 @@
 import { TSubFactions } from 'factions/factionTypes'
-import { keyPicker } from '../metatagger'
+import { keyPicker, pickEffects } from '../metatagger'
+import { SeraphonBattleTraits } from './battle_traits'
 import Flavors from './flavors'
 import Traits from './traits'
 import { Units } from './units'
 
 const subFactions: TSubFactions = {
   COALESCED: {
-    effects: [],
+    effects: pickEffects(SeraphonBattleTraits, ['COALESCED']),
     units: {
       available: [Units],
       mandatory: [],
