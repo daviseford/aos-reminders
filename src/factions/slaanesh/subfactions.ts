@@ -1,5 +1,5 @@
 import { TSubFactions } from 'factions/factionTypes'
-import { keyOmitter, keyPicker } from 'factions/metatagger'
+import { keyOmitter, keyPicker, pickEffects } from 'factions/metatagger'
 import { Artifacts } from './artifacts'
 import { Battalions } from './battalions'
 import { BattleTraits } from './battle_traits'
@@ -32,11 +32,8 @@ import { Units } from './units'
 
 const subFactions: TSubFactions = {
   INVADERS: {
-    // Battle Traits
-    battle_traits: {
-      available: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'The Despoiler`s Art'])],
-      mandatory: [],
-    },
+    // Effects
+    effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', "The Despoiler's Art"])],
 
     // Command Traits
     command_traits: {
@@ -102,10 +99,8 @@ const subFactions: TSubFactions = {
 
   PRETENDERS: {
     // Battle Traits
-    battle_traits: {
-      available: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Magnificence Made Flesh'])],
-      mandatory: [],
-    },
+    // Effects
+    effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Magnificence Made Flesh'])],
 
     // Command Traits
     command_traits: {
@@ -169,11 +164,8 @@ const subFactions: TSubFactions = {
   },
 
   GODSEEKERS: {
-    // Battle Traits
-    battle_traits: {
-      available: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Blessings of the Gleeful Chase'])],
-      mandatory: [],
-    },
+    // Rules that are applied automatically when you select this subfaction
+    effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Blessings of the Gleeful Chase'])],
 
     // Command Traits
     command_traits: {
@@ -237,11 +229,8 @@ const subFactions: TSubFactions = {
   },
 
   SYLLESSKAN: {
-    // Battle Traits
-    battle_traits: {
-      available: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Vengeance Unleashed'])],
-      mandatory: [],
-    },
+    // Rules that are applied automatically when you select this subfaction
+    effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Vengeance Unleashed'])],
 
     // Command Traits
     //command_traits:

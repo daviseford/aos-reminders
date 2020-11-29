@@ -13,6 +13,7 @@ export type TSubFaction = {
   battalions?: TSubFactionEntry
   traits?: TSubFactionEntry
   spells?: TSubFactionEntry
+  effects: TEffects[]
   battle_traits?: TSubFactionEntry
   command_traits?: TSubFactionEntry
   flavors?: TSubFactionEntry
