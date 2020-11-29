@@ -1,6 +1,6 @@
 import { BATTLESHOCK_PHASE } from 'types/phases'
+import { keyPicker } from '../metatagger'
 import Flavors from './flavors'
-import { keyPicker } from './metatagger'
 import Traits from './traits'
 import { Units } from './units'
 
@@ -11,13 +11,13 @@ const subFactions = {
   // Example structure of a subfaction, imagine this repeated for traits, spells, etc
   MADE_UP: {
     // Let's pretend this subfaction mandates that you take a Skink Priest + Trog
-    units: keyPicker(Units, 'Skink Priest', 'Skink Oracle on Troglodon'),
+    units: keyPicker(Units, ['Skink Priest', 'Skink Oracle on Troglodon']),
 
     // It applies these traits
-    traits: keyPicker(Traits, 'Thickly Scaled Hide', 'Cunning'),
+    traits: keyPicker(Traits, ['Thickly Scaled Hide', 'Cunning']),
 
     // And it enables either of these two flavors to be selected in the UI
-    flavors: keyPicker(Flavors, 'A Different Flavor', 'Made Up Flavor'),
+    flavors: keyPicker(Flavors, ['A Different Flavor', 'Made Up Flavor']),
 
     // General rules to be added because of this subfaction being selected
     effects: [
