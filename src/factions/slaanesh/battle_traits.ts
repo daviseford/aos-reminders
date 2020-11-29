@@ -64,7 +64,7 @@ export const BattleTraits = {
     ],
   },
   // Invaders Host
-  'The Despoiler`s Art': {
+  "The Despoiler's Art": {
     effects: [
       {
         name: `Figureheads of the Dark Prince`,
