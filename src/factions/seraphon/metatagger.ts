@@ -16,7 +16,26 @@ export const keyOmitter = <T extends object, R extends keyof T>(obj: T, ...remov
   return omit(obj, ...remove)
 }
 
-export const keyPicker = <T extends object, R extends keyof T>(obj: T, ...remove: R[]) => {
-  if (!remove.length) return obj
-  return pick(obj, ...remove)
+export const keyPicker = <T extends object, R extends keyof T>(obj: T, ...select: R[]) => {
+  if (!select.length) return obj
+  return pick(obj, ...select)
 }
+
+type TObjWithEffects = Record<string, object & { effects: unknown[] }>
+
+export const pickEffects = <T extends TObjWithEffects, R extends keyof T>(
+  obj: T,
+  key: R
+): T[R]['effects'] => {
+  const picked = keyPicker(obj, key)
+  return picked[key].effects
+}
+
+// export const withSpellTag = <T extends TObjWithEffects, S = T[keyof T]>(obj: TObjWithEffects) => {
+//   const a = Object.keys(obj).reduce((a, k) => {
+//     a[k] = { ...obj[k], spell: true }
+//     return asp
+//   }, {})
+
+//   return a as T[S]
+// }
