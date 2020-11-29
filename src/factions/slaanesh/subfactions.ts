@@ -1,4 +1,4 @@
-import { TSubFactions } from 'factions/factionTypes'
+import { TSubFaction, TSubFactions } from 'factions/factionTypes'
 import { keyOmitter, keyPicker, pickEffects } from 'factions/metatagger'
 import { Artifacts } from './artifacts'
 import { Battalions } from './battalions'
@@ -30,8 +30,32 @@ import { Units } from './units'
 //   'Ungors',
 // ]
 
+const baseSubfaction: TSubFaction = {
+  effects: [],
+
+  // Spells
+  spells: {
+    available: [Spells],
+    mandatory: [],
+  },
+
+  // Endless Spells
+  endless_spells: {
+    available: [EndlessSpells],
+    mandatory: [],
+  },
+
+  // Scenery
+  scenery: {
+    available: [Scenery],
+    mandatory: [],
+  },
+}
+
 const subFactions: TSubFactions = {
   INVADERS: {
+    ...baseSubfaction,
+
     // Effects
     effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', "The Despoiler's Art"])],
 
@@ -44,24 +68,6 @@ const subFactions: TSubFactions = {
     // Artifacts
     artifacts: {
       available: [keyPicker(Artifacts, ['Sacred Spoils of War'])],
-      mandatory: [],
-    },
-
-    // Spells
-    spells: {
-      available: [Spells],
-      mandatory: [],
-    },
-
-    // Endless Spells
-    endless_spells: {
-      available: [EndlessSpells],
-      mandatory: [],
-    },
-
-    // Scenery
-    scenery: {
-      available: [Scenery],
       mandatory: [],
     },
 
@@ -98,7 +104,7 @@ const subFactions: TSubFactions = {
   },
 
   PRETENDERS: {
-    // Battle Traits
+    ...baseSubfaction,
     // Effects
     effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Magnificence Made Flesh'])],
 
@@ -111,24 +117,6 @@ const subFactions: TSubFactions = {
     // Artifacts
     artifacts: {
       available: [keyPicker(Artifacts, ['Regalia of the Rightful Heir'])],
-      mandatory: [],
-    },
-
-    // Spells
-    spells: {
-      available: [Spells],
-      mandatory: [],
-    },
-
-    // Endless Spells
-    endless_spells: {
-      available: [EndlessSpells],
-      mandatory: [],
-    },
-
-    // Scenery
-    scenery: {
-      available: [Scenery],
       mandatory: [],
     },
 
@@ -164,6 +152,7 @@ const subFactions: TSubFactions = {
   },
 
   GODSEEKERS: {
+    ...baseSubfaction,
     // Rules that are applied automatically when you select this subfaction
     effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Blessings of the Gleeful Chase'])],
 
@@ -176,24 +165,6 @@ const subFactions: TSubFactions = {
     // Artifacts
     artifacts: {
       available: [keyPicker(Artifacts, ['Treasures of the Hunt'])],
-      mandatory: [],
-    },
-
-    // Spells
-    spells: {
-      available: [Spells],
-      mandatory: [],
-    },
-
-    // Endless Spells
-    endless_spells: {
-      available: [EndlessSpells],
-      mandatory: [],
-    },
-
-    // Scenery
-    scenery: {
-      available: [Scenery],
       mandatory: [],
     },
 
@@ -229,6 +200,7 @@ const subFactions: TSubFactions = {
   },
 
   SYLLESSKAN: {
+    ...baseSubfaction,
     // Rules that are applied automatically when you select this subfaction
     effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Vengeance Unleashed'])],
 
@@ -237,24 +209,6 @@ const subFactions: TSubFactions = {
 
     // Artifacts
     //artifacts:
-
-    // Spells
-    spells: {
-      available: [Spells],
-      mandatory: [],
-    },
-
-    // Endless Spells
-    endless_spells: {
-      available: [EndlessSpells],
-      mandatory: [],
-    },
-
-    // Scenery
-    scenery: {
-      available: [Scenery],
-      mandatory: [],
-    },
 
     // Units
     units: {
