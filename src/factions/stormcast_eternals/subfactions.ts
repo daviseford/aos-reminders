@@ -3,6 +3,11 @@ import BattleTraits from './battle_traits'
 
 const livingTempest: TSubFaction = {
   battle_traits: BattleTraits['Legends of the Living Tempest'],
+  // Command Traits
+  //command_traits:
+
+  // Artifacts
+  //artifacts:
 }
 
 const celestialSentinels: TSubFaction = {
