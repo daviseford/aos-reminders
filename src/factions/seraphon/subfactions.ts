@@ -13,7 +13,7 @@ const subFactions: TSubFactions = {
     },
 
     // It applies these traits
-    traits: {
+    command_traits: {
       available: [],
       mandatory: [keyPicker(Traits, ['Thickly Scaled Hide', 'Cunning'])],
     },
