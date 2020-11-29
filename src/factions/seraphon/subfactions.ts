@@ -5,8 +5,17 @@ import Traits from './traits'
 import { Units } from './units'
 
 const subFactions = {
-  COALESCED: {},
-  STARBORNE: {},
+  COALESCED: {
+    units: [Units],
+
+    // It applies these traits
+    traits: keyPicker(Traits, ['Thickly Scaled Hide', 'Cunning']),
+
+    flavors: keyPicker(Flavors, ["Koatl's Claw", 'Thunder Lizard']),
+  },
+  STARBORNE: {
+    units: [Units],
+  },
 
   // Example structure of a subfaction, imagine this repeated for traits, spells, etc
   MADE_UP: {
