@@ -2,7 +2,7 @@ import { DURING_GAME, HERO_PHASE, MOVEMENT_PHASE, START_OF_ROUND } from 'types/p
 
 // Endless spells.
 export const EndlessSpells = {
-  'Wheels of Excruciation': {
+  'Wheels of Excruciation (Slaanesh)': {
     effects: [
       {
         name: `Predatory`,
