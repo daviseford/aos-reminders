@@ -1,4 +1,5 @@
 import { IInitialArmy } from 'types/army'
+import { TObjWithEffects, TParentEffectsObjWithEffects } from './factionTypes'
 import { SlaaneshFaction } from './slaanesh'
 
 /**
@@ -10,14 +11,30 @@ export const temporaryAdapter = (
 ): IInitialArmy => {
   const thisSubFactionsData = newFaction.subFactions[whichSubFaction]
 
-  const Units = thisSubFactionsData
+  const Units = mergeAll(thisSubFactionsData.units || [])
 
   const initialArmy: IInitialArmy = {
     AllegianceType: newFaction.flavorLabel,
-    // Units:
+    Units,
   }
 
   return initialArmy
 }
 
-const toArr = () => {}
+type TObjWithName = TObjWithEffects & { name: string }
+
+const mergeAll = (objs: TParentEffectsObjWithEffects[]): TObjWithName[] => {
+  return objs.reduce((a, obj) => {
+    const arr = toArr(obj)
+    a.concat(arr)
+    return a
+  }, [] as TObjWithName[])
+}
+
+const toArr = (obj: TParentEffectsObjWithEffects): TObjWithName[] => {
+  return Object.keys(obj).reduce((a, name) => {
+    const entry = { ...obj[name], name }
+    a.push(entry)
+    return a
+  }, [] as TObjWithName[])
+}
