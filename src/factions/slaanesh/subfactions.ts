@@ -1,4 +1,4 @@
-import { TSubFaction } from 'factions/factionTypes'
+import { TSubFactions } from 'factions/factionTypes'
 import { keyOmitter, keyPicker } from 'factions/metatagger'
 import { Artifacts } from './artifacts'
 import { Battalions } from './battalions'
@@ -30,7 +30,7 @@ import { Units } from './units'
 //   'Ungors',
 // ]
 
-const subFactions: TSubFaction = {
+const subFactions: TSubFactions = {
   INVADERS: {
     // Battle Traits
     battle_traits: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Invaders Host'])],
