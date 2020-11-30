@@ -1,7 +1,8 @@
+import { tagAs } from 'factions/metatagger'
 import { DURING_GAME, HERO_PHASE, MOVEMENT_PHASE, START_OF_ROUND } from 'types/phases'
 
 // Endless spells.
-export const EndlessSpells = {
+const EndlessSpells = {
   'Wheels of Excruciation (Slaanesh)': {
     effects: [
       {
@@ -82,3 +83,5 @@ export const EndlessSpells = {
     ],
   },
 }
+
+export default tagAs(EndlessSpells, 'endless_spell')
