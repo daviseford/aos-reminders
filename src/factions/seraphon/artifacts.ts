@@ -1,3 +1,4 @@
+import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -178,4 +179,4 @@ const Artifacts = {
   },
 }
 
-export default Artifacts
+export default tagAs(Artifacts, 'artifact')
