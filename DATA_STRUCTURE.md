@@ -60,10 +60,10 @@ For example, `Stormcast` would probably be the **Default Sub-Faction** for the *
 Lastly in this high-level tier (but at the bottom), **Flavors**
 
 - These are the more "traditional" ways of configuring **Factions**. 
-- An **Allegiance** may belong to a one or many **Sub-Factions**
-- An **Allegiance** can dictate:
+- A **Flavor** may belong to a one or many **Sub-Factions**
+- A **Flavor** can dictate:
 - What units/battalions it has
-- An **Allegiance** can also apply Abilities or effects units, spells, etc
+- A **Flavor** can also apply Abilities or effects units, spells, etc
 
 - TBD: Can **Flavors** be shared across **Factions**?
 
