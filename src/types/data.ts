@@ -1,6 +1,6 @@
 import { TTurnWhen } from 'types/phases'
 
-type TEntryProperties =
+export type TEntryProperties =
   | 'allegiance_ability'
   | 'artifact'
   | 'command_ability'

@@ -15,37 +15,30 @@ const baseSeraphonSubfaction: TSubFaction = {
 
   units: {
     available: [Units],
-    mandatory: [],
   },
 
   battalions: {
     available: [Battalions],
-    mandatory: [],
   },
 
   command_traits: {
     available: [CommandTraits],
-    mandatory: [],
   },
 
   spells: {
     available: [Spells],
-    mandatory: [],
   },
 
   scenery: {
     available: [Scenery],
-    mandatory: [],
   },
 
   endless_spells: {
     available: [EndlessSpells],
-    mandatory: [],
   },
 
   artifacts: {
     available: [Artifacts],
-    mandatory: [],
   },
 }
 

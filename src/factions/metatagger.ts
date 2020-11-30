@@ -1,17 +1,31 @@
 import { omit, pick } from 'lodash'
-import { TEffects } from 'types/data'
-import { TParentEffectsObjWithEffects } from './factionTypes'
+import { TEffects, TEntryProperties } from 'types/data'
+import { TObjWithEffects, TParentEffectsObjWithEffects } from './factionTypes'
 
 /**
- * Take in some data and add metadata
+ * Adds the given tag to all sub-objects
+ *
+ * @param obj
+ * @param tag
  */
-// export const metadataTagger = obj => {
-//   return Object.keys(obj).reduce((a, name) => {
-//     const _copy = { ...obj[name], name }
-//     a[name] = _copy
-//     return a
-//   }, {})
-// }
+export const tagAs = <T extends Record<string, TObjWithEffects>, R extends TEntryProperties>(
+  obj: T,
+  tag: R
+): T => {
+  return Object.keys(obj).reduce((a, key) => {
+    const origObj = obj[key]
+
+    const taggedObj = {
+      ...origObj,
+      effects: origObj.effects.map(x => ({ ...x, [tag]: true })),
+      [tag]: true,
+    }
+
+    // @ts-ignore
+    a[key] = taggedObj
+    return a
+  }, {} as T)
+}
 
 /**
  * Returns the `obj` with the `keys` removed.
@@ -60,12 +74,3 @@ export const pickEffects = <T extends TParentEffectsObjWithEffects, R extends Ex
     return a
   }, [] as TEffects[])
 }
-
-// export const withSpellTag = <T extends TObjWithEffects, S = T[keyof T]>(obj: TObjWithEffects) => {
-//   const a = Object.keys(obj).reduce((a, k) => {
-//     a[k] = { ...obj[k], spell: true }
-//     return asp
-//   }, {})
-
-//   return a as T[S]
-// }

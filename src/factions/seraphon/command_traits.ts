@@ -1,3 +1,4 @@
+import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -142,4 +143,4 @@ const CommandTraits = {
   },
 }
 
-export default CommandTraits
+export default tagAs(CommandTraits, 'command_trait')
