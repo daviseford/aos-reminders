@@ -1,13 +1,13 @@
-import { CHAOS } from 'meta/alliances'
+import { TNewFaction } from 'factions/factionTypes'
 import { SLAANESH } from 'meta/factions'
 import subFactions from './subfactions'
 
-export const SlaaneshFaction = {
+export const SlaaneshFaction: TNewFaction = {
   factionName: SLAANESH,
 
   subFactions,
 
-  grandAlliance: CHAOS, // Should a Faction declare its grandalliance, or should it not know about that?
+  // grandAlliance: CHAOS, // Should a Faction declare its grandalliance, or should it not know about that?
 
   subFactionLabel: 'Hosts', // similar to AllegianceType in the old structure
   flavorLabel: 'Flavor', // This will be used in place of "Flavor" in the UI eventually
