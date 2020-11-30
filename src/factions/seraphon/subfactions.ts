@@ -1,5 +1,5 @@
 import { TSubFaction, TSubFactions } from 'factions/factionTypes'
-import { keyPicker, pickEffects } from '../metatagger'
+import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import { Battalions } from './battalions'
 import { SeraphonBattleTraits } from './battle_traits'
@@ -55,9 +55,21 @@ const subFactions: TSubFactions = {
 
     effects: pickEffects(SeraphonBattleTraits, ['COALESCED', 'SERAPHON']),
 
+    battalions: {
+      available: [
+        keyOmitter(Battalions, [
+          // Can't have these in COALESCED
+          'Eternal Starhost',
+          'Sunclaw Starhost',
+          'Firelance Starhost',
+          'Shadowstrike Starhost',
+          'Thunderquake Starhost',
+        ]),
+      ],
+    },
+
     flavors: {
       available: [keyPicker(Flavors, ["Koatl's Claw", 'Thunder Lizard'])],
-      mandatory: [],
     },
   },
 
@@ -67,9 +79,21 @@ const subFactions: TSubFactions = {
 
     effects: pickEffects(SeraphonBattleTraits, ['STARBORNE', 'SERAPHON']),
 
+    battalions: {
+      available: [
+        keyOmitter(Battalions, [
+          // Can't have these in STARBORNE
+          'Eternal Temple-host',
+          'Sunclaw Temple-host',
+          'Firelance Temple-host',
+          'Shadowstrike Temple-host',
+          'Thunderquake Temple-host',
+        ]),
+      ],
+    },
+
     flavors: {
       available: [keyPicker(Flavors, ["Dracothion's Tail", 'Fangs of Sotek'])],
-      mandatory: [],
     },
   },
 }
