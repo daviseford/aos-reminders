@@ -19,6 +19,7 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import CommandAbilities from './command_abilities'
 import Spells from './spells'
 
 const SelflessProtectorEffect = {
@@ -35,18 +36,6 @@ const CelestiteWarspearEffect = {
   name: `Celestite Warspear`,
   desc: `Add 1 to the Damage characteristic of this unit's Celestite Warspears if this unit made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
-}
-const SaurianSavageryEffect = {
-  name: `Saurian Savagery`,
-  desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly SAURUS unit wholly within 18" of a friendly model with this command ability, Until the end of that phase, if the unmodified hit roll for an attack made with a melee weapon by that friendly SAURUS unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. A unit cannot benefit from this command ability more than once per phase.`,
-  when: [COMBAT_PHASE],
-  command_ability: true,
-}
-const WrathOfTheSeraphonEffect = {
-  name: `Wrath of the Seraphon`,
-  desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly SAURUS unit wholly within 18" of a friendly model with this command ability. Until the end of that phase, you can add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
-  when: [COMBAT_PHASE],
-  command_ability: true,
 }
 const UnstoppableStampedeEffect = {
   name: `Unstoppable Stampede`,
@@ -93,12 +82,7 @@ const CarnosaurBaseEffects = [
   },
   GenericEffects.Terror,
 ]
-const CometsCallEffect = {
-  name: `Comet's Call`,
-  desc: `Casting value of 7. You can pick up to D3 different enemy units anywhere on the battlefield, Each of those units suffers D3 mortal wounds (roll separately for each). If the casting roll was 10+, pick up to D6 different enemy units instead of up to D3.`,
-  when: [HERO_PHASE],
-  spell: true,
-}
+
 const SlannBaseEffects = [
   {
     name: `Arcane Vassal`,
@@ -111,12 +95,7 @@ const SlannBaseEffects = [
     when: [HERO_PHASE],
   },
   ...pickEffects(Spells, ["Comet's Call"]),
-  {
-    name: `Gift from the Heavens`,
-    desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly SERAPHON unit wholly within 18" of a friendly model with this command ability Until your next hero phase, that unit can fly and you can add 1 to save rolls for attacks made with missile weapons that target that unit. You can only use this command ability once per hero phase.`,
-    when: [HERO_PHASE],
-    command_ability: true,
-  },
+  ...pickEffects(CommandAbilities, ['Gift from the Heavens']),
 ]
 const GoutOfSunfireEffect = {
   name: `Gout of Sunfire`,
@@ -181,19 +160,18 @@ export const Units = {
         when: [SHOOTING_PHASE],
       },
       ColdFerocityEffect,
-      WrathOfTheSeraphonEffect,
+      ...pickEffects(CommandAbilities, ['Wrath of the Seraphon']),
     ],
   },
-  'Saurus Oldblood': { effects: [ColdFerocityEffect, WrathOfTheSeraphonEffect] },
-  'Saurus Scar-Veteran on Cold One': { effects: [ColdFerocityEffect, SaurianSavageryEffect] },
+  'Saurus Oldblood': {
+    effects: [ColdFerocityEffect, ...pickEffects(CommandAbilities, ['Wrath of the Seraphon'])],
+  },
+  'Saurus Scar-Veteran on Cold One': {
+    effects: [ColdFerocityEffect, ...pickEffects(CommandAbilities, ['Saurian Savagery'])],
+  },
   'Saurus Eternity Warden': {
     effects: [
-      {
-        name: `Prime Guardian`,
-        desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly SAURUS GUARD unit wholly within 18" of a friendly model with this command ability. Until the end of that phase, you can add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
-      },
+      ...pickEffects(CommandAbilities, ['Prime Guardian']),
       ColdFerocityEffect,
       SelflessProtectorEffect,
     ],
@@ -205,17 +183,17 @@ export const Units = {
         desc: `If the unmodified hit roll for an attack made by this model is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. In addition, if the unmodified wound roll for an attack made by this model is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Scent of Weakness`,
-        desc: `You can use this command ability in the combat phase. If you do so, pick 1 enemy unit within 12" of a friendly model with this command ability, Until the end of that phase, add 1 to wound rolls for attacks made by friendly SAURUS models that target that enemy unit. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
-      },
+      ...pickEffects(CommandAbilities, ['Scent of Weakness']),
     ],
   },
 
   'Saurus Scar-Veteran on Carnosaur': {
-    effects: [...CarnosaurBaseEffects, CelestiteWarspearEffect, ColdFerocityEffect, SaurianSavageryEffect],
+    effects: [
+      ...CarnosaurBaseEffects,
+      CelestiteWarspearEffect,
+      ColdFerocityEffect,
+      ...pickEffects(CommandAbilities, ['Saurian Savagery']),
+    ],
   },
   'Saurus Astrolith Bearer': {
     effects: [
@@ -248,12 +226,7 @@ export const Units = {
         desc: `If active, until your next hero phase, you can add 1 to save rolls for attacks that target that unit.`,
         when: [SAVES_PHASE],
       },
-      {
-        name: `Herald of the Old Ones`,
-        desc: `You can use this command ability in your hero phase, If you do so, pick 1 friendly SKINK unit wholly within 18" of a friendly model with this command ability. Until your next hero phase, you can add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
+      ...pickEffects(CommandAbilities, ['Herald of the Old Ones']),
     ],
   },
   'Skink Starseer': {
@@ -390,12 +363,7 @@ export const Units = {
         desc: `Subtract 1 from hit rolls for attacks made with melee weapons by models that cannot fly that target this model.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Coordinated Attack`,
-        desc: `You can this command ability when a friendly TERRADON RIDERS unit uses its Deadly Cargo ability while it is wholly within 12" of a friendly model with this command ability. If you do so, the enemy unit suffers D3 mortal wounds for each 2+ instead of each 4+.`,
-        when: [MOVEMENT_PHASE],
-        command_ability: true,
-      },
+      ...pickEffects(CommandAbilities, ['Coordinated Attack']),
     ],
   },
   'Terradon Riders': {
@@ -413,15 +381,7 @@ export const Units = {
     ],
   },
   'Ripperdactyl Chief': {
-    effects: [
-      VoraciousAppetiteEffect,
-      {
-        name: `Ripperdactyl Assault`,
-        desc: `You can this command ability at the start of the combat phase. If you do so, pick 1 friendly model with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly RIPPERDACTYL units that are wholly within 18" of that model. The same unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
-    ],
+    effects: [VoraciousAppetiteEffect, ...pickEffects(CommandAbilities, ['Ripperdactyl Assault'])],
   },
   'Ripperdactyl Riders': {
     effects: [
@@ -487,12 +447,7 @@ export const Units = {
       ...StegadonBaseEffects,
       GoutOfSunfireEffect,
       SkinkChiefEffect,
-      {
-        name: `Coordinated Strike`,
-        desc: `You can this command ability at the start of the combat phase. If you do so, pick 1 friendly SKINK unit wholly within 24" of a friendly STEGADON HERO with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by that SKINK unit. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
+      ...pickEffects(CommandAbilities, ['Coordinated Strike']),
     ],
   },
   Stegadon: {
@@ -514,7 +469,7 @@ export const Units = {
   },
   'Skink Oracle on Troglodon': {
     effects: [
-      CometsCallEffect,
+      ...pickEffects(Spells, ["Comet's Call"]),
       {
         name: `Oracle of the Slann`,
         desc: `Add 1 to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to unbind spells that are cast anywhere on the battlefield and attempt to dispel endless spells anywhere on the battlefield.`,
