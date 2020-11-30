@@ -1,44 +1,103 @@
-import { BATTLESHOCK_PHASE } from 'types/phases'
-import { keyPicker } from '../metatagger'
+import { TSubFaction, TSubFactions } from 'factions/factionTypes'
+import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
+import Artifacts from './artifacts'
+import { Battalions } from './battalions'
+import { SeraphonBattleTraits } from './battle_traits'
+import CommandTraits from './command_traits'
+import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
-import Traits from './traits'
+import Scenery from './scenery'
+import Spells from './spells'
 import { Units } from './units'
 
-const subFactions = {
-  COALESCED: {
-    units: [Units],
+const baseSeraphonSubfaction: TSubFaction = {
+  effects: [],
 
-    // It applies these traits
-    traits: keyPicker(Traits, ['Thickly Scaled Hide', 'Cunning']),
-
-    flavors: keyPicker(Flavors, ["Koatl's Claw", 'Thunder Lizard']),
-  },
-  STARBORNE: {
-    units: [Units],
+  units: {
+    available: [Units],
+    mandatory: [],
   },
 
-  // Example structure of a subfaction, imagine this repeated for traits, spells, etc
-  MADE_UP: {
-    // Let's pretend this subfaction mandates that you take a Skink Priest + Trog
-    units: keyPicker(Units, ['Skink Priest', 'Skink Oracle on Troglodon']),
+  battalions: {
+    available: [Battalions],
+    mandatory: [],
+  },
 
-    // It applies these traits
-    traits: keyPicker(Traits, ['Thickly Scaled Hide', 'Cunning']),
+  command_traits: {
+    available: [CommandTraits],
+    mandatory: [],
+  },
 
-    // And it enables either of these two flavors to be selected in the UI
-    flavors: keyPicker(Flavors, ['A Different Flavor', 'Made Up Flavor']),
+  spells: {
+    available: [Spells],
+    mandatory: [],
+  },
 
-    // General rules to be added because of this subfaction being selected
-    effects: [
-      {
-        name: `Cold-blooded`,
-        desc: `Ignore modifiers (positive or negative) to the Bravery characteristic of MADE_UP units.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      // etc
-    ],
+  scenery: {
+    available: [Scenery],
+    mandatory: [],
+  },
+
+  endless_spells: {
+    available: [EndlessSpells],
+    mandatory: [],
+  },
+
+  artifacts: {
+    available: [Artifacts],
+    mandatory: [],
   },
 }
 
-// subFactions.MADE_UP.units.
+const subFactions: TSubFactions = {
+  COALESCED: {
+    ...baseSeraphonSubfaction,
+
+    effects: pickEffects(SeraphonBattleTraits, ['COALESCED', 'SERAPHON']),
+
+    battalions: {
+      available: [
+        keyOmitter(Battalions, [
+          // Can't have these in COALESCED
+          'Eternal Starhost',
+          'Sunclaw Starhost',
+          'Firelance Starhost',
+          'Shadowstrike Starhost',
+          'Thunderquake Starhost',
+          "Gul'Rok's Starhost",
+          'Venomblade Starhost',
+        ]),
+      ],
+    },
+
+    flavors: {
+      available: [keyPicker(Flavors, ["Koatl's Claw", 'Thunder Lizard'])],
+    },
+  },
+
+  // Starborne Constellation
+  STARBORNE: {
+    ...baseSeraphonSubfaction,
+
+    effects: pickEffects(SeraphonBattleTraits, ['STARBORNE', 'SERAPHON']),
+
+    battalions: {
+      available: [
+        keyOmitter(Battalions, [
+          // Can't have these in STARBORNE
+          'Eternal Temple-host',
+          'Sunclaw Temple-host',
+          'Firelance Temple-host',
+          'Shadowstrike Temple-host',
+          'Thunderquake Temple-host',
+        ]),
+      ],
+    },
+
+    flavors: {
+      available: [keyPicker(Flavors, ["Dracothion's Tail", 'Fangs of Sotek'])],
+    },
+  },
+}
+
 export default subFactions
