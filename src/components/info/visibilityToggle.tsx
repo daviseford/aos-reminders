@@ -1,7 +1,7 @@
-import GenericButton from 'components/input/generic_button'
 import GenericDestructiveModal from 'components/modals/generic/generic_destructive_modal'
 import { useTheme } from 'context/useTheme'
 import React, { useCallback, useState } from 'react'
+import { Dropdown } from 'react-bootstrap'
 import { IconContext, IconType } from 'react-icons'
 import {
   MdAdd,
@@ -17,10 +17,10 @@ import {
 export type TVisibilityIconType = 'clear' | 'eye' | 'fold' | 'minus'
 
 interface IVisibilityToggleProps {
-  appearance?: 'icon' | 'pill'
+  appearance?: 'icon' | 'menuItem'
   className?: string
   isVisible: boolean
-  pillText?: string
+  text?: string
   setVisibility?: () => void
   size?: number
   type?: TVisibilityIconType
@@ -53,7 +53,7 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
     size = 1.4,
     type = 'eye',
     appearance = 'icon',
-    pillText = '',
+    text = '',
     className = '',
     withConfirmation = false,
   } = props
@@ -86,11 +86,11 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
           <VisibilityComponent onClick={handleClick} />
         </IconContext.Provider>
       )}
-      {appearance === 'pill' && (
-        <GenericButton className={className || `badge badge-pill badge-secondary`} onClick={handleClick}>
+      {appearance === 'menuItem' && (
+        <Dropdown.Item className={className} onClick={handleClick}>
           {isVisible ? `Hide` : `Show`}
-          {pillText && ` ${pillText}`}
-        </GenericButton>
+          {text && ` ${text}`}
+        </Dropdown.Item>
       )}
       {modalIsOpen && (
         <GenericDestructiveModal

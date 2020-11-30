@@ -4,6 +4,7 @@ import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'
+import { Dropdown } from 'react-bootstrap'
 import { EMPTY_NOTE_TEXT } from 'types/pdf'
 import { TUseNoteValue } from 'utils/hooks/useNote'
 
@@ -14,7 +15,7 @@ export const NoteMenu = (props: TUseNoteValue) => {
   const { isSubscribed } = useSubscription()
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
-  let [txt, handleClick, btnClass] = !note
+  let [txt, handleClick] = !note
     ? ['Add', add, 'light']
     : isEditing
     ? ['Save', save, 'success']
@@ -23,14 +24,11 @@ export const NoteMenu = (props: TUseNoteValue) => {
   if (!isSubscribed) {
     handleClick = () => setModalIsOpen(true)
     txt = 'Add'
-    btnClass = 'light'
   }
 
   return (
     <>
-      <GenericButton className={`${BADGE_CLASS}${btnClass} mr-1`} onClick={handleClick}>
-        {txt} Note
-      </GenericButton>
+      <Dropdown.Item onClick={handleClick}>{txt} Note</Dropdown.Item>
       {modalIsOpen && (
         <SubscriberOnlyModal
           isOpen={modalIsOpen}

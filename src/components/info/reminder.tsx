@@ -10,6 +10,7 @@ import { selectors, visibilityActions } from 'ducks'
 import { isEqual, sortBy } from 'lodash'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
+import { DropdownButton } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
@@ -163,7 +164,6 @@ const ActionText = (props: IActionTextProps) => {
             </div>
           </div>
           <div className={`flex-shrink-0 ${isMobile ? 'align-self-center' : 'px-2'} d-print-none`}>
-            {isVisible && !isGameMode && <NoteMenu {...noteProps} />}
             {isGameMode ? (
               <VisibilityToggle
                 appearance={'icon'}
@@ -174,13 +174,15 @@ const ActionText = (props: IActionTextProps) => {
                 size={1}
               />
             ) : (
-              <VisibilityToggle
-                appearance={'pill'}
-                pillText={'Rule'}
-                className={`badge badge-pill badge-light`}
-                isVisible={isVisible}
-                setVisibility={handleVisibility}
-              />
+              <DropdownButton title="">
+                <VisibilityToggle
+                  appearance={'menuItem'}
+                  text={'Rule'}
+                  isVisible={isVisible}
+                  setVisibility={handleVisibility}
+                />
+                {isVisible && <NoteMenu {...noteProps} />}
+              </DropdownButton>
             )}
           </div>
         </div>
