@@ -57,7 +57,7 @@ const subFactions: TSubFactions = {
     ...baseSubfaction,
 
     // Effects
-    effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', "The Despoiler's Art"])],
+    effects: pickEffects(BattleTraits, ['Thrilling Compulsions', "The Despoiler's Art"]),
 
     // Command Traits
     command_traits: {

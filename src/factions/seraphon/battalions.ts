@@ -1,3 +1,4 @@
+import { keyPicker } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -10,28 +11,20 @@ import {
   START_OF_HERO_PHASE,
   TURN_FOUR_START_OF_TURN,
 } from 'types/phases'
+import { Units } from './units'
 
-// Battalions
-export const Battalions = {
-  'Eternal Starhost': {
-    effects: [
-      {
-        name: `Celestial Reinforcement`,
-        desc: `At the start of your hero phase, you receive D3 celestial conjuration points if the SLANN, STARSEER or ORACLE from this battalion is on the battlefield.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
+const RegularBattalions = {
   'Shadowstrike Temple-host': {
     effects: [
       {
         name: `The Trap is Sprung`,
-        desc: `In your hero phase, pick 1 enemy unit that is visible to the STARPRIESTor PRIESTfrom this battalion. Until your next hero phase, add 1 to hit rolls for attacks made by units from this battalion that target that unit.`,
+        desc: `In your hero phase, pick 1 enemy unit that is visible to the STARPRIEST or PRIEST from this battalion. Until your next hero phase, add 1 to hit rolls for attacks made by units from this battalion that target that unit.`,
         when: [HERO_PHASE],
       },
     ],
   },
   'Shadowstrike Starhost': {
+    mandatory: [keyPicker(Units, [])],
     effects: [
       {
         name: `Strike from the Stars`,
@@ -51,6 +44,7 @@ export const Battalions = {
     ],
   },
   'Firelance Temple-host': {
+    mandatory: [keyPicker(Units, ['Saurus Knights'])],
     effects: [
       {
         name: `Savage Hunters`,
@@ -60,6 +54,9 @@ export const Battalions = {
     ],
   },
   'Firelance Starhost': {
+    units: {
+      mandatory: [keyPicker(Units, ['Saurus Knights'])],
+    },
     effects: [
       {
         name: `Blazing Cohorts`,
@@ -69,6 +66,7 @@ export const Battalions = {
     ],
   },
   'Sunclaw Temple-host': {
+    mandatory: [keyPicker(Units, ['Saurus Warriors'])],
     effects: [
       {
         name: `Ferocity Unbound`,
@@ -78,6 +76,9 @@ export const Battalions = {
     ],
   },
   'Sunclaw Starhost': {
+    units: {
+      mandatory: [keyPicker(Units, ['Saurus Warriors'])],
+    },
     effects: [
       {
         name: `Star-charged Celestite`,
@@ -114,15 +115,6 @@ export const Battalions = {
       },
     ],
   },
-  'Eternal Temple-host': {
-    effects: [
-      {
-        name: `Primal Vistas`,
-        desc: `If the SLANN, STARSEER or ORACLE from this battalion is on the battlefield, the Primeval Domain battle trait (pg 55) applies to all terrain features, not just those in your territory.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
   "Gul'Rok's Starhost": {
     effects: [
       {
@@ -142,3 +134,54 @@ export const Battalions = {
     ],
   },
 }
+
+const SuperBattalions = {
+  'Eternal Starhost': {
+    units: {
+      mandatory: [keyPicker(Units, ['Saurus Guard', 'Saurus Eternity Warden'])],
+    },
+    battalions: {
+      mandatory: [
+        keyPicker(RegularBattalions, [
+          'Sunclaw Starhost',
+          'Firelance Starhost',
+          'Shadowstrike Starhost',
+          'Thunderquake Starhost',
+        ]),
+      ],
+    },
+    effects: [
+      {
+        name: `Celestial Reinforcement`,
+        desc: `At the start of your hero phase, you receive D3 celestial conjuration points if the SLANN, STARSEER or ORACLE from this battalion is on the battlefield.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+
+  'Eternal Temple-host': {
+    units: {
+      mandatory: [keyPicker(Units, ['Saurus Guard', 'Saurus Eternity Warden'])],
+    },
+    battalions: {
+      mandatory: [
+        keyPicker(RegularBattalions, [
+          'Sunclaw Temple-host',
+          'Firelance Temple-host',
+          'Shadowstrike Temple-host',
+          'Thunderquake Temple-host',
+        ]),
+      ],
+    },
+    effects: [
+      {
+        name: `Primal Vistas`,
+        desc: `If the SLANN, STARSEER or ORACLE from this battalion is on the battlefield, the Primeval Domain battle trait (pg 55) applies to all terrain features, not just those in your territory.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+}
+
+// Battalions
+export const Battalions = { ...RegularBattalions, ...SuperBattalions }

@@ -40,7 +40,7 @@ type TObjWithName = TObjWithEffects & { name: string }
 
 const mergeAvailableMandatory = (entry?: TSubFactionEntry): TParentEffectsObjWithEffects[] => {
   if (!entry) return []
-  const { available, mandatory } = entry
+  const { available = [], mandatory = [] } = entry
   return [...available, ...mandatory]
 }
 
