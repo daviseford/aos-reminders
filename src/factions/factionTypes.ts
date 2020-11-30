@@ -1,9 +1,10 @@
+import { TSupportedFaction } from 'meta/factions'
 import { TEffects } from 'types/data'
 
 export type TObjWithEffects = object & { effects: TEffects[] }
 export type TParentEffectsObjWithEffects = Record<string, TObjWithEffects>
 
-type TSubFactionKeys =
+export type TSubFactionKeys =
   | 'units'
   | 'battalions'
   | 'spells'
@@ -17,7 +18,6 @@ type TSubFactionKeys =
 export type TSubFactionEntry = {
   available?: TParentEffectsObjWithEffects[]
   mandatory?: TParentEffectsObjWithEffects[]
-  excluded?: TParentEffectsObjWithEffects[]
 }
 
 export type TSubFaction = {
@@ -27,4 +27,12 @@ export type TSubFaction = {
 }
 
 export type TSubFactions = Record<string, TSubFaction>
-export type TSubFactionsGeneric<T extends Record<string, TSubFaction>> = T
+
+export type TNewFaction = {
+  factionName: TSupportedFaction
+
+  subFactions: TSubFactions
+
+  subFactionLabel: string
+  flavorLabel: string
+}
