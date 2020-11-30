@@ -12,7 +12,7 @@ export const SeraphonFaction: TNewFaction = {
   subFactionLabel: 'Idk yet', // similar to AllegianceType in the old structure
   flavorLabel: 'Constellations', // This will be used in place of "Flavor" in the UI eventually
 
-  // Export everything (to be used for imports/ally stuff)
+  // Export everything (to be used for imports/ally stuff) (?)
   // units,
   // battalions,
   // etc,
