@@ -1,5 +1,11 @@
 import { IInitialArmy } from 'types/army'
-import { TObjWithEffects, TParentEffectsObjWithEffects, TSubFactionEntry } from './factionTypes'
+import {
+  TObjWithEffects,
+  TParentEffectsObjWithEffects,
+  TSubFaction,
+  TSubFactionEntry,
+  TSubFactionKeys,
+} from './factionTypes'
 import { SlaaneshFaction } from './slaanesh'
 
 /**
@@ -12,23 +18,27 @@ export const temporaryAdapter = <
   newFaction: F,
   whichSubFaction: W
 ): IInitialArmy => {
-  const data = newFaction.subFactions[whichSubFaction]
+  const subFaction = newFaction.subFactions[whichSubFaction]
 
   const initialArmy: IInitialArmy = {
-    Abilities: data.effects,
-    Allegiances: mergeData(data.flavors),
+    Abilities: subFaction.effects,
+    Allegiances: mergeData(subFaction.flavors),
     AllegianceType: newFaction.flavorLabel,
-    Artifacts: mergeData(data.artifacts),
-    Battalions: mergeData(data.battalions),
-    EndlessSpells: mergeData(data.endless_spells),
-    Scenery: mergeData(data.scenery),
-    Spells: mergeData(data.spells),
+    Artifacts: mergeData(subFaction.artifacts),
+    Battalions: mergeData(subFaction.battalions),
+    EndlessSpells: mergeData(subFaction.endless_spells),
+    Scenery: mergeData(subFaction.scenery),
+    Spells: mergeData(subFaction.spells),
     // SubFactions: newFaction.subFactions,
-    Traits: mergeData(data.command_traits),
-    Units: mergeData(data.units),
+    Traits: mergeData(subFaction.command_traits),
+    Units: mergeData(subFaction.units),
   }
 
   return initialArmy
+}
+
+const getAvailableThing = (subFaction: TSubFaction, key: TSubFactionKeys) => {
+  return subFaction?.[key]?.available || []
 }
 
 const mergeData = (entry?: TSubFactionEntry) => {
