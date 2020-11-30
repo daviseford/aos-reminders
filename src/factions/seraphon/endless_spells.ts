@@ -14,6 +14,7 @@ import {
   SuffocatingGravetideEffects,
   UmbralSpellportalEffects,
 } from 'army/generic/endless_spells'
+import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE, START_OF_ROUND } from 'types/phases'
 
 const BoundEffect = {
@@ -83,4 +84,4 @@ const EndlessSpells = {
   },
 }
 
-export default EndlessSpells
+export default tagAs(EndlessSpells, 'endless_spell')
