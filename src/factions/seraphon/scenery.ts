@@ -1,3 +1,4 @@
+import { tagAs } from 'factions/metatagger'
 import { DURING_GAME, HERO_PHASE, START_OF_SETUP } from 'types/phases'
 
 const Scenery = {
@@ -22,4 +23,4 @@ const Scenery = {
   },
 }
 
-export default Scenery
+export default tagAs(Scenery, 'scenery')
