@@ -1,6 +1,7 @@
+import { tagAs } from 'factions/metatagger'
 import { END_OF_MOVEMENT_PHASE, START_OF_HERO_PHASE, START_OF_SETUP } from 'types/phases'
 
-export const Scenery = {
+const Scenery = {
   'Fane of Slaanesh': {
     effects: [
       {
@@ -23,3 +24,5 @@ export const Scenery = {
     ],
   },
 }
+
+export default tagAs(Scenery, 'scenery')
