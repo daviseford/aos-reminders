@@ -64,6 +64,8 @@ const subFactions: TSubFactions = {
           'Firelance Starhost',
           'Shadowstrike Starhost',
           'Thunderquake Starhost',
+          "Gul'Rok's Starhost",
+          'Venomblade Starhost',
         ]),
       ],
     },
