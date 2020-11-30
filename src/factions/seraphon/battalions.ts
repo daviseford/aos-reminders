@@ -24,7 +24,7 @@ const RegularBattalions = {
     ],
   },
   'Shadowstrike Starhost': {
-    mandatory: [keyPicker(Units, [])],
+    units: { mandatory: [keyPicker(Units, [])] },
     effects: [
       {
         name: `Strike from the Stars`,
@@ -44,7 +44,7 @@ const RegularBattalions = {
     ],
   },
   'Firelance Temple-host': {
-    mandatory: [keyPicker(Units, ['Saurus Knights'])],
+    units: { mandatory: [keyPicker(Units, ['Saurus Knights'])] },
     effects: [
       {
         name: `Savage Hunters`,
@@ -66,7 +66,7 @@ const RegularBattalions = {
     ],
   },
   'Sunclaw Temple-host': {
-    mandatory: [keyPicker(Units, ['Saurus Warriors'])],
+    units: { mandatory: [keyPicker(Units, ['Saurus Warriors'])] },
     effects: [
       {
         name: `Ferocity Unbound`,
