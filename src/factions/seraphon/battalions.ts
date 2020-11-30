@@ -1,4 +1,3 @@
-import { keyPicker } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -11,7 +10,6 @@ import {
   START_OF_HERO_PHASE,
   TURN_FOUR_START_OF_TURN,
 } from 'types/phases'
-import { Units } from './units'
 
 const RegularBattalions = {
   'Shadowstrike Temple-host': {
@@ -24,7 +22,6 @@ const RegularBattalions = {
     ],
   },
   'Shadowstrike Starhost': {
-    units: { mandatory: [keyPicker(Units, [])] },
     effects: [
       {
         name: `Strike from the Stars`,
@@ -44,7 +41,6 @@ const RegularBattalions = {
     ],
   },
   'Firelance Temple-host': {
-    units: { mandatory: [keyPicker(Units, ['Saurus Knights'])] },
     effects: [
       {
         name: `Savage Hunters`,
@@ -54,9 +50,6 @@ const RegularBattalions = {
     ],
   },
   'Firelance Starhost': {
-    units: {
-      mandatory: [keyPicker(Units, ['Saurus Knights'])],
-    },
     effects: [
       {
         name: `Blazing Cohorts`,
@@ -66,7 +59,6 @@ const RegularBattalions = {
     ],
   },
   'Sunclaw Temple-host': {
-    units: { mandatory: [keyPicker(Units, ['Saurus Warriors'])] },
     effects: [
       {
         name: `Ferocity Unbound`,
@@ -76,9 +68,6 @@ const RegularBattalions = {
     ],
   },
   'Sunclaw Starhost': {
-    units: {
-      mandatory: [keyPicker(Units, ['Saurus Warriors'])],
-    },
     effects: [
       {
         name: `Star-charged Celestite`,
@@ -137,19 +126,6 @@ const RegularBattalions = {
 
 const SuperBattalions = {
   'Eternal Starhost': {
-    units: {
-      mandatory: [keyPicker(Units, ['Saurus Guard', 'Saurus Eternity Warden'])],
-    },
-    battalions: {
-      mandatory: [
-        keyPicker(RegularBattalions, [
-          'Sunclaw Starhost',
-          'Firelance Starhost',
-          'Shadowstrike Starhost',
-          'Thunderquake Starhost',
-        ]),
-      ],
-    },
     effects: [
       {
         name: `Celestial Reinforcement`,
@@ -160,19 +136,6 @@ const SuperBattalions = {
   },
 
   'Eternal Temple-host': {
-    units: {
-      mandatory: [keyPicker(Units, ['Saurus Guard', 'Saurus Eternity Warden'])],
-    },
-    battalions: {
-      mandatory: [
-        keyPicker(RegularBattalions, [
-          'Sunclaw Temple-host',
-          'Firelance Temple-host',
-          'Shadowstrike Temple-host',
-          'Thunderquake Temple-host',
-        ]),
-      ],
-    },
     effects: [
       {
         name: `Primal Vistas`,

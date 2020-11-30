@@ -1,4 +1,5 @@
 import GenericEffects from 'army/generic/effects'
+import { pickEffects } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -18,6 +19,7 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import Spells from './spells'
 
 const SelflessProtectorEffect = {
   name: `Selfless Protector`,
@@ -108,7 +110,7 @@ const SlannBaseEffects = [
     desc: `Add 1 to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to unbind enemy spells that are cast anywhere on the battlefield and attempt to dispel endless spells anywhere on the battlefield.`,
     when: [HERO_PHASE],
   },
-  CometsCallEffect,
+  ...pickEffects(Spells, ["Comet's Call"]),
   {
     name: `Gift from the Heavens`,
     desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly SERAPHON unit wholly within 18" of a friendly model with this command ability Until your next hero phase, that unit can fly and you can add 1 to save rolls for attacks made with missile weapons that target that unit. You can only use this command ability once per hero phase.`,
@@ -157,16 +159,7 @@ export const Units = {
         desc: `At the start of your hero phase, roll 3 dice for this model. For each 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Celestial Deliverance`,
-        desc: `The caster can attempt to cast this spell up to 3 times in the same hero phase.
-
-        Casting value of 7 the first time it is attempted in a phase, a casting value of 8 the second time it is attempted in a phase, and a casting value of 9 the third time it is attempted in a phase.
-
-        Each time this spell is successfully cast, pick up to 3 different enemy units within 10" of the caster and visible to them, and roll 1 dice for each unit you pick. On a 2+, that unit suffers D3 mortal wounds, If that unit is a CHAOS DAEMON unit, on a 2+ it suffers 3 mortal wounds instead of D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
+      ...pickEffects(Spells, ['Celestial Deliverance']),
     ],
   },
   'Slann Starmaster': {
@@ -275,12 +268,7 @@ export const Units = {
         desc: `At the start of your charge phase, you can pick 1 friendly SERAPHON unit wholly within 12" of this model. If you do so, in that phase you can attempt to charge with that unit if it is within 18" of the enemy instead of 12", and you roll 3D6 instead of 2D6 when making the charge roll.`,
         when: [START_OF_CHARGE_PHASE],
       },
-      {
-        name: `Control Fate`,
-        desc: `Casting value of 7. Pick 1 unit within 18" of the caster and visible to them. If that unit is an enemy unit, until your next hero phase, subtract 1 from save rolls for attacks that target that unit, If that unit is a friendly SERAPHON unit, until your next hero phase, add 1 to save rolls for attacks that target that unit.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
+      ...pickEffects(Spells, ['Control Fate']),
     ],
   },
   'Skink Starpriest': {
@@ -295,12 +283,7 @@ export const Units = {
         desc: `In your hero phase, you can pick 1 friendly SERAPHON unit wholly within 12" of this model. If you do so, until your next hero phase, if the unmodified wound roll for an attack made by that unit is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage. A unit cannot benefit from this ability more than once per phase.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Blazing Starlight`,
-        desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster and visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
+      ...pickEffects(Spells, ['Blazing Starlight']),
     ],
   },
   'Engine of the Gods': {
