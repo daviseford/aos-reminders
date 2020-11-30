@@ -1,5 +1,5 @@
 import { TSubFaction, TSubFactions } from 'factions/factionTypes'
-import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
+import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import { Battalions } from './battalions'
 import { SeraphonBattleTraits } from './battle_traits'
@@ -50,15 +50,12 @@ const subFactions: TSubFactions = {
 
     battalions: {
       available: [
-        keyOmitter(Battalions, [
-          // Can't have these in COALESCED
-          'Eternal Starhost',
-          'Sunclaw Starhost',
-          'Firelance Starhost',
-          'Shadowstrike Starhost',
-          'Thunderquake Starhost',
-          "Gul'Rok's Starhost",
-          'Venomblade Starhost',
+        keyPicker(Battalions, [
+          'Eternal Temple-host',
+          'Sunclaw Temple-host',
+          'Firelance Temple-host',
+          'Shadowstrike Temple-host',
+          'Thunderquake Temple-host',
         ]),
       ],
     },
@@ -76,13 +73,14 @@ const subFactions: TSubFactions = {
 
     battalions: {
       available: [
-        keyOmitter(Battalions, [
-          // Can't have these in STARBORNE
-          'Eternal Temple-host',
-          'Sunclaw Temple-host',
-          'Firelance Temple-host',
-          'Shadowstrike Temple-host',
-          'Thunderquake Temple-host',
+        keyPicker(Battalions, [
+          'Eternal Starhost',
+          'Sunclaw Starhost',
+          'Firelance Starhost',
+          'Shadowstrike Starhost',
+          'Thunderquake Starhost',
+          "Gul'Rok's Starhost",
+          'Venomblade Starhost',
         ]),
       ],
     },
