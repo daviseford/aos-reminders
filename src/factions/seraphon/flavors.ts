@@ -1,18 +1,17 @@
+import { pickEffects } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   DURING_SETUP,
   END_OF_MOVEMENT_PHASE,
   END_OF_SHOOTING_PHASE,
-  HERO_PHASE,
-  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
-  START_OF_HERO_PHASE,
   TURN_FOUR_START_OF_TURN,
   TURN_ONE_MOVEMENT_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import Artifacts from './artifacts'
+import CommandTraits from './command_traits'
 
 const Flavors = {
   "Dracothion's Tail": {
@@ -32,18 +31,8 @@ const Flavors = {
         desc: `Any reserve units waiting to appear at command which are not set up on the battlefield before the start of the fourth battle round are slain.`,
         when: [TURN_FOUR_START_OF_TURN],
       },
-      {
-        name: `Ancient Knowledge`,
-        desc: `This general knows 1 extra spell from the Lore of Celestial Domination (pg 60). In addition, you can reroll 1 casting, dispelling or unbinding roll for this general each hero phase.`,
-        when: [HERO_PHASE],
-        command_trait: true,
-      },
-      {
-        name: `Godbeast Pendant`,
-        desc: `The first time the bearer is slain, before removing them from the battlefield, roll a D6. On a 1-3, the bearer is slain. On a 4-6, the bearer is not slain, all wounds allocated to them are healed, and any wounds that currently remain to be allocated to them are negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-        artifact: true,
-      },
+      ...pickEffects(CommandTraits, ['Ancient Knowledge']),
+      ...pickEffects(Artifacts, ['Godbeast Pendant']),
     ],
   },
 
@@ -60,18 +49,8 @@ const Flavors = {
         when: [CHARGE_PHASE],
         command_ability: true,
       },
-      {
-        name: `Old and Grizzled`,
-        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a D6. On a 3+, you receive 1 extra command point.`,
-        when: [START_OF_HERO_PHASE],
-        command_trait: true,
-      },
-      {
-        name: `Serpent God Dagger`,
-        desc: `Pick 1 of the bearer's melee weapons. At the end of any phase, if any wounds inflicted by that weapon in that phase were allocated to an enemy model and not negated, and that enemy model has not been slain, roll a D6. On a 5+, that enemy model is slain.`,
-        when: [DURING_GAME],
-        artifact: true,
-      },
+      ...pickEffects(CommandTraits, ['Old and Grizzled']),
+      ...pickEffects(Artifacts, ['Serpent God Dagger']),
     ],
   },
 
@@ -88,18 +67,8 @@ const Flavors = {
         when: [START_OF_COMBAT_PHASE],
         command_ability: true,
       },
-      {
-        name: `Dominant Predator`,
-        desc: `Roll a D6 each time this general is used to issue a command to a friendly KOATL'S CLAW SAURUS unit. On a 4+, you receive 1 extra command point.`,
-        when: [DURING_GAME],
-        command_trait: true,
-      },
-      {
-        name: `Eviscerating Blade`,
-        desc: `Pick 1 of the bearer's melee weapons. If the unmodified hit roll for an attack made with that weapon is 6, that attack inflicts 2 mortal wounds on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-        artifact: true,
-      },
+      ...pickEffects(CommandTraits, ['Dominant Predator']),
+      ...pickEffects(Artifacts, ['Eviscerating Blade']),
     ],
   },
 
@@ -116,18 +85,8 @@ const Flavors = {
         when: [END_OF_SHOOTING_PHASE],
         command_ability: true,
       },
-      {
-        name: `Prime Warbeast`,
-        desc: `Add 1 to the Attacks characteristic of the weapons used by this general's mount.`,
-        when: [COMBAT_PHASE],
-        command_trait: true,
-      },
-      {
-        name: `Fusil of Conflagration`,
-        desc: `In your shooting phase, you can pick 1 enemy unit within 12" of the bearer and visible to them and roll a D6. On a 1, this artefact cannot be used again for the rest of the battle. On a 2-3, nothing happens. On a 4-5 that enemy unit suffers D3 mortal wounds. On a 6, that enemy unit suffers D6 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-        artifact: true,
-      },
+      ...pickEffects(CommandTraits, ['Prime Warbeast']),
+      ...pickEffects(Artifacts, ['Fusil of Conflagration']),
     ],
   },
 }
