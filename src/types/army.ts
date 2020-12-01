@@ -5,9 +5,7 @@ import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { TSelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 
-export type TAllyArmies = Record<string, IArmy>
-
-// TODO: Get rid of these
+// TODO: Get rid of these?
 export type TArtifacts = TEntry[]
 export type TBattalions = TEntry[]
 export type TBattleTraits = TEffects[]
@@ -21,30 +19,27 @@ export type TTriumphs = TEntry[]
 export type TUnits = TEntry[]
 
 export interface IArmy {
-  Artifacts: TArtifacts
-  Battalions: TBattalions
-  BattleTraits: TBattleTraits
-  CommandAbilities: TCommandAbilities
-  CommandTraits: TCommandTraits
-  EndlessSpells: TEndlessSpells
-  Flavors: TFlavors
-  FlavorType?: string
+  Artifacts: TEntry[]
+  Battalions: TEntry[]
+  BattleTraits: TEffects[] // Previously 'Abilities'
+  CommandAbilities: TEntry[] // Previously 'Commands'
+  CommandTraits: TEntry[] // Previously 'Traits'
+  EndlessSpells: TEntry[]
+  Flavors: TEntry[] // Previously 'Allegiances'
+  FlavorType?: string // Previously 'AllegianceType'
   Game: TGameStructure
-  Scenery: TScenery
-  Spells: TSpells
-  Triumphs: TTriumphs
-  Units: TUnits
+  Scenery: TEntry[]
+  Spells: TEntry[]
+  Triumphs: TEntry[]
+  Units: TEntry[]
 }
 
-export type IInitialArmy = Partial<IArmy> & { AlliedUnits?: TUnits }
-
-export interface ICollection {
-  Artifacts: TArtifacts
-  Battalions: TBattalions
-  CommandAbilities: TCommandAbilities
-  CommandTraits: TCommandTraits
-  Spells: TSpells
-}
+export type TAllyArmies = Record<string, IArmy>
+export type TInitialArmy = Partial<IArmy> & { AlliedUnits?: TEntry[] }
+export type TCollection = Pick<
+  IArmy,
+  'Artifacts' | 'Battalions' | 'CommandTraits' | 'CommandAbilities' | 'Spells'
+>
 
 export interface ICurrentArmy {
   allyFactionNames: TSupportedFaction[]

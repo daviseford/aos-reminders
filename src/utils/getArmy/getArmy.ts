@@ -2,7 +2,7 @@ import produce from 'immer'
 import { GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions, TGrandAlliances } from 'meta/alliances'
 import { getArmyFromList } from 'meta/army_list'
 import { TSupportedFaction } from 'meta/factions'
-import { IArmy, ICollection, IInitialArmy } from 'types/army'
+import { IArmy, TCollection, TInitialArmy } from 'types/army'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { isValidFactionName } from 'utils/armyUtils'
 import { getAllianceItems, getGrandAllianceEndlessSpells } from 'utils/getArmy/getAllianceItems'
@@ -33,7 +33,7 @@ export const getArmy = (
 }
 
 interface IModifyArmyMeta {
-  Collection: ICollection
+  Collection: TCollection
   factionName: TSupportedFaction
   GrandAlliance: TGrandAlliances
   originRealm: TOriginRealms | null
@@ -51,7 +51,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
     Scenery = [],
     Spells = [],
     Units = [],
-  } = Army as IInitialArmy
+  } = Army as TInitialArmy
   const { realmscape, GrandAlliance, Collection, factionName, originRealm } = meta
 
   const GrandAllianceEndlessSpells = getGrandAllianceEndlessSpells(GrandAlliance, EndlessSpells, factionName)
@@ -76,14 +76,14 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   Army.Triumphs = modify.Triumphs()
   Army.Units = modify.Units(Units, AlliedUnits, GrandAlliance)
   Army.Game = processGame([
-    Army.Flavors,
     Army.Artifacts,
     Army.Battalions,
     Army.CommandAbilities,
+    Army.CommandTraits,
     Army.EndlessSpells,
+    Army.Flavors,
     Army.Scenery,
     Army.Spells,
-    Army.CommandTraits,
     Army.Triumphs,
     Army.Units,
   ])

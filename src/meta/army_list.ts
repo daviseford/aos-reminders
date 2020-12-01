@@ -95,7 +95,7 @@ import {
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
-import { IInitialArmy } from 'types/army'
+import { TInitialArmy } from 'types/army'
 
 const SlaaneshNew = temporaryAdapter(SlaaneshFaction, 'INVADERS')
 const SeraphonNew = temporaryAdapter(SeraphonFaction, 'COALESCED')
@@ -297,6 +297,6 @@ export const getArmyFromList = (factionName: TSupportedFaction) => ArmyList[fact
 type TArmyList = { readonly [factionName in TSupportedFaction]: IArmyListEntry }
 
 interface IArmyListEntry {
-  readonly Army: IInitialArmy
+  readonly Army: TInitialArmy
   readonly GrandAlliance: TGrandAlliances
 }

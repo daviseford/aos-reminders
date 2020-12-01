@@ -1,5 +1,5 @@
 import { sortBy, uniqBy } from 'lodash'
-import { ICollection, IInitialArmy } from 'types/army'
+import { TCollection, TInitialArmy } from 'types/army'
 import { TEffects, TEntry } from 'types/data'
 
 /**
@@ -8,7 +8,7 @@ import { TEffects, TEntry } from 'types/data'
  * that those are represented in the dropdowns.
  * @param army
  */
-export const getCollection = (army: IInitialArmy): ICollection => {
+export const getCollection = (army: TInitialArmy): TCollection => {
   const {
     AlliedUnits = [],
     Artifacts = [],
@@ -19,7 +19,7 @@ export const getCollection = (army: IInitialArmy): ICollection => {
     Units = [],
   } = army
 
-  const Collection: ICollection = {
+  const Collection: TCollection = {
     Artifacts: [],
     Battalions: [],
     CommandAbilities: [],
