@@ -38,7 +38,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(pdfText)
   const genericScenery = GenericScenery.map(x => x.name)
 
-  const allegianceTypes = getAllegianceTypes()
+  const flavorTypes = getAllegianceTypes()
 
   let allyUnits: string[] = []
   let factionName = ''
@@ -117,8 +117,8 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (txt.startsWith('- Mark of Chaos : ')) return accum
 
         if (txt.startsWith('- Tribe: ')) {
-          const { allegiance, trait } = getTribe(txt)
-          accum.flavors = accum.flavors.concat(allegiance)
+          const { flavor, trait } = getTribe(txt)
+          accum.flavors = accum.flavors.concat(flavor)
           if (trait) {
             accum.command_traits = accum.command_traits.concat(trait)
           }
@@ -150,18 +150,16 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         }
 
         if (txt.startsWith('- Grand Court: ')) {
-          const allegiance = ['Gristlegore', 'Morgaunt', 'Blisterskin', 'Hollowmourne'].find(x =>
-            txt.includes(x)
-          )
-          if (allegiance) {
-            accum.flavors = accum.flavors.concat(allegiance)
+          const flavor = ['Gristlegore', 'Morgaunt', 'Blisterskin', 'Hollowmourne'].find(x => txt.includes(x))
+          if (flavor) {
+            accum.flavors = accum.flavors.concat(flavor)
             return accum
           }
         }
 
         if (txt.startsWith('- City: ')) {
-          const { allegiance, trait } = getCity(txt)
-          accum.flavors = accum.flavors.concat(allegiance)
+          const { flavor, trait } = getCity(txt)
+          accum.flavors = accum.flavors.concat(flavor)
           if (trait) {
             accum.command_traits = accum.command_traits.concat(trait)
           }
@@ -225,12 +223,12 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
         // Handle allegiances programmatically
         let stop = false
-        allegianceTypes.forEach(t => {
+        flavorTypes.forEach(t => {
           if (!stop) return
           if (txt.startsWith(`- ${t}: `)) {
-            const allegiance = txt.replace(`- ${t}: `, '').trim()
-            if (allegiance && allegiance !== 'None') {
-              accum.flavors = accum.flavors.concat(allegiance)
+            const flavor = txt.replace(`- ${t}: `, '').trim()
+            if (flavor && flavor !== 'None') {
+              accum.flavors = accum.flavors.concat(flavor)
               stop = true
             }
           }
@@ -361,24 +359,24 @@ const removePrefix = (txt: string) => {
 
 const getTribe = (txt: string) => {
   const tribe = txt.split('- Tribe: ')[1].split('(')
-  const allegiance = tribe[0].trim()
+  const flavor = tribe[0].trim()
   try {
     let trait = tribe[1] ? tribe[1].split('Fierce Loathing: ')[1].replace(')', '').trim() : null
     trait = trait ? `${trait} ${CommonSonsOfBehematData.TAGS.FierceLoathingTag}` : null //  e.g. "Shiny 'Uns (Fierce Loathing)"
-    return { allegiance, trait }
+    return { flavor, trait }
   } catch (err) {
-    return { allegiance, trait: null }
+    return { flavor, trait: null }
   }
 }
 
 const getCity = (txt: string) => {
   const city = txt.split('- City: ')[1].split('(')
-  const allegiance = city[0].trim()
+  const flavor = city[0].trim()
   try {
     const trait = city[1] ? city[1].split('Illicit Dealings: ')[1].replace(')', '').trim() : null
-    return { allegiance, trait }
+    return { flavor, trait }
   } catch (err) {
-    return { allegiance, trait: null }
+    return { flavor, trait: null }
   }
 }
 

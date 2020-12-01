@@ -8,14 +8,14 @@ import { ISelectionStore, IStore, TAllySelectionStore } from 'types/store'
 
 const initialState: ISelectionStore = {
   selections: {
-    flavors: [],
     artifacts: [],
     battalions: [],
     command_abilities: [],
+    command_traits: [],
     endless_spells: [],
+    flavors: [],
     scenery: [],
     spells: [],
-    command_traits: [],
     triumphs: [],
     units: [],
   },
@@ -89,7 +89,7 @@ const selections = createSlice({
       handleSideEffects(state, action.payload, 'battalions')
       state.selections.battalions = action.payload
     },
-    updateCommands: (state, action: PayloadAction<string[]>) => {
+    updateCommandAbilities: (state, action: PayloadAction<string[]>) => {
       state.selections.command_abilities = action.payload
     },
     updateEndlessSpells: (state, action: PayloadAction<string[]>) => {

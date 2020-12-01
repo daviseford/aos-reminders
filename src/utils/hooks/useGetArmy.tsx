@@ -86,7 +86,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
       },
       {
         items: army.CommandAbilities,
-        setValues: selectionActions.updateCommands,
+        setValues: selectionActions.updateCommandAbilities,
         title: 'Commands',
         values: selections.command_abilities,
         type: 'multi',

@@ -8,14 +8,14 @@ const PrintArmy = () => {
     selectors.selectCurrentArmy
   )
   const {
-    flavors: allegiances,
+    flavors,
     artifacts,
     battalions,
-    command_abilities: commands,
+    command_abilities,
     endless_spells,
     scenery,
     spells,
-    command_traits: traits,
+    command_traits,
     triumphs,
     units,
   } = selections
@@ -47,9 +47,9 @@ const PrintArmy = () => {
           />
         ))}
 
-        <ItemsDisplayComponent name={'Command Trait'} items={traits} />
-        <ItemsDisplayComponent name={'Command'} items={commands} />
-        <ItemsDisplayComponent name={'Allegiance'} items={allegiances} />
+        <ItemsDisplayComponent name={'Command Trait'} items={command_traits} />
+        <ItemsDisplayComponent name={'Command'} items={command_abilities} />
+        <ItemsDisplayComponent name={'Flavor'} items={flavors} />
         <ItemsDisplayComponent name={'Spell'} items={spells} />
         <ItemsDisplayComponent name={'Endless Spell'} items={endless_spells} />
         <ItemsDisplayComponent name={'Scenery'} items={scenery} pluralize={false} />
