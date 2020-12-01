@@ -21,8 +21,6 @@ const ArmyBuilder = () => {
   const rowClass = useMemo(() => `row d-print-none pb-1 ${isMobile ? `mx-1` : `pt-2 w-75`}`, [isMobile])
   const cards = useGetArmyBuilderCards(army)
 
-  console.log(cards, army)
-
   return (
     <div className="d-flex justify-content-center">
       <div className={rowClass}>

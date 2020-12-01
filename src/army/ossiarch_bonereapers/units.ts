@@ -1,5 +1,4 @@
 import { Units as LegionsOfNagashUnits } from 'army/legions_of_nagash/units'
-// Battalions
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,

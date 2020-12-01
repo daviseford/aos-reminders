@@ -1,5 +1,4 @@
 import LegionsOfNagash from 'army/legions_of_nagash'
-// Battalions
 import { TEntry } from 'types/data'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
 

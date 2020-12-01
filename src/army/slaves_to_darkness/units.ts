@@ -1,5 +1,4 @@
 import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH, MARK_UNDIVIDED } from 'meta/alliances'
-// Battalions
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
