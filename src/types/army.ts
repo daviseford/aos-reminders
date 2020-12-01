@@ -9,7 +9,6 @@ import { TAllySelectionStore } from 'types/store'
 export type TArtifacts = TEntry[]
 export type TBattalions = TEntry[]
 export type TBattleTraits = TEffects[]
-export type TCommandAbilities = TEntry[]
 export type TCommandTraits = TEntry[]
 export type TEndlessSpells = TEntry[]
 export type TFlavors = TEntry[]
