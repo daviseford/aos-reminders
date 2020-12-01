@@ -1,5 +1,6 @@
 import { DestructionUnits } from 'army/grand_alliances'
-import { TBattalions, TUnits } from 'types/army'
+// Battalions
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -43,8 +44,7 @@ const DuffUpdaBigThingEffect = {
   when: [COMBAT_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Gordrakk the Fist of Gork`,
     effects: [
@@ -203,8 +203,7 @@ export const Units: TUnits = [
   getRogueIdol(),
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Ardfist`,
     effects: [

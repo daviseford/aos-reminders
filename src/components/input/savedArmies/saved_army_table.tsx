@@ -4,7 +4,7 @@ import { TSupportedFaction } from 'meta/factions'
 import React, { useMemo } from 'react'
 import { ICurrentArmy } from 'types/army'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
-import { IAllySelections, ISelections } from 'types/selections'
+import { IAllySelections, TSelections } from 'types/selections'
 import { ITheme } from 'types/theme'
 import { titleCase } from 'utils/textUtils'
 
@@ -44,7 +44,7 @@ export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
             return (
               <Tr
                 theme={theme}
-                items={sortBy(selections[key as keyof ISelections])}
+                items={sortBy(selections[key as keyof TSelections])}
                 title={key}
                 key={`${key}_${i}`}
               />

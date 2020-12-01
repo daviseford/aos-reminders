@@ -1,19 +1,24 @@
 import { uniq } from 'lodash'
 import { IArmy } from 'types/army'
-import { ISelections } from 'types/selections'
+import { TSelections, TSelectionTypes } from 'types/selections'
 import { getSideEffects } from 'utils/getSideEffects'
 import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
+
+type TSideEffectKeys = Record<
+  Extract<TSelectionTypes, 'flavors' | 'battalions' | 'command_traits' | 'units'>,
+  IWithSelectMultipleWithSideEffectsPayload
+>
 
 /**
  * Add side effects (such as spells, artifacts, etc) to our imported selections
  * @param selections
  * @param Army
  */
-export const addSideEffectsToImport = (selections: ISelections, Army: IArmy): ISelections => {
-  const sideEffects = {
-    allegiances: getSideEffects(Army.Allegiances),
+export const addSideEffectsToImport = (selections: TSelections, Army: IArmy): TSelections => {
+  const sideEffects: TSideEffectKeys = {
+    flavors: getSideEffects(Army.Flavors),
     battalions: getSideEffects(Army.Battalions),
-    traits: getSideEffects(Army.Traits),
+    command_traits: getSideEffects(Army.CommandTraits),
     units: getSideEffects(Army.Units),
   }
 

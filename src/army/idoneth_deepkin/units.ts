@@ -1,4 +1,5 @@
-import { TBattalions, TUnits } from 'types/army'
+// Battalions
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -29,8 +30,7 @@ const StormshoalEffect = {
   when: [WOUND_ALLOCATION_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Eidolon of Mathlann, Aspect of the Storm`,
     effects: [
@@ -321,8 +321,7 @@ export const Units: TUnits = [
   },
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Royal Council`,
     effects: [

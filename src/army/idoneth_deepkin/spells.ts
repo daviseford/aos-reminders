@@ -1,8 +1,8 @@
-import { TSpells } from 'types/army'
+// Lore of the Deep
+import { TEntry } from 'types/data'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-// Lore of the Deep
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Steed of Tides`,
     effects: [

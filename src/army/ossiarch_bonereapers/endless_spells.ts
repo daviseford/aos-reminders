@@ -1,4 +1,4 @@
-import { TEndlessSpells } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -22,7 +22,7 @@ const SoulLinkedEffect = {
   when: [START_OF_ROUND],
 }
 
-const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEntry[] = [
   {
     name: `Bone-tithe Shrieker`,
     effects: [

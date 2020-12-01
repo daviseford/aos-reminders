@@ -1,4 +1,4 @@
-import { TSpells } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   COMBAT_PHASE,
   HERO_PHASE,
@@ -7,7 +7,7 @@ import {
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
 
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Brain-bursta`,
     effects: [

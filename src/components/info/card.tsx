@@ -6,7 +6,7 @@ import { selectors, visibilityActions } from 'ducks'
 import React, { useCallback, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { ValueType } from 'react-select/src/types'
-import { TAllegiances, TArtifacts, TBattalions, TEndlessSpells, TSpells, TTraits, TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import useWindowSize from 'utils/hooks/useWindowSize'
 
 interface IBaseCardProps {
@@ -48,7 +48,7 @@ const CardComponent: React.FC<ICardProps> = props => {
 }
 
 interface ICardMultiProps extends IBaseCardProps {
-  items: TUnits | TBattalions | TArtifacts | TTraits | TAllegiances | TSpells | TEndlessSpells
+  items: TEntry[]
   selectionCount: number
   setValues: (selectValues: ValueType<TDropdownOption>[]) => void
   values: string[]

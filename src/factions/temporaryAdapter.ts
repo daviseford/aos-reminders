@@ -1,4 +1,4 @@
-import { IInitialArmy } from 'types/army'
+import { TInitialArmy } from 'types/army'
 import { TNewFaction, TObjWithEffects, TParentEffectsObjWithEffects, TSubFactionEntry } from './factionTypes'
 
 /**
@@ -7,20 +7,20 @@ import { TNewFaction, TObjWithEffects, TParentEffectsObjWithEffects, TSubFaction
 export const temporaryAdapter = <F extends TNewFaction, W extends Extract<keyof F['subFactions'], string>>(
   newFaction: F,
   whichSubFaction: W
-): IInitialArmy => {
+): TInitialArmy => {
   const subFaction = newFaction.subFactions[whichSubFaction]
 
-  const initialArmy: IInitialArmy = {
-    Abilities: subFaction.effects,
-    Allegiances: mergeData(subFaction.flavors),
-    AllegianceType: newFaction.flavorLabel,
+  const initialArmy: TInitialArmy = {
+    BattleTraits: subFaction.effects,
+    Flavors: mergeData(subFaction.flavors),
+    FlavorType: newFaction.flavorLabel,
     Artifacts: mergeData(subFaction.artifacts),
     Battalions: mergeData(subFaction.battalions),
     EndlessSpells: mergeData(subFaction.endless_spells),
     Scenery: mergeData(subFaction.scenery),
     Spells: mergeData(subFaction.spells),
     // SubFactions: newFaction.subFactions,
-    Traits: mergeData(subFaction.command_traits),
+    CommandTraits: mergeData(subFaction.command_traits),
     Units: mergeData(subFaction.units),
   }
 

@@ -1,20 +1,20 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { uniq, without } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
-import { TBattalions, TUnits } from 'types/army'
+import { TEntry, TEntryProperties } from 'types/data'
 import { TSelectionTypes } from 'types/selections'
 import { ISelectionStore, IStore, TAllySelectionStore } from 'types/store'
 
 const initialState: ISelectionStore = {
   selections: {
-    allegiances: [],
     artifacts: [],
     battalions: [],
-    commands: [],
+    command_abilities: [],
+    command_traits: [],
     endless_spells: [],
+    flavors: [],
     scenery: [],
     spells: [],
-    traits: [],
     triumphs: [],
     units: [],
   },
@@ -26,7 +26,7 @@ type TAddToSelectionsAction = {
   payload: {
     value: string // Hermdar Lodge
     values: string[] // ['Tyrant Slayer']
-    slice: string // e.g. artifacts, spells, etc
+    slice: TEntryProperties // e.g. artifacts, spells, etc
   }
 }
 
@@ -47,14 +47,14 @@ const selections = createSlice({
     resetSelections: state => {
       state.selections = initialState.selections
     },
-    updateAllyUnits: (state, action: PayloadAction<{ factionName: TSupportedFaction; units: TUnits }>) => {
+    updateAllyUnits: (state, action: PayloadAction<{ factionName: TSupportedFaction; units: TEntry[] }>) => {
       const { factionName, units } = action.payload
       // @ts-ignore
       state.allySelections[factionName].units = units
     },
     updateAllyBattalions: (
       state,
-      action: PayloadAction<{ factionName: TSupportedFaction; battalions: TBattalions }>
+      action: PayloadAction<{ factionName: TSupportedFaction; battalions: TEntry[] }>
     ) => {
       const { factionName, battalions } = action.payload
       // @ts-ignore
@@ -63,9 +63,9 @@ const selections = createSlice({
     updateAllySelections: (state, action: PayloadAction<TAllySelectionStore>) => {
       state.allySelections = action.payload
     },
-    updateAllegiances: (state, action: PayloadAction<string[]>) => {
-      handleSideEffects(state, action.payload, 'allegiances')
-      state.selections.allegiances = action.payload
+    updateFlavors: (state, action: PayloadAction<string[]>) => {
+      handleSideEffects(state, action.payload, 'flavors')
+      state.selections.flavors = action.payload
     },
     updateArtifacts: (state, action: PayloadAction<string[]>) => {
       state.selections.artifacts = action.payload
@@ -88,8 +88,8 @@ const selections = createSlice({
       handleSideEffects(state, action.payload, 'battalions')
       state.selections.battalions = action.payload
     },
-    updateCommands: (state, action: PayloadAction<string[]>) => {
-      state.selections.commands = action.payload
+    updateCommandAbilities: (state, action: PayloadAction<string[]>) => {
+      state.selections.command_abilities = action.payload
     },
     updateEndlessSpells: (state, action: PayloadAction<string[]>) => {
       state.selections.endless_spells = action.payload
@@ -103,9 +103,9 @@ const selections = createSlice({
     updateSpells: (state, action: PayloadAction<string[]>) => {
       state.selections.spells = action.payload
     },
-    updateTraits: (state, action: PayloadAction<string[]>) => {
-      handleSideEffects(state, action.payload, 'traits')
-      state.selections.traits = action.payload
+    updateCommandTraits: (state, action: PayloadAction<string[]>) => {
+      handleSideEffects(state, action.payload, 'command_traits')
+      state.selections.command_traits = action.payload
     },
     updateTriumphs: (state, action: PayloadAction<string[]>) => {
       state.selections.triumphs = action.payload

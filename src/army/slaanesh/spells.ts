@@ -1,4 +1,5 @@
-import { TSpells } from 'types/army'
+// Spell Lores of Slaanesh
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -9,8 +10,7 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 
-// Spell Lores of Slaanesh
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   // Lore of Slaanesh
   {
     name: `Lash of Slaanesh (Daemon)`,

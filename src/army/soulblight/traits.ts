@@ -1,7 +1,7 @@
-import { TTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, DURING_GAME, MOVEMENT_PHASE } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Curse of the Revenant`,
     effects: [

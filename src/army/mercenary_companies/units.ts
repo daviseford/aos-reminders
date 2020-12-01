@@ -1,4 +1,5 @@
-import { TUnits } from 'types/army'
+// Unit Names
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -9,8 +10,7 @@ import {
   TURN_ONE_MOVEMENT_PHASE,
 } from 'types/phases'
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Greyfyrd Mercenary Company`,
     effects: [

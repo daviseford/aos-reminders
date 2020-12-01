@@ -1,11 +1,11 @@
-import Abilities from './abilities'
 import Artifacts from './artifacts'
+import BattleTraits from './battle_traits'
 import Spells from './spells'
 import Traits from './traits'
 import { AlliedUnits, Battalions } from './units'
 
 const BigWaaaghArmy = {
-  Abilities,
+  BattleTraits,
   AlliedUnits,
   Artifacts,
   Battalions,

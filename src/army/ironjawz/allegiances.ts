@@ -1,4 +1,5 @@
-import { TAllegiances } from 'types/army'
+// This is where we store sub-allegiances such as
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -11,8 +12,7 @@ import {
   START_OF_GAME,
 } from 'types/phases'
 
-// This is where we store sub-allegiances such as
-const Allegiances: TAllegiances = [
+const Allegiances: TEntry[] = [
   {
     name: `Ironsunz`,
     effects: [

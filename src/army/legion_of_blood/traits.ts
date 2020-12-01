@@ -1,4 +1,4 @@
-import { TTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -7,7 +7,7 @@ import {
   START_OF_CHARGE_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Swift Strikes`,
     effects: [

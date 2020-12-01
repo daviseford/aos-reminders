@@ -1,7 +1,7 @@
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE, SAVES_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
-const Artifacts: TArtifacts = [
+const Artifacts: TEntry[] = [
   {
     name: `Ring of Dominion`,
     effects: [

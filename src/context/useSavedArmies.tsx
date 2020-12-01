@@ -106,7 +106,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       loaded.orderedReminders = loaded.orderedReminders || LocalReminderOrder.get(loadedArmy.id)
 
       const changedKeys = Object.keys(current).reduce((a, key) => {
-        if (!isEqual(current[key], loaded[key])) a.push(key)
+        if (!isEqual(current[key as keyof ISavedArmy], loaded[key as keyof typeof loaded])) a.push(key)
         return a
       }, [] as string[])
 

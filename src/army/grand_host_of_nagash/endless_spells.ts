@@ -1,7 +1,7 @@
 import NighthauntEndlessSpells from 'army/nighthaunt/endless_spells'
-import { TEndlessSpells } from 'types/army'
-
 // Endless spells.
-const EndlessSpells: TEndlessSpells = [...NighthauntEndlessSpells]
+import { TEntry } from 'types/data'
+
+const EndlessSpells: TEntry[] = [...NighthauntEndlessSpells]
 
 export default EndlessSpells

@@ -1,7 +1,7 @@
 import ReactGA from 'react-ga'
 import { TImportParsers, TLoadedArmy } from 'types/import'
 import { TSavePdfType } from 'types/pdf'
-import { ISelections } from 'types/selections'
+import { TSelections } from 'types/selections'
 import { isValidFactionName } from 'utils/armyUtils'
 import { isDev, isProd, isTest } from 'utils/env'
 import { GiftedSubscriptionPlans, SubscriptionPlans } from 'utils/plans'
@@ -228,7 +228,7 @@ export const logGiftedSubscription = (planTitle: string, quantity: string) => {
 export const logLoadedArmy = (army: TLoadedArmy) => {
   try {
     const {
-      selections = ([] as unknown) as ISelections,
+      selections = ([] as unknown) as TSelections,
       allySelections = {},
       origin_realm = null,
       realmscape = null,

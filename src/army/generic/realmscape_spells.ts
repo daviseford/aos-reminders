@@ -1,9 +1,9 @@
-import { TSpells } from 'types/army'
+// Realm Spells
+import { TEntry } from 'types/data'
 import { CHARGE_PHASE, HERO_PHASE, MOVEMENT_PHASE, SAVES_PHASE } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
-// Realm Spells
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Fireball (${AQSHY})`,
     effects: [

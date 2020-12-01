@@ -1,4 +1,4 @@
-import { TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -46,7 +46,7 @@ const LionCloakEffect = {
   when: [SAVES_PHASE],
 }
 
-export const LegacyWoodElvesUnits: TUnits = [
+export const LegacyWoodElvesUnits: TEntry[] = [
   {
     name: `Avatar of the Hunt`,
     effects: [

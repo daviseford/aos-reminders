@@ -1,4 +1,4 @@
-import { TTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -9,7 +9,7 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Dread Harvester`,
     effects: [
