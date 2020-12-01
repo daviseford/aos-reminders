@@ -1,7 +1,7 @@
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
-const Artifacts: TArtifacts = [
+const Artifacts: TEntry[] = [
   {
     name: `Pheonix Stone`,
     effects: [

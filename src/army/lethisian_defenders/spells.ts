@@ -1,8 +1,8 @@
-import { TSpells } from 'types/army'
+// Prayers
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, HERO_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-// Prayers
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Raven Priest - Morrda's Resurrection`,
     effects: [

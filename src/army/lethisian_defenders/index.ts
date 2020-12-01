@@ -1,11 +1,10 @@
-import Abilities from './abilities'
 import Artifacts from './artifacts'
+import BattleTraits from './battle_traits'
 import Spells from './spells'
 import Traits from './traits'
 import { AlliedUnits, Battalions, Units } from './units'
-
 const LethisianArmy = {
-  Abilities,
+  BattleTraits,
   AlliedUnits,
   Artifacts,
   Battalions,

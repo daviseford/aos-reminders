@@ -1,7 +1,7 @@
-import { TTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import { CHARGE_PHASE, COMBAT_PHASE, START_OF_COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Master of Death`,
     effects: [

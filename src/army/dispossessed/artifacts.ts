@@ -1,4 +1,4 @@
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   DURING_GAME,
   END_OF_MOVEMENT_PHASE,
@@ -10,7 +10,7 @@ import {
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
-const Artifacts: TArtifacts = [
+const Artifacts: TEntry[] = [
   {
     name: `Heavy Metal Ingot`,
     effects: [

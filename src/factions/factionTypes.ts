@@ -1,19 +1,11 @@
 import { TSupportedFaction } from 'meta/factions'
 import { TEffects } from 'types/data'
+import { TSelectionTypes } from 'types/selections'
 
 export type TObjWithEffects = object & { effects: TEffects[] }
 export type TParentEffectsObjWithEffects = Record<string, TObjWithEffects>
 
-export type TSubFactionKeys =
-  | 'units'
-  | 'battalions'
-  | 'spells'
-  | 'command_traits'
-  | 'command_abilities'
-  | 'flavors'
-  | 'artifacts'
-  | 'endless_spells'
-  | 'scenery'
+export type TSubFactionKeys = TSelectionTypes
 
 export type TSubFactionEntry = {
   available?: TParentEffectsObjWithEffects[]

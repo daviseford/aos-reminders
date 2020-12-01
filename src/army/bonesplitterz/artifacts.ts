@@ -1,7 +1,7 @@
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_GAME, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-const Artifacts: TArtifacts = [
+const Artifacts: TEntry[] = [
   {
     name: `Glowin' Tattooz`,
     effects: [

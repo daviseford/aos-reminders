@@ -1,9 +1,8 @@
-import Abilities from './abilities'
+import BattleTraits from './battle_traits'
 import Spells from './spells'
 import { Battalions, Units } from './units'
-
 const LegionsOfNagashArmy = {
-  Abilities,
+  BattleTraits,
   Battalions,
   Spells,
   Units,

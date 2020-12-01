@@ -1,5 +1,5 @@
 import GenericEffects from 'army/generic/effects'
-import { TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -9,7 +9,6 @@ import {
   SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
-
 const StandardBearerEffect = {
   name: `Standard Bearer`,
   desc: `Add 1 to the Bravery characteristic of the unit while it includes any Standard Bearers.`,
@@ -26,7 +25,7 @@ const EnchantedShieldEffect = {
   when: [SAVES_PHASE],
 }
 
-export const LegacyHighElvesUnits: TUnits = [
+export const LegacyHighElvesUnits: TEntry[] = [
   {
     name: `Highborn Repeater Bolt Thrower`,
     effects: [

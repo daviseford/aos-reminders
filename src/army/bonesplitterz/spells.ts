@@ -1,8 +1,8 @@
-import { TSpells } from 'types/army'
+// Spells, Prayers, etc. go here
+import { TEntry } from 'types/data'
 import { HERO_PHASE, SAVES_PHASE } from 'types/phases'
 
-// Spells, Prayers, etc. go here
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Squiggly Curse`,
     effects: [

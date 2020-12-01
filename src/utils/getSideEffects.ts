@@ -1,5 +1,5 @@
 import { uniq } from 'lodash'
-import { TEntry } from 'types/data'
+import { TEntry, TEntryProperties } from 'types/data'
 import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
 
 export const getSideEffects = (items: TEntry[]) => {
@@ -7,13 +7,13 @@ export const getSideEffects = (items: TEntry[]) => {
     accum[item.name] = {}
     item.effects.forEach(effect => {
       if (effect.spell || effect.prayer) {
-        addToAccum(accum, item.name, effect.name, 'spells')
+        addToAccum(accum, item.name, effect.name, 'spell')
       } else if (effect.artifact) {
-        addToAccum(accum, item.name, effect.name, 'artifacts')
+        addToAccum(accum, item.name, effect.name, 'artifact')
       } else if (effect.command_trait) {
-        addToAccum(accum, item.name, effect.name, 'traits')
+        addToAccum(accum, item.name, effect.name, 'command_trait')
       } else if (effect.command_ability) {
-        addToAccum(accum, item.name, effect.name, 'commands')
+        addToAccum(accum, item.name, effect.name, 'command_ability')
       }
     })
     return accum
@@ -26,7 +26,7 @@ const addToAccum = (
   accum: IWithSelectMultipleWithSideEffectsPayload,
   itemName: string,
   effectName: string,
-  type: string
+  type: TEntryProperties
 ) => {
   const obj = accum[itemName][type] || {}
   const values = obj.values || []

@@ -1,8 +1,8 @@
-import { TSpells } from 'types/army'
+// Spell Lores of Legions of Azgorh
+import { TEntry } from 'types/data'
 import { HERO_PHASE } from 'types/phases'
 
-// Spell Lores of Legions of Azgorh
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Fireball`,
     effects: [

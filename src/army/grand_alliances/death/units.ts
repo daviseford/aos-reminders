@@ -1,7 +1,7 @@
-import { TUnits } from 'types/army'
-
 // Units available to this Grand Alliance allegiance
-export const Units: TUnits = []
+import { TEntry } from 'types/data'
+
+export const Units: TEntry[] = []
 
 // Available to ALL factions in this Grand Alliance
 export const DeathUnits = []

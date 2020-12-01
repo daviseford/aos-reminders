@@ -1,8 +1,8 @@
 import GenericEffects from 'army/generic/effects'
-import { TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import { HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-export const LegacyEmpireUnits: TUnits = [
+export const LegacyEmpireUnits: TEntry[] = [
   {
     name: `Battlemage on Pegasus`,
     effects: [

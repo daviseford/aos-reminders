@@ -1,4 +1,4 @@
-import { TAllegiances } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   DURING_GAME,
@@ -9,7 +9,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+const Allegiances: TEntry[] = [
   {
     name: `Jaws of Mork`,
     effects: [
@@ -17,7 +17,6 @@ const Allegiances: TAllegiances = [
         name: `Running Riot`,
         desc: `You can reroll the roll that determines the Move characteristic of friendly SQUIG units.`,
         when: [MOVEMENT_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `"Get Some Loonshine Down 'Em!"`,
@@ -46,7 +45,6 @@ const Allegiances: TAllegiances = [
         name: `Monstrous Regeneration`,
         desc: `Add 1 to the dice that determines if a friendly GLOGG'S MEGAMOB TROGGOTH unit heals any wounds when it uses its Regeneration ability.`,
         when: [HERO_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Oblivious to Sorcery`,

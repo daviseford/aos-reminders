@@ -1,4 +1,4 @@
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -15,7 +15,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Artifacts: TArtifacts = [
+const Artifacts: TEntry[] = [
   {
     name: `Armour of Mallus (Hammerhal)`,
     effects: [

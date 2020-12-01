@@ -1,4 +1,5 @@
-import { TSpells } from 'types/army'
+// Zharrgrim Blessings
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -9,8 +10,7 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-// Zharrgrim Blessings
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Molten Infusion`,
     effects: [

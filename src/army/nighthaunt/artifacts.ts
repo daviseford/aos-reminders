@@ -1,4 +1,4 @@
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   COMBAT_PHASE,
   END_OF_COMBAT_PHASE,
@@ -8,7 +8,7 @@ import {
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
-const Artifacts: TArtifacts = [
+const Artifacts: TEntry[] = [
   {
     name: `Shadow's Edge`,
     effects: [
