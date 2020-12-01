@@ -30,7 +30,7 @@ describe('getArmy', () => {
     expect(armyEndlessSpells2).toEqual(endlessSpellList)
   })
 
-  it('adds Allegiances to an army', () => {
+  it('adds Flavors to an army', () => {
     const numEntries = sylvaneth.Allegiances.length
     const army1 = getArmy(SYLVANETH) as IArmy
 

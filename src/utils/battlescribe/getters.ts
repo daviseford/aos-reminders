@@ -1,6 +1,7 @@
 import { uniq, without } from 'lodash'
 import { LUMINETH_REALMLORDS, SOULBLIGHT, TPrimaryFactions, TSupportedFaction } from 'meta/factions'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { TSelections } from 'types/selections'
 import { isValidFactionName } from 'utils/armyUtils'
 import { cleanText, fixKeys, ignoredValues } from 'utils/battlescribe/battlescribeUtils'
 import { isChildNode, isParentNode } from 'utils/battlescribe/checks'
@@ -412,21 +413,8 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
 
 const stripAllegiancePrefix = (str: string) => str.replace(/(Legion: )/g, '')
 
-interface ICollection {
-  artifacts: string[]
-  battalions: string[]
-  command_abilities: string[]
-  command_traits: string[]
-  endless_spells: string[]
-  flavors: string[]
-  scenery: string[]
-  spells: string[]
-  triumphs: string[]
-  units: string[]
-}
-
 export const sortParsedRoots = (roots: IParsedRoot[], flavorInfo: IFlavorInfo[]) => {
-  const Collection: ICollection = {
+  const Collection: TSelections = {
     artifacts: [],
     battalions: [],
     command_abilities: [],
@@ -541,7 +529,7 @@ const multiNameMap: Record<string, string[]> = {
  * If a value is prefixed with a certain string,
  * assign the value to a certain selection type
  */
-const prefixLookup: Record<string, keyof ICollection> = {
+const prefixLookup: Record<string, keyof TSelections> = {
   'Battle Traits': 'command_traits',
   'Bound Endless Spell': 'endless_spells',
   'Endless Spell': 'endless_spells',
@@ -562,7 +550,7 @@ const prefixLookup: Record<string, keyof ICollection> = {
  * Names that if they are matched exactly,
  * should be placed in a certain selection type
  */
-const exactMatches: Record<string, keyof ICollection> = {
+const exactMatches: Record<string, keyof TSelections> = {
   'Charnel Throne': 'scenery',
 }
 

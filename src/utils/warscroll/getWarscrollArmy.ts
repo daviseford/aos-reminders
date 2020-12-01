@@ -135,8 +135,8 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
         if (txt.startsWith('- Constellation: ')) {
           const name = txt.replace('- Constellation: ', '').trim()
-          const allegiances = getSeraphonConstellations(name)
-          accum.flavors = accum.flavors.concat(allegiances)
+          const flavors = getSeraphonConstellations(name)
+          accum.flavors = accum.flavors.concat(flavors)
           return accum
         }
 

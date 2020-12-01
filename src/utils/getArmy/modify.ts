@@ -50,13 +50,13 @@ const modifyArtifacts = (
 }
 
 const modifyCommandTraits = (
-  traits: TEntry[],
+  command_traits: TEntry[],
   alliance: TGrandAlliances,
   Collection: TCollection
 ): TEntry[] => {
   const { CommandTraits } = GrandAllianceConfig[alliance]
   return uniqBy(
-    sortBy(traits, 'name')
+    sortBy(command_traits, 'name')
       .concat(sortBy(Collection.CommandTraits, 'name'))
       .concat(sortBy(CommandTraits, 'name'))
       .map(t => ({ ...t, command_trait: true })),
