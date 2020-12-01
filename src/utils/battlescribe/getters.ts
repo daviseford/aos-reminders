@@ -249,18 +249,18 @@ const flavorCategoryLookup = (childNodes: Array<IParentNode | IChildNode>): stri
 
     //@ts-ignore
     const value = childNodes[2].childNodes[0].childNodes[2].childNodes[1].childNodes[0].value
-    const possibleAllegiances: string[] = value
+    const possibleFlavors: string[] = value
       .split(', ')
       .map(cleanText)
       .filter((x: string) => {
         return x !== 'SCENERY' && x !== 'GLOOMTIDE SHIPWRECK'
       })
-    const faction = cleanText(possibleAllegiances.shift() || '')
+    const faction = cleanText(possibleFlavors.shift() || '')
       .split(' ')
       .join('_')
 
-    if (isValidFactionName(faction) && possibleAllegiances.length > 0) {
-      return possibleAllegiances[0]
+    if (isValidFactionName(faction) && possibleFlavors.length > 0) {
+      return possibleFlavors[0]
     } else {
       return null
     }

@@ -2,8 +2,10 @@ import { difference } from 'lodash'
 import { IArmy } from 'types/army'
 import { TEntry } from 'types/data'
 import { TImportParsers } from 'types/import'
-import { TSelections } from 'types/selections'
+import { TSelections, TSelectionTypes } from 'types/selections'
 import { logIgnoredImport } from 'utils/analytics'
+
+type TLookup = Record<TSelectionTypes, Partial<keyof IArmy>>
 
 /**
  * Remove side effects (such as spells, artifacts, etc) from our imported selections
@@ -16,15 +18,15 @@ export const removeSideEffectsFromImport = (
   Army: IArmy,
   parser: TImportParsers
 ): TSelections => {
-  const lookup = {
-    allegiances: 'Allegiances',
+  const lookup: TLookup = {
     artifacts: 'Artifacts',
     battalions: 'Battalions',
-    commands: 'Commands',
+    command_abilities: 'CommandTraits',
+    command_traits: 'CommandTraits',
     endless_spells: 'EndlessSpells',
+    flavors: 'Flavors',
     scenery: 'Scenery',
     spells: 'Spells',
-    traits: 'Traits',
     triumphs: 'Triumphs',
     units: 'Units',
   }

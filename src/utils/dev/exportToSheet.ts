@@ -95,7 +95,7 @@ const generateAoSShortsAllegianceData = () => {
 
 const makeAllegianceWorksheet = (factionName: TSupportedFaction) => {
   const { Army } = getArmyFromList(factionName)
-  const { Flavors = [], FlavorType = 'Allegiances' } = Army
+  const { Flavors = [], FlavorType = 'Flavors' } = Army
   const flavors = [...Flavors].map(x => [x.name])
 
   return [[titleCase(factionName)], [FlavorType], ...flavors]

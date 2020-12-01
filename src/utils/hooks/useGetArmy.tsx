@@ -55,7 +55,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
       {
         items: army.Flavors,
         setValues: selectionActions.updateFlavors,
-        title: army.FlavorType || 'Allegiances',
+        title: army.FlavorType || 'Flavors',
         values: selections.flavors,
         type: 'multi',
         sideEffects: getSideEffects(army.Flavors),

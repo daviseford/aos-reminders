@@ -6,20 +6,16 @@ import { getAllWarnings } from 'utils/import/warnings'
 /**
  * Mutates the errors array if it finds a suitable match in the allegiance abilities
  * @param Army
- * @param allegiances
+ * @param flavors
  * @param errors
  */
-export const checkErrorsForAllegianceAbilities = (
-  Army: IArmy,
-  allegiances: string[],
-  errors: TImportError[]
-) => {
-  if (errors.length === 0 || allegiances.length === 0) return
+export const checkErrorsForAllegianceAbilities = (Army: IArmy, flavors: string[], errors: TImportError[]) => {
+  if (errors.length === 0 || flavors.length === 0) return
 
   const warnings = getAllWarnings(errors).map(({ text }) => text)
   let foundError = false
 
-  allegiances.forEach(a => {
+  flavors.forEach(a => {
     if (foundError) return
     const entry = Army.Flavors.find(al => al.name === a)
     if (!entry) return
