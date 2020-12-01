@@ -1,5 +1,4 @@
 import { APPRENTICE_RUNESMITH } from 'army/grand_alliances/order/subfactions/duardin'
-// Battalions
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,

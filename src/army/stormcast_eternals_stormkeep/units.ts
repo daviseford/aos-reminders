@@ -1,6 +1,5 @@
 import CitiesOfSigmar from 'army/cities_of_sigmar'
 import StormcastEternals from 'army/stormcast_eternals'
-// Battalions
 import { TEntry } from 'types/data'
 import {
   COMBAT_PHASE,

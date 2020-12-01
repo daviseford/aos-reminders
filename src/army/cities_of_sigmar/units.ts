@@ -2,7 +2,6 @@ import DaughtersOfKhaineArmy from 'army/daughters_of_khaine'
 import KharadronOverlords from 'army/kharadron_overlords'
 import Stormcast from 'army/stormcast_eternals'
 import Sylvaneth from 'army/sylvaneth'
-// Battalions
 import { TEntry } from 'types/data'
 import { AZYR } from 'types/import'
 import {
