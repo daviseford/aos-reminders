@@ -1,5 +1,4 @@
 import GenericEffects from 'army/generic/effects'
-// Battalions
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,

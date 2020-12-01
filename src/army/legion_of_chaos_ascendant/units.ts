@@ -4,7 +4,6 @@ import Skaven from 'army/skaven'
 import Slaanesh from 'army/slaanesh'
 import SlavestoDarkness from 'army/slaves_to_darkness'
 import Tzeentch from 'army/tzeentch'
-// Battalions
 import { TEntry } from 'types/data'
 import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE } from 'types/phases'
 import { filterUnits } from 'utils/filterUtils'

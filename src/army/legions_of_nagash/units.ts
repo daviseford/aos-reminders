@@ -1,6 +1,5 @@
 import GenericEffects from 'army/generic/effects'
 import { Units as NighthauntUnits } from 'army/nighthaunt/units'
-// Battalions
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
