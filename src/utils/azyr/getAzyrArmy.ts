@@ -3,10 +3,10 @@ import { uniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { AZYR, IImportedArmy } from 'types/import'
 import { TBattleRealms } from 'types/realmscapes'
-import { TSelectionTypes } from 'types/selections'
+import { TSelections, TSelectionTypes } from 'types/selections'
 import { importErrorChecker } from 'utils/import'
 import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
-import { factionToAllegianceMap, importFactionNameMap } from 'utils/import/options'
+import { factionToFlavorMap, importFactionNameMap } from 'utils/import/options'
 import { titleCase } from 'utils/textUtils'
 
 export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
@@ -47,12 +47,12 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   const selections = pages.reduce(
     (accum, name) => {
       if (name.startsWith('FACTION:')) {
-        const { faction, allegiance } = getFactionName(name)
+        const { faction, flavor } = getFactionName(name)
         if (faction) {
           factionName = faction
         }
-        if (allegiance) {
-          accum.flavors = accum.flavors.concat(allegiance)
+        if (flavor) {
+          accum.flavors = accum.flavors.concat(flavor)
         }
         return accum
       }
@@ -103,17 +103,17 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
       return accum
     },
     {
-      artifacts: [] as string[],
-      battalions: [] as string[],
-      command_abilities: [] as string[],
-      command_traits: [] as string[],
-      endless_spells: [] as string[],
-      flavors: [] as string[],
-      scenery: [] as string[],
-      spells: [] as string[],
-      triumphs: [] as string[],
-      units: [] as string[],
-    }
+      artifacts: [],
+      battalions: [],
+      command_abilities: [],
+      command_traits: [],
+      endless_spells: [],
+      flavors: [],
+      scenery: [],
+      spells: [],
+      triumphs: [],
+      units: [],
+    } as TSelections
   )
 
   return {
@@ -130,12 +130,12 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   }
 }
 
-const getFactionName = (val: string): { faction: string | null; allegiance: string | null } => {
+const getFactionName = (val: string): { faction: string | null; flavor: string | null } => {
   const name = val.replace('FACTION: ', '')
   const faction = importFactionNameMap[name] || null
   if (!faction) console.error('ALERT: Missing this faction: ' + name)
-  const allegiance = faction ? factionToAllegianceMap[name] : null
-  return { faction: faction || null, allegiance: allegiance || null }
+  const flavor = faction ? factionToFlavorMap[name] : null
+  return { faction, flavor }
 }
 
 const handleKOTraits = (name: string): string[] => {
@@ -179,9 +179,11 @@ const handleKOTraits = (name: string): string[] => {
 
 const getKOTraits = (): string[] => {
   const prefix = ['ARTYCLE', 'FOOTNOTE', 'AMENDMENT']
-  const traits = KOArmy.Traits.filter(x => prefix.some(pre => x.name.startsWith(pre))).map(x => x.name)
-  const allegianceTraits = KOArmy.Allegiances.map(a => {
+  const command_traits = KOArmy.Traits.filter(x => prefix.some(pre => x.name.startsWith(pre))).map(
+    x => x.name
+  )
+  const flavorTraits = KOArmy.Allegiances.map(a => {
     return a.effects.filter(e => prefix.some(pre => e.name.startsWith(pre))).map(e => e.name)
   }).flat()
-  return uniq(traits.concat(allegianceTraits))
+  return uniq(command_traits.concat(flavorTraits))
 }

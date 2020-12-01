@@ -31,7 +31,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
       {
         items: army.CommandTraits,
         setValues: selectionActions.updateCommandTraits,
-        title: 'Traits',
+        title: 'Command Traits',
         values: selections.command_traits,
         type: 'multi',
         sideEffects: getSideEffects(army.CommandTraits),
@@ -87,7 +87,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
       {
         items: army.CommandAbilities,
         setValues: selectionActions.updateCommandAbilities,
-        title: 'Commands',
+        title: 'Command Abilities',
         values: selections.command_abilities,
         type: 'multi',
         sideEffects: {},

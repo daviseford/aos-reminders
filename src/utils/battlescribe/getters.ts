@@ -532,6 +532,8 @@ const multiNameMap: Record<string, string[]> = {
 const prefixLookup: Record<string, keyof TSelections> = {
   'Battle Traits': 'command_traits',
   'Bound Endless Spell': 'endless_spells',
+  'Command Abilities': 'command_abilities',
+  'Command Traits': 'command_traits',
   'Endless Spell': 'endless_spells',
   'Magmic Invocation': 'endless_spells',
   'Super Battalion': 'battalions',
