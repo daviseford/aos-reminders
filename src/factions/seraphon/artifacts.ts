@@ -1,3 +1,4 @@
+import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -139,6 +140,43 @@ const Artifacts = {
       },
     ],
   },
+
+  'Godbeast Pendant': {
+    effects: [
+      {
+        name: `Godbeast Pendant`,
+        desc: `The first time the bearer is slain, before removing them from the battlefield, roll a D6. On a 1-3, the bearer is slain. On a 4-6, the bearer is not slain, all wounds allocated to them are healed, and any wounds that currently remain to be allocated to them are negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  'Serpent God Dagger': {
+    effects: [
+      {
+        name: `Serpent God Dagger`,
+        desc: `Pick 1 of the bearer's melee weapons. At the end of any phase, if any wounds inflicted by that weapon in that phase were allocated to an enemy model and not negated, and that enemy model has not been slain, roll a D6. On a 5+, that enemy model is slain.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  'Eviscerating Blade': {
+    effects: [
+      {
+        name: `Eviscerating Blade`,
+        desc: `Pick 1 of the bearer's melee weapons. If the unmodified hit roll for an attack made with that weapon is 6, that attack inflicts 2 mortal wounds on the target in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Fusil of Conflagration': {
+    effects: [
+      {
+        name: `Fusil of Conflagration`,
+        desc: `In your shooting phase, you can pick 1 enemy unit within 12" of the bearer and visible to them and roll a D6. On a 1, this artefact cannot be used again for the rest of the battle. On a 2-3, nothing happens. On a 4-5 that enemy unit suffers D3 mortal wounds. On a 6, that enemy unit suffers D6 mortal wounds.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
 }
 
-export default Artifacts
+export default tagAs(Artifacts, 'artifact')

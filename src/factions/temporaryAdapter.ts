@@ -1,20 +1,10 @@
 import { IInitialArmy } from 'types/army'
-import {
-  TObjWithEffects,
-  TParentEffectsObjWithEffects,
-  TSubFaction,
-  TSubFactionEntry,
-  TSubFactionKeys,
-} from './factionTypes'
-import { SlaaneshFaction } from './slaanesh'
+import { TNewFaction, TObjWithEffects, TParentEffectsObjWithEffects, TSubFactionEntry } from './factionTypes'
 
 /**
  * To see how a new data-structure army might feel in the UI as-is
  */
-export const temporaryAdapter = <
-  F extends typeof SlaaneshFaction,
-  W extends Extract<keyof F['subFactions'], string>
->(
+export const temporaryAdapter = <F extends TNewFaction, W extends Extract<keyof F['subFactions'], string>>(
   newFaction: F,
   whichSubFaction: W
 ): IInitialArmy => {
@@ -35,10 +25,6 @@ export const temporaryAdapter = <
   }
 
   return initialArmy
-}
-
-const getAvailableThing = (subFaction: TSubFaction, key: TSubFactionKeys) => {
-  return subFaction?.[key]?.available || []
 }
 
 const mergeData = (entry?: TSubFactionEntry) => {

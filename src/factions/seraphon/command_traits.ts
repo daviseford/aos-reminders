@@ -1,5 +1,7 @@
+import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
+  DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
@@ -102,6 +104,43 @@ const CommandTraits = {
       },
     ],
   },
+
+  'Ancient Knowledge': {
+    effects: [
+      {
+        name: `Ancient Knowledge`,
+        desc: `This general knows 1 extra spell from the Lore of Celestial Domination (pg 60). In addition, you can reroll 1 casting, dispelling or unbinding roll for this general each hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Old and Grizzled': {
+    effects: [
+      {
+        name: `Old and Grizzled`,
+        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a D6. On a 3+, you receive 1 extra command point.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  'Dominant Predator': {
+    effects: [
+      {
+        name: `Dominant Predator`,
+        desc: `Roll a D6 each time this general is used to issue a command to a friendly KOATL'S CLAW SAURUS unit. On a 4+, you receive 1 extra command point.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  'Prime Warbeast': {
+    effects: [
+      {
+        name: `Prime Warbeast`,
+        desc: `Add 1 to the Attacks characteristic of the weapons used by this general's mount.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
 }
 
-export default CommandTraits
+export default tagAs(CommandTraits, 'command_trait')

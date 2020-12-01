@@ -1,8 +1,8 @@
 import { pickEffects } from 'factions/metatagger'
 import { CHARGE_PHASE, COMBAT_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
-import { Artifacts } from './artifacts'
+import Artifacts from './artifacts'
 import { BattleTraits } from './battle_traits'
-import { CommandTraits } from './command_traits'
+import CommandTraits from './command_traits'
 
 const Flavors = {
   'Lurid Haze': {
