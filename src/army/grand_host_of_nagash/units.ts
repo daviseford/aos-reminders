@@ -1,5 +1,7 @@
 import LegionsOfNagash from 'army/legions_of_nagash'
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
+// Battalions
+import { TEntry } from 'types/data'
 import { START_OF_HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 import { filterBattalions } from 'utils/filterUtils'
 
@@ -12,8 +14,7 @@ const getLegionsOfNagashBattalions = () => {
 // Unit Names
 export const Units: TUnits = [...getLegionsOfNagashUnits()]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   ...getLegionsOfNagashBattalions(),
   {
     name: `The First Cohort`,

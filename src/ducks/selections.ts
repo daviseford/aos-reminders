@@ -1,8 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { uniq, without } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
-import { TBattalions, TUnits } from 'types/army'
-import { TEntryProperties } from 'types/data'
+import { TEntry, TEntryProperties } from 'types/data'
 import { TSelectionTypes } from 'types/selections'
 import { ISelectionStore, IStore, TAllySelectionStore } from 'types/store'
 
@@ -48,14 +47,14 @@ const selections = createSlice({
     resetSelections: state => {
       state.selections = initialState.selections
     },
-    updateAllyUnits: (state, action: PayloadAction<{ factionName: TSupportedFaction; units: TUnits }>) => {
+    updateAllyUnits: (state, action: PayloadAction<{ factionName: TSupportedFaction; units: TEntry[] }>) => {
       const { factionName, units } = action.payload
       // @ts-ignore
       state.allySelections[factionName].units = units
     },
     updateAllyBattalions: (
       state,
-      action: PayloadAction<{ factionName: TSupportedFaction; battalions: TBattalions }>
+      action: PayloadAction<{ factionName: TSupportedFaction; battalions: TEntry[] }>
     ) => {
       const { factionName, battalions } = action.payload
       // @ts-ignore

@@ -3,7 +3,8 @@ import Skaven from 'army/skaven'
 import SlavestoDarkness from 'army/slaves_to_darkness'
 import { getTamurkhansBattalions, getTamurkhansUnits } from 'army/tamurkhans_horde/units'
 import { MARK_NURGLE } from 'meta/alliances'
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -778,7 +779,7 @@ export const Units: TUnits = [
 ]
 
 // Battalions
-const NurgleBattalions: TBattalions = [
+const NurgleBattalions: TEntry[] = [
   {
     name: `The Munificent Wanderers`,
     effects: [
@@ -931,8 +932,7 @@ const NurgleBattalions: TBattalions = [
   },
 ]
 
-// Combine lists together to make army battalion entry.
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   ...NurgleBattalions,
   ...getSlavesBattalion(),
   ...getBoCBattalion(),

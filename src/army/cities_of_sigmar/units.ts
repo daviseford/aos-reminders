@@ -2,7 +2,9 @@ import DaughtersOfKhaineArmy from 'army/daughters_of_khaine'
 import KharadronOverlords from 'army/kharadron_overlords'
 import Stormcast from 'army/stormcast_eternals'
 import Sylvaneth from 'army/sylvaneth'
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
+// Battalions
+import { TEntry } from 'types/data'
 import { AZYR } from 'types/import'
 import {
   BATTLESHOCK_PHASE,
@@ -1448,8 +1450,7 @@ export const AlliedUnits: TUnits = [
   ...getDaughtersUnits(),
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Hammerhalian Lancers`,
     effects: [

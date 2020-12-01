@@ -1,4 +1,6 @@
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
+// Battalions
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -159,8 +161,7 @@ export const Units: TUnits = [
   },
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Sons of the Maggot Lord`,
     effects: [

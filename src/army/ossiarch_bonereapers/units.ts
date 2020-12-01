@@ -1,5 +1,7 @@
 import { Units as LegionsOfNagashUnits } from 'army/legions_of_nagash/units'
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
+// Battalions
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -380,8 +382,7 @@ export const Units: TUnits = [
   },
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Ossiarch Cohort`,
     effects: [

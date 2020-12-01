@@ -1,5 +1,7 @@
 import LegionsOfNagash from 'army/legions_of_nagash'
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
+// Battalions
+import { TEntry } from 'types/data'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
 
 // Importing from LoN
@@ -26,5 +28,4 @@ const getLegionsOfNagashBattalions = () =>
 // Unit Names
 export const Units: TUnits = [...getLegionsOfNagashUnits()]
 
-// Battalions
-export const Battalions: TBattalions = [...getLegionsOfNagashBattalions()]
+export const Battalions: TEntry[] = [...getLegionsOfNagashBattalions()]

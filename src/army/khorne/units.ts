@@ -1,7 +1,8 @@
 import BeastsofChaos from 'army/beasts_of_chaos'
 import SlavestoDarkness from 'army/slaves_to_darkness'
 import { MARK_KHORNE } from 'meta/alliances'
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -993,7 +994,7 @@ export const Units: TUnits = [
 ]
 
 // Battalions
-const KhorneBattalions: TBattalions = [
+const KhorneBattalions: TEntry[] = [
   {
     name: `Slaughterborn`,
     effects: [
@@ -1221,5 +1222,4 @@ const KhorneBattalions: TBattalions = [
   },
 ]
 
-// Combine lists together to make army battalion entry.
-export const Battalions: TBattalions = [...KhorneBattalions, ...getSlavesBattalion(), ...getBoCBattalion()]
+export const Battalions: TEntry[] = [...KhorneBattalions, ...getSlavesBattalion(), ...getBoCBattalion()]

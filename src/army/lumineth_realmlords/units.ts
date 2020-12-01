@@ -1,5 +1,6 @@
 import idoneth from 'army/idoneth_deepkin'
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -246,7 +247,7 @@ export const Units: TUnits = [
 
 export const AlliedUnits: TUnits = idoneth.Units
 
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Alarith Temple`,
     effects: [

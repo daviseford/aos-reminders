@@ -10,7 +10,8 @@ import { IconContext } from 'react-icons'
 import { FaTrashAlt } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { ValueType } from 'react-select/src/types'
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import { IAllySelections } from 'types/selections'
 import { logAllyFaction } from 'utils/analytics'
 import { useGetArmy } from 'utils/hooks/useGetArmy'
@@ -109,7 +110,7 @@ export const AllyArmyBuilder = ({ allyFactionName, allySelectOptions }: IAllyArm
 interface IAllyCardProps {
   allyFactionName: TSupportedFaction
   allySelectOptions: TSupportedFaction[]
-  battalionItems: TBattalions
+  battalionItems: TEntry[]
   battalionValues: string[]
   factionName: TSupportedFaction
   handleClose: (e: React.MouseEvent) => void

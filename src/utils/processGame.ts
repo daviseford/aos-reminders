@@ -1,13 +1,10 @@
 import { flatten } from 'lodash'
 import { Game, TGameStructure } from 'meta/game_structure'
-import { TBattalions, TCommandTraits, TEndlessSpells, TFlavors, TSpells, TUnits } from 'types/army'
 import { ENTRY_PROPERTIES, TEffects, TEntry, TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
 import { hashReminder } from 'utils/reminderUtils'
 
-type TEntries = TFlavors | TEntry[] | TBattalions | TEndlessSpells | TSpells | TCommandTraits | TUnits
-
-export const processGame = (allEntries: TEntries[]): TGameStructure => {
+export const processGame = (allEntries: TEntry[][]): TGameStructure => {
   const entries = flatten(allEntries)
 
   return entries.reduce(

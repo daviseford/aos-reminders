@@ -1,4 +1,5 @@
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -67,7 +68,7 @@ export const Units: TUnits = [
   ...OrderUnits,
 ]
 
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Dragonlord Host`,
     effects: [

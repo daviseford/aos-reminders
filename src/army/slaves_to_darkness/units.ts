@@ -1,5 +1,7 @@
 import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH, MARK_UNDIVIDED } from 'meta/alliances'
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
+// Battalions
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -1265,8 +1267,7 @@ export const Units: TUnits = [
   },
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Chaos Horde`,
     effects: [

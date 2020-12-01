@@ -2,7 +2,9 @@ import Fyreslayers from 'army/fyreslayers'
 import IdonethDeepkin from 'army/idoneth_deepkin'
 import KharadronOverlords from 'army/kharadron_overlords'
 import StormcastEternals from 'army/stormcast_eternals'
-import { TBattalions, TUnits } from 'types/army'
+import { TUnits } from 'types/army'
+// Battalions
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE } from 'types/phases'
 import { removeUnits } from 'utils/filterUtils'
 
@@ -73,5 +75,4 @@ export const Units: TUnits = [
   },
 ]
 
-// Battalions
-export const Battalions: TBattalions = []
+export const Battalions: TEntry[] = []
