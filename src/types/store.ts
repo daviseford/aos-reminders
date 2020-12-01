@@ -11,6 +11,7 @@ export interface IArmyStore {
 
 export interface IFactionNameStore {
   factionName: TSupportedFaction
+  subFactionName: string // TODO: Can we type this?
 }
 
 export interface INotesStore {
