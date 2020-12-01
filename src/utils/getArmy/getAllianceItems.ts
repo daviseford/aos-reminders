@@ -62,6 +62,8 @@ export const getGrandAllianceEndlessSpells = (
   originalEntries: TEntry[] = [],
   factionName: TSupportedFaction
 ): TEntry[] => {
+  // TODO: REMOVE!!!!!!
+  // @ts-ignore
   if (factionName === KHARADRON_OVERLORDS) {
     return getAllEndlessSpells()
   } else {

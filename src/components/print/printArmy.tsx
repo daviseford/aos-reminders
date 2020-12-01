@@ -88,7 +88,7 @@ const getWrappedItemText = (title: string, items: string[]) => {
 }
 
 const ItemsDisplayComponent = (props: { name: string; items: string[]; pluralize?: boolean }) => {
-  const { items, name, pluralize = true } = props
+  const { items = [], name, pluralize = true } = props
   const title = !pluralize ? name : items.length > 1 ? `${name}s` : name
   const itemsText = useMemo(() => getWrappedItemText(title, items), [title, items])
   if (!items.length) return null
