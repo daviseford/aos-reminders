@@ -1,5 +1,4 @@
 import LegionsOfNagash from 'army/legions_of_nagash'
-// Battalions
 import { TEntry } from 'types/data'
 import { START_OF_HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 import { filterBattalions } from 'utils/filterUtils'

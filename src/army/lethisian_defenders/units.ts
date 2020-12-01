@@ -2,7 +2,6 @@ import Fyreslayers from 'army/fyreslayers'
 import IdonethDeepkin from 'army/idoneth_deepkin'
 import KharadronOverlords from 'army/kharadron_overlords'
 import StormcastEternals from 'army/stormcast_eternals'
-// Battalions
 import { TEntry } from 'types/data'
 import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE } from 'types/phases'
 import { removeUnits } from 'utils/filterUtils'

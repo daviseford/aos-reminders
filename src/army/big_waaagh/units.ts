@@ -1,7 +1,6 @@
 import Bonesplitterz from 'army/bonesplitterz'
 import Greenskinz from 'army/greenskinz'
 import Ironjawz from 'army/ironjawz'
-// Battalions
 import { TEntry } from 'types/data'
 
 // Importing Ironjawz
