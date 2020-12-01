@@ -1,4 +1,4 @@
-import { TFlavors } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -31,7 +31,7 @@ import {
   WhoStrikesFirstStrikesHardestEffect,
 } from './traits'
 
-const Allegiances: TFlavors = [
+const Allegiances: TEntry[] = [
   {
     name: `Barak-Zilfin, The Windswept City (Skyport)`,
     effects: [

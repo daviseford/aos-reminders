@@ -1,4 +1,4 @@
-import { TSpells } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -8,7 +8,7 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Vindictive Glare`,
     effects: [

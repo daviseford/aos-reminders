@@ -1,4 +1,6 @@
-import { TFlavors } from 'types/army'
+// This is where we store sub-allegiances such as
+// Grand Courts, Hosts, Clans, Glades, Lodges, etc
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -12,9 +14,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-// This is where we store sub-allegiances such as
-// Grand Courts, Hosts, Clans, Glades, Lodges, etc
-const Allegiances: TFlavors = [
+const Allegiances: TEntry[] = [
   {
     name: `Mortis Praetorians`,
     effects: [

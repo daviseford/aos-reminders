@@ -1,7 +1,7 @@
-import { TSpells } from 'types/army'
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Bolt of Ruin`,
     effects: [

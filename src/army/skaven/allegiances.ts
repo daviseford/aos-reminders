@@ -1,4 +1,4 @@
-import { TFlavors } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -11,7 +11,7 @@ import {
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 
-const Allegiances: TFlavors = [
+const Allegiances: TEntry[] = [
   {
     name: `Skilled Manipulators (Masterclan)`,
     effects: [

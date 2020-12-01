@@ -1,4 +1,4 @@
-import { TScenery } from 'types/army'
+import { TEntry } from 'types/data'
 import { START_OF_HERO_PHASE, START_OF_SETUP, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 // In anticipation of GW adding more Etheric Vortex scenery
@@ -16,7 +16,7 @@ const EthericVortexEffects = [
   },
 ]
 
-const Scenery: TScenery = [
+const Scenery: TEntry[] = [
   {
     name: `Gloomtide Shipwreck`,
     effects: [

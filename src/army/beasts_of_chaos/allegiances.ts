@@ -1,4 +1,4 @@
-import { TFlavors } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -13,7 +13,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Allegiances: TFlavors = [
+const Allegiances: TEntry[] = [
   {
     name: `Allherd (Greatfray)`,
     effects: [

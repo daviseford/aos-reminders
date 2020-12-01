@@ -1,8 +1,8 @@
-import { TSpells } from 'types/army'
+// Spell Lores of Skaventide
+import { TEntry } from 'types/data'
 import { DURING_GAME, END_OF_HERO_PHASE, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
-// Spell Lores of Skaventide
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   // Lore of Ruin
   {
     name: `Scorch (Grey Seer)`,

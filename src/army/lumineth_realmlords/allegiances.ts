@@ -1,4 +1,4 @@
-import { TFlavors } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -10,7 +10,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Allegiances: TFlavors = [
+const Allegiances: TEntry[] = [
   {
     name: `Ymetrica`,
     effects: [

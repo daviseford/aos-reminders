@@ -1,4 +1,4 @@
-import { TFlavors } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -34,7 +34,7 @@ export const SeraphonConstellations = {
   THUNDER_LIZARD,
 }
 
-const Allegiances: TFlavors = [
+const Allegiances: TEntry[] = [
   {
     name: SeraphonConstellations.COALESCED,
     effects: [

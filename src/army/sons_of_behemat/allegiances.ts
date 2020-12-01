@@ -1,4 +1,4 @@
-import { TFlavors } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -15,7 +15,7 @@ import CommonSonsOfBehematData from './common'
 const { Breaker, Taker, Stomper } = CommonSonsOfBehematData.TRIBES
 const { BigShoutTag } = CommonSonsOfBehematData.TAGS
 
-const Allegiances: TFlavors = [
+const Allegiances: TEntry[] = [
   {
     name: `${Taker} Tribe`,
     effects: [

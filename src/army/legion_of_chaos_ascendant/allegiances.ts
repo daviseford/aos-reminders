@@ -1,7 +1,7 @@
-import { TFlavors } from 'types/army'
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, END_OF_BATTLESHOCK_PHASE, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
-const Allegiances: TFlavors = [
+const Allegiances: TEntry[] = [
   {
     name: `Legion of the First Prince`,
     effects: [

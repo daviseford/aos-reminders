@@ -1,4 +1,4 @@
-import { TEndlessSpells } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -10,7 +10,7 @@ import {
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
-const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEntry[] = [
   {
     name: `Molten Infernoth`,
     effects: [

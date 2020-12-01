@@ -1,8 +1,8 @@
-import { TEndlessSpells } from 'types/army'
+// Endless spells.
+import { TEntry } from 'types/data'
 import { DURING_GAME, HERO_PHASE, MOVEMENT_PHASE, START_OF_ROUND } from 'types/phases'
 
-// Endless spells.
-const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEntry[] = [
   {
     name: `Wheels of Excruciation (Slaanesh)`,
     effects: [

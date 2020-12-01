@@ -1,7 +1,7 @@
-import { TFlavors } from 'types/army'
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, DURING_GAME, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
 
-const Allegiances: TFlavors = [
+const Allegiances: TEntry[] = [
   {
     name: `The Bloodlines: Dragon Warriors`,
     effects: [

@@ -1,4 +1,5 @@
-import { TEndlessSpells } from 'types/army'
+// Judgements of Khorne.
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -8,8 +9,7 @@ import {
   START_OF_ROUND,
 } from 'types/phases'
 
-// Judgements of Khorne.
-const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEntry[] = [
   {
     name: `Hexgorger Skulls (Khorne)`,
     effects: [

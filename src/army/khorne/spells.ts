@@ -1,4 +1,5 @@
-import { TSpells } from 'types/army'
+// Blood Blessings of Khorne - Prayers.
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -7,8 +8,7 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-// Blood Blessings of Khorne - Prayers.
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Bronzed Flesh (Blood Blessing)`,
     effects: [
