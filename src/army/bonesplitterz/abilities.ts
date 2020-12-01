@@ -1,4 +1,5 @@
-import { TBattleTraits } from 'types/army'
+// General Allegiance Abilities (always active regardless of army composition)
+import { TEffects } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -7,8 +8,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-// General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TBattleTraits = [
+const Abilities: TEffects[] = [
   {
     name: `Warpaint`,
     desc: `When a model in this army is allocated a wound or mortal wound roll a D6. On a 6+, that wound or mortal wound is negated.`,

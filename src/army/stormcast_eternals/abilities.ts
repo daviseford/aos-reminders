@@ -1,8 +1,8 @@
-import { TBattleTraits } from 'types/army'
+// General Allegiance Abilities (always active regardless of army composition)
+import { TEffects } from 'types/data'
 import { COMBAT_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE } from 'types/phases'
 
-// General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TBattleTraits = [
+const Abilities: TEffects[] = [
   {
     name: `Scions of the Storm`,
     desc: `Set up 1 unit in the Celestial Realm for every unit you set up on the battlefield. At the end of your movement phase you can set up one or more reserve units more than 9" from the enemy. Any units not set up before the 4th Battleround are slain.`,

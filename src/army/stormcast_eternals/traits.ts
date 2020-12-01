@@ -1,4 +1,4 @@
-import { TCommandTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -13,7 +13,7 @@ import {
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Shielded by Faith`,
     effects: [

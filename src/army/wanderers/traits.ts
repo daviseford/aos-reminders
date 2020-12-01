@@ -1,7 +1,7 @@
-import { TCommandTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Stalker of the Hidden Paths`,
     effects: [

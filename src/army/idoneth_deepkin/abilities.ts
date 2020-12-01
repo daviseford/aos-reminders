@@ -1,8 +1,8 @@
-import { TBattleTraits } from 'types/army'
+// General Allegiance Abilities (always active regardless of army composition)
+import { TEffects } from 'types/data'
 import { DURING_GAME, SHOOTING_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
-// General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TBattleTraits = [
+const Abilities: TEffects[] = [
   {
     name: `Forgotten Nightmares`,
     desc: `Missile weapons can only be used to target an IDONETH DEEPKIN unit with this battle trait if it is the closest visible enemy unit.`,

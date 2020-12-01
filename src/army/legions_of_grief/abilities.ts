@@ -1,4 +1,5 @@
-import { TBattleTraits } from 'types/army'
+// General Allegiance Abilities
+import { TEffects } from 'types/data'
 import {
   DURING_GAME,
   DURING_SETUP,
@@ -8,8 +9,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-// General Allegiance Abilities
-const Abilities: TBattleTraits = [
+const Abilities: TEffects[] = [
   {
     name: `Deathless Minions`,
     desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly DEATH unit within 6" of your general or another friendly DEATH HERO. On a 6+ the wound is negated.`,

@@ -1,4 +1,4 @@
-import { TCommandTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -9,7 +9,7 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Merciless Raider`,
     effects: [

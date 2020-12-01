@@ -1,4 +1,3 @@
-import { TCommandTraits } from 'types/army'
 import { TEffects, TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
@@ -152,7 +151,7 @@ const AllegianceTraits = [
   WhoStrikesFirstStrikesHardestEffect,
 ].map(effectToEntry)
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TEntry[] = [
   ...AllegianceTraits,
   {
     name: `Wealthy`,

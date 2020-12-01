@@ -1,8 +1,8 @@
-import { TBattleTraits } from 'types/army'
+// General Allegiance Abilities (always active regardless of army composition)
+import { TEffects } from 'types/data'
 import { BATTLESHOCK_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE, MOVEMENT_PHASE } from 'types/phases'
 
-// General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TBattleTraits = [
+const Abilities: TEffects[] = [
   {
     name: `Forest Spirits`,
     desc: `Instead of setting up a SYLVANETH unit on the battlefield, you can place it to one side and say that it is set up in the hidden enclaves as a reserve unit. You can set up one reserve unit in the hidden enclaves for each unit you set up on the battlefield.`,

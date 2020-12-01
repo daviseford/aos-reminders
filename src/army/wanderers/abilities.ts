@@ -1,8 +1,8 @@
-import { TBattleTraits } from 'types/army'
+// General Allegiance Abilities (always active regardless of army composition)
+import { TEffects } from 'types/data'
 import { BATTLESHOCK_PHASE, DURING_GAME, START_OF_MOVEMENT_PHASE } from 'types/phases'
 
-// General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TBattleTraits = [
+const Abilities: TEffects[] = [
   {
     name: `Defiant Hunters`,
     desc: `You can reroll battleshock tests for friendly WANDERERS units.`,

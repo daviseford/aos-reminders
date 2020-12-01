@@ -1,7 +1,7 @@
-import { TCommandTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, DURING_GAME, SHOOTING_PHASE, START_OF_HERO_PHASE, START_OF_ROUND } from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Bathed in Blood`,
     effects: [

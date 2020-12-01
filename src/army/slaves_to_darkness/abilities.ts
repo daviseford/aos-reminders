@@ -1,5 +1,6 @@
 import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH, MARK_UNDIVIDED } from 'meta/alliances'
-import { TBattleTraits } from 'types/army'
+// General Allegiance Abilities (always active regardless of army composition)
+import { TEffects } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -13,8 +14,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-// General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TBattleTraits = [
+const Abilities: TEffects[] = [
   {
     name: `Aura of Chaos`,
     desc: `If a Slaves to Darkness hero has a Mark of Chaos keyword, that hero has an Aura of Chaos based on the Mark selected during army construction. If a unit has more than one Mark of Chaos you must select one aura it will use for the duration of the battle.`,

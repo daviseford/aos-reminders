@@ -1,4 +1,5 @@
-import { TBattleTraits } from 'types/army'
+// General Allegiance Abilities (always active regardless of army composition)
+import { TEffects } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -8,8 +9,7 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-// General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TBattleTraits = [
+const Abilities: TEffects[] = [
   {
     name: `Trampling Charge`,
     desc: `After an OGOR or RHINOX unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a number of dice equal to the unmodified charge roll for that charge move. Add 2 to each roll if the OGOR unit that made the charge move has 8 or more models or is a MONSTER. For each 6+, that enemy unit suffers 1 mortal wound.`,

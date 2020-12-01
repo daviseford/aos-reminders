@@ -1,8 +1,8 @@
-import { TBattleTraits } from 'types/army'
+// General Allegiance Abilities (always active regardless of army composition)
+import { TEffects } from 'types/data'
 import { COMBAT_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-// General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TBattleTraits = [
+const Abilities: TEffects[] = [
   {
     name: `Blackshard Armor`,
     desc: `The first wound that is allocated to each unit with this battle trait in each shooting phase and each combat phase is negated.`,

@@ -1,7 +1,7 @@
-import { TCommandTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import { CHARGE_PHASE, END_OF_MOVEMENT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Primordial Commander`,
     effects: [

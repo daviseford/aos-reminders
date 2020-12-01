@@ -1,4 +1,4 @@
-import { TBattleTraits } from 'types/army'
+import { TEffects } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -9,7 +9,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Abilities: TBattleTraits = [
+const Abilities: TEffects[] = [
   {
     name: `Waaagh Ability Table`,
     desc: `During the game you will gain bonuses based on the number of Waaagh points you have. If you spend the points you may lose access to abilities you previously had.`,

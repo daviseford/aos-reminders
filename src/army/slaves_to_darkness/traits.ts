@@ -1,4 +1,5 @@
-import { TCommandTraits } from 'types/army'
+// Damned Legion comamnd traits.
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -47,8 +48,7 @@ const LegionTraitTerror = {
   ],
 }
 
-// Damned Legion comamnd traits.
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TEntry[] = [
   // Ravagers Traits
   LegionTraitBolstered,
   LegionTraitPantheon,

@@ -1,4 +1,4 @@
-import { TCommandTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -18,7 +18,7 @@ import {
 
 const BigNameTag = `(Big Name)`
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Furious Guzzler`,
     effects: [

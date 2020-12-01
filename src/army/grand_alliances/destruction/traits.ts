@@ -1,4 +1,4 @@
-import { TCommandTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -8,7 +8,7 @@ import {
   MOVEMENT_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TCommandTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Nothing Left Standing (Destruction)`,
     effects: [

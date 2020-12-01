@@ -1,8 +1,8 @@
-import { TBattleTraits } from 'types/army'
+// General Allegiance Abilities (always active regardless of army composition)
+import { TEffects } from 'types/data'
 import { DURING_GAME, SHOOTING_PHASE } from 'types/phases'
 
-// General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TBattleTraits = [
+const Abilities: TEffects[] = [
   {
     name: `Mightier Makes Rightier`,
     desc: `When determining control of an objective, each friendly MANCRUSHER GARGANT model counts as 10 models instead of I, and each friendly MEGA-GARGANT counts as 20 models instead of 1.`,

@@ -1,4 +1,5 @@
-import { TBattleTraits } from 'types/army'
+// General Allegiance Abilities (always active regardless of army composition)
+import { TEffects } from 'types/data'
 import {
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
@@ -7,8 +8,7 @@ import {
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 
-// General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TBattleTraits = [
+const Abilities: TEffects[] = [
   {
     name: `Cycle of Corruption`,
     desc: `Roll a D6 to determine the starting stage of corruption.`,

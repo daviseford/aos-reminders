@@ -1,8 +1,8 @@
-import { TBattleTraits } from 'types/army'
+// General Allegiance Abilities (always active regardless of army composition)
+import { TEffects } from 'types/data'
 import { START_OF_ROUND, TURN_ONE_START_OF_ROUND } from 'types/phases'
 
-// General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TBattleTraits = [
+const Abilities: TEffects[] = [
   {
     name: `Bad Moon Setup`,
     desc: `At the start of the first battle round, before determining who has the first turn, the player commanding the Gloomspite Gitz army must pick one corner of the battlefield as the starting location of the Bad Moon. If both players have Gloomspite Gitz armies, then they must roll off and the winner picks the starting location. The Bad Moon is located at the edge of the battlefield in that corner.`,

@@ -1,8 +1,8 @@
-import { TBattleTraits } from 'types/army'
+// General Allegiance Abilities (always active regardless of army composition)
+import { TEffects } from 'types/data'
 import { END_OF_MOVEMENT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
-// General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TBattleTraits = [
+const Abilities: TEffects[] = [
   {
     name: `Infernal Realmwalkers`,
     desc: `Roll a D6 each time a Chaos Ascendant Daemon unit suffers a wound or mortal wound. On a 6+ it is negated.`,
