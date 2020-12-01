@@ -1,8 +1,8 @@
 import StormcastEternals from 'army/stormcast_eternals'
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 
 const getStormcastArtifacts = () => StormcastEternals.Artifacts
 
-const Artifacts: TArtifacts = [...getStormcastArtifacts()]
+const Artifacts: TEntry[] = [...getStormcastArtifacts()]
 
 export default Artifacts

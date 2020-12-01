@@ -1,7 +1,7 @@
-import { TScenery } from 'types/army'
+import { TEntry } from 'types/data'
 import { DURING_GAME, END_OF_CHARGE_PHASE, HERO_PHASE, START_OF_SETUP } from 'types/phases'
 
-const Scenery: TScenery = [
+const Scenery: TEntry[] = [
   {
     name: `Awakened Wyldwood`,
     effects: [

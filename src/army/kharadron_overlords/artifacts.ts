@@ -1,4 +1,4 @@
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -14,7 +14,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-export const GreatEndrinworks: TArtifacts = [
+export const GreatEndrinworks: TEntry[] = [
   {
     name: `The Last Word (Great Endrinwork)`,
     effects: [
@@ -117,7 +117,7 @@ export const GreatEndrinworks: TArtifacts = [
   },
 ]
 
-const Artifacts: TArtifacts = [
+const Artifacts: TEntry[] = [
   {
     name: `Masterwrought Armour`,
     effects: [

@@ -13,35 +13,29 @@ import {
   OrderUnits,
 } from 'army/grand_alliances'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
-import { TArtifacts, TTraits, TUnits } from 'types/army'
+import { IArmy } from 'types/army'
 
-type IGrandAllianceConfig = {
-  readonly [key in TGrandAlliances]: {
-    readonly Artifacts: TArtifacts
-    readonly Traits: TTraits
-    readonly Units: TUnits
-  }
-}
+type IGrandAllianceConfig = Record<TGrandAlliances, Pick<IArmy, 'Artifacts' | 'CommandTraits' | 'Units'>>
 
 export const GrandAllianceConfig: IGrandAllianceConfig = {
   [CHAOS]: {
     Artifacts: ChaosArtifacts,
-    Traits: ChaosTraits,
+    CommandTraits: ChaosTraits,
     Units: ChaosUnits,
   },
   [DEATH]: {
     Artifacts: DeathArtifacts,
-    Traits: DeathTraits,
+    CommandTraits: DeathTraits,
     Units: DeathUnits,
   },
   [DESTRUCTION]: {
     Artifacts: DestructionArtifacts,
-    Traits: DestructionTraits,
+    CommandTraits: DestructionTraits,
     Units: DestructionUnits,
   },
   [ORDER]: {
     Artifacts: OrderArtifacts,
-    Traits: OrderTraits,
+    CommandTraits: OrderTraits,
     Units: OrderUnits,
   },
 }

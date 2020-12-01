@@ -1,4 +1,4 @@
-import { TTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -27,7 +27,7 @@ const getLouderThanWordsEffect = (numAttacks: number, weaponName: string, tag: s
   ],
 })
 
-const CommandTraits: TTraits = [
+const CommandTraits: TEntry[] = [
   // Shared Traits
   {
     name: `Monstrously Tough`,

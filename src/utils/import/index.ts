@@ -51,12 +51,12 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
   )
 
   const errorFreeSelections = {
-    allegiances: lookup('allegiances'),
     artifacts: lookup('artifacts'),
     battalions: lookup('battalions'),
+    command_traits: lookup('command_traits'),
     endless_spells: lookup('endless_spells'),
+    flavors: lookup('flavors'),
     spells: lookup('spells'),
-    traits: lookup('traits'),
     units: lookup('units'),
   }
 
@@ -66,7 +66,7 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
   const allyData = getAllyData(allyUnits, factionName, errors, opts.checkPoorSpacing, opts.typoMap)
 
   // Check for allegiance abilities and remove them from errors if we find them
-  checkErrorsForAllegianceAbilities(Army, errorFreeSelections.allegiances, errors)
+  checkErrorsForAllegianceAbilities(Army, errorFreeSelections.flavors, errors)
 
   // Check if any of the selections have names that map one-to-many from source to us
   addAmbiguousSelectionErrors(errors, errorFreeSelections, allyData, opts.ambiguousNamesMap)

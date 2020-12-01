@@ -1,5 +1,6 @@
 import GenericEffects from 'army/generic/effects'
-import { TUnits } from 'types/army'
+// Unit Names
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -42,8 +43,7 @@ const TombShieldEffect = {
   when: [SAVES_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Tomb King On Exalted Chariot`,
     effects: [

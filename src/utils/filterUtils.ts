@@ -1,8 +1,8 @@
-import { TBattalions, TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import { isProd } from 'utils/env'
 
-type TFilterUnits = (units: TUnits, unitNames: string[]) => TUnits
-type TFilterBattalions = (battalions: TBattalions, battalionNames: string[]) => TBattalions
+type TFilterUnits = (units: TEntry[], unitNames: string[]) => TEntry[]
+type TFilterBattalions = (battalions: TEntry[], battalionNames: string[]) => TEntry[]
 
 /**
  * Returns a list of Units with unitNames removed
@@ -39,7 +39,7 @@ export const filterBattalions: TFilterBattalions = (battalions, battalionNames) 
  * @param units
  * @param unitNames
  */
-const errorCheck = (units: TUnits, unitNames: string[]) => {
+const errorCheck = (units: TEntry[], unitNames: string[]) => {
   if (isProd) return // We don't want to be throwing errors in prod
 
   const names = units.map(x => x.name)
