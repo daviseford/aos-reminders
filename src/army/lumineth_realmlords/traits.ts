@@ -1,7 +1,7 @@
-import { TTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import { DURING_GAME, DURING_TURN, HERO_PHASE } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Spellmaster`,
     effects: [

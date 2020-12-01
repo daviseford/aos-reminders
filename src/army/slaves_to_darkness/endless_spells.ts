@@ -1,4 +1,5 @@
-import { TEndlessSpells } from 'types/army'
+// Endless spells.
+import { TEntry } from 'types/data'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -8,8 +9,7 @@ import {
   START_OF_ROUND,
 } from 'types/phases'
 
-// Endless spells.
-const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEntry[] = [
   {
     name: `Eightfold Doom-Sigil (Slaves)`,
     effects: [

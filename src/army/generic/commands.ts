@@ -1,4 +1,4 @@
-import { TCommands } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -8,7 +8,7 @@ import {
 } from 'types/phases'
 
 // General command abilities from Core Rules and GHB 2019
-const GenericCommands: TCommands = [
+const GenericCommands: TEntry[] = [
   {
     name: `At the Double`,
     effects: [

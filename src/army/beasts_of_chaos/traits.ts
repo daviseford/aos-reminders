@@ -1,4 +1,4 @@
-import { TTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -14,7 +14,7 @@ import {
   TURN_TWO_MOVEMENT_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Bestial Cunning (Brayherd)`,
     effects: [

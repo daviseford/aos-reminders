@@ -1,5 +1,5 @@
 import GenericEffects from 'army/generic/effects'
-import { TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -35,7 +35,7 @@ const HornblowerEffect = {
   when: [MOVEMENT_PHASE],
 }
 
-export const LegacyDuardinUnits: TUnits = [
+export const LegacyDuardinUnits: TEntry[] = [
   {
     name: `Slayers`,
     effects: [

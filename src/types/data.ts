@@ -1,7 +1,6 @@
 import { TTurnWhen } from 'types/phases'
 
 export type TEntryProperties =
-  | 'allegiance_ability'
   | 'artifact'
   | 'command_ability'
   | 'command_trait'
@@ -13,7 +12,6 @@ export type TEntryProperties =
   | 'triumph'
 
 export const ENTRY_PROPERTIES: TEntryProperties[] = [
-  'allegiance_ability',
   'artifact',
   'command_ability',
   'command_trait',

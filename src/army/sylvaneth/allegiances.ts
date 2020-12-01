@@ -1,4 +1,4 @@
-import { TAllegiances } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -12,7 +12,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+const Allegiances: TEntry[] = [
   {
     name: `Oakenbrow (Glade)`,
     effects: [
@@ -20,7 +20,6 @@ const Allegiances: TAllegiances = [
         name: `Our Roots Run Deep`,
         desc: `Subtract 2 from the number of wounds suffered by OAKENBROW SPIRITS OF DURTHU, OAKENBROW TREELORD ANCIENTS and OAKENBROW TREELORDS when determining which row on their damage table to use (to a minimum of 0).`,
         when: [DURING_GAME],
-        allegiance_ability: true,
       },
       {
         name: `Yield To None`,
@@ -49,7 +48,6 @@ const Allegiances: TAllegiances = [
         name: `Shield the Arcane`,
         desc: `Reroll hit rolls of 1 for attacks made by friendly GNARLROOT units while they are wholly within 12" of any friendly GNARLROOT WIZARDS.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `The Earth Defends`,
@@ -78,7 +76,6 @@ const Allegiances: TAllegiances = [
         name: `Courage For Kurnoth`,
         desc: `Add 1 to the Bravery characteristic of friendly HEARTWOOD units while they are wholly within 12" of any friendly HEARTWOOD HEROES.`,
         when: [DURING_GAME],
-        allegiance_ability: true,
       },
       {
         name: `Lord of the Hunt`,
@@ -107,7 +104,6 @@ const Allegiances: TAllegiances = [
         name: `Stubborn and Taciturn`,
         desc: `You can reroll battleshock tests for friendly IRONBARK units while they are wholly within 12" of any friendly IRONBARK HEROES.`,
         when: [BATTLESHOCK_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Stand Firm`,
@@ -136,7 +132,6 @@ const Allegiances: TAllegiances = [
         name: `Winter's Bite`,
         desc: `If the unmodified hit roll for an attack made with a melee weapon by a friendly WINTERLEAF unit is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Branch Blizzard`,
@@ -165,7 +160,6 @@ const Allegiances: TAllegiances = [
         name: `Malicious Tormentors`,
         desc: `You can reroll hit rolls of 1 for attacks made by DREADWOOD SPITE-REVENANTS.`,
         when: [COMBAT_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Sinister Ambush`,
@@ -194,7 +188,6 @@ const Allegiances: TAllegiances = [
         name: `Vibrant Surge`,
         desc: `You can reroll hit rolls of 1 for attacks made by friendly HARVESTBOON units that made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Fertile Ground`,

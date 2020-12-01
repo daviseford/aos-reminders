@@ -1,6 +1,6 @@
-import Abilities from './abilities'
+import BattleTraits from './battle_traits'
 import { Units } from './units'
 
-const MegaGargantMercenariesArmy = { Abilities, Units }
+const MegaGargantMercenariesArmy = { BattleTraits, Units }
 
 export default MegaGargantMercenariesArmy

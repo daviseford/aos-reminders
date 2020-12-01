@@ -1,4 +1,4 @@
-import { TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -15,7 +15,7 @@ const RangeFindingOpticsEffect = {
   when: [SHOOTING_PHASE],
 }
 
-export const LegacyDwarfUnits: TUnits = [
+export const LegacyDwarfUnits: TEntry[] = [
   {
     name: `Far-Ranger`,
     effects: [

@@ -1,4 +1,4 @@
-import { TScenery } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   HERO_PHASE,
@@ -7,7 +7,7 @@ import {
   START_OF_SETUP,
 } from 'types/phases'
 
-const Scenery: TScenery = [
+const Scenery: TEntry[] = [
   {
     name: `Gnawholes`,
     effects: [

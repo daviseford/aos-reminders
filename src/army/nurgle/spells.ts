@@ -1,4 +1,5 @@
-import { TSpells } from 'types/army'
+// Spell Lores of Nurgle
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -9,8 +10,7 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 
-// Spell Lores of Nurgle
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Foul Regenesis`,
     effects: [

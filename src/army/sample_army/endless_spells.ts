@@ -1,8 +1,8 @@
-import { TEndlessSpells } from 'types/army'
+// Endless spells go here
+import { TEntry } from 'types/data'
 import { START_OF_ROUND } from 'types/phases'
 
-// Endless spells go here
-const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEntry[] = [
   {
     name: ``,
     effects: [

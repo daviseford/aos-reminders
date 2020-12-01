@@ -1,8 +1,8 @@
 import StormcastEternals from 'army/stormcast_eternals'
-import { TEndlessSpells } from 'types/army'
+import { TEntry } from 'types/data'
 
 const getStormcastEndless = () => StormcastEternals.EndlessSpells
 
-const EndlessSpells: TEndlessSpells = [...getStormcastEndless()]
+const EndlessSpells: TEntry[] = [...getStormcastEndless()]
 
 export default EndlessSpells

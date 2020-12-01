@@ -29,30 +29,30 @@ describe('processReminders', () => {
       [SERAPHON]: allySelectionsFactory([allyUnits[2].name]),
     }
 
-    const allegiance = sylvaneth.Allegiances[0]
     const artifact = sylvaneth.Artifacts[0]
     const battalion = sylvaneth.Battalions[0]
+    const command_trait = sylvaneth.Traits[0]
     const command1 = GenericCommands[0]
     const command2 = RealmscapeCommands[0]
     const endless_spell = sylvaneth.EndlessSpells[0]
+    const flavor = sylvaneth.Allegiances[0]
     const scenery = sylvaneth.Scenery[0]
     const spell1 = sylvaneth.Spells[0]
     const spell2 = sylvaneth.Spells[1]
-    const trait = sylvaneth.Traits[0]
     const triumph = GenericTriumphs[0]
     const unit = sylvaneth.Units[0]
 
     const army = getArmy(SYLVANETH, null, getRealmscape(command2.name)) as IArmy
 
     const selections = selectionsFactory({
-      allegiances: [allegiance.name],
       artifacts: [artifact.name],
       battalions: [battalion.name],
-      commands: [command1.name, command2.name],
+      command_abilities: [command1.name, command2.name],
+      command_traits: [command_trait.name],
       endless_spells: [endless_spell.name],
+      flavors: [flavor.name],
       scenery: [scenery.name],
       spells: [spell1.name, spell2.name],
-      traits: [trait.name],
       triumphs: [triumph.name],
       units: [unit.name],
     })
@@ -69,16 +69,16 @@ describe('processReminders', () => {
 
     const testEntries = [
       ...allyUnits,
-      allegiance,
       artifact,
       battalion,
+      command_trait,
       command1,
       command2,
       endless_spell,
+      flavor,
       scenery,
       spell1,
       spell2,
-      trait,
       triumph,
       unit,
     ]

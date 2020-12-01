@@ -1,8 +1,8 @@
-import { TTriumphs } from 'types/army'
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 // General triumphs available from GHB 2020
-const GenericTriumphs: TTriumphs = [
+const GenericTriumphs: TEntry[] = [
   {
     name: `Inspired`,
     effects: [
