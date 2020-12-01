@@ -1,5 +1,4 @@
 import LegionsOfNagash from 'army/legions_of_nagash'
-// Battalions
 import { TEntry } from 'types/data'
 import { HERO_PHASE, SAVES_PHASE } from 'types/phases'
 import { filterBattalions } from 'utils/filterUtils'

@@ -1,5 +1,4 @@
 import { DestructionUnits } from 'army/grand_alliances'
-// Battalions
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,

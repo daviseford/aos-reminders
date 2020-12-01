@@ -1,4 +1,3 @@
-// Battalions
 import { TEntry } from 'types/data'
 import { HERO_PHASE } from 'types/phases'
 
