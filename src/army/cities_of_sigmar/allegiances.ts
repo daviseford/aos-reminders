@@ -29,19 +29,16 @@ const Allegiances: TEntry[] = [
         name: `Banners Held High`,
         desc: `At the start of your hero phase, roll a D6 for each friendly HAMMERHAL unit that includes any Standard Bearers. For each 6, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `The Magister of Hammerhal`,
         desc: `If your army includes AVENTIS FIRESTRIKE and he is your general, you receive 1 extra command point.`,
         when: [TURN_ONE_START_OF_HERO_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `The Pride of Hammerhal`,
         desc: `Do not take battleshock tests for HAMMERHAL units that are wholly within your territory.`,
         when: [BATTLESHOCK_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Righteous Purpose`,
@@ -59,13 +56,11 @@ const Allegiances: TEntry[] = [
         desc: `You can set up 1 reserve unit on the hidden paths for each LIVING CITY unit you have set up on the battlefield.
         At the end of your movement phase, you can setup 1 or more of these units on the battlefield, wholly within 6" of the edge of the battlefield and more than 9" from any enemy units. Any reserve units on the hidden paths that are not set up on the battlefield before the start of the fourth battleround are destroyed.`,
         when: [DURING_SETUP],
-        allegiance_ability: true,
       },
       {
         name: `Attuned to Nature`,
         desc: `You can heal 1 wound allocated to each friendly LIVING CITY unit.`,
         when: [START_OF_HERO_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Strike then Melt Away`,
@@ -84,14 +79,13 @@ const Allegiances: TEntry[] = [
 
         Rune of Unfaltering Aim: If this prayer is answered, pick 1 friendly IRONWELD ARSENAL WAR MACHINE unit within 3" of this model. Until the start of your next hero phase, add 1 to hit rolls for attacks made with missile weapons by that unit.`,
         when: [HERO_PHASE],
-        allegiance_ability: true,
+
         prayer: true,
       },
       {
         name: `Home of the Great Ironweld Guilds`,
         desc: `Increase the Range characteristic of missile weapons used by friendly GREYWATER FASTNESS IRONWELD ARSENAL units by 3" (this does not affect the weapon's minimum range, if it has one).`,
         when: [SHOOTING_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Salvo Fire`,
@@ -108,13 +102,11 @@ const Allegiances: TEntry[] = [
         name: `Vengeful Revenants`,
         desc: `Add 1 to hit and wound rolls for attacks made with melee weapons by friendly PHOENICIUM units if any friendly PHOENICIUM units have been destroyed in the same phase.`,
         when: [COMBAT_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Blood of the Ur-Phoenix`,
         desc: `Add 1 to the Wounds characteristic of PHOENICIUM FROSTHEART PHOENIXES and PHOENICIUM FLAMESPYRE PHOENIXES.`,
         when: [DURING_GAME],
-        allegiance_ability: true,
       },
       {
         name: `Living Idols`,
@@ -137,7 +129,6 @@ const Allegiances: TEntry[] = [
 
         Hidden Agents: You receive D3 extra command points.`,
         when: [START_OF_SETUP],
-        allegiance_ability: true,
       },
       {
         name: `Drakeblood Curses`,
@@ -145,7 +136,6 @@ const Allegiances: TEntry[] = [
 
         You can choose 1 additional friendly ANVILGARD DRAGON, ANVILGARD KHARIBDYSS or ANVILGARD WAR HYDRA to have a Drakeblood curse for each warscroll battalion in your army. A model cannot have more than 1 Drakeblood curse, and an army may not include duplicates of the same Drakeblood curse.`,
         when: [START_OF_SETUP],
-        allegiance_ability: true,
       },
       {
         name: `Make an Example of the Weak (Anvilgard)`,
@@ -162,13 +152,11 @@ const Allegiances: TEntry[] = [
         name: `Eldritch Attunement`,
         desc: `Each time a friendly HALLOWHEART unit is affected by a spell or endless spell, you can roll a D6. If you do so, on a 5+, ignore the effects of that spell or endless spell on that unit.`,
         when: [HERO_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Mages of the Whitefire Court`,
         desc: `HALLOWHEART WIZARDS can attempt to cast 1 extra spell in each of their hero phases.`,
         when: [HERO_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Arcane Channelling`,

@@ -1,5 +1,5 @@
 import GenericEffects from 'army/generic/effects'
-import { TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -24,7 +24,7 @@ const DeflectShotsEffect = {
   desc: `You can reroll failed save rolls for this unit in the shooting phase.`,
   when: [SAVES_PHASE],
 }
-export const LegacyEldritchUnits: TUnits = [
+export const LegacyEldritchUnits: TEntry[] = [
   {
     name: `Swordmasters`,
     effects: [

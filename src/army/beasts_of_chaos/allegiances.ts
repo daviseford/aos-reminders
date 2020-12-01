@@ -21,7 +21,6 @@ const Allegiances: TEntry[] = [
         name: `Bestial Might`,
         desc: `Subtract 1 from battleshock rolls made for ALLHERD units in the battleshock phase if they were picked to fight in the combat phase of the same turn.`,
         when: [BATTLESHOCK_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Booming Roar`,
@@ -50,7 +49,6 @@ const Allegiances: TEntry[] = [
         name: `Gift of Morghur`,
         desc: `If a friendly GAVESPAWN HERO is slain, roll a D6 before removing the model. On a 2+ one CHAOS SPAWN is added to your army. Set up the CHAOS SPAWN anywhere on the battlefield within 6" of the slain HERO. If the HERO had the KHORNE, NURGLE, SLAANESH or TZEENTCH keyword, the same keyword must be chosen for the CHAOS SPAWN . If they did not, you cannot use the Cursed of the Dark Gods ability to choose a keyword for that CHAOS SPAWN .`,
         when: [WOUND_ALLOCATION_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Propagator of Devolution`,
@@ -79,13 +77,11 @@ const Allegiances: TEntry[] = [
         name: `Shadowbeasts`,
         desc: `WARHERD and THUNDERSCORN units in a DARKWALKERS army are considered to have the BRAYHERD keyword for the purposes of the Brayherd Ambush battle trait.`,
         when: [DURING_GAME],
-        allegiance_ability: true,
       },
       {
         name: `Shadowbeasts`,
         desc: `Up to half (rounding up) of the reserve units that are set up in ambush can arrive in your second movement phase instead of your first movement phase.`,
         when: [TURN_TWO_MOVEMENT_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Savage Encirclement`,

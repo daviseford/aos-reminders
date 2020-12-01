@@ -10,7 +10,6 @@ import { IconContext } from 'react-icons'
 import { FaTrashAlt } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { ValueType } from 'react-select/src/types'
-import { TUnits } from 'types/army'
 import { TEntry } from 'types/data'
 import { IAllySelections } from 'types/selections'
 import { logAllyFaction } from 'utils/analytics'
@@ -122,7 +121,7 @@ interface IAllyCardProps {
     payload: string
     type: string
   }
-  unitItems: TUnits
+  unitItems: TEntry[]
   unitValues: string[]
 }
 

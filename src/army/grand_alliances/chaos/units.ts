@@ -1,6 +1,4 @@
 import GenericEffects from 'army/generic/effects'
-import { TUnits } from 'types/army'
-// Units available to this Grand Alliance allegiance
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
@@ -18,7 +16,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const MonstrousArcanumChaos: TUnits = [
+const MonstrousArcanumChaos: TEntry[] = [
   {
     name: `Chaos Siege Gargant`,
     effects: [

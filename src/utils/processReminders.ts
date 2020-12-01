@@ -56,7 +56,6 @@ export const processReminders: TProcessReminders = (
           desc: a.desc,
           condition: [`${titleCase(factionName)} Allegiance`],
           tag: a.tag || false,
-          allegiance_ability: !command_ability,
           command_ability,
           when,
         }

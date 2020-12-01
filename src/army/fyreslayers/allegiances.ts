@@ -19,13 +19,11 @@ const Allegiances: TEntry[] = [
         name: `Fearsome Surge`,
         desc: `If you declare a friendly VOSTARG unit will run in R1 movement phase, do not roll, instead add 6" automatically.`,
         when: [TURN_ONE_MOVEMENT_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Fearsome Surge`,
         desc: `+1 to charge rolls for friendly VOSTARG units.`,
         when: [CHARGE_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Vosaxe`,
@@ -54,7 +52,6 @@ const Allegiances: TEntry[] = [
         name: `Spoils of Victory`,
         desc: `2 additional artifacts of power for GREYFYRD HEROES in your army.`,
         when: [DURING_GAME],
-        allegiance_ability: true,
       },
       {
         name: `Helm of Obsidia`,
@@ -83,7 +80,6 @@ const Allegiances: TEntry[] = [
         name: `Seize by Force`,
         desc: `HERMDAR units wholly within enemy territory or wholly within 12" of an objective do not take battleshock tests.`,
         when: [BATTLESHOCK_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Tyrant Slayer`,
@@ -112,7 +108,6 @@ const Allegiances: TEntry[] = [
         name: `Venerators of Vulcatrix`,
         desc: `Each MAGMADROTH in a LOFNIR army, instead of only 1, can be given a Magmadroth trait. In addition you can include 1 additional Behemoth as long as every Behemoth in your army is a MAGMADROTH.`,
         when: [DURING_GAME],
-        allegiance_ability: true,
       },
       {
         name: `Igneous Battle-throne`,

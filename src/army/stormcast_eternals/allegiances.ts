@@ -28,7 +28,6 @@ const Allegiances: TEntry[] = [
         name: `First to be Forged`,
         desc: `Add 1 to the Bravery characteristic of friendly HAMMERS OF SIGMAR units.`,
         when: [BATTLESHOCK_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `God-forged Blade`,
@@ -57,7 +56,6 @@ const Allegiances: TEntry[] = [
         name: `Only the Faithful`,
         desc: `If a friendly HALLOWED KNIGHTS unit is affected by a spell or endless spell, roll a D6. On a 6+ ignore the effects of that spell on that unit.`,
         when: [HERO_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Parchment of Purity`,
@@ -86,7 +84,6 @@ const Allegiances: TEntry[] = [
         name: `Driven by Vengeance`,
         desc: `You can reroll hit rolls of 1 for attacks made by friendly CELESTIAL VINDICATORS units if they made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Stormrage Blade`,
@@ -115,7 +112,6 @@ const Allegiances: TEntry[] = [
         name: `No True Death`,
         desc: `You can reroll failed battleshock tests for friendly ANVILS OF THE HELDENHAMMER units.`,
         when: [BATTLESHOCK_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Soulthief`,
@@ -144,7 +140,6 @@ const Allegiances: TEntry[] = [
         name: `Storm of Annihilation`,
         desc: `If a friendly KNIGHTS EXCELSIOR unit makes an attack that destroys an enemy unit, you can reroll hit rolls of 1 for attacks made by that KNIGHTS EXCELSIOR unit for the rest of the battle.`,
         when: [DURING_GAME],
-        allegiance_ability: true,
       },
       {
         name: `Chains of Celestial Lightning`,
@@ -173,7 +168,6 @@ const Allegiances: TEntry[] = [
         name: `Fearless Foresight`,
         desc: `Pick D3 friendly CELESTIAL WARBRINGERS units and set them up again (any restrictions in the set-up instructions for the battleplan being used still apply).`,
         when: [START_OF_GAME],
-        allegiance_ability: true,
       },
       {
         name: `Hammers of Augury`,
@@ -202,7 +196,6 @@ const Allegiances: TEntry[] = [
         name: `Grand Strategists`,
         desc: `At the start of your hero phase roll a D6. On a 4+ you receive 1 extra command point.`,
         when: [HERO_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Patrician's Helm`,
@@ -231,7 +224,6 @@ const Allegiances: TEntry[] = [
         name: `Beast Stalkers`,
         desc: `Add 1 to hit rolls for attacks made by ASTRAL TEMPLARS units that target a MONSTER.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Godbeast Plate`,

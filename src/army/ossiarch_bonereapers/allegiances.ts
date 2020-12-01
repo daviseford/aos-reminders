@@ -22,7 +22,6 @@ const Allegiances: TEntry[] = [
         name: `The Dread Legion`,
         desc: `Subtract 1 from the Bravery characteristic of enemy untis while they are within 12" of any friendly MORTIS PRAETORIANS units.`,
         when: [DURING_GAME],
-        allegiance_ability: true,
       },
       {
         name: `Counter-strike`,
@@ -51,7 +50,6 @@ const Allegiances: TEntry[] = [
         name: `Unstoppable Juggernauts`,
         desc: `Reroll save rolls of 1 for attacks made with melee weapons that target PETRIFEX ELITE units.'`,
         when: [SAVES_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Bludgeon`,
@@ -80,7 +78,6 @@ const Allegiances: TEntry[] = [
         name: `Equumortoi`,
         desc: `STALLIARCH LORDS units can run and still charge later in the same turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Rally Back`,
@@ -109,7 +106,6 @@ const Allegiances: TEntry[] = [
         name: `Simmering Rage`,
         desc: `At the start of the combat phase, each friendly IVORY HOST unit within 6" of a friendly IVORY HOST model that currently has any wounds allocated to it becomes subject to rage until the end of that phase. Add 1 to hit rolls for attacks made by a unit that is subject to rage, but subtract 1 from save rolls for attacks that target a unit that is subject to rage.`,
         when: [START_OF_COMBAT_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Temper Fury`,
@@ -138,7 +134,6 @@ const Allegiances: TEntry[] = [
         name: `Eldritch Nulls`,
         desc: `Each time a friendly NULL MYRIAD unit is affected by a spell or endless spell, you can roll a D6. If you do so, on a 5+, ignore the effects of that spell or endless spell on that unit.`,
         when: [HERO_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Holdfast`,
@@ -167,7 +162,6 @@ const Allegiances: TEntry[] = [
         name: `Immolation`,
         desc: `Roll a D6 each time a friendly CREMATORIANS model is slain by an attack made with a melee weapon, before the slain model is removed from play. Add 1 to the roll if the slain model is a HERO or MONSTER. On a 5+, pick 1 enemy unit within 3" of the slain model. That unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Levellers of Cities`,

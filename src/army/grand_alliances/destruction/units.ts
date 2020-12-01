@@ -1,4 +1,3 @@
-import { TUnits } from 'types/army'
 import { TEffects, TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
@@ -26,7 +25,7 @@ const ShroudingMistEffects: TEffects[] = [
   },
 ]
 
-const MonstrousArcanumDestruction: TUnits = [
+const MonstrousArcanumDestruction: TEntry[] = [
   {
     name: `Basilisk`,
     effects: [

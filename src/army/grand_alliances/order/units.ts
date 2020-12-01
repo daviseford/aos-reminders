@@ -1,4 +1,3 @@
-import { TUnits } from 'types/army'
 import { TEntry } from 'types/data'
 import {
   COMBAT_PHASE,
@@ -20,7 +19,7 @@ import { LegacySwifthawkAgentUnits } from './subfactions/swifthawk_agents'
 import { LegacyWoodElvesUnits } from './subfactions/wood_elves'
 
 // Available to ALL factions in this Grand Alliance
-export const OrderUnits: TUnits = [
+export const OrderUnits: TEntry[] = [
   {
     name: `Gotrek Gurnisson`,
     effects: [

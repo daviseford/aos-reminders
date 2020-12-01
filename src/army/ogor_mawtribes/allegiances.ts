@@ -22,7 +22,6 @@ const Allegiances: TEntry[] = [
         name: `Fleshy Stampede`,
         desc: `You can roll 1 additional dice when a MEATFIST unit uses the Trampling Charge battle trait.`,
         when: [CHARGE_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `The Unstoppable Feast`,
@@ -51,7 +50,6 @@ const Allegiances: TEntry[] = [
         name: `Heralds of the Gulping God`,
         desc: `BLOODGULLET BUTCHERS know 1 extra spell from the Lore of Gutmagic. In addition, friendly BLOODGULLET BUTCHERS can attempt to cast 1 extra spell in your hero phase.`,
         when: [HERO_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Bloodbath`,
@@ -80,7 +78,6 @@ const Allegiances: TEntry[] = [
         name: `Gunmasters`,
         desc: `Leadbelcher Guns used by UNDERGUTS LEADBELCHERS units have a Range characteristic of 18" instead of 12".`,
         when: [SHOOTING_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Thunderous Salvo`,
@@ -109,7 +106,6 @@ const Allegiances: TEntry[] = [
         name: `Fearsome Breed`,
         desc: `Add 1 to the Wounds characteristic of friendly BOULDERHEAD MONSTERS. In addition, each BOULDERHEAD HERO on STONEHORN or THUNDERTUSK, instead of only 1, can be given a mount trait.`,
         when: [DURING_GAME],
-        allegiance_ability: true,
       },
       {
         name: `Dig Deep your Heels!`,
@@ -138,13 +134,11 @@ const Allegiances: TEntry[] = [
         name: `Swift Outflank`,
         desc: `Friendly THUNDERBELLIES MOURNFANG PACK units wholly within 12" of the edge of the battlefield at the start of your charge phase can charge in that charge phase even if they ran in the same turn.`,
         when: [CHARGE_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Riders of the Hurricane`,
         desc: `Add 1 to prayer rolls for Keening Gale when a THUNDERBELLIES PRIEST is chanting that prayer.`,
         when: [HERO_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Rip and Tear`,
@@ -173,13 +167,11 @@ const Allegiances: TEntry[] = [
         name: `Ghosts in the Blizzard`,
         desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target friendly WINTERBITE units that are wholly within your territory.`,
         when: [SHOOTING_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Call of the Endless White`,
         desc: `Add 1 to prayer rolls for Call of the Blizzard when a WINTERBITE PRIEST is chanting that prayer.`,
         when: [HERO_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Howl of the Wild`,
