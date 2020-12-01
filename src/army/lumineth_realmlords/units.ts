@@ -1,5 +1,4 @@
 import idoneth from 'army/idoneth_deepkin'
-import { TUnits } from 'types/army'
 import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
@@ -15,7 +14,7 @@ import {
 } from 'types/phases'
 import CommonLuminethRealmlordsData from './common'
 
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Archmage Teclis`,
     effects: [
@@ -245,7 +244,7 @@ export const Units: TUnits = [
   },
 ]
 
-export const AlliedUnits: TUnits = idoneth.Units
+export const AlliedUnits: TEntry[] = idoneth.Units
 
 export const Battalions: TEntry[] = [
   {

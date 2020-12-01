@@ -2,7 +2,6 @@ import Fyreslayers from 'army/fyreslayers'
 import IdonethDeepkin from 'army/idoneth_deepkin'
 import KharadronOverlords from 'army/kharadron_overlords'
 import StormcastEternals from 'army/stormcast_eternals'
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE } from 'types/phases'
@@ -38,15 +37,14 @@ const getFyreslayerUnits = () => {
   return removeUnits(Fyreslayers.Units, [`Fjul-Grimnir`, `The Chosen Axes`])
 }
 
-export const AlliedUnits: TUnits = [
+export const AlliedUnits: TEntry[] = [
   ...getFyreslayerUnits(),
   ...getIdonethUnits(),
   ...getKharadronUnits(),
   ...getStormcastUnits(),
 ]
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Excelsior Warpriest`,
     effects: [

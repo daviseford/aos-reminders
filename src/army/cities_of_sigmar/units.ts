@@ -2,7 +2,6 @@ import DaughtersOfKhaineArmy from 'army/daughters_of_khaine'
 import KharadronOverlords from 'army/kharadron_overlords'
 import Stormcast from 'army/stormcast_eternals'
 import Sylvaneth from 'army/sylvaneth'
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import { AZYR } from 'types/import'
@@ -284,8 +283,7 @@ const ShieldOfThornsEffect = {
   spell: true,
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Battlemage`,
     effects: [
@@ -1442,8 +1440,7 @@ export const Units: TUnits = [
   },
 ]
 
-// Allied units
-export const AlliedUnits: TUnits = [
+export const AlliedUnits: TEntry[] = [
   ...getStormcastUnits(),
   ...getKharadronUnits(),
   ...getSylvanethUnits(),

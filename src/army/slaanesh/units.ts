@@ -1,7 +1,6 @@
 import BeastsofChaos from 'army/beasts_of_chaos'
 import SlavestoDarkness from 'army/slaves_to_darkness'
 import { MARK_SLAANESH } from 'meta/alliances'
-import { TUnits } from 'types/army'
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
@@ -118,11 +117,9 @@ const AcquiescenceEffects = [
   },
 ]
 
-// Combine lists together to make army unit entry.
-export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits()]
+export const AlliedUnits: TEntry[] = [...SlaveUnits, ...getBoCUnits()]
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Keeper of Secrets w/ Ritual Knife`,
     effects: [

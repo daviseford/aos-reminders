@@ -1,4 +1,3 @@
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import {
@@ -14,8 +13,7 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Glade Guard`,
     effects: [

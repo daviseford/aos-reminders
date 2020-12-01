@@ -1,4 +1,3 @@
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import {
@@ -22,8 +21,7 @@ const BloatedFleshEffect = {
   when: [WOUND_ALLOCATION_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Tamurkhan the Maggot Lord`,
     effects: [

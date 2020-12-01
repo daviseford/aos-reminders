@@ -3,7 +3,6 @@ import Skaven from 'army/skaven'
 import SlavestoDarkness from 'army/slaves_to_darkness'
 import { getTamurkhansBattalions, getTamurkhansUnits } from 'army/tamurkhans_horde/units'
 import { MARK_NURGLE } from 'meta/alliances'
-import { TUnits } from 'types/army'
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
@@ -75,7 +74,7 @@ const getBoCBattalion = () => {
   return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
 }
 
-export const AlliedUnits: TUnits = [
+export const AlliedUnits: TEntry[] = [
   ...getBoCUnits(),
   ...getSkavenUnits(),
   ...getTamurkhansUnits(),
@@ -126,8 +125,7 @@ const VirulentDischargeEffect = {
   when: [HERO_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Rotigus`,
     effects: [

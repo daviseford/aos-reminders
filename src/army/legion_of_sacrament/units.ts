@@ -1,5 +1,4 @@
 import LegionsOfNagash from 'army/legions_of_nagash'
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import { HERO_PHASE, SAVES_PHASE } from 'types/phases'
@@ -10,8 +9,7 @@ const getLegionsOfNagashUnits = () => LegionsOfNagash.Units
 const getLegionsOfNagashBattalions = () =>
   filterBattalions(LegionsOfNagash.Battalions, [`Deathmarch`, `Castellans of the Crimson Keep`])
 
-// Unit Names
-export const Units: TUnits = [...getLegionsOfNagashUnits()]
+export const Units: TEntry[] = [...getLegionsOfNagashUnits()]
 
 export const Battalions: TEntry[] = [
   ...getLegionsOfNagashBattalions(),

@@ -1,4 +1,3 @@
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import {
@@ -31,8 +30,7 @@ const StolenHoursEffect = {
   when: [COMBAT_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Lady Olynder, Mortarch of Grief`,
     effects: [

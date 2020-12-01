@@ -1,5 +1,4 @@
 import GenericEffects from 'army/generic/effects'
-import { TUnits } from 'types/army'
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
@@ -44,8 +43,7 @@ const DespoilersEffect = {
   when: [COMBAT_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Beastlord`,
     effects: [

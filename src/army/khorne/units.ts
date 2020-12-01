@@ -1,7 +1,6 @@
 import BeastsofChaos from 'army/beasts_of_chaos'
 import SlavestoDarkness from 'army/slaves_to_darkness'
 import { MARK_KHORNE } from 'meta/alliances'
-import { TUnits } from 'types/army'
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
@@ -55,7 +54,7 @@ const getBoCBattalion = () => {
   return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
 }
 
-export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits()]
+export const AlliedUnits: TEntry[] = [...SlaveUnits, ...getBoCUnits()]
 
 const MurderousChargeEffect = {
   name: `Murderous Charge`,
@@ -75,8 +74,7 @@ const BloodBindEffect = {
   when: [HERO_PHASE],
 }
 
-// Khorne specific units. Export for use in Grand Alliance.
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Korghos Khul`,
     effects: [

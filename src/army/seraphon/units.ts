@@ -1,5 +1,4 @@
 import GenericEffects from 'army/generic/effects'
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import {
@@ -142,8 +141,7 @@ const StarbucklersEffect = {
   when: [SAVES_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Lord Kroak`,
     effects: [

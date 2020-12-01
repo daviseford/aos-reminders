@@ -1,5 +1,4 @@
 import GenericEffects from 'army/generic/effects'
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import {
@@ -151,8 +150,7 @@ const SquigglyBeastFollowersEffect = {
   when: [START_OF_COMBAT_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Skragrott, The Loonking`,
     effects: [

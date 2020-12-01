@@ -1,4 +1,3 @@
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import {
@@ -83,8 +82,7 @@ const BloodgruelEffect = {
   when: [HERO_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Butcher`,
     effects: [
@@ -523,7 +521,7 @@ export const Units: TUnits = [
   },
 ]
 
-export const AlliedUnits: TUnits = []
+export const AlliedUnits: TEntry[] = []
 
 export const Battalions: TEntry[] = [
   {

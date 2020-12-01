@@ -1,5 +1,4 @@
 import { DestructionUnits } from 'army/grand_alliances'
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import {
@@ -49,8 +48,7 @@ const BoneShieldEffect = {
   when: [SAVES_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Wurrgog Prophet`,
     effects: [

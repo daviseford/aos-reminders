@@ -1,5 +1,5 @@
 import { TUnits } from 'types/army'
-import { TEffects } from 'types/data'
+import { TEffects, TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -227,8 +227,7 @@ const MonstrousArcanumDestruction: TUnits = [
   },
 ]
 
-// Units available to this Grand Alliance allegiance
-export const Units: TUnits = [...MonstrousArcanumDestruction]
+export const Units: TEntry[] = [...MonstrousArcanumDestruction]
 
 // Available to ALL factions in this Grand Alliance
 export const DestructionUnits = [...MonstrousArcanumDestruction]

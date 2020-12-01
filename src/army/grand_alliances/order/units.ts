@@ -53,8 +53,7 @@ export const OrderUnits: TUnits = [
   },
 ]
 
-// Units available to this Grand Alliance allegiance
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   ...LegacyBretonnianUnits,
   ...LegacyDuardinUnits,
   ...LegacyDwarfUnits,

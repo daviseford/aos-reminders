@@ -1,7 +1,6 @@
 import BeastsofChaos from 'army/beasts_of_chaos'
 import SlavestoDarkness from 'army/slaves_to_darkness'
 import { MARK_TZEENTCH } from 'meta/alliances'
-import { TUnits } from 'types/army'
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
@@ -59,7 +58,7 @@ const getBoCBattalion = () => {
   return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
 }
 
-export const AlliedUnits: TUnits = [...SlaveUnits, ...getBoCUnits()]
+export const AlliedUnits: TEntry[] = [...SlaveUnits, ...getBoCUnits()]
 
 const ArcaneTomeEffect = {
   name: `Arcane Tome`,
@@ -119,8 +118,7 @@ const WakeofFireEffect = {
   when: [MOVEMENT_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Kairos Fateweaver`,
     effects: [

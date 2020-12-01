@@ -5,10 +5,6 @@ import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { TSelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 
-// TODO: Get rid of these?
-export type TTriumphs = TEntry[]
-export type TUnits = TEntry[]
-
 export interface IArmy {
   Artifacts: TEntry[]
   Battalions: TEntry[]

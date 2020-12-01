@@ -1,4 +1,3 @@
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import {
@@ -117,8 +116,7 @@ const TirelessHuntersEffect = {
   when: [SHOOTING_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Celestant-Prime`,
     effects: [

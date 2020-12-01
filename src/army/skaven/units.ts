@@ -1,4 +1,3 @@
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import {
@@ -99,8 +98,7 @@ const StandardBearerEffect = {
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Thanquol on Boneripper`,
     effects: [

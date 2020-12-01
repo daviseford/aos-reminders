@@ -1,5 +1,4 @@
 import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH, MARK_UNDIVIDED } from 'meta/alliances'
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import {
@@ -231,8 +230,7 @@ const ChaosMarkTzeentch = {
   when: [DURING_SETUP],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Archaon the Everchosen`,
     effects: [

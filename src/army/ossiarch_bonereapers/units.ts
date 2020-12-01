@@ -1,5 +1,4 @@
 import { Units as LegionsOfNagashUnits } from 'army/legions_of_nagash/units'
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import {
@@ -47,10 +46,9 @@ const EndlessDutyEffect = {
   command_ability: true,
 }
 
-export const AlliedUnits: TUnits = [...getLegionsOfNagashUnits()]
+export const AlliedUnits: TEntry[] = [...getLegionsOfNagashUnits()]
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Gothizzar Harvester`,
     effects: [

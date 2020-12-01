@@ -1,5 +1,4 @@
 import { APPRENTICE_RUNESMITH } from 'army/grand_alliances/order/subfactions/duardin'
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import {
@@ -74,8 +73,7 @@ const RunicEmpowermentEffect = {
   when: [START_OF_HERO_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   APPRENTICE_RUNESMITH,
   {
     name: `Auric Runefather on Magmadroth`,

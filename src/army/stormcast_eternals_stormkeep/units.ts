@@ -1,6 +1,5 @@
 import CitiesOfSigmar from 'army/cities_of_sigmar'
 import StormcastEternals from 'army/stormcast_eternals'
-import { TUnits } from 'types/army'
 // Battalions
 import { TEntry } from 'types/data'
 import {
@@ -15,11 +14,9 @@ const getStormcastUnits = () => StormcastEternals.Units
 const getCitiesUnits = () => CitiesOfSigmar.Units
 const getStormcastBattalions = () => StormcastEternals.Battalions
 
-// Unit Names
-export const Units: TUnits = [...getStormcastUnits()]
+export const Units: TEntry[] = [...getStormcastUnits()]
 
-// Allied units
-export const AlliedUnits: TUnits = [...getCitiesUnits()]
+export const AlliedUnits: TEntry[] = [...getCitiesUnits()]
 
 // Battalions
 export const Battalions: TEntry[] = [
