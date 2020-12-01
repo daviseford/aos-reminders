@@ -1,4 +1,4 @@
-import { TEndlessSpells } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -319,7 +319,7 @@ export const UmbralSpellportalEffects = [
   },
 ]
 
-const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEntry[] = [
   {
     name: `Balewind Vortex`,
     effects: [

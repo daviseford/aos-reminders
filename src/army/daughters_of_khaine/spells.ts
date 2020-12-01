@@ -1,4 +1,5 @@
-import { TSpells } from 'types/army'
+// Lore of Shadows
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -8,8 +9,7 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 
-// Lore of Shadows
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Steed of Shadows (Wizard)`,
     effects: [

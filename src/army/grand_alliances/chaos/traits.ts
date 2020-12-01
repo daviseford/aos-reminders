@@ -1,8 +1,8 @@
 import { CHAOS } from 'meta/alliances'
-import { TTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Dark Avenger (${CHAOS})`,
     effects: [

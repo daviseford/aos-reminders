@@ -1,7 +1,7 @@
-import { TEndlessSpells } from 'types/army'
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
 
-const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEntry[] = [
   {
     name: `Hyshian Twinstones`,
     effects: [

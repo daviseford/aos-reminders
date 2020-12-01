@@ -114,7 +114,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const pdfText = getFile('Tzeentch1')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.allegiances).toContain('Eternal Conflagration')
+    expect(res.selections.flavors).toContain('Eternal Conflagration')
     expect(res.errors).toEqual([])
   })
 
@@ -130,8 +130,8 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
-    expect(res.selections.allegiances).toEqual(['Breaker Tribe'])
-    expect(res.selections.traits).toEqual([
+    expect(res.selections.flavors).toEqual(['Breaker Tribe'])
+    expect(res.selections.command_traits).toEqual([
       "Shiny 'Uns (Fierce Loathing)",
       'Extremely Bitter (Breaker Tribe)',
     ])
@@ -150,7 +150,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
-    expect(res.selections.allegiances).toEqual(['Taker Tribe'])
+    expect(res.selections.flavors).toEqual(['Taker Tribe'])
     expect(res.selections.units).toEqual(['Gatebreaker', 'Kraken-Eater', 'Warstomper', 'Mancrusher Gargants'])
     expect(res.errors).toEqual([
       {
@@ -236,8 +236,8 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.selections.allegiances).toContain(SeraphonConstellations.STARBORNE)
-    expect(res.selections.allegiances).toContain(SeraphonConstellations.FANGS_OF_SOTEK)
+    expect(res.selections.flavors).toContain(SeraphonConstellations.STARBORNE)
+    expect(res.selections.flavors).toContain(SeraphonConstellations.FANGS_OF_SOTEK)
     expect(res.selections.units).toContain('Lord Kroak')
     expect(res.selections.units).toContain('Saurus Astrolith Bearer')
     expect(res.selections.units).toContain('Engine of the Gods')
@@ -388,8 +388,8 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
-    expect(res.selections.traits).not.toContain("Blood Vulture's Gaze")
-    expect(res.selections.traits).toEqual(['Metalcruncher'])
+    expect(res.selections.command_traits).not.toContain("Blood Vulture's Gaze")
+    expect(res.selections.command_traits).toEqual(['Metalcruncher'])
     expect(res.errors).toEqual([])
   })
 
@@ -399,8 +399,8 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(SERAPHON)
-    expect(res.selections.allegiances).toContain(SeraphonConstellations.DRACOTHIONS_TAIL)
-    expect(res.selections.allegiances).toContain(SeraphonConstellations.STARBORNE)
+    expect(res.selections.flavors).toContain(SeraphonConstellations.DRACOTHIONS_TAIL)
+    expect(res.selections.flavors).toContain(SeraphonConstellations.STARBORNE)
     expect(res.errors).toEqual([])
   })
 
@@ -410,8 +410,8 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(SERAPHON)
-    expect(res.selections.allegiances).toContain(SeraphonConstellations.KOATLS_CLAW)
-    expect(res.selections.allegiances).toContain(SeraphonConstellations.COALESCED) // auto-added because of Koatl's Claw
+    expect(res.selections.flavors).toContain(SeraphonConstellations.KOATLS_CLAW)
+    expect(res.selections.flavors).toContain(SeraphonConstellations.COALESCED) // auto-added because of Koatl's Claw
     expect(res.errors).toEqual([])
   })
 
@@ -609,7 +609,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.selections.allegiances).toEqual(['Vostarg (Lodge)'])
+    expect(res.selections.flavors).toEqual(['Vostarg (Lodge)'])
     expect(res.selections.battalions).toEqual(['Lords of the Lodge'])
     expect(res.errors).toEqual([])
   })
@@ -911,7 +911,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.errors).toEqual([])
     expect(res.selections.artifacts).toEqual(['Whitefire Tome (Hallowheart)'])
-    expect(res.selections.traits).toEqual(['Secretive Warlock (Anvilgard)'])
+    expect(res.selections.command_traits).toEqual(['Secretive Warlock (Anvilgard)'])
     expect(res.selections.spells).toEqual([
       'Sap Strength (Anvilgard, Har Kuron)',
       'Elemental Cyclone (Hallowheart)',
@@ -934,7 +934,7 @@ describe('getWarscrollArmyFromPdf', () => {
         text: 'Stickler for the Code',
       },
     ])
-    expect(res.selections.traits).toEqual([
+    expect(res.selections.command_traits).toEqual([
       "FOOTNOTE: There's No Reward Without Risk",
       "FOOTNOTE: There's No Trading With Some People",
       "FOOTNOTE: There's Always a Breeze if You Look for it",

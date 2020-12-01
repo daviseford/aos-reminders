@@ -1,7 +1,7 @@
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import { HERO_PHASE } from 'types/phases'
 
-const Artifacts: TArtifacts = [
+const Artifacts: TEntry[] = [
   {
     name: ``,
     effects: [

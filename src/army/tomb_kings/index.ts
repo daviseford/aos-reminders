@@ -1,8 +1,7 @@
-import Abilities from './abilities'
+import BattleTraits from './battle_traits'
 import { Units } from './units'
-
 const TombKingsArmy = {
-  Abilities,
+  BattleTraits,
   Units,
 }
 

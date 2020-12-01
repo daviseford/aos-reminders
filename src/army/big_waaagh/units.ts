@@ -1,7 +1,8 @@
 import Bonesplitterz from 'army/bonesplitterz'
 import Greenskinz from 'army/greenskinz'
 import Ironjawz from 'army/ironjawz'
-import { TBattalions, TUnits } from 'types/army'
+// Battalions
+import { TEntry } from 'types/data'
 
 // Importing Ironjawz
 const getIronjawzUnits = () => Ironjawz.Units
@@ -14,12 +15,10 @@ const getBonesplitterzBattalions = () => Bonesplitterz.Battalions
 // Importing Bonesplitterz
 const getGreenskinzUnits = () => Greenskinz.Units
 
-// Exporting the units
-export const AlliedUnits: TUnits = [
+export const AlliedUnits: TEntry[] = [
   ...getIronjawzUnits(),
   ...getBonesplitterzUnits(),
   ...getGreenskinzUnits(),
 ]
 
-// Battalions
-export const Battalions: TBattalions = [...getIronjawzBattalions(), ...getBonesplitterzBattalions()]
+export const Battalions: TEntry[] = [...getIronjawzBattalions(), ...getBonesplitterzBattalions()]

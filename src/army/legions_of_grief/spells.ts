@@ -1,8 +1,8 @@
-import { TSpells } from 'types/army'
+// Lore of Sorrows
+import { TEntry } from 'types/data'
 import { HERO_PHASE, SAVES_PHASE } from 'types/phases'
 
-// Lore of Sorrows
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Dread Withering`,
     effects: [

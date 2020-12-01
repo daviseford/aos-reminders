@@ -1,9 +1,9 @@
-import { TUnits } from 'types/army'
+// Unit Names
+import { TEntry } from 'types/data'
 import { CHARGE_PHASE, COMBAT_PHASE, START_OF_CHARGE_PHASE } from 'types/phases'
 import CommonSonsOfBehematData from './common'
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Gatebreaker`,
     effects: CommonSonsOfBehematData.EFFECTS.GatebreakerEffects,

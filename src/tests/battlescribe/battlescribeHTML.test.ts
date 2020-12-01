@@ -114,8 +114,8 @@ describe('getBattlescribeArmy', () => {
   it('should correctly read 1600111513593-Battlescribe', () => {
     const parsedText = getFile('1600111513593-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.allegiances).toEqual([])
-    expect(res.selections.allegiances).not.toContain('Flesh-Eater Courts')
+    expect(res.selections.flavors).toEqual([])
+    expect(res.selections.flavors).not.toContain('Flesh-Eater Courts')
     expect(res.errors).toEqual([])
   })
 
@@ -384,7 +384,7 @@ describe('getBattlescribeArmy', () => {
   it('should work with 1589575638626-Battlescribe', () => {
     const parsedText = getFile('1589575638626-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.allegiances).toContain('Stalliarch Lords')
+    expect(res.selections.flavors).toContain('Stalliarch Lords')
     expect(res.errors).toEqual([])
   })
 
@@ -405,14 +405,14 @@ describe('getBattlescribeArmy', () => {
   it('should work with 1590365910617-Battlescribe', () => {
     const parsedText = getFile('1590365910617-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.allegiances).toContain('Drowned Men')
+    expect(res.selections.flavors).toContain('Drowned Men')
     expect(res.errors).toEqual([])
   })
 
   it('should work with 1587178498419-Battlescribe', () => {
     const parsedText = getFile('1587178498419-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.allegiances).toContain('Hermdar (Lodge)')
+    expect(res.selections.flavors).toContain('Hermdar (Lodge)')
     expect(res.errors).toEqual([])
   })
 
@@ -460,8 +460,8 @@ describe('getBattlescribeArmy', () => {
   it('should work with 1586096394855-Battlescribe', () => {
     const parsedText = getFile('1586096394855-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.allegiances).toContain(SeraphonConstellations.STARBORNE)
-    expect(res.selections.allegiances).toContain(SeraphonConstellations.FANGS_OF_SOTEK)
+    expect(res.selections.flavors).toContain(SeraphonConstellations.STARBORNE)
+    expect(res.selections.flavors).toContain(SeraphonConstellations.FANGS_OF_SOTEK)
     expect(res.selections.battalions).toContain('Shadowstrike Starhost')
     expect(res.errors).toEqual([])
   })
@@ -469,15 +469,15 @@ describe('getBattlescribeArmy', () => {
   it('should work with 1586243528222-Battlescribe', () => {
     const parsedText = getFile('1586243528222-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.allegiances).toEqual([])
+    expect(res.selections.flavors).toEqual([])
     expect(res.errors).toEqual([])
   })
 
   it('should work with 1585479992182-Battlescribe', () => {
     const parsedText = getFile('1585479992182-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.allegiances).toContain(SeraphonConstellations.COALESCED)
-    expect(res.selections.allegiances).toContain(SeraphonConstellations.THUNDER_LIZARD)
+    expect(res.selections.flavors).toContain(SeraphonConstellations.COALESCED)
+    expect(res.selections.flavors).toContain(SeraphonConstellations.THUNDER_LIZARD)
     expect(res.selections.units).toContain('Razordon Hunting Pack')
     expect(res.errors).toEqual([])
   })
@@ -487,8 +487,8 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.battalions).toContain('Shadowstrike Temple-host')
     expect(res.selections.battalions).toContain('Thunderquake Temple-host')
-    expect(res.selections.allegiances).toContain(SeraphonConstellations.COALESCED)
-    expect(res.selections.allegiances).toContain(SeraphonConstellations.THUNDER_LIZARD)
+    expect(res.selections.flavors).toContain(SeraphonConstellations.COALESCED)
+    expect(res.selections.flavors).toContain(SeraphonConstellations.THUNDER_LIZARD)
     expect(res.selections.scenery).toContain('Realmshaper Engine')
     expect(res.selections.units).toContain('Razordon Hunting Pack')
     expect(res.errors).toEqual([])
@@ -617,7 +617,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.selections.scenery).toContain('Bone-Tithe Nexus')
-    expect(res.selections.allegiances).toContain('Petrifex Elite')
+    expect(res.selections.flavors).toContain('Petrifex Elite')
     expect(res.errors).toEqual([])
   })
 
@@ -739,7 +739,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections.allegiances).toEqual([
+    expect(res.selections.flavors).toEqual([
       'Greywater Fastness',
       'Anvilgard',
       'Hallowheart',
@@ -848,7 +848,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(IRONJAWZ)
-    expect(res.selections.allegiances).toEqual(['Da Choppas'])
+    expect(res.selections.flavors).toEqual(['Da Choppas'])
     expect(res.errors).toEqual([])
   })
 
@@ -928,7 +928,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
-    expect(res.selections.allegiances).toEqual(['Fuethan (Enclave)'])
+    expect(res.selections.flavors).toEqual(['Fuethan (Enclave)'])
     // These are Sylvaneth spells
     expect(res.errors).toEqual([
       { severity: 'warn', text: 'Awakening the Wood' },
@@ -1105,7 +1105,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(BIG_WAAAGH)
-    expect(res.selections.allegiances).toEqual([])
+    expect(res.selections.flavors).toEqual([])
     // Bonesplitterz Drakkfoot allegiance spell
     expect(res.errors).toEqual([{ text: 'Fireball', severity: 'warn' }])
   })
@@ -1115,7 +1115,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(BIG_WAAAGH)
-    expect(res.selections.allegiances).toEqual([])
+    expect(res.selections.flavors).toEqual([])
     // Bonesplitterz Drakkfoot allegiance spell
     expect(res.errors).toEqual([{ text: 'Fireball', severity: 'warn' }])
   })
@@ -1126,7 +1126,7 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(DAUGHTERS_OF_KHAINE)
     expect(res.selections.spells).toEqual(['Arcane Bolt', 'Mystic Shield', 'Black Horror of Ulgu'])
-    expect(res.selections.allegiances).toEqual([
+    expect(res.selections.flavors).toEqual([
       'Hagg Nar (Temple)',
       'Draichi Ganeth (Temple)',
       'The Kraith (Temple)',
@@ -1145,7 +1145,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.selections.allegiances).toEqual([
+    expect(res.selections.flavors).toEqual([
       'Greyfyrd (Lodge)',
       'Lofnir (Lodge)',
       'Vostarg (Lodge)',
@@ -1172,7 +1172,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(res.selections.commands).toEqual([
+    expect(res.selections.command_abilities).toEqual([
       'Heroes of Another Age',
       'Cut off the Head',
       'Righteous Hatred',
@@ -1182,7 +1182,7 @@ describe('getBattlescribeArmy', () => {
       'No Mercy',
       'Rousing Oratory',
     ])
-    expect(res.selections.allegiances).toEqual([
+    expect(res.selections.flavors).toEqual([
       'Anvils of the Heldenhammer (Stormhost)',
       'Astral Templars (Stormhost)',
       'Celestial Vindicators (Stormhost)',
@@ -1200,7 +1200,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(SLAANESH)
-    expect(res.selections.allegiances).toEqual(['Invaders Host', 'Godseekers Host', 'Pretenders Host'])
+    expect(res.selections.flavors).toEqual(['Invaders Host', 'Godseekers Host', 'Pretenders Host'])
     expect(res.errors).toEqual([])
   })
 
@@ -1209,7 +1209,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(KHORNE)
-    expect(res.selections.allegiances).toEqual([
+    expect(res.selections.flavors).toEqual([
       'The Bloodlords',
       'Reapers of Vengeance',
       'The Skullfiend Tribe',
@@ -1223,7 +1223,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(res.selections.allegiances).toEqual(['Anvils of the Heldenhammer (Stormhost)'])
+    expect(res.selections.flavors).toEqual(['Anvils of the Heldenhammer (Stormhost)'])
     expect(res.errors).toEqual([
       {
         severity: 'warn',
@@ -1251,7 +1251,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
-    expect(res.selections.commands).toEqual(['Instinctive Leader'])
+    expect(res.selections.command_abilities).toEqual(['Instinctive Leader'])
     expect(res.selections.spells).toEqual([
       'Arcane Bolt',
       'Mystic Shield',
@@ -1381,7 +1381,7 @@ describe('getBattlescribeArmy', () => {
     ])
     expect(res.selections.scenery).toEqual(['Awakened Wyldwood', 'Penumbral Engine'])
     expect(res.selections.battalions).toEqual(['Lords of the Clan'])
-    expect(res.selections.commands).toEqual(['Call to Battle', 'Heed the Spirit-song'])
+    expect(res.selections.command_abilities).toEqual(['Call to Battle', 'Heed the Spirit-song'])
     expect(res.selections.endless_spells).toEqual(['Horrorghast', "Ravenak's Gnashing Jaws"])
     expect(res.errors).toEqual([])
     // The two below values come from the Battalion
@@ -1432,7 +1432,7 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.realmscape).toEqual(HYSH)
-    expect(res.selections.allegiances).toEqual([
+    expect(res.selections.flavors).toEqual([
       'Hammers of Sigmar (Stormhost)',
       'Astral Templars (Stormhost)',
       'Celestial Vindicators (Stormhost)',
@@ -1567,7 +1567,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
     expect(res.realmscape).toEqual('Chamon')
     expect(res.selections.scenery).toEqual(['Charnel Throne', 'Penumbral Engine'])
-    expect(res.selections.allegiances).toEqual(['Gristlegore (Grand Court)'])
+    expect(res.selections.flavors).toEqual(['Gristlegore (Grand Court)'])
     expect(res.selections.artifacts).toEqual([
       'The Grim Garland (Royal Treasury)',
       'The Dermal Robe (Royal Treasury)',
@@ -1711,7 +1711,7 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(FYRESLAYERS)
     expect(res.origin_realm).toEqual(null)
-    expect(res.selections.allegiances).toEqual(['Hermdar (Lodge)'])
+    expect(res.selections.flavors).toEqual(['Hermdar (Lodge)'])
     expect(res.selections.scenery).toEqual(['Magmic Battleforge'])
     expect(res.errors).toEqual([])
   })
@@ -1735,7 +1735,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
-    expect(res.selections.allegiances).toEqual([
+    expect(res.selections.flavors).toEqual([
       'Dhom Hain (Enclave)',
       'Nautilar (Enclave)',
       "Mor'phann (Enclave)",
@@ -1816,12 +1816,12 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.selections.allegiances).toEqual([
+    expect(res.selections.flavors).toEqual([
       'Barak-Nar, City of the First Sunrise (Skyport)',
       'Barak-Mhornar, City of Shadow (Skyport)',
     ])
     expect(res.selections.endless_spells).toEqual(['Lauchon the Soulseeker'])
-    expect(res.selections.traits).toEqual([
+    expect(res.selections.command_traits).toEqual([
       'ARTYCLE: Respect Your Commanders',
       'FOOTNOTE: Through Knowledge, Power',
       'AMENDMENT: Trust Aethermatics, Not Superstition',
@@ -1863,8 +1863,8 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.selections.allegiances).toEqual(['Barak-Urbaz, The Market City (Skyport)'])
-    expect(res.selections.commands).toEqual([
+    expect(res.selections.flavors).toEqual(['Barak-Urbaz, The Market City (Skyport)'])
+    expect(res.selections.command_abilities).toEqual([
       'Invoke the Code',
       'Master of the Skies',
       'On My Mark, Fire!',
@@ -1874,7 +1874,7 @@ describe('getBattlescribeArmy', () => {
       'By Grungni, I Have My Eye On You!',
     ])
     expect(res.selections.endless_spells).toEqual(['Geminids of Uhl-Gysh', 'Shards of Valagharr'])
-    expect(res.selections.traits).toEqual([
+    expect(res.selections.command_traits).toEqual([
       'AMENDMENT: Always Take What You Are Owed',
       'ARTYCLE: Seek New Prospects',
       "FOOTNOTE: Where There's War, There's Gold",
@@ -1944,10 +1944,14 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(SYLVANETH)
-    expect(res.selections.allegiances).toEqual(['Winterleaf (Glade)'])
+    expect(res.selections.flavors).toEqual(['Winterleaf (Glade)'])
     expect(res.selections.artifacts).toEqual(['Spiritsong Stave', 'Frozen Kernel'])
     expect(res.selections.battalions).toEqual(['Outcasts'])
-    expect(res.selections.commands).toEqual(['Branch Blizzard', 'Call to Battle', 'Heed the Spirit-song'])
+    expect(res.selections.command_abilities).toEqual([
+      'Branch Blizzard',
+      'Call to Battle',
+      'Heed the Spirit-song',
+    ])
     expect(res.selections.scenery).toEqual(['Awakened Wyldwood'])
     expect(res.selections.spells).toEqual([
       'Arcane Bolt',

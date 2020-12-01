@@ -1,4 +1,5 @@
-import { TSpells } from 'types/army'
+// Lore of the Storm, Lore of Invigoration & Prayers of the Stormhosts
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -8,8 +9,7 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-// Lore of the Storm, Lore of Invigoration & Prayers of the Stormhosts
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Lightning Blast`,
     effects: [

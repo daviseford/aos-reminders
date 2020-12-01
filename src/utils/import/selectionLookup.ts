@@ -1,37 +1,33 @@
 import { uniq } from 'lodash'
 import { IArmy } from 'types/army'
 import { TImportError } from 'types/import'
-import { ISelections } from 'types/selections'
+import { TSelections, TSelectionTypes } from 'types/selections'
 import { checkImportSelection } from 'utils/import/checkImportSelection'
 import { importUnitOptionMap, TNameMap } from 'utils/import/options'
 import { Validators } from 'utils/import/validators'
 import { mapListToDict } from 'utils/mapListToDict'
 
-type TLookupType =
-  | 'allegiances'
-  | 'artifacts'
-  | 'battalions'
-  | 'endless_spells'
-  | 'spells'
-  | 'traits'
-  | 'units'
+type TLookupType = Extract<
+  TSelectionTypes,
+  'artifacts' | 'battalions' | 'command_traits' | 'endless_spells' | 'flavors' | 'spells' | 'units'
+>
 
 export const importSelectionLookup = (
   Army: IArmy,
-  selections: ISelections,
+  selections: TSelections,
   errors: TImportError[],
   unknownSelections: string[],
   foundSelections: string[],
   checkPoorSpacing: boolean,
   typoMap: TNameMap
 ) => (type: TLookupType): string[] => {
-  const lookup = {
-    allegiances: 'Allegiances',
+  const lookup: Record<TLookupType, string> = {
     artifacts: 'Artifacts',
     battalions: 'Battalions',
+    command_traits: 'CommandTraits',
     endless_spells: 'EndlessSpells',
+    flavors: 'Flavors',
     spells: 'Spells',
-    traits: 'Traits',
     units: 'Units',
   }
 

@@ -1,8 +1,8 @@
-import { TEndlessSpells } from 'types/army'
+// Endless spells.
+import { TEntry } from 'types/data'
 import { HERO_PHASE } from 'types/phases'
 
-// Endless spells.
-const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEntry[] = [
   {
     name: `Shyish Reaper`,
     effects: [

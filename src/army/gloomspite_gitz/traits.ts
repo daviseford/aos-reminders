@@ -1,4 +1,4 @@
-import { TTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -19,7 +19,7 @@ export const StabEmGoodEffect = {
   command_ability: true,
 }
 
-const CommandTraits: TTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Cunning Plans`,
     effects: [

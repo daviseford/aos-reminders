@@ -1,4 +1,5 @@
-import { TBattalions, TUnits } from 'types/army'
+// Battalions
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -12,8 +13,7 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Glade Guard`,
     effects: [
@@ -282,8 +282,7 @@ export const Units: TUnits = [
   },
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Waystone Pathfinders`,
     effects: [

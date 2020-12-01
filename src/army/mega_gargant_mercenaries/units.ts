@@ -1,9 +1,9 @@
 import CommonSonsOfBehematData from 'army/sons_of_behemat/common'
-import { TUnits } from 'types/army'
+// Unit Names
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, END_OF_COMBAT_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Bundo Whalebiter - Kraken-Eater`,
     effects: [

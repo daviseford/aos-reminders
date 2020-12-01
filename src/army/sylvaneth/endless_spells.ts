@@ -1,8 +1,8 @@
-import { TEndlessSpells } from 'types/army'
+// Endless spells.
+import { TEntry } from 'types/data'
 import { BATTLESHOCK_PHASE, END_OF_HERO_PHASE, HERO_PHASE } from 'types/phases'
 
-// Endless spells.
-const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEntry[] = [
   {
     name: `Gladewyrm`,
     effects: [

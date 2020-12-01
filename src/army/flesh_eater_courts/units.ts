@@ -1,5 +1,6 @@
 import GenericEffects from 'army/generic/effects'
-import { TBattalions, TUnits } from 'types/army'
+// Battalions
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -30,8 +31,7 @@ const ChosenOfTheKingEffect = {
   when: [COMBAT_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Abhorrant Ghoul King`,
     effects: [
@@ -266,8 +266,7 @@ export const Units: TUnits = [
   },
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Abattoir`,
     effects: [

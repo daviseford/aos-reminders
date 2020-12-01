@@ -1,9 +1,9 @@
 import LegionsOfNagash from 'army/legions_of_nagash'
-import { TSpells } from 'types/army'
+// Importing Spells from LoN
+import { TEntry } from 'types/data'
 
 const getLegionsOfNagashSpells = () => LegionsOfNagash.Spells
 
-// Importing Spells from LoN
-const Spells: TSpells = [...getLegionsOfNagashSpells()]
+const Spells: TEntry[] = [...getLegionsOfNagashSpells()]
 
 export default Spells

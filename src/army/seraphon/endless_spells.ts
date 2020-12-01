@@ -14,7 +14,7 @@ import {
   SuffocatingGravetideEffects,
   UmbralSpellportalEffects,
 } from 'army/generic/endless_spells'
-import { TEndlessSpells } from 'types/army'
+import { TEntry } from 'types/data'
 import { HERO_PHASE, START_OF_ROUND } from 'types/phases'
 
 const BoundEffect = {
@@ -25,7 +25,7 @@ const BoundEffect = {
   when: [START_OF_ROUND],
 }
 
-const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEntry[] = [
   {
     name: `Bound Quicksilver Swords`,
     effects: [BoundEffect, ...QuicksilverSwordsEffects],

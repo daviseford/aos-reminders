@@ -1,8 +1,8 @@
 import StormcastEternals from 'army/stormcast_eternals'
-import { TSpells } from 'types/army'
+import { TEntry } from 'types/data'
 
 const getStormcastSpells = () => StormcastEternals.Spells
 
-const Spells: TSpells = [...getStormcastSpells()]
+const Spells: TEntry[] = [...getStormcastSpells()]
 
 export default Spells
