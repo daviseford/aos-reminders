@@ -1,4 +1,4 @@
-import { TTraits } from 'types/army'
+import { TCommandTraits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -12,7 +12,7 @@ import {
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TCommandTraits = [
   {
     name: `Best of the Best (Invaders)`,
     effects: [

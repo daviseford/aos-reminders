@@ -1,4 +1,4 @@
-import { TTraits } from 'types/army'
+import { TCommandTraits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -8,7 +8,7 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TCommandTraits = [
   {
     name: `Killa Instinkt`,
     effects: [

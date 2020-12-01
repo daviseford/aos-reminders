@@ -11,16 +11,16 @@ export const temporaryAdapter = <F extends TNewFaction, W extends Extract<keyof 
   const subFaction = newFaction.subFactions[whichSubFaction]
 
   const initialArmy: IInitialArmy = {
-    Abilities: subFaction.effects,
-    Allegiances: mergeData(subFaction.flavors),
-    AllegianceType: newFaction.flavorLabel,
+    BattleTraits: subFaction.effects,
+    Flavors: mergeData(subFaction.flavors),
+    FlavorType: newFaction.flavorLabel,
     Artifacts: mergeData(subFaction.artifacts),
     Battalions: mergeData(subFaction.battalions),
     EndlessSpells: mergeData(subFaction.endless_spells),
     Scenery: mergeData(subFaction.scenery),
     Spells: mergeData(subFaction.spells),
     // SubFactions: newFaction.subFactions,
-    Traits: mergeData(subFaction.command_traits),
+    CommandTraits: mergeData(subFaction.command_traits),
     Units: mergeData(subFaction.units),
   }
 

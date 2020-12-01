@@ -1,8 +1,8 @@
-import { TAbilities } from 'types/army'
+import { TBattleTraits } from 'types/army'
 import { HERO_PHASE, START_OF_HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TAbilities = [
+const Abilities: TBattleTraits = [
   {
     name: `Amplified Sorceries`,
     desc: `If a CITIES OF SIGMAR WIZARD casts an endless spell that is empowered by being cast in a specific realm, that spell is counted as empowered regardless of the realm in which the battle is taking place.`,

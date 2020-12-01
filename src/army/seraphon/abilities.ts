@@ -1,8 +1,8 @@
-import { TAbilities } from 'types/army'
+import { TBattleTraits } from 'types/army'
 import { END_OF_HERO_PHASE, START_OF_HERO_PHASE, START_OF_SETUP } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TAbilities = [
+const Abilities: TBattleTraits = [
   {
     name: `Warriors of the Stars and the Realms`,
     desc: `After you have chosen the Seraphon allegiance for your army, you must either give it the STARBORNE keyword or the COALESCED keyword. All SERAPHON units in your army gain that keyword, with the exception of models that already have one of the keywords on their warscroll.`,

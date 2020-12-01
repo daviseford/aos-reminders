@@ -1,4 +1,4 @@
-import { TAbilities } from 'types/army'
+import { TBattleTraits } from 'types/army'
 import {
   COMBAT_PHASE,
   END_OF_CHARGE_PHASE,
@@ -7,7 +7,7 @@ import {
 } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TAbilities = [
+const Abilities: TBattleTraits = [
   {
     name: `Feast of Depravities`,
     desc: `Each time a wound or mortal wound is inflicted on an enemy model by an attack or spell cast made by a friendly Slaanesh hero, and that enemy model is not slain by that wound, you receive 1 depravity point. In addition, every time a wound or mortal wound is allocated to a friendly Slaanesh Hero and not negated, and that friendly model is not slain by that wound or mortal would, you receive 1 depravity point.

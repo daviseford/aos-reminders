@@ -1,7 +1,7 @@
-import { TTraits } from 'types/army'
+import { TCommandTraits } from 'types/army'
 import { COMBAT_PHASE } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TCommandTraits = [
   {
     name: `Contemptuous`,
     effects: [

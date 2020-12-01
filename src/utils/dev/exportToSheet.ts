@@ -26,16 +26,16 @@ const generateHonestWargamerSheets = () => {
 const makeWorksheet = (workbook: XLSX.WorkBook, factionName: TSupportedFaction) => {
   const { Army } = getArmyFromList(factionName)
   const Collection = getCollection(Army)
-  const { Commands = [] } = Collection
+  const { CommandAbilities: Commands = [] } = Collection
 
   const {
-    Abilities = [],
-    Allegiances = [],
-    AllegianceType = 'Allegiances',
+    BattleTraits: Abilities = [],
+    Flavors: Allegiances = [],
+    FlavorType: AllegianceType = 'Allegiances',
     Artifacts = [],
     Battalions = [],
     Spells = [],
-    Traits = [],
+    CommandTraits: Traits = [],
   } = Army
 
   const abilities = [...Abilities].map(x => [x.name, x.desc])
@@ -95,7 +95,7 @@ const generateAoSShortsAllegianceData = () => {
 
 const makeAllegianceWorksheet = (factionName: TSupportedFaction) => {
   const { Army } = getArmyFromList(factionName)
-  const { Allegiances = [], AllegianceType = 'Allegiances' } = Army
+  const { Flavors: Allegiances = [], FlavorType: AllegianceType = 'Allegiances' } = Army
   const allegiances = [...Allegiances].map(x => [x.name])
 
   return [[titleCase(factionName)], [AllegianceType], ...allegiances]

@@ -1,4 +1,4 @@
-import { TAbilities } from 'types/army'
+import { TBattleTraits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -8,7 +8,7 @@ import {
 } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TAbilities = [
+const Abilities: TBattleTraits = [
   {
     name: `Aura of Dread`,
     desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly NIGHTHAUNT units.`,

@@ -1,4 +1,4 @@
-import { TAllegiances } from 'types/army'
+import { TFlavors } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   DURING_GAME,
@@ -9,7 +9,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+const Allegiances: TFlavors = [
   {
     name: `Jaws of Mork`,
     effects: [

@@ -3,6 +3,7 @@ import { uniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { AZYR, IImportedArmy } from 'types/import'
 import { TBattleRealms } from 'types/realmscapes'
+import { TSelectionTypes } from 'types/selections'
 import { importErrorChecker } from 'utils/import'
 import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 import { factionToAllegianceMap, importFactionNameMap } from 'utils/import/options'
@@ -14,15 +15,15 @@ export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   return errorChecked
 }
 
-const selectorLookup = {
-  ALLEGIANCE: 'allegiances',
+const selectorLookup: Record<string, TSelectionTypes> = {
+  'COMMAND TRAIT': 'command_traits',
+  'ENDLESS SPELL': 'endless_spells',
+  'MOUNT TRAIT': 'command_traits',
+  ALLEGIANCE: 'flavors',
   ARTEFACT: 'artifacts',
   BATTALION: 'battalions',
-  'ENDLESS SPELL': 'endless_spells',
   SCENERY: 'scenery',
   SPELL: 'spells',
-  'COMMAND TRAIT': 'traits',
-  'MOUNT TRAIT': 'traits',
   UNIT: 'units',
 }
 
@@ -51,7 +52,7 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
           factionName = faction
         }
         if (allegiance) {
-          accum.allegiances = accum.allegiances.concat(allegiance)
+          accum.flavors = accum.flavors.concat(allegiance)
         }
         return accum
       }
@@ -82,7 +83,7 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
       // Special KO case for footnotes
       if (name.startsWith('Kharadron Code:')) {
         const footnotes = handleKOTraits(name)
-        accum.traits = accum.traits.concat(footnotes)
+        accum.command_traits = accum.command_traits.concat(footnotes)
         return accum
       }
 
@@ -102,14 +103,14 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
       return accum
     },
     {
-      allegiances: [] as string[],
       artifacts: [] as string[],
       battalions: [] as string[],
-      commands: [] as string[],
+      command_abilities: [] as string[],
+      command_traits: [] as string[],
       endless_spells: [] as string[],
+      flavors: [] as string[],
       scenery: [] as string[],
       spells: [] as string[],
-      traits: [] as string[],
       triumphs: [] as string[],
       units: [] as string[],
     }

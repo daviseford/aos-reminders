@@ -1,4 +1,4 @@
-import { TAllegiances } from 'types/army'
+import { TFlavors } from 'types/army'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -10,7 +10,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+const Allegiances: TFlavors = [
   {
     name: `Ymetrica`,
     effects: [

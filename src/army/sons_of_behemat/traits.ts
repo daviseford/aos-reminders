@@ -1,4 +1,4 @@
-import { TTraits } from 'types/army'
+import { TCommandTraits } from 'types/army'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -27,7 +27,7 @@ const getLouderThanWordsEffect = (numAttacks: number, weaponName: string, tag: s
   ],
 })
 
-const CommandTraits: TTraits = [
+const CommandTraits: TCommandTraits = [
   // Shared Traits
   {
     name: `Monstrously Tough`,

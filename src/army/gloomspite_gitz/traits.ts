@@ -1,4 +1,4 @@
-import { TTraits } from 'types/army'
+import { TCommandTraits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -19,7 +19,7 @@ export const StabEmGoodEffect = {
   command_ability: true,
 }
 
-const CommandTraits: TTraits = [
+const CommandTraits: TCommandTraits = [
   {
     name: `Cunning Plans`,
     effects: [

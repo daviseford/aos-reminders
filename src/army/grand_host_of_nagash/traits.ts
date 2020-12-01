@@ -1,7 +1,7 @@
-import { TTraits } from 'types/army'
+import { TCommandTraits } from 'types/army'
 import { CHARGE_PHASE, COMBAT_PHASE, START_OF_COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TCommandTraits = [
   {
     name: `Master of Death`,
     effects: [

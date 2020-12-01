@@ -1,8 +1,8 @@
-import { TAbilities } from 'types/army'
+import { TBattleTraits } from 'types/army'
 import { HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TAbilities = [
+const Abilities: TBattleTraits = [
   {
     name: `Locus of Shyish`,
     desc: `When you cast any spell from any lore and the unmodified casting roll is 9+, then resolve the spell effect twice.`,

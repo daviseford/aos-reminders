@@ -1,7 +1,7 @@
-import { TTraits } from 'types/army'
+import { TCommandTraits } from 'types/army'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_SETUP, MOVEMENT_PHASE } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TCommandTraits = [
   {
     name: `Above Suspicion`,
     effects: [

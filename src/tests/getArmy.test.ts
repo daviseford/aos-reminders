@@ -34,8 +34,8 @@ describe('getArmy', () => {
     const numEntries = sylvaneth.Allegiances.length
     const army1 = getArmy(SYLVANETH) as IArmy
 
-    expect(army1.Allegiances).toBeDefined()
-    expect(army1.Allegiances.length).toEqual(numEntries)
+    expect(army1.Flavors).toBeDefined()
+    expect(army1.Flavors.length).toEqual(numEntries)
   })
 
   it('adds Scenery to an army', () => {

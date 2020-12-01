@@ -1,4 +1,4 @@
-import { TTraits } from 'types/army'
+import { TCommandTraits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -23,7 +23,7 @@ const getVerminousValour = (clan: string) => ({
   ],
 })
 
-const CommandTraits: TTraits = [
+const CommandTraits: TCommandTraits = [
   {
     name: `Malevolent (Masterclan)`,
     effects: [

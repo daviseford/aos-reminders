@@ -1,7 +1,7 @@
-import { TTraits } from 'types/army'
+import { TCommandTraits } from 'types/army'
 import { DURING_GAME, DURING_TURN, HERO_PHASE } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TCommandTraits = [
   {
     name: `Spellmaster`,
     effects: [

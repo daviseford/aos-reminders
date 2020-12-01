@@ -1,6 +1,6 @@
 import { uniq } from 'lodash'
 import { IArmy } from 'types/army'
-import { ISelections } from 'types/selections'
+import { TSelections } from 'types/selections'
 import { getSideEffects } from 'utils/getSideEffects'
 import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
 
@@ -9,11 +9,11 @@ import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
  * @param selections
  * @param Army
  */
-export const addSideEffectsToImport = (selections: ISelections, Army: IArmy): ISelections => {
+export const addSideEffectsToImport = (selections: TSelections, Army: IArmy): TSelections => {
   const sideEffects = {
-    allegiances: getSideEffects(Army.Allegiances),
+    allegiances: getSideEffects(Army.Flavors),
     battalions: getSideEffects(Army.Battalions),
-    traits: getSideEffects(Army.Traits),
+    traits: getSideEffects(Army.CommandTraits),
     units: getSideEffects(Army.Units),
   }
 

@@ -21,7 +21,7 @@ export const checkErrorsForAllegianceAbilities = (
 
   allegiances.forEach(a => {
     if (foundError) return
-    const entry = Army.Allegiances.find(al => al.name === a)
+    const entry = Army.Flavors.find(al => al.name === a)
     if (!entry) return
 
     entry.effects.forEach(e => {

@@ -1,8 +1,8 @@
 import StormcastEternals from 'army/stormcast_eternals'
-import { TTraits } from 'types/army'
+import { TCommandTraits } from 'types/army'
 
 const getStormcastTraits = () => StormcastEternals.Traits
 
-const CommandTraits: TTraits = [...getStormcastTraits()]
+const CommandTraits: TCommandTraits = [...getStormcastTraits()]
 
 export default CommandTraits

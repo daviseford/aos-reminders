@@ -1,4 +1,4 @@
-import { TCommands } from 'types/army'
+import { TCommandAbilities } from 'types/army'
 import {
   END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -9,7 +9,7 @@ import {
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
 // Realm specific command abilities.
-const Commands: TCommands = [
+const Commands: TCommandAbilities = [
   {
     name: `Blazing Fervour (${AQSHY})`,
     effects: [

@@ -1,4 +1,4 @@
-import { TAllegiances } from 'types/army'
+import { TFlavors } from 'types/army'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -25,7 +25,7 @@ const NurglesEmbraceEffect = {
 
 // This is where we store sub-allegiances such as
 // Grand Courts, Hosts, Clans, Glades, Lodges, etc
-const Allegiances: TAllegiances = [
+const Allegiances: TFlavors = [
   {
     name: `Munificent Wanderers`,
     effects: [

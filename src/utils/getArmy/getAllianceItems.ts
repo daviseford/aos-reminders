@@ -9,17 +9,8 @@ import {
   ORDER_GRAND_ALLIANCE,
   TSupportedFaction,
 } from 'meta/factions'
+import { IArmy } from 'types/army'
 import { TEntry } from 'types/data'
-
-type TType =
-  | 'Artifacts'
-  | 'Battalions'
-  | 'Commands'
-  | 'EndlessSpells'
-  | 'Scenery'
-  | 'Spells'
-  | 'Traits'
-  | 'Units'
 
 /**
  * Gets all items associated with this grand alliance
@@ -28,7 +19,7 @@ type TType =
  */
 export const getAllianceItems = (
   grandAlliance: TGrandAlliances,
-  type: TType,
+  type: keyof IArmy,
   originalEntries: TEntry[] = []
 ): TEntry[] => {
   const factionName = {

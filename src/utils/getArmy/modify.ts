@@ -12,22 +12,21 @@ import { sortBy, sortedUniqBy, uniqBy } from 'lodash'
 import { TGrandAlliances } from 'meta/alliances'
 import {
   ICollection,
-  TAllegiances,
   TArtifacts,
   TBattalions,
-  TCommands,
+  TCommandAbilities,
+  TCommandTraits,
   TEndlessSpells,
+  TFlavors,
   TScenery,
   TSpells,
-  TTraits,
   TTriumphs,
   TUnits,
 } from 'types/army'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { GrandAllianceConfig } from 'utils/getArmy/grandAllianceConfig'
 
-const modifyAllegiances = (allegiances: TAllegiances): TAllegiances =>
-  sortedUniqBy(sortBy(allegiances, 'name'), 'name')
+const modifyFlavors = (allegiances: TFlavors): TFlavors => sortedUniqBy(sortBy(allegiances, 'name'), 'name')
 const modifyBattalions = (battalions: TBattalions): TBattalions =>
   sortedUniqBy(sortBy(battalions, 'name'), 'name')
 
@@ -62,21 +61,28 @@ const modifyArtifacts = (
   )
 }
 
-const modifyTraits = (traits: TTraits, alliance: TGrandAlliances, Collection: ICollection): TTraits => {
-  const { Traits } = GrandAllianceConfig[alliance]
+const modifyCommandTraits = (
+  traits: TCommandTraits,
+  alliance: TGrandAlliances,
+  Collection: ICollection
+): TCommandTraits => {
+  const { CommandTraits } = GrandAllianceConfig[alliance]
   return uniqBy(
     sortBy(traits, 'name')
-      .concat(sortBy(Collection.Traits, 'name'))
-      .concat(sortBy(Traits, 'name'))
+      .concat(sortBy(Collection.CommandTraits, 'name'))
+      .concat(sortBy(CommandTraits, 'name'))
       .map(t => ({ ...t, command_trait: true })),
     'name'
   )
 }
 
-const modifyCommands = (realmscape: TBattleRealms | null, Collection: ICollection): TCommands => {
+const modifyCommandAbilities = (
+  realmscape: TBattleRealms | null,
+  Collection: ICollection
+): TCommandAbilities => {
   const realmCommands = realmscape ? RealmscapeCommands.filter(c => c.name.includes(realmscape)) : []
   return uniqBy(
-    Collection.Commands.concat(sortBy(GenericCommands, 'name'))
+    Collection.CommandAbilities.concat(sortBy(GenericCommands, 'name'))
       .concat(sortBy(realmCommands, 'name'))
       .map(c => ({ ...c, command_ability: true })),
     'name'
@@ -119,14 +125,14 @@ const modifyEndlessSpells = (endlessSpells: TEndlessSpells): TEndlessSpells => {
 }
 
 export const modify = {
-  Allegiances: modifyAllegiances,
   Artifacts: modifyArtifacts,
   Battalions: modifyBattalions,
-  Commands: modifyCommands,
+  CommandAbilities: modifyCommandAbilities,
+  CommandTraits: modifyCommandTraits,
   EndlessSpells: modifyEndlessSpells,
+  Flavors: modifyFlavors,
   Scenery: modifyScenery,
   Spells: modifySpells,
-  Traits: modifyTraits,
   Triumphs: getTriumphs,
   Units: modifyUnits,
 }

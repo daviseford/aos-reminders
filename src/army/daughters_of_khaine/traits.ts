@@ -1,7 +1,7 @@
-import { TTraits } from 'types/army'
+import { TCommandTraits } from 'types/army'
 import { COMBAT_PHASE, DURING_GAME, SHOOTING_PHASE, START_OF_HERO_PHASE, START_OF_ROUND } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TCommandTraits = [
   {
     name: `Bathed in Blood`,
     effects: [

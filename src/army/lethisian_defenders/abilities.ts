@@ -1,4 +1,4 @@
-import { TAbilities } from 'types/army'
+import { TBattleTraits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -8,7 +8,7 @@ import {
 } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TAbilities = [
+const Abilities: TBattleTraits = [
   {
     name: `Warriors of the Grand Necropolis`,
     desc: `You can reroll battleshock tests for friendly Lethisian Defender units.`,

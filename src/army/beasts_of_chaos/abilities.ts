@@ -1,4 +1,4 @@
-import { TAbilities } from 'types/army'
+import { TBattleTraits } from 'types/army'
 import {
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -8,7 +8,7 @@ import {
   TURN_ONE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
-const Abilities: TAbilities = [
+const Abilities: TBattleTraits = [
   {
     name: `Brayherd Ambush`,
     desc: `Instead of setting up a BRAYHERD unit on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit. You can set up one reserve unit in ambush for each BEASTS OF CHAOS unit you have set up on the battlefield.`,

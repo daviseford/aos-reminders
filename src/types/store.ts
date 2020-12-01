@@ -2,7 +2,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
 import { INote } from 'types/notes'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
-import { IAllySelections, ISelections } from 'types/selections'
+import { IAllySelections, TSelections } from 'types/selections'
 import { TSideEffectTypes } from 'utils/withSelect'
 
 export interface IArmyStore {
@@ -27,7 +27,7 @@ export interface IRealmscapeStore {
 export type TAllySelectionStore = { [key in TSupportedFaction]?: IAllySelections }
 
 export interface ISelectionStore {
-  selections: ISelections
+  selections: TSelections
   allySelections: TAllySelectionStore
   sideEffects: Record<
     string, // Hermdar Lodge

@@ -1,4 +1,4 @@
-import { TAbilities } from 'types/army'
+import { TBattleTraits } from 'types/army'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -11,7 +11,7 @@ import {
 } from 'types/phases'
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TAbilities = [
+const Abilities: TBattleTraits = [
   {
     name: `Masters of Destiny`,
     desc: `After set-up, but before rolling to see which player takes the first turn in the first battle round, roll 9 dice and keep them to one side; this is your pool of Destiny Dice. Though it is possible for some or even all of these dice to be replenished during the course of the battle, the number of dice in your pool of Destiny Dice can never exceed 9.`,

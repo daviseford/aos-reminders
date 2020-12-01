@@ -2,7 +2,7 @@ import { difference } from 'lodash'
 import { IArmy } from 'types/army'
 import { TEntry } from 'types/data'
 import { TImportParsers } from 'types/import'
-import { ISelections } from 'types/selections'
+import { TSelections } from 'types/selections'
 import { logIgnoredImport } from 'utils/analytics'
 
 /**
@@ -12,10 +12,10 @@ import { logIgnoredImport } from 'utils/analytics'
  * @param parser
  */
 export const removeSideEffectsFromImport = (
-  selections: ISelections,
+  selections: TSelections,
   Army: IArmy,
   parser: TImportParsers
-): ISelections => {
+): TSelections => {
   const lookup = {
     allegiances: 'Allegiances',
     artifacts: 'Artifacts',

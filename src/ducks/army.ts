@@ -7,17 +7,17 @@ import { getArmy } from 'utils/getArmy/getArmy'
 
 const initialState: IArmyStore = {
   army: {
-    Abilities: [],
-    Allegiances: [],
-    AllegianceType: '',
+    BattleTraits: [],
+    Flavors: [],
+    FlavorType: '',
     Artifacts: [],
     Battalions: [],
-    Commands: [],
+    CommandAbilities: [],
     EndlessSpells: [],
     Game: Game,
     Scenery: [],
     Spells: [],
-    Traits: [],
+    CommandTraits: [],
     Triumphs: [],
     Units: [],
   },

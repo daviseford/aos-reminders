@@ -1,12 +1,12 @@
 import LegionsOfNagash from 'army/legions_of_nagash'
-import { TAbilities } from 'types/army'
+import { TBattleTraits } from 'types/army'
 import { DURING_SETUP, END_OF_MOVEMENT_PHASE, SAVES_PHASE } from 'types/phases'
 
 // Importing from LoN
 const getLegionsOfNagashAbilities = () => LegionsOfNagash.Abilities
 
 // General Allegiance Abilities (always active regardless of army composition)
-const Abilities: TAbilities = [
+const Abilities: TBattleTraits = [
   ...getLegionsOfNagashAbilities(),
   {
     name: `The Bait`,

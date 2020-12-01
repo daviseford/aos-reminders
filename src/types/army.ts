@@ -2,61 +2,48 @@ import { TSupportedFaction } from 'meta/factions'
 import { TGameStructure } from 'meta/game_structure'
 import { TEffects, TEntry } from 'types/data'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
-import { ISelections } from 'types/selections'
+import { TSelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 
-export type TAllyArmies = { [key: string]: IArmy }
+export type TAllyArmies = Record<string, IArmy>
 
-export type TAbilities = TEffects[]
-export type TAllegiances = TEntry[]
+// TODO: Get rid of these
 export type TArtifacts = TEntry[]
 export type TBattalions = TEntry[]
-export type TCommands = TEntry[]
-export type TTraits = TEntry[]
+export type TBattleTraits = TEffects[]
+export type TCommandAbilities = TEntry[]
+export type TCommandTraits = TEntry[]
 export type TEndlessSpells = TEntry[]
+export type TFlavors = TEntry[]
 export type TScenery = TEntry[]
 export type TSpells = TEntry[]
 export type TTriumphs = TEntry[]
 export type TUnits = TEntry[]
 
-export interface IInitialArmy {
-  Abilities?: TAbilities
-  Allegiances?: TAllegiances
-  AllegianceType?: string
-  AlliedUnits?: TUnits
-  Artifacts?: TArtifacts
-  Battalions?: TBattalions
-  EndlessSpells?: TEndlessSpells
-  Scenery?: TScenery
-  Spells?: TSpells
-  SubFactions?: TEntry[]
-  Traits?: TTraits
-  Units?: TUnits
-  Game?: TGameStructure
-}
-
 export interface IArmy {
-  Abilities: TAbilities
-  Allegiances: TAllegiances
-  AllegianceType?: string
   Artifacts: TArtifacts
   Battalions: TBattalions
-  Commands: TCommands
+  BattleTraits: TBattleTraits
+  CommandAbilities: TCommandAbilities
+  CommandTraits: TCommandTraits
   EndlessSpells: TEndlessSpells
+  Flavors: TFlavors
+  FlavorType?: string
+  Game: TGameStructure
   Scenery: TScenery
   Spells: TSpells
-  Traits: TTraits
   Triumphs: TTriumphs
   Units: TUnits
-  Game: TGameStructure
 }
+
+export type IInitialArmy = Partial<IArmy> & { AlliedUnits?: TUnits }
 
 export interface ICollection {
   Artifacts: TArtifacts
   Battalions: TBattalions
-  Commands: TCommands
+  CommandAbilities: TCommandAbilities
+  CommandTraits: TCommandTraits
   Spells: TSpells
-  Traits: TTraits
 }
 
 export interface ICurrentArmy {
@@ -66,5 +53,5 @@ export interface ICurrentArmy {
   origin_realm: TOriginRealms | null
   realmscape_feature: string | null
   realmscape: TBattleRealms | null
-  selections: ISelections
+  selections: TSelections
 }

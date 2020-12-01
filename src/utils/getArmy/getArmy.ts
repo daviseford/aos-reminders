@@ -42,14 +42,14 @@ interface IModifyArmyMeta {
 
 const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   let {
-    Allegiances = [],
     AlliedUnits = [],
     Artifacts = [],
     Battalions = [],
+    CommandTraits = [],
     EndlessSpells = [],
+    Flavors = [],
     Scenery = [],
     Spells = [],
-    Traits = [],
     Units = [],
   } = Army as IInitialArmy
   const { realmscape, GrandAlliance, Collection, factionName, originRealm } = meta
@@ -61,29 +61,29 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
     Battalions = getAllianceItems(GrandAlliance, 'Battalions', Battalions)
     EndlessSpells = GrandAllianceEndlessSpells
     Spells = getAllianceItems(GrandAlliance, 'Spells', Spells)
-    Traits = getAllianceItems(GrandAlliance, 'Traits', Traits)
+    CommandTraits = getAllianceItems(GrandAlliance, 'CommandTraits', CommandTraits)
     Units = getAllianceItems(GrandAlliance, 'Units', Units)
   }
 
-  Army.Allegiances = modify.Allegiances(Allegiances)
+  Army.Flavors = modify.Flavors(Flavors)
   Army.Artifacts = modify.Artifacts(Artifacts, originRealm, GrandAlliance, Collection)
   Army.Battalions = modify.Battalions(Battalions)
-  Army.Commands = modify.Commands(realmscape, Collection)
+  Army.CommandAbilities = modify.CommandAbilities(realmscape, Collection)
   Army.EndlessSpells = modify.EndlessSpells(GrandAllianceEndlessSpells)
   Army.Scenery = modify.Scenery(Scenery)
   Army.Spells = modify.Spells(Spells, realmscape, Collection)
-  Army.Traits = modify.Traits(Traits, GrandAlliance, Collection)
+  Army.CommandTraits = modify.CommandTraits(CommandTraits, GrandAlliance, Collection)
   Army.Triumphs = modify.Triumphs()
   Army.Units = modify.Units(Units, AlliedUnits, GrandAlliance)
   Army.Game = processGame([
-    Army.Allegiances,
+    Army.Flavors,
     Army.Artifacts,
     Army.Battalions,
-    Army.Commands,
+    Army.CommandAbilities,
     Army.EndlessSpells,
     Army.Scenery,
     Army.Spells,
-    Army.Traits,
+    Army.CommandTraits,
     Army.Triumphs,
     Army.Units,
   ])

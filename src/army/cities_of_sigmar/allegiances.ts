@@ -1,4 +1,4 @@
-import { TAllegiances } from 'types/army'
+import { TFlavors } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -21,7 +21,7 @@ import {
   TURN_ONE_START_OF_HERO_PHASE,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+const Allegiances: TFlavors = [
   {
     name: `Hammerhal`,
     effects: [

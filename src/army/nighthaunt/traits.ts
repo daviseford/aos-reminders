@@ -1,7 +1,7 @@
-import { TTraits } from 'types/army'
+import { TCommandTraits } from 'types/army'
 import { COMBAT_PHASE, SHOOTING_PHASE, START_OF_HERO_PHASE, START_OF_MOVEMENT_PHASE } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TCommandTraits = [
   {
     name: `Hatred of the Living`,
     effects: [

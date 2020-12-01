@@ -1,4 +1,4 @@
-import { TAllegiances } from 'types/army'
+import { TFlavors } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -12,7 +12,7 @@ import {
 } from 'types/phases'
 
 // This is where we store sub-allegiances such as
-const Allegiances: TAllegiances = [
+const Allegiances: TFlavors = [
   {
     name: `Ironsunz`,
     effects: [

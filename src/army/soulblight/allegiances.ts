@@ -1,7 +1,7 @@
-import { TAllegiances } from 'types/army'
+import { TFlavors } from 'types/army'
 import { COMBAT_PHASE, DURING_GAME, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+const Allegiances: TFlavors = [
   {
     name: `The Bloodlines: Dragon Warriors`,
     effects: [

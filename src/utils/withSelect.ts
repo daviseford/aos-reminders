@@ -1,7 +1,9 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { TDropdownOption } from 'components/input/select'
+import { SeraphonFaction } from 'factions/seraphon'
 import { ValueType } from 'react-select/src/types'
 import { store } from 'store'
+import { TEntryProperties } from 'types/data'
 import { logIndividualSelection } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 
@@ -38,7 +40,10 @@ export const withSelectMultipleWithPayload: TWithSelectMultipleWithPayload = (
   dispatch(method({ ...payload, [key]: values }))
 }
 
-export type TSideEffectTypes = 'spells' | 'artifacts' | 'traits' | 'commands'
+export type TSideEffectTypes = Extract<
+  TEntryProperties,
+  'spell' | 'artifact' | 'command_trait' | 'command_ability'
+>
 
 export interface IWithSelectMultipleWithSideEffectsPayload {
   [key: string]: {
@@ -55,11 +60,12 @@ type TWithSelectMultiWithSideEffects = (
     {
       value: string
       values: string[]
-      slice: string
+      slice: TEntryProperties
     },
     string
   >,
-  label: string
+  label: string,
+  army: any
 ) => (selectValues: ValueType<TDropdownOption>[]) => void
 
 /**
@@ -74,10 +80,15 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
   method,
   payload,
   updateFn,
-  label
+  label,
+  army
 ) => selectValues => {
   const { dispatch } = store
   const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
+
+  console.log(army)
+  console.log(SeraphonFaction)
+  debugger
 
   Object.keys(payload).forEach(value => {
     if (values.includes(value)) {
@@ -85,7 +96,8 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
         const sideEffectVals = payload[value][slice].values
 
         if (sideEffectVals) {
-          dispatch(updateFn({ value, values: sideEffectVals, slice }))
+          debugger
+          dispatch(updateFn({ value, values: sideEffectVals, slice: slice as TEntryProperties }))
           const trait = titleCase(slice)
 
           // Log each value to GA

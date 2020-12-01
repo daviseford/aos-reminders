@@ -1,4 +1,4 @@
-import { TAllegiances } from 'types/army'
+import { TFlavors } from 'types/army'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -14,7 +14,7 @@ import {
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+const Allegiances: TFlavors = [
   {
     name: `Meatfist (Mawtribe)`,
     effects: [

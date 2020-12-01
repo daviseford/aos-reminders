@@ -1,5 +1,5 @@
 import { ORDER } from 'meta/alliances'
-import { TTraits } from 'types/army'
+import { TCommandTraits } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -8,7 +8,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TCommandTraits = [
   {
     name: `Strategic Genius (${ORDER})`,
     effects: [

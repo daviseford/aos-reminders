@@ -1,4 +1,4 @@
-import { TAllegiances } from 'types/army'
+import { TFlavors } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -31,7 +31,7 @@ import {
   WhoStrikesFirstStrikesHardestEffect,
 } from './traits'
 
-const Allegiances: TAllegiances = [
+const Allegiances: TFlavors = [
   {
     name: `Barak-Zilfin, The Windswept City (Skyport)`,
     effects: [

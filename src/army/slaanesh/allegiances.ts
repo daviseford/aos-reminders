@@ -1,4 +1,4 @@
-import { TAllegiances } from 'types/army'
+import { TFlavors } from 'types/army'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -75,7 +75,7 @@ const GodseekersEffects = [
   },
 ]
 
-const Allegiances: TAllegiances = [
+const Allegiances: TFlavors = [
   {
     name: `Invaders Host`,
     effects: InvadersEffects,

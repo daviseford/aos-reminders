@@ -1,7 +1,7 @@
 import { uniq } from 'lodash'
 import { IArmy } from 'types/army'
 import { TImportError } from 'types/import'
-import { ISelections } from 'types/selections'
+import { TSelections } from 'types/selections'
 import { checkImportSelection } from 'utils/import/checkImportSelection'
 import { importUnitOptionMap, TNameMap } from 'utils/import/options'
 import { Validators } from 'utils/import/validators'
@@ -18,7 +18,7 @@ type TLookupType =
 
 export const importSelectionLookup = (
   Army: IArmy,
-  selections: ISelections,
+  selections: TSelections,
   errors: TImportError[],
   unknownSelections: string[],
   foundSelections: string[],
