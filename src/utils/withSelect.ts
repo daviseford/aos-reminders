@@ -1,6 +1,5 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { TDropdownOption } from 'components/input/select'
-import { SeraphonFaction } from 'factions/seraphon'
 import { ValueType } from 'react-select/src/types'
 import { store } from 'store'
 import { TEntryProperties } from 'types/data'
@@ -86,17 +85,12 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
   const { dispatch } = store
   const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
 
-  console.log(army)
-  console.log(SeraphonFaction)
-  debugger
-
   Object.keys(payload).forEach(value => {
     if (values.includes(value)) {
       Object.keys(payload[value]).forEach(slice => {
         const sideEffectVals = payload[value][slice].values
 
         if (sideEffectVals) {
-          debugger
           dispatch(updateFn({ value, values: sideEffectVals, slice: slice as TEntryProperties }))
           const trait = titleCase(slice)
 

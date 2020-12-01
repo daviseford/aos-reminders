@@ -8,14 +8,14 @@ const PrintArmy = () => {
     selectors.selectCurrentArmy
   )
   const {
-    flavors,
     artifacts,
     battalions,
     command_abilities,
+    command_traits,
     endless_spells,
+    flavors,
     scenery,
     spells,
-    command_traits,
     triumphs,
     units,
   } = selections
