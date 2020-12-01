@@ -1,8 +1,8 @@
 import { DESTRUCTION } from 'meta/alliances'
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
-const DestructionArtifacts: TArtifacts = [
+const DestructionArtifacts: TEntry[] = [
   {
     name: `Hammerblade (${DESTRUCTION})`,
     effects: [

@@ -6,7 +6,6 @@ import { TSelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 
 // TODO: Get rid of these?
-export type TArtifacts = TEntry[]
 export type TBattalions = TEntry[]
 export type TBattleTraits = TEffects[]
 export type TCommandTraits = TEntry[]
