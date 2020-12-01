@@ -11,8 +11,4 @@ export type TSelectionTypes =
   | 'units'
 
 export type TSelections = Record<TSelectionTypes, string[]>
-
-export interface IAllySelections {
-  units: string[]
-  battalions: string[]
-}
+export type IAllySelections = Pick<TSelections, 'units' | 'battalions'>

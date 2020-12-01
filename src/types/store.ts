@@ -2,8 +2,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
 import { INote } from 'types/notes'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
-import { IAllySelections, TSelections } from 'types/selections'
-import { TSideEffectTypes } from 'utils/withSelect'
+import { IAllySelections, TSelections, TSelectionTypes } from 'types/selections'
 
 export interface IArmyStore {
   army: IArmy
@@ -31,7 +30,7 @@ export interface ISelectionStore {
   allySelections: TAllySelectionStore
   sideEffects: Record<
     string, // Hermdar Lodge
-    Record<TSideEffectTypes, string[]> // artifacts // ['Tyrant Slayer']
+    Record<TSelectionTypes, string[]> // artifacts // ['Tyrant Slayer']
   >
 }
 
