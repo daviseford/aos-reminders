@@ -1,7 +1,7 @@
-import { TTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_SETUP, MOVEMENT_PHASE } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Above Suspicion`,
     effects: [

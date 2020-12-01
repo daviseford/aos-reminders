@@ -1,7 +1,7 @@
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import { END_OF_COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-const Artifacts: TArtifacts = [
+const Artifacts: TEntry[] = [
   {
     name: `Grave-Sand Gem`,
     effects: [

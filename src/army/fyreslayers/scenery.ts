@@ -1,7 +1,7 @@
-import { TScenery } from 'types/army'
+import { TEntry } from 'types/data'
 import { END_OF_SETUP, START_OF_HERO_PHASE } from 'types/phases'
 
-const Scenery: TScenery = [
+const Scenery: TEntry[] = [
   {
     name: `Magmic Battleforge`,
     effects: [

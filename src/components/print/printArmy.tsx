@@ -8,14 +8,14 @@ const PrintArmy = () => {
     selectors.selectCurrentArmy
   )
   const {
-    allegiances,
     artifacts,
     battalions,
-    commands,
+    command_abilities,
+    command_traits,
     endless_spells,
+    flavors,
     scenery,
     spells,
-    traits,
     triumphs,
     units,
   } = selections
@@ -47,9 +47,9 @@ const PrintArmy = () => {
           />
         ))}
 
-        <ItemsDisplayComponent name={'Command Trait'} items={traits} />
-        <ItemsDisplayComponent name={'Command'} items={commands} />
-        <ItemsDisplayComponent name={'Allegiance'} items={allegiances} />
+        <ItemsDisplayComponent name={'Command Trait'} items={command_traits} />
+        <ItemsDisplayComponent name={'Command'} items={command_abilities} />
+        <ItemsDisplayComponent name={'Flavor'} items={flavors} />
         <ItemsDisplayComponent name={'Spell'} items={spells} />
         <ItemsDisplayComponent name={'Endless Spell'} items={endless_spells} />
         <ItemsDisplayComponent name={'Scenery'} items={scenery} pluralize={false} />
@@ -88,7 +88,7 @@ const getWrappedItemText = (title: string, items: string[]) => {
 }
 
 const ItemsDisplayComponent = (props: { name: string; items: string[]; pluralize?: boolean }) => {
-  const { items, name, pluralize = true } = props
+  const { items = [], name, pluralize = true } = props
   const title = !pluralize ? name : items.length > 1 ? `${name}s` : name
   const itemsText = useMemo(() => getWrappedItemText(title, items), [title, items])
   if (!items.length) return null

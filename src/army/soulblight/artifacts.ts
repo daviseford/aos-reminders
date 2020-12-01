@@ -1,4 +1,4 @@
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   DURING_GAME,
@@ -8,7 +8,7 @@ import {
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
 
-const Artifacts: TArtifacts = [
+const Artifacts: TEntry[] = [
   {
     name: `The Stalking Blade`,
     effects: [

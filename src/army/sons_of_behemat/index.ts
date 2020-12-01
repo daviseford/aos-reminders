@@ -1,11 +1,10 @@
-import Abilities from './abilities'
 import Allegiances from './allegiances'
 import Artifacts from './artifacts'
+import BattleTraits from './battle_traits'
 import Traits from './traits'
 import { Units } from './units'
-
 const SonsOfBehematArmy = {
-  Abilities,
+  BattleTraits,
   Allegiances,
   AllegianceType: 'Tribes',
   Artifacts,

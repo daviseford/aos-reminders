@@ -1,4 +1,5 @@
-import { TSpells } from 'types/army'
+// Realm Spells
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -24,8 +25,7 @@ import {
   VARANTHAX,
 } from 'types/realmscapes'
 
-// Realm Spells
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Fireball (${AQSHY})`,
     effects: [

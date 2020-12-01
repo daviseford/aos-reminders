@@ -1,4 +1,4 @@
-import { TTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -11,7 +11,7 @@ import {
   TURN_ONE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Crusading Army (Delusion)`,
     effects: [

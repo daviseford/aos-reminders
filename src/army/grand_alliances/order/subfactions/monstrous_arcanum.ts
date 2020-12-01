@@ -1,7 +1,6 @@
-import { TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import { DURING_GAME, SHOOTING_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
-
-export const MonstrousArcanumOrder: TUnits = [
+export const MonstrousArcanumOrder: TEntry[] = [
   {
     name: `Carmine Dragon`,
     effects: [

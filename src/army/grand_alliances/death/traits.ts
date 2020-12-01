@@ -1,8 +1,8 @@
 import { DEATH } from 'meta/alliances'
-import { TTraits } from 'types/army'
+import { TEntry } from 'types/data'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_GAME, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-const CommandTraits: TTraits = [
+const CommandTraits: TEntry[] = [
   {
     name: `Ruler of the Night (${DEATH})`,
     effects: [

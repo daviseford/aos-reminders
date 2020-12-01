@@ -249,7 +249,9 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('1594502256562-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections.traits).toContain('Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)')
+    expect(res.selections.command_traits).toContain(
+      'Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)'
+    )
     expect(res.errors).toEqual([])
   })
 
@@ -450,8 +452,8 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('Seraphon5')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections.allegiances).toContain(SeraphonConstellations.COALESCED)
-    expect(res.selections.allegiances).toContain(SeraphonConstellations.THUNDER_LIZARD)
+    expect(res.selections.flavors).toContain(SeraphonConstellations.COALESCED)
+    expect(res.selections.flavors).toContain(SeraphonConstellations.THUNDER_LIZARD)
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
@@ -492,7 +494,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.artifacts).toContain("A'rgath, the King of Blades")
-    expect(res.selections.traits).toContain('Rage Unchained (Daemon)')
+    expect(res.selections.command_traits).toContain('Rage Unchained (Daemon)')
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
@@ -506,7 +508,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('1584088830450-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections.traits).toContain('Ionrach: Emissary of the Deep Places')
+    expect(res.selections.command_traits).toContain('Ionrach: Emissary of the Deep Places')
     expect(res.errors).toEqual([
       {
         severity: 'warn',
@@ -538,7 +540,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('1584223772080-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections.allegiances).toContain('Coalesced')
+    expect(res.selections.flavors).toContain('Coalesced')
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
@@ -624,7 +626,9 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('KO15')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections.traits).toContain('Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)')
+    expect(res.selections.command_traits).toContain(
+      'Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)'
+    )
     expect(res.errors).toEqual([])
   })
 
@@ -742,7 +746,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
 
-    expect(res.selections.allegiances).toEqual(['Dhom Hain (Enclave)'])
+    expect(res.selections.flavors).toEqual(['Dhom Hain (Enclave)'])
     expect(res.errors).toEqual([
       {
         severity: 'warn',
@@ -762,7 +766,7 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
     expect(res.selections.artifacts).toContain("A'rgath, the King of Blades")
-    expect(res.selections.traits).toEqual(['Berserker Lord (Mortal)'])
+    expect(res.selections.command_traits).toEqual(['Berserker Lord (Mortal)'])
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
@@ -980,7 +984,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
-    expect(res.selections.allegiances).toEqual(['Host of the Everchosen'])
+    expect(res.selections.flavors).toEqual(['Host of the Everchosen'])
     expect(res.errors).toEqual([])
   })
 
@@ -1047,7 +1051,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
-    expect(res.selections.allegiances).toEqual(['Cabalists'])
+    expect(res.selections.flavors).toEqual(['Cabalists'])
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
@@ -1109,7 +1113,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(IRONJAWZ)
-    expect(res.selections.traits).toContain("Burstin' with Power")
+    expect(res.selections.command_traits).toContain("Burstin' with Power")
     expect(res.errors).toEqual([])
   })
 
@@ -1127,7 +1131,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(LEGIONS_OF_GRIEF)
-    expect(res.selections.traits).toContain('Amethyst Glow')
+    expect(res.selections.command_traits).toContain('Amethyst Glow')
     expect(res.errors).toEqual([
       {
         severity: 'warn',
@@ -1171,7 +1175,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections.traits).toContain('Druid of the Everspring (Living City)')
+    expect(res.selections.command_traits).toContain('Druid of the Everspring (Living City)')
     expect(res.errors).toEqual([])
   })
 
@@ -1189,7 +1193,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
-    expect(res.selections.allegiances).toEqual(['Fuethan (Enclave)'])
+    expect(res.selections.flavors).toEqual(['Fuethan (Enclave)'])
     expect(res.errors).toEqual([
       {
         severity: 'warn',
@@ -1203,10 +1207,10 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
-    expect(res.selections.allegiances).toEqual(['Fuethan (Enclave)'])
+    expect(res.selections.flavors).toEqual(['Fuethan (Enclave)'])
     expect(res.realmscape).toEqual('Ghur')
     expect(res.selections.artifacts).toEqual([])
-    expect(res.selections.traits).toEqual(['Born From Agony'])
+    expect(res.selections.command_traits).toEqual(['Born From Agony'])
     expect(res.selections.units).toEqual([
       'Volturnos, High King of the Deep',
       'Akhelian King',
@@ -1243,10 +1247,10 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
-    expect(res.selections.allegiances).toEqual(['Boulderhead (Mawtribe)'])
+    expect(res.selections.flavors).toEqual(['Boulderhead (Mawtribe)'])
     expect(res.selections.artifacts).toEqual(['Brand of the Svard'])
     expect(res.selections.spells).toEqual(['Pulverising Hailstorm'])
-    expect(res.selections.traits).toEqual(['Belligerent Charger', 'Fleshgreed', 'Lord of Beasts'])
+    expect(res.selections.command_traits).toEqual(['Belligerent Charger', 'Fleshgreed', 'Lord of Beasts'])
     expect(res.selections.units).toEqual([
       'Frostlord on Stonehorn',
       'Huskard on Thundertusk',
@@ -1456,7 +1460,7 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(BONESPLITTERZ)
     expect(res.errors).toEqual([])
-    expect(res.selections.allegiances).toEqual(['Icebone Clan'])
+    expect(res.selections.flavors).toEqual(['Icebone Clan'])
     expect(res.selections.battalions).toEqual(["Kunnin' Rukk"])
     expect(res.selections.artifacts).toEqual(["Mork's Boney Bitz", 'Kattanak Pelt'])
   })
@@ -1627,7 +1631,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.units).toEqual(['Battlemage', 'Freeguild General', 'Dreadspears'])
-    expect(res.selections.traits).toEqual(['Aggressive General (Hammerhal)'])
+    expect(res.selections.command_traits).toEqual(['Aggressive General (Hammerhal)'])
   })
 
   it('handles CoS4', () => {
@@ -1666,7 +1670,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.selections.traits).toEqual([
+    expect(res.selections.command_traits).toEqual([
       'ARTYCLE: Seek New Prospects',
       'FOOTNOTE: Who Strikes First, Strikes Hardest',
       'AMENDMENT: Prosecute Wars With All Haste',
@@ -1681,7 +1685,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.selections.traits).toEqual([
+    expect(res.selections.command_traits).toEqual([
       "FOOTNOTE: There's Always a Breeze if You Look for it",
       "AMENDMENT: Don't Argue With the Wind",
       'ARTYCLE: Master the Skies',
@@ -1696,7 +1700,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(res.selections.traits).toEqual(['Keen-clawed', 'Lithe-Limbed'])
+    expect(res.selections.command_traits).toEqual(['Keen-clawed', 'Lithe-Limbed'])
   })
 
   it('handles Slaanesh1', () => {
@@ -1746,7 +1750,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SKAVEN)
-    expect(res.selections.allegiances).toContain('Warpstone Sparks (Skryre)')
+    expect(res.selections.flavors).toContain('Warpstone Sparks (Skryre)')
     expect(res.selections.endless_spells).toEqual(['Bell of Doom (Skaven)'])
     expect(res.selections.units).toEqual([
       'Arch-Warlock',

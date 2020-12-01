@@ -1,9 +1,9 @@
 // Import all Nurgle artifacts as they are cross compatible with Tamurkan's Horde.
 import NurgleArtifacts from 'army/nurgle/artifacts'
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import { START_OF_HERO_PHASE } from 'types/phases'
 
-const Artifacts: TArtifacts = [
+const Artifacts: TEntry[] = [
   {
     name: `Daemon Flask (Tamurkhan's Horde)`,
     effects: [

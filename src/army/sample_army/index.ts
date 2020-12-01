@@ -1,12 +1,11 @@
-import Abilities from './abilities'
 import Allegiances from './allegiances'
 import Artifacts from './artifacts'
+import BattleTraits from './battle_traits'
 import EndlessSpells from './endless_spells'
 import Scenery from './scenery'
 import Spells from './spells'
 import Traits from './traits'
 import { AlliedUnits, Battalions, Units } from './units'
-
 // Copy paste this directory to kickstart a new army
 // Remember to add your army to:
 //      - meta/factions.ts
@@ -14,7 +13,7 @@ import { AlliedUnits, Battalions, Units } from './units'
 
 // Be sure to rename this variable to `[FactionName]Army`
 const SampleArmy = {
-  Abilities,
+  BattleTraits,
   Allegiances,
   AllegianceType: 'Allegiances',
   AlliedUnits,
