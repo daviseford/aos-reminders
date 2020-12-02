@@ -28,9 +28,9 @@ export const temporaryAdapter = (subFaction: TSubFaction, FlavorType = 'Flavors'
   return initialArmy
 }
 
-export const getAggregateArmy = (subFactions: TSubFactions): TInitialArmy => {
+export const getAggregateArmy = (subFactions: TSubFactions, flavorType = 'Flavors'): TInitialArmy => {
   return Object.values(subFactions).reduce((a, value) => {
-    const b = temporaryAdapter(value, 'Constellations')
+    const b = temporaryAdapter(value, flavorType)
     return deepmerge(a, b)
   }, {} as TInitialArmy)
 }

@@ -1,7 +1,7 @@
 import produce from 'immer'
 import { GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions, TGrandAlliances } from 'meta/alliances'
-import { getArmyFromList } from 'meta/army_list'
 import { TSupportedFaction } from 'meta/factions'
+import { getFactionFromList } from 'meta/faction_list'
 import { IArmy, TCollection, TInitialArmy } from 'types/army'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { isValidFactionName } from 'utils/armyUtils'
@@ -10,14 +10,23 @@ import { getCollection } from 'utils/getArmy/getCollection'
 import { modify } from 'utils/getArmy/modify'
 import { processGame } from 'utils/processGame'
 
+/**
+ *
+ * @param factionName
+ * @param subFactionName - If null, returns AggregateArmy
+ * @param originRealm
+ * @param realmscape
+ */
 export const getArmy = (
   factionName: TSupportedFaction | null,
+  subFactionName: string | null = null,
   originRealm: TOriginRealms | null = null,
   realmscape: TBattleRealms | null = null
 ): IArmy | null => {
   if (!isValidFactionName(factionName)) return null
 
-  const { Army, GrandAlliance } = getArmyFromList(factionName)
+  const { GrandAlliance, subFactionArmies, AggregateArmy } = getFactionFromList(factionName)
+  const Army = subFactionName ? subFactionArmies[subFactionName] : AggregateArmy
 
   const Collection = getCollection(Army)
 
@@ -65,14 +74,14 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
     Units = getAllianceItems(GrandAlliance, 'Units', Units)
   }
 
-  Army.Flavors = modify.Flavors(Flavors)
   Army.Artifacts = modify.Artifacts(Artifacts, originRealm, GrandAlliance, Collection)
   Army.Battalions = modify.Battalions(Battalions)
   Army.CommandAbilities = modify.CommandAbilities(realmscape, Collection)
+  Army.CommandTraits = modify.CommandTraits(CommandTraits, GrandAlliance, Collection)
   Army.EndlessSpells = modify.EndlessSpells(GrandAllianceEndlessSpells)
+  Army.Flavors = modify.Flavors(Flavors)
   Army.Scenery = modify.Scenery(Scenery)
   Army.Spells = modify.Spells(Spells, realmscape, Collection)
-  Army.CommandTraits = modify.CommandTraits(CommandTraits, GrandAlliance, Collection)
   Army.Triumphs = modify.Triumphs()
   Army.Units = modify.Units(Units, AlliedUnits, GrandAlliance)
   Army.Game = processGame([

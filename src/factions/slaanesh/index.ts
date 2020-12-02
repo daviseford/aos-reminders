@@ -1,24 +1,6 @@
-import { TNewFactionType } from 'factions/factionTypes'
-import { getAggregateArmy } from 'factions/temporaryAdapter'
+import { Faction } from 'factions/factionClass'
 import { CHAOS } from 'meta/alliances'
 import { SLAANESH } from 'meta/factions'
-import subFactions from './subfactions'
+import SubFactions from './subfactions'
 
-export const SlaaneshFaction: TNewFactionType = {
-  factionName: SLAANESH,
-
-  subFactions,
-
-  GrandAlliance: CHAOS,
-  subFactionKeys: Object.keys(subFactions),
-
-  subFactionLabel: 'Hosts', // similar to AllegianceType in the old structure
-  flavorLabel: 'Flavor', // This will be used in place of "Flavor" in the UI eventually
-
-  Army: getAggregateArmy(subFactions),
-
-  // Export everything (to be used for imports/ally stuff) ? Maybe... or maybe just get it through subfactions
-  // units,
-  // battalions,
-  // etc,
-}
+export const SlaaneshFaction = new Faction(SLAANESH, CHAOS, SubFactions, 'Hosts', 'Flavors')
