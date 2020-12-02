@@ -1,4 +1,5 @@
-import { pickEffects } from 'factions/metatagger'
+import { TSubFactions } from 'factions/factionTypes'
+import { keyPicker, pickEffects } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   DURING_SETUP,
@@ -11,7 +12,7 @@ import Artifacts from './artifacts'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 
-const Flavors = {
+const Flavors: TSubFactions = {
   "Dracothion's Tail": {
     effects: [
       {
@@ -35,6 +36,11 @@ const Flavors = {
   },
 
   'Fangs of Sotek': {
+    mandatory: {
+      artifacts: [keyPicker(Artifacts, ['Eviscerating Blade'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Controlled Fury'])],
+      command_traits: [keyPicker(CommandTraits, ['Dominant Predator'])],
+    },
     effects: [
       {
         name: `First to Battle`,
@@ -48,28 +54,32 @@ const Flavors = {
   },
 
   "Koatl's Claw": {
+    mandatory: {
+      artifacts: [keyPicker(Artifacts, ['Eviscerating Blade'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Controlled Fury'])],
+      command_traits: [keyPicker(CommandTraits, ['Dominant Predator'])],
+    },
     effects: [
       {
         name: `Savagery Incarnate`,
         desc: `Add 1 to hit rolls for attacks made by friendly KOATL'S CLAW SAURUS units that made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      ...pickEffects(CommandAbilities, ['Controlled Fury']),
-      ...pickEffects(CommandTraits, ['Dominant Predator']),
-      ...pickEffects(Artifacts, ['Eviscerating Blade']),
     ],
   },
 
   'Thunder Lizard': {
+    mandatory: {
+      artifacts: [keyPicker(Artifacts, ['Fusil of Conflagration'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Trove of Old One Technology'])],
+      command_traits: [keyPicker(CommandTraits, ['Prime Warbeast'])],
+    },
     effects: [
       {
         name: `Mighty Beasts of War`,
         desc: `Add 2 to the Wounds characteristic of THUNDER LIZARD MONSTERS.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
-      ...pickEffects(CommandAbilities, ['Trove of Old One Technology']),
-      ...pickEffects(CommandTraits, ['Prime Warbeast']),
-      ...pickEffects(Artifacts, ['Fusil of Conflagration']),
     ],
   },
 }
