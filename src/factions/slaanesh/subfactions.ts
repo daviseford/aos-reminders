@@ -36,6 +36,9 @@ const baseSubfaction: TSubFaction = {
     spells: [Spells],
     endless_spells: [EndlessSpells],
     scenery: [Scenery],
+    units: [Units],
+    // keyPicker(SlavestoDarknessFaction.Units, SlaaneshS2DUnits),
+    // keyPicker(BeastsofChaosFaction.Units, SlaaneshBoCUnits),
   },
 }
 
@@ -48,11 +51,6 @@ const subFactions: TSubFactions = {
 
       command_traits: [keyPicker(CommandTraits, ['Obessions of the Invader'])],
       artifacts: [keyPicker(Artifacts, ['Sacred Spoils of War'])],
-      units: [
-        Units,
-        // keyPicker(SlavestoDarknessFaction.Units, SlaaneshS2DUnits),
-        // keyPicker(BeastsofChaosFaction.Units, SlaaneshBoCUnits),
-      ],
       battalions: [
         keyOmitter(Battalions, [
           'The Vengeful Alliance',
@@ -75,11 +73,6 @@ const subFactions: TSubFactions = {
 
       command_traits: [keyPicker(CommandTraits, ['Aspects of the Perfect Liege'])],
       artifacts: [keyPicker(Artifacts, ['Regalia of the Rightful Heir'])],
-      units: [
-        Units,
-        // keyPicker(SlavestoDarknessFaction.Units, SlaaneshS2DUnits),
-        // keyPicker(BeastsofChaosFaction.Units, SlaaneshBoCUnits),
-      ],
       battalions: [
         keyOmitter(Battalions, [
           'The Vengeful Alliance',
@@ -101,11 +94,6 @@ const subFactions: TSubFactions = {
 
       command_traits: [keyPicker(CommandTraits, ['Traits of the Seeker Supreme'])],
       artifacts: [keyPicker(Artifacts, ['Treasures of the Hunt'])],
-      units: [
-        Units,
-        // SlaaneshS2DUnits.forEach(element => keyPicker(SlavestoDarknessFaction.Units, element)),
-        // SlaaneshBoCUnits.forEach(element => keyPicker(BeastsofChaosFaction.Units, element)),
-      ],
       battalions: [
         keyOmitter(Battalions, [
           'The Vengeful Alliance',
@@ -126,11 +114,6 @@ const subFactions: TSubFactions = {
     available: {
       ...baseSubfaction.available,
 
-      units: [
-        Units,
-        // SlaaneshS2DUnits.forEach(element => keyPicker(SlavestoDarknessFaction.Units, element)),
-        // SlaaneshBoCUnits.forEach(element => keyPicker(BeastsofChaosFaction.Units, element)),
-      ],
       battalions: [
         keyPicker(Battalions, [
           'The Vengeful Alliance',

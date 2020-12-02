@@ -161,7 +161,7 @@ const Artifacts = {
       },
     ],
   },
-  // Lurid Haze
+  // Lurid Haze Flavor
   'Lurid Haze': {
     effects: [
       {
@@ -171,7 +171,7 @@ const Artifacts = {
       },
     ],
   },
-  // Faultless Blades
+  // Faultless Blades Flavor
   'Faultless Blades': {
     effects: [
       {
@@ -181,7 +181,7 @@ const Artifacts = {
       },
     ],
   },
-  // Scarlet Cavalcade
+  // Scarlet Cavalcade Flavor
   'Scarlet Cavalcade': {
     effects: [
       {
