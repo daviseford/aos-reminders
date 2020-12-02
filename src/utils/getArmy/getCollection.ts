@@ -51,8 +51,8 @@ export const getCollection = (army: TInitialArmy): TCollection => {
     Artifacts: sortBy(Collection.Artifacts, 'name'),
     Battalions: sortBy(Collection.Battalions, 'name'),
     CommandAbilities: sortBy(Collection.CommandAbilities, 'name'),
-    Spells: sortBy(Collection.Spells, 'name'),
     CommandTraits: sortBy(Collection.CommandTraits, 'name'),
+    Spells: sortBy(Collection.Spells, 'name'),
   }
 }
 

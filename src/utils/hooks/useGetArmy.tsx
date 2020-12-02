@@ -129,14 +129,13 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
   return value
 }
 
-export const useGetArmy = (factionName: TPrimaryFactions) => {
+export const useGetArmy = (factionName: TPrimaryFactions, subFactionName?: string) => {
   const { origin_realm, realmscape } = useSelector(selectRealmscapeSlice)
-
-  const army = useMemo(() => getArmy(factionName, origin_realm, realmscape), [
+  const army = useMemo(() => getArmy(factionName, subFactionName || null, origin_realm, realmscape), [
     factionName,
     origin_realm,
     realmscape,
+    subFactionName,
   ])
-
   return army as IArmy
 }
