@@ -39,6 +39,7 @@ export const selectCurrentArmy = (state: IStore): ICurrentArmy => {
     allyFactionNames: selectAllyFactionNames(state),
     allySelections: selectAllySelections(state),
     factionName: selectFactionName(state),
+    subFactionName: selectSubFactionName(state),
     origin_realm: selectOriginRealm(state),
     realmscape_feature: selectRealmscapeFeature(state),
     realmscape: selectRealmscape(state),

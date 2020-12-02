@@ -2,9 +2,10 @@ import GenericScenery from 'army/generic/scenery'
 import { SeraphonConstellations } from 'army/seraphon/allegiances'
 import CommonSonsOfBehematData from 'army/sons_of_behemat/common'
 import { last, uniq } from 'lodash'
-import { getArmyList } from 'meta/army_list'
 import { TSupportedFaction } from 'meta/factions'
+import { getFactionList } from 'meta/faction_list'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
+import { TSelections } from 'types/selections'
 import { importErrorChecker } from 'utils/import'
 import { importFactionNameMap, importUnitOptionMap } from 'utils/import/options'
 import { cleanWarscrollText } from 'utils/warscroll/warscrollUtils'
@@ -17,8 +18,8 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
 }
 
 const getAllegianceTypes = () => {
-  return Object.values(getArmyList())
-    .map(v => (v.Army?.FlavorType || '').replace(/s$/, '')) // Remove trailing s
+  return Object.values(getFactionList())
+    .map(v => (v.AggregateArmy?.FlavorType || '').replace(/s$/, '')) // Remove trailing s
     .filter(x => !!x)
 }
 
@@ -296,17 +297,17 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
       return accum
     },
     {
-      artifacts: [] as string[],
-      battalions: [] as string[],
-      command_abilities: [] as string[],
-      command_traits: [] as string[],
-      endless_spells: [] as string[],
-      flavors: [] as string[],
-      scenery: [] as string[],
-      spells: [] as string[],
-      triumphs: [] as string[],
-      units: [] as string[],
-    }
+      artifacts: [],
+      battalions: [],
+      command_abilities: [],
+      command_traits: [],
+      endless_spells: [],
+      flavors: [],
+      scenery: [],
+      spells: [],
+      triumphs: [],
+      units: [],
+    } as TSelections
   )
 
   return {
@@ -315,6 +316,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
     allyUnits: uniq(allyUnits),
     errors: [],
     factionName: factionName as TSupportedFaction,
+    subFactionName: '', // TODO
     origin_realm,
     realmscape_feature: null,
     realmscape: null,

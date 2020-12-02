@@ -1,5 +1,5 @@
-import { getArmyFromList } from 'meta/army_list'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
+import { getFactionFromList } from 'meta/faction_list'
 import { getCollection } from 'utils/getArmy/getCollection'
 import { titleCase } from 'utils/textUtils'
 import XLSX from 'xlsx'
@@ -24,8 +24,8 @@ const generateHonestWargamerSheets = () => {
 }
 
 const makeWorksheet = (workbook: XLSX.WorkBook, factionName: TSupportedFaction) => {
-  const { Army } = getArmyFromList(factionName)
-  const Collection = getCollection(Army)
+  const { AggregateArmy } = getFactionFromList(factionName)
+  const Collection = getCollection(AggregateArmy)
   const { CommandAbilities = [] } = Collection
 
   const {
@@ -36,7 +36,7 @@ const makeWorksheet = (workbook: XLSX.WorkBook, factionName: TSupportedFaction) 
     Flavors = [],
     FlavorType = 'Flavors',
     Spells = [],
-  } = Army
+  } = AggregateArmy
 
   const artifacts = [...Artifacts].map(x => [x.name, ...x.effects.map(y => y.desc)])
   const battalions = [...Battalions].map(x => [x.name, ...x.effects.map(y => y.desc)])
@@ -94,8 +94,8 @@ const generateAoSShortsAllegianceData = () => {
 }
 
 const makeAllegianceWorksheet = (factionName: TSupportedFaction) => {
-  const { Army } = getArmyFromList(factionName)
-  const { Flavors = [], FlavorType = 'Flavors' } = Army
+  const { AggregateArmy } = getFactionFromList(factionName)
+  const { Flavors = [], FlavorType = 'Flavors' } = AggregateArmy
   const flavors = [...Flavors].map(x => [x.name])
 
   return [[titleCase(factionName)], [FlavorType], ...flavors]

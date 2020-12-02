@@ -1,11 +1,12 @@
-import { TNewFactionType } from 'factions/factionTypes'
+import { Faction } from 'factions/factionClass'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
 import { SERAPHON, SLAANESH, TSupportedFaction } from 'meta/factions'
 
-// Enable as you add them to /factions/
+type TFactionList = { readonly [factionName in TSupportedFaction]: Faction }
 
-const ArmyList: TArmyList = {
+// Enable as you add them to /factions/
+const ArmyList: TFactionList = {
   // [BEASTS_OF_CHAOS]: {
   //   Army: { ...BeastsOfChaosArmy },
   //   GrandAlliance: CHAOS,
@@ -192,12 +193,19 @@ const ArmyList: TArmyList = {
   // },
 }
 
-export const getArmyList = () => ArmyList
-export const getArmyFromList = (factionName: TSupportedFaction) => ArmyList[factionName]
+export const getFactionList = () => ArmyList
+export const getFactionFromList = (factionName: TSupportedFaction) => ArmyList[factionName]
+export const getSubFactionKeys = (factionName: TSupportedFaction) => ArmyList[factionName].subFactionKeys
 
-type TArmyList = { readonly [factionName in TSupportedFaction]: TNewFactionType }
-
-// interface IArmyListEntry {
-//   readonly Army: TInitialArmy
-//   readonly GrandAlliance: TGrandAlliances
+// export const getAggregatedArmyList = () =>
+//   Object.entries(ArmyList).reduce((a, [k, v]) => {
+//     a[k] = v.AggregateArmy
+//     return a
+//   }, {} as Record<keyof typeof ArmyList, TInitialArmy>)
+// export const getSubFactionFromList = (factionName: TSupportedFaction, subFactionName: string) => {
+//   const subfaction = ArmyList[factionName].SubFactions[subFactionName]
+//   if (!subfaction) {
+//     throw new Error(`Invalid faction/subFaction combo: ${factionName}, ${subFactionName}`)
+//   }
+//   return subfaction
 // }
