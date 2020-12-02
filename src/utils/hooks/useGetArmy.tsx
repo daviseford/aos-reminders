@@ -18,8 +18,6 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
     return realmscape ? features.filter(f => f.includes(realmscape)) : features
   }, [realmscape])
 
-  debugger
-
   const value = useMemo(() => {
     return [
       {
