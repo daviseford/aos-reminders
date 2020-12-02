@@ -3,6 +3,8 @@ import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
 import { SERAPHON, SLAANESH, TSupportedFaction } from 'meta/factions'
 
+type TFactionList = { readonly [factionName in TSupportedFaction]: Faction }
+
 // Enable as you add them to /factions/
 const ArmyList: TFactionList = {
   // [BEASTS_OF_CHAOS]: {
@@ -193,9 +195,17 @@ const ArmyList: TFactionList = {
 
 export const getFactionList = () => ArmyList
 export const getFactionFromList = (factionName: TSupportedFaction) => ArmyList[factionName]
-export const getSubFactionFromList = (factionName: TSupportedFaction, subFactionName: string) => {
-  return ArmyList[factionName].SubFactions[subFactionName]
-}
 export const getSubFactionKeys = (factionName: TSupportedFaction) => ArmyList[factionName].subFactionKeys
 
-type TFactionList = { readonly [factionName in TSupportedFaction]: Faction }
+// export const getAggregatedArmyList = () =>
+//   Object.entries(ArmyList).reduce((a, [k, v]) => {
+//     a[k] = v.AggregateArmy
+//     return a
+//   }, {} as Record<keyof typeof ArmyList, TInitialArmy>)
+// export const getSubFactionFromList = (factionName: TSupportedFaction, subFactionName: string) => {
+//   const subfaction = ArmyList[factionName].SubFactions[subFactionName]
+//   if (!subfaction) {
+//     throw new Error(`Invalid faction/subFaction combo: ${factionName}, ${subFactionName}`)
+//   }
+//   return subfaction
+// }
