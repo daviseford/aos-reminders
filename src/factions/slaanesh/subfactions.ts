@@ -33,19 +33,24 @@ import { Units } from './units'
 const baseSubfaction: TSubFaction = {
   effects: [],
 
-  // Spells
   spells: {
     available: [Spells],
   },
 
-  // Endless Spells
   endless_spells: {
     available: [EndlessSpells],
   },
 
-  // Scenery
   scenery: {
     available: [Scenery],
+  },
+
+  units: {
+    available: [
+      Units,
+      // keyPicker(SlavestoDarknessFaction.Units, SlaaneshS2DUnits),
+      // keyPicker(BeastsofChaosFaction.Units, SlaaneshBoCUnits),
+    ],
   },
 }
 
@@ -53,29 +58,16 @@ const subFactions: TSubFactions = {
   Invaders: {
     ...baseSubfaction,
 
-    // Effects
     effects: pickEffects(BattleTraits, ['Thrilling Compulsions', "The Despoiler's Art"]),
 
-    // Command Traits
     command_traits: {
       available: [keyPicker(CommandTraits, ['Obessions of the Invader'])],
     },
 
-    // Artifacts
     artifacts: {
       available: [keyPicker(Artifacts, ['Sacred Spoils of War'])],
     },
 
-    // Units
-    units: {
-      available: [
-        Units,
-        // keyPicker(SlavestoDarknessFaction.Units, SlaaneshS2DUnits),
-        // keyPicker(BeastsofChaosFaction.Units, SlaaneshBoCUnits),
-      ],
-    },
-
-    // Battalions
     battalions: {
       available: [
         keyOmitter(Battalions, [
@@ -89,7 +81,6 @@ const subFactions: TSubFactions = {
       ],
     },
 
-    // Flavors
     flavors: {
       available: [keyPicker(Flavors, ['Lurid Haze'])],
     },
@@ -97,29 +88,17 @@ const subFactions: TSubFactions = {
 
   Pretenders: {
     ...baseSubfaction,
-    // Effects
+
     effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Magnificence Made Flesh'])],
 
-    // Command Traits
     command_traits: {
       available: [keyPicker(CommandTraits, ['Aspects of the Perfect Liege'])],
     },
 
-    // Artifacts
     artifacts: {
       available: [keyPicker(Artifacts, ['Regalia of the Rightful Heir'])],
     },
 
-    // Units
-    units: {
-      available: [
-        Units,
-        // keyPicker(SlavestoDarknessFaction.Units, SlaaneshS2DUnits),
-        // keyPicker(BeastsofChaosFaction.Units, SlaaneshBoCUnits),
-      ],
-    },
-
-    // Battalions
     battalions: {
       available: [
         keyOmitter(Battalions, [
@@ -132,7 +111,7 @@ const subFactions: TSubFactions = {
         // keyPicker(BeastsofChaosFaction.Battalions, ['Depraved Drove']),
       ],
     },
-    // Flavors
+
     flavors: {
       available: [keyPicker(Flavors, ['Faultless Blades'])],
     },
@@ -140,29 +119,17 @@ const subFactions: TSubFactions = {
 
   Godseekers: {
     ...baseSubfaction,
-    // Rules that are applied automatically when you select this subfaction
+
     effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Blessings of the Gleeful Chase'])],
 
-    // Command Traits
     command_traits: {
       available: [keyPicker(CommandTraits, ['Traits of the Seeker Supreme'])],
     },
 
-    // Artifacts
     artifacts: {
       available: [keyPicker(Artifacts, ['Treasures of the Hunt'])],
     },
 
-    // Units
-    units: {
-      available: [
-        Units,
-        // SlaaneshS2DUnits.forEach(element => keyPicker(SlavestoDarknessFaction.Units, element)),
-        // SlaaneshBoCUnits.forEach(element => keyPicker(BeastsofChaosFaction.Units, element)),
-      ],
-    },
-
-    // Battalions
     battalions: {
       available: [
         keyOmitter(Battalions, [
@@ -175,7 +142,7 @@ const subFactions: TSubFactions = {
         // keyPicker(BeastsofChaosFaction.Battalions, 'Depraved Drove'),
       ],
     },
-    // Flavors
+
     flavors: {
       available: [keyPicker(Flavors, ['Scarlet Cavalcade'])],
     },
@@ -183,25 +150,9 @@ const subFactions: TSubFactions = {
 
   "Syll'Esskan": {
     ...baseSubfaction,
-    // Rules that are applied automatically when you select this subfaction
+
     effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Vengeance Unleashed'])],
 
-    // Command Traits
-    //command_traits:
-
-    // Artifacts
-    //artifacts:
-
-    // Units
-    units: {
-      available: [
-        Units,
-        // SlaaneshS2DUnits.forEach(element => keyPicker(SlavestoDarknessFaction.Units, element)),
-        // SlaaneshBoCUnits.forEach(element => keyPicker(BeastsofChaosFaction.Units, element)),
-      ],
-    },
-
-    // Battalions
     battalions: {
       available: [
         keyPicker(Battalions, [
@@ -212,8 +163,6 @@ const subFactions: TSubFactions = {
         ]),
       ],
     },
-    // Flavors
-    //flavors:
   },
 }
 

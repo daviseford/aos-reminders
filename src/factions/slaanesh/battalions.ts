@@ -8,22 +8,7 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-// Battalions
-export const Battalions = {
-  'Hedonite Host': {
-    effects: [
-      {
-        name: `Transcendental Warriors`,
-        desc: `If this battalion is part of a Slaanesh army you receive D3 depravity points.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Transcendental Warriors`,
-        desc: `Add 1 to the bravery characteric of units in this battalion.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
+export const RegularBattalions = {
   'Supreme Sybarites': {
     effects: [
       {
@@ -48,20 +33,6 @@ export const Battalions = {
         name: `Drawn to Battle`,
         desc: `A model from this battalion is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3". It can also move an extra 3" when it piles in.`,
         when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'The Vengeful Alliance': {
-    effects: [
-      {
-        name: `Brutal Tyranny`,
-        desc: `All mortal units in this battalion count as having a bravery characteristic of 10 as long as Syll'Esske is part of your army and on the battlefield.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Brutal Tyranny`,
-        desc: `You receive 1 command point if Syll'Esske is part of your army and on the battlefield.`,
-        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -108,3 +79,36 @@ export const Battalions = {
     ],
   },
 }
+
+const SuperBattalions = {
+  'Hedonite Host': {
+    effects: [
+      {
+        name: `Transcendental Warriors`,
+        desc: `If this battalion is part of a Slaanesh army you receive D3 depravity points.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Transcendental Warriors`,
+        desc: `Add 1 to the bravery characteric of units in this battalion.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  'The Vengeful Alliance': {
+    effects: [
+      {
+        name: `Brutal Tyranny`,
+        desc: `All mortal units in this battalion count as having a bravery characteristic of 10 as long as Syll'Esske is part of your army and on the battlefield.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Brutal Tyranny`,
+        desc: `You receive 1 command point if Syll'Esske is part of your army and on the battlefield.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+}
+
+export const Battalions = { ...RegularBattalions, ...SuperBattalions }
