@@ -1,11 +1,10 @@
-import { TNewFactionType } from 'factions/factionTypes'
+import { Faction } from 'factions/factionClass'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
 import { SERAPHON, SLAANESH, TSupportedFaction } from 'meta/factions'
 
 // Enable as you add them to /factions/
-
-const ArmyList: TArmyList = {
+const ArmyList: TFactionList = {
   // [BEASTS_OF_CHAOS]: {
   //   Army: { ...BeastsOfChaosArmy },
   //   GrandAlliance: CHAOS,
@@ -192,12 +191,11 @@ const ArmyList: TArmyList = {
   // },
 }
 
-export const getArmyList = () => ArmyList
-export const getArmyFromList = (factionName: TSupportedFaction) => ArmyList[factionName]
+export const getFactionList = () => ArmyList
+export const getFactionFromList = (factionName: TSupportedFaction) => ArmyList[factionName]
+export const getSubFactionFromList = (factionName: TSupportedFaction, subFactionName: string) => {
+  return ArmyList[factionName].SubFactions[subFactionName]
+}
+export const getSubFactionKeys = (factionName: TSupportedFaction) => ArmyList[factionName].subFactionKeys
 
-type TArmyList = { readonly [factionName in TSupportedFaction]: TNewFactionType }
-
-// interface IArmyListEntry {
-//   readonly Army: TInitialArmy
-//   readonly GrandAlliance: TGrandAlliances
-// }
+type TFactionList = { readonly [factionName in TSupportedFaction]: Faction }
