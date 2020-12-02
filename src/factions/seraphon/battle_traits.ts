@@ -13,11 +13,6 @@ export const SeraphonBattleTraits = {
   SERAPHON: {
     effects: [
       {
-        name: `Warriors of the Stars and the Realms`,
-        desc: `After you have chosen the Seraphon allegiance for your army, you must either give it the STARBORNE keyword or the COALESCED keyword. All SERAPHON units in your army gain that keyword, with the exception of models that already have one of the keywords on their warscroll.`,
-        when: [START_OF_SETUP],
-      },
-      {
         name: `Contemplations of the Ancient Ones`,
         desc: `At the end of your hero phase, you can pick 1 friendly SLANN and replace the spell they know from the Lore of Celestial Domination table (pg 60) with a new spell from that table. Choose or roll for the new spell, rolling again if you generate the spell the SLANN already had.`,
         when: [END_OF_HERO_PHASE],
