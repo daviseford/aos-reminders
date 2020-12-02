@@ -12,6 +12,7 @@ import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'reac
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
 import { Dropdown } from 'react-bootstrap'
 import { FaEllipsisH } from 'react-icons/fa'
+import { MdVisibilityOff } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
@@ -212,7 +213,7 @@ const ActionText = (props: IActionTextProps) => {
   )
 }
 
-const ActionTitle = ({ actionTitle, name, tag }: IActionTextProps) => {
+const ActionTitle = ({ actionTitle, name, tag, isVisible }: IActionTextProps) => {
   const { theme } = useTheme()
   const titleStr = actionTitle ? `${actionTitle} - ` : ''
 
@@ -223,6 +224,12 @@ const ActionTitle = ({ actionTitle, name, tag }: IActionTextProps) => {
         {name}
         {tag && ` (${tag})`}
       </strong>
+      {isVisible || (
+        <span className={theme.text}>
+          {' '}
+          <MdVisibilityOff />
+        </span>
+      )}
     </>
   )
 }
