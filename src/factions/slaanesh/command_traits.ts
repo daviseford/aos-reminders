@@ -12,7 +12,7 @@ import {
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 const CommandTraits = {
-  // Invaders
+  // Invaders Host
   'Obessions of the Invader': {
     effects: [
       {
@@ -47,7 +47,7 @@ const CommandTraits = {
       },
     ],
   },
-  // Pretenders
+  // Pretenders Host
   'Aspects of the Perfect Liege': {
     effects: [
       {
@@ -82,7 +82,7 @@ const CommandTraits = {
       },
     ],
   },
-  // Godseekers
+  // Godseekers Host
   'Traits of the Seeker Supreme': {
     effects: [
       {
@@ -117,7 +117,7 @@ const CommandTraits = {
       },
     ],
   },
-  // Lurid Haze
+  // Lurid Haze Flavor
   'Lurid Haze': {
     effects: [
       {
@@ -127,7 +127,7 @@ const CommandTraits = {
       },
     ],
   },
-  // Faultless Blades
+  // Faultless Blades Flavor
   'Faultless Blades': {
     effects: [
       {
@@ -137,7 +137,7 @@ const CommandTraits = {
       },
     ],
   },
-  // Scarlet Cavalcade
+  // Scarlet Cavalcade Flavor
   'Scarlet Cavalcade': {
     effects: [
       {
