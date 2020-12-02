@@ -10,7 +10,8 @@ import { selectors, visibilityActions } from 'ducks'
 import { isEqual, sortBy } from 'lodash'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
-import { DropdownButton } from 'react-bootstrap'
+import { Dropdown } from 'react-bootstrap'
+import { FaEllipsisH } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
@@ -19,6 +20,7 @@ import useWindowSize from 'utils/hooks/useWindowSize'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
+import { CustomDropdownToggle } from './customDropdownToggle'
 
 const { addReminder: hideReminder, deleteReminder: showReminder, addWhen: showWhen } = visibilityActions
 
@@ -174,15 +176,21 @@ const ActionText = (props: IActionTextProps) => {
                 size={1}
               />
             ) : (
-              <DropdownButton title="">
-                <VisibilityToggle
-                  appearance={'menuItem'}
-                  text={'Rule'}
-                  isVisible={isVisible}
-                  setVisibility={handleVisibility}
-                />
-                {isVisible && <NoteMenu {...noteProps} />}
-              </DropdownButton>
+              <Dropdown>
+                <Dropdown.Toggle as={CustomDropdownToggle}>
+                  <FaEllipsisH />
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <VisibilityToggle
+                    appearance={'menuItem'}
+                    text={'Rule'}
+                    isVisible={isVisible}
+                    setVisibility={handleVisibility}
+                  />
+                  {isVisible && <NoteMenu {...noteProps} />}
+                </Dropdown.Menu>
+              </Dropdown>
             )}
           </div>
         </div>
