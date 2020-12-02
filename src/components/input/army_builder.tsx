@@ -38,8 +38,7 @@ const ArmyBuilder = () => {
                     card.setValues,
                     card.sideEffects,
                     selectionActions.addToSelections,
-                    factionName,
-                    army
+                    factionName
                   )}
                   title={card.title}
                   values={card.values}

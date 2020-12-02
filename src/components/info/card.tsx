@@ -1,11 +1,10 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { TVisibilityIconType, VisibilityToggle } from 'components/info/visibilityToggle'
-import { SelectMulti, SelectOne, TDropdownOption, TSelectOneSetValueFn } from 'components/input/select'
+import { SelectMulti, SelectOne, TSelectMultiValueType, TSelectOneSetValueFn } from 'components/input/select'
 import { useTheme } from 'context/useTheme'
 import { selectors, visibilityActions } from 'ducks'
 import React, { useCallback, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { ValueType } from 'react-select/src/types'
 import { TEntry } from 'types/data'
 import useWindowSize from 'utils/hooks/useWindowSize'
 
@@ -50,7 +49,7 @@ const CardComponent: React.FC<ICardProps> = props => {
 interface ICardMultiProps extends IBaseCardProps {
   items: TEntry[]
   selectionCount: number
-  setValues: (selectValues: ValueType<TDropdownOption>[]) => void
+  setValues: (selectValues: TSelectMultiValueType) => void
   values: string[]
   enableLog?: boolean
 }

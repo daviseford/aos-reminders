@@ -1,5 +1,5 @@
 import { VisibilityToggle } from 'components/info/visibilityToggle'
-import { SelectMulti, SelectOne, TDropdownOption } from 'components/input/select'
+import { SelectMulti, SelectOne, TSelectMultiValueType, TSelectOneValueType } from 'components/input/select'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
 import { armyActions, selectionActions, selectors, visibilityActions } from 'ducks'
@@ -9,7 +9,6 @@ import React, { useCallback, useEffect, useMemo } from 'react'
 import { IconContext } from 'react-icons'
 import { FaTrashAlt } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-import { ValueType } from 'react-select/src/types'
 import { TEntry } from 'types/data'
 import { IAllySelections } from 'types/selections'
 import { logAllyFaction } from 'utils/analytics'
@@ -114,9 +113,9 @@ interface IAllyCardProps {
   factionName: TSupportedFaction
   handleClose: (e: React.MouseEvent) => void
   isVisible: boolean
-  setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
-  setBattalions: (selectValues: ValueType<TDropdownOption>[]) => void
-  setUnits: (selectValues: ValueType<TDropdownOption>[]) => void
+  setAllyFactionName: (selectValue: TSelectOneValueType) => void
+  setBattalions: (selectValues: TSelectMultiValueType) => void
+  setUnits: (selectValues: TSelectMultiValueType) => void
   setVisibility: () => {
     payload: string
     type: string
@@ -207,7 +206,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
 interface IAddAllySelect {
   allyFactionName: TSupportedFaction
   items: TSupportedFaction[]
-  setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
+  setAllyFactionName: (selectValue: TSelectOneValueType) => void
 }
 
 const AddAllySelect = (props: IAddAllySelect) => {
