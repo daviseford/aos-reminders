@@ -1,4 +1,4 @@
-import { getArmyList } from 'meta/army_list'
+import { getFactionList } from 'meta/faction_list'
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
@@ -121,7 +121,7 @@ const whitelist = [
 
 const verify = () => {
   console.log('Starting rules verification...')
-  const armyList = getArmyList()
+  const armyList = getFactionList()
   Object.keys(armyList).forEach(faction => {
     const { Army } = armyList[faction]
 
