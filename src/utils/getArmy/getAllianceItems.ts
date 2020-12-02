@@ -29,13 +29,15 @@ export const getAllianceItems = (
     [ORDER]: ORDER_GRAND_ALLIANCE,
   }[grandAlliance]
 
-  const ArmyList = getFactionList()
+  return [] // todo
+
+  const FactionList = getFactionList()
 
   return sortedUniqBy(
     sortBy(
-      without(Object.keys(ArmyList), factionName)
-        .filter(faction => ArmyList[faction].GrandAlliance === grandAlliance)
-        .map(faction => ArmyList[faction].Army[type])
+      without(Object.keys(FactionList), factionName)
+        .filter(faction => FactionList[faction].GrandAlliance === grandAlliance)
+        .map(faction => FactionList[faction].Army[type])
         .filter(items => !!items && items.length > 0)
         .flat()
         .concat(originalEntries),
