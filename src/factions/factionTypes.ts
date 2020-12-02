@@ -4,15 +4,16 @@ import { TSelectionTypes } from 'types/selections'
 export type TObjWithEffects = object & { effects: TEffects[] }
 export type TParentEffectsObjWithEffects = Record<string, TObjWithEffects>
 
-export type TSubFactionKeys = TSelectionTypes
+// export type TSubFactionKeys = TSelectionTypes
 
-export type TSubFactionEntry = {
-  available?: TParentEffectsObjWithEffects[]
-  mandatory?: TParentEffectsObjWithEffects[]
-}
+// export type TSubFactionEntry = {
+//   available?: TParentEffectsObjWithEffects[]
+//   mandatory?: TParentEffectsObjWithEffects[]
+// }
 
 export type TSubFaction = {
-  [key in TSubFactionKeys]?: TSubFactionEntry
+  available?: Partial<Record<TSelectionTypes, TParentEffectsObjWithEffects[]>>
+  mandatory?: Partial<Record<TSelectionTypes, TParentEffectsObjWithEffects[]>>
 } & {
   effects: TEffects[]
 }

@@ -32,52 +32,28 @@ import { Units } from './units'
 
 const baseSubfaction: TSubFaction = {
   effects: [],
-
-  // Spells
-  spells: {
-    available: [Spells],
-  },
-
-  // Endless Spells
-  endless_spells: {
-    available: [EndlessSpells],
-  },
-
-  // Scenery
-  scenery: {
-    available: [Scenery],
+  available: {
+    spells: [Spells],
+    endless_spells: [EndlessSpells],
+    scenery: [Scenery],
   },
 }
 
 const subFactions: TSubFactions = {
   Invaders: {
-    ...baseSubfaction,
-
-    // Effects
     effects: pickEffects(BattleTraits, ['Thrilling Compulsions', "The Despoiler's Art"]),
 
-    // Command Traits
-    command_traits: {
-      available: [keyPicker(CommandTraits, ['Obessions of the Invader'])],
-    },
+    available: {
+      ...baseSubfaction.available,
 
-    // Artifacts
-    artifacts: {
-      available: [keyPicker(Artifacts, ['Sacred Spoils of War'])],
-    },
-
-    // Units
-    units: {
-      available: [
+      command_traits: [keyPicker(CommandTraits, ['Obessions of the Invader'])],
+      artifacts: [keyPicker(Artifacts, ['Sacred Spoils of War'])],
+      units: [
         Units,
         // keyPicker(SlavestoDarknessFaction.Units, SlaaneshS2DUnits),
         // keyPicker(BeastsofChaosFaction.Units, SlaaneshBoCUnits),
       ],
-    },
-
-    // Battalions
-    battalions: {
-      available: [
+      battalions: [
         keyOmitter(Battalions, [
           'The Vengeful Alliance',
           'Devout Supplicants',
@@ -87,41 +63,24 @@ const subFactions: TSubFactions = {
         // keyPicker(SlavestoDarknessFaction.Battalions, ['Pleasurebound Warband']),
         // keyPicker(BeastsofChaosFaction.Battalions, ['Depraved Drove']),
       ],
-    },
-
-    // Flavors
-    flavors: {
-      available: [keyPicker(Flavors, ['Lurid Haze'])],
+      flavors: [keyPicker(Flavors, ['Lurid Haze'])],
     },
   },
 
   Pretenders: {
-    ...baseSubfaction,
-    // Effects
-    effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Magnificence Made Flesh'])],
+    effects: pickEffects(BattleTraits, ['Thrilling Compulsions', 'Magnificence Made Flesh']),
 
-    // Command Traits
-    command_traits: {
-      available: [keyPicker(CommandTraits, ['Aspects of the Perfect Liege'])],
-    },
+    available: {
+      ...baseSubfaction.available,
 
-    // Artifacts
-    artifacts: {
-      available: [keyPicker(Artifacts, ['Regalia of the Rightful Heir'])],
-    },
-
-    // Units
-    units: {
-      available: [
+      command_traits: [keyPicker(CommandTraits, ['Aspects of the Perfect Liege'])],
+      artifacts: [keyPicker(Artifacts, ['Regalia of the Rightful Heir'])],
+      units: [
         Units,
         // keyPicker(SlavestoDarknessFaction.Units, SlaaneshS2DUnits),
         // keyPicker(BeastsofChaosFaction.Units, SlaaneshBoCUnits),
       ],
-    },
-
-    // Battalions
-    battalions: {
-      available: [
+      battalions: [
         keyOmitter(Battalions, [
           'The Vengeful Alliance',
           'Devout Supplicants',
@@ -131,40 +90,23 @@ const subFactions: TSubFactions = {
         // keyPicker(SlavestoDarknessFaction.Battalions, ['Pleasurebound Warband']),
         // keyPicker(BeastsofChaosFaction.Battalions, ['Depraved Drove']),
       ],
-    },
-    // Flavors
-    flavors: {
-      available: [keyPicker(Flavors, ['Faultless Blades'])],
+      flavors: [keyPicker(Flavors, ['Faultless Blades'])],
     },
   },
 
   Godseekers: {
-    ...baseSubfaction,
-    // Rules that are applied automatically when you select this subfaction
-    effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Blessings of the Gleeful Chase'])],
+    effects: pickEffects(BattleTraits, ['Thrilling Compulsions', 'Blessings of the Gleeful Chase']),
+    available: {
+      ...baseSubfaction.available,
 
-    // Command Traits
-    command_traits: {
-      available: [keyPicker(CommandTraits, ['Traits of the Seeker Supreme'])],
-    },
-
-    // Artifacts
-    artifacts: {
-      available: [keyPicker(Artifacts, ['Treasures of the Hunt'])],
-    },
-
-    // Units
-    units: {
-      available: [
+      command_traits: [keyPicker(CommandTraits, ['Traits of the Seeker Supreme'])],
+      artifacts: [keyPicker(Artifacts, ['Treasures of the Hunt'])],
+      units: [
         Units,
         // SlaaneshS2DUnits.forEach(element => keyPicker(SlavestoDarknessFaction.Units, element)),
         // SlaaneshBoCUnits.forEach(element => keyPicker(BeastsofChaosFaction.Units, element)),
       ],
-    },
-
-    // Battalions
-    battalions: {
-      available: [
+      battalions: [
         keyOmitter(Battalions, [
           'The Vengeful Alliance',
           'Devout Supplicants',
@@ -174,36 +116,22 @@ const subFactions: TSubFactions = {
         // keyPicker(SlavestoDarknessFaction.Battalions, 'Pleasurebound Warband'),
         // keyPicker(BeastsofChaosFaction.Battalions, 'Depraved Drove'),
       ],
-    },
-    // Flavors
-    flavors: {
-      available: [keyPicker(Flavors, ['Scarlet Cavalcade'])],
+      flavors: [keyPicker(Flavors, ['Scarlet Cavalcade'])],
     },
   },
 
   "Syll'Esskan": {
-    ...baseSubfaction,
-    // Rules that are applied automatically when you select this subfaction
-    effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Vengeance Unleashed'])],
+    effects: pickEffects(BattleTraits, ['Thrilling Compulsions', 'Vengeance Unleashed']),
 
-    // Command Traits
-    //command_traits:
+    available: {
+      ...baseSubfaction.available,
 
-    // Artifacts
-    //artifacts:
-
-    // Units
-    units: {
-      available: [
+      units: [
         Units,
         // SlaaneshS2DUnits.forEach(element => keyPicker(SlavestoDarknessFaction.Units, element)),
         // SlaaneshBoCUnits.forEach(element => keyPicker(BeastsofChaosFaction.Units, element)),
       ],
-    },
-
-    // Battalions
-    battalions: {
-      available: [
+      battalions: [
         keyPicker(Battalions, [
           'The Vengeful Alliance',
           'Devout Supplicants',
@@ -212,8 +140,6 @@ const subFactions: TSubFactions = {
         ]),
       ],
     },
-    // Flavors
-    //flavors:
   },
 }
 

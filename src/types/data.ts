@@ -1,3 +1,4 @@
+import { TSubFaction } from 'factions/factionTypes'
 import { TTurnWhen } from 'types/phases'
 
 export type TEntryProperties =
@@ -23,13 +24,14 @@ export const ENTRY_PROPERTIES: TEntryProperties[] = [
   'triumph',
 ]
 
+type TEntryMetadata = TSubFaction &
+  {
+    [prop in TEntryProperties]?: boolean
+  }
 export type TEntry = {
   name: string
-  effects: TEffects[]
   isSideEffect?: boolean
-} & {
-  [prop in TEntryProperties]?: boolean
-}
+} & TEntryMetadata
 
 export type TEffects = {
   name: string
