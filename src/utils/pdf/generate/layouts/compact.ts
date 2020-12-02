@@ -72,8 +72,7 @@ const PageOpts: IPageOpts = {
   maxLineWidth: 17,
   maxNoteLineWidth: 17 - 0.5,
   maxTitleLineWidth: 17 - 2,
-  pageBottom: 10.5, // pageHeight - yMargin,
-  pageHeight: 11.45,
+  pageBottom: 9,
   xMargin: 0.3,
   yMargin: 0.75,
 }

@@ -20,7 +20,6 @@ export interface IPageOpts {
   maxNoteLineWidth: number
   maxTitleLineWidth: number
   pageBottom: number
-  pageHeight: number
   xMargin: number
   yMargin: number
 }
@@ -381,18 +380,18 @@ export default class CompactPdfLayout {
     const getText = this._getSelections()
 
     const selectionText = [
+      getText('Flavor', flavors),
+      getText('Battalion', battalions),
       getText('Unit', units),
+      ...allyFactionNames.map(n =>
+        getText(`Allied ${titleCase(n)} Battalion`, (allySelections[n] as IAllySelections).battalions || [])
+      ),
       ...allyFactionNames.map(n =>
         getText(`Allied ${titleCase(n)} Unit`, (allySelections[n] as IAllySelections).units)
       ),
       getText('Artifact', artifacts),
-      getText('Battalion', battalions),
-      ...allyFactionNames.map(n =>
-        getText(`Allied ${titleCase(n)} Battalion`, (allySelections[n] as IAllySelections).battalions || [])
-      ),
       getText('Command Trait', command_traits),
       getText('Command Abilities', command_abilities, false),
-      getText('Flavor', flavors),
       getText('Spell', spells),
       getText('Endless Spell', endless_spells),
       getText('Scenery', scenery, false),
