@@ -10,7 +10,10 @@ export type TSelectOneValueType = ValueType<TDropdownOption, false>
 export type TSelectMultiValueType = ValueType<TDropdownOption, true>
 
 export type TSelectOneSetValueFn = (value: TSelectOneValueType, action: ActionMeta<TDropdownOption>) => void
-export type TSelectMultiSetValueFn = (value: TSelectMultiValueType, action: ActionMeta<any>) => void
+export type TSelectMultiSetValueFn = (
+  value: TSelectMultiValueType,
+  action: ActionMeta<TDropdownOption>
+) => void
 
 interface ISelectOneProps {
   hasDefault?: boolean
@@ -111,7 +114,7 @@ export const SelectMulti = (props: ISelectMultiProps) => {
 
   const handleChange: TSelectMultiSetValueFn = useCallback(
     (value, action) => {
-      if (log && action.action === 'select-option' && action.option.value) {
+      if (log && action.action === 'select-option' && action?.option?.value) {
         logIndividualSelection(log.title, action.option.value, log.label)
       }
       setValues(value, action)
