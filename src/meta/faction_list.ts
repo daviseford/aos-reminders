@@ -1,7 +1,8 @@
 import { Faction } from 'factions/factionClass'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
-import { SERAPHON, SLAANESH, TSupportedFaction } from 'meta/factions'
+import { StormcastFaction } from 'factions/stormcast_eternals'
+import { SERAPHON, SLAANESH, STORMCAST_ETERNALS, TSupportedFaction } from 'meta/factions'
 
 type TFactionList = { readonly [factionName in TSupportedFaction]: Faction }
 
@@ -163,10 +164,7 @@ const ArmyList: TFactionList = {
   //   Army: { ...SoulblightArmy },
   //   GrandAlliance: DEATH,
   // },
-  // [STORMCAST_ETERNALS]: {
-  //   Army: { ...StormcastEternalsArmy },
-  //   GrandAlliance: ORDER,
-  // },
+  [STORMCAST_ETERNALS]: { ...StormcastFaction },
   // [STORMCAST_ETERNALS_STORMKEEP]: {
   //   Army: { ...StormcastEternalsStormkeepArmy },
   //   GrandAlliance: ORDER,
