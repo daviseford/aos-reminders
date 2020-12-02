@@ -6,8 +6,11 @@ import { logIndividualSelection } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 
 export type TDropdownOption = { value: string; label: string }
-export type TSelectOneSetValueFn = (value: ValueType<TDropdownOption>, action: ActionMeta<any>) => void
-type TSelectMultiSetValueFn = (value: ValueType<TDropdownOption>[], action: ActionMeta<any>) => void
+export type TSelectOneValueType = ValueType<TDropdownOption, false>
+export type TSelectMultiValueType = ValueType<TDropdownOption, true>
+
+export type TSelectOneSetValueFn = (value: TSelectOneValueType, action: ActionMeta<any>) => void
+export type TSelectMultiSetValueFn = (value: TSelectMultiValueType, action: ActionMeta<any>) => void
 
 interface ISelectOneProps {
   hasDefault?: boolean
@@ -124,7 +127,7 @@ export const SelectMulti = (props: ISelectMultiProps) => {
         isClearable={isClearable}
         isMulti={true}
         isSearchable={true}
-        onChange={handleChange as TSelectOneSetValueFn}
+        onChange={handleChange}
         options={options}
         // Apply styling via theme context
         className={theme.text}
