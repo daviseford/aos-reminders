@@ -1,4 +1,4 @@
-import { TEndlessSpells } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -9,7 +9,7 @@ import {
   START_OF_TURN,
 } from 'types/phases'
 
-const EndlessSpells: TEndlessSpells = [
+const EndlessSpells: TEntry[] = [
   {
     name: `Ravening Direflock (Beasts)`,
     effects: [

@@ -1,6 +1,6 @@
-import Abilities from './abilities'
+import BattleTraits from './battle_traits'
 import { Units } from './units'
 
-const MercenaryCompaniesArmy = { Abilities, Units }
+const MercenaryCompaniesArmy = { BattleTraits, Units }
 
 export default MercenaryCompaniesArmy

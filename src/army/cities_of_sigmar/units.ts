@@ -2,7 +2,7 @@ import DaughtersOfKhaineArmy from 'army/daughters_of_khaine'
 import KharadronOverlords from 'army/kharadron_overlords'
 import Stormcast from 'army/stormcast_eternals'
 import Sylvaneth from 'army/sylvaneth'
-import { TBattalions, TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import { AZYR } from 'types/import'
 import {
   BATTLESHOCK_PHASE,
@@ -282,8 +282,7 @@ const ShieldOfThornsEffect = {
   spell: true,
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Battlemage`,
     effects: [
@@ -1440,16 +1439,14 @@ export const Units: TUnits = [
   },
 ]
 
-// Allied units
-export const AlliedUnits: TUnits = [
+export const AlliedUnits: TEntry[] = [
   ...getStormcastUnits(),
   ...getKharadronUnits(),
   ...getSylvanethUnits(),
   ...getDaughtersUnits(),
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Hammerhalian Lancers`,
     effects: [

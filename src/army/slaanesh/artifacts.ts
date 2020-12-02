@@ -1,4 +1,4 @@
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -17,7 +17,7 @@ import {
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 
-const Artifacts: TArtifacts = [
+const Artifacts: TEntry[] = [
   // Invaders Host Artifacts
   {
     name: `The Rod of Misrule (Invaders)`,

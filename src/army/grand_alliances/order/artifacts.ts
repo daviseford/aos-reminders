@@ -1,8 +1,8 @@
 import { ORDER } from 'meta/alliances'
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import { COMBAT_PHASE, HERO_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
-const OrderArtifacts: TArtifacts = [
+const OrderArtifacts: TEntry[] = [
   {
     name: `Quicksilver Potion (${ORDER})`,
     effects: [

@@ -1,4 +1,5 @@
-import { TSpells } from 'types/army'
+// Spell Lores of Slaves to Darkness - Lore of the Damned
+import { TEntry } from 'types/data'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -8,8 +9,7 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 
-// Spell Lores of Slaves to Darkness - Lore of the Damned
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Binding Damnation (Slaves)`,
     effects: [

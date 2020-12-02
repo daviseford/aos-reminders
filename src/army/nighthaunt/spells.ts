@@ -1,7 +1,7 @@
-import { TSpells } from 'types/army'
+import { TEntry } from 'types/data'
 import { HERO_PHASE } from 'types/phases'
 
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   // Lore of the Underworlds
   {
     name: `Soul Cage`,

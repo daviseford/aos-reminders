@@ -1,5 +1,5 @@
 import LegionsOfNagash from 'army/legions_of_nagash'
-import { TBattalions, TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import { filterBattalions, filterUnits } from 'utils/filterUtils'
 
 // Importing from LoN
@@ -23,8 +23,6 @@ const getLegionsOfNagashUnits = () => {
 const getLegionsOfNagashBattalions = () =>
   filterBattalions(LegionsOfNagash.Battalions, [`Court of Nulahmia`, `Castellans of the Crimson Keep`])
 
-// Unit Names
-export const Units: TUnits = [...getLegionsOfNagashUnits()]
+export const Units: TEntry[] = [...getLegionsOfNagashUnits()]
 
-// Battalions
-export const Battalions: TBattalions = [...getLegionsOfNagashBattalions()]
+export const Battalions: TEntry[] = [...getLegionsOfNagashBattalions()]

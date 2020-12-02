@@ -1,8 +1,7 @@
-import { TBattalions, TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import { HERO_PHASE } from 'types/phases'
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: ``,
     effects: [
@@ -15,12 +14,9 @@ export const Units: TUnits = [
   },
 ]
 
-// Allied units (usually this will involve writing a function to grab units from another army)
-// Check out Nurgle or Khorne for good examples
-export const AlliedUnits: TUnits = []
+export const AlliedUnits: TEntry[] = []
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: ``,
     effects: [

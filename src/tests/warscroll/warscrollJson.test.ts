@@ -76,8 +76,8 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1598074473619-Warscroll_Builder', () => {
     const parsedText = getFile('1598074473619-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.traits).toContain('A Scholar and an Arkanaut')
-    expect(res.selections.traits).toContain('FOOTNOTE: Without Our Ships, We Are Naught')
+    expect(res.selections.command_traits).toContain('A Scholar and an Arkanaut')
+    expect(res.selections.command_traits).toContain('FOOTNOTE: Without Our Ships, We Are Naught')
     expect(res.errors).toEqual([])
   })
 
@@ -127,8 +127,8 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1592754653939-Warscroll_Builder', () => {
     const parsedText = getFile('1592754653939-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.traits).toContain('Killer Reputation')
-    expect(res.selections.traits).toContain('Fateseeker (Big Name)')
+    expect(res.selections.command_traits).toContain('Killer Reputation')
+    expect(res.selections.command_traits).toContain('Fateseeker (Big Name)')
     expect(res.errors).toEqual([])
   })
 
@@ -136,7 +136,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1594377130100-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.artifacts).toContain('Tyrant Slayer')
-    expect(res.selections.traits).toContain('Warrior Indominate')
+    expect(res.selections.command_traits).toContain('Warrior Indominate')
     expect(res.errors).toEqual([
       // {
       //   "severity": "warn",
@@ -214,7 +214,7 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1592831552808-Warscroll_Builder', () => {
     const parsedText = getFile('1592831552808-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.traits).toContain('Longstrider (Big Name)')
+    expect(res.selections.command_traits).toContain('Longstrider (Big Name)')
     expect(res.errors).toEqual([])
   })
 
@@ -341,7 +341,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1595637879055-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.spells).toContain('Ribcracker')
-    expect(res.selections.traits).toContain('Fateseeker (Big Name)')
+    expect(res.selections.command_traits).toContain('Fateseeker (Big Name)')
     expect(res.errors).toEqual([])
   })
 
@@ -360,7 +360,7 @@ describe('getWarscrollArmyFromJson', () => {
   it('should work with 1591871273929-Warscroll_Builder', () => {
     const parsedText = getFile('1591871273929-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.traits).toContain('Inescapeable Doom (Knights of the Empty Throne)')
+    expect(res.selections.command_traits).toContain('Inescapeable Doom (Knights of the Empty Throne)')
     expect(res.errors).toEqual([
       {
         severity: 'warn',
@@ -379,7 +379,7 @@ describe('getWarscrollArmyFromJson', () => {
   it('should work with 1592258767793-Warscroll_Builder', () => {
     const parsedText = getFile('1592258767793-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.traits).toContain('Khemist Supreme')
+    expect(res.selections.command_traits).toContain('Khemist Supreme')
     expect(res.errors).toEqual([])
   })
 
@@ -448,7 +448,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1585065423836-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.spells).toContain('Celestial Apotheosis')
-    expect(res.selections.traits).toContain('Vast Intellect')
+    expect(res.selections.command_traits).toContain('Vast Intellect')
     expect(res.errors).toEqual([])
   })
 
@@ -607,7 +607,7 @@ describe('getWarscrollArmyFromJson', () => {
   it('should work with Sky Port: None', () => {
     const parsedText = getFile('1580985291764-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.allegiances).toEqual([])
+    expect(res.selections.flavors).toEqual([])
     expect(res.errors).toEqual([])
   })
 
@@ -711,7 +711,7 @@ describe('getWarscrollArmyFromJson', () => {
   it('should work with Amethyst Glow/Dread Withering trait/spell', () => {
     const parsedText = getFile('1577088536258-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.traits).toContain('Amethyst Glow')
+    expect(res.selections.command_traits).toContain('Amethyst Glow')
     expect(res.selections.spells).toContain('Dread Withering')
     expect(res.errors).toEqual([])
   })
@@ -803,14 +803,14 @@ describe('getWarscrollArmyFromJson', () => {
   it('should work with Master of Defense', () => {
     const parsedText = getFile('1576328165962-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.traits).toContain('Master of Defence (Order)')
+    expect(res.selections.command_traits).toContain('Master of Defence (Order)')
     expect(res.errors).toEqual([])
   })
 
   it('should work with Berzerker Lord', () => {
     const parsedText = getFile('1576328837058-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.traits).toContain('Berserker Lord (Mortal)')
+    expect(res.selections.command_traits).toContain('Berserker Lord (Mortal)')
     expect(res.errors).toEqual([])
   })
 
@@ -914,7 +914,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections.traits).toContain('Dabblings in Sorcery (Anvilgard Battle Trait)')
+    expect(res.selections.command_traits).toContain('Dabblings in Sorcery (Anvilgard Battle Trait)')
     expect(res.errors).toEqual([])
   })
 
@@ -1064,7 +1064,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections.traits).toContain('One with Fire and Ice (The Phoenicium)')
+    expect(res.selections.command_traits).toContain('One with Fire and Ice (The Phoenicium)')
     expect(res.selections.spells).toContain('Golden Mist (The Phoenicium)')
     expect(res.errors).toEqual([])
   })
@@ -1074,7 +1074,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(IRONJAWZ)
-    expect(res.selections.allegiances).toContain('Ironsunz')
+    expect(res.selections.flavors).toContain('Ironsunz')
     expect(res.errors).toEqual([
       {
         severity: 'warn',
@@ -1182,7 +1182,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(TZEENTCH)
-    expect(res.selections.traits).toEqual(['Arch-sorcerer'])
+    expect(res.selections.command_traits).toEqual(['Arch-sorcerer'])
     expect(res.errors).toEqual([
       {
         severity: 'warn',
@@ -1225,7 +1225,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.selections.artifacts).toEqual(['Strife-ender', 'Armour of Silvered Sigmarite'])
     expect(res.selections.battalions).toEqual(['Cleansing Phalanx'])
-    expect(res.selections.traits).toEqual(['Staunch Defender', 'Lithe-Limbed'])
+    expect(res.selections.command_traits).toEqual(['Staunch Defender', 'Lithe-Limbed'])
     expect(res.selections.spells).toEqual([
       'Azyrite Halo',
       'Translocation',
@@ -1260,7 +1260,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(BIG_WAAAGH)
-    expect(res.selections.traits).toContain("Burstin' with Power (Ironjawz)")
+    expect(res.selections.command_traits).toContain("Burstin' with Power (Ironjawz)")
     expect(res.errors).toEqual([])
   })
 
@@ -1269,7 +1269,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(BIG_WAAAGH)
-    expect(res.selections.traits).toContain("Burstin' with Power (Ironjawz)")
+    expect(res.selections.command_traits).toContain("Burstin' with Power (Ironjawz)")
     expect(res.errors).toEqual([])
   })
 
@@ -1319,7 +1319,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections.traits).toContain('Druid of the Everspring (Living City)')
+    expect(res.selections.command_traits).toContain('Druid of the Everspring (Living City)')
     expect(res.errors).toEqual([
       {
         severity: 'warn',
@@ -1413,7 +1413,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
-    expect(res.selections.traits).toContain('Dark Wizardry (Royalty)')
+    expect(res.selections.command_traits).toContain('Dark Wizardry (Royalty)')
     expect(res.errors).toEqual([])
   })
 
@@ -1585,7 +1585,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(BONESPLITTERZ)
-    expect(res.selections.allegiances).toEqual(['Drakkfoot Clan'])
+    expect(res.selections.flavors).toEqual(['Drakkfoot Clan'])
     expect(res.selections.artifacts).toEqual(["Burnin' Tattooz"])
     expect(res.errors).toEqual([])
   })
@@ -1596,7 +1596,7 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.selections.spells).toContain('Vitriolic Spray (Anvilgard, Har Kuron)')
-    expect(res.selections.traits).toContain('Secretive Warlock (Anvilgard)')
+    expect(res.selections.command_traits).toContain('Secretive Warlock (Anvilgard)')
     expect(res.selections.units).toContain('Knight-Azyros')
     expect(res.selections.units).toContain('Prosecutors with Celestial Hammers')
     expect(res.errors).toEqual([])
@@ -1615,7 +1615,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
-    expect(res.selections.traits).toEqual(['The Feast Day (Delusion)', 'Dark Acolyte (Nobility)'])
+    expect(res.selections.command_traits).toEqual(['The Feast Day (Delusion)', 'Dark Acolyte (Nobility)'])
     expect(res.errors).toEqual([])
     expect(res.unknownSelections).toEqual([])
   })

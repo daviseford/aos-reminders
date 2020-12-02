@@ -9,12 +9,7 @@ import {
   isParentNode,
   isRootSelection,
 } from 'utils/battlescribe/checks'
-import {
-  IAllegianceInfo,
-  IChildNode,
-  IFactionInfo,
-  IParentNode,
-} from 'utils/battlescribe/getBattlescribeArmy'
+import { IChildNode, IFactionInfo, IFlavorInfo, IParentNode } from 'utils/battlescribe/getBattlescribeArmy'
 import {
   parseAllegiance,
   parseBattleRealmObj,
@@ -25,7 +20,7 @@ import {
 type TTraverseDoc = (
   docObj: IParentNode | IChildNode
 ) => {
-  allegianceInfo: IAllegianceInfo[]
+  allegianceInfo: IFlavorInfo[]
   factionInfo: IFactionInfo
   origin_realm: TOriginRealms | null
   realmscape: TBattleRealms | null
@@ -34,7 +29,7 @@ type TTraverseDoc = (
 
 export const traverseDoc: TTraverseDoc = docObj => {
   const results = {
-    allegianceInfo: [] as IAllegianceInfo[],
+    allegianceInfo: [] as IFlavorInfo[],
     factionInfo: { factionName: null, grandAlliance: null } as IFactionInfo,
     origin_realm: null as TOriginRealms | null,
     realmscape: null as TBattleRealms | null,

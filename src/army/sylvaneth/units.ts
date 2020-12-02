@@ -1,4 +1,4 @@
-import { TBattalions, TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -47,8 +47,7 @@ const BlessingsOfTheForestEffect = {
   when: [SHOOTING_PHASE, COMBAT_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Alarielle The Everqueen`,
     effects: [
@@ -447,8 +446,7 @@ export const Units: TUnits = [
   },
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Wargrove`,
     effects: [

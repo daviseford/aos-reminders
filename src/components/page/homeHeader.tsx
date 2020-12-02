@@ -6,6 +6,7 @@ import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { factionNamesActions, realmscapeActions, selectionActions, selectors } from 'ducks'
+import { getArmyFromList } from 'meta/army_list'
 import { PRIMARY_FACTIONS, TPrimaryFactions } from 'meta/factions'
 import React, { lazy, Suspense, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
@@ -19,28 +20,12 @@ const Navbar = lazy(() => import('./navbar'))
 
 const { resetAllySelections, resetSelections } = selectionActions
 const { resetRealmscapeStore } = realmscapeActions
-const { setFactionName } = factionNamesActions
+const { setFactionName, setSubFactionName } = factionNamesActions
 
 export const Header = () => {
+  const { getFavoriteFaction, favoriteFaction } = useSavedArmies()
   const { theme } = useTheme()
-  return (
-    <div className={theme.headerColor}>
-      <Suspense fallback={<LoadingHeader />}>
-        <Navbar />
-      </Suspense>
-      <Jumbotron />
-    </div>
-  )
-}
-
-const Jumbotron: React.FC = () => {
   const dispatch = useDispatch()
-  const { isOnline, isGameMode } = useAppStatus()
-  const { setLoadedArmy, getFavoriteFaction, favoriteFaction, loadedArmy } = useSavedArmies()
-  const { theme } = useTheme()
-  const { isMobile } = useWindowSize()
-
-  const factionName = useSelector(selectors.selectFactionName)
   const hasSelections = useSelector(selectors.hasSelections)
 
   // Get our user's favorite faction from localStorage/API
@@ -57,15 +42,22 @@ const Jumbotron: React.FC = () => {
     // eslint-disable-next-line
   }, [dispatch, favoriteFaction])
 
-  const setValue = withSelectOne(value => {
-    setLoadedArmy(null)
-    dispatch(resetSelections())
-    dispatch(resetRealmscapeStore())
-    dispatch(resetAllySelections())
-    resetAnalyticsStore()
-    if (isOnline) logFactionSwitch(value)
-    dispatch(setFactionName(value as TPrimaryFactions))
-  })
+  return (
+    <div className={theme.headerColor}>
+      <Suspense fallback={<LoadingHeader />}>
+        <Navbar />
+      </Suspense>
+      <Jumbotron />
+    </div>
+  )
+}
+
+const Jumbotron: React.FC = () => {
+  const { isGameMode } = useAppStatus()
+  const { isMobile } = useWindowSize()
+  const { loadedArmy } = useSavedArmies()
+  const { theme } = useTheme()
+  const factionName = useSelector(selectors.selectFactionName)
 
   const jumboClass = `jumbotron jumbotron-fluid text-center ${theme.headerColor} d-print-none mb-0 pt-4 ${
     isMobile ? `pb-2` : `pb-3`
@@ -90,21 +82,90 @@ const Jumbotron: React.FC = () => {
           </div>
         ) : (
           <>
-            <span className="text-white">Select your army to get started:</span>
-            <div className={`d-flex pt-3 pb-2 justify-content-center`}>
-              <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
-                <SelectOne
-                  value={titleCase(factionName)}
-                  items={PRIMARY_FACTIONS}
-                  setValue={setValue}
-                  hasDefault={true}
-                  toTitle={true}
-                />
-              </div>
-            </div>
+            <FactionSelectComponent />
+            <SubFactionSelectComponent />
           </>
         )}
       </div>
     </div>
+  )
+}
+
+const FactionSelectComponent = () => {
+  const dispatch = useDispatch()
+  const { isOnline } = useAppStatus()
+  const { setLoadedArmy } = useSavedArmies()
+  const factionName = useSelector(selectors.selectFactionName)
+
+  const setValue = withSelectOne(value => {
+    setLoadedArmy(null)
+    dispatch(resetSelections())
+    dispatch(resetRealmscapeStore())
+    dispatch(resetAllySelections())
+    resetAnalyticsStore()
+    if (isOnline) logFactionSwitch(value)
+    dispatch(setFactionName(value as TPrimaryFactions))
+  })
+
+  return (
+    <>
+      <span className="text-white">Select your faction to get started:</span>
+      <div className={`d-flex pt-3 pb-2 justify-content-center`}>
+        <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
+          <SelectOne
+            value={titleCase(factionName)}
+            items={PRIMARY_FACTIONS}
+            setValue={setValue}
+            hasDefault={true}
+            toTitle={true}
+          />
+        </div>
+      </div>
+    </>
+  )
+}
+
+const SubFactionSelectComponent = () => {
+  const dispatch = useDispatch()
+  // const { isOnline } = useAppStatus()
+  // const { setLoadedArmy } = useSavedArmies()
+  const { subFactionName, factionName } = useSelector(selectors.selectFactionNameSlice)
+
+  const { subFactionKeys } = getArmyFromList(factionName)
+
+  useEffect(() => {
+    if (!subFactionKeys.includes(subFactionName)) {
+      dispatch(setSubFactionName(subFactionKeys[0]))
+    }
+  }, [dispatch, subFactionKeys, subFactionName])
+
+  const setValue = withSelectOne(value => {
+    // setLoadedArmy(null)
+    // dispatch(resetSelections())
+    // dispatch(resetRealmscapeStore())
+    // dispatch(resetAllySelections())
+    // resetAnalyticsStore()
+    // if (isOnline) logFactionSwitch(value)
+    dispatch(setSubFactionName(value || ''))
+  })
+
+  // Only display if we actually need to choose
+  if (subFactionKeys.length < 2) return <></>
+
+  return (
+    <>
+      <span className="text-white">Select your sub-faction:</span>
+      <div className={`d-flex pt-3 pb-2 justify-content-center`}>
+        <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
+          <SelectOne
+            value={titleCase(subFactionName)}
+            items={subFactionKeys} // TODO: Fetch
+            setValue={setValue}
+            hasDefault={true}
+            toTitle={true}
+          />
+        </div>
+      </div>
+    </>
   )
 }

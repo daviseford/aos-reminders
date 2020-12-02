@@ -1,30 +1,38 @@
-import { IInitialArmy } from 'types/army'
-import { TNewFaction, TObjWithEffects, TParentEffectsObjWithEffects, TSubFactionEntry } from './factionTypes'
+import deepmerge from 'deepmerge'
+import { TInitialArmy } from 'types/army'
+import {
+  TObjWithEffects,
+  TParentEffectsObjWithEffects,
+  TSubFaction,
+  TSubFactionEntry,
+  TSubFactions,
+} from './factionTypes'
 
 /**
  * To see how a new data-structure army might feel in the UI as-is
  */
-export const temporaryAdapter = <F extends TNewFaction, W extends Extract<keyof F['subFactions'], string>>(
-  newFaction: F,
-  whichSubFaction: W
-): IInitialArmy => {
-  const subFaction = newFaction.subFactions[whichSubFaction]
-
-  const initialArmy: IInitialArmy = {
-    Abilities: subFaction.effects,
-    Allegiances: mergeData(subFaction.flavors),
-    AllegianceType: newFaction.flavorLabel,
+export const temporaryAdapter = (subFaction: TSubFaction, FlavorType = 'Flavors'): TInitialArmy => {
+  const initialArmy: TInitialArmy = {
     Artifacts: mergeData(subFaction.artifacts),
     Battalions: mergeData(subFaction.battalions),
+    BattleTraits: subFaction.effects,
+    CommandTraits: mergeData(subFaction.command_traits),
     EndlessSpells: mergeData(subFaction.endless_spells),
+    Flavors: mergeData(subFaction.flavors),
+    FlavorType,
     Scenery: mergeData(subFaction.scenery),
     Spells: mergeData(subFaction.spells),
-    // SubFactions: newFaction.subFactions,
-    Traits: mergeData(subFaction.command_traits),
     Units: mergeData(subFaction.units),
   }
 
   return initialArmy
+}
+
+export const getAggregateArmy = (subFactions: TSubFactions): TInitialArmy => {
+  return Object.values(subFactions).reduce((a, value) => {
+    const b = temporaryAdapter(value, 'Constellations')
+    return deepmerge(a, b)
+  }, {} as TInitialArmy)
 }
 
 const mergeData = (entry?: TSubFactionEntry) => {

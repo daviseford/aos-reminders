@@ -1,6 +1,6 @@
-import { TScenery } from 'types/army'
+import { TEntry } from 'types/data'
 
-const Scenery: TScenery = [
+const Scenery: TEntry[] = [
   {
     name: ``,
     effects: [

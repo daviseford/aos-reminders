@@ -1,8 +1,7 @@
 import { getSlavesUnits } from 'army/slaves_to_darkness/units'
 import { without } from 'lodash'
 import { MARKS_OF_CHAOS, TMarksOfChaos } from 'meta/alliances'
-import { TUnits } from 'types/army'
-import { TEffects } from 'types/data'
+import { TEffects, TEntry } from 'types/data'
 
 /**
  * Returns only effects where invalid Marks are not present
@@ -20,7 +19,7 @@ const filterEffectsByMark = (mark: TMarksOfChaos) => {
  * Gets the slave units for a specified Mark of Chaos
  * @param mark
  */
-export const getChaosSlaves = (mark: TMarksOfChaos): TUnits => {
+export const getChaosSlaves = (mark: TMarksOfChaos): TEntry[] => {
   const filter = filterEffectsByMark(mark)
   return [...getSlavesUnits()].map(({ name, effects }) => ({ name, effects: filter(effects) }))
 }

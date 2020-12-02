@@ -307,7 +307,7 @@ export const ignoredUnknownSelections = [
 ]
 
 // Azyr helper
-export const factionToAllegianceMap = {
+export const factionToFlavorMap = {
   'Clans Eshin': 'Masters of Murder (Eshin)',
   'Clans Moulder': 'Prized Creations (Moulder)',
   'Clans Pestilens': 'Echoes of the Great Plagues (Pestilens)',

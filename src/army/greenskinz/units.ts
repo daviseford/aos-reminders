@@ -1,4 +1,5 @@
-import { TUnits } from 'types/army'
+// Unit Names
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -35,8 +36,7 @@ const WaaaghDrummersEffect = {
   when: [CHARGE_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Orruk Warboss on Wyvern`,
     effects: [

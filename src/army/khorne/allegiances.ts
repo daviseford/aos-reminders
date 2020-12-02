@@ -1,4 +1,4 @@
-import { TAllegiances } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -12,7 +12,7 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-const Allegiances: TAllegiances = [
+const Allegiances: TEntry[] = [
   {
     name: `Reapers of Vengeance`,
     effects: [
@@ -20,7 +20,6 @@ const Allegiances: TAllegiances = [
         name: `Devour the Craven`,
         desc: `If an enemy unit fails a battleshock test within 3" of any friendly REAPERS OF VENGEANCE DAEMON units, add D3 to the number of models that flee.`,
         when: [BATTLESHOCK_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Leave None Alive`,
@@ -49,7 +48,6 @@ const Allegiances: TAllegiances = [
         name: `Slay the Mighty`,
         desc: `You can reroll wound rolls of 1 for attacks made by friendly BLOODLORDS DAEMON units that target a HERO or MONSTER.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `First in His Sight`,
@@ -84,7 +82,6 @@ const Allegiances: TAllegiances = [
         name: `Tireless Conquerors`,
         desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by friendly GORETIDE MORTAL units wholly within 12" of an objective marker.`,
         when: [COMBAT_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `Ever Onwards`,
@@ -113,7 +110,6 @@ const Allegiances: TAllegiances = [
         name: `Skull Hunters`,
         desc: `You can reroll hit rolls of 1 for attacks made by friendly SKULLFIEND TRIBE MORTAL units that are wholly within 12" of an enemy HERO.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
-        allegiance_ability: true,
       },
       {
         name: `For the Brass Citadel`,
