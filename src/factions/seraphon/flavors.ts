@@ -1,5 +1,5 @@
 import { TSubFactions } from 'factions/factionTypes'
-import { keyPicker, pickEffects } from 'factions/metatagger'
+import { keyPicker } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   DURING_SETUP,
@@ -14,6 +14,10 @@ import CommandTraits from './command_traits'
 
 const Flavors: TSubFactions = {
   "Dracothion's Tail": {
+    mandatory: {
+      artifacts: [keyPicker(Artifacts, ['Godbeast Pendant'])],
+      command_traits: [keyPicker(CommandTraits, ['Ancient Knowledge'])],
+    },
     effects: [
       {
         name: `Appear on Command`,
@@ -30,16 +34,14 @@ const Flavors: TSubFactions = {
         desc: `Any reserve units waiting to appear at command which are not set up on the battlefield before the start of the fourth battle round are slain.`,
         when: [TURN_FOUR_START_OF_TURN],
       },
-      ...pickEffects(CommandTraits, ['Ancient Knowledge']),
-      ...pickEffects(Artifacts, ['Godbeast Pendant']),
     ],
   },
 
   'Fangs of Sotek': {
     mandatory: {
-      artifacts: [keyPicker(Artifacts, ['Eviscerating Blade'])],
-      command_abilities: [keyPicker(CommandAbilities, ['Controlled Fury'])],
-      command_traits: [keyPicker(CommandTraits, ['Dominant Predator'])],
+      artifacts: [keyPicker(Artifacts, ['Serpent God Dagger'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Parting Shot'])],
+      command_traits: [keyPicker(CommandTraits, ['Old and Grizzled'])],
     },
     effects: [
       {
@@ -47,9 +49,6 @@ const Flavors: TSubFactions = {
         desc: `In the first battle round, add 3" to the Move characteristic of FANGS OF SOTEK SKINK units.`,
         when: [TURN_ONE_MOVEMENT_PHASE],
       },
-      ...pickEffects(CommandAbilities, ['Parting Shot']),
-      ...pickEffects(CommandTraits, ['Old and Grizzled']),
-      ...pickEffects(Artifacts, ['Serpent God Dagger']),
     ],
   },
 

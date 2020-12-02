@@ -1,6 +1,5 @@
-import { TSubFactionEntry } from 'factions/factionTypes'
+import { TSubFaction } from 'factions/factionTypes'
 import { TTurnWhen } from 'types/phases'
-import { TSelectionTypes } from './selections'
 
 export type TEntryProperties =
   | 'artifact'
@@ -25,18 +24,14 @@ export const ENTRY_PROPERTIES: TEntryProperties[] = [
   'triumph',
 ]
 
-type TEntry2 = {
-  [prop in TEntryProperties]?: boolean
-} &
+type TEntryMetadata = TSubFaction &
   {
-    [key in TSelectionTypes]?: TSubFactionEntry
+    [prop in TEntryProperties]?: boolean
   }
-
 export type TEntry = {
   name: string
-  effects: TEffects[]
   isSideEffect?: boolean
-} & TEntry2
+} & TEntryMetadata
 
 export type TEffects = {
   name: string
