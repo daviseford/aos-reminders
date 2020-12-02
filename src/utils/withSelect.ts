@@ -80,6 +80,8 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
   const { dispatch } = store
   const values = selectValues?.map(x => x.value) || []
 
+  // debugger
+
   Object.keys(payload).forEach(value => {
     if (values.includes(value)) {
       Object.keys(payload[value]).forEach(slice => {

@@ -11,34 +11,15 @@ import Spells from './spells'
 import { Units } from './units'
 
 const baseSeraphonSubfaction: TSubFaction = {
-  effects: [],
-
-  units: {
-    available: [Units],
-  },
-
-  battalions: {
-    available: [Battalions],
-  },
-
-  command_traits: {
-    available: [CommandTraits],
-  },
-
-  spells: {
-    available: [Spells],
-  },
-
-  scenery: {
-    available: [Scenery],
-  },
-
-  endless_spells: {
-    available: [EndlessSpells],
-  },
-
-  artifacts: {
-    available: [Artifacts],
+  effects: pickEffects(SeraphonBattleTraits, ['SERAPHON']),
+  available: {
+    artifacts: [Artifacts],
+    battalions: [Battalions],
+    command_traits: [CommandTraits],
+    endless_spells: [EndlessSpells],
+    scenery: [Scenery],
+    spells: [Spells],
+    units: [Units],
   },
 }
 
@@ -48,8 +29,9 @@ const subFactions: TSubFactions = {
 
     effects: pickEffects(SeraphonBattleTraits, ['COALESCED', 'SERAPHON']),
 
-    battalions: {
-      available: [
+    available: {
+      flavors: [keyPicker(Flavors, ["Koatl's Claw", 'Thunder Lizard'])],
+      battalions: [
         keyPicker(Battalions, [
           'Eternal Temple-host',
           'Sunclaw Temple-host',
@@ -59,10 +41,6 @@ const subFactions: TSubFactions = {
         ]),
       ],
     },
-
-    flavors: {
-      available: [keyPicker(Flavors, ["Koatl's Claw", 'Thunder Lizard'])],
-    },
   },
 
   Starborne: {
@@ -70,8 +48,10 @@ const subFactions: TSubFactions = {
 
     effects: pickEffects(SeraphonBattleTraits, ['STARBORNE', 'SERAPHON']),
 
-    battalions: {
-      available: [
+    available: {
+      flavors: [keyPicker(Flavors, ["Dracothion's Tail", 'Fangs of Sotek'])],
+
+      battalions: [
         keyPicker(Battalions, [
           'Eternal Starhost',
           'Sunclaw Starhost',
@@ -82,10 +62,6 @@ const subFactions: TSubFactions = {
           'Venomblade Starhost',
         ]),
       ],
-    },
-
-    flavors: {
-      available: [keyPicker(Flavors, ["Dracothion's Tail", 'Fangs of Sotek'])],
     },
   },
 }
