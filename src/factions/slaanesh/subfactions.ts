@@ -50,7 +50,7 @@ const baseSubfaction: TSubFaction = {
 }
 
 const subFactions: TSubFactions = {
-  INVADERS: {
+  Invaders: {
     ...baseSubfaction,
 
     // Effects
@@ -95,7 +95,7 @@ const subFactions: TSubFactions = {
     },
   },
 
-  PRETENDERS: {
+  Pretenders: {
     ...baseSubfaction,
     // Effects
     effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Magnificence Made Flesh'])],
@@ -138,7 +138,7 @@ const subFactions: TSubFactions = {
     },
   },
 
-  GODSEEKERS: {
+  Godseekers: {
     ...baseSubfaction,
     // Rules that are applied automatically when you select this subfaction
     effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Blessings of the Gleeful Chase'])],
@@ -181,7 +181,7 @@ const subFactions: TSubFactions = {
     },
   },
 
-  SYLLESSKAN: {
+  "Syll'Esskan": {
     ...baseSubfaction,
     // Rules that are applied automatically when you select this subfaction
     effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Vengeance Unleashed'])],

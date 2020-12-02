@@ -149,13 +149,7 @@ const SubFactionSelectComponent = () => {
       <span className="text-white">Select your sub-faction:</span>
       <div className={`d-flex pt-3 pb-2 justify-content-center`}>
         <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
-          <SelectOne
-            value={titleCase(subFactionName)}
-            items={subFactionKeys}
-            setValue={setValue}
-            hasDefault={true}
-            toTitle={true}
-          />
+          <SelectOne value={subFactionName} items={subFactionKeys} setValue={setValue} hasDefault={true} />
         </div>
       </div>
     </>

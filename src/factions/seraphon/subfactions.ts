@@ -43,7 +43,7 @@ const baseSeraphonSubfaction: TSubFaction = {
 }
 
 const subFactions: TSubFactions = {
-  COALESCED: {
+  Coalesced: {
     ...baseSeraphonSubfaction,
 
     effects: pickEffects(SeraphonBattleTraits, ['COALESCED', 'SERAPHON']),
@@ -65,8 +65,7 @@ const subFactions: TSubFactions = {
     },
   },
 
-  // Starborne Constellation
-  STARBORNE: {
+  Starborne: {
     ...baseSeraphonSubfaction,
 
     effects: pickEffects(SeraphonBattleTraits, ['STARBORNE', 'SERAPHON']),
