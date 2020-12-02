@@ -1,6 +1,5 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
-import { TDropdownOption } from 'components/input/select'
-import { ValueType } from 'react-select/src/types'
+import { TSelectMultiValueType, TSelectOneValueType } from 'components/input/select'
 import { store } from 'store'
 import { TEntryProperties } from 'types/data'
 import { logIndividualSelection } from 'utils/analytics'
@@ -8,19 +7,17 @@ import { titleCase } from 'utils/textUtils'
 
 type TWithSelectOne = (
   method: (value: string | null) => void
-) => (selectValue: ValueType<TDropdownOption> | null) => void
+) => (selectValue: TSelectOneValueType | null) => void
 
 export const withSelectOne: TWithSelectOne = method => selectValue => {
-  if (!selectValue) return method(null)
-  const { value } = selectValue as TDropdownOption
-  method(value)
+  return method(selectValue?.value || null)
 }
 
 type TWithSelectMultipleWithPayload = (
   method: ActionCreatorWithPayload<any, string>,
   key: string,
   payload?: Record<string, any>
-) => (selectValues: ValueType<TDropdownOption>[]) => void
+) => (selectValues: TSelectMultiValueType) => void
 
 /**
  * This dispatches for you, no need to do it yourself
@@ -35,7 +32,7 @@ export const withSelectMultipleWithPayload: TWithSelectMultipleWithPayload = (
   payload = {}
 ) => selectValues => {
   const { dispatch } = store
-  const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
+  const values = selectValues?.map(x => x.value) || []
   dispatch(method({ ...payload, [key]: values }))
 }
 
@@ -63,9 +60,8 @@ type TWithSelectMultiWithSideEffects = (
     },
     string
   >,
-  label: string,
-  army: any
-) => (selectValues: ValueType<TDropdownOption>[]) => void
+  label: string
+) => (selectValues: TSelectMultiValueType) => void
 
 /**
  * This dispatches for you, no need to do it yourself
@@ -79,11 +75,10 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
   method,
   payload,
   updateFn,
-  label,
-  army
+  label
 ) => selectValues => {
   const { dispatch } = store
-  const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
+  const values = selectValues?.map(x => x.value) || []
 
   Object.keys(payload).forEach(value => {
     if (values.includes(value)) {
