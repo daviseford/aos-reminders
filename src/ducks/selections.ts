@@ -130,11 +130,9 @@ const handleSideEffects = (state: IStore['selections'], payload: string[], type:
 
   removedSideEffects.forEach(r => {
     const sideEffect = state.sideEffects[r]
-    Object.keys(sideEffect).forEach(slice => {
-      state.selections[slice as keyof typeof state.selections] = without(
-        state.selections[slice as keyof typeof state.selections],
-        ...sideEffect[slice as keyof typeof sideEffect]
-      )
+    const slices = Object.keys(sideEffect) as TSelectionTypes[]
+    slices.forEach(slice => {
+      state.selections[slice] = without(state.selections[slice], ...sideEffect[slice])
     })
   })
 }
