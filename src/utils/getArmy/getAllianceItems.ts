@@ -35,9 +35,10 @@ export const getAllianceItems = (
 
   return sortedUniqBy(
     sortBy(
+      // (without(Object.keys(FactionList), factionName) as TSupportedFaction[])
       without(Object.keys(FactionList), factionName)
         .filter(faction => FactionList[faction].GrandAlliance === grandAlliance)
-        .map(faction => FactionList[faction].Army[type])
+        .map(faction => FactionList[faction].AggregateArmy[type])
         .filter(items => !!items && items.length > 0)
         .flat()
         .concat(originalEntries),
