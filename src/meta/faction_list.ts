@@ -4,10 +4,8 @@ import { SlaaneshFaction } from 'factions/slaanesh'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import { SERAPHON, SLAANESH, STORMCAST_ETERNALS, TSupportedFaction } from 'meta/factions'
 
-type TFactionList = { readonly [factionName in TSupportedFaction]: Faction }
-
 // Enable as you add them to /factions/
-const ArmyList: TFactionList = {
+const FactionList: Record<TSupportedFaction, Faction> = {
   // [BEASTS_OF_CHAOS]: {
   //   Army: { ...BeastsOfChaosArmy },
   //   GrandAlliance: CHAOS,
@@ -191,9 +189,9 @@ const ArmyList: TFactionList = {
   // },
 }
 
-export const getFactionList = () => ArmyList
-export const getFactionFromList = (factionName: TSupportedFaction) => ArmyList[factionName]
-export const getSubFactionKeys = (factionName: TSupportedFaction) => ArmyList[factionName].subFactionKeys
+export const getFactionList = () => FactionList
+export const getFactionFromList = (factionName: TSupportedFaction) => FactionList[factionName]
+export const getSubFactionKeys = (factionName: TSupportedFaction) => FactionList[factionName].subFactionKeys
 
 // export const getAggregatedArmyList = () =>
 //   Object.entries(ArmyList).reduce((a, [k, v]) => {
