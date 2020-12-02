@@ -11,6 +11,7 @@ export interface IImportedArmy {
   allyUnits: string[]
   errors: TImportError[]
   factionName: TSupportedFaction
+  subFactionName: string
   hiddenReminders?: undefined
   origin_realm: TOriginRealms | null
   realmscape_feature: string | null
