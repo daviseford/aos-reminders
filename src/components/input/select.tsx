@@ -6,8 +6,14 @@ import { logIndividualSelection } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 
 export type TDropdownOption = { value: string; label: string }
-export type TSelectOneSetValueFn = (value: ValueType<TDropdownOption>, action: ActionMeta<any>) => void
-type TSelectMultiSetValueFn = (value: ValueType<TDropdownOption>[], action: ActionMeta<any>) => void
+export type TSelectOneValueType = ValueType<TDropdownOption, false>
+export type TSelectMultiValueType = ValueType<TDropdownOption, true>
+
+export type TSelectOneSetValueFn = (value: TSelectOneValueType, action: ActionMeta<TDropdownOption>) => void
+export type TSelectMultiSetValueFn = (
+  value: TSelectMultiValueType,
+  action: ActionMeta<TDropdownOption>
+) => void
 
 interface ISelectOneProps {
   hasDefault?: boolean
@@ -35,12 +41,12 @@ export const SelectOne = (props: ISelectOneProps) => {
   const options = convertToOptions(items, toTitle)
   const controlledValue = value ? convertToOptions([value], false)[0] : value
 
-  const onChange = useCallback(
-    (...args) => {
-      if (log && args[1].action === 'select-option' && args[0].value) {
-        logIndividualSelection(log.title, args[0].value, log.label)
+  const onChange: TSelectOneSetValueFn = useCallback(
+    (value, action) => {
+      if (log && action.action === 'select-option' && value?.value) {
+        logIndividualSelection(log.title, value.value, log.label)
       }
-      setValue(args[0], args[1])
+      setValue(value, action)
     },
     [log, setValue]
   )
@@ -49,6 +55,7 @@ export const SelectOne = (props: ISelectOneProps) => {
     defaultValue: hasDefault ? options[0] : null,
     isClearable,
     isDisabled,
+    isMulti: false,
     isSearchable: true,
     onChange,
     options,
@@ -105,12 +112,12 @@ export const SelectMulti = (props: ISelectMultiProps) => {
   const options = convertToOptions(items, toTitle)
   const selectValues = convertToOptions(values, toTitle)
 
-  const handleChange = useCallback(
-    (...args) => {
-      if (log && args[1].action === 'select-option' && args[1].option.value) {
-        logIndividualSelection(log.title, args[1].option.value, log.label)
+  const handleChange: TSelectMultiSetValueFn = useCallback(
+    (value, action) => {
+      if (log && action.action === 'select-option' && action?.option?.value) {
+        logIndividualSelection(log.title, action.option.value, log.label)
       }
-      setValues(args[0], args[1])
+      setValues(value, action)
     },
     [log, setValues]
   )
@@ -124,7 +131,7 @@ export const SelectMulti = (props: ISelectMultiProps) => {
         isClearable={isClearable}
         isMulti={true}
         isSearchable={true}
-        onChange={handleChange as TSelectOneSetValueFn}
+        onChange={handleChange}
         options={options}
         // Apply styling via theme context
         className={theme.text}
