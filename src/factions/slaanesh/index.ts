@@ -1,16 +1,21 @@
-import { TNewFaction } from 'factions/factionTypes'
+import { TNewFactionType } from 'factions/factionTypes'
+import { getAggregateArmy } from 'factions/temporaryAdapter'
+import { CHAOS } from 'meta/alliances'
 import { SLAANESH } from 'meta/factions'
 import subFactions from './subfactions'
 
-export const SlaaneshFaction: TNewFaction = {
+export const SlaaneshFaction: TNewFactionType = {
   factionName: SLAANESH,
 
   subFactions,
 
-  // grandAlliance: CHAOS, // Should a Faction declare its grandalliance, or should it not know about that?
+  GrandAlliance: CHAOS,
+  subFactionKeys: Object.keys(subFactions),
 
   subFactionLabel: 'Hosts', // similar to AllegianceType in the old structure
   flavorLabel: 'Flavor', // This will be used in place of "Flavor" in the UI eventually
+
+  Army: getAggregateArmy(subFactions),
 
   // Export everything (to be used for imports/ally stuff) ? Maybe... or maybe just get it through subfactions
   // units,
