@@ -1,6 +1,5 @@
 import { CardMultiSelect, CardSingleSelect } from 'components/info/card'
-import { armyActions, selectionActions } from 'ducks'
-import { selectFactionName } from 'ducks/selectors'
+import { armyActions, selectionActions, selectors } from 'ducks'
 import React, { Fragment, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TOriginRealms } from 'types/realmscapes'
@@ -10,9 +9,10 @@ import { withSelectMultiWithSideEffects, withSelectOne } from 'utils/withSelect'
 
 const ArmyBuilder = () => {
   const dispatch = useDispatch()
-  const factionName = useSelector(selectFactionName)
+  const { factionName, subFactionName } = useSelector(selectors.selectFactionNameSlice)
   const { isMobile } = useWindowSize()
-  const army = useGetArmy(factionName)
+
+  const army = useGetArmy(factionName, subFactionName)
 
   useEffect(() => {
     dispatch(armyActions.updateArmy(army))

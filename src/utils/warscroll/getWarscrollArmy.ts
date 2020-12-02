@@ -2,8 +2,8 @@ import GenericScenery from 'army/generic/scenery'
 import { SeraphonConstellations } from 'army/seraphon/allegiances'
 import CommonSonsOfBehematData from 'army/sons_of_behemat/common'
 import { last, uniq } from 'lodash'
-import { getArmyList } from 'meta/army_list'
 import { TSupportedFaction } from 'meta/factions'
+import { getFactionList } from 'meta/faction_list'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 import { importErrorChecker } from 'utils/import'
 import { importFactionNameMap, importUnitOptionMap } from 'utils/import/options'
@@ -17,8 +17,8 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
 }
 
 const getAllegianceTypes = () => {
-  return Object.values(getArmyList())
-    .map(v => (v.Army?.FlavorType || '').replace(/s$/, '')) // Remove trailing s
+  return Object.values(getFactionList())
+    .map(v => (v.AggregateArmy?.FlavorType || '').replace(/s$/, '')) // Remove trailing s
     .filter(x => !!x)
 }
 
