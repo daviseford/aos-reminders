@@ -149,6 +149,9 @@ const SubFactionSelectComponent = () => {
     dispatch(setSubFactionName(value || ''))
   })
 
+  // Only display if we actually need to choose
+  if (subFactionKeys.length < 2) return <></>
+
   return (
     <>
       <span className="text-white">Select your sub-faction:</span>
