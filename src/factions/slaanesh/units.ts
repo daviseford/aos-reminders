@@ -1,48 +1,55 @@
+import { pickEffects } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
-  START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import CommandAbilities from './command_abilities'
+import Spells from './spells'
+
+const DarkTemptationsEffect = {
+  name: `Dark Temptations`,
+  desc: `You can pick 1 enemy HERO within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that HERO suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a D6. On 1-3, that HERO no longer receives this modifier to their hit rolls. On 4-6, that HERO is slain.`,
+  when: [START_OF_COMBAT_PHASE],
+}
+
+const DelicatePrecisionEffect = {
+  name: `Delicate Precision`,
+  desc: `If the unmodified wound roll for an attack made with a melee weapon by this model is 6, that attack inflicts a number of mortal wounds equal to the damage characteristic of the weapon used for the attack and the attack sequence ends (do not make a save roll).`,
+  when: [COMBAT_PHASE],
+}
+
+const LivingWhipEffect = {
+  name: `Living Whip`,
+  desc: `You can pick 1 enemy MONSTER model within 6" of this model and roll a D6. On a 3+, pick 1 melee weapon that enemy MONSTER model is armed with. Subtract 1 from hit rolls for attacks made with that weapon until the end of that combat phase.`,
+  when: [START_OF_COMBAT_PHASE],
+}
+
+const ShiningAegisEffect = {
+  name: `Shining Aegis`,
+  desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
+  when: [WOUND_ALLOCATION_PHASE],
+}
 
 const KeeperOfSecretsBaseEffects = [
-  {
-    name: `Dark Temptations`,
-    desc: `You can pick 1 enemy HERO within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that HERO suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a D6. On 1-3, that HERO no longer receives this modifier to their hit rolls. On 4-6, that HERO is slain.`,
-    when: [START_OF_COMBAT_PHASE],
-  },
-  {
-    name: `Delicate Precision`,
-    desc: `If the unmodified wound roll for an attack made with a melee weapon by this model is 6, that attack inflicts a number of mortal wounds equal to the damage characteristic of the weapon used for the attack and the attack sequence ends (do not make a save roll).`,
-    when: [COMBAT_PHASE],
-  },
+  DarkTemptationsEffect,
+  DelicatePrecisionEffect,
   {
     name: `Magic`,
     desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
     when: [HERO_PHASE],
   },
-  {
-    name: `Cacophonic Choir`,
-    desc: `Casting value of 6. Roll 2D6. Each enemy unit within 6" of the caster that has a bravery characteristic of less than the roll suffers D3 mortal wounds.`,
-    when: [HERO_PHASE],
-    spell: true,
-  },
-  {
-    name: `Excess of Violence`,
-    desc: `When it is your turn to pick a unit to fight with, select 1 friendly Hedonite unit that has already fought once in that combat phase and is wholly within 12. That unit can be selected to fight for a second time if it is within 3" of any enemy units. You cannot pick the same unit to benefit from this command ability more than once in the same combat phase."`,
-    when: [COMBAT_PHASE],
-    command_ability: true,
-  },
+  ...pickEffects(Spells, ['Cacophonic Choir']),
+  ...pickEffects(CommandAbilities, ['Excess of Violence']),
 ]
 const LitheAndSwiftEffect = {
   name: `Lithe and Swift`,
@@ -64,19 +71,7 @@ const HornBlowerEffect = {
   desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Hornblowers is 1, that battleshock test must be rerolled.`,
   when: [BATTLESHOCK_PHASE],
 }
-const AcquiescenceEffects = [
-  {
-    name: `Acquiescence`,
-    desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can reroll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
-    when: [HERO_PHASE],
-    spell: true,
-  },
-  {
-    name: `Acquiescence`,
-    desc: `If active, you can reroll hit rolls of 1 for attacks that target the debuffed unit.`,
-    when: [SHOOTING_PHASE, COMBAT_PHASE],
-  },
-]
+
 // Unit Names
 export const Units = {
   'Keeper of Secrets w/ Ritual Knife': {
@@ -90,24 +85,10 @@ export const Units = {
     ],
   },
   'Keeper of Secrets w/ Living Whip': {
-    effects: [
-      ...KeeperOfSecretsBaseEffects,
-      {
-        name: `Living Whip`,
-        desc: `You can pick 1 enemy MONSTER model within 6" of this model and roll a D6. On a 3+, pick 1 melee weapon that enemy MONSTER model is armed with. Subtract 1 from hit rolls for attacks made with that weapon until the end of that combat phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
+    effects: [...KeeperOfSecretsBaseEffects, LivingWhipEffect],
   },
   'Keeper of Secrets w/ Shining Aegis': {
-    effects: [
-      ...KeeperOfSecretsBaseEffects,
-      {
-        name: `Shining Aegis`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
+    effects: [...KeeperOfSecretsBaseEffects, ShiningAegisEffect],
   },
   'Keeper of Secrets w/ Sinistrous Hand': {
     effects: [
@@ -144,29 +125,8 @@ export const Units = {
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Subvert.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Subvert`,
-        desc: `Casting value of 7. You can pick 1 enemy HERO within 18" of the caster that is visible to them. That Hero cannot use any command abilities until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Subvert`,
-        desc: `If active, the debuffed HERO cannot use any command abilities.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Regal Authority`,
-        desc: `If this model is your general and is on the battlefield, until the end of this phase, you can reroll hit rolls of 1 for friendly Chaos Slaanesh units while they are wholly with 18" of this model.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `Regal Authority`,
-        desc: `If this model is your general and is on the battlefield, until the end of that phase, do not take battleshock tests for friendly Chaos Slaanesh units while they are wholly with 18" of this model.`,
-        when: [START_OF_BATTLESHOCK_PHASE],
-        command_ability: true,
-      },
+      ...pickEffects(Spells, ['Subvert']),
+      ...pickEffects(CommandAbilities, ['Regal Authority']),
     ],
   },
   'Shalaxi Helbane': {
@@ -176,26 +136,14 @@ export const Units = {
         desc: `Add 1 to save rolls for attacks made with melee weapons by enemy HEROES that target this model.`,
         when: [SAVES_PHASE],
       },
-      {
-        name: `Delicate Precision`,
-        desc: `If the unmodified wound roll for an attack made with a missile or melee weapon by this model is 6, that attack inflicts a number of mortal wounds equal to the Damage characteristic of the weapon used for the attack and the attack sequence ends (do not make a save roll).`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      DelicatePrecisionEffect,
       {
         name: `Irresistible Challenge`,
         desc: `At the start of the enemy charge phase, you can pick 1 enemy HERO within 12" of this model and more than 3" from any models from your army, and ask your opponent if they wish that HERO to accept Shalaxi Helbane's challenge. If they refuse, that HERO suffers D3 mortal wounds. If they accept, that HERO must attempt to charge, and must finish the charge move within 1/2" of this model if it is possible for it to do so. In addition, if the challenge is accepted, any attacks that HERO makes in the following combat phase must target this model.`,
         when: [START_OF_CHARGE_PHASE],
       },
-      {
-        name: `Living Whip`,
-        desc: `If this model is armed with a Living Whip, you can pick 1 enemy MONSTER model within 6" of this model and roll a D6. On a 3+, pick 1 melee weapon that enemy MONSTER model is armed with. Subtract 1 from hit rolls for attacks made with that melee weapon until the end of that combat phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Shining Aegis`,
-        desc: `If this model is armed with a Shining Aegis, roll a D6 each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
+      LivingWhipEffect,
+      ShiningAegisEffect,
       {
         name: `The Killing Stroke`,
         desc: `You can pick 1 enemy HERO within 3" of this model. If you do so, all attacks made by this model in that combat phase must target that model, but the Damage characteristic for this model's Soulpiercer is 6 in that combat phase instead of D6.`,
@@ -206,22 +154,7 @@ export const Units = {
         desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Refine Senses.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Refine Senses`,
-        desc: `Casting value of 4. Until your next hero phase, you can reroll hit rolls for attacks made by the caster that target a HERO, and you can reroll save rolls for attacks made by Heroes that target the caster.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Refine Senses`,
-        desc: `If active, you can reroll hit rolls for attacks made by the buffed unit that target a HERO.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Refine Senses`,
-        desc: `If active, you can reroll save rolls for attacks made by Heroes that target the buffed unit.`,
-        when: [SAVES_PHASE],
-      },
+      ...pickEffects(Spells, ['Refine Senses']),
     ],
   },
   'The Contorted Epitome': {
@@ -246,17 +179,7 @@ export const Units = {
         desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Overwhelming Acquiescence.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Overwhelming Acquiescence`,
-        desc: `Casting value of 7. You can pick up to D3 enemy units within 24" of the caster that are visible to them. You can reroll hit rolls of 1 for attacks that target those units until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Overwhelming Acquiescence`,
-        desc: `If active, you can reroll hit rolls of 1 for attacks that target the debuffed unit.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
+      ...pickEffects(Spells, ['Overwhelming Acquiescence']),
     ],
   },
   'Infernal Enrapturess, Herald of Slaanesh': {
@@ -316,7 +239,7 @@ export const Units = {
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      ...AcquiescenceEffects,
+      ...pickEffects(Spells, ['Acquiescence']),
     ],
   },
   'Bladebringer, Herald on Hellflayer': {
@@ -336,7 +259,7 @@ export const Units = {
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      ...AcquiescenceEffects,
+      ...pickEffects(Spells, ['Acquiescence']),
     ],
   },
   'Bladebringer, Herald on Seeker Chariot': {
@@ -361,7 +284,7 @@ export const Units = {
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      ...AcquiescenceEffects,
+      ...pickEffects(Spells, ['Acquiescence']),
     ],
   },
   Hellflayer: {
@@ -419,7 +342,7 @@ export const Units = {
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      ...AcquiescenceEffects,
+      ...pickEffects(Spells, ['Acquiescence']),
     ],
   },
   'Exalted Chariot': {
@@ -544,16 +467,8 @@ export const Units = {
   },
   'Soulfeaster Keeper of Secrets': {
     effects: [
-      {
-        name: `Dark Temptations`,
-        desc: `You can pick 1 enemy HERO within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that HERO suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a D6. On 1-3, that HERO no longer receives this modifier to their hit rolls. On 4-6, that HERO is slain.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Delicate Precision`,
-        desc: `If the unmodified wound roll for an attack made with a melee weapon by this model is 6, that attack inflicts a number of mortal wounds equal to the damage characteristic of the weapon used for the attack and the attack sequence ends (do not make a save roll).`,
-        when: [COMBAT_PHASE],
-      },
+      DarkTemptationsEffect,
+      DelicatePrecisionEffect,
       {
         name: `Soulfeaster Tendrils`,
         desc: `At the start of the combat phase, you can pick 1 enemy HERO within 3" of this model and roll 3D6. If the roll is greater than that model's Bravery characteristic, you gain D3 depravity points, and 1 is subtracted from hit rolls for attacks made by that HERO until the end of that phase.`,
@@ -564,12 +479,7 @@ export const Units = {
         desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Cacophonic Choir`,
-        desc: `Casting value of 6. Roll 2D6. Each enemy unit within 6" of the caster that has a bravery characteristic of less than the roll suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
+      ...pickEffects(Spells, ['Cacophonic Choir']),
     ],
   },
   'Lord of Pain ': {
@@ -584,12 +494,7 @@ export const Units = {
         desc: `If this model negated a wound in this phase, the attacking unit suffers 1 mortal wound after resolving all of its attacks.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Paragon of Depravity`,
-        desc: `You may pick 1 friendly Hedonite mortal unit wholly within 12". The target unit may reroll hit rolls in this phase.`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
-      },
+      ...pickEffects(CommandAbilities, ['Paragon of Depravity']),
     ],
   },
 }

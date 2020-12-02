@@ -6,12 +6,12 @@ import {
   DURING_GAME,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
 
-// Spell Lores of Slaanesh (Daemons Only)
 export const Spells = {
-  // Lore of Slaanesh
+  // Slaanesh Daemons Only
   'Lore of Slaanesh': {
     effects: [
       {
@@ -51,7 +51,7 @@ export const Spells = {
       },
     ],
   },
-  // Forbidden Sorceries of Slaanesh (Greater Daemons Only)
+  // Slaanesh Greater Daemons Only
   'Forbidden Sorceries of Slaanesh': {
     effects: [
       {
@@ -81,7 +81,7 @@ export const Spells = {
       },
     ],
   },
-  // Lore of Pain and Pleasure (Mortals Only)
+  // Slaanesh Mortals Only
   'Lore of Pain and Pleasure': {
     effects: [
       {
@@ -108,6 +108,76 @@ export const Spells = {
         name: `Hellshriek`,
         desc: `Casting value of 5. Roll a D6 for each enemy unit within 6" of the caster. On a 5+ that enemy unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Cacophonic Choir': {
+    effects: [
+      {
+        name: `Cacophonic Choir`,
+        desc: `Casting value of 6. Roll 2D6. Each enemy unit within 6" of the caster that has a bravery characteristic of less than the roll suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  Acquiescence: {
+    effects: [
+      {
+        name: `Acquiescence`,
+        desc: `Casting value of 5. You can pick 1 enemy unit within 18" of the caster that is visible to them. You can reroll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Acquiescence`,
+        desc: `If active, you can reroll hit rolls of 1 for attacks that target the debuffed unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  Subvert: {
+    effects: [
+      {
+        name: `Subvert`,
+        desc: `Casting value of 7. You can pick 1 enemy HERO within 18" of the caster that is visible to them. That Hero cannot use any command abilities until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Subvert`,
+        desc: `If active, the debuffed HERO cannot use any command abilities.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  'Refine Senses': {
+    effects: [
+      {
+        name: `Refine Senses`,
+        desc: `Casting value of 4. Until your next hero phase, you can reroll hit rolls for attacks made by the caster that target a HERO, and you can reroll save rolls for attacks made by Heroes that target the caster.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Refine Senses`,
+        desc: `If active, you can reroll hit rolls for attacks made by the buffed unit that target a HERO.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Refine Senses`,
+        desc: `If active, you can reroll save rolls for attacks made by Heroes that target the buffed unit.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+  'Overwhelming Acquiescence': {
+    effects: [
+      {
+        name: `Overwhelming Acquiescence`,
+        desc: `Casting value of 7. You can pick up to D3 enemy units within 24" of the caster that are visible to them. You can reroll hit rolls of 1 for attacks that target those units until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Overwhelming Acquiescence`,
+        desc: `If active, you can reroll hit rolls of 1 for attacks that target the debuffed unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },

@@ -148,7 +148,7 @@ export const BattleTraits = {
       },
     ],
   },
-  // Lurid Haze
+  // Lurid Haze Flavor
   'Lurid Haze': {
     effects: [
       {
@@ -163,7 +163,7 @@ export const BattleTraits = {
       },
     ],
   },
-  // Faultless Blades
+  // Faultless Blades Flavor
   'Faultless Blades': {
     effects: [
       {
@@ -173,7 +173,7 @@ export const BattleTraits = {
       },
     ],
   },
-  // Scarlet Cavalcade
+  // Scarlet Cavalcade Flavor
   'Scarlet Cavalcade': {
     effects: [
       {
