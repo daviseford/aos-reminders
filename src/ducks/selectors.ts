@@ -9,6 +9,7 @@ export const selectAllyArmies = (state: IStore) => state.army.allyArmies
 // Faction Name
 export const selectFactionName = (state: IStore) => state.factionNames.factionName
 export const selectSubFactionName = (state: IStore) => state.factionNames.subFactionName
+export const selectFactionNameSlice = (state: IStore) => state.factionNames
 
 // Notes
 export const selectNotes = (state: IStore) => state.notes.notes
