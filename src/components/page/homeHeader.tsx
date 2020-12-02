@@ -7,7 +7,7 @@ import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { factionNamesActions, realmscapeActions, selectionActions, selectors } from 'ducks'
 import { PRIMARY_FACTIONS, TPrimaryFactions } from 'meta/factions'
-import { getFactionFromList } from 'meta/faction_list'
+import { getFactionFromList, getSubFactionKeys } from 'meta/faction_list'
 import React, { lazy, Suspense, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
@@ -104,6 +104,8 @@ const FactionSelectComponent = () => {
     dispatch(resetAllySelections())
     resetAnalyticsStore()
     if (isOnline) logFactionSwitch(value)
+    const subfactionNames = getSubFactionKeys(value as TPrimaryFactions)
+    dispatch(setSubFactionName(subfactionNames[0]))
     dispatch(setFactionName(value as TPrimaryFactions))
   })
 
