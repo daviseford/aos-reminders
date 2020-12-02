@@ -6,7 +6,8 @@ import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { factionNamesActions, realmscapeActions, selectionActions, selectors } from 'ducks'
-import { PRIMARY_FACTIONS, TPrimaryFactions } from 'meta/factions'
+import { getArmyFromList } from 'meta/army_list'
+import { PRIMARY_FACTIONS, SERAPHON, TPrimaryFactions } from 'meta/factions'
 import React, { lazy, Suspense, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
@@ -130,6 +131,8 @@ const SubFactionSelectComponent = () => {
   // const { setLoadedArmy } = useSavedArmies()
   const subFactionName = useSelector(selectors.selectSubFactionName)
 
+  const { subFactionKeys } = getArmyFromList(SERAPHON)
+
   const setValue = withSelectOne(value => {
     // setLoadedArmy(null)
     // dispatch(resetSelections())
@@ -147,7 +150,7 @@ const SubFactionSelectComponent = () => {
         <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
           <SelectOne
             value={titleCase(subFactionName)}
-            items={PRIMARY_FACTIONS} // TODO: Fetch
+            items={subFactionKeys} // TODO: Fetch
             setValue={setValue}
             hasDefault={true}
             toTitle={true}

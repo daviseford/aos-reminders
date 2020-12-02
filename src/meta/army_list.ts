@@ -1,14 +1,7 @@
+import { TNewFactionType } from 'factions/factionTypes'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
-import { temporaryAdapter } from 'factions/temporaryAdapter'
-import { CHAOS, ORDER, TGrandAlliances } from 'meta/alliances'
 import { SERAPHON, SLAANESH, TSupportedFaction } from 'meta/factions'
-import { TInitialArmy } from 'types/army'
-
-const SlaaneshNew = temporaryAdapter(SlaaneshFaction, 'INVADERS')
-const SeraphonNew = temporaryAdapter(SeraphonFaction, 'COALESCED')
-console.log(SlaaneshNew)
-console.log(SeraphonNew)
 
 // Enable as you add them to /factions/
 
@@ -147,8 +140,7 @@ const ArmyList: TArmyList = {
   // },
   [SERAPHON]: {
     // Army: { ...SeraphonArmy },
-    Army: { ...SeraphonNew },
-    GrandAlliance: ORDER,
+    ...SeraphonFaction,
   },
   // [SKAVEN]: {
   //   Army: { ...SkavenArmy },
@@ -156,8 +148,7 @@ const ArmyList: TArmyList = {
   // },
   [SLAANESH]: {
     // Army: { ...SlaaneshArmy },
-    Army: { ...SlaaneshNew },
-    GrandAlliance: CHAOS,
+    ...SlaaneshFaction,
   },
   // [SLAVES_TO_DARKNESS]: {
   //   Army: { ...SlavesToDarknessArmy },
@@ -204,9 +195,9 @@ const ArmyList: TArmyList = {
 export const getArmyList = () => ArmyList
 export const getArmyFromList = (factionName: TSupportedFaction) => ArmyList[factionName]
 
-type TArmyList = { readonly [factionName in TSupportedFaction]: IArmyListEntry }
+type TArmyList = { readonly [factionName in TSupportedFaction]: TNewFactionType }
 
-interface IArmyListEntry {
-  readonly Army: TInitialArmy
-  readonly GrandAlliance: TGrandAlliances
-}
+// interface IArmyListEntry {
+//   readonly Army: TInitialArmy
+//   readonly GrandAlliance: TGrandAlliances
+// }

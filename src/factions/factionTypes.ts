@@ -1,4 +1,6 @@
+import { TGrandAlliances } from 'meta/alliances'
 import { TSupportedFaction } from 'meta/factions'
+import { TInitialArmy } from 'types/army'
 import { TEffects } from 'types/data'
 import { TSelectionTypes } from 'types/selections'
 
@@ -20,11 +22,16 @@ export type TSubFaction = {
 
 export type TSubFactions = Record<string, TSubFaction>
 
-export type TNewFaction = {
+export type TNewFactionType = {
   factionName: TSupportedFaction
 
   subFactions: TSubFactions
 
-  subFactionLabel: string
-  flavorLabel: string
+  Army: TInitialArmy // THis is the aggregate army
+
+  readonly subFactionKeys: string[]
+  readonly subFactionLabel: string
+  readonly flavorLabel: string
+
+  readonly GrandAlliance: TGrandAlliances
 }
