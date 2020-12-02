@@ -1,16 +1,6 @@
-import { ORDER_GRAND_ALLIANCE } from 'meta/factions'
-import subFactions from './subfactions'
-// import AllSeraphonUnits from './units'
-// import AllSeraphonBattalions from './units'
-// import AllEtc from './AllEtc' /// traits spells etc
+import { Faction } from 'factions/factionClass'
+import { ORDER } from 'meta/alliances'
+import { STORMCAST_ETERNALS } from 'meta/factions'
+import SubFactions from './subfactions'
 
-export const SeraphonFaction = {
-  factionName: 'STORMCAST_ETERNALS',
-  grandAlliance: ORDER_GRAND_ALLIANCE,
-
-  subFactions,
-  // Export everything (to be used for imports/ally stuff)
-  // units,
-  // battalions,
-  // etc,
-}
+export const StormcastFaction = new Faction(STORMCAST_ETERNALS, ORDER, SubFactions)
