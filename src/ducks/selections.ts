@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { uniq, without } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
-import { TEntry, TEntryProperties } from 'types/data'
+import { TEntryProperties } from 'types/data'
 import { TSelectionTypes } from 'types/selections'
 import { ISelectionStore, IStore, TAllySelectionStore } from 'types/store'
 
@@ -47,18 +47,22 @@ const selections = createSlice({
     resetSelections: state => {
       state.selections = initialState.selections
     },
-    updateAllyUnits: (state, action: PayloadAction<{ factionName: TSupportedFaction; units: TEntry[] }>) => {
+    updateAllyUnits: (state, action: PayloadAction<{ factionName: TSupportedFaction; units: string[] }>) => {
       const { factionName, units } = action.payload
-      // @ts-ignore
-      state.allySelections[factionName].units = units
+      state.allySelections[factionName] = {
+        battalions: state.allySelections[factionName]?.battalions || [],
+        units,
+      }
     },
     updateAllyBattalions: (
       state,
-      action: PayloadAction<{ factionName: TSupportedFaction; battalions: TEntry[] }>
+      action: PayloadAction<{ factionName: TSupportedFaction; battalions: string[] }>
     ) => {
       const { factionName, battalions } = action.payload
-      // @ts-ignore
-      state.allySelections[factionName].battalions = battalions
+      state.allySelections[factionName] = {
+        battalions,
+        units: state.allySelections[factionName]?.units || [],
+      }
     },
     updateAllySelections: (state, action: PayloadAction<TAllySelectionStore>) => {
       state.allySelections = action.payload
@@ -78,9 +82,7 @@ const selections = createSlice({
      */
     addToSelections: (state, action: TAddToSelectionsAction) => {
       const { value, slice, values } = action.payload
-      state.selections[slice as keyof typeof state.selections] = uniq(
-        state.selections[slice as keyof typeof state.selections].concat(values)
-      )
+      state.selections[slice] = uniq((state.selections[slice] || []).concat(values))
       state.sideEffects[value] = { ...state.sideEffects[value], [slice]: values }
     },
 
