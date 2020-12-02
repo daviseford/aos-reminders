@@ -32,6 +32,7 @@ export interface ICurrentArmy {
   allyFactionNames: TSupportedFaction[]
   allySelections: TAllySelectionStore
   factionName: TSupportedFaction
+  subFactionName: string
   origin_realm: TOriginRealms | null
   realmscape_feature: string | null
   realmscape: TBattleRealms | null

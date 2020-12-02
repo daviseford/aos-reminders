@@ -28,6 +28,7 @@ const getInitialBattlescribeArmy = (html_string: string) => {
     allyUnits: [],
     errors: [],
     factionName: factionName as TSupportedFaction,
+    subFactionName: '', // TODO
     origin_realm,
     realmscape_feature: null,
     realmscape,
