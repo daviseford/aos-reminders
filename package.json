@@ -10,6 +10,7 @@
     "@stripe/stripe-js": "1.11.0",
     "bootstrap": "4.5.3",
     "core-js": "3.8.0",
+    "deepmerge": "^4.2.2",
     "jspdf": "1.5.3",
     "lodash": "4.17.20",
     "luxon": "1.25.0",
