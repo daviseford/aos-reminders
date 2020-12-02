@@ -49,20 +49,16 @@ const selections = createSlice({
     },
     updateAllyUnits: (state, action: PayloadAction<{ factionName: TSupportedFaction; units: string[] }>) => {
       const { factionName, units } = action.payload
-      state.allySelections[factionName] = {
-        battalions: state.allySelections[factionName]?.battalions || [],
-        units,
-      }
+      const battalions = state.allySelections[factionName]?.battalions || []
+      state.allySelections[factionName] = { battalions, units }
     },
     updateAllyBattalions: (
       state,
       action: PayloadAction<{ factionName: TSupportedFaction; battalions: string[] }>
     ) => {
       const { factionName, battalions } = action.payload
-      state.allySelections[factionName] = {
-        battalions,
-        units: state.allySelections[factionName]?.units || [],
-      }
+      const units = state.allySelections[factionName]?.units || []
+      state.allySelections[factionName] = { battalions, units }
     },
     updateAllySelections: (state, action: PayloadAction<TAllySelectionStore>) => {
       state.allySelections = action.payload
