@@ -5,6 +5,9 @@ import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
 export const getSideEffects = (items: TEntry[]) => {
   const Collection = items.reduce((accum, item) => {
     accum[item.name] = {}
+
+    if (item.mandatory) debugger
+
     item.effects.forEach(effect => {
       if (effect.spell || effect.prayer) {
         addToAccum(accum, item.name, effect.name, 'spell')
