@@ -1,5 +1,5 @@
 import { Units as LegionsOfNagashUnits } from 'army/legions_of_nagash/units'
-import { TBattalions, TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -45,10 +45,9 @@ const EndlessDutyEffect = {
   command_ability: true,
 }
 
-export const AlliedUnits: TUnits = [...getLegionsOfNagashUnits()]
+export const AlliedUnits: TEntry[] = [...getLegionsOfNagashUnits()]
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Gothizzar Harvester`,
     effects: [
@@ -380,8 +379,7 @@ export const Units: TUnits = [
   },
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Ossiarch Cohort`,
     effects: [

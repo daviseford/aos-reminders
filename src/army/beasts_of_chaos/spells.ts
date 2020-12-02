@@ -1,10 +1,10 @@
-import { TSpells } from 'types/army'
+import { TEntry } from 'types/data'
 import { HERO_PHASE, SAVES_PHASE } from 'types/phases'
 
 const BrayherdTag = `(Brayherd Wizard)`
 const ThunderscornTag = `(Thunderscorn Wizard)`
 
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   {
     name: `Viletide ${BrayherdTag}`,
     effects: [

@@ -102,105 +102,106 @@ export const WANDERERS: TWanderers = 'WANDERERS'
  * Excludes mercenary armies that are only taken as allies e.g. Mercenary Companies and Mega Gargant Mercenaries
  */
 export type TPrimaryFactions =
-  | TBeastsOfChaos
-  | TBigWaaagh
-  | TBonesplitterz
-  | TChaosGrandAlliance
-  | TCitiesOfSigmar
-  | TDaughtersOfKhaine
-  | TDeathGrandAlliance
-  | TDestructionGrandAlliance
-  | TDispossessed
-  | TFleshEaterCourts
-  | TFyreslayers
-  | TGloomspiteGitz
-  | TGrandHostOfNagash
-  | TGreenskinz
-  | TIdonethDeepkin
-  | TIronjawz
-  | TKharadronOverlords
-  | TKhorne
-  | TLegionOfBlood
-  | TLegionOfChaosAscendant
-  | TLegionOfNight
-  | TLegionOfSacrament
-  | TLegionsOfAzgorh
-  | TLegionsOfGrief
-  | TLethisianDefenders
-  | TLuminethRealmlords
-  | TMegaGargantMercenaries
-  | TMercenaryCompanies
-  | TNighthaunt
-  | TNurgle
-  | TOgorMawtribes
-  | TOrderGrandAlliance
-  | TOssiarchBonereapers
+  // | TBeastsOfChaos
+  // | TBigWaaagh
+  // | TBonesplitterz
+  // | TChaosGrandAlliance
+  // | TCitiesOfSigmar
+  // | TDaughtersOfKhaine
+  // | TDeathGrandAlliance
+  // | TDestructionGrandAlliance
+  // | TDispossessed
+  // | TFleshEaterCourts
+  // | TFyreslayers
+  // | TGloomspiteGitz
+  // | TGrandHostOfNagash
+  // | TGreenskinz
+  // | TIdonethDeepkin
+  // | TIronjawz
+  // | TKharadronOverlords
+  // | TKhorne
+  // | TLegionOfBlood
+  // | TLegionOfChaosAscendant
+  // | TLegionOfNight
+  // | TLegionOfSacrament
+  // | TLegionsOfAzgorh
+  // | TLegionsOfGrief
+  // | TLethisianDefenders
+  // | TLuminethRealmlords
+  // | TMegaGargantMercenaries
+  // | TMercenaryCompanies
+  // | TNighthaunt
+  // | TNurgle
+  // | TOgorMawtribes
+  // | TOrderGrandAlliance
+  // | TOssiarchBonereapers
   | TSeraphon
-  | TSkaven
+  // | TSkaven
   | TSlaanesh
-  | TSlavesToDarkness
-  | TSonsOfBehemat
-  | TSoulblight
-  | TStormcastEternals
-  | TStormcastEternalsStormkeep
-  | TSylvaneth
-  | TTamurkhansHorde
-  | TTombKings
-  | TTzeentch
-  | TWanderers
+// | TSlavesToDarkness
+// | TSonsOfBehemat
+// | TSoulblight
+// | TStormcastEternals
+// | TStormcastEternalsStormkeep
+// | TSylvaneth
+// | TTamurkhansHorde
+// | TTombKings
+// | TTzeentch
+// | TWanderers
 
 // Supported Factions
-export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies | TMegaGargantMercenaries
+// export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies | TMegaGargantMercenaries
+export type TSupportedFaction = TPrimaryFactions
 
 export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
-  BEASTS_OF_CHAOS,
-  BIG_WAAAGH,
-  BONESPLITTERZ,
-  CHAOS_GRAND_ALLIANCE,
-  CITIES_OF_SIGMAR,
-  DAUGHTERS_OF_KHAINE,
-  DEATH_GRAND_ALLIANCE,
-  DESTRUCTION_GRAND_ALLIANCE,
-  DISPOSSESSED,
-  FLESH_EATER_COURTS,
-  FYRESLAYERS,
-  GLOOMSPITE_GITZ,
-  GRAND_HOST_OF_NAGASH,
-  GREENSKINZ,
-  IDONETH_DEEPKIN,
-  IRONJAWZ,
-  KHARADRON_OVERLORDS,
-  KHORNE,
-  LEGION_OF_BLOOD,
-  LEGION_OF_CHAOS_ASCENDANT,
-  LEGION_OF_NIGHT,
-  LEGION_OF_SACRAMENT,
-  LEGIONS_OF_AZGORH,
-  LEGIONS_OF_GRIEF,
-  LETHISIAN_DEFENDERS,
-  LUMINETH_REALMLORDS,
-  NIGHTHAUNT,
-  NURGLE,
-  OGOR_MAWTRIBES,
-  ORDER_GRAND_ALLIANCE,
-  OSSIARCH_BONEREAPERS,
+  // BEASTS_OF_CHAOS,
+  // BIG_WAAAGH,
+  // BONESPLITTERZ,
+  // CHAOS_GRAND_ALLIANCE,
+  // CITIES_OF_SIGMAR,
+  // DAUGHTERS_OF_KHAINE,
+  // DEATH_GRAND_ALLIANCE,
+  // DESTRUCTION_GRAND_ALLIANCE,
+  // DISPOSSESSED,
+  // FLESH_EATER_COURTS,
+  // FYRESLAYERS,
+  // GLOOMSPITE_GITZ,
+  // GRAND_HOST_OF_NAGASH,
+  // GREENSKINZ,
+  // IDONETH_DEEPKIN,
+  // IRONJAWZ,
+  // KHARADRON_OVERLORDS,
+  // KHORNE,
+  // LEGION_OF_BLOOD,
+  // LEGION_OF_CHAOS_ASCENDANT,
+  // LEGION_OF_NIGHT,
+  // LEGION_OF_SACRAMENT,
+  // LEGIONS_OF_AZGORH,
+  // LEGIONS_OF_GRIEF,
+  // LETHISIAN_DEFENDERS,
+  // LUMINETH_REALMLORDS,
+  // NIGHTHAUNT,
+  // NURGLE,
+  // OGOR_MAWTRIBES,
+  // ORDER_GRAND_ALLIANCE,
+  // OSSIARCH_BONEREAPERS,
   SERAPHON,
-  SKAVEN,
+  // SKAVEN,
   SLAANESH,
-  SLAVES_TO_DARKNESS,
-  SONS_OF_BEHEMAT,
-  SOULBLIGHT,
-  STORMCAST_ETERNALS,
-  STORMCAST_ETERNALS_STORMKEEP,
-  SYLVANETH,
-  TAMURKHANS_HORDE,
-  TOMB_KINGS,
-  TZEENTCH,
-  WANDERERS,
+  // SLAVES_TO_DARKNESS,
+  // SONS_OF_BEHEMAT,
+  // SOULBLIGHT,
+  // STORMCAST_ETERNALS,
+  // STORMCAST_ETERNALS_STORMKEEP,
+  // SYLVANETH,
+  // TAMURKHANS_HORDE,
+  // TOMB_KINGS,
+  // TZEENTCH,
+  // WANDERERS,
 ]
 
 export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   ...PRIMARY_FACTIONS,
-  MEGA_GARGANT_MERCENARIES,
-  MERCENARY_COMPANIES,
+  // MEGA_GARGANT_MERCENARIES,
+  // MERCENARY_COMPANIES,
 ])

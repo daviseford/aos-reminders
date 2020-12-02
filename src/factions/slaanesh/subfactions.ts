@@ -1,12 +1,12 @@
-import { TSubFactions } from 'factions/factionTypes'
-import { keyOmitter, keyPicker } from 'factions/metatagger'
-import { Artifacts } from './artifacts'
+import { TSubFaction, TSubFactions } from 'factions/factionTypes'
+import { keyOmitter, keyPicker, pickEffects } from 'factions/metatagger'
+import Artifacts from './artifacts'
 import { Battalions } from './battalions'
 import { BattleTraits } from './battle_traits'
-import { CommandTraits } from './command_traits'
-import { EndlessSpells } from './endless_spells'
+import CommandTraits from './command_traits'
+import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
-import { Scenery } from './scenery'
+import Scenery from './scenery'
 import { Spells } from './spells'
 import { Units } from './units'
 
@@ -30,188 +30,161 @@ import { Units } from './units'
 //   'Ungors',
 // ]
 
+const baseSubfaction: TSubFaction = {
+  effects: [],
+
+  // Spells
+  spells: {
+    available: [Spells],
+  },
+
+  // Endless Spells
+  endless_spells: {
+    available: [EndlessSpells],
+  },
+
+  // Scenery
+  scenery: {
+    available: [Scenery],
+  },
+}
+
 const subFactions: TSubFactions = {
-  INVADERS: {
-    // Battle Traits
-    battle_traits: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Invaders Host'])],
+  Invaders: {
+    ...baseSubfaction,
+
+    // Effects
+    effects: pickEffects(BattleTraits, ['Thrilling Compulsions', "The Despoiler's Art"]),
 
     // Command Traits
-    command_traits: [
-      keyPicker(CommandTraits, [
-        'Best of the Best',
-        'Glory Hog',
-        'Hurler of Obscenities',
-        'Territorial',
-        'Skin-taker',
-        'Delusions of Infallibility',
-      ]),
-    ],
+    command_traits: {
+      available: [keyPicker(CommandTraits, ['Obessions of the Invader'])],
+    },
 
     // Artifacts
-    artifacts: [
-      keyPicker(Artifacts, [
-        'The Rod of Misrule',
-        'Rapier of Ecstatic Conquest',
-        'Whip of Subversion',
-        'Icon of Infinite Excess',
-        'Fallacious Gift',
-        'The Beguiling Gem',
-      ]),
-    ],
-
-    // Spells
-    spells: [Spells],
-
-    // Endless Spells
-    endless_spells: [EndlessSpells],
-
-    // Scenery
-    scenery: [Scenery],
+    artifacts: {
+      available: [keyPicker(Artifacts, ['Sacred Spoils of War'])],
+    },
 
     // Units
-    units: [
-      Units,
-      // keyPicker(SlavestoDarknessFaction.Units, SlaaneshS2DUnits),
-      // keyPicker(BeastsofChaosFaction.Units, SlaaneshBoCUnits),
-    ],
+    units: {
+      available: [
+        Units,
+        // keyPicker(SlavestoDarknessFaction.Units, SlaaneshS2DUnits),
+        // keyPicker(BeastsofChaosFaction.Units, SlaaneshBoCUnits),
+      ],
+    },
 
     // Battalions
-    battalions: [
-      keyOmitter(Battalions, [
-        'The Vengeful Alliance',
-        'Devout Supplicants',
-        'Vengeful Throng',
-        'Daemonsteel Contingent',
-      ]),
-      // keyPicker(SlavestoDarknessFaction.Battalions, ['Pleasurebound Warband']),
-      // keyPicker(BeastsofChaosFaction.Battalions, ['Depraved Drove']),
-    ],
+    battalions: {
+      available: [
+        keyOmitter(Battalions, [
+          'The Vengeful Alliance',
+          'Devout Supplicants',
+          'Vengeful Throng',
+          'Daemonsteel Contingent',
+        ]),
+        // keyPicker(SlavestoDarknessFaction.Battalions, ['Pleasurebound Warband']),
+        // keyPicker(BeastsofChaosFaction.Battalions, ['Depraved Drove']),
+      ],
+    },
 
     // Flavors
-    flavors: [keyPicker(Flavors, ['Lurid Haze'])],
+    flavors: {
+      available: [keyPicker(Flavors, ['Lurid Haze'])],
+    },
   },
 
-  PRETENDERS: {
-    // Battle Traits
-    battle_traits: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Pretenders Host'])],
+  Pretenders: {
+    ...baseSubfaction,
+    // Effects
+    effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Magnificence Made Flesh'])],
 
     // Command Traits
-    command_traits: [
-      keyPicker(CommandTraits, [
-        'Strength of Godhood',
-        'Monarch of Lies',
-        'True Child of Slaanesh',
-        'Strongest Alone',
-        'Hunter of Godbeasts',
-        'Inspirer',
-      ]),
-    ],
+    command_traits: {
+      available: [keyPicker(CommandTraits, ['Aspects of the Perfect Liege'])],
+    },
 
     // Artifacts
-    artifacts: [
-      keyPicker(Artifacts, [
-        'The Crown of Dark Secrets',
-        'Pendant of Slaanesh',
-        'Sliverslash',
-        'Sceptre of Domination',
-        'Breathtaker',
-        'Mask of Spiteful Beauty',
-      ]),
-    ],
-
-    // Spells
-    spells: [Spells],
-
-    // Endless Spells
-    endless_spells: [EndlessSpells],
-
-    // Scenery
-    scenery: [Scenery],
+    artifacts: {
+      available: [keyPicker(Artifacts, ['Regalia of the Rightful Heir'])],
+    },
 
     // Units
-    units: [
-      Units,
-      // keyPicker(SlavestoDarknessFaction.Units, SlaaneshS2DUnits),
-      // keyPicker(BeastsofChaosFaction.Units, SlaaneshBoCUnits),
-    ],
+    units: {
+      available: [
+        Units,
+        // keyPicker(SlavestoDarknessFaction.Units, SlaaneshS2DUnits),
+        // keyPicker(BeastsofChaosFaction.Units, SlaaneshBoCUnits),
+      ],
+    },
 
     // Battalions
-    battalions: [
-      keyOmitter(Battalions, [
-        'The Vengeful Alliance',
-        'Devout Supplicants',
-        'Vengeful Throng',
-        'Daemonsteel Contingent',
-      ]),
-      // keyPicker(SlavestoDarknessFaction.Battalions, ['Pleasurebound Warband']),
-      // keyPicker(BeastsofChaosFaction.Battalions, ['Depraved Drove']),
-    ],
+    battalions: {
+      available: [
+        keyOmitter(Battalions, [
+          'The Vengeful Alliance',
+          'Devout Supplicants',
+          'Vengeful Throng',
+          'Daemonsteel Contingent',
+        ]),
+        // keyPicker(SlavestoDarknessFaction.Battalions, ['Pleasurebound Warband']),
+        // keyPicker(BeastsofChaosFaction.Battalions, ['Depraved Drove']),
+      ],
+    },
     // Flavors
-    flavors: [keyPicker(Flavors, ['Faultless Blades'])],
+    flavors: {
+      available: [keyPicker(Flavors, ['Faultless Blades'])],
+    },
   },
 
-  GODSEEKERS: {
-    // Battle Traits
-    battle_traits: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Godseekers Host'])],
+  Godseekers: {
+    ...baseSubfaction,
+    // Rules that are applied automatically when you select this subfaction
+    effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Blessings of the Gleeful Chase'])],
 
     // Command Traits
-    command_traits: [
-      keyPicker(CommandTraits, [
-        'Hunter Supreme',
-        'Thrill-seeker',
-        'Into the Fray',
-        'Trail-sniffer',
-        'Symphoniac',
-        'Speed-chaser',
-      ]),
-    ],
+    command_traits: {
+      available: [keyPicker(CommandTraits, ['Traits of the Seeker Supreme'])],
+    },
 
     // Artifacts
-    artifacts: [
-      keyPicker(Artifacts, [
-        'Cameo of the Dark Prince',
-        'Girdle of the Realm-racer',
-        'Threnody Voicebox',
-        'Lash of Despair',
-        'Enrapturing Circlet',
-        'Bindings of Slaanesh',
-      ]),
-    ],
-
-    // Spells
-    spells: [Spells],
-
-    // Endless Spells
-    endless_spells: [EndlessSpells],
-
-    // Scenery
-    scenery: [Scenery],
+    artifacts: {
+      available: [keyPicker(Artifacts, ['Treasures of the Hunt'])],
+    },
 
     // Units
-    units: [
-      Units,
-      // SlaaneshS2DUnits.forEach(element => keyPicker(SlavestoDarknessFaction.Units, element)),
-      // SlaaneshBoCUnits.forEach(element => keyPicker(BeastsofChaosFaction.Units, element)),
-    ],
+    units: {
+      available: [
+        Units,
+        // SlaaneshS2DUnits.forEach(element => keyPicker(SlavestoDarknessFaction.Units, element)),
+        // SlaaneshBoCUnits.forEach(element => keyPicker(BeastsofChaosFaction.Units, element)),
+      ],
+    },
 
     // Battalions
-    battalions: [
-      keyOmitter(Battalions, [
-        'The Vengeful Alliance',
-        'Devout Supplicants',
-        'Vengeful Throng',
-        'Daemonsteel Contingent',
-      ]),
-      // keyPicker(SlavestoDarknessFaction.Battalions, 'Pleasurebound Warband'),
-      // keyPicker(BeastsofChaosFaction.Battalions, 'Depraved Drove'),
-    ],
+    battalions: {
+      available: [
+        keyOmitter(Battalions, [
+          'The Vengeful Alliance',
+          'Devout Supplicants',
+          'Vengeful Throng',
+          'Daemonsteel Contingent',
+        ]),
+        // keyPicker(SlavestoDarknessFaction.Battalions, 'Pleasurebound Warband'),
+        // keyPicker(BeastsofChaosFaction.Battalions, 'Depraved Drove'),
+      ],
+    },
     // Flavors
-    flavors: [keyPicker(Flavors, ['Scarlet Cavalcade'])],
+    flavors: {
+      available: [keyPicker(Flavors, ['Scarlet Cavalcade'])],
+    },
   },
 
-  SYLLESSKAN: {
-    // Battle Traits
-    battle_traits: [keyPicker(BattleTraits, ['Thrilling Compulsions', 'Syll`Esskan Host'])],
+  "Syll'Esskan": {
+    ...baseSubfaction,
+    // Rules that are applied automatically when you select this subfaction
+    effects: [...pickEffects(BattleTraits, ['Thrilling Compulsions', 'Vengeance Unleashed'])],
 
     // Command Traits
     //command_traits:
@@ -219,31 +192,26 @@ const subFactions: TSubFactions = {
     // Artifacts
     //artifacts:
 
-    // Spells
-    spells: [Spells],
-
-    // Endless Spells
-    endless_spells: [EndlessSpells],
-
-    // Scenery
-    scenery: [Scenery],
-
     // Units
-    units: [
-      Units,
-      // SlaaneshS2DUnits.forEach(element => keyPicker(SlavestoDarknessFaction.Units, element)),
-      // SlaaneshBoCUnits.forEach(element => keyPicker(BeastsofChaosFaction.Units, element)),
-    ],
+    units: {
+      available: [
+        Units,
+        // SlaaneshS2DUnits.forEach(element => keyPicker(SlavestoDarknessFaction.Units, element)),
+        // SlaaneshBoCUnits.forEach(element => keyPicker(BeastsofChaosFaction.Units, element)),
+      ],
+    },
 
     // Battalions
-    battalions: [
-      keyPicker(Battalions, [
-        'The Vengeful Alliance',
-        'Devout Supplicants',
-        'Vengeful Throng',
-        'Daemonsteel Contingent',
-      ]),
-    ],
+    battalions: {
+      available: [
+        keyPicker(Battalions, [
+          'The Vengeful Alliance',
+          'Devout Supplicants',
+          'Vengeful Throng',
+          'Daemonsteel Contingent',
+        ]),
+      ],
+    },
     // Flavors
     //flavors:
   },

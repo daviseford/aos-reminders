@@ -1,6 +1,5 @@
 import { uniq, without } from 'lodash'
 import { CHAOS, DEATH, DESTRUCTION, ORDER } from 'meta/alliances'
-import { getArmyList } from 'meta/army_list'
 import {
   CHAOS_GRAND_ALLIANCE,
   DEATH_GRAND_ALLIANCE,
@@ -10,12 +9,13 @@ import {
   ORDER_GRAND_ALLIANCE,
   TSupportedFaction,
 } from 'meta/factions'
+import { getFactionList } from 'meta/faction_list'
 
 type TAllyArmies = Record<TSupportedFaction, { units: string[]; battalions: string[] }>
 type TGetAllyArmyItems = (factionName: string) => TAllyArmies
 
 export const getAllyArmyItems: TGetAllyArmyItems = factionName => {
-  const ArmyList = getArmyList()
+  const ArmyList = getFactionList()
   const { GrandAlliance } = ArmyList[factionName]
 
   const allianceName = {
@@ -41,8 +41,8 @@ export const getAllyArmyItems: TGetAllyArmyItems = factionName => {
   ) as TSupportedFaction[]
 
   const allyArmies = allyFactionNames.reduce((a, faction) => {
-    const battalions = ArmyList[faction].Army.Battalions || []
-    const units = ArmyList[faction].Army.Units || []
+    const battalions = ArmyList[faction].AggregateArmy.Battalions || []
+    const units = ArmyList[faction].AggregateArmy.Units || []
     a[faction] = {
       battalions: battalions.map(({ name }) => name),
       units: units.map(({ name }) => name),

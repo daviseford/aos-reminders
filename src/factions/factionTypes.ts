@@ -1,16 +1,34 @@
-export type TObjWithEffects = Record<string, object & { effects: unknown[] }>
+import { TEffects } from 'types/data'
+import { TSelectionTypes } from 'types/selections'
+
+export type TObjWithEffects = object & { effects: TEffects[] }
+export type TParentEffectsObjWithEffects = Record<string, TObjWithEffects>
+
+export type TSubFactionKeys = TSelectionTypes
+
+export type TSubFactionEntry = {
+  available?: TParentEffectsObjWithEffects[]
+  mandatory?: TParentEffectsObjWithEffects[]
+}
 
 export type TSubFaction = {
-  units?: TObjWithEffects[]
-  battalions?: TObjWithEffects[]
-  traits?: TObjWithEffects[]
-  spells?: TObjWithEffects[]
-  battle_traits?: TObjWithEffects[]
-  command_traits?: TObjWithEffects[]
-  flavors?: TObjWithEffects[]
-  artifacts?: TObjWithEffects[]
-  endless_spells?: TObjWithEffects[]
-  scenery?: TObjWithEffects[]
+  [key in TSubFactionKeys]?: TSubFactionEntry
+} & {
+  effects: TEffects[]
 }
 
 export type TSubFactions = Record<string, TSubFaction>
+
+// export type TNewFactionType = {
+//   readonly factionName: TSupportedFaction
+//   readonly GrandAlliance: TGrandAlliances
+
+//   readonly AggregateArmy: TInitialArmy
+
+//   readonly SubFactions: TSubFactions
+//   readonly subFactionArmies: Record<string, TInitialArmy>
+//   readonly subFactionKeys: string[]
+
+//   readonly subFactionLabel: string
+//   readonly flavorLabel: string
+// }

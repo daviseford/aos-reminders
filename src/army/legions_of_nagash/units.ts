@@ -1,6 +1,6 @@
 import GenericEffects from 'army/generic/effects'
 import { Units as NighthauntUnits } from 'army/nighthaunt/units'
-import { TBattalions, TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -103,8 +103,7 @@ const CryptShieldsEffect = {
   when: [SAVES_PHASE],
 }
 
-// Units
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   ...getNighthauntUnits(),
   {
     name: `Nagash, Supreme Lord of the Undead`,
@@ -818,8 +817,7 @@ export const Units: TUnits = [
   },
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `The First Cohort`,
     effects: [

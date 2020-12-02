@@ -1,7 +1,7 @@
 import { TSupportedFaction } from 'meta/factions'
 import parse5 from 'parse5'
 import { BATTLESCRIBE } from 'types/import'
-import { getFactionAndAllegiance, sortParsedRoots } from 'utils/battlescribe/getters'
+import { getFactionAndAllegiance as getFactionAndFlavor, sortParsedRoots } from 'utils/battlescribe/getters'
 import { parseRootSelection, stripParentNode, traverseDoc } from 'utils/battlescribe/parseHTML'
 import { importErrorChecker } from 'utils/import'
 
@@ -18,7 +18,7 @@ const getInitialBattlescribeArmy = (html_string: string) => {
   const strippedDoc = stripParentNode(document as IParentNode)
 
   const { allegianceInfo, factionInfo, realmscape, origin_realm, rootSelections } = traverseDoc(strippedDoc)
-  const { factionName, allegiances } = getFactionAndAllegiance(allegianceInfo, factionInfo)
+  const { factionName, flavors } = getFactionAndFlavor(allegianceInfo, factionInfo)
   const parsedRoots: IParsedRoot[] = rootSelections.map(parseRootSelection)
   const selections = sortParsedRoots(parsedRoots, allegianceInfo)
 
@@ -28,12 +28,13 @@ const getInitialBattlescribeArmy = (html_string: string) => {
     allyUnits: [],
     errors: [],
     factionName: factionName as TSupportedFaction,
+    subFactionName: '', // TODO
     origin_realm,
     realmscape_feature: null,
     realmscape,
     selections: {
       ...selections,
-      allegiances,
+      flavors,
     },
     unknownSelections: [],
   }
@@ -67,8 +68,8 @@ export interface IFactionInfo {
   factionName: string | null
 }
 
-export interface IAllegianceInfo {
+export interface IFlavorInfo {
   faction: string | null
-  allegiance: string[] | null
+  flavor: string[] | null
   [key: string]: string | string[] | null
 }

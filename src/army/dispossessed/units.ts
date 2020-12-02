@@ -1,4 +1,4 @@
-import { TBattalions, TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -84,8 +84,7 @@ const CinderblastBombEffect = {
   when: [SHOOTING_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Warden King`,
     effects: [
@@ -250,8 +249,7 @@ export const Units: TUnits = [
   },
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Grudgebound War Throng`,
     effects: [

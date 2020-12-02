@@ -1,4 +1,4 @@
-import { TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -64,7 +64,7 @@ const GallantEffect = {
   when: [COMBAT_PHASE],
 }
 
-export const LegacyBretonnianUnits: TUnits = [
+export const LegacyBretonnianUnits: TEntry[] = [
   {
     name: `Bretonnian Lord`,
     effects: [

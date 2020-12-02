@@ -1,6 +1,5 @@
 import { sortBy, sortedUniqBy, without } from 'lodash'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
-import { getArmyList } from 'meta/army_list'
 import {
   CHAOS_GRAND_ALLIANCE,
   DEATH_GRAND_ALLIANCE,
@@ -9,17 +8,9 @@ import {
   ORDER_GRAND_ALLIANCE,
   TSupportedFaction,
 } from 'meta/factions'
+import { getFactionList } from 'meta/faction_list'
+import { IArmy } from 'types/army'
 import { TEntry } from 'types/data'
-
-type TType =
-  | 'Artifacts'
-  | 'Battalions'
-  | 'Commands'
-  | 'EndlessSpells'
-  | 'Scenery'
-  | 'Spells'
-  | 'Traits'
-  | 'Units'
 
 /**
  * Gets all items associated with this grand alliance
@@ -28,7 +19,7 @@ type TType =
  */
 export const getAllianceItems = (
   grandAlliance: TGrandAlliances,
-  type: TType,
+  type: keyof IArmy,
   originalEntries: TEntry[] = []
 ): TEntry[] => {
   const factionName = {
@@ -38,13 +29,15 @@ export const getAllianceItems = (
     [ORDER]: ORDER_GRAND_ALLIANCE,
   }[grandAlliance]
 
-  const ArmyList = getArmyList()
+  return [] // todo
+
+  const FactionList = getFactionList()
 
   return sortedUniqBy(
     sortBy(
-      without(Object.keys(ArmyList), factionName)
-        .filter(faction => ArmyList[faction].GrandAlliance === grandAlliance)
-        .map(faction => ArmyList[faction].Army[type])
+      without(Object.keys(FactionList), factionName)
+        .filter(faction => FactionList[faction].GrandAlliance === grandAlliance)
+        .map(faction => FactionList[faction].Army[type])
         .filter(items => !!items && items.length > 0)
         .flat()
         .concat(originalEntries),
@@ -71,6 +64,8 @@ export const getGrandAllianceEndlessSpells = (
   originalEntries: TEntry[] = [],
   factionName: TSupportedFaction
 ): TEntry[] => {
+  // TODO: REMOVE!!!!!!
+  // @ts-ignore
   if (factionName === KHARADRON_OVERLORDS) {
     return getAllEndlessSpells()
   } else {

@@ -1,5 +1,5 @@
 import { sortBy, uniqBy } from 'lodash'
-import { ICollection, IInitialArmy, TArtifacts, TBattalions, TCommands, TSpells, TTraits } from 'types/army'
+import { TCollection, TInitialArmy } from 'types/army'
 import { TEffects, TEntry } from 'types/data'
 
 /**
@@ -8,27 +8,27 @@ import { TEffects, TEntry } from 'types/data'
  * that those are represented in the dropdowns.
  * @param army
  */
-export const getCollection = (army: IInitialArmy): ICollection => {
+export const getCollection = (army: TInitialArmy): TCollection => {
   const {
-    Allegiances = [],
     AlliedUnits = [],
     Artifacts = [],
     Battalions = [],
+    CommandTraits = [],
+    Flavors = [],
     Scenery = [],
-    Traits = [],
     Units = [],
   } = army
 
-  const Collection = {
-    Artifacts: [] as TArtifacts,
-    Battalions: [] as TBattalions,
-    Commands: [] as TCommands,
-    Spells: [] as TSpells,
-    Traits: [] as TTraits,
+  const Collection: TCollection = {
+    Artifacts: [],
+    Battalions: [],
+    CommandAbilities: [],
+    Spells: [],
+    CommandTraits: [],
   }
 
   // Brute force it
-  const types = [Allegiances, AlliedUnits, Artifacts, Battalions, Scenery, Traits, Units]
+  const types = [Flavors, AlliedUnits, Artifacts, Battalions, Scenery, CommandTraits, Units]
 
   // Go through each thing and get spells, artifacts, etc that are unusual
   types.forEach(items =>
@@ -39,9 +39,9 @@ export const getCollection = (army: IInitialArmy): ICollection => {
         } else if (effect.artifact) {
           addToCollection(effect, Collection.Artifacts)
         } else if (effect.command_trait) {
-          addToCollection(effect, Collection.Traits)
+          addToCollection(effect, Collection.CommandTraits)
         } else if (effect.command_ability) {
-          addToCollection(effect, Collection.Commands)
+          addToCollection(effect, Collection.CommandAbilities)
         }
       })
     })
@@ -50,9 +50,9 @@ export const getCollection = (army: IInitialArmy): ICollection => {
   return {
     Artifacts: sortBy(Collection.Artifacts, 'name'),
     Battalions: sortBy(Collection.Battalions, 'name'),
-    Commands: sortBy(Collection.Commands, 'name'),
+    CommandAbilities: sortBy(Collection.CommandAbilities, 'name'),
+    CommandTraits: sortBy(Collection.CommandTraits, 'name'),
     Spells: sortBy(Collection.Spells, 'name'),
-    Traits: sortBy(Collection.Traits, 'name'),
   }
 }
 

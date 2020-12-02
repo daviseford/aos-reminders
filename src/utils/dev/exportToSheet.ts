@@ -1,5 +1,5 @@
-import { getArmyFromList } from 'meta/army_list'
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
+import { getFactionFromList } from 'meta/faction_list'
 import { getCollection } from 'utils/getArmy/getCollection'
 import { titleCase } from 'utils/textUtils'
 import XLSX from 'xlsx'
@@ -24,42 +24,42 @@ const generateHonestWargamerSheets = () => {
 }
 
 const makeWorksheet = (workbook: XLSX.WorkBook, factionName: TSupportedFaction) => {
-  const { Army } = getArmyFromList(factionName)
-  const Collection = getCollection(Army)
-  const { Commands = [] } = Collection
+  const { AggregateArmy } = getFactionFromList(factionName)
+  const Collection = getCollection(AggregateArmy)
+  const { CommandAbilities = [] } = Collection
 
   const {
-    Abilities = [],
-    Allegiances = [],
-    AllegianceType = 'Allegiances',
     Artifacts = [],
     Battalions = [],
+    BattleTraits = [],
+    CommandTraits = [],
+    Flavors = [],
+    FlavorType = 'Flavors',
     Spells = [],
-    Traits = [],
-  } = Army
+  } = AggregateArmy
 
-  const abilities = [...Abilities].map(x => [x.name, x.desc])
-  const allegiances = [...Allegiances].map(x => [x.name, ...x.effects.map(y => y.desc)])
   const artifacts = [...Artifacts].map(x => [x.name, ...x.effects.map(y => y.desc)])
   const battalions = [...Battalions].map(x => [x.name, ...x.effects.map(y => y.desc)])
-  const traits = [...Traits].map(x => [x.name, ...x.effects.map(y => y.desc)])
-  const commands = [...Commands].map(x => [x.name, ...x.effects.map(y => y.desc)])
+  const battle_traits = [...BattleTraits].map(x => [x.name, x.desc])
+  const command_abilitiess = [...CommandAbilities].map(x => [x.name, ...x.effects.map(y => y.desc)])
+  const command_traits = [...CommandTraits].map(x => [x.name, ...x.effects.map(y => y.desc)])
+  const flavors = [...Flavors].map(x => [x.name, ...x.effects.map(y => y.desc)])
   const spells = [...Spells].map(x => [x.name, ...x.effects.map(y => y.desc)])
 
   /* make worksheet */
   const ws = XLSX.utils.aoa_to_sheet([
-    ['Faction Abilities'],
-    ...abilities,
-    [AllegianceType],
-    ...allegiances,
+    ['Faction Battle Traits'],
+    ...battle_traits,
+    [FlavorType],
+    ...flavors,
     ['Battalions'],
     ...battalions,
-    ['Traits'],
-    ...traits,
+    ['Command Traits'],
+    ...command_traits,
     ['Spells'],
     ...spells,
-    ['Commands'],
-    ...commands,
+    ['Command Abilities'],
+    ...command_abilitiess,
     ['Artifacts'],
     ...artifacts,
   ])
@@ -94,11 +94,11 @@ const generateAoSShortsAllegianceData = () => {
 }
 
 const makeAllegianceWorksheet = (factionName: TSupportedFaction) => {
-  const { Army } = getArmyFromList(factionName)
-  const { Allegiances = [], AllegianceType = 'Allegiances' } = Army
-  const allegiances = [...Allegiances].map(x => [x.name])
+  const { AggregateArmy } = getFactionFromList(factionName)
+  const { Flavors = [], FlavorType = 'Flavors' } = AggregateArmy
+  const flavors = [...Flavors].map(x => [x.name])
 
-  return [[titleCase(factionName)], [AllegianceType], ...allegiances]
+  return [[titleCase(factionName)], [FlavorType], ...flavors]
 }
 
 /** Run the scripts */

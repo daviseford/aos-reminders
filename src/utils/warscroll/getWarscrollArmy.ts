@@ -2,9 +2,10 @@ import GenericScenery from 'army/generic/scenery'
 import { SeraphonConstellations } from 'army/seraphon/allegiances'
 import CommonSonsOfBehematData from 'army/sons_of_behemat/common'
 import { last, uniq } from 'lodash'
-import { getArmyList } from 'meta/army_list'
 import { TSupportedFaction } from 'meta/factions'
+import { getFactionList } from 'meta/faction_list'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
+import { TSelections } from 'types/selections'
 import { importErrorChecker } from 'utils/import'
 import { importFactionNameMap, importUnitOptionMap } from 'utils/import/options'
 import { cleanWarscrollText } from 'utils/warscroll/warscrollUtils'
@@ -17,8 +18,8 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
 }
 
 const getAllegianceTypes = () => {
-  return Object.values(getArmyList())
-    .map(v => (v.Army?.AllegianceType || '').replace(/s$/, '')) // Remove trailing s
+  return Object.values(getFactionList())
+    .map(v => (v.AggregateArmy?.FlavorType || '').replace(/s$/, '')) // Remove trailing s
     .filter(x => !!x)
 }
 
@@ -38,7 +39,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(pdfText)
   const genericScenery = GenericScenery.map(x => x.name)
 
-  const allegianceTypes = getAllegianceTypes()
+  const flavorTypes = getAllegianceTypes()
 
   let allyUnits: string[] = []
   let factionName = ''
@@ -76,7 +77,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
       // Deprecated format
       if (txt.startsWith('Skyport: ')) {
         const skyport = txt.replace(/^Skyport: /g, '').trim()
-        accum.allegiances = accum.allegiances.concat(skyport)
+        accum.flavors = accum.flavors.concat(skyport)
         return accum
       }
 
@@ -84,7 +85,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
       if (txt.startsWith('- Sky Port: ')) {
         const skyport = txt.replace('- Sky Port: ', '').trim().replace(' ', '-') // e.g. Barak Zilfin -> Barak-Zilfin
         if (skyport !== 'None') {
-          accum.allegiances = accum.allegiances.concat(skyport)
+          accum.flavors = accum.flavors.concat(skyport)
         }
         return accum
       }
@@ -117,10 +118,10 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (txt.startsWith('- Mark of Chaos : ')) return accum
 
         if (txt.startsWith('- Tribe: ')) {
-          const { allegiance, trait } = getTribe(txt)
-          accum.allegiances = accum.allegiances.concat(allegiance)
+          const { flavor, trait } = getTribe(txt)
+          accum.flavors = accum.flavors.concat(flavor)
           if (trait) {
-            accum.traits = accum.traits.concat(trait)
+            accum.command_traits = accum.command_traits.concat(trait)
           }
           return accum
         }
@@ -128,15 +129,15 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (txt.startsWith('- Additional Footnote: ')) {
           const trait = txt.replace('- Additional Footnote: ', '').trim()
           if (trait) {
-            accum.traits = accum.traits.concat(trait)
+            accum.command_traits = accum.command_traits.concat(trait)
             return accum
           }
         }
 
         if (txt.startsWith('- Constellation: ')) {
           const name = txt.replace('- Constellation: ', '').trim()
-          const allegiances = getSeraphonConstellations(name)
-          accum.allegiances = accum.allegiances.concat(allegiances)
+          const flavors = getSeraphonConstellations(name)
+          accum.flavors = accum.flavors.concat(flavors)
           return accum
         }
 
@@ -150,20 +151,18 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         }
 
         if (txt.startsWith('- Grand Court: ')) {
-          const allegiance = ['Gristlegore', 'Morgaunt', 'Blisterskin', 'Hollowmourne'].find(x =>
-            txt.includes(x)
-          )
-          if (allegiance) {
-            accum.allegiances = accum.allegiances.concat(allegiance)
+          const flavor = ['Gristlegore', 'Morgaunt', 'Blisterskin', 'Hollowmourne'].find(x => txt.includes(x))
+          if (flavor) {
+            accum.flavors = accum.flavors.concat(flavor)
             return accum
           }
         }
 
         if (txt.startsWith('- City: ')) {
-          const { allegiance, trait } = getCity(txt)
-          accum.allegiances = accum.allegiances.concat(allegiance)
+          const { flavor, trait } = getCity(txt)
+          accum.flavors = accum.flavors.concat(flavor)
           if (trait) {
-            accum.traits = accum.traits.concat(trait)
+            accum.command_traits = accum.command_traits.concat(trait)
           }
           return accum
         }
@@ -187,7 +186,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
             .split(':')
             .map(x => x.trim())
           // results in ['Killer Reputation', 'Fateseeker']
-          accum.traits = accum.traits.concat(...traits)
+          accum.command_traits = accum.command_traits.concat(...traits)
           return accum
         }
 
@@ -196,41 +195,41 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           let traits = ['Extremely Bitter (Breaker Tribe)']
           const secondTrait = txt.replace('- Command Trait: Extremely Bitter - ', '').trim()
           if (secondTrait) traits.push(secondTrait)
-          accum.traits = accum.traits.concat(...traits)
+          accum.command_traits = accum.command_traits.concat(...traits)
           return accum
         }
 
         // General handling of Command Traits, checks for attached spells
         if (txt.startsWith('- Command Trait : ')) {
           const { trait, spell } = getTraitWithSpell('Command Trait', txt)
-          accum.traits = accum.traits.concat(trait)
+          accum.command_traits = accum.command_traits.concat(trait)
           if (spell) accum.spells = accum.spells.concat(spell)
           return accum
         }
         if (txt.startsWith('- Mount Trait : ')) {
           const trait = getTrait('Mount Trait', txt)
-          accum.traits = accum.traits.concat(trait)
+          accum.command_traits = accum.command_traits.concat(trait)
           return accum
         }
         if (txt.startsWith('- Drakeblood Curse : ')) {
           const trait = getTrait('Drakeblood Curse', txt)
-          accum.traits = accum.traits.concat(trait)
+          accum.command_traits = accum.command_traits.concat(trait)
           return accum
         }
         if (txt.startsWith('- Grand Court: ')) {
           const trait = getTrait('Grand Court', txt, false)
-          accum.traits = accum.traits.concat(trait)
+          accum.command_traits = accum.command_traits.concat(trait)
           return accum
         }
 
         // Handle allegiances programmatically
         let stop = false
-        allegianceTypes.forEach(t => {
+        flavorTypes.forEach(t => {
           if (!stop) return
           if (txt.startsWith(`- ${t}: `)) {
-            const allegiance = txt.replace(`- ${t}: `, '').trim()
-            if (allegiance && allegiance !== 'None') {
-              accum.allegiances = accum.allegiances.concat(allegiance)
+            const flavor = txt.replace(`- ${t}: `, '').trim()
+            if (flavor && flavor !== 'None') {
+              accum.flavors = accum.flavors.concat(flavor)
               stop = true
             }
           }
@@ -298,17 +297,17 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
       return accum
     },
     {
-      allegiances: [] as string[],
-      artifacts: [] as string[],
-      battalions: [] as string[],
-      commands: [] as string[],
-      endless_spells: [] as string[],
-      scenery: [] as string[],
-      spells: [] as string[],
-      traits: [] as string[],
-      triumphs: [] as string[],
-      units: [] as string[],
-    }
+      artifacts: [],
+      battalions: [],
+      command_abilities: [],
+      command_traits: [],
+      endless_spells: [],
+      flavors: [],
+      scenery: [],
+      spells: [],
+      triumphs: [],
+      units: [],
+    } as TSelections
   )
 
   return {
@@ -317,6 +316,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
     allyUnits: uniq(allyUnits),
     errors: [],
     factionName: factionName as TSupportedFaction,
+    subFactionName: '', // TODO
     origin_realm,
     realmscape_feature: null,
     realmscape: null,
@@ -361,24 +361,24 @@ const removePrefix = (txt: string) => {
 
 const getTribe = (txt: string) => {
   const tribe = txt.split('- Tribe: ')[1].split('(')
-  const allegiance = tribe[0].trim()
+  const flavor = tribe[0].trim()
   try {
     let trait = tribe[1] ? tribe[1].split('Fierce Loathing: ')[1].replace(')', '').trim() : null
     trait = trait ? `${trait} ${CommonSonsOfBehematData.TAGS.FierceLoathingTag}` : null //  e.g. "Shiny 'Uns (Fierce Loathing)"
-    return { allegiance, trait }
+    return { flavor, trait }
   } catch (err) {
-    return { allegiance, trait: null }
+    return { flavor, trait: null }
   }
 }
 
 const getCity = (txt: string) => {
   const city = txt.split('- City: ')[1].split('(')
-  const allegiance = city[0].trim()
+  const flavor = city[0].trim()
   try {
     const trait = city[1] ? city[1].split('Illicit Dealings: ')[1].replace(')', '').trim() : null
-    return { allegiance, trait }
+    return { flavor, trait }
   } catch (err) {
-    return { allegiance, trait: null }
+    return { flavor, trait: null }
   }
 }
 

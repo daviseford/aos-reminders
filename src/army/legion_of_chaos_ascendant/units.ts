@@ -4,7 +4,7 @@ import Skaven from 'army/skaven'
 import Slaanesh from 'army/slaanesh'
 import SlavestoDarkness from 'army/slaves_to_darkness'
 import Tzeentch from 'army/tzeentch'
-import { TBattalions, TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE } from 'types/phases'
 import { filterUnits } from 'utils/filterUtils'
 
@@ -115,11 +115,9 @@ const getSkavenDaemonUnits = () => {
   return filterUnits(Skaven.Units, listOfUnits)
 }
 
-// Unit Names
-export const Units: TUnits = []
+export const Units: TEntry[] = []
 
-// Allied units
-export const AlliedUnits: TUnits = [
+export const AlliedUnits: TEntry[] = [
   ...getKhorneDaemonUnits(),
   ...getNurgleDaemonUnits(),
   ...getSkavenDaemonUnits(),
@@ -128,8 +126,7 @@ export const AlliedUnits: TUnits = [
   ...getTzeentchDaemonUnits(),
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Host of Rage`,
     effects: [

@@ -1,6 +1,7 @@
 import LegionsOfNagash from 'army/legions_of_nagash'
 import Nighthaunt from 'army/nighthaunt'
-import { TUnits } from 'types/army'
+// Unit export
+import { TEntry } from 'types/data'
 import { filterUnits } from 'utils/filterUtils'
 
 // Importing Nighthaunt units
@@ -30,5 +31,4 @@ const getLoNUnits = () => {
   return filterUnits(LegionsOfNagash.Units, listOfUnits)
 }
 
-// Unit export
-export const Units: TUnits = [...getNighthauntUnits(), ...getLoNUnits()]
+export const Units: TEntry[] = [...getNighthauntUnits(), ...getLoNUnits()]

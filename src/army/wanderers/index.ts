@@ -1,10 +1,10 @@
-import Abilities from './abilities'
 import Artifacts from './artifacts'
+import BattleTraits from './battle_traits'
 import Traits from './traits'
 import { Battalions, Units } from './units'
 
 const WanderersArmy = {
-  Abilities,
+  BattleTraits,
   Artifacts,
   Battalions,
   Traits,

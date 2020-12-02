@@ -1,4 +1,4 @@
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -14,7 +14,7 @@ import CommonSonsOfBehematData from './common'
 
 const { BreakerTag, TakerTag, StomperTag } = CommonSonsOfBehematData.TRIBES
 
-const Artifacts: TArtifacts = [
+const Artifacts: TEntry[] = [
   // Taker Tribe
   {
     name: `Jaws of the Mogalodon ${TakerTag}`,

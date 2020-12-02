@@ -1,7 +1,7 @@
-import { TScenery } from 'types/army'
+import { TEntry } from 'types/data'
 import { HERO_PHASE } from 'types/phases'
 
-const Scenery: TScenery = [
+const Scenery: TEntry[] = [
   {
     name: `Bone-tithe Nexus`,
     effects: [

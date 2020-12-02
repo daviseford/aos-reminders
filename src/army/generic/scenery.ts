@@ -1,4 +1,3 @@
-import { TScenery } from 'types/army'
 import { TEffects, TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
@@ -35,7 +34,7 @@ import {
 } from 'types/terrain'
 
 // Default scenery effects for most games and custom scenery.
-const DefaultScenery: TScenery = [
+const DefaultScenery: TEntry[] = [
   {
     name: DAMNED,
     effects: [
@@ -239,7 +238,7 @@ const PenumbralEffects: TEffects[] = [
 ]
 
 // Faction scenery available to all armies and all other official models potentially a part of each battle.
-const OfficialScenery: TScenery = [
+const OfficialScenery: TEntry[] = [
   {
     name: `Penumbral Engine`,
     effects: [
@@ -455,5 +454,5 @@ const OfficialScenery: TScenery = [
 ]
 
 // Combine all scenery rules into generic scenery export for use by any army.
-const GenericScenery: TScenery = [...DefaultScenery, ...OfficialScenery]
+const GenericScenery: TEntry[] = [...DefaultScenery, ...OfficialScenery]
 export default GenericScenery

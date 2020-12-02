@@ -1,5 +1,5 @@
 import { DestructionUnits } from 'army/grand_alliances'
-import { TBattalions, TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -47,8 +47,7 @@ const BoneShieldEffect = {
   when: [SAVES_PHASE],
 }
 
-// Unit Names
-export const Units: TUnits = [
+export const Units: TEntry[] = [
   {
     name: `Wurrgog Prophet`,
     effects: [
@@ -200,8 +199,7 @@ export const Units: TUnits = [
   getRogueIdol(),
 ]
 
-// Battalions
-export const Battalions: TBattalions = [
+export const Battalions: TEntry[] = [
   {
     name: `Big Rukk`,
     effects: [

@@ -1,8 +1,8 @@
 import produce from 'immer'
 import { GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions, TGrandAlliances } from 'meta/alliances'
-import { getArmyFromList } from 'meta/army_list'
 import { TSupportedFaction } from 'meta/factions'
-import { IArmy, ICollection, IInitialArmy } from 'types/army'
+import { getFactionFromList } from 'meta/faction_list'
+import { IArmy, TCollection, TInitialArmy } from 'types/army'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { isValidFactionName } from 'utils/armyUtils'
 import { getAllianceItems, getGrandAllianceEndlessSpells } from 'utils/getArmy/getAllianceItems'
@@ -10,14 +10,23 @@ import { getCollection } from 'utils/getArmy/getCollection'
 import { modify } from 'utils/getArmy/modify'
 import { processGame } from 'utils/processGame'
 
+/**
+ *
+ * @param factionName
+ * @param subFactionName - If null, returns AggregateArmy
+ * @param originRealm
+ * @param realmscape
+ */
 export const getArmy = (
   factionName: TSupportedFaction | null,
+  subFactionName: string | null = null,
   originRealm: TOriginRealms | null = null,
   realmscape: TBattleRealms | null = null
 ): IArmy | null => {
   if (!isValidFactionName(factionName)) return null
 
-  const { Army, GrandAlliance } = getArmyFromList(factionName)
+  const { GrandAlliance, subFactionArmies, AggregateArmy } = getFactionFromList(factionName)
+  const Army = subFactionName ? subFactionArmies[subFactionName] : AggregateArmy
 
   const Collection = getCollection(Army)
 
@@ -33,7 +42,7 @@ export const getArmy = (
 }
 
 interface IModifyArmyMeta {
-  Collection: ICollection
+  Collection: TCollection
   factionName: TSupportedFaction
   GrandAlliance: TGrandAlliances
   originRealm: TOriginRealms | null
@@ -42,16 +51,16 @@ interface IModifyArmyMeta {
 
 const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   let {
-    Allegiances = [],
     AlliedUnits = [],
     Artifacts = [],
     Battalions = [],
+    CommandTraits = [],
     EndlessSpells = [],
+    Flavors = [],
     Scenery = [],
     Spells = [],
-    Traits = [],
     Units = [],
-  } = Army as IInitialArmy
+  } = Army as TInitialArmy
   const { realmscape, GrandAlliance, Collection, factionName, originRealm } = meta
 
   const GrandAllianceEndlessSpells = getGrandAllianceEndlessSpells(GrandAlliance, EndlessSpells, factionName)
@@ -61,29 +70,29 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
     Battalions = getAllianceItems(GrandAlliance, 'Battalions', Battalions)
     EndlessSpells = GrandAllianceEndlessSpells
     Spells = getAllianceItems(GrandAlliance, 'Spells', Spells)
-    Traits = getAllianceItems(GrandAlliance, 'Traits', Traits)
+    CommandTraits = getAllianceItems(GrandAlliance, 'CommandTraits', CommandTraits)
     Units = getAllianceItems(GrandAlliance, 'Units', Units)
   }
 
-  Army.Allegiances = modify.Allegiances(Allegiances)
   Army.Artifacts = modify.Artifacts(Artifacts, originRealm, GrandAlliance, Collection)
   Army.Battalions = modify.Battalions(Battalions)
-  Army.Commands = modify.Commands(realmscape, Collection)
+  Army.CommandAbilities = modify.CommandAbilities(realmscape, Collection)
+  Army.CommandTraits = modify.CommandTraits(CommandTraits, GrandAlliance, Collection)
   Army.EndlessSpells = modify.EndlessSpells(GrandAllianceEndlessSpells)
+  Army.Flavors = modify.Flavors(Flavors)
   Army.Scenery = modify.Scenery(Scenery)
   Army.Spells = modify.Spells(Spells, realmscape, Collection)
-  Army.Traits = modify.Traits(Traits, GrandAlliance, Collection)
   Army.Triumphs = modify.Triumphs()
   Army.Units = modify.Units(Units, AlliedUnits, GrandAlliance)
   Army.Game = processGame([
-    Army.Allegiances,
     Army.Artifacts,
     Army.Battalions,
-    Army.Commands,
+    Army.CommandAbilities,
+    Army.CommandTraits,
     Army.EndlessSpells,
+    Army.Flavors,
     Army.Scenery,
     Army.Spells,
-    Army.Traits,
     Army.Triumphs,
     Army.Units,
   ])

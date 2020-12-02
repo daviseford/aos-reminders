@@ -1,5 +1,5 @@
 import GenericEffects from 'army/generic/effects'
-import { TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -14,14 +14,13 @@ import {
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-
 const DeadlyVenomEffect = {
   name: `Deadly Venom`,
   desc: `Each time you roll a hit roll of 6+ for this unit, that attack inflicts 1 mortal wound instead of normal damage (do not make a wound or save roll).`,
   when: [COMBAT_PHASE],
 }
 
-export const LegacyOrderUnits: TUnits = [
+export const LegacyOrderUnits: TEntry[] = [
   {
     name: `Hunting Hounds`,
     effects: [

@@ -1,8 +1,8 @@
-import { TArtifacts } from 'types/army'
+import { TEntry } from 'types/data'
 import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, SAVES_PHASE } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
-const RealmArtifacts: TArtifacts = [
+const RealmArtifacts: TEntry[] = [
   {
     name: `Everspring Diadem (${GHYRAN})`,
     effects: [

@@ -1,4 +1,5 @@
-import { TSpells } from 'types/army'
+// Spell Lores of Tzeentch
+import { TEntry } from 'types/data'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -9,8 +10,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-// Spell Lores of Tzeentch
-const Spells: TSpells = [
+const Spells: TEntry[] = [
   // Lord of Fate
   {
     name: `Bolt of Tzeentch`,

@@ -1,12 +1,11 @@
 import { Battalions as NurgleBattalions, Units as NurgleUnits } from 'army/nurgle/units'
 import { uniqBy } from 'lodash'
-import Abilities from './abilities'
 import Artifacts from './artifacts'
+import BattleTraits from './battle_traits'
 import Traits from './traits'
 import { Battalions, Units } from './units'
-
 const TamurkhansHordeArmy = {
-  Abilities,
+  BattleTraits,
   AlliedUnits: [...NurgleUnits],
   Artifacts,
   Battalions: uniqBy([...Battalions, ...NurgleBattalions], 'name'),

@@ -1,7 +1,7 @@
-import { TScenery } from 'types/army'
+import { TEntry } from 'types/data'
 import { END_OF_MOVEMENT_PHASE, START_OF_HERO_PHASE, START_OF_SETUP } from 'types/phases'
 
-const Scenery: TScenery = [
+const Scenery: TEntry[] = [
   {
     name: `Fane of Slaanesh`,
     effects: [
