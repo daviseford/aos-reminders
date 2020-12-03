@@ -15,6 +15,7 @@ export const temporaryAdapter = (subFaction: TSubFaction, FlavorType = 'Flavors'
     EndlessSpells: mergeData(subFaction, 'endless_spells'),
     Flavors: mergeData(subFaction, 'flavors'),
     FlavorType,
+    Prayers: mergeData(subFaction, 'prayers'),
     Scenery: mergeData(subFaction, 'scenery'),
     Spells: mergeData(subFaction, 'spells'),
     Units: mergeData(subFaction, 'units'),
