@@ -1,12 +1,17 @@
 import deepmerge from 'deepmerge'
 import { TInitialArmy } from 'types/army'
 import { TSelectionTypes } from 'types/selections'
-import { TObjWithEffects, TParentEffectsObjWithEffects, TSubFaction, TSubFactions } from './factionTypes'
+import {
+  TItemDescription,
+  TItemDescriptions,
+  TObjWithEffects,
+  TParentEffectsObjWithEffects,
+} from './factionTypes'
 
 /**
  * To see how a new data-structure army might feel in the UI as-is
  */
-export const temporaryAdapter = (subFaction: TSubFaction, FlavorType = 'Flavors'): TInitialArmy => {
+export const temporaryAdapter = (subFaction: TItemDescription, FlavorType = 'Flavors'): TInitialArmy => {
   const initialArmy: TInitialArmy = {
     Artifacts: mergeData(subFaction, 'artifacts'),
     Battalions: mergeData(subFaction, 'battalions'),
@@ -24,14 +29,14 @@ export const temporaryAdapter = (subFaction: TSubFaction, FlavorType = 'Flavors'
   return initialArmy
 }
 
-export const getAggregateArmy = (subFactions: TSubFactions, flavorType = 'Flavors'): TInitialArmy => {
+export const getAggregateArmy = (subFactions: TItemDescriptions, flavorType = 'Flavors'): TInitialArmy => {
   return Object.values(subFactions).reduce((a, value) => {
     const b = temporaryAdapter(value, flavorType)
     return deepmerge(a, b)
   }, {} as TInitialArmy)
 }
 
-const mergeData = (subFaction: TSubFaction, slice: TSelectionTypes): TObjWithName[] => {
+const mergeData = (subFaction: TItemDescription, slice: TSelectionTypes): TObjWithName[] => {
   const { available = {}, mandatory = {} } = subFaction
   const merged: TParentEffectsObjWithEffects[] = [...(available[slice] || []), ...(mandatory[slice] || [])]
   return mergeParentEffectObjs(merged)

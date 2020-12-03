@@ -1,4 +1,4 @@
-import { TSubFactions } from 'factions/factionTypes'
+import { TItemDescriptions } from 'factions/factionTypes'
 import { keyPicker } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
@@ -12,7 +12,7 @@ import Artifacts from './artifacts'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 
-const Flavors: TSubFactions = {
+const Flavors: TItemDescriptions = {
   "Dracothion's Tail": {
     mandatory: {
       artifacts: [keyPicker(Artifacts, ['Godbeast Pendant'])],
