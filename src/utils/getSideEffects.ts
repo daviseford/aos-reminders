@@ -8,6 +8,9 @@ export const getSideEffects = (items: TEntry[]) => {
   const Collection = items.reduce((accum, item) => {
     accum[item.name] = {}
 
+    debugger
+
+    // We like using mandatory (and we will probably ONLY do this in the future)
     if (item.mandatory) {
       Object.keys(item.mandatory).forEach(sliceKey => {
         let key = sliceKey as TSelectionTypes
@@ -25,6 +28,7 @@ export const getSideEffects = (items: TEntry[]) => {
 
     // We don't like doing it this way!
     item.effects.forEach(effect => checkEffects(effect, item.name, accum))
+
     return accum
   }, {} as IWithSelectMultipleWithSideEffectsPayload)
 
