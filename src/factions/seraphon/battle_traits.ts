@@ -1,3 +1,4 @@
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -9,7 +10,7 @@ import {
   START_OF_SETUP,
 } from 'types/phases'
 
-export const SeraphonBattleTraits = {
+const BattleTraits = {
   SERAPHON: {
     effects: [
       {
@@ -96,3 +97,5 @@ export const SeraphonBattleTraits = {
     ],
   },
 }
+
+export default tagAs(BattleTraits, 'battle_trait')

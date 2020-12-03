@@ -1,6 +1,5 @@
 import GenericEffects from 'army/generic/effects'
-import { TItemDescriptions } from 'factions/factionTypes'
-import { keyPicker, pickEffects } from 'factions/metatagger'
+import { keyPicker, pickEffects, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -120,7 +119,7 @@ const StarbucklersEffect = {
   when: [SAVES_PHASE],
 }
 
-export const Units: TItemDescriptions = {
+const Units = {
   'Lord Kroak': {
     mandatory: {
       spells: [keyPicker(Spells, ['Celestial Deliverance'])],
@@ -524,3 +523,5 @@ export const Units: TItemDescriptions = {
     ],
   },
 }
+
+export default tagAs(Units, 'unit')

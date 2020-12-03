@@ -1,4 +1,4 @@
-import { keyPicker } from 'factions/metatagger'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -11,7 +11,7 @@ import {
   START_OF_HERO_PHASE,
   TURN_FOUR_START_OF_TURN,
 } from 'types/phases'
-import { Units } from './units'
+import Units from './units'
 
 const RegularBattalions = {
   'Shadowstrike Temple-host': {
@@ -175,4 +175,6 @@ const SuperBattalions = {
 }
 
 // Battalions
-export const Battalions = { ...RegularBattalions, ...SuperBattalions }
+const Battalions = { ...RegularBattalions, ...SuperBattalions }
+
+export default tagAs(Battalions, 'battalion')

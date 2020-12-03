@@ -9,8 +9,7 @@ import {
   SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
-
-export const Spells = {
+const Spells = {
   // Slaanesh Daemons Only
   'Lore of Slaanesh': {
     effects: [
