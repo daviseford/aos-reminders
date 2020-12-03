@@ -1,3 +1,4 @@
+import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
 import { Faction } from 'factions/factionClass'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
@@ -26,10 +27,10 @@ const FactionList: Record<TSupportedFaction, Faction> = {
   //   Army: { ...CitiesOfSigmarArmy },
   //   GrandAlliance: ORDER,
   // },
-  // [DAUGHTERS_OF_KHAINE]: {
-  //   Army: { ...DaughtersOfKhaineArmy },
-  //   GrandAlliance: ORDER,
-  // },
+  DAUGHTERS_OF_KHAINE: {
+    //   Army: { ...DaughtersOfKhaineArmy },
+    ...DaughtersOfKhaineFaction,
+  },
   // [DEATH_GRAND_ALLIANCE]: {
   //   Army: { ...DeathArmy },
   //   GrandAlliance: DEATH,

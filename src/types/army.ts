@@ -15,6 +15,7 @@ export interface IArmy {
   Flavors: TEntry[] // Previously 'Allegiances'
   FlavorType?: string // Previously 'AllegianceType'
   Game: TGameStructure
+  Prayers: TEntry[]
   Scenery: TEntry[]
   Spells: TEntry[]
   Triumphs: TEntry[]
@@ -25,7 +26,7 @@ export type TAllyArmies = Record<string, IArmy>
 export type TInitialArmy = Partial<IArmy> & { AlliedUnits?: TEntry[] }
 export type TCollection = Pick<
   IArmy,
-  'Artifacts' | 'Battalions' | 'CommandTraits' | 'CommandAbilities' | 'Spells'
+  'Artifacts' | 'Battalions' | 'CommandTraits' | 'CommandAbilities' | 'Prayers' | 'Spells'
 >
 
 export interface ICurrentArmy {
