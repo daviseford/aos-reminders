@@ -18,8 +18,8 @@ export class Faction {
   ) {
     this.AggregateArmy = getAggregateArmy(SubFactions, flavorLabel)
     this.subFactionKeys = Object.keys(SubFactions)
-    this.subFactionArmies = this.subFactionKeys.reduce((a, key) => {
-      a[key] = temporaryAdapter(this.SubFactions[key], this.flavorLabel)
+    this.subFactionArmies = this.subFactionKeys.reduce((a, subFactionName) => {
+      a[subFactionName] = temporaryAdapter(this.SubFactions[subFactionName], subFactionName, this.flavorLabel)
       return a
     }, {} as Record<string, TInitialArmy>)
   }

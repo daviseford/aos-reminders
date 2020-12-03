@@ -1,5 +1,6 @@
 import deepmerge from 'deepmerge'
 import { TInitialArmy } from 'types/army'
+import { TEntry } from 'types/data'
 import { TSelectionTypes } from 'types/selections'
 import {
   TItemDescription,
@@ -8,10 +9,16 @@ import {
   TParentEffectsObjWithEffects,
 } from './factionTypes'
 
+type TAdapter = (subFaction: TItemDescription, subFactionName: string, FlavorType?: string) => TInitialArmy
+
 /**
  * To see how a new data-structure army might feel in the UI as-is
  */
-export const temporaryAdapter = (subFaction: TItemDescription, FlavorType = 'Flavors'): TInitialArmy => {
+export const temporaryAdapter: TAdapter = (
+  subFaction,
+  subFactionName,
+  FlavorType = 'Flavors'
+): TInitialArmy => {
   const initialArmy: TInitialArmy = {
     Artifacts: mergeData(subFaction, 'artifacts'),
     Battalions: mergeData(subFaction, 'battalions'),
@@ -22,6 +29,7 @@ export const temporaryAdapter = (subFaction: TItemDescription, FlavorType = 'Fla
     FlavorType,
     Prayers: mergeData(subFaction, 'prayers'),
     Scenery: mergeData(subFaction, 'scenery'),
+    SubFaction: subFactionAdapter(subFaction, subFactionName),
     Spells: mergeData(subFaction, 'spells'),
     Units: mergeData(subFaction, 'units'),
   }
@@ -30,12 +38,16 @@ export const temporaryAdapter = (subFaction: TItemDescription, FlavorType = 'Fla
 }
 
 export const getAggregateArmy = (subFactions: TItemDescriptions, flavorType = 'Flavors'): TInitialArmy => {
-  return Object.values(subFactions).reduce((a, value) => {
-    const b = temporaryAdapter(value, flavorType)
+  return Object.entries(subFactions).reduce((a, [key, value]) => {
+    const b = temporaryAdapter(value, key, flavorType)
     return deepmerge(a, b)
   }, {} as TInitialArmy)
 }
 
+const subFactionAdapter = (subFaction: TItemDescription, name: string): TEntry => {
+  const { mandatory = {}, effects = [] } = subFaction
+  return { mandatory, effects, name }
+}
 const mergeData = (subFaction: TItemDescription, slice: TSelectionTypes): TObjWithName[] => {
   const { available = {}, mandatory = {} } = subFaction
   const merged: TParentEffectsObjWithEffects[] = [...(available[slice] || []), ...(mandatory[slice] || [])]
