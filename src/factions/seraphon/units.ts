@@ -82,7 +82,6 @@ const CarnosaurBaseEffects = [
   },
   GenericEffects.Terror,
 ]
-
 const SlannBaseEffects = [
   {
     name: `Arcane Vassal`,
@@ -94,8 +93,6 @@ const SlannBaseEffects = [
     desc: `Add 1 to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to unbind enemy spells that are cast anywhere on the battlefield and attempt to dispel endless spells anywhere on the battlefield.`,
     when: [HERO_PHASE],
   },
-  ...pickEffects(Spells, ["Comet's Call"]),
-  ...pickEffects(CommandAbilities, ['Gift from the Heavens']),
 ]
 const GoutOfSunfireEffect = {
   name: `Gout of Sunfire`,
@@ -123,6 +120,7 @@ const Units = {
   'Lord Kroak': {
     mandatory: {
       spells: [keyPicker(Spells, ['Celestial Deliverance'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Gift from the Heavens'])],
     },
     effects: [
       ...SlannBaseEffects,
@@ -144,6 +142,10 @@ const Units = {
     ],
   },
   'Slann Starmaster': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Celestial Deliverance'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Gift from the Heavens'])],
+    },
     effects: [
       ...SlannBaseEffects,
       {
