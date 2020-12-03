@@ -1,3 +1,4 @@
+import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -14,7 +15,7 @@ import {
 } from 'types/phases'
 
 // Battle traits available to factions and subfactions.
-export const BattleTraits = {
+const BattleTraits = {
   // Slaanesh Allegiance
   'Thrilling Compulsions': {
     effects: [
@@ -184,3 +185,5 @@ export const BattleTraits = {
     ],
   },
 }
+
+export default tagAs(BattleTraits, 'battle_trait')

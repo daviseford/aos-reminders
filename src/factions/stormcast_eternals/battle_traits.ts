@@ -1,3 +1,4 @@
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -58,4 +59,4 @@ const BattleTraits = {
   },
 }
 
-export default BattleTraits
+export default tagAs(BattleTraits, 'battle_trait')

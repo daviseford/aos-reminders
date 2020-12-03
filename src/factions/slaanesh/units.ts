@@ -1,4 +1,4 @@
-import { pickEffects } from 'factions/metatagger'
+import { pickEffects, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -73,7 +73,7 @@ const HornBlowerEffect = {
 }
 
 // Unit Names
-export const Units = {
+const Units = {
   'Keeper of Secrets w/ Ritual Knife': {
     effects: [
       ...KeeperOfSecretsBaseEffects,
@@ -498,3 +498,4 @@ export const Units = {
     ],
   },
 }
+export default tagAs(Units, 'unit')

@@ -1,17 +1,17 @@
 import { TItemDescription, TItemDescriptions } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
-import { Battalions } from './battalions'
-import { SeraphonBattleTraits } from './battle_traits'
+import Battalions from './battalions'
+import BattleTraits from './battle_traits'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
 import Scenery from './scenery'
 import Spells from './spells'
-import { Units } from './units'
+import Units from './units'
 
 const baseSeraphonSubfaction: TItemDescription = {
-  effects: pickEffects(SeraphonBattleTraits, ['SERAPHON']),
+  effects: pickEffects(BattleTraits, ['SERAPHON']),
   available: {
     artifacts: [Artifacts],
     battalions: [Battalions],
@@ -25,7 +25,7 @@ const baseSeraphonSubfaction: TItemDescription = {
 
 const subFactions: TItemDescriptions = {
   Coalesced: {
-    effects: pickEffects(SeraphonBattleTraits, ['COALESCED', 'SERAPHON']),
+    effects: pickEffects(BattleTraits, ['COALESCED', 'SERAPHON']),
 
     available: {
       ...baseSeraphonSubfaction.available,
@@ -45,7 +45,7 @@ const subFactions: TItemDescriptions = {
   Starborne: {
     ...baseSeraphonSubfaction,
 
-    effects: pickEffects(SeraphonBattleTraits, ['STARBORNE', 'SERAPHON']),
+    effects: pickEffects(BattleTraits, ['STARBORNE', 'SERAPHON']),
 
     available: {
       ...baseSeraphonSubfaction.available,
