@@ -1,12 +1,29 @@
 import { TCommands } from 'types/army'
 import {
+  COMBAT_PHASE,
   END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
+  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_ROUND,
 } from 'types/phases'
-import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
+import {
+  AQSHY,
+  CHAMON,
+  CHARRWIND,
+  EIGHTPOINTS,
+  GHUR,
+  GHYRAN,
+  HELLEFlUX,
+  HYSH,
+  SHYISH,
+  STYGXX,
+  ULGU,
+  UMBRAL,
+  VARANTHAX,
+} from 'types/realmscapes'
 
 // Realm specific command abilities.
 const Commands: TCommands = [
@@ -77,6 +94,76 @@ const Commands: TCommands = [
         name: `Amethyst Aura (${SHYISH})`,
         desc: `Pick 1 friendly unit wholly within 12" of a friendly HERO. Until the end of that battle round, roll a D6 each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Honour the Dead (${STYGXX})`,
+    effects: [
+      {
+        name: `Honour the Dead (${STYGXX})`,
+        desc: `Pick a friendly unit within 3" of a hero (12" of a general) and roll a D6. If the roll is less than the number of models that have been slain from the selected unit, you can add 1 to the attacks characteristic of that unit.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Soul-force Sacrifice (${STYGXX})`,
+    effects: [
+      {
+        name: `Soul-force Sacrifice (${STYGXX})`,
+        desc: `Pick a friendly unit within 3" of your general. Allocate any number of wounds to selected unit and heal that many wounds from the general.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Forced by the Aether (${EIGHTPOINTS})`,
+    effects: [
+      {
+        name: `Forced by the Aether (${EIGHTPOINTS})`,
+        desc: `Pick 1 predatory endless spell within 12" of a friendly wizard and add D6" to the movement range of the target until the end of the battle round.`,
+        when: [START_OF_ROUND],
+      },
+    ],
+  },
+  {
+    name: `On Me! (${UMBRAL})`,
+    effects: [
+      {
+        name: `On Me! (${UMBRAL})`,
+        desc: `Once per battle, you can pick 1 friendly unit wholly within 18" of a friendly hero. The target may be removed and set up wholly within 6" of that hero more than 9" from enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Unseen Killers (${HELLEFlUX})`,
+    effects: [
+      {
+        name: `Unseen Killers (${HELLEFlUX})`,
+        desc: `Pick a unit wholly within 12" of a friendly hero and wholly within 3" of a terrain feature. Add 1 to the target's hit rolls until the end of the phase.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Misthunters (${CHARRWIND})`,
+    effects: [
+      {
+        name: `Misthunters (${CHARRWIND})`,
+        desc: `Pick 1 friendly unit wholly within 12" of a friendly hero. Do not subtract 1 from hit rolls by the target due to Sweltering Mists.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Self-sacrifice (${VARANTHAX})`,
+    effects: [
+      {
+        name: `Self-sacrifice (${VARANTHAX})`,
+        desc: `Pick 1 friendly unit wholly within 12" of a friendly hero. Until the end of the phase, add 1 to hit rolls and subtract 1 from save rolls for the target.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
