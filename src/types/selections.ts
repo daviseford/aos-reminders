@@ -5,6 +5,7 @@ export type TSelectionTypes =
   | 'command_traits'
   | 'endless_spells'
   | 'flavors'
+  | 'prayers'
   | 'scenery'
   | 'spells'
   | 'triumphs'

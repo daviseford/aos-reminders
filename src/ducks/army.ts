@@ -16,6 +16,7 @@ const initialState: IArmyStore = {
     Flavors: [],
     FlavorType: '',
     Game: Game,
+    Prayers: [],
     Scenery: [],
     Spells: [],
     Triumphs: [],
