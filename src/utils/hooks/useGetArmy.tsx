@@ -67,6 +67,15 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
         sideEffects: getSideEffects(army.Flavors),
       },
       {
+        slice: 'prayers' as TSelectionTypes,
+        items: army.Prayers,
+        setValues: selectionActions.setPrayers,
+        title: 'Prayers',
+        values: selections.prayers || [],
+        type: 'multi',
+        sideEffects: {},
+      },
+      {
         slice: 'spells' as TSelectionTypes,
         items: army.Spells,
         setValues: selectionActions.setSpells,

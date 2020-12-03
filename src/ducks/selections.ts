@@ -101,6 +101,9 @@ const selections = createSlice({
     setSpells: (state, action: PayloadAction<string[]>) => {
       state.selections.spells = action.payload
     },
+    setPrayers: (state, action: PayloadAction<string[]>) => {
+      state.selections.prayers = action.payload
+    },
     setCommandTraits: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'command_traits')
       state.selections.command_traits = action.payload
