@@ -19,17 +19,3 @@ export type TSubFaction = {
 }
 
 export type TSubFactions = Record<string, TSubFaction>
-
-// export type TNewFactionType = {
-//   readonly factionName: TSupportedFaction
-//   readonly GrandAlliance: TGrandAlliances
-
-//   readonly AggregateArmy: TInitialArmy
-
-//   readonly SubFactions: TSubFactions
-//   readonly subFactionArmies: Record<string, TInitialArmy>
-//   readonly subFactionKeys: string[]
-
-//   readonly subFactionLabel: string
-//   readonly flavorLabel: string
-// }
