@@ -47,10 +47,10 @@ export const addArmyToStore = (loadedArmy: TLoadedArmy) => {
     }
 
     // Add our unit selections to the store
-    dispatch(selectionActions.updateSelections(loadedArmy.selections))
+    dispatch(selectionActions.setSelections(loadedArmy.selections))
 
     // Add our allied unit selections to the store
-    dispatch(selectionActions.updateAllySelections(loadedArmy.allySelections))
+    dispatch(selectionActions.setAllySelections(loadedArmy.allySelections))
 
     // Add Realm info to the store
     dispatch(realmscapeActions.setOriginRealm(loadedArmy.origin_realm || null))
