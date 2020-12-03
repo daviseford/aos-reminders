@@ -357,14 +357,15 @@ export default class CompactPdfLayout {
   private _getArmyText = (): ICompactPdfTextObj[] => {
     const { allyFactionNames, allySelections, factionName, realmscape_feature, selections } = this._army
     const {
-      flavors,
       artifacts,
       battalions,
       command_abilities,
+      command_traits,
       endless_spells,
+      flavors,
+      prayers,
       scenery,
       spells,
-      command_traits,
       triumphs,
       units,
     } = selections
@@ -392,6 +393,7 @@ export default class CompactPdfLayout {
       getText('Artifact', artifacts),
       getText('Command Trait', command_traits),
       getText('Command Abilities', command_abilities, false),
+      getText('Prayer', prayers),
       getText('Spell', spells),
       getText('Endless Spell', endless_spells),
       getText('Scenery', scenery, false),
