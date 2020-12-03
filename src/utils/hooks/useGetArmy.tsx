@@ -22,7 +22,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
     return [
       {
         items: army.Units,
-        setValues: selectionActions.updateUnits,
+        setValues: selectionActions.setUnits,
         title: 'Units',
         values: selections.units || [],
         type: 'multi',
@@ -30,7 +30,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
       },
       {
         items: army.CommandTraits,
-        setValues: selectionActions.updateCommandTraits,
+        setValues: selectionActions.setCommandTraits,
         title: 'Command Traits',
         values: selections.command_traits || [],
         type: 'multi',
@@ -38,7 +38,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
       },
       {
         items: army.Artifacts,
-        setValues: selectionActions.updateArtifacts,
+        setValues: selectionActions.setArtifacts,
         title: 'Artifacts',
         values: selections.artifacts || [],
         type: 'multi',
@@ -46,7 +46,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
       },
       {
         items: army.Battalions,
-        setValues: selectionActions.updateBattalions,
+        setValues: selectionActions.setBattalions,
         title: 'Battalions',
         values: selections.battalions || [],
         type: 'multi',
@@ -54,7 +54,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
       },
       {
         items: army.Flavors,
-        setValues: selectionActions.updateFlavors,
+        setValues: selectionActions.setFlavors,
         title: army.FlavorType || 'Flavors',
         values: selections.flavors || [],
         type: 'multi',
@@ -62,7 +62,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
       },
       {
         items: army.Spells,
-        setValues: selectionActions.updateSpells,
+        setValues: selectionActions.setSpells,
         title: 'Spells',
         values: selections.spells || [],
         type: 'multi',
@@ -70,7 +70,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
       },
       {
         items: army.EndlessSpells,
-        setValues: selectionActions.updateEndlessSpells,
+        setValues: selectionActions.setEndlessSpells,
         title: 'Endless Spells',
         values: selections.endless_spells || [],
         type: 'multi',
@@ -78,7 +78,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
       },
       {
         items: army.Scenery,
-        setValues: selectionActions.updateScenery,
+        setValues: selectionActions.setScenery,
         title: 'Scenery',
         values: selections.scenery || [],
         type: 'multi',
@@ -86,7 +86,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
       },
       {
         items: army.CommandAbilities,
-        setValues: selectionActions.updateCommandAbilities,
+        setValues: selectionActions.setCommandAbilities,
         title: 'Command Abilities',
         values: selections.command_abilities || [],
         type: 'multi',
@@ -94,7 +94,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
       },
       {
         items: army.Triumphs,
-        setValues: selectionActions.updateTriumphs,
+        setValues: selectionActions.setTriumphs,
         title: 'Triumphs',
         values: selections.triumphs || [],
         type: 'multi',

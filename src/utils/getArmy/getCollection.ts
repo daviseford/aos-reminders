@@ -1,7 +1,9 @@
 import { mergeParentEffectObjs } from 'factions/temporaryAdapter'
 import { sortBy, uniqBy } from 'lodash'
-import { TCollection, TInitialArmy } from 'types/army'
+import { IArmy, TCollection, TInitialArmy } from 'types/army'
 import { TEffects, TEntry } from 'types/data'
+import { TSelectionTypes } from 'types/selections'
+import { lowerToUpperLookup } from 'utils/import/removeSideEffectsFromImport'
 
 /**
  * There are spells/artifacts/etc that only occur if a certain
@@ -38,6 +40,23 @@ export const getCollection = (army: TInitialArmy): TCollection => {
     })
   )
 
+  Battalions.forEach(a => {
+    if (a.mandatory) {
+      Object.keys(a.mandatory).forEach(sliceKey => {
+        const slice = a?.mandatory?.[sliceKey as keyof TEntry]
+        if (!slice || !slice.length) return
+
+        const mergedEntries = mergeParentEffectObjs(slice)
+
+        mergedEntries.forEach(_entry => {
+          const { effects } = _entry as TEntry
+          const upperSlice = lowerToUpperLookup[slice as TSelectionTypes]
+          effects.forEach(effect => checkEffects(effect, Collection, upperSlice))
+        })
+      })
+    }
+  })
+
   Flavors.forEach(a => {
     if (a.mandatory) {
       Object.keys(a.mandatory).forEach(sliceKey => {
@@ -54,6 +73,8 @@ export const getCollection = (army: TInitialArmy): TCollection => {
     }
   })
 
+  debugger
+
   return {
     Artifacts: sortBy(Collection.Artifacts, 'name'),
     Battalions: sortBy(Collection.Battalions, 'name'),
@@ -63,7 +84,7 @@ export const getCollection = (army: TInitialArmy): TCollection => {
   }
 }
 
-const checkEffects = (effect: TEffects, Collection: TCollection) => {
+const checkEffects = (effect: TEffects, Collection: TCollection, forceKey?: keyof IArmy) => {
   if (effect.spell || effect.prayer) {
     addToCollection(effect, Collection.Spells)
   } else if (effect.artifact) {
@@ -72,6 +93,8 @@ const checkEffects = (effect: TEffects, Collection: TCollection) => {
     addToCollection(effect, Collection.CommandTraits)
   } else if (effect.command_ability) {
     addToCollection(effect, Collection.CommandAbilities)
+  } else if (forceKey) {
+    addToCollection(effect, Collection[forceKey])
   }
 }
 

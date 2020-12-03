@@ -75,6 +75,10 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
   const { dispatch } = store
   const values = selectValues?.map(x => x.value) || []
 
+  // Set the given value for the dropdown
+  dispatch(method(values))
+
+  // And then handle side effects
   Object.keys(payload).forEach(value => {
     if (values.includes(value)) {
       Object.keys(payload[value]).forEach(slice => {
@@ -92,6 +96,4 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
       })
     }
   })
-
-  dispatch(method(values))
 }
