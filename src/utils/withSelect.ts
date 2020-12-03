@@ -1,7 +1,7 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { TSelectMultiValueType, TSelectOneValueType } from 'components/input/select'
 import { store } from 'store'
-import { TEntryProperties } from 'types/data'
+import { TSelectionTypes } from 'types/selections'
 import { logIndividualSelection } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 
@@ -36,14 +36,9 @@ export const withSelectMultipleWithPayload: TWithSelectMultipleWithPayload = (
   dispatch(method({ ...payload, [key]: values }))
 }
 
-export type TSideEffectTypes = Extract<
-  TEntryProperties,
-  'spell' | 'artifact' | 'command_trait' | 'command_ability'
->
-
 export interface IWithSelectMultipleWithSideEffectsPayload {
   [key: string]: {
-    [key in TSideEffectTypes]?: {
+    [key in TSelectionTypes]?: {
       values: string[]
     }
   }
@@ -56,7 +51,7 @@ type TWithSelectMultiWithSideEffects = (
     {
       value: string
       values: string[]
-      slice: TEntryProperties
+      slice: TSelectionTypes
     },
     string
   >,
@@ -80,15 +75,13 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
   const { dispatch } = store
   const values = selectValues?.map(x => x.value) || []
 
-  // debugger
-
   Object.keys(payload).forEach(value => {
     if (values.includes(value)) {
       Object.keys(payload[value]).forEach(slice => {
-        const sideEffectVals = payload[value][slice].values
+        const sideEffectVals: string[] = payload[value][slice].values
 
         if (sideEffectVals) {
-          dispatch(updateFn({ value, values: sideEffectVals, slice: slice as TEntryProperties }))
+          dispatch(updateFn({ value, values: sideEffectVals, slice: slice as TSelectionTypes }))
           const trait = titleCase(slice)
 
           // Log each value to GA
