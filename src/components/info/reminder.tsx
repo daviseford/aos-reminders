@@ -17,7 +17,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
 import useNote from 'utils/hooks/useNote'
-import useWindowSize from 'utils/hooks/useWindowSize'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
@@ -152,7 +151,6 @@ const ActionText = (props: IActionTextProps) => {
   const dispatch = useDispatch()
   const { isSubscribed } = useSubscription()
   const { isGameMode } = useAppStatus()
-  const { isMobile } = useWindowSize()
   const handleVisibility = () => dispatch(!isVisible ? showReminder(id) : hideReminder(id))
 
   const noteProps = useNote(id)
