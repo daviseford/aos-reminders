@@ -1,4 +1,4 @@
-import { TSubFaction } from 'factions/factionTypes'
+import { TItemDescription } from 'factions/factionTypes'
 import { TTurnWhen } from 'types/phases'
 
 export type TEntryProperties =
@@ -24,7 +24,7 @@ export const ENTRY_PROPERTIES: TEntryProperties[] = [
   'triumph',
 ]
 
-type TEntryMetadata = TSubFaction &
+type TEntryMetadata = TItemDescription &
   {
     [prop in TEntryProperties]?: boolean
   }

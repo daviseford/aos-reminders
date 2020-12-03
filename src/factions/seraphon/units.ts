@@ -1,5 +1,6 @@
 import GenericEffects from 'army/generic/effects'
-import { pickEffects } from 'factions/metatagger'
+import { TItemDescriptions } from 'factions/factionTypes'
+import { keyPicker, pickEffects } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -119,8 +120,11 @@ const StarbucklersEffect = {
   when: [SAVES_PHASE],
 }
 
-export const Units = {
+export const Units: TItemDescriptions = {
   'Lord Kroak': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Celestial Deliverance'])],
+    },
     effects: [
       ...SlannBaseEffects,
       {
@@ -138,7 +142,6 @@ export const Units = {
         desc: `At the start of your hero phase, roll 3 dice for this model. For each 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
-      ...pickEffects(Spells, ['Celestial Deliverance']),
     ],
   },
   'Slann Starmaster': {

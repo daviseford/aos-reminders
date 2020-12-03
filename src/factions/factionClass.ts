@@ -1,7 +1,7 @@
 import { TGrandAlliances } from 'meta/alliances'
 import { TSupportedFaction } from 'meta/factions'
 import { TInitialArmy } from 'types/army'
-import { TSubFactions } from './factionTypes'
+import { TItemDescriptions } from './factionTypes'
 import { getAggregateArmy, temporaryAdapter } from './temporaryAdapter'
 
 export class Faction {
@@ -12,7 +12,7 @@ export class Faction {
   constructor(
     public readonly factionName: TSupportedFaction,
     public readonly GrandAlliance: TGrandAlliances,
-    public readonly SubFactions: TSubFactions,
+    public readonly SubFactions: TItemDescriptions,
     public readonly subFactionLabel = 'Sub-Factions',
     public readonly flavorLabel = 'Flavors'
   ) {
