@@ -1,3 +1,4 @@
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -12,7 +13,7 @@ import {
 } from 'types/phases'
 
 // Battle traits available to factions and subfactions.
-export const BattleTraits = {
+const BattleTraits = {
   // Daughters of Khaine Allegiance
   'Daughters of Khaine': {
     effects: [
@@ -109,3 +110,5 @@ export const BattleTraits = {
     ],
   },
 }
+
+export default tagAs(BattleTraits, 'battle_trait')
