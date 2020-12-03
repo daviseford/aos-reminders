@@ -105,3 +105,7 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
   // And set the given value for the dropdown
   dispatch(method([...sideEffectDropdownValues, ...values]))
 }
+
+export const withSelectOneWithSideEffects: TWithSelectOne = method => selectValue => {
+  return method(selectValue?.value || null)
+}
