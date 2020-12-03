@@ -10,7 +10,11 @@ import { selectors, visibilityActions } from 'ducks'
 import { isEqual, sortBy } from 'lodash'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
+import { Dropdown } from 'react-bootstrap'
+import { FaEllipsisH } from 'react-icons/fa'
+import { MdVisibilityOff } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
+import { centerContentClass } from 'theme/helperClasses'
 import { TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
 import useNote from 'utils/hooks/useNote'
@@ -18,6 +22,7 @@ import useWindowSize from 'utils/hooks/useWindowSize'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
+import { CustomDropdownToggle } from './customDropdownToggle'
 
 const { addReminder: hideReminder, deleteReminder: showReminder, addWhen: showWhen } = visibilityActions
 
@@ -162,8 +167,11 @@ const ActionText = (props: IActionTextProps) => {
               <ActionTitle {...props} />
             </div>
           </div>
-          <div className={`flex-shrink-0 ${isMobile ? 'align-self-center' : 'px-2'} d-print-none`}>
-            {isVisible && !isGameMode && <NoteMenu {...noteProps} />}
+          <div
+            className={`flex-shrink-0 ${
+              isMobile ? 'align-self-center' : 'px-2'
+            } ${centerContentClass} d-print-none`}
+          >
             {isGameMode ? (
               <VisibilityToggle
                 appearance={'icon'}
@@ -174,13 +182,21 @@ const ActionText = (props: IActionTextProps) => {
                 size={1}
               />
             ) : (
-              <VisibilityToggle
-                appearance={'pill'}
-                pillText={'Rule'}
-                className={`badge badge-pill badge-light`}
-                isVisible={isVisible}
-                setVisibility={handleVisibility}
-              />
+              <Dropdown>
+                <Dropdown.Toggle as={CustomDropdownToggle}>
+                  <FaEllipsisH />
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <VisibilityToggle
+                    appearance={'menuItem'}
+                    text={'Rule'}
+                    isVisible={isVisible}
+                    setVisibility={handleVisibility}
+                  />
+                  {isVisible && <NoteMenu {...noteProps} />}
+                </Dropdown.Menu>
+              </Dropdown>
             )}
           </div>
         </div>
@@ -202,7 +218,7 @@ const ActionText = (props: IActionTextProps) => {
   )
 }
 
-const ActionTitle = ({ actionTitle, name, tag }: IActionTextProps) => {
+const ActionTitle = ({ actionTitle, name, tag, isVisible }: IActionTextProps) => {
   const { theme } = useTheme()
   const titleStr = actionTitle ? `${actionTitle} - ` : ''
 
@@ -213,6 +229,11 @@ const ActionTitle = ({ actionTitle, name, tag }: IActionTextProps) => {
         {name}
         {tag && ` (${tag})`}
       </strong>
+      {!isVisible && (
+        <span className={`${theme.text}`}>
+          <MdVisibilityOff className={`${theme.text} ml-2`} />
+        </span>
+      )}
     </>
   )
 }
