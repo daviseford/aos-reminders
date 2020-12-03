@@ -20,6 +20,7 @@ export const getCollection = (army: TInitialArmy): TCollection => {
     Flavors = [],
     Scenery = [],
     Units = [],
+    SubFaction = null,
   } = army
 
   const Collection: TCollection = {
@@ -35,11 +36,27 @@ export const getCollection = (army: TInitialArmy): TCollection => {
   const types = [Flavors, AlliedUnits, Artifacts, Battalions, Scenery, CommandTraits, Units]
 
   // Go through each thing and get spells, artifacts, etc that are unusual
+  // TODO: Get rid of this!
   types.forEach(items =>
     items.forEach(item => {
       item.effects.forEach(effect => checkEffects(effect, Collection))
     })
   )
+
+  if (SubFaction?.mandatory) {
+    Object.keys(SubFaction.mandatory).forEach(sliceKey => {
+      const slice = SubFaction?.mandatory?.[sliceKey as keyof TEntry]
+      if (!slice || !slice.length) return
+
+      const mergedEntries = mergeParentEffectObjs(slice)
+
+      mergedEntries.forEach(_entry => {
+        const { effects } = _entry as TEntry
+        const upperSlice = lowerToUpperLookup[slice as TSelectionTypes]
+        effects.forEach(effect => checkEffects(effect, Collection, upperSlice))
+      })
+    })
+  }
 
   Battalions.forEach(a => {
     if (a.mandatory) {
@@ -73,8 +90,6 @@ export const getCollection = (army: TInitialArmy): TCollection => {
       })
     }
   })
-
-  debugger
 
   return {
     Artifacts: sortBy(Collection.Artifacts, 'name'),

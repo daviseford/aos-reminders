@@ -19,6 +19,10 @@ const initialState: IArmyStore = {
     Prayers: [],
     Scenery: [],
     Spells: [],
+    SubFaction: {
+      name: '',
+      effects: [],
+    },
     Triumphs: [],
     Units: [],
   },
