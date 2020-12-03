@@ -25,11 +25,10 @@ const baseSeraphonSubfaction: TSubFaction = {
 
 const subFactions: TSubFactions = {
   Coalesced: {
-    ...baseSeraphonSubfaction,
-
     effects: pickEffects(SeraphonBattleTraits, ['COALESCED', 'SERAPHON']),
 
     available: {
+      ...baseSeraphonSubfaction.available,
       flavors: [keyPicker(Flavors, ["Koatl's Claw", 'Thunder Lizard'])],
       battalions: [
         keyPicker(Battalions, [
@@ -49,6 +48,7 @@ const subFactions: TSubFactions = {
     effects: pickEffects(SeraphonBattleTraits, ['STARBORNE', 'SERAPHON']),
 
     available: {
+      ...baseSeraphonSubfaction.available,
       flavors: [keyPicker(Flavors, ["Dracothion's Tail", 'Fangs of Sotek'])],
 
       battalions: [

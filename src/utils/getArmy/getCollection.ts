@@ -1,3 +1,4 @@
+import { mergeParentEffectObjs } from 'factions/temporaryAdapter'
 import { sortBy, uniqBy } from 'lodash'
 import { TCollection, TInitialArmy } from 'types/army'
 import { TEffects, TEntry } from 'types/data'
@@ -33,19 +34,25 @@ export const getCollection = (army: TInitialArmy): TCollection => {
   // Go through each thing and get spells, artifacts, etc that are unusual
   types.forEach(items =>
     items.forEach(item => {
-      item.effects.forEach(effect => {
-        if (effect.spell || effect.prayer) {
-          addToCollection(effect, Collection.Spells)
-        } else if (effect.artifact) {
-          addToCollection(effect, Collection.Artifacts)
-        } else if (effect.command_trait) {
-          addToCollection(effect, Collection.CommandTraits)
-        } else if (effect.command_ability) {
-          addToCollection(effect, Collection.CommandAbilities)
-        }
-      })
+      item.effects.forEach(effect => checkEffects(effect, Collection))
     })
   )
+
+  Flavors.forEach(a => {
+    if (a.mandatory) {
+      Object.keys(a.mandatory).forEach(sliceKey => {
+        const slice = a?.mandatory?.[sliceKey as keyof TEntry]
+        if (!slice || !slice.length) return
+
+        const mergedEntries = mergeParentEffectObjs(slice)
+
+        mergedEntries.forEach(_entry => {
+          const { effects } = _entry as TEntry
+          effects.forEach(effect => checkEffects(effect, Collection))
+        })
+      })
+    }
+  })
 
   return {
     Artifacts: sortBy(Collection.Artifacts, 'name'),
@@ -53,6 +60,18 @@ export const getCollection = (army: TInitialArmy): TCollection => {
     CommandAbilities: sortBy(Collection.CommandAbilities, 'name'),
     CommandTraits: sortBy(Collection.CommandTraits, 'name'),
     Spells: sortBy(Collection.Spells, 'name'),
+  }
+}
+
+const checkEffects = (effect: TEffects, Collection: TCollection) => {
+  if (effect.spell || effect.prayer) {
+    addToCollection(effect, Collection.Spells)
+  } else if (effect.artifact) {
+    addToCollection(effect, Collection.Artifacts)
+  } else if (effect.command_trait) {
+    addToCollection(effect, Collection.CommandTraits)
+  } else if (effect.command_ability) {
+    addToCollection(effect, Collection.CommandAbilities)
   }
 }
 
