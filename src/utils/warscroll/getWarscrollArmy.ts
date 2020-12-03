@@ -303,6 +303,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
       command_traits: [],
       endless_spells: [],
       flavors: [],
+      prayers: [],
       scenery: [],
       spells: [],
       triumphs: [],

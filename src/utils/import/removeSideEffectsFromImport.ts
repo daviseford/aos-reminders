@@ -25,6 +25,7 @@ export const removeSideEffectsFromImport = (
     command_traits: 'CommandTraits',
     endless_spells: 'EndlessSpells',
     flavors: 'Flavors',
+    prayers: 'Prayers',
     scenery: 'Scenery',
     spells: 'Spells',
     triumphs: 'Triumphs',
