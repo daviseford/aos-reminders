@@ -1,4 +1,4 @@
-import { TSubFaction, TSubFactions } from 'factions/factionTypes'
+import { TItemDescription, TItemDescriptions } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import { Battalions } from './battalions'
@@ -10,7 +10,7 @@ import Scenery from './scenery'
 import Spells from './spells'
 import { Units } from './units'
 
-const baseSeraphonSubfaction: TSubFaction = {
+const baseSeraphonSubfaction: TItemDescription = {
   effects: pickEffects(SeraphonBattleTraits, ['SERAPHON']),
   available: {
     artifacts: [Artifacts],
@@ -23,7 +23,7 @@ const baseSeraphonSubfaction: TSubFaction = {
   },
 }
 
-const subFactions: TSubFactions = {
+const subFactions: TItemDescriptions = {
   Coalesced: {
     effects: pickEffects(SeraphonBattleTraits, ['COALESCED', 'SERAPHON']),
 
