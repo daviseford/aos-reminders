@@ -1,7 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { uniq, without } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
-import { TEntryProperties } from 'types/data'
 import { TSelectionTypes } from 'types/selections'
 import { ISelectionStore, IStore, TAllySelectionStore } from 'types/store'
 
@@ -26,7 +25,7 @@ type TAddToSelectionsAction = {
   payload: {
     value: string // Hermdar Lodge
     values: string[] // ['Tyrant Slayer']
-    slice: TEntryProperties // e.g. artifacts, spells, etc
+    slice: TSelectionTypes // e.g. artifacts, spells, etc
   }
 }
 
