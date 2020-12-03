@@ -1,5 +1,6 @@
 import { useTheme } from 'context/useTheme'
 import React from 'react'
+import { centerContentClass } from 'theme/helperClasses'
 
 type TCustomDropdownToggleProps = {
   children?: React.ReactNode
@@ -12,9 +13,10 @@ export const CustomDropdownToggle = React.forwardRef(
     const { theme } = useTheme()
 
     return (
+      // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <a
         href=""
-        className={`${theme.text}`}
+        className={`${theme.text} ${centerContentClass}`}
         ref={ref}
         onClick={e => {
           e.preventDefault()

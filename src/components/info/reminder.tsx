@@ -14,6 +14,7 @@ import { Dropdown } from 'react-bootstrap'
 import { FaEllipsisH } from 'react-icons/fa'
 import { MdVisibilityOff } from 'react-icons/md'
 import { useDispatch, useSelector } from 'react-redux'
+import { centerContentClass } from 'theme/helperClasses'
 import { TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
 import useNote from 'utils/hooks/useNote'
@@ -166,7 +167,11 @@ const ActionText = (props: IActionTextProps) => {
               <ActionTitle {...props} />
             </div>
           </div>
-          <div className={`flex-shrink-0 ${isMobile ? 'align-self-center' : 'px-2'} d-print-none`}>
+          <div
+            className={`flex-shrink-0 ${
+              isMobile ? 'align-self-center' : 'px-2'
+            } ${centerContentClass} d-print-none`}
+          >
             {isGameMode ? (
               <VisibilityToggle
                 appearance={'icon'}
@@ -224,10 +229,9 @@ const ActionTitle = ({ actionTitle, name, tag, isVisible }: IActionTextProps) =>
         {name}
         {tag && ` (${tag})`}
       </strong>
-      {isVisible || (
-        <span className={theme.text}>
-          {' '}
-          <MdVisibilityOff />
+      {!isVisible && (
+        <span className={`${theme.text}`}>
+          <MdVisibilityOff className={`${theme.text} ml-2`} />
         </span>
       )}
     </>
