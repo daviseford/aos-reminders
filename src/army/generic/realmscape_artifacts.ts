@@ -1,6 +1,24 @@
 import { TArtifacts } from 'types/army'
-import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, SAVES_PHASE } from 'types/phases'
-import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
+import {
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  END_OF_COMBAT_PHASE,
+  HERO_PHASE,
+  SAVES_PHASE,
+  WOUND_ALLOCATION_PHASE,
+} from 'types/phases'
+import {
+  AQSHY,
+  CHAMON,
+  CHARRWIND,
+  GHUR,
+  GHYRAN,
+  HELLEFlUX,
+  HYSH,
+  SHYISH,
+  ULGU,
+  VARANTHAX,
+} from 'types/realmscapes'
 
 const RealmArtifacts: TArtifacts = [
   {
@@ -69,6 +87,36 @@ const RealmArtifacts: TArtifacts = [
       {
         name: `Trickster's Foil (${ULGU})`,
         desc: `You can reroll wound rolls of 1 for attacks made with a melee weapon by the bearer.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `The Fetch's Ring (${HELLEFlUX})`,
+    effects: [
+      {
+        name: `The Fetch's Ring (${HELLEFlUX})`,
+        desc: `Roll a dice each time a wound or mortal wound is allocated to the bearer. On each 4+ the wound is negated and you cannot use this artifact to negate any further wounds this phase.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Black Kraken Helm (${CHARRWIND})`,
+    effects: [
+      {
+        name: `Black Kraken Helm (${CHARRWIND})`,
+        desc: `Once per battle, you can roll a dice for each enemy unit within 3" of the bearer. On a 4+ the target suffers D3 mortal wounds.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `The Devourer (${VARANTHAX})`,
+    effects: [
+      {
+        name: `The Devourer (${VARANTHAX})`,
+        desc: `Each unmodified hit of 6 targeting a hero with the selected melee weapon inflicts 1 mortal wound in addition to normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
