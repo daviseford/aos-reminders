@@ -1,5 +1,5 @@
 import { CardMultiSelect, CardSingleSelect } from 'components/info/card'
-import { armyActions, selectionActions, selectors } from 'ducks'
+import { armyActions, selectors } from 'ducks'
 import React, { Fragment, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TOriginRealms } from 'types/realmscapes'
@@ -37,8 +37,8 @@ const ArmyBuilder = () => {
                   setValues={withSelectMultiWithSideEffects(
                     card.setValues,
                     card.sideEffects,
-                    selectionActions.addToSelections,
-                    factionName
+                    factionName,
+                    card.slice
                   )}
                   title={card.title}
                   values={card.values}
