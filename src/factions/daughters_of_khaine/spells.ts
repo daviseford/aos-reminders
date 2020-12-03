@@ -8,7 +8,7 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 
-export const Spells = {
+const Spells = {
   'Lore of Shadows': {
     effects: [
       {

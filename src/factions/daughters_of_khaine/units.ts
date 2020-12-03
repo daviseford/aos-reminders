@@ -1,4 +1,4 @@
-import { pickEffects } from 'factions/metatagger'
+import { pickEffects, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -159,7 +159,7 @@ const TurnedCrystalEffect = {
   when: [END_OF_COMBAT_PHASE],
 }
 
-export const Units = {
+const Units = {
   'Morathi-Khaine': {
     effects: [
       {
@@ -418,3 +418,5 @@ export const Units = {
     ],
   },
 }
+
+export default tagAs(Units, 'unit')
