@@ -6,6 +6,7 @@ import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { IArmy } from 'types/army'
 import { SUPPORTED_BATTLE_REALMS, SUPPORTED_ORIGIN_REALMS } from 'types/realmscapes'
+import { TSelectionTypes } from 'types/selections'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { getSideEffects } from 'utils/getSideEffects'
 
@@ -21,6 +22,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
   const value = useMemo(() => {
     return [
       {
+        slice: 'units' as TSelectionTypes,
         items: army.Units,
         setValues: selectionActions.setUnits,
         title: 'Units',
@@ -29,6 +31,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
         sideEffects: getSideEffects(army.Units),
       },
       {
+        slice: 'command_traits' as TSelectionTypes,
         items: army.CommandTraits,
         setValues: selectionActions.setCommandTraits,
         title: 'Command Traits',
@@ -37,6 +40,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
         sideEffects: getSideEffects(army.CommandTraits),
       },
       {
+        slice: 'artifacts' as TSelectionTypes,
         items: army.Artifacts,
         setValues: selectionActions.setArtifacts,
         title: 'Artifacts',
@@ -45,6 +49,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
         sideEffects: {},
       },
       {
+        slice: 'battalions' as TSelectionTypes,
         items: army.Battalions,
         setValues: selectionActions.setBattalions,
         title: 'Battalions',
@@ -53,6 +58,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
         sideEffects: getSideEffects(army.Battalions),
       },
       {
+        slice: 'flavors' as TSelectionTypes,
         items: army.Flavors,
         setValues: selectionActions.setFlavors,
         title: army.FlavorType || 'Flavors',
@@ -61,6 +67,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
         sideEffects: getSideEffects(army.Flavors),
       },
       {
+        slice: 'spells' as TSelectionTypes,
         items: army.Spells,
         setValues: selectionActions.setSpells,
         title: 'Spells',
@@ -69,6 +76,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
         sideEffects: {},
       },
       {
+        slice: 'endless_spells' as TSelectionTypes,
         items: army.EndlessSpells,
         setValues: selectionActions.setEndlessSpells,
         title: 'Endless Spells',
@@ -77,6 +85,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
         sideEffects: {},
       },
       {
+        slice: 'scenery' as TSelectionTypes,
         items: army.Scenery,
         setValues: selectionActions.setScenery,
         title: 'Scenery',
@@ -85,6 +94,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
         sideEffects: {},
       },
       {
+        slice: 'command_abilities' as TSelectionTypes,
         items: army.CommandAbilities,
         setValues: selectionActions.setCommandAbilities,
         title: 'Command Abilities',
@@ -93,6 +103,7 @@ export const useGetArmyBuilderCards = (army: IArmy) => {
         sideEffects: {},
       },
       {
+        slice: 'triumphs' as TSelectionTypes,
         items: army.Triumphs,
         setValues: selectionActions.setTriumphs,
         title: 'Triumphs',
