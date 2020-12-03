@@ -30,23 +30,23 @@ export const getAggregateArmy = (subFactions: TSubFactions, flavorType = 'Flavor
   }, {} as TInitialArmy)
 }
 
-const mergeData = (subFaction: TSubFaction, slice: TSelectionTypes) => {
+const mergeData = (subFaction: TSubFaction, slice: TSelectionTypes): TObjWithName[] => {
   const { available = {}, mandatory = {} } = subFaction
   const merged: TParentEffectsObjWithEffects[] = [...(available[slice] || []), ...(mandatory[slice] || [])]
-  return mergeAll(merged)
+  return mergeParentEffectObjs(merged)
 }
 
 type TObjWithName = TObjWithEffects & { name: string }
 
-const mergeAll = (objs: TParentEffectsObjWithEffects[]): TObjWithName[] => {
+export const mergeParentEffectObjs = (objs: TParentEffectsObjWithEffects[]): TObjWithName[] => {
   return objs.reduce((a, obj) => {
-    const arr = toArr(obj)
+    const arr = parentEffectObjConverter(obj)
     a = a.concat(arr)
     return a
   }, [] as TObjWithName[])
 }
 
-const toArr = (obj: TParentEffectsObjWithEffects): TObjWithName[] => {
+export const parentEffectObjConverter = (obj: TParentEffectsObjWithEffects): TObjWithName[] => {
   return Object.keys(obj).reduce((a, name) => {
     const entry = { ...obj[name], name }
     a.push(entry)
