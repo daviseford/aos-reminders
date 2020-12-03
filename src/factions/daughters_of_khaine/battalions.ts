@@ -1,3 +1,4 @@
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -120,4 +121,6 @@ const SuperBattalions = {
   },
 }
 
-export const Battalions = { ...RegularBattalions, ...SuperBattalions }
+const Battalions = { ...RegularBattalions, ...SuperBattalions }
+
+export default tagAs(Battalions, 'battalion')

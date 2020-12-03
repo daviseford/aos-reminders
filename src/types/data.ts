@@ -3,6 +3,8 @@ import { TTurnWhen } from 'types/phases'
 
 export type TEntryProperties =
   | 'artifact'
+  | 'battalion'
+  | 'battle_trait'
   | 'command_ability'
   | 'command_trait'
   | 'endless_spell'
@@ -11,9 +13,12 @@ export type TEntryProperties =
   | 'scenery'
   | 'spell'
   | 'triumph'
+  | 'unit'
 
 export const ENTRY_PROPERTIES: TEntryProperties[] = [
   'artifact',
+  'battalion',
+  'battle_trait',
   'command_ability',
   'command_trait',
   'endless_spell',
@@ -22,6 +27,7 @@ export const ENTRY_PROPERTIES: TEntryProperties[] = [
   'scenery',
   'spell',
   'triumph',
+  'unit',
 ]
 
 type TEntryMetadata = TItemDescription &

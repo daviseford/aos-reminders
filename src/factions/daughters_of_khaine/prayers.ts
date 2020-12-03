@@ -1,7 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-export const Prayers = {
+const Prayers = {
   'Prayers of the Khainite Cult': {
     effects: [
       {
