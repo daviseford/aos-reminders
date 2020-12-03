@@ -1,5 +1,6 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { TSelectMultiValueType, TSelectOneValueType } from 'components/input/select'
+import { selectionActions } from 'ducks'
 import { store } from 'store'
 import { TSelectionTypes } from 'types/selections'
 import { logIndividualSelection } from 'utils/analytics'
@@ -47,15 +48,8 @@ export interface IWithSelectMultipleWithSideEffectsPayload {
 type TWithSelectMultiWithSideEffects = (
   method: ActionCreatorWithPayload<string[], string>,
   payload: IWithSelectMultipleWithSideEffectsPayload,
-  updateFn: ActionCreatorWithPayload<
-    {
-      value: string
-      values: string[]
-      slice: TSelectionTypes
-    },
-    string
-  >,
-  label: string
+  label: string,
+  slice: TSelectionTypes
 ) => (selectValues: TSelectMultiValueType) => void
 
 /**
@@ -63,30 +57,41 @@ type TWithSelectMultiWithSideEffects = (
  *
  * @param method
  * @param payload
- * @param updateFn
  * @param label
+ * @param slice
  */
 export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
   method,
   payload,
-  updateFn,
-  label
+  label,
+  slice
 ) => selectValues => {
   const { dispatch } = store
   const values = selectValues?.map(x => x.value) || []
+  let sideEffectDropdownValues: string[] = []
 
-  // Set the given value for the dropdown
-  dispatch(method(values))
-
-  // And then handle side effects
+  // Handle side effects
   Object.keys(payload).forEach(value => {
     if (values.includes(value)) {
-      Object.keys(payload[value]).forEach(slice => {
-        const sideEffectVals: string[] = payload[value][slice].values
+      Object.keys(payload[value]).forEach(_slice => {
+        const sideEffectVals: string[] = payload[value][_slice].values
 
         if (sideEffectVals) {
-          dispatch(updateFn({ value, values: sideEffectVals, slice: slice as TSelectionTypes }))
-          const trait = titleCase(slice)
+          if (_slice === slice) {
+            // e.g. if a battalion has another battalion as mandatory side effect
+            // We will just use this when we update the dropdown later
+            sideEffectDropdownValues = sideEffectDropdownValues.concat(sideEffectVals)
+          } else {
+            // Otherwise go ahead and update the dropdown for other types of values
+            dispatch(
+              selectionActions.addToSelections({
+                value,
+                values: sideEffectVals,
+                slice: _slice as TSelectionTypes,
+              })
+            )
+          }
+          const trait = titleCase(_slice)
 
           // Log each value to GA
           sideEffectVals.forEach((val: string) => {
@@ -96,4 +101,7 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
       })
     }
   })
+
+  // And set the given value for the dropdown
+  dispatch(method([...sideEffectDropdownValues, ...values]))
 }
