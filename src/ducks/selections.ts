@@ -59,14 +59,14 @@ const selections = createSlice({
       const units = state.allySelections[factionName]?.units || []
       state.allySelections[factionName] = { battalions, units }
     },
-    updateAllySelections: (state, action: PayloadAction<TAllySelectionStore>) => {
+    setAllySelections: (state, action: PayloadAction<TAllySelectionStore>) => {
       state.allySelections = action.payload
     },
-    updateFlavors: (state, action: PayloadAction<string[]>) => {
+    setFlavors: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'flavors')
       state.selections.flavors = action.payload
     },
-    updateArtifacts: (state, action: PayloadAction<string[]>) => {
+    setArtifacts: (state, action: PayloadAction<string[]>) => {
       state.selections.artifacts = action.payload
     },
 
@@ -81,33 +81,33 @@ const selections = createSlice({
       state.sideEffects[value] = { ...state.sideEffects[value], [slice]: values }
     },
 
-    updateBattalions: (state, action: PayloadAction<string[]>) => {
+    setBattalions: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'battalions')
       state.selections.battalions = action.payload
     },
-    updateCommandAbilities: (state, action: PayloadAction<string[]>) => {
+    setCommandAbilities: (state, action: PayloadAction<string[]>) => {
       state.selections.command_abilities = action.payload
     },
-    updateEndlessSpells: (state, action: PayloadAction<string[]>) => {
+    setEndlessSpells: (state, action: PayloadAction<string[]>) => {
       state.selections.endless_spells = action.payload
     },
-    updateScenery: (state, action: PayloadAction<string[]>) => {
+    setScenery: (state, action: PayloadAction<string[]>) => {
       state.selections.scenery = action.payload
     },
-    updateSelections: (state, action) => {
+    setSelections: (state, action) => {
       state.selections = action.payload
     },
-    updateSpells: (state, action: PayloadAction<string[]>) => {
+    setSpells: (state, action: PayloadAction<string[]>) => {
       state.selections.spells = action.payload
     },
-    updateCommandTraits: (state, action: PayloadAction<string[]>) => {
+    setCommandTraits: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'command_traits')
       state.selections.command_traits = action.payload
     },
-    updateTriumphs: (state, action: PayloadAction<string[]>) => {
+    setTriumphs: (state, action: PayloadAction<string[]>) => {
       state.selections.triumphs = action.payload
     },
-    updateUnits: (state, action: PayloadAction<string[]>) => {
+    setUnits: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'units')
       state.selections.units = action.payload
     },

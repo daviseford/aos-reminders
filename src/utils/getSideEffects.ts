@@ -10,18 +10,20 @@ export const getSideEffects = (items: TEntry[]) => {
 
     if (item.mandatory) {
       Object.keys(item.mandatory).forEach(sliceKey => {
-        const slice = item?.mandatory?.[sliceKey as TSelectionTypes]
+        let key = sliceKey as TSelectionTypes
+
+        const slice = item?.mandatory?.[key]
         if (!slice || !slice.length) return
 
         const mergedEntries = mergeParentEffectObjs(slice)
 
         mergedEntries.forEach(_entry => {
-          const { effects } = _entry as TEntry
-          effects.forEach(effect => checkEffects(effect, item.name, accum))
+          addToAccum(accum, item.name, _entry.name, key)
         })
       })
     }
 
+    // We don't like doing it this way!
     item.effects.forEach(effect => checkEffects(effect, item.name, accum))
     return accum
   }, {} as IWithSelectMultipleWithSideEffectsPayload)

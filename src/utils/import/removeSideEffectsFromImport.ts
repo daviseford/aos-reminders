@@ -7,6 +7,19 @@ import { logIgnoredImport } from 'utils/analytics'
 
 type TLookup = Record<TSelectionTypes, Partial<keyof IArmy>>
 
+export const lowerToUpperLookup: TLookup = {
+  artifacts: 'Artifacts',
+  battalions: 'Battalions',
+  command_abilities: 'CommandTraits',
+  command_traits: 'CommandTraits',
+  endless_spells: 'EndlessSpells',
+  flavors: 'Flavors',
+  scenery: 'Scenery',
+  spells: 'Spells',
+  triumphs: 'Triumphs',
+  units: 'Units',
+}
+
 /**
  * Remove side effects (such as spells, artifacts, etc) from our imported selections
  * @param selections
@@ -18,24 +31,14 @@ export const removeSideEffectsFromImport = (
   Army: IArmy,
   parser: TImportParsers
 ): TSelections => {
-  const lookup: TLookup = {
-    artifacts: 'Artifacts',
-    battalions: 'Battalions',
-    command_abilities: 'CommandTraits',
-    command_traits: 'CommandTraits',
-    endless_spells: 'EndlessSpells',
-    flavors: 'Flavors',
-    scenery: 'Scenery',
-    spells: 'Spells',
-    triumphs: 'Triumphs',
-    units: 'Units',
-  }
   Object.keys(selections).forEach(slice => {
     // Store the previous state of our selections
     const previous: string[] = [...selections[slice]]
 
     // Get an array of effect names that are side effects from the Army
-    const SideEffects = (Army[lookup[slice]] as TEntry[]).filter(x => x.isSideEffect).map(x => x.name)
+    const SideEffects = (Army[lowerToUpperLookup[slice]] as TEntry[])
+      .filter(x => x.isSideEffect)
+      .map(x => x.name)
 
     // Update our slice of selections to NOT include any side effects
     selections[slice] = difference(previous, SideEffects)
