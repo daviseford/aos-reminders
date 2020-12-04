@@ -2,7 +2,7 @@ import { mergeParentEffectObjs } from 'factions/temporaryAdapter'
 import { uniq } from 'lodash'
 import { TEffects, TEntry, TEntryProperties } from 'types/data'
 import { TSelectionTypes } from 'types/selections'
-import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
+import { ISideEffectsPayload } from 'utils/withSelect'
 
 export const getSideEffects = (items: TEntry[]) => {
   const Collection = items.reduce((accum, item) => {
@@ -15,7 +15,7 @@ export const getSideEffects = (items: TEntry[]) => {
     item.effects.forEach(effect => checkEffects(effect, item.name, accum))
 
     return accum
-  }, {} as IWithSelectMultipleWithSideEffectsPayload)
+  }, {} as ISideEffectsPayload)
 
   return Collection
 }
@@ -34,11 +34,7 @@ const entryKeyToSelectionsKey: Record<Exclude<TEntryProperties, 'battle_trait'>,
   unit: 'units',
 }
 
-const checkEffects = (
-  effect: TEffects,
-  itemName: string,
-  accum: IWithSelectMultipleWithSideEffectsPayload
-) => {
+const checkEffects = (effect: TEffects, itemName: string, accum: ISideEffectsPayload) => {
   let addedToAccum = false
 
   Object.keys(entryKeyToSelectionsKey).forEach(key => {
@@ -51,7 +47,7 @@ const checkEffects = (
 }
 
 const addToAccum = (
-  accum: IWithSelectMultipleWithSideEffectsPayload,
+  accum: ISideEffectsPayload,
   itemName: string,
   effectName: string,
   type: TSelectionTypes
@@ -69,7 +65,7 @@ const addToAccum = (
  * @param item
  * @param accum
  */
-const checkForMandatory = (item: TEntry, accum: IWithSelectMultipleWithSideEffectsPayload) => {
+const checkForMandatory = (item: TEntry, accum: ISideEffectsPayload) => {
   if (!item.mandatory) return
 
   Object.keys(item.mandatory).forEach(sliceKey => {

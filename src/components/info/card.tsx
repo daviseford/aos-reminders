@@ -1,6 +1,6 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
 import { TVisibilityIconType, VisibilityToggle } from 'components/info/visibilityToggle'
-import { SelectMulti, SelectOne, TSelectMultiValueType, TSelectOneSetValueFn } from 'components/input/select'
+import { SelectMulti, SelectOne, TSelectMultiSetValueFn, TSelectOneSetValueFn } from 'components/input/select'
 import { useTheme } from 'context/useTheme'
 import { selectors, visibilityActions } from 'ducks'
 import React, { useCallback, useEffect, useMemo } from 'react'
@@ -49,7 +49,7 @@ const CardComponent: React.FC<ICardProps> = props => {
 interface ICardMultiProps extends IBaseCardProps {
   items: TEntry[]
   selectionCount: number
-  setValues: (selectValues: TSelectMultiValueType) => void
+  setValues: TSelectMultiSetValueFn
   values: string[]
   enableLog?: boolean
 }

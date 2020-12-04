@@ -34,12 +34,7 @@ const ArmyBuilder = () => {
                   key={card.title}
                   label={factionName}
                   mobileTitle={card.mobileTitle || null}
-                  setValues={withSelectMultiWithSideEffects(
-                    card.setValues,
-                    card.sideEffects,
-                    factionName,
-                    card.slice
-                  )}
+                  setValues={withSelectMultiWithSideEffects(card.setValues, card.sideEffects, factionName)}
                   title={card.title}
                   values={card.values}
                   selectionCount={0}
