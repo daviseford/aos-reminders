@@ -1,5 +1,6 @@
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
+import { OgorMawtribesFaction } from 'factions/ogor_mawtribes'
 import { SampleFaction } from 'factions/sample'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
@@ -8,6 +9,7 @@ import { StormcastFaction } from 'factions/stormcast_eternals'
 import {
   DAUGHTERS_OF_KHAINE,
   MEGA_GARGANT_MERCENARIES,
+  OGOR_MAWTRIBES,
   SAMPLE,
   SERAPHON,
   SLAANESH,
@@ -132,10 +134,7 @@ const FactionList = {
   //   Army: { ...NurgleArmy },
   //   GrandAlliance: CHAOS,
   // },
-  // [OGOR_MAWTRIBES]: {
-  //   Army: { ...OgorMawtribesArmy },
-  //   GrandAlliance: DESTRUCTION,
-  // },
+  [OGOR_MAWTRIBES]: { ...OgorMawtribesFaction },
   // [ORDER_GRAND_ALLIANCE]: {
   //   Army: { ...OrderArmy },
   //   GrandAlliance: ORDER,

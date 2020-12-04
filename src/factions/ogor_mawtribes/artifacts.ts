@@ -1,21 +1,82 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_ROUND,
   START_OF_SHOOTING_PHASE,
   TURN_ONE_START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Headmasher`,
+const Artifacts = {
+  'Gut-plate of Ghur': {
+    effects: [
+      {
+        name: `Gut-plate of Ghur`,
+        desc: `You can reroll save rolls of 1 for attacks that target the bearer.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+
+  'Splatter-cleaver': {
+    effects: [
+      {
+        name: `Splatter-cleaver`,
+        desc: `Pick 1 of the bearer's melee weapons. At the end of the combat phase, if any wounds inflicted by that weapon in that phase were allocated to an enemy model and not negated, you can heal D3 wounds allocated to each friendly BLOODGULLET OGOR unit wholly within 12" of the bearer (roll separately for each unit).`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'Gnoblar Blast Keg': {
+    effects: [
+      {
+        name: `Gnoblar Blast Keg`,
+        desc: `Once per battle, at the start of your shooting phase, you can use the Gnoblar Blast Keg. If you do so, pick 1 enemy unit within 9" of the bearer that is visible to them and roll 6 dice. Add 1 to each roll for every 10 models in the target unit. For each 6+, that enemy unit suffers D3 mortal wounds.`,
+        when: [START_OF_SHOOTING_PHASE],
+      },
+    ],
+  },
+
+  'Brand of the Svard': {
+    effects: [
+      {
+        name: `Brand of the Svard`,
+        desc: `If the bearer has a mount, add 1 to hit rolls for attacks made with that mount's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  Shatterstone: {
+    effects: [
+      {
+        name: `Shatterstone`,
+        desc: `Enemy units treat terrain features within 12" of the bearer as having the Deadly scenery rule in addition to any other scenery rules they may have.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+
+  Frostfang: {
+    effects: [
+      {
+        name: `Frostfang`,
+        desc: `Pick 1 of the bearer's melee weapons. At the start of each battle round, roll a D6. On a 5+, add 1 to the damage inflicted by attacks made with that weapon for the rest of the battle. This effect is cumulative.`,
+        when: [START_OF_ROUND],
+      },
+    ],
+  },
+
+  Headmasher: {
     effects: [
       {
         name: `Headmasher`,
@@ -24,8 +85,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Grawl's Gut-plate`,
+
+  "Grawl's Gut-plate": {
     effects: [
       {
         name: `Grawl's Gut-plate`,
@@ -34,8 +95,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gruesome Trophy Rack`,
+
+  'Gruesome Trophy Rack': {
     effects: [
       {
         name: `Gruesome Trophy Rack`,
@@ -44,8 +105,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Flask of Stonehorn Blood`,
+
+  'Flask of Stonehorn Blood': {
     effects: [
       {
         name: `Flask of Stonehorn Blood`,
@@ -59,8 +120,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sky-Titan Scatter Pistols`,
+
+  'Sky-Titan Scatter Pistols': {
     effects: [
       {
         name: `Sky-Titan Scatter Pistols`,
@@ -69,8 +130,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Fang of Ghur`,
+
+  'The Fang of Ghur': {
     effects: [
       {
         name: `The Fang of Ghur`,
@@ -79,8 +140,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dracoline Heart`,
+
+  'Dracoline Heart': {
     effects: [
       {
         name: `Dracoline Heart`,
@@ -89,8 +150,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shrunken Priest Head`,
+
+  'Shrunken Priest Head': {
     effects: [
       {
         name: `Shrunken Priest Head`,
@@ -99,8 +160,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Wizardflesh Apron`,
+
+  'Wizardflesh Apron': {
     effects: [
       {
         name: `Wizardflesh Apron`,
@@ -109,8 +170,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Bloodrock Talisman`,
+
+  'Bloodrock Talisman': {
     effects: [
       {
         name: `Bloodrock Talisman`,
@@ -119,8 +180,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Grease-smeared Tusks`,
+
+  'Grease-smeared Tusks': {
     effects: [
       {
         name: `Grease-smeared Tusks`,
@@ -129,8 +190,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Rotting Dankhold Spores`,
+
+  'Rotting Dankhold Spores': {
     effects: [
       {
         name: `Rotting Dankhold Spores`,
@@ -139,8 +200,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Rime Shroud`,
+
+  'The Rime Shroud': {
     effects: [
       {
         name: `The Rime Shroud`,
@@ -149,8 +210,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Blade of All-Frost`,
+
+  'Blade of All-Frost': {
     effects: [
       {
         name: `Blade of All-Frost`,
@@ -159,8 +220,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Carvalox Flank`,
+
+  'Carvalox Flank': {
     effects: [
       {
         name: `Carvalox Flank`,
@@ -169,8 +230,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Alvagr Rune-tokens`,
+
+  'Alvagr Rune-tokens': {
     effects: [
       {
         name: `Alvagr Rune-tokens`,
@@ -189,8 +250,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Skullshards of Dragaar`,
+
+  'Skullshards of Dragaar': {
     effects: [
       {
         name: `Skullshards of Dragaar`,
@@ -199,8 +260,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Elixir of Frostwyrm`,
+
+  'Elixir of Frostwyrm': {
     effects: [
       {
         name: `Elixir of Frostwyrm`,
@@ -209,8 +270,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Pelt of Charngar`,
+
+  'The Pelt of Charngar': {
     effects: [
       {
         name: `The Pelt of Charngar`,
@@ -219,8 +280,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Kattanak Browplate`,
+
+  'Kattanak Browplate': {
     effects: [
       {
         name: `Kattanak Browplate`,
@@ -234,8 +295,8 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Frost-talon Shardbolts`,
+
+  'Frost-talon Shardbolts': {
     effects: [
       {
         name: `Frost-talon Shardbolts`,
@@ -244,6 +305,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(Artifacts, 'artifact')
