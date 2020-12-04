@@ -77,11 +77,6 @@ const BattleTraits = {
         desc: `You receive D3 depravity points if any friendly Invaders Host units are wholly within enemy territory. If 3 or more friendly Invaders Host units are wholly within enemy territory at the start of your hero phase, you receive D6 depravity points instead.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Invaders Hedonite Host`,
-        desc: `A Hedonite Host battalion in an Invaders Host army must contain 2-4 Epicurean Revellers battalions and 0-2 Seeker Cavalcade battalions instead of the standard quantities.`,
-        when: [START_OF_GAME],
-      },
     ],
   },
   // Pretenders Host
@@ -102,11 +97,6 @@ const BattleTraits = {
         desc: `You receive D3 depravity points if your general is within 3" of any enemy units. If your general is within 3" of 3 or more enemy units you receive D6 depravity points instead.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Pretenders Hedonite Host`,
-        desc: `A Supreme Sybarites battalion in a Pretenders Host army must have only 1 Chaos Slaanesh hero instead of 3-6.`,
-        when: [START_OF_GAME],
-      },
     ],
   },
   // Godseekers Host
@@ -122,11 +112,6 @@ const BattleTraits = {
         desc: `You receive D3 depravity points if any friendly Godseekers Host units made a charge move in this phase. If 3 or more friendly Godseekers Host units made a charge move in this phase receive D6 depravity points instead.`,
         when: [END_OF_CHARGE_PHASE],
       },
-      {
-        name: `Godseekers Hedonite Host`,
-        desc: `A Hedonite Host in a Godseekers Host army must contain 0-2 Epicurean Revellers battalions and 2-4 Seeker Cavalcade battalions.`,
-        when: [START_OF_GAME],
-      },
     ],
   },
   // Syll'Esskan Host
@@ -141,11 +126,6 @@ const BattleTraits = {
         name: `Deadly Symbiosis`,
         desc: `When you receive depravity points due to a friendly Slaanesh hero inflicting or suffering wounds/mortal wounds, you receive 2 depravity points instead of 1 if the hero unit is within 12" of Syll'Esske.`,
         when: [DURING_GAME],
-      },
-      {
-        name: `Syll'Esskan Host`,
-        desc: `A Syll'Esskan host can include only include the following battalions: The Vengeful Alliance, Epicurean Revellers, Seeker Cavalcade, Devout Supplicants, Vengeful Throng, and Daemonsteel Contingent. The Syll'Esskan specific battalions can only be used by an army that is a Syll'Esskan Host.`,
-        when: [START_OF_GAME],
       },
     ],
   },
