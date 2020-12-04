@@ -1,4 +1,3 @@
-import { TItemDescription } from 'factions/factionTypes'
 import { keyOmitter, keyPicker, pickEffects } from 'factions/metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
@@ -30,7 +29,7 @@ import Units from './units'
 //   'Ungors',
 // ]
 
-const baseSubfaction: TItemDescription = {
+const baseSubfaction = {
   effects: pickEffects(BattleTraits, ['Thrilling Compulsions']),
   available: {
     spells: [Spells],
