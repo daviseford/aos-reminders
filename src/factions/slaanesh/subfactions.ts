@@ -49,12 +49,29 @@ const baseSubfaction = {
 const subFactions = {
   Invaders: {
     effects: pickEffects(BattleTraits, ['Thrilling Compulsions', "The Despoiler's Art"]),
-
     available: {
       ...baseSubfaction.available,
-
-      command_traits: [keyPicker(CommandTraits, ['Obessions of the Invader'])],
-      artifacts: [keyPicker(Artifacts, ['Sacred Spoils of War'])],
+      flavors: [keyPicker(Flavors, ['Lurid Haze'])],
+      command_traits: [
+        keyPicker(CommandTraits, [
+          'Best of the Best',
+          'Glory Hog',
+          'Hurler of Obscenities',
+          'Territorial',
+          'Skin-taker',
+          'Delusions of Infallibility',
+        ]),
+      ],
+      artifacts: [
+        keyPicker(Artifacts, [
+          'The Rod of Misrule',
+          'Rapier of Ecstatic Conquest',
+          'Whip of Subversion',
+          'Icon of Infinite Excess',
+          'Fallacious Gift',
+          'The Beguiling Gem',
+        ]),
+      ],
       battalions: [
         keyOmitter(Battalions, [
           'The Vengeful Alliance',
@@ -65,18 +82,34 @@ const subFactions = {
         // keyPicker(SlavestoDarknessFaction.Battalions, ['Pleasurebound Warband']),
         // keyPicker(BeastsofChaosFaction.Battalions, ['Depraved Drove']),
       ],
-      flavors: [keyPicker(Flavors, ['Lurid Haze'])],
     },
   },
 
   Pretenders: {
     effects: pickEffects(BattleTraits, ['Thrilling Compulsions', 'Magnificence Made Flesh']),
-
     available: {
       ...baseSubfaction.available,
-
-      command_traits: [keyPicker(CommandTraits, ['Aspects of the Perfect Liege'])],
-      artifacts: [keyPicker(Artifacts, ['Regalia of the Rightful Heir'])],
+      flavors: [keyPicker(Flavors, ['Faultless Blades'])],
+      command_traits: [
+        keyPicker(CommandTraits, [
+          'Strength of Godhood',
+          'Monarch of Lies',
+          'True Child of Slaanesh',
+          'Strongest Alone',
+          'Hunter of Godbeasts',
+          'Inspirer',
+        ]),
+      ],
+      artifacts: [
+        keyPicker(Artifacts, [
+          'The Crown of Dark Secrets',
+          'Pendant of Slaanesh',
+          'Sliverslash',
+          'Sceptre of Domination',
+          'Breathtaker',
+          'Mask of Spiteful Beauty',
+        ]),
+      ],
       battalions: [
         keyOmitter(Battalions, [
           'The Vengeful Alliance',
@@ -87,7 +120,6 @@ const subFactions = {
         // keyPicker(SlavestoDarknessFaction.Battalions, ['Pleasurebound Warband']),
         // keyPicker(BeastsofChaosFaction.Battalions, ['Depraved Drove']),
       ],
-      flavors: [keyPicker(Flavors, ['Faultless Blades'])],
     },
   },
 
@@ -95,9 +127,27 @@ const subFactions = {
     effects: pickEffects(BattleTraits, ['Thrilling Compulsions', 'Blessings of the Gleeful Chase']),
     available: {
       ...baseSubfaction.available,
-
-      command_traits: [keyPicker(CommandTraits, ['Traits of the Seeker Supreme'])],
-      artifacts: [keyPicker(Artifacts, ['Treasures of the Hunt'])],
+      flavors: [keyPicker(Flavors, ['Scarlet Cavalcade'])],
+      command_traits: [
+        keyPicker(CommandTraits, [
+          'Hunter Supreme',
+          'Thrill-seeker',
+          'Into the Fray',
+          'Trail-sniffer',
+          'Symphoniac',
+          'Speed-chaser',
+        ]),
+      ],
+      artifacts: [
+        keyPicker(Artifacts, [
+          'Cameo of the Dark Prince',
+          'Girdle of the Realm-race',
+          'Threnody Voicebox',
+          'Lash of Despair',
+          'Enrapturing Circlet',
+          'Bindings of Slaanesh',
+        ]),
+      ],
       battalions: [
         keyOmitter(Battalions, [
           'The Vengeful Alliance',
@@ -108,16 +158,13 @@ const subFactions = {
         // keyPicker(SlavestoDarknessFaction.Battalions, 'Pleasurebound Warband'),
         // keyPicker(BeastsofChaosFaction.Battalions, 'Depraved Drove'),
       ],
-      flavors: [keyPicker(Flavors, ['Scarlet Cavalcade'])],
     },
   },
 
   "Syll'Esskan": {
     effects: pickEffects(BattleTraits, ['Thrilling Compulsions', 'Vengeance Unleashed']),
-
     available: {
       ...baseSubfaction.available,
-
       battalions: [
         keyPicker(Battalions, [
           'The Vengeful Alliance',

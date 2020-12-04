@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import { CHARGE_PHASE, COMBAT_PHASE, START_OF_BATTLESHOCK_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
 const CommandAbilities = {
+  // Unit abilities
   'Excess of Violence': {
     effects: [
       {

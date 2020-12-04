@@ -1,4 +1,4 @@
-import { pickEffects, tagAs } from 'factions/metatagger'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -21,36 +21,21 @@ const DarkTemptationsEffect = {
   desc: `You can pick 1 enemy HERO within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that HERO suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a D6. On 1-3, that HERO no longer receives this modifier to their hit rolls. On 4-6, that HERO is slain.`,
   when: [START_OF_COMBAT_PHASE],
 }
-
 const DelicatePrecisionEffect = {
   name: `Delicate Precision`,
   desc: `If the unmodified wound roll for an attack made with a melee weapon by this model is 6, that attack inflicts a number of mortal wounds equal to the damage characteristic of the weapon used for the attack and the attack sequence ends (do not make a save roll).`,
   when: [COMBAT_PHASE],
 }
-
 const LivingWhipEffect = {
   name: `Living Whip`,
   desc: `You can pick 1 enemy MONSTER model within 6" of this model and roll a D6. On a 3+, pick 1 melee weapon that enemy MONSTER model is armed with. Subtract 1 from hit rolls for attacks made with that weapon until the end of that combat phase.`,
   when: [START_OF_COMBAT_PHASE],
 }
-
 const ShiningAegisEffect = {
   name: `Shining Aegis`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 6+, that wound or mortal wound is negated.`,
   when: [WOUND_ALLOCATION_PHASE],
 }
-
-const KeeperOfSecretsBaseEffects = [
-  DarkTemptationsEffect,
-  DelicatePrecisionEffect,
-  {
-    name: `Magic`,
-    desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
-    when: [HERO_PHASE],
-  },
-  ...pickEffects(Spells, ['Cacophonic Choir']),
-  ...pickEffects(CommandAbilities, ['Excess of Violence']),
-]
 const LitheAndSwiftEffect = {
   name: `Lithe and Swift`,
   desc: `This unit can run and still charge later in the same turn.`,
@@ -71,12 +56,28 @@ const HornBlowerEffect = {
   desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Hornblowers is 1, that battleshock test must be rerolled.`,
   when: [BATTLESHOCK_PHASE],
 }
+const baseKeeperOfSecrets = {
+  mandatory: {
+    spells: [keyPicker(Spells, ['Cacophonic Choir'])],
+    command_abilities: [keyPicker(CommandAbilities, ['Excess of Violence'])],
+  },
+  effects: [
+    DarkTemptationsEffect,
+    DelicatePrecisionEffect,
+    {
+      name: `Magic`,
+      desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
+      when: [HERO_PHASE],
+    },
+  ],
+}
 
 // Unit Names
 const Units = {
   'Keeper of Secrets w/ Ritual Knife': {
+    mandatory: { ...baseKeeperOfSecrets.mandatory },
     effects: [
-      ...KeeperOfSecretsBaseEffects,
+      ...baseKeeperOfSecrets.effects,
       {
         name: `Ritual Knife`,
         desc: `You can pick 1 enemy model within 1" of this model that has any wounds currently allocated to it and roll a D6. On a 1, nothing happens. On a 2-5, that enemy model suffers 1 mortal wound. On a 6, that enemy model suffers D3 mortal wounds.`,
@@ -85,14 +86,17 @@ const Units = {
     ],
   },
   'Keeper of Secrets w/ Living Whip': {
-    effects: [...KeeperOfSecretsBaseEffects, LivingWhipEffect],
+    mandatory: { ...baseKeeperOfSecrets.mandatory },
+    effects: [...baseKeeperOfSecrets.effects, LivingWhipEffect],
   },
   'Keeper of Secrets w/ Shining Aegis': {
-    effects: [...KeeperOfSecretsBaseEffects, ShiningAegisEffect],
+    mandatory: { ...baseKeeperOfSecrets.mandatory },
+    effects: [...baseKeeperOfSecrets.effects, ShiningAegisEffect],
   },
   'Keeper of Secrets w/ Sinistrous Hand': {
+    mandatory: { ...baseKeeperOfSecrets.mandatory },
     effects: [
-      ...KeeperOfSecretsBaseEffects,
+      ...baseKeeperOfSecrets.effects,
       {
         name: `Sinistrous Hand`,
         desc: `If any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D3 wounds allocated to this model. If any enemy HEROES were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D6 wounds allocated to this model instead.`,
@@ -101,6 +105,10 @@ const Units = {
     ],
   },
   'Syll`Esske, the Vengeful Allegiance': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Subvert'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Regal Authority'])],
+    },
     effects: [
       {
         name: `Companion`,
@@ -125,11 +133,12 @@ const Units = {
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Subvert.`,
         when: [HERO_PHASE],
       },
-      ...pickEffects(Spells, ['Subvert']),
-      ...pickEffects(CommandAbilities, ['Regal Authority']),
     ],
   },
   'Shalaxi Helbane': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Refine Senses'])],
+    },
     effects: [
       {
         name: `Cloak of Constriction`,
@@ -154,10 +163,12 @@ const Units = {
         desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Refine Senses.`,
         when: [HERO_PHASE],
       },
-      ...pickEffects(Spells, ['Refine Senses']),
     ],
   },
   'The Contorted Epitome': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Overwhelming Acquiescence'])],
+    },
     effects: [
       {
         name: `Gift of Power`,
@@ -179,7 +190,6 @@ const Units = {
         desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Overwhelming Acquiescence.`,
         when: [HERO_PHASE],
       },
-      ...pickEffects(Spells, ['Overwhelming Acquiescence']),
     ],
   },
   'Infernal Enrapturess, Herald of Slaanesh': {
@@ -227,6 +237,9 @@ const Units = {
     ],
   },
   'Viceleader, Herald of Slaanesh': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Acquiescence'])],
+    },
     effects: [
       {
         name: `Lightning Reflexes`,
@@ -239,10 +252,12 @@ const Units = {
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      ...pickEffects(Spells, ['Acquiescence']),
     ],
   },
   'Bladebringer, Herald on Hellflayer': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Acquiescence'])],
+    },
     effects: [
       {
         name: `Crew and Steeds`,
@@ -259,10 +274,12 @@ const Units = {
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      ...pickEffects(Spells, ['Acquiescence']),
     ],
   },
   'Bladebringer, Herald on Seeker Chariot': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Acquiescence'])],
+    },
     effects: [
       {
         name: `Crew and Steeds`,
@@ -284,7 +301,6 @@ const Units = {
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      ...pickEffects(Spells, ['Acquiescence']),
     ],
   },
   Hellflayer: {
@@ -321,6 +337,9 @@ const Units = {
     ],
   },
   'Bladebringer, Herald on Exalted Chariot': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Acquiescence'])],
+    },
     effects: [
       {
         name: `Crew and Steeds`,
@@ -342,7 +361,6 @@ const Units = {
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
         when: [HERO_PHASE],
       },
-      ...pickEffects(Spells, ['Acquiescence']),
     ],
   },
   'Exalted Chariot': {
@@ -466,6 +484,9 @@ const Units = {
     ],
   },
   'Soulfeaster Keeper of Secrets': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Cacophonic Choir'])],
+    },
     effects: [
       DarkTemptationsEffect,
       DelicatePrecisionEffect,
@@ -479,10 +500,12 @@ const Units = {
         desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
         when: [HERO_PHASE],
       },
-      ...pickEffects(Spells, ['Cacophonic Choir']),
     ],
   },
-  'Lord of Pain ': {
+  'Lord of Pain': {
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Paragon of Depravity'])],
+    },
     effects: [
       {
         name: `Share the Pain`,
@@ -494,7 +517,6 @@ const Units = {
         desc: `If this model negated a wound in this phase, the attacking unit suffers 1 mortal wound after resolving all of its attacks.`,
         when: [COMBAT_PHASE],
       },
-      ...pickEffects(CommandAbilities, ['Paragon of Depravity']),
     ],
   },
 }
