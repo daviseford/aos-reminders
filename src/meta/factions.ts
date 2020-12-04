@@ -154,7 +154,7 @@ export type TPrimaryFactions =
 
 // Supported Factions
 // export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies | TMegaGargantMercenaries
-export type TSupportedFaction = TPrimaryFactions
+export type TSupportedFaction = TPrimaryFactions | TMegaGargantMercenaries
 
 export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // BEASTS_OF_CHAOS,
@@ -206,6 +206,6 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
 
 export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   ...PRIMARY_FACTIONS,
-  // MEGA_GARGANT_MERCENARIES,
+  MEGA_GARGANT_MERCENARIES,
   // MERCENARY_COMPANIES,
 ])

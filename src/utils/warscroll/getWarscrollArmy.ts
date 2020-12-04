@@ -1,5 +1,4 @@
 import GenericScenery from 'army/generic/scenery'
-import CommonSonsOfBehematData from 'army/sons_of_behemat/common'
 import { SeraphonFaction } from 'factions/seraphon'
 import { last, uniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
@@ -365,7 +364,7 @@ const getTribe = (txt: string) => {
   const flavor = tribe[0].trim()
   try {
     let trait = tribe[1] ? tribe[1].split('Fierce Loathing: ')[1].replace(')', '').trim() : null
-    trait = trait ? `${trait} ${CommonSonsOfBehematData.TAGS.FierceLoathingTag}` : null //  e.g. "Shiny 'Uns (Fierce Loathing)"
+    trait = trait ? `${trait} (Fierce Loathing)` : null //  e.g. "Shiny 'Uns (Fierce Loathing)"
     return { flavor, trait }
   } catch (err) {
     return { flavor, trait: null }
