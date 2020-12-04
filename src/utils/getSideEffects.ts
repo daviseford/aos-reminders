@@ -1,14 +1,12 @@
 import { mergeParentEffectObjs } from 'factions/temporaryAdapter'
 import { uniq } from 'lodash'
-import { TEffects, TEntry } from 'types/data'
+import { TEffects, TEntry, TEntryProperties } from 'types/data'
 import { TSelectionTypes } from 'types/selections'
 import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
 
 export const getSideEffects = (items: TEntry[]) => {
   const Collection = items.reduce((accum, item) => {
     accum[item.name] = {}
-
-    debugger
 
     // We like using mandatory (and we will probably ONLY do this in the future)
     if (item.mandatory) {
@@ -35,20 +33,34 @@ export const getSideEffects = (items: TEntry[]) => {
   return Collection
 }
 
+const entryKeyToSelectionsKey: Record<Exclude<TEntryProperties, 'battle_trait'>, TSelectionTypes> = {
+  artifact: 'artifacts',
+  battalion: 'battalions',
+  command_ability: 'command_abilities',
+  command_trait: 'command_traits',
+  endless_spell: 'endless_spells',
+  mount_trait: 'command_traits',
+  prayer: 'prayers',
+  scenery: 'scenery',
+  spell: 'spells',
+  triumph: 'triumphs',
+  unit: 'units',
+}
+
 const checkEffects = (
   effect: TEffects,
   itemName: string,
   accum: IWithSelectMultipleWithSideEffectsPayload
 ) => {
-  if (effect.spell || effect.prayer) {
-    addToAccum(accum, itemName, effect.name, 'spells')
-  } else if (effect.artifact) {
-    addToAccum(accum, itemName, effect.name, 'artifacts')
-  } else if (effect.command_trait) {
-    addToAccum(accum, itemName, effect.name, 'command_traits')
-  } else if (effect.command_ability) {
-    addToAccum(accum, itemName, effect.name, 'command_abilities')
-  }
+  let addedToAccum = false
+
+  Object.keys(entryKeyToSelectionsKey).forEach(key => {
+    if (addedToAccum) return
+    if (effect[key]) {
+      addToAccum(accum, itemName, effect.name, entryKeyToSelectionsKey[key])
+      addedToAccum = true
+    }
+  })
 }
 
 const addToAccum = (
