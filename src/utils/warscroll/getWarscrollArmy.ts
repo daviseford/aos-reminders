@@ -1,6 +1,6 @@
 import GenericScenery from 'army/generic/scenery'
-import { SeraphonConstellations } from 'army/seraphon/allegiances'
 import CommonSonsOfBehematData from 'army/sons_of_behemat/common'
+import { SeraphonFaction } from 'factions/seraphon'
 import { last, uniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { getFactionList } from 'meta/faction_list'
@@ -427,11 +427,15 @@ const getTraitWithSpell = (type: TTraitType, txt: string, addSpace = true) => {
  * @param value
  */
 const getSeraphonConstellations = (value: string): string[] => {
-  if (SeraphonConstellations.COALESCED_ALLEGIANCES.includes(value)) {
-    return [value, SeraphonConstellations.COALESCED]
+  const { subFactionKeyMap } = SeraphonFaction
+  const CoalescedFlavors = SeraphonFaction.SubFactions.Coalesced.available.flavors
+  const StarborneFlavors = SeraphonFaction.SubFactions.Starborne.available.flavors
+
+  if (CoalescedFlavors[value]) {
+    return [value, subFactionKeyMap.Coalesced]
   }
-  if (SeraphonConstellations.STARBORNE_ALLEGIANCES.includes(value)) {
-    return [value, SeraphonConstellations.STARBORNE]
+  if (StarborneFlavors[value]) {
+    return [value, subFactionKeyMap.Starborne]
   }
   return [value]
 }
