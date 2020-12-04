@@ -2,11 +2,11 @@ import { uniq } from 'lodash'
 import { IArmy } from 'types/army'
 import { TSelections, TSelectionTypes } from 'types/selections'
 import { getSideEffects } from 'utils/getSideEffects'
-import { IWithSelectMultipleWithSideEffectsPayload } from 'utils/withSelect'
+import { ISideEffectsPayload } from 'utils/withSelect'
 
 type TSideEffectKeys = Record<
   Extract<TSelectionTypes, 'flavors' | 'battalions' | 'command_traits' | 'units'>,
-  IWithSelectMultipleWithSideEffectsPayload
+  ISideEffectsPayload
 >
 
 /**
@@ -23,7 +23,7 @@ export const addSideEffectsToImport = (selections: TSelections, Army: IArmy): TS
   }
 
   Object.keys(sideEffects).forEach(slice => {
-    const effectsObj = sideEffects[slice] as IWithSelectMultipleWithSideEffectsPayload
+    const effectsObj = sideEffects[slice] as ISideEffectsPayload
 
     selections[slice].forEach((name: string) => {
       if (!effectsObj[name]) return

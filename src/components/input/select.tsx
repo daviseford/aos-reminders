@@ -11,7 +11,7 @@ export type TSelectMultiValueType = ValueType<TDropdownOption, true>
 
 export type TSelectOneSetValueFn = (value: TSelectOneValueType, action: ActionMeta<TDropdownOption>) => void
 export type TSelectMultiSetValueFn = (
-  value: TSelectMultiValueType,
+  values: TSelectMultiValueType,
   action: ActionMeta<TDropdownOption>
 ) => void
 
