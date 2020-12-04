@@ -12,6 +12,17 @@ import { lowerToUpperLookup } from 'utils/import/removeSideEffectsFromImport'
  * @param army
  */
 export const getCollection = (army: TInitialArmy): TCollection => {
+  const Collection: TCollection = {
+    Artifacts: [],
+    Battalions: [],
+    CommandAbilities: [],
+    Prayers: [],
+    Spells: [],
+    CommandTraits: [],
+  }
+
+  if (!army) return Collection
+
   const {
     AlliedUnits = [],
     Artifacts = [],
@@ -22,15 +33,6 @@ export const getCollection = (army: TInitialArmy): TCollection => {
     Units = [],
     SubFaction = null,
   } = army
-
-  const Collection: TCollection = {
-    Artifacts: [],
-    Battalions: [],
-    CommandAbilities: [],
-    Prayers: [],
-    Spells: [],
-    CommandTraits: [],
-  }
 
   // Brute force it
   const types = [Flavors, AlliedUnits, Artifacts, Battalions, Scenery, CommandTraits, Units]
