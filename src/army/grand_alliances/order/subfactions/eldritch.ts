@@ -65,7 +65,7 @@ export const LegacyEldritchUnits: TEntry[] = [
       },
       {
         name: `Elemental Shield`,
-        desc: `Casting value of 6. Until your next hero phase, you can roll a dice each time the Archmage, or a model in your army within 18" of him, suffers a wound or a mortal wound. On the roll of a 6 that hit is deflected by the magical barrier surrounding the Archmage and is ignored.`,
+        desc: `Casting value of 6. Until your next hero phase, you can roll a D6 each time the Archmage, or a model in your army within 18" of him, suffers a wound or a mortal wound. On the roll of a 6 that hit is deflected by the magical barrier surrounding the Archmage and is ignored.`,
         when: [HERO_PHASE],
         spell: true,
       },

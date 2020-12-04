@@ -30,7 +30,7 @@ const Scenery: TEntry[] = [
       },
       {
         name: `Hidden Troggholes`,
-        desc: `At the end of each of your turns, yo can pick 1 friendly FELLWATER TROGGOTH or ROCKGUT TROGGOTH unit that has been destroyed. If you do so, roll a dice. On a 4+, a new replacement unit with half of the models from the unit that was destroyed (rounding fractions up) is added to your army. You must set up the replacement unit wholly within 12" of a friendly BAD MOON LOONSHRINE and more than 3" from any enemy units. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
+        desc: `At the end of each of your turns, yo can pick 1 friendly FELLWATER TROGGOTH or ROCKGUT TROGGOTH unit that has been destroyed. If you do so, roll a D6. On a 4+, a new replacement unit with half of the models from the unit that was destroyed (rounding fractions up) is added to your army. You must set up the replacement unit wholly within 12" of a friendly BAD MOON LOONSHRINE and more than 3" from any enemy units. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
         when: [END_OF_TURN],
         tag: `TROGGOTH general`,
       },

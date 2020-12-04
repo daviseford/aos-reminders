@@ -279,7 +279,7 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       LionCloakEffect,
       {
         name: `Unflinching Courage`,
-        desc: `Roll a dice each time a White Lion flees; on a 4 or more that model's courage stirs up within him and he returns to the battle - he does not flee.`,
+        desc: `Roll a D6 each time a White Lion flees; on a 4 or more that model's courage stirs up within him and he returns to the battle - he does not flee.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],

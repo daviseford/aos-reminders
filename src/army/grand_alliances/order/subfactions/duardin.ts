@@ -31,7 +31,7 @@ export const APPRENTICE_RUNESMITH = {
 
 const HornblowerEffect = {
   name: `Hornblower`,
-  desc: `Models in this unit can be Hornblowers. When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a dice to see how far the unit runs; instead, they can move up to an extra 4".`,
+  desc: `Models in this unit can be Hornblowers. When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
   when: [MOVEMENT_PHASE],
 }
 
@@ -46,7 +46,7 @@ export const LegacyDuardinUnits: TEntry[] = [
       },
       {
         name: `Icon Bearer`,
-        desc: `Models in this unit may be Icon Bearers. Roll a dice if a spell affects a unit with any Icon Bearers. On a roll of a 5+, that spell has no affect on the unit (but it will affect other units normally).`,
+        desc: `Models in this unit may be Icon Bearers. Roll a D6 if a spell affects a unit with any Icon Bearers. On a roll of a 5+, that spell has no affect on the unit (but it will affect other units normally).`,
         when: [HERO_PHASE],
       },
       HornblowerEffect,
@@ -57,7 +57,7 @@ export const LegacyDuardinUnits: TEntry[] = [
       },
       {
         name: `Deathblow`,
-        desc: `If a Slayer is slain in the combat phase, roll a dice before it is removed. On a roll of 4+ you can inflict 1 mortal wound on the enemy unit that struck the fatal blow after all of its attacks have been made.`,
+        desc: `If a Slayer is slain in the combat phase, roll a D6 before it is removed. On a roll of 4+ you can inflict 1 mortal wound on the enemy unit that struck the fatal blow after all of its attacks have been made.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -100,7 +100,7 @@ export const LegacyDuardinUnits: TEntry[] = [
       },
       {
         name: `Runic Icon`,
-        desc: `Roll a dice if a spell affects a unit with any Runic Icons. On a roll of a 5+1 that spell has no affect on the unit (but it will affect other units normally).`,
+        desc: `Roll a D6 if a spell affects a unit with any Runic Icons. On a roll of a 5+1 that spell has no affect on the unit (but it will affect other units normally).`,
         when: [HERO_PHASE],
       },
       {
@@ -212,7 +212,7 @@ export const LegacyDuardinUnits: TEntry[] = [
       ...GenericEffects.CrewedWarMachine('Duardin Artillery'),
       {
         name: `Flame Burst`,
-        desc: `When firing a Flame Burst, pick a unit within range to suffer D3 mortal wounds. After firing a Flame Burst, roll a dice; on a 1, 2 or 3, the flames die out and the unit you shot suffers no further damage, but on a 4+ it is set ablaze and suffers another D3 mortal wounds before the flames are extinguished.`,
+        desc: `When firing a Flame Burst, pick a unit within range to suffer D3 mortal wounds. After firing a Flame Burst, roll a D6; on a 1, 2 or 3, the flames die out and the unit you shot suffers no further damage, but on a 4+ it is set ablaze and suffers another D3 mortal wounds before the flames are extinguished.`,
         when: [SHOOTING_PHASE],
       },
       {

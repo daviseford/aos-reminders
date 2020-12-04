@@ -208,7 +208,7 @@ export const Battalions: TEntry[] = [
     effects: [
       {
         name: `Drawn to the Waaagh!`,
-        desc: `You can use this command ability if the Orruk Warchanter from this battalion is on the battlefield when a unit from this battalion is destroyed. If you do so, roll a dice. On a 4+, a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
+        desc: `You can use this command ability if the Orruk Warchanter from this battalion is on the battlefield when a unit from this battalion is destroyed. If you do so, roll a D6. On a 4+, a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
         when: [DURING_GAME],
         command_ability: true,
       },
@@ -289,7 +289,7 @@ export const Battalions: TEntry[] = [
       },
       {
         name: `Da Boss 'Imself`,
-        desc: `If Dakkbad is on the battlefield at the start of your hero phase, roll a dice. On a 4+, you receive 1 extra command point.`,
+        desc: `If Dakkbad is on the battlefield at the start of your hero phase, roll a D6. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
       },
       {
