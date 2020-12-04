@@ -33,7 +33,7 @@ const BattleTraits = {
     effects: [
       {
         name: 'COALESCED',
-        desc: `If your army is a COALESCED army, you can give it the KOATL'S CLAW or THUNDER LIZARD keyword. All COALESCED units in your army gain that keyword and you can use the extra abilities listed for that Constellation (pg 64-67).`,
+        desc: `If your army is a COALESCED army, you can give it the KOATL'S CLAW or THUNDER LIZARD keyword. All COALESCED units in your army gain that keyword and you can use the extra abilities listed for that Constellation.`,
         when: [START_OF_SETUP],
       },
       {
@@ -91,7 +91,7 @@ const BattleTraits = {
       },
       {
         name: `Starborne Constellations`,
-        desc: `If your army is a STARBORNE army, you can give it the DRACOTHION'S TAIL or FANGS OF SOTEK keyword. All STARBORNE units in your army gain that keyword and you can use the extra abilities listed for that Constellation (pg 64-67)`,
+        desc: `If your army is a STARBORNE army, you can give it the DRACOTHION'S TAIL or FANGS OF SOTEK keyword. All STARBORNE units in your army gain that keyword and you can use the extra abilities listed for that Constellation.`,
         when: [START_OF_SETUP],
       },
     ],

@@ -1,5 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import { END_OF_CHARGE_PHASE, HERO_PHASE } from 'types/phases'
+import Units from './units'
 
 const RegularBattalions = {
   // The name that you enter here is how it'll appear on the UI
@@ -13,6 +14,9 @@ const RegularBattalions = {
     ],
   },
   'Regular Battalion 2': {
+    mandatory: {
+      units: [keyPicker(Units, ['Simple Hero'])],
+    },
     effects: [],
   },
 }
