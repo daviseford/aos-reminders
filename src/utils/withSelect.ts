@@ -45,11 +45,13 @@ export interface IWithSelectMultipleWithSideEffectsPayload {
   }
 }
 
+type TWithSelectOneWithSideEffects = (payload: IWithSelectMultipleWithSideEffectsPayload) => void
+
 type TWithSelectMultiWithSideEffects = (
   method: ActionCreatorWithPayload<string[], string>,
   payload: IWithSelectMultipleWithSideEffectsPayload,
   label: string,
-  slice: TSelectionTypes
+  parentSlice: TSelectionTypes
 ) => (selectValues: TSelectMultiValueType) => void
 
 /**
@@ -58,13 +60,13 @@ type TWithSelectMultiWithSideEffects = (
  * @param method
  * @param payload
  * @param label
- * @param slice
+ * @param parentSlice
  */
 export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
   method,
   payload,
   label,
-  slice
+  parentSlice
 ) => selectValues => {
   const { dispatch } = store
   const values = selectValues?.map(x => x.value) || []
@@ -77,7 +79,7 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
         const sideEffectVals: string[] = payload[value][_slice].values
 
         if (sideEffectVals) {
-          if (_slice === slice) {
+          if (_slice === parentSlice) {
             // e.g. if a battalion has another battalion as mandatory side effect
             // We will just use this when we update the dropdown later
             sideEffectDropdownValues = sideEffectDropdownValues.concat(sideEffectVals)
@@ -106,6 +108,23 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
   dispatch(method([...sideEffectDropdownValues, ...values]))
 }
 
-export const withSelectOneWithSideEffects: TWithSelectOne = method => selectValue => {
-  return method(selectValue?.value || null)
+export const handleSelectOneSideEffects: TWithSelectOneWithSideEffects = payload => {
+  const { dispatch } = store
+
+  // Handle side effects
+  Object.keys(payload).forEach(_key => {
+    Object.keys(payload[_key]).forEach(_slice => {
+      const sideEffectVals: string[] = payload[_key][_slice].values
+
+      if (sideEffectVals) {
+        dispatch(
+          selectionActions.addToSelections({
+            value: _key,
+            values: sideEffectVals,
+            slice: _slice as TSelectionTypes,
+          })
+        )
+      }
+    })
+  })
 }

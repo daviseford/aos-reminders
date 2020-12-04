@@ -11,10 +11,11 @@ import { getFactionFromList, getSubFactionKeys } from 'meta/faction_list'
 import React, { lazy, Suspense, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
+import { getSideEffects } from 'utils/getSideEffects'
 import { getArmyLink } from 'utils/handleQueryParams'
 import useWindowSize from 'utils/hooks/useWindowSize'
 import { titleCase } from 'utils/textUtils'
-import { withSelectOne } from 'utils/withSelect'
+import { handleSelectOneSideEffects, withSelectOne } from 'utils/withSelect'
 
 const Navbar = lazy(() => import('./navbar'))
 
@@ -130,17 +131,24 @@ const FactionSelectComponent = () => {
 const SubFactionSelectComponent = () => {
   const dispatch = useDispatch()
   const { subFactionName, factionName } = useSelector(selectors.selectFactionNameSlice)
-  const { subFactionKeys } = getFactionFromList(factionName)
+  const { subFactionKeys, SubFactions } = getFactionFromList(factionName)
+
+  // const sideEffects =  getSideEffects([{ ...SubFactions[subFactionName], name: subFactionName }])
 
   useEffect(() => {
     // If we changed armies, just choose the default subfaction
     if (!subFactionKeys.includes(subFactionName)) {
-      dispatch(setSubFactionName(subFactionKeys[0]))
+      const name = subFactionKeys[0]
+      dispatch(setSubFactionName(name))
+      handleSelectOneSideEffects(getSideEffects([{ ...SubFactions[name], name }]))
     }
-  }, [dispatch, subFactionKeys, subFactionName])
+  }, [SubFactions, dispatch, subFactionKeys, subFactionName])
 
-  const setValue = withSelectOne(value => {
-    dispatch(setSubFactionName(value || ''))
+  const setValue = withSelectOne(name => {
+    dispatch(setSubFactionName(name || ''))
+    if (name) {
+      handleSelectOneSideEffects(getSideEffects([{ ...SubFactions[name], name }]))
+    }
   })
 
   // Only display if we actually need to choose
