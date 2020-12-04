@@ -1,5 +1,5 @@
 import GenericEffects from 'army/generic/effects'
-import { keyPicker, pickEffects, tagAs } from 'factions/metatagger'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -156,6 +156,9 @@ const Units = {
     ],
   },
   'Saurus Oldblood on Carnosaur': {
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Wrath of the Seraphon'])],
+    },
     effects: [
       ...CarnosaurBaseEffects,
       {
@@ -164,40 +167,44 @@ const Units = {
         when: [SHOOTING_PHASE],
       },
       ColdFerocityEffect,
-      ...pickEffects(CommandAbilities, ['Wrath of the Seraphon']),
     ],
   },
   'Saurus Oldblood': {
-    effects: [ColdFerocityEffect, ...pickEffects(CommandAbilities, ['Wrath of the Seraphon'])],
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Wrath of the Seraphon'])],
+    },
+    effects: [ColdFerocityEffect],
   },
   'Saurus Scar-Veteran on Cold One': {
-    effects: [ColdFerocityEffect, ...pickEffects(CommandAbilities, ['Saurian Savagery'])],
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Saurian Savagery'])],
+    },
+    effects: [ColdFerocityEffect],
   },
   'Saurus Eternity Warden': {
-    effects: [
-      ...pickEffects(CommandAbilities, ['Prime Guardian']),
-      ColdFerocityEffect,
-      SelflessProtectorEffect,
-    ],
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Prime Guardian'])],
+    },
+    effects: [ColdFerocityEffect, SelflessProtectorEffect],
   },
   'Saurus Sunblood': {
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Scent of Weakness'])],
+    },
     effects: [
       {
         name: `Primal Rage`,
         desc: `If the unmodified hit roll for an attack made by this model is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. In addition, if the unmodified wound roll for an attack made by this model is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
-      ...pickEffects(CommandAbilities, ['Scent of Weakness']),
     ],
   },
 
   'Saurus Scar-Veteran on Carnosaur': {
-    effects: [
-      ...CarnosaurBaseEffects,
-      CelestiteWarspearEffect,
-      ColdFerocityEffect,
-      ...pickEffects(CommandAbilities, ['Saurian Savagery']),
-    ],
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Saurian Savagery'])],
+    },
+    effects: [...CarnosaurBaseEffects, CelestiteWarspearEffect, ColdFerocityEffect],
   },
   'Saurus Astrolith Bearer': {
     effects: [
@@ -214,6 +221,9 @@ const Units = {
     ],
   },
   'Skink Priest': {
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Herald of the Old Ones'])],
+    },
     effects: [
       {
         name: `Star-stone Staff`,
@@ -230,10 +240,12 @@ const Units = {
         desc: `If active, until your next hero phase, you can add 1 to save rolls for attacks that target that unit.`,
         when: [SAVES_PHASE],
       },
-      ...pickEffects(CommandAbilities, ['Herald of the Old Ones']),
     ],
   },
   'Skink Starseer': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Control Fate'])],
+    },
     effects: [
       {
         name: `Cosmic Herald`,
@@ -245,10 +257,12 @@ const Units = {
         desc: `At the start of your charge phase, you can pick 1 friendly SERAPHON unit wholly within 12" of this model. If you do so, in that phase you can attempt to charge with that unit if it is within 18" of the enemy instead of 12", and you roll 3D6 instead of 2D6 when making the charge roll.`,
         when: [START_OF_CHARGE_PHASE],
       },
-      ...pickEffects(Spells, ['Control Fate']),
     ],
   },
   'Skink Starpriest': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Blazing Starlight'])],
+    },
     effects: [
       {
         name: `Astral Herald`,
@@ -260,7 +274,6 @@ const Units = {
         desc: `In your hero phase, you can pick 1 friendly SERAPHON unit wholly within 12" of this model. If you do so, until your next hero phase, if the unmodified wound roll for an attack made by that unit is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage. A unit cannot benefit from this ability more than once per phase.`,
         when: [HERO_PHASE],
       },
-      ...pickEffects(Spells, ['Blazing Starlight']),
     ],
   },
   'Engine of the Gods': {
@@ -361,13 +374,15 @@ const Units = {
     ],
   },
   'Terradon Chief': {
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Coordinated Attack'])],
+    },
     effects: [
       {
         name: `Lead from on High`,
         desc: `Subtract 1 from hit rolls for attacks made with melee weapons by models that cannot fly that target this model.`,
         when: [COMBAT_PHASE],
       },
-      ...pickEffects(CommandAbilities, ['Coordinated Attack']),
     ],
   },
   'Terradon Riders': {
@@ -385,7 +400,10 @@ const Units = {
     ],
   },
   'Ripperdactyl Chief': {
-    effects: [VoraciousAppetiteEffect, ...pickEffects(CommandAbilities, ['Ripperdactyl Assault'])],
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Ripperdactyl Assault'])],
+    },
+    effects: [VoraciousAppetiteEffect],
   },
   'Ripperdactyl Riders': {
     effects: [
@@ -447,12 +465,10 @@ const Units = {
     ],
   },
   'Stegadon with Skink Chief': {
-    effects: [
-      ...StegadonBaseEffects,
-      GoutOfSunfireEffect,
-      SkinkChiefEffect,
-      ...pickEffects(CommandAbilities, ['Coordinated Strike']),
-    ],
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Coordinated Strike'])],
+    },
+    effects: [...StegadonBaseEffects, GoutOfSunfireEffect, SkinkChiefEffect],
   },
   Stegadon: {
     effects: [...StegadonBaseEffects, GoutOfSunfireEffect],
@@ -472,8 +488,10 @@ const Units = {
     ],
   },
   'Skink Oracle on Troglodon': {
+    mandatory: {
+      spells: [keyPicker(Spells, ["Comet's Call"])],
+    },
     effects: [
-      ...pickEffects(Spells, ["Comet's Call"]),
       {
         name: `Oracle of the Slann`,
         desc: `Add 1 to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to unbind spells that are cast anywhere on the battlefield and attempt to dispel endless spells anywhere on the battlefield.`,
