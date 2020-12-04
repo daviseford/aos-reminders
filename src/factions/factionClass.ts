@@ -4,23 +4,39 @@ import { TInitialArmy } from 'types/army'
 import { TItemDescriptions } from './factionTypes'
 import { getAggregateArmy, temporaryAdapter } from './temporaryAdapter'
 
-export class Faction {
+/**
+ * This class is used to manage Factions
+ */
+export class Faction<
+  F extends TSupportedFaction,
+  G extends TGrandAlliances,
+  S extends TItemDescriptions,
+  K extends Extract<keyof S, string>
+> {
   public readonly AggregateArmy: TInitialArmy
-  public readonly subFactionKeys: string[]
-  public readonly subFactionArmies: Record<string, TInitialArmy>
+  public readonly subFactionKeys: K[]
+  public readonly subFactionKeyMap: Record<K, K>
+  public readonly subFactionArmies: Record<K, TInitialArmy>
 
   constructor(
-    public readonly factionName: TSupportedFaction,
-    public readonly GrandAlliance: TGrandAlliances,
-    public readonly SubFactions: TItemDescriptions,
+    public readonly factionName: F,
+    public readonly GrandAlliance: G,
+    public readonly SubFactions: S,
     public readonly subFactionLabel = 'Sub-Factions',
     public readonly flavorLabel = 'Flavors'
   ) {
     this.AggregateArmy = getAggregateArmy(SubFactions, flavorLabel)
-    this.subFactionKeys = Object.keys(SubFactions)
+
+    this.subFactionKeys = Object.keys(SubFactions) as K[]
+
+    this.subFactionKeyMap = this.subFactionKeys.reduce((a, k) => {
+      a[k] = k
+      return a
+    }, {} as Record<K, K>)
+
     this.subFactionArmies = this.subFactionKeys.reduce((a, subFactionName) => {
       a[subFactionName] = temporaryAdapter(this.SubFactions[subFactionName], subFactionName, this.flavorLabel)
       return a
-    }, {} as Record<string, TInitialArmy>)
+    }, {} as Record<K, TInitialArmy>)
   }
 }

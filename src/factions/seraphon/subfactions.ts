@@ -1,4 +1,4 @@
-import { TItemDescription, TItemDescriptions } from 'factions/factionTypes'
+import { TItemDescription } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
@@ -23,7 +23,7 @@ const baseSeraphonSubfaction: TItemDescription = {
   },
 }
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   Coalesced: {
     effects: pickEffects(BattleTraits, ['COALESCED', 'SERAPHON']),
 

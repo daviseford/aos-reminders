@@ -9,7 +9,7 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-export const RegularBattalions = {
+const RegularBattalions = {
   'Supreme Sybarites': {
     effects: [
       {

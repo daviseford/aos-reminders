@@ -1,5 +1,4 @@
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
-import { Faction } from 'factions/factionClass'
 import { SampleFaction } from 'factions/sample'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
@@ -14,7 +13,7 @@ import {
 } from 'meta/factions'
 
 // Enable as you add them to /factions/
-const FactionList: Record<TSupportedFaction, Faction> = {
+const FactionList = {
   // [BEASTS_OF_CHAOS]: {
   //   Army: { ...BeastsOfChaosArmy },
   //   GrandAlliance: CHAOS,

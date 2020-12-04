@@ -1,7 +1,7 @@
 import Khorne from 'army/khorne'
 import Nurgle from 'army/nurgle'
 import Skaven from 'army/skaven'
-import Slaanesh from 'army/slaanesh'
+// import Slaanesh from 'army/slaanesh'
 import SlavestoDarkness from 'army/slaves_to_darkness'
 import Tzeentch from 'army/tzeentch'
 import { TEntry } from 'types/data'
@@ -46,31 +46,31 @@ const getNurgleDaemonUnits = () => {
   ]
   return filterUnits(Nurgle.Units, listOfUnits)
 }
-const getSlaaneshDaemonUnits = () => {
-  const listOfUnits = [
-    `Bladebringer, Herald on Exalted Chariot`,
-    `Bladebringer, Herald on Hellflayer`,
-    `Bladebringer, Herald on Seeker Chariot`,
-    `Daemonettes`,
-    `Exalted Chariot`,
-    `Fiends`,
-    `Hellflayer`,
-    `Infernal Enrapturess, Herald of Slaanesh`,
-    `Keeper of Secrets w/ Living Whip`,
-    `Keeper of Secrets w/ Ritual Knife`,
-    `Keeper of Secrets w/ Shining Aegis`,
-    `Keeper of Secrets w/ Sinistrous Hand`,
-    `Seeker Chariots`,
-    `Seekers`,
-    `Shalaxi Helbane`,
-    `Soulfeaster Keeper of Secrets`,
-    `Syll'Esske, the Vengeful Allegiance`,
-    `The Contorted Epitome`,
-    `The Masque`,
-    `Viceleader, Herald of Slaanesh`,
-  ]
-  return filterUnits(Slaanesh.Units, listOfUnits)
-}
+// const getSlaaneshDaemonUnits = () => {
+//   const listOfUnits = [
+//     `Bladebringer, Herald on Exalted Chariot`,
+//     `Bladebringer, Herald on Hellflayer`,
+//     `Bladebringer, Herald on Seeker Chariot`,
+//     `Daemonettes`,
+//     `Exalted Chariot`,
+//     `Fiends`,
+//     `Hellflayer`,
+//     `Infernal Enrapturess, Herald of Slaanesh`,
+//     `Keeper of Secrets w/ Living Whip`,
+//     `Keeper of Secrets w/ Ritual Knife`,
+//     `Keeper of Secrets w/ Shining Aegis`,
+//     `Keeper of Secrets w/ Sinistrous Hand`,
+//     `Seeker Chariots`,
+//     `Seekers`,
+//     `Shalaxi Helbane`,
+//     `Soulfeaster Keeper of Secrets`,
+//     `Syll'Esske, the Vengeful Allegiance`,
+//     `The Contorted Epitome`,
+//     `The Masque`,
+//     `Viceleader, Herald of Slaanesh`,
+//   ]
+//   return filterUnits(Slaanesh.Units, listOfUnits)
+// }
 
 const getTzeentchDaemonUnits = () => {
   const listOfUnits = [
@@ -121,7 +121,7 @@ export const AlliedUnits: TEntry[] = [
   ...getKhorneDaemonUnits(),
   ...getNurgleDaemonUnits(),
   ...getSkavenDaemonUnits(),
-  ...getSlaaneshDaemonUnits(),
+  // ...getSlaaneshDaemonUnits(),
   ...getSlavesDaemonUnits(),
   ...getTzeentchDaemonUnits(),
 ]
