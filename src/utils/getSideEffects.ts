@@ -9,20 +9,7 @@ export const getSideEffects = (items: TEntry[]) => {
     accum[item.name] = {}
 
     // We like using mandatory (and we will probably ONLY do this in the future)
-    if (item.mandatory) {
-      Object.keys(item.mandatory).forEach(sliceKey => {
-        let key = sliceKey as TSelectionTypes
-
-        const slice = item?.mandatory?.[key]
-        if (!slice || !slice.length) return
-
-        const mergedEntries = mergeParentEffectObjs(slice)
-
-        mergedEntries.forEach(_entry => {
-          addToAccum(accum, item.name, _entry.name, key)
-        })
-      })
-    }
+    checkForMandatory(item, accum)
 
     // We don't like doing it this way!
     item.effects.forEach(effect => checkEffects(effect, item.name, accum))
@@ -73,4 +60,29 @@ const addToAccum = (
   const obj = accum[itemName][type] || { values: [] }
   const values = obj.values || []
   accum[itemName][type] = { values: uniq(values.concat(effectName)) }
+}
+
+/**
+ * A recursive function that checks for all children's mandatory keys
+ * Probably not very good for performance... This is why Google won't hire me.
+ *
+ * @param item
+ * @param accum
+ */
+const checkForMandatory = (item: TEntry, accum: IWithSelectMultipleWithSideEffectsPayload) => {
+  if (!item.mandatory) return
+
+  Object.keys(item.mandatory).forEach(sliceKey => {
+    let key = sliceKey as TSelectionTypes
+
+    const slice = item?.mandatory?.[key]
+    if (!slice || !slice.length) return
+
+    const mergedEntries = mergeParentEffectObjs(slice)
+
+    mergedEntries.forEach(_entry => {
+      addToAccum(accum, item.name, _entry.name, key)
+      if (_entry.mandatory) checkForMandatory(_entry, accum)
+    })
+  })
 }

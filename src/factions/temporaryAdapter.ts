@@ -56,18 +56,22 @@ const mergeData = (subFaction: TItemDescription, slice: TSelectionTypes): TObjWi
 
 type TObjWithName = TObjWithEffects & { name: string }
 
-export const mergeParentEffectObjs = (objs: TParentEffectsObjWithEffects[]): TObjWithName[] => {
+export const mergeParentEffectObjs = <T extends TParentEffectsObjWithEffects>(
+  objs: T[]
+): (TParentEffectsObjWithEffects & TObjWithName)[] => {
   return objs.reduce((a, obj) => {
     const arr = parentEffectObjConverter(obj)
     a = a.concat(arr)
     return a
-  }, [] as TObjWithName[])
+  }, [] as (TParentEffectsObjWithEffects & TObjWithName)[])
 }
 
-export const parentEffectObjConverter = (obj: TParentEffectsObjWithEffects): TObjWithName[] => {
+export const parentEffectObjConverter = <T extends TParentEffectsObjWithEffects>(
+  obj: T
+): (T & TObjWithName)[] => {
   return Object.keys(obj).reduce((a, name) => {
     const entry = { ...obj[name], name }
-    a.push(entry)
+    a.push(entry as T & TObjWithName)
     return a
-  }, [] as TObjWithName[])
+  }, [] as (T & TObjWithName)[])
 }
