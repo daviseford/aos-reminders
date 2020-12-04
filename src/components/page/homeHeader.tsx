@@ -7,8 +7,8 @@ import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { factionNamesActions, realmscapeActions, selectionActions, selectors } from 'ducks'
 import { PRIMARY_FACTIONS, TPrimaryFactions } from 'meta/factions'
-import { getFactionFromList, getSubFactionKeys } from 'meta/faction_list'
-import React, { lazy, Suspense, useEffect } from 'react'
+import { getFactionFromList } from 'meta/faction_list'
+import React, { lazy, Suspense, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { logFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
 import { getSideEffects } from 'utils/getSideEffects'
@@ -105,8 +105,14 @@ const FactionSelectComponent = () => {
     dispatch(resetAllySelections())
     resetAnalyticsStore()
     if (isOnline) logFactionSwitch(value)
-    const subfactionNames = getSubFactionKeys(value as TPrimaryFactions)
-    dispatch(setSubFactionName(subfactionNames[0]))
+
+    const { subFactionKeys, SubFactions } = getFactionFromList(value as TPrimaryFactions)
+    dispatch(setSubFactionName(subFactionKeys[0]))
+    // Handle sunfaction sideEffects
+    handleSelectOneSideEffects(
+      getSideEffects([{ ...SubFactions[subFactionKeys[0]], name: subFactionKeys[0] }])
+    )
+
     dispatch(setFactionName(value as TPrimaryFactions))
   })
 
@@ -131,18 +137,7 @@ const FactionSelectComponent = () => {
 const SubFactionSelectComponent = () => {
   const dispatch = useDispatch()
   const { subFactionName, factionName } = useSelector(selectors.selectFactionNameSlice)
-  const { subFactionKeys, SubFactions } = getFactionFromList(factionName)
-
-  // const sideEffects =  getSideEffects([{ ...SubFactions[subFactionName], name: subFactionName }])
-
-  useEffect(() => {
-    // If we changed armies, just choose the default subfaction
-    if (!subFactionKeys.includes(subFactionName)) {
-      const name = subFactionKeys[0]
-      dispatch(setSubFactionName(name))
-      handleSelectOneSideEffects(getSideEffects([{ ...SubFactions[name], name }]))
-    }
-  }, [SubFactions, dispatch, subFactionKeys, subFactionName])
+  const { subFactionKeys, SubFactions } = useMemo(() => getFactionFromList(factionName), [factionName])
 
   const setValue = withSelectOne(name => {
     dispatch(setSubFactionName(name || ''))
