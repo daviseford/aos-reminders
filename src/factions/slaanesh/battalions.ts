@@ -1,4 +1,4 @@
-import { tagAs } from 'factions/metatagger'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -8,6 +8,7 @@ import {
   HERO_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
+import Units from './units'
 
 const RegularBattalions = {
   'Supreme Sybarites': {
@@ -20,6 +21,9 @@ const RegularBattalions = {
     ],
   },
   'Epicurean Revellers': {
+    mandatory: {
+      units: [keyPicker(Units, ['Daemonettes'])],
+    },
     effects: [
       {
         name: `Perfect Destroyers`,
@@ -38,6 +42,9 @@ const RegularBattalions = {
     ],
   },
   'Devout Supplicants': {
+    mandatory: {
+      //units: [keyPicker(Units, [''])], ADD CHAOS WARSHRINE HERE
+    },
     effects: [
       {
         name: `Favoured of Slaanesh`,
@@ -61,6 +68,9 @@ const RegularBattalions = {
     ],
   },
   'Daemonsteel Contingent': {
+    mandatory: {
+      //units: [keyPicker(Units, [''])], ADD SOUL GRINDER HERE
+    },
     effects: [
       {
         name: `The Debt`,
@@ -71,6 +81,9 @@ const RegularBattalions = {
     ],
   },
   'Gestharyx`s Cavalcade': {
+    mandatory: {
+      units: [keyPicker(Units, ['Lord of Pain', 'Daemonettes', 'Hellflayer'])],
+    },
     effects: [
       {
         name: `Unyielding Seekers`,
@@ -83,6 +96,11 @@ const RegularBattalions = {
 
 const SuperBattalions = {
   'Hedonite Host': {
+    mandatory: {
+      battalions: [
+        keyPicker(RegularBattalions, ['Supreme Sybarites', 'Epicurean Revellers', 'Seeker Cavalcade']),
+      ],
+    },
     effects: [
       {
         name: `Transcendental Warriors`,
@@ -97,6 +115,10 @@ const SuperBattalions = {
     ],
   },
   'The Vengeful Alliance': {
+    mandatory: {
+      battalions: [keyPicker(RegularBattalions, ['Seeker Cavalcade'])],
+      units: [keyPicker(Units, ['Syll`Esske, the Vengeful Allegiance'])],
+    },
     effects: [
       {
         name: `Brutal Tyranny`,
