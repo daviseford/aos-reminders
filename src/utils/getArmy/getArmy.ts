@@ -26,7 +26,7 @@ export const getArmy = (
   if (!isValidFactionName(factionName)) return null
 
   const { GrandAlliance, subFactionArmies, AggregateArmy } = getFactionFromList(factionName)
-  const Army = subFactionName ? subFactionArmies[subFactionName] : AggregateArmy
+  const Army = (subFactionName && subFactionArmies?.[subFactionName]) || AggregateArmy
 
   const Collection = getCollection(Army)
 
