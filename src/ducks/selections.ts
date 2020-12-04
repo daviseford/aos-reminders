@@ -65,7 +65,6 @@ const selections = createSlice({
     },
     setFlavors: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'flavors')
-      state.selections.flavors = action.payload
     },
     setArtifacts: (state, action: PayloadAction<string[]>) => {
       state.selections.artifacts = action.payload
@@ -84,7 +83,6 @@ const selections = createSlice({
 
     setBattalions: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'battalions')
-      state.selections.battalions = action.payload
     },
     setCommandAbilities: (state, action: PayloadAction<string[]>) => {
       state.selections.command_abilities = action.payload
@@ -106,14 +104,12 @@ const selections = createSlice({
     },
     setCommandTraits: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'command_traits')
-      state.selections.command_traits = action.payload
     },
     setTriumphs: (state, action: PayloadAction<string[]>) => {
       state.selections.triumphs = action.payload
     },
     setUnits: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'units')
-      state.selections.units = action.payload
     },
   },
 })
@@ -124,18 +120,24 @@ export default selections.reducer
 const handleSideEffects = (state: IStore['selections'], payload: string[], type: TSelectionTypes) => {
   const sideEffectNames = Object.keys(state.sideEffects)
 
-  const removedSideEffects = state.selections[type]
+  const removedParentEffects = state.selections[type]
     .reduce((a, v) => {
       if (sideEffectNames.includes(v)) a.push(v)
       return a
     }, [] as string[])
     .filter(e => !payload.includes(e))
 
-  removedSideEffects.forEach(r => {
+  let removedSideEffects: string[] = []
+
+  removedParentEffects.forEach(r => {
     const sideEffect = state.sideEffects[r]
     const slices = Object.keys(sideEffect) as TSelectionTypes[]
     slices.forEach(slice => {
       state.selections[slice] = without(state.selections[slice], ...sideEffect[slice])
+      removedSideEffects = removedSideEffects.concat(sideEffect[slice]) // Store for later reference
     })
   })
+
+  // We don't want to re-add side effects that we just removed
+  state.selections[type] = payload.filter(x => !removedSideEffects.includes(x))
 }
