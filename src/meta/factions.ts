@@ -134,7 +134,7 @@ export type TPrimaryFactions =
   // | TMercenaryCompanies
   // | TNighthaunt
   // | TNurgle
-  // | TOgorMawtribes
+  | TOgorMawtribes
   // | TOrderGrandAlliance
   // | TOssiarchBonereapers
   | TSeraphon
@@ -185,7 +185,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // LUMINETH_REALMLORDS,
   // NIGHTHAUNT,
   // NURGLE,
-  // OGOR_MAWTRIBES,
+  OGOR_MAWTRIBES,
   // ORDER_GRAND_ALLIANCE,
   // OSSIARCH_BONEREAPERS,
   SERAPHON,
