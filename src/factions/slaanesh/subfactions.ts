@@ -1,4 +1,4 @@
-import { TItemDescription, TItemDescriptions } from 'factions/factionTypes'
+import { TItemDescription } from 'factions/factionTypes'
 import { keyOmitter, keyPicker, pickEffects } from 'factions/metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
@@ -31,7 +31,7 @@ import Units from './units'
 // ]
 
 const baseSubfaction: TItemDescription = {
-  effects: [],
+  effects: pickEffects(BattleTraits, ['Thrilling Compulsions']),
   available: {
     spells: [Spells],
     endless_spells: [EndlessSpells],
@@ -42,7 +42,7 @@ const baseSubfaction: TItemDescription = {
   },
 }
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   Invaders: {
     effects: pickEffects(BattleTraits, ['Thrilling Compulsions', "The Despoiler's Art"]),
 
