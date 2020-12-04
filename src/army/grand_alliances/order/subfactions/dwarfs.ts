@@ -65,7 +65,7 @@ export const LegacyDwarfUnits: TEntry[] = [
       RangeFindingOpticsEffect,
       {
         name: `Clockwork Charge`,
-        desc: `Roll a dice for each enemy unit that is within 1" of this model after this model makes a charge move. On a 4+ the unit being rolled for suffers 1 mortal wound.`,
+        desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 4+ the unit being rolled for suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -91,7 +91,7 @@ export const LegacyDwarfUnits: TEntry[] = [
       },
       {
         name: `Strike the Runes`,
-        desc: `In your hero phase, you can declare that the Runelord will strike a rune of power. If you do so, pick one of the following runes and roll a dice.
+        desc: `In your hero phase, you can declare that the Runelord will strike a rune of power. If you do so, pick one of the following runes and roll a D6.
 
         On a 1 the rune is struck incorrectly and nothing happens.
         On a roll of 2+ the rune is struck correctly and you may apply its effects.

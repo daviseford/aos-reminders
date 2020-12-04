@@ -37,7 +37,7 @@ export const LegacySwifthawkAgentUnits: TEntry[] = [
       },
       {
         name: `Swift and Deadly`,
-        desc: `If a Chariot runs there is no need to roll a dice, it can always move up to an extra 6".`,
+        desc: `If a Chariot runs there is no need to roll a D6, it can always move up to an extra 6".`,
         when: [MOVEMENT_PHASE],
       },
       {

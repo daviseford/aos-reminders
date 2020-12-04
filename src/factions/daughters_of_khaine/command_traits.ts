@@ -73,7 +73,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Curse of the Bloody-Handed`,
-        desc: `Roll a dice for each enemy unit within 3" of the general. On a 5+ that unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit within 3" of the general. On a 5+ that unit suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],

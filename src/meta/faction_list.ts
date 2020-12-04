@@ -2,12 +2,14 @@ import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
 import { SampleFaction } from 'factions/sample'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
+import { SonsOfBehematFaction } from 'factions/sons_of_behemat'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import {
   DAUGHTERS_OF_KHAINE,
   SAMPLE,
   SERAPHON,
   SLAANESH,
+  SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
   TSupportedFaction,
 } from 'meta/factions'
@@ -154,10 +156,7 @@ const FactionList = {
   //   Army: { ...SlavesToDarknessArmy },
   //   GrandAlliance: CHAOS,
   // },
-  // [SONS_OF_BEHEMAT]: {
-  //   Army: { ...SonsOfBehematArmy },
-  //   GrandAlliance: DESTRUCTION,
-  // },
+  [SONS_OF_BEHEMAT]: { ...SonsOfBehematFaction },
   // [SOULBLIGHT]: {
   //   Army: { ...SoulblightArmy },
   //   GrandAlliance: DEATH,

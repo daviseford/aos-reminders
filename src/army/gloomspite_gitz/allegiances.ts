@@ -48,19 +48,19 @@ const Allegiances: TEntry[] = [
       },
       {
         name: `Oblivious to Sorcery`,
-        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly GLOGG'S MEGAMOB FELLWATER TROGGOTH OR GLOGG'S MEGAMOB TOCKGUT TROGGOTH unit wholly within 12" of a friendly GLOGG'S MEGAMOB DANKHOLD HERO. Until your next hero phase, each time that unit is affected by a spell or endless spell, you can roll a dice. If you do so, on a 4+, ignore the effects of that spell or endless spell on that unit.`,
+        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly GLOGG'S MEGAMOB FELLWATER TROGGOTH OR GLOGG'S MEGAMOB TOCKGUT TROGGOTH unit wholly within 12" of a friendly GLOGG'S MEGAMOB DANKHOLD HERO. Until your next hero phase, each time that unit is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+, ignore the effects of that spell or endless spell on that unit.`,
         when: [HERO_PHASE],
         command_ability: true,
       },
       {
         name: `Shepard of Idiotic Destruction`,
-        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a dice. On a 4+, you receive 1 extra command point.`,
+        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a D6. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
         command_trait: true,
       },
       {
         name: `Aetherquartz-studded Hide`,
-        desc: `Roll a dice each time you allocate a mortal wound to the bearer. On a 5+, that mortal wound is ignored.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+, that mortal wound is ignored.`,
         when: [WOUND_ALLOCATION_PHASE],
         artifact: true,
       },

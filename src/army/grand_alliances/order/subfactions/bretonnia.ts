@@ -102,7 +102,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
       },
       {
         name: `Divine Blessing`,
-        desc: `Casting value of 5. Pick a friendly Bretonnian unit that is within 16" of the caster. Until your next hero phase, roll a dice each time you allocate a wound or mortal wound to that unit. Add 1 to the dice roll if the unit has Nobility keyword. On a roll of 6+, the wound is negated and has no effect.`,
+        desc: `Casting value of 5. Pick a friendly Bretonnian unit that is within 16" of the caster. Until your next hero phase, roll a D6 each time you allocate a wound or mortal wound to that unit. Add 1 to the dice roll if the unit has Nobility keyword. On a roll of 6+, the wound is negated and has no effect.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -201,7 +201,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
       },
       {
         name: `Seismic Impact`,
-        desc: `Roll a dice before making the hit roll for a Rocks and Masonry attack. If the roll is less than the number of models in the target unit, the attack scores a hit without needing the hit roll to be made.`,
+        desc: `Roll a D6 before making the hit roll for a Rocks and Masonry attack. If the roll is less than the number of models in the target unit, the attack scores a hit without needing the hit roll to be made.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -430,7 +430,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
       },
       {
         name: `Shield of the Ancient Forests`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a roll of 6+ that wound is negated and has no effect.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a roll of 6+ that wound is negated and has no effect.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
@@ -440,7 +440,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
       },
       {
         name: `Summoned from the Mists`,
-        desc: `In each of your movement phases, roll a dice for this model. On a roll of 3 or less the model remains in the mists - you must roll again in your next movement phase. On a roll of 4+, set up this model anywhere on the battlefield, more than 9" from any enemy models. This counts as its move for that movement phase.`,
+        desc: `In each of your movement phases, roll a D6 for this model. On a roll of 3 or less the model remains in the mists - you must roll again in your next movement phase. On a roll of 4+, set up this model anywhere on the battlefield, more than 9" from any enemy models. This counts as its move for that movement phase.`,
         when: [MOVEMENT_PHASE],
       },
     ],
