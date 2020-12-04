@@ -13,18 +13,15 @@ type TDispossessed = 'DISPOSSESSED'
 type TFleshEaterCourts = 'FLESH_EATER_COURTS'
 type TFyreslayers = 'FYRESLAYERS'
 type TGloomspiteGitz = 'GLOOMSPITE_GITZ'
-type TGrandHostOfNagash = 'GRAND_HOST_OF_NAGASH'
 type TGreenskinz = 'GREENSKINZ'
 type TIdonethDeepkin = 'IDONETH_DEEPKIN'
 type TIronjawz = 'IRONJAWZ'
 type TKharadronOverlords = 'KHARADRON_OVERLORDS'
 type TKhorne = 'KHORNE'
-type TLegionOfBlood = 'LEGION_OF_BLOOD'
 type TLegionOfChaosAscendant = 'LEGION_OF_CHAOS_ASCENDANT'
-type TLegionOfNight = 'LEGION_OF_NIGHT'
-type TLegionOfSacrament = 'LEGION_OF_SACRAMENT'
 type TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 type TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
+type TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 type TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 type TLuminethRealmlords = 'LUMINETH_REALMLORDS'
 type TMegaGargantMercenaries = 'MEGA_GARGANT_MERCENARIES'
@@ -40,7 +37,6 @@ type TSkaven = 'SKAVEN'
 type TSlaanesh = 'SLAANESH'
 type TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 type TSonsOfBehemat = 'SONS_OF_BEHEMAT'
-type TSoulblight = 'SOULBLIGHT'
 type TStormcastEternals = 'STORMCAST_ETERNALS'
 type TStormcastEternalsStormkeep = 'STORMCAST_ETERNALS_STORMKEEP'
 type TSylvaneth = 'SYLVANETH'
@@ -62,18 +58,15 @@ export const DISPOSSESSED: TDispossessed = 'DISPOSSESSED'
 export const FLESH_EATER_COURTS: TFleshEaterCourts = 'FLESH_EATER_COURTS'
 export const FYRESLAYERS: TFyreslayers = 'FYRESLAYERS'
 export const GLOOMSPITE_GITZ: TGloomspiteGitz = 'GLOOMSPITE_GITZ'
-export const GRAND_HOST_OF_NAGASH: TGrandHostOfNagash = 'GRAND_HOST_OF_NAGASH'
 export const GREENSKINZ: TGreenskinz = 'GREENSKINZ'
 export const IDONETH_DEEPKIN: TIdonethDeepkin = 'IDONETH_DEEPKIN'
 export const IRONJAWZ: TIronjawz = 'IRONJAWZ'
 export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export const KHORNE: TKhorne = 'KHORNE'
-export const LEGION_OF_BLOOD: TLegionOfBlood = 'LEGION_OF_BLOOD'
 export const LEGION_OF_CHAOS_ASCENDANT: TLegionOfChaosAscendant = 'LEGION_OF_CHAOS_ASCENDANT'
-export const LEGION_OF_NIGHT: TLegionOfNight = 'LEGION_OF_NIGHT'
-export const LEGION_OF_SACRAMENT: TLegionOfSacrament = 'LEGION_OF_SACRAMENT'
 export const LEGIONS_OF_AZGORH: TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
 export const LEGIONS_OF_GRIEF: TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
+export const LEGIONS_OF_NAGASH: TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export const LUMINETH_REALMLORDS: TLuminethRealmlords = 'LUMINETH_REALMLORDS'
 export const MEGA_GARGANT_MERCENARIES: TMegaGargantMercenaries = 'MEGA_GARGANT_MERCENARIES'
@@ -89,7 +82,6 @@ export const SAMPLE: TSample = 'SAMPLE'
 export const SLAANESH: TSlaanesh = 'SLAANESH'
 export const SLAVES_TO_DARKNESS: TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 export const SONS_OF_BEHEMAT: TSonsOfBehemat = 'SONS_OF_BEHEMAT'
-export const SOULBLIGHT: TSoulblight = 'SOULBLIGHT'
 export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
 export const STORMCAST_ETERNALS_STORMKEEP: TStormcastEternalsStormkeep = 'STORMCAST_ETERNALS_STORMKEEP'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
@@ -122,12 +114,10 @@ export type TPrimaryFactions =
   // | TIronjawz
   // | TKharadronOverlords
   // | TKhorne
-  // | TLegionOfBlood
   // | TLegionOfChaosAscendant
-  // | TLegionOfNight
-  // | TLegionOfSacrament
   // | TLegionsOfAzgorh
   // | TLegionsOfGrief
+  | TLegionsOfNagash
   // | TLethisianDefenders
   // | TLuminethRealmlords
   // | TMegaGargantMercenaries
@@ -143,7 +133,6 @@ export type TPrimaryFactions =
   | TSample
   // | TSlavesToDarkness
   | TSonsOfBehemat
-  // | TSoulblight
   | TStormcastEternals
 // | TStormcastEternalsStormkeep
 // | TSylvaneth
@@ -175,12 +164,10 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // IRONJAWZ,
   // KHARADRON_OVERLORDS,
   // KHORNE,
-  // LEGION_OF_BLOOD,
   // LEGION_OF_CHAOS_ASCENDANT,
-  // LEGION_OF_NIGHT,
-  // LEGION_OF_SACRAMENT,
   // LEGIONS_OF_AZGORH,
   // LEGIONS_OF_GRIEF,
+  LEGIONS_OF_NAGASH,
   // LETHISIAN_DEFENDERS,
   // LUMINETH_REALMLORDS,
   // NIGHTHAUNT,
@@ -194,7 +181,6 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   SLAANESH,
   // SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
-  // SOULBLIGHT,
   STORMCAST_ETERNALS,
   // STORMCAST_ETERNALS_STORMKEEP,
   // SYLVANETH,
