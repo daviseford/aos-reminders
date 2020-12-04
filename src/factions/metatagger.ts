@@ -8,10 +8,14 @@ import { TObjWithEffects, TParentEffectsObjWithEffects } from './factionTypes'
  * @param obj
  * @param tag
  */
-export const tagAs = <T extends Record<string, TObjWithEffects>, R extends TEntryProperties>(
-  obj: T,
-  tag: R
-): T => {
+export const tagAs = <
+  D extends Record<string, TObjWithEffects>,
+  E extends TEntryProperties,
+  F extends D[keyof D]
+>(
+  obj: D,
+  tag: E
+) => {
   return Object.keys(obj).reduce((a, key) => {
     const origObj = obj[key]
 
@@ -24,7 +28,7 @@ export const tagAs = <T extends Record<string, TObjWithEffects>, R extends TEntr
     // @ts-ignore
     a[key] = taggedObj
     return a
-  }, {} as T)
+  }, {} as Record<keyof D, F & Record<E, true>>)
 }
 
 /**
