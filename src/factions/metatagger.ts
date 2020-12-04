@@ -21,7 +21,7 @@ export const tagAs = <
 
     const taggedObj = {
       ...origObj,
-      effects: origObj.effects.map(x => ({ ...x, [tag]: true })),
+      // effects: origObj.effects.map(x => ({ ...x, [tag]: true })),
       [tag]: true,
     }
 

@@ -1,9 +1,17 @@
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
 import { Faction } from 'factions/factionClass'
+import { SampleFaction } from 'factions/sample'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
 import { StormcastFaction } from 'factions/stormcast_eternals'
-import { SERAPHON, SLAANESH, STORMCAST_ETERNALS, TSupportedFaction } from 'meta/factions'
+import {
+  DAUGHTERS_OF_KHAINE,
+  SAMPLE,
+  SERAPHON,
+  SLAANESH,
+  STORMCAST_ETERNALS,
+  TSupportedFaction,
+} from 'meta/factions'
 
 // Enable as you add them to /factions/
 const FactionList: Record<TSupportedFaction, Faction> = {
@@ -27,10 +35,7 @@ const FactionList: Record<TSupportedFaction, Faction> = {
   //   Army: { ...CitiesOfSigmarArmy },
   //   GrandAlliance: ORDER,
   // },
-  DAUGHTERS_OF_KHAINE: {
-    //   Army: { ...DaughtersOfKhaineArmy },
-    ...DaughtersOfKhaineFaction,
-  },
+  [DAUGHTERS_OF_KHAINE]: { ...DaughtersOfKhaineFaction },
   // [DEATH_GRAND_ALLIANCE]: {
   //   Army: { ...DeathArmy },
   //   GrandAlliance: DEATH,
@@ -139,18 +144,13 @@ const FactionList: Record<TSupportedFaction, Faction> = {
   //   Army: { ...OssiarchBonereapersArmy },
   //   GrandAlliance: DEATH,
   // },
-  [SERAPHON]: {
-    // Army: { ...SeraphonArmy },
-    ...SeraphonFaction,
-  },
+  [SERAPHON]: { ...SeraphonFaction },
+  [SAMPLE]: { ...SampleFaction },
   // [SKAVEN]: {
   //   Army: { ...SkavenArmy },
   //   GrandAlliance: CHAOS,
   // },
-  [SLAANESH]: {
-    // Army: { ...SlaaneshArmy },
-    ...SlaaneshFaction,
-  },
+  [SLAANESH]: { ...SlaaneshFaction },
   // [SLAVES_TO_DARKNESS]: {
   //   Army: { ...SlavesToDarknessArmy },
   //   GrandAlliance: CHAOS,
