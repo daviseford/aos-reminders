@@ -23,14 +23,15 @@ export const temporaryAdapter: TAdapter = (
     Artifacts: mergeData(subFaction, 'artifacts'),
     Battalions: mergeData(subFaction, 'battalions'),
     BattleTraits: subFaction.effects,
+    CommandAbilities: mergeData(subFaction, 'command_abilities'),
     CommandTraits: mergeData(subFaction, 'command_traits'),
     EndlessSpells: mergeData(subFaction, 'endless_spells'),
     Flavors: mergeData(subFaction, 'flavors'),
     FlavorType,
     Prayers: mergeData(subFaction, 'prayers'),
     Scenery: mergeData(subFaction, 'scenery'),
-    SubFaction: subFactionAdapter(subFaction, subFactionName),
     Spells: mergeData(subFaction, 'spells'),
+    SubFaction: subFactionAdapter(subFaction, subFactionName),
     Units: mergeData(subFaction, 'units'),
   }
 
