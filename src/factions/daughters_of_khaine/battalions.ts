@@ -11,7 +11,7 @@ import {
   START_OF_ROUND,
 } from 'types/phases'
 
-export const RegularBattalions = {
+const RegularBattalions = {
   'Cauldron Guard': {
     effects: [
       {

@@ -5,9 +5,9 @@ import { ActionMeta, ValueType } from 'react-select/src/types'
 import { logIndividualSelection } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 
-export type TDropdownOption = { value: string; label: string }
-export type TSelectOneValueType = ValueType<TDropdownOption, false>
-export type TSelectMultiValueType = ValueType<TDropdownOption, true>
+type TDropdownOption = { value: string; label: string }
+type TSelectOneValueType = ValueType<TDropdownOption, false>
+type TSelectMultiValueType = ValueType<TDropdownOption, true>
 
 export type TSelectOneSetValueFn = (value: TSelectOneValueType, action: ActionMeta<TDropdownOption>) => void
 export type TSelectMultiSetValueFn = (
