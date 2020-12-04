@@ -168,7 +168,7 @@ export const LegacyOrderUnits: TEntry[] = [
       },
       {
         name: `Grim Resolve`,
-        desc: `Roll a dice if a Witch Hunter is targeted or affected by an enemy spell. On a 5 of more, that spell has no effect on the Witch Hunter (but it may affect other units normally).`,
+        desc: `Roll a D6 if a Witch Hunter is targeted or affected by an enemy spell. On a 5 of more, that spell has no effect on the Witch Hunter (but it may affect other units normally).`,
         when: [HERO_PHASE],
       },
       {
@@ -188,7 +188,7 @@ export const LegacyOrderUnits: TEntry[] = [
       },
       {
         name: `Sigmar's Shield`,
-        desc: `If a friendly Devoted of Sigmar model is slain by a wound or mortal wound that has been allocated to the model while it is within range of any friendly models with the Sigmar's Shield ability, roll a dice before the slain model is removed from play. On a 6, the wound or mortal wound is negated and the model is not slain. The range of the Sigmar's Shield ability for this model is shown on the damage table on the warscroll.`,
+        desc: `If a friendly Devoted of Sigmar model is slain by a wound or mortal wound that has been allocated to the model while it is within range of any friendly models with the Sigmar's Shield ability, roll a D6 before the slain model is removed from play. On a 6, the wound or mortal wound is negated and the model is not slain. The range of the Sigmar's Shield ability for this model is shown on the damage table on the warscroll.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
@@ -208,9 +208,9 @@ export const LegacyOrderUnits: TEntry[] = [
       },
       {
         name: `Battle Prayers`,
-        desc: `In your hero phase, the Arch Lector can pray to Sigmar. If he does so, pick a Devoted of Sigmar unit within 10", select one of the following blessings and roll a dice. On a 1 or a 2, his prayers go unanswered, but on a 3 or more they have been heard:
+        desc: `In your hero phase, the Arch Lector can pray to Sigmar. If he does so, pick a Devoted of Sigmar unit within 10", select one of the following blessings and roll a D6. On a 1 or a 2, his prayers go unanswered, but on a 3 or more they have been heard:
 
-        Soulfire: Roll a dice for each enemy unit within 3" of the unit you picked; on a 4 or more it is struck by soulfire and suffers a mortal wound.
+        Soulfire: Roll a D6 for each enemy unit within 3" of the unit you picked; on a 4 or more it is struck by soulfire and suffers a mortal wound.
 
         Righteous Fury: Until your next hero phase you can reroll failed hit rolls for the unit in the combat phase.
 
@@ -225,7 +225,7 @@ export const LegacyOrderUnits: TEntry[] = [
       DeadlyVenomEffect,
       {
         name: `Priestly Rites`,
-        desc: `In your hero phase, you may declare that this model is performing a rite to harness the power of the heavens. If you do so, roll a dice. If the result is 4+ you can reroll run rolls, charge rolls and save rolls for this model until your next hero phase.`,
+        desc: `In your hero phase, you may declare that this model is performing a rite to harness the power of the heavens. If you do so, roll a D6. If the result is 4+ you can reroll run rolls, charge rolls and save rolls for this model until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -285,9 +285,9 @@ export const LegacyOrderUnits: TEntry[] = [
       },
       {
         name: `Battle Prayers`,
-        desc: `In your hero phase, a Warrior Priest can pray to Sigmar. If he does so, pick a Devoted of Sigmar unit within 10", select one of the following blessings and roll a dice. On a 1 or a 2, his prayers go unanswered, but on a 3 or more they have been heard:
+        desc: `In your hero phase, a Warrior Priest can pray to Sigmar. If he does so, pick a Devoted of Sigmar unit within 10", select one of the following blessings and roll a D6. On a 1 or a 2, his prayers go unanswered, but on a 3 or more they have been heard:
 
-        Shield of Faith: Until your next hero phase, you can roll a dice each time the unit suffers a wound or a mortal wound. On a 6, that wound is ignored.
+        Shield of Faith: Until your next hero phase, you can roll a D6 each time the unit suffers a wound or a mortal wound. On a 6, that wound is ignored.
 
         Hammer of Sigmar: Until your next hero phase you can reroll failed wound rolls for the unit in the combat phase.
 

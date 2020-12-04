@@ -1,7 +1,9 @@
 import GenericEffects from 'army/generic/effects'
+import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -49,9 +51,23 @@ const BaseMegaGargantEffects = [
   TimberrrrrEffect,
 ]
 
-const CommonSonsOfBehematData = {
-  EFFECTS: {
-    WarstomperEffects: [
+const BattleTraits = {
+  'Sons of Behemat': {
+    effects: [
+      {
+        name: `Mightier Makes Rightier`,
+        desc: `When determining control of an objective, each friendly MANCRUSHER GARGANT model counts as 10 models instead of I, and each friendly MEGA-GARGANT counts as 20 models instead of 1.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Chuck Rocks`,
+        desc: `In your shooting phase, you can pick 1 friendly MANCRUSHER GARGANT unit wholly within 18" of your general. Each model in that unit can make a shooting attack with the Chuck Rocks missile weapon.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  Warstomper: {
+    effects: [
       ...BaseMegaGargantEffects,
       {
         name: `Hurled Body`,
@@ -64,7 +80,9 @@ const CommonSonsOfBehematData = {
         when: [COMBAT_PHASE],
       },
     ],
-    GatebreakerEffects: [
+  },
+  Gatebreaker: {
+    effects: [
       ...BaseMegaGargantEffects,
       {
         name: `Smash Down`,
@@ -77,7 +95,9 @@ const CommonSonsOfBehematData = {
         when: [END_OF_COMBAT_PHASE],
       },
     ],
-    KrakenEaterEffects: [
+  },
+  KrakenEater: {
+    effects: [
       ...BaseMegaGargantEffects,
       {
         name: `Get Orf Me Land!`,
@@ -91,18 +111,6 @@ const CommonSonsOfBehematData = {
       },
     ],
   },
-  TRIBES: {
-    Breaker: `Breaker`,
-    BreakerTag: `(Breaker Tribe)`,
-    Stomper: `Stomper`,
-    StomperTag: `(Stomper Tribe)`,
-    Taker: `Taker`,
-    TakerTag: `(Taker Tribe)`,
-  },
-  TAGS: {
-    BigShoutTag: `(Big Shout)`,
-    FierceLoathingTag: `(Fierce Loathing)`,
-  },
 }
 
-export default CommonSonsOfBehematData
+export default tagAs(BattleTraits, 'battle_trait')

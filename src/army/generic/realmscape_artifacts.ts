@@ -96,7 +96,7 @@ const RealmArtifacts: TEntry[] = [
     effects: [
       {
         name: `The Fetch's Ring (${HELLEFlUX})`,
-        desc: `Roll a dice each time a wound or mortal wound is allocated to the bearer. On each 4+ the wound is negated and you cannot use this artifact to negate any further wounds this phase.`,
+        desc: `Roll a D6 each time a wound or mortal wound is allocated to the bearer. On each 4+ the wound is negated and you cannot use this artifact to negate any further wounds this phase.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -106,7 +106,7 @@ const RealmArtifacts: TEntry[] = [
     effects: [
       {
         name: `Black Kraken Helm (${CHARRWIND})`,
-        desc: `Once per battle, you can roll a dice for each enemy unit within 3" of the bearer. On a 4+ the target suffers D3 mortal wounds.`,
+        desc: `Once per battle, you can roll a D6 for each enemy unit within 3" of the bearer. On a 4+ the target suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],

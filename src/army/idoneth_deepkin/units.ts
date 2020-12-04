@@ -25,7 +25,7 @@ const DeepmareHornEffect = {
 }
 const StormshoalEffect = {
   name: `Stormshoal`,
-  desc: `Roll a dice for each wound or mortal wound allocated to this model. On a 5+ the wound is negated.`,
+  desc: `Roll a D6 for each wound or mortal wound allocated to this model. On a 5+ the wound is negated.`,
   when: [WOUND_ALLOCATION_PHASE],
 }
 
@@ -248,7 +248,7 @@ export const Units: TEntry[] = [
     effects: [
       {
         name: `Crushing Charge`,
-        desc: `After this model finishes a charge move, roll a dice for each enemy unit within 1". On a 2+, that unit suffers D3 mortal wounds. Enemy units with a wounds characteristic of 1 suffer D6 mortal wounds instead.`,
+        desc: `After this model finishes a charge move, roll a D6 for each enemy unit within 1". On a 2+, that unit suffers D3 mortal wounds. Enemy units with a wounds characteristic of 1 suffer D6 mortal wounds instead.`,
         when: [CHARGE_PHASE],
       },
       {
