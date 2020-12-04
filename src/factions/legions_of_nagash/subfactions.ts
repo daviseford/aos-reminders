@@ -1,62 +1,60 @@
 import { TItemDescription, TItemDescriptions } from 'factions/factionTypes'
-import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
-import Artifacts from './artifacts'
-import Battalions from './battalions'
+import { keyPicker, pickEffects } from '../metatagger'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
-import CommandTraits from './command_traits'
-import EndlessSpells from './endless_spells'
-import Flavors from './flavors'
-import Prayers from './prayers'
-import Scenery from './scenery'
-import Spells from './spells'
-import Units from './units'
 
-// This is a common pattern that we use when we don't want to re-type all of the available stuff
 const baseLegion: TItemDescription = {
-  effects: pickEffects(BattleTraits, ['Sample Army Default Battle Traits']),
+  effects: pickEffects(BattleTraits, ['Core Legions']),
+  mandatory: {
+    command_abilities: [keyPicker(CommandAbilities, ['Endless Legions'])],
+  },
   available: {
-    artifacts: [Artifacts],
-    battalions: [Battalions],
+    // artifacts: [Artifacts],
+    // battalions: [Battalions],
     command_abilities: [CommandAbilities],
-    command_traits: [CommandTraits],
-    endless_spells: [EndlessSpells],
-    prayers: [Prayers],
-    scenery: [Scenery],
-    spells: [Spells],
-    units: [Units],
+    // command_traits: [CommandTraits],
+    // endless_spells: [EndlessSpells],
+    // prayers: [Prayers],
+    // scenery: [Scenery],
+    // spells: [Spells],
+    // units: [Units],
   },
 }
 
 const subFactions: TItemDescriptions = {
-  'First SubFaction': {
-    effects: pickEffects(BattleTraits, ['Sample Army Default Battle Traits']),
+  'Grand Host of Nagash': {
+    ...baseLegion,
+    effects: pickEffects(BattleTraits, ['Core Legions', 'Grand Host of Nagash']),
 
     available: {
-      ...baseSubFaction.available,
-      battalions: [
-        // Make Regular Battalion 2 unavailable to this subfaction using keyOmitter
-        keyOmitter(Battalions, ['Regular Battalion 2']),
-      ],
+      ...baseLegion.available,
     },
   },
-
-  'Second SubFaction': {
-    ...baseSubFaction,
-
-    effects: pickEffects(BattleTraits, ['SubFaction 2 Battle Traits']),
+  'Legion of Blood': {
+    ...baseLegion,
+    effects: pickEffects(BattleTraits, ['Core Legions', 'Legion of Blood']),
+    available: {
+      ...baseLegion.available,
+    },
+  },
+  'Legion of Night': {
+    ...baseLegion,
+    effects: pickEffects(BattleTraits, ['Core Legions', 'Legion of Night']),
 
     available: {
-      ...baseSubFaction.available,
-      flavors: [keyPicker(Flavors, ['Chocolate', 'Strawberry'])],
-
-      endless_spells: [], // No endless spells for this subfaction
+      ...baseLegion.available,
     },
-
-    // These are required entries
-    mandatory: {
-      scenery: [keyPicker(Scenery, ['A Faction-Specific Scenery Piece'])],
+  },
+  'Legion of Sacrament': {
+    ...baseLegion,
+    effects: pickEffects(BattleTraits, ['Core Legions', 'Legion of Sacrament']),
+    available: {
+      ...baseLegion.available,
     },
+  },
+  Soulblight: {
+    effects: pickEffects(BattleTraits, ['Soulblight']),
+    available: {},
   },
 }
 
