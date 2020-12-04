@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { TEntry } from 'types/data'
 import { IAllySelections } from 'types/selections'
 import { logAllyFaction } from 'utils/analytics'
-import { useGetArmy } from 'utils/hooks/useGetArmy'
+import useGetArmy from 'utils/hooks/useGetArmy'
 import { titleCase } from 'utils/textUtils'
 import { withSelectMultipleWithPayload, withSelectOne } from 'utils/withSelect'
 
