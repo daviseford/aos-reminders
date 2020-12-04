@@ -1,4 +1,5 @@
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
+import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
 import { SampleFaction } from 'factions/sample'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
@@ -6,6 +7,7 @@ import { SonsOfBehematFaction } from 'factions/sons_of_behemat'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import {
   DAUGHTERS_OF_KHAINE,
+  MEGA_GARGANT_MERCENARIES,
   SAMPLE,
   SERAPHON,
   SLAANESH,
@@ -117,10 +119,7 @@ const FactionList = {
   //   Army: { ...LuminethRealmlordsArmy },
   //   GrandAlliance: ORDER,
   // },
-  // [MEGA_GARGANT_MERCENARIES]: {
-  //   Army: { ...MegaGargantMercenariesArmy },
-  //   GrandAlliance: DESTRUCTION,
-  // },
+  [MEGA_GARGANT_MERCENARIES]: { ...MegaGargantMercenariesFaction },
   // [MERCENARY_COMPANIES]: {
   //   Army: { ...MercenaryCompaniesArmy },
   //   GrandAlliance: ORDER,
