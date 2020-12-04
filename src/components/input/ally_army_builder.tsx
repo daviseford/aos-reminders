@@ -1,5 +1,5 @@
 import { VisibilityToggle } from 'components/info/visibilityToggle'
-import { SelectMulti, SelectOne, TSelectMultiValueType, TSelectOneValueType } from 'components/input/select'
+import { SelectMulti, SelectOne, TSelectMultiSetValueFn, TSelectOneSetValueFn } from 'components/input/select'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
 import { armyActions, selectionActions, selectors, visibilityActions } from 'ducks'
@@ -113,9 +113,9 @@ interface IAllyCardProps {
   factionName: TSupportedFaction
   handleClose: (e: React.MouseEvent) => void
   isVisible: boolean
-  setAllyFactionName: (selectValue: TSelectOneValueType) => void
-  setBattalions: (selectValues: TSelectMultiValueType) => void
-  setUnits: (selectValues: TSelectMultiValueType) => void
+  setAllyFactionName: TSelectOneSetValueFn
+  setBattalions: TSelectMultiSetValueFn
+  setUnits: TSelectMultiSetValueFn
   setVisibility: () => {
     payload: string
     type: string
@@ -206,7 +206,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
 interface IAddAllySelect {
   allyFactionName: TSupportedFaction
   items: TSupportedFaction[]
-  setAllyFactionName: (selectValue: TSelectOneValueType) => void
+  setAllyFactionName: TSelectOneSetValueFn
 }
 
 const AddAllySelect = (props: IAddAllySelect) => {
