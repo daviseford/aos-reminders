@@ -45,8 +45,6 @@ export interface IWithSelectMultipleWithSideEffectsPayload {
   }
 }
 
-type TWithSelectOneWithSideEffects = (payload: IWithSelectMultipleWithSideEffectsPayload) => void
-
 type TWithSelectMultiWithSideEffects = (
   method: ActionCreatorWithPayload<string[], string>,
   payload: IWithSelectMultipleWithSideEffectsPayload,
@@ -108,7 +106,7 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
   dispatch(method([...sideEffectDropdownValues, ...values]))
 }
 
-export const handleSelectOneSideEffects: TWithSelectOneWithSideEffects = payload => {
+export const handleSelectOneSideEffects = (payload: IWithSelectMultipleWithSideEffectsPayload) => {
   const { dispatch } = store
 
   // Handle side effects
