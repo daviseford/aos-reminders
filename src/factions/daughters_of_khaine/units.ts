@@ -1,4 +1,4 @@
-import { pickEffects, tagAs } from 'factions/metatagger'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -27,29 +27,11 @@ const MorathiEffect = {
   when: [WOUND_ALLOCATION_PHASE],
 }
 
-const HagQueenEffects = [
-  {
-    name: `Priestess of Khaine`,
-    desc: `Pick a prayer this model knows and roll a D6. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine and Touch of Death prayers.`,
-    when: [HERO_PHASE],
-  },
-  ...pickEffects(Prayers, ['Rune of Khaine']),
-  ...pickEffects(Prayers, ['Touch of Death']),
-]
-
-const BloodwrackEffects = [
-  {
-    name: `Bloodwrack Stare`,
-    desc: `Pick a unit visible to this model and roll a D6 for each model in the target unit that is within range. For each 5+ the unit suffers 1 mortal wound.`,
-    when: [SHOOTING_PHASE],
-  },
-  {
-    name: `Magic`,
-    desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Enfeebling Foe.`,
-    when: [HERO_PHASE],
-  },
-  ...pickEffects(Spells, ['Enfeebling Foe']),
-]
+const PriestessOfKhaineEffect = {
+  name: `Priestess of Khaine`,
+  desc: `Pick a prayer this model knows and roll a D6. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine and Touch of Death prayers.`,
+  when: [HERO_PHASE],
+}
 
 const WitchbrewEffects = [
   {
@@ -66,29 +48,6 @@ const WitchbrewEffects = [
     name: `Witchbrew`,
     desc: `If active, you do not need to take battleshock tests for the unit.`,
     when: [BATTLESHOCK_PHASE],
-  },
-]
-
-const SlaughterQueenEffects = [
-  {
-    name: `Pact of Blood`,
-    desc: `A Slaughter Queen can attempt to unbind one spell in the enemy hero phase as if it were a wizard.`,
-    when: [HERO_PHASE],
-  },
-  ...pickEffects(CommandAbilities, ['Orgy of Slaughter']),
-]
-
-const AvatarOfKhaineEffects = [
-  ...pickEffects(Prayers, ['Wrath of Khaine']),
-  {
-    name: `Animated`,
-    desc: `The Avatar of Khaine cannot shoot and cannot be selected to fight unless it has been Animated in the hero phase (either via prayer or Blood Rite).`,
-    when: [DURING_GAME],
-  },
-  {
-    name: `Idol of Worship`,
-    desc: `Add 1 to the bravery characteristic of friendly Daughters of Khaine units that are within 7" of any friendly Avatars of Khaine.`,
-    when: [DURING_GAME],
   },
 ]
 
@@ -159,8 +118,70 @@ const TurnedCrystalEffect = {
   when: [END_OF_COMBAT_PHASE],
 }
 
+const baseHagQueen = {
+  mandatory: {
+    prayers: [keyPicker(Prayers, ['Rune of Khaine', 'Touch of Death'])],
+  },
+  effects: [PriestessOfKhaineEffect],
+}
+
+const baseSlaughterQueen = {
+  mandatory: {
+    prayers: [keyPicker(Prayers, ['Rune of Khaine', 'Touch of Death'])],
+    command_abilities: [keyPicker(CommandAbilities, ['Orgy of Slaughter'])],
+  },
+  effects: [
+    PriestessOfKhaineEffect,
+    {
+      name: `Pact of Blood`,
+      desc: `A Slaughter Queen can attempt to unbind one spell in the enemy hero phase as if it were a wizard.`,
+      when: [HERO_PHASE],
+    },
+  ],
+}
+
+const baseBloodwrack = {
+  mandatory: {
+    spells: [keyPicker(Spells, ['Enfeebling Foe'])],
+  },
+  effects: [
+    {
+      name: `Bloodwrack Stare`,
+      desc: `Pick a unit visible to this model and roll a D6 for each model in the target unit that is within range. For each 5+ the unit suffers 1 mortal wound.`,
+      when: [SHOOTING_PHASE],
+    },
+    {
+      name: `Magic`,
+      desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Enfeebling Foe.`,
+      when: [HERO_PHASE],
+    },
+  ],
+}
+
+const baseAvatarOfKhaine = {
+  mandatory: {
+    prayers: [keyPicker(Prayers, ['Wrath of Khaine'])],
+  },
+  effects: [
+    {
+      name: `Animated`,
+      desc: `The Avatar of Khaine cannot shoot and cannot be selected to fight unless it has been Animated in the hero phase (either via prayer or Blood Rite).`,
+      when: [DURING_GAME],
+    },
+    {
+      name: `Idol of Worship`,
+      desc: `Add 1 to the bravery characteristic of friendly Daughters of Khaine units that are within 7" of any friendly Avatars of Khaine.`,
+      when: [DURING_GAME],
+    },
+  ],
+}
+
 const Units = {
   'Morathi-Khaine': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Black Horror of Ulgu'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Worship Through Bloodshed'])],
+    },
     effects: [
       {
         name: `Commanding Presence`,
@@ -173,8 +194,6 @@ const Units = {
         desc: `This model is a wizard. Can attempt to cast 3 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Black Horror of Ulgu.`,
         when: [HERO_PHASE],
       },
-      ...pickEffects(Spells, ['Black Horror of Ulgu']),
-      ...pickEffects(CommandAbilities, ['Worship Through Bloodshed']),
     ],
   },
   'The Shadow Queen': {
@@ -197,21 +216,31 @@ const Units = {
     ],
   },
   'Hag Queen': {
-    effects: [...HagQueenEffects, ...WitchbrewEffects],
+    mandatory: {
+      ...baseHagQueen.mandatory,
+    },
+    effects: [...baseHagQueen.effects, ...WitchbrewEffects],
   },
   'Slaughter Queen': {
-    effects: [...HagQueenEffects, ...SlaughterQueenEffects, ...pickEffects(Prayers, ['Dance of Doom'])],
+    mandatory: {
+      command_abilities: [...baseSlaughterQueen.mandatory.command_abilities],
+      prayers: [...baseSlaughterQueen.mandatory.prayers, keyPicker(Prayers, ['Dance of Doom'])],
+    },
+    effects: [...baseSlaughterQueen.effects],
   },
   'Avatar of Khaine': {
-    effects: [...AvatarOfKhaineEffects],
+    ...baseAvatarOfKhaine,
   },
   'Hag Queen on Cauldron of Blood': {
+    mandatory: {
+      prayers: [...baseHagQueen.mandatory.prayers, ...baseAvatarOfKhaine.mandatory.prayers],
+    },
     effects: [
+      ...baseHagQueen.effects,
+      ...baseAvatarOfKhaine.effects,
       BladedImpactEffect,
       BloodshieldEffect,
       ...WitchbrewEffects,
-      ...HagQueenEffects,
-      ...AvatarOfKhaineEffects,
     ],
   },
   'Witch Aelves': {
@@ -252,23 +281,29 @@ const Units = {
     ],
   },
   'Slaughter Queen on Cauldron of Blood': {
+    mandatory: {
+      prayers: [...baseSlaughterQueen.mandatory.prayers, ...baseAvatarOfKhaine.mandatory.prayers],
+      command_abilities: [...baseSlaughterQueen.mandatory.command_abilities],
+    },
     effects: [
+      ...baseSlaughterQueen.effects,
+      ...baseAvatarOfKhaine.effects,
       BladedImpactEffect,
       BloodshieldEffect,
-      ...HagQueenEffects,
-      ...AvatarOfKhaineEffects,
-      ...SlaughterQueenEffects,
     ],
   },
   'Bloodwrack Shrine': {
+    mandatory: {
+      spells: [...baseBloodwrack.mandatory.spells],
+    },
     effects: [
+      ...baseBloodwrack.effects,
       BladedImpactEffect,
       {
         name: `Aura of Agony`,
         desc: `Roll a D6 for each enemy unit within 7" of any friendly Bloodwrack Shrines. If the dice roll is greater than or equal to the score listed in the damage table, that unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
-      ...BloodwrackEffects,
     ],
   },
   'Blood Sisters': {
@@ -285,9 +320,10 @@ const Units = {
     effects: [HeartseekersEffect],
   },
   'Bloodwrack Medusa': {
-    effects: [...BloodwrackEffects],
+    ...baseBloodwrack,
   },
   'Doomfire Warlocks': {
+    mandatory: { spells: [keyPicker(Spells, ['Doomfire'])] },
     effects: [
       {
         name: `Master of Warlocks`,
@@ -309,7 +345,6 @@ const Units = {
         desc: `This unit counts as a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Doomfire.`,
         when: [HERO_PHASE],
       },
-      ...pickEffects(Spells, ['Doomfire']),
     ],
   },
   'Khinerai Heartrenders': {
@@ -360,7 +395,10 @@ const Units = {
     ],
   },
   'Morgwaeth the Bloodied': {
-    effects: [...HagQueenEffects, ...WitchbrewEffects],
+    mandatory: {
+      ...baseHagQueen.mandatory,
+    },
+    effects: [...baseHagQueen.effects, ...WitchbrewEffects],
   },
   'The Blade-Coven': {
     effects: [
@@ -402,6 +440,7 @@ const Units = {
     ],
   },
   'Melusai Ironscale': {
+    mandatory: { command_abilities: [keyPicker(CommandAbilities, ['Wrath of the Scathborn'])] },
     effects: [
       {
         name: `Blood of the Oracle`,
@@ -414,7 +453,6 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       TurnedCrystalEffect,
-      ...pickEffects(CommandAbilities, ['Wrath of the Scathborn']),
     ],
   },
 }

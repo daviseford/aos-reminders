@@ -1,4 +1,4 @@
-import { tagAs } from 'factions/metatagger'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -10,9 +10,13 @@ import {
   SHOOTING_PHASE,
   START_OF_ROUND,
 } from 'types/phases'
+import Units from './units'
 
 const RegularBattalions = {
   'Cauldron Guard': {
+    mandatory: {
+      units: [keyPicker(Units, ['Hag Queen', 'Witch Aelves', 'Khinerai Lifetakers'])],
+    },
     effects: [
       {
         name: `Frenzied Devotees`,
@@ -22,6 +26,9 @@ const RegularBattalions = {
     ],
   },
   'Slaughter Troupe': {
+    mandatory: {
+      units: [keyPicker(Units, ['Slaughter Queen', 'Sisters of Slaughter', 'Khinerai Heartrenders'])],
+    },
     effects: [
       {
         name: `Gladiatorial Acrobatics`,
@@ -31,6 +38,9 @@ const RegularBattalions = {
     ],
   },
   'Temple Nest': {
+    mandatory: {
+      units: [keyPicker(Units, ['Bloodwrack Medusa', 'Blood Stalkers', 'Blood Sisters'])],
+    },
     effects: [
       {
         name: `Lethal Transfixion`,
@@ -40,6 +50,9 @@ const RegularBattalions = {
     ],
   },
   'Shadow Patrol': {
+    mandatory: {
+      units: [keyPicker(Units, ['Doomfire Warlocks'])],
+    },
     effects: [
       {
         name: `Shadowpaths`,
@@ -49,6 +62,9 @@ const RegularBattalions = {
     ],
   },
   'Shadowhammer Compact': {
+    mandatory: {
+      units: [keyPicker(Units, ['Slaughter Queen', 'Witch Aelves', 'Blood Stalkers'])], // ADD SCE IMPORTS HERE!!
+    },
     effects: [
       {
         name: `Righteous Fervour`,
@@ -67,6 +83,11 @@ const RegularBattalions = {
     ],
   },
   'Tyralla`s Scathcoven': {
+    mandatory: {
+      units: [
+        keyPicker(Units, ['Melusai Ironscale', 'Blood Sisters', 'Blood Stalkers', 'Khinerai Heartrenders']),
+      ],
+    },
     effects: [
       {
         name: `Devoted to the Oracle`,
@@ -76,6 +97,9 @@ const RegularBattalions = {
     ],
   },
   'Vyperic Guard': {
+    mandatory: {
+      units: [keyPicker(Units, ['Morathi-Khaine', 'The Shadow Queen'])],
+    },
     effects: [
       {
         name: `Vaunted Slayers`,
@@ -85,6 +109,9 @@ const RegularBattalions = {
     ],
   },
   Scathcoven: {
+    mandatory: {
+      units: [keyPicker(Units, ['Blood Sisters', 'Blood Stalkers'])],
+    },
     effects: [
       {
         name: `Devoted to Morathi`,
@@ -94,6 +121,9 @@ const RegularBattalions = {
     ],
   },
   'Shrine Blood': {
+    mandatory: {
+      units: [keyPicker(Units, ['Bloodwrack Shrine'])],
+    },
     effects: [
       {
         name: `Blood Sacrifice`,
@@ -106,6 +136,12 @@ const RegularBattalions = {
 
 const SuperBattalions = {
   'War Coven of Morathi': {
+    mandatory: {
+      units: [keyPicker(Units, ['Morathi-Khaine', 'The Shadow Queen'])],
+      battalions: [
+        keyPicker(RegularBattalions, ['Cauldron Guard', 'Slaughter Troupe', 'Temple Nest', 'Shadow Patrol']),
+      ],
+    },
     effects: [
       {
         name: `Blood Rituals`,
