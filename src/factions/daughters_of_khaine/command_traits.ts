@@ -9,7 +9,7 @@ import {
 } from 'types/phases'
 const CommandTraits = {
   // Daughters Allegiance Command Traits
-  'Daughters of Khaine': {
+  'Bathed in Blood': {
     effects: [
       {
         name: `Bathed in Blood`,
@@ -21,26 +21,46 @@ const CommandTraits = {
         desc: `You can heal 1 wound allocated to this general.`,
         when: [START_OF_HERO_PHASE],
       },
+    ],
+  },
+  'Zealous Orator': {
+    effects: [
       {
         name: `Zealous Orator`,
         desc: `Friendly Daughters of Khaine units within 14" of this general use this general's bravery characteristic instead of their own.`,
         when: [DURING_GAME],
       },
+    ],
+  },
+  'Bloody Sacrificer': {
+    effects: [
       {
         name: `Bloody Sacrificer`,
         desc: `Add 1 to hit rolls for this general's weapons.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
+    ],
+  },
+  'Terrifying Beauty': {
+    effects: [
       {
         name: `Terrifying Beauty`,
         desc: `Subtract 1 from the hit rolls of attacks that target this general.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
+    ],
+  },
+  'Mistress of Poisons': {
+    effects: [
       {
         name: `Mistress of Poisons`,
         desc: `Add 1 to the damage characteristic of melee weapons wielded by this general.`,
         when: [COMBAT_PHASE],
       },
+    ],
+  },
+  'True Believer': {
+    effects: [
       {
         name: `True Believer`,
         desc: `This general counts the current battle round number as being 1 higher than it actually is when determining the effect of the Blood Rites table. This effect is cumulative with other, similar abilities.`,
@@ -49,7 +69,7 @@ const CommandTraits = {
     ],
   },
   // Hagg Nar Flavor
-  'Hagg Nar': {
+  'Devoted Disciples': {
     effects: [
       {
         name: `Devoted Disciples`,
@@ -59,7 +79,7 @@ const CommandTraits = {
     ],
   },
   // Khailebron Flavor
-  Khailebron: {
+  'Mistress of Illusion': {
     effects: [
       {
         name: `Mistress of Illusion`,
@@ -69,7 +89,7 @@ const CommandTraits = {
     ],
   },
   // Zainthar Kai Flavor
-  'Zainthar Kai': {
+  'Curse of the Bloody-Handed': {
     effects: [
       {
         name: `Curse of the Bloody-Handed`,

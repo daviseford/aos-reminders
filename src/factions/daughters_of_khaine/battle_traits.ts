@@ -60,7 +60,7 @@ const BattleTraits = {
     ],
   },
   // Hagg Nar Flavor
-  'Hagg Nar': {
+  'Daughters of the First Temple': {
     effects: [
       {
         name: `Daughters of the First Temple`,
@@ -70,7 +70,7 @@ const BattleTraits = {
     ],
   },
   // Draichi Ganeth Flavor
-  'Draichi Ganeth': {
+  'Bladed Killers': {
     effects: [
       {
         name: `Bladed Killers`,
@@ -80,7 +80,7 @@ const BattleTraits = {
     ],
   },
   // Kraith Flavor
-  Kraith: {
+  'Disciples of Slaughter': {
     effects: [
       {
         name: `Disciples of Slaughter`,
@@ -90,7 +90,7 @@ const BattleTraits = {
     ],
   },
   // Khailebron Flavor
-  Khailebron: {
+  'Concealment and Stealth': {
     effects: [
       {
         name: `Concealment and Stealth`,
@@ -100,7 +100,7 @@ const BattleTraits = {
     ],
   },
   // Zainthar Kai Flavor
-  'Zainthar Kai': {
+  'Khaine`s Essence': {
     effects: [
       {
         name: `Khaine's Essence`,

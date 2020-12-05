@@ -1,5 +1,5 @@
 import { TItemDescriptions } from 'factions/factionTypes'
-import { keyPicker, pickEffects } from 'factions/metatagger'
+import { pickEffects } from 'factions/metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
@@ -15,11 +15,11 @@ const subFactions: TItemDescriptions = {
     effects: pickEffects(BattleTraits, ['Daughters of Khaine']),
 
     available: {
-      artifacts: [keyPicker(Artifacts, ['Gifts of Morathi', 'Artifacts of Shadow', 'Relics of Khaine'])],
+      artifacts: [Artifacts],
       battalions: [Battalions],
       command_abilities: [CommandAbilities],
-      command_traits: [keyPicker(CommandTraits, ['Daughters of Khaine'])],
-      flavors: [keyPicker(Flavors, ['Hagg Nar', 'Draichi Ganeth', 'Kraith', 'Khailebron', 'Zainthar Kai'])],
+      command_traits: [CommandTraits],
+      flavors: [Flavors],
       prayers: [Prayers],
       spells: [Spells],
       units: [Units],
