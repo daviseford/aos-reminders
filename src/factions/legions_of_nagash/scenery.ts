@@ -14,3 +14,4 @@
 //
 // export default tagAs(Scenery, 'scenery')
 //
+export {}

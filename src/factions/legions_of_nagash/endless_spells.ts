@@ -15,3 +15,5 @@
 //
 // export default tagAs(EndlessSpells, 'endless_spell')
 //
+
+export {}

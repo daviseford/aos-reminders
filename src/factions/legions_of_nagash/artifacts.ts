@@ -23,3 +23,5 @@
 //
 // export default tagAs(Artifacts, 'artifact')
 //
+
+export {}

@@ -44,3 +44,4 @@
 //
 // export default tagAs(Spells, 'spell')
 //
+export {}

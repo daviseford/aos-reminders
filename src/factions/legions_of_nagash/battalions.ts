@@ -39,3 +39,5 @@
 //
 // export default tagAs(Battalions, 'battalion')
 //
+
+export {}
