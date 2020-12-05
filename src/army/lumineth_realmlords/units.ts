@@ -9,6 +9,7 @@ import {
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -238,6 +239,62 @@ export const Units: TUnits = [
       {
         name: `Guardian of Hysh`,
         desc: `Subtract 1 from hit rolls for attacks made by enemy models within range of this ability.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Myari Lightcaller`,
+    effects: [
+      {
+        name: `Scryowl Familiar`,
+        desc: `Add 1 to casting, unbinding, and dispelling rolls for this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Scryowl Familiar`,
+        desc: `You can pick 1 enemy unit within 24" and not visible. The target becomes visible.`,
+        when: [START_OF_HERO_PHASE, START_OF_SHOOTING_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Dazzling Light.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Dazzling Light`,
+        desc: `Casting value of 6. Until your next hero phase, subtract 1 from hit rolls targeting the caster and subtract 1 from missle weapon attacks targeting friendly units wholly within 6" of the caster.`,
+        when: [HERO_PHASE],
+        spell: true,
+      },
+      {
+        name: `Dazzling Light`,
+        desc: `If active subtract, 1 from hit rolls targeting friendly units wholly within 6" of the caster.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Dazzling Light`,
+        desc: `If active subtract 1 from hit rolls targeting the caster.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Myari's Purifiers`,
+    effects: [
+      {
+        name: `Crushing Blow`,
+        desc: `Unmodified hits of 6 made with Stone Mallet add 1 to the damage inflicted if successful.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Guardians`,
+        desc: `Roll a D6 for each wound or mortal wound allocated to a friendly Myari Lightcaller within 3". On a 2+, this unit is allocated the wound instead.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Sunmetal Weapons`,
+        desc: `Unmodified hits of 6 for Sunmetal Greatsword or Auralan Bow attacks inflict 1 mortal wound and the attack sequence ends.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],

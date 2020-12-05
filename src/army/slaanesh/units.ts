@@ -658,6 +658,26 @@ export const Units: TUnits = [
       },
     ],
   },
+  {
+    name: `The Dread Pageant`,
+    effects: [
+      {
+        name: `Vasillac/Slakeslash`,
+        desc: `Add 2 to the wounds characteristic of these models.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Art of the Myrmidesh`,
+        desc: `Roll a D6 each time a wound or mortal wound is allocated to Vasillac. On a 4+, the wound is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Deadliest Procession`,
+        desc: `Unmodified hits of 6 for this unit inflict 1 mortal wound in addition to normal damage.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
 ]
 
 // Battalions
