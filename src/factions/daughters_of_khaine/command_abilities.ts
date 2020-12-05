@@ -36,7 +36,7 @@ const CommandAbilities = {
     ],
   },
   // Zainthar Kai Flavor
-  'Zainthar Kai': {
+  'Power in the Blood': {
     effects: [
       {
         name: `Power in the Blood`,

@@ -7,34 +7,34 @@ import CommandTraits from './command_traits'
 const Flavors = {
   'Hagg Nar': {
     mandatory: {
-      command_traits: [keyPicker(CommandTraits, ['Hagg Nar'])],
+      command_traits: [keyPicker(CommandTraits, ['Devoted Disciples'])],
     },
-    effects: [...pickEffects(BattleTraits, ['Hagg Nar'])],
+    effects: [...pickEffects(BattleTraits, ['Daughters of the First Temple'])],
   },
   'Draichi Ganeth': {
     mandatory: {
-      artifacts: [keyPicker(Artifacts, ['Draichi Ganeth'])],
+      artifacts: [keyPicker(Artifacts, ['The Darksword'])],
     },
-    effects: [...pickEffects(BattleTraits, ['Draichi Ganeth'])],
+    effects: [...pickEffects(BattleTraits, ['Bladed Killers'])],
   },
   Kraith: {
     mandatory: {
-      artifacts: [keyPicker(Artifacts, ['Kraith'])],
+      artifacts: [keyPicker(Artifacts, ['Venom of Nagendra'])],
     },
-    effects: [...pickEffects(BattleTraits, ['Kraith'])],
+    effects: [...pickEffects(BattleTraits, ['Disciples of Slaughter'])],
   },
   Khailebron: {
     mandatory: {
-      command_traits: [keyPicker(CommandTraits, ['Khailebron'])],
+      command_traits: [keyPicker(CommandTraits, ['Mistress of Illusion'])],
     },
-    effects: [...pickEffects(BattleTraits, ['Khailebron'])],
+    effects: [...pickEffects(BattleTraits, ['Concealment and Stealth'])],
   },
   'Zainthar Kai': {
     mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Zainthar Kai'])],
-      command_traits: [keyPicker(CommandTraits, ['Zainthar Kai'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Power in the Blood'])],
+      command_traits: [keyPicker(CommandTraits, ['Curse of the Bloody-Handed'])],
     },
-    effects: [...pickEffects(BattleTraits, ['Zainthar Kai'])],
+    effects: [...pickEffects(BattleTraits, ['Khaine`s Essence'])],
   },
 }
 
