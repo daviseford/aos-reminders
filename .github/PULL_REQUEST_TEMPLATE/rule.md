@@ -9,6 +9,11 @@ Fixes PR#
 
 ---
 
+# What is happening to rules in this PR?
+
+- [ ] Added New Rule
+- [ ] Updated Existing Rule
+- [ ] Removed Rule
 ## What is the source of these rules?
 
 - [ ] Army tome
