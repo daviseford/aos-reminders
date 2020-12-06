@@ -1,4 +1,5 @@
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
+import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
 import { OgorMawtribesFaction } from 'factions/ogor_mawtribes'
 import { SampleFaction } from 'factions/sample'
@@ -9,6 +10,7 @@ import { SonsOfBehematFaction } from 'factions/sons_of_behemat'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import {
   DAUGHTERS_OF_KHAINE,
+  LEGIONS_OF_NAGASH,
   MEGA_GARGANT_MERCENARIES,
   OGOR_MAWTRIBES,
   SAMPLE,
@@ -91,6 +93,7 @@ const FactionList = {
   //   Army: { ...KhorneArmy },
   //   GrandAlliance: CHAOS,
   // },
+  [LEGIONS_OF_NAGASH]: { ...LegionsOfNagashFaction },
   // [LEGION_OF_BLOOD]: {
   //   Army: { ...LegionOfBloodArmy },
   //   GrandAlliance: DEATH,

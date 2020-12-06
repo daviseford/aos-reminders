@@ -1,5 +1,5 @@
 import { uniq, without } from 'lodash'
-import { LUMINETH_REALMLORDS, SOULBLIGHT, TPrimaryFactions, TSupportedFaction } from 'meta/factions'
+import { LUMINETH_REALMLORDS, TPrimaryFactions, TSupportedFaction } from 'meta/factions'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { TSelections } from 'types/selections'
 import { isValidFactionName } from 'utils/armyUtils'
@@ -371,7 +371,7 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
     // @ts-ignore
     obj?.childNodes[2]?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]?.value === 'Allegiance: Soulblight'
   ) {
-    fixedKeys.faction = SOULBLIGHT
+    // fixedKeys.faction = SOULBLIGHT
     fixedKeys.flavor = []
   }
 
