@@ -2,10 +2,10 @@ import { pickEffects } from 'factions/metatagger'
 import BattleTraits from './battle_traits'
 
 const subFactions = {
-  LIVING_TEMPEST: {
+  'Living Tempest': {
     effects: pickEffects(BattleTraits, ['Legends of the Living Tempest']),
   },
-  CELESTIAL_SENTINELS: {
+  'Celestial Senitels': {
     effects: pickEffects(BattleTraits, ['Celestial Sentinels']),
   },
 }
