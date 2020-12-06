@@ -1,4 +1,4 @@
-import GenericCommands from './commands'
+import GenericCommandAbilities from './commands'
 import GenericEndlessSpells from './endless_spells'
 import RealmscapeArtifacts from './realmscape_artifacts'
 import RealmscapeCommands from './realmscape_commands'
@@ -10,7 +10,7 @@ import GenericTriumphs from './triumphs'
 
 // This file is used for data re-used across any army.
 export {
-  GenericCommands,
+  GenericCommandAbilities,
   GenericEndlessSpells,
   GenericScenery,
   GenericSpells,

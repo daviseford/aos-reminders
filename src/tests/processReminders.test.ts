@@ -1,4 +1,9 @@
-import { GenericCommands, GenericTriumphs, RealmscapeCommands, RealmscapeFeatures } from 'army/generic'
+import {
+  GenericCommandAbilities,
+  GenericTriumphs,
+  RealmscapeCommands,
+  RealmscapeFeatures,
+} from 'army/generic'
 // Army Imports
 import ironjawz from 'army/ironjawz'
 import seraphon from 'army/seraphon'
@@ -32,7 +37,7 @@ describe('processReminders', () => {
     const artifact = sylvaneth.Artifacts[0]
     const battalion = sylvaneth.Battalions[0]
     const command_trait = sylvaneth.Traits[0]
-    const command1 = GenericCommands[0]
+    const command1 = GenericCommandAbilities[0]
     const command2 = RealmscapeCommands[0]
     const endless_spell = sylvaneth.EndlessSpells[0]
     const flavor = sylvaneth.Allegiances[0]

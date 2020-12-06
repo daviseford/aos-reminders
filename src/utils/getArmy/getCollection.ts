@@ -16,38 +16,51 @@ export const getCollection = (army: TInitialArmy): TCollection => {
     Artifacts: [],
     Battalions: [],
     CommandAbilities: [],
-    Prayers: [],
-    Spells: [],
     CommandTraits: [],
+    EndlessSpells: [],
+    Flavors: [],
+    Prayers: [],
+    Scenery: [],
+    Spells: [],
+    Triumphs: [],
+    Units: [],
   }
 
   if (!army) return Collection
 
-  const {
-    AlliedUnits = [],
-    Artifacts = [],
-    Battalions = [],
-    CommandTraits = [],
-    Flavors = [],
-    Scenery = [],
-    Units = [],
-    SubFaction = null,
-  } = army
+  const { SubFaction } = army
 
   // Brute force it
-  const types = [Flavors, AlliedUnits, Artifacts, Battalions, Scenery, CommandTraits, Units]
+  const types = [
+    army.AlliedUnits || [],
+    army.Artifacts || [],
+    army.Battalions || [],
+    army.CommandAbilities || [],
+    army.CommandTraits || [],
+    army.EndlessSpells || [],
+    army.Flavors || [],
+    army.Prayers || [],
+    army.Scenery || [],
+    army.Spells || [],
+    army.Triumphs || [],
+    army.Units || [],
+  ]
 
   // Go through each thing and get spells, artifacts, etc that are unusual
-  // TODO: Get rid of this!
+  // TODO: Get rid of this?
+  // Might need to keep it as a backup in case people don't use the new data structure correctly
   types.forEach(items =>
-    items.forEach(item => {
+    items?.forEach(item => {
       item.effects.forEach(effect => checkEffects(effect, Collection))
     })
   )
 
-  if (SubFaction?.mandatory) {
-    Object.keys(SubFaction.mandatory).forEach(sliceKey => {
-      const slice = SubFaction?.mandatory?.[sliceKey as keyof TEntry]
+  // This is now our preferred way of checking for side effects/mandatory items
+  const checkForMandatoryItems = (entry?: TEntry): void => {
+    if (!entry?.mandatory) return
+
+    Object.keys(entry.mandatory).forEach(sliceKey => {
+      const slice = entry?.mandatory?.[sliceKey as keyof TEntry]
       if (!slice || !slice.length) return
 
       const mergedEntries = mergeParentEffectObjs(slice)
@@ -60,64 +73,40 @@ export const getCollection = (army: TInitialArmy): TCollection => {
     })
   }
 
-  Battalions.forEach(a => {
-    if (a.mandatory) {
-      Object.keys(a.mandatory).forEach(sliceKey => {
-        const slice = a?.mandatory?.[sliceKey as keyof TEntry]
-        if (!slice || !slice.length) return
-
-        const mergedEntries = mergeParentEffectObjs(slice)
-
-        mergedEntries.forEach(_entry => {
-          const { effects } = _entry as TEntry
-          const upperSlice = lowerToUpperLookup[slice as TSelectionTypes]
-          effects.forEach(effect => checkEffects(effect, Collection, upperSlice))
-        })
-      })
-    }
-  })
-
-  Flavors.forEach(a => {
-    if (a.mandatory) {
-      Object.keys(a.mandatory).forEach(sliceKey => {
-        const slice = a?.mandatory?.[sliceKey as keyof TEntry]
-        if (!slice || !slice.length) return
-
-        const mergedEntries = mergeParentEffectObjs(slice)
-
-        mergedEntries.forEach(_entry => {
-          const { effects } = _entry as TEntry
-          effects.forEach(effect => checkEffects(effect, Collection))
-        })
-      })
-    }
-  })
+  // Check the subfaction, and then each group of items beneath it
+  checkForMandatoryItems(SubFaction)
+  types.forEach(x => x?.forEach(checkForMandatoryItems))
 
   return {
     Artifacts: sortBy(Collection.Artifacts, 'name'),
     Battalions: sortBy(Collection.Battalions, 'name'),
     CommandAbilities: sortBy(Collection.CommandAbilities, 'name'),
     CommandTraits: sortBy(Collection.CommandTraits, 'name'),
+    EndlessSpells: sortBy(Collection.EndlessSpells, 'name'),
+    Flavors: sortBy(Collection.Flavors, 'name'),
     Prayers: sortBy(Collection.Prayers, 'name'),
+    Scenery: sortBy(Collection.Scenery, 'name'),
     Spells: sortBy(Collection.Spells, 'name'),
+    Triumphs: sortBy(Collection.Triumphs, 'name'),
+    Units: sortBy(Collection.Units, 'name'),
   }
 }
 
 const checkEffects = (effect: TEffects, Collection: TCollection, forceKey?: keyof IArmy) => {
-  if (effect.spell || effect.prayer) {
-    addToCollection(effect, Collection.Spells)
-  } else if (effect.artifact) {
-    addToCollection(effect, Collection.Artifacts)
-  } else if (effect.command_trait) {
-    addToCollection(effect, Collection.CommandTraits)
-  } else if (effect.command_ability) {
-    addToCollection(effect, Collection.CommandAbilities)
-  } else if (forceKey) {
+  let stopped = false
+
+  Object.entries(lowerToUpperLookup).forEach(([key, value]) => {
+    if (stopped || !effect[key]) return
+    addToCollection(effect, Collection[value])
+    stopped = true
+  })
+
+  if (!stopped && forceKey) {
     addToCollection(effect, Collection[forceKey])
   }
 }
 
-const addToCollection = (effect: TEffects, collection: TEntry[]): void => {
+const addToCollection = (effect: TEffects, collection: TEntry[] = []): void => {
   const existingIdx = collection.findIndex(x => x.name === effect.name)
   if (existingIdx > -1) {
     const existingEntry = { ...collection[existingIdx] }
