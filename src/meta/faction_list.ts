@@ -4,6 +4,7 @@ import { OgorMawtribesFaction } from 'factions/ogor_mawtribes'
 import { SampleFaction } from 'factions/sample'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
+import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { SonsOfBehematFaction } from 'factions/sons_of_behemat'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import {
@@ -13,6 +14,7 @@ import {
   SAMPLE,
   SERAPHON,
   SLAANESH,
+  SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
   TSupportedFaction,
@@ -150,10 +152,7 @@ const FactionList = {
   //   GrandAlliance: CHAOS,
   // },
   [SLAANESH]: { ...SlaaneshFaction },
-  // [SLAVES_TO_DARKNESS]: {
-  //   Army: { ...SlavesToDarknessArmy },
-  //   GrandAlliance: CHAOS,
-  // },
+  [SLAVES_TO_DARKNESS]: { ...SlavesToDarknessFaction },
   [SONS_OF_BEHEMAT]: { ...SonsOfBehematFaction },
   // [SOULBLIGHT]: {
   //   Army: { ...SoulblightArmy },
