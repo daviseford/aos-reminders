@@ -8,7 +8,7 @@ import {
 } from 'types/phases'
 
 // General command abilities from Core Rules and GHB 2019
-const GenericCommands: TEntry[] = [
+const GenericCommandAbilities: TEntry[] = [
   {
     name: `At the Double`,
     effects: [
@@ -70,4 +70,4 @@ const GenericCommands: TEntry[] = [
     ],
   },
 ]
-export default GenericCommands
+export default GenericCommandAbilities

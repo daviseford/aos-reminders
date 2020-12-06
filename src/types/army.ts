@@ -25,10 +25,7 @@ export interface IArmy {
 
 export type TAllyArmies = Record<string, IArmy>
 export type TInitialArmy = Partial<IArmy> & { AlliedUnits?: TEntry[] }
-export type TCollection = Pick<
-  IArmy,
-  'Artifacts' | 'Battalions' | 'CommandTraits' | 'CommandAbilities' | 'Prayers' | 'Spells'
->
+export type TCollection = Omit<IArmy, 'BattleTraits' | 'Game' | 'FlavorType' | 'SubFaction'>
 
 export interface ICurrentArmy {
   allyFactionNames: TSupportedFaction[]

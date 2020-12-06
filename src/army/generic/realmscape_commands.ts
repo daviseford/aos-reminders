@@ -26,7 +26,7 @@ import {
 } from 'types/realmscapes'
 
 // Realm specific command abilities.
-const Commands: TEntry[] = [
+const CommandAbilities: TEntry[] = [
   {
     name: `Blazing Fervour (${AQSHY})`,
     effects: [
@@ -169,4 +169,4 @@ const Commands: TEntry[] = [
   },
 ]
 
-export default Commands
+export default CommandAbilities
