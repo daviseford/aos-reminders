@@ -1,4 +1,4 @@
-import { tagAs } from 'factions/metatagger'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -8,20 +8,12 @@ import {
   TURN_ONE_START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import units from './units'
 
 // TODO: Add mandatory units
 const RegularBattalions = {
-  'Gutbuster Warglutt': {
-    effects: [
-      {
-        name: `The Mawpath`,
-        desc: `At the start of your hero phase in the first battle round, each friendly unit from this battalion can make a move of D6". Roll separately for each unit.`,
-        when: [TURN_ONE_START_OF_HERO_PHASE],
-      },
-    ],
-  },
-
   "Tyrant's Gutguard": {
+    mandatory: { units: [keyPicker(units, ['Tyrant', 'Ironguts'])] },
     effects: [
       {
         name: `Wall of Fat`,
@@ -32,6 +24,9 @@ const RegularBattalions = {
   },
 
   Goremand: {
+    mandatory: {
+      units: [keyPicker(units, ['Ogor Gluttons', 'Slaughtermaster', 'Leadbelchers', 'Ironguts'])],
+    },
     effects: [
       {
         name: `The Tyrant's Butcher`,
@@ -42,6 +37,7 @@ const RegularBattalions = {
   },
 
   "Butcher's Band": {
+    mandatory: { units: [keyPicker(units, ['Ogor Gluttons', 'Butcher', 'Leadbelchers', 'Ironguts'])] },
     effects: [
       {
         name: `Well-fed Warriors`,
@@ -52,6 +48,7 @@ const RegularBattalions = {
   },
 
   Junkmob: {
+    mandatory: { units: [keyPicker(units, ['Gnoblar Scraplauncher', 'Gnoblars'])] },
     effects: [
       {
         name: `Don't Eat Me, Boss!`,
@@ -61,17 +58,10 @@ const RegularBattalions = {
     ],
   },
 
-  Alfrostun: {
-    effects: [
-      {
-        name: `Alfrostun Avalanche`,
-        desc: `When using the Grasp of the Everwinter battle trait and rolling a dice for each enemy unit within 3" of a unit from this battalion, subtract 1 from the roll.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-
   Jorlbad: {
+    mandatory: {
+      units: [keyPicker(units, ['Stonehorn Beastriders', 'Huskard on Stonehorn', 'Mournfang Pack'])],
+    },
     effects: [
       {
         name: `Tip of the Hunting Spear`,
@@ -82,6 +72,9 @@ const RegularBattalions = {
   },
 
   Eurlbad: {
+    mandatory: {
+      units: [keyPicker(units, ['Stonehorn Beastriders', 'Huskard on Stonehorn', 'Mournfang Pack'])],
+    },
     effects: [
       {
         name: `Crush, Mangle, Tenderise`,
@@ -92,6 +85,7 @@ const RegularBattalions = {
   },
 
   Torrbad: {
+    mandatory: { units: [keyPicker(units, ['Thundertusk Beastriders', 'Huskard on Thundertusk'])] },
     effects: [
       {
         name: `Heat-numbing Chill`,
@@ -102,6 +96,7 @@ const RegularBattalions = {
   },
 
   Skal: {
+    mandatory: { units: [keyPicker(units, ['Icebrow Hunter', 'Frost Sabres'])] },
     effects: [
       {
         name: `Hunting Pack`,
@@ -122,4 +117,36 @@ const RegularBattalions = {
   },
 }
 
-export default tagAs(RegularBattalions, 'battalion')
+const SuperBattalions = {
+  'Gutbuster Warglutt': {
+    mandatory: {
+      battalions: [
+        keyPicker(RegularBattalions, ["Tyrant's Gutguard", 'Junkmob', 'Goremand', "Butcher's Band"]),
+      ],
+    },
+    effects: [
+      {
+        name: `The Mawpath`,
+        desc: `At the start of your hero phase in the first battle round, each friendly unit from this battalion can make a move of D6". Roll separately for each unit.`,
+        when: [TURN_ONE_START_OF_HERO_PHASE],
+      },
+    ],
+  },
+
+  Alfrostun: {
+    mandatory: {
+      battalions: [keyPicker(RegularBattalions, ['Eurlbad', 'Jorlbad', 'Torrbad', 'Skal'])],
+    },
+    effects: [
+      {
+        name: `Alfrostun Avalanche`,
+        desc: `When using the Grasp of the Everwinter battle trait and rolling a dice for each enemy unit within 3" of a unit from this battalion, subtract 1 from the roll.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+}
+
+const Battalions = { ...RegularBattalions, ...SuperBattalions }
+
+export default tagAs(Battalions, 'battalion')
