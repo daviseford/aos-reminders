@@ -110,7 +110,8 @@ const FactionSelectComponent = () => {
     dispatch(setSubFactionName(name))
 
     // Handle subfaction sideEffects
-    handleSelectOneSideEffects(getSideEffects([{ ...SubFactions[name], name }]))
+    const sideEffects = getSideEffects([{ ...SubFactions[name], name }])
+    handleSelectOneSideEffects(sideEffects)
 
     dispatch(setFactionName(value as TPrimaryFactions))
 
@@ -146,7 +147,9 @@ const SubFactionSelectComponent = () => {
   const setValue = withSelectOne(name => {
     dispatch(setSubFactionName(name || ''))
     if (name) {
-      handleSelectOneSideEffects(getSideEffects([{ ...SubFactions[name], name }]))
+      const sideEffects = getSideEffects([{ ...SubFactions[name], name }])
+      debugger
+      handleSelectOneSideEffects(sideEffects)
       logSubFactionSwitch(name)
     }
   })
