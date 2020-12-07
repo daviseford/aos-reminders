@@ -19,7 +19,7 @@ import { handleSelectOneSideEffects, withSelectOne } from 'utils/withSelect'
 
 const Navbar = lazy(() => import('./navbar'))
 
-const { resetAllySelections, resetSelections } = selectionActions
+const { resetAllySelections, resetSelections, resetSideEffects } = selectionActions
 const { resetRealmscapeStore } = realmscapeActions
 const { setFactionName, setSubFactionName } = factionNamesActions
 
@@ -101,6 +101,7 @@ const FactionSelectComponent = () => {
   const setValue = withSelectOne(value => {
     setLoadedArmy(null)
     dispatch(resetSelections())
+    dispatch(resetSideEffects())
     dispatch(resetRealmscapeStore())
     dispatch(resetAllySelections())
     resetAnalyticsStore()
@@ -145,10 +146,19 @@ const SubFactionSelectComponent = () => {
   const { subFactionKeys, SubFactions } = useMemo(() => getFactionFromList(factionName), [factionName])
 
   const setValue = withSelectOne(name => {
+    // TODO: I don't like using resetSelections() here
+    dispatch(resetSelections())
+    // It feels a little brutal to reset the whole frickin army just because they switched subfactions
+    // Ideally, we'd say "Hey, what units/battalions/etc are not valid anymore because we made this switch?"
+    // And selectively remove those units
+    // I feel like users are going to want to toggle between siubfactions to see how rules work,
+    // and they're gonna be (rightly) pissed off when we clear all of their hard work
+
+    dispatch(resetRealmscapeStore()) // Don't like this either, tbh
+    dispatch(resetAllySelections()) // I mean, this feels wrong too
     dispatch(setSubFactionName(name || ''))
     if (name) {
       const sideEffects = getSideEffects([{ ...SubFactions[name], name }])
-      debugger
       handleSelectOneSideEffects(sideEffects)
       logSubFactionSwitch(name)
     }

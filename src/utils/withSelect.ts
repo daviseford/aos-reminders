@@ -100,10 +100,9 @@ export const handleSelectOneSideEffects = (payload: ISideEffectsPayload) => {
   const { dispatch } = store
 
   // Handle side effects
-  Object.keys(payload).forEach(_key => {
-    Object.keys(payload[_key]).forEach(_slice => {
-      const sideEffectVals: string[] = payload[_key][_slice].values
-
+  Object.entries(payload).forEach(([_key, _value]) => {
+    Object.keys(_value).forEach(_slice => {
+      const sideEffectVals: string[] = _value[_slice].values
       if (sideEffectVals) {
         dispatch(
           selectionActions.addToSelections({

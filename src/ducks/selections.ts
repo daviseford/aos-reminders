@@ -48,6 +48,9 @@ const selections = createSlice({
     resetSelections: state => {
       state.selections = initialState.selections
     },
+    resetSideEffects: state => {
+      state.sideEffects = initialState.sideEffects
+    },
     updateAllyUnits: (state, action: PayloadAction<{ factionName: TSupportedFaction; units: string[] }>) => {
       const { factionName, units } = action.payload
       const battalions = state.allySelections[factionName]?.battalions || []
