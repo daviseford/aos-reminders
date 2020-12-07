@@ -21,6 +21,7 @@ export const tagAs = <
 
     const taggedObj = {
       ...origObj,
+      // TODO: We used to tag all sub-effects. I'm not sure we need to, tbh
       // effects: origObj.effects.map(x => ({ ...x, [tag]: true })),
       [tag]: true,
     }
@@ -68,6 +69,11 @@ export const keyPicker = <T extends object, R extends Extract<keyof T, string>>(
   return pick(obj, ...keys_to_pick)
 }
 
+/**
+ * Grabs battle traits and basic effects
+ * @param obj
+ * @param keys
+ */
 export const pickEffects = <T extends TParentEffectsObjWithEffects, R extends Extract<keyof T, string>>(
   obj: T,
   keys: R[]

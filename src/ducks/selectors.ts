@@ -25,6 +25,7 @@ export const selectAllyFactionNames = (state: IStore) =>
   Object.keys(selectAllySelections(state)) as TSupportedFaction[]
 export const selectAllySelections = (state: IStore) => state.selections.allySelections
 export const selectSelections = (state: IStore) => state.selections.selections
+export const selectSideEffects = (state: IStore) => state.selections.sideEffects
 
 // Visibility
 export const selectAllies = (state: IStore) => state.visibility.allies
