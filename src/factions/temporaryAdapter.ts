@@ -28,6 +28,7 @@ export const temporaryAdapter: TAdapter = (
     EndlessSpells: mergeData(subFaction, 'endless_spells'),
     Flavors: mergeData(subFaction, 'flavors'),
     FlavorType,
+    MountTraits: mergeData(subFaction, 'mount_traits'),
     Prayers: mergeData(subFaction, 'prayers'),
     Scenery: mergeData(subFaction, 'scenery'),
     Spells: mergeData(subFaction, 'spells'),
