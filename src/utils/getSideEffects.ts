@@ -9,7 +9,7 @@ export const getSideEffects = (items: TEntry[]) => {
     accum[item.name] = {}
 
     // We like using mandatory (and we will probably ONLY do this in the future)
-    checkForMandatory(item, accum)
+    checkForMandatory(item, accum, item.name)
 
     // We don't like doing it this way!
     item.effects.forEach(effect => checkEffects(effect, item.name, accum))
@@ -64,8 +64,9 @@ const addToAccum = (
  *
  * @param item
  * @param accum
+ * @param accumKey - Where should we save these sideEffects in accum? - aka item.name
  */
-const checkForMandatory = (item: TEntry, accum: ISideEffectsPayload) => {
+const checkForMandatory = (item: TEntry, accum: ISideEffectsPayload, accumKey: string) => {
   if (!item.mandatory) return
 
   Object.keys(item.mandatory).forEach(sliceKey => {
@@ -77,8 +78,8 @@ const checkForMandatory = (item: TEntry, accum: ISideEffectsPayload) => {
     const mergedEntries = mergeParentEffectObjs(slice)
 
     mergedEntries.forEach(_entry => {
-      addToAccum(accum, item.name, _entry.name, key)
-      if (_entry.mandatory) checkForMandatory(_entry, accum)
+      addToAccum(accum, accumKey, _entry.name, key)
+      if (_entry.mandatory) checkForMandatory(_entry, accum, accumKey)
     })
   })
 }

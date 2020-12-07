@@ -10,7 +10,9 @@ import { PRIMARY_FACTIONS, TPrimaryFactions } from 'meta/factions'
 import { getFactionFromList } from 'meta/faction_list'
 import React, { lazy, Suspense, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { logFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
+import { IArmy } from 'types/army'
+import { logFactionSwitch, logSubFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
+import { getArmy } from 'utils/getArmy/getArmy'
 import { getSideEffects } from 'utils/getSideEffects'
 import { getArmyLink } from 'utils/handleQueryParams'
 import useWindowSize from 'utils/hooks/useWindowSize'
@@ -19,7 +21,7 @@ import { handleSelectOneSideEffects, withSelectOne } from 'utils/withSelect'
 
 const Navbar = lazy(() => import('./navbar'))
 
-const { resetAllySelections, resetSelections } = selectionActions
+const { resetAllySelections, resetSelections, resetSideEffects, removeSelections } = selectionActions
 const { resetRealmscapeStore } = realmscapeActions
 const { setFactionName, setSubFactionName } = factionNamesActions
 
@@ -101,19 +103,25 @@ const FactionSelectComponent = () => {
   const setValue = withSelectOne(value => {
     setLoadedArmy(null)
     dispatch(resetSelections())
+    dispatch(resetSideEffects())
     dispatch(resetRealmscapeStore())
     dispatch(resetAllySelections())
     resetAnalyticsStore()
-    if (isOnline) logFactionSwitch(value)
 
     const { subFactionKeys, SubFactions } = getFactionFromList(value as TPrimaryFactions)
-    dispatch(setSubFactionName(subFactionKeys[0]))
-    // Handle sunfaction sideEffects
-    handleSelectOneSideEffects(
-      getSideEffects([{ ...SubFactions[subFactionKeys[0]], name: subFactionKeys[0] }])
-    )
+    const name = subFactionKeys[0]
+    dispatch(setSubFactionName(name))
+
+    // Handle subfaction sideEffects
+    const sideEffects = getSideEffects([{ ...SubFactions[name], name }])
+    handleSelectOneSideEffects(sideEffects)
 
     dispatch(setFactionName(value as TPrimaryFactions))
+
+    if (isOnline) {
+      logFactionSwitch(value)
+      logSubFactionSwitch(name)
+    }
   })
 
   return (
@@ -137,16 +145,51 @@ const FactionSelectComponent = () => {
 const SubFactionSelectComponent = () => {
   const dispatch = useDispatch()
   const { subFactionName, factionName } = useSelector(selectors.selectFactionNameSlice)
+  const { origin_realm, realmscape } = useSelector(selectors.selectRealmscapeSlice)
+  const sideEffects = useSelector(selectors.selectSideEffects)
   const { subFactionKeys, SubFactions } = useMemo(() => getFactionFromList(factionName), [factionName])
 
   const setValue = withSelectOne(name => {
+    const army = getArmy(factionName, name || null, origin_realm, realmscape) as IArmy
+
+    const types = [
+      army.Artifacts || [],
+      army.Battalions || [],
+      army.CommandAbilities || [],
+      army.CommandTraits || [],
+      army.EndlessSpells || [],
+      army.Flavors || [],
+      army.MountTraits || [],
+      army.Prayers || [],
+      army.Scenery || [],
+      army.Spells || [],
+      army.Triumphs || [],
+      army.Units || [],
+    ]
+
+    const validKeysInArmy = types.map(x => x.map(y => y.name)).flat()
+    const sideEffectKeysToRemoveFromSelections = Object.entries(sideEffects).reduce((a, [key, slice]) => {
+      if (validKeysInArmy.includes(key)) return a
+      a = a.concat(key) // Add the parent element obviously
+      // And now find all sub-keys for that element (we need to remove them too)
+      Object.entries(slice).forEach(([_k, _v]) => {
+        a = a.concat(..._v)
+      })
+
+      return a
+    }, [] as string[])
+
+    dispatch(removeSelections(sideEffectKeysToRemoveFromSelections))
     dispatch(setSubFactionName(name || ''))
+
     if (name) {
-      handleSelectOneSideEffects(getSideEffects([{ ...SubFactions[name], name }]))
+      const sideEffects = getSideEffects([{ ...SubFactions[name], name }])
+      handleSelectOneSideEffects(sideEffects)
+      logSubFactionSwitch(name)
     }
   })
 
-  // Only display if we actually need to choose
+  // Only display if we actually need to choose between subfactions
   if (subFactionKeys.length < 2) return <></>
 
   return (
