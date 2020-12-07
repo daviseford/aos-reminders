@@ -207,7 +207,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         }
         if (txt.startsWith('- Mount Trait : ')) {
           const trait = getTrait('Mount Trait', txt)
-          accum.command_traits = accum.command_traits.concat(trait)
+          accum.mount_traits = accum.mount_traits.concat(trait)
           return accum
         }
         if (txt.startsWith('- Drakeblood Curse : ')) {
@@ -302,6 +302,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
       command_traits: [],
       endless_spells: [],
       flavors: [],
+      mount_traits: [],
       prayers: [],
       scenery: [],
       spells: [],
