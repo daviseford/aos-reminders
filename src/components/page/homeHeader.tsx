@@ -10,7 +10,7 @@ import { PRIMARY_FACTIONS, TPrimaryFactions } from 'meta/factions'
 import { getFactionFromList } from 'meta/faction_list'
 import React, { lazy, Suspense, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { logFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
+import { logFactionSwitch, logSubFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
 import { getSideEffects } from 'utils/getSideEffects'
 import { getArmyLink } from 'utils/handleQueryParams'
 import useWindowSize from 'utils/hooks/useWindowSize'
@@ -104,16 +104,20 @@ const FactionSelectComponent = () => {
     dispatch(resetRealmscapeStore())
     dispatch(resetAllySelections())
     resetAnalyticsStore()
-    if (isOnline) logFactionSwitch(value)
 
     const { subFactionKeys, SubFactions } = getFactionFromList(value as TPrimaryFactions)
-    dispatch(setSubFactionName(subFactionKeys[0]))
-    // Handle sunfaction sideEffects
-    handleSelectOneSideEffects(
-      getSideEffects([{ ...SubFactions[subFactionKeys[0]], name: subFactionKeys[0] }])
-    )
+    const name = subFactionKeys[0]
+    dispatch(setSubFactionName(name))
+
+    // Handle subfaction sideEffects
+    handleSelectOneSideEffects(getSideEffects([{ ...SubFactions[name], name }]))
 
     dispatch(setFactionName(value as TPrimaryFactions))
+
+    if (isOnline) {
+      logFactionSwitch(value)
+      logSubFactionSwitch(name)
+    }
   })
 
   return (
@@ -143,10 +147,11 @@ const SubFactionSelectComponent = () => {
     dispatch(setSubFactionName(name || ''))
     if (name) {
       handleSelectOneSideEffects(getSideEffects([{ ...SubFactions[name], name }]))
+      logSubFactionSwitch(name)
     }
   })
 
-  // Only display if we actually need to choose
+  // Only display if we actually need to choose between subfactions
   if (subFactionKeys.length < 2) return <></>
 
   return (

@@ -65,6 +65,19 @@ export const logFactionSwitch = (factionName: string | null) => {
 }
 
 /**
+ * Sends a Google Analytics event telling us which subfaction the user has selected
+ * @param subFaction
+ */
+export const logSubFactionSwitch = (subFaction: string | null) => {
+  if (!subFaction) return
+  logToGA({
+    category: 'Select',
+    action: `Select-SubFaction-${subFaction}`,
+    label: subFaction,
+  })
+}
+
+/**
  * Sends a Google Analytics event telling us which allied faction the user has selected
  * @param factionName
  */
