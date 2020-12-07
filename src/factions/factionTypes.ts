@@ -7,7 +7,6 @@ export type TParentEffectsObjWithEffects = Record<string, TObjWithEffects>
 export type TItemDescription = {
   available?: Partial<Record<TSelectionTypes, TParentEffectsObjWithEffects[]>>
   mandatory?: Partial<Record<TSelectionTypes, TParentEffectsObjWithEffects[]>>
-} & {
   effects: TEffects[]
 }
 
