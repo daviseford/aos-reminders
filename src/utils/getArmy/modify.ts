@@ -74,6 +74,15 @@ const modifyCommandTraits = (
   )
 }
 
+const modifyMountTraits = (mount_traits: TEntry[], Collection: TCollection): TEntry[] => {
+  return uniqBy(
+    sortBy(mount_traits, 'name')
+      .concat(Collection.MountTraits)
+      .map(t => ({ ...t, mount_trait: true })),
+    'name'
+  )
+}
+
 const modifyCommandAbilities = (
   command_abilities: TEntry[],
   realmscape: TBattleRealms | null,
@@ -149,6 +158,7 @@ export const modify = {
   CommandTraits: modifyCommandTraits,
   EndlessSpells: modifyEndlessSpells,
   Flavors: modifyFlavors,
+  MountTraits: modifyMountTraits,
   Prayers: modifyPrayers,
   Scenery: modifyScenery,
   Spells: modifySpells,

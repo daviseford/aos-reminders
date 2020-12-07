@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { OGOR_MAWTRIBES } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
@@ -6,13 +5,14 @@ import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
-import EndlessSpells from './endless_spells'
+import Flavors from './flavors'
+import MountTraits from './mount_traits'
 import Prayers from './prayers'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [OGOR_MAWTRIBES]: {
     effects: pickEffects(BattleTraits, [
       'Everwinter Prayers',
@@ -26,7 +26,8 @@ const subFactions: TItemDescriptions = {
       battalions: [Battalions],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
-      endless_spells: [EndlessSpells],
+      flavors: [Flavors],
+      mount_traits: [MountTraits],
       prayers: [Prayers],
       scenery: [Scenery],
       spells: [Spells],

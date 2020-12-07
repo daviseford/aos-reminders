@@ -9,6 +9,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
+// TODO: Add mandatory units
 const RegularBattalions = {
   'Gutbuster Warglutt': {
     effects: [
@@ -121,5 +122,4 @@ const RegularBattalions = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(RegularBattalions, 'battalion')

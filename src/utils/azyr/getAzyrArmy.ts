@@ -18,7 +18,7 @@ export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
 const selectorLookup: Record<string, TSelectionTypes> = {
   'COMMAND TRAIT': 'command_traits',
   'ENDLESS SPELL': 'endless_spells',
-  'MOUNT TRAIT': 'command_traits',
+  'MOUNT TRAIT': 'mount_traits',
   ALLEGIANCE: 'flavors',
   ARTEFACT: 'artifacts',
   BATTALION: 'battalions',
@@ -110,6 +110,7 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
       command_traits: [],
       endless_spells: [],
       flavors: [],
+      mount_traits: [],
       prayers: [],
       scenery: [],
       spells: [],

@@ -58,6 +58,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
     CommandTraits = [],
     EndlessSpells = [],
     Flavors = [],
+    MountTraits = [],
     Prayers = [],
     Scenery = [],
     Spells = [],
@@ -76,7 +77,8 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
     CommandAbilities = getAllianceItems(GrandAlliance, 'CommandAbilities', CommandAbilities)
     CommandTraits = getAllianceItems(GrandAlliance, 'CommandTraits', CommandTraits)
     EndlessSpells = GrandAllianceEndlessSpells
-    Prayers = getAllianceItems(GrandAlliance, 'Prayers', Prayers)
+    MountTraits = getAllianceItems(GrandAlliance, 'MountTraits', MountTraits) // new
+    Prayers = getAllianceItems(GrandAlliance, 'Prayers', Prayers) // new
     Spells = getAllianceItems(GrandAlliance, 'Spells', Spells)
     Units = getAllianceItems(GrandAlliance, 'Units', Units)
   }
@@ -87,6 +89,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   Army.CommandTraits = modify.CommandTraits(CommandTraits, GrandAlliance, Collection)
   Army.EndlessSpells = modify.EndlessSpells(EndlessSpells, GrandAllianceEndlessSpells, Collection)
   Army.Flavors = modify.Flavors(Flavors, Collection)
+  Army.MountTraits = modify.MountTraits(MountTraits, Collection)
   Army.Prayers = modify.Prayers(Prayers, Collection)
   Army.Scenery = modify.Scenery(Scenery, Collection)
   Army.Spells = modify.Spells(Spells, realmscape, Collection)
@@ -100,6 +103,7 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
     Army.CommandTraits,
     Army.EndlessSpells,
     Army.Flavors,
+    Army.MountTraits,
     Army.Prayers,
     Army.Scenery,
     Army.Spells,

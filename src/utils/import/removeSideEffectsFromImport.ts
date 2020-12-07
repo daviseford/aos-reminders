@@ -14,6 +14,7 @@ export const lowerToUpperLookup: TLookup = {
   command_traits: 'CommandTraits',
   endless_spells: 'EndlessSpells',
   flavors: 'Flavors',
+  mount_traits: 'MountTraits',
   prayers: 'Prayers',
   scenery: 'Scenery',
   spells: 'Spells',
