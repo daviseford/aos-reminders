@@ -8,12 +8,14 @@ export const selectionsFactory = (options: Partial<TSelections>): TSelections =>
     command_traits = [],
     endless_spells = [],
     flavors = [],
+    mount_traits = [],
     prayers = [],
     scenery = [],
     spells = [],
     triumphs = [],
     units = [],
   } = options
+
   return {
     artifacts,
     battalions,
@@ -21,6 +23,7 @@ export const selectionsFactory = (options: Partial<TSelections>): TSelections =>
     command_traits,
     endless_spells,
     flavors,
+    mount_traits,
     prayers,
     scenery,
     spells,

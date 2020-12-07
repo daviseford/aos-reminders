@@ -12,6 +12,7 @@ const initialState: ISelectionStore = {
     command_traits: [],
     endless_spells: [],
     flavors: [],
+    mount_traits: [],
     prayers: [],
     scenery: [],
     spells: [],
@@ -104,6 +105,9 @@ const selections = createSlice({
     },
     setCommandTraits: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'command_traits')
+    },
+    setMountTraits: (state, action: PayloadAction<string[]>) => {
+      handleSideEffects(state, action.payload, 'mount_traits')
     },
     setTriumphs: (state, action: PayloadAction<string[]>) => {
       state.selections.triumphs = action.payload

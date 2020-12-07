@@ -5,7 +5,7 @@ import { TSelectionTypes } from 'types/selections'
 import { ISideEffectsPayload } from 'utils/withSelect'
 
 export const getSideEffects = (items: TEntry[]) => {
-  const Collection = items.reduce((accum, item) => {
+  const Collection = items?.reduce((accum, item) => {
     accum[item.name] = {}
 
     // We like using mandatory (and we will probably ONLY do this in the future)
@@ -26,7 +26,7 @@ const entryKeyToSelectionsKey: Record<Exclude<TEntryProperties, 'battle_trait'>,
   command_ability: 'command_abilities',
   command_trait: 'command_traits',
   endless_spell: 'endless_spells',
-  mount_trait: 'command_traits',
+  mount_trait: 'mount_traits',
   prayer: 'prayers',
   scenery: 'scenery',
   spell: 'spells',

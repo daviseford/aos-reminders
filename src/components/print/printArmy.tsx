@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { titleCase } from 'utils/textUtils'
 
 const PrintArmy = () => {
-  const { factionName, realmscape_feature, selections, allySelections } = useSelector(
+  const { factionName, subFactionName, realmscape_feature, selections, allySelections } = useSelector(
     selectors.selectCurrentArmy
   )
   const {
@@ -14,6 +14,8 @@ const PrintArmy = () => {
     command_traits,
     endless_spells,
     flavors,
+    prayers,
+    mount_traits,
     scenery,
     spells,
     triumphs,
@@ -24,9 +26,26 @@ const PrintArmy = () => {
     <>
       <div className={'row text-center mt-4 mb-1 d-none d-print-block'}>
         <h5>{titleCase(factionName)}</h5>
+        {titleCase(factionName) !== titleCase(subFactionName) && (
+          <h5>Subfaction: {titleCase(subFactionName)}</h5>
+        )}
       </div>
       <div className={'row text-center d-none d-print-block'}>
+        <ItemsDisplayComponent name={'Flavor'} items={flavors} />
+        <ItemsDisplayComponent name={'Battalion'} items={battalions} />
         <ItemsDisplayComponent name={'Unit'} items={units} />
+        <ItemsDisplayComponent name={'Artifact'} items={artifacts} />
+
+        <ItemsDisplayComponent name={'Command Trait'} items={command_traits} />
+        <ItemsDisplayComponent name={'Mount Trait'} items={mount_traits} />
+        <ItemsDisplayComponent name={'Command Abilities'} items={command_abilities} pluralize={false} />
+        <ItemsDisplayComponent name={'Flavor'} items={flavors} />
+        <ItemsDisplayComponent name={'Spell'} items={spells} />
+        <ItemsDisplayComponent name={'Prayer'} items={prayers} />
+        <ItemsDisplayComponent name={'Endless Spell'} items={endless_spells} />
+        <ItemsDisplayComponent name={'Scenery'} items={scenery} pluralize={false} />
+        <ItemsDisplayComponent name={'Realmscape Feature'} items={realmFeature} />
+        <ItemsDisplayComponent name={'Triumph'} items={triumphs} />
 
         {Object.keys(allySelections).map(name => (
           <ItemsDisplayComponent
@@ -36,9 +55,6 @@ const PrintArmy = () => {
           />
         ))}
 
-        <ItemsDisplayComponent name={'Artifact'} items={artifacts} />
-        <ItemsDisplayComponent name={'Battalion'} items={battalions} />
-
         {Object.keys(allySelections).map(name => (
           <ItemsDisplayComponent
             name={`Allied ${titleCase(name)} Battalion`}
@@ -46,15 +62,6 @@ const PrintArmy = () => {
             key={name}
           />
         ))}
-
-        <ItemsDisplayComponent name={'Command Trait'} items={command_traits} />
-        <ItemsDisplayComponent name={'Command'} items={command_abilities} />
-        <ItemsDisplayComponent name={'Flavor'} items={flavors} />
-        <ItemsDisplayComponent name={'Spell'} items={spells} />
-        <ItemsDisplayComponent name={'Endless Spell'} items={endless_spells} />
-        <ItemsDisplayComponent name={'Scenery'} items={scenery} pluralize={false} />
-        <ItemsDisplayComponent name={'Realmscape Feature'} items={realmFeature} />
-        <ItemsDisplayComponent name={'Triumph'} items={triumphs} />
       </div>
     </>
   )

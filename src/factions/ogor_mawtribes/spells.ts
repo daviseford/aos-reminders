@@ -88,6 +88,36 @@ const Spells = {
       },
     ],
   },
+
+  'Voracious Maw': {
+    effects: [
+      {
+        name: `Voracious Maw`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster that is visible to them. That unit suffers D3 mortal wounds. After resolving any damage, roll a D6. On a 1, 2 or 3, the maw is said to be satisfied and the spell ends. On a 4+, the target unit suffers D3 additional mortal wounds. Keep repeating this process until the maw is satisfied or the target unit is destroyed.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+
+  'Cascading Fire-cloak': {
+    effects: [
+      {
+        name: `Cascading Fire-cloak`,
+        desc: `Casting value of 6. Roll 1 dice for each enemy unit within 3" of the caster. On a 4+, that enemy unit suffers D3 mortal wounds. In addition, if this spell is successfully cast, add 1 to save rolls for attacks that target this model until the start of your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+
+  Rockchomper: {
+    effects: [
+      {
+        name: `Rockchomper`,
+        desc: `Casting value of 5. Pick 1 friendly unit of Ogor Gluttons wholly within 18" of the caster that is visible to them. Until the start of your next hero phase, if the unmodified wound roll for an attack made with that unit's Gulping Bite is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage and that unit can heal 1 wound allocated to it.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Spells, 'spell')

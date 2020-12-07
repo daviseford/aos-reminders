@@ -15,6 +15,7 @@ export interface IArmy {
   Flavors: TEntry[] // Previously 'Allegiances'
   FlavorType?: string // Previously 'AllegianceType'
   Game: TGameStructure
+  MountTraits: TEntry[] // New in v4: (previously part of 'Traits')
   Prayers: TEntry[] // New in v4: (previously part of 'Spells')
   Scenery: TEntry[]
   Spells: TEntry[]
