@@ -65,13 +65,22 @@ const useGetArmyBuilderCards = (army: IArmy) => {
         sideEffects: getSideEffects(army.MountTraits),
       },
       {
+        slice: 'command_abilities' as TSelectionTypes,
+        items: army.CommandAbilities,
+        setValues: selectionActions.setCommandAbilities,
+        title: 'Command Abilities',
+        values: selections.command_abilities || [],
+        type: 'multi',
+        sideEffects: getSideEffects(army.CommandAbilities),
+      },
+      {
         slice: 'artifacts' as TSelectionTypes,
         items: army.Artifacts,
         setValues: selectionActions.setArtifacts,
         title: 'Artifacts',
         values: selections.artifacts || [],
         type: 'multi',
-        sideEffects: {},
+        sideEffects: getSideEffects(army.Artifacts),
       },
 
       {
@@ -81,7 +90,7 @@ const useGetArmyBuilderCards = (army: IArmy) => {
         title: 'Prayers',
         values: selections.prayers || [],
         type: 'multi',
-        sideEffects: {},
+        sideEffects: getSideEffects(army.Prayers),
       },
       {
         slice: 'spells' as TSelectionTypes,
@@ -90,7 +99,7 @@ const useGetArmyBuilderCards = (army: IArmy) => {
         title: 'Spells',
         values: selections.spells || [],
         type: 'multi',
-        sideEffects: {},
+        sideEffects: getSideEffects(army.Spells),
       },
       {
         slice: 'endless_spells' as TSelectionTypes,
@@ -99,7 +108,7 @@ const useGetArmyBuilderCards = (army: IArmy) => {
         title: 'Endless Spells',
         values: selections.endless_spells || [],
         type: 'multi',
-        sideEffects: {},
+        sideEffects: getSideEffects(army.EndlessSpells),
       },
       {
         slice: 'scenery' as TSelectionTypes,
@@ -108,16 +117,7 @@ const useGetArmyBuilderCards = (army: IArmy) => {
         title: 'Scenery',
         values: selections.scenery || [],
         type: 'multi',
-        sideEffects: {},
-      },
-      {
-        slice: 'command_abilities' as TSelectionTypes,
-        items: army.CommandAbilities,
-        setValues: selectionActions.setCommandAbilities,
-        title: 'Command Abilities',
-        values: selections.command_abilities || [],
-        type: 'multi',
-        sideEffects: {},
+        sideEffects: getSideEffects(army.Scenery),
       },
       {
         slice: 'triumphs' as TSelectionTypes,
@@ -126,7 +126,7 @@ const useGetArmyBuilderCards = (army: IArmy) => {
         title: 'Triumphs',
         values: selections.triumphs || [],
         type: 'multi',
-        sideEffects: {},
+        sideEffects: getSideEffects(army.Triumphs),
       },
       {
         items: SUPPORTED_ORIGIN_REALMS,
