@@ -3,6 +3,7 @@ import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
 import { NurgleFaction } from 'factions/nurgle'
 import { OgorMawtribesFaction } from 'factions/ogor_mawtribes'
+import { OssiarchBonereapersFaction } from 'factions/ossiarch_bonereapers'
 import { SampleFaction } from 'factions/sample'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
@@ -15,6 +16,7 @@ import {
   MEGA_GARGANT_MERCENARIES,
   NURGLE,
   OGOR_MAWTRIBES,
+  OSSIARCH_BONEREAPERS,
   SAMPLE,
   SERAPHON,
   SLAANESH,
@@ -143,7 +145,7 @@ const FactionList = {
   //   Army: { ...OrderArmy },
   //   GrandAlliance: ORDER,
   // },
-  // [OSSIARCH_BONEREAPERS]: {
+  [OSSIARCH_BONEREAPERS]: { ...OssiarchBonereapersFaction },
   //   Army: { ...OssiarchBonereapersArmy },
   //   GrandAlliance: DEATH,
   // },
