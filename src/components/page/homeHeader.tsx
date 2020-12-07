@@ -10,7 +10,9 @@ import { PRIMARY_FACTIONS, TPrimaryFactions } from 'meta/factions'
 import { getFactionFromList } from 'meta/faction_list'
 import React, { lazy, Suspense, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
+import { IArmy } from 'types/army'
 import { logFactionSwitch, logSubFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
+import { getArmy } from 'utils/getArmy/getArmy'
 import { getSideEffects } from 'utils/getSideEffects'
 import { getArmyLink } from 'utils/handleQueryParams'
 import useWindowSize from 'utils/hooks/useWindowSize'
@@ -19,7 +21,7 @@ import { handleSelectOneSideEffects, withSelectOne } from 'utils/withSelect'
 
 const Navbar = lazy(() => import('./navbar'))
 
-const { resetAllySelections, resetSelections, resetSideEffects } = selectionActions
+const { resetAllySelections, resetSelections, resetSideEffects, removeSelections } = selectionActions
 const { resetRealmscapeStore } = realmscapeActions
 const { setFactionName, setSubFactionName } = factionNamesActions
 
@@ -143,20 +145,43 @@ const FactionSelectComponent = () => {
 const SubFactionSelectComponent = () => {
   const dispatch = useDispatch()
   const { subFactionName, factionName } = useSelector(selectors.selectFactionNameSlice)
+  const { origin_realm, realmscape } = useSelector(selectors.selectRealmscapeSlice)
+  const sideEffects = useSelector(selectors.selectSideEffects)
   const { subFactionKeys, SubFactions } = useMemo(() => getFactionFromList(factionName), [factionName])
 
   const setValue = withSelectOne(name => {
-    // TODO: I don't like using resetSelections() here
-    dispatch(resetSelections())
-    // It feels a little brutal to reset the whole frickin army just because they switched subfactions
-    // Ideally, we'd say "Hey, what units/battalions/etc are not valid anymore because we made this switch?"
-    // And selectively remove those units
-    // I feel like users are going to want to toggle between siubfactions to see how rules work,
-    // and they're gonna be (rightly) pissed off when we clear all of their hard work
+    const army = getArmy(factionName, name || null, origin_realm, realmscape) as IArmy
 
-    dispatch(resetRealmscapeStore()) // Don't like this either, tbh
-    dispatch(resetAllySelections()) // I mean, this feels wrong too
+    const types = [
+      army.Artifacts || [],
+      army.Battalions || [],
+      army.CommandAbilities || [],
+      army.CommandTraits || [],
+      army.EndlessSpells || [],
+      army.Flavors || [],
+      army.MountTraits || [],
+      army.Prayers || [],
+      army.Scenery || [],
+      army.Spells || [],
+      army.Triumphs || [],
+      army.Units || [],
+    ]
+
+    const validKeysInArmy = types.map(x => x.map(y => y.name)).flat()
+    const sideEffectKeysToRemoveFromSelections = Object.entries(sideEffects).reduce((a, [key, slice]) => {
+      if (validKeysInArmy.includes(key)) return a
+      a = a.concat(key) // Add the parent element obviously
+      // And now find all sub-keys for that element (we need to remove them too)
+      Object.entries(slice).forEach(([_k, _v]) => {
+        a = a.concat(..._v)
+      })
+
+      return a
+    }, [] as string[])
+
+    dispatch(removeSelections(sideEffectKeysToRemoveFromSelections))
     dispatch(setSubFactionName(name || ''))
+
     if (name) {
       const sideEffects = getSideEffects([{ ...SubFactions[name], name }])
       handleSelectOneSideEffects(sideEffects)

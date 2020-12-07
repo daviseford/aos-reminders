@@ -118,6 +118,17 @@ const selections = createSlice({
     setUnits: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'units')
     },
+
+    /**
+     * Given an array of strings, removes those strings from every selection field
+     * @param state
+     * @param action
+     */
+    removeSelections: (state, action: PayloadAction<string[]>) => {
+      Object.entries(state.selections).forEach(([k, v]) => {
+        state.selections[k as TSelectionTypes] = without(v, ...action.payload)
+      })
+    },
   },
 })
 
