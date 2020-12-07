@@ -40,7 +40,7 @@ type TSonsOfBehemat = 'SONS_OF_BEHEMAT'
 type TStormcastEternals = 'STORMCAST_ETERNALS'
 type TStormcastEternalsStormkeep = 'STORMCAST_ETERNALS_STORMKEEP'
 type TSylvaneth = 'SYLVANETH'
-type TTamurkhansHorde = 'TAMURKHANS_HORDE'
+type TTamurkhansHorde = 'TAMURKHANS_HORDE' // !! REMOVE THIS AFTER V4 NURGLE !!
 type TTombKings = 'TOMB_KINGS'
 type TTzeentch = 'TZEENTCH'
 type TWanderers = 'WANDERERS'
@@ -85,7 +85,7 @@ export const SONS_OF_BEHEMAT: TSonsOfBehemat = 'SONS_OF_BEHEMAT'
 export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
 export const STORMCAST_ETERNALS_STORMKEEP: TStormcastEternalsStormkeep = 'STORMCAST_ETERNALS_STORMKEEP'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
-export const TAMURKHANS_HORDE: TTamurkhansHorde = 'TAMURKHANS_HORDE'
+export const TAMURKHANS_HORDE: TTamurkhansHorde = 'TAMURKHANS_HORDE' // !! REMOVE THIS AFTER V4 NURGLE !!
 export const TOMB_KINGS: TTombKings = 'TOMB_KINGS'
 export const TZEENTCH: TTzeentch = 'TZEENTCH'
 export const WANDERERS: TWanderers = 'WANDERERS'
@@ -123,7 +123,7 @@ export type TPrimaryFactions =
   // | TMegaGargantMercenaries
   // | TMercenaryCompanies
   // | TNighthaunt
-  // | TNurgle
+  | TNurgle
   | TOgorMawtribes
   // | TOrderGrandAlliance
   // | TOssiarchBonereapers
@@ -136,7 +136,6 @@ export type TPrimaryFactions =
   | TStormcastEternals
 // | TStormcastEternalsStormkeep
 // | TSylvaneth
-// | TTamurkhansHorde
 // | TTombKings
 // | TTzeentch
 // | TWanderers
@@ -171,7 +170,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // LETHISIAN_DEFENDERS,
   // LUMINETH_REALMLORDS,
   // NIGHTHAUNT,
-  // NURGLE,
+  NURGLE,
   OGOR_MAWTRIBES,
   // ORDER_GRAND_ALLIANCE,
   // OSSIARCH_BONEREAPERS,
@@ -184,7 +183,6 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   STORMCAST_ETERNALS,
   // STORMCAST_ETERNALS_STORMKEEP,
   // SYLVANETH,
-  // TAMURKHANS_HORDE,
   // TOMB_KINGS,
   // TZEENTCH,
   // WANDERERS,

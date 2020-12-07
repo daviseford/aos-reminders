@@ -7,6 +7,6 @@ export const DaughtersOfKhaineFaction = new Faction(
   DAUGHTERS_OF_KHAINE,
   ORDER,
   SubFactions,
-  'Temples',
-  'Flavors'
+  'Subfactions',
+  'Temples'
 )
