@@ -1,11 +1,11 @@
+import GenericBattleTraits from 'army/generic/battle_traits'
+import { TItemDescriptions } from 'factions/factionTypes'
 import { MEGA_GARGANT_MERCENARIES } from 'meta/factions'
-import { pickEffects } from '../metatagger'
-import BattleTraits from './battle_traits'
 import Units from './units'
 
-const subFactions = {
+const subFactions: TItemDescriptions = {
   [MEGA_GARGANT_MERCENARIES]: {
-    effects: pickEffects(BattleTraits, ['Disruptive Presence']),
+    effects: [GenericBattleTraits.DisruptivePresence],
     available: {
       units: [Units],
     },
