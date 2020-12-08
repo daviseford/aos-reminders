@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -9,9 +9,8 @@ import {
   START_OF_ROUND,
 } from 'types/phases'
 
-const EndlessSpells: TEntry[] = [
-  {
-    name: `Warp Lightning Vortex (Skaven)`,
+const EndlessSpells = {
+  'Warp Lightning Vortex (Skaven)': {
     effects: [
       {
         name: `Summon`,
@@ -30,8 +29,7 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vermintide (Skaven)`,
+  'Vermintide (Skaven)': {
     effects: [
       {
         name: `Predatory`,
@@ -65,8 +63,7 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Bell of Doom (Skaven)`,
+  'Bell of Doom (Skaven)': {
     effects: [
       {
         name: `Predatory`,
@@ -90,6 +87,6 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default EndlessSpells
+export default tagAs(EndlessSpells, 'endless_spell')

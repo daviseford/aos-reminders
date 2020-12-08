@@ -19,7 +19,7 @@ import {
   ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
-  SKAVEN,
+  SKAVENTIDE,
   SLAANESH,
   SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
@@ -513,7 +513,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(SKAVEN)
+    expect(res.factionName).toEqual(SKAVENTIDE)
     expect(res.selections.battalions).toEqual([
       'Warpcog Convocation',
       'Rattlegauge Warplock (Enginecoven)',
@@ -644,7 +644,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.factionName).toEqual(NURGLE)
     expect(res).toEqual({
       allyFactionNames: ['SKAVEN'],
-      allySelections: { [SKAVEN]: { battalions: ['Congregation of Filth'], units: [] } },
+      allySelections: { [SKAVENTIDE]: { battalions: ['Congregation of Filth'], units: [] } },
       allyUnits: [],
       errors: [],
       factionName: 'NURGLE',

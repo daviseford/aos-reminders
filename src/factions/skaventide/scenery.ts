@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   HERO_PHASE,
@@ -7,9 +7,8 @@ import {
   START_OF_SETUP,
 } from 'types/phases'
 
-const Scenery: TEntry[] = [
-  {
-    name: `Gnawholes`,
+const Scenery = {
+  Gnawholes: {
     effects: [
       {
         name: `Gnawholes`,
@@ -33,6 +32,6 @@ const Scenery: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Scenery
+export default tagAs(Scenery, 'scenery')
