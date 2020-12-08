@@ -121,7 +121,7 @@ export type TPrimaryFactions =
   // | TLethisianDefenders
   // | TLuminethRealmlords
   // | TMegaGargantMercenaries
-  // | TMercenaryCompanies
+  | TMercenaryCompanies
   // | TNighthaunt
   | TNurgle
   | TOgorMawtribes
@@ -134,15 +134,14 @@ export type TPrimaryFactions =
   | TSlavesToDarkness
   | TSonsOfBehemat
   | TStormcastEternals
-// | TStormcastEternalsStormkeep
-// | TSylvaneth
+  // | TStormcastEternalsStormkeep
+  | TSylvaneth
 // | TTombKings
 // | TTzeentch
 // | TWanderers
 
 // Supported Factions
-// export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies | TMegaGargantMercenaries
-export type TSupportedFaction = TPrimaryFactions | TMegaGargantMercenaries
+export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies | TMegaGargantMercenaries
 
 export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // BEASTS_OF_CHAOS,
@@ -182,7 +181,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
   // STORMCAST_ETERNALS_STORMKEEP,
-  // SYLVANETH,
+  SYLVANETH,
   // TOMB_KINGS,
   // TZEENTCH,
   // WANDERERS,
@@ -191,5 +190,5 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
 export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([
   ...PRIMARY_FACTIONS,
   MEGA_GARGANT_MERCENARIES,
-  // MERCENARY_COMPANIES,
+  MERCENARY_COMPANIES,
 ])

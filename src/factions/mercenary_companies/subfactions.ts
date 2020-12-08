@@ -1,9 +1,9 @@
 import GenericBattleTraits from 'army/generic/battle_traits'
-import { MEGA_GARGANT_MERCENARIES } from 'meta/factions'
+import { MERCENARY_COMPANIES } from 'meta/factions'
 import Units from './units'
 
 const subFactions = {
-  [MEGA_GARGANT_MERCENARIES]: {
+  [MERCENARY_COMPANIES]: {
     effects: [GenericBattleTraits.DisruptivePresence],
     available: {
       units: [Units],

@@ -1,5 +1,6 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
@@ -7,11 +8,75 @@ import {
   HERO_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Dread Harvester`,
+// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+const CommandTraits = {
+  'Regal Old-growth': {
+    effects: [
+      {
+        name: `Regal Old-growth`,
+        desc: `Add 1 to the Wounds characteristic of this general.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  'Nurtured by Magic': {
+    effects: [
+      {
+        name: `Nurtured by Magic`,
+        desc: `Once in each of your hero phases, if this general successfully casts a spell that is not unbound, pick 1 friendly GNARLROOT unit wholly within 18" of this general. You can heal up to D3 wounds allocated to that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Legacy of Valour': {
+    effects: [
+      {
+        name: `Legacy of Valour`,
+        desc: `If this general is slain, you can pick 1 enemy unit within 1" of this general before they are removed from play and roll a D6. On a 2-5 that unit suffers D3 mortal wounds. On a 6, that unit suffers D6 mortal wounds.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  'Mere Rainfall': {
+    effects: [
+      {
+        name: `Mere Rainfall`,
+        desc: `You can reroll save rolls for attacks made with missile weapons that target this general.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+  'My Heart Is Ice': {
+    effects: [
+      {
+        name: `My Heart Is Ice`,
+        desc: `Roll a D6 each time a wound inflicted by a melee weapon is allocated to this general and not negated. On a 5+ the attacking unit suffers 1 mortal wound.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Paragon of Terror': {
+    effects: [
+      {
+        name: `Paragon of Terror`,
+        desc: `Reroll successful battleshock tests for enemy units while they are within 6" of this general.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  'Seek New Fruit': {
+    effects: [
+      {
+        name: `Seek New Fruit`,
+        desc: `Each time this general attacks with its melee weapons, it can make a 6" move after all of its attacks have been resolved. If it does so, it must finish the move more than 3" from enemy units.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Dread Harvester': {
     effects: [
       {
         name: `Dread Harvester`,
@@ -20,8 +85,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gnarled Warrior`,
+  'Gnarled Warrior': {
     effects: [
       {
         name: `Gnarled Warrior`,
@@ -30,8 +94,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gift of Ghyran`,
+  'Gift of Ghyran': {
     effects: [
       {
         name: `Gift of Ghyran`,
@@ -40,8 +103,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lord of Spites`,
+  'Lord of Spites': {
     effects: [
       {
         name: `Lord of Spites`,
@@ -50,8 +112,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Warsinger`,
+  Warsinger: {
     effects: [
       {
         name: `Warsinger`,
@@ -60,8 +121,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Wisdom of the Ancients`,
+  'Wisdom of the Ancients': {
     effects: [
       {
         name: `Wisdom of the Ancients`,
@@ -70,8 +130,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Arcane Bounty (Wizard Only)`,
+  'Arcane Bounty (Wizard Only)': {
     effects: [
       {
         name: `Arcane Bounty (Wizard Only)`,
@@ -80,8 +139,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mystic Regrowth (Wizard Only)`,
+  'Mystic Regrowth (Wizard Only)': {
     effects: [
       {
         name: `Mystic Regrowth (Wizard Only)`,
@@ -90,8 +148,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Voice of Warding (Wizard Only)`,
+  'Voice of Warding (Wizard Only)': {
     effects: [
       {
         name: `Voice of Warding (Wizard Only)`,
@@ -100,8 +157,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Glade Lore (Wizard Only)`,
+  'Glade Lore (Wizard Only)': {
     effects: [
       {
         name: `Glade Lore (Wizard Only)`,
@@ -110,8 +166,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Spellsinger (Wizard Only)`,
+  'Spellsinger (Wizard Only)': {
     effects: [
       {
         name: `Spellsinger (Wizard Only)`,
@@ -120,8 +175,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Radiant Spirit (Wizard Only)`,
+  'Radiant Spirit (Wizard Only)': {
     effects: [
       {
         name: `Radiant Spirit (Wizard Only)`,
@@ -130,6 +184,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default CommandTraits
+// Always export using tagAs
+export default tagAs(CommandTraits, 'command_trait')

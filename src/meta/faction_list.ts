@@ -1,6 +1,7 @@
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
+import { MercenaryCompaniesFaction } from 'factions/mercenary_companies'
 import { NurgleFaction } from 'factions/nurgle'
 import { OgorMawtribesFaction } from 'factions/ogor_mawtribes'
 import { SampleFaction } from 'factions/sample'
@@ -9,10 +10,12 @@ import { SlaaneshFaction } from 'factions/slaanesh'
 import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { SonsOfBehematFaction } from 'factions/sons_of_behemat'
 import { StormcastFaction } from 'factions/stormcast_eternals'
+import { SylvanethFaction } from 'factions/sylvaneth'
 import {
   DAUGHTERS_OF_KHAINE,
   LEGIONS_OF_NAGASH,
   MEGA_GARGANT_MERCENARIES,
+  MERCENARY_COMPANIES,
   NURGLE,
   OGOR_MAWTRIBES,
   SAMPLE,
@@ -21,6 +24,7 @@ import {
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
+  SYLVANETH,
   TSupportedFaction,
 } from 'meta/factions'
 
@@ -129,10 +133,7 @@ const FactionList = {
   //   GrandAlliance: ORDER,
   // },
   [MEGA_GARGANT_MERCENARIES]: { ...MegaGargantMercenariesFaction },
-  // [MERCENARY_COMPANIES]: {
-  //   Army: { ...MercenaryCompaniesArmy },
-  //   GrandAlliance: ORDER,
-  // },
+  [MERCENARY_COMPANIES]: { ...MercenaryCompaniesFaction },
   // [NIGHTHAUNT]: {
   //   Army: { ...NighthauntArmy },
   //   GrandAlliance: DEATH,
@@ -165,10 +166,7 @@ const FactionList = {
   //   Army: { ...StormcastEternalsStormkeepArmy },
   //   GrandAlliance: ORDER,
   // },
-  // [SYLVANETH]: {
-  //   Army: { ...SylvanethArmy },
-  //   GrandAlliance: ORDER,
-  // },
+  [SYLVANETH]: { ...SylvanethFaction },
   // [TAMURKHANS_HORDE]: {
   //   Army: { ...TamurkhansHordeArmy },
   //   GrandAlliance: CHAOS,
