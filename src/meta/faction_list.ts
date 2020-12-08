@@ -1,6 +1,7 @@
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
+import { MercenaryCompaniesFaction } from 'factions/mercenary_companies'
 import { NurgleFaction } from 'factions/nurgle'
 import { OgorMawtribesFaction } from 'factions/ogor_mawtribes'
 import { SampleFaction } from 'factions/sample'
@@ -14,6 +15,7 @@ import {
   DAUGHTERS_OF_KHAINE,
   LEGIONS_OF_NAGASH,
   MEGA_GARGANT_MERCENARIES,
+  MERCENARY_COMPANIES,
   NURGLE,
   OGOR_MAWTRIBES,
   SAMPLE,
@@ -131,10 +133,7 @@ const FactionList = {
   //   GrandAlliance: ORDER,
   // },
   [MEGA_GARGANT_MERCENARIES]: { ...MegaGargantMercenariesFaction },
-  // [MERCENARY_COMPANIES]: {
-  //   Army: { ...MercenaryCompaniesArmy },
-  //   GrandAlliance: ORDER,
-  // },
+  [MERCENARY_COMPANIES]: { ...MercenaryCompaniesFaction },
   // [NIGHTHAUNT]: {
   //   Army: { ...NighthauntArmy },
   //   GrandAlliance: DEATH,
