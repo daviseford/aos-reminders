@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -12,9 +12,9 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Daith's Reaper`,
+// Add individual artifacts here, and access them in other files!
+const Artifacts = {
+  "Daith's Reaper": {
     effects: [
       {
         name: `Daith's Reaper`,
@@ -23,8 +23,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Greenwood Gladius`,
+  'Greenwood Gladius': {
     effects: [
       {
         name: `Greenwood Gladius`,
@@ -33,8 +32,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Autumn's Ire`,
+  "Autumn's Ire": {
     effects: [
       {
         name: `Autumn's Ire`,
@@ -43,8 +41,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Winnowstaff`,
+  Winnowstaff: {
     effects: [
       {
         name: `Winnowstaff`,
@@ -53,8 +50,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ancient Barkblade`,
+  'Ancient Barkblade': {
     effects: [
       {
         name: `Ancient Barkblade`,
@@ -63,8 +59,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Darkest Bough`,
+  'The Darkest Bough': {
     effects: [
       {
         name: `The Darkest Bough`,
@@ -73,8 +68,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Oaken Armour`,
+  'The Oaken Armour': {
     effects: [
       {
         name: `The Oaken Armour`,
@@ -83,8 +77,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Briar Sheath`,
+  'Briar Sheath': {
     effects: [
       {
         name: `Briar Sheath`,
@@ -93,8 +86,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Glamourweave`,
+  Glamourweave: {
     effects: [
       {
         name: `Glamourweave`,
@@ -103,8 +95,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lashvines`,
+  Lashvines: {
     effects: [
       {
         name: `Lashvines`,
@@ -113,8 +104,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Silken Snares`,
+  'Silken Snares': {
     effects: [
       {
         name: `Silken Snares`,
@@ -123,8 +113,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Nightbloom Garland`,
+  'Nightbloom Garland': {
     effects: [
       {
         name: `Nightbloom Garland`,
@@ -133,8 +122,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Seed of Rebirth`,
+  'Seed of Rebirth': {
     effects: [
       {
         name: `Seed of Rebirth`,
@@ -143,8 +131,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Wraithstone`,
+  Wraithstone: {
     effects: [
       {
         name: `Wraithstone`,
@@ -153,8 +140,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Everdew Vial`,
+  'Everdew Vial': {
     effects: [
       {
         name: `Everdew Vial`,
@@ -163,8 +149,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lifewreath`,
+  Lifewreath: {
     effects: [
       {
         name: `Lifewreath`,
@@ -173,8 +158,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Crown of Fell Bowers`,
+  'Crown of Fell Bowers': {
     effects: [
       {
         name: `Crown of Fell Bowers`,
@@ -183,8 +167,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Etherblossom`,
+  Etherblossom: {
     effects: [
       {
         name: `Etherblossom`,
@@ -193,8 +176,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Acorn of the Ages`,
+  'Acorn of the Ages': {
     effects: [
       {
         name: `Acorn of the Ages`,
@@ -203,8 +185,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Spiritsong Stave`,
+  'Spiritsong Stave': {
     effects: [
       {
         name: `Spiritsong Stave`,
@@ -213,8 +194,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Vesperal Gem`,
+  'The Vesperal Gem': {
     effects: [
       {
         name: `The Vesperal Gem`,
@@ -223,8 +203,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Luneth's Lamp`,
+  "Luneth's Lamp": {
     effects: [
       {
         name: `Luneth's Lamp`,
@@ -233,8 +212,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Hagbane Spite`,
+  'Hagbane Spite': {
     effects: [
       {
         name: `Hagbane Spite`,
@@ -243,8 +221,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Wychwood Glaive`,
+  'Wychwood Glaive': {
     effects: [
       {
         name: `Wychwood Glaive`,
@@ -253,6 +230,71 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
 
-export default Artifacts
+  Dawnflask: {
+    effects: [
+      {
+        name: `Dawnflask`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 6+ that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  'Chalice of Nectar': {
+    effects: [
+      {
+        name: `Chalice of Nectar`,
+        desc: `When making a casting or unbinding roll for the bearer, roll 3D6, remove 1 dice of your choice, and then use the remaining 2D6 to determine that casting or unbinding roll.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Horn of the Consort': {
+    effects: [
+      {
+        name: `Horn of the Consort`,
+        desc: `You can reroll hit rolls for attacks made by friendly HEARTWOOD KURNOTH HUNTERS wholly within 12" of the bearer.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  'Ironbark Talisman': {
+    effects: [
+      {
+        name: `Ironbark Talisman`,
+        desc: `Add 1 to wound rolls for attacks made with melee weapons by the bearer.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Frozen Kernel': {
+    effects: [
+      {
+        name: `Frozen Kernel`,
+        desc: `Once per battle, at the start of the combat phase, you can pick 1 friendly WINTERLEAF unit wholly within 18" of the bearer. After that unit has fought in that phase for the first time, if it is within 3" of an enemy unit, it can make a pile-in move and then attack with all of the melee weapons it is armed with for a second time.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Jewel of Withering': {
+    effects: [
+      {
+        name: `Jewel of Withering`,
+        desc: `Subtract 1 from wound rolls for attacks made with melee weapons that target the bearer.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'The Silent Sickle': {
+    effects: [
+      {
+        name: `The Silent Sickle`,
+        desc: `Pick 1 of the bearer's melee weapons. Add 1 to the Attacks characteristic of that weapon.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+}
+
+// Always export using tagAs
+export default tagAs(Artifacts, 'artifact')

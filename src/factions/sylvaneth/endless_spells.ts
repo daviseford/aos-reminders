@@ -1,10 +1,9 @@
-// Endless spells.
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, END_OF_HERO_PHASE, HERO_PHASE } from 'types/phases'
 
-const EndlessSpells: TEntry[] = [
-  {
-    name: `Gladewyrm`,
+// Add Endless spells here
+const EndlessSpells = {
+  Gladewyrm: {
     effects: [
       {
         name: `Summon Gladewyrm`,
@@ -28,8 +27,7 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Spiteswarm Hive`,
+  'Spiteswarm Hive': {
     effects: [
       {
         name: `Summon Spiteswarm Hive`,
@@ -47,8 +45,7 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vengeful Skullroot`,
+  'Vengeful Skullroot': {
     effects: [
       {
         name: `Summon Vengeful Skullroot`,
@@ -72,6 +69,6 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default EndlessSpells
+export default tagAs(EndlessSpells, 'endless_spell')
