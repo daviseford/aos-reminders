@@ -14,7 +14,7 @@ const RegularBattalions = {
   // The name that you enter here is how it'll appear on the UI
   'Mortek Shield-Corps': {
     mandatory: {
-      units: [keyPicker(Units, ['Vokmortian', 'Mortek Guard'])],
+      units: [keyPicker(Units, ['Mortek Guard'])],
     },
     effects: [
       {
