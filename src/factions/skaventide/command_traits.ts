@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -12,20 +12,15 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const getVerminousValour = (clan: string) => ({
-  name: `Verminous Valour (${clan})`,
-  effects: [
-    {
-      name: `Verminous Valour (${clan})`,
-      desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
-      when: [WOUND_ALLOCATION_PHASE],
-    },
-  ],
-})
+const VerminousValourEffect = {
+  name: `Verminous Valour`,
+  desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
+  when: [WOUND_ALLOCATION_PHASE],
+}
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Malevolent (Masterclan)`,
+// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+const CommandTraits = {
+  'Malevolent (Masterclan)': {
     effects: [
       {
         name: `Malevolent (Masterclan)`,
@@ -34,9 +29,8 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  getVerminousValour('Masterclan'),
-  {
-    name: `Savage Overlord (Masterclan)`,
+  'Verminous Valour (Masterclan)': { effects: [VerminousValourEffect] },
+  'Savage Overlord (Masterclan)': {
     effects: [
       {
         name: `Savage Overlord (Masterclan)`,
@@ -45,8 +39,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Supreme Manipulator (Masterclan)`,
+  'Supreme Manipulator (Masterclan)': {
     effects: [
       {
         name: `Supreme Manipulator (Masterclan)`,
@@ -55,8 +48,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Master of Magic (Masterclan)`,
+  'Master of Magic (Masterclan)': {
     effects: [
       {
         name: `Master of Magic (Masterclan)`,
@@ -65,8 +57,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Cunning (Masterclan)`,
+  'Cunning (Masterclan)': {
     effects: [
       {
         name: `Cunning (Masterclan)`,
@@ -75,8 +66,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Malevolent (Skryre)`,
+  'Malevolent (Skryre)': {
     effects: [
       {
         name: `Malevolent (Skryre)`,
@@ -85,9 +75,8 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  getVerminousValour('Skryre'),
-  {
-    name: `Savage Overlord (Skryre)`,
+  'Verminous Valour (Skryre)': { effects: [VerminousValourEffect] },
+  'Savage Overlord (Skryre)': {
     effects: [
       {
         name: `Savage Overlord (Skryre)`,
@@ -96,8 +85,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Masterful Scavenger (Skryre)`,
+  'Masterful Scavenger (Skryre)': {
     effects: [
       {
         name: `Masterful Scavenger (Skryre)`,
@@ -106,8 +94,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Deranged Inventor (Skryre)`,
+  'Deranged Inventor (Skryre)': {
     effects: [
       {
         name: `Deranged Inventor (Skryre)`,
@@ -116,8 +103,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Overseer of Destruction (Skryre)`,
+  'Overseer of Destruction (Skryre)': {
     effects: [
       {
         name: `Overseer of Destruction (Skryre)`,
@@ -126,8 +112,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Malevolent (Pestilens)`,
+  'Malevolent (Pestilens)': {
     effects: [
       {
         name: `Malevolent (Pestilens)`,
@@ -136,9 +121,8 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  getVerminousValour('Pestilens'),
-  {
-    name: `Savage Overlord (Pestilens)`,
+  'Verminous Valour (Pestilens)': { effects: [VerminousValourEffect] },
+  'Savage Overlord (Pestilens)': {
     effects: [
       {
         name: `Savage Overlord (Pestilens)`,
@@ -147,8 +131,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Master of Rot and Ruin (Pestilens)`,
+  'Master of Rot and Ruin (Pestilens)': {
     effects: [
       {
         name: `Master of Rot and Ruin (Pestilens)`,
@@ -157,8 +140,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Architect of Death (Pestilens)`,
+  'Architect of Death (Pestilens)': {
     effects: [
       {
         name: `Architect of Death (Pestilens)`,
@@ -167,8 +149,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Diseased (Pestilens)`,
+  'Diseased (Pestilens)': {
     effects: [
       {
         name: `Diseased (Pestilens)`,
@@ -177,8 +158,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Malevolent (Verminus)`,
+  'Malevolent (Verminus)': {
     effects: [
       {
         name: `Malevolent (Verminus)`,
@@ -187,9 +167,8 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  getVerminousValour('Verminus'),
-  {
-    name: `Savage Overlord (Verminus)`,
+  'Verminous Valour (Verminus)': { effects: [VerminousValourEffect] },
+  'Savage Overlord (Verminus)': {
     effects: [
       {
         name: `Savage Overlord (Verminus)`,
@@ -198,8 +177,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Brutal Fury (Verminus)`,
+  'Brutal Fury (Verminus)': {
     effects: [
       {
         name: `Brutal Fury (Verminus)`,
@@ -208,8 +186,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Powerful (Verminus)`,
+  'Powerful (Verminus)': {
     effects: [
       {
         name: `Powerful (Verminus)`,
@@ -218,8 +195,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Devious Adversary (Verminus)`,
+  'Devious Adversary (Verminus)': {
     effects: [
       {
         name: `Devious Adversary (Verminus)`,
@@ -228,8 +204,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Malevolent (Moulder)`,
+  'Malevolent (Moulder)': {
     effects: [
       {
         name: `Malevolent (Moulder)`,
@@ -238,9 +213,8 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  getVerminousValour('Moulder'),
-  {
-    name: `Savage Overlord (Moulder)`,
+  'Verminous Valour (Moulder)': { effects: [VerminousValourEffect] },
+  'Savage Overlord (Moulder)': {
     effects: [
       {
         name: `Savage Overlord (Moulder)`,
@@ -249,8 +223,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Moulder Supreme (Moulder)`,
+  'Moulder Supreme (Moulder)': {
     effects: [
       {
         name: `Moulder Supreme (Moulder)`,
@@ -259,8 +232,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Hordemaster (Moulder)`,
+  'Hordemaster (Moulder)': {
     effects: [
       {
         name: `Hordemaster (Moulder)`,
@@ -269,8 +241,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Burly (Moulder)`,
+  'Burly (Moulder)': {
     effects: [
       {
         name: `Burly (Moulder)`,
@@ -279,8 +250,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Malevolent (Eshin)`,
+  'Malevolent (Eshin)': {
     effects: [
       {
         name: `Malevolent (Eshin)`,
@@ -289,9 +259,8 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  getVerminousValour('Eshin'),
-  {
-    name: `Savage Overlord (Eshin)`,
+  'Verminous Valour (Eshin)': { effects: [VerminousValourEffect] },
+  'Savage Overlord (Eshin)': {
     effects: [
       {
         name: `Savage Overlord (Eshin)`,
@@ -300,8 +269,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Unrivalled Killer (Eshin)`,
+  'Unrivalled Killer (Eshin)': {
     effects: [
       {
         name: `Unrivalled Killer (Eshin)`,
@@ -310,8 +278,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shadowmaster (Eshin)`,
+  'Shadowmaster (Eshin)': {
     effects: [
       {
         name: `Shadowmaster (Eshin)`,
@@ -320,8 +287,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Incredible Agility (Eshin)`,
+  'Incredible Agility (Eshin)': {
     effects: [
       {
         name: `Incredible Agility (Eshin)`,
@@ -330,6 +296,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default CommandTraits
+// Always export using tagAs
+export default tagAs(CommandTraits, 'command_trait')

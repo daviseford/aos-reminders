@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -17,9 +17,8 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Warpstorm Scroll (Masterclan)`,
+const Artifacts = {
+  'Warpstorm Scroll (Masterclan)': {
     effects: [
       {
         name: `Warpstorm Scroll (Masterclan)`,
@@ -28,8 +27,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Suspicious Stone (Masterclan)`,
+  'Suspicious Stone (Masterclan)': {
     effects: [
       {
         name: `Suspicious Stone (Masterclan)`,
@@ -38,8 +36,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Gnawshard (Masterclan)`,
+  'The Gnawshard (Masterclan)': {
     effects: [
       {
         name: `The Gnawshard (Masterclan)`,
@@ -48,8 +45,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Skavenbrew (Masterclan)`,
+  'Skavenbrew (Masterclan)': {
     effects: [
       {
         name: `Skavenbrew (Masterclan)`,
@@ -58,8 +54,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Snoutgrovel Robes (Masterclan)`,
+  'Snoutgrovel Robes (Masterclan)': {
     effects: [
       {
         name: `Snoutgrovel Robes (Masterclan)`,
@@ -68,8 +63,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Staff of Rightful Supremacy (Masterclan)`,
+  'Staff of Rightful Supremacy (Masterclan)': {
     effects: [
       {
         name: `Staff of Rightful Supremacy (Masterclan)`,
@@ -78,8 +72,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Brass Orb (Skryre)`,
+  'The Brass Orb (Skryre)': {
     effects: [
       {
         name: `The Brass Orb (Skryre)`,
@@ -88,8 +81,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Warpstone Armour (Skryre)`,
+  'Warpstone Armour (Skryre)': {
     effects: [
       {
         name: `Warpstone Armour (Skryre)`,
@@ -98,8 +90,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Esoteric Warp Resonator (Skryre)`,
+  'Esoteric Warp Resonator (Skryre)': {
     effects: [
       {
         name: `Esoteric Warp Resonator (Skryre)`,
@@ -108,8 +99,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Skryre's-breath Bellows (Skryre)`,
+  "Skryre's-breath Bellows (Skryre)": {
     effects: [
       {
         name: `Skryre's-breath Bellows (Skryre)`,
@@ -118,8 +108,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vial of the Fulminator (Skryre)`,
+  'Vial of the Fulminator (Skryre)': {
     effects: [
       {
         name: `Vial of the Fulminator (Skryre)`,
@@ -128,8 +117,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vigordust Injector (Skryre)`,
+  'Vigordust Injector (Skryre)': {
     effects: [
       {
         name: `Vigordust Injector (Skryre)`,
@@ -138,8 +126,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Blade of Corruption (Pestilens)`,
+  'Blade of Corruption (Pestilens)': {
     effects: [
       {
         name: `Blade of Corruption (Pestilens)`,
@@ -148,8 +135,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Foul Pendant (Pestilens)`,
+  'The Foul Pendant (Pestilens)': {
     effects: [
       {
         name: `The Foul Pendant (Pestilens)`,
@@ -158,8 +144,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Brooding Blade (Pestilens)`,
+  'Brooding Blade (Pestilens)': {
     effects: [
       {
         name: `Brooding Blade (Pestilens)`,
@@ -168,8 +153,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Fumigatous (Pestilens)`,
+  'The Fumigatous (Pestilens)': {
     effects: [
       {
         name: `The Fumigatous (Pestilens)`,
@@ -178,8 +162,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Blistrevous, the Living Cyst (Pestilens)`,
+  'Blistrevous, the Living Cyst (Pestilens)': {
     effects: [
       {
         name: `Blistrevous, the Living Cyst (Pestilens)`,
@@ -198,8 +181,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Liber Bubonicus (Pestilens)`,
+  'Liber Bubonicus (Pestilens)': {
     effects: [
       {
         name: `Liber Bubonicus (Pestilens)`,
@@ -208,8 +190,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Things-Bane (Verminus)`,
+  'Things-Bane (Verminus)': {
     effects: [
       {
         name: `Things-Bane (Verminus)`,
@@ -218,8 +199,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shield of Distraction (Verminus)`,
+  'Shield of Distraction (Verminus)': {
     effects: [
       {
         name: `Shield of Distraction (Verminus)`,
@@ -233,8 +213,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Screechskull Trophies (Verminus)`,
+  'Screechskull Trophies (Verminus)': {
     effects: [
       {
         name: `Screechskull Trophies (Verminus)`,
@@ -243,8 +222,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Flaypelt Cloak (Verminus)`,
+  'Flaypelt Cloak (Verminus)': {
     effects: [
       {
         name: `Flaypelt Cloak (Verminus)`,
@@ -253,8 +231,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Rustcursed Armour (Verminus)`,
+  'Rustcursed Armour (Verminus)': {
     effects: [
       {
         name: `Rustcursed Armour (Verminus)`,
@@ -268,8 +245,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Warpstone Charm (Verminus)`,
+  'Warpstone Charm (Verminus)': {
     effects: [
       {
         name: `Warpstone Charm (Verminus)`,
@@ -278,8 +254,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lash of Fangs (Moulder)`,
+  'Lash of Fangs (Moulder)': {
     effects: [
       {
         name: `Lash of Fangs (Moulder)`,
@@ -288,8 +263,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Foulhide (Moulder)`,
+  'Foulhide (Moulder)': {
     effects: [
       {
         name: `Foulhide (Moulder)`,
@@ -298,8 +272,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Snap-snap Snarepole (Moulder)`,
+  'Snap-snap Snarepole (Moulder)': {
     effects: [
       {
         name: `Snap-snap Snarepole (Moulder)`,
@@ -308,8 +281,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Rat-tail Snake (Moulder)`,
+  'Rat-tail Snake (Moulder)': {
     effects: [
       {
         name: `Rat-tail Snake (Moulder)`,
@@ -318,8 +290,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Rabid Crown (Moulder)`,
+  'Rabid Crown (Moulder)': {
     effects: [
       {
         name: `Rabid Crown (Moulder)`,
@@ -328,8 +299,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Fleshgift Vial (Moulder)`,
+  'Fleshgift Vial (Moulder)': {
     effects: [
       {
         name: `Fleshgift Vial (Moulder)`,
@@ -338,8 +308,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shadow Magnet Trinket (Eshin)`,
+  'Shadow Magnet Trinket (Eshin)': {
     effects: [
       {
         name: `Shadow Magnet Trinket (Eshin)`,
@@ -348,8 +317,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Farskitter Cloak (Eshin)`,
+  'Farskitter Cloak (Eshin)': {
     effects: [
       {
         name: `Farskitter Cloak (Eshin)`,
@@ -358,8 +326,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Three Fangs (Eshin)`,
+  'The Three Fangs (Eshin)': {
     effects: [
       {
         name: `The Three Fangs (Eshin)`,
@@ -368,8 +335,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Warpweeper Stars (Eshin)`,
+  'Warpweeper Stars (Eshin)': {
     effects: [
       {
         name: `Warpweeper Stars (Eshin)`,
@@ -378,8 +344,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Cube of Mists (Eshin)`,
+  'The Cube of Mists (Eshin)': {
     effects: [
       {
         name: `The Cube of Mists (Eshin)`,
@@ -388,8 +353,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gnawbomb (Eshin)`,
+  'Gnawbomb (Eshin)': {
     effects: [
       {
         name: `Gnawbomb (Eshin)`,
@@ -398,6 +362,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(Artifacts, 'artifact')

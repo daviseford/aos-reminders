@@ -9,7 +9,7 @@ import ironjawz from 'army/ironjawz'
 import seraphon from 'army/seraphon'
 import sylvaneth from 'army/sylvaneth'
 // Meta
-import { IRONJAWZ, SERAPHON, SKAVEN, SYLVANETH } from 'meta/factions'
+import { IRONJAWZ, SERAPHON, SKAVENTIDE, SYLVANETH } from 'meta/factions'
 // Types
 import { IArmy, TAllyArmies } from 'types/army'
 import { TTurnAction } from 'types/data'
@@ -21,15 +21,15 @@ import { allySelectionsFactory, selectionsFactory } from './__mock'
 describe('processReminders', () => {
   it('should work with a loaded army, multiple allies, and realmscape', () => {
     const allyUnits = [ironjawz.Units[0], ironjawz.Units[1], seraphon.Units[0]]
-    const allyFactionNames = [SKAVEN, IRONJAWZ, SERAPHON]
+    const allyFactionNames = [SKAVENTIDE, IRONJAWZ, SERAPHON]
     const allyArmies: TAllyArmies = {
-      [SKAVEN]: getArmy(SKAVEN) as IArmy,
+      [SKAVENTIDE]: getArmy(SKAVENTIDE) as IArmy,
       [IRONJAWZ]: getArmy(IRONJAWZ) as IArmy,
       [SERAPHON]: getArmy(SERAPHON) as IArmy,
     }
 
     const allySelections = {
-      [SKAVEN]: allySelectionsFactory(),
+      [SKAVENTIDE]: allySelectionsFactory(),
       [IRONJAWZ]: allySelectionsFactory([allyUnits[0].name, allyUnits[1].name]),
       [SERAPHON]: allySelectionsFactory([allyUnits[2].name]),
     }
