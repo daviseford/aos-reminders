@@ -23,7 +23,8 @@ export class Faction<
     public readonly GrandAlliance: G,
     public readonly SubFactions: S,
     public readonly subFactionLabel = 'Sub-Factions',
-    public readonly flavorLabel = 'Flavors'
+    public readonly flavorLabel = 'Flavors',
+    public readonly isMercenary = false
   ) {
     this.AggregateArmy = getAggregateArmy(SubFactions, flavorLabel)
 
