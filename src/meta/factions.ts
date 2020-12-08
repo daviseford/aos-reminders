@@ -126,7 +126,7 @@ export type TPrimaryFactions =
   | TNurgle
   | TOgorMawtribes
   // | TOrderGrandAlliance
-  // | TOssiarchBonereapers
+  | TOssiarchBonereapers
   | TSeraphon
   | TSkaventide
   | TSlaanesh
@@ -172,7 +172,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   NURGLE,
   OGOR_MAWTRIBES,
   // ORDER_GRAND_ALLIANCE,
-  // OSSIARCH_BONEREAPERS,
+  OSSIARCH_BONEREAPERS,
   SERAPHON,
   SAMPLE,
   SKAVENTIDE,
