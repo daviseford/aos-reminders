@@ -1,4 +1,5 @@
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
+import { KhorneFaction } from 'factions/khorne'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
 import { MercenaryCompaniesFaction } from 'factions/mercenary_companies'
@@ -15,6 +16,7 @@ import { StormcastFaction } from 'factions/stormcast_eternals'
 import { SylvanethFaction } from 'factions/sylvaneth'
 import {
   DAUGHTERS_OF_KHAINE,
+  KHORNE,
   LEGIONS_OF_NAGASH,
   MEGA_GARGANT_MERCENARIES,
   MERCENARY_COMPANIES,
@@ -99,10 +101,7 @@ const FactionList = {
   //   Army: { ...KharadronOverlordsArmy },
   //   GrandAlliance: ORDER,
   // },
-  // [KHORNE]: {
-  //   Army: { ...KhorneArmy },
-  //   GrandAlliance: CHAOS,
-  // },
+  [KHORNE]: { ...KhorneFaction },
   [LEGIONS_OF_NAGASH]: { ...LegionsOfNagashFaction },
   // [LEGION_OF_BLOOD]: {
   //   Army: { ...LegionOfBloodArmy },
