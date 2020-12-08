@@ -134,8 +134,8 @@ export type TPrimaryFactions =
   | TSlavesToDarkness
   | TSonsOfBehemat
   | TStormcastEternals
-// | TStormcastEternalsStormkeep
-// | TSylvaneth
+  // | TStormcastEternalsStormkeep
+  | TSylvaneth
 // | TTombKings
 // | TTzeentch
 // | TWanderers
@@ -182,7 +182,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
   // STORMCAST_ETERNALS_STORMKEEP,
-  // SYLVANETH,
+  SYLVANETH,
   // TOMB_KINGS,
   // TZEENTCH,
   // WANDERERS,
