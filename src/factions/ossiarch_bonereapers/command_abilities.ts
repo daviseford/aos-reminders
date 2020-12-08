@@ -133,6 +133,15 @@ const CommandAbilities = {
       },
     ],
   },
+  'Crushing Assault': {
+    effects: [
+      {
+        name: `Crushing Assault`,
+        desc: `You can use this command ability in your combat phase after a friendly IMMORTIS GUARD unit has fought in that phase for the first time. If you do so, if that unit is within 3" of an enemy unit, it can make a pile-in move and then attack with its Nadirite Battle-shields for a second time.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
 }
 
 // Always export using tagAs

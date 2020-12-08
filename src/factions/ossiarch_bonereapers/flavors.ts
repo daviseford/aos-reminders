@@ -1,16 +1,14 @@
-import { keyPicker } from 'factions/metatagger'
+import { keyPicker, pickEffects } from 'factions/metatagger'
 import Artifacts from './artifacts'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 
-// TODO: Write a concise description of what a flavor is
-
 const Flavors = {
   'Mortis Praetorians': {
     mandatory: {
-      artifacts: [keyPicker(Artifacts, ["Artificer\\'s Blade"])],
-      command_traits: [keyPicker(CommandTraits, ["Katakros\\' Chosen"])],
+      artifacts: [keyPicker(Artifacts, ["Artificer's Blade"])],
+      command_traits: [keyPicker(CommandTraits, ["Katakros' Chosen"])],
       command_abilities: [keyPicker(CommandAbilities, ['Counter-strike'])],
     },
     effects: [...pickEffects(BattleTraits, ['Mortis Praetorians'])],

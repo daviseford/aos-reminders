@@ -7,6 +7,6 @@ export const OssiarchBonereapersFaction = new Faction(
   OSSIARCH_BONEREAPERS,
   DEATH,
   SubFactions,
-  'Idk yet',
+  'Subfactions',
   'Flavors'
 )

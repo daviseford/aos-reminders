@@ -3,6 +3,7 @@ import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  DURING_TURN,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
@@ -10,6 +11,7 @@ import {
   START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+
 const CommandTraits = {
   'Ancient Knowledge': {
     effects: [
@@ -160,6 +162,34 @@ const CommandTraits = {
         name: `Wrathful Avenger`,
         desc: `If this general is slain, add 2 to the Immolation dice roll instead of 1, and if the roll is successful inflict D3 mortal wounds on the enemy unit instead of 1.`,
         when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+
+  'Aviarch Spymaster': {
+    effects: [
+      {
+        name: `Aviarch Spymaster`,
+        desc: `Once per turn you can roll a D6 when your opponent receives a command point. If you do so, on a 4+ that command point is lost.`,
+        when: [DURING_TURN],
+      },
+    ],
+  },
+  'Gnosis Scrollbearer': {
+    effects: [
+      {
+        name: `Gnosis Scrollbearer`,
+        desc: `At the start of your hero phase, you can pick 1 enemy unit that is on the battlefield. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit that target friendly OSSIARCH BONEREAPERS units.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  'Prime Necrophoros': {
+    effects: [
+      {
+        name: `Prime Necrophoros`,
+        desc: `When you use this model's Supreme Lord of the Bonereaper Legions command ability, it affects friendly OSSIARCH BONEREAPERS units while they are wholly within 36" of this model instead of wholly within 18" of this model.`,
+        when: [HERO_PHASE],
       },
     ],
   },
