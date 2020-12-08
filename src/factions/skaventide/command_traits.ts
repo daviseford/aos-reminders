@@ -29,9 +29,7 @@ const CommandTraits = {
       },
     ],
   },
-  'Verminous Valour (Masterclan)': {
-    effects: [VerminousValourEffect],
-  },
+  'Verminous Valour (Masterclan)': { effects: [VerminousValourEffect] },
   'Savage Overlord (Masterclan)': {
     effects: [
       {
@@ -77,9 +75,7 @@ const CommandTraits = {
       },
     ],
   },
-  'Verminous Valour (Skryre)': {
-    effects: [VerminousValourEffect],
-  },
+  'Verminous Valour (Skryre)': { effects: [VerminousValourEffect] },
   'Savage Overlord (Skryre)': {
     effects: [
       {
@@ -125,9 +121,7 @@ const CommandTraits = {
       },
     ],
   },
-  'Verminous Valour (Pestilens)': {
-    effects: [VerminousValourEffect],
-  },
+  'Verminous Valour (Pestilens)': { effects: [VerminousValourEffect] },
   'Savage Overlord (Pestilens)': {
     effects: [
       {
@@ -173,9 +167,7 @@ const CommandTraits = {
       },
     ],
   },
-  'Verminous Valour (Verminus)': {
-    effects: [VerminousValourEffect],
-  },
+  'Verminous Valour (Verminus)': { effects: [VerminousValourEffect] },
   'Savage Overlord (Verminus)': {
     effects: [
       {
@@ -221,9 +213,7 @@ const CommandTraits = {
       },
     ],
   },
-  'Verminous Valour (Moulder)': {
-    effects: [VerminousValourEffect],
-  },
+  'Verminous Valour (Moulder)': { effects: [VerminousValourEffect] },
   'Savage Overlord (Moulder)': {
     effects: [
       {
@@ -269,9 +259,7 @@ const CommandTraits = {
       },
     ],
   },
-  'Verminous Valour (Eshin)': {
-    effects: [VerminousValourEffect],
-  },
+  'Verminous Valour (Eshin)': { effects: [VerminousValourEffect] },
   'Savage Overlord (Eshin)': {
     effects: [
       {

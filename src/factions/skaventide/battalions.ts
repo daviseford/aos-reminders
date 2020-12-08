@@ -1,4 +1,4 @@
-import { tagAs } from 'factions/metatagger'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -8,9 +8,13 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import units from './units'
 
-const Battalions = {
+const RegularBattalions = {
   'Fleshmeld Menagerie': {
+    mandatory: {
+      units: [keyPicker(units, ['Master Moulder', 'Packmasters', 'Rat Ogors'])],
+    },
     effects: [
       {
         name: `More-more-more Beasts!`,
@@ -20,6 +24,9 @@ const Battalions = {
     ],
   },
   'Claw-horde': {
+    mandatory: {
+      units: [keyPicker(units, ['Clawlord', 'Stormvermin', 'Clanrats'])],
+    },
     effects: [
       {
         name: `Claw-picked`,
@@ -29,6 +36,9 @@ const Battalions = {
     ],
   },
   Slinktalon: {
+    mandatory: {
+      units: [keyPicker(units, ['Deathmaster', 'Gutter Runners', 'Night Runners'])],
+    },
     effects: [
       {
         name: `Murder-slay, Now-now!`,
@@ -37,16 +47,10 @@ const Battalions = {
       },
     ],
   },
-  'Virulent Procession': {
-    effects: [
-      {
-        name: `Verminous Infestation`,
-        desc: `At the start of your hero phase, pick 1 terrain feature within 13" of this battalion's VERMINLORD CORRUPTOR. Roll a D6 for each enemy unit within 3" of that terrain feature. On a 4+ that unit suffers D3 mortal wounds.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
   'Warpcog Convocation': {
+    mandatory: {
+      units: [keyPicker(units, ['Arch-Warlock'])],
+    },
     effects: [],
   },
   'Arkhspark Voltik (Enginecoven)': {
@@ -96,6 +100,9 @@ const Battalions = {
   },
 
   'Congregation of Filth': {
+    mandatory: {
+      units: [keyPicker(units, ['Plague Priest on Plague Furnace', 'Plague Monks'])],
+    },
     effects: [
       {
         name: `Plague Altar`,
@@ -105,6 +112,9 @@ const Battalions = {
     ],
   },
   'Foulrain Congregation': {
+    mandatory: {
+      units: [keyPicker(units, ['Plague Priest', 'Plagueclaw'])],
+    },
     effects: [
       {
         name: `Foetid Blessings`,
@@ -114,6 +124,9 @@ const Battalions = {
     ],
   },
   'Plaguesmog Congregation': {
+    mandatory: {
+      units: [keyPicker(units, ['Plague Priest on Plague Furnace', 'Plague Censer Bearers'])],
+    },
     effects: [
       {
         name: `Poisonous Miasma`,
@@ -132,6 +145,24 @@ const Battalions = {
     ],
   },
 }
+
+const SuperBattalions = {
+  'Virulent Procession': {
+    mandatory: {
+      battalions: [keyPicker(RegularBattalions, ['Congregation of Filth'])],
+      units: [keyPicker(units, ['Verminlord Corruptor'])],
+    },
+    effects: [
+      {
+        name: `Verminous Infestation`,
+        desc: `At the start of your hero phase, pick 1 terrain feature within 13" of this battalion's VERMINLORD CORRUPTOR. Roll a D6 for each enemy unit within 3" of that terrain feature. On a 4+ that unit suffers D3 mortal wounds.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+}
+
+const Battalions = { ...RegularBattalions, ...SuperBattalions }
 
 // Always export using tagAs
 export default tagAs(Battalions, 'battalion')
