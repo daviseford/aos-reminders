@@ -113,7 +113,7 @@ export type TPrimaryFactions =
   // | TIdonethDeepkin
   // | TIronjawz
   // | TKharadronOverlords
-  // | TKhorne
+  | TKhorne
   // | TLegionOfChaosAscendant
   // | TLegionsOfAzgorh
   // | TLegionsOfGrief
@@ -161,7 +161,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // IDONETH_DEEPKIN,
   // IRONJAWZ,
   // KHARADRON_OVERLORDS,
-  // KHORNE,
+  KHORNE,
   // LEGION_OF_CHAOS_ASCENDANT,
   // LEGIONS_OF_AZGORH,
   // LEGIONS_OF_GRIEF,

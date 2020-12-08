@@ -198,9 +198,6 @@ const CommandAbilities = {
       },
     ],
   },
-  '': {
-    effects: [],
-  },
 }
 
 // Always export using tagAs
