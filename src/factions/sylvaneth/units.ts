@@ -1,10 +1,9 @@
-import { TEntry } from 'types/data'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  DURING_SETUP,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
@@ -17,6 +16,7 @@ import {
   START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import spells from './spells'
 
 const MartialMemoriesEffects = [
   {
@@ -47,9 +47,9 @@ const BlessingsOfTheForestEffect = {
   when: [SHOOTING_PHASE, COMBAT_PHASE],
 }
 
-export const Units: TEntry[] = [
-  {
-    name: `Alarielle The Everqueen`,
+const Units = {
+  'Alarielle The Everqueen': {
+    mandatory: { spells: [keyPicker(spells, ['Metamorphosis'])] },
     effects: [
       {
         name: `Talon of the Dwindling`,
@@ -90,12 +90,6 @@ export const Units: TEntry[] = [
         when: [HERO_PHASE],
       },
       {
-        name: `Metamorphosis`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 16" of the caster that is visible to them and roll a number of dice equal to the casting roll. For each 4+ that unit suffers 1 mortal wound. In addition, if that unit is destroyed by the mortal wounds inflicted by this spell, you can set up 1 AWAKENED WYLDWOOD terrain feature wholly within 12" of the last model from that unit to be slain, and more than 3" from terrain features or 1" from any other model or objective, and add it to your army.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
         name: `Ghyran's Wrath`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, in that phase you can reroll wound rolls of 1 for attacks made by friendly SYLVANETH units while they are wholly within 14" of a friendly model with this command ability.`,
         when: [START_OF_COMBAT_PHASE],
@@ -103,8 +97,8 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Drycha Hamadreth`,
+  'Drycha Hamadreth': {
+    mandatory: { spells: [keyPicker(spells, ['Primal Terror'])] },
     effects: [
       {
         name: `Deadly Infestation`,
@@ -130,16 +124,9 @@ export const Units: TEntry[] = [
         desc: `Drycha Hamadreth is a WIZARD. She can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Primal Terror spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Primal Terror`,
-        desc: `Casting value of 6. Roll 2D6. Each enemy unit within 10" of the caster with a Bravery characteristic lower than this roll suffers D3 mortal wounds (roll separately for each unit)`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Spirit of Durthu`,
+  'Spirit of Durthu': {
     effects: [
       {
         name: `Champion of the Everqueen's Will`,
@@ -168,8 +155,8 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Treelord Ancient`,
+  'Treelord Ancient': {
+    mandatory: { spells: [keyPicker(spells, ['Awakening the Wood'])] },
     effects: [
       {
         name: `Groundshaking Stomp`,
@@ -197,12 +184,6 @@ export const Units: TEntry[] = [
         when: [HERO_PHASE],
       },
       {
-        name: `Awakening the Wood`,
-        desc: `Casting value of 6. Pick 1 friendly AWAKENED WYLDWOOD that is wholly within 30" of the caster. Each enemy unit within 3" of that AWAKENED WYLDWOOD suffers D3 mortal wounds (roll separately for each unit)`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
         name: `Heed the Spirit-song`,
         desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly model with this command ability. Until your next hero phase, you can reroll save rolls of 1 for attacks that target friendly SYLVANETH units wholly within 12" of that model.`,
         when: [HERO_PHASE],
@@ -210,8 +191,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Treelord`,
+  Treelord: {
     effects: [
       {
         name: `Groundshaking Stomp`,
@@ -230,8 +210,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Arch-Revenant`,
+  'Arch-Revenant': {
     effects: [
       {
         name: `Crescent Shield`,
@@ -256,8 +235,8 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Branchwych`,
+  Branchwych: {
+    mandatory: { spells: [keyPicker(spells, ['Unleash Spites'])] },
     effects: [
       {
         name: `Fury of the Forest`,
@@ -274,16 +253,10 @@ export const Units: TEntry[] = [
         desc: `This model is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Unleash Spites spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Unleash Spites`,
-        desc: `Casting value of 5. Roll a number of dice equal to the casting roll for each enemy unit within 9" of the caster. For each 6, that enemy unit suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Branchwraith`,
+  Branchwraith: {
+    mandatory: { spells: [keyPicker(spells, ['Roused to Wrath'])] },
     effects: [
       BlessingsOfTheForestEffect,
       {
@@ -291,16 +264,10 @@ export const Units: TEntry[] = [
         desc: `This model is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Roused to Wrath spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Roused to Wrath`,
-        desc: `Casting value of 7. You can summon 1 unit of 10 DRYADS and add it to your army. The summoned unit must be set up more than 9" from any enemy units, and wholly within 1" of an AWAKENED WYLDWOOD that is within 12" of the caster. The summoned unit cannot move in the following movement phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Ylthari`,
+  Ylthari: {
+    mandatory: { spells: [keyPicker(spells, ['The Reaping'])] },
     effects: [
       {
         name: `Vigour and Wrath`,
@@ -312,16 +279,9 @@ export const Units: TEntry[] = [
         desc: `Ylthari is a WIZARD. She can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. She knows the Arcane Bolt, Mystic Shield and The Reaping spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `The Reaping`,
-        desc: `Casting value of 6. Pick 1 enemy unit within 12" of the caster that is visible to them and roll 6 dice. For each 5+ that unit suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Ylthari's Guardians`,
+  "Ylthari's Guardians": {
     effects: [
       ...MartialMemoriesEffects,
       {
@@ -331,8 +291,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Tree-Revenants`,
+  'Tree-Revenants': {
     effects: [
       {
         name: `Scion`,
@@ -352,8 +311,7 @@ export const Units: TEntry[] = [
       ...MartialMemoriesEffects,
     ],
   },
-  {
-    name: `Spite-Revenants`,
+  'Spite-Revenants': {
     effects: [
       {
         name: `Shadestalker`,
@@ -367,8 +325,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Kurnoth Hunters`,
+  'Kurnoth Hunters': {
     effects: [
       {
         name: `Huntmaster`,
@@ -402,8 +359,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dryads`,
+  Dryads: {
     effects: [
       {
         name: `Branch Nymph`,
@@ -423,8 +379,8 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Skaeth's Wild Hunt`,
+  "Skaeth's Wild Hunt": {
+    mandatory: { spells: [keyPicker(spells, ['Might of Kurnoth'])] },
     effects: [
       {
         name: `Fleet of Foot`,
@@ -436,85 +392,8 @@ export const Units: TEntry[] = [
         desc: `While Karthaen is still in the unit, this unit is considered a Wizard.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Might of Kurnoth`,
-        desc: `Casting value of 7. Pick 1 friendly Sylvaneth unit within 12" of the caster that is visible to them. Add 1 to wound rolls for attacks made with melee weapons until the start of your next hero phase.`,
-        when: [HERO_PHASE, COMBAT_PHASE],
-        spell: true,
-      },
     ],
   },
-]
+}
 
-export const Battalions: TEntry[] = [
-  {
-    name: `Wargrove`,
-    effects: [
-      {
-        name: `Mighty Wyldwood`,
-        desc: `When you choose a Sylvaneth army, you can include 2 AWAKENED WYLDWOOD terrain features instead of 1 if your army includes this battalion.`,
-        when: [DURING_SETUP],
-      },
-    ],
-  },
-  {
-    name: `Free Spirits`,
-    effects: [
-      {
-        name: `Swift Vengeance`,
-        desc: `In your movement phase, if you declare a unit from this battalion will run, do not make a run roll. Instead, add 6" to the Move characteristic of that unit for that phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Lords of the Clan`,
-    effects: [
-      {
-        name: `Deadly Chorus`,
-        desc: `In your shooting phase, roll a D6 for each enemy unit that is within 6" of 2 or more models from this battalion. On a 2+ that enemy unit suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Household`,
-    effects: [
-      {
-        name: `Discipline of the Ages`,
-        desc: `Enemy units within 3" of any units from this battalion cannot retreat.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Forest Folk`,
-    effects: [
-      {
-        name: `Swift as the Breeze`,
-        desc: `Units from this battalion can retreat and still charge later in the same turn.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Outcasts`,
-    effects: [
-      {
-        name: `Feat the Forest-kin`,
-        desc: `If an enemy unit fails a battleshock test within 3" of any units from this battalion, add D3 to the number of models that flee.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Sylvaneth Heartwood Host`,
-    effects: [
-      {
-        name: `Blessing of the Heartwood`,
-        desc: `During each hero phase, the host's Branchwych and Treelord heal one wound lost earlier in battle, whilst its Dryads add 1 model to their unit that was slain earlier in battle.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-]
+export default tagAs(Units, 'unit')
