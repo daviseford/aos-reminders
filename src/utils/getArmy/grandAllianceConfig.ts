@@ -5,13 +5,11 @@ import {
   DeathArtifacts,
   DeathTraits,
   DeathUnits,
-  DestructionArtifacts,
-  DestructionTraits,
-  DestructionUnits,
   OrderArtifacts,
   OrderTraits,
   OrderUnits,
 } from 'army/grand_alliances'
+import { DestructionFaction } from 'factions/grand_alliances'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
 import { IArmy } from 'types/army'
 
@@ -29,9 +27,9 @@ export const GrandAllianceConfig: IGrandAllianceConfig = {
     Units: DeathUnits,
   },
   [DESTRUCTION]: {
-    Artifacts: DestructionArtifacts,
-    CommandTraits: DestructionTraits,
-    Units: DestructionUnits,
+    Artifacts: DestructionFaction.AggregateArmy.Artifacts || [],
+    CommandTraits: DestructionFaction.AggregateArmy.CommandTraits || [],
+    Units: DestructionFaction.AggregateArmy.Units || [],
   },
   [ORDER]: {
     Artifacts: OrderArtifacts,

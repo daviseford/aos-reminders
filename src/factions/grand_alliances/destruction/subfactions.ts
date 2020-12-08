@@ -1,11 +1,10 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { DESTRUCTION_GRAND_ALLIANCE } from 'meta/factions'
 import Artifacts from './artifacts'
 import DestructionCommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import DestructionUnits from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [DESTRUCTION_GRAND_ALLIANCE]: {
     effects: [],
     available: {
