@@ -16,6 +16,7 @@ import {
   START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import command_abilities from './command_abilities'
 import spells from './spells'
 
 const MartialMemoriesEffects = [
@@ -49,7 +50,10 @@ const BlessingsOfTheForestEffect = {
 
 const Units = {
   'Alarielle The Everqueen': {
-    mandatory: { spells: [keyPicker(spells, ['Metamorphosis'])] },
+    mandatory: {
+      spells: [keyPicker(spells, ['Metamorphosis'])],
+      command_abilities: [keyPicker(command_abilities, ["Ghyran's Wrath"])],
+    },
     effects: [
       {
         name: `Talon of the Dwindling`,
@@ -88,12 +92,6 @@ const Units = {
         name: `Magic`,
         desc: `Alarielle the Everqueen is a WIZARD. She can attempt to cast three spells in your hero phase, and attempt to unbind three spells in the enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Metamorphosis spells.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Ghyran's Wrath`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, in that phase you can reroll wound rolls of 1 for attacks made by friendly SYLVANETH units while they are wholly within 14" of a friendly model with this command ability.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
       },
     ],
   },
@@ -156,7 +154,10 @@ const Units = {
     ],
   },
   'Treelord Ancient': {
-    mandatory: { spells: [keyPicker(spells, ['Awakening the Wood'])] },
+    mandatory: {
+      spells: [keyPicker(spells, ['Awakening the Wood'])],
+      command_abilities: [keyPicker(command_abilities, ['Heed the Spirit-song'])],
+    },
     effects: [
       {
         name: `Groundshaking Stomp`,
@@ -183,12 +184,6 @@ const Units = {
         desc: `This model is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Awakening the Wood spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Heed the Spirit-song`,
-        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly model with this command ability. Until your next hero phase, you can reroll save rolls of 1 for attacks that target friendly SYLVANETH units wholly within 12" of that model.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
     ],
   },
   Treelord: {
@@ -211,6 +206,7 @@ const Units = {
     ],
   },
   'Arch-Revenant': {
+    mandatory: { command_abilities: [keyPicker(command_abilities, ['Call to Battle'])] },
     effects: [
       {
         name: `Crescent Shield`,
@@ -226,12 +222,6 @@ const Units = {
         name: `Ultimate Sacrifice`,
         desc: `Once per battle, when you allocate a wound or mortal wound to this model, you can choose to negate it. If you do so, this model cannot fly or use its Zephyrspite's Tail Pincers attack for the rest of the battle.`,
         when: [WOUND_ALLOCATION_PHASE],
-      },
-      {
-        name: `Call to Battle`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly SYLVANETH unit wholly within 9" of a friendly model with this command ability, or wholly within 12" of a friendly model with this command ability that is your general. Add 1 to the Attacks characteristic of that unit's melee weapons in that combat phase. You cannot pick the same unit to benefit from this command ability more than once per combat phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
       },
     ],
   },

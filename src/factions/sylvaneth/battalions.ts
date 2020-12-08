@@ -1,4 +1,4 @@
-import { tagAs } from 'factions/metatagger'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -7,18 +7,13 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
+import units from './units'
 
-const Battalions = {
-  Wargrove: {
-    effects: [
-      {
-        name: `Mighty Wyldwood`,
-        desc: `When you choose a Sylvaneth army, you can include 2 AWAKENED WYLDWOOD terrain features instead of 1 if your army includes this battalion.`,
-        when: [DURING_SETUP],
-      },
-    ],
-  },
+const RegularBattalions = {
   'Free Spirits': {
+    mandatory: {
+      units: [keyPicker(units, ['Spirit of Durthu', 'Kurnoth Hunters'])],
+    },
     effects: [
       {
         name: `Swift Vengeance`,
@@ -28,6 +23,9 @@ const Battalions = {
     ],
   },
   'Lords of the Clan': {
+    mandatory: {
+      units: [keyPicker(units, ['Treelord', 'Treelord Ancient'])],
+    },
     effects: [
       {
         name: `Deadly Chorus`,
@@ -37,6 +35,9 @@ const Battalions = {
     ],
   },
   Household: {
+    mandatory: {
+      units: [keyPicker(units, ['Treelord', 'Branchwych', 'Tree-Revenants'])],
+    },
     effects: [
       {
         name: `Discipline of the Ages`,
@@ -46,6 +47,9 @@ const Battalions = {
     ],
   },
   'Forest Folk': {
+    mandatory: {
+      units: [keyPicker(units, ['Branchwraith', 'Dryads'])],
+    },
     effects: [
       {
         name: `Swift as the Breeze`,
@@ -55,6 +59,9 @@ const Battalions = {
     ],
   },
   Outcasts: {
+    mandatory: {
+      units: [keyPicker(units, ['Spite-Revenants'])],
+    },
     effects: [
       {
         name: `Feat the Forest-kin`,
@@ -64,6 +71,9 @@ const Battalions = {
     ],
   },
   'Sylvaneth Heartwood Host': {
+    mandatory: {
+      units: [keyPicker(units, ['Treelord', 'Branchwych', 'Dryads'])],
+    },
     effects: [
       {
         name: `Blessing of the Heartwood`,
@@ -73,6 +83,31 @@ const Battalions = {
     ],
   },
 }
+
+const SuperBattalions = {
+  Wargrove: {
+    mandatory: {
+      battalions: [
+        keyPicker(RegularBattalions, [
+          'Lords of the Clan',
+          'Household',
+          'Forest Folk',
+          'Free Spirits',
+          'Outcasts',
+        ]),
+      ],
+    },
+    effects: [
+      {
+        name: `Mighty Wyldwood`,
+        desc: `When you choose a Sylvaneth army, you can include 2 AWAKENED WYLDWOOD terrain features instead of 1 if your army includes this battalion.`,
+        when: [DURING_SETUP],
+      },
+    ],
+  },
+}
+
+const Battalions = { ...RegularBattalions, ...SuperBattalions }
 
 // Always export using tagAs
 export default tagAs(Battalions, 'battalion')

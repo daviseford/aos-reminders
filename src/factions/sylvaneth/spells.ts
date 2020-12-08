@@ -65,6 +65,70 @@ const Spells = {
       },
     ],
   },
+  'Verdant Blessing': {
+    effects: [
+      {
+        name: `Verdant Blessing`,
+        desc: `Casting value of 6. Set up 1 AWAKENED WYLDWOOD wholly within 24" of the caster and more than 1" from any other model, terrain feature or objective.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  // Lore of the Deepwood
+  'Throne of Vines': {
+    effects: [
+      {
+        name: `Throne of Vines`,
+        desc: `Casting value of 5. Add 2 to casting rolls for the caster until the caster makes a move or is set up in a different location.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  Regrowth: {
+    effects: [
+      {
+        name: `Regrowth`,
+        desc: `Casting value of 5. Pick 1 friendly SYLVANETH unit wholly within 18" of the caster and visible to them. You can heal up to D6 wounds allocated to that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'The Dwellers Below': {
+    effects: [
+      {
+        name: `The Dwellers Below`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 10" of the caster and visible to them and roll a number of dice equal to the number of models in that unit. For each 6+ that unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Deadly Harvest': {
+    effects: [
+      {
+        name: `Deadly Harvest`,
+        desc: `Casting value of 6. Each enemy unit within 3" of the caster suffers D3 mortal wounds (roll separately for each unit).`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Verdurous Harmony': {
+    effects: [
+      {
+        name: `Verdurous Harmony`,
+        desc: `Casting value of 7. Pick 1 friendly SYLVANETH unit wholly within 18" of the caster and visible to them. You can return 1 slain model to that unit. If you picked a unit of DRYADS, TREE-REVENANTS or SPITE-REVENANTS, you can return up to D3 slain models to that unit instead of 1.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  Treesong: {
+    effects: [
+      {
+        name: `Treesong`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 16" of the caster and within 6" of an AWAKENED WYLDWOOD. Until the end of the turn, you can reroll hit and wound rolls of 1 for attacks made with melee weapons that target that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Spells, 'spell')
