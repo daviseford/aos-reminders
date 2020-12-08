@@ -1,9 +1,8 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { DURING_GAME, END_OF_CHARGE_PHASE, HERO_PHASE, START_OF_SETUP } from 'types/phases'
 
-const Scenery: TEntry[] = [
-  {
-    name: `Awakened Wyldwood`,
+const Scenery = {
+  'Awakened Wyldwood': {
     effects: [
       {
         name: `Setup`,
@@ -27,6 +26,6 @@ const Scenery: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Scenery
+export default tagAs(Scenery, 'scenery')

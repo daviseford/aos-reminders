@@ -9,6 +9,7 @@ import { SlaaneshFaction } from 'factions/slaanesh'
 import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { SonsOfBehematFaction } from 'factions/sons_of_behemat'
 import { StormcastFaction } from 'factions/stormcast_eternals'
+import { SylvanethFaction } from 'factions/sylvaneth'
 import {
   DAUGHTERS_OF_KHAINE,
   LEGIONS_OF_NAGASH,
@@ -21,6 +22,7 @@ import {
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
+  SYLVANETH,
   TSupportedFaction,
 } from 'meta/factions'
 
@@ -165,10 +167,7 @@ const FactionList = {
   //   Army: { ...StormcastEternalsStormkeepArmy },
   //   GrandAlliance: ORDER,
   // },
-  // [SYLVANETH]: {
-  //   Army: { ...SylvanethArmy },
-  //   GrandAlliance: ORDER,
-  // },
+  [SYLVANETH]: { ...SylvanethFaction },
   // [TAMURKHANS_HORDE]: {
   //   Army: { ...TamurkhansHordeArmy },
   //   GrandAlliance: CHAOS,
