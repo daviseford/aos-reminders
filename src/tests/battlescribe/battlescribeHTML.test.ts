@@ -22,7 +22,7 @@ import {
   NURGLE,
   OGOR_MAWTRIBES,
   SERAPHON,
-  SKAVEN,
+  SKAVENTIDE,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SOULBLIGHT,
@@ -1662,7 +1662,7 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Skaven2')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.factionName).toEqual(SKAVEN)
+    expect(res.factionName).toEqual(SKAVENTIDE)
     expect(res.errors).toEqual([])
   })
 
@@ -1670,7 +1670,7 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Skaven3')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.factionName).toEqual(SKAVEN)
+    expect(res.factionName).toEqual(SKAVENTIDE)
     expect(res.errors).toEqual([])
   })
 

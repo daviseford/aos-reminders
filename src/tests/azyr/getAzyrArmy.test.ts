@@ -21,7 +21,7 @@ import {
   OGOR_MAWTRIBES,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
-  SKAVEN,
+  SKAVENTIDE,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
@@ -259,7 +259,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('1592750625890-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(SKAVEN)
+    expect(res.factionName).toEqual(SKAVENTIDE)
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
@@ -1749,7 +1749,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('Skryre1')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(SKAVEN)
+    expect(res.factionName).toEqual(SKAVENTIDE)
     expect(res.selections.flavors).toContain('Warpstone Sparks (Skryre)')
     expect(res.selections.endless_spells).toEqual(['Bell of Doom (Skaven)'])
     expect(res.selections.units).toEqual([
@@ -1880,7 +1880,7 @@ describe('getAzyrArmyFromPdf', () => {
             "Azyr lists more than one unit as 'Grey Seer'. Please check that we have imported the correct one.",
         },
       ],
-      factionName: SKAVEN,
+      factionName: SKAVENTIDE,
       origin_realm: null,
       realmscape_feature: null,
       realmscape: null,

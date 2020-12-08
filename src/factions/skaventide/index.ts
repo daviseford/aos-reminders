@@ -1,6 +1,6 @@
 import { Faction } from 'factions/factionClass'
-import { ORDER } from 'meta/alliances'
-import { SAMPLE } from 'meta/factions'
+import { CHAOS } from 'meta/alliances'
+import { SKAVENTIDE } from 'meta/factions'
 import SubFactions from './subfactions'
 
-export const SampleFaction = new Faction(SAMPLE, ORDER, SubFactions, 'Subfactions', 'Flavors')
+export const SkaventideFaction = new Faction(SKAVENTIDE, CHAOS, SubFactions, undefined, 'Clans')

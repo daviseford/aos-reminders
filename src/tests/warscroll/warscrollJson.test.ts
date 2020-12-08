@@ -22,7 +22,7 @@ import {
   ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
-  SKAVEN,
+  SKAVENTIDE,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
@@ -1021,7 +1021,7 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(NURGLE)
     expect(res.allySelections).toEqual({
-      [SKAVEN]: { battalions: ['Congregation of Filth'], units: [] },
+      [SKAVENTIDE]: { battalions: ['Congregation of Filth'], units: [] },
     })
     expect(res.origin_realm).toEqual(HYSH)
     expect(res.errors).toEqual([
@@ -1381,7 +1381,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1572694928061-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(SKAVEN)
+    expect(res.factionName).toEqual(SKAVENTIDE)
     expect(res.selections.artifacts).toContain('Flaypelt Cloak (Verminus)')
     expect(res.errors).toEqual([])
   })
@@ -1390,7 +1390,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1572695046339-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(SKAVEN)
+    expect(res.factionName).toEqual(SKAVENTIDE)
     expect(res.selections.artifacts).toContain('Flaypelt Cloak (Verminus)')
     expect(res.errors).toEqual([])
   })
@@ -1399,7 +1399,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1571895994578-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(SKAVEN)
+    expect(res.factionName).toEqual(SKAVENTIDE)
     expect(res.selections.battalions).toEqual([
       'Warpcog Convocation',
       'Arkhspark Voltik (Enginecoven)',
@@ -1641,7 +1641,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1571158898802-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(SKAVEN)
+    expect(res.factionName).toEqual(SKAVENTIDE)
     expect(res.errors).toEqual([])
   })
 

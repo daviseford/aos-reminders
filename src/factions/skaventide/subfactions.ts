@@ -1,4 +1,5 @@
 import { TItemDescriptions } from 'factions/factionTypes'
+import { SKAVENTIDE } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
@@ -17,7 +18,7 @@ import Units from './units'
 
 const subFactions: TItemDescriptions = {
   'Subfaction Name': {
-    effects: pickEffects(BattleTraits, ['Battle Traits']),
+    effects: pickEffects(BattleTraits, [SKAVENTIDE]),
     available: {
       artifacts: [Artifacts],
       battalions: [Battalions],
