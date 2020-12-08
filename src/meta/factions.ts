@@ -33,7 +33,7 @@ type TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
 type TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 type TSeraphon = 'SERAPHON'
 type TSample = 'SAMPLE' // TODO: Remove before publishing
-type TSkaven = 'SKAVEN'
+type TSkaventide = 'SKAVENTIDE'
 type TSlaanesh = 'SLAANESH'
 type TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 type TSonsOfBehemat = 'SONS_OF_BEHEMAT'
@@ -77,7 +77,7 @@ export const OGOR_MAWTRIBES: TOgorMawtribes = 'OGOR_MAWTRIBES'
 export const ORDER_GRAND_ALLIANCE: TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
 export const OSSIARCH_BONEREAPERS: TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 export const SERAPHON: TSeraphon = 'SERAPHON'
-export const SKAVEN: TSkaven = 'SKAVEN'
+export const SKAVENTIDE: TSkaventide = 'SKAVENTIDE'
 export const SAMPLE: TSample = 'SAMPLE'
 export const SLAANESH: TSlaanesh = 'SLAANESH'
 export const SLAVES_TO_DARKNESS: TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
@@ -128,7 +128,7 @@ export type TPrimaryFactions =
   // | TOrderGrandAlliance
   // | TOssiarchBonereapers
   | TSeraphon
-  // | TSkaven
+  | TSkaventide
   | TSlaanesh
   | TSample
   | TSlavesToDarkness
@@ -175,7 +175,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // OSSIARCH_BONEREAPERS,
   SERAPHON,
   SAMPLE,
-  // SKAVEN,
+  SKAVENTIDE,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,

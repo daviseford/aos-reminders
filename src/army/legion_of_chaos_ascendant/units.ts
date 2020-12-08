@@ -1,6 +1,6 @@
 import Khorne from 'army/khorne'
 import Nurgle from 'army/nurgle'
-import Skaven from 'army/skaven'
+// import Skaven from 'army/skaven'
 // import Slaanesh from 'army/slaanesh'
 import SlavestoDarkness from 'army/slaves_to_darkness'
 import Tzeentch from 'army/tzeentch'
@@ -103,24 +103,24 @@ const getSlavesDaemonUnits = () => {
   return filterUnits(SlavestoDarkness.Units, listOfUnits)
 }
 
-const getSkavenDaemonUnits = () => {
-  const listOfUnits = [
-    `Lord Skreech Verminking`,
-    `Verminlord Corruptor`,
-    `Verminlord Deceiver`,
-    `Verminlord Warbringer`,
-    `Verminlord Warpseer`,
-    `Warpgnaw Verminlord`,
-  ]
-  return filterUnits(Skaven.Units, listOfUnits)
-}
+// const getSkavenDaemonUnits = () => {
+//   const listOfUnits = [
+//     `Lord Skreech Verminking`,
+//     `Verminlord Corruptor`,
+//     `Verminlord Deceiver`,
+//     `Verminlord Warbringer`,
+//     `Verminlord Warpseer`,
+//     `Warpgnaw Verminlord`,
+//   ]
+//   return filterUnits(Skaven.Units, listOfUnits)
+// }
 
 export const Units: TEntry[] = []
 
 export const AlliedUnits: TEntry[] = [
   ...getKhorneDaemonUnits(),
   ...getNurgleDaemonUnits(),
-  ...getSkavenDaemonUnits(),
+  // ...getSkavenDaemonUnits(),
   // ...getSlaaneshDaemonUnits(),
   ...getSlavesDaemonUnits(),
   ...getTzeentchDaemonUnits(),

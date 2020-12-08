@@ -1,5 +1,5 @@
 import BeastsofChaos from 'army/beasts_of_chaos'
-import Skaven from 'army/skaven'
+// import Skaven from 'army/skaven'
 import SlavestoDarkness from 'army/slaves_to_darkness'
 import { getTamurkhansBattalions, getTamurkhansUnits } from 'army/tamurkhans_horde/units'
 import { MARK_NURGLE } from 'meta/alliances'
@@ -37,17 +37,17 @@ const getSlavesBattalion = () => {
   return filterBattalions(SlavestoDarkness.Battalions, listOfBattalions)
 }
 
-const getSkavenUnits = () => {
-  const listOfUnits = [
-    'Plague Censer Bearers',
-    'Plague Monks',
-    'Plague Priest on Plague Furnace',
-    'Plague Priest',
-    'Plagueclaw',
-    'Verminlord Corruptor',
-  ]
-  return filterUnits(Skaven.Units, listOfUnits)
-}
+// const getSkavenUnits = () => {
+//   const listOfUnits = [
+//     'Plague Censer Bearers',
+//     'Plague Monks',
+//     'Plague Priest on Plague Furnace',
+//     'Plague Priest',
+//     'Plagueclaw',
+//     'Verminlord Corruptor',
+//   ]
+//   return filterUnits(Skaven.Units, listOfUnits)
+// }
 
 const getBoCUnits = () => {
   const listOfUnits = [
@@ -76,7 +76,7 @@ const getBoCBattalion = () => {
 
 export const AlliedUnits: TEntry[] = [
   ...getBoCUnits(),
-  ...getSkavenUnits(),
+  // ...getSkavenUnits(),
   ...getTamurkhansUnits(),
   ...SlaveUnits,
 ]

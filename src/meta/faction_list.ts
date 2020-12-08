@@ -6,6 +6,7 @@ import { NurgleFaction } from 'factions/nurgle'
 import { OgorMawtribesFaction } from 'factions/ogor_mawtribes'
 import { SampleFaction } from 'factions/sample'
 import { SeraphonFaction } from 'factions/seraphon'
+import { SkaventideFaction } from 'factions/skaventide'
 import { SlaaneshFaction } from 'factions/slaanesh'
 import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { SonsOfBehematFaction } from 'factions/sons_of_behemat'
@@ -20,6 +21,7 @@ import {
   OGOR_MAWTRIBES,
   SAMPLE,
   SERAPHON,
+  SKAVENTIDE,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
@@ -148,12 +150,9 @@ const FactionList = {
   //   Army: { ...OssiarchBonereapersArmy },
   //   GrandAlliance: DEATH,
   // },
-  [SERAPHON]: { ...SeraphonFaction },
   [SAMPLE]: { ...SampleFaction },
-  // [SKAVEN]: {
-  //   Army: { ...SkavenArmy },
-  //   GrandAlliance: CHAOS,
-  // },
+  [SERAPHON]: { ...SeraphonFaction },
+  [SKAVENTIDE]: { ...SkaventideFaction },
   [SLAANESH]: { ...SlaaneshFaction },
   [SLAVES_TO_DARKNESS]: { ...SlavesToDarknessFaction },
   [SONS_OF_BEHEMAT]: { ...SonsOfBehematFaction },

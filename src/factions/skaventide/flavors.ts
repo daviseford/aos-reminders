@@ -1,4 +1,3 @@
-import { TEntry } from 'types/data'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -11,9 +10,8 @@ import {
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 
-const Allegiances: TEntry[] = [
-  {
-    name: `Skilled Manipulators (Masterclan)`,
+const Flavors = {
+  'Skilled Manipulators (Masterclan)': {
     effects: [
       {
         name: `Skilled Manipulators (Masterclan)`,
@@ -22,8 +20,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Prized Creations (Moulder)`,
+  'Prized Creations (Moulder)': {
     effects: [
       {
         name: `Prized Creations (Moulder)`,
@@ -37,8 +34,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Masters of Murder (Eshin)`,
+  'Masters of Murder (Eshin)': {
     effects: [
       {
         name: `Masters of Murder (Eshin)`,
@@ -52,8 +48,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mighty Warlords (Verminus)`,
+  'Mighty Warlords (Verminus)': {
     effects: [
       {
         name: `Mighty Warlords (Verminus)`,
@@ -62,8 +57,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Warpstone Sparks (Skryre)`,
+  'Warpstone Sparks (Skryre)': {
     effects: [
       {
         name: `Warpstone Sparks (Skryre)`,
@@ -97,8 +91,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Echoes of the Great Plagues (Pestilens)`,
+  'Echoes of the Great Plagues (Pestilens)': {
     effects: [
       {
         name: `Echoes of the Great Plagues (Pestilens)`,
@@ -117,6 +110,6 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Allegiances
+export default Flavors
