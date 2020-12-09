@@ -1,4 +1,4 @@
-import GenericEffects from 'army/generic/effects'
+import GenericBattleTraits from 'army/generic/battle_traits'
 import { HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 export const LegacyEmpireUnits = {
@@ -29,7 +29,7 @@ export const LegacyEmpireUnits = {
 
   'Field Mortar': {
     effects: [
-      ...GenericEffects.CrewedWarMachine('Crewed Artillery'),
+      ...GenericBattleTraits.CrewedWarMachine('Crewed Artillery'),
       {
         name: `Artillery Barrage`,
         desc: `A Field Mortar can fire Mortar Shells at units that are not visible to it.`,

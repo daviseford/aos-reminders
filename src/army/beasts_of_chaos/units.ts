@@ -1,4 +1,4 @@
-import GenericEffects from 'army/generic/effects'
+import GenericBattleTraits from 'army/generic/battle_traits'
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
@@ -352,7 +352,7 @@ export const Units: TEntry[] = [
   {
     name: `Chaos Gargant`,
     effects: [
-      ...GenericEffects.Gargant,
+      ...GenericBattleTraits.Gargant,
       {
         name: `Stuff 'Em In Me Bag`,
         desc: `After this model piles in, you can pick an enemy model within 3" of this model and roll a D6. If the roll is equal to or greater than double that enemy model's Wounds characteristic, it is slain.`,

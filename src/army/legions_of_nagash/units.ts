@@ -1,4 +1,4 @@
-import GenericEffects from 'army/generic/effects'
+import GenericBattleTraits from 'army/generic/battle_traits'
 import { Units as NighthauntUnits } from 'army/nighthaunt/units'
 import { TEntry } from 'types/data'
 import {
@@ -335,7 +335,7 @@ export const Units: TEntry[] = [
   {
     name: `Vampire Lord on Zombie Dragon`,
     effects: [
-      ...GenericEffects.ZombieDragon,
+      ...GenericBattleTraits.ZombieDragon,
       TheHungerEffect,
       {
         name: `Deathlance Charge`,
@@ -630,11 +630,11 @@ export const Units: TEntry[] = [
   },
   {
     name: `Terrorgheist`,
-    effects: [...GenericEffects.Terrorgheist],
+    effects: [...GenericBattleTraits.Terrorgheist],
   },
   {
     name: `Zombie Dragon`,
-    effects: [...GenericEffects.ZombieDragon],
+    effects: [...GenericBattleTraits.ZombieDragon],
   },
   {
     name: `Wight King with Baleful Tomb Blade`,

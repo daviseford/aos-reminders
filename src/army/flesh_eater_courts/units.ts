@@ -1,4 +1,4 @@
-import GenericEffects from 'army/generic/effects'
+import GenericBattleTraits from 'army/generic/battle_traits'
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
@@ -52,7 +52,7 @@ export const Units: TEntry[] = [
   {
     name: `Abhorrant Ghoul King on Royal Terrorgheist`,
     effects: [
-      ...GenericEffects.Terrorgheist,
+      ...GenericBattleTraits.Terrorgheist,
       RoyalBloodEffect,
       {
         name: `Summon Royal Guard`,
@@ -78,7 +78,7 @@ export const Units: TEntry[] = [
         when: [END_OF_MOVEMENT_PHASE],
         command_ability: true,
       },
-      ...GenericEffects.ZombieDragon,
+      ...GenericBattleTraits.ZombieDragon,
       {
         name: `Malefic Hunger`,
         desc: `Casting value of 6. Until your next hero phase you can reroll wound rolls for attacks made with melee weapons by friendly Flesh-eater Courts units wholly within 16" of the caster.`,
@@ -251,7 +251,7 @@ export const Units: TEntry[] = [
   {
     name: `Royal Terrorgheist`,
     effects: [
-      ...GenericEffects.Terrorgheist,
+      ...GenericBattleTraits.Terrorgheist,
       {
         name: `Royal Menagerie`,
         desc: `In your hero phase, you can heal up to D3 wounds allocated to this model if this model is within 6" of a friendly ABHORRANT.`,
@@ -261,7 +261,7 @@ export const Units: TEntry[] = [
   },
   {
     name: `Royal Zombie Dragon`,
-    effects: [...GenericEffects.ZombieDragon],
+    effects: [...GenericBattleTraits.ZombieDragon],
   },
 ]
 

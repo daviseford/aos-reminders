@@ -1,4 +1,4 @@
-import GenericEffects from 'army/generic/effects'
+import GenericBattleTraits from 'army/generic/battle_traits'
 import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
@@ -45,7 +45,7 @@ const BaseMegaGargantEffects = [
   AlmightyStompEffect,
   CrushingChargeEffect,
   DeathGripEffect,
-  GenericEffects.Terror,
+  GenericBattleTraits.Terror,
   LongshanksEffect,
   SonOfBehematEffect,
   TimberrrrrEffect,
