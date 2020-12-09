@@ -1,26 +1,23 @@
-import { TEntry } from 'types/data'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
-  END_OF_CHARGE_PHASE,
-  END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
-  START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
-  START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
-  TURN_ONE_START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import command_abilities from './command_abilities'
+import spells from './spells'
 
 const SigmariteThundershield = {
   name: `Sigmarite Thundershield`,
@@ -115,9 +112,8 @@ const TirelessHuntersEffect = {
   when: [SHOOTING_PHASE],
 }
 
-export const Units: TEntry[] = [
-  {
-    name: `Celestant-Prime`,
+const Units = {
+  'Celestant-Prime': {
     effects: [
       {
         name: `Cometstrike Sceptre`,
@@ -156,8 +152,11 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Aventis Firestrike`,
+  'Aventis Firestrike': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Fiery Orator'])],
+      spells: [keyPicker(spells, ['Pyroelectric Blast'])],
+    },
     effects: [
       CometTrailEffect,
       CycleOfTheStormEffect,
@@ -177,57 +176,26 @@ export const Units: TEntry[] = [
         when: [HERO_PHASE],
       },
       SpiritFlaskEffect,
-      {
-        name: `Fiery Orator`,
-        desc: `Pick a friendly HAMMERS OF SIGMAR unit wholly within 12" of a friendly model with this command ability. Add 1 to wound rolls for attacks made by that unit until the end of that phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
       PrimeElectridsEffect,
-      {
-        name: `Pyroelectric Blast`,
-        desc: `Casting value of 6. Pick a point on the battlefield within 9" of the caster that is visible to them. Draw an imaginary line 1mm wide between that point and the closest part of the caster. Each unit, apart from the caster, that has any models beneath this line suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Astreia Solbright`,
+  'Astreia Solbright': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Soul Energy of the First Host'])],
+      spells: [keyPicker(spells, ['Lightning Pulse'])],
+    },
     effects: [
       CycleOfTheStormEffect,
       SpiritFlaskEffect,
       SupernaturalRoarEffect,
       ThunderousPounceEffect,
       PrimeElectridsEffect,
-      {
-        name: `Soul Energy of the First Host`,
-        desc: `Pick a friendly unit of HAMMERS OF SIGMAR CASTIGATORS wholly within 12" of a friendly model with this command ability. You can use Aetheric Channelling to increase the accuracy and power of that unit's Thunderhead Greatbows in that shooting phase instead of choosing only one of those options.`,
-        when: [SHOOTING_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `Soul Energy of the First Host`,
-        desc: `Pick a friendly unit of HAMMERS OF SIGMAR EVOCATORS wholly within 12" of a friendly model with this command ability. That unit can automatically cast Empower in that hero phase (no casting roll is required, and the spell cannot be unbound).`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `Soul Energy of the First Host`,
-        desc: `Pick a friendly unit of HAMMERS OF SIGMAR SEQUITORS wholly within 12" of a friendly model with this command ability. You can use Aetheric Channelling to increase the power of the unit's weapons and shields in that combat phase instead of choosing only one of those options.`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `Lightning Pulse`,
-        desc: `Casting value of 5. Roll a D6 for each enemy unit within 12" of the caster that is visible to them. On a 5+, that unit suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Vandus Hammerhand`,
+  'Vandus Hammerhand': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Vengeful Determination'])],
+    },
     effects: [
       {
         name: `Heldensen`,
@@ -245,16 +213,9 @@ export const Units: TEntry[] = [
         desc: `Friendly HAMMERS OF SIGMAR units wholly within 24" of this model at the start of the battleshock phase do not take battleshock tests.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Vengeful Determination`,
-        desc: `Until the end of the phase, add 1 to the Attacks of melee weapons used by friendly HAMMERS OF SIGMAR units while they are wholly within 12" of a friendly model with this command ability.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Neave Blacktalon`,
+  'Neave Blacktalon': {
     effects: [
       {
         name: `Lightning Fast Strikes`,
@@ -270,8 +231,10 @@ export const Units: TEntry[] = [
       WindriderEffect,
     ],
   },
-  {
-    name: `Gavriel Sureheart`,
+  'Gavriel Sureheart': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Once More, For Sigmar, Charge!'])],
+    },
     effects: [
       {
         name: `Inescapable Vengeance`,
@@ -279,16 +242,9 @@ export const Units: TEntry[] = [
         when: [COMBAT_PHASE],
       },
       SigmariteThundershield,
-      {
-        name: `Once More, For Sigmar, Charge!`,
-        desc: `Until the end of the phase add 3 to charge rolls for friendly HAMMERS OF SIGMAR units that are wholly within 12" of this model when the charge roll is made.`,
-        when: [START_OF_CHARGE_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Steelheart's Champions`,
+  "Steelheart's Champions": {
     effects: [
       {
         name: `Heroic Guard`,
@@ -312,8 +268,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Farstriders`,
+  'The Farstriders': {
     effects: [
       AstralCompassEffect,
       TirelessHuntersEffect,
@@ -324,28 +279,18 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lord-Arcanum`,
-    effects: [
-      CycleOfTheStormEffect,
-      SpiritFlaskEffect,
-      PrimeElectridsEffect,
-      {
-        name: `Aetheric Manipulation`,
-        desc: `You can use this command ability before an endless spell is moved. If you do so, pick a predatory Endless Spell model within 12" of a friendly model with this command ability. Add D6" to the distance that endless spell can move until the end of the battle round.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `Thunderclap`,
-        desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster that is visible to them. Subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
-        spell: true,
-      },
-    ],
+  'Lord-Arcanum': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Aetheric Manipulation'])],
+      spells: [keyPicker(spells, ['Thunderclap'])],
+    },
+    effects: [CycleOfTheStormEffect, SpiritFlaskEffect, PrimeElectridsEffect],
   },
-  {
-    name: `Lord-Arcanum on Tauralon`,
+  'Lord-Arcanum on Tauralon': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Swift of Wing'])],
+      spells: [keyPicker(spells, ['Lightning Orb'])],
+    },
     effects: [
       CometTrailEffect,
       CycleOfTheStormEffect,
@@ -355,93 +300,45 @@ export const Units: TEntry[] = [
         when: [CHARGE_PHASE],
       },
       SpiritFlaskEffect,
-      {
-        name: `Swift of Wing`,
-        desc: `Pick a friendly model with this command ability. Add 2 to run rolls for friendly SACROSANCT units that were wholly within 18" of that model at the start of that phase.`,
-        when: [START_OF_MOVEMENT_PHASE],
-        command_ability: true,
-      },
       PrimeElectridsEffect,
-      {
-        name: `Lightning Orb`,
-        desc: `Casting value of 6. Pick a point on the battlefield within 12" of the caster that is visible to them. Roll a D6 for each enemy unit within 3" of this point. On a 4+ that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Lord-Arcanum on Celestial Dracoline`,
+  'Lord-Arcanum on Celestial Dracoline': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Pack Alpha'])],
+      spells: [keyPicker(spells, ['Storm Lance'])],
+    },
     effects: [
-      {
-        name: `Pack Alpha`,
-        desc: `Add 1 to the Attacks of the Monstrous Claws of friendly EVOCATORS with DRACOLINE mounts while they are wholly within 18" of that model until the end of the phase.`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
-      },
       CycleOfTheStormEffect,
       SpiritFlaskEffect,
       PrimeElectridsEffect,
       ThunderousPounceEffect,
       SupernaturalRoarEffect,
-      {
-        name: `Storm Lance`,
-        desc: `Casting value of 5. Pick a point on the battlefield within 12" of the caster that is visible to them. Draw an imaginary line 1mm wide between that point and the closest part of the caster. Roll a D6 for each enemy model passed across by this line. On a 5+ that model suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Lord-Arcanum on Gryph-Charger`,
+  'Lord-Arcanum on Gryph-Charger': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Soul Energy of the First Host'])],
+      spells: [keyPicker(spells, ['Healing Light'])],
+    },
     effects: [
       AetherealStrikeEffect,
-      {
-        name: `Soul Energy of the First Host`,
-        desc: `Pick a friendly unit of HAMMERS OF SIGMAR CASTIGATORS wholly within 12" of a friendly model with this command ability. You can use Aetheric Channelling to increase the accuracy and power of that unit's Thunderhead Greatbows in that shooting phase instead of choosing only one of those options.`,
-        when: [SHOOTING_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `Soul Energy of the First Host`,
-        desc: `Pick a friendly unit of HAMMERS OF SIGMAR EVOCATORS wholly within 12" of a friendly model with this command ability. That unit can automatically cast Empower in that hero phase (no casting roll is required, and the spell cannot be unbound).`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `Soul Energy of the First Host`,
-        desc: `Pick a friendly unit of HAMMERS OF SIGMAR SEQUITORS wholly within 12" of a friendly model with this command ability. You can use Aetheric Channelling to increase the power of the unit's weapons and shields in that combat phase instead of choosing only one of those options.`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
-      },
       RideTheWindsAethericEffect,
       CycleOfTheStormEffect,
       SpiritFlaskEffect,
       PrimeElectridsEffect,
-      {
-        name: `Healing Light`,
-        desc: `Casting value of 5. Pick a friendly STORMCAST ETERNAL model within 18" of the caster. Heal D3 wounds that have been allocated to that model. If the casting roll was 8+, heal D6 wounds that have been allocated to that model instead.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Lord-Aquilor`,
-    effects: [
-      {
-        name: `Lord of the Azyrite Hurricane`,
-        desc: `Pick a friendly model with this command ability. Remove that model, and/or one friendly unit of VANGUARD-HUNTERS, VANGUARD-PALLADORS, VANGUARD-RAPTORS or AETHERWINGS wholly within 24" of that model, from the battlefield and set them up wholly within 6" of any edge of the battlefield, more than 7" from any enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
-        command_ability: true,
-      },
-      AstralCompassEffect,
-      AetherealStrikeEffect,
-      RideTheWindsAethericEffect,
-    ],
+  'Lord-Aquilor': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Lord of the Azyrite Hurricane'])],
+    },
+    effects: [AstralCompassEffect, AetherealStrikeEffect, RideTheWindsAethericEffect],
   },
-  {
-    name: `Lord-Celestant on Dracoth`,
+  'Lord-Celestant on Dracoth': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Lord of the Host'])],
+    },
     effects: [
       {
         name: `Lightning Hammer`,
@@ -461,12 +358,6 @@ export const Units: TEntry[] = [
         when: [COMBAT_PHASE],
       },
       {
-        name: `Lord of the Host`,
-        desc: `Until the end of the phase, you do not have to take battleshock tests for friendly STORMCAST ETERNAL units that are wholly within 24" of that model.`,
-        when: [BATTLESHOCK_PHASE],
-        command_ability: true,
-      },
-      {
         name: `Tempestos Hammer`,
         desc: `Add D3 to the Attacks of this model's Tempestos Hammer if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
@@ -478,8 +369,10 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lord-Celestant on Stardrake`,
+  'Lord-Celestant on Stardrake': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Lord of the Celestial Host'])],
+    },
     effects: [
       {
         name: `Arcane Lineage`,
@@ -512,23 +405,13 @@ export const Units: TEntry[] = [
         desc: `If the unmodified hit roll for an attack made with a Stormbound Blade is 6, that attack inflicts 3 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Lord of the Celestial Host`,
-        desc: `Reroll failed wound rolls for attacks made by friendly STARDRAKE and DRACOTH mounts until the end of that phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Lord-Celestant`,
+  'Lord-Celestant': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Furious Retribution'])],
+    },
     effects: [
-      {
-        name: `Furious Retribution`,
-        desc: `Pick a friendly model with this command ability that is within 3" of an enemy unit. Add 1 to hit rolls for friendly STORMCAST ETERNAL units wholly within 12" of that model when they attack in that combat phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
       {
         name: `Inescapable Vengeance`,
         desc: `Add 1 to the Attacks of this model's weapons if this model made a charge move in the same turn.`,
@@ -541,8 +424,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lord-Castellant`,
+  'Lord-Castellant': {
     effects: [
       {
         name: `Faithful Gryph-Hound`,
@@ -561,8 +443,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gryph-Hounds`,
+  'Gryph-Hounds': {
     effects: [
       {
         name: `Warning Cry`,
@@ -586,8 +467,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lord-Relictor`,
+  'Lord-Relictor': {
     effects: [
       {
         name: `Healing Storm`,
@@ -601,24 +481,19 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lord-Exorcist`,
+  'Lord-Exorcist': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Purifying Blast'])],
+    },
     effects: [
       {
         name: `Redemptor Casket`,
         desc: `Roll a D6 for each DAEMON or NIGHTHAUNT unit within 6" of this model. On a 4+ that unit suffers 1 mortal wound.`,
         when: [START_OF_SHOOTING_PHASE],
       },
-      {
-        name: `Purifying Blast`,
-        desc: `Casting value of 5. Roll a D6 for each enemy unit within 6" of the caster. Add that unit's Bravery to the roll. If the result is less than 10, that unit suffers D3 mortal wounds. Halve the Bravery (rounding down) of DEATH and DAEMON units for this spell.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Lord-Ordinator`,
+  'Lord-Ordinator': {
     effects: [
       {
         name: `Arcane Engineer`,
@@ -642,8 +517,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lord-Veritant`,
+  'Lord-Veritant': {
     effects: [
       {
         name: `Faithful Gryph-Hound`,
@@ -667,8 +541,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Knight-Azyros`,
+  'Knight-Azyros': {
     effects: [
       {
         name: `Illuminator of the Lost`,
@@ -682,8 +555,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Knight-Venator`,
+  'Knight-Venator': {
     effects: [
       {
         name: `Celestial Strike`,
@@ -697,8 +569,10 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Knight-Incantor`,
+  'Knight-Incantor': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Spirit Storm'])],
+    },
     effects: [
       {
         name: `Voidstorm`,
@@ -706,16 +580,9 @@ export const Units: TEntry[] = [
         when: [HERO_PHASE],
       },
       SpiritFlaskEffect,
-      {
-        name: `Spirit Storm`,
-        desc: `Casting value of 7. Each enemy unit within 18" of the caster suffers a mortal wound. In addition, until your next hero phase, subtract 1 from run and charge rolls for enemy units while they are within 18" of the caster.`,
-        when: [HERO_PHASE, MOVEMENT_PHASE, CHARGE_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Knight-Heraldor`,
+  'Knight-Heraldor': {
     effects: [
       {
         name: `Onwards to Glory`,
@@ -729,8 +596,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Errant-Questor`,
+  'Errant-Questor': {
     effects: [
       {
         name: `Implacable Determination`,
@@ -755,8 +621,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Knight-Questor`,
+  'Knight-Questor': {
     effects: [
       {
         name: `Heroic Challenge`,
@@ -775,8 +640,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Knight-Questor Larissa Shadowstalker`,
+  'Knight-Questor Larissa Shadowstalker': {
     effects: [
       {
         name: `Deathstrike`,
@@ -800,8 +664,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Knight-Vexillor`,
+  'Knight-Vexillor': {
     effects: [
       {
         name: `Icon of War`,
@@ -820,8 +683,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Knight-Zephyros`,
+  'Knight-Zephyros': {
     effects: [
       {
         name: `Lightning Fast Strikes`,
@@ -832,8 +694,7 @@ export const Units: TEntry[] = [
       WindriderEffect,
     ],
   },
-  {
-    name: `Drakesworn Templar`,
+  'Drakesworn Templar': {
     effects: [
       {
         name: `Arc Hammer`,
@@ -877,8 +738,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Concussors`,
+  Concussors: {
     effects: [
       IntolerableDamageEffect,
       SigmariteShieldsEffect,
@@ -890,8 +750,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Fulminators`,
+  Fulminators: {
     effects: [
       IntolerableDamageEffect,
       SigmariteShieldsEffect,
@@ -908,8 +767,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Desolators`,
+  Desolators: {
     effects: [
       IntolerableDamageEffect,
       SigmariteShieldsEffect,
@@ -921,8 +779,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Tempestors`,
+  Tempestors: {
     effects: [
       IntolerableDamageEffect,
       SigmariteShieldsEffect,
@@ -934,8 +791,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Protectors`,
+  Protectors: {
     effects: [
       StarsoulMacesEffect,
       {
@@ -955,8 +811,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Decimators`,
+  Decimators: {
     effects: [
       StarsoulMacesEffect,
       {
@@ -976,8 +831,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Liberators`,
+  Liberators: {
     effects: [
       {
         name: `Lay Low the Tyrants`,
@@ -997,8 +851,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Retributors`,
+  Retributors: {
     effects: [
       StarsoulMacesEffect,
       {
@@ -1013,8 +866,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Prosecutors with Stormcall Javelins`,
+  'Prosecutors with Stormcall Javelins': {
     effects: [
       {
         name: `Prosecutor-Prime`,
@@ -1034,8 +886,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Prosecutors with Celestial Hammers`,
+  'Prosecutors with Celestial Hammers': {
     effects: [
       {
         name: `Prosecutor-Prime`,
@@ -1060,8 +911,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Judicators`,
+  Judicators: {
     effects: [
       {
         name: `Judicator-Prime`,
@@ -1090,8 +940,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vanguard-Raptors with Hurricane Crossbows`,
+  'Vanguard-Raptors with Hurricane Crossbows': {
     effects: [
       {
         name: `Raptor-Prime`,
@@ -1110,8 +959,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vanguard-Raptors with Longstrike Crossbows`,
+  'Vanguard-Raptors with Longstrike Crossbows': {
     effects: [
       {
         name: `Headshot`,
@@ -1130,8 +978,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vanguard-Hunters`,
+  'Vanguard-Hunters': {
     effects: [
       AstralCompassEffect,
       TirelessHuntersEffect,
@@ -1142,8 +989,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vanguard-Palladors`,
+  'Vanguard-Palladors': {
     effects: [
       {
         name: `Lunar Blade`,
@@ -1154,8 +1000,7 @@ export const Units: TEntry[] = [
       RideTheWindsAethericEffect,
     ],
   },
-  {
-    name: `Aetherwings`,
+  Aetherwings: {
     effects: [
       {
         name: `Swooping Hunters`,
@@ -1169,8 +1014,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Celestar Ballista`,
+  'Celestar Ballista': {
     effects: [
       {
         name: `Bastions of Death`,
@@ -1184,8 +1028,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Castigators`,
+  Castigators: {
     effects: [
       {
         name: `Castigator-Prime`,
@@ -1204,8 +1047,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sequitors`,
+  Sequitors: {
     effects: [
       {
         name: `Sequitor-Prime`,
@@ -1234,8 +1076,10 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Evocators`,
+  Evocators: {
+    mandatory: {
+      spells: [keyPicker(spells, ['Empower'])],
+    },
     effects: [
       ...CelestialLightningArcEffects,
       {
@@ -1248,16 +1092,12 @@ export const Units: TEntry[] = [
         desc: `This unit is a WIZARD while it has 2 or more models.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Empower`,
-        desc: `Casting value of 6. Pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can reroll failed wound rolls for attacks made by that unit.`,
-        when: [HERO_PHASE, COMBAT_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Evocators on Celestial Dracolines`,
+  'Evocators on Celestial Dracolines': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Empower'])],
+    },
     effects: [
       {
         name: `Evocator-Prime`,
@@ -1272,24 +1112,15 @@ export const Units: TEntry[] = [
       },
       SupernaturalRoarEffect,
       ThunderousPounceEffect,
-      {
-        name: `Empower`,
-        desc: `Casting value of 6. Pick a friendly REDEEMER or SACROSANCT unit wholly within 12" of the caster. Until your next hero phase, you can reroll failed wound rolls for attacks made by that unit.`,
-        when: [HERO_PHASE, COMBAT_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Lynus Ghalmorian on Gryph Charger`,
+  'Lynus Ghalmorian on Gryph Charger': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Sombre Exemplar'])],
+      spells: [keyPicker(spells, ['Amethyst Gale'])],
+    },
     effects: [
       AetherealStrikeEffect,
-      {
-        name: `Sombre Exemplar`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, until the end of that phase add 1 to hit rolls for attacks made by friendly ANVILS OF THE HELDENHAMMER units while they are wholly within 12" of this model.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
       RideTheWindsAethericEffect,
       CycleOfTheStormEffect,
       SpiritFlaskEffect,
@@ -1298,17 +1129,13 @@ export const Units: TEntry[] = [
         desc: `You can reroll save rolls of 1 for attacks made with missile weapons that target this model or any friendly ANVILS OF HELDENHAMMER units wholly within 12" of this model.`,
         when: [SAVES_PHASE],
       },
-      {
-        name: `Amethyst Gale`,
-        desc: `Casting value of 6. Pick a enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds. In addition, until your next hero phase, subtract 1 from hit rolls for attacks made by that unit.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
-        spell: true,
-      },
       PrimeElectridsEffect,
     ],
   },
-  {
-    name: `Averon Stormsire`,
+  'Averon Stormsire': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Stormsire'])],
+    },
     effects: [
       SpiritFlaskEffect,
       {
@@ -1316,16 +1143,12 @@ export const Units: TEntry[] = [
         desc: `Once per battle, when this model attempts to unbind a spell, instead of making an unbinding roll you can say this model is using its Voidstorm Scroll. If you do so, the spell is automatically unbound (do not roll the dice).`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Stormsire`,
-        desc: `Casting value of 7. Each enemy unit within 18" of the caster suffers 1 mortal wound. Enemy units within 6" of the caster suffer D3 mortal wounds instead. In addition, until your next hero phase, subtract 1 from run and charge rolls for enemy units while they are within 18" of the caster.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Stormsire's Cursebreakers`,
+  "Stormsire's Cursebreakers": {
+    mandatory: {
+      spells: [keyPicker(spells, ['Empower'])],
+    },
     effects: [
       {
         name: `Blessed Banishment`,
@@ -1333,397 +1156,8 @@ export const Units: TEntry[] = [
         when: [COMBAT_PHASE],
       },
       ...CelestialLightningArcEffects,
-      {
-        name: `Empower`,
-        desc: `Casting value of 6. Pick a friendly Redeemer or Sacrosanct unit wholly within 12" of the caster. Until your next hero phase, you can reroll failed wound rolls for attacks made by that unit.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-]
+}
 
-export const Battalions: TEntry[] = [
-  {
-    name: `Skyborne Slayers`,
-    effects: [
-      {
-        name: `Hurled by Sigmar's Hand`,
-        desc: `Instead of setting up a unit from the Skyborne Slayers on the battlefield, you can place it to one side and say that it is set up in the Celestial Realm.`,
-        when: [DURING_SETUP],
-      },
-      {
-        name: `Hurled by Sigmar's Hand`,
-        desc: `In any of your movement phases, you can transport all of the units from the Skyborne Slayers that you have placed to one side onto the battlefield. When you do so, pick a point anywhere on the battlefield, then set up all of the units within 12" of that point and more than 5" from any enemy models. This is their move for that movement phase.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Honour of the God-King`,
-        desc: `Units from the Skyborne Slayers never need to take battleshock tests.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Grand Convocation`,
-    effects: [
-      {
-        name: `Powers Combined`,
-        desc: `Add 1 to casting rolls for WIZARDS from this battalion when they are wholly within 9" of two or more other WIZARDS from the same battalion.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Hailstorm Battery`,
-    effects: [
-      {
-        name: `Hailstorm Strike`,
-        desc: `You can reroll failed hit rolls for attacks made by the CELESTAR BALLISTA from this battalion if the unit of CASTIGATORS from the same battalion inflicted one or more wounds on the target unit in the same turn.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Cleansing Phalanx`,
-    effects: [
-      {
-        name: `Channelled Empowerment`,
-        desc: `If a unit of EVOCATORS from this battalion successfully casts their Empower spell on a unit of SEQUITORS from the same battalion, and the spell is not unbound, you can reroll failed hit rolls for attacks made by the SEQUITORS unit in addition to the effects of the spell.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Sacrosanct Chamber`,
-    effects: [
-      {
-        name: `Celestial Fulcrum`,
-        desc: `Pick a LORD-ARCANUM from this battalion. That model can attempt to cast 1 additional spell that hero phase.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Vanguard Auxiliary Chamber`,
-    effects: [
-      {
-        name: `Azyrite Hurricane`,
-        desc: `Add 1 to the Attacks of missile weapons used by models from this battalion that are not HEROES.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Vanguard Angelos Conclave`,
-    effects: [
-      {
-        name: `Aetheric Wake`,
-        desc: `When units from this battalion use the Ride the Winds Aetheric ability, roll 9 dice instead of 6 dice when determining the distance moved.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Vanguard Justicar Conclave`,
-    effects: [
-      {
-        name: `Fight in Concert`,
-        desc: `You can reroll hit rolls of 1 for attacks made with missile weapons by units of VANGUARD-RAPTORS from this battalion, if the target of that attack is an enemy unit within 18" of any AETHERWING units from the same battalion.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Lightning Echelon`,
-    effects: [
-      {
-        name: `Line-breaker Assault`,
-        desc: `Once per battle, you can make a line-breaker assault with each unit from this battalion that made a charge move that charge phase. Pick one enemy unit within 1" of each unit making a line-breaker assault. That enemy unit suffers D3 mortal wounds.`,
-        when: [END_OF_CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Extremis Chamber`,
-    effects: [
-      {
-        name: `Borne by the High Star`,
-        desc: `At the start of your first hero phase, you can transport all reserve units from this battalion that are in the Celestial Realm to the battlefield. If you do so, pick a point on the battlefield and set up the units wholly within 24" of that point and more than 9" from any enemy unit. Those units cannot move in the following movement phase. After setting up those units, roll a D6 for each enemy unit within 18" of the point you picked. On a 4+ that unit suffers D3 mortal wounds.`,
-        when: [TURN_ONE_START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Thunderwave Echelon`,
-    effects: [
-      {
-        name: `Ride of the Annihilators`,
-        desc: `Subtract 1 from the Bravery of enemy units while they are within 3" of one or more units from the same battalion.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Drakesworn Temple`,
-    effects: [
-      {
-        name: `Nova surge`,
-        desc: `Once per battle, you can summon a celestial wave. If you do so, each unit within 3" of any models from this battalion is caught in the celestial wave. Each enemy unit caught in the celestial wave suffers D3 mortal wounds. Heal D3 wounds allocated to each friendly STORMCAST ETERNAL unit caught in the celestial wave.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Warrior Chamber`,
-    effects: [
-      {
-        name: `Wrath of the Storm`,
-        desc: `You can reroll failed wound rolls for attacks made by models from this battalion while there are 50 or more models from the same battalion on the battlefield.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Harbinger Chamber`,
-    effects: [
-      {
-        name: `Celestial Nimbus`,
-        desc: `Add 1 to hit rolls made by models from this batalion.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Exemplar Chamber`,
-    effects: [
-      {
-        name: `Martial Bond`,
-        desc: `If a unit from this battalion is destroyed in the combat phase, pick another unit from the same battalion. Add 1 to the Attacks of that unit's melee weapons for the rest of the battle. A unit cannot be picked to benefit from this ability more than once per battle.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Lords of the Storm`,
-    effects: [
-      {
-        name: `Storm-born Commanders`,
-        desc: `If any HEROES from this battalion are on the battlefield, roll a D6. On a 4+ you receive 1 additional command point.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Thunderhead Brotherhood`,
-    effects: [
-      {
-        name: `Sigmarite Shieldwall`,
-        desc: `You can reroll save rolls of 1 for attacks that target a unit of JUDICATORS from this battalion if that unit is wholly within 3" of a unit of LIBERATORS from the same battalion that has any models carrying a Sigmarite Shield.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Hammerstrike Force`,
-    effects: [
-      {
-        name: `Celestial Supercharge`,
-        desc: `Pick one unit of PALADINS from this battalion that is wholly within 9" of the unit of PROSECUTORS from the same battalion. If you do so, add 1 to wound rolls for attacks made by the unit you pick until the end of the turn.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Vanguard Wing`,
-    effects: [
-      {
-        name: `Bearers of the Storm`,
-        desc: `If the unmodified hit roll for an attack made by a unit of LIBERATORS from this battalion that is wholly within 16" of a unit of PROSECUTORS from the same battalion is 6, add 1 to the Damage of that attack.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Devastation Brotherhood`,
-    effects: [
-      {
-        name: `Crushing Assault`,
-        desc: `If an enemy unit suffers wounds from attacks made by all three units of PALADINS from this battalion in the same combat phase, that enemy unit suffers D6 mortal wounds at the end of that combat phase.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Soulstrike Brotherhood`,
-    effects: [
-      {
-        name: `Interception Force`,
-        desc: `If any units of VANGUARD-HUNTERS from this battalion were on the battlefield at the start of a turn in which a reserve SACROSANCT unit from the same battalion is set up on the battlefield for the first time, add 1 to the Attacks of missile weapons used by that SACROSANCT unit in that turn.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Sempiternals Sacrosanct Chamber`,
-    effects: [
-      {
-        name: `Attuned to the Arcane`,
-        desc: `At the start of your hero phase, you can pick 1 Lord-Arcanum from this battalion. If you do so, add 9" to the range of any spells successfully cast by that model in that phase.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Sempiternals Grand Convocation`,
-    effects: [
-      {
-        name: `Thwart the Arcane`,
-        desc: `Add 2 to the unbinding rolls for WIZARDS from this battalion while they are wholly within 9" of two or more other WIZARDS from the same battalion.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Sempiternals Hailstorm Battery`,
-    effects: [
-      {
-        name: `Deadly Hail`,
-        desc: `You can reroll wound rolls of 1 for attacks made with missile weapons by units from this battalion if they are wholly within 12" of the LORD-ORDINATOR from this battalion.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Sempiternals Cleansing Phalanx`,
-    effects: [
-      {
-        name: `Weapons Ablaze`,
-        desc: `If a unit of EVOCATORS from this battalion successfully casts their Empower spell on a unit of SEQUITORS from the same battalion, and the spell is not unbound, improve the Rend characteristics of weapons used by that SEQUITORS unit by 1 until the start of your next hero phase, in addition to the effects of the spell.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Stormcast Eternals Blessed Host`,
-    effects: [
-      {
-        name: `Star-blessed Sigmarite`,
-        desc: `Blessed Host units have a Save characteristic of 3+ whilst they are within 12" of their Lord-Celestant.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Hammerhands Warrior Chamber`,
-    effects: [
-      {
-        name: `Exemplars to All`,
-        desc: `You can reroll saves of 1 for this battallion's units wholly within 8" of any of this battalion's heros.`,
-        when: [SAVES_PHASE],
-      },
-      {
-        name: `Blood Feud`,
-        desc: `You can reroll hits of 1 for attacks targeting Bloodbound units.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Hammerhands Lords of the Storm`,
-    effects: [
-      {
-        name: `Stand Firm, Brothers`,
-        desc: `If a hero from this battalion is slain by a wound or mortal wound while wholly within 6" of any other heros from this battalion, roll a D6. On a 5+ the wound is negated and the model is not slain.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Hammerhands Thunderhead Brotherhood`,
-    effects: [
-      {
-        name: `Storied Veterans`,
-        desc: `You can reroll hits of 1 for this batallion's Liberator units targetting units that have had at least one wound inflicted by any of this battalion's Judicators.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Hammerhands Hammerstrike Force`,
-    effects: [
-      {
-        name: `Dauntless Spirit`,
-        desc: `You can reroll wounds of 1 for this battalion's melee attacks targeting units with greater number of models than the attacking unit.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Steel Souls Warrior Chamber`,
-    effects: [
-      {
-        name: `Purifying Purge`,
-        desc: `You can heal 1 wound allocated to each unit in this battalion.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Steel Souls Lords of the Storm`,
-    effects: [
-      {
-        name: `Saintly Assault`,
-        desc: `Once per battle, you can reroll charge rolls from units in this battalion until the end of the phase.`,
-        when: [START_OF_CHARGE_PHASE],
-      },
-      {
-        name: `Saintly Assault`,
-        desc: `If active, add 1 to the melee attacks characteristic from this battalion's units until the end of the turn.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Steel Souls Thunderhead Brotherhood`,
-    effects: [
-      {
-        name: `Strength Through Sacrifice`,
-        desc: `If any models from a unit in this battalion were slain in this combat phase, add 1 to the bravery characteristic of that unit until the end of the turn.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Steel Souls Hammerstrike Force`,
-    effects: [
-      {
-        name: `Beacons of Faith`,
-        desc: `Subtract 1 from enemy wizard casting rolls while they are within 8" of this battalion's units.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Ven Brecht's Black Watch`,
-    effects: [
-      {
-        name: `Ever Vigilent`,
-        desc: `You can remove the battalion units from the battlefield. You may then set up the Lord-Veritant more than 9" from enemy units followed by the remaining battalion units, again more than 9" from the enemy and wholly within 12" of the Lord-Veritant.`,
-        when: [END_OF_SETUP],
-      },
-      {
-        name: `Fiendslayer`,
-        desc: `You may target enemy Chaos or Death heros instead of enemy wizards with Sanction.`,
-        when: [HERO_PHASE],
-        command_trait: true,
-      },
-      {
-        name: `Fiendslayer`,
-        desc: `Add 1 to hit rolls made by this general targeting Vampires.`,
-        when: [COMBAT_PHASE],
-        command_trait: true,
-      },
-    ],
-  },
-]
+export default tagAs(Units, 'unit')
