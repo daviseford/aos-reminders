@@ -60,19 +60,20 @@ const BattleTraits = {
       {
         name: `Summon Daemons of Nurgle`,
         desc: `Summoning Costs:
-               1 Great Unclean One -              28 CP
-               1 Horticulous Slimux -             21 CP
-               3 Plague Drones -                  21 CP
-               20 Plaguebearers -                 21 CP
-               1 Poxbringer -                     14 CP
-               1 Sloppity Bilepiper -             14 CP
-               1 Spoilpox Scrivener -             14 CP
-               10 Plaguebearers -                 14 CP
-               1 Beast of Nurgle -                14 CP
-               3 Nurgling Bases -                 14 CP
-               5 Plaguebearers -                  7 CP
-               1 Nurgling Base -                  7 CP
-               1 Feculent Gnarlmaw -              7 CP`,
+               1 Exalted Greater Daemon of Nurgle - 35 CP       
+               1 Great Unclean One -                28 CP
+               1 Horticulous Slimux -               21 CP
+               3 Plague Drones -                    21 CP
+               20 Plaguebearers -                   21 CP
+               1 Poxbringer -                       14 CP
+               1 Sloppity Bilepiper -               14 CP
+               1 Spoilpox Scrivener -               14 CP
+               10 Plaguebearers -                   14 CP
+               1 Beast of Nurgle -                  14 CP
+               3 Nurgling Bases -                   14 CP
+               5 Plaguebearers -                    7 CP
+               1 Nurgling Base -                    7 CP
+               1 Feculent Gnarlmaw -                7 CP`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
