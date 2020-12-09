@@ -15,6 +15,7 @@ import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { SonsOfBehematFaction } from 'factions/sons_of_behemat'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import { SylvanethFaction } from 'factions/sylvaneth'
+import { TzeentchFaction } from 'factions/tzeentch'
 import {
   CHAOS_GRAND_ALLIANCE,
   DAUGHTERS_OF_KHAINE,
@@ -37,6 +38,7 @@ import {
   STORMCAST_ETERNALS,
   SYLVANETH,
   TSupportedFaction,
+  TZEENTCH,
 } from 'meta/factions'
 
 // Enable as you add them to /factions/
@@ -168,9 +170,7 @@ const FactionList = {
   //   Army: { ...TombKingsArmy },
   //   GrandAlliance: DEATH,
   // },
-  // [TZEENTCH]: {
-  //   Army: { ...TzeentchArmy },
-  //   GrandAlliance: CHAOS,
+  [TZEENTCH]: { ...TzeentchFaction },
   // },
   // [WANDERERS]: {
   //   Army: { ...WanderersArmy },

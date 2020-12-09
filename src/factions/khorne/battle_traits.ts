@@ -92,6 +92,7 @@ const BattleTraits = {
       {
         name: `Summon Daemons of Khorne`,
         desc: `Summoning Costs:
+               1 Exalted Greater Daemon of Khorne - 16 BTP, (8 BTP if in army)
                1 Wrath of Khorne Bloodthirster -    8 BTP
                1 Bloodthirster of Unfettered Fury - 8 BTP
                1 Bloodthirster of Insensate Rage -  8 BTP
