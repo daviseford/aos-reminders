@@ -1,4 +1,5 @@
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
+import { ChaosFaction, DeathFaction, DestructionFaction, OrderFaction } from 'factions/grand_alliances'
 import { KhorneFaction } from 'factions/khorne'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
@@ -15,13 +16,17 @@ import { SonsOfBehematFaction } from 'factions/sons_of_behemat'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import { SylvanethFaction } from 'factions/sylvaneth'
 import {
+  CHAOS_GRAND_ALLIANCE,
   DAUGHTERS_OF_KHAINE,
+  DEATH_GRAND_ALLIANCE,
+  DESTRUCTION_GRAND_ALLIANCE,
   KHORNE,
   LEGIONS_OF_NAGASH,
   MEGA_GARGANT_MERCENARIES,
   MERCENARY_COMPANIES,
   NURGLE,
   OGOR_MAWTRIBES,
+  ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
   SAMPLE,
   SERAPHON,
@@ -48,23 +53,14 @@ const FactionList = {
   //   Army: { ...BonesplitterzArmy },
   //   GrandAlliance: DESTRUCTION,
   // },
-  // [CHAOS_GRAND_ALLIANCE]: {
-  //   Army: { ...ChaosArmy },
-  //   GrandAlliance: CHAOS,
-  // },
+  [CHAOS_GRAND_ALLIANCE]: { ...ChaosFaction },
   // [CITIES_OF_SIGMAR]: {
   //   Army: { ...CitiesOfSigmarArmy },
   //   GrandAlliance: ORDER,
   // },
   [DAUGHTERS_OF_KHAINE]: { ...DaughtersOfKhaineFaction },
-  // [DEATH_GRAND_ALLIANCE]: {
-  //   Army: { ...DeathArmy },
-  //   GrandAlliance: DEATH,
-  // },
-  // [DESTRUCTION_GRAND_ALLIANCE]: {
-  //   Army: { ...DestructionArmy },
-  //   GrandAlliance: DESTRUCTION,
-  // },
+  [DEATH_GRAND_ALLIANCE]: { ...DeathFaction },
+  [DESTRUCTION_GRAND_ALLIANCE]: { ...DestructionFaction },
   // [DISPOSSESSED]: {
   //   Army: { ...DispossessedArmy },
   //   GrandAlliance: ORDER,
@@ -143,10 +139,7 @@ const FactionList = {
   // },
   [NURGLE]: { ...NurgleFaction },
   [OGOR_MAWTRIBES]: { ...OgorMawtribesFaction },
-  // [ORDER_GRAND_ALLIANCE]: {
-  //   Army: { ...OrderArmy },
-  //   GrandAlliance: ORDER,
-  // },
+  [ORDER_GRAND_ALLIANCE]: { ...OrderFaction },
   [OSSIARCH_BONEREAPERS]: { ...OssiarchBonereapersFaction },
   //   Army: { ...OssiarchBonereapersArmy },
   //   GrandAlliance: DEATH,

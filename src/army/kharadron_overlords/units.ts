@@ -1,4 +1,3 @@
-import { APPRENTICE_RUNESMITH } from 'army/grand_alliances/order/subfactions/duardin'
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
@@ -117,7 +116,7 @@ const ByGrugniEffect = {
 }
 
 export const Units: TEntry[] = [
-  APPRENTICE_RUNESMITH,
+  // APPRENTICE_RUNESMITH, // TODO: Re-add
   {
     name: `Endrinmaster with Dirigible Suit`,
     effects: [ByGrugniEffect, EndrinmasterHealEffect('3'), HitchersEffect],
