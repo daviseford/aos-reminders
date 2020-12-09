@@ -1,6 +1,6 @@
 // import DaughtersOfKhaineArmy from 'army/daughters_of_khaine'
 import KharadronOverlords from 'army/kharadron_overlords'
-import Stormcast from 'army/stormcast_eternals'
+// import Stormcast from 'army/stormcast_eternals'
 // import Sylvaneth from 'army/sylvaneth'
 import { TEntry } from 'types/data'
 import { AZYR } from 'types/import'
@@ -28,7 +28,7 @@ import {
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
 
 const getKharadronUnits = () => KharadronOverlords.Units
-const getStormcastUnits = () => Stormcast.Units
+// const getStormcastUnits = () => Stormcast.Units
 // const getSylvanethUnits = () => Sylvaneth.Units
 // const getDaughtersUnits = () => DaughtersOfKhaineArmy.Units
 
@@ -1440,7 +1440,7 @@ export const Units: TEntry[] = [
 ]
 
 export const AlliedUnits: TEntry[] = [
-  ...getStormcastUnits(),
+  // ...getStormcastUnits(),
   ...getKharadronUnits(),
   // ...getSylvanethUnits(),
   // ...getDaughtersUnits(),

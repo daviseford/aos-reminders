@@ -3,4 +3,4 @@ import { ORDER } from 'meta/alliances'
 import { SERAPHON } from 'meta/factions'
 import SubFactions from './subfactions'
 
-export const SeraphonFaction = new Faction(SERAPHON, ORDER, SubFactions, 'Idk yet', 'Constellations')
+export const SeraphonFaction = new Faction(SERAPHON, ORDER, SubFactions, 'Constellations')

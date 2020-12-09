@@ -1,10 +1,10 @@
 import deepmerge from 'deepmerge'
 import { TInitialArmy } from 'types/army'
 import { TEntry } from 'types/data'
-import { TSelectionTypes } from 'types/selections'
 import {
   TItemDescription,
   TItemDescriptions,
+  TItemKey,
   TObjWithEffects,
   TParentEffectsObjWithEffects,
 } from './factionTypes'
@@ -20,6 +20,7 @@ export const temporaryAdapter: TAdapter = (
   FlavorType = 'Flavors'
 ): TInitialArmy => {
   const initialArmy: TInitialArmy = {
+    AlliedUnits: mergeData(subFaction, 'allied_units'),
     Artifacts: mergeData(subFaction, 'artifacts'),
     Battalions: mergeData(subFaction, 'battalions'),
     BattleTraits: subFaction.effects,
@@ -50,7 +51,7 @@ const subFactionAdapter = (subFaction: TItemDescription, name: string): TEntry =
   const { mandatory = {}, effects = [] } = subFaction
   return { mandatory, effects, name }
 }
-const mergeData = (subFaction: TItemDescription, slice: TSelectionTypes): TObjWithName[] => {
+const mergeData = (subFaction: TItemDescription, slice: TItemKey): TObjWithName[] => {
   const { available = {}, mandatory = {} } = subFaction
   const merged: TParentEffectsObjWithEffects[] = [...(available[slice] || []), ...(mandatory[slice] || [])]
   return mergeParentEffectObjs(merged)

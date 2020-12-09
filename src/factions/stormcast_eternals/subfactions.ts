@@ -1,4 +1,5 @@
-import { pickEffects } from 'factions/metatagger'
+import { TItemDescription } from 'factions/factionTypes'
+import { keyOmitter, pickEffects } from 'factions/metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
@@ -8,12 +9,12 @@ import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
 import MountTraits from './mount_traits'
 import Prayers from './prayers'
-import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-const baseSubFaction = {
+const baseSubFaction: TItemDescription = {
   available: {
+    allied_units: [],
     artifacts: [Artifacts],
     battalions: [Battalions],
     command_abilities: [CommandAbilities],
@@ -22,7 +23,6 @@ const baseSubFaction = {
     flavors: [Flavors],
     mount_traits: [MountTraits],
     prayers: [Prayers],
-    scenery: [Scenery],
     spells: [Spells],
     units: [Units],
   },
@@ -34,12 +34,22 @@ const subFactions = {
     effects: pickEffects(BattleTraits, ['Legends of the Living Tempest']),
     available: {
       ...baseSubFaction.available,
+      battalions: [
+        keyOmitter(Battalions, [
+          // Ignore Stormkeep battalions
+          'Wardens of the Stormkeep',
+          'Stormtower Garrison',
+          'Stormkeep Patrol',
+          'Stormkeep Brotherhood',
+        ]),
+      ],
     },
   },
   'Celestial Senitels': {
     effects: pickEffects(BattleTraits, ['Celestial Sentinels']),
     available: {
       ...baseSubFaction.available,
+      // allied_units: [...getCitiesUnits()] // TODO when cities is added
     },
   },
 }

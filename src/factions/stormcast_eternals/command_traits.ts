@@ -140,6 +140,23 @@ const CommandTraits = {
       },
     ],
   },
+
+  Fiendslayer: {
+    effects: [
+      {
+        name: `Fiendslayer`,
+        desc: `You may target enemy Chaos or Death heros instead of enemy wizards with Sanction.`,
+        when: [HERO_PHASE],
+        command_trait: true,
+      },
+      {
+        name: `Fiendslayer`,
+        desc: `Add 1 to hit rolls made by this general targeting Vampires.`,
+        when: [COMBAT_PHASE],
+        command_trait: true,
+      },
+    ],
+  },
 }
 
 // Always export using tagAs
