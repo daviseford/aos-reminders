@@ -99,11 +99,11 @@ export type TPrimaryFactions =
   // | TBeastsOfChaos
   // | TBigWaaagh
   // | TBonesplitterz
-  // | TChaosGrandAlliance
+  | TChaosGrandAlliance
   // | TCitiesOfSigmar
   | TDaughtersOfKhaine
-  // | TDeathGrandAlliance
-  // | TDestructionGrandAlliance
+  | TDeathGrandAlliance
+  | TDestructionGrandAlliance
   // | TDispossessed
   // | TFleshEaterCourts
   // | TFyreslayers
@@ -125,7 +125,7 @@ export type TPrimaryFactions =
   // | TNighthaunt
   | TNurgle
   | TOgorMawtribes
-  // | TOrderGrandAlliance
+  | TOrderGrandAlliance
   | TOssiarchBonereapers
   | TSeraphon
   | TSkaventide
@@ -147,11 +147,11 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // BEASTS_OF_CHAOS,
   // BIG_WAAAGH,
   // BONESPLITTERZ,
-  // CHAOS_GRAND_ALLIANCE,
+  CHAOS_GRAND_ALLIANCE,
   // CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
-  // DEATH_GRAND_ALLIANCE,
-  // DESTRUCTION_GRAND_ALLIANCE,
+  DEATH_GRAND_ALLIANCE,
+  DESTRUCTION_GRAND_ALLIANCE,
   // DISPOSSESSED,
   // FLESH_EATER_COURTS,
   // FYRESLAYERS,
@@ -171,7 +171,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
-  // ORDER_GRAND_ALLIANCE,
+  ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
   SAMPLE,

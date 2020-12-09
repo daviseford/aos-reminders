@@ -10,7 +10,7 @@ type TLookup = Record<TSelectionTypes, Partial<keyof IArmy>>
 export const lowerToUpperLookup: TLookup = {
   artifacts: 'Artifacts',
   battalions: 'Battalions',
-  command_abilities: 'CommandTraits',
+  command_abilities: 'CommandAbilities',
   command_traits: 'CommandTraits',
   endless_spells: 'EndlessSpells',
   flavors: 'Flavors',
@@ -20,6 +20,20 @@ export const lowerToUpperLookup: TLookup = {
   spells: 'Spells',
   triumphs: 'Triumphs',
   units: 'Units',
+}
+export const upperToLowerLookup = {
+  Artifacts: 'artifacts',
+  Battalions: 'battalions',
+  CommandAbilities: 'command_abilities',
+  CommandTraits: 'command_traits',
+  EndlessSpells: 'endless_spells',
+  Flavors: 'flavors',
+  MountTraits: 'mount_traits',
+  Prayers: 'prayers',
+  Scenery: 'scenery',
+  Spells: 'spells',
+  Triumphs: 'triumphs',
+  Units: 'units',
 }
 
 /**

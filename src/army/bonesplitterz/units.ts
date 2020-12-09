@@ -1,4 +1,3 @@
-import { DestructionUnits } from 'army/grand_alliances'
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
@@ -12,9 +11,8 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import { filterUnits } from 'utils/filterUtils'
 
-const getRogueIdol = () => filterUnits(DestructionUnits, [`Rogue Idol`])[0]
+// const getRogueIdol = () => filterUnits(DestructionUnits, [`Rogue Idol`])[0]
 
 const TuskerChargeEffect = {
   name: `Tusker Charge`,
@@ -196,7 +194,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  getRogueIdol(),
+  // getRogueIdol(),
 ]
 
 export const Battalions: TEntry[] = [
