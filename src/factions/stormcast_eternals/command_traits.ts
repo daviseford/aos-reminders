@@ -1,8 +1,12 @@
 import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_SETUP,
+  HERO_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -78,6 +82,61 @@ const CommandTraits = {
         name: `Dauntless Hunters`,
         desc: `After set-up is complete, but before the battle begins, friendly ASTRAL TEMPLARS units wholly within 12" of this general can move up to 6".`,
         when: [END_OF_SETUP],
+      },
+    ],
+  },
+
+  'Shielded by Faith': {
+    effects: [
+      {
+        name: `Shielded by Faith`,
+        desc: `On a 5+, an allocated wound or mortal wound is negated.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  'Consummate Commander': {
+    effects: [
+      {
+        name: `Consummate Commander`,
+        desc: `If this general is on the battlefield at the start of your hero phase, roll a D6. On a 4+ you receive 1 extra command point.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Cunning Strategist': {
+    effects: [
+      {
+        name: `Cunning Strategist`,
+        desc: `After set-up is complete, but before the battle begins, D3 friendly STORMCAST ETERNAL units can move up to 5".`,
+        when: [END_OF_SETUP],
+      },
+    ],
+  },
+  'Zealous Crusader': {
+    effects: [
+      {
+        name: `Zealous Crusader`,
+        desc: `You can reroll charge rolls for this general.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  'Staunch Defender': {
+    effects: [
+      {
+        name: `Staunch Defender`,
+        desc: `Add 1 to save rolls for attacks that target friendly STORMCAST ETERNAL units wholly within 9" of this general if that STORMCAST ETERNAL unit has not made a charge move the same turn.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+  'Champion of the Realms': {
+    effects: [
+      {
+        name: `Champion of the Realms`,
+        desc: `Pick one of this general's melee weapons. Add 1 to the Attacks of that weapon.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
