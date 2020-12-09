@@ -1,4 +1,3 @@
-import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -15,9 +14,8 @@ const RangeFindingOpticsEffect = {
   when: [SHOOTING_PHASE],
 }
 
-export const LegacyDwarfUnits: TEntry[] = [
-  {
-    name: `Far-Ranger`,
+export const LegacyDwarfUnits = {
+  'Far-Ranger': {
     effects: [
       {
         name: `Veteran Ranger`,
@@ -38,13 +36,11 @@ export const LegacyDwarfUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Gunmaster`,
+  Gunmaster: {
     effects: [RangeFindingOpticsEffect],
   },
 
-  {
-    name: `Huntmarshal`,
+  Huntmarshal: {
     effects: [
       {
         name: `Monster Hunter`,
@@ -59,8 +55,7 @@ export const LegacyDwarfUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Engineer on Mechanical Steed`,
+  'Engineer on Mechanical Steed': {
     effects: [
       RangeFindingOpticsEffect,
       {
@@ -71,8 +66,7 @@ export const LegacyDwarfUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Runelord on Anvil of Doom`,
+  'Runelord on Anvil of Doom': {
     effects: [
       {
         name: `Anvil of Doom`,
@@ -105,4 +99,4 @@ export const LegacyDwarfUnits: TEntry[] = [
       },
     ],
   },
-]
+}

@@ -1,5 +1,4 @@
 import GenericEffects from 'army/generic/effects'
-import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -24,9 +23,9 @@ const DeflectShotsEffect = {
   desc: `You can reroll failed save rolls for this unit in the shooting phase.`,
   when: [SAVES_PHASE],
 }
-export const LegacyEldritchUnits: TEntry[] = [
-  {
-    name: `Swordmasters`,
+
+export const LegacyEldritchUnits = {
+  Swordmasters: {
     effects: [
       {
         name: `Bladelord`,
@@ -49,8 +48,7 @@ export const LegacyEldritchUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Archmage`,
+  Archmage: {
     effects: [
       {
         name: `Aelven Steed`,
@@ -72,8 +70,7 @@ export const LegacyEldritchUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Archmage on Dragon`,
+  'Archmage on Dragon': {
     effects: [
       TalismanOfArcanePowerEffect,
       GenericEffects.Dragonfire,
@@ -91,8 +88,7 @@ export const LegacyEldritchUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Drakeseer`,
+  Drakeseer: {
     effects: [
       {
         name: `Warrior Mage`,
@@ -120,8 +116,7 @@ export const LegacyEldritchUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Loremaster`,
+  Loremaster: {
     effects: [
       DeflectShotsEffect,
       {
@@ -137,4 +132,4 @@ export const LegacyEldritchUnits: TEntry[] = [
       },
     ],
   },
-]
+}

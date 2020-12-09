@@ -1,5 +1,4 @@
 import GenericEffects from 'army/generic/effects'
-import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -14,15 +13,15 @@ import {
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+
 const DeadlyVenomEffect = {
   name: `Deadly Venom`,
   desc: `Each time you roll a hit roll of 6+ for this unit, that attack inflicts 1 mortal wound instead of normal damage (do not make a wound or save roll).`,
   when: [COMBAT_PHASE],
 }
 
-export const LegacyOrderUnits: TEntry[] = [
-  {
-    name: `Hunting Hounds`,
+export const LegacyOrderUnits = {
+  'Hunting Hounds': {
     effects: [
       {
         name: `Hounds of the Wild Hunt`,
@@ -31,8 +30,7 @@ export const LegacyOrderUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Great Eagles`,
+  'Great Eagles': {
     effects: [
       {
         name: `Death from the Skies`,
@@ -46,8 +44,7 @@ export const LegacyOrderUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Tree Kin`,
+  'Tree Kin': {
     effects: [
       {
         name: `Roused to War`,
@@ -56,8 +53,7 @@ export const LegacyOrderUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Greatcannon`,
+  Greatcannon: {
     effects: [
       ...GenericEffects.CrewedWarMachine('Crewed Artillery'),
       {
@@ -67,8 +63,7 @@ export const LegacyOrderUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Knights of Order`,
+  'Knights of Order': {
     effects: [
       {
         name: `Preceptor`,
@@ -97,8 +92,7 @@ export const LegacyOrderUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Freeguild Archers`,
+  'Freeguild Archers': {
     effects: [
       {
         name: `Marksman`,
@@ -117,8 +111,7 @@ export const LegacyOrderUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Celestial Swarms`,
+  'Celestial Swarms': {
     effects: [
       {
         name: `Swarming Tide`,
@@ -128,8 +121,7 @@ export const LegacyOrderUnits: TEntry[] = [
       DeadlyVenomEffect,
     ],
   },
-  {
-    name: `Chameleon Skink Stalker`,
+  'Chameleon Skink Stalker': {
     effects: [
       {
         name: `Chameleon Ambush`,
@@ -158,8 +150,7 @@ export const LegacyOrderUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Witch Hunter`,
+  'Witch Hunter': {
     effects: [
       {
         name: `Baroque Pistols`,
@@ -178,8 +169,7 @@ export const LegacyOrderUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `War Altar of Sigmar`,
+  'War Altar of Sigmar': {
     effects: [
       {
         name: `Divine Power`,
@@ -219,8 +209,7 @@ export const LegacyOrderUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Skink Prophet`,
+  'Skink Prophet': {
     effects: [
       DeadlyVenomEffect,
       {
@@ -245,8 +234,7 @@ export const LegacyOrderUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Skink Chief`,
+  'Skink Chief': {
     effects: [
       {
         name: `Marked for Greatness`,
@@ -260,8 +248,7 @@ export const LegacyOrderUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Warrior Priest`,
+  'Warrior Priest': {
     effects: [
       {
         name: `Warhorse`,
@@ -296,4 +283,4 @@ export const LegacyOrderUnits: TEntry[] = [
       },
     ],
   },
-]
+}

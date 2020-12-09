@@ -1,27 +1,24 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_COMBAT_PHASE,
-  HERO_PHASE,
   START_OF_GAME,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import { LegacyBretonnianUnits } from './subfactions/bretonnia'
-import { LegacyDuardinUnits } from './subfactions/duardin'
-import { LegacyDwarfUnits } from './subfactions/dwarfs'
-import { LegacyEldritchUnits } from './subfactions/eldritch'
-import { LegacyEmpireUnits } from './subfactions/empire'
-import { LegacyHighElvesUnits } from './subfactions/high_elves'
-import { LegacyOrderUnits } from './subfactions/misc_order'
-import { MonstrousArcanumOrder } from './subfactions/monstrous_arcanum'
-import { LegacySwifthawkAgentUnits } from './subfactions/swifthawk_agents'
-import { LegacyWoodElvesUnits } from './subfactions/wood_elves'
+import { LegacyBretonnianUnits } from './unit_groups/bretonnia'
+import { LegacyDuardinUnits } from './unit_groups/duardin'
+import { LegacyDwarfUnits } from './unit_groups/dwarfs'
+import { LegacyEldritchUnits } from './unit_groups/eldritch'
+import { LegacyEmpireUnits } from './unit_groups/empire'
+import { LegacyHighElvesUnits } from './unit_groups/high_elves'
+import { LegacyOrderUnits } from './unit_groups/misc_order'
+import { MonstrousArcanumOrder } from './unit_groups/monstrous_arcanum'
+import { LegacySwifthawkAgentUnits } from './unit_groups/swifthawk_agents'
+import { LegacyWoodElvesUnits } from './unit_groups/wood_elves'
 
-// Available to ALL factions in this Grand Alliance
-export const OrderUnits: TEntry[] = [
-  {
-    name: `Gotrek Gurnisson`,
+export const OrderUnits = {
+  'Gotrek Gurnisson': {
     effects: [
       {
         name: `Avatar of Grimnir`,
@@ -50,9 +47,6 @@ export const OrderUnits: TEntry[] = [
       },
     ],
   },
-]
-
-export const Units: TEntry[] = [
   ...LegacyBretonnianUnits,
   ...LegacyDuardinUnits,
   ...LegacyDwarfUnits,
@@ -63,18 +57,6 @@ export const Units: TEntry[] = [
   ...LegacySwifthawkAgentUnits,
   ...LegacyWoodElvesUnits,
   ...MonstrousArcanumOrder,
-  ...OrderUnits,
-]
+}
 
-export const Battalions: TEntry[] = [
-  {
-    name: `Dragonlord Host`,
-    effects: [
-      {
-        name: `Martial Pride`,
-        desc: `Once per battle, in any of your hero phases, the Dragonlord Hosts's Dragonlord, and each other unit from his battalion that is within 8" of him, can make a move as if it were the movement phase (models cannot run as part of this move). If, after a unit moves, there are any enemy units within 12" of it, roll a D6; on a 4+ that unit can then attempt to charge as if it were the charge phase. On a 4+ the Dragonlord can instead choose to attack with its Dragonfire as if it were the shooting phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-]
+export default tagAs(OrderUnits, 'unit')

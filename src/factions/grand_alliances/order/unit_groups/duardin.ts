@@ -1,5 +1,4 @@
 import GenericEffects from 'army/generic/effects'
-import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -14,19 +13,20 @@ import {
 } from 'types/phases'
 
 export const APPRENTICE_RUNESMITH = {
-  name: `Apprentice Runesmith`,
-  effects: [
-    {
-      name: `Overworked`,
-      desc: `Whilst within 5" of a Runelord on Anvil of Doom, this model's Forging Tongs have an Attacks characteristic of 3.`,
-      when: [COMBAT_PHASE],
-    },
-    {
-      name: `Enthusiastic Young Assistant`,
-      desc: `This model can attempt to unbind one spell in each enemy hero phase as if he were a wizard.`,
-      when: [HERO_PHASE],
-    },
-  ],
+  'Apprentice Runesmith': {
+    effects: [
+      {
+        name: `Overworked`,
+        desc: `Whilst within 5" of a Runelord on Anvil of Doom, this model's Forging Tongs have an Attacks characteristic of 3.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Enthusiastic Young Assistant`,
+        desc: `This model can attempt to unbind one spell in each enemy hero phase as if he were a wizard.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 const HornblowerEffect = {
@@ -35,9 +35,8 @@ const HornblowerEffect = {
   when: [MOVEMENT_PHASE],
 }
 
-export const LegacyDuardinUnits: TEntry[] = [
-  {
-    name: `Slayers`,
+export const LegacyDuardinUnits = {
+  Slayers: {
     effects: [
       {
         name: `Giant Slayer`,
@@ -67,8 +66,7 @@ export const LegacyDuardinUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Miners`,
+  Miners: {
     effects: [
       {
         name: `Prospector`,
@@ -115,8 +113,7 @@ export const LegacyDuardinUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Grudge Thrower`,
+  'Grudge Thrower': {
     effects: [
       ...GenericEffects.CrewedWarMachine('Duardin Artillery'),
       {
@@ -141,8 +138,7 @@ export const LegacyDuardinUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Duardin Bolt Thrower`,
+  'Duardin Bolt Thrower': {
     effects: [
       ...GenericEffects.CrewedWarMachine('Duardin Artillery'),
       {
@@ -157,8 +153,7 @@ export const LegacyDuardinUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Warden King on Throne of Power`,
+  'Warden King on Throne of Power': {
     effects: [
       {
         name: `Ancestral Armour`,
@@ -187,8 +182,7 @@ export const LegacyDuardinUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Thane with Battle Standard`,
+  'Thane with Battle Standard': {
     effects: [
       {
         name: `Honour of the Clan`,
@@ -206,8 +200,7 @@ export const LegacyDuardinUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Flame Cannon`,
+  'Flame Cannon': {
     effects: [
       ...GenericEffects.CrewedWarMachine('Duardin Artillery'),
       {
@@ -222,4 +215,4 @@ export const LegacyDuardinUnits: TEntry[] = [
       },
     ],
   },
-]
+}

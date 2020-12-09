@@ -1,5 +1,4 @@
-import { ORDER } from 'meta/alliances'
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -8,67 +7,61 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Strategic Genius (${ORDER})`,
+const OrderCommandTraits = {
+  'Strategic Genius (Order)': {
     effects: [
       {
-        name: `Strategic Genius (${ORDER})`,
+        name: `Strategic Genius (Order)`,
         desc: `At the start of the first battle round, you receive 1 extra command point.`,
         when: [TURN_ONE_START_OF_ROUND],
       },
     ],
   },
-  {
-    name: `Inspiring (${ORDER})`,
+  'Inspiring (Order)': {
     effects: [
       {
-        name: `Inspiring (${ORDER})`,
+        name: `Inspiring (Order)`,
         desc: `Friendly ORDER units do not have to take battleshock tests while they are within 6" of this general.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
   },
-  {
-    name: `Dauntless (${ORDER})`,
+  'Dauntless (Order)': {
     effects: [
       {
-        name: `Dauntless (${ORDER})`,
+        name: `Dauntless (Order)`,
         desc: `You can reroll charge rolls for this general.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
   },
-  {
-    name: `Tenacious (${ORDER})`,
+  'Tenacious (Order)': {
     effects: [
       {
-        name: `Tenacious (${ORDER})`,
+        name: `Tenacious (Order)`,
         desc: `Add 1 to this general's Wounds characteristic.`,
         when: [DURING_GAME],
       },
     ],
   },
-  {
-    name: `Legendary Fighter (${ORDER})`,
+  'Legendary Fighter (Order)': {
     effects: [
       {
-        name: `Legendary Fighter (${ORDER})`,
+        name: `Legendary Fighter (Order)`,
         desc: `When this general is selected to fight, add 1 to the Attacks characteristic of one of their melee weapons for that fight.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  {
-    name: `Master of Defence (${ORDER})`,
+  'Master of Defence (Order)': {
     effects: [
       {
-        name: `Master of Defence (${ORDER})`,
+        name: `Master of Defence (Order)`,
         desc: `Each time you allocate a wound or mortal wound to this general, roll a D6. On a 6+ the wound is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
-]
+}
 
-export default CommandTraits
+export default tagAs(OrderCommandTraits, 'command_trait')

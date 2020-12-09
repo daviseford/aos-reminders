@@ -9,8 +9,8 @@ import {
   TSupportedFaction,
 } from 'meta/factions'
 import { getFactionList } from 'meta/faction_list'
-import { IArmy } from 'types/army'
 import { TEntry } from 'types/data'
+import { upperToLowerLookup } from 'utils/import/removeSideEffectsFromImport'
 
 /**
  * Gets all items associated with this grand alliance
@@ -19,7 +19,7 @@ import { TEntry } from 'types/data'
  */
 export const getAllianceItems = (
   grandAlliance: TGrandAlliances,
-  type: keyof IArmy,
+  type: keyof typeof upperToLowerLookup,
   originalEntries: TEntry[] = []
 ): TEntry[] => {
   const factionName = {
@@ -29,23 +29,19 @@ export const getAllianceItems = (
     [ORDER]: ORDER_GRAND_ALLIANCE,
   }[grandAlliance]
 
-  return [] // todo
-
   const FactionList = getFactionList()
 
-  return sortedUniqBy(
-    sortBy(
-      // (without(Object.keys(FactionList), factionName) as TSupportedFaction[])
-      without(Object.keys(FactionList), factionName)
-        .filter(faction => FactionList[faction].GrandAlliance === grandAlliance)
-        .map(faction => FactionList[faction].AggregateArmy[type])
-        .filter(items => !!items && items.length > 0)
-        .flat()
-        .concat(originalEntries),
-      'name'
-    ),
-    'name'
-  )
+  const allianceItems = without(Object.keys(FactionList), factionName)
+    .filter(
+      faction =>
+        FactionList[faction as TSupportedFaction].GrandAlliance === grandAlliance &&
+        FactionList?.[faction as TSupportedFaction]?.AggregateArmy?.[type]
+    )
+    .map(faction => FactionList?.[faction as TSupportedFaction]?.AggregateArmy?.[type])
+    .filter(entries => !!entries && entries?.length > 0)
+    .flat() as TEntry[]
+
+  return sortedUniqBy(sortBy(allianceItems.concat(originalEntries), 'name'), 'name')
 }
 
 /**

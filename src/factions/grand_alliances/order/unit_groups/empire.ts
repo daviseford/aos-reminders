@@ -1,10 +1,8 @@
 import GenericEffects from 'army/generic/effects'
-import { TEntry } from 'types/data'
 import { HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-export const LegacyEmpireUnits: TEntry[] = [
-  {
-    name: `Battlemage on Pegasus`,
+export const LegacyEmpireUnits = {
+  'Battlemage on Pegasus': {
     effects: [
       {
         name: `Amulet of Negation`,
@@ -29,8 +27,7 @@ export const LegacyEmpireUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Field Mortar`,
+  'Field Mortar': {
     effects: [
       ...GenericEffects.CrewedWarMachine('Crewed Artillery'),
       {
@@ -45,4 +42,4 @@ export const LegacyEmpireUnits: TEntry[] = [
       },
     ],
   },
-]
+}

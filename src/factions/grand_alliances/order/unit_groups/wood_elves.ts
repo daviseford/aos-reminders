@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { TItemDescriptions } from 'factions/factionTypes'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -46,9 +46,8 @@ const LionCloakEffect = {
   when: [SAVES_PHASE],
 }
 
-export const LegacyWoodElvesUnits: TEntry[] = [
-  {
-    name: `Avatar of the Hunt`,
+export const LegacyWoodElvesUnits: TItemDescriptions = {
+  'Avatar of the Hunt': {
     effects: [
       {
         name: `Cloak of Leaves`,
@@ -62,8 +61,7 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Glade Lord on Purebred Steed`,
+  'Glade Lord on Purebred Steed': {
     effects: [
       {
         name: `Hunter's Strike`,
@@ -73,8 +71,7 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       KindredShieldEffect,
     ],
   },
-  {
-    name: `Glade Lord on Great Eagle`,
+  'Glade Lord on Great Eagle': {
     effects: [
       {
         name: `Death from the Skies`,
@@ -83,8 +80,7 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Glade Lord on Great Stag`,
+  'Glade Lord on Great Stag': {
     effects: [
       {
         name: `Impaling Charge`,
@@ -93,8 +89,7 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Glade Lord on Forest Dragon`,
+  'Glade Lord on Forest Dragon': {
     effects: [
       {
         name: `Soporific Breath`,
@@ -109,8 +104,7 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Wardancers`,
+  Wardancers: {
     effects: [
       {
         name: `Drummer`,
@@ -125,8 +119,7 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       ...getShadowdancerBaseEffects(1),
     ],
   },
-  {
-    name: `Waywatchers`,
+  Waywatchers: {
     effects: [
       {
         name: `Waywatcher Sentinel`,
@@ -149,8 +142,7 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Glade Riders`,
+  'Glade Riders': {
     effects: [
       {
         name: `Glade Knight`,
@@ -174,8 +166,7 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shadowdancer`,
+  Shadowdancer: {
     effects: [
       ...getShadowdancerBaseEffects(2),
       {
@@ -186,8 +177,7 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Warhawk Riders`,
+  'Warhawk Riders': {
     effects: [
       {
         name: `Predator's Descent`,
@@ -206,8 +196,7 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Twilight Sisters on Forest Dragon`,
+  'Twilight Sisters on Forest Dragon': {
     effects: [
       SoporificBreathEffect,
       {
@@ -232,8 +221,7 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Glade Captain Battle Standard Bearer`,
+  'Glade Captain Battle Standard Bearer': {
     effects: [
       {
         name: `To Their Dying Breath`,
@@ -247,8 +235,7 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `White Lion Chariots`,
+  'White Lion Chariots': {
     effects: [
       LionCloakEffect,
       {
@@ -258,8 +245,7 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `White Lions`,
+  'White Lions': {
     effects: [
       {
         name: `Guardian`,
@@ -284,4 +270,4 @@ export const LegacyWoodElvesUnits: TEntry[] = [
       },
     ],
   },
-]
+}

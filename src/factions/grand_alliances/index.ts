@@ -10,6 +10,10 @@ import { DestructionFaction } from './destruction'
 import DestructionArtifacts from './destruction/artifacts'
 import DestructionTraits from './destruction/command_traits'
 import DestructionUnits from './destruction/units'
+import { OrderFaction } from './order'
+import OrderArtifacts from './order/artifacts'
+import OrderTraits from './order/command_traits'
+import OrderUnits from './order/units'
 
 export {
   ChaosFaction,
@@ -24,7 +28,8 @@ export {
   DestructionArtifacts,
   DestructionTraits,
   DestructionUnits,
+  OrderFaction,
+  OrderArtifacts,
+  OrderTraits,
+  OrderUnits,
 }
-// OrderArtifacts,
-// OrderTraits,
-// OrderUnits,

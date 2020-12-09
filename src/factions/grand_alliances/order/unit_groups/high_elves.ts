@@ -1,5 +1,4 @@
 import GenericEffects from 'army/generic/effects'
-import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -25,9 +24,8 @@ const EnchantedShieldEffect = {
   when: [SAVES_PHASE],
 }
 
-export const LegacyHighElvesUnits: TEntry[] = [
-  {
-    name: `Highborn Repeater Bolt Thrower`,
+export const LegacyHighElvesUnits = {
+  'Highborn Repeater Bolt Thrower': {
     effects: [
       ...GenericEffects.CrewedWarMachine('Crewed War Machine'),
       {
@@ -37,8 +35,7 @@ export const LegacyHighElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Highborn Archers`,
+  'Highborn Archers': {
     effects: [
       {
         name: `Hawkeye`,
@@ -59,8 +56,7 @@ export const LegacyHighElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Highborn Spearmen`,
+  'Highborn Spearmen': {
     effects: [
       {
         name: `Sentinel`,
@@ -82,8 +78,7 @@ export const LegacyHighElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Highborn Silver Helms`,
+  'Highborn Silver Helms': {
     effects: [
       {
         name: `High Helm`,
@@ -100,8 +95,7 @@ export const LegacyHighElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dragon Blades`,
+  'Dragon Blades': {
     effects: [
       {
         name: `Drakemaster`,
@@ -131,8 +125,7 @@ export const LegacyHighElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Seawarden on Foot`,
+  'Seawarden on Foot': {
     effects: [
       EnchantedShieldEffect,
       {
@@ -148,8 +141,7 @@ export const LegacyHighElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dragon Noble`,
+  'Dragon Noble': {
     effects: [
       {
         name: `Aelven Purebred`,
@@ -175,8 +167,7 @@ export const LegacyHighElvesUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dragonlord`,
+  Dragonlord: {
     effects: [
       {
         name: `Dragon Lance`,
@@ -198,4 +189,4 @@ export const LegacyHighElvesUnits: TEntry[] = [
       },
     ],
   },
-]
+}

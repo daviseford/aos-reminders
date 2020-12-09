@@ -1,8 +1,8 @@
-import { TEntry } from 'types/data'
+import { TItemDescriptions } from 'factions/factionTypes'
 import { DURING_GAME, SHOOTING_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
-export const MonstrousArcanumOrder: TEntry[] = [
-  {
-    name: `Carmine Dragon`,
+
+export const MonstrousArcanumOrder: TItemDescriptions = {
+  'Carmine Dragon': {
     effects: [
       {
         name: `Deathly Dark Scales`,
@@ -21,4 +21,4 @@ export const MonstrousArcanumOrder: TEntry[] = [
       },
     ],
   },
-]
+}

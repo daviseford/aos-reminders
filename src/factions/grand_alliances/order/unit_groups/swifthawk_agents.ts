@@ -1,5 +1,5 @@
 import GenericEffects from 'army/generic/effects'
-import { TEntry } from 'types/data'
+import { TItemDescriptions } from 'factions/factionTypes'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -26,9 +26,8 @@ const InfantryHornblowerEffect = {
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
 }
 
-export const LegacySwifthawkAgentUnits: TEntry[] = [
-  {
-    name: `Chariots`,
+export const LegacySwifthawkAgentUnits: TItemDescriptions = {
+  Chariots: {
     effects: [
       {
         name: `Graceful Charge`,
@@ -48,8 +47,7 @@ export const LegacySwifthawkAgentUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `High Warden`,
+  'High Warden': {
     effects: [
       {
         name: `Predatory Leap`,
@@ -70,8 +68,7 @@ export const LegacySwifthawkAgentUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Reavers`,
+  Reavers: {
     effects: [
       {
         name: `Harbinger`,
@@ -91,8 +88,7 @@ export const LegacySwifthawkAgentUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Skycutters`,
+  Skycutters: {
     effects: [
       GenericEffects.AelvenShield,
       {
@@ -114,8 +110,7 @@ export const LegacySwifthawkAgentUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Skywarden`,
+  Skywarden: {
     effects: [
       {
         name: `Enchanted Shield`,
@@ -142,8 +137,7 @@ export const LegacySwifthawkAgentUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Spireguard`,
+  Spireguard: {
     effects: [
       {
         name: `Watch Master`,
@@ -165,4 +159,4 @@ export const LegacySwifthawkAgentUnits: TEntry[] = [
       SwifthawkDiscipline,
     ],
   },
-]
+}

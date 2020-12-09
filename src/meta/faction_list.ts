@@ -1,7 +1,5 @@
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
-import { DeathFaction } from 'factions/grand_alliances'
-import { ChaosFaction } from 'factions/grand_alliances/chaos'
-import { DestructionFaction } from 'factions/grand_alliances/destruction'
+import { ChaosFaction, DeathFaction, DestructionFaction, OrderFaction } from 'factions/grand_alliances'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
 import { MercenaryCompaniesFaction } from 'factions/mercenary_companies'
@@ -26,6 +24,7 @@ import {
   MERCENARY_COMPANIES,
   NURGLE,
   OGOR_MAWTRIBES,
+  ORDER_GRAND_ALLIANCE,
   OSSIARCH_BONEREAPERS,
   SAMPLE,
   SERAPHON,
@@ -141,10 +140,7 @@ const FactionList = {
   // },
   [NURGLE]: { ...NurgleFaction },
   [OGOR_MAWTRIBES]: { ...OgorMawtribesFaction },
-  // [ORDER_GRAND_ALLIANCE]: {
-  //   Army: { ...OrderArmy },
-  //   GrandAlliance: ORDER,
-  // },
+  [ORDER_GRAND_ALLIANCE]: { ...OrderFaction },
   [OSSIARCH_BONEREAPERS]: { ...OssiarchBonereapersFaction },
   //   Army: { ...OssiarchBonereapersArmy },
   //   GrandAlliance: DEATH,

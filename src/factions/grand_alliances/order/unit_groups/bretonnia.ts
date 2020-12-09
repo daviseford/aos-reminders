@@ -1,4 +1,3 @@
-import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -64,9 +63,8 @@ const GallantEffect = {
   when: [COMBAT_PHASE],
 }
 
-export const LegacyBretonnianUnits: TEntry[] = [
-  {
-    name: `Bretonnian Lord`,
+export const LegacyBretonnianUnits = {
+  'Bretonnian Lord': {
     effects: [
       {
         name: `Dragonbane`,
@@ -87,8 +85,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Damsel`,
+  Damsel: {
     effects: [
       {
         name: `Soothing Aura`,
@@ -109,8 +106,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Battle Pilgrims`,
+  'Battle Pilgrims': {
     effects: [
       {
         name: `Grail Reliquae`,
@@ -135,8 +131,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Enchantress`,
+  Enchantress: {
     effects: [
       {
         name: `Chalice of Potions`,
@@ -172,8 +167,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Grail Knights`,
+  'Grail Knights': {
     effects: [
       BannerBearerEffect,
       TrumpeterEffect,
@@ -186,8 +180,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Field Trebuchet`,
+  'Field Trebuchet': {
     effects: [
       {
         name: `Heavy Artillery`,
@@ -207,8 +200,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `King on Hippogryph`,
+  'King on Hippogryph': {
     effects: [
       {
         name: `Regal Crown`,
@@ -244,8 +236,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Knights Errant`,
+  'Knights Errant': {
     effects: [
       {
         name: `Cavalier`,
@@ -264,8 +255,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Knights of The Realm`,
+  'Knights of The Realm': {
     effects: [
       GallantEffect,
       BannerBearerEffect,
@@ -280,8 +270,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Men-at-Arms`,
+  'Men-at-Arms': {
     effects: [
       {
         name: `Warden`,
@@ -303,8 +292,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Mounted Yeomen`,
+  'Mounted Yeomen': {
     effects: [
       {
         name: `Warden`,
@@ -325,8 +313,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Noble Champion`,
+  'Noble Champion': {
     effects: [
       RelicWeaponEffect,
       {
@@ -337,8 +324,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Noble Standard Bearer`,
+  'Noble Standard Bearer': {
     effects: [
       RelicWeaponEffect,
       {
@@ -349,8 +335,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Peasant Bowmen`,
+  'Peasant Bowmen': {
     effects: [
       ...BretonnianInfantryBaseEffects,
       DrummerEffect,
@@ -377,8 +362,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Pegasus Knights`,
+  'Pegasus Knights': {
     effects: [
       GallantEffect,
       BannerBearerEffect,
@@ -392,8 +376,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Questing Knights`,
+  'Questing Knights': {
     effects: [
       {
         name: `Paragon`,
@@ -420,8 +403,7 @@ export const LegacyBretonnianUnits: TEntry[] = [
     ],
   },
 
-  {
-    name: `Sacred Protector`,
+  'Sacred Protector': {
     effects: [
       {
         name: `Ethereal`,
@@ -445,4 +427,4 @@ export const LegacyBretonnianUnits: TEntry[] = [
       },
     ],
   },
-]
+}
