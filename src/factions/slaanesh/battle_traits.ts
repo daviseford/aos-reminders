@@ -34,6 +34,7 @@ const BattleTraits = {
       {
         name: `Feast of Depravities`,
         desc: `Summoning Costs:
+             1 Soulfeaster Keeper of Secrets -    45 DP
              1 Keeper of Secrets                  45 DP
              30 Daemonettes -                     40 DP
              3 Seeker Chariots -                  35 DP

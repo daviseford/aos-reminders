@@ -136,8 +136,8 @@ export type TPrimaryFactions =
   | TStormcastEternals
   // | TStormcastEternalsStormkeep
   | TSylvaneth
-// | TTombKings
-// | TTzeentch
+  // | TTombKings
+  | TTzeentch
 // | TWanderers
 
 // Supported Factions
@@ -183,7 +183,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // STORMCAST_ETERNALS_STORMKEEP,
   SYLVANETH,
   // TOMB_KINGS,
-  // TZEENTCH,
+  TZEENTCH,
   // WANDERERS,
 ]
 
