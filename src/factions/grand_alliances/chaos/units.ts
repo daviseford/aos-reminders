@@ -1,7 +1,6 @@
 import GenericEffects from 'army/generic/effects'
-import { TEntry } from 'types/data'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
-  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
@@ -15,10 +14,10 @@ import {
   TURN_ONE_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import command_abilities from './command_abilities'
 
-const MonstrousArcanumChaos: TEntry[] = [
-  {
-    name: `Chaos Siege Gargant`,
+const ChaosMonstrousArcanum = {
+  'Chaos Siege Gargant': {
     effects: [
       {
         name: `Scaling Spikes and Chains`,
@@ -33,8 +32,7 @@ const MonstrousArcanumChaos: TEntry[] = [
       ...GenericEffects.Gargant,
     ],
   },
-  {
-    name: `Gigantic Chaos Spawn`,
+  'Gigantic Chaos Spawn': {
     effects: [
       {
         name: `Curse of the Dark Gods`,
@@ -53,8 +51,7 @@ const MonstrousArcanumChaos: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Preyton`,
+  Preyton: {
     effects: [
       {
         name: `Agonizing Venom`,
@@ -78,8 +75,7 @@ const MonstrousArcanumChaos: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Skin Wolves`,
+  'Skin Wolves': {
     effects: [
       {
         name: `Bounding Predators`,
@@ -93,12 +89,10 @@ const MonstrousArcanumChaos: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export const Units: TEntry[] = [
-  ...MonstrousArcanumChaos,
-  {
-    name: `Hellcannon`,
+const Units = {
+  Hellcannon: {
     effects: [
       {
         name: `Caged Fury`,
@@ -117,8 +111,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Exalted Hero with Battle Standard`,
+  'Exalted Hero with Battle Standard': {
     effects: [
       {
         name: `Chaos Runeshield`,
@@ -137,8 +130,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Forsaken`,
+  Forsaken: {
     effects: [
       {
         name: `Freakish Mutations`,
@@ -159,8 +151,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Chaos Dragon`,
+  'Chaos Dragon': {
     effects: [
       {
         name: `Breath of Mutation`,
@@ -175,8 +166,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Chaos Ogors`,
+  'Chaos Ogors': {
     effects: [
       {
         name: `Fearsome Gluttony`,
@@ -185,8 +175,10 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Troggoth King`,
+  'Troggoth King': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Lord of the Monstrous Host'])],
+    },
     effects: [
       {
         name: `Mutant Regeneration`,
@@ -198,16 +190,9 @@ export const Units: TEntry[] = [
         desc: `Reroll hit rolls of 1 for friendly Chaos Troggoth units and Chaos Ogor units within 8" of this model.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
-      {
-        name: `Lord of the Monstrous Host`,
-        desc: `If the Troggoth King uses this ability, then until your next hero phase all friendly Chaos Troggoths and Chaos Ogors may use this model's Bravery characteristic instead of their own.`,
-        when: [BATTLESHOCK_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Chaos Troggoths`,
+  'Chaos Troggoths': {
     effects: [
       {
         name: `Regeneration`,
@@ -221,8 +206,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Chaos Familiars`,
+  'Chaos Familiars': {
     effects: [
       {
         name: `Arcane Meddling`,
@@ -231,8 +215,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Great Taurus`,
+  'Great Taurus': {
     effects: [
       {
         name: `Blazing Body`,
@@ -246,8 +229,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lammasu`,
+  Lammasu: {
     effects: [
       {
         name: `Sorcerous Miasma`,
@@ -256,7 +238,8 @@ export const Units: TEntry[] = [
       },
     ],
   },
-]
+}
 
-// Available to ALL factions in this Grand Alliance
-export const ChaosUnits = []
+const ChaosUnits = { ...ChaosMonstrousArcanum, ...Units }
+
+export default tagAs(ChaosUnits, 'unit')

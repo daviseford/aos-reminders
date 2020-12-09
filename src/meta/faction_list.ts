@@ -1,5 +1,6 @@
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
 import { DeathFaction } from 'factions/grand_alliances'
+import { ChaosFaction } from 'factions/grand_alliances/chaos'
 import { DestructionFaction } from 'factions/grand_alliances/destruction'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
@@ -16,6 +17,7 @@ import { SonsOfBehematFaction } from 'factions/sons_of_behemat'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import { SylvanethFaction } from 'factions/sylvaneth'
 import {
+  CHAOS_GRAND_ALLIANCE,
   DAUGHTERS_OF_KHAINE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
@@ -50,10 +52,7 @@ const FactionList = {
   //   Army: { ...BonesplitterzArmy },
   //   GrandAlliance: DESTRUCTION,
   // },
-  // [CHAOS_GRAND_ALLIANCE]: {
-  //   Army: { ...ChaosArmy },
-  //   GrandAlliance: CHAOS,
-  // },
+  [CHAOS_GRAND_ALLIANCE]: { ...ChaosFaction },
   // [CITIES_OF_SIGMAR]: {
   //   Army: { ...CitiesOfSigmarArmy },
   //   GrandAlliance: ORDER,

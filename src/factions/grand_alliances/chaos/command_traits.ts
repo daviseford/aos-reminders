@@ -1,68 +1,63 @@
-import { CHAOS } from 'meta/alliances'
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Dark Avenger (${CHAOS})`,
+// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+const ChaosCommandTraits = {
+  'Dark Avenger (Chaos)': {
     effects: [
       {
-        name: `Dark Avenger (${CHAOS})`,
+        name: `Dark Avenger (Chaos)`,
         desc: `Add 1 to hit rolls for this general's melee weapons if the target unit has the ORDER keyword.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  {
-    name: `Spiteful Duellist (${CHAOS})`,
+  'Spiteful Duellist (Chaos)': {
     effects: [
       {
-        name: `Spiteful Duellist (${CHAOS})`,
+        name: `Spiteful Duellist (Chaos)`,
         desc: `Each time this general is picked to fight, you can reroll one wound roll for one of their attacks in that fight.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  {
-    name: `Cunning Deceiver (${CHAOS})`,
+  'Cunning Deceiver (Chaos)': {
     effects: [
       {
-        name: `Cunning Deceiver (${CHAOS})`,
+        name: `Cunning Deceiver (Chaos)`,
         desc: `Roll a D6 at the start of each of your hero phases as long as this general has not been slain. On a 5+ you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
   },
-  {
-    name: `Lord of War (${CHAOS})`,
+  'Lord of War (Chaos)': {
     effects: [
       {
-        name: `Lord of War (${CHAOS})`,
+        name: `Lord of War (Chaos)`,
         desc: `In your hero phase, pick a friendly CHAOS unit within 3" of this general and roll a D6. On a 4+ you can add 1 to hit rolls for the unit you picked until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  {
-    name: `Terrifying Presence (${CHAOS})`,
+  'Terrifying Presence (Chaos)': {
     effects: [
       {
-        name: `Terrifying Presence (${CHAOS})`,
+        name: `Terrifying Presence (Chaos)`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of this general.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
   },
-  {
-    name: `Malicious Conqueror (${CHAOS})`,
+  'Malicious Conqueror (Chaos)': {
     effects: [
       {
-        name: `Malicious Conqueror (${CHAOS})`,
+        name: `Malicious Conqueror (Chaos)`,
         desc: `Add 1 to Unbridled Malice dice rolls for units while they are within 12" of this general.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-]
+}
 
-export default CommandTraits
+// Always export using tagAs
+export default tagAs(ChaosCommandTraits, 'command_trait')
