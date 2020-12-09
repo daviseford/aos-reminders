@@ -1,4 +1,4 @@
-import GenericEffects from 'army/generic/effects'
+import GenericBattleTraits from 'army/generic/battle_traits'
 // Unit Names
 import { TEntry } from 'types/data'
 import {
@@ -497,7 +497,7 @@ export const Units: TEntry[] = [
   {
     name: `Screaming Skull Catapult`,
     effects: [
-      ...GenericEffects.CrewedWarMachine('Crewed War Machine'),
+      ...GenericBattleTraits.CrewedWarMachine('Crewed War Machine'),
       {
         name: `Arcing Skulls`,
         desc: `This war machine can shoot at targets that are not visible to it.`,

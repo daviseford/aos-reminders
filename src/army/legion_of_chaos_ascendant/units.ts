@@ -1,4 +1,4 @@
-import Khorne from 'army/khorne'
+// import Khorne from 'army/khorne'
 import Nurgle from 'army/nurgle'
 // import Skaven from 'army/skaven'
 // import Slaanesh from 'army/slaanesh'
@@ -8,26 +8,26 @@ import { TEntry } from 'types/data'
 import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE } from 'types/phases'
 import { filterUnits } from 'utils/filterUtils'
 
-const getKhorneDaemonUnits = () => {
-  const listOfUnits = [
-    `Bloodcrushers`,
-    `Bloodletters`,
-    `Bloodmaster, Herald of Khorne`,
-    `Bloodthirster of Insensate Rage`,
-    `Bloodthirster of Unfettered Fury`,
-    `Exalted Greater Daemon of Khorne`,
-    `Flesh Hounds`,
-    `Herald of Khorne on Blood Throne`,
-    `Karanak`,
-    `Mazarall the Butcher`,
-    `Skarbrand`,
-    `Skull Cannons`,
-    `Skullmaster, Herald of Khorne`,
-    `Skulltaker`,
-    `Wrath of Khorne Bloodthirster`,
-  ]
-  return filterUnits(Khorne.Units, listOfUnits)
-}
+// const getKhorneDaemonUnits = () => {
+//   const listOfUnits = [
+//     `Bloodcrushers`,
+//     `Bloodletters`,
+//     `Bloodmaster, Herald of Khorne`,
+//     `Bloodthirster of Insensate Rage`,
+//     `Bloodthirster of Unfettered Fury`,
+//     `Exalted Greater Daemon of Khorne`,
+//     `Flesh Hounds`,
+//     `Herald of Khorne on Blood Throne`,
+//     `Karanak`,
+//     `Mazarall the Butcher`,
+//     `Skarbrand`,
+//     `Skull Cannons`,
+//     `Skullmaster, Herald of Khorne`,
+//     `Skulltaker`,
+//     `Wrath of Khorne Bloodthirster`,
+//   ]
+//   return filterUnits(Khorne.Units, listOfUnits)
+// }
 
 const getNurgleDaemonUnits = () => {
   const listOfUnits = [
@@ -118,7 +118,7 @@ const getSlavesDaemonUnits = () => {
 export const Units: TEntry[] = []
 
 export const AlliedUnits: TEntry[] = [
-  ...getKhorneDaemonUnits(),
+  // ...getKhorneDaemonUnits(),
   ...getNurgleDaemonUnits(),
   // ...getSkavenDaemonUnits(),
   // ...getSlaaneshDaemonUnits(),

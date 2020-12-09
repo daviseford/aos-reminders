@@ -1,4 +1,4 @@
-import GenericCommandAbilities from './commands'
+import GenericCommandAbilities from './command_abilities'
 import GenericEndlessSpells from './endless_spells'
 import RealmscapeArtifacts from './realmscape_artifacts'
 import RealmscapeCommands from './realmscape_commands'

@@ -1,4 +1,4 @@
-import GenericEffects from 'army/generic/effects'
+import GenericBattleTraits from 'army/generic/battle_traits'
 import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
@@ -80,7 +80,7 @@ const CarnosaurBaseEffects = [
     desc: `If any enemy models are slain by wounds inflicted by this model's attacks, for the rest of the battle this model can run and still charge in the same turn.`,
     when: [DURING_GAME],
   },
-  GenericEffects.Terror,
+  GenericBattleTraits.Terror,
 ]
 const SlannBaseEffects = [
   {
@@ -512,7 +512,7 @@ const Units = {
         desc: `If any wounds inflicted by this model's Noxious Spittle are allocated to an enemy model and not negated, until the end of the turn, you can reroll charge rolls for this model.`,
         when: [SHOOTING_PHASE, CHARGE_PHASE],
       },
-      GenericEffects.Terror,
+      GenericBattleTraits.Terror,
     ],
   },
   'Dread Saurian': {
@@ -539,7 +539,7 @@ const Units = {
         Designer's Note: If a unit is affected by both the Roar of Ruin and Terror abilities, its Bravery characteristic is first halved (rounding up), and then 1 is subtracted from it.`,
         when: [START_OF_BATTLESHOCK_PHASE],
       },
-      GenericEffects.Terror,
+      GenericBattleTraits.Terror,
     ],
   },
 }

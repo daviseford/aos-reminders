@@ -1,4 +1,4 @@
-import GenericEffects from 'army/generic/effects'
+import GenericBattleTraits from 'army/generic/battle_traits'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -55,7 +55,7 @@ export const LegacyOrderUnits = {
   },
   Greatcannon: {
     effects: [
-      ...GenericEffects.CrewedWarMachine('Crewed Artillery'),
+      ...GenericBattleTraits.CrewedWarMachine('Crewed Artillery'),
       {
         name: `Grapeshot`,
         desc: `Instead of firing a Cannon Ball using the profile above in the shooting phase, the Crew can load their war machine with grapeshot; if they do, then select a target that is visible to the Greatcannon. Roll one dice for each model in the target unit that is within 10" of the Greatcannon; for each roll of a 6, that unit suffers a mortal wound.`,
