@@ -7,7 +7,6 @@ export const MegaGargantMercenariesFaction = new Faction(
   MEGA_GARGANT_MERCENARIES,
   DESTRUCTION,
   SubFactions,
-  undefined,
-  undefined,
+  'Flavors',
   true
 )

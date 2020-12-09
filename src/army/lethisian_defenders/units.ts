@@ -1,25 +1,24 @@
 import Fyreslayers from 'army/fyreslayers'
 import IdonethDeepkin from 'army/idoneth_deepkin'
 import KharadronOverlords from 'army/kharadron_overlords'
-import StormcastEternals from 'army/stormcast_eternals'
 import { TEntry } from 'types/data'
 import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE } from 'types/phases'
 import { removeUnits } from 'utils/filterUtils'
 
 // Importing valid SCE units.
 // All units valid except Hammers of Sigmar (named).
-const getStormcastUnits = () => {
-  const listOfUnits = [
-    `Astreia Solbright`,
-    `Aventis Firestrike`,
-    `Gavriel Sureheart`,
-    `Neave Blacktalon`,
-    `Steelheart's Champions`,
-    `The Farstriders`,
-    `Vandus Hammerhand`,
-  ]
-  return removeUnits(StormcastEternals.Units, listOfUnits)
-}
+// const getStormcastUnits = () => {
+//   const listOfUnits = [
+//     `Astreia Solbright`,
+//     `Aventis Firestrike`,
+//     `Gavriel Sureheart`,
+//     `Neave Blacktalon`,
+//     `Steelheart's Champions`,
+//     `The Farstriders`,
+//     `Vandus Hammerhand`,
+//   ]
+//   return removeUnits(StormcastEternals.Units, listOfUnits)
+// }
 
 // Importing valid IDK units.
 // All units valid except Volturnos.
@@ -40,7 +39,7 @@ export const AlliedUnits: TEntry[] = [
   ...getFyreslayerUnits(),
   ...getIdonethUnits(),
   ...getKharadronUnits(),
-  ...getStormcastUnits(),
+  // ...getStormcastUnits(),
 ]
 
 export const Units: TEntry[] = [

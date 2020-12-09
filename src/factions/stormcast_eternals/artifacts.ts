@@ -1,9 +1,10 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
@@ -13,9 +14,82 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Strife-ender`,
+// Add individual artifacts here, and access them in other files!
+const Artifacts = {
+  'God-forged Blade': {
+    effects: [
+      {
+        name: `God-forged Blade`,
+        desc: `Pick one of the bearer's melee weapons. If the unmodified hit roll for an attack made with the God-forged Blade is 6, add 1 to the Damage characteristic of that attack.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Parchment of Purity': {
+    effects: [
+      {
+        name: `Parchment of Purity`,
+        desc: `In your hero phase, heal 1 wound allocated to the bearer.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Stormrage Blade': {
+    effects: [
+      {
+        name: `Stormrage Blade`,
+        desc: `Pick one of the bearer's melee weapons. At the start of the combat phase, you can add 2 to the Attacks of this weapon until the end of that phase. If you do so, subtract 1 from save rolls for attacks that target the bearer until the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  Soulthief: {
+    effects: [
+      {
+        name: `Soulthief`,
+        desc: `Pick one of the bearer's melee weapons. At the end of the combat phase, roll a D6 for each enemy model that was allocated any wounds caused by this weapon in that combat phase. On a 3+ that model suffers 1 mortal wound.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Chains of Celestial Lightning': {
+    effects: [
+      {
+        name: `Chains of Celestial Lightning`,
+        desc: `Once per battle, in your hero phase, the bearer can attempt to bind an enemy HERO or MONSTER model within 3". If they do so roll 3D6. Your opponent rolls 2D6 if the target is a HERO or 3D6 if it is a MONSTER or HERO MONSTER. If your roll is higher, until your next hero phase, halve the Move characteristic, run rolls and charge rolls for that enemy model, and halve the Attacks characteristic of its melee weapons. Round any fractions up.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Hammers of Augury': {
+    effects: [
+      {
+        name: `Hammers of Augury`,
+        desc: `Pick 1 enemy unit within 3" of the bearer and roll a D6. On a 3+, that unit suffers 1 mortal wound and you can roll another dice. On a 4+, that unit suffers 1 extra mortal wound.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  "Patrician's Helm": {
+    effects: [
+      {
+        name: `Patrician's Helm`,
+        desc: `If the bearer is on the battlefield, each time you spend a command point, roll a D6. On a 5+ you receive 1 extra command point.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  'Godbeast Plate': {
+    effects: [
+      {
+        name: `Godbeast Plate`,
+        desc: `Subtract 1 from wound rolls for attacks made by a MONSTER that target the bearer.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+
+  'Strife-ender': {
     effects: [
       {
         name: `Strife-ender`,
@@ -24,8 +98,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Blade of Heroes`,
+  'Blade of Heroes': {
     effects: [
       {
         name: `Blade of Heroes`,
@@ -34,8 +107,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Hammer of Might`,
+  'Hammer of Might': {
     effects: [
       {
         name: `Hammer of Might`,
@@ -44,8 +116,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Fang of Dracothion`,
+  'Fang of Dracothion': {
     effects: [
       {
         name: `Fang of Dracothion`,
@@ -54,8 +125,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Obsidian Blade`,
+  'Obsidian Blade': {
     effects: [
       {
         name: `Obsidian Blade`,
@@ -64,8 +134,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gift of the Six Smiths`,
+  'Gift of the Six Smiths': {
     effects: [
       {
         name: `Gift of the Six Smiths`,
@@ -74,8 +143,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Armour of Destiny`,
+  'Armour of Destiny': {
     effects: [
       {
         name: `Armour of Destiny`,
@@ -84,8 +152,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Armour of Silvered Sigmarite`,
+  'Armour of Silvered Sigmarite': {
     effects: [
       {
         name: `Armour of Silvered Sigmarite`,
@@ -94,8 +161,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Drakescale Armour`,
+  'Drakescale Armour': {
     effects: [
       {
         name: `Drakescale Armour`,
@@ -104,8 +170,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mirrorshield`,
+  Mirrorshield: {
     effects: [
       {
         name: `Mirrorshield`,
@@ -114,8 +179,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Spellshield`,
+  Spellshield: {
     effects: [
       {
         name: `Spellshield`,
@@ -124,8 +188,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Featherfoe Torc`,
+  'Featherfoe Torc': {
     effects: [
       {
         name: `Featherfoe Torc`,
@@ -134,8 +197,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Talisman of Endurance`,
+  'Talisman of Endurance': {
     effects: [
       {
         name: `Talisman of Endurance`,
@@ -144,8 +206,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Obsidian Amulet`,
+  'Obsidian Amulet': {
     effects: [
       {
         name: `Obsidian Amulet`,
@@ -154,8 +215,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Luckstone`,
+  Luckstone: {
     effects: [
       {
         name: `Luckstone`,
@@ -164,8 +224,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Seed of Rebirth`,
+  'Seed of Rebirth': {
     effects: [
       {
         name: `Seed of Rebirth`,
@@ -174,8 +233,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sigmarite Pendant`,
+  'Sigmarite Pendant': {
     effects: [
       {
         name: `Sigmarite Pendant`,
@@ -184,8 +242,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Quicksilver Draught`,
+  'Quicksilver Draught': {
     effects: [
       {
         name: `Quicksilver Draught`,
@@ -194,8 +251,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Hurricane Standard`,
+  'Hurricane Standard': {
     effects: [
       {
         name: `Hurricane Standard`,
@@ -204,8 +260,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lichebone Standard`,
+  'Lichebone Standard': {
     effects: [
       {
         name: `Lichebone Standard`,
@@ -214,8 +269,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Pennant of Sigmaron`,
+  'Pennant of Sigmaron': {
     effects: [
       {
         name: `Pennant of Sigmaron`,
@@ -224,8 +278,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shriving Light`,
+  'Shriving Light': {
     effects: [
       {
         name: `Shriving Light`,
@@ -234,8 +287,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Fury Brand`,
+  'Fury Brand': {
     effects: [
       {
         name: `Fury Brand`,
@@ -244,8 +296,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lantern of the Tempest`,
+  'Lantern of the Tempest': {
     effects: [
       {
         name: `Lantern of the Tempest`,
@@ -254,8 +305,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Staff of Focus`,
+  'Staff of Focus': {
     effects: [
       {
         name: `Staff of Focus`,
@@ -264,8 +314,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mindlock Staff`,
+  'Mindlock Staff': {
     effects: [
       {
         name: `Mindlock Staff`,
@@ -274,8 +323,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Staff of Azyr`,
+  'Staff of Azyr': {
     effects: [
       {
         name: `Staff of Azyr`,
@@ -284,8 +332,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Scroll of Unravelling`,
+  'Scroll of Unravelling': {
     effects: [
       {
         name: `Scroll of Unravelling`,
@@ -294,8 +341,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Scroll of Condemnation`,
+  'Scroll of Condemnation': {
     effects: [
       {
         name: `Scroll of Condemnation`,
@@ -304,8 +350,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Storm Scroll`,
+  'Storm Scroll': {
     effects: [
       {
         name: `Storm Scroll`,
@@ -314,6 +359,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(Artifacts, 'artifact')

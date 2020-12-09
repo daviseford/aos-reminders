@@ -1,10 +1,9 @@
-// Endless spells.
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE, START_OF_ROUND } from 'types/phases'
 
-const EndlessSpells: TEntry[] = [
-  {
-    name: `Celestian Vortex`,
+// Add Endless spells here
+const EndlessSpells = {
+  'Celestian Vortex': {
     effects: [
       {
         name: `Summon Celestian Vortex`,
@@ -33,8 +32,7 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dais Arcanum`,
+  'Dais Arcanum': {
     effects: [
       {
         name: `Summon Dais Arcanum`,
@@ -58,8 +56,7 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Everblaze Comet`,
+  'Everblaze Comet': {
     effects: [
       {
         name: `Summon Everblaze Comet`,
@@ -83,6 +80,6 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default EndlessSpells
+export default tagAs(EndlessSpells, 'endless_spell')
