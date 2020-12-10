@@ -1,4 +1,4 @@
-import GenericBattleTraits from 'army/generic/battle_traits'
+import GenericBattleTraits from 'generic_rules/battle_traits'
 import { MERCENARY_COMPANIES } from 'meta/factions'
 import Units from './units'
 

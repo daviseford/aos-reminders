@@ -1,5 +1,6 @@
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
 import { ChaosFaction, DeathFaction, DestructionFaction, OrderFaction } from 'factions/grand_alliances'
+import { GreenskinzFaction } from 'factions/greenskinz'
 import { KhorneFaction } from 'factions/khorne'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
@@ -21,6 +22,7 @@ import {
   DAUGHTERS_OF_KHAINE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
+  GREENSKINZ,
   KHORNE,
   LEGIONS_OF_NAGASH,
   MEGA_GARGANT_MERCENARIES,
@@ -83,10 +85,7 @@ const FactionList = {
   //   Army: { ...GrandHostOfNagashArmy },
   //   GrandAlliance: DEATH,
   // },
-  // [GREENSKINZ]: {
-  //   Army: { ...GreenskinzArmy },
-  //   GrandAlliance: DESTRUCTION,
-  // },
+  [GREENSKINZ]: { ...GreenskinzFaction },
   // [IDONETH_DEEPKIN]: {
   //   Army: { ...IdonethDeepkinArmy },
   //   GrandAlliance: ORDER,

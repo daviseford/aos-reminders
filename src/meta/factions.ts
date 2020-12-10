@@ -109,7 +109,7 @@ export type TPrimaryFactions =
   // | TFyreslayers
   // | TGloomspiteGitz
   // | TGrandHostOfNagash
-  // | TGreenskinz
+  | TGreenskinz
   // | TIdonethDeepkin
   // | TIronjawz
   // | TKharadronOverlords
@@ -157,7 +157,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // FYRESLAYERS,
   // GLOOMSPITE_GITZ,
   // GRAND_HOST_OF_NAGASH,
-  // GREENSKINZ,
+  GREENSKINZ,
   // IDONETH_DEEPKIN,
   // IRONJAWZ,
   // KHARADRON_OVERLORDS,

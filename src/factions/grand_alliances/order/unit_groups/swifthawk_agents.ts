@@ -1,5 +1,5 @@
-import GenericBattleTraits from 'army/generic/battle_traits'
 import { TItemDescriptions } from 'factions/factionTypes'
+import GenericBattleTraits from 'generic_rules/battle_traits'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,

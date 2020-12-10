@@ -1,3 +1,4 @@
+import { tagAs } from 'factions/metatagger'
 import {
   AethervoidPendulumEffects,
   BalewindVortexEffects,
@@ -13,8 +14,7 @@ import {
   SoulsnareShacklesEffects,
   SuffocatingGravetideEffects,
   UmbralSpellportalEffects,
-} from 'army/generic/endless_spells'
-import { tagAs } from 'factions/metatagger'
+} from 'generic_rules/endless_spells'
 import { HERO_PHASE, START_OF_ROUND } from 'types/phases'
 
 const BoundEffect = {

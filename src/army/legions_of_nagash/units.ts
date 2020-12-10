@@ -1,5 +1,5 @@
-import GenericBattleTraits from 'army/generic/battle_traits'
 import { Units as NighthauntUnits } from 'army/nighthaunt/units'
+import GenericBattleTraits from 'generic_rules/battle_traits'
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,

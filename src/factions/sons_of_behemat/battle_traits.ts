@@ -1,5 +1,5 @@
-import GenericBattleTraits from 'army/generic/battle_traits'
 import { tagAs } from 'factions/metatagger'
+import GenericBattleTraits from 'generic_rules/battle_traits'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,

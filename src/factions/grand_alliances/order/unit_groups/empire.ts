@@ -1,4 +1,4 @@
-import GenericBattleTraits from 'army/generic/battle_traits'
+import GenericBattleTraits from 'generic_rules/battle_traits'
 import { HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 export const LegacyEmpireUnits = {
