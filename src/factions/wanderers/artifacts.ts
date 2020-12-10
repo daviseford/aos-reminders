@@ -1,9 +1,8 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Falcon of Holthaven`,
+const Artifacts = {
+  'Falcon of Holthaven': {
     effects: [
       {
         name: `Falcon of Holthaven`,
@@ -12,8 +11,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Starcaster Longbow`,
+  'Starcaster Longbow': {
     effects: [
       {
         name: `Starcaster Longbow`,
@@ -22,8 +20,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Splinterbirch Blade`,
+  'Splinterbirch Blade': {
     effects: [
       {
         name: `Splinterbirch Blade`,
@@ -32,8 +29,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Wending Wand`,
+  'Wending Wand': {
     effects: [
       {
         name: `Wending Wand`,
@@ -42,8 +38,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Viridescent Shawl`,
+  'Viridescent Shawl': {
     effects: [
       {
         name: `Viridescent Shawl`,
@@ -57,8 +52,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Forget-me-knot`,
+  'Forget-me-knot': {
     effects: [
       {
         name: `Forget-me-knot`,
@@ -67,6 +61,6 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+export default tagAs(Artifacts, 'artifact')

@@ -128,7 +128,7 @@ export type TPrimaryFactions =
   | TSylvaneth
   | TTombKings
   | TTzeentch
-// | TWanderers
+  | TWanderers
 
 // Supported Factions
 export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies | TMegaGargantMercenaries
@@ -171,7 +171,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   SYLVANETH,
   TOMB_KINGS,
   TZEENTCH,
-  // WANDERERS,
+  WANDERERS,
 ]
 
 export const SUPPORTED_FACTIONS: TSupportedFaction[] = sortBy([

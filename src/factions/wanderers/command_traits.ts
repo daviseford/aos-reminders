@@ -1,9 +1,7 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
-
-const CommandTraits: TEntry[] = [
-  {
-    name: `Stalker of the Hidden Paths`,
+const CommandTraits = {
+  'Stalker of the Hidden Paths': {
     effects: [
       {
         name: `Stalker of the Hidden Paths`,
@@ -12,8 +10,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Myst Walker`,
+  'Myst Walker': {
     effects: [
       {
         name: `Myst Walker`,
@@ -22,8 +19,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Masterful Hunter`,
+  'Masterful Hunter': {
     effects: [
       {
         name: `Masterful Hunter`,
@@ -32,18 +28,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Eagle-eyed`,
-    effects: [
-      {
-        name: `Eagle-eyed`,
-        desc: `Add 10" to the Range characteristic of missile weapons used by this general. If this general does not have a missile weapon, they receive a Hunting Hawk instead, and can use the Hunting Hawk's Beak missile weapon from the Nomad Prince warscroll.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Lord of Blades`,
+  'Eagle-eyed': {
     effects: [
       {
         name: `Eagle-eyed`,
@@ -52,8 +37,16 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Singer of Spells`,
+  'Lord of Blades': {
+    effects: [
+      {
+        name: `Lord of Blades`,
+        desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by this general.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Singer of Spells': {
     effects: [
       {
         name: `Singer of Spells`,
@@ -62,6 +55,6 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default CommandTraits
+export default tagAs(CommandTraits, 'command_trait')
