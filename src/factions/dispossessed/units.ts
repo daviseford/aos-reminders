@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -9,6 +9,7 @@ import {
   SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
+import command_abilities from './command_abilities'
 
 const ThrongMusiciansAndStandardBearerEffects = [
   {
@@ -84,9 +85,9 @@ const CinderblastBombEffect = {
   when: [SHOOTING_PHASE],
 }
 
-export const Units: TEntry[] = [
-  {
-    name: `Warden King`,
+const Units = {
+  'Warden King': {
+    mandatory: { command_abilities: [keyPicker(command_abilities, ['Ancestral Grudge'])] },
     effects: [
       {
         name: `Ancestor Shield`,
@@ -98,16 +99,9 @@ export const Units: TEntry[] = [
         desc: `In the hero phase, a Warden King can use this ability. If he does so, he cannot move until his next hero phase, but all DISPOSSESSED units from your army within 18" in the battleshock phase may use the Warden King's Bravery instead of their own.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Ancestral Grudge`,
-        desc: `If a Warden King uses this ability, pick one enemy unit within 16". Until your next hero phase, you can add 1 to wound rolls for all attacks made by DISPOSSESSED models that target that unit.`,
-        when: [DURING_GAME],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Runelord`,
+  Runelord: {
     effects: [
       {
         name: `Runes of Spellbreaking`,
@@ -125,8 +119,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Unforged`,
+  Unforged: {
     effects: [
       {
         name: `Runic Axes`,
@@ -150,8 +143,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Hammerers`,
+  Hammerers: {
     effects: [
       ...ThrongMusiciansAndStandardBearerEffects,
       {
@@ -161,8 +153,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ironbreakers`,
+  Ironbreakers: {
     effects: [
       IconBearerEffect,
       DrummersEffect,
@@ -171,8 +162,7 @@ export const Units: TEntry[] = [
       ForgeProvenGromrilArmorEffect,
     ],
   },
-  {
-    name: `Irondrakes`,
+  Irondrakes: {
     effects: [
       IconBearerEffect,
       HornblowersEffect,
@@ -190,8 +180,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Longbeards`,
+  Longbeards: {
     effects: [
       ...ThrongMusiciansAndStandardBearerEffects,
       ...GromrilShieldsEffects,
@@ -208,8 +197,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Quarrellers`,
+  Quarrellers: {
     effects: [
       DrummersEffect,
       ...RunicIconAndClanBannerEffects,
@@ -221,8 +209,7 @@ export const Units: TEntry[] = [
       ...DuardinBucklersEffects,
     ],
   },
-  {
-    name: `Thunderers`,
+  Thunderers: {
     effects: [
       DrummersEffect,
       ...RunicIconAndClanBannerEffects,
@@ -234,8 +221,7 @@ export const Units: TEntry[] = [
       ...DuardinBucklersEffects,
     ],
   },
-  {
-    name: `Warriors`,
+  Warriors: {
     effects: [
       HornblowersEffect,
       ...RunicIconAndClanBannerEffects,
@@ -247,22 +233,6 @@ export const Units: TEntry[] = [
       ...DuardinBucklersEffects,
     ],
   },
-]
+}
 
-export const Battalions: TEntry[] = [
-  {
-    name: `Grudgebound War Throng`,
-    effects: [
-      {
-        name: `Ancient Grudges`,
-        desc: `You can reroll all hit rolls of 1 for models in a Grudgebound War Throng.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Stubborn to the End`,
-        desc: `If you roll a 1, 2 or a 3 when taking a battleshock test for a unit in a Grudgebound War Throng, that unit is treated as having passed the battleshock test irrespective of any penalties on their Bravery or the number of casualties they have suffered that turn.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-]
+export default tagAs(Units, 'unit')

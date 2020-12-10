@@ -38,7 +38,6 @@ type TSlaanesh = 'SLAANESH'
 type TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 type TSonsOfBehemat = 'SONS_OF_BEHEMAT'
 type TStormcastEternals = 'STORMCAST_ETERNALS'
-type TStormcastEternalsStormkeep = 'STORMCAST_ETERNALS_STORMKEEP'
 type TSylvaneth = 'SYLVANETH'
 type TTamurkhansHorde = 'TAMURKHANS_HORDE' // !! REMOVE THIS AFTER V4 NURGLE !!
 type TTombKings = 'TOMB_KINGS'
@@ -83,7 +82,6 @@ export const SLAANESH: TSlaanesh = 'SLAANESH'
 export const SLAVES_TO_DARKNESS: TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 export const SONS_OF_BEHEMAT: TSonsOfBehemat = 'SONS_OF_BEHEMAT'
 export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
-export const STORMCAST_ETERNALS_STORMKEEP: TStormcastEternalsStormkeep = 'STORMCAST_ETERNALS_STORMKEEP'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
 export const TAMURKHANS_HORDE: TTamurkhansHorde = 'TAMURKHANS_HORDE' // !! REMOVE THIS AFTER V4 NURGLE !!
 export const TOMB_KINGS: TTombKings = 'TOMB_KINGS'
@@ -104,7 +102,7 @@ export type TPrimaryFactions =
   | TDaughtersOfKhaine
   | TDeathGrandAlliance
   | TDestructionGrandAlliance
-  // | TDispossessed
+  | TDispossessed
   // | TFleshEaterCourts
   // | TFyreslayers
   // | TGloomspiteGitz
@@ -134,9 +132,8 @@ export type TPrimaryFactions =
   | TSlavesToDarkness
   | TSonsOfBehemat
   | TStormcastEternals
-  // | TStormcastEternalsStormkeep
   | TSylvaneth
-  // | TTombKings
+  | TTombKings
   | TTzeentch
 // | TWanderers
 
@@ -152,7 +149,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   DAUGHTERS_OF_KHAINE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
-  // DISPOSSESSED,
+  DISPOSSESSED,
   // FLESH_EATER_COURTS,
   // FYRESLAYERS,
   // GLOOMSPITE_GITZ,
@@ -180,9 +177,8 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
-  // STORMCAST_ETERNALS_STORMKEEP,
   SYLVANETH,
-  // TOMB_KINGS,
+  TOMB_KINGS,
   TZEENTCH,
   // WANDERERS,
 ]

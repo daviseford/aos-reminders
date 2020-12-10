@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   DURING_GAME,
   END_OF_MOVEMENT_PHASE,
@@ -10,9 +10,9 @@ import {
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Heavy Metal Ingot`,
+// Add individual artifacts here, and access them in other files!
+const Artifacts = {
+  'Heavy Metal Ingot': {
     effects: [
       {
         name: `Heavy Metal Ingot`,
@@ -21,8 +21,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ancestral Pickaxe`,
+  'Ancestral Pickaxe': {
     effects: [
       {
         name: `Ancestral Pickaxe`,
@@ -36,8 +35,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Teardrop of Grungni`,
+  'Teardrop of Grungni': {
     effects: [
       {
         name: `Teardrop of Grungni`,
@@ -46,8 +44,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Grudge Rune`,
+  'Grudge Rune': {
     effects: [
       {
         name: `Grudge Rune`,
@@ -61,8 +58,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Piledriver Gauntlets`,
+  'Piledriver Gauntlets': {
     effects: [
       {
         name: `Piledriver Gauntlets`,
@@ -71,8 +67,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Resounding Gromrilhorn`,
+  'Resounding Gromrilhorn': {
     effects: [
       {
         name: `Resounding Gromrilhorn`,
@@ -81,6 +76,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(Artifacts, 'artifact')
