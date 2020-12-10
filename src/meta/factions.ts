@@ -111,7 +111,6 @@ export type TPrimaryFactions =
   | TLegionsOfNagash
   // | TLethisianDefenders
   // | TLuminethRealmlords
-  // | TMegaGargantMercenaries
   | TMercenaryCompanies
   // | TNighthaunt
   | TNurgle
