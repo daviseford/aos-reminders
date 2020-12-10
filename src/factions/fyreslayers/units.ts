@@ -156,7 +156,7 @@ const Units = {
     },
     effects: [StareDownEffect, WeaponBreakerEffect],
   },
-  'Auric Runefather': {
+  'Auric Runeson': {
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Dauntless Assault'])],
     },
@@ -228,7 +228,7 @@ const Units = {
   },
   'Auric Runesmiter': {
     mandatory: {
-      spells: [keyPicker(Spells, ['Mortal Touch'])],
+      prayers: [keyPicker(Prayers, ['Runic Empowerment'])],
     },
     effects: [
       {
@@ -236,7 +236,6 @@ const Units = {
         desc: `Instead of setting up this model on the battlefield, you can place this model to one side and say that it is set up underground as a reserve unit. If you do so, when you would set up another friendly FYRESLAYERS unit, instead of setting up that unit on the battlefield, you can say that it is joining this model underground as a reserve unit. 1 unit can join this model in this way. At the end of your movement phase, you can set up this model anywhere on the battlefield, more than 9" from any enemy units; then set up any unit that joined this model wholly within 12" of this model and more than 9" from any enemy units. Any reserve units underground that are not set up on the battlefield before the start of the fourth battle round are destroyed.`,
         when: [DURING_SETUP],
       },
-      RunicEmpowermentEffect,
     ],
   },
   'Vulkite Berzerkers': {

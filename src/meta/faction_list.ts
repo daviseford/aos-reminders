@@ -1,6 +1,7 @@
 import { BeastOfChaosFaction } from 'factions/beasts_of_chaos'
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
 import { DispossessedFaction } from 'factions/dispossessed'
+import { FyreslayersFaction } from 'factions/fyreslayers'
 import { ChaosFaction, DeathFaction, DestructionFaction, OrderFaction } from 'factions/grand_alliances'
 import { GreenskinzFaction } from 'factions/greenskinz'
 import { KhorneFaction } from 'factions/khorne'
@@ -30,6 +31,7 @@ import {
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
   DISPOSSESSED,
+  FYRESLAYERS,
   GREENSKINZ,
   KHORNE,
   LEGIONS_OF_NAGASH,
@@ -71,8 +73,7 @@ const FactionList = {
   //   Army: { ...FleshEaterCourtsArmy },
   //   GrandAlliance: DEATH,
   // },
-  // [FYRESLAYERS]: {
-  //   Army: { ...FyreslayersArmy },
+  [FYRESLAYERS]: { ...FyreslayersFaction },
   //   GrandAlliance: ORDER,
   // },
   // [GLOOMSPITE_GITZ]: {

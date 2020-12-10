@@ -84,22 +84,22 @@ const CommandAbilities = {
     ],
   },
   // Hermdar (Lodge)
+  'Skull-breakers and Oath-takers': {
+    effects: [
+      {
+        name: `Skull-breakers and Oath-takers`,
+        desc: `Pick 1 friendly HERMDAR VULKITE BERZERKER unit or 1 friendly HERMDAR HEARHTGUARD BERZERKER unit wholly within 12" of a HERMDAR HERO. That unit fights at the start of that combat phase. It cannot fight again in that phase unless an ability or spell allows it to fight more than once.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  // Lofnir (Lodge)
   'Torrent of Magma': {
     effects: [
       {
         name: `Torrent of Magma`,
         desc: `Pick an enemy unit within 12" of a friendly LOFNIR PRIEST. Until the end of that phase add 1 to hit and wound rolls from Magmapikes by friendly units that target that enemy unit. The same unit cannot be affected by this CA more than once per phase.`,
         when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  // Lofnir (Lodge)
-  'Expert Cohesion': {
-    effects: [
-      {
-        name: `Expert Cohesion`,
-        desc: `You can use this CA when a friendly GREYFYRD HERO is picked to fight. Other GREYFYRD HEROS mounted on a MAGMADROTH that are within 3" of this HERO can fight immediately afterwards before your enemy can pick a unit to fight. They cannot fight in that phase again unless an ability or spell lets them fight more than once.`,
-        when: [COMBAT_PHASE],
       },
     ],
   },
