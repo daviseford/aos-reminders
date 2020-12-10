@@ -68,7 +68,7 @@ const SiegeArtilleryEffects = [
 const Units = {
   'Drazhoath the Ashen': {
     mandatory: {
-      units: [keyPicker(CommandAbilities, ['Lord of the Black Fortress'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Lord of the Black Fortress'])],
     },
     effects: [
       {
@@ -95,7 +95,7 @@ const Units = {
   },
   Daemonsmith: {
     mandatory: {
-      units: [keyPicker(Spells, ['Ash Storm'])],
+      spells: [keyPicker(Spells, ['Ash Storm'])],
     },
     effects: [
       {
@@ -117,7 +117,7 @@ const Units = {
   },
   'Shar`Tor the Executioner': {
     mandatory: {
-      units: [keyPicker(CommandAbilities, ['Lord of the Ba`hal'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Lord of the Ba`hal'])],
     },
     effects: [
       {
@@ -135,7 +135,7 @@ const Units = {
   },
   'Bull Centaur Taur`Ruk': {
     mandatory: {
-      units: [keyPicker(CommandAbilities, ['Favour of the Burning God'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Favour of the Burning God'])],
     },
     effects: [TrampleAndGoreEffect],
   },
@@ -144,7 +144,7 @@ const Units = {
   },
   'Infernal Guard Castellan': {
     mandatory: {
-      units: [keyPicker(CommandAbilities, ['Martial Contempt'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Martial Contempt'])],
     },
     effects: [PyrelockPistolEffect],
   },
