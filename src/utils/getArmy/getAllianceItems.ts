@@ -31,15 +31,19 @@ export const getAllianceItems = (
 
   const FactionList = getFactionList()
 
-  const allianceItems = without(Object.keys(FactionList), factionName)
-    .filter(
-      faction =>
-        FactionList[faction as TSupportedFaction].GrandAlliance === grandAlliance &&
-        FactionList?.[faction as TSupportedFaction]?.AggregateArmy?.[type]
-    )
-    .map(faction => FactionList?.[faction as TSupportedFaction]?.AggregateArmy?.[type])
-    .filter(entries => !!entries && entries?.length > 0)
-    .flat() as TEntry[]
+  const allianceItems = without(Object.keys(FactionList), factionName).reduce((a, k) => {
+    let faction = k as TSupportedFaction
+
+    // Skip on these conditions
+    if (!FactionList?.[faction] || FactionList[faction].GrandAlliance !== grandAlliance) {
+      return a
+    }
+
+    const _values = FactionList[faction].AggregateArmy?.[type]
+    if (_values) a = a.concat(..._values)
+
+    return a
+  }, [] as TEntry[])
 
   return sortedUniqBy(sortBy(allianceItems.concat(originalEntries), 'name'), 'name')
 }

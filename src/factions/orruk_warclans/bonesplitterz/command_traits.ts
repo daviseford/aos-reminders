@@ -1,16 +1,17 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   HERO_PHASE,
+  MOVEMENT_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Killa Instinkt`,
+// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+const BonesplitterzCommandTraits = {
+  'Killa Instinkt': {
     effects: [
       {
         name: `Killa Instinkt`,
@@ -19,8 +20,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Waaagh!-monger`,
+  'Waaagh!-monger': {
     effects: [
       {
         name: `Waaagh!-monger`,
@@ -29,8 +29,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Great Hunter`,
+  'Great Hunter': {
     effects: [
       {
         name: `Great Hunter`,
@@ -39,8 +38,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Power of the Beast`,
+  'Power of the Beast': {
     effects: [
       {
         name: `Power of the Beast`,
@@ -49,8 +47,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Voice of da Gods`,
+  'Voice of da Gods': {
     effects: [
       {
         name: `Voice of da Gods`,
@@ -59,8 +56,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Monster Killa`,
+  'Monster Killa': {
     effects: [
       {
         name: `Monster Killa`,
@@ -69,8 +65,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dead Kunnin'`,
+  "Dead Kunnin'": {
     effects: [
       {
         name: `Dead Kunnin'`,
@@ -79,8 +74,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Master of the Weird`,
+  'Master of the Weird': {
     effects: [
       {
         name: `Master of the Weird`,
@@ -89,8 +83,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Fuelled by the Spirits`,
+  'Fuelled by the Spirits': {
     effects: [
       {
         name: `Fuelled by the Spirits`,
@@ -99,6 +92,25 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+  'A Right Monster': {
+    effects: [
+      {
+        name: `A Right Monster`,
+        desc: `Enemy units within 12" of this general subtract 1 from their Bravery characteristic.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  'Pure-bred War Boar': {
+    effects: [
+      {
+        name: `Pure-bred War Boar`,
+        desc: `Add 2" to the move characteristic of the bearer. Also add 1 to hit and wound rolls for the boar attacks.`,
+        when: [MOVEMENT_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+}
 
-export default CommandTraits
+// Always export using tagAs
+export default tagAs(BonesplitterzCommandTraits, 'command_trait')

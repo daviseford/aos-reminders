@@ -1,16 +1,17 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Armour of Gork`,
+// Add individual artifacts here, and access them in other files!
+const IronjawzArtifacts = {
+  'Armour of Gork': {
     effects: [
       {
         name: `Armour of Gork`,
@@ -19,8 +20,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Destroyer`,
+  Destroyer: {
     effects: [
       {
         name: `Destroyer`,
@@ -29,8 +29,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Daubing of Mork`,
+  'Daubing of Mork': {
     effects: [
       {
         name: `Daubing of Mork`,
@@ -39,8 +38,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Golden Toof`,
+  'The Golden Toof': {
     effects: [
       {
         name: `The Golden Toof`,
@@ -49,8 +47,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Metalrippa's Klaw`,
+  "Metalrippa's Klaw": {
     effects: [
       {
         name: `Metalrippa's Klaw`,
@@ -59,8 +56,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Boss Skewer`,
+  'The Boss Skewer': {
     effects: [
       {
         name: `The Boss Skewer`,
@@ -69,8 +65,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Great Green Visions`,
+  'Great Green Visions': {
     effects: [
       {
         name: `Great Green Visions`,
@@ -79,8 +74,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Amberbone Hoard`,
+  'Amberbone Hoard': {
     effects: [
       {
         name: `Amberbone Hoard`,
@@ -89,8 +83,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shamanic Skullcape`,
+  'Shamanic Skullcape': {
     effects: [
       {
         name: `Shamanic Skullcape`,
@@ -99,6 +92,34 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+  'Sunzblessed Armour': {
+    effects: [
+      {
+        name: `Sunzblessed Armour`,
+        desc: `Attacks that target the bearer have their rend reduced by 1, to a minimum of 0.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+  'Quickduff Amulet': {
+    effects: [
+      {
+        name: `Quickduff Amulet`,
+        desc: `Once per battle, the bearer may automatically cast the Great Green Hand of Gork for free and cannot be unbound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Megaskull Staff': {
+    effects: [
+      {
+        name: `Megaskull Staff`,
+        desc: `The bearer gains the Megaboss keyword for the purposes of using the IRONJAWZ Waaagh! ability.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(IronjawzArtifacts, 'artifact')

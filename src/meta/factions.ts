@@ -2,8 +2,6 @@ import { sortBy } from 'lodash'
 
 // Supported Faction Types
 type TBeastsOfChaos = 'BEASTS_OF_CHAOS'
-type TBigWaaagh = 'BIG_WAAAGH'
-type TBonesplitterz = 'BONESPLITTERZ'
 type TChaosGrandAlliance = 'CHAOS_GRAND_ALLIANCE'
 type TCitiesOfSigmar = 'CITIES_OF_SIGMAR'
 type TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
@@ -15,7 +13,6 @@ type TFyreslayers = 'FYRESLAYERS'
 type TGloomspiteGitz = 'GLOOMSPITE_GITZ'
 type TGreenskinz = 'GREENSKINZ'
 type TIdonethDeepkin = 'IDONETH_DEEPKIN'
-type TIronjawz = 'IRONJAWZ'
 type TKharadronOverlords = 'KHARADRON_OVERLORDS'
 type TKhorne = 'KHORNE'
 type TLegionOfChaosAscendant = 'LEGION_OF_CHAOS_ASCENDANT'
@@ -30,6 +27,7 @@ type TNighthaunt = 'NIGHTHAUNT'
 type TNurgle = 'NURGLE'
 type TOgorMawtribes = 'OGOR_MAWTRIBES'
 type TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
+type TOrrukWarclans = 'ORRUK_WARCLANS'
 type TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 type TSeraphon = 'SERAPHON'
 type TSample = 'SAMPLE' // TODO: Remove before publishing
@@ -46,8 +44,6 @@ type TWanderers = 'WANDERERS'
 
 // Exported Faction Names
 export const BEASTS_OF_CHAOS: TBeastsOfChaos = 'BEASTS_OF_CHAOS'
-export const BIG_WAAAGH: TBigWaaagh = 'BIG_WAAAGH'
-export const BONESPLITTERZ: TBonesplitterz = 'BONESPLITTERZ'
 export const CHAOS_GRAND_ALLIANCE: TChaosGrandAlliance = 'CHAOS_GRAND_ALLIANCE'
 export const CITIES_OF_SIGMAR: TCitiesOfSigmar = 'CITIES_OF_SIGMAR'
 export const DAUGHTERS_OF_KHAINE: TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
@@ -59,7 +55,6 @@ export const FYRESLAYERS: TFyreslayers = 'FYRESLAYERS'
 export const GLOOMSPITE_GITZ: TGloomspiteGitz = 'GLOOMSPITE_GITZ'
 export const GREENSKINZ: TGreenskinz = 'GREENSKINZ'
 export const IDONETH_DEEPKIN: TIdonethDeepkin = 'IDONETH_DEEPKIN'
-export const IRONJAWZ: TIronjawz = 'IRONJAWZ'
 export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export const KHORNE: TKhorne = 'KHORNE'
 export const LEGION_OF_CHAOS_ASCENDANT: TLegionOfChaosAscendant = 'LEGION_OF_CHAOS_ASCENDANT'
@@ -74,6 +69,7 @@ export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
 export const NURGLE: TNurgle = 'NURGLE'
 export const OGOR_MAWTRIBES: TOgorMawtribes = 'OGOR_MAWTRIBES'
 export const ORDER_GRAND_ALLIANCE: TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
+export const ORRUK_WARCLANS: TOrrukWarclans = 'ORRUK_WARCLANS'
 export const OSSIARCH_BONEREAPERS: TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 export const SERAPHON: TSeraphon = 'SERAPHON'
 export const SKAVENTIDE: TSkaventide = 'SKAVENTIDE'
@@ -95,8 +91,6 @@ export const WANDERERS: TWanderers = 'WANDERERS'
  */
 export type TPrimaryFactions =
   | TBeastsOfChaos
-  // | TBigWaaagh
-  // | TBonesplitterz
   | TChaosGrandAlliance
   // | TCitiesOfSigmar
   | TDaughtersOfKhaine
@@ -109,7 +103,6 @@ export type TPrimaryFactions =
   // | TGrandHostOfNagash
   | TGreenskinz
   // | TIdonethDeepkin
-  // | TIronjawz
   // | TKharadronOverlords
   | TKhorne
   // | TLegionOfChaosAscendant
@@ -124,6 +117,7 @@ export type TPrimaryFactions =
   | TNurgle
   | TOgorMawtribes
   | TOrderGrandAlliance
+  | TOrrukWarclans
   | TOssiarchBonereapers
   | TSeraphon
   | TSkaventide
@@ -142,8 +136,6 @@ export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies | TMegaGa
 
 export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   BEASTS_OF_CHAOS,
-  // BIG_WAAAGH,
-  // BONESPLITTERZ,
   CHAOS_GRAND_ALLIANCE,
   // CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
@@ -156,7 +148,6 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // GRAND_HOST_OF_NAGASH,
   GREENSKINZ,
   // IDONETH_DEEPKIN,
-  // IRONJAWZ,
   // KHARADRON_OVERLORDS,
   KHORNE,
   // LEGION_OF_CHAOS_ASCENDANT,
@@ -169,9 +160,10 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   NURGLE,
   OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
+  ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
-  SERAPHON,
   SAMPLE,
+  SERAPHON,
   SKAVENTIDE,
   SLAANESH,
   SLAVES_TO_DARKNESS,

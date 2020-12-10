@@ -1,4 +1,5 @@
-import { TEntry } from 'types/data'
+import { DestructionUnits } from 'factions/grand_alliances'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -7,12 +8,11 @@ import {
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
-  START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-
-// const getRogueIdol = () => filterUnits(DestructionUnits, [`Rogue Idol`])[0]
+import command_abilities from './command_abilities'
+import spells from './spells'
 
 const TuskerChargeEffect = {
   name: `Tusker Charge`,
@@ -45,9 +45,11 @@ const BoneShieldEffect = {
   when: [SAVES_PHASE],
 }
 
-export const Units: TEntry[] = [
-  {
-    name: `Wurrgog Prophet`,
+const BonesplitterzUnits = {
+  'Wurrgog Prophet': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Fists of Gork'])],
+    },
     effects: [
       {
         name: `Beast Mask`,
@@ -59,16 +61,12 @@ export const Units: TEntry[] = [
         desc: `Roll a D6. On a 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Fists of Gork`,
-        desc: `Pick 1 enemy unit within 24" of the caster that is visible to them, and roll a number of dice equal to the number of models in that unit. For each 6, that unit suffers 1 mortal wound. If the casting roll was 10+, inflict 1 mortal wound for each 4+ instead of each 6.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Maniak Weirdnob`,
+  'Maniak Weirdnob': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Bone Spirit'])],
+    },
     effects: [
       TuskerChargeEffect,
       {
@@ -76,32 +74,21 @@ export const Units: TEntry[] = [
         desc: `Once per turn, you can reroll a casting, dispelling or unbinding roll for this model.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Bone Spirit`,
-        desc: `Casting value of 7. Pick 1 friendly BONESPLITTERZ unit wholly within 12" of the caster and visible to them. Until your next hero phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Savage Big Boss`,
+  'Savage Big Boss': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Savage Attack'])],
+    },
     effects: [
       {
         name: `Let Me at 'Em`,
         desc: `After this model has fought in a combat phase for the first time, you can pick 1 friendly BONESPLITTERZ unit that has not yet fought in that combat phase, that is within 3" of an enemy unit and that is wholly within 12" of this model. That unit fights immediately, before the opposing player picks a unit to fight in that combat phase. That unit cannot fight again in that combat phase unless an ability or spell allows it to fight more than once.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Savage Attack`,
-        desc: `Pick 1 friendly BONESPLITTERZ unit wholly within 12" of a friendly model with this command ability. Until the end of that phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Wardokk`,
+  Wardokk: {
     effects: [
       {
         name: `Ritual Dance`,
@@ -114,12 +101,10 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Savage Orruks`,
+  'Savage Orruks': {
     effects: [SkullThumperEffect, BoneTotemBearerEffect, SpiritOfGorkamorkaEffect, BoneShieldEffect],
   },
-  {
-    name: `Savage Boarboys`,
+  'Savage Boarboys': {
     effects: [
       BoarThumperEffect,
       BoneTotemBearerEffect,
@@ -131,8 +116,7 @@ export const Units: TEntry[] = [
       BoneShieldEffect,
     ],
   },
-  {
-    name: `Savage Big Stabbas`,
+  'Savage Big Stabbas': {
     effects: [
       {
         name: `The Bigger They Are...`,
@@ -142,17 +126,16 @@ export const Units: TEntry[] = [
       {
         name: `Da Final Fling`,
         desc: `Each time a model from this unit is slain by an attack made with a melee weapon, before the model is removed from play, pick 1 enemy unit within 3" of the slain model and roll a D6. Add 2 to the roll if that enemy unit is a MONSTER. On a 4+, that unit suffers D3 mortal wounds.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Savagely Enthusiastic`,
         desc: `This unit can run and still charge in the same turn.`,
-        when: [MOVEMENT_PHASE],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
-  {
-    name: `Savage Orruk Morboys`,
+  'Savage Orruk Morboys': {
     effects: [
       SkullThumperEffect,
       BoneTotemBearerEffect,
@@ -164,8 +147,7 @@ export const Units: TEntry[] = [
       SpiritOfGorkamorkaEffect,
     ],
   },
-  {
-    name: `Savage Boarboy Maniaks`,
+  'Savage Boarboy Maniaks': {
     effects: [
       BoarThumperEffect,
       BoneTotemBearerEffect,
@@ -177,8 +159,7 @@ export const Units: TEntry[] = [
       TuskerChargeEffect,
     ],
   },
-  {
-    name: `Savage Orruk Arrowboys`,
+  'Savage Orruk Arrowboys': {
     effects: [
       SkullThumperEffect,
       BoneTotemBearerEffect,
@@ -194,68 +175,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  // getRogueIdol(),
-]
+  ...keyPicker(DestructionUnits, ['Rogue Idol']),
+}
 
-export const Battalions: TEntry[] = [
-  {
-    name: `Big Rukk`,
-    effects: [
-      {
-        name: `Big Rukk Warpaint`,
-        desc: `When you use the Warpaint battle trait for a unit from this battalion, you can reroll the dice that determines if a wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Kop Rukk`,
-    effects: [
-      {
-        name: `Savage Weird Power`,
-        desc: `Pick 1 Wardokk from this battalion that is wholly within 18" of 2 or more units from this same battalion that each have 10 or more models. That Wardokk can attempt to cast the Fists of Gork spell from the Wurrgog Prophet warscroll in that phase in addtion to any other spells it can cast.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Snaga Rukk`,
-    effects: [
-      {
-        name: `Maniak Stampede`,
-        desc: `You can reroll charge rolls for units in this battalion while they are wholly within 12" of the Maniak Weirdknob from this battalion.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Brutal Rukk`,
-    effects: [
-      {
-        name: `Savage Swiftness`,
-        desc: `Units in this battalion that are wholly within 12" of the Savage Big Boxx at the start of the charge phase can charge even if they have run earlier in the turn.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Kunnin' Rukk`,
-    effects: [
-      {
-        name: `Dead Sneaky`,
-        desc: `Pick one unit from the Kunnin' Rukk that is wholly within 12" of the battalion's Big Boss. That unit can move as if it were the movement phase, or shoot as if it were the shooting phase. Units in this battalion cannot have more than 20 models.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Teef Rukk`,
-    effects: [
-      {
-        name: `We're Da Best`,
-        desc: `Add 1 to the attacks characteristic of melee weapons use by units from this battalion while they are wholly within 12" of the Savage Big Boss from this battalion.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-]
+export default tagAs(BonesplitterzUnits, 'unit')

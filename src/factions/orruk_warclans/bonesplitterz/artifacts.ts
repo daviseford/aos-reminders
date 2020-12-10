@@ -1,9 +1,16 @@
-import { TEntry } from 'types/data'
-import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_GAME, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { tagAs } from 'factions/metatagger'
+import {
+  BATTLESHOCK_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  HERO_PHASE,
+  SAVES_PHASE,
+  SHOOTING_PHASE,
+} from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Glowin' Tattooz`,
+// Add individual artifacts here, and access them in other files!
+const BonesplitterzArtifacts = {
+  "Glowin' Tattooz": {
     effects: [
       {
         name: `Glowin' Tattooz`,
@@ -12,8 +19,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Greatdrake Toof`,
+  'Greatdrake Toof': {
     effects: [
       {
         name: `Greatdrake Toof`,
@@ -22,8 +28,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Weepwood Big Shiv`,
+  'Weepwood Big Shiv': {
     effects: [
       {
         name: `Weepwood Big Shiv`,
@@ -32,8 +37,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dokk Juice`,
+  'Dokk Juice': {
     effects: [
       {
         name: `Dokk Juice`,
@@ -42,8 +46,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Savage Trophy`,
+  'Savage Trophy': {
     effects: [
       {
         name: `Savage Trophy`,
@@ -52,8 +55,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lucky Bone`,
+  'Lucky Bone': {
     effects: [
       {
         name: `Lucky Bone`,
@@ -62,8 +64,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mork's Boney Bitz`,
+  "Mork's Boney Bitz": {
     effects: [
       {
         name: `Mork's Boney Bitz`,
@@ -72,8 +73,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Big Wurrgog Mask`,
+  'Big Wurrgog Mask': {
     effects: [
       {
         name: `Big Wurrgog Mask`,
@@ -82,8 +82,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mystic Waaagh! Paint`,
+  'Mystic Waaagh! Paint': {
     effects: [
       {
         name: `Mystic Waaagh! Paint`,
@@ -92,6 +91,34 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+  'Maw-Krusha Beast Totem': {
+    effects: [
+      {
+        name: `Maw-Krusha Beast Totem`,
+        desc: `Once per battle, the bearer can use the Innard-Bursting Bellow from the Maw Krusha warscroll.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Kattanak Pelt': {
+    effects: [
+      {
+        name: `Kattanak Pelt`,
+        desc: `Add 1 to the Bravery characteristic of friendly units that are wholly within 18" of the bearer.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  "Burnin' Tattooz": {
+    effects: [
+      {
+        name: `Burnin' Tattooz`,
+        desc: `If you make a successful Warpaint save, pick an enemy unit within 1" and deal 1 mortal wound in return.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(BonesplitterzArtifacts, 'artifact')

@@ -1,20 +1,16 @@
-import { TEntry } from 'types/data'
+import { DestructionUnits } from 'factions/grand_alliances'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
   HERO_PHASE,
-  START_OF_COMBAT_PHASE,
-  START_OF_HERO_PHASE,
-  START_OF_SETUP,
-  TURN_ONE_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-
-// const getRogueIdol = () => filterUnits(DestructionUnits, [`Rogue Idol`])[0]
+import command_abilities from './command_abilities'
+import spells from './spells'
 
 const MegabossEffects = [
   {
@@ -27,23 +23,18 @@ const MegabossEffects = [
     desc: `If any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, add 1 to this model's Wounds characteristic and add 1 to the Attacks characteristic of this model's Boss Choppa and Rip-toof Fist.`,
     when: [END_OF_COMBAT_PHASE],
   },
-  {
-    name: `Go on Ladz, Get Stuck In!`,
-    desc: `Pick 1 friendly IRONJAWZ unit wholly within 12" of a friendly model with this command ability, or wholly within 18" of a friendly model with this command ability that is a MONSTER. Until the end of that phase, add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
-    when: [START_OF_COMBAT_PHASE],
-    command_ability: true,
-  },
 ]
-
 const DuffUpdaBigThingEffect = {
   name: `Duff Up da Big Thing`,
   desc: `Add 1 to the hit rolls for attacks made by this unit that target a unit with a Wounds characteristic of 4+.`,
   when: [COMBAT_PHASE],
 }
 
-export const Units: TEntry[] = [
-  {
-    name: `Gordrakk the Fist of Gork`,
+const IronjawzUnits = {
+  'Gordrakk the Fist of Gork': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Voice of Gork'])],
+    },
     effects: [
       {
         name: `Smasha`,
@@ -69,16 +60,12 @@ export const Units: TEntry[] = [
         desc: `If any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, add 1 to this model's Wounds characteristic and add 1 to the Attacks characteristic of Smasha and Kunnin'.`,
         when: [END_OF_COMBAT_PHASE],
       },
-      {
-        name: `Voice of Gork`,
-        desc: `Pick up to 3 friendly DESTRUCTION units wholly within 24" of this model. Until the end of that phase, add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase, and a unit cannot benefit from this ability and the Go on Ladz, Get Stuck In! ability in the same phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Megaboss on Maw-Krusha`,
+  'Megaboss on Maw-Krusha': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Go on Ladz, Get Stuck In!'])],
+    },
     effects: [
       ...MegabossEffects,
       {
@@ -90,12 +77,13 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Orruk Megaboss`,
+  'Orruk Megaboss': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Go on Ladz, Get Stuck In!'])],
+    },
     effects: [...MegabossEffects],
   },
-  {
-    name: `Orruk Warchanter`,
+  'Orruk Warchanter': {
     effects: [
       {
         name: `Warchanter's Beat`,
@@ -109,24 +97,19 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Orruk Weirdnob Shaman`,
+  'Orruk Weirdnob Shaman': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Green Puke'])],
+    },
     effects: [
       {
         name: `Brutal Power`,
         desc: `If this model is wholly within 18" of a friendly IRONJAWZ unit with 10 or more models at the end of its hero phase, it can attempt to cast the Green Puke spell in addition to any other spells it can cast, and even if a WIZARD has already attempted to cast the Green Puke spell in that hero phase.`,
         when: [END_OF_HERO_PHASE],
       },
-      {
-        name: `Green Puke`,
-        desc: `Casting value of 6. Pick 1 point on the battlefield within 2D6" of the caster that is visible to them, and draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Each unit that has models passed across by this line suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Orruk Ardboys`,
+  'Orruk Ardboys': {
     effects: [
       {
         name: `Waaagh! Drummers`,
@@ -150,12 +133,10 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Orruk Brutes`,
+  'Orruk Brutes': {
     effects: [DuffUpdaBigThingEffect],
   },
-  {
-    name: `Orruk Gore-gruntas`,
+  'Orruk Gore-gruntas': {
     effects: [
       {
         name: `Gore-grunta Charge`,
@@ -166,8 +147,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ironskull's Boyz`,
+  "Ironskull's Boyz": {
     effects: [
       {
         name: `Dead 'Ard`,
@@ -181,8 +161,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Morgok's Krushas`,
+  "Morgok's Krushas": {
     effects: [
       {
         name: `Morgok`,
@@ -197,104 +176,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  // getRogueIdol(),
-]
+  ...keyPicker(DestructionUnits, ['Rogue Idol']),
+}
 
-export const Battalions: TEntry[] = [
-  {
-    name: `Ardfist`,
-    effects: [
-      {
-        name: `Drawn to the Waaagh!`,
-        desc: `You can use this command ability if the Orruk Warchanter from this battalion is on the battlefield when a unit from this battalion is destroyed. If you do so, roll a D6. On a 4+, a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
-        when: [DURING_GAME],
-        command_ability: true,
-      },
-    ],
-  },
-  {
-    name: `BruteFist`,
-    effects: [
-      {
-        name: `Brute Big Boss`,
-        desc: `Pick 1 Brute Boss from a unit in this battalion to be the battalion's Big Boss. That model has a Wounds characteristic of 5 instead of 3.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Green-skinned Battering Ram`,
-        desc: `After a model from a unit in this battalion makes a charge move, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 4+, that enemy unit suffers 1 mortal wound. If that model's unit has more than 1 model, roll to determine if a mortal wound is inflicted each time a model from that unit completes its charge move, but do not allocate the mortal wounds until all of the models in that unit have moved.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Gorefist`,
-    effects: [
-      {
-        name: `Gore-grunta Big Boss`,
-        desc: `Pick 1 Gore-grunta Boss from a unit in this battalion to be the battalion's Big Boss. That model has a Wounds characteristic of 7 instead of 5.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Da Boss's Big Idea`,
-        desc: `Each unit from this battalion that is wholly within 18" of the Big Boss from the same battalion at the start of that hero phase can make a normal move, but cannot run.`,
-        when: [TURN_ONE_HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Ironfist`,
-    effects: [
-      {
-        name: `Ironfist Big Boss`,
-        desc: `Pick 1 Brute Boss or Gore-grunta Boss from a unit in this battalion to be the battalion's Big Boss. Add 2 to that model's Wounds characteristic.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Up and At'Em`,
-        desc: `Once in each of your hero phases, the Big Boss from this battalion can use the Mighty Destroyers command ability (pg 55) as if they were a MEGABOSS and without spending 1 command point.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Weirdfist`,
-    effects: [
-      {
-        name: `Weird Energy`,
-        desc: `If the WEIRDNOB SHAMAN from this battalion is wholly within 18" of 2 or more units from the same battalion that each have 10 or more models, it can use its Brutal Power ability to attempt to cast Green Puke twice, in addition to any other spells it can cast, instead of only once.`,
-        when: [END_OF_HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Ironjawz Smasha Boyz`,
-    effects: [
-      {
-        name: `Smash 'em`,
-        desc: `You can add 1 to all hit rolls made for Smasha Boyz units in the combat phase whilst they are within 10" of their Warchanter. Note that if the Warchanter uses his Frenzy of Violence ability on a Smasha Boyz unit, you would add 2 to their hit rolls instead.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Da Bossfist`,
-    effects: [
-      {
-        name: `Da Boss 'Imself`,
-        desc: `Dakkbad must have the Right Fist of Dakkbad command trait.`,
-        when: [START_OF_SETUP],
-      },
-      {
-        name: `Da Boss 'Imself`,
-        desc: `If Dakkbad is on the battlefield at the start of your hero phase, roll a D6. On a 4+, you receive 1 extra command point.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Battlescarred Veterans`,
-        desc: `Add 1 to the Attacks characteristic of melee weapons used by models in this battalion (including those used by their mounts).`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-]
+export default tagAs(IronjawzUnits, 'unit')
