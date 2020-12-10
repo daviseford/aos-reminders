@@ -30,6 +30,7 @@ type TNighthaunt = 'NIGHTHAUNT'
 type TNurgle = 'NURGLE'
 type TOgorMawtribes = 'OGOR_MAWTRIBES'
 type TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
+type TOrrukWarclans = 'ORRUK_WARCLANS'
 type TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 type TSeraphon = 'SERAPHON'
 type TSample = 'SAMPLE' // TODO: Remove before publishing
@@ -74,6 +75,7 @@ export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
 export const NURGLE: TNurgle = 'NURGLE'
 export const OGOR_MAWTRIBES: TOgorMawtribes = 'OGOR_MAWTRIBES'
 export const ORDER_GRAND_ALLIANCE: TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
+export const ORRUK_WARCLANS: TOrrukWarclans = 'ORRUK_WARCLANS'
 export const OSSIARCH_BONEREAPERS: TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 export const SERAPHON: TSeraphon = 'SERAPHON'
 export const SKAVENTIDE: TSkaventide = 'SKAVENTIDE'
@@ -95,8 +97,6 @@ export const WANDERERS: TWanderers = 'WANDERERS'
  */
 export type TPrimaryFactions =
   | TBeastsOfChaos
-  // | TBigWaaagh
-  // | TBonesplitterz
   | TChaosGrandAlliance
   // | TCitiesOfSigmar
   | TDaughtersOfKhaine
@@ -109,7 +109,6 @@ export type TPrimaryFactions =
   // | TGrandHostOfNagash
   | TGreenskinz
   // | TIdonethDeepkin
-  // | TIronjawz
   // | TKharadronOverlords
   | TKhorne
   // | TLegionOfChaosAscendant
@@ -124,6 +123,7 @@ export type TPrimaryFactions =
   | TNurgle
   | TOgorMawtribes
   | TOrderGrandAlliance
+  | TOrrukWarclans
   | TOssiarchBonereapers
   | TSeraphon
   | TSkaventide
@@ -142,8 +142,6 @@ export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies | TMegaGa
 
 export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   BEASTS_OF_CHAOS,
-  // BIG_WAAAGH,
-  // BONESPLITTERZ,
   CHAOS_GRAND_ALLIANCE,
   // CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
@@ -156,7 +154,6 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // GRAND_HOST_OF_NAGASH,
   GREENSKINZ,
   // IDONETH_DEEPKIN,
-  // IRONJAWZ,
   // KHARADRON_OVERLORDS,
   KHORNE,
   // LEGION_OF_CHAOS_ASCENDANT,
@@ -169,9 +166,10 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   NURGLE,
   OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
+  ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
-  SERAPHON,
   SAMPLE,
+  SERAPHON,
   SKAVENTIDE,
   SLAANESH,
   SLAVES_TO_DARKNESS,

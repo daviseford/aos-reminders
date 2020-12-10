@@ -37,6 +37,7 @@ import {
   NURGLE,
   OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
+  ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
   SAMPLE,
   SERAPHON,
@@ -54,14 +55,6 @@ import {
 // Enable as you add them to /factions/
 const FactionList = {
   [BEASTS_OF_CHAOS]: { ...BeastOfChaosFaction },
-  // [BIG_WAAAGH]: {
-  //   Army: { ...BigWaaaghArmy },
-  //   GrandAlliance: DESTRUCTION,
-  // },
-  // [BONESPLITTERZ]: {
-  //   Army: { ...BonesplitterzArmy },
-  //   GrandAlliance: DESTRUCTION,
-  // },
   [CHAOS_GRAND_ALLIANCE]: { ...ChaosFaction },
   // [CITIES_OF_SIGMAR]: {
   //   Army: { ...CitiesOfSigmarArmy },
@@ -91,10 +84,6 @@ const FactionList = {
   // [IDONETH_DEEPKIN]: {
   //   Army: { ...IdonethDeepkinArmy },
   //   GrandAlliance: ORDER,
-  // },
-  // [IRONJAWZ]: {
-  //   Army: { ...IronjawzArmy },
-  //   GrandAlliance: DESTRUCTION,
   // },
   // [KHARADRON_OVERLORDS]: {
   //   Army: { ...KharadronOverlordsArmy },
@@ -140,6 +129,7 @@ const FactionList = {
   [NURGLE]: { ...NurgleFaction },
   [OGOR_MAWTRIBES]: { ...OgorMawtribesFaction },
   [ORDER_GRAND_ALLIANCE]: { ...OrderFaction },
+  [ORRUK_WARCLANS]: { ...OrrukWarclansFaction },
   [OSSIARCH_BONEREAPERS]: { ...OssiarchBonereapersFaction },
   [SAMPLE]: { ...SampleFaction },
   [SERAPHON]: { ...SeraphonFaction },

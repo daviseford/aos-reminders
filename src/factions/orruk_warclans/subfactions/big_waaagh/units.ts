@@ -1,6 +1,6 @@
-import Bonesplitterz from 'army/bonesplitterz'
+import Bonesplitterz from 'factions/orruk_warclans/subfactions/bonesplitterz'
 // import Greenskinz from 'army/greenskinz'
-import Ironjawz from 'army/ironjawz'
+import Ironjawz from 'factions/orruk_warclans/subfactions/ironjawz'
 import { TEntry } from 'types/data'
 
 // Importing Ironjawz
