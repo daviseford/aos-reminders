@@ -1,12 +1,6 @@
-import { TItemDescriptions } from 'factions/factionTypes'
+import GreenskinzUnits from '../greenskinz/units'
 import { keyPicker, pickEffects } from '../metatagger'
-import BigWaaaghArtifacts from './big_waaagh_new/artifacts'
-import BigWaaaghBattalions from './big_waaagh_new/battalions'
-import BigWaaaghBattleTraits from './big_waaagh_new/battle_traits'
-import BigWaaaghCommandAbilities from './big_waaagh_new/command_abilities'
-import BigWaaaghCommandTraits from './big_waaagh_new/command_traits'
-import BigWaaaghSpells from './big_waaagh_new/spells'
-import BigWaaaghUnits from './big_waaagh_new/units'
+import BigWaaaghBattleTraits from './big_waaagh/battle_traits'
 import BonesplitterzArtifacts from './bonesplitterz/artifacts'
 import BonesplitterzBattalions from './bonesplitterz/battalions'
 import BonesplitterzBattleTraits from './bonesplitterz/battle_traits'
@@ -26,7 +20,7 @@ import IronjawzPrayers from './ironjawz/prayers'
 import IronjawzSpells from './ironjawz/spells'
 import IronjawzUnits from './ironjawz/units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   Ironjawz: {
     effects: pickEffects(IronjawzBattleTraits, ['Smashing and Bashing', 'Mad as Hell', 'Eager for Battle']),
     available: {
@@ -65,14 +59,13 @@ const subFactions: TItemDescriptions = {
     },
   },
   'Big Waaagh': {
-    effects: pickEffects(BigWaaaghBattleTraits, []),
+    effects: pickEffects(BigWaaaghBattleTraits, ['Big Waaagh']),
     available: {
-      artifacts: [BigWaaaghArtifacts],
-      battalions: [BigWaaaghBattalions],
-      command_abilities: [BigWaaaghCommandAbilities],
-      command_traits: [BigWaaaghCommandTraits],
-      spells: [BigWaaaghSpells],
-      units: [BigWaaaghUnits],
+      allied_units: [GreenskinzUnits, IronjawzUnits, BonesplitterzUnits],
+      artifacts: [IronjawzArtifacts, BonesplitterzArtifacts],
+      battalions: [IronjawzBattalions, BonesplitterzBattalions],
+      command_traits: [IronjawzCommandTraits, BonesplitterzCommandTraits],
+      spells: [IronjawzSpells, BonesplitterzSpells],
     },
   },
 }

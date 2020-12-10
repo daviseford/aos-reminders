@@ -2,15 +2,12 @@ import { SeraphonConstellations } from 'army/seraphon/allegiances'
 import { readFileSync } from 'fs'
 import {
   BEASTS_OF_CHAOS,
-  BIG_WAAAGH,
-  BONESPLITTERZ,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   IDONETH_DEEPKIN,
-  IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGIONS_OF_GRIEF,
@@ -1112,7 +1109,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('Ironjawz3')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.factionName).toEqual('IRONJAWZ')
     expect(res.selections.command_traits).toContain("Burstin' with Power")
     expect(res.errors).toEqual([])
   })
@@ -1121,7 +1118,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('Ironjawz2')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.factionName).toEqual('IRONJAWZ')
     expect(res.selections.spells).toContain('Brain-bursta')
     expect(res.errors).toEqual([])
   })
@@ -1334,7 +1331,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('BigWaaagh2')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.factionName).toEqual('BIG_WAAAGH')
     expect(res.errors).toEqual([])
   })
 
@@ -1458,7 +1455,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('Bonesplitterz2')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(BONESPLITTERZ)
+    expect(res.factionName).toEqual('BONESPLITTERZ')
     expect(res.errors).toEqual([])
     expect(res.selections.flavors).toEqual(['Icebone Clan'])
     expect(res.selections.battalions).toEqual(["Kunnin' Rukk"])

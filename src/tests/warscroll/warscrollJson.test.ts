@@ -1,8 +1,6 @@
 import { readFileSync } from 'fs'
 import {
   BEASTS_OF_CHAOS,
-  BIG_WAAAGH,
-  BONESPLITTERZ,
   CHAOS_GRAND_ALLIANCE,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
@@ -12,7 +10,6 @@ import {
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   GREENSKINZ,
-  IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGION_OF_CHAOS_ASCENDANT,
@@ -27,7 +24,6 @@ import {
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
-  STORMCAST_ETERNALS_STORMKEEP,
   SYLVANETH,
   TZEENTCH,
 } from 'meta/factions'
@@ -900,10 +896,6 @@ describe('getWarscrollArmyFromJson', () => {
         battalions: ['Hailstorm Battery'],
         units: [],
       },
-      [STORMCAST_ETERNALS_STORMKEEP]: {
-        battalions: ['Hailstorm Battery'],
-        units: [],
-      },
     })
     expect(res.origin_realm).toEqual(null)
     expect(res.errors).toEqual([])
@@ -1073,7 +1065,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1574391649028-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.factionName).toEqual('IRONJAWZ')
     expect(res.selections.flavors).toContain('Ironsunz')
     expect(res.errors).toEqual([
       {
@@ -1112,7 +1104,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1573836740544-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.factionName).toEqual('BIG_WAAAGH')
     expect(res.selections.units).toContain('Orruk Great Shaman')
     expect(res.errors).toEqual([])
   })
@@ -1199,7 +1191,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1573144291799-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(BONESPLITTERZ)
+    expect(res.factionName).toEqual('BONESPLITTERZ')
     expect(res.selections.battalions).toEqual(['Big Rukk', 'Brutal Rukk', 'Kop Rukk', 'Teef Rukk'])
     expect(res.errors).toEqual([
       {
@@ -1259,7 +1251,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1573012088615-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.factionName).toEqual('BIG_WAAAGH')
     expect(res.selections.command_traits).toContain("Burstin' with Power (Ironjawz)")
     expect(res.errors).toEqual([])
   })
@@ -1268,7 +1260,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1573018890027-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.factionName).toEqual('BIG_WAAAGH')
     expect(res.selections.command_traits).toContain("Burstin' with Power (Ironjawz)")
     expect(res.errors).toEqual([])
   })
@@ -1459,7 +1451,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1572206506395-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(BONESPLITTERZ)
+    expect(res.factionName).toEqual('BONESPLITTERZ')
     expect(res.errors).toEqual([])
   })
 
@@ -1508,9 +1500,9 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1571425644480-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.factionName).toEqual('IRONJAWZ')
     expect(res.selections.artifacts).toEqual(["Metalrippa's Klaw"])
-    expect(res.allyFactionNames).toEqual([BONESPLITTERZ, GLOOMSPITE_GITZ])
+    expect(res.allyFactionNames).toEqual(['BONESPLITTERZ', GLOOMSPITE_GITZ])
     expect(res.allySelections).toEqual({
       BONESPLITTERZ: { battalions: [], units: ['Wurrgog Prophet'] },
       GLOOMSPITE_GITZ: { battalions: [], units: ['Fungoid Cave-Shaman'] },
@@ -1536,7 +1528,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1571329765256-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(BONESPLITTERZ)
+    expect(res.factionName).toEqual('BONESPLITTERZ')
     expect(res.errors).toEqual([])
   })
 
@@ -1584,7 +1576,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1571240331862-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(BONESPLITTERZ)
+    expect(res.factionName).toEqual('BONESPLITTERZ')
     expect(res.selections.flavors).toEqual(['Drakkfoot Clan'])
     expect(res.selections.artifacts).toEqual(["Burnin' Tattooz"])
     expect(res.errors).toEqual([])
@@ -1649,7 +1641,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1571165179317-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.factionName).toEqual('BIG_WAAAGH')
     expect(res.selections.units).toContain('Orruk Warboss')
     expect(res.errors).toEqual([])
   })
@@ -1658,7 +1650,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1571171962804-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.factionName).toEqual('BIG_WAAAGH')
     expect(res.selections.units).toContain('Orruk Warboss')
     expect(res.errors).toEqual([])
   })

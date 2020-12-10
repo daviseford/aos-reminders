@@ -10,6 +10,7 @@ import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries
 import { MercenaryCompaniesFaction } from 'factions/mercenary_companies'
 import { NurgleFaction } from 'factions/nurgle'
 import { OgorMawtribesFaction } from 'factions/ogor_mawtribes'
+import { OrrukWarclansFaction } from 'factions/orruk_warclans'
 import { OssiarchBonereapersFaction } from 'factions/ossiarch_bonereapers'
 import { SampleFaction } from 'factions/sample'
 import { SeraphonFaction } from 'factions/seraphon'
