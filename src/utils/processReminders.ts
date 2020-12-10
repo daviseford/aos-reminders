@@ -1,4 +1,4 @@
-import { RealmscapeFeatures } from 'army/generic'
+import { RealmscapeFeatures } from 'generic_rules'
 import produce from 'immer'
 import { flatten, sortBy, sortedUniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'

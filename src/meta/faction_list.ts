@@ -1,5 +1,7 @@
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
+import { DispossessedFaction } from 'factions/dispossessed'
 import { ChaosFaction, DeathFaction, DestructionFaction, OrderFaction } from 'factions/grand_alliances'
+import { GreenskinzFaction } from 'factions/greenskinz'
 import { KhorneFaction } from 'factions/khorne'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
@@ -15,12 +17,15 @@ import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { SonsOfBehematFaction } from 'factions/sons_of_behemat'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import { SylvanethFaction } from 'factions/sylvaneth'
+import { TombKingsFaction } from 'factions/tomb_kings'
 import { TzeentchFaction } from 'factions/tzeentch'
 import {
   CHAOS_GRAND_ALLIANCE,
   DAUGHTERS_OF_KHAINE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
+  DISPOSSESSED,
+  GREENSKINZ,
   KHORNE,
   LEGIONS_OF_NAGASH,
   MEGA_GARGANT_MERCENARIES,
@@ -37,6 +42,7 @@ import {
   SONS_OF_BEHEMAT,
   STORMCAST_ETERNALS,
   SYLVANETH,
+  TOMB_KINGS,
   TSupportedFaction,
   TZEENTCH,
 } from 'meta/factions'
@@ -63,10 +69,7 @@ const FactionList = {
   [DAUGHTERS_OF_KHAINE]: { ...DaughtersOfKhaineFaction },
   [DEATH_GRAND_ALLIANCE]: { ...DeathFaction },
   [DESTRUCTION_GRAND_ALLIANCE]: { ...DestructionFaction },
-  // [DISPOSSESSED]: {
-  //   Army: { ...DispossessedArmy },
-  //   GrandAlliance: ORDER,
-  // },
+  [DISPOSSESSED]: { ...DispossessedFaction },
   // [FLESH_EATER_COURTS]: {
   //   Army: { ...FleshEaterCourtsArmy },
   //   GrandAlliance: DEATH,
@@ -83,10 +86,7 @@ const FactionList = {
   //   Army: { ...GrandHostOfNagashArmy },
   //   GrandAlliance: DEATH,
   // },
-  // [GREENSKINZ]: {
-  //   Army: { ...GreenskinzArmy },
-  //   GrandAlliance: DESTRUCTION,
-  // },
+  [GREENSKINZ]: { ...GreenskinzFaction },
   // [IDONETH_DEEPKIN]: {
   //   Army: { ...IdonethDeepkinArmy },
   //   GrandAlliance: ORDER,
@@ -143,9 +143,6 @@ const FactionList = {
   [OGOR_MAWTRIBES]: { ...OgorMawtribesFaction },
   [ORDER_GRAND_ALLIANCE]: { ...OrderFaction },
   [OSSIARCH_BONEREAPERS]: { ...OssiarchBonereapersFaction },
-  //   Army: { ...OssiarchBonereapersArmy },
-  //   GrandAlliance: DEATH,
-  // },
   [SAMPLE]: { ...SampleFaction },
   [SERAPHON]: { ...SeraphonFaction },
   [SKAVENTIDE]: { ...SkaventideFaction },
@@ -157,19 +154,12 @@ const FactionList = {
   //   GrandAlliance: DEATH,
   // },
   [STORMCAST_ETERNALS]: { ...StormcastFaction },
-  // [STORMCAST_ETERNALS_STORMKEEP]: {
-  //   Army: { ...StormcastEternalsStormkeepArmy },
-  //   GrandAlliance: ORDER,
-  // },
   [SYLVANETH]: { ...SylvanethFaction },
   // [TAMURKHANS_HORDE]: {
   //   Army: { ...TamurkhansHordeArmy },
   //   GrandAlliance: CHAOS,
   // },
-  // [TOMB_KINGS]: {
-  //   Army: { ...TombKingsArmy },
-  //   GrandAlliance: DEATH,
-  // },
+  [TOMB_KINGS]: { ...TombKingsFaction },
   [TZEENTCH]: { ...TzeentchFaction },
   // },
   // [WANDERERS]: {

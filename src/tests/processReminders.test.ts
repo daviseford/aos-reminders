@@ -1,13 +1,13 @@
+// Army Imports
+import ironjawz from 'army/ironjawz'
+import seraphon from 'army/seraphon'
+import sylvaneth from 'army/sylvaneth'
 import {
   GenericCommandAbilities,
   GenericTriumphs,
   RealmscapeCommands,
   RealmscapeFeatures,
-} from 'army/generic'
-// Army Imports
-import ironjawz from 'army/ironjawz'
-import seraphon from 'army/seraphon'
-import sylvaneth from 'army/sylvaneth'
+} from 'generic_rules'
 // Meta
 import { IRONJAWZ, SERAPHON, SKAVENTIDE, SYLVANETH } from 'meta/factions'
 // Types

@@ -1,5 +1,5 @@
-import GenericScenery from 'army/generic/scenery'
 import { SeraphonFaction } from 'factions/seraphon'
+import GenericScenery from 'generic_rules/scenery'
 import { last, uniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { getFactionList } from 'meta/faction_list'
