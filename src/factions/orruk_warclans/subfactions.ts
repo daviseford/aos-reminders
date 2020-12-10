@@ -1,6 +1,7 @@
 import GreenskinzUnits from '../greenskinz/units'
 import { keyPicker, pickEffects } from '../metatagger'
 import BigWaaaghBattleTraits from './big_waaagh/battle_traits'
+import BigWaaaghCommandAbilities from './big_waaagh/command_abilities'
 import BonesplitterzArtifacts from './bonesplitterz/artifacts'
 import BonesplitterzBattalions from './bonesplitterz/battalions'
 import BonesplitterzBattleTraits from './bonesplitterz/battle_traits'
@@ -66,6 +67,9 @@ const subFactions = {
       battalions: [IronjawzBattalions, BonesplitterzBattalions],
       command_traits: [IronjawzCommandTraits, BonesplitterzCommandTraits],
       spells: [IronjawzSpells, BonesplitterzSpells],
+    },
+    mandatory: {
+      command_abilities: [keyPicker(BigWaaaghCommandAbilities, ['Da Big Waaagh!!!'])],
     },
   },
 }
