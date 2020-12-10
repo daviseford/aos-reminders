@@ -1,9 +1,11 @@
+import { BeastOfChaosFaction } from 'factions/beasts_of_chaos'
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
 import { DispossessedFaction } from 'factions/dispossessed'
 import { ChaosFaction, DeathFaction, DestructionFaction, OrderFaction } from 'factions/grand_alliances'
 import { GreenskinzFaction } from 'factions/greenskinz'
 import { KhorneFaction } from 'factions/khorne'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
+import { LegionOfAzgorhFaction } from 'factions/legion_of_azgorh'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
 import { MercenaryCompaniesFaction } from 'factions/mercenary_companies'
 import { NurgleFaction } from 'factions/nurgle'
@@ -20,6 +22,7 @@ import { SylvanethFaction } from 'factions/sylvaneth'
 import { TombKingsFaction } from 'factions/tomb_kings'
 import { TzeentchFaction } from 'factions/tzeentch'
 import {
+  BEASTS_OF_CHAOS,
   CHAOS_GRAND_ALLIANCE,
   DAUGHTERS_OF_KHAINE,
   DEATH_GRAND_ALLIANCE,
@@ -28,6 +31,7 @@ import {
   GREENSKINZ,
   KHORNE,
   LEGIONS_OF_NAGASH,
+  LEGION_OF_AZGORH,
   MEGA_GARGANT_MERCENARIES,
   MERCENARY_COMPANIES,
   NURGLE,
@@ -49,10 +53,7 @@ import {
 
 // Enable as you add them to /factions/
 const FactionList = {
-  // [BEASTS_OF_CHAOS]: {
-  //   Army: { ...BeastsOfChaosArmy },
-  //   GrandAlliance: CHAOS,
-  // },
+  [BEASTS_OF_CHAOS]: { ...BeastOfChaosFaction },
   // [BIG_WAAAGH]: {
   //   Army: { ...BigWaaaghArmy },
   //   GrandAlliance: DESTRUCTION,
@@ -117,10 +118,7 @@ const FactionList = {
   //   Army: { ...LegionOfSacramentArmy },
   //   GrandAlliance: DEATH,
   // },
-  // [LEGIONS_OF_AZGORH]: {
-  //   Army: { ...LegionsOfAzgorhArmy },
-  //   GrandAlliance: CHAOS,
-  // },
+  [LEGION_OF_AZGORH]: { ...LegionOfAzgorhFaction },
   // [LEGIONS_OF_GRIEF]: {
   //   Army: { ...LegionsOfGriefArmy },
   //   GrandAlliance: DEATH,

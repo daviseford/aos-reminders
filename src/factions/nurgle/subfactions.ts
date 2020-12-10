@@ -1,4 +1,10 @@
+import BeastsOfChaosBattalions from 'factions/beasts_of_chaos/battalions'
+import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
 import { TItemDescription, TItemDescriptions } from 'factions/factionTypes'
+import SkavenUnits from 'factions/skaventide/units'
+import SlavesToDarknessBattalions from 'factions/slaves_to_darkness/battalions'
+import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
+import { NURGLE } from 'meta/factions'
 import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
@@ -9,53 +15,6 @@ import Flavors from './flavors'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
-//import SlavesToDarknessUnits from 'factions/SlavestoDarkness/units'
-
-/*
-const SlaveUnits = getChaosSlaves(MARK_NURGLE)
-
-const getSlavesBattalion = () => {
-  const listOfBattalions = ['Plaguetouched Warband']
-  return filterBattalions(SlavestoDarkness.Battalions, listOfBattalions)
-}
-
-const getSkavenUnits = () => {
-  const listOfUnits = [
-    'Plague Censer Bearers',
-    'Plague Monks',
-    'Plague Priest on Plague Furnace',
-    'Plague Priest',
-    'Plagueclaw',
-    'Verminlord Corruptor',
-  ]
-  return filterUnits(Skaven.Units, listOfUnits)
-}
-
-const getBoCUnits = () => {
-  const listOfUnits = [
-    'Beastlord',
-    'Bestigors',
-    'Bullgors',
-    'Centigors',
-    'Cygor',
-    'Doombull',
-    'Dragon Ogor Shaggoth',
-    'Dragon Ogors',
-    'Ghorgon',
-    'Gors',
-    'Great Bray-Shaman',
-    'Tuskgor Chariots',
-    'Ungor Raiders',
-    'Ungors',
-  ]
-  return filterUnits(BeastsofChaos.Units, listOfUnits)
-}
-
-const getBoCBattalion = () => {
-  const listOfBattalions = ['Pestilent Throng']
-  return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
-}
-*/
 
 const baseSubFaction: TItemDescription = {
   effects: pickEffects(BattleTraits, ['Nurgle']),
@@ -63,19 +22,74 @@ const baseSubFaction: TItemDescription = {
   available: {
     scenery: [Scenery],
     spells: [Spells],
-    units: [Units],
+    units: [
+      Units,
+      keyOmitter(SlavesToDarknessUnits, [
+        'Gaunt Summoner on Disc of Tzeentch',
+        'Theddra Skull-Scryer',
+        'Godsworn Hunt',
+        'Darkoath Warqueen',
+        'Darkoath Chieftain',
+        'Sayl the Faithless',
+        'Nightmaw',
+        'Slambo',
+        'Curs`d Ettin',
+        'Furies',
+        'Raptoryx',
+        'Splintered Fang',
+        'Corvus Cabal',
+        'The Unmade',
+        'Cypher Lords',
+        'Iron Golems',
+        'Untamed Beasts',
+        'Spire Tyrants',
+        'Scions of the Flame',
+        'Be`Lakor',
+        'Mutalith Vortex Beast',
+        'Fomoroid Crusher',
+        'Mindstealer Sphiranx',
+      ]),
+      keyPicker(BeastsOfChaosUnits, [
+        'Beastlord',
+        'Bestigors',
+        'Bullgors',
+        'Centigors',
+        'Cygor',
+        'Doombull',
+        'Dragon Ogor Shaggoth',
+        'Dragon Ogors',
+        'Ghorgon',
+        'Gors',
+        'Great Bray-Shaman',
+        'Tuskgor Chariots',
+        'Ungor Raiders',
+        'Ungors',
+      ]),
+      keyPicker(SkavenUnits, [
+        'Plague Censer Bearers',
+        'Plague Monks',
+        'Plague Priest on Plague Furnace',
+        'Plague Priest',
+        'Plagueclaw',
+        'Verminlord Corruptor',
+      ]),
+    ],
     flavors: [Flavors],
   },
 }
 
 const subFactions: TItemDescriptions = {
-  Nurgle: {
+  [NURGLE]: {
     effects: pickEffects(BattleTraits, ['Nurgle', 'Tamurkhan`s Horde']),
 
     available: {
       ...baseSubFaction.available,
       artifacts: [keyOmitter(Artifacts, ['Daemon Flask'])],
-      battalions: [keyOmitter(Battalions, ['Sons of the Maggot Lord', 'Leaping Pox'])],
+      battalions: [
+        keyOmitter(Battalions, ['Sons of the Maggot Lord', 'Leaping Pox']),
+        keyPicker(SlavesToDarknessBattalions, ['Plaguetouched Warband']),
+        keyPicker(BeastsOfChaosBattalions, ['Pestilent Throng']),
+      ],
       command_abilities: [keyOmitter(CommandAbilities, ['Shout of Command'])],
       command_traits: [keyOmitter(CommandTraits, ['Unrelenting Conqueror'])],
     },
@@ -93,7 +107,11 @@ const subFactions: TItemDescriptions = {
     available: {
       ...baseSubFaction.available,
       artifacts: [Artifacts],
-      battalions: [Battalions],
+      battalions: [
+        Battalions,
+        keyPicker(SlavesToDarknessBattalions, ['Plaguetouched Warband']),
+        keyPicker(BeastsOfChaosBattalions, ['Pestilent Throng']),
+      ],
       command_abilities: [CommandAbilities],
     },
   },

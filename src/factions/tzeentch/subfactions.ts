@@ -1,6 +1,10 @@
+import BeastsOfChaosBattalions from 'factions/beasts_of_chaos/battalions'
+import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
 import { TItemDescriptions } from 'factions/factionTypes'
+import SlavesToDarknessBattalions from 'factions/slaves_to_darkness/battalions'
+import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import { TZEENTCH } from 'meta/factions'
-import { pickEffects } from '../metatagger'
+import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
@@ -10,45 +14,6 @@ import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
 import Spells from './spells'
 import Units from './units'
-//import SlavesToDarknessUnits from 'factions/SlavestoDarkness/units'
-
-/*
-const SlaveUnits = getChaosSlaves(MARK_TZEENTCH)
-
-const getSlavesBattalion = () => {
-  const listOfBattalions = ['Fatesworn Warband']
-  return filterBattalions(SlavestoDarkness.Battalions, listOfBattalions)
-}
-
-const getBoCUnits = () => {
-  const listOfUnits = [
-    'Beastlord',
-    'Bestigors',
-    'Bullgors',
-    'Centigors',
-    'Cygor',
-    'Doombull',
-    'Dragon Ogor Shaggoth',
-    'Dragon Ogors',
-    'Ghorgon',
-    'Gors',
-    'Great Bray-Shaman',
-    'Tuskgor Chariots',
-    'Tzaangors',
-    `Tzaangor Enlightened`,
-    `Tzaangor Skyfires`,
-    `Tzaangor Shaman`,
-    'Ungor Raiders',
-    'Ungors',
-  ]
-  return filterUnits(BeastsofChaos.Units, listOfUnits)
-}
-
-const getBoCBattalion = () => {
-  const listOfBattalions = ['Phantasmagoria of Fate']
-  return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
-}
-*/
 
 const subFactions: TItemDescriptions = {
   [TZEENTCH]: {
@@ -56,12 +21,62 @@ const subFactions: TItemDescriptions = {
 
     available: {
       artifacts: [Artifacts],
-      battalions: [Battalions],
+      battalions: [
+        Battalions,
+        keyPicker(SlavesToDarknessBattalions, ['Fatesworn Warband']),
+        keyPicker(BeastsOfChaosBattalions, ['Phantasmagoria of Fate']),
+      ],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       spells: [Spells],
       endless_spells: [EndlessSpells],
-      units: [Units],
+      units: [
+        Units,
+        keyOmitter(SlavesToDarknessUnits, [
+          'Theddra Skull-Scryer',
+          'Godsworn Hunt',
+          'Darkoath Warqueen',
+          'Darkoath Chieftain',
+          'Sayl the Faithless',
+          'Nightmaw',
+          'Slambo',
+          'Curs`d Ettin',
+          'Furies',
+          'Raptoryx',
+          'Splintered Fang',
+          'Corvus Cabal',
+          'The Unmade',
+          'Cypher Lords',
+          'Iron Golems',
+          'Untamed Beasts',
+          'Spire Tyrants',
+          'Scions of the Flame',
+          'Be`Lakor',
+          'Mutalith Vortex Beast',
+          'Fomoroid Crusher',
+          'Mindstealer Sphiranx',
+        ]),
+        keyPicker(BeastsOfChaosUnits, [
+          'Beastlord',
+          'Bestigors',
+          'Bullgors',
+          'Centigors',
+          'Cygor',
+          'Doombull',
+          'Dragon Ogor Shaggoth',
+          'Dragon Ogors',
+          'Ghorgon',
+          'Gors',
+          'Great Bray-Shaman',
+          'Tuskgor Chariots',
+          'Tzaangors',
+          `Tzaangor Enlightened`,
+          `Tzaangor Skyfires`,
+          `Tzaangor Shaman`,
+          'Ungor Raiders',
+          'Ungors',
+        ]),
+      ],
       flavors: [Flavors],
     },
   },

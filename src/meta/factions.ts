@@ -19,7 +19,7 @@ type TIronjawz = 'IRONJAWZ'
 type TKharadronOverlords = 'KHARADRON_OVERLORDS'
 type TKhorne = 'KHORNE'
 type TLegionOfChaosAscendant = 'LEGION_OF_CHAOS_ASCENDANT'
-type TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
+type TLegionOfAzgorh = 'LEGION_OF_AZGORH'
 type TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 type TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 type TLethisianDefenders = 'LETHISIAN_DEFENDERS'
@@ -63,7 +63,7 @@ export const IRONJAWZ: TIronjawz = 'IRONJAWZ'
 export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export const KHORNE: TKhorne = 'KHORNE'
 export const LEGION_OF_CHAOS_ASCENDANT: TLegionOfChaosAscendant = 'LEGION_OF_CHAOS_ASCENDANT'
-export const LEGIONS_OF_AZGORH: TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
+export const LEGION_OF_AZGORH: TLegionOfAzgorh = 'LEGION_OF_AZGORH'
 export const LEGIONS_OF_GRIEF: TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
 export const LEGIONS_OF_NAGASH: TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
@@ -94,7 +94,7 @@ export const WANDERERS: TWanderers = 'WANDERERS'
  * Excludes mercenary armies that are only taken as allies e.g. Mercenary Companies and Mega Gargant Mercenaries
  */
 export type TPrimaryFactions =
-  // | TBeastsOfChaos
+  | TBeastsOfChaos
   // | TBigWaaagh
   // | TBonesplitterz
   | TChaosGrandAlliance
@@ -113,7 +113,7 @@ export type TPrimaryFactions =
   // | TKharadronOverlords
   | TKhorne
   // | TLegionOfChaosAscendant
-  // | TLegionsOfAzgorh
+  | TLegionOfAzgorh
   // | TLegionsOfGrief
   | TLegionsOfNagash
   // | TLethisianDefenders
@@ -141,7 +141,7 @@ export type TPrimaryFactions =
 export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies | TMegaGargantMercenaries
 
 export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
-  // BEASTS_OF_CHAOS,
+  BEASTS_OF_CHAOS,
   // BIG_WAAAGH,
   // BONESPLITTERZ,
   CHAOS_GRAND_ALLIANCE,
@@ -160,7 +160,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // KHARADRON_OVERLORDS,
   KHORNE,
   // LEGION_OF_CHAOS_ASCENDANT,
-  // LEGIONS_OF_AZGORH,
+  LEGION_OF_AZGORH,
   // LEGIONS_OF_GRIEF,
   LEGIONS_OF_NAGASH,
   // LETHISIAN_DEFENDERS,

@@ -1,5 +1,9 @@
+import BeastsOfChaosBattalions from 'factions/beasts_of_chaos/battalions'
+import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
 import { TItemDescription, TItemDescriptions } from 'factions/factionTypes'
 import { keyOmitter, keyPicker, pickEffects } from 'factions/metatagger'
+import SlavesToDarknessBattalions from 'factions/slaves_to_darkness/battalions'
+import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
@@ -11,26 +15,6 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-// import BeastsofChaosFaction from 'army/beasts_of_chaos/'
-// import SlavestoDarknessFaction from 'army/slaves_to_darkness/'
-// const SlaaneshS2DUnits = getChaosSlaves(MARK_SLAANESH).map(x => x.name) // Change this to return a list of string names.
-// const SlaaneshBoCUnits = [
-//   'Beastlord',
-//   'Bestigors',
-//   'Bullgors',
-//   'Centigors',
-//   'Cygor',
-//   'Doombull',
-//   'Dragon Ogor Shaggoth',
-//   'Dragon Ogors',
-//   'Ghorgon',
-//   'Gors',
-//   'Great Bray-Shaman',
-//   'Tuskgor Chariots',
-//   'Ungor Raiders',
-//   'Ungors',
-// ]
-
 const baseSubfaction: TItemDescription = {
   effects: pickEffects(BattleTraits, ['Thrilling Compulsions']),
   available: {
@@ -41,9 +25,50 @@ const baseSubfaction: TItemDescription = {
     endless_spells: [EndlessSpells],
     scenery: [Scenery],
     spells: [Spells],
-    units: [Units],
-    // keyPicker(SlavestoDarknessFaction.Units, SlaaneshS2DUnits),
-    // keyPicker(BeastsofChaosFaction.Units, SlaaneshBoCUnits),
+    units: [
+      Units,
+      keyOmitter(SlavesToDarknessUnits, [
+        'Gaunt Summoner on Disc of Tzeentch',
+        'Theddra Skull-Scryer',
+        'Godsworn Hunt',
+        'Darkoath Warqueen',
+        'Darkoath Chieftain',
+        'Sayl the Faithless',
+        'Nightmaw',
+        'Slambo',
+        'Curs`d Ettin',
+        'Furies',
+        'Raptoryx',
+        'Splintered Fang',
+        'Corvus Cabal',
+        'The Unmade',
+        'Cypher Lords',
+        'Iron Golems',
+        'Untamed Beasts',
+        'Spire Tyrants',
+        'Scions of the Flame',
+        'Be`Lakor',
+        'Mutalith Vortex Beast',
+        'Fomoroid Crusher',
+        'Mindstealer Sphiranx',
+      ]),
+      keyPicker(BeastsOfChaosUnits, [
+        'Beastlord',
+        'Bestigors',
+        'Bullgors',
+        'Centigors',
+        'Cygor',
+        'Doombull',
+        'Dragon Ogor Shaggoth',
+        'Dragon Ogors',
+        'Ghorgon',
+        'Gors',
+        'Great Bray-Shaman',
+        'Tuskgor Chariots',
+        'Ungor Raiders',
+        'Ungors',
+      ]),
+    ],
   },
 }
 
@@ -80,8 +105,8 @@ const subFactions: TItemDescriptions = {
           'Vengeful Throng',
           'Daemonsteel Contingent',
         ]),
-        // keyPicker(SlavestoDarknessFaction.Battalions, ['Pleasurebound Warband']),
-        // keyPicker(BeastsofChaosFaction.Battalions, ['Depraved Drove']),
+        keyPicker(SlavesToDarknessBattalions, ['Pleasurebound Warband']),
+        keyPicker(BeastsOfChaosBattalions, ['Depraved Drove']),
       ],
     },
   },
@@ -118,8 +143,8 @@ const subFactions: TItemDescriptions = {
           'Vengeful Throng',
           'Daemonsteel Contingent',
         ]),
-        // keyPicker(SlavestoDarknessFaction.Battalions, ['Pleasurebound Warband']),
-        // keyPicker(BeastsofChaosFaction.Battalions, ['Depraved Drove']),
+        keyPicker(SlavesToDarknessBattalions, ['Pleasurebound Warband']),
+        keyPicker(BeastsOfChaosBattalions, ['Depraved Drove']),
       ],
     },
   },
@@ -156,8 +181,8 @@ const subFactions: TItemDescriptions = {
           'Vengeful Throng',
           'Daemonsteel Contingent',
         ]),
-        // keyPicker(SlavestoDarknessFaction.Battalions, 'Pleasurebound Warband'),
-        // keyPicker(BeastsofChaosFaction.Battalions, 'Depraved Drove'),
+        keyPicker(SlavesToDarknessBattalions, ['Pleasurebound Warband']),
+        keyPicker(BeastsOfChaosBattalions, ['Depraved Drove']),
       ],
     },
   },

@@ -1,6 +1,10 @@
+import BeastsOfChaosBattalions from 'factions/beasts_of_chaos/battalions'
+import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
 import { TItemDescriptions } from 'factions/factionTypes'
+import SlavesToDarknessBattalions from 'factions/slaves_to_darkness/battalions'
+import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import { KHORNE } from 'meta/factions'
-import { pickEffects } from '../metatagger'
+import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
@@ -11,37 +15,6 @@ import Flavors from './flavors'
 import Prayers from './prayers'
 import Scenery from './scenery'
 import Units from './units'
-//import SlavesToDarknessUnits from 'factions/SlavestoDarkness/units'
-
-/*
-const SlaveUnits = getChaosSlaves(MARK_KHORNE)
-
-const getSlavesBattalion = () => {
-  const listOfBattalions = ['Bloodmarked Warband']
-  return filterBattalions(SlavestoDarkness.Battalions, listOfBattalions)
-}
-
-const getBoCUnits = () => {
-  const listOfUnits = [
-    'Beastlord',
-    'Bestigors',
-    'Bullgors',
-    'Centigors',
-    'Cygor',
-    'Doombull',
-    'Dragon Ogors',
-    'Ghorgon',
-    'Gors',
-    'Tuskgor Chariots',
-  ]
-  return filterUnits(BeastsofChaos.Units, listOfUnits)
-}
-
-const getBoCBattalion = () => {
-  const listOfBattalions = ['Brass Despoilers']
-  return filterBattalions(BeastsofChaos.Battalions, listOfBattalions)
-}
-*/
 
 const subFactions: TItemDescriptions = {
   [KHORNE]: {
@@ -49,13 +22,58 @@ const subFactions: TItemDescriptions = {
 
     available: {
       artifacts: [Artifacts],
-      battalions: [Battalions],
+      battalions: [
+        Battalions,
+        keyPicker(SlavesToDarknessBattalions, ['Bloodmarked Warband']),
+        keyPicker(BeastsOfChaosBattalions, ['Brass Despoilers']),
+      ],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       scenery: [Scenery],
       prayers: [Prayers],
       endless_spells: [EndlessSpells],
-      units: [Units],
+      units: [
+        Units,
+        keyOmitter(SlavesToDarknessUnits, [
+          'Gaunt Summoner on Disc of Tzeentch',
+          'Chaos Sorcerer Lord on Manticore',
+          'Chaos Sorcerer Lord',
+          'Theddra Skull-Scryer',
+          'Godsworn Hunt',
+          'Darkoath Warqueen',
+          'Darkoath Chieftain',
+          'Sayl the Faithless',
+          'Nightmaw',
+          'Slambo',
+          'Curs`d Ettin',
+          'Furies',
+          'Raptoryx',
+          'Splintered Fang',
+          'Corvus Cabal',
+          'The Unmade',
+          'Cypher Lords',
+          'Iron Golems',
+          'Untamed Beasts',
+          'Spire Tyrants',
+          'Scions of the Flame',
+          'Be`Lakor',
+          'Mutalith Vortex Beast',
+          'Fomoroid Crusher',
+          'Mindstealer Sphiranx',
+        ]),
+        keyPicker(BeastsOfChaosUnits, [
+          'Beastlord',
+          'Bestigors',
+          'Bullgors',
+          'Centigors',
+          'Cygor',
+          'Doombull',
+          'Dragon Ogors',
+          'Ghorgon',
+          'Gors',
+          'Tuskgor Chariots',
+        ]),
+      ],
       flavors: [Flavors],
     },
   },
