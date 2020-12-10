@@ -30,6 +30,8 @@ Please document breaking changes here. This will make future migrations from v3 
 
 - `SKAVEN` -> `SKAVENTIDE`
 
+- `BIG_WAAAGH | IRONJAWZ | BONESPLITTERZ` -> Now subfactions of `ORRUK_WARCLANS`
+
 ## Redux/state changes
 
 ```diff

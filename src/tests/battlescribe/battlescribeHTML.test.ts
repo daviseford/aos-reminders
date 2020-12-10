@@ -2,8 +2,6 @@ import { SeraphonConstellations } from 'army/seraphon/allegiances'
 import { readFileSync } from 'fs'
 import {
   BEASTS_OF_CHAOS,
-  BIG_WAAAGH,
-  BONESPLITTERZ,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   FLESH_EATER_COURTS,
@@ -11,7 +9,6 @@ import {
   GLOOMSPITE_GITZ,
   GRAND_HOST_OF_NAGASH,
   IDONETH_DEEPKIN,
-  IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGIONS_OF_GRIEF,
@@ -847,7 +844,7 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Ironjawz1')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.factionName).toEqual('IRONJAWZ')
     expect(res.selections.flavors).toEqual(['Da Choppas'])
     expect(res.errors).toEqual([])
   })
@@ -975,7 +972,7 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Ironjawz2')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.factionName).toEqual('IRONJAWZ')
     expect(res.errors).toEqual([])
   })
 
@@ -1104,7 +1101,7 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('BigWaaagh3')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.factionName).toEqual('BIG_WAAAGH')
     expect(res.selections.flavors).toEqual([])
     // Bonesplitterz Drakkfoot allegiance spell
     expect(res.errors).toEqual([{ text: 'Fireball', severity: 'warn' }])
@@ -1114,7 +1111,7 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('BigWaaagh1')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.factionName).toEqual('BIG_WAAAGH')
     expect(res.selections.flavors).toEqual([])
     // Bonesplitterz Drakkfoot allegiance spell
     expect(res.errors).toEqual([{ text: 'Fireball', severity: 'warn' }])
@@ -1691,7 +1688,7 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('BigWaaagh2')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.factionName).toEqual(BIG_WAAAGH)
+    expect(res.factionName).toEqual('BIG_WAAAGH')
     expect(res.selections.spells).toContain("Mighty 'Eadbutt (Ironjawz)")
     // Bonesplitterz Drakkfoot allegiance spell
     expect(res.errors).toEqual([{ text: 'Fireball', severity: 'warn' }])
@@ -1749,7 +1746,7 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Bonesplitterz1')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.factionName).toEqual(BONESPLITTERZ)
+    expect(res.factionName).toEqual('BONESPLITTERZ')
     // This is characterized as a Super Battalion by Battlescribe (old version, pre Big Waaagh)
     expect(res.errors).toEqual([{ text: 'Icebone Warclan', severity: 'warn' }])
   })
