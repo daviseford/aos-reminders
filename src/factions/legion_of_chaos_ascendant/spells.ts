@@ -55,7 +55,6 @@ const Spells = {
       },
     ],
   },
-  // Units
 }
 
 export default tagAs(Spells, 'spell')

@@ -1,13 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
-  COMBAT_PHASE,
-  END_OF_MOVEMENT_PHASE,
-  HERO_PHASE,
-  START_OF_HERO_PHASE,
-  WOUND_ALLOCATION_PHASE,
-} from 'types/phases'
+import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
 // Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const ChaosCommandTraits = {
@@ -62,34 +54,6 @@ const ChaosCommandTraits = {
         name: `Malicious Conqueror (Chaos)`,
         desc: `Add 1 to Unbridled Malice dice rolls for units while they are within 12" of this general.`,
         when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  // Legion of Chaos Acendant
-  'Primordial Commander': {
-    effects: [
-      {
-        name: `Primordial Commander`,
-        desc: `If you pick this general to summon via Unyielding Legions, add 1 to the roll.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-    ],
-  },
-  'Ruinous Aura': {
-    effects: [
-      {
-        name: `Ruinous Aura`,
-        desc: `Add 1 to Infernal Realmwalkers rolls for Chaos Ascendant Daemon units wholly within 8" of this general.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
-  'Infernal Charge': {
-    effects: [
-      {
-        name: `Infernal Charge`,
-        desc: `You can reroll charge rolls made for any friendly Chaos Ascendant Daemon units wholly within 12" of this general.`,
-        when: [CHARGE_PHASE],
       },
     ],
   },

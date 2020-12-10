@@ -6,6 +6,7 @@ import { GreenskinzFaction } from 'factions/greenskinz'
 import { KhorneFaction } from 'factions/khorne'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { LegionOfAzgorhFaction } from 'factions/legion_of_azgorh'
+import { LegionOfChaosAscendantFaction } from 'factions/legion_of_chaos_ascendant'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
 import { MercenaryCompaniesFaction } from 'factions/mercenary_companies'
 import { NurgleFaction } from 'factions/nurgle'
@@ -33,6 +34,7 @@ import {
   KHORNE,
   LEGIONS_OF_NAGASH,
   LEGION_OF_AZGORH,
+  LEGION_OF_CHAOS_ASCENDANT,
   MEGA_GARGANT_MERCENARIES,
   MERCENARY_COMPANIES,
   NURGLE,
@@ -96,10 +98,7 @@ const FactionList = {
   //   Army: { ...LegionOfBloodArmy },
   //   GrandAlliance: DEATH,
   // },
-  // [LEGION_OF_CHAOS_ASCENDANT]: {
-  //   Army: { ...LegionOfChaosAscendantArmy },
-  //   GrandAlliance: CHAOS,
-  // },
+  [LEGION_OF_CHAOS_ASCENDANT]: { ...LegionOfChaosAscendantFaction },
   // [LEGION_OF_NIGHT]: {
   //   Army: { ...LegionOfNightArmy },
   //   GrandAlliance: DEATH,
