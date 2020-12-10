@@ -1,7 +1,7 @@
 // Army Imports
 import seraphon from 'army/seraphon'
 import sylvaneth from 'army/sylvaneth'
-import ironjawz from 'factions/orruk_warclans/subfactions/ironjawz'
+import ironjawz from 'factions/orruk_warclans/ironjawz'
 import {
   GenericCommandAbilities,
   GenericTriumphs,

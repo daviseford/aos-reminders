@@ -1,5 +1,5 @@
-import Bonesplitterz from 'factions/orruk_warclans/subfactions/bonesplitterz'
-import Ironjawz from 'factions/orruk_warclans/subfactions/ironjawz'
+import Bonesplitterz from 'factions/orruk_warclans/bonesplitterz'
+import Ironjawz from 'factions/orruk_warclans/ironjawz'
 // Spells, Prayers, etc. go here
 import { TEntry } from 'types/data'
 import { appendTag } from 'utils/armyUtils'

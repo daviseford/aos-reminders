@@ -1,19 +1,17 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   HERO_PHASE,
-  MOVEMENT_PHASE,
   SAVES_PHASE,
   START_OF_COMBAT_PHASE,
   TURN_ONE_HERO_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Hulking Muscle-bound Brute`,
+// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+const IronjawzCommandTraits = {
+  'Hulking Muscle-bound Brute': {
     effects: [
       {
         name: `Hulking Muscle-bound Brute`,
@@ -22,8 +20,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Live to Fight`,
+  'Live to Fight': {
     effects: [
       {
         name: `Live to Fight`,
@@ -32,8 +29,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Brutish Cunning`,
+  'Brutish Cunning': {
     effects: [
       {
         name: `Brutish Cunning`,
@@ -42,8 +38,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Bestial Charisma`,
+  'Bestial Charisma': {
     effects: [
       {
         name: `Bestial Charisma`,
@@ -52,8 +47,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mighty Waaagh!`,
+  'Mighty Waaagh!': {
     effects: [
       {
         name: `Mighty Waaagh!`,
@@ -62,8 +56,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ironclad`,
+  Ironclad: {
     effects: [
       {
         name: `Ironclad`,
@@ -72,8 +65,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dead Kunnin'`,
+  "Dead Kunnin'": {
     effects: [
       {
         name: `Dead Kunnin'`,
@@ -82,8 +74,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Master of the Weird`,
+  'Master of the Weird': {
     effects: [
       {
         name: `Master of the Weird`,
@@ -92,8 +83,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Burstin' with Power`,
+  "Burstin' with Power": {
     effects: [
       {
         name: `Burstin' with Power`,
@@ -102,72 +92,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Big 'Un`,
-    effects: [
-      {
-        name: `Big 'Un`,
-        desc: `+1 to the wound characteristic to this model.`,
-        when: [DURING_GAME],
-        mount_trait: true,
-      },
-    ],
-  },
-  {
-    name: `Fast 'Un`,
-    effects: [
-      {
-        name: `Fast 'Un`,
-        desc: `Add +2 to the movement characteristic of this model.`,
-        when: [MOVEMENT_PHASE],
-        mount_trait: true,
-      },
-    ],
-  },
-  {
-    name: `Mean 'Un`,
-    effects: [
-      {
-        name: `Mean 'Un`,
-        desc: `Add 1 to the damage characteristic of this model's Mighty Fists and Tail attacks.`,
-        when: [COMBAT_PHASE],
-        mount_trait: true,
-      },
-    ],
-  },
-  {
-    name: `Heavy 'Un`,
-    effects: [
-      {
-        name: `Heavy 'Un`,
-        desc: `Add 1 to the dice rolls for the Destructive Bulk ability.`,
-        when: [CHARGE_PHASE],
-        mount_trait: true,
-      },
-    ],
-  },
-  {
-    name: `Loud 'Un`,
-    effects: [
-      {
-        name: `Loud 'Un`,
-        desc: `Once per battle, give -1 to hit for enemies within 3".`,
-        when: [START_OF_COMBAT_PHASE],
-        mount_trait: true,
-      },
-    ],
-  },
-  {
-    name: `Weird 'Un`,
-    effects: [
-      {
-        name: `Weird 'Un`,
-        desc: `You may ignore spell and endless spell effects on this model with a dice roll of a 4+.`,
-        when: [HERO_PHASE],
-        mount_trait: true,
-      },
-    ],
-  },
-]
+}
 
-export default CommandTraits
+// Always export using tagAs
+export default tagAs(IronjawzCommandTraits, 'command_trait')

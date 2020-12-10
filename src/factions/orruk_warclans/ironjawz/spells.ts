@@ -1,15 +1,17 @@
-import { TEntry } from 'types/data'
-import {
-  COMBAT_PHASE,
-  HERO_PHASE,
-  SHOOTING_PHASE,
-  START_OF_CHARGE_PHASE,
-  START_OF_COMBAT_PHASE,
-} from 'types/phases'
+import { tagAs } from 'factions/metatagger'
+import { COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-const Spells: TEntry[] = [
-  {
-    name: `Brain-bursta`,
+const IronjawzSpells = {
+  'Green Puke': {
+    effects: [
+      {
+        name: `Green Puke`,
+        desc: `Casting value of 6. Pick 1 point on the battlefield within 2D6" of the caster that is visible to them, and draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Each unit that has models passed across by this line suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Brain-bursta': {
     effects: [
       {
         name: `Brain-bursta`,
@@ -18,8 +20,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mighty 'Eadbutt`,
+  "Mighty 'Eadbutt": {
     effects: [
       {
         name: `Mighty 'Eadbutt`,
@@ -28,8 +29,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Da Blazin' Eyes`,
+  "Da Blazin' Eyes": {
     effects: [
       {
         name: `Da Blazin' Eyes`,
@@ -38,8 +38,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Da Great Big Green Hand of Gork`,
+  'Da Great Big Green Hand of Gork': {
     effects: [
       {
         name: `Da Great Big Green Hand of Gork`,
@@ -48,8 +47,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Bash 'Em Ladz`,
+  "Bash 'Em Ladz": {
     effects: [
       {
         name: `Bash 'Em Ladz`,
@@ -58,8 +56,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Wrath of Gork`,
+  'Wrath of Gork': {
     effects: [
       {
         name: `Wrath of Gork`,
@@ -68,36 +65,6 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Get 'Em Beat`,
-    effects: [
-      {
-        name: `Get 'Em Beat`,
-        desc: `Roll a D6, on a 4+ pick 1 friendly Ironjawz unit wholly within 12" of this Warchanter. You can attempt a charge for 18" out and roll 3D6 instead of 2D6 for your charge roll.`,
-        when: [START_OF_CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Fixin' Beat`,
-    effects: [
-      {
-        name: `Fixin' Beat`,
-        desc: `Roll a D6, on a 4+ pick 1 friendly Ironjawz model within 12" and heal D3 wounds.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Killa Beat`,
-    effects: [
-      {
-        name: `Killa Beat`,
-        desc: `Roll a D6, on a 4+ pick 1 enemy unit within 12". Attacks directed at that unit add 1 to the hit rolls.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-]
+}
 
-export default Spells
+export default tagAs(IronjawzSpells, 'spell')
