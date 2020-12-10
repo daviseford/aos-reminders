@@ -1,9 +1,9 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_GAME, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Glowin' Tattooz`,
+// Add individual artifacts here, and access them in other files!
+const BonesplitterzArtifacts = {
+  "Glowin' Tattooz": {
     effects: [
       {
         name: `Glowin' Tattooz`,
@@ -12,8 +12,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Greatdrake Toof`,
+  'Greatdrake Toof': {
     effects: [
       {
         name: `Greatdrake Toof`,
@@ -22,8 +21,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Weepwood Big Shiv`,
+  'Weepwood Big Shiv': {
     effects: [
       {
         name: `Weepwood Big Shiv`,
@@ -32,8 +30,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dokk Juice`,
+  'Dokk Juice': {
     effects: [
       {
         name: `Dokk Juice`,
@@ -42,8 +39,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Savage Trophy`,
+  'Savage Trophy': {
     effects: [
       {
         name: `Savage Trophy`,
@@ -52,8 +48,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lucky Bone`,
+  'Lucky Bone': {
     effects: [
       {
         name: `Lucky Bone`,
@@ -62,8 +57,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mork's Boney Bitz`,
+  "Mork's Boney Bitz": {
     effects: [
       {
         name: `Mork's Boney Bitz`,
@@ -72,8 +66,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Big Wurrgog Mask`,
+  'Big Wurrgog Mask': {
     effects: [
       {
         name: `Big Wurrgog Mask`,
@@ -82,8 +75,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mystic Waaagh! Paint`,
+  'Mystic Waaagh! Paint': {
     effects: [
       {
         name: `Mystic Waaagh! Paint`,
@@ -92,6 +84,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(BonesplitterzArtifacts, 'artifact')

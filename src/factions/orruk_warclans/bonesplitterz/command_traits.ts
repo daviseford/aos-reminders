@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -8,9 +8,9 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Killa Instinkt`,
+// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+const BonesplitterzCommandTraits = {
+  'Killa Instinkt': {
     effects: [
       {
         name: `Killa Instinkt`,
@@ -19,8 +19,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Waaagh!-monger`,
+  'Waaagh!-monger': {
     effects: [
       {
         name: `Waaagh!-monger`,
@@ -29,8 +28,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Great Hunter`,
+  'Great Hunter': {
     effects: [
       {
         name: `Great Hunter`,
@@ -39,8 +37,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Power of the Beast`,
+  'Power of the Beast': {
     effects: [
       {
         name: `Power of the Beast`,
@@ -49,8 +46,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Voice of da Gods`,
+  'Voice of da Gods': {
     effects: [
       {
         name: `Voice of da Gods`,
@@ -59,8 +55,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Monster Killa`,
+  'Monster Killa': {
     effects: [
       {
         name: `Monster Killa`,
@@ -69,8 +64,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dead Kunnin'`,
+  "Dead Kunnin'": {
     effects: [
       {
         name: `Dead Kunnin'`,
@@ -79,8 +73,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Master of the Weird`,
+  'Master of the Weird': {
     effects: [
       {
         name: `Master of the Weird`,
@@ -89,8 +82,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Fuelled by the Spirits`,
+  'Fuelled by the Spirits': {
     effects: [
       {
         name: `Fuelled by the Spirits`,
@@ -99,6 +91,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default CommandTraits
+// Always export using tagAs
+export default tagAs(BonesplitterzCommandTraits, 'command_trait')

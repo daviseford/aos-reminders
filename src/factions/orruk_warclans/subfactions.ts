@@ -7,14 +7,14 @@ import BigWaaaghCommandAbilities from './big_waaagh_new/command_abilities'
 import BigWaaaghCommandTraits from './big_waaagh_new/command_traits'
 import BigWaaaghSpells from './big_waaagh_new/spells'
 import BigWaaaghUnits from './big_waaagh_new/units'
-import BonesplitterzArtifacts from './bonesplitterz_new/artifacts'
-import BonesplitterzBattalions from './bonesplitterz_new/battalions'
-import BonesplitterzBattleTraits from './bonesplitterz_new/battle_traits'
-import BonesplitterzCommandAbilities from './bonesplitterz_new/command_abilities'
-import BonesplitterzCommandTraits from './bonesplitterz_new/command_traits'
-import BonesplitterzFlavors from './bonesplitterz_new/flavors'
-import BonesplitterzSpells from './bonesplitterz_new/spells'
-import BonesplitterzUnits from './bonesplitterz_new/units'
+import BonesplitterzArtifacts from './bonesplitterz/artifacts'
+import BonesplitterzBattalions from './bonesplitterz/battalions'
+import BonesplitterzBattleTraits from './bonesplitterz/battle_traits'
+import BonesplitterzCommandAbilities from './bonesplitterz/command_abilities'
+import BonesplitterzCommandTraits from './bonesplitterz/command_traits'
+import BonesplitterzFlavors from './bonesplitterz/flavors'
+import BonesplitterzSpells from './bonesplitterz/spells'
+import BonesplitterzUnits from './bonesplitterz/units'
 import IronjawzArtifacts from './ironjawz/artifacts'
 import IronjawzBattalions from './ironjawz/battalions'
 import IronjawzBattleTraits from './ironjawz/battle_traits'
@@ -45,7 +45,12 @@ const subFactions: TItemDescriptions = {
     },
   },
   Bonesplitterz: {
-    effects: pickEffects(BonesplitterzBattleTraits, []),
+    effects: pickEffects(BonesplitterzBattleTraits, [
+      'Monster Hunters',
+      'Spirit of the Beast',
+      'Tireless Trackers',
+      'Warpaint',
+    ]),
     available: {
       artifacts: [BonesplitterzArtifacts],
       battalions: [BonesplitterzBattalions],
@@ -54,6 +59,9 @@ const subFactions: TItemDescriptions = {
       flavors: [BonesplitterzFlavors],
       spells: [BonesplitterzSpells],
       units: [BonesplitterzUnits],
+    },
+    mandatory: {
+      command_abilities: [keyPicker(BonesplitterzCommandAbilities, ['Bonesplitterz Waaagh!'])],
     },
   },
   'Big Waaagh': {

@@ -1,10 +1,8 @@
-// Spells, Prayers, etc. go here
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE, SAVES_PHASE } from 'types/phases'
 
-const Spells: TEntry[] = [
-  {
-    name: `Squiggly Curse`,
+const BonesplitterzSpells = {
+  'Squiggly Curse': {
     effects: [
       {
         name: `Squiggly Curse`,
@@ -15,8 +13,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Breath of Gorkamorka`,
+  'Breath of Gorkamorka': {
     effects: [
       {
         name: `Breath of Gorkamorka`,
@@ -25,8 +22,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Brutal Beast Spirits`,
+  'Brutal Beast Spirits': {
     effects: [
       {
         name: `Brutal Beast Spirits`,
@@ -35,8 +31,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Bone Krusha`,
+  'Bone Krusha': {
     effects: [
       {
         name: `Bone Krusha`,
@@ -51,8 +46,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Kunnin' Beast Spirits`,
+  "Kunnin' Beast Spirits": {
     effects: [
       {
         name: `Kunnin' Beast Spirits`,
@@ -66,8 +60,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gorkamorka's War Cry`,
+  "Gorkamorka's War Cry": {
     effects: [
       {
         name: `Gorkamorka's War Cry`,
@@ -76,6 +69,6 @@ const Spells: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Spells
+export default tagAs(BonesplitterzSpells, 'spell')

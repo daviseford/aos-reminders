@@ -1,5 +1,5 @@
-// This is where we store sub-allegiances such as
-import { TEntry } from 'types/data'
+// TODO: Write a concise description of what a flavor is
+
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -12,9 +12,8 @@ import {
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
 
-const Allegiances: TEntry[] = [
-  {
-    name: `Bonegrinz Clan`,
+const BonesplitterzFlavors = {
+  'Bonegrinz Clan': {
     effects: [
       {
         name: `Bring it On!`,
@@ -41,8 +40,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Icebone Clan`,
+  'Icebone Clan': {
     effects: [
       {
         name: `Freezing Strike`,
@@ -69,8 +67,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Drakkfoot Clan`,
+  'Drakkfoot Clan': {
     effects: [
       {
         name: `Strength of Purpose`,
@@ -97,6 +94,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Allegiances
+// Note: We do NOT use tagAs for Flavors
+export default BonesplitterzFlavors
