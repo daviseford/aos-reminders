@@ -24,6 +24,7 @@ import { StormcastFaction } from 'factions/stormcast_eternals'
 import { SylvanethFaction } from 'factions/sylvaneth'
 import { TombKingsFaction } from 'factions/tomb_kings'
 import { TzeentchFaction } from 'factions/tzeentch'
+import { WanderersFaction } from 'factions/wanderers'
 import {
   BEASTS_OF_CHAOS,
   CHAOS_GRAND_ALLIANCE,
@@ -55,6 +56,7 @@ import {
   TOMB_KINGS,
   TSupportedFaction,
   TZEENTCH,
+  WANDERERS,
 } from 'meta/factions'
 
 // Enable as you add them to /factions/
@@ -151,10 +153,7 @@ const FactionList = {
   [TOMB_KINGS]: { ...TombKingsFaction },
   [TZEENTCH]: { ...TzeentchFaction },
   // },
-  // [WANDERERS]: {
-  //   Army: { ...WanderersArmy },
-  //   GrandAlliance: ORDER,
-  // },
+  [WANDERERS]: { ...WanderersFaction },
 }
 
 export const getFactionList = () => FactionList
