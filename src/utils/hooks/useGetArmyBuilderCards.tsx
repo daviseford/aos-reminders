@@ -1,6 +1,6 @@
-import { RealmscapeFeatures } from 'army/generic'
 import { realmscapeActions, selectionActions } from 'ducks'
 import { selectRealmscapeSlice, selectSelections } from 'ducks/selectors'
+import { RealmscapeFeatures } from 'generic_rules'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { IArmy } from 'types/army'

@@ -7,7 +7,7 @@ import {
   RealmscapeArtifacts,
   RealmscapeCommands,
   RealmscapeSpells,
-} from 'army/generic'
+} from 'generic_rules'
 import { sortBy, uniqBy } from 'lodash'
 import { TGrandAlliances } from 'meta/alliances'
 import { TCollection } from 'types/army'

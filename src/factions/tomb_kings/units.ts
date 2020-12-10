@@ -1,6 +1,5 @@
+import { keyPicker, tagAs } from 'factions/metatagger'
 import GenericBattleTraits from 'generic_rules/battle_traits'
-// Unit Names
-import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -11,6 +10,8 @@ import {
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import command_abilities from './command_abilities'
+import spells from './spells'
 
 const getIconBearerEffect = (strength: `1` | `D3` | `D6`) => {
   const plural = strength === `1` ? `` : `s`
@@ -43,9 +44,13 @@ const TombShieldEffect = {
   when: [SAVES_PHASE],
 }
 
-export const Units: TEntry[] = [
-  {
-    name: `Tomb King On Exalted Chariot`,
+const Units = {
+  'Tomb King On Exalted Chariot': {
+    mandatory: {
+      command_abilities: [
+        keyPicker(command_abilities, ['Ancient Curse', "And He Did Say 'War', and the World Did Tremble"]),
+      ],
+    },
     effects: [
       {
         name: `Crown of the Desert Kingdoms`,
@@ -67,82 +72,45 @@ export const Units: TEntry[] = [
         desc: `Roll a D6 each time this model suffers a wound or a mortal wound. On a roll of 5+ the wound is negated.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Ancient Curse`,
-        desc: `If this model is slain, the unit that inflicted the final wound upon him suffers D6 mortal wounds after all of its attacks have been made.`,
-        when: [WOUND_ALLOCATION_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `And He Did Say 'War', and the World Did Tremble`,
-        desc: `If a Tomb King on Exalted Chariot uses this command ability, then in your next combat phase you can add 1 to hit rolls for Tomb Kings units in your army while they are within 18" of this model. If a Desert Legions unit is affected by this ability, you can also add 1 to their wound rolls in the combat phase.`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Tomb Queen`,
+  'Tomb Queen': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Supernatural Speed', 'Blessing of Accuracy'])],
+    },
     effects: [
       {
         name: `The Tomb Queen's Curse`,
         desc: `If this model is slain, the unit that inflicted the final wound upon it suffers D3 mortal wounds after all of its attacks have been made.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
-      {
-        name: `Supernatural Speed`,
-        desc: `When an enemy unit within 3" of this model is picked to pile in and attack in the combat phase, if this model has not yet attacked this phase, you can immediately pile in and attack with it before that enemy unit does.`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `Blessing of Accuracy`,
-        desc: `If a Tomb Queen uses this command ability, add 1 to hit rolls made by friendly Desert Legions units during your next shooting phase.`,
-        when: [SHOOTING_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Tomb King`,
+  'Tomb King': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Royal Chariot', 'My Will Be Done'])],
+    },
     effects: [
       {
         name: `The Tomb King's Curse`,
         desc: `If a Tomb King is slain, the unit that inflicted the final wound upon him suffers D3 mortal wounds after all of its attacks have been made.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
-      {
-        name: `Royal Tomb Shield`,
-        desc: `You can reroll failed save rolls for a Tomb King with a Royal Tomb Shield.`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `My Will Be Done`,
-        desc: `If a Tomb King uses this command ability, pick one Desert Legions unit within 18". Until your next hero phase add 1 to all hit, run and charge rolls for that unit.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Tomb King In Royal Chariot`,
+  'Tomb King In Royal Chariot': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Royal Chariot'])],
+    },
     effects: [
       {
         name: `The Tomb King's Curse`,
         desc: `If a Tomb King in Royal Chariot is slain, the unit that inflicted the final wound upon him suffers D3 mortal wounds after all of its attacks have been made.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
-      {
-        name: `Royal Chariot`,
-        desc: `In the combat phase, if this model charged in the same turn, add 2 to the Attacks characteristic of the Tomb King's Dynastic Blade and double the Attacks characteristic of the Skeletal Steed's Thundering Hooves. 'And the Tomb Kings Rode to War': If a Tomb King in Royal Chariot uses this command ability you can reroll charge rolls for this model and friendly units of Desert Legion Chariots that are within 18" of him in your next charge phase.`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Scarab Prince`,
+  'Scarab Prince': {
     effects: [
       {
         name: `Soul Reaper`,
@@ -166,8 +134,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Tomb Herald`,
+  'Tomb Herald': {
     effects: [
       {
         name: `Skeletal Steed`,
@@ -186,8 +153,10 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Liche Priest`,
+  'Liche Priest': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Righteous Smiting'])],
+    },
     effects: [
       {
         name: `Skeletal Steed`,
@@ -204,16 +173,9 @@ export const Units: TEntry[] = [
         desc: `A Liche Priest is a wizard. He can attempt to cast one spell in each of your hero phases, and attempt to unbind one spell in each enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Righteous Smiting spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Righteous Smiting`,
-        desc: `Casting value of 5. Pick a Desert Legions or Reanimant unit within 18". Until your next hero phase, all models in the unit are imbued with magical power; each time you roll a hit roll of 6+ for a model in this unit, make one additional hit roll for the same weapon at the same target.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Casket Of Souls`,
+  'Casket Of Souls': {
     effects: [
       {
         name: `Covenant of Power`,
@@ -242,8 +204,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Skeletal Legionnaires`,
+  'Skeletal Legionnaires': {
     effects: [
       {
         name: `Skeleton Champion`,
@@ -265,8 +226,7 @@ export const Units: TEntry[] = [
       TombShieldEffect,
     ],
   },
-  {
-    name: `Skeleton Archers`,
+  'Skeleton Archers': {
     effects: [
       {
         name: `Master Of Arrows`,
@@ -282,8 +242,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Skeleton Horsemen`,
+  'Skeleton Horsemen': {
     effects: [
       {
         name: `Master Of Horse`,
@@ -309,8 +268,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Skeleton Horse Archers`,
+  'Skeleton Horse Archers': {
     effects: [
       {
         name: `Master Of Scouts`,
@@ -326,8 +284,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Skeleton Chariots`,
+  'Skeleton Chariots': {
     effects: [
       {
         name: `Master Of Chariots`,
@@ -343,8 +300,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Tomb Guard`,
+  'Tomb Guard': {
     effects: [
       {
         name: `Tomb Captain`,
@@ -361,8 +317,7 @@ export const Units: TEntry[] = [
       TombShieldEffect,
     ],
   },
-  {
-    name: `Necrotect`,
+  Necrotect: {
     effects: [
       {
         name: `Stern Taskmaster`,
@@ -371,8 +326,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Necropolis Knights`,
+  'Necropolis Knights': {
     effects: [
       {
         name: `Necropolis Captain`,
@@ -393,8 +347,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Tomb Scorpions`,
+  'Tomb Scorpions': {
     effects: [
       {
         name: `Entombed Beneath the Sands`,
@@ -408,8 +361,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ushabti`,
+  Ushabti: {
     effects: [
       {
         name: `War-Statuary`,
@@ -423,12 +375,13 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Warsphinx`,
+  Warsphinx: {
     effects: [...WarsphinxBaseEffects],
   },
-  {
-    name: `Royal Warsphinx`,
+  'Royal Warsphinx': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Who Dares Disturb My Slumber?'])],
+    },
     effects: [
       ...WarsphinxBaseEffects,
       {
@@ -436,16 +389,9 @@ export const Units: TEntry[] = [
         desc: `If a Royal Warsphinx is slain, the unit that inflicted the final wound upon it suffers D3 mortal wounds after all of its attacks have been made.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
-      {
-        name: `Who Dares Disturb My Slumber?`,
-        desc: `If this model uses this ability, pick an enemy unit that is visible to it. Until your next hero phase, add 1 to all wound rolls for friendly Embalmed and Desert Legion units that target the chosen unit.`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Necrosphinx`,
+  Necrosphinx: {
     effects: [
       {
         name: `Need to Destroy`,
@@ -464,8 +410,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sepulchral Stalkers`,
+  'Sepulchral Stalkers': {
     effects: [
       {
         name: `Transmogrifying Gaze`,
@@ -479,8 +424,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Bone Giant`,
+  'Bone Giant': {
     effects: [
       {
         name: `Unstoppable Assault`,
@@ -494,8 +438,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Screaming Skull Catapult`,
+  'Screaming Skull Catapult': {
     effects: [
       ...GenericBattleTraits.CrewedWarMachine('Crewed War Machine'),
       {
@@ -515,8 +458,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Carrion`,
+  Carrion: {
     effects: [
       {
         name: `Circling High Above`,
@@ -530,8 +472,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Tomb Swarm`,
+  'Tomb Swarm': {
     effects: [
       {
         name: `Underground Scuttlers`,
@@ -545,4 +486,6 @@ export const Units: TEntry[] = [
       },
     ],
   },
-]
+}
+
+export default tagAs(Units, 'unit')

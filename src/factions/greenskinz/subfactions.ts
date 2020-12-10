@@ -1,12 +1,13 @@
 import { TItemDescriptions } from 'factions/factionTypes'
-import GenericBattleTraits from 'generic_rules/battle_traits'
-import { MEGA_GARGANT_MERCENARIES } from 'meta/factions'
+import { GREENSKINZ } from 'meta/factions'
+import CommandAbilities from './command_abilities'
 import Units from './units'
 
 const subFactions: TItemDescriptions = {
-  [MEGA_GARGANT_MERCENARIES]: {
-    effects: [GenericBattleTraits.DisruptivePresence],
+  [GREENSKINZ]: {
+    effects: [],
     available: {
+      command_abilities: [CommandAbilities],
       units: [Units],
     },
   },

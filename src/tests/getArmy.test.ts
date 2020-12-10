@@ -1,8 +1,8 @@
 // Army Imports
 import beasts_of_chaos from 'army/beasts_of_chaos'
-import { GenericEndlessSpells, GenericScenery, GenericTriumphs } from 'army/generic'
 import seraphon from 'army/seraphon'
 import sylvaneth from 'army/sylvaneth'
+import { GenericEndlessSpells, GenericScenery, GenericTriumphs } from 'generic_rules'
 import { sortBy } from 'lodash'
 import { ORDER } from 'meta/alliances'
 // Meta

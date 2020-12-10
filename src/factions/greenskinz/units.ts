@@ -1,5 +1,4 @@
-// Unit Names
-import { TEntry } from 'types/data'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -11,6 +10,7 @@ import {
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import command_abilities from './command_abilities'
 
 const WarbossBaseEffects = [
   {
@@ -23,12 +23,6 @@ const WarbossBaseEffects = [
     desc: `You can reroll all failed save rolls for a model with a Boss Shield.`,
     when: [SAVES_PHASE],
   },
-  {
-    name: `Waaagh!`,
-    desc: `You can use this command ability in the combat phase. If you do so, until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly Orruk units while they are wholly within 18" of a friendly model with this command ability. The same unit cannot benefit from this command ability more than once per turn.`,
-    when: [COMBAT_PHASE],
-    command_ability: true,
-  },
 ]
 const WaaaghDrummersEffect = {
   name: `Waaagh! Drummers`,
@@ -36,9 +30,9 @@ const WaaaghDrummersEffect = {
   when: [CHARGE_PHASE],
 }
 
-export const Units: TEntry[] = [
-  {
-    name: `Orruk Warboss on Wyvern`,
+const Units = {
+  'Orruk Warboss on Wyvern': {
+    mandatory: { command_abilities: [keyPicker(command_abilities, ['Waaagh!'])] },
     effects: [
       {
         name: `Agonising Venom`,
@@ -48,8 +42,8 @@ export const Units: TEntry[] = [
       ...WarbossBaseEffects,
     ],
   },
-  {
-    name: `Orruk Warboss`,
+  'Orruk Warboss': {
+    mandatory: { command_abilities: [keyPicker(command_abilities, ['Waaagh!'])] },
     effects: [
       {
         name: `War Boar`,
@@ -64,8 +58,7 @@ export const Units: TEntry[] = [
       ...WarbossBaseEffects,
     ],
   },
-  {
-    name: `Orruk Great Shaman`,
+  'Orruk Great Shaman': {
     effects: [
       {
         name: `Waaagh! Energy`,
@@ -80,8 +73,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mercenary Orruks`,
+  'Mercenary Orruks': {
     effects: [
       {
         name: `Trophy Pole`,
@@ -101,8 +93,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Orruks`,
+  Orruks: {
     effects: [
       WaaaghDrummersEffect,
       {
@@ -137,8 +128,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Orruk Boar Chariots`,
+  'Orruk Boar Chariots': {
     effects: [
       {
         name: `Scythed Wheels`,
@@ -152,8 +142,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Orruk Boarboys`,
+  'Orruk Boarboys': {
     effects: [
       {
         name: `Glyph Bearers`,
@@ -177,4 +166,6 @@ export const Units: TEntry[] = [
       },
     ],
   },
-]
+}
+
+export default tagAs(Units, 'unit')
