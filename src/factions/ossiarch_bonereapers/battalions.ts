@@ -91,7 +91,7 @@ const RegularBattalions = {
       },
     ],
   },
-  "Vokmortian\\'s Retinue": {
+  "Vokmortian's Retinue": {
     mandatory: {
       units: [keyPicker(Units, ['Vokmortian', 'Mortek Guard', 'Necropolis Stalker'])],
     },
