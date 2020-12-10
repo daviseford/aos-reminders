@@ -8,11 +8,11 @@ import {
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
-  START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-
-// const getRogueIdol = () => filterUnits(DestructionUnits, [`Rogue Idol`])[0]
+import command_abilities from './command_abilities'
+import spells from './spells'
 
 const TuskerChargeEffect = {
   name: `Tusker Charge`,
@@ -47,6 +47,9 @@ const BoneShieldEffect = {
 
 const BonesplitterzUnits = {
   'Wurrgog Prophet': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Fists of Gork'])],
+    },
     effects: [
       {
         name: `Beast Mask`,
@@ -58,15 +61,12 @@ const BonesplitterzUnits = {
         desc: `Roll a D6. On a 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Fists of Gork`,
-        desc: `Pick 1 enemy unit within 24" of the caster that is visible to them, and roll a number of dice equal to the number of models in that unit. For each 6, that unit suffers 1 mortal wound. If the casting roll was 10+, inflict 1 mortal wound for each 4+ instead of each 6.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
   'Maniak Weirdnob': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Bone Spirit'])],
+    },
     effects: [
       TuskerChargeEffect,
       {
@@ -74,26 +74,17 @@ const BonesplitterzUnits = {
         desc: `Once per turn, you can reroll a casting, dispelling or unbinding roll for this model.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Bone Spirit`,
-        desc: `Casting value of 7. Pick 1 friendly BONESPLITTERZ unit wholly within 12" of the caster and visible to them. Until your next hero phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
   'Savage Big Boss': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Savage Attack'])],
+    },
     effects: [
       {
         name: `Let Me at 'Em`,
         desc: `After this model has fought in a combat phase for the first time, you can pick 1 friendly BONESPLITTERZ unit that has not yet fought in that combat phase, that is within 3" of an enemy unit and that is wholly within 12" of this model. That unit fights immediately, before the opposing player picks a unit to fight in that combat phase. That unit cannot fight again in that combat phase unless an ability or spell allows it to fight more than once.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Savage Attack`,
-        desc: `Pick 1 friendly BONESPLITTERZ unit wholly within 12" of a friendly model with this command ability. Until the end of that phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
       },
     ],
   },
@@ -135,12 +126,12 @@ const BonesplitterzUnits = {
       {
         name: `Da Final Fling`,
         desc: `Each time a model from this unit is slain by an attack made with a melee weapon, before the model is removed from play, pick 1 enemy unit within 3" of the slain model and roll a D6. Add 2 to the roll if that enemy unit is a MONSTER. On a 4+, that unit suffers D3 mortal wounds.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Savagely Enthusiastic`,
         desc: `This unit can run and still charge in the same turn.`,
-        when: [MOVEMENT_PHASE],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },

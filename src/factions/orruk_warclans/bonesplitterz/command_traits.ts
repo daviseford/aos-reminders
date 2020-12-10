@@ -4,6 +4,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   HERO_PHASE,
+  MOVEMENT_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
 } from 'types/phases'
@@ -88,6 +89,24 @@ const BonesplitterzCommandTraits = {
         name: `Fuelled by the Spirits`,
         desc: `Pick 1 extra spell from the Lore of the Savage Beast table. This general may also cast 1 additional spell.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  'A Right Monster': {
+    effects: [
+      {
+        name: `A Right Monster`,
+        desc: `Enemy units within 12" of this general subtract 1 from their Bravery characteristic.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  'Pure-bred War Boar': {
+    effects: [
+      {
+        name: `Pure-bred War Boar`,
+        desc: `Add 2" to the move characteristic of the bearer. Also add 1 to hit and wound rolls for the boar attacks.`,
+        when: [MOVEMENT_PHASE, COMBAT_PHASE],
       },
     ],
   },

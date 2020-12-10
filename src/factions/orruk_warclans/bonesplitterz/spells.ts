@@ -69,6 +69,33 @@ const BonesplitterzSpells = {
       },
     ],
   },
+  'Fists of Gork': {
+    effects: [
+      {
+        name: `Fists of Gork`,
+        desc: `Casting value of 5. Pick 1 enemy unit within 24" of the caster that is visible to them, and roll a number of dice equal to the number of models in that unit. For each 6, that unit suffers 1 mortal wound. If the casting roll was 10+, inflict 1 mortal wound for each 4+ instead of each 6.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Bone Spirit': {
+    effects: [
+      {
+        name: `Bone Spirit`,
+        desc: `Casting value of 7. Pick 1 friendly BONESPLITTERZ unit wholly within 12" of the caster and visible to them. Until your next hero phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Fireball!': {
+    effects: [
+      {
+        name: `Fireball!`,
+        desc: `Casting value of 5. Pick 1 enemy unit within 18". It suffers 1 mortal wound if it has 1 model, D3 mortal wounds instead if it has 2-9 models, or D6 mortal wounds instead if it has 10+ models.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(BonesplitterzSpells, 'spell')

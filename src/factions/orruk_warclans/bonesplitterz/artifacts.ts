@@ -1,5 +1,12 @@
 import { tagAs } from 'factions/metatagger'
-import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_GAME, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
+import {
+  BATTLESHOCK_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  HERO_PHASE,
+  SAVES_PHASE,
+  SHOOTING_PHASE,
+} from 'types/phases'
 
 // Add individual artifacts here, and access them in other files!
 const BonesplitterzArtifacts = {
@@ -81,6 +88,33 @@ const BonesplitterzArtifacts = {
         name: `Mystic Waaagh! Paint`,
         desc: `At the start of your hero phase roll a D6 on the spell lore table, this wizard can attempt to cast it for free, if it already knows the spell rolled it gets 1 additional spell cast for the turn.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Maw-Krusha Beast Totem': {
+    effects: [
+      {
+        name: `Maw-Krusha Beast Totem`,
+        desc: `Once per battle, the bearer can use the Innard-Bursting Bellow from the Maw Krusha warscroll.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Kattanak Pelt': {
+    effects: [
+      {
+        name: `Kattanak Pelt`,
+        desc: `Add 1 to the Bravery characteristic of friendly units that are wholly within 18" of the bearer.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  "Burnin' Tattooz": {
+    effects: [
+      {
+        name: `Burnin' Tattooz`,
+        desc: `If you make a successful Warpaint save, pick an enemy unit within 1" and deal 1 mortal wound in return.`,
+        when: [SAVES_PHASE],
       },
     ],
   },
