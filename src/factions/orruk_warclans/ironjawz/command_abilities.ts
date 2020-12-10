@@ -1,5 +1,11 @@
 import { tagAs } from 'factions/metatagger'
-import { DURING_GAME, HERO_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
+import {
+  COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_CHARGE_PHASE,
+  HERO_PHASE,
+  START_OF_COMBAT_PHASE,
+} from 'types/phases'
 
 // Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
 const IronjawzCommandAbilities = {
@@ -45,6 +51,33 @@ const IronjawzCommandAbilities = {
         name: `Drawn to the Waaagh!`,
         desc: `You can use this command ability if the Orruk Warchanter from this battalion is on the battlefield when a unit from this battalion is destroyed. If you do so, roll a D6. On a 4+, a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+  "Alright - Get 'Em": {
+    effects: [
+      {
+        name: `Alright - Get 'Em`,
+        desc: `Use at the end of the enemy charge phase, pick 1 friendly unit that is between 3" and 12" of an enemy unit and wholly within 18" of a friendly hero, that unit can charge.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+    ],
+  },
+  'Break Through da Line': {
+    effects: [
+      {
+        name: `Break Through da Line`,
+        desc: `Pick a friendly unit that's already fought wholly within 24" of a hero, that unit can make a normal move but can't retreat or run.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Rabble Rouser': {
+    effects: [
+      {
+        name: `Rabble Rouser`,
+        desc: `Pick a warchanter, that warchanter can pick 3 Brutes or Ardboyz to benefit from its Violent fury ability instead of 1.`,
+        when: [HERO_PHASE],
       },
     ],
   },

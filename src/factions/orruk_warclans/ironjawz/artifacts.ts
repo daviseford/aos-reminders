@@ -3,6 +3,7 @@ import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
@@ -88,6 +89,33 @@ const IronjawzArtifacts = {
         name: `Shamanic Skullcape`,
         desc: `Add 1 to casting rolls, if you kill an enemy WIZARD with your melee weapon, pick 1 spell from the slain Unit and the bearer can cast that spell for the rest of the game.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Sunzblessed Armour': {
+    effects: [
+      {
+        name: `Sunzblessed Armour`,
+        desc: `Attacks that target the bearer have their rend reduced by 1, to a minimum of 0.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+  'Quickduff Amulet': {
+    effects: [
+      {
+        name: `Quickduff Amulet`,
+        desc: `Once per battle, the bearer may automatically cast the Great Green Hand of Gork for free and cannot be unbound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Megaskull Staff': {
+    effects: [
+      {
+        name: `Megaskull Staff`,
+        desc: `The bearer gains the Megaboss keyword for the purposes of using the IRONJAWZ Waaagh! ability.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },

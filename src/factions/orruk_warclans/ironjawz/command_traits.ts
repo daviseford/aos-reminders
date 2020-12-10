@@ -6,6 +6,7 @@ import {
   HERO_PHASE,
   SAVES_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_GAME,
   TURN_ONE_HERO_PHASE,
 } from 'types/phases'
 
@@ -89,6 +90,33 @@ const IronjawzCommandTraits = {
         name: `Burstin' with Power`,
         desc: `The general knows 1 extra spell from the Lore of the Weird, in addition, they can cast 1 extra spell.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Right Fist of Dakkbad': {
+    effects: [
+      {
+        name: `Right Fist of Dakkbad`,
+        desc: `Gain +1 CP at the start of the game.`,
+        when: [START_OF_GAME],
+      },
+    ],
+  },
+  'Get Da Realmgate': {
+    effects: [
+      {
+        name: `Get Da Realmgate`,
+        desc: `Add 2 to the dice result when you use the IRONJAWZ Waaagh! ability if there's a baleful realmgate on the table.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Checked Out': {
+    effects: [
+      {
+        name: `Checked Out`,
+        desc: `Add 2 to the Bravery characteristic for units wholly within 18" of this general.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
