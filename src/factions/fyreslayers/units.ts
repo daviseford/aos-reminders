@@ -137,9 +137,6 @@ const Units = {
     ],
   },
   'The Chosen Axes': {
-    mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Shieldwall'])],
-    },
     effects: [
       {
         name: `Chosen Kin`,
@@ -166,7 +163,7 @@ const Units = {
     effects: [
       {
         name: `Icon of Grimnir`,
-        desc: `You can say that this model is raising its icon of Grimnir. If it does so, add 1 to save rolls for attacks that target friendly FYRESLAYERS units wholly within 12" of this model until the start of your next hero phase. However, if you do so, until the start of your next hero phase, friendly FYRESLAYERS units wholly within 12" of this model cannot retreat. A unit cannot benefit from this ability more than once per phase.`,
+        desc: `You can say that this model is raising its Icon of Grimnir. If it does so, add 1 to save rolls for attacks that target friendly FYRESLAYERS units wholly within 12" of this model until the start of your next hero phase. However, if you do so, until the start of your next hero phase, friendly FYRESLAYERS units wholly within 12" of this model cannot retreat. A unit cannot benefit from this ability more than once per phase.`,
         when: [HERO_PHASE],
       },
       {
