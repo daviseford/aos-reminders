@@ -1,6 +1,6 @@
 import { TGrandAlliances } from 'meta/alliances'
 import { TSupportedFaction } from 'meta/factions'
-import { TInitialArmy } from 'types/army'
+import { TInitialArmy, TSubfactionArmy } from 'types/army'
 import { TItemDescriptions } from './factionTypes'
 import { getAggregateArmy, temporaryAdapter } from './temporaryAdapter'
 
@@ -13,7 +13,7 @@ export class Faction<
   S extends TItemDescriptions,
   K extends Extract<keyof S, string>
 > {
-  public readonly AggregateArmy: TInitialArmy
+  public readonly AggregateArmy: TSubfactionArmy
   public readonly subFactionKeys: K[]
   public readonly subFactionKeyMap: Record<K, K>
   public readonly subFactionArmies: Record<K, TInitialArmy>

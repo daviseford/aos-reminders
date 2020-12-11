@@ -1,5 +1,5 @@
 import deepmerge from 'deepmerge'
-import { TInitialArmy } from 'types/army'
+import { TInitialArmy, TSubfactionArmy } from 'types/army'
 import { TEntry } from 'types/data'
 import {
   TItemDescription,
@@ -18,8 +18,8 @@ export const temporaryAdapter: TAdapter = (
   subFaction,
   subFactionName,
   FlavorType = 'Flavors'
-): TInitialArmy => {
-  const initialArmy: TInitialArmy = {
+): TSubfactionArmy => {
+  const army: TSubfactionArmy = {
     AlliedUnits: mergeData(subFaction, 'allied_units'),
     Artifacts: mergeData(subFaction, 'artifacts'),
     Battalions: mergeData(subFaction, 'battalions'),
@@ -34,17 +34,18 @@ export const temporaryAdapter: TAdapter = (
     Scenery: mergeData(subFaction, 'scenery'),
     Spells: mergeData(subFaction, 'spells'),
     SubFaction: subFactionAdapter(subFaction, subFactionName),
+    Triumphs: mergeData(subFaction, 'triumphs'),
     Units: mergeData(subFaction, 'units'),
   }
 
-  return initialArmy
+  return army
 }
 
-export const getAggregateArmy = (subFactions: TItemDescriptions, flavorType = 'Flavors'): TInitialArmy => {
+export const getAggregateArmy = (subFactions: TItemDescriptions, flavorType = 'Flavors'): TSubfactionArmy => {
   return Object.entries(subFactions).reduce((a, [key, value]) => {
     const b = temporaryAdapter(value, key, flavorType)
     return deepmerge(a, b)
-  }, {} as TInitialArmy)
+  }, {} as TSubfactionArmy)
 }
 
 const subFactionAdapter = (subFaction: TItemDescription, name: string): TEntry => {

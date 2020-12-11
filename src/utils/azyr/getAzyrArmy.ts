@@ -1,4 +1,4 @@
-import KOArmy from 'army/kharadron_overlords'
+import { KharadronOverlordsFaction } from 'factions/kharadron_overlords'
 import { uniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { AZYR, IImportedArmy } from 'types/import'
@@ -183,10 +183,12 @@ const handleKOTraits = (name: string): string[] => {
 
 const getKOTraits = (): string[] => {
   const prefix = ['ARTYCLE', 'FOOTNOTE', 'AMENDMENT']
-  const command_traits = KOArmy.Traits.filter(x => prefix.some(pre => x.name.startsWith(pre))).map(
-    x => x.name
-  )
-  const flavorTraits = KOArmy.Allegiances.map(a => {
+
+  const command_traits = KharadronOverlordsFaction.AggregateArmy.CommandTraits.filter(x =>
+    prefix.some(pre => x.name.startsWith(pre))
+  ).map(x => x.name)
+
+  const flavorTraits = KharadronOverlordsFaction.AggregateArmy.Flavors.map(a => {
     return a.effects.filter(e => prefix.some(pre => e.name.startsWith(pre))).map(e => e.name)
   }).flat()
   return uniq(command_traits.concat(flavorTraits))
