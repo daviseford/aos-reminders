@@ -194,13 +194,6 @@ const Spells = {
       },
     ],
   },
-
-  /*
-  '': {
-    effects: [
-    ],
-  },
-  */
 }
 
 export default tagAs(Spells, 'spell')

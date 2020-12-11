@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -12,9 +12,8 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Sanguine Pearl`,
+const Artifacts = {
+  'Sanguine Pearl': {
     effects: [
       {
         name: `Sanguine Pearl`,
@@ -23,8 +22,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Potion of Hateful Frenzy`,
+  'Potion of Hateful Frenzy': {
     effects: [
       {
         name: `Potion of Hateful Frenzy`,
@@ -33,8 +31,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ankusha Spur`,
+  'Ankusha Spur': {
     effects: [
       {
         name: `Ankusha Spur`,
@@ -43,8 +40,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Armour of the Cythai`,
+  'Armour of the Cythai': {
     effects: [
       {
         name: `Armour of the Cythai`,
@@ -53,8 +49,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Bio-shock Shell`,
+  'Bio-shock Shell': {
     effects: [
       {
         name: `Bio-shock Shell`,
@@ -63,8 +58,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Abyssal Blade`,
+  'Abyssal Blade': {
     effects: [
       {
         name: `Abyssal Blade`,
@@ -73,8 +67,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Rune of the Surging Tide`,
+  'Rune of the Surging Tide': {
     effects: [
       {
         name: `Rune of the Surging Tide`,
@@ -83,8 +76,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Black Pearl`,
+  'Black Pearl': {
     effects: [
       {
         name: `Black Pearl`,
@@ -93,8 +85,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lliandra's Last Lament`,
+  'Lliandra`s Last Lament': {
     effects: [
       {
         name: `Lliandra's Last Lament`,
@@ -103,8 +94,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Terrornight Venom`,
+  'Terrornight Venom': {
     effects: [
       {
         name: `Terrornight Venom`,
@@ -113,8 +103,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Cloud of Midnight`,
+  'Cloud of Midnight': {
     effects: [
       {
         name: `Cloud of Midnight`,
@@ -133,8 +122,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Whorlshell`,
+  Whorlshell: {
     effects: [
       {
         name: `Whorlshell`,
@@ -143,8 +131,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Steelshell Pearl`,
+  'Steelshell Pearl': {
     effects: [
       {
         name: `Steelshell Pearl`,
@@ -153,8 +140,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mind Flare`,
+  'Mind Flare': {
     effects: [
       {
         name: `Mind Flare`,
@@ -163,8 +149,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dritchleech`,
+  Dritchleech: {
     effects: [
       {
         name: `Dritchleech`,
@@ -173,8 +158,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Auric Lantern`,
+  'Auric Lantern': {
     effects: [
       {
         name: `Auric Lantern`,
@@ -183,8 +167,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Disharmony Stones`,
+  'Disharmony Stones': {
     effects: [
       {
         name: `Disharmony Stones`,
@@ -199,8 +182,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Brain Barnacles`,
+  'Brain Barnacles': {
     effects: [
       {
         name: `Brain Barnacles`,
@@ -209,8 +191,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Arcane Pearl`,
+  'Arcane Pearl': {
     effects: [
       {
         name: `Arcane Pearl`,
@@ -219,8 +200,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sands of Infinity`,
+  'Sands of Infinity': {
     effects: [
       {
         name: `Sands of Infinity`,
@@ -229,8 +209,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Coral Ring`,
+  'Coral Ring': {
     effects: [
       {
         name: `Coral Ring`,
@@ -239,8 +218,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Bauble of Buoyancy`,
+  'Bauble of Buoyancy': {
     effects: [
       {
         name: `Bauble of Buoyancy`,
@@ -254,8 +232,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Kraken Tooth`,
+  'Kraken Tooth': {
     effects: [
       {
         name: `Kraken Tooth`,
@@ -270,8 +247,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Augury Shells`,
+  'Augury Shells': {
     effects: [
       {
         name: `Augury Shells`,
@@ -280,6 +256,6 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+export default tagAs(Artifacts, 'artifact')

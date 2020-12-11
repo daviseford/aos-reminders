@@ -1,4 +1,4 @@
-import idoneth from 'army/idoneth_deepkin'
+//import idoneth from 'army/idoneth_deepkin'
 import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
@@ -301,7 +301,7 @@ export const Units: TEntry[] = [
   },
 ]
 
-export const AlliedUnits: TEntry[] = idoneth.Units
+export const AlliedUnits: TEntry[] = [] //idoneth.Units
 
 export const Battalions: TEntry[] = [
   {
