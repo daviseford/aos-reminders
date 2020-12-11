@@ -10,7 +10,6 @@ import {
 } from 'types/phases'
 import units from './units'
 
-// TODO: Add mandatory units
 const RegularBattalions = {
   "Tyrant's Gutguard": {
     mandatory: { units: [keyPicker(units, ['Tyrant', 'Ironguts'])] },

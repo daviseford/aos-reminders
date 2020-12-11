@@ -1,5 +1,3 @@
-// TODO: Write a concise description of what a flavor is
-
 import { keyPicker } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_GAME, SHOOTING_PHASE } from 'types/phases'
 import artifacts from './artifacts'
