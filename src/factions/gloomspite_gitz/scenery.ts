@@ -1,9 +1,8 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, END_OF_TURN, START_OF_SETUP } from 'types/phases'
 
-const Scenery: TEntry[] = [
-  {
-    name: `Bad Moon Loonshrine`,
+const Scenery = {
+  'Bad Moon Loonshrine': {
     effects: [
       {
         name: `Bad Moon Loonshrine`,
@@ -36,6 +35,6 @@ const Scenery: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Scenery
+export default tagAs(Scenery, 'scenery')

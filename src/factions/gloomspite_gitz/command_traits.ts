@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -8,20 +8,14 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
   TURN_ONE_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import CommandAbilities from './command_abilities'
 
-export const StabEmGoodEffect = {
-  name: `I'm Da Boss, Now Stab 'Em Good!`,
-  desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly Moonclan Grot unit wholly within 12" of a friendly model with this command ability, or wholly within 24" of a model with this command ability that is your general. If the unmodified wound roll for an attack made by that unit in that phase is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage. The same unit cannot be picked to be affected by this command ability more than once per phase.`,
-  when: [START_OF_COMBAT_PHASE],
-  command_ability: true,
-}
-
-const CommandTraits: TEntry[] = [
-  {
-    name: `Cunning Plans`,
+const CommandTraits = {
+  'Cunning Plans': {
     effects: [
       {
         name: `Cunning Plans`,
@@ -30,8 +24,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Fight Another Day`,
+  'Fight Another Day': {
     effects: [
       {
         name: `Fight Another Day`,
@@ -40,8 +33,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sneaky Stabba`,
+  'Sneaky Stabba': {
     effects: [
       {
         name: `Sneaky Stabba`,
@@ -50,8 +42,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Tough 'n' Leathery`,
+  'Tough `n` Leathery': {
     effects: [
       {
         name: `Tough 'n' Leathery`,
@@ -60,8 +51,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dead Shouty`,
+  'Dead Shouty': {
     effects: [
       {
         name: `Dead Shouty`,
@@ -70,8 +60,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Clammy Hand`,
+  'The Clammy Hand': {
     effects: [
       {
         name: `The Clammy Hand`,
@@ -80,8 +69,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Low Cunning`,
+  'Low Cunning': {
     effects: [
       {
         name: `Low Cunning`,
@@ -90,8 +78,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Spiteful Git`,
+  'Spiteful Git': {
     effects: [
       {
         name: `Spiteful Git`,
@@ -100,8 +87,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Great Shaman`,
+  'Great Shaman': {
     effects: [
       {
         name: `Great Shaman`,
@@ -110,8 +96,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dodgy Character`,
+  'Dodgy Character': {
     effects: [
       {
         name: `Dodgy Character`,
@@ -120,19 +105,19 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Boss Shaman`,
+  'Boss Shaman': {
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['I`m Da Boss, Now Stab `Em Good!'])],
+    },
     effects: [
       {
         name: `Boss Shaman`,
         desc: `This general has the I'm Da Boss, Now Stab 'Em Good! command ability from the Loonboss warscroll.`,
         when: [START_OF_COMBAT_PHASE],
       },
-      StabEmGoodEffect,
     ],
   },
-  {
-    name: `Loon-touched`,
+  'Loon-touched': {
     effects: [
       {
         name: `Loon-touched`,
@@ -141,8 +126,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Monstrous Mount`,
+  'Monstrous Mount': {
     effects: [
       {
         name: `Monstrous Mount`,
@@ -151,8 +135,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Masterful Spider Rider`,
+  'Masterful Spider Rider': {
     effects: [
       {
         name: `Masterful Spider Rider`,
@@ -161,8 +144,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ululating Battle Cry`,
+  'Ululating Battle Cry': {
     effects: [
       {
         name: `Ululating Battle Cry`,
@@ -171,18 +153,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dead Shouty`,
-    effects: [
-      {
-        name: `Dead Shouty`,
-        desc: `Once per battle round, this general can use a command ability on their warscroll without a command point being spent.`,
-        when: [DURING_ROUND],
-      },
-    ],
-  },
-  {
-    name: `Creeping Assault`,
+  'Creeping Assault': {
     effects: [
       {
         name: `Creeping Assault`,
@@ -191,8 +162,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Tough as Rocks`,
+  'Tough as Rocks': {
     effects: [
       {
         name: `Tough as Rocks`,
@@ -201,8 +171,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Alpha Trogg`,
+  'Alpha Trogg': {
     effects: [
       {
         name: `Alpha Trogg`,
@@ -211,8 +180,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Loonskin`,
+  Loonskin: {
     effects: [
       {
         name: `Loonskin`,
@@ -221,8 +189,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Pulverising Grip`,
+  'Pulverising Grip': {
     effects: [
       {
         name: `Pulverising Grip`,
@@ -231,8 +198,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mighty Blow`,
+  'Mighty Blow': {
     effects: [
       {
         name: `Mighty Blow`,
@@ -241,8 +207,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Realmstone-studded Hide`,
+  'Realmstone-studded Hide': {
     effects: [
       {
         name: `Realmstone-studded Hide`,
@@ -251,6 +216,26 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+  // Jaws of Mork
+  'Envoy of the Overbounder': {
+    effects: [
+      {
+        name: `Envoy of the Overbounder`,
+        desc: `You can reroll failed battleshock tests for friendly JAWS OF MORK units wholly within 12" of this general.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  // Glogg's Megamob
+  'Shepard of Idiotic Destruction': {
+    effects: [
+      {
+        name: `Shepard of Idiotic Destruction`,
+        desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a D6. On a 4+, you receive 1 extra command point.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+}
 
-export default CommandTraits
+export default tagAs(CommandTraits, 'command_trait')

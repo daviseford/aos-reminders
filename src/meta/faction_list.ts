@@ -2,8 +2,10 @@ import { BeastOfChaosFaction } from 'factions/beasts_of_chaos'
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
 import { DispossessedFaction } from 'factions/dispossessed'
 import { FyreslayersFaction } from 'factions/fyreslayers'
+import { GloomspiteGitzFaction } from 'factions/gloomspite_gitz'
 import { ChaosFaction, DeathFaction, DestructionFaction, OrderFaction } from 'factions/grand_alliances'
 import { GreenskinzFaction } from 'factions/greenskinz'
+import { IdonethDeepkinFaction } from 'factions/idoneth_deepkin'
 import { KhorneFaction } from 'factions/khorne'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { LegionOfAzgorhFaction } from 'factions/legion_of_azgorh'
@@ -34,7 +36,9 @@ import {
   DESTRUCTION_GRAND_ALLIANCE,
   DISPOSSESSED,
   FYRESLAYERS,
+  GLOOMSPITE_GITZ,
   GREENSKINZ,
+  IDONETH_DEEPKIN,
   KHORNE,
   LEGIONS_OF_NAGASH,
   LEGION_OF_AZGORH,
@@ -80,19 +84,13 @@ const FactionList = {
   [FYRESLAYERS]: { ...FyreslayersFaction },
   //   GrandAlliance: ORDER,
   // },
-  // [GLOOMSPITE_GITZ]: {
-  //   Army: { ...GloomspiteGitzArmy },
-  //   GrandAlliance: DESTRUCTION,
-  // },
+  [GLOOMSPITE_GITZ]: { ...GloomspiteGitzFaction },
   // [GRAND_HOST_OF_NAGASH]: {
   //   Army: { ...GrandHostOfNagashArmy },
   //   GrandAlliance: DEATH,
   // },
   [GREENSKINZ]: { ...GreenskinzFaction },
-  // [IDONETH_DEEPKIN]: {
-  //   Army: { ...IdonethDeepkinArmy },
-  //   GrandAlliance: ORDER,
-  // },
+  [IDONETH_DEEPKIN]: { ...IdonethDeepkinFaction },
   // [KHARADRON_OVERLORDS]: {
   //   Army: { ...KharadronOverlordsArmy },
   //   GrandAlliance: ORDER,

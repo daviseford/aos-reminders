@@ -1,16 +1,17 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
 
-const Spells: TEntry[] = [
-  {
-    name: `Vindictive Glare`,
+const Spells = {
+  // Lore of the Moonclan
+  'Vindictive Glare': {
     effects: [
       {
         name: `Vindictive Glare`,
@@ -19,8 +20,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Itchy Nuisance`,
+  'Itchy Nuisance': {
     effects: [
       {
         name: `Itchy Nuisance`,
@@ -29,8 +29,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Great Green Spite`,
+  'The Great Green Spite': {
     effects: [
       {
         name: `The Great Green Spite`,
@@ -39,8 +38,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Hand of Gork`,
+  'The Hand of Gork': {
     effects: [
       {
         name: `The Hand of Gork`,
@@ -49,8 +47,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Squig Lure`,
+  'Squig Lure': {
     effects: [
       {
         name: `Squig Lure`,
@@ -59,8 +56,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Call da Moon`,
+  'Call da Moon': {
     effects: [
       {
         name: `Call da Moon`,
@@ -69,8 +65,8 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Deadly Webbing`,
+  // Lore of the Spiderfangs
+  'Deadly Webbing': {
     effects: [
       {
         name: `Deadly Webbing`,
@@ -79,8 +75,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Venomous Spiderlings`,
+  'Venomous Spiderlings': {
     effects: [
       {
         name: `Venomous Spiderlings`,
@@ -89,8 +84,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Scuttling Terrors`,
+  'Scuttling Terrors': {
     effects: [
       {
         name: `Scuttling Terrors`,
@@ -99,8 +93,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sneaky Distraction`,
+  'Sneaky Distraction': {
     effects: [
       {
         name: `Sneaky Distraction`,
@@ -109,8 +102,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Curse of da Spider God`,
+  'Curse of da Spider God': {
     effects: [
       {
         name: `Curse of da Spider God`,
@@ -119,8 +111,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gift of da Spider God`,
+  'Gift of da Spider God': {
     effects: [
       {
         name: `Gift of da Spider God`,
@@ -129,6 +120,80 @@ const Spells: TEntry[] = [
       },
     ],
   },
-]
+  // Unit spells
+  'Nikkit! Nikkit!': {
+    effects: [
+      {
+        name: `Nikkit! Nikkit!`,
+        desc: `Casting value of 8. Pick 1 enemy model within 18" of the caster that is visible to them. The unit that model belongs to suffers D3 mortal wounds. In addition, if that model has an artefact of power and the casting roll was 10+, that model's artefact of power can no longer be used (if it was used to enhance a weapon, that weapon reverts to its normal form)`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Night Shroud': {
+    effects: [
+      {
+        name: `Night Shroud`,
+        desc: `Casting value of 5. Pick 1 friendly unit wholly within 12" of the caster that is visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made with missile weapons that target that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Spore Maws': {
+    effects: [
+      {
+        name: `Spore Maws`,
+        desc: `Casting value of 7. Each enemy unit within D6" of this model suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Face of Da Bad Moon': {
+    effects: [
+      {
+        name: `Face of Da Bad Moon`,
+        desc: `Casting value of 5. Pick 1 enemy unit within 3" of the caster that is visible to them. That unit must make a normal move, and must retreat. If it is impossible for the unit to make the move for any reason, it suffers D6 mortal wounds instead.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Venom of the Spider God': {
+    effects: [
+      {
+        name: `Venom of the Spider God`,
+        desc: `Casting value of 6. Pick 1 friendly Spiderfang unit wholly within 16" of the caster and visible to them. Until your next hero phase, double the number of mortal wounds inflicted by that unit's Spider Venom ability. If the casting roll is 10 or more, pick up to D3 different friendly Spiderfang units instead of 1.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Speed of the Spider God': {
+    effects: [
+      {
+        name: `Speed of the Spider God`,
+        desc: `Casting value of 4. Pick 1 friendly Spiderfang unit wholly within 24" of the caster and visible to them. Until your next hero phase, that unit can run and still shoot later in the same turn. If the casting roll is 8 or more, pick up to D3 friendly Spiderfang units instead of 1.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Hag Curse': {
+    effects: [
+      {
+        name: `Hag Curse`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 12" of the caster that is visible to them. Until you next hero phase, subtract 1 from hit and save rolls for attacks against the target.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Hag Curse`,
+        desc: `If active, subtract 1 from hit rolls for attacks against the debuffed unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Hag Curse`,
+        desc: `If active, subtract 1 from saves rolls for the debuffed unit.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+}
 
-export default Spells
+export default tagAs(Spells, 'spell')

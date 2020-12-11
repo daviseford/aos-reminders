@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -12,9 +12,8 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Spiteful Prodder`,
+const Artifacts = {
+  'Spiteful Prodder': {
     effects: [
       {
         name: `Spiteful Prodder`,
@@ -23,8 +22,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Backstabber's Blade`,
+  'Backstabber`s Blade': {
     effects: [
       {
         name: `Backstabber's Blade`,
@@ -33,8 +31,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Loonstone Talisman`,
+  'Loonstone Talisman': {
     effects: [
       {
         name: `Loonstone Talisman`,
@@ -43,8 +40,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Pipes of Doom`,
+  'The Pipes of Doom': {
     effects: [
       {
         name: `The Pipes of Doom`,
@@ -53,8 +49,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Clammy Cowl`,
+  'The Clammy Cowl': {
     effects: [
       {
         name: `The Clammy Cowl`,
@@ -63,8 +58,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Leering Gitshield`,
+  'Leering Gitshield': {
     effects: [
       {
         name: `Leering Gitshield`,
@@ -73,8 +67,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Spiteshroom Familiar`,
+  'Spiteshroom Familiar': {
     effects: [
       {
         name: `Spiteshroom Familiar`,
@@ -83,8 +76,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Moonface Mommet`,
+  'Moonface Mommet': {
     effects: [
       {
         name: `Moonface Mommet`,
@@ -98,8 +90,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Staff of Sneaky Stealin'`,
+  'Staff of Sneaky Stealin': {
     effects: [
       {
         name: `Staff of Sneaky Stealin'`,
@@ -108,8 +99,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Totem of the Spider God`,
+  'Totem of the Spider God': {
     effects: [
       {
         name: `Totem of the Spider God`,
@@ -118,8 +108,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Headdress of Many Eyes`,
+  'Headdress of Many Eyes': {
     effects: [
       {
         name: `Headdress of Many Eyes`,
@@ -128,8 +117,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Black Fang`,
+  'The Black Fang': {
     effects: [
       {
         name: `The Black Fang`,
@@ -138,8 +126,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Nibbla's 'Itty Ring`,
+  'Nibbla`s `Itty Ring': {
     effects: [
       {
         name: `Nibbla's 'Itty Ring`,
@@ -148,8 +135,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Earskuttla`,
+  Earskuttla: {
     effects: [
       {
         name: `Earskuttla`,
@@ -158,8 +144,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Web Strung Cloak`,
+  'Web Strung Cloak': {
     effects: [
       {
         name: `Web Strung Cloak`,
@@ -168,8 +153,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shiny Wotnot`,
+  'Shiny Wotnot': {
     effects: [
       {
         name: `Shiny Wotnot`,
@@ -178,8 +162,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Glowy Howzit`,
+  'Glowy Howzit': {
     effects: [
       {
         name: `Glowy Howzit`,
@@ -188,8 +171,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Pet Gribbly`,
+  'Pet Gribbly': {
     effects: [
       {
         name: `Pet Gribbly`,
@@ -198,6 +180,26 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+  // Jaws of Mork
+  'Syari Screamersquig': {
+    effects: [
+      {
+        name: `Syari Screamersquig`,
+        desc: `At the start of the combat phase, you can pick 1 enemy HERO within 3" of the bearer. If you do so, until your next hero phase, add 1 to hit rolls for attacks made with melee weapons by the bearer that target that HERO.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  // Glogg's Megamob
+  'Aetherquartz-studded Hide': {
+    effects: [
+      {
+        name: `Aetherquartz-studded Hide`,
+        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+, that mortal wound is ignored.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+}
 
-export default Artifacts
+export default tagAs(Artifacts, 'artifact')

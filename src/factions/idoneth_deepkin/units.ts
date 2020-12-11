@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -13,10 +13,11 @@ import {
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
-  START_OF_ROUND,
   TURN_ONE_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import CommandAbilities from './command_abilities'
+import Spells from './spells'
 
 const DeepmareHornEffect = {
   name: `Deepmare Horn`,
@@ -29,9 +30,8 @@ const StormshoalEffect = {
   when: [WOUND_ALLOCATION_PHASE],
 }
 
-export const Units: TEntry[] = [
-  {
-    name: `Eidolon of Mathlann, Aspect of the Storm`,
+const Units = {
+  'Eidolon of Mathlann, Aspect of the Storm': {
     effects: [
       {
         name: `Crashing Upon the Foe`,
@@ -61,8 +61,10 @@ export const Units: TEntry[] = [
       StormshoalEffect,
     ],
   },
-  {
-    name: `Eidolon of Mathlann, Aspect of the Sea`,
+  'Eidolon of Mathlann, Aspect of the Sea': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Cloying Seas Mists', 'Tsunami of Terror'])],
+    },
     effects: [
       {
         name: `Dormant Energies`,
@@ -75,32 +77,9 @@ export const Units: TEntry[] = [
         when: [DURING_GAME, BATTLESHOCK_PHASE],
       },
       StormshoalEffect,
-      {
-        name: `Cloying Seas Mists`,
-        desc: `Casting value of 6. Pick a unit within 12" of the caster and that is visible. If a friendly Deepkin unit selected, heal D3 wounds allocated to them. Any other unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Tsunami of Terror`,
-        desc: `Casting value of 7. Pick D6 enemy units within 12" of the caster that are visible. Subtract 1 from hit rolls made for those units, and 1 from the Bravery characteristic of those units, until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Tsunami of Terror`,
-        desc: `If active, subtract 1 from hit rolls made by debuffed units.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Tsunami of Terror`,
-        desc: `If active, subtract 1 from the Bravery characteristic of debuffed units.`,
-        when: [DURING_GAME, BATTLESHOCK_PHASE],
-      },
     ],
   },
-  {
-    name: `Volturnos, High King of the Deep`,
+  'Volturnos, High King of the Deep': {
     effects: [
       {
         name: `The Astra Solus`,
@@ -125,8 +104,10 @@ export const Units: TEntry[] = [
       DeepmareHornEffect,
     ],
   },
-  {
-    name: `Akhelian King`,
+  'Akhelian King': {
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Lord of the Tides'])],
+    },
     effects: [
       DeepmareHornEffect,
       {
@@ -149,16 +130,12 @@ export const Units: TEntry[] = [
         desc: `In the combat phase, this model's Bladed Polearm has a Damage characteristic of 3 if the model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Lord of the Tides`,
-        desc: `You can use this command ability if this model is your general and the High Tide ability from the Tides of Death table applies for the battle round. If you do so, pick a friendly Idoneth Deepkin unit wholly within 12" of your general. Add 1 to the Attacks characteristic of melee weapons used by that unit until your next hero phase.`,
-        when: [COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Isharann Tidecaster`,
+  'Isharann Tidecaster': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Riptide'])],
+    },
     effects: [
       {
         name: `Spirit Guardians`,
@@ -170,16 +147,9 @@ export const Units: TEntry[] = [
         desc: `If this model is the general of your army, at the start of the first battle round you can declare that the Tides of Death table will be reversed. If you do so, the Ebb Tide ability is used in the first battle round, the High Tide ability is used in the second battle round, the Flood Tide ability is used in the third battle round, and the Low Tide ability is used in the fourth battle round. Then the four Tides of Death steps are repeated in reverse order, starting with Ebb Tide.`,
         when: [TURN_ONE_START_OF_ROUND],
       },
-      {
-        name: `Riptide`,
-        desc: `Casting value of 7. Pick an enemy unit within 18" of the caster that is visible to them. Until your next hero phase, subtract 1 from hit rolls for that unit. In addition, at the start of your next hero phase the unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Isharann Soulscryer`,
+  'Isharann Soulscryer': {
     effects: [
       {
         name: `Finder of the Ways`,
@@ -193,8 +163,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Isharann Soulrender`,
+  'Isharann Soulrender': {
     effects: [
       {
         name: `Lurelight`,
@@ -208,8 +177,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Akhelian Allopexes`,
+  'Akhelian Allopexes': {
     effects: [
       {
         name: `Bloodthirsty Predators`,
@@ -223,8 +191,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lotann, Warden of the Soul Ledgers`,
+  'Lotann, Warden of the Soul Ledgers': {
     effects: [
       {
         name: `Catalogue of Souls`,
@@ -243,8 +210,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Akhelian Leviadon`,
+  'Akhelian Leviadon': {
     effects: [
       {
         name: `Crushing Charge`,
@@ -268,8 +234,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Akhelian Morrsarr Guard`,
+  'Akhelian Morrsarr Guard': {
     effects: [
       {
         name: `Biovoltaic Blast`,
@@ -283,8 +248,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Akhelian Ishlaen Guard`,
+  'Akhelian Ishlaen Guard': {
     effects: [
       {
         name: `Biovoltaic Barrier`,
@@ -293,8 +257,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Namarti Thralls`,
+  'Namarti Thralls': {
     effects: [
       {
         name: `Sweeping Blows`,
@@ -303,8 +266,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Namarti Reavers`,
+  'Namarti Reavers': {
     effects: [
       {
         name: `Swift Tide`,
@@ -318,83 +280,6 @@ export const Units: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export const Battalions: TEntry[] = [
-  {
-    name: `Royal Council`,
-    effects: [
-      {
-        name: `Give Them No Respite`,
-        desc: `You can use this command ability in your hero phase if the Akhelian King from this battalion is your general, and the Isharann Tidecaster and Isharann Soulscryer from this battalion are within 3" of the general. If you do so, pick up to three friendly IDONETH DEEPKIN units that are wholly within 12" of your general. Add 3" to the Move characteristic of the units you pick until your next hero phase.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
-    ],
-  },
-  {
-    name: `Akhelian Corps`,
-    effects: [
-      {
-        name: `Pulsing Rhythm of the Drums`,
-        desc: `Once per phase, you can reroll one run roll for one unit from this battalion that is wholly within 12" of the Akhelian Leviadon from this battalion when the reroll is made.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Pulsing Rhythm of the Drums`,
-        desc: `Once per phase, you can reroll one charge roll for one unit from this battalion that is wholly within 12" of the Akhelian Leviadon from this battalion when the reroll is made.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Pulsing Rhythm of the Drums`,
-        desc: `Once per phase, you can reroll one hit, wound, or save roll for one unit from this battalion that is wholly within 12" of the Akhelian Leviadon from this battalion when the reroll is made.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Namarti Corps`,
-    effects: [
-      {
-        name: `Soul Bond`,
-        desc: `If the Isharann Soulrender from this battalion uses their Lurelight ability on a NAMARTI unit from this battalion, the D3 roll to determine how many models are returned to the Namarti unit is treated as being a roll of 3 (there is no need to roll the dice).`,
-        when: [END_OF_BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Phalanx`,
-    effects: [
-      {
-        name: `Full Fury of the Storm`,
-        desc: `If your army has the IDONETH DEEPKIN allegiance and includes this battalion, then once per battle at the start of a battle round, you can choose to use the High Tide ability from the Tides of Death table for that battle round instead of the ability that would normally be used.`,
-        when: [START_OF_ROUND],
-      },
-    ],
-  },
-  {
-    name: `Alliance of Wood and Sea`,
-    effects: [
-      {
-        name: `Strength of the Ethersea`,
-        desc: `SYLVANETH units from this battalion have the Tides of Death battle trait, and gain abilities from the Tides of Death table in the same manner as IDONETH DEEPKIN units.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `The Bloodsurf Hunt`,
-    effects: [
-      {
-        name: `Deadly Guardians`,
-        desc: `Add 1 to hit rolls made by battallion Allopex Barbed Hooks and Blades wholly within 12" of the battalion's Akhelian King.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Deadly Guardians`,
-        desc: `Each time a wound or mortal would would be allocated to the battalion's Akhelian King within 3" of battalion Allopex units, roll a D6. On a 2+ you must allocate the wounds to one of those Allopex units instead.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
-]
+export default tagAs(Units, 'unit')
