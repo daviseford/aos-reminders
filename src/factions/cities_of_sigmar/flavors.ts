@@ -1,4 +1,3 @@
-import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -21,9 +20,8 @@ import {
   TURN_ONE_START_OF_HERO_PHASE,
 } from 'types/phases'
 
-const Allegiances: TEntry[] = [
-  {
-    name: `Hammerhal`,
+const Flavors = {
+  Hammerhal: {
     effects: [
       {
         name: `Banners Held High`,
@@ -48,13 +46,11 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Living City`,
+  'The Living City': {
     effects: [
       {
         name: `Hunters of the Hidden Paths`,
-        desc: `You can set up 1 reserve unit on the hidden paths for each LIVING CITY unit you have set up on the battlefield.
-        At the end of your movement phase, you can setup 1 or more of these units on the battlefield, wholly within 6" of the edge of the battlefield and more than 9" from any enemy units. Any reserve units on the hidden paths that are not set up on the battlefield before the start of the fourth battleround are destroyed.`,
+        desc: `You can set up 1 reserve unit on the hidden paths for each LIVING CITY unit you have set up on the battlefield. At the end of your movement phase, you can setup 1 or more of these units on the battlefield, wholly within 6" of the edge of the battlefield and more than 9" from any enemy units. Any reserve units on the hidden paths that are not set up on the battlefield before the start of the fourth battleround are destroyed.`,
         when: [DURING_SETUP],
       },
       {
@@ -70,8 +66,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Greywater Fastness`,
+  'Greywater Fastness': {
     effects: [
       {
         name: `Rune Lore`,
@@ -95,8 +90,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Phoenicium`,
+  'The Phoenicium': {
     effects: [
       {
         name: `Vengeful Revenants`,
@@ -116,8 +110,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Anvilgard`,
+  Anvilgard: {
     effects: [
       {
         name: `Illicit Dealings`,
@@ -145,8 +138,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Hallowheart`,
+  Hallowheart: {
     effects: [
       {
         name: `Eldritch Attunement`,
@@ -166,8 +158,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Tempest's Eye`,
+  "Tempest's Eye": {
     effects: [
       {
         name: `Alert and Forewarned`,
@@ -192,8 +183,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Misthavn`,
+  Misthavn: {
     effects: [
       {
         name: `Underhanded Tactics`,
@@ -224,8 +214,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Har Kuron`,
+  'Har Kuron': {
     effects: [
       {
         name: `Temples of Khaine`,
@@ -234,8 +223,7 @@ const Allegiances: TEntry[] = [
       },
       {
         name: `Incitement to Murder`,
-        desc: `If successful, pick 1 friendly Har Kuron unit wholly within 12" of the priest. Until the start of your next hero phase, unmodified hits of 6 made by the target score 2 hits instead of 1.
-               The same unit cannot benefit from this ability more that once per phase.`,
+        desc: `If successful, pick 1 friendly Har Kuron unit wholly within 12" of the priest. Until the start of your next hero phase, unmodified hits of 6 made by the target score 2 hits instead of 1. The same unit cannot benefit from this ability more that once per phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -251,6 +239,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Allegiances
+// Note: We do NOT use tagAs for Flavors
+export default Flavors

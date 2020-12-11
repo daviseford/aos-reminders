@@ -1,4 +1,5 @@
 import { BeastOfChaosFaction } from 'factions/beasts_of_chaos'
+import { CitiesOfSigmarFaction } from 'factions/cities_of_sigmar'
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
 import { DispossessedFaction } from 'factions/dispossessed'
 import { FyreslayersFaction } from 'factions/fyreslayers'
@@ -6,6 +7,7 @@ import { GloomspiteGitzFaction } from 'factions/gloomspite_gitz'
 import { ChaosFaction, DeathFaction, DestructionFaction, OrderFaction } from 'factions/grand_alliances'
 import { GreenskinzFaction } from 'factions/greenskinz'
 import { IdonethDeepkinFaction } from 'factions/idoneth_deepkin'
+import { KharadronOverlordsFaction } from 'factions/kharadron_overlords'
 import { KhorneFaction } from 'factions/khorne'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { LegionOfAzgorhFaction } from 'factions/legion_of_azgorh'
@@ -31,6 +33,7 @@ import { WanderersFaction } from 'factions/wanderers'
 import {
   BEASTS_OF_CHAOS,
   CHAOS_GRAND_ALLIANCE,
+  CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
@@ -39,6 +42,7 @@ import {
   GLOOMSPITE_GITZ,
   GREENSKINZ,
   IDONETH_DEEPKIN,
+  KHARADRON_OVERLORDS,
   KHORNE,
   LEGIONS_OF_NAGASH,
   LEGION_OF_AZGORH,
@@ -69,10 +73,7 @@ import {
 const FactionList = {
   [BEASTS_OF_CHAOS]: { ...BeastOfChaosFaction },
   [CHAOS_GRAND_ALLIANCE]: { ...ChaosFaction },
-  // [CITIES_OF_SIGMAR]: {
-  //   Army: { ...CitiesOfSigmarArmy },
-  //   GrandAlliance: ORDER,
-  // },
+  [CITIES_OF_SIGMAR]: { ...CitiesOfSigmarFaction },
   [DAUGHTERS_OF_KHAINE]: { ...DaughtersOfKhaineFaction },
   [DEATH_GRAND_ALLIANCE]: { ...DeathFaction },
   [DESTRUCTION_GRAND_ALLIANCE]: { ...DestructionFaction },
@@ -91,10 +92,7 @@ const FactionList = {
   // },
   [GREENSKINZ]: { ...GreenskinzFaction },
   [IDONETH_DEEPKIN]: { ...IdonethDeepkinFaction },
-  // [KHARADRON_OVERLORDS]: {
-  //   Army: { ...KharadronOverlordsArmy },
-  //   GrandAlliance: ORDER,
-  // },
+  [KHARADRON_OVERLORDS]: { ...KharadronOverlordsFaction },
   [KHORNE]: { ...KhorneFaction },
   [LEGIONS_OF_NAGASH]: { ...LegionsOfNagashFaction },
   // [LEGION_OF_BLOOD]: {
