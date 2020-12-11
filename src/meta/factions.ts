@@ -103,7 +103,7 @@ export type TPrimaryFactions =
   // | TGrandHostOfNagash
   | TGreenskinz
   // | TIdonethDeepkin
-  // | TKharadronOverlords
+  | TKharadronOverlords
   | TKhorne
   | TLegionOfChaosAscendant
   | TLegionOfAzgorh
@@ -147,7 +147,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // GRAND_HOST_OF_NAGASH,
   GREENSKINZ,
   // IDONETH_DEEPKIN,
-  // KHARADRON_OVERLORDS,
+  KHARADRON_OVERLORDS,
   KHORNE,
   LEGION_OF_CHAOS_ASCENDANT,
   LEGION_OF_AZGORH,
