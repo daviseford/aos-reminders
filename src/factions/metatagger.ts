@@ -21,7 +21,7 @@ export const tagAs = <
 
     const taggedObj = {
       ...origObj,
-      // TODO: We used to tag all sub-effects. I'm not sure we need to, tbh
+      // TODO: We used to tag all sub-effects. I'm not sure we need to anymore, tbh
       // effects: origObj.effects.map(x => ({ ...x, [tag]: true })),
       [tag]: true,
     }

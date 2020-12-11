@@ -1,4 +1,4 @@
-//import { APPRENTICE_RUNESMITH } from 'army/grand_alliances/order/subfactions/duardin'
+import { OrderUnits } from 'factions/grand_alliances'
 import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
@@ -68,6 +68,7 @@ const FyresteelHandaxesEffect = {
 
 //Unit names
 const Units = {
+  ...keyPicker(OrderUnits, ['Apprentice Runesmith']),
   'Auric Runefather on Magmadroth': {
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Steadfast Advance'])],

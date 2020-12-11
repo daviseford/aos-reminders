@@ -1,5 +1,4 @@
 // TODO: Write a concise description of what a flavor is
-
 const Flavors = {
   // '': {
   // mandatory: {},

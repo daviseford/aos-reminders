@@ -13,6 +13,7 @@ import {
   START_OF_MOVEMENT_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import { OrderUnits } from '../grand_alliances'
 import command_abilities from './command_abilities'
 
 const FlyingTransportEffect = {
@@ -109,7 +110,7 @@ const EndrinmasterHealEffect = (val: '3' | 'D3') => ({
 })
 
 const Units = {
-  // APPRENTICE_RUNESMITH, // TODO: Re-add
+  ...keyPicker(OrderUnits, ['Apprentice Runesmith']),
   'Endrinmaster with Dirigible Suit': {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['By Grungni, I Have My Eye On You!'])],

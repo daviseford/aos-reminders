@@ -12,8 +12,6 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-// TODO: Explain what a subfaction is (vs faction, vs flavor)
-
 const subFactions: TItemDescriptions = {
   [SYLVANETH]: {
     effects: pickEffects(BattleTraits, [SYLVANETH]),

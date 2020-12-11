@@ -12,7 +12,13 @@ import {
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 
-export const APPRENTICE_RUNESMITH = {
+const HornblowerEffect = {
+  name: `Hornblower`,
+  desc: `Models in this unit can be Hornblowers. When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
+  when: [MOVEMENT_PHASE],
+}
+
+export const LegacyDuardinUnits = {
   'Apprentice Runesmith': {
     effects: [
       {
@@ -27,15 +33,6 @@ export const APPRENTICE_RUNESMITH = {
       },
     ],
   },
-}
-
-const HornblowerEffect = {
-  name: `Hornblower`,
-  desc: `Models in this unit can be Hornblowers. When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
-  when: [MOVEMENT_PHASE],
-}
-
-export const LegacyDuardinUnits = {
   Slayers: {
     effects: [
       {
