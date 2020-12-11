@@ -1,4 +1,4 @@
-import Fyreslayers from 'army/fyreslayers'
+// import Fyreslayers from 'army/fyreslayers'
 import IdonethDeepkin from 'army/idoneth_deepkin'
 import KharadronOverlords from 'army/kharadron_overlords'
 import { TEntry } from 'types/data'
@@ -31,12 +31,12 @@ const getKharadronUnits = () => KharadronOverlords.Units
 
 // Importing valid FS units.
 // All units valid except Fjul-Grimnir and Chosen Axes.
-const getFyreslayerUnits = () => {
-  return removeUnits(Fyreslayers.Units, [`Fjul-Grimnir`, `The Chosen Axes`])
-}
+// const getFyreslayerUnits = () => {
+//   return removeUnits(Fyreslayers.Units, [`Fjul-Grimnir`, `The Chosen Axes`])
+// }
 
 export const AlliedUnits: TEntry[] = [
-  ...getFyreslayerUnits(),
+  // ...getFyreslayerUnits(),
   ...getIdonethUnits(),
   ...getKharadronUnits(),
   // ...getStormcastUnits(),
