@@ -14,7 +14,7 @@ import Units from './units'
 
 const subFactions: TItemDescriptions = {
   [BEASTS_OF_CHAOS]: {
-    effects: pickEffects(BattleTraits, ['BeastsOfChaos']),
+    effects: pickEffects(BattleTraits, ['Beasts Of Chaos']),
 
     available: {
       artifacts: [Artifacts],
