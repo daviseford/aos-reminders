@@ -1,125 +1,23 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   DURING_ROUND,
-  END_OF_CHARGE_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import { GreatEndrinworks } from './common'
 
-export const GreatEndrinworks: TEntry[] = [
-  {
-    name: `The Last Word (Great Endrinwork)`,
-    effects: [
-      {
-        name: `The Last Word (Great Endrinwork)`,
-        desc: `At the end of the enemy charge phase you can pick 1 enemy unit that finished a charge move in that phase within 3" of this model. This model can shoot at that unit with its Great Sky Cannon, Great Skyhook or Great Volley Cannon.`,
-        when: [END_OF_CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Hegsson Solutions 'Old Reliable' Hullplates (Great Endrinwork)`,
-    effects: [
-      {
-        name: `Hegsson Solutions 'Old Reliable' Hullplates (Great Endrinwork)`,
-        desc: `Add 2 to this model's Wounds characteristic.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Ebullient Buoyancy Aid (Great Endrinwork)`,
-    effects: [
-      {
-        name: `Ebullient Buoyancy Aid (Great Endrinwork)`,
-        desc: `This model can fly high and/or disengage even while it has a garrison of 16 or more models.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Prudency Chutes (Great Endrinwork)`,
-    effects: [
-      {
-        name: `Prudency Chutes (Great Endrinwork)`,
-        desc: `If this model is destroyed, you do not have to roll to see if models in its garrison are slain (they all survive).`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Magnificent Omniscope (Great Endrinwork)`,
-    effects: [
-      {
-        name: `Magnificent Omniscope (Great Endrinwork)`,
-        desc: `Add 2" to this model's Move characteristic.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Zonbarcorp 'Dealbreaker' Battle Ram (Great Endrinwork)`,
-    effects: [
-      {
-        name: `Zonbarcorp 'Dealbreaker' Battle Ram (Great Endrinwork)`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model, and roll a number of dice equal to the charge roll for that charge move. For each 4+. that enemy unit suffers 1 mortal wound.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Malefic Skymines (Great Endrinwork)`,
-    effects: [
-      {
-        name: `Malefic Skymines (Great Endrinwork)`,
-        desc: `Once per battle, at the start of the combat phase, you can pick 1 enemy unit that can fly and is within 6" of this model and roll a D6. On a 2-3, that enemy unit suffers D3 mortal wounds. On a 4+ that enemy unit suffers D6 mortal wounds.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)`,
-    effects: [
-      {
-        name: `Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)`,
-        desc: `When this model makes a normal move, you can add D3" to that move. If you wish, you can add 2D3" to that move instead of D3", but if you do so and you roll a double, then this model suffers 1 mortal wound after the move is made.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Zonbarcorp 'Debtsettler' Spar Torpedo (Great Endrinwork)`,
-    effects: [
-      {
-        name: `Zonbarcorp 'Debtsettler' Spar Torpedo (Great Endrinwork)`,
-        desc: `Once per battle, after this model makes its first charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D6 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Coalbeard's Collapsible Compartments (Great Endrinwork)`,
-    effects: [
-      {
-        name: `Coalbeard's Collapsible Compartments (Great Endrinwork)`,
-        desc: `This model can use the Flying Transport ability from the Arkanaut Ironclad warscroll. If it does so, the maximum number of models that can garrison it is 5 instead of 25, and it can always fly high and/or disengage no matter how many models are in its garrison.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-]
-
-const Artifacts: TEntry[] = [
-  {
-    name: `Masterwrought Armour`,
+// Add individual artifacts here, and access them in other files!
+const Artifacts = {
+  'Masterwrought Armour': {
     effects: [
       {
         name: `Masterwrought Armour`,
@@ -128,8 +26,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Hammer of Aetheric Might`,
+  'Hammer of Aetheric Might': {
     effects: [
       {
         name: `Hammer of Aetheric Might`,
@@ -138,8 +35,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gattleson's Endless Repeater`,
+  "Gattleson's Endless Repeater": {
     effects: [
       {
         name: `Gattleson's Endless Repeater`,
@@ -148,8 +44,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Rune of Mark`,
+  'Rune of Mark': {
     effects: [
       {
         name: `Rune of Mark`,
@@ -158,8 +53,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Flask of Vintage Amberwhisky`,
+  'Flask of Vintage Amberwhisky': {
     effects: [
       {
         name: `Flask of Vintage Amberwhisky`,
@@ -168,8 +62,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Proclamator Mask-hailer`,
+  'Proclamator Mask-hailer': {
     effects: [
       {
         name: `Proclamator Mask-hailer`,
@@ -178,8 +71,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Cyclonic Aethometer`,
+  'Cyclonic Aethometer': {
     effects: [
       {
         name: `Cyclonic Aethometer`,
@@ -188,8 +80,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Svaregg-Stein 'Illuminator' Flarepistol`,
+  "Svaregg-Stein 'Illuminator' Flarepistol": {
     effects: [
       {
         name: `Svaregg-Stein 'Illuminator' Flarepistol`,
@@ -198,8 +89,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Voidstone Orb`,
+  'Voidstone Orb': {
     effects: [
       {
         name: `Voidstone Orb`,
@@ -208,8 +98,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Cogmonculus`,
+  Cogmonculus: {
     effects: [
       {
         name: `Cogmonculus`,
@@ -218,8 +107,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Aetherquartz Monolens`,
+  'Aetherquartz Monolens': {
     effects: [
       {
         name: `Aetherquartz Monolens`,
@@ -228,8 +116,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Seismic Shock-gauntlets`,
+  'Seismic Shock-gauntlets': {
     effects: [
       {
         name: `Seismic Shock-gauntlets`,
@@ -238,8 +125,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Aether-injection Boosters`,
+  'Aether-injection Boosters': {
     effects: [
       {
         name: `Aether-injection Boosters`,
@@ -248,8 +134,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Phosphorite Bomblets`,
+  'Phosphorite Bomblets': {
     effects: [
       {
         name: `Phosphorite Bomblets`,
@@ -258,8 +143,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Miniaturised Aethermatic Repulsion Field`,
+  'Miniaturised Aethermatic Repulsion Field': {
     effects: [
       {
         name: `Miniaturised Aethermatic Repulsion Field`,
@@ -268,8 +152,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Emergency Ventplates`,
+  'Emergency Ventplates': {
     effects: [
       {
         name: `Emergency Ventplates`,
@@ -278,8 +161,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Caustic Anatomiser`,
+  'Caustic Anatomiser': {
     effects: [
       {
         name: `Caustic Anatomiser`,
@@ -288,8 +170,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Spell in a Bottle`,
+  'Spell in a Bottle': {
     effects: [
       {
         name: `Spell in a Bottle`,
@@ -298,7 +179,62 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  ...GreatEndrinworks,
-]
 
-export default Artifacts
+  'Staff of Ocular Optimisation': {
+    effects: [
+      {
+        name: `Staff of Ocular Optimisation`,
+        desc: `Pick 1 of the bearer's missile weapons. Add 1 to hit rolls for attacks made by that weapon.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Aethersped Hammer': {
+    effects: [
+      {
+        name: `Aethersped Hammer`,
+        desc: `Pick 1 of the bearer's melee weapons. Add 2 to the Attacks characteristic of that weapon.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Breath of Morgrim': {
+    effects: [
+      {
+        name: `Breath of Morgrim`,
+        desc: `In your shooting phase, you can pick 1 enemy unit and roll 1 dice for each model from that unit within 6" of the bearer. For each 6, that unit suffers 1 mortal wound.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Galeforce Stave': {
+    effects: [
+      {
+        name: `Galeforce Stave`,
+        desc: `At the start of the enemy charge phase, you can pick 1 enemy unit within 12" of the bearer. Halve charge rolls for that unit in that phase.`,
+        when: [START_OF_CHARGE_PHASE],
+      },
+    ],
+  },
+  Grudgehammer: {
+    effects: [
+      {
+        name: `Grudgehammer`,
+        desc: `Pick one of the bearer's melee weapons. Add 1 to hit rolls for attacks made by that weapon. In addition, if the unmodified wound roll for an attack made by that weapon that targets an enemy unit which was picked for the Chronicle of Grudges artycle is 6, that attack inflicts D3 mortal wounds on the target in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Aethercharged Rune': {
+    effects: [
+      {
+        name: `Aethercharged Rune`,
+        desc: `Once per battle you can change either 1 hit roll for an attack made by the bearer or 1 save roll for an attack that targets the bearer to the toll of your choice.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+}
+
+// Always export using tagAs
+export default tagAs({ ...GreatEndrinworks, ...Artifacts }, 'artifact')

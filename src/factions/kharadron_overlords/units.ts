@@ -1,10 +1,9 @@
-import { TEntry } from 'types/data'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -12,9 +11,9 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
-  START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import command_abilities from './command_abilities'
 
 const FlyingTransportEffect = {
   name: `Flying Transport`,
@@ -108,33 +107,28 @@ const EndrinmasterHealEffect = (val: '3' | 'D3') => ({
   desc: `At the start of your hero phase, you can pick 1 friendly SKYVESSEL within 1" of this model. Heal up to ${val} wounds allocated to that SKYVESSEL.`,
   when: [START_OF_HERO_PHASE],
 })
-const ByGrugniEffect = {
-  name: `By Grungni, I Have My Eye On You!`,
-  desc: `You can use this command ability in your hero phase before a friendly ENDRINRIGGERS unit wholly within 18" of a friendly model with this command ability uses its Endrincraft ability. If you do so, you can reroll any of the dice that determine how many wounds are healed by that ENDRINRIGGERS unit in that phase.`,
-  when: [HERO_PHASE],
-  command_ability: true,
-}
 
-export const Units: TEntry[] = [
+const Units = {
   // APPRENTICE_RUNESMITH, // TODO: Re-add
-  {
-    name: `Endrinmaster with Dirigible Suit`,
-    effects: [ByGrugniEffect, EndrinmasterHealEffect('3'), HitchersEffect],
+  'Endrinmaster with Dirigible Suit': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['By Grungni, I Have My Eye On You!'])],
+    },
+    effects: [EndrinmasterHealEffect('3'), HitchersEffect],
   },
-  {
-    name: `Endrinmaster with Endrinharness`,
-    effects: [ByGrugniEffect, EndrinmasterHealEffect('D3'), EndrinharnessEffect],
+  'Endrinmaster with Endrinharness': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['By Grungni, I Have My Eye On You!'])],
+    },
+    effects: [EndrinmasterHealEffect('D3'), EndrinharnessEffect],
   },
-  {
-    name: `Aether-Khemist`,
+  'Aether-Khemist': {
     effects: [...AetherKhemistEffects],
   },
-  {
-    name: `Bjorgen Thundrik`,
+  'Bjorgen Thundrik': {
     effects: [...AetherKhemistEffects],
   },
-  {
-    name: `Thundrik's Profiteers`,
+  "Thundrik's Profiteers": {
     effects: [
       {
         name: `Khazgan Drakkskewer`,
@@ -153,8 +147,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Aetheric Navigator`,
+  'Aetheric Navigator': {
     effects: [
       {
         name: `Aethersight`,
@@ -178,8 +171,17 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Arkanaut Admiral`,
+  'Arkanaut Admiral': {
+    mandatory: {
+      command_abilities: [
+        keyPicker(command_abilities, [
+          'Master of the Skies',
+          'On My Mark, Fire!',
+          'Repel Boarders!',
+          'Up And At Them!',
+        ]),
+      ],
+    },
     effects: [
       {
         name: `If You Want A Job Done...`,
@@ -196,34 +198,9 @@ export const Units: TEntry[] = [
         desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly ARKANAUT ADMIRAL while it is within 3" of any friendly SKYFARERS units with 5 or more models. On a 5+, you must allocate that wound or mortal wound to a friendly SKYFARERS unit with 5 or more models that is within 3" of that ARKANAUT ADMIRAL, instead of to that ARKANAUT ADMIRAL.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
-      {
-        name: `Master of the Skies`,
-        desc: `You can use this command ability at the start of your shooting phase. If you do so, pick 1 friendly SKYVESSEL that has a model with this command ability in its garrison. That SKYVESSEL can shoot in that phase even if it ran earlier in the same turn.`,
-        when: [START_OF_SHOOTING_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `On My Mark, Fire!`,
-        desc: `You can use this command ability at the start of your shooting phase. If you do so, pick 1 friendly SKYVESSEL that has a model with this command ability in its garrison. You can reroll hit rolls of 1 for attacks made by that SKYVESSEL in that phase.`,
-        when: [START_OF_SHOOTING_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `Repel Boarders!`,
-        desc: `You can use this command ability at the start of your combat phase. If you do so, pick 1 friendly SKYVESSEL that has a model with this command ability in its garrison. Add 1 to hit rolls for attacks made by that SKYVESSEL and any models in its garrison in that phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `Up And At Them!`,
-        desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly SKYFARERS unit that is wholly within 12" of a friendly model with this command ability. You can reroll charge rolls for that unit in that phase.`,
-        when: [START_OF_CHARGE_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Grundstok Thunderers`,
+  'Grundstok Thunderers': {
     effects: [
       {
         name: `Honour Bearer`,
@@ -247,8 +224,10 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Brokk Grungsson, Lord-Magnate of Barak-Nar`,
+  'Brokk Grungsson, Lord-Magnate of Barak-Nar': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['First Rule of Grungsson'])],
+    },
     effects: [
       {
         name: `Custom-built Dirigible Suit`,
@@ -265,8 +244,7 @@ export const Units: TEntry[] = [
       HitchersEffect,
     ],
   },
-  {
-    name: `Skywardens`,
+  Skywardens: {
     effects: [
       {
         name: `Custodian`,
@@ -284,8 +262,7 @@ export const Units: TEntry[] = [
       SkyminesEffect,
     ],
   },
-  {
-    name: `Endrinriggers`,
+  Endrinriggers: {
     effects: [
       {
         name: `Mizzenmaster`,
@@ -298,12 +275,10 @@ export const Units: TEntry[] = [
       HitchersEffect,
     ],
   },
-  {
-    name: `Arkanaut Company`,
+  'Arkanaut Company': {
     effects: [...GlorySeekersEffects],
   },
-  {
-    name: `Grundstok Gunhauler`,
+  'Grundstok Gunhauler': {
     effects: [
       {
         name: `Ahead Full`,
@@ -331,8 +306,7 @@ export const Units: TEntry[] = [
       SkyCannonEffect,
     ],
   },
-  {
-    name: `Arkanaut Frigate`,
+  'Arkanaut Frigate': {
     effects: [
       BombRacksEffect,
       DisengageEffect,
@@ -342,8 +316,7 @@ export const Units: TEntry[] = [
       SkyCannonEffect,
     ],
   },
-  {
-    name: `Arkanaut Ironclad`,
+  'Arkanaut Ironclad': {
     effects: [
       {
         name: `Aetheric Navigator and Endrinrigger`,
@@ -363,62 +336,6 @@ export const Units: TEntry[] = [
       SkyCannonEffect,
     ],
   },
-]
+}
 
-export const Battalions: TEntry[] = [
-  {
-    name: `Intrepid Prospectors`,
-    effects: [
-      {
-        name: `This'll Be Quick Work`,
-        desc: `After armies have been set up but before the first battle round begins, you can move friendly units from this battalion up to 6".`,
-        when: [END_OF_SETUP],
-      },
-    ],
-  },
-  {
-    name: `Grand Armada`,
-    effects: [
-      {
-        name: `Constitutional Experts`,
-        desc: `Once per battle, if the ARKANAUT ADMIRAL or BROKK GRUNGSSON from this battalion is on the battlefield, you can use a footnote even if it has been used before in the same battle.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: `Iron Sky Command`,
-    effects: [
-      {
-        name: `Lords of the Skies`,
-        desc: `Do not take battleshock tests for friendly KHARADRON OVERLORDS units while they are wholly within 18" of the ARKANAUT IRONCLAD from this battalion.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Iron Sky Attack Squadron`,
-    effects: [
-      {
-        name: `Bold Privateers`,
-        desc: `ARKANAUT COMPANY units from this battalion can leave an ARKANAUT FRIGATE from the same battalion either before or after it has moved.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Bold Privateers`,
-        desc: `Roll 3D6 instead of 2D6 when making charge rolls for ARKANAUT COMPANY units from this battalion that left an ARKANAUT FRIGATE from the same battalion in the movement phase of the same turn.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Grundstok Escort Wing`,
-    effects: [
-      {
-        name: `Focused Fire`,
-        desc: `At the start of your shooting phase, you can pick 1 enemy unit for this battalion to focus fire on. If you do so, you can reroll hit rolls of 1 for attacks made by units from this battalion that target that unit in that phase.`,
-        when: [START_OF_SHOOTING_PHASE],
-      },
-    ],
-  },
-]
+export default tagAs(Units, 'unit')

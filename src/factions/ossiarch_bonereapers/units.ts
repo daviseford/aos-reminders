@@ -1,5 +1,3 @@
-//Nagash&Arkhan import will need reworked later
-import { Units as LegionsOfNagashUnits } from 'army/legions_of_nagash/units'
 import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
@@ -14,15 +12,15 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import { filterUnits } from 'utils/filterUtils'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import Spells from './spells'
 
-const getLegionsOfNagashUnits = () => {
-  const listOfUnits = [`Nagash, Supreme Lord of the Undead`, `Arkhan the Black, Mortarch of Sacrament`]
-  return filterUnits(LegionsOfNagashUnits, listOfUnits)
-}
+//Nagash&Arkhan import will need reworked later
+// const getLegionsOfNagashUnits = () => {
+//   const listOfUnits = [`Nagash, Supreme Lord of the Undead`, `Arkhan the Black, Mortarch of Sacrament`]
+//   return filterUnits(LegionsOfNagashUnits, listOfUnits)
+// }
 
 const NecrophorosEffect = {
   name: `Necrophoros`,
@@ -39,13 +37,7 @@ const HeraldsOfTheAccursedOneEffect = {
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly MORGHASTS.`,
   when: [BATTLESHOCK_PHASE],
 }
-const EndlessDutyEffect = {
-  name: `Endless Duty`,
-  desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly OSSIARCH BONEREAPERS unit that is wholly within 12" of a model with this command ability. Add 1 to the Attacks characteristic of weapons used by that unit in that phase. You cannot pick the same unit to benefit from this command ability more than once per phase.`,
-  when: [SHOOTING_PHASE, COMBAT_PHASE],
-  command_ability: true,
-}
-//Unit names
+
 const Units = {
   'Gothizzar Harvester': {
     effects: [
@@ -178,7 +170,7 @@ const Units = {
   },
   'Arch-Kavalos Zandtos': {
     mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Still Their Breath!'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Still Their Breath!', 'Endless Duty'])],
     },
     effects: [
       {
@@ -196,7 +188,6 @@ const Units = {
         desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a number of dice equal to the charge roll for that charge move. For each 6, that enemy unit suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
-      EndlessDutyEffect,
       {
         name: `Unstoppable Charge`,
         desc: `This model can move an extra 3" when it piles in if it made a charge move in the same turn.`,
@@ -227,13 +218,15 @@ const Units = {
     ],
   },
   'Liege-Kavalos': {
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Endless Duty'])],
+    },
     effects: [
       {
         name: `Unstoppable Charge`,
         desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a number of dice equal to the charge roll for that charge move. For each 6, that enemy unit suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
-      EndlessDutyEffect,
       {
         name: `Unstoppable Charge`,
         desc: `This model can move an extra 3" when it piles in if it made a charge move in the same turn.`,
@@ -284,13 +277,14 @@ const Units = {
   },
   'Orpheon Katakros': {
     mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Supreme Lord of the Bonereaper Legions'])],
+      command_abilities: [
+        keyPicker(CommandAbilities, ['Supreme Lord of the Bonereaper Legions', 'Endless Duty']),
+      ],
       command_traits: [
         keyPicker(CommandTraits, ['Aviarch Spymaster', 'Gnosis Scrollbearer', 'Prime Necrophoros']),
       ],
     },
     effects: [
-      EndlessDutyEffect,
       {
         name: `Deadly Combination`,
         desc: `If the unmodified hit roll for an attack made with the Shield Immortis is 6, that attack inflicts 2 mortal wounds on the target in addition to any normal damage.`,

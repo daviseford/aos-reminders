@@ -26,6 +26,7 @@ export interface IArmy {
 
 export type TAllyArmies = Record<string, IArmy>
 export type TInitialArmy = Partial<IArmy> & { AlliedUnits?: TEntry[] }
+export type TSubfactionArmy = Omit<IArmy, 'Game'> & { AlliedUnits: TEntry[] }
 export type TCollection = Omit<IArmy, 'BattleTraits' | 'Game' | 'FlavorType' | 'SubFaction'>
 
 export interface ICurrentArmy {
