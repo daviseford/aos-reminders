@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { keyPicker } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -7,10 +7,14 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
+import CommandTraits from './command_traits'
+import Spells from './spells'
 
-const Allegiances: TEntry[] = [
-  {
-    name: `Ionrach (Enclave)`,
+const Flavors = {
+  Ionrach: {
+    mandatory: {
+      command_trait: [keyPicker(CommandTraits, ['Emissary of the Deep Places'])],
+    },
     effects: [
       {
         name: `Strong in Magic`,
@@ -19,8 +23,8 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dhom Hain (Enclave)`,
+
+  'Dhom Hain': {
     effects: [
       {
         name: `Savage Fighters`,
@@ -34,8 +38,8 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Fuethan (Enclave)`,
+
+  Fuethan: {
     effects: [
       {
         name: `Fiercest of Creatures`,
@@ -54,8 +58,11 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mor'phann (Enclave)`,
+
+  'Mor`phann': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Freezing Mists'])],
+    },
     effects: [
       {
         name: `Soul-magic Adepts`,
@@ -64,8 +71,11 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Nautilar (Enclave)`,
+
+  Nautilar: {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Protective Barrier'])],
+    },
     effects: [
       {
         name: `Consumate Defenders`,
@@ -74,8 +84,8 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Briomdar (Enclave)`,
+
+  Briomdar: {
     effects: [
       {
         name: `Unstoppable Raiders`,
@@ -89,6 +99,6 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Allegiances
+export default Flavors

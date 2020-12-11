@@ -1,10 +1,15 @@
-// Lore of the Deep
-import { TEntry } from 'types/data'
-import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { tagAs } from 'factions/metatagger'
+import {
+  BATTLESHOCK_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  HERO_PHASE,
+  SAVES_PHASE,
+  SHOOTING_PHASE,
+} from 'types/phases'
 
-const Spells: TEntry[] = [
-  {
-    name: `Steed of Tides`,
+const Spells = {
+  'Steed of Tides': {
     effects: [
       {
         name: `Steed of Tides`,
@@ -13,8 +18,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Abyssal Darkness`,
+  'Abyssal Darkness': {
     effects: [
       {
         name: `Abyssal Darkness`,
@@ -28,8 +32,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vorpal Maelstrom`,
+  'Vorpal Maelstrom': {
     effects: [
       {
         name: `Vorpal Maelstrom`,
@@ -38,8 +41,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Pressure of the Deeps`,
+  'Pressure of the Deeps': {
     effects: [
       {
         name: `Pressure of the Deeps`,
@@ -48,8 +50,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Tide of Fear`,
+  'Tide of Fear': {
     effects: [
       {
         name: `Tide of Fear`,
@@ -68,41 +69,78 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Arcane Corrasion`,
+  'Arcane Corrosion': {
     effects: [
       {
-        name: `Arcane Corrasion`,
+        name: `Arcane Corrosion`,
         desc: `Casting value of 6. Pick the closest enemy unit within 48" of the cater and measure the distance between the caster and the unit. If the distance is up to 12", the target suffers 1 mortal wound; if the distance is more than 12" and up to 24" it suffers 2 mortal wounds instead; if the distance is more than 24" and up to 36" it suffers 3 mortal wounds instead; if the distance is more than 36" it suffers 4 mortal wounds instead.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  {
-    name: `Mor'phann: Freezing Mists`,
+  // Mor'phann
+  'Freezing Mists': {
     effects: [
       {
-        name: `Mor'phann: Freezing Mists`,
+        name: `Freezing Mists`,
         desc: `Casting value of 6. Pick an enemy unit within 12" of hte caster that is visible to them. Until your next hero phase, that unit can only move 1" when it piles in, and any abilities that would increase its pilein move are ignored.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  {
-    name: `Nautilar: Protective Barrier`,
+  // Nautilar
+  'Protective Barrier': {
     effects: [
       {
-        name: `Nautilar: Protective Barrier`,
+        name: `Protective Barrier`,
         desc: `Casting value of 4. Pick a friendly Nautilar unit within 12" of the caster that is visible to them. Until your next hero phase, worsen the rend characteristic of attacks that target that unit by 1 (to a minimum of '-').`,
         when: [HERO_PHASE],
       },
       {
-        name: `Nautilar: Protective Barrier`,
+        name: `Protective Barrier`,
         desc: `If active, until your next hero phase, worsen the rend characteristic of attacks that target that unit by 1 (to a minimum of '-').`,
         when: [SAVES_PHASE],
       },
     ],
   },
-]
+  // Unit spells
+  'Cloying Seas Mists': {
+    effects: [
+      {
+        name: `Cloying Seas Mists`,
+        desc: `Casting value of 6. Pick a unit within 12" of the caster and that is visible. If a friendly Deepkin unit selected, heal D3 wounds allocated to them. Any other unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Tsunami of Terror': {
+    effects: [
+      {
+        name: `Tsunami of Terror`,
+        desc: `Casting value of 7. Pick D6 enemy units within 12" of the caster that are visible. Subtract 1 from hit rolls made for those units, and 1 from the Bravery characteristic of those units, until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Tsunami of Terror`,
+        desc: `If active, subtract 1 from hit rolls made by debuffed units.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Tsunami of Terror`,
+        desc: `If active, subtract 1 from the Bravery characteristic of debuffed units.`,
+        when: [DURING_GAME, BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  Riptide: {
+    effects: [
+      {
+        name: `Riptide`,
+        desc: `Casting value of 7. Pick an enemy unit within 18" of the caster that is visible to them. Until your next hero phase, subtract 1 from hit rolls for that unit. In addition, at the start of your next hero phase the unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+}
 
-export default Spells
+export default tagAs(Spells, 'spell')
