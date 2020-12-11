@@ -1,10 +1,8 @@
-// Prayers
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-const Spells: TEntry[] = [
-  {
-    name: `Raven Priest - Morrda's Resurrection`,
+const Prayers = {
+  "Raven Priest - Morrda's Resurrection": {
     effects: [
       {
         name: `Morrda's Resurrection`,
@@ -12,10 +10,8 @@ const Spells: TEntry[] = [
         when: [HERO_PHASE],
       },
     ],
-    prayer: true,
   },
-  {
-    name: `Raven Priest - Morrda's Eye`,
+  "Raven Priest - Morrda's Eye": {
     effects: [
       {
         name: `Morrda's Eye`,
@@ -28,10 +24,8 @@ const Spells: TEntry[] = [
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
-    prayer: true,
   },
-  {
-    name: `Raven Priest - Morrda's Embrace`,
+  "Raven Priest - Morrda's Embrace": {
     effects: [
       {
         name: `Morrda's Embrace`,
@@ -44,8 +38,16 @@ const Spells: TEntry[] = [
         when: [SAVES_PHASE],
       },
     ],
-    prayer: true,
   },
-]
+  'Light of Sigmar': {
+    effects: [
+      {
+        name: `Light of Sigmar`,
+        desc: `Prayer is answered on a 3+. If successful, pick one unit within 10" of the priest. Selected friendly unit heal 1 wound (Order units heal D3 instead). Selected enemy unit suffers 1 mortal wound (Chaos units suffer D3 instead).`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+}
 
-export default Spells
+export default tagAs(Prayers, 'prayer')

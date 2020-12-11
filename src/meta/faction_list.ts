@@ -8,6 +8,7 @@ import { KhorneFaction } from 'factions/khorne'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { LegionOfAzgorhFaction } from 'factions/legion_of_azgorh'
 import { LegionOfChaosAscendantFaction } from 'factions/legion_of_chaos_ascendant'
+import { LethisianDefendersFaction } from 'factions/lethisian_defenders'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
 import { MercenaryCompaniesFaction } from 'factions/mercenary_companies'
 import { NurgleFaction } from 'factions/nurgle'
@@ -38,6 +39,7 @@ import {
   LEGIONS_OF_NAGASH,
   LEGION_OF_AZGORH,
   LEGION_OF_CHAOS_ASCENDANT,
+  LETHISIAN_DEFENDERS,
   MEGA_GARGANT_MERCENARIES,
   MERCENARY_COMPANIES,
   NURGLE,
@@ -115,10 +117,7 @@ const FactionList = {
   //   Army: { ...LegionsOfGriefArmy },
   //   GrandAlliance: DEATH,
   // },
-  // [LETHISIAN_DEFENDERS]: {
-  //   Army: { ...LethisianArmyArmy },
-  //   GrandAlliance: ORDER,
-  // },
+  [LETHISIAN_DEFENDERS]: { ...LethisianDefendersFaction },
   // [LUMINETH_REALMLORDS]: {
   //   Army: { ...LuminethRealmlordsArmy },
   //   GrandAlliance: ORDER,
