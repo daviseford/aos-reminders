@@ -13,7 +13,7 @@ import {
 } from 'types/phases'
 
 const BattleTraits = {
-  BeastsOfChaos: {
+  'Beasts Of Chaos': {
     effects: [
       {
         name: `Brayherd Ambush`,

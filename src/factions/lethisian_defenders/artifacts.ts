@@ -1,9 +1,9 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, START_OF_COMBAT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Crown of Raven Feathers`,
+// Add individual artifacts here, and access them in other files!
+const Artifacts = {
+  'Crown of Raven Feathers': {
     effects: [
       {
         name: `Crown of Raven Feathers`,
@@ -12,8 +12,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Silvered Blade`,
+  'Silvered Blade': {
     effects: [
       {
         name: `Silvered Blade`,
@@ -22,8 +21,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Flask of Lethisian Darkwater`,
+  'Flask of Lethisian Darkwater': {
     effects: [
       {
         name: `Flask of Lethisian Darkwater`,
@@ -32,6 +30,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(Artifacts, 'artifact')

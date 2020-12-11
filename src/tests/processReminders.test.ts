@@ -32,18 +32,18 @@ describe('processReminders', () => {
     //   [SERAPHON]: allySelectionsFactory([allyUnits[2].name]),
     // }
 
-    const artifact = SylvanethFaction.AggregateArmy?.Artifacts?.[0]
-    const battalion = SylvanethFaction.AggregateArmy?.Battalions?.[0]
-    const command_trait = SylvanethFaction.AggregateArmy?.CommandTraits?.[0]
+    const artifact = SylvanethFaction.AggregateArmy.Artifacts?.[0]
+    const battalion = SylvanethFaction.AggregateArmy.Battalions?.[0]
+    const command_trait = SylvanethFaction.AggregateArmy.CommandTraits?.[0]
     const command1 = GenericCommandAbilities[0]
     const command2 = RealmscapeCommands[0]
-    const endless_spell = SylvanethFaction.AggregateArmy?.EndlessSpells?.[0]
-    const flavor = SylvanethFaction.AggregateArmy?.Flavors?.[0]
-    const scenery = SylvanethFaction.AggregateArmy?.Scenery?.[0]
-    const spell1 = SylvanethFaction.AggregateArmy?.Spells?.[0]
-    const spell2 = SylvanethFaction.AggregateArmy?.Spells?.[1]
+    const endless_spell = SylvanethFaction.AggregateArmy.EndlessSpells?.[0]
+    const flavor = SylvanethFaction.AggregateArmy.Flavors?.[0]
+    const scenery = SylvanethFaction.AggregateArmy.Scenery?.[0]
+    const spell1 = SylvanethFaction.AggregateArmy.Spells?.[0]
+    const spell2 = SylvanethFaction.AggregateArmy.Spells?.[1]
     const triumph = GenericTriumphs[0]
-    const unit = SylvanethFaction.AggregateArmy?.Units?.[0]
+    const unit = SylvanethFaction.AggregateArmy.Units?.[0]
 
     const army = getArmy(SYLVANETH, null, null, getRealmscape(command2.name)) as IArmy
 
@@ -95,7 +95,7 @@ describe('processReminders', () => {
     })
 
     // Check for Allegiance ability
-    const ability = SylvanethFaction.AggregateArmy?.BattleTraits?.[0]
+    const ability = SylvanethFaction.AggregateArmy.BattleTraits?.[0]
     const abilityEffect = ability
       ? reminders[ability.when[0]].find(({ name }) => {
           return name === ability.name
