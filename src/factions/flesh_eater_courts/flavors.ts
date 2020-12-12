@@ -1,4 +1,3 @@
-import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -11,9 +10,9 @@ import {
   START_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
-const Allegiances: TEntry[] = [
-  {
-    name: `Morgaunt (Grand Court)`,
+// TODO: Write a concise description of what a flavor is
+const Flavors = {
+  'Morgaunt (Grand Court)': {
     effects: [
       {
         name: `Bloody Loyalty`,
@@ -40,8 +39,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Hollowmourne (Grand Court)`,
+  'Hollowmourne (Grand Court)': {
     effects: [
       {
         name: `Shattering Charge`,
@@ -68,8 +66,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Blisterskin (Grand Court)`,
+  'Blisterskin (Grand Court)': {
     effects: [
       {
         name: `Blistering Speed`,
@@ -96,8 +93,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gristlegore (Grand Court)`,
+  'Gristlegore (Grand Court)': {
     effects: [
       {
         name: `Peerless Ferocity`,
@@ -124,6 +120,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Allegiances
+// Note: We do NOT use tagAs for Flavors
+export default Flavors

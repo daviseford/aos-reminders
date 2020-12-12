@@ -97,7 +97,7 @@ export type TPrimaryFactions =
   | TDeathGrandAlliance
   | TDestructionGrandAlliance
   | TDispossessed
-  // | TFleshEaterCourts
+  | TFleshEaterCourts
   | TFyreslayers
   | TGloomspiteGitz
   // | TGrandHostOfNagash
@@ -141,7 +141,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
   DISPOSSESSED,
-  // FLESH_EATER_COURTS,
+  FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   // GRAND_HOST_OF_NAGASH,

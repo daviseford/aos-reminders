@@ -1,9 +1,8 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
 
-const Spells: TEntry[] = [
-  {
-    name: `Bonestorm`,
+const Spells = {
+  Bonestorm: {
     effects: [
       {
         name: `Bonestorm`,
@@ -12,8 +11,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Spectral Host`,
+  'Spectral Host': {
     effects: [
       {
         name: `Spectral Host`,
@@ -22,8 +20,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Monstrous Vigour`,
+  'Monstrous Vigour': {
     effects: [
       {
         name: `Monstrous Vigour`,
@@ -32,8 +29,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Miasmal Shroud`,
+  'Miasmal Shroud': {
     effects: [
       {
         name: `Miasmal Shroud`,
@@ -42,8 +38,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Deranged Transformation`,
+  'Deranged Transformation': {
     effects: [
       {
         name: `Deranged Transformation`,
@@ -52,8 +47,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Blood Feast`,
+  'Blood Feast': {
     effects: [
       {
         name: `Blood Feast`,
@@ -64,6 +58,6 @@ const Spells: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Spells
+export default tagAs(Spells, 'spell')

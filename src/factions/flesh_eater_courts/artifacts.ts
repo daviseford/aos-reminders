@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -9,9 +9,9 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Signet of the First Court (Royal Treasury)`,
+// Add individual artifacts here, and access them in other files!
+const Artifacts = {
+  'Signet of the First Court (Royal Treasury)': {
     effects: [
       {
         name: `Signet of the First Court (Royal Treasury)`,
@@ -20,8 +20,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Splintervane Brooch (Royal Treasury)`,
+  'Splintervane Brooch (Royal Treasury)': {
     effects: [
       {
         name: `Splintervane Brooch (Royal Treasury)`,
@@ -30,8 +29,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Blood-river Chalice (Royal Treasury)`,
+  'Blood-river Chalice (Royal Treasury)': {
     effects: [
       {
         name: `Blood-river Chalice (Royal Treasury)`,
@@ -40,8 +38,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Grim Garland (Royal Treasury)`,
+  'The Grim Garland (Royal Treasury)': {
     effects: [
       {
         name: `The Grim Garland (Royal Treasury)`,
@@ -50,8 +47,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Dermal Robe (Royal Treasury)`,
+  'The Dermal Robe (Royal Treasury)': {
     effects: [
       {
         name: `The Dermal Robe (Royal Treasury)`,
@@ -60,8 +56,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Heart of the Gargant (Royal Treasury)`,
+  'Heart of the Gargant (Royal Treasury)': {
     effects: [
       {
         name: `Heart of the Gargant (Royal Treasury)`,
@@ -70,8 +65,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Keening Bone (Noble Heirlooms)`,
+  'Keening Bone (Noble Heirlooms)': {
     effects: [
       {
         name: `Keening Bone (Noble Heirlooms)`,
@@ -80,8 +74,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Medal of Madness (Noble Heirlooms)`,
+  'Medal of Madness (Noble Heirlooms)': {
     effects: [
       {
         name: `Medal of Madness (Noble Heirlooms)`,
@@ -90,8 +83,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Flayed Pennant (Noble Heirlooms)`,
+  'The Flayed Pennant (Noble Heirlooms)': {
     effects: [
       {
         name: `The Flayed Pennant (Noble Heirlooms)`,
@@ -100,8 +92,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Carrion Wand (Noble Heirlooms)`,
+  'Carrion Wand (Noble Heirlooms)': {
     effects: [
       {
         name: `Carrion Wand (Noble Heirlooms)`,
@@ -110,8 +101,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Fleshform Raiment (Noble Heirlooms)`,
+  'The Fleshform Raiment (Noble Heirlooms)': {
     effects: [
       {
         name: `The Fleshform Raiment (Noble Heirlooms)`,
@@ -120,8 +110,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Bilious Decanter (Noble Heirlooms)`,
+  'The Bilious Decanter (Noble Heirlooms)': {
     effects: [
       {
         name: `The Bilious Decanter (Noble Heirlooms)`,
@@ -130,6 +119,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(Artifacts, 'artifact')
