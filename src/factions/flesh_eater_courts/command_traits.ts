@@ -13,7 +13,6 @@ import {
   TURN_ONE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
-// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandTraits = {
   'Crusading Army (Delusion)': {
     effects: [

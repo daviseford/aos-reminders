@@ -1,6 +1,5 @@
 // import { HERO_PHASE } from 'types/phases'
-//
-//
+
 // const CommandTraits = {
 //   'A Generic Command Trait': {
 //     effects: [
@@ -11,7 +10,7 @@
 //       },
 //     ],
 //   },
-//
+
 //   'Another Command Trait': {
 //     effects: [
 //       {
@@ -22,9 +21,7 @@
 //     ],
 //   },
 // }
-//
-//
+
 // export default tagAs(CommandTraits, 'command_trait')
-//
 
 export {}

@@ -10,7 +10,6 @@ import {
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
-// Add Endless spells here
 const EndlessSpells = {
   'Molten Infernoth': {
     effects: [

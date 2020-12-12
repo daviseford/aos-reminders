@@ -18,7 +18,6 @@ const VerminousValourEffect = {
   when: [WOUND_ALLOCATION_PHASE],
 }
 
-// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandTraits = {
   'Malevolent (Masterclan)': {
     effects: [

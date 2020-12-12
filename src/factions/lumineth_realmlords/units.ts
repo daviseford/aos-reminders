@@ -1,10 +1,11 @@
-//import idoneth from 'army/idoneth_deepkin'
-import { TEntry } from 'types/data'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_HERO_PHASE,
   HERO_PHASE,
-  MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
@@ -13,11 +14,50 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import CommonLuminethRealmlordsData from './common'
+import command_abilities from './command_abilities'
+import spells from './spells'
 
-export const Units: TEntry[] = [
-  {
-    name: `Archmage Teclis`,
+const getSunmetalWeaponsEffect = (weapon: string) => ({
+  name: `Sunmetal Weapons`,
+  desc: `If the unmodified hit roll for an attack made with a ${weapon} is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+  when: [COMBAT_PHASE],
+})
+
+const getVanariWizardsEffect = (minimumModelCountToBeWizard: number) => ({
+  name: `Magic`,
+  desc: `This unit is a WIZARD while it has ${minimumModelCountToBeWizard} or more models. They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. They know the Power of Hysh spell.`,
+  when: [HERO_PHASE],
+})
+
+const alarithSpiritFreeCommandAbilityEffect = (effectName: string, effectRange: number) => ({
+  name: effectName,
+  desc: `Pick 1 friendly LUMINETH REALM-LORDS AELF HERO within ${effectRange}" of this model. If that model is within ${effectRange}" of this model at the start of your next hero phase, then that model can use a command ability in that turn without spending any command points.`,
+  when: [END_OF_HERO_PHASE],
+})
+
+const StandardBearerEffect = {
+  name: `Standard Bearer`,
+  desc: `You can reroll battleshock tests for units that include any Standard Bearers.`,
+  when: [BATTLESHOCK_PHASE],
+}
+
+const AllButImmovableEffect = {
+  name: `All but Immovable`,
+  desc: `If this model doesnt not make a charge move in your charge phase, add 1 to the Attacks characteristic of this model's melee weapons until your next movement phase.`,
+  when: [CHARGE_PHASE, COMBAT_PHASE],
+}
+
+const StonemageSymbiosisEffect = {
+  name: `Stonemage Symbiosis`,
+  desc: `When looking at this model's damage table, if it is within 12" of a friendly STONEMAGE, it is treated as if it has suffered 0 wounds.`,
+  when: [DURING_GAME],
+}
+
+const Units = {
+  'Archmage Teclis': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Protection of Teclis', 'Storm of Searing White Light'])],
+    },
     effects: [
       {
         name: `Archmage`,
@@ -39,44 +79,34 @@ export const Units: TEntry[] = [
         desc: `Each time a friendly model within range of this model's Aura of Celennar ability is affected by a spell or endless spell cast by an enemy WIZARD, you can roll a D6. On a 4+, ignore the effects. Then, pick 1 enemy unit within 18" of that unit. That enemy unit suffers D3 mortal wounds.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
-      {
-        name: `Protection of Teclis`,
-        desc: `Casting value of 10. Until your next hero phase, roll a D6 each time you allocate a wound or mortal wound to a friendly unit wholly within 18" of the caster. On a 5+ the wound or mortal wound is negated. Cannot be used in the same hero phase as Protection of Hysh.`,
-        when: [HERO_PHASE, WOUND_ALLOCATION_PHASE],
-        spell: true,
-      },
-      {
-        name: `Storm of Searing White Light`,
-        desc: `Casting value of 10. Roll a D6 for each enemy unit within 18" of the caster and visible to them. On a 1, nothing happens. On a 2-4 that unit suffers D3 mortal wounds. On a 5+ that unit suffers D6 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Vanari Auralan Wardens`,
+  'Vanari Auralan Wardens': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Power of Hysh'])],
+    },
     effects: [
+      getSunmetalWeaponsEffect(`Warden's Pike`),
+      getVanariWizardsEffect(5),
       {
         name: `Moonfire Flask`,
         desc: `Once per battle, you can pick 1 enemy unit within 3" of this unit's High Warden and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [START_OF_COMBAT_PHASE],
       },
-      CommonLuminethRealmlordsData.getSunmetalWeaponsEffect(`Warden's Pike`),
       {
         name: `Wall of Blades`,
         desc: `If the target unit made a charge move in the same turn, add 1 to wound rolls for attacks made with this unit's Warden's Pikes and improve the Rend characteristic of that weapon by 1.`,
         when: [COMBAT_PHASE],
       },
-      CommonLuminethRealmlordsData.getVanariWizardsEffect(5),
-      CommonLuminethRealmlordsData.PowerOfHyshEffect,
     ],
   },
-  {
-    name: `Vanari Auralan Sentinels`,
+  'Vanari Auralan Sentinels': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Power of Hysh'])],
+    },
     effects: [
-      CommonLuminethRealmlordsData.getVanariWizardsEffect(5),
-      CommonLuminethRealmlordsData.getSunmetalWeaponsEffect(`Auralan Bow`),
-      CommonLuminethRealmlordsData.PowerOfHyshEffect,
+      getVanariWizardsEffect(5),
+      getSunmetalWeaponsEffect(`Auralan Bow`),
       {
         name: `Scryhawk Lantern`,
         desc: `Pick one enemy unit within 30" of this unit's High Sentinel that is not visible to them. Choose the Lofted missile weapon characteristic for this unit's Auralan Bows in that phase, but that enemy unit is treated as being visible to all friendly models from that unit until the end of the phase.`,
@@ -89,8 +119,10 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vanari Dawnriders`,
+  'Vanari Dawnriders': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Power of Hysh'])],
+    },
     effects: [
       {
         name: `Deathly Furrows`,
@@ -102,14 +134,15 @@ export const Units: TEntry[] = [
         desc: `If this unit made a charge move in the same turn, add 1 to wound rolls for attacks made with this unit's Sunmetal Lances and improve the Rend characteristic of that weapon by 1.`,
         when: [COMBAT_PHASE],
       },
-      CommonLuminethRealmlordsData.getSunmetalWeaponsEffect(`Sunmetal Lance`),
-      CommonLuminethRealmlordsData.getVanariWizardsEffect(3),
-      CommonLuminethRealmlordsData.PowerOfHyshEffect,
-      CommonLuminethRealmlordsData.StandardBearerEffect,
+      getSunmetalWeaponsEffect(`Sunmetal Lance`),
+      getVanariWizardsEffect(3),
+      StandardBearerEffect,
     ],
   },
-  {
-    name: `The Light of Eltharion`,
+  'The Light of Eltharion': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Unflinching Valour'])],
+    },
     effects: [
       {
         name: `Celennari Blade`,
@@ -141,50 +174,35 @@ export const Units: TEntry[] = [
         desc: `Ignore negative modifiers when making hit rolls for attacks made by this model. In addition, if the unmodified hit roll for an attack made by this model is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Unflinching Valour`,
-        desc: `You can use this command ability at the start of the battleshock phase. If you do so, pick 1 friendly model with this command ability. Until the end of that phase, all friendly LUMINETH REALM-LORDS units wholly within 24" of that model are treated as having a Bravery characteristic of 10.`,
-        when: [START_OF_BATTLESHOCK_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Scinari Cathallar`,
+  'Scinari Cathallar': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Darkness of the Soul'])],
+    },
     effects: [
       {
         name: `Emotional Transference`,
         desc: `Pick one friendly LUMINETH REALM-LORDS unit wholly within 18" of this model and roll a D6. On a 2+, do not take a battle shock test for that unit. In addition, if any model from that unit were slain during that turn, you can pick one enemy unit within 18" of this model that has to take a battleshock test in that phase. Add the number of models from the friendly unit that were slain during that turn to the battleshock roll for that enemy unit.`,
         when: [START_OF_BATTLESHOCK_PHASE],
       },
-      {
-        name: `Darkness of the Soul`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible to them. Until your next hero phase roll 2D6 each time that unit makes a normal move, charge move, shoots or fights. If the roll is greater than the unit's Bravery, that unit cannot perform that action in that phase.`,
-        when: [HERO_PHASE, MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Alarith Stonemage`,
+  'Alarith Stonemage': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Gravitic Reduction'])],
+    },
     effects: [
       {
         name: `Stonemage stance`,
         desc: `This model and any friendly ALARITH STONEGUARD units wholly within 12" of this model cannot make a pile-in move this phase. However until the end of the phase, improve the Rend characteristic of melee weapons used by this model and those friendly units by 1.`,
         when: [START_OF_COMBAT_PHASE],
       },
-      {
-        name: `Gravitic Reduction`,
-        desc: `Casting value of 5. The caster can fly. In addition pick 1 enemy unit within 18" of the caster. The unit suffers 1 mortal wound and, until your next hero phase, its Movement characteristic is halved and it cannot fly.`,
-        when: [HERO_PHASE, MOVEMENT_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Alarith Stoneguard`,
+  'Alarith Stoneguard': {
     effects: [
-      CommonLuminethRealmlordsData.StandardBearerEffect,
+      StandardBearerEffect,
       {
         name: `Crushing Blow`,
         desc: `Unmodified hit rolls of 6 with Stone Mallets add 1 to the damage inflicted if the attack is successful.`,
@@ -202,17 +220,15 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Alarith Spirit of the Mountain`,
+  'Alarith Spirit of the Mountain': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Faith of the Mountains'])],
+      spells: [keyPicker(spells, ['Power of Hysh'])],
+    },
     effects: [
-      CommonLuminethRealmlordsData.StonemageSymbiosisEffect,
-      CommonLuminethRealmlordsData.AllButImmovableEffect,
-      CommonLuminethRealmlordsData.alarithSpiritFreeCommandAbilityEffect(`Ponderous Advice`, 3),
-      CommonLuminethRealmlordsData.alarithSpiritExtraAttackCommandAbilityEffect(
-        `Faith of the Mountains`,
-        `1`,
-        18
-      ),
+      StonemageSymbiosisEffect,
+      AllButImmovableEffect,
+      alarithSpiritFreeCommandAbilityEffect(`Ponderous Advice`, 3),
       {
         name: `Stoneheart Shockwave`,
         desc: `Pick 1 enemy unit within range of this ability that is visible to this model. Subtract 1 from to hit rolls until the end of that phase. A unit cannot be affected by this ability more than once per phase.`,
@@ -220,17 +236,14 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Avalenor, the Stoneheart King`,
+  'Avalenor, the Stoneheart King': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Unshakeable Faith of the Mountains'])],
+    },
     effects: [
-      CommonLuminethRealmlordsData.StonemageSymbiosisEffect,
-      CommonLuminethRealmlordsData.AllButImmovableEffect,
-      CommonLuminethRealmlordsData.alarithSpiritFreeCommandAbilityEffect(`Eldar Wisdom`, 6),
-      CommonLuminethRealmlordsData.alarithSpiritExtraAttackCommandAbilityEffect(
-        `Unshakeable Faith of the Mountains`,
-        `D3`,
-        24
-      ),
+      StonemageSymbiosisEffect,
+      AllButImmovableEffect,
+      alarithSpiritFreeCommandAbilityEffect(`Eldar Wisdom`, 6),
       {
         name: `Firestealer Hammers`,
         desc: `Unmodified hit rolls of 6 with Firestealer hammers inflict 1 mortal wound in addition to any normal damage.`,
@@ -243,8 +256,10 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Myari Lightcaller`,
+  'Myari Lightcaller': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Dazzling Light'])],
+    },
     effects: [
       {
         name: `Scryowl Familiar`,
@@ -261,26 +276,9 @@ export const Units: TEntry[] = [
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Dazzling Light.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Dazzling Light`,
-        desc: `Casting value of 6. Until your next hero phase, subtract 1 from hit rolls targeting the caster and subtract 1 from missle weapon attacks targeting friendly units wholly within 6" of the caster.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Dazzling Light`,
-        desc: `If active subtract, 1 from hit rolls targeting friendly units wholly within 6" of the caster.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Dazzling Light`,
-        desc: `If active subtract 1 from hit rolls targeting the caster.`,
-        when: [COMBAT_PHASE],
-      },
     ],
   },
-  {
-    name: `Myari's Purifiers`,
+  "Myari's Purifiers": {
     effects: [
       {
         name: `Crushing Blow`,
@@ -299,54 +297,6 @@ export const Units: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export const AlliedUnits: TEntry[] = [] //idoneth.Units
-
-export const Battalions: TEntry[] = [
-  {
-    name: `Alarith Temple`,
-    effects: [
-      {
-        name: `Skin to Stone`,
-        desc: `Any friendly STONEGUARD units from this battalion that are wholly within 12" of a friendly HERO from the same battalion can turn their skin to stone until the end of the phase. Reroll save rolls for attacks that target a unit that has turned its skin to stone. Models in the unit that has turned its skin to stone can only move 1" when they pile in.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Skin to Stone`,
-        desc: `Reroll save rolls for attacks that target a unit that has turned its skin to stone.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Auralan Legion`,
-    effects: [
-      {
-        name: `Shield of Light`,
-        desc: `You can reroll save rolls of 1 for attacks that target a friendly unit from this battalion whilst it is within 3" of any other friendly unit from the same battalion.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Dawnrider Lance`,
-    effects: [
-      {
-        name: `Shafts of Light`,
-        desc: `Reroll hit rolls of 1 for attacks made with melee weapons by friendly units from this battalion that made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Teclian Vanguard`,
-    effects: [
-      {
-        name: `Blessing of Teclis`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly unit from this battalion while it is wholly within its own territory. On a 6, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
-]
+export default tagAs(Units, 'unit')

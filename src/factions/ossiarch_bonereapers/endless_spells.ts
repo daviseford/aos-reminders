@@ -23,7 +23,6 @@ const SoulLinkedEffect = {
   when: [START_OF_ROUND],
 }
 
-// Add Endless spells here
 const EndlessSpells = {
   'Bone-tithe Shrieker': {
     effects: [

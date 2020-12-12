@@ -1,5 +1,5 @@
 // import { HERO_PHASE } from 'types/phases'
-//
+
 // const Prayers = {
 //   'A Prayer': {
 //     effects: [
@@ -11,7 +11,7 @@
 //     ],
 //   },
 // }
-//
+
 // export default tagAs(Prayers, 'prayer')
-//
+
 export {}

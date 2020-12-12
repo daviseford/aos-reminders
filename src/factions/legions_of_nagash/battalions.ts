@@ -1,6 +1,6 @@
 // import { END_OF_CHARGE_PHASE, HERO_PHASE } from 'types/phases'
 // import Units from './units'
-//
+
 // const RegularBattalions = {
 //   'Regular Battalion 1': {
 //     effects: [
@@ -18,7 +18,7 @@
 //     effects: [],
 //   },
 // }
-//
+
 // const SuperBattalions = {
 //   'Super Battalion': {
 //     mandatory: {
@@ -34,10 +34,9 @@
 //     ],
 //   },
 // }
-//
+
 // const Battalions = { ...RegularBattalions, ...SuperBattalions }
-//
+
 // export default tagAs(Battalions, 'battalion')
-//
 
 export {}

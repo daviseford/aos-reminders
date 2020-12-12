@@ -1,5 +1,5 @@
 // import { START_OF_SETUP } from 'types/phases'
-//
+
 // const Scenery = {
 //   'A Faction-Specific Scenery Piece': {
 //     effects: [
@@ -11,7 +11,7 @@
 //     ],
 //   },
 // }
-//
+
 // export default tagAs(Scenery, 'scenery')
-//
+
 export {}

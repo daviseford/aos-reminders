@@ -175,7 +175,6 @@ const AllegianceCommandTraits = {
   },
 }
 
-// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandTraits = {
   'Master Commander': {
     effects: [
