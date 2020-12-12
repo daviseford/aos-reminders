@@ -76,5 +76,4 @@ const BattleTraits = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(BattleTraits, 'battle_trait')

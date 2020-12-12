@@ -12,7 +12,6 @@ import {
   START_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
-// Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandAbilities = {
   'Soul of the Stormhost': {
     effects: [
@@ -206,5 +205,4 @@ const CommandAbilities = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(CommandAbilities, 'command_ability')

@@ -426,5 +426,4 @@ const CommandTraits = {
   },
 }
 
-// Always export using tagAs
 export default tagAs({ ...AllegianceCommandTraits, ...CommandTraits }, 'command_trait')

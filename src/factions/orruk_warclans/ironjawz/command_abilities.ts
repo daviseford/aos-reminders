@@ -7,7 +7,6 @@ import {
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
 
-// Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
 const IronjawzCommandAbilities = {
   'Go on Ladz, Get Stuck In!': {
     effects: [
@@ -83,5 +82,4 @@ const IronjawzCommandAbilities = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(IronjawzCommandAbilities, 'command_ability')

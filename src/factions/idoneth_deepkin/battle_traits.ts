@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { DURING_GAME, SHOOTING_PHASE } from 'types/phases'
 
-// Battle traits available to factions and subfactions.
 const BattleTraits = {
   'Idoneth Deepkin': {
     effects: [

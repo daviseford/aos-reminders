@@ -523,5 +523,4 @@ const SuperBattalions = {
 
 const StormcastBattalions = { ...RegularBattalions, ...StormkeepBattalions, ...SuperBattalions }
 
-// Always export using tagAs
 export default tagAs(StormcastBattalions, 'battalion')

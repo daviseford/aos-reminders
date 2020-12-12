@@ -112,5 +112,4 @@ const BonesplitterzCommandTraits = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(BonesplitterzCommandTraits, 'command_trait')

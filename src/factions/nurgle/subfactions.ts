@@ -80,7 +80,7 @@ const baseSubFaction: TItemDescription = {
 
 const subFactions: TItemDescriptions = {
   [NURGLE]: {
-    effects: pickEffects(BattleTraits, ['Nurgle', 'Tamurkhan`s Horde']),
+    effects: pickEffects(BattleTraits, ['Nurgle', "Tamurkhan's Horde"]),
 
     available: {
       ...baseSubFaction.available,

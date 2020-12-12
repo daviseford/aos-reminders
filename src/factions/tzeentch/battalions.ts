@@ -96,7 +96,7 @@ const RegularBattalions = {
   },
   'Alter-kin Coven': {
     mandatory: {
-      // ADD TZAANGORS UNITS WHEN BOC FINISHED
+      // TODO ADD TZAANGORS UNITS WHEN BOC FINISHED
       units: [
         keyPicker(Units, [
           'Kairic Acolytes', //'Tzaangors', 'Tzaangor Skyfires'])],
@@ -113,7 +113,7 @@ const RegularBattalions = {
   },
   'Witchfyre Coven': {
     mandatory: {
-      // ADD TZAANGORS UNITS WHEN BOC FINISHED
+      // TODO ADD TZAANGORS UNITS WHEN BOC FINISHED
       units: [
         keyPicker(Units, [
           'Kairic Acolytes', //'Tzaangor Enlightened'])],
@@ -130,7 +130,7 @@ const RegularBattalions = {
   },
   'Skyshoal Coven': {
     mandatory: {
-      // ADD TZAANGORS UNITS WHEN BOC FINISHED
+      // TODO ADD TZAANGORS UNITS WHEN BOC FINISHED
       //units: [keyPicker(Units, ['Tzaangor Enlightened', 'Tzaangor Skyfires'])],
     },
     effects: [
@@ -143,7 +143,7 @@ const RegularBattalions = {
   },
   'Tzaangor Coven': {
     mandatory: {
-      // ADD TZAANGORS UNITS WHEN BOC FINISHED
+      // TODO ADD TZAANGORS UNITS WHEN BOC FINISHED
       //units: [keyPicker(Units, ['Tzaangors', 'Tzaangor Enlightened', 'Tzaangor Skyfires'])],
     },
     effects: [
@@ -157,7 +157,7 @@ const RegularBattalions = {
   // Other battalions.
   'Ab-Het`s Skyseekers': {
     mandatory: {
-      // ADD TZAANGORS UNITS WHEN BOC FINISHED
+      // TODO ADD TZAANGORS UNITS WHEN BOC FINISHED
       units: [
         keyPicker(Units, [
           'Magister on Disc of Tzeentch',

@@ -12,7 +12,6 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-// Battle traits available to factions and subfactions.
 const BattleTraits = {
   // Daughters of Khaine Allegiance
   'Daughters of Khaine': {

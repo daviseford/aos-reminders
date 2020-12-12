@@ -7,7 +7,6 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-// Add individual artifacts here, and access them in other files!
 const DeathArtifacts = {
   'Cursed Book (Death)': {
     effects: [
@@ -65,5 +64,4 @@ const DeathArtifacts = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(DeathArtifacts, 'artifact')

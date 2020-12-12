@@ -59,5 +59,4 @@ const DeathCommandTraits = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(DeathCommandTraits, 'command_trait')

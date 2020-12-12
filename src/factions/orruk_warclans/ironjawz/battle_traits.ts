@@ -31,5 +31,4 @@ const IronjawzBattleTraits = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(IronjawzBattleTraits, 'battle_trait')

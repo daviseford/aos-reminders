@@ -134,5 +134,4 @@ const SuperBattalions = {
 // Merge the Battalions
 const Battalions = { ...RegularBattalions, ...SuperBattalions }
 
-// Always export using tagAs
 export default tagAs(Battalions, 'battalion')

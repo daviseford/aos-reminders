@@ -8,7 +8,6 @@ import {
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
 
-// Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandAbilities = {
   'Burning Skies': {
     effects: [
@@ -57,5 +56,4 @@ const CommandAbilities = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(CommandAbilities, 'command_ability')

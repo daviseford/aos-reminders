@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
 
-// Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
 const DestructionCommandAbilities = {
   'Born to Lead': {
     effects: [
@@ -14,5 +13,4 @@ const DestructionCommandAbilities = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(DestructionCommandAbilities, 'command_ability')
