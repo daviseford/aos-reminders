@@ -1,17 +1,18 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_ROUND,
   HERO_PHASE,
+  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Signet of the First Court (Royal Treasury)`,
+// Add individual artifacts here, and access them in other files!
+const Artifacts = {
+  'Signet of the First Court (Royal Treasury)': {
     effects: [
       {
         name: `Signet of the First Court (Royal Treasury)`,
@@ -20,8 +21,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Splintervane Brooch (Royal Treasury)`,
+  'Splintervane Brooch (Royal Treasury)': {
     effects: [
       {
         name: `Splintervane Brooch (Royal Treasury)`,
@@ -30,8 +30,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Blood-river Chalice (Royal Treasury)`,
+  'Blood-river Chalice (Royal Treasury)': {
     effects: [
       {
         name: `Blood-river Chalice (Royal Treasury)`,
@@ -40,8 +39,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Grim Garland (Royal Treasury)`,
+  'The Grim Garland (Royal Treasury)': {
     effects: [
       {
         name: `The Grim Garland (Royal Treasury)`,
@@ -50,8 +48,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Dermal Robe (Royal Treasury)`,
+  'The Dermal Robe (Royal Treasury)': {
     effects: [
       {
         name: `The Dermal Robe (Royal Treasury)`,
@@ -60,8 +57,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Heart of the Gargant (Royal Treasury)`,
+  'Heart of the Gargant (Royal Treasury)': {
     effects: [
       {
         name: `Heart of the Gargant (Royal Treasury)`,
@@ -70,8 +66,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Keening Bone (Noble Heirlooms)`,
+  'Keening Bone (Noble Heirlooms)': {
     effects: [
       {
         name: `Keening Bone (Noble Heirlooms)`,
@@ -80,8 +75,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Medal of Madness (Noble Heirlooms)`,
+  'Medal of Madness (Noble Heirlooms)': {
     effects: [
       {
         name: `Medal of Madness (Noble Heirlooms)`,
@@ -90,8 +84,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Flayed Pennant (Noble Heirlooms)`,
+  'The Flayed Pennant (Noble Heirlooms)': {
     effects: [
       {
         name: `The Flayed Pennant (Noble Heirlooms)`,
@@ -100,8 +93,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Carrion Wand (Noble Heirlooms)`,
+  'Carrion Wand (Noble Heirlooms)': {
     effects: [
       {
         name: `Carrion Wand (Noble Heirlooms)`,
@@ -110,8 +102,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Fleshform Raiment (Noble Heirlooms)`,
+  'The Fleshform Raiment (Noble Heirlooms)': {
     effects: [
       {
         name: `The Fleshform Raiment (Noble Heirlooms)`,
@@ -120,8 +111,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Bilious Decanter (Noble Heirlooms)`,
+  'The Bilious Decanter (Noble Heirlooms)': {
     effects: [
       {
         name: `The Bilious Decanter (Noble Heirlooms)`,
@@ -130,6 +120,43 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+  'Decrepit Coronet': {
+    effects: [
+      {
+        name: `Decrepit Coronet`,
+        desc: `Do not take battleshock tests for friendly MORGAUNT units while they are wholly within 12" of the bearer, or wholly within 18" of the bearer if the bearer is your general.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  'Corpsefane Gauntlet': {
+    effects: [
+      {
+        name: `Corpsefane Gauntlet`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  'Eye of Hysh': {
+    effects: [
+      {
+        name: `Eye of Hysh`,
+        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target a friendly BLISTERSKIN unit wholly within 6" of the bearer.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Ghurish Mawshard': {
+    effects: [
+      {
+        name: `Ghurish Mawshard`,
+        desc: `Once per battle, at the start of the combat phase, you can pick 1 enemy model within 1" of the bearer and roll a D6. If the roll is greater than that model's Wounds characteristic, that model is slain.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(Artifacts, 'artifact')

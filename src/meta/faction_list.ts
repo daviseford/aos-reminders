@@ -2,6 +2,7 @@ import { BeastOfChaosFaction } from 'factions/beasts_of_chaos'
 import { CitiesOfSigmarFaction } from 'factions/cities_of_sigmar'
 import { DaughtersOfKhaineFaction } from 'factions/daughters_of_khaine'
 import { DispossessedFaction } from 'factions/dispossessed'
+import { FleshEaterCourtsFaction } from 'factions/flesh_eater_courts'
 import { FyreslayersFaction } from 'factions/fyreslayers'
 import { GloomspiteGitzFaction } from 'factions/gloomspite_gitz'
 import { ChaosFaction, DeathFaction, DestructionFaction, OrderFaction } from 'factions/grand_alliances'
@@ -38,6 +39,7 @@ import {
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
   DISPOSSESSED,
+  FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   GREENSKINZ,
@@ -78,13 +80,8 @@ const FactionList = {
   [DEATH_GRAND_ALLIANCE]: { ...DeathFaction },
   [DESTRUCTION_GRAND_ALLIANCE]: { ...DestructionFaction },
   [DISPOSSESSED]: { ...DispossessedFaction },
-  // [FLESH_EATER_COURTS]: {
-  //   Army: { ...FleshEaterCourtsArmy },
-  //   GrandAlliance: DEATH,
-  // },
+  [FLESH_EATER_COURTS]: { ...FleshEaterCourtsFaction },
   [FYRESLAYERS]: { ...FyreslayersFaction },
-  //   GrandAlliance: ORDER,
-  // },
   [GLOOMSPITE_GITZ]: { ...GloomspiteGitzFaction },
   // [GRAND_HOST_OF_NAGASH]: {
   //   Army: { ...GrandHostOfNagashArmy },

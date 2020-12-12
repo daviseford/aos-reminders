@@ -1,9 +1,9 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { END_OF_TURN, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE, START_OF_ROUND } from 'types/phases'
 
-const EndlessSpells: TEntry[] = [
-  {
-    name: `Corpsemare Stampede`,
+// Add Endless spells here
+const EndlessSpells = {
+  'Corpsemare Stampede': {
     effects: [
       {
         name: `Predatory`,
@@ -27,8 +27,7 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Chalice of Ushoran`,
+  'Chalice of Ushoran': {
     effects: [
       {
         name: `Summon`,
@@ -42,8 +41,7 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Cadaverous Barricade`,
+  'Cadaverous Barricade': {
     effects: [
       {
         name: `Summon`,
@@ -62,6 +60,6 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default EndlessSpells
+export default tagAs(EndlessSpells, 'endless_spell')
