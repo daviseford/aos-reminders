@@ -114,7 +114,7 @@ const RegularBattalions = {
       },
     ],
   },
-  'Skall`uk`s Slaughterband': {
+  "Skall'uk's Slaughterband": {
     mandatory: {
       units: [keyPicker(Units, ['Herald of Khorne on Blood Throne', 'Bloodletters', 'Bloodcrushers'])],
     },

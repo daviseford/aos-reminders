@@ -11,7 +11,6 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
-// Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandAbilities = {
   // Reapers of Vengeance
   'Leave None Alive': {
@@ -99,7 +98,7 @@ const CommandAbilities = {
       },
     ],
   },
-  'The Butcher`s Due': {
+  "The Butcher's Due": {
     effects: [
       {
         name: `The Butcher's Due`,
@@ -203,5 +202,4 @@ const CommandAbilities = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(CommandAbilities, 'command_ability')

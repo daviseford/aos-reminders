@@ -44,5 +44,4 @@ const BonesplitterzBattleTraits = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(BonesplitterzBattleTraits, 'battle_trait')

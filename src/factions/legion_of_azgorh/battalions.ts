@@ -22,7 +22,7 @@ const RegularBattalions = {
       },
     ],
   },
-  'Hashut`s Wrath Artillery Train': {
+  "Hashut's Wrath Artillery Train": {
     mandatory: {
       units: [keyPicker(Units, ['Daemonsmith', 'Iron Daemon War Engine'])],
     },
@@ -37,7 +37,7 @@ const RegularBattalions = {
   'Execution Herd': {
     mandatory: {
       units: [
-        keyPicker(Units, ['Shar`Tor the Executioner', 'Bull Centaur Taur`Ruk', 'Bull Centaur Renders']),
+        keyPicker(Units, ["Shar'Tor the Executioner", "Bull Centaur Taur'Ruk", 'Bull Centaur Renders']),
       ],
     },
     effects: [

@@ -18,5 +18,4 @@ const Battalions = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(Battalions, 'battalion')

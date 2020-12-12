@@ -222,5 +222,4 @@ const Artifacts = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(Artifacts, 'artifact')

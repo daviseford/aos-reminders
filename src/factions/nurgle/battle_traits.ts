@@ -90,11 +90,11 @@ const BattleTraits = {
     effects: [LocusOfCorrosionEffect],
   },
   // Blessed Sons/Drowned Men Battle Traits
-  'Nurgle`s Embrace': {
+  "Nurgle's Embrace": {
     effects: [NurglesEmbraceEffect],
   },
   // Tamurkhan's Horde Battle Traits
-  'Tamurkhan`s Horde': {
+  "Tamurkhan's Horde": {
     effects: [
       {
         name: `Tamurkhan's Horde Army`,
@@ -120,5 +120,4 @@ const BattleTraits = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(BattleTraits, 'battle_trait')

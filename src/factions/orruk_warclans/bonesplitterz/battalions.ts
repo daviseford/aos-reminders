@@ -58,5 +58,4 @@ const BonesplitterzBattalions = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(BonesplitterzBattalions, 'battalion')

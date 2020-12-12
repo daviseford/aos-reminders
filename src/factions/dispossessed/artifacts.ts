@@ -10,7 +10,6 @@ import {
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
-// Add individual artifacts here, and access them in other files!
 const Artifacts = {
   'Heavy Metal Ingot': {
     effects: [
@@ -78,5 +77,4 @@ const Artifacts = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(Artifacts, 'artifact')

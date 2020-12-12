@@ -122,5 +122,4 @@ const IronjawzCommandTraits = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(IronjawzCommandTraits, 'command_trait')

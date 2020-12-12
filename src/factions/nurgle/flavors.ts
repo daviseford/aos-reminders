@@ -29,7 +29,7 @@ const Flavors = {
       command_abilities: [keyPicker(CommandAbilities, ['Degraded and Defiled'])],
       command_traits: [keyPicker(CommandTraits, ['Foul Conqueror'])],
     },
-    effects: [...pickEffects(BattleTraits, ['Nurgle`s Embrace'])],
+    effects: [...pickEffects(BattleTraits, ["Nurgle's Embrace"])],
   },
 
   'Drowned Men': {
@@ -38,7 +38,7 @@ const Flavors = {
       command_abilities: [keyPicker(CommandAbilities, ['Kneel Before the Plague'])],
       command_traits: [keyPicker(CommandTraits, ['Bloated Raider'])],
     },
-    effects: [...pickEffects(BattleTraits, ['Nurgle`s Embrace'])],
+    effects: [...pickEffects(BattleTraits, ["Nurgle's Embrace"])],
   },
 }
 

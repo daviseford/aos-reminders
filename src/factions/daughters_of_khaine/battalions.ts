@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import units from 'factions/stormcast_eternals/units'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -63,7 +64,10 @@ const RegularBattalions = {
   },
   'Shadowhammer Compact': {
     mandatory: {
-      units: [keyPicker(Units, ['Slaughter Queen', 'Witch Aelves', 'Blood Stalkers'])], // ADD SCE IMPORTS HERE!!
+      units: [
+        keyPicker(Units, ['Slaughter Queen', 'Witch Aelves', 'Blood Stalkers']),
+        keyPicker(units, ['Judicators', 'Protectors', 'Liberators']),
+      ],
     },
     effects: [
       {
@@ -82,7 +86,7 @@ const RegularBattalions = {
       },
     ],
   },
-  'Tyralla`s Scathcoven': {
+  "Tyralla's Scathcoven": {
     mandatory: {
       units: [
         keyPicker(Units, ['Melusai Ironscale', 'Blood Sisters', 'Blood Stalkers', 'Khinerai Heartrenders']),

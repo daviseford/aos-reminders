@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { END_OF_COMBAT_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
-// Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandAbilities = {
   'Da Big Waaagh!!!': {
     effects: [
@@ -19,5 +18,4 @@ const CommandAbilities = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(CommandAbilities, 'command_ability')

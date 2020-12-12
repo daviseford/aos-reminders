@@ -8,7 +8,6 @@ import {
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
 
-// Store Mount Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const MountTraits = {
   "Big 'Un": {
     effects: [
@@ -66,5 +65,4 @@ const MountTraits = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(MountTraits, 'mount_trait')

@@ -99,7 +99,7 @@ const RegularBattalions = {
       },
     ],
   },
-  'Gresh`s Iron Reapers': {
+  "Gresh's Iron Reapers": {
     manadatory: {
       command_traits: [keyPicker(CommandTraits, ['Profane Oratory'])],
       units: [keyPicker(Units, ['Gorebeast Chariots'])],
@@ -137,5 +137,4 @@ const SuperBattalions = {
 // Merge the Battalions
 const Battalions = { ...RegularBattalions, ...SuperBattalions }
 
-// Always export using tagAs
 export default tagAs(Battalions, 'battalion')

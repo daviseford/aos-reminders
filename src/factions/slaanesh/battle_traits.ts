@@ -14,7 +14,6 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-// Battle traits available to factions and subfactions.
 const BattleTraits = {
   // Slaanesh Allegiance
   'Thrilling Compulsions': {

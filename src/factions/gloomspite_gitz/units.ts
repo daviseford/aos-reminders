@@ -25,7 +25,7 @@ import Spells from './spells'
 
 const baseLoonboss = {
   mandatory: {
-    command_abilities: [keyPicker(CommandAbilities, ['I`m Da Boss, Now Stab `Em Good!'])],
+    command_abilities: [keyPicker(CommandAbilities, ["I'm Da Boss, Now Stab 'Em Good!"])],
   },
   effects: [
     {
@@ -157,7 +157,7 @@ const Units = {
   'Skragrott, The Loonking': {
     mandatory: {
       spells: [keyPicker(Spells, ['Nikkit! Nikkit!'])],
-      command_abilities: [keyPicker(CommandAbilities, ['The Loonking`s Entreaty'])],
+      command_abilities: [keyPicker(CommandAbilities, ["The Loonking's Entreaty"])],
     },
     effects: [
       {
@@ -201,13 +201,13 @@ const Units = {
   },
   'Loonboss on Giant Cave Squig': {
     mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Let`s Get Bouncing!'])],
+      command_abilities: [keyPicker(CommandAbilities, ["Let's Get Bouncing!"])],
     },
     effects: [...RedcapMushroomsEffect],
   },
   'Loonboss with Giant Cave Squig': {
     mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Let`s Get Bouncing!'])],
+      command_abilities: [keyPicker(CommandAbilities, ["Let's Get Bouncing!"])],
     },
     effects: [...RedcapMushroomsEffect],
   },
@@ -272,7 +272,7 @@ const Units = {
       },
     ],
   },
-  'Zarbag`s Gitz': {
+  "Zarbag's Gitz": {
     effects: [SquigsGoWildEffect],
   },
   Stabbas: {
@@ -671,7 +671,7 @@ const Units = {
       ...GenericBattleTraits.Gargant,
     ],
   },
-  'Rippa`s Snarlfangs': {
+  "Rippa's Snarlfangs": {
     effects: [
       {
         name: `Smell Weakness`,

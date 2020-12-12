@@ -32,7 +32,7 @@ const EndlessSpells = {
       },
     ],
   },
-  'Mork`s Mighty Mushroom': {
+  "Mork's Mighty Mushroom": {
     effects: [
       {
         name: `Summon Mork's Mighty Mushroom`,

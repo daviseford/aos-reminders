@@ -1,9 +1,8 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
 
-const Spells: TEntry[] = [
-  {
-    name: `Wings of Fire (Hammerhal)`,
+const Spells = {
+  'Wings of Fire (Hammerhal)': {
     effects: [
       {
         name: `Wings of Fire (Hammerhal)`,
@@ -12,8 +11,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Cindercloud (Hammerhal)`,
+  'Cindercloud (Hammerhal)': {
     effects: [
       {
         name: `Cindercloud (Hammerhal)`,
@@ -22,8 +20,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Twin-Tailed Comet (Hammerhal)`,
+  'Twin-Tailed Comet (Hammerhal)': {
     effects: [
       {
         name: `Twin-Tailed Comet (Hammerhal)`,
@@ -32,8 +29,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lifesurge (The Living City)`,
+  'Lifesurge (The Living City)': {
     effects: [
       {
         name: `Lifesurge (The Living City)`,
@@ -42,8 +38,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Cage of Thorns (The Living City)`,
+  'Cage of Thorns (The Living City)': {
     effects: [
       {
         name: `Cage of Thorns (The Living City)`,
@@ -52,8 +47,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ironoak Skin (The Living City)`,
+  'Ironoak Skin (The Living City)': {
     effects: [
       {
         name: `Ironoak Skin (The Living City)`,
@@ -62,8 +56,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Descending Ash Cloud (Greywater Fastness)`,
+  'Descending Ash Cloud (Greywater Fastness)': {
     effects: [
       {
         name: `Descending Ash Cloud (Greywater Fastness)`,
@@ -72,8 +65,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Eroding Blast (Greywater Fastness)`,
+  'Eroding Blast (Greywater Fastness)': {
     effects: [
       {
         name: `Eroding Blast (Greywater Fastness)`,
@@ -82,8 +74,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Choking Fumes (Greywater Fastness)`,
+  'Choking Fumes (Greywater Fastness)': {
     effects: [
       {
         name: `Choking Fumes (Greywater Fastness)`,
@@ -92,8 +83,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Amber Tide (The Phoenicium)`,
+  'Amber Tide (The Phoenicium)': {
     effects: [
       {
         name: `Amber Tide (The Phoenicium)`,
@@ -102,8 +92,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Phoenix Cry (The Phoenicium)`,
+  'Phoenix Cry (The Phoenicium)': {
     effects: [
       {
         name: `Phoenix Cry (The Phoenicium)`,
@@ -112,8 +101,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Golden Mist (The Phoenicium)`,
+  'Golden Mist (The Phoenicium)': {
     effects: [
       {
         name: `Golden Mist (The Phoenicium)`,
@@ -122,8 +110,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sap Strength (Anvilgard, Har Kuron)`,
+  'Sap Strength (Anvilgard, Har Kuron)': {
     effects: [
       {
         name: `Sap Strength (Anvilgard, Har Kuron)`,
@@ -132,8 +119,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shadow Daggers (Anvilgard, Har Kuron)`,
+  'Shadow Daggers (Anvilgard, Har Kuron)': {
     effects: [
       {
         name: `Shadow Daggers (Anvilgard, Har Kuron)`,
@@ -142,8 +128,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vitriolic Spray (Anvilgard, Har Kuron)`,
+  'Vitriolic Spray (Anvilgard, Har Kuron)': {
     effects: [
       {
         name: `Vitriolic Spray (Anvilgard, Har Kuron)`,
@@ -152,8 +137,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Roaming Wildfire (Hallowheart)`,
+  'Roaming Wildfire (Hallowheart)': {
     effects: [
       {
         name: `Roaming Wildfire (Hallowheart)`,
@@ -162,8 +146,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sear Wounds (Hallowheart)`,
+  'Sear Wounds (Hallowheart)': {
     effects: [
       {
         name: `Sear Wounds (Hallowheart)`,
@@ -172,8 +155,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Elemental Cyclone (Hallowheart)`,
+  'Elemental Cyclone (Hallowheart)': {
     effects: [
       {
         name: `Elemental Cyclone (Hallowheart)`,
@@ -182,8 +164,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Warding Brand (Hallowheart)`,
+  'Warding Brand (Hallowheart)': {
     effects: [
       {
         name: `Warding Brand (Hallowheart)`,
@@ -192,8 +173,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Crystal Aegis (Hallowheart)`,
+  'Crystal Aegis (Hallowheart)': {
     effects: [
       {
         name: `Crystal Aegis (Hallowheart)`,
@@ -202,8 +182,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ignite Weapons (Hallowheart)`,
+  'Ignite Weapons (Hallowheart)': {
     effects: [
       {
         name: `Ignite Weapons (Hallowheart)`,
@@ -212,8 +191,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Aura of Glory (Tempest's Eye)`,
+  "Aura of Glory (Tempest's Eye)": {
     effects: [
       {
         name: `Aura of Glory (Tempest's Eye)`,
@@ -222,8 +200,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Strike of Eagles (Tempest's Eye)`,
+  "Strike of Eagles (Tempest's Eye)": {
     effects: [
       {
         name: `Strike of Eagles (Tempest's Eye)`,
@@ -232,8 +209,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Celestial Visions (Tempest's Eye)`,
+  "Celestial Visions (Tempest's Eye)": {
     effects: [
       {
         name: `Celestial Visions (Tempest's Eye)`,
@@ -242,8 +218,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Withering (Har Kuron)`,
+  'The Withering (Har Kuron)': {
     effects: [
       {
         name: `The Withering (Har Kuron)`,
@@ -252,8 +227,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Steed of Shadows (Har Kuron)`,
+  'Steed of Shadows (Har Kuron)': {
     effects: [
       {
         name: `Steed of Shadows (Har Kuron)`,
@@ -262,8 +236,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Pit of Shadows (Har Kuron)`,
+  'Pit of Shadows (Har Kuron)': {
     effects: [
       {
         name: `Pit of Shadows (Har Kuron)`,
@@ -272,6 +245,133 @@ const Spells: TEntry[] = [
       },
     ],
   },
-]
 
-export default Spells
+  'Wildform (Ghur)': {
+    effects: [
+      {
+        name: `Wildform (Ghur)`,
+        desc: `Casting value of 5+. Pick 1 visible friendly unit within 12" of the caster. Add 2 to run and charge rolls for that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Chain Lightning (Azyr)': {
+    effects: [
+      {
+        name: `Chain Lightning (Azyr)`,
+        desc: `Casting value of 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a D6 for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Fireball (Aqshy)': {
+    effects: [
+      {
+        name: `Fireball (Aqshy)`,
+        desc: `Casting value of 5+. Pick 1 visible enemy unit within 18" of the caster. If the enemy unit has 1 model, it suffers 1 mortal wound; if it has 2 to 9 models, it suffers D3 mortal wounds; and if it has 10 or more models, it suffers D6 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Mystifying Miasma (Ulgu)': {
+    effects: [
+      {
+        name: `Mystifying Miasma (Ulgu)`,
+        desc: `Casting value of 4+. Pick 1 visible enemy unit within 18" of the caster. That unit cannot run until your next hero phase. In addition, subtract 2 from charge rolls for that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Pall of Doom (Shyish)': {
+    effects: [
+      {
+        name: `Pall of Doom (Shyish)`,
+        desc: `Casting value of 6+. Pick 1 visible enemy unit within 18" of the caster. Subtract 2 from the Bravery characteristic of that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  "Pha's Protection (Hysh)": {
+    effects: [
+      {
+        name: `Pha's Protection (Hysh)`,
+        desc: `Casting value of 5+. Pick 1 visible friendly unit within 18" of the caster. Subtract 1 from hit rolls for attacks that target that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Transmutation of Lead (Chamon)': {
+    effects: [
+      {
+        name: `Transmutation of Lead (Chamon)`,
+        desc: `Casting value of 7+. Pick 1 visible enemy unit within 18" of the caster. Until your next hero phase, halve the Move characteristic of the unit you picked, rounding up. In addition, if that unit has a Save characteristic of 2+, 3+ or 4+, you can reroll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Shield of Thorns (Ghyran)': {
+    effects: [
+      {
+        name: `Shield of Thorns (Ghyran)`,
+        desc: `Casting value of 5+. Pick 1 visible friendly unit within 18" of the caster. Until your next hero phase, any enemy unit that finishes a charge move within 3" of that unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Amber Spear': {
+    effects: [
+      {
+        name: `Amber Spear`,
+        desc: `Casting value of 7+. Pick 1 visible point on the battlefield within 18" of the caster. Draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Roll a D6 for each unit that has models passed across by this line. On a 2+, that unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Comet of Casandora': {
+    effects: [
+      {
+        name: `Comet of Casandora`,
+        desc: `Casting value of 6+. Pick 1 visible enemy unit within 18" of the caster and roll 2D6. If the roll is less than or equal to that unit's Move characteristic, that unit suffers D3 mortal wounds. If the roll is greater than that unit's Move characteristic, that unit suffers D6 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Burning Gaze': {
+    effects: [
+      {
+        name: `Burning Gaze`,
+        desc: `Casting value of 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Double the number of wounds inflicted if that unit has 10 or more models, or triple the number of wounds inflicted if that unit has 20 or more models.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Word of Pain': {
+    effects: [
+      {
+        name: `Word of Pain`,
+        desc: `Cast on 7+. Pick 1 visible enemy unit within 18". That unit suffers D3 mortal wounds. In addition, subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  Bladewind: {
+    effects: [
+      {
+        name: `Bladewind`,
+        desc: `Cast on 6+. Pick 1 visible enemy unit within 18" and roll 9 dice. For each roll that is lower than that unit's Save characteristic, that unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Armour of Thorns': {
+    effects: [
+      {
+        name: `Armour of Thorns`,
+        desc: `7+ casting value. Pick 1 friendly WANDERERS unit wholly within 18" of the caster that is visible to them. Until that unit moves, that unit is treated as being in cover.In addition, until that unit moves, if the unmodified save roll for an attack made with a melee weapon that targets that unit is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+}
+
+export default tagAs(Spells, 'spell')

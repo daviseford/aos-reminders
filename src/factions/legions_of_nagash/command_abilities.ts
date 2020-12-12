@@ -13,5 +13,4 @@ const CommandAbilities = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(CommandAbilities, 'command_ability')

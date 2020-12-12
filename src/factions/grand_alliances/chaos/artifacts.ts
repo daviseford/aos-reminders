@@ -7,7 +7,6 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-// Add individual artifacts here, and access them in other files!
 const ChaosArtifacts = {
   'Daemon Weapon (Chaos)': {
     effects: [
@@ -65,5 +64,4 @@ const ChaosArtifacts = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(ChaosArtifacts, 'artifact')

@@ -41,7 +41,7 @@ const Spells = {
     ],
   },
   // Legion of the First Prince Flavor
-  'The Master`s Command': {
+  "The Master's Command": {
     effects: [
       {
         name: `The Master's Command`,

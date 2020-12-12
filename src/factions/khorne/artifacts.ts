@@ -168,7 +168,7 @@ const Artifacts = {
     ],
   },
   // Daemonic Weapons
-  'A`rgath, the King of Blades': {
+  "A'rgath, the King of Blades": {
     effects: [
       {
         name: `A'rgath, the King of Blades`,
@@ -213,7 +213,7 @@ const Artifacts = {
       },
     ],
   },
-  'Foe`s Bane': {
+  "Foe's Bane": {
     effects: [
       {
         name: `Foe's Bane`,
@@ -303,7 +303,7 @@ const Artifacts = {
     ],
   },
   // Goretide
-  'Thronebreaker`s Torc': {
+  "Thronebreaker's Torc": {
     effects: [
       {
         name: `Thronebreaker's Torc`,

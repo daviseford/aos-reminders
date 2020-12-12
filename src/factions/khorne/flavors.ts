@@ -18,14 +18,14 @@ const Flavors = {
     mandatory: {
       artifacts: [keyPicker(Artifacts, ['Halo of Blood'])],
       command_abilities: [keyPicker(CommandAbilities, ['First in His Sight'])],
-      command_traits: [keyPicker(CommandTraits, ['Slaughterer`s Thirst'])],
+      command_traits: [keyPicker(CommandTraits, ["Slaughterer's Thirst"])],
     },
     effects: [...pickEffects(BattleTraits, ['Slay the Mighty'])],
   },
 
   'The Goretide': {
     mandatory: {
-      artifacts: [keyPicker(Artifacts, ['Thronebreaker`s Torc'])],
+      artifacts: [keyPicker(Artifacts, ["Thronebreaker's Torc"])],
       command_abilities: [keyPicker(CommandAbilities, ['Ever Onwards'])],
       command_traits: [keyPicker(CommandTraits, ['Hew the Foe'])],
     },

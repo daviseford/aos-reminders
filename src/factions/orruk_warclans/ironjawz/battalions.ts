@@ -99,5 +99,4 @@ const IronjawzBattalions = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(IronjawzBattalions, 'battalion')

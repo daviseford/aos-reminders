@@ -1,6 +1,7 @@
 import { TItemDescriptions } from 'factions/factionTypes'
 import { LETHISIAN_DEFENDERS } from 'meta/factions'
 import FyreslayersUnits from '../fyreslayers/units'
+import IdonethUnits from '../idoneth_deepkin/units'
 import KharadronUnits from '../kharadron_overlords/units'
 import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
 import StormcastUnits from '../stormcast_eternals/units'
@@ -27,8 +28,7 @@ const subFactions: TItemDescriptions = {
           'The Farstriders',
           'Vandus Hammerhand',
         ]),
-        // TODO: All units valid except Volturnos.
-        // keyOmitter(IdonethUnits, ['Volturnos, High King of the Deep']),
+        keyOmitter(IdonethUnits, ['Volturnos, High King of the Deep']),
       ],
       artifacts: [Artifacts],
       command_abilities: [CommandAbilities],

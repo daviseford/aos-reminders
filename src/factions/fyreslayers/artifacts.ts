@@ -9,6 +9,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts = {
@@ -214,11 +215,10 @@ const Artifacts = {
       {
         name: `Igneous Battle-throne`,
         desc: `6+ to ignore wounds or mortal wounds allocated to the bearer.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
 }
 
-// Always export using tagAs
 export default tagAs(Artifacts, 'artifact')

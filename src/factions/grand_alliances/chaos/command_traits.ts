@@ -59,5 +59,4 @@ const ChaosCommandTraits = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(ChaosCommandTraits, 'command_trait')

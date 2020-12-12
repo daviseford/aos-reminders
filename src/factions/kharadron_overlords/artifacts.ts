@@ -15,7 +15,6 @@ import {
 } from 'types/phases'
 import { GreatEndrinworks } from './common'
 
-// Add individual artifacts here, and access them in other files!
 const Artifacts = {
   'Masterwrought Armour': {
     effects: [
@@ -236,5 +235,4 @@ const Artifacts = {
   },
 }
 
-// Always export using tagAs
 export default tagAs({ ...GreatEndrinworks, ...Artifacts }, 'artifact')

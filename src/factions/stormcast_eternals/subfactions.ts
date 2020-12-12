@@ -1,5 +1,6 @@
 import { TItemDescription } from 'factions/factionTypes'
 import { keyOmitter, pickEffects } from 'factions/metatagger'
+import CitiesOfSigmarUnits from '../cities_of_sigmar/units'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
@@ -49,7 +50,7 @@ const subFactions = {
     effects: pickEffects(BattleTraits, ['Celestial Sentinels']),
     available: {
       ...baseSubFaction.available,
-      // allied_units: [...getCitiesUnits()] // TODO when cities is added
+      allied_units: [CitiesOfSigmarUnits],
     },
   },
 }

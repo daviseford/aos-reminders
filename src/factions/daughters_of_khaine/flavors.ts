@@ -34,7 +34,7 @@ const Flavors = {
       command_abilities: [keyPicker(CommandAbilities, ['Power in the Blood'])],
       command_traits: [keyPicker(CommandTraits, ['Curse of the Bloody-Handed'])],
     },
-    effects: [...pickEffects(BattleTraits, ['Khaine`s Essence'])],
+    effects: [...pickEffects(BattleTraits, ["Khaine's Essence"])],
   },
 }
 
