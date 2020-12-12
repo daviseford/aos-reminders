@@ -3,7 +3,6 @@ import { COMBAT_PHASE, DURING_ROUND, HERO_PHASE, SAVES_PHASE, START_OF_HERO_PHAS
 import Units from './units'
 
 const RegularBattalions = {
-  // The name that you enter here is how it'll appear on the UI
   'Lords of the Lodge': {
     mandatory: {
       units: [keyPicker(Units, ['Auric Runemaster', 'Battlesmith', 'Hearthguard Berzerkers'])],
@@ -112,7 +111,6 @@ const RegularBattalions = {
 const SuperBattalions = {
   'Grand Fyrd': {
     mandatory: {
-      // This battalion requires these two battalions to be a part of it.
       battalions: [keyPicker(RegularBattalions, ['Lords of the Lodge', 'Warrior Kinband', 'Forge Brethren'])],
     },
     effects: [
@@ -125,7 +123,6 @@ const SuperBattalions = {
   },
   'The Grand Fyrd of Furios Peak': {
     mandatory: {
-      // This battalion requires these two battalions to be a part of it.
       battalions: [
         keyPicker(RegularBattalions, [
           'Lords of Vostarg',
@@ -145,8 +142,6 @@ const SuperBattalions = {
   },
 }
 
-// Merge the Battalions
 const Battalions = { ...RegularBattalions, ...SuperBattalions }
 
-// Always export using tagAs
 export default tagAs(Battalions, 'battalion')

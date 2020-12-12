@@ -1,5 +1,8 @@
+import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
+import CitiesOfSigmarUnits from 'factions/cities_of_sigmar/units'
+import GloomspiteGitzUnits from 'factions/gloomspite_gitz/units'
 import { keyPicker, tagAs } from 'factions/metatagger'
-import units from 'factions/ogor_mawtribes/units'
+import OgorMawtribeUnits from 'factions/ogor_mawtribes/units'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -21,7 +24,7 @@ const Units = {
     ],
   },
   'Tenebrous Court Mercenary Company': {
-    // mandatory: { units: [keyPicker(LegionsOfNagashUnits, ['Necromancer'])] },
+    // TODO mandatory: { units: [keyPicker(LegionsOfNagashUnits, ['Necromancer'])] },
     effects: [
       {
         name: `Frightful Allies`,
@@ -40,7 +43,7 @@ const Units = {
     ],
   },
   'Order Of The Blood-Drenched Rose Mercenary Company': {
-    // mandatory: { units: [keyPicker(LegionsOfNagashUnits, ['Blood Knights'])] },
+    // TODO mandatory: { units: [keyPicker(LegionsOfNagashUnits, ['Blood Knights'])] },
     effects: [
       {
         name: `Unreasoning Bloodlust`,
@@ -50,7 +53,7 @@ const Units = {
     ],
   },
   'Grugg Brothers Mercenary Company': {
-    // mandatory: { units: [keyPicker(GloomspiteGitzUnits, ['Aleguzzler Gargant'])] },
+    mandatory: { units: [keyPicker(GloomspiteGitzUnits, ['Aleguzzler Gargant'])] },
     effects: [
       {
         name: `Sibling Rivalry`,
@@ -60,7 +63,7 @@ const Units = {
     ],
   },
   "Nimyard's Rough-Riders Mercenary Company": {
-    // mandatory: { units: [keyPicker(CitiesOfSigmarUnits, ['Freeguild Pistoliers'])] },
+    mandatory: { units: [keyPicker(CitiesOfSigmarUnits, ['Freeguild Pistoliers'])] },
     effects: [
       {
         name: `Eyes And Ears`,
@@ -88,7 +91,7 @@ const Units = {
     ],
   },
   "Skroug's Menagerie Mercenary Company": {
-    // mandatory: { units: [keyPicker(BeastsOfChaosUnits, ['Chaos Gargant'])] },
+    mandatory: { units: [keyPicker(BeastsOfChaosUnits, ['Chaos Gargant'])] },
     effects: [
       {
         name: `Lord And Master`,
@@ -98,7 +101,7 @@ const Units = {
     ],
   },
   'The Gutstuffers Mercenary Company': {
-    mandatory: { units: [keyPicker(units, ['Firebelly', 'Maneaters'])] },
+    mandatory: { units: [keyPicker(OgorMawtribeUnits, ['Firebelly', 'Maneaters'])] },
     effects: [
       {
         name: `Hungry Beyond Reason`,

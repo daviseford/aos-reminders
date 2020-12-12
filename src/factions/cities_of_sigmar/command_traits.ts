@@ -16,7 +16,6 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandTraits = {
   'Acadamae Prodigy (Hammerhal)': {
     effects: [
@@ -346,5 +345,4 @@ const CommandTraits = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(CommandTraits, 'command_trait')

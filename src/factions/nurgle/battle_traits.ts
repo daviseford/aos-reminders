@@ -94,7 +94,7 @@ const BattleTraits = {
     effects: [NurglesEmbraceEffect],
   },
   // Tamurkhan's Horde Battle Traits
-  'Tamurkhan`s Horde': {
+  "Tamurkhan's Horde": {
     effects: [
       {
         name: `Tamurkhan's Horde Army`,
