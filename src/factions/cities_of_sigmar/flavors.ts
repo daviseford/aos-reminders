@@ -1,17 +1,14 @@
+import { keyPicker } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
-  END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
-  END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
-  START_OF_BATTLESHOCK_PHASE,
-  START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
   TURN_FOUR_START_OF_ROUND,
@@ -19,9 +16,14 @@ import {
   TURN_ONE_MOVEMENT_PHASE,
   TURN_ONE_START_OF_HERO_PHASE,
 } from 'types/phases'
+import command_abilities from './command_abilities'
+import prayers from './prayers'
 
 const Flavors = {
   Hammerhal: {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Righteous Purpose'])],
+    },
     effects: [
       {
         name: `Banners Held High`,
@@ -38,15 +40,12 @@ const Flavors = {
         desc: `Do not take battleshock tests for HAMMERHAL units that are wholly within your territory.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Righteous Purpose`,
-        desc: `Pick 1 friendly HAMMERHAL unit that is wholly within enemy territory, wholly within 12" of a friendly HAMMERHAL HERO, and within 3" of an enemy unit. That friendly unit can fight. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [END_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
   'The Living City': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Strike then Melt Away'])],
+    },
     effects: [
       {
         name: `Hunters of the Hidden Paths`,
@@ -58,39 +57,25 @@ const Flavors = {
         desc: `You can heal 1 wound allocated to each friendly LIVING CITY unit.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Strike then Melt Away`,
-        desc: `Pick 1 friendly LIVING CITY unit that shot in that phase, is more than 9" from any enemy units and is wholly within 18" of af riendly LIVING CITY HERO. That unit can make a normal move (it cannot run). A unit cannot benefit from this command ability more than once per phase.`,
-        when: [END_OF_SHOOTING_PHASE],
-        command_ability: true,
-      },
     ],
   },
   'Greywater Fastness': {
+    mandatory: {
+      prayers: [keyPicker(prayers, ['Rune Lore'])],
+      command_abilities: [keyPicker(command_abilities, ['Salvo Fire'])],
+    },
     effects: [
-      {
-        name: `Rune Lore`,
-        desc: `In your hero phase, 1 friendly GREYWATER FASTNESS RUNELORD can chant the following prayer in addition to any prayer on their warscroll. If they do so, make a prayer roll by rolling a dice. On a 1, the prayer is not answered. On a 2+, the prayer is answered.
-
-        Rune of Unfaltering Aim: If this prayer is answered, pick 1 friendly IRONWELD ARSENAL WAR MACHINE unit within 3" of this model. Until the start of your next hero phase, add 1 to hit rolls for attacks made with missile weapons by that unit.`,
-        when: [HERO_PHASE],
-
-        prayer: true,
-      },
       {
         name: `Home of the Great Ironweld Guilds`,
         desc: `Increase the Range characteristic of missile weapons used by friendly GREYWATER FASTNESS IRONWELD ARSENAL units by 3" (this does not affect the weapon's minimum range, if it has one).`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Salvo Fire`,
-        desc: `You can use this command ability in your shooting phase. If you do so, pick 1 friendly GREYWATER FASTNESS FREEGUILD HANDGUNNERS unit or 1 friendly GREYWATER FASTNESS IRONDRAKES unit wholly within 12" of a friendly GREYWATER FASTNESS HERO. Add 1 to hit rolls for attacks made with missile weapons by that unit until the end of that phase. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [SHOOTING_PHASE],
-        command_ability: true,
-      },
     ],
   },
   'The Phoenicium': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Living Idols'])],
+    },
     effects: [
       {
         name: `Vengeful Revenants`,
@@ -102,15 +87,12 @@ const Flavors = {
         desc: `Add 1 to the Wounds characteristic of PHOENICIUM FROSTHEART PHOENIXES and PHOENICIUM FLAMESPYRE PHOENIXES.`,
         when: [DURING_GAME],
       },
-      {
-        name: `Living Idols`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly PHOENICIUM HERO FLAMESPYRE PHOENIX or 1 friendly PHOENICIUM HERO FROSTHEART PHOENIX. Until the end of that phase, if a friendly PHOENICIUM model is slain while it is within 12" of that HERO, that model can fight before it is removed from play.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
   Anvilgard: {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Make an Example of the Weak (Anvilgard)'])],
+    },
     effects: [
       {
         name: `Illicit Dealings`,
@@ -130,15 +112,12 @@ const Flavors = {
         You can choose 1 additional friendly ANVILGARD DRAGON, ANVILGARD KHARIBDYSS or ANVILGARD WAR HYDRA to have a Drakeblood curse for each warscroll battalion in your army. A model cannot have more than 1 Drakeblood curse, and an army may not include duplicates of the same Drakeblood curse.`,
         when: [START_OF_SETUP],
       },
-      {
-        name: `Make an Example of the Weak (Anvilgard)`,
-        desc: `You can use this command ability at the start of the battleshock phase. If you do so, pick 1 friendly ANVILGARD unit wholly within 12" of a friendly ANVILGARD HERO. 1 model in that unit is slain. However, in that phase, you do not need to take battleshock tests for friendly ANVILGARD units wholly within 18" of that unit.`,
-        when: [START_OF_BATTLESHOCK_PHASE],
-        command_ability: true,
-      },
     ],
   },
   Hallowheart: {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Arcane Channelling'])],
+    },
     effects: [
       {
         name: `Eldritch Attunement`,
@@ -150,15 +129,12 @@ const Flavors = {
         desc: `HALLOWHEART WIZARDS can attempt to cast 1 extra spell in each of their hero phases.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Arcane Channelling`,
-        desc: `You can use this command ability once per turn at the start of your hero phase. If you do so, pick 1 friendly HALLOWHEART WIZARD HERO and roll a D6. That WIZARD suffers a number of mortal wounds equal to that roll. In addition, until the start of your next hero phase, add the number of mortal wounds suffered by that WIZARD and not negated to casting rolls made by other friendly HALLOWHEART WIZARDS while they are within 12" of that WIZARD.`,
-        when: [START_OF_HERO_PHASE],
-        command_ability: true,
-      },
     ],
   },
   "Tempest's Eye": {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Rapid Redeploy'])],
+    },
     effects: [
       {
         name: `Alert and Forewarned`,
@@ -175,15 +151,12 @@ const Flavors = {
         desc: `Add 1 to run rolls for friendly TEMPEST'S EYE units.`,
         when: [MOVEMENT_PHASE],
       },
-      {
-        name: `Rapid Redeploy`,
-        desc: `You can use this command ability in your shooting phase. If you do so, pick 1 friendly TEMPEST'S EYE unit that is wholly within 12" of a friendly TEMPEST'S EYE HERO. That unit can shoot even if it ran in the same turn.`,
-        when: [SHOOTING_PHASE],
-        command_ability: true,
-      },
     ],
   },
   Misthavn: {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Shadowstrike'])],
+    },
     effects: [
       {
         name: `Underhanded Tactics`,
@@ -206,15 +179,12 @@ const Flavors = {
         desc: `An equipped hero can use its narcotic once per battle. It has no effect on the bearer's mount.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Shadowstrike`,
-        desc: `Once per turn, when you set up a flanking force from your reserve wholly within 12" of a friendly Misthavn hero, that unit can move up to D6" (it cannot run).`,
-        when: [END_OF_MOVEMENT_PHASE],
-        command_ability: true,
-      },
     ],
   },
   'Har Kuron': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Make an Example of the Weak (Har Kuron)'])],
+    },
     effects: [
       {
         name: `Temples of Khaine`,
@@ -230,12 +200,6 @@ const Flavors = {
         name: `Incitement to Murder`,
         desc: `If active, unmodified hits of 6 made by the target score 2 hits instead of 1.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Make an Example of the Weak (Har Kuron)`,
-        desc: `Pick 1 friendly Har Kuron unit wholly within 12" of a friendly Har Kuron hero. 1 model in the target unit is slain. Friendly Har Kuron units within 18" of the targeted unit do not need to take battleshock tests.`,
-        when: [START_OF_BATTLESHOCK_PHASE],
-        command_ability: true,
       },
     ],
   },

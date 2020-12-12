@@ -1,27 +1,25 @@
-import { tagAs } from 'factions/metatagger'
-import { TEntry } from 'types/data'
-import { AZYR } from 'types/import'
+import { TItemDescriptions } from 'factions/factionTypes'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
-  END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
-  START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
-  START_OF_SHOOTING_PHASE,
   TURN_FOUR_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
+import command_abilities from './command_abilities'
+import prayers from './prayers'
+import spells from './spells'
 
 // const getKharadronUnits = () => KharadronOverlords.Units
 // const getStormcastUnits = () => Stormcast.Units
@@ -106,19 +104,11 @@ const SteamTankEffects = [
     when: [CHARGE_PHASE],
   },
 ]
-const SorceressEffects = [
-  {
-    name: `Blood Sacrifice`,
-    desc: `At the start of your hero phase, you can pick 1 friendly DARKLING COVEN model within 3" to be slain. If you do so, add 2 to casting rolls for this model until the end of that phase.`,
-    when: [START_OF_HERO_PHASE],
-  },
-  {
-    name: `Command Underlings`,
-    desc: `Pick 1 friendly DARKLING COVEN unit wholly within 12" of a friendly DARKLING COVEN HERO with this command ability. Until your next hero phase, that unit can run and still shoot and/or charge later in the same turn.`,
-    when: [HERO_PHASE],
-    command_ability: true,
-  },
-]
+const BloodSacrificeEffect = {
+  name: `Blood Sacrifice`,
+  desc: `At the start of your hero phase, you can pick 1 friendly DARKLING COVEN model within 3" to be slain. If you do so, add 2 to casting rolls for this model until the end of that phase.`,
+  when: [START_OF_HERO_PHASE],
+}
 const NoxiousBreathEffect = {
   name: `Noxious Breath`,
   desc: `Do not use the attack sequence for an attack made with Noxious Breath. Instead, roll a number of dice equal to the number of models from the target unit that are in range of the attack. For each 6, the target unit suffers 1 mortal wound.`,
@@ -229,106 +219,77 @@ const BattlemageMagicEffect = {
   desc: `This model knows the spell from its warscroll that includes the name of the realm it comes from.`,
   when: [HERO_PHASE],
 }
-const WildformEffect = {
-  name: `Wildform (${GHUR})`,
-  desc: `Casting value of 5+. Pick 1 visible friendly unit within 12" of the caster. Add 2 to run and charge rolls for that unit until your next hero phase.`,
-  when: [HERO_PHASE],
-  spell: true,
-}
-const ChainLightningEffect = {
-  name: `Chain Lightning (${AZYR})`,
-  desc: `Casting value of 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Then, roll a D6 for every other enemy unit within 6" of the original target. On a 4+, that unit suffers D3 mortal wounds.`,
-  when: [HERO_PHASE],
-  spell: true,
-}
-const FireballEffect = {
-  name: `Fireball (${AQSHY})`,
-  desc: `Casting value of 5+. Pick 1 visible enemy unit within 18" of the caster. If the enemy unit has 1 model, it suffers 1 mortal wound; if it has 2 to 9 models, it suffers D3 mortal wounds; and if it has 10 or more models, it suffers D6 mortal wounds.`,
-  when: [HERO_PHASE],
-  spell: true,
-}
-const MystifyingMiasmaEffect = {
-  name: `Mystifying Miasma (${ULGU})`,
-  desc: `Casting value of 4+. Pick 1 visible enemy unit within 18" of the caster. That unit cannot run until your next hero phase. In addition, subtract 2 from charge rolls for that unit until your next hero phase.`,
-  when: [HERO_PHASE],
-  spell: true,
-}
-const PallOfDoomEffect = {
-  name: `Pall of Doom (${SHYISH})`,
-  desc: `Casting value of 6+. Pick 1 visible enemy unit within 18" of the caster. Subtract 2 from the Bravery characteristic of that unit until your next hero phase.`,
-  when: [HERO_PHASE],
-  spell: true,
-}
-const PhasProtectionEffect = {
-  name: `Pha's Protection (${HYSH})`,
-  desc: `Casting value of 5+. Pick 1 visible friendly unit within 18" of the caster. Subtract 1 from hit rolls for attacks that target that unit until your next hero phase.`,
-  when: [HERO_PHASE],
-  spell: true,
-}
-const TransmutationOfLeadEffect = {
-  name: `Transmutation of Lead (${CHAMON})`,
-  desc: `Casting value of 7+. Pick 1 visible enemy unit within 18" of the caster. Until your next hero phase, halve the Move characteristic of the unit you picked, rounding up. In addition, if that unit has a Save characteristic of 2+, 3+ or 4+, you can reroll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
-  when: [HERO_PHASE],
-  spell: true,
-}
-const ShieldOfThornsEffect = {
-  name: `Shield of Thorns (${GHYRAN})`,
-  desc: `Casting value of 5+. Pick 1 visible friendly unit within 18" of the caster. Until your next hero phase, any enemy unit that finishes a charge move within 3" of that unit suffers D3 mortal wounds.`,
-  when: [HERO_PHASE],
-  spell: true,
-}
 
-export const aUnits: TEntry[] = [
-  {
-    name: `Battlemage`,
-    effects: [
-      BattlemageMagicEffect,
-      ChainLightningEffect,
-      FireballEffect,
-      MagicOfTheRealmsCastingEffect,
-      MagicOfTheRealmsEffect,
-      MystifyingMiasmaEffect,
-      PallOfDoomEffect,
-      PhasProtectionEffect,
-      ShieldOfThornsEffect,
-      TransmutationOfLeadEffect,
-      WildformEffect,
-    ],
+const Units: TItemDescriptions = {
+  Battlemage: {
+    mandatory: {
+      spells: [
+        keyPicker(spells, [
+          'Chain Lightning (Azyr)',
+          'Fireball (Aqshy)',
+          'Mystifying Miasma (Ulgu)',
+          'Pall of Doom (Shyish)',
+          "Pha's Protection (Hysh)",
+          'Shield of Thorns (Ghyran)',
+          'Transmutation of Lead (Chamon)',
+          'Wildform (Ghur)',
+        ]),
+      ],
+    },
+    effects: [BattlemageMagicEffect, MagicOfTheRealmsCastingEffect, MagicOfTheRealmsEffect],
   },
-  {
-    name: `Battlemage (${AZYR})`,
-    effects: [MagicOfTheRealmsCastingEffect, ChainLightningEffect],
+  'Battlemage (Ayzr)': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Chain Lightning (Azyr)'])],
+    },
+    effects: [MagicOfTheRealmsCastingEffect],
   },
-  {
-    name: `Battlemage (${AQSHY})`,
-    effects: [MagicOfTheRealmsCastingEffect, FireballEffect],
+  'Battlemage (Aqshy)': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Fireball (Aqshy)'])],
+    },
+    effects: [MagicOfTheRealmsCastingEffect],
   },
-  {
-    name: `Battlemage (${ULGU})`,
-    effects: [MagicOfTheRealmsCastingEffect, MystifyingMiasmaEffect],
+  'Battlemage (Ulgu)': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Mystifying Miasma (Ulgu)'])],
+    },
+    effects: [MagicOfTheRealmsCastingEffect],
   },
-  {
-    name: `Battlemage (${SHYISH})`,
-    effects: [MagicOfTheRealmsCastingEffect, PallOfDoomEffect],
+  'Battlemage (Shyish)': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Pall of Doom (Shyish)'])],
+    },
+    effects: [MagicOfTheRealmsCastingEffect],
   },
-  {
-    name: `Battlemage (${HYSH})`,
-    effects: [MagicOfTheRealmsCastingEffect, PhasProtectionEffect],
+  'Battlemage (Hysh)': {
+    mandatory: {
+      spells: [keyPicker(spells, ["Pha's Protection (Hysh)"])],
+    },
+    effects: [MagicOfTheRealmsCastingEffect],
   },
-  {
-    name: `Battlemage (${CHAMON})`,
-    effects: [MagicOfTheRealmsCastingEffect, TransmutationOfLeadEffect],
+  'Battlemage (Chamon)': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Transmutation of Lead (Chamon)'])],
+    },
+    effects: [MagicOfTheRealmsCastingEffect],
   },
-  {
-    name: `Battlemage (${GHUR})`,
-    effects: [MagicOfTheRealmsCastingEffect, WildformEffect],
+  'Battlemage (Ghur)': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Wildform (Ghur)'])],
+    },
+    effects: [MagicOfTheRealmsCastingEffect],
   },
-  {
-    name: `Battlemage (${GHYRAN})`,
-    effects: [MagicOfTheRealmsCastingEffect, ShieldOfThornsEffect],
+  'Battlemage (Ghyran)': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Shield of Thorns (Ghyran)'])],
+    },
+    effects: [MagicOfTheRealmsCastingEffect],
   },
-  {
-    name: `Battlemage on Griffon`,
+  'Battlemage on Griffon': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Amber Spear', 'Wildform (Ghur)'])],
+    },
     effects: [
       {
         name: `Amber Battlemage`,
@@ -340,17 +301,12 @@ export const aUnits: TEntry[] = [
         desc: `If the unmodified hit roll for an attack made with Twin Beaks is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Amber Spear`,
-        desc: `Casting value of 7+. Pick 1 visible point on the battlefield within 18" of the caster. Draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Roll a D6 for each unit that has models passed across by this line. On a 2+, that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      WildformEffect,
     ],
   },
-  {
-    name: `Celestial Hurricanum with Celestial Battlemage`,
+  'Celestial Hurricanum with Celestial Battlemage': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Comet of Casandora', 'Chain Lightning (Azyr)'])],
+    },
     effects: [
       {
         name: `Celestial Battlemage`,
@@ -358,21 +314,15 @@ export const aUnits: TEntry[] = [
         when: [HERO_PHASE],
       },
       ...CelestialHurricanumEffects,
-      ChainLightningEffect,
-      {
-        name: `Comet of Casandora`,
-        desc: `Casting value of 6+. Pick 1 visible enemy unit within 18" of the caster and roll 2D6. If the roll is less than or equal to that unit's Move characteristic, that unit suffers D3 mortal wounds. If the roll is greater than that unit's Move characteristic, that unit suffers D6 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Celestial Hurricanum`,
+  'Celestial Hurricanum': {
     effects: [...CelestialHurricanumEffects],
   },
-  {
-    name: `Luminark of Hysh with White Battlemage`,
+  'Luminark of Hysh with White Battlemage': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Burning Gaze'])],
+    },
     effects: [
       ...LuminarkEffects,
       {
@@ -380,20 +330,12 @@ export const aUnits: TEntry[] = [
         desc: `Add 1 to casting rolls for this model if the battle is taking place in Hysh.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Burning Gaze`,
-        desc: `Casting value of 6+. Pick 1 visible enemy unit within 18" of the caster. That unit suffers D3 mortal wounds. Double the number of wounds inflicted if that unit has 10 or more models, or triple the number of wounds inflicted if that unit has 20 or more models.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Luminark of Hysh`,
+  'Luminark of Hysh': {
     effects: [...LuminarkEffects],
   },
-  {
-    name: `Flagellants`,
+  Flagellants: {
     effects: [
       {
         name: `Prophet`,
@@ -417,8 +359,11 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Freeguild General`,
+  'Freeguild General': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Hold the Line'])],
+      spells: [keyPicker(spells, [])],
+    },
     effects: [
       DecapitatingSwingEffect,
       {
@@ -426,16 +371,12 @@ export const aUnits: TEntry[] = [
         desc: `Add 1 to the Bravery characteristic of friendly FREEGUILD units while they are wholly within 18" of this model.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Hold the Line`,
-        desc: `Pick up to 3 friendly FREEGUILD units wholly within 18" of a friendly FREEGUILD HERO with this command ability. Until the start of your next hero phase, add 1 to hit and wound rolls for attacks made by those friendly units if they have not made a normal move or a charge move in the same turn. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Freeguild General on Griffon`,
+  'Freeguild General on Griffon': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Rousing Battle Cry'])],
+    },
     effects: [
       {
         name: `Charging Lance`,
@@ -462,16 +403,9 @@ export const aUnits: TEntry[] = [
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 8" of any friendly units with this ability.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Rousing Battle Cry`,
-        desc: `Pick 1 friendly FREEGUILD HERO with this CA. Until the end of that phase, add 1 to charge rolls for friendly FREEGUILD units while they are wholly within 12" of that HERO. In addition, in the next combat phase, add 1 to hit rolls for attacks made with melee weapons by friendly FREEGUILD units while they are wholly within 12" of that HERO. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_CHARGE_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Freeguild Guard`,
+  'Freeguild Guard': {
     effects: [
       {
         name: `Sergeant`,
@@ -497,8 +431,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Freeguild Crossbowmen`,
+  'Freeguild Crossbowmen': {
     effects: [
       {
         name: `Marksman`,
@@ -518,8 +451,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Freeguild Handgunners`,
+  'Freeguild Handgunners': {
     effects: [
       {
         name: `Marksman`,
@@ -549,8 +481,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Freeguild Greatswords`,
+  'Freeguild Greatswords': {
     effects: [
       {
         name: `Guild Champion`,
@@ -567,8 +498,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Demigryph Knights`,
+  'Demigryph Knights': {
     effects: [
       {
         name: `Preceptor`,
@@ -589,8 +519,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Freeguild Outriders`,
+  'Freeguild Outriders': {
     effects: [
       {
         name: `Sharpshooter`,
@@ -610,8 +539,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Freeguild Pistoliers`,
+  'Freeguild Pistoliers': {
     effects: [
       {
         name: `Outrider`,
@@ -631,51 +559,31 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Warden King`,
+  'Warden King': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Ancestral Grudge'])],
+    },
     effects: [
       {
         name: `Oath Stone`,
         desc: `In your hero phase, you can say this model will stand atop its oath stone. If you do so, until the start of your next turn, this model cannot move. In addition, until the start of your next turn, do not take battleshock tests for friendly DISPOSSESSED units wholly within 18" of this model.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Ancestral Grudge`,
-        desc: `Pick 1 enemy unit within 18" of a friendly HERO with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of attacks made with melee weapons used by friendly DISPOSSESSED units that target that unit. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Runelord`,
+  Runelord: {
+    mandatory: {
+      prayers: [keyPicker(prayers, ['Rune Lore: Ancestral Shield', 'Rune Lore: Forge Fire'])],
+    },
     effects: [
       {
         name: `Runes of Spellbreaking`,
         desc: `This model can attempt to dispel 1 endless spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. Add 2 to dispelling and unbinding rolls for this model.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Rune Lore: Ancestral Shield`,
-        desc: `2+ for this prayer to succeed. Pick 1 friendly DISPOSSESSED unit wholly within 12" of this model. Until the start of your next hero phase, roll a D6 each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
-        when: [HERO_PHASE],
-        prayer: true,
-      },
-      {
-        name: `Rune Lore: Ancestral Shield`,
-        desc: `If active, roll a D6 each time you allocate a wound or mortal wound to that unit. On a 6, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-      {
-        name: `Rune Lore: Forge Fire`,
-        desc: `2+ for this prayer to succeed. Pick 1 friendly DISPOSSESSED unit wholly within 12" of this model. Until the start of your next hero phase, improve the Rend characteristic of that unit's weapons by 1.`,
-        when: [HERO_PHASE],
-        prayer: true,
-      },
     ],
   },
-  {
-    name: `Longbeards`,
+  Longbeards: {
     effects: [
       {
         name: `Old Guard`,
@@ -711,8 +619,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ironbreakers`,
+  Ironbreakers: {
     effects: [
       {
         name: `Ironbeard`,
@@ -733,8 +640,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Irondrakes`,
+  Irondrakes: {
     effects: [
       {
         name: `Ironwarden`,
@@ -770,8 +676,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Hammerers`,
+  Hammerers: {
     effects: [
       {
         name: `Keeper of the gate`,
@@ -792,15 +697,11 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Steam Tank with Commander`,
+  'Steam Tank with Commander': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Target Sighted'])],
+    },
     effects: [
-      {
-        name: `Target Sighted`,
-        desc: `Pick 1 friendly IRONWELD ARSENEL HERO with this command ability and 1 enemy unit. Until the end of that phase, add 1 to hit rolls for attacks that target that enemy unit made by friendly STEAM TANKS while they are within 6" of that friendly IRONWELD ARSENEL HERO. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_SHOOTING_PHASE],
-        command_ability: true,
-      },
       {
         name: `I'll Fix It`,
         desc: `In your hero phase, you can heal up to D3 wounds allocated to this model if it includes a Commander and has not used the More Pressure! ability.`,
@@ -809,8 +710,7 @@ export const aUnits: TEntry[] = [
       ...SteamTankEffects,
     ],
   },
-  {
-    name: `Cogsmith`,
+  Cogsmith: {
     effects: [
       {
         name: `Free Arm`,
@@ -829,12 +729,10 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Steamtank`,
+  Steamtank: {
     effects: [...SteamTankEffects],
   },
-  {
-    name: `Helstorm Rocket Battery`,
+  'Helstorm Rocket Battery': {
     effects: [
       {
         name: `Rocket Salvo`,
@@ -848,8 +746,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Helblaster Volley Gun`,
+  'Helblaster Volley Gun': {
     effects: [
       {
         name: `Point Blank`,
@@ -868,8 +765,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gyrobombers`,
+  Gyrobombers: {
     effects: [
       {
         name: `Grudgebuster Bombs`,
@@ -878,8 +774,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gyrocopters`,
+  Gyrocopters: {
     effects: [
       {
         name: `Steam Gun`,
@@ -893,39 +788,21 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sorceress`,
-    effects: [
-      ...SorceressEffects,
-      {
-        name: `Word of Pain`,
-        desc: `Cast on 7+. Pick 1 visible enemy unit within 18". That unit suffers D3 mortal wounds. In addition, subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-    ],
+  Sorceress: {
+    mandatory: {
+      spells: [keyPicker(spells, ['Word of Pain'])],
+      command_abilities: [keyPicker(command_abilities, ['Command Underlings'])],
+    },
+    effects: [BloodSacrificeEffect],
   },
-  {
-    name: `Sorceress on Black Dragon`,
-    effects: [
-      ...SorceressEffects,
-      NoxiousBreathEffect,
-      {
-        name: `Bladewind`,
-        desc: `Cast on 6+. Pick 1 visible enemy unit within 18" and roll 9 dice. For each roll that is lower than that unit's Save characteristic, that unit suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Inspire Hatred`,
-        desc: `Pick 1 friendly DARKLING COVEN unit wholly within 12" of a friendly DARKLING COVEN HERO with this command ability. You can reroll wound rolls of 1 for attacks made by that unit in that combat phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
-    ],
+  'Sorceress on Black Dragon': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Bladewind'])],
+      command_abilities: [keyPicker(command_abilities, ['Command Underlings', 'Inspire Hatred'])],
+    },
+    effects: [BloodSacrificeEffect, NoxiousBreathEffect],
   },
-  {
-    name: `Dreadspears`,
+  Dreadspears: {
     effects: [
       StandardBearerEffect,
       HornblowerEffect,
@@ -937,8 +814,7 @@ export const aUnits: TEntry[] = [
       ...LordlingAndRanksOfColdSteelEffects,
     ],
   },
-  {
-    name: `Bleakswords`,
+  Bleakswords: {
     effects: [
       StandardBearerEffect,
       HornblowerEffect,
@@ -950,8 +826,7 @@ export const aUnits: TEntry[] = [
       ...LordlingAndRanksOfColdSteelEffects,
     ],
   },
-  {
-    name: `Darkshards`,
+  Darkshards: {
     effects: [
       {
         name: `Guardmaster`,
@@ -967,8 +842,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Black Guard`,
+  'Black Guard': {
     effects: [
       {
         name: `Captain`,
@@ -984,8 +858,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Executioners`,
+  Executioners: {
     effects: [
       {
         name: `Draich Master`,
@@ -1001,8 +874,12 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Anointed`,
+  Anointed: {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Captain of the Phoenix Guard'])],
+      spells: [keyPicker(spells, [])],
+      prayers: [keyPicker(prayers, [])],
+    },
     effects: [
       {
         name: `Blessing of the Ur-Phoenix`,
@@ -1010,29 +887,18 @@ export const aUnits: TEntry[] = [
         when: [HERO_PHASE],
       },
       WitnessToDestinyEffect,
-      {
-        name: `Captain of the Phoenix Guard`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly HERO with this command ability. Until the end of that phase, you can reroll wound rolls for attacks made by friendly PHOENIX TEMPLE units while they are wholly within 12" of that HERO.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Anointed on Flamespyre Phoenix`,
-    effects: [
-      ...FlamespyrePhoenixEffects,
-      WitnessToDestinyEffect,
-      {
-        name: `Captain of the Phoenix Guard`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly FLAMESPYRE PHOENIX that includes an Anointed. Until the end of that phase, you can reroll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FLAMESPYRE PHOENIX.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
-    ],
+  'Anointed on Flamespyre Phoenix': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Captain of the Phoenix Guard (Flamespyre)'])],
+    },
+    effects: [...FlamespyrePhoenixEffects, WitnessToDestinyEffect],
   },
-  {
-    name: `Anointed on Frostheart Phoenix`,
+  'Anointed on Frostheart Phoenix': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Captain of the Phoenix Guard (Frostheart)'])],
+    },
     effects: [
       ...FrostheartPhoenixEffects,
       WitnessToDestinyEffect,
@@ -1044,16 +910,13 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Flamespyre Phoenix`,
+  'Flamespyre Phoenix': {
     effects: [...FlamespyrePhoenixEffects],
   },
-  {
-    name: `Frostheart Phoenix`,
+  'Frostheart Phoenix': {
     effects: [...FrostheartPhoenixEffects],
   },
-  {
-    name: `Phoenix Guard`,
+  'Phoenix Guard': {
     effects: [
       {
         name: `Keeper of the Flame`,
@@ -1074,8 +937,10 @@ export const aUnits: TEntry[] = [
       WitnessToDestinyEffect,
     ],
   },
-  {
-    name: `Dreadlord on Black Dragon`,
+  'Dreadlord on Black Dragon': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Do Not Disappoint Me'])],
+    },
     effects: [
       {
         name: `Lance of Spite`,
@@ -1093,16 +958,9 @@ export const aUnits: TEntry[] = [
         desc: `Add 1 to save rolls for attacks that target this model if it is armed with a Tyrant Shield.`,
         when: [SAVES_PHASE],
       },
-      {
-        name: `Do Not Disappoint Me`,
-        desc: `Pick 1 friendly HERO that knows this ability. Add 1 to wound rolls for attacks made by friendly ORDER SERPENTIS units that are wholly within 18" of that HERO. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Drakespawn Knights`,
+  'Drakespawn Knights': {
     effects: [
       {
         name: `Dread Knight`,
@@ -1122,8 +980,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Drakespawn Chariots`,
+  'Drakespawn Chariots': {
     effects: [
       {
         name: `Scythed Runners`,
@@ -1132,8 +989,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `War Hydra`,
+  'War Hydra': {
     effects: [
       QuickWithTheLashEffect,
       {
@@ -1143,8 +999,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Assassin`,
+  Assassin: {
     effects: [
       {
         name: `Deathshead Poison`,
@@ -1158,8 +1013,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dark Riders`,
+  'Dark Riders': {
     effects: [
       {
         name: `Herald`,
@@ -1184,8 +1038,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shadow Warriors`,
+  'Shadow Warriors': {
     effects: [
       {
         name: `Shadow Walker`,
@@ -1214,8 +1067,10 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Black Ark Fleetmaster`,
+  'Black Ark Fleetmaster': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['At Them, You Curs!'])],
+    },
     effects: [
       {
         name: `Murderous Swashbuckler`,
@@ -1223,16 +1078,9 @@ export const aUnits: TEntry[] = [
         when: [COMBAT_PHASE],
       },
       SeaDragonCloakEffect,
-      {
-        name: `At Them, You Curs!`,
-        desc: `Pick 1 friendly Scourge Privateers unit wholly within 12" of a friendly HERO with this command ability. Add 1 to the Attacks characteristic of that unit's melee weapons until the end of that phase. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Black Ark Corsairs`,
+  'Black Ark Corsairs': {
     effects: [
       {
         name: `Reaver`,
@@ -1249,8 +1097,7 @@ export const aUnits: TEntry[] = [
       SeaDragonCloakEffect,
     ],
   },
-  {
-    name: `Scourgerunner Chariots`,
+  'Scourgerunner Chariots': {
     effects: [
       {
         name: `High Beastmaster`,
@@ -1264,41 +1111,32 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Kharibdyss`,
+  Kharibdyss: {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Feast of Bones'])],
+    },
     effects: [
       {
         name: `Abyssal Howl`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units within 12" of any models with this ability.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Feast of Bones`,
-        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D3 wounds allocated to this model.`,
-        when: [END_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
       QuickWithTheLashEffect,
     ],
   },
-  {
-    name: `Nomad Prince`,
+  'Nomad Prince': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Lord of the Deepwood Host'])],
+    },
     effects: [
       {
         name: `Harrying Bird of Prey`,
         desc: `In your hero phase, you can pick 1 enemy HERO within 16" of this model. Until your next hero phase, subtract 1 from casting, dispelling and unbinding rolls for that model, and subtract 1 from hit rolls for attacks made by that model.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Lord of the Deepwood Host`,
-        desc: `Pick 1 friendly HERO with this command ability. Until the end of that phase, add 1 to hit rolls for attacks made by friendly WANDERER units while they are wholly within 12" of that HERO. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_SHOOTING_PHASE],
-        command_ability: true,
-      },
     ],
   },
-  {
-    name: `Eternal Guard`,
+  'Eternal Guard': {
     effects: [
       {
         name: `Eternal Warden`,
@@ -1319,8 +1157,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Wildwood Rangers`,
+  'Wildwood Rangers': {
     effects: [
       {
         name: `Wildwood Warden`,
@@ -1336,8 +1173,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Wild Riders`,
+  'Wild Riders': {
     effects: [
       {
         name: `Wild Hunter`,
@@ -1353,8 +1189,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sisters of the Watch`,
+  'Sisters of the Watch': {
     effects: [
       {
         name: `High Sister`,
@@ -1378,8 +1213,10 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sisters of the Thorn`,
+  'Sisters of the Thorn': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Armour of Thorns'])],
+    },
     effects: [
       {
         name: `Handmaiden of the Thorn`,
@@ -1393,16 +1230,9 @@ export const aUnits: TEntry[] = [
         desc: `This unit is a Wizard while it has 2 or more models.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Armour of Thorns`,
-        desc: `7+ casting value. Pick 1 friendly WANDERERS unit wholly within 18" of the caster that is visible to them. Until that unit moves, that unit is treated as being in cover.In addition, until that unit moves, if the unmodified save roll for an attack made with a melee weapon that targets that unit is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Cannon`,
+  Cannon: {
     effects: [
       ...DuardinArtilleryEffects,
       {
@@ -1417,8 +1247,7 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Organ Gun`,
+  'Organ Gun': {
     effects: [
       ...DuardinArtilleryEffects,
       {
@@ -1433,18 +1262,6 @@ export const aUnits: TEntry[] = [
       },
     ],
   },
-]
-
-const Units = {
-  // '': {
-  //   effects: [
-  //     {
-  //       name: ``,
-  //       desc: ``,
-  //       when: [END_OF_SETUP],
-  //     },
-  //   ],
-  // },
 }
 
 export default tagAs(Units, 'unit')

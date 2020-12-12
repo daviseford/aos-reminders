@@ -1,4 +1,4 @@
-import { tagAs } from 'factions/metatagger'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -7,8 +7,8 @@ import {
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
-  TURN_ONE_START_OF_HERO_PHASE,
 } from 'types/phases'
+import command_traits from './command_traits'
 
 const Battalions = {
   'Hammerhalian Lancers': {
@@ -84,6 +84,9 @@ const Battalions = {
     ],
   },
   "Kraeth's Shadowhost": {
+    mandatory: {
+      command_traits: [keyPicker(command_traits, ['The Whisperers'])],
+    },
     effects: [
       {
         name: `Subjugated`,
@@ -99,12 +102,6 @@ const Battalions = {
         name: `Subjugated`,
         desc: `If active, subtract 1 from the save rolls of Dreadspears and Darkshards in this battalion.`,
         when: [SAVES_PHASE],
-      },
-      {
-        name: `The Whisperers`,
-        desc: `You receive one extra command point.`,
-        when: [TURN_ONE_START_OF_HERO_PHASE],
-        command_trait: true,
       },
     ],
   },
