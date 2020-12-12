@@ -1,5 +1,12 @@
 import { tagAs } from 'factions/metatagger'
-import { DURING_GAME, DURING_TURN, HERO_PHASE } from 'types/phases'
+import {
+  COMBAT_PHASE,
+  DURING_GAME,
+  DURING_TURN,
+  HERO_PHASE,
+  SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
+} from 'types/phases'
 
 // Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandTraits = {
@@ -53,6 +60,42 @@ const CommandTraits = {
       {
         name: `Loremaster - Alarith`,
         desc: `If this general is a WIZARD, they know 1 extra spell from the Lore of the High Peaks.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Almighty Blow': {
+    effects: [
+      {
+        name: `Almighty Blow`,
+        desc: `Instead of piling in and attacking, you can say you will unleash a single mighty blow. If you do so, pick one enemy unit with 1" of this general and roll 1 dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Goading Arrogance': {
+    effects: [
+      {
+        name: `Goading Arrogance`,
+        desc: `You can pick 1 enemy HERO within 6" of this general. That enemy HERO can only target this general in that phase. In addition, you can add 1 to hit rolls for attacks that target that enemy HERO in that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Strike in Unison': {
+    effects: [
+      {
+        name: `Strike in Unison`,
+        desc: `You can use this command ability in your shooting phase or in the combat phase. If you do so, pick 1 friendly ILIATHA VANARI unit with 2 or more models. You can reroll hit rolls of 1 for that unit until the end of that phase.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Fast Learner': {
+    effects: [
+      {
+        name: `Fast Learner`,
+        desc: `This general can attempt to unbind 1 extra spell in the enemy hero phase. In addition, the second time that this general attempts to unbind a spell in the same enemy hero phase, you can reroll the unbinding roll.`,
         when: [HERO_PHASE],
       },
     ],

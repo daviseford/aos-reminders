@@ -1,8 +1,12 @@
-import { tagAs } from 'factions/metatagger'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, SAVES_PHASE, START_OF_COMBAT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import units from './units'
 
-const Battalions = {
+const RegularBattalions = {
   'Alarith Temple': {
+    mandatory: {
+      units: [keyPicker(units, ['Alarith Stonemage', 'Alarith Stoneguard'])],
+    },
     effects: [
       {
         name: `Skin to Stone`,
@@ -17,6 +21,9 @@ const Battalions = {
     ],
   },
   'Auralan Legion': {
+    mandatory: {
+      units: [keyPicker(units, ['Scinari Cathallar', 'Vanari Auralan Sentinels', 'Vanari Auralan Wardens'])],
+    },
     effects: [
       {
         name: `Shield of Light`,
@@ -26,6 +33,9 @@ const Battalions = {
     ],
   },
   'Dawnrider Lance': {
+    mandatory: {
+      units: [keyPicker(units, ['Vanari Dawnriders'])],
+    },
     effects: [
       {
         name: `Shafts of Light`,
@@ -34,7 +44,14 @@ const Battalions = {
       },
     ],
   },
+}
+
+const SuperBattalions = {
   'Teclian Vanguard': {
+    mandatory: {
+      units: [keyPicker(units, ['Archmage Teclis'])],
+      battalions: [keyPicker(RegularBattalions, ['Alarith Temple', 'Auralan Legion', 'Dawnrider Lance'])],
+    },
     effects: [
       {
         name: `Blessing of Teclis`,
@@ -46,4 +63,4 @@ const Battalions = {
 }
 
 // Always export using tagAs
-export default tagAs(Battalions, 'battalion')
+export default tagAs({ ...RegularBattalions, ...SuperBattalions }, 'battalion')
