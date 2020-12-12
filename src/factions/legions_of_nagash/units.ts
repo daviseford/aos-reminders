@@ -2,7 +2,7 @@
 // import artifacts from './artifacts'
 // import CommandAbilities from './command_abilities'
 // import Spells from './spells'
-//
+
 // const Units = {
 //   'Unit 1': {
 //     effects: [
@@ -35,7 +35,7 @@
 //     ],
 //   },
 // }
-//
+
 // // This is a pattern we use when we need to reference other units
 // const aComplexCharacter = {
 //   'A Complex Character': {
@@ -43,7 +43,7 @@
 //       artifacts: [keyPicker(artifacts, ['Another Artifact'])],
 //       spells: [keyPicker(Spells, ['A Second Spell'])],
 //       command_abilities: [keyPicker(CommandAbilities, ['Command Ability 1'])],
-//
+
 //       // Let's say that when this character is selected, Simple Hero must also be selected
 //       // Note - not the inverse! We don't want to select this character just because we selected Simple Hero
 //       units: [keyPicker(Units, ['Simple Hero'])],
@@ -57,7 +57,7 @@
 //     ],
 //   },
 // }
-//
+
 // export default tagAs({ ...Units, ...aComplexCharacter }, 'unit')
-//
+
 export {}

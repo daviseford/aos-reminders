@@ -13,7 +13,6 @@ import {
 } from 'types/phases'
 
 const Artifacts = {
-  //
   'Magnetised Runes': {
     effects: [
       {
@@ -68,7 +67,7 @@ const Artifacts = {
       },
     ],
   },
-  //
+
   Beastslayer: {
     effects: [
       {
@@ -96,7 +95,7 @@ const Artifacts = {
       },
     ],
   },
-  //
+
   'Salamander Cloak': {
     effects: [
       {
@@ -124,7 +123,7 @@ const Artifacts = {
       },
     ],
   },
-  //
+
   'Ancestor Helm': {
     effects: [
       {

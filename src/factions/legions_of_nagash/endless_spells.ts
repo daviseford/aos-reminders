@@ -1,6 +1,5 @@
 // import { HERO_PHASE } from 'types/phases'
-//
-//
+
 // const EndlessSpells = {
 //   'Made Up Endless Spell': {
 //     effects: [
@@ -12,8 +11,7 @@
 //     ],
 //   },
 // }
-//
+
 // export default tagAs(EndlessSpells, 'endless_spell')
-//
 
 export {}
