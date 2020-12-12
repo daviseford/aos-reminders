@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { START_OF_ROUND, TURN_ONE_START_OF_ROUND } from 'types/phases'
 
-// Battle traits available to factions and subfactions.
 const BattleTraits = {
   'Gloomspite Gitz': {
     effects: [

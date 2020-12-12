@@ -321,7 +321,7 @@ const Units = {
   },
   'Mazarall the Butcher': {
     mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['The Butcher`s Due'])],
+      command_abilities: [keyPicker(CommandAbilities, ["The Butcher's Due"])],
     },
     effects: [
       {
@@ -608,7 +608,7 @@ const Units = {
       },
     ],
   },
-  'Garrek`s Reavers': {
+  "Garrek's Reavers": {
     effects: [
       {
         name: `Garrek Gorebeard`,
@@ -632,7 +632,7 @@ const Units = {
       },
     ],
   },
-  'Magore`s Fiends': {
+  "Magore's Fiends": {
     effects: [
       {
         name: `Magore Redhand`,

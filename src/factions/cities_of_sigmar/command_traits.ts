@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -12,12 +12,12 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
+  TURN_ONE_START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Acadamae Prodigy (Hammerhal)`,
+const CommandTraits = {
+  'Acadamae Prodigy (Hammerhal)': {
     effects: [
       {
         name: `Acadamae Prodigy (Hammerhal)`,
@@ -26,8 +26,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Blood of the Twelve (Hammerhal)`,
+  'Blood of the Twelve (Hammerhal)': {
     effects: [
       {
         name: `Blood of the Twelve (Hammerhal)`,
@@ -36,8 +35,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Aggressive General (Hammerhal)`,
+  'Aggressive General (Hammerhal)': {
     effects: [
       {
         name: `Aggressive General (Hammerhal)`,
@@ -46,8 +44,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ironoak Artisan (Living City)`,
+  'Ironoak Artisan (Living City)': {
     effects: [
       {
         name: `Ironoak Artisan (Living City)`,
@@ -61,8 +58,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Forest Strider (Living City)`,
+  'Forest Strider (Living City)': {
     effects: [
       {
         name: `Forest Strider (Living City)`,
@@ -76,8 +72,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Druid of the Everspring (Living City)`,
+  'Druid of the Everspring (Living City)': {
     effects: [
       {
         name: `Druid of the Everspring (Living City)`,
@@ -86,8 +81,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Seat on the Council (Greywater Fastness)`,
+  'Seat on the Council (Greywater Fastness)': {
     effects: [
       {
         name: `Seat on the Council (Greywater Fastness)`,
@@ -96,8 +90,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Drillmaster (Greywater Fastness)`,
+  'Drillmaster (Greywater Fastness)': {
     effects: [
       {
         name: `Drillmaster (Greywater Fastness)`,
@@ -106,8 +99,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ghoul Mere Ranger (Greywater Fastness)`,
+  'Ghoul Mere Ranger (Greywater Fastness)': {
     effects: [
       {
         name: `Ghoul Mere Ranger (Greywater Fastness)`,
@@ -116,8 +108,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Seeker of Vengeance (The Phoenicium)`,
+  'Seeker of Vengeance (The Phoenicium)': {
     effects: [
       {
         name: `Seeker of Vengeance (The Phoenicium)`,
@@ -126,8 +117,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `One with Fire and Ice (The Phoenicium)`,
+  'One with Fire and Ice (The Phoenicium)': {
     effects: [
       {
         name: `One with Fire and Ice (The Phoenicium)`,
@@ -136,8 +126,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Aura of Serenity (The Phoenicium)`,
+  'Aura of Serenity (The Phoenicium)': {
     effects: [
       {
         name: `Aura of Serenity (The Phoenicium)`,
@@ -146,8 +135,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Blackfang Crimelord (Anvilgard)`,
+  'Blackfang Crimelord (Anvilgard)': {
     effects: [
       {
         name: `Blackfang Crimelord (Anvilgard)`,
@@ -156,8 +144,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Slayer of Monsters (Anvilgard)`,
+  'Slayer of Monsters (Anvilgard)': {
     effects: [
       {
         name: `Slayer of Monsters (Anvilgard)`,
@@ -166,8 +153,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Black Market Bounty (Anvilgard Battle Trait)`,
+  'Black Market Bounty (Anvilgard Battle Trait)': {
     effects: [
       {
         name: `Black Market Bounty (Anvilgard Battle Trait)`,
@@ -176,8 +162,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dabblings in Sorcery (Anvilgard Battle Trait)`,
+  'Dabblings in Sorcery (Anvilgard Battle Trait)': {
     effects: [
       {
         name: `Dabblings in Sorcery (Anvilgard Battle Trait)`,
@@ -186,8 +171,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Hidden Agents (Anvilgard Battle Trait)`,
+  'Hidden Agents (Anvilgard Battle Trait)': {
     effects: [
       {
         name: `Hidden Agents (Anvilgard Battle Trait)`,
@@ -196,8 +180,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Secretive Warlock (Anvilgard)`,
+  'Secretive Warlock (Anvilgard)': {
     effects: [
       {
         name: `Secretive Warlock (Anvilgard)`,
@@ -206,8 +189,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Acidic Blood (Drakeblood Curse)`,
+  'Acidic Blood (Drakeblood Curse)': {
     effects: [
       {
         name: `Acidic Blood (Drakeblood Curse)`,
@@ -216,8 +198,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Jutting Bones (Drakeblood Curse)`,
+  'Jutting Bones (Drakeblood Curse)': {
     effects: [
       {
         name: `Jutting Bones (Drakeblood Curse)`,
@@ -226,8 +207,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Fell Gaze (Drakeblood Curse)`,
+  'Fell Gaze (Drakeblood Curse)': {
     effects: [
       {
         name: `Fell Gaze (Drakeblood Curse)`,
@@ -236,8 +216,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Veteran of the Blazing Crusade (Hallowheart)`,
+  'Veteran of the Blazing Crusade (Hallowheart)': {
     effects: [
       {
         name: `Veteran of the Blazing Crusade (Hallowheart)`,
@@ -246,8 +225,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Warden of the Flame (Hallowheart)`,
+  'Warden of the Flame (Hallowheart)': {
     effects: [
       {
         name: `Warden of the Flame (Hallowheart)`,
@@ -256,8 +234,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Famed Spell-hunter (Hallowheart)`,
+  'Famed Spell-hunter (Hallowheart)': {
     effects: [
       {
         name: `Famed Spell-hunter (Hallowheart)`,
@@ -266,8 +243,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Aetherguard Captain (Tempest's Eye)`,
+  "Aetherguard Captain (Tempest's Eye)": {
     effects: [
       {
         name: `Aetherguard Captain (Tempest's Eye)`,
@@ -276,8 +252,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Hawk-eyed (Tempest's Eye)`,
+  "Hawk-eyed (Tempest's Eye)": {
     effects: [
       {
         name: `Hawk-eyed (Tempest's Eye)`,
@@ -286,8 +261,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Swift as the Wind (Tempest's Eye)`,
+  "Swift as the Wind (Tempest's Eye)": {
     effects: [
       {
         name: `Swift as the Wind (Tempest's Eye)`,
@@ -301,8 +275,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shadowlord (Misthavn)`,
+  'Shadowlord (Misthavn)': {
     effects: [
       {
         name: `Shadowlord (Misthavn)`,
@@ -311,8 +284,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Wily Foe (Misthavn)`,
+  'Wily Foe (Misthavn)': {
     effects: [
       {
         name: `Wily Foe (Misthavn)`,
@@ -321,8 +293,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shade Warlock (Misthavn)`,
+  'Shade Warlock (Misthavn)': {
     effects: [
       {
         name: `Shade Warlock (Misthavn)`,
@@ -331,8 +302,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Bathed in Blood (Har Kuron)`,
+  'Bathed in Blood (Har Kuron)': {
     effects: [
       {
         name: `Bathed in Blood (Har Kuron)`,
@@ -346,8 +316,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Murderous Zeal (Har Kuron)`,
+  'Murderous Zeal (Har Kuron)': {
     effects: [
       {
         name: `Murderous Zeal (Har Kuron)`,
@@ -356,8 +325,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dark Adept (Har Kuron)`,
+  'Dark Adept (Har Kuron)': {
     effects: [
       {
         name: `Dark Adept (Har Kuron)`,
@@ -366,6 +334,15 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+  'The Whisperers': {
+    effects: [
+      {
+        name: `The Whisperers`,
+        desc: `You receive one extra command point.`,
+        when: [TURN_ONE_START_OF_HERO_PHASE],
+      },
+    ],
+  },
+}
 
-export default CommandTraits
+export default tagAs(CommandTraits, 'command_trait')

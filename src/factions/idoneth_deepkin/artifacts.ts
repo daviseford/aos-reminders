@@ -85,7 +85,7 @@ const Artifacts = {
       },
     ],
   },
-  'Lliandra`s Last Lament': {
+  "Lliandra's Last Lament": {
     effects: [
       {
         name: `Lliandra's Last Lament`,

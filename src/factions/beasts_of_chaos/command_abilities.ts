@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, END_OF_MOVEMENT_PHASE, START_OF_COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
-// Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandAbilities = {
   // Unit commands
   'Grisly Trophy': {
@@ -13,7 +12,7 @@ const CommandAbilities = {
       },
     ],
   },
-  'Slaughterer`s Call': {
+  "Slaughterer's Call": {
     effects: [
       {
         name: `Slaughterer's Call`,

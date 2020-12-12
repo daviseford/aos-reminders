@@ -69,7 +69,7 @@ const Artifacts = {
     ],
   },
   // Treasures of the Cults - Arcanites Only
-  'Ambition`s End': {
+  "Ambition's End": {
     effects: [
       {
         name: `Ambition's End`,

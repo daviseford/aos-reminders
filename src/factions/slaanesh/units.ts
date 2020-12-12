@@ -104,7 +104,7 @@ const Units = {
       },
     ],
   },
-  'Syll`Esske, the Vengeful Allegiance': {
+  "Syll'Esske, the Vengeful Allegiance": {
     mandatory: {
       spells: [keyPicker(Spells, ['Subvert'])],
       command_abilities: [keyPicker(CommandAbilities, ['Regal Authority'])],

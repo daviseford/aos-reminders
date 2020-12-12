@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, START_OF_COMBAT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
-// Add individual artifacts here, and access them in other files!
 const Artifacts = {
   'Crown of Raven Feathers': {
     effects: [
@@ -32,5 +31,4 @@ const Artifacts = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(Artifacts, 'artifact')

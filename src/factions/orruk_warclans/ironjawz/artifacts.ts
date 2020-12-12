@@ -9,7 +9,6 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-// Add individual artifacts here, and access them in other files!
 const IronjawzArtifacts = {
   'Armour of Gork': {
     effects: [
@@ -121,5 +120,4 @@ const IronjawzArtifacts = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(IronjawzArtifacts, 'artifact')

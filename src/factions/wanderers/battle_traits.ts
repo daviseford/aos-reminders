@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, DURING_GAME, START_OF_MOVEMENT_PHASE } from 'types/phases'
 
-// Battle traits available to factions and subfactions.
 const BattleTraits = {
   Wanderers: {
     effects: [

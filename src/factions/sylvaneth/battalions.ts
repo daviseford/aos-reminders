@@ -109,5 +109,4 @@ const SuperBattalions = {
 
 const Battalions = { ...RegularBattalions, ...SuperBattalions }
 
-// Always export using tagAs
 export default tagAs(Battalions, 'battalion')

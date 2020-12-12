@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE } from 'types/phases'
 
-// Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
 const ChaosCommandAbilities = {
   'Lord of the Monstrous Host': {
     effects: [
@@ -14,5 +13,4 @@ const ChaosCommandAbilities = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(ChaosCommandAbilities, 'command_ability')

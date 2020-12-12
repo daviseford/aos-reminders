@@ -103,7 +103,7 @@ const Artifacts = {
       },
     ],
   },
-  'Champion`s Doomcloak (Warherds)': {
+  "Champion's Doomcloak (Warherds)": {
     effects: [
       {
         name: `Champion's Doomcloak (Warherds)`,

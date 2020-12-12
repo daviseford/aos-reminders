@@ -130,7 +130,7 @@ const Spells = {
       },
     ],
   },
-  'Traitor`s Mist': {
+  "Traitor's Mist": {
     effects: [
       {
         name: `Traitor's Mist`,

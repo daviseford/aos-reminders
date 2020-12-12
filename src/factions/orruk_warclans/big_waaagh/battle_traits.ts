@@ -86,5 +86,4 @@ const BigWaaaghBattleTraits = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(BigWaaaghBattleTraits, 'battle_trait')

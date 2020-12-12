@@ -31,7 +31,7 @@ const Prayers = {
       },
     ],
   },
-  'Martyr`s Sacrifice': {
+  "Martyr's Sacrifice": {
     effects: [
       {
         name: `Martyr's Sacrifice`,

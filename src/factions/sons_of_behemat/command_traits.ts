@@ -22,7 +22,6 @@ const getLouderThanWordsEffect = (numAttacks: number, weaponName: string, tag: s
   ]
 }
 
-// Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandTraits = {
   'Monstrously Tough': {
     effects: [
@@ -191,5 +190,4 @@ const CommandTraits = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(CommandTraits, 'command_trait')

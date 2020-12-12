@@ -8,7 +8,6 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 
-// Add individual artifacts here, and access them in other files!
 const BonesplitterzArtifacts = {
   "Glowin' Tattooz": {
     effects: [
@@ -120,5 +119,4 @@ const BonesplitterzArtifacts = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(BonesplitterzArtifacts, 'artifact')

@@ -115,9 +115,9 @@ const Units = {
       },
     ],
   },
-  'Shar`Tor the Executioner': {
+  "Shar'Tor the Executioner": {
     mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Lord of the Ba`hal'])],
+      command_abilities: [keyPicker(CommandAbilities, ["Lord of the Ba'hal"])],
     },
     effects: [
       {
@@ -133,7 +133,7 @@ const Units = {
       TrampleAndGoreEffect,
     ],
   },
-  'Bull Centaur Taur`Ruk': {
+  "Bull Centaur Taur'Ruk": {
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Favour of the Burning God'])],
     },
@@ -163,7 +163,7 @@ const Units = {
   'Infernal Guard Ironsworn': {
     effects: [...InfernalGuardBaseEffects, PyrelockPistolEffect, SpiteshieldEffect],
   },
-  'K`Daai Fireborn': {
+  "K'Daai Fireborn": {
     effects: [
       {
         name: `Burning Bright`,

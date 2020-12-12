@@ -92,7 +92,7 @@ export const WANDERERS: TWanderers = 'WANDERERS'
 export type TPrimaryFactions =
   | TBeastsOfChaos
   | TChaosGrandAlliance
-  // | TCitiesOfSigmar
+  | TCitiesOfSigmar
   | TDaughtersOfKhaine
   | TDeathGrandAlliance
   | TDestructionGrandAlliance
@@ -136,7 +136,7 @@ export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies | TMegaGa
 export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   BEASTS_OF_CHAOS,
   CHAOS_GRAND_ALLIANCE,
-  // CITIES_OF_SIGMAR,
+  CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,

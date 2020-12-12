@@ -9,7 +9,7 @@ const Flavors = {
   'Jaws of Mork': {
     mandatory: {
       artifacts: [keyPicker(Artifacts, ['Syari Screamersquig'])],
-      command_abilities: [keyPicker(CommandAbilities, ['Get Some Loonshine Down `Em!'])],
+      command_abilities: [keyPicker(CommandAbilities, ["Get Some Loonshine Down 'Em!"])],
       command_traits: [keyPicker(CommandTraits, ['Envoy of the Overbounder'])],
     },
     available: {
@@ -24,7 +24,7 @@ const Flavors = {
     ],
   },
 
-  'Glogg`s Megamob': {
+  "Glogg's Megamob": {
     mandatory: {
       artifacts: [keyPicker(Artifacts, ['Aetherquartz-studded Hide'])],
       command_abilities: [keyPicker(CommandAbilities, ['Oblivious to Sorcery'])],

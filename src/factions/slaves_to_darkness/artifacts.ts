@@ -174,7 +174,7 @@ const Artifacts = {
       },
     ],
   },
-  'Realmwarper`s Twist-rune': {
+  "Realmwarper's Twist-rune": {
     effects: [
       {
         name: `Realmwarper's Twist-rune`,
@@ -213,5 +213,4 @@ const Artifacts = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(Artifacts, 'artifact')

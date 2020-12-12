@@ -75,7 +75,7 @@ const subFactions: TItemDescriptions = {
           'Seekers',
           'Shalaxi Helbane',
           'Soulfeaster Keeper of Secrets',
-          'Syll`Esske, the Vengeful Allegiance',
+          "Syll'Esske, the Vengeful Allegiance",
           'The Contorted Epitome',
           'The Masque',
           'Viceleader, Herald of Slaanesh',
@@ -98,7 +98,7 @@ const subFactions: TItemDescriptions = {
         ]),
         keyPicker(SlavesUnits, [
           'Archaon the Everchosen',
-          'Be`Lakor',
+          "Be'Lakor",
           'Daemon Prince',
           'Gaunt Summoner on Disc of Tzeentch',
           'Soul Grinder',

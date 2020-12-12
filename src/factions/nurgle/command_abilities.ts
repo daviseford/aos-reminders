@@ -12,9 +12,8 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-// Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandAbilities = {
-  'Grandfather`s Joy': {
+  "Grandfather's Joy": {
     effects: [
       {
         name: `Grandfather's Joy`,
@@ -92,7 +91,7 @@ const CommandAbilities = {
       },
     ],
   },
-  'Grandfather`s Gift': {
+  "Grandfather's Gift": {
     effects: [
       {
         name: `Grandfather's Gift`,
@@ -101,7 +100,7 @@ const CommandAbilities = {
       },
     ],
   },
-  'Grandfather`s Exalted Joy': {
+  "Grandfather's Exalted Joy": {
     effects: [
       {
         name: `Grandfather's Exalted Joy`,
@@ -200,5 +199,4 @@ const CommandAbilities = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(CommandAbilities, 'command_ability')

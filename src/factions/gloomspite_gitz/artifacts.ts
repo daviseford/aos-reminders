@@ -22,7 +22,7 @@ const Artifacts = {
       },
     ],
   },
-  'Backstabber`s Blade': {
+  "Backstabber's Blade": {
     effects: [
       {
         name: `Backstabber's Blade`,
@@ -126,7 +126,7 @@ const Artifacts = {
       },
     ],
   },
-  'Nibbla`s `Itty Ring': {
+  "Nibbla's 'Itty Ring": {
     effects: [
       {
         name: `Nibbla's 'Itty Ring`,

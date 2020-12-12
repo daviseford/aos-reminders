@@ -16,7 +16,6 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-// Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandTraits: TItemDescriptions = {
   'Food for Thought': {
     effects: [

@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -15,9 +15,8 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Armour of Mallus (Hammerhal)`,
+const Artifacts = {
+  'Armour of Mallus (Hammerhal)': {
     effects: [
       {
         name: `Armour of Mallus (Hammerhal)`,
@@ -26,8 +25,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Saint's Blade (Hammerhal)`,
+  "Saint's Blade (Hammerhal)": {
     effects: [
       {
         name: `Saint's Blade (Hammerhal)`,
@@ -36,8 +34,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Twinstone (Hammerhal)`,
+  'The Twinstone (Hammerhal)': {
     effects: [
       {
         name: `Choose aspect`,
@@ -56,8 +53,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Spear of the Hunt (The Living City)`,
+  'Spear of the Hunt (The Living City)': {
     effects: [
       {
         name: `Spear of the Hunt (The Living City)`,
@@ -66,8 +62,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Deepmire Cloak (The Living City)`,
+  'Deepmire Cloak (The Living City)': {
     effects: [
       {
         name: `Deepmire Cloak (The Living City)`,
@@ -77,8 +72,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Wardroth Horn (The Living City)`,
+  'Wardroth Horn (The Living City)': {
     effects: [
       {
         name: `Wardroth Horn (The Living City)`,
@@ -87,8 +81,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Steam-piston Plate Mail (Greywater Fastness)`,
+  'Steam-piston Plate Mail (Greywater Fastness)': {
     effects: [
       {
         name: `Steam-piston Plate Mail (Greywater Fastness)`,
@@ -102,8 +95,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Runic Munitions (Greywater Fastness)`,
+  'Runic Munitions (Greywater Fastness)': {
     effects: [
       {
         name: `Runic Munitions (Greywater Fastness)`,
@@ -112,8 +104,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)`,
+  "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)": {
     effects: [
       {
         name: `Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)`,
@@ -127,8 +118,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Amber Armour (The Phoenicium)`,
+  'Amber Armour (The Phoenicium)': {
     effects: [
       {
         name: `Amber Armour (The Phoenicium)`,
@@ -137,8 +127,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Phoenix Pinion (The Phoenicium)`,
+  'Phoenix Pinion (The Phoenicium)': {
     effects: [
       {
         name: `Phoenix Pinion (The Phoenicium)`,
@@ -147,8 +136,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Phoenix Pyre Ashes (The Phoenicium)`,
+  'Phoenix Pyre Ashes (The Phoenicium)': {
     effects: [
       {
         name: `Phoenix Pyre Ashes (The Phoenicium)`,
@@ -157,8 +145,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Drakescale Cloak (Anvilgard)`,
+  'Drakescale Cloak (Anvilgard)': {
     effects: [
       {
         name: `Drakescale Cloak (Anvilgard)`,
@@ -167,8 +154,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Venomfang Blade (Anvilgard)`,
+  'Venomfang Blade (Anvilgard)': {
     effects: [
       {
         name: `Venomfang Blade (Anvilgard)`,
@@ -177,8 +163,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Asphyxica Censer (Anvilgard)`,
+  'Asphyxica Censer (Anvilgard)': {
     effects: [
       {
         name: `Asphyxica Censer (Anvilgard)`,
@@ -187,8 +172,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Agloraxi Prism (Hallowheart)`,
+  'Agloraxi Prism (Hallowheart)': {
     effects: [
       {
         name: `Agloraxi Prism (Hallowheart)`,
@@ -197,8 +181,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Pauldrons of Living Flame (Hallowheart)`,
+  'Pauldrons of Living Flame (Hallowheart)': {
     effects: [
       {
         name: `Pauldrons of Living Flame (Hallowheart)`,
@@ -207,8 +190,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Whitefire Tome (Hallowheart)`,
+  'Whitefire Tome (Hallowheart)': {
     effects: [
       {
         name: `Whitefire Tome (Hallowheart)`,
@@ -217,8 +199,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Patrician's Helm (Tempest's Eye)`,
+  "Patrician's Helm (Tempest's Eye)": {
     effects: [
       {
         name: `Patrician's Helm (Tempest's Eye)`,
@@ -227,8 +208,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Seerstone Amulet (Tempest's Eye)`,
+  "Seerstone Amulet (Tempest's Eye)": {
     effects: [
       {
         name: `Seerstone Amulet (Tempest's Eye)`,
@@ -237,8 +217,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Zephyrite Banner (Tempest's Eye)`,
+  "Zephyrite Banner (Tempest's Eye)": {
     effects: [
       {
         name: `Zephyrite Banner (Tempest's Eye)`,
@@ -247,8 +226,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gloom Bell (Misthavn)`,
+  'Gloom Bell (Misthavn)': {
     effects: [
       {
         name: `Gloom Bell (Misthavn)`,
@@ -257,8 +235,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Strangler-kelp Noose (Misthavn)`,
+  'Strangler-kelp Noose (Misthavn)': {
     effects: [
       {
         name: `Strangler-kelp Noose (Misthavn)`,
@@ -267,8 +244,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shadowsilk Armour (Misthavn)`,
+  'Shadowsilk Armour (Misthavn)': {
     effects: [
       {
         name: `Shadowsilk Armour (Misthavn)`,
@@ -277,8 +253,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Synesthalcum (Misthavn Narcotic)`,
+  'Synesthalcum (Misthavn Narcotic)': {
     effects: [
       {
         name: `Synesthalcum (Misthavn Narcotic)`,
@@ -287,8 +262,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Witch-mist (Misthavn Narcotic)`,
+  'Witch-mist (Misthavn Narcotic)': {
     effects: [
       {
         name: `Witch-mist (Misthavn Narcotic)`,
@@ -297,8 +271,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Skiffer's Salve (Misthavn Narcotic)`,
+  "Skiffer's Salve (Misthavn Narcotic)": {
     effects: [
       {
         name: `Skiffer's Salve (Misthavn Narcotic)`,
@@ -312,8 +285,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Float (Misthavn Narcotic)`,
+  'Float (Misthavn Narcotic)': {
     effects: [
       {
         name: `Float (Misthavn Narcotic)`,
@@ -322,8 +294,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sawfang Dust (Misthavn Narcotic)`,
+  'Sawfang Dust (Misthavn Narcotic)': {
     effects: [
       {
         name: `Sawfang Dust (Misthavn Narcotic)`,
@@ -332,8 +303,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Glatch Ink (Misthavn Narcotic)`,
+  'Glatch Ink (Misthavn Narcotic)': {
     effects: [
       {
         name: `Glatch Ink (Misthavn Narcotic)`,
@@ -342,8 +312,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lifetaker (Har Kuron)`,
+  'Lifetaker (Har Kuron)': {
     effects: [
       {
         name: `Lifetaker (Har Kuron)`,
@@ -352,8 +321,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Traitor's Banner (Har Kuron)`,
+  "Traitor's Banner (Har Kuron)": {
     effects: [
       {
         name: `Traitor's Banner (Har Kuron)`,
@@ -362,8 +330,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Nullstone Vizard (Har Kuron)`,
+  'Nullstone Vizard (Har Kuron)': {
     effects: [
       {
         name: `Nullstone Vizard (Har Kuron)`,
@@ -372,6 +339,6 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+export default tagAs(Artifacts, 'artifact')

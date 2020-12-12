@@ -92,7 +92,7 @@ const Units = {
   },
   'Great Unclean One': {
     mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Grandfather`s Joy'])],
+      command_abilities: [keyPicker(CommandAbilities, ["Grandfather's Joy"])],
       spells: [keyPicker(Spells, ['Plague Wind'])],
     },
     effects: [
@@ -512,7 +512,7 @@ const Units = {
   },
   'Lord of Plagues': {
     mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Grandfather`s Gift'])],
+      command_abilities: [keyPicker(CommandAbilities, ["Grandfather's Gift"])],
     },
     effects: [
       {
@@ -558,7 +558,7 @@ const Units = {
   },
   'Exalted Greater Daemon Of Nurgle': {
     mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Grandfather`s Exalted Joy'])],
+      command_abilities: [keyPicker(CommandAbilities, ["Grandfather's Exalted Joy"])],
       spells: [keyPicker(Spells, ['Plague Wind'])],
     },
     effects: [

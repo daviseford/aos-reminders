@@ -153,7 +153,7 @@ const Units = {
   },
   Doombull: {
     mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Slaughterer`s Call'])],
+      command_abilities: [keyPicker(CommandAbilities, ["Slaughterer's Call"])],
     },
     effects: [BloodgreedEffect],
   },
@@ -438,7 +438,7 @@ const Units = {
     },
     effects: [InfuseWithBestialVigorEffect],
   },
-  'Grashrak`s Despoilers': {
+  "Grashrak's Despoilers": {
     effects: [
       {
         name: `Violent Despoilers`,

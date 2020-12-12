@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, DURING_GAME, SAVES_PHASE } from 'types/phases'
 
-// Add individual artifacts here, and access them in other files!
 const Artifacts = {
   // Legion of Chaos Ascendant
   'Fourfold Blade': {
@@ -33,5 +32,4 @@ const Artifacts = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(Artifacts, 'artifact')
