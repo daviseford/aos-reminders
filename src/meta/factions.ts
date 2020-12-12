@@ -110,7 +110,7 @@ export type TPrimaryFactions =
   // | TLegionsOfGrief
   | TLegionsOfNagash
   | TLethisianDefenders
-  // | TLuminethRealmlords
+  | TLuminethRealmlords
   | TMercenaryCompanies
   // | TNighthaunt
   | TNurgle
@@ -154,7 +154,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   // LEGIONS_OF_GRIEF,
   LEGIONS_OF_NAGASH,
   LETHISIAN_DEFENDERS,
-  // LUMINETH_REALMLORDS,
+  LUMINETH_REALMLORDS,
   // NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,

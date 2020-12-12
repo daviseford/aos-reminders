@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, END_OF_HERO_PHASE, HERO_PHASE } from 'types/phases'
 
-// Add Endless spells here
 const EndlessSpells = {
   Gladewyrm: {
     effects: [

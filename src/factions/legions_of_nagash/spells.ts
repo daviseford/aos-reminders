@@ -1,5 +1,5 @@
 // import { HERO_PHASE } from 'types/phases'
-//
+
 // const Spells = {
 //   'A Single Spell': {
 //     effects: [
@@ -41,7 +41,7 @@
 //     ],
 //   },
 // }
-//
+
 // export default tagAs(Spells, 'spell')
-//
+
 export {}

@@ -10,7 +10,6 @@ import {
   TURN_ONE_HERO_PHASE,
 } from 'types/phases'
 
-// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const IronjawzCommandTraits = {
   'Hulking Muscle-bound Brute': {
     effects: [

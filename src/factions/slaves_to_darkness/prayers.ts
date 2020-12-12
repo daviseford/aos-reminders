@@ -12,7 +12,6 @@ import {
 } from 'types/phases'
 
 const Prayers = {
-  //
   'Favour of the Ruinous Powers': {
     effects: [
       {

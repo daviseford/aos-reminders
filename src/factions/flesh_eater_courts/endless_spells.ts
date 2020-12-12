@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { END_OF_TURN, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE, START_OF_ROUND } from 'types/phases'
 
-// Add Endless spells here
 const EndlessSpells = {
   'Corpsemare Stampede': {
     effects: [
