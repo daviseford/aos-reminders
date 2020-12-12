@@ -1,20 +1,17 @@
 import { TItemDescriptions } from 'factions/factionTypes'
 import { FLESH_EATER_COURTS } from 'meta/factions'
-import { pickEffects } from '../metatagger'
+import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
-import CommandAbilities from './command_abilities'
+import { default as CommandAbilities, default as command_abilities } from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
-import MountTraits from './mount_traits'
-import Prayers from './prayers'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-// TODO: Explain what a subfaction is (vs faction, vs flavor)
 const subFactions: TItemDescriptions = {
   [FLESH_EATER_COURTS]: {
     effects: pickEffects(BattleTraits, [FLESH_EATER_COURTS]),
@@ -25,11 +22,12 @@ const subFactions: TItemDescriptions = {
       command_traits: [CommandTraits],
       endless_spells: [EndlessSpells],
       flavors: [Flavors],
-      mount_traits: [MountTraits],
-      prayers: [Prayers],
       scenery: [Scenery],
       spells: [Spells],
       units: [Units],
+    },
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Feeding Frenzy'])],
     },
   },
 }

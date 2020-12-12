@@ -1,13 +1,14 @@
-import { tagAs } from 'factions/metatagger'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import GenericBattleTraits from 'generic_rules/battle_traits'
 import {
   COMBAT_PHASE,
   END_OF_COMBAT_PHASE,
-  END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import command_abilities from './command_abilities'
+import spells from './spells'
 
 const NobleBloodEffect = {
   name: `Noble Blood`,
@@ -27,57 +28,25 @@ const ChosenOfTheKingEffect = {
 
 const Units = {
   'Abhorrant Ghoul King': {
-    effects: [
-      RoyalBloodEffect,
-      {
-        name: `Summon Men-at-arms`,
-        desc: `You can use this command ability at the end of your movement phase. If you do so, pick a friendly model that has this command ability and has not used it before in the battle. That model summons 1 unit of 10 Crypt Ghouls to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `Black Hunger`,
-        desc: `Casting value of 5. Pick a FLESH-EATER COURTS unit within 18". Add 1 to the Attacks characteristic of any melee weapons used by that unit until your next hero phase.`,
-        when: [HERO_PHASE, COMBAT_PHASE],
-        spell: true,
-      },
-    ],
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Summon Men-at-arms'])],
+      spells: [keyPicker(spells, ['Black Hunger'])],
+    },
+    effects: [RoyalBloodEffect],
   },
   'Abhorrant Ghoul King on Royal Terrorgheist': {
-    effects: [
-      ...GenericBattleTraits.Terrorgheist,
-      RoyalBloodEffect,
-      {
-        name: `Summon Royal Guard`,
-        desc: `You can use this command ability at the end of your movement phase. If you do so, pick a friendly model that has this command ability and has not used it before in the battle. That model summons 1 unit of 3 Crypt Horrors or 1 unit of 3 Crypt Flayers to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `Unholy Vitality`,
-        desc: `Casting value of 6. Pick a FLESH-EATER COURTS unit within 18". Until your next hero phase, roll a D6 each time a model from the unit you picked suffers a wound or a mortal wound; on a roll of 5 or 6, the wound is ignored.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-    ],
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Summon Royal Guard'])],
+      spells: [keyPicker(spells, ['Unholy Vitality'])],
+    },
+    effects: [...GenericBattleTraits.Terrorgheist, RoyalBloodEffect],
   },
   'Abhorrant Ghoul King on Royal Zombie Dragon': {
-    effects: [
-      RoyalBloodEffect,
-      {
-        name: `Summon Courtier`,
-        desc: `You can use this command ability at the end of your movement phase. If you do so, pick a friendly model that has this command ability and has not used it before in the battle. That model summons 1 Courtier unit to the battlefield. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
-        command_ability: true,
-      },
-      ...GenericBattleTraits.ZombieDragon,
-      {
-        name: `Malefic Hunger`,
-        desc: `Casting value of 6. Until your next hero phase you can reroll wound rolls for attacks made with melee weapons by friendly Flesh-eater Courts units wholly within 16" of the caster.`,
-        when: [HERO_PHASE, COMBAT_PHASE],
-        spell: true,
-      },
-    ],
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Summon Courtier'])],
+      spells: [keyPicker(spells, ['Malefic Hunger'])],
+    },
+    effects: [RoyalBloodEffect, ...GenericBattleTraits.ZombieDragon],
   },
   'Crypt Ghast Courtier': {
     effects: [
@@ -143,23 +112,15 @@ const Units = {
     ],
   },
   'Abhorrant Archregent': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Summon Imperial Guard'])],
+      spells: [keyPicker(spells, ['Ferocious Hunger'])],
+    },
     effects: [
       {
         name: `Imperial Blood`,
         desc: `In your hero phase, you can heal up to 3 wounds allocated to this model.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Summon Imperial Guard`,
-        desc: `You can use this command ability at the end of your movement phase. If you do so, pick 1 friendly model that has this command ability and has not used it before in the battle. That model summons 1 of the following units to the battlefield: 1 COURTIER; or 1 unit of up to 3 KNIGHTS; or 1 unit of up to 20 SERFS. The summoned unit is added to your army, and must be set up wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
-        command_ability: true,
-      },
-      {
-        name: `Ferocious Hunger`,
-        desc: `Casting value of 6. Pick 1 friendly Flesh-eater Courts unit wholly within 24" of the caster and visible to them, and roll a D3. Add the roll to the Attacks characteristic of melee weapons used by that unit until your next hero phase.`,
-        when: [HERO_PHASE, COMBAT_PHASE],
-        spell: true,
       },
     ],
   },
