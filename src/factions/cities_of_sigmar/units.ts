@@ -20,11 +20,6 @@ import command_abilities from './command_abilities'
 import prayers from './prayers'
 import spells from './spells'
 
-// const getKharadronUnits = () => KharadronOverlords.Units
-// const getStormcastUnits = () => Stormcast.Units
-// const getSylvanethUnits = () => Sylvaneth.Units
-// const getDaughtersUnits = () => DaughtersOfKhaineArmy.Units
-
 const DuardinArtilleryEffects = [
   {
     name: `Duardin Artillery`,
