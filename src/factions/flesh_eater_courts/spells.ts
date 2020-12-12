@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { HERO_PHASE } from 'types/phases'
+import { COMBAT_PHASE, HERO_PHASE } from 'types/phases'
 
 const Spells = {
   Bonestorm: {
@@ -55,6 +55,42 @@ const Spells = {
 
         Then, for each mortal wound that was inflicted on the enemy unit, you can heal 1 wound allocated to the friendly unit. If the friendly unit has a Wounds characteristic of 1, for each mortal wound that was inflicted on the enemy unit, you can return 1 slain model to the friendly unit instead.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Black Hunger': {
+    effects: [
+      {
+        name: `Black Hunger`,
+        desc: `Casting value of 5. Pick a FLESH-EATER COURTS unit within 18". Add 1 to the Attacks characteristic of any melee weapons used by that unit until your next hero phase.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  'Unholy Vitality': {
+    effects: [
+      {
+        name: `Unholy Vitality`,
+        desc: `Casting value of 6. Pick a FLESH-EATER COURTS unit within 18". Until your next hero phase, roll a D6 each time a model from the unit you picked suffers a wound or a mortal wound; on a roll of 5 or 6, the wound is ignored.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Malefic Hunger': {
+    effects: [
+      {
+        name: `Malefic Hunger`,
+        desc: `Casting value of 6. Until your next hero phase you can reroll wound rolls for attacks made with melee weapons by friendly Flesh-eater Courts units wholly within 16" of the caster.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  'Ferocious Hunger': {
+    effects: [
+      {
+        name: `Ferocious Hunger`,
+        desc: `Casting value of 6. Pick 1 friendly Flesh-eater Courts unit wholly within 24" of the caster and visible to them, and roll a D3. Add the roll to the Attacks characteristic of melee weapons used by that unit until your next hero phase.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
       },
     ],
   },

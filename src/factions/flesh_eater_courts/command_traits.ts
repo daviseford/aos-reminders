@@ -8,6 +8,8 @@ import {
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
@@ -280,6 +282,42 @@ const CommandTraits = {
         name: `Death From The Skies (Zombie Dragon Trait)`,
         desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is soaring in the skies in reserve. If you do so, at the end of your first movement phase, you must set up this unit on the battlefield more than 9" from any enemy units.`,
         when: [DURING_SETUP, TURN_ONE_END_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
+  'Savage Chivalry': {
+    effects: [
+      {
+        name: `Savage Chivalry`,
+        desc: `You can reroll hit rolls of 1 for this general while this general is within 12" of a friendly MORGAUNT SERFS unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  'Grave Robber': {
+    effects: [
+      {
+        name: `Grave Robber`,
+        desc: `Add 1 to the Attacks characteristic and Damage characteristic of this general's melee weapons while this general is within 3" of any enemy HEROES with an artifact of power.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Hellish Orator': {
+    effects: [
+      {
+        name: `Hellish Orator`,
+        desc: `If this general is on the battlefield at the start of your hero phase, roll a D6. On a 4+ you receive 1 additional command point.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  'Savage Strike': {
+    effects: [
+      {
+        name: `Savage Strike`,
+        desc: `This general and their mount fight at the start of the combat phase if they made a charge move in the same turn. This general and their mount cannot fight again in that combat phase unless a spell or ability allows them to fight more than once.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
