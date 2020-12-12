@@ -1,4 +1,3 @@
-import { TEntry } from 'types/data'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -10,9 +9,9 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Allegiances: TEntry[] = [
-  {
-    name: `Ymetrica`,
+// TODO: Write a concise description of what a flavor is
+const Flavors = {
+  Ymetrica: {
     effects: [
       {
         name: `Mountain Realm`,
@@ -39,8 +38,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Syar`,
+  Syar: {
     effects: [
       {
         name: `The Perfect Blade`,
@@ -66,8 +64,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Iliatha`,
+  Iliatha: {
     effects: [
       {
         name: `Simulacra Amulet`,
@@ -93,8 +90,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Zaitrec`,
+  Zaitrec: {
     effects: [
       {
         name: `Lambent Mystics`,
@@ -121,6 +117,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Allegiances
+// Note: We do NOT use tagAs for Flavors
+export default Flavors

@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -10,9 +10,8 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Spells: TEntry[] = [
-  {
-    name: `Speed of Hysh`,
+const Spells = {
+  'Speed of Hysh': {
     effects: [
       {
         name: `Speed of Hysh`,
@@ -21,8 +20,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Solar Flare`,
+  'Solar Flare': {
     effects: [
       {
         name: `Solar Flare`,
@@ -31,8 +29,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lambent Light`,
+  'Lambent Light': {
     effects: [
       {
         name: `Lambent Light`,
@@ -41,8 +38,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Etheral Blessings`,
+  'Etheral Blessings': {
     effects: [
       {
         name: `Etheral Blessings`,
@@ -56,8 +52,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Total Eclipse`,
+  'Total Eclipse': {
     effects: [
       {
         name: `Total Eclipse`,
@@ -66,8 +61,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Protection of Hysh`,
+  'Protection of Hysh': {
     effects: [
       {
         name: `Protection of Hysh`,
@@ -81,8 +75,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Unyielding Calm`,
+  'Unyielding Calm': {
     effects: [
       {
         name: `Unyielding Calm`,
@@ -96,8 +89,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Crippling Vertigo`,
+  'Crippling Vertigo': {
     effects: [
       {
         name: `Crippling Vertigo`,
@@ -111,8 +103,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Voice of the Mountains`,
+  'Voice of the Mountains': {
     effects: [
       {
         name: `Voice of the Mountains`,
@@ -121,8 +112,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Living Fissure`,
+  'Living Fissure': {
     effects: [
       {
         name: `Living Fissure`,
@@ -131,8 +121,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Entomb`,
+  Entomb: {
     effects: [
       {
         name: `Entomb`,
@@ -141,8 +130,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Assault of Stone`,
+  'Assault of Stone': {
     effects: [
       {
         name: `Assault of Stone`,
@@ -151,6 +139,6 @@ const Spells: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Spells
+export default tagAs(Spells, 'spell')

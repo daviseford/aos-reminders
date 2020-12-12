@@ -1,9 +1,9 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
 
-const EndlessSpells: TEntry[] = [
-  {
-    name: `Hyshian Twinstones`,
+// Add Endless spells here
+const EndlessSpells = {
+  'Hyshian Twinstones': {
     effects: [
       {
         name: `Summon Hyshian Twinstones`,
@@ -22,8 +22,7 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sanctum of Amyntok`,
+  'Sanctum of Amyntok': {
     effects: [
       {
         name: `Summon Sanctum of Amyntok`,
@@ -37,8 +36,7 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Rune of Petrification`,
+  'Rune of Petrification': {
     effects: [
       {
         name: `Summon Rune of Petrification`,
@@ -52,6 +50,6 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default EndlessSpells
+export default tagAs(EndlessSpells, 'endless_spell')

@@ -1,5 +1,4 @@
-//import idoneth from 'army/idoneth_deepkin'
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -15,9 +14,8 @@ import {
 } from 'types/phases'
 import CommonLuminethRealmlordsData from './common'
 
-export const Units: TEntry[] = [
-  {
-    name: `Archmage Teclis`,
+const Units = {
+  'Archmage Teclis': {
     effects: [
       {
         name: `Archmage`,
@@ -53,8 +51,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vanari Auralan Wardens`,
+  'Vanari Auralan Wardens': {
     effects: [
       {
         name: `Moonfire Flask`,
@@ -71,8 +68,7 @@ export const Units: TEntry[] = [
       CommonLuminethRealmlordsData.PowerOfHyshEffect,
     ],
   },
-  {
-    name: `Vanari Auralan Sentinels`,
+  'Vanari Auralan Sentinels': {
     effects: [
       CommonLuminethRealmlordsData.getVanariWizardsEffect(5),
       CommonLuminethRealmlordsData.getSunmetalWeaponsEffect(`Auralan Bow`),
@@ -89,8 +85,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vanari Dawnriders`,
+  'Vanari Dawnriders': {
     effects: [
       {
         name: `Deathly Furrows`,
@@ -108,8 +103,7 @@ export const Units: TEntry[] = [
       CommonLuminethRealmlordsData.StandardBearerEffect,
     ],
   },
-  {
-    name: `The Light of Eltharion`,
+  'The Light of Eltharion': {
     effects: [
       {
         name: `Celennari Blade`,
@@ -149,8 +143,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Scinari Cathallar`,
+  'Scinari Cathallar': {
     effects: [
       {
         name: `Emotional Transference`,
@@ -165,8 +158,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Alarith Stonemage`,
+  'Alarith Stonemage': {
     effects: [
       {
         name: `Stonemage stance`,
@@ -181,8 +173,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Alarith Stoneguard`,
+  'Alarith Stoneguard': {
     effects: [
       CommonLuminethRealmlordsData.StandardBearerEffect,
       {
@@ -202,8 +193,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Alarith Spirit of the Mountain`,
+  'Alarith Spirit of the Mountain': {
     effects: [
       CommonLuminethRealmlordsData.StonemageSymbiosisEffect,
       CommonLuminethRealmlordsData.AllButImmovableEffect,
@@ -220,8 +210,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Avalenor, the Stoneheart King`,
+  'Avalenor, the Stoneheart King': {
     effects: [
       CommonLuminethRealmlordsData.StonemageSymbiosisEffect,
       CommonLuminethRealmlordsData.AllButImmovableEffect,
@@ -243,8 +232,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Myari Lightcaller`,
+  'Myari Lightcaller': {
     effects: [
       {
         name: `Scryowl Familiar`,
@@ -279,8 +267,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Myari's Purifiers`,
+  "Myari's Purifiers": {
     effects: [
       {
         name: `Crushing Blow`,
@@ -299,54 +286,6 @@ export const Units: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export const AlliedUnits: TEntry[] = [] //idoneth.Units
-
-export const Battalions: TEntry[] = [
-  {
-    name: `Alarith Temple`,
-    effects: [
-      {
-        name: `Skin to Stone`,
-        desc: `Any friendly STONEGUARD units from this battalion that are wholly within 12" of a friendly HERO from the same battalion can turn their skin to stone until the end of the phase. Reroll save rolls for attacks that target a unit that has turned its skin to stone. Models in the unit that has turned its skin to stone can only move 1" when they pile in.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Skin to Stone`,
-        desc: `Reroll save rolls for attacks that target a unit that has turned its skin to stone.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Auralan Legion`,
-    effects: [
-      {
-        name: `Shield of Light`,
-        desc: `You can reroll save rolls of 1 for attacks that target a friendly unit from this battalion whilst it is within 3" of any other friendly unit from the same battalion.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Dawnrider Lance`,
-    effects: [
-      {
-        name: `Shafts of Light`,
-        desc: `Reroll hit rolls of 1 for attacks made with melee weapons by friendly units from this battalion that made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Teclian Vanguard`,
-    effects: [
-      {
-        name: `Blessing of Teclis`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly unit from this battalion while it is wholly within its own territory. On a 6, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
-]
+export default tagAs(Units, 'unit')

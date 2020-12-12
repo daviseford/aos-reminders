@@ -1,9 +1,9 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { DURING_GAME, DURING_TURN, HERO_PHASE } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Spellmaster`,
+// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+const CommandTraits = {
+  Spellmaster: {
     effects: [
       {
         name: `Spellmaster`,
@@ -12,8 +12,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Loremaster - Scinari`,
+  'Loremaster - Scinari': {
     effects: [
       {
         name: `Loremaster - Scinari`,
@@ -22,8 +21,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Warmaster`,
+  Warmaster: {
     effects: [
       {
         name: `Warmaster`,
@@ -32,8 +30,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Majestic`,
+  Majestic: {
     effects: [
       {
         name: `Majestic`,
@@ -42,8 +39,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Enduring`,
+  Enduring: {
     effects: [
       {
         name: `Enduring`,
@@ -52,8 +48,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Loremaster - Alarith`,
+  'Loremaster - Alarith': {
     effects: [
       {
         name: `Loremaster - Alarith`,
@@ -62,6 +57,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default CommandTraits
+// Always export using tagAs
+export default tagAs(CommandTraits, 'command_trait')
