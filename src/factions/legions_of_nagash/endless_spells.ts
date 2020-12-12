@@ -6,7 +6,7 @@
 //     effects: [
 //       {
 //         name: `Summon Made Up Endless Spell`,
-//         desc: `Casting value of 6. Summon this bad boy`,
+//         desc: `Casting value of 6. Summon this bad boy.`,
 //         when: [HERO_PHASE],
 //       },
 //     ],

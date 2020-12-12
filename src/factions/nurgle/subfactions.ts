@@ -33,7 +33,7 @@ const baseSubFaction: TItemDescription = {
         'Sayl the Faithless',
         'Nightmaw',
         'Slambo',
-        'Curs`d Ettin',
+        "Curs'd Ettin",
         'Furies',
         'Raptoryx',
         'Splintered Fang',
@@ -44,7 +44,7 @@ const baseSubFaction: TItemDescription = {
         'Untamed Beasts',
         'Spire Tyrants',
         'Scions of the Flame',
-        'Be`Lakor',
+        "Be'Lakor",
         'Mutalith Vortex Beast',
         'Fomoroid Crusher',
         'Mindstealer Sphiranx',
@@ -95,7 +95,7 @@ const subFactions: TItemDescriptions = {
     },
   },
 
-  'Tamurkhan`s Horde': {
+  "Tamurkhan's Horde": {
     effects: pickEffects(BattleTraits, ['Nurgle']),
 
     mandatory: {

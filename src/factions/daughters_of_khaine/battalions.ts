@@ -86,7 +86,7 @@ const RegularBattalions = {
       },
     ],
   },
-  'Tyralla`s Scathcoven': {
+  "Tyralla's Scathcoven": {
     mandatory: {
       units: [
         keyPicker(Units, ['Melusai Ironscale', 'Blood Sisters', 'Blood Stalkers', 'Khinerai Heartrenders']),

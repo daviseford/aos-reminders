@@ -46,7 +46,7 @@ const RegularBattalions = {
       },
     ],
   },
-  'Nurgle`s Menagerie': {
+  "Nurgle's Menagerie": {
     mandatory: {
       units: [keyPicker(Units, ['Horticulous Slimux', 'Beasts of Nurgle'])],
     },

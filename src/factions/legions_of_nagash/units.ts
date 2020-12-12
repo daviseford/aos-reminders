@@ -8,7 +8,7 @@
 //     effects: [
 //       {
 //         name: `Force Field`,
-//         desc: `Go Go Power Rangers!`,
+//         desc: `Go Go Power Rangers.`,
 //         when: [COMBAT_PHASE],
 //       },
 //     ],
@@ -17,7 +17,7 @@
 //     effects: [
 //       {
 //         name: `Force Field`,
-//         desc: `Go Go Power Rangers!`,
+//         desc: `Go Go Power Rangers.`,
 //         when: [COMBAT_PHASE],
 //       },
 //     ],
@@ -29,7 +29,7 @@
 //     effects: [
 //       {
 //         name: `A Simple Rule`,
-//         desc: `2+2, or something like that`,
+//         desc: `2+2, or something like that.`,
 //         when: [SAVES_PHASE],
 //       },
 //     ],
@@ -51,7 +51,7 @@
 //     effects: [
 //       {
 //         name: `A Complex Rule`,
-//         desc: `e=mc2, or something like that`,
+//         desc: `e=mc2, or something like that.`,
 //         when: [COMBAT_PHASE],
 //       },
 //     ],

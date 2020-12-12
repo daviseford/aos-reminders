@@ -135,7 +135,7 @@ const CommandTraits = {
     ],
   },
   // Bloodlords
-  'Slaughterer`s Thirst': {
+  "Slaughterer's Thirst": {
     effects: [
       {
         name: `Slaughterer's Thirst`,

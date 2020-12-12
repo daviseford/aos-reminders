@@ -59,7 +59,7 @@ const Flavors = {
     ],
   },
 
-  'Mor`phann': {
+  "Mor'phann": {
     mandatory: {
       spells: [keyPicker(Spells, ['Freezing Mists'])],
     },

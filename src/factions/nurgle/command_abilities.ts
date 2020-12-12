@@ -13,7 +13,7 @@ import {
 } from 'types/phases'
 
 const CommandAbilities = {
-  'Grandfather`s Joy': {
+  "Grandfather's Joy": {
     effects: [
       {
         name: `Grandfather's Joy`,
@@ -91,7 +91,7 @@ const CommandAbilities = {
       },
     ],
   },
-  'Grandfather`s Gift': {
+  "Grandfather's Gift": {
     effects: [
       {
         name: `Grandfather's Gift`,
@@ -100,7 +100,7 @@ const CommandAbilities = {
       },
     ],
   },
-  'Grandfather`s Exalted Joy': {
+  "Grandfather's Exalted Joy": {
     effects: [
       {
         name: `Grandfather's Exalted Joy`,

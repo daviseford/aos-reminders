@@ -27,7 +27,7 @@ const CommandAbilities = {
       },
     ],
   },
-  'Lord of the Ba`hal': {
+  "Lord of the Ba'hal": {
     effects: [
       {
         name: `Lord of the Ba'hal`,

@@ -10,7 +10,7 @@ import {
 
 const CommandAbilities = {
   // Unit command abilities
-  'I`m Da Boss, Now Stab `Em Good!': {
+  "I'm Da Boss, Now Stab 'Em Good!": {
     effects: [
       {
         name: `I'm Da Boss, Now Stab 'Em Good!`,
@@ -19,7 +19,7 @@ const CommandAbilities = {
       },
     ],
   },
-  'The Loonking`s Entreaty': {
+  "The Loonking's Entreaty": {
     effects: [
       {
         name: `The Loonking's Entreaty`,
@@ -37,7 +37,7 @@ const CommandAbilities = {
       },
     ],
   },
-  'Let`s Get Bouncing!': {
+  "Let's Get Bouncing!": {
     effects: [
       {
         name: `Let's Get Bouncing!`,
@@ -65,7 +65,7 @@ const CommandAbilities = {
     ],
   },
   // Jaws of Mork
-  'Get Some Loonshine Down `Em!': {
+  "Get Some Loonshine Down 'Em!": {
     effects: [
       {
         name: `"Get Some Loonshine Down 'Em!"`,

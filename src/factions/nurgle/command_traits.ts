@@ -12,7 +12,7 @@ import {
 } from 'types/phases'
 const CommandTraits = {
   // Traits shared across Daemons, Rotbringers, and Mortals.
-  'Grandfather`s Blessing': {
+  "Grandfather's Blessing": {
     effects: [
       {
         name: `Grandfather's Blessing`,

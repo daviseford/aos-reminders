@@ -40,7 +40,7 @@ const subFactions: TItemDescriptions = {
           'Desecrator Gauntlets',
         ]),
       ],
-      battalions: [keyOmitter(Battalions, ['Overlords of Chaos', 'Gresh`s Iron Reapers'])],
+      battalions: [keyOmitter(Battalions, ['Overlords of Chaos', "Gresh's Iron Reapers"])],
       command_traits: [
         keyPicker(CommandTraits, [
           'Bolstered by Hate',
@@ -74,7 +74,7 @@ const subFactions: TItemDescriptions = {
           'Spell Familiar',
         ]),
       ],
-      battalions: [keyOmitter(Battalions, ['Overlords of Chaos', 'Gresh`s Iron Reapers'])],
+      battalions: [keyOmitter(Battalions, ['Overlords of Chaos', "Gresh's Iron Reapers"])],
       command_traits: [
         keyPicker(CommandTraits, [
           'Bolstered by Hate',
@@ -108,10 +108,10 @@ const subFactions: TItemDescriptions = {
           'Armour of Tortured Souls',
           'Diabolic Mantle',
           'Doombringer Blade',
-          'Realmwarper`s Twist-rune',
+          "Realmwarper's Twist-rune",
         ]),
       ],
-      battalions: [keyOmitter(Battalions, ['Overlords of Chaos', 'Gresh`s Iron Reapers'])],
+      battalions: [keyOmitter(Battalions, ['Overlords of Chaos', "Gresh's Iron Reapers"])],
       command_traits: [
         keyPicker(CommandTraits, [
           'Bolstered by Hate',
@@ -141,7 +141,7 @@ const subFactions: TItemDescriptions = {
 
     available: {
       ...baseSubFaction.available,
-      battalions: [keyOmitter(Battalions, ['Gresh`s Iron Reapers'])],
+      battalions: [keyOmitter(Battalions, ["Gresh's Iron Reapers"])],
       flavors: [Flavors],
       units: [keyOmitter(Units, ['Idolator Lord on Chaos Chariot', 'Idolator Lord on Gorebeast Chariot'])],
     },
@@ -157,7 +157,7 @@ const subFactions: TItemDescriptions = {
     available: {
       ...baseSubFaction.available,
       artifacts: [keyPicker(Artifacts, ['Flask of Daemonblood', 'Grasping Plate', 'Corrupted Nullstone'])],
-      battalions: [keyOmitter(Battalions, ['Overlords of Chaos', 'Gresh`s Iron Reapers'])],
+      battalions: [keyOmitter(Battalions, ['Overlords of Chaos', "Gresh's Iron Reapers"])],
       command_traits: [
         keyPicker(CommandTraits, ['Annihilating Charge', 'Inescapeable Doom', 'Wall of Cursed Iron']),
       ],

@@ -99,7 +99,7 @@ const BattleTraits = {
     ],
   },
   // Zainthar Kai Flavor
-  'Khaine`s Essence': {
+  "Khaine's Essence": {
     effects: [
       {
         name: `Khaine's Essence`,

@@ -42,7 +42,7 @@ const CommandTraits = {
       },
     ],
   },
-  'Tough `n` Leathery': {
+  "Tough 'n' Leathery": {
     effects: [
       {
         name: `Tough 'n' Leathery`,
@@ -107,7 +107,7 @@ const CommandTraits = {
   },
   'Boss Shaman': {
     mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['I`m Da Boss, Now Stab `Em Good!'])],
+      command_abilities: [keyPicker(CommandAbilities, ["I'm Da Boss, Now Stab 'Em Good!"])],
     },
     effects: [
       {

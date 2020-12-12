@@ -78,7 +78,7 @@ const Artifacts = {
       },
     ],
   },
-  'Nurgle`s Nail': {
+  "Nurgle's Nail": {
     effects: [
       {
         name: `Nurgle's Nail`,
@@ -142,7 +142,7 @@ const Artifacts = {
       },
     ],
   },
-  'Sublucus` Stenchplate': {
+  "Sublucus' Stenchplate": {
     effects: [
       {
         name: `Sublucus' Stenchplate`,

@@ -12,7 +12,7 @@ const CommandAbilities = {
       },
     ],
   },
-  'Slaughterer`s Call': {
+  "Slaughterer's Call": {
     effects: [
       {
         name: `Slaughterer's Call`,

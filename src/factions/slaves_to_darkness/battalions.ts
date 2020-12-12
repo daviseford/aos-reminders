@@ -99,7 +99,7 @@ const RegularBattalions = {
       },
     ],
   },
-  'Gresh`s Iron Reapers': {
+  "Gresh's Iron Reapers": {
     manadatory: {
       command_traits: [keyPicker(CommandTraits, ['Profane Oratory'])],
       units: [keyPicker(Units, ['Gorebeast Chariots'])],

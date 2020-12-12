@@ -80,7 +80,7 @@ const RegularBattalions = {
       },
     ],
   },
-  'Gestharyx`s Cavalcade': {
+  "Gestharyx's Cavalcade": {
     mandatory: {
       units: [keyPicker(Units, ['Lord of Pain', 'Daemonettes', 'Hellflayer'])],
     },
@@ -117,7 +117,7 @@ const SuperBattalions = {
   'The Vengeful Alliance': {
     mandatory: {
       battalions: [keyPicker(RegularBattalions, ['Seeker Cavalcade'])],
-      units: [keyPicker(Units, ['Syll`Esske, the Vengeful Allegiance'])],
+      units: [keyPicker(Units, ["Syll'Esske, the Vengeful Allegiance"])],
     },
     effects: [
       {

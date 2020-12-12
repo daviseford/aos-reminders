@@ -98,7 +98,7 @@ const CommandAbilities = {
       },
     ],
   },
-  'The Butcher`s Due': {
+  "The Butcher's Due": {
     effects: [
       {
         name: `The Butcher's Due`,

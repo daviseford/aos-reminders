@@ -8,6 +8,7 @@ import {
   START_OF_GAME,
   START_OF_HERO_PHASE,
 } from 'types/phases'
+import BeastsOfChaosUnits from '../beasts_of_chaos/units'
 import Units from './units'
 
 const RegularBattalions = {
@@ -60,7 +61,7 @@ const RegularBattalions = {
       },
     ],
   },
-  'Overseer`s Fate-twisters': {
+  "Overseer's Fate-twisters": {
     mandatory: {
       units: [keyPicker(Units, ['Lord of Change'])],
     },
@@ -96,11 +97,9 @@ const RegularBattalions = {
   },
   'Alter-kin Coven': {
     mandatory: {
-      // TODO ADD TZAANGORS UNITS WHEN BOC FINISHED
       units: [
-        keyPicker(Units, [
-          'Kairic Acolytes', //'Tzaangors', 'Tzaangor Skyfires'])],
-        ]),
+        keyPicker(Units, ['Kairic Acolytes']),
+        keyPicker(BeastsOfChaosUnits, ['Tzaangors', 'Tzaangor Skyfires']),
       ],
     },
     effects: [
@@ -113,12 +112,7 @@ const RegularBattalions = {
   },
   'Witchfyre Coven': {
     mandatory: {
-      // TODO ADD TZAANGORS UNITS WHEN BOC FINISHED
-      units: [
-        keyPicker(Units, [
-          'Kairic Acolytes', //'Tzaangor Enlightened'])],
-        ]),
-      ],
+      units: [keyPicker(Units, ['Kairic Acolytes']), keyPicker(BeastsOfChaosUnits, ['Tzaangor Enlightened'])],
     },
     effects: [
       {
@@ -130,8 +124,7 @@ const RegularBattalions = {
   },
   'Skyshoal Coven': {
     mandatory: {
-      // TODO ADD TZAANGORS UNITS WHEN BOC FINISHED
-      //units: [keyPicker(Units, ['Tzaangor Enlightened', 'Tzaangor Skyfires'])],
+      units: [keyPicker(BeastsOfChaosUnits, ['Tzaangor Enlightened', 'Tzaangor Skyfires'])],
     },
     effects: [
       {
@@ -143,8 +136,7 @@ const RegularBattalions = {
   },
   'Tzaangor Coven': {
     mandatory: {
-      // TODO ADD TZAANGORS UNITS WHEN BOC FINISHED
-      //units: [keyPicker(Units, ['Tzaangors', 'Tzaangor Enlightened', 'Tzaangor Skyfires'])],
+      units: [keyPicker(BeastsOfChaosUnits, ['Tzaangors', 'Tzaangor Enlightened', 'Tzaangor Skyfires'])],
     },
     effects: [
       {
@@ -155,14 +147,11 @@ const RegularBattalions = {
     ],
   },
   // Other battalions.
-  'Ab-Het`s Skyseekers': {
+  "Ab-Het's Skyseekers": {
     mandatory: {
-      // TODO ADD TZAANGORS UNITS WHEN BOC FINISHED
       units: [
-        keyPicker(Units, [
-          'Magister on Disc of Tzeentch',
-          'Screamers of Tzeentch', //'Tzaangor Enlightened', 'Tzaangor Skyfires'
-        ]),
+        keyPicker(Units, ['Magister on Disc of Tzeentch', 'Screamers of Tzeentch']),
+        keyPicker(BeastsOfChaosUnits, ['Tzaangor Enlightened', 'Tzaangor Skyfires']),
       ],
     },
     effects: [
@@ -173,7 +162,7 @@ const RegularBattalions = {
       },
     ],
   },
-  'M`zarr`s Aetherhost': {
+  "M'zarr's Aetherhost": {
     mandatory: {
       units: [
         keyPicker(Units, [
@@ -198,7 +187,7 @@ const SuperBattalions = {
   // Daemons
   'Fate Legion': {
     mandatory: {
-      battalions: [keyPicker(RegularBattalions, ['Overseer`s Fate-twisters'])],
+      battalions: [keyPicker(RegularBattalions, ["Overseer's Fate-twisters"])],
     },
     effects: [
       {
@@ -223,5 +212,4 @@ const SuperBattalions = {
   },
 }
 
-const Battalions = { ...RegularBattalions, ...SuperBattalions }
-export default tagAs(Battalions, 'battalion')
+export default tagAs({ ...RegularBattalions, ...SuperBattalions }, 'battalion')

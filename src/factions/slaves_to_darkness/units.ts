@@ -467,7 +467,7 @@ const Units = {
   },
   'Sayl the Faithless': {
     mandatory: {
-      spells: [keyPicker(Spells, ['Traitor`s Mist'])],
+      spells: [keyPicker(Spells, ["Traitor's Mist"])],
     },
     effects: [
       {
@@ -691,7 +691,7 @@ const Units = {
       },
     ],
   },
-  'Curs`d Ettin': {
+  "Curs'd Ettin": {
     effects: [
       {
         name: `Cannibal Feast`,
@@ -852,7 +852,7 @@ const Units = {
       },
     ],
   },
-  'Be`Lakor': {
+  "Be'Lakor": {
     mandatory: {
       spells: [keyPicker(Spells, ['Enfeeble Foe'])],
     },

@@ -25,17 +25,17 @@
 //     effects: [
 //       {
 //         name: `Lore of DEF MAN: Spell #1`,
-//         desc: `Casting value of 5. Boom!`,
+//         desc: `Casting value of 5. Boom.`,
 //         when: [HERO_PHASE],
 //       },
 //       {
 //         name: `Lore of DEF MAN: Spell #2`,
-//         desc: `Casting value of 6. Boom!`,
+//         desc: `Casting value of 6. Boom.`,
 //         when: [HERO_PHASE],
 //       },
 //       {
 //         name: `Lore of DEF MAN: Spell #3`,
-//         desc: `Casting value of 7. Boom!`,
+//         desc: `Casting value of 7. Boom.`,
 //         when: [HERO_PHASE],
 //       },
 //     ],
