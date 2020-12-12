@@ -1,9 +1,8 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, END_OF_MOVEMENT_PHASE, START_OF_SETUP } from 'types/phases'
 
-const Scenery: TEntry[] = [
-  {
-    name: `Charnel Throne`,
+const Scenery = {
+  'Charnel Throne': {
     effects: [
       {
         name: `Charnel Throne`,
@@ -22,6 +21,6 @@ const Scenery: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Scenery
+export default tagAs(Scenery, 'scenery')

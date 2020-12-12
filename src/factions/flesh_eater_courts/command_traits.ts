@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -8,12 +8,14 @@ import {
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Crusading Army (Delusion)`,
+// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+const CommandTraits = {
+  'Crusading Army (Delusion)': {
     effects: [
       {
         name: `Crusading Army (Delusion)`,
@@ -22,8 +24,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Royal Hunt (Delusion)`,
+  'The Royal Hunt (Delusion)': {
     effects: [
       {
         name: `The Royal Hunt (Delusion)`,
@@ -32,8 +33,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Feast Day (Delusion)`,
+  'The Feast Day (Delusion)': {
     effects: [
       {
         name: `The Feast Day (Delusion)`,
@@ -42,8 +42,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `A Matter of Honour (Delusion)`,
+  'A Matter of Honour (Delusion)': {
     effects: [
       {
         name: `A Matter of Honour (Delusion)`,
@@ -52,8 +51,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Grand Tournament (Delusion)`,
+  'The Grand Tournament (Delusion)': {
     effects: [
       {
         name: `The Grand Tournament (Delusion)`,
@@ -62,8 +60,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Defenders of the Realm (Delusion)`,
+  'Defenders of the Realm (Delusion)': {
     effects: [
       {
         name: `Defenders of the Realm (Delusion)`,
@@ -72,8 +69,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Bringer of Death (Royalty)`,
+  'Bringer of Death (Royalty)': {
     effects: [
       {
         name: `Bringer of Death (Royalty)`,
@@ -82,8 +78,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Frenzied Flesh-eater (Royalty)`,
+  'Frenzied Flesh-eater (Royalty)': {
     effects: [
       {
         name: `Frenzied Flesh-eater (Royalty)`,
@@ -92,8 +87,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Savage Beyond Reason (Royalty)`,
+  'Savage Beyond Reason (Royalty)': {
     effects: [
       {
         name: `Savage Beyond Reason (Royalty)`,
@@ -102,8 +96,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Majestic Horror (Royalty)`,
+  'Majestic Horror (Royalty)': {
     effects: [
       {
         name: `Majestic Horror (Royalty)`,
@@ -112,8 +105,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dark Wizardry (Royalty)`,
+  'Dark Wizardry (Royalty)': {
     effects: [
       {
         name: `Dark Wizardry (Royalty)`,
@@ -122,8 +114,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Completely Delusional (Royalty)`,
+  'Completely Delusional (Royalty)': {
     effects: [
       {
         name: `Completely Delusional (Royalty)`,
@@ -132,8 +123,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Bringer of Death (Nobility)`,
+  'Bringer of Death (Nobility)': {
     effects: [
       {
         name: `Bringer of Death (Nobility)`,
@@ -142,8 +132,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Frenzied Flesh-eater (Nobility)`,
+  'Frenzied Flesh-eater (Nobility)': {
     effects: [
       {
         name: `Frenzied Flesh-eater (Nobility)`,
@@ -152,8 +141,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Savage Beyond Reason (Nobility)`,
+  'Savage Beyond Reason (Nobility)': {
     effects: [
       {
         name: `Savage Beyond Reason (Nobility)`,
@@ -162,8 +150,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Hulking Brute (Nobility)`,
+  'Hulking Brute (Nobility)': {
     effects: [
       {
         name: `Hulking Brute (Nobility)`,
@@ -172,8 +159,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Cruel Taskmaster (Nobility)`,
+  'Cruel Taskmaster (Nobility)': {
     effects: [
       {
         name: `Cruel Taskmaster (Nobility)`,
@@ -182,8 +168,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dark Acolyte (Nobility)`,
+  'Dark Acolyte (Nobility)': {
     effects: [
       {
         name: `Dark Acolyte (Nobility)`,
@@ -192,8 +177,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Deathly Fast (Terrorgheist Trait)`,
+  'Deathly Fast (Terrorgheist Trait)': {
     effects: [
       {
         name: `Deathly Fast (Terrorgheist Trait)`,
@@ -202,8 +186,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Razor-clawed (Terrorgheist Trait)`,
+  'Razor-clawed (Terrorgheist Trait)': {
     effects: [
       {
         name: `Razor-clawed (Terrorgheist Trait)`,
@@ -212,8 +195,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Horribly Infested (Terrorgheist Trait)`,
+  'Horribly Infested (Terrorgheist Trait)': {
     effects: [
       {
         name: `Horribly Infested (Terrorgheist Trait)`,
@@ -222,8 +204,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Horribly Resiliant (Terrorgheist Trait)`,
+  'Horribly Resiliant (Terrorgheist Trait)': {
     effects: [
       {
         name: `Horribly Resiliant (Terrorgheist Trait)`,
@@ -232,8 +213,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gruesome Bite (Terrorgheist Trait)`,
+  'Gruesome Bite (Terrorgheist Trait)': {
     effects: [
       {
         name: `Gruesome Bite (Terrorgheist Trait)`,
@@ -242,8 +222,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Devastating Scream (Terrorgheist Trait)`,
+  'Devastating Scream (Terrorgheist Trait)': {
     effects: [
       {
         name: `Devastating Scream (Terrorgheist Trait)`,
@@ -252,8 +231,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Deathly Fast (Zombie Dragon Trait)`,
+  'Deathly Fast (Zombie Dragon Trait)': {
     effects: [
       {
         name: `Deathly Fast (Zombie Dragon Trait)`,
@@ -262,8 +240,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Razor-clawed (Zombie Dragon Trait)`,
+  'Razor-clawed (Zombie Dragon Trait)': {
     effects: [
       {
         name: `Razor-clawed (Zombie Dragon Trait)`,
@@ -272,8 +249,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Baneful Breath (Zombie Dragon Trait)`,
+  'Baneful Breath (Zombie Dragon Trait)': {
     effects: [
       {
         name: `Baneful Breath (Zombie Dragon Trait)`,
@@ -282,8 +258,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Horribly Resilient (Zombie Dragon Trait)`,
+  'Horribly Resilient (Zombie Dragon Trait)': {
     effects: [
       {
         name: `Horribly Resilient (Zombie Dragon Trait)`,
@@ -292,8 +267,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Necrotic Fangs (Zombie Dragon Trait)`,
+  'Necrotic Fangs (Zombie Dragon Trait)': {
     effects: [
       {
         name: `Necrotic Fangs (Zombie Dragon Trait)`,
@@ -302,8 +276,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Death From The Skies (Zombie Dragon Trait)`,
+  'Death From The Skies (Zombie Dragon Trait)': {
     effects: [
       {
         name: `Death From The Skies (Zombie Dragon Trait)`,
@@ -312,6 +285,43 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+  'Savage Chivalry': {
+    effects: [
+      {
+        name: `Savage Chivalry`,
+        desc: `You can reroll hit rolls of 1 for this general while this general is within 12" of a friendly MORGAUNT SERFS unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  'Grave Robber': {
+    effects: [
+      {
+        name: `Grave Robber`,
+        desc: `Add 1 to the Attacks characteristic and Damage characteristic of this general's melee weapons while this general is within 3" of any enemy HEROES with an artifact of power.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Hellish Orator': {
+    effects: [
+      {
+        name: `Hellish Orator`,
+        desc: `If this general is on the battlefield at the start of your hero phase, roll a D6. On a 4+ you receive 1 additional command point.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  'Savage Strike': {
+    effects: [
+      {
+        name: `Savage Strike`,
+        desc: `This general and their mount fight at the start of the combat phase if they made a charge move in the same turn. This general and their mount cannot fight again in that combat phase unless a spell or ability allows them to fight more than once.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+}
 
-export default CommandTraits
+// Always export using tagAs
+export default tagAs(CommandTraits, 'command_trait')

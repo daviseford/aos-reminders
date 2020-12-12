@@ -1,9 +1,8 @@
-import { TEntry } from 'types/data'
-import { HERO_PHASE } from 'types/phases'
+import { tagAs } from 'factions/metatagger'
+import { COMBAT_PHASE, HERO_PHASE } from 'types/phases'
 
-const Spells: TEntry[] = [
-  {
-    name: `Bonestorm`,
+const Spells = {
+  Bonestorm: {
     effects: [
       {
         name: `Bonestorm`,
@@ -12,8 +11,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Spectral Host`,
+  'Spectral Host': {
     effects: [
       {
         name: `Spectral Host`,
@@ -22,8 +20,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Monstrous Vigour`,
+  'Monstrous Vigour': {
     effects: [
       {
         name: `Monstrous Vigour`,
@@ -32,8 +29,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Miasmal Shroud`,
+  'Miasmal Shroud': {
     effects: [
       {
         name: `Miasmal Shroud`,
@@ -42,8 +38,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Deranged Transformation`,
+  'Deranged Transformation': {
     effects: [
       {
         name: `Deranged Transformation`,
@@ -52,8 +47,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Blood Feast`,
+  'Blood Feast': {
     effects: [
       {
         name: `Blood Feast`,
@@ -64,6 +58,42 @@ const Spells: TEntry[] = [
       },
     ],
   },
-]
+  'Black Hunger': {
+    effects: [
+      {
+        name: `Black Hunger`,
+        desc: `Casting value of 5. Pick a FLESH-EATER COURTS unit within 18". Add 1 to the Attacks characteristic of any melee weapons used by that unit until your next hero phase.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  'Unholy Vitality': {
+    effects: [
+      {
+        name: `Unholy Vitality`,
+        desc: `Casting value of 6. Pick a FLESH-EATER COURTS unit within 18". Until your next hero phase, roll a D6 each time a model from the unit you picked suffers a wound or a mortal wound; on a roll of 5 or 6, the wound is ignored.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Malefic Hunger': {
+    effects: [
+      {
+        name: `Malefic Hunger`,
+        desc: `Casting value of 6. Until your next hero phase you can reroll wound rolls for attacks made with melee weapons by friendly Flesh-eater Courts units wholly within 16" of the caster.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  'Ferocious Hunger': {
+    effects: [
+      {
+        name: `Ferocious Hunger`,
+        desc: `Casting value of 6. Pick 1 friendly Flesh-eater Courts unit wholly within 24" of the caster and visible to them, and roll a D3. Add the roll to the Attacks characteristic of melee weapons used by that unit until your next hero phase.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+}
 
-export default Spells
+export default tagAs(Spells, 'spell')
