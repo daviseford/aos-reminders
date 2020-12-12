@@ -9,9 +9,13 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 import command_traits from './command_traits'
+import units from './units'
 
 const Battalions = {
   'Hammerhalian Lancers': {
+    mandatory: {
+      units: [keyPicker(units, ['Freeguild General on Griffon', 'Demigryph Knights'])],
+    },
     effects: [
       {
         name: `Glorious Cavalry Charge`,
@@ -21,6 +25,9 @@ const Battalions = {
     ],
   },
   'Viridian Pathfinders': {
+    mandatory: {
+      units: [keyPicker(units, ['Nomad Prince', 'Wildwood Rangers'])],
+    },
     effects: [
       {
         name: `Masters of Ambush`,
@@ -30,6 +37,9 @@ const Battalions = {
     ],
   },
   'Greywater Artillery Company': {
+    mandatory: {
+      units: [keyPicker(units, ['Cogsmith'])],
+    },
     effects: [
       {
         name: `A Greywater Welcome`,
@@ -48,6 +58,9 @@ const Battalions = {
     ],
   },
   'Aetherguard Windrunners': {
+    mandatory: {
+      units: [keyPicker(units, ['Freeguild General on Griffon'])],
+    },
     effects: [
       {
         name: `Swift Like the Wind`,
@@ -57,6 +70,9 @@ const Battalions = {
     ],
   },
   'Charrwind Beasthunters': {
+    mandatory: {
+      units: [keyPicker(units, ['Black Ark Fleetmaster', 'Black Ark Corsairs', 'Scourgerunner Chariots'])],
+    },
     effects: [
       {
         name: `Beasthunters`,
@@ -85,6 +101,7 @@ const Battalions = {
   },
   "Kraeth's Shadowhost": {
     mandatory: {
+      units: [keyPicker(units, ['Sorceress on Black Dragon', 'Dreadspears', 'Darkshards'])],
       command_traits: [keyPicker(command_traits, ['The Whisperers'])],
     },
     effects: [

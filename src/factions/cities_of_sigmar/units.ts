@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
@@ -220,7 +219,7 @@ const BattlemageMagicEffect = {
   when: [HERO_PHASE],
 }
 
-const Units: TItemDescriptions = {
+const Units = {
   Battlemage: {
     mandatory: {
       spells: [
