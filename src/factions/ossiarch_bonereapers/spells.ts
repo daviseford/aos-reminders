@@ -91,8 +91,6 @@ const Spells = {
       },
     ],
   },
-  // Notice how we've tucked all three spells into one selection
-  // This is a stylistic choice and you need to envision how the user will want to use this
   'Lore of the Mortisans': {
     effects: [
       {

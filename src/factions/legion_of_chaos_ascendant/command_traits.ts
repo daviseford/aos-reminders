@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { CHARGE_PHASE, END_OF_MOVEMENT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
-// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandTraits = {
   // Legion of Chaos Acendant
   'Primordial Commander': {

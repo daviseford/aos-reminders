@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, DURING_GAME, HERO_PHASE } from 'types/phases'
 
-// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandTraits = {
   'Raven Priest': {
     effects: [

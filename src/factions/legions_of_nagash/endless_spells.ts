@@ -1,6 +1,6 @@
 // import { HERO_PHASE } from 'types/phases'
 //
-// // Add Endless spells here
+//
 // const EndlessSpells = {
 //   'Made Up Endless Spell': {
 //     effects: [

@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
 
-// Add Endless spells here
 const EndlessSpells = {
   'Hyshian Twinstones': {
     effects: [
