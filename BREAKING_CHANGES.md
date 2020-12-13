@@ -29,8 +29,11 @@ Please document breaking changes here. This will make future migrations from v3 
 ## Army/Faction Names
 
 - `SKAVEN` -> `SKAVENTIDE`
+- `LEGIONS_OF_GRIEF` -> `LEGION_OF_GRIEF`
 
 - `BIG_WAAAGH | IRONJAWZ | BONESPLITTERZ` -> Now subfactions of `ORRUK_WARCLANS`
+- `GRAND_HOST_OF_NAGASH | LEGION_OF_BLOOD | LEGION_OF_SACRAMENT | LEGION_OF_NIGHT | SOULBLIGHT` -> Now subfactions of `LEGIONS_OF_NAGASH`
+- `TAMURKHANS_HORDE` -> Now a subfaction of `NURGLE`
 
 ## Redux/state changes
 
