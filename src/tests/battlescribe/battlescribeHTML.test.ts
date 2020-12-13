@@ -11,8 +11,8 @@ import {
   IDONETH_DEEPKIN,
   KHARADRON_OVERLORDS,
   KHORNE,
-  LEGIONS_OF_GRIEF,
   LEGION_OF_BLOOD,
+  LEGION_OF_GRIEF,
   LEGION_OF_SACRAMENT,
   LUMINETH_REALMLORDS,
   NIGHTHAUNT,
@@ -589,7 +589,7 @@ describe('getBattlescribeArmy', () => {
   it('should work with LoG1', () => {
     const parsedText = getFile('LoG1')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.factionName).toEqual(LEGIONS_OF_GRIEF)
+    expect(res.factionName).toEqual(LEGION_OF_GRIEF)
     expect(res.errors).toEqual([
       {
         severity: 'warn',
