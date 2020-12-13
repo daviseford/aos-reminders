@@ -63,7 +63,7 @@ export const mergeParentEffectObjs = <T extends TParentEffectsObjWithEffects>(
   }, [] as (TParentEffectsObjWithEffects & TEntry)[])
 }
 
-export const parentEffectObjConverter = <T extends TParentEffectsObjWithEffects>(obj: T): (T & TEntry)[] => {
+const parentEffectObjConverter = <T extends TParentEffectsObjWithEffects>(obj: T): (T & TEntry)[] => {
   return Object.keys(obj).reduce((a, name) => {
     const entry = { ...obj[name], name }
     a.push(entry as T & TEntry)
