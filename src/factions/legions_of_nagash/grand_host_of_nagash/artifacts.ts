@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   HERO_PHASE,
@@ -7,9 +7,9 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Deathforged Chain`,
+// Add individual artifacts here, and access them in other files!
+const Artifacts = {
+  'Deathforged Chain': {
     effects: [
       {
         name: `Deathforged Chain`,
@@ -18,8 +18,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Balefire Lantern`,
+  'Balefire Lantern': {
     effects: [
       {
         name: `Balefire Lantern`,
@@ -28,8 +27,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Grave-sand Timeglass`,
+  'Grave-sand Timeglass': {
     effects: [
       {
         name: `Grave-sand Timeglass`,
@@ -43,8 +41,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ossific Diadem`,
+  'Ossific Diadem': {
     effects: [
       {
         name: `Ossific Diadem`,
@@ -53,8 +50,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Amethyst Shard`,
+  'Amethyst Shard': {
     effects: [
       {
         name: `Amethyst Shard`,
@@ -63,8 +59,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Terrorgheist Mantle`,
+  'Terrorgheist Mantle': {
     effects: [
       {
         name: `Terrorgheist Mantle`,
@@ -73,6 +68,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(Artifacts, 'artifact')

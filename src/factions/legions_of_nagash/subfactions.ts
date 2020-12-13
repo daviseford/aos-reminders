@@ -3,6 +3,9 @@ import { keyPicker, pickEffects } from '../metatagger'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
+import GHoNArtifacts from './grand_host_of_nagash/artifacts'
+import GHoNBattalions from './grand_host_of_nagash/battalions'
+import GHoNCommandTraits from './grand_host_of_nagash/command_traits'
 import Spells from './spells'
 import Units from './units'
 
@@ -26,6 +29,11 @@ const subFactions: TItemDescriptions = {
 
     available: {
       ...baseLegion.available,
+      // TODO Add Nighthaunt Endless SPells
+      // endless_spells: [NighthauntEndlessSpells],
+      battalions: [keyPicker(Battalions, ['Deathmarch', 'Castellans of the Crimson Keep']), GHoNBattalions],
+      artifacts: [GHoNArtifacts],
+      command_traits: [GHoNCommandTraits],
     },
   },
   'Legion of Blood': {

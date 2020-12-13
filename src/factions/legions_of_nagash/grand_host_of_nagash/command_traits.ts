@@ -1,9 +1,9 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { CHARGE_PHASE, COMBAT_PHASE, START_OF_COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Master of Death`,
+// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+const CommandTraits = {
+  'Master of Death': {
     effects: [
       {
         name: `Master of Death`,
@@ -12,8 +12,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Chosen Champion`,
+  'Chosen Champion': {
     effects: [
       {
         name: `Chosen Champion`,
@@ -22,8 +21,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Bane of the Living`,
+  'Bane of the Living': {
     effects: [
       {
         name: `Bane of the Living`,
@@ -32,8 +30,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Aura of Ages`,
+  'Aura of Ages': {
     effects: [
       {
         name: `Aura of Ages`,
@@ -42,8 +39,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ancient Strategist`,
+  'Ancient Strategist': {
     effects: [
       {
         name: `Ancient Strategist`,
@@ -52,8 +48,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lord of Nagashizzar`,
+  'Lord of Nagashizzar': {
     effects: [
       {
         name: `Lord of Nagashizzar`,
@@ -62,6 +57,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default CommandTraits
+// Always export using tagAs
+export default tagAs(CommandTraits, 'command_trait')
