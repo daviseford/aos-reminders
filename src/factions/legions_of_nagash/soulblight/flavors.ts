@@ -1,9 +1,7 @@
-import { TEntry } from 'types/data'
 import { COMBAT_PHASE, DURING_GAME, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
 
-const Allegiances: TEntry[] = [
-  {
-    name: `The Bloodlines: Dragon Warriors`,
+const Flavors = {
+  'The Bloodlines: Dragon Warriors': {
     effects: [
       {
         name: `The Bloodlines: Dragon Warriors`,
@@ -12,8 +10,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Bloodlines: Lords of Night`,
+  'The Bloodlines: Lords of Night': {
     effects: [
       {
         name: `The Bloodlines: Lords of Night`,
@@ -22,8 +19,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Bloodlines: Necromantic`,
+  'The Bloodlines: Necromantic': {
     effects: [
       {
         name: `The Bloodlines: Necromantic`,
@@ -32,8 +28,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Bloodlines: Swift Death`,
+  'The Bloodlines: Swift Death': {
     effects: [
       {
         name: `The Bloodlines: Swift Death`,
@@ -42,6 +37,7 @@ const Allegiances: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Allegiances
+// Note: We do NOT use tagAs for Flavors
+export default Flavors

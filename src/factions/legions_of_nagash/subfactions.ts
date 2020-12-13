@@ -15,6 +15,10 @@ import LegionOfNightCommandTraits from './legion_of_night/command_traits'
 import LegionOfSacramentArtifacts from './legion_of_sacrament/artifacts'
 import LegionOfSacramentBattalions from './legion_of_sacrament/battalions'
 import LegionOfSacramentCommandTraits from './legion_of_sacrament/command_traits'
+import SoulblightArtifacts from './soulblight/artifacts'
+import SoulblightBattalions from './soulblight/battalions'
+import SoulblightCommandTraits from './soulblight/command_traits'
+import SoulblightFlavors from './soulblight/flavors'
 import Spells from './spells'
 import Units from './units'
 
@@ -91,7 +95,16 @@ const subFactions: TItemDescriptions = {
   },
   Soulblight: {
     effects: pickEffects(BattleTraits, ['Soulblight']),
-    available: {},
+    available: {
+      ...baseLegion.available,
+      battalions: [
+        keyPicker(Battalions, ['Court of Nulahmia', 'Castellans of the Crimson Keep']),
+        SoulblightBattalions,
+      ],
+      artifacts: [SoulblightArtifacts],
+      command_traits: [SoulblightCommandTraits],
+      flavors: [SoulblightFlavors],
+    },
   },
 }
 

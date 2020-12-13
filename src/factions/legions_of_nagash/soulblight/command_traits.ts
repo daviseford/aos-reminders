@@ -1,9 +1,9 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, DURING_GAME, MOVEMENT_PHASE } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Curse of the Revenant`,
+// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+const CommandTraits = {
+  'Curse of the Revenant': {
     effects: [
       {
         name: `Curse of the Revenant`,
@@ -12,8 +12,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Deathless Duelist`,
+  'Deathless Duelist': {
     effects: [
       {
         name: `Deathless Duelist`,
@@ -22,8 +21,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Transfix`,
+  Transfix: {
     effects: [
       {
         name: `Transfix`,
@@ -32,8 +30,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mist Form`,
+  'Mist Form': {
     effects: [
       {
         name: `Mist Form`,
@@ -42,8 +39,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Killing Blow`,
+  'Killing Blow': {
     effects: [
       {
         name: `Killing Blow`,
@@ -52,8 +48,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Blood Fury`,
+  'Blood Fury': {
     effects: [
       {
         name: `Blood Fury`,
@@ -62,6 +57,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default CommandTraits
+// Always export using tagAs
+export default tagAs(CommandTraits, 'command_trait')

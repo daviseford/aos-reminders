@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   DURING_GAME,
@@ -8,9 +8,9 @@ import {
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `The Stalking Blade`,
+// Add individual artifacts here, and access them in other files!
+const Artifacts = {
+  'The Stalking Blade': {
     effects: [
       {
         name: `The Stalking Blade`,
@@ -19,8 +19,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Scabbing Plate`,
+  'The Scabbing Plate': {
     effects: [
       {
         name: `The Scabbing Plate`,
@@ -29,8 +28,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Crimson Wing`,
+  'Crimson Wing': {
     effects: [
       {
         name: `Crimson Wing`,
@@ -39,8 +37,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sigil of the Sanguine Throne`,
+  'Sigil of the Sanguine Throne': {
     effects: [
       {
         name: `Sigil of the Sanguine Throne`,
@@ -49,8 +46,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Saccharine Goblet`,
+  'The Saccharine Goblet': {
     effects: [
       {
         name: `The Saccharine Goblet`,
@@ -59,8 +55,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ruby Vial`,
+  'Ruby Vial': {
     effects: [
       {
         name: `Ruby Vial`,
@@ -69,6 +64,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(Artifacts, 'artifact')
