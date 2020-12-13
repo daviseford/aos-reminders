@@ -1,9 +1,9 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, DURING_GAME, HERO_PHASE } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Amethyst Glow`,
+// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+const CommandTraits = {
+  'Amethyst Glow': {
     effects: [
       {
         name: `Amethyst Glow`,
@@ -12,8 +12,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vassal of the Craven King`,
+  'Vassal of the Craven King': {
     effects: [
       {
         name: `Vassal of the Craven King`,
@@ -22,8 +21,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Tragic Emanations`,
+  'Tragic Emanations': {
     effects: [
       {
         name: `Tragic Emanations`,
@@ -32,6 +30,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default CommandTraits
+// Always export using tagAs
+export default tagAs(CommandTraits, 'command_trait')

@@ -1,10 +1,8 @@
-// Lore of Sorrows
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE, SAVES_PHASE } from 'types/phases'
 
-const Spells: TEntry[] = [
-  {
-    name: `Dread Withering`,
+const Spells = {
+  'Dread Withering': {
     effects: [
       {
         name: `Dread Withering`,
@@ -18,8 +16,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Wail of Doom`,
+  'Wail of Doom': {
     effects: [
       {
         name: `Wail of Doom`,
@@ -28,8 +25,7 @@ const Spells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shroud of Terror`,
+  'Shroud of Terror': {
     effects: [
       {
         name: `Shroud of Terror`,
@@ -38,6 +34,6 @@ const Spells: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Spells
+export default tagAs(Spells, 'spell')

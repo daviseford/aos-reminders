@@ -1,9 +1,9 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { END_OF_COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Grave-Sand Gem`,
+// Add individual artifacts here, and access them in other files!
+const Artifacts = {
+  'Grave-Sand Gem': {
     effects: [
       {
         name: `Grave-sand Gem`,
@@ -12,8 +12,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gothizzari Mortuary Candle`,
+  'Gothizzari Mortuary Candle': {
     effects: [
       {
         name: `Gothizzari Mortuary Candle`,
@@ -22,8 +21,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Souldrain Pendant`,
+  'Souldrain Pendant': {
     effects: [
       {
         name: `Souldrain Pendant`,
@@ -32,6 +30,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(Artifacts, 'artifact')

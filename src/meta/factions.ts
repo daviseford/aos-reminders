@@ -106,7 +106,7 @@ export type TPrimaryFactions =
   | TKhorne
   | TLegionOfChaosAscendant
   | TLegionOfAzgorh
-  // | TLegionsOfGrief
+  | TLegionsOfGrief
   | TLegionsOfNagash
   | TLethisianDefenders
   | TLuminethRealmlords
@@ -149,7 +149,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   KHORNE,
   LEGION_OF_CHAOS_ASCENDANT,
   LEGION_OF_AZGORH,
-  // LEGIONS_OF_GRIEF,
+  LEGIONS_OF_GRIEF,
   LEGIONS_OF_NAGASH,
   LETHISIAN_DEFENDERS,
   LUMINETH_REALMLORDS,

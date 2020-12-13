@@ -1,5 +1,4 @@
-import { Units as NighthauntUnits } from 'army/nighthaunt/units'
-import { tagAs } from 'factions/metatagger'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import GenericBattleTraits from 'generic_rules/battle_traits'
 import {
   BATTLESHOCK_PHASE,
@@ -17,29 +16,8 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import { filterUnits } from 'utils/filterUtils'
-
-/**
- * Allied Nighthaunt units per LoN FAQ
- */
-const getNighthauntUnits = () => {
-  const listOfUnits = [
-    `Cairn Wraith`,
-    `Chainrasp Horde`,
-    `Glaivewraith Stalkers`,
-    `Grimghast Reapers`,
-    `Guardian of Souls w/ Mortality Glass`,
-    `Guardian of Souls`,
-    `Hexwraiths`,
-    `Knight of Shrouds on Ethereal Steed`,
-    `Knight of Shrouds`,
-    `Lord Executioner`,
-    `Spirit Hosts`,
-    `Spirit Torment`,
-    `Tomb Banshee`,
-  ]
-  return filterUnits(NighthauntUnits, listOfUnits)
-}
+import command_abilities from './command_abilities'
+import spells from './spells'
 
 const getDeathlyInvocation = (numUnits: number) => ({
   name: `Deathly Invocation`,
@@ -73,12 +51,6 @@ const StandardBearerEffect = {
   desc: `Models in this unit may be Standard Bearers. Subtract 1 from the Bravery characteristic of enemy units that are within 6" of any DEATH Standard Bearers.`,
   when: [BATTLESHOCK_PHASE],
 }
-const LordOfBonesEffect = {
-  name: `Lord of Bones`,
-  desc: `If this model uses this ability, pick a friendly DEATHRATTLE unit within 18" of it. Until your next hero phase, add 1 to the Attacks characteristic of that unit's melee weapons. You cannot pick the same unit to benefit from this command ability more than once per hero phase.`,
-  when: [HERO_PHASE],
-  command_ability: true,
-}
 const HornblowerEffect = {
   name: `Hornblower`,
   desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
@@ -100,13 +72,12 @@ const CryptShieldsEffect = {
   when: [SAVES_PHASE],
 }
 
-// export const Units: TEntry[] = [
-//   ...getNighthauntUnits(),
-
-// ]
-
 const Units = {
   'Nagash, Supreme Lord of the Undead': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Supreme Lord of Death'])],
+      spells: [keyPicker(spells, ['Hand of Dust', 'Soul Stealer'])],
+    },
     effects: [
       {
         name: `The Staff of Power`,
@@ -133,27 +104,13 @@ const Units = {
         desc: `At the start of your hero phase, pick up to 5 different friendly SUMMONABLE units or friendly Ossiarch Bonereapers units on the battlefield in any combination. You can heal 3 wounds that have been allocated to each unit you picked. If no wounds are currently allocated to a unit you picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than 3.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Hand of Dust`,
-        desc: `Casting value of 8. Pick an enemy model within 3" the caster. Then, take a dice and hide it in one of your hands. Your opponent must pick one of your hands. If they pick the one holding the dice, the spell has no effect. If they pick the empty hand, the enemy model is slain.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Soul Stealer`,
-        desc: `Casting value of 6. Pick an enemy unit within 24" of the caster that is visible to them and roll two dice. If the total is greater than that unit's Bravery characteristic, it suffers D3 mortal wounds. If the total is at least double the unit's Bravery, it suffers D6 mortal wounds instead. For each mortal wound inflicted on the target and not negated, heal 1 wound that has been allocated to the caster.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Supreme Lord of Death`,
-        desc: `If Nagash uses this ability, then until your next hero phase you can reroll hit and save rolls of 1 for all friendly DEATH units. In addition, do not take battleshock tests for DEATH units affected by this ability.`,
-        when: [HERO_PHASE, COMBAT_PHASE],
-        command_ability: true,
-      },
     ],
   },
   'Arkhan the Black, Mortarch of Sacrament': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['First of the Mortarchs'])],
+      spells: [keyPicker(spells, ['Curse of Years'])],
+    },
     effects: [
       FeasterOfSoulsEffect,
       {
@@ -171,23 +128,13 @@ const Units = {
         desc: `Each time you roll an unmodified hit roll of 6 for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Curse of Years`,
-        desc: `Casting value of 6. Pick an enemy unit within 18" of the caster that is visible to them and roll ten dice. For each roll of 6, that unit suffers a mortal wound and you can roll an extra dice. For each roll of 5+ on these extra dice, the target suffers another mortal wound and you can roll another dice. Now, for each roll of 4+, the target suffers another mortal wound and you can roll another dice. Keep rolling dice in this way, inflicting mortal wounds and reducing the roll needed to cause them by 1 each time, until either no wounds are inflicted or the target unit is destroyed. A roll of 1 always fails to inflict a mortal wound.
-    
-            The target can roll mortal wound negation as the effects are applied, if any are negated then you do not roll a new dice for that wound.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `First of the Mortarchs`,
-        desc: `If Arkhan the Black uses this ability, then until the end of the hero phase all friendly DEATH WIZARDS within 18" of him can increase the range of their spells by 6". You cannot use this command ability multiple times.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
     ],
   },
   'Mannfred, Mortarch of Night': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Vigour of Undeath'])],
+      spells: [keyPicker(spells, ['Wind of Death'])],
+    },
     effects: [
       FeasterOfSoulsEffect,
       {
@@ -216,21 +163,13 @@ const Units = {
         desc: `Mannfred is a WIZARD. He can attempt to cast two spells in your hero phase, and attempt to unbind two spells in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Wind of Death spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Wind of Death`,
-        desc: `Casting value of 7. Pick an enemy model within 18" of the caster that is visible to them. Each enemy unit within 6" of that model suffers 1 mortal wound, while the model's own unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Vigour of Undeath`,
-        desc: `If Mannfred uses this ability, then until your next hero phase you can reroll hit and wound rolls of 1 for friendly DEATH units that are within the range shown on the damage table.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
     ],
   },
   'Neferata, Mortarch of Blood': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Twilights Allure'])],
+      spells: [keyPicker(spells, ['Dark Mist'])],
+    },
     effects: [
       {
         name: `Dagger of Jet`,
@@ -253,21 +192,13 @@ const Units = {
         desc: `Neferata is a WIZARD. She can attempt to cast two spells in your hero phase, and attempt to unbind two spells in the enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Dark Mist spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Dark Mist`,
-        desc: `Casting value of 6. Pick a friendly DEATH unit within 18" of the caster. Until your next hero phase, that unit can fly and you must ignore modifiers (positive or negative) when making save rolls for the unit.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Twilights Allure`,
-        desc: `If Neferata uses this ability, then until your next hero phase subtract 1 from hit rolls for enemy units that are within the range shown on the damage table.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
     ],
   },
   'Prince Vhordrai': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Fist of Nagash'])],
+      spells: [keyPicker(spells, ['Quickblood'])],
+    },
     effects: [
       TheHungerEffect,
       // Does not use generic ChaliceOfBlood
@@ -292,18 +223,6 @@ const Units = {
         desc: `Prince Vhordrai is a WIZARD. He can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Quickblood spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Quickblood`,
-        desc: `Casting value of 7. Add 1 to hit and wound rolls for the caster until your next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Fist of Nagash`,
-        desc: `If Prince Vhordrai uses this ability, pick a friendly DEATH HERO within 14" of him (you cannot choose Prince Vhordrai). That hero can immediately either be chosen to pile in and attack as if it were the combat phase, or if it is a WIZARD, attempt to cast a spell in addition to any others they can attempt to cast this phase. The same unit cannot be picked to benefit from this command ability more than once per hero phase.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
     ],
   },
   'Morghast Harbingers': {
@@ -327,6 +246,10 @@ const Units = {
     ],
   },
   'Vampire Lord on Zombie Dragon': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Dread Knight'])],
+      spells: [keyPicker(spells, ['Blood Boil'])],
+    },
     effects: [
       ...GenericBattleTraits.ZombieDragon,
       TheHungerEffect,
@@ -346,18 +269,6 @@ const Units = {
         name: `Magic`,
         desc: `A Vampire Lord on Zombie Dragon is a WIZARD. He can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Blood Boil spells.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Blood Boil`,
-        desc: `Casting value of 6. Pick an enemy unit within 18" of the caster that is visible to them. That unit suffers a mortal wound. If a model was allocated any wounds caused by this spell but was not slain, roll another dice. On a 4+ that model suffers another mortal wound. If the model is still not slain, roll another dice. It will suffer another mortal wound on a 4+. Keep rolling dice in this way until either the model is slain or you fail to cause a mortal wound.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Dread Knight`,
-        desc: `If this model uses this ability, pick a friendly DEATH unit within 15" of it. Until your next hero phase, you can reroll failed hit rolls for that unit.`,
-        when: [HERO_PHASE],
-        command_ability: true,
       },
     ],
   },
@@ -421,6 +332,9 @@ const Units = {
     ],
   },
   'Vampire Lord': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Blood Feast'])],
+    },
     effects: [
       {
         name: `Nightmare`,
@@ -440,15 +354,12 @@ const Units = {
         desc: `A Vampire Lord is a WIZARD. They can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. They know the Arcane Bolt and Mystic Shield spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Blood Feast`,
-        desc: `If this model uses this ability, pick a friendly DEATH unit within 15" of it. Models in that unit make one extra attack with each of their melee weapons until your next hero phase. You cannot pick the same unit to benefit from this command ability more than once per hero phase.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
     ],
   },
   'Bloodseeker Palanquin': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Blood Siphon'])],
+    },
     effects: [
       {
         name: `Frightful Touch`,
@@ -467,15 +378,13 @@ const Units = {
         desc: `The Sanguinarch on a Bloodseeker Palanquin is a WIZARD. She can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Blood Siphon spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Blood Siphon`,
-        desc: `Casting value of 6. Pick an enemy HERO within 12" of the caster that is visible to them and roll a D6. On a 1-3 the hero suffers a mortal wound. On a 4-5 the hero suffers D3 mortal wounds. On a 6 the hero suffers D6 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
   'Coven Throne': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Tactical Insight'])],
+      spells: [keyPicker(spells, ['Beguile'])],
+    },
     effects: [
       {
         name: `Frightful Touch`,
@@ -498,18 +407,6 @@ const Units = {
         name: `Magic`,
         desc: `The Vampire Queen on a Coven Throne is a WIZARD. She can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Beguile spells.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Beguile`,
-        desc: `Casting value of 6. Pick an enemy unit within 12" of the caster that is visible to them and roll three dice. If the total is higher than that unit's Bravery, then until your next hero phase the caster cannot be selected as the target of any attacks made by that unit or spells cast by that unit.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-      {
-        name: `Tactical Insight`,
-        desc: `If this model uses this ability, pick a friendly DEATH unit within 12" of it. You can reroll hit, wound and save rolls of 1 for that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-        command_ability: true,
       },
     ],
   },
@@ -534,6 +431,9 @@ const Units = {
     ],
   },
   Necromancer: {
+    mandatory: {
+      spells: [keyPicker(spells, ["Vanhel's Danse Macabre"])],
+    },
     effects: [
       {
         name: `Undead Minions`,
@@ -545,12 +445,6 @@ const Units = {
         name: `Magic`,
         desc: `A Necromancer is a WIZARD. He can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Vanhel's Danse Macabre spells.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Vanhel's Danse Macabre`,
-        desc: `Casting value of 6. Pick a friendly SUMMONABLE unit within 18" of the caster. That unit can be chosen to pile in and attack twice in your next combat phase.`,
-        when: [HERO_PHASE],
-        spell: true,
       },
     ],
   },
@@ -616,6 +510,9 @@ const Units = {
     effects: [...GenericBattleTraits.ZombieDragon],
   },
   'Wight King with Baleful Tomb Blade': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Lord of Bones'])],
+    },
     effects: [
       {
         name: `Skeletal Steed`,
@@ -628,10 +525,12 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       getDeathlyInvocation(2),
-      LordOfBonesEffect,
     ],
   },
   'Wight King with Black Axe': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Lord of Bones'])],
+    },
     effects: [
       {
         name: `Black Axe`,
@@ -644,7 +543,6 @@ const Units = {
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       getDeathlyInvocation(2),
-      LordOfBonesEffect,
     ],
   },
   'Black Knights': {

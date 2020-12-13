@@ -1,6 +1,7 @@
 import { TItemDescription, TItemDescriptions } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from '../metatagger'
 import NighthauntEndlessSpells from '../nighthaunt/endless_spells'
+import NighthauntUnits from '../nighthaunt/units'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
@@ -17,7 +18,6 @@ import LegionOfSacramentArtifacts from './legion_of_sacrament/artifacts'
 import LegionOfSacramentBattalions from './legion_of_sacrament/battalions'
 import LegionOfSacramentCommandTraits from './legion_of_sacrament/command_traits'
 import SoulblightArtifacts from './soulblight/artifacts'
-import SoulblightBattalions from './soulblight/battalions'
 import SoulblightCommandTraits from './soulblight/command_traits'
 import SoulblightFlavors from './soulblight/flavors'
 import Spells from './spells'
@@ -31,9 +31,25 @@ const baseLegion: TItemDescription = {
   available: {
     battalions: [Battalions],
     command_abilities: [CommandAbilities],
-    endless_spells: [NighthauntEndlessSpells],
     spells: [Spells],
-    units: [Units],
+    units: [
+      Units,
+      keyPicker(NighthauntUnits, [
+        'Cairn Wraith',
+        'Chainrasp Horde',
+        'Glaivewraith Stalkers',
+        'Grimghast Reapers',
+        'Guardian of Souls w/ Mortality Glass',
+        'Guardian of Souls',
+        'Hexwraiths',
+        'Knight of Shrouds on Ethereal Steed',
+        'Knight of Shrouds',
+        'Lord Executioner',
+        'Spirit Hosts',
+        'Spirit Torment',
+        'Tomb Banshee',
+      ]),
+    ],
   },
 }
 
@@ -47,6 +63,7 @@ const subFactions: TItemDescriptions = {
       battalions: [keyPicker(Battalions, ['Deathmarch', 'Castellans of the Crimson Keep']), GHoNBattalions],
       artifacts: [GHoNArtifacts],
       command_traits: [GHoNCommandTraits],
+      endless_spells: [NighthauntEndlessSpells],
     },
   },
   'Legion of Blood': {
@@ -60,6 +77,7 @@ const subFactions: TItemDescriptions = {
       ],
       artifacts: [LegionOfBloodArtifacts],
       command_traits: [LegionOfBloodCommandTraits],
+      endless_spells: [NighthauntEndlessSpells],
     },
   },
   'Legion of Night': {
@@ -74,6 +92,7 @@ const subFactions: TItemDescriptions = {
       ],
       artifacts: [LegionOfNightArtifacts],
       command_traits: [LegionOfNightCommandTraits],
+      endless_spells: [NighthauntEndlessSpells],
     },
   },
   'Legion of Sacrament': {
@@ -87,16 +106,14 @@ const subFactions: TItemDescriptions = {
       ],
       artifacts: [LegionOfSacramentArtifacts],
       command_traits: [LegionOfSacramentCommandTraits],
+      endless_spells: [NighthauntEndlessSpells],
     },
   },
   Soulblight: {
     effects: pickEffects(BattleTraits, ['Soulblight']),
     available: {
       ...baseLegion.available,
-      battalions: [
-        keyPicker(Battalions, ['Court of Nulahmia', 'Castellans of the Crimson Keep']),
-        SoulblightBattalions,
-      ],
+      battalions: [keyPicker(Battalions, ['Court of Nulahmia', 'Castellans of the Crimson Keep'])],
       artifacts: [SoulblightArtifacts],
       command_traits: [SoulblightCommandTraits],
       flavors: [SoulblightFlavors],
