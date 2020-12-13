@@ -10,6 +10,7 @@ import { GreenskinzFaction } from 'factions/greenskinz'
 import { IdonethDeepkinFaction } from 'factions/idoneth_deepkin'
 import { KharadronOverlordsFaction } from 'factions/kharadron_overlords'
 import { KhorneFaction } from 'factions/khorne'
+import { LegionsOfGriefFaction } from 'factions/legions_of_grief'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { LegionOfAzgorhFaction } from 'factions/legion_of_azgorh'
 import { LegionOfChaosAscendantFaction } from 'factions/legion_of_chaos_ascendant'
@@ -17,6 +18,7 @@ import { LethisianDefendersFaction } from 'factions/lethisian_defenders'
 import { LuminethRealmlordsFaction } from 'factions/lumineth_realmlords'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
 import { MercenaryCompaniesFaction } from 'factions/mercenary_companies'
+import { NighthauntFaction } from 'factions/nighthaunt'
 import { NurgleFaction } from 'factions/nurgle'
 import { OgorMawtribesFaction } from 'factions/ogor_mawtribes'
 import { OrrukWarclansFaction } from 'factions/orruk_warclans'
@@ -47,6 +49,7 @@ import {
   IDONETH_DEEPKIN,
   KHARADRON_OVERLORDS,
   KHORNE,
+  LEGIONS_OF_GRIEF,
   LEGIONS_OF_NAGASH,
   LEGION_OF_AZGORH,
   LEGION_OF_CHAOS_ASCENDANT,
@@ -54,6 +57,7 @@ import {
   LUMINETH_REALMLORDS,
   MEGA_GARGANT_MERCENARIES,
   MERCENARY_COMPANIES,
+  NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
@@ -85,41 +89,19 @@ const FactionList = {
   [FLESH_EATER_COURTS]: { ...FleshEaterCourtsFaction },
   [FYRESLAYERS]: { ...FyreslayersFaction },
   [GLOOMSPITE_GITZ]: { ...GloomspiteGitzFaction },
-  // [GRAND_HOST_OF_NAGASH]: {
-  //   Army: { ...GrandHostOfNagashArmy },
-  //   GrandAlliance: DEATH,
-  // },
   [GREENSKINZ]: { ...GreenskinzFaction },
   [IDONETH_DEEPKIN]: { ...IdonethDeepkinFaction },
   [KHARADRON_OVERLORDS]: { ...KharadronOverlordsFaction },
   [KHORNE]: { ...KhorneFaction },
-  [LEGIONS_OF_NAGASH]: { ...LegionsOfNagashFaction },
-  // [LEGION_OF_BLOOD]: {
-  //   Army: { ...LegionOfBloodArmy },
-  //   GrandAlliance: DEATH,
-  // },
-  [LEGION_OF_CHAOS_ASCENDANT]: { ...LegionOfChaosAscendantFaction },
-  // [LEGION_OF_NIGHT]: {
-  //   Army: { ...LegionOfNightArmy },
-  //   GrandAlliance: DEATH,
-  // },
-  // [LEGION_OF_SACRAMENT]: {
-  //   Army: { ...LegionOfSacramentArmy },
-  //   GrandAlliance: DEATH,
-  // },
   [LEGION_OF_AZGORH]: { ...LegionOfAzgorhFaction },
-  // [LEGIONS_OF_GRIEF]: {
-  //   Army: { ...LegionsOfGriefArmy },
-  //   GrandAlliance: DEATH,
-  // },
+  [LEGION_OF_CHAOS_ASCENDANT]: { ...LegionOfChaosAscendantFaction },
+  [LEGIONS_OF_NAGASH]: { ...LegionsOfNagashFaction },
+  [LEGIONS_OF_GRIEF]: { ...LegionsOfGriefFaction },
   [LETHISIAN_DEFENDERS]: { ...LethisianDefendersFaction },
   [LUMINETH_REALMLORDS]: { ...LuminethRealmlordsFaction },
   [MEGA_GARGANT_MERCENARIES]: { ...MegaGargantMercenariesFaction },
   [MERCENARY_COMPANIES]: { ...MercenaryCompaniesFaction },
-  // [NIGHTHAUNT]: {
-  //   Army: { ...NighthauntArmy },
-  //   GrandAlliance: DEATH,
-  // },
+  [NIGHTHAUNT]: { ...NighthauntFaction },
   [NURGLE]: { ...NurgleFaction },
   [OGOR_MAWTRIBES]: { ...OgorMawtribesFaction },
   [ORDER_GRAND_ALLIANCE]: { ...OrderFaction },
@@ -131,19 +113,10 @@ const FactionList = {
   [SLAANESH]: { ...SlaaneshFaction },
   [SLAVES_TO_DARKNESS]: { ...SlavesToDarknessFaction },
   [SONS_OF_BEHEMAT]: { ...SonsOfBehematFaction },
-  // [SOULBLIGHT]: {
-  //   Army: { ...SoulblightArmy },
-  //   GrandAlliance: DEATH,
-  // },
   [STORMCAST_ETERNALS]: { ...StormcastFaction },
   [SYLVANETH]: { ...SylvanethFaction },
-  // [TAMURKHANS_HORDE]: {
-  //   Army: { ...TamurkhansHordeArmy },
-  //   GrandAlliance: CHAOS,
-  // },
   [TOMB_KINGS]: { ...TombKingsFaction },
   [TZEENTCH]: { ...TzeentchFaction },
-  // },
   [WANDERERS]: { ...WanderersFaction },
 }
 
