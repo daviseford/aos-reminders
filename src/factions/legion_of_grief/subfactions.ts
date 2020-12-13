@@ -1,5 +1,5 @@
 import { TItemDescriptions } from 'factions/factionTypes'
-import { LEGIONS_OF_GRIEF } from 'meta/factions'
+import { LEGION_OF_GRIEF } from 'meta/factions'
 import LegionsOfNagashUnits from '../legions_of_nagash/units'
 import { keyPicker, pickEffects } from '../metatagger'
 import NighthauntEndlessSpells from '../nighthaunt/endless_spells'
@@ -11,8 +11,8 @@ import CommandTraits from './command_traits'
 import Spells from './spells'
 
 const subFactions: TItemDescriptions = {
-  [LEGIONS_OF_GRIEF]: {
-    effects: pickEffects(BattleTraits, [LEGIONS_OF_GRIEF]),
+  [LEGION_OF_GRIEF]: {
+    effects: pickEffects(BattleTraits, [LEGION_OF_GRIEF]),
     available: {
       artifacts: [Artifacts],
       command_abilities: [CommandAbilities],

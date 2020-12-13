@@ -17,7 +17,7 @@ type TKharadronOverlords = 'KHARADRON_OVERLORDS'
 type TKhorne = 'KHORNE'
 type TLegionOfChaosAscendant = 'LEGION_OF_CHAOS_ASCENDANT'
 type TLegionOfAzgorh = 'LEGION_OF_AZGORH'
-type TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
+type TLegionOfGrief = 'LEGION_OF_GRIEF'
 type TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 type TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 type TLuminethRealmlords = 'LUMINETH_REALMLORDS'
@@ -59,7 +59,7 @@ export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export const KHORNE: TKhorne = 'KHORNE'
 export const LEGION_OF_CHAOS_ASCENDANT: TLegionOfChaosAscendant = 'LEGION_OF_CHAOS_ASCENDANT'
 export const LEGION_OF_AZGORH: TLegionOfAzgorh = 'LEGION_OF_AZGORH'
-export const LEGIONS_OF_GRIEF: TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
+export const LEGION_OF_GRIEF: TLegionOfGrief = 'LEGION_OF_GRIEF'
 export const LEGIONS_OF_NAGASH: TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export const LUMINETH_REALMLORDS: TLuminethRealmlords = 'LUMINETH_REALMLORDS'
@@ -106,7 +106,7 @@ export type TPrimaryFactions =
   | TKhorne
   | TLegionOfChaosAscendant
   | TLegionOfAzgorh
-  | TLegionsOfGrief
+  | TLegionOfGrief
   | TLegionsOfNagash
   | TLethisianDefenders
   | TLuminethRealmlords
@@ -149,7 +149,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   KHORNE,
   LEGION_OF_CHAOS_ASCENDANT,
   LEGION_OF_AZGORH,
-  LEGIONS_OF_GRIEF,
+  LEGION_OF_GRIEF,
   LEGIONS_OF_NAGASH,
   LETHISIAN_DEFENDERS,
   LUMINETH_REALMLORDS,

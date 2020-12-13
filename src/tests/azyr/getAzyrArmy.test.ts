@@ -10,7 +10,7 @@ import {
   IDONETH_DEEPKIN,
   KHARADRON_OVERLORDS,
   KHORNE,
-  LEGIONS_OF_GRIEF,
+  LEGION_OF_GRIEF,
   LUMINETH_REALMLORDS,
   MEGA_GARGANT_MERCENARIES,
   MERCENARY_COMPANIES,
@@ -307,22 +307,22 @@ describe('getAzyrArmyFromPdf', () => {
       // {
       //   severity: 'ally-warn',
       //   text:
-      //     'Allied Necromancer can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Legions Of Grief. Please add this unit manually.',
+      //     'Allied Necromancer can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Legion Of Grief. Please add this unit manually.',
       // },
       // {
       //   severity: 'ally-warn',
       //   text:
-      //     'Allied Dire Wolves can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Legions Of Grief. Please add this unit manually.',
+      //     'Allied Dire Wolves can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Legion Of Grief. Please add this unit manually.',
       // },
       // {
       //   severity: 'ally-warn',
       //   text:
-      //     'Allied Skeleton Warriors can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Legions Of Grief. Please add this unit manually.',
+      //     'Allied Skeleton Warriors can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Legion Of Grief. Please add this unit manually.',
       // },
       // {
       //   severity: 'ally-warn',
       //   text:
-      //     'Allied Black Knights can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Legions Of Grief. Please add this unit manually.',
+      //     'Allied Black Knights can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Legion Of Grief. Please add this unit manually.',
       // },
     ])
   })
@@ -1127,7 +1127,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('LoG3')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(LEGIONS_OF_GRIEF)
+    expect(res.factionName).toEqual(LEGION_OF_GRIEF)
     expect(res.selections.command_traits).toContain('Amethyst Glow')
     expect(res.errors).toEqual([
       {
@@ -1428,7 +1428,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('LoG2')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(LEGIONS_OF_GRIEF)
+    expect(res.factionName).toEqual(LEGION_OF_GRIEF)
     expect(res.errors).toEqual([
       {
         severity: 'warn',

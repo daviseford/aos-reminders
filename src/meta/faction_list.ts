@@ -10,10 +10,10 @@ import { GreenskinzFaction } from 'factions/greenskinz'
 import { IdonethDeepkinFaction } from 'factions/idoneth_deepkin'
 import { KharadronOverlordsFaction } from 'factions/kharadron_overlords'
 import { KhorneFaction } from 'factions/khorne'
-import { LegionsOfGriefFaction } from 'factions/legions_of_grief'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { LegionOfAzgorhFaction } from 'factions/legion_of_azgorh'
 import { LegionOfChaosAscendantFaction } from 'factions/legion_of_chaos_ascendant'
+import { LegionOfGriefFaction } from 'factions/legion_of_grief'
 import { LethisianDefendersFaction } from 'factions/lethisian_defenders'
 import { LuminethRealmlordsFaction } from 'factions/lumineth_realmlords'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
@@ -49,10 +49,10 @@ import {
   IDONETH_DEEPKIN,
   KHARADRON_OVERLORDS,
   KHORNE,
-  LEGIONS_OF_GRIEF,
   LEGIONS_OF_NAGASH,
   LEGION_OF_AZGORH,
   LEGION_OF_CHAOS_ASCENDANT,
+  LEGION_OF_GRIEF,
   LETHISIAN_DEFENDERS,
   LUMINETH_REALMLORDS,
   MEGA_GARGANT_MERCENARIES,
@@ -96,7 +96,7 @@ const FactionList = {
   [LEGION_OF_AZGORH]: { ...LegionOfAzgorhFaction },
   [LEGION_OF_CHAOS_ASCENDANT]: { ...LegionOfChaosAscendantFaction },
   [LEGIONS_OF_NAGASH]: { ...LegionsOfNagashFaction },
-  [LEGIONS_OF_GRIEF]: { ...LegionsOfGriefFaction },
+  [LEGION_OF_GRIEF]: { ...LegionOfGriefFaction },
   [LETHISIAN_DEFENDERS]: { ...LethisianDefendersFaction },
   [LUMINETH_REALMLORDS]: { ...LuminethRealmlordsFaction },
   [MEGA_GARGANT_MERCENARIES]: { ...MegaGargantMercenariesFaction },

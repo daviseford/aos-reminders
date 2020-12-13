@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { LEGIONS_OF_GRIEF } from 'meta/factions'
+import { LEGION_OF_GRIEF } from 'meta/factions'
 import {
   DURING_GAME,
   DURING_SETUP,
@@ -10,7 +10,7 @@ import {
 } from 'types/phases'
 
 const BattleTraits = {
-  [LEGIONS_OF_GRIEF]: {
+  [LEGION_OF_GRIEF]: {
     effects: [
       {
         name: `Deathless Minions`,
@@ -34,7 +34,7 @@ const BattleTraits = {
       },
       {
         name: `Aura of Grief`,
-        desc: `Enemy units have -1 bravery while within 6" of one of your Legions of Grief units.`,
+        desc: `Enemy units have -1 bravery while within 6" of one of your Legion of Grief units.`,
         when: [DURING_GAME],
       },
       {
