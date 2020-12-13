@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   END_OF_COMBAT_PHASE,
@@ -8,9 +8,9 @@ import {
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Shadow's Edge`,
+// Add individual artifacts here, and access them in other files!
+const Artifacts = {
+  "Shadow's Edge": {
     effects: [
       {
         name: `Shadow's Edge`,
@@ -19,8 +19,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Reaper of Sorrows`,
+  'Reaper of Sorrows': {
     effects: [
       {
         name: `Reaper of Sorrows`,
@@ -29,8 +28,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Balefire Blade`,
+  'Balefire Blade': {
     effects: [
       {
         name: `Balefire Blade`,
@@ -39,8 +37,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Slitter`,
+  Slitter: {
     effects: [
       {
         name: `Slitter`,
@@ -49,8 +46,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Headsman's Judgement`,
+  "Headsman's Judgement": {
     effects: [
       {
         name: `Headsman's Judgement`,
@@ -59,8 +55,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shrieking Blade`,
+  'Shrieking Blade': {
     effects: [
       {
         name: `Shrieking Blade`,
@@ -69,8 +64,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Cloak of the Waxing Moon`,
+  'Cloak of the Waxing Moon': {
     effects: [
       {
         name: `Cloak of the Waxing Moon`,
@@ -79,8 +73,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Pendant of the Fell Wind`,
+  'Pendant of the Fell Wind': {
     effects: [
       {
         name: `Pendant of the Fell Wind`,
@@ -89,8 +82,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dreadbolt Ring`,
+  'Dreadbolt Ring': {
     effects: [
       {
         name: `Dreadbolt Ring`,
@@ -99,8 +91,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mirror of Screaming Souls`,
+  'Mirror of Screaming Souls': {
     effects: [
       {
         name: `Mirror of Screaming Souls`,
@@ -109,8 +100,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Midnight Tome`,
+  'Midnight Tome': {
     effects: [
       {
         name: `Midnight Tome`,
@@ -119,8 +109,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Covetous Familiar`,
+  'Covetous Familiar': {
     effects: [
       {
         name: `Covetous Familiar`,
@@ -129,8 +118,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lightshard of the Harvest Moon`,
+  'Lightshard of the Harvest Moon': {
     effects: [
       {
         name: `Lightshard of the Harvest Moon`,
@@ -139,8 +127,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Wychlight Lantern`,
+  'Wychlight Lantern': {
     effects: [
       {
         name: `Wychlight Lantern`,
@@ -149,8 +136,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Beacon of Nagashizzar`,
+  'Beacon of Nagashizzar': {
     effects: [
       {
         name: `Beacon of Nagashizzar`,
@@ -159,6 +145,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(Artifacts, 'artifact')

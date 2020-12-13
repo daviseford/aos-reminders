@@ -1,6 +1,7 @@
 import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
 import CitiesOfSigmarUnits from 'factions/cities_of_sigmar/units'
 import GloomspiteGitzUnits from 'factions/gloomspite_gitz/units'
+import LegionsOfNagashUnits from 'factions/legions_of_nagash/units'
 import { keyPicker, tagAs } from 'factions/metatagger'
 import OgorMawtribeUnits from 'factions/ogor_mawtribes/units'
 import {
@@ -24,7 +25,7 @@ const Units = {
     ],
   },
   'Tenebrous Court Mercenary Company': {
-    // TODO mandatory: { units: [keyPicker(LegionsOfNagashUnits, ['Necromancer'])] },
+    mandatory: { units: [keyPicker(LegionsOfNagashUnits, ['Necromancer'])] },
     effects: [
       {
         name: `Frightful Allies`,
@@ -43,7 +44,7 @@ const Units = {
     ],
   },
   'Order Of The Blood-Drenched Rose Mercenary Company': {
-    // TODO mandatory: { units: [keyPicker(LegionsOfNagashUnits, ['Blood Knights'])] },
+    mandatory: { units: [keyPicker(LegionsOfNagashUnits, ['Blood Knights'])] },
     effects: [
       {
         name: `Unreasoning Bloodlust`,

@@ -1,11 +1,9 @@
-import { TEntry } from 'types/data'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_ROUND,
   END_OF_COMBAT_PHASE,
-  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
@@ -17,6 +15,8 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import command_abilities from './command_abilities'
+import spells from './spells'
 
 const EtherealEffect = {
   name: `Ethereal`,
@@ -29,9 +29,12 @@ const StolenHoursEffect = {
   when: [COMBAT_PHASE],
 }
 
-export const Units: TEntry[] = [
-  {
-    name: `Lady Olynder, Mortarch of Grief`,
+const Units = {
+  'Lady Olynder, Mortarch of Grief': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['No Rest For the Wicked'])],
+      spells: [keyPicker(spells, ['Grief-Stricken'])],
+    },
     effects: [
       EtherealEffect,
       {
@@ -60,26 +63,13 @@ export const Units: TEntry[] = [
         when: [START_OF_SHOOTING_PHASE],
       },
       {
-        name: `No Rest For the Wicked`,
-        desc: `You can use this command ability in your hero phase if this model is your general and is on the battlefield. If you do so, you can return 1 slain model to each friendly SUMMONABLE NIGHTHAUNT unit that is within 12" of a friendly model with this command ability.`,
-        when: [HERO_PHASE],
-        command_ability: true,
-      },
-      {
         name: `Magic`,
         desc: `Lady Olynder is a WIZARD. She can attempt to cast two different spells in each of your hero phases, and attempt to unbind two spells in each enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Grief-stricken spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Grief-Stricken`,
-        desc: `Casting value of 7. Pick an enemy unit that is within 18" of the caster and visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit and add 1 to hit rolls for attacks made with melee weapons that target that unit.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Kurdoss Valentian, the Craven King`,
+  'Kurdoss Valentian, the Craven King': {
     effects: [
       EtherealEffect,
       {
@@ -104,8 +94,10 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Reikenor the Grimhailer`,
+  'Reikenor the Grimhailer': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Wraithstorm'])],
+    },
     effects: [
       EtherealEffect,
       {
@@ -128,42 +120,24 @@ export const Units: TEntry[] = [
         desc: `Reikenor the Grimhailer is a WIZARD. He can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Wraithstorm spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Wraithstorm`,
-        desc: `Casting value of 7. Pick an enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds. If any models in that unit are slain as a result of this spell, that unit immediately suffers an additional D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Knight of Shrouds`,
-    effects: [
-      EtherealEffect,
-      StolenHoursEffect,
-      {
-        name: `Spectral Overseer`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly model with this command ability. Add 1 to hit rolls for friendly NIGHTHAUNT units while they are wholly within 12" of that model in that combat phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
-    ],
+  'Knight of Shrouds': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Spectral Overseer'])],
+    },
+    effects: [EtherealEffect, StolenHoursEffect],
   },
-  {
-    name: `Knight of Shrouds on Ethereal Steed`,
-    effects: [
-      EtherealEffect,
-      StolenHoursEffect,
-      {
-        name: `Lord of Gheists`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly NIGHTHAUNT unit that is wholly within 18" of a friendly model with this command ability. Add 1 to the Attacks characteristic of that unit's melee weapons in that combat phase. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
-    ],
+  'Knight of Shrouds on Ethereal Steed': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Lord of Gheists'])],
+    },
+    effects: [EtherealEffect, StolenHoursEffect],
   },
-  {
-    name: `Guardian of Souls`,
+  'Guardian of Souls': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Spectral Lure'])],
+    },
     effects: [
       EtherealEffect,
       {
@@ -176,16 +150,12 @@ export const Units: TEntry[] = [
         desc: `This model is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Spectral Lure spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Spectral Lure`,
-        desc: `Casting value of 6. Pick a friendly SUMMONABLE NIGHTHAUNT unit wholly within 24" of the caster. You can either heal D6 wounds that have been allocated to that unit or, if no wounds have been allocated to the unit, you can return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D6.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Guardian of Souls w/ Mortality Glass`,
+  'Guardian of Souls w/ Mortality Glass': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Temporal Translocation'])],
+    },
     effects: [
       EtherealEffect,
       {
@@ -198,16 +168,9 @@ export const Units: TEntry[] = [
         desc: `This model is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Temporal Translocation spells.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Temporal Translocation`,
-        desc: `Casting value of 6. Pick a friendly NIGHTHAUNT unit wholly within 24" of the caster. You can make a normal move up to 6" with that unit. If the unit retreats as a part of this move it can still charge later in the turn.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
     ],
   },
-  {
-    name: `Spirit Torment`,
+  'Spirit Torment': {
     effects: [
       EtherealEffect,
       {
@@ -226,8 +189,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Chainghasts`,
+  Chainghasts: {
     effects: [
       EtherealEffect,
       {
@@ -242,8 +204,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dreadblade Harrow`,
+  'Dreadblade Harrow': {
     effects: [
       EtherealEffect,
       {
@@ -263,8 +224,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lord Executioner`,
+  'Lord Executioner': {
     effects: [
       EtherealEffect,
       {
@@ -284,8 +244,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Tomb Banshee`,
+  'Tomb Banshee': {
     effects: [
       EtherealEffect,
       {
@@ -300,8 +259,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Cairn Wraith`,
+  'Cairn Wraith': {
     effects: [
       EtherealEffect,
       {
@@ -316,8 +274,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mourngul`,
+  Mourngul: {
     effects: [
       EtherealEffect,
       {
@@ -337,8 +294,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Glaivewraith Stalkers`,
+  'Glaivewraith Stalkers': {
     effects: [
       EtherealEffect,
       {
@@ -353,8 +309,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Grimghast Reapers`,
+  'Grimghast Reapers': {
     effects: [
       EtherealEffect,
       {
@@ -369,8 +324,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Chainrasp Horde`,
+  'Chainrasp Horde': {
     effects: [
       EtherealEffect,
       {
@@ -390,8 +344,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Bladegheist Revenants`,
+  'Bladegheist Revenants': {
     effects: [
       EtherealEffect,
       {
@@ -411,8 +364,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Myrmourn Banshees`,
+  'Myrmourn Banshees': {
     effects: [
       EtherealEffect,
       {
@@ -429,8 +381,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Dreadscythe Harridans`,
+  'Dreadscythe Harridans': {
     effects: [
       EtherealEffect,
       {
@@ -450,8 +401,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Spirit Hosts`,
+  'Spirit Hosts': {
     effects: [
       EtherealEffect,
       {
@@ -461,8 +411,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Hexwraiths`,
+  Hexwraiths: {
     effects: [
       EtherealEffect,
       {
@@ -482,8 +431,7 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Black Coach`,
+  'Black Coach': {
     effects: [
       EtherealEffect,
       {
@@ -540,20 +488,13 @@ export const Units: TEntry[] = [
       },
     ],
   },
-  {
-    name: `The Briar Queen`,
-    effects: [
-      EtherealEffect,
-      {
-        name: `Howling Vortex`,
-        desc: `Casting value of 7. Pick a point on the battlefield within 18" of the caster that is visible to them, and roll 2D6 for each enemy unit within 6" of that point. If the roll is greater than the value of that unit's Move characteristic, or that roll is a double, that unit suffers 1 mortal wound and its Move characteristic is halved until the caster's next hero phase.`,
-        when: [HERO_PHASE],
-        spell: true,
-      },
-    ],
+  'The Briar Queen': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Howling Vortex'])],
+    },
+    effects: [EtherealEffect],
   },
-  {
-    name: `Thorns of the Briar Queen`,
+  'Thorns of the Briar Queen': {
     effects: [
       EtherealEffect,
       {
@@ -573,132 +514,6 @@ export const Units: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export const Battalions: TEntry[] = [
-  {
-    name: `Nighthaunt Procession`,
-    effects: [
-      {
-        name: `Nighthaunt Procession`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly NIGHTHAUNT model from this battalion within 12" of your general or a friendly NIGHTHAUNT HERO from the battalion. On a 6+ the wound is negated. If this battalion is part of a Nighthaunt army, this ability replaces the Deathless Spirits battle trait for all units in this battalion.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Shroudguard`,
-    effects: [
-      {
-        name: `Shroudguard`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a BLADEGHEIST REVENANT model from a unit in this battalion wholly within 12" of a KNIGHT OF SHROUDS or REIKENOR THE GRIMHAILER from the same battalion. On a 5+, that wound or mortal wound is negated. If you use this ability, you cannot also use the Deathless Spirits battle trait to try to negate the same wound or mortal wound.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Deathriders`,
-    effects: [
-      {
-        name: `Deathriders`,
-        desc: `Add 1 to charge rolls for units from this battalion. In addition, if you make an unmodified charge roll of 9+ for a unit from this battalion, it can fight immediately after you complete the charge move. This does not stop the unit from being picked to fight in the combat phase of the same turn. If this battalion is part of a Nighthaunt army, this ability replaces the Wave of Terror battle trait for all units in this battalion.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `The Condemned`,
-    effects: [
-      {
-        name: `The Condemned`,
-        desc: `You can reroll failed hit rolls for attacks made by CHAINRASP HORDE units from this battalion while they are wholly within 16" of this battalion's SPIRIT TORMENT or CHAINGHASTS.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Chainguard`,
-    effects: [
-      {
-        name: `Chainguard`,
-        desc: `Each time a CHAINRASP HORDE from this battalion is affected by a Spectral Lure or Temporal Translocation spell cast by this battalion's GUARDIAN OF SOULS, you can return D6 slain models to that unit (in addition to any models returned to the unit by the Spectral Lure)`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Execution Horde`,
-    effects: [
-      {
-        name: `Execution Horde`,
-        desc: `Subtract 1 from hit rolls for attacks that target this battalion's LORD EXECUTIONER while a SPIRIT HOST unit from this battalion is within 6" of the attacker's unit. In addition, add 1 to hit rolls for attacks made by this battalion's LORD EXECUTIONER while any SPIRIT HOST units from this battalion are within 6" of the target unit.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  {
-    name: `Death Stalkers`,
-    effects: [
-      {
-        name: `Death Stalkers`,
-        desc: `After set-up is complete but before the battle begins, pick one enemy unit to be soul-marked by this battalion. Add 1 to hit and wound rolls for attacks made by units from this battalion that target the soul-marked unit.`,
-        when: [END_OF_SETUP],
-      },
-    ],
-  },
-  {
-    name: `Shrieker Host`,
-    effects: [
-      {
-        name: `Shrieker Host`,
-        desc: `Reroll battleshock rolls of 1 for enemy units that are within 6" of any units from this battalion at the start of the battleshock phase. In addition, the Inspiring Presence command ability cannot be used on enemy units that are within 6" of any units from this battalion.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  {
-    name: `The Forgotten Scions`,
-    effects: [
-      {
-        name: `Gharest Malcor, The Traitor Knight`,
-        desc: `Add 1 to the Attacks characteristic of Malcor's Sword of Stolen Hours.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Gharest Malcor, The Traitor Knight`,
-        desc: `Once per battle round, you can use the command ability on Malcor's warscroll without a command point being spent.`,
-        when: [DURING_ROUND],
-      },
-    ],
-  },
-  {
-    name: `The Dolorous Guard`,
-    effects: [
-      {
-        name: `Knights of Regret`,
-        desc: `Add 1 to the Attacks characteristic of melee weapons used by units from this battalion that have made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Knights of Regret`,
-        desc: `Roll a D6 before you allocate a wound or mortal wound to your general if your general is within 3" of any friendly units with this ability. On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of your general, instead of to your general.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
-  {
-    name: `The Emerald Host`,
-    effects: [
-      {
-        name: `The Emerald Curse`,
-        desc: `After armies are set up, but before the first battle round begins, you can pick 1 enemy HERO. Subtract 1 from save rolls for attacks that target that HERO.`,
-        when: [END_OF_SETUP],
-      },
-      {
-        name: `The Emerald Curse`,
-        desc: `If active, subtract 1 from save rolls for attacks that target that HERO.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
-]
+export default tagAs(Units, 'unit')

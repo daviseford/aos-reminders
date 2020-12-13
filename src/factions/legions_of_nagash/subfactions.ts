@@ -1,5 +1,6 @@
 import { TItemDescription, TItemDescriptions } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from '../metatagger'
+import NighthauntEndlessSpells from '../nighthaunt/endless_spells'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
@@ -30,6 +31,7 @@ const baseLegion: TItemDescription = {
   available: {
     battalions: [Battalions],
     command_abilities: [CommandAbilities],
+    endless_spells: [NighthauntEndlessSpells],
     spells: [Spells],
     units: [Units],
   },
@@ -42,8 +44,6 @@ const subFactions: TItemDescriptions = {
 
     available: {
       ...baseLegion.available,
-      // TODO Add Nighthaunt Endless SPells
-      // endless_spells: [NighthauntEndlessSpells],
       battalions: [keyPicker(Battalions, ['Deathmarch', 'Castellans of the Crimson Keep']), GHoNBattalions],
       artifacts: [GHoNArtifacts],
       command_traits: [GHoNCommandTraits],
@@ -54,8 +54,6 @@ const subFactions: TItemDescriptions = {
     effects: pickEffects(BattleTraits, ['Core Legions', 'Legion of Blood']),
     available: {
       ...baseLegion.available,
-      // TODO Add Nighthaunt Endless SPells
-      // endless_spells: [NighthauntEndlessSpells],
       battalions: [
         keyPicker(Battalions, ['Deathmarch', 'Castellans of the Crimson Keep']),
         LegionOfBloodBattalions,
@@ -70,8 +68,6 @@ const subFactions: TItemDescriptions = {
 
     available: {
       ...baseLegion.available,
-      // TODO Add Nighthaunt Endless SPells
-      // endless_spells: [NighthauntEndlessSpells],
       battalions: [
         keyPicker(Battalions, ['Deathmarch', 'Castellans of the Crimson Keep']),
         LegionOfNightBattalions,

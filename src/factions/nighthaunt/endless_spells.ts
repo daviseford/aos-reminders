@@ -1,10 +1,9 @@
-// Endless spells.
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
 
-const EndlessSpells: TEntry[] = [
-  {
-    name: `Shyish Reaper`,
+// Add Endless spells here
+const EndlessSpells = {
+  'Shyish Reaper': {
     effects: [
       {
         name: `Summon Shyish Reaper`,
@@ -35,8 +34,7 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Vault of Souls`,
+  'Vault of Souls': {
     effects: [
       {
         name: `Summon Vault of Souls`,
@@ -65,8 +63,7 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Mortalis Terminexus`,
+  'Mortalis Terminexus': {
     effects: [
       {
         name: `Summon Mortalis Terminexus`,
@@ -94,6 +91,6 @@ const EndlessSpells: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default EndlessSpells
+export default tagAs(EndlessSpells, 'endless_spell')

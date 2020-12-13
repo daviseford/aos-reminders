@@ -1,9 +1,9 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, SHOOTING_PHASE, START_OF_HERO_PHASE, START_OF_MOVEMENT_PHASE } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Hatred of the Living`,
+// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+const CommandTraits = {
+  'Hatred of the Living': {
     effects: [
       {
         name: `Hatred of the Living`,
@@ -12,8 +12,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Terrifying Entity`,
+  'Terrifying Entity': {
     effects: [
       {
         name: `Terrifying Entity`,
@@ -22,8 +21,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Lingering Spirit`,
+  'Lingering Spirit': {
     effects: [
       {
         name: `Lingering Spirit`,
@@ -32,8 +30,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Spiteful Spirit`,
+  'Spiteful Spirit': {
     effects: [
       {
         name: `Spiteful Spirit`,
@@ -42,8 +39,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Cloaked in Shadow`,
+  'Cloaked in Shadow': {
     effects: [
       {
         name: `Cloaked in Shadow`,
@@ -52,8 +48,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Ruler of the Spirit Hosts`,
+  'Ruler of the Spirit Hosts': {
     effects: [
       {
         name: `Ruler of the Spirit Hosts`,
@@ -62,6 +57,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default CommandTraits
+// Always export using tagAs
+export default tagAs(CommandTraits, 'command_trait')
