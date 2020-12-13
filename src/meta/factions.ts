@@ -100,19 +100,18 @@ export type TPrimaryFactions =
   | TFleshEaterCourts
   | TFyreslayers
   | TGloomspiteGitz
-  // | TGrandHostOfNagash
   | TGreenskinz
   | TIdonethDeepkin
   | TKharadronOverlords
   | TKhorne
   | TLegionOfChaosAscendant
   | TLegionOfAzgorh
-  // | TLegionsOfGrief
+  | TLegionsOfGrief
   | TLegionsOfNagash
   | TLethisianDefenders
   | TLuminethRealmlords
   | TMercenaryCompanies
-  // | TNighthaunt
+  | TNighthaunt
   | TNurgle
   | TOgorMawtribes
   | TOrderGrandAlliance
@@ -144,18 +143,17 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
-  // GRAND_HOST_OF_NAGASH,
   GREENSKINZ,
   IDONETH_DEEPKIN,
   KHARADRON_OVERLORDS,
   KHORNE,
   LEGION_OF_CHAOS_ASCENDANT,
   LEGION_OF_AZGORH,
-  // LEGIONS_OF_GRIEF,
+  LEGIONS_OF_GRIEF,
   LEGIONS_OF_NAGASH,
   LETHISIAN_DEFENDERS,
   LUMINETH_REALMLORDS,
-  // NIGHTHAUNT,
+  NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
