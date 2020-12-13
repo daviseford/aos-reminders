@@ -1,3 +1,5 @@
+import { keyPicker } from 'factions/metatagger'
+import { mergeParentEffectObjs } from 'factions/temporaryAdapter'
 import { ChaosFaction } from './chaos'
 import ChaosArtifacts from './chaos/artifacts'
 import ChaosTraits from './chaos/command_traits'
@@ -15,21 +17,31 @@ import OrderArtifacts from './order/artifacts'
 import OrderTraits from './order/command_traits'
 import OrderUnits from './order/units'
 
+// Available to ALL factions in this Grand Alliance
+const AvailableOrderUnits = mergeParentEffectObjs([keyPicker(OrderUnits, ['Gotrek Gurnisson'])])
+const AvailableDestructionUnits = mergeParentEffectObjs([{ ...DestructionUnits }])
+const AvailableDeathUnits = mergeParentEffectObjs([{}])
+const AvailableChaosUnits = mergeParentEffectObjs([{}])
+
 export {
-  ChaosFaction,
+  AvailableChaosUnits,
+  AvailableDeathUnits,
+  AvailableDestructionUnits,
+  AvailableOrderUnits,
   ChaosArtifacts,
+  ChaosFaction,
   ChaosTraits,
   ChaosUnits,
-  DeathFaction,
   DeathArtifacts,
+  DeathFaction,
   DeathTraits,
   DeathUnits,
-  DestructionFaction,
   DestructionArtifacts,
+  DestructionFaction,
   DestructionTraits,
   DestructionUnits,
-  OrderFaction,
   OrderArtifacts,
+  OrderFaction,
   OrderTraits,
   OrderUnits,
 }

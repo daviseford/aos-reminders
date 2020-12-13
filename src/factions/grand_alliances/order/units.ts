@@ -17,7 +17,7 @@ import { MonstrousArcanumOrder } from './unit_groups/monstrous_arcanum'
 import { LegacySwifthawkAgentUnits } from './unit_groups/swifthawk_agents'
 import { LegacyWoodElvesUnits } from './unit_groups/wood_elves'
 
-export const OrderUnits = {
+const OrderUnits = {
   'Gotrek Gurnisson': {
     effects: [
       {

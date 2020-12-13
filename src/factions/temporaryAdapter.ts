@@ -1,13 +1,7 @@
 import deepmerge from 'deepmerge'
 import { TInitialArmy, TSubfactionArmy } from 'types/army'
 import { TEntry } from 'types/data'
-import {
-  TItemDescription,
-  TItemDescriptions,
-  TItemKey,
-  TObjWithEffects,
-  TParentEffectsObjWithEffects,
-} from './factionTypes'
+import { TItemDescription, TItemDescriptions, TItemKey, TParentEffectsObjWithEffects } from './factionTypes'
 
 type TAdapter = (subFaction: TItemDescription, subFactionName: string, FlavorType?: string) => TInitialArmy
 
@@ -52,30 +46,27 @@ const subFactionAdapter = (subFaction: TItemDescription, name: string): TEntry =
   const { mandatory = {}, effects = [] } = subFaction
   return { mandatory, effects, name }
 }
-const mergeData = (subFaction: TItemDescription, slice: TItemKey): TObjWithName[] => {
+
+const mergeData = (subFaction: TItemDescription, slice: TItemKey): TEntry[] => {
   const { available = {}, mandatory = {} } = subFaction
   const merged: TParentEffectsObjWithEffects[] = [...(available[slice] || []), ...(mandatory[slice] || [])]
   return mergeParentEffectObjs(merged)
 }
 
-type TObjWithName = TObjWithEffects & { name: string }
-
 export const mergeParentEffectObjs = <T extends TParentEffectsObjWithEffects>(
   objs: T[]
-): (TParentEffectsObjWithEffects & TObjWithName)[] => {
+): (TParentEffectsObjWithEffects & TEntry)[] => {
   return objs.reduce((a, obj) => {
     const arr = parentEffectObjConverter(obj)
     a = a.concat(arr)
     return a
-  }, [] as (TParentEffectsObjWithEffects & TObjWithName)[])
+  }, [] as (TParentEffectsObjWithEffects & TEntry)[])
 }
 
-export const parentEffectObjConverter = <T extends TParentEffectsObjWithEffects>(
-  obj: T
-): (T & TObjWithName)[] => {
+export const parentEffectObjConverter = <T extends TParentEffectsObjWithEffects>(obj: T): (T & TEntry)[] => {
   return Object.keys(obj).reduce((a, name) => {
     const entry = { ...obj[name], name }
-    a.push(entry as T & TObjWithName)
+    a.push(entry as T & TEntry)
     return a
-  }, [] as (T & TObjWithName)[])
+  }, [] as (T & TEntry)[])
 }

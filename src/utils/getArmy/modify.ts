@@ -1,4 +1,10 @@
 import {
+  AvailableChaosUnits,
+  AvailableDeathUnits,
+  AvailableDestructionUnits,
+  AvailableOrderUnits,
+} from 'factions/grand_alliances'
+import {
   GenericCommandAbilities,
   GenericEndlessSpells,
   GenericScenery,
@@ -9,7 +15,7 @@ import {
   RealmscapeSpells,
 } from 'generic_rules'
 import { sortBy, uniqBy } from 'lodash'
-import { TGrandAlliances } from 'meta/alliances'
+import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
 import { TCollection } from 'types/army'
 import { TEntry } from 'types/data'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
@@ -28,7 +34,13 @@ const modifyUnits = (
   alliance: TGrandAlliances,
   Collection: TCollection
 ): TEntry[] => {
-  const { Units } = GrandAllianceConfig[alliance]
+  const Units: TEntry[] = {
+    [CHAOS]: AvailableChaosUnits,
+    [DEATH]: AvailableDeathUnits,
+    [DESTRUCTION]: AvailableDestructionUnits,
+    [ORDER]: AvailableOrderUnits,
+  }[alliance]
+
   return uniqBy(
     sortBy(units, 'name')
       .concat(Collection.Units)
