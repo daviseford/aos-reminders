@@ -1,20 +1,8 @@
-import LegionsOfNagash from 'army/legions_of_nagash'
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
-import { filterBattalions } from 'utils/filterUtils'
 
-// Importing from LoN
-const getLegionsOfNagashUnits = () => LegionsOfNagash.Units
-const getLegionsOfNagashBattalions = () => {
-  return filterBattalions(LegionsOfNagash.Battalions, [`Deathmarch`, `Castellans of the Crimson Keep`])
-}
-
-export const Units: TEntry[] = [...getLegionsOfNagashUnits()]
-
-export const Battalions: TEntry[] = [
-  ...getLegionsOfNagashBattalions(),
-  {
-    name: `Nightfall Pack`,
+const Battalions = {
+  'Nightfall Pack': {
     effects: [
       {
         name: `Swooping Predators`,
@@ -28,4 +16,7 @@ export const Battalions: TEntry[] = [
       },
     ],
   },
-]
+}
+
+// Always export using tagAs
+export default tagAs(Battalions, 'battalion')

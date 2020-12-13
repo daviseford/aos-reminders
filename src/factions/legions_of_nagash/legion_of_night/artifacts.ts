@@ -1,9 +1,9 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { DURING_SETUP, HERO_PHASE, SHOOTING_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Vial of Pure Blood`,
+// Add individual artifacts here, and access them in other files!
+const Artifacts = {
+  'Vial of Pure Blood': {
     effects: [
       {
         name: `Vial of Pure Blood`,
@@ -12,8 +12,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shard of Night`,
+  'Shard of Night': {
     effects: [
       {
         name: `Shard of Night`,
@@ -22,8 +21,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Gem of Exsanguination`,
+  'Gem of Exsanguination': {
     effects: [
       {
         name: `Gem of Exsanguination`,
@@ -32,8 +30,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Chiropteric Cloak`,
+  'Chiropteric Cloak': {
     effects: [
       {
         name: `Chiropteric Cloak`,
@@ -42,8 +39,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Morbheg's Claw`,
+  "Morbheg's Claw": {
     effects: [
       {
         name: `Morbheg's Claw`,
@@ -52,8 +48,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Curseblade`,
+  Curseblade: {
     effects: [
       {
         name: `Curseblade`,
@@ -62,6 +57,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(Artifacts, 'artifact')

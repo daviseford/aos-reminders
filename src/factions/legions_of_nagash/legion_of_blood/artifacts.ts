@@ -1,9 +1,9 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE, SAVES_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
-const Artifacts: TEntry[] = [
-  {
-    name: `Ring of Dominion`,
+// Add individual artifacts here, and access them in other files!
+const Artifacts = {
+  'Ring of Dominion': {
     effects: [
       {
         name: `Ring of Dominion`,
@@ -12,8 +12,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Shadeglass Decanter`,
+  'Shadeglass Decanter': {
     effects: [
       {
         name: `Shadeglass Decanter`,
@@ -22,8 +21,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Orb of Enchantment`,
+  'Orb of Enchantment': {
     effects: [
       {
         name: `Orb of Enchantment`,
@@ -32,8 +30,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Soulbound Garments`,
+  'Soulbound Garments': {
     effects: [
       {
         name: `Soulbound Garments`,
@@ -42,8 +39,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Oubliette Arcana`,
+  'Oubliette Arcana': {
     effects: [
       {
         name: `Oubliette Arcana`,
@@ -52,8 +48,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Amulet of Screams`,
+  'Amulet of Screams': {
     effects: [
       {
         name: `Amulet of Screams`,
@@ -62,6 +57,7 @@ const Artifacts: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default Artifacts
+// Always export using tagAs
+export default tagAs(Artifacts, 'artifact')

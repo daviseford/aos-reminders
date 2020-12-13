@@ -1,4 +1,4 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -7,9 +7,9 @@ import {
   START_OF_CHARGE_PHASE,
 } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Swift Strikes`,
+// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+const CommandTraits = {
+  'Swift Strikes': {
     effects: [
       {
         name: `Swift Strikes`,
@@ -18,8 +18,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Soul-crushing Contempt`,
+  'Soul-crushing Contempt': {
     effects: [
       {
         name: `Soul-crushing Contempt`,
@@ -28,8 +27,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Aristocracy of Blood`,
+  'Aristocracy of Blood': {
     effects: [
       {
         name: `Aristocracy of Blood`,
@@ -38,8 +36,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Aura of Dark Majesty`,
+  'Aura of Dark Majesty': {
     effects: [
       {
         name: `Aura of Dark Majesty`,
@@ -48,8 +45,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Walking Death`,
+  'Walking Death': {
     effects: [
       {
         name: `Walking Death`,
@@ -58,8 +54,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Sanguine Blur`,
+  'Sanguine Blur': {
     effects: [
       {
         name: `Sanguine Blur`,
@@ -68,6 +63,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default CommandTraits
+// Always export using tagAs
+export default tagAs(CommandTraits, 'command_trait')

@@ -1,9 +1,9 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_SETUP, MOVEMENT_PHASE } from 'types/phases'
 
-const CommandTraits: TEntry[] = [
-  {
-    name: `Above Suspicion`,
+// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+const CommandTraits = {
+  'Above Suspicion': {
     effects: [
       {
         name: `Above Suspicion`,
@@ -12,8 +12,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Swift Form`,
+  'Swift Form': {
     effects: [
       {
         name: `Swift Form`,
@@ -22,8 +21,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Unbending Will`,
+  'Unbending Will': {
     effects: [
       {
         name: `Unbending Will`,
@@ -32,8 +30,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Merciless Hunter`,
+  'Merciless Hunter': {
     effects: [
       {
         name: `Merciless Hunter`,
@@ -42,8 +39,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Unholy Impetus`,
+  'Unholy Impetus': {
     effects: [
       {
         name: `Unholy Impetus`,
@@ -52,8 +48,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-  {
-    name: `Terrifying Visage`,
+  'Terrifying Visage': {
     effects: [
       {
         name: `Terrifying Visage`,
@@ -62,6 +57,7 @@ const CommandTraits: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default CommandTraits
+// Always export using tagAs
+export default tagAs(CommandTraits, 'command_trait')

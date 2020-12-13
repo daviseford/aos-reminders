@@ -6,6 +6,12 @@ import CommandAbilities from './command_abilities'
 import GHoNArtifacts from './grand_host_of_nagash/artifacts'
 import GHoNBattalions from './grand_host_of_nagash/battalions'
 import GHoNCommandTraits from './grand_host_of_nagash/command_traits'
+import LegionOfBloodArtifacts from './legion_of_blood/artifacts'
+import LegionOfBloodBattalions from './legion_of_blood/battalions'
+import LegionOfBloodCommandTraits from './legion_of_blood/command_traits'
+import LegionOfNightArtifacts from './legion_of_night/artifacts'
+import LegionOfNightBattalions from './legion_of_night/battalions'
+import LegionOfNightCommandTraits from './legion_of_night/command_traits'
 import Spells from './spells'
 import Units from './units'
 
@@ -41,6 +47,14 @@ const subFactions: TItemDescriptions = {
     effects: pickEffects(BattleTraits, ['Core Legions', 'Legion of Blood']),
     available: {
       ...baseLegion.available,
+      // TODO Add Nighthaunt Endless SPells
+      // endless_spells: [NighthauntEndlessSpells],
+      battalions: [
+        keyPicker(Battalions, ['Deathmarch', 'Castellans of the Crimson Keep']),
+        LegionOfBloodBattalions,
+      ],
+      artifacts: [LegionOfBloodArtifacts],
+      command_traits: [LegionOfBloodCommandTraits],
     },
   },
   'Legion of Night': {
@@ -49,6 +63,14 @@ const subFactions: TItemDescriptions = {
 
     available: {
       ...baseLegion.available,
+      // TODO Add Nighthaunt Endless SPells
+      // endless_spells: [NighthauntEndlessSpells],
+      battalions: [
+        keyPicker(Battalions, ['Deathmarch', 'Castellans of the Crimson Keep']),
+        LegionOfNightBattalions,
+      ],
+      artifacts: [LegionOfNightArtifacts],
+      command_traits: [LegionOfNightCommandTraits],
     },
   },
   'Legion of Sacrament': {
