@@ -107,6 +107,7 @@ export type TEffects = {
   name: string
   desc: string
   when: TTurnWhen[]
+  source?: string
 } & {
   [prop in TEntryProperties]?: boolean
 }
