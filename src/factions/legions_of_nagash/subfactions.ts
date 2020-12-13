@@ -1,7 +1,10 @@
 import { TItemDescription, TItemDescriptions } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from '../metatagger'
+import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
+import Spells from './spells'
+import Units from './units'
 
 const baseLegion: TItemDescription = {
   effects: pickEffects(BattleTraits, ['Core Legions']),
@@ -9,15 +12,10 @@ const baseLegion: TItemDescription = {
     command_abilities: [keyPicker(CommandAbilities, ['Endless Legions'])],
   },
   available: {
-    // artifacts: [Artifacts],
-    // battalions: [Battalions],
+    battalions: [Battalions],
     command_abilities: [CommandAbilities],
-    // command_traits: [CommandTraits],
-    // endless_spells: [EndlessSpells],
-    // prayers: [Prayers],
-    // scenery: [Scenery],
-    // spells: [Spells],
-    // units: [Units],
+    spells: [Spells],
+    units: [Units],
   },
 }
 
