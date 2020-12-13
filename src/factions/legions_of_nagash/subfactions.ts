@@ -12,6 +12,9 @@ import LegionOfBloodCommandTraits from './legion_of_blood/command_traits'
 import LegionOfNightArtifacts from './legion_of_night/artifacts'
 import LegionOfNightBattalions from './legion_of_night/battalions'
 import LegionOfNightCommandTraits from './legion_of_night/command_traits'
+import LegionOfSacramentArtifacts from './legion_of_sacrament/artifacts'
+import LegionOfSacramentBattalions from './legion_of_sacrament/battalions'
+import LegionOfSacramentCommandTraits from './legion_of_sacrament/command_traits'
 import Spells from './spells'
 import Units from './units'
 
@@ -78,6 +81,12 @@ const subFactions: TItemDescriptions = {
     effects: pickEffects(BattleTraits, ['Core Legions', 'Legion of Sacrament']),
     available: {
       ...baseLegion.available,
+      battalions: [
+        keyPicker(Battalions, ['Deathmarch', 'Castellans of the Crimson Keep']),
+        LegionOfSacramentBattalions,
+      ],
+      artifacts: [LegionOfSacramentArtifacts],
+      command_traits: [LegionOfSacramentCommandTraits],
     },
   },
   Soulblight: {
