@@ -122,13 +122,15 @@ const FactionList = {
 
 export const getFactionList = () => FactionList
 export const getFactionFromList = (factionName: TSupportedFaction) => FactionList[factionName]
-export const getSubFactionKeys = (factionName: TSupportedFaction) => FactionList[factionName].subFactionKeys
+
+// export const getSubFactionKeys = (factionName: TSupportedFaction) => FactionList[factionName].subFactionKeys
 
 // export const getAggregatedArmyList = () =>
 //   Object.entries(ArmyList).reduce((a, [k, v]) => {
 //     a[k] = v.AggregateArmy
 //     return a
 //   }, {} as Record<keyof typeof ArmyList, TInitialArmy>)
+
 // export const getSubFactionFromList = (factionName: TSupportedFaction, subFactionName: string) => {
 //   const subfaction = ArmyList[factionName].SubFactions[subFactionName]
 //   if (!subfaction) {

@@ -2,11 +2,11 @@ import { PreferenceApi } from 'api/preferenceApi'
 import {
   armyActions,
   factionNamesActions,
+  notesActions,
   realmscapeActions,
   selectionActions,
   visibilityActions,
 } from 'ducks'
-import { notesActions } from 'ducks/notes'
 import { store } from 'store'
 import { IArmy } from 'types/army'
 import { TLoadedArmy } from 'types/import'

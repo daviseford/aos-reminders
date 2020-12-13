@@ -1,7 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
 
-export const OrderBattalions = {
+const OrderBattalions = {
   'Dragonlord Host': {
     effects: [
       {

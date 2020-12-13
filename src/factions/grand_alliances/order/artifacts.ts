@@ -1,8 +1,7 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
-const OrderArtifacts: TItemDescriptions = {
+const OrderArtifacts = {
   'Quicksilver Potion (Order)': {
     effects: [
       {

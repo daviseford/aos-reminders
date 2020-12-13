@@ -4,7 +4,7 @@ import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
-import { default as CommandAbilities, default as command_abilities } from './command_abilities'
+import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
@@ -27,7 +27,7 @@ const subFactions: TItemDescriptions = {
       units: [Units],
     },
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Feeding Frenzy'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Feeding Frenzy'])],
     },
   },
 }
