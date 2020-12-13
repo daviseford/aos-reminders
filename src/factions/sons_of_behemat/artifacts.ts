@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { BATTLETOME_SONS_OF_BEHEMAT, BATTLETOME_SONS_OF_BEHEMAT_NOV_2020 } from 'meta/sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -52,7 +53,8 @@ const Artifacts = {
     effects: [
       {
         name: `Glowy Lantern (Taker Tribe)`,
-        desc: `The bearer can attempt to cast 1 spell in your hero phase and unbind 1 spell in the enemy hero phase, in the same manner as a WIZARD. The bearer knows the Arcane Bolt and Mystic Shield spells.`,
+        desc: `The bearer is a WIZARD. They can attempt to cast 1 spell in your hero phase and unbind 1 spell in the enemy hero phase. The bearer knows the Arcane Bolt and Mystic Shield spells.`,
+        sources: [BATTLETOME_SONS_OF_BEHEMAT, BATTLETOME_SONS_OF_BEHEMAT_NOV_2020],
         when: [HERO_PHASE],
       },
     ],
