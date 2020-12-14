@@ -37,7 +37,7 @@ const getFile = (filename: string) => {
   return readFileSync(path.resolve(`src/tests/fixtures/battlescribe/html/${filename}.html`), 'utf8')
 }
 
-describe('getBattlescribeArmy', () => {
+xdescribe('getBattlescribeArmy', () => {
   it('should not work with The Choir of Torments battalion (not in current book)', () => {
     const parsedText = getFile('1601345187171-Battlescribe')
     const res = getBattlescribeArmy(parsedText)

@@ -26,7 +26,7 @@ const getFile = (filename: string): string[] => {
  *
  * Then test against that JSON below
  */
-describe('handleAzyrPages', () => {
+xdescribe('handleAzyrPages', () => {
   it('handles Seraphon1', () => {
     const fileTxt = getFile('Seraphon1')
     const res = handleAzyrPages(fileTxt)

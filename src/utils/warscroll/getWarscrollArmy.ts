@@ -1,4 +1,5 @@
 import { SeraphonFaction } from 'factions/seraphon'
+import { StormcastFaction } from 'factions/stormcast_eternals'
 import GenericScenery from 'generic_rules/scenery'
 import { last, uniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
@@ -11,14 +12,16 @@ import { cleanWarscrollText } from 'utils/warscroll/warscrollUtils'
 
 export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialWarscrollArmyPdf(pdfText)
+  debugger
   const errorChecked = importErrorChecker(army, WARSCROLL_BUILDER)
+  debugger
 
   return errorChecked
 }
 
 const getAllegianceTypes = () => {
   return Object.values(getFactionList())
-    .map(v => (v.AggregateArmy?.FlavorType || '').replace(/s$/, '')) // Remove trailing s
+    .map(v => (v.AggregateArmy.FlavorType || '').replace(/s$/, '')) // Remove trailing s
     .filter(x => !!x)
 }
 
@@ -42,6 +45,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
   let allyUnits: string[] = []
   let factionName = ''
+  let subFactionName = ''
   let origin_realm: string | null = null
   let selector = ''
   let unknownSelections: string[] = []
@@ -118,7 +122,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
         if (txt.startsWith('- Tribe: ')) {
           const { flavor, trait } = getTribe(txt)
-          accum.flavors = accum.flavors.concat(flavor)
+          accum.flavors.push(flavor)
           if (trait) {
             accum.command_traits = accum.command_traits.concat(trait)
           }
@@ -135,13 +139,14 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
         if (txt.startsWith('- Constellation: ')) {
           const name = txt.replace('- Constellation: ', '').trim()
-          const flavors = getSeraphonConstellations(name)
-          accum.flavors = accum.flavors.concat(flavors)
+          const data = getSeraphonConstellations(name)
+          accum.flavors.push(data.flavor)
+          if (data.subFactionName) subFactionName = data.subFactionName
           return accum
         }
 
-        if (txt.startsWith('- Great Endrinworks : ')) {
-          const name = txt.replace('- Great Endrinworks : ', '').trim()
+        if (txt.startsWith('- Great Endrinworks')) {
+          const name = txt.replace(/- Great Endrinworks ?: /, '').trim()
           const artifact = name.replace(/\(.+\)/g, '').trim()
           if (artifact) {
             accum.artifacts = accum.artifacts.concat(artifact)
@@ -199,55 +204,41 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         }
 
         // General handling of Command Traits, checks for attached spells
-        if (txt.startsWith('- Command Trait : ')) {
+        if (txt.startsWith('- Command Trait')) {
           const { trait, spell } = getTraitWithSpell('Command Trait', txt)
           accum.command_traits = accum.command_traits.concat(trait)
           if (spell) accum.spells = accum.spells.concat(spell)
           return accum
         }
-        if (txt.startsWith('- Mount Trait : ')) {
+        if (txt.startsWith('- Mount Trait')) {
           const trait = getTrait('Mount Trait', txt)
           accum.mount_traits = accum.mount_traits.concat(trait)
           return accum
         }
-        if (txt.startsWith('- Drakeblood Curse : ')) {
+        if (txt.startsWith('- Drakeblood Curse')) {
           const trait = getTrait('Drakeblood Curse', txt)
           accum.command_traits = accum.command_traits.concat(trait)
           return accum
         }
-        if (txt.startsWith('- Grand Court: ')) {
-          const trait = getTrait('Grand Court', txt, false)
+        if (txt.startsWith('- Grand Court')) {
+          const trait = getTrait('Grand Court', txt)
           accum.command_traits = accum.command_traits.concat(trait)
           return accum
         }
 
-        // Handle allegiances programmatically
-        let stop = false
-        flavorTypes.forEach(t => {
-          if (!stop) return
-          if (txt.startsWith(`- ${t}: `)) {
-            const flavor = txt.replace(`- ${t}: `, '').trim()
-            if (flavor && flavor !== 'None') {
-              accum.flavors = accum.flavors.concat(flavor)
-              stop = true
-            }
-          }
-        })
-        if (stop) return accum
-
-        if (txt.startsWith('- Artefact : ')) {
+        if (txt.startsWith('- Artefact')) {
           const { trait: artifact, spell } = getTraitWithSpell('Artefact', txt)
           accum.artifacts = accum.artifacts.concat(artifact)
           if (spell) accum.spells = accum.spells.concat(spell)
           return accum
         }
-        if (txt.startsWith('- Spell : ')) {
+        if (txt.startsWith('- Spell')) {
           const spell = getTrait('Spell', txt)
           accum.spells = accum.spells.concat(spell)
           return accum
         }
-        if (txt.startsWith('- Mortal Realm : ') && last(accum.units) === 'Battlemage') {
-          const battlemage_realm = txt.replace('- Mortal Realm : ', '').trim()
+        if (txt.startsWith('- Mortal Realm') && last(accum.units) === 'Battlemage') {
+          const battlemage_realm = txt.replace(/- Mortal Realm ?: /, '').trim()
           accum.units.pop()
           accum.units.push(`Battlemage (${battlemage_realm})`)
           return accum
@@ -265,6 +256,29 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
             return accum
           }
         }
+
+        // Handle allegiances programmatically
+        let stop = false
+        flavorTypes.forEach(t => {
+          if (stop) return
+          const flavor = txt.replace(`- ${t}: `, '').trim()
+          if (txt.startsWith(`- ${t}: `)) {
+            if (flavor && flavor !== 'None') {
+              // Handle SCE Subfactions
+              if (flavor.includes('(Stormkeep)')) {
+                const sceFlavor = flavor.replace(/\(Stormkeep\)$/g, '(Stormhost)')
+                accum.flavors.push(sceFlavor)
+                subFactionName = StormcastFaction.subFactionKeyMap['Celestial Senitels'] // Stormkeep
+                stop = true
+                return
+              }
+
+              accum.flavors = accum.flavors.concat(flavor)
+              stop = true
+            }
+          }
+        })
+        if (stop) return accum
 
         // If we've gotten this far, we don't really know what this thing is
         // So for now, let's add this to the unknownSelections
@@ -287,7 +301,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
       if (selector) {
         // Endless spells and terrain are grouped together, so we have to do this check manually
         if (selector === 'endless_spells' && genericScenery.includes(txt)) {
-          accum['scenery'] = uniq(accum['scenery'].concat(txt))
+          accum.scenery = uniq(accum.scenery.concat(txt))
         } else {
           accum[selector] = uniq(accum[selector].concat(txt))
         }
@@ -317,11 +331,11 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
     allyUnits: uniq(allyUnits),
     errors: [],
     factionName: factionName as TSupportedFaction,
-    subFactionName: '', // TODO
     origin_realm,
     realmscape_feature: null,
     realmscape: null,
     selections,
+    subFactionName,
     unknownSelections: uniq(unknownSelections),
   }
 }
@@ -335,8 +349,9 @@ const manualLookup = {
 
 type TTraitType = 'Command Trait' | 'Artefact' | 'Spell' | 'Mount Trait' | 'Drakeblood Curse' | 'Grand Court'
 
-const getTrait = (type: TTraitType, txt: string, addSpace = true) => {
-  const sep = addSpace ? `${type} : ` : `${type}: `
+const getTrait = (type: TTraitType, txt: string) => {
+  const sep = txt.includes(`${type} : `) ? `${type} : ` : `${type}: `
+  if (txt.includes('Spell')) debugger
   return removePrefix(txt.split(sep)[1].trim())
 }
 
@@ -410,8 +425,8 @@ const traitToSpellMapper = [
  * Extracts a given trait, and optionally, a spell associated with it
  * @param txt
  */
-const getTraitWithSpell = (type: TTraitType, txt: string, addSpace = true) => {
-  const cleaned = getTrait(type, txt, addSpace)
+const getTraitWithSpell = (type: TTraitType, txt: string) => {
+  const cleaned = getTrait(type, txt)
   const hasSpell = traitToSpellMapper.some(x => cleaned.startsWith(x))
 
   if (!hasSpell) return { trait: cleaned, spell: null }
@@ -423,19 +438,20 @@ const getTraitWithSpell = (type: TTraitType, txt: string, addSpace = true) => {
 
 /**
  * If a Seraphon army has taken a constellation such as Koatl's Claw or Thunder Lizard,
- * this function adds the "Way of the Seraphon" that the constellation is associated with
- * @param value
+ * this function adds the "Way of the Seraphon" subfaction that the constellation is associated with
+ * @param flavor
  */
-const getSeraphonConstellations = (value: string): string[] => {
+const getSeraphonConstellations = (flavor: string) => {
   const { subFactionKeyMap } = SeraphonFaction
   const CoalescedFlavors = SeraphonFaction.SubFactions.Coalesced.available.flavors
   const StarborneFlavors = SeraphonFaction.SubFactions.Starborne.available.flavors
 
-  if (CoalescedFlavors[value]) {
-    return [value, subFactionKeyMap.Coalesced]
+  if (CoalescedFlavors[flavor]) {
+    return { flavor, subFactionName: subFactionKeyMap.Coalesced }
   }
-  if (StarborneFlavors[value]) {
-    return [value, subFactionKeyMap.Starborne]
+  if (StarborneFlavors[flavor]) {
+    return { flavor, subFactionName: subFactionKeyMap.Starborne }
   }
-  return [value]
+
+  return { flavor }
 }

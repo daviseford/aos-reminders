@@ -2,7 +2,7 @@ import { difference } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy } from 'types/army'
 import { IImportedArmy, TImportError, TImportParsers } from 'types/import'
-import { IAllySelections } from 'types/selections'
+import { IAllySelections, TSelectionTypes } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { logFailedImport } from 'utils/analytics'
 import { isValidFactionName } from 'utils/armyUtils'
@@ -20,7 +20,7 @@ import { createFatalError, getAllyWarnings, getWarnings, hasFatalError } from 'u
 export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers): IImportedArmy => {
   const opts = parserOptions[parser]
 
-  let { errors, factionName, selections, unknownSelections, allyUnits } = army
+  let { errors, factionName, subFactionName, selections, unknownSelections, allyUnits } = army
 
   // If we've already gotten an error, go ahead and bail out
   if (hasFatalError(errors)) return army
@@ -50,13 +50,18 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
     opts.typoMap
   )
 
-  const errorFreeSelections = {
+  const errorFreeSelections: Record<TSelectionTypes, string[]> = {
     artifacts: lookup('artifacts'),
     battalions: lookup('battalions'),
+    command_abilities: lookup('command_abilities'),
     command_traits: lookup('command_traits'),
     endless_spells: lookup('endless_spells'),
     flavors: lookup('flavors'),
+    mount_traits: lookup('mount_traits'),
+    prayers: lookup('prayers'),
+    scenery: lookup('scenery'),
     spells: lookup('spells'),
+    triumphs: lookup('triumphs'),
     units: lookup('units'),
   }
 
