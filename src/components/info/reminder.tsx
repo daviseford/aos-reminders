@@ -8,6 +8,7 @@ import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { selectors, visibilityActions } from 'ducks'
 import { isEqual, sortBy } from 'lodash'
+import { getFactionFromList } from 'meta/faction_list'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
 import { Dropdown } from 'react-bootstrap'
@@ -155,6 +156,10 @@ const ActionText = (props: IActionTextProps) => {
 
   const noteProps = useNote(id)
 
+  const currentArmy = useSelector(selectors.selectCurrentArmy)
+  const faction = getFactionFromList(currentArmy.factionName)
+  const source = faction.source
+
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
       <div className={`mb-2 ${!isVisible ? `d-print-none` : ``}`}>
@@ -188,6 +193,7 @@ const ActionText = (props: IActionTextProps) => {
                     setVisibility={handleVisibility}
                   />
                   {isVisible && <NoteMenu {...noteProps} />}
+                  {source && <Dropdown.Item disabled={true}>{source.name}</Dropdown.Item>}
                 </Dropdown.Menu>
               </Dropdown>
             )}
