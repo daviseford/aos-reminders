@@ -1,4 +1,5 @@
 import { TItemDescription } from 'factions/factionTypes'
+import { TSource } from 'meta/sources'
 import { TTurnWhen } from 'types/phases'
 import { TCollection } from './army'
 import { TSelectionTypes } from './selections'
@@ -77,7 +78,7 @@ export type TEffects = {
   desc: string
   tag?: string
   when: TTurnWhen[]
-  source?: string
+  sources?: TSource[]
 } & {
   [prop in TEntryProperties]?: boolean
 }
