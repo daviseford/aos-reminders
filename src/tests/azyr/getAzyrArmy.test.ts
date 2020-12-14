@@ -35,7 +35,7 @@ const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/azyr/json/${filename}.json`), 'utf8'))
 }
 
-describe('getAzyrArmyFromPdf', () => {
+xdescribe('getAzyrArmyFromPdf', () => {
   // TODO: Add Dimensional Blade
   // https://github.com/daviseford/aos-reminders/issues/1055
   xit('should correctly read 1602264690883-Azyr', () => {

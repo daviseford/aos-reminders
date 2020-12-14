@@ -6,11 +6,7 @@ import { checkImportSelection } from 'utils/import/checkImportSelection'
 import { importUnitOptionMap, TNameMap } from 'utils/import/options'
 import { Validators } from 'utils/import/validators'
 import { mapListToDict } from 'utils/mapListToDict'
-
-type TLookupType = Extract<
-  TSelectionTypes,
-  'artifacts' | 'battalions' | 'command_traits' | 'endless_spells' | 'flavors' | 'spells' | 'units'
->
+import { lowerToUpperLookup } from './removeSideEffectsFromImport'
 
 export const importSelectionLookup = (
   Army: IArmy,
@@ -20,18 +16,8 @@ export const importSelectionLookup = (
   foundSelections: string[],
   checkPoorSpacing: boolean,
   typoMap: TNameMap
-) => (type: TLookupType): string[] => {
-  const lookup: Record<TLookupType, string> = {
-    artifacts: 'Artifacts',
-    battalions: 'Battalions',
-    command_traits: 'CommandTraits',
-    endless_spells: 'EndlessSpells',
-    flavors: 'Flavors',
-    spells: 'Spells',
-    units: 'Units',
-  }
-
-  const Names: string[] = Army[lookup[type]].map(({ name }) => name)
+) => (type: TSelectionTypes): string[] => {
+  const Names: string[] = Army[lowerToUpperLookup[type]].map(({ name }) => name)
   const NameMap = mapListToDict(Names)
   const validators = Validators(Names)
   const checkVal = checkImportSelection(Names, NameMap, errors, true, checkPoorSpacing, typoMap)

@@ -1,13 +1,10 @@
 import { difference } from 'lodash'
-import { IArmy } from 'types/army'
-import { TEntry } from 'types/data'
+import { IArmy, TCollection } from 'types/army'
 import { TImportParsers } from 'types/import'
 import { TSelections, TSelectionTypes } from 'types/selections'
 import { logIgnoredImport } from 'utils/analytics'
 
-type TLookup = Record<TSelectionTypes, Partial<keyof IArmy>>
-
-export const lowerToUpperLookup: TLookup = {
+export const lowerToUpperLookup: Record<TSelectionTypes, keyof TCollection> = {
   artifacts: 'Artifacts',
   battalions: 'Battalions',
   command_abilities: 'CommandAbilities',
@@ -21,7 +18,8 @@ export const lowerToUpperLookup: TLookup = {
   triumphs: 'Triumphs',
   units: 'Units',
 }
-export const upperToLowerLookup = {
+
+export const upperToLowerLookup: Record<keyof TCollection, TSelectionTypes> = {
   Artifacts: 'artifacts',
   Battalions: 'battalions',
   CommandAbilities: 'command_abilities',
@@ -48,19 +46,18 @@ export const removeSideEffectsFromImport = (
   parser: TImportParsers
 ): TSelections => {
   Object.keys(selections).forEach(slice => {
+    let _slice = slice as TSelectionTypes
     // Store the previous state of our selections
-    const previous: string[] = [...selections[slice]]
+    const previous: string[] = [...selections[_slice]]
 
     // Get an array of effect names that are side effects from the Army
-    const SideEffects = (Army[lowerToUpperLookup[slice]] as TEntry[])
-      .filter(x => x.isSideEffect)
-      .map(x => x.name)
+    const SideEffects = Army[lowerToUpperLookup[_slice]].filter(x => x.isSideEffect).map(x => x.name)
 
-    // Update our slice of selections to NOT include any side effects
-    selections[slice] = difference(previous, SideEffects)
+    // Update our _slice of selections to NOT include any side effects
+    selections[_slice] = difference(previous, SideEffects)
 
     // And then get a list of ignored side effects and send them to GA
-    const removed = difference(previous, selections[slice])
+    const removed = difference(previous, selections[_slice])
     removed.forEach(s => logIgnoredImport(s, parser))
   })
 

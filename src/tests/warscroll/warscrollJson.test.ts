@@ -35,7 +35,7 @@ const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/warscroll/json/${filename}.json`), 'utf8'))
 }
 
-describe('getWarscrollArmyFromJson', () => {
+xdescribe('getWarscrollArmyFromJson', () => {
   // TODO: Add Stoneklaw's Gutstompas
   // https://github.com/daviseford/aos-reminders/issues/1053
   xit('should correctly read 1601977490829-Warscroll_Builder', () => {
