@@ -1,5 +1,6 @@
 import { TGrandAlliances } from 'meta/alliances'
 import { TSupportedFaction } from 'meta/factions'
+import { TSource } from 'meta/sources'
 import { TInitialArmy, TSubfactionArmy } from 'types/army'
 import { TItemDescriptions } from './factionTypes'
 import { getAggregateArmy, temporaryAdapter } from './temporaryAdapter'
@@ -11,7 +12,8 @@ export class Faction<
   F extends TSupportedFaction,
   G extends TGrandAlliances,
   S extends TItemDescriptions,
-  K extends Extract<keyof S, string>
+  K extends Extract<keyof S, string>,
+  So extends TSource
 > {
   public readonly AggregateArmy: TSubfactionArmy
   public readonly subFactionKeys: K[]
@@ -23,7 +25,7 @@ export class Faction<
     public readonly GrandAlliance: G,
     public readonly SubFactions: S,
     public readonly flavorLabel = 'Flavors',
-    public readonly sources = [],
+    public readonly source?: So,
     public readonly isMercenary = false
   ) {
     this.AggregateArmy = getAggregateArmy(SubFactions, flavorLabel)
