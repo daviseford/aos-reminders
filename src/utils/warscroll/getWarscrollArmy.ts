@@ -20,9 +20,11 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
 }
 
 const getAllegianceTypes = () => {
-  return Object.values(getFactionList())
-    .map(v => (v.AggregateArmy.FlavorType || '').replace(/s$/, '')) // Remove trailing s
-    .filter(x => !!x)
+  return uniq(
+    Object.values(getFactionList())
+      .map(v => (v.AggregateArmy.FlavorType || '').replace(/s$/, '')) // Remove trailing s
+      .filter(x => !!x)
+  )
 }
 
 const unitIndicatorsPdf = [
@@ -44,6 +46,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   const genericScenery = GenericScenery.map(x => x.name)
 
   const flavorTypes = getAllegianceTypes()
+  console.log(flavorTypes)
 
   let allyUnits: string[] = []
   let factionName = ''
