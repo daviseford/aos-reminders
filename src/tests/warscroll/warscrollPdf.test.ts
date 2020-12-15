@@ -593,7 +593,7 @@ describe('getWarscrollArmyFromPdf', () => {
         },
         {
           severity: 'warn',
-          text: 'Aetherspheric Endrins',
+          text: 'Aetherspheric Endrinds',
         },
       ],
       factionName: KHARADRON_OVERLORDS,
@@ -609,13 +609,15 @@ describe('getWarscrollArmyFromPdf', () => {
         endless_spells: [],
         scenery: [],
         spells: [],
+        mount_traits: [],
+        prayers: [],
         command_traits: [
           "FOOTNOTE: There's No Trading With Some People",
           'Cunning Fleetmaster',
+          'Master Commander',
           "FOOTNOTE: There's Always a Breeze if You Look for it",
           "AMENDMENT: Don't Argue With the Wind",
           'ARTYCLE: Master the Skies',
-          'Master Commander',
         ],
         triumphs: [],
         units: [
@@ -684,11 +686,13 @@ describe('getWarscrollArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
-        flavors: [],
         artifacts: [],
         battalions: [],
         command_abilities: [],
         endless_spells: [],
+        flavors: [],
+        mount_traits: [],
+        prayers: [],
         scenery: [],
         spells: ['Miasma of Pestilence'],
         command_traits: [],
@@ -1207,16 +1211,29 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections).toEqual({
       flavors: [],
       artifacts: ['Zoetic Dial'],
-      battalions: ['Eternal Starhost'],
-      command_abilities: ['Gift from the Heavens'],
+      battalions: [
+        'Eternal Starhost',
+        'Sunclaw Starhost',
+        'Firelance Starhost',
+        'Shadowstrike Starhost',
+        'Thunderquake Starhost',
+      ],
+      command_abilities: ['Prime Guardian', 'Gift from the Heavens'],
       endless_spells: ['Balewind Vortex'],
       mount_traits: [],
       prayers: [],
       scenery: [],
-      spells: ['Walk Between Realms', "Comet's Call"],
+      spells: ['Walk Between Realms', 'Celestial Deliverance'],
       command_traits: ['Great Rememberer'],
       triumphs: [],
-      units: ['Slann Starmaster', 'Bastiladon'],
+      units: [
+        'Slann Starmaster',
+        'Bastiladon',
+        'Saurus Guard',
+        'Saurus Eternity Warden',
+        'Saurus Warriors',
+        'Saurus Knights',
+      ],
     })
   })
 
@@ -1254,7 +1271,7 @@ describe('getWarscrollArmyFromPdf', () => {
         mount_traits: [],
         prayers: [],
         scenery: ['Penumbral Engine'],
-        spells: ["Comet's Call", 'Celestial Deliverance'],
+        spells: ['Celestial Deliverance'],
         command_traits: ['Master of Star Rituals'],
         triumphs: [],
         units: [
@@ -1304,7 +1321,7 @@ describe('getWarscrollArmyFromPdf', () => {
         mount_traits: [],
         prayers: [],
         scenery: ['Penumbral Engine'],
-        spells: ["Comet's Call", 'Celestial Deliverance'],
+        spells: ['Celestial Deliverance'],
         command_traits: ['Master of Star Rituals'],
         triumphs: [],
         units: [
@@ -1354,7 +1371,7 @@ describe('getWarscrollArmyFromPdf', () => {
         mount_traits: [],
         prayers: [],
         scenery: ['Penumbral Engine'],
-        spells: ["Comet's Call", 'Celestial Deliverance'],
+        spells: ['Celestial Deliverance'],
         command_traits: ['Master of Star Rituals'],
         triumphs: [],
         units: [
