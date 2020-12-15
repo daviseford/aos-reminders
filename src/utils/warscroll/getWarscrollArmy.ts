@@ -2,7 +2,7 @@ import { SeraphonFaction } from 'factions/seraphon'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import GenericScenery from 'generic_rules/scenery'
 import { last, uniq } from 'lodash'
-import { TSupportedFaction } from 'meta/factions'
+import { STORMCAST_ETERNALS, TSupportedFaction } from 'meta/factions'
 import { getFactionList } from 'meta/faction_list'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 import { TSelections } from 'types/selections'
@@ -37,6 +37,8 @@ const unitIndicatorsPdf = [
   'Rearguard',
 ].map(x => x.toUpperCase())
 
+// TODO: This is fucking ridiculous.
+// Change it to something testable and more.. uhhh.. sane?
 const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(pdfText)
   const genericScenery = GenericScenery.map(x => x.name)
@@ -154,7 +156,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           }
         }
 
-        if (txt.startsWith('- Grand Court: ')) {
+        if (txt.startsWith('- Grand Court')) {
           const flavor = ['Gristlegore', 'Morgaunt', 'Blisterskin', 'Hollowmourne'].find(x => txt.includes(x))
           if (flavor) {
             accum.flavors = accum.flavors.concat(flavor)
@@ -162,7 +164,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           }
         }
 
-        if (txt.startsWith('- City: ')) {
+        if (txt.startsWith('- City')) {
           const { flavor, trait } = getCity(txt)
           accum.flavors = accum.flavors.concat(flavor)
           if (trait) {
@@ -226,7 +228,8 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           return accum
         }
 
-        if (txt.startsWith('- Artefact')) {
+        // if (txt.startsWith('- Artefact') || txt.startsWith('- blahblah (Artefact): '):/)) {
+        if (txt.match(/^- (.+ \()?Artefact(\))?:/)) {
           const { trait: artifact, spell } = getTraitWithSpell('Artefact', txt)
           accum.artifacts = accum.artifacts.concat(artifact)
           if (spell) accum.spells = accum.spells.concat(spell)
@@ -246,7 +249,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
         // Add weapon options and other configuration
         if (selector === 'units' && accum[selector].length > 0) {
-          const attr = txt.split('-')[1].replace('Weapon : ', '').trim()
+          const attr = txt.split('-')[1].replace('Weapon: ', '').replace('Weapon : ', '').trim()
 
           if (importUnitOptionMap[attr]) {
             const accumMock = [...accum[selector]]
@@ -258,6 +261,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         }
 
         // Handle allegiances programmatically
+        // TODO: Break this out into a testable function
         let stop = false
         flavorTypes.forEach(t => {
           if (stop) return
@@ -279,6 +283,18 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           }
         })
         if (stop) return accum
+
+        // Handle some new stuff I've noticed
+        // We _REALLY_ need to test this
+
+        // Notice that I added a factionName check - this should be done in the future
+        if (factionName === STORMCAST_ETERNALS && txt.startsWith('- Lore of Invigoration: ')) {
+          const spell = txt.replace('- Lore of Invigoration: ', '').trim()
+          accum.spells.push(spell)
+          return accum
+        }
+
+        debugger
 
         // If we've gotten this far, we don't really know what this thing is
         // So for now, let's add this to the unknownSelections
@@ -350,8 +366,11 @@ const manualLookup = {
 type TTraitType = 'Command Trait' | 'Artefact' | 'Spell' | 'Mount Trait' | 'Drakeblood Curse' | 'Grand Court'
 
 const getTrait = (type: TTraitType, txt: string) => {
-  const sep = txt.includes(`${type} : `) ? `${type} : ` : `${type}: `
-  if (txt.includes('Spell')) debugger
+  const sep = txt.includes(`${type} : `)
+    ? `${type} : `
+    : txt.includes(`(${type}): `)
+    ? `(${type}): `
+    : `${type}: `
   return removePrefix(txt.split(sep)[1].trim())
 }
 
