@@ -229,7 +229,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         }
 
         // if (txt.startsWith('- Artefact') || txt.startsWith('- blahblah (Artefact): '):/)) {
-        if (txt.match(/^- (.+ \()?Artefact(\))?:/)) {
+        if (txt.match(/^- (.+ \()?Artefact(\))?( )?:/)) {
           const { trait: artifact, spell } = getTraitWithSpell('Artefact', txt)
           accum.artifacts = accum.artifacts.concat(artifact)
           if (spell) accum.spells = accum.spells.concat(spell)
@@ -461,14 +461,15 @@ const getTraitWithSpell = (type: TTraitType, txt: string) => {
  * @param flavor
  */
 const getSeraphonConstellations = (flavor: string) => {
-  const { subFactionKeyMap } = SeraphonFaction
-  const CoalescedFlavors = SeraphonFaction.SubFactions.Coalesced.available.flavors
-  const StarborneFlavors = SeraphonFaction.SubFactions.Starborne.available.flavors
+  const { subFactionKeyMap, SubFactions } = SeraphonFaction
 
-  if (CoalescedFlavors[flavor]) {
+  const CoalescedFlavors = SubFactions.Coalesced.available.flavors.map(x => Object.keys(x)).flat()
+  const StarborneFlavors = SubFactions.Starborne.available.flavors.map(x => Object.keys(x)).flat()
+
+  if (CoalescedFlavors.includes(flavor)) {
     return { flavor, subFactionName: subFactionKeyMap.Coalesced }
   }
-  if (StarborneFlavors[flavor]) {
+  if (StarborneFlavors.includes(flavor)) {
     return { flavor, subFactionName: subFactionKeyMap.Starborne }
   }
 
