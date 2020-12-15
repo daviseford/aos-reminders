@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { LUMINETH_REALMLORDS } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
@@ -11,7 +10,7 @@ import Flavors from './flavors'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [LUMINETH_REALMLORDS]: {
     effects: pickEffects(BattleTraits, [LUMINETH_REALMLORDS]),
     available: {

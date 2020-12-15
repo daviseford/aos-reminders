@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { LEGION_OF_GRIEF } from 'meta/factions'
 import LegionsOfNagashUnits from '../legions_of_nagash/units'
 import { keyPicker, pickEffects } from '../metatagger'
@@ -10,7 +9,7 @@ import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import Spells from './spells'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [LEGION_OF_GRIEF]: {
     effects: pickEffects(BattleTraits, [LEGION_OF_GRIEF]),
     available: {

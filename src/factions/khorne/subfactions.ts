@@ -1,6 +1,5 @@
 import BeastsOfChaosBattalions from 'factions/beasts_of_chaos/battalions'
 import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
-import { TItemDescriptions } from 'factions/factionTypes'
 import SlavesToDarknessBattalions from 'factions/slaves_to_darkness/battalions'
 import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import { KHORNE } from 'meta/factions'
@@ -16,7 +15,7 @@ import Prayers from './prayers'
 import Scenery from './scenery'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [KHORNE]: {
     effects: pickEffects(BattleTraits, ['Boundless Might']),
 

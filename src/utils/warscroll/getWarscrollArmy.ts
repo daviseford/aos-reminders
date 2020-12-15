@@ -27,6 +27,8 @@ const getAllegianceTypes = () => {
   )
 }
 
+const flavorTypes = getAllegianceTypes()
+
 const unitIndicatorsPdf = [
   'Artillery',
   'Leaders',
@@ -44,9 +46,6 @@ const unitIndicatorsPdf = [
 const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(pdfText)
   const genericScenery = GenericScenery.map(x => x.name)
-
-  const flavorTypes = getAllegianceTypes()
-  console.log(flavorTypes)
 
   let allyUnits: string[] = []
   let factionName = ''
@@ -72,7 +71,13 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         const parts = nameRemoved.split('-').map(t => t.trim())
         const name = parts[0].trim()
 
-        factionName = importFactionNameMap[name] || name
+        const factionLookup = importFactionNameMap[name]
+
+        factionName = factionLookup?.factionName || name
+
+        if (factionLookup?.subFactionName) {
+          subFactionName = factionLookup.subFactionName
+        }
 
         return accum
       }

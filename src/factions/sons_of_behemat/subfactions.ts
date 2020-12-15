@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { pickEffects } from 'factions/metatagger'
 import { SONS_OF_BEHEMAT } from 'meta/factions'
 import Artifacts from './artifacts'
@@ -8,7 +7,7 @@ import CommandTraits from './command_traits'
 import Flavors from './flavors'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [SONS_OF_BEHEMAT]: {
     effects: pickEffects(battle_traits, ['Sons of Behemat']),
 

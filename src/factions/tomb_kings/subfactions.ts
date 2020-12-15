@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { TOMB_KINGS } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
@@ -8,7 +7,7 @@ import CommandAbilities from './command_abilities'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [TOMB_KINGS]: {
     effects: pickEffects(BattleTraits, ['Deathless Minions']),
     available: {

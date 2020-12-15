@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { pickEffects } from 'factions/metatagger'
 import { FYRESLAYERS } from 'meta/factions'
 import Artifacts from './artifacts'
@@ -13,7 +12,7 @@ import Prayers from './prayers'
 import Scenery from './scenery'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [FYRESLAYERS]: {
     effects: pickEffects(BattleTraits, ['Fyreslayers']),
     available: {

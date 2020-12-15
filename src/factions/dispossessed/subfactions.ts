@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { DISPOSSESSED } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
@@ -8,7 +7,7 @@ import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [DISPOSSESSED]: {
     effects: pickEffects(BattleTraits, ['Grudgebound', 'Stubborn to the End']),
     available: {

@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { LETHISIAN_DEFENDERS } from 'meta/factions'
 import FyreslayersUnits from '../fyreslayers/units'
 import IdonethUnits from '../idoneth_deepkin/units'
@@ -12,7 +11,7 @@ import CommandTraits from './command_traits'
 import Prayers from './prayers'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [LETHISIAN_DEFENDERS]: {
     effects: pickEffects(BattleTraits, [LETHISIAN_DEFENDERS]),
     available: {

@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { CITIES_OF_SIGMAR } from 'meta/factions'
 import DaughtersUnits from '../daughters_of_khaine/units'
 import KharadronUnits from '../kharadron_overlords/units'
@@ -15,7 +14,7 @@ import Prayers from './prayers'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [CITIES_OF_SIGMAR]: {
     effects: pickEffects(BattleTraits, [CITIES_OF_SIGMAR]),
     available: {

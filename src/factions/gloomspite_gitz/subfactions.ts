@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { pickEffects } from 'factions/metatagger'
 import { GLOOMSPITE_GITZ } from 'meta/factions'
 import Artifacts from './artifacts'
@@ -12,7 +11,7 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [GLOOMSPITE_GITZ]: {
     effects: pickEffects(BattleTraits, ['Gloomspite Gitz']),
 

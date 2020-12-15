@@ -1,4 +1,4 @@
-import { TItemDescription, TItemDescriptions } from 'factions/factionTypes'
+import { TItemDescription } from 'factions/factionTypes'
 import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
@@ -18,7 +18,7 @@ const baseSubFaction: TItemDescription = {
   },
 }
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   Ravagers: {
     effects: pickEffects(BattleTraits, ['Bane of the Mortal Realms', 'Glory for the Taking']),
 

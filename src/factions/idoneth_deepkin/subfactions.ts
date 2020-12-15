@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { pickEffects } from 'factions/metatagger'
 import { IDONETH_DEEPKIN } from 'meta/factions'
 import Artifacts from './artifacts'
@@ -13,7 +12,7 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [IDONETH_DEEPKIN]: {
     effects: pickEffects(BattleTraits, ['Idoneth Deepkin']),
     mandatory: {

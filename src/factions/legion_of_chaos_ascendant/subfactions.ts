@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import KhorneUnits from 'factions/khorne/units'
 import { keyPicker, pickEffects } from 'factions/metatagger'
 import NurgleUnits from 'factions/nurgle/units'
@@ -15,7 +14,7 @@ import CommandTraits from './command_traits'
 import Flavors from './flavors'
 import Spells from './spells'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [LEGION_OF_CHAOS_ASCENDANT]: {
     effects: pickEffects(BattleTraits, ['Unwavering Devotion']),
 
