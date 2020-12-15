@@ -46,6 +46,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allyUnits: ['Bundo Whalebiter'],
       errors: [],
       factionName: STORMCAST_ETERNALS,
+      subFactionName: 'Celestial Senitels',
       origin_realm: 'Ghur',
       realmscape_feature: null,
       realmscape: null,
@@ -61,26 +62,37 @@ describe('getWarscrollArmyFromPdf', () => {
           'Scroll of Unravelling',
           'God-forged Blade',
         ],
-        battalions: ['Soulstrike Brotherhood', 'Skyborne Slayers', 'Cleansing Phalanx'],
+        battalions: [
+          'Stormkeep Patrol',
+          'Soulstrike Brotherhood',
+          'Stormtower Garrison',
+          'Stormkeep Brotherhood',
+          'Skyborne Slayers',
+          'Cleansing Phalanx',
+          'Wardens of the Stormkeep',
+        ],
         command_abilities: [
+          'Furious Retribution',
           'Soul of the Stormhost',
           'Soul Energy of the First Host',
           'Vengeful Determination',
           'Sombre Exemplar',
         ],
         endless_spells: ['The Burning Head'],
+        mount_traits: ['Savage Loyalty', 'Keen-clawed', 'Thunder Caller', 'Lithe-Limbed'],
+        prayers: [],
         scenery: [],
         spells: [
           'Terrifying Aspect',
           'Azyrite Halo',
           'Lightning Blast',
           'Celestial Blades',
+          'Empower',
           'Lightning Pulse',
           'Healing Light',
           'Amethyst Gale',
-          'Empower',
         ],
-        command_traits: ['Savage Loyalty', 'Keen-clawed', 'Thunder Caller', 'Lithe-Limbed', 'We Cannot Fail'],
+        command_traits: ['We Cannot Fail'],
         triumphs: [],
         units: [
           'Astreia Solbright',
@@ -96,6 +108,17 @@ describe('getWarscrollArmyFromPdf', () => {
           'Prosecutors with Celestial Hammers',
           'Decimators',
           'Celestar Ballista',
+          'Lord-Veritant',
+          'Gryph-Hounds',
+          'Vanguard-Hunters',
+          'Castigators',
+          'Knight-Vexillor',
+          'Liberators',
+          'Lord-Celestant',
+          'Judicators',
+          'Protectors',
+          'Evocators',
+          'Sequitors',
         ],
       },
       unknownSelections: [],
@@ -175,12 +198,19 @@ describe('getWarscrollArmyFromPdf', () => {
       allyUnits: [],
       errors: [],
       factionName: LUMINETH_REALMLORDS,
+      subFactionName: '',
       origin_realm: GHUR,
       realmscape_feature: null,
       realmscape: null,
       selections: {
         flavors: ['Syar'],
-        artifacts: ["Predator's Torc (Ghur)", 'Hearthstone Amulet', 'Syari Trueblade (Hysh)'],
+        artifacts: [
+          "Mountain's Gift",
+          'Simulacra Amulet',
+          "Predator's Torc (Ghur)",
+          'Hearthstone Amulet',
+          'The Perfect Blade',
+        ],
         battalions: ['Alarith Temple', 'Auralan Legion', 'Dawnrider Lance', 'Teclian Vanguard'],
         command_abilities: [
           'Deplete Reserves',
@@ -189,6 +219,8 @@ describe('getWarscrollArmyFromPdf', () => {
           'Faith of the Mountains',
         ],
         endless_spells: ['Hyshian Twinstones', 'Soulscream Bridge', 'Shards of Valagharr'],
+        mount_traits: [],
+        prayers: [],
         scenery: [],
         spells: [
           'Etheral Blessings',
@@ -199,11 +231,11 @@ describe('getWarscrollArmyFromPdf', () => {
           'Lambent Light',
           'Speed of Hysh',
           'Total Eclipse',
-          'Protection of Teclis',
-          'Storm of Searing White Light',
           'Gravitic Reduction',
           'Darkness of the Soul',
           'Power of Hysh',
+          'Protection of Teclis',
+          'Storm of Searing White Light',
         ],
         command_traits: ['Loremaster - Alarith', 'Goading Arrogance'],
         triumphs: [],
@@ -229,6 +261,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
+    expect(res.factionName).toEqual(SERAPHON)
     expect(res.subFactionName).toEqual('Starborne')
     expect(res.selections.flavors).toContain('Fangs of Sotek')
     expect(res.selections.units).toContain('Lord Kroak')
@@ -256,11 +289,11 @@ describe('getWarscrollArmyFromPdf', () => {
       allyUnits: [],
       errors: [],
       factionName: SERAPHON,
+      subFactionName: '',
       origin_realm: CHAMON,
       realmscape_feature: null,
       realmscape: null,
       selections: {
-        flavors: ['Starborne'],
         artifacts: [
           'Cloak of Feathers',
           'Incandescent Rectrices',
@@ -285,9 +318,9 @@ describe('getWarscrollArmyFromPdf', () => {
           'Thunderquake Temple-host',
         ],
         command_abilities: [
+          'Prime Guardian',
           'Gift from the Heavens',
           'Ripperdactyl Assault',
-          'Prime Guardian',
           'Wrath of the Seraphon',
           'Saurian Savagery',
           'Scent of Weakness',
@@ -313,6 +346,9 @@ describe('getWarscrollArmyFromPdf', () => {
           'Bound Burning Head',
           'Bound Umbral Spellportal',
         ],
+        flavors: ['Starborne'],
+        mount_traits: [],
+        prayers: [],
         scenery: [],
         spells: [
           'Mystical Unforging',
@@ -320,9 +356,9 @@ describe('getWarscrollArmyFromPdf', () => {
           'Bind Endless Spell',
           'Walk Between Realms',
           'Drain Magic',
+          'Celestial Deliverance',
           'Celestial Apotheosis',
           "Comet's Call",
-          'Celestial Deliverance',
           'Blazing Starlight',
           'Control Fate',
         ],
@@ -382,7 +418,7 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.selections.command_traits).not.toContain("Blood Vulture's Gaze")
-    expect(res.selections.command_traits).toEqual(['Metalcruncher'])
+    expect(res.selections.mount_traits).toContain(['Metalcruncher'])
     expect(res.errors).toEqual([])
   })
 
@@ -392,7 +428,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(SERAPHON)
-    expect(res.selections.flavors).toContain("Dracothian's Tail")
+    expect(res.selections.flavors).toContain("Dracothion's Tail")
     expect(res.subFactionName).toEqual('Starborne')
     expect(res.errors).toEqual([])
   })
@@ -419,7 +455,8 @@ describe('getWarscrollArmyFromPdf', () => {
       allySelections: {},
       allyUnits: [],
       errors: [],
-      factionName: 'KHARADRON_OVERLORDS',
+      factionName: KHARADRON_OVERLORDS,
+      subFactionName: '',
       origin_realm: 'Ghur',
       realmscape_feature: null,
       realmscape: null,
@@ -559,7 +596,8 @@ describe('getWarscrollArmyFromPdf', () => {
           text: 'Aetherspheric Endrins',
         },
       ],
-      factionName: 'KHARADRON_OVERLORDS',
+      factionName: KHARADRON_OVERLORDS,
+      subFactionName: '',
       origin_realm: CHAMON,
       realmscape_feature: null,
       realmscape: null,
@@ -636,11 +674,12 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(NURGLE)
     expect(res).toEqual({
-      allyFactionNames: ['SKAVEN'],
+      allyFactionNames: [SKAVENTIDE],
       allySelections: { [SKAVENTIDE]: { battalions: ['Congregation of Filth'], units: [] } },
       allyUnits: [],
       errors: [],
-      factionName: 'NURGLE',
+      factionName: NURGLE,
+      subFactionName: '',
       origin_realm: null,
       realmscape_feature: null,
       realmscape: null,
@@ -674,8 +713,10 @@ describe('getWarscrollArmyFromPdf', () => {
       battalions: ['Shadowstrike Starhost'],
       command_abilities: ['Gift from the Heavens'],
       endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
+      mount_traits: [],
+      prayers: [],
       scenery: [],
-      spells: ["Comet's Call", 'Blazing Starlight'],
+      spells: ['Celestial Deliverance', 'Blazing Starlight'],
       command_traits: ['Great Rememberer'],
       triumphs: [],
       units: [
@@ -837,6 +878,8 @@ describe('getWarscrollArmyFromPdf', () => {
       battalions: ['Shadowstrike Starhost'],
       command_abilities: ['Gift from the Heavens'],
       endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
+      mount_traits: [],
+      prayers: [],
       scenery: [],
       spells: ["Comet's Call", 'Blazing Starlight'],
       command_traits: ['Great Rememberer'],
@@ -876,6 +919,8 @@ describe('getWarscrollArmyFromPdf', () => {
       battalions: ['Hedonite Host'],
       command_abilities: ['Grisly Trophy', 'Revel in Agony: Slaanesh', 'Excess of Violence'],
       endless_spells: ['Chronomantic Cogs'],
+      mount_traits: [],
+      prayers: [],
       scenery: [],
       spells: ['Phantasmagoria (Daemon)', 'Soulslice Shards (Daemon)', 'Cacophonic Choir', 'Acquiescence'],
       command_traits: [
@@ -948,6 +993,8 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.errors).toEqual([])
     expect(res.selections).toEqual({
       flavors: [],
+      mount_traits: [],
+      prayers: ['Wrath of Khaine'],
       artifacts: ['Obstinate Blade (Order)'],
       battalions: ['Shadow Patrol'],
       command_abilities: [],
@@ -971,13 +1018,16 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(IRONJAWZ)
+    expect(res.factionName).toEqual(ORRUK_WARCLANS)
+    expect(res.subFactionName).toEqual('Ironjawz')
     expect(res.selections).toEqual({
       flavors: ['Da Choppas'],
       artifacts: ['Destroyer', 'Megaskull Staff'],
       battalions: [],
       command_abilities: ['Rabble Rouser', 'Voice of Gork', 'Go on Ladz, Get Stuck In!'],
       endless_spells: [],
+      mount_traits: [],
+      prayers: [],
       scenery: [],
       spells: [],
       command_traits: ["Fast 'Un", 'Checked Out'],
@@ -1005,6 +1055,8 @@ describe('getWarscrollArmyFromPdf', () => {
       battalions: [],
       command_abilities: [],
       endless_spells: [],
+      mount_traits: [],
+      prayers: [],
       scenery: [],
       spells: [],
       command_traits: [],
@@ -1025,6 +1077,8 @@ describe('getWarscrollArmyFromPdf', () => {
       battalions: [],
       command_abilities: ['Pack Alpha'],
       endless_spells: [],
+      mount_traits: [],
+      prayers: [],
       scenery: [],
       spells: ['Storm Lance'],
       command_traits: [],
@@ -1045,6 +1099,8 @@ describe('getWarscrollArmyFromPdf', () => {
       battalions: [],
       command_abilities: ['Pack Alpha'],
       endless_spells: [],
+      mount_traits: [],
+      prayers: [],
       scenery: [],
       spells: ['Storm Lance'],
       command_traits: [],
@@ -1065,6 +1121,8 @@ describe('getWarscrollArmyFromPdf', () => {
       battalions: [],
       command_abilities: ["I'm Da Boss, Now Stab 'Em Good!"],
       endless_spells: [],
+      mount_traits: [],
+      prayers: [],
       scenery: [],
       spells: [],
       command_traits: [],
@@ -1085,6 +1143,8 @@ describe('getWarscrollArmyFromPdf', () => {
       battalions: [],
       command_abilities: ["I'm Da Boss, Now Stab 'Em Good!"],
       endless_spells: [],
+      mount_traits: [],
+      prayers: [],
       scenery: [],
       spells: ['Spore Maws'],
       command_traits: ['Boss Shaman'],
@@ -1105,6 +1165,8 @@ describe('getWarscrollArmyFromPdf', () => {
       battalions: [],
       command_abilities: [],
       endless_spells: [],
+      mount_traits: [],
+      prayers: [],
       scenery: [],
       spells: ['Shademist'],
       command_traits: ['Spiteful Spirit'],
@@ -1118,18 +1180,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Knight-Incantor can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
-      },
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Concussors can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
-      },
-    ])
+    expect(res.errors).toEqual([])
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.allySelections).toEqual({
       DAUGHTERS_OF_KHAINE: {
@@ -1137,13 +1188,13 @@ describe('getWarscrollArmyFromPdf', () => {
         units: ['Sisters of Slaughter', 'Morathi-Khaine'],
       },
       KHARADRON_OVERLORDS: { battalions: [], units: ['Grundstok Gunhauler'] },
-      // STORMCAST_ETERNALS: { battalions: [], units: ['Knight-Incantor', 'Concussors'] },
+      STORMCAST_ETERNALS: { battalions: [], units: ['Knight-Incantor', 'Concussors'] },
       SYLVANETH: { battalions: [], units: ['Kurnoth Hunters'] },
     })
     expect(res.allyFactionNames).toEqual([
       DAUGHTERS_OF_KHAINE,
       KHARADRON_OVERLORDS,
-      // STORMCAST_ETERNALS,
+      STORMCAST_ETERNALS,
       SYLVANETH,
     ])
     expect(res.allyUnits).toEqual([
@@ -1159,6 +1210,8 @@ describe('getWarscrollArmyFromPdf', () => {
       battalions: ['Eternal Starhost'],
       command_abilities: ['Gift from the Heavens'],
       endless_spells: ['Balewind Vortex'],
+      mount_traits: [],
+      prayers: [],
       scenery: [],
       spells: ['Walk Between Realms', "Comet's Call"],
       command_traits: ['Great Rememberer'],
@@ -1188,6 +1241,7 @@ describe('getWarscrollArmyFromPdf', () => {
         },
       ],
       factionName: SERAPHON,
+      subFactionName: '',
       origin_realm: 'Ghyran',
       realmscape_feature: null,
       realmscape: null,
@@ -1197,6 +1251,8 @@ describe('getWarscrollArmyFromPdf', () => {
         battalions: [],
         command_abilities: ['Gift from the Heavens', 'Wrath of the Seraphon'],
         endless_spells: ['Emerald Lifeswarm'],
+        mount_traits: [],
+        prayers: [],
         scenery: ['Penumbral Engine'],
         spells: ["Comet's Call", 'Celestial Deliverance'],
         command_traits: ['Master of Star Rituals'],
@@ -1235,6 +1291,7 @@ describe('getWarscrollArmyFromPdf', () => {
         },
       ],
       factionName: SERAPHON,
+      subFactionName: '',
       origin_realm: 'Ghyran',
       realmscape_feature: null,
       realmscape: null,
@@ -1244,6 +1301,8 @@ describe('getWarscrollArmyFromPdf', () => {
         battalions: [],
         command_abilities: ['Gift from the Heavens', 'Wrath of the Seraphon'],
         endless_spells: ['Emerald Lifeswarm'],
+        mount_traits: [],
+        prayers: [],
         scenery: ['Penumbral Engine'],
         spells: ["Comet's Call", 'Celestial Deliverance'],
         command_traits: ['Master of Star Rituals'],
@@ -1282,6 +1341,7 @@ describe('getWarscrollArmyFromPdf', () => {
         },
       ],
       factionName: SERAPHON,
+      subFactionName: '',
       origin_realm: 'Ghyran',
       realmscape_feature: null,
       realmscape: null,
@@ -1291,6 +1351,8 @@ describe('getWarscrollArmyFromPdf', () => {
         battalions: [],
         command_abilities: ['Gift from the Heavens', 'Wrath of the Seraphon'],
         endless_spells: ['Emerald Lifeswarm'],
+        mount_traits: [],
+        prayers: [],
         scenery: ['Penumbral Engine'],
         spells: ["Comet's Call", 'Celestial Deliverance'],
         command_traits: ['Master of Star Rituals'],
@@ -1314,21 +1376,19 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res).toEqual({
-      allyFactionNames: [
-        // STORMCAST_ETERNALS
-      ],
+      allyFactionNames: [STORMCAST_ETERNALS],
       allySelections: {
-        // STORMCAST_ETERNALS: {
-        //   battalions: [],
-        //   units: [
-        //     'Celestant-Prime',
-        //     'Knight-Vexillor',
-        //     'Lynus Ghalmorian on Gryph Charger',
-        //     'Concussors',
-        //     'Evocators',
-        //     'Celestar Ballista',
-        //   ],
-        // },
+        STORMCAST_ETERNALS: {
+          battalions: [],
+          units: [
+            'Celestant-Prime',
+            'Knight-Vexillor',
+            'Lynus Ghalmorian on Gryph Charger',
+            'Concussors',
+            'Evocators',
+            'Celestar Ballista',
+          ],
+        },
       },
       allyUnits: [
         'Celestant-Prime',
@@ -1341,44 +1401,16 @@ describe('getWarscrollArmyFromPdf', () => {
         // TODO: Why is Dread Saurian here?
         'Dread Saurian',
       ],
-      errors: [
-        {
-          severity: 'ally-warn',
-          text:
-            'Allied Celestant-Prime can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
-        },
-        {
-          severity: 'ally-warn',
-          text:
-            'Allied Knight-Vexillor can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
-        },
-        {
-          severity: 'ally-warn',
-          text:
-            'Allied Lynus Ghalmorian on Gryph Charger can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
-        },
-        {
-          severity: 'ally-warn',
-          text:
-            'Allied Concussors can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
-        },
-        {
-          severity: 'ally-warn',
-          text:
-            'Allied Evocators can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
-        },
-        {
-          severity: 'ally-warn',
-          text:
-            'Allied Celestar Ballista can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
-        },
-      ],
+      errors: [],
       factionName: SERAPHON,
+      subFactionName: '',
       origin_realm: 'Ghyran',
       realmscape_feature: null,
       realmscape: null,
       selections: {
         flavors: [],
+        mount_traits: [],
+        prayers: [],
         artifacts: ['Blade of Realities'],
         battalions: [],
         command_abilities: [],
