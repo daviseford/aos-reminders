@@ -16,12 +16,6 @@ import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import Spells from './spells'
 
-//Nagash&Arkhan import will need reworked later
-// const getLegionsOfNagashUnits = () => {
-//   const listOfUnits = [`Nagash, Supreme Lord of the Undead`, `Arkhan the Black, Mortarch of Sacrament`]
-//   return filterUnits(LegionsOfNagashUnits, listOfUnits)
-// }
-
 const NecrophorosEffect = {
   name: `Necrophoros`,
   desc: `Add 1 to run rolls and charge rolls for a unit that includes any Necrophoroi.`,
@@ -109,7 +103,7 @@ const Units = {
       NadariteWeaponsEffect,
     ],
   },
-  'Necropolis Stalker': {
+  'Necropolis Stalkers': {
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Hunt and Kill'])],
     },

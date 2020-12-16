@@ -2,7 +2,7 @@ import { SeraphonFaction } from 'factions/seraphon'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import GenericScenery from 'generic_rules/scenery'
 import { last, uniq } from 'lodash'
-import { SLAANESH, TSupportedFaction } from 'meta/factions'
+import { KHARADRON_OVERLORDS, TSupportedFaction } from 'meta/factions'
 import { getFactionList } from 'meta/faction_list'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 import { TSelections } from 'types/selections'
@@ -150,7 +150,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (txt.startsWith('- Constellation: ')) {
           const name = txt.replace('- Constellation: ', '').trim()
           const data = getSeraphonConstellations(name)
-          accum.flavors.push(data.flavor)
+          if (data.flavor) accum.flavors.push(data.flavor)
           if (data.subFactionName) subFactionName = data.subFactionName
           return accum
         }
@@ -236,18 +236,19 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           return accum
         }
 
-        // if (txt.startsWith('- Artefact') || txt.startsWith('- blahblah (Artefact): '):/)) {
         if (txt.match(/^- (.+ \()?Artefact(\))?( )?:/)) {
           const { trait: artifact, spell } = getTraitWithSpell('Artefact', txt)
           accum.artifacts = accum.artifacts.concat(artifact)
           if (spell) accum.spells = accum.spells.concat(spell)
           return accum
         }
+
         if (txt.startsWith('- Spell')) {
           const spell = getTrait('Spell', txt)
           accum.spells = accum.spells.concat(spell)
           return accum
         }
+
         if (txt.startsWith('- Mortal Realm') && last(accum.units) === 'Battlemage') {
           const battlemage_realm = txt.replace(/- Mortal Realm ?: /, '').trim()
           accum.units.pop()
@@ -256,16 +257,25 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         }
 
         // Add weapon options and other configuration
-        if (selector === 'units' && accum[selector].length > 0) {
-          const attr = txt.split('-')[1].replace('Weapon: ', '').replace('Weapon : ', '').trim()
+        if (selector === 'units' && accum.units.length > 0) {
+          const attr = txt.split('-')[1].trim().replace('Weapon: ', '').replace('Weapon : ', '').trim()
 
           if (importUnitOptionMap[attr]) {
-            const accumMock = [...accum[selector]]
+            const accumMock = [...accum.units]
             accumMock.pop()
             accumMock.push(importUnitOptionMap[attr])
-            accum[selector] = accumMock
+            accum.units = accumMock
             return accum
           }
+        }
+
+        // Handle some new stuff I've noticed
+        // We _REALLY_ need to test this stuff better
+
+        if (factionName === KHARADRON_OVERLORDS && txt.match(/^- (Artycle|Amendment|Footnote)( )?: /g)) {
+          const command_trait = txt.replace(/^- /, '').trim()
+          accum.command_traits.push(command_trait)
+          return accum
         }
 
         // Handle allegiances programmatically
@@ -292,23 +302,26 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         })
         if (stop_processing) return accum
 
-        // Handle some new stuff I've noticed
-        // We _REALLY_ need to test this
-
-        if (factionName === SLAANESH && txt.startsWith('- Host Option : ')) {
-          const command_trait = txt.replace('- Host Option : ', '').split('(')[0]
-          accum.command_traits.push(command_trait)
-          return accum
-        }
+        const commandTraitPrefixes = ['- Host Option : ']
+        commandTraitPrefixes.forEach(val => {
+          if (txt.startsWith(val)) {
+            const command_trait = txt.replace(val, '').trim()
+            accum.command_traits.push(command_trait)
+            stop_processing = true
+          }
+        })
+        if (stop_processing) return accum
 
         const spellPrefixes = [
+          '- Lore of Hysh : ',
           '- Lore of Invigoration: ',
+          '- Lore of Slaanesh : ',
+          '- Lore of the High Peaks : ',
           '- Lore of the Savage Beast : ',
           '- Lore of the Weird : ',
-          '- Lore of Slaanesh : ',
         ]
         spellPrefixes.forEach(val => {
-          if (txt.includes(val)) {
+          if (txt.startsWith(val)) {
             const spell = txt.replace(val, '').trim()
             accum.spells.push(spell)
             stop_processing = true
@@ -325,6 +338,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         // const attr = (last(splitAttr) as string).replace(/^- /g, '').trim()
 
         // unknownSelections.push(attr)
+        // I think I'm done with unknown selections, they don't add much and they cause issues
 
         return accum
       }
@@ -488,6 +502,8 @@ const getSeraphonConstellations = (flavor: string) => {
 
   const CoalescedFlavors = SubFactions.Coalesced.available.flavors.map(x => Object.keys(x)).flat()
   const StarborneFlavors = SubFactions.Starborne.available.flavors.map(x => Object.keys(x)).flat()
+
+  if (subFactionKeyMap[flavor]) return { subFactionName: subFactionKeyMap[flavor] }
 
   if (CoalescedFlavors.includes(flavor)) {
     return { flavor, subFactionName: subFactionKeyMap.Coalesced }

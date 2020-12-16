@@ -252,7 +252,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Alarith Spirit of the Mountain',
         ],
       },
-      unknownSelections: ['Stone Mallets', 'Diamondpick Hammers'],
+      unknownSelections: [],
     })
     expect(res.errors).toEqual([])
   })
@@ -287,9 +287,31 @@ describe('getWarscrollArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      errors: [
+        // These battalions aren't valid/present in a Starborne army
+        {
+          severity: 'warn',
+          text: 'Eternal Temple-host',
+        },
+        {
+          severity: 'warn',
+          text: 'Firelance Temple-host',
+        },
+        {
+          severity: 'warn',
+          text: 'Shadowstrike Temple-host',
+        },
+        {
+          severity: 'warn',
+          text: 'Sunclaw Temple-host',
+        },
+        {
+          severity: 'warn',
+          text: 'Thunderquake Temple-host',
+        },
+      ],
       factionName: SERAPHON,
-      subFactionName: '',
+      subFactionName: 'Starborne',
       origin_realm: CHAMON,
       realmscape_feature: null,
       realmscape: null,
@@ -307,15 +329,10 @@ describe('getWarscrollArmyFromPdf', () => {
         ],
         battalions: [
           'Eternal Starhost',
-          'Eternal Temple-host',
           'Firelance Starhost',
-          'Firelance Temple-host',
           'Shadowstrike Starhost',
-          'Shadowstrike Temple-host',
           'Sunclaw Starhost',
-          'Sunclaw Temple-host',
           'Thunderquake Starhost',
-          'Thunderquake Temple-host',
         ],
         command_abilities: [
           'Prime Guardian',
@@ -346,7 +363,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Bound Burning Head',
           'Bound Umbral Spellportal',
         ],
-        flavors: ['Starborne'],
+        flavors: [],
         mount_traits: [],
         prayers: [],
         scenery: [],
@@ -397,18 +414,8 @@ describe('getWarscrollArmyFromPdf', () => {
           'Stegadon',
         ],
       },
-      unknownSelections: [
-        'Suntooth Maul',
-        'Warblade',
-        'Blades',
-        'Meteoric Javelins Celestite Daggers & Star Bucklers',
-        'Starstrike Javelins',
-        'Ark of Sotek',
-        'Sunfire Throwers',
-        'Thunder Lizard)',
-      ],
+      unknownSelections: [],
     })
-    expect(res.errors).toEqual([])
   })
 
   it('does not import the wrong trait (issue #863)', () => {
@@ -418,7 +425,7 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.selections.command_traits).not.toContain("Blood Vulture's Gaze")
-    expect(res.selections.command_traits).toContain('Metalcruncher')
+    expect(res.selections.mount_traits).toContain('Metalcruncher')
     expect(res.errors).toEqual([])
   })
 
@@ -504,10 +511,10 @@ describe('getWarscrollArmyFromPdf', () => {
         scenery: [],
         spells: [],
         command_traits: [
-          'Grudgebearer',
           'ARTYCLE: Master the Skies',
           'AMENDMENT: Trust to Your Guns',
           'FOOTNOTE: Show Them Your Steel',
+          'Grudgebearer',
           'Master Commander',
           "FOOTNOTE: There's Always a Breeze if You Look for it",
           "AMENDMENT: Don't Argue With the Wind",
@@ -531,15 +538,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Arkanaut Ironclad',
         ],
       },
-      unknownSelections: [
-        'Skypikes',
-        'Skyhooks',
-        'Drill Launcher',
-        'Grapnel Launchers',
-        'Drill Cannon',
-        'Heavy Skyhook',
-        'Barak Zilfin)',
-      ],
+      unknownSelections: [],
     })
     expect(res.errors).toEqual([])
   })
@@ -580,7 +579,18 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Arkhan the Black, Mortarch of Sacrament can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Nagash, Supreme Lord of the Undead can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
+      },
+    ])
   })
 
   it('reads deprecated KO pdf (issue #794)', () => {
@@ -800,9 +810,9 @@ describe('getWarscrollArmyFromPdf', () => {
         'Shadow Daggers (Anvilgard, Har Kuron)',
         'Vitriolic Spray (Anvilgard, Har Kuron)',
         'Roaming Wildfire (Hallowheart)',
+        'Elemental Cyclone (Hallowheart)',
         'Warding Brand (Hallowheart)',
         'Ignite Weapons (Hallowheart)',
-        'Elemental Cyclone (Hallowheart)',
         "Aura of Glory (Tempest's Eye)",
         "Celestial Visions (Tempest's Eye)",
         'The Withering (Har Kuron)',
@@ -825,7 +835,6 @@ describe('getWarscrollArmyFromPdf', () => {
         'Secretive Warlock (Anvilgard)',
         'Acidic Blood (Drakeblood Curse)',
         'Fell Gaze (Drakeblood Curse)',
-        'Blackfang Crimelord (Anvilgard)',
       ],
       triumphs: [],
       units: [
@@ -892,10 +901,6 @@ describe('getWarscrollArmyFromPdf', () => {
       {
         severity: 'warn',
         text: 'Amberglaive',
-      },
-      {
-        severity: 'warn',
-        text: 'Kattanak Pelt',
       },
     ])
   })
@@ -1511,7 +1516,7 @@ describe('getWarscrollArmyFromPdf', () => {
         triumphs: [],
         units: ['Engine of the Gods', 'Chameleon Skinks', 'Saurus Warriors', 'Bastiladon', 'Dread Saurian'],
       },
-      unknownSelections: ['Solar Engine', 'Ark of Sotek'],
+      unknownSelections: [],
     })
   })
 

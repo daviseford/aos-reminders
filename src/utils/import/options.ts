@@ -46,7 +46,7 @@ import { AZYR, BATTLESCRIBE, TImportParsers, UNKNOWN, WARSCROLL_BUILDER } from '
 
 // Add common typos here
 // Warscroll Builder on the left - AoS Reminders on the right
-const warscrollTypoMap: TNameMap = {
+const warscrollTypoMap: Record<string, string> = {
   'Anointed of Asuryan on Flamespyre Phoenix': 'Anointed on Flamespyre Phoenix',
   'Anointed of Asuryan on Frostheart Phoenix': 'Anointed on Frostheart Phoenix',
   'Arch Sorcerer': 'Arch-Sorcerer',
@@ -129,7 +129,7 @@ const warscrollTypoMap: TNameMap = {
 }
 
 // Azyr on the left - AoS Reminders on the right
-const azyrTypoMap: TNameMap = {
+const azyrTypoMap: Record<string, string> = {
   'Bursting with Power': "Burstin' with Power",
   'Chaos Gorebeast Chariots': 'Gorebeast Chariots',
   'DHOM-HAIN': 'Dhom Hain (Enclave)',
@@ -147,7 +147,7 @@ const azyrTypoMap: TNameMap = {
 }
 
 // Battlescribe on the left - AoS Reminders on the right
-const battlescribeTypoMap: TNameMap = {
+const battlescribeTypoMap: Record<string, string> = {
   'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
   'Aspiring Deathbringer with Goreaxe and Skullhammer': 'Aspiring Deathbringer',
   'Aventis Firestrike, Magister of Hammerhal': 'Aventis Firestrike',
@@ -450,8 +450,6 @@ export const importFactionNameMap: Record<
   Warherds: { factionName: BEASTS_OF_CHAOS },
 }
 
-export type TNameMap = { [key: string]: string }
-
 // A map to help the user when Azyr uses the same name for multiple warscrolls
 // eg 'Lord-Arcanum on Celestial Dracoline' is one of a number of units just called 'Lord-Arcanum'
 // AoS Reminders on the left - Azyr on the right
@@ -487,10 +485,10 @@ const azyrAmbiguousNamesMap = {
 
 type TParserOptions = {
   [key in TImportParsers]: {
-    ambiguousNamesMap: TNameMap
+    ambiguousNamesMap: Record<string, string>
     checkPoorSpacing: boolean
     fileReadError: string
-    typoMap: TNameMap
+    typoMap: Record<string, string>
   }
 }
 

@@ -5,7 +5,6 @@ import { IAllySelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { getAllyArmyItems } from 'utils/getArmy/getAllyArmyUnits'
 import { checkImportSelection } from 'utils/import/checkImportSelection'
-import { TNameMap } from 'utils/import/options'
 import { createAllyWarning, getWarnings } from 'utils/import/warnings'
 import { mapListToDict } from 'utils/mapListToDict'
 import { titleCase } from 'utils/textUtils'
@@ -15,7 +14,7 @@ type TGetAllyData = (
   factionName: TSupportedFaction,
   errors: TImportError[],
   checkPoorSpacing: boolean,
-  typoMap: TNameMap
+  typoMap: Record<string, string>
 ) => { allyFactionNames: TSupportedFaction[]; allySelections: TAllySelectionStore }
 
 export const getAllyData: TGetAllyData = (allyUnits, factionName, errors, checkPoorSpacing, typoMap) => {
