@@ -117,7 +117,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Inspirer`,
-        desc: `Do not take battleshock tests for friendly Pretenders  units while they are wholly within 9" of this general.`,
+        desc: `Do not take battleshock tests for friendly Pretenders units while they are wholly within 9" of this general.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],

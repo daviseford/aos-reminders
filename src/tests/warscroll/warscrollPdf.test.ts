@@ -418,7 +418,7 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.selections.command_traits).not.toContain("Blood Vulture's Gaze")
-    expect(res.selections.mount_traits).toContain(['Metalcruncher'])
+    expect(res.selections.command_traits).toContain('Metalcruncher')
     expect(res.errors).toEqual([])
   })
 
@@ -783,9 +783,6 @@ describe('getWarscrollArmyFromPdf', () => {
         'Twin-Tailed Comet (Hammerhal)',
         'Sap Strength (Anvilgard, Har Kuron)',
         'Sear Wounds (Hallowheart)',
-        'Warding Brand (Hallowheart)',
-        'Ignite Weapons (Hallowheart)',
-        'Elemental Cyclone (Hallowheart)',
         'Comet of Casandora',
         'Chain Lightning (Azyr)',
         'Burning Gaze',
@@ -803,6 +800,9 @@ describe('getWarscrollArmyFromPdf', () => {
         'Shadow Daggers (Anvilgard, Har Kuron)',
         'Vitriolic Spray (Anvilgard, Har Kuron)',
         'Roaming Wildfire (Hallowheart)',
+        'Warding Brand (Hallowheart)',
+        'Ignite Weapons (Hallowheart)',
+        'Elemental Cyclone (Hallowheart)',
         "Aura of Glory (Tempest's Eye)",
         "Celestial Visions (Tempest's Eye)",
         'The Withering (Har Kuron)',
@@ -872,9 +872,9 @@ describe('getWarscrollArmyFromPdf', () => {
         'Fists of Gork',
         'Bone Spirit',
       ],
-      mount_traits: [],
+      mount_traits: ["Fast 'Un", "Weird 'Un"],
       prayers: [],
-      command_traits: ["Fast 'Un", "Dead Kunnin'", "Weird 'Un"],
+      command_traits: ["Dead Kunnin'"],
       triumphs: [],
       units: [
         'Gordrakk the Fist of Gork',
@@ -961,10 +961,10 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: ['Phantasmagoria', 'Soulslice Shards', 'Cacophonic Choir', 'Acquiescence'],
       command_traits: [
-        'Delusions of Infallibility',
         'Inspirer',
         'Strongest Alone',
         'Hunter of Godbeasts',
+        'Delusions of Infallibility',
         'Monarch of Lies',
       ],
       triumphs: [],

@@ -28,8 +28,6 @@ export const getCollection = (army: TInitialArmy): TCollection => {
 
   if (!army) return Collection
 
-  const { SubFaction } = army
-
   // Brute force it
   const types = [
     army.AlliedUnits || [],
@@ -75,7 +73,7 @@ export const getCollection = (army: TInitialArmy): TCollection => {
   }
 
   // Check the subfaction, and then each group of items beneath it
-  checkForMandatoryItems(SubFaction)
+  checkForMandatoryItems(army.SubFaction)
   types.forEach(x => x?.forEach(checkForMandatoryItems))
 
   return {

@@ -66,6 +66,7 @@ const subFactions = {
       artifacts: [IronjawzArtifacts, BonesplitterzArtifacts],
       battalions: [IronjawzBattalions, BonesplitterzBattalions],
       command_traits: [IronjawzCommandTraits, BonesplitterzCommandTraits],
+      mount_traits: [IronjawzMountTraits],
       spells: [IronjawzSpells, BonesplitterzSpells],
     },
     mandatory: {

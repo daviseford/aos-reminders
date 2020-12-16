@@ -2,7 +2,7 @@ import { SeraphonFaction } from 'factions/seraphon'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import GenericScenery from 'generic_rules/scenery'
 import { last, uniq } from 'lodash'
-import { STORMCAST_ETERNALS, TSupportedFaction } from 'meta/factions'
+import { SLAANESH, TSupportedFaction } from 'meta/factions'
 import { getFactionList } from 'meta/faction_list'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 import { TSelections } from 'types/selections'
@@ -222,7 +222,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         }
         if (txt.startsWith('- Mount Trait')) {
           const trait = getTrait('Mount Trait', txt)
-          accum.mount_traits = accum.mount_traits.concat(trait)
+          accum.mount_traits.push(trait)
           return accum
         }
         if (txt.startsWith('- Drakeblood Curse')) {
@@ -270,9 +270,9 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
         // Handle allegiances programmatically
         // TODO: Break this out into a testable function
-        let stop = false
+        let stop_processing = false
         flavorTypes.forEach(t => {
-          if (stop) return
+          if (stop_processing) return
           const flavor = txt.replace(`- ${t}: `, '').trim()
           if (txt.startsWith(`- ${t}: `)) {
             if (flavor && flavor !== 'None') {
@@ -281,36 +281,50 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
                 const sceFlavor = flavor.replace(/\(Stormkeep\)$/g, '(Stormhost)')
                 accum.flavors.push(sceFlavor)
                 subFactionName = StormcastFaction.subFactionKeyMap['Celestial Senitels'] // Stormkeep
-                stop = true
+                stop_processing = true
                 return
               }
 
               accum.flavors = accum.flavors.concat(flavor)
-              stop = true
+              stop_processing = true
             }
           }
         })
-        if (stop) return accum
+        if (stop_processing) return accum
 
         // Handle some new stuff I've noticed
         // We _REALLY_ need to test this
 
-        // Notice that I added a factionName check - this should be done in the future
-        if (factionName === STORMCAST_ETERNALS && txt.startsWith('- Lore of Invigoration: ')) {
-          const spell = txt.replace('- Lore of Invigoration: ', '').trim()
-          accum.spells.push(spell)
+        if (factionName === SLAANESH && txt.startsWith('- Host Option : ')) {
+          const command_trait = txt.replace('- Host Option : ', '').split('(')[0]
+          accum.command_traits.push(command_trait)
           return accum
         }
+
+        const spellPrefixes = [
+          '- Lore of Invigoration: ',
+          '- Lore of the Savage Beast : ',
+          '- Lore of the Weird : ',
+          '- Lore of Slaanesh : ',
+        ]
+        spellPrefixes.forEach(val => {
+          if (txt.includes(val)) {
+            const spell = txt.replace(val, '').trim()
+            accum.spells.push(spell)
+            stop_processing = true
+          }
+        })
+        if (stop_processing) return accum
 
         debugger
 
         // If we've gotten this far, we don't really know what this thing is
         // So for now, let's add this to the unknownSelections
-        const sep = txt.includes(' : ') ? ' : ' : ':'
-        const splitAttr = txt.split(sep).map(x => x.trim())
-        const attr = (last(splitAttr) as string).replace(/^- /g, '').trim()
+        // const sep = txt.includes(' : ') ? ' : ' : ':'
+        // const splitAttr = txt.split(sep).map(x => x.trim())
+        // const attr = (last(splitAttr) as string).replace(/^- /g, '').trim()
 
-        unknownSelections.push(attr)
+        // unknownSelections.push(attr)
 
         return accum
       }
@@ -379,6 +393,7 @@ const getTrait = (type: TTraitType, txt: string) => {
     : txt.includes(`(${type}): `)
     ? `(${type}): `
     : `${type}: `
+
   return removePrefix(txt.split(sep)[1].trim())
 }
 
