@@ -1,8 +1,18 @@
+import { OrrukWarclansFaction } from 'factions/orruk_warclans'
 import { SeraphonFaction } from 'factions/seraphon'
+import { SlaaneshFaction } from 'factions/slaanesh'
+import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import GenericScenery from 'generic_rules/scenery'
 import { last, uniq } from 'lodash'
-import { KHARADRON_OVERLORDS, TSupportedFaction } from 'meta/factions'
+import {
+  KHARADRON_OVERLORDS,
+  ORRUK_WARCLANS,
+  SLAANESH,
+  SLAVES_TO_DARKNESS,
+  STORMCAST_ETERNALS,
+  TSupportedFaction,
+} from 'meta/factions'
 import { getFactionList } from 'meta/faction_list'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 import { TSelections } from 'types/selections'
@@ -52,7 +62,6 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   let subFactionName = ''
   let origin_realm: string | null = null
   let selector = ''
-  let unknownSelections: string[] = []
 
   const selections = cleanedText.reduce(
     (accum, txt) => {
@@ -249,6 +258,12 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           return accum
         }
 
+        if (txt.startsWith('- Prayer')) {
+          const prayer = getTrait('Prayer', txt)
+          accum.prayers.push(prayer)
+          return accum
+        }
+
         if (txt.startsWith('- Mortal Realm') && last(accum.units) === 'Battlemage') {
           const battlemage_realm = txt.replace(/- Mortal Realm ?: /, '').trim()
           accum.units.pop()
@@ -283,21 +298,49 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         let stop_processing = false
         flavorTypes.forEach(t => {
           if (stop_processing) return
-          const flavor = txt.replace(`- ${t}: `, '').trim()
-          if (txt.startsWith(`- ${t}: `)) {
-            if (flavor && flavor !== 'None') {
-              // Handle SCE Subfactions
-              if (flavor.includes('(Stormkeep)')) {
-                const sceFlavor = flavor.replace(/\(Stormkeep\)$/g, '(Stormhost)')
-                accum.flavors.push(sceFlavor)
-                subFactionName = StormcastFaction.subFactionKeyMap['Celestial Senitels'] // Stormkeep
+          let val = txt.replace(`- ${t}: `, '').trim()
+
+          if (val && val !== 'None' && txt.startsWith(`- ${t}: `)) {
+            // Handle Slaanesh
+            if (factionName === SLAANESH) {
+              val = val.replace(/ Host$/, '').trim() // Change Pretenders Host -> Pretenders
+              if (SlaaneshFaction.subFactionKeyMap[val]) {
+                subFactionName = val
                 stop_processing = true
                 return
               }
-
-              accum.flavors = accum.flavors.concat(flavor)
-              stop_processing = true
             }
+
+            // Handle Orruk Warclans
+            if (factionName === ORRUK_WARCLANS) {
+              if (OrrukWarclansFaction.subFactionKeyMap[val]) {
+                subFactionName = val
+                stop_processing = true
+                return
+              }
+            }
+
+            // Handle StD
+            if (factionName === SLAVES_TO_DARKNESS) {
+              if (val === 'Knights of the Empty Throne') val = `The ${val}` // Fix for Knights
+              if (SlavesToDarknessFaction.subFactionKeyMap[val]) {
+                subFactionName = val
+                stop_processing = true
+                return
+              }
+            }
+
+            // Handle SCE Subfactions
+            if (factionName === STORMCAST_ETERNALS && val.includes('(Stormkeep)')) {
+              const sceFlavor = val.replace(/\(Stormkeep\)$/g, '(Stormhost)')
+              accum.flavors.push(sceFlavor)
+              subFactionName = StormcastFaction.subFactionKeyMap['Celestial Senitels'] // Stormkeep
+              stop_processing = true
+              return
+            }
+
+            accum.flavors.push(val)
+            stop_processing = true
           }
         })
         if (stop_processing) return accum
@@ -330,15 +373,6 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (stop_processing) return accum
 
         debugger
-
-        // If we've gotten this far, we don't really know what this thing is
-        // So for now, let's add this to the unknownSelections
-        // const sep = txt.includes(' : ') ? ' : ' : ':'
-        // const splitAttr = txt.split(sep).map(x => x.trim())
-        // const attr = (last(splitAttr) as string).replace(/^- /g, '').trim()
-
-        // unknownSelections.push(attr)
-        // I think I'm done with unknown selections, they don't add much and they cause issues
 
         return accum
       }
@@ -388,7 +422,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
     realmscape: null,
     selections,
     subFactionName,
-    unknownSelections: uniq(unknownSelections),
+    unknownSelections: [],
   }
 }
 
@@ -399,16 +433,26 @@ const manualLookup = {
   'Celestar Ballista': 'units',
 }
 
-type TTraitType = 'Command Trait' | 'Artefact' | 'Spell' | 'Mount Trait' | 'Drakeblood Curse' | 'Grand Court'
+type TTraitType =
+  | 'Command Trait'
+  | 'Artefact'
+  | 'Spell'
+  | 'Mount Trait'
+  | 'Drakeblood Curse'
+  | 'Grand Court'
+  | 'Prayer'
 
 const getTrait = (type: TTraitType, txt: string) => {
   const sep = txt.includes(`${type} : `)
     ? `${type} : `
+    : txt.includes(` (${type}) : `)
+    ? ` (${type}) : `
     : txt.includes(`(${type}): `)
     ? `(${type}): `
     : `${type}: `
 
-  return removePrefix(txt.split(sep)[1].trim())
+  const newTxt = txt.split(sep)[1].trim()
+  return removePrefix(newTxt)
 }
 
 /**

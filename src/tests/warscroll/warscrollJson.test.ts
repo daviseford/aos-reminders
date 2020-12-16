@@ -1,3 +1,4 @@
+import { OrrukWarclansFaction } from 'factions/orruk_warclans'
 import { readFileSync } from 'fs'
 import {
   BEASTS_OF_CHAOS,
@@ -17,6 +18,7 @@ import {
   NURGLE,
   OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
+  ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
   SKAVENTIDE,
@@ -35,7 +37,7 @@ const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/warscroll/json/${filename}.json`), 'utf8'))
 }
 
-xdescribe('getWarscrollArmyFromJson', () => {
+describe('getWarscrollArmyFromJson', () => {
   // TODO: Add Stoneklaw's Gutstompas
   // https://github.com/daviseford/aos-reminders/issues/1053
   xit('should correctly read 1601977490829-Warscroll_Builder', () => {
@@ -268,6 +270,7 @@ xdescribe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1594377996514-Warscroll_Builder', () => {
     const parsedText = getFile('1594377996514-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
+    // TODO: console.log this and check it
     expect(res.errors).toEqual([
       {
         severity: 'warn',
@@ -356,11 +359,16 @@ xdescribe('getWarscrollArmyFromJson', () => {
   it('should work with 1591871273929-Warscroll_Builder', () => {
     const parsedText = getFile('1591871273929-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.command_traits).toContain('Inescapeable Doom (Knights of the Empty Throne)')
+    expect(res.selections.command_traits).toContain('Inescapeable Doom')
     expect(res.errors).toEqual([
       {
         severity: 'warn',
         text: 'Aetherquartz Brooch',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Ungor Raiders can belong to Beasts Of Chaos or Nurgle or Slaanesh or Tzeentch. Please add this unit manually.',
       },
     ])
   })
@@ -502,7 +510,7 @@ xdescribe('getWarscrollArmyFromJson', () => {
   it('should work with Flask of Daemonblood and Varanguard', () => {
     const parsedText = getFile('1583954971824-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.artifacts).toContain('Flask of Daemonblood (Knights of the Empty Throne)')
+    expect(res.selections.artifacts).toContain('Flask of Daemonblood')
     expect(res.selections.units).toContain('Varanguard')
     expect(res.errors).toEqual([])
   })
@@ -577,11 +585,8 @@ xdescribe('getWarscrollArmyFromJson', () => {
   it('should work with Warp Lightning Vortex', () => {
     const parsedText = getFile('1580248993240-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.artifacts).toContain('Staff of Ocular Optimisation')
     expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Staff of Ocular Optimisation',
-      },
       {
         severity: 'warn',
         text: 'Warp Lightning Vortex',
@@ -806,7 +811,7 @@ xdescribe('getWarscrollArmyFromJson', () => {
   it('should work with Berzerker Lord', () => {
     const parsedText = getFile('1576328837058-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.command_traits).toContain('Berserker Lord (Mortal)')
+    expect(res.selections.command_traits).toContain('Berserker Lord')
     expect(res.errors).toEqual([])
   })
 
@@ -866,7 +871,13 @@ xdescribe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Nagash, Supreme Lord of the Undead can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
+      },
+    ])
   })
 
   it('should work with Corvus Cabal', () => {
@@ -958,7 +969,13 @@ xdescribe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.origin_realm).toEqual(AQSHY)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Arkhan the Black, Mortarch of Sacrament can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
+      },
+    ])
   })
 
   it('should work with Mark of Chaos and Scroll of Dark Unravelling', () => {
@@ -969,23 +986,24 @@ xdescribe('getWarscrollArmyFromJson', () => {
     expect(res.origin_realm).toEqual(ULGU)
 
     expect(res.selections).toEqual({
-      allegiances: ['Cabalists'],
-      artifacts: ['Scroll of Dark Unravelling (Cabalists)', 'Soul Feeder (Cabalists)'],
+      flavors: ['Cabalists'],
+      mount_traits: [],
+      prayers: ['Favour of the Ruinous Powers'],
+      artifacts: ['Scroll of Dark Unravelling', 'Soul Feeder'],
       battalions: ['Godswrath Warband'],
-      commands: ['Spurred by the Gods'],
+      command_abilities: ['Spurred by the Gods'],
       endless_spells: ['Eightfold Doom-Sigil (Slaves)'],
       scenery: [],
       spells: [
-        'Binding Damnation (Slaves)',
-        'Ruinous Vigour (Slaves)',
-        'Whispers of Chaos (Slaves)',
-        'Mask of Darkness (Slaves)',
+        'Binding Damnation',
+        'Ruinous Vigour',
+        'Whispers of Chaos',
+        'Mask of Darkness',
         'Crippling Ruin',
         'Winds of Chaos',
         'Daemonic Power',
-        'Favour of the Ruinous Powers',
       ],
-      traits: ['Mighty Ritualist (Cabalists)', 'All for One (Cabalists)'],
+      command_traits: ['Mighty Ritualist', 'All for One'],
       triumphs: [],
       units: [
         'Chaos Lord',
@@ -1030,7 +1048,13 @@ xdescribe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.origin_realm).toEqual(null)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Nagash, Supreme Lord of the Undead can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
+      },
+    ])
   })
 
   it('should work with Vokmortians Retinue', () => {
@@ -1048,7 +1072,13 @@ xdescribe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.selections.battalions).toContain("Vokmortian's Retinue")
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Arkhan the Black, Mortarch of Sacrament can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
+      },
+    ])
   })
 
   it('should work with One with Fire and Ice trait/spell', () => {
@@ -1065,7 +1095,8 @@ xdescribe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1574391649028-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual('IRONJAWZ')
+    expect(res.factionName).toEqual(ORRUK_WARCLANS)
+    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Ironjawz)
     expect(res.selections.flavors).toContain('Ironsunz')
     expect(res.errors).toEqual([
       {
@@ -1079,7 +1110,13 @@ xdescribe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Arkhan the Black, Mortarch of Sacrament can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
+      },
+    ])
   })
 
   it('should work with random Death artifacts/traits', () => {
@@ -1103,8 +1140,8 @@ xdescribe('getWarscrollArmyFromJson', () => {
   it('should work with Orruk great shaman', () => {
     const parsedText = getFile('1573836740544-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual('BIG_WAAAGH')
+    expect(res.factionName).toEqual(ORRUK_WARCLANS)
+    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
     expect(res.selections.units).toContain('Orruk Great Shaman')
     expect(res.errors).toEqual([])
   })
@@ -1191,7 +1228,8 @@ xdescribe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1573144291799-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual('BONESPLITTERZ')
+    expect(res.factionName).toEqual(ORRUK_WARCLANS)
+    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Bonesplitterz)
     expect(res.selections.battalions).toEqual(['Big Rukk', 'Brutal Rukk', 'Kop Rukk', 'Teef Rukk'])
     expect(res.errors).toEqual([
       {
@@ -1217,10 +1255,11 @@ xdescribe('getWarscrollArmyFromJson', () => {
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.selections.artifacts).toEqual(['Strife-ender', 'Armour of Silvered Sigmarite'])
     expect(res.selections.battalions).toEqual(['Cleansing Phalanx'])
-    expect(res.selections.command_traits).toEqual(['Staunch Defender', 'Lithe-Limbed'])
+    expect(res.selections.command_traits).toEqual(['Staunch Defender'])
+    expect(res.selections.mount_traits).toEqual(['Lithe-Limbed'])
+    expect(res.selections.prayers).toEqual(['Translocation'])
     expect(res.selections.spells).toEqual([
       'Azyrite Halo',
-      'Translocation',
       'Celestial Blades',
       'Terrifying Aspect',
       'Healing Light',
@@ -1251,8 +1290,8 @@ xdescribe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1573012088615-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual('BIG_WAAAGH')
-    expect(res.selections.command_traits).toContain("Burstin' with Power (Ironjawz)")
+    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
+    expect(res.selections.command_traits).toContain("Burstin' with Power")
     expect(res.errors).toEqual([])
   })
 
@@ -1260,8 +1299,8 @@ xdescribe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1573018890027-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual('BIG_WAAAGH')
-    expect(res.selections.command_traits).toContain("Burstin' with Power (Ironjawz)")
+    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
+    expect(res.selections.command_traits).toContain("Burstin' with Power")
     expect(res.errors).toEqual([])
   })
 
@@ -1295,7 +1334,13 @@ xdescribe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Arkhan the Black, Mortarch of Sacrament can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
+      },
+    ])
   })
 
   it('should work with Vokmortian', () => {
@@ -1303,7 +1348,13 @@ xdescribe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Arkhan the Black, Mortarch of Sacrament can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
+      },
+    ])
   })
 
   it('should work with Druid of the Everspring', () => {
@@ -1360,7 +1411,7 @@ xdescribe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(SLAANESH)
-    expect(res.selections.artifacts).toContain('Enrapturing Circlet (Godseekers)')
+    expect(res.selections.artifacts).toContain('Enrapturing Circlet')
     expect(res.errors).toEqual([
       {
         severity: 'warn',
@@ -1428,6 +1479,11 @@ xdescribe('getWarscrollArmyFromJson', () => {
         severity: 'warn',
         text: 'Windthief Charm',
       },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Great Bray-Shaman can belong to Beasts Of Chaos or Nurgle or Slaanesh. Please add this unit manually.',
+      },
     ])
   })
 
@@ -1451,7 +1507,8 @@ xdescribe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1572206506395-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual('BONESPLITTERZ')
+    expect(res.factionName).toEqual(ORRUK_WARCLANS)
+    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Bonesplitterz)
     expect(res.errors).toEqual([])
   })
 
@@ -1479,11 +1536,6 @@ xdescribe('getWarscrollArmyFromJson', () => {
         severity: 'warn',
         text: 'Razordons',
       },
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Knight-Incantor can belong to Stormcast Eternals or Stormcast Eternals Stormkeep. Please add this unit manually.',
-      },
     ])
   })
 
@@ -1500,11 +1552,11 @@ xdescribe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1571425644480-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual('IRONJAWZ')
+    expect(res.factionName).toEqual(ORRUK_WARCLANS)
+    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Ironjawz)
     expect(res.selections.artifacts).toEqual(["Metalrippa's Klaw"])
-    expect(res.allyFactionNames).toEqual(['BONESPLITTERZ', GLOOMSPITE_GITZ])
+    expect(res.allyFactionNames).toEqual([GLOOMSPITE_GITZ])
     expect(res.allySelections).toEqual({
-      BONESPLITTERZ: { battalions: [], units: ['Wurrgog Prophet'] },
       GLOOMSPITE_GITZ: { battalions: [], units: ['Fungoid Cave-Shaman'] },
     })
     expect(res.selections.units).toEqual([
@@ -1521,6 +1573,10 @@ xdescribe('getWarscrollArmyFromJson', () => {
         severity: 'warn',
         text: 'Thermalrider Cloak',
       },
+      {
+        severity: 'warn',
+        text: 'Wurrgog Prophet',
+      },
     ])
   })
 
@@ -1528,7 +1584,8 @@ xdescribe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1571329765256-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual('BONESPLITTERZ')
+    expect(res.factionName).toEqual(ORRUK_WARCLANS)
+    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Bonesplitterz)
     expect(res.errors).toEqual([])
   })
 
@@ -1576,7 +1633,8 @@ xdescribe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1571240331862-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual('BONESPLITTERZ')
+    expect(res.factionName).toEqual(ORRUK_WARCLANS)
+    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Bonesplitterz)
     expect(res.selections.flavors).toEqual(['Drakkfoot Clan'])
     expect(res.selections.artifacts).toEqual(["Burnin' Tattooz"])
     expect(res.errors).toEqual([])
@@ -1640,8 +1698,8 @@ xdescribe('getWarscrollArmyFromJson', () => {
   it('should work with Orruk Warboss', () => {
     const parsedText = getFile('1571165179317-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual('BIG_WAAAGH')
+    expect(res.factionName).toEqual(ORRUK_WARCLANS)
+    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
     expect(res.selections.units).toContain('Orruk Warboss')
     expect(res.errors).toEqual([])
   })
@@ -1650,7 +1708,8 @@ xdescribe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1571171962804-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual('BIG_WAAAGH')
+    expect(res.factionName).toEqual(ORRUK_WARCLANS)
+    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
     expect(res.selections.units).toContain('Orruk Warboss')
     expect(res.errors).toEqual([])
   })
@@ -1666,24 +1725,21 @@ xdescribe('getWarscrollArmyFromJson', () => {
       allyUnits: [],
       errors: [],
       factionName: CITIES_OF_SIGMAR,
+      subFactionName: '',
       origin_realm: null,
       realmscape_feature: null,
       realmscape: null,
       selections: {
-        allegiances: ['Greywater Fastness'],
+        flavors: ['Greywater Fastness'],
         artifacts: ['Runic Munitions (Greywater Fastness)'],
         battalions: [],
-        commands: ['Salvo Fire'],
+        command_abilities: ['Salvo Fire'],
         endless_spells: [],
         scenery: [],
-        spells: [
-          'Choking Fumes (Greywater Fastness)',
-          'Rune Lore',
-          'Rune Lore: Ancestral Shield',
-          'Rune Lore: Forge Fire',
-          'Transmutation of Lead (Chamon)',
-        ],
-        traits: ['Ghoul Mere Ranger (Greywater Fastness)'],
+        mount_traits: [],
+        prayers: ['Rune Lore', 'Rune Lore: Ancestral Shield', 'Rune Lore: Forge Fire'],
+        spells: ['Choking Fumes (Greywater Fastness)', 'Transmutation of Lead (Chamon)'],
+        command_traits: ['Ghoul Mere Ranger (Greywater Fastness)'],
         triumphs: [],
         units: [
           'Runelord',
