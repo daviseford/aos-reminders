@@ -9,8 +9,7 @@ import {
   TSupportedFaction,
 } from 'meta/factions'
 import { getFactionList } from 'meta/faction_list'
-import { TEntry } from 'types/data'
-import { upperToLowerLookup } from 'utils/import/removeSideEffectsFromImport'
+import { TEntry, upperToLowerLookup } from 'types/data'
 
 /**
  * Gets all items associated with this grand alliance

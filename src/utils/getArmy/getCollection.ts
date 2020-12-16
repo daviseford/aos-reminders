@@ -1,9 +1,8 @@
 import { mergeParentEffectObjs } from 'factions/temporaryAdapter'
 import { sortBy, uniqBy } from 'lodash'
 import { IArmy, TCollection, TInitialArmy } from 'types/army'
-import { TEffects, TEntry } from 'types/data'
+import { lowerToUpperLookup, TEffects, TEntry } from 'types/data'
 import { TSelectionTypes } from 'types/selections'
-import { lowerToUpperLookup } from 'utils/import/removeSideEffectsFromImport'
 
 /**
  * There are spells/artifacts/etc that only occur if a certain
