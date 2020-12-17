@@ -642,7 +642,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1579105159803-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.selections.endless_spells).toContain('Darkfire Daemonrift (Slaves)')
+    expect(res.selections.endless_spells).toContain('Darkfire Daemonrift')
     expect(res.errors).toEqual([])
   })
 
@@ -855,6 +855,11 @@ describe('getWarscrollArmyFromJson', () => {
         severity: 'warn',
         text: 'Aetherquartz Brooch',
       },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Kairos Fateweaver can belong to Legion Of Chaos Ascendant or Tzeentch. Please add this unit manually.',
+      },
     ])
   })
 
@@ -992,7 +997,7 @@ describe('getWarscrollArmyFromJson', () => {
       artifacts: ['Scroll of Dark Unravelling', 'Soul Feeder'],
       battalions: ['Godswrath Warband'],
       command_abilities: ['Spurred by the Gods'],
-      endless_spells: ['Eightfold Doom-Sigil (Slaves)'],
+      endless_spells: ['Eightfold Doom-Sigil'],
       scenery: [],
       spells: [
         'Binding Damnation',

@@ -1,4 +1,3 @@
-import { OrrukWarclansFaction } from 'factions/orruk_warclans'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
 import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
@@ -7,15 +6,15 @@ import GenericScenery from 'generic_rules/scenery'
 import { last, uniq } from 'lodash'
 import {
   KHARADRON_OVERLORDS,
-  ORRUK_WARCLANS,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   STORMCAST_ETERNALS,
   TSupportedFaction,
 } from 'meta/factions'
-import { getFactionList } from 'meta/faction_list'
+import { getFactionFromList, getFactionList } from 'meta/faction_list'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 import { TSelections } from 'types/selections'
+import { isValidFactionName } from 'utils/armyUtils'
 import { importErrorChecker } from 'utils/import'
 import { importFactionNameMap, importUnitOptionMap } from 'utils/import/options'
 import { cleanWarscrollText } from 'utils/warscroll/warscrollUtils'
@@ -311,15 +310,6 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
               }
             }
 
-            // Handle Orruk Warclans
-            if (factionName === ORRUK_WARCLANS) {
-              if (OrrukWarclansFaction.subFactionKeyMap[val]) {
-                subFactionName = val
-                stop_processing = true
-                return
-              }
-            }
-
             // Handle StD
             if (factionName === SLAVES_TO_DARKNESS) {
               if (val === 'Knights of the Empty Throne') val = `The ${val}` // Fix for Knights
@@ -337,6 +327,18 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
               subFactionName = StormcastFaction.subFactionKeyMap['Celestial Senitels'] // Stormkeep
               stop_processing = true
               return
+            }
+
+            // Generic subfaction checker
+            if (isValidFactionName(factionName)) {
+              const _Faction = getFactionFromList(factionName)
+              if (val.includes('Cabalists')) console.log('1')
+              if (_Faction.subFactionKeyMap[val]) {
+                subFactionName = val
+                stop_processing = true
+                if (val.includes('Cabalists')) console.log('2')
+                return
+              }
             }
 
             accum.flavors.push(val)
