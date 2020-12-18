@@ -26,7 +26,7 @@ const getFile = (filename: string): string[] => {
  *
  * Then test against that JSON below
  */
-xdescribe('handleAzyrPages', () => {
+describe('handleAzyrPages', () => {
   it('handles Seraphon1', () => {
     const fileTxt = getFile('Seraphon1')
     const res = handleAzyrPages(fileTxt)
@@ -178,7 +178,7 @@ xdescribe('handleAzyrPages', () => {
       'WEAPON: Chaintrap',
       'UNIT: Huskard on Thundertusk',
       'ARTEFACT: Skullshards of Dragaar',
-      'SPELL: Call of the Blizzard',
+      'PRAYER: Call of the Blizzard',
       'MOUNT TRAIT: Matriarch',
       'UNIT: Icebrow Hunter',
       'ARTEFACT: Kattanak Browplate',
@@ -309,10 +309,10 @@ xdescribe('handleAzyrPages', () => {
       'UNIT: Skullgrinder',
       'ARTEFACT: Talisman of Burning Blood',
       'UNIT: Slaughterpriest',
-      'SPELL: Bronzed Flesh',
+      'PRAYER: Bronzed Flesh',
       'WEAPON: Bloodbathed Axe',
-      'SPELL: Brazen Fury',
-      'SPELL: Killing Frenzy',
+      'PRAYER: Brazen Fury',
+      'PRAYER: Killing Frenzy',
       'UNIT: Blood Warriors',
       'UPGRADE: Chaos Champion',
       'UPGRADE: Icon Bearer',
@@ -517,7 +517,7 @@ xdescribe('handleAzyrPages', () => {
       'ALLEGIANCE: The Kraith',
       'UNIT: Hag Queen on Cauldron of Blood',
       'ARTEFACT: Crimson Shard',
-      "SPELL: Martyr's Sacrifice",
+      "PRAYER: Martyr's Sacrifice",
       'UNIT: Morathi, High Oracle of Khaine',
       'SPELL: Mindrazor',
       'UNIT: Sisters of Slaughter',
@@ -782,7 +782,7 @@ xdescribe('handleAzyrPages', () => {
       'UNIT: Auric Runesmiter',
       'COMMAND TRAIT: Warrior Indominate',
       'ARTEFACT: Tyrant Slayer',
-      'SPELL: Prayer of Ash',
+      'PRAYER: Prayer of Ash',
       'MOUNT TRAIT: Fire-claw Adult',
       'UNIT: Vulkite Berzerkers',
       'UNIT: Auric Runeson',

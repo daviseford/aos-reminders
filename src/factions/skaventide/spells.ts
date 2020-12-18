@@ -12,7 +12,7 @@ const Spells = {
     ],
   },
   // Lore of Ruin
-  'Scorch (Grey Seer)': {
+  Scorch: {
     effects: [
       {
         name: `Scorch`,
@@ -21,7 +21,7 @@ const Spells = {
       },
     ],
   },
-  'Splinter (Grey Seer)': {
+  Splinter: {
     effects: [
       {
         name: `Splinter`,
@@ -30,7 +30,7 @@ const Spells = {
       },
     ],
   },
-  'Skitterleap (Grey Seer)': {
+  Skitterleap: {
     effects: [
       {
         name: `Skitterleap`,
@@ -39,7 +39,7 @@ const Spells = {
       },
     ],
   },
-  'Plague (Grey Seer)': {
+  Plague: {
     effects: [
       {
         name: `Plague`,
@@ -48,7 +48,7 @@ const Spells = {
       },
     ],
   },
-  'Death Frenzy (Grey Seer)': {
+  'Death Frenzy': {
     effects: [
       {
         name: `Death Frenzy`,
@@ -62,7 +62,7 @@ const Spells = {
       },
     ],
   },
-  'Warpgale (Grey Seer)': {
+  Warpgale: {
     effects: [
       {
         name: `Warpgale`,
@@ -77,7 +77,7 @@ const Spells = {
     ],
   },
   // Lore of Warpvolt Galvanism
-  'More-more-more Warp Power! (Skryre Wizard)': {
+  'More-more-more Warp Power!': {
     effects: [
       {
         name: `More-more-more Warp Power!`,
@@ -96,7 +96,7 @@ const Spells = {
       },
     ],
   },
-  'Chain Warp Lightning (Skryre Wizard)': {
+  'Chain Warp Lightning': {
     effects: [
       {
         name: `Chain Warp Lightning`,
@@ -105,7 +105,7 @@ const Spells = {
       },
     ],
   },
-  'Warp Lightning Shield (Skryre Wizard)': {
+  'Warp Lightning Shield': {
     effects: [
       {
         name: `Warp Lightning Shield`,

@@ -11,6 +11,7 @@ import { titleCase } from 'utils/textUtils'
 
 export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialAzyrArmy(pdfText)
+  // console.log(army)
   const errorChecked = importErrorChecker(army, AZYR)
   return errorChecked
 }
@@ -28,17 +29,6 @@ const selectorLookup: Record<string, TSelectionTypes> = {
   UNIT: 'units',
 }
 
-const prefixTypes = [
-  'ALLEGIANCE',
-  'ARTEFACT',
-  'BATTALION',
-  'COMMAND TRAIT',
-  'ENDLESS SPELL',
-  'MOUNT TRAIT',
-  'SPELL',
-  'UNIT',
-]
-
 const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   let factionName = ''
   let realmscape: TBattleRealms | null = null
@@ -47,6 +37,7 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
 
   const selections = pages.reduce(
     (accum, name) => {
+      // TODO!
       if (name.startsWith('FACTION:')) {
         const { faction, flavor } = getFactionName(name)
         if (faction) {
@@ -91,11 +82,11 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
       let found = false
 
       // Check all other types
-      prefixTypes.forEach(pre => {
+      Object.entries(selectorLookup).forEach(([_prefix, _slice]) => {
         if (found) return
-        if (name.startsWith(`${pre}:`)) {
-          name = name.replace(`${pre}: `, '')
-          accum[selectorLookup[pre]] = accum[selectorLookup[pre]].concat(name)
+        if (name.startsWith(`${_prefix}:`)) {
+          name = name.replace(`${_prefix}: `, '')
+          accum[_slice] = accum[_slice].concat(name)
           found = true
           return accum
         }

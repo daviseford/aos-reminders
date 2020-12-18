@@ -737,7 +737,7 @@ describe('getWarscrollArmyFromPdf', () => {
       mount_traits: [],
       prayers: [],
       scenery: [],
-      spells: ['Celestial Deliverance', 'Blazing Starlight'],
+      spells: ["Comet's Call", 'Blazing Starlight'],
       command_traits: ['Great Rememberer'],
       triumphs: [],
       units: [
@@ -921,7 +921,7 @@ describe('getWarscrollArmyFromPdf', () => {
       mount_traits: [],
       prayers: [],
       scenery: [],
-      spells: ['Celestial Deliverance', 'Blazing Starlight'],
+      spells: ["Comet's Call", 'Blazing Starlight'],
       command_traits: ['Great Rememberer'],
       triumphs: [],
       units: [
@@ -1308,7 +1308,7 @@ describe('getWarscrollArmyFromPdf', () => {
       mount_traits: [],
       prayers: [],
       scenery: [],
-      spells: ['Walk Between Realms', 'Celestial Deliverance'],
+      spells: ['Walk Between Realms', "Comet's Call"],
       command_traits: ['Great Rememberer'],
       triumphs: [],
       units: [
@@ -1337,10 +1337,6 @@ describe('getWarscrollArmyFromPdf', () => {
           severity: 'warn',
           text: 'Meteoric Convocation',
         },
-        {
-          severity: 'warn',
-          text: 'Razordons',
-        },
       ],
       factionName: SERAPHON,
       subFactionName: '',
@@ -1356,7 +1352,7 @@ describe('getWarscrollArmyFromPdf', () => {
         mount_traits: [],
         prayers: [],
         scenery: ['Penumbral Engine'],
-        spells: ['Celestial Deliverance'],
+        spells: ['Celestial Deliverance', "Comet's Call"],
         command_traits: ['Master of Star Rituals'],
         triumphs: [],
         units: [
@@ -1387,10 +1383,6 @@ describe('getWarscrollArmyFromPdf', () => {
           severity: 'warn',
           text: 'Meteoric Convocation',
         },
-        {
-          severity: 'warn',
-          text: 'Razordons',
-        },
       ],
       factionName: SERAPHON,
       subFactionName: '',
@@ -1406,7 +1398,7 @@ describe('getWarscrollArmyFromPdf', () => {
         mount_traits: [],
         prayers: [],
         scenery: ['Penumbral Engine'],
-        spells: ['Celestial Deliverance'],
+        spells: ['Celestial Deliverance', "Comet's Call"],
         command_traits: ['Master of Star Rituals'],
         triumphs: [],
         units: [
@@ -1437,10 +1429,6 @@ describe('getWarscrollArmyFromPdf', () => {
           severity: 'warn',
           text: 'Meteoric Convocation',
         },
-        {
-          severity: 'warn',
-          text: 'Razordons',
-        },
       ],
       factionName: SERAPHON,
       subFactionName: '',
@@ -1456,7 +1444,7 @@ describe('getWarscrollArmyFromPdf', () => {
         mount_traits: [],
         prayers: [],
         scenery: ['Penumbral Engine'],
-        spells: ['Celestial Deliverance'],
+        spells: ['Celestial Deliverance', "Comet's Call"],
         command_traits: ['Master of Star Rituals'],
         triumphs: [],
         units: [
