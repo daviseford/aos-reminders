@@ -455,6 +455,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1582292305596-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.battalions).toContain('Fecund Rituculturalists')
+    expect(res.selections.spells).toContain('Blades of Putrefaction')
     expect(res.errors).toEqual([])
   })
 
