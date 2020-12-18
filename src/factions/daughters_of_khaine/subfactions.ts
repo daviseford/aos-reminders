@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { pickEffects } from 'factions/metatagger'
 import { DAUGHTERS_OF_KHAINE } from 'meta/factions'
 import Artifacts from './artifacts'
@@ -11,7 +10,7 @@ import Prayers from './prayers'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [DAUGHTERS_OF_KHAINE]: {
     effects: pickEffects(BattleTraits, ['Daughters of Khaine']),
 

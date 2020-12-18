@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { pickEffects } from 'factions/metatagger'
 import { WANDERERS } from 'meta/factions'
 import Artifacts from './artifacts'
@@ -9,7 +8,7 @@ import CommandTraits from './command_traits'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [WANDERERS]: {
     effects: pickEffects(BattleTraits, ['Wanderers']),
 

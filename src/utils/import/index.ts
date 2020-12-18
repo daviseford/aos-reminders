@@ -39,7 +39,8 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
 
   const foundSelections: string[] = []
 
-  const Army = getArmy(factionName) as IArmy
+  const Army = getArmy(factionName, subFactionName) as IArmy
+
   const lookup = importSelectionLookup(
     Army,
     selections,

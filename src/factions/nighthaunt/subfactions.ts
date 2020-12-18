@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { NIGHTHAUNT } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
@@ -10,7 +9,7 @@ import EndlessSpells from './endless_spells'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [NIGHTHAUNT]: {
     effects: pickEffects(BattleTraits, [NIGHTHAUNT]),
     available: {

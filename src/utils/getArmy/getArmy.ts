@@ -5,6 +5,7 @@ import { getFactionFromList } from 'meta/faction_list'
 import { IArmy, TCollection, TInitialArmy } from 'types/army'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { isValidFactionName } from 'utils/armyUtils'
+import { isDev } from 'utils/env'
 import { getAllianceItems, getGrandAllianceEndlessSpells } from 'utils/getArmy/getAllianceItems'
 import { getCollection } from 'utils/getArmy/getCollection'
 import { modify } from 'utils/getArmy/modify'
@@ -26,6 +27,12 @@ export const getArmy = (
   if (!isValidFactionName(factionName)) return null
 
   const { GrandAlliance, subFactionArmies, AggregateArmy } = getFactionFromList(factionName)
+
+  if (isDev && subFactionName && !subFactionArmies[subFactionName]) {
+    console.warn(`Invalid subFactionName: '${subFactionName}'. Please fix this.`)
+    debugger // If you've arrived here, you have a responsibility to fix the error
+  }
+
   const Army = (subFactionName && subFactionArmies?.[subFactionName]) || AggregateArmy
 
   const Collection = getCollection(Army)

@@ -1,6 +1,5 @@
 import BeastsOfChaosBattalions from 'factions/beasts_of_chaos/battalions'
 import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
-import { TItemDescriptions } from 'factions/factionTypes'
 import SlavesToDarknessBattalions from 'factions/slaves_to_darkness/battalions'
 import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import { TZEENTCH } from 'meta/factions'
@@ -15,7 +14,7 @@ import Flavors from './flavors'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [TZEENTCH]: {
     effects: pickEffects(BattleTraits, ['The Flow of Change']),
 

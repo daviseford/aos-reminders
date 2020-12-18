@@ -2,10 +2,17 @@ import { SeraphonFaction } from 'factions/seraphon'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import GenericScenery from 'generic_rules/scenery'
 import { last, uniq } from 'lodash'
-import { TSupportedFaction } from 'meta/factions'
-import { getFactionList } from 'meta/faction_list'
+import {
+  KHARADRON_OVERLORDS,
+  SLAANESH,
+  SLAVES_TO_DARKNESS,
+  STORMCAST_ETERNALS,
+  TSupportedFaction,
+} from 'meta/factions'
+import { getFactionFromList, getFactionList } from 'meta/faction_list'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 import { TSelections } from 'types/selections'
+import { isValidFactionName } from 'utils/armyUtils'
 import { importErrorChecker } from 'utils/import'
 import { importFactionNameMap, importUnitOptionMap } from 'utils/import/options'
 import { cleanWarscrollText } from 'utils/warscroll/warscrollUtils'
@@ -19,11 +26,11 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   return errorChecked
 }
 
-const getAllegianceTypes = () => {
-  return Object.values(getFactionList())
+const flavorTypes = uniq(
+  Object.values(getFactionList())
     .map(v => (v.AggregateArmy.FlavorType || '').replace(/s$/, '')) // Remove trailing s
     .filter(x => !!x)
-}
+)
 
 const unitIndicatorsPdf = [
   'Artillery',
@@ -37,18 +44,17 @@ const unitIndicatorsPdf = [
   'Rearguard',
 ].map(x => x.toUpperCase())
 
+// TODO: This is fucking ridiculous.
+// Change it to something testable and more.. uhhh.. sane?
 const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(pdfText)
   const genericScenery = GenericScenery.map(x => x.name)
-
-  const flavorTypes = getAllegianceTypes()
 
   let allyUnits: string[] = []
   let factionName = ''
   let subFactionName = ''
   let origin_realm: string | null = null
   let selector = ''
-  let unknownSelections: string[] = []
 
   const selections = cleanedText.reduce(
     (accum, txt) => {
@@ -67,7 +73,13 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         const parts = nameRemoved.split('-').map(t => t.trim())
         const name = parts[0].trim()
 
-        factionName = importFactionNameMap[name] || name
+        const factionLookup = importFactionNameMap[name]
+
+        factionName = factionLookup?.factionName || name
+
+        if (factionLookup?.subFactionName) {
+          subFactionName = factionLookup.subFactionName
+        }
 
         return accum
       }
@@ -140,7 +152,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (txt.startsWith('- Constellation: ')) {
           const name = txt.replace('- Constellation: ', '').trim()
           const data = getSeraphonConstellations(name)
-          accum.flavors.push(data.flavor)
+          if (data.flavor) accum.flavors.push(data.flavor)
           if (data.subFactionName) subFactionName = data.subFactionName
           return accum
         }
@@ -154,7 +166,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           }
         }
 
-        if (txt.startsWith('- Grand Court: ')) {
+        if (txt.startsWith('- Grand Court')) {
           const flavor = ['Gristlegore', 'Morgaunt', 'Blisterskin', 'Hollowmourne'].find(x => txt.includes(x))
           if (flavor) {
             accum.flavors = accum.flavors.concat(flavor)
@@ -162,7 +174,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           }
         }
 
-        if (txt.startsWith('- City: ')) {
+        if (txt.startsWith('- City')) {
           const { flavor, trait } = getCity(txt)
           accum.flavors = accum.flavors.concat(flavor)
           if (trait) {
@@ -212,7 +224,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         }
         if (txt.startsWith('- Mount Trait')) {
           const trait = getTrait('Mount Trait', txt)
-          accum.mount_traits = accum.mount_traits.concat(trait)
+          accum.mount_traits.push(trait)
           return accum
         }
         if (txt.startsWith('- Drakeblood Curse')) {
@@ -226,17 +238,25 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           return accum
         }
 
-        if (txt.startsWith('- Artefact')) {
+        if (txt.match(/^- (.+ \()?Artefact(\))?( )?:/)) {
           const { trait: artifact, spell } = getTraitWithSpell('Artefact', txt)
           accum.artifacts = accum.artifacts.concat(artifact)
           if (spell) accum.spells = accum.spells.concat(spell)
           return accum
         }
+
         if (txt.startsWith('- Spell')) {
           const spell = getTrait('Spell', txt)
           accum.spells = accum.spells.concat(spell)
           return accum
         }
+
+        if (txt.startsWith('- Prayer')) {
+          const prayer = getTrait('Prayer', txt)
+          accum.prayers.push(prayer)
+          return accum
+        }
+
         if (txt.startsWith('- Mortal Realm') && last(accum.units) === 'Battlemage') {
           const battlemage_realm = txt.replace(/- Mortal Realm ?: /, '').trim()
           accum.units.pop()
@@ -245,48 +265,103 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         }
 
         // Add weapon options and other configuration
-        if (selector === 'units' && accum[selector].length > 0) {
-          const attr = txt.split('-')[1].replace('Weapon : ', '').trim()
+        if (selector === 'units' && accum.units.length > 0) {
+          const attr = txt.split('-')[1].trim().replace('Weapon: ', '').replace('Weapon : ', '').trim()
 
           if (importUnitOptionMap[attr]) {
-            const accumMock = [...accum[selector]]
+            const accumMock = [...accum.units]
             accumMock.pop()
             accumMock.push(importUnitOptionMap[attr])
-            accum[selector] = accumMock
+            accum.units = accumMock
             return accum
           }
         }
 
+        // Handle some new stuff I've noticed
+        // We _REALLY_ need to test this stuff better
+
+        if (factionName === KHARADRON_OVERLORDS && txt.match(/^- (Artycle|Amendment|Footnote)( )?: /g)) {
+          const command_trait = txt.replace(/^- /, '').trim()
+          accum.command_traits.push(command_trait)
+          return accum
+        }
+
         // Handle allegiances programmatically
-        let stop = false
+        // TODO: Break this out into a testable function
+        let stop_processing = false
         flavorTypes.forEach(t => {
-          if (stop) return
-          const flavor = txt.replace(`- ${t}: `, '').trim()
-          if (txt.startsWith(`- ${t}: `)) {
-            if (flavor && flavor !== 'None') {
-              // Handle SCE Subfactions
-              if (flavor.includes('(Stormkeep)')) {
-                const sceFlavor = flavor.replace(/\(Stormkeep\)$/g, '(Stormhost)')
-                accum.flavors.push(sceFlavor)
-                subFactionName = StormcastFaction.subFactionKeyMap['Celestial Senitels'] // Stormkeep
-                stop = true
+          if (stop_processing) return
+          let val = txt.replace(`- ${t}: `, '').trim()
+
+          if (val && val !== 'None' && txt.startsWith(`- ${t}: `)) {
+            // Handle SCE Subfactions
+            if (factionName === STORMCAST_ETERNALS && val.includes('(Stormkeep)')) {
+              const sceFlavor = val.replace(/\(Stormkeep\)$/g, '(Stormhost)')
+              accum.flavors.push(sceFlavor)
+              subFactionName = StormcastFaction.subFactionKeyMap['Celestial Senitels'] // Stormkeep
+              stop_processing = true
+              return
+            }
+
+            // Generic subfaction checker
+            if (isValidFactionName(factionName)) {
+              // Need to do something faction-specific to the value? Do it here.
+              if (factionName === SLAVES_TO_DARKNESS && val === 'Knights of the Empty Throne') {
+                val = `The ${val}` // Fix for Knights
+              }
+              if (factionName === SLAANESH) val = val.replace(/ Host$/, '').trim() // Change Pretenders Host -> Pretenders
+
+              const _Faction = getFactionFromList(factionName)
+              if (_Faction.subFactionKeyMap[val]) {
+                subFactionName = val
+                stop_processing = true
                 return
               }
-
-              accum.flavors = accum.flavors.concat(flavor)
-              stop = true
             }
+
+            // If we can't find a subfaction match, it's probably a Flavor
+            accum.flavors.push(val)
+            stop_processing = true
           }
         })
-        if (stop) return accum
+        if (stop_processing) return accum
 
-        // If we've gotten this far, we don't really know what this thing is
-        // So for now, let's add this to the unknownSelections
-        const sep = txt.includes(' : ') ? ' : ' : ':'
-        const splitAttr = txt.split(sep).map(x => x.trim())
-        const attr = (last(splitAttr) as string).replace(/^- /g, '').trim()
+        const commandTraitPrefixes = ['- Host Option : ', '- Big Name : ']
+        commandTraitPrefixes.forEach(val => {
+          if (txt.startsWith(val)) {
+            const command_trait = txt.replace(val, '').trim()
+            accum.command_traits.push(command_trait)
+            stop_processing = true
+          }
+        })
+        if (stop_processing) return accum
 
-        unknownSelections.push(attr)
+        if (txt.match(/^- Lore of .+ ?: /)) {
+          const spell = txt.replace(/^- Lore of .+ ?: /, '').trim()
+          accum.spells.push(spell)
+          stop_processing = true
+        }
+
+        // const spellPrefixes = [
+        //   '- Lore of Gutmagic : ',
+        //   '- Lore of Hysh : ',
+        //   '- Lore of Invigoration : ',
+        //   '- Lore of Invigoration: ',
+        //   '- Lore of Slaanesh : ',
+        //   '- Lore of the High Peaks : ',
+        //   '- Lore of the Savage Beast : ',
+        //   '- Lore of the Weird : ',
+        // ]
+        // spellPrefixes.forEach(val => {
+        //   if (txt.startsWith(val)) {
+        //     const spell = txt.replace(val, '').trim()
+        //     accum.spells.push(spell)
+        //     stop_processing = true
+        //   }
+        // })
+        if (stop_processing) return accum
+
+        debugger
 
         return accum
       }
@@ -336,7 +411,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
     realmscape: null,
     selections,
     subFactionName,
-    unknownSelections: uniq(unknownSelections),
+    unknownSelections: [],
   }
 }
 
@@ -347,12 +422,26 @@ const manualLookup = {
   'Celestar Ballista': 'units',
 }
 
-type TTraitType = 'Command Trait' | 'Artefact' | 'Spell' | 'Mount Trait' | 'Drakeblood Curse' | 'Grand Court'
+type TTraitType =
+  | 'Command Trait'
+  | 'Artefact'
+  | 'Spell'
+  | 'Mount Trait'
+  | 'Drakeblood Curse'
+  | 'Grand Court'
+  | 'Prayer'
 
 const getTrait = (type: TTraitType, txt: string) => {
-  const sep = txt.includes(`${type} : `) ? `${type} : ` : `${type}: `
-  if (txt.includes('Spell')) debugger
-  return removePrefix(txt.split(sep)[1].trim())
+  const sep = txt.includes(`${type} : `)
+    ? `${type} : `
+    : txt.includes(` (${type}) : `)
+    ? ` (${type}) : `
+    : txt.includes(`(${type}): `)
+    ? `(${type}): `
+    : `${type}: `
+
+  const newTxt = txt.split(sep)[1].trim()
+  return removePrefix(newTxt)
 }
 
 /**
@@ -442,14 +531,17 @@ const getTraitWithSpell = (type: TTraitType, txt: string) => {
  * @param flavor
  */
 const getSeraphonConstellations = (flavor: string) => {
-  const { subFactionKeyMap } = SeraphonFaction
-  const CoalescedFlavors = SeraphonFaction.SubFactions.Coalesced.available.flavors
-  const StarborneFlavors = SeraphonFaction.SubFactions.Starborne.available.flavors
+  const { subFactionKeyMap, SubFactions } = SeraphonFaction
 
-  if (CoalescedFlavors[flavor]) {
+  const CoalescedFlavors = SubFactions.Coalesced.available.flavors.map(x => Object.keys(x)).flat()
+  const StarborneFlavors = SubFactions.Starborne.available.flavors.map(x => Object.keys(x)).flat()
+
+  if (subFactionKeyMap[flavor]) return { subFactionName: subFactionKeyMap[flavor] }
+
+  if (CoalescedFlavors.includes(flavor)) {
     return { flavor, subFactionName: subFactionKeyMap.Coalesced }
   }
-  if (StarborneFlavors[flavor]) {
+  if (StarborneFlavors.includes(flavor)) {
     return { flavor, subFactionName: subFactionKeyMap.Starborne }
   }
 

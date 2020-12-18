@@ -35,6 +35,10 @@ Please document breaking changes here. This will make future migrations from v3 
 - `GRAND_HOST_OF_NAGASH | LEGION_OF_BLOOD | LEGION_OF_SACRAMENT | LEGION_OF_NIGHT | SOULBLIGHT` -> Now subfactions of `LEGIONS_OF_NAGASH`
 - `TAMURKHANS_HORDE` -> Now a subfaction of `NURGLE`
 
+## Item changes
+
+- `Necropolis Stalker` -> `Necropolis Stalkers`
+
 ## Redux/state changes
 
 ```diff

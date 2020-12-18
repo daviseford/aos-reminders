@@ -38,7 +38,7 @@ const getFile = (filename: string): string[] => {
 xdescribe('getAzyrArmyFromPdf', () => {
   // TODO: Add Dimensional Blade
   // https://github.com/daviseford/aos-reminders/issues/1055
-  xit('should correctly read 1602264690883-Azyr', () => {
+  it.skip('should correctly read 1602264690883-Azyr', () => {
     const fileTxt = getFile('1602264690883-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
@@ -139,7 +139,7 @@ xdescribe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
-  xit('should correctly read 1600502246657-Azyr', () => {
+  it.skip('should correctly read 1600502246657-Azyr', () => {
     const fileTxt = getFile('1600502246657-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
@@ -230,7 +230,7 @@ xdescribe('getAzyrArmyFromPdf', () => {
   })
 
   // TODO:
-  xit('should correctly read 1599301249796-Azyr', () => {
+  it.skip('should correctly read 1599301249796-Azyr', () => {
     const fileTxt = getFile('1599301249796-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
@@ -295,7 +295,7 @@ xdescribe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
-  xit('should correctly read 1593694727624-Azyr', () => {
+  it.skip('should correctly read 1593694727624-Azyr', () => {
     const fileTxt = getFile('1593694727624-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)

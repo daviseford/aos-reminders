@@ -136,7 +136,8 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
 
 const getFactionName = (val: string): { faction: string | null; flavor: string | null } => {
   const name = val.replace('FACTION: ', '')
-  const faction = importFactionNameMap[name] || null
+  const faction = importFactionNameMap[name]?.factionName || null
+  // TODO: Also return subFactionName
   if (!faction) console.error('ALERT: Missing this faction: ' + name)
   const flavor = faction ? factionToFlavorMap[name] : null
   return { faction, flavor }

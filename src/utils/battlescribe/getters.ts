@@ -23,7 +23,7 @@ export const getFactionAndAllegiance = (flavorInfo: IFlavorInfo[], factionInfo: 
       info.flavor?.forEach(name => {
         const y: TPrimaryFactions | string | undefined = isValidFactionName(name)
           ? name
-          : importFactionNameMap[name]
+          : importFactionNameMap[name]?.factionName
         if (!store.factionName && isValidFactionName(y)) {
           store.factionName = y
         }
@@ -32,7 +32,7 @@ export const getFactionAndAllegiance = (flavorInfo: IFlavorInfo[], factionInfo: 
 
     const mappedFaction = isValidFactionName(info.faction)
       ? info.faction
-      : importFactionNameMap[info.faction || '']
+      : importFactionNameMap[info.faction || '']?.factionName
 
     if (!store.factionName && isValidFactionName(mappedFaction)) {
       store.factionName = mappedFaction
@@ -46,7 +46,7 @@ export const getFactionAndAllegiance = (flavorInfo: IFlavorInfo[], factionInfo: 
   const factionName = store.factionName || (factionInfo.factionName as TSupportedFaction)
 
   const possibleNameCollisions = Object.keys(importFactionNameMap).filter(
-    k => importFactionNameMap[k] === factionName
+    k => importFactionNameMap[k]?.factionName === factionName
   )
 
   return {
@@ -105,7 +105,14 @@ export const parseFaction = (obj: IParentNode): IFactionInfo => {
 
     const last = rest[rest.length - 1]
 
-    const factionName = importFactionNameMap[last] || 'Unknown'
+    const factionLookup = importFactionNameMap?.[last]
+
+    const factionName = factionLookup?.factionName || 'Unknown'
+
+    // TODO: Also return subFactionName
+    // if (factionLookup?.subFactionName) {
+    //   subFactionName = factionLookup.subFactionName
+    // }
 
     return { grandAlliance, factionName }
   } catch (err) {
@@ -195,7 +202,7 @@ const factionFlavorh4Lookup = (childNodes: Array<IParentNode | IChildNode>): TSu
     if (childNodes[2].childNodes[0].childNodes[0].nodeName !== 'h4') return null
     if (valNode.nodeName !== '#text') return null
 
-    const val = importFactionNameMap[cleanText(valNode.value)] || null
+    const val = importFactionNameMap[cleanText(valNode.value)]?.factionName || null
 
     return isValidFactionName(val) ? val : null
   } catch (err) {

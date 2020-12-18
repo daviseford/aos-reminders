@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { LEGION_OF_AZGORH } from 'meta/factions'
 import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
@@ -9,7 +8,7 @@ import CommandTraits from './command_traits'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [LEGION_OF_AZGORH]: {
     effects: pickEffects(BattleTraits, ['LegionOfAzgorh']),
 

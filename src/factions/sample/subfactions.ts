@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { SAMPLE } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
@@ -15,7 +14,7 @@ import Spells from './spells'
 import Units from './units'
 
 // TODO: Explain what a subfaction is (vs faction, vs flavor)
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [SAMPLE]: {
     effects: pickEffects(BattleTraits, [SAMPLE]),
     available: {

@@ -1,10 +1,11 @@
-import { TItemDescription, TItemDescriptions } from 'factions/factionTypes'
+import { TItemDescription } from 'factions/factionTypes'
 import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
+import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
 import Prayers from './prayers'
 import Spells from './spells'
@@ -13,12 +14,13 @@ import Units from './units'
 const baseSubFaction: TItemDescription = {
   effects: pickEffects(BattleTraits, ['Bane of the Mortal Realms']),
   available: {
+    endless_spells: [EndlessSpells],
     prayers: [Prayers],
     spells: [Spells],
   },
 }
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   Ravagers: {
     effects: pickEffects(BattleTraits, ['Bane of the Mortal Realms', 'Glory for the Taking']),
 
