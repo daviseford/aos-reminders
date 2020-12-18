@@ -988,10 +988,11 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
+    expect(res.subFactionName).toEqual('Cabalists')
     expect(res.origin_realm).toEqual(ULGU)
 
     expect(res.selections).toEqual({
-      flavors: ['Cabalists'],
+      flavors: [],
       mount_traits: [],
       prayers: ['Favour of the Ruinous Powers'],
       artifacts: ['Scroll of Dark Unravelling', 'Soul Feeder'],

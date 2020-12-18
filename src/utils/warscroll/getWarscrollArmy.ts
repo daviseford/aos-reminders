@@ -332,15 +332,14 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
             // Generic subfaction checker
             if (isValidFactionName(factionName)) {
               const _Faction = getFactionFromList(factionName)
-              if (val.includes('Cabalists')) console.log('1')
               if (_Faction.subFactionKeyMap[val]) {
                 subFactionName = val
                 stop_processing = true
-                if (val.includes('Cabalists')) console.log('2')
                 return
               }
             }
 
+            // If we can't find a subfaction match, it's probably a Flavor
             accum.flavors.push(val)
             stop_processing = true
           }
