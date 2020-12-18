@@ -1,4 +1,3 @@
-import { TItemDescription, TItemDescriptions } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from '../metatagger'
 import NighthauntEndlessSpells from '../nighthaunt/endless_spells'
 import NighthauntUnits from '../nighthaunt/units'
@@ -23,7 +22,7 @@ import SoulblightFlavors from './soulblight/flavors'
 import Spells from './spells'
 import Units from './units'
 
-const baseLegion: TItemDescription = {
+const baseLegion = {
   effects: pickEffects(BattleTraits, ['Core Legions']),
   mandatory: {
     command_abilities: [keyPicker(CommandAbilities, ['Endless Legions'])],
@@ -53,7 +52,7 @@ const baseLegion: TItemDescription = {
   },
 }
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   'Grand Host of Nagash': {
     ...baseLegion,
     effects: pickEffects(BattleTraits, ['Core Legions', 'Grand Host of Nagash']),

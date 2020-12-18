@@ -1,6 +1,6 @@
 import BeastsOfChaosBattalions from 'factions/beasts_of_chaos/battalions'
 import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
-import { TItemDescription, TItemDescriptions } from 'factions/factionTypes'
+import { TItemDescription } from 'factions/factionTypes'
 import SkavenUnits from 'factions/skaventide/units'
 import SlavesToDarknessBattalions from 'factions/slaves_to_darkness/battalions'
 import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
@@ -78,7 +78,7 @@ const baseSubFaction: TItemDescription = {
   },
 }
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [NURGLE]: {
     effects: pickEffects(BattleTraits, ['Nurgle', "Tamurkhan's Horde"]),
 

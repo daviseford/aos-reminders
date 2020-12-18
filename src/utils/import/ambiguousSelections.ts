@@ -1,7 +1,6 @@
 import { TSupportedFaction } from 'meta/factions'
 import { TImportError } from 'types/import'
 import { TAllySelectionStore } from 'types/store'
-import { TNameMap } from 'utils/import/options'
 import { createAmbiguityWarning } from 'utils/import/warnings'
 
 /**
@@ -15,7 +14,7 @@ export const addAmbiguousSelectionErrors = (
   errors: TImportError[],
   selections: Record<string, string[]>,
   allyData: { allyFactionNames: TSupportedFaction[]; allySelections: TAllySelectionStore },
-  ambiguousNamesMap: TNameMap
+  ambiguousNamesMap: Record<string, string>
 ) => {
   const flatAllySelections = Object.values(allyData.allySelections)
     .map(x => (x ? x.units : []))

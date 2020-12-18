@@ -36,6 +36,7 @@ export const addArmyToStore = (loadedArmy: TLoadedArmy) => {
     const { dispatch } = store
 
     dispatch(factionNamesActions.setFactionName(loadedArmy.factionName))
+    dispatch(factionNamesActions.setSubFactionName(loadedArmy.subFactionName))
 
     // Add Ally Game data to the store
     if (loadedArmy.allyFactionNames.length) {

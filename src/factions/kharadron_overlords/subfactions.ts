@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { KHARADRON_OVERLORDS } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
@@ -10,7 +9,7 @@ import Flavors from './flavors'
 import MountTraits from './mount_traits'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [KHARADRON_OVERLORDS]: {
     effects: pickEffects(BattleTraits, [KHARADRON_OVERLORDS]),
     available: {

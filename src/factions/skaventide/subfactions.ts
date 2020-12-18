@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { SKAVENTIDE } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
@@ -12,7 +11,7 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [SKAVENTIDE]: {
     effects: pickEffects(BattleTraits, [SKAVENTIDE]),
     available: {

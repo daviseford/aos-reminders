@@ -45,7 +45,7 @@ const RegularBattalions = {
   },
   'Katakrosian Deathglaive': {
     mandatory: {
-      units: [keyPicker(Units, ['Necropolis Stalker', 'Morghast Harbingers'])],
+      units: [keyPicker(Units, ['Necropolis Stalkers', 'Morghast Harbingers'])],
     },
     effects: [
       {
@@ -93,7 +93,7 @@ const RegularBattalions = {
   },
   "Vokmortian's Retinue": {
     mandatory: {
-      units: [keyPicker(Units, ['Vokmortian', 'Mortek Guard', 'Necropolis Stalker'])],
+      units: [keyPicker(Units, ['Vokmortian', 'Mortek Guard', 'Necropolis Stalkers'])],
     },
     effects: [
       {

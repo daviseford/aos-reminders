@@ -371,7 +371,7 @@ const StormkeepBattalions = {
 const SuperBattalions = {
   'Stormkeep Brotherhood': {
     mandatory: {
-      battallions: [
+      battalions: [
         keyPicker(StormkeepBattalions, [
           'Wardens of the Stormkeep',
           'Stormtower Garrison',
@@ -389,7 +389,7 @@ const SuperBattalions = {
   },
   'Sacrosanct Chamber': {
     mandatory: {
-      battallions: [
+      battalions: [
         keyPicker(RegularBattalions, ['Grand Convocation', 'Hailstorm Battery', 'Cleansing Phalanx']),
       ],
     },
@@ -403,7 +403,7 @@ const SuperBattalions = {
   },
   'Sempiternals Sacrosanct Chamber': {
     mandatory: {
-      battallions: [
+      battalions: [
         keyPicker(RegularBattalions, [
           'Sempiternals Grand Convocation',
           'Sempiternals Hailstorm Battery',
@@ -421,9 +421,7 @@ const SuperBattalions = {
   },
   'Vanguard Auxiliary Chamber': {
     mandatory: {
-      battallions: [
-        keyPicker(RegularBattalions, ['Vanguard Justicar Conclave', 'Vanguard Angelos Conclave']),
-      ],
+      battalions: [keyPicker(RegularBattalions, ['Vanguard Justicar Conclave', 'Vanguard Angelos Conclave'])],
       units: [keyPicker(units, ['Lord-Aquilor'])],
     },
     effects: [
@@ -436,7 +434,7 @@ const SuperBattalions = {
   },
   'Hammerhands Warrior Chamber': {
     mandatory: {
-      battallions: [
+      battalions: [
         keyPicker(RegularBattalions, ['Lords of the Storm', 'Thunderhead Brotherhood', 'Hammerstrike Force']),
       ],
     },
@@ -455,7 +453,7 @@ const SuperBattalions = {
   },
   'Warrior Chamber': {
     mandatory: {
-      battallions: [
+      battalions: [
         keyPicker(RegularBattalions, ['Lords of the Storm', 'Thunderhead Brotherhood', 'Hammerstrike Force']),
       ],
     },
@@ -469,7 +467,7 @@ const SuperBattalions = {
   },
   'Steel Souls Warrior Chamber': {
     mandatory: {
-      battallions: [
+      battalions: [
         keyPicker(RegularBattalions, ['Lords of the Storm', 'Thunderhead Brotherhood', 'Hammerstrike Force']),
       ],
     },
@@ -483,7 +481,7 @@ const SuperBattalions = {
   },
   'Harbinger Chamber': {
     mandatory: {
-      battallions: [keyPicker(RegularBattalions, ['Lords of the Storm', 'Vanguard Wing'])],
+      battalions: [keyPicker(RegularBattalions, ['Lords of the Storm', 'Vanguard Wing'])],
     },
     effects: [
       {
@@ -495,7 +493,7 @@ const SuperBattalions = {
   },
   'Exemplar Chamber': {
     mandatory: {
-      battallions: [keyPicker(RegularBattalions, ['Lords of the Storm', 'Devastation Brotherhood'])],
+      battalions: [keyPicker(RegularBattalions, ['Lords of the Storm', 'Devastation Brotherhood'])],
     },
     effects: [
       {
@@ -507,7 +505,7 @@ const SuperBattalions = {
   },
   'Extremis Chamber': {
     mandatory: {
-      battallions: [
+      battalions: [
         keyPicker(RegularBattalions, ['Lightning Echelon', 'Thunderwave Echelon', 'Drakesworn Temple']),
       ],
     },

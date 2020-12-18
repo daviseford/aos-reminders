@@ -1,9 +1,8 @@
 import { mergeParentEffectObjs } from 'factions/temporaryAdapter'
 import { sortBy, uniqBy } from 'lodash'
 import { IArmy, TCollection, TInitialArmy } from 'types/army'
-import { TEffects, TEntry } from 'types/data'
+import { lowerToUpperLookup, TEffects, TEntry } from 'types/data'
 import { TSelectionTypes } from 'types/selections'
-import { lowerToUpperLookup } from 'utils/import/removeSideEffectsFromImport'
 
 /**
  * There are spells/artifacts/etc that only occur if a certain
@@ -28,8 +27,6 @@ export const getCollection = (army: TInitialArmy): TCollection => {
   }
 
   if (!army) return Collection
-
-  const { SubFaction } = army
 
   // Brute force it
   const types = [
@@ -76,7 +73,7 @@ export const getCollection = (army: TInitialArmy): TCollection => {
   }
 
   // Check the subfaction, and then each group of items beneath it
-  checkForMandatoryItems(SubFaction)
+  checkForMandatoryItems(army.SubFaction)
   types.forEach(x => x?.forEach(checkForMandatoryItems))
 
   return {

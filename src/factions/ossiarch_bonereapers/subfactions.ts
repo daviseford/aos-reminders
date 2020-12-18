@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import { pickEffects } from 'factions/metatagger'
 import { OSSIARCH_BONEREAPERS } from 'meta/factions'
 import Artifacts from './artifacts'
@@ -12,7 +11,7 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [OSSIARCH_BONEREAPERS]: {
     effects: pickEffects(BattleTraits, ['The Ossiarch Empire']),
     available: {

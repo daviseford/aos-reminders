@@ -1,12 +1,12 @@
 import { uniq } from 'lodash'
 import { IArmy } from 'types/army'
+import { lowerToUpperLookup } from 'types/data'
 import { TImportError } from 'types/import'
 import { TSelections, TSelectionTypes } from 'types/selections'
 import { checkImportSelection } from 'utils/import/checkImportSelection'
-import { importUnitOptionMap, TNameMap } from 'utils/import/options'
+import { importUnitOptionMap } from 'utils/import/options'
 import { Validators } from 'utils/import/validators'
 import { mapListToDict } from 'utils/mapListToDict'
-import { lowerToUpperLookup } from './removeSideEffectsFromImport'
 
 export const importSelectionLookup = (
   Army: IArmy,
@@ -15,7 +15,7 @@ export const importSelectionLookup = (
   unknownSelections: string[],
   foundSelections: string[],
   checkPoorSpacing: boolean,
-  typoMap: TNameMap
+  typoMap: Record<string, string>
 ) => (type: TSelectionTypes): string[] => {
   const Names: string[] = Army[lowerToUpperLookup[type]].map(({ name }) => name)
   const NameMap = mapListToDict(Names)

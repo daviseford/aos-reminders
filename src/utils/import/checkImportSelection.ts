@@ -1,15 +1,14 @@
 import { TImportError } from 'types/import'
-import { TNameMap } from 'utils/import/options'
 import { Validators } from 'utils/import/validators'
 import { createWarning } from 'utils/import/warnings'
 
 export const checkImportSelection = (
   Names: string[],
-  NameMap: TNameMap,
+  NameMap: Record<string, string>,
   errors: TImportError[],
   logError: boolean = true,
   checkPoorSpacing: boolean,
-  typoMap: TNameMap
+  typoMap: Record<string, string>
 ) => {
   const validators = Validators(Names)
 

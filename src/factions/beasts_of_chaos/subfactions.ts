@@ -1,4 +1,3 @@
-import { TItemDescriptions } from 'factions/factionTypes'
 import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import { BEASTS_OF_CHAOS } from 'meta/factions'
 import { keyPicker, pickEffects } from '../metatagger'
@@ -13,7 +12,7 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions: TItemDescriptions = {
+const subFactions = {
   [BEASTS_OF_CHAOS]: {
     effects: pickEffects(BattleTraits, ['Beasts Of Chaos']),
 

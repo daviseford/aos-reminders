@@ -1,38 +1,9 @@
 import { difference } from 'lodash'
-import { IArmy, TCollection } from 'types/army'
+import { IArmy } from 'types/army'
+import { lowerToUpperLookup } from 'types/data'
 import { TImportParsers } from 'types/import'
 import { TSelections, TSelectionTypes } from 'types/selections'
 import { logIgnoredImport } from 'utils/analytics'
-
-export const lowerToUpperLookup: Record<TSelectionTypes, keyof TCollection> = {
-  artifacts: 'Artifacts',
-  battalions: 'Battalions',
-  command_abilities: 'CommandAbilities',
-  command_traits: 'CommandTraits',
-  endless_spells: 'EndlessSpells',
-  flavors: 'Flavors',
-  mount_traits: 'MountTraits',
-  prayers: 'Prayers',
-  scenery: 'Scenery',
-  spells: 'Spells',
-  triumphs: 'Triumphs',
-  units: 'Units',
-}
-
-export const upperToLowerLookup: Record<keyof TCollection, TSelectionTypes> = {
-  Artifacts: 'artifacts',
-  Battalions: 'battalions',
-  CommandAbilities: 'command_abilities',
-  CommandTraits: 'command_traits',
-  EndlessSpells: 'endless_spells',
-  Flavors: 'flavors',
-  MountTraits: 'mount_traits',
-  Prayers: 'prayers',
-  Scenery: 'scenery',
-  Spells: 'spells',
-  Triumphs: 'triumphs',
-  Units: 'units',
-}
 
 /**
  * Remove side effects (such as spells, artifacts, etc) from our imported selections
