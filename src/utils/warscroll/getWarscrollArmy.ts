@@ -336,23 +336,29 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         })
         if (stop_processing) return accum
 
-        const spellPrefixes = [
-          '- Lore of Gutmagic : ',
-          '- Lore of Hysh : ',
-          '- Lore of Invigoration : ',
-          '- Lore of Invigoration: ',
-          '- Lore of Slaanesh : ',
-          '- Lore of the High Peaks : ',
-          '- Lore of the Savage Beast : ',
-          '- Lore of the Weird : ',
-        ]
-        spellPrefixes.forEach(val => {
-          if (txt.startsWith(val)) {
-            const spell = txt.replace(val, '').trim()
-            accum.spells.push(spell)
-            stop_processing = true
-          }
-        })
+        if (txt.match(/^- Lore of .+ ?: /)) {
+          const spell = txt.replace(/^- Lore of .+ ?: /, '').trim()
+          accum.spells.push(spell)
+          stop_processing = true
+        }
+
+        // const spellPrefixes = [
+        //   '- Lore of Gutmagic : ',
+        //   '- Lore of Hysh : ',
+        //   '- Lore of Invigoration : ',
+        //   '- Lore of Invigoration: ',
+        //   '- Lore of Slaanesh : ',
+        //   '- Lore of the High Peaks : ',
+        //   '- Lore of the Savage Beast : ',
+        //   '- Lore of the Weird : ',
+        // ]
+        // spellPrefixes.forEach(val => {
+        //   if (txt.startsWith(val)) {
+        //     const spell = txt.replace(val, '').trim()
+        //     accum.spells.push(spell)
+        //     stop_processing = true
+        //   }
+        // })
         if (stop_processing) return accum
 
         debugger
