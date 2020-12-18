@@ -11,7 +11,25 @@ import { ISideEffectsPayload } from 'utils/withSelect'
  * @param Army
  */
 export const addSideEffectsToImport = (selections: TSelections, Army: IArmy): TSelections => {
-  const sideEffects: Record<TSelectionTypes, ISideEffectsPayload> = {
+  // Handle subfaction side effects
+  const subFactionSideEffects = getSideEffects([Army.SubFaction])
+
+  Object.entries(subFactionSideEffects[Army.SubFaction.name]).forEach(([slice, obj]) => {
+    if (!selections[slice]) {
+      if (isDev) {
+        console.warn(
+          `Invalid side effect key: '${slice}'. It probably is a typo in this subfaction's files: "${Army.SubFaction.name}"`
+        )
+        debugger // If you've arrived here (as a dev), you need to fix the above error - no excuses.
+      }
+      return // Ignore bad values
+    }
+    if (!obj?.values) return
+    selections[slice] = uniq(selections[slice].concat(obj.values))
+  })
+
+  // Handle selection side effects
+  const selectionSideEffects: Record<TSelectionTypes, ISideEffectsPayload> = {
     artifacts: getSideEffects(Army.Artifacts),
     battalions: getSideEffects(Army.Battalions),
     command_abilities: getSideEffects(Army.CommandAbilities),
@@ -26,8 +44,8 @@ export const addSideEffectsToImport = (selections: TSelections, Army: IArmy): TS
     units: getSideEffects(Army.Units),
   }
 
-  Object.keys(sideEffects).forEach(slice => {
-    const effectsObj = sideEffects[slice as TSelectionTypes]
+  Object.keys(selectionSideEffects).forEach(slice => {
+    const effectsObj = selectionSideEffects[slice as TSelectionTypes]
 
     selections[slice].forEach((name: string) => {
       if (!effectsObj[name]) return
@@ -40,7 +58,7 @@ export const addSideEffectsToImport = (selections: TSelections, Army: IArmy): TS
             console.warn(
               `Invalid side effect key: '${effectSlice}'. It probably is a typo in this subfaction's files: "${Army.SubFaction.name}"`
             )
-            debugger // If you've arrived here, you need to fix the above error - no excuses.
+            debugger // If you've arrived here (as a dev), you need to fix the above error - no excuses.
           }
           return // Ignore bad values
         }

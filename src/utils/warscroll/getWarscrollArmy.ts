@@ -1,6 +1,4 @@
 import { SeraphonFaction } from 'factions/seraphon'
-import { SlaaneshFaction } from 'factions/slaanesh'
-import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import GenericScenery from 'generic_rules/scenery'
 import { last, uniq } from 'lodash'
@@ -28,15 +26,11 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   return errorChecked
 }
 
-const getAllegianceTypes = () => {
-  return uniq(
-    Object.values(getFactionList())
-      .map(v => (v.AggregateArmy.FlavorType || '').replace(/s$/, '')) // Remove trailing s
-      .filter(x => !!x)
-  )
-}
-
-const flavorTypes = getAllegianceTypes()
+const flavorTypes = uniq(
+  Object.values(getFactionList())
+    .map(v => (v.AggregateArmy.FlavorType || '').replace(/s$/, '')) // Remove trailing s
+    .filter(x => !!x)
+)
 
 const unitIndicatorsPdf = [
   'Artillery',
@@ -300,26 +294,6 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           let val = txt.replace(`- ${t}: `, '').trim()
 
           if (val && val !== 'None' && txt.startsWith(`- ${t}: `)) {
-            // Handle Slaanesh
-            if (factionName === SLAANESH) {
-              val = val.replace(/ Host$/, '').trim() // Change Pretenders Host -> Pretenders
-              if (SlaaneshFaction.subFactionKeyMap[val]) {
-                subFactionName = val
-                stop_processing = true
-                return
-              }
-            }
-
-            // Handle StD
-            if (factionName === SLAVES_TO_DARKNESS) {
-              if (val === 'Knights of the Empty Throne') val = `The ${val}` // Fix for Knights
-              if (SlavesToDarknessFaction.subFactionKeyMap[val]) {
-                subFactionName = val
-                stop_processing = true
-                return
-              }
-            }
-
             // Handle SCE Subfactions
             if (factionName === STORMCAST_ETERNALS && val.includes('(Stormkeep)')) {
               const sceFlavor = val.replace(/\(Stormkeep\)$/g, '(Stormhost)')
@@ -331,6 +305,12 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
             // Generic subfaction checker
             if (isValidFactionName(factionName)) {
+              // Need to do something faction-specific to the value? Do it here.
+              if (factionName === SLAVES_TO_DARKNESS && val === 'Knights of the Empty Throne') {
+                val = `The ${val}` // Fix for Knights
+              }
+              if (factionName === SLAANESH) val = val.replace(/ Host$/, '').trim() // Change Pretenders Host -> Pretenders
+
               const _Faction = getFactionFromList(factionName)
               if (_Faction.subFactionKeyMap[val]) {
                 subFactionName = val
@@ -346,7 +326,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         })
         if (stop_processing) return accum
 
-        const commandTraitPrefixes = ['- Host Option : ']
+        const commandTraitPrefixes = ['- Host Option : ', '- Big Name : ']
         commandTraitPrefixes.forEach(val => {
           if (txt.startsWith(val)) {
             const command_trait = txt.replace(val, '').trim()
@@ -357,7 +337,9 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (stop_processing) return accum
 
         const spellPrefixes = [
+          '- Lore of Gutmagic : ',
           '- Lore of Hysh : ',
+          '- Lore of Invigoration : ',
           '- Lore of Invigoration: ',
           '- Lore of Slaanesh : ',
           '- Lore of the High Peaks : ',

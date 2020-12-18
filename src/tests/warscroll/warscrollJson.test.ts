@@ -1,4 +1,5 @@
 import { OrrukWarclansFaction } from 'factions/orruk_warclans'
+import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { readFileSync } from 'fs'
 import {
   BEASTS_OF_CHAOS,
@@ -40,26 +41,13 @@ const getFile = (filename: string): string[] => {
 describe('getWarscrollArmyFromJson', () => {
   // TODO: Add Stoneklaw's Gutstompas
   // https://github.com/daviseford/aos-reminders/issues/1053
-  xit('should correctly read 1601977490829-Warscroll_Builder', () => {
+  it.skip('should correctly read 1601977490829-Warscroll_Builder', () => {
     const parsedText = getFile('1601977490829-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([
       // {
       //   severity: 'error',
       //   text: "Stoneklaw's Gutstompas are not supported.",
-      // },
-    ])
-  })
-
-  // TODO: Add War Hydra
-  // https://github.com/daviseford/aos-reminders/issues/1054
-  xit('should correctly read 1603491054480-Warscroll_Builder', () => {
-    const parsedText = getFile('1603491054480-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      // {
-      //   severity: 'warn',
-      //   text: 'War Hydra',
       // },
     ])
   })
@@ -92,7 +80,7 @@ describe('getWarscrollArmyFromJson', () => {
   })
 
   // TODO: Whenever this warscroll is added to Azyr
-  xit('should correctly read 1599246202410-Warscroll_Builder', () => {
+  it.skip('should correctly read 1599246202410-Warscroll_Builder', () => {
     const parsedText = getFile('1599246202410-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([
@@ -130,21 +118,12 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  xit('should correctly read 1594377130100-Warscroll_Builder', () => {
+  it('should correctly read 1594377130100-Warscroll_Builder', () => {
     const parsedText = getFile('1594377130100-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.artifacts).toContain('Tyrant Slayer')
     expect(res.selections.command_traits).toContain('Warrior Indominate')
-    expect(res.errors).toEqual([
-      // {
-      //   "severity": "warn",
-      //   "text": "Tyrant Slayer",
-      // },
-      // {
-      //   "severity": "warn",
-      //   "text": "Warrior Indominate",
-      // },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1596572409302-Warscroll_Builder', () => {
@@ -212,6 +191,8 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1592831552808-Warscroll_Builder', () => {
     const parsedText = getFile('1592831552808-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.command_traits).toContain('Fateseeker (Big Name)')
+    expect(res.selections.command_traits).toContain('Killer Reputation')
     expect(res.selections.command_traits).toContain('Longstrider (Big Name)')
     expect(res.errors).toEqual([])
   })
@@ -270,17 +251,9 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1594377996514-Warscroll_Builder', () => {
     const parsedText = getFile('1594377996514-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    // TODO: console.log this and check it
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Tyrant Slayer',
-      },
-      {
-        severity: 'warn',
-        text: 'Warrior Indominate',
-      },
-    ])
+    expect(res.selections.command_traits).toContain('Warrior Indominate')
+    expect(res.selections.artifacts).toContain('Tyrant Slayer')
+    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1594797695246-Warscroll_Builder', () => {
@@ -416,13 +389,12 @@ describe('getWarscrollArmyFromJson', () => {
   })
 
   // TODO Legacy Death composition
-  xit('should work with Legacy Death composition', () => {
+  it.skip('should work with Legacy Death composition', () => {
     const parsedText = getFile('1587313852365-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  // TODO: Legacy High Elf units
   it('should work with Legacy High Elf units', () => {
     const parsedText = getFile('1586991704763-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -497,7 +469,18 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1582909138740-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.artifacts).toContain("A'rgath, the King of Blades")
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Varanguard can belong to Nurgle or Slaanesh or Slaves To Darkness or Tzeentch. Please add this unit manually.',
+      },
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Chaos Knights can belong to Nurgle or Slaanesh or Slaves To Darkness or Tzeentch. Please add this unit manually.',
+      },
+    ])
   })
 
   it('should work with Bracers of Ember Iron', () => {
@@ -988,14 +971,14 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
-    expect(res.subFactionName).toEqual('Cabalists')
+    expect(res.subFactionName).toEqual(SlavesToDarknessFaction.subFactionKeyMap.Cabalists)
     expect(res.origin_realm).toEqual(ULGU)
 
     expect(res.selections).toEqual({
       flavors: [],
       mount_traits: [],
       prayers: ['Favour of the Ruinous Powers'],
-      artifacts: ['Scroll of Dark Unravelling', 'Soul Feeder'],
+      artifacts: ['Scroll of Dark Unravelling'],
       battalions: ['Godswrath Warband'],
       command_abilities: ['Spurred by the Gods'],
       endless_spells: ['Eightfold Doom-Sigil'],
@@ -1009,7 +992,7 @@ describe('getWarscrollArmyFromJson', () => {
         'Winds of Chaos',
         'Daemonic Power',
       ],
-      command_traits: ['Mighty Ritualist', 'All for One'],
+      command_traits: ['Mighty Ritualist'],
       triumphs: [],
       units: [
         'Chaos Lord',
@@ -1268,8 +1251,8 @@ describe('getWarscrollArmyFromJson', () => {
       'Azyrite Halo',
       'Celestial Blades',
       'Terrifying Aspect',
-      'Healing Light',
       'Empower',
+      'Healing Light',
     ])
     expect(res.selections.units).toEqual([
       'Lord-Celestant',
@@ -1693,7 +1676,7 @@ describe('getWarscrollArmyFromJson', () => {
     ])
   })
 
-  xit('should work with Voltik', () => {
+  it.skip('should work with Voltik', () => {
     const parsedText = getFile('1571158898802-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 

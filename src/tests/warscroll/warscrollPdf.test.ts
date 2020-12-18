@@ -1,3 +1,5 @@
+import { OrrukWarclansFaction } from 'factions/orruk_warclans'
+import { SeraphonFaction } from 'factions/seraphon'
 import { readFileSync } from 'fs'
 import {
   CHAOS_GRAND_ALLIANCE,
@@ -262,7 +264,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(SERAPHON)
-    expect(res.subFactionName).toEqual('Starborne')
+    expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Starborne)
     expect(res.selections.flavors).toContain('Fangs of Sotek')
     expect(res.selections.units).toContain('Lord Kroak')
     expect(res.selections.units).toContain('Saurus Astrolith Bearer')
@@ -436,7 +438,7 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.selections.flavors).toContain("Dracothion's Tail")
-    expect(res.subFactionName).toEqual('Starborne')
+    expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Starborne)
     expect(res.errors).toEqual([])
   })
 
@@ -447,7 +449,7 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.selections.flavors).toContain("Koatl's Claw")
-    expect(res.subFactionName).toEqual('Coalesced') // auto-added because of Koatl's Claw
+    expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced) // auto-added because of Koatl's Claw
     expect(res.errors).toEqual([])
   })
 
@@ -651,8 +653,7 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  // TODO: Fix
-  xit('reads Fyreslayers battalions properly', () => {
+  it('reads Fyreslayers battalions properly', () => {
     const pdfText = getFile('3droth2k')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -702,16 +703,16 @@ describe('getWarscrollArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
-        artifacts: [],
+        artifacts: ['Daemon Flask'],
         battalions: [],
-        command_abilities: [],
+        command_abilities: ['Shout of Command'],
+        command_traits: ['Unrelenting Conqueror'],
         endless_spells: [],
         flavors: [],
         mount_traits: [],
         prayers: [],
         scenery: [],
         spells: ['Miasma of Pestilence'],
-        command_traits: [],
         triumphs: [],
         units: ['Bloab Rotspawned', 'Chaos Chariots', 'Plague Censer Bearers'],
       },
@@ -865,12 +866,12 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual('Big Waaagh')
+    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
     expect(res.selections).toEqual({
       flavors: [],
       artifacts: ['Savage Trophy', "Glowin' Tattooz", 'Mystic Waaagh! Paint', 'Kattanak Pelt'],
       battalions: ["Kunnin' Rukk"],
-      command_abilities: ['Voice of Gork', 'Savage Attack'],
+      command_abilities: ['Da Big Waaagh!!!', 'Voice of Gork', 'Savage Attack'],
       endless_spells: [],
       scenery: [],
       spells: [
@@ -1101,12 +1102,18 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual('Ironjawz')
+    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Ironjawz)
     expect(res.selections).toEqual({
       flavors: ['Da Choppas'],
       artifacts: ['Destroyer', 'Megaskull Staff'],
       battalions: [],
-      command_abilities: ['Rabble Rouser', 'Voice of Gork', 'Go on Ladz, Get Stuck In!'],
+      command_abilities: [
+        'Mighty Destroyers',
+        'Ironjawz Waaaagh!',
+        'Rabble Rouser',
+        'Voice of Gork',
+        'Go on Ladz, Get Stuck In!',
+      ],
       endless_spells: [],
       mount_traits: ["Fast 'Un"],
       prayers: [],
