@@ -1,9 +1,11 @@
 import { KharadronOverlordsFaction } from 'factions/kharadron_overlords'
 import { uniq } from 'lodash'
-import { TSupportedFaction } from 'meta/factions'
+import { SLAANESH, SLAVES_TO_DARKNESS, TSupportedFaction } from 'meta/factions'
+import { getFactionFromList } from 'meta/faction_list'
 import { AZYR, IImportedArmy } from 'types/import'
 import { TBattleRealms } from 'types/realmscapes'
 import { TSelections, TSelectionTypes } from 'types/selections'
+import { isValidFactionName } from 'utils/armyUtils'
 import { importErrorChecker } from 'utils/import'
 import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 import { factionToFlavorMap, importFactionNameMap } from 'utils/import/options'
@@ -31,21 +33,18 @@ const selectorLookup: Record<string, TSelectionTypes> = {
 
 const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   let factionName = ''
+  let subFactionName = ''
   let realmscape: TBattleRealms | null = null
   let allyUnits: string[] = []
   let unknownSelections: string[] = []
 
   const selections = pages.reduce(
     (accum, name) => {
-      // TODO!
       if (name.startsWith('FACTION:')) {
-        const { faction, flavor } = getFactionName(name)
-        if (faction) {
-          factionName = faction
-        }
-        if (flavor) {
-          accum.flavors = accum.flavors.concat(flavor)
-        }
+        const lookup = getFactionName(name)
+        if (lookup.factionName) factionName = lookup.factionName
+        if (lookup.subFactionName) subFactionName = lookup.subFactionName
+        if (lookup.flavor) accum.flavors = accum.flavors.concat(lookup.flavor)
         return accum
       }
 
@@ -77,6 +76,26 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
         const footnotes = handleKOTraits(name)
         accum.command_traits = accum.command_traits.concat(footnotes)
         return accum
+      }
+
+      // Flavor/Subfaction checker
+      if (name.startsWith('ALLEGIANCE:') && isValidFactionName(factionName)) {
+        let txt = name.replace('ALLEGIANCE:', '').trim()
+
+        console.log('potential', txt)
+
+        // Need to do something faction-specific to the value? Do it here.
+        if (factionName === SLAVES_TO_DARKNESS && txt === 'Knights of the Empty Throne') {
+          txt = `The ${txt}` // Fix for Knights
+        }
+        if (factionName === SLAANESH) txt = txt.replace(/ Host$/, '').trim() // Change Pretenders Host -> Pretenders
+
+        const _Faction = getFactionFromList(factionName)
+        if (_Faction.subFactionKeyMap[txt]) {
+          subFactionName = txt
+          console.log('Found something', txt)
+          return accum
+        }
       }
 
       let found = false
@@ -116,7 +135,7 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
     allyUnits: uniq(allyUnits),
     errors: [],
     factionName: factionName as TSupportedFaction,
-    subFactionName: '', // TODO
+    subFactionName,
     origin_realm: null,
     realmscape_feature: null,
     realmscape,
@@ -125,13 +144,16 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   }
 }
 
-const getFactionName = (val: string): { faction: string | null; flavor: string | null } => {
-  const name = val.replace('FACTION: ', '')
-  const faction = importFactionNameMap[name]?.factionName || null
-  // TODO: Also return subFactionName
-  if (!faction) console.error('ALERT: Missing this faction: ' + name)
-  const flavor = faction ? factionToFlavorMap[name] : null
-  return { faction, flavor }
+const getFactionName = (
+  val: string
+): { factionName: string | null; subFactionName: string | null; flavor: string | null } => {
+  const name = val.replace('FACTION: ', '').trim()
+  const lookup = importFactionNameMap[name]
+  const factionName = lookup?.factionName || null
+  const subFactionName = lookup?.subFactionName || null
+  if (!factionName) console.error('ALERT: Missing this faction: ' + name)
+  const flavor = factionName ? factionToFlavorMap[name] : null
+  return { factionName, subFactionName, flavor }
 }
 
 const handleKOTraits = (name: string): string[] => {
