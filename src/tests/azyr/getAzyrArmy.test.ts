@@ -594,6 +594,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('KO9')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.flavors).toContain('Barak-Urbaz, The Market City (Skyport)')
     expect(res.selections.artifacts).toContain('Breath of Morgrim')
     expect(res.errors).toEqual([])
   })
@@ -1058,10 +1059,10 @@ describe('getAzyrArmyFromPdf', () => {
         flavors: [],
         artifacts: [],
         battalions: [],
-        command_abilities: ['Dark Prophecy', 'By My Will', 'All-seeing Dominion', 'Spurred by the Gods'],
+        command_abilities: ['Dark Prophecy', 'All-seeing Dominion', 'By My Will', 'Spurred by the Gods'],
         endless_spells: [],
         scenery: [],
-        spells: ['Crippling Ruin'],
+        spells: [],
         command_traits: [],
         triumphs: [],
         units: [
@@ -1083,7 +1084,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
-    expect(res.selections.flavors).toEqual(['Cabalists'])
+    expect(res.subFactionName).toEqual(SlavesToDarknessFaction.subFactionKeyMap.Cabalists)
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
@@ -1104,7 +1105,7 @@ describe('getAzyrArmyFromPdf', () => {
       allyUnits: [],
       errors: [],
       factionName: SLAVES_TO_DARKNESS,
-      subFactionName: 'Host of the Everchosen',
+      subFactionName: SlavesToDarknessFaction.subFactionKeyMap['Host of the Everchosen'],
       origin_realm: null,
       realmscape_feature: null,
       realmscape: null,
@@ -1114,10 +1115,10 @@ describe('getAzyrArmyFromPdf', () => {
         flavors: [],
         artifacts: [],
         battalions: [],
-        command_abilities: ['Dark Prophecy', 'By My Will', 'All-seeing Dominion'],
+        command_abilities: ['Dark Prophecy', 'All-seeing Dominion', 'By My Will'],
         endless_spells: ['Eightfold Doom-Sigil'],
         scenery: [],
-        spells: ['Whispers of Chaos', 'Crippling Ruin'],
+        spells: ['Whispers of Chaos'],
         command_traits: [],
         triumphs: [],
         units: ['Archaon the Everchosen', 'Varanguard'],
