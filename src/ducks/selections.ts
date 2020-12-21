@@ -1,27 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { uniq, without } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
+import DefaultAppState from 'store/initialAppState'
 import { TSelectionTypes } from 'types/selections'
-import { ISelectionStore, IStore, TAllySelectionStore } from 'types/store'
-
-const initialState: ISelectionStore = {
-  selections: {
-    artifacts: [],
-    battalions: [],
-    command_abilities: [],
-    command_traits: [],
-    endless_spells: [],
-    flavors: [],
-    mount_traits: [],
-    prayers: [],
-    scenery: [],
-    spells: [],
-    triumphs: [],
-    units: [],
-  },
-  allySelections: {},
-  sideEffects: {},
-}
+import { IStore, TAllySelectionStore } from 'types/store'
 
 type TAddToSelectionsAction = {
   payload: {
@@ -33,9 +15,9 @@ type TAddToSelectionsAction = {
 
 const selections = createSlice({
   name: 'selections',
-  initialState,
+  initialState: DefaultAppState.selections,
   reducers: {
-    resetAllSelections: () => initialState,
+    resetAllSelections: () => DefaultAppState.selections,
     deleteAllySelection: (state, action: PayloadAction<TSupportedFaction>) => {
       delete state.allySelections[action.payload]
     },
@@ -43,13 +25,13 @@ const selections = createSlice({
       state.allySelections[action.payload] = { units: [], battalions: [] }
     },
     resetAllySelections: state => {
-      state.allySelections = initialState.allySelections
+      state.allySelections = DefaultAppState.selections.allySelections
     },
     resetSelections: state => {
-      state.selections = initialState.selections
+      state.selections = DefaultAppState.selections.selections
     },
     resetSideEffects: state => {
-      state.sideEffects = initialState.sideEffects
+      state.sideEffects = DefaultAppState.selections.sideEffects
     },
     updateAllyUnits: (state, action: PayloadAction<{ factionName: TSupportedFaction; units: string[] }>) => {
       const { factionName, units } = action.payload

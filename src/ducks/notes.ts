@@ -1,17 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { uniq } from 'lodash'
+import DefaultAppState from 'store/initialAppState'
 import { INote } from 'types/notes'
-import { INotesStore } from 'types/store'
-
-const initialState: INotesStore = {
-  notes: [],
-}
 
 const notes = createSlice({
   name: 'notes',
-  initialState,
+  initialState: DefaultAppState.notes,
   reducers: {
-    resetNotes: () => initialState,
+    resetNotes: () => DefaultAppState.notes,
     addNote: (state, action: PayloadAction<INote>) => {
       state.notes = uniq([...state.notes, action.payload])
     },

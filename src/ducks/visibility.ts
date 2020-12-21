@@ -1,17 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { uniq, without } from 'lodash'
-import { IVisibilityStore } from 'types/store'
-
-const initialState: IVisibilityStore = {
-  allies: [],
-  reminders: [],
-  selectors: [],
-  when: [],
-}
+import DefaultAppState from 'store/initialAppState'
 
 const visibility = createSlice({
   name: 'visibility',
-  initialState,
+  initialState: DefaultAppState.visibility,
   reducers: {
     addSelector: (state, action: PayloadAction<string>) => {
       state.selectors = uniq([...state.selectors, action.payload])
@@ -47,10 +40,10 @@ const visibility = createSlice({
       state.when = without(state.when, ...action.payload)
     },
     clearWhen: state => {
-      state.when = initialState.when
+      state.when = DefaultAppState.visibility.when
     },
     clearReminders: state => {
-      state.reminders = initialState.reminders
+      state.reminders = DefaultAppState.visibility.reminders
     },
   },
 })

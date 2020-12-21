@@ -1,15 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { SUPPORTED_FACTIONS } from 'meta/factions'
+import DefaultAppState from 'store/initialAppState'
 import { IFactionNameStore } from 'types/store'
-
-const initialState: IFactionNameStore = {
-  factionName: SUPPORTED_FACTIONS[0],
-  subFactionName: '', // TODO: Can we fetch this?
-}
 
 const factionNames = createSlice({
   name: 'factionNames',
-  initialState,
+  initialState: DefaultAppState.factionNames,
   reducers: {
     setFactionName: (state, action: PayloadAction<IFactionNameStore['factionName']>) => {
       state.factionName = action.payload

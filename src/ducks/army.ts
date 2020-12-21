@@ -1,48 +1,22 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { TSupportedFaction } from 'meta/factions'
-import { Game } from 'meta/game_structure'
+import DefaultAppState from 'store/initialAppState'
 import { IArmy } from 'types/army'
-import { IArmyStore } from 'types/store'
 import { getArmy } from 'utils/getArmy/getArmy'
-
-const initialState: IArmyStore = {
-  army: {
-    Artifacts: [],
-    Battalions: [],
-    BattleTraits: [],
-    CommandAbilities: [],
-    CommandTraits: [],
-    EndlessSpells: [],
-    Flavors: [],
-    FlavorType: '',
-    Game: Game,
-    MountTraits: [],
-    Prayers: [],
-    Scenery: [],
-    Spells: [],
-    SubFaction: {
-      name: '',
-      effects: [],
-    },
-    Triumphs: [],
-    Units: [],
-  },
-  allyArmies: {},
-}
 
 const army = createSlice({
   name: 'army',
-  initialState,
+  initialState: DefaultAppState.army,
   reducers: {
     deleteAllyArmy: (state, action: PayloadAction<TSupportedFaction>) => {
       delete state.allyArmies[action.payload]
     },
-    resetAllArmies: () => initialState,
+    resetAllArmies: () => DefaultAppState.army,
     resetAllyArmies: state => {
-      state.allyArmies = initialState.allyArmies
+      state.allyArmies = DefaultAppState.army.allyArmies
     },
     resetArmy: state => {
-      state.army = initialState.army
+      state.army = DefaultAppState.army.army
     },
     switchAllyArmy: (state, action: PayloadAction<{ next: TSupportedFaction; prev: TSupportedFaction }>) => {
       const { next, prev } = action.payload

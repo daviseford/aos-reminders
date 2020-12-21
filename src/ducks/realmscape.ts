@@ -1,12 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import DefaultAppState from 'store/initialAppState'
 import { SUPPORTED_BATTLE_REALMS, TBattleRealms, TOriginRealms } from 'types/realmscapes'
-import { IRealmscapeStore } from 'types/store'
-
-const initialState: IRealmscapeStore = {
-  origin_realm: null,
-  realmscape: null,
-  realmscape_feature: null,
-}
 
 const getRealmscapeFromFeature = (feature: string): TBattleRealms | null => {
   return SUPPORTED_BATTLE_REALMS.find(realm => feature.includes(realm)) || null
@@ -14,9 +8,9 @@ const getRealmscapeFromFeature = (feature: string): TBattleRealms | null => {
 
 const realmscape = createSlice({
   name: 'realmscape',
-  initialState,
+  initialState: DefaultAppState.realmscape,
   reducers: {
-    resetRealmscapeStore: () => initialState,
+    resetRealmscapeStore: () => DefaultAppState.realmscape,
 
     setOriginRealm: (state, action: PayloadAction<TOriginRealms | null>) => {
       state.origin_realm = action.payload
