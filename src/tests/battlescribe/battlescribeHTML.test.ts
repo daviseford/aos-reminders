@@ -1590,6 +1590,8 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(DAUGHTERS_OF_KHAINE)
     expect(res.selections).toEqual({
+      mount_traits: [],
+      mount_traits: [],
       flavors: ['Hagg Nar (Temple)'],
       artifacts: [
         'Rune of Ulgu (Wizard)',
@@ -1844,15 +1846,15 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
-        text: 'Endless Skies',
-      },
-      {
-        severity: 'warn',
         text: 'Sledgeshock Hammer',
       },
       {
         severity: 'warn',
         text: 'Aetherstrike Force',
+      },
+      {
+        severity: 'warn',
+        text: 'Endless Skies',
       },
     ])
   })
@@ -1996,11 +1998,11 @@ describe('getBattlescribeArmy', () => {
       },
       {
         severity: 'warn',
-        text: 'Lightning Echelon',
+        text: 'Impeccable Foresight',
       },
       {
         severity: 'warn',
-        text: 'Skyborne Slayers',
+        text: 'Ancient Warlord',
       },
       {
         severity: 'warn',
@@ -2008,29 +2010,38 @@ describe('getBattlescribeArmy', () => {
       },
       {
         severity: 'warn',
-        text: 'Salamanders',
-      },
-      {
-        severity: 'warn',
         text: 'Skink Handlers',
       },
     ])
-    expect(res.allySelections).toEqual({})
+    expect(res.allySelections).toEqual({
+      [STORMCAST_ETERNALS]: {
+        battalions: ['Lightning Echelon', 'Skyborne Slayers'],
+        units: [
+          'Drakesworn Templar',
+          'Knight-Zephyros',
+          'Celestar Ballista',
+          'Protectors',
+          'Vanguard-Raptors with Hurricane Crossbows',
+        ],
+      },
+    })
     expect(res.selections).toEqual({
+      prayers: [],
+      mount_traits: [],
       flavors: [],
       artifacts: ['Blade of Realities', 'Light of Dracothion'],
       battalions: [],
       command_abilities: [
         'Impeccable Foresight',
         'Ancient Warlord',
+        'Saurian Savagery',
         'Gift from the Heavens',
         'Herald of the Old Ones',
         'Wrath of the Seraphon',
-        'Saurian Savagery',
       ],
       endless_spells: [],
       scenery: [],
-      spells: ['Arcane Bolt', 'Mystic Shield', "Comet's Call", 'Celestial Deliverance'],
+      spells: ['Arcane Bolt', 'Celestial Deliverance', "Comet's Call", 'Mystic Shield'],
       command_traits: [],
       triumphs: [],
       units: [
@@ -2040,6 +2051,8 @@ describe('getBattlescribeArmy', () => {
         'Skink Priest',
         'Bastiladon',
         'Stegadon',
+        'Razordon Hunting Pack',
+        'Salamander Hunting Pack',
         'Saurus Guard',
         'Saurus Knights',
         'Skinks',
