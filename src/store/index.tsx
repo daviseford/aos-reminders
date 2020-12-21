@@ -26,8 +26,10 @@ const pReducer = persistReducer(
     migrate: async (state, currentVersion) => {
       if (!state) return state
 
+      const { version: oldVersion } = state._persist
+
       // pre-v4 -> v4 Migration
-      if (!currentVersion || currentVersion < 4) {
+      if (!oldVersion || oldVersion < 4 || !currentVersion || currentVersion < 4) {
         // Blow the current state away
         console.warn(
           'Outdated version of AoS Reminders detected (>=4.0.0 required). Wiping the state clean to avoid potentially fatal crashes.'
