@@ -73,7 +73,7 @@ const baseSubfaction: TItemDescription = {
 }
 
 const subFactions = {
-  Invaders: {
+  'Invaders Host': {
     effects: pickEffects(BattleTraits, ['Thrilling Compulsions', "The Despoiler's Art"]),
     available: {
       ...baseSubfaction.available,
@@ -111,7 +111,7 @@ const subFactions = {
     },
   },
 
-  Pretenders: {
+  'Pretenders Host': {
     effects: pickEffects(BattleTraits, ['Thrilling Compulsions', 'Magnificence Made Flesh']),
     available: {
       ...baseSubfaction.available,
@@ -149,7 +149,7 @@ const subFactions = {
     },
   },
 
-  Godseekers: {
+  'Godseekers Host': {
     effects: pickEffects(BattleTraits, ['Thrilling Compulsions', 'Blessings of the Gleeful Chase']),
     available: {
       ...baseSubfaction.available,
@@ -187,7 +187,7 @@ const subFactions = {
     },
   },
 
-  "Syll'Esskan": {
+  "Syll'Esskan Host": {
     effects: pickEffects(BattleTraits, ['Thrilling Compulsions', 'Vengeance Unleashed']),
     available: {
       ...baseSubfaction.available,

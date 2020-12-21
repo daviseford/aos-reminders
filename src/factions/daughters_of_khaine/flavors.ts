@@ -17,7 +17,7 @@ const Flavors = {
     },
     effects: [...pickEffects(BattleTraits, ['Bladed Killers'])],
   },
-  Kraith: {
+  'The Kraith': {
     mandatory: {
       artifacts: [keyPicker(Artifacts, ['Venom of Nagendra'])],
     },

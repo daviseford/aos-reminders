@@ -74,6 +74,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Explosize Charge': 'Explosive Charge',
   'Extend Astomatrix': 'Extend Astromatrix',
   'Eyes of the Nine': 'The Eyes of the Nine',
+  'Flash of Daemonblood': 'Flask of Daemonblood',
   'Fusil of Conflaguration': 'Fusil of Conflagration',
   'Gatebreaker Mega-Gargant': 'Gatebreaker',
   'Great Bray Shaman of Slaanesh': 'Great Bray-Shaman',

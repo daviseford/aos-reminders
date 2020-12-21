@@ -1184,7 +1184,7 @@ describe('handleAzyrPages', () => {
     const res = handleAzyrPages(fileTxt)
     expect(res).toEqual([
       'FACTION: Kharadron Overlords',
-      'ALLEGIANCE: Bar ak-Nar, City of the First Sunrise',
+      'ALLEGIANCE: Barak-Nar, City of the First Sunrise',
       'Kharadron Code: Respect y our Commanders; Trust Aethermatics, Not Superstition; Thr ough Knowledge, Power; Without Our Ships, We Ar e Naught',
       'UNIT: Aether-Khemist',
       'COMMAND TRAIT: Champion of Progress',
@@ -1790,7 +1790,7 @@ describe('handleAzyrPages', () => {
     expect(res).toEqual([
       'FACTION: Kharadron Overlords',
       // The below typo is left in place to test against later
-      'ALLEGIANCE: Bar ak-Thr yng, City of the Ancest ors',
+      'ALLEGIANCE: Barak-Thr yng, City of the Ancest ors',
       'Kharadron Code: Settle The Grudges; Trust To Your Guns; Honour The Gods, Just In Case; These Are Just Guidelines',
       'UNIT: Aether-Khemist',
       'UNIT: Aetheric Navigator',

@@ -1,6 +1,6 @@
 import { KharadronOverlordsFaction } from 'factions/kharadron_overlords'
 import { uniq } from 'lodash'
-import { SLAANESH, SLAVES_TO_DARKNESS, TSupportedFaction } from 'meta/factions'
+import { TSupportedFaction } from 'meta/factions'
 import { getFactionFromList } from 'meta/faction_list'
 import { AZYR, IImportedArmy } from 'types/import'
 import { TBattleRealms } from 'types/realmscapes'
@@ -81,22 +81,16 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
       if (name.startsWith('ALLEGIANCE:') && isValidFactionName(factionName)) {
         let txt = name.replace('ALLEGIANCE:', '').trim()
 
-        console.log('potential', txt)
-
         // Need to do something faction-specific to the value? Do it here.
-        if (factionName === SLAVES_TO_DARKNESS && txt === 'Knights of the Empty Throne') {
-          txt = `The ${txt}` // Fix for Knights
-        }
-        if (factionName === SLAANESH) txt = txt.replace(/ Host$/, '').trim() // Change Pretenders Host -> Pretenders
+        // if (factionName === SOME_FACTION) txt = txt.replace('something', '')
 
         const _Faction = getFactionFromList(factionName)
         if (_Faction.subFactionKeyMap[txt]) {
+          // If we can match this subfaction, do it!
           subFactionName = txt
-          console.log('added to subFaction', txt)
           return accum
         } else {
-          // Add to flavors instead
-          console.log('added to flavors', txt)
+          // Otherwise, add to flavors instead
           accum.flavors.push(name.replace('ALLEGIANCE:', '').trim())
         }
       }
