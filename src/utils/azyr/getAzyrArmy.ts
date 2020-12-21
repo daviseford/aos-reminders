@@ -13,7 +13,6 @@ import { titleCase } from 'utils/textUtils'
 
 export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialAzyrArmy(pdfText)
-  // console.log(army)
   const errorChecked = importErrorChecker(army, AZYR)
   return errorChecked
 }
@@ -93,8 +92,12 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
         const _Faction = getFactionFromList(factionName)
         if (_Faction.subFactionKeyMap[txt]) {
           subFactionName = txt
-          console.log('Found something', txt)
+          console.log('added to subFaction', txt)
           return accum
+        } else {
+          // Add to flavors instead
+          console.log('added to flavors', txt)
+          accum.flavors.push(name.replace('ALLEGIANCE:', '').trim())
         }
       }
 

@@ -338,11 +338,13 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('1594846214316-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections.prayers).toEqual(["Get'Em Beat", 'Killa Beat'])
+    expect(res.factionName).toEqual(ORRUK_WARCLANS)
+    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
+    expect(res.selections.prayers).toEqual(["Get 'Em Beat", 'Killa Beat'])
     expect(res.errors).toEqual([
       {
         severity: 'warn',
-        text: 'Ethereal Amulet',
+        text: 'Ethereal Amulet', // deprecated
       },
     ])
   })
