@@ -33,7 +33,11 @@ export const getFactionAndFlavors = (
   flavorInfo: IFlavorInfo[],
   factionInfo: IFactionInfo
 ): TFactionsAndFlavors => {
-  const store: TFactionsAndFlavors = { factionName: null, subFactionName: null, flavors: [] }
+  const store: TFactionsAndFlavors = {
+    factionName: isValidFactionName(factionInfo.factionName) ? factionInfo.factionName : null,
+    subFactionName: null,
+    flavors: [],
+  }
 
   flavorInfo.forEach(info => {
     if (!store.factionName) {
