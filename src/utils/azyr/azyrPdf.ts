@@ -347,6 +347,7 @@ const commonTypos = {
   'Khar adr on Ov erlor ds': 'Kharadron Overlords',
   'Khar adron': 'Kharadron',
   'L ORDS': 'LORDS',
+  'Lizar d': 'Lizard',
   'Mak er': 'Maker',
   'Master y': 'Mastery',
   'Mercenar y Company': 'Mercenary Company',
