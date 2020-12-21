@@ -1,5 +1,13 @@
+import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { uniq, without } from 'lodash'
-import { LUMINETH_REALMLORDS, TPrimaryFactions, TSupportedFaction } from 'meta/factions'
+import {
+  LEGIONS_OF_NAGASH,
+  LUMINETH_REALMLORDS,
+  SERAPHON,
+  TPrimaryFactions,
+  TSupportedFaction,
+} from 'meta/factions'
+import { getFactionFromList } from 'meta/faction_list'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { TSelections } from 'types/selections'
 import { isValidFactionName } from 'utils/armyUtils'
@@ -15,12 +23,21 @@ import {
 import { partialSearchDoc, stripParentNode } from 'utils/battlescribe/parseHTML'
 import { importFactionNameMap } from 'utils/import/options'
 
-export const getFactionAndAllegiance = (flavorInfo: IFlavorInfo[], factionInfo: IFactionInfo) => {
-  const store = { factionName: null as TSupportedFaction | null, flavors: [] as string[] }
+type TFactionsAndFlavors = {
+  factionName: TSupportedFaction | null
+  flavors: string[]
+  subFactionName: string | null
+}
+
+export const getFactionAndFlavors = (
+  flavorInfo: IFlavorInfo[],
+  factionInfo: IFactionInfo
+): TFactionsAndFlavors => {
+  const store: TFactionsAndFlavors = { factionName: null, subFactionName: null, flavors: [] }
 
   flavorInfo.forEach(info => {
     if (!store.factionName) {
-      info.flavor?.forEach(name => {
+      info.flavors?.forEach(name => {
         const y: TPrimaryFactions | string | undefined = isValidFactionName(name)
           ? name
           : importFactionNameMap[name]?.factionName
@@ -30,16 +47,16 @@ export const getFactionAndAllegiance = (flavorInfo: IFlavorInfo[], factionInfo: 
       })
     }
 
-    const mappedFaction = isValidFactionName(info.faction)
-      ? info.faction
-      : importFactionNameMap[info.faction || '']?.factionName
+    const mappedFaction = isValidFactionName(info.factionName)
+      ? info.factionName
+      : importFactionNameMap[info.factionName || '']?.factionName
 
     if (!store.factionName && isValidFactionName(mappedFaction)) {
       store.factionName = mappedFaction
     }
 
-    if (info.flavor) {
-      store.flavors = store.flavors.concat(info.flavor)
+    if (info.flavors) {
+      store.flavors = store.flavors.concat(info.flavors)
     }
   })
 
@@ -49,10 +66,22 @@ export const getFactionAndAllegiance = (flavorInfo: IFlavorInfo[], factionInfo: 
     k => importFactionNameMap[k]?.factionName === factionName
   )
 
+  // We want to ensure we're not duplicating the faction inside of flavors.
+  const fixedFlavors = without(uniq(store.flavors), factionName, ...possibleNameCollisions)
+
+  let subFactionName = store.subFactionName || factionInfo.subFactionName || ''
+  if (isValidFactionName(factionName) && !subFactionName) {
+    const _Faction = getFactionFromList(factionName)
+    const _subFactionName = store.flavors.find(x => !!_Faction.subFactionKeyMap[x])
+    if (_subFactionName) subFactionName = _subFactionName
+  }
+
+  debugger
+
   return {
     factionName,
-    // We want to ensure we're not duplicating the faction inside of flavors.
-    flavors: without(uniq(store.flavors), factionName, ...possibleNameCollisions),
+    subFactionName,
+    flavors: without(fixedFlavors, subFactionName),
   }
 }
 
@@ -106,24 +135,21 @@ export const parseFaction = (obj: IParentNode): IFactionInfo => {
     const last = rest[rest.length - 1]
 
     const factionLookup = importFactionNameMap?.[last]
-
     const factionName = factionLookup?.factionName || 'Unknown'
+    const subFactionName = factionLookup?.subFactionName || null
 
-    // TODO: Also return subFactionName
-    // if (factionLookup?.subFactionName) {
-    //   subFactionName = factionLookup.subFactionName
-    // }
+    debugger
 
-    return { grandAlliance, factionName }
+    return { grandAlliance, factionName, subFactionName }
   } catch (err) {
     console.log('There was an error detecting the faction name')
     console.error(err)
-    return { grandAlliance: null, factionName: null }
+    return { grandAlliance: null, factionName: null, subFactionName: null }
   }
 }
 
 export const parseAllegiance = (obj: IParentNode): IFlavorInfo => {
-  const flavorInfo = { faction: null as string | null, flavor: null as string[] | null }
+  const flavorInfo: IFlavorInfo = { factionName: null, flavors: null, subFactionName: null }
   try {
     const strippedObj = stripParentNode(obj) as IParentNode
     strippedObj.childNodes = strippedObj.childNodes.filter(x => isParentNode(x))
@@ -163,14 +189,16 @@ export const parseAllegiance = (obj: IParentNode): IFlavorInfo => {
 
     if (!nameObj || !isParentNode(nameObj)) {
       let flavor = flavorCategoryLookup(childNodes)
-      flavorInfo.flavor = flavor ? [flavor] : null
+      flavorInfo.flavors = flavor ? [flavor] : null
 
       if (!flavor) {
         flavor = flavorSelectionLookup(childNodes)
-        flavorInfo.flavor = flavor ? [flavor] : null
+        flavorInfo.flavors = flavor ? [flavor] : null
       }
 
-      flavorInfo.faction = factionFlavorh4Lookup(childNodes)
+      const lookup = factionH4Lookup(childNodes)
+      flavorInfo.faction = lookup.factionName
+      if (lookup.subFactionName) flavorInfo.subFactionName = lookup.subFactionName
 
       return flavorInfo
     }
@@ -179,7 +207,7 @@ export const parseAllegiance = (obj: IParentNode): IFlavorInfo => {
 
     const objs = nameObj.childNodes.slice(selectionIdx + 1)
 
-    let faction = objs
+    const factionName = objs
       .reduce((a, b) => {
         if (isParentNode(b)) return a
         a = `${a} ${b.value}`
@@ -187,26 +215,34 @@ export const parseAllegiance = (obj: IParentNode): IFlavorInfo => {
       }, '')
       .trim()
 
-    return { ...flavorInfo, faction }
+    return { ...flavorInfo, factionName }
   } catch (err) {
     return flavorInfo
   }
 }
 
-const factionFlavorh4Lookup = (childNodes: Array<IParentNode | IChildNode>): TSupportedFaction | null => {
+const factionH4Lookup = (
+  childNodes: Array<IParentNode | IChildNode>
+): { factionName: TSupportedFaction | null; subFactionName: string | null } => {
+  const emptyResponse = { factionName: null, subFactionName: null }
   try {
     // @ts-ignore
     const valNode = childNodes[2].childNodes[0].childNodes[0].childNodes[0]
 
     // @ts-ignore
-    if (childNodes[2].childNodes[0].childNodes[0].nodeName !== 'h4') return null
-    if (valNode.nodeName !== '#text') return null
+    if (childNodes[2].childNodes[0].childNodes[0].nodeName !== 'h4') return emptyResponse
+    if (valNode.nodeName !== '#text') return emptyResponse
 
-    const val = importFactionNameMap[cleanText(valNode.value)]?.factionName || null
+    const lookup = importFactionNameMap[cleanText(valNode.value)]
+    const factionName = lookup.factionName || null
+    const subFactionName = lookup.subFactionName || null
 
-    return isValidFactionName(val) ? val : null
+    return {
+      factionName: isValidFactionName(factionName) ? factionName : null,
+      subFactionName,
+    }
   } catch (err) {
-    return null
+    return emptyResponse
   }
 }
 
@@ -278,7 +314,7 @@ const flavorCategoryLookup = (childNodes: Array<IParentNode | IChildNode>): stri
 }
 
 const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
-  const flavorInfo = { faction: null, flavor: null }
+  const flavorInfo: IFlavorInfo = { factionName: null, subFactionName: null, flavors: null }
 
   let liNode = obj
 
@@ -320,7 +356,7 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
     })
 
     return accum
-  }, {} as { [key: string]: string })
+  }, {} as Record<string, string>)
 
   const liEntries = Object.keys(entries).reduce((a, key) => {
     const val = entries[key]
@@ -331,7 +367,7 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
       .trim()
     a[key] = val
     return a
-  }, {} as { [key: string]: string })
+  }, {} as Record<string, string>)
 
   const tableTags = obj.childNodes.filter(x => isParentNode(x) && x.nodeName === 'table') as IParentNode[]
 
@@ -343,7 +379,7 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
     const names = tds.map(x => x.childNodes[0].value).flat()
     a[tableName] = names
     return a
-  }, {} as { [key: string]: string[] | string })
+  }, {} as Record<string, string[] | string>)
 
   const mergedTraits = fixKeys(
     Object.keys(liEntries).reduce((a, key) => {
@@ -364,22 +400,23 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
     if (!val) return a
 
     if (key === 'Selections' && typeof val === 'string') {
-      a.flavor = [stripAllegiancePrefix(val)]
+      a.flavors = [stripAllegiancePrefix(val)]
     } else if (key === 'Categories' && typeof val === 'string') {
-      a.faction = val
+      a.factionName = val
     } else {
       a[key] = val
     }
     return a
-  }, flavorInfo as IFlavorInfo)
+  }, flavorInfo)
 
   // Soulblight hotfix
   if (
     // @ts-ignore
     obj?.childNodes[2]?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]?.value === 'Allegiance: Soulblight'
   ) {
-    // fixedKeys.faction = SOULBLIGHT
-    fixedKeys.flavor = []
+    fixedKeys.factionName = LEGIONS_OF_NAGASH
+    fixedKeys.subFactionName = LegionsOfNagashFaction.subFactionKeyMap.Soulblight
+    fixedKeys.flavors = []
   }
 
   // Seraphon hotfix
@@ -399,9 +436,10 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
         ?.replace(', Show Celestial Conjuration Table', '')
         ?.replace('Show Celestial Conjuration Table', '')
 
-    if ((way || constellation) && !fixedKeys.flavor) fixedKeys.flavor = []
-    if (way) fixedKeys.flavor?.push(way)
-    if (constellation) fixedKeys.flavor?.push(constellation)
+    if ((way || constellation) && !fixedKeys.flavors) fixedKeys.flavors = []
+    if (way) fixedKeys.subFactionName = way
+    if (constellation) fixedKeys.flavors?.push(constellation)
+    fixedKeys.factionName = SERAPHON
   }
 
   // Horrible Lumineth hotfix - 10/28/20
@@ -410,8 +448,8 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
     // @ts-ignore
     const luminethAllegiance = liNode?.childNodes?.[2]?.childNodes?.[1]?.childNodes?.[0]?.value
     if (luminethAllegiance) {
-      fixedKeys.flavor = [luminethAllegiance]
-      fixedKeys.faction = LUMINETH_REALMLORDS
+      fixedKeys.flavors = [luminethAllegiance]
+      fixedKeys.factionName = LUMINETH_REALMLORDS
     }
   }
 
@@ -551,6 +589,7 @@ const prefixLookup: Record<string, keyof TSelections> = {
   Commands: 'command_abilities',
   Enginecoven: 'battalions',
   Judgement: 'endless_spells',
+  Prayers: 'prayers',
   Scenery: 'scenery',
   Spells: 'spells',
   Traits: 'command_traits',

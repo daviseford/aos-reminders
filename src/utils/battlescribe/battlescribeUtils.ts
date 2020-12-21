@@ -1,3 +1,5 @@
+import { IArmy } from 'types/army'
+
 export const cleanText = (txt: string) => {
   return (
     txt
@@ -28,11 +30,12 @@ export const ignoredValues = [
 ]
 
 export const fixKeys = (obj: Record<string, string[]>) => {
-  const lookup = {
+  const lookup: Record<string, Partial<keyof IArmy> | 'Weapons'> = {
+    'Command Abilities': 'CommandAbilities',
+    'The Kharadron Code': 'CommandTraits',
     Artefact: 'Artifacts',
-    'Command Abilities': 'Commands',
+    Prayer: 'Prayers',
     Spell: 'Spells',
-    'The Kharadron Code': 'Traits',
     Weapon: 'Weapons',
   }
 
@@ -45,5 +48,5 @@ export const fixKeys = (obj: Record<string, string[]>) => {
       a[key] = obj[key]
     }
     return a
-  }, {} as { [key: string]: string[] })
+  }, {} as Record<string, string[]>)
 }
