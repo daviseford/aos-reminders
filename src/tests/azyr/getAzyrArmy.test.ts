@@ -597,7 +597,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.flavors).toContain('Barak-Urbaz, The Market City (Skyport)')
-    expect(res.selections.artifacts).toContain('Breath of Morgrim')
+    expect(res.selections.mount_traits).toContain('Breath of Morgrim')
     expect(res.errors).toEqual([])
   })
 
