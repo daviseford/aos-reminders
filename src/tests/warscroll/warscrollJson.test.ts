@@ -1522,10 +1522,6 @@ describe('getWarscrollArmyFromJson', () => {
         severity: 'warn',
         text: "Ignax's Scales",
       },
-      {
-        severity: 'warn',
-        text: 'Razordons',
-      },
     ])
   })
 

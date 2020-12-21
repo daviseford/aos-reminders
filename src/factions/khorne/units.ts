@@ -817,6 +817,36 @@ const Units = {
       },
     ],
   },
+  'Skaarac the Bloodborn': {
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Call of the Skull Throne'])],
+    },
+    effects: [
+      {
+        name: `Life-eater`,
+        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal up to D3 wounds allocated to this model.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+
+      {
+        name: `Infernal Iron`,
+        desc: `Subtract 2 from casting rolls for enemy WIZARDS while they are within 12" of this model.`,
+        when: [HERO_PHASE],
+      },
+
+      {
+        name: `Towering Horror`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 12" of this model.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+
+      {
+        name: `Undying Hate`,
+        desc: `If this model is slain, before removing the model from play, roll a D6 for each enemy model within 3" of this model. On a 4+, that model's unit suffers 1 mortal wound. This model is then removed from play.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
 }
 
-export default tagAs({ ...Units }, 'unit')
+export default tagAs(Units, 'unit')

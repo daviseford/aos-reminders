@@ -67,6 +67,7 @@ const subFactions = {
       battalions: [IronjawzBattalions, BonesplitterzBattalions],
       command_traits: [IronjawzCommandTraits, BonesplitterzCommandTraits],
       mount_traits: [IronjawzMountTraits],
+      prayers: [IronjawzPrayers],
       spells: [IronjawzSpells, BonesplitterzSpells],
     },
     mandatory: {

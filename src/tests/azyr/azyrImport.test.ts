@@ -26,7 +26,7 @@ const getFile = (filename: string): string[] => {
  *
  * Then test against that JSON below
  */
-xdescribe('handleAzyrPages', () => {
+describe('handleAzyrPages', () => {
   it('handles Seraphon1', () => {
     const fileTxt = getFile('Seraphon1')
     const res = handleAzyrPages(fileTxt)
@@ -178,7 +178,7 @@ xdescribe('handleAzyrPages', () => {
       'WEAPON: Chaintrap',
       'UNIT: Huskard on Thundertusk',
       'ARTEFACT: Skullshards of Dragaar',
-      'SPELL: Call of the Blizzard',
+      'PRAYER: Call of the Blizzard',
       'MOUNT TRAIT: Matriarch',
       'UNIT: Icebrow Hunter',
       'ARTEFACT: Kattanak Browplate',
@@ -309,10 +309,10 @@ xdescribe('handleAzyrPages', () => {
       'UNIT: Skullgrinder',
       'ARTEFACT: Talisman of Burning Blood',
       'UNIT: Slaughterpriest',
-      'SPELL: Bronzed Flesh',
+      'PRAYER: Bronzed Flesh',
       'WEAPON: Bloodbathed Axe',
-      'SPELL: Brazen Fury',
-      'SPELL: Killing Frenzy',
+      'PRAYER: Brazen Fury',
+      'PRAYER: Killing Frenzy',
       'UNIT: Blood Warriors',
       'UPGRADE: Chaos Champion',
       'UPGRADE: Icon Bearer',
@@ -517,7 +517,7 @@ xdescribe('handleAzyrPages', () => {
       'ALLEGIANCE: The Kraith',
       'UNIT: Hag Queen on Cauldron of Blood',
       'ARTEFACT: Crimson Shard',
-      "SPELL: Martyr's Sacrifice",
+      "PRAYER: Martyr's Sacrifice",
       'UNIT: Morathi, High Oracle of Khaine',
       'SPELL: Mindrazor',
       'UNIT: Sisters of Slaughter',
@@ -782,7 +782,7 @@ xdescribe('handleAzyrPages', () => {
       'UNIT: Auric Runesmiter',
       'COMMAND TRAIT: Warrior Indominate',
       'ARTEFACT: Tyrant Slayer',
-      'SPELL: Prayer of Ash',
+      'PRAYER: Prayer of Ash',
       'MOUNT TRAIT: Fire-claw Adult',
       'UNIT: Vulkite Berzerkers',
       'UNIT: Auric Runeson',
@@ -1184,7 +1184,7 @@ xdescribe('handleAzyrPages', () => {
     const res = handleAzyrPages(fileTxt)
     expect(res).toEqual([
       'FACTION: Kharadron Overlords',
-      'ALLEGIANCE: Bar ak-Nar, City of the First Sunrise',
+      'ALLEGIANCE: Barak-Nar, City of the First Sunrise',
       'Kharadron Code: Respect y our Commanders; Trust Aethermatics, Not Superstition; Thr ough Knowledge, Power; Without Our Ships, We Ar e Naught',
       'UNIT: Aether-Khemist',
       'COMMAND TRAIT: Champion of Progress',
@@ -1790,7 +1790,7 @@ xdescribe('handleAzyrPages', () => {
     expect(res).toEqual([
       'FACTION: Kharadron Overlords',
       // The below typo is left in place to test against later
-      'ALLEGIANCE: Bar ak-Thr yng, City of the Ancest ors',
+      'ALLEGIANCE: Barak-Thr yng, City of the Ancest ors',
       'Kharadron Code: Settle The Grudges; Trust To Your Guns; Honour The Gods, Just In Case; These Are Just Guidelines',
       'UNIT: Aether-Khemist',
       'UNIT: Aetheric Navigator',

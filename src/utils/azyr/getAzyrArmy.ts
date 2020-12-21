@@ -1,9 +1,11 @@
 import { KharadronOverlordsFaction } from 'factions/kharadron_overlords'
 import { uniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
+import { getFactionFromList } from 'meta/faction_list'
 import { AZYR, IImportedArmy } from 'types/import'
 import { TBattleRealms } from 'types/realmscapes'
 import { TSelections, TSelectionTypes } from 'types/selections'
+import { isValidFactionName } from 'utils/armyUtils'
 import { importErrorChecker } from 'utils/import'
 import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 import { factionToFlavorMap, importFactionNameMap } from 'utils/import/options'
@@ -28,19 +30,9 @@ const selectorLookup: Record<string, TSelectionTypes> = {
   UNIT: 'units',
 }
 
-const prefixTypes = [
-  'ALLEGIANCE',
-  'ARTEFACT',
-  'BATTALION',
-  'COMMAND TRAIT',
-  'ENDLESS SPELL',
-  'MOUNT TRAIT',
-  'SPELL',
-  'UNIT',
-]
-
 const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   let factionName = ''
+  let subFactionName = ''
   let realmscape: TBattleRealms | null = null
   let allyUnits: string[] = []
   let unknownSelections: string[] = []
@@ -48,13 +40,10 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   const selections = pages.reduce(
     (accum, name) => {
       if (name.startsWith('FACTION:')) {
-        const { faction, flavor } = getFactionName(name)
-        if (faction) {
-          factionName = faction
-        }
-        if (flavor) {
-          accum.flavors = accum.flavors.concat(flavor)
-        }
+        const lookup = getFactionName(name)
+        if (lookup.factionName) factionName = lookup.factionName
+        if (lookup.subFactionName) subFactionName = lookup.subFactionName
+        if (lookup.flavor) accum.flavors = accum.flavors.concat(lookup.flavor)
         return accum
       }
 
@@ -88,14 +77,32 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
         return accum
       }
 
+      // Flavor/Subfaction checker
+      if (name.startsWith('ALLEGIANCE:') && isValidFactionName(factionName)) {
+        let txt = name.replace('ALLEGIANCE:', '').trim()
+
+        // Need to do something faction-specific to the value? Do it here.
+        // if (factionName === SOME_FACTION) txt = txt.replace('something', '')
+
+        const _Faction = getFactionFromList(factionName)
+        if (_Faction.subFactionKeyMap[txt]) {
+          // If we can match this subfaction, do it!
+          subFactionName = txt
+          return accum
+        } else {
+          // Otherwise, add to flavors instead
+          accum.flavors.push(name.replace('ALLEGIANCE:', '').trim())
+        }
+      }
+
       let found = false
 
       // Check all other types
-      prefixTypes.forEach(pre => {
+      Object.entries(selectorLookup).forEach(([_prefix, _slice]) => {
         if (found) return
-        if (name.startsWith(`${pre}:`)) {
-          name = name.replace(`${pre}: `, '')
-          accum[selectorLookup[pre]] = accum[selectorLookup[pre]].concat(name)
+        if (name.startsWith(`${_prefix}:`)) {
+          name = name.replace(`${_prefix}: `, '')
+          accum[_slice] = accum[_slice].concat(name)
           found = true
           return accum
         }
@@ -125,7 +132,7 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
     allyUnits: uniq(allyUnits),
     errors: [],
     factionName: factionName as TSupportedFaction,
-    subFactionName: '', // TODO
+    subFactionName,
     origin_realm: null,
     realmscape_feature: null,
     realmscape,
@@ -134,13 +141,16 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   }
 }
 
-const getFactionName = (val: string): { faction: string | null; flavor: string | null } => {
-  const name = val.replace('FACTION: ', '')
-  const faction = importFactionNameMap[name]?.factionName || null
-  // TODO: Also return subFactionName
-  if (!faction) console.error('ALERT: Missing this faction: ' + name)
-  const flavor = faction ? factionToFlavorMap[name] : null
-  return { faction, flavor }
+const getFactionName = (
+  val: string
+): { factionName: string | null; subFactionName: string | null; flavor: string | null } => {
+  const name = val.replace('FACTION: ', '').trim()
+  const lookup = importFactionNameMap[name]
+  const factionName = lookup?.factionName || null
+  const subFactionName = lookup?.subFactionName || null
+  if (!factionName) console.error('ALERT: Missing this faction: ' + name)
+  const flavor = factionName ? factionToFlavorMap[name] : null
+  return { factionName, subFactionName, flavor }
 }
 
 const handleKOTraits = (name: string): string[] => {

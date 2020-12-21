@@ -2,13 +2,7 @@ import { SeraphonFaction } from 'factions/seraphon'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import GenericScenery from 'generic_rules/scenery'
 import { last, uniq } from 'lodash'
-import {
-  KHARADRON_OVERLORDS,
-  SLAANESH,
-  SLAVES_TO_DARKNESS,
-  STORMCAST_ETERNALS,
-  TSupportedFaction,
-} from 'meta/factions'
+import { KHARADRON_OVERLORDS, STORMCAST_ETERNALS, TSupportedFaction } from 'meta/factions'
 import { getFactionFromList, getFactionList } from 'meta/faction_list'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 import { TSelections } from 'types/selections'
@@ -306,11 +300,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
             // Generic subfaction checker
             if (isValidFactionName(factionName)) {
               // Need to do something faction-specific to the value? Do it here.
-              if (factionName === SLAVES_TO_DARKNESS && val === 'Knights of the Empty Throne') {
-                val = `The ${val}` // Fix for Knights
-              }
-              if (factionName === SLAANESH) val = val.replace(/ Host$/, '').trim() // Change Pretenders Host -> Pretenders
-
+              // if (factionName === SOME_FACTION) val = val.replace('something', '')
               const _Faction = getFactionFromList(factionName)
               if (_Faction.subFactionKeyMap[val]) {
                 subFactionName = val
@@ -341,24 +331,6 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           accum.spells.push(spell)
           stop_processing = true
         }
-
-        // const spellPrefixes = [
-        //   '- Lore of Gutmagic : ',
-        //   '- Lore of Hysh : ',
-        //   '- Lore of Invigoration : ',
-        //   '- Lore of Invigoration: ',
-        //   '- Lore of Slaanesh : ',
-        //   '- Lore of the High Peaks : ',
-        //   '- Lore of the Savage Beast : ',
-        //   '- Lore of the Weird : ',
-        // ]
-        // spellPrefixes.forEach(val => {
-        //   if (txt.startsWith(val)) {
-        //     const spell = txt.replace(val, '').trim()
-        //     accum.spells.push(spell)
-        //     stop_processing = true
-        //   }
-        // })
         if (stop_processing) return accum
 
         debugger

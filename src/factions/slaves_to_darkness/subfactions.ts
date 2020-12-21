@@ -147,7 +147,7 @@ const subFactions = {
     },
   },
 
-  'The Knights of the Empty Throne': {
+  'Knights of the Empty Throne': {
     effects: pickEffects(BattleTraits, ['Bane of the Mortal Realms', 'Fists of the Everchosen']),
 
     mandatory: {

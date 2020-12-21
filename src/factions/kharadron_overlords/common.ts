@@ -1,10 +1,9 @@
-// Shared data between modules
-
 import {
   CHARGE_PHASE,
   DURING_GAME,
   END_OF_CHARGE_PHASE,
   MOVEMENT_PHASE,
+  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -100,6 +99,18 @@ export const GreatEndrinworks = {
         name: `Coalbeard's Collapsible Compartments (Great Endrinwork)`,
         desc: `This model can use the Flying Transport ability from the Arkanaut Ironclad warscroll. If it does so, the maximum number of models that can garrison it is 5 instead of 25, and it can always fly high and/or disengage no matter how many models are in its garrison.`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+}
+
+export const BreathOfMorgrimEffect = {
+  'Breath of Morgrim': {
+    effects: [
+      {
+        name: `Breath of Morgrim`,
+        desc: `In your shooting phase, you can pick 1 enemy unit and roll 1 dice for each model from that unit within 6" of the bearer. For each 6, that unit suffers 1 mortal wound.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },

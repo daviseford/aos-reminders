@@ -13,7 +13,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import { GreatEndrinworks } from './common'
+import { BreathOfMorgrimEffect, GreatEndrinworks } from './common'
 
 const Artifacts = {
   'Masterwrought Armour': {
@@ -197,15 +197,6 @@ const Artifacts = {
       },
     ],
   },
-  'Breath of Morgrim': {
-    effects: [
-      {
-        name: `Breath of Morgrim`,
-        desc: `In your shooting phase, you can pick 1 enemy unit and roll 1 dice for each model from that unit within 6" of the bearer. For each 6, that unit suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
   'Galeforce Stave': {
     effects: [
       {
@@ -235,4 +226,4 @@ const Artifacts = {
   },
 }
 
-export default tagAs({ ...GreatEndrinworks, ...Artifacts }, 'artifact')
+export default tagAs({ ...GreatEndrinworks, ...BreathOfMorgrimEffect, ...Artifacts }, 'artifact')
