@@ -24,10 +24,9 @@ const pReducer = persistReducer(
     version: 4,
     storage,
     migrate: async (state, currentVersion) => {
-      console.log(state, currentVersion)
       if (!state) return state
 
-      // v3 -> v4 Migration
+      // pre-v4 -> v4 Migration
       if (!currentVersion || currentVersion < 4) {
         // Blow the current state away
         console.warn(
