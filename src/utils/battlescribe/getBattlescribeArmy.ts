@@ -1,7 +1,7 @@
 import { TSupportedFaction } from 'meta/factions'
 import parse5 from 'parse5'
-import { BATTLESCRIBE } from 'types/import'
-import { getFactionAndAllegiance as getFactionAndFlavor, sortParsedRoots } from 'utils/battlescribe/getters'
+import { BATTLESCRIBE, IImportedArmy } from 'types/import'
+import { getFactionAndFlavors, sortParsedRoots } from 'utils/battlescribe/getters'
 import { parseRootSelection, stripParentNode, traverseDoc } from 'utils/battlescribe/parseHTML'
 import { importErrorChecker } from 'utils/import'
 
@@ -12,13 +12,13 @@ export const getBattlescribeArmy = (html_string: string) => {
   return errorChecked
 }
 
-const getInitialBattlescribeArmy = (html_string: string) => {
+const getInitialBattlescribeArmy = (html_string: string): IImportedArmy => {
   const document = parse5.parse(html_string)
 
   const strippedDoc = stripParentNode(document as IParentNode)
 
   const { allegianceInfo, factionInfo, realmscape, origin_realm, rootSelections } = traverseDoc(strippedDoc)
-  const { factionName, flavors } = getFactionAndFlavor(allegianceInfo, factionInfo)
+  const { factionName, subFactionName, flavors } = getFactionAndFlavors(allegianceInfo, factionInfo)
   const parsedRoots: IParsedRoot[] = rootSelections.map(parseRootSelection)
   const selections = sortParsedRoots(parsedRoots, allegianceInfo)
 
@@ -28,7 +28,7 @@ const getInitialBattlescribeArmy = (html_string: string) => {
     allyUnits: [],
     errors: [],
     factionName: factionName as TSupportedFaction,
-    subFactionName: '', // TODO
+    subFactionName: subFactionName || '', // TODO
     origin_realm,
     realmscape_feature: null,
     realmscape,
@@ -66,10 +66,12 @@ export interface IParentNode {
 export interface IFactionInfo {
   grandAlliance: string | null
   factionName: string | null
+  subFactionName: string | null
 }
 
 export interface IFlavorInfo {
-  faction: string | null
-  flavor: string[] | null
+  factionName: string | null
+  subFactionName: string | null
+  flavors: string[] | null
   [key: string]: string | string[] | null
 }
