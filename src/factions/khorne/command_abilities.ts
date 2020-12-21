@@ -175,6 +175,15 @@ const CommandAbilities = {
       },
     ],
   },
+  'Call of the Skull Throne': {
+    effects: [
+      {
+        name: `Call of the Skull Throne`,
+        desc: `You can use this command ability at the start of your charge phase if this model is on the battlefield. If you do so, you can reroll charge rolls for friendly Khorne units while they are wholly within 12" of this model in that charge phase.`,
+        when: [START_OF_CHARGE_PHASE],
+      },
+    ],
+  },
   // Flayed
   Wrathspeaker: {
     effects: [
