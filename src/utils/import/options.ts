@@ -218,6 +218,7 @@ const battlescribeTypoMap: Record<string, string> = {
   BRIOMIDAR: 'Briomdar (Enclave)',
   Kroxigors: 'Kroxigor',
   Protector: 'Protectors',
+  Razordons: 'Razordon Hunting Pack',
   Voxaxe: 'Vosaxe',
 }
 
