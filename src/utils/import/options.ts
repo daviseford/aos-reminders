@@ -105,6 +105,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Morathi, The Shadow Queen': 'The Shadow Queen',
   'Orruk Gore Gruntas': 'Orruk Gore-gruntas',
   'Pink Horrors of Tzeentch': 'Horrors of Tzeentch',
+  Salamanders: 'Salamander Hunting Pack',
   'Secret Eater': 'Secret-eater',
   'Slaves to Darkness Chaos Spawn': 'Chaos Spawn',
   'Slaves to Darkness Daemon Prince': 'Daemon Prince',
@@ -191,6 +192,7 @@ const battlescribeTypoMap: Record<string, string> = {
   'Prosecutor with Celestial Hammers': 'Prosecutors with Celestial Hammers',
   'Prosecutor with Stormcall Javelins': 'Prosecutors with Stormcall Javelins',
   'Reiknor the Grimhailer': 'Reikenor the Grimhailer',
+  Salamanders: 'Salamander Hunting Pack',
   'Savage Orruks Arrowboys': 'Savage Orruk Arrowboys',
   'Shasdow Warrior': 'Shadow Warriors',
   'Skink Handler': 'Razordon Hunting Pack',
@@ -218,6 +220,7 @@ const battlescribeTypoMap: Record<string, string> = {
   BRIOMIDAR: 'Briomdar (Enclave)',
   Kroxigors: 'Kroxigor',
   Protector: 'Protectors',
+  Razordons: 'Razordon Hunting Pack',
   Voxaxe: 'Vosaxe',
 }
 

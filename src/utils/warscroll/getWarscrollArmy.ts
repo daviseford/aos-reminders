@@ -13,10 +13,7 @@ import { cleanWarscrollText } from 'utils/warscroll/warscrollUtils'
 
 export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialWarscrollArmyPdf(pdfText)
-  debugger
   const errorChecked = importErrorChecker(army, WARSCROLL_BUILDER)
-  debugger
-
   return errorChecked
 }
 
@@ -332,8 +329,6 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           stop_processing = true
         }
         if (stop_processing) return accum
-
-        debugger
 
         return accum
       }
