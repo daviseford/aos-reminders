@@ -397,10 +397,7 @@ export const importFactionNameMap: Record<
   'Moonclan Grots': { factionName: GLOOMSPITE_GITZ },
   'Ogor Mawtribes': { factionName: OGOR_MAWTRIBES },
   'Order of the Blood-Drenched Rose': { factionName: MERCENARY_COMPANIES },
-  'Orruk Warclans': {
-    factionName: ORRUK_WARCLANS,
-    subFactionName: OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'],
-  },
+  'Orruk Warclans': { factionName: ORRUK_WARCLANS },
   'Ossiarch Bonereapers': { factionName: OSSIARCH_BONEREAPERS },
   'Slaves to Darkness': { factionName: SLAVES_TO_DARKNESS },
   'Sons of Behemat': { factionName: SONS_OF_BEHEMAT },

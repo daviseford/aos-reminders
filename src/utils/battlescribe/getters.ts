@@ -62,6 +62,8 @@ export const getFactionAndFlavors = (
     if (info.flavors) {
       store.flavors = store.flavors.concat(info.flavors)
     }
+
+    if (info.subFactionName) store.subFactionName = info.subFactionName
   })
 
   const factionName = store.factionName || (factionInfo.factionName as TSupportedFaction)
@@ -79,8 +81,6 @@ export const getFactionAndFlavors = (
     const _subFactionName = store.flavors.find(x => !!_Faction.subFactionKeyMap[x])
     if (_subFactionName) subFactionName = _subFactionName
   }
-
-  debugger
 
   return {
     factionName,
@@ -141,8 +141,6 @@ export const parseFaction = (obj: IParentNode): IFactionInfo => {
     const factionLookup = importFactionNameMap?.[last]
     const factionName = factionLookup?.factionName || 'Unknown'
     const subFactionName = factionLookup?.subFactionName || null
-
-    debugger
 
     return { grandAlliance, factionName, subFactionName }
   } catch (err) {
@@ -211,7 +209,7 @@ export const parseAllegiance = (obj: IParentNode): IFlavorInfo => {
 
     const objs = nameObj.childNodes.slice(selectionIdx + 1)
 
-    const factionName = objs
+    const potentialFactionName = objs
       .reduce((a, b) => {
         if (isParentNode(b)) return a
         a = `${a} ${b.value}`
@@ -219,7 +217,11 @@ export const parseAllegiance = (obj: IParentNode): IFlavorInfo => {
       }, '')
       .trim()
 
-    return { ...flavorInfo, factionName }
+    const lookup = importFactionNameMap[potentialFactionName]
+    const factionName = lookup?.factionName || potentialFactionName
+    const subFactionName = lookup?.subFactionName || ''
+
+    return { ...flavorInfo, factionName, subFactionName }
   } catch (err) {
     return flavorInfo
   }

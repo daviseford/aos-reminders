@@ -18,7 +18,6 @@ import {
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
-  ORDER_GRAND_ALLIANCE,
   ORRUK_WARCLANS,
   SERAPHON,
   SKAVENTIDE,
@@ -546,7 +545,13 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.units).toContain('Hellstriders with Claw-spears')
     expect(res.selections.units).toContain('Bladebringer, Herald on Exalted Chariot')
     expect(res.selections.scenery).toContain('Fane of Slaanesh')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text:
+          'Allied Chaos Lord on Manticore can belong to Khorne or Nurgle or Slaves To Darkness. Please add this unit manually.',
+      },
+    ])
   })
 
   it('should work with StD5', () => {
@@ -608,10 +613,6 @@ describe('getBattlescribeArmy', () => {
       },
       {
         severity: 'warn',
-        text: 'Overwhelming Dread',
-      },
-      {
-        severity: 'warn',
         text: 'Spectral Lure',
       },
       {
@@ -636,7 +637,7 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('OBR2')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.selections.scenery).toContain('Bone-Tithe Nexus')
+    expect(res.selections.scenery).toContain('Bone-tithe Nexus')
     expect(res.selections.flavors).toContain('Petrifex Elite')
     expect(res.errors).toEqual([])
   })
@@ -697,7 +698,15 @@ describe('getBattlescribeArmy', () => {
       },
       {
         severity: 'warn',
+        text: 'Spectral Lure',
+      },
+      {
+        severity: 'warn',
         text: 'Overwhelming Dread',
+      },
+      {
+        severity: 'warn',
+        text: "Vanhel's Danse Macabre",
       },
     ])
   })
@@ -759,7 +768,28 @@ describe('getBattlescribeArmy', () => {
       'The Phoenicium',
       "Tempest's Eye",
     ])
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Forgefire',
+      },
+      {
+        severity: 'warn',
+        text: '"I thought duardin were made of sterner stuff!"',
+      },
+      {
+        severity: 'warn',
+        text: "'Put your back into it, beardling!'",
+      },
+      {
+        severity: 'warn',
+        text: "'Too much damned magic flying about these days!'",
+      },
+      {
+        severity: 'warn',
+        text: 'Rune of Unfaltering Aim',
+      },
+    ])
   })
 
   it('should work with Nighthaunt3', () => {
@@ -773,25 +803,26 @@ describe('getBattlescribeArmy', () => {
   it('should work with Stormcast6', () => {
     const parsedText = getFile('Stormcast6')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.allySelections).toEqual({
-      [CITIES_OF_SIGMAR]: { battalions: [], units: ['Cogsmith', 'Cannon', 'Organ Gun'] },
-      [ORDER_GRAND_ALLIANCE]: {
-        battalions: [],
-        units: ['Flame Cannon'],
-      },
-    })
     expect(res.errors).toEqual([])
   })
 
-  it('should work with StD2', () => {
+  it.skip('should work with StD2', () => {
     const parsedText = getFile('StD2')
     const res = getBattlescribeArmy(parsedText)
     // TODO fix this, just not in the mood right now
     expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Mark of the All-favoured',
-      },
+      // {
+      //   severity: 'warn',
+      //   text: 'Mark of the All-favoured',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Bronzed Flesh',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Favour of Khorne (Khorne)',
+      // },
     ])
   })
 

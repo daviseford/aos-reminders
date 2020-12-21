@@ -30,14 +30,14 @@ export const getArmy = (
 
   if (isDev && subFactionName && !subFactionArmies[subFactionName]) {
     console.warn(`Invalid subFactionName: '${subFactionName}'. Please fix this.`)
-    debugger // If you've arrived here, you have a responsibility to fix the error
+    debugger // If you've arrived here (as a dev), you need to fix the above error - no excuses.
   }
 
   const Army = (subFactionName && subFactionArmies?.[subFactionName]) || AggregateArmy
 
   const Collection = getCollection(Army)
 
-  const army = modifyArmy(Army as IArmy, {
+  const army = modifyArmy(Army, {
     Collection,
     factionName,
     GrandAlliance,
