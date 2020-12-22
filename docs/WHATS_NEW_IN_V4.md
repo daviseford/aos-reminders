@@ -233,7 +233,7 @@ Next, **SubFactions**.
 Lastly in this high-level tier (but at the bottom), **Flavors**
 
 - These are the more "traditional" ways of configuring **Factions**. 
-- A **Flavor** may belong to a one or many **Sub-Factions**
+- A **Flavor** may belong to one or many **Sub-Factions**
 - A **Flavor** can dictate:
   - What units/battalions/spells/etc are available (or mandatory)
 
