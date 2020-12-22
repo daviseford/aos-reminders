@@ -237,6 +237,8 @@ Lastly in this high-level tier (but at the bottom), **Flavors**
 - A **Flavor** can dictate:
   - What units/battalions/spells/etc are available (or mandatory)
 
+![Old data structure vs. new](assets/V4AOSR.png)
+
 ## Bringing It All Together
 
 Let's use Slaves to Darkness as an example.
