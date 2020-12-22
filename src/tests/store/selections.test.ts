@@ -13,14 +13,15 @@ beforeEach(() => {
   store.dispatch(resetAllSelections())
 })
 
-describe('Making selections', () => {
+describe('Stormcast flavors', () => {
+  const army = getArmy(STORMCAST_ETERNALS) as IArmy
+  const setValues = withSelectMultiWithSideEffects(
+    selectionActions.setFlavors,
+    getSideEffects(army.Flavors),
+    STORMCAST_ETERNALS
+  )
+
   it('should handle setFlavors with side effects', () => {
-    const army = getArmy(STORMCAST_ETERNALS) as IArmy
-    const setValues = withSelectMultiWithSideEffects(
-      selectionActions.setFlavors,
-      getSideEffects(army.Flavors),
-      STORMCAST_ETERNALS
-    )
     const option: TDropdownOption = {
       value: 'Anvils of the Heldenhammer (Stormhost)',
       label: 'Anvils of the Heldenhammer (Stormhost)',
@@ -46,12 +47,6 @@ describe('Making selections', () => {
   })
 
   it('should handle another setFlavors with side effects', () => {
-    const army = getArmy(STORMCAST_ETERNALS) as IArmy
-    const setValues = withSelectMultiWithSideEffects(
-      selectionActions.setFlavors,
-      getSideEffects(army.Flavors),
-      STORMCAST_ETERNALS
-    )
     const option: TDropdownOption = {
       value: 'Hammers of Sigmar (Stormhost)',
       label: 'Hammers of Sigmar (Stormhost)',
