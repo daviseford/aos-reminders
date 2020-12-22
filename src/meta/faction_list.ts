@@ -23,7 +23,6 @@ import { NurgleFaction } from 'factions/nurgle'
 import { OgorMawtribesFaction } from 'factions/ogor_mawtribes'
 import { OrrukWarclansFaction } from 'factions/orruk_warclans'
 import { OssiarchBonereapersFaction } from 'factions/ossiarch_bonereapers'
-import { SampleFaction } from 'factions/sample'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SkaventideFaction } from 'factions/skaventide'
 import { SlaaneshFaction } from 'factions/slaanesh'
@@ -63,7 +62,6 @@ import {
   ORDER_GRAND_ALLIANCE,
   ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
-  SAMPLE,
   SERAPHON,
   SKAVENTIDE,
   SLAANESH,
@@ -107,7 +105,6 @@ const FactionList = {
   [ORDER_GRAND_ALLIANCE]: { ...OrderFaction },
   [ORRUK_WARCLANS]: { ...OrrukWarclansFaction },
   [OSSIARCH_BONEREAPERS]: { ...OssiarchBonereapersFaction },
-  [SAMPLE]: { ...SampleFaction },
   [SERAPHON]: { ...SeraphonFaction },
   [SKAVENTIDE]: { ...SkaventideFaction },
   [SLAANESH]: { ...SlaaneshFaction },
