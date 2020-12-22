@@ -30,14 +30,17 @@ describe('Stormcast flavors', () => {
     const action: ActionMeta<TDropdownOption> = { option: option, action: 'select-option' }
 
     setValues(values, action)
-    const state = store.getState()
-    const selections = state.selections.selections
+    const { selections } = store.getState()
 
-    expect(selections.flavors).toEqual(['Anvils of the Heldenhammer (Stormhost)'])
-    expect(selections.artifacts).toEqual(['Soulthief'])
-    expect(selections.command_abilities).toEqual(['Heroes of Another Age'])
-    expect(selections.command_traits).toEqual(['Deathly Aura'])
-    expect(state.selections.sideEffects).toEqual({
+    expect(selections.selections).toEqual(
+      expect.objectContaining({
+        artifacts: ['Soulthief'],
+        command_abilities: ['Heroes of Another Age'],
+        command_traits: ['Deathly Aura'],
+        flavors: ['Anvils of the Heldenhammer (Stormhost)'],
+      })
+    )
+    expect(selections.sideEffects).toEqual({
       'Anvils of the Heldenhammer (Stormhost)': {
         artifacts: ['Soulthief'],
         command_abilities: ['Heroes of Another Age'],
@@ -55,14 +58,17 @@ describe('Stormcast flavors', () => {
     const action: ActionMeta<TDropdownOption> = { option: option, action: 'select-option' }
 
     setValues(values, action)
-    const state = store.getState()
-    const selections = state.selections.selections
+    const { selections } = store.getState()
 
-    expect(selections.flavors).toEqual(['Hammers of Sigmar (Stormhost)'])
-    expect(selections.artifacts).toEqual(['God-forged Blade'])
-    expect(selections.command_abilities).toEqual(['Soul of the Stormhost'])
-    expect(selections.command_traits).toEqual(['We Cannot Fail'])
-    expect(state.selections.sideEffects).toEqual({
+    expect(selections.selections).toEqual(
+      expect.objectContaining({
+        flavors: ['Hammers of Sigmar (Stormhost)'],
+        artifacts: ['God-forged Blade'],
+        command_abilities: ['Soul of the Stormhost'],
+        command_traits: ['We Cannot Fail'],
+      })
+    )
+    expect(selections.sideEffects).toEqual({
       'Hammers of Sigmar (Stormhost)': {
         artifacts: ['God-forged Blade'],
         command_abilities: ['Soul of the Stormhost'],
