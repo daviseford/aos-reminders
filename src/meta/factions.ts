@@ -30,14 +30,12 @@ type TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
 type TOrrukWarclans = 'ORRUK_WARCLANS'
 type TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 type TSeraphon = 'SERAPHON'
-type TSample = 'SAMPLE' // TODO: Remove before publishing
 type TSkaventide = 'SKAVENTIDE'
 type TSlaanesh = 'SLAANESH'
 type TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 type TSonsOfBehemat = 'SONS_OF_BEHEMAT'
 type TStormcastEternals = 'STORMCAST_ETERNALS'
 type TSylvaneth = 'SYLVANETH'
-type TTamurkhansHorde = 'TAMURKHANS_HORDE' // !! REMOVE THIS AFTER V4 NURGLE !!
 type TTombKings = 'TOMB_KINGS'
 type TTzeentch = 'TZEENTCH'
 type TWanderers = 'WANDERERS'
@@ -73,13 +71,11 @@ export const ORRUK_WARCLANS: TOrrukWarclans = 'ORRUK_WARCLANS'
 export const OSSIARCH_BONEREAPERS: TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 export const SERAPHON: TSeraphon = 'SERAPHON'
 export const SKAVENTIDE: TSkaventide = 'SKAVENTIDE'
-export const SAMPLE: TSample = 'SAMPLE'
 export const SLAANESH: TSlaanesh = 'SLAANESH'
 export const SLAVES_TO_DARKNESS: TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 export const SONS_OF_BEHEMAT: TSonsOfBehemat = 'SONS_OF_BEHEMAT'
 export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
-export const TAMURKHANS_HORDE: TTamurkhansHorde = 'TAMURKHANS_HORDE' // !! REMOVE THIS AFTER V4 NURGLE !!
 export const TOMB_KINGS: TTombKings = 'TOMB_KINGS'
 export const TZEENTCH: TTzeentch = 'TZEENTCH'
 export const WANDERERS: TWanderers = 'WANDERERS'
@@ -120,7 +116,6 @@ export type TPrimaryFactions =
   | TSeraphon
   | TSkaventide
   | TSlaanesh
-  | TSample
   | TSlavesToDarkness
   | TSonsOfBehemat
   | TStormcastEternals
@@ -159,7 +154,6 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   ORDER_GRAND_ALLIANCE,
   ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
-  SAMPLE,
   SERAPHON,
   SKAVENTIDE,
   SLAANESH,
