@@ -32,19 +32,20 @@ describe('Stormcast flavors', () => {
     setValues(values, action)
     const { selections } = store.getState()
 
+    const expectedSideEffects = {
+      artifacts: ['Soulthief'],
+      command_abilities: ['Heroes of Another Age'],
+      command_traits: ['Deathly Aura'],
+    }
     expect(selections.selections).toEqual(
       expect.objectContaining({
-        artifacts: ['Soulthief'],
-        command_abilities: ['Heroes of Another Age'],
-        command_traits: ['Deathly Aura'],
         flavors: ['Anvils of the Heldenhammer (Stormhost)'],
+        ...expectedSideEffects,
       })
     )
     expect(selections.sideEffects).toEqual({
       'Anvils of the Heldenhammer (Stormhost)': {
-        artifacts: ['Soulthief'],
-        command_abilities: ['Heroes of Another Age'],
-        command_traits: ['Deathly Aura'],
+        ...expectedSideEffects,
       },
     })
   })
@@ -60,19 +61,20 @@ describe('Stormcast flavors', () => {
     setValues(values, action)
     const { selections } = store.getState()
 
+    const expectedSideEffects = {
+      artifacts: ['God-forged Blade'],
+      command_abilities: ['Soul of the Stormhost'],
+      command_traits: ['We Cannot Fail'],
+    }
     expect(selections.selections).toEqual(
       expect.objectContaining({
         flavors: ['Hammers of Sigmar (Stormhost)'],
-        artifacts: ['God-forged Blade'],
-        command_abilities: ['Soul of the Stormhost'],
-        command_traits: ['We Cannot Fail'],
+        ...expectedSideEffects,
       })
     )
     expect(selections.sideEffects).toEqual({
       'Hammers of Sigmar (Stormhost)': {
-        artifacts: ['God-forged Blade'],
-        command_abilities: ['Soul of the Stormhost'],
-        command_traits: ['We Cannot Fail'],
+        ...expectedSideEffects,
       },
     })
   })
