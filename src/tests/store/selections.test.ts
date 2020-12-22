@@ -21,7 +21,7 @@ describe('Stormcast flavors', () => {
     STORMCAST_ETERNALS
   )
 
-  it('should handle setFlavors with side effects', () => {
+  it('should handle setting a flavor with side effects', () => {
     const option: TDropdownOption = {
       value: 'Anvils of the Heldenhammer (Stormhost)',
       label: 'Anvils of the Heldenhammer (Stormhost)',
@@ -50,7 +50,7 @@ describe('Stormcast flavors', () => {
     })
   })
 
-  it('should handle another setFlavors with side effects', () => {
+  it('should handle setting a different flavor with side effects', () => {
     const option: TDropdownOption = {
       value: 'Hammers of Sigmar (Stormhost)',
       label: 'Hammers of Sigmar (Stormhost)',
@@ -77,5 +77,70 @@ describe('Stormcast flavors', () => {
         ...expectedSideEffects,
       },
     })
+  })
+
+  it('should handle setting a second flavor with side effects', () => {
+    const existingOption: TDropdownOption = {
+      value: 'Anvils of the Heldenhammer (Stormhost)',
+      label: 'Anvils of the Heldenhammer (Stormhost)',
+    }
+    const newOption: TDropdownOption = {
+      value: 'Hammers of Sigmar (Stormhost)',
+      label: 'Hammers of Sigmar (Stormhost)',
+    }
+    const values = [existingOption, newOption]
+    const action: ActionMeta<TDropdownOption> = { option: newOption, action: 'select-option' }
+
+    setValues(values, action)
+    const { selections } = store.getState()
+
+    expect(selections.selections).toEqual(
+      expect.objectContaining({
+        flavors: ['Anvils of the Heldenhammer (Stormhost)', 'Hammers of Sigmar (Stormhost)'],
+        artifacts: ['Soulthief', 'God-forged Blade'],
+        command_abilities: ['Heroes of Another Age', 'Soul of the Stormhost'],
+        command_traits: ['Deathly Aura', 'We Cannot Fail'],
+      })
+    )
+    expect(selections.sideEffects).toEqual({
+      'Anvils of the Heldenhammer (Stormhost)': {
+        artifacts: ['Soulthief'],
+        command_abilities: ['Heroes of Another Age'],
+        command_traits: ['Deathly Aura'],
+      },
+      'Hammers of Sigmar (Stormhost)': {
+        artifacts: ['God-forged Blade'],
+        command_abilities: ['Soul of the Stormhost'],
+        command_traits: ['We Cannot Fail'],
+      },
+    })
+  })
+
+  it('should handle setting and unsetting a flavor with side effects', () => {
+    const option: TDropdownOption = {
+      value: 'Hammers of Sigmar (Stormhost)',
+      label: 'Hammers of Sigmar (Stormhost)',
+    }
+    const setAction: ActionMeta<TDropdownOption> = { option: option, action: 'select-option' }
+    const unsetAction: ActionMeta<TDropdownOption> = { option: option, action: 'remove-value' }
+
+    setValues([option], setAction)
+    setValues([], unsetAction)
+
+    const { selections } = store.getState()
+
+    const expectedSideEffects = {
+      artifacts: [],
+      command_abilities: [],
+      command_traits: [],
+    }
+    expect(selections.selections).toEqual(
+      expect.objectContaining({
+        flavors: [],
+        ...expectedSideEffects,
+      })
+    )
+    // TODO: resetSideEffects?
+    // expect(selections.sideEffects).toEqual({})
   })
 })
