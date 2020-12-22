@@ -1,6 +1,6 @@
 # AoS Reminders - v4.0.0 - A New Approach to Data
 
-AoS Reminders v4.0.0 has just been released - and there's a lot of talk about.
+AoS Reminders v4.0.0 has just been released - and there's a lot to talk about.
 
 ## TL;DR
 
