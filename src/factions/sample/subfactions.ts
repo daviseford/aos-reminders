@@ -1,4 +1,3 @@
-import { SAMPLE } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
@@ -15,8 +14,8 @@ import Units from './units'
 
 // TODO: Explain what a subfaction is (vs faction, vs flavor)
 const subFactions = {
-  [SAMPLE]: {
-    effects: pickEffects(BattleTraits, [SAMPLE]),
+  SAMPLE: {
+    effects: pickEffects(BattleTraits, ['SAMPLE']),
     available: {
       artifacts: [Artifacts],
       battalions: [Battalions],
