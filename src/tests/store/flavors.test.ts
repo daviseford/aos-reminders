@@ -9,8 +9,7 @@ import { getSideEffects } from 'utils/getSideEffects'
 import { withSelectMultiWithSideEffects } from 'utils/withSelect'
 
 beforeEach(() => {
-  const { resetAllSelections } = selectionActions
-  store.dispatch(resetAllSelections())
+  store.dispatch(selectionActions.resetAllSelections())
 })
 
 describe('Stormcast flavors', () => {
@@ -20,11 +19,13 @@ describe('Stormcast flavors', () => {
     getSideEffects(army.Flavors),
     STORMCAST_ETERNALS
   )
+  const ANVILS = 'Anvils of the Heldenhammer (Stormhost)'
+  const HAMMERS = 'Hammers of Sigmar (Stormhost)'
 
   it('should handle setting a flavor with side effects', () => {
     const option: TDropdownOption = {
-      value: 'Anvils of the Heldenhammer (Stormhost)',
-      label: 'Anvils of the Heldenhammer (Stormhost)',
+      value: ANVILS,
+      label: ANVILS,
     }
     const values = [option]
     const action: ActionMeta<TDropdownOption> = { option: option, action: 'select-option' }
@@ -39,7 +40,7 @@ describe('Stormcast flavors', () => {
     }
     expect(selections.selections).toEqual(
       expect.objectContaining({
-        flavors: ['Anvils of the Heldenhammer (Stormhost)'],
+        flavors: [ANVILS],
         ...expectedSideEffects,
       })
     )
@@ -52,8 +53,8 @@ describe('Stormcast flavors', () => {
 
   it('should handle setting a different flavor with side effects', () => {
     const option: TDropdownOption = {
-      value: 'Hammers of Sigmar (Stormhost)',
-      label: 'Hammers of Sigmar (Stormhost)',
+      value: HAMMERS,
+      label: HAMMERS,
     }
     const values = [option]
     const action: ActionMeta<TDropdownOption> = { option: option, action: 'select-option' }
@@ -68,7 +69,7 @@ describe('Stormcast flavors', () => {
     }
     expect(selections.selections).toEqual(
       expect.objectContaining({
-        flavors: ['Hammers of Sigmar (Stormhost)'],
+        flavors: [HAMMERS],
         ...expectedSideEffects,
       })
     )
@@ -81,12 +82,12 @@ describe('Stormcast flavors', () => {
 
   it('should handle setting a second flavor with side effects', () => {
     const existingOption: TDropdownOption = {
-      value: 'Anvils of the Heldenhammer (Stormhost)',
-      label: 'Anvils of the Heldenhammer (Stormhost)',
+      value: ANVILS,
+      label: ANVILS,
     }
     const newOption: TDropdownOption = {
-      value: 'Hammers of Sigmar (Stormhost)',
-      label: 'Hammers of Sigmar (Stormhost)',
+      value: HAMMERS,
+      label: HAMMERS,
     }
     const values = [existingOption, newOption]
     const action: ActionMeta<TDropdownOption> = { option: newOption, action: 'select-option' }
@@ -96,7 +97,7 @@ describe('Stormcast flavors', () => {
 
     expect(selections.selections).toEqual(
       expect.objectContaining({
-        flavors: ['Anvils of the Heldenhammer (Stormhost)', 'Hammers of Sigmar (Stormhost)'],
+        flavors: [ANVILS, HAMMERS],
         artifacts: ['Soulthief', 'God-forged Blade'],
         command_abilities: ['Heroes of Another Age', 'Soul of the Stormhost'],
         command_traits: ['Deathly Aura', 'We Cannot Fail'],
@@ -118,8 +119,8 @@ describe('Stormcast flavors', () => {
 
   it('should handle setting and unsetting a flavor with side effects', () => {
     const option: TDropdownOption = {
-      value: 'Hammers of Sigmar (Stormhost)',
-      label: 'Hammers of Sigmar (Stormhost)',
+      value: HAMMERS,
+      label: HAMMERS,
     }
     const setAction: ActionMeta<TDropdownOption> = { option: option, action: 'select-option' }
     const unsetAction: ActionMeta<TDropdownOption> = { option: option, action: 'remove-value' }
@@ -146,12 +147,12 @@ describe('Stormcast flavors', () => {
 
   it('should handle setting and unsetting a second flavor with side effects', () => {
     const existingOption: TDropdownOption = {
-      value: 'Anvils of the Heldenhammer (Stormhost)',
-      label: 'Anvils of the Heldenhammer (Stormhost)',
+      value: ANVILS,
+      label: ANVILS,
     }
     const newOption: TDropdownOption = {
-      value: 'Hammers of Sigmar (Stormhost)',
-      label: 'Hammers of Sigmar (Stormhost)',
+      value: HAMMERS,
+      label: HAMMERS,
     }
     const setAction: ActionMeta<TDropdownOption> = { option: newOption, action: 'select-option' }
     const unsetAction: ActionMeta<TDropdownOption> = { option: newOption, action: 'remove-value' }
@@ -168,7 +169,7 @@ describe('Stormcast flavors', () => {
     }
     expect(selections.selections).toEqual(
       expect.objectContaining({
-        flavors: ['Anvils of the Heldenhammer (Stormhost)'],
+        flavors: [ANVILS],
         ...expectedSideEffects,
       })
     )
