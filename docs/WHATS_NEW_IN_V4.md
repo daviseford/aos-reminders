@@ -14,6 +14,9 @@ AoS Reminders v4.0.0 has just been released - and there's a lot of talk about.
   - `BIG_WAAAGH, IRONJAWZ, BONESPLITTERZ` -> now **SubFactions** of `ORRUK_WARCLANS`
   - `GRAND_HOST_OF_NAGASH, LEGION_OF_BLOOD, LEGION_OF_SACRAMENT, LEGION_OF_NIGHT, SOULBLIGHT` -> now **SubFactions** of `LEGIONS_OF_NAGASH`
 - We've added a new UI element - the **SubFaction** dropdown. This dropdown will only appear when a **Faction** can be taken in multiple configurations (see _**Introducing "SubFactions"**_ below).
+  
+![Subfaction dropdown](assets/subfaction-dropdown.png)
+
 - **[SUBSCRIBERS]** - We have migrated your existing saved armies - but you should still verify their accuracy. 
   - To be totally transparent, we have [edited](https://github.com/daviseford/aos-reminders/pull/1074) more than 58,000 lines of code spread over 692 files.
   - Therefore, there is a non-zero chance that we missed an errant rule.
@@ -29,7 +32,11 @@ Mostly, I assumed that Games Workshop would continue to write books with the sam
 
 That assumption was accurate for about a year - and then it wasn't. With the release of the new Seraphon book, and the added layers of complexity in list-building today, AoS Reminders was badly in need of an update.
 
-The ironic part of this update is that, while the update itself is **astonishingly huge** (over 58,000 lines of code updated), end-users will probably notice only two things: The new **SubFaction** dropdown, and better auto-completion for mandatory units/artifacts/etc.
+The ironic part of this update is that, while the update itself is **astonishingly huge** (over 58,000 lines of code updated), end-users will probably notice only three things: 
+
+1. The new **SubFaction** dropdown
+2. Better auto-completion for mandatory units/artifacts/etc.
+3. More accurate Warscroll Builder/Azyr PDF imports
 
 ---
 
@@ -310,7 +317,13 @@ We have well over 500 tests governing how AoS Reminders works.
 
 We have a ton of features - saved armies, shared armies, importing from Azyr/Warscroll Builder/Battlescribe.
 
-It has taken over 24 days to arrive at the completion of this huge change. It has been exhausting and rewarding!
+We also had to move **Factions** and **SubFactions** around - most notably, the various Orruk Warclans **SubFactions** (Bonesplitterz, Ironjawz, and Big Waaagh).
+
+Worst of all, I finally conceded my years-long grudge. Look man, I think `Skaventide` is a poor substitute for `Skaven`, and I will always say `Skaven` in conversation -> but I have _finally_ given in and changed the name in AoS Reminders.
+
+It has taken over 24 days to arrive at the completion of this huge change.
+
+It has been exhausting and rewarding!
 
 ## Future Features
 
@@ -353,7 +366,7 @@ I'd like to thank all of the contributors who have continued to build our codeba
 
 I'd like to thank all of our subscribers - past, present, and future. While AoS Reminders will always be an open-source, totally free service, I have worked hard to add value to the application for our supporters.
 
-If you're not subscribed - please consider it. A 12-month subscription costs $11.88 - that's 99 cents per month.
+If you're not subscribed - [please consider it](https://aosreminders.com/subscribe). A 12-month subscription costs $11.88 - that's 99 cents per month.
 
 I firmly believe that the amount of time that you'll save by using our advanced features is worth a dollar.
 
