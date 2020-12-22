@@ -120,6 +120,12 @@ export default selections.reducer
 const handleSideEffects = (state: IStore['selections'], payload: string[], type: TSelectionTypes) => {
   const sideEffectNames = Object.keys(state.sideEffects)
 
+  if (!state.selections[type]) {
+    return console.error(
+      `Invalid slice passed to handleSideEffects: ${type}. This usually means that you've committed a typo during data entry.`
+    )
+  }
+
   const removedParentEffects = state.selections[type]
     .reduce((a, v) => {
       if (sideEffectNames.includes(v)) a.push(v)
