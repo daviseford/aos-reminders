@@ -143,4 +143,40 @@ describe('Stormcast flavors', () => {
     // TODO: resetSideEffects?
     // expect(selections.sideEffects).toEqual({})
   })
+
+  it('should handle setting and unsetting a second flavor with side effects', () => {
+    const existingOption: TDropdownOption = {
+      value: 'Anvils of the Heldenhammer (Stormhost)',
+      label: 'Anvils of the Heldenhammer (Stormhost)',
+    }
+    const newOption: TDropdownOption = {
+      value: 'Hammers of Sigmar (Stormhost)',
+      label: 'Hammers of Sigmar (Stormhost)',
+    }
+    const setAction: ActionMeta<TDropdownOption> = { option: newOption, action: 'select-option' }
+    const unsetAction: ActionMeta<TDropdownOption> = { option: newOption, action: 'remove-value' }
+
+    setValues([existingOption, newOption], setAction)
+    setValues([existingOption], unsetAction)
+
+    const { selections } = store.getState()
+
+    const expectedSideEffects = {
+      artifacts: ['Soulthief'],
+      command_abilities: ['Heroes of Another Age'],
+      command_traits: ['Deathly Aura'],
+    }
+    expect(selections.selections).toEqual(
+      expect.objectContaining({
+        flavors: ['Anvils of the Heldenhammer (Stormhost)'],
+        ...expectedSideEffects,
+      })
+    )
+    // TODO: resetSideEffects?
+    // expect(selections.sideEffects).toEqual({
+    // 'Anvils of the Heldenhammer (Stormhost)': {
+    // ...expectedSideEffects,
+    // },
+    // })
+  })
 })
