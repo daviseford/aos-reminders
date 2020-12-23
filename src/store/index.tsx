@@ -7,6 +7,8 @@ import visibilityReducer from 'ducks/visibility'
 import { combineReducers, createStore } from 'redux'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import { logMigration } from 'utils/analytics'
+import { LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
 import DefaultAppState from './initialAppState'
 
 const rootReducer = combineReducers({
@@ -30,15 +32,24 @@ const pReducer = persistReducer(
 
       // pre-v4 -> v4 Migration
       if (!oldVersion || oldVersion < 4 || !currentVersion || currentVersion < 4) {
-        // Blow the current state away
+        const version = 4
         console.warn(
           'Outdated version of AoS Reminders detected (>=4.0.0 required). Wiping the state clean to avoid potentially fatal crashes.'
         )
+
+        // Tell Google Analytics what we're doing
+        logMigration(version)
+
+        // Handle locally cached data
+        LocalFavoriteFaction.clear()
+        LocalSavedArmies.clear()
+
+        // Blow the current state away
         return {
           ...DefaultAppState,
           _persist: {
             ...state._persist,
-            version: 4,
+            version,
           },
         }
       }
