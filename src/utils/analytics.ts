@@ -194,6 +194,14 @@ export const logNote = (action: string, factionName: string) => {
   })
 }
 
+export const logMigration = (version: number) => {
+  logToGA({
+    category: 'Migration',
+    action: `Migrate-to-v${version}`,
+    label: `Migrate-to-v${version}`,
+  })
+}
+
 export const logSubscription = (planTitle: string, provider: 'stripe' | 'paypal') => {
   const plan = SubscriptionPlans.find(x => x.title === planTitle)
   if (!isProd || !plan) return
