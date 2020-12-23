@@ -176,7 +176,7 @@ const baseAvatarOfKhaine = {
   ],
 }
 
-const Units = {
+const Morathi = {
   'Morathi-Khaine': {
     mandatory: {
       spells: [keyPicker(Spells, ['Black Horror of Ulgu'])],
@@ -214,6 +214,22 @@ const Units = {
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
+  },
+}
+
+const Units = {
+  'Morathi-Khaine': {
+    ...Morathi['Morathi-Khaine'],
+    mandatory: {
+      ...Morathi['Morathi-Khaine'].mandatory,
+      units: [keyPicker(Morathi, ['The Shadow Queen'])],
+    },
+  },
+  'The Shadow Queen': {
+    ...Morathi['The Shadow Queen'],
+    mandatory: {
+      units: [keyPicker(Morathi, ['Morathi-Khaine'])],
+    },
   },
   'Hag Queen': {
     mandatory: {

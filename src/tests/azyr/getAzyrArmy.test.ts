@@ -1527,7 +1527,7 @@ describe('getAzyrArmyFromPdf', () => {
       spells: ['Mindrazor', 'Black Horror of Ulgu'],
       command_traits: [],
       triumphs: [],
-      units: ['Hag Queen on Cauldron of Blood', 'Morathi-Khaine', 'Sisters of Slaughter'],
+      units: ['Hag Queen on Cauldron of Blood', 'Morathi-Khaine', 'Sisters of Slaughter', 'The Shadow Queen'],
     })
   })
 
