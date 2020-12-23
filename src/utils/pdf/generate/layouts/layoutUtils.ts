@@ -355,7 +355,15 @@ export default class CompactPdfLayout {
   }
 
   private _getArmyText = (): ICompactPdfTextObj[] => {
-    const { allyFactionNames, allySelections, factionName, realmscape_feature, selections } = this._army
+    const {
+      allyFactionNames,
+      allySelections,
+      factionName,
+      subFactionName,
+      realmscape_feature,
+      selections,
+    } = this._army
+
     const {
       artifacts,
       battalions,
@@ -363,6 +371,7 @@ export default class CompactPdfLayout {
       command_traits,
       endless_spells,
       flavors,
+      mount_traits,
       prayers,
       scenery,
       spells,
@@ -375,7 +384,7 @@ export default class CompactPdfLayout {
     let text: ICompactPdfTextObj[] = [
       { text: '', type: 'spacer', position: 'full' },
       { text: '', type: 'spacer', position: 'full' },
-      { text: titleCase(factionName), type: 'armyName', position: 'full' },
+      { text: getFactionTitle(factionName, subFactionName), type: 'armyName', position: 'full' },
     ]
 
     const getText = this._getSelections()
@@ -392,6 +401,7 @@ export default class CompactPdfLayout {
       ),
       getText('Artifact', artifacts),
       getText('Command Trait', command_traits),
+      getText('Mount Trait', mount_traits),
       getText('Command Abilities', command_abilities, false),
       getText('Prayer', prayers),
       getText('Spell', spells),
@@ -409,4 +419,11 @@ export default class CompactPdfLayout {
 
     return text.concat(selectionText, endText)
   }
+}
+
+export const getFactionTitle = (factionName: string, subFactionName = '') => {
+  const factionTitle = titleCase(factionName)
+  const subFactionTitle = titleCase(subFactionName)
+  const suffix = !!subFactionTitle && subFactionTitle !== factionTitle ? ` - ${subFactionTitle}` : ''
+  return `${factionTitle}${suffix}`
 }
