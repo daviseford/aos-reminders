@@ -68,7 +68,7 @@ export const logFactionSwitch = (factionName: string | null) => {
  * Sends a Google Analytics event telling us which subfaction the user has selected
  * @param subFaction
  */
-export const logSubFactionSwitch = (subFaction: string | null) => {
+export const logSubFactionSwitch = (subFaction = '') => {
   if (!subFaction) return
   logToGA({
     category: 'Select',
