@@ -26,8 +26,8 @@ const PrintArmy = () => {
     <>
       <div className={'row text-center mt-4 mb-1 d-none d-print-block'}>
         <h5>{titleCase(factionName)}</h5>
-        {titleCase(factionName) !== titleCase(subFactionName) && (
-          <h5>Subfaction: {titleCase(subFactionName)}</h5>
+        {!!subFactionName && titleCase(factionName) !== titleCase(subFactionName) && (
+          <h5>SubFaction: {titleCase(subFactionName)}</h5>
         )}
       </div>
       <div className={'row text-center d-none d-print-block'}>
@@ -39,7 +39,6 @@ const PrintArmy = () => {
         <ItemsDisplayComponent name={'Command Trait'} items={command_traits} />
         <ItemsDisplayComponent name={'Mount Trait'} items={mount_traits} />
         <ItemsDisplayComponent name={'Command Abilities'} items={command_abilities} pluralize={false} />
-        <ItemsDisplayComponent name={'Flavor'} items={flavors} />
         <ItemsDisplayComponent name={'Spell'} items={spells} />
         <ItemsDisplayComponent name={'Prayer'} items={prayers} />
         <ItemsDisplayComponent name={'Endless Spell'} items={endless_spells} />
