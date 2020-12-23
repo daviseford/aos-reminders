@@ -13,7 +13,15 @@ interface ISavedArmyTable {
 }
 
 export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
-  const { selections, allySelections, origin_realm, realmscape, realmscape_feature } = army
+  const {
+    factionName,
+    subFactionName,
+    selections,
+    allySelections,
+    origin_realm,
+    realmscape,
+    realmscape_feature,
+  } = army
   const { theme } = useTheme()
 
   const armySelectionKeys = useMemo(
@@ -40,6 +48,8 @@ export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
     <>
       <table className={`table table-sm`}>
         <tbody>
+          <Tr theme={theme} items={[titleCase(factionName)]} title={'Faction'} />
+          {!!subFactionName && <Tr theme={theme} items={[subFactionName]} title={'SubFaction'} />}
           {armySelectionKeys.map((key, i) => {
             return (
               <Tr
