@@ -1,6 +1,6 @@
 # AoS Reminders v4.0.0 - A New Approach to Data
 
-AoS Reminders v4.0.0 has just been released - and there's a lot to talk about.
+[AoS Reminders v4.0.0](https://aosreminders.com/?utm_source=v4-changelog&utm_medium=v4-changelog&utm_campaign=v4-changelog) has just been released - and there's a lot to talk about.
 
 ## TL;DR
 
@@ -383,7 +383,7 @@ Our work at AoS Reminders is never done. Beyond our continued commitment to alwa
 
 A small preview of what's to come...
 
-- Adding rule-specific metadata _a la_ Battlescribe.
+- Adding [rule-specific metadata](https://github.com/daviseford/aos-reminders/pull/1165) _a la_ Battlescribe.
 
 ```diff
 {
@@ -401,24 +401,108 @@ A small preview of what's to come...
 +           type: 'errata',
 +         },
 +       ],
-+   // The above would indicate in the UI that this rule originally came from the Battletome, but has been updated with the wording from a more recent errata.
++   // The above indicates that this rule originally came from the Battletome,
++   // but has been updated with the wording from a more recent errata.
     when: [HERO_PHASE],
 },
 ```
 
-- Uploading Warscroll Builder/Azyr PDFs (and Battlescribe HTML files) alongside your saved armies.
-- Better downloadable PDFs.
+- Uploading Warscroll Builder/Azyr PDFs (and Battlescribe HTML files) [alongside your saved armies.](https://github.com/daviseford/aos-reminders/issues/865)
+- [Better](https://github.com/daviseford/aos-reminders/issues/989) downloadable PDFs.
 - And much more - [check our open issues](https://github.com/daviseford/aos-reminders/issues) to see what we're working on!
 
+## 2020 Sucked
+
+It's not a secret that COVID killed Warhammer in 2020.
+
+I've talked to so many friends who haven't been able to find the will to paint anything.
+
+TableTop Simulator is great - but it doesn't scratch my itch. Age of Sigmar is a social, physical game. A virtual proxy simply doesn't feel right.
+
+I have marvelled at other content creators as they pushed through a terrible year. 
+
+I struggled to find motivation after March.
+
+![Commit frequency](assets/commits.png)
+
+There was simply too much going on.
+
+---
+
+AoS Reminders was not spared from the broad economic effects of COVID, either. Luckily, I rely on subscriptions only to pay server bills, and not much else.
+
+![subscriber falloff post-covid](assets/subscriber_falloff.png)
+
+I gave away a lot of free subscriptions this year too - I got quite a few comments from people who liked the product but didn't want to spend the money in such a tumultous time.
+
+I am an awful businessman - I will always give my product away for free if I can.
+
+I just want people to be happy.
+
+---
+
+This year has made me contemplate death (more than usual). I've always been a somewhat morbid individual, but it seemed that Death took a liking to me this year.
+
+My dog Roxy developed a malignant tumor on her brain. It was worrisome, but surgery took care of it. She is now eleven years old and still plays like a puppy at times.  But she mostly sleeps now, and I know that I'm currently experiencing her final years.
+
+My father's small business of nearly 30 years was closed by the local government in order to make way for a movie theater and a parking lot. My dad was rushed to the emergency room in the summer for a health complication. He recovered, but it scared me.
+
+My mother had her own health scare - which thankfully turned out to be benign.
+
+My grandmother succumbed to pneumonia in the October. Because of COVID restrictions, I was forced to say goodbye to my Nana over Zoom.
+
+Right after I said goodbye, I went inside CVS Pharmacy to get a Flu/TDAP vaccine.
+
+My cousin had a baby this year (one of the few bright spots), and I wanted to be up to date on everything so that I could visit the baby.
+
+I got two shots in my arm, no problem. I left CVS, walked through the parking lot, sat down in my car, and told my girlfriend that I didn't feel very good.
+
+I woke up to my girlfriend screaming hysterically.
+
+She was outside the car, sobbing, because her boyfriend had passed out.
+
+I thought to myself, "Hey, _I'm_ your boyfriend, and I'm not passed out!"
+
+But I couldn't move my arms or my neck. I was draped over the center console of my car and the world was spinning. I couldn't talk and I couldn't focus my eyes on anything. Something had gone very wrong.
+
+By the time the ambulance arrived, I was able to talk and breathe again.
+
+That didn't stop the Fairfax County police from assuming I had overdosed on drugs. **(FUCK. YOU.)**
+
+There's no real resolution to this story. Maybe getting two vaccine shots in one arm wasn't wise. Maybe I had an allergic reaction. Maybe I was just stressed out, having said goodbye to my Nana just ten minutes before passing out.
+
+---
+
+It was the second time in my life that I felt uncomfortably close to death.
+
+The first was in the midst of my kidney transplant in 2008. I was drifting in and out of conciousness post-operation.
+
+I remember thinking that it was too hard to breathe - it would be so easy to just... **stop**. 
+
+So I did. I didn't lift my chest. I didn't expand my lungs.
+
+It felt so good to not struggle - I was so tired. And the darkness looked inviting - no more pain, no more hurt.
+
+And then, through the muddy darkness, I heard my mom tell me to breathe.
+
+So I did.
+
+---
+
+2020 was going to be a good year for me. It fell short of my expectations.
+
+But I am alive. And so are you, if you're reading this.
+
+And in 2020, that's good enough.
 ## Wrapping Up
 
-I'm probably not the first person to mention that 2020 was a rough year, so I won't dwell on it.
+I'm probably not the first person to mention that 2020 was a rough year, so I won't dwell on it any longer.
 
 I'd like to thank all of the contributors who have continued to build our codebase. AoS Reminders wouldn't be the same without you!
 
 I'd like to thank all of our subscribers - past, present, and future. While AoS Reminders will always be an open-source, totally free service, I have worked hard to add value to the application for our supporters.
 
-If you're not subscribed - [please consider it](https://aosreminders.com/subscribe). A 12-month subscription costs $11.88 - that's 99 cents per month.
+If you're not subscribed - [please consider it](https://aosreminders.com/subscribe?utm_source=v4-changelog&utm_medium=v4-changelog&utm_campaign=v4-changelog). A 12-month subscription costs $11.88 - that's 99 cents per month.
 
 I firmly believe that the amount of time that you'll save by using our advanced features is worth a dollar.
 
