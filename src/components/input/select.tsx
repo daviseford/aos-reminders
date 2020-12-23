@@ -82,7 +82,7 @@ export const SelectOne = (props: ISelectOneProps) => {
   )
 }
 
-const convertToOptions = (items: string[] = [], toTitle: boolean = true): TDropdownOption[] => {
+export const convertToOptions = (items: string[] = [], toTitle: boolean = true): TDropdownOption[] => {
   return items.map(i => ({ value: i, label: toTitle ? titleCase(i) : i }))
 }
 
