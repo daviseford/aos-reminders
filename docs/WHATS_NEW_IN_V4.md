@@ -1,4 +1,4 @@
-# AoS Reminders - v4.0.0 - A New Approach to Data
+# AoS Reminders v4.0.0 - A New Approach to Data
 
 AoS Reminders v4.0.0 has just been released - and there's a lot to talk about.
 
@@ -14,10 +14,10 @@ AoS Reminders v4.0.0 has just been released - and there's a lot to talk about.
   - `BIG_WAAAGH, IRONJAWZ, BONESPLITTERZ` -> now **SubFactions** of `ORRUK_WARCLANS`
   - `GRAND_HOST_OF_NAGASH, LEGION_OF_BLOOD, LEGION_OF_SACRAMENT, LEGION_OF_NIGHT, SOULBLIGHT` -> now **SubFactions** of `LEGIONS_OF_NAGASH`
 - We've added a new UI element - the **SubFaction** dropdown. This dropdown will only appear when a **Faction** can be taken in multiple configurations (see _**Introducing "SubFactions"**_ below).
-  
+
 ![Subfaction dropdown](assets/subfaction-dropdown.png)
 
-- **[SUBSCRIBERS]** - We have migrated your existing saved armies - but you should still verify their accuracy. 
+- **[SUBSCRIBERS]** - We have migrated your existing saved armies - but you should still verify their accuracy.
   - To be totally transparent, we have [edited](https://github.com/daviseford/aos-reminders/pull/1074) more than 58,000 lines of code spread over 692 files.
   - Therefore, there is a non-zero chance that we missed an errant rule.
   - I would recommend just creating new saved armies to ensure everything is working as intended.
@@ -32,7 +32,7 @@ Mostly, I assumed that Games Workshop would continue to write books with the sam
 
 That assumption was accurate for about a year - and then it wasn't. With the release of the new Seraphon book, and the added layers of complexity in list-building today, AoS Reminders was badly in need of an update.
 
-The ironic part of this update is that, while the update itself is **astonishingly huge** (over 58,000 lines of code updated), end-users will probably notice only three things: 
+The ironic part of this update is that, while the update itself is **astonishingly huge** (over 58,000 lines of code updated), end-users will probably notice only three things:
 
 1. The new **SubFaction** dropdown
 2. Better auto-completion for mandatory units/artifacts/etc.
@@ -42,7 +42,7 @@ The ironic part of this update is that, while the update itself is **astonishing
 
 ## A New Data Structure
 
-One of the more important design considerations for a project like AoS Reminders is the shape of the data. There are all sorts of arguments to be made for key-based vs index-based storage, which I won't go into here. 
+One of the more important design considerations for a project like AoS Reminders is the shape of the data. There are all sorts of arguments to be made for key-based vs index-based storage, which I won't go into here.
 
 Suffice it to say, when you are managing thousands and thousands of rules, it is important to arrive at a data structure that is A.) easy to update and B.) easy to process (computationally). It's also important that our data structure matches the information being entered - and that's where we begin this blog post.
 
@@ -80,7 +80,7 @@ For example, if you selected `Morathi-Khaine` in the UI, we had to run through _
 
 We also have to make sure we _remove_ the tagged rules when Morathi is unselected from the UI - that logic could be the topic of its own blog post, so I won't go into it here - but I'm sure you can imagine the spaghetti code that resulted from all of these needs.
 
-Now, I want to be clear - this pattern _works_. It served AoS Reminders very well for nearly two years. 
+Now, I want to be clear - this pattern _works_. It served AoS Reminders very well for nearly two years.
 
 And if Age of Sigmar battletomes hadn't evolved, we could have stayed with this forever.
 
@@ -109,7 +109,7 @@ Keeping track of these rules was pretty trivial, to be honest. This pattern work
 
 ---
 
-Later battletomes began to add more complex allegiance behaviors. 
+Later battletomes began to add more complex allegiance behaviors.
 
 Kharadron Overlords is a great example of the newer style of allegiance abilities (all of the various Barak-* stuff). Ogor Mawtribes brought us even more ways to compose armies. More and more army lists began to be based around these complex allegiance behaviors.
 
@@ -130,7 +130,7 @@ At this point, battletomes had expanded in scope and ambition significantly, and
   - Units
 ```
 
-We could still _manage_ this - but it was getting difficult. We were doing all sorts of things to allow units to share artifacts and command traits. We were making best-effort attempts at detecting which Specific Allegiance you belonged to, but it really was getting difficult to handle all of this data. 
+We could still _manage_ this - but it was getting difficult. We were doing all sorts of things to allow units to share artifacts and command traits. We were making best-effort attempts at detecting which Specific Allegiance you belonged to, but it really was getting difficult to handle all of this data.
 
 Here's an example of a old "Specific Allegiance" entry - the Gristlegore Grand Court.
 
@@ -171,7 +171,7 @@ What the heck is a "General Allegiance" vs a "Specific Allegiance"? What happens
 
 ## Enter... "Flavors"
 
-**Flavors** (coined by [@exonian](https://github.com/exonian)) is the term that we now use at AoS Reminders to describe these "Specific Allegiances". 
+**Flavors** (coined by [@exonian](https://github.com/exonian)) is the term that we now use at AoS Reminders to describe these "Specific Allegiances".
 
 Think Kharadron Overlords Skyports, Flesh Eater Court Grand Courts, Seraphon Constellations, Stormcast Stormhosts, etc.
 
@@ -209,7 +209,19 @@ That... worked. Sort of. I gritted my teeth, wrote some _really_ ugly code, and 
 
 A few battletome releases later, it became clear that this new style of rules was **not** an aberration.
 
-What really pushed the codebase over the cliff was the release of the Stormcast Eternals Stormkeep. The Stormkeep basically acted as an entirely different faction that shared many elements with the original Stormcast, but the amount of overlap was confusing and hard to represent faithfully.
+What really pushed the codebase over the cliff was the release of the Stormcast Eternals Stormkeep.
+
+The Stormkeep basically acted as an entirely different faction that shared many elements with the original Stormcast, but the amount of overlap was confusing and hard to represent faithfully.
+
+In order to handle the Stormkeep properly within the application, we had to do something that I _hated_ - we created a totally new faction in AoS Reminders - `STORMCAST_ETERNALS_STORMKEEP`.
+
+That's right - the Stormkeep represented such a departure from the rest of the Stormcast Eternals faction that _we had to create an entirely new faction to represent them_.
+
+This was not good. I [raised this concern](https://github.com/daviseford/aos-reminders/issues/1073) with other AoS Reminders contributors over Discord and Github. We discussed current limitations of the system - we felt constrained and unable to easily represent relationships between items.
+
+If you read [the data structure issue](https://github.com/daviseford/aos-reminders/issues/1073), you'll see us iterate through a few designs before arriving at the end result.
+
+One thing that we had to do before proceeding -  we needed to define what exactly we are talking about!
 
 ## Factions, SubFactions, and Flavors - Oh My!
 
@@ -217,25 +229,25 @@ Let's get analytical here. What exactly defines these terms?
 
 ### Glossary
 
-First, let's define a **Faction**
+First, let's define a **Faction**.
 
 - A **Faction** is the highest-level representation of an army/faction in AoS.
 - A **Faction** is the aggregate set of rules that govern one or many **SubFactions**.
-- If a **Faction** has multiple **SubFactions**, the user will be allowed to select a variant
+- If a **Faction** has multiple **SubFactions**, the user will be allowed to select a variant.
 
 Next, **SubFactions**.
 
-- A **SubFaction** belongs to a **Faction**
+- A **SubFaction** belongs to a **Faction**.
 - A **SubFaction** can dictate:
-  - What **Flavors** it may contain
-  - What units/battalions/spells/etc are available (or mandatory)
+  - What **Flavors** it may contain.
+  - What units/battalions/spells/etc are `available` (or `mandatory`).
 
-Lastly in this high-level tier (but at the bottom), **Flavors**
+Lastly in this high-level tier (but at the bottom), **Flavors**:
 
-- These are the more "traditional" ways of configuring **Factions**. 
-- A **Flavor** may belong to one or many **Sub-Factions**
+- These are the more "traditional" ways of configuring **Factions**.
+- A **Flavor** may belong to one or many **Sub-Factions**.
 - A **Flavor** can dictate:
-  - What units/battalions/spells/etc are available (or mandatory)
+  - What units/battalions/spells/etc are `available` (or `mandatory`).
 
 ![Old data structure vs. new](assets/V4AOSR.png)
 
@@ -269,8 +281,8 @@ Here's how we describe a **SubFaction** in our new data structure:
       units: [
           keyOmitter(Units, ['Idolator Lord on Chaos Chariot', 'Idolator Lord on Gorebeast Chariot']) // User can take any units _except_ these values
           // keyPicker(Units, ['Some Unit']) // We could alternatively add _only_ this unit to the mix
-    ], 
-    
+    ],
+
     },
   },
 ```
@@ -310,18 +322,56 @@ The developer experience is phenomenal for this, by the way. Everything is auto-
 
 ![Composing a Unit](assets/unit_example.gif)
 
-TypeScript is amazing, btw :)
+TypeScript is amazing :)
 
+## Speaking of TypeScript...
 
-## Making the switch
+_If you're not a developer, or your eyes start to glaze over, I recommend skipping this section._
 
-We have well over 500 tests governing how AoS Reminders works. 
+I consolidated a lot of types within the codebase. I cut down on the number of ad-hoc types, and forced many files and components to respect a core set of types.
 
-We have a ton of features - saved armies, shared armies, importing from Azyr/Warscroll Builder/Battlescribe.
+I used `ts-prune` and `npx depcheck` to cut down on unnecessary dependencies and exports.
+
+One thing I'd like to address in a future patch - the size of our application's payload.
+
+```
+File sizes after gzip:
+
+  312.99 KB  build\static\js\main.733d2299.chunk.js // This chunk includes all rules
+  181.39 KB  build\static\js\8.17b7f197.chunk.js
+  126.38 KB  build\static\js\9.994ea37e.chunk.js
+  87.4 KB    build\static\js\38.3b57ecda.chunk.js
+  33.13 KB   build\static\js\13.f011a879.chunk.js
+  31.61 KB   build\static\js\10.fdaa2884.chunk.js
+  28.58 KB   build\static\js\4.548470d9.chunk.js
+  24.71 KB   build\static\css\main.775c91a3.chunk.css
+  20.56 KB   build\static\js\17.d7417ee3.chunk.js
+  20.42 KB   build\static\js\39.783085a8.chunk.js
+  13.07 KB   build\static\js\3.1bd762eb.chunk.js
+  12.11 KB   build\static\js\24.f9d53378.chunk.js
+  --------
+  + [a bunch of sub-10kb chunks]
+  ```
+
+We can run `yarn analyze` to see how our sourcemaps are distributed - the size of our rules catalog accounts for nearly 300kb (after `gzip`).
+
+![Results of `yarn analyze`](assets/bundle-analyze.png)
+
+I think there are ways that I can defer loading in all of the armies in the `main` chunk - but last time I tried that, I was left with an asynchronous, laggy-feeling mess on the front-end (since lazy-loading rules always incurs a slight delay).
+
+I will be working hard on cutting down our `main` chunk size, and exploring other ways to compress and store text more efficiently.
+
+## Making The Switch
+
+We have well over 500 tests governing how AoS Reminders works. Those all had to be updated and adjusted to reflect our new data structure.
+
+We have a ton of features - saved armies, shared armies, importing from Azyr/Warscroll Builder/Battlescribe. All of these features had to be updated as well.
+
+I wrote migrations for armies saved on the backend as well - tracking all of these changes was tough!
 
 We also had to move **Factions** and **SubFactions** around - most notably, the various Orruk Warclans **SubFactions** (Bonesplitterz, Ironjawz, and Big Waaagh).
 
-Worst of all, I finally conceded my years-long grudge. Look man, I think `Skaventide` is a poor substitute for `Skaven`, and I will always say `Skaven` in conversation -> but I have _finally_ given in and changed the name in AoS Reminders.
+Worst of all, I finally conceded my years-long grudge. Look - I think `Skaventide` is a poor substitute for `Skaven`, and I will always say `Skaven` in conversation - but I have _finally_ given in and changed the name in AoS Reminders.
 
 It has taken over 24 days to arrive at the completion of this huge change.
 
@@ -334,7 +384,7 @@ Our work at AoS Reminders is never done. Beyond our continued commitment to alwa
 A small preview of what's to come...
 
 - Adding rule-specific metadata _a la_ Battlescribe.
- 
+
 ```diff
 {
     name: `Glowy Lantern (Taker Tribe)`,
@@ -357,7 +407,7 @@ A small preview of what's to come...
 ```
 
 - Uploading Warscroll Builder/Azyr PDFs (and Battlescribe HTML files) alongside your saved armies.
-- Better downloadable PDFs
+- Better downloadable PDFs.
 - And much more - [check our open issues](https://github.com/daviseford/aos-reminders/issues) to see what we're working on!
 
 ## Wrapping Up
@@ -372,6 +422,8 @@ If you're not subscribed - [please consider it](https://aosreminders.com/subscri
 
 I firmly believe that the amount of time that you'll save by using our advanced features is worth a dollar.
 
-I get amazing emails in my inbox from parents who are playing the game with their children, or their spouse. I'm a big believer in using the Internet to spread good things - so this warms my heart.
+I get amazing emails in my inbox from parents who are playing the game with their children, or their spouse.
+
+I'm a big believer in using the Internet to spread good things - so this warms my heart.
 
 I hope everyone has a wonderful, safe, and calm 2021 :)

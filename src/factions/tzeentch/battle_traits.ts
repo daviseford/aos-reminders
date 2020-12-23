@@ -27,13 +27,13 @@ const BattleTraits = {
       {
         name: `Masters of Destiny`,
         desc: `Before rolling any dice for a TZEENTCH unit, you can use one or more of the remaining Destiny Dice from your pool in their stead; the result of the roll you would have made is automatically substituted with the result shown on the Destiny Dice you have chosen to use.
-    
+
         Each Destiny Dice spent only allows you to replace a single dice roll. If you want to replace a 2D6 roll (such as a casting roll or charge roll), you must spend 2 Destiny Dice. In addition, any rolls that have been replaced count as unmodified rolls and cannot be rerolled. They also cannot be modified, with the following two exceptions:
-    
+
         If you spend a Destiny Dice to replace a save roll, the result of that Destiny Dice is modified by the Rend characteristic of the attack as normal.
-    
+
         If you spend a Destiny Dice to replace a battleshock test, the result of that Destiny Dice is modified by the number of models slain from that unit as normal.
-    
+
         Destiny Dice can be spent in place of the following rolls:
         Casting, Unbinding, Dispelling, Run, Charge, Hit, Wound, Save, Damage characteristic of missiles/melee weapons, Battleshock`,
         when: [DURING_GAME],
@@ -46,14 +46,14 @@ const BattleTraits = {
       {
         name: `Summon Daemons of Tzeentch`,
         desc: `If you have 10 or more Fate Points at the end of your movement phase, you can summon one unit from the summoning list onto the battlefield, and add them to your army. Each unit you summon costs a number of Fate Points, as shown on the list, and you can only summon a unit if you have enough Fate Points to pay its cost.
-    
+
         Summoned units must be set up wholly within 12" of a friendly Tzeentch Hero and more than 9" from any enemy units. Subtract the cost of the summoned unit from the number of Fate Points you have immediately after the summoned unit has been set up.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Summon Daemons of Tzeentch`,
         desc: `Summoning Costs:
-               1 Exalted Greater Daemon of Tzeentch - 45 FP       
+               1 Exalted Greater Daemon of Tzeentch - 45 FP
                1 Lord of Change -                     30 FP
                1 Fateskimmer on Burning Chariot -     24 FP
                10 Pink Horrors -                      20 FP
@@ -75,9 +75,9 @@ const BattleTraits = {
       {
         name: `Agendas of Anarchy`,
         desc: `At the start of your hero phase, you can say that your army intends to complete one of the following agendas before the start of your next hero phase. You must tell your opponent which agenda you intend to complete, and you cannot complete the same agenda more than once per battle.
-    
+
         If a friendly Tzeentch unit completes one of the following agendas during a battle, that unit gains that agenda's ability for the rest of the game.
-    
+
         Friendly Tzeentch units that complete more than 1 agenda must choose which ability they wish to keep; any other ability gained are lost.`,
         when: [START_OF_HERO_PHASE],
       },

@@ -78,9 +78,9 @@ const CommandAbilities = {
       {
         name: `Plague of Flies`,
         desc: `If this ability had been activated, subtract 1 from the hit rolls of attacks targeting the buffed unit.
-      
+
                If the unit contains 20 or more models, subtract 2 from the hit rolls of attacks targeting the buffed unit.
-      
+
                The same unit cannot benefit from this ability more than once in the same phase.`,
         when: [SHOOTING_PHASE],
       },

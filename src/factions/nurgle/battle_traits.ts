@@ -38,29 +38,29 @@ const BattleTraits = {
       {
         name: `Summon Daemons of Nurgle`,
         desc: `You receive 3 contagion points if there are any friendly Nurgle models in your own territory.
-    
+
                You receive 3 additional contagion points if there are any friendly Nurgle models in your opponents territory.
-    
+
                You receive 1 extra contagion point if no enemy models are in a territory occupied by friendly Nurgle units.
-    
+
                In addition you receive D3 contagion points for each Feculent Gnarlmaw that has no enemy models within 3" of it.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Summon Daemons of Nurgle`,
         desc: `If you have 7 or more contagion points, you can summon one or more units onto the battlefield.
-    
+
                Summoned units must be set up wholly within 12" of a Feculent Gnarlmaw or a friendly Nurgle hero and more than 9" away from enemy models.
-    
+
                If the summoned unit is a Feculent Gnarlmaw it must also be setup more than 3" from any other terrain feature and more the 1" from any objectives.
-    
+
                The cost of any units summoned in this manner is subtracted from the current total available contagion points.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Summon Daemons of Nurgle`,
         desc: `Summoning Costs:
-               1 Exalted Greater Daemon of Nurgle - 35 CP       
+               1 Exalted Greater Daemon of Nurgle - 35 CP
                1 Great Unclean One -                28 CP
                1 Horticulous Slimux -               21 CP
                3 Plague Drones -                    21 CP
@@ -79,7 +79,7 @@ const BattleTraits = {
       {
         name: `The Lores of Nurgle`,
         desc: `All wizards in a Nurgle army know the Foul Regenesis spell in addition to any other spells that they know.
-    
+
                In addition, each wizard know a selected spell from one of the Lores of Nurgle depending on the keyword type of the wizard.`,
         when: [HERO_PHASE],
       },

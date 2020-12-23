@@ -160,7 +160,7 @@ const Flavors = {
     effects: [
       {
         name: `Underhanded Tactics`,
-        desc: `You may set up the following units in reserve (max size 10 models per unit) : Misthavn Order Sepentis, Shadowblades or Scourge Privateers. 
+        desc: `You may set up the following units in reserve (max size 10 models per unit): Misthavn Order Sepentis, Shadowblades or Scourge Privateers.
                1 unit may be in reserve for each Darkling Covens, Freeguild, or Duardin unit already on the battlefield.`,
         when: [DURING_SETUP],
       },

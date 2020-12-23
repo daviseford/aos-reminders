@@ -24,10 +24,10 @@ const ThundertuskEffects = [
   {
     name: `Blasts of Frost-wreathed Ice`,
     desc: `Do not use the attack sequence for an attack made with Frost-wreathed Ice. Instead, pick 1 enemy unit within 18" of this model that is visible to it and roll the number of dice shown on the damage table on the warscroll.
-  
+
       Add 1 to each roll if the target unit has 10 or more models.
       Add 2 to each roll instead if the target unit has 20 or more models.
-  
+
       For each 6+, that enemy unit suffers 1 mortal wound.`,
     when: [SHOOTING_PHASE],
   },
@@ -174,9 +174,9 @@ const Units = {
       {
         name: `Blizzard Speaker`,
         desc: `In your hero phase, this model can chant one of the following prayers. If it does so, pick one of the prayers and then make a prayer roll by rolling a dice. Add 1 to the roll for each other friendly Thundertusk within 18" of this model. On a 1-3, the prayer is not answered. On a 4+, the prayer is answered.
-    
+
             Winter's Endurance: If this prayer is answered, pick 1 friendly Beastclaw Raiders unit wholly within 18" of this model. You can heal D3 wounds allocated to that unit.
-    
+
             Winter's Strength: If this prayer is answered, pick 1 friendly Beastclaw Raiders unit wholly within 18" of this model. Until the start of your next hero phase, add 1 to wound rolls for attacks made with melee weapons by that unit.`,
         when: [HERO_PHASE],
       },
@@ -290,13 +290,13 @@ const Units = {
       {
         name: `Been There, Done That`,
         desc: `After armies have been set up but before the first battle round begins, pick 1 ability to apply to this unit from the following list:
-    
+
             Brawlers: You can reroll hit rolls of 1 for attacks made with melee weapons by this unit.
-    
+
             Crack Shots: You can reroll hit rolls of 1 for attacks made with missile weapons by this unit.
-    
+
             Striders: This unit can run and still charge later in the same turn.
-    
+
             Stubborn: Do not take battleshock tests for this unit.`,
         when: [END_OF_SETUP],
       },
@@ -380,13 +380,13 @@ const Units = {
       {
         name: `Great Cauldron`,
         desc: `In your hero phase, you can say that this model will reach into its cauldron and feast on the contents. If you do so, roll a D6 and consult the table below.
-    
+
             1: Bad Meat: This model suffers D3 mortal wounds.
-    
+
             2: Troggoth Guts: You can heal D3 wounds allocated to this model. In addition, you can heal 1 wound allocated to each friendly Ogor unit wholly within 12" of this model.
-    
+
             3-4: Spinemarrow: Pick a friendly Ogor unit wholly within 12" of this model. Add 1 to hit rolls for attacks made with melee weapons by that unit until the start of your next hero phase.
-    
+
             5-6: Bonecrusher: Roll a D6 for each enemy unit within 6" of this model. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
@@ -425,7 +425,7 @@ const Units = {
       {
         name: `Hidden Trap`,
         desc: `At the start of the first hero phase, if this unit is in your army, you can pick 1 terrain feature or objective that is not wholly within enemy territory and say that it is trapped. If you do so, place 1 Bushwakka's Trap marker next to that terrain feature or objective.
-    
+
           The first time a unit finishes a move within 1" of the trapped terrain feature or objective, roll a D6. On a 2+, that unit suffers D6 mortal wounds and the Bushwakka's Trap marker is removed.`,
         when: [TURN_ONE_START_OF_HERO_PHASE],
       },

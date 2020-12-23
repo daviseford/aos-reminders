@@ -16,6 +16,6 @@ assignees: ''
 
 ---
 
-**My login email:** 
+**My login email:**
 
 _Note: If you'd prefer to keep your email private, please email me at aosreminders@gmail.com instead_
