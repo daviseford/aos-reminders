@@ -85,15 +85,14 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         setLoadedArmy(null)
         return noChangesResponse
       }
-      const { id, armyName, userName, createdAt, updatedAt, ...loaded } = original
+
+      const { id, armyName, userName, createdAt, updatedAt, schemaVersion, ...loaded } = original
 
       const hiddenReminders = store.getState().visibility.reminders
       const current = prepareArmy(
         { ...currentArmy, hiddenReminders, armyName, notes: relevantNotes },
         'update'
       ) as ISavedArmy
-
-      console.log(current, loaded)
 
       // This fixes an issue where the names are not in exactly the same order
       loaded.allyFactionNames = sortBy(loaded.allyFactionNames || [])

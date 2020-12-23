@@ -21,6 +21,7 @@ export interface ISavedArmyFromApi extends ISavedArmy {
    * Unix time (milliseconds)
    */
   updatedAt: number
+  schemaVersion: number
 }
 
 export interface ILinkedArmy extends ISavedArmy {
@@ -35,4 +36,5 @@ export interface ILinkedArmy extends ISavedArmy {
   updatedAt: number
   hiddenReminders: IVisibilityStore['reminders']
   notes: INote[]
+  schemaVersion: number
 }
