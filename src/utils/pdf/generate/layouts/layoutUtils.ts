@@ -20,7 +20,6 @@ export interface IPageOpts {
   maxNoteLineWidth: number
   maxTitleLineWidth: number
   pageBottom: number
-  pageHeight: number
   xMargin: number
   yMargin: number
 }
@@ -356,16 +355,26 @@ export default class CompactPdfLayout {
   }
 
   private _getArmyText = (): ICompactPdfTextObj[] => {
-    const { allyFactionNames, allySelections, factionName, realmscape_feature, selections } = this._army
     const {
-      allegiances,
+      allyFactionNames,
+      allySelections,
+      factionName,
+      subFactionName,
+      realmscape_feature,
+      selections,
+    } = this._army
+
+    const {
       artifacts,
       battalions,
-      commands,
+      command_abilities,
+      command_traits,
       endless_spells,
+      flavors,
+      mount_traits,
+      prayers,
       scenery,
       spells,
-      traits,
       triumphs,
       units,
     } = selections
@@ -375,24 +384,26 @@ export default class CompactPdfLayout {
     let text: ICompactPdfTextObj[] = [
       { text: '', type: 'spacer', position: 'full' },
       { text: '', type: 'spacer', position: 'full' },
-      { text: titleCase(factionName), type: 'armyName', position: 'full' },
+      { text: getFactionTitle(factionName, subFactionName), type: 'armyName', position: 'full' },
     ]
 
     const getText = this._getSelections()
 
     const selectionText = [
+      getText('Flavor', flavors),
+      getText('Battalion', battalions),
       getText('Unit', units),
+      ...allyFactionNames.map(n =>
+        getText(`Allied ${titleCase(n)} Battalion`, (allySelections[n] as IAllySelections).battalions || [])
+      ),
       ...allyFactionNames.map(n =>
         getText(`Allied ${titleCase(n)} Unit`, (allySelections[n] as IAllySelections).units)
       ),
       getText('Artifact', artifacts),
-      getText('Battalion', battalions),
-      ...allyFactionNames.map(n =>
-        getText(`Allied ${titleCase(n)} Battalion`, (allySelections[n] as IAllySelections).battalions || [])
-      ),
-      getText('Command Trait', traits),
-      getText('Command Abilities', commands, false),
-      getText('Allegiance', allegiances),
+      getText('Command Trait', command_traits),
+      getText('Mount Trait', mount_traits),
+      getText('Command Abilities', command_abilities, false),
+      getText('Prayer', prayers),
       getText('Spell', spells),
       getText('Endless Spell', endless_spells),
       getText('Scenery', scenery, false),
@@ -408,4 +419,11 @@ export default class CompactPdfLayout {
 
     return text.concat(selectionText, endText)
   }
+}
+
+export const getFactionTitle = (factionName: string, subFactionName = '') => {
+  const factionTitle = titleCase(factionName)
+  const subFactionTitle = titleCase(subFactionName)
+  const suffix = !!subFactionTitle && subFactionTitle !== factionTitle ? ` - ${subFactionTitle}` : ''
+  return `${factionTitle}${suffix}`
 }

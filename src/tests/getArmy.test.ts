@@ -1,13 +1,7 @@
-// Army Imports
-import beasts_of_chaos from 'army/beasts_of_chaos'
-import { GenericEndlessSpells, GenericScenery, GenericTriumphs } from 'army/generic'
-import seraphon from 'army/seraphon'
-import sylvaneth from 'army/sylvaneth'
+import { GenericEndlessSpells, GenericTriumphs } from 'generic_rules'
 import { sortBy } from 'lodash'
 import { ORDER } from 'meta/alliances'
-// Meta
 import { BEASTS_OF_CHAOS, SERAPHON, SYLVANETH } from 'meta/factions'
-// Types
 import { IArmy } from 'types/army'
 import { getAllianceItems } from 'utils/getArmy/getAllianceItems'
 import { getArmy } from 'utils/getArmy/getArmy'
@@ -30,31 +24,21 @@ describe('getArmy', () => {
     expect(armyEndlessSpells2).toEqual(endlessSpellList)
   })
 
-  it('adds Allegiances to an army', () => {
-    const numEntries = sylvaneth.Allegiances.length
+  it('adds Flavors to an army', () => {
     const army1 = getArmy(SYLVANETH) as IArmy
 
-    expect(army1.Allegiances).toBeDefined()
-    expect(army1.Allegiances.length).toEqual(numEntries)
+    expect(army1.Flavors).toBeDefined()
   })
 
   it('adds Scenery to an army', () => {
-    const army1SceneryNum = beasts_of_chaos.Scenery.length
-    const genericSceneryNum = GenericScenery.length
     const army1 = getArmy(BEASTS_OF_CHAOS) as IArmy
-
     expect(army1.Scenery).toBeDefined()
-    expect(army1.Scenery.length).toEqual(army1SceneryNum + genericSceneryNum)
-
-    const army2SceneryNum = seraphon.Scenery.length
     const army2 = getArmy(SERAPHON) as IArmy
     expect(army2.Scenery).toBeDefined()
-    expect(army2.Scenery.length).toEqual(army2SceneryNum + genericSceneryNum)
   })
 
   it('adds Triumphs to an army', () => {
     const army1 = getArmy(BEASTS_OF_CHAOS) as IArmy
-
     expect(army1.Triumphs).toBeDefined()
     expect(army1.Triumphs.length).toEqual(GenericTriumphs.length)
   })

@@ -7,11 +7,7 @@ import visibilityReducer from 'ducks/visibility'
 import { combineReducers, createStore } from 'redux'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-
-const persistConfig = {
-  key: 'root',
-  storage: storage,
-}
+import DefaultAppState from './initialAppState'
 
 const rootReducer = combineReducers({
   army: armyReducer,
@@ -22,7 +18,36 @@ const rootReducer = combineReducers({
   visibility: visibilityReducer,
 })
 
-const pReducer = persistReducer(persistConfig, rootReducer)
+const pReducer = persistReducer(
+  {
+    key: 'root',
+    version: 4,
+    storage,
+    migrate: async (state, currentVersion) => {
+      if (!state) return state
+
+      const { version: oldVersion } = state._persist
+
+      // pre-v4 -> v4 Migration
+      if (!oldVersion || oldVersion < 4 || !currentVersion || currentVersion < 4) {
+        // Blow the current state away
+        console.warn(
+          'Outdated version of AoS Reminders detected (>=4.0.0 required). Wiping the state clean to avoid potentially fatal crashes.'
+        )
+        return {
+          ...DefaultAppState,
+          _persist: {
+            ...state._persist,
+            version: 4,
+          },
+        }
+      }
+
+      return state
+    },
+  },
+  rootReducer
+)
 
 export const store = createStore(
   pReducer,

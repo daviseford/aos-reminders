@@ -196,7 +196,7 @@ const ActionText = (props: IActionTextProps) => {
 
         {isVisible && <ActionDescription text={desc} />}
         {isVisible && !isGameMode && isSubscribed && <NoteInput {...noteProps} />}
-        {isVisible && isSubscribed && <NoteDisplay {...noteProps} />}
+        {isVisible && <NoteDisplay {...noteProps} />}
 
         {noteProps.modal.isOpen && (
           <GenericDestructiveModal

@@ -1,6 +1,5 @@
 import { sortBy, sortedUniqBy, without } from 'lodash'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
-import { getArmyList } from 'meta/army_list'
 import {
   CHAOS_GRAND_ALLIANCE,
   DEATH_GRAND_ALLIANCE,
@@ -9,17 +8,8 @@ import {
   ORDER_GRAND_ALLIANCE,
   TSupportedFaction,
 } from 'meta/factions'
-import { TEntry } from 'types/data'
-
-type TType =
-  | 'Artifacts'
-  | 'Battalions'
-  | 'Commands'
-  | 'EndlessSpells'
-  | 'Scenery'
-  | 'Spells'
-  | 'Traits'
-  | 'Units'
+import { getFactionList } from 'meta/faction_list'
+import { TEntry, upperToLowerLookup } from 'types/data'
 
 /**
  * Gets all items associated with this grand alliance
@@ -28,7 +18,7 @@ type TType =
  */
 export const getAllianceItems = (
   grandAlliance: TGrandAlliances,
-  type: TType,
+  type: keyof typeof upperToLowerLookup,
   originalEntries: TEntry[] = []
 ): TEntry[] => {
   const factionName = {
@@ -38,20 +28,23 @@ export const getAllianceItems = (
     [ORDER]: ORDER_GRAND_ALLIANCE,
   }[grandAlliance]
 
-  const ArmyList = getArmyList()
+  const FactionList = getFactionList()
 
-  return sortedUniqBy(
-    sortBy(
-      without(Object.keys(ArmyList), factionName)
-        .filter(faction => ArmyList[faction].GrandAlliance === grandAlliance)
-        .map(faction => ArmyList[faction].Army[type])
-        .filter(items => !!items && items.length > 0)
-        .flat()
-        .concat(originalEntries),
-      'name'
-    ),
-    'name'
-  )
+  const allianceItems = without(Object.keys(FactionList), factionName).reduce((a, k) => {
+    let faction = k as TSupportedFaction
+
+    // Skip on these conditions
+    if (!FactionList?.[faction] || FactionList[faction].GrandAlliance !== grandAlliance) {
+      return a
+    }
+
+    const _values = FactionList[faction].AggregateArmy?.[type]
+    if (_values) a = a.concat(..._values)
+
+    return a
+  }, [] as TEntry[])
+
+  return sortedUniqBy(sortBy(allianceItems.concat(originalEntries), 'name'), 'name')
 }
 
 /**
@@ -71,6 +64,8 @@ export const getGrandAllianceEndlessSpells = (
   originalEntries: TEntry[] = [],
   factionName: TSupportedFaction
 ): TEntry[] => {
+  // TODO: REMOVE!!!!!!
+  // @ts-ignore
   if (factionName === KHARADRON_OVERLORDS) {
     return getAllEndlessSpells()
   } else {

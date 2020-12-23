@@ -1,40 +1,32 @@
-import { IAllySelections, ISelections } from '../types/selections'
+import { IAllySelections, TSelections } from '../types/selections'
 
-interface ISelectionsFactoryOptions {
-  allegiances?: string[]
-  artifacts?: string[]
-  battalions?: string[]
-  commands?: string[]
-  endless_spells?: string[]
-  scenery?: string[]
-  spells?: string[]
-  traits?: string[]
-  triumphs?: string[]
-  units?: string[]
-}
-
-export const selectionsFactory = (options: ISelectionsFactoryOptions): ISelections => {
+export const selectionsFactory = (options: Partial<TSelections>): TSelections => {
   const {
-    allegiances = [],
     artifacts = [],
     battalions = [],
-    commands = [],
+    command_abilities = [],
+    command_traits = [],
     endless_spells = [],
+    flavors = [],
+    mount_traits = [],
+    prayers = [],
     scenery = [],
     spells = [],
-    traits = [],
     triumphs = [],
     units = [],
   } = options
+
   return {
-    allegiances,
     artifacts,
     battalions,
-    commands,
+    command_abilities,
+    command_traits,
     endless_spells,
+    flavors,
+    mount_traits,
+    prayers,
     scenery,
     spells,
-    traits,
     triumphs,
     units,
   }

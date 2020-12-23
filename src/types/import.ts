@@ -2,7 +2,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { ICurrentArmy } from 'types/army'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { ILinkedArmy, ISavedArmyFromApi } from 'types/savedArmy'
-import { ISelections } from 'types/selections'
+import { TSelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 
 export interface IImportedArmy {
@@ -11,11 +11,12 @@ export interface IImportedArmy {
   allyUnits: string[]
   errors: TImportError[]
   factionName: TSupportedFaction
+  subFactionName: string
   hiddenReminders?: undefined
   origin_realm: TOriginRealms | null
   realmscape_feature: string | null
   realmscape: TBattleRealms | null
-  selections: ISelections
+  selections: TSelections
   unknownSelections: string[]
 }
 

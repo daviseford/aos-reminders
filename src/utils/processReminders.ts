@@ -1,11 +1,11 @@
-import { RealmscapeFeatures } from 'army/generic'
+import { RealmscapeFeatures } from 'generic_rules'
 import produce from 'immer'
 import { flatten, sortBy, sortedUniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { IArmy, TAllyArmies } from 'types/army'
 import { IReminder, TEffects, TTurnAction } from 'types/data'
-import { IAllySelections, ISelections } from 'types/selections'
+import { IAllySelections, TSelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { hashReminder } from 'utils/reminderUtils'
 import { getActionTitle, titleCase } from 'utils/textUtils'
@@ -13,7 +13,7 @@ import { getActionTitle, titleCase } from 'utils/textUtils'
 type TProcessReminders = (
   army: IArmy,
   factionName: TSupportedFaction,
-  selections: ISelections,
+  selections: TSelections,
   realmscape_feature: string | null,
   allyFactionNames: TSupportedFaction[],
   allyArmies: TAllyArmies,
@@ -46,8 +46,8 @@ export const processReminders: TProcessReminders = (
   }
 
   // Add Abilities
-  if (army.Abilities && army.Abilities.length) {
-    army.Abilities.forEach((a: TEffects) => {
+  if (army.BattleTraits && army.BattleTraits.length) {
+    army.BattleTraits.forEach((a: TEffects) => {
       const command_ability = a.command_ability || false
       a.when.forEach(when => {
         const t: TTurnAction = {
@@ -56,7 +56,6 @@ export const processReminders: TProcessReminders = (
           desc: a.desc,
           condition: [`${titleCase(factionName)} Allegiance`],
           tag: a.tag || false,
-          allegiance_ability: !command_ability,
           command_ability,
           when,
         }
@@ -97,7 +96,7 @@ export const processReminders: TProcessReminders = (
 
 const processConditions = (
   game: TGameStructure,
-  selections: ISelections | IAllySelections,
+  selections: TSelections | IAllySelections,
   startVal = {}
 ) => {
   const conditions: string[] = flatten(Object.values(selections))

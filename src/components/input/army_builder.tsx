@@ -1,18 +1,19 @@
 import { CardMultiSelect, CardSingleSelect } from 'components/info/card'
-import { armyActions, selectionActions } from 'ducks'
-import { selectFactionName } from 'ducks/selectors'
+import { armyActions, selectors } from 'ducks'
 import React, { Fragment, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TOriginRealms } from 'types/realmscapes'
-import { useGetArmy, useGetArmyBuilderCards } from 'utils/hooks/useGetArmy'
+import useGetArmy from 'utils/hooks/useGetArmy'
+import useGetArmyBuilderCards from 'utils/hooks/useGetArmyBuilderCards'
 import useWindowSize from 'utils/hooks/useWindowSize'
 import { withSelectMultiWithSideEffects, withSelectOne } from 'utils/withSelect'
 
 const ArmyBuilder = () => {
   const dispatch = useDispatch()
-  const factionName = useSelector(selectFactionName)
+  const { factionName, subFactionName } = useSelector(selectors.selectFactionNameSlice)
   const { isMobile } = useWindowSize()
-  const army = useGetArmy(factionName)
+
+  const army = useGetArmy(factionName, subFactionName)
 
   useEffect(() => {
     dispatch(armyActions.updateArmy(army))
@@ -34,12 +35,7 @@ const ArmyBuilder = () => {
                   key={card.title}
                   label={factionName}
                   mobileTitle={card.mobileTitle || null}
-                  setValues={withSelectMultiWithSideEffects(
-                    card.setValues,
-                    card.sideEffects,
-                    selectionActions.addToSelections,
-                    factionName
-                  )}
+                  setValues={withSelectMultiWithSideEffects(card.setValues, card.sideEffects, factionName)}
                   title={card.title}
                   values={card.values}
                   selectionCount={0}

@@ -1,25 +1,22 @@
 import { ActionCreatorWithPayload } from '@reduxjs/toolkit'
-import { TDropdownOption } from 'components/input/select'
-import { ValueType } from 'react-select/src/types'
+import { TSelectMultiSetValueFn, TSelectOneSetValueFn } from 'components/input/select'
+import { selectionActions } from 'ducks'
 import { store } from 'store'
+import { TSelectionTypes } from 'types/selections'
 import { logIndividualSelection } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 
-type TWithSelectOne = (
-  method: (value: string | null) => void
-) => (selectValue: ValueType<TDropdownOption> | null) => void
+type TWithSelectOne = (method: (value: string | null) => void) => TSelectOneSetValueFn
 
 export const withSelectOne: TWithSelectOne = method => selectValue => {
-  if (!selectValue) return method(null)
-  const { value } = selectValue as TDropdownOption
-  method(value)
+  return method(selectValue?.value || null)
 }
 
 type TWithSelectMultipleWithPayload = (
   method: ActionCreatorWithPayload<any, string>,
   key: string,
   payload?: Record<string, any>
-) => (selectValues: ValueType<TDropdownOption>[]) => void
+) => TSelectMultiSetValueFn
 
 /**
  * This dispatches for you, no need to do it yourself
@@ -34,15 +31,13 @@ export const withSelectMultipleWithPayload: TWithSelectMultipleWithPayload = (
   payload = {}
 ) => selectValues => {
   const { dispatch } = store
-  const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
+  const values = selectValues?.map(x => x.value) || []
   dispatch(method({ ...payload, [key]: values }))
 }
 
-export type TSideEffectTypes = 'spells' | 'artifacts' | 'traits' | 'commands'
-
-export interface IWithSelectMultipleWithSideEffectsPayload {
+export interface ISideEffectsPayload {
   [key: string]: {
-    [key in TSideEffectTypes]?: {
+    [key in TSelectionTypes]?: {
       values: string[]
     }
   }
@@ -50,43 +45,46 @@ export interface IWithSelectMultipleWithSideEffectsPayload {
 
 type TWithSelectMultiWithSideEffects = (
   method: ActionCreatorWithPayload<string[], string>,
-  payload: IWithSelectMultipleWithSideEffectsPayload,
-  updateFn: ActionCreatorWithPayload<
-    {
-      value: string
-      values: string[]
-      slice: string
-    },
-    string
-  >,
+  payload: ISideEffectsPayload,
   label: string
-) => (selectValues: ValueType<TDropdownOption>[]) => void
+) => TSelectMultiSetValueFn
 
 /**
  * This dispatches for you, no need to do it yourself
  *
  * @param method
  * @param payload
- * @param updateFn
  * @param label
  */
-export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
-  method,
-  payload,
-  updateFn,
-  label
-) => selectValues => {
+export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (method, payload, label) => (
+  selectValues,
+  { action }
+) => {
   const { dispatch } = store
-  const values = selectValues ? (selectValues as TDropdownOption[]).map(x => x.value) : []
+  const values = selectValues?.map(x => x.value) || []
 
+  // Set the given value for the dropdown
+  dispatch(method(values))
+
+  // Don't add side effects if we're just removing values from the dropdown
+  if (action === 'remove-value') return
+
+  // Handle side effects
   Object.keys(payload).forEach(value => {
     if (values.includes(value)) {
-      Object.keys(payload[value]).forEach(slice => {
-        const sideEffectVals = payload[value][slice].values
+      Object.keys(payload[value]).forEach(_slice => {
+        const sideEffectVals: string[] = payload[value][_slice].values
 
         if (sideEffectVals) {
-          dispatch(updateFn({ value, values: sideEffectVals, slice }))
-          const trait = titleCase(slice)
+          dispatch(
+            selectionActions.addToSelections({
+              value,
+              values: sideEffectVals,
+              slice: _slice as TSelectionTypes,
+            })
+          )
+
+          const trait = titleCase(_slice)
 
           // Log each value to GA
           sideEffectVals.forEach((val: string) => {
@@ -96,6 +94,24 @@ export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (
       })
     }
   })
+}
 
-  dispatch(method(values))
+export const handleSelectOneSideEffects = (payload: ISideEffectsPayload) => {
+  const { dispatch } = store
+
+  // Handle side effects
+  Object.entries(payload).forEach(([_key, _value]) => {
+    Object.keys(_value).forEach(_slice => {
+      const sideEffectVals: string[] = _value[_slice].values
+      if (sideEffectVals) {
+        dispatch(
+          selectionActions.addToSelections({
+            value: _key,
+            values: sideEffectVals,
+            slice: _slice as TSelectionTypes,
+          })
+        )
+      }
+    })
+  })
 }

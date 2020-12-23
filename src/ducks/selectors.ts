@@ -8,6 +8,8 @@ export const selectAllyArmies = (state: IStore) => state.army.allyArmies
 
 // Faction Name
 export const selectFactionName = (state: IStore) => state.factionNames.factionName
+export const selectSubFactionName = (state: IStore) => state.factionNames.subFactionName
+export const selectFactionNameSlice = (state: IStore) => state.factionNames
 
 // Notes
 export const selectNotes = (state: IStore) => state.notes.notes
@@ -23,6 +25,7 @@ export const selectAllyFactionNames = (state: IStore) =>
   Object.keys(selectAllySelections(state)) as TSupportedFaction[]
 export const selectAllySelections = (state: IStore) => state.selections.allySelections
 export const selectSelections = (state: IStore) => state.selections.selections
+export const selectSideEffects = (state: IStore) => state.selections.sideEffects
 
 // Visibility
 export const selectAllies = (state: IStore) => state.visibility.allies
@@ -37,6 +40,7 @@ export const selectCurrentArmy = (state: IStore): ICurrentArmy => {
     allyFactionNames: selectAllyFactionNames(state),
     allySelections: selectAllySelections(state),
     factionName: selectFactionName(state),
+    subFactionName: selectSubFactionName(state),
     origin_realm: selectOriginRealm(state),
     realmscape_feature: selectRealmscapeFeature(state),
     realmscape: selectRealmscape(state),

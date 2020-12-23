@@ -1,6 +1,5 @@
 import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
 import { ICurrentArmy } from 'types/army'
-import { TEntry } from 'types/data'
 import { IImportedArmy } from 'types/import'
 import { INote } from 'types/notes'
 import { ISavedArmy } from 'types/savedArmy'
@@ -29,6 +28,7 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
     allySelections,
     armyName,
     factionName,
+    subFactionName = '',
     hiddenReminders = [],
     notes = [],
     orderedReminders = LocalReminderOrder.get(),
@@ -43,6 +43,7 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
     allySelections,
     armyName: armyName || 'Untitled',
     factionName,
+    subFactionName,
     hiddenReminders,
     notes,
     orderedReminders,
@@ -73,6 +74,7 @@ export const prepareArmyForS3 = (army: ISavedArmy | IImportedArmy | ICurrentArmy
     allyFactionNames = [],
     allySelections = {},
     factionName,
+    subFactionName,
     origin_realm = null,
     realmscape = null,
     realmscape_feature = null,
@@ -83,6 +85,7 @@ export const prepareArmyForS3 = (army: ISavedArmy | IImportedArmy | ICurrentArmy
     allyFactionNames,
     allySelections,
     factionName,
+    subFactionName,
     origin_realm,
     realmscape_feature,
     realmscape,
@@ -93,6 +96,3 @@ export const prepareArmyForS3 = (army: ISavedArmy | IImportedArmy | ICurrentArmy
 export const isValidFactionName = (val: any): val is TSupportedFaction => {
   return val && SUPPORTED_FACTIONS.includes(val)
 }
-
-// Appends a string to an entry
-export const appendTag = (entry: TEntry, tag: string) => ({ ...entry, name: `${entry.name} (${tag})` })

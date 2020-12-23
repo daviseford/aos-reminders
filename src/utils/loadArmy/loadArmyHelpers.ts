@@ -2,11 +2,11 @@ import { PreferenceApi } from 'api/preferenceApi'
 import {
   armyActions,
   factionNamesActions,
+  notesActions,
   realmscapeActions,
   selectionActions,
   visibilityActions,
 } from 'ducks'
-import { notesActions } from 'ducks/notes'
 import { store } from 'store'
 import { IArmy } from 'types/army'
 import { TLoadedArmy } from 'types/import'
@@ -36,6 +36,7 @@ export const addArmyToStore = (loadedArmy: TLoadedArmy) => {
     const { dispatch } = store
 
     dispatch(factionNamesActions.setFactionName(loadedArmy.factionName))
+    dispatch(factionNamesActions.setSubFactionName(loadedArmy.subFactionName))
 
     // Add Ally Game data to the store
     if (loadedArmy.allyFactionNames.length) {
@@ -47,10 +48,10 @@ export const addArmyToStore = (loadedArmy: TLoadedArmy) => {
     }
 
     // Add our unit selections to the store
-    dispatch(selectionActions.updateSelections(loadedArmy.selections))
+    dispatch(selectionActions.setSelections(loadedArmy.selections))
 
     // Add our allied unit selections to the store
-    dispatch(selectionActions.updateAllySelections(loadedArmy.allySelections))
+    dispatch(selectionActions.setAllySelections(loadedArmy.allySelections))
 
     // Add Realm info to the store
     dispatch(realmscapeActions.setOriginRealm(loadedArmy.origin_realm || null))

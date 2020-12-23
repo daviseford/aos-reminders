@@ -5,10 +5,10 @@ import {
   ORDER_GRAND_ALLIANCE,
 } from 'meta/factions'
 
-export type TChaos = 'Chaos'
-export type TDeath = 'Death'
-export type TDestruction = 'Destruction'
-export type TOrder = 'Order'
+type TChaos = 'Chaos'
+type TDeath = 'Death'
+type TDestruction = 'Destruction'
+type TOrder = 'Order'
 export type TGrandAlliances = TChaos | TDeath | TDestruction | TOrder
 
 export const CHAOS: TChaos = 'Chaos'
@@ -34,18 +34,9 @@ type TMarkNurgle = 'Nurgle'
 type TMarkSlaanesh = 'Slaanesh'
 type TMarkTzeentch = 'Tzeentch'
 type TMarkUndivided = 'Undivided'
-export type TMarksOfChaos = TMarkKhorne | TMarkNurgle | TMarkSlaanesh | TMarkTzeentch | TMarkUndivided
 
 export const MARK_KHORNE: TMarkKhorne = 'Khorne'
 export const MARK_NURGLE: TMarkNurgle = 'Nurgle'
 export const MARK_SLAANESH: TMarkSlaanesh = 'Slaanesh'
 export const MARK_TZEENTCH: TMarkTzeentch = 'Tzeentch'
 export const MARK_UNDIVIDED: TMarkUndivided = 'Undivided'
-
-export const MARKS_OF_CHAOS: TMarksOfChaos[] = [
-  MARK_KHORNE,
-  MARK_NURGLE,
-  MARK_SLAANESH,
-  MARK_TZEENTCH,
-  MARK_UNDIVIDED,
-]

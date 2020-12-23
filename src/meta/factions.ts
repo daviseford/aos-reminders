@@ -2,8 +2,6 @@ import { sortBy } from 'lodash'
 
 // Supported Faction Types
 type TBeastsOfChaos = 'BEASTS_OF_CHAOS'
-type TBigWaaagh = 'BIG_WAAAGH'
-type TBonesplitterz = 'BONESPLITTERZ'
 type TChaosGrandAlliance = 'CHAOS_GRAND_ALLIANCE'
 type TCitiesOfSigmar = 'CITIES_OF_SIGMAR'
 type TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
@@ -13,18 +11,14 @@ type TDispossessed = 'DISPOSSESSED'
 type TFleshEaterCourts = 'FLESH_EATER_COURTS'
 type TFyreslayers = 'FYRESLAYERS'
 type TGloomspiteGitz = 'GLOOMSPITE_GITZ'
-type TGrandHostOfNagash = 'GRAND_HOST_OF_NAGASH'
 type TGreenskinz = 'GREENSKINZ'
 type TIdonethDeepkin = 'IDONETH_DEEPKIN'
-type TIronjawz = 'IRONJAWZ'
 type TKharadronOverlords = 'KHARADRON_OVERLORDS'
 type TKhorne = 'KHORNE'
-type TLegionOfBlood = 'LEGION_OF_BLOOD'
 type TLegionOfChaosAscendant = 'LEGION_OF_CHAOS_ASCENDANT'
-type TLegionOfNight = 'LEGION_OF_NIGHT'
-type TLegionOfSacrament = 'LEGION_OF_SACRAMENT'
-type TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
-type TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
+type TLegionOfAzgorh = 'LEGION_OF_AZGORH'
+type TLegionOfGrief = 'LEGION_OF_GRIEF'
+type TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 type TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 type TLuminethRealmlords = 'LUMINETH_REALMLORDS'
 type TMegaGargantMercenaries = 'MEGA_GARGANT_MERCENARIES'
@@ -33,25 +27,21 @@ type TNighthaunt = 'NIGHTHAUNT'
 type TNurgle = 'NURGLE'
 type TOgorMawtribes = 'OGOR_MAWTRIBES'
 type TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
+type TOrrukWarclans = 'ORRUK_WARCLANS'
 type TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 type TSeraphon = 'SERAPHON'
-type TSkaven = 'SKAVEN'
+type TSkaventide = 'SKAVENTIDE'
 type TSlaanesh = 'SLAANESH'
 type TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 type TSonsOfBehemat = 'SONS_OF_BEHEMAT'
-type TSoulblight = 'SOULBLIGHT'
 type TStormcastEternals = 'STORMCAST_ETERNALS'
-type TStormcastEternalsStormkeep = 'STORMCAST_ETERNALS_STORMKEEP'
 type TSylvaneth = 'SYLVANETH'
-type TTamurkhansHorde = 'TAMURKHANS_HORDE'
 type TTombKings = 'TOMB_KINGS'
 type TTzeentch = 'TZEENTCH'
 type TWanderers = 'WANDERERS'
 
 // Exported Faction Names
 export const BEASTS_OF_CHAOS: TBeastsOfChaos = 'BEASTS_OF_CHAOS'
-export const BIG_WAAAGH: TBigWaaagh = 'BIG_WAAAGH'
-export const BONESPLITTERZ: TBonesplitterz = 'BONESPLITTERZ'
 export const CHAOS_GRAND_ALLIANCE: TChaosGrandAlliance = 'CHAOS_GRAND_ALLIANCE'
 export const CITIES_OF_SIGMAR: TCitiesOfSigmar = 'CITIES_OF_SIGMAR'
 export const DAUGHTERS_OF_KHAINE: TDaughtersOfKhaine = 'DAUGHTERS_OF_KHAINE'
@@ -61,18 +51,14 @@ export const DISPOSSESSED: TDispossessed = 'DISPOSSESSED'
 export const FLESH_EATER_COURTS: TFleshEaterCourts = 'FLESH_EATER_COURTS'
 export const FYRESLAYERS: TFyreslayers = 'FYRESLAYERS'
 export const GLOOMSPITE_GITZ: TGloomspiteGitz = 'GLOOMSPITE_GITZ'
-export const GRAND_HOST_OF_NAGASH: TGrandHostOfNagash = 'GRAND_HOST_OF_NAGASH'
 export const GREENSKINZ: TGreenskinz = 'GREENSKINZ'
 export const IDONETH_DEEPKIN: TIdonethDeepkin = 'IDONETH_DEEPKIN'
-export const IRONJAWZ: TIronjawz = 'IRONJAWZ'
 export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export const KHORNE: TKhorne = 'KHORNE'
-export const LEGION_OF_BLOOD: TLegionOfBlood = 'LEGION_OF_BLOOD'
 export const LEGION_OF_CHAOS_ASCENDANT: TLegionOfChaosAscendant = 'LEGION_OF_CHAOS_ASCENDANT'
-export const LEGION_OF_NIGHT: TLegionOfNight = 'LEGION_OF_NIGHT'
-export const LEGION_OF_SACRAMENT: TLegionOfSacrament = 'LEGION_OF_SACRAMENT'
-export const LEGIONS_OF_AZGORH: TLegionsOfAzgorh = 'LEGIONS_OF_AZGORH'
-export const LEGIONS_OF_GRIEF: TLegionsOfGrief = 'LEGIONS_OF_GRIEF'
+export const LEGION_OF_AZGORH: TLegionOfAzgorh = 'LEGION_OF_AZGORH'
+export const LEGION_OF_GRIEF: TLegionOfGrief = 'LEGION_OF_GRIEF'
+export const LEGIONS_OF_NAGASH: TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export const LUMINETH_REALMLORDS: TLuminethRealmlords = 'LUMINETH_REALMLORDS'
 export const MEGA_GARGANT_MERCENARIES: TMegaGargantMercenaries = 'MEGA_GARGANT_MERCENARIES'
@@ -81,17 +67,15 @@ export const NIGHTHAUNT: TNighthaunt = 'NIGHTHAUNT'
 export const NURGLE: TNurgle = 'NURGLE'
 export const OGOR_MAWTRIBES: TOgorMawtribes = 'OGOR_MAWTRIBES'
 export const ORDER_GRAND_ALLIANCE: TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
+export const ORRUK_WARCLANS: TOrrukWarclans = 'ORRUK_WARCLANS'
 export const OSSIARCH_BONEREAPERS: TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 export const SERAPHON: TSeraphon = 'SERAPHON'
-export const SKAVEN: TSkaven = 'SKAVEN'
+export const SKAVENTIDE: TSkaventide = 'SKAVENTIDE'
 export const SLAANESH: TSlaanesh = 'SLAANESH'
 export const SLAVES_TO_DARKNESS: TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 export const SONS_OF_BEHEMAT: TSonsOfBehemat = 'SONS_OF_BEHEMAT'
-export const SOULBLIGHT: TSoulblight = 'SOULBLIGHT'
 export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
-export const STORMCAST_ETERNALS_STORMKEEP: TStormcastEternalsStormkeep = 'STORMCAST_ETERNALS_STORMKEEP'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
-export const TAMURKHANS_HORDE: TTamurkhansHorde = 'TAMURKHANS_HORDE'
 export const TOMB_KINGS: TTombKings = 'TOMB_KINGS'
 export const TZEENTCH: TTzeentch = 'TZEENTCH'
 export const WANDERERS: TWanderers = 'WANDERERS'
@@ -103,8 +87,6 @@ export const WANDERERS: TWanderers = 'WANDERERS'
  */
 export type TPrimaryFactions =
   | TBeastsOfChaos
-  | TBigWaaagh
-  | TBonesplitterz
   | TChaosGrandAlliance
   | TCitiesOfSigmar
   | TDaughtersOfKhaine
@@ -114,37 +96,30 @@ export type TPrimaryFactions =
   | TFleshEaterCourts
   | TFyreslayers
   | TGloomspiteGitz
-  | TGrandHostOfNagash
   | TGreenskinz
   | TIdonethDeepkin
-  | TIronjawz
   | TKharadronOverlords
   | TKhorne
-  | TLegionOfBlood
   | TLegionOfChaosAscendant
-  | TLegionOfNight
-  | TLegionOfSacrament
-  | TLegionsOfAzgorh
-  | TLegionsOfGrief
+  | TLegionOfAzgorh
+  | TLegionOfGrief
+  | TLegionsOfNagash
   | TLethisianDefenders
   | TLuminethRealmlords
-  | TMegaGargantMercenaries
   | TMercenaryCompanies
   | TNighthaunt
   | TNurgle
   | TOgorMawtribes
   | TOrderGrandAlliance
+  | TOrrukWarclans
   | TOssiarchBonereapers
   | TSeraphon
-  | TSkaven
+  | TSkaventide
   | TSlaanesh
   | TSlavesToDarkness
   | TSonsOfBehemat
-  | TSoulblight
   | TStormcastEternals
-  | TStormcastEternalsStormkeep
   | TSylvaneth
-  | TTamurkhansHorde
   | TTombKings
   | TTzeentch
   | TWanderers
@@ -154,8 +129,6 @@ export type TSupportedFaction = TPrimaryFactions | TMercenaryCompanies | TMegaGa
 
 export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   BEASTS_OF_CHAOS,
-  BIG_WAAAGH,
-  BONESPLITTERZ,
   CHAOS_GRAND_ALLIANCE,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
@@ -165,35 +138,29 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   FLESH_EATER_COURTS,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
-  GRAND_HOST_OF_NAGASH,
   GREENSKINZ,
   IDONETH_DEEPKIN,
-  IRONJAWZ,
   KHARADRON_OVERLORDS,
   KHORNE,
-  LEGION_OF_BLOOD,
   LEGION_OF_CHAOS_ASCENDANT,
-  LEGION_OF_NIGHT,
-  LEGION_OF_SACRAMENT,
-  LEGIONS_OF_AZGORH,
-  LEGIONS_OF_GRIEF,
+  LEGION_OF_AZGORH,
+  LEGION_OF_GRIEF,
+  LEGIONS_OF_NAGASH,
   LETHISIAN_DEFENDERS,
   LUMINETH_REALMLORDS,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
+  ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
-  SKAVEN,
+  SKAVENTIDE,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
-  SOULBLIGHT,
   STORMCAST_ETERNALS,
-  STORMCAST_ETERNALS_STORMKEEP,
   SYLVANETH,
-  TAMURKHANS_HORDE,
   TOMB_KINGS,
   TZEENTCH,
   WANDERERS,

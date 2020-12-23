@@ -1,40 +1,23 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { uniq, without } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
-import { TBattalions, TUnits } from 'types/army'
+import DefaultAppState from 'store/initialAppState'
 import { TSelectionTypes } from 'types/selections'
-import { ISelectionStore, IStore, TAllySelectionStore } from 'types/store'
-
-const initialState: ISelectionStore = {
-  selections: {
-    allegiances: [],
-    artifacts: [],
-    battalions: [],
-    commands: [],
-    endless_spells: [],
-    scenery: [],
-    spells: [],
-    traits: [],
-    triumphs: [],
-    units: [],
-  },
-  allySelections: {},
-  sideEffects: {},
-}
+import { IStore, TAllySelectionStore } from 'types/store'
 
 type TAddToSelectionsAction = {
   payload: {
     value: string // Hermdar Lodge
     values: string[] // ['Tyrant Slayer']
-    slice: string // e.g. artifacts, spells, etc
+    slice: TSelectionTypes // e.g. artifacts, spells, etc
   }
 }
 
 const selections = createSlice({
   name: 'selections',
-  initialState,
+  initialState: DefaultAppState.selections,
   reducers: {
-    resetAllSelections: () => initialState,
+    resetAllSelections: () => DefaultAppState.selections,
     deleteAllySelection: (state, action: PayloadAction<TSupportedFaction>) => {
       delete state.allySelections[action.payload]
     },
@@ -42,32 +25,34 @@ const selections = createSlice({
       state.allySelections[action.payload] = { units: [], battalions: [] }
     },
     resetAllySelections: state => {
-      state.allySelections = initialState.allySelections
+      state.allySelections = DefaultAppState.selections.allySelections
     },
     resetSelections: state => {
-      state.selections = initialState.selections
+      state.selections = DefaultAppState.selections.selections
     },
-    updateAllyUnits: (state, action: PayloadAction<{ factionName: TSupportedFaction; units: TUnits }>) => {
+    resetSideEffects: state => {
+      state.sideEffects = DefaultAppState.selections.sideEffects
+    },
+    updateAllyUnits: (state, action: PayloadAction<{ factionName: TSupportedFaction; units: string[] }>) => {
       const { factionName, units } = action.payload
-      // @ts-ignore
-      state.allySelections[factionName].units = units
+      const battalions = state.allySelections[factionName]?.battalions || []
+      state.allySelections[factionName] = { battalions, units }
     },
     updateAllyBattalions: (
       state,
-      action: PayloadAction<{ factionName: TSupportedFaction; battalions: TBattalions }>
+      action: PayloadAction<{ factionName: TSupportedFaction; battalions: string[] }>
     ) => {
       const { factionName, battalions } = action.payload
-      // @ts-ignore
-      state.allySelections[factionName].battalions = battalions
+      const units = state.allySelections[factionName]?.units || []
+      state.allySelections[factionName] = { battalions, units }
     },
-    updateAllySelections: (state, action: PayloadAction<TAllySelectionStore>) => {
+    setAllySelections: (state, action: PayloadAction<TAllySelectionStore>) => {
       state.allySelections = action.payload
     },
-    updateAllegiances: (state, action: PayloadAction<string[]>) => {
-      handleSideEffects(state, action.payload, 'allegiances')
-      state.selections.allegiances = action.payload
+    setFlavors: (state, action: PayloadAction<string[]>) => {
+      handleSideEffects(state, action.payload, 'flavors')
     },
-    updateArtifacts: (state, action: PayloadAction<string[]>) => {
+    setArtifacts: (state, action: PayloadAction<string[]>) => {
       state.selections.artifacts = action.payload
     },
 
@@ -78,41 +63,53 @@ const selections = createSlice({
      */
     addToSelections: (state, action: TAddToSelectionsAction) => {
       const { value, slice, values } = action.payload
-      state.selections[slice as keyof typeof state.selections] = uniq(
-        state.selections[slice as keyof typeof state.selections].concat(values)
-      )
+      state.selections[slice] = uniq((state.selections[slice] || []).concat(values))
       state.sideEffects[value] = { ...state.sideEffects[value], [slice]: values }
     },
 
-    updateBattalions: (state, action: PayloadAction<string[]>) => {
+    setBattalions: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'battalions')
-      state.selections.battalions = action.payload
     },
-    updateCommands: (state, action: PayloadAction<string[]>) => {
-      state.selections.commands = action.payload
+    setCommandAbilities: (state, action: PayloadAction<string[]>) => {
+      state.selections.command_abilities = action.payload
     },
-    updateEndlessSpells: (state, action: PayloadAction<string[]>) => {
+    setEndlessSpells: (state, action: PayloadAction<string[]>) => {
       state.selections.endless_spells = action.payload
     },
-    updateScenery: (state, action: PayloadAction<string[]>) => {
+    setScenery: (state, action: PayloadAction<string[]>) => {
       state.selections.scenery = action.payload
     },
-    updateSelections: (state, action) => {
+    setSelections: (state, action) => {
       state.selections = action.payload
     },
-    updateSpells: (state, action: PayloadAction<string[]>) => {
+    setSpells: (state, action: PayloadAction<string[]>) => {
       state.selections.spells = action.payload
     },
-    updateTraits: (state, action: PayloadAction<string[]>) => {
-      handleSideEffects(state, action.payload, 'traits')
-      state.selections.traits = action.payload
+    setPrayers: (state, action: PayloadAction<string[]>) => {
+      state.selections.prayers = action.payload
     },
-    updateTriumphs: (state, action: PayloadAction<string[]>) => {
+    setCommandTraits: (state, action: PayloadAction<string[]>) => {
+      handleSideEffects(state, action.payload, 'command_traits')
+    },
+    setMountTraits: (state, action: PayloadAction<string[]>) => {
+      handleSideEffects(state, action.payload, 'mount_traits')
+    },
+    setTriumphs: (state, action: PayloadAction<string[]>) => {
       state.selections.triumphs = action.payload
     },
-    updateUnits: (state, action: PayloadAction<string[]>) => {
+    setUnits: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'units')
-      state.selections.units = action.payload
+    },
+
+    /**
+     * Given an array of strings, removes those strings from every selection field
+     * @param state
+     * @param action
+     */
+    removeSelections: (state, action: PayloadAction<string[]>) => {
+      Object.entries(state.selections).forEach(([k, v]) => {
+        state.selections[k as TSelectionTypes] = without(v, ...action.payload)
+      })
     },
   },
 })
@@ -123,20 +120,30 @@ export default selections.reducer
 const handleSideEffects = (state: IStore['selections'], payload: string[], type: TSelectionTypes) => {
   const sideEffectNames = Object.keys(state.sideEffects)
 
-  const removedSideEffects = state.selections[type]
+  if (!state.selections?.[type]) {
+    return console.error(
+      `Invalid slice passed to handleSideEffects: ${type}. This usually means that you've committed a typo during data entry.`
+    )
+  }
+
+  const removedParentEffects = state.selections[type]
     .reduce((a, v) => {
       if (sideEffectNames.includes(v)) a.push(v)
       return a
     }, [] as string[])
     .filter(e => !payload.includes(e))
 
-  removedSideEffects.forEach(r => {
+  let removedSideEffects: string[] = []
+
+  removedParentEffects.forEach(r => {
     const sideEffect = state.sideEffects[r]
-    Object.keys(sideEffect).forEach(slice => {
-      state.selections[slice as keyof typeof state.selections] = without(
-        state.selections[slice as keyof typeof state.selections],
-        ...sideEffect[slice as keyof typeof sideEffect]
-      )
+    const slices = Object.keys(sideEffect) as TSelectionTypes[]
+    slices.forEach(slice => {
+      state.selections[slice] = without(state.selections[slice], ...sideEffect[slice])
+      removedSideEffects = removedSideEffects.concat(sideEffect[slice]) // Store for later reference
     })
   })
+
+  // We don't want to re-add side effects that we just removed
+  state.selections[type] = payload.filter(x => !removedSideEffects.includes(x))
 }

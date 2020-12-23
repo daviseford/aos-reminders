@@ -141,6 +141,7 @@ const handleItem = (text: string): string[] => {
     .replace(unitRegexp, 'Role: UNIT')
     .replace(endlessRegexp, 'Role: ENDLESS SPELL')
     .replace(/Role: {1,4}Battalion/g, 'Role: BATTALION')
+    .replace(prayerRegexp, 'Prayer:')
     .replace(spellRegexp, 'Spell:')
     .replace(sceneryRegExp, ', SCENERY: $1, ')
     .replace(/Battle Trait/g, 'Command Trait')
@@ -148,7 +149,7 @@ const handleItem = (text: string): string[] => {
     .replace(auraRegexp, ' ')
     // This one in case of a '(s)' on the end of a trait/weapon
     .replace(
-      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-!' ]+)(\(.+?\))? (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
+      /(Artefact|Prayer|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-!' ]+)(\(.+?\))? (Artefact|Prayer|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
       traitReplacer
     )
 
@@ -156,7 +157,7 @@ const handleItem = (text: string): string[] => {
     .join(sep)
     // You really do have to run this twice, really :(
     .replace(
-      /(Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-!' ]+) (Artefact|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
+      /(Artefact|Prayer|Spell|Weapon|Command Trait|Mount Trait|Upgrade): ([\w-!' ]+) (Artefact|Prayer|Spell|Weapon|Command Trait|Mount Trait|Upgrade| {1,3})/g,
       `${sep}$1: $2${sep}$3`
     )
     // These next two lines handle Nagash, Supreme Lord of the Undead
@@ -169,7 +170,7 @@ const handleItem = (text: string): string[] => {
     .replace(/(,| {2})([\w-!' ]+) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
     .replace(/ {2,4}/g, ' ')
     .replace(/(,| {2})?([\w-!' ]+) Role:[ ]+(UNIT|BATTALION|ENDLESS SPELL)/g, `${sep}$3: $2${sep}`)
-    .replace(/(Artefact|Command Trait|Mount Trait|Spell|Upgrade|Weapon):/g, upper)
+    .replace(/(Artefact|Command Trait|Mount Trait|Prayer|Spell|Upgrade|Weapon):/g, upper)
     .replace(/(UNIT:|,) ([\w-&!' ]+) Ally/g, 'ALLY: $2') // Tag ally units
     .replace(/\/ Allies/g, '')
     .split(',')
@@ -260,8 +261,8 @@ const traitReplacer = (match: string, p1: string, p2: string, p3: string, p4: st
 
 const upper = (match: string) => match.toUpperCase()
 
-const spellTypes = ['Spell', 'Prayer']
-const spellRegexp = new RegExp(`(${spellTypes.join('|')}):`, 'g')
+const prayerRegexp = new RegExp(`Prayer:`, 'g')
+const spellRegexp = new RegExp(`Spell:`, 'g')
 
 const unitTypes = ['Leader', 'Battleline', 'Artillery', 'Behemoth', 'Other']
 const unitRegexp = new RegExp(`Role: {1,4}(${unitTypes.join('|')})`, 'g')
@@ -302,7 +303,7 @@ const commonTypos = {
   'Ar tiller y': 'Artillery',
   'Arm y deem ed  invalid  by': 'Army deemed invalid by',
   'Balefir e': 'Balefire',
-  'Bar ak-Urbaz': 'Barak-Urbaz',
+  'Bar ak-': 'Barak-',
   'Bat tle': 'Battle',
   'Bear er': 'Bearer',
   'Behem oth': 'Behemoth',
@@ -342,9 +343,11 @@ const commonTypos = {
   'Iggrind-Kaz Surge-injection Endrin Mk ​  IV': 'Iggrind-Kaz Surge-injection Endrin Mk. IV',
   'Incr edible': 'Incredible',
   'Inv ocation': 'Invocation',
+  'IONRA CH': 'Ionrach',
   'Khar adr on Ov erlor ds': 'Kharadron Overlords',
   'Khar adron': 'Kharadron',
   'L ORDS': 'LORDS',
+  'Lizar d': 'Lizard',
   'Mak er': 'Maker',
   'Master y': 'Mastery',
   'Mercenar y Company': 'Mercenary Company',
@@ -372,7 +375,7 @@ const commonTypos = {
   'These Ar e Just Guidelines': 'These Are Just Guidelines',
   'Thr one': 'Throne',
   'Varanguar d': 'Varanguard',
-  'Warbeat:': 'Spell:',
+  'Warbeat:': 'Prayer:',
   'Warpfir e': 'Warpfire',
   'Way of the Ser aphon': 'Way of the Seraphon',
   'Wick ed': 'Wicked',

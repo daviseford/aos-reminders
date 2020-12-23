@@ -1,5 +1,4 @@
-import { visibilityActions } from 'ducks'
-import { notesActions } from 'ducks/notes'
+import { notesActions, visibilityActions } from 'ducks'
 import { selectFactionName, selectNotes } from 'ducks/selectors'
 import { useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'

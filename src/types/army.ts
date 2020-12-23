@@ -2,68 +2,40 @@ import { TSupportedFaction } from 'meta/factions'
 import { TGameStructure } from 'meta/game_structure'
 import { TEffects, TEntry } from 'types/data'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
-import { ISelections } from 'types/selections'
+import { TSelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 
-export type TAllyArmies = { [key: string]: IArmy }
-
-export type TAbilities = TEffects[]
-export type TAllegiances = TEntry[]
-export type TArtifacts = TEntry[]
-export type TBattalions = TEntry[]
-export type TCommands = TEntry[]
-export type TTraits = TEntry[]
-export type TEndlessSpells = TEntry[]
-export type TScenery = TEntry[]
-export type TSpells = TEntry[]
-export type TTriumphs = TEntry[]
-export type TUnits = TEntry[]
-
-export interface IInitialArmy {
-  Abilities?: TAbilities
-  Allegiances?: TAllegiances
-  AllegianceType?: string
-  AlliedUnits?: TUnits
-  Artifacts?: TArtifacts
-  Battalions?: TBattalions
-  EndlessSpells?: TEndlessSpells
-  Scenery?: TScenery
-  Spells?: TSpells
-  Traits?: TTraits
-  Units?: TUnits
-  Game?: TGameStructure
-}
-
 export interface IArmy {
-  Abilities: TAbilities
-  Allegiances: TAllegiances
-  AllegianceType?: string
-  Artifacts: TArtifacts
-  Battalions: TBattalions
-  Commands: TCommands
-  EndlessSpells: TEndlessSpells
-  Scenery: TScenery
-  Spells: TSpells
-  Traits: TTraits
-  Triumphs: TTriumphs
-  Units: TUnits
+  Artifacts: TEntry[]
+  Battalions: TEntry[]
+  BattleTraits: TEffects[] // Previously 'Abilities'
+  CommandAbilities: TEntry[] // Previously 'Commands'
+  CommandTraits: TEntry[] // Previously 'Traits'
+  EndlessSpells: TEntry[]
+  Flavors: TEntry[] // Previously 'Allegiances'
+  FlavorType?: string // Previously 'AllegianceType'
   Game: TGameStructure
+  MountTraits: TEntry[] // New in v4: (previously part of 'Traits')
+  Prayers: TEntry[] // New in v4: (previously part of 'Spells')
+  Scenery: TEntry[]
+  Spells: TEntry[]
+  SubFaction: TEntry // New in v4: Metadata about this SubFaction
+  Triumphs: TEntry[]
+  Units: TEntry[]
 }
 
-export interface ICollection {
-  Artifacts: TArtifacts
-  Battalions: TBattalions
-  Commands: TCommands
-  Spells: TSpells
-  Traits: TTraits
-}
+export type TAllyArmies = Record<string, IArmy>
+export type TInitialArmy = Partial<IArmy> & { AlliedUnits?: TEntry[] }
+export type TSubfactionArmy = Omit<IArmy, 'Game'> & { AlliedUnits: TEntry[] }
+export type TCollection = Omit<IArmy, 'BattleTraits' | 'Game' | 'FlavorType' | 'SubFaction'>
 
 export interface ICurrentArmy {
   allyFactionNames: TSupportedFaction[]
   allySelections: TAllySelectionStore
   factionName: TSupportedFaction
+  subFactionName: string
   origin_realm: TOriginRealms | null
   realmscape_feature: string | null
   realmscape: TBattleRealms | null
-  selections: ISelections
+  selections: TSelections
 }

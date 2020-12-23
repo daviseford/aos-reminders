@@ -4,7 +4,7 @@ import { TSupportedFaction } from 'meta/factions'
 import React, { useMemo } from 'react'
 import { ICurrentArmy } from 'types/army'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
-import { IAllySelections, ISelections } from 'types/selections'
+import { IAllySelections, TSelections } from 'types/selections'
 import { ITheme } from 'types/theme'
 import { titleCase } from 'utils/textUtils'
 
@@ -13,7 +13,15 @@ interface ISavedArmyTable {
 }
 
 export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
-  const { selections, allySelections, origin_realm, realmscape, realmscape_feature } = army
+  const {
+    factionName,
+    subFactionName,
+    selections,
+    allySelections,
+    origin_realm,
+    realmscape,
+    realmscape_feature,
+  } = army
   const { theme } = useTheme()
 
   const armySelectionKeys = useMemo(
@@ -40,11 +48,13 @@ export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
     <>
       <table className={`table table-sm`}>
         <tbody>
+          <Tr theme={theme} items={[titleCase(factionName)]} title={'Faction'} />
+          {!!subFactionName && <Tr theme={theme} items={[subFactionName]} title={'SubFaction'} />}
           {armySelectionKeys.map((key, i) => {
             return (
               <Tr
                 theme={theme}
-                items={sortBy(selections[key as keyof ISelections])}
+                items={sortBy(selections[key as keyof TSelections])}
                 title={key}
                 key={`${key}_${i}`}
               />

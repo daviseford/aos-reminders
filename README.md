@@ -6,11 +6,11 @@
 
 ## How to Contribute
 
-If you want to add an army or edit an existing army, please do so! Use the `src/army/sample_army/` folder as a reference for how things are added!
+If you want to add an army or edit an existing army, please do so! Use the `src/factions/sample/` folder as a reference for how things are added!
 
 Feel free to submit a PR for any incorrect/missing rules! I am only human, and the amount of data entry needed for a single army can sometimes be overwhelming.
 
-**For more contribution guidelines, check out [CONTRIBUTING.md](https://github.com/daviseford/aos-reminders/blob/master/CONTRIBUTING.md)**
+**For more contribution guidelines, check out [docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md)**
 
 ## Contributors
 

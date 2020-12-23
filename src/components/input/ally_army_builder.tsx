@@ -1,5 +1,5 @@
 import { VisibilityToggle } from 'components/info/visibilityToggle'
-import { SelectMulti, SelectOne, TDropdownOption } from 'components/input/select'
+import { SelectMulti, SelectOne, TSelectMultiSetValueFn, TSelectOneSetValueFn } from 'components/input/select'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
 import { armyActions, selectionActions, selectors, visibilityActions } from 'ducks'
@@ -9,11 +9,10 @@ import React, { useCallback, useEffect, useMemo } from 'react'
 import { IconContext } from 'react-icons'
 import { FaTrashAlt } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
-import { ValueType } from 'react-select/src/types'
-import { TBattalions, TUnits } from 'types/army'
+import { TEntry } from 'types/data'
 import { IAllySelections } from 'types/selections'
 import { logAllyFaction } from 'utils/analytics'
-import { useGetArmy } from 'utils/hooks/useGetArmy'
+import useGetArmy from 'utils/hooks/useGetArmy'
 import { titleCase } from 'utils/textUtils'
 import { withSelectMultipleWithPayload, withSelectOne } from 'utils/withSelect'
 
@@ -109,19 +108,19 @@ export const AllyArmyBuilder = ({ allyFactionName, allySelectOptions }: IAllyArm
 interface IAllyCardProps {
   allyFactionName: TSupportedFaction
   allySelectOptions: TSupportedFaction[]
-  battalionItems: TBattalions
+  battalionItems: TEntry[]
   battalionValues: string[]
   factionName: TSupportedFaction
   handleClose: (e: React.MouseEvent) => void
   isVisible: boolean
-  setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
-  setBattalions: (selectValues: ValueType<TDropdownOption>[]) => void
-  setUnits: (selectValues: ValueType<TDropdownOption>[]) => void
+  setAllyFactionName: TSelectOneSetValueFn
+  setBattalions: TSelectMultiSetValueFn
+  setUnits: TSelectMultiSetValueFn
   setVisibility: () => {
     payload: string
     type: string
   }
-  unitItems: TUnits
+  unitItems: TEntry[]
   unitValues: string[]
 }
 
@@ -207,7 +206,7 @@ const AllyCardComponent = (props: IAllyCardProps) => {
 interface IAddAllySelect {
   allyFactionName: TSupportedFaction
   items: TSupportedFaction[]
-  setAllyFactionName: (selectValue: ValueType<TDropdownOption>) => void
+  setAllyFactionName: TSelectOneSetValueFn
 }
 
 const AddAllySelect = (props: IAddAllySelect) => {

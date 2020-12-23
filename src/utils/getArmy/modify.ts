@@ -1,5 +1,11 @@
 import {
-  GenericCommands,
+  AvailableChaosUnits,
+  AvailableDeathUnits,
+  AvailableDestructionUnits,
+  AvailableOrderUnits,
+} from 'factions/grand_alliances'
+import {
+  GenericCommandAbilities,
   GenericEndlessSpells,
   GenericScenery,
   GenericSpells,
@@ -7,34 +13,37 @@ import {
   RealmscapeArtifacts,
   RealmscapeCommands,
   RealmscapeSpells,
-} from 'army/generic'
-import { sortBy, sortedUniqBy, uniqBy } from 'lodash'
-import { TGrandAlliances } from 'meta/alliances'
-import {
-  ICollection,
-  TAllegiances,
-  TArtifacts,
-  TBattalions,
-  TCommands,
-  TEndlessSpells,
-  TScenery,
-  TSpells,
-  TTraits,
-  TTriumphs,
-  TUnits,
-} from 'types/army'
+} from 'generic_rules'
+import { sortBy, uniqBy } from 'lodash'
+import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
+import { TCollection } from 'types/army'
+import { TEntry } from 'types/data'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { GrandAllianceConfig } from 'utils/getArmy/grandAllianceConfig'
 
-const modifyAllegiances = (allegiances: TAllegiances): TAllegiances =>
-  sortedUniqBy(sortBy(allegiances, 'name'), 'name')
-const modifyBattalions = (battalions: TBattalions): TBattalions =>
-  sortedUniqBy(sortBy(battalions, 'name'), 'name')
+const modifyFlavors = (flavors: TEntry[], Collection: TCollection): TEntry[] => {
+  return uniqBy(sortBy(flavors.concat(Collection.Flavors), 'name'), 'name')
+}
+const modifyBattalions = (battalions: TEntry[], Collection: TCollection): TEntry[] => {
+  return uniqBy(sortBy(battalions.concat(Collection.Battalions), 'name'), 'name')
+}
 
-const modifyUnits = (units: TUnits, alliedUnits: TUnits, alliance: TGrandAlliances): TUnits => {
-  const { Units } = GrandAllianceConfig[alliance]
+const modifyUnits = (
+  units: TEntry[],
+  alliedUnits: TEntry[],
+  alliance: TGrandAlliances,
+  Collection: TCollection
+): TEntry[] => {
+  const Units: TEntry[] = {
+    [CHAOS]: AvailableChaosUnits,
+    [DEATH]: AvailableDeathUnits,
+    [DESTRUCTION]: AvailableDestructionUnits,
+    [ORDER]: AvailableOrderUnits,
+  }[alliance]
+
   return uniqBy(
     sortBy(units, 'name')
+      .concat(Collection.Units)
       .concat(sortBy(alliedUnits, 'name'))
       .concat(sortBy(Units, 'name'))
       .map(u => ({ ...u, unit: true })),
@@ -43,11 +52,11 @@ const modifyUnits = (units: TUnits, alliedUnits: TUnits, alliance: TGrandAllianc
 }
 
 const modifyArtifacts = (
-  artifacts: TArtifacts,
+  artifacts: TEntry[],
   originRealm: TOriginRealms | null,
   alliance: TGrandAlliances,
-  Collection: ICollection
-): TArtifacts => {
+  Collection: TCollection
+): TEntry[] => {
   const originArtifacts = originRealm
     ? RealmscapeArtifacts.filter(c => c.name.includes(originRealm))
     : RealmscapeArtifacts
@@ -62,36 +71,60 @@ const modifyArtifacts = (
   )
 }
 
-const modifyTraits = (traits: TTraits, alliance: TGrandAlliances, Collection: ICollection): TTraits => {
-  const { Traits } = GrandAllianceConfig[alliance]
+const modifyCommandTraits = (
+  command_traits: TEntry[],
+  alliance: TGrandAlliances,
+  Collection: TCollection
+): TEntry[] => {
+  const { CommandTraits } = GrandAllianceConfig[alliance]
   return uniqBy(
-    sortBy(traits, 'name')
-      .concat(sortBy(Collection.Traits, 'name'))
-      .concat(sortBy(Traits, 'name'))
+    sortBy(command_traits, 'name')
+      .concat(Collection.CommandTraits)
+      .concat(sortBy(CommandTraits, 'name'))
       .map(t => ({ ...t, command_trait: true })),
     'name'
   )
 }
 
-const modifyCommands = (realmscape: TBattleRealms | null, Collection: ICollection): TCommands => {
+const modifyMountTraits = (mount_traits: TEntry[], Collection: TCollection): TEntry[] => {
+  return uniqBy(
+    sortBy(mount_traits, 'name')
+      .concat(Collection.MountTraits)
+      .map(t => ({ ...t, mount_trait: true })),
+    'name'
+  )
+}
+
+const modifyCommandAbilities = (
+  command_abilities: TEntry[],
+  realmscape: TBattleRealms | null,
+  Collection: TCollection
+): TEntry[] => {
   const realmCommands = realmscape ? RealmscapeCommands.filter(c => c.name.includes(realmscape)) : []
   return uniqBy(
-    Collection.Commands.concat(sortBy(GenericCommands, 'name'))
+    sortBy(command_abilities, 'name')
+      .concat(Collection.CommandAbilities)
+      .concat(sortBy(GenericCommandAbilities, 'name'))
       .concat(sortBy(realmCommands, 'name'))
       .map(c => ({ ...c, command_ability: true })),
     'name'
   )
 }
 
-const getTriumphs = (): TTriumphs => {
-  return sortBy(GenericTriumphs, 'name').map(t => ({ ...t, triumph: true }))
+const getTriumphs = (triumphs: TEntry[], Collection: TCollection): TEntry[] => {
+  return uniqBy(
+    sortBy(triumphs, 'name')
+      .concat(sortBy(GenericTriumphs.concat(Collection.Triumphs), 'name'))
+      .map(t => ({ ...t, triumph: true })),
+    'name'
+  )
 }
 
 const modifySpells = (
-  spells: TSpells,
+  spells: TEntry[],
   realmscape: TBattleRealms | null,
-  Collection: ICollection
-): TSpells => {
+  Collection: TCollection
+): TEntry[] => {
   const realmSpells = realmscape ? RealmscapeSpells.filter(s => s.name.includes(realmscape)) : []
   return uniqBy(
     sortBy(spells, 'name')
@@ -103,15 +136,27 @@ const modifySpells = (
   )
 }
 
-const modifyScenery = (scenery: TScenery): TScenery => {
-  return sortBy(scenery, 'name')
+const modifyPrayers = (prayers: TEntry[], Collection: TCollection): TEntry[] => {
+  return uniqBy(
+    sortBy(prayers.concat(Collection.Prayers), 'name').map(s => ({ ...s, prayer: true })),
+    'name'
+  )
+}
+
+const modifyScenery = (scenery: TEntry[], Collection: TCollection): TEntry[] => {
+  return sortBy(scenery.concat(Collection.Scenery), 'name')
     .concat(sortBy(GenericScenery, 'name'))
     .map(s => ({ ...s, scenery: true }))
 }
 
-const modifyEndlessSpells = (endlessSpells: TEndlessSpells): TEndlessSpells => {
+const modifyEndlessSpells = (
+  endless_spells: TEntry[],
+  grandAllianceEndlessSpells: TEntry[],
+  Collection: TCollection
+): TEntry[] => {
   return uniqBy(
-    sortBy(endlessSpells, 'name')
+    sortBy(endless_spells.concat(Collection.EndlessSpells), 'name')
+      .concat(sortBy(grandAllianceEndlessSpells, 'name'))
       .concat(sortBy(GenericEndlessSpells, 'name'))
       .map(e => ({ ...e, endless_spell: true })),
     'name'
@@ -119,14 +164,16 @@ const modifyEndlessSpells = (endlessSpells: TEndlessSpells): TEndlessSpells => {
 }
 
 export const modify = {
-  Allegiances: modifyAllegiances,
   Artifacts: modifyArtifacts,
   Battalions: modifyBattalions,
-  Commands: modifyCommands,
+  CommandAbilities: modifyCommandAbilities,
+  CommandTraits: modifyCommandTraits,
   EndlessSpells: modifyEndlessSpells,
+  Flavors: modifyFlavors,
+  MountTraits: modifyMountTraits,
+  Prayers: modifyPrayers,
   Scenery: modifyScenery,
   Spells: modifySpells,
-  Traits: modifyTraits,
   Triumphs: getTriumphs,
   Units: modifyUnits,
 }

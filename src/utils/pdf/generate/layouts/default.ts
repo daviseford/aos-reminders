@@ -1,10 +1,9 @@
 import jsPDF from 'jspdf'
 import { IPrintPdf, TPdfStyles } from 'types/pdf'
-import PdfLayout, { IPageOpts } from 'utils/pdf/generate/layouts/layoutUtils'
+import PdfLayout, { getFactionTitle, IPageOpts } from 'utils/pdf/generate/layouts/layoutUtils'
 import { Logo } from 'utils/pdf/generate/logo'
 import { getVisibleReminders } from 'utils/reminderUtils'
 import { reorderReminders } from 'utils/reorder'
-import { titleCase } from 'utils/textUtils'
 
 const Styles: TPdfStyles = {
   army: {
@@ -72,14 +71,13 @@ const PageOpts: IPageOpts = {
   maxLineWidth: 10.8,
   maxNoteLineWidth: 10.8 - 2,
   maxTitleLineWidth: 10.8 - 2,
-  pageBottom: 12.4 - 0.75, // pageHeight - yMargin,
-  pageHeight: 12.4,
+  pageBottom: 12.4 - 0.75,
   xMargin: 0.5,
   yMargin: 0.75,
 }
 
 export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
-  const { factionName, hiddenReminders, reminders, notes, ...currentArmy } = data
+  const { factionName, subFactionName, hiddenReminders, reminders, notes, ...currentArmy } = data
 
   const orderedReminders = reorderReminders(getVisibleReminders(reminders, hiddenReminders))
 
@@ -88,12 +86,16 @@ export const saveDefaultPdf = (data: IPrintPdf): jsPDF => {
     lineHeight: 1.2,
   })
 
-  const Layout = new PdfLayout('default', doc, PageOpts, Styles, { factionName, ...currentArmy })
+  const Layout = new PdfLayout('default', doc, PageOpts, Styles, {
+    factionName,
+    subFactionName,
+    ...currentArmy,
+  })
 
   doc
     .setFont('helvetica')
     .setTextColor(0, 0, 0)
-    .setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
+    .setProperties({ title: `AoS Reminders - ${getFactionTitle(factionName, subFactionName)}` })
 
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
