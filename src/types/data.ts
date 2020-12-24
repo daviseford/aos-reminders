@@ -86,7 +86,7 @@ export interface IReminder {
 }
 
 export type TCondition = {
-  type: string
+  type: TSelectionTypes | null
   value: string
 }
 

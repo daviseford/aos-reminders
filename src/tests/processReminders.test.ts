@@ -103,14 +103,17 @@ describe('processReminders', () => {
         })
       : undefined
     expect(abilityEffect).toBeDefined()
-    expect((abilityEffect as TTurnAction).condition[0].value).toEqual(`Sylvaneth Allegiance`)
+    expect((abilityEffect as TTurnAction).condition[0]).toEqual({ value: `Sylvaneth Allegiance`, type: null })
 
     // Check for Realmscape info
     const realmscapeEffect = reminders[realmscape_feature.when[0]].find(
       ({ name }) => name === realmscape_feature.name
     )
     expect(realmscapeEffect).toBeDefined()
-    expect((realmscapeEffect as TTurnAction).condition[0]).toEqual('Realmscape Feature')
+    expect((realmscapeEffect as TTurnAction).condition[0]).toEqual({
+      value: 'Realmscape Feature',
+      type: null,
+    })
   })
 
   it('should correctly attribute allegiance abilities to subfactions', () => {

@@ -8,7 +8,7 @@ export const processGame = (allEntries: Record<TSelectionTypes, TEntry[]>): TGam
   return Object.entries(allEntries).reduce(
     (game, [sliceKey, entries]) => {
       return entries.reduce((game, entry: TEntry) => {
-        const withEntry = addProps(entry, sliceKey)
+        const withEntry = addProps(entry, sliceKey as TSelectionTypes)
         entry.effects.forEach(effect => {
           effect.when.forEach(phase => {
             const action = withEntry(effect, phase)
@@ -27,7 +27,7 @@ export const processGame = (allEntries: Record<TSelectionTypes, TEntry[]>): TGam
  * @param entry
  * @param sliceKey
  */
-const addProps = (entry: TEntry, sliceKey: string) => {
+const addProps = (entry: TEntry, sliceKey: TSelectionTypes) => {
   // Figure out if an entry key is true and store it for now
   const entryProp = ENTRY_PROPERTIES.find(k => entry[k] === true)
 

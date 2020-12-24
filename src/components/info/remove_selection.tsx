@@ -1,8 +1,10 @@
 import { selectionActions } from 'ducks'
+import { without } from 'lodash'
 import React from 'react'
 import { Dropdown } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
-import { TCondition } from 'types/data'
+import { store } from 'store'
+import { lowerToUpperLookup, TCondition } from 'types/data'
 
 interface IRemoveSelectionMenuProps {
   selection: TCondition
@@ -11,11 +13,14 @@ interface IRemoveSelectionMenuProps {
 export const RemoveSelectionMenu = (props: IRemoveSelectionMenuProps) => {
   const { selection } = props
   const dispatch = useDispatch()
-  const { removeSelections } = selectionActions
+  const state = store.getState()
 
   const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
-    dispatch(removeSelections([selection.value]))
+    if (!selection.type) return
+    const action = selectionActions['set' + lowerToUpperLookup[selection.type]]
+    const remainingValues = without(state.selections.selections[selection.type], selection.value)
+    dispatch(action(remainingValues))
   }
 
   return (

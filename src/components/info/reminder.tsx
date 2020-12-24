@@ -189,9 +189,11 @@ const ActionText = (props: IActionTextProps) => {
                     setVisibility={handleVisibility}
                   />
                   {isVisible && <NoteMenu {...noteProps} />}
-                  {condition.map(c => (
-                    <RemoveSelectionMenu selection={c} key={c.value} />
-                  ))}
+                  {condition
+                    .filter(c => c.type !== null)
+                    .map(c => (
+                      <RemoveSelectionMenu selection={c} key={c.value} />
+                    ))}
                 </Dropdown.Menu>
               </Dropdown>
             )}
