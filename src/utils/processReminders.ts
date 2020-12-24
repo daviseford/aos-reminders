@@ -12,7 +12,7 @@ import { getActionTitle, titleCase } from 'utils/textUtils'
 
 type TProcessReminders = (
   army: IArmy,
-  factionName: TSupportedFaction,
+  subFactionName: string,
   selections: TSelections,
   realmscape_feature: string | null,
   allyFactionNames: TSupportedFaction[],
@@ -22,7 +22,7 @@ type TProcessReminders = (
 
 export const processReminders: TProcessReminders = (
   army,
-  factionName,
+  subFactionName,
   selections,
   realmscape_feature,
   allyFactionNames,
@@ -54,7 +54,7 @@ export const processReminders: TProcessReminders = (
           id: hashReminder(when, a.name, a.desc),
           name: a.name,
           desc: a.desc,
-          condition: [`${titleCase(factionName)} Allegiance`],
+          condition: [`${titleCase(subFactionName)} Allegiance`],
           tag: a.tag || false,
           command_ability,
           when,
