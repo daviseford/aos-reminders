@@ -4,8 +4,11 @@ import { ENTRY_PROPERTIES, TEffects, TEntry, TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
 import { hashReminder } from 'utils/reminderUtils'
 
-export const processGame = (allEntries: TEntry[][]): TGameStructure => {
-  const entries = flatten(allEntries)
+export const processGame = (allEntries: Record<string, TEntry[]>): TGameStructure => {
+  const entries = Object.entries(allEntries).reduce((accum, [key, value]) => {
+    accum.push(...flatten(value))
+    return accum
+  }, [] as TEntry[])
 
   return entries.reduce(
     (game, entry: TEntry) => {
