@@ -1,25 +1,22 @@
-import { flatten } from 'lodash'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { ENTRY_PROPERTIES, TEffects, TEntry, TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
+import { TSelectionTypes } from 'types/selections'
 import { hashReminder } from 'utils/reminderUtils'
 
-export const processGame = (allEntries: Record<string, TEntry[]>): TGameStructure => {
-  const entries = Object.entries(allEntries).reduce((accum, [key, value]) => {
-    accum.push(...flatten(value))
-    return accum
-  }, [] as TEntry[])
-
-  return entries.reduce(
-    (game, entry: TEntry) => {
-      const withEntry = addProps(entry)
-      entry.effects.forEach(effect => {
-        effect.when.forEach(phase => {
-          const action = withEntry(effect, phase)
-          game[phase] = game[phase] ? game[phase].concat(action) : [action]
+export const processGame = (allEntries: Record<TSelectionTypes, TEntry[]>): TGameStructure => {
+  return Object.entries(allEntries).reduce(
+    (game, [sliceKey, entries]) => {
+      return entries.reduce((game, entry: TEntry) => {
+        const withEntry = addProps(entry, sliceKey)
+        entry.effects.forEach(effect => {
+          effect.when.forEach(phase => {
+            const action = withEntry(effect, phase)
+            game[phase] = game[phase] ? game[phase].concat(action) : [action]
+          })
         })
-      })
-      return game
+        return game
+      }, game as TGameStructure)
     },
     { ...Game } as TGameStructure
   )
@@ -28,16 +25,16 @@ export const processGame = (allEntries: Record<string, TEntry[]>): TGameStructur
 /**
  * Using this function, we avoid attaching two or more Props to an action
  * @param entry
- * @param effect
+ * @param sliceKey
  */
-const addProps = (entry: TEntry) => {
+const addProps = (entry: TEntry, sliceKey: string) => {
   // Figure out if an entry key is true and store it for now
   const entryProp = ENTRY_PROPERTIES.find(k => entry[k] === true)
 
   return (effect: TEffects, when: TTurnWhen): TTurnAction => {
     const action: TTurnAction = {
       id: hashReminder(when, effect.name, effect.desc),
-      condition: [entry.name],
+      condition: [{ type: sliceKey, value: entry.name }],
       name: effect.name,
       desc: effect.desc,
       tag: effect.tag || false,

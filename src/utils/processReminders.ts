@@ -54,7 +54,7 @@ export const processReminders: TProcessReminders = (
           id: hashReminder(when, a.name, a.desc),
           name: a.name,
           desc: a.desc,
-          condition: [`${titleCase(subFactionName)} Allegiance`],
+          condition: [{ type: 'Allegiance', value: `${titleCase(subFactionName)} Allegiance` }],
           tag: a.tag || false,
           command_ability,
           when,
@@ -73,7 +73,7 @@ export const processReminders: TProcessReminders = (
           id: hashReminder(when, r.name, r.desc),
           name: r.name,
           desc: r.desc,
-          condition: [`Realmscape Feature`],
+          condition: [{ type: 'Realmscape', value: `Realmscape Feature` }],
           when,
         }
         reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
@@ -105,7 +105,7 @@ const processConditions = (
     if (!game[when].length) return accum
 
     game[when].forEach((action: TTurnAction) => {
-      if (conditions.includes(action.condition[0])) {
+      if (conditions.includes(action.condition[0].value)) {
         accum[when] = accum[when] ? processCondition(accum[when], action) : [action]
       }
     })

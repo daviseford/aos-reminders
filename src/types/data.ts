@@ -85,10 +85,15 @@ export interface IReminder {
   [key: string]: TTurnAction[]
 }
 
+export type TCondition = {
+  type: string
+  value: string
+}
+
 export type TTurnAction = {
   id: string
   actionTitle?: string
-  condition: string[]
+  condition: TCondition[]
   desc: string
   name: string
   when: TTurnWhen

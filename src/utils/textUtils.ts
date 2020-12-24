@@ -37,7 +37,10 @@ export const getActionTitle = ({
   spell,
   triumph,
 }: TTurnAction): string => {
-  const joinedCond = condition.filter(x => x !== name).join(', ')
+  const joinedCond = condition
+    .map(x => x.value)
+    .filter(x => x !== name)
+    .join(', ')
   const suffix = name === joinedCond || joinedCond === `` ? `` : `: ${joinedCond}`
   if (artifact) return `Artifact${suffix}`
   if (command_ability) return `Command Ability${suffix}`

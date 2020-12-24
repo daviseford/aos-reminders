@@ -148,7 +148,7 @@ interface IActionTextProps extends TTurnAction {
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { isVisible, desc, draggableProps, id, actionTitle, condition } = props
+  const { isVisible, desc, draggableProps, id, condition } = props
   const dispatch = useDispatch()
   const { isSubscribed } = useSubscription()
   const { isGameMode } = useAppStatus()
@@ -190,7 +190,7 @@ const ActionText = (props: IActionTextProps) => {
                   />
                   {isVisible && <NoteMenu {...noteProps} />}
                   {condition.map(c => (
-                    <RemoveSelectionMenu selection={c} key={c} />
+                    <RemoveSelectionMenu selection={c} key={c.value} />
                   ))}
                 </Dropdown.Menu>
               </Dropdown>

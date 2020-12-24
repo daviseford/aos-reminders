@@ -90,7 +90,7 @@ describe('processReminders', () => {
     ]
     testEntries.forEach(entry => {
       const effect = entry
-        ? reminders[entry.effects[0].when[0]].find(({ condition }) => condition[0] === entry.name)
+        ? reminders[entry.effects[0].when[0]].find(({ condition }) => condition[0].value === entry.name)
         : undefined
       expect(effect).toBeDefined()
     })
@@ -103,7 +103,7 @@ describe('processReminders', () => {
         })
       : undefined
     expect(abilityEffect).toBeDefined()
-    expect((abilityEffect as TTurnAction).condition[0]).toEqual(`Sylvaneth Allegiance`)
+    expect((abilityEffect as TTurnAction).condition[0].value).toEqual(`Sylvaneth Allegiance`)
 
     // Check for Realmscape info
     const realmscapeEffect = reminders[realmscape_feature.when[0]].find(
@@ -127,6 +127,6 @@ describe('processReminders', () => {
         })
       : undefined
     expect(abilityEffect).toBeDefined()
-    expect((abilityEffect as TTurnAction).condition[0]).toEqual(`Ironjawz Allegiance`)
+    expect((abilityEffect as TTurnAction).condition[0].value).toEqual(`Ironjawz Allegiance`)
   })
 })
