@@ -46,7 +46,7 @@ const subFactions = {
       ],
     },
   },
-  'Celestial Senitels': {
+  'Celestial Sentinels': {
     effects: pickEffects(BattleTraits, ['Celestial Sentinels']),
     available: {
       ...baseSubFaction.available,

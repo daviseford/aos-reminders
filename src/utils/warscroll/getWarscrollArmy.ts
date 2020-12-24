@@ -289,7 +289,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
             if (factionName === STORMCAST_ETERNALS && val.includes('(Stormkeep)')) {
               const sceFlavor = val.replace(/\(Stormkeep\)$/g, '(Stormhost)')
               accum.flavors.push(sceFlavor)
-              subFactionName = StormcastFaction.subFactionKeyMap['Celestial Senitels'] // Stormkeep
+              subFactionName = StormcastFaction.subFactionKeyMap['Celestial Sentinels'] // Stormkeep
               stop_processing = true
               return
             }

@@ -48,7 +48,7 @@ describe('getWarscrollArmyFromPdf', () => {
       allyUnits: ['Bundo Whalebiter'],
       errors: [],
       factionName: STORMCAST_ETERNALS,
-      subFactionName: 'Celestial Senitels',
+      subFactionName: 'Celestial Sentinels',
       origin_realm: 'Ghur',
       realmscape_feature: null,
       realmscape: null,
