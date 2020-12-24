@@ -21,6 +21,7 @@ import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
 import { CustomDropdownToggle } from './customDropdownToggle'
+import { RemoveSelectionMenu } from './remove_selection'
 
 const { addReminder: hideReminder, deleteReminder: showReminder, addWhen: showWhen } = visibilityActions
 
@@ -147,7 +148,7 @@ interface IActionTextProps extends TTurnAction {
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { isVisible, desc, draggableProps, id } = props
+  const { isVisible, desc, draggableProps, id, actionTitle, condition } = props
   const dispatch = useDispatch()
   const { isSubscribed } = useSubscription()
   const { isGameMode } = useAppStatus()
@@ -188,6 +189,9 @@ const ActionText = (props: IActionTextProps) => {
                     setVisibility={handleVisibility}
                   />
                   {isVisible && <NoteMenu {...noteProps} />}
+                  {condition.map(c => (
+                    <RemoveSelectionMenu selection={c} key={c} />
+                  ))}
                 </Dropdown.Menu>
               </Dropdown>
             )}
