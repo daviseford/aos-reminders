@@ -1,4 +1,5 @@
 // Army Imports
+import { OrrukWarclansFaction } from 'factions/orruk_warclans'
 import { SylvanethFaction } from 'factions/sylvaneth'
 import {
   GenericCommandAbilities,
@@ -7,7 +8,7 @@ import {
   RealmscapeFeatures,
 } from 'generic_rules'
 // Meta
-import { SYLVANETH } from 'meta/factions'
+import { ORRUK_WARCLANS, SYLVANETH } from 'meta/factions'
 // Types
 import { IArmy } from 'types/army'
 import { TTurnAction } from 'types/data'
@@ -110,5 +111,22 @@ describe('processReminders', () => {
     )
     expect(realmscapeEffect).toBeDefined()
     expect((realmscapeEffect as TTurnAction).condition[0]).toEqual('Realmscape Feature')
+  })
+
+  it('should correctly attribute allegiance abilities to subfactions', () => {
+    const army = getArmy(ORRUK_WARCLANS, 'Ironjawz', null, null) as IArmy
+
+    const selections = selectionsFactory({})
+    const reminders = processReminders(army, 'Ironjawz', selections, null, [], {}, {})
+
+    // Check for Allegiance ability
+    const ability = OrrukWarclansFaction.AggregateArmy.BattleTraits[0]
+    const abilityEffect = ability
+      ? reminders[ability.when[0]].find(({ name }) => {
+          return name === ability.name
+        })
+      : undefined
+    expect(abilityEffect).toBeDefined()
+    expect((abilityEffect as TTurnAction).condition[0]).toEqual(`Ironjawz Allegiance`)
   })
 })
