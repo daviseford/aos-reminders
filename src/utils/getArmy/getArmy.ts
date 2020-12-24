@@ -103,20 +103,20 @@ const modifyArmy = produce((Army: IArmy, meta: IModifyArmyMeta) => {
   Army.Triumphs = modify.Triumphs(Triumphs, Collection)
   Army.Units = modify.Units(Units, AlliedUnits, GrandAlliance, Collection)
 
-  Army.Game = processGame([
-    Army.Artifacts,
-    Army.Battalions,
-    Army.CommandAbilities,
-    Army.CommandTraits,
-    Army.EndlessSpells,
-    Army.Flavors,
-    Army.MountTraits,
-    Army.Prayers,
-    Army.Scenery,
-    Army.Spells,
-    Army.Triumphs,
-    Army.Units,
-  ])
+  Army.Game = processGame({
+    artifacts: Army.Artifacts,
+    battalions: Army.Battalions,
+    command_abilities: Army.CommandAbilities,
+    command_traits: Army.CommandTraits,
+    endless_spells: Army.EndlessSpells,
+    flavors: Army.Flavors,
+    mount_traits: Army.MountTraits,
+    prayers: Army.Prayers,
+    scenery: Army.Scenery,
+    spells: Army.Spells,
+    triumphs: Army.Triumphs,
+    units: Army.Units,
+  })
 
   return Army
 })
