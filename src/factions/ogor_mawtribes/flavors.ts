@@ -59,6 +59,11 @@ const Flavors = {
         desc: `Add 1 to the Wounds characteristic of friendly BOULDERHEAD MONSTERS. In addition, each BOULDERHEAD HERO on STONEHORN or THUNDERTUSK, instead of only 1, can be given a mount trait.`,
         when: [DURING_GAME],
       },
+      {
+        name: `Deadly Hail`,
+        desc: `Add 1 to prayer rolls for Pulverising Hailstorm when a BOULDERHEAD PRIEST is chanting that prayer.`,
+        when: [HERO_PHASE],
+      },
     ],
   },
   'Thunderbellies (Mawtribe)': {
