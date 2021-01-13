@@ -103,7 +103,7 @@ const Units = {
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Molten Battering Ram'])],
     },
-    effects: [...MagmadrothEffects, StareDownEffect],
+    effects: [...AuricRunesonEffects, ...MagmadrothEffects, StareDownEffect],
   },
   'Auric Runesmiter on Magmadroth': {
     mandatory: {
