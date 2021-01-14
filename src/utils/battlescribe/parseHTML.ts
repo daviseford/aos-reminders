@@ -1,3 +1,4 @@
+import parse5 from 'parse5'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { cleanText, fixKeys } from 'utils/battlescribe/battlescribeUtils'
 import {
@@ -147,7 +148,7 @@ const getNamesFromTableTags = (table: IParentNode): { tableName: string; names: 
 /**
  * Helps us get the JSON string (removes circular references)
  */
-export const stripParentNode = (docObj: IParentNode | IChildNode) => {
+export const stripParentNode = (docObj: parse5.Document) => {
   if (isChildNode(docObj) && docObj.value) {
     docObj.value = cleanText(docObj.value)
   }

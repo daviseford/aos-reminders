@@ -15,7 +15,7 @@ export const getBattlescribeArmy = (html_string: string) => {
 const getInitialBattlescribeArmy = (html_string: string): IImportedArmy => {
   const document = parse5.parse(html_string)
 
-  const strippedDoc = stripParentNode(document as IParentNode)
+  const strippedDoc = stripParentNode(document)
 
   const { allegianceInfo, factionInfo, realmscape, origin_realm, rootSelections } = traverseDoc(strippedDoc)
   const { factionName, subFactionName, flavors } = getFactionAndFlavors(allegianceInfo, factionInfo)

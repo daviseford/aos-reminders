@@ -1,12 +1,14 @@
 import { TEffects } from 'types/data'
 import { TSelectionTypes } from 'types/selections'
 
-export type TObjWithEffects = object & { effects: TEffects[] }
+export interface TObjWithEffects extends Object {
+  effects: TEffects[]
+}
 export type TParentEffectsObjWithEffects = Record<string, TObjWithEffects>
 
 export type TItemKey = TSelectionTypes | 'allied_units'
 
-export type TItemDescription = {
+export interface TItemDescription {
   available?: Partial<Record<TItemKey, TParentEffectsObjWithEffects[]>>
   mandatory?: Partial<Record<TItemKey, TParentEffectsObjWithEffects[]>>
   effects: TEffects[]
