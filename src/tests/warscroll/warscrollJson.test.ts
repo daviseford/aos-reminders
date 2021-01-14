@@ -860,13 +860,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Nagash, Supreme Lord of the Undead can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Corvus Cabal', () => {
@@ -958,13 +952,7 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.origin_realm).toEqual(AQSHY)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Arkhan the Black, Mortarch of Sacrament can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Mark of Chaos and Scroll of Dark Unravelling', () => {
@@ -1038,13 +1026,7 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.origin_realm).toEqual(null)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Nagash, Supreme Lord of the Undead can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Vokmortians Retinue', () => {
@@ -1062,13 +1044,7 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.selections.battalions).toContain("Vokmortian's Retinue")
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Arkhan the Black, Mortarch of Sacrament can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with One with Fire and Ice trait/spell', () => {
@@ -1100,13 +1076,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Arkhan the Black, Mortarch of Sacrament can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with random Death artifacts/traits', () => {
@@ -1324,13 +1294,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Arkhan the Black, Mortarch of Sacrament can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Vokmortian', () => {
@@ -1338,13 +1302,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Arkhan the Black, Mortarch of Sacrament can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should work with Druid of the Everspring', () => {

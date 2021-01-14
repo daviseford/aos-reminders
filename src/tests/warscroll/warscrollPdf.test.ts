@@ -581,18 +581,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Arkhan the Black, Mortarch of Sacrament can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
-      },
-      {
-        severity: 'ally-warn',
-        text:
-          'Allied Nagash, Supreme Lord of the Undead can belong to Legions Of Nagash or Legion Of Grief. Please add this unit manually.',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('reads deprecated KO pdf (issue #794)', () => {
