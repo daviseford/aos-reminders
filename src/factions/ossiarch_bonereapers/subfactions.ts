@@ -1,5 +1,6 @@
-import { pickEffects } from 'factions/metatagger'
+import { keyPicker, pickEffects } from 'factions/metatagger'
 import { OSSIARCH_BONEREAPERS } from 'meta/factions'
+import LegionsOfNagashUnits from '../legions_of_nagash/units'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
@@ -23,7 +24,13 @@ const subFactions = {
       flavors: [Flavors],
       scenery: [Scenery],
       spells: [Spells],
-      units: [Units],
+      units: [
+        Units,
+        keyPicker(LegionsOfNagashUnits, [
+          'Arkhan the Black, Mortarch of Sacrament',
+          'Nagash, Supreme Lord of the Undead',
+        ]),
+      ],
     },
   },
 }
