@@ -211,17 +211,14 @@ const ActionText = (props: IActionTextProps) => {
   )
 }
 
-const ActionTitle = ({ actionTitle, name, tag, isVisible }: IActionTextProps) => {
+const ActionTitle = ({ actionTitle, name, isVisible }: IActionTextProps) => {
   const { theme } = useTheme()
   const titleStr = actionTitle ? `${actionTitle} - ` : ''
 
   return (
     <>
       <span className={`${theme.textMuted} font-weight-bold`}>{titleStr}</span>
-      <strong className={theme.text}>
-        {name}
-        {tag && ` (${tag})`}
-      </strong>
+      <strong className={theme.text}>{name}</strong>
       {!isVisible && (
         <span className={`${theme.text}`}>
           <MdVisibilityOff className={`${theme.text} ml-2`} />

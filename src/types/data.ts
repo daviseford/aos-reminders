@@ -75,7 +75,6 @@ export type TEntry = {
 export type TEffects = {
   name: string
   desc: string
-  tag?: string
   when: TTurnWhen[]
 } & {
   [prop in TEntryProperties]?: boolean
@@ -92,7 +91,6 @@ export type TTurnAction = {
   desc: string
   name: string
   when: TTurnWhen
-  tag?: string | false
 } & {
   [prop in TEntryProperties]?: boolean
 }

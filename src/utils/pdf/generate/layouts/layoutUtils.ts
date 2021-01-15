@@ -73,7 +73,7 @@ export default class CompactPdfLayout {
   private _getTitle = (action: TTurnAction) => {
     const title = getActionTitle(action)
     const titleStr = title ? `${title} - ` : ``
-    return `${titleStr}${action.name}${action.tag ? ` (${action.tag})` : ``}`
+    return `${titleStr}${action.name}`
   }
   private _addSpacerToPage = () => {
     this._addToCurrentPage({
