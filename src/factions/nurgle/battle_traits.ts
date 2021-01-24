@@ -85,7 +85,7 @@ const BattleTraits = {
       },
     ],
   },
-  // Munificent Wanderers/Dronig Guard Battle Traits
+  // Munificent Wanderers/Droning Guard Battle Traits
   'Locus of Corrosion': {
     effects: [LocusOfCorrosionEffect],
   },

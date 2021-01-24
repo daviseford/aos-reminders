@@ -80,7 +80,7 @@ const baseSubFaction: TItemDescription = {
 
 const subFactions = {
   [NURGLE]: {
-    effects: pickEffects(BattleTraits, ['Nurgle', "Tamurkhan's Horde"]),
+    effects: pickEffects(BattleTraits, ['Nurgle']),
 
     available: {
       ...baseSubFaction.available,
@@ -96,7 +96,7 @@ const subFactions = {
   },
 
   "Tamurkhan's Horde": {
-    effects: pickEffects(BattleTraits, ['Nurgle']),
+    effects: pickEffects(BattleTraits, ['Nurgle', "Tamurkhan's Horde"]),
 
     mandatory: {
       artifacts: [keyPicker(Artifacts, ['Daemon Flask'])],
