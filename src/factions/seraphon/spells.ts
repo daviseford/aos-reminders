@@ -60,7 +60,7 @@ const Spells = {
     effects: [
       {
         name: `Bind Endless Spell`,
-        desc: `Casting value of 7. Pick 1 endless spell within 18" of the caster and visible to them. Until your next hero phase, that endless spell has the BOUND keyword.`,
+        desc: `Casting value of 7. Pick 1 endless spell within 18" of the caster, not soul-linked, and visible to them. Until your next hero phase, that endless spell has the BOUND keyword.`,
         when: [HERO_PHASE],
       },
     ],

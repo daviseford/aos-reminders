@@ -492,7 +492,14 @@ const Units = {
     mandatory: {
       spells: [keyPicker(spells, ['Howling Vortex'])],
     },
-    effects: [EtherealEffect],
+    effects: [
+      EtherealEffect,
+      {
+        name: `Magic`,
+        desc: `The Briar Queen is a WIZARD. She can attempt to cast one spell in each of your hero phases, and attempt to unbind one spell in each enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Howling Vortex spells.`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
   'Thorns of the Briar Queen': {
     effects: [

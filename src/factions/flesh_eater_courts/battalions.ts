@@ -1,4 +1,5 @@
-import { tagAs } from 'factions/metatagger'
+import Units from 'factions/flesh_eater_courts/units'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -11,8 +12,11 @@ import {
   TURN_ONE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
-const Battalions = {
+const RegularBattalions = {
   Abattoir: {
+    mandatory: {
+      units: [keyPicker(Units, ['Crypt Haunter Courtier', 'Crypt Horrors', 'Crypt Ghouls'])],
+    },
     effects: [
       {
         name: `Body-part Acquisition`,
@@ -22,6 +26,9 @@ const Battalions = {
     ],
   },
   'Attendants at Court': {
+    mandatory: {
+      units: [keyPicker(Units, ['Crypt Haunter Courtier', 'Crypt Horrors'])],
+    },
     effects: [
       {
         name: `Loyal Subjects`,
@@ -31,6 +38,9 @@ const Battalions = {
     ],
   },
   Deadwatch: {
+    mandatory: {
+      units: [keyPicker(Units, ['Crypt Infernal Courtier', 'Crypt Flayers'])],
+    },
     effects: [
       {
         name: `The Lord's Own`,
@@ -39,16 +49,10 @@ const Battalions = {
       },
     ],
   },
-  'Cannibal Court': {
-    effects: [
-      {
-        name: `Dark Master`,
-        desc: `If your general is an ABHORRANT ARCHREGENT or ABHORRANT GHOUL KING from this battalion, treat their warscroll as having the command abilities found on the warscrolls of any other units included in this battalion. 'If your general is from this battalion, he knows all of the command abilities on the warscrolls and battalions included in this battalion. In addition, you start the battle with 3 command points for having this battalion in your army instead of 1.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
   'Ghoul Patrol': {
+    mandatory: {
+      units: [keyPicker(Units, ['Crypt Ghast Courtier', 'Crypt Ghouls'])],
+    },
     effects: [
       {
         name: `On Patrol`,
@@ -57,7 +61,10 @@ const Battalions = {
       },
     ],
   },
-  "King's Ghouls": {
+  'King`s Ghouls': {
+    mandatory: {
+      units: [keyPicker(Units, ['Crypt Ghast Courtier', 'Crypt Horrors', 'Crypt Ghouls'])],
+    },
     effects: [
       {
         name: `Guardians of the Court`,
@@ -67,6 +74,9 @@ const Battalions = {
     ],
   },
   'Royal Family': {
+    mandatory: {
+      units: [keyPicker(Units, ['Abhorrant Ghoul King'])],
+    },
     effects: [
       {
         name: `Lords of the Manor`,
@@ -85,6 +95,9 @@ const Battalions = {
     ],
   },
   'Royal Mordants': {
+    mandatory: {
+      units: [keyPicker(Units, ['Varghulf Courtier', 'Crypt Horrors', 'Crypt Flayers', 'Crypt Ghouls'])],
+    },
     effects: [
       {
         name: `Delusional Discipline`,
@@ -94,6 +107,9 @@ const Battalions = {
     ],
   },
   'The Arcasanctorian Guard': {
+    mandatory: {
+      units: [keyPicker(Units, ['Abhorrant Archregent', 'Crypt Flayers', 'Crypt Horrors', 'Crypt Ghouls'])],
+    },
     effects: [
       {
         name: `The Arcasanctorian Guard`,
@@ -104,5 +120,32 @@ const Battalions = {
   },
 }
 
-// Always export using tagAs
+const SuperBattalions = {
+  'Cannibal Court': {
+    mandatory: {
+      battalions: [
+        keyPicker(RegularBattalions, [
+          'Royal Family',
+          'Attendants at Court',
+          'Deadwatch',
+          'Abattoir',
+          'Ghoul Patrol',
+          'King`s Ghouls',
+          'Royal Mordants',
+          'Royal Menagerie',
+        ]),
+      ],
+    },
+    effects: [
+      {
+        name: `Dark Master`,
+        desc: `If your general is an ABHORRANT ARCHREGENT or ABHORRANT GHOUL KING from this battalion, treat their warscroll as having the command abilities found on the warscrolls of any other units included in this battalion. 'If your general is from this battalion, he knows all of the command abilities on the warscrolls and battalions included in this battalion. In addition, you start the battle with 3 command points for having this battalion in your army instead of 1.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+}
+
+const Battalions = { ...RegularBattalions, ...SuperBattalions }
+
 export default tagAs(Battalions, 'battalion')

@@ -155,7 +155,7 @@ const Artifacts = {
     effects: [
       {
         name: `Emergency Ventplates`,
-        desc: `Once per battle, at the start of the enemy shooting phase, you can say that the bearer will use their Emergency Ventplates. If you do so, subtract 1 from hit rolls for attacks that target the bearer or any friendly unit wholly within 6" of the bearer.`,
+        desc: `Once per battle, at the start of the enemy shooting phase, you can say that the bearer will use their Emergency Ventplates. If you do so, until the end of the phase, subtract 1 from hit rolls for attacks that target the bearer or any friendly unit wholly within 6" of the bearer.`,
         when: [SHOOTING_PHASE],
       },
     ],

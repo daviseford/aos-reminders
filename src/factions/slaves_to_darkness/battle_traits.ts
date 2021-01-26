@@ -283,6 +283,11 @@ const BattleTraits = {
         desc: `When an Idolators Cultists unit charges, change the lowest dice to a 6. Change 1 dice to a 6 on a double result.`,
         when: [CHARGE_PHASE],
       },
+      {
+        name: `Panopy of Ruin`,
+        desc: `All Idolators Cultists units gain the same Mark of Chaos held by the Idolator Lord.`,
+        when: [DURING_SETUP],
+      },
     ],
   },
   'Destroy the False Idols': {
