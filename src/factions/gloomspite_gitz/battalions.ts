@@ -120,7 +120,7 @@ const RegularBattalions = {
     effects: [
       {
         name: `Reality's Skin-crawlers`,
-        desc: `In your movement phase, instead of making a normal move with am odel from thsi battalion, you can say that it will tunnel through the web-strewn portals. If you do so, remove that model from the battlefield and set it up again anywhere on the battlefield more than 9" from any enemy units.`,
+        desc: `In your movement phase, instead of making a normal move with a model from this battalion, you can say that it will tunnel through the web-strewn portals. If you do so, remove that model from the battlefield and set it up again anywhere on the battlefield more than 9" from any enemy units.`,
         when: [MOVEMENT_PHASE],
       },
     ],
