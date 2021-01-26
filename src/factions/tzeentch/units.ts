@@ -33,7 +33,7 @@ const MagicTouchedEffect = {
 }
 const MasteryOfMagicEffect = {
   name: `Mastery of Magic`,
-  desc: `When this model makes a casting, unbinding or dispelling roll, you can change the lowest D6 to match the highest D6.`,
+  desc: `When this model makes a casting, unbinding or dispelling roll, you can change the lowest D6 to match the highest D6. This counts as a modifier.`,
   when: [HERO_PHASE],
 }
 const SkySharksEffect = {
@@ -190,7 +190,7 @@ const Units = {
       ArcaneTomeEffect,
       {
         name: `Fortune and Fate`,
-        desc: `If this model successfully casts a spell with a casting roll of 9+, this model can attempt to cast 1 extra spell in that phase.`,
+        desc: `If this model successfully casts a spell with a casting roll of 9+, this model can attempt to cast 1 extra spell in that phase. The extra spell casts also have this ability.`,
         when: [HERO_PHASE],
       },
       {
