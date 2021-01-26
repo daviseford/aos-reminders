@@ -1,6 +1,6 @@
 import BeastsOfChaosBattalions from 'factions/beasts_of_chaos/battalions'
 import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
-import { TItemDescription } from 'factions/factionTypes'
+import { IItemDescription } from 'factions/factionTypes'
 import { keyOmitter, keyPicker, pickEffects } from 'factions/metatagger'
 import SlavesToDarknessBattalions from 'factions/slaves_to_darkness/battalions'
 import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
@@ -15,7 +15,7 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-const baseSubfaction: TItemDescription = {
+const baseSubfaction: IItemDescription = {
   effects: pickEffects(BattleTraits, ['Thrilling Compulsions']),
   available: {
     artifacts: [Artifacts],

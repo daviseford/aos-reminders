@@ -37,7 +37,6 @@ const addProps = (entry: TEntry) => {
       condition: [entry.name],
       name: effect.name,
       desc: effect.desc,
-      tag: effect.tag || false,
       when,
     }
 

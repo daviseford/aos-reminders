@@ -1,4 +1,4 @@
-import { TDropdownOption } from 'components/input/select'
+import { IDropdownOption } from 'components/input/select'
 import { selectionActions } from 'ducks'
 import { STORMCAST_ETERNALS } from 'meta/factions'
 import { ActionMeta } from 'react-select'
@@ -23,12 +23,12 @@ describe('Stormcast battalions', () => {
   const SUB_BATTALIONS = ['Wardens of the Stormkeep', 'Stormtower Garrison', 'Stormkeep Patrol']
 
   it('should handle setting a super battalion', () => {
-    const option: TDropdownOption = {
+    const option: IDropdownOption = {
       value: BROTHERHOOD,
       label: BROTHERHOOD,
     }
     const values = [option]
-    const action: ActionMeta<TDropdownOption> = { option: option, action: 'select-option' }
+    const action: ActionMeta<IDropdownOption> = { option: option, action: 'select-option' }
 
     setValues(values, action)
     const { selections } = store.getState()
@@ -50,12 +50,12 @@ describe('Stormcast battalions', () => {
   })
 
   it('should handle setting and unsetting a super battalion', () => {
-    const option: TDropdownOption = {
+    const option: IDropdownOption = {
       value: BROTHERHOOD,
       label: BROTHERHOOD,
     }
-    const setAction: ActionMeta<TDropdownOption> = { option: option, action: 'select-option' }
-    const unsetAction: ActionMeta<TDropdownOption> = { option: option, action: 'remove-value' }
+    const setAction: ActionMeta<IDropdownOption> = { option: option, action: 'select-option' }
+    const unsetAction: ActionMeta<IDropdownOption> = { option: option, action: 'remove-value' }
 
     setValues([option], setAction)
     setValues([], unsetAction)

@@ -1,9 +1,9 @@
 import deepmerge from 'deepmerge'
 import { TInitialArmy, TSubfactionArmy } from 'types/army'
 import { TEntry } from 'types/data'
-import { TItemDescription, TItemDescriptions, TItemKey, TParentEffectsObjWithEffects } from './factionTypes'
+import { IItemDescription, TItemDescriptions, TItemKey, TParentEffectsObjWithEffects } from './factionTypes'
 
-type TAdapter = (subFaction: TItemDescription, subFactionName: string, FlavorType?: string) => TInitialArmy
+type TAdapter = (subFaction: IItemDescription, subFactionName: string, FlavorType?: string) => TInitialArmy
 
 /**
  * To see how a new data-structure army might feel in the UI as-is
@@ -42,12 +42,12 @@ export const getAggregateArmy = (subFactions: TItemDescriptions, flavorType = 'F
   }, {} as TSubfactionArmy)
 }
 
-const subFactionAdapter = (subFaction: TItemDescription, name: string): TEntry => {
+const subFactionAdapter = (subFaction: IItemDescription, name: string): TEntry => {
   const { mandatory = {}, effects = [] } = subFaction
   return { mandatory, effects, name }
 }
 
-const mergeData = (subFaction: TItemDescription, slice: TItemKey): TEntry[] => {
+const mergeData = (subFaction: IItemDescription, slice: TItemKey): TEntry[] => {
   const { available = {}, mandatory = {} } = subFaction
   const merged: TParentEffectsObjWithEffects[] = [...(available[slice] || []), ...(mandatory[slice] || [])]
   return mergeParentEffectObjs(merged)

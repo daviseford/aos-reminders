@@ -1,9 +1,7 @@
 import { IChildNode, IParentNode } from 'utils/battlescribe/getBattlescribeArmy'
 
-export const isParentNode = (node: IParentNode | IChildNode | undefined): node is IParentNode =>
-  !!node && 'childNodes' in node
-export const isChildNode = (node: IParentNode | IChildNode | undefined): node is IChildNode =>
-  !!node && 'value' in node
+export const isParentNode = (node: any): node is IParentNode => !!node && 'childNodes' in node
+export const isChildNode = (node: any): node is IChildNode => !!node && 'value' in node
 
 export const isFactionObj = (obj: IParentNode | IChildNode): obj is IParentNode => {
   if (isChildNode(obj)) return false
