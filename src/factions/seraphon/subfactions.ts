@@ -1,4 +1,4 @@
-import { TItemDescription } from 'factions/factionTypes'
+import { IItemDescription } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
@@ -11,7 +11,7 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-const baseSubFaction: TItemDescription = {
+const baseSubFaction: IItemDescription = {
   effects: pickEffects(BattleTraits, ['SERAPHON']),
   available: {
     artifacts: [Artifacts],

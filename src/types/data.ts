@@ -1,4 +1,4 @@
-import { TItemDescription } from 'factions/factionTypes'
+import { IItemDescription } from 'factions/factionTypes'
 import { TTurnWhen } from 'types/phases'
 import { TCollection } from './army'
 import { TSelectionTypes } from './selections'
@@ -62,7 +62,7 @@ export const upperToLowerLookup: Record<keyof TCollection, TSelectionTypes> = {
   Units: 'units',
 }
 
-type TEntryMetadata = TItemDescription &
+type TEntryMetadata = IItemDescription &
   {
     [prop in TEntryProperties]?: boolean
   }

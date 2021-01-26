@@ -1,4 +1,4 @@
-import { convertToOptions, TDropdownOption } from 'components/input/select'
+import { convertToOptions, IDropdownOption } from 'components/input/select'
 import { selectionActions } from 'ducks'
 import { DAUGHTERS_OF_KHAINE } from 'meta/factions'
 import { ActionMeta } from 'react-select'
@@ -24,7 +24,7 @@ describe('Daughters of Khaine units', () => {
 
   it('should handle adding Morathi-Khaine', () => {
     const values = convertToOptions([MORATHI_KHAINE])
-    const action: ActionMeta<TDropdownOption> = { option: values[0], action: 'select-option' }
+    const action: ActionMeta<IDropdownOption> = { option: values[0], action: 'select-option' }
 
     setValues(values, action)
     const { selections } = store.getState()
@@ -49,7 +49,7 @@ describe('Daughters of Khaine units', () => {
 
   it('should handle adding The Shadow Queen', () => {
     const values = convertToOptions([SHADOW_QUEEN])
-    const action: ActionMeta<TDropdownOption> = { option: values[0], action: 'select-option' }
+    const action: ActionMeta<IDropdownOption> = { option: values[0], action: 'select-option' }
 
     setValues(values, action)
     const { selections } = store.getState()
@@ -74,8 +74,8 @@ describe('Daughters of Khaine units', () => {
 
   it('should handle adding and removing Morathi-Khaine', () => {
     const values = convertToOptions([MORATHI_KHAINE])
-    const setAction: ActionMeta<TDropdownOption> = { option: values[0], action: 'select-option' }
-    const unsetAction: ActionMeta<TDropdownOption> = { option: values[0], action: 'remove-value' }
+    const setAction: ActionMeta<IDropdownOption> = { option: values[0], action: 'select-option' }
+    const unsetAction: ActionMeta<IDropdownOption> = { option: values[0], action: 'remove-value' }
 
     setValues(values, setAction)
     setValues([], unsetAction)

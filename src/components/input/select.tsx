@@ -5,17 +5,17 @@ import { ActionMeta, ValueType } from 'react-select/src/types'
 import { logIndividualSelection } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 
-export interface TDropdownOption {
+export interface IDropdownOption {
   value: string
   label: string
 }
-type TSelectOneValueType = ValueType<TDropdownOption, false>
-type TSelectMultiValueType = ValueType<TDropdownOption, true>
+type TSelectOneValueType = ValueType<IDropdownOption, false>
+type TSelectMultiValueType = ValueType<IDropdownOption, true>
 
-export type TSelectOneSetValueFn = (value: TSelectOneValueType, action: ActionMeta<TDropdownOption>) => void
+export type TSelectOneSetValueFn = (value: TSelectOneValueType, action: ActionMeta<IDropdownOption>) => void
 export type TSelectMultiSetValueFn = (
   values: TSelectMultiValueType,
-  action: ActionMeta<TDropdownOption>
+  action: ActionMeta<IDropdownOption>
 ) => void
 
 interface ISelectOneProps {
@@ -85,7 +85,7 @@ export const SelectOne = (props: ISelectOneProps) => {
   )
 }
 
-export const convertToOptions = (items: string[] = [], toTitle: boolean = true): TDropdownOption[] => {
+export const convertToOptions = (items: string[] = [], toTitle: boolean = true): IDropdownOption[] => {
   return items.map(i => ({ value: i, label: toTitle ? titleCase(i) : i }))
 }
 

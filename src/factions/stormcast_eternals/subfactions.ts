@@ -1,4 +1,4 @@
-import { TItemDescription } from 'factions/factionTypes'
+import { IItemDescription } from 'factions/factionTypes'
 import { keyOmitter, pickEffects } from 'factions/metatagger'
 import CitiesOfSigmarUnits from '../cities_of_sigmar/units'
 import Artifacts from './artifacts'
@@ -13,7 +13,7 @@ import Prayers from './prayers'
 import Spells from './spells'
 import Units from './units'
 
-const baseSubFaction: TItemDescription = {
+const baseSubFaction: IItemDescription = {
   available: {
     allied_units: [],
     artifacts: [Artifacts],

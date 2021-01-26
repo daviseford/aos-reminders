@@ -1,4 +1,4 @@
-import { TDropdownOption } from 'components/input/select'
+import { IDropdownOption } from 'components/input/select'
 import { selectionActions } from 'ducks'
 import { STORMCAST_ETERNALS } from 'meta/factions'
 import { ActionMeta } from 'react-select'
@@ -23,12 +23,12 @@ describe('Stormcast flavors', () => {
   const HAMMERS = 'Hammers of Sigmar (Stormhost)'
 
   it('should handle setting a flavor with side effects', () => {
-    const option: TDropdownOption = {
+    const option: IDropdownOption = {
       value: ANVILS,
       label: ANVILS,
     }
     const values = [option]
-    const action: ActionMeta<TDropdownOption> = { option: option, action: 'select-option' }
+    const action: ActionMeta<IDropdownOption> = { option: option, action: 'select-option' }
 
     setValues(values, action)
     const { selections } = store.getState()
@@ -52,12 +52,12 @@ describe('Stormcast flavors', () => {
   })
 
   it('should handle setting a different flavor with side effects', () => {
-    const option: TDropdownOption = {
+    const option: IDropdownOption = {
       value: HAMMERS,
       label: HAMMERS,
     }
     const values = [option]
-    const action: ActionMeta<TDropdownOption> = { option: option, action: 'select-option' }
+    const action: ActionMeta<IDropdownOption> = { option: option, action: 'select-option' }
 
     setValues(values, action)
     const { selections } = store.getState()
@@ -81,16 +81,16 @@ describe('Stormcast flavors', () => {
   })
 
   it('should handle setting a second flavor with side effects', () => {
-    const existingOption: TDropdownOption = {
+    const existingOption: IDropdownOption = {
       value: ANVILS,
       label: ANVILS,
     }
-    const newOption: TDropdownOption = {
+    const newOption: IDropdownOption = {
       value: HAMMERS,
       label: HAMMERS,
     }
     const values = [existingOption, newOption]
-    const action: ActionMeta<TDropdownOption> = { option: newOption, action: 'select-option' }
+    const action: ActionMeta<IDropdownOption> = { option: newOption, action: 'select-option' }
 
     setValues(values, action)
     const { selections } = store.getState()
@@ -118,12 +118,12 @@ describe('Stormcast flavors', () => {
   })
 
   it('should handle setting and unsetting a flavor with side effects', () => {
-    const option: TDropdownOption = {
+    const option: IDropdownOption = {
       value: HAMMERS,
       label: HAMMERS,
     }
-    const setAction: ActionMeta<TDropdownOption> = { option: option, action: 'select-option' }
-    const unsetAction: ActionMeta<TDropdownOption> = { option: option, action: 'remove-value' }
+    const setAction: ActionMeta<IDropdownOption> = { option: option, action: 'select-option' }
+    const unsetAction: ActionMeta<IDropdownOption> = { option: option, action: 'remove-value' }
 
     setValues([option], setAction)
     setValues([], unsetAction)
@@ -146,16 +146,16 @@ describe('Stormcast flavors', () => {
   })
 
   it('should handle setting and unsetting a second flavor with side effects', () => {
-    const existingOption: TDropdownOption = {
+    const existingOption: IDropdownOption = {
       value: ANVILS,
       label: ANVILS,
     }
-    const newOption: TDropdownOption = {
+    const newOption: IDropdownOption = {
       value: HAMMERS,
       label: HAMMERS,
     }
-    const setAction: ActionMeta<TDropdownOption> = { option: newOption, action: 'select-option' }
-    const unsetAction: ActionMeta<TDropdownOption> = { option: newOption, action: 'remove-value' }
+    const setAction: ActionMeta<IDropdownOption> = { option: newOption, action: 'select-option' }
+    const unsetAction: ActionMeta<IDropdownOption> = { option: newOption, action: 'remove-value' }
 
     setValues([existingOption, newOption], setAction)
     setValues([existingOption], unsetAction)
