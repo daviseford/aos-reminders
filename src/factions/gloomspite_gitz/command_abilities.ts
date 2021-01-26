@@ -84,6 +84,16 @@ const CommandAbilities = {
       },
     ],
   },
+  // Grimscuttle Tribes
+  'Masters of Feigned Flight': {
+    effects: [
+      {
+        name: `Masters of Feigned Flight`,
+        desc: `You can use this command ability at the start of your movement phase. If you do so, pick 1 friendly GRIMSCUTTLE SPIDERFANG unit wholly within 12" of a friendly GRIMSCUTTLE SPIDERFANG HERO. Until your next hero phase, that unit can retreat and still charge later in the same turn.`,
+        when: [START_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(CommandAbilities, 'command_ability')

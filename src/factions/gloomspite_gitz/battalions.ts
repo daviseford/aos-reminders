@@ -9,6 +9,7 @@ import {
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
+  TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 import Units from './units'
 
@@ -88,6 +89,43 @@ const RegularBattalions = {
       },
     ],
   },
+  'Grimscuttle Spider Cluster': {
+    mandatory: {
+      units: [keyPicker(Units, ['Spider Riders'])],
+    },
+    effects: [
+      {
+        name: `Monstrous Titans`,
+        desc: `Add 1 to hit rolls for attacks made with melee weapons by units from this battalion.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Grimscuttle Skitterswarm': {
+    mandatory: {
+      units: [keyPicker(Units, ['Spider Riders'])],
+    },
+    effects: [
+      {
+        name: `Through the Cracks They Creep`,
+        desc: `At the start of the first battle round, after determining who has the first turn but before the first turn begins, you can pick up to D3 units from this battalion and remove them from the battlefield. If you do so, at the end of your first movement phase, set up those units again wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
+        when: [TURN_ONE_START_OF_ROUND],
+      },
+    ],
+  },
+  'Grimscuttle Nest': {
+    mandatory: {
+      units: [keyPicker(Units, ['Skitterstrand Arachnarok'])],
+    },
+    effects: [
+      {
+        name: `Reality's Skin-crawlers`,
+        desc: `In your movement phase, instead of making a normal move with am odel from thsi battalion, you can say that it will tunnel through the web-strewn portals. If you do so, remove that model from the battlefield and set it up again anywhere on the battlefield more than 9" from any enemy units.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+
   // Troggoth
   Troggherd: {
     mandatory: {

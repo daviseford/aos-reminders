@@ -200,6 +200,16 @@ const Artifacts = {
       },
     ],
   },
+  // Grimscuttle Tribes
+  'Shyishan Spider-sigils': {
+    effects: [
+      {
+        name: `Shyishan Spider-sigils`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of the bearer. In addition, add 1 to the Bravery characteristic of a friendly GRIMSCUTTLE SPIDERFANG units while they are wholly within 12" of the bearer.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Artifacts, 'artifact')

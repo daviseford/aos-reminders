@@ -236,6 +236,16 @@ const CommandTraits = {
       },
     ],
   },
+  // Grimscuttle Tribes
+  'Prophet of da Spider God': {
+    effects: [
+      {
+        name: `Prophet of da Spider God`,
+        desc: `Once per battle in the combat phase, you can say that this general will unlease their battle cry. If you do so, friendly GRIMSCUTTLE SPIDERFANG models are treated as being affected by the light of the Bad Moon until the end of that phase.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(CommandTraits, 'command_trait')
