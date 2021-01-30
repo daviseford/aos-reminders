@@ -1034,6 +1034,16 @@ const Units = {
       },
     ],
   },
+  'Khagra`s Ravagers': {
+    effects: [
+      ChaosRuneshieldEffect,
+      {
+        name: `Magic`,
+        desc: `Zarshia Bittersoul model is a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt and Mystic Shield.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Units, 'unit')
