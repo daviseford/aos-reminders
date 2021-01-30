@@ -1034,7 +1034,7 @@ const Units = {
       },
     ],
   },
-  'Khagra`s Ravagers': {
+  "Khagra's Ravagers": {
     effects: [
       ChaosRuneshieldEffect,
       {
