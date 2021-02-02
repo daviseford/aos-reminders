@@ -1,6 +1,6 @@
 import { mergeParentEffectObjs } from 'factions/temporaryAdapter'
 import { uniq } from 'lodash'
-import { TEffects, TEntry, TEntryProperties } from 'types/data'
+import { entryKeyToSelectionsKey, TEffects, TEntry } from 'types/data'
 import { TSelectionTypes } from 'types/selections'
 import { ISideEffectsPayload } from 'utils/withSelect'
 
@@ -18,20 +18,6 @@ export const getSideEffects = (items: TEntry[]) => {
   }, {} as ISideEffectsPayload)
 
   return Collection
-}
-
-const entryKeyToSelectionsKey: Record<Exclude<TEntryProperties, 'battle_trait'>, TSelectionTypes> = {
-  artifact: 'artifacts',
-  battalion: 'battalions',
-  command_ability: 'command_abilities',
-  command_trait: 'command_traits',
-  endless_spell: 'endless_spells',
-  mount_trait: 'mount_traits',
-  prayer: 'prayers',
-  scenery: 'scenery',
-  spell: 'spells',
-  triumph: 'triumphs',
-  unit: 'units',
 }
 
 const checkEffects = (effect: TEffects, itemName: string, accum: ISideEffectsPayload) => {

@@ -14,6 +14,7 @@ const useGetReminders = () => {
     () =>
       processReminders(
         army,
+        currentArmy.factionName,
         currentArmy.subFactionName,
         currentArmy.selections,
         currentArmy.realmscape_feature,
@@ -26,6 +27,7 @@ const useGetReminders = () => {
       army,
       currentArmy.allyFactionNames,
       currentArmy.allySelections,
+      currentArmy.factionName,
       currentArmy.realmscape_feature,
       currentArmy.selections,
       currentArmy.subFactionName,

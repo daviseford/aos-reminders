@@ -8,31 +8,17 @@ import {
   RealmscapeFeatures,
 } from 'generic_rules'
 // Meta
-import { ORRUK_WARCLANS, SYLVANETH } from 'meta/factions'
+import { DAUGHTERS_OF_KHAINE, ORRUK_WARCLANS, SYLVANETH } from 'meta/factions'
 // Types
 import { IArmy } from 'types/army'
 import { TTurnAction } from 'types/data'
 import { getArmy } from 'utils/getArmy/getArmy'
-import { processReminders } from 'utils/processReminders'
+import { processConditions, processReminders } from 'utils/processReminders'
 import { getRealmscape } from 'utils/realmUtils'
 import { selectionsFactory } from './__mock'
 
 describe('processReminders', () => {
   it('should work with a loaded army, multiple allies, and realmscape', () => {
-    // const allyUnits = [OrrukWarclansFaction.SubFactions., ironjawz.Units[1], seraphon.Units[0]]
-    // const allyFactionNames = [SKAVENTIDE, IRONJAWZ, SERAPHON]
-    // const allyArmies: TAllyArmies = {
-    //   [SKAVENTIDE]: getArmy(SKAVENTIDE) as IArmy,
-    //   [IRONJAWZ]: getArmy(IRONJAWZ) as IArmy,
-    //   [SERAPHON]: getArmy(SERAPHON) as IArmy,
-    // }
-
-    // const allySelections = {
-    //   [SKAVENTIDE]: allySelectionsFactory(),
-    //   [IRONJAWZ]: allySelectionsFactory([allyUnits[0].name, allyUnits[1].name]),
-    //   [SERAPHON]: allySelectionsFactory([allyUnits[2].name]),
-    // }
-
     const artifact = SylvanethFaction.AggregateArmy.Artifacts?.[0]
     const battalion = SylvanethFaction.AggregateArmy.Battalions?.[0]
     const command_trait = SylvanethFaction.AggregateArmy.CommandTraits?.[0]
@@ -49,30 +35,28 @@ describe('processReminders', () => {
     const army = getArmy(SYLVANETH, null, null, getRealmscape(command2.name)) as IArmy
 
     const selections = selectionsFactory({
-      // @ts-ignore
       artifacts: [artifact.name],
-      // @ts-ignore
       battalions: [battalion.name],
-      // @ts-ignore
       command_abilities: [command1.name, command2.name],
-      // @ts-ignore
       command_traits: [command_trait.name],
-      // @ts-ignore
       endless_spells: [endless_spell.name],
-      // @ts-ignore
       flavors: [flavor.name],
-      // @ts-ignore
       scenery: [scenery.name],
-      // @ts-ignore
       spells: [spell1.name, spell2.name],
-      // @ts-ignore
       triumphs: [triumph.name],
-      // @ts-ignore
       units: [unit.name],
-      // @ts-ignore
     })
     const realmscape_feature = RealmscapeFeatures[0]
-    const reminders = processReminders(army, SYLVANETH, selections, realmscape_feature.name, [], {}, {})
+    const reminders = processReminders(
+      army,
+      SYLVANETH,
+      SYLVANETH,
+      selections,
+      realmscape_feature.name,
+      [],
+      {},
+      {}
+    )
 
     const testEntries = [
       artifact,
@@ -117,7 +101,7 @@ describe('processReminders', () => {
     const army = getArmy(ORRUK_WARCLANS, 'Ironjawz', null, null) as IArmy
 
     const selections = selectionsFactory({})
-    const reminders = processReminders(army, 'Ironjawz', selections, null, [], {}, {})
+    const reminders = processReminders(army, ORRUK_WARCLANS, 'Ironjawz', selections, null, [], {}, {})
 
     // Check for Allegiance ability
     const ability = OrrukWarclansFaction.AggregateArmy.BattleTraits[0]
@@ -128,5 +112,54 @@ describe('processReminders', () => {
       : undefined
     expect(abilityEffect).toBeDefined()
     expect((abilityEffect as TTurnAction).condition[0]).toEqual(`Ironjawz Allegiance`)
+  })
+
+  // fixes https://github.com/daviseford/aos-reminders/issues/1210
+  it('should work with Rune of Khaine', () => {
+    const selections = {
+      artifacts: ['Iron Circlet'],
+      battalions: [],
+      command_abilities: ['Worship Through Bloodshed'],
+      command_traits: ['Mistress of Illusion'],
+      endless_spells: [],
+      flavors: ['Khailebron'],
+      mount_traits: [],
+      prayers: [
+        'Catechism of Murder',
+        'Sacrament of Blood',
+        'Rune of Khaine',
+        'Touch of Death',
+        'Wrath of Khaine',
+      ],
+      scenery: [],
+      spells: ['Mindrazor', 'Black Horror of Ulgu'],
+      triumphs: [],
+      units: [
+        'Hag Queen on Cauldron of Blood',
+        'Hag Queen',
+        'The Shadow Queen',
+        'Morathi-Khaine',
+        'Sisters of Slaughter',
+        'Witch Aelves',
+        'Khainite Shadowstalkers',
+        'Blood Stalkers',
+      ],
+    }
+    const army = getArmy(DAUGHTERS_OF_KHAINE, DAUGHTERS_OF_KHAINE, null, null) as IArmy
+    const reminders = processConditions(army.Game, selections, {})
+
+    const runeOfKhaineArtifact = reminders.WOUND_ALLOCATION.find(
+      x => x.name === 'Rune of Khaine' && x.artifact === true
+    )
+    const runeOfKhainePrayer = reminders.DURING_COMBAT_PHASE.find(
+      x => x.name === 'Rune of Khaine' && x.prayer === true
+    )
+    const khailebroneEffect = reminders.DURING_SHOOTING_PHASE.find(
+      x => x.name === 'Concealment and Stealth' && x.condition[0] === 'Khailebron'
+    )
+
+    expect(runeOfKhaineArtifact).toBeUndefined()
+    expect(runeOfKhainePrayer).toBeDefined()
+    expect(khailebroneEffect).toBeDefined()
   })
 })
