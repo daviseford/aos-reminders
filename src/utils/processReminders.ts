@@ -132,8 +132,6 @@ export const processConditions = (
     return accum
   }, startVal)
 
-  console.log(reminders.DURING_SHOOTING_PHASE)
-
   return reminders
 }
 

@@ -155,7 +155,7 @@ describe('processReminders', () => {
       x => x.name === 'Rune of Khaine' && x.prayer === true
     )
     const khailebroneEffect = reminders.DURING_SHOOTING_PHASE.find(
-      x => x.name === 'Concealment and Stealth' && x.condition === ['Khailebron']
+      x => x.name === 'Concealment and Stealth' && x.condition[0] === 'Khailebron'
     )
 
     expect(runeOfKhaineArtifact).toBeUndefined()
