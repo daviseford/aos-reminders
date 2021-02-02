@@ -62,6 +62,37 @@ export const upperToLowerLookup: Record<keyof TCollection, TSelectionTypes> = {
   Units: 'units',
 }
 
+export const entryKeyToSelectionsKey: Record<Exclude<TEntryProperties, 'battle_trait'>, TSelectionTypes> = {
+  artifact: 'artifacts',
+  battalion: 'battalions',
+  command_ability: 'command_abilities',
+  command_trait: 'command_traits',
+  endless_spell: 'endless_spells',
+  mount_trait: 'mount_traits',
+  prayer: 'prayers',
+  scenery: 'scenery',
+  spell: 'spells',
+  triumph: 'triumphs',
+  unit: 'units',
+}
+
+export const selectionsKeyToEntryKey: Record<
+  Exclude<TSelectionTypes, 'battle_traits' | 'flavors'>,
+  TEntryProperties
+> = {
+  artifacts: 'artifact',
+  battalions: 'battalion',
+  command_abilities: 'command_ability',
+  command_traits: 'command_trait',
+  endless_spells: 'endless_spell',
+  mount_traits: 'mount_trait',
+  prayers: 'prayer',
+  scenery: 'scenery',
+  spells: 'spell',
+  triumphs: 'triumph',
+  units: 'unit',
+}
+
 type TEntryMetadata = IItemDescription &
   {
     [prop in TEntryProperties]?: boolean

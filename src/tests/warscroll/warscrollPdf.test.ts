@@ -40,8 +40,8 @@ describe('getWarscrollArmyFromPdf', () => {
     const pdfText = getFile('RuneOfKhaine')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
-    console.log(res)
-
+    expect(res.selections.artifacts).not.toContain('Rune of Khaine')
+    expect(res.selections.prayers).toContain('Rune of Khaine')
     expect(res.errors).toEqual([])
   })
 
