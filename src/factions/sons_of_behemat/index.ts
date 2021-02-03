@@ -1,7 +1,7 @@
 import { Faction } from 'factions/factionClass'
 import { DESTRUCTION } from 'meta/alliances'
 import { SONS_OF_BEHEMAT } from 'meta/factions'
-import sources from 'meta/sources'
+import rule_sources from 'meta/rule_sources'
 import SubFactions from './subfactions'
 
 export const SonsOfBehematFaction = new Faction(
@@ -9,5 +9,5 @@ export const SonsOfBehematFaction = new Faction(
   DESTRUCTION,
   SubFactions,
   'Tribes',
-  sources.BATTLETOME_SONS_OF_BEHEMAT
+  rule_sources.BATTLETOME_SONS_OF_BEHEMAT
 )

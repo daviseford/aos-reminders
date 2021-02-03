@@ -1,11 +1,11 @@
-export type TSource = {
+export type TRuleSource = {
   name: string
   // publication_date: `${number}-${number}-${number}`,
   publication_date: string
   type: 'battletome' | 'white_dwarf' | 'errata' | 'ghb' | 'other_book' | 'boxed_game'
 }
 
-const sources: Record<string, TSource> = {
+const rule_sources: Record<string, TRuleSource> = {
   BATTLETOME_SONS_OF_BEHEMAT: {
     name: 'Battletome: Sons of Behemat',
     publication_date: '20-10-17',
@@ -18,4 +18,4 @@ const sources: Record<string, TSource> = {
   },
 }
 
-export default sources
+export default rule_sources
