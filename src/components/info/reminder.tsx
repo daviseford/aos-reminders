@@ -158,7 +158,7 @@ const ActionText = (props: IActionTextProps) => {
 
   const currentArmy = useSelector(selectors.selectCurrentArmy)
   const faction = getFactionFromList(currentArmy.factionName)
-  const source = faction.source
+  const { rule_source } = faction
 
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
@@ -193,7 +193,7 @@ const ActionText = (props: IActionTextProps) => {
                     setVisibility={handleVisibility}
                   />
                   {isVisible && <NoteMenu {...noteProps} />}
-                  {source && <Dropdown.Item disabled={true}>{source.name}</Dropdown.Item>}
+                  {rule_source && <Dropdown.Item disabled={true}>{rule_source.name}</Dropdown.Item>}
                 </Dropdown.Menu>
               </Dropdown>
             )}

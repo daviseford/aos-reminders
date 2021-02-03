@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import sources from 'meta/sources'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -54,7 +54,7 @@ const Artifacts = {
       {
         name: `Glowy Lantern (Taker Tribe)`,
         desc: `The bearer is a WIZARD. They can attempt to cast 1 spell in your hero phase and unbind 1 spell in the enemy hero phase. The bearer knows the Arcane Bolt and Mystic Shield spells.`,
-        sources: [sources.BATTLETOME_SONS_OF_BEHEMAT, sources.ERRATA_SONS_OF_BEHEMAT],
+        sources: [rule_sources.BATTLETOME_SONS_OF_BEHEMAT, rule_sources.ERRATA_SONS_OF_BEHEMAT],
         when: [HERO_PHASE],
       },
     ],
