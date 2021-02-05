@@ -18,8 +18,11 @@ export type TSelectMultiSetValueFn = (
   action: ActionMeta<IDropdownOption>
 ) => void
 
+export type TFilterOptionFn = (option: { label: string; value: string }, inputValue: string) => boolean
+
 interface ISelectOneProps {
   hasDefault?: boolean
+  filterOption?: TFilterOptionFn
   isClearable?: boolean
   isDisabled?: boolean
   items: string[]
@@ -32,6 +35,7 @@ interface ISelectOneProps {
 export const SelectOne = (props: ISelectOneProps) => {
   const {
     hasDefault = false,
+    filterOption = null,
     isClearable = false,
     isDisabled = false,
     items,
@@ -62,6 +66,10 @@ export const SelectOne = (props: ISelectOneProps) => {
     isSearchable: true,
     onChange,
     options,
+  }
+
+  if (filterOption !== null) {
+    selectProps.filterOption = filterOption
   }
 
   if (controlledValue !== undefined) {

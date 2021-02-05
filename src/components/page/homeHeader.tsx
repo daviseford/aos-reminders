@@ -1,6 +1,6 @@
 import { LinkNewTab } from 'components/helpers/link'
 import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
-import { SelectOne } from 'components/input/select'
+import { SelectOne, TFilterOptionFn } from 'components/input/select'
 import ToggleGameMode from 'components/input/toggle_game_mode'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
@@ -16,6 +16,7 @@ import { getArmy } from 'utils/getArmy/getArmy'
 import { getSideEffects } from 'utils/getSideEffects'
 import { getArmyLink } from 'utils/handleQueryParams'
 import useWindowSize from 'utils/hooks/useWindowSize'
+import { importFactionNameMap } from 'utils/import/options'
 import { titleCase } from 'utils/textUtils'
 import { handleSelectOneSideEffects, withSelectOne } from 'utils/withSelect'
 
@@ -124,6 +125,16 @@ const FactionSelectComponent = () => {
     }
   })
 
+  const filterFactionsAndSubfactions: TFilterOptionFn = (option, inputValue) => {
+    const { label, value } = option
+    const inputValueLower = inputValue.toLowerCase()
+    const viaSubfaction = Object.entries(importFactionNameMap).reduce((a, [key, faction]) => {
+      if (key.toLowerCase().includes(inputValueLower)) a.push(faction['factionName'])
+      return a
+    }, [] as string[])
+    return label.toLowerCase().includes(inputValueLower) || viaSubfaction.includes(value)
+  }
+
   return (
     <>
       <span className="text-white">Select your faction to get started:</span>
@@ -135,6 +146,7 @@ const FactionSelectComponent = () => {
             setValue={setValue}
             hasDefault={true}
             toTitle={true}
+            filterOption={filterFactionsAndSubfactions}
           />
         </div>
       </div>
