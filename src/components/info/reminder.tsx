@@ -9,6 +9,7 @@ import { useTheme } from 'context/useTheme'
 import { selectors, visibilityActions } from 'ducks'
 import { isEqual, sortBy } from 'lodash'
 import { getFactionFromList } from 'meta/faction_list'
+import { TRuleSource } from 'meta/rule_sources'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
 import { Dropdown } from 'react-bootstrap'
@@ -148,7 +149,7 @@ interface IActionTextProps extends TTurnAction {
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { isVisible, desc, draggableProps, id } = props
+  const { isVisible, desc, draggableProps, id, rule_sources: action_rule_sources } = props
   const dispatch = useDispatch()
   const { isSubscribed } = useSubscription()
   const { isGameMode } = useAppStatus()
@@ -158,7 +159,8 @@ const ActionText = (props: IActionTextProps) => {
 
   const currentArmy = useSelector(selectors.selectCurrentArmy)
   const faction = getFactionFromList(currentArmy.factionName)
-  const { rule_source } = faction
+  const { rule_source: faction_rule_source } = faction
+  const rule_sources = action_rule_sources ? action_rule_sources : ([faction_rule_source] as TRuleSource[])
 
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
@@ -193,7 +195,12 @@ const ActionText = (props: IActionTextProps) => {
                     setVisibility={handleVisibility}
                   />
                   {isVisible && <NoteMenu {...noteProps} />}
-                  {rule_source && <Dropdown.Item disabled={true}>{rule_source.name}</Dropdown.Item>}
+                  {rule_sources &&
+                    rule_sources.map(rule_source => (
+                      <Dropdown.Item disabled={true} key={rule_source.name}>
+                        {rule_source.name}
+                      </Dropdown.Item>
+                    ))}
                 </Dropdown.Menu>
               </Dropdown>
             )}

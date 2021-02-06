@@ -123,6 +123,7 @@ export type TTurnAction = {
   condition: string[]
   desc: string
   name: string
+  rule_sources?: TRuleSource[]
   when: TTurnWhen
 } & {
   [prop in TEntryProperties]?: boolean

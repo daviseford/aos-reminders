@@ -54,7 +54,7 @@ const Artifacts = {
       {
         name: `Glowy Lantern (Taker Tribe)`,
         desc: `The bearer is a WIZARD. They can attempt to cast 1 spell in your hero phase and unbind 1 spell in the enemy hero phase. The bearer knows the Arcane Bolt and Mystic Shield spells.`,
-        sources: [rule_sources.BATTLETOME_SONS_OF_BEHEMAT, rule_sources.ERRATA_SONS_OF_BEHEMAT],
+        rule_sources: [rule_sources.BATTLETOME_SONS_OF_BEHEMAT, rule_sources.ERRATA_SONS_OF_BEHEMAT_NOV_2020],
         when: [HERO_PHASE],
       },
     ],
