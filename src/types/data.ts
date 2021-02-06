@@ -1,5 +1,5 @@
 import { IItemDescription } from 'factions/factionTypes'
-import { TRuleSource  } from 'meta/rule_sources'
+import { TRuleSource } from 'meta/rule_sources'
 import { TTurnWhen } from 'types/phases'
 import { TCollection } from './army'
 import { TSelectionTypes } from './selections'
@@ -108,11 +108,7 @@ export type TEffects = {
   name: string
   desc: string
   when: TTurnWhen[]
-<<<<<<< HEAD
   rule_sources?: TRuleSource[]
-=======
-  sources?: TSource[]
->>>>>>> 4f240624376b6fd0a04820823d1817392bc6b37e
 } & {
   [prop in TEntryProperties]?: boolean
 }
