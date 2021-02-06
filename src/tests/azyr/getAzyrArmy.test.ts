@@ -1993,7 +1993,7 @@ describe('getAzyrArmyFromPdf', () => {
       selections: {
         mount_traits: [],
         prayers: [],
-        flavors: [],
+        flavors: ['Skilled Manipulators (Masterclan)', 'Warpstone Sparks (Skryre)'],
         artifacts: ['Vigordust Injector (Skryre)'],
         battalions: [],
         command_abilities: [],
