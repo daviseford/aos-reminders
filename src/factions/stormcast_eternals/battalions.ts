@@ -43,6 +43,28 @@ const RegularBattalions = {
       },
     ],
   },
+  'Warrior Brotherhood': {
+    mandatory: {
+      units: [keyPicker(units, ['Liberators', 'Judicators'])],
+    },
+    effects: [
+      {
+        name: `Brothers in Arms`,
+        desc: `Add 1 to the Bravery of any unit from this battalion that is within 6" of one or more other units from this battalion.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Lightning Strike`,
+        desc: `Instead of setting up a unit from this battalion on the battlefield, you can place it to one side and say that it is set up in the Celestial Realm. In any of your movement phases, you can transport the unit to the battlefield. When you do so, set it up on the battlefield more than 9" from any enemy models. This is its move for that movement phase.`,
+        when: [DURING_SETUP, MOVEMENT_PHASE],
+      },
+      {
+        name: `Warriors of Thunder`,
+        desc: `You can reroll wound rolls of 1 for units from the Warrior Brotherhood that are within 8" of at least two other units from the battalion when the wound rolls are made.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
   'Grand Convocation': {
     mandatory: {
       units: [keyPicker(units, ['Lord-Exorcist', 'Knight-Incantor'])],

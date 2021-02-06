@@ -1314,7 +1314,6 @@ describe('getBattlescribeArmy', () => {
         text: "Beastcaller's Bones",
       },
       { text: "Blacktalon's Shadowhammers", severity: 'warn' },
-      { text: 'Warrior Brotherhood', severity: 'warn' },
     ])
   })
 
