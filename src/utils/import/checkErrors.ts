@@ -2,6 +2,7 @@ import { remove } from 'lodash'
 import { IArmy } from 'types/army'
 import { TImportError } from 'types/import'
 import { getAllWarnings } from 'utils/import/warnings'
+import { DeprecatedSelections } from './options'
 
 /**
  * Mutates the errors array if it finds a suitable match in the allegiance abilities
@@ -28,5 +29,19 @@ export const checkErrorsForAllegianceAbilities = (Army: IArmy, flavors: string[]
         remove(errors, x => x.text === match)
       }
     })
+  })
+}
+
+/**
+ * Mutates the errors array to provide appropriate messages for deprecated selections
+ * @param errors
+ */
+export const checkErrorsForDeprecations = (errors: TImportError[]) => {
+  errors.forEach(error => {
+    const deprecation = DeprecatedSelections[error.text]
+    if (deprecation !== undefined) {
+      error.severity = 'deprecation-warn'
+      error.reason = deprecation
+    }
   })
 }

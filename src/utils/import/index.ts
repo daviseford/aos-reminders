@@ -4,18 +4,24 @@ import { IArmy } from 'types/army'
 import { IImportedArmy, TImportError, TImportParsers } from 'types/import'
 import { IAllySelections, TSelectionTypes } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
-import { logFailedImport } from 'utils/analytics'
+import { logDeprecatedImport, logFailedImport } from 'utils/analytics'
 import { isValidFactionName } from 'utils/armyUtils'
 import { isDev } from 'utils/env'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { addSideEffectsToImport } from 'utils/import/addSideEffectsToImport'
 import { getAllyData } from 'utils/import/allyData'
 import { addAmbiguousSelectionErrors } from 'utils/import/ambiguousSelections'
-import { checkErrorsForAllegianceAbilities } from 'utils/import/checkErrors'
-import { ignoredUnknownSelections, parserOptions } from 'utils/import/options'
+import { checkErrorsForAllegianceAbilities, checkErrorsForDeprecations } from 'utils/import/checkErrors'
+import { DeprecatedSelections, ignoredUnknownSelections, parserOptions } from 'utils/import/options'
 import { removeSideEffectsFromImport } from 'utils/import/removeSideEffectsFromImport'
 import { importSelectionLookup } from 'utils/import/selectionLookup'
-import { createFatalError, getAllyWarnings, getWarnings, hasFatalError } from 'utils/import/warnings'
+import {
+  createDeprecationWarning,
+  createFatalError,
+  getAllyWarnings,
+  getWarnings,
+  hasFatalError,
+} from 'utils/import/warnings'
 
 export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers): IImportedArmy => {
   const opts = parserOptions[parser]
@@ -27,11 +33,16 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
 
   // If we're missing a faction name, we won't be able to do much with this
   if (!isValidFactionName(factionName)) {
-    logFailedImport(`faction:${factionName || 'Unknown'}`, parser)
+    const deprecation = DeprecatedSelections[factionName]
+    const logFn = !!deprecation ? logDeprecatedImport : logFailedImport
+    logFn(`faction:${factionName || 'Unknown'}`, parser)
     const errorTxt = !!factionName ? `${factionName} are not supported.` : opts.fileReadError
+    const error = !!deprecation
+      ? createDeprecationWarning(factionName, deprecation)
+      : createFatalError(errorTxt)
     return {
       ...army,
-      errors: [createFatalError(errorTxt)],
+      errors: [error],
     }
   }
 
@@ -73,6 +84,9 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
 
   // Check for allegiance abilities and remove them from errors if we find them
   checkErrorsForAllegianceAbilities(Army, errorFreeSelections.flavors, errors)
+
+  // Check for deprecated selections and replace the warning if we find them
+  checkErrorsForDeprecations(errors)
 
   // Check if any of the selections have names that map one-to-many from source to us
   addAmbiguousSelectionErrors(errors, errorFreeSelections, allyData, opts.ambiguousNamesMap)

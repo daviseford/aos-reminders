@@ -32,6 +32,7 @@ import {
 } from 'meta/factions'
 import path from 'path'
 import { AQSHY, GHUR, HYSH, ULGU } from 'types/realmscapes'
+import { DEPRECATED_FIRESTORM } from 'utils/import/options'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
 const getFile = (filename: string): string[] => {
@@ -39,16 +40,17 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
-  // TODO: Add Stoneklaw's Gutstompas
-  // https://github.com/daviseford/aos-reminders/issues/1053
-  it.skip('should correctly read 1601977490829-Warscroll_Builder', () => {
+  // TODO: Correctly indicate deprecated selections
+  // https://github.com/daviseford/aos-reminders/issues/1059
+  it('should correctly read 1601977490829-Warscroll_Builder', () => {
     const parsedText = getFile('1601977490829-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([
-      // {
-      //   severity: 'error',
-      //   text: "Stoneklaw's Gutstompas are not supported.",
-      // },
+      {
+        severity: 'deprecation-warn',
+        text: "Stoneklaw's Gutstompas",
+        reason: DEPRECATED_FIRESTORM,
+      },
     ])
   })
 

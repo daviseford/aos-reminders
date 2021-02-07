@@ -32,6 +32,7 @@ import {
 import path from 'path'
 import { HYSH } from 'types/realmscapes'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
+import { DEPRECATED_PROFILE } from 'utils/import/options'
 
 const getFile = (filename: string) => {
   return readFileSync(path.resolve(`src/tests/fixtures/battlescribe/html/${filename}.html`), 'utf8')
@@ -1313,7 +1314,7 @@ describe('getBattlescribeArmy', () => {
         severity: 'warn',
         text: "Beastcaller's Bones",
       },
-      { text: "Blacktalon's Shadowhammers", severity: 'warn' },
+      { text: "Blacktalon's Shadowhammers", reason: DEPRECATED_PROFILE, severity: 'deprecation-warn' },
     ])
   })
 

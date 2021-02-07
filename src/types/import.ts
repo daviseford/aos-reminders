@@ -26,7 +26,11 @@ export type TLoadedArmy =
   | ILinkedArmy
   | (ICurrentArmy & { hiddenReminders: string[] })
 
-export type TImportError = { text: string; severity: 'warn' | 'error' | 'ally-warn' | 'ambiguity-warn' }
+export type TImportError = {
+  text: string
+  severity: 'warn' | 'error' | 'ally-warn' | 'ambiguity-warn' | 'deprecation-warn'
+  reason?: string
+}
 
 type THtmlFile = 'text/html'
 type TPdfFile = 'application/pdf'

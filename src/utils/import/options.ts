@@ -487,6 +487,16 @@ const azyrAmbiguousNamesMap = {
   Loonboss: 'Loonboss',
 }
 
+export const DEPRECATED_PROFILE = 'it no longer has a pitched battle profile'
+export const DEPRECATED_FIRESTORM = 'the allegiances from Firestorm are no longer matched play legal'
+// export const DEPRECATED_MALIGN_SORCERY = 'the artifacts from Malign Sorcery are no longer matched play legal'
+
+export const DeprecatedSelections = {
+  "Stoneklaw's Gutstompas": DEPRECATED_FIRESTORM,
+  //   "Ignax's Scales": DEPRECATED_MALIGN_SORCERY,
+  "Blacktalon's Shadowhammers": DEPRECATED_PROFILE,
+}
+
 type TParserOptions = {
   [key in TImportParsers]: {
     ambiguousNamesMap: Record<string, string>
