@@ -21,6 +21,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
+import flavors from './flavors'
 import spells from './spells'
 
 const AltarOfTheHornedRatEffect = {
@@ -91,6 +92,7 @@ const Units = {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Power Behind the Throne'])],
       spells: [keyPicker(spells, ['Madness'])],
+      flavors: [keyPicker(flavors, ['Skilled Manipulators (Masterclan)'])],
     },
     effects: [
       ProtectionOfTheHornedRatEffect,
@@ -125,6 +127,7 @@ const Units = {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['The Rat King'])],
       spells: [keyPicker(spells, ['Dreaded Thirteenth Spell'])],
+      flavors: [keyPicker(flavors, ['Skilled Manipulators (Masterclan)'])],
     },
     effects: [
       ProtectionOfTheHornedRatEffect,
@@ -140,6 +143,7 @@ const Units = {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Forth-forth, Children of the Horned Rat!'])],
       spells: [keyPicker(spells, ['Dreaded Warpgale'])],
+      flavors: [keyPicker(flavors, ['Skilled Manipulators (Masterclan)'])],
     },
     effects: [
       ProtectionOfTheHornedRatEffect,
@@ -164,6 +168,7 @@ const Units = {
   'Grey Seer': {
     mandatory: {
       spells: [keyPicker(spells, ['Wither'])],
+      flavors: [keyPicker(flavors, ['Skilled Manipulators (Masterclan)'])],
     },
     effects: [
       {
@@ -176,6 +181,7 @@ const Units = {
   'Arch-Warlock': {
     mandatory: {
       spells: [keyPicker(spells, ['Warp Lightning Storm'])],
+      flavors: [keyPicker(flavors, ['Warpstone Sparks (Skryre)'])],
     },
     effects: [
       {
@@ -193,6 +199,7 @@ const Units = {
   'Warlock Engineer': {
     mandatory: {
       spells: [keyPicker(spells, ['Warp Lightning'])],
+      flavors: [keyPicker(flavors, ['Warpstone Sparks (Skryre)'])],
     },
     effects: [
       {
@@ -205,6 +212,7 @@ const Units = {
   'Warlock Bombardier': {
     mandatory: {
       spells: [keyPicker(spells, ['Warp Lightning'])],
+      flavors: [keyPicker(flavors, ['Warpstone Sparks (Skryre)'])],
     },
     effects: [
       {
@@ -346,6 +354,7 @@ const Units = {
   'Skaven Clawlord on Brood Horror': {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Gnash-gnaw on their Bones!'])],
+      flavors: [keyPicker(flavors, ['Mighty Warlords (Verminus)'])],
     },
     effects: [
       RegeneratingMonstrosityEffect,
@@ -371,6 +380,9 @@ const Units = {
     ],
   },
   'Warpgnaw Verminlord': {
+    mandatory: {
+      flavors: [keyPicker(flavors, ['Skilled Manipulators (Masterclan)'])],
+    },
     effects: [
       ProtectionOfTheHornedRatEffect,
       {
@@ -441,6 +453,7 @@ const Units = {
   Clawlord: {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Gnash-gnaw on their Bones!'])],
+      flavors: [keyPicker(flavors, ['Mighty Warlords (Verminus)'])],
     },
     effects: [
       {
@@ -574,6 +587,9 @@ const Units = {
     ],
   },
   'Plague Priest': {
+    mandatory: {
+      flavors: [keyPicker(flavors, ['Echoes of the Great Plagues (Pestilens)'])],
+    },
     effects: [
       {
         name: `Plague Prayers`,
@@ -589,6 +605,9 @@ const Units = {
     ],
   },
   'Plague Priest on Plague Furnace': {
+    mandatory: {
+      flavors: [keyPicker(flavors, ['Echoes of the Great Plagues (Pestilens)'])],
+    },
     effects: [
       AltarOfTheHornedRatEffect,
       {
@@ -633,6 +652,7 @@ const Units = {
   'Grey Seer on Screaming Bell': {
     mandatory: {
       spells: [keyPicker(spells, ['Cracks Call'])],
+      flavors: [keyPicker(flavors, ['Skilled Manipulators (Masterclan)'])],
     },
     effects: [
       ProtectionOfTheHornedRatEffect,
@@ -667,6 +687,9 @@ const Units = {
     ],
   },
   'Master Moulder': {
+    mandatory: {
+      flavors: [keyPicker(flavors, ['Prized Creations (Moulder)'])],
+    },
     effects: [
       {
         name: `Crack the Whip`,
@@ -734,6 +757,7 @@ const Units = {
   'Verminlord Deceiver': {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Lord of Assassins'])],
+      flavors: [keyPicker(flavors, ['Masters of Murder (Eshin)'])],
       spells: [keyPicker(spells, ['Dreaded Skitterleap'])],
     },
     effects: [
@@ -752,6 +776,9 @@ const Units = {
     ],
   },
   Deathmaster: {
+    mandatory: {
+      flavors: [keyPicker(flavors, ['Masters of Murder (Eshin)'])],
+    },
     effects: [
       {
         name: `Hidden Killer`,
