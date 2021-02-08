@@ -32,7 +32,7 @@ import {
 import path from 'path'
 import { HYSH } from 'types/realmscapes'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
-import { DEPRECATED_PROFILE } from 'utils/import/options'
+import { DEPRECATED_MALIGN_SORCERY, DEPRECATED_PROFILE } from 'utils/import/options'
 
 const getFile = (filename: string) => {
   return readFileSync(path.resolve(`src/tests/fixtures/battlescribe/html/${filename}.html`), 'utf8')
@@ -372,8 +372,9 @@ describe('getBattlescribeArmy', () => {
     expect(res.subFactionName).toEqual(LegionsOfNagashFaction.subFactionKeyMap.Soulblight)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
-        text: 'Ethereal Amulet', // deprecated
+        severity: 'deprecation-warn',
+        text: 'Ethereal Amulet',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -384,8 +385,9 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.battalions).toContain('Eternal Temple-host')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Atherquartz Brooch',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -434,8 +436,9 @@ describe('getBattlescribeArmy', () => {
         text: 'Rockjaws',
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Gryph-feather Charm',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -561,8 +564,9 @@ describe('getBattlescribeArmy', () => {
     // Fractal Mindstorm is a deprecated spell from the old Tzeentch book
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Ethereal Amulet',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'warn',
@@ -589,8 +593,9 @@ describe('getBattlescribeArmy', () => {
     // Fractal Mindstorm is a deprecated spell from the old Tzeentch book
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Sword of Judgement',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'warn',
@@ -609,8 +614,9 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(LEGION_OF_GRIEF)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Gryph-feather Charm',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'warn',
@@ -694,8 +700,9 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Gryph-feather Charm',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'warn',
@@ -732,8 +739,9 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Atherquartz Brooch',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -991,24 +999,29 @@ describe('getBattlescribeArmy', () => {
     expect(res.origin_realm).toEqual('Ulgu')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Miasmatic Blade',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Wristbands of Illusion',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: "Betrayer's Crown",
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Blade of the Thirteen Dominions',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Doppelganger Cloak',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'warn',
@@ -1048,8 +1061,9 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Thermalrider Cloak',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'warn',
@@ -1082,8 +1096,9 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Gryph-feather Charm',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1143,12 +1158,14 @@ describe('getBattlescribeArmy', () => {
     expect(res.origin_realm).toEqual('Ulgu')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Doppelganger Cloak',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Sword of Judgement',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'ally-warn',
@@ -1224,8 +1241,9 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Atherquartz Brooch',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1299,20 +1317,24 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.flavors).toEqual(['Anvils of the Heldenhammer (Stormhost)'])
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Drakeforged Plate',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Blade of Carving',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Shardfist Pelt',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: "Beastcaller's Bones",
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       { text: "Blacktalon's Shadowhammers", reason: DEPRECATED_PROFILE, severity: 'deprecation-warn' },
     ])
@@ -1376,44 +1398,54 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(TZEENTCH)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Jade Diadem',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'The Sunderblade',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Jadewound Thorn',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Ghyrropian Gauntlets',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Souldraught',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Entangling Blade',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Blade of Hammerhal Ghyra',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Verdant Mantle',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Wand of Restoration',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Boon of Mutation',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1534,8 +1566,9 @@ describe('getBattlescribeArmy', () => {
     expect(res.origin_realm).toEqual('Ghyran')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Ghyrstrike',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1566,28 +1599,34 @@ describe('getBattlescribeArmy', () => {
       allyUnits: [],
       errors: [
         {
-          severity: 'warn',
+          severity: 'deprecation-warn',
           text: "Ignax's Scales",
+          reason: DEPRECATED_MALIGN_SORCERY,
         },
         {
-          severity: 'warn',
+          severity: 'deprecation-warn',
           text: 'Ruby Ring',
+          reason: DEPRECATED_MALIGN_SORCERY,
         },
         {
-          severity: 'warn',
+          severity: 'deprecation-warn',
           text: 'Crown of Flames',
+          reason: DEPRECATED_MALIGN_SORCERY,
         },
         {
-          severity: 'warn',
+          severity: 'deprecation-warn',
           text: 'Magmaforged Blade',
+          reason: DEPRECATED_MALIGN_SORCERY,
         },
         {
-          severity: 'warn',
+          severity: 'deprecation-warn',
           text: 'Onyx Blade',
+          reason: DEPRECATED_MALIGN_SORCERY,
         },
         {
-          severity: 'warn',
+          severity: 'deprecation-warn',
           text: 'Smouldering Helm',
+          reason: DEPRECATED_MALIGN_SORCERY,
         },
       ],
       realmscape_feature: null,
@@ -1726,28 +1765,34 @@ describe('getBattlescribeArmy', () => {
     })
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: "Ignax's Scales",
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Ruby Ring',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Purefire Brazier',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Thermalrider Cloak',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Smouldering Helm',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Magmadroth Blood Vials',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'warn',
@@ -1779,8 +1824,9 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(KHORNE)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Thermalrider Cloak',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })

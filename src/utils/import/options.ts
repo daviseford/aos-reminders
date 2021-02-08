@@ -132,6 +132,7 @@ const warscrollTypoMap: Record<string, string> = {
 
 // Azyr on the left - AoS Reminders on the right
 const azyrTypoMap: Record<string, string> = {
+  'Aether quartz Brooch': 'Aetherquartz Brooch',
   'Bursting with Power': "Burstin' with Power",
   'Chaos Gorebeast Chariots': 'Gorebeast Chariots',
   'DHOM-HAIN': 'Dhom Hain (Enclave)',
@@ -489,11 +490,102 @@ const azyrAmbiguousNamesMap = {
 
 export const DEPRECATED_PROFILE = 'it no longer has a pitched battle profile'
 export const DEPRECATED_FIRESTORM = 'the allegiances from Firestorm are no longer matched play legal'
-// export const DEPRECATED_MALIGN_SORCERY = 'the artifacts from Malign Sorcery are no longer matched play legal'
+export const DEPRECATED_MALIGN_SORCERY = 'the artifacts from Malign Sorcery are no longer matched play legal'
 
 export const DeprecatedSelections = {
   "Stoneklaw's Gutstompas": DEPRECATED_FIRESTORM,
-  //   "Ignax's Scales": DEPRECATED_MALIGN_SORCERY,
+
+  'Engtangling Blade': DEPRECATED_MALIGN_SORCERY,
+  'Jadewound Thorn': DEPRECATED_MALIGN_SORCERY,
+  'Blade of Hammerhal Ghyra': DEPRECATED_MALIGN_SORCERY,
+  'The Sunderblade': DEPRECATED_MALIGN_SORCERY,
+  Ghyrstrike: DEPRECATED_MALIGN_SORCERY,
+  'Arboreal Stave': DEPRECATED_MALIGN_SORCERY,
+  'Hypersnare Seeds': DEPRECATED_MALIGN_SORCERY,
+  'Verdant Mantle': DEPRECATED_MALIGN_SORCERY,
+  'Jade Diadem': DEPRECATED_MALIGN_SORCERY,
+  'Greenglade Flask': DEPRECATED_MALIGN_SORCERY,
+  'Ghyrropian Gauntlets': DEPRECATED_MALIGN_SORCERY,
+  'Wand of Restoration': DEPRECATED_MALIGN_SORCERY,
+
+  'Stonehorn Blade': DEPRECATED_MALIGN_SORCERY,
+  "Anraheirs's Claw": DEPRECATED_MALIGN_SORCERY,
+  Amberglaive: DEPRECATED_MALIGN_SORCERY,
+  'Blade of Carving': DEPRECATED_MALIGN_SORCERY,
+  Rageblade: DEPRECATED_MALIGN_SORCERY,
+  Rockjaws: DEPRECATED_MALIGN_SORCERY,
+  "Beastcaller's Bones": DEPRECATED_MALIGN_SORCERY,
+  'Drakeforged Plate': DEPRECATED_MALIGN_SORCERY,
+  'Gryph-feather Charm': DEPRECATED_MALIGN_SORCERY,
+  'Gargant-bone': DEPRECATED_MALIGN_SORCERY,
+  'Shardfist Pelt': DEPRECATED_MALIGN_SORCERY,
+  Tuskhelm: DEPRECATED_MALIGN_SORCERY,
+
+  "Aiban's Hidden Blade": DEPRECATED_MALIGN_SORCERY,
+  'Flowstone Blade': DEPRECATED_MALIGN_SORCERY,
+  'Rune Blade': DEPRECATED_MALIGN_SORCERY,
+  'Crucible of Molten Silver': DEPRECATED_MALIGN_SORCERY,
+  'Chamonite Darts': DEPRECATED_MALIGN_SORCERY,
+  "Argentine's Tooth": DEPRECATED_MALIGN_SORCERY,
+  Gildenbane: DEPRECATED_MALIGN_SORCERY,
+  'Argentine Armour': DEPRECATED_MALIGN_SORCERY,
+  'Hydroxskin Cloak': DEPRECATED_MALIGN_SORCERY,
+  'Godwrought Helm': DEPRECATED_MALIGN_SORCERY,
+  'Bejewelled Gauntlet': DEPRECATED_MALIGN_SORCERY,
+  'Alchemical Chain': DEPRECATED_MALIGN_SORCERY,
+
+  'Ruby Ring': DEPRECATED_MALIGN_SORCERY,
+  'Magmaforged Blade': DEPRECATED_MALIGN_SORCERY,
+  'Magmadroth Blood Vials': DEPRECATED_MALIGN_SORCERY,
+  'Purefire Brazier': DEPRECATED_MALIGN_SORCERY,
+  'Onyx Blade': DEPRECATED_MALIGN_SORCERY,
+  'Exile Torch': DEPRECATED_MALIGN_SORCERY,
+  'Essence of Vulcatrix': DEPRECATED_MALIGN_SORCERY,
+  'Thermalrider Cloak': DEPRECATED_MALIGN_SORCERY,
+  'Smouldering Helm': DEPRECATED_MALIGN_SORCERY,
+  "Ignax's Scales": DEPRECATED_MALIGN_SORCERY,
+  'Crown of Flames': DEPRECATED_MALIGN_SORCERY,
+  'Cleansing Brooch': DEPRECATED_MALIGN_SORCERY,
+
+  'Blade of Endings': DEPRECATED_MALIGN_SORCERY,
+  'Banshee Blade': DEPRECATED_MALIGN_SORCERY,
+  Lifebane: DEPRECATED_MALIGN_SORCERY,
+  'Sliver of Decreptitude': DEPRECATED_MALIGN_SORCERY,
+  Wraithbone: DEPRECATED_MALIGN_SORCERY,
+  Splintertooth: DEPRECATED_MALIGN_SORCERY,
+  'Cronehair Fetish': DEPRECATED_MALIGN_SORCERY,
+  'Ethereal Amulet': DEPRECATED_MALIGN_SORCERY,
+  'Sepulchral Plate': DEPRECATED_MALIGN_SORCERY,
+  'Amethyst Blindmask': DEPRECATED_MALIGN_SORCERY,
+  'Ragged Cloak': DEPRECATED_MALIGN_SORCERY,
+  'Goblet of Draining': DEPRECATED_MALIGN_SORCERY,
+
+  'Miasmatic Blade': DEPRECATED_MALIGN_SORCERY,
+  'Blade of the Thirteen Dominions': DEPRECATED_MALIGN_SORCERY,
+  'Blade of Folded Shadows': DEPRECATED_MALIGN_SORCERY,
+  'Blade of Secrets': DEPRECATED_MALIGN_SORCERY,
+  'Dimensional Blade': DEPRECATED_MALIGN_SORCERY,
+  'Sword of Judgement': DEPRECATED_MALIGN_SORCERY,
+  Spellmirror: DEPRECATED_MALIGN_SORCERY,
+  "Trickster's Helm": DEPRECATED_MALIGN_SORCERY,
+  'Wristbands of Illusions': DEPRECATED_MALIGN_SORCERY,
+  'Doppelganger Cloak': DEPRECATED_MALIGN_SORCERY,
+  "Betrayer's Crown": DEPRECATED_MALIGN_SORCERY,
+  'Talisman of the Watcher': DEPRECATED_MALIGN_SORCERY,
+
+  'Blade of Symmetry': DEPRECATED_MALIGN_SORCERY,
+  'Gleaming Blade': DEPRECATED_MALIGN_SORCERY,
+  'Luminary Rod': DEPRECATED_MALIGN_SORCERY,
+  Sunblade: DEPRECATED_MALIGN_SORCERY,
+  'Crystalline Blade': DEPRECATED_MALIGN_SORCERY,
+  'Prism Amyyntok': DEPRECATED_MALIGN_SORCERY,
+  'Aetherquartz Brooch': DEPRECATED_MALIGN_SORCERY,
+  'Lens of Refraction': DEPRECATED_MALIGN_SORCERY,
+  'Mirrored Cuirass': DEPRECATED_MALIGN_SORCERY,
+  Lightshard: DEPRECATED_MALIGN_SORCERY,
+  "Guardian's Coronet": DEPRECATED_MALIGN_SORCERY,
+  'Sash of the Ten Paradises': DEPRECATED_MALIGN_SORCERY,
+
   "Blacktalon's Shadowhammers": DEPRECATED_PROFILE,
 }
 

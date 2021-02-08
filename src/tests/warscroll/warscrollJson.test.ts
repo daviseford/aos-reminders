@@ -32,7 +32,7 @@ import {
 } from 'meta/factions'
 import path from 'path'
 import { AQSHY, GHUR, HYSH, ULGU } from 'types/realmscapes'
-import { DEPRECATED_FIRESTORM } from 'utils/import/options'
+import { DEPRECATED_FIRESTORM, DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
 const getFile = (filename: string): string[] => {
@@ -1560,8 +1560,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.units).toContain('Anointed on Frostheart Phoenix')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: "Ignax's Scales",
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
