@@ -202,8 +202,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Argent Armour',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -533,8 +534,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.command_traits).toContain('Emissary of the Deep Places')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Argent Armour',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'ambiguity-warn',

@@ -386,7 +386,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'deprecation-warn',
-        text: 'Atherquartz Brooch',
+        text: 'Aetherquartz Brooch',
         reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
@@ -432,8 +432,9 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Rockjaws',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'deprecation-warn',
@@ -740,7 +741,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'deprecation-warn',
-        text: 'Atherquartz Brooch',
+        text: 'Aetherquartz Brooch',
         reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
@@ -1242,7 +1243,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'deprecation-warn',
-        text: 'Atherquartz Brooch',
+        text: 'Aetherquartz Brooch',
         reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
@@ -1418,9 +1419,8 @@ describe('getBattlescribeArmy', () => {
         reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'deprecation-warn',
+        severity: 'warn',
         text: 'Souldraught',
-        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'deprecation-warn',
@@ -1443,9 +1443,8 @@ describe('getBattlescribeArmy', () => {
         reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'deprecation-warn',
+        severity: 'warn',
         text: 'Boon of Mutation',
-        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
