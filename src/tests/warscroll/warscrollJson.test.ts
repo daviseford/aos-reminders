@@ -40,8 +40,7 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
-  // TODO: Correctly indicate deprecated selections
-  // https://github.com/daviseford/aos-reminders/issues/1059
+  // TODO: This test passes using parsed json, but I'm not sure this json is what the parser would now produce from the same pdf
   it('should correctly read 1601977490829-Warscroll_Builder', () => {
     const parsedText = getFile('1601977490829-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
