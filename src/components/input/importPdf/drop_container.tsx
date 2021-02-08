@@ -26,7 +26,6 @@ const ImportContainer = () => {
     },
     [saveArmyToS3]
   )
-  console.log(errors)
 
   return (
     <>
