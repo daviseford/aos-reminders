@@ -95,6 +95,24 @@ const Jumbotron: React.FC = () => {
   )
 }
 
+/**
+ * Allows us to type in subfaction names and helpfully gets factionNames
+ *
+ * e.g. User can type "Ironjawz" and will get the "Orruk Warclans" result suggested!
+ *
+ * @param option
+ * @param inputValue
+ */
+const filterFactionsAndSubfactions: TFilterOptionFn = (option, inputValue) => {
+  const { label, value } = option
+  const inputValueLower = inputValue.toLowerCase()
+  const viaSubfaction = Object.entries(importFactionNameMap || {}).reduce((a, [key, faction]) => {
+    if (key.toLowerCase().includes(inputValueLower)) a.push(faction.factionName)
+    return a
+  }, [] as string[])
+  return label.toLowerCase().includes(inputValueLower) || viaSubfaction.includes(value)
+}
+
 const FactionSelectComponent = () => {
   const dispatch = useDispatch()
   const { isOnline } = useAppStatus()
@@ -124,16 +142,6 @@ const FactionSelectComponent = () => {
       logSubFactionSwitch(name)
     }
   })
-
-  const filterFactionsAndSubfactions: TFilterOptionFn = (option, inputValue) => {
-    const { label, value } = option
-    const inputValueLower = inputValue.toLowerCase()
-    const viaSubfaction = Object.entries(importFactionNameMap).reduce((a, [key, faction]) => {
-      if (key.toLowerCase().includes(inputValueLower)) a.push(faction['factionName'])
-      return a
-    }, [] as string[])
-    return label.toLowerCase().includes(inputValueLower) || viaSubfaction.includes(value)
-  }
 
   return (
     <>
