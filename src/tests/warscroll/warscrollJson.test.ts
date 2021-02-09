@@ -32,6 +32,7 @@ import {
 } from 'meta/factions'
 import path from 'path'
 import { AQSHY, GHUR, HYSH, ULGU } from 'types/realmscapes'
+import { DEPRECATED_FIRESTORM, DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
 const getFile = (filename: string): string[] => {
@@ -39,16 +40,16 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
-  // TODO: Add Stoneklaw's Gutstompas
-  // https://github.com/daviseford/aos-reminders/issues/1053
-  it.skip('should correctly read 1601977490829-Warscroll_Builder', () => {
+  // TODO: This test passes using parsed json, but I'm not sure this json is what the parser would now produce from the same pdf
+  it('should correctly read 1601977490829-Warscroll_Builder', () => {
     const parsedText = getFile('1601977490829-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([
-      // {
-      //   severity: 'error',
-      //   text: "Stoneklaw's Gutstompas are not supported.",
-      // },
+      {
+        severity: 'deprecation-warn',
+        text: "Stoneklaw's Gutstompas",
+        reason: DEPRECATED_FIRESTORM,
+      },
     ])
   })
 
@@ -138,8 +139,9 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Ethereal Amulet',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -273,8 +275,9 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Aetherquartz Brooch',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -335,8 +338,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.command_traits).toContain('Inescapeable Doom')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Aetherquartz Brooch',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'ally-warn',
@@ -408,8 +412,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.units).toContain('Celestar Ballista')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Aetherquartz Brooch',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -522,12 +527,14 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.units).toContain('Great Bray-Shaman')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Hydroxskin Cloak',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Gildenbane',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -610,8 +617,9 @@ describe('getWarscrollArmyFromJson', () => {
     // expect(res.selections.battalions).toContain('Spider Rider Skitterswarm')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Sword of Judgement',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -665,8 +673,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Sword of Judgement',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'warn',
@@ -836,8 +845,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.units).toContain('Daemon Prince')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Aetherquartz Brooch',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'ally-warn',
@@ -912,12 +922,14 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.origin_realm).toEqual(GHUR)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Gryph-feather Charm',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Blade of Carving',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -940,8 +952,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.battalions).toEqual(['The Forgotten Scions', 'The Dolorous Guard', 'The Condemned'])
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Aetherquartz Brooch',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -997,8 +1010,9 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Spellmirror',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1014,8 +1028,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.origin_realm).toEqual(HYSH)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Aetherquartz Brooch',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1066,8 +1081,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.flavors).toContain('Ironsunz')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
-        text: "Anraheir's Claw",
+        severity: 'deprecation-warn',
+        text: "Anraheirs's Claw",
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1153,8 +1169,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Ghyrstrike',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1193,8 +1210,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.battalions).toEqual(['Big Rukk', 'Brutal Rukk', 'Kop Rukk', 'Teef Rukk'])
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Thermalrider Cloak',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1313,8 +1331,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.command_traits).toContain('Druid of the Everspring (Living City)')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Wand of Restoration',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1327,8 +1346,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.units).toContain('Ogor Gluttons')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Ethereal Amulet',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1340,8 +1360,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Wand of Restoration',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1362,8 +1383,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.artifacts).toContain('Enrapturing Circlet')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Gryph-feather Charm',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1477,8 +1499,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.endless_spells).toContain('Everblaze Comet')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: "Ignax's Scales",
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1514,8 +1537,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.endless_spells).toContain('Scuttletide')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Thermalrider Cloak',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'warn',
@@ -1558,8 +1582,9 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.units).toContain('Anointed on Frostheart Phoenix')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: "Ignax's Scales",
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })

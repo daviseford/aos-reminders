@@ -41,7 +41,7 @@ const ImportContainer = () => {
         <div className="row d-flex justify-content-center">
           <div className={'col-12 col-lg-6 col-xl-6'}>
             {errors.map((x, i) => (
-              <ErrorAlert key={`${x.text}_${i}`} text={x.text} severity={x.severity} />
+              <ErrorAlert key={`${x.text}_${i}`} text={x.text} severity={x.severity} reason={x.reason} />
             ))}
           </div>
         </div>
@@ -53,7 +53,7 @@ const ImportContainer = () => {
 export default ImportContainer
 
 const ErrorAlert = (props: TImportError) => {
-  const { text, severity } = props
+  const { text, reason, severity } = props
   const [isOn, setIsOn] = useState(true)
 
   if (!isOn) return null
@@ -61,16 +61,21 @@ const ErrorAlert = (props: TImportError) => {
   const alertType = {
     'ally-warn': 'alert-warning',
     'ambiguity-warn': 'alert-warning',
+    'deprecation-warn': 'alert-warning',
     warn: 'alert-warning',
     error: 'alert-danger',
   }[severity]
 
   const prefix = severity === 'error' ? `Error` : `Warning`
 
-  const info =
-    severity === 'error' || severity === 'ally-warn' || severity === 'ambiguity-warn'
-      ? text
-      : `We couldn't find '${text}'. It may be a typo or an ally item. Make sure to add it manually.`
+  const messages = {
+    error: `${text}`,
+    'ally-warn': `${text}`,
+    'ambiguity-warn': `${text}`,
+    'deprecation-warn': `'${text}' has been removed from AoS Reminders because ${reason}.`,
+    warn: `We couldn't find '${text}'. It may be a typo or an ally item. Make sure to add it manually.`,
+  }
+  const info = messages[severity]
 
   return (
     <div className="mb-2">

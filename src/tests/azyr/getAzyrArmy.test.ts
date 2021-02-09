@@ -34,6 +34,7 @@ import { AQSHY, ULGU } from 'types/realmscapes'
 import { handleAzyrPages } from 'utils/azyr/azyrPdf'
 import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
 import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
+import { DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 
 const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/azyr/json/${filename}.json`), 'utf8'))
@@ -104,14 +105,14 @@ describe('getAzyrArmyFromPdf', () => {
     })
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
-        // TODO: https://github.com/daviseford/aos-reminders/issues/1056
+        severity: 'deprecation-warn',
         text: 'Hypersnare Seeds',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
-        // TODO: https://github.com/daviseford/aos-reminders/issues/1057
+        severity: 'deprecation-warn',
         text: 'Arboreal Stave',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -201,8 +202,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Argent Armour',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -343,8 +345,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.prayers).toEqual(["Get 'Em Beat", 'Killa Beat'])
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
-        text: 'Ethereal Amulet', // deprecated
+        severity: 'deprecation-warn',
+        text: 'Ethereal Amulet',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -385,8 +388,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.endless_spells).toContain('Bound Burning Head')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Aetherquartz Brooch',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -484,8 +488,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.battalions).toContain('Dragonlord Host')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Doppelganger Cloak',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -529,8 +534,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.command_traits).toContain('Emissary of the Deep Places')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Argent Armour',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'ambiguity-warn',
@@ -753,12 +759,14 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.subFactionName).toEqual(SlaaneshFaction.subFactionKeyMap['Godseekers Host'])
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Sash of the Ten Paradises',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: "Guardian's Coronet",
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'ambiguity-warn',
@@ -776,8 +784,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.flavors).toEqual(['Dhom Hain'])
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
-        text: 'Blade of Symmetr y',
+        severity: 'deprecation-warn',
+        text: 'Blade of Symmetry',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'ambiguity-warn',
@@ -862,8 +871,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.prayers).toContain("Get 'Em Beat")
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
-        text: 'Aether quartz Brooch',
+        severity: 'deprecation-warn',
+        text: 'Aetherquartz Brooch',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -931,8 +941,9 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Thermalrider Cloak',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'ambiguity-warn',
@@ -973,12 +984,14 @@ describe('getAzyrArmyFromPdf', () => {
     // Warpfire Dragon is a Destruction unit
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
-        text: 'Blade of Symmetr y',
+        severity: 'deprecation-warn',
+        text: 'Blade of Symmetry',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
-        text: 'Aether quartz Brooch',
+        severity: 'deprecation-warn',
+        text: 'Aetherquartz Brooch',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'warn',
@@ -1137,8 +1150,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Thermalrider Cloak',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'warn',
@@ -1175,8 +1189,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.command_traits).toContain('Amethyst Glow')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Aetherquartz Brooch',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1237,8 +1252,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.flavors).toEqual(['Fuethan'])
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
-        text: 'Gryph-f eather Charm',
+        severity: 'deprecation-warn',
+        text: 'Gryph-feather Charm',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1261,8 +1277,9 @@ describe('getAzyrArmyFromPdf', () => {
     ])
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
-        text: 'Gryph-f eather Charm',
+        severity: 'deprecation-warn',
+        text: 'Gryph-feather Charm',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1342,8 +1359,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Hydroxskin Cloak',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'ambiguity-warn',
@@ -1389,12 +1407,14 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.artifacts).toEqual([])
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: "Anraheirs's Claw",
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Gryph-feather Charm',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
         severity: 'warn',
@@ -1450,8 +1470,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.artifacts).toContain('The Brazen Rune')
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: "Ignax's Scales",
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -1477,8 +1498,9 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(LEGION_OF_GRIEF)
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
-        text: 'Aether quartz Brooch',
+        severity: 'deprecation-warn',
+        text: 'Aetherquartz Brooch',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })

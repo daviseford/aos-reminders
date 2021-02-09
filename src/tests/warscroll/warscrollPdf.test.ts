@@ -28,6 +28,7 @@ import {
 } from 'meta/factions'
 import path from 'path'
 import { CHAMON, GHUR } from 'types/realmscapes'
+import { DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 import { parsePdf } from 'utils/pdf/pdfUtils'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
@@ -567,8 +568,9 @@ describe('getWarscrollArmyFromPdf', () => {
     ])
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Lens of Refraction',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })
@@ -899,8 +901,9 @@ describe('getWarscrollArmyFromPdf', () => {
     })
     expect(res.errors).toEqual([
       {
-        severity: 'warn',
+        severity: 'deprecation-warn',
         text: 'Amberglaive',
+        reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
   })

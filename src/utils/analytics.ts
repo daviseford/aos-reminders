@@ -166,6 +166,16 @@ export const logFailedImport = (value: string, type: TImportParsers) => {
   }
 }
 
+export const logDeprecatedImport = (value: string, type: TImportParsers) => {
+  if (value) {
+    logToGA({
+      category: 'Event',
+      action: `deprecatedImport-${type}-${value}`,
+      label: 'DeprecatedImport',
+    })
+  }
+}
+
 export const logIgnoredImport = (value: string, type: TImportParsers) => {
   if (value) {
     logToGA({
