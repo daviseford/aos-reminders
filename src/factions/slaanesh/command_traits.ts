@@ -3,13 +3,12 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_COMBAT_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  TURN_ONE_START_OF_ROUND,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 const CommandTraits = {
   // Invaders Host - Obessions of the Invader
@@ -44,8 +43,8 @@ const CommandTraits = {
     effects: [
       {
         name: `Territorial`,
-        desc: `Add 1 to the number of depravity points you receive from Escalating Havoc if this general is wholly within enemy territory.`,
-        when: [START_OF_HERO_PHASE],
+        desc: `You can reroll hit rolls for melee attacks made by this general while they are wholly within your territory.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -62,8 +61,8 @@ const CommandTraits = {
     effects: [
       {
         name: `Delusions of Infallibility`,
-        desc: `Add 1 to the wound characteristic of this general.`,
-        when: [DURING_GAME],
+        desc: `Add 2 to the wounds characteristic of this general.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -86,12 +85,12 @@ const CommandTraits = {
       },
     ],
   },
-  'True Child of Slaanesh': {
+  'Craving Stare': {
     effects: [
       {
-        name: `True Child of Slaanesh`,
-        desc: `Before determining which player has the first turn, roll 6 dice. You receive 1 depravity point for each 5+.`,
-        when: [TURN_ONE_START_OF_ROUND],
+        name: `Craving Stare`,
+        desc: `Enemy units that fail battleshock tests within 6" of this general add D3 to the number of models fleeing.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -117,7 +116,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Inspirer`,
-        desc: `Do not take battleshock tests for friendly Pretenders units while they are wholly within 9" of this general.`,
+        desc: `You can reroll battleshock tests for friendly Pretenders units while they are wholly within 9" of this general.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -127,17 +126,17 @@ const CommandTraits = {
     effects: [
       {
         name: `Hunter Supreme`,
-        desc: `You can reroll hit and wound rolls of 1 for attacks made by this general if this general made a charge move in the same turn.`,
+        desc: `You can reroll hit and wound rolls of 1 for attacks made by this general if this general made a charge move this turn.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  'Thrill-seeker': {
+  'Sweeping Slash': {
     effects: [
       {
-        name: `Thrill-seeker`,
-        desc: `This general can run and charge in the same turn. If this general already has anability that does this, add 3 to the run rolls for this general instead.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        name: `Sweeping Slash`,
+        desc: `After this general makes a charge move, roll a D6 for each enemy unit within 1". On a 2+ the target suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -157,13 +156,18 @@ const CommandTraits = {
         desc: `Roll a D6 for this general if it is wholly within enemy territory. On a 3+ add 1 to attacks characteristic of this general's melee weapons until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
+      {
+        name: `Trail-sniffer`,
+        desc: `If active, add 1 to melee attacks characteristic of this general.`,
+        when: [COMBAT_PHASE],
+      },
     ],
   },
   Symphoniac: {
     effects: [
       {
         name: `Symphoniac`,
-        desc: `Roll 1 dice for each enemy unit within 3" of this general. On a 2+ that enemy unit suffers 1 mortal wound.`,
+        desc: `Roll 1 dice for each enemy unit within 3" of this general. On a 3+ that enemy unit suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

@@ -1,10 +1,12 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_CHARGE_PHASE,
+  END_OF_SETUP,
   HERO_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
@@ -36,14 +38,47 @@ const RegularBattalions = {
     effects: [
       {
         name: `Drawn to Battle`,
-        desc: `A model from this battalion is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3". It can also move an extra 3" when it piles in.`,
+        desc: `Units from this battalion are eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3". They also move an extra 3" when piling in.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Depraved Carnival': {
+    mandatory: {
+      units: [keyPicker(Units, ['Blissbarb Archers'])],
+    },
+    effects: [
+      {
+        name: `Honed by the Inimical`,
+        desc: `Once per turn, 1 unit of Blissbarb Archers in this battalion can shoot.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Nobles of Excess': {
+    effects: [
+      {
+        name: `A Demonstration of Prowess`,
+        desc: `You can reroll wound rolls for melee attacks made by units in this battalion if they charged this turn.`,
+        when: [CHARGE_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  'Exalted Speed-Knights': {
+    mandatory: {
+      units: [keyPicker(Units, ['Blissbarb Seekers', 'Slickblade Seekers', 'Seekers'])],
+    },
+    effects: [
+      {
+        name: `Timing is Everything`,
+        desc: `D6 units from this battalion can move up to 6".`,
+        when: [END_OF_SETUP],
       },
     ],
   },
   'Devout Supplicants': {
     mandatory: {
-      //units: [keyPicker(Units, [''])], ADD CHAOS WARSHRINE HERE
+      units: [keyPicker(SlavesToDarknessUnits, ['Chaos Warshrine'])],
     },
     effects: [
       {
@@ -69,7 +104,7 @@ const RegularBattalions = {
   },
   'Daemonsteel Contingent': {
     mandatory: {
-      //units: [keyPicker(Units, [''])], ADD SOUL GRINDER HERE
+      units: [keyPicker(SlavesToDarknessUnits, ['Soul Grinder'])],
     },
     effects: [
       {
@@ -110,7 +145,7 @@ const SuperBattalions = {
       {
         name: `Transcendental Warriors`,
         desc: `Add 1 to the bravery characteric of units in this battalion.`,
-        when: [BATTLESHOCK_PHASE],
+        when: [DURING_GAME],
       },
     ],
   },

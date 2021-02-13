@@ -120,7 +120,7 @@ const subFactions = {
         keyPicker(CommandTraits, [
           'Strength of Godhood',
           'Monarch of Lies',
-          'True Child of Slaanesh',
+          'Craving Stare',
           'Strongest Alone',
           'Hunter of Godbeasts',
           'Inspirer',
@@ -157,7 +157,7 @@ const subFactions = {
       command_traits: [
         keyPicker(CommandTraits, [
           'Hunter Supreme',
-          'Thrill-seeker',
+          'Sweeping Slash',
           'Into the Fray',
           'Trail-sniffer',
           'Symphoniac',

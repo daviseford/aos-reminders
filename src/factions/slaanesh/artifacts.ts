@@ -41,7 +41,7 @@ const Artifacts = {
     effects: [
       {
         name: `Whip of Subversion`,
-        desc: `You can pick 1 enemy hero within 6" of the bearer. Pick 1 melee weapon that hero is armed with and then pick 1 other enemy unit within 1" of that hero. The other unit suffers a number of mortal wounds equal to the attacks characteristic of the melee weapon selected.`,
+        desc: `You can pick 1 enemy hero within 6" of the bearer. Pick 1 melee weapon that hero is armed with and then pick 1 other enemy unit within 3" of that hero. The other unit suffers a number of mortal wounds equal to the attacks characteristic of the melee weapon selected.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -88,12 +88,12 @@ const Artifacts = {
       },
       {
         name: `The Crown of Dark Secrets`,
-        desc: `You can reroll unbinding attempts for spells cast by the target.`,
+        desc: `If active, you can reroll unbinding attempts for spells cast by the target.`,
         when: [HERO_PHASE],
       },
       {
         name: `The Crown of Dark Secrets`,
-        desc: `You can reroll hit rolls for attacks made by the bearer against the target.`,
+        desc: `If active, you can reroll hit rolls for attacks made by the bearer against the target.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -111,7 +111,7 @@ const Artifacts = {
     effects: [
       {
         name: `Sliverslash`,
-        desc: `Add 2 to the attacks characteristic of selected weapon.`,
+        desc: `Add 1 to the attacks characteristic of selected weapon.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -120,7 +120,7 @@ const Artifacts = {
     effects: [
       {
         name: `Sceptre of Domination`,
-        desc: `If the bearer is within 12" of any enemy heros, and your opponent has any command points, roll a D6. On a 4+ your opponent loses 1 command point and you receive 1 command point.`,
+        desc: `If the bearer is within 12" of any enemy heroes, and your opponent has any command points, roll a D6. On a 4+ you steal 1 command point from your opponent.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -129,7 +129,7 @@ const Artifacts = {
     effects: [
       {
         name: `Breathtaker`,
-        desc: `You can reroll the dice roll that determines if an enemy hero within 3" of the bearer is affected by the Locus of Diversion trait.`,
+        desc: `You can reroll the Locus of Diversion dice against enemy heroes within 6" of the bearer.`,
         when: [END_OF_CHARGE_PHASE],
       },
     ],
@@ -144,7 +144,7 @@ const Artifacts = {
       {
         name: `Mask of Spiteful Beauty`,
         desc: `Subtract 2 from targeted unit's bravery characteristic until your next hero phase.`,
-        when: [DURING_GAME],
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -155,11 +155,6 @@ const Artifacts = {
         name: `Cameo of the Dark Prince`,
         desc: `Once per battle can use this artifact. You receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Cameo of the Dark Prince`,
-        desc: `If used at the start of this hero phase, you do not have to take battleshock tests for friendly Chaos Slaanesh units while they are wholly within 18" of the bearer.`,
-        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -208,9 +203,7 @@ const Artifacts = {
     effects: [
       {
         name: `Bindings of Slaanesh`,
-        desc: `You can pick 1 enemy hero within 3" of the bearer and roll 2D6. If the roll is greater than the targets move characteristic, subtract 1 from hit rolls for attacks made by that enemy.
-
-               In addition, if the roll is greater than the target's wounds characteristic that enemy suffers D3 mortal wound.`,
+        desc: `You can pick 1 enemy hero within 3" of the bearer and roll 2D6. If the roll is greater than the targets move characteristic, subtract 1 from hit rolls for attacks made by the target until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
