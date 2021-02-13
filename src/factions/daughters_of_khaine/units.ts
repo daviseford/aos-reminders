@@ -29,14 +29,14 @@ const MorathiEffect = {
 
 const PriestessOfKhaineEffect = {
   name: `Priestess of Khaine`,
-  desc: `Pick a prayer this model knows and roll a D6. On a result of 1 she is found unworthy and suffers 1 mortal wound. On a 2 nothing happens. On a 3+ the prayer is successful and its effect takes place. A Hag Queen knows the Rune of Khaine and Touch of Death prayers.`,
+  desc: `Pick a prayer this model knows and roll a D6. On a 1, she suffers 1 mortal wound. On a 3+ the prayer is successful. A Hag Queen knows the Rune of Khaine and Touch of Death prayers.`,
   when: [HERO_PHASE],
 }
 
 const WitchbrewEffects = [
   {
     name: `Witchbrew`,
-    desc: `You can pick a friendly Daughters of Khaine unit within 3" of this model to drink Witchbrew.`,
+    desc: `You can pick a friendly Daughters of Khaine unit within 12" of this model to drink Witchbrew. Roll a D6, adding 1 for each of the following if active on this model: Headlong Fury, Zealot's Rage, Slaughterer's Strength. On a 5+ the target can reroll melee wound rolls and does not take battleshock tests until your next hero phase.`,
     when: [HERO_PHASE],
   },
   {
@@ -54,7 +54,7 @@ const WitchbrewEffects = [
 const StandardBearerAndHornblowerEffects = [
   {
     name: `Standard Bearer`,
-    desc: `Roll two dice instead of one and discard the highest result if this unit contains any standard bearers.`,
+    desc: `You can reroll failed battleshock tests if this unit contains any standard bearers.`,
     when: [BATTLESHOCK_PHASE],
   },
   {
@@ -90,8 +90,8 @@ const DescendToBattleEffects = [
 
 const BladedBucklersEffect = {
   name: `Bladed Bucklers`,
-  desc: `Units with bladed bucklers have a save characteristic of 5+ in this phase. In addition, each time you make an unmodified save roll of 6 in this phase, the attacking unit suffers 1 mortal wound after it has made all of its attacks.`,
-  when: [COMBAT_PHASE],
+  desc: `Add 1 to melee save rolls for this unit if equipped. In addition, unmodified save rolls of 6 cause the attacker to suffer 1 mortal wound after resolving attacks.`,
+  when: [SAVES_PHASE],
 }
 
 const BloodshieldEffect = {
@@ -108,7 +108,7 @@ const BladedImpactEffect = {
 
 const HeartseekersEffect = {
   name: `Heartseekers`,
-  desc: `Each time you make an unmodified hit roll of 6 for this unit's Heartseeker Bow, the target suffers 1 mortal wound instead of the normal damage.`,
+  desc: `Each time you make an unmodified hit roll of 6 for this unit's Heartseeker Bow, the target suffers 1 mortal wound and the attack sequence ends.`,
   when: [SHOOTING_PHASE],
 }
 
@@ -130,14 +130,7 @@ const baseSlaughterQueen = {
     prayers: [keyPicker(Prayers, ['Rune of Khaine', 'Touch of Death'])],
     command_abilities: [keyPicker(CommandAbilities, ['Orgy of Slaughter'])],
   },
-  effects: [
-    PriestessOfKhaineEffect,
-    {
-      name: `Pact of Blood`,
-      desc: `A Slaughter Queen can attempt to unbind one spell in the enemy hero phase as if it were a wizard.`,
-      when: [HERO_PHASE],
-    },
-  ],
+  effects: [PriestessOfKhaineEffect],
 }
 
 const baseBloodwrack = {
@@ -147,12 +140,22 @@ const baseBloodwrack = {
   effects: [
     {
       name: `Bloodwrack Stare`,
+      desc: `Pick a target and roll a D6 for each model within range from the target unit. For each 5+ the target suffers 1 mortal wound.`,
+      when: [SHOOTING_PHASE],
+    },
+    {
+      name: `Bloodwrack Stare`,
       desc: `Pick a unit visible to this model and roll a D6 for each model in the target unit that is within range. For each 5+ the unit suffers 1 mortal wound.`,
       when: [SHOOTING_PHASE],
     },
     {
+      name: `Whisperclaw`,
+      desc: `Each unmodified hit of 6 made by this weapon inflicts 1 mortal wound and ends the attack sequence.`,
+      when: [COMBAT_PHASE],
+    },
+    {
       name: `Magic`,
-      desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Enfeebling Foe.`,
+      desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Enfeebling Foe.`,
       when: [HERO_PHASE],
     },
   ],
@@ -170,7 +173,7 @@ const baseAvatarOfKhaine = {
     },
     {
       name: `Idol of Worship`,
-      desc: `Add 1 to the bravery characteristic of friendly Daughters of Khaine units that are within 7" of any friendly Avatars of Khaine.`,
+      desc: `Add 1 to the bravery characteristic of friendly Daughters of Khaine units that are within 12" of any friendly Avatars of Khaine.`,
       when: [DURING_GAME],
     },
   ],
@@ -269,12 +272,12 @@ const Units = {
       ...StandardBearerAndHornblowerEffects,
       {
         name: `Paired Sacrificial Knives`,
-        desc: `Add 1 to the attacks characteristic of a Witch Aelf's Sacrificial Knife if it is armed with paired Sacrificial Knives.`,
+        desc: `Add 1 to the attacks characteristic of a Witch Aelf's Sacrificial Knife if equipped.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Frenzied Fervour`,
-        desc: `If this unit is within any friendly Daughters of Khaine heroes in this phase, add 1 to the attacks characteristic of its Sacrificial Knives until the end of the phase.`,
+        desc: `Add 1 to wound rolls for melee attacks made by this unit while it is wholly within 12" of any friendly Daughters of Khaine heroes.`,
         when: [COMBAT_PHASE],
       },
       BladedBucklersEffect,
@@ -284,13 +287,13 @@ const Units = {
     effects: [
       {
         name: `Handmaiden`,
-        desc: `Add 1 to hit rolls for a Handmaiden.`,
+        desc: `Add 1 to the attacks characteristic for a Handmaiden's melee weapons.`,
         when: [COMBAT_PHASE],
       },
       ...StandardBearerAndHornblowerEffects,
       {
         name: `Dance of Death`,
-        desc: `Sisters of Slaughter can be chosen to pile in and attack in the combat phase if they are within 6" of an enemy, and can move up to 6" when they pile in.`,
+        desc: `This unit is eligible to fight while within 6" of an enemy and can move up to 6" when they pile in.`,
         when: [COMBAT_PHASE],
       },
       BladedBucklersEffect,
@@ -306,6 +309,11 @@ const Units = {
       ...baseAvatarOfKhaine.effects,
       BladedImpactEffect,
       BloodshieldEffect,
+      {
+        name: `Pact of Blood`,
+        desc: `A Slaughter Queen can attempt to unbind one spell in the enemy hero phase as if it were a wizard.`,
+        when: [HERO_PHASE],
+      },
     ],
   },
   'Bloodwrack Shrine': {
@@ -343,22 +351,17 @@ const Units = {
     effects: [
       {
         name: `Master of Warlocks`,
-        desc: `Add 1 to hit rolls for a Master of Warlocks' Doomfire Crossbow.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Master of Warlocks`,
-        desc: `Add 1 to hit rolls for a Master of Warlocks' Cursed Scimitar.`,
+        desc: `Add 1 to the attacks characteristic of this model's melee weapons.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Doomfire Coven`,
-        desc: `Add 1 to the casting and unbinding rolls for this unit if it has 10 or more models.`,
+        desc: `Add 1 to the casting and unbinding rolls for this unit if it has 5 or more models.`,
         when: [HERO_PHASE],
       },
       {
         name: `Magic`,
-        desc: `This unit counts as a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Doomfire.`,
+        desc: `This unit counts as a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Doomfire.`,
         when: [HERO_PHASE],
       },
     ],
@@ -367,14 +370,8 @@ const Units = {
     effects: [
       {
         name: `Shryke`,
-        desc: `Add 1 to the attacks characteristic for a Shryke.`,
+        desc: `Add 1 to the attacks characteristic for this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      ...DescendToBattleEffects,
-      {
-        name: `Fire and Flight`,
-        desc: `After this unit has finished making all of its attacks, roll a D6: on a 4+ it can make a 6" normal move as if it were your movement phase, but it cannot retreat or run as part of this move.`,
-        when: [SHOOTING_PHASE],
       },
       {
         name: `Death From Above`,
@@ -383,7 +380,13 @@ const Units = {
       },
       {
         name: `Death From Above`,
-        desc: `Change the Rend characteristic of this unit's Barbed Javelins to -2 if it was set up on the battlefield in this turn.`,
+        desc: `If this unit was set up this turn, add 1 to the rend characteristics of its weapons until the end of the turn.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      ...DescendToBattleEffects,
+      {
+        name: `Fire and Flight`,
+        desc: `After this unit has finished making all of its attacks, roll a D6: on a 4+ it can make a 6" normal move as if it were your movement phase (cannot use this to retreat or run).`,
         when: [SHOOTING_PHASE],
       },
       HeartpiercerShieldEffect,
@@ -393,19 +396,19 @@ const Units = {
     effects: [
       {
         name: `Harridynn`,
-        desc: `Add 1 to hit rolls for a Harridynn.`,
-        when: [COMBAT_PHASE],
-      },
-      ...DescendToBattleEffects,
-      {
-        name: `Fight and Flight`,
-        desc: `After this unit has finished making all of its attacks, roll a D6: on a 4+ it can make a 6" normal move as if it were your movement phase, but it cannot run as part of this move.`,
+        desc: `Add 1 to the attacks characteristic for this model.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Death on the Wind`,
-        desc: `Add 1 to the damage characteristic of this unit's Barbed Sickles if it made a charge move in the same turn.`,
+        desc: `Add 1 to the damage and rend characteristics of this unit's Barbed Sickles if it made a charge move in the same turn.`,
         when: [CHARGE_PHASE, COMBAT_PHASE],
+      },
+      ...DescendToBattleEffects,
+      {
+        name: `Fight and Flight`,
+        desc: `After this unit has finished making all of its attacks, roll a D6: on a 4+ it can make a 6" normal move as if it were your movement phase (cannot use this to retreat or run).`,
+        when: [COMBAT_PHASE],
       },
       HeartpiercerShieldEffect,
     ],

@@ -4,7 +4,7 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  HERO_PHASE,
+  END_OF_COMBAT_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
@@ -14,11 +14,11 @@ import {
 
 const BattleTraits = {
   // Daughters of Khaine Allegiance
-  'Daughters of Khaine': {
+  'Apostles of the Murder God': {
     effects: [
       {
         name: `Fanatical Faith`,
-        desc: `Roll a D6 each time a wound or mortal wound is allocated to a friendly Daughter of Khaine model. On a 6+ the wound is negated.`,
+        desc: `Roll a D6 each time a wound or mortal wound is allocated to a friendly Daughter of Khaine model. On a 6 the wound is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
@@ -27,33 +27,33 @@ const BattleTraits = {
         when: [START_OF_ROUND],
       },
       {
-        name: `Blood Rites - Battle Round 1+: Quickening Bloodlust`,
-        desc: `Reroll run rolls of 1 for friendly Daughters of Khaine units.`,
+        name: `Blood Rites - Level 1: Quickening Bloodlust`,
+        desc: `You can reroll run rolls of 1.`,
         when: [MOVEMENT_PHASE],
       },
       {
-        name: `Blood Rites - Battle Round 2+: Headlong Fury`,
-        desc: `Reroll dice rolls of 1 when making charge rolls for friendly Daughters of Khaine units.`,
+        name: `Blood Rites - Level 2: Headlong Fury`,
+        desc: `You can reroll charge rolls of 1.`,
         when: [CHARGE_PHASE],
       },
       {
-        name: `Blood Rites - Battle Round 3+: Zealot's Rage`,
-        desc: `Reroll hit rolls of 1 for friendly Daughters of Khaine units. In addition, if the unit is an Avatar of Khaine, it always counts as being Animated.`,
+        name: `Blood Rites - Level 3: Zealot's Rage`,
+        desc: `You can reroll hit rolls of 1. In addition, Avatar of Khaine units are automatically Animated.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
-        name: `Blood Rites - Battle Round 4+: Slaughterer's Strength`,
-        desc: `Reroll wound rolls of 1 for friendly Daughters of Khaine units.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        name: `Blood Rites - Level 4: Slaughterer's Strength`,
+        desc: `You can reroll melee wound rolls of 1.`,
+        when: [COMBAT_PHASE],
       },
       {
-        name: `Blood Rites - Battle Round 5+: Unquenchable Fervour`,
-        desc: `Reroll save rolls of 1 for friendly Daughters of Khaine units.`,
+        name: `Blood Rites - Level 5: Unquenchable Fervour`,
+        desc: `You can reroll save rolls of 1.`,
         when: [SAVES_PHASE],
       },
       {
-        name: `Blood Rites - Battle Round 5+: Unquenchable Fervour`,
-        desc: `You do not need to take battleshock tests for friendly Daughters of Khaine units.`,
+        name: `Blood Rites - Level 5: Unquenchable Fervour`,
+        desc: `Do not take battleshock tests.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -63,8 +63,8 @@ const BattleTraits = {
     effects: [
       {
         name: `Daughters of the First Temple`,
-        desc: `Whilst a Hagg Nar unit is benefiting from Zealot's Rage (Blood Rite), you can reroll all failed hit rolls instead of hit rolls of 1.`,
-        when: [HERO_PHASE],
+        desc: `Add 1 to the current battle round when determining active Blood Rites. This effect is cumulative with other similar abilities.`,
+        when: [START_OF_ROUND],
       },
     ],
   },
@@ -73,7 +73,7 @@ const BattleTraits = {
     effects: [
       {
         name: `Bladed Killers`,
-        desc: `Add 1 to the hit rolls for Draichi Ganeth units in the combat phase if they charged in the same turn.`,
+        desc: `Improve the melee rend characteristic of friendly Draichi Ganeth Witch Aelves and Sisters of Slaughter units by 1 if they charged this turn.`,
         when: [CHARGE_PHASE, COMBAT_PHASE],
       },
     ],
@@ -83,8 +83,8 @@ const BattleTraits = {
     effects: [
       {
         name: `Disciples of Slaughter`,
-        desc: `Roll a D6 after a Kraith unit has fought if there are any enemy units within 3" of it. On a 6, you can pile in and attack with that unit for a second time.`,
-        when: [COMBAT_PHASE],
+        desc: `Roll a D6 for each Kraith Sisters of Slaughter unit that fought in this phase. On a 5+ that unit can fight a second time.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -93,8 +93,18 @@ const BattleTraits = {
     effects: [
       {
         name: `Concealment and Stealth`,
-        desc: `Subtract 1 from hit rolls that target Khailebron units in this phase.`,
+        desc: `Subtract 1 from missle hit rolls that target friendly Khailebron units.`,
         when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  // Khelt Nar Flavor
+  'Strike and Fade': {
+    effects: [
+      {
+        name: `Strike and Fade`,
+        desc: `Friendly Khelt Nar units can retreat and charge in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },

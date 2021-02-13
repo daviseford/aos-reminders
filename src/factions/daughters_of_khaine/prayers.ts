@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 const Prayers = {
   // Prayers of the Khainite Cult
@@ -7,12 +7,12 @@ const Prayers = {
     effects: [
       {
         name: `Catechism of Murder`,
-        desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest. Until the start of your next hero phase, each time you make an unmodified hit roll of 6 for the unit in the combat phase, the attack inflicts 2 hits instead of 1.`,
+        desc: `Pick 1 friendly Daughters of Khaine unit wholly within 14" of this model. Until your next hero phase, each time you make an unmodified melee hit roll of 6, the attack inflicts 2 hits instead of 1.`,
         when: [HERO_PHASE],
       },
       {
         name: `Catechism of Murder`,
-        desc: `If in effect, each hit roll of an unmodified 6 by the buffed unit counts as 2 hits instead of 1.`,
+        desc: `If active, each unmodified melee hit of 6 by the buffed unit counts as 2 hits instead of 1.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -21,13 +21,13 @@ const Prayers = {
     effects: [
       {
         name: `Blessing of Khaine`,
-        desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest. Until the start of your next hero phase, reroll failed Fanatical Faith rolls for that unit.`,
+        desc: `Pick 1 friendly Daughters of Khaine unit wholly within 14" of this model. Until your next hero phase, reroll failed Fanatical Faith rolls for that unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `Blessing of Khaine`,
-        desc: `If in effect, reroll failed Fanatical Faith rolls for buffed unit.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        desc: `If active, reroll failed Fanatical Faith rolls for buffed unit.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -35,13 +35,13 @@ const Prayers = {
     effects: [
       {
         name: `Martyr's Sacrifice`,
-        desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest. Until the start of your next hero phase, each time a model from that unit is slain in the combat phase, roll a D6. On a 5 or 6 the attacking unit suffers 1 mortal wound after it has finished making all of its attacks.`,
+        desc: `Pick a friendly Daughters of Khaine unit wholly within 14" of this model. Until your next hero phase, each time a model from that unit is slain by a melee attack, roll a D6. On a 5+, an enemy unit within 3" of the slain model suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
       {
         name: `Martyr's Sacrifice`,
-        desc: `If in effect, each time a model from buffed unit is slain, roll a D6. On a 5 or 6 the attacking unit suffers 1 mortal wound after it has finished making all of its attacks.`,
-        when: [COMBAT_PHASE],
+        desc: `If active, each time a model from the buffed unit is slain roll a D6. On a 5+, an enemy unit within 3" of the slain model suffers 1 mortal wound.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -49,7 +49,7 @@ const Prayers = {
     effects: [
       {
         name: `Crimson Rejuvenation`,
-        desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest (you cannot pick Morathi in either form). You can heal up to D3 wounds allocated to a model in that unit.`,
+        desc: `Pick a friendly Daughters of Khaine unit wholly within 14" of this model. You can heal up to D3 wounds allocated to a model in that unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -58,12 +58,12 @@ const Prayers = {
     effects: [
       {
         name: `Covenant of the Iron Heart`,
-        desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest. Until the start of your next hero phase, you do not need to take battleshock tests for that unit.`,
+        desc: `Pick a friendly Daughters of Khaine unit wholly within 14" of this model. Until your next hero phase, you do not need to take battleshock tests for that unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `Covenant of the Iron Heart`,
-        desc: `If in effect, you do not need to take battleshock tests for the buffed unit.`,
+        desc: `If active, you do not need to take battleshock tests for the buffed unit.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -72,7 +72,7 @@ const Prayers = {
     effects: [
       {
         name: `Sacrament of Blood`,
-        desc: `Pick a friendly Daughters of Khaine unit within 14" of the priest. Until the start of your next hero phase, that unit counts the current battle round number as being 1 higher than it actually is when determining the effect of the Blood Rites table. This effect is cumulative with other, similar abilities.`,
+        desc: `Pick a friendly Daughters of Khaine unit wholly within 14" of this model. Until your next hero phase, add 1 to the current battle round when determining active Blood Rites. This effect is cumulative with other similar abilities.`,
         when: [HERO_PHASE],
       },
     ],
@@ -114,7 +114,7 @@ const Prayers = {
     effects: [
       {
         name: `Dance of Doom`,
-        desc: `If active, until your next hero phase, this model can be chosen to pile in and attack twice in the combat phase.`,
+        desc: `If active, until your next hero phase and after its first attack, this model can be selected to fight a second time if it is within 3" of an enemy units.`,
         when: [COMBAT_PHASE],
       },
     ],
