@@ -74,6 +74,12 @@ const Navbar = () => {
         </Link>
       )}
 
+      {pathname !== ROUTES.FAQ && (
+        <Link to={ROUTES.FAQ} className={navbarStyles.link} onClick={() => logClick('Navbar-Faq')}>
+          FAQ
+        </Link>
+      )}
+
       <GenericButton className={navbarStyles.btn} onClick={handleLoginBtn}>
         {loginBtnText}
       </GenericButton>
