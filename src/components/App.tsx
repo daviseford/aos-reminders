@@ -7,6 +7,7 @@ import { handleArmyLink, handleStripeCheckout } from 'utils/handleQueryParams'
 import history from 'utils/history'
 
 // Lazy loading routes (takes advantage of code splitting)
+const Faq = lazy(() => import('components/routes/Faq'))
 const Home = lazy(() => import('components/routes/Home'))
 const Join = lazy(() => import('components/routes/Join'))
 const Profile = lazy(() => import('components/routes/Profile'))
@@ -27,6 +28,9 @@ const App = () => {
           <Switch>
             {/* Main page of the app */}
             <Route path={ROUTES.HOME} exact component={Home} />
+
+            {/* Help/FAQ */}
+            <Route path={ROUTES.FAQ} component={Faq} />
 
             {/* Coupon redemption */}
             <Route path={ROUTES.JOIN} component={Join} />
