@@ -17,7 +17,7 @@ const BonesplitterzSpells = {
     effects: [
       {
         name: `Breath of Gorkamorka`,
-        desc: `Casting value of 6. Pick a Bonesplitterz unit within 24", that unit doubles how far it can move and can fly in your next movement phase. If casting roll was a double, triple how far the unit can move instead.`,
+        desc: `Casting value of 6. Pick a Bonesplitterz unit wholly within 24", that unit doubles how far it can move and can fly in your next movement phase. If casting roll was a double, triple how far the unit can move instead.`,
         when: [HERO_PHASE],
       },
     ],
