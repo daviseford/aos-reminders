@@ -1,5 +1,12 @@
 import { tagAs } from 'factions/metatagger'
-import { CHARGE_PHASE, COMBAT_PHASE, START_OF_BATTLESHOCK_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
+import {
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  HERO_PHASE,
+  SHOOTING_PHASE,
+  START_OF_BATTLESHOCK_PHASE,
+  START_OF_COMBAT_PHASE,
+} from 'types/phases'
 
 const CommandAbilities = {
   // Unit abilities
@@ -7,7 +14,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Excess of Violence`,
-        desc: `When it is your turn to pick a unit to fight with, select 1 friendly Hedonite unit that has already fought once in that combat phase and is wholly within 12. That unit can be selected to fight for a second time if it is within 3" of any enemy units. You cannot pick the same unit to benefit from this command ability more than once in the same combat phase."`,
+        desc: `When it is your turn to pick a unit to fight with, select 1 friendly Hedonite unit that has already fought once in that combat phase and is wholly within 12". That unit can be selected to fight for a second time if it is within 3" of any enemy units. You cannot pick the same unit to benefit from this command ability more than once in the same combat phase."`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -16,12 +23,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Regal Authority`,
-        desc: `If this model is your general and is on the battlefield, until the end of this phase, you can reroll hit rolls of 1 for friendly Chaos Slaanesh units while they are wholly with 18" of this model.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Regal Authority`,
-        desc: `If this model is your general and is on the battlefield, until the end of that phase, do not take battleshock tests for friendly Chaos Slaanesh units while they are wholly with 18" of this model.`,
+        desc: `If this model is your general and on the battlefield, do not take battleshock tests for friendly Slaanesh units while they are wholly with 18" of this model.`,
         when: [START_OF_BATTLESHOCK_PHASE],
       },
     ],
@@ -35,6 +37,21 @@ const CommandAbilities = {
       },
     ],
   },
+  'Gorge on Excess': {
+    effects: [
+      {
+        name: `Gorge on Excess`,
+        desc: `Once per hero phase you may select 1 friendly Hedonite unit wholly within 12" of this model. Until your next hero phase, if the buffed unit destroys an enemy with any outstanding wounds to be allocated, the buffed unit may heal wounds equal to those remaining allocations.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Gorge on Excess`,
+        desc: `If the buffed unit destroys an enemy with any outstanding wounds to be allocated, the buffed unit may heal wounds equal to those remaining allocations.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+
   // Lurid Haze Flavor
   'Intoxicating Pall': {
     effects: [

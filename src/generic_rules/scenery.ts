@@ -205,7 +205,7 @@ const DefaultScenery: TEntry[] = [
   },
 ]
 
-const SceneryEffectLookup = DefaultScenery.reduce((accum, entry: TEntry) => {
+export const SceneryEffectLookup = DefaultScenery.reduce((accum, entry: TEntry) => {
   accum[entry.name as TSceneryEffects] = entry.effects
   return accum
 }, {} as Record<TSceneryEffects, TEffects[]>)

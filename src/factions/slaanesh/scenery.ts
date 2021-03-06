@@ -1,25 +1,39 @@
 import { tagAs } from 'factions/metatagger'
-import { END_OF_MOVEMENT_PHASE, START_OF_HERO_PHASE, START_OF_SETUP } from 'types/phases'
+import { SceneryEffectLookup } from 'generic_rules/scenery'
+import {
+  COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_SETUP,
+} from 'types/phases'
+import { OBSTACLE } from 'types/terrain'
 
 const Scenery = {
   'Fane of Slaanesh': {
     effects: [
+      ...SceneryEffectLookup[OBSTACLE],
       {
         name: `Fane of Slaanesh`,
-        desc: `After territories have been chosen, but before armies are set up, you can set up the Fane of Slaanesh wholly within your territory and more than 3" from any other terrain features and 1" away from any objectives. If both players can set up a terrain feature before territory selection, they must roll off with the winner placing first.`,
+        desc: `After territories have been chosen, but before armies are set up, you can set up the Fane of Slaanesh wholly within your territory and more than 3" from any other terrain features or objectives. If both players can set up a terrain feature before territory selection, they must roll off with the winner placing first.`,
         when: [START_OF_SETUP],
       },
       {
-        name: `Fane of Slaanesh`,
-        desc: `If you spend depravity points to summon a unit to the battlefield, and that unit is set up wholly within 12" of this terrain feature, you receive D3 depravity points after that unit has been set up.`,
+        name: `Power of Slaanesh`,
+        desc: `If you spend depravity points to summon a unit to the battlefield, that unit can be set up wholly within 12" of this terrain feature more than 9" from enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
-        name: `Fane of Slaanesh`,
-        desc: `You can pick 1 friendly Chaos Slaanesh Hero within 6" of this terrain feature to make a sacrifice. If you do so, that HERO suffers 1 mortal wound, and you must roll a D6. On a 1, nothing happens. On a 2+ you can reroll hit rolls for attacks made by that HERO until your next hero phase.
+        name: `Damned Conduit`,
+        desc: `You can pick 1 friendly Slaanesh hero within 6" of this terrain feature to make a sacrifice. If you do so, that hero suffers 1 mortal wound, and you must roll a D6. On a 2+ add 1 to hit rolls for attacks made by that hero until your next hero phase.
 
-           If the hero has an artifact of power, they can sacrifice that instead of suffering 1 mortal wound. If they do so, that artifact of power can no longer be used (if a weapon was picked when the artifact of power was selected, that weapon reverts to normal). However, on a roll of 2+, you can reroll hit rolls for attacks made by that HERO for the rest of the battle instead of only until your next hero phase. A depleted artifact may be used for this purpose and is considered destroyed afterwards.`,
+           If the hero has an artifact of power (depleted or otherwise), they can sacrifice that instead of suffering 1 mortal wound. The artifact may no longer be used (weapons revert to normal), and a successful 2+ roll on the D6 results in adding 1 to hit rolls for the rest of the battle.`,
         when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Damned Conduit`,
+        desc: `If active, the buffed hero adds 1 to its hit rolls.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },

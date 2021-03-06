@@ -12,7 +12,7 @@ const EndlessSpells = {
       },
       {
         name: `Summon`,
-        desc: `Casting value of 5. Only Chaos Slaanesh wizards can attempt to cast this spell. Set up 1 of these models wholly within 6" of the caster.`,
+        desc: `Casting value of 6. Only Chaos Slaanesh wizards can attempt to cast this spell. Set up 1 of these models wholly within 6" of the caster.`,
         when: [HERO_PHASE],
       },
       {
@@ -22,7 +22,7 @@ const EndlessSpells = {
       },
       {
         name: `Exquisite Agony`,
-        desc: `After this model has moved, roll 6 dice for each unit that has any models that this model passed across. That unit suffers 1 mortal wound for each roll that is less than that unit's unmodified Save characteristic.`,
+        desc: `After this model has moved, roll 6 dice for each unit that has any models that this model passed across. That unit suffers 1 mortal wound for each roll that is less than that unit's unmodified save characteristic.`,
         when: [START_OF_ROUND],
       },
     ],
@@ -46,9 +46,9 @@ const EndlessSpells = {
       },
       {
         name: `Gaze Not into its Depths`,
-        desc: `After this model is set up, and after this model has moved, roll 6 dice for each HERO within 6" of this model (roll separately for each HERO). For each 6, that HERO suffers a number of mortal wounds equal to the number of 6s that were rolled for that HERO. This ability has no effect on Chaos Slaanesh Heroes.
+        desc: `After this model is set up, and after this model has moved, roll 6 dice for each hero within 6" of this model (roll separately for each hero). For each 6, that hero suffers a number of mortal wounds equal to the number of 6s that were rolled for that hero. This ability has no effect on Chaos Slaanesh heroes.
 
-        For example, if you rolled one 6 for a HERO, that HERO would suffer 1 x 1 = 1 mortal wound. If you rolled two 6s, that HERO would suffer 2 x 2 = 4 mortal wounds, if you rolled three 6s, that HERO would suffer 3 x 3 = 9 mortal wounds, and so on.`,
+        For example, if you rolled one 6 for a hero, that hero would suffer 1 x 1 = 1 mortal wound. If you rolled two 6s, that hero would suffer 2 x 2 = 4 mortal wounds, if you rolled three 6s, that hero would suffer 3 x 3 = 9 mortal wounds, and so on.`,
         when: [START_OF_ROUND],
       },
     ],
@@ -77,7 +77,7 @@ const EndlessSpells = {
       },
       {
         name: `Terrifying Entity`,
-        desc: `Subtract 1 from the Bravery characteristic of units while they are within 12" of this model. Add 1 to the Bravery characteristic of Chaos Slaanesh units while they are within 12" of this model instead of subtracting 1.`,
+        desc: `Subtract 1 from the bravery characteristic of units while they are within 12" of this model. Add 1 to the bravery characteristic of Chaos Slaanesh units while they are within 12" of this model instead of subtracting 1.`,
         when: [DURING_GAME],
       },
     ],
