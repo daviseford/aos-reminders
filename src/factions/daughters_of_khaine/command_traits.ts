@@ -1,20 +1,24 @@
 import { tagAs } from 'factions/metatagger'
 import {
+  BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
+  HERO_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
-  START_OF_ROUND,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 const CommandTraits = {
-  // Daughters Allegiance Command Traits
+  // Paragons of Murder - Aelf Only
   'Bathed in Blood': {
     effects: [
       {
         name: `Bathed in Blood`,
-        desc: `Increase this general's wounds characteristic by 1.`,
-        when: [DURING_GAME],
+        desc: `Add 1 to this general's wounds characteristic.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Bathed in Blood`,
@@ -27,17 +31,17 @@ const CommandTraits = {
     effects: [
       {
         name: `Zealous Orator`,
-        desc: `Friendly Daughters of Khaine units within 14" of this general use this general's bravery characteristic instead of their own.`,
+        desc: `Friendly Daughters of Khaine units wholly within 12" of this general add 2 to their bravery characteristic.`,
         when: [DURING_GAME],
       },
     ],
   },
-  'Bloody Sacrificer': {
+  'Sacrificial Overseer': {
     effects: [
       {
-        name: `Bloody Sacrificer`,
-        desc: `Add 1 to hit rolls for this general's weapons.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        name: `Sacrificial Overseer`,
+        desc: `Add 1 to melee hit rolls for this general.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -45,17 +49,17 @@ const CommandTraits = {
     effects: [
       {
         name: `Terrifying Beauty`,
-        desc: `Subtract 1 from the hit rolls of attacks that target this general.`,
+        desc: `Subtract 1 from the hit rolls targeting this general.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
-  'Mistress of Poisons': {
+  'Master of Poisons': {
     effects: [
       {
-        name: `Mistress of Poisons`,
-        desc: `Add 1 to the damage characteristic of melee weapons wielded by this general.`,
-        when: [COMBAT_PHASE],
+        name: `Master of Poisons`,
+        desc: `Add 1 to the damage inflicted by each attack made by this general.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
@@ -63,18 +67,94 @@ const CommandTraits = {
     effects: [
       {
         name: `True Believer`,
-        desc: `This general counts the current battle round number as being 1 higher than it actually is when determining the effect of the Blood Rites table. This effect is cumulative with other, similar abilities.`,
-        when: [START_OF_ROUND],
+        desc: `Add 1 to the current battle round when determining active Blood Rites. This effect is cumulative with other similar abilities.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  // Masters of Blood - Bloodwrack Medusa Only
+  'Arcane Mastery': {
+    effects: [
+      {
+        name: `Arcane Mastery`,
+        desc: `You can reroll 1 casting, dispelling, or unbinding roll for this general in this phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Writhing Coils': {
+    effects: [
+      {
+        name: `Writhing Coils`,
+        desc: `Subtract 1 from hit rolls targeting this general.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  'Fearsome Presence': {
+    effects: [
+      {
+        name: `Fearsome Presence`,
+        desc: `You can reroll failed battleshock tests for friendly Daughters of Khaine units wholly within 12" of this general.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  // Morathi's Right Hand - Melusai Ironscale Only
+  'Veteran of the Cathtrar Dhule': {
+    effects: [
+      {
+        name: `Veteran of the Cathtrar Dhule`,
+        desc: `If this general is on the battlefield, roll a D6. On a 4+ you receive 1 extra command point.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  'Impenetrable Scales': {
+    effects: [
+      {
+        name: `Impenetrable Scales`,
+        desc: `Add 1 to save rolls for attacks targeting this general.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+  'Fuelled by Revenge': {
+    effects: [
+      {
+        name: `Fuelled by Revenge`,
+        desc: `Once per battle, you can use Wrath of the Scathborn without spending any command points.`,
+        when: [HERO_PHASE],
       },
     ],
   },
   // Hagg Nar Flavor
-  'Devoted Disciples': {
+  'Devoted Disciple': {
     effects: [
       {
-        name: `Devoted Disciples`,
-        desc: `Whenever you make a Fanatical Faith roll for friendly Hagg Nar units within 7" of this general, the wound is negated on a 5+ instead of 6".`,
+        name: `Devoted Disciple`,
+        desc: `Fanatical Faith negates wounds on a 5+ instead of 6 while wholly within 12" of this general.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  // Draichi Ganeth Flavor
+  "Victor of Yaith'ril": {
+    effects: [
+      {
+        name: `Victor of Yaith'ril`,
+        desc: `Add 1 to the bravery characteristic of friendly Draichi Ganeth units wholly within 12" of this general.`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+  // Kraith Flavor
+  'Bathe in Their Blood': {
+    effects: [
+      {
+        name: `Bathe in Their Blood`,
+        desc: `If any enemy units were destroyed by friendly Kraith units this phase and this general is on the battlefield, you receive 1 command point.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -83,8 +163,18 @@ const CommandTraits = {
     effects: [
       {
         name: `Mistress of Illusion`,
-        desc: `You can pick one friendly Khailebron unit within 7" of this general. If that unit is more than 3" from any enemy models, remove it from the battlefield and then set it up anywhere on the battlefield more than 9" from any enemy models. This unit cannot move in your next movement phase.`,
-        when: [START_OF_HERO_PHASE],
+        desc: `Subtract 1 from melee hit rolls made against this general.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  // Khelt Nar Flavor
+  'The Circling Flock': {
+    effects: [
+      {
+        name: `The Circling Flock`,
+        desc: `Once per battle, you can add 1, 5-man unit of Khinerai Harpies anywhere on the battlefield more than 9" from enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
