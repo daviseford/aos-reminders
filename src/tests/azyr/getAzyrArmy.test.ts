@@ -146,7 +146,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('1612043258621-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections.spells).toContain('Arcane Corrosion')
+    expect(res.selections.spells).toContain('Arcane Corrasion')
     expect(res.errors).toEqual([])
   })
 

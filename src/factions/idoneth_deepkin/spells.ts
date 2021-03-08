@@ -69,10 +69,10 @@ const Spells = {
       },
     ],
   },
-  'Arcane Corrosion': {
+  'Arcane Corrasion': {
     effects: [
       {
-        name: `Arcane Corrosion`,
+        name: `Arcane Corrasion`,
         desc: `Casting value of 6. Pick the closest enemy unit within 48" of the cater and measure the distance between the caster and the unit. If the distance is up to 12", the target suffers 1 mortal wound; if the distance is more than 12" and up to 24" it suffers 2 mortal wounds instead; if the distance is more than 24" and up to 36" it suffers 3 mortal wounds instead; if the distance is more than 36" it suffers 4 mortal wounds instead.`,
         when: [HERO_PHASE],
       },

@@ -1,5 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
@@ -10,6 +11,7 @@ import {
   TURN_ONE_HERO_PHASE,
 } from 'types/phases'
 import IronjawzCommandAbilities from './command_abilities'
+import IronjawzUnits from './units'
 
 const IronjawzBattalions = {
   Ardfist: {
@@ -17,6 +19,19 @@ const IronjawzBattalions = {
       command_abilities: [keyPicker(IronjawzCommandAbilities, ['Drawn to the Waaagh!'])],
     },
     effects: [],
+  },
+  Brawl: {
+    mandatory: {
+      command_abilities: [keyPicker(IronjawzCommandAbilities, ['Ironjawz Waaaagh!'])],
+      units: [keyPicker(IronjawzUnits, ['Orruk Megaboss', 'Orruk Warchanter', 'Orruk Weirdnob Shaman'])],
+    },
+    effects: [
+      {
+        name: `Boss Waaagh!`,
+        desc: `Once per battle, if your general is from this battalion and is on the battlefield, another ORRUK HERO from this battalion can use the Ironjawz Waaagh! command ability. This does not stop the general from using the Ironjawz Waaagh! command ability, but you cannot use the command ability more than once in the same combat phase.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
   },
   BruteFist: {
     effects: [
@@ -94,6 +109,15 @@ const IronjawzBattalions = {
         name: `Battlescarred Veterans`,
         desc: `Add 1 to the Attacks characteristic of melee weapons used by models in this battalion (including those used by their mounts).`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  "Moggorz's Rekrootin' Krew": {
+    effects: [
+      {
+        name: `Out To Impress`,
+        desc: `The Ironsunz Kunnin’ ability does not apply to Aspirant units from this battalion. Instead, do not take battleshock tests for Aspirant units from this battalion while they are wholly within 18" of Moggorz or Da Rekrootin’ Krew.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },

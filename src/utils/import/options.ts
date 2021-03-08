@@ -2,6 +2,7 @@ import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { NurgleFaction } from 'factions/nurgle'
 import { OrrukWarclansFaction } from 'factions/orruk_warclans'
 import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
+import { StormcastFaction } from 'factions/stormcast_eternals'
 import {
   BEASTS_OF_CHAOS,
   CHAOS_GRAND_ALLIANCE,
@@ -47,6 +48,7 @@ import { AZYR, BATTLESCRIBE, TImportParsers, UNKNOWN, WARSCROLL_BUILDER } from '
 // Add common typos here
 // Warscroll Builder on the left - AoS Reminders on the right
 const warscrollTypoMap: Record<string, string> = {
+  'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
   'Anointed of Asuryan on Flamespyre Phoenix': 'Anointed on Flamespyre Phoenix',
   'Anointed of Asuryan on Frostheart Phoenix': 'Anointed on Frostheart Phoenix',
   'Arch Sorcerer': 'Arch-Sorcerer',
@@ -59,6 +61,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Blue Horrors of Tzeentch': 'Horrors of Tzeentch',
   'Bound The Burning Head': 'Bound Burning Head',
   'Bracers of Ember-iron': 'Bracers of Ember Iron',
+  'Brain-busta': 'Brain-bursta',
   'Brand of the Spirit Daemon': 'Brand of the Split Daemon',
   'Brimstone Horrors of Tzeentch': 'Horrors of Tzeentch',
   'Brute Fist': 'BruteFist',
@@ -67,6 +70,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Dabbling in Sorcery': 'Dabblings in Sorcery (Anvilgard Battle Trait)',
   'Dark Wizardy': 'Dark Wizardry (Royalty)',
   'Devoted Desciples': 'Devoted Disciples',
+  'Dhom-Hain': 'Dhom Hain',
   'Eternal Conflaguration': 'Eternal Conflagration',
   'Ethereal Blessing': 'Etheral Blessings',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
@@ -105,8 +109,8 @@ const warscrollTypoMap: Record<string, string> = {
   'Morathi, The Shadow Queen': 'The Shadow Queen',
   'Orruk Gore Gruntas': 'Orruk Gore-gruntas',
   'Pink Horrors of Tzeentch': 'Horrors of Tzeentch',
-  Salamanders: 'Salamander Hunting Pack',
   'Secret Eater': 'Secret-eater',
+  'Sheperd of Idiotic Destruction': 'Shepard of Idiotic Destruction',
   'Slaves to Darkness Chaos Spawn': 'Chaos Spawn',
   'Slaves to Darkness Daemon Prince': 'Daemon Prince',
   'Spider Rider Skittermob': 'Spider Rider Skitterswarm',
@@ -126,19 +130,20 @@ const warscrollTypoMap: Record<string, string> = {
   'Warstomper Mega-Gargant': 'Warstomper',
   'Windshief Charm': 'Windthief Charm',
   "Anraheir's Claw": "Anraheirs's Claw",
+  "Dakkbad's Brawl": 'Brawl',
   "Mastro Vivetti's Maginificent Macroscope": "Mastro Vivetti's Magnificent Macroscope",
   Ogors: 'Ogor Gluttons',
   Razordons: 'Razordon Hunting Pack',
+  Salamanders: 'Salamander Hunting Pack',
 }
 
 // Azyr on the left - AoS Reminders on the right
 const azyrTypoMap: Record<string, string> = {
   'Aether quartz Brooch': 'Aetherquartz Brooch',
-  'Arcane Corrasion': 'Arcane Corrosion',
   'Blade of Symmetr y': 'Blade of Symmetry',
   'Bursting with Power': "Burstin' with Power",
   'Chaos Gorebeast Chariots': 'Gorebeast Chariots',
-  'DHOM-HAIN': 'Dhom Hain (Enclave)',
+  'DHOM-HAIN': 'Dhom Hain',
   'Druid of the Everspring Circle': 'Druid of the Everspring',
   'Greywater Artillery Battery': 'Greywater Artillery Company',
   'Gryph-f eather Charm': 'Gryph-feather Charm',
@@ -198,7 +203,6 @@ const battlescribeTypoMap: Record<string, string> = {
   'Prosecutor with Celestial Hammers': 'Prosecutors with Celestial Hammers',
   'Prosecutor with Stormcall Javelins': 'Prosecutors with Stormcall Javelins',
   'Reiknor the Grimhailer': 'Reikenor the Grimhailer',
-  Salamanders: 'Salamander Hunting Pack',
   'Savage Orruks Arrowboys': 'Savage Orruk Arrowboys',
   'Shasdow Warrior': 'Shadow Warriors',
   'Skink Handler': 'Razordon Hunting Pack',
@@ -228,6 +232,7 @@ const battlescribeTypoMap: Record<string, string> = {
   Kroxigors: 'Kroxigor',
   Protector: 'Protectors',
   Razordons: 'Razordon Hunting Pack',
+  Salamanders: 'Salamander Hunting Pack',
   Voxaxe: 'Vosaxe',
 }
 
@@ -340,6 +345,10 @@ export const importFactionNameMap: Record<
   string,
   { factionName: TSupportedFaction; subFactionName?: string }
 > = {
+  'Anvils of the Heldenhammer (Stormhost)': {
+    factionName: STORMCAST_ETERNALS,
+    subFactionName: StormcastFaction.subFactionKeyMap['Living Tempest'],
+  },
   'Beastclaw Raiders': { factionName: OGOR_MAWTRIBES },
   'Beasts of Chaos': { factionName: BEASTS_OF_CHAOS },
   'Big Waaagh!': {

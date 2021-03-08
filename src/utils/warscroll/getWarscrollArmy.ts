@@ -187,12 +187,20 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
         // Handle cases where two command traits are in the same entry
         if (txt.startsWith('- Command Trait : ') && txt.replace('- Command Trait : ', '').match(':')) {
-          // e.g. "- Command Trait : Killer Reputation: Fateseeker"
-          const traits = txt
+          const traits = txt // e.g. "- Command Trait : Killer Reputation: Fateseeker"
             .replace('- Command Trait : ', '')
             .split(':')
+            .map(x => x.trim()) // results in ['Killer Reputation', 'Fateseeker']
+          accum.command_traits = accum.command_traits.concat(...traits)
+          return accum
+        }
+
+        // Same as above (could probably be refactored)
+        if (txt.startsWith('- Command Trait: ') && txt.replace('- Command Trait: ', '').match(':')) {
+          const traits = txt
+            .replace('- Command Trait: ', '')
+            .split(':')
             .map(x => x.trim())
-          // results in ['Killer Reputation', 'Fateseeker']
           accum.command_traits = accum.command_traits.concat(...traits)
           return accum
         }
@@ -203,6 +211,14 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           const secondTrait = txt.replace('- Command Trait: Extremely Bitter - ', '').trim()
           if (secondTrait) traits.push(secondTrait)
           accum.command_traits = accum.command_traits.concat(...traits)
+          return accum
+        }
+
+        // Handles Very Acquisitive command traits/artifacts
+        if (txt.startsWith('- Command Trait: Very Acquisitive - ')) {
+          accum.command_traits.push('Very Acquisitive (Taker Tribe)')
+          const artifact = txt.replace('- Command Trait: Very Acquisitive - ', '').trim()
+          if (artifact) accum.artifacts.push(artifact)
           return accum
         }
 
