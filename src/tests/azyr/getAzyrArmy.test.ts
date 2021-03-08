@@ -41,6 +41,184 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getAzyrArmyFromPdf', () => {
+  it('should correctly read 1605202169324-Azyr', () => {
+    const fileTxt = getFile('1605202169324-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([
+      {
+        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
+        severity: 'deprecation-warn',
+        text: 'Greenglade Flask',
+      },
+      {
+        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
+        severity: 'deprecation-warn',
+        text: 'Wand of Restoration',
+      },
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
+      },
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Evocators'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
+  it('should correctly read 1607146040635-Azyr', () => {
+    const fileTxt = getFile('1607146040635-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([
+      {
+        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
+        severity: 'deprecation-warn',
+        text: 'Ethereal Amulet',
+      },
+    ])
+  })
+
+  it.skip('should correctly read 1609264723788-Azyr', () => {
+    const fileTxt = getFile('1609264723788-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    // The Vortex Beast in AoSR doesn't have "of Tzeentch"
+    expect(res.selections.units).toContain('Mutalith Vortex Beast')
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1609674285585-Azyr', () => {
+    const fileTxt = getFile('1609674285585-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Dragon Warriors',
+      },
+    ])
+  })
+
+  it.skip('should correctly read 1610818091807-Azyr', () => {
+    const fileTxt = getFile('1610818091807-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    // This is listed as a Battle Trait in Azyr, but it's an artifact in AoSR
+    expect(res.errors).toEqual([
+      // {
+      //   severity: 'warn',
+      //   text: "Skiffer's Salve",
+      // },
+    ])
+  })
+
+  it.skip('should correctly read 1610913689394-Azyr', () => {
+    const fileTxt = getFile('1610913689394-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    // This is listed as a Battle Trait in Azyr, but it's an artifact in AoSR
+    expect(res.errors).toEqual([
+      // {
+      //   severity: 'warn',
+      //   text: 'Synesthalcum',
+      // },
+    ])
+  })
+
+  it('should correctly read 1612002378427-Azyr', () => {
+    const fileTxt = getFile('1612002378427-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([
+      {
+        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
+        severity: 'deprecation-warn',
+        text: 'Magmaforged Blade',
+      },
+    ])
+  })
+
+  it('should correctly read 1612043258621-Azyr', () => {
+    const fileTxt = getFile('1612043258621-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.spells).toContain('Arcane Corrosion')
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1612638799836-Azyr', () => {
+    const fileTxt = getFile('1612638799836-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    // This is listed as a Battle Trait in Azyr, but it's an artifact in AoSR
+    expect(res.errors).toEqual([
+      // {
+      //   severity: 'warn',
+      //   text: 'Witch-mist',
+      // },
+    ])
+  })
+
+  it.skip('should correctly read 1612648168665-Azyr', () => {
+    const fileTxt = getFile('1612648168665-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    // These are command traits in AoSR, but Azyr lists them as Mount Traits
+    expect(res.errors).toEqual([
+      // {
+      //   severity: 'warn',
+      //   text: 'Acidic Blood',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Jutting Bones',
+      // },
+    ])
+  })
+
+  it('should correctly read 1612839793461-Azyr', () => {
+    const fileTxt = getFile('1612839793461-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([
+      {
+        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
+        severity: 'deprecation-warn',
+        text: 'Sepulchral Plate',
+      },
+    ])
+  })
+
+  it('should correctly read 1612918861529-Azyr', () => {
+    const fileTxt = getFile('1612918861529-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([
+      {
+        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
+        severity: 'deprecation-warn',
+        text: 'Hydroxskin Cloak',
+      },
+    ])
+  })
+
+  it('should correctly read 1613405722187-Azyr', () => {
+    const fileTxt = getFile('1613405722187-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([
+      {
+        severity: 'ambiguity-warn',
+        text:
+          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+      },
+    ])
+  })
+
   // TODO: Add Dimensional Blade
   // https://github.com/daviseford/aos-reminders/issues/1055
   it.skip('should correctly read 1602264690883-Azyr', () => {
@@ -769,6 +947,14 @@ describe('getAzyrArmyFromPdf', () => {
         reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
+        severity: 'warn',
+        text: 'Thrill-seeker',
+      },
+      {
+        severity: 'warn',
+        text: 'Song of Secrets',
+      },
+      {
         severity: 'ambiguity-warn',
         text:
           "Azyr lists more than one unit as 'Bladebringer'. Please check that we have imported the correct one.",
@@ -944,6 +1130,14 @@ describe('getAzyrArmyFromPdf', () => {
         severity: 'deprecation-warn',
         text: 'Thermalrider Cloak',
         reason: DEPRECATED_MALIGN_SORCERY,
+      },
+      {
+        severity: 'warn',
+        text: 'Thrill-seek er',
+      },
+      {
+        severity: 'warn',
+        text: 'Song of Secr ets',
       },
       {
         severity: 'ambiguity-warn',
@@ -1543,11 +1737,11 @@ describe('getAzyrArmyFromPdf', () => {
       flavors: ['The Kraith'],
       artifacts: ['Crimson Shard', 'Venom of Nagendra'],
       battalions: [],
-      command_abilities: ['Worship Through Bloodshed'],
+      command_abilities: ['Inspired by Carnage', 'Worship Through Bloodshed'],
       endless_spells: [],
       scenery: [],
       spells: ['Mindrazor', 'Black Horror of Ulgu'],
-      command_traits: [],
+      command_traits: ['Bathe in Their Blood'],
       triumphs: [],
       units: ['Hag Queen on Cauldron of Blood', 'Morathi-Khaine', 'Sisters of Slaughter', 'The Shadow Queen'],
     })
@@ -1855,7 +2049,7 @@ describe('getAzyrArmyFromPdf', () => {
         'Cacophonic Choir',
         'Overwhelming Acquiescence',
       ],
-      command_traits: ['True Child of Slaanesh', 'Monarch of Lies'],
+      command_traits: ['Monarch of Lies'],
       triumphs: [],
       units: [
         'Keeper of Secrets w/ Living Whip',

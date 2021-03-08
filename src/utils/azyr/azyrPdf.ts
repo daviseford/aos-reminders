@@ -189,7 +189,7 @@ const handleTitle = (text: string): string[] => {
     .replace(/([\w]) &&/g, `$1${commaAlt}`) // Remove leading whitespace in front of existing commas
     .replace(/Mercenary Company: {1,3}([\w-' ]+)(HEADER|Extra Command|(?:$))/g, mercenaryReplacer)
     .replace(/Mercenary Company:/g, 'MERCENARY COMPANY:') // Needed for Sons of Behemat for some reason
-    .replace(/Extra Command [\w]+ Purchased \(.+\)/g, '') // Get rid of command point info
+    .replace(/Extr.+ Command .+chased \(.+\)/g, '') // Get rid of command point info ("Extra Command Point Purchased")
     .replace(/(\w) +Kharadron Code: /g, `$1${sep}Kharadron Code: `)
 
   const secondTitlePass = firstTitlePass
@@ -361,6 +361,7 @@ const commonTypos = {
   'Pur chased': 'Purchased',
   'Realm-lor ds': 'Realm-lords',
   'Sacr ament': 'Sacrament',
+  'Sepulchr al Plate': 'Sepulchral Plate',
   'Shar d': 'Shard',
   'Sk ewer': 'Skewer',
   'Skr yre': 'Skryre',
@@ -381,6 +382,9 @@ const commonTypos = {
   'Wick ed': 'Wicked',
   'Wor d': 'Word',
   "A'rgath, the King of Blades": 'Argath the King of Blades',
+  "Coalbear d's Collapsible Compar tments": "Coalbeard's Collapsible Compartments",
+  "Don 't Ar gue With The Wind": "Don't Ar gue With The Wind",
+  "Ther e's Alwa ys a Br eez e If Y ou Look F or It": "There's Always a Breeze If You Look For It",
   "Wher e Ther e's W ar, Ther e's Gold": "Where There's War, There's Gold",
   "Zonbarcorp'Debtsettler' Spar Torpedo": "Zonbarcorp 'Debtsettler' Spar Torpedo",
   FUETHÁN: 'FUETHAN',
