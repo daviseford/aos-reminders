@@ -90,21 +90,21 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1610444042739-Warscroll_Builder', () => {
+  it.skip('should correctly read 1610444042739-Warscroll_Builder', () => {
     const parsedText = getFile('1610444042739-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.battalions).toContain('Eternal Starhost')
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1610462880937-Warscroll_Builder', () => {
+  it.skip('should correctly read 1610462880937-Warscroll_Builder', () => {
     const parsedText = getFile('1610462880937-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Crypt Flayers')
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1610573654069-Warscroll_Builder', () => {
+  it.skip('should correctly read 1610573654069-Warscroll_Builder', () => {
     const parsedText = getFile('1610573654069-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([
@@ -161,7 +161,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1611357604340-Warscroll_Builder', () => {
+  it.skip('should correctly read 1611357604340-Warscroll_Builder', () => {
     const parsedText = getFile('1611357604340-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.artifacts).toContain('Helm of the Oppressor')
@@ -174,14 +174,14 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1611504169641-Warscroll_Builder', () => {
+  it.skip('should correctly read 1611504169641-Warscroll_Builder', () => {
     const parsedText = getFile('1611504169641-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.spells).toContain('Pit of Shades')
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1611878116918-Warscroll_Builder', () => {
+  it.skip('should correctly read 1611878116918-Warscroll_Builder', () => {
     const parsedText = getFile('1611878116918-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.flavors).toContain('Anvils of the Heldenhammer (Stormhost)')
@@ -193,14 +193,14 @@ describe('getWarscrollArmyFromJson', () => {
     ])
   })
 
-  it('should correctly read 1611923664785-Warscroll_Builder', () => {
+  it.skip('should correctly read 1611923664785-Warscroll_Builder', () => {
     const parsedText = getFile('1611923664785-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.prayers).toContain('Catechism of Murder')
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1612060591166-Warscroll_Builder', () => {
+  it.skip('should correctly read 1612060591166-Warscroll_Builder', () => {
     const parsedText = getFile('1612060591166-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.battalions).toContain('Firelance Starhost')
@@ -224,7 +224,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1612732479281-Warscroll_Builder', () => {
+  it.skip('should correctly read 1612732479281-Warscroll_Builder', () => {
     const parsedText = getFile('1612732479281-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.battalions).toContain("Gresh's Iron Reapers")

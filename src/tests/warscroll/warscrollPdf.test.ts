@@ -179,13 +179,14 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
     expect(res.selections.flavors).toEqual(['Taker Tribe'])
-    expect(res.selections.units).toEqual(['Gatebreaker', 'Kraken-Eater', 'Warstomper', 'Mancrusher Gargants'])
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Bonegrinder Mega-Gargant',
-      },
+    expect(res.selections.units).toEqual([
+      'Gatebreaker',
+      'Kraken-Eater',
+      'Warstomper',
+      'Mancrusher Gargants',
+      'Bonegrinder Mega-Gargant',
     ])
+    expect(res.errors).toEqual([])
   })
 
   it('should correctly read Warscroll_Builder_Order_Legacy', () => {

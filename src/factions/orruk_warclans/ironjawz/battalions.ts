@@ -116,7 +116,7 @@ const IronjawzBattalions = {
     effects: [
       {
         name: `Out To Impress`,
-        desc: `The Ironsunz Kunnin’ ability does not apply to Aspirant units from this battalion. Instead, do not take battleshock tests for Aspirant units from this battalion while they are wholly within 18" of Moggorz or Da Rekrootin’ Krew.`,
+        desc: `The Ironsunz Kunnin' ability does not apply to Aspirant units from this battalion. Instead, do not take battleshock tests for Aspirant units from this battalion while they are wholly within 18" of Moggorz or Da Rekrootin' Krew.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],

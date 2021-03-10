@@ -42,12 +42,12 @@ const Units = {
     effects: [
       {
         name: `Thunderous Stomp`,
-        desc: `You can re-roll hit rolls of 1 for Thunderous Stomp attacks unless the target is a MONSTER.`,
+        desc: `You can reroll hit rolls of 1 for Thunderous Stomp attacks unless the target is a MONSTER.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `I'll Bite Your Head Off!`,
-        desc: `After this model piles in, you can pick 1 enemy model that is within 3" of this model, and roll a dice. If the roll is greater than that enemy model’s Wounds characteristic, that enemy model is slain.`,
+        desc: `After this model piles in, you can pick 1 enemy model that is within 3" of this model, and roll a dice. If the roll is greater than that enemy model's Wounds characteristic, that enemy model is slain.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -57,7 +57,7 @@ const Units = {
       },
       {
         name: `Terror`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units if they are within 3" of any friendly units with this ability`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units if they are within 3" of any friendly units with this ability.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
