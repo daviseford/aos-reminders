@@ -1,6 +1,5 @@
 import { tagAs } from 'factions/metatagger'
 import rule_sources from 'meta/rule_sources'
-import { BATTLETOME_SONS_OF_BEHEMAT, BATTLETOME_SONS_OF_BEHEMAT_NOV_2020 } from 'meta/sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
