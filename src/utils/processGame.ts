@@ -37,6 +37,7 @@ const addProps = (entry: TEntry) => {
       condition: [entry.name],
       name: effect.name,
       desc: effect.desc,
+      rule_sources: effect.rule_sources,
       when,
     }
 
