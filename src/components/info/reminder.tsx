@@ -9,7 +9,6 @@ import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { selectors, visibilityActions } from 'ducks'
 import { isEqual, sortBy } from 'lodash'
-import { getFactionFromList } from 'meta/faction_list'
 import { TRuleSource } from 'meta/rule_sources'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
@@ -28,12 +27,13 @@ const { addReminder: hideReminder, deleteReminder: showReminder, addWhen: showWh
 
 interface IReminderProps {
   actions: TTurnAction[]
+  factionRuleSource?: TRuleSource
   isMobile: boolean
   when: TTurnWhen
 }
 
 export const Reminder: React.FC<IReminderProps> = props => {
-  const { actions, isMobile, when } = props
+  const { actions, isMobile, when, factionRuleSource } = props
   const { loadedArmy, setHasOrderChanges } = useSavedArmies()
   const dispatch = useDispatch()
   const { theme } = useTheme()
@@ -123,6 +123,7 @@ export const Reminder: React.FC<IReminderProps> = props => {
                           <ActionText
                             {...action}
                             isVisible={!isHidden}
+                            factionRuleSource={factionRuleSource}
                             key={action.id}
                             draggableProps={provided}
                           />
@@ -144,12 +145,13 @@ export const Reminder: React.FC<IReminderProps> = props => {
 
 interface IActionTextProps extends TTurnAction {
   actionTitle?: string
-  isVisible: boolean
   draggableProps: DraggableProvided
+  factionRuleSource?: TRuleSource
+  isVisible: boolean
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { isVisible, desc, draggableProps, id, rule_sources: action_rule_sources } = props
+  const { isVisible, desc, draggableProps, id, rule_sources: actionRuleSources, factionRuleSource } = props
   const dispatch = useDispatch()
   const { isSubscribed } = useSubscription()
   const { isGameMode } = useAppStatus()
@@ -157,10 +159,11 @@ const ActionText = (props: IActionTextProps) => {
 
   const noteProps = useNote(id)
 
-  const currentArmy = useSelector(selectors.selectCurrentArmy)
-  const faction = getFactionFromList(currentArmy.factionName)
-  const { rule_source: faction_rule_source } = faction
-  const rule_sources = action_rule_sources ? action_rule_sources : ([faction_rule_source] as TRuleSource[])
+  const ruleSources = actionRuleSources?.length
+    ? actionRuleSources
+    : factionRuleSource
+    ? [factionRuleSource]
+    : []
 
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
@@ -195,12 +198,11 @@ const ActionText = (props: IActionTextProps) => {
                     setVisibility={handleVisibility}
                   />
                   {isVisible && <NoteMenu {...noteProps} />}
-                  {rule_sources &&
-                    rule_sources.map(rule_source => (
-                      <Dropdown.Item disabled={true} key={rule_source.name}>
-                        {rule_source.name}
-                      </Dropdown.Item>
-                    ))}
+                  {ruleSources.map(rule_source => (
+                    <Dropdown.Item disabled={true} key={rule_source.name}>
+                      {rule_source.name}
+                    </Dropdown.Item>
+                  ))}
                 </Dropdown.Menu>
               </Dropdown>
             )}

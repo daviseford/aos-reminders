@@ -1,18 +1,14 @@
 import deepmerge from 'deepmerge'
-import { TInitialArmy, TSubfactionArmy } from 'types/army'
+import { TSubfactionArmy } from 'types/army'
 import { TEntry } from 'types/data'
 import { IItemDescription, TItemDescriptions, TItemKey, TParentEffectsObjWithEffects } from './factionTypes'
 
-type TAdapter = (subFaction: IItemDescription, subFactionName: string, FlavorType?: string) => TInitialArmy
+type TAdapter = (subFaction: IItemDescription, subFactionName: string, FlavorType?: string) => TSubfactionArmy
 
 /**
  * To see how a new data-structure army might feel in the UI as-is
  */
-export const temporaryAdapter: TAdapter = (
-  subFaction,
-  subFactionName,
-  FlavorType = 'Flavors'
-): TSubfactionArmy => {
+export const temporaryAdapter: TAdapter = (subFaction, subFactionName, FlavorType = 'Flavors') => {
   const army: TSubfactionArmy = {
     AlliedUnits: mergeData(subFaction, 'allied_units'),
     Artifacts: mergeData(subFaction, 'artifacts'),

@@ -2,6 +2,7 @@ import { Reminder } from 'components/info/reminder'
 import { useAppStatus } from 'context/useAppStatus'
 import { selectors, visibilityActions } from 'ducks'
 import { without } from 'lodash'
+import { getFactionFromList } from 'meta/faction_list'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TTurnWhen } from 'types/phases'
@@ -17,6 +18,7 @@ const Reminders = () => {
   const dispatch = useDispatch()
 
   const currentArmy = useSelector(selectors.selectCurrentArmy)
+  const faction = getFactionFromList(currentArmy.factionName)
   const hiddenReminders = useSelector(selectors.selectReminders)
   const visibleWhens = useSelector(selectors.selectWhen)
 
@@ -55,7 +57,15 @@ const Reminders = () => {
     <div className={`row mx-auto ${isGameMode ? `mt-0` : `mt-3`} d-flex justify-content-center`}>
       <div className="col col-sm-11 col-md-10 col-lg-10 col-xl-8 ReminderContainer">
         {whens.map(when => {
-          return <Reminder isMobile={isMobile} when={when} actions={reminders[when]} key={when} />
+          return (
+            <Reminder
+              isMobile={isMobile}
+              when={when}
+              actions={reminders[when]}
+              key={when}
+              factionRuleSource={faction.rule_source}
+            />
+          )
         })}
       </div>
     </div>

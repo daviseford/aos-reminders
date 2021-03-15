@@ -1,7 +1,7 @@
 import { TGrandAlliances } from 'meta/alliances'
 import { TSupportedFaction } from 'meta/factions'
 import { TRuleSource } from 'meta/rule_sources'
-import { TInitialArmy, TSubfactionArmy } from 'types/army'
+import { TSubfactionArmy } from 'types/army'
 import { TItemDescriptions } from './factionTypes'
 import { getAggregateArmy, temporaryAdapter } from './temporaryAdapter'
 
@@ -18,7 +18,7 @@ export class Faction<
   public readonly AggregateArmy: TSubfactionArmy
   public readonly subFactionKeys: K[]
   public readonly subFactionKeyMap: Record<K, K>
-  public readonly subFactionArmies: Record<K, TInitialArmy>
+  public readonly subFactionArmies: Record<K, TSubfactionArmy>
 
   constructor(
     public readonly factionName: F,
@@ -40,6 +40,14 @@ export class Faction<
     this.subFactionArmies = this.subFactionKeys.reduce((a, subFactionName) => {
       a[subFactionName] = temporaryAdapter(this.SubFactions[subFactionName], subFactionName, this.flavorLabel)
       return a
-    }, {} as Record<K, TInitialArmy>)
+    }, {} as Record<K, TSubfactionArmy>)
   }
 }
+
+export type TGenericFaction = Faction<
+  TSupportedFaction,
+  TGrandAlliances,
+  TItemDescriptions,
+  string,
+  TRuleSource
+>
