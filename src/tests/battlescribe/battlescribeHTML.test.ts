@@ -39,6 +39,371 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it.skip('should correctly read 1604504461219-Battlescribe', () => {
+    const parsedText = getFile('1604504461219-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1605658437121-Battlescribe', () => {
+    const parsedText = getFile('1605658437121-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1606053578073-Battlescribe', () => {
+    const parsedText = getFile('1606053578073-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1606053824134-Battlescribe', () => {
+    const parsedText = getFile('1606053824134-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1606162510326-Battlescribe', () => {
+    const parsedText = getFile('1606162510326-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1606245319009-Battlescribe', () => {
+    const parsedText = getFile('1606245319009-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1606590754107-Battlescribe', () => {
+    const parsedText = getFile('1606590754107-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1606786423004-Battlescribe', () => {
+    const parsedText = getFile('1606786423004-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1607614691714-Battlescribe', () => {
+    const parsedText = getFile('1607614691714-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1607684997234-Battlescribe', () => {
+    const parsedText = getFile('1607684997234-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1608554610132-Battlescribe', () => {
+    const parsedText = getFile('1608554610132-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1608995870147-Battlescribe', () => {
+    const parsedText = getFile('1608995870147-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1609268801129-Battlescribe', () => {
+    const parsedText = getFile('1609268801129-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1609276189809-Battlescribe', () => {
+    const parsedText = getFile('1609276189809-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1609276365473-Battlescribe', () => {
+    const parsedText = getFile('1609276365473-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1609324143459-Battlescribe', () => {
+    const parsedText = getFile('1609324143459-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1609363810392-Battlescribe', () => {
+    const parsedText = getFile('1609363810392-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1609463875327-Battlescribe', () => {
+    const parsedText = getFile('1609463875327-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1609669628289-Battlescribe', () => {
+    const parsedText = getFile('1609669628289-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1609816232834-Battlescribe', () => {
+    const parsedText = getFile('1609816232834-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1610170896164-Battlescribe', () => {
+    const parsedText = getFile('1610170896164-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1610503174407-Battlescribe', () => {
+    const parsedText = getFile('1610503174407-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1610595048084-Battlescribe', () => {
+    const parsedText = getFile('1610595048084-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1611824482058-Battlescribe', () => {
+    const parsedText = getFile('1611824482058-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1611919858764-Battlescribe', () => {
+    const parsedText = getFile('1611919858764-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1611923040850-Battlescribe', () => {
+    const parsedText = getFile('1611923040850-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1612221476202-Battlescribe', () => {
+    const parsedText = getFile('1612221476202-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1612580630224-Battlescribe', () => {
+    const parsedText = getFile('1612580630224-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1612697173306-Battlescribe', () => {
+    const parsedText = getFile('1612697173306-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1612712745032-Battlescribe', () => {
+    const parsedText = getFile('1612712745032-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1613257599607-Battlescribe', () => {
+    const parsedText = getFile('1613257599607-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1613262474399-Battlescribe', () => {
+    const parsedText = getFile('1613262474399-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1613410403603-Battlescribe', () => {
+    const parsedText = getFile('1613410403603-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1613486734746-Battlescribe', () => {
+    const parsedText = getFile('1613486734746-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1613744797236-Battlescribe', () => {
+    const parsedText = getFile('1613744797236-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1613760050310-Battlescribe', () => {
+    const parsedText = getFile('1613760050310-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1613761755133-Battlescribe', () => {
+    const parsedText = getFile('1613761755133-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1613883232866-Battlescribe', () => {
+    const parsedText = getFile('1613883232866-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1614143037953-Battlescribe', () => {
+    const parsedText = getFile('1614143037953-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      // +   Object {
+      //   +     "severity": "warn",
+      //   +     "text": "Ebullient Buoyancy Aids",
+      //   +   },
+    ])
+  })
+
+  it.skip('should correctly read 1614245794068-Battlescribe', () => {
+    const parsedText = getFile('1614245794068-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      // +   Object {
+      //   +     "severity": "warn",
+      //   +     "text": "Disease-disease!",
+      //   +   },
+      //   +   Object {
+      //   +     "severity": "warn",
+      //   +     "text": "Pestilence-pestilence!",
+      //   +   },
+      //   +   Object {
+      //   +     "severity": "warn",
+      //   +     "text": "Filth-filth!",
+      //   +   },
+      //   +   Object {
+      //   +     "severity": "warn",
+      //   +     "text": "Rabid-rabid!",
+      //   +   },
+    ])
+  })
+
+  it.skip('should correctly read 1614310802982-Battlescribe', () => {
+    const parsedText = getFile('1614310802982-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      // +   Object {
+      //   +     "severity": "warn",
+      //   +     "text": "Glogg's Megamob, Light of the Bad Moon",
+      //   +   },
+    ])
+  })
+
+  it.skip('should correctly read 1614312036903-Battlescribe', () => {
+    const parsedText = getFile('1614312036903-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      // +   Object {
+      //   +     "severity": "warn",
+      //   +     "text": "Spirit Storm",
+      //   +   },
+    ])
+  })
+
+  it.skip('should correctly read 1614345568308-Battlescribe', () => {
+    const parsedText = getFile('1614345568308-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      // +   Object {
+      //   +     "severity": "warn",
+      //   +     "text": "Beguile",
+      //   +   },
+    ])
+  })
+
+  it.skip('should correctly read 1614369787179-Battlescribe', () => {
+    const parsedText = getFile('1614369787179-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      // {
+      //   +     "severity": "warn",
+      //   +     "text": "Gatebreaker Mega-Gargant",
+      //   +   },
+      //   +   Object {
+      //   +     "severity": "warn",
+      //   +     "text": "Kraken-Eater Mega-Gargant",
+      //   +   },
+    ])
+  })
+
+  it.skip('should correctly read 1614385370306-Battlescribe', () => {
+    const parsedText = getFile('1614385370306-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+      // {
+      //   severity: 'warn',
+      //   text: 'Agloraxi Prism',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Whitefire Tome',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Hallowheart',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Roaming Wildfire',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Sear Wounds',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Crystal Aegis',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Elemental Cyclone',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Comet of Casandora',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Ignite Weapons',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Transmutation of Lead',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Warding Brand',
+      // },
+      // {
+      //   severity: 'warn',
+      //   text: 'Word of Pain',
+      // },
+    ])
+  })
+
   it('should not work with The Choir of Torments battalion (not in current book)', () => {
     const parsedText = getFile('1601345187171-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
