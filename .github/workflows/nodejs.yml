@@ -13,10 +13,11 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Lint, Test, and Build
+      - name: Run Tests
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'  
+          node-version: '12.x'
+      - name: Lint, Test, and Build
         run: |
           yarn install --frozen-lockfile
           yarn lint
