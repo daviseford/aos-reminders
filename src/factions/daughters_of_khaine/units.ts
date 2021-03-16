@@ -36,12 +36,12 @@ const PriestessOfKhaineEffect = {
 const WitchbrewEffects = [
   {
     name: `Witchbrew`,
-    desc: `You can pick a friendly Daughters of Khaine unit within 12" of this model to drink Witchbrew. Roll a D6, adding 1 for each of the following if active on this model: Headlong Fury, Zealot's Rage, Slaughterer's Strength. On a 5+ the target can reroll melee wound rolls and does not take battleshock tests until your next hero phase.`,
+    desc: `You can pick a friendly Daughters of Khaine unit wholly within 12" of this model to drink Witchbrew. Roll a D6, adding 1 for each of the following if active on this model: Headlong Fury, Zealot's Rage, Slaughterer's Strength. On a 5+ the target can reroll melee wound rolls and does not take battleshock tests until your next hero phase.`,
     when: [HERO_PHASE],
   },
   {
     name: `Witchbrew`,
-    desc: `If active, reroll failed wound rolls for that unit's melee weapons.`,
+    desc: `If active, re-roll wound rolls for attacks made with melee weapons by that unit until your next hero phase.`,
     when: [COMBAT_PHASE],
   },
   {
@@ -102,7 +102,7 @@ const BloodshieldEffect = {
 
 const BladedImpactEffect = {
   name: `Bladed Impact`,
-  desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+ that nearest enemy suffers D3 mortal wounds.`,
+  desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
   when: [CHARGE_PHASE],
 }
 
@@ -173,7 +173,7 @@ const baseAvatarOfKhaine = {
     },
     {
       name: `Idol of Worship`,
-      desc: `Add 1 to the bravery characteristic of friendly Daughters of Khaine units that are within 12" of any friendly Avatars of Khaine.`,
+      desc: `Add 1 to the bravery characteristic of friendly Daughters of Khaine units that are wholly within 12" of any friendly Avatars of Khaine.`,
       when: [DURING_GAME],
     },
   ],
@@ -266,7 +266,7 @@ const Units = {
     effects: [
       {
         name: `Hag`,
-        desc: `Add 1 to hit rolls for a Hag.`,
+        desc: `Add 1 to the attacks characteristic of that model’s melee weapons.`,
         when: [COMBAT_PHASE],
       },
       ...StandardBearerAndHornblowerEffects,
@@ -429,7 +429,7 @@ const Units = {
       HeartseekersEffect,
       {
         name: `Daughters of the First Temple`,
-        desc: `Roll a D6 each time a friendly Morgwaeth the Bloodied unit within 3" of this unit suffers a wound or mortal wound. On a 4+ this unit is allocated the wound instead.`,
+        desc: `Roll a D6 each time a friendly Morgwaeth the Bloodied unit within 3" of this unit suffers a wound or mortal wound. On a 2+ this unit is allocated the wound or mortal wound instead.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],

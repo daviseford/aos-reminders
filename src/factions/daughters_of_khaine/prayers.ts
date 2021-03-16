@@ -114,7 +114,7 @@ const Prayers = {
     effects: [
       {
         name: `Dance of Doom`,
-        desc: `If active, until your next hero phase and after its first attack, this model can be selected to fight a second time if it is within 3" of an enemy units.`,
+        desc: `If this prayer is answered, in the combat phase, after this model has fought in that phase for the first time, when it is your turn to pick a unit to fight, this model can be picked to fight for a second time if it is within 3" of any enemy units.`,
         when: [COMBAT_PHASE],
       },
     ],
