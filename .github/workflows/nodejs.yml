@@ -1,10 +1,13 @@
-name: Node CI
+name: Lint, Test, and Build
 
 on:
   push:
     branches: [ master ]
   pull_request:
     branches: [ master ]
+
+env:
+  CI: true
 
 jobs:
   build:
@@ -13,15 +16,15 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Run Tests
+      - name: Set up Node
         uses: actions/setup-node@v1
         with:
           node-version: '12.x'
-      - name: Lint, Test, and Build
-        run: |
-          yarn install --frozen-lockfile
-          yarn lint
-          yarn test
-          yarn build
-        env:
-          CI: true
+      - name: Install dependencies with yarn
+        run: yarn install --frozen-lockfile
+      - name: Lint with eslint
+        run: yarn lint
+      - name: Test with jest
+        run: yarn test
+      - name: Build with TypeScript
+        run: yarn build
