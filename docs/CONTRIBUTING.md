@@ -4,6 +4,8 @@
   - [Environment and Tools](#environment-and-tools)
     - [IDE](#ide)
     - [Recommended VSCode Plugins](#recommended-vscode-plugins)
+  - [Adding new rules](#adding-new-rules)
+    - [`rule_sources`](#rule_sources)
   - [Testing](#testing)
     - [Running Tests](#running-tests)
     - [Writing Tests](#writing-tests)
@@ -28,6 +30,35 @@ We recommend using [VSCode](https://code.visualstudio.com/). It's an excellent I
 + ESLint
 + Jest
 + Prettier
+
+## Adding new rules
+
+### `rule_sources`
+
+New in AoS Reminders v4.0.4, we are able to tag rules with their source.
+
+For example, we may tag Sons of Behemat rules as "Battletome: Sons of Behemat (2020)"
+
+But when a FAQ arrives in November 2020, for example, we may want to show that a certain rule was updated by that FAQ.
+
+In order to do that, we will add a `rule_sources` array to our rule.
+
+
+```tsx
+'Glowy Lantern (Taker Tribe)': {
+    effects: [
+      {
+        name: `Glowy Lantern (Taker Tribe)`,
+        desc: `The bearer is a WIZARD. They can attempt to cast 1 spell in your hero phase and unbind 1 spell in the enemy hero phase. The bearer knows the Arcane Bolt and Mystic Shield spells.`,
+        // The order matters here. Earliest source on the left, latest source to the right
+        rule_sources: [rule_sources.BATTLETOME_SONS_OF_BEHEMAT, rule_sources.ERRATA_SONS_OF_BEHEMAT_NOV_2020],
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+```
+
+If you declare `rule_sources` for an individual rule, you are responsible for reconstructing the full history of that rule - it will not inherit any data from the parent faction!
 
 ## Testing
 
