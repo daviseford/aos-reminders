@@ -16,9 +16,11 @@ jobs:
       - name: Lint, Test, and Build
         uses: actions/setup-node@v1
         with:
-          node-version: '12.x'
-      - name: Install dependencies
-        run: yarn install --frozen-lockfile
-        run: yarn lint
-        run: yarn test
-        run: yarn build
+          node-version: '12.x'  
+        run: |
+          yarn install --frozen-lockfile
+          yarn lint
+          yarn test
+          yarn build
+        env:
+          CI: true
