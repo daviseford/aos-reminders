@@ -80,6 +80,9 @@ const Units = {
     ],
   },
   'Volturnos, High King of the Deep': {
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Supreme Lord of Tides'])],
+    },
     effects: [
       {
         name: `The Astra Solus`,

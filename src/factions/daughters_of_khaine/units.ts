@@ -41,7 +41,7 @@ const WitchbrewEffects = [
   },
   {
     name: `Witchbrew`,
-    desc: `If active, re-roll wound rolls for attacks made with melee weapons by that unit until your next hero phase.`,
+    desc: `If active, reroll wound rolls for attacks made with melee weapons by that unit until your next hero phase.`,
     when: [COMBAT_PHASE],
   },
   {
@@ -266,7 +266,7 @@ const Units = {
     effects: [
       {
         name: `Hag`,
-        desc: `Add 1 to the attacks characteristic of that model’s melee weapons.`,
+        desc: `Add 1 to the attacks characteristic of that model's melee weapons.`,
         when: [COMBAT_PHASE],
       },
       ...StandardBearerAndHornblowerEffects,

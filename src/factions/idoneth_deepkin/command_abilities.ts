@@ -22,6 +22,16 @@ const CommandAbilities = {
       },
     ],
   },
+  // Volturnos
+  'Supreme Lord of Tides': {
+    effects: [
+      {
+        name: `Supreme Lord of Tides`,
+        desc: `You can use this command ability if Volturnus is your general and the High Tide ability from the Tides of Death table applies for the battle round. If you do so, pick up to 3 friendly IDONETH DEEPKIN units wholly within 18" of Volturnus. Add 1 to the Attacks characteristic of melee weapons used by those units until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(CommandAbilities, 'command_ability')
