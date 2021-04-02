@@ -1,6 +1,7 @@
 import { useTheme } from 'context/useTheme'
 import { sortBy } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
+import { getFactionFromList } from 'meta/faction_list'
 import React, { useMemo } from 'react'
 import { ICurrentArmy } from 'types/army'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
@@ -44,12 +45,16 @@ export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
     [allySelections]
   )
 
+  const { subFactionKeys } = getFactionFromList(factionName)
+
   return (
     <>
       <table className={`table table-sm`}>
         <tbody>
           <Tr theme={theme} items={[titleCase(factionName)]} title={'Faction'} />
-          {!!subFactionName && <Tr theme={theme} items={[subFactionName]} title={'SubFaction'} />}
+          {!!subFactionName && subFactionKeys.length > 1 && (
+            <Tr theme={theme} items={[subFactionName]} title={'SubFaction'} />
+          )}
           {armySelectionKeys.map((key, i) => {
             return (
               <Tr
