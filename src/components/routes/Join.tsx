@@ -1,22 +1,22 @@
-import React, { useEffect, lazy, Suspense, useState } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
+import { useAuth0 } from '@auth0/auth0-react'
 import { SubscriptionApi } from 'api/subscriptionApi'
-import { useSubscription } from 'context/useSubscription'
-import { useTheme } from 'context/useTheme'
-import { logPageView, logClick, logEvent } from 'utils/analytics'
-import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
+import AlreadySubscribed from 'components/helpers/alreadySubscribed'
+import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
 import { RedemptionError, RedemptionLogin, RedemptionSuccess } from 'components/page/redemption'
-import AlreadySubscribed from 'components/helpers/alreadySubscribed'
-import { IUser } from 'types/user'
+import { useSubscription } from 'context/useSubscription'
+import { useTheme } from 'context/useTheme'
+import React, { lazy, Suspense, useEffect, useState } from 'react'
+import { logEvent, logPageView } from 'utils/analytics'
+import useLogin from 'utils/hooks/useLogin'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
 /**
  * This Route is used for coupon code redemption
  */
-const Join: React.FC = () => {
-  const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
+const Join = () => {
+  const { isLoading, user } = useAuth0()
   const { getSubscription, isActive } = useSubscription()
   const { theme, isDark, setLightTheme } = useTheme()
 
@@ -31,7 +31,7 @@ const Join: React.FC = () => {
   }, [getSubscription])
 
   if (isDark) setLightTheme()
-  if (loading) return <LoadingBody />
+  if (isLoading) return <LoadingBody />
   if (isActive) return <AlreadySubscribed />
 
   return (
@@ -55,7 +55,7 @@ const Join: React.FC = () => {
 const Preamble = () => <p>Congratulations! We'll help you redeem your coupon code ASAP!</p>
 
 const RedeemSection = () => {
-  const { user }: { user: IUser } = useAuth0()
+  const { user } = useAuth0()
   const [couponId, setCouponId] = useState<string | null>(null)
   const [success, setSuccess] = useState(false)
   const [error, setError] = useState('')
@@ -63,12 +63,12 @@ const RedeemSection = () => {
   if (!couponId && success) return <RedemptionSuccess />
   if (!couponId && error) return <RedemptionError error={error} showButton={false} />
 
-  const handleChange = e => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = e.target.value
     setCouponId(val || null)
   }
 
-  const handleClickRedeem = async e => {
+  const handleClickRedeem = async (e: React.MouseEvent) => {
     try {
       e.preventDefault()
       if (!couponId) return
@@ -123,16 +123,10 @@ const RedeemSection = () => {
 }
 
 const Login = () => {
-  const { loginWithRedirect } = useAuth0()
-
-  const handleClick = e => {
-    e.preventDefault()
-    logClick('Login-Before-Coupon')
-    return loginWithRedirect({ redirect_uri: window.location.href })
-  }
+  const { login } = useLogin({ origin: 'Before-Coupon' })
 
   return (
-    <RedemptionLogin handleClick={handleClick}>
+    <RedemptionLogin handleClick={login}>
       <Preamble />
     </RedemptionLogin>
   )

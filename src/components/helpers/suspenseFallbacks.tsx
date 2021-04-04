@@ -1,12 +1,12 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
-import { FiWifiOff } from 'react-icons/fi'
+import Spinner from 'components/helpers/spinner'
+import GenericButton from 'components/input/generic_button'
+import NavbarWrapper from 'components/page/navbar_wrapper'
 import { useTheme } from 'context/useTheme'
+import React from 'react'
+import { FiWifiOff } from 'react-icons/fi'
+import { Link } from 'react-router-dom'
 import { navbarStyles } from 'theme/helperClasses'
 import { ROUTES } from 'utils/env'
-import GenericButton from 'components/input/generic_button'
-import Spinner from 'components/helpers/spinner'
-import NavbarWrapper from 'components/page/navbar_wrapper'
 
 export const LoadingBtn = ({ text = 'Loading' }) => (
   <GenericButton disabled type="button">
@@ -14,9 +14,7 @@ export const LoadingBtn = ({ text = 'Loading' }) => (
   </GenericButton>
 )
 
-export const OfflineBtn = (props: { text?: string }) => {
-  const { text = 'Offline' } = props
-
+export const OfflineBtn = ({ text = 'Offline' }) => {
   return (
     <GenericButton disabled type="button">
       <FiWifiOff className="mr-2 text-danger" /> {text}
@@ -38,7 +36,7 @@ export const LoadingHeader = () => {
   )
 }
 
-export const OfflineHeader: React.FC = () => {
+export const OfflineHeader = () => {
   const { pathname } = window.location
 
   return (

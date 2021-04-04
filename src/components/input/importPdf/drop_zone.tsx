@@ -1,15 +1,13 @@
+import Spinner from 'components/helpers/spinner'
+import { handleParseFile } from 'components/input/importPdf/parseFile'
+import { useAppStatus } from 'context/useAppStatus'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { useTheme } from 'context/useTheme'
 import React, { useCallback, useState } from 'react'
 import { useDropzone } from 'react-dropzone'
 import { FaRegCheckCircle } from 'react-icons/fa'
 import { MdErrorOutline } from 'react-icons/md'
-import { useAppStatus } from 'context/useAppStatus'
-import { useSavedArmies } from 'context/useSavedArmies'
-import { useTheme } from 'context/useTheme'
 import { centerContentClass } from 'theme/helperClasses'
-import { componentWithSize } from 'utils/mapSizesToProps'
-import { resetAnalyticsStore } from 'utils/analytics'
-import Spinner from 'components/helpers/spinner'
-import { handleParseFile } from 'components/input/importPdf/parseFile'
 import {
   AZYR,
   BATTLESCRIBE,
@@ -19,14 +17,15 @@ import {
   TImportParsers,
   WARSCROLL_BUILDER,
 } from 'types/import'
+import { resetAnalyticsStore } from 'utils/analytics'
+import useWindowSize from 'utils/hooks/useWindowSize'
 
 interface IDropzoneProps {
   handleDrop: (army: IImportedArmy) => void
-  isMobile: boolean
 }
 
-export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
-  const { handleDrop, isMobile } = props
+const ImportDropzone: React.FC<IDropzoneProps> = ({ handleDrop }) => {
+  const { isMobile } = useWindowSize()
   const { isOnline } = useAppStatus()
   const { setLoadedArmy } = useSavedArmies()
   const { theme } = useTheme()
@@ -65,6 +64,7 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
     return true
   }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onDrop = useCallback(
     handleParseFile({
       handleDrop,
@@ -104,7 +104,5 @@ export const ImportDropzoneComponent: React.FC<IDropzoneProps> = props => {
     </div>
   )
 }
-
-const ImportDropzone = componentWithSize(ImportDropzoneComponent)
 
 export default ImportDropzone

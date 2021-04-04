@@ -1,69 +1,34 @@
-import 'core-js/stable' // polyfills
+import 'core-js/stable' // organize-imports-ignore
+import 'css/animations.scss' // organize-imports-ignore
+import 'css/index.scss' // organize-imports-ignore
+import App from 'components/App'
+import { AppStatusProvider } from 'context/useAppStatus'
+import { SavedArmiesProvider } from 'context/useSavedArmies'
+import { SubscriptionProvider } from 'context/useSubscription'
+import { ThemeProvider } from 'context/useTheme'
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import { persistStore, persistReducer } from 'redux-persist'
 import { PersistGate } from 'redux-persist/integration/react'
-import storage from 'redux-persist/lib/storage'
-import { SavedArmiesProvider } from 'context/useSavedArmies'
-import { AppStatusProvider } from 'context/useAppStatus'
-import * as serviceWorker from './serviceWorker'
-import { army, factionNames, realmscape, selections, visibility } from 'ducks'
-import App from 'components/App'
-
-// Auth
-import { Auth0Provider } from './react-auth0-wrapper'
-import config from './auth_config.json'
-import { SubscriptionProvider } from 'context/useSubscription'
-
-// CSS
-import 'css/animations.scss'
-import 'css/index.scss'
-import { ThemeProvider } from 'context/useTheme'
 import { installNewWorker } from 'utils/installNewWorker'
+import config from './auth_config.json'
+import { Auth0Provider } from '@auth0/auth0-react'
+import { persistor, store } from 'store'
+import history from 'utils/history'
+import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
-// A function that routes the user to the right place
-// after login (Auth0)
-const onRedirectCallback = appState => {
-  window.history.replaceState(
-    {},
-    document.title,
-    appState && appState.targetUrl ? appState.targetUrl : window.location.pathname
-  )
+const onRedirectCallback = (appState: any) => {
+  // Use the router's history module to replace the url
+  history.replace(appState?.returnTo || window.location.pathname)
 }
-
-const persistConfig = {
-  key: 'root',
-  storage: storage,
-}
-
-const rootReducer = combineReducers({
-  army: army.reducer,
-  factionNames: factionNames.reducer,
-  realmscape: realmscape.reducer,
-  selections: selections.reducer,
-  visibility: visibility.reducer,
-})
-
-const pReducer = persistReducer(persistConfig, rootReducer)
-
-export const store = createStore(
-  pReducer,
-  //@ts-ignore
-  window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-)
-
-const persistor = persistStore(store)
 
 render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
       <Auth0Provider
         domain={config.domain}
-        client_id={config.clientId}
-        redirect_uri={window.location.origin}
-        // @ts-ignore
+        clientId={config.clientId}
+        redirectUri={window.location.origin}
         onRedirectCallback={onRedirectCallback}
       >
         <AppStatusProvider>
@@ -81,18 +46,18 @@ render(
   document.getElementById('root')
 )
 
-// Learn more about service workers: https://bit.ly/CRA-PWA
+// Learn more about service workers: https://cra.link/PWA
 // https://github.com/facebook/create-react-app/issues/5316
 // https://github.com/facebook/create-react-app/issues/7237
-serviceWorker.register({
+serviceWorkerRegistration.register({
   onUpdate: async registration => {
-    // We prefer using the BroadcastChannel as it can reach across tabs
     // We post a message letting the rest of the app know that we have updated content
     if (typeof BroadcastChannel !== 'undefined') {
       const bc = new BroadcastChannel('app-update')
       bc.postMessage('App has updated.')
     }
 
+    // We prefer using the BroadcastChannel (above) as it can reach across tabs
     // But it won't always work due to browser limitations.
     // So we always dispatch an event to the window just in case.
     window.dispatchEvent(new Event('hasNewContent'))

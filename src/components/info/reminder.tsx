@@ -1,45 +1,43 @@
-import React, { useMemo, useEffect, useCallback, useState } from 'react'
-import { connect } from 'react-redux'
-import { DragDropContext, Droppable, Draggable, DraggableProvided } from 'react-beautiful-dnd'
-import { isEqual, sortBy } from 'lodash'
-import { visibility, selectors } from 'ducks'
-import { useTheme } from 'context/useTheme'
+import { CardHeader } from 'components/info/card'
+import { NoteDisplay, NoteInput, NoteMenu } from 'components/info/note'
+import { VisibilityToggle } from 'components/info/visibilityToggle'
+import GenericDestructiveModal from 'components/modals/generic/generic_destructive_modal'
 import { useAppStatus } from 'context/useAppStatus'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { useSubscription } from 'context/useSubscription'
+import { useTheme } from 'context/useTheme'
+import { selectors, visibilityActions } from 'ducks'
+import { isEqual, sortBy } from 'lodash'
+import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
+import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
+import { Dropdown } from 'react-bootstrap'
+import { FaEllipsisH } from 'react-icons/fa'
+import { MdVisibilityOff } from 'react-icons/md'
+import { useDispatch, useSelector } from 'react-redux'
+import { TTurnAction } from 'types/data'
+import { TTurnWhen } from 'types/phases'
+import useNote from 'utils/hooks/useNote'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
-import { VisibilityToggle } from 'components/info/visibilityToggle'
-import { CardHeaderComponent } from 'components/info/card'
-import { TTurnAction } from 'types/data'
-import { IStore } from 'types/store'
-import { TTurnWhen } from 'types/phases'
+import { CustomDropdownToggle } from './customDropdownToggle'
+
+const { addReminder: hideReminder, deleteReminder: showReminder, addWhen: showWhen } = visibilityActions
 
 interface IReminderProps {
   actions: TTurnAction[]
-  hiddenReminders: string[]
-  visibleWhens: TTurnWhen[]
-  hideReminder: (value: string) => void
-  hideWhen: (value: string) => void // dispatch
   isMobile: boolean
-  showReminder: (value: string) => void
-  showWhen: (value: string) => void // dispatch
   when: TTurnWhen
 }
 
-const ReminderComponent: React.FC<IReminderProps> = props => {
-  const {
-    actions,
-    hiddenReminders,
-    visibleWhens,
-    hideReminder,
-    hideWhen,
-    isMobile,
-    showReminder,
-    showWhen,
-    when,
-  } = props
-
+export const Reminder: React.FC<IReminderProps> = props => {
+  const { actions, isMobile, when } = props
+  const { loadedArmy, setHasOrderChanges } = useSavedArmies()
+  const dispatch = useDispatch()
   const { theme } = useTheme()
+
+  const hiddenReminders = useSelector(selectors.selectReminders)
+  const visibleWhens = useSelector(selectors.selectWhen)
 
   const hidden = useMemo(() => {
     return hiddenReminders.filter(id => id.includes(when))
@@ -64,25 +62,23 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
       const ids = orderedActions.map(x => x.id)
 
       setActionsState(orderedActions)
-      LocalReminderOrder.set(when, ids)
+
+      LocalReminderOrder.setByWhen(when, ids)
+      setHasOrderChanges(true) // Make our context aware that we've updated the order
     },
-    [actionsState, when]
+    [actionsState, setHasOrderChanges, when]
   )
 
   useEffect(() => {
-    if (!isMobile) showWhen(title) // Auto-open reminders on desktop
-  }, [isMobile, title, showWhen])
-
-  const handleShowWhen = useCallback(() => {
-    showWhen(title)
-  }, [title, showWhen])
+    if (!isMobile) dispatch(showWhen(title)) // Auto-open reminders on desktop
+  }, [dispatch, isMobile, title])
 
   useEffect(() => {
     // If we've previously dragged some reminders around,
     // and the stored reminder order has the same ids as our current actions
     // Go ahead and set the actionState to be ordered properly
     const currentIds = sortBy(actions.map(x => x.id))
-    const storedIds = LocalReminderOrder.getWhen(when) || []
+    const storedIds = LocalReminderOrder.getWhen(when)
 
     if (storedIds.length > 0 && isEqual(currentIds, sortBy(storedIds))) {
       const reordered = reorderViaIndex(actions, storedIds)
@@ -90,7 +86,7 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
     } else {
       setActionsState(actions)
     }
-  }, [actions, when])
+  }, [actions, when, loadedArmy])
 
   const bodyClass = `${theme.cardBody} ${isVisible ? `` : `d-none d-print-block`} ReminderCardBody`
 
@@ -104,34 +100,33 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
             className={`row d-block PageBreak ${!isPrintable ? `d-print-none` : ``}`}
           >
             <div className="card border-dark my-2 mx-1">
-              <CardHeaderComponent
+              <CardHeader
                 title={title}
-                showCard={handleShowWhen}
-                hideCard={hideWhen}
                 isVisible={isVisible}
                 headerClassName={`${theme.reminderHeader} text-white`}
                 iconSize={1.2}
-                isMobile={isMobile}
+                show={visibilityActions.addWhen}
+                hide={visibilityActions.deleteWhen}
               />
               <div className={bodyClass}>
                 {actionsState.map((action, i) => {
-                  const showEntry = () => showReminder(action.id)
-                  const hideEntry = () => hideReminder(action.id)
                   const isHidden = !!hidden.find(k => action.id === k)
 
                   return (
-                    <Draggable draggableId={action.id} index={i} key={action.id}>
-                      {provided => (
-                        <ActionText
-                          {...action}
-                          isVisible={!isHidden}
-                          hideEntry={hideEntry}
-                          showEntry={showEntry}
-                          key={action.id}
-                          draggableProps={provided}
-                        />
-                      )}
-                    </Draggable>
+                    <Fragment key={i}>
+                      {/* Add a spacer between rules */}
+                      {i !== 0 && <hr className={`${theme.reminderHr} mx-1`} />}
+                      <Draggable draggableId={action.id} index={i} key={action.id}>
+                        {provided => (
+                          <ActionText
+                            {...action}
+                            isVisible={!isHidden}
+                            key={action.id}
+                            draggableProps={provided}
+                          />
+                        )}
+                      </Draggable>
+                    </Fragment>
                   )
                 })}
               </div>
@@ -145,47 +140,34 @@ const ReminderComponent: React.FC<IReminderProps> = props => {
   )
 }
 
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  hiddenReminders: selectors.getReminders(state),
-  visibleWhens: selectors.getWhen(state),
-})
-
-const mapDispatchToProps = {
-  hideReminder: visibility.actions.addReminder,
-  hideWhen: visibility.actions.deleteWhen,
-  showReminder: visibility.actions.deleteReminder,
-  showWhen: visibility.actions.addWhen,
-}
-
-export const Reminder = connect(mapStateToProps, mapDispatchToProps)(ReminderComponent)
-
 interface IActionTextProps extends TTurnAction {
   actionTitle?: string
-  hideEntry: () => void
-  showEntry: () => void
   isVisible: boolean
   draggableProps: DraggableProvided
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { isVisible, desc, showEntry, hideEntry, draggableProps } = props
+  const { isVisible, desc, draggableProps, id } = props
+  const dispatch = useDispatch()
+  const { isSubscribed } = useSubscription()
   const { isGameMode } = useAppStatus()
+  const handleVisibility = () => dispatch(!isVisible ? showReminder(id) : hideReminder(id))
 
-  const handleVisibility = () => (!isVisible ? showEntry() : hideEntry())
+  const noteProps = useNote(id)
 
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
       <div className={`mb-2 ${!isVisible ? `d-print-none` : ``}`}>
-        <div className="d-flex mb-1">
+        <div className={`d-flex mb-1`}>
           <div className="flex-grow-1">
             <div {...draggableProps.dragHandleProps}>
               <ActionTitle {...props} />
             </div>
           </div>
-          <div className="px-2 d-print-none">
+          <div className={`flex-shrink-0 pl-2 mt-1 d-print-none`}>
             {isGameMode ? (
               <VisibilityToggle
+                appearance={'icon'}
                 isVisible={isVisible}
                 setVisibility={handleVisibility}
                 withConfirmation={true}
@@ -193,28 +175,55 @@ const ActionText = (props: IActionTextProps) => {
                 size={1}
               />
             ) : (
-              <VisibilityToggle isVisible={isVisible} setVisibility={handleVisibility} />
+              <Dropdown>
+                <Dropdown.Toggle as={CustomDropdownToggle}>
+                  <FaEllipsisH />
+                </Dropdown.Toggle>
+
+                <Dropdown.Menu>
+                  <VisibilityToggle
+                    appearance={'menuItem'}
+                    text={'Rule'}
+                    isVisible={isVisible}
+                    setVisibility={handleVisibility}
+                  />
+                  {isVisible && <NoteMenu {...noteProps} />}
+                </Dropdown.Menu>
+              </Dropdown>
             )}
           </div>
         </div>
 
         {isVisible && <ActionDescription text={desc} />}
+        {isVisible && !isGameMode && isSubscribed && <NoteInput {...noteProps} />}
+        {isVisible && <NoteDisplay {...noteProps} />}
+
+        {noteProps.modal.isOpen && (
+          <GenericDestructiveModal
+            isOpen={noteProps.modal.isOpen}
+            onConfirm={noteProps.remove}
+            closeModal={noteProps.modal.close}
+            headerText={'Delete this note?'}
+          />
+        )}
       </div>
     </div>
   )
 }
 
-const ActionTitle = ({ actionTitle, name, tag }: IActionTextProps) => {
+const ActionTitle = ({ actionTitle, name, isVisible }: IActionTextProps) => {
   const { theme } = useTheme()
   const titleStr = actionTitle ? `${actionTitle} - ` : ''
 
   return (
     <>
       <span className={`${theme.textMuted} font-weight-bold`}>{titleStr}</span>
-      <strong className={theme.text}>
-        {name}
-        {tag && ` (${tag})`}
-      </strong>
+      <strong className={theme.text}>{name}</strong>
+      {!isVisible && (
+        <span className={`${theme.text}`}>
+          <MdVisibilityOff className={`${theme.text} ml-2`} />
+        </span>
+      )}
     </>
   )
 }
@@ -230,7 +239,7 @@ const ActionDescription = (props: { text: string }) => {
   return (
     <>
       {splitText.map((text, i) => (
-        <p className={`EntryText ${theme.text}`} key={i}>
+        <p className={theme.text} key={i}>
           {text}
         </p>
       ))}

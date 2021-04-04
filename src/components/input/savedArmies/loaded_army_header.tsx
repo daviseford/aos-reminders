@@ -1,10 +1,10 @@
-import React from 'react'
+import UpdateNameButton from 'components/input/savedArmies/update_name_btn'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
-import UpdateNameButton from 'components/input/savedArmies/update_name_btn'
+import React from 'react'
 
-const LoadedArmyHeader: React.FC = () => {
+const LoadedArmyHeader = () => {
   const { isOffline } = useAppStatus()
   const { loadedArmy } = useSavedArmies()
   const { theme } = useTheme()

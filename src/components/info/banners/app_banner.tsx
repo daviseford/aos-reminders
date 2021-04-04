@@ -1,14 +1,11 @@
-import React from 'react'
-import { useTheme } from 'context/useTheme'
-import { componentWithSize } from 'utils/mapSizesToProps'
+import { LinkNewTab } from 'components/helpers/link'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
-import { logClick } from 'utils/analytics'
-import { Link } from 'react-router-dom'
-import { ROUTES } from 'utils/env'
+import { useTheme } from 'context/useTheme'
+import React from 'react'
 
-const AppBanner = componentWithSize(({ isMobile = false }) => {
+const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = 'Stats_2020_Release'
+  const name = 'v4.0.0-Initial-Release'
 
   return (
     <NotificationBanner
@@ -16,45 +13,50 @@ const AppBanner = componentWithSize(({ isMobile = false }) => {
       enableLog={true}
       name={name}
       persistClose={true}
-      variant={isDark ? `dark` : `secondary`}
+      variant={isDark ? `warning` : `warning`}
     >
       <span>
-        Subscribers can now access advanced usage stats{' '}
-        <Link to={ROUTES.STATS} onClick={() => logClick(name)}>
-          via our new Stats page.
-        </Link>
+        <strong>NEW!</strong> We've just released v4.0.0! Take a minute to&nbsp;
+        <LinkNewTab
+          href={'https://daviseford.com/blog/2020/12/23/whats-new-in-aos-reminders-v4.html'}
+          label={"What's New in AoS Reminders v4"}
+        >
+          read the changelog.
+        </LinkNewTab>
       </span>
     </NotificationBanner>
   )
-})
-
-export default AppBanner
+}
 
 // Sale Banner
-// const AppBanner = componentWithSize(props => {
-//   const { isTinyMobile } = props
+// const AppBanner = () => {
+//   const { isDark } = useTheme()
 //   const { isNotSubscribed } = useSubscription()
-//   const name = 'Offline_Sale_Notification'
+//   const name = 'Paypal_Launch_2020'
 
-//   const subscribeTxt = (
-//     <>
-//       To celebrate, subscriptions are <strong>50% off!</strong>
-//     </>
-//   )
+//   const subscribeTxt = <>You can now subscribe using PayPal!</>
 
 //   useEffect(() => {
 //     logDisplay(name)
 //   }, [])
 
+//   // Only display to non-subscribers
+//   if (!isNotSubscribed) return <></>
+
 //   return (
-//     <NotificationBanner name={name} persistClose={true} variant={'info'}>
-//       You can now use this site <strong>offline!</strong>
-//       <br />
-//       {isNotSubscribed && (
-//         <Link to={ROUTES.SUBSCRIBE} onClick={() => logClick(name)}>
-//           {isTinyMobile ? <small>{subscribeTxt}</small> : subscribeTxt}
-//         </Link>
-//       )}
+//     <NotificationBanner
+//       displayOnce={true}
+//       enableLog={true}
+//       name={name}
+//       persistClose={true}
+//       variant={isDark ? `dark` : `secondary`}
+//     >
+//       WAAAGH!&nbsp;
+//       <Link to={ROUTES.SUBSCRIBE} onClick={() => logClick(name)}>
+//         {subscribeTxt}
+//       </Link>
 //     </NotificationBanner>
 //   )
-// })
+// }
+
+export default AppBanner

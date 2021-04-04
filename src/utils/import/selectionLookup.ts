@@ -1,41 +1,23 @@
 import { uniq } from 'lodash'
-import { checkImportSelection } from 'utils/import/checkImportSelection'
-import { mapListToDict } from 'utils/mapListToDict'
-import { TImportError } from 'types/import'
-import { TNameMap, importUnitOptionMap } from 'utils/import/options'
-import { Validators } from 'utils/import/validators'
 import { IArmy } from 'types/army'
-import { ISelections } from 'types/selections'
-
-type TLookupType =
-  | 'allegiances'
-  | 'artifacts'
-  | 'battalions'
-  | 'endless_spells'
-  | 'spells'
-  | 'traits'
-  | 'units'
+import { lowerToUpperLookup } from 'types/data'
+import { TImportError } from 'types/import'
+import { TSelections, TSelectionTypes } from 'types/selections'
+import { checkImportSelection } from 'utils/import/checkImportSelection'
+import { importUnitOptionMap } from 'utils/import/options'
+import { Validators } from 'utils/import/validators'
+import { mapListToDict } from 'utils/mapListToDict'
 
 export const importSelectionLookup = (
   Army: IArmy,
-  selections: ISelections,
+  selections: TSelections,
   errors: TImportError[],
   unknownSelections: string[],
   foundSelections: string[],
   checkPoorSpacing: boolean,
-  typoMap: TNameMap
-) => (type: TLookupType): string[] => {
-  const lookup = {
-    allegiances: 'Allegiances',
-    artifacts: 'Artifacts',
-    battalions: 'Battalions',
-    endless_spells: 'EndlessSpells',
-    spells: 'Spells',
-    traits: 'Traits',
-    units: 'Units',
-  }
-
-  const Names: string[] = Army[lookup[type]].map(({ name }) => name)
+  typoMap: Record<string, string>
+) => (type: TSelectionTypes): string[] => {
+  const Names: string[] = Army[lowerToUpperLookup[type]].map(({ name }) => name)
   const NameMap = mapListToDict(Names)
   const validators = Validators(Names)
   const checkVal = checkImportSelection(Names, NameMap, errors, true, checkPoorSpacing, typoMap)

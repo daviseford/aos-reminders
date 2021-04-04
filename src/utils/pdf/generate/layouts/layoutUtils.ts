@@ -1,23 +1,25 @@
 import jsPDF from 'jspdf'
-import { sum, slice } from 'lodash'
-import { titleCase, getActionTitle } from 'utils/textUtils'
-import { IReminder, TTurnAction } from 'types/data'
-import { ICompactPdfTextObj, TPdfStyles, TSavePdfType } from 'types/pdf'
+import { slice, sum } from 'lodash'
 import { ICurrentArmy } from 'types/army'
+import { IReminder, TTurnAction } from 'types/data'
+import { INote } from 'types/notes'
+import { EMPTY_NOTE_TEXT, ICompactPdfTextObj, TPdfStyles, TSavePdfType } from 'types/pdf'
 import { IAllySelections } from 'types/selections'
+import { getActionTitle, titleCase } from 'utils/textUtils'
 
 interface IPhaseAndRuleObj {
   phase: ICompactPdfTextObj
   rules: ICompactPdfTextObj[][]
 }
 
-interface IPageOpts {
+export interface IPageOpts {
   colLineWidth: number
+  colNoteLineWidth: number
   colTitleLineWidth: number
   maxLineWidth: number
+  maxNoteLineWidth: number
   maxTitleLineWidth: number
   pageBottom: number
-  pageHeight: number
   xMargin: number
   yMargin: number
 }
@@ -71,7 +73,7 @@ export default class CompactPdfLayout {
   private _getTitle = (action: TTurnAction) => {
     const title = getActionTitle(action)
     const titleStr = title ? `${title} - ` : ``
-    return `${titleStr}${action.name}${action.tag ? ` (${action.tag})` : ``}`
+    return `${titleStr}${action.name}`
   }
   private _addSpacerToPage = () => {
     this._addToCurrentPage({
@@ -262,7 +264,7 @@ export default class CompactPdfLayout {
     return this._pages
   }
 
-  getReminderText = (reminders: IReminder): void => {
+  getReminderText = (reminders: IReminder, notes: INote[]): void => {
     const Phases: IPhaseAndRuleObj[] = []
 
     Object.keys(reminders).forEach(phase => {
@@ -279,8 +281,7 @@ export default class CompactPdfLayout {
       const numRulesInPhase = reminders[phase].length
 
       reminders[phase].forEach((action, i) => {
-        const ruleObj = [] as ICompactPdfTextObj[]
-        // Handle action title
+        const ruleObj: ICompactPdfTextObj[] = []
 
         // Display last rules in full since they won't have a matching partner
         const isLastRuleAndOdd = i + 1 === numRulesInPhase && (i + 1) % 2 === 1
@@ -288,37 +289,43 @@ export default class CompactPdfLayout {
         const position = this._type === 'default' || isLastRuleAndOdd ? 'full' : 'col'
 
         const titleWidth = position === 'full' ? this._opts.maxTitleLineWidth : this._opts.colTitleLineWidth
-
         const lineWidth = position === 'full' ? this._opts.maxLineWidth : this._opts.colLineWidth
+        const noteLintWidth = position === 'full' ? this._opts.maxNoteLineWidth : this._opts.colNoteLineWidth
+
+        const addBreak = () => ruleObj.push({ type: 'break', text: '', position })
 
         // Add a titlespacer
-        ruleObj.push({
-          type: 'titlespacer',
-          text: '',
-          position,
-        })
+        ruleObj.push({ type: 'titlespacer', text: '', position })
 
         // Add the title itself
         const titleLines: string[] = this._doc.splitTextToSize(this._getTitle(action), titleWidth)
         titleLines.forEach(text => {
-          ruleObj.push({
-            type: 'title',
-            text: text.trim(),
-            position,
-          })
+          ruleObj.push({ type: 'title', text: text.trim(), position })
         })
 
         // Handle description
         const descLines: string[] = this._doc.splitTextToSize(action.desc, lineWidth)
         descLines.forEach(text => {
           const trimmed = text.trim()
-          const type = trimmed === '' ? 'break' : 'desc'
-          ruleObj.push({
-            type,
-            text: trimmed,
-            position,
-          })
+          if (!trimmed) addBreak()
+          ruleObj.push({ type: 'desc', text: trimmed, position })
         })
+
+        // Handle note
+        const note = notes.find(x => x.linked_hash === action.id)
+        if (note && note.content && note.content !== EMPTY_NOTE_TEXT) {
+          addBreak() // Add spacer before the note
+
+          const noteLines: string[] = this._doc.splitTextToSize(note.content, noteLintWidth)
+          noteLines.forEach(text => {
+            const trimmed = text.trim()
+            if (!trimmed) addBreak()
+            // Add tabbed prefix to emulate the UI
+            ruleObj.push({ type: 'note', text: `     ${trimmed}`, position })
+          })
+
+          addBreak() // Add spacer after the note
+        }
 
         phaseObj.rules.push(ruleObj)
       })
@@ -348,16 +355,26 @@ export default class CompactPdfLayout {
   }
 
   private _getArmyText = (): ICompactPdfTextObj[] => {
-    const { allyFactionNames, allySelections, factionName, realmscape_feature, selections } = this._army
     const {
-      allegiances,
+      allyFactionNames,
+      allySelections,
+      factionName,
+      subFactionName,
+      realmscape_feature,
+      selections,
+    } = this._army
+
+    const {
       artifacts,
       battalions,
-      commands,
+      command_abilities,
+      command_traits,
       endless_spells,
+      flavors,
+      mount_traits,
+      prayers,
       scenery,
       spells,
-      traits,
       triumphs,
       units,
     } = selections
@@ -367,24 +384,26 @@ export default class CompactPdfLayout {
     let text: ICompactPdfTextObj[] = [
       { text: '', type: 'spacer', position: 'full' },
       { text: '', type: 'spacer', position: 'full' },
-      { text: titleCase(factionName), type: 'armyName', position: 'full' },
+      { text: getFactionTitle(factionName, subFactionName), type: 'armyName', position: 'full' },
     ]
 
     const getText = this._getSelections()
 
     const selectionText = [
+      getText('Flavor', flavors),
+      getText('Battalion', battalions),
       getText('Unit', units),
+      ...allyFactionNames.map(n =>
+        getText(`Allied ${titleCase(n)} Battalion`, (allySelections[n] as IAllySelections).battalions || [])
+      ),
       ...allyFactionNames.map(n =>
         getText(`Allied ${titleCase(n)} Unit`, (allySelections[n] as IAllySelections).units)
       ),
       getText('Artifact', artifacts),
-      getText('Battalion', battalions),
-      ...allyFactionNames.map(n =>
-        getText(`Allied ${titleCase(n)} Battalion`, (allySelections[n] as IAllySelections).battalions || [])
-      ),
-      getText('Command Trait', traits),
-      getText('Command Abilities', commands, false),
-      getText('Allegiance', allegiances),
+      getText('Command Trait', command_traits),
+      getText('Mount Trait', mount_traits),
+      getText('Command Abilities', command_abilities, false),
+      getText('Prayer', prayers),
       getText('Spell', spells),
       getText('Endless Spell', endless_spells),
       getText('Scenery', scenery, false),
@@ -400,4 +419,11 @@ export default class CompactPdfLayout {
 
     return text.concat(selectionText, endText)
   }
+}
+
+export const getFactionTitle = (factionName: string, subFactionName = '') => {
+  const factionTitle = titleCase(factionName)
+  const subFactionTitle = titleCase(subFactionName)
+  const suffix = !!subFactionTitle && subFactionTitle !== factionTitle ? ` - ${subFactionTitle}` : ''
+  return `${factionTitle}${suffix}`
 }

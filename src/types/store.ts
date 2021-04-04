@@ -1,8 +1,8 @@
-import { TSideEffectTypes } from 'utils/withSelect'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
-import { ISelections, IAllySelections } from 'types/selections'
-import { ISavedArmyFromApi } from 'types/savedArmy'
+import { INote } from 'types/notes'
+import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { IAllySelections, TSelections, TSelectionTypes } from 'types/selections'
 
 export interface IArmyStore {
   army: IArmy
@@ -11,27 +11,28 @@ export interface IArmyStore {
 
 export interface IFactionNameStore {
   factionName: TSupportedFaction
+  subFactionName: string // TODO: Can we type this?
+}
+
+export interface INotesStore {
+  notes: INote[]
 }
 
 export interface IRealmscapeStore {
-  origin_realm: string | null
-  realmscape: string | null
+  origin_realm: TOriginRealms | null
+  realmscape: TBattleRealms | null
   realmscape_feature: string | null
 }
-
-export type TSavedArmiesStore = ISavedArmyFromApi[]
 
 export type TAllySelectionStore = { [key in TSupportedFaction]?: IAllySelections }
 
 export interface ISelectionStore {
-  selections: ISelections
+  selections: TSelections
   allySelections: TAllySelectionStore
-  sideEffects: {
-    [key: string]: {
-      // Hermdar Lodge
-      [key in TSideEffectTypes]: string[] // artifacts // ['Tyrant Slayer']
-    }
-  }
+  sideEffects: Record<
+    string, // Hermdar Lodge
+    Record<TSelectionTypes, string[]> // artifacts // ['Tyrant Slayer']
+  >
 }
 
 export interface IVisibilityStore {
@@ -44,6 +45,7 @@ export interface IVisibilityStore {
 export interface IStore {
   army: IArmyStore
   factionNames: IFactionNameStore
+  notes: INotesStore
   realmscape: IRealmscapeStore
   selections: ISelectionStore
   visibility: IVisibilityStore

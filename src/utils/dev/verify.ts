@@ -1,4 +1,5 @@
-import { getArmyList } from 'meta/army_list'
+import { getFactionList } from 'meta/faction_list'
+import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -12,6 +13,7 @@ import {
   END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
@@ -20,9 +22,8 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
   START_OF_SHOOTING_PHASE,
-  WOUND_ALLOCATION,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import { TEntry } from 'types/data'
 
 const phaseMap = {
   'After armies are set up, but before': END_OF_SETUP,
@@ -73,10 +74,15 @@ const phaseMap = {
   'end of your movement phase': END_OF_MOVEMENT_PHASE,
   'end of your shooting phase': END_OF_SHOOTING_PHASE,
 
-  'If this model is slain': WOUND_ALLOCATION,
-  'If this unit is slain': WOUND_ALLOCATION,
-  'you allocate a wound': WOUND_ALLOCATION,
-  'you allocate a mortal wound': WOUND_ALLOCATION,
+  'If this model is slain': WOUND_ALLOCATION_PHASE,
+  'If this unit is slain': WOUND_ALLOCATION_PHASE,
+  'you allocate a wound': WOUND_ALLOCATION_PHASE,
+  'you allocate a mortal wound': WOUND_ALLOCATION_PHASE,
+
+  'Reroll save roll': SAVES_PHASE,
+  'reroll save roll': SAVES_PHASE,
+  'to save roll': SAVES_PHASE,
+  'Worsen the rend of': SAVES_PHASE,
 }
 
 // Effect names that are flagged by the script, but have been verified and should be ignored
@@ -104,12 +110,18 @@ const whitelist = [
   'Runemarked Shield',
   'Seeker of Souls',
   'Violent Fury',
+  'Beastshield',
   'Whirling Death',
+  'Warding Lantern',
+  'Attuned to Magic',
+  'Tanglethorn Thicket',
+  'Grand Ritual of Awakening',
+  'Strike the Runes',
 ]
 
 const verify = () => {
   console.log('Starting rules verification...')
-  const armyList = getArmyList()
+  const armyList = getFactionList()
   Object.keys(armyList).forEach(faction => {
     const { Army } = armyList[faction]
 
@@ -123,6 +135,10 @@ const verify = () => {
         if (e.spell || unit.spell) {
           if (!e.when.includes(HERO_PHASE)) console.log(`${e.name} should be in ${HERO_PHASE}`)
           return
+        }
+
+        if (e.when.length === 0) {
+          return console.log(`${e.name} is missing a 'when' value`)
         }
 
         if (!e.spell && new RegExp('Casting value ', 'gi').test(e.desc)) {

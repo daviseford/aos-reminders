@@ -1,23 +1,11 @@
-import React, { useEffect } from 'react'
+import { withAuthenticationRequired } from '@auth0/auth0-react'
+import React from 'react'
 import { Route } from 'react-router-dom'
-import { useAuth0 } from 'react-auth0-wrapper'
 
-export const PrivateRoute = ({ component: Component, path, ...rest }) => {
-  const { loading, isAuthenticated, loginWithRedirect } = useAuth0()
+type TProps = { component: React.FC; [x: string]: any }
 
-  useEffect(() => {
-    if (loading || isAuthenticated) {
-      return
-    }
-    const fn = async () => {
-      await loginWithRedirect({
-        appState: { targetUrl: path },
-      })
-    }
-    fn()
-  }, [loading, isAuthenticated, loginWithRedirect, path])
+const ProtectedRoute: React.FC<TProps> = ({ component, ...args }) => (
+  <Route component={withAuthenticationRequired(component)} {...args} />
+)
 
-  const render = props => (isAuthenticated === true ? <Component {...props} /> : null)
-
-  return <Route path={path} render={render} {...rest} />
-}
+export default ProtectedRoute

@@ -1,10 +1,9 @@
 import jsPDF from 'jspdf'
+import { IPrintPdf, TPdfStyles } from 'types/pdf'
+import CompactPDFLayout, { getFactionTitle, IPageOpts } from 'utils/pdf/generate/layouts/layoutUtils'
+import { Logo } from 'utils/pdf/generate/logo'
 import { getVisibleReminders } from 'utils/reminderUtils'
 import { reorderReminders } from 'utils/reorder'
-import { titleCase } from 'utils/textUtils'
-import CompactPDFLayout from 'utils/pdf/generate/layouts/layoutUtils'
-import { Logo } from 'utils/pdf/generate/logo'
-import { TPdfStyles, IPrintPdf } from 'types/pdf'
 
 const Styles: TPdfStyles = {
   army: {
@@ -37,6 +36,12 @@ const Styles: TPdfStyles = {
     spacing: 0.14,
     style: 'normal',
   },
+  note: {
+    fontSize: 7,
+    spacing: 0.14,
+    style: 'italic',
+    textColor: [18, 55, 199], // $themeRoyalBlue: #1237c7;
+  },
   phase: {
     fontSize: 8,
     spacing: 0.2,
@@ -59,19 +64,20 @@ const Styles: TPdfStyles = {
   },
 }
 
-const PageOpts = {
+const PageOpts: IPageOpts = {
+  colLineWidth: 8.5,
+  colNoteLineWidth: 8,
+  colTitleLineWidth: 8,
+  maxLineWidth: 17,
+  maxNoteLineWidth: 17 - 0.5,
+  maxTitleLineWidth: 17 - 2,
+  pageBottom: 9,
   xMargin: 0.3,
   yMargin: 0.75,
-  pageHeight: 11.45,
-  pageBottom: 11.45 - 0.75, // pageHeight - yMargin,
-  colLineWidth: 8.5,
-  colTitleLineWidth: 8, // colLineWidth - 2,
-  maxLineWidth: 17,
-  maxTitleLineWidth: 17 - 2, // maxLineWidth - 2,
 }
 
 export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
-  const { factionName, hiddenReminders, reminders, ...currentArmy } = data
+  const { factionName, subFactionName, hiddenReminders, reminders, notes, ...currentArmy } = data
 
   const orderedReminders = reorderReminders(getVisibleReminders(reminders, hiddenReminders))
 
@@ -80,16 +86,20 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
     lineHeight: 1.2,
   })
 
-  const Layout = new CompactPDFLayout('compact', doc, PageOpts, Styles, { factionName, ...currentArmy })
+  const Layout = new CompactPDFLayout('compact', doc, PageOpts, Styles, {
+    factionName,
+    subFactionName,
+    ...currentArmy,
+  })
 
   doc
     .setFont('helvetica')
     .setTextColor(0, 0, 0)
-    .setProperties({ title: `AoS Reminders - ${titleCase(factionName)}` })
+    .setProperties({ title: `AoS Reminders - ${getFactionTitle(factionName, subFactionName)}` })
 
   const pageWidth = doc.internal.pageSize.getWidth()
   const centerX = pageWidth / 2
-  Layout.getReminderText(orderedReminders) // Get the reminders into the class
+  Layout.getReminderText(orderedReminders, notes) // Get the reminders into the class
   const pages = Layout.splitTextToPages() // And now extract the pages
 
   const col1X = 4.2
@@ -109,10 +119,15 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
       const textAlign = isPhase || isArmy ? 'center' : 'left'
       const textY = t.position === 'col1' ? colY : y
 
-      doc
-        .setFontSize(style.fontSize)
-        .setFontStyle(style.style)
-        .text(t.text, textX, textY, null, null, textAlign)
+      doc.setFontSize(style.fontSize).setFontStyle(style.style)
+
+      if (style.textColor) {
+        doc.setTextColor(style.textColor[0], style.textColor[1], style.textColor[2])
+      }
+
+      doc.text(t.text, textX, textY, null, null, textAlign)
+
+      if (style.textColor) doc.setTextColor(0, 0, 0) // reset to black
 
       if (isPhase) {
         doc

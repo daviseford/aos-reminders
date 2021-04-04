@@ -1,20 +1,21 @@
 import { uniq, without } from 'lodash'
+import { CHAOS, DEATH, DESTRUCTION, ORDER } from 'meta/alliances'
 import {
   CHAOS_GRAND_ALLIANCE,
   DEATH_GRAND_ALLIANCE,
   DESTRUCTION_GRAND_ALLIANCE,
+  MEGA_GARGANT_MERCENARIES,
   MERCENARY_COMPANIES,
   ORDER_GRAND_ALLIANCE,
   TSupportedFaction,
 } from 'meta/factions'
-import { getArmyList } from 'meta/army_list'
-import { CHAOS, DEATH, ORDER, DESTRUCTION } from 'meta/alliances'
+import { getFactionList } from 'meta/faction_list'
 
-type TAllyArmies = { [key in TSupportedFaction]: { units: string[]; battalions: string[] } }
+type TAllyArmies = Record<TSupportedFaction, { units: string[]; battalions: string[] }>
 type TGetAllyArmyItems = (factionName: string) => TAllyArmies
 
 export const getAllyArmyItems: TGetAllyArmyItems = factionName => {
-  const ArmyList = getArmyList()
+  const ArmyList = getFactionList()
   const { GrandAlliance } = ArmyList[factionName]
 
   const allianceName = {
@@ -28,7 +29,7 @@ export const getAllyArmyItems: TGetAllyArmyItems = factionName => {
     without(
       Object.keys(ArmyList)
         .filter(x => ArmyList[x].GrandAlliance === GrandAlliance)
-        .concat(MERCENARY_COMPANIES),
+        .concat(MERCENARY_COMPANIES, MEGA_GARGANT_MERCENARIES),
       ...[
         factionName,
         CHAOS_GRAND_ALLIANCE,
@@ -40,8 +41,8 @@ export const getAllyArmyItems: TGetAllyArmyItems = factionName => {
   ) as TSupportedFaction[]
 
   const allyArmies = allyFactionNames.reduce((a, faction) => {
-    const battalions = ArmyList[faction].Army.Battalions || []
-    const units = ArmyList[faction].Army.Units || []
+    const battalions = ArmyList[faction].AggregateArmy.Battalions || []
+    const units = ArmyList[faction].AggregateArmy.Units || []
     a[faction] = {
       battalions: battalions.map(({ name }) => name),
       units: units.map(({ name }) => name),

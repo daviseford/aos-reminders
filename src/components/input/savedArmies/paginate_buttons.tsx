@@ -1,5 +1,6 @@
+import GenericButton from 'components/input/generic_button'
 import React from 'react'
-import { FaAngleRight, FaAngleLeft } from 'react-icons/fa'
+import { FaAngleLeft, FaAngleRight } from 'react-icons/fa'
 
 interface IPaginateButtonsProps {
   pageNum: number
@@ -15,12 +16,12 @@ export const PaginateButtons: React.FC<IPaginateButtonsProps> = props => {
   const canIncrement = pageNum !== numPages
   const canDecrement = pageNum !== 1
 
-  const increment = e => {
+  const increment = (e: React.MouseEvent) => {
     e.preventDefault()
     if (canIncrement) setPageNum(pageNum + 1)
   }
 
-  const decrement = e => {
+  const decrement = (e: React.MouseEvent) => {
     e.preventDefault()
     if (canDecrement) setPageNum(pageNum - 1)
   }
@@ -29,10 +30,14 @@ export const PaginateButtons: React.FC<IPaginateButtonsProps> = props => {
     <nav aria-label="Saved Army Pagination">
       <ul className="pagination justify-content-center my-2">
         <li className={`page-item ${canDecrement ? `` : `disabled`}`} onClick={decrement}>
-          <button className="page-link">{canDecrement && <FaAngleLeft className="mr-1" />}Previous</button>
+          <GenericButton className="page-link">
+            {canDecrement && <FaAngleLeft className="mr-1" />}Previous
+          </GenericButton>
         </li>
         <li className={`page-item ${canIncrement ? `` : `disabled`}`} onClick={increment}>
-          <button className="page-link">Next{canIncrement && <FaAngleRight className="ml-1" />}</button>
+          <GenericButton className="page-link">
+            Next{canIncrement && <FaAngleRight className="ml-1" />}
+          </GenericButton>
         </li>
       </ul>
     </nav>

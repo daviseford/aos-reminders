@@ -1,13 +1,13 @@
-import React, { useEffect, useState, useMemo } from 'react'
-import { useAuth0 } from 'react-auth0-wrapper'
-import { useAppStatus } from 'context/useAppStatus'
-import { useSubscription } from 'context/useSubscription'
-import { useSavedArmies } from 'context/useSavedArmies'
-import { paginateSavedArmies } from 'utils/paginate'
-import { SavedArmyCard } from 'components/input/savedArmies/saved_army_card'
+import { useAuth0 } from '@auth0/auth0-react'
 import { PaginateButtons } from 'components/input/savedArmies/paginate_buttons'
+import { SavedArmyCard } from 'components/input/savedArmies/saved_army_card'
+import { useAppStatus } from 'context/useAppStatus'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { useSubscription } from 'context/useSubscription'
+import React, { useEffect, useMemo, useState } from 'react'
+import { paginateSavedArmies } from 'utils/paginate'
 
-const ShowSavedArmies: React.FC = () => {
+const ShowSavedArmies = () => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isSubscribed } = useSubscription()

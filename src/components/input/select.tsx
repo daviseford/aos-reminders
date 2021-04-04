@@ -1,16 +1,28 @@
+import { useTheme } from 'context/useTheme'
 import React, { useCallback } from 'react'
 import Select from 'react-select'
 import { ActionMeta, ValueType } from 'react-select/src/types'
-import { useTheme } from 'context/useTheme'
 import { logIndividualSelection } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 
-export type TDropdownOption = { value: string; label: string }
-export type TSelectOneSetValueFn = (value: ValueType<TDropdownOption>, action: ActionMeta<any>) => void
-export type TSelectMultiSetValueFn = (value: ValueType<TDropdownOption>[], action: ActionMeta<any>) => void
+export interface IDropdownOption {
+  value: string
+  label: string
+}
+type TSelectOneValueType = ValueType<IDropdownOption, false>
+type TSelectMultiValueType = ValueType<IDropdownOption, true>
+
+export type TSelectOneSetValueFn = (value: TSelectOneValueType, action: ActionMeta<IDropdownOption>) => void
+export type TSelectMultiSetValueFn = (
+  values: TSelectMultiValueType,
+  action: ActionMeta<IDropdownOption>
+) => void
+
+export type TFilterOptionFn = (option: { label: string; value: string }, inputValue: string) => boolean
 
 interface ISelectOneProps {
   hasDefault?: boolean
+  filterOption?: TFilterOptionFn
   isClearable?: boolean
   isDisabled?: boolean
   items: string[]
@@ -23,6 +35,7 @@ interface ISelectOneProps {
 export const SelectOne = (props: ISelectOneProps) => {
   const {
     hasDefault = false,
+    filterOption = null,
     isClearable = false,
     isDisabled = false,
     items,
@@ -35,23 +48,28 @@ export const SelectOne = (props: ISelectOneProps) => {
   const options = convertToOptions(items, toTitle)
   const controlledValue = value ? convertToOptions([value], false)[0] : value
 
-  const onChange = useCallback(
-    (...args) => {
-      if (log && args[1].action === 'select-option' && args[0].value) {
-        logIndividualSelection(log.title, args[0].value, log.label)
+  const onChange: TSelectOneSetValueFn = useCallback(
+    (value, action) => {
+      if (log && action.action === 'select-option' && value?.value) {
+        logIndividualSelection(log.title, value.value, log.label)
       }
-      setValue(args[0], args[1])
+      setValue(value, action)
     },
     [log, setValue]
   )
 
-  const selectProps: { [key: string]: any } = {
+  const selectProps: Record<string, any> = {
     defaultValue: hasDefault ? options[0] : null,
     isClearable,
     isDisabled,
+    isMulti: false,
     isSearchable: true,
     onChange,
     options,
+  }
+
+  if (filterOption !== null) {
+    selectProps.filterOption = filterOption
   }
 
   if (controlledValue !== undefined) {
@@ -75,7 +93,7 @@ export const SelectOne = (props: ISelectOneProps) => {
   )
 }
 
-const convertToOptions = (items: string[] = [], toTitle: boolean = true): TDropdownOption[] => {
+export const convertToOptions = (items: string[] = [], toTitle: boolean = true): IDropdownOption[] => {
   return items.map(i => ({ value: i, label: toTitle ? titleCase(i) : i }))
 }
 
@@ -105,12 +123,12 @@ export const SelectMulti = (props: ISelectMultiProps) => {
   const options = convertToOptions(items, toTitle)
   const selectValues = convertToOptions(values, toTitle)
 
-  const handleChange = useCallback(
-    (...args) => {
-      if (log && args[1].action === 'select-option' && args[1].option.value) {
-        logIndividualSelection(log.title, args[1].option.value, log.label)
+  const handleChange: TSelectMultiSetValueFn = useCallback(
+    (value, action) => {
+      if (log && action.action === 'select-option' && action?.option?.value) {
+        logIndividualSelection(log.title, action.option.value, log.label)
       }
-      setValues(args[0], args[1])
+      setValues(value, action)
     },
     [log, setValues]
   )
@@ -124,7 +142,7 @@ export const SelectMulti = (props: ISelectMultiProps) => {
         isClearable={isClearable}
         isMulti={true}
         isSearchable={true}
-        onChange={handleChange as TSelectOneSetValueFn}
+        onChange={handleChange}
         options={options}
         // Apply styling via theme context
         className={theme.text}

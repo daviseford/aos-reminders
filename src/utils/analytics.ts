@@ -1,10 +1,11 @@
 import ReactGA from 'react-ga'
-import { isValidFactionName } from 'utils/armyUtils'
-import { isTest, isProd, isDev } from 'utils/env'
-import { SubscriptionPlans, GiftedSubscriptionPlans } from 'utils/plans'
-import { generateUUID, titleCase } from 'utils/textUtils'
 import { TImportParsers, TLoadedArmy } from 'types/import'
 import { TSavePdfType } from 'types/pdf'
+import { TSelections } from 'types/selections'
+import { isValidFactionName } from 'utils/armyUtils'
+import { isDev, isProd, isTest } from 'utils/env'
+import { GiftedSubscriptionPlans, SubscriptionPlans } from 'utils/plans'
+import { generateUUID, titleCase } from 'utils/textUtils'
 
 if (!isTest) {
   ReactGA.initialize('UA-55820654-5', {
@@ -61,6 +62,19 @@ export const logFactionSwitch = (factionName: string | null) => {
       label: factionName,
     })
   }
+}
+
+/**
+ * Sends a Google Analytics event telling us which subfaction the user has selected
+ * @param subFaction
+ */
+export const logSubFactionSwitch = (subFaction = '') => {
+  if (!subFaction) return
+  logToGA({
+    category: 'Select',
+    action: `Select-SubFaction-${subFaction}`,
+    label: subFaction,
+  })
 }
 
 /**
@@ -152,6 +166,16 @@ export const logFailedImport = (value: string, type: TImportParsers) => {
   }
 }
 
+export const logDeprecatedImport = (value: string, type: TImportParsers) => {
+  if (value) {
+    logToGA({
+      category: 'Event',
+      action: `deprecatedImport-${type}-${value}`,
+      label: 'DeprecatedImport',
+    })
+  }
+}
+
 export const logIgnoredImport = (value: string, type: TImportParsers) => {
   if (value) {
     logToGA({
@@ -172,7 +196,23 @@ export const logDisplay = (element: string) => {
   }
 }
 
-export const logSubscription = (planTitle: string) => {
+export const logNote = (action: string, factionName: string) => {
+  logToGA({
+    category: 'Note',
+    action: `${action}-Note-${factionName}`,
+    label: factionName,
+  })
+}
+
+export const logMigration = (version: number) => {
+  logToGA({
+    category: 'Migration',
+    action: `Migrate-to-v${version}`,
+    label: `Migrate-to-v${version}`,
+  })
+}
+
+export const logSubscription = (planTitle: string, provider: 'stripe' | 'paypal') => {
   const plan = SubscriptionPlans.find(x => x.title === planTitle)
   if (!isProd || !plan) return
   try {
@@ -180,7 +220,7 @@ export const logSubscription = (planTitle: string) => {
     ReactGA.plugin.execute('ecommerce', 'addItem', {
       id,
       name: plan.title,
-      sku: plan.prod,
+      sku: provider === 'paypal' ? plan.paypal_prod : plan.stripe_prod,
       price: plan.cost,
       category: 'Subscription',
       quantity: '1',
@@ -201,7 +241,7 @@ export const logGiftedSubscription = (planTitle: string, quantity: string) => {
     ReactGA.plugin.execute('ecommerce', 'addItem', {
       id,
       name: plan.title,
-      sku: plan.prod,
+      sku: plan.stripe_prod,
       price: plan.cost,
       category: 'Gifted-Subscription',
       quantity,
@@ -219,7 +259,7 @@ export const logGiftedSubscription = (planTitle: string, quantity: string) => {
 export const logLoadedArmy = (army: TLoadedArmy) => {
   try {
     const {
-      selections = [],
+      selections = ([] as unknown) as TSelections,
       allySelections = {},
       origin_realm = null,
       realmscape = null,
@@ -233,14 +273,15 @@ export const logLoadedArmy = (army: TLoadedArmy) => {
     // Log each selection
     Object.keys(selections).forEach(key => {
       const trait = titleCase(key)
-      selections[key].forEach((name: string) => logIndividualSelection(trait, name, factionName))
+      const _selections = selections[key as keyof typeof selections] || []
+      _selections.forEach((name: string) => logIndividualSelection(trait, name, factionName))
     })
 
     // Log each allied faction + selection
     Object.keys(allySelections).forEach(allyFactionName => {
       logAllyFaction(allyFactionName)
-      const units: string[] = allySelections[allyFactionName].units || []
-      units.forEach(name => logIndividualSelection('AlliedUnits', name, allyFactionName))
+      const _units = allySelections[allyFactionName as keyof typeof allySelections]?.units || []
+      _units.forEach(name => logIndividualSelection('AlliedUnits', name, allyFactionName))
     })
 
     // Log Realm information

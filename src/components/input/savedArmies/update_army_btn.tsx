@@ -1,38 +1,48 @@
-import React, { useMemo, useState } from 'react'
-import { FaCloudUploadAlt } from 'react-icons/fa'
-import { connect } from 'react-redux'
+import GenericButton from 'components/input/generic_button'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useTheme } from 'context/useTheme'
 import { selectors } from 'ducks'
+import React, { useMemo, useState } from 'react'
+import { FaCloudUploadAlt } from 'react-icons/fa'
+import { useSelector } from 'react-redux'
+import { ISavedArmy } from 'types/savedArmy'
 import { logEvent } from 'utils/analytics'
 import { armyHasEntries, prepareArmy } from 'utils/armyUtils'
-import GenericButton from 'components/input/generic_button'
-import { ISavedArmy } from 'types/savedArmy'
-import { IStore, IVisibilityStore } from 'types/store'
+import useGetReminders from 'utils/hooks/useGetReminders'
 
-interface IUpdateArmyProps {
+type TUpdateArmyBtn = React.FC<{
   id: string
   currentArmy: ISavedArmy
   changedKeys: string[]
-  hiddenReminders: IVisibilityStore['reminders']
-}
+}>
 
-type TUpdateArmyBtn = React.FC<IUpdateArmyProps>
-
-const UpdateArmyBtnComponent: TUpdateArmyBtn = ({ currentArmy, id, changedKeys, hiddenReminders }) => {
+const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
   const { isGameMode } = useAppStatus()
+  const { relevantNotes } = useGetReminders()
   const { updateArmy } = useSavedArmies()
   const { isDark } = useTheme()
+
+  const hiddenReminders = useSelector(selectors.selectReminders)
+
   const [isSaving, setIsSaving] = useState(false)
 
-  const canUpdate = useMemo(() => armyHasEntries(currentArmy), [currentArmy])
+  const canUpdate = useMemo(() => armyHasEntries(currentArmy, relevantNotes), [currentArmy, relevantNotes])
 
-  const handleClick = async e => {
+  const handleClick = async (e: React.MouseEvent) => {
     e.preventDefault()
     setIsSaving(true)
-    const payload = prepareArmy({ ...currentArmy, hiddenReminders }, 'update', changedKeys)
-    await updateArmy(id, payload)
+    const payload = prepareArmy(
+      { ...currentArmy, hiddenReminders, notes: relevantNotes },
+      'update',
+      changedKeys
+    )
+    try {
+      await updateArmy(id, payload)
+    } catch (err) {
+      console.error(err)
+    }
+    setIsSaving(false)
     logEvent(`UpdateArmy-${currentArmy.factionName}`)
   }
 
@@ -53,12 +63,5 @@ const UpdateArmyBtnComponent: TUpdateArmyBtn = ({ currentArmy, id, changedKeys, 
     </GenericButton>
   )
 }
-
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  hiddenReminders: selectors.getReminders(state),
-})
-
-const UpdateArmyBtn = connect(mapStateToProps, null)(UpdateArmyBtnComponent)
 
 export default UpdateArmyBtn

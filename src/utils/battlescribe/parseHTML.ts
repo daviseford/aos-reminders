@@ -1,31 +1,27 @@
-import {
-  IAllegianceInfo,
-  IChildNode,
-  IFactionInfo,
-  IParentNode,
-} from 'utils/battlescribe/getBattlescribeArmy'
-import {
-  isAllegianceObj,
-  isChildNode,
-  isFactionObj,
-  isParentNode,
-  isBattleRealmObj,
-  isRootSelection,
-  isOriginRealmObj,
-} from 'utils/battlescribe/checks'
+import parse5 from 'parse5'
+import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { cleanText, fixKeys } from 'utils/battlescribe/battlescribeUtils'
 import {
-  parseFaction,
+  isAllegianceObj,
+  isBattleRealmObj,
+  isChildNode,
+  isFactionObj,
+  isOriginRealmObj,
+  isParentNode,
+  isRootSelection,
+} from 'utils/battlescribe/checks'
+import { IChildNode, IFactionInfo, IFlavorInfo, IParentNode } from 'utils/battlescribe/getBattlescribeArmy'
+import {
   parseAllegiance,
   parseBattleRealmObj,
+  parseFaction,
   parseOriginRealmObj,
 } from 'utils/battlescribe/getters'
-import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 
 type TTraverseDoc = (
   docObj: IParentNode | IChildNode
 ) => {
-  allegianceInfo: IAllegianceInfo[]
+  allegianceInfo: IFlavorInfo[]
   factionInfo: IFactionInfo
   origin_realm: TOriginRealms | null
   realmscape: TBattleRealms | null
@@ -34,7 +30,7 @@ type TTraverseDoc = (
 
 export const traverseDoc: TTraverseDoc = docObj => {
   const results = {
-    allegianceInfo: [] as IAllegianceInfo[],
+    allegianceInfo: [] as IFlavorInfo[],
     factionInfo: { factionName: null, grandAlliance: null } as IFactionInfo,
     origin_realm: null as TOriginRealms | null,
     realmscape: null as TBattleRealms | null,
@@ -152,7 +148,9 @@ const getNamesFromTableTags = (table: IParentNode): { tableName: string; names: 
 /**
  * Helps us get the JSON string (removes circular references)
  */
-export const stripParentNode = (docObj: IParentNode | IChildNode) => {
+export const stripParentNode = (
+  docObj: IParentNode | IChildNode | parse5.Document
+): IParentNode | IChildNode => {
   if (isChildNode(docObj) && docObj.value) {
     docObj.value = cleanText(docObj.value)
   }
@@ -163,7 +161,7 @@ export const stripParentNode = (docObj: IParentNode | IChildNode) => {
   //@ts-ignore
   delete docObj.tagName // Unnecessary key (duplicates nodeName)
 
-  if (!isParentNode(docObj)) return docObj
+  if (!isParentNode(docObj)) return docObj as IChildNode
 
   if (docObj.childNodes.length > 0) {
     docObj.childNodes = docObj.childNodes

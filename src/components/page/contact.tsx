@@ -1,18 +1,17 @@
-import React from 'react'
-import { FaGithub, FaEnvelopeOpenText, FaReddit, FaTwitter, FaDiscord } from 'react-icons/fa'
+import { LinkButton } from 'components/helpers/link'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
+import React from 'react'
+import { FaDiscord, FaEnvelopeOpenText, FaGithub, FaReddit, FaTwitter } from 'react-icons/fa'
 import { GITHUB_URL } from 'utils/env'
-import { LinkButton } from 'components/helpers/link'
 
 interface IContactProps {
   size?: 'normal' | 'small' | 'large'
 }
 
-export const ContactComponent: React.FC<IContactProps> = props => {
+const Contact: React.FC<IContactProps> = ({ size = 'normal' }) => {
   const { isOffline } = useAppStatus()
   const { isDark } = useTheme()
-  const { size = 'normal' } = props
   const btnSize = size === 'small' ? 'btn-sm' : size === 'large' ? 'btn-lg' : ''
   const btnClass = `btn ${btnSize} btn-outline-${isDark ? `light` : `dark`} mx-1`
 
@@ -33,3 +32,5 @@ export const ContactComponent: React.FC<IContactProps> = props => {
     </>
   )
 }
+
+export default Contact

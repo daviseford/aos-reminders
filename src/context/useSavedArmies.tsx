@@ -1,21 +1,28 @@
-import React, { useState, useCallback, useEffect } from 'react'
-import { isEqual, sortBy } from 'lodash'
-import { useAuth0 } from 'react-auth0-wrapper'
-import { store } from 'index'
-import { useAppStatus } from 'context/useAppStatus'
-import { useSubscription } from 'context/useSubscription'
+import { useAuth0 } from '@auth0/auth0-react'
 import { PreferenceApi } from 'api/preferenceApi'
 import { SubscriptionApi } from 'api/subscriptionApi'
-import { logEvent } from 'utils/analytics'
-import { isValidFactionName, prepareArmy, prepareArmyForS3 } from 'utils/armyUtils'
-import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
-import { LocalUserName, LocalFavoriteFaction, LocalSavedArmies, LocalLoadedArmy } from 'utils/localStore'
-import { unTitleCase } from 'utils/textUtils'
-import { isDev } from 'utils/env'
+import { useAppStatus } from 'context/useAppStatus'
+import { useSubscription } from 'context/useSubscription'
+import { isEqual, sortBy } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
-import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
+import { store } from 'store'
 import { ICurrentArmy } from 'types/army'
 import { IImportedArmy } from 'types/import'
+import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
+import { logEvent } from 'utils/analytics'
+import { isValidFactionName, prepareArmy, prepareArmyForS3 } from 'utils/armyUtils'
+import { isDev } from 'utils/env'
+import useGetReminders from 'utils/hooks/useGetReminders'
+import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
+import {
+  LocalFavoriteFaction,
+  LocalLoadedArmy,
+  LocalReminderOrder,
+  LocalSavedArmies,
+  LocalUserName,
+} from 'utils/localStore'
+import { unTitleCase } from 'utils/textUtils'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
@@ -25,7 +32,7 @@ interface ISavedArmiesContext {
   deleteSavedArmy: (id: string) => Promise<void>
   favoriteFaction: TSupportedFaction | null
   getFavoriteFaction: () => Promise<void>
-  loadedArmy: { id: string; armyName: string } | null
+  loadedArmy: TLoadedArmy | null
   loadSavedArmies: () => Promise<void>
   reloadArmy: () => void
   saveArmy: (army: ISavedArmy) => Promise<void>
@@ -33,7 +40,8 @@ interface ISavedArmiesContext {
   savedArmies: ISavedArmyFromApi[]
   saveLink: (army: ISavedArmy) => Promise<string | null>
   setLoadedArmy: (army: TLoadedArmy) => void
-  updateArmy: (id: string, data: { [key: string]: any }) => Promise<void>
+  setHasOrderChanges: (hasChanged: boolean) => void
+  updateArmy: (id: string, data: Record<string, any>) => Promise<void>
   updateArmyName: (id: string, armyName: string) => Promise<void>
   updateFavoriteFaction: (factionName: string | null) => Promise<void>
 }
@@ -52,50 +60,61 @@ const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undef
 const SavedArmiesProvider: React.FC = ({ children }) => {
   const { isOffline } = useAppStatus()
   const { user } = useAuth0()
+  const { relevantNotes } = useGetReminders()
   const { subscription, isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
   const [savedArmiesPopulated, setSavedArmiesPopulated] = useState(false)
   const [loadedArmy, setLoadedArmyState] = useState<TLoadedArmy>(LocalLoadedArmy.get())
   const [favoriteFaction, setFavoriteFaction] = useState<TSupportedFaction | null>(null)
   const [waitingForApi, setWaitingForApi] = useState(false)
+  const [hasOrderChanges, setHasOrderChanges] = useState(false)
 
-  const setLoadedArmy = (army: TLoadedArmy) => {
+  const setLoadedArmy = useCallback((army: TLoadedArmy) => {
     LocalLoadedArmy.set(army)
     setLoadedArmyState(army)
-  }
+    if (army?.id) LocalReminderOrder.makeIdActive(army.id)
+  }, [])
 
   const armyHasChanges: THasChanges = useCallback(
     currentArmy => {
-      const noChanges = { hasChanges: false, changedKeys: [] }
-      if (!loadedArmy || !currentArmy || !savedArmiesPopulated) return noChanges
+      const noChangesResponse = { hasChanges: false, changedKeys: [] }
+      if (!loadedArmy || !currentArmy || !savedArmiesPopulated) return noChangesResponse
 
       const original = savedArmies.find(x => x.id === loadedArmy.id) as ISavedArmyFromApi
       if (!original) {
         setLoadedArmy(null)
-        return noChanges
+        return noChangesResponse
       }
-      const { id, armyName, userName, createdAt, updatedAt, ...loaded } = original
+
+      const { id, armyName, userName, createdAt, updatedAt, schemaVersion, ...loaded } = original
 
       const hiddenReminders = store.getState().visibility.reminders
-      currentArmy = prepareArmy({ ...currentArmy, hiddenReminders, armyName }, 'update') as ISavedArmy
+      const current = prepareArmy(
+        { ...currentArmy, hiddenReminders, armyName, notes: relevantNotes },
+        'update'
+      ) as ISavedArmy
 
       // This fixes an issue where the names are not in exactly the same order
       loaded.allyFactionNames = sortBy(loaded.allyFactionNames || [])
-      currentArmy.allyFactionNames = sortBy(currentArmy.allyFactionNames || [])
+      current.allyFactionNames = sortBy(current.allyFactionNames || [])
 
       // Since origin_realm was introduced later, sometimes it's undefined in saved armies
       loaded.origin_realm = loaded.origin_realm || null
 
-      const changedKeys = Object.keys(currentArmy).reduce((a, key) => {
-        if (!isEqual(currentArmy[key], loaded[key])) a.push(key)
+      // Have we updated our reminder ordering?
+      loaded.orderedReminders = loaded.orderedReminders || LocalReminderOrder.get(loadedArmy.id)
+
+      const changedKeys = Object.keys(current).reduce((a, key) => {
+        if (!isEqual(current[key as keyof ISavedArmy], loaded[key as keyof typeof loaded])) a.push(key)
         return a
       }, [] as string[])
 
       if (changedKeys.length && isDev) console.log('Changed keys are: ', changedKeys)
+      if (hasOrderChanges && isDev) console.log(`hasOrderChanges: ${hasOrderChanges}`)
 
-      return { hasChanges: changedKeys.length > 0, changedKeys }
+      return { hasChanges: changedKeys.length > 0 || hasOrderChanges, changedKeys }
     },
-    [loadedArmy, savedArmies, savedArmiesPopulated]
+    [hasOrderChanges, loadedArmy, relevantNotes, savedArmies, savedArmiesPopulated, setLoadedArmy]
   )
 
   const loadSavedArmies = useCallback(async () => {
@@ -113,6 +132,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       const savedArmies = sortBy(res.body as ISavedArmyFromApi[], 'createdAt').reverse()
       setSavedArmies(savedArmies)
       LocalSavedArmies.set(savedArmies)
+      savedArmies.forEach(a => LocalReminderOrder.setById(a.id, a.orderedReminders))
       setSavedArmiesPopulated(true)
     } catch (err) {
       console.error(err)
@@ -123,6 +143,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const saveArmy = useCallback(
     async (savedArmy: ISavedArmy) => {
       try {
+        setHasOrderChanges(false)
         const { body } = await PreferenceApi.createSavedArmy({ userName: user.email, ...savedArmy })
         saveArmyToS3(savedArmy)
         await loadSavedArmies()
@@ -131,7 +152,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         console.error(err)
       }
     },
-    [user, loadSavedArmies]
+    [user, loadSavedArmies, setLoadedArmy]
   )
 
   const saveLink = useCallback(async (savedArmy: ISavedArmy) => {
@@ -155,12 +176,13 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         console.error(err)
       }
     },
-    [loadSavedArmies, user, loadedArmy]
+    [loadSavedArmies, user, loadedArmy, setLoadedArmy]
   )
 
   const updateArmy = useCallback(
-    async (id: string, data: { [key: string]: any }) => {
+    async (id: string, data: Record<string, any>) => {
       try {
+        setHasOrderChanges(false)
         const payload = { ...data, userName: user.email }
         await PreferenceApi.updateItem(id, payload)
         await loadSavedArmies()
@@ -182,7 +204,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         console.error(err)
       }
     },
-    [loadSavedArmies, user, loadedArmy]
+    [loadSavedArmies, user, loadedArmy, setLoadedArmy]
   )
 
   const reloadArmy = useCallback(() => {
@@ -247,29 +269,45 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     if (user && isActive) LocalUserName.set(user.email)
   }, [user, isActive])
 
-  return (
-    <SavedArmiesContext.Provider
-      value={{
-        armyHasChanges,
-        deleteSavedArmy,
-        favoriteFaction,
-        getFavoriteFaction,
-        loadedArmy,
-        loadSavedArmies,
-        reloadArmy,
-        saveArmy,
-        saveArmyToS3,
-        savedArmies,
-        saveLink,
-        setLoadedArmy,
-        updateArmy,
-        updateArmyName,
-        updateFavoriteFaction,
-      }}
-    >
-      {children}
-    </SavedArmiesContext.Provider>
+  const value = useMemo(
+    () => ({
+      armyHasChanges,
+      deleteSavedArmy,
+      favoriteFaction,
+      getFavoriteFaction,
+      loadedArmy,
+      loadSavedArmies,
+      reloadArmy,
+      saveArmy,
+      saveArmyToS3,
+      savedArmies,
+      saveLink,
+      setHasOrderChanges,
+      setLoadedArmy,
+      updateArmy,
+      updateArmyName,
+      updateFavoriteFaction,
+    }),
+    [
+      armyHasChanges,
+      deleteSavedArmy,
+      favoriteFaction,
+      getFavoriteFaction,
+      loadedArmy,
+      loadSavedArmies,
+      reloadArmy,
+      saveArmy,
+      savedArmies,
+      saveLink,
+      setHasOrderChanges,
+      setLoadedArmy,
+      updateArmy,
+      updateArmyName,
+      updateFavoriteFaction,
+    ]
   )
+
+  return <SavedArmiesContext.Provider value={value}>{children}</SavedArmiesContext.Provider>
 }
 
 const useSavedArmies = () => {

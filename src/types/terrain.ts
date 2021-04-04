@@ -43,20 +43,3 @@ export const OBSTACLE: TObstacle = `Obstacle`
 export const OVERGROWN: TOvergrown = `Overgrown`
 export const SINISTER: TSinister = `Sinister`
 export const VOLCANIC: TVolcanic = `Volcanic`
-
-export const SCENERY_EFFECTS: TSceneryEffects[] = [
-  ARCANE,
-  COMMANDING,
-  DAMNED,
-  DEADLY,
-  ENTANGLING,
-  GARRISONS,
-  HEALING,
-  INSPIRING,
-  MYSTICAL,
-  NULLIFICATION,
-  OBSTACLE,
-  OVERGROWN,
-  SINISTER,
-  VOLCANIC,
-]

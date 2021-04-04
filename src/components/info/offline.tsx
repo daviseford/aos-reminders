@@ -1,7 +1,7 @@
-import React from 'react'
-import { FiWifiOff } from 'react-icons/fi'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
+import React from 'react'
+import { FiWifiOff } from 'react-icons/fi'
 import { LocalUserName } from 'utils/localStore'
 
 const OfflineComponent = () => {

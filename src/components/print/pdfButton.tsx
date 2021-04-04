@@ -1,55 +1,40 @@
-import React, { useState } from 'react'
-import { connect } from 'react-redux'
-import jsPDF from 'jspdf'
-import { MdFileDownload } from 'react-icons/md'
+import GenericButton from 'components/input/generic_button'
+import { DownloadPDFModal } from 'components/modals/download_pdf_modal'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { selectors } from 'ducks'
-import { processReminders } from 'utils/processReminders'
+import jsPDF from 'jspdf'
+import React, { useCallback, useState } from 'react'
+import { MdFileDownload } from 'react-icons/md'
+import { useSelector } from 'react-redux'
+import useGetReminders from 'utils/hooks/useGetReminders'
+import useWindowSize from 'utils/hooks/useWindowSize'
 import { savePdf } from 'utils/pdf/generate/generatePdf'
-import { componentWithSize } from 'utils/mapSizesToProps'
-import { DownloadPDFModal } from 'components/print/pdfModal'
-import GenericButton from 'components/input/generic_button'
-import { TAllyArmies, IArmy, ICurrentArmy } from 'types/army'
-import { IStore } from 'types/store'
 
-interface IDownloadPDFProps extends ICurrentArmy {
-  allyArmies: TAllyArmies
-  army: IArmy
-  hiddenReminders: string[]
-  isMobile: boolean
-}
-
-const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
-  const { allyArmies, army, hiddenReminders, isMobile, ...currentArmy } = props
+const DownloadPDFButton = () => {
+  const { reminders } = useGetReminders()
   const { saveArmyToS3 } = useSavedArmies()
+  const { isMobile } = useWindowSize()
+
+  const currentArmy = useSelector(selectors.selectCurrentArmy)
+  const hiddenReminders = useSelector(selectors.selectReminders)
+  const notes = useSelector(selectors.selectNotes)
 
   const [pdf, setPdf] = useState<{ default: jsPDF; compact: jsPDF } | null>(null)
   const [modalIsOpen, setModalIsOpen] = useState(false)
 
-  const openModal = () => setModalIsOpen(true)
-  const closeModal = () => setModalIsOpen(false)
+  const handleDownload = useCallback(
+    (e: React.MouseEvent) => {
+      e.preventDefault()
 
-  const handleDownload = e => {
-    e.preventDefault()
+      // Get the PDF ready to be saved
+      const pdfs = savePdf({ ...currentArmy, hiddenReminders, reminders, notes })
 
-    // Generate reminders
-    const reminders = processReminders(
-      army,
-      currentArmy.factionName,
-      currentArmy.selections,
-      currentArmy.realmscape_feature,
-      currentArmy.allyFactionNames,
-      allyArmies,
-      currentArmy.allySelections
-    )
-
-    // Get the PDF ready to be saved
-    const pdfs = savePdf({ ...currentArmy, hiddenReminders, reminders })
-
-    setPdf(pdfs)
-    saveArmyToS3(currentArmy)
-    openModal()
-  }
+      setPdf(pdfs)
+      saveArmyToS3(currentArmy)
+      setModalIsOpen(true)
+    },
+    [currentArmy, hiddenReminders, reminders, notes, saveArmyToS3]
+  )
 
   const text = `Download${isMobile ? `` : ` PDF`}`
 
@@ -63,21 +48,11 @@ const DownloadPDFComponent: React.FC<IDownloadPDFProps> = props => {
           factionName={currentArmy.factionName}
           pdf={pdf}
           modalIsOpen={modalIsOpen}
-          closeModal={closeModal}
+          closeModal={() => setModalIsOpen(false)}
         />
       )}
     </>
   )
 }
-
-const mapStateToProps = (state: IStore, ownProps) => ({
-  ...ownProps,
-  ...selectors.getCurrentArmy(state),
-  allyArmies: selectors.getAllyArmies(state),
-  army: selectors.getArmy(state),
-  hiddenReminders: selectors.getReminders(state),
-})
-
-const DownloadPDFButton = connect(mapStateToProps, null)(componentWithSize(DownloadPDFComponent))
 
 export default DownloadPDFButton

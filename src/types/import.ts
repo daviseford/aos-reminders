@@ -1,9 +1,9 @@
 import { TSupportedFaction } from 'meta/factions'
-import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
-import { TAllySelectionStore } from 'types/store'
-import { ISelections } from 'types/selections'
-import { ISavedArmyFromApi, ILinkedArmy } from 'types/savedArmy'
 import { ICurrentArmy } from 'types/army'
+import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { ILinkedArmy, ISavedArmyFromApi } from 'types/savedArmy'
+import { TSelections } from 'types/selections'
+import { TAllySelectionStore } from 'types/store'
 
 export interface IImportedArmy {
   allyFactionNames: TSupportedFaction[]
@@ -11,11 +11,12 @@ export interface IImportedArmy {
   allyUnits: string[]
   errors: TImportError[]
   factionName: TSupportedFaction
+  subFactionName: string
   hiddenReminders?: undefined
   origin_realm: TOriginRealms | null
   realmscape_feature: string | null
   realmscape: TBattleRealms | null
-  selections: ISelections
+  selections: TSelections
   unknownSelections: string[]
 }
 
@@ -25,7 +26,11 @@ export type TLoadedArmy =
   | ILinkedArmy
   | (ICurrentArmy & { hiddenReminders: string[] })
 
-export type TImportError = { text: string; severity: 'warn' | 'error' | 'ally-warn' | 'ambiguity-warn' }
+export type TImportError = {
+  text: string
+  severity: 'warn' | 'error' | 'ally-warn' | 'ambiguity-warn' | 'deprecation-warn'
+  reason?: string
+}
 
 type THtmlFile = 'text/html'
 type TPdfFile = 'application/pdf'

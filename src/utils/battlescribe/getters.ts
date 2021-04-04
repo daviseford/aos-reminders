@@ -1,45 +1,91 @@
-import { uniq, isString, without } from 'lodash'
+import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
+import { uniq, without } from 'lodash'
 import {
-  IAllegianceInfo,
+  LEGIONS_OF_NAGASH,
+  LUMINETH_REALMLORDS,
+  SERAPHON,
+  TPrimaryFactions,
+  TSupportedFaction,
+} from 'meta/factions'
+import { getFactionFromList } from 'meta/faction_list'
+import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { TSelections } from 'types/selections'
+import { isValidFactionName } from 'utils/armyUtils'
+import { cleanText, fixKeys, ignoredValues } from 'utils/battlescribe/battlescribeUtils'
+import { isChildNode, isParentNode } from 'utils/battlescribe/checks'
+import {
   IChildNode,
   IFactionInfo,
+  IFlavorInfo,
   IParentNode,
   IParsedRoot,
 } from 'utils/battlescribe/getBattlescribeArmy'
-import { isParentNode, isChildNode } from 'utils/battlescribe/checks'
+import { partialSearchDoc, stripParentNode } from 'utils/battlescribe/parseHTML'
 import { importFactionNameMap } from 'utils/import/options'
-import { stripParentNode, partialSearchDoc } from 'utils/battlescribe/parseHTML'
-import { cleanText, fixKeys, ignoredValues } from 'utils/battlescribe/battlescribeUtils'
-import { isValidFactionName } from 'utils/armyUtils'
-import { TSupportedFaction, SOULBLIGHT } from 'meta/factions'
-import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 
-export const getFactionAndAllegiance = (allegianceInfo: IAllegianceInfo[], factionInfo: IFactionInfo) => {
-  const store = { factionName: null as TSupportedFaction | null, allegiances: [] as string[] }
+type TFactionsAndFlavors = {
+  factionName: TSupportedFaction | null
+  flavors: string[]
+  subFactionName: string | null
+}
 
-  allegianceInfo.forEach(info => {
-    const mappedAllegiance = isValidFactionName(info.allegiance)
-      ? info.allegiance
-      : importFactionNameMap[info.allegiance?.[0] || '']
-    const mappedFaction = isValidFactionName(info.faction)
-      ? info.faction
-      : importFactionNameMap[info.faction || '']
+export const getFactionAndFlavors = (
+  flavorInfo: IFlavorInfo[],
+  factionInfo: IFactionInfo
+): TFactionsAndFlavors => {
+  const store: TFactionsAndFlavors = {
+    factionName: isValidFactionName(factionInfo.factionName) ? factionInfo.factionName : null,
+    subFactionName: null,
+    flavors: [],
+  }
 
-    if (isValidFactionName(mappedAllegiance)) {
-      if (!store.factionName) store.factionName = mappedAllegiance
-      return
-    } else if (isValidFactionName(mappedFaction) && !store.factionName) {
+  flavorInfo.forEach(info => {
+    if (!store.factionName) {
+      info.flavors?.forEach(name => {
+        const y: TPrimaryFactions | string | undefined = isValidFactionName(name)
+          ? name
+          : importFactionNameMap[name]?.factionName
+        if (!store.factionName && isValidFactionName(y)) {
+          store.factionName = y
+        }
+      })
+    }
+
+    const mappedFaction = isValidFactionName(info.factionName)
+      ? info.factionName
+      : importFactionNameMap[info.factionName || '']?.factionName
+
+    if (!store.factionName && isValidFactionName(mappedFaction)) {
       store.factionName = mappedFaction
     }
 
-    if (info.allegiance) {
-      store.allegiances = store.allegiances.concat(info.allegiance)
+    if (info.flavors) {
+      store.flavors = store.flavors.concat(info.flavors)
     }
+
+    if (info.subFactionName) store.subFactionName = info.subFactionName
   })
 
+  const factionName = store.factionName || (factionInfo.factionName as TSupportedFaction)
+
+  const possibleNameCollisions = Object.keys(importFactionNameMap).filter(
+    k => importFactionNameMap[k]?.factionName === factionName
+  )
+
+  // We want to ensure we're not duplicating the faction inside of flavors.
+  const fixedFlavors = without(uniq(store.flavors), factionName, ...possibleNameCollisions)
+
+  let subFactionName = store.subFactionName || factionInfo.subFactionName || ''
+  if (isValidFactionName(factionName) && !subFactionName) {
+    const _Faction = getFactionFromList(factionName)
+    const _subFactionName = store.flavors.find(x => !!_Faction.subFactionKeyMap[x])
+    if (_subFactionName) subFactionName = _subFactionName
+  }
+
   return {
-    factionName: store.factionName || (factionInfo.factionName as TSupportedFaction),
-    allegiances: uniq(store.allegiances) as string[],
+    factionName,
+    subFactionName,
+    flavors: without(fixedFlavors, subFactionName),
   }
 }
 
@@ -71,31 +117,41 @@ export const parseFaction = (obj: IParentNode): IFactionInfo => {
   try {
     const factionNode = obj.childNodes.find(x => x.nodeName === 'h2')
 
+    // obj.childNodes[0].childNodes[0].value
+    // value === "-Pitched Battle - Battlehost (2000pts) (Chaos - Disciples of Tzeentch)"
+
     if (!isParentNode(factionNode)) throw new Error('Could not find factionNode')
     if (!isChildNode(factionNode.childNodes[0])) throw new Error('Not a child node')
 
     const value = factionNode.childNodes[0].value
 
-    const factionValue = value.replace('(Warscroll Compendium)', '').replace(/.+\((.+)\).+/g, '$1')
+    const factionValue = value
+      .replace('(Warscroll Compendium)', '')
+      .replace(/\([\d]{1,5}pts\)/g, '')
+      .replace(/.+\((.+)\).+/g, '$1')
 
     const sep = factionValue.includes(': ') ? ': ' : ' - '
-    let [grandAlliance, factionName] = factionValue.split(sep).map(x => {
+    let [grandAlliance, ...rest] = factionValue.split(sep).map(x => {
       // Remove any stray parentheses
       return x.replace(/(\(|\))/g, '').trim()
     })
 
-    factionName = importFactionNameMap[factionName] || 'Unknown'
+    const last = rest[rest.length - 1]
 
-    return { grandAlliance, factionName }
+    const factionLookup = importFactionNameMap?.[last]
+    const factionName = factionLookup?.factionName || 'Unknown'
+    const subFactionName = factionLookup?.subFactionName || null
+
+    return { grandAlliance, factionName, subFactionName }
   } catch (err) {
     console.log('There was an error detecting the faction name')
     console.error(err)
-    return { grandAlliance: null, factionName: null }
+    return { grandAlliance: null, factionName: null, subFactionName: null }
   }
 }
 
-export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
-  const allegianceInfo = { faction: null as string | null, allegiance: null as string[] | null }
+export const parseAllegiance = (obj: IParentNode): IFlavorInfo => {
+  const flavorInfo: IFlavorInfo = { factionName: null, flavors: null, subFactionName: null }
   try {
     const strippedObj = stripParentNode(obj) as IParentNode
     strippedObj.childNodes = strippedObj.childNodes.filter(x => isParentNode(x))
@@ -103,7 +159,7 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
     // There is some advanced Battlescribe bullshittery going on
     // And we need to parse it in a special manner
     if (partialSearchDoc(obj, 'Allegiance:')) {
-      return getAllegianceMetadata(obj)
+      return getFlavorMetadata(obj)
     }
 
     // TODO: Switch to Table lookup
@@ -134,24 +190,26 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
     })
 
     if (!nameObj || !isParentNode(nameObj)) {
-      let allegiance = allegianceCategoryLookup(childNodes)
-      allegianceInfo.allegiance = allegiance ? [allegiance] : null
+      let flavor = flavorCategoryLookup(childNodes)
+      flavorInfo.flavors = flavor ? [flavor] : null
 
-      if (!allegiance) {
-        allegiance = allegianceSelectionLookup(childNodes)
-        allegianceInfo.allegiance = allegiance ? [allegiance] : null
+      if (!flavor) {
+        flavor = flavorSelectionLookup(childNodes)
+        flavorInfo.flavors = flavor ? [flavor] : null
       }
 
-      allegianceInfo.faction = factionAllegianceh4Lookup(childNodes)
+      const lookup = factionH4Lookup(childNodes)
+      flavorInfo.faction = lookup.factionName
+      if (lookup.subFactionName) flavorInfo.subFactionName = lookup.subFactionName
 
-      return allegianceInfo
+      return flavorInfo
     }
 
     const selectionIdx = nameObj.childNodes.findIndex(isSelectionNode)
 
     const objs = nameObj.childNodes.slice(selectionIdx + 1)
 
-    let faction = objs
+    const potentialFactionName = objs
       .reduce((a, b) => {
         if (isParentNode(b)) return a
         a = `${a} ${b.value}`
@@ -159,30 +217,42 @@ export const parseAllegiance = (obj: IParentNode): IAllegianceInfo => {
       }, '')
       .trim()
 
-    return { ...allegianceInfo, faction }
+    const lookup = importFactionNameMap[potentialFactionName]
+    const factionName = lookup?.factionName || potentialFactionName
+    const subFactionName = lookup?.subFactionName || ''
+
+    return { ...flavorInfo, factionName, subFactionName }
   } catch (err) {
-    return allegianceInfo
+    return flavorInfo
   }
 }
 
-const factionAllegianceh4Lookup = (childNodes: Array<IParentNode | IChildNode>): TSupportedFaction | null => {
+const factionH4Lookup = (
+  childNodes: Array<IParentNode | IChildNode>
+): { factionName: TSupportedFaction | null; subFactionName: string | null } => {
+  const emptyResponse = { factionName: null, subFactionName: null }
   try {
     // @ts-ignore
     const valNode = childNodes[2].childNodes[0].childNodes[0].childNodes[0]
 
     // @ts-ignore
-    if (childNodes[2].childNodes[0].childNodes[0].nodeName !== 'h4') return null
-    if (valNode.nodeName !== '#text') return null
+    if (childNodes[2].childNodes[0].childNodes[0].nodeName !== 'h4') return emptyResponse
+    if (valNode.nodeName !== '#text') return emptyResponse
 
-    const val = importFactionNameMap[cleanText(valNode.value)] || null
+    const lookup = importFactionNameMap[cleanText(valNode.value)]
+    const factionName = lookup.factionName || null
+    const subFactionName = lookup.subFactionName || null
 
-    return isValidFactionName(val) ? val : null
+    return {
+      factionName: isValidFactionName(factionName) ? factionName : null,
+      subFactionName,
+    }
   } catch (err) {
-    return null
+    return emptyResponse
   }
 }
 
-const allegianceSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) => {
+const flavorSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) => {
   const ignoredValues = [
     'Cycle of Corruption, Summon Daemons of Nurgle',
     'Cycle of Corruption',
@@ -220,7 +290,7 @@ const allegianceSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) 
  * Handles weird formatting issues with armies like Idoneth Deepkin
  * @param childNodes
  */
-const allegianceCategoryLookup = (childNodes: Array<IParentNode | IChildNode>): string | null => {
+const flavorCategoryLookup = (childNodes: Array<IParentNode | IChildNode>): string | null => {
   try {
     //@ts-ignore
     if (childNodes[2].childNodes[0].childNodes[2].childNodes[0].childNodes[0].value !== 'Categories:') {
@@ -229,18 +299,18 @@ const allegianceCategoryLookup = (childNodes: Array<IParentNode | IChildNode>): 
 
     //@ts-ignore
     const value = childNodes[2].childNodes[0].childNodes[2].childNodes[1].childNodes[0].value
-    const possibleAllegiances: string[] = value
+    const possibleFlavors: string[] = value
       .split(', ')
       .map(cleanText)
       .filter((x: string) => {
         return x !== 'SCENERY' && x !== 'GLOOMTIDE SHIPWRECK'
       })
-    const faction = cleanText(possibleAllegiances.shift() || '')
+    const faction = cleanText(possibleFlavors.shift() || '')
       .split(' ')
       .join('_')
 
-    if (isValidFactionName(faction) && possibleAllegiances.length > 0) {
-      return possibleAllegiances[0]
+    if (isValidFactionName(faction) && possibleFlavors.length > 0) {
+      return possibleFlavors[0]
     } else {
       return null
     }
@@ -249,8 +319,8 @@ const allegianceCategoryLookup = (childNodes: Array<IParentNode | IChildNode>): 
   }
 }
 
-export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
-  const allegianceInfo = { faction: null, allegiance: null }
+const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
+  const flavorInfo: IFlavorInfo = { factionName: null, subFactionName: null, flavors: null }
 
   let liNode = obj
 
@@ -292,7 +362,7 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     })
 
     return accum
-  }, {} as { [key: string]: string })
+  }, {} as Record<string, string>)
 
   const liEntries = Object.keys(entries).reduce((a, key) => {
     const val = entries[key]
@@ -303,7 +373,7 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
       .trim()
     a[key] = val
     return a
-  }, {} as { [key: string]: string })
+  }, {} as Record<string, string>)
 
   const tableTags = obj.childNodes.filter(x => isParentNode(x) && x.nodeName === 'table') as IParentNode[]
 
@@ -315,7 +385,7 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     const names = tds.map(x => x.childNodes[0].value).flat()
     a[tableName] = names
     return a
-  }, {} as { [key: string]: string[] | string })
+  }, {} as Record<string, string[] | string>)
 
   const mergedTraits = fixKeys(
     Object.keys(liEntries).reduce((a, key) => {
@@ -335,23 +405,24 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
     // Ignore empty values
     if (!val) return a
 
-    if (key === 'Selections' && isString(val)) {
-      a.allegiance = [stripAllegiancePrefix(val)]
-    } else if (key === 'Categories' && isString(val)) {
-      a.faction = val
+    if (key === 'Selections' && typeof val === 'string') {
+      a.flavors = [stripAllegiancePrefix(val)]
+    } else if (key === 'Categories' && typeof val === 'string') {
+      a.factionName = val
     } else {
       a[key] = val
     }
     return a
-  }, allegianceInfo as IAllegianceInfo)
+  }, flavorInfo)
 
   // Soulblight hotfix
   if (
     // @ts-ignore
     obj?.childNodes[2]?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]?.value === 'Allegiance: Soulblight'
   ) {
-    fixedKeys.faction = SOULBLIGHT
-    fixedKeys.allegiance = []
+    fixedKeys.factionName = LEGIONS_OF_NAGASH
+    fixedKeys.subFactionName = LegionsOfNagashFaction.subFactionKeyMap.Soulblight
+    fixedKeys.flavors = []
   }
 
   // Seraphon hotfix
@@ -369,10 +440,23 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
       ulNode?.childNodes?.[0]?.childNodes[2]?.childNodes?.[0]?.childNodes?.[1]?.childNodes?.[1]?.value
         ?.replace('The ', '')
         ?.replace(', Show Celestial Conjuration Table', '')
+        ?.replace('Show Celestial Conjuration Table', '')
 
-    if ((way || constellation) && !fixedKeys.allegiance) fixedKeys.allegiance = []
-    if (way) fixedKeys.allegiance?.push(way)
-    if (constellation) fixedKeys.allegiance?.push(constellation)
+    if ((way || constellation) && !fixedKeys.flavors) fixedKeys.flavors = []
+    if (way) fixedKeys.subFactionName = way
+    if (constellation) fixedKeys.flavors?.push(constellation)
+    fixedKeys.factionName = SERAPHON
+  }
+
+  // Horrible Lumineth hotfix - 10/28/20
+  // @ts-ignore
+  if (liNode?.childNodes?.[0]?.childNodes?.[0].value === 'Allegiance: Lumineth') {
+    // @ts-ignore
+    const luminethAllegiance = liNode?.childNodes?.[2]?.childNodes?.[1]?.childNodes?.[0]?.value
+    if (luminethAllegiance) {
+      fixedKeys.flavors = [luminethAllegiance]
+      fixedKeys.factionName = LUMINETH_REALMLORDS
+    }
   }
 
   return fixedKeys
@@ -380,54 +464,20 @@ export const getAllegianceMetadata = (obj: IParentNode): IAllegianceInfo => {
 
 const stripAllegiancePrefix = (str: string) => str.replace(/(Legion: )/g, '')
 
-export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianceInfo[]) => {
-  const Collection = {
-    allegiances: [] as string[],
-    artifacts: [] as string[],
-    battalions: [] as string[],
-    commands: [] as string[],
-    endless_spells: [] as string[],
-    scenery: [] as string[],
-    spells: [] as string[],
-    traits: [] as string[],
-    triumphs: [] as string[],
-    units: [] as string[],
-  }
-
-  /**
-   * If a value is prefixed with a certain string,
-   * assign the value to a certain selection type
-   */
-  const lookup = {
-    'Battle Traits': 'traits',
-    'Bound Endless Spell': 'endless_spells',
-    'Endless Spell': 'endless_spells',
-    'Magmic Invocation': 'endless_spells',
-    'Super Battalion': 'battalions',
-    Artifacts: 'artifacts',
-    Battalion: 'battalions',
-    Commands: 'commands',
-    Judgement: 'endless_spells',
-    Scenery: 'scenery',
-    Spells: 'spells',
-    Traits: 'traits',
-    Unit: 'units',
-  }
-
-  /**
-   * Names that if they are matched exactly,
-   * should be placed in a certain selection type
-   */
-  const exactMatches = {
-    'Eternal Starhost': 'battalions',
-    'Eternal Temple-Host': 'battalions',
-    'Firelance Starhost': 'battalions',
-    'Firelance Temple-Host': 'battalions',
-    'Shadowstrike Starhost': 'battalions',
-    'Shadowstrike Temple-Host': 'battalions',
-    'Sunclaw Starhost': 'battalions',
-    'Sunclaw Temple-Host': 'battalions',
-    'Thunderquake Temple-Host': 'battalions',
+export const sortParsedRoots = (roots: IParsedRoot[], flavorInfo: IFlavorInfo[]) => {
+  const Collection: TSelections = {
+    artifacts: [],
+    battalions: [],
+    command_abilities: [],
+    command_traits: [],
+    endless_spells: [],
+    flavors: [],
+    mount_traits: [],
+    prayers: [],
+    scenery: [],
+    spells: [],
+    triumphs: [],
+    units: [],
   }
 
   roots.forEach(r => {
@@ -438,16 +488,26 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
     // And if we need to do some additional parsing (we don't need to for Endless Spells)
     let [has_matched, process_entries] = [false, true]
 
-    Object.keys(lookup).forEach(key => {
-      if (!has_matched && r.name.startsWith(`${key}:`)) {
-        const vals = r.name.split(`${key}:`)[1].split(',').map(cleanText)
-        Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
-        has_matched = true
-        if (['Endless Spell', 'Bound Endless Spell'].includes(key)) {
-          process_entries = false
+    // If we have a battalion entry (and no helpful prefix) let's be sure to store it accordingly
+    if (isBattalion(r)) {
+      const val = cleanText(r.name)
+      Collection.battalions = uniq(Collection.battalions.concat(val))
+      has_matched = true
+    }
+
+    // Let's see if we can match this entry nicely to a certain category
+    if (!has_matched) {
+      Object.keys(prefixLookup).forEach(key => {
+        if (!has_matched && r.name.startsWith(`${key}:`)) {
+          const vals = r.name.split(`${key}:`)[1].split(',').map(cleanText)
+          Collection[prefixLookup[key]] = uniq(Collection[prefixLookup[key]].concat(vals))
+          has_matched = true
+          if (['Endless Spell', 'Bound Endless Spell'].includes(key)) {
+            process_entries = false
+          }
         }
-      }
-    })
+      })
+    }
 
     // Check for exact matches
     if (!has_matched) {
@@ -463,25 +523,26 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
     // Put everything else in units
     if (!has_matched) {
       const val = cleanText(r.name)
-      Collection.units = uniq(Collection.units.concat(val))
+      const names = multiNameMap[val] || [val]
+      Collection.units = uniq(Collection.units.concat(names))
     }
 
     if (process_entries) {
       // Now need to handle entries
       Object.keys(r.entries).forEach(key => {
-        if (lookup[key]) {
+        if (prefixLookup[key]) {
           const vals = without(r.entries[key], ...ignoredNames)
-          Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
+          Collection[prefixLookup[key]] = uniq(Collection[prefixLookup[key]].concat(vals))
         }
       })
     }
   })
 
-  allegianceInfo.forEach(info => {
+  flavorInfo.forEach(info => {
     Object.keys(info).forEach(key => {
-      if (lookup[key]) {
+      if (prefixLookup[key]) {
         const vals = info[key]
-        Collection[lookup[key]] = uniq(Collection[lookup[key]].concat(vals))
+        if (vals) Collection[prefixLookup[key]] = uniq(Collection[prefixLookup[key]].concat(vals))
       }
     })
   })
@@ -500,12 +561,67 @@ export const sortParsedRoots = (roots: IParsedRoot[], allegianceInfo: IAllegianc
 const ignoredNames = [
   'Crew',
   'Screaming Skull Catapult Crew',
+  'Show Celestial Conjuration Table',
   'Summon Bleeding Icon',
   'Summon Hexgorger Skulls',
   'Summon Molten Infernoth',
   'Summon Runic Fyrewall',
+  'Summon Umbral Spellportal',
   'Summon Wrath-Axe',
   'Summon Zharrgron Flame Splitter',
   'Ur-Gold',
   "Summon Ravenak's Gnashing Jaws",
 ]
+
+// Convert names of units that contain multiple unit types
+const multiNameMap: Record<string, string[]> = {
+  'Duke Crakmarrow and the Grymwatch': ['Duke Crakmarrow', 'The Grymwatch'],
+}
+
+/**
+ * If a value is prefixed with a certain string,
+ * assign the value to a certain selection type
+ */
+const prefixLookup: Record<string, keyof TSelections> = {
+  'Battle Traits': 'command_traits',
+  'Bound Endless Spell': 'endless_spells',
+  'Command Abilities': 'command_abilities',
+  'Command Traits': 'command_traits',
+  'Endless Spell': 'endless_spells',
+  'Magmic Invocation': 'endless_spells',
+  'Super Battalion': 'battalions',
+  Artifacts: 'artifacts',
+  Battalion: 'battalions',
+  Commands: 'command_abilities',
+  Enginecoven: 'battalions',
+  Judgement: 'endless_spells',
+  Prayers: 'prayers',
+  Scenery: 'scenery',
+  Spells: 'spells',
+  Traits: 'command_traits',
+  Unit: 'units',
+}
+
+/**
+ * Names that if they are matched exactly,
+ * should be placed in a certain selection type
+ */
+const exactMatches: Record<string, keyof TSelections> = {
+  'Charnel Throne': 'scenery',
+}
+
+const isBattalion = (r: IParsedRoot): boolean => {
+  // Ignore units
+  if (r.entries['Unit']?.[0] === r.name) {
+    return false
+  }
+
+  // Do we have battalion abilities? And are our abilities unique?
+  if (!r.entries['Battalion Abilities'] || r.entries?.['Battalion Abilities']?.[0] === r.name) {
+    return false
+  }
+
+  // Are we missing a known prefix?
+  const startsWithPrefix = Object.keys(prefixLookup).some(x => r.name.startsWith(x))
+  return !startsWithPrefix
+}

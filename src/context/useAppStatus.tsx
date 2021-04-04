@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react'
+import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { logEvent } from 'utils/analytics'
 
 interface IAppStatusProvider {
@@ -9,7 +9,7 @@ interface IAppStatusProvider {
   toggleGameMode: () => void
 }
 
-const timeout = (ms: number, promise) => {
+const timeout = (ms: number, promise: Promise<any>) => {
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
       reject(new Error('timeout'))
@@ -76,13 +76,18 @@ const AppStatusProvider: React.FC = ({ children }) => {
     }
   })
 
-  return (
-    <AppStatusContext.Provider
-      value={{ isGameMode, isOffline, isOnline: !isOffline, hasNewContent, toggleGameMode }}
-    >
-      {children}
-    </AppStatusContext.Provider>
+  const value = useMemo(
+    () => ({
+      isGameMode,
+      isOffline,
+      isOnline: !isOffline,
+      hasNewContent,
+      toggleGameMode,
+    }),
+    [isGameMode, isOffline, hasNewContent, toggleGameMode]
   )
+
+  return <AppStatusContext.Provider value={value}>{children}</AppStatusContext.Provider>
 }
 
 const useAppStatus = () => {

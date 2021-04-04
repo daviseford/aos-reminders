@@ -1,35 +1,69 @@
-import React from 'react'
-import { sortBy } from 'lodash'
 import { useTheme } from 'context/useTheme'
-import { titleCase } from 'utils/textUtils'
-import { ISavedArmyFromApi, ISavedArmy } from 'types/savedArmy'
+import { sortBy } from 'lodash'
+import { TSupportedFaction } from 'meta/factions'
+import { getFactionFromList } from 'meta/faction_list'
+import React, { useMemo } from 'react'
+import { ICurrentArmy } from 'types/army'
+import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
+import { IAllySelections, TSelections } from 'types/selections'
 import { ITheme } from 'types/theme'
-import { IAllySelections } from 'types/selections'
+import { titleCase } from 'utils/textUtils'
 
 interface ISavedArmyTable {
-  army: ISavedArmyFromApi | ISavedArmy
+  army: ISavedArmyFromApi | ISavedArmy | ICurrentArmy
 }
 
 export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
-  const { selections, allySelections, origin_realm, realmscape, realmscape_feature } = army
+  const {
+    factionName,
+    subFactionName,
+    selections,
+    allySelections,
+    origin_realm,
+    realmscape,
+    realmscape_feature,
+  } = army
   const { theme } = useTheme()
 
-  const armySelectionKeys = sortBy(Object.keys(selections).filter(key => selections[key].length))
-  const allies: IAllySelections = Object.keys(allySelections).reduce(
-    (a, factionName) => {
-      a.units = a.units.concat(allySelections[factionName].units || [])
-      a.battalions = a.battalions.concat(allySelections[factionName].battalions || [])
-      return a
-    },
-    { units: [], battalions: [] } as IAllySelections
+  const armySelectionKeys = useMemo(
+    () => sortBy(Object.keys(selections).filter(key => selections[key as keyof typeof selections].length)),
+    [selections]
   )
+
+  const allies = useMemo(
+    () =>
+      Object.keys(allySelections).reduce(
+        (a, factionName) => {
+          const allyUnits = allySelections[factionName as TSupportedFaction]?.units || []
+          const allyBattalions = allySelections[factionName as TSupportedFaction]?.battalions || []
+          a.units = a.units.concat(allyUnits)
+          a.battalions = a.battalions.concat(allyBattalions)
+          return a
+        },
+        { units: [], battalions: [] } as IAllySelections
+      ),
+    [allySelections]
+  )
+
+  const { subFactionKeys } = getFactionFromList(factionName)
 
   return (
     <>
       <table className={`table table-sm`}>
         <tbody>
+          <Tr theme={theme} items={[titleCase(factionName)]} title={'Faction'} />
+          {!!subFactionName && subFactionKeys.length > 1 && (
+            <Tr theme={theme} items={[subFactionName]} title={'SubFaction'} />
+          )}
           {armySelectionKeys.map((key, i) => {
-            return <Tr theme={theme} items={sortBy(selections[key])} title={key} key={`${key}_${i}`} />
+            return (
+              <Tr
+                theme={theme}
+                items={sortBy(selections[key as keyof TSelections])}
+                title={key}
+                key={`${key}_${i}`}
+              />
+            )
           })}
 
           {allies.units.length > 0 && (

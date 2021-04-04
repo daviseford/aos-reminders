@@ -1,30 +1,31 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react'
-import { Link } from 'react-router-dom'
-import { useAuth0 } from 'react-auth0-wrapper'
-import Switch from 'react-switch'
-import { DateTime } from 'luxon'
-import { MdVerifiedUser, MdNotInterested, MdCheckCircle } from 'react-icons/md'
-import { FaGift } from 'react-icons/fa'
-import { useSubscription } from 'context/useSubscription'
-import { useSavedArmies } from 'context/useSavedArmies'
-import { useTheme } from 'context/useTheme'
-import { logPageView, logClick } from 'utils/analytics'
-import { titleCase } from 'utils/textUtils'
-import { ROUTES } from 'utils/env'
-import { withSelectOne } from 'utils/withSelect'
-import { CancelSubscriptionModal } from 'components/input/cancellation_modal'
-import { ContactComponent } from 'components/page/contact'
-import { LoadingHeader, LoadingBody } from 'components/helpers/suspenseFallbacks'
+import { useAuth0 } from '@auth0/auth0-react'
+import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
+import GenericButton from 'components/input/generic_button'
 import { SelectOne } from 'components/input/select'
+import { CancelPaypalSubscriptionModal } from 'components/modals/paypal_cancellation_modal'
+import { CancelStripeSubscriptionModal } from 'components/modals/stripe_cancellation_modal'
+import Contact from 'components/page/contact'
 import { GiftSubscriptions } from 'components/payment/giftSubscriptions'
-import { centerContentClass } from 'theme/helperClasses'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { useSubscription } from 'context/useSubscription'
+import { useTheme } from 'context/useTheme'
+import { DateTime } from 'luxon'
 import { PRIMARY_FACTIONS } from 'meta/factions'
-import { IUser } from 'types/user'
+import React, { lazy, Suspense, useEffect, useState } from 'react'
+import { FaGift, FaPaypal, FaSearchDollar } from 'react-icons/fa'
+import { MdCheckCircle, MdNotInterested } from 'react-icons/md'
+import { Link } from 'react-router-dom'
+import Switch from 'react-switch'
+import { centerContentClass } from 'theme/helperClasses'
+import { logClick, logPageView } from 'utils/analytics'
+import { ROUTES } from 'utils/env'
+import { titleCase } from 'utils/textUtils'
+import { withSelectOne } from 'utils/withSelect'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
-const Profile: React.FC = () => {
-  const { loading, user }: { loading: boolean; user: IUser } = useAuth0()
+const Profile = () => {
+  const { isLoading, user } = useAuth0()
   const { getSubscription } = useSubscription()
   const { theme } = useTheme()
 
@@ -36,7 +37,7 @@ const Profile: React.FC = () => {
     getSubscription()
   }, [getSubscription])
 
-  if (loading || !user) return <LoadingBody />
+  if (isLoading || !user) return <LoadingBody />
 
   const userCardWrapperClass = `col-12 col-md-8 col-lg-6 col-xl-6`
 
@@ -63,9 +64,8 @@ const Profile: React.FC = () => {
 
 export default Profile
 
-const UserCard: React.FC = () => {
-  const { user }: { user: IUser } = useAuth0()
-  const { isActive, isSubscribed, isCanceled, isGifted, subscription } = useSubscription()
+const UserCard = () => {
+  const { isSubscribed, subscription } = useSubscription()
   const { theme } = useTheme()
 
   return (
@@ -73,16 +73,9 @@ const UserCard: React.FC = () => {
       <h1 className="text-center">Your Profile</h1>
       <FavoriteArmySelect />
       <ToggleTheme />
-      <SubscriptionInfo
-        subscription={subscription}
-        isCanceled={isCanceled}
-        isSubscribed={isSubscribed}
-        isActive={isActive}
-      />
-      {isSubscribed && (
-        <RecurringPaymentInfo isActive={isActive} isCanceled={isCanceled} isGifted={isGifted} />
-      )}
-      <EmailVerified email_verified={user.email_verified} email={user.email} />
+      <SubscriptionInfo />
+      {isSubscribed && subscription.subscriptionStatus !== 'temporary_grant' && <RecurringPaymentInfo />}
+      <EmailVerified />
       <Help />
     </div>
   )
@@ -139,12 +132,8 @@ const FavoriteArmySelect = () => {
   )
 }
 
-interface ICancelBtnProps {
-  stripe?: any
-}
-
-const CancelBtn: React.FC<ICancelBtnProps> = () => {
-  const { isActive, isCanceled } = useSubscription()
+const CancelBtn = () => {
+  const { isActive, isCanceled, createdByPaypal } = useSubscription()
   const { isLight } = useTheme()
 
   const [modalIsOpen, setModalIsOpen] = useState(false)
@@ -152,22 +141,35 @@ const CancelBtn: React.FC<ICancelBtnProps> = () => {
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  if (!isActive || isCanceled) return null
+  if (!isActive || isCanceled) return <></>
 
   const btnClass = `btn btn-sm btn${isLight ? `-outline-` : `-`}danger`
 
+  const ModelComponent = createdByPaypal ? CancelPaypalSubscriptionModal : CancelStripeSubscriptionModal
+
   return (
     <>
-      <button className={btnClass} onClick={openModal}>
+      <GenericButton className={btnClass} onClick={openModal}>
         Cancel Subscription
-      </button>
-      {modalIsOpen && <CancelSubscriptionModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}
+      </GenericButton>
+      {modalIsOpen && <ModelComponent modalIsOpen={modalIsOpen} closeModal={closeModal} />}
     </>
   )
 }
 
-const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) => {
+const SubscriptionInfo = () => {
+  const {
+    hasActiveGrant,
+    hasExpiredGrant,
+    isActive,
+    isPending,
+    isSubscribed,
+    subscription,
+  } = useSubscription()
   const { theme } = useTheme()
+
+  if (hasActiveGrant) return <TemporaryGrantComponent />
+
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
@@ -183,7 +185,7 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
         </h4>
       </div>
 
-      {isActive && (
+      {isActive && !hasExpiredGrant && (
         <div className={theme.cardBody}>
           <h5 className="lead">
             Subscription Start:{' '}
@@ -197,9 +199,13 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
               })
               .toLocaleString(DateTime.DATE_MED)}
           </h5>
+          {subscription.createdBy &&
+            (subscription.createdBy === 'paypal' || subscription.createdBy === 'stripe') && (
+              <h5 className="lead">Payment Method: {titleCase(subscription.createdBy)}</h5>
+            )}
         </div>
       )}
-      {isSubscribed && !isActive && (
+      {isSubscribed && !isActive && !isPending && !hasExpiredGrant && (
         <div className={theme.cardBody}>
           <SubscriptionExpired />
         </div>
@@ -208,7 +214,52 @@ const SubscriptionInfo = ({ subscription, isSubscribed, isActive, isCanceled }) 
   )
 }
 
-const RecurringPaymentInfo = ({ isActive, isCanceled, isGifted }) => {
+const TemporaryGrantComponent = () => {
+  const { subscription } = useSubscription()
+  const { theme } = useTheme()
+
+  return (
+    <div className={`${theme.card} mt-2`}>
+      <div className={theme.profileCardHeader}>
+        <h4>
+          <div className={centerContentClass}>
+            Subscription Status: <FaSearchDollar className="text-warning ml-2" />
+          </div>
+        </h4>
+      </div>
+
+      <div className={theme.cardBody}>
+        <div className={`${centerContentClass} row`}>
+          <div className="col-12">
+            <h1>
+              <FaPaypal className="text-info ml-2 align-self-center" />
+            </h1>
+          </div>
+          <div className="col-12">
+            <h5 className="text-warning">Currently verifying payment via Paypal.</h5>
+          </div>
+        </div>
+
+        <h5 className="lead">
+          Subscription Start:{' '}
+          {DateTime.fromSeconds(subscription.subscriptionStart as number).toLocaleString(DateTime.DATE_MED)}
+        </h5>
+        <h5 className="lead">
+          Subscription End:{' '}
+          {DateTime.fromSeconds(subscription.subscriptionStart as number)
+            .plus({
+              [`${subscription.planInterval}s`]: subscription.planIntervalCount,
+            })
+            .toLocaleString(DateTime.DATE_MED)}
+        </h5>
+        <h5 className="lead">Payment Method: Paypal</h5>
+      </div>
+    </div>
+  )
+}
+
+const RecurringPaymentInfo = () => {
+  const { isActive, isCanceled, isGifted } = useSubscription()
   const { theme } = useTheme()
   return (
     <div className={`${theme.card} mt-2`}>
@@ -242,24 +293,18 @@ const RecurringPaymentInfo = ({ isActive, isCanceled, isGifted }) => {
   )
 }
 
-const EmailVerified = ({ email_verified, email }) => {
+const EmailVerified = () => {
+  const { user } = useAuth0()
   const { theme } = useTheme()
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
         <h4>
-          <div className={centerContentClass}>
-            Email Verified:{' '}
-            {email_verified ? (
-              <MdVerifiedUser className="text-success ml-2" />
-            ) : (
-              <MdNotInterested className="text-danger ml-2" />
-            )}
-          </div>
+          <div className={centerContentClass}>User Email:</div>
         </h4>
       </div>
       <div className={theme.cardBody}>
-        <h5 className="lead">{email}</h5>
+        <h5 className="lead">{user.email}</h5>
       </div>
     </div>
   )
@@ -270,10 +315,10 @@ const Help = () => {
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
-        <h4>Need help?</h4>
+        <h4>Contact Us</h4>
       </div>
       <div className={theme.cardBody}>
-        <ContactComponent size="normal" />
+        <Contact size="normal" />
       </div>
     </div>
   )
@@ -286,7 +331,7 @@ const ToggleTheme = () => {
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>
-        <h4>Visual Theme</h4>
+        <h4>Visual Theme: {isDark ? 'Dark' : 'Light'}</h4>
       </div>
       <div className={`${theme.cardBody} ${centerContentClass} pb-0`}>
         {isActive && (

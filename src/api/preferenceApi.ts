@@ -1,8 +1,8 @@
 import request from 'superagent'
+import { ICurrentArmy } from 'types/army'
+import { TImportFileTypes, TImportParsers } from 'types/import'
 import { ISavedArmy } from 'types/savedArmy'
 import { isDev } from 'utils/env'
-import { TImportFileTypes, TImportParsers } from 'types/import'
-import { ICurrentArmy } from 'types/army'
 
 const devEndpoint = `https://bgj1fpqcj6.execute-api.us-east-1.amazonaws.com/dev`
 const prodEndpoint = `https://mzrv8apqrd.execute-api.us-east-1.amazonaws.com/prod`
@@ -30,7 +30,7 @@ interface IUpdateItem {
 
 const createErrorFile = (data: ICreateError) => request.post(`${api}/errors`).send(data)
 const createItem = (data: ICreateItem) => request.post(`${api}/items`).send(data)
-const createLink = (data: { [key: string]: any }) => request.post(`${api}/links`).send(data)
+const createLink = (data: Record<string, any>) => request.post(`${api}/links`).send(data)
 const createSavedArmy = (data: ICreateSavedArmy) => request.post(`${api}/items`).send(data)
 const deleteItem = (id: string, userName: string) => request.delete(`${api}/items/${id}/${userName}`)
 const getItem = (id: string) => request.get(`${api}/items/${id}`)

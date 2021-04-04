@@ -1,9 +1,10 @@
-import React from 'react'
-import { useSavedArmies } from 'context/useSavedArmies'
+import GenericButton from 'components/input/generic_button'
 import { useAppStatus } from 'context/useAppStatus'
+import { useSavedArmies } from 'context/useSavedArmies'
+import React from 'react'
+import { ISavedArmyFromApi } from 'types/savedArmy'
 import { logEvent, resetAnalyticsStore } from 'utils/analytics'
 import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
-import { ISavedArmyFromApi } from 'types/savedArmy'
 
 interface ILoadButtonProps {
   army: ISavedArmyFromApi
@@ -13,7 +14,7 @@ export const LoadArmyBtn: React.FC<ILoadButtonProps> = ({ army }) => {
   const { isOnline } = useAppStatus()
   const { setLoadedArmy } = useSavedArmies()
 
-  const handleLoadClick = async e => {
+  const handleLoadClick = (e: React.MouseEvent) => {
     e.preventDefault()
     if (isOnline) logEvent(`LoadArmy-${army.factionName}`)
     resetAnalyticsStore()
@@ -22,8 +23,8 @@ export const LoadArmyBtn: React.FC<ILoadButtonProps> = ({ army }) => {
   }
 
   return (
-    <button className="btn btn-sm btn-primary mx-3" onClick={handleLoadClick}>
+    <GenericButton className="btn btn-sm btn-primary mx-3" onClick={handleLoadClick}>
       Load Army
-    </button>
+    </GenericButton>
   )
 }

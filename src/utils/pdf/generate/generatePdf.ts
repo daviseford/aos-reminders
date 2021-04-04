@@ -1,7 +1,7 @@
 import jsPDF from 'jspdf'
+import { IPrintPdf } from 'types/pdf'
 import { saveCompactPdf } from 'utils/pdf/generate/layouts/compact'
 import { saveDefaultPdf } from 'utils/pdf/generate/layouts/default'
-import { IPrintPdf } from 'types/pdf'
 
 type TSavePdf = (
   data: IPrintPdf

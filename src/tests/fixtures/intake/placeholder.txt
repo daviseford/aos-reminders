@@ -1,0 +1,5 @@
+!! DO NOT DELETE THIS FILE  !!
+
+This directory is to be used for the intake of new JSON error logs from S3.
+
+!! DO NOT DELETE THIS FILE  !!

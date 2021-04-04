@@ -1,13 +1,26 @@
+import GenericButton from 'components/input/generic_button'
+import { useSavedArmies } from 'context/useSavedArmies'
+import { realmscapeActions, selectionActions } from 'ducks'
 import React from 'react'
 import { FaTrashAlt } from 'react-icons/fa'
-import GenericButton from 'components/input/generic_button'
+import { useDispatch } from 'react-redux'
+import { logClick } from 'utils/analytics'
 
-interface IClearArmyButton {
-  clearArmyClick: (e: any) => void
-}
+const { resetAllySelections, resetSelections } = selectionActions
+const { resetRealmscapeStore } = realmscapeActions
 
-const ClearArmyButton: React.FC<IClearArmyButton> = props => {
-  const { clearArmyClick } = props
+const ClearArmyButton = () => {
+  const dispatch = useDispatch()
+  const { setLoadedArmy } = useSavedArmies()
+
+  const clearArmyClick = (e: React.MouseEvent) => {
+    e.preventDefault()
+    dispatch(resetAllySelections())
+    dispatch(resetRealmscapeStore())
+    dispatch(resetSelections())
+    logClick('ClearArmy')
+    setLoadedArmy(null)
+  }
 
   return (
     <GenericButton onClick={clearArmyClick}>

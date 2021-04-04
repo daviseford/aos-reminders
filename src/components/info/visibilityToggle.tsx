@@ -1,4 +1,7 @@
+import GenericDestructiveModal from 'components/modals/generic/generic_destructive_modal'
+import { useTheme } from 'context/useTheme'
 import React, { useCallback, useState } from 'react'
+import { Dropdown } from 'react-bootstrap'
 import { IconContext, IconType } from 'react-icons'
 import {
   MdAdd,
@@ -10,21 +13,21 @@ import {
   MdVisibility,
   MdVisibilityOff,
 } from 'react-icons/md'
-import { useTheme } from 'context/useTheme'
-import { ConfirmDismissNotificationModal } from 'components/info/confirm_dismiss_notification_modal'
 
 export type TVisibilityIconType = 'clear' | 'eye' | 'fold' | 'minus'
 
 interface IVisibilityToggleProps {
+  appearance?: 'icon' | 'menuItem'
+  className?: string
   isVisible: boolean
+  text?: string
   setVisibility?: () => void
   size?: number
   type?: TVisibilityIconType
-  className?: string
   withConfirmation?: boolean
 }
 
-const icons: { [key in TVisibilityIconType]: { visible: IconType; hidden: IconType } } = {
+const icons: Record<TVisibilityIconType, { visible: IconType; hidden: IconType }> = {
   clear: {
     visible: MdClear,
     hidden: MdAdd,
@@ -49,6 +52,8 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
     setVisibility,
     size = 1.4,
     type = 'eye',
+    appearance = 'icon',
+    text = '',
     className = '',
     withConfirmation = false,
   } = props
@@ -61,29 +66,39 @@ export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
   const openModal = () => setModalIsOpen(true)
   const closeModal = () => setModalIsOpen(false)
 
-  const handleClick = e => {
+  const handleClick = (e: React.MouseEvent) => {
     e.preventDefault()
     withConfirmation ? openModal() : handleSetVisibility(e)
   }
 
   const handleSetVisibility = useCallback(
-    e => {
-      e.preventDefault()
-      return setVisibility ? setVisibility() : null
+    (e?: React.MouseEvent) => {
+      e?.preventDefault?.()
+      setVisibility?.()
     },
     [setVisibility]
   )
 
   return (
     <>
-      <IconContext.Provider value={{ size: `${size}em`, className: className || theme.text }}>
-        <VisibilityComponent onClick={handleClick} />
-      </IconContext.Provider>
+      {appearance === 'icon' && (
+        <IconContext.Provider value={{ size: `${size}em`, className: className || theme.text }}>
+          <VisibilityComponent onClick={handleClick} />
+        </IconContext.Provider>
+      )}
+      {appearance === 'menuItem' && (
+        <Dropdown.Item className={className} onClick={handleClick}>
+          {isVisible ? `Hide` : `Show`}
+          {text && ` ${text}`}
+        </Dropdown.Item>
+      )}
       {modalIsOpen && (
-        <ConfirmDismissNotificationModal
-          modalIsOpen={modalIsOpen}
+        <GenericDestructiveModal
           closeModal={closeModal}
-          visibilityHandler={handleSetVisibility}
+          confirmText={'Hide'}
+          isOpen={modalIsOpen}
+          onConfirm={handleSetVisibility}
+          headerText={'Hide Rule?'}
         />
       )}
     </>

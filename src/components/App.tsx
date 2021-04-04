@@ -1,13 +1,13 @@
-import React, { useEffect, lazy, Suspense } from 'react'
 import { LoadingBody } from 'components/helpers/suspenseFallbacks'
+import ProtectedRoute from 'components/page/privateRoute'
+import React, { lazy, Suspense, useEffect } from 'react'
+import { Route, Router, Switch } from 'react-router-dom'
 import { ROUTES } from 'utils/env'
-
-// Auth
-import { BrowserRouter, Route, Switch } from 'react-router-dom'
-import { PrivateRoute } from 'components/page/privateRoute'
-import { handleCheckout, handleArmyLink } from 'utils/handleQueryParams'
+import { handleArmyLink, handleStripeCheckout } from 'utils/handleQueryParams'
+import history from 'utils/history'
 
 // Lazy loading routes (takes advantage of code splitting)
+const Faq = lazy(() => import('components/routes/Faq'))
 const Home = lazy(() => import('components/routes/Home'))
 const Join = lazy(() => import('components/routes/Join'))
 const Profile = lazy(() => import('components/routes/Profile'))
@@ -17,17 +17,20 @@ const Subscribe = lazy(() => import('components/routes/Subscribe'))
 
 const App = () => {
   useEffect(() => {
-    handleCheckout() // Post-checkout handling
+    handleStripeCheckout() // Post-Stripe-checkout handling
     handleArmyLink() // Load army from link
   }, [])
 
   return (
     <div className={`d-block`}>
-      <BrowserRouter>
+      <Router history={history}>
         <Suspense fallback={<LoadingBody />}>
           <Switch>
             {/* Main page of the app */}
             <Route path={ROUTES.HOME} exact component={Home} />
+
+            {/* Help/FAQ */}
+            <Route path={ROUTES.FAQ} component={Faq} />
 
             {/* Coupon redemption */}
             <Route path={ROUTES.JOIN} component={Join} />
@@ -42,10 +45,10 @@ const App = () => {
             <Route path={ROUTES.STATS} component={Stats} />
 
             {/* Profile page */}
-            <PrivateRoute path={ROUTES.PROFILE} component={Profile} />
+            <ProtectedRoute path={ROUTES.PROFILE} component={Profile} />
           </Switch>
         </Suspense>
-      </BrowserRouter>
+      </Router>
     </div>
   )
 }

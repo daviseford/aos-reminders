@@ -1,13 +1,15 @@
-import { TSupportedFaction, SUPPORTED_FACTIONS } from 'meta/factions'
+import { SUPPORTED_FACTIONS, TSupportedFaction } from 'meta/factions'
+import { ICurrentArmy } from 'types/army'
+import { IImportedArmy } from 'types/import'
+import { INote } from 'types/notes'
 import { ISavedArmy } from 'types/savedArmy'
 import { IAllySelections } from 'types/selections'
-import { TEntry } from 'types/data'
-import { IImportedArmy } from 'types/import'
-import { ICurrentArmy } from 'types/army'
+import { LocalReminderOrder } from 'utils/localStore'
 
-export const armyHasEntries = (army: ISavedArmy) => {
+export const armyHasEntries = (army: ISavedArmy | ICurrentArmy, notes: INote[]) => {
   const { allySelections, origin_realm, realmscape_feature, realmscape, selections } = army
 
+  if (notes.length > 0) return true
   if (Object.values(selections).some(x => x.length)) return true
   if (Object.values(allySelections).some(x => Object.values(x as IAllySelections).some(x => x.length)))
     return true
@@ -26,7 +28,10 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
     allySelections,
     armyName,
     factionName,
+    subFactionName = '',
     hiddenReminders = [],
+    notes = [],
+    orderedReminders = LocalReminderOrder.get(),
     origin_realm = null,
     realmscape = null,
     realmscape_feature = null,
@@ -38,7 +43,10 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
     allySelections,
     armyName: armyName || 'Untitled',
     factionName,
+    subFactionName,
     hiddenReminders,
+    notes,
+    orderedReminders,
     origin_realm,
     realmscape_feature,
     realmscape,
@@ -58,6 +66,7 @@ export const prepareArmy = (army: ISavedArmy, type: 'save' | 'update', include: 
 
 /**
  * Prepares an army to be uploaded to S3 for later analysis
+ * We don't store "extra" data (notes, ordering, visibility) with these payloads.
  * @param army
  */
 export const prepareArmyForS3 = (army: ISavedArmy | IImportedArmy | ICurrentArmy): ICurrentArmy => {
@@ -65,6 +74,7 @@ export const prepareArmyForS3 = (army: ISavedArmy | IImportedArmy | ICurrentArmy
     allyFactionNames = [],
     allySelections = {},
     factionName,
+    subFactionName,
     origin_realm = null,
     realmscape = null,
     realmscape_feature = null,
@@ -75,6 +85,7 @@ export const prepareArmyForS3 = (army: ISavedArmy | IImportedArmy | ICurrentArmy
     allyFactionNames,
     allySelections,
     factionName,
+    subFactionName,
     origin_realm,
     realmscape_feature,
     realmscape,
@@ -85,6 +96,3 @@ export const prepareArmyForS3 = (army: ISavedArmy | IImportedArmy | ICurrentArmy
 export const isValidFactionName = (val: any): val is TSupportedFaction => {
   return val && SUPPORTED_FACTIONS.includes(val)
 }
-
-// Appends a string to an entry
-export const appendTag = (entry: TEntry, tag: string) => ({ ...entry, name: `${entry.name} (${tag})` })

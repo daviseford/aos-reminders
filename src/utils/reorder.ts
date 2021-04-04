@@ -1,7 +1,7 @@
-import { sortBy, difference } from 'lodash'
-import { LocalReminderOrder } from 'utils/localStore'
+import { difference, sortBy } from 'lodash'
 import { IReminder } from 'types/data'
 import { TTurnWhen } from 'types/phases'
+import { LocalReminderOrder } from 'utils/localStore'
 
 interface WithId {
   id: string
@@ -28,7 +28,7 @@ export const reorderReminders = (reminders: IReminder): IReminder => {
   return Object.keys(reminders).reduce((accum, when) => {
     const actions = reminders[when]
     const currentIds = sortBy(actions.map(x => x.id))
-    const storedIds = LocalReminderOrder.getWhen(when as TTurnWhen) || []
+    const storedIds = LocalReminderOrder.getWhen(when as TTurnWhen)
 
     if (storedIds.length > 0 && difference(currentIds, sortBy(storedIds)).length === 0) {
       const reordered = reorderViaIndex(actions, storedIds)

@@ -1,11 +1,19 @@
-import { store } from 'index'
 import { PreferenceApi } from 'api/preferenceApi'
-import { factionNames, army, selections, realmscape, visibility } from 'ducks'
-import { logEvent, logLoadedArmy } from 'utils/analytics'
-import { getArmy } from 'utils/getArmy/getArmy'
+import {
+  armyActions,
+  factionNamesActions,
+  notesActions,
+  realmscapeActions,
+  selectionActions,
+  visibilityActions,
+} from 'ducks'
+import { store } from 'store'
 import { IArmy } from 'types/army'
 import { TLoadedArmy } from 'types/import'
-import { ILinkedArmy } from 'types/savedArmy'
+import { ILinkedArmy, ISavedArmyFromApi } from 'types/savedArmy'
+import { logEvent, logLoadedArmy } from 'utils/analytics'
+import { getArmy } from 'utils/getArmy/getArmy'
+import { LocalReminderOrder } from 'utils/localStore'
 
 export const loadArmyFromLink = async (id: string) => {
   try {
@@ -25,7 +33,10 @@ export const loadArmyFromLink = async (id: string) => {
 
 export const addArmyToStore = (loadedArmy: TLoadedArmy) => {
   try {
-    store.dispatch(factionNames.actions.setFactionName(loadedArmy.factionName))
+    const { dispatch } = store
+
+    dispatch(factionNamesActions.setFactionName(loadedArmy.factionName))
+    dispatch(factionNamesActions.setSubFactionName(loadedArmy.subFactionName))
 
     // Add Ally Game data to the store
     if (loadedArmy.allyFactionNames.length) {
@@ -33,24 +44,37 @@ export const addArmyToStore = (loadedArmy: TLoadedArmy) => {
         const Army = getArmy(factionName) as IArmy
         return { factionName, Army }
       })
-      store.dispatch(army.actions.updateAllyArmies(armies))
+      dispatch(armyActions.updateAllyArmies(armies))
     }
 
     // Add our unit selections to the store
-    store.dispatch(selections.actions.updateSelections(loadedArmy.selections))
+    dispatch(selectionActions.setSelections(loadedArmy.selections))
 
     // Add our allied unit selections to the store
-    store.dispatch(selections.actions.updateAllySelections(loadedArmy.allySelections))
+    dispatch(selectionActions.setAllySelections(loadedArmy.allySelections))
 
     // Add Realm info to the store
-    store.dispatch(realmscape.actions.setOriginRealm(loadedArmy.origin_realm || null))
-    store.dispatch(realmscape.actions.setRealmscape(loadedArmy.realmscape || null))
-    store.dispatch(realmscape.actions.setRealmscapeFeature(loadedArmy.realmscape_feature || null))
+    dispatch(realmscapeActions.setOriginRealm(loadedArmy.origin_realm || null))
+    dispatch(realmscapeActions.setRealmscape(loadedArmy.realmscape || null))
+    dispatch(realmscapeActions.setRealmscapeFeature(loadedArmy.realmscape_feature || null))
 
     // Hide any reminders necessary
     if (loadedArmy.hiddenReminders) {
-      store.dispatch(visibility.actions.clearReminder())
-      store.dispatch(visibility.actions.addReminders(loadedArmy.hiddenReminders))
+      dispatch(visibilityActions.clearReminders())
+      dispatch(visibilityActions.addReminders(loadedArmy.hiddenReminders))
+    }
+
+    loadedArmy = loadedArmy as ISavedArmyFromApi
+
+    // Add notes if necessary
+    if (loadedArmy.notes) {
+      dispatch(notesActions.setNotes(loadedArmy.notes))
+    }
+
+    // Re-organize reminder ordering if needed
+    if ((loadedArmy as ISavedArmyFromApi).orderedReminders && (loadedArmy as ISavedArmyFromApi).id) {
+      LocalReminderOrder.setById(loadedArmy.id, loadedArmy.orderedReminders)
+      LocalReminderOrder.makeIdActive(loadedArmy.id)
     }
 
     // Log our army to GA

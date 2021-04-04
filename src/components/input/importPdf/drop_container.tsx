@@ -1,16 +1,17 @@
-import React, { useCallback, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { LinkNewTab } from 'components/helpers/link'
+import GenericButton from 'components/input/generic_button'
+import ImportDropzone from 'components/input/importPdf/drop_zone'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
+import React, { useCallback, useState } from 'react'
+import { Link } from 'react-router-dom'
+import { IImportedArmy, TImportError } from 'types/import'
 import { logClick } from 'utils/analytics'
 import { GITHUB_URL, ROUTES } from 'utils/env'
-import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
 import { hasFatalError } from 'utils/import/warnings'
-import { LinkNewTab } from 'components/helpers/link'
-import ImportDropzone from 'components/input/importPdf/drop_zone'
-import { TImportError, IImportedArmy } from 'types/import'
+import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
 
-const ImportContainer: React.FC = () => {
+const ImportContainer = () => {
   const [errors, setErrors] = useState<IImportedArmy['errors']>([])
   const { isSubscribed } = useSubscription()
   const { saveArmyToS3 } = useSavedArmies()
@@ -40,7 +41,7 @@ const ImportContainer: React.FC = () => {
         <div className="row d-flex justify-content-center">
           <div className={'col-12 col-lg-6 col-xl-6'}>
             {errors.map((x, i) => (
-              <ErrorAlert key={`${x.text}_${i}`} text={x.text} severity={x.severity} />
+              <ErrorAlert key={`${x.text}_${i}`} text={x.text} severity={x.severity} reason={x.reason} />
             ))}
           </div>
         </div>
@@ -52,7 +53,7 @@ const ImportContainer: React.FC = () => {
 export default ImportContainer
 
 const ErrorAlert = (props: TImportError) => {
-  const { text, severity } = props
+  const { text, reason, severity } = props
   const [isOn, setIsOn] = useState(true)
 
   if (!isOn) return null
@@ -60,16 +61,21 @@ const ErrorAlert = (props: TImportError) => {
   const alertType = {
     'ally-warn': 'alert-warning',
     'ambiguity-warn': 'alert-warning',
+    'deprecation-warn': 'alert-warning',
     warn: 'alert-warning',
     error: 'alert-danger',
   }[severity]
 
   const prefix = severity === 'error' ? `Error` : `Warning`
 
-  const info =
-    severity === 'error' || severity === 'ally-warn' || severity === 'ambiguity-warn'
-      ? text
-      : `We couldn't find '${text}'. It may be a typo or an ally item. Make sure to add it manually.`
+  const messages = {
+    error: `${text}`,
+    'ally-warn': `${text}`,
+    'ambiguity-warn': `${text}`,
+    'deprecation-warn': `'${text}' has been removed from AoS Reminders because ${reason}.`,
+    warn: `We couldn't find '${text}'. It may be a typo or an ally item. Make sure to add it manually.`,
+  }
+  const info = messages[severity]
 
   return (
     <div className="mb-2">
@@ -90,9 +96,9 @@ const ErrorAlert = (props: TImportError) => {
           </small>
         </div>
         <div className={`align-self-start ml-2`}>
-          <button type="button" className="close" aria-label="Close" onClick={() => setIsOn(false)}>
+          <GenericButton className="close" aria-label="Close" onClick={() => setIsOn(false)}>
             <span aria-hidden="true">&times;</span>
-          </button>
+          </GenericButton>
         </div>
       </div>
     </div>

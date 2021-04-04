@@ -6,11 +6,11 @@
 
 ## How to Contribute
 
-If you want to add an army or edit an existing army, please do so! Use the `src/army/sample_army/` folder as a reference for how things are added!
+If you want to add an army or edit an existing army, please do so! Use the `src/factions/sample/` folder as a reference for how things are added!
 
 Feel free to submit a PR for any incorrect/missing rules! I am only human, and the amount of data entry needed for a single army can sometimes be overwhelming.
 
-**For more contribution guidelines, check out [CONTRIBUTING.md](https://github.com/daviseford/aos-reminders/blob/master/CONTRIBUTING.md)**
+**For more contribution guidelines, check out [docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md)**
 
 ## Contributors
 
@@ -38,6 +38,7 @@ Feel free to submit a PR for any incorrect/missing rules! I am only human, and t
 + [dccourt](https://github.com/dccourt)
 + Lorax
 + [amcalvert](https://github.com/amcalvert)
++ [drmartin1998](https://github.com/drmartin1998)
 
 ## Available Scripts
 
@@ -75,9 +76,13 @@ It correctly bundles React in production mode and optimizes the build for the be
 
 Run after `yarn build`. Analyzes the build bundle and shows which dependencies and files are taking up space.
 
-## `yarn verify` (Mac/Linux) and `yarn verify-win` (Windows)
+## `yarn verify` (Mac/Linux) and `yarn verify:win` (Windows)
 
 Runs a script that checks rules to see if they're misplaced. Be sure to run this after adding a new army since it can catch some common errors.
+
+## `yarn intake`
+
+Sorts error logs in `src/tests/fixtures/intake/`.
 
 ## Pre-commit
 

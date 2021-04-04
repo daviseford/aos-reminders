@@ -1,7 +1,7 @@
-import * as Phases from 'types/phases'
 import { TTurnAction } from 'types/data'
+import * as Phases from 'types/phases'
 
-export type TGameStructure = { [key in Phases.TTurnWhen]: TTurnAction[] }
+export type TGameStructure = Record<Phases.TTurnWhen, TTurnAction[]>
 
 export const Game: TGameStructure = {
   // General actions
@@ -10,7 +10,10 @@ export const Game: TGameStructure = {
   [Phases.DURING_SETUP]: [],
   [Phases.END_OF_SETUP]: [],
   [Phases.DURING_GAME]: [],
-  [Phases.WOUND_ALLOCATION]: [],
+
+  // Artificial phases
+  [Phases.SAVES_PHASE]: [],
+  [Phases.WOUND_ALLOCATION_PHASE]: [],
 
   // Any Turn/Round Actions
   [Phases.START_OF_TURN]: [],

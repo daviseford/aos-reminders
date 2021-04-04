@@ -1,19 +1,20 @@
-import { flatten, sortBy, sortedUniq } from 'lodash'
+import { RealmscapeFeatures } from 'generic_rules'
 import produce from 'immer'
-import { hashReminder } from 'utils/reminderUtils'
-import { titleCase, getActionTitle } from 'utils/textUtils'
-import { RealmscapeFeatures } from 'army/generic'
+import { flatten, sortBy, sortedUniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { IArmy, TAllyArmies } from 'types/army'
-import { TEffects, IReminder, TTurnAction } from 'types/data'
-import { ISelections, IAllySelections } from 'types/selections'
+import { IReminder, selectionsKeyToEntryKey, TEffects, TTurnAction } from 'types/data'
+import { IAllySelections, TSelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
+import { hashReminder } from 'utils/reminderUtils'
+import { getActionTitle, titleCase } from 'utils/textUtils'
 
 type TProcessReminders = (
   army: IArmy,
   factionName: TSupportedFaction,
-  selections: ISelections,
+  subFactionName: string,
+  selections: TSelections,
   realmscape_feature: string | null,
   allyFactionNames: TSupportedFaction[],
   allyArmies: TAllyArmies,
@@ -23,6 +24,7 @@ type TProcessReminders = (
 export const processReminders: TProcessReminders = (
   army,
   factionName,
+  subFactionName,
   selections,
   realmscape_feature,
   allyFactionNames,
@@ -46,17 +48,15 @@ export const processReminders: TProcessReminders = (
   }
 
   // Add Abilities
-  if (army.Abilities && army.Abilities.length) {
-    army.Abilities.forEach((a: TEffects) => {
+  if (army.BattleTraits && army.BattleTraits.length) {
+    army.BattleTraits.forEach((a: TEffects) => {
       const command_ability = a.command_ability || false
       a.when.forEach(when => {
         const t: TTurnAction = {
           id: hashReminder(when, a.name, a.desc),
           name: a.name,
           desc: a.desc,
-          condition: [`${titleCase(factionName)} Allegiance`],
-          tag: a.tag || false,
-          allegiance_ability: !command_ability,
+          condition: [`${titleCase(subFactionName || factionName)} Allegiance`],
           command_ability,
           when,
         }
@@ -67,17 +67,19 @@ export const processReminders: TProcessReminders = (
 
   // Add Realmscape features
   if (realmscape_feature) {
-    const r = RealmscapeFeatures.find(x => x.name === realmscape_feature) as TEffects
-    r.when.forEach(when => {
-      const t: TTurnAction = {
-        id: hashReminder(when, r.name, r.desc),
-        name: r.name,
-        desc: r.desc,
-        condition: [`Realmscape Feature`],
-        when,
-      }
-      reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
-    })
+    const r = RealmscapeFeatures.find(x => x.name === realmscape_feature)
+    if (r && r.when) {
+      r.when.forEach(when => {
+        const t: TTurnAction = {
+          id: hashReminder(when, r.name, r.desc),
+          name: r.name,
+          desc: r.desc,
+          condition: [`Realmscape Feature`],
+          when,
+        }
+        reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
+      })
+    }
   }
 
   // Last step, we need to sort by the original order
@@ -93,19 +95,37 @@ export const processReminders: TProcessReminders = (
   return ordered
 }
 
-const processConditions = (
+/**
+ * Exported for testing purposes
+ *
+ * @param game
+ * @param selections
+ * @param startVal
+ */
+export const processConditions = (
   game: TGameStructure,
-  selections: ISelections | IAllySelections,
+  selections: TSelections | IAllySelections,
   startVal = {}
 ) => {
   const conditions: string[] = flatten(Object.values(selections))
 
-  const reminders = Object.keys(game).reduce((accum: { [key: string]: TTurnAction[] }, when) => {
+  const conditionsByTag = Object.entries(selections).reduce((a, [key, value]) => {
+    value.forEach(v => {
+      a[v] = selectionsKeyToEntryKey[key]
+    })
+    return a
+  }, {})
+
+  const reminders = Object.keys(game).reduce((accum: Record<string, TTurnAction[]>, when) => {
     if (!game[when].length) return accum
 
     game[when].forEach((action: TTurnAction) => {
       if (conditions.includes(action.condition[0])) {
-        accum[when] = accum[when] ? processCondition(accum[when], action) : [action]
+        const tag = conditionsByTag[action.condition[0]]
+        // Check for proper tag match (e.g spell, prayer, etc)
+        if (!tag || action[tag] === true) {
+          accum[when] = accum[when] ? processCondition(accum[when], action) : [action]
+        }
       }
     })
 
