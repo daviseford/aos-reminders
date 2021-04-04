@@ -5,7 +5,7 @@ import units from './units'
 const RegularBattalions = {
   'Alarith Temple': {
     mandatory: {
-      units: [keyPicker(units, ['Alarith Stonemage', 'Alarith Stoneguard'])],
+      units: [keyPicker(units, ['Alarith Stonemage', 'Alarith Stoneguard', 'Alarith Spirit of the Mountain', 'Avalenor, the Stoneheart King'])],
     },
     effects: [
       {
@@ -32,7 +32,43 @@ const RegularBattalions = {
       },
     ],
   },
+  'Bladelord Host': {
+    mandatory: {
+      units: [keyPicker(units, ['Vanari Bladelords', 'Scinari Calligrave'])],
+    },
+    effects: [
+      {
+        name: `Shafts of Light`,
+        desc: `Reroll hit rolls of 1 for attacks made with melee weapons by friendly units from this battalion that made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
   'Dawnrider Lance': {
+    mandatory: {
+      units: [keyPicker(units, ['Vanari Dawnriders'])],
+    },
+    effects: [
+      {
+        name: `Shafts of Light`,
+        desc: `Reroll hit rolls of 1 for attacks made with melee weapons by friendly units from this battalion that made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Hurakan Temple': {
+    mandatory: {
+      units: [keyPicker(units, ['Hurakan Windmage'])],
+    },
+    effects: [
+      {
+        name: `Shafts of Light`,
+        desc: `Reroll hit rolls of 1 for attacks made with melee weapons by friendly units from this battalion that made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Starshard Battery': {
     mandatory: {
       units: [keyPicker(units, ['Vanari Dawnriders'])],
     },

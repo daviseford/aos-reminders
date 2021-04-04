@@ -121,7 +121,7 @@ const Spells = {
       },
     ],
   },
-  Entomb: {
+  'Entomb': {
     effects: [
       {
         name: `Entomb`,
