@@ -238,6 +238,20 @@ const Units = {
       },
     ],
   },
+  'Warpfire Dragon': {
+    effects: [
+      {
+        name: `Deadly Demise`,
+        desc: `If this model is slain, before this model is removed from play, roll a D6 for each unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds. This model is then removed from play.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Warpfire`,
+        desc: `Do not use the attack sequence for an attack made with this model's Warpfire. Instead roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6, the target unit suffers D6 mortal wounds.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
 }
 
 const ChaosUnits = { ...ChaosMonstrousArcanum, ...Units }

@@ -1,6 +1,7 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import { TEffects } from 'types/data'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
@@ -26,6 +27,11 @@ const ShroudingMistEffects: TEffects[] = [
     when: [WOUND_ALLOCATION_PHASE],
   },
 ]
+const UnnaturalFleshEffect = {
+  name: `Unnatural Flesh`,
+  desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
+  when: [HERO_PHASE],
+}
 
 const DestructionUnits = {
   Basilisk: {
@@ -77,11 +83,7 @@ const DestructionUnits = {
         when: [COMBAT_PHASE],
       },
       ...ShroudingMistEffects,
-      {
-        name: `Unnatural Flesh`,
-        desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
-        when: [HERO_PHASE],
-      },
+      UnnaturalFleshEffect,
     ],
   },
   'Fimir Warriors': {
@@ -92,11 +94,7 @@ const DestructionUnits = {
         when: [COMBAT_PHASE],
       },
       ...ShroudingMistEffects,
-      {
-        name: `Unnatural Flesh`,
-        desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
-        when: [HERO_PHASE],
-      },
+      UnnaturalFleshEffect,
     ],
   },
   'Incarnate Elemental Of Beasts': {
@@ -115,6 +113,11 @@ const DestructionUnits = {
         name: `The Lure of Spirit Blood`,
         desc: `You can reroll charge rolls for this model while it is within 12" of any enemy models that have any wounds allocated to them.`,
         when: [CHARGE_PHASE],
+      },
+      {
+        name: `Howl of the Great Beast`,
+        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 8" of this model.`,
+        when: [DURING_GAME, BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -147,7 +150,7 @@ const DestructionUnits = {
       {
         name: `Burning Blood`,
         desc: `Roll a D6 each time a wound or mortal wound that was inflicted by a melee weapon is allocated to this model. On a 4+, the attacking unit suffers 1 mortal wound. On a 6, the attacking unit suffers D3 mortal wounds instead.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -166,7 +169,7 @@ const DestructionUnits = {
       {
         name: `Unnatural Metabolism`,
         desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal up to D3 wounds allocated to this model.`,
-        when: [COMBAT_PHASE],
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -196,20 +199,6 @@ const DestructionUnits = {
         name: `Spirit of the Waaagh!`,
         desc: `You can reroll hit rolls of 1 for attacks made by this model if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'Warpfire Dragon': {
-    effects: [
-      {
-        name: `Deadly Demise`,
-        desc: `If this model is slain, before this model is removed from play, roll a D6 for each unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds. This model is then removed from play.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-      {
-        name: `Warpfire`,
-        desc: `Do not use the attack sequence for an attack made with this model's Warpfire. Instead roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6, the target unit suffers D6 mortal wounds.`,
-        when: [DURING_GAME],
       },
     ],
   },

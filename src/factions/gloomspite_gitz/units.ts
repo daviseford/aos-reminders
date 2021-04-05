@@ -377,10 +377,32 @@ const Units = {
     ],
   },
   Boggleye: {
-    effects: [...HallucinogenicFungusBrewsEffects, SlipperyGitEffect],
+    mandatory: {
+      spells: [keyPicker(Spells, ['Mesmerise'])],
+    },
+    effects: [
+      ...HallucinogenicFungusBrewsEffects,
+      SlipperyGitEffect,
+      {
+        name: `Magic`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Mesmerise.`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
   Shroomancer: {
-    effects: [...HallucinogenicFungusBrewsEffects, SlipperyGitEffect],
+    mandatory: {
+      spells: [keyPicker(Spells, ['Fungoid Cloud'])],
+    },
+    effects: [
+      ...HallucinogenicFungusBrewsEffects,
+      SlipperyGitEffect,
+      {
+        name: `Magic`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Fungoid Cloud.`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
   'Sneaky Snufflers': {
     effects: [
@@ -432,7 +454,7 @@ const Units = {
     effects: [
       {
         name: `Arcing Spit`,
-        desc: `This model's Spit-squigs can target enemy units that are not visible to attacking model. In addition, add 1 to hit rolls for attacks made with Spit-squigs if the target has 10 or more models.`,
+        desc: `Add 1 to hit rolls for attacks made with Spit-squigs if the target has 10 or more models.`,
         when: [SHOOTING_PHASE],
       },
     ],

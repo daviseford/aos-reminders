@@ -201,6 +201,15 @@ const Spells = {
       },
     ],
   },
+  'Splinter-screech': {
+    effects: [
+      {
+        name: `Splinter-screech`,
+        desc: `Casting value of 5. Pick 1 enemy unit within 12" of the caster and roll a D6. If the roll is greater than or equal to the target's Wounds characteristic, it is slain.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Spells, 'spell')

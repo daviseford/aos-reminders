@@ -194,6 +194,44 @@ const Spells = {
       },
     ],
   },
+  Mesmerise: {
+    effects: [
+      {
+        name: `Mesmerise`,
+        desc: `Casting value of 6. Pick 1 unit wholly within 12" of the caster and visible. If target is a friendly unit, it does not take battleshock tests until your next hero phase. If target is an enemy unit, they fight at the end of each combat phase after all other eligible units.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Mesmerise`,
+        desc: `If active on a friendly target, do not take battleshock tests on the buffed unit.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Mesmerise`,
+        desc: `If active on an enemy target, the debuffed unit fights at the end of this phase after all other eligible units.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Fungoid Cloud': {
+    effects: [
+      {
+        name: `Fungoid Cloud`,
+        desc: `Casting value of 6. Pick 1 unit within 8" of the caster and visible. Subtract 1 from hit rolls by and save rolls for the target until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Fungoid Cloud`,
+        desc: `If active, subtract 1 from hit rolls made by the debuffed unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Fungoid Cloud`,
+        desc: `If active, subtract 1 from save rolls for the debuffed unit.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Spells, 'spell')
