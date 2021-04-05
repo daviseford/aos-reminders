@@ -421,14 +421,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
-        text: 'Fungoid Cloud',
-      },
-      {
-        severity: 'warn',
-        text: 'Mesmerise',
-      },
-      {
-        severity: 'warn',
         text: 'Gobbapalooza',
       },
     ])
