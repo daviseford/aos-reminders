@@ -1175,7 +1175,6 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('StD10')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    // Warpfire Dragon is a Destruction unit
     expect(res.errors).toEqual([
       {
         severity: 'deprecation-warn',
@@ -1186,10 +1185,6 @@ describe('getAzyrArmyFromPdf', () => {
         severity: 'deprecation-warn',
         text: 'Aetherquartz Brooch',
         reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'warn',
-        text: 'Warpfire Dragon',
       },
       {
         severity: 'ambiguity-warn',

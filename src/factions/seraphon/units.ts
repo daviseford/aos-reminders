@@ -114,6 +114,25 @@ const StarbucklersEffect = {
   desc: `Add 1 to save rolls for attacks that target a unit armed with Star-bucklers.`,
   when: [SAVES_PHASE],
 }
+const ChameleonAmbushEffects = [
+  {
+    name: `Chameleon Ambush`,
+    desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say that it is hiding as a reserve unit.`,
+    when: [DURING_SETUP],
+  },
+  {
+    name: `Chameleon Ambush`,
+    desc: `If you set this unit up in reserve, at the end of any of your movement phases, you can set up this unit on the battlefield more than 9" from any enemy units.
+           
+    If this unit is on the battlefield at the end of your movement phase, you can remove it and say that it is hiding as a reserve unit. You can reveal it as described above at the end of any of your subsequent movement phases.`,
+    when: [END_OF_MOVEMENT_PHASE],
+  },
+]
+const DeadlyVenomEffect = {
+  name: `Deadly Venom`,
+  desc: `Each hit roll of 6+ inflicts 1 mortal wound and ends the combat sequence.`,
+  when: [COMBAT_PHASE],
+}
 
 const Units = {
   'Lord Kroak': {
@@ -348,18 +367,7 @@ const Units = {
   },
   'Chameleon Skinks': {
     effects: [
-      {
-        name: `Chameleon Ambush`,
-        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say that it is hiding as a reserve unit.`,
-        when: [DURING_SETUP],
-      },
-      {
-        name: `Chameleon Ambush`,
-        desc: `If you set this unit up in reserve, at the end of any of your movement phases, you can set up this unit on the battlefield more than 9" from any enemy units.
-
-        If this unit is on the battlefield at the end of your movement phase, you can remove it and say that it is hiding as a reserve unit. You can reveal it as described above at the end of any of your subsequent movement phases.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
+      ...ChameleonAmbushEffects,
       {
         name: `Perfect Mimicry`,
         desc: `The cover modifier adds 3 to save rolls for attacks that target this unit, instead of 1.`,
@@ -539,6 +547,61 @@ const Units = {
         when: [START_OF_BATTLESHOCK_PHASE],
       },
       GenericBattleTraits.Terror,
+    ],
+  },
+  'Celestial Swarm': {
+    effects: [
+      {
+        name: `Swarming Tide`,
+        desc: `You may heal D3 wounds allocated to this unit.`,
+        when: [HERO_PHASE],
+      },
+      DeadlyVenomEffect,
+    ],
+  },
+  'Chameleon Skink Stalker': {
+    effects: [
+      ...ChameleonAmbushEffects,
+      {
+        name: `Disappear from Sight`,
+        desc: `Remove the model from the battlefield and follow the Chameleon Ambush rules for this or future turns.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Flawless Mimicry`,
+        desc: `If this model is within or on terrain, its Save characteristic is 3+ instead of 6+. This counts as the cover bonus.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Master Hunter`,
+        desc: `Add 2 to wound rolls for the Stalker Blowpipes if this model did not move and was not set up this turn.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Skink Prophet': {
+    effects: [
+      DeadlyVenomEffect,
+      {
+        name: `Priestly Rites`,
+        desc: `Roll a D6. On a 4+, you can reroll run, charge, and save rolls for this model until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Priestly Rites`,
+        desc: `If active you can reroll run rolls.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Priestly Rites`,
+        desc: `If active you can reroll charge rolls.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Priestly Rites`,
+        desc: `If active you can reroll save rolls.`,
+        when: [SAVES_PHASE],
+      },
     ],
   },
 }

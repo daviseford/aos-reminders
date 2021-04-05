@@ -382,6 +382,7 @@ const Units = {
   'Warpgnaw Verminlord': {
     mandatory: {
       flavors: [keyPicker(flavors, ['Skilled Manipulators (Masterclan)'])],
+      spells: [keyPicker(spells, ['Splinter-screech'])],
     },
     effects: [
       ProtectionOfTheHornedRatEffect,

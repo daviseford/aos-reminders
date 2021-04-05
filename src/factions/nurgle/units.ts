@@ -562,6 +562,9 @@ const Units = {
       spells: [keyPicker(Spells, ['Plague Wind'])],
     },
     effects: [
+      BlubberAndBileEffect,
+      CorpulentMassEffect,
+      MountainOfLoathsomeFleshEffect,
       {
         name: `Magic`,
         desc: `An Exalted Greater Daemon of Nurgle is a Wizard. It can attempt to cast two spells in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Plague Wind spells.`,
