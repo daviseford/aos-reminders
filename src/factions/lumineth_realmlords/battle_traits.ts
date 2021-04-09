@@ -55,6 +55,11 @@ const BattleTraits = {
         when: [WOUND_ALLOCATION_PHASE, COMBAT_PHASE, SHOOTING_PHASE, HERO_PHASE],
       },
       {
+        name: `Deep Thinkers`,
+        desc: `Pick any friendly SCINARI WIZARDS, you can declare they will contemplate. If you do so, in your next hero phase, the wizard that contemplated auto casts their first spell with a casting roll of 9 (do not roll 2D6) that cannot be modified (it can be unbound).`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
         name: `Lightning Reactions`,
         desc: `When it is your turn to fight, you can pick 2 eligible units instead of 1. Each of these units can fight one after the other in the order of your choice.`,
         when: [COMBAT_PHASE],
@@ -88,6 +93,16 @@ const BattleTraits = {
         name: `Enduring as Rock`,
         desc: `If a unit has adopted a mountain stance, weapons that target them with Rend -1 count as Rend -.`,
         when: [SAVES_PHASE],
+      },
+      {
+        name: `Move Like the Wind`,
+        desc: `When you make a pile in with a HURAKAN model, it does not need to finish the move closer to an enemy model.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Move Like the Wind`,
+        desc: `When you make a pile in move, if the unit made a charge move this turn, it can fly and move an additional 3''.`,
+        when: [CHARGE_PHASE, COMBAT_PHASE],
       },
       {
         name: `Tectonic Force`,
