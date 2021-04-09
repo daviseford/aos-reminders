@@ -1,8 +1,9 @@
 import { keyPicker } from 'factions/metatagger'
-import { COMBAT_PHASE, DURING_GAME, END_OF_SETUP, SHOOTING_PHASE } from 'types/phases'
+import { COMBAT_PHASE, DURING_GAME, END_OF_SETUP, SHOOTING_PHASE, HERO_PHASE } from 'types/phases'
 import artifacts from './artifacts'
 import command_abilities from './command_abilities'
 import command_traits from './command_traits'
+import spells from './spells'
 
 const Flavors = {
   Ymetrica: {
@@ -51,6 +52,20 @@ const Flavors = {
       },
     ],
   },
+  Zaitrec: {
+    mandatory: {
+      artifacts: [keyPicker(artifacts, ['Gift of Celennar'])],
+      spells: [keyPicker(spells, ['Overwhelming Heat'])],
+      command_traits: [keyPicker(command_traits, ['Fast Learner'])],
+    },
+    effects: [
+      {
+        name: `Lambent Mystics`,
+        desc: `Add 1 to the first casting, dispelling or unbinding roll you make for each ZAITREC WIZARD in each hero phase. In addition, each ZAITREC WIZARD HERO knows 1 extra spell form the appropriate lore.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   Alumnia: {
     mandatory: {
       artifacts: [keyPicker(artifacts, ['Waystone'])],
@@ -69,7 +84,7 @@ const Flavors = {
     mandatory: {
       artifacts: [keyPicker(artifacts, ['Metalith Dust'])],
       command_traits: [keyPicker(command_traits, ['Skyrace Grand Champion'])],
-      command_abilities: [keyPicker(command_abilities, ['Gone Like The Wind'])],
+      command_abilities: [keyPicker(command_abilities, ['Gone Like the Wind'])],
     },
     effects: [
       {

@@ -9,6 +9,7 @@ import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
 import Spells from './spells'
 import Units from './units'
+import Scenery from './scenery'
 
 const subFactions = {
   [LUMINETH_REALMLORDS]: {
@@ -20,6 +21,7 @@ const subFactions = {
       command_traits: [CommandTraits],
       endless_spells: [EndlessSpells],
       flavors: [Flavors],
+      scenery: [Scenery],
       spells: [Spells],
       units: [Units],
     },

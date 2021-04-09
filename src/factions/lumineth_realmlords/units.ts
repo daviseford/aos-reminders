@@ -76,7 +76,36 @@ const PurestAetherquartzCastingEffect = {
   name: `Purest Aetherquartz`,
   desc: `Add 1 to the casting roll when attempting to cast Greater Power of Hysh. If this unit uses its last Aetherquartz, it can no longer use this ability`,
   when: [COMBAT_PHASE, SHOOTING_PHASE],
-},
+}
+
+const IntoTheWindOverSaveEffect = {
+  name: `Into the Wind`,
+  desc: `Roll a dice each time you allocate a wound or mortal wound to this unit, on a 5+ that wound or mortal wound is ignored.`,
+  when: [WOUND_ALLOCATION_PHASE],
+}   
+const IntoTheWindPileInRestrictionEffect = {
+  name: `Into the Wind`,
+  desc: `Subtract 2'' from the distance that enemy models within 3'' of this model can pile into (to a minimum of 1'').`,
+  when: [WOUND_ALLOCATION_PHASE],
+}
+
+const LivingCycloneEffect = {
+  name: `Living Cyclone`,
+  desc: `Roll a dice each time an enemy unit that is within 3'' of this model after it makes a charge move. On a 3+, the unit suffers a mortal wound and is -1 to hit until the end of the next combat phase (a unit can only be affected by this ability once per phase).`,
+  when: [CHARGE_PHASE, COMBAT_PHASE],
+}
+
+const SpiritOfTheWindEffect = {
+  name: `Spirit of the Wind`,
+  desc: `At end of the shooting phase, this model can move 12'' but cannot run (it can retreat). Additionally it can retreat and still charge later in the turn.`,
+  when: [SHOOTING_PHASE],
+}
+
+const WindmageSymbiosisEffect = {
+  name: `Windmage Symbiosis`,
+  desc: `If this model is within 12'' of any friendly WINDMAGES, it heals D3 wounds.`,
+  when: [HERO_PHASE],
+}
 
 const Units = {
   'Alarith Stoneguard': {
@@ -204,8 +233,32 @@ const Units = {
       },
       {
         name: `Sudden Translocation`,
-        desc: `At the end of the phase, roll a dice if this model fought in that phase. If the roll is less than the number of the current battle round, or less than the number of wound allocated to this model then heal up to D6 wounds and remove it from the battlefield. Then set it back up more than 12'' from any enemy models. If this is impossible, this model is remove, but does not count as having been slain.`,
+        desc: `At the end of the phase, roll a dice if this model fought in that phase. If the roll is less than the number of the current battle round, or less than the number of wounds allocated to this model then heal up to D6 wounds and remove it from the battlefield. Then set it back up more than 12'' from any enemy models. If this is impossible, this model is removed, but does not count as having been slain.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Hurakan Spirit of the Wind': {
+    effects: [
+      IntoTheWindOverSaveEffect,
+      IntoTheWindPileInRestrictionEffect,
+      SpiritOfTheWindEffect,
+      LivingCycloneEffect,
+      WindmageSymbiosisEffect   
+    ]
+  },
+  'Hurakan Windchargers': {
+    effects: [
+      StandardBearerEffect,
+      {
+        name: `Windcharger Arrows`,
+        desc: `Do not apply cover saves for attacks made with a Windcharger Bow`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Go Where the Wind Blows`,
+        desc: `When this unit moves, it can move across terrain in the same matter as a model that can fly.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
@@ -320,6 +373,25 @@ const Units = {
         when: [START_OF_ROUND],
       },
     ],
+  },
+  'Severith, Lord of the Seventh Wind': {
+    effects: [
+      IntoTheWindOverSaveEffect,
+      IntoTheWindPileInRestrictionEffect,
+      SpiritOfTheWindEffect,
+      LivingCycloneEffect,
+      WindmageSymbiosisEffect,
+      {
+        name: `Scour`,
+        desc: `Pick one faction terrain piece within 1'' of this model. Roll a dice, on a 2+ the terrain feature's warscroll cannot be used for the rest of the battle.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Searing Desert Winds`,
+        desc: `After this unit makes a move, pick 1 enemy unit this model moved across. On a 3+ it suffers D3 mortal wounds.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+      },     
+    ]
   },
   'The Light of Eltharion': {
     mandatory: {

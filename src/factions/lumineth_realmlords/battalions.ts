@@ -34,12 +34,12 @@ const RegularBattalions = {
   },
   'Bladelord Host': {
     mandatory: {
-      units: [keyPicker(units, ['Vanari Bladelords', 'Scinari Calligrave'])],
+      units: [keyPicker(units, ['Vanari Bladelords', 'Scinari Calligrave', 'Scinari Cathallar', 'Scinari Loreseeker', 'Vanari Lord Regent'])],
     },
     effects: [
       {
-        name: `Shafts of Light`,
-        desc: `Reroll hit rolls of 1 for attacks made with melee weapons by friendly units from this battalion that made a charge move in the same turn.`,
+        name: `Calculated Response`,
+        desc: `Reroll hit rolls of 1 for attacks made with melee weapons by friendly units from this battalion that target an enemy model that made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -58,25 +58,25 @@ const RegularBattalions = {
   },
   'Hurakan Temple': {
     mandatory: {
-      units: [keyPicker(units, ['Hurakan Windmage'])],
+      units: [keyPicker(units, ['Hurakan Windmage', 'Hurakan Windchargers', 'Severith, Lord of the Seventh Wind', 'Hurakan Spirit of the Wind'])],
     },
     effects: [
       {
-        name: `Shafts of Light`,
-        desc: `Reroll hit rolls of 1 for attacks made with melee weapons by friendly units from this battalion that made a charge move in the same turn.`,
+        name: `Whirling Tornadoes`,
+        desc: `If a unit from this battalion is wholly within 12" of a HERO from the same battalion at the start of the combat phase, the models in that unit count as having made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
   'Starshard Battery': {
     mandatory: {
-      units: [keyPicker(units, ['Vanari Dawnriders'])],
+      units: [keyPicker(units, ['Vanari Starshard Ballistas', 'Scinari Calligrave'])],
     },
     effects: [
       {
-        name: `Shafts of Light`,
-        desc: `Reroll hit rolls of 1 for attacks made with melee weapons by friendly units from this battalion that made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
+        name: `Ward Barrier`,
+        desc: `The 'Warding Lanterns' ability now grants a 5+ save for all wounds and mortal wounds inflicted to Starshard Ballistas in this unit.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

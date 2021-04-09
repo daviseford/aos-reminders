@@ -1,9 +1,11 @@
 import { tagAs } from 'factions/metatagger'
 import {
+  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   DURING_TURN,
   HERO_PHASE,
+  MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
@@ -96,6 +98,24 @@ const CommandTraits = {
         name: `Fast Learner`,
         desc: `This general can attempt to unbind 1 extra spell in the enemy hero phase. In addition, the second time that this general attempts to unbind a spell in the same enemy hero phase, you can reroll the unbinding roll.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Skyrace Grand Champion': {
+    effects: [
+      {
+        name: `Skyrace Grand Champion`,
+        desc: `Once per battle, you can re-roll 1 run roll, and 1 charge roll, and 1 casting roll for this general.`,
+        when: [HERO_PHASE, CHARGE_PHASE, MOVEMENT_PHASE],
+      },
+    ],
+  },
+  'Burning Gaze': {
+    effects: [
+      {
+        name: `Burning Gaze`,
+        desc: `Pick 1 enemy unit within 3'' of this general and visible to them. Roll a dice, on a 2+ that unit suffers 1 mortal wound.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
