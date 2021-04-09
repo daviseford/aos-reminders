@@ -71,17 +71,17 @@ const BattleTraits = {
       },
       {
         name: `Shining Company`,
-        desc: `Subtract 1 from hit rolls that target a shining company.`,
+        desc: `Subtract 1 from hit rolls that target a VANARI shining company.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Shining Company`,
-        desc: `A shining company can only move 1" when they pile-in.`,
+        desc: `A VANARI shining company can only move 1" when they pile-in.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Shining Company`,
-        desc: `A shining company cannot run or charge.`,
+        desc: `A VANARI shining company cannot run or charge.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
@@ -91,7 +91,7 @@ const BattleTraits = {
       },
       {
         name: `Enduring as Rock`,
-        desc: `If a unit has adopted a mountain stance, weapons that target them with Rend -1 count as Rend -.`,
+        desc: `If an ALARITH unit has adopted a mountain stance, weapons that target them with Rend -1 count as Rend -.`,
         when: [SAVES_PHASE],
       },
       {
@@ -101,7 +101,7 @@ const BattleTraits = {
       },
       {
         name: `Move Like the Wind`,
-        desc: `When you make a pile in move, if the unit made a charge move this turn, it can fly and move an additional 3''.`,
+        desc: `When you make a pile in move with a HURAKAN model, if the unit made a charge move this turn, it can fly and move an additional 3''.`,
         when: [CHARGE_PHASE, COMBAT_PHASE],
       },
       {

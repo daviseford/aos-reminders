@@ -105,7 +105,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Skyrace Grand Champion`,
-        desc: `Once per battle, you can re-roll 1 run roll, and 1 charge roll, and 1 casting roll for this general.`,
+        desc: `Once per battle, you can re-roll 1 run roll, 1 charge roll, and 1 casting roll for this general.`,
         when: [HERO_PHASE, CHARGE_PHASE, MOVEMENT_PHASE],
       },
     ],

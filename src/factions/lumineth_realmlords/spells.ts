@@ -216,7 +216,7 @@ const Spells = {
   'Windblast Vortex': {
     effects: [
       {
-        name: `Windblast Vortext`,
+        name: `Windblast Vortex`,
         desc: `Casting value of 5. Pick 1 enemy unit within 9" of the caster. Roll a dice, on a 2+ the unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE, SHOOTING_PHASE],
       },
@@ -245,7 +245,7 @@ const Spells = {
       {
         name: `Greater Power of Hysh`,
         desc: `Casting value of 7. Pick up to D3 LUMINETH REALM-LORDS units with the Sunmetal Weapons ability wholly within 18'' and visible to the caster. Until your next Hero Phase, the Sunmetal Weapons ability for the units affected cause mortal wounds to be inflicted on an unmodified hit roll of 5+ instead of 6.`,
-        when: [HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE],
+        when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -272,7 +272,7 @@ const Spells = {
       {
         name: `Guiding Flurries`,
         desc: `Casting value of 7. Pick 1 friendly LUMINETH REALM-LORDS unit armed with missile weapons wholly within 12'' of the caster. Pick to either loft the missiles or direct the missles. Loft - Until your next hero phase, add 6'' to the range characteristic of missile weapons used by that unit. Direct - Add 1 to hit rolls for missile weapons used by that unit.`,
-        when: [HERO_PHASE, DURING_TURN],
+        when: [HERO_PHASE, SHOOTING_PHASE],
       },
     ],
   },

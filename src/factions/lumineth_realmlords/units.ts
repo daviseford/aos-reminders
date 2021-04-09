@@ -19,9 +19,9 @@ import {
 import command_abilities from './command_abilities'
 import spells from './spells'
 
-const getBoltAndShieldWizardEffect = (numberOfCasts: number, numberOfUnbinds: number, additionalKnownSpells: string) => ({
+const getBoltAndShieldWizardEffect = (numberOfCasts: number, numberOfUnbinds: number, additionalKnownSpell: string) => ({
   name: `Magic`,
-  desc: `This model is a wizard. Can attempt to cast ${numberOfCasts} spell and attempt to unbind ${numberOfUnbinds} spell. Knows Arcane Bolt and Mystic Shield ${additionalKnownSpells}.`,
+  desc: `This model is a wizard. It can attempt to cast ${numberOfCasts} spell and attempt to unbind ${numberOfUnbinds} spell. It knows ${additionalKnownSpell === '' ? 'Arcane Bolt and Mystic Shield' : 'Arcane Bolt, Mystic Shield and ' + additionalKnownSpell}.`,
   when: [HERO_PHASE],
 })
 
@@ -228,7 +228,7 @@ const Units = {
       },
       {
         name: `Altairi`,
-        desc: `Once per battle, pick 1 point on the battlefield within 12'' of this model that is visible. Draw an imaginary line 1mm wide between that point and the closest point on this model's base. Roll a dice for each unit that has any models passed across but this line. On a 2+, that unit suffers a number of mortal wounds equal to the number of the current battle round.`,
+        desc: `Once per battle, pick 1 point on the battlefield within 12'' of this model that is visible. Draw an imaginary line 1mm wide between that point and the closest point on this model's base. Roll a dice for each unit that has any models passed across by this line. On a 2+, that unit suffers a number of mortal wounds equal to the number of the current battle round.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -270,7 +270,7 @@ const Units = {
       getBoltAndShieldWizardEffect(1, 1, 'Windblast Vortex'),
       {
         name: `Fan of Redirection`,
-        desc: `Add 1 to save rolls for attacks made with missile weapons that target this model. Additionally, iif the unmodified save roll for a missle weapon is 6, after all the attacking unit's attacks have been resolved, inflict 1 mortal wound on 1 enemy unit within 9'' of this model that is visible to it`,
+        desc: `Add 1 to save rolls for attacks made with missile weapons that target this model. Additionally, if the unmodified save roll for a missle weapon is 6, after all the attacking unit's attacks have been resolved, inflict 1 mortal wound on 1 enemy unit within 9'' of this model that is visible to it`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
@@ -337,7 +337,7 @@ const Units = {
       getBoltAndShieldWizardEffect(1, 1, 'Erasure'),
       {
         name: `Realmscribe`,
-        desc: `One per battle, instead of attempting to cast spells with 1 friendly unit with this ability, roll a dice. on a 5+ pick a point on the battle field. For the rest of the battle do not take battleshock tests for friendly LUMINETH REALM-LORDS units wholly with 9'' of that point, and add 1 to casting, dispelling and unbinding rolls for friendly LUMINETH REALM-LORDS WIZARDS within 9'' of that point.`,
+        desc: `One per battle, instead of attempting to cast spells with 1 friendly model with this ability, roll a dice and add the current battle round. on a 5+ pick a point on the battle field. For the rest of the battle do not take battleshock tests for friendly LUMINETH REALM-LORDS units wholly with 9'' of that point, and add 1 to casting, dispelling and unbinding rolls for friendly LUMINETH REALM-LORDS WIZARDS within 9'' of that point.`,
         when: [HERO_PHASE, BATTLESHOCK_PHASE],
       },
     ],
@@ -357,19 +357,20 @@ const Units = {
   },
   'Scinari Loreseeker': {
     effects: [
+      getBoltAndShieldWizardEffect(1, 1, ''),
       {
         name: `Loreseeker`,
-        desc: `If an enemy model with an artifact within is slain within 3'' of any friendly models with this ability, you receive 1 command point.`,
+        desc: `If an enemy model with an artifact is slain within 3'' of any friendly models with this ability, you receive 1 command point.`,
         when: [DURING_GAME],
       },
       {
         name: `Lone Agent`,
         desc: `You can add 1 to save rolls for attacks that target this model, if it is more than 9'' from any friendly models.`,
-        when: [DURING_GAME],
+        when: [SAVES_PHASE],
       },
       {
         name: `Lone Agent`,
-        desc: `Instead of setting this model up as usual you can set it n Lone Agent reserve. At the start of the first battle round, before determining who has the first turn, you must set this model up on the battlefield anywhere more than 3'' from any enemy units, and not in your territory. If you set up this model within 6'' of an objective that has no enemy units within 6'' of it, you gain control of that objective, and your opponent cannot gain control of it while this model is within 6'' of it.`,
+        desc: `Instead of setting this model up as usual you can set it in Lone Agent reserve. At the start of the first battle round, before determining who has the first turn, you must set this model up on the battlefield anywhere more than 3'' from any enemy units, and not in your territory. If you set up this model within 6'' of an objective that has no enemy units within 6'' of it, you gain control of that objective, and your opponent cannot gain control of it while this model is within 6'' of it.`,
         when: [START_OF_ROUND],
       },
     ],
@@ -473,7 +474,7 @@ const Units = {
       getSunmetalWeaponsEffect(`Bannerblade's Sword`),
       {
         name: `World Banner`,
-        desc: `Add 1 (or 3 if any Bannerblades are within 3'' of any enemy units) to all LUMINETH REALM-LORDS wholly within 18'' of this model.`,
+        desc: `Add 1 (or 3 if any Bannerblades are within 3'' of any enemy units) to the bravery of all LUMINETH REALM-LORDS wholly within 18'' of this model.`,
         when: [DURING_GAME],
       },
       {
@@ -487,17 +488,17 @@ const Units = {
     effects: [
       {
         name: `Guardians`,
-        desc: `Roll a D6 for each wound or mortal wound allocated to a friendly SCINARI within 3". On a 2+, your must allicate the wound instead to a unit with this ability.`,
+        desc: `Roll a D6 for each wound or mortal wound allocated to a friendly SCINARI within 3". On a 2+, you must allocate the wound instead to a unit with this ability.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Swordmasters`,
-        desc: `Before fighting with this unit, pick either Perfect Strike (do not make a hit roll) or Flurry of Blows (attacks characteristic equal to the numner of enemy models within 2'' of the attacking model).`,
+        desc: `Before fighting with this unit, pick either Perfect Strike (do not make a hit roll) or Flurry of Blows (attacks characteristic equal to the number of enemy models within 2'' of the attacking model).`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Vanashimor Banners`,
-        desc: `Each time the unit is affected by a spell of endless spell, roll a dice. On a 4+ ignore the effects of the spell or endless spell.`,
+        desc: `Each time the unit is affected by a spell or endless spell, roll a dice. On a 4+ ignore the effects of the spell or endless spell.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -536,12 +537,12 @@ const Units = {
     effects: [
       {
         name: `Blinding Bolts`,
-        desc: `Once per battle, units hit by an attack subtract 1 from hit rolls until the end of the turn. A unit cannot be affected more than once per turn.`,
+        desc: `Once per battle, units hit by an attack from this unit, subtract 1 from hit rolls until the end of the turn. A unit cannot be affected more than once per turn.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Messenger Hawk`,
-        desc: `Pick one enemy unit within 24'' of a friendly LUMINETH REALM-LORDS HERO and 1 friendly STARSHARD BALLISTAS unit with 24'' of that HERO. Add 1 to hit rolls by that STARSHARD BALLISTAS unit that target that enemy unit until the end of the phase.`,
+        desc: `Pick one enemy unit within 24'' of a friendly LUMINETH REALM-LORDS HERO and 1 friendly STARSHARD BALLISTAS unit within 24'' of that HERO. Add 1 to hit rolls by that STARSHARD BALLISTAS unit that target that enemy unit until the end of the phase.`,
         when: [START_OF_SHOOTING_PHASE],
       },
       {
@@ -551,7 +552,7 @@ const Units = {
       },
       {
         name: `Warding Lanterns`,
-        desc: `If the unit has not moved this turn, add 1 to attacks of this units Starshard bolts.`,
+        desc: `If the unit has not moved this turn, add 1 to attacks of this unit's Starshard bolts.`,
         when: [SHOOTING_PHASE],
       },
     ]
