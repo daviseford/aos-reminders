@@ -1,13 +1,17 @@
 import { TEntry } from 'types/data'
 import {
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
+  START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 import {
   AQSHY,
@@ -18,11 +22,14 @@ import {
   GHYRAN,
   HELLEFlUX,
   HYSH,
+  INVIDA,
+  PRAETORIS,
   SHYISH,
   STYGXX,
   ULGU,
   UMBRAL,
   VARANTHAX,
+  YMETRICA,
 } from 'types/realmscapes'
 
 // Realm specific command abilities.
@@ -164,6 +171,41 @@ const CommandAbilities: TEntry[] = [
         name: `Self-sacrifice (${VARANTHAX})`,
         desc: `Pick 1 friendly unit wholly within 12" of a friendly hero. Until the end of the phase, add 1 to hit rolls and subtract 1 from save rolls for the target.`,
         when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Full Tilt! (${PRAETORIS})`,
+    effects: [
+      {
+        name: `Full Tilt! (${PRAETORIS})`,
+        desc: `Pick 1 friendly mounted unit wholly within 12" of a friendly hero. That unit can run and charge in the same turn.`,
+        when: [START_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Submerge (${INVIDA})`,
+    effects: [
+      {
+        name: `Submerge (${INVIDA})`,
+        desc: `Pick 1 friendly unit wholly within 12" of a friendly hero. That unit can apply the cover modifier to save rolls.`,
+        when: [START_OF_SHOOTING_PHASE],
+      },
+      {
+        name: `Submerge (${INVIDA})`,
+        desc: `The buffed unit can apply the cover modifier to save rolls.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Hidden Pathways (${YMETRICA})`,
+    effects: [
+      {
+        name: `Hidden Pathways (${YMETRICA})`,
+        desc: `You can use this command ability to avoid the Mountainous Landscape realmscape feature while deploying a single unit.`,
+        when: [DURING_GAME],
       },
     ],
   },

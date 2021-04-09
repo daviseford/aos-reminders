@@ -11,6 +11,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
+import Flavors from './flavors'
 import Units from './units'
 
 const RegularBattalions = {
@@ -86,6 +87,7 @@ const RegularBattalions = {
   },
   'The Bloodsurf Hunt': {
     mandatory: {
+      flavors: [keyPicker(Flavors, ['Ionrach'])],
       units: [keyPicker(Units, ['Akhelian King', 'Akhelian Allopexes'])],
     },
     effects: [

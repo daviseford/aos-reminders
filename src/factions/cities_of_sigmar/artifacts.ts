@@ -339,6 +339,65 @@ const Artifacts = {
       },
     ],
   },
+  "Heart Stone (Settler's Gain)": {
+    effects: [
+      {
+        name: `Heart Stone (Settler's Gain)`,
+        desc: `The first time the bearer is slain roll a D6. On a 4+ they are not slain, have 1 wound healed, and any remaining outstanding wounds to allocate negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  "Talisman of Dispellation (Settler's Gain)": {
+    effects: [
+      {
+        name: `Talisman of Dispellation (Settler's Gain)`,
+        desc: `The bearer does not need to spend an available spell cast to dispel an endless spell.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  "Silver-plated Wand (Settler's Gain)": {
+    effects: [
+      {
+        name: `Silver-plated Wand (Settler's Gain)`,
+        desc: `The bearer can attempt to cast 1 extra spell.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  "Blade of Leaping Bronze (Settler's Gain)": {
+    effects: [
+      {
+        name: `Blade of Leaping Bronze (Settler's Gain)`,
+        desc: `Add 2 to the attacks characteristic to the bearer's selected melee weapon.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  "Amulet of Haste (Settler's Gain)": {
+    effects: [
+      {
+        name: `Amulet of Haste (Settler's Gain)`,
+        desc: `If the bearer ran after movement, roll a D6. On a 2+ the bearer may also charge this turn.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  "Stone-spirit Armour (Settler's Gain)": {
+    effects: [
+      {
+        name: `Stone-spirit Armour (Settler's Gain)`,
+        desc: `Roll a D6 for each wound/mortal wound allocated to the bearer. On a 6 it is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Stone-spirit Armour (Settler's Gain)`,
+        desc: `Roll a D6 each time the bearer is affected by a spell/endless spell. On a 5+ ignore the effects.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Artifacts, 'artifact')

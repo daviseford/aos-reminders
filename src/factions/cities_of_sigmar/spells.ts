@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { HERO_PHASE } from 'types/phases'
+import { HERO_PHASE, SHOOTING_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 const Spells = {
   'Wings of Fire (Hammerhal)': {
@@ -242,6 +242,43 @@ const Spells = {
         name: `Pit of Shadows (Har Kuron)`,
         desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible. Roll 2D6. If the roll is higher than the targets move characteristic, it suffers a number of mortal wounds equal to the difference of the roll and the move characterisitc.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  "Drain Magic (Settler's Gain)": {
+    effects: [
+      {
+        name: `Drain Magic (Settler's Gain)`,
+        desc: `Casting value of 6. Until your next hero phase, subract 2 from enemy wizard casting, dispelling, and unbinding rolls while within 12" of the caster.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  "Shield of Light (Settler's Gain)": {
+    effects: [
+      {
+        name: `Shield of Light (Settler's Gain)`,
+        desc: `Casting value of 6. Pick 1 friendly unit within 12" of the caster. Until your next hero phase roll a D6 for each wound/mortal wound allocated to the target. On a 6 it is negated.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Shield of Light (Settler's Gain)`,
+        desc: `If active, roll a D6 for each wound/mortal wound allocated to the buffed unit. On a 6 it is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  "Illuminate (Settler's Gain)": {
+    effects: [
+      {
+        name: `Illuminate (Settler's Gain)`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 12" of the caster and visible. Until your next hero phase add 1 to missle hit rolls targeting that unit.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Illuminate (Settler's Gain)`,
+        desc: `If active, add 1 to missle hit rolls targeting the debuffed unit.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },

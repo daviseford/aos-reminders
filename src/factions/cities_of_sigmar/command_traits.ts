@@ -343,6 +343,38 @@ const CommandTraits = {
       },
     ],
   },
+  "Personal Levitation (Settler's Gain)": {
+    effects: [
+      {
+        name: `Personal Levitation (Settler's Gain)`,
+        desc: `This general can fly.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+    ],
+  },
+  "Strategic Mastermind (Settler's Gain)": {
+    effects: [
+      {
+        name: `Strategic Mastermind (Settler's Gain)`,
+        desc: `Roll a D6 if this general is part of your army and on the battlefield. On a 4+ you receive 1 extra command point.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  "Raging Outburst (Settler's Gain)": {
+    effects: [
+      {
+        name: `Raging Outburst (Settler's Gain)`,
+        desc: `Add 1 to melee hit and wound rolls made by this general.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Raging Outburst (Settler's Gain)`,
+        desc: `Subtract 1 from save rolls made by this general.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(CommandTraits, 'command_trait')

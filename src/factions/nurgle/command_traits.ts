@@ -173,6 +173,16 @@ const CommandTraits = {
       },
     ],
   },
+  // Invidian Plaguehost
+  'Rude Limericks': {
+    effects: [
+      {
+        name: `Rude Limericks`,
+        desc: `Add 1 to the Bravery characteristic of battalion Nurgle Daemon units wholly within 14" of the battaltion Sloppity Bilepiper. This is additive with Disease of Mirth.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
 }
 
 export default tagAs(CommandTraits, 'command_trait')

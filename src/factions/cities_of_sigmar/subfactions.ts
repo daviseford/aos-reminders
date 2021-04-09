@@ -1,6 +1,7 @@
 import { CITIES_OF_SIGMAR } from 'meta/factions'
 import DaughtersUnits from '../daughters_of_khaine/units'
 import KharadronUnits from '../kharadron_overlords/units'
+import LuminethUnits from '../lumineth_realmlords/units'
 import { pickEffects } from '../metatagger'
 import StormcastUnits from '../stormcast_eternals/units'
 import SylvanethUnits from '../sylvaneth/units'
@@ -18,7 +19,7 @@ const subFactions = {
   [CITIES_OF_SIGMAR]: {
     effects: pickEffects(BattleTraits, [CITIES_OF_SIGMAR]),
     available: {
-      allied_units: [StormcastUnits, KharadronUnits, SylvanethUnits, DaughtersUnits],
+      allied_units: [StormcastUnits, KharadronUnits, SylvanethUnits, DaughtersUnits, LuminethUnits],
       artifacts: [Artifacts],
       battalions: [Battalions],
       command_abilities: [CommandAbilities],
