@@ -7,9 +7,9 @@ import visibilityReducer from 'ducks/visibility'
 import { combineReducers, createStore } from 'redux'
 import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
+import DefaultAppState from 'store/initialAppState'
 import { logMigration } from 'utils/analytics'
 import { LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
-import DefaultAppState from './initialAppState'
 
 const rootReducer = combineReducers({
   army: armyReducer,

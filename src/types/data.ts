@@ -1,7 +1,7 @@
 import { IItemDescription } from 'factions/factionTypes'
+import { TCollection } from 'types/army'
 import { TTurnWhen } from 'types/phases'
-import { TCollection } from './army'
-import { TSelectionTypes } from './selections'
+import { TSelectionTypes } from 'types/selections'
 
 export type TEntryProperties =
   | 'artifact'

@@ -74,6 +74,7 @@ import {
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
+import { logInvalidFactionLookup } from 'utils/analytics'
 
 // Enable as you add them to /factions/
 const FactionList = {
@@ -118,7 +119,16 @@ const FactionList = {
 }
 
 export const getFactionList = () => FactionList
-export const getFactionFromList = (factionName: TSupportedFaction) => FactionList[factionName]
+export const getFactionFromList = (factionName: TSupportedFaction) => {
+  const faction = FactionList[factionName]
+  if (!faction) {
+    logInvalidFactionLookup(factionName)
+    console.error(
+      `${factionName} is not supported! Contact the developer team for more information: https://github.com/daviseford/aos-reminders/issues/new/choose`
+    )
+  }
+  return faction
+}
 
 // export const getSubFactionKeys = (factionName: TSupportedFaction) => FactionList[factionName].subFactionKeys
 

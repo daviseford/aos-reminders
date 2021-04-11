@@ -219,7 +219,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       if (waitingForApi) return
       // If we don't have a favoriteFaction currently set, check if we have it in localStorage (much faster than the API request)
       const localFavorite = LocalFavoriteFaction.get()
-      if (!favoriteFaction && localFavorite) {
+      if (!favoriteFaction && localFavorite && isValidFactionName(localFavorite)) {
         setFavoriteFaction(localFavorite)
       }
 
@@ -228,7 +228,11 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
         // Don't update state if it's the same as our localStorage value
         const { body } = await SubscriptionApi.getFavoriteFaction(subscription.userName)
         const apiFavoriteFaction = body.favoriteFaction || null
-        if (apiFavoriteFaction !== favoriteFaction && apiFavoriteFaction !== localFavorite) {
+        if (
+          apiFavoriteFaction !== favoriteFaction &&
+          apiFavoriteFaction !== localFavorite &&
+          isValidFactionName(apiFavoriteFaction)
+        ) {
           LocalFavoriteFaction.set(apiFavoriteFaction)
           setFavoriteFaction(apiFavoriteFaction)
         }
