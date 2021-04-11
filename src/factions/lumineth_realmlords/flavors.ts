@@ -1,5 +1,5 @@
 import { keyPicker } from 'factions/metatagger'
-import { COMBAT_PHASE, DURING_GAME, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { COMBAT_PHASE, DURING_GAME, END_OF_SETUP, SHOOTING_PHASE, HERO_PHASE } from 'types/phases'
 import artifacts from './artifacts'
 import command_abilities from './command_abilities'
 import command_traits from './command_traits'
@@ -63,6 +63,34 @@ const Flavors = {
         name: `Lambent Mystics`,
         desc: `Add 1 to the first casting, dispelling or unbinding roll you make for each ZAITREC WIZARD in each hero phase. In addition, each ZAITREC WIZARD HERO knows 1 extra spell form the appropriate lore.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  Alumnia: {
+    mandatory: {
+      artifacts: [keyPicker(artifacts, ['Waystone'])],
+      command_traits: [keyPicker(command_traits, ['Burning Gaze'])],
+      command_abilities: [keyPicker(command_abilities, ['Sieze the Moment'])],
+    },
+    effects: [
+      {
+        name: `Claim the field`,
+        desc: `Up to 3 ALUMNIA VANARI or ALUMNIA SCINARI may make a normal move but cannot run.`,
+        when: [END_OF_SETUP],
+      },
+    ],
+  },
+  Helon: {
+    mandatory: {
+      artifacts: [keyPicker(artifacts, ['Metalith Dust'])],
+      command_traits: [keyPicker(command_traits, ['Skyrace Grand Champion'])],
+      command_abilities: [keyPicker(command_abilities, ['Gone Like the Wind'])],
+    },
+    effects: [
+      {
+        name: `Gale of Killing Shafts`,
+        desc: `Add 1 to the attacks of missile weapons used by HELON models that are within 3'' of an enemy unit.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
