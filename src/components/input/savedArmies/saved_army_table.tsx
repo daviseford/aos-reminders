@@ -45,14 +45,16 @@ export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
     [allySelections]
   )
 
-  const { subFactionKeys } = getFactionFromList(factionName)
+  const faction = getFactionFromList(factionName)
+  
+  if (!faction?.subFactionKeys) return <></>
 
   return (
     <>
       <table className={`table table-sm`}>
         <tbody>
           <Tr theme={theme} items={[titleCase(factionName)]} title={'Faction'} />
-          {!!subFactionName && subFactionKeys.length > 1 && (
+          {!!subFactionName && faction.subFactionKeys.length > 1 && (
             <Tr theme={theme} items={[subFactionName]} title={'SubFaction'} />
           )}
           {armySelectionKeys.map((key, i) => {

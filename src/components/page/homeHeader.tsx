@@ -167,8 +167,11 @@ const SubFactionSelectComponent = () => {
   const { subFactionName, factionName } = useSelector(selectors.selectFactionNameSlice)
   const { origin_realm, realmscape } = useSelector(selectors.selectRealmscapeSlice)
   const sideEffects = useSelector(selectors.selectSideEffects)
-  const { subFactionKeys, SubFactions } = useMemo(() => getFactionFromList(factionName), [factionName])
+  const factionInfo = useMemo(() => getFactionFromList(factionName), [factionName])
 
+  // Only display if we actually need to choose between subfactions
+  if (!factionInfo?.subFactionKeys || factionInfo.subFactionKeys.length < 2) return <></>
+  
   const setValue = withSelectOne(name => {
     const army = getArmy(factionName, name || null, origin_realm, realmscape) as IArmy
 
@@ -203,21 +206,23 @@ const SubFactionSelectComponent = () => {
     dispatch(setSubFactionName(name || ''))
 
     if (name) {
-      const sideEffects = getSideEffects([{ ...SubFactions[name], name }])
+      const sideEffects = getSideEffects([{ ...factionInfo.SubFactions[name], name }])
       handleSelectOneSideEffects(sideEffects)
       logSubFactionSwitch(name)
     }
   })
-
-  // Only display if we actually need to choose between subfactions
-  if (subFactionKeys.length < 2) return <></>
 
   return (
     <>
       <span className="text-white">Select your sub-faction:</span>
       <div className={`d-flex pt-3 pb-2 justify-content-center`}>
         <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
-          <SelectOne value={subFactionName} items={subFactionKeys} setValue={setValue} hasDefault={true} />
+          <SelectOne
+            value={subFactionName}
+            items={factionInfo.subFactionKeys}
+            setValue={setValue}
+            hasDefault={true}
+          />
         </div>
       </div>
     </>
