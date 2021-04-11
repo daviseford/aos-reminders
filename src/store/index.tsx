@@ -9,7 +9,7 @@ import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import { logMigration } from 'utils/analytics'
 import { LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
-import DefaultAppState from './initialAppState'
+import DefaultAppState from 'store/initialAppState'
 
 const rootReducer = combineReducers({
   army: armyReducer,

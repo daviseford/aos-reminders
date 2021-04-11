@@ -2,6 +2,7 @@ import { TSupportedFaction } from 'meta/factions'
 import { TTurnWhen } from 'types/phases'
 import { ISavedArmyFromApi } from 'types/savedArmy'
 import { TThemeType } from 'types/theme'
+import { isValidFactionName } from 'utils/armyUtils'
 
 const LOCAL_FAVORITE_KEY = 'favoriteFaction'
 const LOCAL_LOADED_ARMY_KEY = 'loadedArmy'
@@ -29,8 +30,15 @@ export const LocalRedemptionKey = {
 
 export const LocalFavoriteFaction = {
   clear: () => localStorage.removeItem(LOCAL_FAVORITE_KEY),
-  get: () => localStorage.getItem(LOCAL_FAVORITE_KEY) as TSupportedFaction | null,
-  set: (factionName: TSupportedFaction) => localStorage.setItem(LOCAL_FAVORITE_KEY, factionName),
+  get: () => {
+    const factionName = localStorage.getItem(LOCAL_FAVORITE_KEY)
+    if (!factionName || !isValidFactionName(factionName)) return null
+    return factionName
+  },
+  set: (factionName: TSupportedFaction) => {
+    if (!isValidFactionName(factionName)) return
+    localStorage.setItem(LOCAL_FAVORITE_KEY, factionName)
+  },
 }
 
 export const LocalTheme = {

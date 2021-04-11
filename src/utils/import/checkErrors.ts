@@ -1,8 +1,8 @@
 import { remove } from 'lodash'
 import { IArmy } from 'types/army'
 import { TImportError } from 'types/import'
+import { DeprecatedSelections } from 'utils/import/options'
 import { getAllWarnings } from 'utils/import/warnings'
-import { DeprecatedSelections } from './options'
 
 /**
  * Mutates the errors array if it finds a suitable match in the allegiance abilities

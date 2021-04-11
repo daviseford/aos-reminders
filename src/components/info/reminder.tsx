@@ -20,7 +20,7 @@ import useNote from 'utils/hooks/useNote'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
-import { CustomDropdownToggle } from './customDropdownToggle'
+import { CustomDropdownToggle } from 'components/info/customDropdownToggle'
 
 const { addReminder: hideReminder, deleteReminder: showReminder, addWhen: showWhen } = visibilityActions
 

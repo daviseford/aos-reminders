@@ -2,7 +2,7 @@ import { useSubscription } from 'context/useSubscription'
 import React from 'react'
 import { logClick } from 'utils/analytics'
 import { isDev } from 'utils/env'
-import GenericDestructiveModal from './generic/generic_destructive_modal'
+import GenericDestructiveModal from 'components/modals/generic/generic_destructive_modal'
 
 interface IModalComponentProps {
   modalIsOpen: boolean
