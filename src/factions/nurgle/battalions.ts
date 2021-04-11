@@ -11,7 +11,9 @@ import {
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import CommandTraits from './command_traits'
 import Units from './units'
 
 const RegularBattalions = {
@@ -170,6 +172,25 @@ const RegularBattalions = {
         name: `Infectious!`,
         desc: `Roll a D6 for each enemy unit within 1" of any units with this ability. On a 4+, that unit suffers 1 mortal wound. This ability has no effect on Nurgle units.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Invidian Plaguehost': {
+    mandatory: {
+      units: [
+        keyPicker(Units, [
+          'Sloppity Bilepiper, Herald of Nurgle',
+          'Spoilpox Scrivener, Herald of Nurgle',
+          'Plaguebearers',
+        ]),
+      ],
+      command_traits: [keyPicker(CommandTraits, ['Rude Limericks'])],
+    },
+    effects: [
+      {
+        name: `Bulwark of Flesh`,
+        desc: `The first time a battalion Plaguebearers unit is destroyed, a new 10-man unit of Plaguebeares may be set up wholly within 6" of a board edge in your territory more than 9" from enemy units.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

@@ -18,6 +18,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_traits from './command_traits'
+import flavors from './flavors'
 import units from './units'
 
 const RegularBattalions = {
@@ -341,6 +342,7 @@ const RegularBattalions = {
   },
   "Ven Brecht's Black Watch": {
     mandatory: {
+      flavors: [keyPicker(flavors, ['Anvils of the Heldenhammer (Stormhost)'])],
       units: [keyPicker(units, ['Lord-Veritant', 'Gryph-Hounds', 'Judicators', 'Castigators'])],
       command_traits: [keyPicker(command_traits, ['Fiendslayer'])],
     },

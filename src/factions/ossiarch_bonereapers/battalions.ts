@@ -4,10 +4,13 @@ import {
   DURING_GAME,
   END_OF_SETUP,
   HERO_PHASE,
+  MOVEMENT_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import CommandTraits from './command_traits'
+import Flavors from './flavors'
 import Units from './units'
 
 const RegularBattalions = {
@@ -100,6 +103,20 @@ const RegularBattalions = {
         name: `Eternal Duty`,
         desc: `At the start of your hero phase, you can pick 1 unit from this battalion within 8" of the VOKMORTIAN from the same battalion. Return 1 slain model to that unit.`,
         when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  "Horrek's Dreadlance": {
+    mandatory: {
+      flavors: [keyPicker(Flavors, ['Stalliarch Lords'])],
+      units: [keyPicker(Units, ['Liege-Kavalos', 'Kavalos Deathriders'])],
+      command_traits: [keyPicker(CommandTraits, ['Twisted Challenge'])],
+    },
+    effects: [
+      {
+        name: `Relentless Attackers`,
+        desc: `Each time you use the Rally Back command ability, roll a D6. On a 4+, receive 1 relentless discipline point.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },

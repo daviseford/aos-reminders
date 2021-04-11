@@ -18,11 +18,14 @@ import {
   GHYRAN,
   HELLEFlUX,
   HYSH,
+  INVIDA,
+  PRAETORIS,
   SHYISH,
   STYGXX,
   ULGU,
   UMBRAL,
   VARANTHAX,
+  YMETRICA,
 } from 'types/realmscapes'
 
 const Spells: TEntry[] = [
@@ -219,6 +222,46 @@ const Spells: TEntry[] = [
         name: `Fleshwarp (${VARANTHAX})`,
         desc: `If active, subtract 1 from the target's hit rolls for the rest of the battle. The mount is unaffected.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Drain Vitality (${PRAETORIS})`,
+    effects: [
+      {
+        name: `Drain Vitality (${PRAETORIS})`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 18" and visible. Until your next hero phase, the target re-rolls unmodified hit and save rolls of 6.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Drain Vitality (${PRAETORIS})`,
+        desc: `The debuffed unit re-rolls unmodified hits of 6.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Drain Vitality (${PRAETORIS})`,
+        desc: `The debuffed unit re-rolls unmodified saves of 6.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Cloying Quagmire (${INVIDA})`,
+    effects: [
+      {
+        name: `Cloying Quagmire (${INVIDA})`,
+        desc: `Casting value of 5. Pick 1 enemy unit within 14" and visible. Roll a D6. If greater than or equal to the target's save characteristic, it suffers D6 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Folds in Perception (${YMETRICA})`,
+    effects: [
+      {
+        name: `Folds in Perception (${YMETRICA})`,
+        desc: `Casting value of 6. Pick 2 points on the battlefield within 12" of the caster and each other. Until your next hero phase, friendly models are not visible to non-flying enemy models if a line drawn between the two points crosses between the closest points of the friendly and enemy model.`,
+        when: [HERO_PHASE],
       },
     ],
   },

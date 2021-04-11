@@ -11,6 +11,8 @@ import {
   SHOOTING_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
 } from 'types/phases'
+import CommandTraits from './command_traits'
+import Flavors from './flavors'
 
 const RegularBattalions = {
   Abattoir: {
@@ -115,6 +117,20 @@ const RegularBattalions = {
         name: `The Arcasanctorian Guard`,
         desc: `Units from this battalion reroll failed charges and do not take battleshock tests.`,
         when: [CHARGE_PHASE, BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  "Mortevell's Helcourt": {
+    mandatory: {
+      flavors: [keyPicker(Flavors, ['Hollowmourne (Grand Court)'])],
+      units: [keyPicker(Units, ['Abhorrant Archregent', 'Crypt Horrors', 'Crypt Ghouls'])],
+      command_traits: [keyPicker(CommandTraits, ['The Bright Emperor'])],
+    },
+    effects: [
+      {
+        name: `Religious Fervour`,
+        desc: `Do not take battleshock tests for battalion units wholly within 12" of the battalion Abhorrant Archregent.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },

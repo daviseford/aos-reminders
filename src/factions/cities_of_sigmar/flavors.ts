@@ -203,6 +203,18 @@ const Flavors = {
       },
     ],
   },
+  "Settler's Gain": {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ["Aelven Training (Settler's Gain)"])],
+    },
+    effects: [
+      {
+        name: `Lumineth Tutors`,
+        desc: `You can add 1 to casting rolls for Settler's Gain Collegiate Arcane Wizards.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default Flavors

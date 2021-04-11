@@ -210,6 +210,15 @@ const CommandTraits = {
       },
     ],
   },
+  'The Bright Emperor': {
+    effects: [
+      {
+        name: `The Bright Emperor`,
+        desc: `Once per battle, the battalion general can use the Ravenous Crusaders command ability without spending a command point.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
 }
 
 // Always export using tagAs
