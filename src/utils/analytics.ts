@@ -170,7 +170,7 @@ export const logFailedImport = (value: string, type: TImportParsers) => {
  * Sends a Google Analytics event telling us which faction the user has attempted to load
  * @param factionName
  */
- export const logInvalidFactionLookup = (factionName: string | null) => {
+export const logInvalidFactionLookup = (factionName: string | null) => {
   if (factionName) {
     logToGA({
       category: 'Event',
@@ -179,7 +179,6 @@ export const logFailedImport = (value: string, type: TImportParsers) => {
     })
   }
 }
-
 
 export const logDeprecatedImport = (value: string, type: TImportParsers) => {
   if (value) {

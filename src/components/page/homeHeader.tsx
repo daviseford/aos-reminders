@@ -171,7 +171,7 @@ const SubFactionSelectComponent = () => {
 
   // Only display if we actually need to choose between subfactions
   if (!factionInfo?.subFactionKeys || factionInfo.subFactionKeys.length < 2) return <></>
-  
+
   const setValue = withSelectOne(name => {
     const army = getArmy(factionName, name || null, origin_realm, realmscape) as IArmy
 

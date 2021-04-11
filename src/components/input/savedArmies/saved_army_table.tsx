@@ -46,7 +46,7 @@ export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
   )
 
   const faction = getFactionFromList(factionName)
-  
+
   if (!faction?.subFactionKeys) return <></>
 
   return (
