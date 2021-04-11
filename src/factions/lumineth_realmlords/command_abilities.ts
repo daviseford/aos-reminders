@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import {
+  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_COMBAT_PHASE,
@@ -51,6 +52,24 @@ const CommandAbilities = {
         name: `Unshakeable Faith of the Mountains`,
         desc: `Pick D3 ALARITH AELF units wholly within 24" of a friendly model with this command ability. Add 1 to the Attacks characteristic for melee weapons for the units affected in that combat phase. Units cannot benefit more than once per combat phase from this ability. Additionally, they cannot benefit from Faith of the Mountains and Unshakeable Faith of the Mountains in the same phase.`,
         when: [START_OF_COMBAT_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  'Gone Like the Wind': {
+    effects: [
+      {
+        name: `Gone like the Wind`,
+        desc: `Pick 1 friendly HELON unit that fought in this phase and is wholly within 12" of a friendly HELON HERO. The unit can make a normal move but cannot run (it can retreat).`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Sieze the Moment': {
+    effects: [
+      {
+        name: `Sieze the Moment`,
+        desc: `Pick 1 friendly ALUMNIA unit that ran. It can charge in that charge phase.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },

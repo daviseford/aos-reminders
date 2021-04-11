@@ -8,6 +8,7 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
   START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
@@ -24,11 +25,14 @@ import {
   GHYRAN,
   HELLEFlUX,
   HYSH,
+  INVIDA,
+  PRAETORIS,
   SHYISH,
   STYGXX,
   ULGU,
   UMBRAL,
   VARANTHAX,
+  YMETRICA,
 } from 'types/realmscapes'
 import { DEADLY, ENTANGLING, HEALING, MYSTICAL, NULLIFICATION, OVERGROWN, VOLCANIC } from 'types/terrain'
 
@@ -137,6 +141,26 @@ const RealmscapeFeatures: TEffects[] = [
     name: `Forbidden Forgecraft (${VARANTHAX})`,
     desc: `Once per battle, you can pick 1 unnamed, artifactless, friendly hero within 1" of an objective or terrain feature wholly within enemy territory. Roll a D6. On a 2+, you may give the target an valid artifact available at army selection.`,
     when: [HERO_PHASE],
+  },
+  {
+    name: `The Triptych (${PRAETORIS})`,
+    desc: `Death wizards treat all scenery as Arcane in additional to other rules.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Thumb-sized Mosquitos (${INVIDA})`,
+    desc: `You can pick up to D3 enemy units and roll a D6 for each. On a 4-5, the target suffers 1 mortal wound. On a 6, the target suffers 1 mortal wound and cannot run this phase.`,
+    when: [START_OF_MOVEMENT_PHASE],
+  },
+  {
+    name: `Thumb-sized Mosquitos (${INVIDA})`,
+    desc: `If active, the debuffed unit cannot run this phase.`,
+    when: [MOVEMENT_PHASE],
+  },
+  {
+    name: `Mountainous Landscape (${YMETRICA})`,
+    desc: `Reserve units that set up on board edges can only be deployed to the narrow sides of the battlefield.`,
+    when: [DURING_GAME],
   },
 ]
 

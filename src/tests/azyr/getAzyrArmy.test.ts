@@ -184,13 +184,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('1612839793461-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
-      {
-        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
-        severity: 'deprecation-warn',
-        text: 'Sepulchral Plate',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1612918861529-Azyr', () => {
@@ -1883,6 +1877,9 @@ describe('getAzyrArmyFromPdf', () => {
         'The Withering (Har Kuron)',
         'Steed of Shadows (Har Kuron)',
         'Pit of Shadows (Har Kuron)',
+        "Drain Magic (Settler's Gain)",
+        "Shield of Light (Settler's Gain)",
+        "Illuminate (Settler's Gain)",
         'Wildform (Ghur)',
         'Chain Lightning (Azyr)',
         'Fireball (Aqshy)',

@@ -211,6 +211,15 @@ const CommandAbilities = {
       },
     ],
   },
+  "Aelven Training (Settler's Gain)": {
+    effects: [
+      {
+        name: `Aelven Training (Settler's Gain)`,
+        desc: `Do not take battleshock tests for friendly Settler's Gain Freeguild or Collegiate Arcane units wholly within 18" of a friendly Settler's Gain Lumineth Realm-Lords hero.`,
+        when: [START_OF_BATTLESHOCK_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(CommandAbilities, 'command_ability')

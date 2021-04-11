@@ -7,8 +7,10 @@ import {
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_traits from './command_traits'
+import flavors from './flavors'
 import units from './units'
 
 const Battalions = {
@@ -119,6 +121,30 @@ const Battalions = {
         name: `Subjugated`,
         desc: `If active, subtract 1 from the save rolls of Dreadspears and Darkshards in this battalion.`,
         when: [SAVES_PHASE],
+      },
+    ],
+  },
+  'Xintil War-Magi': {
+    mandatory: {
+      flavors: [keyPicker(flavors, ["Settler's Gain"])],
+      units: [
+        keyPicker(units, [
+          'Battlemage',
+          'Luminark of Hysh',
+          'Celestial Hurricanum with Celestial Battlemage',
+        ]),
+      ],
+    },
+    effects: [
+      {
+        name: `Beacon of Intellect`,
+        desc: `You can reroll the D6 determining success for Searing Beam of Light for this battalion's Luminark of Hysh.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Beacon of Intellect`,
+        desc: `Add 1 to Aura of Protection rolls for this battalion's Luminark of Hysh.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

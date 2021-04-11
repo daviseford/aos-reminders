@@ -5,6 +5,8 @@ import {
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   SAVES_PHASE,
+  SHOOTING_PHASE,
+  START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import {
@@ -15,9 +17,12 @@ import {
   GHYRAN,
   HELLEFlUX,
   HYSH,
+  INVIDA,
+  PRAETORIS,
   SHYISH,
   ULGU,
   VARANTHAX,
+  YMETRICA,
 } from 'types/realmscapes'
 
 const RealmArtifacts: TEntry[] = [
@@ -118,6 +123,36 @@ const RealmArtifacts: TEntry[] = [
         name: `The Devourer (${VARANTHAX})`,
         desc: `Each unmodified hit of 6 targeting a hero with the selected melee weapon inflicts 1 mortal wound in addition to normal damage.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Sepulchral Plate (${PRAETORIS})`,
+    effects: [
+      {
+        name: `Sepulchral Plate (${PRAETORIS})`,
+        desc: `Roll D6 for each wound allocated to the bearer. On a 6 it is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  {
+    name: `The Fecund Flask (${INVIDA})`,
+    effects: [
+      {
+        name: `The Fecund Flask (${INVIDA})`,
+        desc: `Once per battle the bearer can roll a D6. On a 2+ all wounds allocated to the bearer are healed.  On a 1, the bearer is slain and replaced with a Beast of Nurgle within 1".`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Prism of Amyntok (${YMETRICA})`,
+    effects: [
+      {
+        name: `Prism of Amyntok (${YMETRICA})`,
+        desc: `Pick 1 enemy unit within 8" of the bearer and roll 4 D6.  For each 6 the target suffers 1 mortal wound.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
