@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { DURING_GAME, DURING_TURN, HERO_PHASE } from 'types/phases'
+import { DURING_GAME, DURING_TURN } from 'types/phases'
 
 const Scenery = {
   'Shrine Luminor': {

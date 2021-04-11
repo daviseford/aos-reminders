@@ -5,7 +5,14 @@ import units from './units'
 const RegularBattalions = {
   'Alarith Temple': {
     mandatory: {
-      units: [keyPicker(units, ['Alarith Stonemage', 'Alarith Stoneguard', 'Alarith Spirit of the Mountain', 'Avalenor, the Stoneheart King'])],
+      units: [
+        keyPicker(units, [
+          'Alarith Stonemage',
+          'Alarith Stoneguard',
+          'Alarith Spirit of the Mountain',
+          'Avalenor, the Stoneheart King',
+        ]),
+      ],
     },
     effects: [
       {
@@ -34,7 +41,15 @@ const RegularBattalions = {
   },
   'Bladelord Host': {
     mandatory: {
-      units: [keyPicker(units, ['Vanari Bladelords', 'Scinari Calligrave', 'Scinari Cathallar', 'Scinari Loreseeker', 'Vanari Lord Regent'])],
+      units: [
+        keyPicker(units, [
+          'Vanari Bladelords',
+          'Scinari Calligrave',
+          'Scinari Cathallar',
+          'Scinari Loreseeker',
+          'Vanari Lord Regent',
+        ]),
+      ],
     },
     effects: [
       {
@@ -58,7 +73,14 @@ const RegularBattalions = {
   },
   'Hurakan Temple': {
     mandatory: {
-      units: [keyPicker(units, ['Hurakan Windmage', 'Hurakan Windchargers', 'Severith, Lord of the Seventh Wind', 'Hurakan Spirit of the Wind'])],
+      units: [
+        keyPicker(units, [
+          'Hurakan Windmage',
+          'Hurakan Windchargers',
+          'Severith, Lord of the Seventh Wind',
+          'Hurakan Spirit of the Wind',
+        ]),
+      ],
     },
     effects: [
       {

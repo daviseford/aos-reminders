@@ -1,5 +1,5 @@
 import { keyPicker } from 'factions/metatagger'
-import { COMBAT_PHASE, DURING_GAME, END_OF_SETUP, SHOOTING_PHASE, HERO_PHASE } from 'types/phases'
+import { COMBAT_PHASE, DURING_GAME, END_OF_SETUP, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 import artifacts from './artifacts'
 import command_abilities from './command_abilities'
 import command_traits from './command_traits'

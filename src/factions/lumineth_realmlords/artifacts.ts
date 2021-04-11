@@ -1,5 +1,15 @@
 import { tagAs } from 'factions/metatagger'
-import { CHARGE_PHASE, COMBAT_PHASE, DURING_GAME, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE, START_OF_COMBAT_PHASE, START_OF_HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import {
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
+  WOUND_ALLOCATION_PHASE,
+} from 'types/phases'
 
 // Add individual artifacts here, and access them in other files!
 const Artifacts = {
@@ -85,7 +95,7 @@ const Artifacts = {
       },
     ],
   },
-  'Windstone': {
+  Windstone: {
     effects: [
       {
         name: `Windstone`,
@@ -157,7 +167,7 @@ const Artifacts = {
       },
     ],
   },
-  'Waystone': {
+  Waystone: {
     effects: [
       {
         name: `Waystone`,
@@ -167,13 +177,13 @@ const Artifacts = {
     ],
   },
   'Metalith Dust': {
-      effects: [
-        {
-          name: `Metalith Dust`,
-          desc: `Once per battle, pick 1 enemy unit within 3'' of the bearer. Subtract 1 from hit and wound rolls until the end of that phase.`,
-          when: [START_OF_COMBAT_PHASE],
-        },
-      ],
+    effects: [
+      {
+        name: `Metalith Dust`,
+        desc: `Once per battle, pick 1 enemy unit within 3'' of the bearer. Subtract 1 from hit and wound rolls until the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
   },
 }
 

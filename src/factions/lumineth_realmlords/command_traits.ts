@@ -11,7 +11,7 @@ import {
 } from 'types/phases'
 
 const CommandTraits = {
-  'Spellmaster': {
+  Spellmaster: {
     effects: [
       {
         name: `Spellmaster`,
@@ -29,7 +29,7 @@ const CommandTraits = {
       },
     ],
   },
-  'Warmaster': {
+  Warmaster: {
     effects: [
       {
         name: `Warmaster`,
@@ -38,7 +38,7 @@ const CommandTraits = {
       },
     ],
   },
-  'Majestic': {
+  Majestic: {
     effects: [
       {
         name: `Majestic`,
@@ -47,7 +47,7 @@ const CommandTraits = {
       },
     ],
   },
-  'Enduring': {
+  Enduring: {
     effects: [
       {
         name: `Enduring`,

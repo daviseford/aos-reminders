@@ -122,7 +122,7 @@ const Spells = {
       },
     ],
   },
-  'Entomb': {
+  Entomb: {
     effects: [
       {
         name: `Entomb`,
@@ -231,7 +231,7 @@ const Spells = {
       },
     ],
   },
-  'Erasure': {
+  Erasure: {
     effects: [
       {
         name: `Erasure`,

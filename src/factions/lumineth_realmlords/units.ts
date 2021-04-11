@@ -19,9 +19,17 @@ import {
 import command_abilities from './command_abilities'
 import spells from './spells'
 
-const getBoltAndShieldWizardEffect = (numberOfCasts: number, numberOfUnbinds: number, additionalKnownSpell: string) => ({
+const getBoltAndShieldWizardEffect = (
+  numberOfCasts: number,
+  numberOfUnbinds: number,
+  additionalKnownSpell: string
+) => ({
   name: `Magic`,
-  desc: `This model is a wizard. It can attempt to cast ${numberOfCasts} spell and attempt to unbind ${numberOfUnbinds} spell. It knows ${additionalKnownSpell === '' ? 'Arcane Bolt and Mystic Shield' : 'Arcane Bolt, Mystic Shield and ' + additionalKnownSpell}.`,
+  desc: `This model is a wizard. It can attempt to cast ${numberOfCasts} spell and attempt to unbind ${numberOfUnbinds} spell. It knows ${
+    additionalKnownSpell === ''
+      ? 'Arcane Bolt and Mystic Shield'
+      : 'Arcane Bolt, Mystic Shield and ' + additionalKnownSpell
+  }.`,
   when: [HERO_PHASE],
 })
 
@@ -71,7 +79,7 @@ const PurestAetherquartzHitRollEffect = {
   name: `Purest Aetherquartz`,
   desc: `Subtract 1 for hit rolls that target this unit. If this unit uses its last Aetherquartz, it can no longer use this ability`,
   when: [COMBAT_PHASE, SHOOTING_PHASE],
-};
+}
 const PurestAetherquartzCastingEffect = {
   name: `Purest Aetherquartz`,
   desc: `Add 1 to the casting roll when attempting to cast Greater Power of Hysh. If this unit uses its last Aetherquartz, it can no longer use this ability`,
@@ -82,7 +90,7 @@ const IntoTheWindOverSaveEffect = {
   name: `Into the Wind`,
   desc: `Roll a dice each time you allocate a wound or mortal wound to this unit, on a 5+ that wound or mortal wound is ignored.`,
   when: [WOUND_ALLOCATION_PHASE],
-}   
+}
 const IntoTheWindPileInRestrictionEffect = {
   name: `Into the Wind`,
   desc: `Subtract 2'' from the distance that enemy models within 3'' of this model can pile into (to a minimum of 1'').`,
@@ -244,8 +252,8 @@ const Units = {
       IntoTheWindPileInRestrictionEffect,
       SpiritOfTheWindEffect,
       LivingCycloneEffect,
-      WindmageSymbiosisEffect   
-    ]
+      WindmageSymbiosisEffect,
+    ],
   },
   'Hurakan Windchargers': {
     effects: [
@@ -292,13 +300,13 @@ const Units = {
         name: `Demonbane`,
         desc: `The damage inflicted by Demonbane is 3 instead of D3 if the target has the CHAOS and DEMON keywords.`,
         when: [COMBAT_PHASE],
-      },      
+      },
       {
         name: `Voice of Tyrion`,
         desc: `If this model is on the battlefield, and TECLIS is not part of your army, on a 2+ you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
-    ]
+    ],
   },
   'Myari Lightcaller': {
     mandatory: {
@@ -391,8 +399,8 @@ const Units = {
         name: `Searing Desert Winds`,
         desc: `After this unit makes a move, pick 1 enemy unit this model moved across. On a 3+ it suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE, SHOOTING_PHASE],
-      },     
-    ]
+      },
+    ],
   },
   'The Light of Eltharion': {
     mandatory: {
@@ -531,7 +539,7 @@ const Units = {
       getSunmetalWeaponsEffect(`Regent's Sword`),
       PurestAetherquartzCastingEffect,
       PurestAetherquartzHitRollEffect,
-    ]
+    ],
   },
   'Vanari Starshard Ballistas': {
     effects: [
@@ -555,7 +563,7 @@ const Units = {
         desc: `If the unit has not moved this turn, add 1 to attacks of this unit's Starshard bolts.`,
         when: [SHOOTING_PHASE],
       },
-    ]
+    ],
   },
 }
 
