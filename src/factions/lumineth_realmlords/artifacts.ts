@@ -90,7 +90,7 @@ const Artifacts = {
     effects: [
       {
         name: `Windblast Fan`,
-        desc: `One per battle, in the enemy movement phase, Pick 1 unit within 3'' of the bearer, the unit must have a normal move, and must retreat.`,
+        desc: `One per battle, in the enemy movement phase, Pick 1 unit within 3" of the bearer, the unit must have a normal move, and must retreat.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -99,7 +99,7 @@ const Artifacts = {
     effects: [
       {
         name: `Windstone`,
-        desc: `Once per battle, in your shooting phase, pick 1 enemy unit within 18'' and visible to the bearer. Roll a D6, 1 = nothing happens, 2-4 = unit suffers 3 mortal wounds, 6 = unit suffers D6 mortal wounds..`,
+        desc: `Once per battle, in your shooting phase, pick 1 enemy unit within 18" and visible to the bearer. Roll a D6, 1 = nothing happens, 2-4 = unit suffers 3 mortal wounds, 6 = unit suffers D6 mortal wounds..`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -171,7 +171,7 @@ const Artifacts = {
     effects: [
       {
         name: `Waystone`,
-        desc: `Once per battle, instead of making a normal move, pick a point on the battlefield within 12'' of the bearer. Remove the bearer and set them up within 1'' of the point, and more than 3'' away from enemy units.`,
+        desc: `Once per battle, instead of making a normal move, pick a point on the battlefield within 12" of the bearer. Remove the bearer and set them up within 1" of the point, and more than 3" away from enemy units.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -180,7 +180,7 @@ const Artifacts = {
     effects: [
       {
         name: `Metalith Dust`,
-        desc: `Once per battle, pick 1 enemy unit within 3'' of the bearer. Subtract 1 from hit and wound rolls until the end of that phase.`,
+        desc: `Once per battle, pick 1 enemy unit within 3" of the bearer. Subtract 1 from hit and wound rolls until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

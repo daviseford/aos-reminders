@@ -101,7 +101,7 @@ const BattleTraits = {
       },
       {
         name: `Move Like the Wind`,
-        desc: `When you make a pile in move with a HURAKAN model, if the unit made a charge move this turn, it can fly and move an additional 3''.`,
+        desc: `When you make a pile in move with a HURAKAN model, if the unit made a charge move this turn, it can fly and move an additional 3".`,
         when: [CHARGE_PHASE, COMBAT_PHASE],
       },
       {

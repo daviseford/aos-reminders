@@ -105,7 +105,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Skyrace Grand Champion`,
-        desc: `Once per battle, you can re-roll 1 run roll, 1 charge roll, and 1 casting roll for this general.`,
+        desc: `Once per battle, you can reroll 1 run roll, 1 charge roll, and 1 casting roll for this general.`,
         when: [HERO_PHASE, CHARGE_PHASE, MOVEMENT_PHASE],
       },
     ],
@@ -114,7 +114,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Burning Gaze`,
-        desc: `Pick 1 enemy unit within 3'' of this general and visible to them. Roll a dice, on a 2+ that unit suffers 1 mortal wound.`,
+        desc: `Pick 1 enemy unit within 3" of this general and visible to them. Roll a dice, on a 2+ that unit suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

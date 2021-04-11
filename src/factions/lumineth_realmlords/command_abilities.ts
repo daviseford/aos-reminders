@@ -59,7 +59,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Gone like the Wind`,
-        desc: `Pick 1 friendly HELON unit that fought in this phase and is wholly within 12'' of a friendly HELON HERO. The unit can make a normal move but cannot run (it can retreat).`,
+        desc: `Pick 1 friendly HELON unit that fought in this phase and is wholly within 12" of a friendly HELON HERO. The unit can make a normal move but cannot run (it can retreat).`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],

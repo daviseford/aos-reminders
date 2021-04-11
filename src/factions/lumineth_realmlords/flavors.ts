@@ -89,7 +89,7 @@ const Flavors = {
     effects: [
       {
         name: `Gale of Killing Shafts`,
-        desc: `Add 1 to the attacks of missile weapons used by HELON models that are within 3'' of an enemy unit.`,
+        desc: `Add 1 to the attacks of missile weapons used by HELON models that are within 3" of an enemy unit.`,
         when: [SHOOTING_PHASE],
       },
     ],

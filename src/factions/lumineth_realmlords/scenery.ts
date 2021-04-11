@@ -6,12 +6,12 @@ const Scenery = {
     effects: [
       {
         name: `Garrison`,
-        desc: `The garrison of a Shrine Luminor can be a single LUMINETH REALM-LORDS HERO model that is not a MONSTER and does not have a mount. The garrison is referred to as the terrain feature’s ‘Shrine Guardian’.`,
+        desc: `The garrison of a Shrine Luminor can be a single LUMINETH REALM-LORDS HERO model that is not a MONSTER and does not have a mount. The garrison is referred to as the terrain feature's 'Shrine Guardian'.`,
         when: [DURING_GAME],
       },
       {
         name: `Cleansing Rituals`,
-        desc: `Once per turn, you can re-roll one casting, unbinding or dispeling roll for a friendly LUMINETH REALM-LORDS HERO that is within 12'' of their terrain feature. From the second battle round onwards, if this terrain feature has a Shrine Guardian, add 12'' to this ability`,
+        desc: `Once per turn, you can reroll one casting, unbinding or dispeling roll for a friendly LUMINETH REALM-LORDS HERO that is within 12" of their terrain feature. From the second battle round onwards, if this terrain feature has a Shrine Guardian, add 12" to this ability.`,
         when: [DURING_TURN],
       },
       {
