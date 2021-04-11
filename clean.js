@@ -53,13 +53,13 @@ const run = async () => {
     const changed = getChanged(results)
     if (changed.length) {
       console.log('Files modified:', changed)
-      process.exit(1)
+      process.exit(1) // Throw an error to stop a git commit from finishing
     } else {
       console.log('No files were modified.')
     }
   } catch (error) {
     console.error('Error occurred:', error)
-    process.exit(1)
+    process.exit(1) // Throw an error to stop a git commit from finishing
   }
 }
 

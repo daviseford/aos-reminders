@@ -26,7 +26,7 @@ const getBoltAndShieldWizardEffect = (
 ) => ({
   name: `Magic`,
   desc: `This model is a wizard. It can attempt to cast ${numberOfCasts} spell and attempt to unbind ${numberOfUnbinds} spell. It knows ${
-    additionalKnownSpell === "
+    additionalKnownSpell === ''
       ? 'Arcane Bolt and Mystic Shield'
       : 'Arcane Bolt, Mystic Shield and ' + additionalKnownSpell
   }.`,
@@ -365,7 +365,7 @@ const Units = {
   },
   'Scinari Loreseeker': {
     effects: [
-      getBoltAndShieldWizardEffect(1, 1, "),
+      getBoltAndShieldWizardEffect(1, 1, ''),
       {
         name: `Loreseeker`,
         desc: `If an enemy model with an artifact is slain within 3" of any friendly models with this ability, you receive 1 command point.`,
