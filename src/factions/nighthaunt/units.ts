@@ -7,6 +7,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
+  SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -195,7 +196,7 @@ const Units = {
       {
         name: `Another Link in the Chain`,
         desc: `While this unit is wholly within 12" of a friendly SPIRIT TORMENT, you can reroll hit rolls of 1 for friendly NIGHTHAUNT units while they are wholly within 12" of this unit.`,
-        when: [COMBAT_PHASE],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Sweeping Blows`,
