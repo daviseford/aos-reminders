@@ -2602,10 +2602,10 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.22.tgz#0d29f382472c4ccf3bd96ff0ce47daf5b7b84b18"
   integrity sha512-g+f/qj/cNcqKkc3tFqlXOYjrmZA+jNBiDzbP3kH+B+otKFqAdPgVTGP1IeKRdMml/aE69as5S4FqtxAbl+LaMw==
 
-"@types/node@14.14.37":
-  version "14.14.37"
-  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.37.tgz#a3dd8da4eb84a996c36e331df98d82abd76b516e"
-  integrity sha512-XYmBiy+ohOR4Lh5jE379fV2IU+6Jn4g5qASinhitfyO71b/sCo6MKsMLF5tc7Zf2CE8hViVQyYSobJNke8OvUw==
+"@types/node@14.14.39":
+  version "14.14.39"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-14.14.39.tgz#9ef394d4eb52953d2890e4839393c309aa25d2d1"
+  integrity sha512-Qipn7rfTxGEDqZiezH+wxqWYR8vcXq5LRpZrETD19Gs4o8LbklbmqotSUsMU+s5G3PJwMRDfNEYoxrcBwIxOuw==
 
 "@types/normalize-package-data@^2.4.0":
   version "2.4.0"
@@ -2709,10 +2709,10 @@
     "@types/history" "*"
     "@types/react" "*"
 
-"@types/react-select@4.0.14":
-  version "4.0.14"
-  resolved "https://registry.yarnpkg.com/@types/react-select/-/react-select-4.0.14.tgz#4a5b8a804d5c445c353e1989e60ced361989e132"
-  integrity sha512-bGisnh8SWQqvoygT9CsaOFwG6o4C/0RCB8X2c3luNXpI0x98u4pA9e9bb12mnQuz/0/D2nBeDGvQv/wU9p6OCw==
+"@types/react-select@4.0.15":
+  version "4.0.15"
+  resolved "https://registry.yarnpkg.com/@types/react-select/-/react-select-4.0.15.tgz#2e6a1cff22c4bbae6c95b8dbee5b5097c12eae54"
+  integrity sha512-GPyBFYGMVFCtF4eg9riodEco+s2mflR10Nd5csx69+bcdvX6Uo9H/jgrIqovBU9yxBppB9DS66OwD6xxgVqOYQ==
   dependencies:
     "@emotion/serialize" "^1.0.0"
     "@types/react" "*"
@@ -11103,10 +11103,10 @@ react-lifecycles-compat@^3.0.0, react-lifecycles-compat@^3.0.4:
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
   integrity sha512-fBASbA6LnOU9dOU2eW7aQ8xmYBSXUIWr+UmF9b1efZBazGNO+rcXT/icdKnYm2pTwcRylVUYwW7H1PHfLekVzA==
 
-react-modal@3.12.1:
-  version "3.12.1"
-  resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.12.1.tgz#38c33f70d81c33d02ff1ed115530443a3dc2afd3"
-  integrity sha512-WGuXn7Fq31PbFJwtWmOk+jFtGC7E9tJVbFX0lts8ZoS5EPi9+WWylUJWLKKVm3H4GlQ7ZxY7R6tLlbSIBQ5oZA==
+react-modal@3.13.1:
+  version "3.13.1"
+  resolved "https://registry.yarnpkg.com/react-modal/-/react-modal-3.13.1.tgz#a02dce63bbfee7582936f1e9835d518ef8f56453"
+  integrity sha512-m6yXK7I4YKssQnsjHK7xITSXy2O81BSOHOsg0/uWAsdKtuT9HF2tdoYhRuxNNQg2V+LgepsoHUPJKS8m6no+eg==
   dependencies:
     exenv "^1.2.0"
     prop-types "^15.5.10"
@@ -13866,22 +13866,22 @@ workbox-cacheable-response@^5.1.4:
   dependencies:
     workbox-core "^5.1.4"
 
-workbox-core@6.1.2, workbox-core@^6.1.2:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/workbox-core/-/workbox-core-6.1.2.tgz#b694ca77e1cdf43c330f8fb29122946aa7e6a7a1"
-  integrity sha512-69rch7EyPsNAx5Y5YlSoHV39/EEE1oDeb5zmLIy6+mgB4BnaG6u/tlDtvjvKqHcPM0gz2L5SzYtTEvWmk5WRTQ==
+workbox-core@6.1.5, workbox-core@^6.1.5:
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/workbox-core/-/workbox-core-6.1.5.tgz#424ff600e2c5448b14ebd58b2f5ac8ed91b73fb9"
+  integrity sha512-9SOEle7YcJzg3njC0xMSmrPIiFjfsFm9WjwGd5enXmI8Lwk8wLdy63B0nzu5LXoibEmS9k+aWF8EzaKtOWjNSA==
 
 workbox-core@^5.1.4:
   version "5.1.4"
   resolved "https://registry.yarnpkg.com/workbox-core/-/workbox-core-5.1.4.tgz#8bbfb2362ecdff30e25d123c82c79ac65d9264f4"
   integrity sha512-+4iRQan/1D8I81nR2L5vcbaaFskZC2CL17TLbvWVzQ4qiF/ytOGF6XeV54pVxAvKUtkLANhk8TyIUMtiMw2oDg==
 
-workbox-expiration@6.1.2:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/workbox-expiration/-/workbox-expiration-6.1.2.tgz#0e31ff9cc12a2982430226cd7f34f7b16b3ddbae"
-  integrity sha512-86cXz8Ae5cAJMgJ6aD/8E1NMNON4qGnE4ir1G3VuOu1xLsx2ItbbXmz6b0BB2dZ+kX6BDwqE0wkgS5As5Sds7g==
+workbox-expiration@6.1.5:
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/workbox-expiration/-/workbox-expiration-6.1.5.tgz#a62a4ac953bb654aa969ede13507ca5bd154adc2"
+  integrity sha512-6cN+FVbh8fNq56LFKPMchGNKCJeyboHsDuGBqmhDUPvD4uDjsegQpDQzn52VaE0cpywbSIsDF/BSq9E9Yjh5oQ==
   dependencies:
-    workbox-core "^6.1.2"
+    workbox-core "^6.1.5"
 
 workbox-expiration@^5.1.4:
   version "5.1.4"
@@ -13907,14 +13907,14 @@ workbox-navigation-preload@^5.1.4:
   dependencies:
     workbox-core "^5.1.4"
 
-workbox-precaching@6.1.2:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/workbox-precaching/-/workbox-precaching-6.1.2.tgz#5d8d5d13793feb8119acfaa54b1a627bc766c881"
-  integrity sha512-jGwv6tMdIecsyBSdVCgXoD7bHxLRI972lvYOfvcosGjP3oFKe8p2DVPsn3TIzEVYTl+b3j59utC7yrOP9oEHSg==
+workbox-precaching@6.1.5:
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/workbox-precaching/-/workbox-precaching-6.1.5.tgz#9e0fecb5c567192f46783323fccea10bffc9f79e"
+  integrity sha512-yhm1kb6wgi141JeM5X7z42XJxCry53tbMLB3NgrxktrZbwbrJF8JILzYy+RFKC9tHC6u2bPmL789GPLT2NCDzw==
   dependencies:
-    workbox-core "^6.1.2"
-    workbox-routing "^6.1.2"
-    workbox-strategies "^6.1.2"
+    workbox-core "^6.1.5"
+    workbox-routing "^6.1.5"
+    workbox-strategies "^6.1.5"
 
 workbox-precaching@^5.1.4:
   version "5.1.4"
@@ -13930,12 +13930,12 @@ workbox-range-requests@^5.1.4:
   dependencies:
     workbox-core "^5.1.4"
 
-workbox-routing@6.1.2, workbox-routing@^6.1.2:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/workbox-routing/-/workbox-routing-6.1.2.tgz#e0e6a745bb2fb9110eafaeed0d35fdece0f589b8"
-  integrity sha512-aRcqO+KX9A0J5W6hEeEpGhT6Lesqd3WfgaqlSD5LRajm0vAgYnlQzY37w6uC55Ev7M5Gh/xg0lA99qKc6ozsEA==
+workbox-routing@6.1.5, workbox-routing@^6.1.5:
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/workbox-routing/-/workbox-routing-6.1.5.tgz#15884d6152dba03faef83f0b23331846d8b6ef8e"
+  integrity sha512-uC/Ctz+4GXGL42h1WxUNKxqKRik/38uS0NZ6VY/EHqL2F1ObLFqMHUZ4ZYvyQsKdyI82cxusvhJZHOrY0a2fIQ==
   dependencies:
-    workbox-core "^6.1.2"
+    workbox-core "^6.1.5"
 
 workbox-routing@^5.1.4:
   version "5.1.4"
@@ -13944,12 +13944,12 @@ workbox-routing@^5.1.4:
   dependencies:
     workbox-core "^5.1.4"
 
-workbox-strategies@6.1.2, workbox-strategies@^6.1.2:
-  version "6.1.2"
-  resolved "https://registry.yarnpkg.com/workbox-strategies/-/workbox-strategies-6.1.2.tgz#3547eb17ebada31d095db98316913e1031b12352"
-  integrity sha512-IX7UNePHmmfb1dcXSxgcephYShnLc0pmP3MRT/TZGjv8f0qcZYH7Sr/lTmwaxGXQL8yCSCrQICZwJnHLw2G5Ng==
+workbox-strategies@6.1.5, workbox-strategies@^6.1.5:
+  version "6.1.5"
+  resolved "https://registry.yarnpkg.com/workbox-strategies/-/workbox-strategies-6.1.5.tgz#2549a3e78f0eda371b760c4db21feb0d26143573"
+  integrity sha512-QhiOn9KT9YGBdbfWOmJT6pXZOIAxaVrs6J6AMYzRpkUegBTEcv36+ZhE/cfHoT0u2fxVtthHnskOQ/snEzaXQw==
   dependencies:
-    workbox-core "^6.1.2"
+    workbox-core "^6.1.5"
 
 workbox-strategies@^5.1.4:
   version "5.1.4"
