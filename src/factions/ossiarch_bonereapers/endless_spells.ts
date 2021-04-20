@@ -60,17 +60,17 @@ const EndlessSpells = {
       {
         name: `Summon Nightmare Predator`,
         desc: `Casting value of 7. Only OSSIARCH BONEREAPERS WIZARDS can attempt to cast this spell. Set up a Nightmare Predator model wholly within 6" of the caster and visible to them.`,
-        when: [START_OF_ROUND],
+        when: [HERO_PHASE],
       },
       {
         name: `Perpetual Hunter`,
         desc: `When this model is set up, the player who set it up can pick 1 enemy HERO as its prety and then immediately make a move with this model. If this model's prey is destroyed, this model is dispelled.`,
-        when: [START_OF_ROUND],
+        when: [HERO_PHASE],
       },
       {
         name: `Death Incarnate`,
         desc: `After this model moves, roll a D6 for each unit within 3" of it. On a 2+, that unit suffers D3 mortal wounds. If that unit was this model's prey, on a 2+ it suffers D6 mortal wounds instead of D3 mortal wounds. OSSIARCH BONEREAPERS units are not affected by this ability.`,
-        when: [START_OF_ROUND],
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -85,7 +85,7 @@ const EndlessSpells = {
       {
         name: `Summon Soulstealer Carrion`,
         desc: `Casting value of 6. Only OSSIARCH BONEREAPERS WIZARDS can attempt to cast this spell. Set up a Soulstealer Carrion model anywhere on the battlefield that is visible to the caster.`,
-        when: [START_OF_ROUND],
+        when: [HERO_PHASE],
       },
       {
         name: `Soul Thief`,
@@ -107,7 +107,7 @@ const EndlessSpells = {
       {
         name: `Second Sight`,
         desc: `Anything visible to this model is also visible to the caster that is soul-linked to this model.`,
-        when: [START_OF_ROUND],
+        when: [HERO_PHASE],
       },
     ],
   },
