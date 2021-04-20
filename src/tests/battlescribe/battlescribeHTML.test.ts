@@ -544,12 +544,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(LEGIONS_OF_NAGASH)
     expect(res.subFactionName).toEqual(LegionsOfNagashFaction.subFactionKeyMap['Legion of Sacrament'])
     expect(res.selections.artifacts).toContain('Asylumaticae')
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Spectral Lure',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1599083520842-Battlescribe', () => {
@@ -959,10 +954,6 @@ describe('getBattlescribeArmy', () => {
         severity: 'warn',
         text: 'Fractal Mindstorm',
       },
-      {
-        severity: 'warn',
-        text: 'Stolen Sting',
-      },
     ])
   })
 
@@ -978,15 +969,7 @@ describe('getBattlescribeArmy', () => {
       },
       {
         severity: 'warn',
-        text: 'Spectral Lure',
-      },
-      {
-        severity: 'warn',
         text: 'Overwhelming Dread',
-      },
-      {
-        severity: 'warn',
-        text: "Vanhel's Danse Macabre",
       },
     ])
   })
@@ -1064,15 +1047,7 @@ describe('getBattlescribeArmy', () => {
       },
       {
         severity: 'warn',
-        text: 'Spectral Lure',
-      },
-      {
-        severity: 'warn',
         text: 'Overwhelming Dread',
-      },
-      {
-        severity: 'warn',
-        text: "Vanhel's Danse Macabre",
       },
     ])
   })
@@ -1799,10 +1774,6 @@ describe('getBattlescribeArmy', () => {
         text: 'Wand of Restoration',
         reason: DEPRECATED_MALIGN_SORCERY,
       },
-      {
-        severity: 'warn',
-        text: 'Boon of Mutation',
-      },
     ])
   })
 
@@ -1889,10 +1860,6 @@ describe('getBattlescribeArmy', () => {
       {
         severity: 'warn',
         text: 'COURT OF NULAHMIA',
-      },
-      {
-        severity: 'warn',
-        text: 'Temporal Translocation',
       },
     ])
   })
@@ -2204,13 +2171,7 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(LEGIONS_OF_NAGASH)
     expect(res.subFactionName).toEqual(LegionsOfNagashFaction.subFactionKeyMap['Grand Host of Nagash'])
-    expect(res.errors).toEqual([
-      { severity: 'warn', text: 'Beacon of Nagashizzar' },
-      {
-        severity: 'warn',
-        text: 'Spectral Lure',
-      },
-    ])
+    expect(res.errors).toEqual([{ severity: 'warn', text: 'Beacon of Nagashizzar' }])
   })
 
   it('should work with Fyreslayers', () => {
