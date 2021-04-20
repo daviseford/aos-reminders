@@ -37,6 +37,17 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should correctly read ArkhanCurse', () => {
+    const pdfText = getFile('ArkhanCurse')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+    // Fixes #1256
+    expect(res.selections.units).toContain('Arkhan the Black, Mortarch of Sacrament')
+    // This is a good test of how we extract mandatory objects from mandatory objects
+    expect(res.selections.spells).toContain('Curse of Years')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read RuneOfKhaine', () => {
     const pdfText = getFile('RuneOfKhaine')
     const parsedText = parsePdf(pdfText)
