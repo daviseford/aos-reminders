@@ -1,8 +1,8 @@
 import { mergeParentEffectObjs } from 'factions/temporaryAdapter'
-import { sortBy, uniqBy } from 'lodash'
+import { isString, sortBy, uniqBy } from 'lodash'
 import { IArmy, TCollection, TInitialArmy } from 'types/army'
-import { lowerToUpperLookup, TEffects, TEntry } from 'types/data'
-import { TSelectionTypes } from 'types/selections'
+import { entryKeyToSelectionsKey, lowerToUpperLookup, TEffects, TEntry } from 'types/data'
+import { getTagFromEntry } from 'utils/getTag'
 
 /**
  * There are spells/artifacts/etc that only occur if a certain
@@ -66,7 +66,10 @@ export const getCollection = (army: TInitialArmy): TCollection => {
 
       mergedEntries.forEach(_entry => {
         const { effects } = _entry as TEntry
-        const upperSlice = lowerToUpperLookup[slice as TSelectionTypes]
+        const upperSlice = isString(slice)
+          ? lowerToUpperLookup[slice]
+          : lowerToUpperLookup[entryKeyToSelectionsKey[getTagFromEntry(_entry)]]
+
         effects.forEach(effect => checkEffects(effect, Collection, upperSlice))
       })
     })
