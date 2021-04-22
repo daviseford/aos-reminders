@@ -23,7 +23,7 @@ const CommandAbilities = {
       {
         name: `Lord of Fate`,
         desc: `You can use this command ability at the start of your hero phase. If you do so, pick a friendly model with this command ability. Until your next hero phase, you can reroll hit rolls for attacks made by friendly Tzeentch units wholly within 9" of this model.`,
-        when: [HERO_PHASE],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
