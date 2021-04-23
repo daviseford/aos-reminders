@@ -6,7 +6,7 @@ const Scenery = {
     effects: [
       {
         name: `Gloomtide Shipwreck`,
-        desc: `After all other terrain features are set up, but before players choose territories or set up their armies, you can set up a maximum of two Etheric Vortex terrain features anywhere on the battlefield so that each is more than 1" from any other terrain features.`,
+        desc: `After territories have been chosen but before armies are set up, you can set up the Gloomtide Shipwrecks anywhere on the battlefield, more than 1" from any other terrain features, more than 6" from any other Gloomtide Shipwrecks, and more than 6" from where any objectives will be located at the start of the first battle round. If both players can set up a terrain feature before armies are set up, they must roll off, and the winner can choose the order in which the terrain features are set up.`,
         when: [START_OF_SETUP],
       },
       {
