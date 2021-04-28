@@ -12,9 +12,12 @@ import {
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
+  START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_MOVEMENT_PHASE,
+  START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
@@ -864,17 +867,23 @@ const Units = {
       },
       {
         name: `The Dark Master`,
-        desc: `Secretly note down an enemy unit for manipulation. When activated, until your next hero phase your opponent must roll a D6 each time the target attempts to cast a spell, move, charge, or attack. On a 5+, the action can be performed normally otherwise it cannot be completed.`,
-        when: [END_OF_SETUP],
-      },
-      {
-        name: `The Dark Master`,
-        desc: `You may reveal your unit choice. The target is affected by this ability until your next hero phase. Can only be used once per game.`,
+        desc: `Once per battle, pick 1 enemy unit on the battlefield. Starting now and until your next hero phase, roll a D6 at the start of each phase. On a 3+ the target cannot move, shoot, fight, use command abilities, chant prayers, or cast/dispell/unbind spells in that phase.`,
         when: [START_OF_HERO_PHASE],
       },
       {
+        name: `The Dark Master`,
+        desc: `If active, roll a D6 to trigger the Dark Master effects.`,
+        when: [
+          START_OF_MOVEMENT_PHASE,
+          START_OF_SHOOTING_PHASE,
+          START_OF_CHARGE_PHASE,
+          START_OF_COMBAT_PHASE,
+          START_OF_BATTLESHOCK_PHASE,
+        ],
+      },
+      {
         name: `Lord of Torment`,
-        desc: `If any models within 10" flee, this model heals D3 wounds.`,
+        desc: `If an enemy unit within 12" fails a battleshock test, this model heals D3 wounds currently allocated to it.`,
         when: [BATTLESHOCK_PHASE],
       },
       {

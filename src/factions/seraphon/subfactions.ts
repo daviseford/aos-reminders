@@ -39,6 +39,7 @@ const subFactions = {
           'Firelance Temple-host',
           'Shadowstrike Temple-host',
           'Thunderquake Temple-host',
+          'The Celestial Stampede',
         ]),
       ],
     },

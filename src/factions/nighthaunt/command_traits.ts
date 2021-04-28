@@ -1,5 +1,11 @@
 import { tagAs } from 'factions/metatagger'
-import { COMBAT_PHASE, SHOOTING_PHASE, START_OF_HERO_PHASE, START_OF_MOVEMENT_PHASE } from 'types/phases'
+import {
+  COMBAT_PHASE,
+  DURING_GAME,
+  SHOOTING_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_MOVEMENT_PHASE,
+} from 'types/phases'
 
 // Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandTraits = {
@@ -54,6 +60,16 @@ const CommandTraits = {
         name: `Ruler of the Spirit Hosts`,
         desc: `At the start of your hero phase, you can pick a friendly SUMMONABLE NIGHTHAUNT unit within 9" of this general and return D3 slain models to that unit. The returning models must be set up within 9" of this general.`,
         when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  // Emerald Host
+  'Lord of the Host': {
+    effects: [
+      {
+        name: `Lord of the Host`,
+        desc: `Once per battle, you can use the command ability from the general's warscroll without spending a command point.`,
+        when: [DURING_GAME],
       },
     ],
   },

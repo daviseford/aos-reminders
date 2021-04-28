@@ -2,7 +2,6 @@ import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, DURING_GAME, SAVES_PHASE } from 'types/phases'
 
 const Artifacts = {
-  // Legion of Chaos Ascendant
   'Fourfold Blade': {
     effects: [
       {

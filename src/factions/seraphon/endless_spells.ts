@@ -6,11 +6,15 @@ import {
   ChronomanticCogsEffects,
   EmeraldLifeswarmEffects,
   GeminidsOfUhlGyshEffects,
+  HorrorghastEffects,
+  LauchonTheSoulseekerEffects,
   MalevolentMaelstromEffects,
   PrismaticPalisadeEffects,
   PurpleSunEffects,
   QuicksilverSwordsEffects,
   RavenaksGnashingJawsEffects,
+  ShardsOfValagharrEffects,
+  SoulscreamBridgeEffects,
   SoulsnareShacklesEffects,
   SuffocatingGravetideEffects,
   UmbralSpellportalEffects,
@@ -81,6 +85,18 @@ const EndlessSpells = {
   },
   'Bound Prismatic Palisade': {
     effects: [BoundEffect, ...PrismaticPalisadeEffects],
+  },
+  'Bound Lauchon the Soulseeker': {
+    effects: [BoundEffect, ...LauchonTheSoulseekerEffects],
+  },
+  'Bound Soulscream Bridge': {
+    effects: [BoundEffect, ...SoulscreamBridgeEffects],
+  },
+  'Bound Horrorghast': {
+    effects: [BoundEffect, ...HorrorghastEffects],
+  },
+  'Bound Shards of Valagharr': {
+    effects: [BoundEffect, ...ShardsOfValagharrEffects],
   },
 }
 

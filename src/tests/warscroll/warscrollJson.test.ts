@@ -14,7 +14,7 @@ import {
   GREENSKINZ,
   KHARADRON_OVERLORDS,
   KHORNE,
-  LEGION_OF_CHAOS_ASCENDANT,
+  LEGION_OF_THE_FIRST_PRINCE,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -115,7 +115,7 @@ describe('getWarscrollArmyFromJson', () => {
       // {
       //   severity: 'ally-warn',
       //   text:
-      //     'Allied Exalted Greater Daemon of Khorne can belong to Khorne or Legion Of Chaos Ascendant. Please add this unit manually.',
+      //     'Allied Exalted Greater Daemon of Khorne can belong to Khorne or Legion Of The First Prince. Please add this unit manually.',
       // },
     ])
   })
@@ -742,11 +742,6 @@ describe('getWarscrollArmyFromJson', () => {
         text: 'Hydroxskin Cloak',
         reason: DEPRECATED_MALIGN_SORCERY,
       },
-      {
-        severity: 'deprecation-warn',
-        text: 'Gildenbane',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
     ])
   })
 
@@ -769,10 +764,10 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with Legion of Chaos Ascendant', () => {
+  it('should work with Legion of Chaos Ascendant (now Legion of the First Prince)', () => {
     const parsedText = getFile('1581436593161-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.factionName).toEqual(LEGION_OF_CHAOS_ASCENDANT)
+    expect(res.factionName).toEqual(LEGION_OF_THE_FIRST_PRINCE)
     expect(res.errors).toEqual([])
   })
 
@@ -1067,7 +1062,7 @@ describe('getWarscrollArmyFromJson', () => {
       {
         severity: 'ally-warn',
         text:
-          'Allied Kairos Fateweaver can belong to Legion Of Chaos Ascendant or Tzeentch. Please add this unit manually.',
+          'Allied Kairos Fateweaver can belong to Legion Of The First Prince or Tzeentch. Please add this unit manually.',
       },
     ])
   })

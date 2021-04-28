@@ -318,6 +318,109 @@ export const UmbralSpellportalEffects = [
     when: [HERO_PHASE],
   },
 ]
+export const LauchonTheSoulseekerEffects = [
+  {
+    name: `Summon Lauchon the Soulseeker`,
+    desc: `Casting value of 6. Set up the model wholly within 12" of the caster.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Predatory`,
+    desc: `Lauchon the Soulseeker can move up to 12" and can fly.`,
+    when: [START_OF_ROUND],
+  },
+  {
+    name: `Navigate Deathly Tides`,
+    desc: `When this model is set up, the player who set it up can immediately make a move with it.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Soul Price`,
+    desc: `Before a player makes a move with this model, pick a friendly unit wholly within 3" of this model. Remove the unit from the battlefield. After this spell has moved, set up the removed unit wholly within 3" of this spell and more than 9" from enemy units. Once the unit is set up, 1 model from the unit is slain.`,
+    when: [START_OF_ROUND],
+  },
+  {
+    name: `Empowered by Shyish (${SHYISH})`,
+    desc: `If the battle is taking place in the realm of Shyish, this model can move up to 18" instead of up to 12".`,
+    when: [START_OF_ROUND],
+  },
+]
+export const SoulscreamBridgeEffects = [
+  {
+    name: `Summon Soulscream Bridge`,
+    desc: `Casting value of 6. Set up the first model wholly within 6" of the caster. Then set up the second model wholly within 12" of the first.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Deathly Passage`,
+    desc: `Friendly units wholly within 6" of one of these models can travel across the bridge. If they do so, remove that unit from the battlefield and set it up wholly within 6" of the other bridge model. This set up must be more than 9" from enemy models and the unit cannot move in this phase.`,
+    when: [START_OF_MOVEMENT_PHASE],
+  },
+  {
+    name: `Nightmarish Construct`,
+    desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of a Soulscream Bridge model. This ability has no effect on Death units.`,
+    when: [DURING_GAME],
+  },
+  {
+    name: `Empowered by Shyish (${SHYISH})`,
+    desc: `If the battle is taking place in the realm of Shyish, the second Soulscream Bridge model can be set up wholly within 24" instead of 12".`,
+    when: [DURING_GAME],
+  },
+]
+export const HorrorghastEffects = [
+  {
+    name: `Summon Horrorghast`,
+    desc: `Casting value of 6. Set up the model wholly within 12" of the caster.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Predatory`,
+    desc: `Horrorghast can move up to 9" and can fly.`,
+    when: [START_OF_ROUND],
+  },
+  {
+    name: `Prey on Fear`,
+    desc: `Subtract 1 from the bravery characteristic of units while they are within 12" of this model. Subtract 2 instead while they are within 6" of this model.`,
+    when: [DURING_GAME],
+  },
+  {
+    name: `Empowered by Shyish (${SHYISH})`,
+    desc: `If the battle is taking place in the realm of Shyish, this model can move up to 12" instead of up to 9".`,
+    when: [DURING_GAME],
+  },
+]
+export const ShardsOfValagharrEffects = [
+  {
+    name: `Summon Shards of Valagharr`,
+    desc: `Casting value of 5. Set up the first model wholly within 6" of the caster. Then set up the second model wholly within 12" of the first.`,
+    when: [HERO_PHASE],
+  },
+  {
+    name: `Ensnaring Soul-drain`,
+    desc: `Draw an imaginary straight line 1mm wide between the closest parts of the bases from these two models. Each unit passed across by this line is ensnared until the end of the turn.`,
+    when: [START_OF_MOVEMENT_PHASE],
+  },
+  {
+    name: `Ensnaring Soul-drain`,
+    desc: `Halve the movement characteristic of ensnared units.`,
+    when: [MOVEMENT_PHASE],
+  },
+  {
+    name: `Ensnaring Soul-drain`,
+    desc: `Subtract 1 from the hits rolls of ensnared units.`,
+    when: [SHOOTING_PHASE, COMBAT_PHASE],
+  },
+  {
+    name: `Twilight Translocation`,
+    desc: `After determining who has the first turn, players roll off. The winner can remove on Shards of Valagharr model from this spell and set it up wholly within 12" of the other Shards of Valagharr model.`,
+    when: [START_OF_ROUND],
+  },
+  {
+    name: `Empowered by Shyish (${SHYISH})`,
+    desc: `If the battle is taking place in the realm of Shyish, the first Shards of Valagharr model can be set up wholly within 12" of the caster instead of 6".`,
+    when: [DURING_GAME],
+  },
+]
 
 const EndlessSpells: TEntry[] = [
   {
@@ -467,118 +570,19 @@ const EndlessSpells: TEntry[] = [
   },
   {
     name: `Soulscream Bridge`,
-    effects: [
-      {
-        name: `Summon Soulscream Bridge`,
-        desc: `Casting value of 6. Set up the first model wholly within 6" of the caster. Then set up the second model wholly within 12" of the first.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Deathly Passage`,
-        desc: `Friendly units wholly within 6" of one of these models can travel across the bridge. If they do so, remove that unit from the battlefield and set it up wholly within 6" of the other bridge model. This set up must be more than 9" from enemy models and the unit cannot move in this phase.`,
-        when: [START_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Nightmarish Construct`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of a Soulscream Bridge model. This ability has no effect on Death units.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Empowered by Shyish (${SHYISH})`,
-        desc: `If the battle is taking place in the realm of Shyish, the second Soulscream Bridge model can be set up wholly within 24" instead of 12".`,
-        when: [DURING_GAME],
-      },
-    ],
+    effects: [...SoulscreamBridgeEffects],
   },
   {
     name: `Shards of Valagharr`,
-    effects: [
-      {
-        name: `Summon Shards of Valagharr`,
-        desc: `Casting value of 5. Set up the first model wholly within 6" of the caster. Then set up the second model wholly within 12" of the first.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Ensnaring Soul-drain`,
-        desc: `Draw an imaginary straight line 1mm wide between the closest parts of the bases from these two models. Each unit passed across by this line is ensnared until the end of the turn.`,
-        when: [START_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Ensnaring Soul-drain`,
-        desc: `Halve the movement characteristic of ensnared units.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Ensnaring Soul-drain`,
-        desc: `Subtract 1 from the hits rolls of ensnared units.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Twilight Translocation`,
-        desc: `After determining who has the first turn, players roll off. The winner can remove on Shards of Valagharr model from this spell and set it up wholly within 12" of the other Shards of Valagharr model.`,
-        when: [START_OF_ROUND],
-      },
-      {
-        name: `Empowered by Shyish (${SHYISH})`,
-        desc: `If the battle is taking place in the realm of Shyish, the first Shards of Valagharr model can be set up wholly within 12" of the caster instead of 6".`,
-        when: [DURING_GAME],
-      },
-    ],
+    effects: [...ShardsOfValagharrEffects],
   },
   {
     name: `Lauchon the Soulseeker`,
-    effects: [
-      {
-        name: `Summon Lauchon the Soulseeker`,
-        desc: `Casting value of 6. Set up the model wholly within 12" of the caster.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Predatory`,
-        desc: `Lauchon the Soulseeker can move up to 12" and can fly.`,
-        when: [START_OF_ROUND],
-      },
-      {
-        name: `Navigate Deathly Tides`,
-        desc: `When this model is set up, the player who set it up can immediately make a move with it.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Soul Price`,
-        desc: `Before a player makes a move with this model, pick a friendly unit wholly within 3" of this model. Remove the unit from the battlefield. After this spell has moved, set up the removed unit wholly within 3" of this spell and more than 9" from enemy units. Once the unit is set up, 1 model from the unit is slain.`,
-        when: [START_OF_ROUND],
-      },
-      {
-        name: `Empowered by Shyish (${SHYISH})`,
-        desc: `If the battle is taking place in the realm of Shyish, this model can move up to 18" instead of up to 12".`,
-        when: [START_OF_ROUND],
-      },
-    ],
+    effects: [...LauchonTheSoulseekerEffects],
   },
   {
     name: `Horrorghast`,
-    effects: [
-      {
-        name: `Summon Horrorghast`,
-        desc: `Casting value of 5. Set up the model wholly within 12" of the caster.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Predatory`,
-        desc: `Horrorghast can move up to 9" and can fly.`,
-        when: [START_OF_ROUND],
-      },
-      {
-        name: `Prey on Fear`,
-        desc: `Subtract 1 from the bravery characteristic of units while they are within 12" of this model. Subtract 2 instead while they are within 6" of this model.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Empowered by Shyish (${SHYISH})`,
-        desc: `If the battle is taking place in the realm of Shyish, this model can move up to 12" instead of up to 9".`,
-        when: [DURING_GAME],
-      },
-    ],
+    effects: [...HorrorghastEffects],
   },
 ]
 

@@ -13,13 +13,16 @@ import {
   AQSHY,
   CHAMON,
   CHARRWIND,
+  DOLORUM,
   EIGHTPOINTS,
+  GENESISGATE,
   GHUR,
   GHYRAN,
   HELLEFlUX,
   HYSH,
   INVIDA,
   PRAETORIS,
+  PROSPERIS,
   SHYISH,
   STYGXX,
   ULGU,
@@ -261,6 +264,36 @@ const Spells: TEntry[] = [
       {
         name: `Folds in Perception (${YMETRICA})`,
         desc: `Casting value of 6. Pick 2 points on the battlefield within 12" of the caster and each other. Until your next hero phase, friendly models are not visible to non-flying enemy models if a line drawn between the two points crosses between the closest points of the friendly and enemy model.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Shield of Thorns (${GENESISGATE})`,
+    effects: [
+      {
+        name: `Shield of Thorns (${GENESISGATE})`,
+        desc: `Casting value of 5. Pick 1 friendly unit within 18" and visible. Until your next hero phase, enemy units finishing charges within 3" of the buffed unit suffer D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Quickening Doom (${DOLORUM})`,
+    effects: [
+      {
+        name: `Quickening Doom (${DOLORUM})`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 9" and visible. The target suffers D3 mortal wounds and if these inflicted wounds slay any models, the target unit reduces its bravery by 1 (to a minimum of 1) for the remainder of the battle.  A unit cannot have this bravery debuff applied more than once per battle.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Final Transmutation (${PROSPERIS})`,
+    effects: [
+      {
+        name: `Final Transmutation (${PROSPERIS})`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 18" and visible. Roll D3 dice and for each roll that is greater that the target's wounds characteristic, 1 model is slain.`,
         when: [HERO_PHASE],
       },
     ],

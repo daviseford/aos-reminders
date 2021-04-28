@@ -15,7 +15,7 @@ type TGreenskinz = 'GREENSKINZ'
 type TIdonethDeepkin = 'IDONETH_DEEPKIN'
 type TKharadronOverlords = 'KHARADRON_OVERLORDS'
 type TKhorne = 'KHORNE'
-type TLegionOfChaosAscendant = 'LEGION_OF_CHAOS_ASCENDANT'
+type TLegionOfTheFirstPrince = 'LEGION_OF_THE_FIRST_PRINCE'
 type TLegionOfAzgorh = 'LEGION_OF_AZGORH'
 type TLegionOfGrief = 'LEGION_OF_GRIEF'
 type TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
@@ -55,7 +55,7 @@ export const GREENSKINZ: TGreenskinz = 'GREENSKINZ'
 export const IDONETH_DEEPKIN: TIdonethDeepkin = 'IDONETH_DEEPKIN'
 export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export const KHORNE: TKhorne = 'KHORNE'
-export const LEGION_OF_CHAOS_ASCENDANT: TLegionOfChaosAscendant = 'LEGION_OF_CHAOS_ASCENDANT'
+export const LEGION_OF_THE_FIRST_PRINCE: TLegionOfTheFirstPrince = 'LEGION_OF_THE_FIRST_PRINCE'
 export const LEGION_OF_AZGORH: TLegionOfAzgorh = 'LEGION_OF_AZGORH'
 export const LEGION_OF_GRIEF: TLegionOfGrief = 'LEGION_OF_GRIEF'
 export const LEGIONS_OF_NAGASH: TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
@@ -100,7 +100,7 @@ export type TPrimaryFactions =
   | TIdonethDeepkin
   | TKharadronOverlords
   | TKhorne
-  | TLegionOfChaosAscendant
+  | TLegionOfTheFirstPrince
   | TLegionOfAzgorh
   | TLegionOfGrief
   | TLegionsOfNagash
@@ -142,7 +142,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   IDONETH_DEEPKIN,
   KHARADRON_OVERLORDS,
   KHORNE,
-  LEGION_OF_CHAOS_ASCENDANT,
+  LEGION_OF_THE_FIRST_PRINCE,
   LEGION_OF_AZGORH,
   LEGION_OF_GRIEF,
   LEGIONS_OF_NAGASH,

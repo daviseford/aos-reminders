@@ -392,12 +392,12 @@ const Units = {
       },
       {
         name: `Harrowing Shriek`,
-        desc: `Subtract 1 from hit rolls for attacks made by enemy models within 3" of this unit unless they have a Bravery characteristic of 6 or more.`,
+        desc: `Subtract 1 from hit rolls for attacks made by enemy models within 3" of this unit unless they have a Bravery characteristic of 7 or more.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Murderous Bloodlust`,
-        desc: `If the unmodified wound roll for an attack made with Scythed Limbs is 6, that attack has a Damage characteristic of 2 instead of 1.`,
+        desc: `If the unmodified hit roll for an attack made with Scythed Limbs is 6, that attack scores 2 hits instead of 1.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -519,6 +519,21 @@ const Units = {
         name: `Grasping Chains`,
         desc: `You can reroll wound rolls of 1 for attacks made by this unit that target an enemy unit that is within 3" of two or more models from this unit.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Krulghast Cruciator': {
+    effects: [
+      EtherealEffect,
+      {
+        name: `Empowering Excruciation`,
+        desc: `Wounds inflicted by Phantasmal Torture and not negated empower this model until your next shooting phase.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Empowering Excruciation`,
+        desc: `While empowered, this model's Deathless Spirits battle trait negates wounds for units wholly within 12" of on a 5+ instead of 6+.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

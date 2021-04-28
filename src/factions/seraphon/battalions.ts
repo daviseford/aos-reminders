@@ -9,8 +9,10 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_SHOOTING_PHASE,
   TURN_FOUR_START_OF_TURN,
 } from 'types/phases'
+import CommandTraits from './command_traits'
 import Units from './units'
 
 const RegularBattalions = {
@@ -125,6 +127,24 @@ const RegularBattalions = {
         name: `Blessing of the Serpent`,
         desc: `When the STARPRIEST from this battalion uses its Serpent Staff ability, you can pick any number of units from the same battalion that are wholly within 18" of the STARPRIEST to be affected by the ability instead of 1 SERAPHON unit that is wholly within 12" of the STARPRIEST.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  'The Celestial Stampede': {
+    mandatory: {
+      units: [keyPicker(Units, ['Stegadon with Skink Chief', 'Bastiladon'])],
+      command_traits: [keyPicker(CommandTraits, ['Prime Warbeast'])],
+    },
+    effects: [
+      {
+        name: `Ancient Talepotec`,
+        desc: `Starwarden Iq-To has the Prime Warbeast command trait. He does not have to be your general.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Lance of Cosmic Power`,
+        desc: `Once per battle you can use this ability. You cannot make cosmic engine rolls or use Trove of Old One Technology from battalion units this phase. Instead pick 1 enemy unit within 24" of Iq-To. Roll 1 D6 for each battalion Engine of the Gods and 2 D6 for each battalion Bastiladon w/ Solar Engine within 24" of the target. For each 2+ the target suffers D3 mortal wounds.`,
+        when: [START_OF_SHOOTING_PHASE],
       },
     ],
   },

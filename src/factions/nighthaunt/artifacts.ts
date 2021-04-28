@@ -145,6 +145,31 @@ const Artifacts = {
       },
     ],
   },
+  // Emerald Host
+  "The Traitor Knight's Blade": {
+    effects: [
+      {
+        name: `The Traitor Knight's Blade`,
+        desc: `Add 1 to the attacks characteristic for the bearer's Sword of Stolen Hours attack.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  // Reikenor's Condemned
+  'Corpse Candle': {
+    effects: [
+      {
+        name: `Corpse Candle`,
+        desc: `Once per battle you can select either the bearer or 1 enemy model within 12" of them. The target suffers 1 mortal wound. If an enemy was targeted, add 1 to the bearer's next casting roll. Add 3 instead of the target was the bearer.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Corpse Candle`,
+        desc: `Once per battle you can select either the bearer or 1 enemy model within 12" of them. The target suffers 1 mortal wound. If an enemy was targeted, add 1 to the bearer's hit rolls this phase. Add 1 to hit and wound rolls instead of the target was the bearer.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
 }
 
 // Always export using tagAs
