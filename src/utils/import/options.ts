@@ -388,6 +388,7 @@ export const importFactionNameMap: Record<
     factionName: LEGIONS_OF_NAGASH,
     subFactionName: LegionsOfNagashFaction.subFactionKeyMap['Legion of Blood'],
   },
+  'Legion of Chaos Ascendant': { factionName: LEGION_OF_THE_FIRST_PRINCE },
   'Legion of The First Prince': { factionName: LEGION_OF_THE_FIRST_PRINCE },
   'Legion of Grief': { factionName: LEGION_OF_GRIEF },
   'Legion of Night': {

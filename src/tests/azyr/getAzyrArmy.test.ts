@@ -1221,7 +1221,7 @@ describe('getAzyrArmyFromPdf', () => {
       {
         severity: 'ally-warn',
         text:
-          'Allied Rotigus can belong to Legion Of Chaos Ascendant or Nurgle. Please add this unit manually.',
+          'Allied Rotigus can belong to Legion Of The First Prince or Nurgle. Please add this unit manually.',
       },
       {
         severity: 'ambiguity-warn',
@@ -2143,7 +2143,6 @@ describe('getAzyrArmyFromPdf', () => {
           'Repel Boarders!',
           'Up And At Them!',
           'First Rule of Grungsson',
-          'By Grungni, I Have My Eye On You!',
         ],
         endless_spells: [],
         scenery: [],
@@ -2163,7 +2162,6 @@ describe('getAzyrArmyFromPdf', () => {
           'Arkanaut Admiral',
           'Bjorgen Thundrik',
           'Brokk Grungsson, Lord-Magnate of Barak-Nar',
-          'Endrinmaster with Dirigible Suit',
           'Arkanaut Company',
           'Grundstok Gunhauler',
           'Arkanaut Frigate',
