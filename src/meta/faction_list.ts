@@ -12,8 +12,8 @@ import { KharadronOverlordsFaction } from 'factions/kharadron_overlords'
 import { KhorneFaction } from 'factions/khorne'
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { LegionOfAzgorhFaction } from 'factions/legion_of_azgorh'
-import { LegionOfChaosAscendantFaction } from 'factions/legion_of_chaos_ascendant'
 import { LegionOfGriefFaction } from 'factions/legion_of_grief'
+import { LegionOfTheFirstPrinceFaction } from 'factions/legion_of_the_first_prince'
 import { LethisianDefendersFaction } from 'factions/lethisian_defenders'
 import { LuminethRealmlordsFaction } from 'factions/lumineth_realmlords'
 import { MegaGargantMercenariesFaction } from 'factions/mega_gargant_mercenaries'
@@ -50,8 +50,8 @@ import {
   KHORNE,
   LEGIONS_OF_NAGASH,
   LEGION_OF_AZGORH,
-  LEGION_OF_CHAOS_ASCENDANT,
   LEGION_OF_GRIEF,
+  LEGION_OF_THE_FIRST_PRINCE,
   LETHISIAN_DEFENDERS,
   LUMINETH_REALMLORDS,
   MEGA_GARGANT_MERCENARIES,
@@ -93,7 +93,7 @@ const FactionList = {
   [KHARADRON_OVERLORDS]: { ...KharadronOverlordsFaction },
   [KHORNE]: { ...KhorneFaction },
   [LEGION_OF_AZGORH]: { ...LegionOfAzgorhFaction },
-  [LEGION_OF_CHAOS_ASCENDANT]: { ...LegionOfChaosAscendantFaction },
+  [LEGION_OF_THE_FIRST_PRINCE]: { ...LegionOfTheFirstPrinceFaction },
   [LEGIONS_OF_NAGASH]: { ...LegionsOfNagashFaction },
   [LEGION_OF_GRIEF]: { ...LegionOfGriefFaction },
   [LETHISIAN_DEFENDERS]: { ...LethisianDefendersFaction },

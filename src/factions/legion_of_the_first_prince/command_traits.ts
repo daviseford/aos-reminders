@@ -2,7 +2,6 @@ import { tagAs } from 'factions/metatagger'
 import { CHARGE_PHASE, END_OF_MOVEMENT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 const CommandTraits = {
-  // Legion of Chaos Acendant
   'Primordial Commander': {
     effects: [
       {
@@ -16,7 +15,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Ruinous Aura`,
-        desc: `Add 1 to Infernal Realmwalkers rolls for Chaos Ascendant Daemon units wholly within 8" of this general.`,
+        desc: `Add 1 to Infernal Realmwalkers rolls for friendly Legion of the First Prince units wholly within 8" of this general.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -25,7 +24,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Infernal Charge`,
-        desc: `You can reroll charge rolls made for any friendly Chaos Ascendant Daemon units wholly within 12" of this general.`,
+        desc: `You can reroll charge rolls made for any friendly Legion of the First Prince units wholly within 12" of this general.`,
         when: [CHARGE_PHASE],
       },
     ],

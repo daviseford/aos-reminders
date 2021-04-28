@@ -20,8 +20,8 @@ import {
   KHORNE,
   LEGIONS_OF_NAGASH,
   LEGION_OF_AZGORH,
-  LEGION_OF_CHAOS_ASCENDANT,
   LEGION_OF_GRIEF,
+  LEGION_OF_THE_FIRST_PRINCE,
   LETHISIAN_DEFENDERS,
   LUMINETH_REALMLORDS,
   MERCENARY_COMPANIES,
@@ -388,7 +388,7 @@ export const importFactionNameMap: Record<
     factionName: LEGIONS_OF_NAGASH,
     subFactionName: LegionsOfNagashFaction.subFactionKeyMap['Legion of Blood'],
   },
-  'Legion of Chaos Ascendant': { factionName: LEGION_OF_CHAOS_ASCENDANT },
+  'Legion of The First Prince': { factionName: LEGION_OF_THE_FIRST_PRINCE },
   'Legion of Grief': { factionName: LEGION_OF_GRIEF },
   'Legion of Night': {
     factionName: LEGIONS_OF_NAGASH,

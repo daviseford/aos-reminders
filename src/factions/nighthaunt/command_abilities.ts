@@ -39,6 +39,16 @@ const CommandAbilities = {
       },
     ],
   },
+  // Reikenor's Condemned
+  'Death Comes Swiftly': {
+    effects: [
+      {
+        name: `Death Comes Swiftly`,
+        desc: `Pick 1 friendly Reikenor's Condemned Chainrasp Horde or Glaivewraith Stalkers unit wholly within 12" of a Reikenor's Condemned hero (18" if the hero is your general). Add 6" to the selected unit's move characteristic until the end of this phase.`,
+        when: [START_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
 }
 
 // Always export using tagAs

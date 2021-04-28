@@ -1,6 +1,7 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
+  COMBAT_PHASE,
   DURING_GAME,
   END_OF_CHARGE_PHASE,
   END_OF_SETUP,
@@ -9,6 +10,8 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 import BeastsOfChaosUnits from '../beasts_of_chaos/units'
+import Flavors from './flavors'
+import Spells from './spells'
 import Units from './units'
 
 const RegularBattalions = {
@@ -177,6 +180,27 @@ const RegularBattalions = {
       {
         name: `Spontaneous Destruction`,
         desc: `In each of your hero phases; pick either the Herald of Tzeentch or another unit from this battalion within 9" of them; you can choose either to cast one additional spell with that unit this phase or make a shooting attack with all the models in that unit as if it were the shooting phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  "Atra'zan's Blazing Cavalcade": {
+    mandatory: {
+      flavors: [keyPicker(Flavors, ['Eternal Conflagration'])],
+      units: [
+        keyPicker(Units, ['Fateskimmer, Herald of Tzeentch on Burning Chariot', 'Horrors of Tzeentch']),
+      ],
+      spells: [keyPicker(Spells, ["Tzeentch's Firestorm"])],
+    },
+    effects: [
+      {
+        name: `Gleeful Immolation`,
+        desc: `Add 1 to the melee attacks from battalion units if they made a charge move this turn. This battalion's units cannot complete the Reckless Abandon agenda.`,
+        when: [CHARGE_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `The Opus Infernus`,
+        desc: `Atra'zan knows Tzeentch's Firestorm and can add 2 to the casting roll when attempting this spell.`,
         when: [HERO_PHASE],
       },
     ],

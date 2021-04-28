@@ -11,6 +11,7 @@ import {
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
+  START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
@@ -73,6 +74,11 @@ const SigmariteShieldsEffect = {
   name: `Sigmarite Shields`,
   desc: `You can reroll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
   when: [SAVES_PHASE],
+}
+const SigmariteWarcloakEffect = {
+  name: `Sigmarite Warcloak`,
+  desc: `This model can make D6 storm magic strikes. For each strike, pick 1 enemy unit within 16" of this model that is visible to them and roll a D6. On a 4+ that unit suffers 1 mortal wound.`,
+  when: [SHOOTING_PHASE],
 }
 const CelestialLightningArcEffects = [
   {
@@ -417,11 +423,7 @@ const Units = {
         desc: `Add 1 to the Attacks of this model's weapons if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Sigmarite Warcloak`,
-        desc: `This model can make D6 storm magic strikes. For each strike, pick 1 enemy unit within 16" of this model that is visible to them and roll a D6. On a 4+ that unit suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE],
-      },
+      SigmariteWarcloakEffect,
     ],
   },
   'Lord-Castellant': {
@@ -1156,6 +1158,39 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       ...CelestialLightningArcEffects,
+    ],
+  },
+  'Gardus Steel Soul': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Furious Retribution'])],
+    },
+    effects: [
+      {
+        name: `Aura of Purity`,
+        desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 5+ it is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Aura of Purity`,
+        desc: `Roll a D6 each time you allocate a mortal wound to a friendly Hallowed Knights unit wholly within 12" of this model. On a 6 it is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Martyr's Strength`,
+        desc: `Roll a D6 if this model is slain in this phase. On a 2+ it can pile in and attack with all its melee weapons before being removed.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Saintly Assault`,
+        desc: `Once per battle, this model and friendly Hallowed Knights heroes within 12" can choose reroll charge rolls this phase.`,
+        when: [START_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Saintly Assault`,
+        desc: `If active, add 1 to the melee attacks characteristic for all affected models.`,
+        when: [COMBAT_PHASE],
+      },
+      SigmariteWarcloakEffect,
     ],
   },
 }

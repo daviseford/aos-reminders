@@ -7,10 +7,12 @@ import {
   DURING_SETUP,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
+  MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_GAME,
+  TURN_ONE_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
@@ -194,19 +196,59 @@ const Units = {
   'Grimwrath Berzerker': {
     effects: [
       {
-        name: `Unstoppable Berzerker`,
-        desc: `6+ to negate a wound or mortal wound allocated to this model. Add 1 to the roll if there are any enemy units within 3" of this model.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-      {
         name: `Battlefury`,
-        desc: `If this model is within 3" of an enemy unit, roll a D6. On a 2+ make a pile in move with this model, and then attack with all the melee weapons this model is armed with.`,
+        desc: `If this model is within 3" of an enemy unit and has fought no more than once in this phase, roll a D6. On a 2+ this unit can fight.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Dead, But Not Defeated`,
-        desc: `If this model is slain, before it is removed from play, it can make a pile-in move and then attack with all of the melee weapons it is armed with.`,
+        desc: `If this model is slain and has fought no more than once, before it is removed from play, it can fight.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Grimwrath Oath`,
+        desc: `Select 1 oath for this model to swear for the duration of the battle. The same oath cannot be picked by multiple models.`,
+        when: [TURN_ONE_START_OF_ROUND],
+      },
+      {
+        name: `Grimwrath Oath: "I will cut down the priests of Grimnir's enemies!"`,
+        desc: `Add 1 to hit and wound rolls for this models attacks targetting non-Fyreslayers priests.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Grimwrath Oath: "I will guard them with my life!"`,
+        desc: `Pick 1 friendly non-Magmadroth Fyreslayers hero other than this one to protect during the battle.`,
+        when: [TURN_ONE_START_OF_ROUND],
+      },
+      {
+        name: `Grimwrath Oath: "I will guard them with my life!"`,
+        desc: `If active and in range, roll a D6. On a 2+ this model takes the wound/mortal wound instead of the buffed hero.`,
         when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Grimwrath Oath: "I will guard them with my life!"`,
+        desc: `Add 1 to this model's hit rolls while it is within 3" of the selected hero.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Grimwrath Oath: "I will let nothing stand in my way!"`,
+        desc: `This model can run and change in the same turn. It can also reroll run and charge rolls.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Grimwrath Oath: "I will prove Grimnir's might to our allies!"`,
+        desc: `Add 1 to hit and wound rolls for this model if it is within 12" of a friendly allied unit or is itself a friendly allied unit.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Grimwrath Oath: "I will not be stopped!"`,
+        desc: `Roll a D6 each time you allocate a wound/mortal wound to this model (add 1 if any enemy units are within 3"). On a 6+ the wound is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Grimwrath Oath: "I will strike hard and true in Grimnir's name!"`,
+        desc: `If the unmodified hit roll for this model's attacks are 6, those attacks inflict 1 mortal wound in addition to normal damage.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
@@ -214,12 +256,23 @@ const Units = {
     effects: [
       {
         name: `Oathbound`,
-        desc: `At the start of the first battle round, pick 1 enemy unit that this model has sworn to destroy. At the end of the combat phase, if this model is within 3" of that unit, this model can make a pile-in move and then attack with all the melee weapons it is armed with.`,
-        when: [START_OF_GAME, END_OF_COMBAT_PHASE],
+        desc: `At the start of the first battle round, pick 1 enemy unit that this model has sworn to destroy.`,
+        when: [START_OF_GAME],
+      },
+      {
+        name: `Oathbound`,
+        desc: `If this model is within 3" of the Oathbound unit and fought no more than once this phase, this model can fight but only target the Oathbound unit.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+
+      {
+        name: `Oathbound`,
+        desc: `If this model is slain while within 3" of its Oathbound target, and has fought no more than once in this phase, this model can fight before it is removed.`,
+        when: [COMBAT_PHASE],
       },
       {
         name: `Runic Power`,
-        desc: `Add 1 to the Damage characteristic of this model's melee weapons if it has 1 wound allocated to it. Add 2 to the Damage characteristic of this model's melee weapons instead if it has 2 or more wounds allocated to it.`,
+        desc: `Add 1 to the Damage characteristic of this model's melee weapons if it has 1 wound allocated to it. Add 2 to the Damage characteristic of this model's melee weapons instead if it has 2 or more wounds allocated to it or when it fights when slain for Oathbound.`,
         when: [COMBAT_PHASE],
       },
     ],

@@ -1,12 +1,15 @@
-import { tagAs } from 'factions/metatagger'
+import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   DURING_GAME,
   END_OF_SETUP,
   MOVEMENT_PHASE,
+  START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
+import Flavors from './flavors'
+import Units from './units'
 
 const Battalions = {
   'Intrepid Prospectors': {
@@ -56,6 +59,24 @@ const Battalions = {
         name: `Focused Fire`,
         desc: `At the start of your shooting phase, you can pick 1 enemy unit for this battalion to focus fire on. If you do so, you can reroll hit rolls of 1 for attacks made by units from this battalion that target that unit in that phase.`,
         when: [START_OF_SHOOTING_PHASE],
+      },
+    ],
+  },
+  "Drongon's Aether-Runners": {
+    mandatory: {
+      flavors: [keyPicker(Flavors, ['Barak-Zilfin, The Windswept City (Skyport)'])],
+      units: [keyPicker(Units, ['Endrinmaster with Dirigible Suit'])],
+    },
+    effects: [
+      {
+        name: `Fastest Vessels in the Fleet`,
+        desc: `Add 3 to the move characteristic of this battalion's units.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Fastest Vessels in the Fleet`,
+        desc: `For each battalion unit, you can pick 1 friendly Skyvessel within 3" of that unit (the same target cannot be selected more than once in the same phase). Add 3 to the move characteristic of the target until the end of the phase.`,
+        when: [START_OF_MOVEMENT_PHASE],
       },
     ],
   },

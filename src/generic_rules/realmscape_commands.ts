@@ -5,7 +5,6 @@ import {
   END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
-  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -17,13 +16,16 @@ import {
   AQSHY,
   CHAMON,
   CHARRWIND,
+  DOLORUM,
   EIGHTPOINTS,
+  GENESISGATE,
   GHUR,
   GHYRAN,
   HELLEFlUX,
   HYSH,
   INVIDA,
   PRAETORIS,
+  PROSPERIS,
   SHYISH,
   STYGXX,
   ULGU,
@@ -189,13 +191,8 @@ const CommandAbilities: TEntry[] = [
     effects: [
       {
         name: `Submerge (${INVIDA})`,
-        desc: `Pick 1 friendly unit wholly within 12" of a friendly hero. That unit can apply the cover modifier to save rolls.`,
+        desc: `Pick 1 friendly unit wholly within 12" of a friendly hero. That unit can apply the cover modifier to save rolls until the end of the phase.`,
         when: [START_OF_SHOOTING_PHASE],
-      },
-      {
-        name: `Submerge (${INVIDA})`,
-        desc: `The buffed unit can apply the cover modifier to save rolls.`,
-        when: [SAVES_PHASE],
       },
     ],
   },
@@ -206,6 +203,36 @@ const CommandAbilities: TEntry[] = [
         name: `Hidden Pathways (${YMETRICA})`,
         desc: `You can use this command ability to avoid the Mountainous Landscape realmscape feature while deploying a single unit.`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Command the Land (${GENESISGATE})`,
+    effects: [
+      {
+        name: `Command the Land (${GENESISGATE})`,
+        desc: `Pick 1 friendly hero to get an additional bonus cast of Shield of Thorns. This can be done regardless of if the hero is a wizard, the hero is out of cast attempts, or if the spell has already been attempted this phase.`,
+        when: [END_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Soul-force Sacrifice (${DOLORUM})`,
+    effects: [
+      {
+        name: `Soul-force Sacrifice (${DOLORUM})`,
+        desc: `Pick 1 friendly hero (not your general) within 3" of your general. You may transfer allocated wounds from your general to the selected unit.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Exult in Battle (${PROSPERIS})`,
+    effects: [
+      {
+        name: `Exult in Battle (${PROSPERIS})`,
+        desc: `Pick 1 friendly unit wholly within 12" of a friendly Celesital Vindicators or Cities of Sigmar hero. Unmodified hits of 6 by that unit in this phase inflict 2 hits instead of 1.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },

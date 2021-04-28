@@ -143,7 +143,7 @@ const Spells = {
     effects: [
       {
         name: `Enfeeble Foe`,
-        desc: `Casting value of 6. Pick one visible enemy unit within 18" of the caster. Until your next hero phase, subtract 1 from the wound rolls made by the target in the combat phase.`,
+        desc: `Casting value of 6. Pick one visible enemy unit within 18" of the caster. Until your next hero phase, subtract 1 from the melee wound rolls made by the target.`,
         when: [HERO_PHASE],
       },
       {

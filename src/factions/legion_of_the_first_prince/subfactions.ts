@@ -5,25 +5,21 @@ import SkavenUnits from 'factions/skaventide/units'
 import SlaaneshUnits from 'factions/slaanesh/units'
 import SlavesUnits from 'factions/slaves_to_darkness/units'
 import TzeentchUnits from 'factions/tzeentch/units'
-import { LEGION_OF_CHAOS_ASCENDANT } from 'meta/factions'
+import { LEGION_OF_THE_FIRST_PRINCE } from 'meta/factions'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
-import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
-import Flavors from './flavors'
 import Spells from './spells'
 
 const subFactions = {
-  [LEGION_OF_CHAOS_ASCENDANT]: {
-    effects: pickEffects(BattleTraits, ['Unwavering Devotion']),
+  [LEGION_OF_THE_FIRST_PRINCE]: {
+    effects: pickEffects(BattleTraits, ['Servants of the Dark Master']),
 
     available: {
       artifacts: [Artifacts],
       battalions: [Battalions],
-      command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
-      flavors: [Flavors],
       spells: [Spells],
       units: [
         keyPicker(KhorneUnits, [

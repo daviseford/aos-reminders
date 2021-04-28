@@ -1,13 +1,16 @@
 type TAqshy = `Aqshy`
 type TChamon = `Chamon`
 type TCharrwind = `Charrwind Coast`
+type TDolorum = `Dolorum`
 type TEightpoints = `Eightpoints`
+type TGenesisGate = `Genesis Gate`
 type TGhur = `Ghur`
 type TGhyran = `Ghyran`
 type THelleflux = `Helleflux`
 type THysh = `Hysh`
 type TInvidia = `Invidia`
 type TPraetoris = `Praetoris`
+type TProsperis = `Prosperis`
 type TShyish = `Shyish`
 type TStygxx = `Stygxx`
 type TUlgu = `Ulgu`
@@ -27,17 +30,23 @@ export type TBattleRealms =
   | TInvidia
   | TPraetoris
   | TYmetrica
+  | TGenesisGate
+  | TDolorum
+  | TProsperis
 
 export const AQSHY: TAqshy = `Aqshy`
 export const CHAMON: TChamon = `Chamon`
 export const CHARRWIND: TCharrwind = `Charrwind Coast`
+export const DOLORUM: TDolorum = `Dolorum`
 export const EIGHTPOINTS: TEightpoints = `Eightpoints`
+export const GENESISGATE: TGenesisGate = `Genesis Gate`
 export const GHUR: TGhur = `Ghur`
 export const GHYRAN: TGhyran = `Ghyran`
 export const HELLEFlUX: THelleflux = `Helleflux`
 export const INVIDA: TInvidia = `Invidia`
 export const HYSH: THysh = `Hysh`
 export const PRAETORIS: TPraetoris = `Praetoris`
+export const PROSPERIS: TProsperis = `Prosperis`
 export const SHYISH: TShyish = `Shyish`
 export const STYGXX: TStygxx = `Stygxx`
 export const ULGU: TUlgu = `Ulgu`
@@ -49,13 +58,16 @@ export const SUPPORTED_BATTLE_REALMS: TBattleRealms[] = [
   AQSHY,
   CHAMON,
   CHARRWIND,
+  DOLORUM,
   EIGHTPOINTS,
+  GENESISGATE,
   GHUR,
   GHYRAN,
   HELLEFlUX,
   HYSH,
   INVIDA,
   PRAETORIS,
+  PROSPERIS,
   SHYISH,
   STYGXX,
   ULGU,

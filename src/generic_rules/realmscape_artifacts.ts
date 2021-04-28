@@ -2,6 +2,7 @@ import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   SAVES_PHASE,
@@ -13,12 +14,15 @@ import {
   AQSHY,
   CHAMON,
   CHARRWIND,
+  DOLORUM,
+  GENESISGATE,
   GHUR,
   GHYRAN,
   HELLEFlUX,
   HYSH,
   INVIDA,
   PRAETORIS,
+  PROSPERIS,
   SHYISH,
   ULGU,
   VARANTHAX,
@@ -153,6 +157,36 @@ const RealmArtifacts: TEntry[] = [
         name: `Prism of Amyntok (${YMETRICA})`,
         desc: `Pick 1 enemy unit within 8" of the bearer and roll 4 D6.  For each 6 the target suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Seed of Rebirth (${GENESISGATE})`,
+    effects: [
+      {
+        name: `Seed of Rebirth (${GENESISGATE})`,
+        desc: `The first time the bearer is slain roll a D6. On a 1, it is slain. On a 2+ the bearer is not slain, remaining wounds to allocate are negated, and the bearer heals D3 wounds currently allocated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Banshee Blade (${DOLORUM})`,
+    effects: [
+      {
+        name: `Banshee Blade (${DOLORUM})`,
+        desc: `For eac unmodified hit roll of 6 made with the selected weapon, roll 2D6. If the roll exceeds the target's bravery characteristic, the attack inflicts an additional D3 mortal wounds.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Gildenbane (${PROSPERIS})`,
+    effects: [
+      {
+        name: `Gildenbane (${PROSPERIS})`,
+        desc: `Artifacts of power within 3" of the bearer of this artifact are deactivated (cannot be used). If the affected artifact is a weapon, the normal profile is used instead. `,
+        when: [DURING_GAME],
       },
     ],
   },

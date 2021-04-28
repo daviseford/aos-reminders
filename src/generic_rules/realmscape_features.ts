@@ -20,13 +20,16 @@ import {
   AQSHY,
   CHAMON,
   CHARRWIND,
+  DOLORUM,
   EIGHTPOINTS,
+  GENESISGATE,
   GHUR,
   GHYRAN,
   HELLEFlUX,
   HYSH,
   INVIDA,
   PRAETORIS,
+  PROSPERIS,
   SHYISH,
   STYGXX,
   ULGU,
@@ -153,14 +156,24 @@ const RealmscapeFeatures: TEffects[] = [
     when: [START_OF_MOVEMENT_PHASE],
   },
   {
-    name: `Thumb-sized Mosquitos (${INVIDA})`,
-    desc: `If active, the debuffed unit cannot run this phase.`,
-    when: [MOVEMENT_PHASE],
-  },
-  {
     name: `Mountainous Landscape (${YMETRICA})`,
     desc: `Reserve units that set up on board edges can only be deployed to the narrow sides of the battlefield.`,
     when: [DURING_GAME],
+  },
+  {
+    name: `Ironwood Bulwarks (${GENESISGATE})`,
+    desc: `Roll a D6 each time a unit finishes a charge within 1" of a Citadel Wood. On a 4+ that unit suffers D3 mortal wounds.`,
+    when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  },
+  {
+    name: `Aura of Ancient Tragedy (${DOLORUM})`,
+    desc: `Terrain features are Sinister in addition to their other rules. Roll a D6 (add 2 if your general has the Death keyword). On a 6+ pick an enemy non-Death unit to suffer D3 mortal wounds.`,
+    when: [START_OF_HERO_PHASE],
+  },
+  {
+    name: `Ironclad Buildings (${PROSPERIS})`,
+    desc: `Worsen the rend characteristic by 1 (to a minimum of '-') for attacks that target units in cover.`,
+    when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
 ]
 

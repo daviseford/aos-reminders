@@ -1,14 +1,16 @@
-import { tagAs } from 'factions/metatagger'
+import { keyPicker, pickEffects, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   DURING_ROUND,
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SAVES_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import BattleTraits from './battle_traits'
+import Units from './units'
 
 const Battalions = {
   'Nighthaunt Procession': {
@@ -112,16 +114,24 @@ const Battalions = {
     ],
   },
   'The Emerald Host': {
+    effects: [...pickEffects(BattleTraits, ['The Emerald Curse'])],
+  },
+  'The Sorrowmourn Choir': {
+    mandatory: {
+      units: [
+        keyPicker(Units, ['Lady Olynder, Mortarch of Grief', 'Dreadscythe Harridans', 'Myrmourn Banshees']),
+      ],
+    },
     effects: [
       {
-        name: `The Emerald Curse`,
-        desc: `After armies are set up, but before the first battle round begins, you can pick 1 enemy HERO. Subtract 1 from save rolls for attacks that target that HERO.`,
-        when: [END_OF_SETUP],
+        name: `Eternal Handmaidens`,
+        desc: `If other battalion units are within 3" of Lady Olynder when you allocate wounds or mortal wounds to her, roll a D6. On a 2+ that wound must be allocated to one of the in range units. These redirected wounds cannot be negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
-        name: `The Emerald Curse`,
-        desc: `If active, subtract 1 from save rolls for attacks that target that HERO.`,
-        when: [SAVES_PHASE],
+        name: `The Unrequited Queen`,
+        desc: `Lady Olynder counts as an additional general in your Nighthaunt army.`,
+        when: [DURING_GAME],
       },
     ],
   },
