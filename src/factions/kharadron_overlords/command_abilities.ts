@@ -1,8 +1,8 @@
 import { tagAs } from 'factions/metatagger'
 import {
-  HERO_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
@@ -12,7 +12,7 @@ const CommandAbilities = {
       {
         name: `By Grungni, I Have My Eye On You!`,
         desc: `You can use this command ability in your hero phase before a friendly ENDRINRIGGERS unit wholly within 18" of a friendly model with this command ability uses its Endrincraft ability. If you do so, you can reroll any of the dice that determine how many wounds are healed by that ENDRINRIGGERS unit in that phase.`,
-        when: [HERO_PHASE],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
