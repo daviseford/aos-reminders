@@ -18,9 +18,9 @@ import command_abilities from './command_abilities'
 
 const FlyingTransportEffect = {
   name: `Flying Transport`,
-  desc: `This model can fly, and can be garrisoned by up to 15 friendly Marine models even though it is not a terrain feature. If this model is in a warscroll battalion, units from the same battalion that can garrison this model can be set up as this model's garrison when this model is set up.
+  desc: `This model can fly, and can be garrisoned by up to 15 (25 if IRONCLAD) friendly Marine models even though it is not a terrain feature. If this model is in a warscroll battalion, units from the same battalion that can garrison this model can be set up as this model's garrison when this model is set up.
 
-  Halve this model's Move characteristic and it cannot Fly High if there are 11 or more models in its garrison. Units cannot join or leave this model's garrison if it has made a move or flown high in the same phase (they can join or leave before it does so). Models in the garrison are not counted towards gaining control of an objective.
+  Halve this model's Move characteristic and it cannot Fly High if there are 11 (16 if IRONCLAD) or more models in its garrison. Units cannot join or leave this model's garrison if it has made a move or flown high in the same phase (they can join or leave before it does so). Models in the garrison are not counted towards gaining control of an objective.
 
   An attack made by a weapon that is in range of this model can target either this model or a unit in its garrison. If this model is destroyed, before it is removed from play, roll 1 dice for each model in its garrison. On a 1, that model is slain. Set up any surviving models wholly within 3" of this model and more than 3" from any enemy units.`,
   when: [DURING_GAME],
