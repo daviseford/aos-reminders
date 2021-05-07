@@ -184,7 +184,7 @@ const PlanComponent: React.FC<IPlanProps> = ({ supportPlan }) => {
   const { isMobile } = useWindowSize()
   const [quantity, setQuantity] = useState(1)
 
-  if (!stripe) return null
+  if (!stripe || !user) return null
 
   // When the customer clicks on the button, redirect them to Checkout.
   const handleCheckout = async (e: React.MouseEvent) => {

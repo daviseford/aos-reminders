@@ -296,6 +296,9 @@ const RecurringPaymentInfo = () => {
 const EmailVerified = () => {
   const { user } = useAuth0()
   const { theme } = useTheme()
+
+  if (!user?.email) return <></>
+
   return (
     <div className={`${theme.card} mt-2`}>
       <div className={theme.profileCardHeader}>

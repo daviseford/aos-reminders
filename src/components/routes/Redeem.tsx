@@ -90,7 +90,8 @@ const RedeemSection = () => {
   const handleClickRedeem = async (e: React.MouseEvent) => {
     try {
       e.preventDefault()
-      const { body } = await SubscriptionApi.redeemGift({ giftId, userId, userName: user.email })
+      if (!user?.email) return
+      const { body } = await SubscriptionApi.redeemGift({ giftId, userId, userName: user?.email })
       LocalRedemptionKey.clear()
       if (body.error) return setError(body.error)
       if (body.success) {
@@ -108,7 +109,7 @@ const RedeemSection = () => {
       {!error && !success && <Preamble />}
       {!error && !success && (
         <p>
-          You're currently logged in as <strong>{user.email}</strong>.
+          You're currently logged in as <strong>{user?.email}</strong>.
           <br />
           If you're ready to redeem this gifted subscription, click the button below!
         </p>

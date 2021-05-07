@@ -122,13 +122,13 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       setSavedArmiesPopulated(true)
       return setSavedArmies(LocalSavedArmies.get()) // If we're offline, fetch any saved armies from localStorage
     }
-    if (!user) {
+    if (!user?.email) {
       setSavedArmiesPopulated(false)
       return setSavedArmies([])
     }
 
     try {
-      const res = await PreferenceApi.getUserItems(user.email)
+      const res = await PreferenceApi.getUserItems(user?.email)
       const savedArmies = sortBy(res.body as ISavedArmyFromApi[], 'createdAt').reverse()
       setSavedArmies(savedArmies)
       LocalSavedArmies.set(savedArmies)
@@ -143,8 +143,9 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const saveArmy = useCallback(
     async (savedArmy: ISavedArmy) => {
       try {
+        if (!user?.email) return
         setHasOrderChanges(false)
-        const { body } = await PreferenceApi.createSavedArmy({ userName: user.email, ...savedArmy })
+        const { body } = await PreferenceApi.createSavedArmy({ userName: user?.email, ...savedArmy })
         saveArmyToS3(savedArmy)
         await loadSavedArmies()
         setLoadedArmy({ id: body.id, armyName: body.armyName })
@@ -169,6 +170,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const deleteSavedArmy = useCallback(
     async (id: string) => {
       try {
+        if (!user?.email) return
         await PreferenceApi.deleteItem(id, user.email)
         if (loadedArmy && loadedArmy.id === id) setLoadedArmy(null)
         await loadSavedArmies()
@@ -182,6 +184,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const updateArmy = useCallback(
     async (id: string, data: Record<string, any>) => {
       try {
+        if (!user?.email) return
         setHasOrderChanges(false)
         const payload = { ...data, userName: user.email }
         await PreferenceApi.updateItem(id, payload)
@@ -196,6 +199,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const updateArmyName = useCallback(
     async (id: string, armyName: string) => {
       try {
+        if (!user?.email) return
         const payload = { armyName, userName: user.email }
         await PreferenceApi.updateItem(id, payload)
         await loadSavedArmies()
@@ -270,7 +274,7 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   )
 
   useEffect(() => {
-    if (user && isActive) LocalUserName.set(user.email)
+    if (user?.email && isActive) LocalUserName.set(user.email)
   }, [user, isActive])
 
   const value = useMemo(

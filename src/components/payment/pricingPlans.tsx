@@ -76,7 +76,7 @@ const PlanComponent: React.FC<IPlanProps> = props => {
   const { login } = useLogin({ origin: supportPlan.title })
   const stripe = useStripe()
 
-  if (!stripe) return null
+  if (!stripe || !user) return null
 
   // When the customer clicks on the Subscribe button, redirect them to Stripe Checkout.
   const handleStripeCheckout = async (e: React.MouseEvent) => {
@@ -170,6 +170,7 @@ const PayPalComponent = (props: IPlanProps) => {
     logEvent(`Checkout-Subscribed-${title}`)
     logSubscription(title, 'paypal')
     try {
+      if (!user?.email) return null
       // Request a ten-minute temporary grant while Paypal approvals happen in the background
       await SubscriptionApi.requestGrant(user.email)
     } catch (err) {

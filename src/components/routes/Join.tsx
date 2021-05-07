@@ -71,7 +71,7 @@ const RedeemSection = () => {
   const handleClickRedeem = async (e: React.MouseEvent) => {
     try {
       e.preventDefault()
-      if (!couponId) return
+      if (!couponId || !user?.email) return
       const { body } = await SubscriptionApi.redeemCoupon({ couponId, userName: user.email })
       if (body.error) {
         setError(body.error)
@@ -90,7 +90,7 @@ const RedeemSection = () => {
     <div>
       {!success && (
         <p>
-          You're currently logged in as <strong>{user.email}</strong>.
+          You're currently logged in as <strong>{user?.email || ''}</strong>.
           <br />
           <br />
           If you're ready to redeem your coupon code, just enter it below.
