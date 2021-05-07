@@ -10,6 +10,7 @@ import {
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const AlmightyStompEffect = {
   name: `Almighty Stomp`,
@@ -28,8 +29,9 @@ const DeathGripEffect = {
 }
 const LongshanksEffect = {
   name: `Longshanks`,
-  desc: `When this model makes a normal move, it can ignore models that have a Wounds characteristic of 10 or less and terrain features that are less than 4" tall at their highest point. It cannot finish the move on top of another model or within 3" of an enemy model.`,
+  desc: `When this model makes a normal move, it can ignore models that have a Wounds characteristic of 10 or less, endless spells, magmic invocations, judgements of Khorne, invocations of Khaine and terrain features that are less than 4" tall at their highest point. It cannot finish the move on top of another model or within 3" of an enemy model.`,
   when: [MOVEMENT_PHASE],
+  rule_sources: [rule_sources.BATTLETOME_SONS_OF_BEHEMAT, rule_sources.ERRATA_SONS_OF_BEHEMAT_MARCH_2021],
 }
 const SonOfBehematEffect = {
   name: `Son of Behemat`,

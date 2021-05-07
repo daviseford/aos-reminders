@@ -119,6 +119,7 @@ const FactionList = {
 }
 
 export const getFactionList = () => FactionList
+
 export const getFactionFromList = (factionName: TSupportedFaction) => {
   const faction = FactionList[factionName]
   if (!faction) {

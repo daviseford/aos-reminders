@@ -1,3 +1,4 @@
+import { LinkNewTab } from 'components/helpers/link'
 import { CardHeader } from 'components/info/card'
 import { CustomDropdownToggle } from 'components/info/customDropdownToggle'
 import { NoteDisplay, NoteInput, NoteMenu } from 'components/info/note'
@@ -9,6 +10,7 @@ import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { selectors, visibilityActions } from 'ducks'
 import { isEqual, sortBy } from 'lodash'
+import { TRuleSource } from 'meta/rule_sources'
 import React, { Fragment, useCallback, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, DraggableProvided, Droppable } from 'react-beautiful-dnd'
 import { Dropdown } from 'react-bootstrap'
@@ -18,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
 import useNote from 'utils/hooks/useNote'
+import useWindowSize from 'utils/hooks/useWindowSize'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
@@ -26,12 +29,13 @@ const { addReminder: hideReminder, deleteReminder: showReminder, addWhen: showWh
 
 interface IReminderProps {
   actions: TTurnAction[]
+  factionRuleSource?: TRuleSource
   isMobile: boolean
   when: TTurnWhen
 }
 
 export const Reminder: React.FC<IReminderProps> = props => {
-  const { actions, isMobile, when } = props
+  const { actions, isMobile, when, factionRuleSource } = props
   const { loadedArmy, setHasOrderChanges } = useSavedArmies()
   const dispatch = useDispatch()
   const { theme } = useTheme()
@@ -121,6 +125,7 @@ export const Reminder: React.FC<IReminderProps> = props => {
                           <ActionText
                             {...action}
                             isVisible={!isHidden}
+                            factionRuleSource={factionRuleSource}
                             key={action.id}
                             draggableProps={provided}
                           />
@@ -142,18 +147,28 @@ export const Reminder: React.FC<IReminderProps> = props => {
 
 interface IActionTextProps extends TTurnAction {
   actionTitle?: string
-  isVisible: boolean
   draggableProps: DraggableProvided
+  factionRuleSource?: TRuleSource
+  isVisible: boolean
 }
 
 const ActionText = (props: IActionTextProps) => {
-  const { isVisible, desc, draggableProps, id } = props
+  const { isVisible, desc, draggableProps, id, rule_sources: actionRuleSources, factionRuleSource } = props
   const dispatch = useDispatch()
   const { isSubscribed } = useSubscription()
   const { isGameMode } = useAppStatus()
   const handleVisibility = () => dispatch(!isVisible ? showReminder(id) : hideReminder(id))
 
   const noteProps = useNote(id)
+
+  const ruleSources = useMemo(() => {
+    const _sources = actionRuleSources?.length
+      ? actionRuleSources
+      : factionRuleSource
+      ? [factionRuleSource]
+      : []
+    return _sources.slice().reverse() // Reverse the array so that newest entries are on top!
+  }, [actionRuleSources, factionRuleSource])
 
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
@@ -187,7 +202,12 @@ const ActionText = (props: IActionTextProps) => {
                     isVisible={isVisible}
                     setVisibility={handleVisibility}
                   />
+
+                  {/* Note controls */}
                   {isVisible && <NoteMenu {...noteProps} />}
+
+                  {/* Rule Sources Display */}
+                  <RulesSource rule_sources={ruleSources} />
                 </Dropdown.Menu>
               </Dropdown>
             )}
@@ -243,6 +263,52 @@ const ActionDescription = (props: { text: string }) => {
           {text}
         </p>
       ))}
+    </>
+  )
+}
+
+const RulesSource: React.FC<{ rule_sources: TRuleSource[] }> = ({ rule_sources }) => {
+  const { isMobile } = useWindowSize()
+  const numRuleSources = rule_sources.length
+
+  if (!numRuleSources) return <></>
+
+  return (
+    <>
+      <Dropdown.Divider />
+      <Dropdown.Header>Source{numRuleSources > 1 ? 's' : ''}:</Dropdown.Header>
+
+      {rule_sources.map((src, i) => {
+        let TagComponent = <></>
+
+        if (numRuleSources > 1) {
+          if (i === 0) {
+            TagComponent = <span className="badge badge-primary badge-pill mr-2">Current</span>
+          } else if (i === numRuleSources - 1) {
+            TagComponent = <span className="badge badge-secondary badge-pill mr-2">Original</span>
+          } else {
+            TagComponent = <span className="badge badge-secondary badge-pill mr-2">Outdated</span>
+          }
+        }
+
+        return (
+          <Dropdown.ItemText
+            key={src.name}
+            className={`${isMobile ? 'small' : 'text-nowrap'} ${
+              numRuleSources > 1 && i !== 0 ? 'text-muted' : ''
+            }`}
+          >
+            {TagComponent}
+            {src.url ? (
+              <LinkNewTab href={src.url} label={src.name} className={'text-reset'}>
+                {src.name}
+              </LinkNewTab>
+            ) : (
+              src.name
+            )}
+          </Dropdown.ItemText>
+        )
+      })}
     </>
   )
 }

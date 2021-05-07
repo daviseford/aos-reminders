@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Spells = {
   'Celestial Apotheosis': {
@@ -60,8 +61,9 @@ const Spells = {
     effects: [
       {
         name: `Bind Endless Spell`,
-        desc: `Casting value of 7. Pick 1 endless spell within 18" of the caster, not soul-linked, and visible to them. Until your next hero phase, that endless spell has the BOUND keyword.`,
+        desc: `Casting value of 7. Pick 1 endless spell within 18" of the caster that is not soul-linked and is visible to them. Until your next hero phase, that endless spell has the BOUND keyword.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_MARCH_2021]
       },
     ],
   },

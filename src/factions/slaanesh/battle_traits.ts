@@ -12,6 +12,7 @@ import {
   TURN_ONE_END_OF_MOVEMENT_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
   // Slaanesh Allegiance
@@ -106,8 +107,9 @@ const BattleTraits = {
     effects: [
       {
         name: `Thundering Cavalcade`,
-        desc: `Add 1 charge rolls for units in a Godseekers Host army.`,
+        desc: `Add 1 to charge rolls for units in a Godseekers Host army.`,
         when: [CHARGE_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_MARCH_2021],
       },
       {
         name: `Maniacal Hunters`,
@@ -126,8 +128,9 @@ const BattleTraits = {
       },
       {
         name: `Deadly Symbiosis`,
-        desc: `When you receive depravity points due to a friendly Slaanesh hero inflicting or suffering wounds/mortal wounds, you receive 2 depravity points instead of 1 if the hero unit is within 12" of Syll'Esske.`,
+        desc: `Add 1 to the number of depravity points you receive in the battleshock phase if a friendly SYLL’ESSKE is on the battlefield and is within 6" of at least 1 other friendly SYLL’ESSKAN HOST DAEMON unit and at least 1 friendly SYLL’ESSKAN HOST MORTAL unit.`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_MARCH_2021],
       },
     ],
   },
