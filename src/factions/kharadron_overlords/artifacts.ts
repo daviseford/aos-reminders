@@ -14,6 +14,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { BreathOfMorgrimEffect, GreatEndrinworks } from './common'
+import rule_sources from './rule_sources'
 
 const Artifacts = {
   'Masterwrought Armour': {
@@ -155,8 +156,12 @@ const Artifacts = {
     effects: [
       {
         name: `Emergency Ventplates`,
-        desc: `Once per battle, at the start of the enemy shooting phase, you can say that the bearer will use their Emergency Ventplates. If you do so, until the end of the phase, subtract 1 from hit rolls for attacks that target the bearer or any friendly unit wholly within 6" of the bearer.`,
+        desc: `Once per battle, at the start of the enemy shooting phase, you can say that the bearer will use their Emergency Ventplates. If you do so, until the end of that phase, subtract 1 from hit rolls for attacks that target the bearer or any friendly unit wholly within 6" of the bearer.`,
         when: [SHOOTING_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
+          rule_sources.ERRATA_KHARADRON_OVERLORDS_FEBRUARY_2021,
+        ],
       },
     ],
   },
