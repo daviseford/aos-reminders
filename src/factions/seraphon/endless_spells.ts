@@ -20,6 +20,7 @@ import {
   UmbralSpellportalEffects,
 } from 'generic_rules/endless_spells'
 import { HERO_PHASE, START_OF_ROUND } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BoundEffect = {
   name: `Bound Endless Spell`,
@@ -74,6 +75,7 @@ const EndlessSpells = {
 
         If a Bound Balewind Vortex is dispelled and the caster has not been slain, first set up the caster wholly within 6" of it and more than 3" from any enemy models, and then remove the Bound Balewind Vortex model from play, If it is impossible to set up the caster, they are slain.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_MARCH_2021],
       },
     ],
   },

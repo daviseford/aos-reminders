@@ -7,6 +7,7 @@ import {
   MOVEMENT_PHASE,
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandAbilities = {
   'Parting Shot': {
@@ -15,6 +16,7 @@ const CommandAbilities = {
         name: `Parting Shot`,
         desc: `You can use this command ability when an enemy unit ends a charge move within 3" of a friendly FANGS OF SOTEK unit from the Skinks or Chameleon Skinks warscroll that is wholly within 18" of a friendly FANGS OF SOTEK HERO. If you do so, that unit can shoot. After you have resolved all of that unit's shooting attacks, roll a D6. On a 4+, that unit must retreat but cannot run. A unit cannot benefit from this command ability more than once per phase.`,
         when: [CHARGE_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_MARCH_2021]
       },
     ],
   },
@@ -113,6 +115,7 @@ const CommandAbilities = {
         name: `Ripperdactyl Assault`,
         desc: `You can this command ability at the start of the combat phase. If you do so, pick 1 friendly model with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly RIPPERDACTYL units that are wholly within 18" of that model. The same unit cannot benefit from this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_MARCH_2021]
       },
     ],
   },
