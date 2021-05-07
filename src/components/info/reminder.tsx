@@ -170,8 +170,6 @@ const ActionText = (props: IActionTextProps) => {
     return _sources.slice().reverse() // Reverse the array so that newest entries are on top!
   }, [actionRuleSources, factionRuleSource])
 
-  const numRuleSources = ruleSources.length
-
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
       <div className={`mb-2 ${!isVisible ? `d-print-none` : ``}`}>
@@ -210,7 +208,6 @@ const ActionText = (props: IActionTextProps) => {
 
                   {/* Rule Sources Display */}
                   <RulesSource rule_sources={ruleSources} />
-                  
                 </Dropdown.Menu>
               </Dropdown>
             )}
