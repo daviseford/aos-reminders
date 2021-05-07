@@ -1,3 +1,4 @@
+import { LinkNewTab } from 'components/helpers/link'
 import { CardHeader } from 'components/info/card'
 import { CustomDropdownToggle } from 'components/info/customDropdownToggle'
 import { NoteDisplay, NoteInput, NoteMenu } from 'components/info/note'
@@ -19,6 +20,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { TTurnAction } from 'types/data'
 import { TTurnWhen } from 'types/phases'
 import useNote from 'utils/hooks/useNote'
+import useWindowSize from 'utils/hooks/useWindowSize'
 import { LocalReminderOrder } from 'utils/localStore'
 import { reorder, reorderViaIndex } from 'utils/reorder'
 import { titleCase } from 'utils/textUtils'
@@ -159,11 +161,16 @@ const ActionText = (props: IActionTextProps) => {
 
   const noteProps = useNote(id)
 
-  const ruleSources = actionRuleSources?.length
-    ? actionRuleSources
-    : factionRuleSource
-    ? [factionRuleSource]
-    : []
+  const ruleSources = useMemo(() => {
+    const _sources = actionRuleSources?.length
+      ? actionRuleSources
+      : factionRuleSource
+      ? [factionRuleSource]
+      : []
+    return _sources.slice().reverse() // Reverse the array so that newest entries are on top!
+  }, [actionRuleSources, factionRuleSource])
+
+  const numRuleSources = ruleSources.length
 
   return (
     <div ref={draggableProps.innerRef} {...draggableProps.draggableProps}>
@@ -197,12 +204,13 @@ const ActionText = (props: IActionTextProps) => {
                     isVisible={isVisible}
                     setVisibility={handleVisibility}
                   />
+
+                  {/* Note controls */}
                   {isVisible && <NoteMenu {...noteProps} />}
-                  {ruleSources.map(rule_source => (
-                    <Dropdown.Item disabled={true} key={rule_source.name}>
-                      {rule_source.name}
-                    </Dropdown.Item>
-                  ))}
+
+                  {/* Rule Sources Display */}
+                  <RulesSource rule_sources={ruleSources} />
+                  
                 </Dropdown.Menu>
               </Dropdown>
             )}
@@ -258,6 +266,52 @@ const ActionDescription = (props: { text: string }) => {
           {text}
         </p>
       ))}
+    </>
+  )
+}
+
+const RulesSource: React.FC<{ rule_sources: TRuleSource[] }> = ({ rule_sources }) => {
+  const { isMobile } = useWindowSize()
+  const numRuleSources = rule_sources.length
+
+  if (!numRuleSources) return <></>
+
+  return (
+    <>
+      <Dropdown.Divider />
+      <Dropdown.Header>Source{numRuleSources > 1 ? 's' : ''}:</Dropdown.Header>
+
+      {rule_sources.map((src, i) => {
+        let TagComponent = <></>
+
+        if (numRuleSources > 1) {
+          if (i === 0) {
+            TagComponent = <span className="badge badge-primary badge-pill mr-2">Current</span>
+          } else if (i === numRuleSources - 1) {
+            TagComponent = <span className="badge badge-secondary badge-pill mr-2">Original</span>
+          } else {
+            TagComponent = <span className="badge badge-secondary badge-pill mr-2">Outdated</span>
+          }
+        }
+
+        return (
+          <Dropdown.ItemText
+            key={src.name}
+            className={`${isMobile ? 'small' : 'text-nowrap'} ${
+              numRuleSources > 1 && i !== 0 ? 'text-muted' : ''
+            }`}
+          >
+            {TagComponent}
+            {src.url ? (
+              <LinkNewTab href={src.url} label={src.name} className={'text-reset'}>
+                {src.name}
+              </LinkNewTab>
+            ) : (
+              src.name
+            )}
+          </Dropdown.ItemText>
+        )
+      })}
     </>
   )
 }
