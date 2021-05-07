@@ -7,6 +7,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_MOVEMENT_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandAbilities = {
   // Unit command abilities
@@ -77,13 +78,9 @@ const CommandAbilities = {
     effects: [
       {
         name: `Masters of the Shadowpaths`,
-        desc: `Pick 1 friendly Khailebron unit wholly within 12" of a friendly Khailebron general. Remove the target and set it up anywhere on the battlefield more than 9" from enemy units. It cannot move in the next movement phase.`,
+        desc: `Pick 1 friendly Khailebron unit wholly within 12" of a friendly Khailebron general. Remove the target and set it up anywhere on the battlefield more than 9" from enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Masters of the Shadowpaths`,
-        desc: `If active, the selected unit from the previous turn cannot move in this phase.`,
-        when: [MOVEMENT_PHASE],
+        rule_sources: [rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_MARCH_2021],
       },
     ],
   },

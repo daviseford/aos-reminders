@@ -1,6 +1,4 @@
-import { TRuleSource } from 'meta/rule_sources'
-
-const rule_sources: Record<string, TRuleSource> = {
+const rule_sources = {
   BATTLETOME_SONS_OF_BEHEMAT: {
     name: 'Battletome: Sons of Behemat',
     publication_date: '20-10-17',
