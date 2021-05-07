@@ -38,7 +38,7 @@ const PaypalButton: React.FC<IPayPalButtonProps> = props => {
 
   const { onSuccess = undefined, onCancel = undefined, planId, style = {} } = props
 
-  if (!paypalIsReady || typeof window === 'undefined' || window.paypal === undefined) {
+  if (!paypalIsReady || typeof window === 'undefined' || window.paypal === undefined || !user) {
     return <></>
   }
 

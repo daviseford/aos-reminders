@@ -100,7 +100,7 @@ const SubscriptionProvider: React.FC = ({ children }) => {
   }, [isLoading, user])
 
   const getSubscription = useCallback(async () => {
-    if (!user) return setSubscription(initialState.subscription)
+    if (!user?.email) return setSubscription(initialState.subscription)
 
     try {
       setSubscriptionLoading(true)
