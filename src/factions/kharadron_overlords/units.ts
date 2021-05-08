@@ -25,7 +25,7 @@ const FlyingTransportEffect = {
 
   An attack made by a weapon that is in range of this model can target either this model or a unit in its garrison. If this model is destroyed, before it is removed from play, roll 1 dice for each model in its garrison. On a 1, that model is slain. Set up any surviving models wholly within 3" of this model and more than 3" from any enemy units.
   
-  If this model is in a warscroll battalion, units from the same battalion that can garrison this model can be set up as this model’s garrison when this model is set up.`,
+  If this model is in a warscroll battalion, units from the same battalion that can garrison this model can be set up as this model's garrison when this model is set up.`,
   when: [DURING_GAME],
   rule_sources: [
     rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
