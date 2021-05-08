@@ -128,7 +128,7 @@ const BattleTraits = {
       },
       {
         name: `Deadly Symbiosis`,
-        desc: `Add 1 to the number of depravity points you receive in the battleshock phase if a friendly SYLL’ESSKE is on the battlefield and is within 6" of at least 1 other friendly SYLL’ESSKAN HOST DAEMON unit and at least 1 friendly SYLL’ESSKAN HOST MORTAL unit.`,
+        desc: `Add 1 to the number of depravity points you receive in the battleshock phase if a friendly SYLL'ESSKE is on the battlefield and is within 6" of at least 1 other friendly SYLL'ESSKAN HOST DAEMON unit and at least 1 friendly SYLL'ESSKAN HOST MORTAL unit.`,
         when: [DURING_GAME],
         rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_MARCH_2021],
       },

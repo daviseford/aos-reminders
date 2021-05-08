@@ -42,4 +42,10 @@ describe('getArmy', () => {
     expect(army1.Triumphs).toBeDefined()
     expect(army1.Triumphs.length).toEqual(GenericTriumphs.length)
   })
+
+  it('does not add incorrect side effects to units', () => {
+    const army = getArmy(SERAPHON) as IArmy
+    const shouldNotHaveThisUnit = army.Units.find(x => x.name === 'Selfless Protector')
+    expect(shouldNotHaveThisUnit).toBeUndefined()
+  })
 })

@@ -104,7 +104,8 @@ const checkEffects = (effect: TEffects, Collection: TCollection, forceKey?: keyo
     stopped = true
   })
 
-  if (!stopped && forceKey) {
+  // We can't trust "Units" - this will cause a bug if you remove this check.
+  if (!stopped && forceKey && forceKey !== 'Units') {
     addToCollection(effect, Collection[forceKey])
   }
 }
