@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -10,6 +11,7 @@ import {
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import lumineth_rule_sources from './rule_sources'
 
 const Spells = {
   'Speed of Hysh': {
@@ -235,8 +237,12 @@ const Spells = {
     effects: [
       {
         name: `Erasure`,
-        desc: `Casting value of 7. Pick 1 enemy HERO within 24" of the caster. Either inflict D3 mortal wounds on that HERO or mark them for erasure. If the HERO is already marked for erasure, they instead suffer D6 mortal wounds and are no longer marked for erasure.`,
+        desc: `Casting value of 7. Pick 1 enemy HERO within 24" of the caster. You can either inflict D3 mortal wounds on that Hero or mark them for erasure. If the HERO is already marked for erasure, they instead suffer D6 mortal wounds and are no longer marked for erasure.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          lumineth_rule_sources.BATTLETOME_LUMINETH,
+          rule_sources.ERRATA_BROKEN_REALMS_TECLIS_MAY_2021,
+        ],
       },
     ],
   },

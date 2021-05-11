@@ -4,7 +4,7 @@ const rule_sources = {
     publication_date: '29-03-21',
     type: 'battletome',
   },
-  ERRATA_LUMINETH_MARCH_2021: {
+  ERRATA_LUMINETH_MAY_2021: {
     name: 'Errata (May 2021)',
     publication_date: '10-05-21',
     type: 'errata',

@@ -26,7 +26,7 @@ const CommandAbilities = {
         name: `Deplete Reserves`,
         desc: `You can use this command ability when a friendly SYAR unit could use an aetherquartz reserve ability, even if any friendly SYAR units have already done so in that phase. Pick 1 friendly SYAR unit that has any aetherquartz reserves and is wholly within 18" of a friendly SYAR HERO. That unit can use one of its aetherquartz reserves.`,
         when: [DURING_GAME],
-        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_MARCH_2021],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_MAY_2021],
       },
     ],
   },

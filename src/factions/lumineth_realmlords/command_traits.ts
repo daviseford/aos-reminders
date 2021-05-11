@@ -90,7 +90,7 @@ const CommandTraits = {
         name: `Strike in Unison`,
         desc: `You can use this command ability in your shooting phase or in the combat phase. If you do so, pick 1 friendly ILIATHA VANARI unit with 2 or more models. You can reroll hit rolls of 1 for that unit until the end of that phase.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_MARCH_2021],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_MAY_2021],
       },
     ],
   },
