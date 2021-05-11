@@ -9,8 +9,15 @@ export type TRuleSource = {
   url?: string
 }
 
-// TODO: Use this as the centralized rules_source
+// Use this as the centralized rules_source
 // For things like Arcane Bolt, general rules, etc.
-const rule_sources: Record<string, TRuleSource> = {}
+const rule_sources = {
+  ERRATA_BROKEN_REALMS_TECLIS_MAY_2021: {
+    name: 'Errata (May 2021)',
+    publication_date: '23-05-21',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2021/05/a5tBnjkUz0X5zrFr.pdf',
+  },
+}
 
 export default rule_sources

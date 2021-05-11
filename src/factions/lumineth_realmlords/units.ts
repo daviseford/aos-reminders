@@ -17,6 +17,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
+import rule_sources from './rule_sources'
 import spells from './spells'
 
 const getBoltAndShieldWizardEffect = (
@@ -86,15 +87,17 @@ const PurestAetherquartzCastingEffect = {
   when: [COMBAT_PHASE, SHOOTING_PHASE],
 }
 
-const IntoTheWindOverSaveEffect = {
-  name: `Into the Wind`,
+const IntoTheGaleOverSaveEffect = {
+  name: `Into the Gale`,
   desc: `Roll a dice each time you allocate a wound or mortal wound to this unit, on a 5+ that wound or mortal wound is ignored.`,
   when: [WOUND_ALLOCATION_PHASE],
+  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_MAY_2021],
 }
-const IntoTheWindPileInRestrictionEffect = {
-  name: `Into the Wind`,
-  desc: `Subtract 2" from the distance that enemy models within 3" of this model can pile into (to a minimum of 1").`,
-  when: [WOUND_ALLOCATION_PHASE],
+const IntoTheGalePileInRestrictionEffect = {
+  name: `Into the Gale`,
+  desc: `If an enemy model starts a pile-in move within 3" of any friendly units with this ability, subtract 2" from the distance that model can pile in during that phase (to a minimum of 1").`,
+  when: [COMBAT_PHASE],
+  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_MAY_2021],
 }
 
 const LivingCycloneEffect = {
@@ -170,6 +173,7 @@ const Units = {
         name: `Archmage`,
         desc: `At the start of your hero phase, say if you're going to cast 1, 2 or 4 spells. If this model will cast 1 spell, when it attempts to cast that spell, it is automatically cast with a casting roll of 12 that cannot be modified (do not roll 2D6) and it cannot be unbound. If casting 2 spells, each is automatically cast with a casting roll of 12, and they can be unbound. If casting 4 spells, each is automatically cast with a casting roll of 10, and they can be unbound.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_MAY_2021],
       },
       {
         name: `Wizard`,
@@ -248,8 +252,8 @@ const Units = {
   },
   'Hurakan Spirit of the Wind': {
     effects: [
-      IntoTheWindOverSaveEffect,
-      IntoTheWindPileInRestrictionEffect,
+      IntoTheGaleOverSaveEffect,
+      IntoTheGalePileInRestrictionEffect,
       SpiritOfTheWindEffect,
       LivingCycloneEffect,
       WindmageSymbiosisEffect,
@@ -385,8 +389,8 @@ const Units = {
   },
   'Severith, Lord of the Seventh Wind': {
     effects: [
-      IntoTheWindOverSaveEffect,
-      IntoTheWindPileInRestrictionEffect,
+      IntoTheGaleOverSaveEffect,
+      IntoTheGalePileInRestrictionEffect,
       SpiritOfTheWindEffect,
       LivingCycloneEffect,
       WindmageSymbiosisEffect,
