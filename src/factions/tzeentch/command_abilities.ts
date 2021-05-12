@@ -6,6 +6,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandAbilities = {
   // Unit Commands
@@ -15,6 +16,7 @@ const CommandAbilities = {
         name: `Beacon of Sorcery`,
         desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly model with this command ability. Until your next hero phase, you can add 1 to casting and unbinding rolls for friendly TZEENTCH DAEMON WIZARDS while they are wholly within 18" of that model. The same unit cannot benefit from this command ability more than once per turn.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2020],
       },
     ],
   },

@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -49,11 +50,13 @@ const BattleTraits = {
         name: `Mortal Auxiliaries`,
         desc: `Add 1 to the bravery characteristic of Cities of Sigmar units wholly within 12" of a friendly Liberators unit.`,
         when: [DURING_GAME, BATTLESHOCK_PHASE],
+        rule_sources: [rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021],
       },
       {
         name: `Mortal Auxiliaries`,
         desc: `Cities of Sigmar units can be treated as Stormcast Eternals when benefiting from a command ability.`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021],
       },
     ],
   },

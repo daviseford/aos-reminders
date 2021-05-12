@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH, MARK_UNDIVIDED } from 'meta/alliances'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -282,11 +283,13 @@ const BattleTraits = {
         name: `Panopy of Ruin`,
         desc: `When an Idolators Cultists unit charges, change the lowest dice to a 6. Change 1 dice to a 6 on a double result.`,
         when: [CHARGE_PHASE],
+        rule_sources: [rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021],
       },
       {
         name: `Panopy of Ruin`,
         desc: `All Idolators Cultists units gain the same Mark of Chaos held by the Idolator Lord.`,
         when: [DURING_SETUP],
+        rule_sources: [rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021],
       },
     ],
   },

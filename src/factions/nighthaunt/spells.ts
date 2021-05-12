@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Spells = {
   'Soul Cage': {
@@ -8,6 +9,7 @@ const Spells = {
         name: `Soul Cage`,
         desc: `Casting value of 6. Pick an enemy unit within 12" of the caster that is visible to them. Until the start of your next hero phase, that unit cannot retreat. In addition, until your next hero phase, that unit fights at the end of the combat phase.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JANUARY_2021],
       },
     ],
   },

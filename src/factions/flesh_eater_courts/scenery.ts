@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, END_OF_MOVEMENT_PHASE, START_OF_SETUP } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Scenery = {
   'Charnel Throne': {
@@ -13,6 +14,10 @@ const Scenery = {
         name: `Ruler of All He Surveys`,
         desc: `An ABHORRANT ARCHREGENT that is within 1" of this terrain feature can use the Summon Imperial Guard command ability without a command point being spent. In addition, an ABHORRANT GHOUL KING that is within 1" of this terrain feature can use the Summon Men-at-arms command ability without a command point being spent.`,
         when: [END_OF_MOVEMENT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_FLESH_EATER_COURTS,
+          rule_sources.ERRATA_FLESH_EATER_COURTS_JANUARY_2021,
+        ],
       },
       {
         name: `Ghoulish Landmark`,
