@@ -14,6 +14,7 @@ import {
   TURN_ONE_HERO_PHASE,
   TURN_THREE_HERO_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
   // Tzeentch Allegiance
@@ -23,6 +24,7 @@ const BattleTraits = {
         name: `Masters of Destiny`,
         desc: `After set-up, but before rolling to see which player takes the first turn in the first battle round, roll 9 dice and keep them to one side; this is your pool of Destiny Dice. Though it is possible for some or even all of these dice to be replenished during the course of the battle, the number of dice in your pool of Destiny Dice can never exceed 9.`,
         when: [END_OF_SETUP],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2020],
       },
       {
         name: `Masters of Destiny`,
@@ -37,6 +39,7 @@ const BattleTraits = {
         Destiny Dice can be spent in place of the following rolls:
         Casting, Unbinding, Dispelling, Run, Charge, Hit, Wound, Save, Damage characteristic of missiles/melee weapons, Battleshock`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2020],
       },
       {
         name: `Summon Daemons of Tzeentch`,
