@@ -9,6 +9,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 // Add individual artifacts here, and access them in other files!
 const Artifacts = {
@@ -81,6 +82,10 @@ const Artifacts = {
         name: `Medal of Madness (Noble Heirlooms)`,
         desc: `Once per battle round, the bearer can use a command ability on their warscroll without a command point being spent, and they are treated as if they were a general when they do so.`,
         when: [DURING_ROUND],
+        rule_sources: [
+          rule_sources.BATTLETOME_FLESH_EATER_COURTS,
+          rule_sources.ERRATA_FLESH_EATER_COURTS_JANUARY_2021,
+        ],
       },
     ],
   },

@@ -10,6 +10,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandTraits = {
   'Crusading Army (Delusion)': {
@@ -207,6 +208,10 @@ const CommandTraits = {
         name: `Savage Strike`,
         desc: `This general and their mount fight at the start of the combat phase if they made a charge move in the same turn. This general and their mount cannot fight again in that combat phase unless a spell or ability allows them to fight more than once.`,
         when: [START_OF_COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_FLESH_EATER_COURTS,
+          rule_sources.ERRATA_FLESH_EATER_COURTS_JANUARY_2021,
+        ],
       },
     ],
   },

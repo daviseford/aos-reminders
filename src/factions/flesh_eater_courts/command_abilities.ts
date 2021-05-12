@@ -6,6 +6,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 // Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandAbilities = {
@@ -51,6 +52,10 @@ const CommandAbilities = {
         name: `Heaving Masses`,
         desc: `You can use this command ability when a friendly MORGAUNT SERFS unit is destroyed. If you do so, roll a D6. On a 4+ a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy models.`,
         when: [DURING_GAME],
+        rule_sources: [
+          rule_sources.BATTLETOME_FLESH_EATER_COURTS,
+          rule_sources.ERRATA_FLESH_EATER_COURTS_JANUARY_2021,
+        ],
       },
     ],
   },
@@ -87,6 +92,10 @@ const CommandAbilities = {
         name: `Feeding Frenzy`,
         desc: `You can use this command ability after a friendly FLESH-EATER COURTS unit has fought in the combat phase for the first time and is wholly within 12" of a friendly FLESH-EATER COURTS HERO, or wholly within 18" of a friendly FLESH-EATER COURTS HERO that is a general. If you do so, that unit can immediately make a pile-in move and then attack with all of the melee weapons it is armed with for a second time. You cannot pick the same unit to benefit from this ability more than once per phase.`,
         when: [COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_FLESH_EATER_COURTS,
+          rule_sources.ERRATA_FLESH_EATER_COURTS_JANUARY_2021,
+        ],
       },
     ],
   },

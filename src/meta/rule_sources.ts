@@ -9,7 +9,7 @@ export type TRuleSource = {
   url?: string
 }
 
-// Use this as the centralized rules_source
+// Use this as the centralized rule_sources
 // For things like Arcane Bolt, general rules, etc.
 const rule_sources = {
   ERRATA_BROKEN_REALMS_TECLIS_MAY_2021: {
