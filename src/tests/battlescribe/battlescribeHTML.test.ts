@@ -583,13 +583,11 @@ describe('getBattlescribeArmy', () => {
       },
       {
         severity: 'ally-warn',
-        text:
-          'Allied Vampire Lord can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
+        text: 'Allied Vampire Lord can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
       },
       {
         severity: 'ally-warn',
-        text:
-          'Allied Vampire Lord on Zombie Dragon can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
+        text: 'Allied Vampire Lord on Zombie Dragon can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
       },
     ])
   })
@@ -905,8 +903,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ally-warn',
-        text:
-          'Allied Chaos Lord on Manticore can belong to Khorne or Nurgle or Slaves To Darkness. Please add this unit manually.',
+        text: 'Allied Chaos Lord on Manticore can belong to Khorne or Nurgle or Slaves To Darkness. Please add this unit manually.',
       },
     ])
   })
@@ -1477,8 +1474,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ally-warn',
-        text:
-          'Allied Chaos Lord on Manticore can belong to Khorne or Nurgle or Slaves To Darkness. Please add this unit manually.',
+        text: 'Allied Chaos Lord on Manticore can belong to Khorne or Nurgle or Slaves To Darkness. Please add this unit manually.',
       },
     ])
   })
@@ -1502,8 +1498,7 @@ describe('getBattlescribeArmy', () => {
       },
       {
         severity: 'ally-warn',
-        text:
-          'Allied Chaos Lord on Manticore can belong to Khorne or Nurgle or Slaves To Darkness. Please add this unit manually.',
+        text: 'Allied Chaos Lord on Manticore can belong to Khorne or Nurgle or Slaves To Darkness. Please add this unit manually.',
       },
     ])
   })

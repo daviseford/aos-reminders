@@ -56,75 +56,69 @@ interface IModifyArmyMeta {
   realmscape: TBattleRealms | null
 }
 
-const modifyArmy = produce(
-  (Army: TSubfactionArmy, meta: IModifyArmyMeta): IArmy => {
-    let {
-      AlliedUnits = [],
-      Artifacts = [],
-      Battalions = [],
-      CommandAbilities = [],
-      CommandTraits = [],
-      EndlessSpells = [],
-      Flavors = [],
-      MountTraits = [],
-      Prayers = [],
-      Scenery = [],
-      Spells = [],
-      Triumphs = [],
-      Units = [],
-    } = Army
-    const { realmscape, GrandAlliance, Collection, factionName, originRealm } = meta
+const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta): IArmy => {
+  let {
+    AlliedUnits = [],
+    Artifacts = [],
+    Battalions = [],
+    CommandAbilities = [],
+    CommandTraits = [],
+    EndlessSpells = [],
+    Flavors = [],
+    MountTraits = [],
+    Prayers = [],
+    Scenery = [],
+    Spells = [],
+    Triumphs = [],
+    Units = [],
+  } = Army
+  const { realmscape, GrandAlliance, Collection, factionName, originRealm } = meta
 
-    // TODO: Make sure this works
-    const GrandAllianceEndlessSpells = getGrandAllianceEndlessSpells(
-      GrandAlliance,
-      EndlessSpells,
-      factionName
-    )
+  // TODO: Make sure this works
+  const GrandAllianceEndlessSpells = getGrandAllianceEndlessSpells(GrandAlliance, EndlessSpells, factionName)
 
-    if (GRAND_ALLIANCE_FACTIONS.includes(factionName as TGrandAllianceFactions)) {
-      // TODO: Make sure all of this works
-      Artifacts = getAllianceItems(GrandAlliance, 'Artifacts', Artifacts)
-      Battalions = getAllianceItems(GrandAlliance, 'Battalions', Battalions)
-      CommandAbilities = getAllianceItems(GrandAlliance, 'CommandAbilities', CommandAbilities)
-      CommandTraits = getAllianceItems(GrandAlliance, 'CommandTraits', CommandTraits)
-      EndlessSpells = GrandAllianceEndlessSpells
-      MountTraits = getAllianceItems(GrandAlliance, 'MountTraits', MountTraits) // new
-      Prayers = getAllianceItems(GrandAlliance, 'Prayers', Prayers) // new
-      Spells = getAllianceItems(GrandAlliance, 'Spells', Spells)
-      Units = getAllianceItems(GrandAlliance, 'Units', Units)
-    }
-
-    Army.Artifacts = modify.Artifacts(Artifacts, originRealm, GrandAlliance, Collection)
-    Army.Battalions = modify.Battalions(Battalions, Collection)
-    Army.CommandAbilities = modify.CommandAbilities(CommandAbilities, realmscape, Collection)
-    Army.CommandTraits = modify.CommandTraits(CommandTraits, GrandAlliance, Collection)
-    Army.EndlessSpells = modify.EndlessSpells(EndlessSpells, GrandAllianceEndlessSpells, Collection)
-    Army.Flavors = modify.Flavors(Flavors, Collection)
-    Army.MountTraits = modify.MountTraits(MountTraits, Collection)
-    Army.Prayers = modify.Prayers(Prayers, Collection)
-    Army.Scenery = modify.Scenery(Scenery, Collection)
-    Army.Spells = modify.Spells(Spells, realmscape, Collection)
-    Army.Triumphs = modify.Triumphs(Triumphs, Collection)
-    Army.Units = modify.Units(Units, AlliedUnits, GrandAlliance, Collection)
-
-    // @ts-expect-error
-    Army.Game = processGame([
-      Army.Artifacts,
-      Army.Battalions,
-      Army.CommandAbilities,
-      Army.CommandTraits,
-      Army.EndlessSpells,
-      Army.Flavors,
-      Army.MountTraits,
-      Army.Prayers,
-      Army.Scenery,
-      Army.Spells,
-      Army.Triumphs,
-      Army.Units,
-    ])
-
-    // @ts-expect-error
-    return Army
+  if (GRAND_ALLIANCE_FACTIONS.includes(factionName as TGrandAllianceFactions)) {
+    // TODO: Make sure all of this works
+    Artifacts = getAllianceItems(GrandAlliance, 'Artifacts', Artifacts)
+    Battalions = getAllianceItems(GrandAlliance, 'Battalions', Battalions)
+    CommandAbilities = getAllianceItems(GrandAlliance, 'CommandAbilities', CommandAbilities)
+    CommandTraits = getAllianceItems(GrandAlliance, 'CommandTraits', CommandTraits)
+    EndlessSpells = GrandAllianceEndlessSpells
+    MountTraits = getAllianceItems(GrandAlliance, 'MountTraits', MountTraits) // new
+    Prayers = getAllianceItems(GrandAlliance, 'Prayers', Prayers) // new
+    Spells = getAllianceItems(GrandAlliance, 'Spells', Spells)
+    Units = getAllianceItems(GrandAlliance, 'Units', Units)
   }
-)
+
+  Army.Artifacts = modify.Artifacts(Artifacts, originRealm, GrandAlliance, Collection)
+  Army.Battalions = modify.Battalions(Battalions, Collection)
+  Army.CommandAbilities = modify.CommandAbilities(CommandAbilities, realmscape, Collection)
+  Army.CommandTraits = modify.CommandTraits(CommandTraits, GrandAlliance, Collection)
+  Army.EndlessSpells = modify.EndlessSpells(EndlessSpells, GrandAllianceEndlessSpells, Collection)
+  Army.Flavors = modify.Flavors(Flavors, Collection)
+  Army.MountTraits = modify.MountTraits(MountTraits, Collection)
+  Army.Prayers = modify.Prayers(Prayers, Collection)
+  Army.Scenery = modify.Scenery(Scenery, Collection)
+  Army.Spells = modify.Spells(Spells, realmscape, Collection)
+  Army.Triumphs = modify.Triumphs(Triumphs, Collection)
+  Army.Units = modify.Units(Units, AlliedUnits, GrandAlliance, Collection)
+
+  // @ts-expect-error
+  Army.Game = processGame([
+    Army.Artifacts,
+    Army.Battalions,
+    Army.CommandAbilities,
+    Army.CommandTraits,
+    Army.EndlessSpells,
+    Army.Flavors,
+    Army.MountTraits,
+    Army.Prayers,
+    Army.Scenery,
+    Army.Spells,
+    Army.Triumphs,
+    Army.Units,
+  ])
+
+  // @ts-expect-error
+  return Army
+})

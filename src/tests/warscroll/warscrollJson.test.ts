@@ -562,8 +562,7 @@ describe('getWarscrollArmyFromJson', () => {
       },
       {
         severity: 'ally-warn',
-        text:
-          'Allied Ungor Raiders can belong to Beasts Of Chaos or Nurgle or Slaanesh or Tzeentch. Please add this unit manually.',
+        text: 'Allied Ungor Raiders can belong to Beasts Of Chaos or Nurgle or Slaanesh or Tzeentch. Please add this unit manually.',
       },
     ])
   })
@@ -689,13 +688,11 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ally-warn',
-        text:
-          'Allied Varanguard can belong to Nurgle or Slaanesh or Slaves To Darkness or Tzeentch. Please add this unit manually.',
+        text: 'Allied Varanguard can belong to Nurgle or Slaanesh or Slaves To Darkness or Tzeentch. Please add this unit manually.',
       },
       {
         severity: 'ally-warn',
-        text:
-          'Allied Chaos Knights can belong to Nurgle or Slaanesh or Slaves To Darkness or Tzeentch. Please add this unit manually.',
+        text: 'Allied Chaos Knights can belong to Nurgle or Slaanesh or Slaves To Darkness or Tzeentch. Please add this unit manually.',
       },
     ])
   })
@@ -1061,8 +1058,7 @@ describe('getWarscrollArmyFromJson', () => {
       },
       {
         severity: 'ally-warn',
-        text:
-          'Allied Kairos Fateweaver can belong to Legion Of The First Prince or Tzeentch. Please add this unit manually.',
+        text: 'Allied Kairos Fateweaver can belong to Legion Of The First Prince or Tzeentch. Please add this unit manually.',
       },
     ])
   })
@@ -1669,8 +1665,7 @@ describe('getWarscrollArmyFromJson', () => {
       },
       {
         severity: 'ally-warn',
-        text:
-          'Allied Great Bray-Shaman can belong to Beasts Of Chaos or Nurgle or Slaanesh. Please add this unit manually.',
+        text: 'Allied Great Bray-Shaman can belong to Beasts Of Chaos or Nurgle or Slaanesh. Please add this unit manually.',
       },
     ])
   })

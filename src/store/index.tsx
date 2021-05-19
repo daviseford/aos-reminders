@@ -9,7 +9,7 @@ import { persistReducer, persistStore } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 import DefaultAppState from 'store/initialAppState'
 import { logMigration } from 'utils/analytics'
-import { LocalFavoriteFaction, LocalSavedArmies } from 'utils/localStore'
+import { LocalSavedArmies } from 'utils/localStore'
 
 const rootReducer = combineReducers({
   army: armyReducer,
@@ -41,7 +41,6 @@ const pReducer = persistReducer(
         logMigration(version)
 
         // Handle locally cached data
-        LocalFavoriteFaction.clear()
         LocalSavedArmies.clear()
 
         // Blow the current state away

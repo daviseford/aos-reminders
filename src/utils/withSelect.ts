@@ -25,15 +25,13 @@ type TWithSelectMultipleWithPayload = (
  * @param key
  * @param payload
  */
-export const withSelectMultipleWithPayload: TWithSelectMultipleWithPayload = (
-  method,
-  key,
-  payload = {}
-) => selectValues => {
-  const { dispatch } = store
-  const values = selectValues?.map(x => x.value) || []
-  dispatch(method({ ...payload, [key]: values }))
-}
+export const withSelectMultipleWithPayload: TWithSelectMultipleWithPayload =
+  (method, key, payload = {}) =>
+  selectValues => {
+    const { dispatch } = store
+    const values = selectValues?.map(x => x.value) || []
+    dispatch(method({ ...payload, [key]: values }))
+  }
 
 export interface ISideEffectsPayload {
   [key: string]: {
@@ -56,45 +54,44 @@ type TWithSelectMultiWithSideEffects = (
  * @param payload
  * @param label
  */
-export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects = (method, payload, label) => (
-  selectValues,
-  { action }
-) => {
-  const { dispatch } = store
-  const values = selectValues?.map(x => x.value) || []
+export const withSelectMultiWithSideEffects: TWithSelectMultiWithSideEffects =
+  (method, payload, label) =>
+  (selectValues, { action }) => {
+    const { dispatch } = store
+    const values = selectValues?.map(x => x.value) || []
 
-  // Set the given value for the dropdown
-  dispatch(method(values))
+    // Set the given value for the dropdown
+    dispatch(method(values))
 
-  // Don't add side effects if we're just removing values from the dropdown
-  if (action === 'remove-value') return
+    // Don't add side effects if we're just removing values from the dropdown
+    if (action === 'remove-value') return
 
-  // Handle side effects
-  Object.keys(payload).forEach(value => {
-    if (values.includes(value)) {
-      Object.keys(payload[value]).forEach(_slice => {
-        const sideEffectVals: string[] = payload[value][_slice].values
+    // Handle side effects
+    Object.keys(payload).forEach(value => {
+      if (values.includes(value)) {
+        Object.keys(payload[value]).forEach(_slice => {
+          const sideEffectVals: string[] = payload[value][_slice].values
 
-        if (sideEffectVals) {
-          dispatch(
-            selectionActions.addToSelections({
-              value,
-              values: sideEffectVals,
-              slice: _slice as TSelectionTypes,
+          if (sideEffectVals) {
+            dispatch(
+              selectionActions.addToSelections({
+                value,
+                values: sideEffectVals,
+                slice: _slice as TSelectionTypes,
+              })
+            )
+
+            const trait = titleCase(_slice)
+
+            // Log each value to GA
+            sideEffectVals.forEach((val: string) => {
+              logIndividualSelection(trait, val, label)
             })
-          )
-
-          const trait = titleCase(_slice)
-
-          // Log each value to GA
-          sideEffectVals.forEach((val: string) => {
-            logIndividualSelection(trait, val, label)
-          })
-        }
-      })
-    }
-  })
-}
+          }
+        })
+      }
+    })
+  }
 
 export const handleSelectOneSideEffects = (payload: ISideEffectsPayload) => {
   const { dispatch } = store
