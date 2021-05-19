@@ -4,12 +4,15 @@ import { logEvent, logGiftedSubscription, logSubscription } from 'utils/analytic
 import { loadArmyFromLink } from 'utils/loadArmy/loadArmyHelpers'
 
 export const handleStripeCheckout = () => {
-  const { subscribed = false, canceled = false, plan = '', gifted = false, quantity = '' } = qs.parse(
-    window.location.search,
-    {
-      ignoreQueryPrefix: true,
-    }
-  )
+  const {
+    subscribed = false,
+    canceled = false,
+    plan = '',
+    gifted = false,
+    quantity = '',
+  } = qs.parse(window.location.search, {
+    ignoreQueryPrefix: true,
+  })
 
   if (subscribed && isString(plan)) {
     logEvent(`Checkout-Subscribed-${plan}`)

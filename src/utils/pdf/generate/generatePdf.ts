@@ -3,9 +3,7 @@ import { IPrintPdf } from 'types/pdf'
 import { saveCompactPdf } from 'utils/pdf/generate/layouts/compact'
 import { saveDefaultPdf } from 'utils/pdf/generate/layouts/default'
 
-type TSavePdf = (
-  data: IPrintPdf
-) => {
+type TSavePdf = (data: IPrintPdf) => {
   default: jsPDF
   compact: jsPDF
 }

@@ -2,7 +2,6 @@ import { useAuth0 } from '@auth0/auth0-react'
 import { SubscriptionApi } from 'api/subscriptionApi'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { ISubscription } from 'types/subscription'
-import { LocalFavoriteFaction } from 'utils/localStore'
 import {
   hasActiveGrant,
   hasExpiredGrant,
@@ -116,7 +115,6 @@ const SubscriptionProvider: React.FC = ({ children }) => {
         console.error(err)
       }
       setSubscription(initialState.subscription)
-      LocalFavoriteFaction.clear()
       setIsNotSubscribed(true)
       setSubscriptionLoading(false)
     }

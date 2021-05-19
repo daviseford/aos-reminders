@@ -18,9 +18,7 @@ import {
   parseOriginRealmObj,
 } from 'utils/battlescribe/getters'
 
-type TTraverseDoc = (
-  docObj: IParentNode | IChildNode
-) => {
+type TTraverseDoc = (docObj: IParentNode | IChildNode) => {
   allegianceInfo: IFlavorInfo[]
   factionInfo: IFactionInfo
   origin_realm: TOriginRealms | null

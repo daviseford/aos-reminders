@@ -1,28 +1,19 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { PreferenceApi } from 'api/preferenceApi'
-import { SubscriptionApi } from 'api/subscriptionApi'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
 import { isEqual, sortBy } from 'lodash'
-import { TSupportedFaction } from 'meta/factions'
 import React, { useCallback, useEffect, useMemo, useState } from 'react'
 import { store } from 'store'
 import { ICurrentArmy } from 'types/army'
 import { IImportedArmy } from 'types/import'
 import { ISavedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { logEvent } from 'utils/analytics'
-import { isValidFactionName, prepareArmy, prepareArmyForS3 } from 'utils/armyUtils'
+import { prepareArmy, prepareArmyForS3 } from 'utils/armyUtils'
 import { isDev } from 'utils/env'
 import useGetReminders from 'utils/hooks/useGetReminders'
 import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
-import {
-  LocalFavoriteFaction,
-  LocalLoadedArmy,
-  LocalReminderOrder,
-  LocalSavedArmies,
-  LocalUserName,
-} from 'utils/localStore'
-import { unTitleCase } from 'utils/textUtils'
+import { LocalLoadedArmy, LocalReminderOrder, LocalSavedArmies, LocalUserName } from 'utils/localStore'
 
 type TLoadedArmy = { id: string; armyName: string } | null
 type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changedKeys: string[] }
@@ -30,8 +21,6 @@ type THasChanges = (currentArmy: ICurrentArmy) => { hasChanges: boolean; changed
 interface ISavedArmiesContext {
   armyHasChanges: THasChanges
   deleteSavedArmy: (id: string) => Promise<void>
-  favoriteFaction: TSupportedFaction | null
-  getFavoriteFaction: () => Promise<void>
   loadedArmy: TLoadedArmy | null
   loadSavedArmies: () => Promise<void>
   reloadArmy: () => void
@@ -43,7 +32,6 @@ interface ISavedArmiesContext {
   setHasOrderChanges: (hasChanged: boolean) => void
   updateArmy: (id: string, data: Record<string, any>) => Promise<void>
   updateArmyName: (id: string, armyName: string) => Promise<void>
-  updateFavoriteFaction: (factionName: string | null) => Promise<void>
 }
 
 const saveArmyToS3 = async (army: IImportedArmy | ISavedArmy | ICurrentArmy) => {
@@ -61,12 +49,10 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
   const { isOffline } = useAppStatus()
   const { user } = useAuth0()
   const { relevantNotes } = useGetReminders()
-  const { subscription, isActive } = useSubscription()
+  const { isActive } = useSubscription()
   const [savedArmies, setSavedArmies] = useState<ISavedArmyFromApi[]>([])
   const [savedArmiesPopulated, setSavedArmiesPopulated] = useState(false)
   const [loadedArmy, setLoadedArmyState] = useState<TLoadedArmy>(LocalLoadedArmy.get())
-  const [favoriteFaction, setFavoriteFaction] = useState<TSupportedFaction | null>(null)
-  const [waitingForApi, setWaitingForApi] = useState(false)
   const [hasOrderChanges, setHasOrderChanges] = useState(false)
 
   const setLoadedArmy = useCallback((army: TLoadedArmy) => {
@@ -218,61 +204,6 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     logEvent(`ReloadArmy-${fullLoadedArmy.factionName}`)
   }, [loadedArmy, savedArmies])
 
-  const getFavoriteFaction = useCallback(async () => {
-    try {
-      if (waitingForApi) return
-      // If we don't have a favoriteFaction currently set, check if we have it in localStorage (much faster than the API request)
-      const localFavorite = LocalFavoriteFaction.get()
-      if (!favoriteFaction && localFavorite && isValidFactionName(localFavorite)) {
-        setFavoriteFaction(localFavorite)
-      }
-
-      if (isActive) {
-        // Grab it from the API to check for changes that may have been made from other browsers
-        // Don't update state if it's the same as our localStorage value
-        const { body } = await SubscriptionApi.getFavoriteFaction(subscription.userName)
-        const apiFavoriteFaction = body.favoriteFaction || null
-        if (
-          apiFavoriteFaction !== favoriteFaction &&
-          apiFavoriteFaction !== localFavorite &&
-          isValidFactionName(apiFavoriteFaction)
-        ) {
-          LocalFavoriteFaction.set(apiFavoriteFaction)
-          setFavoriteFaction(apiFavoriteFaction)
-        }
-      }
-    } catch (err) {
-      console.error(err)
-    }
-  }, [favoriteFaction, subscription, waitingForApi, isActive])
-
-  const updateFavoriteFaction = useCallback(
-    async (faction: string | null) => {
-      if (!subscription || !isActive) return
-
-      const factionName = faction ? unTitleCase(faction) : faction
-
-      if (!isValidFactionName(factionName)) return
-
-      try {
-        // Update local storage
-        setWaitingForApi(true)
-        LocalFavoriteFaction.set(factionName)
-        setFavoriteFaction(factionName)
-
-        // Update API
-        const payload = { id: subscription.id, userName: subscription.userName, factionName }
-        await SubscriptionApi.updateFavoriteFaction(payload)
-        logEvent(`FavoriteFaction-${factionName}`)
-        setWaitingForApi(false)
-      } catch (err) {
-        console.error(err)
-        setWaitingForApi(false)
-      }
-    },
-    [subscription, isActive]
-  )
-
   useEffect(() => {
     if (user?.email && isActive) LocalUserName.set(user.email)
   }, [user, isActive])
@@ -281,8 +212,6 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
     () => ({
       armyHasChanges,
       deleteSavedArmy,
-      favoriteFaction,
-      getFavoriteFaction,
       loadedArmy,
       loadSavedArmies,
       reloadArmy,
@@ -294,13 +223,10 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       setLoadedArmy,
       updateArmy,
       updateArmyName,
-      updateFavoriteFaction,
     }),
     [
       armyHasChanges,
       deleteSavedArmy,
-      favoriteFaction,
-      getFavoriteFaction,
       loadedArmy,
       loadSavedArmies,
       reloadArmy,
@@ -311,7 +237,6 @@ const SavedArmiesProvider: React.FC = ({ children }) => {
       setLoadedArmy,
       updateArmy,
       updateArmyName,
-      updateFavoriteFaction,
     ]
   )
 

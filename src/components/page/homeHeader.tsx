@@ -8,13 +8,12 @@ import { useTheme } from 'context/useTheme'
 import { factionNamesActions, realmscapeActions, selectionActions, selectors } from 'ducks'
 import { PRIMARY_FACTIONS, TPrimaryFactions } from 'meta/factions'
 import { getFactionFromList } from 'meta/faction_list'
-import React, { lazy, Suspense, useEffect, useMemo } from 'react'
+import React, { lazy, Suspense, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { IArmy } from 'types/army'
 import { logFactionSwitch, logSubFactionSwitch, resetAnalyticsStore } from 'utils/analytics'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { getSideEffects } from 'utils/getSideEffects'
-import { getArmyLink } from 'utils/handleQueryParams'
 import useWindowSize from 'utils/hooks/useWindowSize'
 import { importFactionNameMap } from 'utils/import/options'
 import { titleCase } from 'utils/textUtils'
@@ -27,24 +26,7 @@ const { resetRealmscapeStore } = realmscapeActions
 const { setFactionName, setSubFactionName } = factionNamesActions
 
 export const Header = () => {
-  const { getFavoriteFaction, favoriteFaction } = useSavedArmies()
   const { theme } = useTheme()
-  const dispatch = useDispatch()
-  const hasSelections = useSelector(selectors.hasSelections)
-
-  // Get our user's favorite faction from localStorage/API
-  useEffect(() => {
-    getFavoriteFaction()
-  }, [getFavoriteFaction])
-
-  // Set our favorite faction
-  useEffect(() => {
-    if (favoriteFaction && !hasSelections && getArmyLink() === null) {
-      dispatch(setFactionName(favoriteFaction))
-    }
-    // Don't want to refresh this on hasSelections, so we need to ignore that piece of state
-    // eslint-disable-next-line
-  }, [dispatch, favoriteFaction])
 
   return (
     <div className={theme.headerColor}>

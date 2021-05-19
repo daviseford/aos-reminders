@@ -58,13 +58,11 @@ describe('getAzyrArmyFromPdf', () => {
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Evocators'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Evocators'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -207,8 +205,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -297,8 +294,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -441,8 +437,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Grey Seer'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Grey Seer'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -575,8 +570,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -589,8 +583,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -603,8 +596,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -617,8 +609,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -631,8 +622,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -647,8 +637,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -692,8 +681,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -712,8 +700,7 @@ describe('getAzyrArmyFromPdf', () => {
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Eidolon of Mathlann'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Eidolon of Mathlann'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -740,8 +727,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -800,8 +786,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Auric Runefather'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Auric Runefather'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -837,13 +822,11 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ally-warn',
-        text:
-          'Allied Warden King can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
+        text: 'Allied Warden King can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
       },
       {
         severity: 'ally-warn',
-        text:
-          'Allied Ironbreakers can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
+        text: 'Allied Ironbreakers can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
       },
     ])
   })
@@ -950,8 +933,7 @@ describe('getAzyrArmyFromPdf', () => {
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Bladebringer'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Bladebringer'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -970,8 +952,7 @@ describe('getAzyrArmyFromPdf', () => {
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Eidolon of Mathlann'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Eidolon of Mathlann'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -986,8 +967,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1009,8 +989,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Lord-Celestant'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Lord-Celestant'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1023,8 +1002,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1038,8 +1016,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1135,8 +1112,7 @@ describe('getAzyrArmyFromPdf', () => {
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Bladebringer'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Bladebringer'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1148,8 +1124,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1160,8 +1135,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1182,8 +1156,7 @@ describe('getAzyrArmyFromPdf', () => {
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1196,8 +1169,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1220,13 +1192,11 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ally-warn',
-        text:
-          'Allied Rotigus can belong to Legion Of The First Prince or Nurgle. Please add this unit manually.',
+        text: 'Allied Rotigus can belong to Legion Of The First Prince or Nurgle. Please add this unit manually.',
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1243,8 +1213,7 @@ describe('getAzyrArmyFromPdf', () => {
       errors: [
         {
           severity: 'ambiguity-warn',
-          text:
-            "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+          text: "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
         },
       ],
       factionName: SLAVES_TO_DARKNESS,
@@ -1287,8 +1256,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1548,13 +1516,11 @@ describe('getAzyrArmyFromPdf', () => {
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Lord-Celestant'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Lord-Celestant'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1567,8 +1533,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Knight of Shrouds'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Knight of Shrouds'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1617,8 +1582,7 @@ describe('getAzyrArmyFromPdf', () => {
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1639,8 +1603,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1668,8 +1631,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1696,8 +1658,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Abhorrant Ghoul King'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Abhorrant Ghoul King'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -1748,8 +1709,7 @@ describe('getAzyrArmyFromPdf', () => {
       errors: [
         {
           severity: 'ambiguity-warn',
-          text:
-            "Azyr lists more than one unit as 'Abhorrant Ghoul King'. Please check that we have imported the correct one.",
+          text: "Azyr lists more than one unit as 'Abhorrant Ghoul King'. Please check that we have imported the correct one.",
         },
       ],
       factionName: 'FLESH_EATER_COURTS',
@@ -1926,8 +1886,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Loonboss'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Loonboss'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -2189,8 +2148,7 @@ describe('getAzyrArmyFromPdf', () => {
       errors: [
         {
           severity: 'ambiguity-warn',
-          text:
-            "Azyr lists more than one unit as 'Grey Seer'. Please check that we have imported the correct one.",
+          text: "Azyr lists more than one unit as 'Grey Seer'. Please check that we have imported the correct one.",
         },
       ],
       factionName: SKAVENTIDE,
@@ -2234,13 +2192,11 @@ describe('getAzyrArmyFromPdf', () => {
       errors: [
         {
           severity: 'ambiguity-warn',
-          text:
-            "Azyr lists more than one unit as 'Auric Runesmiter'. Please check that we have imported the correct one.",
+          text: "Azyr lists more than one unit as 'Auric Runesmiter'. Please check that we have imported the correct one.",
         },
         {
           severity: 'ambiguity-warn',
-          text:
-            "Azyr lists more than one unit as 'Auric Runeson'. Please check that we have imported the correct one.",
+          text: "Azyr lists more than one unit as 'Auric Runeson'. Please check that we have imported the correct one.",
         },
       ],
       factionName: FYRESLAYERS,
@@ -2381,28 +2337,23 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Lord-Arcanum'. Please check that we have imported the correct one.",
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Lord-Celestant'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Lord-Celestant'. Please check that we have imported the correct one.",
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Evocators'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Evocators'. Please check that we have imported the correct one.",
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Prosecutors'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Prosecutors'. Please check that we have imported the correct one.",
       },
       {
         severity: 'ambiguity-warn',
-        text:
-          "Azyr lists more than one unit as 'Vanguard-Raptors'. Please check that we have imported the correct one.",
+        text: "Azyr lists more than one unit as 'Vanguard-Raptors'. Please check that we have imported the correct one.",
       },
     ])
   })

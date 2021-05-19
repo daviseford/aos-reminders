@@ -45,10 +45,10 @@ const Toolbar = () => {
 
   const currentViewMode = isGameMode ? 'game' : 'edit'
 
-  const { hasChanges, changedKeys } = useMemo(() => armyHasChanges(currentArmy), [
-    currentArmy,
-    armyHasChanges,
-  ])
+  const { hasChanges, changedKeys } = useMemo(
+    () => armyHasChanges(currentArmy),
+    [currentArmy, armyHasChanges]
+  )
 
   const hasEntries = useMemo(() => armyHasEntries(currentArmy, relevantNotes), [currentArmy, relevantNotes])
 

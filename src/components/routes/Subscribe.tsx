@@ -162,7 +162,6 @@ const CurrentFeatures = () => (
       </li>
       <li>Share army lists with your friends!</li>
       <li>Spare your eyes! Turn on dark mode!</li>
-      <li>Choose your favorite faction!</li>
       <li>
         Save, load, update, and delete your army lists from <strong>anywhere</strong> on <strong>any</strong>{' '}
         device - even <strong>offline!</strong>

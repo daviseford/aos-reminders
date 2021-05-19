@@ -336,33 +336,25 @@ export default class CompactPdfLayout {
     this._phases = Phases
   }
 
-  private _getSelections = () => (
-    name: string,
-    items: string[],
-    pluralize: boolean = true
-  ): ICompactPdfTextObj[] => {
-    if (items.length === 0) return []
-    const title = !pluralize ? name : items.length > 1 ? `${name}s` : name
-    const str = `${title}: ${items.join(' | ')}`
+  private _getSelections =
+    () =>
+    (name: string, items: string[], pluralize: boolean = true): ICompactPdfTextObj[] => {
+      if (items.length === 0) return []
+      const title = !pluralize ? name : items.length > 1 ? `${name}s` : name
+      const str = `${title}: ${items.join(' | ')}`
 
-    const lines: string[] = this._doc.splitTextToSize(str, this._opts.maxLineWidth)
+      const lines: string[] = this._doc.splitTextToSize(str, this._opts.maxLineWidth)
 
-    return lines.map(text => ({
-      type: 'army',
-      text: text.trim().replace(/\|$/g, ''), // remove trailing pipe from EOL
-      position: 'full',
-    }))
-  }
+      return lines.map(text => ({
+        type: 'army',
+        text: text.trim().replace(/\|$/g, ''), // remove trailing pipe from EOL
+        position: 'full',
+      }))
+    }
 
   private _getArmyText = (): ICompactPdfTextObj[] => {
-    const {
-      allyFactionNames,
-      allySelections,
-      factionName,
-      subFactionName,
-      realmscape_feature,
-      selections,
-    } = this._army
+    const { allyFactionNames, allySelections, factionName, subFactionName, realmscape_feature, selections } =
+      this._army
 
     const {
       artifacts,

@@ -13,7 +13,7 @@ import { logClick } from 'utils/analytics'
 import { BASE_URL, ROUTES } from 'utils/env'
 import useLogin from 'utils/hooks/useLogin'
 import useWindowSize from 'utils/hooks/useWindowSize'
-import { LocalFavoriteFaction, LocalSavedArmies, LocalTheme, LocalUserName } from 'utils/localStore'
+import { LocalSavedArmies, LocalTheme, LocalUserName } from 'utils/localStore'
 import { SubscriptionPlans } from 'utils/plans'
 
 const Navbar = () => {
@@ -29,7 +29,6 @@ const Navbar = () => {
   const handleLoginBtn = () => {
     if (isAuthenticated) {
       logClick('Navbar-Logout')
-      LocalFavoriteFaction.clear() // Get rid of any existing local favoriteFaction value
       LocalUserName.clear() // Get rid of stored user info
       LocalSavedArmies.clear() // Remove any saved armies that we've fetched from the API
       LocalTheme.clear() // Revert back to default theme settings

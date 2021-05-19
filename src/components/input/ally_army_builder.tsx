@@ -69,10 +69,10 @@ export const AllyArmyBuilder = ({ allyFactionName, allySelectOptions }: IAllyArm
     dispatch(updateAllyArmy({ factionName: allyFactionName, Army: allyArmy }))
   }, [allyArmy, allyFactionName, dispatch])
 
-  const isVisible = useMemo(() => !!visibleAllies.find(a => a === allyFactionName), [
-    allyFactionName,
-    visibleAllies,
-  ])
+  const isVisible = useMemo(
+    () => !!visibleAllies.find(a => a === allyFactionName),
+    [allyFactionName, visibleAllies]
+  )
 
   // Show ally when first clicked
   useEffect(() => {

@@ -1,16 +1,13 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
-import { SelectOne } from 'components/input/select'
 import { CancelPaypalSubscriptionModal } from 'components/modals/paypal_cancellation_modal'
 import { CancelStripeSubscriptionModal } from 'components/modals/stripe_cancellation_modal'
 import Contact from 'components/page/contact'
 import { GiftSubscriptions } from 'components/payment/giftSubscriptions'
-import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import { DateTime } from 'luxon'
-import { PRIMARY_FACTIONS } from 'meta/factions'
 import React, { lazy, Suspense, useEffect, useState } from 'react'
 import { FaGift, FaPaypal, FaSearchDollar } from 'react-icons/fa'
 import { MdCheckCircle, MdNotInterested } from 'react-icons/md'
@@ -20,7 +17,6 @@ import { centerContentClass } from 'theme/helperClasses'
 import { logClick, logPageView } from 'utils/analytics'
 import { ROUTES } from 'utils/env'
 import { titleCase } from 'utils/textUtils'
-import { withSelectOne } from 'utils/withSelect'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 
@@ -71,63 +67,11 @@ const UserCard = () => {
   return (
     <div className={`col py-4 ${theme.text} text-center`}>
       <h1 className="text-center">Your Profile</h1>
-      <FavoriteArmySelect />
       <ToggleTheme />
       <SubscriptionInfo />
       {isSubscribed && subscription.subscriptionStatus !== 'temporary_grant' && <RecurringPaymentInfo />}
       <EmailVerified />
       <Help />
-    </div>
-  )
-}
-
-const FavoriteArmySelect = () => {
-  const { isActive } = useSubscription()
-  const { favoriteFaction, updateFavoriteFaction, getFavoriteFaction } = useSavedArmies()
-  const { theme } = useTheme()
-
-  useEffect(() => {
-    if (!isActive) return
-    getFavoriteFaction()
-  }, [getFavoriteFaction, isActive])
-
-  const colClass = `col-12${isActive ? ` col-sm-10 col-md-8 col-lg-8 col-xxl-5 text-left` : ``}`
-
-  return (
-    <div className={`${theme.card} mt-2`}>
-      <div className={theme.profileCardHeader}>
-        <h4>
-          <div className={centerContentClass}>Favorite Faction</div>
-        </h4>
-      </div>
-
-      <div className={theme.cardBody}>
-        <div className={`d-flex justify-content-center`}>
-          <div className={colClass}>
-            {isActive ? (
-              <SelectOne
-                value={favoriteFaction ? titleCase(favoriteFaction) : null}
-                items={PRIMARY_FACTIONS}
-                setValue={withSelectOne(updateFavoriteFaction)}
-                hasDefault={true}
-                toTitle={true}
-              />
-            ) : (
-              <div className="alert alert-info text-center mt-3" role="alert">
-                <Link to={ROUTES.SUBSCRIBE} onClick={() => logClick('SubscribeFavoriteFaction')}>
-                  Subscribe now
-                </Link>{' '}
-                to save your favorite faction!
-                <br />
-                <small>
-                  No more scrolling through the long list of armies when you visit - your favorite is
-                  automatically loaded!
-                </small>
-              </div>
-            )}
-          </div>
-        </div>
-      </div>
     </div>
   )
 }
@@ -158,14 +102,8 @@ const CancelBtn = () => {
 }
 
 const SubscriptionInfo = () => {
-  const {
-    hasActiveGrant,
-    hasExpiredGrant,
-    isActive,
-    isPending,
-    isSubscribed,
-    subscription,
-  } = useSubscription()
+  const { hasActiveGrant, hasExpiredGrant, isActive, isPending, isSubscribed, subscription } =
+    useSubscription()
   const { theme } = useTheme()
 
   if (hasActiveGrant) return <TemporaryGrantComponent />

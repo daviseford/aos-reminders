@@ -273,7 +273,7 @@ export const logGiftedSubscription = (planTitle: string, quantity: string) => {
 export const logLoadedArmy = (army: TLoadedArmy) => {
   try {
     const {
-      selections = ([] as unknown) as TSelections,
+      selections = [] as unknown as TSelections,
       allySelections = {},
       origin_realm = null,
       realmscape = null,
