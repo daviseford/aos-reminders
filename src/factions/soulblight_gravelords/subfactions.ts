@@ -111,7 +111,16 @@ const subFactions = {
     effects: pickEffects(BattleTraits, ['Kastelai Dynasty']),
     available: {
       ...subFactionBase,
-      artifacts: [keyPicker(Artifacts, [])],
+      artifacts: [
+        keyPicker(Artifacts, [
+          'Sword of the Red Seneschals',
+          "Bloodsaint's Shield",
+          'Standard of the Crimson Keep',
+          'Grave-sand Shard',
+          'Fragment of the Keep',
+          'The Red Casket',
+        ]),
+      ],
       command_traits: [
         keyPicker(CommandTraits, [
           'Beacon of Bloodshed',

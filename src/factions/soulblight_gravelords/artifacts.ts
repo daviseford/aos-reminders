@@ -5,6 +5,8 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   SAVES_PHASE,
+  SHOOTING_PHASE,
+  START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
@@ -188,6 +190,62 @@ const Artifacts = {
         name: `Standard of the Ulfenwatch`,
         desc: `Once per battle, at the start of the hero phase, you can say that the bearer will raise the standard of the Ulfenwatch. If you do so, until the end of that turn, each time your opponent spends a command point, roll a dice. On a 5+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+
+  // Kastelai
+  'Sword of the Red Seneschals': {
+    effects: [
+      {
+        name: `Sword of the Red Seneschals`,
+        desc: `Pick 1 of the bearer's melee weapons. In the combat phase, if any enemy models are slain by attacks made with that weapon, add 1 to wound rolls for attacks made by friendly SOULBLIGHT GRAVELORDS units wholly within 12" of the bearer until the end of that phase.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  "Bloodsaint's Shield": {
+    effects: [
+      {
+        name: `Bloodsaint's Shield`,
+        desc: `Subtract 1 from casting rolls for enemy WIZARDS within 6" of the bearer.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Standard of the Crimson Keep': {
+    effects: [
+      {
+        name: `Standard of the Crimson Keep`,
+        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target the bearer.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Grave-sand Shard': {
+    effects: [
+      {
+        name: `Grave-sand Shard`,
+        desc: `Once per battle, at the start of the hero phase, you can say that the bearer will crush their grave-sand shard. If you do so, add 1 to rolls for the Deathless Minions battle trait for friendly SOULBLIGHT GRAVELORDS units wholly within 12" of the bearer until the end of that turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  'Fragment of the Keep': {
+    effects: [
+      {
+        name: `Fragment of the Keep`,
+        desc: `Subtract 1 from wound rolls for attacks made with melee weapons by enemy units within 6" of the bearer.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'The Red Casket': {
+    effects: [
+      {
+        name: `The Red Casket`,
+        desc: `Once per battle, at the start of your charge phase, you can say that the bearer will draw upon the power of the Red Casket. If you do so, add 3 to charge rolls for the bearer in that phase.`,
+        when: [START_OF_CHARGE_PHASE],
       },
     ],
   },
