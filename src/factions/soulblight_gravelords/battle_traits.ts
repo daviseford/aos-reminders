@@ -121,9 +121,14 @@ const BattleTraits = {
   'Vyrkos Dynasty': {
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `The Strength Of The Pack Is The Wolf`,
+        desc: `Add 1 to wound rolls for attacks made with melee weapons by friendly VYRKOS DYNASTY DEATHRATTLE and VYRKOS DYNASTY DEADWALKERS units while they are wholly within 9" of any friendly VYRKOS DYNASTY VAMPIRE HEROES.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `The Strength Of The Wolf Is The Pack`,
+        desc: `You can re-roll casting rolls for friendly VYRKOS DYNASTY VAMPIRE WIZARDS.`,
+        when: [HERO_PHASE],
       },
     ],
   },
