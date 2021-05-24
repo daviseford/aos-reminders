@@ -591,7 +591,7 @@ describe('getWarscrollArmyFromJson', () => {
   it('should work with 1589874682978-Warscroll_Builder', () => {
     const parsedText = getFile('1589874682978-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.units).toContain('Apprentice Runesmith')
+    expect(res.selections.units).toContain('Aether-Khemist')
     expect(res.errors).toEqual([])
   })
 
