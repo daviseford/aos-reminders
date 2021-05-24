@@ -136,9 +136,32 @@ const BattleTraits = {
   'Kastelai Dynasty': {
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `The Shifting Keep`,
+        desc: `Instead of setting up a KASTELAI DYNASTY BLOOD KNIGHTS unit on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit. You can set up 1 reserve unit in ambush for each unit you have already set up on the battlefield.
+
+        At the end of any of your movement phases, you can set up 1 or more of these units on the battlefield wholly within 6" of the battlefield edge and more than 9" from all enemy units. At the start of the fourth battle round, reserve units that are still in ambush are destroyed,`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `The Shifting Keep`,
+        desc: `At the end of any of your movement phases, you can set up 1 or more of your reserve units on the battlefield wholly within 6" of the battlefield edge and more than 9" from all enemy units. `,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `The Shifting Keep`,
+        desc: `At the start of the fourth battle round, reserve units that are still in ambush are destroyed,`,
+        when: [TURN_FOUR_START_OF_ROUND],
+      },
+      {
+        name: `Might Of The Crimson Keep`,
+        desc: `Each time a friendly KASTELAI DYNASTY VAMPIRE unit destroys an enemy unit, that friendly unit gains the relevant ability below for the rest of the battle. A unit cannot gain the same ability more than once per battle.
+
+        If the enemy unit was a HERO or MONSTER - Bloodied Strength: Add 1 to the Damage characteristic of melee weapons used by that unit (excluding mounts),
+        
+        If the enemy unit had a Wounds characteristic of 3 or more and was not a HERO or MONSTER - Stolen Vitality: Add 1 to the Wounds characteristic of that unit.
+        
+        If the enemy unit had a Wounds characteristic of 2 or less - Absorbed Speed; Add 2 to run and charge rolls for that unit.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

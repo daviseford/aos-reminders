@@ -4,10 +4,13 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 // Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
@@ -188,12 +191,57 @@ const CommandTraits = {
   },
 
   // Kastelai Dynasty
-  'Kastelai Dynasty': {
+  'Beacon of Bloodshed': {
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Beacon of Bloodshed`,
+        desc: `After this general makes a charge move, you can pick 1 enemy unit within of this general and roll a dice. On a 3+, that unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  'Master of Retaliation': {
+    effects: [
+      {
+        name: `Master of Retaliation`,
+        desc: `At the end of the combat phase, if any wounds or mortal wounds were allocated to this general in that phase and this general was not slain, you can pick 1 enemy unit within 1" of them and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Power in the Blood': {
+    effects: [
+      {
+        name: `Power in the Blood`,
+        desc: `If an enemy unit is destroyed within 6" of this general, this general gains the relevant ability from the Might of the Crimson Keep battle trait, even if the enemy unit was not destroyed by this general.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  'Rousing Commander': {
+    effects: [
+      {
+        name: `Rousing Commander`,
+        desc: `Once per battle, at the start of the combat phase, you can say that this general will rouse their warriors. If you do so, until the end of that phase, friendly KASTELAI DYNASTY VAMPIRE units wholly within 12" of this general benefit from the Bloodied Strength and Stolen Vitality abilities from the Might of the Crimson Keep battle trait (if they have not already gained one or both of them),`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Swift and Deadly': {
+    effects: [
+      {
+        name: `Swift and Deadly`,
+        desc: `You can reroll charge rolls for friendly KASTELAI DYNASTY units while they are wholly within 12" of this general.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  'A Craving for Massacre': {
+    effects: [
+      {
+        name: `A Craving for Massacre`,
+        desc: `This general can run and still charge later in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },

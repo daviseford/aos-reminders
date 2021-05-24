@@ -112,7 +112,16 @@ const subFactions = {
     available: {
       ...subFactionBase,
       artifacts: [keyPicker(Artifacts, [])],
-      command_traits: [keyPicker(CommandTraits, [])],
+      command_traits: [
+        keyPicker(CommandTraits, [
+          'Beacon of Bloodshed',
+          'Master of Retaliation',
+          'Power in the Blood',
+          'Rousing Commander',
+          'Swift and Deadly',
+          'A Craving for Massacre',
+        ]),
+      ],
     },
   },
 
