@@ -76,11 +76,13 @@ const PlanComponent: React.FC<IPlanProps> = props => {
   const { login } = useLogin({ origin: supportPlan.title })
   const stripe = useStripe()
 
-  if (!stripe || !user) return null
+  if (!stripe) return null
 
   // When the customer clicks on the Subscribe button, redirect them to Stripe Checkout.
   const handleStripeCheckout = async (e: React.MouseEvent) => {
     e.preventDefault()
+
+    if (!user) return
 
     logClick(supportPlan.title)
 
