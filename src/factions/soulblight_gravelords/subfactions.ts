@@ -59,7 +59,16 @@ const subFactions = {
     effects: pickEffects(BattleTraits, ['Legion of Night']),
     available: {
       ...subFactionBase,
-      artifacts: [keyPicker(Artifacts, [])],
+      artifacts: [
+        keyPicker(Artifacts, [
+          'Vial of Pure Blood',
+          'Shard of Night',
+          'Gem of Exsanguination',
+          'Chiropteran Cloak',
+          "Morbheg's Claw",
+          'Curseblade',
+        ]),
+      ],
       command_traits: [
         keyPicker(CommandTraits, [
           'Above Suspicion',
