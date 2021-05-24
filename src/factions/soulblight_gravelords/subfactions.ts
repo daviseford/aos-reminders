@@ -84,7 +84,16 @@ const subFactions = {
     effects: pickEffects(BattleTraits, ['Vyrkos Dynasty']),
     available: {
       ...subFactionBase,
-      artifacts: [keyPicker(Artifacts, [])],
+      artifacts: [
+        keyPicker(Artifacts, [
+          'Ulfenkarnian Phylactery',
+          'Cloak of the Night Prowler',
+          'Sangsyron',
+          "Vilnas' Fang",
+          'Terminus Clock',
+          'Standard of the Ulfenwatch',
+        ]),
+      ],
       command_traits: [
         keyPicker(CommandTraits, [
           'Pack Alpha',

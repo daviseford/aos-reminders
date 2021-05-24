@@ -1,5 +1,14 @@
 import { tagAs } from 'factions/metatagger'
-import { COMBAT_PHASE, END_OF_SETUP, HERO_PHASE, SAVES_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
+import {
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  END_OF_SETUP,
+  HERO_PHASE,
+  SAVES_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
+  WOUND_ALLOCATION_PHASE,
+} from 'types/phases'
 
 // Add individual artifacts here, and access them in other files!
 const Artifacts = {
@@ -127,12 +136,68 @@ const Artifacts = {
     ],
   },
 
+  // VYRKOS
+  'Ulfenkarnian Phylactery': {
+    effects: [
+      {
+        name: `Ulfenkarnian Phylactery`,
+        desc: `Friendly SOULBLIGHT GRAVELORDS units are affected by the Deathless Minions battle trait while they are wholly within 18" of the bearer instead of 12".`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  'Cloak of the Night Prowler': {
+    effects: [
+      {
+        name: `Cloak of the Night Prowler`,
+        desc: `The bearer can pile in an extra 3" when they make a pile-in move.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  Sangsyron: {
+    effects: [
+      {
+        name: `Sangsyron`,
+        desc: `Pick 1 of the bearer's melee weapons. If the bearer made a charge move in the same turn, add D3 to the Attacks characteristic of that weapon until the end of that turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  "Vilnas' Fang": {
+    effects: [
+      {
+        name: `Vilnas' Fang`,
+        desc: `Once per battle, in your charge phase, you can say that the bearer will be imbued with Vilnas' stealth. If you do so, until the end of that phase, add 1 to charge rolls for the bearer for each other friendly VYRKOS DYNASTY VAMPIRE HERO on the battlefield.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  'Terminus Clock': {
+    effects: [
+      {
+        name: `Terminus Clock`,
+        desc: `Once per battle, at the start of the enemy hero phase, you can say that the bearer will stop the Terminus Clock. If you do so, until the end of that phase, subtract 1 from casting rolls for enemy WIZARDS.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  'Standard of the Ulfenwatch': {
+    effects: [
+      {
+        name: `Standard of the Ulfenwatch`,
+        desc: `Once per battle, at the start of the hero phase, you can say that the bearer will raise the standard of the Ulfenwatch. If you do so, until the end of that turn, each time your opponent spends a command point, roll a dice. On a 5+, you receive 1 extra command point.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+
   // '': {
   //   effects: [
   //     {
   //       name: ``,
   //       desc: ``,
-  //       when: [END_OF_SETUP],
+  //       when: [],
   //     },
   //   ],
   // },
