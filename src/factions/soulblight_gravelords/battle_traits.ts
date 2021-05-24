@@ -169,9 +169,21 @@ const BattleTraits = {
   'Avengorii Dynasty': {
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Cursed Abominations`,
+        desc: `If a Soulblight Gravelords army with the AVENGORII DYNASTY keyword includes any TERRORGHEISTS or ZOMBIE DRAGONS, 1 of those models has a cursed mutation. Choose which model will have the cursed mutation, then pick from or roll on the Cursed Mutations table.
+
+        You can choose 1 additional friendly AVENGORII DYNASTY TERRORGHEIST or AVENGORII DYNASTY ZOMBIE DRAGON to have a cursed mutation for each warscroll battalion in your army. A model cannot have more than 1 cursed mutation, and an army may not include duplicates of the same cursed mutation.`,
+        when: [START_OF_SETUP],
+      },
+      {
+        name: `Monstrous Might`,
+        desc: `Subtract 1 from wound rolls for attacks made with melee weapons that target friendly AVENGORII DYNASTY TERRORGHEISTS, AVENGORII DYNASTY ZOMBIE DRAGONS or AVENGORII DYNASTY VAMPIRE MONSTERS unless the attacking unit is a MONSTER.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Unstoppable Nightmares`,
+        desc: `In the combat phase, you can pick 1 friendly AVENGORII DYNASTY TERRORGHEIST, AVENGORII DYNASTY ZOMBIE DRAGON or AVENGORII DYNASTY VAMPIRE MONSTER to unleash its monstrous power. If you do so, until the end of that phase, use the top row on that model's damage table, regardless of how many wounds it has suffered. The same model cannot benefit from this ability more than once per battle.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

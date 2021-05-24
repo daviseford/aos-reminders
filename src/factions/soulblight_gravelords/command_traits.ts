@@ -247,15 +247,44 @@ const CommandTraits = {
   },
 
   // Avengorii Dynasty
-  'Avengorii Dynasty': {
+  'An Eye for An Eye': {
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `An Eye for An Eye`,
+        desc: `If any wounds or mortal wounds are allocated to this general in the combat phase, add 1 to the Damage characteristic of melee weapons used by this general (including their mount) until the end of that phase.`,
+        when: [COMBAT_PHASE, WOUND_ALLOCATION_PHASE],
       },
     ],
   },
+  'Torment-driven Throes': {
+    effects: [
+      {
+        name: `Torment-driven Throes`,
+        desc: `At the start of the combat phase, you can roll a dice for each enemy unit within 3" of this general. On a 5+, that enemy unit suffers 1 mortal wound and can only attack this general in that phase after this general has already fought in that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Unhinged Rampager': {
+    effects: [
+      {
+        name: `Unhinged Rampager`,
+        desc: `You can reroll charge rolls for this general.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  
+
+  // '': {
+  //   effects: [
+  //     {
+  //       name: ``,
+  //       desc: ``,
+  //       when: [],
+  //     },
+  //   ],
+  // },
 }
 
 // Always export using tagAs

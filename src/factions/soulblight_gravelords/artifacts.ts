@@ -250,6 +250,35 @@ const Artifacts = {
     ],
   },
 
+  // Avengorii Dynasty
+   'Breath of the Void Maw': {
+    effects: [
+      {
+        name: `Breath of the Void Maw`,
+        desc: `Once per battle, in your hero phase, you can pick 1 enemy unit within 6" of the bearer that is visible to them and roll a dice. On a 3+, that unit suffers mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+   "Ghorvar's Collar": {
+    effects: [
+      {
+        name: `Ghorvar's Collar`,
+        desc: `Once per battle, at the start of the combat phase, you can say that the bearer will don Ghorvar's collar. If you do so, you can reroll wound rolls of 1 for attacks made by the bearer in that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+   'The Furious Crown': {
+    effects: [
+      {
+        name: `The Furious Crown`,
+        desc: `Once per battle, at the start of your charge phase, you can say that the bearer will unleash the fury of the crown. If you do so, after the bearer makes a charge move in that phase, you can pick 1 enemy unit within 1" of the bearer and roll a number of dice equal to the charge roll for that charge move. For each 5+, that enemy unit suffers 1 mortal wound.`,
+        when: [START_OF_CHARGE_PHASE],
+      },
+    ],
+  },
+
   // '': {
   //   effects: [
   //     {
