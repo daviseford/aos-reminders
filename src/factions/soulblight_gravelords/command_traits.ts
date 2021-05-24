@@ -3,13 +3,15 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_MOVEMENT_PHASE,
+  HERO_PHASE,
   MOVEMENT_PHASE,
+  START_OF_HERO_PHASE,
 } from 'types/phases'
 
 // Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandTraits = {
-
   // Legion of Blood
   'Premeditated Violence': {
     effects: [
@@ -117,20 +119,70 @@ const CommandTraits = {
     effects: [
       {
         name: `Terrifying Visage`,
-        desc: `Subtract 1 from wound rolls for attacks made
-    with melee weapons that target this general.`,
+        desc: `Subtract 1 from wound rolls for attacks made with melee weapons that target this general.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
 
   // Vyrkos Dynasty
-  'Vyrkos Dynasty': {
+  'Pack Alpha': {
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Pack Alpha`,
+        desc: `Once per turn, this general can use a command ability without a command point being spent.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  'Driven by Deathstench': {
+    effects: [
+      {
+        name: `Driven by Deathstench`,
+        desc: `You can reroll charge rolls for friendly VYRKOS DYNASTY units wholly within 9" of this general.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  'Kin of the Wolf': {
+    effects: [
+      {
+        name: `Kin of the Wolf`,
+        desc: `Once per battle, at the end of your movement
+        phase, you can say that this general will
+        summon a pack of Dire Wolves to the
+        battlefield. If you do so, you can add 1 unit of
+        up to 5 DIRE WOLVES to your army. Set up that
+        unit wholly within 9" of this general and more
+        than 9" from all enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
+  "Hunter's Snare": {
+    effects: [
+      {
+        name: `Hunter's Snare`,
+        desc: `If this general contests an objective, the number of models this general counts as is equal to their Wounds characteristic.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  'Spoor Trackers': {
+    effects: [
+      {
+        name: `Spoor Trackers`,
+        desc: `At the start of your hero phase, friendly VYRKOS DYNASTY DEADWALKERS units wholly within 9" of this general can make a normal move of up to 3" (they cannot run).`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  'United by Blood': {
+    effects: [
+      {
+        name: `United by Blood`,
+        desc: `This general can attempt to unbind 1 spell in the enemy hero phase in the same manner as a WIZARD. If this general is already a WIZARD, they can attempt to unbind 1 extra spell in the enemy hero phase.`,
+        when: [HERO_PHASE],
       },
     ],
   },

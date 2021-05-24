@@ -107,7 +107,7 @@ const BattleTraits = {
       },
       {
         name: `Ageless Cunning`,
-        desc: ` At the end of any of your movement phases, you can set up 1 or more of these units on the battlefield wholly within 6" of the battlefield edge and more than 9" from all enemy units.`,
+        desc: `At the end of any of your movement phases, you can set up 1 or more of these units on the battlefield wholly within 6" of the battlefield edge and more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
@@ -127,7 +127,7 @@ const BattleTraits = {
       },
       {
         name: `The Strength Of The Wolf Is The Pack`,
-        desc: `You can re-roll casting rolls for friendly VYRKOS DYNASTY VAMPIRE WIZARDS.`,
+        desc: `You can reroll casting rolls for friendly VYRKOS DYNASTY VAMPIRE WIZARDS.`,
         when: [HERO_PHASE],
       },
     ],

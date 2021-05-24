@@ -489,7 +489,7 @@ const Units = {
       },
       {
         name: `Tide of Snakes`,
-        desc: `If the unmodified hit roll for an attack made with an Ark of Sotek is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll),`,
+        desc: `If the unmodified hit roll for an attack made with an Ark of Sotek is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
     ],

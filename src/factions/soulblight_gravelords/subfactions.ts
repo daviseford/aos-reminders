@@ -27,7 +27,6 @@ const subFactionBase = {
 
 const subFactions = {
   'Legion of Blood': {
-    mandatory: {},
     effects: pickEffects(BattleTraits, ['Legion of Blood']),
     available: {
       ...subFactionBase,
@@ -55,7 +54,6 @@ const subFactions = {
   },
 
   'Legion of Night': {
-    mandatory: {},
     effects: pickEffects(BattleTraits, ['Legion of Night']),
     available: {
       ...subFactionBase,
@@ -83,18 +81,39 @@ const subFactions = {
   },
 
   'Vyrkos Dynasty': {
-    mandatory: {},
     effects: pickEffects(BattleTraits, ['Vyrkos Dynasty']),
+    available: {
+      ...subFactionBase,
+      artifacts: [keyPicker(Artifacts, [])],
+      command_traits: [
+        keyPicker(CommandTraits, [
+          'Pack Alpha',
+          'Driven by Deathstench',
+          'Kin of the Wolf',
+          "Hunter's Snare",
+          'Spoor Trackers',
+          'United by Blood',
+        ]),
+      ],
+    },
   },
 
   'Kastelai Dynasty': {
-    mandatory: {},
     effects: pickEffects(BattleTraits, ['Kastelai Dynasty']),
+    available: {
+      ...subFactionBase,
+      artifacts: [keyPicker(Artifacts, [])],
+      command_traits: [keyPicker(CommandTraits, [])],
+    },
   },
 
   'Avengorii Dynasty': {
-    mandatory: {},
     effects: pickEffects(BattleTraits, ['Avengorii Dynasty']),
+    available: {
+      ...subFactionBase,
+      artifacts: [keyPicker(Artifacts, [])],
+      command_traits: [keyPicker(CommandTraits, [])],
+    },
   },
 }
 
