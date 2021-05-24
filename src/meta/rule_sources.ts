@@ -1,7 +1,9 @@
 export type TRuleSource = {
   name: string
-  // publication_date: `${number}-${number}-${number}`
-  publication_date: string
+  /**
+   * DD-MM-YY format
+   */
+  publication_date: string // `${number}-${number}-${number}`
   type: 'battletome' | 'white_dwarf' | 'errata' | 'ghb' | 'other_book' | 'boxed_game' | string
   /**
    * A helpful link to where these rules can be found. Optional.
