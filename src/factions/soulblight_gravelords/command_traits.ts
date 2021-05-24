@@ -222,7 +222,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Rousing Commander`,
-        desc: `Once per battle, at the start of the combat phase, you can say that this general will rouse their warriors. If you do so, until the end of that phase, friendly KASTELAI DYNASTY VAMPIRE units wholly within 12" of this general benefit from the Bloodied Strength and Stolen Vitality abilities from the Might of the Crimson Keep battle trait (if they have not already gained one or both of them),`,
+        desc: `Once per battle, at the start of the combat phase, you can say that this general will rouse their warriors. If you do so, until the end of that phase, friendly KASTELAI DYNASTY VAMPIRE units wholly within 12" of this general benefit from the Bloodied Strength and Stolen Vitality abilities from the Might of the Crimson Keep battle trait (if they have not already gained one or both of them).`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

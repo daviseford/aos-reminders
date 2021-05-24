@@ -144,12 +144,12 @@ const BattleTraits = {
       },
       {
         name: `The Shifting Keep`,
-        desc: `At the end of any of your movement phases, you can set up 1 or more of your reserve units on the battlefield wholly within 6" of the battlefield edge and more than 9" from all enemy units. `,
+        desc: `At the end of any of your movement phases, you can set up 1 or more of your reserve units on the battlefield wholly within 6" of the battlefield edge and more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `The Shifting Keep`,
-        desc: `At the start of the fourth battle round, reserve units that are still in ambush are destroyed,`,
+        desc: `At the start of the fourth battle round, reserve units that are still in ambush are destroyed.`,
         when: [TURN_FOUR_START_OF_ROUND],
       },
       {
