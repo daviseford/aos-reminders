@@ -5,7 +5,7 @@ const rule_sources = {
     type: 'battletome',
   },
   ERRATA_SONS_OF_BEHEMAT_NOV_2020: {
-    name: 'Errata, November 2020',
+    name: 'Errata (November 2020)',
     publication_date: '20-11-18',
     type: 'errata',
   },
