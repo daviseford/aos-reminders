@@ -11,7 +11,7 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-const BaseArmy = {
+const subFactionBase = {
   artifacts: [Artifacts],
   battalions: [Battalions],
   command_abilities: [CommandAbilities],
@@ -30,7 +30,7 @@ const subFactions = {
     mandatory: {},
     effects: pickEffects(BattleTraits, ['Legion of Blood']),
     available: {
-      ...BaseArmy,
+      ...subFactionBase,
       artifacts: [
         keyPicker(Artifacts, [
           'Amulet of Screams',
@@ -41,7 +41,16 @@ const subFactions = {
           'Soulbound Garments',
         ]),
       ],
-      command_traits: [keyPicker(CommandTraits, ['Legion of Blood'])],
+      command_traits: [
+        keyPicker(CommandTraits, [
+          'Premeditated Violence',
+          'Soul-crushing Contempt',
+          'Aristocracy of Blood',
+          'Aura of Dark Majesty',
+          'Walking Death',
+          'Sanguine Blur',
+        ]),
+      ],
     },
   },
 
@@ -49,7 +58,7 @@ const subFactions = {
     mandatory: {},
     effects: pickEffects(BattleTraits, ['Legion of Night']),
     available: {
-      ...BaseArmy,
+      ...subFactionBase,
       artifacts: [keyPicker(Artifacts, [])],
       command_traits: [
         keyPicker(CommandTraits, [

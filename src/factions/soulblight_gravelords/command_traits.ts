@@ -9,43 +9,55 @@ import {
 
 // Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandTraits = {
-  // '': {
-  //   effects: [
-  //     {
-  //       name: ``,
-  //       desc: ``,
-  //       when: [END_OF_SETUP],
-  //     },
-  //   ],
-  // },
 
-  'Legion of Blood': {
+  // Legion of Blood
+  'Premeditated Violence': {
     effects: [
       {
         name: `Premeditated Violence`,
         desc: `If the unmodified hit roll for an attack made with a melee weapon by this general is 6, that attack scores 2 hits on the target instead of 1, Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
+    ],
+  },
+  'Soul-crushing Contempt': {
+    effects: [
       {
         name: `Soul-crushing Contempt`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of this general.`,
         when: [BATTLESHOCK_PHASE],
       },
+    ],
+  },
+  'Aristocracy of Blood': {
+    effects: [
       {
         name: `Aristocracy of Blood`,
         desc: `You can reroll charge rolls for friendly LEGION OF BLOOD units while they are wholly within 12" of this general.`,
         when: [CHARGE_PHASE],
       },
+    ],
+  },
+  'Aura of Dark Majesty': {
+    effects: [
       {
         name: `Aura of Dark Majesty`,
         desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this general.`,
         when: [COMBAT_PHASE],
       },
+    ],
+  },
+  'Walking Death': {
+    effects: [
       {
         name: `Walking Death`,
         desc: `If the unmodified wound roll for an attack made with a melee weapon by this general is 6, that attack inflicts a number of mortal wounds equal to the Damage characteristic of the weapon used for the attack and the attack sequence ends (do not make a save roll).`,
         when: [COMBAT_PHASE],
       },
+    ],
+  },
+  'Sanguine Blur': {
+    effects: [
       {
         name: `Sanguine Blur`,
         desc: `Friendly units that start a pile-in move wholly within 12" of this general can move an extra 3" when they pile in.`,
@@ -111,8 +123,6 @@ const CommandTraits = {
       },
     ],
   },
-
-
 
   // Vyrkos Dynasty
   'Vyrkos Dynasty': {
