@@ -37,6 +37,20 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should correctly read SoulblightGravelords1', () => {
+    const pdfText = getFile('SoulblightGravelords1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read SoulblightGravelords2', () => {
+    const pdfText = getFile('SoulblightGravelords2')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read ArkhanCurse', () => {
     const pdfText = getFile('ArkhanCurse')
     const parsedText = parsePdf(pdfText)
