@@ -27,7 +27,7 @@ const CommandTraits = {
       },
       {
         name: `Aristocracy of Blood`,
-        desc: `You can re-roll charge rolls for friendly LEGION OF BLOOD units while they are wholly within 12" of this general.`,
+        desc: `You can reroll charge rolls for friendly LEGION OF BLOOD units while they are wholly within 12" of this general.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -87,7 +87,6 @@ const CommandTraits = {
       },
     ],
   },
-
 }
 
 // Always export using tagAs

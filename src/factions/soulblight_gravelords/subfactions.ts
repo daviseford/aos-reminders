@@ -29,7 +29,20 @@ const subFactions = {
   'Legion of Blood': {
     mandatory: {},
     effects: pickEffects(BattleTraits, ['Legion of Blood']),
-    available: { ...BaseArmy, command_traits: [keyPicker(CommandTraits, ['Legion of Blood'])] },
+    available: {
+      ...BaseArmy,
+      artifacts: [
+        keyPicker(Artifacts, [
+          'Amulet of Screams',
+          'Orb of Enchantment',
+          'Oubliette Arcana',
+          'Ring of Dominion',
+          'Shadeglass Decanter',
+          'Soulbound Garments',
+        ]),
+      ],
+      command_traits: [keyPicker(CommandTraits, ['Legion of Blood'])],
+    },
   },
 
   'Legion of Night': {
