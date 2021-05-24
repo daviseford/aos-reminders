@@ -1,8 +1,9 @@
 import { tagAs } from 'factions/metatagger'
+import { SOULBLIGHT_GRAVELORDS } from 'meta/factions'
 import { END_OF_SETUP } from 'types/phases'
 
 const BattleTraits = {
-  SAMPLE: {
+  [SOULBLIGHT_GRAVELORDS]: {
     effects: [
       {
         name: `Battle Traits`,

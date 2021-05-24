@@ -1,3 +1,4 @@
+import { SOULBLIGHT_GRAVELORDS } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
@@ -12,10 +13,9 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-// TODO: Explain what a subfaction is (vs faction, vs flavor)
 const subFactions = {
-  SAMPLE: {
-    effects: pickEffects(BattleTraits, ['SAMPLE']),
+  [SOULBLIGHT_GRAVELORDS]: {
+    effects: pickEffects(BattleTraits, [SOULBLIGHT_GRAVELORDS]),
     available: {
       artifacts: [Artifacts],
       battalions: [Battalions],

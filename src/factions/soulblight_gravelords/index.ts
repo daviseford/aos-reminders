@@ -8,6 +8,6 @@ export const SoulblightGravelordsFaction = new Faction(
   SOULBLIGHT_GRAVELORDS,
   DEATH,
   SubFactions,
-  'Flavors',
+  'Lineage',
   rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS
 )
