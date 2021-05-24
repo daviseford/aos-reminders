@@ -1,5 +1,11 @@
 import { tagAs } from 'factions/metatagger'
-import { BATTLESHOCK_PHASE, CHARGE_PHASE, COMBAT_PHASE } from 'types/phases'
+import {
+  BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
+  MOVEMENT_PHASE,
+} from 'types/phases'
 
 // Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const CommandTraits = {
@@ -48,16 +54,67 @@ const CommandTraits = {
     ],
   },
 
-  'Legion of Night': {
+  // Legion of Night
+  'Above Suspicion': {
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Above Suspicion`,
+        desc: `If this general is set up in ambush using the Ageless Cunning battle trait, at the end of your movement phase, you can set up this general anywhere on the battlefield more than 9" from all enemy units, instead of wholly within 6" of the battlefield edge.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
 
+  'Swift Form': {
+    effects: [
+      {
+        name: `Swift Form`,
+        desc: `Add 2 to run and charge rolls for this general.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+    ],
+  },
+  'Unbending Will': {
+    effects: [
+      {
+        name: `Unbending Will`,
+        desc: `Do not take battleshock tests for friendly LEGION OF NIGHT units while they are wholly within 12" of this general.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  'Merciless Hunter': {
+    effects: [
+      {
+        name: `Merciless Hunter`,
+        desc: `Add 1 to wound rolls for attacks made with melee weapons by this general.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Unholy Impetus': {
+    effects: [
+      {
+        name: `Unholy Impetus`,
+        desc: `In the combat phase, if any enemy models are slain by attacks made with melee weapons by this general in that phase, add 1 to the Attacks characteristic of melee weapons used by friendly LEGION OF NIGHT units wholly within 12" of this general until the end of that phase.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Terrifying Visage': {
+    effects: [
+      {
+        name: `Terrifying Visage`,
+        desc: `Subtract 1 from wound rolls for attacks made
+    with melee weapons that target this general.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+
+
+  // Vyrkos Dynasty
   'Vyrkos Dynasty': {
     effects: [
       {
@@ -68,6 +125,7 @@ const CommandTraits = {
     ],
   },
 
+  // Kastelai Dynasty
   'Kastelai Dynasty': {
     effects: [
       {
@@ -78,6 +136,7 @@ const CommandTraits = {
     ],
   },
 
+  // Avengorii Dynasty
   'Avengorii Dynasty': {
     effects: [
       {

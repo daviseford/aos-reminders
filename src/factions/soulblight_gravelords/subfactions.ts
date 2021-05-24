@@ -48,6 +48,20 @@ const subFactions = {
   'Legion of Night': {
     mandatory: {},
     effects: pickEffects(BattleTraits, ['Legion of Night']),
+    available: {
+      ...BaseArmy,
+      artifacts: [keyPicker(Artifacts, [])],
+      command_traits: [
+        keyPicker(CommandTraits, [
+          'Above Suspicion',
+          'Swift Form',
+          'Unbending Will',
+          'Merciless Hunter',
+          'Unholy Impetus',
+          'Terrifying Visage',
+        ]),
+      ],
+    },
   },
 
   'Vyrkos Dynasty': {

@@ -3,12 +3,15 @@ import { SOULBLIGHT_GRAVELORDS } from 'meta/factions'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
+  DURING_SETUP,
   END_OF_BATTLESHOCK_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
   TURN_FOUR_START_OF_ROUND,
+  TURN_ONE_DURING_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
@@ -91,9 +94,26 @@ const BattleTraits = {
   'Legion of Night': {
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `The Bait`,
+        desc: `Add 1 to save rolls for attacks that target friendly LEGION OF NIGHT DEATHRATTLE and friendly LEGION OF NIGHT DEADWALKERS units in the first battle round.`,
+        when: [TURN_ONE_DURING_ROUND, SAVES_PHASE],
+      },
+      {
+        name: `Ageless Cunning`,
+        desc: `Instead of setting up a LEGION OF NIGHT unit on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit. You can set up 1 reserve unit in ambush for each unit you have already set up on the battlefield.
+
+        At the end of any of your movement phases, you can set up 1 or more of these units on the battlefield wholly within 6" of the battlefield edge and more than 9" from all enemy units. At the start of the fourth battle round, reserve units that are still in ambush are destroyed.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Ageless Cunning`,
+        desc: ` At the end of any of your movement phases, you can set up 1 or more of these units on the battlefield wholly within 6" of the battlefield edge and more than 9" from all enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Ageless Cunning`,
+        desc: `At the start of the fourth battle round, reserve units that are still in ambush are destroyed.`,
+        when: [TURN_FOUR_START_OF_ROUND],
       },
     ],
   },
