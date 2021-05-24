@@ -134,7 +134,6 @@ export const getFactionFromList = (factionName: TSupportedFaction) => {
   return faction
 }
 
-
 /**
  * The functions below are unused right now, but might be useful one day
  */

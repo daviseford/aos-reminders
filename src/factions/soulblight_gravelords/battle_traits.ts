@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import { SOULBLIGHT_GRAVELORDS } from 'meta/factions'
 import {
   BATTLESHOCK_PHASE,
+  COMBAT_PHASE,
   END_OF_BATTLESHOCK_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
@@ -57,10 +58,10 @@ const BattleTraits = {
         name: `Deathly Invocation`,
         desc: `At the start of your hero phase, you can pick a number of different friendly SOULBLIGHT GRAVELORDS SUMMONABLE units wholly within 12" of a friendly SOULBLIGHT GRAVELORDS HERO to be affected by a deathly invocation. The number of different friendly SOULBLIGHT GRAVELORDS SUMMONABLE units you can pick is determined by the keyword on that HERO's warscroll:
          
-        MORTARCH     | up to 4 units
-        VAMPIRE      | up to 3 units
-        DEATHMAGES   | up to 2 units
-        DEATHRATTLE  | up to 2 units
+        MORTARCH    - up to 4 units
+        VAMPIRE     - up to 3 units
+        DEATHMAGES  - up to 2 units
+        DEATHRATTLE - up to 2 units
 
         If the HERO has more than 1 of the above keywords on its warscroll, choose 1 of them.
 
@@ -68,6 +69,61 @@ const BattleTraits = {
 
         Designer's Note: Some Soulblight Gravelords abilities and spells allow you to return slain models to a unit. When you do so, set up the models one at a time within 1" of a model from their unit that was not returned to the unit earlier in the phase. Slain models can only be set up within 3" of an enemy unit if a model in the unit they are returning to that was not already returned in the same phase is already within 3" of that enemy unit. `,
         when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+
+  'Legion of Blood': {
+    effects: [
+      {
+        name: `Immortal Majesty`,
+        desc: `If an enemy unit fails a battleshock test within 3" of any friendly LEGION OF BLOOD VAMPIRE units, add D3 to the number of models that flee.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Favoured Retainers`,
+        desc: `Ignore negative modifiers to hit and wound rolls for attacks made with melee weapons by friendly LEGION OF BLOOD DEATHRATTLE units while they are wholly within 12" of a friendly LEGION OF BLOOD VAMPIRE unit or wholly within 18" of a friendly LEGION OF BLOOD VAMPIRE HERO that is a general.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'Legion of Night': {
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+
+  'Vyrkos Dynasty': {
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+
+  'Kastelai Dynasty': {
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
+
+  'Avengorii Dynasty': {
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
       },
     ],
   },
