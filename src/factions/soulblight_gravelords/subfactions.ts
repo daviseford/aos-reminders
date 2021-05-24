@@ -1,4 +1,3 @@
-import { SOULBLIGHT_GRAVELORDS } from 'meta/factions'
 import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
@@ -29,28 +28,28 @@ const BaseArmy = {
 const subFactions = {
   'Legion of Blood': {
     mandatory: {},
-    effects: pickEffects(BattleTraits, [SOULBLIGHT_GRAVELORDS, 'Legion of Blood']),
+    effects: pickEffects(BattleTraits, ['Legion of Blood']),
     available: { ...BaseArmy, command_traits: [keyPicker(CommandTraits, ['Legion of Blood'])] },
   },
 
   'Legion of Night': {
     mandatory: {},
-    effects: pickEffects(BattleTraits, [SOULBLIGHT_GRAVELORDS, 'Legion of Night']),
+    effects: pickEffects(BattleTraits, ['Legion of Night']),
   },
 
   'Vyrkos Dynasty': {
     mandatory: {},
-    effects: pickEffects(BattleTraits, [SOULBLIGHT_GRAVELORDS, 'Vyrkos Dynasty']),
+    effects: pickEffects(BattleTraits, ['Vyrkos Dynasty']),
   },
 
   'Kastelai Dynasty': {
     mandatory: {},
-    effects: pickEffects(BattleTraits, [SOULBLIGHT_GRAVELORDS, 'Kastelai Dynasty']),
+    effects: pickEffects(BattleTraits, ['Kastelai Dynasty']),
   },
 
   'Avengorii Dynasty': {
     mandatory: {},
-    effects: pickEffects(BattleTraits, [SOULBLIGHT_GRAVELORDS, 'Avengorii Dynasty']),
+    effects: pickEffects(BattleTraits, ['Avengorii Dynasty']),
   },
 }
 

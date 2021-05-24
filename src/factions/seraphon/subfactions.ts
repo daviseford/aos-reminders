@@ -12,7 +12,7 @@ import Spells from './spells'
 import Units from './units'
 
 const baseSubFaction: IItemDescription = {
-  effects: pickEffects(BattleTraits, ['SERAPHON']),
+  effects: [],
   available: {
     artifacts: [Artifacts],
     battalions: [Battalions],
@@ -27,7 +27,7 @@ const baseSubFaction: IItemDescription = {
 
 const subFactions = {
   Coalesced: {
-    effects: pickEffects(BattleTraits, ['COALESCED', 'SERAPHON']),
+    effects: pickEffects(BattleTraits, ['COALESCED']),
 
     available: {
       ...baseSubFaction.available,
@@ -48,7 +48,7 @@ const subFactions = {
   Starborne: {
     ...baseSubFaction,
 
-    effects: pickEffects(BattleTraits, ['STARBORNE', 'SERAPHON']),
+    effects: pickEffects(BattleTraits, ['STARBORNE']),
 
     available: {
       ...baseSubFaction.available,

@@ -2,6 +2,7 @@ import { RealmscapeFeatures } from 'generic_rules'
 import produce from 'immer'
 import { flatten, sortBy, sortedUniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
+import { getFactionFromList } from 'meta/faction_list'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { IArmy, TAllyArmies } from 'types/army'
 import { IReminder, selectionsKeyToEntryKey, TEffects, TTurnAction } from 'types/data'
@@ -47,7 +48,27 @@ export const processReminders: TProcessReminders = (
     }, reminders)
   }
 
-  // Add Abilities
+  const faction = getFactionFromList(factionName)
+
+  // Add faction battle traits
+  if (faction?.factionBattleTraits?.length) {
+    faction.factionBattleTraits.forEach(a => {
+      const command_ability = a.command_ability || false
+      a.when.forEach(when => {
+        const t: TTurnAction = {
+          id: hashReminder(when, a.name, a.desc),
+          name: a.name,
+          desc: a.desc,
+          condition: [`${titleCase(factionName)} Allegiance`],
+          command_ability,
+          when,
+        }
+        reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
+      })
+    })
+  }
+
+  // Add subfaction battle traits
   if (army.BattleTraits && army.BattleTraits.length) {
     army.BattleTraits.forEach((a: TEffects) => {
       const command_ability = a.command_ability || false
