@@ -47,7 +47,7 @@ const Units = {
       },
       {
         name: `Invocation of Nagash`,
-        desc: `At the start of your hero phase, if this model is on the battlefield, you can pick up to 5 different friendly SUMMONABLE units or friendly OSSIARCH BONEREAPERS units in any combination. For each of those units, you can either heal up to 3 wounds that have been allocated to that unit or, if no wounds have been allocated to it, you can return number of slain models to that unit with a combined Wounds characteristic of 3 or less,`,
+        desc: `At the start of your hero phase, if this model is on the battlefield, you can pick up to 5 different friendly SUMMONABLE units or friendly OSSIARCH BONEREAPERS units in any combination. For each of those units, you can either heal up to 3 wounds that have been allocated to that unit or, if no wounds have been allocated to it, you can return number of slain models to that unit with a combined Wounds characteristic of 3 or less.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -92,7 +92,7 @@ const Units = {
       },
       {
         name: `Mortarch of Night`,
-        desc: `At the start of the combat phase, if this model is within 3" of any enemy units, you can remove this model from the battlefield and set it up again anywhere on the battlefield more than 9" from all enemy units,`,
+        desc: `At the start of the combat phase, if this model is within 3" of any enemy units, you can remove this model from the battlefield and set it up again anywhere on the battlefield more than 9" from all enemy units.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -111,12 +111,12 @@ const Units = {
     effects: [
       {
         name: `Dagger of Jet`,
-        desc: `At the end of any phase, if any wounds inflicted by this model's Akmet-har in that phase were allocated to an enemy HERO and not negated, and that enemy model has not been slain, roll a dice. On a 5+, that enemy HERO is slain,`,
+        desc: `At the end of any phase, if any wounds inflicted by this model's Akmet-har in that phase were allocated to an enemy HERO and not negated, and that enemy model has not been slain, roll a dice. On a 5+, that enemy HERO is slain.`,
         when: [WOUND_ALLOCATION_PHASE, END_OF_COMBAT_PHASE],
       },
       {
         name: `Mortarch of Blood`,
-        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that phase, you can heal up to D6 wounds allocated to this model,`,
+        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that phase, you can heal up to D6 wounds allocated to this model.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -146,7 +146,7 @@ const Units = {
       },
       {
         name: `Breath of Shyish`,
-        desc: `In your shooting phase, you can pick 1 enemy unit within 9" of this model that is visible to it and roll a dice. On a 3+, that unit suffers a number of mortal wounds equal to the Breath of Shyish value shown on this model's damage table,`,
+        desc: `In your shooting phase, you can pick 1 enemy unit within 9" of this model that is visible to it and roll a dice. On a 3+, that unit suffers a number of mortal wounds equal to the Breath of Shyish value shown on this model's damage table.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -219,7 +219,7 @@ const Units = {
     effects: [
       {
         name: `Supernatural Speed`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated,`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
@@ -258,7 +258,7 @@ const Units = {
       },
       {
         name: `Loyal to the Last`,
-        desc: `Roll a dice before you allocate a wound or mortal wound to this model while it is within 3" of any friendly KOSARGI NIGHTGUARD units. On a 2+, that wound or mortal wound is allocated to 1 of those units instead of this model,`,
+        desc: `Roll a dice before you allocate a wound or mortal wound to this model while it is within 3" of any friendly KOSARGI NIGHTGUARD units. On a 2+, that wound or mortal wound is allocated to 1 of those units instead of this model.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],

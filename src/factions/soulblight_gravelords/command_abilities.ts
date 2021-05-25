@@ -14,7 +14,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Supreme Lord of the Undead`,
-        desc: `You can use this command ability in your hero phase if this model is on the battlefield. If you do so, until your next hero phase, you can re-roll hit rolls of 1 for attacks made by friendly DEATH units, you can re-roll save rolls of 1 for attacks that target friendly DEATH units, and do not take battleshock tests for friendly DEATH units.`,
+        desc: `You can use this command ability in your hero phase if this model is on the battlefield. If you do so, until your next hero phase, you can reroll hit rolls of 1 for attacks made by friendly DEATH units, you can reroll save rolls of 1 for attacks that target friendly DEATH units, and do not take battleshock tests for friendly DEATH units.`,
         when: [HERO_PHASE],
       },
     ],
@@ -73,7 +73,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Pack Alpha`,
-        desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly DIRE WOLVES unit wholly within 12" of this model. That unit is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in,`,
+        desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly DIRE WOLVES unit wholly within 12" of this model. That unit is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -100,7 +100,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Arise! Arise!`,
-        desc: `You can use this command ability at the end of your movement phase. If you do so, pick 1 friendly SUMMONABLE DEADWALKERS unit that has been destroyed. A new replacement unit with half of the models from the unit that was destroyed (rounding up) is added to your army. Set up that unit wholly within 9" of a friendly model with this command ability and more than 9" from any enemy units. Each destroyed unit can only be replaced once — replacement units cannot themselves be replaced.`,
+        desc: `You can use this command ability at the end of your movement phase. If you do so, pick 1 friendly SUMMONABLE DEADWALKERS unit that has been destroyed. A new replacement unit with half of the models from the unit that was destroyed (rounding up) is added to your army. Set up that unit wholly within 9" of a friendly model with this command ability and more than 9" from any enemy units. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
     ],

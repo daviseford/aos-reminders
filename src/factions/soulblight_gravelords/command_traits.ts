@@ -274,7 +274,6 @@ const CommandTraits = {
       },
     ],
   },
-  
 
   // '': {
   //   effects: [

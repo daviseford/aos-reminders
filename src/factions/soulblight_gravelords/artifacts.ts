@@ -251,7 +251,7 @@ const Artifacts = {
   },
 
   // Avengorii Dynasty
-   'Breath of the Void Maw': {
+  'Breath of the Void Maw': {
     effects: [
       {
         name: `Breath of the Void Maw`,
@@ -260,7 +260,7 @@ const Artifacts = {
       },
     ],
   },
-   "Ghorvar's Collar": {
+  "Ghorvar's Collar": {
     effects: [
       {
         name: `Ghorvar's Collar`,
@@ -269,7 +269,7 @@ const Artifacts = {
       },
     ],
   },
-   'The Furious Crown': {
+  'The Furious Crown': {
     effects: [
       {
         name: `The Furious Crown`,

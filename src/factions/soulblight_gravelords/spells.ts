@@ -106,7 +106,7 @@ const Spells = {
       },
     ],
   },
-  'Decrepify': {
+  Decrepify: {
     effects: [
       {
         name: `Decrepify`,
@@ -130,7 +130,7 @@ const Spells = {
     effects: [
       {
         name: `Hand of Dust`,
-        desc: `Casting value of 8. If successfully cast, pick 1 enemy model within 3" of the caster. Then, take a dice and hide it in one of your hands. Your opponent must pick one of your hands. If they pick the one holding the dice, the spell has no effect. If they pick the empty hand, the enemy model is slain,`,
+        desc: `Casting value of 8. If successfully cast, pick 1 enemy model within 3" of the caster. Then, take a dice and hide it in one of your hands. Your opponent must pick one of your hands. If they pick the one holding the dice, the spell has no effect. If they pick the empty hand, the enemy model is slain.`,
         when: [HERO_PHASE],
       },
     ],
@@ -167,7 +167,7 @@ const Spells = {
       },
     ],
   },
-  'Quickblood': {
+  Quickblood: {
     effects: [
       {
         name: `Quickblood`,
@@ -217,7 +217,7 @@ const Spells = {
       },
     ],
   },
-  'Lycancurse': {
+  Lycancurse: {
     effects: [
       {
         name: `Lycancurse`,
@@ -246,8 +246,6 @@ const Spells = {
       },
     ],
   },
-
-
 
   // '': {
   //   effects: [
