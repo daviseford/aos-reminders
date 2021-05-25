@@ -119,7 +119,7 @@ const Spells = {
     effects: [
       {
         name: `Soul Harvest`,
-        desc: `Casting value of 7. If successfully cast, each enemy unit within 3" of the caster suffers mortal wounds. In addition, for each mortal wound inflicted by this spell and not negated, roll a dice, For each 5+, you can heal 1 wound allocated to the caster.`,
+        desc: `Casting value of 7. If successfully cast, each enemy unit within 3" of the caster suffers mortal wounds. In addition, for each mortal wound inflicted by this spell and not negated, roll a dice. For each 5+, you can heal 1 wound allocated to the caster.`,
         when: [HERO_PHASE],
       },
     ],
@@ -180,7 +180,7 @@ const Spells = {
     effects: [
       {
         name: `Fiendish Lure`,
-        desc: `Casting value of 5, If successfully cast, pick 1 enemy unit within 6" of the caster that is visible to them. Add 1 to hit rolls for attacks that target that unit until your next hero phase.`,
+        desc: `Casting value of 5. If successfully cast, pick 1 enemy unit within 6" of the caster that is visible to them. Add 1 to hit rolls for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -212,7 +212,7 @@ const Spells = {
     effects: [
       {
         name: `Under a Killing Moon`,
-        desc: `Casting value of 6, If successfully cast, until your next hero phase, if the unmodified hit roll for an attack made with a melee weapon by a friendly SOULBLIGHT GRAVELORDS unit wholly within 12" of the caster is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        desc: `Casting value of 6. If successfully cast, until your next hero phase, if the unmodified hit roll for an attack made with a melee weapon by a friendly SOULBLIGHT GRAVELORDS unit wholly within 12" of the caster is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -233,6 +233,24 @@ const Spells = {
       {
         name: `Necrotising Bolt`,
         desc: `Casting value of 6. If successfully cast, pick 1 enemy unit within 18" of the caster that is visible to them. Subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Curse of Exsanguination': {
+    effects: [
+      {
+        name: `Curse of Exsanguination`,
+        desc: `Casting value of 6. If successfully cast, pick 1 enemy unit within 18" of the caster that is visible to them. That unit suffers 1 mortal wound. If that mortal wound is allocated to a model in that unit and not negated and that model is not slain by that mortal wound, you can roll a dice. On a 4+, that model suffers 1 mortal wound, and you can roll another dice if that mortal wound is allocated and not negated and the model is not slain. Keep rolling dice in this way until either no mortal wounds are inflicted, the mortal wound is negated or the model is slain.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Blood Siphon': {
+    effects: [
+      {
+        name: `Blood Siphon`,
+        desc: `Casting value of 6. If successfully cast, pick 1 enemy HERO within 12" of the caster that is visible to them and roll a dice. On a 1-2, the target suffers 1 mortal wound. On a 3-4, the target suffers D3 mortal wounds. On a 5-6, the target suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

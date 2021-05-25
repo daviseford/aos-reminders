@@ -100,7 +100,7 @@ const Artifacts = {
     effects: [
       {
         name: `Gem of Exsanguination`,
-        desc: `Once per battle, at the start of the combat phase, you can pick 1 enemy unit within 6" of the bearer and roll a dice. On a 1, nothing happens, On a 2-5, that unit suffers D3 mortal wounds. On a 6, the unit suffers D6 mortal wounds.`,
+        desc: `Once per battle, at the start of the combat phase, you can pick 1 enemy unit within 6" of the bearer and roll a dice. On a 1, nothing happens. On a 2-5, that unit suffers D3 mortal wounds. On a 6, the unit suffers D6 mortal wounds.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

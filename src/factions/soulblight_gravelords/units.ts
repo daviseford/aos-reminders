@@ -1,8 +1,10 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import { GenericSpells } from 'generic_rules'
+import GenericBattleTraits from 'generic_rules/battle_traits'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_SETUP,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
@@ -10,6 +12,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  TURN_FOUR_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
@@ -338,6 +341,138 @@ const Units = {
         name: `Cursed Halberd`,
         desc: `If the unmodified hit roll for an attack made with a Cursed Halberd is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  Vargskyr: {
+    effects: [
+      {
+        name: `Gnarled Hide`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Bounding Leaps`,
+        desc: `You can attempt to charge with this model if it is within 18" of the enemy instead of 12". Roll 3D6 instead of 2D6 when making a charge roll for this model.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+
+  'Kosargi Nightguard': {
+    effects: [
+      {
+        name: `Deathly Vigour`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit. On a 5+, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Servants Even in Death`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Bardiches while it is wholly within 12" of a friendly RADUKAR THE WOLF.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'Vampire Lord on Zombie Dragon': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Invigorating Aura', 'Curse of Exsanguination'])],
+    },
+    effects: [
+      ...GenericBattleTraits.ZombieDragon, // Pestilential Breath
+      TheHungerEffect,
+      {
+        name: `Deathlance Charge`,
+        desc: `Add 2 to the Damage characteristic of this model's Deathlance and improve the Rend characteristic of that weapon by 1 if this model made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'Blood Knights': {
+    effects: [
+      TheHungerEffect,
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Kastellan. Add 1 to the Attacks characteristic of a Kastellan's Templar Lance or Blade.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `1 in every 5 models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Riders of Ruin`,
+        desc: `In your movement phase, if this unit is within 3" of an enemy unit, it can make a normal move. If it does so, it can pass across other models with a Wounds characteristic of 3 or less (that do not have a mount) in the same manner as a model that can fly. After this unit has made a normal move, roll a dice for each enemy unit that has any models passed across by any models in this unit. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Martial Fury`,
+        desc: `Add 1 to the Damage characteristic of this unit's Templar Lances or Blades if this unit made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  Vargheists: {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Vargoyle. Add 1 to the Attacks characteristic of a Vargoyle's Murderous Fangs and Talons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Death's Descent`,
+        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say that it is circling high above as a reserve unit. If you do so, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from any enemy units. At the start of the fourth battle round, any models that are still in reserve are slain.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Death's Descent`,
+        desc: `If this unit was placed in reserve during setup, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from any enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Death's Descent`,
+        desc: `At the start of the fourth battle round, any models that are still in reserve are slain.`,
+        when: [TURN_FOUR_START_OF_ROUND],
+      },
+      {
+        name: `Blood-maddened Feeding Frenzy`,
+        desc: `If the unmodified hit roll for an attack made by this unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'Vampire Lord': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Crimson Feast'])],
+      spells: [keyPicker(spells, ['Invigorating Aura'])],
+    },
+    effects: [TheHungerEffect],
+  },
+
+  'Bloodseeker Palanquin': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Invigorating Aura', 'Blood Siphon'])],
+    },
+    effects: [
+      {
+        name: `A Fine Vintage`,
+        desc: `If an enemy HERO is slain within 9" of this model, add 1 to the Attacks characteristic of melee weapons used by friendly VAMPIRE units wholly within 12" of this model until your next hero phase.`,
+        when: [COMBAT_PHASE, WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Frightful Touch`,
+        desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and Blades is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Wail of the Damned`,
+        desc: `Do not use the attack sequence for an attack made with a Wail of the Damned. Instead, roll a dice for each enemy unit within range of this model's Wail of the Damned. On a 4+, that unit suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },

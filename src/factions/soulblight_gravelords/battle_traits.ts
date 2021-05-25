@@ -68,7 +68,7 @@ const BattleTraits = {
 
         If the HERO has more than 1 of the above keywords on its warscroll, choose 1 of them.
 
-        For each of the units you picked, you can heal up to D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of D3 or less. Roll separately for each unit. The same unit cannot benefit from this ability more than once per turn, In addition, a unit cannot benefit from this ability and the Invocation of Nagash ability in the same turn.
+        For each of the units you picked, you can heal up to D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of D3 or less. Roll separately for each unit. The same unit cannot benefit from this ability more than once per turn. In addition, a unit cannot benefit from this ability and the Invocation of Nagash ability in the same turn.
 
         Designer's Note: Some Soulblight Gravelords abilities and spells allow you to return slain models to a unit. When you do so, set up the models one at a time within 1" of a model from their unit that was not returned to the unit earlier in the phase. Slain models can only be set up within 3" of an enemy unit if a model in the unit they are returning to that was not already returned in the same phase is already within 3" of that enemy unit. `,
         when: [START_OF_HERO_PHASE],

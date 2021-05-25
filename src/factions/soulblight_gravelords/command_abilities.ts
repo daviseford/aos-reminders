@@ -51,7 +51,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `A Queen Amongst Monsters`,
-        desc: `You can use this command ability once per turn in your hero phase, If you do so, pick 1 enemy unit on the battlefield. Until your next hero phase, add 1 to hit rolls for attacks made with melee weapons by friendly SOULBLIGHT GRAVELORDS MONSTERS that target that enemy unit.`,
+        desc: `You can use this command ability once per turn in your hero phase. If you do so, pick 1 enemy unit on the battlefield. Until your next hero phase, add 1 to hit rolls for attacks made with melee weapons by friendly SOULBLIGHT GRAVELORDS MONSTERS that target that enemy unit.`,
         when: [HERO_PHASE],
       },
       {
@@ -83,7 +83,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Call to the Hunt`,
-        desc: `You can use this command ability at the start of the combat phase, If you do so, pick 1 friendly model with this command ability that made a charge move in that turn. Add 1 to the Attacks characteristic of melee weapons used by friendly SOULBLIGHT GRAVELORDS units wholly within 18" of that model until the end of that phase. The same unit cannot benefit from this command ability more than once per phase.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly model with this command ability that made a charge move in that turn. Add 1 to the Attacks characteristic of melee weapons used by friendly SOULBLIGHT GRAVELORDS units wholly within 18" of that model until the end of that phase. The same unit cannot benefit from this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -110,8 +110,17 @@ const CommandAbilities = {
     effects: [
       {
         name: `Disciplined Advance`,
-        desc: `You can use this command ability at the start of your movement phase, If you do sot pick up to 3 friendly DEATHRATTLE units wholly within 18" of this model. Until the end of that phase, if you declare that any of those units will run, do not make run roll for them. Instead, add 4" to the Move characteristic of those units until the end of that phase.`,
+        desc: `You can use this command ability at the start of your movement phase. If you do sot pick up to 3 friendly DEATHRATTLE units wholly within 18" of this model. Until the end of that phase, if you declare that any of those units will run, do not make run roll for them. Instead, add 4" to the Move characteristic of those units until the end of that phase.`,
         when: [START_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
+  'Crimson Feast': {
+    effects: [
+      {
+        name: `Crimson Feast`,
+        desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly SOULBLIGHT GRAVELORDS SUMMONABLE unit wholly within 12" of this model. Add 1 to the Attacks characteristic of that unit's melee weapons until your next hero phase. The same unit cannot benefit from this command ability more than once per phase.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
