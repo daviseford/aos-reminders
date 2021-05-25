@@ -125,12 +125,51 @@ const Spells = {
     ],
   },
 
+  'Hand of Dust': {
+    effects: [
+      {
+        name: `Hand of Dust`,
+        desc: `Casting value of 8. If successfully cast, pick 1 enemy model within 3" of the caster. Then, take a dice and hide it in one of your hands. Your opponent must pick one of your hands. If they pick the one holding the dice, the spell has no effect. If they pick the empty hand, the enemy model is slain,`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Soul Stealer': {
+    effects: [
+      {
+        name: `Soul Stealer`,
+        desc: `Casting value of 6. If successfully cast, pick 1 enemy unit within 24" of the caster that is visible to them and roll 2D6. If the roll is greater than that unit's Bravery characteristic, it suffers D3 mortal wounds. If the roll is at least double that unit's Bravery characteristic, it suffers D6 mortal wounds instead. You can heal up to 1 wound that has been allocated to the caster for each mortal wound inflicted by this spell that is not negated.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  '': {
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  '': {
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+
+
+
   // '': {
   //   effects: [
   //     {
   //       name: ``,
   //       desc: ``,
-  //       when: [END_OF_SETUP],
+  //       when: [HERO_PHASE],
   //     },
   //   ],
   // },
