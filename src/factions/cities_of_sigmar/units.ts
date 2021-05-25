@@ -1329,6 +1329,21 @@ const Units = {
       },
     ],
   },
+  'Jelsen Darrock': {
+    effects: [
+      {
+        name: `Firewood Stakes`,
+        desc: `Pick 1 enemy unit within 1" of this model and roll a D6, add 1 to result if target has DEATH keyword. On 3+ that unit suffers 1 mortal wound.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Judgement`,
+        desc: `If an attack made with Judgement scores a hit. The attack sequence ends, roll a D6. If roll is double the target unit's Wounds characterstic or more, 1 model from the unit is slain after resolving this model's attacks. If the roll is less than double, the unit suffers 1 mortal wound after resolving this model's attacks.`,
+        when: [SHOOTING_PHASE],
+      },
+      DenizenOfUlfenkarnEffect,
+    ],
+  },
 }
 
 export default tagAs(Units, 'unit')
