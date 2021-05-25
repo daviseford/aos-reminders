@@ -1312,6 +1312,9 @@ const Units = {
     ],
   },
   'Octren Glimscry': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Withering Hex'])],
+    },
     effects: [
       {
         name: `Master of Mortality`,
