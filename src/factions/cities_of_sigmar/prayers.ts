@@ -54,7 +54,6 @@ const Prayers = {
       },
     ],
   },
-
 }
 
 export default tagAs(Prayers, 'prayer')

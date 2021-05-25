@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -15,7 +16,6 @@ import {
   START_OF_SETUP,
   TURN_FOUR_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
-  END_OF_COMBAT_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import prayers from './prayers'
@@ -1264,7 +1264,7 @@ const Units = {
   },
   // Cursed City heroes
   'Brutogg Corpse-Eater': {
-    effects:[
+    effects: [
       {
         name: `Devour the Enemy`,
         desc: `If any enemy models are slain by attacks from this model during the combat phase, heal D3 wounds. If slain models include any DEATH models, heal D6 wounds.`,
@@ -1274,7 +1274,7 @@ const Units = {
     ],
   },
   'Captain Emelda Braskov': {
-    effects:[
+    effects: [
       {
         name: `Deathblow`,
         desc: `If the unmodified hit roll for an attack made with Dawnlight is 6, that attack inflicts 1 mortal wound on the target in addition to normal damage.`,
@@ -1290,14 +1290,14 @@ const Units = {
   },
   'Cleona Zeitengale': {
     mandatory: {
-      prayers: [keyPicker(prayers, ['Celestial Prayers: Invigorating Touch', 'Celestial Prayers: Cometary Blast'])],
+      prayers: [
+        keyPicker(prayers, ['Celestial Prayers: Invigorating Touch', 'Celestial Prayers: Cometary Blast']),
+      ],
     },
-    effects:[
-      DenizenOfUlfenkarnEffect,
-    ],
+    effects: [DenizenOfUlfenkarnEffect],
   },
   'Glaurio Ven Alten III': {
-    effects:[
+    effects: [
       {
         name: `Point-blank Shot`,
         desc: `If an attack made with Noblesse hits a target within 3", that attack scores 1 mortal wound and the attack sequence ends.`,
@@ -1312,7 +1312,7 @@ const Units = {
     ],
   },
   'Octren Glimscry': {
-    effects:[
+    effects: [
       {
         name: `Master of Mortality`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 6+, it is negated.`,

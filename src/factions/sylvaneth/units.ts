@@ -384,7 +384,7 @@ const Units = {
       },
     ],
   },
-  "Qulathis the Exile": {
+  'Qulathis the Exile': {
     effects: [
       {
         name: `Strike Unseen`,
