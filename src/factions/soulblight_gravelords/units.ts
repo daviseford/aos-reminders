@@ -4,6 +4,7 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   END_OF_COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -18,6 +19,18 @@ const TheHungerEffect = {
   name: `The Hunger`,
   desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this unit's attacks in that phase, you can heal up to D3 wounds allocated to this unit.`,
   when: [END_OF_COMBAT_PHASE],
+}
+
+const NightmaresMiasmaEffect = {
+  name: `Nightmares Miasma`,
+  desc: `While an enemy unit is within 3" of any friendly models with this ability, worsen the Rend characteristic of that unit's melee weapons by 1 (to a minimum of '-')`,
+  when: [COMBAT_PHASE],
+}
+
+const UndeniableImpulseEffect = {
+  name: `Undeniable Impulse`,
+  desc: `At the start of your hero phase, roll a dice for this model. If the roll is equal to or less than the number of the current battle round, until your next hero phase, this model can run and still charge later in the same turn. However, this model cannot use command abilities until your next hero phase.`,
+  when: [START_OF_HERO_PHASE],
 }
 
 const Units = {
@@ -59,6 +72,7 @@ const Units = {
       },
     ],
   },
+
   'Mannfred von Carstein': {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Vigour of Undeath'])],
@@ -88,6 +102,7 @@ const Units = {
       },
     ],
   },
+
   Neferata: {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ["Twilight's Allure"])],
@@ -111,6 +126,7 @@ const Units = {
       },
     ],
   },
+
   'Prince Vhordrai': {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Fist of Nagash'])],
@@ -135,12 +151,14 @@ const Units = {
       },
     ],
   },
+
   'Prince Duvalle': {
     mandatory: {
       spells: [keyPicker(spells, ['Invigorating Aura', 'Fiendish Lure'])],
     },
     effects: [TheHungerEffect],
   },
+
   'The Crimson Court': {
     effects: [
       TheHungerEffect,
@@ -151,6 +169,7 @@ const Units = {
       },
     ],
   },
+
   'Lauka Vai': {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['A Queen Amongst Monsters'])],
@@ -163,18 +182,112 @@ const Units = {
         desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a number of dice equal to the charge roll for that charge move. For each 5+, that enemy unit suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
+      NightmaresMiasmaEffect,
+      UndeniableImpulseEffect,
+    ],
+  },
+
+  'Vengorian Lords': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Festering Feast'])],
+      spells: [keyPicker(spells, ['Invigorating Aura', 'Clotted Deluge'])],
+    },
+    effects: [NightmaresMiasmaEffect, UndeniableImpulseEffect, TheHungerEffect],
+  },
+
+  'Belladamma Volga': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Pack Alpha'])],
+      spells: [keyPicker(spells, ['Invigorating Aura', 'Under a Killing Moon', 'Lycancurse'])],
+    },
+    effects: [
+      TheHungerEffect,
       {
-        name: `Nightmares Miasma`,
-        desc: `While an enemy unit is within 3" of any friendly models with this ability, worsen the Rend characteristic of that unit's melee weapons by 1 (to a minimum of '-')`,
-        when: [COMBAT_PHASE],
+        name: `First of the Vyrkos`,
+        desc: `Add 1 to casting, dispelling and unbinding rolls for this model.`,
+        when: [HERO_PHASE],
       },
       {
-        name: `Undeniable Impulse`,
-        desc: `At the start of your hero phase, roll a dice for this model. If the roll is equal to or less than the number of the current battle round, until your next hero phase, this model can run and still charge later in the same turn. However, this model cannot use command abilities until your next hero phase.`,
-        when: [START_OF_HERO_PHASE],
+        name: `First of the Vyrkos`,
+        desc: `Roll a dice before you allocate wound or mortal wound to this model if it is within 3" of any friendly DIRE WOLVES units. On a 3+, that wound or mortal wound is allocated to 1 of those units instead of this model.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
+
+  'Lady Annika': {
+    effects: [
+      {
+        name: `Supernatural Speed`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated,`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Kiss of the Blade Proboscian`,
+        desc: `At the end of a phase, if any enemy models were slain by wounds inflicted by this model's attacks in that phase, you can heal all wounds allocated to this model.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+
+  Kritza: {
+    effects: [
+      {
+        name: `Scurrying Retreat`,
+        desc: `If this model has been slain, at the end of your movement phase, roll a dice. On a 4+, a new model identical to the one that was slain is added to your army. Set up this model anywhere on the battlefield more than 9" from all enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Nauseating Aroma`,
+        desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this model.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'Radukar the Wolf': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Call to the Hunt'])],
+    },
+    effects: [
+      TheHungerEffect,
+      {
+        name: `Supernatural Strength`,
+        desc: `If the unmodified wound roll for an attack made with a melee weapon by this model is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Loyal to the Last`,
+        desc: `Roll a dice before you allocate a wound or mortal wound to this model while it is within 3" of any friendly KOSARGI NIGHTGUARD units. On a 2+, that wound or mortal wound is allocated to 1 of those units instead of this model,`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+
+  'Radukar the Beast': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Call to the Hunt', 'Mustering Howl'])],
+    },
+    effects: [
+      TheHungerEffect,
+      {
+        name: `Bounding Charge`,
+        desc: `This model can run and still charge later in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Supernatural Reflexes`,
+        desc: `Subtract 1 from hit rolls for attacks that target this model.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Unleashed Ferocity`,
+        desc: `If the unmodified hit roll for an attack made with this model's Blood-slick Claws is 6, that attack inflicts 2 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
   // '': {
   //   effects: [
   //     {

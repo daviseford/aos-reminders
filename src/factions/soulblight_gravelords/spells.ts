@@ -199,6 +199,35 @@ const Spells = {
       },
     ],
   },
+  'Clotted Deluge': {
+    effects: [
+      {
+        name: `Clotted Deluge`,
+        desc: `Casting value of 6. If successfully cast, pick 1 enemy unit within 12" of the caster that is visible to them. Add 1 to wound rolls for attacks made with melee weapons that target that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Under a Killing Moon': {
+    effects: [
+      {
+        name: `Under a Killing Moon`,
+        desc: `Casting value of 6, If successfully cast, until your next hero phase, if the unmodified hit roll for an attack made with a melee weapon by a friendly SOULBLIGHT GRAVELORDS unit wholly within 12" of the caster is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Lycancurse': {
+    effects: [
+      {
+        name: `Lycancurse`,
+        desc: `Casting value of 7. If successfully cast, pick 1 enemy unit within 18" of the caster that is visible to them. That unit suffers D3 mortal wounds.
+
+        If any models in that unit were slain by this spell, before removing the last slain model, you can add 1 unit of DIRE WOLVES to your army. The number of models in the new unit must be equal to the number ofmodels in the enemy unit that were slain by this spell. Set up the new unit within 3" of the slain model's unit, and then remove the slain model from play.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   '': {
     effects: [
       {
