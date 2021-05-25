@@ -68,6 +68,63 @@ const Spells = {
       },
     ],
   },
+
+  // Lore of the Deathmages
+  'Overwhelming Dread': {
+    effects: [
+      {
+        name: `Overwhelming Dread`,
+        desc: `Casting value of 5. If successfully cast, pick 1 enemy unit within 18" of the caster that is visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Fading Vigour': {
+    effects: [
+      {
+        name: `Fading Vigour`,
+        desc: `Casting value of 6. If successfully cast, pick 1 enemy unit within 18" of the caster that is visible to them. Subtract 1 from the Attacks characteristic of that unit's melee weapons (to a minimum of 1) until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Spectral Grasp': {
+    effects: [
+      {
+        name: `Spectral Grasp`,
+        desc: `Casting value of 6. If successfully cast, pick 1 terrain feature wholly within 18" of the caster that is visible to them. Until your next hero phase, halve the Move characteristic (rounding down) of enemy units that start a normal move within 3" of that terrain feature.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Prison of Grief': {
+    effects: [
+      {
+        name: `Prison of Grief`,
+        desc: `Casting value of 6. If successfully cast, pick 1 enemy unit within 12" of the caster that is visible to them. Until your next hero phase, roll a dice each time that unit attempts to move. On a 5+, that unit cannot move in that phase. The same unit cannot be affected by this spell more than once per turn.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Decrepify': {
+    effects: [
+      {
+        name: `Decrepify`,
+        desc: `Casting value of 6. If successfully cast, pick 1 enemy HERO within 18" of the caster that is visible to them. Until your next hero phase, subtract 1 from wound rolls for attacks made by that model and subtract 1 from the Damage characteristic of that model's melee weapons (to a minimum of 1).`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Soul Harvest': {
+    effects: [
+      {
+        name: `Soul Harvest`,
+        desc: `Casting value of 7. If successfully cast, each enemy unit within 3" of the caster suffers mortal wounds. In addition, for each mortal wound inflicted by this spell and not negated, roll a dice, For each 5+, you can heal 1 wound allocated to the caster.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+
   // '': {
   //   effects: [
   //     {
