@@ -28,6 +28,7 @@ import { SkaventideFaction } from 'factions/skaventide'
 import { SlaaneshFaction } from 'factions/slaanesh'
 import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { SonsOfBehematFaction } from 'factions/sons_of_behemat'
+import { SoulblightGravelordsFaction } from 'factions/soulblight_gravelords'
 import { StormcastFaction } from 'factions/stormcast_eternals'
 import { SylvanethFaction } from 'factions/sylvaneth'
 import { TombKingsFaction } from 'factions/tomb_kings'
@@ -67,6 +68,7 @@ import {
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
+  SOULBLIGHT_GRAVELORDS,
   STORMCAST_ETERNALS,
   SYLVANETH,
   TOMB_KINGS,
@@ -93,9 +95,9 @@ const FactionList = {
   [KHARADRON_OVERLORDS]: { ...KharadronOverlordsFaction },
   [KHORNE]: { ...KhorneFaction },
   [LEGION_OF_AZGORH]: { ...LegionOfAzgorhFaction },
+  [LEGION_OF_GRIEF]: { ...LegionOfGriefFaction },
   [LEGION_OF_THE_FIRST_PRINCE]: { ...LegionOfTheFirstPrinceFaction },
   [LEGIONS_OF_NAGASH]: { ...LegionsOfNagashFaction },
-  [LEGION_OF_GRIEF]: { ...LegionOfGriefFaction },
   [LETHISIAN_DEFENDERS]: { ...LethisianDefendersFaction },
   [LUMINETH_REALMLORDS]: { ...LuminethRealmlordsFaction },
   [MEGA_GARGANT_MERCENARIES]: { ...MegaGargantMercenariesFaction },
@@ -111,6 +113,7 @@ const FactionList = {
   [SLAANESH]: { ...SlaaneshFaction },
   [SLAVES_TO_DARKNESS]: { ...SlavesToDarknessFaction },
   [SONS_OF_BEHEMAT]: { ...SonsOfBehematFaction },
+  [SOULBLIGHT_GRAVELORDS]: { ...SoulblightGravelordsFaction },
   [STORMCAST_ETERNALS]: { ...StormcastFaction },
   [SYLVANETH]: { ...SylvanethFaction },
   [TOMB_KINGS]: { ...TombKingsFaction },
@@ -130,6 +133,10 @@ export const getFactionFromList = (factionName: TSupportedFaction) => {
   }
   return faction
 }
+
+/**
+ * The functions below are unused right now, but might be useful one day
+ */
 
 // export const getSubFactionKeys = (factionName: TSupportedFaction) => FactionList[factionName].subFactionKeys
 

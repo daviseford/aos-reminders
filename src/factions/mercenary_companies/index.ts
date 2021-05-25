@@ -9,5 +9,6 @@ export const MercenaryCompaniesFaction = new Faction(
   SubFactions,
   'Flavors',
   undefined,
+  undefined,
   true
 )

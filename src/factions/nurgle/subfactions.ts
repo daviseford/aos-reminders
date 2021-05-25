@@ -4,7 +4,6 @@ import { IItemDescription } from 'factions/factionTypes'
 import SkavenUnits from 'factions/skaventide/units'
 import SlavesToDarknessBattalions from 'factions/slaves_to_darkness/battalions'
 import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
-import { NURGLE } from 'meta/factions'
 import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
@@ -17,7 +16,7 @@ import Spells from './spells'
 import Units from './units'
 
 const baseSubFaction: IItemDescription = {
-  effects: pickEffects(BattleTraits, ['Nurgle']),
+  effects: [],
 
   available: {
     scenery: [Scenery],
@@ -79,8 +78,8 @@ const baseSubFaction: IItemDescription = {
 }
 
 const subFactions = {
-  [NURGLE]: {
-    effects: pickEffects(BattleTraits, ['Nurgle']),
+  Nurgle: {
+    effects: [],
 
     available: {
       ...baseSubFaction.available,
@@ -96,7 +95,7 @@ const subFactions = {
   },
 
   "Tamurkhan's Horde": {
-    effects: pickEffects(BattleTraits, ['Nurgle', "Tamurkhan's Horde"]),
+    effects: pickEffects(BattleTraits, ["Tamurkhan's Horde"]),
 
     mandatory: {
       artifacts: [keyPicker(Artifacts, ['Daemon Flask'])],

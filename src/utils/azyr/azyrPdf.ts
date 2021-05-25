@@ -280,6 +280,7 @@ const allegianceTypes = [
   'Greatfray',
   'Host',
   'Legion',
+  'Lineage',
   'Lodge',
   'Mawtribe',
   'Sky-port',

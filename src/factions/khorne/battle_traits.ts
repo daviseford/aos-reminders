@@ -84,7 +84,7 @@ const BattleTraits = {
       },
       {
         name: `Summon Daemons of Khorne`,
-        desc: `If you have 2 or more Blood Tithe points at the end of your movement phase, you can summon one more more units onto the battlefield. If you summon any units in this manner, your Blood Tithe points total is reset to zero immediately after the last unit has been set up (you cannot save any Blood Tithe points you did not use).
+        desc: `If you have 2 or more Blood Tithe points at the end of your movement phase, you can summon one or more units onto the battlefield. If you summon any units in this manner, your Blood Tithe points total is reset to zero immediately after the last unit has been set up (you cannot save any Blood Tithe points you did not use).
 
         Summoned units must be set up wholly within 12" of a friendly KHORNE HERO or SKULL ALTAR and more than 9" away from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
@@ -92,7 +92,7 @@ const BattleTraits = {
       {
         name: `Summon Daemons of Khorne`,
         desc: `Summoning Costs:
-               1 Exalted Greater Daemon of Khorne - 16 BTP, (if your army includes this model, your max BTP becomes 16 instead of 8)
+               1 Exalted Greater Daemon of Khorne - 16 BTP (if your army includes this model, your max BTP becomes 16 instead of 8)
                1 Wrath of Khorne Bloodthirster -    8 BTP
                1 Bloodthirster of Unfettered Fury - 8 BTP
                1 Bloodthirster of Insensate Rage -  8 BTP

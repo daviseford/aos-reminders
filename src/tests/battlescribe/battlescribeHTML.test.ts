@@ -876,6 +876,10 @@ describe('getBattlescribeArmy', () => {
         severity: 'warn',
         text: 'Beguile',
       },
+      {
+        severity: 'ally-warn',
+        text: 'Allied Coven Throne can belong to Legions Of Nagash or Soulblight Gravelords. Please add this unit manually.',
+      },
     ])
   })
 
@@ -1049,13 +1053,17 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
-  it('should work with Soulblight2', () => {
+  it('should work with Soulblight2 (LoN subfaction)', () => {
     const parsedText = getFile('Soulblight2')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([
       {
         severity: 'warn',
         text: 'Beguile',
+      },
+      {
+        severity: 'ally-warn',
+        text: 'Allied Coven Throne can belong to Legions Of Nagash or Soulblight Gravelords. Please add this unit manually.',
       },
     ])
   })
@@ -1136,7 +1144,13 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(NIGHTHAUNT)
-    expect(res.errors).toEqual([{ severity: 'warn', text: 'Beguile' }])
+    expect(res.errors).toEqual([
+      { severity: 'warn', text: 'Beguile' },
+      {
+        severity: 'ally-warn',
+        text: 'Allied Coven Throne can belong to Legions Of Nagash or Soulblight Gravelords. Please add this unit manually.',
+      },
+    ])
   })
 
   it('should work with Stormcast6', () => {

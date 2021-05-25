@@ -16,7 +16,7 @@ import Spells from './spells'
 import Units from './units'
 
 const baseSubfaction: IItemDescription = {
-  effects: pickEffects(BattleTraits, ['Thrilling Compulsions']),
+  effects: [],
   available: {
     artifacts: [Artifacts],
     battalions: [Battalions],
@@ -74,7 +74,7 @@ const baseSubfaction: IItemDescription = {
 
 const subFactions = {
   'Invaders Host': {
-    effects: pickEffects(BattleTraits, ['Thrilling Compulsions', "The Despoiler's Art"]),
+    effects: pickEffects(BattleTraits, ["The Despoiler's Art"]),
     available: {
       ...baseSubfaction.available,
       flavors: [keyPicker(Flavors, ['Lurid Haze'])],
@@ -112,7 +112,7 @@ const subFactions = {
   },
 
   'Pretenders Host': {
-    effects: pickEffects(BattleTraits, ['Thrilling Compulsions', 'Magnificence Made Flesh']),
+    effects: pickEffects(BattleTraits, ['Magnificence Made Flesh']),
     available: {
       ...baseSubfaction.available,
       flavors: [keyPicker(Flavors, ['Faultless Blades'])],
@@ -150,7 +150,7 @@ const subFactions = {
   },
 
   'Godseekers Host': {
-    effects: pickEffects(BattleTraits, ['Thrilling Compulsions', 'Blessings of the Gleeful Chase']),
+    effects: pickEffects(BattleTraits, ['Blessings of the Gleeful Chase']),
     available: {
       ...baseSubfaction.available,
       flavors: [keyPicker(Flavors, ['Scarlet Cavalcade'])],
@@ -188,7 +188,7 @@ const subFactions = {
   },
 
   "Syll'Esskan Host": {
-    effects: pickEffects(BattleTraits, ['Thrilling Compulsions', 'Vengeance Unleashed']),
+    effects: pickEffects(BattleTraits, ['Vengeance Unleashed']),
     available: {
       ...baseSubfaction.available,
       battalions: [

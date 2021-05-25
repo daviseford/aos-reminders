@@ -15,9 +15,9 @@ type TGreenskinz = 'GREENSKINZ'
 type TIdonethDeepkin = 'IDONETH_DEEPKIN'
 type TKharadronOverlords = 'KHARADRON_OVERLORDS'
 type TKhorne = 'KHORNE'
-type TLegionOfTheFirstPrince = 'LEGION_OF_THE_FIRST_PRINCE'
 type TLegionOfAzgorh = 'LEGION_OF_AZGORH'
 type TLegionOfGrief = 'LEGION_OF_GRIEF'
+type TLegionOfTheFirstPrince = 'LEGION_OF_THE_FIRST_PRINCE'
 type TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 type TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 type TLuminethRealmlords = 'LUMINETH_REALMLORDS'
@@ -34,6 +34,7 @@ type TSkaventide = 'SKAVENTIDE'
 type TSlaanesh = 'SLAANESH'
 type TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 type TSonsOfBehemat = 'SONS_OF_BEHEMAT'
+type TSoulblightGravelords = 'SOULBLIGHT_GRAVELORDS'
 type TStormcastEternals = 'STORMCAST_ETERNALS'
 type TSylvaneth = 'SYLVANETH'
 type TTombKings = 'TOMB_KINGS'
@@ -55,9 +56,9 @@ export const GREENSKINZ: TGreenskinz = 'GREENSKINZ'
 export const IDONETH_DEEPKIN: TIdonethDeepkin = 'IDONETH_DEEPKIN'
 export const KHARADRON_OVERLORDS: TKharadronOverlords = 'KHARADRON_OVERLORDS'
 export const KHORNE: TKhorne = 'KHORNE'
-export const LEGION_OF_THE_FIRST_PRINCE: TLegionOfTheFirstPrince = 'LEGION_OF_THE_FIRST_PRINCE'
 export const LEGION_OF_AZGORH: TLegionOfAzgorh = 'LEGION_OF_AZGORH'
 export const LEGION_OF_GRIEF: TLegionOfGrief = 'LEGION_OF_GRIEF'
+export const LEGION_OF_THE_FIRST_PRINCE: TLegionOfTheFirstPrince = 'LEGION_OF_THE_FIRST_PRINCE'
 export const LEGIONS_OF_NAGASH: TLegionsOfNagash = 'LEGIONS_OF_NAGASH'
 export const LETHISIAN_DEFENDERS: TLethisianDefenders = 'LETHISIAN_DEFENDERS'
 export const LUMINETH_REALMLORDS: TLuminethRealmlords = 'LUMINETH_REALMLORDS'
@@ -74,6 +75,7 @@ export const SKAVENTIDE: TSkaventide = 'SKAVENTIDE'
 export const SLAANESH: TSlaanesh = 'SLAANESH'
 export const SLAVES_TO_DARKNESS: TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 export const SONS_OF_BEHEMAT: TSonsOfBehemat = 'SONS_OF_BEHEMAT'
+export const SOULBLIGHT_GRAVELORDS: TSoulblightGravelords = 'SOULBLIGHT_GRAVELORDS'
 export const STORMCAST_ETERNALS: TStormcastEternals = 'STORMCAST_ETERNALS'
 export const SYLVANETH: TSylvaneth = 'SYLVANETH'
 export const TOMB_KINGS: TTombKings = 'TOMB_KINGS'
@@ -100,9 +102,9 @@ export type TPrimaryFactions =
   | TIdonethDeepkin
   | TKharadronOverlords
   | TKhorne
-  | TLegionOfTheFirstPrince
   | TLegionOfAzgorh
   | TLegionOfGrief
+  | TLegionOfTheFirstPrince
   | TLegionsOfNagash
   | TLethisianDefenders
   | TLuminethRealmlords
@@ -118,6 +120,7 @@ export type TPrimaryFactions =
   | TSlaanesh
   | TSlavesToDarkness
   | TSonsOfBehemat
+  | TSoulblightGravelords
   | TStormcastEternals
   | TSylvaneth
   | TTombKings
@@ -142,9 +145,9 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   IDONETH_DEEPKIN,
   KHARADRON_OVERLORDS,
   KHORNE,
-  LEGION_OF_THE_FIRST_PRINCE,
   LEGION_OF_AZGORH,
   LEGION_OF_GRIEF,
+  LEGION_OF_THE_FIRST_PRINCE,
   LEGIONS_OF_NAGASH,
   LETHISIAN_DEFENDERS,
   LUMINETH_REALMLORDS,
@@ -159,6 +162,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
+  SOULBLIGHT_GRAVELORDS,
   STORMCAST_ETERNALS,
   SYLVANETH,
   TOMB_KINGS,

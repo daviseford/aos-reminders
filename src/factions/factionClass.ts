@@ -2,6 +2,7 @@ import { TGrandAlliances } from 'meta/alliances'
 import { TSupportedFaction } from 'meta/factions'
 import { TRuleSource } from 'meta/rule_sources'
 import { TSubfactionArmy } from 'types/army'
+import { TEffects } from 'types/data'
 import { TItemDescriptions } from './factionTypes'
 import { getAggregateArmy, temporaryAdapter } from './temporaryAdapter'
 
@@ -13,7 +14,8 @@ export class Faction<
   G extends TGrandAlliances,
   S extends TItemDescriptions,
   K extends Extract<keyof S, string>,
-  RS extends TRuleSource
+  RS extends TRuleSource,
+  BT extends TEffects[]
 > {
   public readonly AggregateArmy: TSubfactionArmy
   public readonly subFactionKeys: K[]
@@ -26,6 +28,14 @@ export class Faction<
     public readonly SubFactions: S,
     public readonly flavorLabel = 'Flavors',
     public readonly rule_source?: RS,
+    /**
+     * Battle traits that are shared for the whole faction
+     *  (useful when there are multiple subfactions
+     *  that have their own battle traits,
+     *  but share the parent factions battle traits as well,
+     *  e.g. Soulblight Gravelords)
+     */
+    public readonly factionBattleTraits?: BT,
     public readonly isMercenary = false
   ) {
     this.AggregateArmy = getAggregateArmy(SubFactions, flavorLabel)
@@ -49,5 +59,6 @@ export type TGenericFaction = Faction<
   TGrandAlliances,
   TItemDescriptions,
   string,
-  TRuleSource
+  TRuleSource,
+  TEffects[]
 >

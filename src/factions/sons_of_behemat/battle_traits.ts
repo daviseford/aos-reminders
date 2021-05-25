@@ -103,7 +103,7 @@ const BattleTraits = {
       ...BaseMegaGargantEffects,
       {
         name: `Get Orf Me Land!`,
-        desc: `In your hero phase, if you have any models with this ability within 1" of an objective that you control, you can pick one of those models and say that it will kick the objective away, If you do so, you can move that objective up to 2D6" to a new position on the battlefield, more than 1" away from any models, terrain features or other objectives. An objective cannot be kicked away more than once in the same phase.`,
+        desc: `In your hero phase, if you have any models with this ability within 1" of an objective that you control, you can pick one of those models and say that it will kick the objective away. If you do so, you can move that objective up to 2D6" to a new position on the battlefield, more than 1" away from any models, terrain features or other objectives. An objective cannot be kicked away more than once in the same phase.`,
         when: [HERO_PHASE],
       },
       {

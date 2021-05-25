@@ -7,7 +7,7 @@ const CommandAbilities = {
   //     {
   //       name: ``,
   //       desc: ``,
-  //       when: [END_OF_SETUP],
+  //       when: [],
   //     },
   //   ],
   // },

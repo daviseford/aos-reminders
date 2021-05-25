@@ -6,7 +6,7 @@ const Spells = {
   //     {
   //       name: ``,
   //       desc: ``,
-  //       when: [END_OF_SETUP],
+  //       when: [HERO_PHASE],
   //     },
   //   ],
   // },

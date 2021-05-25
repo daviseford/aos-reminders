@@ -9,5 +9,6 @@ export const MegaGargantMercenariesFaction = new Faction(
   SubFactions,
   'Flavors',
   undefined,
+  undefined,
   true
 )

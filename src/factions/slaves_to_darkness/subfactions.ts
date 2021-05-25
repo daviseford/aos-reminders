@@ -12,7 +12,7 @@ import Spells from './spells'
 import Units from './units'
 
 const baseSubFaction: IItemDescription = {
-  effects: pickEffects(BattleTraits, ['Bane of the Mortal Realms']),
+  effects: [],
   available: {
     endless_spells: [EndlessSpells],
     prayers: [Prayers],
