@@ -125,6 +125,7 @@ const Spells = {
     ],
   },
 
+  // Individual unit spells
   'Hand of Dust': {
     effects: [
       {
@@ -143,11 +144,11 @@ const Spells = {
       },
     ],
   },
-  '': {
+  'Wind of Death': {
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Wind of Death`,
+        desc: `Casting value of 7. If successfully cast, pick 1 enemy unit within 18" of the caster that is visible to them, and roll a dice for that enemy unit and each other enemy unit within 6" of that enemy unit. On a 3+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

@@ -12,6 +12,24 @@ const CommandAbilities = {
       },
     ],
   },
+  'Vigour of Undeath': {
+    effects: [
+      {
+        name: `Vigour of Undeath`,
+        desc: `You can use this command ability once per turn in your hero phase. If you do so, add 1 to hit and wound rolls for friendly SOULBLIGHT GRAVELORDS units wholly within 12" of this model until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  '': {
+    effects: [
+      {
+        name: ``,
+        desc: ``,
+        when: [],
+      },
+    ],
+  },
   // '': {
   //   effects: [
   //     {

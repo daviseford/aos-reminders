@@ -1,6 +1,13 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import { GenericSpells } from 'generic_rules'
-import { COMBAT_PHASE, HERO_PHASE, START_OF_HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import {
+  COMBAT_PHASE,
+  END_OF_COMBAT_PHASE,
+  HERO_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
+  WOUND_ALLOCATION_PHASE,
+} from 'types/phases'
 import command_abilities from './command_abilities'
 import spells from './spells'
 
@@ -43,12 +50,36 @@ const Units = {
       },
     ],
   },
-  '': {
+  'Mannfred von Carstein': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Vigour of Undeath'])],
+      spells: [keyPicker(spells, ['Invigorating Aura', 'Wind of Death']), ...GenericSpells],
+    },
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `The Hunger`,
+        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that phase, you can heal up to D3 wounds allocated to this model.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Armour of Templehof`,
+        desc: `The first wound or mortal wound allocated to this model in each phase is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Sword of Unholy Power`,
+        desc: `If any enemy models are slain by wounds inflicted by this model's Gheistvor, until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly SOULBLIGHT GRAVELORDS SUMMONABLE units while they are wholly within 12" of this model.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Mortarch of Night`,
+        desc: `At the start of the combat phase, if this model is within 3" of any enemy units, you can remove this model from the battlefield and set it up again anywhere on the battlefield more than 9" from all enemy units,`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Frightful Touch`,
+        desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and Daggers is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
