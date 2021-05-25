@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -212,6 +213,11 @@ const BattlemageMagicEffect = {
   name: `Magic`,
   desc: `This model knows the spell from its warscroll that includes the name of the realm it comes from.`,
   when: [HERO_PHASE],
+}
+const DenizenOfUlfenkarnEffect = {
+  name: `Denizen of Ulfenkarn`,
+  desc: `ULFENKARN is a city keyword (this means that this model cannot gain another city keyword if it is included in a Cities of Sigmar army - see the Strongholds of Order battle trait in Battletome: Cities of Sigmar).`,
+  when: [DURING_GAME],
 }
 
 const Units = {
@@ -1254,6 +1260,88 @@ const Units = {
         desc: `You can reroll the dice rolled to see if an Organ Gun jams if there is an ENGINEER from your army within 1" of the war machine.`,
         when: [SHOOTING_PHASE],
       },
+    ],
+  },
+  // Cursed City heroes
+  'Brutogg Corpse-Eater': {
+    effects: [
+      {
+        name: `Devour the Enemy`,
+        desc: `If any enemy models are slain by attacks from this model during the combat phase, heal D3 wounds. If slain models include any DEATH models, heal D6 wounds.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      DenizenOfUlfenkarnEffect,
+    ],
+  },
+  'Captain Emelda Braskov': {
+    effects: [
+      {
+        name: `Deathblow`,
+        desc: `If the unmodified hit roll for an attack made with Dawnlight is 6, that attack inflicts 1 mortal wound on the target in addition to normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Shining Exemplar`,
+        desc: `While this model is within 3" of any enemy units, do not take battleshock tests for friendly units wholly within 9" of this model.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      DenizenOfUlfenkarnEffect,
+    ],
+  },
+  'Cleona Zeitengale': {
+    mandatory: {
+      prayers: [
+        keyPicker(prayers, ['Celestial Prayers: Invigorating Touch', 'Celestial Prayers: Cometary Blast']),
+      ],
+    },
+    effects: [DenizenOfUlfenkarnEffect],
+  },
+  'Glaurio Ven Alten III': {
+    effects: [
+      {
+        name: `Point-blank Shot`,
+        desc: `If an attack made with Noblesse hits a target within 3", that attack scores 1 mortal wound and the attack sequence ends.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Unrivalled Duellist`,
+        desc: `Subtract 1 from melee hit rolls that target this model. If the attacker's unmodified hit roll is 1, attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        when: [COMBAT_PHASE],
+      },
+      DenizenOfUlfenkarnEffect,
+    ],
+  },
+  'Octren Glimscry': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Withering Hex'])],
+    },
+    effects: [
+      {
+        name: `Master of Mortality`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 6+, it is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      DenizenOfUlfenkarnEffect,
+      {
+        name: `Magic`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows the Arcane Bolt, Mystic Shield, and Withering Hex spells.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Jelsen Darrock': {
+    effects: [
+      {
+        name: `Firewood Stakes`,
+        desc: `Pick 1 enemy unit within 1" of this model and roll a D6, add 1 to result if target has DEATH keyword. On 3+ that unit suffers 1 mortal wound.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Judgement`,
+        desc: `If an attack made with Judgement scores a hit. The attack sequence ends, roll a D6. If roll is double the target unit's Wounds characterstic or more, 1 model from the unit is slain after resolving this model's attacks. If the roll is less than double, the unit suffers 1 mortal wound after resolving this model's attacks.`,
+        when: [SHOOTING_PHASE],
+      },
+      DenizenOfUlfenkarnEffect,
     ],
   },
 }

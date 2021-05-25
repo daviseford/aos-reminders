@@ -36,6 +36,24 @@ const Prayers = {
       },
     ],
   },
+  'Celestial Prayers: Invigorating Touch': {
+    effects: [
+      {
+        name: `Invigorating Touch`,
+        desc: `4+ for this prayer to succeed. Pick 1 friendly model within 3". Heal up to D6 wounds allocated to that model.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Celestial Prayers: Cometary Blast': {
+    effects: [
+      {
+        name: `Cometary Blast`,
+        desc: `4+ for this prayer to succeed. Pick a point on the battlefield within 18" and visible to this model. Roll a D6 for each unit within 3" of point. 1-3: Nothing. 4-5: 1 mortal wound, 6: D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Prayers, 'prayer')

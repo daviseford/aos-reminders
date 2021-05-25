@@ -384,6 +384,25 @@ const Units = {
       },
     ],
   },
+  'Qulathis the Exile': {
+    effects: [
+      {
+        name: `Strike Unseen`,
+        desc: `The cover modifier adds 2 to save rolls vs missile weapons for this model, instead of 1.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Oaken Arrows`,
+        desc: `If the unmodified hit roll for an attack made with Winter's Call is 6, inflict 1 mortal wound on the target in addition to normal damage.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Guardian of the Enga'la Weald`,
+        desc: `ENGA'LA WEALD is a Glade keyword (this means that this model cannot gain another Glade keyword if it is included in a Sylvaneth army - see the Glades battle trait in Battletome: Sylvaneth).`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
 }
 
 export default tagAs(Units, 'unit')

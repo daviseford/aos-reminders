@@ -1854,6 +1854,7 @@ describe('getAzyrArmyFromPdf', () => {
         'Word of Pain',
         'Bladewind',
         'Armour of Thorns',
+        'Withering Hex',
       ],
       command_traits: ['Seat on the Council (Greywater Fastness)'],
       triumphs: [],
