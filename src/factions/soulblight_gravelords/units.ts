@@ -319,6 +319,29 @@ const Units = {
     ],
   },
 
+  'Vyrkos Blood-born': {
+    effects: [
+      {
+        name: `Shadowfast`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit. On a 5+, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+
+  'Watch Captain Halgrim': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Disciplined Advance'])],
+    },
+    effects: [
+      {
+        name: `Cursed Halberd`,
+        desc: `If the unmodified hit roll for an attack made with a Cursed Halberd is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
   // '': {
   //   effects: [
   //     {
