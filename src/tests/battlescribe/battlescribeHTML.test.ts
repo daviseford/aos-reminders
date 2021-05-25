@@ -876,6 +876,10 @@ describe('getBattlescribeArmy', () => {
         severity: 'warn',
         text: 'Beguile',
       },
+      {
+        severity: 'ally-warn',
+        text: 'Allied Coven Throne can belong to Legions Of Nagash or Soulblight Gravelords. Please add this unit manually.',
+      },
     ])
   })
 
