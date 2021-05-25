@@ -96,6 +96,15 @@ const CommandAbilities = {
       },
     ],
   },
+  'Arise! Arise!': {
+    effects: [
+      {
+        name: `Arise! Arise!`,
+        desc: `You can use this command ability at the end of your movement phase. If you do so, pick 1 friendly SUMMONABLE DEADWALKERS unit that has been destroyed. A new replacement unit with half of the models from the unit that was destroyed (rounding up) is added to your army. Set up that unit wholly within 9" of a friendly model with this command ability and more than 9" from any enemy units. Each destroyed unit can only be replaced once — replacement units cannot themselves be replaced.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
   '': {
     effects: [
       {

@@ -228,6 +228,15 @@ const Spells = {
       },
     ],
   },
+  'Necrotising Bolt': {
+    effects: [
+      {
+        name: `Necrotising Bolt`,
+        desc: `Casting value of 6. If successfully cast, pick 1 enemy unit within 18" of the caster that is visible to them. Subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   '': {
     effects: [
       {

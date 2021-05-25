@@ -288,6 +288,37 @@ const Units = {
     ],
   },
 
+  'Gorslav the Gravekeeper': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Arise! Arise!'])],
+    },
+    effects: [
+      {
+        name: `Keeper of the Corpse-gardens`,
+        desc: `Roll a dice before you allocate wound or mortal wound to this model if it is within 3" of any friendly DEADWALKERS units. On a 4+, that wound or mortal wound is allocated to 1 units instead of this model.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+
+  'Torgillius the Chamberlain': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Invigorating Aura', 'Necrotising Bolt'])],
+    },
+    effects: [
+      {
+        name: `Mastery of Grave-sand`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit. On a 4+, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Trusted Lieutenant`,
+        desc: `At the start of your hero phase, if this model is within 3" of a friendly RADUKAR THE WOLF, roll a dice. On a 4+, you receive 1 extra command point.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+
   // '': {
   //   effects: [
   //     {
