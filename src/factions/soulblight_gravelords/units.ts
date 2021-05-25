@@ -515,6 +515,68 @@ const Units = {
     ],
   },
 
+  Necromancer: {
+    mandatory: {
+      spells: [keyPicker(spells, ['Invigorating Aura', "Vanhel's Danse Macabre"])],
+    },
+    effects: [
+      {
+        name: `Undead Minions`,
+        desc: `Roll a dice before you allocate a wound or mortal wound to this model if it is within 3" of any friendly SOULBLIGHT GRAVELORDS SUMMONABLE units. On a 3+, that wound or mortal wound is allocated to 1 of those units instead of this model.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+
+  'Deadwalker Zombies': {
+    effects: [
+      {
+        name: `Dragged Down and Torn Apart`,
+        desc: `This unit is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `The Newly Dead`,
+        desc: `If the unmodified hit roll for an attack made by this unit is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `The Newly Dead`,
+        desc: `At the end of the combat phase, you can roll a dice for each enemy model that was slain by wounds inflicted by this unit's attacks in that phase. For each 2+, you can add 1 DEADWALKER ZOMBIE model to this unit.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'Corpse Cart w/ Unholy Lodestone': {
+    effects: [
+      {
+        name: `Unholy Lodestone`,
+        desc: `Add 1 to casting rolls for friendly SOULBLIGHT GRAVELORDS WIZARDS wholly within 12" of any friendly models with this ability.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Locus of Undeath`,
+        desc: `Add 1 to save rolls for attacks that target friendly DEADWALKER ZOMBIES units wholly within 12" of any friendly models with this ability.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+  'Corpse Cart w/ Balefire Brazier': {
+    effects: [
+      {
+        name: `Balefire Brazier`,
+        desc: `Subtract 1 from casting rolls for enemy WIZARDS within 18" of any friendly models with this ability.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Malefic Fumes`,
+        desc: `Subtract 1 from wound rolls for attacks made with melee weapons by enemy units while they are within 9" of any friendly models with this ability.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
   // '': {
   //   effects: [
   //     {

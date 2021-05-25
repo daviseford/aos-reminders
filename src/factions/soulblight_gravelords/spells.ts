@@ -264,11 +264,11 @@ const Spells = {
       },
     ],
   },
-  '': {
+  "Vanhel's Danse Macabre": {
     effects: [
       {
-        name: ``,
-        desc: ``,
+        name: `Vanhel's Danse Macabre`,
+        desc: `Casting value of 6. If successfully cast, pick 1 friendly SOUL-BLIGHT GRAVELORDS SUMMONABLE unit wholly within 18" of the caster. Until your next hero phase, if that unit has fought only once in the combat phase, when it is your turn to pick a unit to fight, that unit can be picked to fight for a second time if it is within 3" of any enemy units.`,
         when: [HERO_PHASE],
       },
     ],
