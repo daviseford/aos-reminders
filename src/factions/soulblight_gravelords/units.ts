@@ -6,7 +6,16 @@ const Units = {
   //     {
   //       name: ``,
   //       desc: ``,
-  //       when: [END_OF_SETUP],
+  //       when: [],
+  //     },
+  //   ],
+  // },
+  // '': {
+  //   effects: [
+  //     {
+  //       name: ``,
+  //       desc: ``,
+  //       when: [],
   //     },
   //   ],
   // },

@@ -7,7 +7,7 @@ const EndlessSpells = {
   //     {
   //       name: ``,
   //       desc: ``,
-  //       when: [END_OF_SETUP],
+  //       when: [],
   //     },
   //   ],
   // },

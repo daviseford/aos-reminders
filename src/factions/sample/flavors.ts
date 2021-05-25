@@ -6,7 +6,7 @@ const Flavors = {
   //     {
   //       name: ``,
   //       desc: ``,
-  //       when: [END_OF_SETUP],
+  //       when: [],
   //     },
   //   ],
   // },

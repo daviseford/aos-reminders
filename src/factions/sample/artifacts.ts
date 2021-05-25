@@ -7,7 +7,7 @@ const Artifacts = {
   //     {
   //       name: ``,
   //       desc: ``,
-  //       when: [END_OF_SETUP],
+  //       when: [],
   //     },
   //   ],
   // },
