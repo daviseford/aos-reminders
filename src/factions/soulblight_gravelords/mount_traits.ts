@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { CHARGE_PHASE, HERO_PHASE, MOVEMENT_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
-// Store Mount Traits here. You can add them to units, abilties, flavors, and subfactions later.
 const MountTraits = {
   // Avengorii Dynasty (Cursed Mutations)
   'Maddening Hunger (Cursed Mutation)': {

@@ -14,5 +14,3 @@ export const SoulblightGravelordsFaction = new Faction(
   rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
   pickEffects(battle_traits, [SOULBLIGHT_GRAVELORDS])
 )
-
-// I stopped on IMG-5673

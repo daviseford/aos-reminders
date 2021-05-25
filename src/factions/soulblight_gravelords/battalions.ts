@@ -5,7 +5,7 @@ import Units from './units'
 const RegularBattalions = {
   'Red Banqueters': {
     mandatory: {
-      units: [keyPicker(Units, ['Blood Knights', 'Vampire Lords'])],
+      units: [keyPicker(Units, ['Blood Knights'])],
     },
     effects: [
       {
@@ -29,7 +29,7 @@ const RegularBattalions = {
   },
   'Deathstench Drove': {
     mandatory: {
-      units: [keyPicker(Units, ['Corpse Carts', 'Dire Wolves', 'Deadwalker Zombies'])],
+      units: [keyPicker(Units, ['Dire Wolves', 'Deadwalker Zombies'])],
     },
     effects: [
       {
@@ -41,7 +41,7 @@ const RegularBattalions = {
   },
   Deathmarch: {
     mandatory: {
-      units: [keyPicker(Units, ['Wight King', 'Black Knights', 'Grave Guard', 'Deathrattle Skeletons'])],
+      units: [keyPicker(Units, ['Black Knights', 'Grave Guard', 'Deathrattle Skeletons'])],
     },
     effects: [
       {

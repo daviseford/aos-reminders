@@ -151,13 +151,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Kin of the Wolf`,
-        desc: `Once per battle, at the end of your movement
-        phase, you can say that this general will
-        summon a pack of Dire Wolves to the
-        battlefield. If you do so, you can add 1 unit of
-        up to 5 DIRE WOLVES to your army. Set up that
-        unit wholly within 9" of this general and more
-        than 9" from all enemy units.`,
+        desc: `Once per battle, at the end of your movement phase, you can say that this general will summon a pack of Dire Wolves to the battlefield. If you do so, you can add 1 unit of up to 5 DIRE WOLVES to your army. Set up that unit wholly within 9" of this general and more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
     ],
@@ -274,16 +268,6 @@ const CommandTraits = {
       },
     ],
   },
-
-  // '': {
-  //   effects: [
-  //     {
-  //       name: ``,
-  //       desc: ``,
-  //       when: [],
-  //     },
-  //   ],
-  // },
 }
 
 // Always export using tagAs

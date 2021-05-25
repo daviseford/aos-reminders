@@ -255,7 +255,7 @@ const Spells = {
       },
     ],
   },
-  'Shudder': {
+  Shudder: {
     effects: [
       {
         name: `Shudder`,

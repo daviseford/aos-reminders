@@ -21,9 +21,10 @@ import {
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import Spells from './spells'
+
 const SelflessProtectorEffect = {
   name: `Selfless Protector`,
-  desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly SLANN while it is within 3" of any friendly units with this ability, On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that SLANN, instead of to that SLANN.`,
+  desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly SLANN while it is within 3" of any friendly units with this ability. On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that SLANN, instead of to that SLANN.`,
   when: [WOUND_ALLOCATION_PHASE],
 }
 const VoraciousAppetiteEffect = {

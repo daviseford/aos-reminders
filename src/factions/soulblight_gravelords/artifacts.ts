@@ -278,16 +278,6 @@ const Artifacts = {
       },
     ],
   },
-
-  // '': {
-  //   effects: [
-  //     {
-  //       name: ``,
-  //       desc: ``,
-  //       when: [],
-  //     },
-  //   ],
-  // },
 }
 
 // Always export using tagAs

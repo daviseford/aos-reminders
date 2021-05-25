@@ -4,21 +4,14 @@ import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
-import EndlessSpells from './endless_spells'
 import MountTraits from './mount_traits'
+import Spells from './spells'
 import Units from './units'
 
 const subFactionBase = {
-  // artifacts: [Artifacts],
   battalions: [Battalions],
   command_abilities: [CommandAbilities],
-  // command_traits: [CommandTraits],
-  endless_spells: [EndlessSpells],
-  // flavors: [Flavors],
-  // mount_traits: [MountTraits],
-  // prayers: [Prayers],
-  // scenery: [Scenery],
-  // spells: [Spells],
+  spells: [Spells],
   units: [Units],
 }
 

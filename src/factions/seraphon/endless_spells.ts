@@ -73,7 +73,7 @@ const EndlessSpells = {
 
         If the caster of a Bound Balewind Vortex attempts to dispel it, the attempt is automatically successful (do not roll any dice). This uses up the additional spell that the caster would have received in that hero phase, and still counts as the single attempt they can make to dispel an endless spell in that hero phase, but they can make any remaining casting attempts normally. If the caster of a Bound Balewind Vortex is slain, then it is immediately dispelled and removed from play along with the caster.
 
-        If a Bound Balewind Vortex is dispelled and the caster has not been slain, first set up the caster wholly within 6" of it and more than 3" from any enemy models, and then remove the Bound Balewind Vortex model from play, If it is impossible to set up the caster, they are slain.`,
+        If a Bound Balewind Vortex is dispelled and the caster has not been slain, first set up the caster wholly within 6" of it and more than 3" from any enemy models, and then remove the Bound Balewind Vortex model from play. If it is impossible to set up the caster, they are slain.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JANUARY_2021],
       },

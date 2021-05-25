@@ -1,5 +1,4 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import { GenericSpells } from 'generic_rules'
 import GenericBattleTraits from 'generic_rules/battle_traits'
 import {
   CHARGE_PHASE,
@@ -59,7 +58,7 @@ const Units = {
   'Nagash, Supreme Lord of the Undead': {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Supreme Lord of the Undead'])],
-      spells: [keyPicker(spells, ['Invigorating Aura', 'Hand of Dust', 'Soul Stealer']), ...GenericSpells],
+      spells: [keyPicker(spells, ['Invigorating Aura', 'Hand of Dust', 'Soul Stealer'])],
     },
     effects: [
       {
@@ -98,7 +97,7 @@ const Units = {
   'Mannfred von Carstein': {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Vigour of Undeath'])],
-      spells: [keyPicker(spells, ['Invigorating Aura', 'Wind of Death']), ...GenericSpells],
+      spells: [keyPicker(spells, ['Invigorating Aura', 'Wind of Death'])],
     },
     effects: [
       TheHungerEffect,
@@ -703,6 +702,31 @@ const Units = {
         name: `Serve in Death`,
         desc: `If the unmodified hit roll for an attack made by this unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'Dire Wolves': {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 in every 10 models in this unit must be a Doom Wolf. Add 1 to the Attacks characteristic of that model's Rotting Fangs.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Slavering Charge`,
+        desc: `Add 1 to hit and wound rolls for attacks made with melee weapons by this unit if it made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'Fell Bats': {
+    effects: [
+      {
+        name: `Single-minded Ferocity`,
+        desc: `This unit can retreat and still charge later in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
