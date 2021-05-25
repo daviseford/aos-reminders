@@ -133,6 +133,15 @@ const CommandAbilities = {
       },
     ],
   },
+  'Lord of Bones': {
+    effects: [
+      {
+        name: `Lord of Bones`,
+        desc: `You can use this command ability in your hero phase, If you do so, pick 1 friendly DEATHRATTLE unit wholly within 12" of this model. Until the end of that phase, you can reroll hit rolls of 1 for attacks made with melee weapons by that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   '': {
     effects: [
       {

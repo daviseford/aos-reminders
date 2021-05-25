@@ -577,6 +577,40 @@ const Units = {
     ],
   },
 
+  'Zombie Dragon': {
+    effects: [...GenericBattleTraits.ZombieDragon],
+  },
+
+  Terrorgheist: {
+    effects: [...GenericBattleTraits.Terrorgheist],
+  },
+
+  'Wight King': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Lord of Bones'])],
+    },
+    effects: [
+      {
+        name: `Beheading Strike`,
+        desc: `If the unmodified hit roll for an attack made with this model's Baleful Tomb Blade is 6, the target suffers 1 mortal wound in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'Wight King on Skeletal Steed': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Lord of Bones'])],
+    },
+    effects: [
+      {
+        name: `Deathly Charge`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+
   // '': {
   //   effects: [
   //     {
