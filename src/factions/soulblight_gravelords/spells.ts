@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { HERO_PHASE, SAVES_PHASE } from 'types/phases'
+import { CHARGE_PHASE, HERO_PHASE, SAVES_PHASE } from 'types/phases'
 
 const Spells = {
   // Every Soulblight hero knows this spell!
@@ -164,6 +164,38 @@ const Spells = {
         name: `Dark Mist`,
         desc: `If active, ignore negative modifiers when making save rolls for attacks that target that unit until your next hero phase.`,
         when: [SAVES_PHASE],
+      },
+    ],
+  },
+  'Quickblood': {
+    effects: [
+      {
+        name: `Quickblood`,
+        desc: `Casting value of 7. If successfully cast, add 1 to hit and wound rolls for attacks made with melee weapons by the caster until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Fiendish Lure': {
+    effects: [
+      {
+        name: `Fiendish Lure`,
+        desc: `Casting value of 5, If successfully cast, pick 1 enemy unit within 6" of the caster that is visible to them. Add 1 to hit rolls for attacks that target that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  "Death's Downpour": {
+    effects: [
+      {
+        name: `Death's Downpour`,
+        desc: `Casting value of 8. If successfully cast, charge rolls made for enemy units within 12" of this model are halved until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Death's Downpour`,
+        desc: `If active, charge rolls made for enemy units within 12" of this model are halved until your next hero phase.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },

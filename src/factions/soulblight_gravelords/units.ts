@@ -1,15 +1,24 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import { GenericSpells } from 'generic_rules'
 import {
+  CHARGE_PHASE,
   COMBAT_PHASE,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
+  MOVEMENT_PHASE,
+  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import spells from './spells'
+
+const TheHungerEffect = {
+  name: `The Hunger`,
+  desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this unit's attacks in that phase, you can heal up to D3 wounds allocated to this unit.`,
+  when: [END_OF_COMBAT_PHASE],
+}
 
 const Units = {
   'Nagash, Supreme Lord of the Undead': {
@@ -56,11 +65,7 @@ const Units = {
       spells: [keyPicker(spells, ['Invigorating Aura', 'Wind of Death']), ...GenericSpells],
     },
     effects: [
-      {
-        name: `The Hunger`,
-        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that phase, you can heal up to D3 wounds allocated to this model.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
+      TheHungerEffect,
       {
         name: `Armour of Templehof`,
         desc: `The first wound or mortal wound allocated to this model in each phase is negated.`,
@@ -86,7 +91,7 @@ const Units = {
   Neferata: {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ["Twilight's Allure"])],
-      spells: [keyPicker(spells, ['Invigorating Aura', 'Dark Mist']), ...GenericSpells],
+      spells: [keyPicker(spells, ['Invigorating Aura', 'Dark Mist'])],
     },
     effects: [
       {
@@ -106,246 +111,67 @@ const Units = {
       },
     ],
   },
-  '': {
+  'Prince Vhordrai': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Fist of Nagash'])],
+      spells: [keyPicker(spells, ['Invigorating Aura', 'Quickblood'])],
+    },
     effects: [
+      TheHungerEffect,
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Chalice of Blood`,
+        desc: `Once per battle, in your hero phase, you can heal up to D6 wounds allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Bloodlance Charge`,
+        desc: `Add 2 to the Damage characteristic of this model's Bloodlance and improve the Rend characteristic of that weapon by 1 if this model made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Breath of Shyish`,
+        desc: `In your shooting phase, you can pick 1 enemy unit within 9" of this model that is visible to it and roll a dice. On a 3+, that unit suffers a number of mortal wounds equal to the Breath of Shyish value shown on this model's damage table,`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
-  '': {
+  'Prince Duvalle': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Invigorating Aura', 'Fiendish Lure'])],
+    },
+    effects: [TheHungerEffect],
+  },
+  'The Crimson Court': {
     effects: [
+      TheHungerEffect,
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Vampiric Agility`,
+        desc: `When this unit makes a move, it can pass across terrain features in the same manner as a model that can fly.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
-  '': {
+  'Lauka Vai': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['A Queen Amongst Monsters'])],
+      spells: [keyPicker(spells, ['Invigorating Aura', "Death's Downpour"])],
+    },
     effects: [
+      TheHungerEffect,
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Champion of the Avengorii`,
+        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a number of dice equal to the charge roll for that charge move. For each 5+, that enemy unit suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
       },
-    ],
-  },
-  '': {
-    effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Nightmares Miasma`,
+        desc: `While an enemy unit is within 3" of any friendly models with this ability, worsen the Rend characteristic of that unit's melee weapons by 1 (to a minimum of '-')`,
+        when: [COMBAT_PHASE],
       },
-    ],
-  },
-  '': {
-    effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
-      },
-    ],
-  },
-  '': {
-    effects: [
-      {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Undeniable Impulse`,
+        desc: `At the start of your hero phase, roll a dice for this model. If the roll is equal to or less than the number of the current battle round, until your next hero phase, this model can run and still charge later in the same turn. However, this model cannot use command abilities until your next hero phase.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
