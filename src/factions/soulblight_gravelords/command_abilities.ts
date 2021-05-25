@@ -21,6 +21,15 @@ const CommandAbilities = {
       },
     ],
   },
+  "Twilight's Allure": {
+    effects: [
+      {
+        name: `Twilight's Allure`,
+        desc: `You can use this command ability once per turn in your hero phase. If you do so, subtract 1 from hit rolls for attacks made with melee weapons that target friendly SOULBLIGHT GRAVELORDS units wholly within 12" of this model until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   '': {
     effects: [
       {

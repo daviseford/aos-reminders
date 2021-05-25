@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { HERO_PHASE } from 'types/phases'
+import { HERO_PHASE, SAVES_PHASE } from 'types/phases'
 
 const Spells = {
   // Every Soulblight hero knows this spell!
@@ -150,6 +150,20 @@ const Spells = {
         name: `Wind of Death`,
         desc: `Casting value of 7. If successfully cast, pick 1 enemy unit within 18" of the caster that is visible to them, and roll a dice for that enemy unit and each other enemy unit within 6" of that enemy unit. On a 3+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Dark Mist': {
+    effects: [
+      {
+        name: `Dark Mist`,
+        desc: `Casting value of 6. If successfully cast, pick 1 friendly SOUL-BLIGHT GRAVELORDS unit wholly within 12" of the caster. Ignore negative modifiers when making save rolls for attacks that target that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Dark Mist`,
+        desc: `If active, ignore negative modifiers when making save rolls for attacks that target that unit until your next hero phase.`,
+        when: [SAVES_PHASE],
       },
     ],
   },

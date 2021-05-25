@@ -83,12 +83,26 @@ const Units = {
       },
     ],
   },
-  '': {
+  Neferata: {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ["Twilight's Allure"])],
+      spells: [keyPicker(spells, ['Invigorating Aura', 'Dark Mist']), ...GenericSpells],
+    },
     effects: [
       {
-        name: ``,
-        desc: ``,
-        when: [],
+        name: `Dagger of Jet`,
+        desc: `At the end of any phase, if any wounds inflicted by this model's Akmet-har in that phase were allocated to an enemy HERO and not negated, and that enemy model has not been slain, roll a dice. On a 5+, that enemy HERO is slain,`,
+        when: [WOUND_ALLOCATION_PHASE, END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Mortarch of Blood`,
+        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that phase, you can heal up to D6 wounds allocated to this model,`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Frightful Touch`,
+        desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and Daggers is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
