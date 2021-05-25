@@ -1,11 +1,10 @@
-import { LinkNewTab } from 'components/helpers/link'
 import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { useTheme } from 'context/useTheme'
 import React from 'react'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = 'v4.0.0-Initial-Release'
+  const name = 'soulblight-gravelords-release'
 
   return (
     <NotificationBanner
@@ -13,16 +12,10 @@ const AppBanner = () => {
       enableLog={true}
       name={name}
       persistClose={true}
-      variant={isDark ? `warning` : `warning`}
+      variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW!</strong> We've just released v4.0.0! Take a minute to&nbsp;
-        <LinkNewTab
-          href={'https://daviseford.com/blog/2020/12/23/whats-new-in-aos-reminders-v4.html'}
-          label={"What's New in AoS Reminders v4"}
-        >
-          read the changelog.
-        </LinkNewTab>
+        <strong>NEW!</strong> We've just added Soulblight Gravelords!
       </span>
     </NotificationBanner>
   )
