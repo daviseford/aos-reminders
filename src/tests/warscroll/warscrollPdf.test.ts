@@ -845,6 +845,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Amber Spear',
         'Word of Pain',
         'Armour of Thorns',
+        'Withering Hex',
       ],
       command_traits: [
         'Black Market Bounty (Anvilgard Battle Trait)',
@@ -1058,6 +1059,7 @@ describe('getWarscrollArmyFromPdf', () => {
       'Word of Pain',
       'Bladewind',
       'Armour of Thorns',
+      'Withering Hex',
     ])
   })
 
