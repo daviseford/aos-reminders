@@ -49,6 +49,12 @@ const FrightfulTouchEffect = {
   when: [COMBAT_PHASE],
 }
 
+const DeathlyChargeEffect = {
+  name: `Deathly Charge`,
+  desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+  when: [CHARGE_PHASE],
+}
+
 const Units = {
   'Nagash, Supreme Lord of the Undead': {
     mandatory: {
@@ -602,11 +608,101 @@ const Units = {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Lord of Bones'])],
     },
+    effects: [DeathlyChargeEffect],
+  },
+
+  'Black Knights': {
+    effects: [
+      DeathlyChargeEffect,
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Hellknight. Add 1 to the Attacks characteristic of that model's Barrow Lance.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `1 in every 5 models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Musician`,
+        desc: `1 in every 5 models in this unit can be a Hornblower. While this unit has any Hornblowers, charge rolls for this unit of less than 6 are treated as being 6.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+
+  'Grave Guard': {
     effects: [
       {
-        name: `Deathly Charge`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Seneschal. Add 1 to the Attacks characteristic of that model's Wight Blade or Great Wight Blade.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `1 in every 10 models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Musician`,
+        desc: `1 in every 10 models in this unit can be a Hornblower. While this unit has any Hornblowers, charge rolls for this unit of less than 6 are treated as being 6.`,
         when: [CHARGE_PHASE],
+      },
+      {
+        name: `Cursed Weapons`,
+        desc: `If the unmodified wound roll for an attack made with a melee weapon by this unit is 6, the target suffers 1 mortal wound in addition to any normal damage.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Crypt Shields`,
+        desc: `Add 1 to save rolls for attacks that target a unit armed with Wight Blades and Crypt Shields.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+
+  'Deathrattle Skeletons': {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Skeleton Champion. A Skeleton Champion can replace their Ancient Blade or Spear with a Champion's Mace or Halberd.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `1 in every 10 models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Skeleton Legion`,
+        desc: `When you pick this unit to fight, roll a dice for each model in this unit that was slain in that phase. On a 4+, you can return that model to this unit.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'The Sepulchral Guard': {
+    effects: [
+      {
+        name: `The Sepulchral Warden`,
+        desc: `The Sepulchral Warden has a Wounds characteristic of 2.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `The Sepulchral Warden`,
+        desc: `At the start of your hero phase, if this model is on the battlefield, you can return D3 slain models to this unit.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Frightening Speed`,
+        desc: `You can reroll charge rolls for this unit.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Serve in Death`,
+        desc: `If the unmodified hit roll for an attack made by this unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
