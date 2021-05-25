@@ -9,6 +9,7 @@ import {
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -34,6 +35,18 @@ const UndeniableImpulseEffect = {
   name: `Undeniable Impulse`,
   desc: `At the start of your hero phase, roll a dice for this model. If the roll is equal to or less than the number of the current battle round, until your next hero phase, this model can run and still charge later in the same turn. However, this model cannot use command abilities until your next hero phase.`,
   when: [START_OF_HERO_PHASE],
+}
+
+const WailOfTheDamnedEffect = {
+  name: `Wail of the Damned`,
+  desc: `Do not use the attack sequence for an attack made with a Wail of the Damned. Instead, roll a dice for each enemy unit within range of this model's Wail of the Damned. On a 4+, that unit suffers D3 mortal wounds.`,
+  when: [SHOOTING_PHASE],
+}
+
+const FrightfulTouchEffect = {
+  name: `Frightful Touch`,
+  desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and Blades is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+  when: [COMBAT_PHASE],
 }
 
 const Units = {
@@ -464,15 +477,40 @@ const Units = {
         desc: `If an enemy HERO is slain within 9" of this model, add 1 to the Attacks characteristic of melee weapons used by friendly VAMPIRE units wholly within 12" of this model until your next hero phase.`,
         when: [COMBAT_PHASE, WOUND_ALLOCATION_PHASE],
       },
+      FrightfulTouchEffect,
+      WailOfTheDamnedEffect,
+    ],
+  },
+
+  'Mortis Engine': {
+    effects: [
+      WailOfTheDamnedEffect,
+      FrightfulTouchEffect,
       {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and Blades is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
+        name: `The Reliquary`,
+        desc: `Once per battle, in your hero phase, you can say that this model will unleash the energies of its reliquary. If you do so, roll a dice for each unit within 12" of this model. On a 2+, that unit suffers D3 mortal wounds. DEATH units are not affected by this ability.`,
+        when: [HERO_PHASE],
       },
       {
-        name: `Wail of the Damned`,
-        desc: `Do not use the attack sequence for an attack made with a Wail of the Damned. Instead, roll a dice for each enemy unit within range of this model's Wail of the Damned. On a 4+, that unit suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
+        name: `Bound Necromancer`,
+        desc: `Add 1 to casting rolls for friendly SOULBLIGHT GRAVELORDS WIZARDS wholly within 12" of any friendly models with this ability.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+
+  'Coven Throne': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Tactical Insight'])],
+      spells: [keyPicker(spells, ['Invigorating Aura', 'Shudder'])],
+    },
+    effects: [
+      TheHungerEffect,
+      FrightfulTouchEffect,
+      {
+        name: `Scrying Pool`,
+        desc: `Once per turn, you can reroll 1 hit roll or 1 wound roll for an attack made by this model or 1 save roll for an attack that targets this model.`,
+        when: [COMBAT_PHASE, SAVES_PHASE],
       },
     ],
   },

@@ -255,6 +255,15 @@ const Spells = {
       },
     ],
   },
+  'Shudder': {
+    effects: [
+      {
+        name: `Shudder`,
+        desc: `Casting value of 6. If successfully cast, pick 1 enemy unit within 12" of the caster that is visible to them and roll 3D6. If the roll is greater than that unit's Bravery characteristic, this model cannot be picked to be the target of any attacks made, spells cast or abilities used by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   '': {
     effects: [
       {

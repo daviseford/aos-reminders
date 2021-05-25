@@ -124,6 +124,15 @@ const CommandAbilities = {
       },
     ],
   },
+  'Tactical Insight': {
+    effects: [
+      {
+        name: `Tactical Insight`,
+        desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly SOULBLIGHT GRAVELORDS unit wholly within 12" of this model. Until your next hero phase, add 1 to hit rolls and wound rolls for attacks made by that unit and add 1 to save rolls for attacks that target that unit. The same unit cannot benefit from this command ability more than once per phase.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
   '': {
     effects: [
       {
