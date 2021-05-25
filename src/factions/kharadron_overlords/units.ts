@@ -342,6 +342,20 @@ const Units = {
       SkyCannonEffect,
     ],
   },
+  'Dagnai Holdenstock': {
+    effects:[
+      {
+        name: `Gold-plated Reputation`,
+        desc: `If this model is included in a Kharadron Overlords army, it starts the battle with 2 shares of aether-gold instead of 1.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Reel 'Em In`,
+        desc: `If an attack made with this model's Harpoon Gun scores a hit on a MONSTER, if that MONSTER is not slain after that attack has been resolved, roll a dice. On a 4+, that MONSTER is skewered until the start of your next shooting phase. While that MONSTER is skewered, each time it makes a move, it must finish that move at least as close to this model as it was at the start of the move.`,
+        when: [SHOOTING_PHASE],
+      },
+    ]
+  },
 }
 
 export default tagAs(Units, 'unit')

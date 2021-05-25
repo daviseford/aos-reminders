@@ -409,6 +409,15 @@ const Spells = {
       },
     ],
   },
+  'Withering Hex': {
+    effects: [
+      {
+        name: `Withering Hex`,
+        desc: `6+ casting value. Pick 1 enemy unit within 18" and visible to the caster. Unit suffers D3 mortal wounds. In addition, for the rest of the battle, that unit is affected by Octren's Hex. Subtract 1" from Move Characteristic of units affects by Octren's Hex.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Spells, 'spell')
