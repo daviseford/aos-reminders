@@ -1,8 +1,6 @@
 import { SKAVENTIDE } from 'meta/factions'
-import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
-import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
@@ -13,7 +11,7 @@ import Units from './units'
 
 const subFactions = {
   [SKAVENTIDE]: {
-    effects: pickEffects(BattleTraits, [SKAVENTIDE]),
+    effects: [],
     available: {
       artifacts: [Artifacts],
       battalions: [Battalions],

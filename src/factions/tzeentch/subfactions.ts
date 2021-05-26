@@ -3,10 +3,9 @@ import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
 import SlavesToDarknessBattalions from 'factions/slaves_to_darkness/battalions'
 import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import { TZEENTCH } from 'meta/factions'
-import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
+import { keyOmitter, keyPicker } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
-import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
@@ -16,7 +15,7 @@ import Units from './units'
 
 const subFactions = {
   [TZEENTCH]: {
-    effects: pickEffects(BattleTraits, ['The Flow of Change']),
+    effects: [],
 
     available: {
       artifacts: [Artifacts],

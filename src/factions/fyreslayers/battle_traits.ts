@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { FYRESLAYERS } from 'meta/factions'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -14,7 +15,7 @@ import {
 
 const BattleTraits = {
   // Fyreslayers allegiance
-  Fyreslayers: {
+  [FYRESLAYERS]: {
     effects: [
       {
         name: `Ur-Gold Runes`,
