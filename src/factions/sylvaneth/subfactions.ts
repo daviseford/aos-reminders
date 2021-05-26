@@ -1,8 +1,6 @@
 import { SYLVANETH } from 'meta/factions'
-import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import RegularBattalions from './battalions'
-import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
@@ -13,7 +11,7 @@ import Units from './units'
 
 const subFactions = {
   [SYLVANETH]: {
-    effects: pickEffects(BattleTraits, [SYLVANETH]),
+    effects: [],
     available: {
       artifacts: [Artifacts],
       battalions: [RegularBattalions],

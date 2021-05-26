@@ -1,7 +1,6 @@
 import { TItemDescriptions } from 'factions/factionTypes'
-import { keyPicker, pickEffects } from 'factions/metatagger'
+import { keyPicker } from 'factions/metatagger'
 import { COMBAT_PHASE, DURING_GAME, END_OF_COMBAT_PHASE, START_OF_SETUP } from 'types/phases'
-import battle_traits from './battle_traits'
 import command_abilities from './command_abilities'
 import command_traits from './command_traits'
 
@@ -18,7 +17,6 @@ const Flavors: TItemDescriptions = {
         desc: `Each time an enemy model with an artefact of power is slain, you can roll for a triumph on the Triumph table. You can use that triumph during the current battle, even if you have already used it. If you do not use it during the current battle, it is lost (you cannot use it in your next battle).`,
         when: [DURING_GAME],
       },
-      ...pickEffects(battle_traits, ['KrakenEater']),
     ],
   },
   'Stomper Tribe': {
@@ -55,7 +53,6 @@ const Flavors: TItemDescriptions = {
         desc: `If your army is a Stomper Tribe, your general must use the Big Shout command abilities (they cannot use any other command abilities)`,
         when: [COMBAT_PHASE],
       },
-      ...pickEffects(battle_traits, ['Warstomper']),
     ],
   },
   'Breaker Tribe': {
@@ -75,7 +72,6 @@ const Flavors: TItemDescriptions = {
         desc: `When you pick a Breaker Tribe army, you can choose or roll for 1 ability from the Fierce Loathings table. The ability applies to friendly GATEBREAKER MEGA-GARGANTS and friendly MANCRUSHER GARGANT units.`,
         when: [START_OF_SETUP],
       },
-      ...pickEffects(battle_traits, ['Gatebreaker']),
     ],
   },
 }
