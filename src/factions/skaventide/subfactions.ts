@@ -13,7 +13,7 @@ import Units from './units'
 
 const subFactions = {
   [SKAVENTIDE]: {
-    effects: pickEffects(BattleTraits, [SKAVENTIDE]),
+    effects: [],
     available: {
       artifacts: [Artifacts],
       battalions: [Battalions],
