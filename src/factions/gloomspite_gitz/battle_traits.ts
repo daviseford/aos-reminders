@@ -1,8 +1,9 @@
 import { tagAs } from 'factions/metatagger'
+import { GLOOMSPITE_GITZ } from 'meta/factions'
 import { START_OF_ROUND, TURN_ONE_START_OF_ROUND } from 'types/phases'
 
 const BattleTraits = {
-  'Gloomspite Gitz': {
+  [GLOOMSPITE_GITZ]: {
     effects: [
       {
         name: `Bad Moon Setup`,

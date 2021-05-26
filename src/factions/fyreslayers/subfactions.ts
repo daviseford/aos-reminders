@@ -14,7 +14,7 @@ import Units from './units'
 
 const subFactions = {
   [FYRESLAYERS]: {
-    effects: pickEffects(BattleTraits, ['Fyreslayers']),
+    effects: pickEffects(BattleTraits, [FYRESLAYERS]),
     available: {
       artifacts: [Artifacts],
       battalions: [Battalions],

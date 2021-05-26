@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { BEASTS_OF_CHAOS } from 'meta/factions'
 import {
   BATTLESHOCK_PHASE,
   DURING_GAME,
@@ -13,7 +14,7 @@ import {
 } from 'types/phases'
 
 const BattleTraits = {
-  'Beasts Of Chaos': {
+  [BEASTS_OF_CHAOS]: {
     effects: [
       {
         name: `Brayherd Ambush`,

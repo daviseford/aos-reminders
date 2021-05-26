@@ -13,7 +13,7 @@ import Units from './units'
 
 const subFactions = {
   [GLOOMSPITE_GITZ]: {
-    effects: pickEffects(BattleTraits, ['Gloomspite Gitz']),
+    effects: pickEffects(BattleTraits, [GLOOMSPITE_GITZ]),
 
     available: {
       artifacts: [Artifacts],
