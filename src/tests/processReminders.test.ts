@@ -63,7 +63,6 @@ describe('processReminders', () => {
       battalion,
       command_trait,
       command1,
-      command2,
       endless_spell,
       flavor,
       scenery,
@@ -80,7 +79,7 @@ describe('processReminders', () => {
     })
 
     // Check for Allegiance ability
-    const ability = SylvanethFaction.AggregateArmy.BattleTraits?.[0]
+    const ability = SylvanethFaction?.factionBattleTraits?.[0]
     const abilityEffect = ability
       ? reminders[ability.when[0]].find(({ name }) => {
           return name === ability.name
