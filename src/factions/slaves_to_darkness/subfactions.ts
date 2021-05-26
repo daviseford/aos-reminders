@@ -22,7 +22,7 @@ const baseSubFaction: IItemDescription = {
 
 const subFactions = {
   Ravagers: {
-    effects: pickEffects(BattleTraits, ['Bane of the Mortal Realms', 'Glory for the Taking']),
+    effects: pickEffects(BattleTraits, ['Glory for the Taking']),
 
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Rally the Tribes'])],
@@ -56,7 +56,7 @@ const subFactions = {
   },
 
   Cabalists: {
-    effects: pickEffects(BattleTraits, ['Bane of the Mortal Realms', 'Binding Rituals']),
+    effects: pickEffects(BattleTraits, ['Binding Rituals']),
 
     mandatory: {
       spells: [keyPicker(Spells, ['Crippling Ruin'])],
@@ -91,7 +91,6 @@ const subFactions = {
 
   Despoilers: {
     effects: pickEffects(BattleTraits, [
-      'Bane of the Mortal Realms',
       'Sacrilegious Might',
       'Blessed by the Unholy',
       'Twisted Dominion',
@@ -128,7 +127,6 @@ const subFactions = {
 
   'Host of the Everchosen': {
     effects: pickEffects(BattleTraits, [
-      'Bane of the Mortal Realms',
       'Exalted Grand Marshall of the Apocalypse',
       'Fearless in His Presence',
       'The Will of the Everchosen',
@@ -148,7 +146,7 @@ const subFactions = {
   },
 
   'Knights of the Empty Throne': {
-    effects: pickEffects(BattleTraits, ['Bane of the Mortal Realms', 'Fists of the Everchosen']),
+    effects: pickEffects(BattleTraits, ['Fists of the Everchosen']),
 
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Unmatched Conquerors', 'Failure is Not an Option'])],
@@ -166,12 +164,7 @@ const subFactions = {
   },
 
   Idolators: {
-    effects: pickEffects(BattleTraits, [
-      'Bane of the Mortal Realms',
-      'Blessed of Chaos',
-      'Panopy of Ruin',
-      'Destroy the False Idols',
-    ]),
+    effects: pickEffects(BattleTraits, ['Blessed of Chaos', 'Panopy of Ruin', 'Destroy the False Idols']),
 
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Desecrate'])],
