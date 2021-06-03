@@ -152,6 +152,11 @@ const SquigglyBeastFollowersEffect = {
   desc: `At the start of the combat phase, roll 1 dice for each enemy unit within 3" of any friendly models with this ability. If the roll is equal to or greater than the number of models in that enemy unit, that enemy unit suffers 1 mortal wound.`,
   when: [START_OF_COMBAT_PHASE],
 }
+const CrushingGripEffect = {
+  name: `Crushing Grip`,
+  desc: `Do not use the attack sequence for an attack made with a Crushing Grip. Instead, pick 1 enemy model that is in range of the attack and roll a D6. If the roll is equal to or greater than the Wounds characteristic of that model, it is slain.`,
+  when: [COMBAT_PHASE],
+}
 
 const Units = {
   'Skragrott, The Loonking': {
@@ -573,11 +578,7 @@ const Units = {
       RegenerationEffect,
       SquigglyBeastFollowersEffect,
       MagicalResistanceEffect,
-      {
-        name: `Crushing Grip`,
-        desc: `Do not use the attack sequence for an attack made with a Crushing Grip. Instead, pick 1 enemy model that is in range of the attack and roll a D6. If the roll is equal to or greater than the Wounds characteristic of that model, it is slain.`,
-        when: [COMBAT_PHASE],
-      },
+      CrushingGripEffect,
     ],
   },
   Mollog: {
@@ -656,6 +657,7 @@ const Units = {
       RegenerationEffect,
       SquigglyBeastFollowersEffect,
       MagicalResistanceEffect,
+      CrushingGripEffect,
     ],
   },
   'Aleguzzler Gargant': {
