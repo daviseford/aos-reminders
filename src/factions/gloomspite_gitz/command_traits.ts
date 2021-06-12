@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -223,6 +224,7 @@ const CommandTraits = {
         name: `Envoy of the Overbounder`,
         desc: `You can reroll failed battleshock tests for friendly JAWS OF MORK units wholly within 12" of this general.`,
         when: [BATTLESHOCK_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -233,6 +235,7 @@ const CommandTraits = {
         name: `Shepard of Idiotic Destruction`,
         desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a D6. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -243,6 +246,7 @@ const CommandTraits = {
         name: `Prophet of da Spider God`,
         desc: `Once per battle in the combat phase, you can say that this general will unleash their battle cry. If you do so, friendly GRIMSCUTTLE SPIDERFANG models are treated as being affected by the light of the Bad Moon until the end of that phase.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

@@ -1,4 +1,5 @@
 import { keyPicker } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import { COMBAT_PHASE, DURING_GAME, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
 import Artifacts from './artifacts'
 import Battlalions from './battalions'
@@ -20,6 +21,7 @@ const Flavors = {
         name: `Running Riot`,
         desc: `You can reroll the roll that determines the Move characteristic of friendly SQUIG units.`,
         when: [MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -38,6 +40,7 @@ const Flavors = {
         name: `Monstrous Regeneration`,
         desc: `Add 1 to the dice that determines if a friendly GLOGG'S MEGAMOB TROGGOTH unit heals any wounds when it uses its Regeneration ability.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -62,11 +65,13 @@ const Flavors = {
         name: `Deff Grotz of Shyish`,
         desc: `Each time a friendly GRIMSCUTTLE SPIDERFANG unit is affected by a spell or endless spell, you can roll a dice. If you do so, on a 5+, ignore the effects of that spell or endless spell on that unit.`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Drawn to the Aetherglow`,
         desc: `You can reroll hit rolls for attacks made with melee weapons by friendly SKITTERSTRAND models if the target is a Wizard of Priest.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

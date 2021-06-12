@@ -1,3 +1,4 @@
+import rule_sources from 'meta/rule_sources'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -31,6 +32,37 @@ const Flavors = {
         name: `Prized Creations (Moulder)`,
         desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by selected CLANS MOULDER FIGHTING BEASTS.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Mutations (Moulder)': {
+    effects: [
+      {
+        name: `Mutations`,
+        desc: `When selecting a FIGHTING BEAST unit to benefit from Prized Creations you can choose to have a CLANS MOULDER mutation instead of adding D3 to its wounds characteristic and rerolling hits of 1. Roll a D6 for the declared FIGHTING BEAST to select the mutation from the appropriate table. The same FIGHTING BEAST cannot have more than 1 Clans Moulder mutation and and army cannot have duplicate mutations.`,
+        when: [TURN_ONE_START_OF_ROUND],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Mutations - Hideous Abominiations`,
+        desc: `Use this mutation table for HELL PIT ABOMINATIONS only:
+              1 - Toughened Sinews: Mutation grants a wounds characteristic of 14 and a save characteristic of 4+.
+              2 - Lumbering Behemoth: Mutation grants a move characteristic of 7". Charge rolles are automatically a 7 (do not roll).
+              3 - Quivering Bulk: Mutation grants a +1 to each Avalanche of Flesh dice roll.
+              4 - Accelerated Regeneration: Mutation grants the use of Regenerating Monstrosity in the enemy hero phase as well as your own.
+              5 - Best-best Warpstone Spikes: Mutation grants a reroll of the dice for the Warpstone Spikes ability. You can also reroll wound rolls of 1 for melee weapons.
+              6 - Never-never Die-die: Mutation grants a reroll of the dice for the Too Horrible To Die ability.`,
+        when: [TURN_ONE_START_OF_ROUND],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Mutations - Big-Big Rat Ogors`,
+        desc: `Use this mutation table for RAT OGORS only:
+              1 - Toughened Sinews: Mutation grants a wounds characteristic of 6 and a save characteristic of 4+.
+              2 - Insanely Rabid: Mutation grants attacks characteristic of 6 for Tearing Claws and Blades and Fangs. You can also reroll charge rolls.
+              3 - Accelerated Metabolism: Mutation grants a move characteristic of 8". You can also heal D3 wounds allocated in your hero phase.`,
+        when: [TURN_ONE_START_OF_ROUND],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

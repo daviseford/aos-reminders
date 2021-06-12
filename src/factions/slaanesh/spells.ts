@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -9,6 +10,7 @@ import {
   SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
+
 const Spells = {
   // Lore of Slaanesh - Daemons Only
   'Lash of Slaanesh': {
@@ -246,6 +248,22 @@ const Spells = {
         name: `Reflection Eternal`,
         desc: `If active, subtract 1 from the debuffed unit's wound rolls in this phase.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Whispers of Doubt': {
+    effects: [
+      {
+        name: `Whispers of Doubt`,
+        desc: `Casting value of 6. You can pick 1 enemy hero within 3" of the caster that is visible to them. Roll 3D6 and if the roll is greater than the target's bravery characteristic, add 1 to hit rolls that target that hero until your next hero phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Whispers of Doubt`,
+        desc: `If active, add 1 to hit rolls that target the debuffed hero.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

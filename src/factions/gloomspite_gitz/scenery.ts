@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import { BATTLESHOCK_PHASE, END_OF_TURN, START_OF_SETUP } from 'types/phases'
 
 const Scenery = {
@@ -8,37 +9,24 @@ const Scenery = {
         name: `Bad Moon Loonshrine`,
         desc: `After territories have been chosen but before armies are set up, you can set up the BAD MOON LOONSHRINE wholly within your territory, more than 12" from enemy territory and more than 1" from any other terrain features.`,
         when: [START_OF_SETUP],
-      },
-      {
-        name: `Swarms of Lair Lurkers (SQUIG general)`,
-        desc: `If your general has the SQUIG keyword, after you set up this terrain feature, you can replace its Moonclan Lairs ability with:
-
-        'At the end of each of your turns, you can pick 1 friendly SQUIG HERD, SQUIG HOPPERS, or BOINGROT BOUNDERZ unit that has been destroyed. If you do so, roll a D6. On a 4+, a new replacement unit with half of the models from the unit that was destroyed (rounding fractions up) is added to your army. You must set up the replacement unit wholly within 12" of a friendly BAD MOON LOONSHRINE and more than 3" from any enemy units. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.'`,
-        when: [START_OF_SETUP, END_OF_TURN],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Loonatic Courage`,
         desc: `GLOOMSPITE GITZ units wholly within 12" of the BAD MOON LOONSHRINE do not take battleshock tests.`,
         when: [BATTLESHOCK_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Moonclan Lairs`,
-        desc: `At the end of each of your turns, you can pick 1 friendly STABBAS or SHOOTAS unit that has been destroyed. If you do so, roll a D6. On a 4+ a new replacement unit with half of the models from the unit that was destroyed (rounding fractions up) is added to your army. You must set up the replacement unit wholly within 12" of a friendly BAD MOON LOONSHRINE, and more than 3" from any enemy units. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
+        desc: `You can pick 1 friendly unit that has been destroyed. Roll a D6 and on a 4+ half the original model count of the selected unit (rounded up) is restored. This unit must be set up wholly within 12" of a Bad Moon Loonshrine, more than 3" from enemy units. A restored unit cannot be restored again.
+               The restorable unit is based on your armies' general and you must pick from the associated unit matching that general: 
+               Spiderfang General: Spider Riders
+               Squig General: Squig Herd, Squig Hoppers, Boingrot Bounderz
+               Troggoth General: Troggoth unit with Wounds characteristic of 5 or less.
+               Other General: Stabbas, Shootas`,
         when: [END_OF_TURN],
-      },
-      {
-        name: `Hidden Troggholes (TROGGOTH general)`,
-        desc: `If your general has the TROGGOTH keyword, after you set up this terrain feature, you can replace its Moonclan Lairs ability with: 
-        
-        'At the end of each of your turns, you can pick 1 friendly FELLWATER TROGGOTH or ROCKGUT TROGGOTH unit that has been destroyed. If you do so, roll a D6. On a 4+, a new replacement unit with half of the models from the unit that was destroyed (rounding fractions up) is added to your army. You must set up the replacement unit wholly within 12" of a friendly BAD MOON LOONSHRINE and more than 3" from any enemy units. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
-        when: [START_OF_SETUP, END_OF_TURN],
-      },
-      {
-        name: `Endless Skitterswarsm (SPIDERFANG general)`,
-        desc: `If your general has the SPIDERFANG keyword, after you set up this terrain feature, you can replace its Moonclan Lairs ability with: 
-        
-        'At the end of each of your turns, you can pick 1 friendly SPIDER RIDERS unit that has been destroyed. If you do so, roll a dice. On a 4+, a new replacement unit with half of the models from the unit that was destroyed (rounding fractions up) is added to your army. You must set up the replacement unit wholly within 12" of a friendly BAD MOON LOONSHRINE and more than 3" from any enemy units. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
-        when: [START_OF_SETUP, END_OF_TURN],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

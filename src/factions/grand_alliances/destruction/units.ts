@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import { TEffects } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
@@ -199,6 +200,49 @@ const DestructionUnits = {
         name: `Spirit of the Waaagh!`,
         desc: `You can reroll hit rolls of 1 for attacks made by this model if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  Kragnos: {
+    effects: [
+      {
+        name: `Bellow of Rage`,
+        desc: `At the end of each phase, if this model has allocated any wounds that have not been negated, roll a D6 for each unit and defensible terrain within 6" of this model. Each roll succeeds if it is greater than or equal to the value in the damage table. 
+               Success against unit targets inflict D3 mortal wounds, while success against terrain demolishes that terrain. If the terrain was garrisoned, roll a D6 for each model in the garrison unit. On a 1, that model is slain. Place the survivors within 6" of the terrain feature and more than 3" from enemy units.`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Destroyer of the Draconith Empire`,
+        desc: `You can reroll charge rolls while this model is within 12" of any enemy Stardrakes, Drakes, Dracoths, or Dracolines.`,
+        when: [CHARGE_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Destroyer of the Draconith Empire`,
+        desc: `You can reroll hit rolls while this model is within 12" of any enemy Stardrakes, Drakes, Dracoths, or Dracolines.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Rampaging Destruction`,
+        desc: `After making a charge move, choose to either roll a D6 for each enemy unit within 1" or roll 2D6 against 1 enemy monster within 1".
+               If targeting all units in 1", roll a D6 for each". On a 2+ that unit suffers D6 mortal wounds.
+               If targeting a monster, roll 2D6. No effect on a roll of 7. All other values inflict mortal wounds equal to the roll multiplied together.`,
+        when: [CHARGE_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Icon of Destruction`,
+        desc: `Add 1 to the Bravery characterisitic for friendly Destruction models wholly within 12" of this model.`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `The Shield Inviolate`,
+        desc: `Roll 3D6 each time this model is affected by a spell or endless spell. If the roll is a greater than the casting value on the spell's warscroll, it has no effect on this model.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

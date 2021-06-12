@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -56,28 +57,20 @@ const Units = {
     },
     effects: [
       {
-        name: `Talon of the Dwindling`,
-        desc: `If the unmodified hit roll for an attack made by the Talon of the Dwindling is 6, that attack inflicts D3 mortal wounds on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-      },
-      {
         name: `Lifebloom`,
-        desc: `In your hero phase, you can heal up to D3 wounds allocated to each friendly SYLVANETH unit wholly within 30" of this model (roll separately for each unit)`,
+        desc: `You can heal up to 2D6 wounds allocatewd to this model. You can also heal up to D3 wounds allocated to each friendly Sylvaneth unit wholly within 30" of this model.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Sweeping Blows`,
-        desc: `Add 1 to hit rolls for attacks made with this model's Great Antlers if the target unit contains 5 or more model.`,
-        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Living Battering Ram`,
-        desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 4+ that unit suffers D3 mortal wounds.`,
+        desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2-5 that unit suffers D3 mortal wounds. On a 6 the target suffers D6 mortal wounds.`,
         when: [CHARGE_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Soul Amphorae`,
-        desc: `Once per battle, at the end of your movement phase, you can summon 1 of the following units to the battlefield:
+        desc: `Once per battle you can summon 1 of the following units to the battlefield:
         20 Dryads
         10 Tree-Revenants
         10 Spite-Revenants
@@ -87,11 +80,25 @@ const Units = {
 
         The summoned unit is added to your army, and must be set up wholly within 9" of this model and more than 9" from any enemy units`,
         when: [END_OF_MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Swirling Glowspites`,
+        desc: `This model can retreat and still shoot and/or charge in the same turn.`,
+        when: [MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Talon of the Dwindling`,
+        desc: `Roll a D6 each time a wound allocated from this weapon is not negated. On a 6 the target is slain otherwise the wound is negated.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Magic`,
-        desc: `Alarielle the Everqueen is a WIZARD. She can attempt to cast three spells in your hero phase, and attempt to unbind three spells in the enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Metamorphosis spells.`,
+        desc: `This model is a WIZARD. Can attempt to cast 3 spells and unbind 3 three spells. Knows Arcane Bolt, Mystic Shield and Metamorphosis.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -400,6 +407,35 @@ const Units = {
         name: `Guardian of the Enga'la Weald`,
         desc: `ENGA'LA WEALD is a Glade keyword (this means that this model cannot gain another Glade keyword if it is included in a Sylvaneth army - see the Glades battle trait in Battletome: Sylvaneth).`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+  'Warsong Revenant': {
+    mandatory: { spells: [keyPicker(spells, ['Unleash Swarm of Spites'])] },
+    effects: [
+      {
+        name: `Alarielle's Song`,
+        desc: `Add 1 to the Bravery characteristic of friendly Sylvaneth units wholly within 12" of any models with this ability. Subtract 1 from enemy unit bravery characterisitics while they are within 12" of any models with this ability.`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Arboreal Cloak`,
+        desc: `Roll a D6 each time a wound or mortal wound is allocated to this model. On a 4+ it is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Wyldwood Revenants`,
+        desc: `Add 1 to casting, dispelling, and unbinding rolls for this model while it is within 9" of any AWAKENED WILDWOODS.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Magic`,
+        desc: `This model is a WIZARD. Can attempt to cast 2 spells and unbind 1 spell. Knows Arcane Bolt, Mystic Shield and Unleash Swarm of Spites.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

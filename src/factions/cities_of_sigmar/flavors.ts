@@ -1,4 +1,5 @@
 import { keyPicker } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -212,6 +213,19 @@ const Flavors = {
         name: `Lumineth Tutors`,
         desc: `You can add 1 to casting rolls for Settler's Gain Collegiate Arcane Wizards.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  Excelsis: {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Riposte (Excelsis)'])],
+    },
+    effects: [
+      {
+        name: `Gift of Prophecy`,
+        desc: `Once per phase, when selecting a unit to shoot or fight, you can roll a D6. On a 1, subtract 1 from hit rolls made by the target. On a 2-6 add 1 to the target's hit rolls.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

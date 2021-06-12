@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   DURING_GAME,
   HERO_PHASE,
@@ -71,6 +72,7 @@ const CommandAbilities = {
         name: `"Get Some Loonshine Down 'Em!"`,
         desc: `You can use this command ability at the start of any phase. If you do so, pick 1 friendly JAWS OF MORK MANGLER SQUIGS model. Until the end of that phase, use the top row on that model's damage table, regardless of how many wounds it has suffered.`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -79,8 +81,9 @@ const CommandAbilities = {
     effects: [
       {
         name: `Oblivious to Sorcery`,
-        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly GLOGG'S MEGAMOB FELLWATER TROGGOTH OR GLOGG'S MEGAMOB TOCKGUT TROGGOTH unit wholly within 12" of a friendly GLOGG'S MEGAMOB DANKHOLD HERO. Until your next hero phase, each time that unit is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+, ignore the effects of that spell or endless spell on that unit.`,
+        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly GLOGG'S MEGAMOB FELLWATER TROGGOTH OR GLOGG'S MEGAMOB ROCKGUT TROGGOTH unit wholly within 12" of a friendly GLOGG'S MEGAMOB DANKHOLD HERO. Until your next hero phase, each time that unit is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+, ignore the effects of that spell or endless spell on that unit.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -91,6 +94,7 @@ const CommandAbilities = {
         name: `Masters of Feigned Flight`,
         desc: `You can use this command ability at the start of your movement phase. If you do so, pick 1 friendly GRIMSCUTTLE SPIDERFANG unit wholly within 12" of a friendly GRIMSCUTTLE SPIDERFANG HERO. Until your next hero phase, that unit can retreat and still charge later in the same turn.`,
         when: [START_OF_MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

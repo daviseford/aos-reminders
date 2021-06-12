@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -13,6 +14,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_SETUP,
   TURN_ONE_START_OF_HERO_PHASE,
+  TURN_ONE_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
@@ -372,6 +374,39 @@ const CommandTraits = {
         name: `Raging Outburst (Settler's Gain)`,
         desc: `Subtract 1 from save rolls made by this general.`,
         when: [SAVES_PHASE],
+      },
+    ],
+  },
+  'Cunning Foe (Excelsis)': {
+    effects: [
+      {
+        name: `Cunning Foe (Excelsis)`,
+        desc: `This general can retreat and charge in the same turn. If utilized, add 1 to hit rolls made by and subtract 1 from hit rolls targeted against this general.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Cunning Foe (Excelsis)`,
+        desc: `If active, add 1 to hit rolls made by and subtract 1 from hit rolls targeting this general.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  'In the Right Place (Excelsis)': {
+    effects: [
+      {
+        name: `In the Right Place (Excelsis)`,
+        desc: `You can redeploy D3 units following any current set up restrictions.`,
+        when: [TURN_ONE_START_OF_ROUND],
+      },
+    ],
+  },
+  'Darkest Secrets (Excelsis)': {
+    effects: [
+      {
+        name: `Darkest Secrets (Excelsis)`,
+        desc: `You can pick 1 enemy hero within 3" of this general. The target cannot use command abilities until the next combat phase (already active abilities still apply).`,
+        when: [START_OF_COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

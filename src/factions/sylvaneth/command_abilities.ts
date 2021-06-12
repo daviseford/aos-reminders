@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -13,8 +14,9 @@ const CommandAbilities = {
     effects: [
       {
         name: `Ghyran's Wrath`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, in that phase you can reroll wound rolls of 1 for attacks made by friendly SYLVANETH units while they are wholly within 14" of a friendly model with this command ability.`,
+        desc: `If activated, you can reroll wound rolls of 1 for attacks made by friendly Sylvaneth units wholly within 14" of this model until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

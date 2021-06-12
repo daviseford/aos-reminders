@@ -1,17 +1,8 @@
 import { tagAs } from 'factions/metatagger'
-import { COMBAT_PHASE, END_OF_MOVEMENT_PHASE, START_OF_COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
+import { END_OF_MOVEMENT_PHASE, START_OF_COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
 const CommandAbilities = {
   // Unit commands
-  'Grisly Trophy': {
-    effects: [
-      {
-        name: `Grisly Trophy`,
-        desc: `You can use this command ability in the combat phase if any attacks made by a friendly BEASTLORD with this command ability resulted in an enemy model being slain that phase. If you do so, until the end of that phase, you can reroll wound rolls for attacks made by friendly BRAYHERD units wholly within 18" of that BEASTLORD . If any attacks made by that BEASTLORD resulted in an enemy HERO or MONSTER being slain that phase, you can reroll both hit rolls and wound rolls for attacks made by friendly BRAYHERD units wholly within 18" of that BEASTLORD instead.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
   "Slaughterer's Call": {
     effects: [
       {

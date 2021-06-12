@@ -14,6 +14,7 @@ import {
   AQSHY,
   CHAMON,
   CHARRWIND,
+  COASTOFTUSKS,
   DOLORUM,
   GENESISGATE,
   GHUR,
@@ -186,6 +187,16 @@ const RealmArtifacts: TEntry[] = [
       {
         name: `Gildenbane (${PROSPERIS})`,
         desc: `Artifacts of power within 3" of the bearer of this artifact are deactivated (cannot be used). If the affected artifact is a weapon, the normal profile is used instead. `,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  {
+    name: `Glimmering (${COASTOFTUSKS})`,
+    effects: [
+      {
+        name: `Glimmering (${COASTOFTUSKS})`,
+        desc: `Once per turn, before the bearer makes a hit, wound, save, run, or charge roll, you can instead choose the result.  This cannot be re-rolled and modifiers apply normally.`,
         when: [DURING_GAME],
       },
     ],

@@ -26,6 +26,11 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2021/01/q9Fg2qordsr7bbCP.pdf',
   },
+  BOOK_BROKEN_REALMS_KRAGNOS: {
+    name: 'Broken Realms: Kragnos',
+    publication_date: '05-06-21',
+    type: 'other_book',
+  },
 }
 
 export default rule_sources

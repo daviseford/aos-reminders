@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -12,6 +13,7 @@ import {
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
@@ -86,6 +88,12 @@ const baseKeeperOfSecrets = {
       when: [HERO_PHASE],
     },
   ],
+}
+const MesmerisingLepidopteraEffect = {
+  name: `Mesmerising Lepidoptera`,
+  desc: `Subtract 1 from hit rolls made against this model.`,
+  when: [DURING_GAME],
+  rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
 }
 
 // Unit Names
@@ -759,6 +767,73 @@ const Units = {
         name: `Obsessive Violence`,
         desc: `Pick 1 enemy unit within 3" and roll a D6 for each model in this unit. For each 4+, the target suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Dexcessa, The Talon of Slaanesh': {
+    effects: [
+      {
+        name: `Fleeting Dance of Death`,
+        desc: `This model can run or retreat and still charge in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Joyous Battle Fury`,
+        desc: `If this model has fought at least once in the game, add 1 to it's weapon attacks characteristics. This effect is cumulative.`,
+        when: [START_OF_ROUND],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Joyous Battle Fury`,
+        desc: `If active, add the current cumulative total to this model's base weapon attacks characteristics.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      MesmerisingLepidopteraEffect,
+      {
+        name: `Sceptre of Slaanesh`,
+        desc: `Do not take battleshock tests for friendly Slaanesh Daemons wholly within 12" of this model.`,
+        when: [BATTLESHOCK_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Sceptre of Slaanesh`,
+        desc: `Once per turn this model can issue a command to a friendly Slaanesh Daemon unit without spending a command point.`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+    ],
+  },
+  'Synessa, The Voice of Slaanesh': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Whispers of Doubt'])],
+    },
+    effects: [
+      MesmerisingLepidopteraEffect,
+      {
+        name: `Staff of Slaanesh`,
+        desc: `Pick 1 enemy unit in range and have your opponent roll a D6. On a 6 nothing happens. Otherwise if the roll is less than the target's save characteristic, it suffers D6 mortal wounds. If greater than or equal to the save characteristic it suffers D3 mortal wounds instead.`,
+        when: [SHOOTING_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `The Voice of Slaanesh`,
+        desc: `When this model issues a command to 1 visible friendly unit, it is at unlimited range. If a command is issued to more than 1 friendly unit, 1 of the targets can be at unlimited range if visible. The others are subject to the normal range restrictions of the command.`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `The Voice of Slaanesh`,
+        desc: `This model can cast Whispers of Doubt or Pavane of Slaanesh against visible hero targets at unlimited range.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Magic`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, Whispers of Doubt, and all spells from the Lore of Slaanesh, Forbidden Sorceries of Slaanesh, and the Lore of Pain and Pleasure.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
