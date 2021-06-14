@@ -3,8 +3,6 @@ import rule_sources_meta from 'meta/rule_sources'
 import { HERO_PHASE } from 'types/phases'
 import rule_sources_faction from './rule_sources'
 
-const rule_sources = { ...rule_sources_meta, ...rule_sources_faction }
-
 const Spells = {
   'Celestial Apotheosis': {
     effects: [
@@ -124,7 +122,7 @@ const Spells = {
         name: `Comet's Call`,
         desc: `Casting value of 7. You can pick up to D3 different enemy units anywhere on the battlefield. Each of those units suffers D3 mortal wounds (roll separately for each). If the casting roll was 10+, pick up to D6 different enemy units instead of up to D3.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -138,7 +136,7 @@ const Spells = {
 
     Each time this spell is successfully cast, pick up to 3 different enemy units within 10" of the caster and visible to them, and roll 1 dice for each unit you pick. On a 2+, that unit suffers D3 mortal wounds. If that unit is a CHAOS DAEMON unit, on a 2+ it suffers 3 mortal wounds instead of D3 mortal wounds.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
