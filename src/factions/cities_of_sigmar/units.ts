@@ -235,7 +235,7 @@ const WeaponsOfBanishmentEffects = [
   },
   {
     name: `Weapons of Banishment`,
-    desc: `This model can target endless spells with it's attacks. If it scores a hit, roll 2D6. If the roll is greater than the endless spell casting value it is dispelled.`,
+    desc: `This model can target endless spells with its attacks. If it scores a hit, roll 2D6. If the roll is greater than the endless spell casting value it is dispelled.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
     rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
   },
