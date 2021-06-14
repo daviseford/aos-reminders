@@ -1370,7 +1370,7 @@ const Units = {
       GrimResolveEffect,
       {
         name: `Sureshot`,
-        desc: `If this model has not moved this turn, add 1 to hit rolls for it's Crossbow weapon.`,
+        desc: `If this model has not moved this turn, add 1 to hit rolls for its Crossbow weapon.`,
         when: [MOVEMENT_PHASE, SHOOTING_PHASE],
         rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
