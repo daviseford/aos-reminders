@@ -780,7 +780,7 @@ const Units = {
       },
       {
         name: `Joyous Battle Fury`,
-        desc: `If this model has fought at least once in the game, add 1 to it's weapon attacks characteristics. This effect is cumulative.`,
+        desc: `If this model has fought at least once in the game, add 1 to its weapon attacks characteristics. This effect is cumulative.`,
         when: [START_OF_ROUND],
         rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },

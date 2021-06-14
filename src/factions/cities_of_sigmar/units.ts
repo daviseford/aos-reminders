@@ -229,13 +229,13 @@ const GrimResolveEffect = {
 const WeaponsOfBanishmentEffects = [
   {
     name: `Weapons of Banishment`,
-    desc: `Double the damage characteristic for this models attacks if targetting a Wizard or Daemon.`,
+    desc: `Double the damage characteristic for this models attacks if targeting a Wizard or Daemon.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
     rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
   },
   {
     name: `Weapons of Banishment`,
-    desc: `This model can target endless spells with it's attacks. If it scores a hit, roll 2D6. If the roll is greater than the endless spell casting value it is dispelled.`,
+    desc: `This model can target endless spells with its attacks. If it scores a hit, roll 2D6. If the roll is greater than the endless spell casting value it is dispelled.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
     rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
   },
@@ -1370,7 +1370,7 @@ const Units = {
       GrimResolveEffect,
       {
         name: `Sureshot`,
-        desc: `If this model has not moved this turn, add 1 to hit rolls for it's Crossbow weapon.`,
+        desc: `If this model has not moved this turn, add 1 to hit rolls for its Crossbow weapon.`,
         when: [MOVEMENT_PHASE, SHOOTING_PHASE],
         rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },

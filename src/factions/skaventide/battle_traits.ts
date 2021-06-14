@@ -35,7 +35,7 @@ const BattleTraits = {
       },
       {
         name: `Hidden Weapon Teams`,
-        desc: `You can reveal 1 or more hidden Weapon Team units. Set up each wholly wthin 3" of the unit it was hiding in, more than 3" from any enemy units. These units can shoot as long as the concealing unit did not run this turn.`,
+        desc: `You can reveal 1 or more hidden Weapon Team units. Set up each wholly within 3" of the unit it was hiding in, more than 3" from any enemy units. These units can shoot as long as the concealing unit did not run this turn.`,
         when: [START_OF_SHOOTING_PHASE],
         rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },

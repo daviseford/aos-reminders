@@ -13,7 +13,7 @@ const Scenery = {
       },
       {
         name: `Overgrown Wilderness`,
-        desc: `Visisbility between 2 models is blocked is a 1mm straight line drawn between the closest points between the models passes across more than 3" of an AWAKENED WYLDWOOD. Does not apply to Sylvaneth units or models with a Wounds characteristic of 10 or more.`,
+        desc: `Visibility between 2 models is blocked is a 1mm straight line drawn between the closest points between the models passes across more than 3" of an AWAKENED WYLDWOOD. Does not apply to Sylvaneth units or models with a Wounds characteristic of 10 or more.`,
         when: [DURING_GAME],
         rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
