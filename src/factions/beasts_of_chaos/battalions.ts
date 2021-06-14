@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import { CHARGE_PHASE, COMBAT_PHASE, DURING_GAME, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 import Units from './units'
 
@@ -84,6 +85,25 @@ const RegularBattalions = {
         name: `Covetous Fury`,
         desc: `You can reroll failed charge rolls made for units from this battalion while they are within 12" of an enemy HERO with an artifact of power. In addition, you can reroll hit rolls for attacks made with melee weapons by models from this battalion that target an enemy HERO with an artifact of power.`,
         when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  'The Butcher-Herd': {
+    mandatory: {
+      units: [keyPicker(Units, ['Great Bray-Shaman', 'Bullgors', 'Ghorgon'])],
+    },
+    effects: [
+      {
+        name: `Ghorraghan's Skull-staff`,
+        desc: `Add 2 to the attacks characteristic of Ghorraghan Khai's Fetish Staff. If the unmodified hit roll for this Fetish Staff is 6, the attack inflicts D3 mortal wounds and ends the attack sequence.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Infuse with Chaos Energy`,
+        desc: `Add 1 to the hit rolls for this battalion's Warherd units wholly within 12" of Ghorraghan Khai.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

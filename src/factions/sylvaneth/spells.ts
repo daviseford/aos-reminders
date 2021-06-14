@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import { COMBAT_PHASE, HERO_PHASE } from 'types/phases'
 
 const Spells = {
@@ -6,8 +7,9 @@ const Spells = {
     effects: [
       {
         name: `Metamorphosis`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 16" of the caster that is visible to them and roll a number of dice equal to the casting roll. For each 4+ that unit suffers 1 mortal wound. In addition, if that unit is destroyed by the mortal wounds inflicted by this spell, you can set up 1 AWAKENED WYLDWOOD terrain feature wholly within 12" of the last model from that unit to be slain, and more than 3" from terrain features or 1" from any other model or objective, and add it to your army.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 16" of the caster that is visible. Roll a number of dice equal to the casting roll. For each 3+ the target suffers 1 mortal wound. In addition, if these wounds inflicted destroy the target, you can set up 1 AWAKENED WYLDWOOD wholly within 12" of the last slain model. This model is added to your army and must be set up more than 1" from other models, terrain features, or objectives.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -125,6 +127,15 @@ const Spells = {
       {
         name: `Treesong`,
         desc: `Casting value of 7. Pick 1 enemy unit within 16" of the caster and within 6" of an AWAKENED WYLDWOOD. Until the end of the turn, you can reroll hit and wound rolls of 1 for attacks made with melee weapons that target that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Unleash Swarm of Spites': {
+    effects: [
+      {
+        name: `Unleash Swarm of Spites`,
+        desc: `Casting value of 7. Roll a number of dice equal to the casting roll for each enemy unit within 9" of this model. On a 5+ the target suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],

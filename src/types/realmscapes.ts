@@ -1,6 +1,7 @@
 type TAqshy = `Aqshy`
 type TChamon = `Chamon`
 type TCharrwind = `Charrwind Coast`
+type TCoastOfTusks = `Coast of Tusks`
 type TDolorum = `Dolorum`
 type TEightpoints = `Eightpoints`
 type TGenesisGate = `Genesis Gate`
@@ -33,10 +34,12 @@ export type TBattleRealms =
   | TGenesisGate
   | TDolorum
   | TProsperis
+  | TCoastOfTusks
 
 export const AQSHY: TAqshy = `Aqshy`
 export const CHAMON: TChamon = `Chamon`
 export const CHARRWIND: TCharrwind = `Charrwind Coast`
+export const COASTOFTUSKS: TCoastOfTusks = `Coast of Tusks`
 export const DOLORUM: TDolorum = `Dolorum`
 export const EIGHTPOINTS: TEightpoints = `Eightpoints`
 export const GENESISGATE: TGenesisGate = `Genesis Gate`
@@ -58,6 +61,7 @@ export const SUPPORTED_BATTLE_REALMS: TBattleRealms[] = [
   AQSHY,
   CHAMON,
   CHARRWIND,
+  COASTOFTUSKS,
   DOLORUM,
   EIGHTPOINTS,
   GENESISGATE,

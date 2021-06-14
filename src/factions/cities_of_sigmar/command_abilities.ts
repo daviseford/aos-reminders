@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -217,6 +218,16 @@ const CommandAbilities = {
         name: `Aelven Training (Settler's Gain)`,
         desc: `Do not take battleshock tests for friendly Settler's Gain Freeguild or Collegiate Arcane units wholly within 18" of a friendly Settler's Gain Lumineth Realm-Lords hero.`,
         when: [START_OF_BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  'Riposte (Excelsis)': {
+    effects: [
+      {
+        name: `Riposte (Excelsis)`,
+        desc: `Pick 1 friendly Excelsis unit wholly within 12" of a friendly Excelsis hero. For each unmodified save roll of 6 targeting the selected unit, the attackes suffers 1 mortal wound after resolving attacks.`,
+        when: [START_OF_COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

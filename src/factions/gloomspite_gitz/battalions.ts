@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -50,8 +51,9 @@ const RegularBattalions = {
     effects: [
       {
         name: `Crushing Gobs`,
-        desc: `Add 1 to the Damage characteristic of Fang-filled Gob, Massive Fang-filled Gob and Huge Fang-filled Gobs weapons used by units from this battalion if they made a charge move in the same turn.`,
+        desc: `Add 1 to the Damage characteristic of Fang-filled Gob and Huge Fang-filled Gobs weapons used by units from this battalion if they made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -98,6 +100,7 @@ const RegularBattalions = {
         name: `Monstrous Titans`,
         desc: `Add 1 to hit rolls for attacks made with melee weapons by units from this battalion.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -110,6 +113,7 @@ const RegularBattalions = {
         name: `Through the Cracks They Creep`,
         desc: `At the start of the first battle round, after determining who has the first turn but before the first turn begins, you can pick up to D3 units from this battalion and remove them from the battlefield. If you do so, at the end of your first movement phase, set up those units again wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
         when: [TURN_ONE_START_OF_ROUND],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -122,6 +126,7 @@ const RegularBattalions = {
         name: `Reality's Skin-crawlers`,
         desc: `In your movement phase, instead of making a normal move with a model from this battalion, you can say that it will tunnel through the web-strewn portals. If you do so, remove that model from the battlefield and set it up again anywhere on the battlefield more than 9" from any enemy units.`,
         when: [MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -148,6 +153,7 @@ const RegularBattalions = {
         name: `One-track Minds`,
         desc: `Units from this battalion can retreat and still shoot and/or charge later in the same turn.`,
         when: [MOVEMENT_PHASE, SHOOTING_PHASE, CHARGE_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -190,6 +196,7 @@ const SuperBattalions = {
         name: `Overbounding Loonatics`,
         desc: `After armies have been set up but before the first battle round begins, up to D3 units from this battalion can move up to 6". If both players can move units after armies have been set up, the players must roll off, and the winner chooses who moves their units first.`,
         when: [END_OF_SETUP],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

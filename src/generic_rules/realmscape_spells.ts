@@ -13,6 +13,7 @@ import {
   AQSHY,
   CHAMON,
   CHARRWIND,
+  COASTOFTUSKS,
   DOLORUM,
   EIGHTPOINTS,
   GENESISGATE,
@@ -295,6 +296,21 @@ const Spells: TEntry[] = [
         name: `Final Transmutation (${PROSPERIS})`,
         desc: `Casting value of 6. Pick 1 enemy unit within 18" and visible. Roll D3 dice and for each roll that is greater that the target's wounds characteristic, 1 model is slain.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Wildform (${COASTOFTUSKS})`,
+    effects: [
+      {
+        name: `Wildform (${COASTOFTUSKS})`,
+        desc: `Casting value of 5. Pick 1 friendly unit within 12" and visible.  Add 2 to run and charge rolls for the target unit your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Wildform (${COASTOFTUSKS})`,
+        desc: `If active, add 2 to run and charge rolls for the buffed unit.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },

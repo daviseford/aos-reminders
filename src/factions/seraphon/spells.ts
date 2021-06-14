@@ -1,6 +1,7 @@
 import { tagAs } from 'factions/metatagger'
+import rule_sources_meta from 'meta/rule_sources'
 import { HERO_PHASE } from 'types/phases'
-import rule_sources from './rule_sources'
+import rule_sources_faction from './rule_sources'
 
 const Spells = {
   'Celestial Apotheosis': {
@@ -63,7 +64,10 @@ const Spells = {
         name: `Bind Endless Spell`,
         desc: `Casting value of 7. Pick 1 endless spell within 18" of the caster that is not soul-linked and is visible to them. Until your next hero phase, that endless spell has the BOUND keyword.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JANUARY_2021],
+        rule_sources_faction: [
+          rule_sources_faction.BATTLETOME_SERAPHON,
+          rule_sources_faction.ERRATA_SERAPHON_JANUARY_2021,
+        ],
       },
     ],
   },
@@ -118,6 +122,7 @@ const Spells = {
         name: `Comet's Call`,
         desc: `Casting value of 7. You can pick up to D3 different enemy units anywhere on the battlefield. Each of those units suffers D3 mortal wounds (roll separately for each). If the casting roll was 10+, pick up to D6 different enemy units instead of up to D3.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -131,6 +136,7 @@ const Spells = {
 
     Each time this spell is successfully cast, pick up to 3 different enemy units within 10" of the caster and visible to them, and roll 1 dice for each unit you pick. On a 2+, that unit suffers D3 mortal wounds. If that unit is a CHAOS DAEMON unit, on a 2+ it suffers 3 mortal wounds instead of D3 mortal wounds.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

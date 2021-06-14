@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -187,6 +188,7 @@ const Artifacts = {
         name: `Syari Screamersquig`,
         desc: `At the start of the combat phase, you can pick 1 enemy HERO within 3" of the bearer. If you do so, until your next hero phase, add 1 to hit rolls for attacks made with melee weapons by the bearer that target that HERO.`,
         when: [START_OF_COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -197,6 +199,7 @@ const Artifacts = {
         name: `Aetherquartz-studded Hide`,
         desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+, that mortal wound is ignored.`,
         when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -207,6 +210,7 @@ const Artifacts = {
         name: `Shyishan Spider-sigils`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of the bearer. In addition, add 1 to the Bravery characteristic of a friendly GRIMSCUTTLE SPIDERFANG units while they are wholly within 12" of the bearer.`,
         when: [BATTLESHOCK_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

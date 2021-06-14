@@ -1938,6 +1938,9 @@ describe('getAzyrArmyFromPdf', () => {
         "Drain Magic (Settler's Gain)",
         "Shield of Light (Settler's Gain)",
         "Illuminate (Settler's Gain)",
+        'The Amber Spear (Excelsis)',
+        'Flock of Doom (Excelsis)',
+        'Cower (Excelsis)',
         'Wildform (Ghur)',
         'Chain Lightning (Azyr)',
         'Fireball (Aqshy)',
@@ -2376,7 +2379,7 @@ describe('getAzyrArmyFromPdf', () => {
           'Phantasmagoria of Fate',
           'Thunderscorn Stormherd',
         ],
-        command_abilities: ["Slaughterer's Call", 'Grisly Trophy'],
+        command_abilities: ["Slaughterer's Call"],
         endless_spells: [],
         scenery: [],
         spells: [

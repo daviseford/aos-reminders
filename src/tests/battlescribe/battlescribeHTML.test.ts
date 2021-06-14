@@ -1978,7 +1978,7 @@ describe('getBattlescribeArmy', () => {
           'Volcanic Axe (Brayherds)',
         ],
         battalions: ['Depraved Drove', 'Marauding Brayherd'],
-        command_abilities: ['Grisly Trophy', "Slaughterer's Call"],
+        command_abilities: ["Slaughterer's Call"],
         endless_spells: [
           'Balewind Vortex',
           'Lauchon the Soulseeker',

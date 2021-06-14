@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import rule_sources_meta from 'meta/rule_sources'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -7,7 +8,7 @@ import {
   MOVEMENT_PHASE,
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
+import rule_sources_faction from './rule_sources'
 
 const CommandAbilities = {
   'Parting Shot': {
@@ -16,7 +17,10 @@ const CommandAbilities = {
         name: `Parting Shot`,
         desc: `You can use this command ability when an enemy unit ends a charge move within 3" of a friendly FANGS OF SOTEK unit from the Skinks or Chameleon Skinks warscroll that is wholly within 18" of a friendly FANGS OF SOTEK HERO. If you do so, that unit can shoot. After you have resolved all of that unit's shooting attacks, roll a D6. On a 4+, that unit must retreat but cannot run. A unit cannot benefit from this command ability more than once per phase.`,
         when: [CHARGE_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JANUARY_2021],
+        rule_sources: [
+          rule_sources_faction.BATTLETOME_SERAPHON,
+          rule_sources_faction.ERRATA_SERAPHON_JANUARY_2021,
+        ],
       },
     ],
   },
@@ -63,7 +67,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Gift from the Heavens`,
-        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly SERAPHON unit wholly within 18" of a friendly model with this command ability Until your next hero phase, that unit can fly and you can add 1 to save rolls for attacks made with missile weapons that target that unit. You can only use this command ability once per hero phase.`,
+        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly SERAPHON unit wholly within 18" of a friendly model with this command ability. Until your next hero phase, that unit can fly and you can add 1 to save rolls for attacks made with missile weapons that target that unit. You can only use this command ability once per hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -115,7 +119,10 @@ const CommandAbilities = {
         name: `Ripperdactyl Assault`,
         desc: `You can this command ability at the start of the combat phase. If you do so, pick 1 friendly model with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly RIPPERDACTYL units that are wholly within 18" of that model. The same unit cannot benefit from this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JANUARY_2021],
+        rule_sources: [
+          rule_sources_faction.BATTLETOME_SERAPHON,
+          rule_sources_faction.ERRATA_SERAPHON_JANUARY_2021,
+        ],
       },
     ],
   },
@@ -126,6 +133,16 @@ const CommandAbilities = {
         name: `Coordinated Strike`,
         desc: `You can this command ability at the start of the combat phase. If you do so, pick 1 friendly SKINK unit wholly within 24" of a friendly STEGADON HERO with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by that SKINK unit. A unit cannot benefit from this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Supreme Gift from the Heavens': {
+    effects: [
+      {
+        name: `Supreme Gift from the Heavens`,
+        desc: `Pick up to D3 friendly SERAPHON unit wholly within 18" of a friendly model with this command ability. Until your next hero phase, that unit can fly and you can add 1 to save rolls for attacks made with missile weapons that target that unit. You can only use this command ability once per hero phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

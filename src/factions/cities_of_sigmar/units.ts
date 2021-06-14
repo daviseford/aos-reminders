@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -219,6 +220,26 @@ const DenizenOfUlfenkarnEffect = {
   desc: `ULFENKARN is a city keyword (this means that this model cannot gain another city keyword if it is included in a Cities of Sigmar army - see the Strongholds of Order battle trait in Battletome: Cities of Sigmar).`,
   when: [DURING_GAME],
 }
+const GrimResolveEffect = {
+  name: `Grim Resolve`,
+  desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ it is negated.`,
+  when: [WOUND_ALLOCATION_PHASE],
+  rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+}
+const WeaponsOfBanishmentEffects = [
+  {
+    name: `Weapons of Banishment`,
+    desc: `Double the damage characteristic for this models attacks if targeting a Wizard or Daemon.`,
+    when: [SHOOTING_PHASE, COMBAT_PHASE],
+    rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+  },
+  {
+    name: `Weapons of Banishment`,
+    desc: `This model can target endless spells with its attacks. If it scores a hit, roll 2D6. If the roll is greater than the endless spell casting value it is dispelled.`,
+    when: [SHOOTING_PHASE, COMBAT_PHASE],
+    rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+  },
+]
 
 const Units = {
   Battlemage: {
@@ -1342,6 +1363,30 @@ const Units = {
         when: [SHOOTING_PHASE],
       },
       DenizenOfUlfenkarnEffect,
+    ],
+  },
+  'Doralia Ven Denst': {
+    effects: [
+      GrimResolveEffect,
+      {
+        name: `Sureshot`,
+        desc: `If this model has not moved this turn, add 1 to hit rolls for its Crossbow weapon.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      ...WeaponsOfBanishmentEffects,
+    ],
+  },
+  'Galen Ven Denst': {
+    effects: [
+      GrimResolveEffect,
+      {
+        name: `Agile Opponent`,
+        desc: `This model can retreat and can still shoot and/or charge in the same turn.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE, CHARGE_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      ...WeaponsOfBanishmentEffects,
     ],
   },
 }

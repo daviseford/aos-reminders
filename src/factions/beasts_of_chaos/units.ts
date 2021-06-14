@@ -1,5 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import GenericBattleTraits from 'generic_rules/battle_traits'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -47,19 +48,30 @@ const DespoilersEffect = {
 
 const Units = {
   Beastlord: {
-    mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Grisly Trophy'])],
-    },
     effects: [
       {
-        name: `Dual Axes`,
-        desc: `You can reroll hit rolls of 1 for attacks made with Paired Man-ripper Axes.`,
+        name: `Call of Battle`,
+        desc: `This model can run and charge in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Grisly Trophy`,
+        desc: `If any enemy models are slain by this hero's attacks, you can add 1 to wound rolls for friendly Brayherd units wholly within 18" of this model until the end of the phase. A unit cannot benefit from this more than once per phase.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Grisly Trophy`,
+        desc: `If any enemy heroes or monsters are slain by this hero's attacks, you can add 1 to hit rolls for friendly Brayherd units wholly within 18" of this model until the end of the phase. A unit cannot benefit from this more than once per phase.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Hatred of Heroes`,
-        desc: `You can reroll failed wound rolls for attacks made by this model that target a HERO.`,
+        desc: `Unmodified hit rolls of 6 made with Paired Man-ripper Axes score 2 hits instead of 1.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -270,13 +282,21 @@ const Units = {
     effects: [
       {
         name: `Aura of Madness`,
-        desc: `At the start of your hero phase, roll a D6 for each enemy unit that is within 6" of any friendly JABBERSLYTHES . On a 6 that unit cannot attempt to cast or unbind spells, move, or attack until the start of your next hero phase.`,
-        when: [START_OF_HERO_PHASE],
+        desc: `Subtract 1 from casting, dispelling, and unbinding rolls for enemy wizards within 6" any units in your army with this ability.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Aura of Madness`,
+        desc: `Each time an enemy unit within 3" of any unit in your army with this ability is chosen to fight, roll 3D6. If the roll is greater than the target's bravery characteristic, the unit is derranged. Add 1 to the target's melee attacks characteristic. Each unmodified hit roll of 1 made by that unit causes it to suffer 1 mortal wound after all it's attacks.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Spurting Bile Blood`,
-        desc: `Roll a D6 each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [COMBAT_PHASE],
+        desc: `Roll a D6 each time a melee wound was inflicted on this model and not negated. On a 4+ the attacker suffers 1 mortal wound.`,
+        when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

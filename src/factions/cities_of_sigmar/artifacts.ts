@@ -1,8 +1,10 @@
 import { tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -395,6 +397,42 @@ const Artifacts = {
         name: `Stone-spirit Armour (Settler's Gain)`,
         desc: `Roll a D6 each time the bearer is affected by a spell/endless spell. On a 5+ ignore the effects.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Glimmering (Excelsis)': {
+    effects: [
+      {
+        name: `Glimmering (Excelsis)`,
+        desc: `Once per battle, before making a hit, wound, save, run, or charge roll you can instead fortell the result by choosing the value. The chosen value must be a valid whole number within the range of the dice roll replaced. The result cannot be rerolled but modifiers do apply.`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+    ],
+  },
+  'Rockjaws (Excelsis)': {
+    effects: [
+      {
+        name: `Rockjaws (Excelsis)`,
+        desc: `You can pick 1 enemy unit within 8" of the bearer and visible. Roll a D6 and on a 3+ that unit suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+    ],
+  },
+  'Gryph-feather Charm (Excelsis)': {
+    effects: [
+      {
+        name: `Gryph-feather Charm (Excelsis)`,
+        desc: `Subtract 1 from hit rolls for attacks targetting the bearer.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Gryph-feather Charm (Excelsis)`,
+        desc: `Add 1" to the bearer's move characteristic.`,
+        when: [MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

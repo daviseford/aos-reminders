@@ -1,5 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import GenericBattleTraits from 'generic_rules/battle_traits'
+import rule_sources_meta from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -82,12 +83,14 @@ const CarnosaurBaseEffects = [
   },
   GenericBattleTraits.Terror,
 ]
+const ArcaneVassalEffect = {
+  name: `Arcane Vassal`,
+  desc: `When this model attempts to cast a spell, before making the casting roll, you can pick either 1 friendly SKINK WIZARD that is within 12" of this model or 1 friendly ORACLE anywhere on the battlefield. If you do so and the spell is successfully cast and not unbound, you must measure the range and visibility for the spell from that SKINK WIZARD or ORACLE.`,
+  when: [HERO_PHASE],
+  rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
+}
 const SlannBaseEffects = [
-  {
-    name: `Arcane Vassal`,
-    desc: `When this model attempts to cast a spell, before making the casting roll, you can pick either 1 friendly SKINK WIZARD that is within 12" of this model or 1 friendly ORACLE anywhere on the battlefield. If you do so and the spell is successfully cast and not unbound, you must measure the range and visibility for the spell from that SKINK WIZARD or ORACLE.`,
-    when: [HERO_PHASE],
-  },
+  ArcaneVassalEffect,
   {
     name: `Masters of Order`,
     desc: `Add 1 to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to unbind enemy spells that are cast anywhere on the battlefield and attempt to dispel endless spells anywhere on the battlefield.`,
@@ -139,24 +142,45 @@ const Units = {
   'Lord Kroak': {
     mandatory: {
       spells: [keyPicker(Spells, ['Celestial Deliverance', "Comet's Call"])],
-      command_abilities: [keyPicker(CommandAbilities, ['Gift from the Heavens'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Supreme Gift from the Heavens'])],
     },
     effects: [
-      ...SlannBaseEffects,
+      ArcaneVassalEffect,
       {
         name: `Azyrite Force Barrier`,
-        desc: `The Attacks characteristic of Azyrite Force Barrier is equal to the number of enemy models within 3" of the attacking model when the number of attacks made with the weapon is determined.`,
+        desc: `The Attacks characteristic of Azyrite Force Barrier is equal to the number of enemy models within 3" of the attacking model when the number of attacks made with the weapon is determined. Count each enemy monster as 5 models for this rule.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Dead for Innumerable Ages`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
+        desc: `At the end of each phase, roll 3D6 and add the current number of wounds allocated to this model. On a 20+ this model is slain, otherwise all wounds allocated are healed.`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Dead for Innumerable Ages`,
+        desc: `If this model suffers 18+ wounds in a single phase, it is immeadiately slain.`,
         when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Impeccable Foresight`,
         desc: `At the start of your hero phase, roll 3 dice for this model. For each 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Supreme Master of Order`,
+        desc: `Add 2 to this model's casting, dispelling, and unbinding rolls. This model can attempt to unbind and dispell with unlimited range.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Magic`,
+        desc: `This model is a wizard. Can attempt to cast 4 spells and attempt to unbind 4 spells. Knows Arcane Bolt, Mystic Shield, Celestial Deliverance, and Comet's Call. In addition it also knows all the spells from the Lore of Celestial Domination.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

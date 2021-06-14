@@ -1,7 +1,9 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
+  COMBAT_PHASE,
   DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -79,6 +81,19 @@ const RegularBattalions = {
         name: `Blessing of the Heartwood`,
         desc: `During each hero phase, the host's Branchwych and Treelord heal one wound lost earlier in battle, whilst its Dryads add 1 model to their unit that was slain earlier in battle.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  "Drycha's Spitegrove": {
+    mandatory: {
+      units: [keyPicker(units, ['Drycha Hamadreth', 'Spite-Revenants'])],
+    },
+    effects: [
+      {
+        name: `The Spitegrove`,
+        desc: `Cruel Talons and Fangs used by this battalion's units have a Rend of -1 instead of '-'.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
