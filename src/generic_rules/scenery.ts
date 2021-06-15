@@ -7,30 +7,24 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
-  SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
   START_OF_SETUP,
   TURN_ONE_START_OF_ROUND,
-  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import {
   ARCANE,
   COMMANDING,
   DAMNED,
   DEADLY,
-  ENTANGLING,
   GARRISONS,
-  HEALING,
   INSPIRING,
   MYSTICAL,
-  NULLIFICATION,
   OBSTACLE,
   OVERGROWN,
   SINISTER,
   TSceneryEffects,
-  VOLCANIC,
 } from 'types/terrain'
 
 // Default scenery effects for most games and custom scenery.
@@ -40,13 +34,8 @@ const DefaultScenery: TEntry[] = [
     effects: [
       {
         name: DAMNED,
-        desc: `You can pick 1 friendly unit within 1" of this terrain to take D3 mortal wounds.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: DAMNED,
-        desc: `If active, buffed unit can reroll hits of 1.`,
-        when: [DURING_GAME],
+        desc: `In your hero phase, you can pick 1 friendly unit within 1" of any terrain features with this rule. That unit suffers D3 mortal wounds but you can add 1 to hit rolls for attacks made by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -55,7 +44,7 @@ const DefaultScenery: TEntry[] = [
     effects: [
       {
         name: ARCANE,
-        desc: `Add 1 to casting and unbinding rolls for wizards within 1" of this terrain.`,
+        desc: `Add 1 to casting, dispelling and unbinding rolls for models while they are within 1" of any terrain features with this rule.`,
         when: [HERO_PHASE],
       },
     ],
@@ -65,8 +54,8 @@ const DefaultScenery: TEntry[] = [
     effects: [
       {
         name: INSPIRING,
-        desc: `Add 1 to the bravery characteristic of units within 1" of this terrain.`,
-        when: [DURING_GAME],
+        desc: `Add 1 to the Bravery characteristic of units while they are wholly within 1" of any terrain features with this rule.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -75,8 +64,8 @@ const DefaultScenery: TEntry[] = [
     effects: [
       {
         name: DEADLY,
-        desc: `Roll a D6 whenever a unit finishes a normal move or charge move within 1" of this terrain. On a 1, the unit suffers D3 mortal wounds.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        desc: `Each time a unit is set up or finishes a normal move, run, retreat or charge move within 1" of any terrain features with this rule, roll a dice. On a 1, that unit suffers D3 mortal wounds.`,
+        when: [DURING_SETUP, MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
@@ -85,8 +74,13 @@ const DefaultScenery: TEntry[] = [
     effects: [
       {
         name: MYSTICAL,
-        desc: `Roll a D6 each time a unit within 1" of this terrain suffers a wound or mortal wound. On a 6+ the wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `Add 1 to chanting and banishment rolls for models while they are within 1" of any terrain features with this rule.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: MYSTICAL,
+        desc: `Models have a 6+ ward while they are within 1" of any terrain features with this rule.`,
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -95,114 +89,116 @@ const DefaultScenery: TEntry[] = [
     effects: [
       {
         name: SINISTER,
-        desc: `Subtract 1 from the bravery characteristic of units within 1" of this terrain.`,
-        when: [DURING_GAME],
+        desc: `Subtract 1 from the Bravery characteristic of units while they are wholly within 1" of any terrain features with this rule.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
-  {
-    name: OVERGROWN,
-    effects: [
-      {
-        name: OVERGROWN,
-        desc: `Units are not visible if a 1mm imaginary line drawn from the closest points of two models crosses more than 1" of this terrain. Does not apply if either unit can fly.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: ENTANGLING,
-    effects: [
-      {
-        name: ENTANGLING,
-        desc: `Subtract 2 from run and charge rolls (to a minimum of 0) for units that are within 1" of this terrain.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-    ],
-  },
-  {
-    name: VOLCANIC,
-    effects: [
-      {
-        name: VOLCANIC,
-        desc: `Roll a D6 for each instance of this terrain. On a 6, each unit within 1" of that terrain feature suffers D3 mortal wounds.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: COMMANDING,
-    effects: [
-      {
-        name: COMMANDING,
-        desc: `If your general and no enemy general are within 1" of this terrain, add 1 to the number of command points you receive.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: HEALING,
-    effects: [
-      {
-        name: HEALING,
-        desc: `Roll a D6 for each friendly unit within 1" of any Healing terrain. On a 6 you can heal D3 wounds to that unit.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  {
-    name: NULLIFICATION,
-    effects: [
-      {
-        name: NULLIFICATION,
-        desc: `If a hero is within 1" of this terrain it can attempt to unbind 1 spell. WIZARDS get this unbind in addition to any others they have.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: NULLIFICATION,
-        desc: `If an endless spell is set up or finishes a move within 1" of this terrain it is dispelled. Any effects from the spell are applied before the model is removed.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  {
-    name: OBSTACLE,
-    effects: [
-      {
-        name: OBSTACLE,
-        desc: `If a unit has all of its models within 1" of this terrain is targeted for a shooting attack, the unit receives cover if the attacking model is closer to the terrain than the targeted unit.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  {
-    name: GARRISONS,
-    effects: [
-      {
-        name: GARRISONS,
-        desc: `Units can be set up as a garrison if this terrain is wholly within your territory.
 
-               The models garrisoning this terrain feature must have a combined wounds characteristic of 30 or less.`,
-        when: [DURING_SETUP],
-      },
-      {
-        name: GARRISONS,
-        desc: `A unit that is wholly within 6" of this terrain and no enemy models within 3" of this terrain may garrison instead of moving.
+  // TODO: Are these rules still relevant in AoS 3.0?
+  // {
+  //   name: OVERGROWN,
+  //   effects: [
+  //     {
+  //       name: OVERGROWN,
+  //       desc: `Units are not visible if a 1mm imaginary line drawn from the closest points of two models crosses more than 1" of this terrain. Does not apply if either unit can fly.`,
+  //       when: [DURING_GAME],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: ENTANGLING,
+  //   effects: [
+  //     {
+  //       name: ENTANGLING,
+  //       desc: `Subtract 2 from run and charge rolls (to a minimum of 0) for units that are within 1" of this terrain.`,
+  //       when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: VOLCANIC,
+  //   effects: [
+  //     {
+  //       name: VOLCANIC,
+  //       desc: `Roll a D6 for each instance of this terrain. On a 6, each unit within 1" of that terrain feature suffers D3 mortal wounds.`,
+  //       when: [START_OF_HERO_PHASE],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: COMMANDING,
+  //   effects: [
+  //     {
+  //       name: COMMANDING,
+  //       desc: `If your general and no enemy general are within 1" of this terrain, add 1 to the number of command points you receive.`,
+  //       when: [START_OF_HERO_PHASE],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: HEALING,
+  //   effects: [
+  //     {
+  //       name: HEALING,
+  //       desc: `Roll a D6 for each friendly unit within 1" of any Healing terrain. On a 6 you can heal D3 wounds to that unit.`,
+  //       when: [START_OF_HERO_PHASE],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: NULLIFICATION,
+  //   effects: [
+  //     {
+  //       name: NULLIFICATION,
+  //       desc: `If a hero is within 1" of this terrain it can attempt to unbind 1 spell. WIZARDS get this unbind in addition to any others they have.`,
+  //       when: [HERO_PHASE],
+  //     },
+  //     {
+  //       name: NULLIFICATION,
+  //       desc: `If an endless spell is set up or finishes a move within 1" of this terrain it is dispelled. Any effects from the spell are applied before the model is removed.`,
+  //       when: [DURING_GAME],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: OBSTACLE,
+  //   effects: [
+  //     {
+  //       name: OBSTACLE,
+  //       desc: `If a unit has all of its models within 1" of this terrain is targeted for a shooting attack, the unit receives cover if the attacking model is closer to the terrain than the targeted unit.`,
+  //       when: [SHOOTING_PHASE],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: GARRISONS,
+  //   effects: [
+  //     {
+  //       name: GARRISONS,
+  //       desc: `Units can be set up as a garrison if this terrain is wholly within your territory.
 
-               A unit may exit the terrain if it can be set up wholly within 6" of the terrain and more than 3" from enemy models. This counts as the unit's move.
+  //              The models garrisoning this terrain feature must have a combined wounds characteristic of 30 or less.`,
+  //       when: [DURING_SETUP],
+  //     },
+  //     {
+  //       name: GARRISONS,
+  //       desc: `A unit that is wholly within 6" of this terrain and no enemy models within 3" of this terrain may garrison instead of moving.
 
-               The models garrisoning this terrain feature must have a combined wounds characteristic of 30 or less.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: GARRISONS,
-        desc: `A garrisoned unit is assumed to be in cover. In addition, subtract 1 from hit rolls against a garrisoned unit.
+  //              A unit may exit the terrain if it can be set up wholly within 6" of the terrain and more than 3" from enemy models. This counts as the unit's move.
 
-              Models cannot finish any move onto this terrain feature.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
+  //              The models garrisoning this terrain feature must have a combined wounds characteristic of 30 or less.`,
+  //       when: [MOVEMENT_PHASE],
+  //     },
+  //     {
+  //       name: GARRISONS,
+  //       desc: `A garrisoned unit is assumed to be in cover. In addition, subtract 1 from hit rolls against a garrisoned unit.
+
+  //             Models cannot finish any move onto this terrain feature.`,
+  //       when: [DURING_GAME],
+  //     },
+  //   ],
+  // },
 ]
 
 export const SceneryEffectLookup = DefaultScenery.reduce((accum, entry: TEntry) => {

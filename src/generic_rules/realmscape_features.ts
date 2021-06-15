@@ -179,7 +179,7 @@ const RealmscapeFeatures: TEffects[] = [
   {
     name: `The Clawing Sea (${COASTOFTUSKS})`,
     desc: `Both players roll off with the winning setting up a Wild Kharibdyss within 7" of a battlefield edge and more than 9" from models in either players army.
-           At the start of each round, the army with the closest model to a Wild Kharibdyss is the prey for that Kharibdyss.  The Kharibdyss will join the prey's opposing army for this round.  Roll off for ties in determining prey.  Other Wild Kharibdyss's cannot be prey.`,
+           At the start of each round, the army with the closest model to a Wild Kharibdyss is the prey for that Kharibdyss. The Kharibdyss will join the prey's opposing army for this round. Roll off for ties in determining prey. Other Wild Kharibdyss's cannot be prey. `,
     when: [END_OF_ROUND],
   },
 ]
