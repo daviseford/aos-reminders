@@ -33,7 +33,7 @@ export const getArmy = (
     debugger // If you've arrived here (as a dev), you need to fix the above error - no excuses.
   }
 
-  const Army = (subFactionName && subFactionArmies?.[subFactionName]) || AggregateArmy
+  const Army: TSubfactionArmy = (subFactionName && subFactionArmies?.[subFactionName]) || AggregateArmy
 
   const Collection = getCollection(Army)
 
@@ -45,7 +45,7 @@ export const getArmy = (
     realmscape,
   })
 
-  return army
+  return army as unknown as IArmy
 }
 
 interface IModifyArmyMeta {
@@ -56,7 +56,7 @@ interface IModifyArmyMeta {
   realmscape: TBattleRealms | null
 }
 
-const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta): IArmy => {
+const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
   let {
     AlliedUnits = [],
     Artifacts = [],
@@ -119,6 +119,5 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta): IArmy
     Army.Units,
   ])
 
-  // @ts-expect-error
   return Army
 })
