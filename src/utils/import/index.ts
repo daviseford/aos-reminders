@@ -67,6 +67,7 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
     battalions: lookup('battalions'),
     command_abilities: lookup('command_abilities'),
     command_traits: lookup('command_traits'),
+    core_rules: lookup('core_rules'),
     endless_spells: lookup('endless_spells'),
     flavors: lookup('flavors'),
     mount_traits: lookup('mount_traits'),

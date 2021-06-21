@@ -27,7 +27,7 @@ export type TSceneryEffects =
   // | TObstacle
   // | TOvergrown
   | TSinister
-  // | TVolcanic
+// | TVolcanic
 
 export const ARCANE: TArcane = `Arcane`
 // export const COMMANDING: TCommanding = `Commanding`

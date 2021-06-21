@@ -82,7 +82,6 @@ const useGetArmyBuilderCards = (army: IArmy) => {
         type: 'multi',
         sideEffects: getSideEffects(army.Artifacts),
       },
-
       {
         slice: 'prayers' as TSelectionTypes,
         items: army.Prayers,
@@ -100,6 +99,15 @@ const useGetArmyBuilderCards = (army: IArmy) => {
         values: selections.spells || [],
         type: 'multi',
         sideEffects: getSideEffects(army.Spells),
+      },
+      {
+        slice: 'core_rules' as TSelectionTypes,
+        items: army.CoreRules,
+        setValues: selectionActions.setCoreRules,
+        title: 'Core Rules',
+        values: selections.core_rules || [],
+        type: 'multi',
+        sideEffects: getSideEffects(army.CoreRules),
       },
       {
         slice: 'endless_spells' as TSelectionTypes,

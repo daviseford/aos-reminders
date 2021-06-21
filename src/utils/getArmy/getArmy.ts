@@ -1,3 +1,4 @@
+import CoreRules from 'generic_rules/core_rules'
 import produce from 'immer'
 import { GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions, TGrandAlliances } from 'meta/alliances'
 import { TSupportedFaction } from 'meta/factions'
@@ -94,6 +95,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
   Army.Battalions = modify.Battalions(Battalions, Collection)
   Army.CommandAbilities = modify.CommandAbilities(CommandAbilities, realmscape, Collection)
   Army.CommandTraits = modify.CommandTraits(CommandTraits, GrandAlliance, Collection)
+  Army.CoreRules = modify.CoreRules(CoreRules)
   Army.EndlessSpells = modify.EndlessSpells(EndlessSpells, GrandAllianceEndlessSpells, Collection)
   Army.Flavors = modify.Flavors(Flavors, Collection)
   Army.MountTraits = modify.MountTraits(MountTraits, Collection)
@@ -109,6 +111,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
     Army.Battalions,
     Army.CommandAbilities,
     Army.CommandTraits,
+    Army.CoreRules,
     Army.EndlessSpells,
     Army.Flavors,
     Army.MountTraits,

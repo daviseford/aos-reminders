@@ -4,7 +4,7 @@ import React from 'react'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = 'aos-3.0-release'
+  const name = 'aos-3-release'
 
   return (
     <NotificationBanner

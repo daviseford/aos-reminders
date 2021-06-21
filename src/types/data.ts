@@ -10,6 +10,7 @@ export type TEntryProperties =
   | 'battle_trait'
   | 'command_ability'
   | 'command_trait'
+  | 'core_rule'
   | 'endless_spell'
   | 'mount_trait'
   | 'prayer'
@@ -24,6 +25,7 @@ export const ENTRY_PROPERTIES: TEntryProperties[] = [
   'battle_trait',
   'command_ability',
   'command_trait',
+  'core_rule',
   'endless_spell',
   'mount_trait',
   'prayer',
@@ -38,6 +40,7 @@ export const lowerToUpperLookup: Record<TSelectionTypes, keyof TCollection> = {
   battalions: 'Battalions',
   command_abilities: 'CommandAbilities',
   command_traits: 'CommandTraits',
+  core_rules: 'CoreRules',
   endless_spells: 'EndlessSpells',
   flavors: 'Flavors',
   mount_traits: 'MountTraits',
@@ -53,6 +56,7 @@ export const upperToLowerLookup: Record<keyof TCollection, TSelectionTypes> = {
   Battalions: 'battalions',
   CommandAbilities: 'command_abilities',
   CommandTraits: 'command_traits',
+  CoreRules: 'core_rules',
   EndlessSpells: 'endless_spells',
   Flavors: 'flavors',
   MountTraits: 'mount_traits',
@@ -68,6 +72,7 @@ export const entryKeyToSelectionsKey: Record<Exclude<TEntryProperties, 'battle_t
   battalion: 'battalions',
   command_ability: 'command_abilities',
   command_trait: 'command_traits',
+  core_rule: 'core_rules',
   endless_spell: 'endless_spells',
   mount_trait: 'mount_traits',
   prayer: 'prayers',
@@ -85,6 +90,7 @@ export const selectionsKeyToEntryKey: Record<
   battalions: 'battalion',
   command_abilities: 'command_ability',
   command_traits: 'command_trait',
+  core_rules: 'core_rule',
   endless_spells: 'endless_spell',
   mount_traits: 'mount_trait',
   prayers: 'prayer',

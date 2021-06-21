@@ -86,6 +86,13 @@ const modifyCommandTraits = (
   )
 }
 
+const modifyCoreRules = (core_rules: TEntry[]): TEntry[] => {
+  return uniqBy(
+    sortBy(core_rules, 'name').map(t => ({ ...t, core_rule: true })),
+    'name'
+  )
+}
+
 const modifyMountTraits = (mount_traits: TEntry[], Collection: TCollection): TEntry[] => {
   return uniqBy(
     sortBy(mount_traits, 'name')
@@ -168,6 +175,7 @@ export const modify = {
   Battalions: modifyBattalions,
   CommandAbilities: modifyCommandAbilities,
   CommandTraits: modifyCommandTraits,
+  CoreRules: modifyCoreRules,
   EndlessSpells: modifyEndlessSpells,
   Flavors: modifyFlavors,
   MountTraits: modifyMountTraits,
