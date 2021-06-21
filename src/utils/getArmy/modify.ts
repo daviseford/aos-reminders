@@ -6,6 +6,7 @@ import {
 } from 'factions/grand_alliances'
 import {
   GenericCommandAbilities,
+  GenericCommandTraits,
   GenericEndlessSpells,
   GenericScenery,
   GenericSpells,
@@ -14,7 +15,6 @@ import {
   RealmscapeCommands,
   RealmscapeSpells,
 } from 'generic_rules'
-import GenericCommandTraits from 'generic_rules/command_traits'
 import { sortBy, uniqBy } from 'lodash'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
 import { TCollection } from 'types/army'

@@ -1,4 +1,4 @@
-import CoreRules from 'generic_rules/core_rules'
+import { CoreRules } from 'generic_rules'
 import produce from 'immer'
 import { GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions, TGrandAlliances } from 'meta/alliances'
 import { TSupportedFaction } from 'meta/factions'
