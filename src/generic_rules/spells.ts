@@ -1,15 +1,15 @@
-// Spells, Prayers, etc. go here
+// Spells go here
 import { TEntry } from 'types/data'
-import { HERO_PHASE, SAVES_PHASE } from 'types/phases'
+import { HERO_PHASE } from 'types/phases'
 
-const Spells: TEntry[] = [
+const GenericSpells: TEntry[] = [
   // Core Spells
   {
     name: `Arcane Bolt`,
     effects: [
       {
         name: `Arcane Bolt`,
-        desc: `Casting value of 5. Pick an enemy unit within 18" of the caster that is visible to them. That unit suffers 1 mortal wound. If the casting roll was 10 or more, the unit suffers D3 mortal wounds instead.`,
+        desc: `Casting value of 5 and a range of 12". If successfully cast, at the start of any 1 phase before your next hero phase, you can pick 1 enemy unit within range and visible to the caster. That unit suffers 1 mortal wound. If that unit is within 3" of the caster, it suffers D3 mortal wounds instead of 1.`,
         when: [HERO_PHASE],
       },
     ],
@@ -19,16 +19,42 @@ const Spells: TEntry[] = [
     effects: [
       {
         name: `Mystic Shield`,
-        desc: `Casting value of 6. Pick a friendly unit within 18" of the caster that is visible to them. Reroll save rolls of 1 for that unit until your next hero phase.`,
+        desc: `Casting value of 5 and a range of 12". If successfully cast, pick 1 friendly unit wholly within range and visible to the caster. Add 1 to save rolls for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
+    ],
+  },
+  // Enhancements
+  {
+    name: `Flaming Weapon`,
+    effects: [
       {
-        name: `Mystic Shield`,
-        desc: `If active, reroll save rolls of 1 for the chosen unit until your next hero phase.`,
-        when: [SAVES_PHASE],
+        name: `Flaming Weapon`,
+        desc: `Casting value of 4. If successfully cast, pick 1 of the caster's melee weapons. Add 1 to Damage characteristic of that weapon until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Levitate`,
+    effects: [
+      {
+        name: `Levitate`,
+        desc: `Casting value of 8 and a range of 18". If successfully cast, pick 1 friendly unit wholly within range and visible to the caster. That unit can fly until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  {
+    name: `Ghost-mist`,
+    effects: [
+      {
+        name: `Ghost-mist`,
+        desc: `Ghost-mist is a spell that has a casting value of 5 and a range of 6". If successfully cast, pick 1 terrain feature within range and visible to the caster. Until your next hero phase, visibility between 2 models is blocked if a straight line 1mm wide drawn between the closest points of the 2 models passes across more than 3" of that terrain feature. This effect does not block visibility to or from models with a Wounds characteristic of 10 or more.`,
+        when: [HERO_PHASE],
       },
     ],
   },
 ]
 
-export default Spells
+export default GenericSpells

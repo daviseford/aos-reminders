@@ -34,6 +34,7 @@ export const addSideEffectsToImport = (selections: TSelections, Army: IArmy): TS
     battalions: getSideEffects(Army.Battalions),
     command_abilities: getSideEffects(Army.CommandAbilities),
     command_traits: getSideEffects(Army.CommandTraits),
+    core_rules: getSideEffects(Army.CoreRules),
     endless_spells: getSideEffects(Army.EndlessSpells),
     flavors: getSideEffects(Army.Flavors),
     mount_traits: getSideEffects(Army.MountTraits),

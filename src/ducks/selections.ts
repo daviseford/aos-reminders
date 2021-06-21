@@ -73,6 +73,9 @@ const selections = createSlice({
     setCommandAbilities: (state, action: PayloadAction<string[]>) => {
       state.selections.command_abilities = action.payload
     },
+    setCoreRules: (state, action: PayloadAction<string[]>) => {
+      state.selections.core_rules = action.payload
+    },
     setEndlessSpells: (state, action: PayloadAction<string[]>) => {
       state.selections.endless_spells = action.payload
     },

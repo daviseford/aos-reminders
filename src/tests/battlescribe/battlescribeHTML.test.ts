@@ -1285,6 +1285,7 @@ describe('getBattlescribeArmy', () => {
         artifacts: ['Wizardflesh Apron', 'Splatter-cleaver'],
         battalions: ['Goremand'],
         command_abilities: ['Bloodbath', 'Bellowing Voice'],
+        core_rules: [],
         endless_spells: [],
         scenery: [],
         spells: [
@@ -1979,6 +1980,7 @@ describe('getBattlescribeArmy', () => {
         ],
         battalions: ['Depraved Drove', 'Marauding Brayherd'],
         command_abilities: ["Slaughterer's Call"],
+        core_rules: [],
         endless_spells: [
           'Balewind Vortex',
           'Lauchon the Soulseeker',

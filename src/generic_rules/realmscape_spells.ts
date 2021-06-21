@@ -234,17 +234,17 @@ const Spells: TEntry[] = [
     effects: [
       {
         name: `Drain Vitality (${PRAETORIS})`,
-        desc: `Casting value of 6. Pick 1 enemy unit within 18" and visible. Until your next hero phase, the target re-rolls unmodified hit and save rolls of 6.`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 18" and visible. Until your next hero phase, the target rerolls unmodified hit and save rolls of 6.`,
         when: [HERO_PHASE],
       },
       {
         name: `Drain Vitality (${PRAETORIS})`,
-        desc: `The debuffed unit re-rolls unmodified hits of 6.`,
+        desc: `The debuffed unit rerolls unmodified hits of 6.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Drain Vitality (${PRAETORIS})`,
-        desc: `The debuffed unit re-rolls unmodified saves of 6.`,
+        desc: `The debuffed unit rerolls unmodified saves of 6.`,
         when: [SAVES_PHASE],
       },
     ],
@@ -284,7 +284,7 @@ const Spells: TEntry[] = [
     effects: [
       {
         name: `Quickening Doom (${DOLORUM})`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 9" and visible. The target suffers D3 mortal wounds and if these inflicted wounds slay any models, the target unit reduces its bravery by 1 (to a minimum of 1) for the remainder of the battle.  A unit cannot have this bravery debuff applied more than once per battle.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 9" and visible. The target suffers D3 mortal wounds and if these inflicted wounds slay any models, the target unit reduces its bravery by 1 (to a minimum of 1) for the remainder of the battle. A unit cannot have this bravery debuff applied more than once per battle.`,
         when: [HERO_PHASE],
       },
     ],
@@ -304,7 +304,7 @@ const Spells: TEntry[] = [
     effects: [
       {
         name: `Wildform (${COASTOFTUSKS})`,
-        desc: `Casting value of 5. Pick 1 friendly unit within 12" and visible.  Add 2 to run and charge rolls for the target unit your next hero phase.`,
+        desc: `Casting value of 5. Pick 1 friendly unit within 12" and visible. Add 2 to run and charge rolls for the target unit your next hero phase.`,
         when: [HERO_PHASE],
       },
       {

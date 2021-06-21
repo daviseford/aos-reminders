@@ -372,6 +372,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
       battalions: [],
       command_abilities: [],
       command_traits: [],
+      core_rules: [],
       endless_spells: [],
       flavors: [],
       mount_traits: [],

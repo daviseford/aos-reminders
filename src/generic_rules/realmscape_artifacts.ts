@@ -146,7 +146,7 @@ const RealmArtifacts: TEntry[] = [
     effects: [
       {
         name: `The Fecund Flask (${INVIDA})`,
-        desc: `Once per battle the bearer can roll a D6. On a 2+ all wounds allocated to the bearer are healed.  On a 1, the bearer is slain and replaced with a Beast of Nurgle within 1".`,
+        desc: `Once per battle the bearer can roll a D6. On a 2+ all wounds allocated to the bearer are healed. On a 1, the bearer is slain and replaced with a Beast of Nurgle within 1".`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -156,7 +156,7 @@ const RealmArtifacts: TEntry[] = [
     effects: [
       {
         name: `Prism of Amyntok (${YMETRICA})`,
-        desc: `Pick 1 enemy unit within 8" of the bearer and roll 4 D6.  For each 6 the target suffers 1 mortal wound.`,
+        desc: `Pick 1 enemy unit within 8" of the bearer and roll 4 D6. For each 6 the target suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -186,7 +186,7 @@ const RealmArtifacts: TEntry[] = [
     effects: [
       {
         name: `Gildenbane (${PROSPERIS})`,
-        desc: `Artifacts of power within 3" of the bearer of this artifact are deactivated (cannot be used). If the affected artifact is a weapon, the normal profile is used instead. `,
+        desc: `Artifacts of power within 3" of the bearer of this artifact are deactivated (cannot be used). If the affected artifact is a weapon, the normal profile is used instead.`,
         when: [DURING_GAME],
       },
     ],
@@ -196,7 +196,7 @@ const RealmArtifacts: TEntry[] = [
     effects: [
       {
         name: `Glimmering (${COASTOFTUSKS})`,
-        desc: `Once per turn, before the bearer makes a hit, wound, save, run, or charge roll, you can instead choose the result.  This cannot be re-rolled and modifiers apply normally.`,
+        desc: `Once per turn, before the bearer makes a hit, wound, save, run, or charge roll, you can instead choose the result. This cannot be rerolled and modifiers apply normally.`,
         when: [DURING_GAME],
       },
     ],

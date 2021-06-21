@@ -102,6 +102,7 @@ describe('getAzyrArmyFromPdf', () => {
         'Necrotising Bolt',
         'Clotted Deluge',
       ],
+      core_rules: [],
       triumphs: [],
       units: [
         'Belladamma Volga',
@@ -367,6 +368,7 @@ describe('getAzyrArmyFromPdf', () => {
       scenery: [],
       spells: [],
       command_traits: ['Extremely Bitter (Breaker Tribe)'],
+      core_rules: [],
       triumphs: [],
       units: ['Gatebreaker', 'Kraken-Eater', 'Warstomper', 'Mancrusher Gargants'],
     })
@@ -995,6 +997,7 @@ describe('getAzyrArmyFromPdf', () => {
           'Gestalt Sorcery',
         ],
         command_traits: ['Prophet of the Ostensible'],
+        core_rules: [],
         triumphs: [],
         units: ['Gaunt Summoner of Tzeentch', 'Kairic Acolytes'],
       },
@@ -1330,6 +1333,7 @@ describe('getAzyrArmyFromPdf', () => {
         scenery: [],
         spells: [],
         command_traits: [],
+        core_rules: [],
         triumphs: [],
         units: [
           'Archaon the Everchosen',
@@ -1385,6 +1389,7 @@ describe('getAzyrArmyFromPdf', () => {
         scenery: [],
         spells: ['Whispers of Chaos'],
         command_traits: [],
+        core_rules: [],
         triumphs: [],
         units: ['Archaon the Everchosen', 'Varanguard'],
       },
@@ -1790,6 +1795,7 @@ describe('getAzyrArmyFromPdf', () => {
       scenery: [],
       spells: ['Mindrazor', 'Black Horror of Ulgu'],
       command_traits: ['Bathe in Their Blood'],
+      core_rules: [],
       triumphs: [],
       units: ['Hag Queen on Cauldron of Blood', 'Morathi-Khaine', 'Sisters of Slaughter', 'The Shadow Queen'],
     })
@@ -1826,6 +1832,7 @@ describe('getAzyrArmyFromPdf', () => {
         scenery: [],
         spells: ['Monstrous Vigour', 'Blood Feast', 'Black Hunger'],
         command_traits: ['Savage Strike', 'The Feast Day (Delusion)'],
+        core_rules: [],
         triumphs: [],
         units: ['Abhorrant Ghoul King', 'Royal Terrorgheist'],
       },
@@ -1860,6 +1867,7 @@ describe('getAzyrArmyFromPdf', () => {
         'Wildform (Ghur)',
       ],
       command_traits: ['Drillmaster (Greywater Fastness)'],
+      core_rules: [],
       triumphs: [],
       units: [
         'Battlemage',
@@ -1958,6 +1966,7 @@ describe('getAzyrArmyFromPdf', () => {
         'Withering Hex',
       ],
       command_traits: ['Seat on the Council (Greywater Fastness)'],
+      core_rules: [],
       triumphs: [],
       units: [
         'Freeguild General',
@@ -2016,6 +2025,7 @@ describe('getAzyrArmyFromPdf', () => {
       scenery: [],
       spells: ['Sap Strength (Anvilgard, Har Kuron)', 'Amber Spear', 'Wildform (Ghur)'],
       command_traits: ['Blackfang Crimelord (Anvilgard)', 'Hidden Agents (Anvilgard Battle Trait)'],
+      core_rules: [],
       triumphs: [],
       units: ['Battlemage on Griffon', 'Freeguild Handgunners', 'War Hydra'],
     })
@@ -2103,6 +2113,7 @@ describe('getAzyrArmyFromPdf', () => {
         'Overwhelming Acquiescence',
       ],
       command_traits: ['Monarch of Lies'],
+      core_rules: [],
       triumphs: [],
       units: [
         'Keeper of Secrets w/ Living Whip',
@@ -2160,6 +2171,7 @@ describe('getAzyrArmyFromPdf', () => {
         scenery: [],
         spells: ["Comet's Call"],
         command_traits: [],
+        core_rules: [],
         triumphs: [],
         units: [
           'Slann Starmaster',
@@ -2217,6 +2229,7 @@ describe('getAzyrArmyFromPdf', () => {
           'ARTYCLE: Chronicle of Grudges',
           'AMENDMENT: Take Help Where You Can Get It',
         ],
+        core_rules: [],
         triumphs: [],
         units: [
           'Aether-Khemist',
@@ -2268,7 +2281,8 @@ describe('getAzyrArmyFromPdf', () => {
         endless_spells: [],
         scenery: [],
         spells: ['Death Frenzy', 'Skitterleap', 'More-more-more Warp Power!', 'Wither', 'Warp Lightning'],
-        command_traits: ['Master of Magic (Masterclan)'],
+        command_traits: ['Master of Magic'],
+        core_rules: [],
         triumphs: [],
         units: [
           'Grey Seer',
@@ -2317,6 +2331,7 @@ describe('getAzyrArmyFromPdf', () => {
         scenery: [],
         spells: [],
         command_traits: ['Warrior Indominate'],
+        core_rules: [],
         triumphs: [],
         units: [
           'Fjul-Grimnir',
@@ -2391,6 +2406,7 @@ describe('getAzyrArmyFromPdf', () => {
           'Boon of Mutation',
         ],
         command_traits: ['Rampant Juggernaut (Warherd)'],
+        core_rules: [],
         triumphs: [],
         units: [
           'Beastlord',

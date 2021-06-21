@@ -1,3 +1,4 @@
+import { CoreRules } from 'generic_rules'
 import produce from 'immer'
 import { GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions, TGrandAlliances } from 'meta/alliances'
 import { TSupportedFaction } from 'meta/factions'
@@ -33,7 +34,7 @@ export const getArmy = (
     debugger // If you've arrived here (as a dev), you need to fix the above error - no excuses.
   }
 
-  const Army = (subFactionName && subFactionArmies?.[subFactionName]) || AggregateArmy
+  const Army: TSubfactionArmy = (subFactionName && subFactionArmies?.[subFactionName]) || AggregateArmy
 
   const Collection = getCollection(Army)
 
@@ -45,7 +46,7 @@ export const getArmy = (
     realmscape,
   })
 
-  return army
+  return army as unknown as IArmy
 }
 
 interface IModifyArmyMeta {
@@ -56,7 +57,7 @@ interface IModifyArmyMeta {
   realmscape: TBattleRealms | null
 }
 
-const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta): IArmy => {
+const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
   let {
     AlliedUnits = [],
     Artifacts = [],
@@ -94,6 +95,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta): IArmy
   Army.Battalions = modify.Battalions(Battalions, Collection)
   Army.CommandAbilities = modify.CommandAbilities(CommandAbilities, realmscape, Collection)
   Army.CommandTraits = modify.CommandTraits(CommandTraits, GrandAlliance, Collection)
+  Army.CoreRules = modify.CoreRules(CoreRules)
   Army.EndlessSpells = modify.EndlessSpells(EndlessSpells, GrandAllianceEndlessSpells, Collection)
   Army.Flavors = modify.Flavors(Flavors, Collection)
   Army.MountTraits = modify.MountTraits(MountTraits, Collection)
@@ -109,6 +111,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta): IArmy
     Army.Battalions,
     Army.CommandAbilities,
     Army.CommandTraits,
+    Army.CoreRules,
     Army.EndlessSpells,
     Army.Flavors,
     Army.MountTraits,
@@ -119,6 +122,5 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta): IArmy
     Army.Units,
   ])
 
-  // @ts-expect-error
   return Army
 })

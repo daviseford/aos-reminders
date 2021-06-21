@@ -4,7 +4,7 @@ import React from 'react'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = 'soulblight-gravelords-release'
+  const name = 'aos-3-release'
 
   return (
     <NotificationBanner
@@ -15,7 +15,7 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW!</strong> We've just added Soulblight Gravelords!
+        <strong>Welcome to AoS 3.0 {':)'}</strong>
       </span>
     </NotificationBanner>
   )

@@ -1189,6 +1189,7 @@ describe('getWarscrollArmyFromJson', () => {
       artifacts: ['Scroll of Dark Unravelling'],
       battalions: ['Godswrath Warband'],
       command_abilities: ['Spurred by the Gods'],
+      core_rules: [],
       endless_spells: ['Eightfold Doom-Sigil'],
       scenery: [],
       spells: [
@@ -1922,6 +1923,7 @@ describe('getWarscrollArmyFromJson', () => {
         prayers: ['Rune Lore', 'Rune Lore: Ancestral Shield', 'Rune Lore: Forge Fire'],
         spells: ['Choking Fumes (Greywater Fastness)', 'Transmutation of Lead (Chamon)'],
         command_traits: ['Ghoul Mere Ranger (Greywater Fastness)'],
+        core_rules: [],
         triumphs: [],
         units: [
           'Runelord',

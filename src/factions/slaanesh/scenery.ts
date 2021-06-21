@@ -1,5 +1,4 @@
 import { tagAs } from 'factions/metatagger'
-import { SceneryEffectLookup } from 'generic_rules/scenery'
 import {
   COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -7,12 +6,11 @@ import {
   START_OF_HERO_PHASE,
   START_OF_SETUP,
 } from 'types/phases'
-import { OBSTACLE } from 'types/terrain'
 
 const Scenery = {
   'Fane of Slaanesh': {
     effects: [
-      ...SceneryEffectLookup[OBSTACLE],
+      // ...SceneryEffectLookup[OBSTACLE],
       {
         name: `Fane of Slaanesh`,
         desc: `After territories have been chosen, but before armies are set up, you can set up the Fane of Slaanesh wholly within your territory and more than 3" from any other terrain features or objectives. If both players can set up a terrain feature before territory selection, they must roll off with the winner placing first.`,

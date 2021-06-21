@@ -96,6 +96,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Curse of Exsanguination',
           'Clotted Deluge',
         ],
+        core_rules: [],
         triumphs: [],
         units: [
           'Belladamma Volga',
@@ -159,6 +160,7 @@ describe('getWarscrollArmyFromPdf', () => {
         prayers: [],
         scenery: [],
         spells: [],
+        core_rules: [],
         triumphs: [],
         units: [
           'Black Knights',
@@ -264,6 +266,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Amethyst Gale',
         ],
         command_traits: ['We Cannot Fail'],
+        core_rules: [],
         triumphs: [],
         units: [
           'Astreia Solbright',
@@ -410,6 +413,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Storm of Searing White Light',
         ],
         command_traits: ['Loremaster - Alarith', 'Goading Arrogance'],
+        core_rules: [],
         triumphs: [],
         units: [
           'Archmage Teclis',
@@ -553,6 +557,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Control Fate',
         ],
         command_traits: ['Mighty Warleader'],
+        core_rules: [],
         triumphs: [],
         units: [
           'Engine of the Gods',
@@ -692,6 +697,7 @@ describe('getWarscrollArmyFromPdf', () => {
           "FOOTNOTE: There's Always a Breeze if You Look for it",
           "AMENDMENT: Don't Argue With the Wind",
         ],
+        core_rules: [],
         triumphs: [],
         units: [
           'Aether-Khemist',
@@ -798,6 +804,7 @@ describe('getWarscrollArmyFromPdf', () => {
           "AMENDMENT: Don't Argue With the Wind",
           'ARTYCLE: Master the Skies',
         ],
+        core_rules: [],
         triumphs: [],
         units: [
           'Aether-Khemist',
@@ -874,6 +881,7 @@ describe('getWarscrollArmyFromPdf', () => {
         prayers: [],
         scenery: [],
         spells: ['Miasma of Pestilence'],
+        core_rules: [],
         triumphs: [],
         units: ['Bloab Rotspawned', 'Chaos Chariots', 'Plague Censer Bearers'],
       },
@@ -900,6 +908,7 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: ["Comet's Call", 'Blazing Starlight'],
       command_traits: ['Great Rememberer'],
+      core_rules: [],
       triumphs: [],
       units: [
         'Slann Starmaster',
@@ -1006,6 +1015,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Acidic Blood (Drakeblood Curse)',
         'Fell Gaze (Drakeblood Curse)',
       ],
+      core_rules: [],
       triumphs: [],
       units: [
         'Celestial Hurricanum with Celestial Battlemage',
@@ -1054,6 +1064,7 @@ describe('getWarscrollArmyFromPdf', () => {
       mount_traits: ["Fast 'Un", "Weird 'Un"],
       prayers: [],
       command_traits: ["Dead Kunnin'"],
+      core_rules: [],
       triumphs: [],
       units: [
         'Gordrakk the Fist of Gork',
@@ -1093,6 +1104,7 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: ["Comet's Call", 'Blazing Starlight'],
       command_traits: ['Great Rememberer'],
+      core_rules: [],
       triumphs: [],
       units: [
         'Slann Starmaster',
@@ -1143,6 +1155,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Delusions of Infallibility',
         'Monarch of Lies',
       ],
+      core_rules: [],
       triumphs: [],
       units: [
         'Beastlord',
@@ -1262,6 +1275,7 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: ['Doomfire', 'Enfeebling Foe'],
       command_traits: ['Dauntless (Order)'],
+      core_rules: [],
       triumphs: [],
       units: [
         'Doomfire Warlocks',
@@ -1297,6 +1311,7 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: [],
       command_traits: ['Checked Out'],
+      core_rules: [],
       triumphs: [],
       units: [
         'Gordrakk the Fist of Gork',
@@ -1326,6 +1341,7 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: [],
       command_traits: [],
+      core_rules: [],
       triumphs: [],
       units: ['Drakesworn Templar'],
     })
@@ -1348,6 +1364,7 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: ['Storm Lance'],
       command_traits: [],
+      core_rules: [],
       triumphs: [],
       units: ['Drakesworn Templar', 'Lord-Arcanum on Celestial Dracoline'],
     })
@@ -1370,6 +1387,7 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: ['Storm Lance'],
       command_traits: [],
+      core_rules: [],
       triumphs: [],
       units: ['Lord-Arcanum on Celestial Dracoline'],
     })
@@ -1392,6 +1410,7 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: [],
       command_traits: [],
+      core_rules: [],
       triumphs: [],
       units: ['Loonboss'],
     })
@@ -1414,6 +1433,7 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: ['Spore Maws'],
       command_traits: ['Boss Shaman'],
+      core_rules: [],
       triumphs: [],
       units: ['Fungoid Cave-Shaman'],
     })
@@ -1436,6 +1456,7 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: ['Shademist'],
       command_traits: ['Spiteful Spirit'],
+      core_rules: [],
       triumphs: [],
       units: ['Lord Executioner'],
     })
@@ -1487,6 +1508,7 @@ describe('getWarscrollArmyFromPdf', () => {
       scenery: [],
       spells: ['Walk Between Realms', "Comet's Call"],
       command_traits: ['Great Rememberer'],
+      core_rules: [],
       triumphs: [],
       units: [
         'Slann Starmaster',
@@ -1531,6 +1553,7 @@ describe('getWarscrollArmyFromPdf', () => {
         scenery: ['Penumbral Engine'],
         spells: ['Celestial Deliverance', "Comet's Call"],
         command_traits: ['Master of Star Rituals'],
+        core_rules: [],
         triumphs: [],
         units: [
           'Lord Kroak',
@@ -1578,6 +1601,7 @@ describe('getWarscrollArmyFromPdf', () => {
         scenery: ['Penumbral Engine'],
         spells: ['Celestial Deliverance', "Comet's Call"],
         command_traits: ['Master of Star Rituals'],
+        core_rules: [],
         triumphs: [],
         units: [
           'Lord Kroak',
@@ -1625,6 +1649,7 @@ describe('getWarscrollArmyFromPdf', () => {
         scenery: ['Penumbral Engine'],
         spells: ['Celestial Deliverance', "Comet's Call"],
         command_traits: ['Master of Star Rituals'],
+        core_rules: [],
         triumphs: [],
         units: [
           'Lord Kroak',
@@ -1688,6 +1713,7 @@ describe('getWarscrollArmyFromPdf', () => {
         scenery: [],
         spells: [],
         command_traits: ['Disciplined Fury'],
+        core_rules: [],
         triumphs: [],
         units: ['Engine of the Gods', 'Chameleon Skinks', 'Saurus Warriors', 'Bastiladon', 'Dread Saurian'],
       },
