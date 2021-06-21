@@ -13,19 +13,7 @@ import {
   START_OF_SETUP,
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
-import {
-  ARCANE,
-  COMMANDING,
-  DAMNED,
-  DEADLY,
-  GARRISONS,
-  INSPIRING,
-  MYSTICAL,
-  OBSTACLE,
-  OVERGROWN,
-  SINISTER,
-  TSceneryEffects,
-} from 'types/terrain'
+import { ARCANE, DAMNED, DEADLY, INSPIRING, MYSTICAL, SINISTER, TSceneryEffects } from 'types/terrain'
 
 // Default scenery effects for most games and custom scenery.
 const DefaultScenery: TEntry[] = [
@@ -248,11 +236,16 @@ const OfficialScenery: TEntry[] = [
   },
   {
     name: `Arcane Ruin`,
-    effects: [...SceneryEffectLookup[OBSTACLE], ...SceneryEffectLookup[ARCANE]],
+    effects: [
+      // ...SceneryEffectLookup[OBSTACLE]
+      ...SceneryEffectLookup[ARCANE],
+    ],
   },
   {
     name: `Azyrite Ruins`,
-    effects: [...SceneryEffectLookup[OBSTACLE]],
+    effects: [
+      // ...SceneryEffectLookup[OBSTACLE]
+    ],
   },
   {
     name: `Baleful Realmgate`,
@@ -262,7 +255,8 @@ const OfficialScenery: TEntry[] = [
         desc: `You may remove a unit wholly within 6" of this terrain and set it up wholly within 6" of another Baleful Realmgate. This can only be activated if a priest or wizard is within 6" of the starting gate.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
-      ...SceneryEffectLookup[OBSTACLE],
+
+      // ...SceneryEffectLookup[OBSTACLE]
     ],
   },
   {
@@ -274,16 +268,23 @@ const OfficialScenery: TEntry[] = [
         when: [START_OF_SETUP],
       },
       ...SceneryEffectLookup[DEADLY],
-      ...SceneryEffectLookup[OBSTACLE],
+
+      // ...SceneryEffectLookup[OBSTACLE]
     ],
   },
   {
     name: `Citadel Wood`,
-    effects: [...SceneryEffectLookup[OVERGROWN], ...SceneryEffectLookup[OBSTACLE]],
+    effects: [
+      // ...SceneryEffectLookup[OVERGROWN],
+      // ...SceneryEffectLookup[OBSTACLE]
+    ],
   },
   {
     name: `Dragonfate Dais`,
-    effects: [...SceneryEffectLookup[DAMNED], ...SceneryEffectLookup[OBSTACLE]],
+    effects: [
+      ...SceneryEffectLookup[DAMNED],
+      // ...SceneryEffectLookup[OBSTACLE]
+    ],
   },
   {
     name: `Enduring Stormvault`,
@@ -297,7 +298,8 @@ const OfficialScenery: TEntry[] = [
                3 - Immeadiately set up an endless spell wholly within 12" of the hero as if they had cast it.`,
         when: [HERO_PHASE],
       },
-      ...SceneryEffectLookup[OBSTACLE],
+
+      // ...SceneryEffectLookup[OBSTACLE]
     ],
   },
   {
@@ -318,22 +320,33 @@ const OfficialScenery: TEntry[] = [
         desc: `Roll a D6 each time a unit wholly within this terrain feature is affected by a spell or endless spell. On a 6+ ignore the effects of that spell on the unit.`,
         when: [DURING_GAME],
       },
-      ...SceneryEffectLookup[OBSTACLE],
+
+      // ...SceneryEffectLookup[OBSTACLE]
+
       ...SceneryEffectLookup[INSPIRING],
       ...SceneryEffectLookup[SINISTER],
     ],
   },
   {
     name: `Magewrath Throne`,
-    effects: [...SceneryEffectLookup[COMMANDING], ...SceneryEffectLookup[OBSTACLE]],
+    effects: [
+      // ...SceneryEffectLookup[COMMANDING],
+      // ...SceneryEffectLookup[OBSTACLE]
+    ],
   },
   {
     name: `Numinous Occulum`,
-    effects: [...SceneryEffectLookup[MYSTICAL], ...SceneryEffectLookup[OBSTACLE]],
+    effects: [
+      ...SceneryEffectLookup[MYSTICAL],
+      // ...SceneryEffectLookup[OBSTACLE]
+    ],
   },
   {
     name: `Ophidian Archway`,
-    effects: [...SceneryEffectLookup[SINISTER], ...SceneryEffectLookup[OBSTACLE]],
+    effects: [
+      ...SceneryEffectLookup[SINISTER],
+      // ...SceneryEffectLookup[OBSTACLE]
+    ],
   },
   {
     name: `Penumbral Stormvault`,
@@ -349,7 +362,8 @@ const OfficialScenery: TEntry[] = [
         desc: `Chaos, Death, and Destruction generals within 1" of this terrain feature generate 1 additional command point. This does not take effect if any enemy units are within 1" of this terrain feature.`,
         when: [START_OF_HERO_PHASE],
       },
-      ...SceneryEffectLookup[OBSTACLE],
+
+      // ...SceneryEffectLookup[OBSTACLE]
     ],
   },
   {
@@ -361,13 +375,15 @@ const OfficialScenery: TEntry[] = [
         when: [START_OF_SETUP],
       },
       ...SceneryEffectLookup[DEADLY],
-      ...SceneryEffectLookup[OBSTACLE],
+
+      // ...SceneryEffectLookup[OBSTACLE]
     ],
   },
   {
     name: `Shattered Temple`,
     effects: [
-      ...SceneryEffectLookup[OBSTACLE],
+      // ...SceneryEffectLookup[OBSTACLE]
+
       ...SceneryEffectLookup[DEADLY],
       ...SceneryEffectLookup[ARCANE],
     ],
@@ -380,7 +396,9 @@ const OfficialScenery: TEntry[] = [
         desc: `Order units treat this terrain as Inspiring. All other grand alliances treat this terrain as Sinister.`,
         when: [DURING_GAME],
       },
-      ...SceneryEffectLookup[OBSTACLE],
+
+      // ...SceneryEffectLookup[OBSTACLE]
+
       ...SceneryEffectLookup[INSPIRING],
       ...SceneryEffectLookup[SINISTER],
     ],
@@ -398,7 +416,7 @@ const OfficialScenery: TEntry[] = [
         desc: `This terrain is treated as an additional gravesite as specified in Battletome: Legions of Nagash.`,
         when: [DURING_GAME],
       },
-      ...SceneryEffectLookup[GARRISONS],
+      // ...SceneryEffectLookup[GARRISONS],
     ],
   },
   {
@@ -409,7 +427,9 @@ const OfficialScenery: TEntry[] = [
         desc: `This terrain consists of 10 Timeworn Ruin models with each model being set up within 1" of at least one other model from the group.`,
         when: [START_OF_SETUP],
       },
-      ...SceneryEffectLookup[OBSTACLE],
+
+      // ...SceneryEffectLookup[OBSTACLE]
+
       ...SceneryEffectLookup[DEADLY],
     ],
   },
@@ -421,7 +441,8 @@ const OfficialScenery: TEntry[] = [
         desc: `This terrain feature consists of 2-10 wall and/or fence models and is set up with all model's bases touching at least one other model's base from the group.`,
         when: [START_OF_SETUP],
       },
-      ...SceneryEffectLookup[OBSTACLE],
+
+      // ...SceneryEffectLookup[OBSTACLE]
     ],
   },
   {
@@ -444,11 +465,12 @@ const OfficialScenery: TEntry[] = [
                If this terrain has crenellated battlements, it can be garrisoned by a single monster that can fly in addition to the other models that can garrison it.`,
         when: [DURING_SETUP, MOVEMENT_PHASE],
       },
-      ...SceneryEffectLookup[GARRISONS],
+      // ...SceneryEffectLookup[GARRISONS],
     ],
   },
 ]
 
 // Combine all scenery rules into generic scenery export for use by any army.
 const GenericScenery: TEntry[] = [...DefaultScenery, ...OfficialScenery]
+
 export default GenericScenery

@@ -31,6 +31,11 @@ const rule_sources = {
     publication_date: '05-06-21',
     type: 'other_book',
   },
+  CORE_RULES_2021: {
+    name: 'Core Rules (2021)',
+    publication_date: '19-06-21',
+    type: 'other_book',
+  },
 }
 
 export default rule_sources

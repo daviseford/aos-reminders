@@ -17,65 +17,60 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import {
-  AQSHY,
-  CHAMON,
   CHARRWIND,
   COASTOFTUSKS,
   DOLORUM,
   EIGHTPOINTS,
   GENESISGATE,
   GHUR,
-  GHYRAN,
   HELLEFlUX,
   HYSH,
   INVIDA,
   PRAETORIS,
   PROSPERIS,
-  SHYISH,
   STYGXX,
-  ULGU,
   UMBRAL,
   VARANTHAX,
   YMETRICA,
 } from 'types/realmscapes'
-import { DEADLY, ENTANGLING, HEALING, MYSTICAL, NULLIFICATION, OVERGROWN, VOLCANIC } from 'types/terrain'
+import { DEADLY, MYSTICAL } from 'types/terrain'
 
 const RealmscapeFeatures: TEffects[] = [
-  {
-    name: `Terminal Lands (${SHYISH})`,
-    desc: `Terrain features (including faction terrain) have the ${NULLIFICATION} scenery rule in addition to any other scenery rules that they have.`,
-    when: [HERO_PHASE],
-  },
-  {
-    name: `Burning Lands (${AQSHY})`,
-    desc: `Terrain features (including faction terrain) have the ${VOLCANIC} scenery rule in addition to any other scenery rules that they have.`,
-    when: [START_OF_HERO_PHASE],
-  },
-  {
-    name: `Transmutative Lands (${CHAMON})`,
-    desc: `Terrain features (including faction terrain) have the ${ENTANGLING} scenery rule in addition to any other scenery rules that they have.`,
-    when: [MOVEMENT_PHASE, CHARGE_PHASE],
-  },
+  // {
+  //   name: `Terminal Lands (${SHYISH})`,
+  //   desc: `Terrain features (including faction terrain) have the ${NULLIFICATION} scenery rule in addition to any other scenery rules that they have.`,
+  //   when: [HERO_PHASE],
+  // },
+  // {
+  //   name: `Burning Lands (${AQSHY})`,
+  //   desc: `Terrain features (including faction terrain) have the ${VOLCANIC} scenery rule in addition to any other scenery rules that they have.`,
+  //   when: [START_OF_HERO_PHASE],
+  // },
+  // {
+  //   name: `Transmutative Lands (${CHAMON})`,
+  //   desc: `Terrain features (including faction terrain) have the ${ENTANGLING} scenery rule in addition to any other scenery rules that they have.`,
+  //   when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  // },
   {
     name: `Savage Lands (${GHUR})`,
     desc: `Terrain features (including faction terrain) have the ${DEADLY} scenery rule in addition to any other scenery rules that they have.`,
     when: [MOVEMENT_PHASE, CHARGE_PHASE],
   },
-  {
-    name: `Verdant Lands (${GHYRAN})`,
-    desc: `Terrain features (including faction terrain) have the ${HEALING} scenery rule in addition to any other scenery rules that they have.`,
-    when: [START_OF_HERO_PHASE],
-  },
+  // {
+  //   name: `Verdant Lands (${GHYRAN})`,
+  //   desc: `Terrain features (including faction terrain) have the ${HEALING} scenery rule in addition to any other scenery rules that they have.`,
+  //   when: [START_OF_HERO_PHASE],
+  // },
   {
     name: `Dazzling Lands (${HYSH})`,
     desc: `Terrain features (including faction terrain) have the ${MYSTICAL} scenery rule in addition to any other scenery rules that they have.`,
     when: [WOUND_ALLOCATION_PHASE],
   },
-  {
-    name: `Dazzling Lands (${ULGU})`,
-    desc: `Terrain features (including faction terrain) have the ${OVERGROWN} scenery rule in addition to any other scenery rules that they have.`,
-    when: [DURING_GAME],
-  },
+  // {
+  //   name: `Dazzling Lands (${ULGU})`,
+  //   desc: `Terrain features (including faction terrain) have the ${OVERGROWN} scenery rule in addition to any other scenery rules that they have.`,
+  //   when: [DURING_GAME],
+  // },
   {
     name: `Energies of the Midnight Tomb (${STYGXX})`,
     desc: `If the casting roll for a spell is a double, that spell is successfully cast and cannot be unbound.`,
