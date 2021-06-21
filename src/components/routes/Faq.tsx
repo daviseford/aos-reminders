@@ -35,6 +35,10 @@ const Faq = () => {
             text={`Log in and then visit your Profile. From there, please click "Cancel Subscription"`}
             imgUrl={'/img/faq_unsubscribe.png'}
           />
+          <FaqEntry
+            title="I've noticed an incorrect or missing rule!"
+            text={`Please ping me on Discord, Twitter, email, or open a new issue on Github.`}
+          />
         </div>
       </div>
 
