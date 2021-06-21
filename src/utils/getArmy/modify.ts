@@ -16,6 +16,7 @@ import {
   RealmscapeSpells,
 } from 'generic_rules'
 import GenericArtifacts from 'generic_rules/artifacts'
+import GenericPrayers from 'generic_rules/prayers'
 import { sortBy, uniqBy } from 'lodash'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
 import { TCollection } from 'types/army'
@@ -116,7 +117,7 @@ const modifyCommandAbilities = (
   )
 }
 
-const getTriumphs = (triumphs: TEntry[], Collection: TCollection): TEntry[] => {
+const modifyTriumphs = (triumphs: TEntry[], Collection: TCollection): TEntry[] => {
   return uniqBy(
     sortBy(triumphs, 'name')
       .concat(sortBy(GenericTriumphs.concat(Collection.Triumphs), 'name'))
@@ -141,8 +142,11 @@ const modifySpells = (
 }
 
 const modifyPrayers = (prayers: TEntry[], Collection: TCollection): TEntry[] => {
+  const Prayers = prayers.concat(Collection.Prayers)
   return uniqBy(
-    sortBy(prayers.concat(Collection.Prayers), 'name').map(s => ({ ...s, prayer: true })),
+    sortBy(Prayers, 'name')
+      .concat(sortBy(Prayers.length > 0 ? GenericPrayers : [], 'name'))
+      .map(s => ({ ...s, prayer: true })),
     'name'
   )
 }
@@ -179,6 +183,6 @@ export const modify = {
   Prayers: modifyPrayers,
   Scenery: modifyScenery,
   Spells: modifySpells,
-  Triumphs: getTriumphs,
+  Triumphs: modifyTriumphs,
   Units: modifyUnits,
 }
