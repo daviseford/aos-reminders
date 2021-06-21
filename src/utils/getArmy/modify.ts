@@ -14,6 +14,7 @@ import {
   RealmscapeCommands,
   RealmscapeSpells,
 } from 'generic_rules'
+import GenericCommandTraits from 'generic_rules/command_traits'
 import { sortBy, uniqBy } from 'lodash'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
 import { TCollection } from 'types/army'
@@ -80,6 +81,7 @@ const modifyCommandTraits = (
   return uniqBy(
     sortBy(command_traits, 'name')
       .concat(Collection.CommandTraits)
+      .concat(sortBy(GenericCommandTraits, 'name'))
       .concat(sortBy(CommandTraits, 'name'))
       .map(t => ({ ...t, command_trait: true })),
     'name'
