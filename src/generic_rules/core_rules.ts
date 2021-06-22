@@ -1,19 +1,22 @@
 import { TEntry } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
-  COMBAT_PHASE,
   DURING_GAME,
+  DURING_SETUP,
   END_OF_CHARGE_PHASE,
   END_OF_ROUND,
   HERO_PHASE,
-  MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
-  START_OF_SETUP,
   TURN_ONE_START_OF_TURN,
 } from 'types/phases'
+
+export const OneDropDeploymentEffect = {
+  name: `26.2.1 - One Drop Deployment`,
+  desc: `If a core battalion has the Unified icon, then after you set up a unit from the battalion, you must set up all of the other units from the battalion, one after the other, and you are not allowed to set up units that are not part of the battalion until all of the units in the battalion have been set up. In addition, if the set-up instructions for a battle say that the players must alternate setting up units one at a time, then after you set up a unit from the battalion, you must set up all of the other units from the battalion, one after the other, before your opponent is allowed to set up another unit.`,
+  when: [DURING_SETUP],
+}
 
 const CoreRules: TEntry[] = [
   {
@@ -225,34 +228,8 @@ const CoreRules: TEntry[] = [
   },
 
   {
-    name: 'Battalion Abilities',
-    effects: [
-      {
-        name: `Expert`,
-        desc: `Once per battle, 1 unit from this battalion can receive the All-out Attack or All-out Defence command without the command being issued and without a command point being spent.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Magnificent`,
-        desc: `When you pick enhancements for your army (see 27.3), you can pick 1 extra enhancement.`,
-        when: [START_OF_SETUP],
-      },
-      {
-        name: `Slayers`,
-        desc: `Once per battle, 1 unit from this battalion can receive the All-out Attack or Unleash Hell command without the command being issued and without a command point being spent.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE, CHARGE_PHASE],
-      },
-      {
-        name: `Strategists`,
-        desc: `Once per battle, when you receive command points at the start of your hero phase, you can receive 1 extra command point.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Swift`,
-        desc: `Once per battle, 1 unit from this battalion can receive the At the Double or Forward to Victory command without the command being issued and without a command point being spent.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
+    name: 'One Drop Deployment',
+    effects: [OneDropDeploymentEffect],
   },
 
   // {
