@@ -31,10 +31,20 @@ const rule_sources = {
     publication_date: '05-06-21',
     type: 'other_book',
   },
+  BOOK_BROKEN_REALMS_BELAKOR: {
+    name: 'Broken Realms: Be\'lakor',
+    publication_date: '23-04-21',
+    type: 'other_book',
+  },
   CORE_RULES_2021: {
     name: 'Core Rules (2021)',
     publication_date: '19-06-21',
     type: 'other_book',
+  },
+  GHB_2021: {
+    name: "General's Handbook (2021)",
+    publication_date: '19-06-21',
+    type: 'ghb',
   },
 }
 
