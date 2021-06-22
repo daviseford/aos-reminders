@@ -32,7 +32,7 @@ import {
 } from 'meta/factions'
 import path from 'path'
 import { AQSHY, GHUR, HYSH, ULGU } from 'types/realmscapes'
-import { DEPRECATED_FIRESTORM, DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
+import { DEPRECATED_AOS_3, DEPRECATED_FIRESTORM, DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
 const getFile = (filename: string): string[] => {
@@ -44,7 +44,13 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1604455981827-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.battalions).toContain('Brawl')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Incandescent Rageblade',
+      },
+    ])
   })
 
   it('should correctly read 1605279569874-Warscroll_Builder', () => {
@@ -67,13 +73,25 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.battalions).toContain('Brawl')
     expect(res.selections.battalions).toContain("Moggorz's Rekrootin' Krew")
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Syari Trueblade',
+      },
+    ])
   })
 
   it('should correctly read 1608492373224-Warscroll_Builder', () => {
     const parsedText = getFile('1608492373224-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Syari Trueblade',
+      },
+    ])
   })
 
   it('should correctly read 1609436742680-Warscroll_Builder', () => {
@@ -81,7 +99,13 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.artifacts).toContain('Krakenskin Sandals (Taker Tribe)')
     expect(res.selections.command_traits).toContain('Very Acquisitive (Taker Tribe)')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Plate of Perfect Protection',
+      },
+    ])
   })
 
   it('should correctly read 1609964689867-Warscroll_Builder', () => {
@@ -320,7 +344,13 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1597625107867-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Seawarden on Foot')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Gravesand Brooch',
+      },
+    ])
   })
 
   it('should correctly read 1597360547744-Warscroll_Builder', () => {
@@ -738,6 +768,11 @@ describe('getWarscrollArmyFromJson', () => {
         severity: 'deprecation-warn',
         text: 'Hydroxskin Cloak',
         reason: DEPRECATED_MALIGN_SORCERY,
+      },
+      {
+        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
+        severity: 'deprecation-warn',
+        text: 'Gildenbane',
       },
     ])
   })

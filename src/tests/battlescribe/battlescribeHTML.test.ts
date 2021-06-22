@@ -906,6 +906,11 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.scenery).toContain('Fane of Slaanesh')
     expect(res.errors).toEqual([
       {
+        reason: DEPRECATED_MALIGN_SORCERY,
+        severity: 'deprecation-warn',
+        text: 'Rageblade',
+      },
+      {
         severity: 'ally-warn',
         text: 'Allied Chaos Lord on Manticore can belong to Khorne or Nurgle or Slaves To Darkness. Please add this unit manually.',
       },
@@ -1461,7 +1466,13 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_MALIGN_SORCERY,
+        severity: 'deprecation-warn',
+        text: 'Rageblade',
+      },
+    ])
   })
 
   it('should work with Fyreslayers6', () => {
@@ -1469,7 +1480,13 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_MALIGN_SORCERY,
+        severity: 'deprecation-warn',
+        text: 'Rageblade',
+      },
+    ])
   })
 
   it('should work with Fyreslayers5', () => {

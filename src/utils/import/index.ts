@@ -1,4 +1,4 @@
-import { difference } from 'lodash'
+import { difference, uniqBy } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy } from 'types/army'
 import { IImportedArmy, TImportError, TImportParsers } from 'types/import'
@@ -94,6 +94,9 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
 
   // Remove errors where we have found the missing item
   errors = removeFoundErrors(errors, errorFreeSelections, allyData)
+
+  // Remove any duplicate errors
+  errors = uniqBy(errors, 'text')
 
   // Fire off any warnings to Google Analytics
   getWarnings(errors).forEach(e => logFailedImport(e.text, parser))

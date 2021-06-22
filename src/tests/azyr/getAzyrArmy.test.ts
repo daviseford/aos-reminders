@@ -281,7 +281,13 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('1612839793461-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
+        severity: 'deprecation-warn',
+        text: 'Sepulchral Plate',
+      },
+    ])
   })
 
   it('should correctly read 1612918861529-Azyr', () => {
