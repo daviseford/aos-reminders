@@ -13,26 +13,6 @@ import {
   TURN_ONE_START_OF_TURN,
 } from 'types/phases'
 
-export const PredatoryEndlessSpellEffects = [
-  {
-    name: `19.5 - Predatory Endless Spells`,
-    desc: `Predatory endless spells are moved at the end of the hero phase. If either player has any abilities that can be used at the end of the hero phase, they must be used after all predatory endless spells have been moved.`,
-    when: [END_OF_HERO_PHASE],
-  },
-  {
-    name: `19.5.1 - Predatory Endless Spell Control`,
-    desc: `Before moving predatory endless spells, you must first determine which are controlled and which are wild. A predatory endless spell within 30" of the model that summoned it is controlled by that model. A Wizard can control 1 predatory endless spell per hero phase. If there is more than 1 predatory endless spell that a friendly Wizard could control, you must pick which they will control. Predatory endless spells that are not controlled are wild.`,
-    when: [END_OF_HERO_PHASE],
-  },
-  {
-    name: `19.5.2 - Moving Predatory Endless Spells`,
-    desc: `After determining control of predatory endless spells, the player whose turn is taking place moves all of the predatory endless spells controlled by friendly Wizards. Their opponent then does the same. Once all controlled predatory endless spells have been moved, the players alternate picking 1 wild predatory endless spell to move, starting with the player whose turn is taking place, until all of the wild predatory endless spells have been moved. A player must pick a wild predatory endless spell to move if any are eligible to do so and cannot pick a wild predatory endless spell that has already moved in that phase.
-
-    When a player picks a predatory endless spell to move, they are considered to be the commanding player of that predatory endless spell until the start of the next hero phase. All other endless spells are under the command of the player that summoned them.`,
-    when: [END_OF_HERO_PHASE],
-  },
-]
-
 export const OneDropDeploymentEffect = {
   name: `26.2.1 - One Drop Deployment`,
   desc: `If a core battalion has the Unified icon, then after you set up a unit from the battalion, you must set up all of the other units from the battalion, one after the other, and you are not allowed to set up units that are not part of the battalion until all of the units in the battalion have been set up. In addition, if the set-up instructions for a battle say that the players must alternate setting up units one at a time, then after you set up a unit from the battalion, you must set up all of the other units from the battalion, one after the other, before your opponent is allowed to set up another unit.`,
@@ -53,7 +33,105 @@ const CoreRules: TEntry[] = [
 
   {
     name: 'Predatory Endless Spells',
-    effects: [...PredatoryEndlessSpellEffects],
+    effects: [
+      {
+        name: `19.5 - Predatory Endless Spells`,
+        desc: `Predatory endless spells are moved at the end of the hero phase. If either player has any abilities that can be used at the end of the hero phase, they must be used after all predatory endless spells have been moved.`,
+        when: [END_OF_HERO_PHASE],
+      },
+      {
+        name: `19.5.1 - Predatory Endless Spell Control`,
+        desc: `Before moving predatory endless spells, you must first determine which are controlled and which are wild. A predatory endless spell within 30" of the model that summoned it is controlled by that model. A WIZARD can control 1 predatory endless spell per hero phase. If there is more than 1 predatory endless spell that a friendly WIZARD could control, you must pick which they will control. Predatory endless spells that are not controlled are wild.`,
+        when: [END_OF_HERO_PHASE],
+      },
+      {
+        name: `19.5.2 - Moving Predatory Endless Spells`,
+        desc: `After determining control of predatory endless spells, the player whose turn is taking place moves all of the predatory endless spells controlled by friendly WIZARDS. Their opponent then does the same. Once all controlled predatory endless spells have been moved, the players alternate picking 1 wild predatory endless spell to move, starting with the player whose turn is taking place, until all of the wild predatory endless spells have been moved. A player must pick a wild predatory endless spell to move if any are eligible to do so and cannot pick a wild predatory endless spell that has already moved in that phase.
+  
+      When a player picks a predatory endless spell to move, they are considered to be the commanding player of that predatory endless spell until the start of the next hero phase. All other endless spells are under the command of the player that summoned them.`,
+        when: [END_OF_HERO_PHASE],
+      },
+    ],
+  },
+
+  {
+    name: 'Endless Spells',
+    effects: [
+      {
+        name: `19.3.1 - Summoning Endless Spells`,
+        desc: `In your hero phase, you can attempt to summon 1 endless spell with each friendly WIZARD. When the spell used to summon an endless spell is successfully cast and not unbound, the endless spell is set up on the battlefield as described on its warscroll. If any restrictions make it impossible to set up the endless spell, the casting attempt is unsuccessful.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `19.3.2 - Dispelling Endless Spells`,
+        desc: `At the start of the hero phase, each player can attempt to dispel 1 endless spell with each friendly WIZARD and friendly PRIEST. The player whose turn is taking place makes all of their dispelling attempts first. If a WIZARD attempts to dispel an endless spell, they can attempt to cast or unbind 1 fewer spell in that hero phase. If a PRIEST attempts to dispel an endless spell, they can chant 1 fewer prayer in that hero phase. The same player cannot attempt to dispel the same endless spell more than once per phase.
+
+        To attempt to dispel an endless spell, pick 1 endless spell that is within 30" of a friendly WIZARD or friendly PRIEST and that is visible to them. Then make a dispelling roll by rolling 2D6. If the roll is greater than the casting value of that endless spell, it is dispelled and removed from play. An endless spell cannot be summoned again in the turn that it is removed from play.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `19.3.3 - Removing Endless Spells`,
+        desc: `An endless spell remains in play until it is removed from play. An endless spell is removed from play if:
+
+        a) The endless spell is dispelled.
+        b) The endless spell touches the edge of the battlefield after it is moved.
+        c) A method on the endless spell's warscroll is used to remove it from play.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+
+  {
+    name: 'Priests and Prayers',
+    effects: [
+      {
+        name: `20.0 - Priests`,
+        desc: `A unit with the PRIEST keyword on its warscroll is a PRIEST. Each friendly PRIEST can chant 1 prayer that they know in your hero phase. All PRIESTS know the Bless and Smite prayers. In addition, a PRIEST knows all prayers on their warscroll and on the warscrolls of invocations (see 20.3) in the same army as them.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `20.1 - Chanting Prayers`,
+        desc: `In your hero phase, you can chant prayers with friendly PRIESTS. You cannot chant the same prayer more than once in the same hero phase, even with a different PRIEST. In order to chant a prayer, pick a friendly PRIEST, say which of the prayers that they know will be chanted, and then make a chanting roll by rolling a dice. If the chanting roll is equal to or greater than the answer value of the prayer, the prayer is answered.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `20.1.1 - Divine Wrath`,
+        desc: `On an unmodified chanting roll of 1, the chanting PRIEST suffers divine wrath. The prayer is not answered and the chanting PRIEST suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+
+  {
+    name: 'Invocations',
+    effects: [
+      {
+        name: `20.3 - Invocations`,
+        desc: `An invocation is a divine entity that is summoned to the battlefield by chanting the prayer on its invocation warscroll (see 24.0). Unless noted otherwise, an invocation cannot be attacked or be affected by abilities. You can move models across or through an invocation as if it were not there, but you cannot finish a model's move on an invocation. Invocations are under the command of the player who summoned them.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `20.3.1 - Summoning Invocations`,
+        desc: `In your hero phase, you can attempt to summon 1 invocation with each friendly PRIEST. When the prayer used to summon the invocation is answered, the invocation is set up on the battlefield as described on its warscroll. If any restrictions make it impossible to set up the invocation, then the prayer is not answered.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `20.3.2 - Banishing Invocations`,
+        desc: `At the start of your hero phase, you can attempt to banish 1 invocation with each friendly PRIEST instead of chanting a prayer with that PRIEST in that hero phase. The same player cannot attempt to banish the same invocation more than once per phase.
+
+        To attempt to banish an invocation, pick 1 invocation within 48" of a friendly PRIEST that is visible to them. Then make a banishment roll by rolling a dice. If the roll is greater than the answer value of that invocation, it is banished and removed from play. An invocation cannot be summoned again in the turn that it is removed from play.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `20.3.3 - Removing Invocations`,
+        desc: `An invocation remains in play until it is removed from play. An invocation is removed from play if:
+
+        a) The invocation is banished.
+        b) The invocation touches the edge of the battlefield after it is moved.
+        c) A method on the invocation's warscroll or in an allegiance ability is used to remove it from play`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
 
   {
@@ -171,7 +249,7 @@ const CoreRules: TEntry[] = [
       },
       {
         name: `Heroic Willpower`,
-        desc: `Pick 1 friendly HERO that is not a Wizard. If it is the enemy hero phase, that HERO can attempt to unbind 1 spell in that phase as if they were a Wizard. If it is your hero phase, that HERO can attempt to dispel 1 endless spell in that phase as if they were a Wizard (you can still only attempt to unbind or dispel the same spell or endless spell once in the same phase).`,
+        desc: `Pick 1 friendly HERO that is not a WIZARD. If it is the enemy hero phase, that HERO can attempt to unbind 1 spell in that phase as if they were a WIZARD. If it is your hero phase, that HERO can attempt to dispel 1 endless spell in that phase as if they were a WIZARD (you can still only attempt to unbind or dispel the same spell or endless spell once in the same phase).`,
         when: [START_OF_HERO_PHASE],
       },
       {

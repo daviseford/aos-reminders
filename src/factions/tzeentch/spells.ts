@@ -168,7 +168,6 @@ const Spells = {
     ],
   },
 
-
   // Flavor spells
 
   // Unit spells
@@ -300,8 +299,6 @@ const Spells = {
       },
     ],
   },
-
- 
 }
 
 export default tagAs(Spells, 'spell')
