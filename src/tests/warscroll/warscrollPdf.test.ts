@@ -487,6 +487,16 @@ describe('getWarscrollArmyFromPdf', () => {
           severity: 'warn',
           text: 'Thunderquake Temple-host',
         },
+        {
+          reason: DEPRECATED_AOS_3,
+          severity: 'deprecation-warn',
+          text: 'Balewind Vortex',
+        },
+        {
+          reason: DEPRECATED_AOS_3,
+          severity: 'deprecation-warn',
+          text: 'Bound Balewind Vortex',
+        },
       ],
       factionName: SERAPHON,
       subFactionName: 'Starborne',
@@ -526,9 +536,7 @@ describe('getWarscrollArmyFromPdf', () => {
         ],
         endless_spells: [
           'Aethervoid Pendulum',
-          'Balewind Vortex',
           'Bound Aethervoid Pendulum',
-          'Bound Balewind Vortex',
           'Bound Chronomantic Cogs',
           'Bound Emerald Lifeswarm',
           'Bound Geminids of Uhl-Gysh',
@@ -904,7 +912,7 @@ describe('getWarscrollArmyFromPdf', () => {
       artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
       battalions: ['Shadowstrike Starhost'],
       command_abilities: ['Gift from the Heavens'],
-      endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
+      endless_spells: ['Chronomantic Cogs'],
       mount_traits: [],
       prayers: [],
       scenery: [],
@@ -1100,7 +1108,7 @@ describe('getWarscrollArmyFromPdf', () => {
       artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
       battalions: ['Shadowstrike Starhost'],
       command_abilities: ['Gift from the Heavens'],
-      endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
+      endless_spells: ['Chronomantic Cogs'],
       mount_traits: [],
       prayers: [],
       scenery: [],
@@ -1265,7 +1273,13 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(ORDER_GRAND_ALLIANCE)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
     expect(res.selections).toEqual({
       flavors: [],
       mount_traits: [],
@@ -1273,7 +1287,7 @@ describe('getWarscrollArmyFromPdf', () => {
       artifacts: ['Obstinate Blade (Order)'],
       battalions: ['Shadow Patrol'],
       command_abilities: [],
-      endless_spells: ['Balewind Vortex'],
+      endless_spells: [],
       scenery: [],
       spells: ['Doomfire', 'Enfeebling Foe'],
       command_traits: ['Dauntless (Order)'],
@@ -1469,7 +1483,13 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.allySelections).toEqual({
       DAUGHTERS_OF_KHAINE: {
@@ -1504,7 +1524,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Thunderquake Starhost',
       ],
       command_abilities: ['Prime Guardian', 'Gift from the Heavens'],
-      endless_spells: ['Balewind Vortex'],
+      endless_spells: [ ],
       mount_traits: [],
       prayers: [],
       scenery: [],
@@ -1698,7 +1718,13 @@ describe('getWarscrollArmyFromPdf', () => {
         // TODO: Why is Dread Saurian here?
         'Dread Saurian',
       ],
-      errors: [],
+      errors: [
+        {
+          reason: DEPRECATED_AOS_3,
+          severity: 'deprecation-warn',
+          text: 'Balewind Vortex',
+        },
+      ],
       factionName: SERAPHON,
       subFactionName: '',
       origin_realm: 'Ghyran',
@@ -1711,7 +1737,7 @@ describe('getWarscrollArmyFromPdf', () => {
         artifacts: ['Blade of Realities'],
         battalions: [],
         command_abilities: [],
-        endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
+        endless_spells: ['Chronomantic Cogs'],
         scenery: [],
         spells: [],
         command_traits: ['Disciplined Fury'],

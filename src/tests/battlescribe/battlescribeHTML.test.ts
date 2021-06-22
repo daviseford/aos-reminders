@@ -32,7 +32,7 @@ import {
 import path from 'path'
 import { HYSH } from 'types/realmscapes'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
-import { DEPRECATED_MALIGN_SORCERY, DEPRECATED_PROFILE } from 'utils/import/options'
+import { DEPRECATED_AOS_3, DEPRECATED_MALIGN_SORCERY, DEPRECATED_PROFILE } from 'utils/import/options'
 
 const getFile = (filename: string) => {
   return readFileSync(path.resolve(`src/tests/fixtures/battlescribe/html/${filename}.html`), 'utf8')
@@ -614,7 +614,13 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.spells).toContain('Hag Curse')
     expect(res.selections.units).toContain('Troggoth Hag')
     expect(res.selections.endless_spells).toContain("Scrapskuttle's Arachnacauldron")
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
   })
 
   it.skip('should correctly read 1593863449094-Battlescribe', () => {
@@ -739,6 +745,11 @@ describe('getBattlescribeArmy', () => {
         text: 'Aetherquartz Brooch',
         reason: DEPRECATED_MALIGN_SORCERY,
       },
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
     ])
   })
 
@@ -806,7 +817,13 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     // Skink Handler -> Razordon Hunting Pack
     expect(res.selections.units).toContain('Razordon Hunting Pack')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
   })
 
   it.skip('should work with 1586036421684-Battlescribe', () => {
@@ -853,7 +870,13 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.battalions).toContain('Thunderquake Temple-host')
     expect(res.selections.scenery).toContain('Realmshaper Engine')
     expect(res.selections.units).toContain('Razordon Hunting Pack')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
   })
 
   it('should work with Gloomspite5', () => {
@@ -928,6 +951,11 @@ describe('getBattlescribeArmy', () => {
         reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+      {
         severity: 'warn',
         text: 'Fractal Mindstorm',
       },
@@ -955,6 +983,11 @@ describe('getBattlescribeArmy', () => {
         severity: 'deprecation-warn',
         text: 'Sword of Judgement',
         reason: DEPRECATED_MALIGN_SORCERY,
+      },
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
       },
       {
         severity: 'warn',
@@ -1505,6 +1538,11 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.artifacts).toContain('Beguiling Gem (Chaos)')
     expect(res.errors).toEqual([
       {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+      {
         severity: 'ally-warn',
         text: 'Allied Chaos Lord on Manticore can belong to Khorne or Nurgle or Slaves To Darkness. Please add this unit manually.',
       },
@@ -1729,6 +1767,11 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.errors).toEqual([
       {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+      {
         severity: 'warn',
         text: 'Meteoric Convocation',
       },
@@ -1800,6 +1843,11 @@ describe('getBattlescribeArmy', () => {
         severity: 'deprecation-warn',
         text: 'Wand of Restoration',
         reason: DEPRECATED_MALIGN_SORCERY,
+      },
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
       },
     ])
   })
@@ -1978,6 +2026,11 @@ describe('getBattlescribeArmy', () => {
           text: 'Smouldering Helm',
           reason: DEPRECATED_MALIGN_SORCERY,
         },
+        {
+          reason: DEPRECATED_AOS_3,
+          severity: 'deprecation-warn',
+          text: 'Balewind Vortex',
+        },
       ],
       realmscape_feature: null,
       realmscape: 'Ghyran',
@@ -1998,12 +2051,7 @@ describe('getBattlescribeArmy', () => {
         battalions: ['Depraved Drove', 'Marauding Brayherd'],
         command_abilities: ["Slaughterer's Call"],
         core_rules: [],
-        endless_spells: [
-          'Balewind Vortex',
-          'Lauchon the Soulseeker',
-          "Ravenak's Gnashing Jaws",
-          'Soulscream Bridge',
-        ],
+        endless_spells: ['Lauchon the Soulseeker', "Ravenak's Gnashing Jaws", 'Soulscream Bridge'],
         scenery: ['Herdstone', 'Penumbral Engine'],
         spells: [
           'Arcane Bolt',
@@ -2210,7 +2258,13 @@ describe('getBattlescribeArmy', () => {
     expect(res.origin_realm).toEqual(null)
     expect(res.selections.flavors).toEqual(['Hermdar (Lodge)'])
     expect(res.selections.scenery).toEqual(['Magmic Battleforge'])
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
   })
 
   it.skip('should work with Khorne2', () => {
@@ -2301,7 +2355,13 @@ describe('getBattlescribeArmy', () => {
       'Skullreapers',
       'Blood Warriors',
     ])
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
   })
 
   it('should work with Sylvaneth2', () => {
