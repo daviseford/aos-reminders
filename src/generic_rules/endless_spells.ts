@@ -8,7 +8,6 @@ import {
   END_OF_HERO_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SAVES_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   WOUND_ALLOCATION_PHASE,
@@ -56,11 +55,13 @@ export const EmeraldLifeswarmEffects = [
     name: `Summoning`,
     desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
+    rule_sources: [rule_sources.GHB_2021],
   },
   {
     name: `Predatory`,
     desc: `Can move up to 8" and can fly.`,
     when: [END_OF_HERO_PHASE],
+    rule_sources: [rule_sources.GHB_2021],
   },
   {
     name: `Bounteous Healing`,
@@ -68,6 +69,7 @@ export const EmeraldLifeswarmEffects = [
     
     They can heal up to D3 wounds allocated to that unit or, if no wounds are allocated to it, they can return a number of slain models to that unit that have a combined Wounds characteristic of D3 or less.`,
     when: [END_OF_HERO_PHASE],
+    rule_sources: [rule_sources.GHB_2021],
   },
 ]
 export const SoulsnareShacklesEffects = [
@@ -75,6 +77,7 @@ export const SoulsnareShacklesEffects = [
     name: `Parts`,
     desc: `This endless spell has 3 parts.`,
     when: [HERO_PHASE],
+    rule_sources: [rule_sources.GHB_2021],
   },
   {
     name: `Summoning`,
@@ -271,18 +274,18 @@ export const RavenaksGnashingJawsEffects = [
     rule_sources: [rule_sources.GHB_2021],
   },
 ]
-export const BalewindVortexEffects = [
-  {
-    name: `Against the Aetheric Wind`,
-    desc: `Add 1 to save rolls for a Wizard on a Balewind Vortex.`,
-    when: [SAVES_PHASE],
-  },
-  {
-    name: `Arcane Invigoration`,
-    desc: `A Wizard on a Balewind Vortex can attempt to cast an additional spell in each of their hero phases (including the turn in which the Summon Balewind Vortex spell was cast), and you can add 6" to the range of any spells that the Wizard casts.`,
-    when: [HERO_PHASE],
-  },
-]
+// export const BalewindVortexEffects = [
+//   {
+//     name: `Against the Aetheric Wind`,
+//     desc: `Add 1 to save rolls for a Wizard on a Balewind Vortex.`,
+//     when: [SAVES_PHASE],
+//   },
+//   {
+//     name: `Arcane Invigoration`,
+//     desc: `A Wizard on a Balewind Vortex can attempt to cast an additional spell in each of their hero phases (including the turn in which the Summon Balewind Vortex spell was cast), and you can add 6" to the range of any spells that the Wizard casts.`,
+//     when: [HERO_PHASE],
+//   },
+// ]
 export const AethervoidPendulumEffects = [
   {
     name: `Summoning`,
@@ -331,24 +334,22 @@ export const UmbralSpellportalEffects = [
 ]
 export const LauchonTheSoulseekerEffects = [
   {
-    name: `Summon Lauchon the Soulseeker`,
-    desc: `Casting value of 6. Set up the model wholly within 12" of the caster.`,
+    name: `Summoning`,
+    desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
+    rule_sources: [rule_sources.GHB_2021],
   },
   {
     name: `Predatory`,
-    desc: `Lauchon the Soulseeker can move up to 12" and can fly.`,
+    desc: `Can move up to 18" and can fly.`,
     when: [END_OF_HERO_PHASE],
-  },
-  {
-    name: `Navigate Deathly Tides`,
-    desc: `When this model is set up, the player who set it up can immediately make a move with it.`,
-    when: [HERO_PHASE],
+    rule_sources: [rule_sources.GHB_2021],
   },
   {
     name: `Soul Price`,
-    desc: `Before a player makes a move with this model, pick a friendly unit wholly within 3" of this model. Remove the unit from the battlefield. After this spell has moved, set up the removed unit wholly within 3" of this spell and more than 9" from enemy units. Once the unit is set up, 1 model from the unit is slain.`,
+    desc: `Before the commanding player moves this endless spell, they can pick 1 friendly WIZARD wholly within 3" of this endless spell. Remove that WIZARD from the battlefield. After this endless spell has moved, set that WIZARD up again wholly within 3" of this endless spell and more than 9" from all enemy units. After that WIZARD has been set up, it suffers 1 mortal wound. That WIZARD cannot make a normal move or run in the following movement phase.`,
     when: [END_OF_HERO_PHASE],
+    rule_sources: [rule_sources.GHB_2021],
   },
 ]
 export const SoulscreamBridgeEffects = [
@@ -433,17 +434,18 @@ export const ShardsOfValagharrEffects = [
 ]
 
 const EndlessSpells: TEntry[] = [
-  {
-    name: `Balewind Vortex`,
-    effects: [
-      ...BalewindVortexEffects,
-      {
-        name: `Summon Balewind Vortex`,
-        desc: `Casting value of 6. WIZARDS with a Wounds characteristic of 9 or more, that are part of a unit of two or more models, are already on a Balewind Vortex, or happen to be Morathi-Khaine, cannot attempt to cast this spell. Set up a Balewind Vortex model within 1" of the caster and more than 3" from any enemy models, and then place the caster on the upper platform.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
+  // Removed in AoS 3.0
+  // {
+  //   name: `Balewind Vortex`,
+  //   effects: [
+  //     ...BalewindVortexEffects,
+  //     {
+  //       name: `Summon Balewind Vortex`,
+  //       desc: `Casting value of 6. WIZARDS with a Wounds characteristic of 9 or more, that are part of a unit of two or more models, are already on a Balewind Vortex, or happen to be Morathi-Khaine, cannot attempt to cast this spell. Set up a Balewind Vortex model within 1" of the caster and more than 3" from any enemy models, and then place the caster on the upper platform.`,
+  //       when: [HERO_PHASE],
+  //     },
+  //   ],
+  // },
   {
     name: `Emerald Lifeswarm`,
     effects: [...EmeraldLifeswarmEffects],

@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import {
   AethervoidPendulumEffects,
-  BalewindVortexEffects,
   BurningHeadEffects,
   ChronomanticCogsEffects,
   EmeraldLifeswarmEffects,
@@ -19,8 +18,7 @@ import {
   SuffocatingGravetideEffects,
   UmbralSpellportalEffects,
 } from 'generic_rules/endless_spells'
-import { END_OF_HERO_PHASE, HERO_PHASE } from 'types/phases'
-import rule_sources from './rule_sources'
+import { END_OF_HERO_PHASE } from 'types/phases'
 
 const BoundEffect = {
   name: `Bound Endless Spell`,
@@ -60,24 +58,6 @@ const EndlessSpells = {
   },
   'Bound Umbral Spellportal': {
     effects: [BoundEffect, ...UmbralSpellportalEffects],
-  },
-  'Bound Balewind Vortex': {
-    effects: [
-      BoundEffect,
-      ...BalewindVortexEffects,
-      {
-        name: `Summon Balewind Vortex`,
-        desc: `Casting value of 6. Only SERAPHON WIZARDS with a Wounds characteristic of 9 or less and that are not already on a Balewind Vortex can attempt to cast this spell. Set up a Bound Balewind Vortex model within 1" of the caster and more than 3" from any enemy models, then place the caster on the upper platform.
-
-        As long as the Bound Balewind Vortex is on the battlefield, both it and the caster are treated as a single model from the caster's army that uses the caster's warscroll as well as the endless spells rules. It is treated as an enemy model by the opposing player's army. A model on a Bound Balewind Vortex cannot move,
-
-        If the caster of a Bound Balewind Vortex attempts to dispel it, the attempt is automatically successful (do not roll any dice). This uses up the additional spell that the caster would have received in that hero phase, and still counts as the single attempt they can make to dispel an endless spell in that hero phase, but they can make any remaining casting attempts normally. If the caster of a Bound Balewind Vortex is slain, then it is immediately dispelled and removed from play along with the caster.
-
-        If a Bound Balewind Vortex is dispelled and the caster has not been slain, first set up the caster wholly within 6" of it and more than 3" from any enemy models, and then remove the Bound Balewind Vortex model from play. If it is impossible to set up the caster, they are slain.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JANUARY_2021],
-      },
-    ],
   },
   "Bound Ravenak's Gnashing Jaws": {
     effects: [BoundEffect, ...RavenaksGnashingJawsEffects],
