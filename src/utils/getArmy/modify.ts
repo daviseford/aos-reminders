@@ -5,6 +5,7 @@ import {
   AvailableOrderUnits,
 } from 'factions/grand_alliances'
 import {
+  CoreBattalions,
   GenericCommandAbilities,
   GenericCommandTraits,
   GenericEndlessSpells,
@@ -28,7 +29,12 @@ const modifyFlavors = (flavors: TEntry[], Collection: TCollection): TEntry[] => 
   return uniqBy(sortBy(flavors.concat(Collection.Flavors), 'name'), 'name')
 }
 const modifyBattalions = (battalions: TEntry[], Collection: TCollection): TEntry[] => {
-  return uniqBy(sortBy(battalions.concat(Collection.Battalions), 'name'), 'name')
+  return uniqBy(
+    sortBy(CoreBattalions, 'name')
+      .concat(sortBy(battalions.concat(Collection.Battalions), 'name'))
+      .map(u => ({ ...u, battalion: true })),
+    'name'
+  )
 }
 
 const modifyUnits = (
