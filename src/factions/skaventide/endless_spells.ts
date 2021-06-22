@@ -3,10 +3,10 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   DURING_GAME,
+  END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  START_OF_ROUND,
 } from 'types/phases'
 
 const EndlessSpells = {
@@ -25,7 +25,7 @@ const EndlessSpells = {
       {
         name: `Warp Vortex`,
         desc: `Units cannot run or fly when they make a normal move that starts within 6" of any models from this endless spell.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
@@ -34,7 +34,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `Vermintide can move up to 7".`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Summon`,
@@ -44,7 +44,7 @@ const EndlessSpells = {
       {
         name: `Ravening Horde`,
         desc: `After this model has moved, the player that moved it can pick 1 unit within 3" of this model and roll 13 dice. For each 6, that unit suffers 1 mortal wound.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Ravening Horde`,
@@ -68,7 +68,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `Bell of Doom can move up to 13" and can fly.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Summon`,
@@ -78,7 +78,7 @@ const EndlessSpells = {
       {
         name: `Apocalyptic Doom`,
         desc: `Roll 3D6 after this model is set up or finishes a move. On a roll of 13, each unit within 13" of this model suffers D3 mortal wounds. This model is then dispelled.`,
-        when: [HERO_PHASE, START_OF_ROUND],
+        when: [HERO_PHASE, END_OF_HERO_PHASE],
       },
       {
         name: `Boldness or Despair`,

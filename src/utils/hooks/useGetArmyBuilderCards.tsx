@@ -4,12 +4,12 @@ import { RealmscapeFeatures } from 'generic_rules'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { IArmy } from 'types/army'
-import { SUPPORTED_BATTLE_REALMS, SUPPORTED_ORIGIN_REALMS } from 'types/realmscapes'
+import { SUPPORTED_BATTLE_REALMS } from 'types/realmscapes'
 import { TSelectionTypes } from 'types/selections'
 import { getSideEffects } from 'utils/getSideEffects'
 
 const useGetArmyBuilderCards = (army: IArmy) => {
-  const { origin_realm, realmscape, realmscape_feature } = useSelector(selectRealmscapeSlice)
+  const { realmscape, realmscape_feature } = useSelector(selectRealmscapeSlice)
   const selections = useSelector(selectSelections)
 
   const realmFeatureItems = useMemo(() => {
@@ -136,14 +136,15 @@ const useGetArmyBuilderCards = (army: IArmy) => {
         type: 'multi',
         sideEffects: getSideEffects(army.Triumphs),
       },
-      {
-        items: SUPPORTED_ORIGIN_REALMS,
-        setValue: realmscapeActions.setOriginRealm,
-        title: `Realm of Origin`,
-        mobileTitle: `Origin Realm`,
-        value: origin_realm || null,
-        type: 'single',
-      },
+      // Origin realms appear to have been removed in AoS 3.0
+      // {
+      //   items: SUPPORTED_ORIGIN_REALMS,
+      //   setValue: realmscapeActions.setOriginRealm,
+      //   title: `Realm of Origin`,
+      //   mobileTitle: `Origin Realm`,
+      //   value: origin_realm || null,
+      //   type: 'single',
+      // },
       {
         items: SUPPORTED_BATTLE_REALMS,
         setValue: realmscapeActions.setRealmscape,
@@ -160,7 +161,7 @@ const useGetArmyBuilderCards = (army: IArmy) => {
         type: 'single',
       },
     ]
-  }, [army, origin_realm, realmFeatureItems, realmscape, realmscape_feature, selections])
+  }, [army, realmFeatureItems, realmscape, realmscape_feature, selections])
 
   return value
 }

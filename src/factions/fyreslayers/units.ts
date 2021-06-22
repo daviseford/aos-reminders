@@ -230,7 +230,7 @@ const Units = {
       },
       {
         name: `Grimwrath Oath: "I will let nothing stand in my way!"`,
-        desc: `This model can run and change in the same turn. It can also reroll run and charge rolls.`,
+        desc: `This model can run and charge in the same turn. It can also reroll run and charge rolls.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {

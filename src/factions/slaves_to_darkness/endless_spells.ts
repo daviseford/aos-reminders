@@ -2,10 +2,10 @@ import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_HERO_PHASE,
   END_OF_TURN,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  START_OF_ROUND,
 } from 'types/phases'
 
 const EndlessSpells = {
@@ -38,7 +38,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `Can move up to 12" and can fly.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Summon`,
@@ -53,12 +53,12 @@ const EndlessSpells = {
       {
         name: `Billowing Energies`,
         desc: `After this model has moved, each unit it passed across and each unit within 1" at the end of the move suffers D3 mortal wounds.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Fuelled by Sorcery`,
         desc: `Add 1 to the number of mortal wounds inflicted by this endless spell for each wizard and each other endless spell within 12" of this model after it has moved.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
     ],
   },
@@ -67,7 +67,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `Can move up to 9" and can fly.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Summon`,
@@ -87,12 +87,12 @@ const EndlessSpells = {
       {
         name: `Tide of Ruin`,
         desc: `This model can only move in a straight line widthwayhs in the direction it is facing (cannot move backwards).`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Debilitating Shockwave`,
         desc: `After this model has moved, each unit it passed across and each unit within 1" at the end of the move suffers D3 mortal wounds. Affected units halve their movement until the end of the round.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Debilitating Shockwave`,

@@ -29,7 +29,7 @@ import {
 } from 'meta/factions'
 import path from 'path'
 import { CHAMON, GHUR } from 'types/realmscapes'
-import { DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
+import { DEPRECATED_AOS_3, DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 import { parsePdf } from 'utils/pdf/pdfUtils'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
@@ -327,12 +327,17 @@ describe('getWarscrollArmyFromPdf', () => {
     ])
     expect(res.selections.artifacts).toEqual([
       'Enchanted Portcullis (Breaker Tribe)',
-      'Incandescent Rageblade (Aqshy)',
       'The Great Wrecka (Breaker Tribe)',
       'Kingslaughter Cowl (Breaker Tribe)',
     ])
     expect(res.selections.units).toEqual(['Gatebreaker', 'Kraken-Eater', 'Warstomper', 'Mancrusher Gargants'])
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Incandescent Rageblade',
+      },
+    ])
   })
 
   it('should correctly read SoB1', () => {
@@ -351,13 +356,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read Warscroll_Builder_Order_Legacy', () => {
-    const pdfText = getFile('Warscroll_Builder_Order_Legacy')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
   it('correctly reads Lumineth1', () => {
     const pdfText = getFile('Lumineth1')
     const parsedText = parsePdf(pdfText)
@@ -371,7 +369,12 @@ describe('getWarscrollArmyFromPdf', () => {
       allyFactionNames: [],
       allySelections: {},
       allyUnits: [],
-      errors: [],
+      errors: [
+        {
+          severity: 'warn',
+          text: "Predator's Torc",
+        },
+      ],
       factionName: LUMINETH_REALMLORDS,
       subFactionName: '',
       origin_realm: GHUR,
@@ -379,13 +382,7 @@ describe('getWarscrollArmyFromPdf', () => {
       realmscape: null,
       selections: {
         flavors: ['Syar'],
-        artifacts: [
-          "Mountain's Gift",
-          'Simulacra Amulet',
-          "Predator's Torc (Ghur)",
-          'Hearthstone Amulet',
-          'The Perfect Blade',
-        ],
+        artifacts: ["Mountain's Gift", 'Simulacra Amulet', 'Hearthstone Amulet', 'The Perfect Blade'],
         battalions: ['Alarith Temple', 'Auralan Legion', 'Dawnrider Lance', 'Teclian Vanguard'],
         command_abilities: [
           'Faith of the Mountains',
@@ -430,7 +427,12 @@ describe('getWarscrollArmyFromPdf', () => {
       },
       unknownSelections: [],
     })
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: "Predator's Torc",
+      },
+    ])
   })
   it("correctly imports Braum's list", () => {
     const pdfText = getFile('BraumSeraphonTTSList')
@@ -485,6 +487,16 @@ describe('getWarscrollArmyFromPdf', () => {
           severity: 'warn',
           text: 'Thunderquake Temple-host',
         },
+        {
+          reason: DEPRECATED_AOS_3,
+          severity: 'deprecation-warn',
+          text: 'Balewind Vortex',
+        },
+        {
+          reason: DEPRECATED_AOS_3,
+          severity: 'deprecation-warn',
+          text: 'Bound Balewind Vortex',
+        },
       ],
       factionName: SERAPHON,
       subFactionName: 'Starborne',
@@ -524,9 +536,7 @@ describe('getWarscrollArmyFromPdf', () => {
         ],
         endless_spells: [
           'Aethervoid Pendulum',
-          'Balewind Vortex',
           'Bound Aethervoid Pendulum',
-          'Bound Balewind Vortex',
           'Bound Chronomantic Cogs',
           'Bound Emerald Lifeswarm',
           'Bound Geminids of Uhl-Gysh',
@@ -902,7 +912,7 @@ describe('getWarscrollArmyFromPdf', () => {
       artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
       battalions: ['Shadowstrike Starhost'],
       command_abilities: ['Gift from the Heavens'],
-      endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
+      endless_spells: ['Chronomantic Cogs'],
       mount_traits: [],
       prayers: [],
       scenery: [],
@@ -1098,7 +1108,7 @@ describe('getWarscrollArmyFromPdf', () => {
       artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
       battalions: ['Shadowstrike Starhost'],
       command_abilities: ['Gift from the Heavens'],
-      endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
+      endless_spells: ['Chronomantic Cogs'],
       mount_traits: [],
       prayers: [],
       scenery: [],
@@ -1263,7 +1273,13 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(ORDER_GRAND_ALLIANCE)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
     expect(res.selections).toEqual({
       flavors: [],
       mount_traits: [],
@@ -1271,7 +1287,7 @@ describe('getWarscrollArmyFromPdf', () => {
       artifacts: ['Obstinate Blade (Order)'],
       battalions: ['Shadow Patrol'],
       command_abilities: [],
-      endless_spells: ['Balewind Vortex'],
+      endless_spells: [],
       scenery: [],
       spells: ['Doomfire', 'Enfeebling Foe'],
       command_traits: ['Dauntless (Order)'],
@@ -1467,7 +1483,13 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.allySelections).toEqual({
       DAUGHTERS_OF_KHAINE: {
@@ -1502,7 +1524,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Thunderquake Starhost',
       ],
       command_abilities: ['Prime Guardian', 'Gift from the Heavens'],
-      endless_spells: ['Balewind Vortex'],
+      endless_spells: [ ],
       mount_traits: [],
       prayers: [],
       scenery: [],
@@ -1696,7 +1718,13 @@ describe('getWarscrollArmyFromPdf', () => {
         // TODO: Why is Dread Saurian here?
         'Dread Saurian',
       ],
-      errors: [],
+      errors: [
+        {
+          reason: DEPRECATED_AOS_3,
+          severity: 'deprecation-warn',
+          text: 'Balewind Vortex',
+        },
+      ],
       factionName: SERAPHON,
       subFactionName: '',
       origin_realm: 'Ghyran',
@@ -1709,7 +1737,7 @@ describe('getWarscrollArmyFromPdf', () => {
         artifacts: ['Blade of Realities'],
         battalions: [],
         command_abilities: [],
-        endless_spells: ['Balewind Vortex', 'Chronomantic Cogs'],
+        endless_spells: ['Chronomantic Cogs'],
         scenery: [],
         spells: [],
         command_traits: ['Disciplined Fury'],

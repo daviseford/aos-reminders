@@ -1,5 +1,13 @@
 import { tagAs } from 'factions/metatagger'
-import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
+import {
+  CHARGE_PHASE,
+  END_OF_COMBAT_PHASE,
+  END_OF_HERO_PHASE,
+  END_OF_MOVEMENT_PHASE,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  START_OF_MOVEMENT_PHASE,
+} from 'types/phases'
 
 const EndlessSpells = {
   'Hyshian Twinstones': {
@@ -12,7 +20,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `Hyshian Twinstones can move up to 8" and can fly.`,
-        when: [HERO_PHASE],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Reservoir of Power`,
@@ -31,7 +39,7 @@ const EndlessSpells = {
       {
         name: `Sigil of Yngra`,
         desc: `At the end of the combat phase, if this model was targeted by enemy attacks, roll a D6 for each enemy unit within 3". On a 1-3, nothing happens. On a 4-5 that enemy unit suffers 1 mortal wound. On a 6, that enemy unit suffers D3 mortal wounds.`,
-        when: [COMBAT_PHASE],
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -44,8 +52,13 @@ const EndlessSpells = {
       },
       {
         name: `Turn to Stone`,
-        desc: `At the start and end of the movement phase, roll a D6 for each unit within 6". On a 4+ the unit suffers D3 mortal wounds. In addition, subtract 1 from run and change rolls for units within 6". This ability has no effect on LUMINETH REALM-LORDS units.`,
-        when: [MOVEMENT_PHASE],
+        desc: `At the start and end of the movement phase, roll a D6 for each unit within 6". On a 4+ the unit suffers D3 mortal wounds. This ability has no effect on LUMINETH REALM-LORDS units.`,
+        when: [START_OF_MOVEMENT_PHASE, END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Turn to Stone`,
+        desc: `Subtract 1 from run and charge rolls for units within 6". This ability has no effect on LUMINETH REALM-LORDS units.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },

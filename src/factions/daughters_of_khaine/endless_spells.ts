@@ -1,5 +1,11 @@
 import { tagAs } from 'factions/metatagger'
-import { END_OF_ROUND, HERO_PHASE, SAVES_PHASE, START_OF_ROUND, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import {
+  END_OF_HERO_PHASE,
+  END_OF_ROUND,
+  HERO_PHASE,
+  SAVES_PHASE,
+  WOUND_ALLOCATION_PHASE,
+} from 'types/phases'
 
 // Endless spells.
 const EndlessSpells = {
@@ -8,7 +14,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `Can move up to 12" and can fly.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Summon`,
@@ -23,7 +29,7 @@ const EndlessSpells = {
       {
         name: `Unnatural Edge`,
         desc: `After this model has moved, each unit passed across and other units within 1" at the end of the move suffer D3 mortal wounds.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Unnatural Edge`,
@@ -37,7 +43,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `Can move up to 9" and can fly.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Summon`,
@@ -52,7 +58,7 @@ const EndlessSpells = {
       {
         name: `Fanged Strike`,
         desc: `The player who moved this spell must pick 1 unit within 1" and roll 3 D6. For each roll greater than or equal to the target's wounds characteristic, 1 model is slain.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
     ],
   },

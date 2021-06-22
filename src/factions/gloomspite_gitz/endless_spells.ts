@@ -1,5 +1,12 @@
 import { tagAs } from 'factions/metatagger'
-import { CHARGE_PHASE, HERO_PHASE, MOVEMENT_PHASE, START_OF_HERO_PHASE, START_OF_ROUND } from 'types/phases'
+import {
+  CHARGE_PHASE,
+  END_OF_HERO_PHASE,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_ROUND,
+} from 'types/phases'
 
 // Endless spells.
 const EndlessSpells = {
@@ -13,7 +20,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `A Malevolent Moon is a predatory endless spell. A Malevolent Moon can move up to 12" and can fly.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Swirling Doom`,
@@ -23,7 +30,7 @@ const EndlessSpells = {
       {
         name: `Malevolent Intentions`,
         desc: `After this model moves, roll a D6 for each unit that has any models that this model passed across. On a 2+ that unit suffers D3 mortal wounds.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Moon of Ill Omen`,
@@ -61,7 +68,7 @@ const EndlessSpells = {
       {
         name: `Bloodslither Pact`,
         desc: `When the Scrapskuttle's Arachnacauldron is set up, and at the start of each of the caster's hero phases after it is set up, you must pick 1 unit within 3" of the caster. That unit suffers D3 mortal wounds. Note that this means that if there are no other units within 3" of the caster, then the caster will suffer the mortal wounds.`,
-        when: [START_OF_HERO_PHASE],
+        when: [HERO_PHASE, START_OF_HERO_PHASE],
       },
     ],
   },
@@ -75,17 +82,22 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `A Scuttletide is a predatory endless spell. A Scuttletide can move up to 6".`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Scuttling Horde`,
-        desc: `After setting up or moving this model, you can pick 1 unit within 1" of this model and roll 6 dice. For each roll of 5+ that unit suffers 1 mortal wound. In addition, roll 6 dice for each unit that finishes a normal move or a charge move within 6" of this model. For each roll of 5+ that unit suffers 1 mortal wound.`,
-        when: [START_OF_ROUND, CHARGE_PHASE, MOVEMENT_PHASE],
+        desc: `After setting up or moving this model, you can pick 1 unit within 1" of this model and roll 6 dice. For each roll of 5+ that unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE, END_OF_HERO_PHASE],
+      },
+      {
+        name: `Scuttling Horde`,
+        desc: `Roll 6 dice for each unit that finishes a normal move or a charge move within 6" of this model. For each roll of 5+ that unit suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE, MOVEMENT_PHASE],
       },
       {
         name: `Spider-kin`,
         desc: `SPIDERFANG units are not affected by the Scuttling Horde ability. In addition, SPIDERFANG models can move across this model in the same manner as a model that can fly.`,
-        when: [START_OF_ROUND, CHARGE_PHASE, MOVEMENT_PHASE],
+        when: [HERO_PHASE, END_OF_HERO_PHASE, CHARGE_PHASE, MOVEMENT_PHASE],
       },
     ],
   },

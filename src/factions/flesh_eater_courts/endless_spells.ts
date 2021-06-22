@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { END_OF_TURN, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE, START_OF_ROUND } from 'types/phases'
+import { END_OF_HERO_PHASE, END_OF_TURN, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const EndlessSpells = {
@@ -8,7 +8,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `Can move up to 14" and can fly.`,
-        when: [START_OF_ROUND, HERO_PHASE],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Summon`,
@@ -23,7 +23,7 @@ const EndlessSpells = {
       {
         name: `Trampled Underfoot`,
         desc: `After this model has moved, roll 5 dice for each unit that has any models it passed across. For each roll that is more than that unit's Wounds characteristic, that unit suffers 1 mortal wound. For each roll of 6, that unit suffers D3 mortal wounds instead (whatever its Wounds characteristic is).`,
-        when: [START_OF_ROUND, HERO_PHASE],
+        when: [END_OF_HERO_PHASE],
       },
     ],
   },

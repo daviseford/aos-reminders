@@ -35,7 +35,7 @@ import { AQSHY, ULGU } from 'types/realmscapes'
 import { handleAzyrPages } from 'utils/azyr/azyrPdf'
 import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
 import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
-import { DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
+import { DEPRECATED_AOS_3, DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 
 const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/azyr/json/${filename}.json`), 'utf8'))
@@ -281,7 +281,13 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('1612839793461-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
+        severity: 'deprecation-warn',
+        text: 'Sepulchral Plate',
+      },
+    ])
   })
 
   it('should correctly read 1612918861529-Azyr', () => {
@@ -616,6 +622,11 @@ describe('getAzyrArmyFromPdf', () => {
         text: 'Ethereal Amulet',
         reason: DEPRECATED_MALIGN_SORCERY,
       },
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
     ])
   })
 
@@ -708,6 +719,11 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
     expect(res.errors).toEqual([
       {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Bound Balewind Vortex',
+      },
+      {
         severity: 'ambiguity-warn',
         text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
       },
@@ -720,6 +736,11 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
     expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Bound Balewind Vortex',
+      },
       {
         severity: 'ambiguity-warn',
         text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
@@ -735,6 +756,11 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
     expect(res.selections.flavors).toContain('Thunder Lizard')
     expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Bound Balewind Vortex',
+      },
       {
         severity: 'ambiguity-warn',
         text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
@@ -1595,7 +1621,13 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
   })
 
   it('handles OBR3', () => {
@@ -1670,6 +1702,11 @@ describe('getAzyrArmyFromPdf', () => {
       {
         severity: 'warn',
         text: "Dracothion's Tail",
+      },
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
       },
       {
         severity: 'warn',

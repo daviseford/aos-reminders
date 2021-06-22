@@ -32,7 +32,7 @@ import {
 } from 'meta/factions'
 import path from 'path'
 import { AQSHY, GHUR, HYSH, ULGU } from 'types/realmscapes'
-import { DEPRECATED_FIRESTORM, DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
+import { DEPRECATED_AOS_3, DEPRECATED_FIRESTORM, DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
 const getFile = (filename: string): string[] => {
@@ -44,7 +44,13 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1604455981827-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.battalions).toContain('Brawl')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Incandescent Rageblade',
+      },
+    ])
   })
 
   it('should correctly read 1605279569874-Warscroll_Builder', () => {
@@ -67,13 +73,25 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.battalions).toContain('Brawl')
     expect(res.selections.battalions).toContain("Moggorz's Rekrootin' Krew")
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Syari Trueblade',
+      },
+    ])
   })
 
   it('should correctly read 1608492373224-Warscroll_Builder', () => {
     const parsedText = getFile('1608492373224-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Syari Trueblade',
+      },
+    ])
   })
 
   it('should correctly read 1609436742680-Warscroll_Builder', () => {
@@ -81,7 +99,13 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.artifacts).toContain('Krakenskin Sandals (Taker Tribe)')
     expect(res.selections.command_traits).toContain('Very Acquisitive (Taker Tribe)')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Plate of Perfect Protection',
+      },
+    ])
   })
 
   it('should correctly read 1609964689867-Warscroll_Builder', () => {
@@ -139,7 +163,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.units).toContain('Abhorrant Ghoul King on Royal Terrorgheist')
     expect(res.errors).toEqual([
       {
-        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
+        reason: DEPRECATED_MALIGN_SORCERY,
         severity: 'deprecation-warn',
         text: 'Ethereal Amulet',
       },
@@ -320,7 +344,13 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1597625107867-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Seawarden on Foot')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Gravesand Brooch',
+      },
+    ])
   })
 
   it('should correctly read 1597360547744-Warscroll_Builder', () => {
@@ -457,7 +487,13 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1593886752516-Warscroll_Builder', () => {
     const parsedText = getFile('1593886752516-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Bound Balewind Vortex',
+      },
+    ])
   })
 
   it('should correctly read 1593895699238-Warscroll_Builder', () => {
@@ -535,7 +571,13 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.spells).toContain('Ribcracker')
     expect(res.selections.command_traits).toContain('Fateseeker (Big Name)')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
   })
 
   it('should correctly read 1596201912597-Warscroll_Builder', () => {
@@ -671,7 +713,13 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.battalions).toContain('Fecund Rituculturalists')
     expect(res.selections.spells).toContain('Blades of Putrefaction')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
   })
 
   it('should work with Brand of the Split Daemon', () => {
@@ -739,13 +787,29 @@ describe('getWarscrollArmyFromJson', () => {
         text: 'Hydroxskin Cloak',
         reason: DEPRECATED_MALIGN_SORCERY,
       },
+      {
+        reason: DEPRECATED_MALIGN_SORCERY,
+        severity: 'deprecation-warn',
+        text: 'Gildenbane',
+      },
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
     ])
   })
 
   it('should work with a new Seraphon list', () => {
     const parsedText = getFile('1584466193437-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Bound Balewind Vortex',
+      },
+    ])
   })
 
   it('should not include ARTILLERY markup', () => {
@@ -1043,7 +1107,13 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1576493074441-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Chaos Spawn')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
   })
 
   it('should work with Slaves to Darkness Daemon Prince', () => {
@@ -1092,6 +1162,11 @@ describe('getWarscrollArmyFromJson', () => {
       {
         severity: 'warn',
         text: 'Blessing of Tzeentch',
+      },
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
       },
     ])
   })
@@ -1665,6 +1740,11 @@ describe('getWarscrollArmyFromJson', () => {
         text: 'Windthief Charm',
       },
       {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+      {
         severity: 'ally-warn',
         text: 'Allied Great Bray-Shaman can belong to Beasts Of Chaos or Nurgle or Slaanesh. Please add this unit manually.',
       },
@@ -1717,6 +1797,11 @@ describe('getWarscrollArmyFromJson', () => {
         text: "Ignax's Scales",
         reason: DEPRECATED_MALIGN_SORCERY,
       },
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
     ])
   })
 
@@ -1756,6 +1841,11 @@ describe('getWarscrollArmyFromJson', () => {
         reason: DEPRECATED_MALIGN_SORCERY,
       },
       {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+      {
         severity: 'warn',
         text: 'Wurrgog Prophet',
       },
@@ -1768,7 +1858,13 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(ORRUK_WARCLANS)
     expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Bonesplitterz)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
   })
 
   it('should work with Grundstock Thunderers', () => {
@@ -1820,7 +1916,13 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Bonesplitterz)
     expect(res.selections.flavors).toEqual(['Drakkfoot Clan'])
     expect(res.selections.artifacts).toEqual(["Burnin' Tattooz"])
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Balewind Vortex',
+      },
+    ])
   })
 
   it('should work with Cities of Sigmar and allies', () => {

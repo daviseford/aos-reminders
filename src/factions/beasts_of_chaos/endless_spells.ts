@@ -2,11 +2,11 @@ import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
+  END_OF_HERO_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_ROUND,
-  START_OF_TURN,
 } from 'types/phases'
 
 // Endless spells.
@@ -59,7 +59,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `The Wildfire Taurus is a predatory endless spell. It can move up to 12" and can fly.`,
-        when: [START_OF_TURN],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Raging Stampede`,
@@ -69,7 +69,7 @@ const EndlessSpells = {
       {
         name: `Whirlwind of Destruction`,
         desc: `After this model has moved, each unit that it moved over, and each other unit that is within 1" of it at the end of its move, suffers D3 mortal wounds. If a unit has 10 or more models it suffers D6 mortal wounds instead. If this spell inflicts any wounds on a unit, that unit fights at the end of the next combat phase, after the players have picked any other units to fight in that phase.`,
-        when: [START_OF_TURN],
+        when: [END_OF_HERO_PHASE],
       },
     ],
   },
