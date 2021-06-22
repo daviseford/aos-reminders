@@ -33,7 +33,7 @@ export const ChronomanticCogsEffects = [
   },
   {
     name: `Mechanisms of Time`,
-    desc: `If this endless spell is increasing the flow of time, add 1 to charge rolls for units wholly within 18" of this endless spell. `,
+    desc: `If this endless spell is increasing the flow of time, add 1 to charge rolls for units wholly within 18" of this endless spell.`,
     when: [CHARGE_PHASE],
     rule_sources: [rule_sources.GHB_2021],
   },
@@ -127,7 +127,7 @@ export const GeminidsOfUhlGyshEffects = [
   },
   {
     name: `Predatory`,
-    desc: `Can move up to 8" and can fly. The parts of this endless spell must remain within 6" of each other`,
+    desc: `Can move up to 8" and can fly. The parts of this endless spell must remain within 6" of each other.`,
     when: [END_OF_HERO_PHASE],
     rule_sources: [rule_sources.GHB_2021],
   },
@@ -315,7 +315,7 @@ export const UmbralSpellportalEffects = [
   },
   {
     name: `Parts`,
-    desc: `This endless spell has 2 parts`,
+    desc: `This endless spell has 2 parts.`,
     when: [HERO_PHASE],
     rule_sources: [rule_sources.GHB_2021],
   },
@@ -361,7 +361,7 @@ export const SoulscreamBridgeEffects = [
   },
   {
     name: `Parts`,
-    desc: `This endless spell has 2 parts`,
+    desc: `This endless spell has 2 parts.`,
     when: [HERO_PHASE],
     rule_sources: [rule_sources.GHB_2021],
   },
@@ -409,7 +409,7 @@ export const ShardsOfValagharrEffects = [
   },
   {
     name: `Parts`,
-    desc: `This endless spell has 2 parts`,
+    desc: `This endless spell has 2 parts.`,
     when: [HERO_PHASE],
     rule_sources: [rule_sources.GHB_2021],
   },
