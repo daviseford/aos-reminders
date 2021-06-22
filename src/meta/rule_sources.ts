@@ -32,7 +32,7 @@ const rule_sources = {
     type: 'other_book',
   },
   BOOK_BROKEN_REALMS_BELAKOR: {
-    name: 'Broken Realms: Be\'lakor',
+    name: "Broken Realms: Be'lakor",
     publication_date: '23-04-21',
     type: 'other_book',
   },
@@ -40,6 +40,7 @@ const rule_sources = {
     name: 'Core Rules (2021)',
     publication_date: '19-06-21',
     type: 'other_book',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2021/06/bHB57xEZVMKO4T1U.pdf',
   },
   GHB_2021: {
     name: "General's Handbook (2021)",
