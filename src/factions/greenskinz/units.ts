@@ -11,6 +11,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
+import spells from './spells'
 
 const WarbossBaseEffects = [
   {
@@ -59,17 +60,12 @@ const Units = {
     ],
   },
   'Orruk Great Shaman': {
+    mandatory: { command_abilities: [keyPicker(spells, ['Gaze of Mork'])] },
     effects: [
       {
         name: `Waaagh! Energy`,
         desc: `Add 1 to casting rolls made by an Orruk Great Shaman that is within 8" of 20 or more Orruk models.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Gaze of Mork`,
-        desc: `Casting value of 6. Select up to 3 visible enemy units within 20". Roll a D6 for each unit chosen; on a 2-5 it suffers 1 mortal wound, and on a 6 it suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
       },
     ],
   },

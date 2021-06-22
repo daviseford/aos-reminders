@@ -4,6 +4,7 @@ import {
   DURING_GAME,
   DURING_SETUP,
   END_OF_CHARGE_PHASE,
+  END_OF_HERO_PHASE,
   END_OF_ROUND,
   HERO_PHASE,
   SHOOTING_PHASE,
@@ -11,6 +12,26 @@ import {
   START_OF_ROUND,
   TURN_ONE_START_OF_TURN,
 } from 'types/phases'
+
+export const PredatoryEndlessSpellEffects = [
+  {
+    name: `19.5 - Predatory Endless Spells`,
+    desc: `Predatory endless spells are moved at the end of the hero phase. If either player has any abilities that can be used at the end of the hero phase, they must be used after all predatory endless spells have been moved.`,
+    when: [END_OF_HERO_PHASE],
+  },
+  {
+    name: `19.5.1 - Predatory Endless Spell Control`,
+    desc: `Before moving predatory endless spells, you must first determine which are controlled and which are wild. A predatory endless spell within 30" of the model that summoned it is controlled by that model. A Wizard can control 1 predatory endless spell per hero phase. If there is more than 1 predatory endless spell that a friendly Wizard could control, you must pick which they will control. Predatory endless spells that are not controlled are wild.`,
+    when: [END_OF_HERO_PHASE],
+  },
+  {
+    name: `19.5.2 - Moving Predatory Endless Spells`,
+    desc: `After determining control of predatory endless spells, the player whose turn is taking place moves all of the predatory endless spells controlled by friendly Wizards. Their opponent then does the same. Once all controlled predatory endless spells have been moved, the players alternate picking 1 wild predatory endless spell to move, starting with the player whose turn is taking place, until all of the wild predatory endless spells have been moved. A player must pick a wild predatory endless spell to move if any are eligible to do so and cannot pick a wild predatory endless spell that has already moved in that phase.
+
+    When a player picks a predatory endless spell to move, they are considered to be the commanding player of that predatory endless spell until the start of the next hero phase. All other endless spells are under the command of the player that summoned them.`,
+    when: [END_OF_HERO_PHASE],
+  },
+]
 
 export const OneDropDeploymentEffect = {
   name: `26.2.1 - One Drop Deployment`,
@@ -26,6 +47,22 @@ const CoreRules: TEntry[] = [
         name: `1.3.3 - Unit Coherency`,
         desc: `Units must be set up and finish every move as a single coherent group. A unit with 2 to 5 models is coherent if each model in the unit is w7ithin 1" horizontally and 6" vertically of at least 1 other model in the unit. A unit with more than 5 models is coherent if each model in the unit is within 1" horizontally and 6" vertically of at least 2 other models in the unit. If a friendly unit is not coherent at the end of a turn or after you set it up, you must remove models in the unit from play, one at a time, until it is coherent.`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+
+  {
+    name: 'Predatory Endless Spells',
+    effects: [...PredatoryEndlessSpellEffects],
+  },
+
+  {
+    name: 'Miscasts',
+    effects: [
+      {
+        name: `19.1.1 - Miscasts`,
+        desc: `On an unmodified casting roll of 2, the spell is miscast. The spell is not successfully cast, the caster suffers D3 mortal wounds, and the caster cannot attempt to cast any more spells in that hero phase.`,
+        when: [HERO_PHASE],
       },
     ],
   },

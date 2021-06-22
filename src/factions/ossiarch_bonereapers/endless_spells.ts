@@ -11,16 +11,15 @@ import {
   END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   SHOOTING_PHASE,
-  START_OF_ROUND,
 } from 'types/phases'
 
-//Soullinked effect
+// Soullinked effect
 const SoulLinkedEffect = {
   name: `Soul-linked`,
-  desc: `This spell is soul-linked to the caster. When predatory endless spells are moved at the start of the battle round, any that are soul-linked to a caster are moved first, followed by any endless spells that are not. Soul-linked spells are always moved by the player whose army includes the caster the spell is soul-linked to. The player that won the roll-off to determine who moves an endless spell first must move all their soul-linked spells first, followed by their opponent.
+  desc: `This spell is soul-linked to the caster. When predatory endless spells are moved, any that are soul-linked to a caster are moved first, followed by any endless spells that are not. Soul-linked spells are always moved by the player whose army includes the caster the spell is soul-linked to. The player that won the roll-off to determine who moves an endless spell first must move all their soul-linked spells first, followed by their opponent.
 
   You must subtract 1 from casting rolls for a WIZARD that is soul-linked to an endless spell. A caster cannot be soul-linked to more than one endless spell at the same time. If the caster is slain, then any endless spell they are soul-linked to is dispelled.`,
-  when: [START_OF_ROUND],
+  when: [END_OF_HERO_PHASE],
 }
 
 const EndlessSpells = {
@@ -29,7 +28,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `A Bone-tithe Shrieker can move up to 8" and can fly.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Summon Bone-tithe Shrieker`,
@@ -54,7 +53,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `A Nightmare Predator can move up to 2D6" and can fly.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       SoulLinkedEffect,
       {
@@ -64,13 +63,13 @@ const EndlessSpells = {
       },
       {
         name: `Perpetual Hunter`,
-        desc: `When this model is set up, the player who set it up can pick 1 enemy HERO as its prety and then immediately make a move with this model. If this model's prey is destroyed, this model is dispelled.`,
+        desc: `When this model is set up, the player who set it up can pick 1 enemy HERO as its prey and then immediately make a move with this model. If this model's prey is destroyed, this model is dispelled.`,
         when: [HERO_PHASE],
       },
       {
         name: `Death Incarnate`,
         desc: `After this model moves, roll a D6 for each unit within 3" of it. On a 2+, that unit suffers D3 mortal wounds. If that unit was this model's prey, on a 2+ it suffers D6 mortal wounds instead of D3 mortal wounds. OSSIARCH BONEREAPERS units are not affected by this ability.`,
-        when: [HERO_PHASE],
+        when: [END_OF_HERO_PHASE],
       },
     ],
   },
@@ -79,7 +78,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `A Soulstealer Carrion can move up to 16" and can fly.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       SoulLinkedEffect,
       {

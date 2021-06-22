@@ -4,13 +4,13 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_HERO_PHASE,
   END_OF_ROUND,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_MOVEMENT_PHASE,
-  START_OF_ROUND,
   START_OF_TURN,
 } from 'types/phases'
 import { AQSHY, CHAMON, GHUR, GHYRAN, HYSH, SHYISH, ULGU } from 'types/realmscapes'
@@ -51,12 +51,12 @@ export const EmeraldLifeswarmEffects = [
   {
     name: `Predatory`,
     desc: `An Emerald Lifeswarm is a predatory endless spell. Emerald Lifeswarms can move up to 10" and can fly.`,
-    when: [START_OF_ROUND],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Bounteous Healing`,
     desc: `After this model is set up or after it has moved, pick 1 unit within 1" of it. You can either heal D3 wounds that have been allocated to that unit or, if no wounds are currently allocated to the unit, you may return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
-    when: [HERO_PHASE],
+    when: [END_OF_HERO_PHASE],
   },
 ]
 export const SoulsnareShacklesEffects = [
@@ -68,7 +68,7 @@ export const SoulsnareShacklesEffects = [
   {
     name: `Bound for the Great Oubliette`,
     desc: `At the start of the movement phase, roll a D6 for each unit within 6" of any Soulsnare Shackles models. On a 3+ halve the move characteristic of that unit until the end of that phase. On a 6 that unit also suffers D3 mortal wounds.`,
-    when: [MOVEMENT_PHASE],
+    when: [START_OF_MOVEMENT_PHASE],
   },
 ]
 export const SuffocatingGravetideEffects = [
@@ -80,7 +80,7 @@ export const SuffocatingGravetideEffects = [
   {
     name: `Predatory`,
     desc: `A Suffocating Gravetide can move up to 8" and can fly.`,
-    when: [START_OF_ROUND],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Necrotic Tide`,
@@ -90,7 +90,7 @@ export const SuffocatingGravetideEffects = [
   {
     name: `Pulled to the Grave`,
     desc: `After this model has moved, each unit that has any models it passed across suffers D3 mortal wounds.`,
-    when: [HERO_PHASE],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Pulled to the Grave`,
@@ -112,7 +112,7 @@ export const GeminidsOfUhlGyshEffects = [
   {
     name: `Predatory`,
     desc: `Geminids of Uhl-Gysh is a predatory endless spell. They can move up to 8" and can fly. When you move this endless spell, the second model must finish its move within 6" of the first. If this is impossible, this spell is dispelled.`,
-    when: [START_OF_ROUND],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Unleashed`,
@@ -122,7 +122,7 @@ export const GeminidsOfUhlGyshEffects = [
   {
     name: `Tendrils of Shadow and Light`,
     desc: `After the Shadow Geminid model has moved, each unit that has any models it passed across suffers D3 mortal wounds. In addition, subtract 1 (to a minimum of 1) from the Attacks characteristic of melee weapons used by each unit that has any models it passed across until the end of the battle round. After the Light Geminid model has moved, each unit that has any models it passed across suffers D3 mortal wounds. In addition, subtract 1 from hit rolls for each unit that has any models it passed across until the end of the battle round. A unit is not affected by the Light Geminid model if it has been passed across by the Shadow Geminind model earlier in the same battle round (a unit can be affected by one or other of the models each battle round, but not both).'`,
-    when: [HERO_PHASE],
+    when: [END_OF_HERO_PHASE],
   },
 ]
 export const BurningHeadEffects = [
@@ -134,7 +134,7 @@ export const BurningHeadEffects = [
   {
     name: `Predatory`,
     desc: `The Burning Head can move up to 9" and can fly.`,
-    when: [START_OF_ROUND],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Fiery Missile`,
@@ -144,7 +144,7 @@ export const BurningHeadEffects = [
   {
     name: `Flaming Skull`,
     desc: `After this model has moved, each unit that has any models it passed across, and each other unit that is within 1" of it at the end of its move, suffers D3 mortal wounds.`,
-    when: [HERO_PHASE],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Wrathful Aura`,
@@ -161,7 +161,7 @@ export const QuicksilverSwordsEffects = [
   {
     name: `Predatory`,
     desc: `Quicksilver Swords can move up to 8" and can fly.`,
-    when: [START_OF_ROUND],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Volley of Blades`,
@@ -171,7 +171,7 @@ export const QuicksilverSwordsEffects = [
   {
     name: `Dancing Blades`,
     desc: `After this model has moved, you can pick 1 unit within 6" of it and roll 12 dice. For each roll of 6+ that unit suffers 1 mortal wound. If the unit being rolled for is a CHAOS unit, it suffers 1 mortal wound for each roll of 5+ instead.`,
-    when: [HERO_PHASE],
+    when: [END_OF_HERO_PHASE],
   },
 ]
 export const PurpleSunEffects = [
@@ -183,7 +183,7 @@ export const PurpleSunEffects = [
   {
     name: `Predatory`,
     desc: `The Purple Sun of Shyish can move up to 9" and can fly.`,
-    when: [START_OF_ROUND],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Swirling Death`,
@@ -193,7 +193,7 @@ export const PurpleSunEffects = [
   {
     name: `End Given Form`,
     desc: `After this model has moved, each unit that has any models it passed across, and each other unit that is within 1" of it at the end of its move, is subjected to the Purple Sun's baleful energies. For each unit subjected to the baleful energies, roll a number of dice equal to the number of models in that unit. For each 6+ one model in that unit is slain. If the unit has Wounds characteristic of 6 or more, it suffers 2D6 mortal wounds instead.`,
-    when: [HERO_PHASE],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Visage of Xereus`,
@@ -227,7 +227,7 @@ export const MalevolentMaelstromEffects = [
   {
     name: `Predatory`,
     desc: `A Malevolent Maelstrom can move up to 8" and can fly.`,
-    when: [START_OF_ROUND],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Devourer of Sorcery and Souls`,
@@ -249,7 +249,7 @@ export const RavenaksGnashingJawsEffects = [
   {
     name: `Predatory`,
     desc: `Ravenak's Gnashing Jaws can move up to 12" and can fly.`,
-    when: [START_OF_ROUND],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Endless Appetite`,
@@ -259,7 +259,7 @@ export const RavenaksGnashingJawsEffects = [
   {
     name: `Ravening Hunger`,
     desc: `After this model has moved, each unit that has any models it passed across, and each other unit that is within 1" of it at the end of its move, suffers D3 mortal wounds.`,
-    when: [HERO_PHASE],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Ravening Hunger`,
@@ -287,8 +287,8 @@ export const AethervoidPendulumEffects = [
   },
   {
     name: `Predatory`,
-    desc: `The Aethervoid Pendulum can moveup to 8" and can fly.`,
-    when: [START_OF_ROUND],
+    desc: `The Aethervoid Pendulum can move up to 8" and can fly.`,
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Slicing into Reality`,
@@ -298,7 +298,7 @@ export const AethervoidPendulumEffects = [
   {
     name: `Scything Blade`,
     desc: `After this model has moved, each unit that has any models it passed across, and each other unit that is within 1" of it at the end of its move, suffers D6 mortal wounds.`,
-    when: [HERO_PHASE],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Unstoppable Mechanism`,
@@ -327,7 +327,7 @@ export const LauchonTheSoulseekerEffects = [
   {
     name: `Predatory`,
     desc: `Lauchon the Soulseeker can move up to 12" and can fly.`,
-    when: [START_OF_ROUND],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Navigate Deathly Tides`,
@@ -337,12 +337,12 @@ export const LauchonTheSoulseekerEffects = [
   {
     name: `Soul Price`,
     desc: `Before a player makes a move with this model, pick a friendly unit wholly within 3" of this model. Remove the unit from the battlefield. After this spell has moved, set up the removed unit wholly within 3" of this spell and more than 9" from enemy units. Once the unit is set up, 1 model from the unit is slain.`,
-    when: [START_OF_ROUND],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Empowered by Shyish (${SHYISH})`,
     desc: `If the battle is taking place in the realm of Shyish, this model can move up to 18" instead of up to 12".`,
-    when: [START_OF_ROUND],
+    when: [END_OF_HERO_PHASE],
   },
 ]
 export const SoulscreamBridgeEffects = [
@@ -359,12 +359,12 @@ export const SoulscreamBridgeEffects = [
   {
     name: `Nightmarish Construct`,
     desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of a Soulscream Bridge model. This ability has no effect on Death units.`,
-    when: [DURING_GAME],
+    when: [BATTLESHOCK_PHASE],
   },
   {
     name: `Empowered by Shyish (${SHYISH})`,
     desc: `If the battle is taking place in the realm of Shyish, the second Soulscream Bridge model can be set up wholly within 24" instead of 12".`,
-    when: [DURING_GAME],
+    when: [END_OF_HERO_PHASE],
   },
 ]
 export const HorrorghastEffects = [
@@ -376,17 +376,17 @@ export const HorrorghastEffects = [
   {
     name: `Predatory`,
     desc: `Horrorghast can move up to 9" and can fly.`,
-    when: [START_OF_ROUND],
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Prey on Fear`,
-    desc: `Subtract 1 from the bravery characteristic of units while they are within 12" of this model. Subtract 2 instead while they are within 6" of this model.`,
-    when: [DURING_GAME],
+    desc: `Subtract 1 from the Bravery characteristic of units while they are within 12" of this model. Subtract 2 instead while they are within 6" of this model.`,
+    when: [BATTLESHOCK_PHASE],
   },
   {
     name: `Empowered by Shyish (${SHYISH})`,
     desc: `If the battle is taking place in the realm of Shyish, this model can move up to 12" instead of up to 9".`,
-    when: [DURING_GAME],
+    when: [END_OF_HERO_PHASE],
   },
 ]
 export const ShardsOfValagharrEffects = [
@@ -412,13 +412,13 @@ export const ShardsOfValagharrEffects = [
   },
   {
     name: `Twilight Translocation`,
-    desc: `After determining who has the first turn, players roll off. The winner can remove on Shards of Valagharr model from this spell and set it up wholly within 12" of the other Shards of Valagharr model.`,
-    when: [START_OF_ROUND],
+    desc: `After determining who has the first turn, players roll off. The winner can remove one Shards of Valagharr model from this spell and set it up wholly within 12" of the other Shards of Valagharr model.`,
+    when: [END_OF_HERO_PHASE],
   },
   {
     name: `Empowered by Shyish (${SHYISH})`,
     desc: `If the battle is taking place in the realm of Shyish, the first Shards of Valagharr model can be set up wholly within 12" of the caster instead of 6".`,
-    when: [DURING_GAME],
+    when: [HERO_PHASE],
   },
 ]
 
@@ -534,7 +534,7 @@ const EndlessSpells: TEntry[] = [
       {
         name: `Empowered by Shyish (${SHYISH})`,
         desc: `If your battle is taking place in the Realm of Death, this model can move up to 12" instead of 8".`,
-        when: [HERO_PHASE],
+        when: [END_OF_HERO_PHASE],
       },
     ],
   },
@@ -545,7 +545,7 @@ const EndlessSpells: TEntry[] = [
       {
         name: `Empowered by Aqshy (${AQSHY})`,
         desc: `Reroll hit rolls of 1 for attacks made by units while they are wholly within 9" of this model.`,
-        when: [HERO_PHASE],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },

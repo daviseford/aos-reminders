@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { DURING_GAME, HERO_PHASE, MOVEMENT_PHASE, START_OF_ROUND } from 'types/phases'
+import { BATTLESHOCK_PHASE, END_OF_HERO_PHASE, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
 
 // Endless spells.
 const EndlessSpells = {
@@ -8,7 +8,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `Can move up to 12" and can fly.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Summon`,
@@ -23,7 +23,7 @@ const EndlessSpells = {
       {
         name: `Exquisite Agony`,
         desc: `After this model has moved, roll 6 dice for each unit that has any models that this model passed across. That unit suffers 1 mortal wound for each roll that is less than that unit's unmodified save characteristic.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
     ],
   },
@@ -32,7 +32,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `Can move up to 6" and can fly.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Summon`,
@@ -49,7 +49,7 @@ const EndlessSpells = {
         desc: `After this model is set up, and after this model has moved, roll 6 dice for each hero within 6" of this model (roll separately for each hero). For each 6, that hero suffers a number of mortal wounds equal to the number of 6s that were rolled for that hero. This ability has no effect on Chaos Slaanesh heroes.
 
         For example, if you rolled one 6 for a hero, that hero would suffer 1 x 1 = 1 mortal wound. If you rolled two 6s, that hero would suffer 2 x 2 = 4 mortal wounds, if you rolled three 6s, that hero would suffer 3 x 3 = 9 mortal wounds, and so on.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
     ],
   },
@@ -58,7 +58,7 @@ const EndlessSpells = {
       {
         name: `Predatory`,
         desc: `Can move up to 8" and can fly.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Summon`,
@@ -73,12 +73,12 @@ const EndlessSpells = {
       {
         name: `Flensing Tongues`,
         desc: `After this model has moved, roll 6 dice for the closest other unit within 6". If more than 1 other unit is equally close, the player that moved this model can choose which unit to roll the 6 dice for. That unit suffers 1 mortal wound for each roll of 4+.`,
-        when: [START_OF_ROUND],
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Terrifying Entity`,
         desc: `Subtract 1 from the bravery characteristic of units while they are within 12" of this model. Add 1 to the bravery characteristic of Chaos Slaanesh units while they are within 12" of this model instead of subtracting 1.`,
-        when: [DURING_GAME],
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },

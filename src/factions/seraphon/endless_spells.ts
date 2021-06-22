@@ -19,7 +19,7 @@ import {
   SuffocatingGravetideEffects,
   UmbralSpellportalEffects,
 } from 'generic_rules/endless_spells'
-import { HERO_PHASE, START_OF_ROUND } from 'types/phases'
+import { END_OF_HERO_PHASE, HERO_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const BoundEffect = {
@@ -27,7 +27,7 @@ const BoundEffect = {
   desc: `All of the rules that apply to other endless spells also apply to bound endless spells, except that bound predatory spells can only be moved by a player that has a Seraphon army. If only one player has a Seraphon army, then they move all of the bound predatory endless spells before any other predatory endless spells are moved. The players then alternate moving any remaining predatory endless spells as normal.
 
   If both players have Seraphon armies, the players alternate moving predatory endless spells as normal, but each time a player could move a predatory endless spell, they can choose to move either a bound predatory endless spell or a normal predatory endless spell.`,
-  when: [START_OF_ROUND],
+  when: [END_OF_HERO_PHASE],
 }
 
 const EndlessSpells = {

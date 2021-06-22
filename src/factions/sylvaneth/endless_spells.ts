@@ -1,6 +1,12 @@
 import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, END_OF_HERO_PHASE, HERO_PHASE } from 'types/phases'
 
+const PredatoryEffect = {
+  name: `Predatory`,
+  desc: `This model is a predatory endless spell. It can move up to 8" and can fly.`,
+  when: [END_OF_HERO_PHASE],
+}
+
 const EndlessSpells = {
   Gladewyrm: {
     effects: [
@@ -24,6 +30,7 @@ const EndlessSpells = {
         desc: `After this model has moved, roll a D6 for each SYLVANETH unit wholly within 6" of this model. On a 3+ heal up to D3 wounds allocated to that unit.`,
         when: [HERO_PHASE],
       },
+      PredatoryEffect,
     ],
   },
   'Spiteswarm Hive': {
@@ -64,8 +71,9 @@ const EndlessSpells = {
       {
         name: `Strangelroots`,
         desc: `After this model has moved, each unit that has any models it passed across suffers D3 mortal wounds, or D6 mortal wounds if that unit is also within 3" of any AWAKENED WYLDWOODS. This ability has no effect on units with the SYLVANETH keyword.`,
-        when: [HERO_PHASE],
+        when: [END_OF_HERO_PHASE],
       },
+      PredatoryEffect,
     ],
   },
 }

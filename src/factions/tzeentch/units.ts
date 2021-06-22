@@ -129,6 +129,9 @@ const Units = {
     ],
   },
   'Fateskimmer, Herald of Tzeentch on Burning Chariot': {
+    mandatory: {
+      spells: [keyPicker(Spells, ["Tzeentch's Firestorm (Fateskimmer)"])],
+    },
     effects: [
       ArcaneTomeEffect,
       SkySharksEffect,
@@ -137,13 +140,6 @@ const Units = {
         name: `Magic`,
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Tzeentch's Firestorm.`,
         when: [HERO_PHASE],
-      },
-      // Intentionally placed here to prevent duplicate key problem in spells file (Relates to Issue #856).
-      {
-        name: `Tzeentch's Firestorm`,
-        desc: `Casting value of 8. Roll a D6 for each enemy unit within 9" of the caster and visible to them. On a 3+, that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-        spell: true,
       },
     ],
   },

@@ -158,6 +158,17 @@ const Spells = {
       },
     ],
   },
+  "Tzeentch's Firestorm (Fateskimmer)": {
+    effects: [
+      {
+        name: `Tzeentch's Firestorm (Fateskimmer)`,
+        desc: `Casting value of 8. Roll a D6 for each enemy unit within 9" of the caster and visible to them. On a 3+, that unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+
+
   // Flavor spells
 
   // Unit spells
@@ -279,6 +290,18 @@ const Spells = {
       },
     ],
   },
+
+  'The Parchment Curse': {
+    effects: [
+      {
+        name: `The Parchment Curse`,
+        desc: `Casting value of 8. Only the caster of the Tome of Eyes can attempt to cast this spell. Pick 1 enemy unit within 18" of the caster that is visible to them and roll a D6. On a 3+, that unit suffers D3 mortal wounds. In addition, for each model that is slain by mortal wounds inflicted by this spell, subtract 1 from the Bravery characteristic of that unit for the rest of the battle.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+
+ 
 }
 
 export default tagAs(Spells, 'spell')
