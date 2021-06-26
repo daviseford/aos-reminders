@@ -17,6 +17,7 @@ import {
   RealmscapeSpells,
 } from 'generic_rules'
 import GenericArtifacts from 'generic_rules/artifacts'
+import GenericGrandStrategies from 'generic_rules/grand_strategies'
 import GenericPrayers from 'generic_rules/prayers'
 import { sortBy, uniqBy } from 'lodash'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
@@ -132,6 +133,15 @@ const modifyTriumphs = (triumphs: TEntry[], Collection: TCollection): TEntry[] =
   )
 }
 
+const modifyGrandStrategies = (grand_strategies: TEntry[], Collection: TCollection): TEntry[] => {
+  return uniqBy(
+    sortBy(grand_strategies, 'name')
+      .concat(sortBy(GenericGrandStrategies.concat(Collection.GrandStrategies), 'name'))
+      .map(t => ({ ...t, grand_strategy: true })),
+    'name'
+  )
+}
+
 const modifySpells = (
   spells: TEntry[],
   realmscape: TBattleRealms | null,
@@ -185,6 +195,7 @@ export const modify = {
   CoreRules: modifyCoreRules,
   EndlessSpells: modifyEndlessSpells,
   Flavors: modifyFlavors,
+  GrandStrategies: modifyGrandStrategies,
   MountTraits: modifyMountTraits,
   Prayers: modifyPrayers,
   Scenery: modifyScenery,

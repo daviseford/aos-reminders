@@ -1317,6 +1317,7 @@ describe('getBattlescribeArmy', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
+        grand_strategies: [],
         mount_traits: [],
         prayers: [],
         flavors: ['Bloodgullet (Mawtribe)'],
@@ -2039,6 +2040,7 @@ describe('getBattlescribeArmy', () => {
       subFactionName: '',
       origin_realm: 'Aqshy',
       selections: {
+        grand_strategies: [],
         mount_traits: [],
         prayers: [],
         flavors: [],
@@ -2108,6 +2110,7 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(DAUGHTERS_OF_KHAINE)
     expect(res.selections).toEqual({
+      grand_strategies: [],
       mount_traits: [],
       prayers: [
         'Rune of Khaine',

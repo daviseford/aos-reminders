@@ -70,6 +70,7 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
     core_rules: lookup('core_rules'),
     endless_spells: lookup('endless_spells'),
     flavors: lookup('flavors'),
+    grand_strategies: lookup('grand_strategies'),
     mount_traits: lookup('mount_traits'),
     prayers: lookup('prayers'),
     scenery: lookup('scenery'),

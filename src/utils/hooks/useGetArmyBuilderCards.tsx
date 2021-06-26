@@ -128,6 +128,15 @@ const useGetArmyBuilderCards = (army: IArmy) => {
         sideEffects: getSideEffects(army.Scenery),
       },
       {
+        slice: 'grand_strategies',
+        items: army.GrandStrategies,
+        setValues: selectionActions.setGrandStrategies,
+        title: 'Grand Strategies',
+        values: selections.grand_strategies || [],
+        type: 'multi',
+        sideEffects: getSideEffects(army.GrandStrategies),
+      },
+      {
         slice: 'triumphs' as TSelectionTypes,
         items: army.Triumphs,
         setValues: selectionActions.setTriumphs,

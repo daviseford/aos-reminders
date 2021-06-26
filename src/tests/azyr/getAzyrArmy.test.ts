@@ -70,6 +70,7 @@ describe('getAzyrArmyFromPdf', () => {
       command_traits: [],
       endless_spells: [],
       flavors: [],
+      grand_strategies: [],
       mount_traits: [],
       prayers: [],
       scenery: [],
@@ -357,6 +358,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.allyFactionNames).toContain(GLOOMSPITE_GITZ)
     expect(res.allyFactionNames).toContain(MEGA_GARGANT_MERCENARIES)
     expect(res.selections).toEqual({
+      grand_strategies: [],
       mount_traits: [],
       prayers: [],
       flavors: [],
@@ -998,6 +1000,7 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape: null,
       subFactionName: '',
       selections: {
+        grand_strategies: [],
         mount_traits: [],
         prayers: [],
         flavors: ['Guild of Summoners'],
@@ -1349,6 +1352,7 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
+        grand_strategies: [],
         mount_traits: [],
         prayers: [],
         flavors: [],
@@ -1405,6 +1409,7 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
+        grand_strategies: [],
         mount_traits: [],
         prayers: [],
         flavors: [],
@@ -1822,6 +1827,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(DAUGHTERS_OF_KHAINE)
     expect(res.subFactionName).toEqual('')
     expect(res.selections).toEqual({
+      grand_strategies: [],
       mount_traits: [],
       prayers: ["Martyr's Sacrifice", 'Rune of Khaine', 'Touch of Death', 'Wrath of Khaine'],
       flavors: ['The Kraith'],
@@ -1859,6 +1865,7 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape: null,
       subFactionName: '',
       selections: {
+        grand_strategies: [],
         mount_traits: [],
         prayers: [],
         flavors: ['Gristlegore (Grand Court)'],
@@ -1883,6 +1890,7 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.selections).toEqual({
+      grand_strategies: [],
       mount_traits: [],
       prayers: ['Rune Lore', 'Rune Lore: Ancestral Shield', 'Rune Lore: Forge Fire'],
       flavors: ['Greywater Fastness'],
@@ -1926,6 +1934,7 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.selections).toEqual({
+      grand_strategies: [],
       mount_traits: [],
       prayers: ['Rune Lore'],
       flavors: ['Greywater Fastness'],
@@ -2052,6 +2061,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections).toEqual({
+      grand_strategies: [],
       mount_traits: [],
       prayers: [],
       flavors: ['Anvilgard'],
@@ -2134,6 +2144,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(SLAANESH)
     expect(res.subFactionName).toEqual(SlaaneshFaction.subFactionKeyMap['Pretenders Host'])
     expect(res.selections).toEqual({
+      grand_strategies: [],
       mount_traits: [],
       prayers: [],
       flavors: [],
@@ -2198,6 +2209,7 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape: null,
       subFactionName: '',
       selections: {
+        grand_strategies: [],
         mount_traits: [],
         prayers: [],
         flavors: [],
@@ -2242,6 +2254,7 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape: null,
       subFactionName: '',
       selections: {
+        grand_strategies: [],
         mount_traits: [],
         prayers: [],
         flavors: ['Barak-Thryng, City of the Ancestors (Skyport)'],
@@ -2309,6 +2322,7 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape: null,
       subFactionName: '',
       selections: {
+        grand_strategies: [],
         mount_traits: [],
         prayers: [],
         flavors: ['Skilled Manipulators (Masterclan)', 'Warpstone Sparks (Skryre)'],
@@ -2358,6 +2372,7 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape: AQSHY,
       subFactionName: '',
       selections: {
+        grand_strategies: [],
         mount_traits: ['Fire-claw Adult'],
         prayers: ['Prayer of Ash', 'Runic Empowerment'],
         flavors: ['Hermdar (Lodge)'],
@@ -2417,6 +2432,7 @@ describe('getAzyrArmyFromPdf', () => {
       realmscape: null,
       subFactionName: '',
       selections: {
+        grand_strategies: [],
         mount_traits: [],
         prayers: [],
         flavors: [],

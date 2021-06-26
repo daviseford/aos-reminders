@@ -19,6 +19,7 @@ export const temporaryAdapter: TAdapter = (subFaction, subFactionName, FlavorTyp
     CoreRules: mergeData(subFaction, 'core_rules'),
     EndlessSpells: mergeData(subFaction, 'endless_spells'),
     Flavors: mergeData(subFaction, 'flavors'),
+    GrandStrategies: mergeData(subFaction, 'grand_strategies'),
     FlavorType,
     MountTraits: mergeData(subFaction, 'mount_traits'),
     Prayers: mergeData(subFaction, 'prayers'),

@@ -363,6 +363,7 @@ export default class CompactPdfLayout {
       command_traits,
       endless_spells,
       flavors,
+      grand_strategies,
       mount_traits,
       prayers,
       scenery,
@@ -400,6 +401,7 @@ export default class CompactPdfLayout {
       getText('Endless Spell', endless_spells),
       getText('Scenery', scenery, false),
       getText('Realmscape Feature', realmFeature),
+      getText('Grand Strategies', grand_strategies, false),
       getText('Triumph', triumphs),
     ].flat()
 

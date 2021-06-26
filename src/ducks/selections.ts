@@ -76,6 +76,9 @@ const selections = createSlice({
     setCoreRules: (state, action: PayloadAction<string[]>) => {
       state.selections.core_rules = action.payload
     },
+    setGrandStrategies: (state, action: PayloadAction<string[]>) => {
+      state.selections.grand_strategies = action.payload
+    },
     setEndlessSpells: (state, action: PayloadAction<string[]>) => {
       state.selections.endless_spells = action.payload
     },

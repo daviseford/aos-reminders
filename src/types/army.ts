@@ -16,6 +16,7 @@ export interface IArmy {
   Flavors: TEntry[] // Previously 'Allegiances'
   FlavorType?: string // Previously 'AllegianceType'
   Game: TGameStructure
+  GrandStrategies: TEntry[] // New in v5: GHB 2021 Rules
   MountTraits: TEntry[] // New in v4: (previously part of 'Traits')
   Prayers: TEntry[] // New in v4: (previously part of 'Spells')
   Scenery: TEntry[]
