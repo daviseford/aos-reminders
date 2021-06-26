@@ -473,6 +473,7 @@ export const sortParsedRoots = (roots: IParsedRoot[], flavorInfo: IFlavorInfo[])
     core_rules: [],
     endless_spells: [],
     flavors: [],
+    grand_strategies: [],
     mount_traits: [],
     prayers: [],
     scenery: [],
