@@ -392,7 +392,7 @@ const CoreRules: TEntry[] = [
     effects: [
       {
         name: `Battle Tactics`,
-        desc: `At the start of your hero phase, you must pick 1 battle tactic. You must reveal your choice to your opponent, and if your battle tactics instructs you to pick something, you must tell your opponent what you pick. You have until the end of that turn to complete the battle tactic. You cannot pick the same battle tactic more than once per battle. `,
+        desc: `At the start of your hero phase, you must pick 1 battle tactic. You must reveal your choice to your opponent, and if your battle tactics instructs you to pick something, you must tell your opponent what you pick. You have until the end of that turn to complete the battle tactic. You cannot pick the same battle tactic more than once per battle.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [rule_sources.GHB_2021],
       },
@@ -434,7 +434,7 @@ const CoreRules: TEntry[] = [
       },
       {
         name: `Monstrous Takeover`,
-        desc: `When you reveal this battle tactic, pick 1 MONSTER from your starting army on the battlefield. You complete this battle tactic if that MONSTER is contesting an objective marker that you control at the end of this turn, and that objective marker is not contested by an enemy MONSTER`,
+        desc: `When you reveal this battle tactic, pick 1 MONSTER from your starting army on the battlefield. You complete this battle tactic if that MONSTER is contesting an objective marker that you control at the end of this turn, and that objective marker is not contested by an enemy MONSTER.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [rule_sources.GHB_2021],
       },

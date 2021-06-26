@@ -71,6 +71,7 @@ describe('getWarscrollArmyFromPdf', () => {
         ],
         command_traits: [],
         endless_spells: [],
+        grand_strategies: [],
         flavors: [],
         mount_traits: [],
         prayers: [],
@@ -155,6 +156,7 @@ describe('getWarscrollArmyFromPdf', () => {
         command_abilities: [],
         command_traits: [],
         endless_spells: [],
+        grand_strategies: [],
         flavors: [],
         mount_traits: [],
         prayers: [],
@@ -224,6 +226,7 @@ describe('getWarscrollArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
+        grand_strategies: [],
         flavors: ['Hammers of Sigmar (Stormhost)'],
         artifacts: [
           'Scroll of Condemnation',
@@ -381,6 +384,7 @@ describe('getWarscrollArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
+        grand_strategies: [],
         flavors: ['Syar'],
         artifacts: ["Mountain's Gift", 'Simulacra Amulet', 'Hearthstone Amulet', 'The Perfect Blade'],
         battalions: ['Alarith Temple', 'Auralan Legion', 'Dawnrider Lance', 'Teclian Vanguard'],
@@ -550,6 +554,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Bound Burning Head',
           'Bound Umbral Spellportal',
         ],
+        grand_strategies: [],
         flavors: [],
         mount_traits: [],
         prayers: [],
@@ -656,6 +661,7 @@ describe('getWarscrollArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
+        grand_strategies: [],
         flavors: ['Barak-Zilfin, The Windswept City (Skyport)'],
         artifacts: [
           'Spell in a Bottle',
@@ -797,6 +803,7 @@ describe('getWarscrollArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
+        grand_strategies: [],
         flavors: ['Barak-Zilfin, The Windswept City (Skyport)'],
         artifacts: ['Staff of Ocular Optimisation'],
         battalions: [],
@@ -886,6 +893,7 @@ describe('getWarscrollArmyFromPdf', () => {
         command_abilities: ['Shout of Command'],
         command_traits: ['Unrelenting Conqueror'],
         endless_spells: [],
+        grand_strategies: [],
         flavors: [],
         mount_traits: [],
         prayers: [],
@@ -908,6 +916,7 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.selections).toEqual({
+      grand_strategies: [],
       flavors: [],
       artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
       battalions: ['Shadowstrike Starhost'],
@@ -943,6 +952,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.unknownSelections).toEqual([])
     expect(res.selections).toEqual({
       flavors: ['Anvilgard'],
+      grand_strategies: [],
       artifacts: [
         "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
         'Armour of Mallus (Hammerhal)',
@@ -1057,6 +1067,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.factionName).toEqual(ORRUK_WARCLANS)
     expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
     expect(res.selections).toEqual({
+      grand_strategies: [],
       flavors: [],
       artifacts: ['Savage Trophy', "Glowin' Tattooz", 'Mystic Waaagh! Paint', 'Kattanak Pelt'],
       battalions: ["Kunnin' Rukk"],
@@ -1104,6 +1115,7 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.selections).toEqual({
+      grand_strategies: [],
       flavors: [],
       artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
       battalions: ['Shadowstrike Starhost'],
@@ -1143,6 +1155,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.allyFactionNames).toEqual([])
     expect(res.allyUnits).toEqual([])
     expect(res.selections).toEqual({
+      grand_strategies: [],
       flavors: [],
       artifacts: ['Whip of Subversion', 'The Rod of Misrule', 'Fallacious Gift'],
       battalions: ['Hedonite Host', 'Supreme Sybarites', 'Epicurean Revellers', 'Seeker Cavalcade'],
@@ -1281,6 +1294,7 @@ describe('getWarscrollArmyFromPdf', () => {
       },
     ])
     expect(res.selections).toEqual({
+      grand_strategies: [],
       flavors: [],
       mount_traits: [],
       prayers: ['Wrath of Khaine'],
@@ -1322,6 +1336,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Go on Ladz, Get Stuck In!',
       ],
       endless_spells: [],
+      grand_strategies: [],
       mount_traits: ["Fast 'Un"],
       prayers: [],
       scenery: [],
@@ -1347,6 +1362,7 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.selections).toEqual({
+      grand_strategies: [],
       flavors: [],
       artifacts: [],
       battalions: [],
@@ -1370,6 +1386,7 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.selections).toEqual({
+      grand_strategies: [],
       flavors: [],
       artifacts: [],
       battalions: [],
@@ -1393,6 +1410,7 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.selections).toEqual({
+      grand_strategies: [],
       flavors: [],
       artifacts: [],
       battalions: [],
@@ -1416,6 +1434,7 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(DESTRUCTION_GRAND_ALLIANCE)
     expect(res.selections).toEqual({
+      grand_strategies: [],
       flavors: [],
       artifacts: [],
       battalions: [],
@@ -1439,6 +1458,7 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
     expect(res.selections).toEqual({
+      grand_strategies: [],
       flavors: [],
       artifacts: [],
       battalions: [],
@@ -1462,6 +1482,7 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(NIGHTHAUNT)
     expect(res.selections).toEqual({
+      grand_strategies: [],
       flavors: [],
       artifacts: ['Midnight Tome'],
       battalions: [],
@@ -1514,6 +1535,7 @@ describe('getWarscrollArmyFromPdf', () => {
       'Grundstok Gunhauler',
     ])
     expect(res.selections).toEqual({
+      grand_strategies: [],
       flavors: [],
       artifacts: ['Zoetic Dial'],
       battalions: [
@@ -1524,7 +1546,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Thunderquake Starhost',
       ],
       command_abilities: ['Prime Guardian', 'Gift from the Heavens'],
-      endless_spells: [ ],
+      endless_spells: [],
       mount_traits: [],
       prayers: [],
       scenery: [],
@@ -1565,6 +1587,7 @@ describe('getWarscrollArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
+        grand_strategies: [],
         flavors: [],
         artifacts: ['Incandescent Rectrices'],
         battalions: [],
@@ -1613,6 +1636,7 @@ describe('getWarscrollArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
+        grand_strategies: [],
         flavors: [],
         artifacts: ['Incandescent Rectrices'],
         battalions: [],
@@ -1661,6 +1685,7 @@ describe('getWarscrollArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
+        grand_strategies: [],
         flavors: [],
         artifacts: ['Incandescent Rectrices'],
         battalions: [],
@@ -1731,6 +1756,7 @@ describe('getWarscrollArmyFromPdf', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
+        grand_strategies: [],
         flavors: [],
         mount_traits: [],
         prayers: [],

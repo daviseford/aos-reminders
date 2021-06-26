@@ -1259,6 +1259,7 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.selections).toEqual({
       flavors: [],
+      grand_strategies: [],
       mount_traits: [],
       prayers: ['Favour of the Ruinous Powers'],
       artifacts: ['Scroll of Dark Unravelling'],
@@ -2021,6 +2022,7 @@ describe('getWarscrollArmyFromJson', () => {
         command_abilities: ['Salvo Fire'],
         endless_spells: [],
         scenery: [],
+        grand_strategies: [],
         mount_traits: [],
         prayers: ['Rune Lore', 'Rune Lore: Ancestral Shield', 'Rune Lore: Forge Fire'],
         spells: ['Choking Fumes (Greywater Fastness)', 'Transmutation of Lead (Chamon)'],
