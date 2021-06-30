@@ -4,7 +4,7 @@ import React from 'react'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = 'aos-3-release'
+  const name = 'aos-3-core-rules-callout'
 
   return (
     <NotificationBanner
@@ -15,7 +15,10 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>Welcome to AoS 3.0 {':)'}</strong>
+        <strong>
+          Looking for Monstrous Rampages, Heroic Actions, and more AoS 3.0 rules? Check the "Core Rules"
+          dropdown!
+        </strong>
       </span>
     </NotificationBanner>
   )
