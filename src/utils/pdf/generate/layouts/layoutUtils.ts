@@ -339,7 +339,7 @@ export default class CompactPdfLayout {
   private _getSelections =
     () =>
     (name: string, items: string[], pluralize: boolean = true): ICompactPdfTextObj[] => {
-      if (items.length === 0) return []
+      if (!items?.length) return []
       const title = !pluralize ? name : items.length > 1 ? `${name}s` : name
       const str = `${title}: ${items.join(' | ')}`
 
