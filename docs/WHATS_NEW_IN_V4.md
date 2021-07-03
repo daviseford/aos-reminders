@@ -392,12 +392,10 @@ A small preview of what's to come...
 +   sources: [
 +         {
 +           name: 'Battletome: Sons of Behemat',
-+           publication_date: '20-10-17',
 +           type: 'battletome',
 +         },
 +         {
-+           name: 'Battletome: Sons of Behemat Errata, November 2020',
-+           publication_date: '20-11-18',
++           name: 'Errata (November 2020)',
 +           type: 'errata',
 +         },
 +       ],
