@@ -1,79 +1,78 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  BATTLESHOCK_PHASE,
-  COMBAT_PHASE,
-  HERO_PHASE,
-  SHOOTING_PHASE,
-  START_OF_HERO_PHASE,
-  START_OF_ROUND,
-} from 'types/phases'
+import { BATTLESHOCK_PHASE, HERO_PHASE, START_OF_HERO_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 // Endless prayers.
 const EndlessSpells = {
-  'Hexgorger Skulls (Khorne)': {
+  'Hexgorger Skulls': {
     effects: [
       {
-        name: `Compelled by Hate`,
-        desc: `These flying models can be moved 8" by the player who prayed for the Judgement. Both models must finish any move within 6" of each other.`,
-        when: [START_OF_ROUND],
+        name: `Parts`,
+        desc: `This invocation has 2 parts.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
       {
-        name: `Summon (Judgement)`,
-        desc: `Summon value of 3+. Only friendly Khorne Priests can attempt this. If successful, set up both of these models wholly within 8" of the Priest and within 6" of each other. You may then immediately move these models 8" ending the movement with each model 6" from the other.`,
-        when: [START_OF_HERO_PHASE],
+        name: `Summoning`,
+        desc: `This invocation is summoned with a prayer that has an answer value of 3 and a range of 8". If answered, set up the parts of the invocation wholly within range and visible to the chanter, within 6" of each other and more than 1" from all models, other invocations and endless spells. Only KHORNE PRIESTS can attempt to summon this invocation.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
+      },
+      {
+        name: `Compelled by Hate`,
+        desc: `After this invocation is set up and at the start of each of their hero phases, the commanding player can move the parts of this invocation as if they were models with a Move characteristic of 8" and that can fly. After the parts have been moved, they must be within 6" of each other.`,
+        when: [HERO_PHASE, START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
       {
         name: `Hexgorgers`,
-        desc: `Subtract 2 from the casting rolls for WIZARDS while they are within 12" of any Hexgorger Skulls models. If addition, if a WIZARD attempts to cast a spell within 12" of both Hexgorger models from the same Judgement and the casting roll is an unmodified 8, then that casting attempt is not successful, that WIZARD no longer knows that spell, and each WIZARD within 12" of that Judgement of Khorne suffers D6 mortal wounds.`,
+        desc: `Subtract 2 from casting rolls for WIZARDS that are within 12" of any Hexgorger Skulls. In addition, if a WIZARD within 8" of this invocation attempts to cast a spell and the unmodified casting roll is 8, then that casting attempt is not successful, that WIZARD no longer knows that spell, each WIZARD within 12" of this invocation suffers D6 mortal wounds, and then this invocation is removed from play`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
     ],
   },
-  'Bleeding Icon (Khorne)': {
+  'Bleeding Icon': {
     effects: [
       {
         name: `Drifting Menace`,
-        desc: `This flying model can be moved 8" by the player who prayed for the Judgement.`,
-        when: [START_OF_ROUND],
+        desc: `After this invocation is set up and at the start of each of their hero phases, the commanding player can move this invocation as if it were a model with a Move characteristic of 8" and that can fly`,
+        when: [HERO_PHASE, START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
       {
-        name: `Summon (Judgement)`,
-        desc: `Summon value of 4+. Only friendly Khorne Priests can attempt this. If successful, set up one of these models wholly within 8" of the Priest. You may then move this flying model 8".`,
+        name: `Summoning`,
+        desc: `This invocation is summoned with a prayer that has an answer value of 3 and a range of 8". If answered, set up this invocation wholly within range and visible to the chanter, and more than 1" from all models, other invocations and endless spells. Only KHORNE PRIESTS can attempt to summon this invocation.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Crushing Retribution`,
-        desc: `After this model has moved, each unit that has any models it passed across, and each other unit that is within 1" of it at the end of its move, suffers D3 mortal wounds.`,
-        when: [START_OF_ROUND],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
       {
         name: `Sigil of Doom`,
-        desc: `If a unit fails a battleshock test within 3" of any models with this ability, add D3 to the number of models that flee. This ability has no effect on Khorne units.`,
+        desc: `Subtract 1 from the Bravery characteristic of units that are wholly within 12" of any Bleeding Icons. In addition, if a unit fails a battleshock test within 3" of any Bleeding Icons, roll a dice. On a 1-5, add D3 to the number of models that flee. On a 6, add D6 to the number of models that flee, and then this invocation is removed from play. This ability has no effect on KHORNE units.`,
         when: [BATTLESHOCK_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
     ],
   },
-  'Wrath-Axe (Khorne)': {
+  'Wrath-Axe': {
     effects: [
       {
-        name: `Compelled by Hate`,
-        desc: `This flying model can be moved 8" by the player who prayed for the Judgement.`,
-        when: [START_OF_ROUND],
+        name: `Flung With Fury`,
+        desc: `After this invocation is set up and at the start of each of their hero phases, the commanding player can move this invocation as if it were a model with a Move characteristic of 8" and that can fly.`,
+        when: [HERO_PHASE, START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
       {
-        name: `Summon (Judgement)`,
-        desc: `Summon value of 5+. Only friendly Khorne Priests can attempt this. If successful, set up one of these models wholly within 8" of the Priest. You may then move this flying model 8".`,
-        when: [START_OF_HERO_PHASE],
+        name: `Summoning`,
+        desc: `This invocation is summoned with a prayer that has an answer value of 4 and a range of 8". If answered, set up this invocation wholly within range and visible to the chanter, and more than 1" from all models, other invocations and endless spells. Only KHORNE PRIESTS can attempt to summon this invocation.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
       {
         name: `Hatred's Edge`,
-        desc: `After this model has moved, roll a D6 for each unit that has any models it passed across. On a 2+ that unit suffers D3 mortal wounds. Then the player that set up this model picks 1 enemy unit within 3" of this model and rolls a dice (the enemy unit may be one that this model passed across). On a 2+ that enemy unit suffers D6 mortal wounds.`,
-        when: [START_OF_ROUND],
-      },
-      {
-        name: `Reality Cleaved`,
-        desc: `Subtract 1 from hit rolls for attacks made by units within 3" of this model. This ability has no effect on Khorne units.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        desc: `After this invocation has moved, roll a dice for each unit that has any models it passed across. On a 2+, that unit suffers D3 mortal wounds. Then, the commanding player can pick 1 unit within 3" of this invocation and roll a dice. On a 1, nothing happens. On a 2-5, that unit suffers D3 mortal wounds. On a 6, that unit suffers D6 mortal wounds, and then this invocation is removed from play`,
+        when: [HERO_PHASE, START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
     ],
   },

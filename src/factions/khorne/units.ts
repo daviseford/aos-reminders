@@ -12,12 +12,14 @@ import {
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import Prayers from './prayers'
+import rule_sources from './rule_sources'
 
 const MurderousChargeEffect = {
   name: `Murderous Charge`,
@@ -119,8 +121,9 @@ const Units = {
     effects: [
       {
         name: `Cloak of Skulls`,
-        desc: `You can reroll save rolls for attacks that target this model.`,
+        desc: `Add 1 to save rolls for attacks that target this unit.`,
         when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
       {
         name: `Decapitating Strike`,
@@ -267,11 +270,6 @@ const Units = {
   'Herald of Khorne on Blood Throne': {
     effects: [
       {
-        name: `The Blood Throne`,
-        desc: `When this model uses the At the Double, Forward to Victory or Inspiring Presence command ability, the ability has a range of 12" even if this model is not a general.`,
-        when: [DURING_GAME],
-      },
-      {
         name: `Gorefeast`,
         desc: `If any wounds are inflicted by this model's Gnashing Maw and not negated, you can heal up to D3 wounds allocated to this model.`,
         when: [END_OF_COMBAT_PHASE],
@@ -392,10 +390,13 @@ const Units = {
     ],
   },
   'Valkia the Bloody': {
-    mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['On Bloodstained Wings'])],
-    },
     effects: [
+      {
+        name: `On Bloodstained Wings`,
+        desc: `At the start of the combat phase, you can pick 1 enemy unit that can fly, is not a MONSTER and is within 6" of this unit. Subtract 1 from hit rolls for attacks made by that enemy unit until the end of that phase.’`,
+        when: [START_OF_COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
+      },
       {
         name: `The Gaze of Khorne`,
         desc: `You can reroll battleshock tests for friendly KHORNE MORTAL units wholly within 16" of this model. However, if you do so and that unit still fails the battleshock test after the reroll has been made, add D3 to the number of models that flee.`,
@@ -689,8 +690,9 @@ const Units = {
       },
       {
         name: `Crimson Haze`,
-        desc: `Add 1 to the Attacks characteristic of melee weapons used by Khorne units while they are wholly within 8" of any units with this ability. This ability has no effect on Wrathmongers.`,
+        desc: `Add 1 to the Attacks characteristic of melee weapons used by Khorne units that are wholly within 8" of any units with this ability. This ability has no effect on WRATHMONGERS.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
     ],
   },
