@@ -1,37 +1,37 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  COMBAT_PHASE,
-  END_OF_MOVEMENT_PHASE,
-  SHOOTING_PHASE,
-  START_OF_HERO_PHASE,
-  START_OF_SETUP,
-} from 'types/phases'
+import { DURING_GAME, END_OF_MOVEMENT_PHASE, START_OF_HERO_PHASE, START_OF_SETUP } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Scenery = {
   'Fane of Slaanesh': {
     effects: [
-      // ...SceneryEffectLookup[OBSTACLE],
       {
-        name: `Fane of Slaanesh`,
-        desc: `After territories have been chosen, but before armies are set up, you can set up the Fane of Slaanesh wholly within your territory and more than 3" from any other terrain features or objectives. If both players can set up a terrain feature before territory selection, they must roll off with the winner placing first.`,
+        name: `Set Up`,
+        desc: `After territories are determined, you can set up this faction terrain feature wholly within your territory and more than 3" from all objectives and other terrain features. If both players can set up faction terrain features at the same time, they must roll off and the winner chooses who sets up their faction terrain features first.`,
         when: [START_OF_SETUP],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
+      },
+      {
+        name: `Impassable`,
+        desc: `You cannot move a model over this terrain feature unless it can fly, and you cannot move a model onto this terrain feature or set up a model on this terrain feature (even if it can fly).`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
       },
       {
         name: `Power of Slaanesh`,
-        desc: `If you spend depravity points to summon a unit to the battlefield, that unit can be set up wholly within 12" of this terrain feature more than 9" from enemy units.`,
+        desc: `If you spend depravity points to summon a SLAANESH DAEMON unit to the battlefield, you can set up that unit wholly within 12" of this terrain feature and more than 9" from all enemy units instead of wholly within 12" of a SLAANESH HERO and more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
       },
       {
         name: `Damned Conduit`,
-        desc: `You can pick 1 friendly Slaanesh hero within 6" of this terrain feature to make a sacrifice. If you do so, that hero suffers 1 mortal wound, and you must roll a D6. On a 2+ add 1 to hit rolls for attacks made by that hero until your next hero phase.
+        desc: `At the start of your hero phase, you can pick 1 friendly SLAANESH HERO within 6" of this terrain feature to make a sacrifice. If you do so, that HERO suffers 1 mortal wound and you must roll a dice. On a 1, nothing happens. On a 2+, add 1 to hit rolls for attacks made by that HERO until your next hero phase.
+        
+        If the HERO you picked has an artefact of power, instead of suffering 1 mortal wound, they can sacrifice that artefact of power. If they do so, that artefact of power can no longer be used and you must roll a dice. On a 1, nothing happens. On a 2+, add 1 to hit rolls for attacks made by that HERO for the rest of the battle.
 
-           If the hero has an artifact of power (depleted or otherwise), they can sacrifice that instead of suffering 1 mortal wound. The artifact may no longer be used (weapons revert to normal), and a successful 2+ roll on the D6 results in adding 1 to hit rolls for the rest of the battle.`,
+        Designer's Note: You can sacrifice an artefact that can only be used a limited number of times during a battle and which has already been used. If a weapon was picked when the artefact of power was selected, that weapon reverts to normal.`,
         when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Damned Conduit`,
-        desc: `If active, the buffed hero adds 1 to its hit rolls.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
       },
     ],
   },

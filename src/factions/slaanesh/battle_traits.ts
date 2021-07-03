@@ -71,9 +71,10 @@ const BattleTraits = {
   "The Despoiler's Art": {
     effects: [
       {
-        name: `Figureheads of the Dark Prince`,
-        desc: `This army can have up to 3 generals instead of 1. Only 1 of the generals (your choice) can have a command trait but all 3 are considered to be a general for command ability purposes. An Invaders Host general cannot use a command trait or command ability while within 12" of another Invaders Host general. In addition each time 1 of your generals is slain for the first time, you receive 1 extra command point.`,
+        name: `Figurehead of the Dark Prince`,
+        desc: `This army can have up to 3 generals instead of 1. Only 1 of the generals (your choice) can have a command trait but all 3 are considered to be a general for command ability purposes. An Invaders Host general cannot use a command trait or command ability while within 12" of another Invaders Host general. In addition each time 1 of your generals is slain for the first time, you receive 1 extra command point. You receive the command point for having a general on the battlefield at the start of the hero phase if 1 or more of these generals are on the battlefield (you still only receive 1 command point if you have 2 or more generals on the battlefield). You receive the +2 modifier to the Heroic Leadership heroic action only if all of the generals have been slain.`,
         when: [START_OF_GAME],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
       },
       {
         name: `Escalating Havoc`,
@@ -109,7 +110,11 @@ const BattleTraits = {
         name: `Thundering Cavalcade`,
         desc: `Add 1 to charge rolls for units in a Godseekers Host army.`,
         when: [CHARGE_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_MARCH_2021],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAANESH,
+          rule_sources.ERRATA_SLAANESH_MARCH_2021,
+          rule_sources.ERRATA_SLAANESH_JULY_2021,
+        ],
       },
       {
         name: `Maniacal Hunters`,
@@ -130,7 +135,11 @@ const BattleTraits = {
         name: `Deadly Symbiosis`,
         desc: `Add 1 to the number of depravity points you receive in the battleshock phase if a friendly SYLL'ESSKE is on the battlefield and is within 6" of at least 1 other friendly SYLL'ESSKAN HOST DAEMON unit and at least 1 friendly SYLL'ESSKAN HOST MORTAL unit.`,
         when: [DURING_GAME],
-        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_MARCH_2021],
+        rule_sources: [
+          rule_sources.WHITE_DWARF_OCTOBER_2019,
+          rule_sources.ERRATA_SLAANESH_MARCH_2021,
+          rule_sources.ERRATA_SLAANESH_JULY_2021,
+        ],
       },
     ],
   },
