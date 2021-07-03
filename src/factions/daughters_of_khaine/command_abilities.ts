@@ -80,7 +80,11 @@ const CommandAbilities = {
         name: `Masters of the Shadowpaths`,
         desc: `Pick 1 friendly Khailebron unit wholly within 12" of a friendly Khailebron general. Remove the target and set it up anywhere on the battlefield more than 9" from enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
-        rule_sources: [rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_MARCH_2021],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_MARCH_2021,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
       },
     ],
   },

@@ -9,6 +9,7 @@ import {
   START_OF_COMBAT_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Artifacts = {
   // Gifts of Morathi - Hero Artifacts
@@ -153,8 +154,12 @@ const Artifacts = {
     effects: [
       {
         name: `Crimson Shard`,
-        desc: `The bearer's selected melee weapon adds 2 to its wound rolls.`,
+        desc: `The bearer's selected melee weapon adds 1 to its wound rolls.`,
         when: [COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
       },
     ],
   },
@@ -162,8 +167,12 @@ const Artifacts = {
     effects: [
       {
         name: `Khainite Pendant`,
-        desc: `The bearer can choose to chant up to three times in your hero phase. If chosen the bearer's prayer rolls of 1 inflict D3 mortal wounds instead of 1.`,
+        desc: `In your hero phase, the bearer can attempt to chant up to 2 different prayers, 1 after the other. If they do so, make a chanting roll for each prayer. However, on a 1, the bearer suffers D3 mortal wounds instead of 1 and the prayer is not answered.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
       },
     ],
   },

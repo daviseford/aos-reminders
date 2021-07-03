@@ -78,9 +78,13 @@ const CommandTraits = {
     effects: [
       {
         name: `Arcane Mastery`,
-        desc: `Once per turn, you can reroll 1 casting, dispelling or unbinding roll for this general.`,
+        desc: `Once per turn, you can re-roll 1 casting, dispelling or unbinding roll for this general.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_MARCH_2021],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_MARCH_2021,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
       },
     ],
   },

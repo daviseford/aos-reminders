@@ -1,15 +1,10 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  END_OF_HERO_PHASE,
-  END_OF_ROUND,
-  HERO_PHASE,
-  SAVES_PHASE,
-  WOUND_ALLOCATION_PHASE,
-} from 'types/phases'
+import { END_OF_HERO_PHASE, HERO_PHASE, SAVES_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 // Endless spells.
 const EndlessSpells = {
-  'Bladewind (Daughters)': {
+  Bladewind: {
     effects: [
       {
         name: `Predatory`,
@@ -17,28 +12,35 @@ const EndlessSpells = {
         when: [END_OF_HERO_PHASE],
       },
       {
-        name: `Summon`,
-        desc: `Casting value of 6. Only Daughters of Khaine wizards can attempt to cast this spell. Set up 1 of these models wholly within 9" of the caster.`,
+        name: `Summoning`,
+        desc: `This endless spell is summoned with a spell that has a casting value of 6 and a range of 9". If successfully cast, set up 1 Bladewind wholly within range of the caster. Only DAUGHTERS OF KHAINE WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Eviscerating Vortex`,
-        desc: `When this model is set up, the player who set it up can immediately make a move with it.`,
-        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
       },
       {
         name: `Unnatural Edge`,
-        desc: `After this model has moved, each unit passed across and other units within 1" at the end of the move suffer D3 mortal wounds.`,
+        desc: `After this endless spell has moved, roll a dice for each unit that has any models it passed across, and each other unit that is within 1" of it at the end of its move. On a 2+, that unit suffers 1 mortal wound. `,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
       },
       {
         name: `Unnatural Edge`,
-        desc: `Do not apply cover modifiers for save rolls of units within 12" of this model.`,
+        desc: `Do not apply the cover modifier to save rolls for attacks that target units that are within 12" of this endless spell.`,
         when: [SAVES_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
       },
     ],
   },
-  'Bloodwrack Viper (Daughters)': {
+  'Bloodwrack Viper': {
     effects: [
       {
         name: `Predatory`,
@@ -46,38 +48,44 @@ const EndlessSpells = {
         when: [END_OF_HERO_PHASE],
       },
       {
-        name: `Summon`,
-        desc: `Casting value of 7. Only Daughters of Khaine wizards can attempt to cast this spell. Set up 1 of these models wholly within 9" of the caster.`,
+        name: `Summoning`,
+        desc: `This endless spell is summoned with a spell that has a casting value of 7 and a range of 9". If successfully cast, set up 1 Bloodwrack Viper wholly within range of the caster. Only DAUGHTERS OF KHAINE WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Bloodslick Coils`,
-        desc: `When this model is set up, the player who set it up can immediately make a move with it.`,
-        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
       },
       {
         name: `Fanged Strike`,
-        desc: `The player who moved this spell must pick 1 unit within 1" and roll 3 D6. For each roll greater than or equal to the target's wounds characteristic, 1 model is slain.`,
+        desc: `After this endless spell has moved, the commanding player must pick 1 unit within 1" of it and roll 3 dice. For each roll that is equal to or greater than that unit’s Wounds characteristic, 1 model from that unit is slain.`,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
       },
     ],
   },
-  'Heart of Fury (Daughters)': {
+  'Heart of Fury': {
     effects: [
       {
-        name: `Summon`,
-        desc: `Chant value of 3. Daughters of Khaine priests can attempt to this prayer once per turn if that armies' Heart of Fury is not already on the battlefield. Set up 1 of these models wholly within 12" of the chanter.`,
+        name: `Summoning`,
+        desc: `This invocation is summoned with a prayer that has an answer value of 3 and a range of 12". If answered, set up this invocation wholly within range and visible to the chanter. Only DAUGHTERS OF KHAINE PRIESTS can attempt to summon this invocation.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
       },
       {
         name: `Locus of the Murder God`,
-        desc: `Subtract 1 from damage inflicted against Daughters of Khaine units wholly within 12" of this model (to a minimum of 1).`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-      {
-        name: `Pledge to Khaine`,
-        desc: `If this model is on the battlefield the player who set it up must roll a D6, adding 1 to the roll if any Avatars of Khaine are within 6". On a 1-3 this model is removed from the battlefield.`,
-        when: [END_OF_ROUND],
+        desc: `At the start of the combat phase, if this invocation is on the battlefield, its commanding player must roll a dice. On a 1-5, until the end of that phase, subtract 1 from the damage inflicted (to a minimum of 1) by each successful attack that targets a DAUGHTERS OF KHAINE unit wholly within 12" of this invocation. On a 6, until the end of that phase, subtract 1 from the damage inflicted (to a minimum of 1) by each successful attack that targets a DAUGHTERS OF KHAINE unit wholly within 12" of this invocation and add 1 to the Attacks characteristic of melee weapons used by friendly DAUGHTERS OF KHAINE units wholly within 12" of this invocation; then, this invocation is removed from play at the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
       },
     ],
   },
