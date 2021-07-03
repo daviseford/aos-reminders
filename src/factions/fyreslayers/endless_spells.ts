@@ -13,13 +13,13 @@ const EndlessSpells = {
       },
       {
         name: `Burning Tide`,
-        desc: `After this invocation is set up and at the start of each of their hero phases, the commanding player can move this invocation as if it were a model with a Move characteristic of 2D6". `,
+        desc: `After this invocation is set up and at the start of each of their hero phases, the commanding player can move this invocation as if it were a model with a Move characteristic of 2D6".`,
         when: [HERO_PHASE, START_OF_HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
       {
         name: `Erupting Inferno`,
-        desc: `After this invocation has moved, the commanding player rolls 12 dice for each unit within 3" of it. For each 6, that unit suffers 1 mortal wound. If the roll to determine how far this invocation could move in this phase was a double, that unit suffers D3 mortal wounds for each 6 instead of 1 and this invocation is removed from play at the end of the phase. FYRESLAYERS units are not affected by this ability`,
+        desc: `After this invocation has moved, the commanding player rolls 12 dice for each unit within 3" of it. For each 6, that unit suffers 1 mortal wound. If the roll to determine how far this invocation could move in this phase was a double, that unit suffers D3 mortal wounds for each 6 instead of 1 and this invocation is removed from play at the end of the phase. FYRESLAYERS units are not affected by this ability.`,
         when: [HERO_PHASE, START_OF_HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
@@ -35,7 +35,7 @@ const EndlessSpells = {
       },
       {
         name: `Roaring Rune-fire`,
-        desc: `Models cannot move across or through this invocation unless they have the MAGMADROTH keyword or can fly`,
+        desc: `Models cannot move across or through this invocation unless they have the MAGMADROTH keyword or can fly.`,
         when: [DURING_GAME],
         rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
@@ -57,7 +57,7 @@ const EndlessSpells = {
       },
       {
         name: `Magma Blast`,
-        desc: `At the start of the commanding player’s shooting phase, if there are any friendly FYRESLAYERS Priests within 6" of this invocation, the commanding player can pick 1 enemy unit within 24" of this invocation and roll 12 dice. Add 1 to the roll if that unit has 10 or more models. Add 2 to the roll instead if that unit has 20 or more models. For each 6+, that unit suffers 1 mortal wound.
+        desc: `At the start of the commanding player's shooting phase, if there are any friendly FYRESLAYERS Priests within 6" of this invocation, the commanding player can pick 1 enemy unit within 24" of this invocation and roll 12 dice. Add 1 to the roll if that unit has 10 or more models. Add 2 to the roll instead if that unit has 20 or more models. For each 6+, that unit suffers 1 mortal wound.
 
         If the commanding player rolls 4 or more unmodified 6s, after the mortal wounds have been allocated to that unit, this invocation is removed from play.`,
         when: [START_OF_SHOOTING_PHASE],

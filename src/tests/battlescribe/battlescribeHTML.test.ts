@@ -1500,6 +1500,11 @@ describe('getBattlescribeArmy', () => {
         severity: 'deprecation-warn',
         text: 'Rageblade',
       },
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Molten Infusion',
+      },
     ])
   })
 
@@ -1513,6 +1518,11 @@ describe('getBattlescribeArmy', () => {
         reason: DEPRECATED_MALIGN_SORCERY,
         severity: 'deprecation-warn',
         text: 'Rageblade',
+      },
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Molten Infusion',
       },
     ])
   })

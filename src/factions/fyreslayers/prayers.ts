@@ -62,7 +62,7 @@ const Prayers = {
     effects: [
       {
         name: `Prayer of Grimnir's Fury`,
-        desc: `Prayer of Grimnir’s Fury is a prayer that has an answer value of 3 and a range of 12". If answered, pick 1 friendly FYRESLAYERS HERO that does not have a mount, is within range and visible to the chanter, and is within 3" of an enemy unit. That HERO can fight.`,
+        desc: `Prayer of Grimnir's Fury is a prayer that has an answer value of 3 and a range of 12". If answered, pick 1 friendly FYRESLAYERS HERO that does not have a mount, is within range and visible to the chanter, and is within 3" of an enemy unit. That HERO can fight.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
@@ -89,7 +89,7 @@ const Prayers = {
     effects: [
       {
         name: `Volcano's Call`,
-        desc: `Volcano’s Call is a prayer that has an answer value of 3 and a range of 18". If answered, pick 1 terrain feature wholly within range and visible to the chanter. Roll a dice for each model within 1" of that terrain feature. For each 6, that model’s unit suffers 1 mortal wound. `,
+        desc: `Volcano's Call is a prayer that has an answer value of 3 and a range of 18". If answered, pick 1 terrain feature wholly within range and visible to the chanter. Roll a dice for each model within 1" of that terrain feature. For each 6, that model's unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
