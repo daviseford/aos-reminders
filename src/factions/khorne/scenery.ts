@@ -13,13 +13,13 @@ const Scenery = {
       },
       {
         name: `Defensible`,
-        desc: `This terrain feature is a defensible terrain feature that can be garrisoned by 1 HERO with a Wounds characteristic of 8 or less`,
+        desc: `This terrain feature is a defensible terrain feature that can be garrisoned by 1 HERO with a Wounds characteristic of 8 or less.`,
         when: [DURING_GAME],
         rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
       {
         name: `Words of Hate`,
-        desc: `You can re-roll chanting rolls for friendly Khorne Priests wholly within 8" of this terrain feature.`,
+        desc: `You can reroll chanting rolls for friendly Khorne Priests wholly within 8" of this terrain feature.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },

@@ -393,7 +393,7 @@ const Units = {
     effects: [
       {
         name: `On Bloodstained Wings`,
-        desc: `At the start of the combat phase, you can pick 1 enemy unit that can fly, is not a MONSTER and is within 6" of this unit. Subtract 1 from hit rolls for attacks made by that enemy unit until the end of that phase.’`,
+        desc: `At the start of the combat phase, you can pick 1 enemy unit that can fly, is not a MONSTER and is within 6" of this unit. Subtract 1 from hit rolls for attacks made by that enemy unit until the end of that phase.'`,
         when: [START_OF_COMBAT_PHASE],
         rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },

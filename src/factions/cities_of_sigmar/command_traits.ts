@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -17,6 +17,7 @@ import {
   TURN_ONE_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandTraits = {
   'Acadamae Prodigy (Hammerhal)': {
@@ -106,7 +107,11 @@ const CommandTraits = {
       {
         name: `Ghoul Mere Ranger (Greywater Fastness)`,
         desc: `In your shooting phase, friendly units wholly within 12" of this general can shoot even if they ran in the same turn.`,
-        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+        when: [SHOOTING_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
+          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
+        ],
       },
     ],
   },
@@ -406,7 +411,7 @@ const CommandTraits = {
         name: `Darkest Secrets (Excelsis)`,
         desc: `You can pick 1 enemy hero within 3" of this general. The target cannot use command abilities until the next combat phase (already active abilities still apply).`,
         when: [START_OF_COMBAT_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

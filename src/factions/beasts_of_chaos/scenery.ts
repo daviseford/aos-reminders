@@ -36,7 +36,7 @@ const Scenery = {
       },
       {
         name: `Locus of Savagery`,
-        desc: `Do not take battleshock tests for BEASTS OF CHAOS units wholly within range of this terrain feature (see the ‘Entropic Lodestone’ scenery rule).`,
+        desc: `Do not take battleshock tests for BEASTS OF CHAOS units wholly within range of this terrain feature (see the 'Entropic Lodestone' scenery rule).`,
         when: [BATTLESHOCK_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_BEASTS_OF_CHAOS,

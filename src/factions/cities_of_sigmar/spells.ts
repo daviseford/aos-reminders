@@ -1,6 +1,7 @@
 import { tagAs } from 'factions/metatagger'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import { CHARGE_PHASE, HERO_PHASE, SHOOTING_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Spells = {
   'Wings of Fire (Hammerhal)': {
@@ -70,8 +71,12 @@ const Spells = {
     effects: [
       {
         name: `Eroding Blast (Greywater Fastness)`,
-        desc: `Casting value of 6. Pick 1 terrain feature wholly within 18" of the caster that is visible to them. Roll 1 dice for each model within 1" of that terrain feature. For each 5+, that model's unit suffers 1 mortal wound. In addition, until your next hero phase, that terrain feature has the Deadly scenery rule in addition to any other scenery rules it may have.`,
+        desc: `Casting value of 6. Pick 1 terrain feature wholly within 18" of the caster that is visible to them. Roll 1 dice for each model within 1" of that terrain feature. For each 5+, that model's unit suffers 1 mortal wound. In addition, until your next hero phase, that terrain feature has the Deadly scenery rule in addition to any other scenery rules it may have. (core rules, 28.1.3)`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
+          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
+        ],
       },
     ],
   },
@@ -289,7 +294,7 @@ const Spells = {
         name: `The Amber Spear (Excelsis)`,
         desc: `Casting value of 6+. Pick a point within 12" of the caster and visible. Draw a 1mm wide line between the caster's base and the point selected. Each unit other than the caster on the line suffers 1 mortal wound.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -299,7 +304,7 @@ const Spells = {
         name: `Flock of Doom (Excelsis)`,
         desc: `Casting value of 6+. Pick 1 enemy unit within 18" and visible to the caster. Roll 12D6 and for each 6 the target suffers 1 mortal wound.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -309,13 +314,13 @@ const Spells = {
         name: `Cower (Excelsis)`,
         desc: `Casting value of 6+. Pick 1 enemy monster within 12" and visible to the caster. Roll 2D6 and if the roll is higher than the target's bravery characteristic, that target cannot make a charge move in your opponent's next turn.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Cower (Excelsis)`,
         desc: `If active, the debuffed target cannot make a charge move.`,
         when: [CHARGE_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

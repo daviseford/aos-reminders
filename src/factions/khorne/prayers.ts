@@ -86,7 +86,7 @@ const Prayers = {
     effects: [
       {
         name: `Blood Boil`,
-        desc: `Blood Boil is a prayer that has an answer value of 4 and a range of 16". If answered, pick 1 enemy unit within range of the chanter that is visible to them. That unit suffers D6 mortal wounds`,
+        desc: `Blood Boil is a prayer that has an answer value of 4 and a range of 16". If answered, pick 1 enemy unit within range of the chanter that is visible to them. That unit suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
@@ -96,7 +96,7 @@ const Prayers = {
     effects: [
       {
         name: `Blood Bind`,
-        desc: `Blood Bind is a prayer that has an answer value of 4 and a range of 16". If answered, pick 1 enemy unit within range of the chanter that is visible to them and more than 3" from all friendly units. Your opponent must move that unit a number of inches equal to the chanting roll. The first model to be moved from that unit must finish the move as close as possible to the closest unit in your army (it can finish the move within 3" of units in your army). Any remaining models in that unit must finish their move in unit coherency and as close as possible to the closest unit from your army. `,
+        desc: `Blood Bind is a prayer that has an answer value of 4 and a range of 16". If answered, pick 1 enemy unit within range of the chanter that is visible to them and more than 3" from all friendly units. Your opponent must move that unit a number of inches equal to the chanting roll. The first model to be moved from that unit must finish the move as close as possible to the closest unit in your army (it can finish the move within 3" of units in your army). Any remaining models in that unit must finish their move in unit coherency and as close as possible to the closest unit from your army.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },

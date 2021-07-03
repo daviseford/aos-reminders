@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -11,7 +11,9 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandAbilities = {
   'Command Underlings': {
@@ -180,8 +182,21 @@ const CommandAbilities = {
     effects: [
       {
         name: `Arcane Channelling`,
-        desc: `You can use this command ability once per turn at the start of your hero phase. If you do so, pick 1 friendly HALLOWHEART WIZARD HERO and roll a D6. That WIZARD suffers a number of mortal wounds equal to that roll. In addition, until the start of your next hero phase, add the number of mortal wounds suffered by that WIZARD and not negated to casting rolls made by other friendly HALLOWHEART WIZARDS while they are within 12" of that WIZARD.`,
+        desc: `You can use this command ability once per turn at the start of your hero phase. If you do so, pick 1 friendly HALLOWHEART WIZARD HERO and roll a dice. That WIZARD suffers a number of mortal wounds equal to that roll. In addition, until the start of your next hero phase, add the number of mortal wounds suffered by that WIZARD and not negated to casting rolls made by other friendly HALLOWHEART WIZARDS while they are within 12" of that WIZARD.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
+          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
+        ],
+      },
+      {
+        name: `Arcane Channelling`,
+        desc: `If active, until the start of your next hero phase, add the number of mortal wounds suffered by that WIZARD and not negated to casting rolls made by other friendly HALLOWHEART WIZARDS while they are within 12" of that WIZARD.`,
+        when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
+          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
+        ],
       },
     ],
   },
@@ -227,7 +242,7 @@ const CommandAbilities = {
         name: `Riposte (Excelsis)`,
         desc: `Pick 1 friendly Excelsis unit wholly within 12" of a friendly Excelsis hero. For each unmodified save roll of 6 targeting the selected unit, the attackes suffers 1 mortal wound after resolving attacks.`,
         when: [START_OF_COMBAT_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

@@ -24,7 +24,7 @@ const EndlessSpells = {
       },
       {
         name: `Summoning`,
-        desc: `This endless spell is summoned with a spell that has a casting value of 5 and a range of 12". If successfully cast, set up the parts of the endless spell within 3" of each other, wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only BEASTS OF CHAOS WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 5 and a range of 12". If successfully cast, set up the parts of the endless spell within 3" of each other, wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only BEASTS OF CHAOS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
@@ -55,7 +55,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `This endless spell is summoned with a spell that has a casting value of 6 and a range of 12". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only BEASTS OF CHAOS WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 6 and a range of 12". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only BEASTS OF CHAOS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
@@ -68,7 +68,7 @@ const EndlessSpells = {
 
         Subtract 1 from hit rolls for attacks made by units within range of any endless spells with this ability. This ability has no effect on hit rolls for attacks made by BEASTS OF CHAOS units.
 
-        Designer’s Note: If this endless spell is removed from play, the next time it is set up, its range resets to 3".`,
+        Designer's Note: If this endless spell is removed from play, the next time it is set up, its range resets to 3".`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
@@ -81,7 +81,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `This endless spell is summoned with a spell that has a casting value of 7 and a range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only BEASTS OF CHAOS WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 7 and a range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only BEASTS OF CHAOS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_BEASTS_OF_CHAOS,

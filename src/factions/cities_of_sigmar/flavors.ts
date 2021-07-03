@@ -1,5 +1,5 @@
 import { keyPicker } from 'factions/metatagger'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -19,6 +19,7 @@ import {
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import prayers from './prayers'
+import rule_sources from './rule_sources'
 
 const Flavors = {
   Hammerhal: {
@@ -38,8 +39,12 @@ const Flavors = {
       },
       {
         name: `The Pride of Hammerhal`,
-        desc: `Do not take battleshock tests for HAMMERHAL units that are wholly within your territory.`,
+        desc: `Do not take battleshock tests for HAMMERHAL units that are wholly within their own territory.`,
         when: [BATTLESHOCK_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
+          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
+        ],
       },
     ],
   },
@@ -225,7 +230,7 @@ const Flavors = {
         name: `Gift of Prophecy`,
         desc: `Once per phase, when selecting a unit to shoot or fight, you can roll a D6. On a 1, subtract 1 from hit rolls made by the target. On a 2-6 add 1 to the target's hit rolls.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

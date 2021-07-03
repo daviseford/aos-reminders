@@ -1,5 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -20,6 +20,7 @@ import {
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import prayers from './prayers'
+import rule_sources from './rule_sources'
 import spells from './spells'
 
 const DuardinArtilleryEffects = [
@@ -224,20 +225,20 @@ const GrimResolveEffect = {
   name: `Grim Resolve`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ it is negated.`,
   when: [WOUND_ALLOCATION_PHASE],
-  rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+  rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
 }
 const WeaponsOfBanishmentEffects = [
   {
     name: `Weapons of Banishment`,
     desc: `Double the damage characteristic for this models attacks if targeting a Wizard or Daemon.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
-    rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+    rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
   },
   {
     name: `Weapons of Banishment`,
     desc: `This model can target endless spells with its attacks. If it scores a hit, roll 2D6. If the roll is greater than the endless spell casting value it is dispelled.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
-    rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+    rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
   },
 ]
 
@@ -437,8 +438,12 @@ const Units = {
       StandardBearerEffect,
       {
         name: `Massed Ranks`,
-        desc: `+1 to hit for attacks made by this unit if it has 10 or more models. Add 2 to hit rolls instead of 1 if this unit has 20 or more models.`,
+        desc: `+1 to hit for attacks made by this unit if it has 10 or more models.`,
         when: [COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
+          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
+        ],
       },
       {
         name: `Parry and Block`,
@@ -447,8 +452,12 @@ const Units = {
       },
       {
         name: `Wall of Spears`,
-        desc: `+1 to hit with Freeguild Spears that target an enemy unit that made a charge move in the same turn.`,
+        desc: `Add 1 to wound rolls for attacks made with Freeguild Spears that target an enemy unit that made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
+          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
+        ],
       },
     ],
   },
@@ -487,8 +496,12 @@ const Units = {
       StandardBearerEffect,
       {
         name: `Stand and Shoot`,
-        desc: `Once per turn, when an enemy unit ends a charge move within 3" of this unit and there are no other enemy units within 3" of this unit, this unit can shoot.`,
+        desc: `If an enemy unit finishes a charge move within 3" of this unit, this unit can receive the Unleash Hell command without the command being issued and without a command point being spent.'`,
         when: [CHARGE_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
+          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
+        ],
       },
       {
         name: `Steady Aim`,
@@ -594,7 +607,7 @@ const Units = {
   },
   Runelord: {
     mandatory: {
-      prayers: [keyPicker(prayers, ['Rune Lore: Ancestral Shield', 'Rune Lore: Forge Fire'])],
+      prayers: [keyPicker(prayers, ['Rune Lore: Ancestral Shield', 'Rune Lore: Forgefire'])],
     },
     effects: [
       {
@@ -798,9 +811,19 @@ const Units = {
   Gyrocopters: {
     effects: [
       {
+        name: `Elite`,
+        desc: `Models in this unit can issue commands to their own unit.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021],
+      },
+      {
         name: `Steam Gun`,
         desc: `Before attacking with a Steam Gun, pick 1 enemy unit that is within range of the attacking model's Steam Gun. The Attacks characteristic of that model's Steam Gun is equal to the number of models from that enemy unit within range of the attacking model's Steam Gun. All attacks made with that Steam Gun must target that enemy unit.`,
         when: [SHOOTING_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
+          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
+        ],
       },
       {
         name: `Guild Bombs`,
@@ -1124,6 +1147,10 @@ const Units = {
         name: `High Beastmaster`,
         desc: `If this unit has 3 or more models, 1 model in this unit can be a High Beastmaster. Add 1 to hit rolls for attacks made with that model's missile weapons.`,
         when: [SHOOTING_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
+          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
+        ],
       },
       {
         name: `Lay the Beast Low`,
@@ -1224,8 +1251,12 @@ const Units = {
       },
       {
         name: `Loose Until the Last`,
-        desc: `Once per turn, if an enemy unit ends a charge move within 3" of this unit and there are no other enemy units within 3" of this unit, this unit can shoot.`,
+        desc: `If an enemy unit finishes a charge move within 3" of this unit, this unit can receive the Unleash Hell command without the command being issued and without a command point being spent.`,
         when: [CHARGE_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
+          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
+        ],
       },
       {
         name: `Quicksilver Shot`,
@@ -1372,7 +1403,7 @@ const Units = {
         name: `Sureshot`,
         desc: `If this model has not moved this turn, add 1 to hit rolls for its Crossbow weapon.`,
         when: [MOVEMENT_PHASE, SHOOTING_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       ...WeaponsOfBanishmentEffects,
     ],
@@ -1384,7 +1415,7 @@ const Units = {
         name: `Agile Opponent`,
         desc: `This model can retreat and can still shoot and/or charge in the same turn.`,
         when: [MOVEMENT_PHASE, SHOOTING_PHASE, CHARGE_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       ...WeaponsOfBanishmentEffects,
     ],
