@@ -2024,7 +2024,7 @@ describe('getWarscrollArmyFromJson', () => {
         scenery: [],
         grand_strategies: [],
         mount_traits: [],
-        prayers: ['Rune Lore', 'Rune Lore: Ancestral Shield', 'Rune Lore: Forge Fire'],
+        prayers: ["Rune of Unfaltering Aim", 'Rune Lore: Ancestral Shield', 'Rune Lore: Forgefire'],
         spells: ['Choking Fumes (Greywater Fastness)', 'Transmutation of Lead (Chamon)'],
         command_traits: ['Ghoul Mere Ranger (Greywater Fastness)'],
         core_rules: [],

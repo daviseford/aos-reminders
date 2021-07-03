@@ -47,19 +47,8 @@ const Prayers = {
       },
     ],
   },
-  'Rune Lore': {
+  'Rune of Unfaltering Aim': {
     effects: [
-      {
-        name: `Rune Lore`,
-        desc: `GREYWATER FASTNESS RUNELORDS know the following prayer:
-
-        Rune of Unfaltering Aim: This prayer has an answer value of 2 and a range of 3". If answered, pick 1 friendly IRONWELD ARSENAL WAR MACHINE within range of the chanter. Add 1 to hit rolls for attacks made with missile weapons by that unit until your next hero phase.`,
-        when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
-        ],
-      },
       {
         name: `Rune of Unfaltering Aim`,
         desc: `If active, add 1 to hit rolls for attacks made with missile weapons by that unit until your next hero phase.`,

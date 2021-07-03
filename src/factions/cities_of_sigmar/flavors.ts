@@ -67,7 +67,7 @@ const Flavors = {
   },
   'Greywater Fastness': {
     mandatory: {
-      prayers: [keyPicker(prayers, ['Rune Lore'])],
+      prayers: [keyPicker(prayers, ['Rune of Unfaltering Aim'])],
       command_abilities: [keyPicker(command_abilities, ['Salvo Fire'])],
     },
     effects: [
@@ -75,6 +75,11 @@ const Flavors = {
         name: `Home of the Great Ironweld Guilds`,
         desc: `Increase the Range characteristic of missile weapons used by friendly GREYWATER FASTNESS IRONWELD ARSENAL units by 3" (this does not affect the weapon's minimum range, if it has one).`,
         when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Rune Lore`,
+        desc: `GREYWATER FASTNESS RUNELORDS know the Rune of Unfaltering Aim prayer.`,
+        when: [HERO_PHASE],
       },
     ],
   },
