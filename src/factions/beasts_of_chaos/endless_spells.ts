@@ -6,70 +6,114 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  START_OF_ROUND,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 // Endless spells.
 const EndlessSpells = {
-  'Ravening Direflock (Beasts)': {
+  'Ravening Direflock': {
     effects: [
       {
-        name: `Summon Ravening Direflock`,
-        desc: `Casting value of 5. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. Set up a Ravening Direflock model wholly within 12" of the caster and more than 3" from any units, then set up the second and third Ravening Direflock models wholly within 6" of the first and more than 3" from any units.`,
+        name: `Parts`,
+        desc: `This endless spell has 3 parts.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
+          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
+        ],
+      },
+      {
+        name: `Summoning`,
+        desc: `This endless spell is summoned with a spell that has a casting value of 5 and a range of 12". If successfully cast, set up the parts of the endless spell within 3" of each other, wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only BEASTS OF CHAOS WIZARDS can attempt to summon this endless spell.`,
+        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
+          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
+        ],
       },
       {
         name: `Harbingers of Dark Omens`,
-        desc: `Subtract 2 from the Bravery characteristic of units while they are within 6" of any Ravening Direflock models. BEASTS OF CHAOS units are not affected by this ability.`,
+        desc: `Models cannot issue the Inspiring Presence or Rally command while they are within 12" of this endless spell. This ability has no effect on BEASTS OF CHAOS models.`,
         when: [BATTLESHOCK_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
+          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
+        ],
       },
       {
         name: `Black-souled Cowardice`,
-        desc: `If a unit finishes a move within 1" of a Ravening Direflock model, remove that Ravening Direflock model from the battlefield. The player whose turn is taking place must set it up again exactly 3D6" from its previous location and more than 3" from any units, and then set up the two remaining Ravening Direflock models wholly within 6" of the first model and more than 3" from any units.`,
+        desc: `If a unit finishes a move within 1" of this endless spell, remove this endless spell from the battlefield. At the end of that phase, the player whose turn is taking place must set up the parts of the endless spell anywhere on the battlefield, within 3" of each other and more than 1" from all models, other endless spells and invocations.`,
         when: [MOVEMENT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
+          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
+        ],
       },
     ],
   },
-  'Doomblast Dirgehorn (Beasts)': {
+  'Doomblast Dirgehorn': {
     effects: [
       {
-        name: `Summon Doomblast Dirgehorn`,
-        desc: `Casting value of 6. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. Set up a Doomblast Dirgehorn model wholly within 12" of the caster.`,
+        name: `Summoning`,
+        desc: `This endless spell is summoned with a spell that has a casting value of 6 and a range of 12". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only BEASTS OF CHAOS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
+          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
+        ],
       },
       {
         name: `Booming Cacophony`,
-        desc: `Subtract 1 from hit rolls for attacks made by units within 3" of this model. BEASTS OF CHAOS models are not affected by this ability.`,
+        desc: `After this endless spell is set up, its range is 3". At the start of each subsequent battle round, its range is increased by 3".
+
+        Subtract 1 from hit rolls for attacks made by units within range of any endless spells with this ability. This ability has no effect on hit rolls for attacks made by BEASTS OF CHAOS units.
+
+        Designer’s Note: If this endless spell is removed from play, the next time it is set up, its range resets to 3".`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-      {
-        name: `Rising Discord`,
-        desc: `At the start of each battle round after this model is set up, add 3" to the range of this model's Booming Cacophony ability. If this model is dispelled, the next time it is set up on the battlefield, the range of this ability starts at 3".`,
-        when: [START_OF_ROUND],
+        rule_sources: [
+          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
+          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
+        ],
       },
     ],
   },
-  'Wildfire Taurus (Beasts)': {
+  'Wildfire Taurus': {
     effects: [
       {
-        name: `Summon Wildfire Taurus`,
-        desc: `Casting value of 6. Only BEASTS OF CHAOS WIZARDS can attempt to cast this spell. Set up a Wildfire Taurus model wholly within 12" of the caster.`,
+        name: `Summoning`,
+        desc: `This endless spell is summoned with a spell that has a casting value of 7 and a range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only BEASTS OF CHAOS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
+          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
+        ],
       },
       {
         name: `Predatory`,
-        desc: `The Wildfire Taurus is a predatory endless spell. It can move up to 12" and can fly.`,
+        desc: `This endless spell is a predatory endless spell. It can be moved up to 12" and can fly.`,
         when: [END_OF_HERO_PHASE],
-      },
-      {
-        name: `Raging Stampede`,
-        desc: `When this model is set up, the player who set it up can immediately make a move with it.`,
-        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
+          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
+        ],
       },
       {
         name: `Whirlwind of Destruction`,
-        desc: `After this model has moved, each unit that it moved over, and each other unit that is within 1" of it at the end of its move, suffers D3 mortal wounds. If a unit has 10 or more models it suffers D6 mortal wounds instead. If this spell inflicts any wounds on a unit, that unit fights at the end of the next combat phase, after the players have picked any other units to fight in that phase.`,
+        desc: `After this endless spell has moved, roll a dice for each unit that has any models it passed across and each other unit that is within 1" of it at the end of its move. On a 2+, that unit suffers D3 mortal wounds. In addition, the strike-last effect applies to units that are within 3" of this endless spell.`,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
+          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
+        ],
+      },
+      {
+        name: `Whirlwind of Destruction`,
+        desc: `The strike-last effect applies to units that are within 3" of this endless spell.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
+          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
+        ],
       },
     ],
   },
