@@ -7,6 +7,7 @@ import {
   START_OF_COMBAT_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 /**
  * These are used as both artifacts and mount_traits
@@ -79,8 +80,12 @@ export const GreatEndrinworks = {
     effects: [
       {
         name: `Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)`,
-        desc: `When this model makes a normal move, you can add D3" to that move. If you wish, you can add 2D3" to that move instead of D3", but if you do so and you roll a double, then this model suffers 1 mortal wound after the move is made.`,
+        desc: `When this model makes a normal move or retreats, you can add D3" to that move. If you wish, you can add 2D3" to that move instead of D3", but if you do so and you roll a double, then this model suffers 1 mortal wound after the move is made.`,
         when: [MOVEMENT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
+          rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
+        ],
       },
     ],
   },
