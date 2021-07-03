@@ -1,5 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -14,6 +14,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
+import rule_sources from './rule_sources'
 
 const CommandTraits = {
   'Cunning Plans': {
@@ -65,8 +66,12 @@ const CommandTraits = {
     effects: [
       {
         name: `The Clammy Hand`,
-        desc: `If this general is within 12" of a friendly BAD MOON LOONSHRINE at the end of your turn, you can use the BAD MOON LOONSHRINE'S 'Moonclan Lair' scenery rule 2 times at the end of that turn.`,
+        desc: `If this general is within 12" of a Bad Moon Loonshrine in your army at the end of your turn, you can use the Bad Moon Loonshrine's 'Moonclan Lair' scenery rule 2 times at the end of that turn.`,
         when: [END_OF_TURN],
+        rule_sources: [
+          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
+          rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
+        ],
       },
     ],
   },
@@ -224,7 +229,7 @@ const CommandTraits = {
         name: `Envoy of the Overbounder`,
         desc: `You can reroll failed battleshock tests for friendly JAWS OF MORK units wholly within 12" of this general.`,
         when: [BATTLESHOCK_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -235,7 +240,7 @@ const CommandTraits = {
         name: `Shepard of Idiotic Destruction`,
         desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a D6. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -246,7 +251,7 @@ const CommandTraits = {
         name: `Prophet of da Spider God`,
         desc: `Once per battle in the combat phase, you can say that this general will unleash their battle cry. If you do so, friendly GRIMSCUTTLE SPIDERFANG models are treated as being affected by the light of the Bad Moon until the end of that phase.`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

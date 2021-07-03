@@ -8,6 +8,7 @@ import {
   SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Spells = {
   // Lore of the Moonclan
@@ -70,8 +71,12 @@ const Spells = {
     effects: [
       {
         name: `Deadly Webbing`,
-        desc: `Casting value of 5. Pick 1 terrain feature within 24" of the caster that is visible to them. Until your next hero phase, that terrain feature has the Deadly and Sinister scenery rules in addition to any other scenery rules it already has. SPIDERFANG units ignore the effects of this spell.`,
-        when: [HERO_PHASE, BATTLESHOCK_PHASE, CHARGE_PHASE, MOVEMENT_PHASE],
+        desc: `Casting value of 5. Pick 1 terrain feature within 24" of the caster that is visible to them. Until your next hero phase, that terrain feature has the Deadly and Sinister scenery rules in addition to any other scenery rules it already has (core rules, 28.1.3). SPIDERFANG units ignore the effects of this spell.`,
+        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
+          rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
+        ],
       },
     ],
   },
