@@ -10,6 +10,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_TURN,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 import Units from './units'
 
 const RegularBattalions = {
@@ -267,8 +268,9 @@ const SuperBattalions = {
     effects: [
       {
         name: `Skulls for the Skull Throne`,
-        desc: `When units from this battalion use their Decapitating Blow ability, it inflicts a mortal wound on an unmodified hit roll of 5+ instead of 6.`,
+        desc: `When units from this battalion use their Decapitating Blow ability, it causes a mortal wound on an unmodified hit roll of 5+ instead of 6.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
     ],
   },

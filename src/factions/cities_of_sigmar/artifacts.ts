@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -16,6 +16,7 @@ import {
   TURN_ONE_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Artifacts = {
   'Armour of Mallus (Hammerhal)': {
@@ -45,8 +46,12 @@ const Artifacts = {
       },
       {
         name: `Aqshy Aspect`,
-        desc: `Until the start of your next hero phase, add 1 to hit rolls for attacks made with melee weapons by friendly Hammerhal units while they are wholly within 12" of the bearer.`,
+        desc: `Until the start of your next hero phase, add 1 to hit rolls for attacks made with melee weapons by friendly HAMMERHAL units while they are wholly within 12" of the bearer.`,
         when: [COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
+          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
+        ],
       },
       {
         name: `Ghyran Aspect`,
@@ -406,7 +411,7 @@ const Artifacts = {
         name: `Glimmering (Excelsis)`,
         desc: `Once per battle, before making a hit, wound, save, run, or charge roll you can instead fortell the result by choosing the value. The chosen value must be a valid whole number within the range of the dice roll replaced. The result cannot be rerolled but modifiers do apply.`,
         when: [DURING_GAME],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -416,7 +421,7 @@ const Artifacts = {
         name: `Rockjaws (Excelsis)`,
         desc: `You can pick 1 enemy unit within 8" of the bearer and visible. Roll a D6 and on a 3+ that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -426,13 +431,13 @@ const Artifacts = {
         name: `Gryph-feather Charm (Excelsis)`,
         desc: `Subtract 1 from hit rolls for attacks targetting the bearer.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Gryph-feather Charm (Excelsis)`,
         desc: `Add 1" to the bearer's move characteristic.`,
         when: [MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

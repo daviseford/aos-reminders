@@ -1892,7 +1892,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections).toEqual({
       grand_strategies: [],
       mount_traits: [],
-      prayers: ['Rune Lore', 'Rune Lore: Ancestral Shield', 'Rune Lore: Forge Fire'],
+      prayers: ['Rune of Unfaltering Aim', 'Rune Lore: Ancestral Shield', 'Rune Lore: Forgefire'],
       flavors: ['Greywater Fastness'],
       artifacts: [],
       battalions: ['Greywater Artillery Company'],
@@ -1936,7 +1936,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections).toEqual({
       grand_strategies: [],
       mount_traits: [],
-      prayers: ['Rune Lore'],
+      prayers: ['Rune of Unfaltering Aim'],
       flavors: ['Greywater Fastness'],
       artifacts: [
         "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",

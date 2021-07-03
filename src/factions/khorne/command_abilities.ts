@@ -2,7 +2,6 @@ import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
-  HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
@@ -127,15 +126,6 @@ const CommandAbilities = {
         name: `Murderous Paragon`,
         desc: `You can pick 1 friendly WRATHMONGERS unit wholly within 12" of a friendly model with this command ability. Until the end of that phase, if a model from that unit is slain, before that model is removed from play, that model can make a pile-in move and then attack with all of the melee weapons it is armed with.`,
         when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'On Bloodstained Wings': {
-    effects: [
-      {
-        name: `On Bloodstained Wings`,
-        desc: `You can use this command ability in the hero phase. If you do so, pick 1 enemy unit that can fly and is within 16" of a friendly model with this command ability. Until the end of that turn, subtract 1 from hit rolls for attacks made by that unit. You cannot pick the same unit to benefit from this command ability more than once per hero phase.`,
-        when: [HERO_PHASE],
       },
     ],
   },

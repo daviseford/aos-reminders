@@ -80,11 +80,12 @@ const Artifacts = {
     effects: [
       {
         name: `Medal of Madness (Noble Heirlooms)`,
-        desc: `Once per battle round, the bearer can use a command ability on their warscroll without a command point being spent, and they are treated as if they were a general when they do so.`,
+        desc: `Once per battle round, the bearer can issue the At the Double, Forward to Victory or Inspiring Presence command from the core rules as if they were a general and without a command point being spent.`,
         when: [DURING_ROUND],
         rule_sources: [
           rule_sources.BATTLETOME_FLESH_EATER_COURTS,
           rule_sources.ERRATA_FLESH_EATER_COURTS_JANUARY_2021,
+          rule_sources.ERRATA_FLESH_EATER_COURTS_JULY_2021,
         ],
       },
     ],

@@ -24,8 +24,9 @@ const ArcaneTomeEffect = {
 }
 const CapriciousWarpflameEffect = {
   name: `Capricious Warpflame`,
-  desc: `Add 1 to hit rolls for attacks made by this unit if the target unit has 10 or more models. Add 2 to hit rolls instead of 1 if the target unit has 20 or more models.`,
+  desc: `Add 1 to hit rolls for attacks made by this unit if the target unit has 10 or more models.`,
   when: [SHOOTING_PHASE],
+  rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
 }
 const MagicTouchedEffect = {
   name: `Magic-touched`,
@@ -234,18 +235,19 @@ const Units = {
     effects: [SkySharksEffect, CapriciousWarpflameEffect, TouchedbyFireEffect, WakeofFireEffect],
   },
   'Exalted Flamers of Tzeentch': {
-    effects: [CapriciousWarpflameEffect, TouchedbyFireEffect],
-  },
-  'Flamers of Tzeentch': {
     effects: [
       CapriciousWarpflameEffect,
       TouchedbyFireEffect,
       {
-        name: `Guided by Billowing Flames`,
-        desc: `Add 1 to hit rolls for attacks made with this unit's Warpflame while it is wholly within 9" of any friendly Exalted Flamers.`,
-        when: [SHOOTING_PHASE],
+        name: `Elite`,
+        desc: `Models in this unit can issue commands to their own unit.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.ERRATA_TZEENTCH_JULY_2021],
       },
     ],
+  },
+  'Flamers of Tzeentch': {
+    effects: [CapriciousWarpflameEffect, TouchedbyFireEffect],
   },
   'Horrors of Tzeentch': {
     mandatory: {
@@ -278,8 +280,11 @@ const Units = {
 
         Each time an Iridescent Horror or Pink Horror model from a friendly unit with this ability is slain, you can add 2 Blue Horror models to that unit after removing the slain model. Each time a Blue Horror model from a friendly unit with this ability is slain, you can add 1 Brimstone Horrors model to that unit after removing the slain model.
 
-        Set up the additional models one at a time within 1" of the position that the slain model had occupied. The additional models can only be set up within 3" of an enemy unit if the position that the slain model had occupied or any other models from the slain model's unit are within 3" of that enemy unit. If you cannot set up the additional models in this way, they are removed from play (they do not count as being slain).`,
+        Set up the additional models one at a time within 1" of the position that the slain model had occupied. The additional models can only be set up within 3" of an enemy unit if the position that the slain model had occupied or any other models from the slain model's unit are within 3" of that enemy unit. If you cannot set up the additional models in this way, they are removed from play (they do not count as being slain).
+        
+        Iridescent Horrors, Pink Horrors and Blue Horrors that flee cannot Split and Split Again. This ability allows the number of models in this unit to exceed its maximum size`,
         when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
       },
       {
         name: `Locus of Conjuration`,
@@ -386,8 +391,9 @@ const Units = {
       },
       {
         name: `Hovering Disc of Tzeentch`,
-        desc: `Add 2 to the result of any save rolls for this model in the combat phase unless the attacker is a Monster or can fly.`,
+        desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit unless the attacking unit is a Monster or can fly.`,
         when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
       },
     ],
   },

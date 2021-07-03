@@ -16,11 +16,13 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
+  START_OF_ROUND,
   START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
+import rule_sources from './rule_sources'
 import Spells from './spells'
 
 const baseLoonboss = {
@@ -54,8 +56,9 @@ const GrotBaseEffects = [
   },
   {
     name: `Backstabbing Mob`,
-    desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit while it has at least 15 models. Add 2 to the wound rolls made with melee weapons by this unit instead while it has at least 30 models.`,
+    desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit while it has at least 10 models.`,
     when: [COMBAT_PHASE],
+    rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021],
   },
   {
     name: `Netters`,
@@ -75,18 +78,13 @@ const FanaticsBaseEffects = [
     when: [CHARGE_PHASE],
   },
 ]
-const HallucinogenicFungusBrewsEffects = [
-  {
-    name: `Hallucinogenic Fungus Brews`,
-    desc: `During turn one, add 2 to save rolls for attacks that target this model.`,
-    when: [SAVES_PHASE],
-  },
-  {
-    name: `Hallucinogenic Fungus Brews`,
-    desc: `During turn two, add 1 to save rolls for attacks that target this model.`,
-    when: [SAVES_PHASE],
-  },
-]
+const HallucinogenicFungusBrewsEffect = {
+  name: `Hallucinogenic Fungus Brews`,
+  desc: `In the first battle round, this unit has a ward of 5+. In the second battle round, this unit has a ward of 6+.`,
+  when: [SAVES_PHASE],
+  rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021],
+}
+
 const RedcapMushroomsEffect = [
   {
     name: `Redcap Mushrooms`,
@@ -162,9 +160,17 @@ const Units = {
   'Skragrott, The Loonking': {
     mandatory: {
       spells: [keyPicker(Spells, ['Nikkit! Nikkit!'])],
-      command_abilities: [keyPicker(CommandAbilities, ["The Loonking's Entreaty"])],
     },
     effects: [
+      {
+        name: `The Loonking's Entreaty`,
+        desc: `Once per battle, if this unit is your general and on the battlefield, before you roll the dice that determines how far the Bad Moon moves that battle round, you can choose for the Bad Moon to either not move that battle round or to make 1 move or 2 moves that battle round (do not roll the dice to determine how far it moves).'`,
+        when: [START_OF_ROUND],
+        rule_sources: [
+          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
+          rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
+        ],
+      },
       {
         name: `Babbling Wand`,
         desc: `If Skragrott is your general and is on the battlefield at the start of your hero phase, roll a D6. On a 4+ you receive D3 extra command points.`,
@@ -350,7 +356,7 @@ const Units = {
   },
   Scaremonger: {
     effects: [
-      ...HallucinogenicFungusBrewsEffects,
+      HallucinogenicFungusBrewsEffect,
       SlipperyGitEffect,
       {
         name: `Bogeyman`,
@@ -361,7 +367,7 @@ const Units = {
   },
   Brewgit: {
     effects: [
-      ...HallucinogenicFungusBrewsEffects,
+      HallucinogenicFungusBrewsEffect,
       SlipperyGitEffect,
       {
         name: `Loonshine Potion`,
@@ -372,7 +378,7 @@ const Units = {
   },
   Spiker: {
     effects: [
-      ...HallucinogenicFungusBrewsEffects,
+      HallucinogenicFungusBrewsEffect,
       SlipperyGitEffect,
       {
         name: `Poison Brewer`,
@@ -386,7 +392,7 @@ const Units = {
       spells: [keyPicker(Spells, ['Mesmerise'])],
     },
     effects: [
-      ...HallucinogenicFungusBrewsEffects,
+      HallucinogenicFungusBrewsEffect,
       SlipperyGitEffect,
       {
         name: `Magic`,
@@ -400,7 +406,7 @@ const Units = {
       spells: [keyPicker(Spells, ['Fungoid Cloud'])],
     },
     effects: [
-      ...HallucinogenicFungusBrewsEffects,
+      HallucinogenicFungusBrewsEffect,
       SlipperyGitEffect,
       {
         name: `Magic`,

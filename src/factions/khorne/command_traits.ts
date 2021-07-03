@@ -11,6 +11,7 @@ import {
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 const CommandTraits = {
   // Common
   'Arch-slaughterer': {
@@ -129,8 +130,9 @@ const CommandTraits = {
     effects: [
       {
         name: `Mage Eater`,
-        desc: `This general can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD. In addition, if this general attempts to unbind a spell and the unmodified unbinding roll is 8, that spell is successfully unbound and the caster suffers D6 mortal wounds. If this general can already unbind spells, they can attempt to unbind 1 extra spell in the enemy hero phase (only the first unbinding roll in the phase can inflict mortal wounds).`,
+        desc: `This general can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD. In addition, if this general attempts to unbind a spell and the unmodified unbinding roll is 8, that spell is successfully unbound and the caster suffers D6 mortal wounds. If this general can already unbind spells, they can attempt to unbind 1 extra spell in the enemy hero phase (only the first unbinding roll in the phase can inflict mortal wounds). If this general can already unbind spells, they can attempt to unbind 1 extra spell in the enemy hero phase (only the first unbinding roll in the phase can cause mortal wounds).`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
     ],
   },

@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -12,6 +12,7 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Artifacts = {
   'Spiteful Prodder': {
@@ -158,8 +159,12 @@ const Artifacts = {
     effects: [
       {
         name: `Shiny Wotnot`,
-        desc: `Roll a D6 each time a mortal wound caused by a spell is allocated to this model. On a 6+ the mortal wound is allocated to the caster of the spell instead of the bearer. If the mortal wound was inflicted by an endless spell, on a 6+ that mortal wound is negated, and that endless spell is dispelled (any other mortal wounds it could have inflicted are negated).`,
+        desc: `Roll a D6 each time a mortal wound caused by a spell is allocated to this model. On a 6+ the mortal wound is allocated to the caster of the spell instead of the bearer. If the mortal wound was caused by an endless spell, on a 6+, that mortal wound is negated and that endless spell is dispelled (any other mortal wounds it could have caused are negated).`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
+          rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
+        ],
       },
     ],
   },
@@ -188,7 +193,7 @@ const Artifacts = {
         name: `Syari Screamersquig`,
         desc: `At the start of the combat phase, you can pick 1 enemy HERO within 3" of the bearer. If you do so, until your next hero phase, add 1 to hit rolls for attacks made with melee weapons by the bearer that target that HERO.`,
         when: [START_OF_COMBAT_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -199,7 +204,7 @@ const Artifacts = {
         name: `Aetherquartz-studded Hide`,
         desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+, that mortal wound is ignored.`,
         when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -210,7 +215,7 @@ const Artifacts = {
         name: `Shyishan Spider-sigils`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of the bearer. In addition, add 1 to the Bravery characteristic of a friendly GRIMSCUTTLE SPIDERFANG units while they are wholly within 12" of the bearer.`,
         when: [BATTLESHOCK_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

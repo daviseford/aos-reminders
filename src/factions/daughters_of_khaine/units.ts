@@ -17,6 +17,7 @@ import {
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import Prayers from './prayers'
+import rule_sources from './rule_sources'
 import Spells from './spells'
 
 const MorathiEffect = {
@@ -29,8 +30,12 @@ const MorathiEffect = {
 
 const PriestessOfKhaineEffect = {
   name: `Priestess of Khaine`,
-  desc: `Pick a prayer this model knows and roll a D6. On a 1, she suffers 1 mortal wound. On a 3+ the prayer is successful. A Hag Queen knows the Rune of Khaine and Touch of Death prayers.`,
+  desc: `This unit knows the Rune of Khaine and Touch of Death prayers.`,
   when: [HERO_PHASE],
+  rule_sources: [
+    rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+    rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+  ],
 }
 
 const WitchbrewEffects = [
@@ -245,10 +250,32 @@ const Units = {
       command_abilities: [...baseSlaughterQueen.mandatory.command_abilities],
       prayers: [...baseSlaughterQueen.mandatory.prayers, keyPicker(Prayers, ['Dance of Doom'])],
     },
-    effects: [...baseSlaughterQueen.effects],
+    effects: [
+      {
+        name: `Priestess of Khaine`,
+        desc: `This unit knows the Dance of Doom, Rune of Khaine and Touch of Death prayers.`,
+        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
+      },
+    ],
   },
   'Avatar of Khaine': {
     ...baseAvatarOfKhaine,
+    effects: [
+      ...baseAvatarOfKhaine.effects,
+      {
+        name: `Altar of Khaine`,
+        desc: `Add 1 to chanting rolls for friendly Daughters of Khaine Priests while they are wholly within 9" of any friendly models with this ability.`,
+        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
+      },
+    ],
   },
   'Hag Queen on Cauldron of Blood': {
     mandatory: {

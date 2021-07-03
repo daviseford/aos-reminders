@@ -1,12 +1,6 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  BATTLESHOCK_PHASE,
-  COMBAT_PHASE,
-  HERO_PHASE,
-  SAVES_PHASE,
-  SHOOTING_PHASE,
-  START_OF_HERO_PHASE,
-} from 'types/phases'
+import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Prayers = {
   // Blood Blessings
@@ -14,13 +8,15 @@ const Prayers = {
     effects: [
       {
         name: `Bronzed Flesh`,
-        desc: `If this prayer is answered, pick 1 friendly KHORNE unit wholly within 16" of the model chanting this prayer and visible to them. Add 1 to save rolls for that unit until the start of your next hero phase.`,
-        when: [START_OF_HERO_PHASE],
+        desc: `Bronzed Flesh has an answer value of 4 and a range of 16". If answered, pick 1 friendly KHORNE unit wholly within range of the chanter that is visible to them. Add 1 to save rolls for attacks that target that unit until the start of your next hero phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
       {
         name: `Bronzed Flesh`,
-        desc: `If active, add 1 to the save rolls of the blessed unit.`,
+        desc: `If active, add 1 to save rolls for attacks that target that unit until the start of your next hero phase.`,
         when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
     ],
   },
@@ -28,8 +24,9 @@ const Prayers = {
     effects: [
       {
         name: `Blood Sacrifice`,
-        desc: `If this prayer is answered, pick a friendly KHORNE unit wholly within 8" of the model chanting this prayer. That unit suffers D3 mortal wounds and you receive 1 Blood Tithe point.`,
-        when: [START_OF_HERO_PHASE],
+        desc: `Blood Sacrifice has an answer value of 4 and a range of 8". If answered, pick 1 friendly KHORNE unit wholly within range of the chanter that is visible to them. That unit suffers D3 mortal wounds and you receive 1 Blood Tithe point.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
     ],
   },
@@ -37,8 +34,9 @@ const Prayers = {
     effects: [
       {
         name: `Resanguination`,
-        desc: `If this prayer is answered, pick a friendly KHORNE HERO wholly within 16" of the model chanting this prayer and visible to them. You can heal up to D3 wounds allocated to that unit.`,
-        when: [START_OF_HERO_PHASE],
+        desc: `Resanguination has an answer value of 4 and a range of 16". If answered, pick 1 friendly KHORNE unit wholly within range of the chanter that is visible to them. You can heal up to D3 wounds allocated to that unit.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
     ],
   },
@@ -46,13 +44,15 @@ const Prayers = {
     effects: [
       {
         name: `Brazen Fury`,
-        desc: `If this prayer is answered, pick a friendly KHORNE unit wholly within 16" of the model chanting this prayer and visible to them. Do not take battleshock tests for that unit until your next hero phase.`,
-        when: [START_OF_HERO_PHASE],
+        desc: `Brazen Fury has an answer value of 4 and a range of 16". If answered, pick 1 friendly KHORNE unit wholly within range of the chanter that is visible to them. Do not take battleshock tests for that unit until the start of your next hero phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
       {
         name: `Brazen Fury`,
-        desc: `If active, do not take battleshock tests for on the blessed unit.`,
+        desc: `If active, do not take battleshock tests for that unit until the start of your next hero phase.`,
         when: [BATTLESHOCK_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
     ],
   },
@@ -60,13 +60,15 @@ const Prayers = {
     effects: [
       {
         name: `Killing Frenzy`,
-        desc: `If this prayer is answered, pick a friendly KHORNE unit wholly within 16" of the model chanting this prayer. Add 1 to hit rolls for attacks made by that unit until your next hero phase.`,
-        when: [START_OF_HERO_PHASE],
+        desc: `Killing Frenzy has an answer value of 4 and a range of 16". If answered, pick 1 friendly KHORNE unit wholly within range of the chanter that is visible to them. Add 1 to hit rolls for attacks made by that unit until the start of your next hero phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
       {
         name: `Killing Frenzy`,
-        desc: `If active, add 1 to the hit rolls for attacks made by that unit until your next hero phase.`,
+        desc: `If active, add 1 to hit rolls for attacks made by that unit until the start of your next hero phase.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
     ],
   },
@@ -74,8 +76,9 @@ const Prayers = {
     effects: [
       {
         name: `Spellbane Hex`,
-        desc: `If this prayer is answered, you can dispel 1 endless spell within 16" of the model chanting this prayer.`,
-        when: [START_OF_HERO_PHASE],
+        desc: `Spellbane Hex has an answer value of 4 and a range of 16". If answered, you can pick 1 endless spell within range of the chanter. That endless spell is dispelled.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
     ],
   },
@@ -83,8 +86,9 @@ const Prayers = {
     effects: [
       {
         name: `Blood Boil`,
-        desc: `If this prayer is answered, pick 1 enemy unit within 16" of this model. The target suffers D6 mortal wounds.`,
+        desc: `Blood Boil is a prayer that has an answer value of 4 and a range of 16". If answered, pick 1 enemy unit within range of the chanter that is visible to them. That unit suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
     ],
   },
@@ -92,8 +96,9 @@ const Prayers = {
     effects: [
       {
         name: `Blood Bind`,
-        desc: `If this prayer is answered, pick 1 enemy unit within 16" of this model and not within 3" of any friendly units. Your opponent must move the target unit a number of inches equal to the prayer roll. The first model to be moved must finish its move as close as possible to the closest unit from the chanting model's army. Any remaining models in the unit must maintain cohesion.`,
+        desc: `Blood Bind is a prayer that has an answer value of 4 and a range of 16". If answered, pick 1 enemy unit within range of the chanter that is visible to them and more than 3" from all friendly units. Your opponent must move that unit a number of inches equal to the chanting roll. The first model to be moved from that unit must finish the move as close as possible to the closest unit in your army (it can finish the move within 3" of units in your army). Any remaining models in that unit must finish their move in unit coherency and as close as possible to the closest unit from your army.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
     ],
   },

@@ -11,6 +11,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Artifacts = {
   'Magnetised Runes': {
@@ -137,8 +138,9 @@ const Artifacts = {
     effects: [
       {
         name: `Emberstone Rune`,
-        desc: `Add 1 to invocation rolls made by the bearer.`,
+        desc: `Add 1 to chanting rolls for prayers chanted by the bearer that summon an invocation.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
     ],
   },

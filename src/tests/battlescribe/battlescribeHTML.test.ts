@@ -1144,6 +1144,8 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
+    expect(res.selections.prayers).toContain('Rune of Unfaltering Aim')
+    expect(res.selections.prayers).toContain('Rune Lore: Forgefire')
     expect(res.selections.flavors).toEqual([
       'Greywater Fastness',
       'Anvilgard',
@@ -1156,10 +1158,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([
       {
         severity: 'warn',
-        text: 'Forgefire',
-      },
-      {
-        severity: 'warn',
         text: '"I thought duardin were made of sterner stuff!"',
       },
       {
@@ -1169,10 +1167,6 @@ describe('getBattlescribeArmy', () => {
       {
         severity: 'warn',
         text: "'Too much damned magic flying about these days!'",
-      },
-      {
-        severity: 'warn',
-        text: 'Rune of Unfaltering Aim',
       },
     ])
   })
@@ -1506,6 +1500,11 @@ describe('getBattlescribeArmy', () => {
         severity: 'deprecation-warn',
         text: 'Rageblade',
       },
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Molten Infusion',
+      },
     ])
   })
 
@@ -1519,6 +1518,11 @@ describe('getBattlescribeArmy', () => {
         reason: DEPRECATED_MALIGN_SORCERY,
         severity: 'deprecation-warn',
         text: 'Rageblade',
+      },
+      {
+        reason: DEPRECATED_AOS_3,
+        severity: 'deprecation-warn',
+        text: 'Molten Infusion',
       },
     ])
   })

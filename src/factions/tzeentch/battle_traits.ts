@@ -32,14 +32,17 @@ const BattleTraits = {
 
         Each Destiny Dice spent only allows you to replace a single dice roll. If you want to replace a 2D6 roll (such as a casting roll or charge roll), you must spend 2 Destiny Dice. In addition, any rolls that have been replaced count as unmodified rolls and cannot be rerolled. They also cannot be modified, with the following two exceptions:
 
-        If you spend a Destiny Dice to replace a save roll, the result of that Destiny Dice is modified by the Rend characteristic of the attack as normal.
+        - If you spend a Destiny Dice to replace a save roll, the result of that Destiny Dice is modified by the Rend characteristic of the attack as normal.
 
-        If you spend a Destiny Dice to replace a battleshock test, the result of that Destiny Dice is modified by the number of models slain from that unit as normal.
+        - If you spend a Destiny Dice to replace a battleshock test, the result of that Destiny Dice is modified by the number of models slain from that unit as normal.
 
-        Destiny Dice can be spent in place of the following rolls:
-        Casting, Unbinding, Dispelling, Run, Charge, Hit, Wound, Save, Damage characteristic of missiles/melee weapons, Battleshock`,
+        Designer's Note: This means that for the purposes of Pink Horror Icon Bearers, a Destiny Dice of 1 used to replace a battleshock roll counts as an unmodified roll of 1. `,
         when: [DURING_GAME],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2020],
+        rule_sources: [
+          rule_sources.BATTLETOME_TZEENTCH,
+          rule_sources.ERRATA_TZEENTCH_JULY_2020,
+          rule_sources.ERRATA_TZEENTCH_JULY_2021,
+        ],
       },
       {
         name: `Summon Daemons of Tzeentch`,
@@ -176,8 +179,9 @@ const BattleTraits = {
     effects: [
       {
         name: `The Change-gift`,
-        desc: `Roll a D6 each time a friendly Kairic Acolyte model is slain in the combat phase. On a 2-5, before removing that model from play, that model can fight. On a 6, before removing that model from play, you can add 1 Tzaangor model to an existing Tzaangor unit in your army. If you do so, set up that Tzaangor model within 1" of a friendly Tzaangor unit that is within 9" of the slain model. The modle can only be set up within 3" of an enemy unit if the friendly Tzaangor unit was within 3" of that enemy unit before any models were added.`,
+        desc: `Roll a dice each time a friendly CULT OF THE TRANSIENT FORM KAIRIC ACOLYTE model is slain in the combat phase. On a 2-5, before removing that model from play, that model can fight. On a 6, before removing that model from play, you can add 1 model to a friendly TZAANGORS unit within 9" of the slain model. The new model can only be set up within 3" of an enemy unit if the unit to which it is added is within 3" of that enemy unit.'`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
       },
     ],
   },

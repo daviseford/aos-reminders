@@ -60,9 +60,13 @@ const RegularBattalions = {
     effects: [
       {
         name: `Deceive and Dismay`,
-        desc: `At the start of your hero phase, if the LORD OF CHANGE from this battalion is your general and is on the battlefield, you can pick 1 other friendly unit from this battalion and remove it from the battlefield. If you do so, set up that unit again anywhere on the battlefield more than 9" from any enemy units. The unit you set up in this manner cannot move in the following movement phase.`,
+        desc: `At the start of your hero phase, if the LORD OF CHANGE in this battalion is your general and is on the battlefield, you can pick 1 other friendly unit in this battalion and remove it from the battlefield. If you do so, set up that unit again anywhere on the battlefield more than 9" from all enemy units. That unit cannot move in the following movement phase.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2020],
+        rule_sources: [
+          rule_sources.BATTLETOME_TZEENTCH,
+          rule_sources.ERRATA_TZEENTCH_JULY_2020,
+          rule_sources.ERRATA_TZEENTCH_JULY_2021,
+        ],
       },
     ],
   },

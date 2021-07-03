@@ -39,13 +39,14 @@ const CommandAbilities = {
       },
     ],
   },
-  // Hosts  Duplicitous Flavor
+  // Hosts Duplicitous Flavor
   'Impossible to Anticipate': {
     effects: [
       {
         name: `Impossible to Anticipate`,
-        desc: `You can use this command ability once per battle, immediately after a friendly Hosts Duplicitous Horrors of Tzeentch unit is destroyed. If you do so, roll a D6. On a 5+, a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 12" of a friendly Hosts Duplicitious Hero and more than 9" from any enemy units.`,
+        desc: `You can use this command ability once per battle after a friendly HOSTS DUPLICITOUS HORRORS OF TZEENTCH unit is destroyed. If you do so, roll a dice. On a 5+, add a new HOSTS DUPLICITOUS HORRORS OF TZEENTCH unit with 10 models to your army. Set up the new unit wholly within 12" of a friendly HOSTS DUPLICITOUS Hero and more than 9" from all enemy units.`,
         when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
       },
     ],
   },

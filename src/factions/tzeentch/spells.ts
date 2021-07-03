@@ -8,6 +8,7 @@ import {
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 const Spells = {
   // Common
   'Bolt of Tzeentch': {
@@ -294,8 +295,9 @@ const Spells = {
     effects: [
       {
         name: `The Parchment Curse`,
-        desc: `Casting value of 8. Only the caster of the Tome of Eyes can attempt to cast this spell. Pick 1 enemy unit within 18" of the caster that is visible to them and roll a D6. On a 3+, that unit suffers D3 mortal wounds. In addition, for each model that is slain by mortal wounds inflicted by this spell, subtract 1 from the Bravery characteristic of that unit for the rest of the battle.`,
+        desc: `The Parchment Curse is a spell that is known by the model that summoned this endless spell while this endless spell is on the battlefield. It has a casting value of 8 and a range of 18". If successfully cast, pick 1 enemy unit within range and visible to the caster, and roll a dice. On a 3+, that unit suffers D3 mortal wounds. In addition, for each model slain by those mortal wounds, subtract 1 from the Bravery characteristic of that model's unit (to a minimum of 1) for the rest of the battle.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
       },
     ],
   },

@@ -11,6 +11,7 @@ import {
   START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
   // Daughters of Khaine Allegiance
@@ -48,13 +49,21 @@ const BattleTraits = {
       },
       {
         name: `Blood Rites - Level 5: Unquenchable Fervour`,
-        desc: `You can reroll save rolls of 1.`,
+        desc: `Worsen the Rend characteristic of weapons that target this unit by 1, to a minimum of '-'.`,
         when: [SAVES_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
       },
       {
         name: `Blood Rites - Level 5: Unquenchable Fervour`,
-        desc: `Do not take battleshock tests.`,
+        desc: `Do not take battleshock tests for this unit.`,
         when: [BATTLESHOCK_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+        ],
       },
     ],
   },

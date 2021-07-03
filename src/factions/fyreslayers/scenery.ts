@@ -1,25 +1,33 @@
 import { tagAs } from 'factions/metatagger'
-import { END_OF_SETUP, START_OF_HERO_PHASE } from 'types/phases'
+import { DURING_GAME, START_OF_HERO_PHASE, START_OF_SETUP } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Scenery = {
   'Magmic Battleforge': {
     effects: [
       {
-        name: `Magmic Battleforge`,
-        desc: `After armies are set up, but before combat begins, you can set up the Magmic Battleforge within 6" of a friendly FYRESLAYERS PRIEST wholly within your territory and more than 3" from any other terrain features and 1" from any objectives.`,
-        when: [END_OF_SETUP],
+        name: `Set Up`,
+        desc: `After territories are determined, you can set up this faction terrain feature wholly within your territory and more than 3" from all objectives and other terrain features. If both players can set up faction terrain features at the same time, they must roll off and the winner chooses who sets up their faction terrain features first.`,
+        when: [START_OF_SETUP],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
+      },
+      {
+        name: `Impassable`,
+        desc: `You cannot move a model over this terrain feature unless it can fly, and you cannot move a model onto this terrain feature or set up a model on this terrain feature (even if it can fly).`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
       {
         name: `Molten Blessing`,
-        desc: `1 friendly FYRESLAYERS priest within 6" of the Magmic Battleforge can control the magmic energies. If they do so, until the end of that phase, add 1 to prayer rolls for friendly FYRESLAYERS priests while they are within 18" of that forge.`,
+        desc: `At the start of your hero phase, you can pick 1 friendly FYRESLAYERS PRIEST within 6" of this terrain feature to control its magmic energies. If you do so, until the end of that phase, add 1 to chanting rolls for friendly FYRESLAYERS PRIESTS within 18" of this terrain feature. You cannot use this terrain feature's Molten Blessing ability and its Spending the Forge ability in the same phase.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
       {
         name: `Spending the Forge`,
-        desc: `Once per battle, at the start of your hero phase, 1 friendly FYRESLAYERS Priest within 6" of the Magmic Battleforge can spend all of the forge's energy. If they do so, until the start of your next hero phase, you can reroll save rolls of 1 for friendly FYRESLAYERS units on the battlefield. Once spent, you can no longer use any features from the forge.
-
-        You cannot use the Molten Blessing ability and the Spending the Forge ability for the same Magmic Battleforge in the same phase.`,
+        desc: `Once per battle, at the start of your hero phase, instead of using this terrain feature's Molten Blessing ability, you can pick 1 friendly FYRESLAYERS PRIEST within 6" of this terrain feature to spend all of its energy. If you do so, until the start of your next hero phase, friendly FYRESLAYERS units on the battlefield have a ward of 6+. However, for the rest of the battle, FYRESLAYERS PRIESTS can no longer use this terrain feature's Molten Blessing ability.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
     ],
   },

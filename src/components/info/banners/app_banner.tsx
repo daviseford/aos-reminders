@@ -15,10 +15,7 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>
-          Looking for Monstrous Rampages, Heroic Actions, and more AoS 3.0 rules? Check the "Core Rules"
-          dropdown!
-        </strong>
+        <strong>We are up to date with all of the AoS 3.0 July FAQs!</strong>
       </span>
     </NotificationBanner>
   )

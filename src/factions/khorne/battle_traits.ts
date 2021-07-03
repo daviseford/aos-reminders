@@ -13,6 +13,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
   'Boundless Might': {
@@ -68,19 +69,15 @@ const BattleTraits = {
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Blood Blessings of Khorne`,
-        desc: `KHORNE PRIESTS can attempt to bestow their blood blessing at the start of each of your hero phases. If they do roll a D6. On a 1 they suffer 1 mortal wounds and the prayer is not answered. On a 4+ the prayer is successful and you may carry out the effect.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
         name: `Locus of Fury`,
         desc: `You can reroll hit rolls of 1 for attacks made by friendly KHORNE DAEMON units while they are wholly within 12" of any friendly KHORNE DAEMON HEROES, or wholly within 16" of any friendly KHORNE GREATER DAEMONS.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Judgements of Khorne`,
-        desc: `At the end of each battle round, roll a D6 for each judgement of Khorne on the battlefield that you set up. Add 1 to the roll if there are any KHORNE PRIESTS from your army wholly within 8" of that judgement of Khorne. On a 1-4, that judgement of Khorne is removed from the battlefield.`,
+        desc: `At the end of each battle round, roll a D6 for each judgement of Khorne on the battlefield that you set up. Add 1 to the roll if there are any KHORNE PRIESTS from your army wholly within 8" of that judgement of Khorne. On a 1-4, that judgement of Khorne is removed from the battlefield. Judgements of Khorne are invocations (core rules, 20.3).`,
         when: [END_OF_ROUND],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
       },
       {
         name: `Summon Daemons of Khorne`,

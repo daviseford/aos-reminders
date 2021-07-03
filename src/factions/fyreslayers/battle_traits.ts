@@ -12,6 +12,7 @@ import {
   START_OF_HERO_PHASE,
   TURN_ONE_MOVEMENT_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
   // Fyreslayers allegiance
@@ -72,6 +73,12 @@ const BattleTraits = {
         desc: `At the end of every round roll a D6 for each Invocation on the table. The Invocation is removed unless the roll is a 4+. Add 1 to this roll if there is a Fyreslayers priest within 6" of the Invocation at the time of the roll.`,
         when: [END_OF_ROUND],
       },
+      {
+        name: `Magmic Invocations`,
+        desc: `Magmic Invocations are invocations (core rules, 20.3).`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
+      },
     ],
   },
   // Vostarg
@@ -114,8 +121,9 @@ const BattleTraits = {
     effects: [
       {
         name: `Venerators of Vulcatrix`,
-        desc: `Each MAGMADROTH in a LOFNIR army, instead of only 1, can be given a Magmadroth trait. In addition you can include 1 additional Behemoth as long as every Behemoth in your army is a MAGMADROTH.`,
+        desc: `Each MAGMADROTH in a LOFNIR army, instead of only 1, can be given a Magmadroth trait. In addition, if you are using the Contest of Generals battlepack or a Pitched Battles battlepack, you can include 1 additional BEHEMOTH in your army, as long as every BEHEMOTH in your army is a MAGMADROTH.`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
     ],
   },
