@@ -11,6 +11,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Artifacts = {
   // Fated Artefacts - Mortals Only
@@ -63,8 +64,9 @@ const Artifacts = {
     effects: [
       {
         name: `Paradoxical Shield`,
-        desc: `Add 2 to the save rolls for attacks that target the bearer. However, you must reroll any successful save rolls made for the bearer.`,
+        desc: `Ignore modifiers (positive and negative) when making save rolls for attacks that target the bearer. However, you must reroll successful save rolls for attacks that target the bearer.`,
         when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
       },
     ],
   },

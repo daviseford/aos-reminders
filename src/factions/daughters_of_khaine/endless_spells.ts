@@ -13,7 +13,7 @@ const EndlessSpells = {
       },
       {
         name: `Summoning`,
-        desc: `This endless spell is summoned with a spell that has a casting value of 6 and a range of 9". If successfully cast, set up 1 Bladewind wholly within range of the caster. Only DAUGHTERS OF KHAINE WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 6 and a range of 9". If successfully cast, set up 1 Bladewind wholly within range of the caster. Only DAUGHTERS OF KHAINE WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
@@ -22,7 +22,7 @@ const EndlessSpells = {
       },
       {
         name: `Unnatural Edge`,
-        desc: `After this endless spell has moved, roll a dice for each unit that has any models it passed across, and each other unit that is within 1" of it at the end of its move. On a 2+, that unit suffers 1 mortal wound. `,
+        desc: `After this endless spell has moved, roll a dice for each unit that has any models it passed across, and each other unit that is within 1" of it at the end of its move. On a 2+, that unit suffers 1 mortal wound.`,
         when: [END_OF_HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
@@ -49,7 +49,7 @@ const EndlessSpells = {
       },
       {
         name: `Summoning`,
-        desc: `This endless spell is summoned with a spell that has a casting value of 7 and a range of 9". If successfully cast, set up 1 Bloodwrack Viper wholly within range of the caster. Only DAUGHTERS OF KHAINE WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 7 and a range of 9". If successfully cast, set up 1 Bloodwrack Viper wholly within range of the caster. Only DAUGHTERS OF KHAINE WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
@@ -58,7 +58,7 @@ const EndlessSpells = {
       },
       {
         name: `Fanged Strike`,
-        desc: `After this endless spell has moved, the commanding player must pick 1 unit within 1" of it and roll 3 dice. For each roll that is equal to or greater than that unit’s Wounds characteristic, 1 model from that unit is slain.`,
+        desc: `After this endless spell has moved, the commanding player must pick 1 unit within 1" of it and roll 3 dice. For each roll that is equal to or greater than that unit's Wounds characteristic, 1 model from that unit is slain.`,
         when: [END_OF_HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,

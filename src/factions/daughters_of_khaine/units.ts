@@ -268,7 +268,7 @@ const Units = {
       ...baseAvatarOfKhaine.effects,
       {
         name: `Altar of Khaine`,
-        desc: `Add 1 to chanting rolls for friendly Daughters of Khaine Priests while they are wholly within 9" of any friendly models with this ability`,
+        desc: `Add 1 to chanting rolls for friendly Daughters of Khaine Priests while they are wholly within 9" of any friendly models with this ability.`,
         when: [HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
