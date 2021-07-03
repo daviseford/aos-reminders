@@ -12,6 +12,7 @@ import {
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import Flavors from './flavors'
+import rule_sources from './rule_sources'
 import Units from './units'
 
 const RegularBattalions = {
@@ -80,8 +81,12 @@ const RegularBattalions = {
     effects: [
       {
         name: `Strength of the Ethersea`,
-        desc: `SYLVANETH units from this battalion have the Tides of Death battle trait, and gain abilities from the Tides of Death table in the same manner as IDONETH DEEPKIN units.`,
+        desc: `SYLVANETH units from this battalion are allies. They have the Tides of Death battle trait and gain abilities from the Tides of Death table in the same manner as IDONETH DEEPKIN units.`,
         when: [DURING_GAME],
+        rule_sources: [
+          rule_sources.BATTLETOME_IDONETH_DEEPKIN,
+          rule_sources.ERRATA_IDONETH_DEEPKIN_JULY_2021,
+        ],
       },
     ],
   },
