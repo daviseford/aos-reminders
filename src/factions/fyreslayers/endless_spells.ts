@@ -1,75 +1,67 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
-  DURING_GAME,
-  HERO_PHASE,
-  MOVEMENT_PHASE,
-  SAVES_PHASE,
-  START_OF_HERO_PHASE,
-  START_OF_SHOOTING_PHASE,
-} from 'types/phases'
+import { DURING_GAME, HERO_PHASE, START_OF_HERO_PHASE, START_OF_SHOOTING_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const EndlessSpells = {
   'Molten Infernoth': {
     effects: [
       {
-        name: `Summon Molten Infernoth`,
-        desc: `At the start of your hero phase, 1 friendly FYRESLAYERS PRIEST can attempt to perform this magmic invocation. If they do so, make an invocation roll by rolling a dice. On a 3+ the invocation roll is successful. If the invocation roll is successful, set up this model wholly within 12" of that FYRESLAYERS Priest.`,
-        when: [START_OF_HERO_PHASE],
+        name: `Summoning`,
+        desc: `This invocation is summoned with a prayer that has an answer value of 4 and a range of 12". If answered, set up the invocation wholly within range and visible to the chanter, and more than 1" from all models, terrain features, other invocations and endless spells.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
       {
         name: `Burning Tide`,
-        desc: `When this magmic invocation is set up, the player who set it up can immediately make a move with it. In addition, at the start of each of their subsequent hero phases, the player who set this magmic invocation up can make a move with it if it is still on the battlefield. When you move this magmic invocation, it can move up to 2D6".`,
-        when: [START_OF_HERO_PHASE],
+        desc: `After this invocation is set up and at the start of each of their hero phases, the commanding player can move this invocation as if it were a model with a Move characteristic of 2D6". `,
+        when: [HERO_PHASE, START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
       {
         name: `Erupting Inferno`,
-        desc: `After this model has moved, roll 12 dice for each unit that is within 3" of it at the end of its move. For each 6, that unit suffers 1 mortal wound. FYRESLAYERS units are not affected by this ability.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Fiery Wrath of Vulcatrix`,
-        desc: `Add 1 to the Bravery characteristic of FYRESLAYERS units while they are wholly within 18" of this model.`,
-        when: [BATTLESHOCK_PHASE],
+        desc: `After this invocation has moved, the commanding player rolls 12 dice for each unit within 3" of it. For each 6, that unit suffers 1 mortal wound. If the roll to determine how far this invocation could move in this phase was a double, that unit suffers D3 mortal wounds for each 6 instead of 1 and this invocation is removed from play at the end of the phase. FYRESLAYERS units are not affected by this ability`,
+        when: [HERO_PHASE, START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
     ],
   },
   'Runic Fyrewall': {
     effects: [
       {
-        name: `Summon Runic Fyrewall`,
-        desc: `At the start of your hero phase, 1 friendly FYRESLAYERS Priest can attempt to perform this magmic invocation. If they do so, make an invocation roll by rolling a dice. On a 3+ the invocation roll is successful. If the invocation roll is successful, set up this model wholly within 18" of that FYRESLAYERS Priest.`,
-        when: [START_OF_HERO_PHASE],
+        name: `Summoning`,
+        desc: `This invocation is summoned with a prayer that has an answer value of 3 and a range of 18". If answered, set up the invocation wholly within range and visible to the chanter, and more than 1" from all models, terrain features, other invocations and endless spells.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
       {
         name: `Roaring Rune-fire`,
-        desc: `A model cannot see another model if an imaginary straight line, 1mm wide, drawn from the centre of its base to the centre of the other model's base passes within 1" of this model.`,
+        desc: `Models cannot move across or through this invocation unless they have the MAGMADROTH keyword or can fly`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
       {
         name: `Awakened Runes`,
-        desc: `Reroll save rolls of 1 for attacks that target FYRESLAYERS units wholly within 12" of this model.`,
-        when: [SAVES_PHASE],
-      },
-      {
-        name: `Impervious to Heat`,
-        desc: `Magmadroths can pass across this model in the same manner as a model that can fly.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        desc: `At the start of each phase, the commanding player can pick 1 FYRESLAYERS unit wholly within 12" of this invocation to draw upon its power. If they do so, the commanding player rolls a dice. On a 1-5, that unit has a ward of 6+ until the end of the phase. On a 6, that unit has a ward of 4+ until the end of the phase and this invocation is removed from play at the end of the phase.`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
     ],
   },
   'Zharrgron Flame-spitter': {
     effects: [
       {
-        name: `Summon Zharrgron Flame-spitter`,
-        desc: `At the start of your hero phase, 1 friendly FYRESLAYERS PRIEST can attempt to perform this magmic invocation. If they do so, make an invocation roll by rolling a dice. On a 3+ the invocation roll is successful. If the invocation roll is successful, set up this model wholly within 6" of that FYRESLAYERS PRIEST.`,
-        when: [START_OF_HERO_PHASE],
+        name: `Summoning`,
+        desc: `This invocation is summoned with a prayer that has an answer value of 3 and a range of 6". If answered, set up the invocation wholly within range and visible to the chanter, and more than 1" from all models, terrain features, other invocations and endless spells.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
       {
         name: `Magma Blast`,
-        desc: `At the start of your shooting phase, if there is a friendly FYRESLAYERS PRIEST within 6" of this model, you can pick an enemy unit within 24" of this model and roll 12 dice. Add 1 to the roll if there are 10 or more models in the unit. Add 2 to the roll instead if there are 20 or more models in the unit. For each 6+, the unit suffers 1 mortal wound.`,
+        desc: `At the start of the commanding player’s shooting phase, if there are any friendly FYRESLAYERS Priests within 6" of this invocation, the commanding player can pick 1 enemy unit within 24" of this invocation and roll 12 dice. Add 1 to the roll if that unit has 10 or more models. Add 2 to the roll instead if that unit has 20 or more models. For each 6+, that unit suffers 1 mortal wound.
+
+        If the commanding player rolls 4 or more unmodified 6s, after the mortal wounds have been allocated to that unit, this invocation is removed from play.`,
         when: [START_OF_SHOOTING_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
     ],
   },

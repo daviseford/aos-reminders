@@ -11,6 +11,7 @@ import {
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandTraits = {
   'Fury of the Fyreslayers': {
@@ -44,8 +45,9 @@ const CommandTraits = {
     effects: [
       {
         name: `Blood of the Berzerker`,
-        desc: `Once per battle in the combat phase, after this general has fought in that phase for the first time, if they are within 3" of an enemy unit, they and their mount (if they have one) can immediately make a pile-in move and then attack with all of the melee weapons they are armed with for a second time.`,
+        desc: `Once per battle in the combat phase, after this general has fought in that phase for the first time, if they are within 3" of an enemy unit, they and their mount (if they have one) can immediately fight for a second time`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
     ],
   },
