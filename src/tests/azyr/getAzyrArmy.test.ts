@@ -2182,7 +2182,7 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SKAVENTIDE)
     expect(res.selections.flavors).toContain('Warpstone Sparks (Skryre)')
-    expect(res.selections.endless_spells).toEqual(['Bell of Doom (Skaven)'])
+    expect(res.selections.endless_spells).toEqual(['Bell of Doom'])
     expect(res.selections.units).toEqual([
       'Arch-Warlock',
       'Warlock Bombardier',
