@@ -14,15 +14,6 @@ const EndlessSpells = {
   'Ravening Direflock': {
     effects: [
       {
-        name: `Parts`,
-        desc: `This endless spell has 3 parts.`,
-        when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
-          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
-        ],
-      },
-      {
         name: `Summoning`,
         desc: `Casting value of 5 and a range of 12". If successfully cast, set up the parts of the endless spell within 3" of each other, wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only BEASTS OF CHAOS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],

@@ -8,12 +8,17 @@ export type TRuleSource = {
 }
 
 // Use this as the centralized rule_sources
-// For things like Arcane Bolt, general rules, etc.
+// Core books, non-faction books, General's Handbooks, etc
 const meta_rule_sources = {
   ERRATA_BROKEN_REALMS_TECLIS_MAY_2021: {
     name: 'Broken Realms: Teclis Errata (May 2021)',
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2021/05/a5tBnjkUz0X5zrFr.pdf',
+  },
+  ERRATA_BROKEN_REALMS_TECLIS_JULY_2021: {
+    name: 'Broken Realms: Teclis Errata (July 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2021/05/5TXh9dhnksx7PhbX.pdf',
   },
   ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021: {
     name: 'Broken Realms: Morathi Errata (January 2021)',

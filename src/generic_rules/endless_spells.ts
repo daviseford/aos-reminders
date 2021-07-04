@@ -73,12 +73,7 @@ export const EmeraldLifeswarmEffects = [
   },
 ]
 export const SoulsnareShacklesEffects = [
-  {
-    name: `Parts`,
-    desc: `This endless spell has 3 parts.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+
   {
     name: `Summoning`,
     desc: `Casting value of 7 and a range of 12". Set up the parts of the endless spell wholly 3" of each other and wholly within range of the caster.`,
@@ -314,12 +309,6 @@ export const UmbralSpellportalEffects = [
     rule_sources: [meta_rule_sources.GHB_2021],
   },
   {
-    name: `Parts`,
-    desc: `This endless spell has 2 parts.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
-  {
     name: `Arcane Passage`,
     desc: `Once per turn, if a WIZARD successfully casts a spell within 1" of this endless spell, the range, visibility and effect of that spell can be measured from this endless spell instead of the caster.`,
     when: [HERO_PHASE],
@@ -356,12 +345,6 @@ export const SoulscreamBridgeEffects = [
   {
     name: `Summoning`,
     desc: `Casting value of 6 and a range of 18". Set up the parts of the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
-  {
-    name: `Parts`,
-    desc: `This endless spell has 2 parts.`,
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
@@ -404,12 +387,6 @@ export const ShardsOfValagharrEffects = [
   {
     name: `Summoning`,
     desc: `Casting value of 5 and a range of 18". Set up the parts of the endless spell wholly within 12" of each other and wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
-  {
-    name: `Parts`,
-    desc: `This endless spell has 2 parts.`,
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },

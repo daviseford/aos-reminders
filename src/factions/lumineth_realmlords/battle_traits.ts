@@ -104,11 +104,6 @@ const BattleTraits = {
         rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
       },
       {
-        name: `Move Like the Wind`,
-        desc: `When you make a pile in move with a HURAKAN model, if the unit made a charge move this turn, it can fly and move an additional 3".`,
-        when: [COMBAT_PHASE],
-      },
-      {
         name: `Tectonic Force`,
         desc: `Pick one enemy unit within 1" of each ALARITH unit. You cannot pick the same enemy unit more than once in the same phase. After you pick each unit, your opponent must move that unit 2" and that unit must finish more than 1" from any ALARITH units from your army if it is possible for it to do so. Once those enemy units have moved, any friendly ALARITH units within 3" of any unit can make a 1" pile-in move.`,
         when: [END_OF_COMBAT_PHASE],
