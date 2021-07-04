@@ -1,5 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import GenericBattleTraits from 'generic_rules/battle_traits'
+import { GenericEffects } from 'generic_rules'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -440,7 +440,7 @@ const Units = {
   },
   'Screaming Skull Catapult': {
     effects: [
-      ...GenericBattleTraits.CrewedWarMachine('Crewed War Machine'),
+      ...GenericEffects.CrewedWarMachine('Crewed War Machine'),
       {
         name: `Arcing Skulls`,
         desc: `This war machine can shoot at targets that are not visible to it.`,

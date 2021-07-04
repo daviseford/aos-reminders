@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
-import { DURING_GAME, START_OF_HERO_PHASE, START_OF_SETUP } from 'types/phases'
+import { GenericEffects } from 'generic_rules'
+import { START_OF_HERO_PHASE, START_OF_SETUP } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const Scenery = {
@@ -11,12 +12,7 @@ const Scenery = {
         when: [START_OF_SETUP],
         rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
       },
-      {
-        name: `Impassable`,
-        desc: `You cannot move a model over this terrain feature unless it can fly, and you cannot move a model onto this terrain feature or set up a model on this terrain feature (even if it can fly).`,
-        when: [DURING_GAME],
-        rule_sources: [rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
-      },
+      GenericEffects.Impassable,
       {
         name: `Molten Blessing`,
         desc: `At the start of your hero phase, you can pick 1 friendly FYRESLAYERS PRIEST within 6" of this terrain feature to control its magmic energies. If you do so, until the end of that phase, add 1 to chanting rolls for friendly FYRESLAYERS PRIESTS within 18" of this terrain feature. You cannot use this terrain feature's Molten Blessing ability and its Spending the Forge ability in the same phase.`,

@@ -11,6 +11,7 @@ import {
   START_OF_COMBAT_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandAbilities = {
   "Grandfather's Joy": {
@@ -72,22 +73,15 @@ const CommandAbilities = {
     effects: [
       {
         name: `Plague of Flies`,
-        desc: `Pick a friendly Nurgle unit within 21" of this model. Until your next hero phase, subtract 1 from the hit rolls of attacks that target that unit in the shooting phase. If the unit contains 20 or more models, subtract 2 from the hit rolls of attacks that target the unit in the shooting phase and 1 from the hit rolls of attacks that target the unit in the combat phase.`,
+        desc: `Pick a friendly Nurgle unit within 21" of this model. Until your next hero phase, subtract 1 from the hit rolls of attacks that target that unit in the shooting phase.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_NURGLE_JULY_2021],
       },
       {
         name: `Plague of Flies`,
-        desc: `If this ability had been activated, subtract 1 from the hit rolls of attacks targeting the buffed unit.
-
-               If the unit contains 20 or more models, subtract 2 from the hit rolls of attacks targeting the buffed unit.
-
-               The same unit cannot benefit from this ability more than once in the same phase.`,
+        desc: `If this ability had been activated, subtract 1 from the hit rolls of attacks targeting the buffed unit.`,
         when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Plague of Flies`,
-        desc: `If this ability had been activated and buffed unit contains 20 or more models, subtract 1 from the hit rolls of attacks on the buffed unit. The same unit cannot benefit from this ability more than once in the same phase.`,
-        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_NURGLE_JULY_2021],
       },
     ],
   },

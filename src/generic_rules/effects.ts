@@ -2,6 +2,7 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_MOVEMENT_PHASE,
@@ -10,7 +11,7 @@ import {
 } from 'types/phases'
 
 // This file is useful when storing abilities for units that we'd like to re-use
-const GenericBattleTraits = {
+const GenericEffects = {
   // e.g. all mercenaries share the "Disruptive Presence" effect, so we'll store it here.
   DisruptivePresence: {
     name: `Disruptive Presence`,
@@ -92,6 +93,16 @@ const GenericBattleTraits = {
     desc: `Subtract 1 from the Bravery characteristic of enemy units if they are within 3" of any friendly units with this ability.`,
     when: [BATTLESHOCK_PHASE],
   },
+  Impassable: {
+    name: `Impassable`,
+    desc: `You cannot move a model over this terrain feature unless it can fly, and you cannot move a model onto this terrain feature or set up a model on this terrain feature (even if it can fly).`,
+    when: [DURING_GAME],
+  },
+  Elite: {
+    name: `Elite`,
+    desc: `Models in this unit can issue commands to their own unit.`,
+    when: [DURING_GAME],
+  },
 }
 
-export default GenericBattleTraits
+export default GenericEffects

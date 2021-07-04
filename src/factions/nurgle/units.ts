@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -19,6 +20,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
+import rule_sources from './rule_sources'
 import Spells from './spells'
 
 const baseSorcerer = {
@@ -57,6 +59,7 @@ const BlightedWeaponsEffect = {
   name: `Blighted Weapons`,
   desc: `If the unmodified hit roll for an attack made with this unit's Blighted Weapons is 6, that attack scores D6 hits on the target instead of 1. Make a wound and save roll for each hit.`,
   when: [COMBAT_PHASE],
+  rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_NURGLE_JULY_2021],
 }
 const VirulentDischargeEffect = {
   name: `Virulent Discharge`,
@@ -254,8 +257,9 @@ const Units = {
       },
       {
         name: `Locus of Fecundity`,
-        desc: `Reroll save rolls of 1 for this unit while it is within 7" of a Nurgle Daemon hero.`,
+        desc: `Add 1 to save rolls for attacks that target this unit while it is within 7" of a friendly Nurgle Daemon Hero.`,
         when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_NURGLE_JULY_2021],
       },
     ],
   },
@@ -501,8 +505,9 @@ const Units = {
       },
       {
         name: `Vermid Shield`,
-        desc: `Reroll save rolls of 1 for this model.`,
+        desc: `In the combat phase, add 1 to save rolls for attacks that target this unit.`,
         when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_NURGLE_JULY_2021],
       },
     ],
   },
@@ -547,8 +552,9 @@ const Units = {
       },
       {
         name: `Plague-ridden Great Weapons`,
-        desc: `If the unmodified hit roll for an attack made with a melee weapon by this model is 6, that attack scores D6 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon by this unit is 6, that attack scores D6 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_NURGLE_JULY_2021],
       },
     ],
   },
@@ -574,7 +580,12 @@ const Units = {
     ],
   },
   'Pusgoyle Blightlords': {
-    effects: [DisgustinglyResilientEffect, VirulentDischargeEffect, BlightedWeaponsEffect],
+    effects: [
+      GenericEffects.Elite,
+      DisgustinglyResilientEffect,
+      VirulentDischargeEffect,
+      BlightedWeaponsEffect,
+    ],
   },
   'Exalted Greater Daemon Of Nurgle': {
     mandatory: {

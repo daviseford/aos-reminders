@@ -1,5 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import GenericBattleTraits from 'generic_rules/battle_traits'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -678,7 +678,7 @@ const Units = {
         desc: `After an Aleguzzler Gargant piles in, you can pick 1 enemy model within 3" of this model and roll a D6. If the roll is equal to or greater than double that model's Wounds characteristic, it is slain.`,
         when: [COMBAT_PHASE],
       },
-      ...GenericBattleTraits.Gargant,
+      ...GenericEffects.Gargant,
     ],
   },
   'Bonegrinder Gargant': {
@@ -698,7 +698,7 @@ const Units = {
         desc: `This model is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in.`,
         when: [COMBAT_PHASE],
       },
-      ...GenericBattleTraits.Gargant,
+      ...GenericEffects.Gargant,
     ],
   },
   "Rippa's Snarlfangs": {

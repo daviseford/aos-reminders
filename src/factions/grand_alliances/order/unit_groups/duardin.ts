@@ -1,4 +1,4 @@
-import GenericBattleTraits from 'generic_rules/battle_traits'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -112,7 +112,7 @@ export const LegacyDuardinUnits = {
   },
   'Grudge Thrower': {
     effects: [
-      ...GenericBattleTraits.CrewedWarMachine('Duardin Artillery'),
+      ...GenericEffects.CrewedWarMachine('Duardin Artillery'),
       {
         name: `Lobbed Shot`,
         desc: `A Grudge Thrower can hurl Grudge Rocks at units that are not visible to it.`,
@@ -137,7 +137,7 @@ export const LegacyDuardinUnits = {
   },
   'Duardin Bolt Thrower': {
     effects: [
-      ...GenericBattleTraits.CrewedWarMachine('Duardin Artillery'),
+      ...GenericEffects.CrewedWarMachine('Duardin Artillery'),
       {
         name: `Penetrating Shot`,
         desc: `If a wound roll for a Runic Bolt is 6+, that shot has a Damage characteristic of D6 and a Rend characteristic of -3.`,
@@ -199,7 +199,7 @@ export const LegacyDuardinUnits = {
   },
   'Flame Cannon': {
     effects: [
-      ...GenericBattleTraits.CrewedWarMachine('Duardin Artillery'),
+      ...GenericEffects.CrewedWarMachine('Duardin Artillery'),
       {
         name: `Flame Burst`,
         desc: `When firing a Flame Burst, pick a unit within range to suffer D3 mortal wounds. After firing a Flame Burst, roll a D6; on a 1, 2 or 3, the flames die out and the unit you shot suffers no further damage, but on a 4+ it is set ablaze and suffers another D3 mortal wounds before the flames are extinguished.`,

@@ -1,5 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import GenericBattleTraits from 'generic_rules/battle_traits'
+import { GenericEffects } from 'generic_rules'
 import rule_sources_meta from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
@@ -81,7 +81,7 @@ const CarnosaurBaseEffects = [
     desc: `If any enemy models are slain by wounds inflicted by this model's attacks, for the rest of the battle this model can run and still charge in the same turn.`,
     when: [DURING_GAME],
   },
-  GenericBattleTraits.Terror,
+  GenericEffects.Terror,
 ]
 const ArcaneVassalEffect = {
   name: `Arcane Vassal`,
@@ -544,7 +544,7 @@ const Units = {
         desc: `If any wounds inflicted by this model's Noxious Spittle are allocated to an enemy model and not negated, until the end of the turn, you can reroll charge rolls for this model.`,
         when: [SHOOTING_PHASE, CHARGE_PHASE],
       },
-      GenericBattleTraits.Terror,
+      GenericEffects.Terror,
     ],
   },
   'Dread Saurian': {
@@ -571,7 +571,7 @@ const Units = {
         Designer's Note: If a unit is affected by both the Roar of Ruin and Terror abilities, its Bravery characteristic is first halved (rounding up), and then 1 is subtracted from it.`,
         when: [START_OF_BATTLESHOCK_PHASE],
       },
-      GenericBattleTraits.Terror,
+      GenericEffects.Terror,
     ],
   },
   'Celestial Swarm': {

@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
-import { DURING_GAME, END_OF_MOVEMENT_PHASE, START_OF_HERO_PHASE, START_OF_SETUP } from 'types/phases'
+import { GenericEffects } from 'generic_rules'
+import { END_OF_MOVEMENT_PHASE, START_OF_HERO_PHASE, START_OF_SETUP } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const Scenery = {
@@ -11,12 +12,7 @@ const Scenery = {
         when: [START_OF_SETUP],
         rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
       },
-      {
-        name: `Impassable`,
-        desc: `You cannot move a model over this terrain feature unless it can fly, and you cannot move a model onto this terrain feature or set up a model on this terrain feature (even if it can fly).`,
-        when: [DURING_GAME],
-        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
-      },
+      GenericEffects.Impassable,
       {
         name: `Power of Slaanesh`,
         desc: `If you spend depravity points to summon a SLAANESH DAEMON unit to the battlefield, you can set up that unit wholly within 12" of this terrain feature and more than 9" from all enemy units instead of wholly within 12" of a SLAANESH HERO and more than 9" from all enemy units.`,

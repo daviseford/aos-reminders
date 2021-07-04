@@ -1,5 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import GenericBattleTraits from 'generic_rules/battle_traits'
+import { GenericEffects } from 'generic_rules'
 import {
   COMBAT_PHASE,
   END_OF_COMBAT_PHASE,
@@ -39,14 +39,14 @@ const Units = {
       command_abilities: [keyPicker(command_abilities, ['Summon Royal Guard'])],
       spells: [keyPicker(spells, ['Unholy Vitality'])],
     },
-    effects: [...GenericBattleTraits.Terrorgheist, RoyalBloodEffect],
+    effects: [...GenericEffects.Terrorgheist, RoyalBloodEffect],
   },
   'Abhorrant Ghoul King on Royal Zombie Dragon': {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Summon Courtier'])],
       spells: [keyPicker(spells, ['Malefic Hunger'])],
     },
-    effects: [RoyalBloodEffect, ...GenericBattleTraits.ZombieDragon],
+    effects: [RoyalBloodEffect, ...GenericEffects.ZombieDragon],
   },
   'Crypt Ghast Courtier': {
     effects: [
@@ -193,7 +193,7 @@ const Units = {
   },
   'Royal Terrorgheist': {
     effects: [
-      ...GenericBattleTraits.Terrorgheist,
+      ...GenericEffects.Terrorgheist,
       {
         name: `Royal Menagerie`,
         desc: `In your hero phase, you can heal up to D3 wounds allocated to this model if this model is within 6" of a friendly ABHORRANT.`,
@@ -202,7 +202,7 @@ const Units = {
     ],
   },
   'Royal Zombie Dragon': {
-    effects: [...GenericBattleTraits.ZombieDragon],
+    effects: [...GenericEffects.ZombieDragon],
   },
 }
 

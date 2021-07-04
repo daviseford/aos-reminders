@@ -1,5 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import GenericBattleTraits from 'generic_rules/battle_traits'
+import { GenericEffects } from 'generic_rules'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -398,7 +398,7 @@ const Units = {
       spells: [keyPicker(spells, ['Invigorating Aura', 'Curse of Exsanguination'])],
     },
     effects: [
-      ...GenericBattleTraits.ZombieDragon, // Pestilential Breath
+      ...GenericEffects.ZombieDragon, // Pestilential Breath
       TheHungerEffect,
       {
         name: `Deathlance Charge`,
@@ -583,11 +583,11 @@ const Units = {
   },
 
   'Zombie Dragon': {
-    effects: [...GenericBattleTraits.ZombieDragon],
+    effects: [...GenericEffects.ZombieDragon],
   },
 
   Terrorgheist: {
-    effects: [...GenericBattleTraits.Terrorgheist],
+    effects: [...GenericEffects.Terrorgheist],
   },
 
   'Wight King': {

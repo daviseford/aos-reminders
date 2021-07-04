@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
-import { BATTLESHOCK_PHASE, DURING_GAME, SAVES_PHASE, START_OF_SETUP } from 'types/phases'
+import { GenericEffects } from 'generic_rules'
+import { BATTLESHOCK_PHASE, SAVES_PHASE, START_OF_SETUP } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const Scenery = {
@@ -14,15 +15,7 @@ const Scenery = {
           rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
         ],
       },
-      {
-        name: `Impassable`,
-        desc: `You cannot move a model over this terrain feature unless it can fly, and you cannot move a model onto this terrain feature or set up a model on this terrain feature (even if it can fly).`,
-        when: [DURING_GAME],
-        rule_sources: [
-          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
-          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
-        ],
-      },
+      GenericEffects.Impassable,
       {
         name: `Entropic Lodestone`,
         desc: `After this terrain feature is set up, its range is 6". At the start of each battle round after the first, its range is increased by 6".

@@ -1,5 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import GenericBattleTraits from 'generic_rules/battle_traits'
+import { GenericEffects } from 'generic_rules'
 import rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
@@ -330,7 +330,7 @@ const Units = {
   },
   'Chaos Gargant': {
     effects: [
-      ...GenericBattleTraits.Gargant,
+      ...GenericEffects.Gargant,
       {
         name: `Stuff 'Em In Me Bag`,
         desc: `After this model piles in, you can pick an enemy model within 3" of this model and roll a D6. If the roll is equal to or greater than double that enemy model's Wounds characteristic, it is slain.`,

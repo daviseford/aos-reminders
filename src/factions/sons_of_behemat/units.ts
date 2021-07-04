@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import GenericBattleTraits from 'generic_rules/battle_traits'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -48,7 +48,7 @@ const BaseMegaGargantEffects = [
   AlmightyStompEffect,
   CrushingChargeEffect,
   DeathGripEffect,
-  GenericBattleTraits.Terror,
+  GenericEffects.Terror,
   LongshanksEffect,
   SonOfBehematEffect,
   TimberrrrrEffect,
@@ -122,7 +122,7 @@ const Units = {
   'Bonegrinder Mega-Gargant': {
     effects: [
       SonOfBehematEffect,
-      GenericBattleTraits.Terror,
+      GenericEffects.Terror,
       LongshanksEffect,
       TimberrrrrEffect,
       {
