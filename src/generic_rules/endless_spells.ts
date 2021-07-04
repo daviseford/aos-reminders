@@ -73,7 +73,6 @@ export const EmeraldLifeswarmEffects = [
   },
 ]
 export const SoulsnareShacklesEffects = [
-
   {
     name: `Summoning`,
     desc: `Casting value of 7 and a range of 12". Set up the parts of the endless spell wholly 3" of each other and wholly within range of the caster.`,
