@@ -3,6 +3,7 @@ import { COMBAT_PHASE, DURING_GAME, END_OF_SETUP, HERO_PHASE, SHOOTING_PHASE } f
 import artifacts from './artifacts'
 import command_abilities from './command_abilities'
 import command_traits from './command_traits'
+import rule_sources from './rule_sources'
 import spells from './spells'
 
 const Flavors = {
@@ -47,8 +48,9 @@ const Flavors = {
       },
       {
         name: `Unity of Purpose`,
-        desc: `After a friendly ILIATHA VANARI unit uses a command ability, you can pick 1 other friendly ILIATHA VANARI unit within 3" of that unit. That other unit can use that command ability without spending a command point. You can only use this ability once per phase.`,
+        desc: `After a friendly ILIATHA VANARI unit receives a command, you can pick 1 other friendly ILIATHA VANARI unit within 3" of that unit. If you do so, that other unit also receives that command.`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
       },
     ],
   },
