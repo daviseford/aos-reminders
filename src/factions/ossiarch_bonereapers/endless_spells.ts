@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -12,39 +13,47 @@ import {
   HERO_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
-
-// Soullinked effect
-const SoulLinkedEffect = {
-  name: `Soul-linked`,
-  desc: `This spell is soul-linked to the caster. When predatory endless spells are moved, any that are soul-linked to a caster are moved first, followed by any endless spells that are not. Soul-linked spells are always moved by the player whose army includes the caster the spell is soul-linked to. The player that won the roll-off to determine who moves an endless spell first must move all their soul-linked spells first, followed by their opponent.
-
-  You must subtract 1 from casting rolls for a WIZARD that is soul-linked to an endless spell. A caster cannot be soul-linked to more than one endless spell at the same time. If the caster is slain, then any endless spell they are soul-linked to is dispelled.`,
-  when: [END_OF_HERO_PHASE],
-}
+import rule_sources from './rule_sources'
 
 const EndlessSpells = {
   'Bone-tithe Shrieker': {
     effects: [
       {
         name: `Predatory`,
-        desc: `A Bone-tithe Shrieker can move up to 8" and can fly.`,
+        desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
       {
-        name: `Summon Bone-tithe Shrieker`,
-        desc: `Casting value of 5. Only OSSIARCH BONEREAPERS WIZARDS can attempt to cast this spell. Set up a Bone-tithe Shrieker model wholly within 12" of the caster and visible to them.`,
+        name: `Summoning`,
+        desc: `Casting value of 5 and a range of 12". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only OSSIARCH BONEREAPERS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
-      SoulLinkedEffect,
+      ...GenericEffects.Bonded,
       {
         name: `Portent of Doom`,
-        desc: `Subtract 1 from the Bravery of units while they are within 12" of this model. OSSIARCH BONEREAPERS units are not affected by this ability.`,
+        desc: `Units cannot receive the Inspiring Presence or Rally command while they are within 12" of this endless spell. This ability has no effect on OSSIARCH BONEREAPERS units.`,
         when: [BATTLESHOCK_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
       {
         name: `No Escape`,
-        desc: `Add 1 to hit rolls for attacks made by OSSIARCH BONEREAPERS units that target a unit that is within 12" of this model.`,
+        desc: `Add 1 to hit rolls for attacks made by OSSIARCH BONEREAPERS units that target a unit that is within 12" of this endless spell.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
     ],
   },
@@ -52,24 +61,40 @@ const EndlessSpells = {
     effects: [
       {
         name: `Predatory`,
-        desc: `A Nightmare Predator can move up to 2D6" and can fly.`,
+        desc: `This endless spell is a predatory endless spell. It can be moved up to 2D6" and can fly.`,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
-      SoulLinkedEffect,
+      ...GenericEffects.Bonded,
       {
-        name: `Summon Nightmare Predator`,
-        desc: `Casting value of 7. Only OSSIARCH BONEREAPERS WIZARDS can attempt to cast this spell. Set up a Nightmare Predator model wholly within 6" of the caster and visible to them.`,
+        name: `Summoning`,
+        desc: `Casting value of 7 and a range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only OSSIARCH BONEREAPERS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
       {
         name: `Perpetual Hunter`,
-        desc: `When this model is set up, the player who set it up can pick 1 enemy HERO as its prey and then immediately make a move with this model. If this model's prey is destroyed, this model is dispelled.`,
+        desc: `When this endless spell is set up, the player who set it up can pick 1 HERO as its prey. If this endless spell's prey is destroyed, this endless spell is removed from play.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
       {
         name: `Death Incarnate`,
-        desc: `After this model moves, roll a D6 for each unit within 3" of it. On a 2+, that unit suffers D3 mortal wounds. If that unit was this model's prey, on a 2+ it suffers D6 mortal wounds instead of D3 mortal wounds. OSSIARCH BONEREAPERS units are not affected by this ability.`,
+        desc: `After this endless spell has moved, roll a dice for each unit within 3" of it. On a 2+, that unit suffers D3 mortal wounds. If that unit was this endless spell's prey, on a 2+, it suffers D6 mortal wounds instead of D3. This ability has no effect on OSSIARCH BONEREAPERS units.`,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
     ],
   },
@@ -77,19 +102,31 @@ const EndlessSpells = {
     effects: [
       {
         name: `Predatory`,
-        desc: `A Soulstealer Carrion can move up to 16" and can fly.`,
+        desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
-      SoulLinkedEffect,
+      ...GenericEffects.Bonded,
       {
-        name: `Summon Soulstealer Carrion`,
-        desc: `Casting value of 6. Only OSSIARCH BONEREAPERS WIZARDS can attempt to cast this spell. Set up a Soulstealer Carrion model anywhere on the battlefield that is visible to the caster.`,
+        name: `Summoning`,
+        desc: `Casting value of 7. If successfully cast, set up this endless spell anywhere on the battlefield and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only OSSIARCH BONEREAPERS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
       {
         name: `Soul Thief`,
-        desc: `At the end of each phase, roll a D6 if any CHAOS, DESTRUCTION, or ORDER models were slain within 6" of this model during that phase. On a 1-2, heal 1 wound allocated to the caster soul-linked to this model. On a 3-4, inflict 1 mortal wound on each CHAOS, DESTRUCTION, or ORDER unit within 6" of this model. On a 5-6, do both of these things.`,
+        desc: `At the end of each phase, the commanding player must roll a dice if any CHAOS, DESTRUCTION or ORDER models were slain within 6" of this endless spell during that phase. On a 1-2, they can heal 1 wound allocated to the model bonded to this endless spell. On a 3-4, each CHAOS, DESTRUCTION and ORDER unit within 6" of this endless spell suffers 1 mortal wound. On a 5-6, both of these effects apply.`,
         when: [DURING_GAME],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
       {
         name: `Soul Thief`,
@@ -102,11 +139,19 @@ const EndlessSpells = {
           END_OF_MOVEMENT_PHASE,
           END_OF_SHOOTING_PHASE,
         ],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
       {
         name: `Second Sight`,
-        desc: `Anything visible to this model is also visible to the caster that is soul-linked to this model.`,
-        when: [HERO_PHASE],
+        desc: `Anything visible to this endless spell is also visible to the model that is bonded to this endless spell.`,
+        when: [DURING_GAME],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
     ],
   },

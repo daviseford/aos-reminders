@@ -103,6 +103,18 @@ const GenericEffects = {
     desc: `Models in this unit can issue commands to their own unit.`,
     when: [DURING_GAME],
   },
+  Bonded: [
+    {
+      name: `Bonded`,
+      desc: `This endless spell is bonded to the model that summoned it. A bonded endless spell is always controlled by the model to which it is bonded. A model cannot be bonded to more than one endless spell at the same time and cannot attempt to summon other endless spells while it is bonded. If the model that summoned this endless spell is removed from play, then this endless spell is removed from play.`,
+      when: [DURING_GAME],
+    },
+    {
+      name: `Bonded`,
+      desc: `If the model that summoned this endless spell is removed from play, then this endless spell is removed from play.`,
+      when: [WOUND_ALLOCATION_PHASE],
+    },
+  ],
 }
 
 export default GenericEffects

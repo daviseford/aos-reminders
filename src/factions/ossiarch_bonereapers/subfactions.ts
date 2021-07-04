@@ -14,6 +14,9 @@ import Units from './units'
 const subFactions = {
   [OSSIARCH_BONEREAPERS]: {
     effects: [],
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Unstoppable Advance'])],
+    },
     available: {
       artifacts: [Artifacts],
       battalions: [Battalions],
