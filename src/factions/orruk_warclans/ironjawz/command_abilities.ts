@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_CHARGE_PHASE,
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
