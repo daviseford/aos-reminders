@@ -14,18 +14,23 @@ import {
   TURN_ONE_DURING_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
   [SOULBLIGHT_GRAVELORDS]: {
     effects: [
       {
         name: `The Unquiet Dead`,
-        desc: `After territories have been chosen but before armies are set up, you can pick up to 2 points within your territory and up to 2 points anywhere on the battlefield outside your territory to be gravesites. Each gravesite must be more than 1" from all terrain features and objectives.
+        desc: `After territories have been chosen but before armies are set up, you can pick up to 2 points within your territory and up to 2 points anywhere on the battlefield outside your territory to be gravesites. Each gravesite must be more than 1" from all terrain features and objectives. If both players can set up gravesites at the same time, or if one player can set up faction terrain features at the same time as the other player can set up gravesites, they must roll off, and the winner chooses who sets up their faction terrain features or gravesites first.
 
         Instead of setting up a SOULBLIGHT GRAVELORDS SUMMONABLE unit on the battlefield before the battle begins, you can place it to one side and say that it is set up in the grave as a reserve unit. You can set up 1 reserve unit in the grave for each unit you have already set up on the battlefield.
 
         At the end of any of your movement phases, you can set up 1 or more of these units on the battlefield wholly within 12" of a gravesite and more than 9" from all enemy units. At the start of the fourth battle round, reserve units that are still in the grave are destroyed.`,
         when: [START_OF_SETUP],
+        rule_sources: [
+          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
+          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
+        ],
       },
       {
         name: `The Unquiet Dead`,
@@ -54,8 +59,12 @@ const BattleTraits = {
       },
       {
         name: `Endless Legions`,
-        desc: `At the end of your battleshock phase, count the number of enemy units that were destroyed during that turn and roll a dice, adding the number of destroyed enemy units to the roll. On a 5+, you can pick 1 friendly SOULBLIGHT GRAVELORDS SUMMONABLE DEADWALKERS or SOULBLIGHT GRAVELORDS SUMMONABLE DEATHRATTLE unit in your army that has been destroyed. If you do so, a new replacement unit with half the number of models in the unit that was destroyed (rounding up) is added to your army. Set up that unit wholly within 12" of a gravesite and more than 9" from all enemy units.`,
+        desc: `At the end of the battleshock phase, count the number of enemy units that were destroyed during that turn and roll a dice, adding the number of destroyed enemy units to the roll. On a 5+, you can pick 1 friendly SOULBLIGHT GRAVELORDS SUMMONABLE DEADWALKERS or SOULBLIGHT GRAVELORDS SUMMONABLE DEATHRATTLE unit in your army that has been destroyed. If you do so, a new replacement unit with half the number of models in the unit that was destroyed (rounding up) is added to your army. Set up that unit wholly within 12" of a gravesite and more than 9" from all enemy units. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
         when: [END_OF_BATTLESHOCK_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
+          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
+        ],
       },
       {
         name: `Deathly Invocation`,
@@ -154,7 +163,7 @@ const BattleTraits = {
       },
       {
         name: `Might Of The Crimson Keep`,
-        desc: `Each time a friendly KASTELAI DYNASTY VAMPIRE unit destroys an enemy unit, that friendly unit gains the relevant ability below for the rest of the battle. A unit cannot gain the same ability more than once per battle.
+        desc: `Each time the damage inflicted by an attack made with a melee weapon used by a friendly KASTELAI DYNASTY VAMPIRE unit destroys an enemy unit, that friendly unit gains the relevant ability below for the rest of the battle.
 
         If the enemy unit was a HERO or MONSTER - Bloodied Strength: Add 1 to the Damage characteristic of melee weapons used by that unit (excluding mounts),
         
@@ -162,6 +171,10 @@ const BattleTraits = {
         
         If the enemy unit had a Wounds characteristic of 2 or less - Absorbed Speed; Add 2 to run and charge rolls for that unit.`,
         when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
+          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
+        ],
       },
     ],
   },
@@ -170,10 +183,12 @@ const BattleTraits = {
     effects: [
       {
         name: `Cursed Abominations`,
-        desc: `If a Soulblight Gravelords army with the AVENGORII DYNASTY keyword includes any TERRORGHEISTS or ZOMBIE DRAGONS, 1 of those models has a cursed mutation. Choose which model will have the cursed mutation, then pick from or roll on the Cursed Mutations table.
-
-        You can choose 1 additional friendly AVENGORII DYNASTY TERRORGHEIST or AVENGORII DYNASTY ZOMBIE DRAGON to have a cursed mutation for each warscroll battalion in your army. A model cannot have more than 1 cursed mutation, and an army may not include duplicates of the same cursed mutation.`,
+        desc: `Cursed Abominations are unique enhancements. If a Soulblight Gravelords army with the AVENGORII DYNASTY keyword includes any TERRORGHEISTS or ZOMBIE DRAGONS, 1 of those models has a cursed mutation. Choose which model will have the cursed mutation, then pick from or roll on the Cursed Mutations table.`,
         when: [START_OF_SETUP],
+        rule_sources: [
+          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
+          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
+        ],
       },
       {
         name: `Monstrous Might`,

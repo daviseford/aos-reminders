@@ -16,6 +16,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
+import rule_sources from './rule_sources'
 import spells from './spells'
 
 const TheHungerEffect = {
@@ -63,8 +64,12 @@ const Units = {
     effects: [
       {
         name: `Alakanash, the Staff of Power`,
-        desc: `Add the Staff of Power value shown on this model's damage table to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to cast Arcane Bolt and Mystic Shield any number of times in the same hero phase, even if another WIZARD has already attempted to cast the spell in that phase.`,
+        desc: `Add the Staff of Power value shown on this model's damage table to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to cast Arcane Bolt any number of times in the same hero phase, even if another WIZARD has already attempted to cast the spell in that phase.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
+          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
+        ],
       },
       {
         name: `Invocation of Nagash`,
@@ -255,8 +260,12 @@ const Units = {
     effects: [
       {
         name: `Scurrying Retreat`,
-        desc: `If this model has been slain, at the end of your movement phase, roll a dice. On a 4+, a new model identical to the one that was slain is added to your army. Set up this model anywhere on the battlefield more than 9" from all enemy units.`,
+        desc: `At the end of your movement phase, if this model has been slain, roll a dice. On a 4+, you can set up this model anywhere on the battlefield more than 9" from all enemy units, with all wounds allocated to it removed.`,
         when: [END_OF_MOVEMENT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
+          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
+        ],
       },
       {
         name: `Nauseating Aroma`,
