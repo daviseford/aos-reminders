@@ -1,6 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH, MARK_UNDIVIDED } from 'meta/alliances'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -20,11 +20,6 @@ const BattleTraits = {
   // Slaves to Darkness Allegiance
   'Bane of the Mortal Realms': {
     effects: [
-      {
-        name: `Aura of Chaos`,
-        desc: `If a Slaves to Darkness hero has a Mark of Chaos keyword, that hero has an Aura of Chaos based on the Mark selected during army construction. If a unit has more than one Mark of Chaos you must select one aura it will use for the duration of the battle.`,
-        when: [DURING_SETUP],
-      },
       {
         name: `Aura of ${MARK_KHORNE}`,
         desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by friendly Slaves to Darkness Khorne units wholly within 12" of this model. If this model is a general, additionally add 1 to the wound rolls of those units.`,
@@ -283,13 +278,13 @@ const BattleTraits = {
         name: `Panopy of Ruin`,
         desc: `When an Idolators Cultists unit charges, change the lowest dice to a 6. Change 1 dice to a 6 on a double result.`,
         when: [CHARGE_PHASE],
-        rule_sources: [rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021],
+        rule_sources: [meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021],
       },
       {
         name: `Panopy of Ruin`,
         desc: `All Idolators Cultists units gain the same Mark of Chaos held by the Idolator Lord.`,
         when: [DURING_SETUP],
-        rule_sources: [rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021],
+        rule_sources: [meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021],
       },
     ],
   },

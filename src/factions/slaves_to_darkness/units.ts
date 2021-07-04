@@ -22,6 +22,7 @@ import {
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import Prayers from './prayers'
+import rule_sources from './rule_sources'
 import Spells from './spells'
 
 // Common effects used on multiple warscrolls.
@@ -30,11 +31,26 @@ const ChaosRuneshieldEffect = {
   desc: `Roll a D6 each time the equipped model suffers a mortal wound. On a 5+ it is negated.`,
   when: [WOUND_ALLOCATION_PHASE],
 }
-const OracularVisionsEffect = {
-  name: `Oracular Visions`,
-  desc: `Pick a friendly Slaves to Darkness unit within 12" of this model. Until your next hero phase you can reroll saves on that unit.`,
-  when: [HERO_PHASE],
-}
+const OracularVisionsEffects = [
+  {
+    name: `Oracular Visions`,
+    desc: `In your hero phase, you can pick 1 friendly MORTAL SLAVES TO DARKNESS unit wholly within 12" of this unit. If you do so, add 1 to save rolls for attacks that target that unit until your next hero phase.`,
+    when: [HERO_PHASE],
+    rule_sources: [
+      rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+      rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+    ],
+  },
+  {
+    name: `Oracular Visions`,
+    desc: `If active, add 1 to save rolls for attacks that target that unit until your next hero phase.`,
+    when: [SAVES_PHASE],
+    rule_sources: [
+      rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+      rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+    ],
+  },
+]
 const DaemonforgedWeaponEffect = {
   name: `Daemonbound / Soul Splitter`,
   desc: `If the unmodified hit roll for an attack made with the appropriate weapon is 6, that attack inflicts 1 mortal wound in addition to any normal damage.`,
@@ -116,8 +132,12 @@ const DarkwoodShieldEffect = {
 // Chariot specific effects.
 const ExaltedCharioteerEffect = {
   name: `Exalted Charioteer`,
-  desc: `Add 1 to the hit rolls of the unit leader's melee weapons (excluding those of its mount).`,
+  desc: `If this unit has 2 or more models, 1 model in this unit can be an Exalted Charioteer. Add 1 to hit rolls for attacks made with that model's melee weapons (excluding those of its mount)`,
   when: [COMBAT_PHASE],
+  rule_sources: [
+    rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+    rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+  ],
 }
 
 // Chaos Mark Effects.
@@ -159,6 +179,15 @@ const Units = {
     effects: [
       ChaosMarkAll,
       {
+        name: `Warmaster`,
+        desc: `This unit can be included in a Blades of Khorne, Disciples of Tzeentch, Maggotkin of Nurgle or Hedonites of Slaanesh army. If it is, it is treated as a general even if it is not the model picked to be the army's general, and you can still use the army's allegiance abilities even if this unit is not from the army's faction.`,
+        when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
+      },
+      {
         name: `The Armour of Morkar`,
         desc: `Roll a D6 each time a mortal wound is allocated to this model. On a 4-6 the wound is negated. On a 6 the attacking unit also suffers 1 mortal wound.`,
         when: [WOUND_ALLOCATION_PHASE],
@@ -181,8 +210,12 @@ const Units = {
       },
       {
         name: `The Slayer of Kings`,
-        desc: `Each time this model attacks, if the unmodified wound roll for 2 attacks targeting the same enemy hero 6, that hero is slain.`,
+        desc: `Each time this model fights, if the unmodified wound roll for 2 attacks that target the same enemy HERO with the Slayer of Kings is 6, that HERO is slain.`,
         when: [COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
       {
         name: `Three-headed Titan`,
@@ -211,7 +244,7 @@ const Units = {
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and unbind 2 spells. Knows Arcane Bolt and Mystic Shield.`,
+        desc: `This model is a WIZARD. Can attempt to cast 2 spells and unbind 2 spells. Knows Arcane Bolt and Mystic Shield.`,
         when: [HERO_PHASE],
       },
     ],
@@ -239,7 +272,7 @@ const Units = {
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Infernal Flames.`,
+        desc: `This model is a WIZARD. Can attempt to cast 2 spells and unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Infernal Flames.`,
         when: [HERO_PHASE],
       },
     ],
@@ -374,11 +407,11 @@ const Units = {
     },
     effects: [
       ChaosMarkSorcerer,
-      OracularVisionsEffect,
+      ...OracularVisionsEffects,
       TerritorialPredatorEffect,
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Winds of Chaos.`,
+        desc: `This model is a WIZARD. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Winds of Chaos.`,
         when: [HERO_PHASE],
       },
     ],
@@ -389,15 +422,15 @@ const Units = {
     },
     effects: [
       ChaosMarkSorcerer,
-      OracularVisionsEffect,
+      ...OracularVisionsEffects,
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Daemonic Power.`,
+        desc: `This model is a WIZARD. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Daemonic Power.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Exalted Hero of Chaos': {
+  'Exalted HERO of Chaos': {
     effects: [
       ChaosMarkAll,
       ChaosRuneshieldEffect,
@@ -426,7 +459,7 @@ const Units = {
       PactOfSoulAndIronEffect,
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Enfeeblement.`,
+        desc: `This model is a WIZARD. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Enfeeblement.`,
         when: [HERO_PHASE],
       },
     ],
@@ -490,7 +523,7 @@ const Units = {
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Traitor's Mist.`,
+        desc: `This model is a WIZARD. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Traitor's Mist.`,
         when: [HERO_PHASE],
       },
     ],
@@ -608,8 +641,12 @@ const Units = {
       ChaosRuneshieldEffect,
       {
         name: `Legions of Chaos`,
-        desc: `You can reroll save rolls for attacks that target this unit while it has at least 10 models.`,
+        desc: `Add 1 to save rolls for attacks that target this unit while it has at least 10 models.`,
         when: [SAVES_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
       {
         name: `Pair of Chaos Hand Weapons`,
@@ -659,8 +696,12 @@ const Units = {
       ChaosMarkAll,
       {
         name: `Protection of the Dark Gods`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly mortal Slaves to Darkness unit wholly within range of any model with this ability. On a 6+ the allocated wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `Friendly MORTAL SLAVES TO DARKNESS units that are wholly within range of this unit's Protection of the Dark Gods ability, as shown on the damage table above, have a ward of 6+`,
+        when: [SAVES_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
     ],
   },
@@ -717,8 +758,12 @@ const Units = {
     effects: [
       {
         name: `Sneaky Little Devils`,
-        desc: `When selected for activation instead of fighting you may make a normal move and retreat.`,
+        desc: `When selected for activation instead of fighting you may make a normal move and retreat. If you do so, this unit must retreat.`,
         when: [COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
     ],
   },
@@ -826,8 +871,12 @@ const Units = {
       },
       {
         name: `Iron Resilience`,
-        desc: `You can reroll save rolls for attacks that target this unit if this unit has not made a normal move in the same turn.`,
+        desc: `Add 1 to save rolls for attacks that target this unit if this unit has not made a normal move or been set up in the same turn.`,
         when: [SAVES_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
     ],
   },
@@ -888,7 +937,7 @@ const Units = {
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Enfeeble Foe.`,
+        desc: `This model is a WIZARD. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Enfeeble Foe.`,
         when: [HERO_PHASE],
       },
     ],
@@ -940,7 +989,7 @@ const Units = {
       ChaosMarkKhorne,
       {
         name: `Sigils of Enslavement`,
-        desc: `When you set up a Slaughterbrute, you can pick 1 friendly Slaves to Darkness Hero in your army to be its master (a hero cannot be the master of more than one Slaughterbrute).`,
+        desc: `When you set up a Slaughterbrute, you can pick 1 friendly Slaves to Darkness HERO in your army to be its master (a hero cannot be the master of more than one Slaughterbrute).`,
         when: [DURING_SETUP],
       },
       {
@@ -1048,7 +1097,7 @@ const Units = {
       ChaosRuneshieldEffect,
       {
         name: `Magic`,
-        desc: `Zarshia Bittersoul model is a wizard. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt and Mystic Shield.`,
+        desc: `Zarshia Bittersoul model is a WIZARD. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt and Mystic Shield.`,
         when: [HERO_PHASE],
       },
     ],

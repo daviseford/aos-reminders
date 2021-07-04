@@ -1,59 +1,55 @@
 import { tagAs } from 'factions/metatagger'
-import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH, MARK_UNDIVIDED } from 'meta/alliances'
-import {
-  BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
-  COMBAT_PHASE,
-  DURING_GAME,
-  HERO_PHASE,
-  SAVES_PHASE,
-  SHOOTING_PHASE,
-  START_OF_HERO_PHASE,
-} from 'types/phases'
+import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH } from 'meta/alliances'
+import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, SAVES_PHASE, START_OF_HERO_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Prayers = {
   'Favour of the Ruinous Powers': {
     effects: [
       {
-        name: `Favour of the Ruinous Powers`,
-        desc: `This model may pick a mortal Slaves to Darkness unit within 18" and roll a D6. On a 3+ the prayer is answered. The prayer effect lasts until your next hero phase. The same unit cannot benefit from the same prayer more than once per turn.`,
-        when: [START_OF_HERO_PHASE],
-        prayer: true,
-      },
-      {
-        name: `Favour: ${MARK_KHORNE}`,
-        desc: `If active, you can reroll charge rolls for the unit. If you buffed a Khorne unit, you can reroll its hit rolls as well.`,
-        when: [DURING_GAME, CHARGE_PHASE],
-      },
-      {
-        name: `Favour: ${MARK_TZEENTCH}`,
-        desc: `If active, you can reroll save rolls for the buffed unit.`,
-        when: [SAVES_PHASE],
-      },
-      {
-        name: `Favour: ${MARK_TZEENTCH}`,
-        desc: `If active, and if you buffed a Tzeentch unit, whenever the buffed unit is targeted by a spell roll a D6. On a 4+ ignore the effects.`,
+        name: `Favour of ${MARK_KHORNE}`,
+        desc: `Favour of Khorne is a prayer with an answer value of 3 and a range of 18". If answered, pick 1 friendly SLAVES TO DARKNESS MORTAL unit wholly within range and visible to the chanter. You can reroll charge rolls for that unit until your next hero phase. In addition, if that unit has the KHORNE keyword, you can reroll hit rolls for attacks made with melee weapons by that unit until your next hero phase.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
       {
-        name: `Favour: ${MARK_NURGLE}`,
-        desc: `If active, you can reroll wound rolls for the buffed unit.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        name: `Favour of ${MARK_TZEENTCH}`,
+        desc: `Favour of Tzeentch is a prayer with an answer value of 3 and a range of 18". If answered, pick 1 friendly SLAVES TO DARKNESS MORTAL unit wholly within range and visible to the chanter. You can add 1 to save rolls for attacks that target that unit until your next hero phase. In addition, if that unit has the TZEENTCH keyword, until your next hero phase, you can roll a dice each time that unit is affected by a spell or the abilities of an endless spell. If you do so, on a 4+, ignore the effect of that spell or the abilities of that endless spell on that unit.`,
+        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
       {
-        name: `Favour: ${MARK_NURGLE}`,
-        desc: `If active, and if you buffed a Nurgle unit, add 1 to its save rolls.`,
-        when: [SAVES_PHASE],
+        name: `Favour of ${MARK_NURGLE}`,
+        desc: `Favour of Nurgle is a prayer with an answer value of 3 and a range of 18". If answered, pick 1 friendly SLAVES TO DARKNESS MORTAL unit wholly within range and visible to the chanter. You can reroll wound rolls for attacks made with melee weapons by that unit until your next hero phase. In addition, if that unit has the NURGLE keyword, add 1 to save rolls for attacks that target that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
       {
-        name: `Favour: ${MARK_SLAANESH}`,
-        desc: `If active, you can reroll charge rolls for the buffed unit. If you buffed a Slaanesh unit, it also does not take battleshock tests.`,
-        when: [CHARGE_PHASE, BATTLESHOCK_PHASE],
+        name: `Favour of ${MARK_SLAANESH}`,
+        desc: `Favour of Slaanesh is a prayer with an answer value of 3 and a range of 18". If answered, pick 1 friendly SLAVES TO DARKNESS MORTAL unit wholly within range and visible to the chanter. You can reroll charge rolls for that unit until your next hero phase. In addition, if that unit has the SLAANESH keyword, do not take battleshock tests for that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
       {
-        name: `Favour: ${MARK_UNDIVIDED}`,
-        desc: `If active, you can reroll hit and wound rolls for the buffed unit. If you buffed an Undivided unit, you can reroll its charge rolls as well.`,
-        when: [DURING_GAME, CHARGE_PHASE],
+        name: `Favour of Chaos`,
+        desc: `Favour of Chaos is a prayer with an answer value of 3 and a range of 18". If answered, pick 1 friendly SLAVES TO DARKNESS MORTAL unit wholly within range and visible to the chanter. You can reroll hit and wound rolls for attacks made by that unit until your next hero phase. In addition, if that unit has the UNDIVIDED keyword, you can reroll charge rolls for that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
     ],
   },

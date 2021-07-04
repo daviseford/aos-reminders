@@ -10,19 +10,18 @@ import {
   END_OF_TURN,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  START_OF_ROUND,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandAbilities = {
   'By My Will': {
     effects: [
       {
         name: `By My Will`,
-        desc: `You can use this once per turn. Pick 1 friendly Slaves to Darkness unit on the battlefield. If a model from that unit is slain by a melee weapon, it may fight before it is removed from play. The same unit cannot benefit from this more than once per turn.`,
+        desc: `You can use this once per turn. Pick 1 friendly SLAVES TO DARKNESS unit on the battlefield. If a model from that unit is slain by a melee weapon, it may fight before it is removed from play. The same unit cannot benefit from this more than once per turn.`,
         when: [HERO_PHASE],
       },
       {
@@ -59,7 +58,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Arcane Influence: ${MARK_TZEENTCH}`,
-        desc: `Pick 1 friendly Slaves to Darkness wizard wholly within 12" of this model and add 1 to its casting rolls until the end of the phase.`,
+        desc: `Pick 1 friendly SLAVES TO DARKNESS wizard wholly within 12" of this model and add 1 to its casting rolls until the end of the phase.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -68,13 +67,12 @@ const CommandAbilities = {
     effects: [
       {
         name: `Bloated Blessings: ${MARK_NURGLE}`,
-        desc: `Pick 1 friendly Slaves to Darkness Nurgle unit wholly within 12" of this model. Until your next hero phase, if any unmodified hit rolls of 6 occur against the buffed unit, inflict D3 mortal wounds to the attacker after all its attacks have resolved. The same unit cannot benefit from this ability more than once per phase.`,
+        desc: `Pick 1 friendly SLAVES TO DARKNESS Nurgle unit wholly within 12" of this model. Until your next hero phase, each time that unit is picked as the target for any attacks made with melee weapons, if the unmodified hit roll for any of those attacks is 6, the attacking unit suffers D3 mortal wounds after all of its attacks have been resolved. The same unit cannot benefit from this ability more than once per phase.`,
         when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Bloated Blessings: ${MARK_NURGLE}`,
-        desc: `If active unmodified hit rolls of 6 against the buffed unit inflict D3 mortal wounds to the attacker after all its attacks have resolved.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
     ],
   },
@@ -82,7 +80,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Revel in Agony: ${MARK_SLAANESH}`,
-        desc: `Until your next hero phase, if any models from a friendly Slaves to Darkness Slaanesh unit wholly within 12" of this model are slain by an enemy melee weapon, add 1 to hits rolls for attacks made by that friendly unit. You cannot use this command ability more than once per turn.`,
+        desc: `Until your next hero phase, if any models from a friendly SLAVES TO DARKNESS Slaanesh unit wholly within 12" of this model are slain by an enemy melee weapon, add 1 to hits rolls for attacks made by that friendly unit. You cannot use this command ability more than once per turn.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -119,7 +117,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Spurred by the Gods`,
-        desc: `Pick 1 friendly mortal Slaves to Darkness unit wholly within 12". That unit may be selected to fight for a second time in this phase if it is within 3" of any enemy units. The same unit cannot benefit from this more than once per turn.`,
+        desc: `Pick 1 friendly mortal SLAVES TO DARKNESS unit wholly within 12". That unit may be selected to fight for a second time in this phase if it is within 3" of any enemy units. The same unit cannot benefit from this more than once per turn.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -171,13 +169,12 @@ const CommandAbilities = {
     effects: [
       {
         name: `Dark Prophecy`,
-        desc: `If Archaon is your general and on the battlefield, roll a D6 and keep the result hidden beneath an opaque container. At the start of the next battle round, before players determine who has the first turn, you must reveal the result. On a 1-3 your opponent must take the first turn. On a 4-6 you must take the first turn.`,
+        desc: `You can use this command ability once per turn at the start of your hero phase if ARCHAON is on the battlefield. If you do so, roll a dice and keep the result hidden from your opponent beneath an opaque container, such as a cup. At the start of the next battle round, before players determine who has the first turn, you must reveal the result. On a 1-3 your opponent must take the first turn of that battle round. On a 4-6 you must take the first turn of that battle round.`,
         when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Dark Prophecy`,
-        desc: `If active, before players determine who has the first turn, you can reveal the Dark Prophecy result. On a 1-3 your opponent must take the first turn. On a 4-6 you must take the first turn.`,
-        when: [START_OF_ROUND],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
     ],
   },
