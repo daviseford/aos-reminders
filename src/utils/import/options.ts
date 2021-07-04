@@ -609,7 +609,7 @@ export const DeprecatedSelections = {
   "Blacktalon's Shadowhammers": DEPRECATED_PROFILE,
   "Guardian's Coronet": DEPRECATED_MALIGN_SORCERY,
   "Ignax's Scales": DEPRECATED_MALIGN_SORCERY,
-  "Molten Infusion": DEPRECATED_AOS_3,
+  'Molten Infusion': DEPRECATED_AOS_3,
   "Stoneklaw's Gutstompas": DEPRECATED_FIRESTORM,
   "The Fetch's Ring": DEPRECATED_AOS_3,
   "Trickster's Foil": DEPRECATED_AOS_3,

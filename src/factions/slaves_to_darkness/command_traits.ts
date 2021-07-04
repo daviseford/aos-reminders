@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -13,6 +14,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandTraits = {
   // Shared Command Traits
@@ -187,12 +189,16 @@ const CommandTraits = {
       },
     ],
   },
-  'Bane of the False Idols': {
+  'Bane of False Idols': {
     effects: [
       {
-        name: `Bane of the False Idols`,
-        desc: `Once per hero phase, this general can use Desecrate without spending a command point.`,
+        name: `Bane of False Idols`,
+        desc: `Once per turn, this general can issue the Desecrate command without a command point being spent.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
+        ],
       },
     ],
   },

@@ -195,22 +195,17 @@ const Flavors = {
   'Har Kuron': {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Make an Example of the Weak (Har Kuron)'])],
+      prayers: [keyPicker(prayers, ['Incitement to Murder'])],
     },
     effects: [
       {
         name: `Temples of Khaine`,
-        desc: `You can pick 1 friendly Daughters of Khaine priest to attempt the Incitement to Murder prayer in addition to their 1 normal prayer.`,
+        desc: `In each of your hero phases, you can pick 1 friendly DAUGHTERS OF KHAINE PRIEST to chant the Incitement to Murder prayer in addition to the 1 other prayer that they can chant in that phase.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Incitement to Murder`,
-        desc: `If successful, pick 1 friendly Har Kuron unit wholly within 12" of the priest. Until the start of your next hero phase, unmodified hits of 6 made by the target score 2 hits instead of 1. The same unit cannot benefit from this ability more that once per phase.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Incitement to Murder`,
-        desc: `If active, unmodified hits of 6 made by the target score 2 hits instead of 1.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
+        ],
       },
     ],
   },

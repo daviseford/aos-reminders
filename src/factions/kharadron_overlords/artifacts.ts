@@ -161,7 +161,7 @@ const Artifacts = {
         rule_sources: [
           rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
           rule_sources.ERRATA_KHARADRON_OVERLORDS_JANUARY_2021,
-          rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021
+          rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
         ],
       },
     ],

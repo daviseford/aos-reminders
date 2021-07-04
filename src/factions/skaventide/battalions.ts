@@ -1,5 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -154,13 +154,13 @@ const RegularBattalions = {
         name: `Rattachak's More-more-more Doomrocket`,
         desc: `You can reroll hit rolls for Rattachak's Doomrocket and add 1 to its damage characteristic.`,
         when: [SHOOTING_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Rattachak's More-more-more Doomrocket`,
         desc: `Add 1 to the Shock Gauntlet damage characteristic of this battallions Stormfiends while they are wholly within 12" of Rattachak.`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

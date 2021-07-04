@@ -9,7 +9,7 @@ export type TRuleSource = {
 
 // Use this as the centralized rule_sources
 // For things like Arcane Bolt, general rules, etc.
-const rule_sources = {
+const meta_rule_sources = {
   ERRATA_BROKEN_REALMS_TECLIS_MAY_2021: {
     name: 'Broken Realms: Teclis Errata (May 2021)',
     type: 'errata',
@@ -19,6 +19,11 @@ const rule_sources = {
     name: 'Broken Realms: Morathi Errata (January 2021)',
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2021/01/q9Fg2qordsr7bbCP.pdf',
+  },
+  ERRATA_BROKEN_REALMS_MORATHI_JULY_2021: {
+    name: 'Broken Realms: Morathi Errata (July 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2021/01/soZJF6JOs4BrQi8z.pdf',
   },
   BOOK_BROKEN_REALMS_KRAGNOS: {
     name: 'Broken Realms: Kragnos',
@@ -44,4 +49,4 @@ const rule_sources = {
   },
 }
 
-export default rule_sources
+export default meta_rule_sources

@@ -15,6 +15,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
   // Slaves to Darkness Allegiance
@@ -267,24 +268,25 @@ const BattleTraits = {
     effects: [
       {
         name: `Blessed of Chaos`,
-        desc: `Add 1 to prayer rolls for Idolators Priests.`,
+        desc: `Add 1 to chanting rolls for IDOLATORS PRIESTS. In addition, units in your army with the PRIEST keyword have the Leader battlefield role.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
+        ],
       },
     ],
   },
-  'Panopy of Ruin': {
+  'Panoply of Ruin': {
     effects: [
       {
-        name: `Panopy of Ruin`,
-        desc: `When an Idolators Cultists unit charges, change the lowest dice to a 6. Change 1 dice to a 6 on a double result.`,
+        name: `Panoply of Ruin`,
+        desc: `When you make a charge roll for an IDOLATORS CULTISTS unit, change the lowest dice to a 6. If the roll is a double, change one of the dice to a 6.`,
         when: [CHARGE_PHASE],
-        rule_sources: [meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021],
-      },
-      {
-        name: `Panopy of Ruin`,
-        desc: `All Idolators Cultists units gain the same Mark of Chaos held by the Idolator Lord.`,
-        when: [DURING_SETUP],
-        rule_sources: [meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021],
+        rule_sources: [
+          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
+        ],
       },
     ],
   },

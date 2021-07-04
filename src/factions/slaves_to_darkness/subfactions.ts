@@ -164,7 +164,7 @@ const subFactions = {
   },
 
   Idolators: {
-    effects: pickEffects(BattleTraits, ['Blessed of Chaos', 'Panopy of Ruin', 'Destroy the False Idols']),
+    effects: pickEffects(BattleTraits, ['Blessed of Chaos', 'Panoply of Ruin', 'Destroy the False Idols']),
 
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Desecrate'])],
@@ -179,7 +179,7 @@ const subFactions = {
           'Lord of Terror',
           'Favoured of the Pantheon',
           'Fiery Orator',
-          'Bane of the False Idols',
+          'Bane of False Idols',
           'Smite the Unbeliever',
         ]),
       ],
