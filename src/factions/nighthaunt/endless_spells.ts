@@ -1,87 +1,74 @@
 import { tagAs } from 'factions/metatagger'
 import { END_OF_HERO_PHASE, HERO_PHASE } from 'types/phases'
-
-const PredatoryEffect = {
-  name: `Predatory`,
-  desc: `This model is a predatory endless spell. It can move up to 8" and can fly.`,
-  when: [END_OF_HERO_PHASE],
-}
+import rule_sources from './rule_sources'
 
 // Add Endless spells here
 const EndlessSpells = {
   'Shyish Reaper': {
     effects: [
       {
-        name: `Summon Shyish Reaper`,
-        desc: `Only NAGASH, SUPREME LORD OF THE UNDEAD and NIGHTHAUNT WIZARDS can attempt to cast Summon Shyish Reaper. Casting value of 7. Set up a Shyish Reaper model wholly within 6" of the caster.`,
+        name: `Summoning`,
+        desc: `Casting value of 6 and a range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only NIGHTHAUNT WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
       },
-      PredatoryEffect,
       {
-        name: `Sweeping Death`,
-        desc: `When this model is set up, the player who set it up can immediately make a move with it.`,
-        when: [HERO_PHASE],
+        name: `Predatory`,
+        desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.
+
+        Before this endless spell is moved, the commanding player can pivot it on the centre of its base so that it is facing in any direction. This pivot is free and does not count towards the distance the endless spell moves. When this endless spell is moved, it must move in a straight line in the direction in which the tip of the scythe blade is pointing.`,
+        when: [END_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
       },
       {
         name: `Soul Reaper`,
-        desc: `Before moving a Shyish Reaper, pivot the model on the centre of its base so that it points lengthways in the direction you wish it to move. Then move it in a straight line in that direction. The initial pivot is free and does not count towards the distance the model moves.
-
-        After this model has moved, roll a D6 for each model that it moved over (including models it moved over when it pivoted); if the roll is equal to or greater than the model's Save characteristic, that model's unit suffers 1 mortal wound.`,
+        desc: `After this endless spell has moved, roll 2 dice for each unit that has any models it passed across (including models it passed across when it pivoted) and for each other unit within 1" of it at the end of its move. For each roll that is equal to or greater than that unit's Save characteristic, that unit suffers D3 mortal wounds.`,
         when: [END_OF_HERO_PHASE],
-      },
-      {
-        name: `Empowered by Shyish`,
-        desc: `If your battle is being fought in the Realm of Shyish, a Shyish Reaper can move 12" instead of 8"`,
-        when: [END_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
       },
     ],
   },
   'Vault of Souls': {
     effects: [
       {
-        name: `Summon Vault of Souls`,
-        desc: `Only NAGASH, SUPREME LORD OF THE UNDEAD and NIGHTHAUNT WIZARDS can attempt to cast Summon Vault of Souls. Casting value of 6. Set up a Vault of Souls model wholly within 18" of the caster.`,
+        name: `Summoning`,
+        desc: `Casting value of 6 and a range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only NIGHTHAUNT WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
       },
-      PredatoryEffect,
+      {
+        name: `Predatory`,
+        desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
+        when: [END_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
+      },
       {
         name: `Soul Siphon`,
-        desc: `After this model is set up or has moved, roll a D6 for each model within 6" of it. On a 6+, that model's unit suffers 1 mortal wound.`,
+        desc: `After this endless spell has moved, roll a dice for each model within 6" of it. On a 6, that model's unit suffers 1 mortal wound. Keep track of the number of mortal wounds caused by this endless spell. If the total is 10 or more at the end of any phase, this endless spell erupts. If it does so, roll a dice for each unit within 6" of this endless spell. On a 2+, that unit suffers a number of mortal wounds equal to the roll. After you have rolled for each unit within 6" of this endless spell, this endless spell is removed from play.`,
         when: [END_OF_HERO_PHASE],
-      },
-      {
-        name: `Soul Eruption`,
-        desc: `Keep track of the number of mortal wounds inflicted by this model. If the total is 20 or more at the end of any phase, all units within 6" of this model suffer D6 mortal wounds, and then this model is dispelled.`,
-        when: [END_OF_HERO_PHASE],
-      },
-      {
-        name: `Empowered by Shyish`,
-        desc: `If your battle is being fought in the Realm of Shyish, the range of this model's Soul Siphon ability is 9" instead of 6".`,
-        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
       },
     ],
   },
   'Mortalis Terminexus': {
     effects: [
       {
-        name: `Summon Mortalis Terminexus`,
-        desc: `Only NAGASH, SUPREME LORD OF THE UNDEAD and NIGHTHAUNT WIZARDS can attempt to cast Summon Mortalis Terminexus. Casting value of 6. Set up a Mortalis Terminexus model wholly within 18" of the caster.`,
+        name: `Summoning`,
+        desc: `Casting value of 6 and a range of 18". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only Nighthaunt Wizards can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
       },
-      PredatoryEffect,
+      {
+        name: `Predatory`,
+        desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
+        when: [END_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
+      },
       {
         name: `Keeper of Mortality`,
-        desc: `After this model is set up or has moved, the controlling player must decide whether the Mortalis Terminexus will reverse or hasten time.
-
-        If they choose to reverse time, heal D3 wounds allocated to each unit within 6" of this model.
-
-        If they choose to hasten time, each unit within 6" of this model suffers D3 mortal wounds.`,
+        desc: `After this endless spell has moved, the commanding player can choose whether it will reverse or hasten time. If they choose to reverse time, heal D3 wounds allocated to each unit within 6" of this endless spell. If they choose to hasten time, roll a dice for each unit within 6" of this endless spell. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [END_OF_HERO_PHASE],
-      },
-      {
-        name: `Empowered by Shyish`,
-        desc: `If your battle is being fought in the Realm of Shyish, the range of this model's Keeper of Mortality ability - whether the controlling player chose to reverse or hasten time - is 12" instead of 6"`,
-        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
       },
     ],
   },

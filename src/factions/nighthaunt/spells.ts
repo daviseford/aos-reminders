@@ -7,9 +7,9 @@ const Spells = {
     effects: [
       {
         name: `Soul Cage`,
-        desc: `Casting value of 6. Pick an enemy unit within 12" of the caster that is visible to them. Until the start of your next hero phase, that unit cannot retreat. In addition, until your next hero phase, that unit fights at the end of the combat phase.`,
+        desc: `Casting value of 6. Pick an enemy unit within 12" of the caster that is visible to them. Until the start of your next hero phase, that unit cannot retreat. In addition, until your next hero phase, the strike-last effect applies to that unit.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JANUARY_2021],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
       },
     ],
   },
