@@ -1,6 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH } from 'meta/alliances'
-import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, SAVES_PHASE, START_OF_HERO_PHASE } from 'types/phases'
+import meta_rule_sources from 'meta/rule_sources'
+import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, SAVES_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const Prayers = {
@@ -54,21 +55,25 @@ const Prayers = {
     ],
   },
   // Idolators
-  'Idolators Prayers': {
-    effects: [
-      {
-        name: `Idolators Prayers`,
-        desc: `This model may chant a prayer by rolling a D6 on a friendly Idolators target within 12". On a 3+ the prayer is answered.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
   'Blessings of Khorne': {
     effects: [
       {
         name: `Blessings of Khorne`,
-        desc: `If answered, targeted Khorne unit can reroll melee attack hit rolls until your next hero phase.`,
+        desc: `Blessings of Khorne is a prayer with an answer value of 3 and a range of 12". If answered, pick 1 friendly KHORNE IDOLATORS unit wholly within range of the chanter and visible to them. You can reroll hit rolls for attacks made with melee weapons by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
+        ],
+      },
+      {
+        name: `Blessings of Khorne`,
+        desc: `If active, you can reroll hit rolls for attacks made with melee weapons by that unit until your next hero phase.`,
         when: [COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
+        ],
       },
     ],
   },
@@ -76,8 +81,21 @@ const Prayers = {
     effects: [
       {
         name: `Blessings of Tzeentch`,
-        desc: `If answered, targeted Tzeentch unit can reroll save rolls until your next hero phase.`,
+        desc: `Blessings of Tzeentch is a prayer with an answer value of 3 and a range of 12". If answered, pick 1 friendly Tzeentch Idolators unit wholly within range of the chanter and visible to them. Add 1 to save rolls for attacks that target that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
+        ],
+      },
+      {
+        name: `Blessings of Tzeentch`,
+        desc: `If active, add 1 to save rolls for attacks that target that unit until your next hero phase.`,
         when: [SAVES_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
+        ],
       },
     ],
   },
@@ -85,8 +103,21 @@ const Prayers = {
     effects: [
       {
         name: `Blessings of Nurgle`,
-        desc: `If answered, targeted Nurgle unit can reroll melee attack wound rolls until your next hero phase.`,
+        desc: `Blessings of Nurgle is a prayer with an answer value of 3 and a range of 12". If answered, pick 1 friendly NURGLE IDOLATORS unit wholly within range of the chanter and visible to them. You can reroll wound rolls for attacks made with melee weapons by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
+        ],
+      },
+      {
+        name: `Blessings of Nurgle`,
+        desc: `If active, you can reroll wound rolls for attacks made with melee weapons by that unit until your next hero phase.`,
         when: [COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
+        ],
       },
     ],
   },
@@ -94,8 +125,21 @@ const Prayers = {
     effects: [
       {
         name: `Blessings of Slaanesh`,
-        desc: `If answered, targeted Slaanesh unit can reroll charge rolls until your next hero phase.`,
+        desc: `Blessings of Slaanesh is a prayer with an answer value of 3 and a range of 12". If answered, pick 1 friendly SLAANESH IDOLATORS unit wholly within range of the chanter and visible to them. You can reroll charge rolls for that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
+        ],
+      },
+      {
+        name: `Blessings of Slaanesh`,
+        desc: `If active, you can reroll charge rolls for that unit until your next hero phase.`,
         when: [CHARGE_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
+        ],
       },
     ],
   },
@@ -103,8 +147,12 @@ const Prayers = {
     effects: [
       {
         name: `Blessings of Chaos Undivided`,
-        desc: `If answered, you can heal D3 wounds allocated to targeted Idolators model.`,
+        desc: `Blessings of Chaos Undivided is a prayer with an answer value of 3 and a range of 12". If answered, pick 1 friendly IDOLATORS model within range of the chanter and visible to them. You can heal D3 wounds allocated to that model.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
+        ],
       },
     ],
   },

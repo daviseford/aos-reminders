@@ -242,7 +242,12 @@ const Spells = {
       {
         name: `Salvation of Hysh`,
         desc: `Casting value of 6. Until your next hero phase, roll a dice for each wound or mortal wound allocated to the caster. On a 5+ the wound or mortal wound is ignored.`,
-        when: [HERO_PHASE, WOUND_ALLOCATION_PHASE],
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Salvation of Hysh`,
+        desc: `If active, until your next hero phase, roll a dice for each wound or mortal wound allocated to the caster. On a 5+ the wound or mortal wound is ignored.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -254,7 +259,7 @@ const Spells = {
         when: [HERO_PHASE],
         rule_sources: [
           lumineth_rule_sources.BATTLETOME_LUMINETH,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_TECLIS_MAY_2021,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_TECLIS_JULY_2021,
         ],
       },
     ],

@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import { COMBAT_PHASE, HERO_PHASE } from 'types/phases'
 
 const Spells = {
@@ -9,7 +9,7 @@ const Spells = {
         name: `Metamorphosis`,
         desc: `Casting value of 7. Pick 1 enemy unit within 16" of the caster that is visible. Roll a number of dice equal to the casting roll. For each 3+ the target suffers 1 mortal wound. In addition, if these wounds inflicted destroy the target, you can set up 1 AWAKENED WYLDWOOD wholly within 12" of the last slain model. This model is added to your army and must be set up more than 1" from other models, terrain features, or objectives.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

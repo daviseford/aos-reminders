@@ -8,21 +8,41 @@ export type TRuleSource = {
 }
 
 // Use this as the centralized rule_sources
-// For things like Arcane Bolt, general rules, etc.
-const rule_sources = {
+// Core books, non-faction books, General's Handbooks, etc
+const meta_rule_sources = {
   ERRATA_BROKEN_REALMS_TECLIS_MAY_2021: {
     name: 'Broken Realms: Teclis Errata (May 2021)',
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2021/05/a5tBnjkUz0X5zrFr.pdf',
+  },
+  ERRATA_BROKEN_REALMS_TECLIS_JULY_2021: {
+    name: 'Broken Realms: Teclis Errata (July 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2021/05/5TXh9dhnksx7PhbX.pdf',
   },
   ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021: {
     name: 'Broken Realms: Morathi Errata (January 2021)',
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2021/01/q9Fg2qordsr7bbCP.pdf',
   },
+  ERRATA_BROKEN_REALMS_MORATHI_JULY_2021: {
+    name: 'Broken Realms: Morathi Errata (July 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2021/01/soZJF6JOs4BrQi8z.pdf',
+  },
+  ERRATA_WRATH_OF_THE_EVERCHOSEN_JULY_2021: {
+    name: 'Soul Wars: Wrath of the Everchosen Errata (July 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2020/07/grTM4zXseeVRy7HL.pdf',
+  },
   BOOK_BROKEN_REALMS_KRAGNOS: {
     name: 'Broken Realms: Kragnos',
     type: 'other_book',
+  },
+  ERRATA_BROKEN_REALMS_KRAGNOS_JULY_2021: {
+    name: 'Broken Realms: Kragnos Errata (July 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2021/07/OEZvWdlyDRHD9tfj.pdf',
   },
   BOOK_BROKEN_REALMS_BELAKOR: {
     name: "Broken Realms: Be'lakor",
@@ -44,4 +64,4 @@ const rule_sources = {
   },
 }
 
-export default rule_sources
+export default meta_rule_sources

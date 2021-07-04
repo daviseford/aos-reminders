@@ -1,6 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -138,7 +138,7 @@ const RegularBattalions = {
         name: `The Mirror of Twisted Truths`,
         desc: `You can select either 1 enemy unit within 3" of Luxion and Vresca or pick 1 enemy unit within 12" of Luxion and Vresca and more than 3" from other units in your army. Roll D6 for each model in the target. If the target's wounds characteristic is 1, it suffers 1 mortal wound for each 6 rolled. If the wounds characteristic is greater than 1 it suffers D3 mortal wounds for each 6 rolled.`,
         when: [SHOOTING_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

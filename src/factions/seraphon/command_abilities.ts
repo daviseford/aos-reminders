@@ -20,7 +20,7 @@ const CommandAbilities = {
         rule_sources: [
           rule_sources.BATTLETOME_SERAPHON,
           rule_sources.ERRATA_SERAPHON_JANUARY_2021,
-          rule_sources.ERRATA_SERAPHON_JULY_2021
+          rule_sources.ERRATA_SERAPHON_JULY_2021,
         ],
       },
     ],
@@ -120,10 +120,7 @@ const CommandAbilities = {
         name: `Ripperdactyl Assault`,
         desc: `You can this command ability at the start of the combat phase. If you do so, pick 1 friendly model with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly RIPPERDACTYL units that are wholly within 18" of that model. The same unit cannot benefit from this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SERAPHON,
-          rule_sources.ERRATA_SERAPHON_JANUARY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JANUARY_2021],
       },
     ],
   },

@@ -1,6 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { BEASTS_OF_CHAOS } from 'meta/factions'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -83,20 +83,20 @@ const BattleTraits = {
         name: `Gor Battle Fury`,
         desc: `You can reroll charge rolls for friendly Gor units if they were in reserve and have been set up this turn.`,
         when: [CHARGE_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Warherd Charge`,
         desc: `After a friendly Warherd unit finishes a charge, select 1 enemy unit within 1". Roll a D6, adding 2 if the Warherd unit is a hero or has 3+ models. On a 4+ the target suffers D3 mortal wounds at the end of the phase.`,
         when: [CHARGE_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Raging Storm`,
         desc: `Roll a D6 for each friendly Thunderscorn unit on the battlefield, adding 2 if the Thunderscorn unit is a hero or unit of 3+ models. On a 4+, you can heal 1 wound allocated to that unit.
                Roll a D6 for each enemy unit within 1" of any friendly Thunderscorn units, adding 2 if the Thunderscorn unit is a hero or unit of 3+ models. On a 4+, the enemy unit suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

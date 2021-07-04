@@ -202,12 +202,12 @@ const CommandAbilities = {
       },
     ],
   },
-  // Idolators
+  // IDOLATORS
   Desecrate: {
     effects: [
       {
         name: `Desecrate`,
-        desc: `Pick 1 friendly Idolators unit wholly within 12" of a friendly Idolator Lord and within 3" of a terrain feature. Roll a D6. If the roll is greater than the number of enemy models within 3" of ther terrain, the terrain becomes Descrated (deactivating the terrain feature's rules).`,
+        desc: `Pick 1 friendly IDOLATORS unit wholly within 12" of a friendly Idolator Lord and within 3" of a terrain feature. Roll a D6. If the roll is greater than the number of enemy models within 3" of ther terrain, the terrain becomes Descrated (deactivating the terrain feature's rules).`,
         when: [HERO_PHASE],
       },
     ],

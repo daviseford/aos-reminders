@@ -603,7 +603,6 @@ const Units = {
     mandatory: {
       prayers: [
         keyPicker(Prayers, [
-          'Idolators Prayers',
           'Blessings of Khorne',
           'Blessings of Tzeentch',
           'Blessings of Nurgle',
@@ -621,7 +620,6 @@ const Units = {
     mandatory: {
       prayers: [
         keyPicker(Prayers, [
-          'Idolators Prayers',
           'Blessings of Khorne',
           'Blessings of Tzeentch',
           'Blessings of Nurgle',

@@ -7,12 +7,6 @@ const EndlessSpells = {
   'Hexgorger Skulls': {
     effects: [
       {
-        name: `Parts`,
-        desc: `This invocation has 2 parts.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
-      },
-      {
         name: `Summoning`,
         desc: `This invocation is summoned with a prayer that has an answer value of 3 and a range of 8". If answered, set up the parts of the invocation wholly within range and visible to the chanter, within 6" of each other and more than 1" from all models, other invocations and endless spells. Only KHORNE PRIESTS can attempt to summon this invocation.`,
         when: [HERO_PHASE],
