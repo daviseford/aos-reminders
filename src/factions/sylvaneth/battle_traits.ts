@@ -1,6 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { SYLVANETH } from 'meta/factions'
-import { BATTLESHOCK_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE, MOVEMENT_PHASE } from 'types/phases'
+import { BATTLESHOCK_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE } from 'types/phases'
 
 const BattleTraits = {
   [SYLVANETH]: {
