@@ -15,7 +15,7 @@ const GenericEffects = {
   // e.g. all mercenaries share the "Disruptive Presence" effect, so we'll store it here.
   DisruptivePresence: {
     name: `Disruptive Presence`,
-    desc: `If your army includes any MERCENARY units, at the start of your hero phase in the first battle round, you do not receive 1 command point.`,
+    desc: `If your army includes any MERCENARY units, at the start of your hero phase in the first battle round, you do not receive 1 command point for your general being on the battlefield.`,
     when: [TURN_ONE_START_OF_HERO_PHASE],
   },
   // We re-use this Timber! a lot as well, so we stuck it here!
