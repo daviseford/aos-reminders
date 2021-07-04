@@ -12,6 +12,11 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2020/11/5hJh6gsSHuqScJiT.pdf',
   },
+  ERRATA_SONS_OF_BEHEMAT_JULY_2021: {
+    name: 'Errata (July 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2020/11/DFG60Pr3z7N58B4w.pdf',
+  },
 }
 
 export default rule_sources

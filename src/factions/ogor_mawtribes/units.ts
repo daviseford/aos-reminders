@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -18,6 +19,8 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
+import prayers from './prayers'
+import rule_sources from './rule_sources'
 import spells from './spells'
 
 const ThundertuskEffects = [
@@ -168,17 +171,17 @@ const Units = {
     effects: [...StonehornEffects, BloodVultureEffect],
   },
   'Huskard on Thundertusk': {
+    mandatory: {
+      prayers: [keyPicker(prayers, ["Winter's Endurance", "Winter's Strength"])],
+    },
     effects: [
       ...ThundertuskEffects,
       BloodVultureEffect,
       {
         name: `Blizzard Speaker`,
-        desc: `In your hero phase, this model can chant one of the following prayers. If it does so, pick one of the prayers and then make a prayer roll by rolling a dice. Add 1 to the roll for each other friendly Thundertusk within 18" of this model. On a 1-3, the prayer is not answered. On a 4+, the prayer is answered.
-
-            Winter's Endurance: If this prayer is answered, pick 1 friendly Beastclaw Raiders unit wholly within 18" of this model. You can heal D3 wounds allocated to that unit.
-
-            Winter's Strength: If this prayer is answered, pick 1 friendly Beastclaw Raiders unit wholly within 18" of this model. Until the start of your next hero phase, add 1 to wound rolls for attacks made with melee weapons by that unit.`,
+        desc: `Add 1 to chanting rolls for this unit for each other friendly THUNDERTUSK within 18" of this unit. In addition, this unit knows the following 2 prayers: Winter's Endurance and Winter's Strength.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_OGOR_MAWTRIBES, rule_sources.ERRATA_OGOR_MAWTRIBES_JULY_2021],
       },
     ],
   },
@@ -204,11 +207,13 @@ const Units = {
         name: `Mighty Throw`,
         desc: `This model can run and still shoot with its Great Throwing Spear later in the same turn.`,
         when: [MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_OGOR_MAWTRIBES, rule_sources.ERRATA_OGOR_MAWTRIBES_JULY_2021],
       },
       {
         name: `Mighty Throw`,
-        desc: `This model can run and still shoot with its Great Throwing Spear later in the same turn. In addition, this model's Great Throwing Spear has a Damage characteristic of D6 instead of D3 and a Range characteristic of 18" instead of 9" if it ran in the same turn.`,
+        desc: `This model can run and still shoot with its Great Throwing Spear later in the same turn. In addition, this unit's Great Throwing Spear has a Damage characteristic of D6 instead of D3 and a Range characteristic of 18" instead of 9" if it ran in the same turn.`,
         when: [SHOOTING_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_OGOR_MAWTRIBES, rule_sources.ERRATA_OGOR_MAWTRIBES_JULY_2021],
       },
       {
         name: `Icy Breath`,
@@ -287,6 +292,7 @@ const Units = {
   },
   Maneaters: {
     effects: [
+      GenericEffects.Elite,
       {
         name: `Been There, Done That`,
         desc: `After armies have been set up but before the first battle round begins, pick 1 ability to apply to this unit from the following list:

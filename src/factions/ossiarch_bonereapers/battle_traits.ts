@@ -1,20 +1,24 @@
 import { tagAs } from 'factions/metatagger'
+import { OSSIARCH_BONEREAPERS } from 'meta/factions'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_ROUND,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
   START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
-  // Ossiarch Bonereapers allegiance
-  'The Ossiarch Empire': {
+  // OSSIARCH BONEREAPERS allegiance
+  [OSSIARCH_BONEREAPERS]: {
     effects: [
       {
         name: `Deathless Warriors`,
@@ -27,19 +31,53 @@ const BattleTraits = {
         when: [BATTLESHOCK_PHASE],
       },
       {
-        name: `Ranks Unbroken By Dissent`,
-        desc: `If your army is an Ossiarch Bonereapers army, you cannot use command points. Instead, you use relentless discipline points. At the start of each battle round, before determining who has the first turn, you receive 1 relentless discipline point for each friendly OSSIARCH BONEREAPERS HERO that is on the battlefield. You receive 1 additional relentless discipline point for each warscroll battalion in your army and each friendly LIEGE that is on the battlefield, and 3 additional relentless discipline points if KATAKROS is your general and is on the battlefield. Then, roll a D6 for each friendly OSSIARCH BONEREAPERS unit on the battlefield (including the HEROES above). For each 6, you receive 1 additional relentless discipline point.
-
-         Relentless discipline points are used in the same manner as command points, but can only be used for command abilities that appear on a warscroll that has the OSSIARCH BONEREAPERS keyword, for Ossiarch Bonereaper Legion command abilities and for the Unstoppable Advance command ability below.
-
-         When you generate your relentless discipline points at the start of the battle round, any that you had left over from the previous battle round are lost.`,
-        when: [START_OF_ROUND],
+        name: `Relentless Discipline`,
+        desc: `If your army is an OSSIARCH BONEREAPERS army, you do not receive command points. Instead, you receive relentless discipline points.`,
+        when: [DURING_GAME],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
       {
-        name: `Unstoppable Advance`,
-        desc: `You can use this command ability in your movement phase. If you do so, pick 1 friendly unit that has the HEKATOS keyword, or is wholly within 6" of a friendly Mortek Hekatos, or is wholly within 12" of a friendly OSSIARCH BONEREAPERS HERO. Add 3" to that unit's Move characteristic in that phase (it can still run, or charge if it does not run). You cannot pick the same unit to benefit from this command ability more than once per phase.`,
-        when: [MOVEMENT_PHASE],
-        command_ability: true,
+        name: `Generating Relentless Discipline Points`,
+        desc: `At the start of each battle round, after determining who will take which turn, you receive 1 relentless discipline point for each friendly OSSIARCH BONEREAPERS HERO that is on the battlefield, 1 relentless discipline point for each friendly Liege that is on the battlefield, and 3 relentless discipline points if Katakros is your general and is on the battlefield.
+        
+        If you will take the first turn, you receive 1 relentless discipline point. If you will take the second turn, you receive 2 relentless discipline points. `,
+        when: [START_OF_ROUND],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
+      },
+      {
+        name: `Generating Relentless Discipline Points`,
+        desc: `At the start of each hero phase, roll a dice for each friendly OSSIARCH BONEREAPERS unit on the battlefield (including any Heroes). For each 6, you receive 1 extra relentless discipline point. All relentless discipline points that you have remaining are lost at the end of each battle round.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
+      },
+      {
+        name: `Generating Relentless Discipline Points`,
+        desc: `All relentless discipline points that you have remaining are lost at the end of each battle round.`,
+        when: [END_OF_ROUND],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
+      },
+      {
+        name: `Using Relentless Discipline Points`,
+        desc: `Relentless discipline points are used to issue a command in the same manner as command points, but can only be used to issue a command with command abilities that appear on a warscroll that has the OSSIARCH BONEREAPERS keyword, or to issue a command with an Ossiarch Bonereaper Legion command ability, or to issue the Unstoppable Advance command.
+
+        In addition, you cannot use the Expert, Slayers, Strategists or Swift battalion abilities (core rules, 26.3). Instead, for each battalion in your army that has any of these battalion abilities, once per battle at the start of any battle round, you can choose to receive 1 relentless discipline point.`,
+        when: [DURING_GAME],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
     ],
   },
@@ -58,8 +96,12 @@ const BattleTraits = {
     effects: [
       {
         name: `Unstoppable Juggernauts`,
-        desc: `Reroll save rolls of 1 for attacks made with melee weapons that target PETRIFEX ELITE units.'`,
+        desc: `Worsen the Rend characteristic of weapons that target PETRIFEX ELITE units by 1, to a minimum of '-'.`,
         when: [SAVES_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
     ],
   },

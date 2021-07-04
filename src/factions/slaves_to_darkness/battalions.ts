@@ -9,6 +9,7 @@ import {
   TURN_ONE_MOVEMENT_PHASE,
 } from 'types/phases'
 import CommandTraits from './command_traits'
+import rule_sources from './rule_sources'
 import Spells from './spells'
 import Units from './units'
 
@@ -94,8 +95,12 @@ const RegularBattalions = {
     effects: [
       {
         name: `The Circles Unleashed`,
-        desc: `You can replace one of The Eight Circles of the Varanguard keywords with a different keyword from the same list for each unit in this battalion.`,
+        desc: `When you select this battalion to be part of your army, for each unit from this battalion, you can replace the keyword you chose from the list in the Eight Circles of the Varanguard battle trait with a different keyword from the same list.`,
         when: [DURING_SETUP],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
     ],
   },

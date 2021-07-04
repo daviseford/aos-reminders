@@ -4,7 +4,7 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  END_OF_COMBAT_PHASE,
+  END_OF_CHARGE_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -30,9 +30,13 @@ const DeathGripEffect = {
 }
 const LongshanksEffect = {
   name: `Longshanks`,
-  desc: `When this model makes a normal move, it can ignore models that have a Wounds characteristic of 10 or less, endless spells, magmic invocations, judgements of Khorne, invocations of Khaine and terrain features that are less than 4" tall at their highest point. It cannot finish the move on top of another model or within 3" of an enemy model.`,
+  desc: `When this model makes a move, it can ignore models, endless spells, invocations and terrain features that are less than 4" tall at their highest point. It cannot finish the move on top of another model or within 3" of an enemy model.`,
   when: [MOVEMENT_PHASE],
-  rule_sources: [rule_sources.BATTLETOME_SONS_OF_BEHEMAT, rule_sources.ERRATA_SONS_OF_BEHEMAT_MARCH_2021],
+  rule_sources: [
+    rule_sources.BATTLETOME_SONS_OF_BEHEMAT,
+    rule_sources.ERRATA_SONS_OF_BEHEMAT_MARCH_2021,
+    rule_sources.ERRATA_SONS_OF_BEHEMAT_JULY_2021,
+  ],
 }
 const SonOfBehematEffect = {
   name: `Son of Behemat`,
@@ -60,13 +64,21 @@ const Units = {
       ...BaseMegaGargantEffects,
       {
         name: `Smash Down`,
-        desc: `Add 1 to the damage inflicted by each successful attack made by this model that targets a unit that is part of a garrison or is wholly on or within a terrain feature.`,
+        desc: `Add 1 to the damage inflicted by each successful attack made by this unit that targets a unit that is part of a garrison or is wholly on or within a terrain feature.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SONS_OF_BEHEMAT,
+          rule_sources.ERRATA_SONS_OF_BEHEMAT_JULY_2021,
+        ],
       },
       {
         name: `Smash Down`,
-        desc: `At the end of the combat phase, you can pick 1 terrain feature within 3" of this model and roll a D6. If the roll is equal to or greater than the Smash Down value on this model's damage table, that terrain feature is reduced to rubble: all of its scenery rules are replaced with the Deadly scenery rule, and its keywords are changed to SCENERY, RUBBLE.`,
-        when: [END_OF_COMBAT_PHASE],
+        desc: `Add 1 to the roll when you carry out a Smash To Rubble monstrous rampage with this unit.`,
+        when: [END_OF_CHARGE_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SONS_OF_BEHEMAT,
+          rule_sources.ERRATA_SONS_OF_BEHEMAT_JULY_2021,
+        ],
       },
     ],
   },
@@ -140,11 +152,7 @@ const Units = {
         desc: `Add 1 to the Bravery characteristic of friendly Orruk units while they are wholly within 12" of this model.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Longshanks`,
-        desc: `When this model makes a normal move, it can ignore models that have a Wounds characteristic of 10 or less and terrain features that are less than 4" tall at their highest point. It cannot finish the move on top of another model or within 3" of an enemy model.`,
-        when: [MOVEMENT_PHASE],
-      },
+      LongshanksEffect,
     ],
   },
 }

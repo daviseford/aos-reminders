@@ -14,6 +14,7 @@ import {
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
+import rule_sources from './rule_sources'
 import Spells from './spells'
 
 const NecrophorosEffect = {
@@ -37,14 +38,18 @@ const Units = {
     effects: [
       {
         name: `Bone Harvest`,
-        desc: `Roll a D6 each time a model is slain within 3" of any model with this ability. On a 4+, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. If you do so, and the slain model had a Wounds characteristic of:
+        desc: `Roll a dice each time a model is slain within 3" of any models with this ability. On a 4+, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. If you do so, and the slain model had a Wounds characteristic of:
 
         4 or less - you can heal 1 wound allocated to that unit
         5-9 - you can heal up to D3 wounds allocated to that unit
         10 or more - you can heal up to D6 wounds allocated to that unit.
 
         If there are no wounds allocated to the unit you pick, you can return a number of slain models to that unit with a combined Wounds chacteristic that is equal to or less than the number of wounds you could have healed.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
       {
         name: `Soulcrusher Bludgeons`,
@@ -288,6 +293,15 @@ const Units = {
         name: `Mortarch of the Necropolis`,
         desc: `At the start of your hero phase, if this model is on the battlefield you can pick up to 3 different friendly OSSIARCH BONEREAPERS units wholly within 24" of this model. For each of those units, you can either heal up to 3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit with a combined Wounds characteristic of 3 or less.`,
         when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Warmaster`,
+        desc: `If this unit is included in an Ossiarch Bonereapers army, it is treated as a general even if it is not the model picked to be the army's general.`,
+        when: [DURING_GAME],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+        ],
       },
       {
         name: `Nadirite Weapons`,

@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { SERAPHON } from 'meta/factions'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -12,7 +13,7 @@ import {
 import rule_sources from './rule_sources'
 
 const BattleTraits = {
-  SERAPHON: {
+  [SERAPHON]: {
     effects: [
       {
         name: `Contemplations of the Ancient Ones`,
@@ -27,7 +28,11 @@ const BattleTraits = {
                 The Hunter's Steed: Add 1 to run rolls and charge rolls for friendly SERAPHON units.
                 The Sage's Staff: At the start of the hero phase, pick 1 friendly SERAPHON WIZARD. You can add 1 to casting or dispelling rolls for that WIZARD if it is your hero phase, and you can add 1 to unbinding rolls for that WIZARD if it is the enemy hero phase.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JANUARY_2021],
+        rule_sources: [
+          rule_sources.BATTLETOME_SERAPHON,
+          rule_sources.ERRATA_SERAPHON_JANUARY_2021,
+          rule_sources.ERRATA_SERAPHON_JULY_2021,
+        ],
       },
     ],
   },
@@ -50,8 +55,9 @@ const BattleTraits = {
       },
       {
         name: `Primeval Domain`,
-        desc: `If a terrain feature is partially or wholly within the territory of a COALESCED army, then any Damned, Arcane, Inspiring and Mystical scenery rules for that terrain feature only apply to COALESCED units, while any Deadly and Sinister scenery rules for that terrain feature do not apply to COALESCED units.`,
+        desc: `If a terrain feature is partially or wholly within the territory of a COALESCED army, then any Damned, Arcane, Inspiring and Mystical scenery rules for that terrain feature only apply to COALESCED units, while any Deadly and Sinister scenery rules for that terrain feature do not apply to COALESCED units. These scenery rules only apply if the Mysterious Terrain rules are being used.`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JULY_2021],
       },
       {
         name: `Scaly Skin`,

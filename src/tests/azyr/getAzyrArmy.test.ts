@@ -1592,7 +1592,11 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.selections.flavors).toEqual(['Boulderhead (Mawtribe)'])
     expect(res.selections.artifacts).toEqual(['Brand of the Svard'])
-    expect(res.selections.prayers).toEqual(['Pulverising Hailstorm'])
+    expect(res.selections.prayers).toEqual([
+      'Pulverising Hailstorm',
+      "Winter's Endurance",
+      "Winter's Strength",
+    ])
     expect(res.selections.mount_traits).toEqual(['Belligerent Charger', 'Fleshgreed'])
     expect(res.selections.command_traits).toEqual(['Lord of Beasts'])
     expect(res.selections.units).toEqual([
@@ -2178,7 +2182,7 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SKAVENTIDE)
     expect(res.selections.flavors).toContain('Warpstone Sparks (Skryre)')
-    expect(res.selections.endless_spells).toEqual(['Bell of Doom (Skaven)'])
+    expect(res.selections.endless_spells).toEqual(['Bell of Doom'])
     expect(res.selections.units).toEqual([
       'Arch-Warlock',
       'Warlock Bombardier',

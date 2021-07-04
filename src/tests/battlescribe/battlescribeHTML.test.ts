@@ -1403,10 +1403,6 @@ describe('getBattlescribeArmy', () => {
       },
       {
         severity: 'warn',
-        text: 'Favour of Nurgle (Nurgle)',
-      },
-      {
-        severity: 'warn',
         text: 'Wind of Chaos',
       },
       {

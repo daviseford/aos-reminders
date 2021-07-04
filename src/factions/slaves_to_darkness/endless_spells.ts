@@ -1,35 +1,36 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  COMBAT_PHASE,
-  DURING_GAME,
-  END_OF_HERO_PHASE,
-  END_OF_TURN,
-  HERO_PHASE,
-  MOVEMENT_PHASE,
-} from 'types/phases'
+import { END_OF_HERO_PHASE, END_OF_TURN, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const EndlessSpells = {
   'Eightfold Doom-Sigil': {
     effects: [
       {
-        name: `Summon`,
-        desc: `Casting value of 5. Only Slaves to Darkness wizards can attempt to cast this spell. Set up 1 of these models wholly within 12" of the caster.`,
+        name: `Summoning`,
+        desc: `Casting value of 5 and a range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SLAVES TO DARKNESS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
       {
         name: `Empowered by Atrocity`,
-        desc: `Keep track of the number of models slain within 12" of this model each turn.`,
-        when: [DURING_GAME],
+        desc: `Keep track of the number of models that are slain within 12" of this endless spell each turn.`,
+        when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
       {
         name: `Empowered by Atrocity`,
-        desc: `Roll a D6 for each model that was tracked during the turn. On each 3+, the current turn's player must pick 1 Slaves to Darkness unit wholly within 18" of this model. The selected unit gets 1 additional attack to its melee weapons (excluding mounts). A unit cannot benefit from this more than once a turn.`,
+        desc: `At the end of each turn, roll a dice for each model that was slain within 12" of this endless spell during that turn. For each 3+, the player whose turn is taking place must pick 1 SLAVES TO DARKNESS unit wholly within 18" of this endless spell. Add 1 to the Attacks characteristic of that unit's melee weapons (excluding those of its mounts) until that player's next hero phase. A unit cannot benefit from this ability more than once per turn.`,
         when: [END_OF_TURN],
-      },
-      {
-        name: `Empowered by Atrocity`,
-        desc: `If active, the affected unit gets 1 additional attack to its melee weapons (excluding mounts).`,
-        when: [COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
     ],
   },
@@ -37,28 +38,39 @@ const EndlessSpells = {
     effects: [
       {
         name: `Predatory`,
-        desc: `Can move up to 12" and can fly.`,
+        desc: `This endless spell is a predatory endless spell. It can be moved up to 9" and can fly.`,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
       {
-        name: `Summon`,
-        desc: `Casting value of 6. Only Slaves to Darkness wizards can attempt to cast this spell. Set up 1 of these models wholly within 9" of the caster.`,
+        name: `Summoning`,
+        desc: `Casting value of 7 and a range of 9". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SLAVES TO DARKNESS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Reality Screams`,
-        desc: `The player who set this model up may immediately move it.`,
-        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
       {
         name: `Billowing Energies`,
-        desc: `After this model has moved, each unit it passed across and each unit within 1" at the end of the move suffers D3 mortal wounds.`,
+        desc: `After this endless spell has moved, roll a dice for each unit that has any models it passed across and for each other unit within 1" of it at the end of its move. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
       {
         name: `Fuelled by Sorcery`,
-        desc: `Add 1 to the number of mortal wounds inflicted by this endless spell for each wizard and each other endless spell within 12" of this model after it has moved.`,
+        desc: `Add 1 to the number of mortal wounds caused by this endless spell for each other endless spell within 12" of this endless spell after it has moved.`,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
     ],
   },
@@ -66,38 +78,30 @@ const EndlessSpells = {
     effects: [
       {
         name: `Predatory`,
-        desc: `Can move up to 9" and can fly.`,
+        desc: `This endless spell is a predatory endless spell. It can be moved up to 9" and can fly. When this endless spell is moved, it must move in a straight line in the direction in which its spikes are pointing.`,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
       {
-        name: `Summon`,
-        desc: `Casting value of 7. Only Only Slaves to Darkness wizards can attempt to cast this spell. Set up 1 of these models wholly within 9" of the caster.`,
+        name: `Summoning`,
+        desc: `Casting value of 7 and a range of 9". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SLAVES TO DARKNESS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Oncoming Annihilation`,
-        desc: `The player who set this model up may immediately move it.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Tide of Ruin`,
-        desc: `Whenever this model is set up it must be positioned widthways in the direction you wish to move it. It will only be able to move forward in this direction.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Tide of Ruin`,
-        desc: `This model can only move in a straight line widthwayhs in the direction it is facing (cannot move backwards).`,
-        when: [END_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
       {
         name: `Debilitating Shockwave`,
-        desc: `After this model has moved, each unit it passed across and each unit within 1" at the end of the move suffers D3 mortal wounds. Affected units halve their movement until the end of the round.`,
+        desc: `After this endless spell has moved, roll a dice for each unit that has any models it passed across and for each other unit within 1" of it at the end of its move. On a 2+, that unit suffers D3 mortal wounds and its Move characteristic is halved until the end of the battle round.`,
         when: [END_OF_HERO_PHASE],
-      },
-      {
-        name: `Debilitating Shockwave`,
-        desc: `Units affected by this ability halve their move characteristic until the end of the battle round.`,
-        when: [MOVEMENT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+        ],
       },
     ],
   },

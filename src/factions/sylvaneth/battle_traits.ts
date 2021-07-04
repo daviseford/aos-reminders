@@ -1,6 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { SYLVANETH } from 'meta/factions'
-import { BATTLESHOCK_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE, MOVEMENT_PHASE } from 'types/phases'
+import { BATTLESHOCK_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE } from 'types/phases'
 
 const BattleTraits = {
   [SYLVANETH]: {
@@ -14,11 +14,6 @@ const BattleTraits = {
         name: `Forest Spirits`,
         desc: `At the end of your movement phase, you can set up one or more of the reserve units that are in the hidden enclaves on the battlefield wholly within 6" of an AWAKENED WYLDWOOD and more than 9" from any enemy units. Any reserve units in the hidden enclaves that are not set up on the battlefield before the start of the fourth battle round are slain.`,
         when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Navigate Realmroots`,
-        desc: `Instead of making a normal move in your movement phase, 1 friendly SYLVANETH unit wholly within 6" of an AWAKENED WYLDWOOD can navigate the realmroots. If it does so, remove that unit from the battlefield and then set it up again wholly within 6" of another AWAKENED WYLDWOOD and more than 9" from any enemy units.`,
-        when: [MOVEMENT_PHASE],
       },
       {
         name: `Places of Power`,

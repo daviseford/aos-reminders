@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   AethervoidPendulumEffects,
   BurningHeadEffects,
@@ -18,67 +19,70 @@ import {
   SuffocatingGravetideEffects,
   UmbralSpellportalEffects,
 } from 'generic_rules/endless_spells'
-import { END_OF_HERO_PHASE } from 'types/phases'
+import { DURING_GAME } from 'types/phases'
+import rule_sources from './rule_sources'
 
-const BoundEffect = {
-  name: `Bound Endless Spell`,
-  desc: `All of the rules that apply to other endless spells also apply to bound endless spells, except that bound predatory spells can only be moved by a player that has a Seraphon army. If only one player has a Seraphon army, then they move all of the bound predatory endless spells before any other predatory endless spells are moved. The players then alternate moving any remaining predatory endless spells as normal.
-
-  If both players have Seraphon armies, the players alternate moving predatory endless spells as normal, but each time a player could move a predatory endless spell, they can choose to move either a bound predatory endless spell or a normal predatory endless spell.`,
-  when: [END_OF_HERO_PHASE],
-}
+const BondedEffects = [
+  {
+    name: `Bonded Endless Spells`,
+    desc: `Endless spells summoned by SERAPHON WIZARDS are bonded to the model that summoned them.`,
+    when: [DURING_GAME],
+    rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JULY_2021],
+  },
+  ...GenericEffects.Bonded,
+]
 
 const EndlessSpells = {
   'Bound Quicksilver Swords': {
-    effects: [BoundEffect, ...QuicksilverSwordsEffects],
+    effects: [...BondedEffects, ...QuicksilverSwordsEffects],
   },
   'Bound Emerald Lifeswarm': {
-    effects: [BoundEffect, ...EmeraldLifeswarmEffects],
+    effects: [...BondedEffects, ...EmeraldLifeswarmEffects],
   },
   'Bound Soulsnare Shackles': {
-    effects: [BoundEffect, ...SoulsnareShacklesEffects],
+    effects: [...BondedEffects, ...SoulsnareShacklesEffects],
   },
   'Bound Burning Head': {
-    effects: [BoundEffect, ...BurningHeadEffects],
+    effects: [...BondedEffects, ...BurningHeadEffects],
   },
   'Bound Chronomantic Cogs': {
-    effects: [BoundEffect, ...ChronomanticCogsEffects],
+    effects: [...BondedEffects, ...ChronomanticCogsEffects],
   },
   'Bound Geminids of Uhl-Gysh': {
-    effects: [BoundEffect, ...GeminidsOfUhlGyshEffects],
+    effects: [...BondedEffects, ...GeminidsOfUhlGyshEffects],
   },
   'Bound Malevolent Maelstrom': {
-    effects: [BoundEffect, ...MalevolentMaelstromEffects],
+    effects: [...BondedEffects, ...MalevolentMaelstromEffects],
   },
   'Bound Aethervoid Pendulum': {
-    effects: [BoundEffect, ...AethervoidPendulumEffects],
+    effects: [...BondedEffects, ...AethervoidPendulumEffects],
   },
   'Bound Suffocating Gravetide': {
-    effects: [BoundEffect, ...SuffocatingGravetideEffects],
+    effects: [...BondedEffects, ...SuffocatingGravetideEffects],
   },
   'Bound Umbral Spellportal': {
-    effects: [BoundEffect, ...UmbralSpellportalEffects],
+    effects: [...BondedEffects, ...UmbralSpellportalEffects],
   },
   "Bound Ravenak's Gnashing Jaws": {
-    effects: [BoundEffect, ...RavenaksGnashingJawsEffects],
+    effects: [...BondedEffects, ...RavenaksGnashingJawsEffects],
   },
   'Bound Purple Sun of Shyish': {
-    effects: [BoundEffect, ...PurpleSunEffects],
+    effects: [...BondedEffects, ...PurpleSunEffects],
   },
   'Bound Prismatic Palisade': {
-    effects: [BoundEffect, ...PrismaticPalisadeEffects],
+    effects: [...BondedEffects, ...PrismaticPalisadeEffects],
   },
   'Bound Lauchon the Soulseeker': {
-    effects: [BoundEffect, ...LauchonTheSoulseekerEffects],
+    effects: [...BondedEffects, ...LauchonTheSoulseekerEffects],
   },
   'Bound Soulscream Bridge': {
-    effects: [BoundEffect, ...SoulscreamBridgeEffects],
+    effects: [...BondedEffects, ...SoulscreamBridgeEffects],
   },
   'Bound Horrorghast': {
-    effects: [BoundEffect, ...HorrorghastEffects],
+    effects: [...BondedEffects, ...HorrorghastEffects],
   },
   'Bound Shards of Valagharr': {
-    effects: [BoundEffect, ...ShardsOfValagharrEffects],
+    effects: [...BondedEffects, ...ShardsOfValagharrEffects],
   },
 }
 

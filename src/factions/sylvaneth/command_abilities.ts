@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -8,6 +8,7 @@ import {
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandAbilities = {
   "Ghyran's Wrath": {
@@ -16,7 +17,7 @@ const CommandAbilities = {
         name: `Ghyran's Wrath`,
         desc: `If activated, you can reroll wound rolls of 1 for attacks made by friendly Sylvaneth units wholly within 14" of this model until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -24,8 +25,9 @@ const CommandAbilities = {
     effects: [
       {
         name: `Heed the Spirit-song`,
-        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly model with this command ability. Until your next hero phase, you can reroll save rolls of 1 for attacks that target friendly SYLVANETH units wholly within 12" of that model.`,
+        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly model with this command ability. Until your next hero phase, you can add 1 to save rolls for attacks that target friendly SYLVANETH units wholly within 12" of that model.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
     ],
   },

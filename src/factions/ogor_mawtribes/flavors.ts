@@ -3,6 +3,7 @@ import { CHARGE_PHASE, DURING_GAME, HERO_PHASE, SHOOTING_PHASE } from 'types/pha
 import artifacts from './artifacts'
 import command_abilities from './command_abilities'
 import command_traits from './command_traits'
+import rule_sources from './rule_sources'
 
 const Flavors = {
   'Meatfist (Mawtribe)': {
@@ -61,8 +62,9 @@ const Flavors = {
       },
       {
         name: `Deadly Hail`,
-        desc: `Add 1 to prayer rolls for Pulverising Hailstorm when a BOULDERHEAD PRIEST is chanting that prayer.`,
+        desc: `Add 1 to chanting rolls for Pulverising Hailstorm when a BOULDERHEAD PRIEST is chanting that prayer.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_OGOR_MAWTRIBES, rule_sources.ERRATA_OGOR_MAWTRIBES_JULY_2021],
       },
     ],
   },
@@ -80,8 +82,9 @@ const Flavors = {
       },
       {
         name: `Riders of the Hurricane`,
-        desc: `Add 1 to prayer rolls for Keening Gale when a THUNDERBELLIES PRIEST is chanting that prayer.`,
+        desc: `Add 1 to chanting rolls for Keening Gale when a THUNDERBELLIES PRIEST is chanting that prayer.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_OGOR_MAWTRIBES, rule_sources.ERRATA_OGOR_MAWTRIBES_JULY_2021],
       },
     ],
   },
@@ -99,8 +102,9 @@ const Flavors = {
       },
       {
         name: `Call of the Endless White`,
-        desc: `Add 1 to prayer rolls for Call of the Blizzard when a WINTERBITE PRIEST is chanting that prayer.`,
+        desc: `Add 1 to chanting rolls for Call of the Blizzard when a WINTERBITE PRIEST is chanting that prayer.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_OGOR_MAWTRIBES, rule_sources.ERRATA_OGOR_MAWTRIBES_JULY_2021],
       },
     ],
   },
