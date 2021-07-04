@@ -37,6 +37,11 @@ const rule_sources = {
     name: "General's Handbook (2021)",
     type: 'ghb',
   },
+  ERRATA_CORE_RULES_2021: {
+    name: 'Core Rules Errata (July 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/u7QSQCYGoqZ6e4TL.pdf',
+  },
 }
 
 export default rule_sources
