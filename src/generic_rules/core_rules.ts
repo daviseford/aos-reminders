@@ -447,6 +447,20 @@ const CoreRules: TEntry[] = [
     ],
   },
 
+  {
+    name: 'Wandering Endless Spells',
+    effects: [
+      {
+        name: `Wandering Endless Spells`,
+        desc: `Wandering endless spells work differently to normal predatory endless spells. They are activated after all predatory endless spells on the battlefield have been moved. The players alternate picking 1 wandering endless spell to activate, starting with the player who has the second turn. Unless otherwise stated, any effects and abilities on their warscrolls can be used as normal and are resolved by the player activating that wandering endless spell.
+
+        Each wandering endless spell can be activated once per turn. To do so, roll a D3 and consult the behaviour table on page 67 of Soul Wars: Wrath of the Everchosen. The behaviour table has 3 columns, each with 6 results. The distance between the wandering endless spell and the closest enemy models determines which column you use. Each roll on the behaviour table has a corresponding action that the wandering endless spell will perform. The action is resolved before the next wandering endless spell is activated`,
+        when: [END_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.ERRATA_WRATH_OF_THE_EVERCHOSEN_JULY_2021],
+      },
+    ],
+  },
+
   // {
   //   name: 'PLACEHOLDER',
   //   effects: [

@@ -30,6 +30,11 @@ const meta_rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2021/01/soZJF6JOs4BrQi8z.pdf',
   },
+  ERRATA_WRATH_OF_THE_EVERCHOSEN_JULY_2021: {
+    name: 'Soul Wars: Wrath of the Everchosen Errata (July 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2020/07/grTM4zXseeVRy7HL.pdf',
+  },
   BOOK_BROKEN_REALMS_KRAGNOS: {
     name: 'Broken Realms: Kragnos',
     type: 'other_book',
