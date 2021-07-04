@@ -1,6 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { SKAVENTIDE } from 'meta/factions'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -9,6 +9,7 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
   [SKAVENTIDE]: {
@@ -30,26 +31,27 @@ const BattleTraits = {
       },
       {
         name: `Strength in Numbers`,
-        desc: `When a SKAVENTIDE unit takes a battleshock test, add 2 to its Bravery characteristic instead of 1 for every 10 models in the unit.`,
+        desc: `When a SKAVENTIDE unit takes a battleshock test, subtract 1 from the battleshock roll for every 10 models that are in the unit.`,
         when: [BATTLESHOCK_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
       },
       {
         name: `Hidden Weapon Teams`,
         desc: `You can reveal 1 or more hidden Weapon Team units. Set up each wholly within 3" of the unit it was hiding in, more than 3" from any enemy units. These units can shoot as long as the concealing unit did not run this turn.`,
         when: [START_OF_SHOOTING_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Hidden Weapon Teams`,
         desc: `You can reveal 1 or more hidden Weapon Team units hiding in a unit that completed a charge move this phase. Set up each wholly within 3" of the unit it was hiding in. This unit can be set up within 3" of enemy units and can fight in the following combat phase.`,
         when: [END_OF_CHARGE_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Hidden Weapon Teams`,
         desc: `If the concealing unit is destroyed, the Weapon Team hiding inside it is also destroyed.`,
         when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

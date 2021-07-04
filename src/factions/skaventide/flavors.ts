@@ -1,4 +1,4 @@
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -10,6 +10,7 @@ import {
   START_OF_SETUP,
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Flavors = {
   'Skilled Manipulators (Masterclan)': {
@@ -41,7 +42,7 @@ const Flavors = {
         name: `Mutations`,
         desc: `When selecting a FIGHTING BEAST unit to benefit from Prized Creations you can choose to have a CLANS MOULDER mutation instead of adding D3 to its wounds characteristic and rerolling hits of 1. Roll a D6 for the declared FIGHTING BEAST to select the mutation from the appropriate table. The same FIGHTING BEAST cannot have more than 1 Clans Moulder mutation and and army cannot have duplicate mutations.`,
         when: [TURN_ONE_START_OF_ROUND],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Mutations - Hideous Abominiations`,
@@ -53,7 +54,7 @@ const Flavors = {
               5 - Best-best Warpstone Spikes: Mutation grants a reroll of the dice for the Warpstone Spikes ability. You can also reroll wound rolls of 1 for melee weapons.
               6 - Never-never Die-die: Mutation grants a reroll of the dice for the Too Horrible To Die ability.`,
         when: [TURN_ONE_START_OF_ROUND],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Mutations - Big-Big Rat Ogors`,
@@ -62,7 +63,7 @@ const Flavors = {
               2 - Insanely Rabid: Mutation grants attacks characteristic of 6 for Tearing Claws and Blades and Fangs. You can also reroll charge rolls.
               3 - Accelerated Metabolism: Mutation grants a move characteristic of 8". You can also heal D3 wounds allocated in your hero phase.`,
         when: [TURN_ONE_START_OF_ROUND],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -127,7 +128,7 @@ const Flavors = {
     effects: [
       {
         name: `Echoes of the Great Plagues (Pestilens)`,
-        desc: `If the unmodified prayer roll for a prayer chanted by a friendly CLANS PESTILENS PRIEST is 6, you can pick 1 of the following Great Plagues to manifest (in addition to the effect of the prayer). Each Great Plague can only manifest once per battle, and no more than one Great Plague can manifest in the same turn.
+        desc: `If the unmodified chanting roll for a prayer chanted by a friendly CLANS PESTILENS PRIEST is 6, you can pick 1 of the following Great Plagues to manifest (in addition to the effect of the prayer).
 
         Bubonic Blightplague: If this Great Plague manifests, pick the nearest enemy unit within 13" of the PRIEST chanting the prayer. That unit is infected with the Bubonic Blightplague. If several enemy units are equally close, you can pick which is infected. The infected unit suffers D6 mortal wounds. If the infected unit is destroyed by these mortal wounds, you can pick another enemy unit within 6" of the last model to be slain from the infected unit. The new unit is infected and suffers D3 mortal wounds. If the second unit is also destroyed, then another enemy unit within 6" of the last model to be slain suffers D3 mortal wounds, and so on until a unit is not destroyed by the disease or there are no other enemy units within 6" when a unit is destroyed.
 
@@ -139,6 +140,7 @@ const Flavors = {
 
         Undulant Scourge: If this Great Plague manifests, pick the nearest enemy unit within 13" of the PRIEST chanting the prayer, and roll 1 dice for each model in that unit. If several enemy units are equally close, you can pick which of those units to roll dice for. For each 5+ that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
       },
     ],
   },

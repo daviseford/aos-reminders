@@ -22,6 +22,8 @@ import {
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import flavors from './flavors'
+import prayers from './prayers'
+import rule_sources from './rule_sources'
 import spells from './spells'
 
 const AltarOfTheHornedRatEffect = {
@@ -150,13 +152,15 @@ const Units = {
       TerrifyingEffect,
       {
         name: `The Great Manipulators`,
-        desc: `If this model is on the battlefield at the start of your hero phase, roll a D6. On a 3+, you receive 1 extra command point. On a 6 you receive D3 extra command points instead of 1.`,
+        desc: `At the start of your hero phase, if any friendly models with this ability are on the battlefield, roll 1 dice. On a 3+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
       },
       {
         name: `Scry-orb`,
-        desc: `If active, you can reroll save rolls for attacks that target this model.`,
+        desc: `Add 1 to save rolls for attacks that target this model.`,
         when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
       },
       {
         name: `Scry-orb`,
@@ -327,8 +331,15 @@ const Units = {
       },
       {
         name: `Pavise`,
-        desc: `You can reroll hit rolls for attacks made with this unit's Warplock Jezzails if this unit has not made a move in the same turn. In addition, add 2 to save rolls for attacks made with missile weapons that target this unit.`,
-        when: [SHOOTING_PHASE, SAVES_PHASE],
+        desc: `You can reroll hit rolls for attacks made with this unit's Warplock Jezzails if this unit has not made a move in the same turn.`,
+        when: [SHOOTING_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
+      },
+      {
+        name: `Pavise`,
+        desc: `Add 1 to save rolls for attacks made with missile weapons that target this unit.`,
+        when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
       },
     ],
   },
@@ -589,17 +600,17 @@ const Units = {
   },
   'Plague Priest': {
     mandatory: {
+      prayers: [keyPicker(prayers, ['Disease-disease!', 'Pestilence-pestilence!'])],
       flavors: [keyPicker(flavors, ['Echoes of the Great Plagues (Pestilens)'])],
     },
     effects: [
       {
         name: `Plague Prayers`,
-        desc: `In your hero phase, this model can chant one of the following prayers. If it does so, pick 1 of the prayers and then make a prayer roll by rolling a dice. On a 1, this model suffers 1 mortal wound and the prayer is not answered. On a 2, the prayer is not answered. On a 3+ the prayer is answered.
-
-        Disease-disease!: If this prayer is answered, pick 1 enemy unit within 13" of this model, and roll 1 dice for each model in that unit. For each 6, that unit suffers 1 mortal wound. This prayer has no effect on CLANS PESTILENS units.
-
-        Pestilence-pestilence!: If this prayer is answered, pick a point on the battlefield that is within 13" of this model. Roll a D6 for each unit within 3" of that point. On 4+ that unit suffers D3 mortal wounds. This prayer has no effect on CLANS PESTILENS units.`,
+        desc: `In your hero phase, this model can chant one of the following prayers: Disease-disease! or Pestilence-pestilence!
+        
+        If it does so, pick 1 of the prayers and then make a prayer roll by rolling a dice. On a 1, this model suffers 1 mortal wound and the prayer is not answered. On a 2, the prayer is not answered. On a 3+ the prayer is answered.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
       },
       FrenziedAssaultEffect,
       PoisonousFumesEffect,
@@ -618,12 +629,11 @@ const Units = {
       },
       {
         name: `Noxious Prayers`,
-        desc: `In your hero phase, this model can chant one of the following prayers. If it does so, pick 1 of the prayers and then make a prayer roll by rolling a dice. On a 1, this model suffers 1 mortal wound and the prayer is not answered. On a 2, the prayer is not answered. On a 3+ the prayer is answered.
-
-        Filth-filth!: If this prayer is answered, pick 1 friendly CLANS PESTILENS unit wholly within 13" of this model. You can reroll wound rolls for attacks made by that unit until your next hero phase.
-
-        Rabid-rabid!: If this prayer is answered, pick 1 friendly CLANS PESTILENS unit wholly within 13" of this model. Add 1 to the Attacks characteristic of melee weapons used by that unit until your next hero phase. You cannot pick the same unit to be affected by this prayer more than once per hero phase.`,
+        desc: `In your hero phase, this model can chant one of the following prayers: Filth-filth! or Rabid-rabid! 
+        
+        If it does so, pick 1 of the prayers and then make a prayer roll by rolling a dice. On a 1, this model suffers 1 mortal wound and the prayer is not answered. On a 2, the prayer is not answered. On a 3+ the prayer is answered.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
       },
       PoisonousFumesEffect,
       ProtectionOfTheHornedRatEffect,

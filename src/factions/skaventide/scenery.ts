@@ -1,34 +1,35 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  CHARGE_PHASE,
-  HERO_PHASE,
-  MOVEMENT_PHASE,
-  START_OF_MOVEMENT_PHASE,
-  START_OF_SETUP,
-} from 'types/phases'
+import { GenericEffects } from 'generic_rules'
+import { CHARGE_PHASE, END_OF_MOVEMENT_PHASE, HERO_PHASE, MOVEMENT_PHASE, START_OF_SETUP } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Scenery = {
   Gnawholes: {
     effects: [
       {
-        name: `Gnawholes`,
-        desc: `A Skaventide army can include up to 3 GNAWHOLE terrain features. After territories have been chosen but before armies are set up, you can set up the GNAWHOLES for your army. Each GNAWHOLE must be set up wholly within 8" of the edge of the battlefield, more than 3" from any enemy units or other terrain features, and more than 1" from any objectives. If both players can set up any terrain features before armies are set up, they must roll off, and the winner chooses who sets up their terrain features first.`,
+        name: `Setup`,
+        desc: `After territories are determined, you can set up this terrain feature more than 3" from all objectives and other terrain features, more than 18" from all other Gnawholes in your army, and wholly within 8" of the edge of the battlefield. If both players can set up faction terrain features at the same time, they must roll off and the winner chooses who sets up their faction terrain features first.`,
         when: [START_OF_SETUP],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
       },
+      GenericEffects.Impassable,
       {
         name: `Tunnels Through Reality`,
-        desc: `At the start of your movement phase, you can use 1 GNAWHOLE to transport 1 friendly SKAVENTIDE unit. In order to do so, that unit must be wholly within 6" of the GNAWHOLE , and a friendly SKAVENTIDE HERO must be within 6" of the GNAWHOLE . If this is the case, remove the SKAVENTIDE unit from the battlefield and then set it up wholly within 6" of another GNAWHOLE and more than 9" from any enemy models. This counts as that unit's move for that movement phase.`,
-        when: [START_OF_MOVEMENT_PHASE],
+        desc: `At the end of your movement phase, if there is a friendly SKAVENTIDE Hero within 6" of this terrain feature, you can pick 1 friendly SKAVENTIDE unit within 6" of this terrain feature, remove that unit from the battlefield and set it up wholly within 6" of a different Gnawhole in your army and more than 9" from all enemy models. You can only transport up to 1 friendly unit in this way per battle round, regardless of the number of Gnawholes in your army.`,
+        when: [END_OF_MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
       },
       {
         name: `Aura of the Horned Rat`,
-        desc: `SKAVENTIDE units treat this terrain feature as having the Arcane scenery rule. In addition, you can add 1 to the dice that determines if a prayer is answered if the prayer is chanted by a friendly SKAVENTIDE PRIEST within 1" of a GNAWHOLE.`,
+        desc: `Add 1 to chanting rolls for friendly SKAVENTIDE PRIESTS within 1" of this terrain feature, and add 1 to casting, dispelling and unbinding rolls for friendly SKAVENTIDE WIZARDS within 1" of this terrain feature.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
       },
       {
         name: `Aura of the Horned Rat`,
-        desc: `Non-SKAVENTIDE units treat this terrain feature as having the Deadly scenery rule.`,
+        desc: `Roll a dice for each enemy unit that finishes a normal move, run, retreat or charge move within 1" of this terrain feature. On a 6, that unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
       },
     ],
   },

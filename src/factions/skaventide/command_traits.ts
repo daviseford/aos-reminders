@@ -11,6 +11,7 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const VerminousValourEffect = {
   name: `Verminous Valour`,
@@ -134,8 +135,9 @@ const CommandTraits = {
     effects: [
       {
         name: `Master of Rot and Ruin (Pestilens)`,
-        desc: `You can reroll the dice that determines if a prayer chanted by this general is answered.`,
+        desc: `You can reroll chanting rolls for this general.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
       },
     ],
   },

@@ -16,6 +16,7 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Artifacts = {
   'Warpstorm Scroll (Masterclan)': {
@@ -185,8 +186,9 @@ const Artifacts = {
     effects: [
       {
         name: `Liber Bubonicus (Pestilens)`,
-        desc: `The bearer can use the Plague Prayers ability from the Plague Priest warscroll. If the bearer is a PLAGUE PRIEST, then it can use the Plague Prayers ability twice in your hero phase.`,
+        desc: `The bearer becomes a PRIEST. If the bearer is already a PRIEST, you can reroll chanting rolls for the bearer.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
       },
     ],
   },
