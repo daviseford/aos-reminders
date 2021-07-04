@@ -21,6 +21,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
+import rule_sources from './rule_sources'
 import Spells from './spells'
 
 const SelflessProtectorEffect = {
@@ -193,8 +194,9 @@ const Units = {
       ...SlannBaseEffects,
       {
         name: `Foresight`,
-        desc: `At the start of your hero phase, roll 2 dice for this model. For each 4+, you receive 1 command point.`,
+        desc: `At the start of your hero phase, if any friendly models with this ability are on the battlefield, roll 2 dice. For each 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JULY_2021],
       },
     ],
   },
@@ -292,8 +294,9 @@ const Units = {
     effects: [
       {
         name: `Cosmic Herald`,
-        desc: `At the start of your hero phase, roll a D6 for this model. On a 4+, you receive 1 command point.`,
+        desc: `At the start of your hero phase, if any friendly models with this ability are on the battlefield, roll 1 dice. On a 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JULY_2021],
       },
       {
         name: `Astromancer's Staff`,
@@ -395,8 +398,9 @@ const Units = {
       ...ChameleonAmbushEffects,
       {
         name: `Perfect Mimicry`,
-        desc: `The cover modifier adds 3 to save rolls for attacks that target this unit, instead of 1.`,
+        desc: `Models in this unit that are within 1" of a terrain feature have a ward of 4+`,
         when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JULY_2021],
       },
       {
         name: `Star-venom`,

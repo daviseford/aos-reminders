@@ -1,7 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import rule_sources_meta from 'meta/rule_sources'
 import { HERO_PHASE } from 'types/phases'
-import rule_sources_faction from './rule_sources'
+import rule_sources from './rule_sources'
 
 const Spells = {
   'Celestial Apotheosis': {
@@ -62,11 +62,12 @@ const Spells = {
     effects: [
       {
         name: `Bind Endless Spell`,
-        desc: `Casting value of 7. Pick 1 endless spell within 18" of the caster that is not soul-linked and is visible to them. Until your next hero phase, that endless spell has the BOUND keyword.`,
+        desc: `Casting value of 7 and a range of 18". A WIZARD that is bonded to an endless spell cannot attempt to cast this spell. If successfully cast, pick 1 endless spell within range and visible to the caster, and that is not bonded or linked to another model. That endless spell is bonded to the caster.`,
         when: [HERO_PHASE],
-        rule_sources_faction: [
-          rule_sources_faction.BATTLETOME_SERAPHON,
-          rule_sources_faction.ERRATA_SERAPHON_JANUARY_2021,
+        rule_sources: [
+          rule_sources.BATTLETOME_SERAPHON,
+          rule_sources.ERRATA_SERAPHON_JANUARY_2021,
+          rule_sources.ERRATA_SERAPHON_JULY_2021,
         ],
       },
     ],

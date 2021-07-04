@@ -12,5 +12,5 @@ export const SeraphonFaction = new Faction(
   SubFactions,
   'Constellations',
   rule_sources.BATTLETOME_SERAPHON,
-  pickEffects(battle_traits, ['SERAPHON'])
+  pickEffects(battle_traits, [SERAPHON])
 )

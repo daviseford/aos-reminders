@@ -8,6 +8,11 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2018/12/qtq0k42o4yS9QXd5.pdf',
   },
+  ERRATA_SERAPHON_JULY_2021: {
+    name: 'Errata (July 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2018/12/PEocUY5TPj0zt1yD.pdf',
+  },
 }
 
 export default rule_sources
