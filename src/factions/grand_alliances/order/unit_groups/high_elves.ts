@@ -1,4 +1,4 @@
-import GenericBattleTraits from 'generic_rules/battle_traits'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -27,7 +27,7 @@ const EnchantedShieldEffect = {
 export const LegacyHighElvesUnits = {
   'Highborn Repeater Bolt Thrower': {
     effects: [
-      ...GenericBattleTraits.CrewedWarMachine('Crewed War Machine'),
+      ...GenericEffects.CrewedWarMachine('Crewed War Machine'),
       {
         name: `Bolt Selection`,
         desc: `Each time a Highborn Repeater Bolt Thrower is fired in the shooting phase, the crew can load and fire either Ithilmar Bolts or volleys of Repeating Bolts. They cannot load and fire both in the same turn.`,
@@ -65,7 +65,7 @@ export const LegacyHighElvesUnits = {
       },
       StandardBearerEffect,
       HornblowerEffect,
-      GenericBattleTraits.AelvenShield,
+      GenericEffects.AelvenShield,
       {
         name: `Militia`,
         desc: `Add 1 to the Attacks characteristic of this unit's Silverwood Spears while it has 20 or more models. Spear Phalanx.`,
@@ -87,7 +87,7 @@ export const LegacyHighElvesUnits = {
       },
       HornblowerEffect,
       StandardBearerEffect,
-      GenericBattleTraits.AelvenShield,
+      GenericEffects.AelvenShield,
       {
         name: `Lance Charge`,
         desc: `Add 1 to wound rolls for this unit's Ithilmar Lances and Swords and increase the Damage characteristic of the weapons by 1 if it made a charge move in the same turn.`,
@@ -180,7 +180,7 @@ export const LegacyHighElvesUnits = {
         when: [HERO_PHASE],
       },
       EnchantedShieldEffect,
-      GenericBattleTraits.Dragonfire,
+      GenericEffects.Dragonfire,
       {
         name: `Lord of Dragons`,
         desc: `If a Dragonlord uses this ability, then until your next hero phase you can reroll failed hit rolls for any Order Draconis unit from your army that is within 10" when it attacks in the combat phase.`,

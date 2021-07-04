@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
@@ -810,12 +811,7 @@ const Units = {
   },
   Gyrocopters: {
     effects: [
-      {
-        name: `Elite`,
-        desc: `Models in this unit can issue commands to their own unit.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021],
-      },
+      GenericEffects.Elite,
       {
         name: `Steam Gun`,
         desc: `Before attacking with a Steam Gun, pick 1 enemy unit that is within range of the attacking model's Steam Gun. The Attacks characteristic of that model's Steam Gun is equal to the number of models from that enemy unit within range of the attacking model's Steam Gun. All attacks made with that Steam Gun must target that enemy unit.`,

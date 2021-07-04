@@ -156,11 +156,12 @@ const Artifacts = {
     effects: [
       {
         name: `Emergency Ventplates`,
-        desc: `Once per battle, at the start of the enemy shooting phase, you can say that the bearer will use their Emergency Ventplates. If you do so, until the end of that phase, subtract 1 from hit rolls for attacks that target the bearer or any friendly unit wholly within 6" of the bearer.`,
+        desc: `Once per battle, at the start of the enemy shooting phase, you can say that the bearer will use their Emergency Ventplates. If you do so, until the end of that phase, subtract 1 from hit rolls for attacks that target the bearer and attacks that target friendly units wholly within 6" of the bearer.`,
         when: [SHOOTING_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
           rule_sources.ERRATA_KHARADRON_OVERLORDS_JANUARY_2021,
+          rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021
         ],
       },
     ],

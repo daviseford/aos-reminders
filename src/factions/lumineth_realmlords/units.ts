@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_HERO_PHASE,
+  END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
@@ -48,8 +49,9 @@ const getVanariWizardsEffect = (minimumModelCountToBeWizard: number) => ({
 
 const alarithSpiritFreeCommandAbilityEffect = (effectName: string, effectRange: number) => ({
   name: effectName,
-  desc: `Pick 1 friendly LUMINETH REALM-LORDS AELF HERO within ${effectRange}" of this model. If that model is within ${effectRange}" of this model at the start of your next hero phase, then that model can use a command ability in that turn without spending any command points.`,
+  desc: `At the end of your hero phase, you can pick 1 friendly LUMINETH REALM-LORDS AELF HERO within ${effectRange}"  of this model. If that LUMINETH REALM-LORDS AELF HERO is within ${effectRange}" of this model at the start of your next hero phase, then the first command issued by that LUMINETH REALM-LORDS AELF HERO in that turn is issued without a command point being spent.`,
   when: [END_OF_HERO_PHASE],
+  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
 })
 
 const StandardBearerEffect = {
@@ -91,13 +93,13 @@ const IntoTheGaleOverSaveEffect = {
   name: `Into the Gale`,
   desc: `Roll a dice each time you allocate a wound or mortal wound to this unit, on a 5+ that wound or mortal wound is ignored.`,
   when: [WOUND_ALLOCATION_PHASE],
-  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_MAY_2021],
+  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
 }
 const IntoTheGalePileInRestrictionEffect = {
   name: `Into the Gale`,
   desc: `If an enemy model starts a pile-in move within 3" of any friendly units with this ability, subtract 2" from the distance that model can pile in during that phase (to a minimum of 1").`,
   when: [COMBAT_PHASE],
-  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_MAY_2021],
+  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
 }
 
 const LivingCycloneEffect = {
@@ -108,8 +110,9 @@ const LivingCycloneEffect = {
 
 const SpiritOfTheWindEffect = {
   name: `Spirit of the Wind`,
-  desc: `At end of the shooting phase, this model can move 12" but cannot run (it can retreat). Additionally it can retreat and still charge later in the turn.`,
-  when: [SHOOTING_PHASE],
+  desc: `At the end of the shooting phase, this model can make a normal move or a retreat of 12" (it cannot run). Additionally it can retreat and still charge later in the turn.`,
+  when: [END_OF_SHOOTING_PHASE],
+  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
 }
 
 const WindmageSymbiosisEffect = {
@@ -204,7 +207,7 @@ const Units = {
     effects: [
       StonemageSymbiosisEffect,
       AllButImmovableEffect,
-      alarithSpiritFreeCommandAbilityEffect(`Eldar Wisdom`, 6),
+      alarithSpiritFreeCommandAbilityEffect(`Elder Wisdom`, 6),
       {
         name: `Firestealer Hammers`,
         desc: `Unmodified hit rolls of 6 with Firestealer hammers inflict 1 mortal wound in addition to any normal damage.`,
@@ -554,8 +557,9 @@ const Units = {
       },
       {
         name: `Messenger Hawk`,
-        desc: `Pick one enemy unit within 24" of a friendly LUMINETH REALM-LORDS HERO and 1 friendly STARSHARD BALLISTAS unit within 24" of that HERO. Add 1 to hit rolls by that STARSHARD BALLISTAS unit that target that enemy unit until the end of the phase.`,
-        when: [START_OF_SHOOTING_PHASE],
+        desc: `Add 1 to hit rolls for attacks made with Starshard Bolts by this unit, if the attacks target an enemy unit that is visible to a friendly LUMINETH REALM-LORDS HERO that is within 18" of this unit.`,
+        when: [SHOOTING_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
       },
       {
         name: `Warding Lanterns`,

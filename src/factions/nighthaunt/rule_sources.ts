@@ -8,6 +8,11 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/eU1q6Hzy3tWmFECl.pdf',
   },
+  ERRATA_NIGHTHAUNT_JULY_2021: {
+    name: 'Errata (July 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/DKr5z0V8dJzIofLl.pdf',
+  },
 }
 
 export default rule_sources

@@ -18,7 +18,7 @@ import rule_sources from './rule_sources'
 
 const FlyingTransportEffect = {
   name: `Flying Transport`,
-  desc: `This model can fly, and can be garrisoned by up to 15 (25 if IRONCLAD) friendly Marine models even though it is not a terrain feature. If this model is in a warscroll battalion, units from the same battalion that can garrison this model can be set up as this model's garrison when this model is set up.
+  desc: `This model can fly, and can be garrisoned by up to 15 (25 if IRONCLAD) friendly Marine models even though it is not a terrain feature. If this unit is in a warscroll battalion, other units in the same battalion that can garrison this unit can be set up as this unit's garrison when this unit is set up.
 
   Halve this model's Move characteristic and it cannot Fly High if there are 11 (16 if IRONCLAD) or more models in its garrison. Units cannot join or leave this model's garrison if it has made a move or flown high in the same phase (they can join or leave before it does so). Models in the garrison are not counted towards gaining control of an objective.
 
@@ -29,6 +29,7 @@ const FlyingTransportEffect = {
   rule_sources: [
     rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
     rule_sources.ERRATA_KHARADRON_OVERLORDS_JANUARY_2021,
+    rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
   ],
 }
 const EndrinharnessEffect = {
@@ -41,10 +42,14 @@ const DisengageEffect = {
   desc: `This model and any models in its garrison can still shoot if this model retreats in the same turn, as long as there are no enemy units that can fly within 3" of this model at the start of the retreat move and there are less than 10 wounds allocated to this model at the start of the retreat move.`,
   when: [MOVEMENT_PHASE, SHOOTING_PHASE],
 }
-const FlyHighEffect = {
+const ArkanautFlyHighEffect = {
   name: `Fly High`,
-  desc: `Instead of making a normal move with this model, if there are less than 7 wounds currently allocated to this model, you can say that it will fly high (it can retreat and disengage). If you do so, remove this model from the battlefield and set it up again more than 1" from any terrain features or objectives and more than 9" from any enemy models.`,
+  desc: `Instead of making a normal move or retreat with this model, if there are less than 7 wounds currently allocated to this model, you can say that it will fly high (it can disengage). If you do so, remove this model from the battlefield and set it up again more than 1" from any terrain features or objectives and more than 9" from any enemy models.`,
   when: [MOVEMENT_PHASE],
+  rule_sources: [
+    rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
+    rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
+  ],
 }
 const SkyCannonEffect = {
   name: `Sky Cannon`,
@@ -82,12 +87,16 @@ const getSkyhookEffect = (val: number) => ({
 })
 const HitchersEffect = {
   name: `Hitchers`,
-  desc: `If this model is wholly within 6" of a friendly SKYVESSEL immediately before the SKYVESSEL uses its Fly High ability, you can say that this model will hitch a lift instead of making a normal move (as long as this model has not already made a normal move in the same phase).
+  desc: `If this model is wholly within 6" of a friendly SKYVESSEL immediately before the SKYVESSEL uses its Fly High ability, you can say that this model will hitch a lift instead of making a normal move or retreat (as long as this model has not already made a normal move or retreat in the same phase).
 
   If you do so, after that SKYVESSEL has moved, remove this model from the battlefield and set it up again wholly within 6" of that SKYVESSEL, more than 1" from any terrain features or objectives and more than 9" from any enemy models.
 
   No more than 7 models can hitch a lift on the same SKYVESSEL in the same turn.`,
   when: [MOVEMENT_PHASE],
+  rule_sources: [
+    rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
+    rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
+  ],
 }
 const EndrincraftEffect = {
   name: `Endrincraft`,
@@ -308,7 +317,16 @@ const Units = {
         when: [START_OF_COMBAT_PHASE],
       },
       DisengageEffect,
-      FlyHighEffect,
+      // This differs from the Arkanaut flavor of Fly High
+      {
+        name: `Fly High`,
+        desc: `Instead of making a normal move or retreat with this model, you can say that it will fly high (it can disengage). If you do so, remove this model from the battlefield and set it up again more than 1" from any terrain features or objectives and more than 9" from any enemy models.`,
+        when: [MOVEMENT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
+          rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
+        ],
+      },
       SkyCannonEffect,
     ],
   },
@@ -316,7 +334,7 @@ const Units = {
     effects: [
       BombRacksEffect,
       DisengageEffect,
-      FlyHighEffect,
+      ArkanautFlyHighEffect,
       FlyingTransportEffect,
       getSkyhookEffect(2),
       SkyCannonEffect,
@@ -336,7 +354,7 @@ const Units = {
       },
       BombRacksEffect,
       DisengageEffect,
-      FlyHighEffect,
+      ArkanautFlyHighEffect,
       FlyingTransportEffect,
       getSkyhookEffect(2),
       SkyCannonEffect,

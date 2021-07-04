@@ -1,28 +1,15 @@
-import GenericCommandAbilities from './command_abilities'
-import GenericCommandTraits from './command_traits'
-import CoreBattalions from './core_battalions'
-import CoreRules from './core_rules'
-import GenericEndlessSpells from './endless_spells'
-import RealmscapeArtifacts from './realmscape_artifacts'
-import RealmscapeCommands from './realmscape_commands'
-import RealmscapeFeatures from './realmscape_features'
-import RealmscapeSpells from './realmscape_spells'
-import GenericScenery from './scenery'
-import GenericSpells from './spells'
-import GenericTriumphs from './triumphs'
-
 // This file is used for data re-used across any army.
-export {
-  CoreRules,
-  CoreBattalions,
-  GenericCommandAbilities,
-  GenericCommandTraits,
-  GenericEndlessSpells,
-  GenericScenery,
-  GenericSpells,
-  GenericTriumphs,
-  RealmscapeArtifacts,
-  RealmscapeCommands,
-  RealmscapeFeatures,
-  RealmscapeSpells,
-}
+// As well as core rules that are broader in scope
+export { default as GenericCommandAbilities } from './command_abilities'
+export { default as GenericCommandTraits } from './command_traits'
+export { default as CoreBattalions } from './core_battalions'
+export { default as CoreRules } from './core_rules'
+export { default as GenericEffects } from './effects'
+export { default as GenericEndlessSpells } from './endless_spells'
+export { default as RealmscapeArtifacts } from './realmscape_artifacts'
+export { default as RealmscapeCommands } from './realmscape_commands'
+export { default as RealmscapeFeatures } from './realmscape_features'
+export { default as RealmscapeSpells } from './realmscape_spells'
+export { default as GenericScenery } from './scenery'
+export { default as GenericSpells } from './spells'
+export { default as GenericTriumphs } from './triumphs'

@@ -15,6 +15,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
   [LUMINETH_REALMLORDS]: {
@@ -46,8 +47,9 @@ const BattleTraits = {
       },
       {
         name: `Aetherquartz Reserve - Magical Insight`,
-        desc: `The unit can attempt to cast 1 extra spell that phase.`,
+        desc: `WIZARDS only. You can say that a unit will use this ability at the start of your hero phase. If you do so, that unit can attempt to cast 1 extra spell in that phase.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
       },
       {
         name: `Absorb Dispair`,
@@ -61,8 +63,9 @@ const BattleTraits = {
       },
       {
         name: `Lightning Reactions`,
-        desc: `When it is your turn to fight, you can pick 2 eligible units instead of 1. Each of these units can fight one after the other in the order of your choice.`,
+        desc: `During the combat phase, after any units with the strike-first effect have attacked, when it is your turn to pick a unit to fight, you can pick 2 eligible units instead of 1. Neither unit can have the strike-last effect. Each of those units can fight one after the other in the order of your choice.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
       },
       {
         name: `Shining Company`,
@@ -96,13 +99,14 @@ const BattleTraits = {
       },
       {
         name: `Move Like the Wind`,
-        desc: `When you make a pile in with a HURAKAN model, it does not need to finish the move closer to an enemy model.`,
+        desc: `When you make a pile-in move with a Hurakan model, it does not have to finish the move no further from the nearest enemy unit than it was at the start of the move.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
       },
       {
         name: `Move Like the Wind`,
         desc: `When you make a pile in move with a HURAKAN model, if the unit made a charge move this turn, it can fly and move an additional 3".`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Tectonic Force`,

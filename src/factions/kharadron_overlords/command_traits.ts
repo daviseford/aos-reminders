@@ -18,6 +18,7 @@ import {
   TURN_ONE_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const AllegianceCommandTraits = {
   'AMENDMENT: Prosecute Wars With All Haste': {
@@ -78,8 +79,12 @@ const AllegianceCommandTraits = {
     effects: [
       {
         name: `FOOTNOTE: There's Always a Breeze if You Look for it`,
-        desc: `Once per battle, in your hero phase, 1 friendly BARAK-ZILFIN unit can make a normal move (it can run, retreat or disengage).`,
+        desc: `Once per battle, in your hero phase, 1 friendly BARAK-ZILFIN unit can make a normal move, or retreat or disengage.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
+          rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
+        ],
       },
     ],
   },
@@ -141,8 +146,12 @@ const AllegianceCommandTraits = {
     effects: [
       {
         name: `AMENDMENT: Take Help Where You Can Get It`,
-        desc: `1 in 4 units in your army can be a DUARDIN unit that does not have the KHARADRON OVERLORDS keyword. Those units gain the BARAK-THRYNG keyword. They cannot be the army general and do not count towards the number of Battleline units in the army.`,
+        desc: `1 in every 4 units in a Barak-Thryng army can be a coalition unit (see below) from the Cities of Sigmar or Fyreslayers faction that has the DUARDIN keyword.`,
         when: [START_OF_SETUP],
+        rule_sources: [
+          rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
+          rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
+        ],
       },
     ],
   },
@@ -198,8 +207,12 @@ const CommandTraits = {
     effects: [
       {
         name: `Opportunistic Privateers`,
-        desc: `If this general is part of the garrison of a SKYVESSEL that is on is on the battlefield after armies are set up but before the first battle round begins, you can remove that SKYVESSEL from the battlefield and set it up again anywhere more than 9" from any enemy units. If you do so, that SKYVESSEL cannot make a normal move in the first battle round, and units in its garrison cannot leave the garrison in the first battle round.`,
+        desc: `If this general is part of the garrison of a SKYVESSEL that is on the battlefield after armies are set up but before the first battle round begins, you can remove that SKYVESSEL from the battlefield and set it up again anywhere more than 9" from any enemy units. If you do so, that Skyvessel cannot make a normal move or retreat in the first battle round, and units in its garrison cannot leave the garrison in the first battle round.`,
         when: [END_OF_SETUP],
+        rule_sources: [
+          rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
+          rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
+        ],
       },
     ],
   },

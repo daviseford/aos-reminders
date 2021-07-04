@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -10,6 +10,7 @@ import {
   SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Spells = {
   // Lore of Slaanesh - Daemons Only
@@ -100,18 +101,21 @@ const Spells = {
     effects: [
       {
         name: `Slothful Stupor`,
-        desc: `Casting value of 7. Pick 1 enemy hero within 12" of the caster that is visble. Until your next hero phase, that hero cannot use command abilities and cannot run or attempt to charge.`,
+        desc: `Casting value of 7. Pick 1 enemy hero within 12" of the caster that is visble. Until your next hero phase, that HERO cannot issue or receive commands and cannot run or attempt a charge.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
       },
       {
         name: `Slothful Stupor`,
-        desc: `If active, the debuffed hero cannot use command abilities.`,
+        desc: `If active, until your next hero phase, that HERO cannot issue or receive commands.`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
       },
       {
         name: `Slothful Stupor`,
-        desc: `If active, the debuffed hero cannot run or attempt to charge.`,
+        desc: `If active, until your next hero phase, that HERO cannot run or attempt a charge.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
       },
     ],
   },
@@ -180,13 +184,15 @@ const Spells = {
     effects: [
       {
         name: `Subvert`,
-        desc: `Casting value of 7. You can pick 1 enemy hero within 18" of the caster that is visible to them. That hero cannot use any command abilities until your next hero phase.`,
+        desc: `Casting value of 7. You can pick 1 enemy hero within 18" of the caster that is visible to them. Until your next hero phase, that HERO cannot issue or receive commands.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
       },
       {
         name: `Subvert`,
-        desc: `If active, the debuffed hero cannot use any command abilities.`,
+        desc: `If active, until your next hero phase, that HERO cannot issue or receive commands.`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
       },
     ],
   },
@@ -194,18 +200,21 @@ const Spells = {
     effects: [
       {
         name: `Refine Senses`,
-        desc: `Casting value of 4. Until your next hero phase, you can reroll hit rolls for attacks made by the caster that target a HERO, and you can reroll save rolls for attacks made by Heroes that target the caster.`,
+        desc: `Casting value of 4. If successfully cast, until your next hero phase, you can add 1 to hit rolls for attacks made by the caster that target a HERO, and you can add 1 to save rolls for attacks made by Heroes that target the caster.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
       },
       {
         name: `Refine Senses`,
-        desc: `If active, you can reroll hit rolls for attacks made by the buffed unit that target a hero.`,
+        desc: `If active, you can add 1 to hit rolls for attacks made by the caster that target a HERO.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
       },
       {
         name: `Refine Senses`,
-        desc: `If active, you can reroll save rolls for attacks made by heroes that target the buffed unit.`,
+        desc: `If active, you can add 1 to save rolls for attacks made by Heroes that target the caster.`,
         when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
       },
     ],
   },
@@ -257,13 +266,13 @@ const Spells = {
         name: `Whispers of Doubt`,
         desc: `Casting value of 6. You can pick 1 enemy hero within 3" of the caster that is visible to them. Roll 3D6 and if the roll is greater than the target's bravery characteristic, add 1 to hit rolls that target that hero until your next hero phase.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Whispers of Doubt`,
         desc: `If active, add 1 to hit rolls that target the debuffed hero.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

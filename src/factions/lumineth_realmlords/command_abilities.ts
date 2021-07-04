@@ -43,8 +43,9 @@ const CommandAbilities = {
     effects: [
       {
         name: `Faith of the Mountains`,
-        desc: `Pick 1 ALARITH AELF unit wholly within 18" of a friendly model with this command ability. Add 1 to the Attacks characteristic for melee weapons for the unit affected in that combat phase. Units cannot benefit more than once per combat phase from this ability. Additionally, they cannot benefit from Faith of the Mountains and Unshakeable Faith of the Mountains in the same phase.`,
+        desc: `Pick 1 ALARITH AELF unit wholly within 18" of a friendly model with this command ability. Add 1 to the Attacks characteristic for melee weapons for the unit affected in that combat phase. Units cannot benefit more than once per combat phase from this ability.`,
         when: [START_OF_COMBAT_PHASE, COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
       },
     ],
   },
@@ -52,8 +53,9 @@ const CommandAbilities = {
     effects: [
       {
         name: `Unshakeable Faith of the Mountains`,
-        desc: `Pick D3 ALARITH AELF units wholly within 24" of a friendly model with this command ability. Add 1 to the Attacks characteristic for melee weapons for the units affected in that combat phase. Units cannot benefit more than once per combat phase from this ability. Additionally, they cannot benefit from Faith of the Mountains and Unshakeable Faith of the Mountains in the same phase.`,
+        desc: `Pick D3 ALARITH AELF units wholly within 24" of a friendly model with this command ability. Add 1 to the Attacks characteristic for melee weapons for the units affected in that combat phase. Units cannot benefit more than once per combat phase from this ability.`,
         when: [START_OF_COMBAT_PHASE, COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
       },
     ],
   },
@@ -61,8 +63,9 @@ const CommandAbilities = {
     effects: [
       {
         name: `Gone like the Wind`,
-        desc: `Pick 1 friendly HELON unit that fought in this phase and is wholly within 12" of a friendly HELON HERO. The unit can make a normal move but cannot run (it can retreat).`,
+        desc: `Pick 1 friendly HELON unit that fought in this phase and is wholly within 12" of a friendly HELON HERO. That unit can make a normal move or retreat (it cannot run).`,
         when: [END_OF_COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
       },
     ],
   },

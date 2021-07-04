@@ -1,5 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import GenericBattleTraits from 'generic_rules/battle_traits'
+import { GenericEffects } from 'generic_rules'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -29,7 +29,7 @@ const ChaosMonstrousArcanum = {
         desc: `You can reroll save rolls for attacks made with ranged weapons that target this unit.`,
         when: [SAVES_PHASE],
       },
-      ...GenericBattleTraits.Gargant,
+      ...GenericEffects.Gargant,
     ],
   },
   'Gigantic Chaos Spawn': {

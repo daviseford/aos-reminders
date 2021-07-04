@@ -1,5 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import GenericBattleTraits from 'generic_rules/battle_traits'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -251,7 +251,7 @@ const Units = {
       spells: [keyPicker(spells, ['Blood Boil'])],
     },
     effects: [
-      ...GenericBattleTraits.ZombieDragon,
+      ...GenericEffects.ZombieDragon,
       TheHungerEffect,
       {
         name: `Deathlance Charge`,
@@ -504,10 +504,10 @@ const Units = {
     ],
   },
   Terrorgheist: {
-    effects: [...GenericBattleTraits.Terrorgheist],
+    effects: [...GenericEffects.Terrorgheist],
   },
   'Zombie Dragon': {
-    effects: [...GenericBattleTraits.ZombieDragon],
+    effects: [...GenericEffects.ZombieDragon],
   },
   'Wight King with Baleful Tomb Blade': {
     mandatory: {

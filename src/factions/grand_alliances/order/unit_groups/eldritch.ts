@@ -1,4 +1,4 @@
-import GenericBattleTraits from 'generic_rules/battle_traits'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -73,7 +73,7 @@ export const LegacyEldritchUnits = {
   'Archmage on Dragon': {
     effects: [
       TalismanOfArcanePowerEffect,
-      GenericBattleTraits.Dragonfire,
+      GenericEffects.Dragonfire,
       {
         name: `Wizard`,
         desc: `An Archmage on Dragon is a wizard. He can attempt to cast one spell in each of your own hero phases, and attempt to unbind two spells in each enemy hero phase. An Archmage with an Arcane Tome can attempt to cast two different spells in each of your hero phases instead of just one, and attempt to unbind two spells in each enemy hero phase. An Archmage on Dragon knows the Arcane Bolt, Mystic Shield and Drain Magic spells.`,
@@ -95,7 +95,7 @@ export const LegacyEldritchUnits = {
         desc: `A Drakeseer makes 3 attacks with his Sunstaff instead of 1 if he charged in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      GenericBattleTraits.Dragonfire,
+      GenericEffects.Dragonfire,
       {
         name: `Wizard`,
         desc: `A Drakeseer is a wizard. He can attempt to cast one spell in each of your own hero phases, and attempt to unbind one spell in each enemy hero phase. He knows the Arcane Bolt, Mystic Shield, and Flames of the Phoenix spells.`,

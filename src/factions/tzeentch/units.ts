@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -235,16 +236,7 @@ const Units = {
     effects: [SkySharksEffect, CapriciousWarpflameEffect, TouchedbyFireEffect, WakeofFireEffect],
   },
   'Exalted Flamers of Tzeentch': {
-    effects: [
-      CapriciousWarpflameEffect,
-      TouchedbyFireEffect,
-      {
-        name: `Elite`,
-        desc: `Models in this unit can issue commands to their own unit.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.ERRATA_TZEENTCH_JULY_2021],
-      },
-    ],
+    effects: [CapriciousWarpflameEffect, TouchedbyFireEffect, GenericEffects.Elite],
   },
   'Flamers of Tzeentch': {
     effects: [CapriciousWarpflameEffect, TouchedbyFireEffect],

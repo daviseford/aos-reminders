@@ -10,6 +10,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 // Add individual artifacts here, and access them in other files!
 const Artifacts = {
@@ -90,8 +91,9 @@ const Artifacts = {
     effects: [
       {
         name: `Windblast Fan`,
-        desc: `One per battle, in the enemy movement phase, Pick 1 unit within 3" of the bearer, the unit must have a normal move, and must retreat.`,
+        desc: `Once per battle, in the enemy movement phase. Pick 1 unit within 3" of the bearer. That unit must retreat.`,
         when: [MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
       },
     ],
   },

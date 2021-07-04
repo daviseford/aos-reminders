@@ -1,5 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, SAVES_PHASE, START_OF_COMBAT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 import units from './units'
 
 const RegularBattalions = {
@@ -17,13 +18,21 @@ const RegularBattalions = {
     effects: [
       {
         name: `Skin to Stone`,
-        desc: `Any friendly STONEGUARD units from this battalion that are wholly within 12" of a friendly HERO from the same battalion can turn their skin to stone until the end of the phase. Reroll save rolls for attacks that target a unit that has turned its skin to stone. Models in the unit that has turned its skin to stone can only move 1" when they pile in.`,
+        desc: `Any friendly STONEGUARD units from this battalion that are wholly within 12" of a friendly HERO from the same battalion can turn their skin to stone until the end of the phase. Add 1 to save rolls for attacks that target a unit that has turned its skin to stone, but models in a unit that has turned its skin to stone can only move 1" when they pile in.`,
         when: [START_OF_COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
       },
       {
         name: `Skin to Stone`,
-        desc: `Reroll save rolls for attacks that target a unit that has turned its skin to stone.`,
+        desc: `Add 1 to save rolls for attacks that target a unit that has turned its skin to stone.`,
         when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
+      },
+      {
+        name: `Skin to Stone`,
+        desc: `Models in a unit that has turned its skin to stone can only move 1" when they pile in.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
       },
     ],
   },
@@ -34,8 +43,9 @@ const RegularBattalions = {
     effects: [
       {
         name: `Shield of Light`,
-        desc: `You can reroll save rolls of 1 for attacks that target a friendly unit from this battalion whilst it is within 3" of any other friendly unit from the same battalion.`,
+        desc: `Add 1 to save rolls for attacks made with missile weapons that target a friendly unit from this battalion while it is within 3" of any other friendly units from the same battalion.`,
         when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
       },
     ],
   },

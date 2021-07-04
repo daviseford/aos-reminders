@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandAbilities = {
   // Unit command abilities
@@ -7,7 +8,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Lord of the Tides`,
-        desc: `You can use this command ability if this model is your general and the High Tide ability from the Tides of Death table applies for the battle round. If you do so, pick a friendly Idoneth Deepkin unit wholly within 12" of your general. Add 1 to the Attacks characteristic of melee weapons used by that unit until your next hero phase.`,
+        desc: `You can use this command ability if this model is your general and the High Tide ability from the Tides of Death table applies for the battle round. If you do so, pick a friendly IDONETH DEEPKIN unit wholly within 12" of your general. Add 1 to the Attacks characteristic of melee weapons used by that unit until your next hero phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -27,8 +28,12 @@ const CommandAbilities = {
     effects: [
       {
         name: `Supreme Lord of Tides`,
-        desc: `You can use this command ability if Volturnus is your general and the High Tide ability from the Tides of Death table applies for the battle round. If you do so, pick up to 3 friendly IDONETH DEEPKIN units wholly within 18" of Volturnus. Add 1 to the Attacks characteristic of melee weapons used by those units until your next hero phase.`,
+        desc: `You can use this command ability if a friendly VOLTURNOS is on the battlefield and the High Tide ability from the Tides of Death table applies for the battle round. If you do so, pick up to 3 different friendly IDONETH DEEPKIN units wholly within 18" of that friendly VOLTURNOS. Add 1 to the Attacks characteristic of melee weapons used by those units until your next hero phase.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_IDONETH_DEEPKIN,
+          rule_sources.ERRATA_IDONETH_DEEPKIN_JULY_2021,
+        ],
       },
     ],
   },
