@@ -14,6 +14,7 @@ import {
   TURN_ONE_START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Artifacts = {
   'Gut-plate of Ghur': {
@@ -60,8 +61,9 @@ const Artifacts = {
     effects: [
       {
         name: `Shatterstone`,
-        desc: `Enemy units treat terrain features within 12" of the bearer as having the Deadly scenery rule in addition to any other scenery rules they may have.`,
+        desc: `Enemy units treat terrain features within 12" of the bearer as having the Deadly scenery rule in addition to any other scenery rules they may have. (core rules, 28.1.3)`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_OGOR_MAWTRIBES, rule_sources.ERRATA_OGOR_MAWTRIBES_JULY_2021],
       },
     ],
   },
