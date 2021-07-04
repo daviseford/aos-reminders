@@ -228,13 +228,13 @@ const DestructionUnits = {
         name: `Rampaging Destruction`,
         desc: `After making a charge move, choose to either roll a D6 for each enemy unit within 1" or roll 2D6 against 1 enemy monster within 1".
                If targeting all units in 1", roll a D6 for each". On a 2+ that unit suffers D6 mortal wounds.
-               If targeting a monster, roll 2D6. No effect on a roll of 7. All other values inflict mortal wounds equal to the roll multiplied together.`,
+               If targeting a MONSTER, roll 2D6. No effect on a roll of 7. All other values inflict mortal wounds equal to the roll multiplied together.`,
         when: [CHARGE_PHASE],
         rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Icon of Destruction`,
-        desc: `Add 1 to the Bravery characterisitic for friendly Destruction models wholly within 12" of this model.`,
+        desc: `Add 1 to the Bravery characterisitic for friendly DESTRUCTION models wholly within 12" of this model.`,
         when: [DURING_GAME],
         rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
@@ -243,6 +243,15 @@ const DestructionUnits = {
         desc: `Roll 3D6 each time this model is affected by a spell or endless spell. If the roll is a greater than the casting value on the spell's warscroll, it has no effect on this model.`,
         when: [HERO_PHASE],
         rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Warmaster`,
+        desc: `This unit can be included in an Orruk Warclans, Gloomspite Gitz, Ogor Mawtribes or Sons of Behemat army. If it is, it is treated as a general even if it is not the model picked to be the army's general, and you can still use the army's allegiance abilities even if this unit is not from the army's faction.`,
+        when: [DURING_GAME],
+        rule_sources: [
+          meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_KRAGNOS_JULY_2021,
+        ],
       },
     ],
   },

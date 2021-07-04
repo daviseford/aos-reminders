@@ -39,6 +39,11 @@ const meta_rule_sources = {
     name: 'Broken Realms: Kragnos',
     type: 'other_book',
   },
+  ERRATA_BROKEN_REALMS_KRAGNOS_JULY_2021: {
+    name: 'Broken Realms: Kragnos Errata (July 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2021/07/OEZvWdlyDRHD9tfj.pdf',
+  },
   BOOK_BROKEN_REALMS_BELAKOR: {
     name: "Broken Realms: Be'lakor",
     type: 'other_book',
