@@ -10,6 +10,7 @@ import {
   START_OF_SETUP,
   TURN_ONE_HERO_PHASE,
 } from 'types/phases'
+import rule_sources from '../rule_sources'
 import IronjawzCommandAbilities from './command_abilities'
 import IronjawzUnits from './units'
 
@@ -69,9 +70,10 @@ const IronjawzBattalions = {
         when: [DURING_GAME],
       },
       {
-        name: `Up and At'Em`,
-        desc: `Once in each of your hero phases, the Big Boss from this battalion can use the Mighty Destroyers command ability (pg 55) as if they were a MEGABOSS and without spending 1 command point.`,
+        name: `Up and At 'Em`,
+        desc: `Once in each of your hero phases, the Big Boss from this battalion can use the Mighty Destroyers command ability without a command point being spent.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_ORRUK_WARCLANS, rule_sources.ERRATA_ORRUK_WARCLANS_JULY_2021],
       },
     ],
   },

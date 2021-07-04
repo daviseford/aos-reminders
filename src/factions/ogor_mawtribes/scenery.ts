@@ -27,9 +27,7 @@ const Scenery = {
       },
       {
         name: `Throw 'Em In`,
-        desc: `If an enemy model is slain within 6" of
-        an empty Great Mawpot in your army,
-        it becomes full.`,
+        desc: `If an enemy model is slain within 6" of an empty Great Mawpot in your army, it becomes full.`,
         when: [WOUND_ALLOCATION_PHASE],
         rule_sources: [rule_sources.BATTLETOME_OGOR_MAWTRIBES, rule_sources.ERRATA_OGOR_MAWTRIBES_JULY_2021],
       },

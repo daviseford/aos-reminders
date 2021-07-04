@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE, SAVES_PHASE } from 'types/phases'
+import rule_sources from '../rule_sources'
 
 const BonesplitterzSpells = {
   'Squiggly Curse': {
@@ -17,7 +18,7 @@ const BonesplitterzSpells = {
     effects: [
       {
         name: `Breath of Gorkamorka`,
-        desc: `Casting value of 6. Pick a Bonesplitterz unit wholly within 24", that unit doubles how far it can move and can fly in your next movement phase. If casting roll was a double, triple how far the unit can move instead.`,
+        desc: `Casting value of 6. Pick a BONESPLITTERZ unit wholly within 24", that unit doubles how far it can move and can fly in your next movement phase. If casting roll was a double, triple how far the unit can move instead.`,
         when: [HERO_PHASE],
       },
     ],
@@ -26,8 +27,9 @@ const BonesplitterzSpells = {
     effects: [
       {
         name: `Brutal Beast Spirits`,
-        desc: `Casting value of 6. Pick a Bonesplitterz unit wholly within 24". Until your next hero phase, you can add 1 to all run, charge, and hit rolls made for that unit. If the casting roll was a double, you can select 2 different friendly Bonesplitterz units wholly within 24" of the caster to be affected by this spell instead of 1.`,
+        desc: `Casting value of 6. Pick a BONESPLITTERZ unit wholly within 24". Until your next hero phase, you can add 1 to all run, charge, and hit rolls made for that unit. If the casting roll was a double, you can pick 2 different friendly BONESPLITTERZ units wholly within 24" of the caster to be affected by this spell instead of 1.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_ORRUK_WARCLANS, rule_sources.ERRATA_ORRUK_WARCLANS_JULY_2021],
       },
     ],
   },
