@@ -18,12 +18,17 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
+import rule_sources from './rule_sources'
 import spells from './spells'
 
 const SigmariteThundershield = {
   name: `Sigmarite Thundershield`,
-  desc: `Reroll save rolls of 1 for this model. If the rerolled save is successful, each enemy unit within 3" of this model suffers 1 mortal wound.`,
+  desc: `If the unmodified save roll for an attack made with a melee weapon that targets this unit is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
   when: [SAVES_PHASE],
+  rule_sources: [
+    rule_sources.BATTLETOME_STORMCAST_ETERNALS,
+    rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
+  ],
 }
 const CometTrailEffect = {
   name: `Comet Trail`,
@@ -70,10 +75,14 @@ const CycleOfTheStormEffect = {
   desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
   when: [WOUND_ALLOCATION_PHASE],
 }
-const SigmariteShieldsEffect = {
-  name: `Sigmarite Shields`,
-  desc: `You can reroll save rolls of 1 for attacks that target this unit if any models from this unit are carrying Sigmarite Shields.`,
+const SigmariteShieldEffect = {
+  name: `Sigmarite Shield`,
+  desc: `Worsen the Rend characteristic of weapons that target this unit by 1, to a minimum of '-'`,
   when: [SAVES_PHASE],
+  rule_sources: [
+    rule_sources.BATTLETOME_STORMCAST_ETERNALS,
+    rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
+  ],
 }
 const SigmariteWarcloakEffect = {
   name: `Sigmarite Warcloak`,
@@ -85,6 +94,10 @@ const CelestialLightningArcEffects = [
     name: `Celestial Lightning Arc`,
     desc: `After this unit has been picked to fight for the first time in a phase, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
     when: [COMBAT_PHASE],
+    rule_sources: [
+      rule_sources.BATTLETOME_STORMCAST_ETERNALS,
+      rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
+    ],
   },
   {
     name: `Celestial Lightning Arc`,
@@ -743,7 +756,7 @@ const Units = {
   Concussors: {
     effects: [
       IntolerableDamageEffect,
-      SigmariteShieldsEffect,
+      SigmariteShieldEffect,
       StormBlastEffect,
       {
         name: `Blast to Ashes`,
@@ -755,7 +768,7 @@ const Units = {
   Fulminators: {
     effects: [
       IntolerableDamageEffect,
-      SigmariteShieldsEffect,
+      SigmariteShieldEffect,
       StormBlastEffect,
       {
         name: `Impaling Strikes`,
@@ -772,7 +785,7 @@ const Units = {
   Desolators: {
     effects: [
       IntolerableDamageEffect,
-      SigmariteShieldsEffect,
+      SigmariteShieldEffect,
       StormBlastEffect,
       {
         name: `Fury of the Storm`,
@@ -784,7 +797,7 @@ const Units = {
   Tempestors: {
     effects: [
       IntolerableDamageEffect,
-      SigmariteShieldsEffect,
+      SigmariteShieldEffect,
       StormBlastEffect,
       {
         name: `Disruptive Fire`,
@@ -840,7 +853,7 @@ const Units = {
         desc: `Add 1 to hit rolls for attacks made by this unit that target an enemy unit with a Wounds characteristic of 5 or more.`,
         when: [COMBAT_PHASE],
       },
-      SigmariteShieldsEffect,
+      SigmariteShieldEffect,
       {
         name: `Paired Weapons`,
         desc: `Each unmodified hit roll of 6 made for a model armed with either a pair of warhammers or a pair of warblades inflicts 2 hits on the target unit instead of 1. Make a wound and save roll for each hit.`,
@@ -880,7 +893,7 @@ const Units = {
         desc: `+1 to Stormcall Javelin damage if target is more than 9" from the attacking model.`,
         when: [SHOOTING_PHASE],
       },
-      SigmariteShieldsEffect,
+      SigmariteShieldEffect,
       {
         name: `Heralds of Righteousness`,
         desc: `Can attempt charges within 18". Roll 3D6 for the charge roll.`,
@@ -905,7 +918,7 @@ const Units = {
         desc: `Reroll hits of 1.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
-      SigmariteShieldsEffect,
+      SigmariteShieldEffect,
       {
         name: `Heralds of Righteousness`,
         desc: `Can attempt charges within 18". Roll 3D6 for the charge roll.`,
@@ -1020,8 +1033,12 @@ const Units = {
     effects: [
       {
         name: `Bastions of Death`,
-        desc: `If this unit is in cover, add 2 to its save rolls for being in cover instead of 1.`,
+        desc: `Worsen the Rend characteristic of missile weapons that target this unit when it is in cover by 1, to a minimum of '-'`,
         when: [SAVES_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
+          rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
+        ],
       },
       {
         name: `Chained Lightning`,
@@ -1068,13 +1085,12 @@ const Units = {
       },
       {
         name: `Sequitor Aetheric Channelling`,
-        desc: `Say if this unit will channel aetheric power into its weapons or its shields. If you choose its weapons, you can reroll failed hit rolls for attacks made by this unit in that combat phase. If you choose its shields, you can reroll failed save rolls for attacks that target this unit in that combat phase (instead of only rerolling save rolls of 1).`,
+        desc: `Say if this unit will channel aetheric power into its weapons or its shields. If you choose its weapons, you can reroll failed hit rolls for attacks made by this unit in that combat phase. 'If you pick its shields, until the end of that phase, this unit has a 5+ ward.`,
         when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Soulshields`,
-        desc: `You can reroll save rolls of 1 for attacks that target this unit if any models from this unit are carrying a Soulshield.`,
-        when: [SAVES_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
+          rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
+        ],
       },
     ],
   },

@@ -13,6 +13,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Artifacts = {
   'God-forged Blade': {
@@ -164,8 +165,12 @@ const Artifacts = {
     effects: [
       {
         name: `Drakescale Armour`,
-        desc: `You can reroll failed save rolls for attacks that target the bearer with a Damage characteristic greater than 1 (i.e. 2, D3 etc).`,
+        desc: `Add 1 to save rolls for attacks that target the bearer that have a Damage characteristic greater than 1 (e.g. 2, D3, etc.).`,
         when: [SAVES_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
+          rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
+        ],
       },
     ],
   },
@@ -173,8 +178,12 @@ const Artifacts = {
     effects: [
       {
         name: `Mirrorshield`,
-        desc: `Subtract 2 from hit rolls for missile attacks that target the bearer.`,
+        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target the bearer.`,
         when: [SHOOTING_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
+          rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
+        ],
       },
     ],
   },

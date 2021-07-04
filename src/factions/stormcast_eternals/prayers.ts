@@ -1,19 +1,27 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  BATTLESHOCK_PHASE,
-  COMBAT_PHASE,
-  HERO_PHASE,
-  SHOOTING_PHASE,
-  START_OF_HERO_PHASE,
-} from 'types/phases'
+import { COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Prayers = {
   'Divine Light': {
     effects: [
       {
         name: `Divine Light`,
-        desc: `Pick a unit wholly within 18" of this PRIEST and roll dice. 3+. Enemy units reroll hit rolls of 1 that target that unit. Friendly units reroll unmodified hit rolls of 6 for attacks that target that unit.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        desc: `Divine Light is a prayer that has an answer value of 3 and a range of 12" if the chanter is a KNIGHT or 18" if the chanter is a LORD. If answered, pick 1 enemy unit within range and visible to the chanter. You can reroll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
+          rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
+        ],
+      },
+      {
+        name: `Divine Light`,
+        desc: `If active, you can reroll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
+          rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
+        ],
       },
     ],
   },
@@ -21,35 +29,21 @@ const Prayers = {
     effects: [
       {
         name: `Bless Weapons`,
-        desc: `Pick a friendly unit wholly within 18" of this PRIEST and roll dice. 4+. Until next hero phase each unmodified hit roll of 6 for that unit inflicts 1 extra hit on the target. Make a wound and save roll for each.`,
-        when: [HERO_PHASE, SHOOTING_PHASE, COMBAT_PHASE],
+        desc: `Bless Weapons is a prayer that has an answer value of 3 and a range of 12" if the chanter is a KNIGHT or 18" if the chanter is a LORD. If answered, pick 1 friendly STORMCAST ETERNALS unit wholly within range and visible to the chanter. Until your next hero phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
+          rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
+        ],
       },
-    ],
-  },
-  'Bolster Faith': {
-    effects: [
       {
-        name: `Bolster Faith`,
-        desc: `Pick a friendly STORMCAST ETERNAL unit wholly within 9" of this PRIEST and roll dice. 3+. Until your next hero phase this unit does not take battleshock tests.`,
-        when: [HERO_PHASE, BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  Abjuration: {
-    effects: [
-      {
-        name: `Abjuration`,
-        desc: `At the start of the ENEMY hero phase pick an enemy WIZARD within 12" of this PRIEST and roll a D6. 3+. This PRIEST can attempt to unbind 1 spell cast by that enemy WIZARD in that hero phase in the same manner as a WIZARD.`,
-        when: [START_OF_HERO_PHASE, HERO_PHASE],
-      },
-    ],
-  },
-  "God King's Aspect": {
-    effects: [
-      {
-        name: `God King's Aspect`,
-        desc: `3+. Until your next hero phase subtract 1 from bravery of enemy units within 6" of this PRIEST.`,
-        when: [HERO_PHASE, BATTLESHOCK_PHASE],
+        name: `Bless Weapons`,
+        desc: `If active, until your next hero phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
+          rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
+        ],
       },
     ],
   },
@@ -57,8 +51,12 @@ const Prayers = {
     effects: [
       {
         name: `Translocation`,
-        desc: `Pick a friendly STORMCAST ETERNAL unit wholly within 9" of this PRIEST and roll dice. 3+. Remove that unit from the battlefield and set it up again anywhere more than 9" from any enemy units. Cannot move in subsequent movement phase.`,
+        desc: `Translocation is a prayer that has an answer value of 3 and a range of 9". If answered, pick 1 friendly STORMCAST ETERNALS unit wholly within range and visible to the chanter. You can remove that unit from the battlefield and set it up again anywhere on the battlefield more than 9" from all enemy units.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
+          rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
+        ],
       },
     ],
   },
