@@ -1,77 +1,77 @@
 import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, END_OF_HERO_PHASE, HERO_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const PredatoryEffect = {
   name: `Predatory`,
-  desc: `This model is a predatory endless spell. It can move up to 8" and can fly.`,
+  desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
   when: [END_OF_HERO_PHASE],
+  rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
 }
 
 const EndlessSpells = {
   Gladewyrm: {
     effects: [
       {
-        name: `Summon Gladewyrm`,
-        desc: `Only SYLVANETH WIZARDS can attempt to cast Summon Gladewyrm. Casting value of 7. Set up a Gladewyrm model wholly within 6" of the caster.`,
+        name: `Summoning`,
+        desc: `Casting value of 7 and a range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SYLVANETH WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
-      {
-        name: `Burrowing Doom`,
-        desc: `When this model is set up, the player who set it up can immediately make a move with it.`,
-        when: [HERO_PHASE],
-      },
+      PredatoryEffect,
       {
         name: `Death From Below`,
-        desc: `After this model has moved, roll a D6 for each unit within 1" of it. On a 3+ that unit suffers D3 mortal wounds. This ability has no effect on units with the SYLVANETH keyword.`,
-        when: [HERO_PHASE],
+        desc: `After this endless spell has moved, roll a dice for each unit within 1" of it. On a 3+, that unit suffers D3 mortal wounds. This ability has no effect on SYLVANETH units.`,
+        when: [END_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
       {
         name: `Healing Mist`,
-        desc: `After this model has moved, roll a D6 for each SYLVANETH unit wholly within 6" of this model. On a 3+ heal up to D3 wounds allocated to that unit.`,
-        when: [HERO_PHASE],
+        desc: `After this endless spell has moved, roll a dice for each Sylvaneth unit within 6" of this model. On a 3+, heal up to D3 wounds allocated to that unit.`,
+        when: [END_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
-      PredatoryEffect,
     ],
   },
   'Spiteswarm Hive': {
     effects: [
       {
-        name: `Summon Spiteswarm Hive`,
-        desc: `Only SYLVANETH WIZARDS can attempt to cast Summon Spiteswarm Hive. Casting value of 7. Set up a Spiteswarm Hive model wholly within 15" of the caster.`,
+        name: `Summoning`,
+        desc: `Casting value of 7 and a range of 15". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SYLVANETH WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
       {
         name: `The Hive Nourishes`,
-        desc: `At the end of the hero phase, if this model is on the battlefield, the player who set it up can pick one of the effects below and immediately resolve that effect. The same unit cannot be picked to be affected by this ability more than once per hero phase.
+        desc: `At the end of the hero phase, if a SYLVANETH WIZARD or SYLVANETH HERO is within 6" of this endless spell, that unit's commanding player can use 1 of the following abilities:
 
-        Vital Venoms: Roll a D6 for each SYLVANETH unit wholly within 8" of this model. On a 2+ add 3" to that unit's normal moves and charge moves until the end of the turn.
+        Vital Venoms: Roll a dice for each friendly SYLVANETH unit wholly within 8" of this endless spell. On a 2+, add 3" to normal moves and charge moves for that unit until the end of that turn.
 
-        Shielding Swarm: Roll a D6 for each SYLVANETH unit wholly within 8" of this model. On a 2+ reroll save rolls of 1 for attacks that target that unit until the end of the turn.`,
+        Shielding Swarm: Roll a dice for each friendly SYLVANETH unit wholly within 8" of this endless spell. On a 2+, add 1 to save rolls for attacks that target that unit until the end of that turn.`,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
     ],
   },
   'Vengeful Skullroot': {
     effects: [
       {
-        name: `Summon Vengeful Skullroot`,
-        desc: `Only SYLVANETH WIZARDS can attempt to cast Summon Vengeful Skullroot. Casting value of 6. Set up a Vengeful Skullroot model wholly within 6" of the caster.`,
+        name: `Summoning`,
+        desc: `Casting value of 6 and a range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SYLVANETH WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Uprooted Spirit`,
-        desc: `When this model is set up, the player who set it up can immediately make a move with it.`,
-        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
       {
         name: `Terrors Unearthed`,
-        desc: `If a unit fails a battleshock test within 3" of any models with this ability, add D3 to the number of models that flee. This ability has no effect on units with the SYLVANETH keyword.`,
+        desc: `If a unit fails a battleshock test within 3" of this endless spell, add D3 to the number of models that flee. This ability has no effect on SYLVANETH units.`,
         when: [BATTLESHOCK_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
       {
-        name: `Strangelroots`,
-        desc: `After this model has moved, each unit that has any models it passed across suffers D3 mortal wounds, or D6 mortal wounds if that unit is also within 3" of any AWAKENED WYLDWOODS. This ability has no effect on units with the SYLVANETH keyword.`,
+        name: `Strangleroots`,
+        desc: `After this endless spell has moved, roll a dice for each unit that has any models it passed across. On a 2+, that unit suffers D3 mortal wounds, or D6 mortal wounds if that unit is within 3" of any AWAKENED WYLDWOODS. This ability has no effect on SYLVANETH units.`,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
       PredatoryEffect,
     ],

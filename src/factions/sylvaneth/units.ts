@@ -1,5 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import rule_sources from 'meta/rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -13,11 +13,11 @@ import {
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
-  START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
+import rule_sources from './rule_sources'
 import spells from './spells'
 
 const MartialMemoriesEffects = [
@@ -60,17 +60,18 @@ const Units = {
         name: `Lifebloom`,
         desc: `You can heal up to 2D6 wounds allocatewd to this model. You can also heal up to D3 wounds allocated to each friendly Sylvaneth unit wholly within 30" of this model.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Living Battering Ram`,
         desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2-5 that unit suffers D3 mortal wounds. On a 6 the target suffers D6 mortal wounds.`,
         when: [CHARGE_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Soul Amphorae`,
         desc: `Once per battle you can summon 1 of the following units to the battlefield:
+        
         20 Dryads
         10 Tree-Revenants
         10 Spite-Revenants
@@ -80,25 +81,25 @@ const Units = {
 
         The summoned unit is added to your army, and must be set up wholly within 9" of this model and more than 9" from any enemy units`,
         when: [END_OF_MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Swirling Glowspites`,
         desc: `This model can retreat and still shoot and/or charge in the same turn.`,
         when: [MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Talon of the Dwindling`,
         desc: `Roll a D6 each time a wound allocated from this weapon is not negated. On a 6 the target is slain otherwise the wound is negated.`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Magic`,
         desc: `This model is a WIZARD. Can attempt to cast 3 spells and unbind 3 three spells. Knows Arcane Bolt, Mystic Shield and Metamorphosis.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -150,8 +151,9 @@ const Units = {
       },
       {
         name: `Spirit Paths`,
-        desc: `At the start of your movement phase, if this model is wholly within 6" of a friendly AWAKENED WYLDWOOD, it can walk the spirit paths instead of making a normal move in that movement phase. If it does so, remove this model from the battlefield and set it up wholly within 6" of a different friendly AWAKENED WYLDWOOD and more than 9" from any enemy units.`,
-        when: [START_OF_MOVEMENT_PHASE],
+        desc: `In your movement phase, if this unit is within 6" of an Awakened Wyldwood in your army, it can walk the spirit paths instead of making a normal move or retreating. If it does so, remove this model from the battlefield and set it up wholly within 6" of a different friendly AWAKENED WYLDWOOD and more than 9" from any enemy units.`,
+        when: [MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
       {
         name: `Wrathful Guardian`,
@@ -178,8 +180,9 @@ const Units = {
       },
       {
         name: `Spirit Paths`,
-        desc: `At the start of your movement phase, if this model is wholly within 6" of a friendly AWAKENED WYLDWOOD, it can walk the spirit paths instead of making a normal move in that movement phase. If it does so, remove this model from the battlefield and set it up wholly within 6" of a different friendly AWAKENED WYLDWOOD and more than 9" from any enemy units.`,
-        when: [START_OF_MOVEMENT_PHASE],
+        desc: `In your movement phase, if this unit is within 6" of an Awakened Wyldwood in your army, it can walk the spirit paths instead of making a normal move or retreating. If it does so, remove this model from the battlefield and set it up wholly within 6" of a different friendly AWAKENED WYLDWOOD and more than 9" from any enemy units.`,
+        when: [MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
       {
         name: `Silent Communion`,
@@ -207,8 +210,9 @@ const Units = {
       },
       {
         name: `Spirit Paths`,
-        desc: `At the start of your movement phase, if this model is wholly within 6" of a friendly AWAKENED WYLDWOOD, it can walk the spirit paths instead of making a normal move in that movement phase. If it does so, remove this model from the battlefield and set it up wholly within 6" of a different friendly AWAKENED WYLDWOOD and more than 9" from any enemy units.`,
-        when: [START_OF_MOVEMENT_PHASE],
+        desc: `In your movement phase, if this unit is within 6" of an Awakened Wyldwood in your army, it can walk the spirit paths instead of making a normal move or retreating. If it does so, remove this model from the battlefield and set it up wholly within 6" of a different friendly AWAKENED WYLDWOOD and more than 9" from any enemy units.`,
+        when: [MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
     ],
   },
@@ -217,8 +221,21 @@ const Units = {
     effects: [
       {
         name: `Crescent Shield`,
-        desc: `At the start of the combat phase, say whether this model is using their shield for protection or to steady their weapon. If they use their shield for protection, you can reroll save rolls of 1 for attacks that target this model in that phase. If they use the shield to steady their weapon, you can reroll hit rolls of 1 for attacks made with this model's Revenant's Glaive in that phase.`,
+        desc: `At the start of the combat phase, say whether this model is using their shield for protection or to steady their weapon. If they use their shield for protection, you can add 1 to save rolls for attacks that target this model in that phase. If they use the shield to steady their weapon, you can reroll hit rolls of 1 for attacks made with this model's Revenant's Glaive in that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
+      },
+      {
+        name: `Crescent Shield`,
+        desc: `If they use their shield for protection, you can add 1 to save rolls for attacks that target this model in that phase.`,
         when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
+      },
+      {
+        name: `Crescent Shield`,
+        desc: `If they use the shield to steady their weapon, you can reroll hit rolls of 1 for attacks made with this model's Revenant's Glaive in that phase.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
       {
         name: `Champion of Kurnoth`,
@@ -302,8 +319,9 @@ const Units = {
       },
       {
         name: `Waypipes`,
-        desc: `At the start of your movement phase, a unit that includes any Waypipes can walk the spirit paths instead of making a normal move. If it does so, remove this unit from the battlefield and set it up anywhere on the battlefield more than 9" from any enemy units.`,
-        when: [START_OF_MOVEMENT_PHASE],
+        desc: `In your movement phase, a unit that includes any Waypipes can walk the spirit paths instead of making a normal move or retreating. If it does so, remove this unit from the battlefield and set it up anywhere on the battlefield more than 9" from any enemy units.`,
+        when: [MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
       ...MartialMemoriesEffects,
     ],
@@ -336,13 +354,15 @@ const Units = {
       },
       {
         name: `Tanglethorn Thicket`,
-        desc: `At the start of the charge phase, you can say that this unit will sprout thorned branches. If you do so, until the end of the turn, this unit cannot move except to pile in up to 1", but you can reroll save rolls for attacks that target this unit.`,
+        desc: `At the start of the charge phase, you can say that this unit will sprout thorned branches. If you do so, until the end of the turn, this unit cannot move except to pile in up to 1", but you can add 1 to save rolls for attacks that target this unit.`,
         when: [START_OF_CHARGE_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
       {
         name: `Tanglethorn Thicket`,
-        desc: `If active, you can reroll save rolls for attacks that target this unit.`,
+        desc: `If active, you can add 1 to save rolls for attacks that target this unit.`,
         when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
       {
         name: `Trample Underfoot`,
@@ -417,25 +437,25 @@ const Units = {
         name: `Alarielle's Song`,
         desc: `Add 1 to the Bravery characteristic of friendly Sylvaneth units wholly within 12" of any models with this ability. Subtract 1 from enemy unit bravery characterisitics while they are within 12" of any models with this ability.`,
         when: [DURING_GAME],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Arboreal Cloak`,
         desc: `Roll a D6 each time a wound or mortal wound is allocated to this model. On a 4+ it is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Wyldwood Revenants`,
         desc: `Add 1 to casting, dispelling, and unbinding rolls for this model while it is within 9" of any AWAKENED WILDWOODS.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Magic`,
         desc: `This model is a WIZARD. Can attempt to cast 2 spells and unbind 1 spell. Knows Arcane Bolt, Mystic Shield and Unleash Swarm of Spites.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },

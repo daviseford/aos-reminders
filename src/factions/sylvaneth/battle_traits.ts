@@ -16,11 +16,6 @@ const BattleTraits = {
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
-        name: `Navigate Realmroots`,
-        desc: `Instead of making a normal move in your movement phase, 1 friendly SYLVANETH unit wholly within 6" of an AWAKENED WYLDWOOD can navigate the realmroots. If it does so, remove that unit from the battlefield and then set it up again wholly within 6" of another AWAKENED WYLDWOOD and more than 9" from any enemy units.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
         name: `Places of Power`,
         desc: `After territories have been chosen but before armies are set up, you can pick 1 terrain feature on the battlefield that was not set up by your opponent as part of their army. Do not take battleshock tests for friendly SYLVANETH units while they are wholly within 6" of that terrain feature.`,
         when: [DURING_SETUP],
