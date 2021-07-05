@@ -33,6 +33,13 @@ const MagicTouchedEffect = {
   name: `Magic-touched`,
   desc: `If the casting roll for this model is a double and the casting attempt is successful and not unbound, this model can attempt to cast 1 extra spell this turn. If it does so and the extra casting roll is a double, the spell automatically fails and this model is slain. If a friendly Magister is slain by this effect, roll a D6 before removing the model. On a 2+, 1 Tzeentch Chaos Spawn is added to your army. Set up the Tzeentch Chaos Spawn anywhere on the battlefield within 1" of the slain Magister and more than 3" from any enemy units.`,
   when: [HERO_PHASE],
+  id: `magic-touched`,
+}
+const MagisterMagicEffect = {
+  name: `Magic`,
+  desc: `This model is a wizard. It can attempt to cast 1 spell and attempt to unbind 1 spell. It knows Arcane Bolt, Mystic Shield, and Bolt of Change.`,
+  when: [HERO_PHASE],
+  id: `magister-magic`,
 }
 const MasteryOfMagicEffect = {
   name: `Mastery of Magic`,
@@ -300,27 +307,13 @@ const Units = {
     mandatory: {
       spells: [keyPicker(Spells, ['Bolt of Change'])],
     },
-    effects: [
-      MagicTouchedEffect,
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Bolt of Change.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [MagicTouchedEffect, MagisterMagicEffect],
   },
   Magister: {
     mandatory: {
       spells: [keyPicker(Spells, ['Bolt of Change'])],
     },
-    effects: [
-      MagicTouchedEffect,
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Bolt of Change.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [MagicTouchedEffect, MagisterMagicEffect],
   },
   'Curseling, Eye of Tzeentch': {
     mandatory: {
