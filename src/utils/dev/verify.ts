@@ -142,7 +142,12 @@ const verify = () => {
         const matchBy = `${e.name} | ${e.desc} | ${e.when}`
         const effectInfo = [unit.name, e.id]
         const matches = identicalEffects[matchBy]
-        identicalEffects[matchBy] = matches ? [...matches, effectInfo] : [effectInfo]
+        if (matches) {
+          if (!matches.find(existing => existing[0] === unit.name))
+            identicalEffects[matchBy] = [...matches, effectInfo]
+        } else {
+          identicalEffects[matchBy] = [effectInfo]
+        }
 
         if (phasesWhitelist.includes(e.name)) return
         if (e.command_ability) return
