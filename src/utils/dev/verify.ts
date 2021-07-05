@@ -131,7 +131,7 @@ const log_once = (message: string) => {
 const verify = () => {
   log_once('Starting rules verification...')
   const armyList = getFactionList()
-  let effectsByDescription: Record<string, string[]> = {}
+  let identicalEffects: Record<string, (string | undefined)[][]> = {}
   Object.values(armyList).forEach(faction => {
     const { AggregateArmy } = faction
 
@@ -139,9 +139,10 @@ const verify = () => {
 
     Units.forEach((unit: TEntry) => {
       unit.effects.forEach(e => {
-        const matches = effectsByDescription[e.desc]
-        const effectName = `${e.name}, ${unit.name}`
-        effectsByDescription[e.desc] = matches ? [...matches, effectName] : [effectName]
+        const matchBy = `${e.name} | ${e.desc} | ${e.when}`
+        const effectInfo = [e.name, unit.name, e.id]
+        const matches = identicalEffects[matchBy]
+        identicalEffects[matchBy] = matches ? [...matches, effectInfo] : [effectInfo]
 
         if (phasesWhitelist.includes(e.name)) return
         if (e.command_ability) return
@@ -172,9 +173,12 @@ const verify = () => {
       })
     })
   })
-  Object.values(effectsByDescription).forEach(entries => {
+  Object.entries(identicalEffects).forEach(([description, entries]) => {
     if (entries.length < 2) return
-    console.log(entries)
+    const ids = entries.map(entry => entry[2])
+    const matchingIds = ids.every((val, i, arr) => val !== undefined && val === arr[0])
+    if (matchingIds) return
+    console.log(description, entries)
   })
   console.log('Done!')
 }
