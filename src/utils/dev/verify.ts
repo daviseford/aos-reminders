@@ -119,8 +119,17 @@ const whitelist = [
   'Strike the Runes',
 ]
 
+let logged: string[] = []
+
+const log_once = (message: string) => {
+  if (!logged.includes(message)) {
+    console.log(message)
+    logged = [...logged, message]
+  }
+}
+
 const verify = () => {
-  console.log('Starting rules verification...')
+  log_once('Starting rules verification...')
   const armyList = getFactionList()
   Object.values(armyList).forEach(faction => {
     const { AggregateArmy } = faction
@@ -133,16 +142,16 @@ const verify = () => {
         if (e.command_ability) return
 
         if (e.spell || unit.spell) {
-          if (!e.when.includes(HERO_PHASE)) console.log(`${e.name} should be in ${HERO_PHASE}`)
+          if (!e.when.includes(HERO_PHASE)) log_once(`${e.name} should be in ${HERO_PHASE}`)
           return
         }
 
         if (e.when.length === 0) {
-          return console.log(`${e.name} is missing a 'when' value`)
+          return log_once(`${e.name} is missing a 'when' value`)
         }
 
         if (!e.spell && new RegExp('Casting value ', 'gi').test(e.desc)) {
-          return console.log(`${e.name} should be marked as a spell`)
+          return log_once(`${e.name} should be marked as a spell`)
         }
 
         Object.keys(phaseMap).forEach(phrase => {
@@ -152,7 +161,7 @@ const verify = () => {
 
           const regex = new RegExp(phrase, 'gi')
           if (regex.test(e.desc)) {
-            return console.log(`${e.name} should probably be in ${phase}`)
+            return log_once(`${e.name} should probably be in ${phase}`)
           }
         })
       })
