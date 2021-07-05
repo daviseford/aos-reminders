@@ -11,11 +11,11 @@ const Spells = {
       },
     ],
   },
-  'Shield of Thorns': {
+  'Armour of Thorns': {
     effects: [
       {
-        name: `Shield of Thorns`,
-        desc: `Casting value of 6. Pick a unit within 18". You can reroll failed save rolls for that unit until your next hero phase. In addition, each time you make a successful save roll of a 6 or more for that unit in the combat phase, the attacking unit suffers a mortal wound after all its attacks have been made.`,
+        name: `Armour of Thorns`,
+        desc: `7+ casting value. Pick 1 friendly WANDERERS unit wholly within 18" of the caster that is visible to them. Until that unit moves, that unit is treated as being in cover.In addition, until that unit moves, if the unmodified save roll for an attack made with a melee weapon that targets that unit is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [HERO_PHASE],
       },
     ],

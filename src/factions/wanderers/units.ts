@@ -103,13 +103,13 @@ const Units = {
   },
   'Sisters of the Thorn': {
     mandatory: {
-      spells: [keyPicker(Spells, ['Shield of Thorns'])],
+      spells: [keyPicker(Spells, ['Armour of Thorns'])],
     },
     effects: [
       HornblowerEffect,
       {
         name: `Magic`,
-        desc: `A Spellweaver is a wizard. A Spellweaver can attempt to cast one spell in each of your own hero phases, and attempt to unbind one spell in each enemy hero phase. A Spellweaver knows the Arcane Bolt, Mystic Shield and Blessing of Life spells.`,
+        desc: `This unit is a wizard while it has 2 or more models. It can attempt to cast 1 spell in your hero phases and attempt to unbind 1 spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Armour of Thorns spells.`,
         when: [HERO_PHASE],
       },
       {
