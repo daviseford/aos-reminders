@@ -85,8 +85,8 @@ const phaseMap = {
   'Worsen the rend of': SAVES_PHASE,
 }
 
-// Effect names that are flagged by the script, but have been verified and should be ignored
-const whitelist = [
+// Effect names that are flagged by the script, but have been verified and should be ignored for the phase checking
+const phasesWhitelist = [
   'Acid Ichor',
   'Ahead Full',
   'Been There, Done That',
@@ -131,6 +131,7 @@ const log_once = (message: string) => {
 const verify = () => {
   log_once('Starting rules verification...')
   const armyList = getFactionList()
+  let effectsByDescription: Record<string, string[]> = {}
   Object.values(armyList).forEach(faction => {
     const { AggregateArmy } = faction
 
@@ -138,7 +139,11 @@ const verify = () => {
 
     Units.forEach((unit: TEntry) => {
       unit.effects.forEach(e => {
-        if (whitelist.includes(e.name)) return
+        const matches = effectsByDescription[e.desc]
+        const effectName = `${e.name}, ${unit.name}`
+        effectsByDescription[e.desc] = matches ? [...matches, effectName] : [effectName]
+
+        if (phasesWhitelist.includes(e.name)) return
         if (e.command_ability) return
 
         if (e.spell || unit.spell) {
@@ -166,6 +171,10 @@ const verify = () => {
         })
       })
     })
+  })
+  Object.values(effectsByDescription).forEach(entries => {
+    if (entries.length < 2) return
+    console.log(entries)
   })
   console.log('Done!')
 }
