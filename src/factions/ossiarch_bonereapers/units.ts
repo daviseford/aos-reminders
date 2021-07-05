@@ -7,6 +7,7 @@ import {
   END_OF_HERO_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -308,6 +309,30 @@ const Units = {
         desc: `If the unmodified hit roll for an attack made with a Nadirite weapon is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
+    ],
+  },
+  'Mir Kainan': {
+    effects: [
+      {
+        name: `Executioner's Strike`,
+        desc: `If the unmodified hit roll for an attack made with a Soulreaper Axe is 6, that attack inflicts D3+1 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Magic`,
+        desc: `Mir Kainan is a WIZARD. He can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. He knows the Arcane Bolt and Mystic shield rules.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  "Kainan's Reapers": {
+    effects: [
+      {
+        name: `Nadirite Shields`,
+        desc: `You can reroll save rolls for this unit while this unit includes 2 models with Shields.`,
+        when: [SAVES_PHASE],
+      },
+      NadariteWeaponsEffect,
     ],
   },
 }
