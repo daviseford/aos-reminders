@@ -140,7 +140,7 @@ const verify = () => {
     Units.forEach((unit: TEntry) => {
       unit.effects.forEach(e => {
         const matchBy = `${e.name} | ${e.desc} | ${e.when}`
-        const effectInfo = [e.name, unit.name, e.id]
+        const effectInfo = [unit.name, e.id]
         const matches = identicalEffects[matchBy]
         identicalEffects[matchBy] = matches ? [...matches, effectInfo] : [effectInfo]
 
@@ -175,7 +175,7 @@ const verify = () => {
   })
   Object.entries(identicalEffects).forEach(([description, entries]) => {
     if (entries.length < 2) return
-    const ids = entries.map(entry => entry[2])
+    const ids = entries.map(entry => entry[1])
     const matchingIds = ids.every((val, i, arr) => val !== undefined && val === arr[0])
     if (matchingIds) return
     console.log(description, entries)
