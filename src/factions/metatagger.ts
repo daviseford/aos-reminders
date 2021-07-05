@@ -65,7 +65,12 @@ export const keyPicker = <T extends object, R extends Extract<keyof T, string>>(
   obj: T,
   keys_to_pick: R[]
 ) => {
-  if (!keys_to_pick.length) return obj
+  if (!keys_to_pick.length) {
+    console.error(
+      `Warning: You passed an empty array to keyPicker(). This is usually a mistake - double check your usage, please.`
+    )
+    return obj
+  }
   return pick(obj, ...keys_to_pick)
 }
 
