@@ -13,6 +13,13 @@ import {
 import CommandAbilities from './command_abilities'
 import Spells from './spells'
 
+const HornblowerEffect = {
+  name: `Hornblower`,
+  desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
+  when: [MOVEMENT_PHASE],
+  id: 'wanderers-hornblower',
+}
+
 const Units = {
   'Nomad Prince': {
     mandatory: {
@@ -99,6 +106,7 @@ const Units = {
       spells: [keyPicker(Spells, ['Shield of Thorns'])],
     },
     effects: [
+      HornblowerEffect,
       {
         name: `Magic`,
         desc: `A Spellweaver is a wizard. A Spellweaver can attempt to cast one spell in each of your own hero phases, and attempt to unbind one spell in each enemy hero phase. A Spellweaver knows the Arcane Bolt, Mystic Shield and Blessing of Life spells.`,
@@ -113,11 +121,6 @@ const Units = {
         name: `Standard Bearer`,
         desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
         when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
-        when: [MOVEMENT_PHASE],
       },
     ],
   },
@@ -147,6 +150,7 @@ const Units = {
   },
   'Glade Guard': {
     effects: [
+      HornblowerEffect,
       {
         name: `Peerless Archery`,
         desc: `You can add 1 to all hit rolls made for a unit of Glade Guard in the Shooting phase if it has 20 or more models and there are no enemy models within 3".`,
@@ -167,15 +171,11 @@ const Units = {
         desc: `If the unit includes any Pennant Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Hornblower`,
-        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
-        when: [MOVEMENT_PHASE],
-      },
     ],
   },
   'Eternal Guard': {
     effects: [
+      HornblowerEffect,
       {
         name: `Fortress of Boughs`,
         desc: `In your hero phase, this unit can form a fortress of boughs. If it does so, it cannot move until your next hero phase, but until then you can add 1 to all hit rolls, wound rolls and save rolls made for models in this unit.`,
@@ -196,15 +196,11 @@ const Units = {
         desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Hornblower`,
-        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
-        when: [MOVEMENT_PHASE],
-      },
     ],
   },
   'Wild Riders': {
     effects: [
+      HornblowerEffect,
       {
         name: `Wild Hunter`,
         desc: `The leader of this unit is a Wild Hunter. A Wild Hunter makes 3 attacks rather than 2 with his Hunting Spear.`,
@@ -216,11 +212,6 @@ const Units = {
         when: [BATTLESHOCK_PHASE],
       },
       {
-        name: `Hornblower`,
-        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
         name: `Unbound Fury`,
         desc: `Wild Riders can run and charge in the same turn. You can add 1 to any wound roll made for a Wild Rider's Hunting Spear if it charged during the same turn.`,
         when: [DURING_GAME, COMBAT_PHASE],
@@ -229,6 +220,7 @@ const Units = {
   },
   'Wildwood Rangers': {
     effects: [
+      HornblowerEffect,
       {
         name: `Guardians of the Kindreds`,
         desc: `Rangers' Draichs inflict D3 Damage on Monsters instead of 1.`,
@@ -243,11 +235,6 @@ const Units = {
         name: `Standard Bearer`,
         desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
         when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
-        when: [MOVEMENT_PHASE],
       },
     ],
   },
