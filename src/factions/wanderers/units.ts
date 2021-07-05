@@ -20,6 +20,13 @@ const HornblowerEffect = {
   id: 'wanderers-hornblower',
 }
 
+const StandardBearerEffect = {
+  name: `Standard Bearer`,
+  desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
+  when: [BATTLESHOCK_PHASE],
+  id: 'wanderers-standard-bearer',
+}
+
 const Units = {
   'Nomad Prince': {
     mandatory: {
@@ -107,6 +114,7 @@ const Units = {
     },
     effects: [
       HornblowerEffect,
+      StandardBearerEffect,
       {
         name: `Magic`,
         desc: `This unit is a wizard while it has 2 or more models. It can attempt to cast 1 spell in your hero phases and attempt to unbind 1 spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Armour of Thorns spells.`,
@@ -116,11 +124,6 @@ const Units = {
         name: `Handmaiden Of The Thorn`,
         desc: `The leader of this unit is the Handmaiden of the Thorn. A Handmaiden of the Thorn makes 2 attacks with her Deepwood Coven Staff rather than 1.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
-        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -176,6 +179,7 @@ const Units = {
   'Eternal Guard': {
     effects: [
       HornblowerEffect,
+      StandardBearerEffect,
       {
         name: `Fortress of Boughs`,
         desc: `In your hero phase, this unit can form a fortress of boughs. If it does so, it cannot move until your next hero phase, but until then you can add 1 to all hit rolls, wound rolls and save rolls made for models in this unit.`,
@@ -191,25 +195,16 @@ const Units = {
         desc: `The leader of this unit is the Eternal Warden. An Eternal Warden makes 2 attacks rather than 1.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
-        when: [BATTLESHOCK_PHASE],
-      },
     ],
   },
   'Wild Riders': {
     effects: [
       HornblowerEffect,
+      StandardBearerEffect,
       {
         name: `Wild Hunter`,
         desc: `The leader of this unit is a Wild Hunter. A Wild Hunter makes 3 attacks rather than 2 with his Hunting Spear.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
-        when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Unbound Fury`,
@@ -221,6 +216,7 @@ const Units = {
   'Wildwood Rangers': {
     effects: [
       HornblowerEffect,
+      StandardBearerEffect,
       {
         name: `Guardians of the Kindreds`,
         desc: `Rangers' Draichs inflict D3 Damage on Monsters instead of 1.`,
@@ -230,11 +226,6 @@ const Units = {
         name: `Wildwood Warden`,
         desc: `The leader of this unit is a Wildwood Warden. A Wildwood Warden makes 3 attacks rather than 2.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
-        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
