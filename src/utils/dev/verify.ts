@@ -122,10 +122,10 @@ const whitelist = [
 const verify = () => {
   console.log('Starting rules verification...')
   const armyList = getFactionList()
-  Object.keys(armyList).forEach(faction => {
-    const { Army } = armyList[faction]
+  Object.values(armyList).forEach(faction => {
+    const { AggregateArmy } = faction
 
-    const { Units = [] } = Army
+    const { Units = [] } = AggregateArmy
 
     Units.forEach((unit: TEntry) => {
       unit.effects.forEach(e => {
