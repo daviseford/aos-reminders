@@ -25,21 +25,25 @@ const MartialMemoriesEffects = [
     name: `Martial Memories`,
     desc: `Once per phase, you can reroll 1 failed hit roll or 1 failed wound roll for an attack made by this unit, or 1 failed save roll for an attack that targets this unit. You cannot use this ability to reroll more than one dice for this unit in the same phase.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
+    id: `martial-memories-hit-or-wound`,
   },
   {
     name: `Martial Memories`,
     desc: `Once per phase, you can reroll 1 battleshock test for this unit. You cannot use this ability to reroll more than one dice for this unit in the same phase.`,
     when: [BATTLESHOCK_PHASE],
+    id: `martial-memories-battleshock`,
   },
   {
     name: `Martial Memories`,
     desc: `Once per phase, you can reroll 1 charge roll. You cannot use this ability to reroll more than one dice for this unit in the same phase.`,
     when: [CHARGE_PHASE],
+    id: `martial-memories-charge`,
   },
   {
     name: `Martial Memories`,
     desc: `Once per phase, you can reroll 1 run roll. You cannot use this ability to reroll more than one dice for this unit in the same phase.`,
     when: [MOVEMENT_PHASE],
+    id: `martial-memories-run`,
   },
 ]
 
@@ -47,7 +51,30 @@ const BlessingsOfTheForestEffect = {
   name: `Blessings of the Forest`,
   desc: `Subtract 1 from hit rolls for attacks that target this unit if it is wholly within 6" of any friendly AWAKENED WYLDWOODS.`,
   when: [SHOOTING_PHASE, COMBAT_PHASE],
+  id: `blessings-of-the-forest`,
 }
+
+const TreeLordBaseEffects = [
+  {
+    name: `Spirit Paths`,
+    desc: `In your movement phase, if this unit is within 6" of an Awakened Wyldwood in your army, it can walk the spirit paths instead of making a normal move or retreating. If it does so, remove this model from the battlefield and set it up wholly within 6" of a different friendly AWAKENED WYLDWOOD and more than 9" from any enemy units.`,
+    when: [MOVEMENT_PHASE],
+    rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
+    id: `tree-lord-spirit-paths`,
+  },
+  {
+    name: `Groundshaking Stomp`,
+    desc: `At the start of the combat phase, pick 1 enemy unit within 3" of this model and roll a D6. On a 4+ that unit fights at the end of that combat phase, after the players have picked any other units to fight.`,
+    when: [START_OF_COMBAT_PHASE],
+    id: `tree-lord-groundshaking-stomp`,
+  },
+  {
+    name: `Impale`,
+    desc: `If the unmodified hit roll for an attack made with Massive Impaling Talons is 6, that attack inflicts D6 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll)`,
+    when: [COMBAT_PHASE],
+    id: `tree-lord-impale`,
+  },
+]
 
 const Units = {
   'Alarielle The Everqueen': {
@@ -134,26 +161,11 @@ const Units = {
   },
   'Spirit of Durthu': {
     effects: [
+      ...TreeLordBaseEffects,
       {
         name: `Champion of the Everqueen's Will`,
         desc: `Add 1 to the Bravery characteristic of friendly SYLVANETH units while they are wholly within 12" of any friendly models with this ability.`,
         when: [DURING_GAME],
-      },
-      {
-        name: `Groundshaking Stomp`,
-        desc: `At the start of the combat phase, pick 1 enemy unit within 3" of this model and roll a D6. On a 4+ that unit fights at the end of that combat phase, after the players have picked any other units to fight.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Impale`,
-        desc: `If the unmodified hit roll for an attack made with Massive Impaling Talons is 6, that attack inflicts D6 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll)`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Spirit Paths`,
-        desc: `In your movement phase, if this unit is within 6" of an Awakened Wyldwood in your army, it can walk the spirit paths instead of making a normal move or retreating. If it does so, remove this model from the battlefield and set it up wholly within 6" of a different friendly AWAKENED WYLDWOOD and more than 9" from any enemy units.`,
-        when: [MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
       {
         name: `Wrathful Guardian`,
@@ -168,22 +180,7 @@ const Units = {
       command_abilities: [keyPicker(command_abilities, ['Heed the Spirit-song'])],
     },
     effects: [
-      {
-        name: `Groundshaking Stomp`,
-        desc: `At the start of the combat phase, pick 1 enemy unit within 3" of this model and roll a D6. On a 4+ that unit fights at the end of that combat phase, after the players have picked any other units to fight.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Impale`,
-        desc: `If the unmodified hit roll for an attack made with Massive Impaling Talons is 6, that attack inflicts D6 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll)`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Spirit Paths`,
-        desc: `In your movement phase, if this unit is within 6" of an Awakened Wyldwood in your army, it can walk the spirit paths instead of making a normal move or retreating. If it does so, remove this model from the battlefield and set it up wholly within 6" of a different friendly AWAKENED WYLDWOOD and more than 9" from any enemy units.`,
-        when: [MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
-      },
+      ...TreeLordBaseEffects,
       {
         name: `Silent Communion`,
         desc: `Once per battle, in your hero phase, you can pick 1 friendly model with this ability and set up 1 AWAKENED WYLDWOOD wholly within 18" of that model and more than 3" from terrain features or 1" from any other model or objective, and add it to your army.`,
@@ -197,24 +194,7 @@ const Units = {
     ],
   },
   Treelord: {
-    effects: [
-      {
-        name: `Groundshaking Stomp`,
-        desc: `At the start of the combat phase, pick 1 enemy unit within 3" of this model and roll a D6. On a 4+ that unit fights at the end of that combat phase, after the players have picked any other units to fight.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Impale`,
-        desc: `If the unmodified hit roll for an attack made with Massive Impaling Talons is 6, that attack inflicts D6 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll)`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Spirit Paths`,
-        desc: `In your movement phase, if this unit is within 6" of an Awakened Wyldwood in your army, it can walk the spirit paths instead of making a normal move or retreating. If it does so, remove this model from the battlefield and set it up wholly within 6" of a different friendly AWAKENED WYLDWOOD and more than 9" from any enemy units.`,
-        when: [MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
-      },
-    ],
+    effects: [...TreeLordBaseEffects],
   },
   'Arch-Revenant': {
     mandatory: { command_abilities: [keyPicker(command_abilities, ['Call to Battle'])] },
