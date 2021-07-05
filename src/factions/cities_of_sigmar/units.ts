@@ -385,7 +385,6 @@ const Units = {
   'Freeguild General': {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Hold the Line'])],
-      spells: [keyPicker(spells, [])],
     },
     effects: [
       DecapitatingSwingEffect,
@@ -917,8 +916,6 @@ const Units = {
   Anointed: {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Captain of the Phoenix Guard'])],
-      spells: [keyPicker(spells, [])],
-      prayers: [keyPicker(prayers, [])],
     },
     effects: [
       {
