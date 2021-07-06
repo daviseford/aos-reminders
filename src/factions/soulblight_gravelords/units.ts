@@ -61,6 +61,15 @@ const DeathlyChargeEffect = {
   id: `soulblight-deathly-charge`,
 }
 
+const getStandardBearerEffect = (size: `5` | `10`) => {
+  return {
+    name: `Standard Bearer`,
+    desc: `1 in every ${size} models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
+    when: [WOUND_ALLOCATION_PHASE],
+    id: `soulblight-standard-bearer`,
+  }
+}
+
 const Units = {
   'Nagash, Supreme Lord of the Undead': {
     mandatory: {
@@ -68,6 +77,7 @@ const Units = {
       spells: [keyPicker(spells, ['Invigorating Aura', 'Hand of Dust', 'Soul Stealer'])],
     },
     effects: [
+      FrightfulTouchEffect,
       {
         name: `Alakanash, the Staff of Power`,
         desc: `Add the Staff of Power value shown on this model's damage table to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to cast Arcane Bolt any number of times in the same hero phase, even if another WIZARD has already attempted to cast the spell in that phase.`,
@@ -81,11 +91,6 @@ const Units = {
         name: `Invocation of Nagash`,
         desc: `At the start of your hero phase, if this model is on the battlefield, you can pick up to 5 different friendly SUMMONABLE units or friendly OSSIARCH BONEREAPERS units in any combination. For each of those units, you can either heal up to 3 wounds that have been allocated to that unit or, if no wounds have been allocated to it, you can return number of slain models to that unit with a combined Wounds characteristic of 3 or less.`,
         when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and Daggers is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
       },
       {
         name: `Morikhane`,
@@ -112,6 +117,7 @@ const Units = {
     },
     effects: [
       TheHungerEffect,
+      FrightfulTouchEffect,
       {
         name: `Armour of Templehof`,
         desc: `The first wound or mortal wound allocated to this model in each phase is negated.`,
@@ -127,11 +133,6 @@ const Units = {
         desc: `At the start of the combat phase, if this model is within 3" of any enemy units, you can remove this model from the battlefield and set it up again anywhere on the battlefield more than 9" from all enemy units.`,
         when: [START_OF_COMBAT_PHASE],
       },
-      {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and Daggers is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
     ],
   },
 
@@ -141,6 +142,7 @@ const Units = {
       spells: [keyPicker(spells, ['Invigorating Aura', 'Dark Mist'])],
     },
     effects: [
+      FrightfulTouchEffect,
       {
         name: `Dagger of Jet`,
         desc: `At the end of any phase, if any wounds inflicted by this model's Akmet-har in that phase were allocated to an enemy HERO and not negated, and that enemy model has not been slain, roll a dice. On a 5+, that enemy HERO is slain.`,
@@ -150,11 +152,6 @@ const Units = {
         name: `Mortarch of Blood`,
         desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that phase, you can heal up to D6 wounds allocated to this model.`,
         when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and Daggers is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -426,15 +423,11 @@ const Units = {
   'Blood Knights': {
     effects: [
       TheHungerEffect,
+      getStandardBearerEffect(`5`),
       {
         name: `Champion`,
         desc: `1 model in this unit can be a Kastellan. Add 1 to the Attacks characteristic of a Kastellan's Templar Lance or Blade.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `1 in every 5 models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
-        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Riders of Ruin`,
@@ -628,15 +621,11 @@ const Units = {
   'Black Knights': {
     effects: [
       DeathlyChargeEffect,
+      getStandardBearerEffect(`5`),
       {
         name: `Champion`,
         desc: `1 model in this unit can be a Hellknight. Add 1 to the Attacks characteristic of that model's Barrow Lance.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `1 in every 5 models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
-        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Musician`,
@@ -648,15 +637,11 @@ const Units = {
 
   'Grave Guard': {
     effects: [
+      getStandardBearerEffect(`10`),
       {
         name: `Champion`,
         desc: `1 model in this unit can be a Seneschal. Add 1 to the Attacks characteristic of that model's Wight Blade or Great Wight Blade.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `1 in every 10 models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
-        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Musician`,
@@ -678,15 +663,11 @@ const Units = {
 
   'Deathrattle Skeletons': {
     effects: [
+      getStandardBearerEffect(`10`),
       {
         name: `Champion`,
         desc: `1 model in this unit can be a Skeleton Champion. A Skeleton Champion can replace their Ancient Blade or Spear with a Champion's Mace or Halberd.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `1 in every 10 models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
-        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Skeleton Legion`,
