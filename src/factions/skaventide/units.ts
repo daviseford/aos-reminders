@@ -30,64 +30,90 @@ const AltarOfTheHornedRatEffect = {
   name: `Altar of the Horned Rat`,
   desc: `Do not take battleshock tests for friendly SKAVENTIDE units while they are wholly within 13" of this model.`,
   when: [BATTLESHOCK_PHASE],
+  id: `skaven-altar-of-the-horned-rat`,
 }
 const ThrowingStarsEffect = {
   name: `Throwing Stars`,
   desc: `If the unmodified hit roll for an attack made with Eshin Throwing Stars is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
   when: [SHOOTING_PHASE],
+  id: `skaven-throwing-star`,
 }
 const RunningDeathEffect = {
   name: `Running Death`,
   desc: `This unit can run and still shoot later in the same turn.`,
   when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+  id: `skaven-running-death`,
 }
 const ClanshieldEffect = {
   name: `Clanshields`,
   desc: `Add 1 to save rolls for attacks that target a unit that carries Clanshields while it has 10 or more models.`,
   when: [SAVES_PHASE],
+  id: `skaven-clanshield`,
 }
 const RegeneratingMonstrosityEffect = {
   name: `Regenerating Monstrosity`,
   desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
   when: [HERO_PHASE],
+  id: `skaven-regenerating-monstrosity`,
 }
 const PushedIntoBattleEffects = [
   {
     name: `Pushed into Battle`,
     desc: `This model cannot move unless it starts the move within 6" of 10 or more friendly SKAVENTIDE models.`,
     when: [MOVEMENT_PHASE],
+    id: `skaven-pushed-into-battle`,
   },
   {
     name: `Pushed into Battle`,
     desc: `This model's Rusty Spikes have an Attacks characteristic of 2D6 instead of D6 if this model made a charge move in the same turn.`,
     when: [COMBAT_PHASE],
+    id: `skaven-pushed-into-battle-attacks`,
   },
 ]
 const TerrifyingEffect = {
   name: `Terrifying`,
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
   when: [BATTLESHOCK_PHASE],
+  id: `skaven-terrifying`,
 }
 const ProtectionOfTheHornedRatEffect = {
   name: `Protection of the Horned Rat`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
   when: [WOUND_ALLOCATION_PHASE],
+  id: `skaven-protection-of-the-horned-rat`,
 }
 const PoisonousFumesEffect = {
   name: `Poisonous Fumes`,
   desc: `At the end of the combat phase, roll 1 dice for each unit within 3" of any units with this ability. On a 4+ the unit being rolled for suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds instead of 1. This ability has no effect on CLANS PESTILENS units.`,
   when: [END_OF_COMBAT_PHASE],
+  id: `skaven-poisonous-fumes`,
 }
 const FrenziedAssaultEffect = {
   name: `Frenzied Assault`,
   desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if this unit made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
+  id: `skaven-frenzied-assault`,
 }
 const StandardBearerEffect = {
   name: `Standard Bearer`,
   desc: `This unit can retreat and still charge later in the same turn while it includes any Standard Bearers.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  id: `skaven-standard-bearer`,
 }
+const CrackTheWhipEffects = [
+  {
+    name: `Crack the Whip`,
+    desc: `Add 1 to hit rolls for attacks made with melee weapons by friendly CLANS MOULDER PACK units while they are wholly within 12" of any models with this ability.`,
+    when: [COMBAT_PHASE],
+    id: `skaven-crack-the-whip-attacks`,
+  },
+  {
+    name: `Crack the Whip`,
+    desc: `Double the Bravery characteristic of friendly CLANS MOULDER PACK units while they are wholly within 12" of any models with this ability.`,
+    when: [BATTLESHOCK_PHASE],
+    id: `skaven-crack-the-whip-bravery`,
+  },
+]
 
 const Units = {
   'Thanquol on Boneripper': {
@@ -702,16 +728,7 @@ const Units = {
       flavors: [keyPicker(flavors, ['Prized Creations (Moulder)'])],
     },
     effects: [
-      {
-        name: `Crack the Whip`,
-        desc: `Add 1 to hit rolls for attacks made with melee weapons by friendly CLANS MOULDER PACK units while they are wholly within 12" of any models with this ability.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Crack the Whip`,
-        desc: `Double the Bravery characteristic of friendly CLANS MOULDER PACK units while they are wholly within 12" of any models with this ability.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      ...CrackTheWhipEffects,
       {
         name: `Master Moulder`,
         desc: `In your hero phase, you can pick 1 friendly CLANS MOULDER PACK model within 3" of this model. Heal D3 wounds allocated to that model.`,
@@ -752,18 +769,7 @@ const Units = {
     ],
   },
   Packmasters: {
-    effects: [
-      {
-        name: `Crack the Whip`,
-        desc: `Add 1 to hit rolls for attacks made with melee weapons by friendly CLANS MOULDER PACK units while they are wholly within 12" of any models with this ability.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Crack the Whip`,
-        desc: `Double the Bravery characteristic of friendly CLANS MOULDER PACK units while they are wholly within 12" of any models with this ability.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
+    effects: [...CrackTheWhipEffects],
   },
   'Verminlord Deceiver': {
     mandatory: {
