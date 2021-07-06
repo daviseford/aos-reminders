@@ -1,3 +1,4 @@
+import { uniq } from 'lodash'
 import { getFactionList } from 'meta/faction_list'
 import { TEntry } from 'types/data'
 import {
@@ -178,9 +179,12 @@ const verify = () => {
       })
     })
   })
+
+  let allIds: (string | undefined)[] = []
   Object.entries(identicalEffects).forEach(([description, entries]) => {
     if (entries.length < 2) return
     const ids = entries.map(entry => entry.id)
+    allIds = uniq([...allIds, ...ids])
     const matchingIds = ids.every((val, i, arr) => val !== undefined && val === arr[0])
     if (matchingIds) return
     console.log(description, entries)
