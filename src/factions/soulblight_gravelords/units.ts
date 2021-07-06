@@ -23,36 +23,42 @@ const TheHungerEffect = {
   name: `The Hunger`,
   desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this unit's attacks in that phase, you can heal up to D3 wounds allocated to this unit.`,
   when: [END_OF_COMBAT_PHASE],
+  id: `soulblight-hunger`,
 }
 
 const NightmaresMiasmaEffect = {
   name: `Nightmares Miasma`,
   desc: `While an enemy unit is within 3" of any friendly models with this ability, worsen the Rend characteristic of that unit's melee weapons by 1 (to a minimum of '-')`,
   when: [COMBAT_PHASE],
+  id: `soulblight-nightmares-miasma`,
 }
 
 const UndeniableImpulseEffect = {
   name: `Undeniable Impulse`,
   desc: `At the start of your hero phase, roll a dice for this model. If the roll is equal to or less than the number of the current battle round, until your next hero phase, this model can run and still charge later in the same turn. However, this model cannot use command abilities until your next hero phase.`,
   when: [START_OF_HERO_PHASE],
+  id: `soulblight-undeniable-impulse`,
 }
 
 const WailOfTheDamnedEffect = {
   name: `Wail of the Damned`,
   desc: `Do not use the attack sequence for an attack made with a Wail of the Damned. Instead, roll a dice for each enemy unit within range of this model's Wail of the Damned. On a 4+, that unit suffers D3 mortal wounds.`,
   when: [SHOOTING_PHASE],
+  id: `soulblight-wail-of-the-damned`,
 }
 
 const FrightfulTouchEffect = {
   name: `Frightful Touch`,
   desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and Blades is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
   when: [COMBAT_PHASE],
+  id: `soulblight-frightful-touch`,
 }
 
 const DeathlyChargeEffect = {
   name: `Deathly Charge`,
   desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
   when: [CHARGE_PHASE],
+  id: `soulblight-deathly-charge`,
 }
 
 const Units = {
