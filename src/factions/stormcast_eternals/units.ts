@@ -149,6 +149,80 @@ const TirelessHuntersEffect = {
   when: [SHOOTING_PHASE],
   id: `stormcast-tireless-hunters`,
 }
+const LayLowTheTyrantsEffect = {
+  name: `Lay Low the Tyrants`,
+  desc: `Add 1 to hit rolls for attacks made by this unit that target an enemy unit with a Wounds characteristic of 5 or more.`,
+  when: [COMBAT_PHASE],
+  id: `stormcast-lay-low`,
+}
+const EvocatorPrimeEffect = {
+  name: `Evocator-Prime`,
+  desc: `+1 Attack.`,
+  when: [COMBAT_PHASE],
+  id: `stormcast-evocator-prime`,
+}
+const EvocatorWizardEffect = {
+  name: `Magic`,
+  desc: `This unit is a WIZARD while it has 2 or more models.`,
+  when: [HERO_PHASE],
+  id: `stormcast-evocator-wizard`,
+}
+const HeraldsOfRighteousnessEffect = {
+  name: `Heralds of Righteousness`,
+  desc: `Can attempt charges within 18". Roll 3D6 for the charge roll.`,
+  when: [CHARGE_PHASE],
+  id: `stormcast-heralds-of-righteousness`,
+}
+const FaithfulGryphHoundEffect = {
+  name: `Faithful Gryph-Hound`,
+  desc: `The first time this model is set up on the battlefield you can call a GRYPH-HOUND unit consisting of a single model to the battlefield and add it to your army. Set up the GRYPH-HOUND wholly within 3" of this model, and more than 9" from the enemy.`,
+  when: [DURING_SETUP],
+  id: `stormcast-faithful-gryphhound`,
+}
+const MeteoricStrikeEffect = {
+  name: `Meteoric Strike`,
+  desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that unit suffers 1 mortal wound.`,
+  when: [CHARGE_PHASE],
+  id: `stormcast-meteoric-strike`,
+}
+const StormBreathEffect = {
+  name: `Storm Breath`,
+  desc: `Pick a point on the battlefield within 12" of this model that is visible to them. Roll a D6 for each enemy unit within 2" of that point. On a 4+ that unit suffers D3 mortal wounds.`,
+  when: [SHOOTING_PHASE],
+  id: `stormcast-storm-breath`,
+}
+const LightningFastStrikesEffect = {
+  name: `Lightning Fast Strikes`,
+  desc: `Add 1 to the Attacks of this model's Whirlwind Axes if this model made a charge move in the same turn.`,
+  when: [COMBAT_PHASE],
+  id: `stormcast-lightning-fast-strikes`,
+}
+const StardrakeBaseEffects = [
+  {
+    name: `Arcane Lineage`,
+    desc: `Add 1 to casting rolls for friendly WIZARDS while they are within 18" of this model. In addition, subtract 1 from casting rolls for enemy WIZARDS while they are within 18" of this model.`,
+    when: [HERO_PHASE],
+    id: `stardrake-arcane-lineage`,
+  },
+  {
+    name: `Cavernous Jaws`,
+    desc: `After this model makes a pile-in move, this model's Stardrake can bite one or more enemy models with its cavernous jaws. The number of bites it can make is shown on the damage table above. For each bite, pick one enemy model within 3" of this model and roll a D6. If the roll is greater than that model's Wounds characteristic, it is slain.`,
+    when: [COMBAT_PHASE],
+    id: `stardrake-cavernous-jaws`,
+  },
+  {
+    name: `Lord of the Heavens`,
+    desc: `This model can either breathe a Roiling Thunderhead or call down a Rain of Stars. If it breathes a Roiling Thunderhead, pick 1 enemy unit within 18" of this model that is visible to it. Roll a D6 for each model in that unit that is within 18" of this model. For each 6+ that unit suffers 1 mortal wound.If it calls down a Rain of Stars, pick up to D6 enemy units on the battlefield. Roll a D6 for each unit you pick. On a 4+ that unit suffers D3 mortal wounds.`,
+    when: [SHOOTING_PHASE],
+    id: `stardrake-lord-of-the-heavens`,
+  },
+  {
+    name: `Sweeping Tail`,
+    desc: `Each time this model attacks, roll a D6 for each enemy unit within 3" of this model after all of this model's attacks have been resolved. If the roll is less than the number of models in that enemy unit, that enemy unit suffers D3 mortal wounds.`,
+    when: [COMBAT_PHASE],
+    id: `stardrake-sweeping-tail`,
+  },
+]
 
 const Units = {
   'Celestant-Prime': {
@@ -198,11 +272,7 @@ const Units = {
     effects: [
       CometTrailEffect,
       CycleOfTheStormEffect,
-      {
-        name: `Meteoric Strike`,
-        desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that unit suffers 1 mortal wound.`,
-        when: [CHARGE_PHASE],
-      },
+      MeteoricStrikeEffect,
       {
         name: `Righteous Indignation`,
         desc: `Each time a wound inflicted by a melee weapon is allocated to this model, roll a D6. On a 5+ the attacking unit suffers 1 mortal wound.`,
@@ -241,11 +311,7 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       IntolerableDamageEffect,
-      {
-        name: `Storm Breath`,
-        desc: `Pick a point on the battlefield within 12" of this model that is visible to them. Roll a D6 for each enemy unit within 2" of that point. On a 4+ that unit suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
+      StormBreathEffect,
       {
         name: `Lord of the Hammerhands`,
         desc: `Friendly HAMMERS OF SIGMAR units wholly within 24" of this model at the start of the battleshock phase do not take battleshock tests.`,
@@ -255,11 +321,7 @@ const Units = {
   },
   'Neave Blacktalon': {
     effects: [
-      {
-        name: `Lightning Fast Strikes`,
-        desc: `Add 1 to the Attacks of this model's Whirlwind Axes if this model made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
+      LightningFastStrikesEffect,
       TirelessHuntersEffect,
       {
         name: `Nemesis`,
@@ -284,6 +346,7 @@ const Units = {
   },
   "Steelheart's Champions": {
     effects: [
+      LayLowTheTyrantsEffect,
       {
         name: `Heroic Guard`,
         desc: `If one or more enemy units finishes a charge move within 1/2" of this unit, this unit can take a heroic guard. If it does so, for the rest of the turn, add 1 to save rolls for attacks that target this unit, but this unit does not receive the benefit of cover for the rest of the turn.`,
@@ -293,11 +356,6 @@ const Units = {
         name: `Heroic Guard`,
         desc: `If active, add 1 to save rolls for attacks that target this unit, but this unit does not receive the benefit of cover for the rest of the turn.`,
         when: [SAVES_PHASE],
-      },
-      {
-        name: `Lay Low the Tyrants`,
-        desc: `Add 1 to hit rolls for attacks made by this unit that target an enemy unit with a Wounds characteristic of 5 or more.`,
-        when: [COMBAT_PHASE],
       },
       {
         name: `Sigmarite Shields`,
@@ -332,11 +390,7 @@ const Units = {
     effects: [
       CometTrailEffect,
       CycleOfTheStormEffect,
-      {
-        name: `Meteoric Strike`,
-        desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that unit suffers 1 mortal wound.`,
-        when: [CHARGE_PHASE],
-      },
+      MeteoricStrikeEffect,
       SpiritFlaskEffect,
       PrimeElectridsEffect,
     ],
@@ -378,15 +432,11 @@ const Units = {
       command_abilities: [keyPicker(command_abilities, ['Lord of the Host'])],
     },
     effects: [
+      StormBreathEffect,
       {
         name: `Lightning Hammer`,
         desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, that attack inflicts 2 mortal wounds on the target in addition to its normal damage. If a unit suffers any mortal wounds in this way, it cannot pile in later that phase.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Storm Breath`,
-        desc: `Pick a point on the battlefield within 12" of this model that is visible to them. Roll a D6 for each enemy unit within 2" of that point. On a 4+ that unit suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
       },
       SigmariteThundershield,
       IntolerableDamageEffect,
@@ -412,32 +462,13 @@ const Units = {
       command_abilities: [keyPicker(command_abilities, ['Lord of the Celestial Host'])],
     },
     effects: [
-      {
-        name: `Arcane Lineage`,
-        desc: `Add 1 to casting rolls for friendly WIZARDS while they are within 18" of this model. In addition, subtract 1 from casting rolls for enemy WIZARDS while they are within 18" of this model.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Cavernous Jaws`,
-        desc: `After this model makes a pile-in move, this model's Stardrake can bite one or more enemy models with its cavernous jaws. The number of bites it can make is shown on the damage table above. For each bite, pick one enemy model within 3" of this model and roll a D6. If the roll is greater than that model's Wounds characteristic, it is slain.`,
-        when: [COMBAT_PHASE],
-      },
+      ...StardrakeBaseEffects,
       {
         name: `Inescapable Vengeance`,
         desc: `Add D3 to the Attacks of this model's Celestine Hammer or Stormbound Blade if this model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       SigmariteThundershield,
-      {
-        name: `Lord of the Heavens`,
-        desc: `This model can either breathe a Roiling Thunderhead or call down a Rain of Stars. If it breathes a Roiling Thunderhead, pick 1 enemy unit within 18" of this model that is visible to it. Roll a D6 for each model in that unit that is within 18" of this model. For each 6+ that unit suffers 1 mortal wound.If it calls down a Rain of Stars, pick up to D6 enemy units on the battlefield. Roll a D6 for each unit you pick. On a 4+ that unit suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Sweeping Tail`,
-        desc: `Each time this model attacks, roll a D6 for each enemy unit within 3" of this model after all of this model's attacks have been resolved. If the roll is less than the number of models in that enemy unit, that enemy unit suffers D3 mortal wounds.`,
-        when: [COMBAT_PHASE],
-      },
       {
         name: `Stormbound Blade`,
         desc: `If the unmodified hit roll for an attack made with a Stormbound Blade is 6, that attack inflicts 3 hits on the target instead of 1. Make a wound and save roll for each hit.`,
@@ -460,11 +491,7 @@ const Units = {
   },
   'Lord-Castellant': {
     effects: [
-      {
-        name: `Faithful Gryph-Hound`,
-        desc: `The first time this model is set up on the battlefield you can call a GRYPH-HOUND unit consisting of a single model to the battlefield and add it to your army. Set up the GRYPH-HOUND wholly within 3" of this model, and more than 9" from the enemy.`,
-        when: [DURING_SETUP],
-      },
+      FaithfulGryphHoundEffect,
       {
         name: `Warding Lantern`,
         desc: `Pick either a STORMCAST ETERNAL unit or a CHAOS unit wholly within 18". The same unit cannot be the target of Warding Lantern more than once per hero phase. If a CHAOS unit is picked, it suffers 1 mortal wound. CHAOS DAEMON units suffer D3 mortal wounds instead. If a STORMCAST ETERNAL unit is picked, add 1 to save rolls for attacks that target that unit until your next hero phase. In addition, each time you make a save roll of 7 for an attack that targets that unit, you can heal 1 wound allocated to a model from that unit.`,
@@ -553,11 +580,7 @@ const Units = {
   },
   'Lord-Veritant': {
     effects: [
-      {
-        name: `Faithful Gryph-Hound`,
-        desc: `The first time this model is set up on the battlefield you can call a GRYPH-HOUND unit consisting of a single model to the battlefield and add it to your army. Set up the GRYPH-HOUND wholly within 3" of this model, and more than 9" from the enemy.`,
-        when: [DURING_SETUP],
-      },
+      FaithfulGryphHoundEffect,
       {
         name: `Lantern of Abjuration`,
         desc: `This model can unbind one spell in each enemy hero phase in the same manner as a WIZARD.`,
@@ -718,18 +741,11 @@ const Units = {
     ],
   },
   'Knight-Zephyros': {
-    effects: [
-      {
-        name: `Lightning Fast Strikes`,
-        desc: `Add 1 to the Attacks of this model's Whirlwind Axes if this model made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-      TirelessHuntersEffect,
-      WindriderEffect,
-    ],
+    effects: [LightningFastStrikesEffect, TirelessHuntersEffect, WindriderEffect],
   },
   'Drakesworn Templar': {
     effects: [
+      ...StardrakeBaseEffects,
       {
         name: `Arc Hammer`,
         desc: `If the unmodified hit roll for an attack made with an Arc Hammer is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
@@ -748,26 +764,6 @@ const Units = {
       {
         name: `Tempest Axe`,
         desc: `Subtract 2" from the distance enemy units can pile in when they start that pile-in move within 3" of this model.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Arcane Lineage`,
-        desc: `Add 1 to casting rolls for friendly WIZARDS while they are within 18" of this model. In addition, subtract 1 from casting rolls for enemy WIZARDS while they are within 18" of this model.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Cavernous Jaws`,
-        desc: `After this model makes a pile-in move, this model's Stardrake can bite one or more enemy models with its cavernous jaws. The number of bites it can make is shown on the damage table above. For each bite, pick one enemy model within 3" of this model and roll a D6. If the roll is greater than that model's Wounds characteristic, it is slain.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Lord of the Heavens`,
-        desc: `This model can either breathe a Roiling Thunderhead or call down a Rain of Stars. If it breathes a Roiling Thunderhead, pick 1 enemy unit within 18" of this model that is visible to it. Roll a D6 for each model in that unit that is within 18" of this model. For each 6+ that unit suffers 1 mortal wound.If it calls down a Rain of Stars, pick up to D6 enemy units on the battlefield. Roll a D6 for each unit you pick. On a 4+ that unit suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Sweeping Tail`,
-        desc: `Each time this model attacks, roll a D6 for each enemy unit within 3" of this model after all of this model's attacks have been resolved. If the roll is less than the number of models in that enemy unit, that enemy unit suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -867,11 +863,7 @@ const Units = {
   },
   Liberators: {
     effects: [
-      {
-        name: `Lay Low the Tyrants`,
-        desc: `Add 1 to hit rolls for attacks made by this unit that target an enemy unit with a Wounds characteristic of 5 or more.`,
-        when: [COMBAT_PHASE],
-      },
+      LayLowTheTyrantsEffect,
       SigmariteShieldEffect,
       {
         name: `Paired Weapons`,
@@ -913,11 +905,7 @@ const Units = {
         when: [SHOOTING_PHASE],
       },
       SigmariteShieldEffect,
-      {
-        name: `Heralds of Righteousness`,
-        desc: `Can attempt charges within 18". Roll 3D6 for the charge roll.`,
-        when: [CHARGE_PHASE],
-      },
+      HeraldsOfRighteousnessEffect,
     ],
   },
   'Prosecutors with Celestial Hammers': {
@@ -938,11 +926,7 @@ const Units = {
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       SigmariteShieldEffect,
-      {
-        name: `Heralds of Righteousness`,
-        desc: `Can attempt charges within 18". Roll 3D6 for the charge roll.`,
-        when: [CHARGE_PHASE],
-      },
+      HeraldsOfRighteousnessEffect,
     ],
   },
   Judicators: {
@@ -1117,36 +1101,16 @@ const Units = {
     mandatory: {
       spells: [keyPicker(spells, ['Empower'])],
     },
-    effects: [
-      ...CelestialLightningArcEffects,
-      {
-        name: `Evocator-Prime`,
-        desc: `+1 Attack.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This unit is a WIZARD while it has 2 or more models.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [...CelestialLightningArcEffects, EvocatorPrimeEffect, EvocatorWizardEffect],
   },
   'Evocators on Celestial Dracolines': {
     mandatory: {
       spells: [keyPicker(spells, ['Empower'])],
     },
     effects: [
-      {
-        name: `Evocator-Prime`,
-        desc: `+1 Attack.`,
-        when: [COMBAT_PHASE],
-      },
       ...CelestialLightningArcEffects,
-      {
-        name: `Magic`,
-        desc: `This unit is a WIZARD while it has 2 or more models.`,
-        when: [HERO_PHASE],
-      },
+      EvocatorPrimeEffect,
+      EvocatorWizardEffect,
       SupernaturalRoarEffect,
       ThunderousPounceEffect,
     ],
