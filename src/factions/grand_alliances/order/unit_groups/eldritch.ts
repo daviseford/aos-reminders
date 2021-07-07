@@ -1,27 +1,17 @@
 import { GenericEffects } from 'generic_rules'
-import {
-  BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
-  COMBAT_PHASE,
-  HERO_PHASE,
-  MOVEMENT_PHASE,
-  SAVES_PHASE,
-} from 'types/phases'
+import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SAVES_PHASE } from 'types/phases'
 
 const TalismanOfArcanePowerEffect = {
   name: `Talisman of Arcane Power`,
   desc: `You can add 1 to any unbinding rolls for an Archmage with a Talisman of Arcane Power.`,
   when: [HERO_PHASE],
-}
-const InfantryHornblowerEffect = {
-  name: `Hornblower`,
-  desc: `Reroll dice rolls of 1 when determining how far this unit can run or charge while it includes any Hornblowers.`,
-  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  shared: true,
 }
 const DeflectShotsEffect = {
   name: `Deflect Shots`,
   desc: `You can reroll failed save rolls for this unit in the shooting phase.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 
 export const LegacyEldritchUnits = {
@@ -33,7 +23,7 @@ export const LegacyEldritchUnits = {
         rather than 2.`,
         when: [COMBAT_PHASE],
       },
-      InfantryHornblowerEffect,
+      GenericEffects.InfantryHornblowerEffect,
       {
         name: `Standard Bearer`,
         desc: `Models in this unit may be Standard Bearers. If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 to their Bravery instead if the unit is within 8" of another Eldritch Council unit from your army that includes a Standard Bearer.`,

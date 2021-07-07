@@ -3,6 +3,7 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_MOVEMENT_PHASE,
@@ -56,37 +57,44 @@ const GenericEffects = {
       name,
       desc: `This unit can only move if its Crew are within 1" of the war machine at the start of the movement phase.`,
       when: [START_OF_MOVEMENT_PHASE],
+      shared: true,
     },
     {
       name,
       desc: `If this war machine's Crew are within 1" of the war machine in the shooting phase, they can fire the war machine.`,
       when: [SHOOTING_PHASE],
+      shared: true,
     },
     {
       name,
       desc: `The war machine cannot make charge moves.`,
       when: [CHARGE_PHASE],
+      shared: true,
     },
     {
       name,
       desc: `The war machine does not need to take battleshock tests and is unaffected by any attack or ability that uses Bravery.`,
       when: [BATTLESHOCK_PHASE],
+      shared: true,
     },
     {
       name,
       desc: `The Crew are in cover while they are within 1" of their war machine.`,
       when: [COMBAT_PHASE, SHOOTING_PHASE],
+      shared: true,
     },
   ],
   AelvenShield: {
     name: `Aelven Shield`,
     desc: `You can reroll save rolls of 1 for a unit with Aelven Shields. You can reroll failed save rolls of 1 or 2 for this unit in the shooting phase.`,
     when: [SAVES_PHASE],
+    shared: true,
   },
   Dragonfire: {
     name: `Dragonfire`,
     desc: `A Dragon can unleash a blast of Dragonfire in your shooting phase. When it does so, pick a visible unit within 12" and roll a D6; on a 1 or 2 that unit suffers a mortal wound, on a 3 or 4 that unit suffers D3 mortal wounds, and on a 5 or 6 that unit suffers D6 mortal wounds.`,
     when: [SHOOTING_PHASE],
+    shared: true,
   },
   Terror: {
     name: `Terror`,
@@ -115,6 +123,12 @@ const GenericEffects = {
       when: [WOUND_ALLOCATION_PHASE],
     },
   ],
+  InfantryHornblowerEffect: {
+    name: `Hornblower`,
+    desc: `Reroll dice rolls of 1 when determining how far this unit can run or charge while it includes any Hornblowers.`,
+    when: [MOVEMENT_PHASE, CHARGE_PHASE],
+    shared: true,
+  },
 }
 
 export default GenericEffects

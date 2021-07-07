@@ -33,11 +33,13 @@ const ThundertuskEffects = [
 
       For each 6+, that enemy unit suffers 1 mortal wound.`,
     when: [SHOOTING_PHASE],
+    shared: true,
   },
   {
     name: `Numbing Chill`,
     desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this model.`,
     when: [COMBAT_PHASE],
+    shared: true,
   },
 ]
 const StonehornEffects = [
@@ -45,39 +47,65 @@ const StonehornEffects = [
     name: `Earth-shattering Charge`,
     desc: `Add 1 to the damage inflicted by attacks made with this model's Rock-hard Horns and Crushing Hooves if this model made a charge move in the same turn.`,
     when: [COMBAT_PHASE],
+    shared: true,
   },
   {
     name: `Stone Skeleton`,
     desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
     when: [WOUND_ALLOCATION_PHASE],
+    shared: true,
   },
 ]
 const IronfistEffect = {
   name: `Ironfist`,
   desc: `If the unmodified save roll for an attack made with a melee weapon that targets a unit armed with Ironfists is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 const BellowerEffect = {
   name: `Bellower`,
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any Bellowers.`,
   when: [BATTLESHOCK_PHASE],
+  shared: true,
 }
 const RhinoxChargeEffect = {
   name: `Rhinox Charge`,
   desc: `Add 1 to the damage inflicted by attacks made with this model's Rhinox's Sharp Horns if this model made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const BloodVultureEffect = {
   name: `Blood Vulture`,
   desc: `If this model is armed with a Blood Vulture, at the start of your shooting phase, pick 1 enemy unit within 30" of this model that is visible to it and roll a D6. On a 2+, that unit suffers 1 mortal wound.`,
   when: [START_OF_SHOOTING_PHASE],
+  shared: true,
 }
-
 const BloodgruelEffect = {
   name: `Bloodgruel`,
   desc: `Roll a D6 each time this model successfully casts or unbinds a spell, after the effects of the spell have been resolved. On a 2+, you can heal 1 wound allocated to this model. On a 1, this model suffers 1 mortal wound.`,
   when: [HERO_PHASE],
+  shared: true,
 }
+const MastersOfAmbushEffects = (otherUnit: 'Frost Sabres' | "Hrothgorn's Mantrappers") => [
+  {
+    name: `Masters of Ambush`,
+    desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit. If you do so, when you would set up a friendly ${otherUnit} unit, instead of setting up that unit on the battlefield, you can say that it is joining this model in ambush as a reserve unit. 1 unit can join this model in this way.`,
+    when: [DURING_SETUP],
+    shared: true,
+  },
+  {
+    name: `Masters of Ambush`,
+    desc: `If you set this model up in reserve, at the end of your movement phase, you can set up this model anywhere on the battlefield that is more than 9" from any enemy units. You can then set up any unit that joined this model in ambush wholly within 12" of this model and more than 9" from any enemy units.`,
+    when: [END_OF_MOVEMENT_PHASE],
+    shared: true,
+  },
+  {
+    name: `Masters of Ambush`,
+    desc: `Any reserve units in ambush that are not set up on the battlefield before the start of the fourth battle round are destroyed.`,
+    when: [TURN_FOUR_START_OF_ROUND],
+    shared: true,
+  },
+]
 
 const Units = {
   Butcher: {
@@ -188,21 +216,7 @@ const Units = {
   'Icebrow Hunter': {
     mandatory: { command_abilities: [keyPicker(command_abilities, ['Lead the Skal'])] },
     effects: [
-      {
-        name: `Masters of Ambush`,
-        desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit. If you do so, when you would set up a friendly Frost Sabres unit, instead of setting up that unit on the battlefield, you can say that it is joining this model in ambush as a reserve unit. 1 unit can join this model in this way.`,
-        when: [DURING_SETUP],
-      },
-      {
-        name: `Masters of Ambush`,
-        desc: `If you set this model up in reserve, at the end of your movement phase, you can set up this model anywhere on the battlefield that is more than 9" from any enemy units. You can then set up any unit that joined this model in ambush wholly within 12" of this model and more than 9" from any enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Masters of Ambush`,
-        desc: `Any reserve units in ambush that are not set up on the battlefield before the start of the fourth battle round are destroyed.`,
-        when: [TURN_FOUR_START_OF_ROUND],
-      },
+      ...MastersOfAmbushEffects('Frost Sabres'),
       {
         name: `Mighty Throw`,
         desc: `This model can run and still shoot with its Great Throwing Spear later in the same turn.`,
@@ -444,21 +458,7 @@ const Units = {
   },
   Hrothgorn: {
     effects: [
-      {
-        name: `Masters of Ambush`,
-        desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit. If you do so, when you would set up a friendly Hrothgorn's Mantrappers unit, instead of setting up that unit on the battlefield, you can say that it is joining this model in ambush as a reserve unit. 1 unit can join this model in this way.`,
-        when: [DURING_SETUP],
-      },
-      {
-        name: `Masters of Ambush`,
-        desc: `At the end of your movement phase, you can set up this model anywhere on the battlefield more than 9" from any enemy units; then set up any unit that joined this model wholly within 12" of this model and more than 9" from any enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Masters of Ambush`,
-        desc: `Any reserve units in ambush that are not set up on the battlefield before the start of the fourth battle round are destroyed.`,
-        when: [TURN_FOUR_START_OF_ROUND],
-      },
+      ...MastersOfAmbushEffects("Hrothgorn's Mantrappers"),
       {
         name: `Thrafnir`,
         desc: `The first time this model is set up on the battlefield, you can set up a Frost Sabres unit consisting of a single model on the battlefield and add it to your army. Set up the Frost Sabre wholly within 3" of this model and more than 9" from any enemy units.`,

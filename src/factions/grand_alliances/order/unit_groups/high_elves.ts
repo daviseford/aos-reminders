@@ -8,20 +8,24 @@ import {
   SAVES_PHASE,
   SHOOTING_PHASE,
 } from 'types/phases'
+
 const StandardBearerEffect = {
   name: `Standard Bearer`,
   desc: `Add 1 to the Bravery characteristic of the unit while it includes any Standard Bearers.`,
   when: [BATTLESHOCK_PHASE],
+  shared: true,
 }
 const HornblowerEffect = {
   name: `Hornblower`,
   desc: `Reroll any dice rolls of 1 when determining how far this unit can run or charge while it includes any Hornblowers.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  shared: true,
 }
 const EnchantedShieldEffect = {
   name: `Enchanted Shield`,
   desc: `Reroll failed save rolls for this model.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 
 export const LegacyHighElvesUnits = {
