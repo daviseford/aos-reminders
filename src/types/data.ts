@@ -121,6 +121,12 @@ export type TEffects = {
   desc: string
   when: TTurnWhen[]
   rule_sources?: TRuleSource[]
+  /**
+   * Is this effect shared between different units?
+   *
+   * Only used for data de-duplication purposes
+   */
+  shared?: boolean
 } & {
   [prop in TEntryProperties]?: boolean
 }

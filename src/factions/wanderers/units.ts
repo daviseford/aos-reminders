@@ -1,4 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { cloneDeep, isEqual } from 'lodash'
+import { TEffects } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -12,6 +14,13 @@ import {
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import Spells from './spells'
+
+const HornblowerEffect = {
+  name: `Hornblower`,
+  desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
+  when: [MOVEMENT_PHASE],
+  shared: true,
+}
 
 const Units = {
   'Nomad Prince': {
@@ -114,11 +123,7 @@ const Units = {
         desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Hornblower`,
-        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
-        when: [MOVEMENT_PHASE],
-      },
+      HornblowerEffect,
     ],
   },
   'Sisters of the Watch': {
@@ -167,11 +172,7 @@ const Units = {
         desc: `If the unit includes any Pennant Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Hornblower`,
-        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
-        when: [MOVEMENT_PHASE],
-      },
+      HornblowerEffect,
     ],
   },
   'Eternal Guard': {
@@ -196,11 +197,7 @@ const Units = {
         desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Hornblower`,
-        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
-        when: [MOVEMENT_PHASE],
-      },
+      HornblowerEffect,
     ],
   },
   'Wild Riders': {
@@ -252,5 +249,67 @@ const Units = {
     ],
   },
 }
+
+const compareEffects = (effect1: TEffects, effect2: TEffects) => {
+  if (effect1.name !== effect2.name) return false
+  if (effect1.desc !== effect2.desc) return false
+  if (!isEqual(effect1.when.sort(), effect2.when.sort())) return false
+  return true
+}
+
+type TDuplicateEffectStore = Record<
+  string,
+  {
+    effect: TEffects
+    count: number
+    occurrences: string[]
+  }
+>
+
+const a = () => {
+  let effects_store: TDuplicateEffectStore = {}
+
+  Object.entries(Units).forEach(([key, value]) => {
+    value.effects.forEach((__effect: TEffects) => {
+      // If not already in the effects_store, add it to the effects_store
+      if (!effects_store[__effect.name]) {
+        effects_store[__effect.name] = {
+          count: 1,
+          occurrences: [key],
+          effect: cloneDeep(__effect),
+        }
+
+        return // And we're done for now
+      }
+
+      // If we're at this point, we have already seen this rule's name
+      // So let's see if we match it!
+      if (compareEffects(effects_store[__effect.name].effect, __effect)) {
+        if (__effect.shared) {
+          // If it's coming from a variable, that's awesome!
+          // We're already ahead of the game, no further action needed
+          return
+        }
+
+        effects_store[__effect.name] = {
+          ...effects_store[__effect.name],
+          count: (effects_store?.[__effect.name]?.count || 1) + 1,
+          occurrences: [...(effects_store?.[__effect.name]?.occurrences || []), key],
+        }
+      }
+    })
+  })
+
+  let duplicates = Object.keys(effects_store).reduce((a, key) => {
+    if (effects_store[key].count > 1) {
+      a[key] = effects_store[key]
+    }
+    return a
+  }, {} as TDuplicateEffectStore)
+
+  console.log('duplicates', duplicates)
+}
+
+a()
 
 export default tagAs(Units, 'unit')
