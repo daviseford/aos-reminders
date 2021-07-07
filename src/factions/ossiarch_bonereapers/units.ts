@@ -21,17 +21,40 @@ const NecrophorosEffect = {
   name: `Necrophoros`,
   desc: `Add 1 to run rolls and charge rolls for a unit that includes any Necrophoroi.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  shared: true,
 }
 const NadariteWeaponsEffect = {
   name: `Nadirite Weapons`,
   desc: `If the unmodified hit roll for an attack made with this unit's Nadirite Blades or Nadirite Spears is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. For attacks made with Nadirite Spears, 2 hits are scored on a 5+ instead of 6 if this unit made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const HeraldsOfTheAccursedOneEffect = {
   name: `Heralds of the Accursed One`,
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly MORGHASTS.`,
   when: [BATTLESHOCK_PHASE],
+  shared: true,
 }
+const MortekHekatosEffect = {
+  name: `Mortek Hekatos`,
+  desc: `1 model in this unit can be a Mortek Hekatos. Add 1 to the Attacks characteristic of that model's melee weapon.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const UnstoppableChargeEffects = [
+  {
+    name: `Unstoppable Charge`,
+    desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a number of dice equal to the charge roll for that charge move. For each 6, that enemy unit suffers 1 mortal wound.`,
+    when: [CHARGE_PHASE],
+    shared: true,
+  },
+  {
+    name: `Unstoppable Charge`,
+    desc: `This model can move an extra 3" when it piles in if it made a charge move in the same turn.`,
+    when: [COMBAT_PHASE],
+    shared: true,
+  },
+]
 
 const Units = {
   'Gothizzar Harvester': {
@@ -84,29 +107,13 @@ const Units = {
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Shieldwall'])],
     },
-    effects: [
-      NecrophorosEffect,
-      NadariteWeaponsEffect,
-      {
-        name: `Mortek Hekatos`,
-        desc: `1 model in this unit can be a Mortek Hekatos. Add 1 to the Attacks characteristic of that model's melee weapon.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [NecrophorosEffect, NadariteWeaponsEffect, MortekHekatosEffect],
   },
   'Kavalos Deathriders': {
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Deathrider Wedge'])],
     },
-    effects: [
-      NecrophorosEffect,
-      {
-        name: `Mortek Hekatos`,
-        desc: `1 model in this unit can be a Mortek Hekatos. Add 1 to the Attacks characteristic of that model's melee weapon.`,
-        when: [COMBAT_PHASE],
-      },
-      NadariteWeaponsEffect,
-    ],
+    effects: [NecrophorosEffect, NadariteWeaponsEffect, MortekHekatosEffect],
   },
   'Necropolis Stalkers': {
     mandatory: {
@@ -172,6 +179,7 @@ const Units = {
       command_abilities: [keyPicker(CommandAbilities, ['Still Their Breath!', 'Endless Duty'])],
     },
     effects: [
+      ...UnstoppableChargeEffects,
       {
         name: `The Dark Lance`,
         desc: `The Dark Lance has a Damage characteristic of 3 instead of 2 if this model made a charge move in the same turn.`,
@@ -180,16 +188,6 @@ const Units = {
       {
         name: `Hatred of the Living`,
         desc: `Reroll wound rolls of 1 for attacks made by this model that target ORDER and DESTRUCTION units. You can reroll any wound rolls for attacks made by this model that target CHAOS units.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Unstoppable Charge`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a number of dice equal to the charge roll for that charge move. For each 6, that enemy unit suffers 1 mortal wound.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Unstoppable Charge`,
-        desc: `This model can move an extra 3" when it piles in if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -220,18 +218,7 @@ const Units = {
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Endless Duty'])],
     },
-    effects: [
-      {
-        name: `Unstoppable Charge`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a number of dice equal to the charge roll for that charge move. For each 6, that enemy unit suffers 1 mortal wound.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Unstoppable Charge`,
-        desc: `This model can move an extra 3" when it piles in if it made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [...UnstoppableChargeEffects],
   },
   'Mortisan Boneshaper': {
     mandatory: {
