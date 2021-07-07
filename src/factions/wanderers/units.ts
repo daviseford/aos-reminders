@@ -17,14 +17,14 @@ const HornblowerEffect = {
   name: `Hornblower`,
   desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
   when: [MOVEMENT_PHASE],
-  id: 'wanderers-hornblower',
+  shared: true,
 }
 
 const StandardBearerEffect = {
   name: `Standard Bearer`,
   desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
   when: [BATTLESHOCK_PHASE],
-  id: 'wanderers-standard-bearer',
+  shared: true,
 }
 
 const Units = {

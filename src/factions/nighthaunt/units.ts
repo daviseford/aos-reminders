@@ -25,13 +25,13 @@ const EtherealEffect = {
   name: `Ethereal`,
   desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
   when: [SAVES_PHASE],
-  id: `nighthaunt-ethereal`,
+  shared: true,
 }
 const StolenHoursEffect = {
   name: `Stolen Hours`,
   desc: `Each time a wound inflicted by this model's Sword of Stolen Hours slays an enemy HERO, heal 1 wound allocated to this model.`,
   when: [COMBAT_PHASE],
-  id: `nighthaunt-stolen-hours`,
+  shared: true,
 }
 
 const Units = {

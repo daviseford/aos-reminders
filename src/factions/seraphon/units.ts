@@ -28,50 +28,50 @@ const SelflessProtectorEffect = {
   name: `Selfless Protector`,
   desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly SLANN while it is within 3" of any friendly units with this ability. On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that SLANN, instead of to that SLANN.`,
   when: [WOUND_ALLOCATION_PHASE],
-  id: `seraphon-selfless-protector`,
+  shared: true,
 }
 const VoraciousAppetiteEffect = {
   name: `Voracious Appetite`,
   desc: `If the unmodified hit roll for an attack made with Tearing Jaws is 6, that attack scores 2 hits on the target instead of l. Make a wound and save roll for each hit.`,
   when: [COMBAT_PHASE],
-  id: `seraphon-voracious-appetite`,
+  shared: true,
 }
 const CelestiteWarspearEffect = {
   name: `Celestite Warspear`,
   desc: `Add 1 to the Damage characteristic of this unit's Celestite Warspears if this unit made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
-  id: `seraphon-celestite-warspear`,
+  shared: true,
 }
 const UnstoppableStampedeEffect = {
   name: `Unstoppable Stampede`,
   desc: `Roll 1 dice for each enemy unit that is within 1" of this model when this model finishes a charge move. On a 3+, that enemy unit suffers D3 mortal wounds.`,
   when: [CHARGE_PHASE],
-  id: `seraphon-unstoppable-stampede`,
+  shared: true,
 }
 const SteadfastMajestyEffect = {
   name: `Steadfast Majesty`,
   desc: `You can reroll battleshock tests for friendly SKINK units while they are wholly within 18" of any friendly STEGADON units.`,
   when: [BATTLESHOCK_PHASE],
-  id: `seraphon-steadfast-majesty`,
+  shared: true,
 }
 const ColdFerocityEffect = {
   name: `Cold Ferocity`,
   desc: `If the unmodified hit roll for an attack made with a Celestite weapon by this model is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
   when: [COMBAT_PHASE],
-  id: `seraphon-cold-ferocity`,
+  shared: true,
 }
 const ArmouredCrestEffects = [
   {
     name: `Armoured Crest`,
     desc: `At the start of the combat phase, you can pick 1 enemy unit within 3" of this model and that has up to 5 models. If you do so, until the end of that phase, add 1 to save rolls for attacks made by that unit that target this model.`,
     when: [START_OF_COMBAT_PHASE],
-    id: `seraphon-armoured-crest-activate`,
+    shared: true,
   },
   {
     name: `Armoured Crest`,
     desc: `If active, until the end of the combat phase, add 1 to save rolls for attacks made by that unit that target this model.`,
     when: [SAVES_PHASE],
-    id: `seraphon-armoured-crest-saves`,
+    shared: true,
   },
 ]
 const SkinkChiefEffect = {
@@ -84,13 +84,13 @@ const CarnosaurBaseEffects = [
     name: `Pinned Down`,
     desc: `Add 1 to hit rolls for attacks made with Massive Jaws if the target has a Wounds characteristic of 7 or less.`,
     when: [COMBAT_PHASE],
-    id: `seraphon-carnosaur-pinned-down`,
+    shared: true,
   },
   {
     name: `Blood Frenzy`,
     desc: `If any enemy models are slain by wounds inflicted by this model's attacks, for the rest of the battle this model can run and still charge in the same turn.`,
     when: [DURING_GAME],
-    id: `seraphon-carnosaur-blood-frenzy`,
+    shared: true,
   },
   GenericEffects.Terror,
 ]
@@ -99,39 +99,39 @@ const ArcaneVassalEffect = {
   desc: `When this model attempts to cast a spell, before making the casting roll, you can pick either 1 friendly SKINK WIZARD that is within 12" of this model or 1 friendly ORACLE anywhere on the battlefield. If you do so and the spell is successfully cast and not unbound, you must measure the range and visibility for the spell from that SKINK WIZARD or ORACLE.`,
   when: [HERO_PHASE],
   rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
-  id: `seraphon-arcane-vassal`,
+  shared: true,
 }
 const GoutOfSunfireEffect = {
   name: `Gout of Sunfire`,
   desc: `Do not use the attack sequence for an attack made with Sunfire Throwers. Instead, roll a number of dice equal to the number of models from the target unit within 8" of the attacking model. For each 5+, the target unit suffers 1 mortal wound.`,
   when: [SHOOTING_PHASE],
-  id: `seraphon-gout-of-sunfire`,
+  shared: true,
 }
 const StegadonBaseEffects = [...ArmouredCrestEffects, SteadfastMajestyEffect, UnstoppableStampedeEffect]
 const StardrakeIconEffect = {
   name: `Stardrake Icon`,
   desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly Stardrake Icon Bearers.`,
   when: [BATTLESHOCK_PHASE],
-  id: `seraphon-stardrake-icon`,
+  shared: true,
 }
 const WardrummerEffect = {
   name: `Wardrummer`,
   desc: `You can reroll charge rolls for units that include any Wardrummers.`,
   when: [CHARGE_PHASE],
-  id: `seraphon-wardrummer`,
+  shared: true,
 }
 const StarbucklersEffect = {
   name: `Star-bucklers`,
   desc: `Add 1 to save rolls for attacks that target a unit armed with Star-bucklers.`,
   when: [SAVES_PHASE],
-  id: `seraphon-starbucklers`,
+  shared: true,
 }
 const ChameleonAmbushEffects = [
   {
     name: `Chameleon Ambush`,
     desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say that it is hiding as a reserve unit.`,
     when: [DURING_SETUP],
-    id: `seraphon-chameleon-ambush-setup`,
+    shared: true,
   },
   {
     name: `Chameleon Ambush`,
@@ -139,14 +139,14 @@ const ChameleonAmbushEffects = [
            
     If this unit is on the battlefield at the end of your movement phase, you can remove it and say that it is hiding as a reserve unit. You can reveal it as described above at the end of any of your subsequent movement phases.`,
     when: [END_OF_MOVEMENT_PHASE],
-    id: `seraphon-chameleon-ambush-deploy`,
+    shared: true,
   },
 ]
 const DeadlyVenomEffect = {
   name: `Deadly Venom`,
   desc: `Each hit roll of 6+ inflicts 1 mortal wound and ends the combat sequence.`,
   when: [COMBAT_PHASE],
-  id: `seraphon-deadly-venom`,
+  shared: true,
 }
 
 const Units = {

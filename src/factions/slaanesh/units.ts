@@ -24,67 +24,67 @@ const DarkTemptationsEffect = {
   name: `Dark Temptations`,
   desc: `You can pick 1 enemy hero within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that hero suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a D6. On 1-3, that hero no longer receives this modifier to their hit rolls. On 4-6, that hero is slain.`,
   when: [START_OF_COMBAT_PHASE],
-  id: `slaanesh-dark-temptations`,
+  shared: true,
 }
 const DelicatePrecisionEffect = {
   name: `Delicate Precision`,
   desc: `If the unmodified wound roll for an attack by this model is 6, that attack inflicts a number of mortal wounds equal to the damage characteristic of the weapon used for the attack and the attack sequence ends (do not make a save roll).`,
   when: [COMBAT_PHASE],
-  id: `slaanesh-delicate-precision`,
+  shared: true,
 }
 const SinistrousHandEffect = {
   name: `Sinistrous Hand`,
   desc: `If any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D3 wounds allocated to this model. If any enemy heroes were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D6 wounds allocated to this model instead.`,
   when: [END_OF_COMBAT_PHASE],
-  id: `slaanesh-sinistrous-hand`,
+  shared: true,
 }
 const LivingWhipEffect = {
   name: `Living Whip`,
   desc: `You can pick 1 enemy MONSTER model within 6" of this model and roll a D6. On a 3+, pick 1 melee weapon that enemy MONSTER model is armed with. Subtract 1 from hit rolls for attacks made with that weapon until the end of that combat phase.`,
   when: [START_OF_COMBAT_PHASE],
-  id: `slaanesh-living-whip`,
+  shared: true,
 }
 const ShiningAegisEffect = {
   name: `Shining Aegis`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 6+ it is negated.`,
   when: [WOUND_ALLOCATION_PHASE],
-  id: `slaanesh-shining-aegis`,
+  shared: true,
 }
 const LitheAndSwiftEffect = {
   name: `Lithe and Swift`,
   desc: `This unit can run and still charge later in the same turn.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
-  id: `slaanesh-lithe-and-swift`,
+  shared: true,
 }
 const BannerBearerEffect = {
   name: `Banner Bearer`,
   desc: `You can reroll charge rolls for this unit while it includes any Banner Bearers.`,
   when: [CHARGE_PHASE],
-  id: `slaanesh-banner-bearer`,
+  shared: true,
 }
 const IconBearerEffect = {
   name: `Icon Bearer`,
   desc: `Add 2 to the bravery characteristic of this unit while it includes any Icon Bearers.`,
   when: [DURING_GAME],
-  id: `slaanesh-icon-bearer`,
+  shared: true,
 }
 const HornBlowerEffect = {
   name: `Hornblower`,
   desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Hornblowers is 1, that battleshock test must be rerolled.`,
   when: [BATTLESHOCK_PHASE],
-  id: `slaanesh-horn-blower`,
+  shared: true,
 }
 const CrewAndSteedsEffect = {
   name: `Crew and Steeds`,
   desc: `The Daemonettes and Steeds of Slaanesh on this model are treated as mounts.`,
   when: [COMBAT_PHASE],
-  id: `slaanesh-crew-and-steeds`,
+  shared: true,
 }
 const HighTempterEffect = {
   name: `High Tempter`,
   desc: `Add 1 to the attacks characterisitc of this model's Blissbarb Bow.`,
   when: [SHOOTING_PHASE],
-  id: `slaanesh-high-tempter`,
+  shared: true,
 }
 const baseKeeperOfSecrets = {
   mandatory: {
@@ -98,7 +98,7 @@ const baseKeeperOfSecrets = {
       name: `Magic`,
       desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
       when: [HERO_PHASE],
-      id: `slaanesh-keeper-magic`,
+      shared: true,
     },
   ],
 }
@@ -107,7 +107,7 @@ const MesmerisingLepidopteraEffect = {
   desc: `Subtract 1 from hit rolls made against this model.`,
   when: [DURING_GAME],
   rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
-  id: `slaanesh-mesmerising-lepidoptera`,
+  shared: true,
 }
 
 // Unit Names

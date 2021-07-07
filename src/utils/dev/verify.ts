@@ -1,4 +1,3 @@
-import { uniq } from 'lodash'
 import { getFactionList } from 'meta/faction_list'
 import { TEntry } from 'types/data'
 import {
@@ -129,10 +128,12 @@ const log_once = (message: string) => {
   }
 }
 
+type TEffectInfo = { name: string; shared: boolean }
+
 const verify = () => {
   log_once('Starting rules verification...')
   const armyList = getFactionList()
-  let identicalEffects: Record<string, Record<string, string | undefined>[]> = {}
+  let identicalEffects: Record<string, TEffectInfo[]> = {}
   Object.values(armyList).forEach(faction => {
     const { AggregateArmy } = faction
 
@@ -141,7 +142,7 @@ const verify = () => {
     Units.forEach((unit: TEntry) => {
       unit.effects.forEach(e => {
         const matchBy = `${e.name} | ${e.desc} | ${e.when}`
-        const effectInfo = { name: unit.name, id: e.id }
+        const effectInfo = { name: unit.name, shared: e.shared || false }
         const matches = identicalEffects[matchBy]
         if (matches) {
           if (!matches.find(existing => existing.name === effectInfo.name))
@@ -180,14 +181,8 @@ const verify = () => {
     })
   })
 
-  let allIds: (string | undefined)[] = []
   Object.entries(identicalEffects).forEach(([description, entries]) => {
-    if (entries.length < 2) return
-    const ids = entries.map(entry => entry.id)
-    allIds = uniq([...allIds, ...ids])
-    const matchingIds = ids.every((val, i, arr) => val !== undefined && val === arr[0])
-    if (matchingIds) return
-    console.log(description, entries)
+    if (entries.length > 1 && !entries.every(entry => entry.shared)) console.log(description, entries)
   })
   console.log('Done!')
 }

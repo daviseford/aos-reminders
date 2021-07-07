@@ -25,25 +25,25 @@ const MartialMemoriesEffects = [
     name: `Martial Memories`,
     desc: `Once per phase, you can reroll 1 failed hit roll or 1 failed wound roll for an attack made by this unit, or 1 failed save roll for an attack that targets this unit. You cannot use this ability to reroll more than one dice for this unit in the same phase.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
-    id: `martial-memories-hit-or-wound`,
+    shared: true,
   },
   {
     name: `Martial Memories`,
     desc: `Once per phase, you can reroll 1 battleshock test for this unit. You cannot use this ability to reroll more than one dice for this unit in the same phase.`,
     when: [BATTLESHOCK_PHASE],
-    id: `martial-memories-battleshock`,
+    shared: true,
   },
   {
     name: `Martial Memories`,
     desc: `Once per phase, you can reroll 1 charge roll. You cannot use this ability to reroll more than one dice for this unit in the same phase.`,
     when: [CHARGE_PHASE],
-    id: `martial-memories-charge`,
+    shared: true,
   },
   {
     name: `Martial Memories`,
     desc: `Once per phase, you can reroll 1 run roll. You cannot use this ability to reroll more than one dice for this unit in the same phase.`,
     when: [MOVEMENT_PHASE],
-    id: `martial-memories-run`,
+    shared: true,
   },
 ]
 
@@ -51,7 +51,7 @@ const BlessingsOfTheForestEffect = {
   name: `Blessings of the Forest`,
   desc: `Subtract 1 from hit rolls for attacks that target this unit if it is wholly within 6" of any friendly AWAKENED WYLDWOODS.`,
   when: [SHOOTING_PHASE, COMBAT_PHASE],
-  id: `blessings-of-the-forest`,
+  shared: true,
 }
 
 const TreeLordBaseEffects = [
@@ -60,19 +60,19 @@ const TreeLordBaseEffects = [
     desc: `In your movement phase, if this unit is within 6" of an Awakened Wyldwood in your army, it can walk the spirit paths instead of making a normal move or retreating. If it does so, remove this model from the battlefield and set it up wholly within 6" of a different friendly AWAKENED WYLDWOOD and more than 9" from any enemy units.`,
     when: [MOVEMENT_PHASE],
     rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
-    id: `tree-lord-spirit-paths`,
+    shared: true,
   },
   {
     name: `Groundshaking Stomp`,
     desc: `At the start of the combat phase, pick 1 enemy unit within 3" of this model and roll a D6. On a 4+ that unit fights at the end of that combat phase, after the players have picked any other units to fight.`,
     when: [START_OF_COMBAT_PHASE],
-    id: `tree-lord-groundshaking-stomp`,
+    shared: true,
   },
   {
     name: `Impale`,
     desc: `If the unmodified hit roll for an attack made with Massive Impaling Talons is 6, that attack inflicts D6 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll)`,
     when: [COMBAT_PHASE],
-    id: `tree-lord-impale`,
+    shared: true,
   },
 ]
 

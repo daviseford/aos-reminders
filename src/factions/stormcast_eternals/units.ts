@@ -29,61 +29,61 @@ const SigmariteThundershield = {
     rule_sources.BATTLETOME_STORMCAST_ETERNALS,
     rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
   ],
-  id: `stormcast-sigmarite-thundershield`,
+  shared: true,
 }
 const CometTrailEffect = {
   name: `Comet Trail`,
   desc: `At the end of your movement phase, you can pick 1 enemy unit that has any models that this model passed across. You can add 1 to hit rolls for friendly STORMCAST ETERNAL units' missile attacks that target that unit in the same turn.`,
   when: [END_OF_MOVEMENT_PHASE],
-  id: `stormcast-comet-trail`,
+  shared: true,
 }
 const PrimeElectridsEffect = {
   name: `Prime Electrids`,
   desc: `If this model successfully casts Arcane Bolt and it is not unbound, then the spell inflicts D3 mortal wounds instead of 1, or D6 mortal wounds instead of D3 if the casting roll was 10+.`,
   when: [HERO_PHASE],
-  id: `stormcast-prime-electrids`,
+  shared: true,
 }
 const SupernaturalRoarEffect = {
   name: `Supernatural Roar`,
   desc: `Subtract 1 from the Bravery of enemy units while they are within 3" of one or more friendly DRACOLINES.`,
   when: [BATTLESHOCK_PHASE],
-  id: `stormcast-supernatural-roar`,
+  shared: true,
 }
 const SpiritFlaskEffect = {
   name: `Spirit Flask`,
   desc: `Once per battle, at the start of the combat phase, you can say that this model will shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each spirit flask that was shattered instead. Allocate the mortal wounds to this model last of all, after allocating them to any other units that are affected.`,
   when: [START_OF_COMBAT_PHASE],
-  id: `stormcast-spirit-flask`,
+  shared: true,
 }
 const AetherealStrikeEffect = {
   name: `Aethereal Strike`,
   desc: `Unmodified hit rolls of 6 for this Gryph-charger's Razor Beak and Claws inflict 1 mortal wound instead of the normal damage.`,
   when: [COMBAT_PHASE],
-  id: `stormcast-aethereal-strike`,
+  shared: true,
 }
 const StormBlastEffect = {
   name: `Storm Blast`,
   desc: `Hits inflict D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
   when: [SHOOTING_PHASE],
-  id: `stormcast-storm-blast`,
+  shared: true,
 }
 const AstralCompassEffect = {
   name: `Astral Compass`,
   desc: `If you set up a unit that includes any models with an Astral Compass in the Celestial Realm using the Scions of the Storm battle trait, when you set it up on the battlefield for the first time, instead of setting it up more than 9" from the enemy, you can set it up wholly within 6" of any edge of the battlefield, more than 7" from the enemy.`,
   when: [END_OF_MOVEMENT_PHASE],
-  id: `stormcast-astral-compass`,
+  shared: true,
 }
 const RideTheWindsAethericEffect = {
   name: `Ride the Winds Aetheric`,
   desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models - if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
   when: [MOVEMENT_PHASE],
-  id: `stormcast-ride-the-winds`,
+  shared: true,
 }
 const CycleOfTheStormEffect = {
   name: `Cycle of the Storm`,
   desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
   when: [WOUND_ALLOCATION_PHASE],
-  id: `stormcast-cycle-of-the-storm`,
+  shared: true,
 }
 const SigmariteShieldEffect = {
   name: `Sigmarite Shield`,
@@ -93,13 +93,13 @@ const SigmariteShieldEffect = {
     rule_sources.BATTLETOME_STORMCAST_ETERNALS,
     rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
   ],
-  id: `stormcast-sigmarite-shield`,
+  shared: true,
 }
 const SigmariteWarcloakEffect = {
   name: `Sigmarite Warcloak`,
   desc: `This model can make D6 storm magic strikes. For each strike, pick 1 enemy unit within 16" of this model that is visible to them and roll a D6. On a 4+ that unit suffers 1 mortal wound.`,
   when: [SHOOTING_PHASE],
-  id: `stormcast-sigmarite-warcloak`,
+  shared: true,
 }
 const CelestialLightningArcEffects = [
   {
@@ -110,117 +110,117 @@ const CelestialLightningArcEffects = [
       rule_sources.BATTLETOME_STORMCAST_ETERNALS,
       rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
     ],
-    id: `stormcast-celestial-lightning-arc-mw`,
+    shared: true,
   },
   {
     name: `Celestial Lightning Arc`,
     desc: `You can reroll save rolls of 1 for missile attacks that target this unit.`,
     when: [SAVES_PHASE],
-    id: `stormcast-celestial-lightning-arc-saves`,
+    shared: true,
   },
 ]
 const IntolerableDamageEffect = {
   name: `Intolerable Damage`,
   desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
   when: [COMBAT_PHASE],
-  id: `stormcast-intolerable-damage`,
+  shared: true,
 }
 const StarsoulMacesEffect = {
   name: `Starsoul Maces`,
   desc: `Roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
   when: [COMBAT_PHASE],
-  id: `stormcast-starsoul-maces`,
+  shared: true,
 }
 const ThunderousPounceEffect = {
   name: `Thunderous Pounce`,
   desc: `You can reroll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
   when: [CHARGE_PHASE, COMBAT_PHASE],
-  id: `stormcast-thunderous-pounce`,
+  shared: true,
 }
 const WindriderEffect = {
   name: `Windrider`,
   desc: `When a friendly STORMCAST ETERNAL unit within 9" of this model uses their Ride the Winds Aetheric ability, this model can follow in their wake if it has not already made a move in that movement phase. If it does so, immediately move this model up to the distance moved by the unit they are following. This model must end that move within 9" of the unit it is following and more than 3" from any enemy models. If this model uses this ability, it cannot move in that movement phase, and cannot make a charge move later in the same turn.`,
   when: [MOVEMENT_PHASE],
-  id: `stormcast-windrider`,
+  shared: true,
 }
 const TirelessHuntersEffect = {
   name: `Tireless Hunters`,
   desc: `This unit can run and still shoot in the same turn.`,
   when: [SHOOTING_PHASE],
-  id: `stormcast-tireless-hunters`,
+  shared: true,
 }
 const LayLowTheTyrantsEffect = {
   name: `Lay Low the Tyrants`,
   desc: `Add 1 to hit rolls for attacks made by this unit that target an enemy unit with a Wounds characteristic of 5 or more.`,
   when: [COMBAT_PHASE],
-  id: `stormcast-lay-low`,
+  shared: true,
 }
 const EvocatorPrimeEffect = {
   name: `Evocator-Prime`,
   desc: `+1 Attack.`,
   when: [COMBAT_PHASE],
-  id: `stormcast-evocator-prime`,
+  shared: true,
 }
 const EvocatorWizardEffect = {
   name: `Magic`,
   desc: `This unit is a WIZARD while it has 2 or more models.`,
   when: [HERO_PHASE],
-  id: `stormcast-evocator-wizard`,
+  shared: true,
 }
 const HeraldsOfRighteousnessEffect = {
   name: `Heralds of Righteousness`,
   desc: `Can attempt charges within 18". Roll 3D6 for the charge roll.`,
   when: [CHARGE_PHASE],
-  id: `stormcast-heralds-of-righteousness`,
+  shared: true,
 }
 const FaithfulGryphHoundEffect = {
   name: `Faithful Gryph-Hound`,
   desc: `The first time this model is set up on the battlefield you can call a GRYPH-HOUND unit consisting of a single model to the battlefield and add it to your army. Set up the GRYPH-HOUND wholly within 3" of this model, and more than 9" from the enemy.`,
   when: [DURING_SETUP],
-  id: `stormcast-faithful-gryphhound`,
+  shared: true,
 }
 const MeteoricStrikeEffect = {
   name: `Meteoric Strike`,
   desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that unit suffers 1 mortal wound.`,
   when: [CHARGE_PHASE],
-  id: `stormcast-meteoric-strike`,
+  shared: true,
 }
 const StormBreathEffect = {
   name: `Storm Breath`,
   desc: `Pick a point on the battlefield within 12" of this model that is visible to them. Roll a D6 for each enemy unit within 2" of that point. On a 4+ that unit suffers D3 mortal wounds.`,
   when: [SHOOTING_PHASE],
-  id: `stormcast-storm-breath`,
+  shared: true,
 }
 const LightningFastStrikesEffect = {
   name: `Lightning Fast Strikes`,
   desc: `Add 1 to the Attacks of this model's Whirlwind Axes if this model made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
-  id: `stormcast-lightning-fast-strikes`,
+  shared: true,
 }
 const StardrakeBaseEffects = [
   {
     name: `Arcane Lineage`,
     desc: `Add 1 to casting rolls for friendly WIZARDS while they are within 18" of this model. In addition, subtract 1 from casting rolls for enemy WIZARDS while they are within 18" of this model.`,
     when: [HERO_PHASE],
-    id: `stardrake-arcane-lineage`,
+    shared: true,
   },
   {
     name: `Cavernous Jaws`,
     desc: `After this model makes a pile-in move, this model's Stardrake can bite one or more enemy models with its cavernous jaws. The number of bites it can make is shown on the damage table above. For each bite, pick one enemy model within 3" of this model and roll a D6. If the roll is greater than that model's Wounds characteristic, it is slain.`,
     when: [COMBAT_PHASE],
-    id: `stardrake-cavernous-jaws`,
+    shared: true,
   },
   {
     name: `Lord of the Heavens`,
     desc: `This model can either breathe a Roiling Thunderhead or call down a Rain of Stars. If it breathes a Roiling Thunderhead, pick 1 enemy unit within 18" of this model that is visible to it. Roll a D6 for each model in that unit that is within 18" of this model. For each 6+ that unit suffers 1 mortal wound.If it calls down a Rain of Stars, pick up to D6 enemy units on the battlefield. Roll a D6 for each unit you pick. On a 4+ that unit suffers D3 mortal wounds.`,
     when: [SHOOTING_PHASE],
-    id: `stardrake-lord-of-the-heavens`,
+    shared: true,
   },
   {
     name: `Sweeping Tail`,
     desc: `Each time this model attacks, roll a D6 for each enemy unit within 3" of this model after all of this model's attacks have been resolved. If the roll is less than the number of models in that enemy unit, that enemy unit suffers D3 mortal wounds.`,
     when: [COMBAT_PHASE],
-    id: `stardrake-sweeping-tail`,
+    shared: true,
   },
 ]
 
