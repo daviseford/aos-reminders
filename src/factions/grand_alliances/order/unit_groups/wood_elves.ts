@@ -23,27 +23,32 @@ const getShadowdancerBaseEffects = (attacks: 1 | 2) => [
 
     The Shadow's Coil: Add 2 to this unit's save rolls.`,
     when: [START_OF_HERO_PHASE],
+    shared: true,
   },
   {
     name: `Talismanic Tattoos`,
     desc: `Roll a D6 each time a wound or mortal is allocated to this unit. On a 6 the wound or mortal wound is negated.`,
     when: [WOUND_ALLOCATION_PHASE],
+    shared: true,
   },
 ]
 const SoporificBreathEffect = {
   name: `Soporific Breath`,
   desc: `Enemy units within 3" of this model cannot be chosen to make attacks in the combat phase until all other units have made their attacks.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const KindredShieldEffect = {
   name: `Kindred Shield`,
   desc: `Reroll failed save rolls for this model.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 const LionCloakEffect = {
   name: `Lion Cloak`,
   desc: `You can reroll save rolls of 1 for this unit in the shooting phase.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 
 export const LegacyWoodElvesUnits: TItemDescriptions = {
@@ -91,11 +96,7 @@ export const LegacyWoodElvesUnits: TItemDescriptions = {
   },
   'Glade Lord on Forest Dragon': {
     effects: [
-      {
-        name: `Soporific Breath`,
-        desc: `Enemy units within 3" of a Forest Dragon cannot be chosen to make attacks in the combat phase until all other units have made their attacks.`,
-        when: [COMBAT_PHASE],
-      },
+      SoporificBreathEffect,
       KindredShieldEffect,
       {
         name: `Starlight Strike`,

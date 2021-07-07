@@ -20,17 +20,20 @@ const MegabossEffects = [
     desc: `If the unmodified save roll for an attack made with a melee weapon that targets a model with a Riptoof-fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
     when: [SAVES_PHASE],
     rule_sources: [rule_sources.BATTLETOME_ORRUK_WARCLANS, rule_sources.ERRATA_ORRUK_WARCLANS_JULY_2021],
+    shared: true,
   },
   {
     name: `Strength from Victory`,
     desc: `If any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, add 1 to this model's Wounds characteristic and add 1 to the Attacks characteristic of this model's Boss Choppa and Rip-toof Fist.`,
     when: [END_OF_COMBAT_PHASE],
+    shared: true,
   },
 ]
 const DuffUpdaBigThingEffect = {
   name: `Duff Up da Big Thing`,
   desc: `Add 1 to the hit rolls for attacks made by this unit that target a unit with a Wounds characteristic of 4+.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 
 const IronjawzUnits = {
