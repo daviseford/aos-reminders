@@ -109,6 +109,28 @@ const MesmerisingLepidopteraEffect = {
   rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
   shared: true,
 }
+const ImpossiblySwiftEffect = {
+  name: `Impossibly Swift`,
+  desc: `This model can retreat and charge later in the same turn.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  shared: true,
+}
+const ExcessOfBladesEffect = {
+  name: `Excess of Blades`,
+  desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 1 nothing happens. On a 2-4 that unit suffers D3 mortal wounds. On a 5+ that unit suffers D6 mortal wounds.`,
+  when: [CHARGE_PHASE],
+  shared: true,
+}
+const getSoulscentEffect = (type: string | undefined) => {
+  const name = type === `pungent` ? `Pungent Soulscent` : `Soulscent`
+  const roll = type === `pungent` ? `2+` : `4+`
+  return {
+    name: name,
+    desc: `Roll a D6 for each enemy unit within 1" of this model. On a ${roll} that enemy unit suffers D3 mortal wounds. In addition, for each ${roll} add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+    when: [START_OF_COMBAT_PHASE],
+    shared: true,
+  }
+}
 
 // Unit Names
 const Units = {
@@ -284,11 +306,7 @@ const Units = {
     },
     effects: [
       CrewAndSteedsEffect,
-      {
-        name: `Soulscent`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model. On a 4+ that enemy unit suffers D3 mortal wounds. In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
+      getSoulscentEffect(),
       {
         name: `Magic`,
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
@@ -302,11 +320,7 @@ const Units = {
     },
     effects: [
       CrewAndSteedsEffect,
-      {
-        name: `Impossibly Swift`,
-        desc: `This model can retreat and charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      ImpossiblySwiftEffect,
       {
         name: `Mutilating Blades`,
         desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 2+, that enemy unit suffers D3 mortal wounds.`,
@@ -320,23 +334,12 @@ const Units = {
     ],
   },
   Hellflayer: {
-    effects: [
-      CrewAndSteedsEffect,
-      {
-        name: `Soulscent`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model. On a 4+ that enemy unit suffers D3 mortal wounds. In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
+    effects: [CrewAndSteedsEffect, getSoulscentEffect()],
   },
   'Seeker Chariots': {
     effects: [
       CrewAndSteedsEffect,
-      {
-        name: `Impossibly Swift`,
-        desc: `This model can retreat and charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      ImpossiblySwiftEffect,
       {
         name: `Mutilating Blades`,
         desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 2+, that enemy unit suffers D3 mortal wounds. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate mortal wounds until after all of the models in the unit have moved.`,
@@ -350,16 +353,8 @@ const Units = {
     },
     effects: [
       CrewAndSteedsEffect,
-      {
-        name: `Excess of Blades`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 1 nothing happens. On a 2-4 that unit suffers D3 mortal wounds. On a 5+ that unit suffers D6 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Pungent Soulscent`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model. On a 2+ that enemy unit suffers D3 mortal wounds. In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
+      ExcessOfBladesEffect,
+      getSoulscentEffect('pungent'),
       {
         name: `Magic`,
         desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
@@ -368,19 +363,7 @@ const Units = {
     ],
   },
   'Exalted Chariot': {
-    effects: [
-      CrewAndSteedsEffect,
-      {
-        name: `Excess of Blades`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 1 nothing happens. On a 2-4 that unit suffers D3 mortal wounds. On a 5+ that unit suffers D6 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Pungent Soulscent`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model. On a 2+ that enemy unit suffers D3 mortal wounds. In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
+    effects: [CrewAndSteedsEffect, ExcessOfBladesEffect, getSoulscentEffect('pungent')],
   },
   Fiends: {
     effects: [
