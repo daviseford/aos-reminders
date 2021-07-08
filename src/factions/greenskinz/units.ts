@@ -18,17 +18,26 @@ const WarbossBaseEffects = [
     name: `Choppa Boss`,
     desc: `If this model is equipped with a pair of Boss Choppas, they make 8 attacks instead of 6.`,
     when: [COMBAT_PHASE],
+    shared: true,
   },
   {
     name: `Boss Shield`,
     desc: `You can reroll all failed save rolls for a model with a Boss Shield.`,
     when: [SAVES_PHASE],
+    shared: true,
   },
 ]
 const WaaaghDrummersEffect = {
   name: `Waaagh! Drummers`,
   desc: `You can add 2 to the charge rolls of a unit that includes any Waaagh! Drummers.`,
   when: [CHARGE_PHASE],
+  shared: true,
+}
+const TuskerChargeEffect = {
+  name: `Tusker Charge`,
+  desc: `You can reroll failed wound rolls when attacking with a War Boar's Tusks if its unit charged in the same turn.`,
+  when: [COMBAT_PHASE],
+  shared: true,
 }
 
 const Units = {
@@ -126,20 +135,17 @@ const Units = {
   },
   'Orruk Boar Chariots': {
     effects: [
+      TuskerChargeEffect,
       {
         name: `Scythed Wheels`,
         desc: `Roll a D6 after an Orruk Boar Chariot has successfully charged during its turn: on a 4 or more it inflicts D3 mortal wounds on an enemy unit within 1".`,
         when: [CHARGE_PHASE],
       },
-      {
-        name: `Tusker Charge`,
-        desc: `You can reroll failed wound rolls when attacking with a War Boar's Tusks if its unit charged in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
     ],
   },
   'Orruk Boarboys': {
     effects: [
+      TuskerChargeEffect,
       {
         name: `Glyph Bearers`,
         desc: `You can add 2 to the Bravery of all models in a unit that includes any Glyph Bearers as long as there is an enemy model within 3" of the unit.`,
@@ -149,11 +155,6 @@ const Units = {
         name: `Waaagh! Horns`,
         desc: `You can add 2 to the charge rolls of a unit that includes any Waaagh! Horns.`,
         when: [CHARGE_PHASE],
-      },
-      {
-        name: `Tusker Charge`,
-        desc: `You can reroll failed wound rolls when attacking with a War Boar's Tusks if its unit charged in the same turn.`,
-        when: [COMBAT_PHASE],
       },
       {
         name: `Tusker Shield`,

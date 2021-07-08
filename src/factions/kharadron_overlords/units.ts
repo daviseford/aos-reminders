@@ -31,16 +31,19 @@ const FlyingTransportEffect = {
     rule_sources.ERRATA_KHARADRON_OVERLORDS_JANUARY_2021,
     rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
   ],
+  shared: true,
 }
 const EndrinharnessEffect = {
   name: `Endrinharness`,
   desc: `If the unmodified hit roll for an attack made with a melee weapon by this model is 6, that attack inflicts D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const DisengageEffect = {
   name: `Disengage`,
   desc: `This model and any models in its garrison can still shoot if this model retreats in the same turn, as long as there are no enemy units that can fly within 3" of this model at the start of the retreat move and there are less than 10 wounds allocated to this model at the start of the retreat move.`,
   when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+  shared: true,
 }
 const ArkanautFlyHighEffect = {
   name: `Fly High`,
@@ -50,22 +53,26 @@ const ArkanautFlyHighEffect = {
     rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
     rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
   ],
+  shared: true,
 }
 const SkyCannonEffect = {
   name: `Sky Cannon`,
   desc: `Before attacking with a Sky Cannon, choose either the Shrapnel or Shell missile weapon characteristics for that shooting attack.`,
   when: [SHOOTING_PHASE],
+  shared: true,
 }
 const AetherKhemistEffects = [
   {
     name: `Aetheric Augmentation`,
     desc: `In your hero phase you can pick 1 friendly SKYFARERS unit wholly within 12" of this model. Until your next hero phase, you can reroll wound rolls of 1 for attacks made by that unit. This ability cannot be used by an AETHER-KHEMIST that is part of a garrison, or on a friendly unit that is part of a garrison.`,
     when: [HERO_PHASE],
+    shared: true,
   },
   {
     name: `Atmospheric Isolation`,
     desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 3" of any friendly models with this ability. This ability cannot be used by an AETHER-KHEMIST that is part of a garrison.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
+    shared: true,
   },
 ]
 const GlorySeekersEffects = [
@@ -84,6 +91,7 @@ const getSkyhookEffect = (val: number) => ({
   name: `Skyhook`,
   desc: `Add ${val} to charge rolls for this unit if it is armed with a Skyhook.`,
   when: [CHARGE_PHASE],
+  shared: true,
 })
 const HitchersEffect = {
   name: `Hitchers`,
@@ -97,6 +105,7 @@ const HitchersEffect = {
     rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
     rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
   ],
+  shared: true,
 }
 const EndrincraftEffect = {
   name: `Endrincraft`,
@@ -107,11 +116,13 @@ const GrapnelLauncherEffect = {
   name: `Grapnel Launcher`,
   desc: `Enemy units cannot retreat if they are within 3" of any models from this unit armed with a Grapnel Launcher.`,
   when: [MOVEMENT_PHASE],
+  shared: true,
 }
 const BombRacksEffect = {
   name: `Bomb Racks`,
   desc: `At the start of the combat phase, you can pick 1 enemy unit within 1" of this model and roll a D6. Add the Bomb Rack modifier from this model's damage table to the roll. On a 4+, that enemy unit suffers D3 mortal wounds.`,
   when: [START_OF_COMBAT_PHASE],
+  shared: true,
 }
 const SkyminesEffect = {
   name: `Skymines`,
