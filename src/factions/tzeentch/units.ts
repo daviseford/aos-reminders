@@ -417,11 +417,7 @@ const Units = {
       spells: [keyPicker(Spells, ['Gestalt Sorcery'])],
     },
     effects: [
-      {
-        name: `Arcanite Shield`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a unit that has any models armed with Arcanite Shields. On a 6, that wound or mortal wound is negated. When you allocate wounds or mortal wounds to this unit, you must allocate them to a model armed with an Arcanite Shield if it is possible to do so.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
+      GenericEffects.ArcaniteShieldEffect,
       {
         name: `Paired Cursed Blades`,
         desc: `You can reroll hit rolls for attacks made with a pair of Cursed Blades.`,

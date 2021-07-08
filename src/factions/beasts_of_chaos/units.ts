@@ -24,26 +24,31 @@ const InfuseWithBestialVigorEffect = {
   name: `Infuse with Bestial Vigour`,
   desc: `At the start of your movement phase, add 3" to the Move characteristic of models in friendly BRAYHERD units wholly within 12" of any friendly GREAT BRAY-SHAMANS until the end of that phase.`,
   when: [START_OF_MOVEMENT_PHASE],
+  shared: true,
 }
 const BloodgreedEffect = {
   name: `Bloodgreed`,
   desc: `Each unmodified wound roll of 6 for attacks made by this unit inflicts 1 mortal wound on the target in addition to any normal damage.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const BannerBearerEffect = {
   name: `Banner Bearer`,
   desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
   when: [COMBAT_PHASE, MOVEMENT_PHASE],
+  shared: true,
 }
 const BrayhornEffect = {
   name: `Brayhorn`,
   desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  shared: true,
 }
 const DespoilersEffect = {
   name: `Despoilers`,
   desc: `Add 1 to hit rolls for attacks made by this unit that target enemy units with 10 or more models. In addition, you can reroll hit rolls of 1 for attacks by this unit that target ORDER units.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 
 const Units = {
@@ -425,15 +430,11 @@ const Units = {
         when: [START_OF_HERO_PHASE],
       },
       BrayhornEffect,
+      GenericEffects.ArcaniteShieldEffect,
       {
         name: `Destined Mayhem`,
         desc: `Add 1 to wound rolls for attacks made by this unit with melee weapons while this unit is wholly within 12" of any friendly ARCANITE HEROES.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Arcanite Shield`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a unit that has any models armed with Arcanite Shields. On a 6, that wound or mortal wound is negated. When you allocate wounds or mortal wounds to this unit, you must allocate them to a model armed with an Arcanite Shield if it is possible to do so.`,
-        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Paired Savage Blades`,

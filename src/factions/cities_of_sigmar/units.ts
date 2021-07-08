@@ -29,26 +29,31 @@ const DuardinArtilleryEffects = [
     name: `Duardin Artillery`,
     desc: `The Crew are in cover while they are within 1" of their war machine.`,
     when: [DURING_GAME],
+    shared: true,
   },
   {
     name: `Duardin Artillery`,
     desc: `The war machine does not need to take battleshock tests and is unaffected by any attack or ability that uses Bravery.`,
     when: [BATTLESHOCK_PHASE],
+    shared: true,
   },
   {
     name: `Duardin Artillery`,
     desc: `The war machine cannot make charge moves.`,
     when: [CHARGE_PHASE],
+    shared: true,
   },
   {
     name: `Duardin Artillery`,
     desc: `If its Crew are within 1" of the model in the shooting phase, they can fire the war machine.`,
     when: [SHOOTING_PHASE],
+    shared: true,
   },
   {
     name: `Duardin Artillery`,
     desc: `This model can only move if its Crew are within 1" at the start of the movement phase.`,
     when: [MOVEMENT_PHASE],
+    shared: true,
   },
 ]
 const CelestialHurricanumEffects = [
@@ -56,16 +61,19 @@ const CelestialHurricanumEffects = [
     name: `Locus of Azyr`,
     desc: `Add 1 to casting rolls made for friendly COLLEGIATE ARCANE WIZARDS wholly within 12" of any friendly CELESTIAL HURRICANUMS.`,
     when: [HERO_PHASE],
+    shared: true,
   },
   {
     name: `Portents of Battle`,
     desc: `Add 1 to hit rolls for attacks made by friendly CITIES OF SIGMAR models within range of the Portents of Battle ability of any friendly CELESTIAL HURRICANUMS. Range is on damage table.`,
     when: [DURING_GAME],
+    shared: true,
   },
   {
     name: `Storm of Shemtek`,
     desc: `Roll a number of dice equal to the Storm of Shemtek value shown on this model's damage table. For each 2+, the target suffers D3 mortal wounds.`,
     when: [SHOOTING_PHASE],
+    shared: true,
   },
 ]
 const LuminarkEffects = [
@@ -73,16 +81,19 @@ const LuminarkEffects = [
     name: `Aura of Protection`,
     desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly CITIES OF SIGMAR model within range of any friendly LUMINARKS OF HYSH. On a 6+, that wound or mortal wound is negated. The range of this ability is shown on the damage table.`,
     when: [WOUND_ALLOCATION_PHASE],
+    shared: true,
   },
   {
     name: `Locus of Hysh`,
     desc: `Add 1 to unbinding rolls for friendly COLLEGIATE ARCANE WIZARDS wholly within 12" of any friendly LUMINARKS OF HYSH.`,
     when: [HERO_PHASE],
+    shared: true,
   },
   {
     name: `Searing Beam of Light`,
     desc: `Pick 1 visible point on the battlefield within range of this ability (see damage table) and draw an imaginary straight line 1mm wide between that point and the closest part of this model's base. Roll a D6 for each unit that has models passed across by this line. For each roll that is equal to or greater than the Searing Beam of Light value shown on this model's damage table, that unit suffers D3 mortal wounds.`,
     when: [SHOOTING_PHASE],
+    shared: true,
   },
 ]
 const SteamTankEffects = [
@@ -90,43 +101,51 @@ const SteamTankEffects = [
     name: `Bouncing Cannon Balls`,
     desc: `Add 1 to hit rolls for attacks made by this model's Steam Cannon that target an enemy unit that has 10 or more models.`,
     when: [SHOOTING_PHASE],
+    shared: true,
   },
   {
     name: `More Pressure!`,
     desc: `You can choose to overpressure this model's boiler. If you do so, roll 2D6. If the roll is less than the number of wounds currently allocated to this model, this model immediately suffers D3 mortal wounds. If the roll is equal to or greater than the number of wounds currently allocated to this model, until the start of your next hero phase, you can add 2 to this model's Move characteristic and add 2 to the Attacks characteristic of this model's Steam Gun.`,
     when: [START_OF_HERO_PHASE],
+    shared: true,
   },
   {
     name: `Steel Behemoth`,
     desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
     when: [CHARGE_PHASE],
+    shared: true,
   },
 ]
 const BloodSacrificeEffect = {
   name: `Blood Sacrifice`,
   desc: `At the start of your hero phase, you can pick 1 friendly DARKLING COVEN model within 3" to be slain. If you do so, add 2 to casting rolls for this model until the end of that phase.`,
   when: [START_OF_HERO_PHASE],
+  shared: true,
 }
 const NoxiousBreathEffect = {
   name: `Noxious Breath`,
   desc: `Do not use the attack sequence for an attack made with Noxious Breath. Instead, roll a number of dice equal to the number of models from the target unit that are in range of the attack. For each 6, the target unit suffers 1 mortal wound.`,
   when: [SHOOTING_PHASE],
+  shared: true,
 }
 const WitnessToDestinyEffect = {
   name: `Witness to Destiny`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
   when: [WOUND_ALLOCATION_PHASE],
+  shared: true,
 }
 const AttunedToMagicEffects = [
   {
     name: `Attuned to Magic`,
     desc: `If a friendly WIZARD within 12" of this model casts a spell that is not unbound, this model is imbued with magical energy until the start of your next hero phase. Add 1 to save rolls for attacks that target this model while it is imbued with magical energy (this ability can never add more than 1 to the save roll).`,
     when: [HERO_PHASE],
+    shared: true,
   },
   {
     name: `Attuned to Magic`,
     desc: `Add 1 to save rolls for attacks that target this model while it is imbued with magical energy (this ability can never add more than 1 to the save roll).`,
     when: [SAVES_PHASE],
+    shared: true,
   },
 ]
 const LordlingAndRanksOfColdSteelEffects = [
@@ -134,52 +153,71 @@ const LordlingAndRanksOfColdSteelEffects = [
     name: `Lordling`,
     desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
     when: [COMBAT_PHASE],
+    shared: true,
   },
   {
     name: `Ranks of Cold Steel`,
     desc: `Add 1 to hit rolls for attacks made by this unit if it has 10 or more models.`,
     when: [COMBAT_PHASE],
+    shared: true,
   },
 ]
 const DrummerEffect = {
   name: `Drummer`,
   desc: `Add 1 to run and charge rolls for units that include any Drummers.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  shared: true,
 }
 const TrumpeterEffect = {
   name: `Trumpeter`,
   desc: `Add 1 to charge rolls for units that include any Trumpeters.`,
   when: [CHARGE_PHASE],
+  shared: true,
 }
 const MusicianEffect = {
   name: `Musician`,
   desc: `Add 1 to run and charge rolls for units that include any Musicians.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  shared: true,
+}
+const PiperEffect = {
+  name: `Piper`,
+  desc: `Add 1 to run and charge rolls for units that include any Pipers.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  shared: true,
 }
 const SeaDragonCloakEffect = {
   name: `Sea Dragon Cloak`,
   desc: `Add 1 to save rolls for attacks made with missile weapons that target this unit.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 const StandardBearerEffect = {
   name: `Standard Bearer`,
   desc: `Add 1 to the Bravery characteristic of units that include any Standard Bearers.`,
   when: [BATTLESHOCK_PHASE],
+  shared: true,
 }
 const DecapitatingSwingEffect = {
   name: `Decapitating Swing`,
   desc: `If the unmodified hit roll for an attack made with a Zweihander is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
-const HornblowerEffect = {
-  name: `Hornblower`,
-  desc: `Add 1 to run and charge rolls for units that include any Hornblowers.`,
-  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+const getHornblowerEffect = (onlyCharge?: boolean) => {
+  const RunAnd = onlyCharge ? `` : `run and `
+  return {
+    name: `Hornblower`,
+    desc: `Add 1 to ${RunAnd}charge rolls for units that include any Hornblowers.`,
+    when: [MOVEMENT_PHASE, CHARGE_PHASE],
+    shared: true,
+  }
 }
 const QuickWithTheLashEffect = {
   name: `Quick with the Lash`,
   desc: `Before you make a charge roll for this model, you can say that its Handlers are going to apply the lash. If you do so, roll 3D6, remove 1 dice of your choice, and then use the remaining 2D6 to determine the charge roll. However, if the 3D6 roll was a triple, this model suffers 1 mortal wound and it cannot make a charge move in that phase.`,
   when: [CHARGE_PHASE],
+  shared: true,
 }
 const FrostheartPhoenixEffects = [
   ...AttunedToMagicEffects,
@@ -187,6 +225,7 @@ const FrostheartPhoenixEffects = [
     name: `Blizzard Aura`,
     desc: `Subtract 1 from wound rolls for attacks made with melee weapons by enemy units within range of the Blizzard Aura ability of any friendly models. The range of the Blizzard Aura ability for this model is shown on the damage table.`,
     when: [COMBAT_PHASE],
+    shared: true,
   },
 ]
 const FlamespyrePhoenixEffects = [
@@ -195,22 +234,26 @@ const FlamespyrePhoenixEffects = [
     name: `Phoenix Reborn`,
     desc: `The first time this model is slain, before removing it from the battlefield, roll a D6. On a 1-3, this model is slain. On a 4-6, this model is not slain, all wounds allocated to it are healed, and any wounds that currently remain to be allocated to it are negated.`,
     when: [WOUND_ALLOCATION_PHASE],
+    shared: true,
   },
   {
     name: `Wake of Fire`,
     desc: `After this model has made a normal move, pick 1 enemy unit that has any models that this model passed across and roll a D6. On a 2+, that unit suffers a number of mortal wounds equal to the Wake of Fire value shown on this model's damage table.`,
     when: [MOVEMENT_PHASE],
+    shared: true,
   },
 ]
 const MagicOfTheRealmsEffect = {
   name: `Magic of the Realms`,
   desc: `When you select this model to be part of your army, you must choose the realm that your Battlemage comes from.`,
   when: [START_OF_SETUP],
+  shared: true,
 }
 const MagicOfTheRealmsCastingEffect = {
   name: `Magic of the Realms`,
   desc: `Add 1 to casting rolls for this model if the battle is taking place in the realm it comes from.`,
   when: [HERO_PHASE],
+  shared: true,
 }
 const BattlemageMagicEffect = {
   name: `Magic`,
@@ -221,12 +264,14 @@ const DenizenOfUlfenkarnEffect = {
   name: `Denizen of Ulfenkarn`,
   desc: `ULFENKARN is a city keyword (this means that this model cannot gain another city keyword if it is included in a Cities of Sigmar army - see the Strongholds of Order battle trait in Battletome: Cities of Sigmar).`,
   when: [DURING_GAME],
+  shared: true,
 }
 const GrimResolveEffect = {
   name: `Grim Resolve`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ it is negated.`,
   when: [WOUND_ALLOCATION_PHASE],
   rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+  shared: true,
 }
 const WeaponsOfBanishmentEffects = [
   {
@@ -234,14 +279,28 @@ const WeaponsOfBanishmentEffects = [
     desc: `Double the damage characteristic for this models attacks if targeting a Wizard or Daemon.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
     rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+    shared: true,
   },
   {
     name: `Weapons of Banishment`,
     desc: `This model can target endless spells with its attacks. If it scores a hit, roll 2D6. If the roll is greater than the endless spell casting value it is dispelled.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
     rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+    shared: true,
   },
 ]
+const PairedDrakefirePistolsEffect = {
+  name: `Paired Drakefire Pistols`,
+  desc: `Add 1 to the Attacks characteristic of a Drakefire Pistol for models armed with a pair of Drakefire Pistols.`,
+  when: [SHOOTING_PHASE],
+  shared: true,
+}
+const CinderblastBombEffect = {
+  name: `Cinderblast Bomb`,
+  desc: `Once per battle, in your shooting phase, a model armed with a Cinderblast Bomb can throw it. If they do so, pick 1 enemy unit within 6" of that model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
+  when: [SHOOTING_PHASE],
+  shared: true,
+}
 
 const Units = {
   Battlemage: {
@@ -469,11 +528,7 @@ const Units = {
         desc: `+1 to hit for attacks made with this model's crossbow.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Piper`,
-        desc: `Add 1 to run and charge rolls for units that include any Pipers.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      PiperEffect,
       StandardBearerEffect,
       {
         name: `Reload, Fire!`,
@@ -489,11 +544,7 @@ const Units = {
         desc: `May replace their Freeguild Handgun with: Long Rifle; or Repeater Handgun. In addition, add 2 to hit rolls for attacks made with that model's Freeguild Handgun.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Piper`,
-        desc: `Add 1 to run and charge rolls for units that include any Pipers.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      PiperEffect,
       StandardBearerEffect,
       {
         name: `Stand and Shoot`,
@@ -523,7 +574,7 @@ const Units = {
         desc: `Add 1 to the Attacks characteristic of that model's melee weapon.`,
         when: [COMBAT_PHASE],
       },
-      HornblowerEffect,
+      getHornblowerEffect(),
       StandardBearerEffect,
       DecapitatingSwingEffect,
       {
@@ -540,7 +591,7 @@ const Units = {
         desc: `Add 1 to the Attacks characteristic of that model's Demigryph Knight's Halberd or Demigryph Knight's Lance.`,
         when: [COMBAT_PHASE],
       },
-      HornblowerEffect,
+      getHornblowerEffect(),
       StandardBearerEffect,
       {
         name: `Charging Lance`,
@@ -656,6 +707,7 @@ const Units = {
   },
   Ironbreakers: {
     effects: [
+      PairedDrakefirePistolsEffect,
       {
         name: `Ironbeard`,
         desc: `+1 melee attacks. Can carry Drakefire Pistol and Cinderblast Bomb; or a pair of Drakefire Pistols.`,
@@ -663,16 +715,7 @@ const Units = {
       },
       StandardBearerEffect,
       DrummerEffect,
-      {
-        name: `Cinderblast Bomb`,
-        desc: `Once per battle, in your shooting phase, a model armed with a Cinderblast Bomb can throw it. If they do so, pick 1 enemy unit within 6" of that model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Paired Drakefire Pistols`,
-        desc: `Add 1 to the Attacks characteristic of a Drakefire Pistol for models armed with a pair of Drakefire Pistols.`,
-        when: [SHOOTING_PHASE],
-      },
+      CinderblastBombEffect,
     ],
   },
   Irondrakes: {
@@ -683,15 +726,12 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       StandardBearerEffect,
-      HornblowerEffect,
+      getHornblowerEffect(),
+      PairedDrakefirePistolsEffect,
+      CinderblastBombEffect,
       {
         name: `Blaze Away`,
         desc: `Add 1 to the Attacks characteristic of this unit's missile weapons if there are no enemy units within 3" of this unit and this unit has not made a move in the same turn.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Cinderblast Bomb`,
-        desc: `Once per battle, in your shooting phase, a model armed with a Cinderblast Bomb can throw it. If they do so, pick 1 enemy unit within 6" of that model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -702,11 +742,6 @@ const Units = {
       {
         name: `Grudgehammer Torpedo`,
         desc: `A Grudgehammer Torpedo has a Damage characteristic of D6 instead of D3 if the target is a MONSTER.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Paired Drakefire Pistols`,
-        desc: `Add 1 to the Attacks characteristic of a Drakefire Pistol for models armed with a pair of Drakefire Pistols.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -845,7 +880,7 @@ const Units = {
   Dreadspears: {
     effects: [
       StandardBearerEffect,
-      HornblowerEffect,
+      getHornblowerEffect(),
       {
         name: `Coven Guard`,
         desc: `If the unmodified hit roll for an attack made with a Darkling Spear is 6, that weapon has a Rend characteristic of -1 for that attack.`,
@@ -857,7 +892,7 @@ const Units = {
   Bleakswords: {
     effects: [
       StandardBearerEffect,
-      HornblowerEffect,
+      getHornblowerEffect(),
       {
         name: `Quicksilver Strike`,
         desc: `If the unmodified hit roll for an attack made with a Darkling Sword is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
@@ -874,7 +909,7 @@ const Units = {
         when: [SHOOTING_PHASE],
       },
       StandardBearerEffect,
-      HornblowerEffect,
+      getHornblowerEffect(),
       {
         name: `Storm of Iron-tipped Bolts`,
         desc: `Add 1 to hit rolls for attacks made with this unit's Repeater Crossbows if it has 10 or more models.`,
@@ -1008,11 +1043,7 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       StandardBearerEffect,
-      {
-        name: `Hornblower`,
-        desc: `Add 1 to charge rolls for units that include any Hornblowers.`,
-        when: [CHARGE_PHASE],
-      },
+      getHornblowerEffect(true),
       {
         name: `Lance Charge`,
         desc: `This unit's Barbed Lances have a Rend characteristic of -2 instead of -1 and a Damage characteristic of 2 instead of 1 if this unit made a charge move in the same turn.`,
@@ -1061,11 +1092,7 @@ const Units = {
         when: [SHOOTING_PHASE],
       },
       StandardBearerEffect,
-      {
-        name: `Hornblower`,
-        desc: `Add 1 to charge rolls for units that include any Hornblowers.`,
-        when: [CHARGE_PHASE],
-      },
+      getHornblowerEffect(true),
       {
         name: `Sow Terror and Confusion`,
         desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 12" of any friendly DARK RIDERS.`,
@@ -1128,7 +1155,7 @@ const Units = {
         when: [SHOOTING_PHASE],
       },
       StandardBearerEffect,
-      HornblowerEffect,
+      getHornblowerEffect(),
       {
         name: `Flashing Steel`,
         desc: `Add 1 to hit rolls for attacks made by this unit if it has 15 or more models.`,
@@ -1188,7 +1215,7 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       StandardBearerEffect,
-      HornblowerEffect,
+      getHornblowerEffect(),
       {
         name: `Fortress of Boughs`,
         desc: `Add 1 to save rolls for attacks that target this unit if this unit has not made a move in the same turn.`,
@@ -1209,7 +1236,7 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       StandardBearerEffect,
-      HornblowerEffect,
+      getHornblowerEffect(),
       {
         name: `Guardians of the Kindred`,
         desc: `A Ranger's Draich has a Damage characteristic of 2 instead of 1 if the target is a MONSTER.`,
@@ -1225,7 +1252,7 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       StandardBearerEffect,
-      HornblowerEffect,
+      getHornblowerEffect(),
       {
         name: `Unbound Fury`,
         desc: `This unit's Hunting Spears have a Rend characteristic of -2 instead of -1 and a Damage characteristic of 2 instead of 1 if this unit made a charge move in the same turn.`,
@@ -1272,7 +1299,7 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       StandardBearerEffect,
-      HornblowerEffect,
+      getHornblowerEffect(),
       {
         name: `Magic`,
         desc: `This unit is a Wizard while it has 2 or more models.`,
