@@ -85,8 +85,8 @@ const phaseMap = {
   'Worsen the rend of': SAVES_PHASE,
 }
 
-// Effect names that are flagged by the script, but have been verified and should be ignored
-const whitelist = [
+// Effect names that are flagged by the script, but have been verified and should be ignored for the phase checking
+const phasesWhitelist = [
   'Acid Ichor',
   'Ahead Full',
   'Been There, Done That',
@@ -119,30 +119,52 @@ const whitelist = [
   'Strike the Runes',
 ]
 
-const verify = () => {
-  console.log('Starting rules verification...')
-  const armyList = getFactionList()
-  Object.keys(armyList).forEach(faction => {
-    const { Army } = armyList[faction]
+let logged: string[] = []
 
-    const { Units = [] } = Army
+const log_once = (message: string) => {
+  if (!logged.includes(message)) {
+    console.log(message)
+    logged = [...logged, message]
+  }
+}
+
+type TEffectInfo = { name: string; shared: boolean }
+
+const verify = () => {
+  log_once('Starting rules verification...')
+  const armyList = getFactionList()
+  let identicalEffects: Record<string, TEffectInfo[]> = {}
+  Object.values(armyList).forEach(faction => {
+    const { AggregateArmy } = faction
+
+    const { Units = [] } = AggregateArmy
 
     Units.forEach((unit: TEntry) => {
       unit.effects.forEach(e => {
-        if (whitelist.includes(e.name)) return
+        const matchBy = `${e.name} | ${e.desc} | ${e.when}`
+        const effectInfo = { name: unit.name, shared: e.shared || false }
+        const matches = identicalEffects[matchBy]
+        if (matches) {
+          if (!matches.find(existing => existing.name === effectInfo.name))
+            identicalEffects[matchBy] = [...matches, effectInfo]
+        } else {
+          identicalEffects[matchBy] = [effectInfo]
+        }
+
+        if (phasesWhitelist.includes(e.name)) return
         if (e.command_ability) return
 
         if (e.spell || unit.spell) {
-          if (!e.when.includes(HERO_PHASE)) console.log(`${e.name} should be in ${HERO_PHASE}`)
+          if (!e.when.includes(HERO_PHASE)) log_once(`${e.name} should be in ${HERO_PHASE}`)
           return
         }
 
         if (e.when.length === 0) {
-          return console.log(`${e.name} is missing a 'when' value`)
+          return log_once(`${e.name} is missing a 'when' value`)
         }
 
         if (!e.spell && new RegExp('Casting value ', 'gi').test(e.desc)) {
-          return console.log(`${e.name} should be marked as a spell`)
+          return log_once(`${e.name} should be marked as a spell`)
         }
 
         Object.keys(phaseMap).forEach(phrase => {
@@ -152,11 +174,15 @@ const verify = () => {
 
           const regex = new RegExp(phrase, 'gi')
           if (regex.test(e.desc)) {
-            return console.log(`${e.name} should probably be in ${phase}`)
+            return log_once(`${e.name} should probably be in ${phase}`)
           }
         })
       })
     })
+  })
+
+  Object.entries(identicalEffects).forEach(([description, entries]) => {
+    if (entries.length > 1 && !entries.every(entry => entry.shared)) console.log(description, entries)
   })
   console.log('Done!')
 }

@@ -20,48 +20,57 @@ const InfernalGuardBaseEffects = [
     name: `Fireglaive Deathmask`,
     desc: `The leader of this unit is a Fireglaive Deathmask. A Fireglaive Deathmask is armed with an Ashsteel Hand Weapon and Pyrelock Pistol instead of a Pyrelock Fireglaive and a Pyrelock Fireglaive's Bayonet-cleaver.`,
     when: [COMBAT_PHASE, SHOOTING_PHASE],
+    shared: true,
   },
   {
     name: `Icon of Dominion Bearers`,
     desc: `Add 1 to the Bravery characteristic of a unit that includes an Icon of Dominion Bearer.`,
     when: [BATTLESHOCK_PHASE],
+    shared: true,
   },
   {
     name: `Drummer`,
     desc: `Add 1 to run rolls for a unit that includes a Drummer.`,
     when: [MOVEMENT_PHASE],
+    shared: true,
   },
 ]
 const TrampleAndGoreEffect = {
   name: `Trample and Gore`,
   desc: `Add 1 to charge rolls for this unit. In addition, this unit's Crushing Hooves have a Damage characteristic of D3 instead of 1 if this unit made a charge move in the same turn.`,
   when: [CHARGE_PHASE, COMBAT_PHASE],
+  shared: true,
 }
 const PyrelockPistolEffect = {
   name: `Pyrelock Pistol`,
   desc: `If the unmodified hit roll for an attack made with a Pyrelock Pistol is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
   when: [SHOOTING_PHASE],
+  shared: true,
 }
 const SpiteshieldEffect = {
   name: `Spiteshield`,
   desc: `If the unmodified save roll for an attack with a melee weapon that targets a unit that includes any models carrying a Spiteshield is 6, the attacking unit suffers 1 mortal wound.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 const CarriageHaulerEffect = {
   name: `Carriage Hauler`,
   desc: `At the start of your movement phase, you can pick 1 friendly Deathshrieker Rocket Launcher, Magma Cannon, or Dreadquake Mortar unit within 1" of this model. If you do so, that unit can use this model's Move characteristic during that movement phase, as long as it is within 1" of this model at the end of that movement phase.`,
   when: [START_OF_MOVEMENT_PHASE],
+  shared: true,
 }
 const SiegeArtilleryEffects = [
   {
     name: `Siege Artillery`,
     desc: `This unit cannot run or make charge moves.`,
     when: [MOVEMENT_PHASE, CHARGE_PHASE],
+    shared: true,
   },
   {
     name: `Siege Artillery`,
     desc: `Add 1 to save rolls for attacks made with missile weapons that target this model.`,
     when: [SAVES_PHASE],
+    shared: true,
   },
 ]
 

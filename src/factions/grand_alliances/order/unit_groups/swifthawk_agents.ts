@@ -2,7 +2,6 @@ import { TItemDescriptions } from 'factions/factionTypes'
 import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
   COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -14,16 +13,13 @@ const FleetOfWingEffect = {
   name: `Fleet of Wing`,
   desc: `If this model runs, roll 2D6 instead of one and use the total when determining how much extra it can move.`,
   when: [MOVEMENT_PHASE],
+  shared: true,
 }
 const SwifthawkDiscipline = {
   name: `Swifthawk Discipline`,
   desc: `If you fail a battleshock test for this unit whilst a Swifthawk Agents Hero from your army is within 16", halve the number of models that flee (rounding fractions up).`,
   when: [BATTLESHOCK_PHASE],
-}
-const InfantryHornblowerEffect = {
-  name: `Hornblower`,
-  desc: `Reroll dice rolls of 1 when determining how far this unit can run or charge while it includes any Hornblowers.`,
-  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  shared: true,
 }
 
 export const LegacySwifthawkAgentUnits: TItemDescriptions = {
@@ -91,15 +87,11 @@ export const LegacySwifthawkAgentUnits: TItemDescriptions = {
   Skycutters: {
     effects: [
       GenericEffects.AelvenShield,
+      FleetOfWingEffect,
       {
         name: `Agents' Blades and Spears`,
         desc: `If a Skycutter is crewed by a trio of Agents, it makes 3 attacks with its Agents' Blades and Spears instead of 2.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Fleet of Wing`,
-        desc: `If this model runs, roll 2D6 instead of one and use the total when determining how much extra it can move.`,
-        when: [MOVEMENT_PHASE],
       },
       {
         name: `Sky Chariot`,
@@ -144,7 +136,7 @@ export const LegacySwifthawkAgentUnits: TItemDescriptions = {
         desc: `The leader of this unit is a Watch Master. A Watch Master makes 2 attacks rather than 1 with a Silverwood Spear.`,
         when: [COMBAT_PHASE],
       },
-      InfantryHornblowerEffect,
+      GenericEffects.InfantryHornblowerEffect,
       {
         name: `Standard Bearer`,
         desc: `Models in this unit may be Standard Bearers. If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 to their Bravery instead if the unit is within 8" of another Swifthawk Agents unit from your army that includes a Standard Bearer.`,

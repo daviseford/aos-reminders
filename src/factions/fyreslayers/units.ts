@@ -22,11 +22,13 @@ const AuricRunesonEffects = [
     name: `Vying for Glory`,
     desc: `You can reroll hit rolls for attacks made by this model if there are any other friendly AURIC RUNESONS within 6" of this model.`,
     when: [COMBAT_PHASE, SHOOTING_PHASE],
+    shared: true,
   },
   {
     name: `Wyrmslayer Javelin`,
     desc: `Add 2 to the Damage characteristic for attacks made with this model's Wyrmslayer Javelin that target a MONSTER.`,
     when: [COMBAT_PHASE, SHOOTING_PHASE],
+    shared: true,
   },
 ]
 const MagmadrothEffects = [
@@ -34,37 +36,44 @@ const MagmadrothEffects = [
     name: `Roaring Fyrestream`,
     desc: `Select a target unit and roll a D6. If the roll is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds. If the roll is equal to or less than the number of models in the target unit, and the target unit is within 6" of this model, the target unit suffers D6 mortal wounds instead.`,
     when: [SHOOTING_PHASE],
+    shared: true,
   },
   {
     name: `Lashing Tail`,
     desc: `Roll a D6 for each enemy unit within 3" of this model. If the roll is less than the number of models in that unit, it suffers D3 mortal wounds.`,
     when: [END_OF_COMBAT_PHASE],
+    shared: true,
   },
   {
     name: `Volcanic Blood`,
     desc: `Roll a D6 each time a wound is allocated to this model that was inflicted by a melee weapon. On a 4+ the attacking unit suffers 1 mortal wound.`,
     when: [COMBAT_PHASE],
+    shared: true,
   },
 ]
 const StareDownEffect = {
   name: `Stare Down`,
   desc: `Pick an enemy unit within 3" of this model. Subtract D3 from that unit's Bravery characteristic until the start of your next hero phase.`,
   when: [HERO_PHASE],
+  shared: true,
 }
 const WeaponBreakerEffect = {
   name: `Weapon Breaker`,
   desc: `Pick an enemy HERO within 3" of this model and roll a D6. On a 6, pick one of the melee weapons that model is armed with. Subtract 1 from hit rolls for attacks made with that weapon for the rest of the battle. You cannot pick the same weapon to be affected by this ability more than once per battle.`,
   when: [END_OF_COMBAT_PHASE],
+  shared: true,
 }
 const BerserkFuryEffect = {
   name: `Berserk Fury`,
   desc: `Once per battle, you can choose to unleash this unit's berserk fury. If you do so, until the end of that phase, if a model from this unit is slain, before that model is removed from play, that model can make a pile in move and then attack with all of the melee weapons it is armed with.`,
   when: [START_OF_COMBAT_PHASE],
+  shared: true,
 }
 const FyresteelHandaxesEffect = {
   name: `Fyresteel Handaxes`,
   desc: `You can reroll hit rolls for attacks made with a pair of Fyresteel Handaxes.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 
 //Unit names

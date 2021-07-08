@@ -43,27 +43,32 @@ const GrotBaseEffects = [
     name: `Gong Basher`,
     desc: `Add 2 to run rolls for a unit that includes any Gong Bashers.`,
     when: [MOVEMENT_PHASE],
+    shared: true,
   },
   {
     name: `Moonclan Flag Bearers`,
     desc: `Add 1 to the Bravery characteristic of a unit that includes any Moonclan Flag Bearers.`,
     when: [BATTLESHOCK_PHASE],
+    shared: true,
   },
   {
     name: `Bad Moon Icon Bearers`,
     desc: `Add 1 to save rolls for attacks made with missile weapons that target a unit that includes any Bad Moon Icon Bearers.`,
     when: [SAVES_PHASE],
+    shared: true,
   },
   {
     name: `Backstabbing Mob`,
     desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit while it has at least 10 models.`,
     when: [COMBAT_PHASE],
     rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021],
+    shared: true,
   },
   {
     name: `Netters`,
     desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 2" of any friendly models with a Barbed Net.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
+    shared: true,
   },
 ]
 const FanaticsBaseEffects = [
@@ -71,11 +76,13 @@ const FanaticsBaseEffects = [
     name: `Whirling Death`,
     desc: `This unit fights at the start of the combat phase, before the players pick any other units to fight in that combat phase. This unit cannot fight again in the combat phase unless an ability or spell allows it to fight more than once.`,
     when: [START_OF_CHARGE_PHASE],
+    shared: true,
   },
   {
     name: `Splat!`,
     desc: `If the charge roll for this unit is a double, after the charge move (or after the charge fails), this unit suffers 1 mortal wound and each other unit within 1" of this unit suffers D3 mortal wounds.`,
     when: [CHARGE_PHASE],
+    shared: true,
   },
 ]
 const HallucinogenicFungusBrewsEffect = {
@@ -83,6 +90,7 @@ const HallucinogenicFungusBrewsEffect = {
   desc: `In the first battle round, this unit has a ward of 5+. In the second battle round, this unit has a ward of 6+.`,
   when: [SAVES_PHASE],
   rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021],
+  shared: true,
 }
 
 const RedcapMushroomsEffect = [
@@ -90,32 +98,38 @@ const RedcapMushroomsEffect = [
     name: `Redcap Mushrooms`,
     desc: `Once per battle, in your hero phase, you can say that this model is eating a redcap mushroom. If you do so, you can reroll hit and wound rolls for this model's Moon-cutta or Moonclan Stabba until your next hero phase.`,
     when: [HERO_PHASE],
+    shared: true,
   },
   {
     name: `Redcap Mushrooms`,
     desc: `If active, you can reroll hit and wound rolls for this model's Moon-cutta or Moonclan Stabba until your next hero phase.`,
     when: [COMBAT_PHASE],
+    shared: true,
   },
 ]
 const WatchOutEffect = {
   name: `Watch Out!`,
   desc: `If a Mangler Squig is slain, before the model is removed from play roll a D6 for each unit within 6" of this model. On a 4+ that unit suffers D3 mortal wounds.`,
   when: [WOUND_ALLOCATION_PHASE],
+  shared: true,
 }
 const KersplatEffect = {
   name: `Ker-splat!`,
   desc: `Add 1 to hit rolls for attacks made with Mangler Squigs Balls and Chains if this model made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const SquigsGoWildEffect = {
   name: `Squigs Go Wild`,
   desc: `Roll a D6 each time a Cave Squig model from this unit flees, before the model is removed from play. On a 4+ the nearest other unit within 6" of the fleeing model suffers 1 mortal wound. If two or more such units are equally close, you can pick which suffers the mortal wound.`,
   when: [BATTLESHOCK_PHASE],
+  shared: true,
 }
 const SlipperyGitEffect = {
   name: `Slippery Git`,
   desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model while it is within 3" of a friendly MOONCLAN unit with 3 or more models.`,
   when: [SHOOTING_PHASE],
+  shared: true,
 }
 const getSpiderVenomEffect = (attack: `'s Fangs` | ``, mw: `1` | `D3`) => {
   const plural = mw === `1` ? `` : `s`
@@ -123,37 +137,44 @@ const getSpiderVenomEffect = (attack: `'s Fangs` | ``, mw: `1` | `D3`) => {
     name: `Spider Venom`,
     desc: `If the unmodified hit roll for an attack made by this model${attack} is 6, that attack inflicts ${mw} mortal wound${plural} on the target and the attack sequence ends (do not make a wound or save roll).`,
     when: [COMBAT_PHASE],
+    shared: true,
   }
 }
 const TerribleStenchEffect = {
   name: `Terrible Stench`,
   desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this unit.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const RegenerationEffect = {
   name: `Regeneration`,
   desc: `In your hero phase, you can roll a D6 for this unit. If you do so, on a 4+ heal up to D3 wounds allocated to this unit.`,
   when: [HERO_PHASE],
+  shared: true,
 }
 const MagicalResistanceEffect = {
   name: `Magical Resistance`,
   desc: `Each time this unit is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
   when: [HERO_PHASE],
+  shared: true,
 }
 const ReassuringPresenceEffect = {
   name: `Reassuring Presence`,
   desc: `Add 1 to the Bravery characteristic of friendly GLOOMSPITE GITZ units that are wholly within 18" of any friendly models with this ability.`,
   when: [BATTLESHOCK_PHASE],
+  shared: true,
 }
 const SquigglyBeastFollowersEffect = {
   name: `Squiggly-beast Followers`,
   desc: `At the start of the combat phase, roll 1 dice for each enemy unit within 3" of any friendly models with this ability. If the roll is equal to or greater than the number of models in that enemy unit, that enemy unit suffers 1 mortal wound.`,
   when: [START_OF_COMBAT_PHASE],
+  shared: true,
 }
 const CrushingGripEffect = {
   name: `Crushing Grip`,
   desc: `Do not use the attack sequence for an attack made with a Crushing Grip. Instead, pick 1 enemy model that is in range of the attack and roll a D6. If the roll is equal to or greater than the Wounds characteristic of that model, it is slain.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 
 const Units = {

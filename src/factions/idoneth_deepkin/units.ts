@@ -23,11 +23,13 @@ const DeepmareHornEffect = {
   name: `Deepmare Horn`,
   desc: `Roll a D6 if this model ends a charge move within 1" of any enemy units. On a 2+, the nearest enemy unit suffers D3 mortal wounds.`,
   when: [CHARGE_PHASE],
+  shared: true,
 }
 const StormshoalEffect = {
   name: `Stormshoal`,
   desc: `Roll a D6 for each wound or mortal wound allocated to this model. On a 5+ the wound is negated.`,
   when: [WOUND_ALLOCATION_PHASE],
+  shared: true,
 }
 
 const Units = {

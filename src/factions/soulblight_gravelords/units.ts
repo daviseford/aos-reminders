@@ -23,36 +23,51 @@ const TheHungerEffect = {
   name: `The Hunger`,
   desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this unit's attacks in that phase, you can heal up to D3 wounds allocated to this unit.`,
   when: [END_OF_COMBAT_PHASE],
+  shared: true,
 }
 
 const NightmaresMiasmaEffect = {
   name: `Nightmares Miasma`,
   desc: `While an enemy unit is within 3" of any friendly models with this ability, worsen the Rend characteristic of that unit's melee weapons by 1 (to a minimum of '-')`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 
 const UndeniableImpulseEffect = {
   name: `Undeniable Impulse`,
   desc: `At the start of your hero phase, roll a dice for this model. If the roll is equal to or less than the number of the current battle round, until your next hero phase, this model can run and still charge later in the same turn. However, this model cannot use command abilities until your next hero phase.`,
   when: [START_OF_HERO_PHASE],
+  shared: true,
 }
 
 const WailOfTheDamnedEffect = {
   name: `Wail of the Damned`,
   desc: `Do not use the attack sequence for an attack made with a Wail of the Damned. Instead, roll a dice for each enemy unit within range of this model's Wail of the Damned. On a 4+, that unit suffers D3 mortal wounds.`,
   when: [SHOOTING_PHASE],
+  shared: true,
 }
 
-const FrightfulTouchEffect = {
+const getFrightfulTouchEffect = (weapon: `Blades` | `Daggers`) => ({
   name: `Frightful Touch`,
-  desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and Blades is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+  desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and ${weapon} is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
   when: [COMBAT_PHASE],
-}
+  shared: true,
+})
 
 const DeathlyChargeEffect = {
   name: `Deathly Charge`,
   desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
   when: [CHARGE_PHASE],
+  shared: true,
+}
+
+const getStandardBearerEffect = (size: `5` | `10`) => {
+  return {
+    name: `Standard Bearer`,
+    desc: `1 in every ${size} models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
+    when: [WOUND_ALLOCATION_PHASE],
+    shared: true,
+  }
 }
 
 const Units = {
@@ -62,6 +77,7 @@ const Units = {
       spells: [keyPicker(spells, ['Invigorating Aura', 'Hand of Dust', 'Soul Stealer'])],
     },
     effects: [
+      getFrightfulTouchEffect(`Daggers`),
       {
         name: `Alakanash, the Staff of Power`,
         desc: `Add the Staff of Power value shown on this model's damage table to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to cast Arcane Bolt any number of times in the same hero phase, even if another WIZARD has already attempted to cast the spell in that phase.`,
@@ -75,11 +91,6 @@ const Units = {
         name: `Invocation of Nagash`,
         desc: `At the start of your hero phase, if this model is on the battlefield, you can pick up to 5 different friendly SUMMONABLE units or friendly OSSIARCH BONEREAPERS units in any combination. For each of those units, you can either heal up to 3 wounds that have been allocated to that unit or, if no wounds have been allocated to it, you can return number of slain models to that unit with a combined Wounds characteristic of 3 or less.`,
         when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and Daggers is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
       },
       {
         name: `Morikhane`,
@@ -106,6 +117,7 @@ const Units = {
     },
     effects: [
       TheHungerEffect,
+      getFrightfulTouchEffect(`Daggers`),
       {
         name: `Armour of Templehof`,
         desc: `The first wound or mortal wound allocated to this model in each phase is negated.`,
@@ -121,11 +133,6 @@ const Units = {
         desc: `At the start of the combat phase, if this model is within 3" of any enemy units, you can remove this model from the battlefield and set it up again anywhere on the battlefield more than 9" from all enemy units.`,
         when: [START_OF_COMBAT_PHASE],
       },
-      {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and Daggers is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
     ],
   },
 
@@ -135,6 +142,7 @@ const Units = {
       spells: [keyPicker(spells, ['Invigorating Aura', 'Dark Mist'])],
     },
     effects: [
+      getFrightfulTouchEffect(`Daggers`),
       {
         name: `Dagger of Jet`,
         desc: `At the end of any phase, if any wounds inflicted by this model's Akmet-har in that phase were allocated to an enemy HERO and not negated, and that enemy model has not been slain, roll a dice. On a 5+, that enemy HERO is slain.`,
@@ -144,11 +152,6 @@ const Units = {
         name: `Mortarch of Blood`,
         desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that phase, you can heal up to D6 wounds allocated to this model.`,
         when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and Daggers is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -420,15 +423,11 @@ const Units = {
   'Blood Knights': {
     effects: [
       TheHungerEffect,
+      getStandardBearerEffect(`5`),
       {
         name: `Champion`,
         desc: `1 model in this unit can be a Kastellan. Add 1 to the Attacks characteristic of a Kastellan's Templar Lance or Blade.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `1 in every 5 models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
-        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Riders of Ruin`,
@@ -491,7 +490,7 @@ const Units = {
         desc: `If an enemy HERO is slain within 9" of this model, add 1 to the Attacks characteristic of melee weapons used by friendly VAMPIRE units wholly within 12" of this model until your next hero phase.`,
         when: [COMBAT_PHASE, WOUND_ALLOCATION_PHASE],
       },
-      FrightfulTouchEffect,
+      getFrightfulTouchEffect(`Blades`),
       WailOfTheDamnedEffect,
     ],
   },
@@ -499,7 +498,7 @@ const Units = {
   'Mortis Engine': {
     effects: [
       WailOfTheDamnedEffect,
-      FrightfulTouchEffect,
+      getFrightfulTouchEffect(`Blades`),
       {
         name: `The Reliquary`,
         desc: `Once per battle, in your hero phase, you can say that this model will unleash the energies of its reliquary. If you do so, roll a dice for each unit within 12" of this model. On a 2+, that unit suffers D3 mortal wounds. DEATH units are not affected by this ability.`,
@@ -520,7 +519,7 @@ const Units = {
     },
     effects: [
       TheHungerEffect,
-      FrightfulTouchEffect,
+      getFrightfulTouchEffect(`Blades`),
       {
         name: `Scrying Pool`,
         desc: `Once per turn, you can reroll 1 hit roll or 1 wound roll for an attack made by this model or 1 save roll for an attack that targets this model.`,
@@ -622,15 +621,11 @@ const Units = {
   'Black Knights': {
     effects: [
       DeathlyChargeEffect,
+      getStandardBearerEffect(`5`),
       {
         name: `Champion`,
         desc: `1 model in this unit can be a Hellknight. Add 1 to the Attacks characteristic of that model's Barrow Lance.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `1 in every 5 models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
-        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Musician`,
@@ -642,15 +637,11 @@ const Units = {
 
   'Grave Guard': {
     effects: [
+      getStandardBearerEffect(`10`),
       {
         name: `Champion`,
         desc: `1 model in this unit can be a Seneschal. Add 1 to the Attacks characteristic of that model's Wight Blade or Great Wight Blade.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `1 in every 10 models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
-        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Musician`,
@@ -672,15 +663,11 @@ const Units = {
 
   'Deathrattle Skeletons': {
     effects: [
+      getStandardBearerEffect(`10`),
       {
         name: `Champion`,
         desc: `1 model in this unit can be a Skeleton Champion. A Skeleton Champion can replace their Ancient Blade or Spear with a Champion's Mace or Halberd.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `1 in every 10 models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
-        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Skeleton Legion`,

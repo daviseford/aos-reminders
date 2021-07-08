@@ -19,29 +19,34 @@ const getIconBearerEffect = (strength: `1` | `D3` | `D6`) => {
     name: `Icon Bearer`,
     desc: `You can return ${strength} slain model${plural} to this unit in your hero phase if it includes any Icon Bearers.`,
     when: [HERO_PHASE],
+    shared: true,
   }
 }
 const HornblowerEffect = {
   name: `Hornblower`,
   desc: `A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
   when: [CHARGE_PHASE],
+  shared: true,
 }
 const WarsphinxBaseEffects = [
   {
     name: `Thundercrush Attack`,
     desc: `After this model completes a charge move, pick one enemy unit that is within 1" of it and roll a D6. If the dice roll is less than or equal to the number of models in the chosen unit, that unit suffers D3 mortal wounds.`,
     when: [CHARGE_PHASE],
+    shared: true,
   },
   {
     name: `Sacred War Statue`,
     desc: `Halve the Damage characteristic (rounding up) of weapons that target this model. In addition, halve the number of mortal wounds this model suffers from spells and abilities (rounding up).`,
     when: [WOUND_ALLOCATION_PHASE],
+    shared: true,
   },
 ]
 const TombShieldEffect = {
   name: `Tomb Shield`,
   desc: `This unit can create a shield fortress instead of running or charging in its turn. If it does so, add 1 to save rolls for the unit until its next movement phase.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 
 const Units = {

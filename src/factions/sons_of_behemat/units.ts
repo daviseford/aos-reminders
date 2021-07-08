@@ -17,16 +17,19 @@ const AlmightyStompEffect = {
   name: `Almighty Stomp`,
   desc: `You can reroll hit rolls of 1 for Almighty Stomp attacks unless the target is a MONSTER.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const CrushingChargeEffect = {
   name: `Crushing Charge`,
   desc: `After this model makes a charge move, roll a D6 for each enemy unit within 1" of this model. On a 2+, that unit suffers D3 mortal wounds if it is a MONSTER, or D6 mortal wounds if it is not a MONSTER.`,
   when: [CHARGE_PHASE],
+  shared: true,
 }
 const DeathGripEffect = {
   name: `Death Grip`,
   desc: `You can reroll hit rolls of 1 for Death Grip attacks that target a MONSTER.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const LongshanksEffect = {
   name: `Longshanks`,
@@ -37,16 +40,19 @@ const LongshanksEffect = {
     rule_sources.ERRATA_SONS_OF_BEHEMAT_MARCH_2021,
     rule_sources.ERRATA_SONS_OF_BEHEMAT_JULY_2021,
   ],
+  shared: true,
 }
 const SonOfBehematEffect = {
   name: `Son of Behemat`,
   desc: `If a spell or ability would slay this model without any wounds or mortal wounds being inflicted by the spell or ability, this model suffers D6 mortal wounds instead.`,
   when: [WOUND_ALLOCATION_PHASE],
+  shared: true,
 }
 const TimberrrrrEffect = {
   name: `Timberrrrr!`,
   desc: `If this model is slain, before removing the model from the battlefield, the players must roll off. The winner must pick a point on the battlefield 5" from this model. Each unit within 3" of that point suffers D3 mortal wounds unless it is a MEGA-GARGANT. This model is then removed from the battlefield.`,
   when: [WOUND_ALLOCATION_PHASE],
+  shared: true,
 }
 const BaseMegaGargantEffects = [
   AlmightyStompEffect,
@@ -70,6 +76,7 @@ const Units = {
           rule_sources.BATTLETOME_SONS_OF_BEHEMAT,
           rule_sources.ERRATA_SONS_OF_BEHEMAT_JULY_2021,
         ],
+        shared: true, // it's not normally correct to set this directly on units, but this unit gets extended for the merc version
       },
       {
         name: `Smash Down`,
@@ -79,6 +86,7 @@ const Units = {
           rule_sources.BATTLETOME_SONS_OF_BEHEMAT,
           rule_sources.ERRATA_SONS_OF_BEHEMAT_JULY_2021,
         ],
+        shared: true, // it's not normally correct to set this directly on units, but this unit gets extended for the merc version
       },
     ],
   },
@@ -89,11 +97,13 @@ const Units = {
         name: `Get Orf Me Land!`,
         desc: `In your hero phase, if you have any models with this ability within 1" of an objective that you control, you can pick one of those models and say that it will kick the objective away. If you do so, you can move that objective up to 2D6" to a new position on the battlefield, more than 1" away from any models, terrain features or other objectives. An objective cannot be kicked away more than once in the same phase.`,
         when: [HERO_PHASE],
+        shared: true, // it's not normally correct to set this directly on units, but this unit gets extended for the merc version
       },
       {
         name: `Stuff 'Em In Me Net`,
         desc: `After this model piles in, you can pick up to D3 enemy models within 3" of this model and roll a D6 for each of them. If the roll is at least double that model's Wounds characteristic, it is slain.`,
         when: [COMBAT_PHASE],
+        shared: true, // it's not normally correct to set this directly on units, but this unit gets extended for the merc version
       },
     ],
   },
@@ -104,11 +114,13 @@ const Units = {
         name: `Hurled Body`,
         desc: `Once per combat phase, you can pick 1 enemy model within 3" of this model and roll a D6. Add the Hurled Body modifier shown on this model's damage table to the roll. If the roll is at least double that enemy model's Wounds characteristic, it is slain and you can roll another dice. On a 4+ you can pick an enemy unit within 12" of this model and visible to it. That unit suffers a number of mortal wounds equal to the Wounds characteristic of the slain model.`,
         when: [COMBAT_PHASE],
+        shared: true, // it's not normally correct to set this directly on units, but this unit gets extended for the merc version
       },
       {
         name: `Titanic Boulderclub`,
         desc: `The Attacks characteristic of a Titanic Boulderclub is equal to the number of enemy models within 3" of the attacking model. Add the Titanic Boulderclub value on the attacking model's damage table to the total, and add 4 to the total for each enemy MONSTER within 3" of the attacking model. If the modified Attacks characteristic Of the Titanic Boulderclub is less than 1, count it as being 1, and if the modified Attacks characteristic of the Titanic Boulderclub is more than 10, count it as being 10.`,
         when: [COMBAT_PHASE],
+        shared: true, // it's not normally correct to set this directly on units, but this unit gets extended for the merc version
       },
     ],
   },

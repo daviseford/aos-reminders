@@ -30,6 +30,7 @@ const ChaosRuneshieldEffect = {
   name: `Chaos Runeshield / Rune-etched Plating / Dark Blessings`,
   desc: `Roll a D6 each time the equipped model suffers a mortal wound. On a 5+ it is negated.`,
   when: [WOUND_ALLOCATION_PHASE],
+  shared: true,
 }
 const OracularVisionsEffects = [
   {
@@ -40,6 +41,7 @@ const OracularVisionsEffects = [
       rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
       rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
     ],
+    shared: true,
   },
   {
     name: `Oracular Visions`,
@@ -49,38 +51,45 @@ const OracularVisionsEffects = [
       rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
       rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
     ],
+    shared: true,
   },
 ]
 const DaemonforgedWeaponEffect = {
   name: `Daemonbound / Soul Splitter`,
   desc: `If the unmodified hit roll for an attack made with the appropriate weapon is 6, that attack inflicts 1 mortal wound in addition to any normal damage.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const FuelledByCarnageEffect = {
   name: `Fuelled by Carnage`,
   desc: `If any enemy models were slain this phase by wounds inflicted by this model's Cursed/Hexed weapon you can heal up to D3 wounds allocated to this model.`,
   when: [END_OF_COMBAT_PHASE],
+  shared: true,
 }
 const TerritorialPredatorEffect = {
   name: `Territorial Predator`,
   desc: `You can reroll hit rolls for attacks with this model's Honed Fangs and Claws if the target is a monster.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const PactOfSoulAndIronEffect = {
   name: `Pact of Soul and Iron`,
   desc: `You can reroll hit rolls for attacks made by this model. In addition you can reroll wound rolls for attacks made by this model that target a Stormcast Eternal.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const ChaosChariotEffects = [
   {
     name: `Don't Spare the Lash`,
     desc: `Once per battle, this unit can run and still charge later in the same turn.`,
     when: [MOVEMENT_PHASE, CHARGE_PHASE],
+    shared: true,
   },
   {
     name: `Swift Death`,
     desc: `After finishing a charge move with this unit, pick 1 enemy unit within 1". Roll a number of dice equal to the charge roll. For each 5+ that enemy suffers 1 mortal wound.`,
     when: [CHARGE_PHASE],
+    shared: true,
   },
 ]
 const GorebeastChariotEffects = [
@@ -88,11 +97,13 @@ const GorebeastChariotEffects = [
     name: `Crashing Charge`,
     desc: `After this unit has finished a charge move, roll a D6 for each enemy model within 1". On a 2+ the target suffers D3 mortal wounds.`,
     when: [CHARGE_PHASE],
+    shared: true,
   },
   {
     name: `Explosive Brutality`,
     desc: `If this unit makes a charge move and the unmodified roll was an 8+, add 1 to the hit and wound rolls for attacks made by this unit's Crushing Fists until your next hero phase.`,
     when: [CHARGE_PHASE, COMBAT_PHASE],
+    shared: true,
   },
 ]
 // Common unit composition effects.
@@ -100,21 +111,25 @@ const UnitLeaderEffect = {
   name: `Unit Leader`,
   desc: `Add 1 to the attacks characteristic of the unit leader's melee weapons (excluding its mount if it has one).`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const MusiciansEffect = {
   name: `Musicians`,
   desc: `If the unit includes any musicians, add 1 to its run and charge rolls.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  shared: true,
 }
 const StandardBearersEffect = {
   name: `Standard Bearers`,
   desc: `Add 1 to the bravery of a friendly unit containing any standard bearers.`,
   when: [DURING_GAME],
+  shared: true,
 }
 const IconBearersEffect = {
   name: `Icon Bearers`,
   desc: `Subtract 1 from the bravery characteristic of enemy units while they are within 6" of any friendly icon bearers.`,
   when: [DURING_GAME],
+  shared: true,
 }
 
 // Marauder specific effects.
@@ -122,11 +137,13 @@ const BarbarianHordesEffect = {
   name: `Barbarian Hordes`,
   desc: `Add 1 to the hit rolls of this unit while it has at least 10 models. Improve the rend characteristic of this unit's melee weapons by 1 while it has at least 20 models.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const DarkwoodShieldEffect = {
   name: `Darkwood Shield`,
   desc: `Add 1 to the save rolls for attacks that target this unit.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 
 // Chariot specific effects.
@@ -138,6 +155,7 @@ const ExaltedCharioteerEffect = {
     rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
     rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
   ],
+  shared: true,
 }
 
 // Chaos Mark Effects.
@@ -145,30 +163,35 @@ const ChaosMarkAll = {
   name: `Mark of Chaos (${MARK_KHORNE}, ${MARK_NURGLE}, ${MARK_SLAANESH}, ${MARK_TZEENTCH}, ${MARK_UNDIVIDED})`,
   desc: `This unit either has or must take any Mark of Chaos during list construction.`,
   when: [DURING_SETUP],
+  shared: true,
 }
 
 const ChaosMarkGod = {
   name: `Mark of Chaos (${MARK_KHORNE}, ${MARK_NURGLE}, ${MARK_SLAANESH}, ${MARK_TZEENTCH})`,
   desc: `This unit must take any one of the following Marks of Chaos during list construction: Khorne, Nurgle, Slaanesh, or Tzeentch.`,
   when: [DURING_SETUP],
+  shared: true,
 }
 
 const ChaosMarkSorcerer = {
   name: `Mark of Chaos (${MARK_NURGLE}, ${MARK_SLAANESH}, ${MARK_TZEENTCH}, ${MARK_UNDIVIDED})`,
   desc: `This unit must take any one of the following Mark of Chaos during list construction: Nurgle, Slaanesh, Tzeentch, or Undivided.`,
   when: [DURING_SETUP],
+  shared: true,
 }
 
 const ChaosMarkKhorne = {
   name: `Mark of Chaos (${MARK_KHORNE})`,
   desc: `This unit must take the Khorne Mark of Chaos during list construction.`,
   when: [DURING_SETUP],
+  shared: true,
 }
 
 const ChaosMarkTzeentch = {
   name: `Mark of Chaos (${MARK_TZEENTCH})`,
   desc: `This unit must take the Tzeentch Mark of Chaos during list construction.`,
   when: [DURING_SETUP],
+  shared: true,
 }
 
 const Units = {

@@ -21,17 +21,26 @@ const ShroudingMistEffects: TEffects[] = [
     name: `Shrouding Mists`,
     desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model.`,
     when: [SHOOTING_PHASE],
+    shared: true,
   },
   {
     name: `Shrouding Mists`,
     desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 5+ that mortal wound is negated.`,
     when: [WOUND_ALLOCATION_PHASE],
+    shared: true,
   },
 ]
 const UnnaturalFleshEffect = {
   name: `Unnatural Flesh`,
   desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
   when: [HERO_PHASE],
+  shared: true,
+}
+const BaleglyphMaulsEffect = {
+  name: `Baleglyph Mauls`,
+  desc: `If the unmodified wound roll for an attack made with a Baleglyph Maul is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+  when: [COMBAT_PHASE],
+  shared: true,
 }
 
 const DestructionUnits = {
@@ -77,26 +86,10 @@ const DestructionUnits = {
     mandatory: {
       command_abilities: [keyPicker(DestructionCommandAbilities, ['Born to Lead'])],
     },
-    effects: [
-      {
-        name: `Baleglyph Mauls`,
-        desc: `If the unmodified wound roll for an attack made with a Baleglyph Maul is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-      },
-      ...ShroudingMistEffects,
-      UnnaturalFleshEffect,
-    ],
+    effects: [...ShroudingMistEffects, UnnaturalFleshEffect, BaleglyphMaulsEffect],
   },
   'Fimir Warriors': {
-    effects: [
-      {
-        name: `Baleglyph Mauls`,
-        desc: `If the unmodified wound roll for an attack made with a Baleglyph Maul is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-      },
-      ...ShroudingMistEffects,
-      UnnaturalFleshEffect,
-    ],
+    effects: [...ShroudingMistEffects, UnnaturalFleshEffect, BaleglyphMaulsEffect],
   },
   'Incarnate Elemental Of Beasts': {
     effects: [

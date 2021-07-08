@@ -22,47 +22,62 @@ const ArcaneTomeEffect = {
   name: `Arcane Tome`,
   desc: `Once per battle, when this model attempts to cast or unbind a spell, you can roll 3D6, remove 1 dice of your choice, and then use the remaining 2D6 to determine the casting or unbinding roll.`,
   when: [HERO_PHASE],
+  shared: true,
 }
 const CapriciousWarpflameEffect = {
   name: `Capricious Warpflame`,
   desc: `Add 1 to hit rolls for attacks made by this unit if the target unit has 10 or more models.`,
   when: [SHOOTING_PHASE],
   rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
+  shared: true,
 }
 const MagicTouchedEffect = {
   name: `Magic-touched`,
   desc: `If the casting roll for this model is a double and the casting attempt is successful and not unbound, this model can attempt to cast 1 extra spell this turn. If it does so and the extra casting roll is a double, the spell automatically fails and this model is slain. If a friendly Magister is slain by this effect, roll a D6 before removing the model. On a 2+, 1 Tzeentch Chaos Spawn is added to your army. Set up the Tzeentch Chaos Spawn anywhere on the battlefield within 1" of the slain Magister and more than 3" from any enemy units.`,
   when: [HERO_PHASE],
+  shared: true,
+}
+const MagisterMagicEffect = {
+  name: `Magic`,
+  desc: `This model is a wizard. It can attempt to cast 1 spell and attempt to unbind 1 spell. It knows Arcane Bolt, Mystic Shield, and Bolt of Change.`,
+  when: [HERO_PHASE],
+  shared: true,
 }
 const MasteryOfMagicEffect = {
   name: `Mastery of Magic`,
   desc: `When this model makes a casting, unbinding or dispelling roll, you can change the lowest D6 to match the highest D6. This counts as a modifier.`,
   when: [HERO_PHASE],
+  shared: true,
 }
 const SkySharksEffect = {
   name: `Sky-sharks`,
   desc: `If the target is an enemy Monster, change the Damage characteristic of this unit's Lamprey Bite to D3.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const SpellEaterEffect = {
   name: `Spell-eater`,
   desc: `Once per turn, in your hero phase, you can pick 1 endless spell within 18" of this model. That endless spell is dispelled.`,
   when: [HERO_PHASE],
+  shared: true,
 }
 const SpellThiefEffect = {
   name: `Spell-thief`,
   desc: `If this model successfully unbinds an enemy spell with an unbinding roll of 9+, this model can attempt to cast that spell, if it is possible for it to do so, for the rest of the battle.`,
   when: [HERO_PHASE],
+  shared: true,
 }
 const TouchedbyFireEffect = {
   name: `Touched by Fire`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit that was inflicted by a melee weapon. On a 5+, the attacking unit suffers 1 mortal wound.`,
   when: [WOUND_ALLOCATION_PHASE],
+  shared: true,
 }
 const WakeofFireEffect = {
   name: `Wake of Fire`,
   desc: `After this unit has made a normal move, you can pick 1 enemy unit that has any models passed across by any models from this unit and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
   when: [MOVEMENT_PHASE],
+  shared: true,
 }
 
 const Units = {
@@ -300,27 +315,13 @@ const Units = {
     mandatory: {
       spells: [keyPicker(Spells, ['Bolt of Change'])],
     },
-    effects: [
-      MagicTouchedEffect,
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Bolt of Change.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [MagicTouchedEffect, MagisterMagicEffect],
   },
   Magister: {
     mandatory: {
       spells: [keyPicker(Spells, ['Bolt of Change'])],
     },
-    effects: [
-      MagicTouchedEffect,
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Bolt of Change.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [MagicTouchedEffect, MagisterMagicEffect],
   },
   'Curseling, Eye of Tzeentch': {
     mandatory: {
@@ -416,11 +417,7 @@ const Units = {
       spells: [keyPicker(Spells, ['Gestalt Sorcery'])],
     },
     effects: [
-      {
-        name: `Arcanite Shield`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a unit that has any models armed with Arcanite Shields. On a 6, that wound or mortal wound is negated. When you allocate wounds or mortal wounds to this unit, you must allocate them to a model armed with an Arcanite Shield if it is possible to do so.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
+      GenericEffects.ArcaniteShieldEffect,
       {
         name: `Paired Cursed Blades`,
         desc: `You can reroll hit rolls for attacks made with a pair of Cursed Blades.`,

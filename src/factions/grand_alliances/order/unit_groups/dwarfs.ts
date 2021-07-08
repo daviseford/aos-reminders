@@ -12,6 +12,7 @@ const RangeFindingOpticsEffect = {
   name: `Range-finding Optics`,
   desc: `You can reroll hit rolls of 1 for this model in the shooting phase if they did not move in their preceding movement phase and there are no enemy models within 3" of them.`,
   when: [SHOOTING_PHASE],
+  shared: true,
 }
 
 export const LegacyDwarfUnits = {

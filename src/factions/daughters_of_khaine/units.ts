@@ -26,6 +26,7 @@ const MorathiEffect = {
            If a spell or ability would cause Morathi-Khaine or the Shadow Queen to be slain without wounds being allocated is instead not slain and 3 wounds are allocated to the Shadow Queen.
            If the Shadow Queen is slain, Morathi-Khaine is also slain after the Shadow Queen is removed from play.`,
   when: [WOUND_ALLOCATION_PHASE],
+  shared: true,
 }
 
 const PriestessOfKhaineEffect = {
@@ -36,6 +37,7 @@ const PriestessOfKhaineEffect = {
     rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
     rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
   ],
+  shared: true,
 }
 
 const WitchbrewEffects = [
@@ -43,16 +45,19 @@ const WitchbrewEffects = [
     name: `Witchbrew`,
     desc: `You can pick a friendly Daughters of Khaine unit wholly within 12" of this model to drink Witchbrew. Roll a D6, adding 1 for each of the following if active on this model: Headlong Fury, Zealot's Rage, Slaughterer's Strength. On a 5+ the target can reroll melee wound rolls and does not take battleshock tests until your next hero phase.`,
     when: [HERO_PHASE],
+    shared: true,
   },
   {
     name: `Witchbrew`,
     desc: `If active, reroll wound rolls for attacks made with melee weapons by that unit until your next hero phase.`,
     when: [COMBAT_PHASE],
+    shared: true,
   },
   {
     name: `Witchbrew`,
     desc: `If active, you do not need to take battleshock tests for the unit.`,
     when: [BATTLESHOCK_PHASE],
+    shared: true,
   },
 ]
 
@@ -61,11 +66,13 @@ const StandardBearerAndHornblowerEffects = [
     name: `Standard Bearer`,
     desc: `You can reroll failed battleshock tests if this unit contains any standard bearers.`,
     when: [BATTLESHOCK_PHASE],
+    shared: true,
   },
   {
     name: `Hornblower`,
     desc: `A unit that includes any hornblowers can run and charge.`,
     when: [MOVEMENT_PHASE, CHARGE_PHASE],
+    shared: true,
   },
 ]
 
@@ -73,6 +80,7 @@ const HeartpiercerShieldEffect = {
   name: `Heartpiercer Shield`,
   desc: `Add 1 to the save rolls of this unit against melee attacks. If the unmodified melee save is a 6, the attacking unit suffers 1 mortal wound after all its attacks have resolved.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 
 const DescendToBattleEffects = [
@@ -80,16 +88,19 @@ const DescendToBattleEffects = [
     name: `Descend to Battle`,
     desc: `Instead of setting up this unit on the battlefield, you can set it aside to be deployed later in the game.`,
     when: [DURING_SETUP],
+    shared: true,
   },
   {
     name: `Descend to Battle`,
     desc: `If this unit is still off the battlefield, it is slain.`,
     when: [TURN_FOUR_START_OF_ROUND],
+    shared: true,
   },
   {
     name: `Descend to Battle`,
     desc: `If set aside, you may set up this unit anywhere on the battlefield that is more than 9" from any enemy models.`,
     when: [END_OF_MOVEMENT_PHASE],
+    shared: true,
   },
 ]
 
@@ -97,30 +108,35 @@ const BladedBucklersEffect = {
   name: `Bladed Bucklers`,
   desc: `Add 1 to melee save rolls for this unit if equipped. In addition, unmodified save rolls of 6 cause the attacker to suffer 1 mortal wound after resolving attacks.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 
 const BloodshieldEffect = {
   name: `Bloodshield`,
   desc: `Add 1 to the save rolls for friendly Daughters of Khaine units that are wholly within range of this model.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 
 const BladedImpactEffect = {
   name: `Bladed Impact`,
   desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
   when: [CHARGE_PHASE],
+  shared: true,
 }
 
 const HeartseekersEffect = {
   name: `Heartseekers`,
   desc: `Each time you make an unmodified hit roll of 6 for this unit's Heartseeker Bow, the target suffers 1 mortal wound and the attack sequence ends.`,
   when: [SHOOTING_PHASE],
+  shared: true,
 }
 
 const TurnedCrystalEffect = {
   name: `Turned to Crystal`,
   desc: `You can pick 1 enemy unit within 1" of this unit and roll D6 for each model in this unit. On each 3+ the target suffers 1 mortal wound.`,
   when: [END_OF_COMBAT_PHASE],
+  shared: true,
 }
 
 const baseHagQueen = {
@@ -147,21 +163,25 @@ const baseBloodwrack = {
       name: `Bloodwrack Stare`,
       desc: `Pick a target and roll a D6 for each model within range from the target unit. For each 5+ the target suffers 1 mortal wound.`,
       when: [SHOOTING_PHASE],
+      shared: true,
     },
     {
       name: `Bloodwrack Stare`,
       desc: `Pick a unit visible to this model and roll a D6 for each model in the target unit that is within range. For each 5+ the unit suffers 1 mortal wound.`,
       when: [SHOOTING_PHASE],
+      shared: true,
     },
     {
       name: `Whisperclaw`,
       desc: `Each unmodified hit of 6 made by this weapon inflicts 1 mortal wound and ends the attack sequence.`,
       when: [COMBAT_PHASE],
+      shared: true,
     },
     {
       name: `Magic`,
       desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Enfeebling Foe.`,
       when: [HERO_PHASE],
+      shared: true,
     },
   ],
 }
@@ -175,11 +195,13 @@ const baseAvatarOfKhaine = {
       name: `Animated`,
       desc: `The Avatar of Khaine cannot shoot and cannot be selected to fight unless it has been Animated in the hero phase (either via prayer or Blood Rite).`,
       when: [DURING_GAME],
+      shared: true,
     },
     {
       name: `Idol of Worship`,
       desc: `Add 1 to the bravery characteristic of friendly Daughters of Khaine units that are wholly within 12" of any friendly Avatars of Khaine.`,
       when: [DURING_GAME],
+      shared: true,
     },
   ],
 }

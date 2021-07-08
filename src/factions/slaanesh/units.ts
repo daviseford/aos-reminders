@@ -20,81 +20,121 @@ import CommandAbilities from './command_abilities'
 import rule_sources from './rule_sources'
 import Spells from './spells'
 
+const KeeperOfSecretsMagicEffect = {
+  name: `Magic`,
+  desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
+  when: [HERO_PHASE],
+  shared: true,
+}
 const DarkTemptationsEffect = {
   name: `Dark Temptations`,
   desc: `You can pick 1 enemy hero within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that hero suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a D6. On 1-3, that hero no longer receives this modifier to their hit rolls. On 4-6, that hero is slain.`,
   when: [START_OF_COMBAT_PHASE],
+  shared: true,
 }
 const DelicatePrecisionEffect = {
   name: `Delicate Precision`,
   desc: `If the unmodified wound roll for an attack by this model is 6, that attack inflicts a number of mortal wounds equal to the damage characteristic of the weapon used for the attack and the attack sequence ends (do not make a save roll).`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const SinistrousHandEffect = {
   name: `Sinistrous Hand`,
   desc: `If any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D3 wounds allocated to this model. If any enemy heroes were slain by wounds inflicted by this model's attacks in that combat phase, you can heal D6 wounds allocated to this model instead.`,
   when: [END_OF_COMBAT_PHASE],
+  shared: true,
 }
 const LivingWhipEffect = {
   name: `Living Whip`,
   desc: `You can pick 1 enemy MONSTER model within 6" of this model and roll a D6. On a 3+, pick 1 melee weapon that enemy MONSTER model is armed with. Subtract 1 from hit rolls for attacks made with that weapon until the end of that combat phase.`,
   when: [START_OF_COMBAT_PHASE],
+  shared: true,
 }
 const ShiningAegisEffect = {
   name: `Shining Aegis`,
   desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 6+ it is negated.`,
   when: [WOUND_ALLOCATION_PHASE],
+  shared: true,
 }
 const LitheAndSwiftEffect = {
   name: `Lithe and Swift`,
   desc: `This unit can run and still charge later in the same turn.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  shared: true,
 }
 const BannerBearerEffect = {
   name: `Banner Bearer`,
   desc: `You can reroll charge rolls for this unit while it includes any Banner Bearers.`,
   when: [CHARGE_PHASE],
+  shared: true,
 }
 const IconBearerEffect = {
   name: `Icon Bearer`,
   desc: `Add 2 to the bravery characteristic of this unit while it includes any Icon Bearers.`,
   when: [DURING_GAME],
+  shared: true,
 }
 const HornBlowerEffect = {
   name: `Hornblower`,
   desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Hornblowers is 1, that battleshock test must be rerolled.`,
   when: [BATTLESHOCK_PHASE],
+  shared: true,
 }
 const CrewAndSteedsEffect = {
   name: `Crew and Steeds`,
   desc: `The Daemonettes and Steeds of Slaanesh on this model are treated as mounts.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const HighTempterEffect = {
   name: `High Tempter`,
   desc: `Add 1 to the attacks characterisitc of this model's Blissbarb Bow.`,
   when: [SHOOTING_PHASE],
+  shared: true,
 }
 const baseKeeperOfSecrets = {
   mandatory: {
     spells: [keyPicker(Spells, ['Cacophonic Choir'])],
     command_abilities: [keyPicker(CommandAbilities, ['Excess of Violence'])],
   },
-  effects: [
-    DarkTemptationsEffect,
-    DelicatePrecisionEffect,
-    {
-      name: `Magic`,
-      desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
-      when: [HERO_PHASE],
-    },
-  ],
+  effects: [DarkTemptationsEffect, DelicatePrecisionEffect, KeeperOfSecretsMagicEffect],
 }
 const MesmerisingLepidopteraEffect = {
   name: `Mesmerising Lepidoptera`,
   desc: `Subtract 1 from hit rolls made against this model.`,
   when: [DURING_GAME],
   rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+  shared: true,
+}
+const ImpossiblySwiftEffect = {
+  name: `Impossibly Swift`,
+  desc: `This model can retreat and charge later in the same turn.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  shared: true,
+}
+const ExcessOfBladesEffect = {
+  name: `Excess of Blades`,
+  desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 1 nothing happens. On a 2-4 that unit suffers D3 mortal wounds. On a 5+ that unit suffers D6 mortal wounds.`,
+  when: [CHARGE_PHASE],
+  shared: true,
+}
+const getSoulscentEffect = (type?: string) => {
+  const name = type === `pungent` ? `Pungent Soulscent` : `Soulscent`
+  const roll = type === `pungent` ? `2+` : `4+`
+  return {
+    name: name,
+    desc: `Roll a D6 for each enemy unit within 1" of this model. On a ${roll} that enemy unit suffers D3 mortal wounds. In addition, for each ${roll} add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
+    when: [START_OF_COMBAT_PHASE],
+    shared: true,
+  }
+}
+const getSingleCasterMagicEffect = (spell: string) => {
+  return {
+    name: `Magic`,
+    desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and ${spell}.`,
+    when: [HERO_PHASE],
+    shared: true,
+  }
 }
 
 // Unit Names
@@ -144,11 +184,7 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       LitheAndSwiftEffect,
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Subvert.`,
-        when: [HERO_PHASE],
-      },
+      getSingleCasterMagicEffect(`Subvert`),
     ],
   },
   'Shalaxi Helbane': {
@@ -258,30 +294,14 @@ const Units = {
         when: [WOUND_ALLOCATION_PHASE],
       },
       LitheAndSwiftEffect,
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
-        when: [HERO_PHASE],
-      },
+      getSingleCasterMagicEffect(`Acquiescence`),
     ],
   },
   'Bladebringer, Herald on Hellflayer': {
     mandatory: {
       spells: [keyPicker(Spells, ['Acquiescence'])],
     },
-    effects: [
-      CrewAndSteedsEffect,
-      {
-        name: `Soulscent`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model. On a 4+ that enemy unit suffers D3 mortal wounds. In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [CrewAndSteedsEffect, getSoulscentEffect(), getSingleCasterMagicEffect(`Acquiescence`)],
   },
   'Bladebringer, Herald on Seeker Chariot': {
     mandatory: {
@@ -289,41 +309,22 @@ const Units = {
     },
     effects: [
       CrewAndSteedsEffect,
-      {
-        name: `Impossibly Swift`,
-        desc: `This model can retreat and charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      ImpossiblySwiftEffect,
+      getSingleCasterMagicEffect(`Acquiescence`),
       {
         name: `Mutilating Blades`,
         desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
-        when: [HERO_PHASE],
-      },
     ],
   },
   Hellflayer: {
-    effects: [
-      CrewAndSteedsEffect,
-      {
-        name: `Soulscent`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model. On a 4+ that enemy unit suffers D3 mortal wounds. In additional for each 4+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
+    effects: [CrewAndSteedsEffect, getSoulscentEffect()],
   },
   'Seeker Chariots': {
     effects: [
       CrewAndSteedsEffect,
-      {
-        name: `Impossibly Swift`,
-        desc: `This model can retreat and charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      ImpossiblySwiftEffect,
       {
         name: `Mutilating Blades`,
         desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 2+, that enemy unit suffers D3 mortal wounds. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate mortal wounds until after all of the models in the unit have moved.`,
@@ -337,37 +338,13 @@ const Units = {
     },
     effects: [
       CrewAndSteedsEffect,
-      {
-        name: `Excess of Blades`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 1 nothing happens. On a 2-4 that unit suffers D3 mortal wounds. On a 5+ that unit suffers D6 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Pungent Soulscent`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model. On a 2+ that enemy unit suffers D3 mortal wounds. In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Acquiescence.`,
-        when: [HERO_PHASE],
-      },
+      ExcessOfBladesEffect,
+      getSoulscentEffect('pungent'),
+      getSingleCasterMagicEffect(`Acquiescence`),
     ],
   },
   'Exalted Chariot': {
-    effects: [
-      CrewAndSteedsEffect,
-      {
-        name: `Excess of Blades`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 1 nothing happens. On a 2-4 that unit suffers D3 mortal wounds. On a 5+ that unit suffers D6 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Pungent Soulscent`,
-        desc: `Roll a D6 for each enemy unit within 1" of this model. On a 2+ that enemy unit suffers D3 mortal wounds. In additional for each 2+ add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
+    effects: [CrewAndSteedsEffect, ExcessOfBladesEffect, getSoulscentEffect('pungent')],
   },
   Fiends: {
     effects: [
@@ -483,15 +460,11 @@ const Units = {
       DarkTemptationsEffect,
       DelicatePrecisionEffect,
       SinistrousHandEffect,
+      KeeperOfSecretsMagicEffect,
       {
         name: `Soulfeaster Tendrils`,
         desc: `At the start of the combat phase, you can pick 1 enemy hero within 3" of this model and roll 3D6. If the roll is greater than that model's bravery characteristic, you gain D3 depravity points, and 1 is subtracted from hit rolls for attacks made by that hero until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
-        when: [HERO_PHASE],
       },
     ],
   },

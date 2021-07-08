@@ -18,31 +18,37 @@ const TuskerChargeEffect = {
   name: `Tusker Charge`,
   desc: `Add 1 to hit rolls and wound rolls for attacks made with this unit's Tusks and Hooves if this unit made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const SkullThumperEffect = {
   name: `Skull Thumper`,
   desc: `Add 2 to charge rolls for a unit while it includes any Skull Thumpers.`,
   when: [CHARGE_PHASE],
+  shared: true,
 }
 const BoarThumperEffect = {
   name: `Boar Thumper`,
   desc: `Add 2 to charge rolls for a unit while it includes any Boar Thumpers.`,
   when: [CHARGE_PHASE],
+  shared: true,
 }
 const BoneTotemBearerEffect = {
   name: `Bone Totem Bearer`,
   desc: `Add 1 to the Bravery characteristic of a unit while it includes any Bone Totem Bearers.`,
   when: [BATTLESHOCK_PHASE],
+  shared: true,
 }
 const SpiritOfGorkamorkaEffect = {
   name: `Spirit of Gorkamorka`,
   desc: `Add 1 to the Attacks characteristic of melee weapons used by this unit while it has 15 or more models.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const BoneShieldEffect = {
   name: `Bone Shield`,
   desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 
 const BonesplitterzUnits = {

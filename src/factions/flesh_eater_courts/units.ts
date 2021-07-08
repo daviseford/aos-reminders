@@ -14,16 +14,19 @@ const NobleBloodEffect = {
   name: `Noble Blood`,
   desc: `In your hero phase, you can heal 1 wound allocated to this unit.`,
   when: [HERO_PHASE],
+  shared: true,
 }
 const RoyalBloodEffect = {
   name: `Royal Blood`,
   desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
   when: [HERO_PHASE],
+  shared: true,
 }
 const ChosenOfTheKingEffect = {
   name: `Chosen of the King`,
   desc: `You can reroll hit rolls for attacks made by this unit while it is wholly within 18" of any friendly ABHORRANT.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 
 const Units = {

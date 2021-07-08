@@ -1,5 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import obr_rule_sources from 'factions/ossiarch_bonereapers/rule_sources'
+import { OBRWarmasterEffect } from 'factions/ossiarch_bonereapers/units'
 import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
@@ -26,51 +27,67 @@ const getDeathlyInvocation = (numUnits: number) => ({
     numUnits === 4 ? 18 : numUnits === 3 ? 12 : 6
   }" of this model. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you have picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
   when: [START_OF_HERO_PHASE],
+  shared: true,
+})
+const getFrightfulTouchEffect = (weapon: `Blades` | `Daggers`) => ({
+  name: `Frightful Touch`,
+  desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and ${weapon} is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+  when: [COMBAT_PHASE],
+  shared: true,
 })
 const ChaliceOfBloodEffect = {
   name: `Chalice of Blood`,
   desc: `If this model has a Chalice of Blood, then once per battle in your hero phase, you can heal D6 wounds that have been allocated to it.`,
   when: [HERO_PHASE],
+  shared: true,
 }
 const TheHungerEffect = {
   name: `The Hunger`,
   desc: `At the end of any combat phase in which this model slew any enemy models, you can heal 1 wound that has been allocated to this model.`,
   when: [END_OF_COMBAT_PHASE],
+  shared: true,
 }
 const FeasterOfSoulsEffect = {
   name: `Feaster of Souls`,
   desc: `At the end of any combat phase in which this unit slew any models, you can heal 2 wounds that have been allocated to him.`,
   when: [END_OF_COMBAT_PHASE],
+  shared: true,
 }
 const HeraldsOfTheAccursedOneEffect = {
   name: `Heralds of the Accursed One`,
   desc: `Subtract 1 from the Bravery characteristic of enemy units whilst they are within 6" of any MORGHASTS.`,
   when: [BATTLESHOCK_PHASE],
+  shared: true,
 }
 const StandardBearerEffect = {
   name: `Standard Bearer`,
   desc: `Models in this unit may be Standard Bearers. Subtract 1 from the Bravery characteristic of enemy units that are within 6" of any DEATH Standard Bearers.`,
   when: [BATTLESHOCK_PHASE],
+  shared: true,
 }
 const HornblowerEffect = {
   name: `Hornblower`,
   desc: `Models in this unit may be Hornblowers. A unit that includes any Hornblowers can always move up to 6" when it charges, unless its charge roll is higher.`,
   when: [CHARGE_PHASE],
+  shared: true,
 }
 const WailOfTheDamnedEffect = {
   name: `Wail of the Damned`,
   desc: `When making a Wail of the Damned attack, roll two dice for each enemy unit within the range shown on the damage table. If the total is higher than that unit's Bravery, it suffers D3 mortal wounds.`,
   when: [SHOOTING_PHASE],
+  shared: true,
 }
 const CryptSwordEffect = {
   name: `Crypt Sword`,
   desc: `Instead of attacking with his Goad or Lash in the combat phase, you may declare that a Corpsemaster with a Cryptsword will attempt to impale his victim's soul. If he does so, pick an enemy unit within 1" and roll a D6. On a 5+ the unit you picked suffers a mortal wound.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const CryptShieldsEffect = {
   name: `Crypt Shields`,
   desc: `Add 1 to save rolls for a unit carrying Crypt Shields against attacks that have a Rend characteristic of '-'.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 
 const Units = {
@@ -80,22 +97,13 @@ const Units = {
       spells: [keyPicker(spells, ['Hand of Dust', 'Soul Stealer'])],
     },
     effects: [
-      {
-        name: `Warmaster`,
-        desc: `If this unit is included in an Ossiarch Bonereapers army, it is treated as a general even if it is not the model picked to be the army's general.`,
-        when: [DURING_GAME],
-        rule_sources: [obr_rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021],
-      },
+      OBRWarmasterEffect,
+      getFrightfulTouchEffect(`Daggers`),
       {
         name: `The Staff of Power`,
         desc: `Add Alakanash's modifier (listed in the damage table) to casting, dispelling, and unbinding rolls for Nagash. In addition, this model can attempt to cast Arcane Bolt any number of times in the same hero phase, even if another Wizard has already attempted to cast the spell in that phase.`,
         when: [HERO_PHASE],
         rule_sources: [obr_rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021],
-      },
-      {
-        name: `Frightful Touch`,
-        desc: `Each time you make an unmodified hit roll of 6 for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
       },
       {
         name: `Morikhane`,
@@ -121,12 +129,8 @@ const Units = {
     },
     effects: [
       FeasterOfSoulsEffect,
-      {
-        name: `Warmaster`,
-        desc: `If this unit is included in an Ossiarch Bonereapers army, it is treated as a general even if it is not the model picked to be the army's general.`,
-        when: [DURING_GAME],
-        rule_sources: [obr_rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021],
-      },
+      OBRWarmasterEffect,
+      getFrightfulTouchEffect(`Daggers`),
       {
         name: `The Staff of Spirits`,
         desc: `Add Khenash-an's modifier to casting, dispelling, and unbinding rolls for Arkhan. In addition, he can attempt to cast Arcane Bolt and Mystic Shield any number of times in the same Hero Phase, even if another Wizard has already attempted to cast the spell in that phase.`,
@@ -137,11 +141,6 @@ const Units = {
         desc: `At the start of your hero phase, pick up to 4 different friendly SUMMONABLE units or friendly Ossiarch Bonereapers units wholly within 24" of Arkhan. You can heal 3 wounds that have been allocated to each unit you picked. If no wounds are currently allocated to a unit you picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than 3.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Frightful Touch`,
-        desc: `Each time you roll an unmodified hit roll of 6 for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the.`,
-        when: [COMBAT_PHASE],
-      },
     ],
   },
   'Mannfred, Mortarch of Night': {
@@ -151,6 +150,7 @@ const Units = {
     },
     effects: [
       FeasterOfSoulsEffect,
+      getFrightfulTouchEffect(`Daggers`),
       {
         name: `Armour of Templehof`,
         desc: `The first wound or mortal wound allocated to Mannfred each turn is negated.`,
@@ -166,11 +166,6 @@ const Units = {
         desc: `If Mannfred successfully cast any spells during your hero phase, you can add 1 to all hit and wound rolls for Gheistvor until your next hero phase.`,
         when: [HERO_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `Frightful Touch`,
-        desc: `Each time you roll a hit roll of 6+ for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
       getDeathlyInvocation(4),
       {
         name: `Magic`,
@@ -185,6 +180,7 @@ const Units = {
       spells: [keyPicker(spells, ['Dark Mist'])],
     },
     effects: [
+      getFrightfulTouchEffect(`Daggers`),
       {
         name: `Dagger of Jet`,
         desc: `If a model is allocated any wounds from attacks made using Akmet-har but is not slain, roll a D6 after Neferata has finished making all of her attacks. On a 6+ that model is slain.`,
@@ -194,11 +190,6 @@ const Units = {
         name: `Mortarch of Blood`,
         desc: `At the end of any combat phase in which Neferata slew any models, you can heal 2 wounds that have been allocated to her. If Neferata slew any enemy HERO models this turn, you may heal 1 additional wound allocated to her.`,
         when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Frightful Touch`,
-        desc: `Each time you make a hit roll of 6+ for the Spirits' Spectral Claws and Daggers, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
       },
       getDeathlyInvocation(4),
       {
@@ -375,11 +366,7 @@ const Units = {
       spells: [keyPicker(spells, ['Blood Siphon'])],
     },
     effects: [
-      {
-        name: `Frightful Touch`,
-        desc: `Each time you make a hit roll of 6+ for the Spectral Host's Ethereal Weapons, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
+      getFrightfulTouchEffect(`Blades`),
       {
         name: `A Fine Vintage`,
         desc: `If an enemy HERO is slain within 9" of this model, add 1 to the Attacks characteristic of any melee weapons used by friendly SOULBLIGHT units within 12" of this model until your next hero phase.`,
@@ -400,11 +387,7 @@ const Units = {
       spells: [keyPicker(spells, ['Beguile'])],
     },
     effects: [
-      {
-        name: `Frightful Touch`,
-        desc: `Each time you make a hit roll of 6+ for the Spectral Host's Ethereal Weapons, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
+      getFrightfulTouchEffect(`Blades`),
       {
         name: `Scrying Pool`,
         desc: `Once per game, you can reroll a single dice roll of your choice for this model.`,
@@ -427,11 +410,7 @@ const Units = {
   'Mortis Engine': {
     effects: [
       WailOfTheDamnedEffect,
-      {
-        name: `Frightful Touch`,
-        desc: `Each time you make a hit roll of 6+ for the Spectral Host's Ethereal Weapons, that attack inflicts 1 mortal wound instead of the normal damage (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
+      getFrightfulTouchEffect(`Blades`),
       {
         name: `The Reliquary`,
         desc: `Once per battle, in your hero phase, you can declare that the Corpsemaster will unleash the energies stored in the reliquary. When you do so, roll four dice and add the scores together to determine the range of this ability. Each unit within range is struck by a wave of necromantic force. DEATH units that are struck heal D3 wounds that have been allocated to them, while any other unit struck suffers D3 mortal wounds.`,

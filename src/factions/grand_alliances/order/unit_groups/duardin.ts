@@ -16,6 +16,7 @@ const HornblowerEffect = {
   name: `Hornblower`,
   desc: `Models in this unit can be Hornblowers. When a unit containing any Hornblowers runs, they can 'Sound the Advance'. If they do so, do not roll a D6 to see how far the unit runs; instead, they can move up to an extra 4".`,
   when: [MOVEMENT_PHASE],
+  shared: true,
 }
 
 export const LegacyDuardinUnits = {
@@ -78,6 +79,7 @@ export const LegacyDuardinUnits = {
         when: [DURING_GAME],
       },
       HornblowerEffect,
+      GenericEffects.ClanBannerEffect,
       {
         name: `Standard Bearer`,
         desc: `Models in this unit may be Standard Bearers. Standard Bearers can carry either a Runic Icon or a Clan Banner.`,
@@ -97,11 +99,6 @@ export const LegacyDuardinUnits = {
         name: `Runic Icon`,
         desc: `Roll a D6 if a spell affects a unit with any Runic Icons. On a roll of a 5+1 that spell has no affect on the unit (but it will affect other units normally).`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Clan Banner`,
-        desc: `If you fail a battleshock test for a unit that has any Clan Banners, halve the number of models that flee (rounding up).`,
-        when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Steam Harpoon`,

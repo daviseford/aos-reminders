@@ -121,6 +121,7 @@ export type TEffects = {
   desc: string
   when: TTurnWhen[]
   rule_sources?: TRuleSource[]
+  shared?: boolean
 } & {
   [prop in TEntryProperties]?: boolean
 }

@@ -13,6 +13,20 @@ import {
 import CommandAbilities from './command_abilities'
 import Spells from './spells'
 
+const HornblowerEffect = {
+  name: `Hornblower`,
+  desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
+  when: [MOVEMENT_PHASE],
+  shared: true,
+}
+
+const StandardBearerEffect = {
+  name: `Standard Bearer`,
+  desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
+  when: [BATTLESHOCK_PHASE],
+  shared: true,
+}
+
 const Units = {
   'Nomad Prince': {
     mandatory: {
@@ -96,28 +110,20 @@ const Units = {
   },
   'Sisters of the Thorn': {
     mandatory: {
-      spells: [keyPicker(Spells, ['Shield of Thorns'])],
+      spells: [keyPicker(Spells, ['Armour of Thorns'])],
     },
     effects: [
+      HornblowerEffect,
+      StandardBearerEffect,
       {
         name: `Magic`,
-        desc: `A Spellweaver is a wizard. A Spellweaver can attempt to cast one spell in each of your own hero phases, and attempt to unbind one spell in each enemy hero phase. A Spellweaver knows the Arcane Bolt, Mystic Shield and Blessing of Life spells.`,
+        desc: `This unit is a wizard while it has 2 or more models. It can attempt to cast 1 spell in your hero phases and attempt to unbind 1 spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Armour of Thorns spells.`,
         when: [HERO_PHASE],
       },
       {
         name: `Handmaiden Of The Thorn`,
         desc: `The leader of this unit is the Handmaiden of the Thorn. A Handmaiden of the Thorn makes 2 attacks with her Deepwood Coven Staff rather than 1.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
-        when: [MOVEMENT_PHASE],
       },
     ],
   },
@@ -147,6 +153,7 @@ const Units = {
   },
   'Glade Guard': {
     effects: [
+      HornblowerEffect,
       {
         name: `Peerless Archery`,
         desc: `You can add 1 to all hit rolls made for a unit of Glade Guard in the Shooting phase if it has 20 or more models and there are no enemy models within 3".`,
@@ -167,15 +174,12 @@ const Units = {
         desc: `If the unit includes any Pennant Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Hornblower`,
-        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
-        when: [MOVEMENT_PHASE],
-      },
     ],
   },
   'Eternal Guard': {
     effects: [
+      HornblowerEffect,
+      StandardBearerEffect,
       {
         name: `Fortress of Boughs`,
         desc: `In your hero phase, this unit can form a fortress of boughs. If it does so, it cannot move until your next hero phase, but until then you can add 1 to all hit rolls, wound rolls and save rolls made for models in this unit.`,
@@ -191,34 +195,16 @@ const Units = {
         desc: `The leader of this unit is the Eternal Warden. An Eternal Warden makes 2 attacks rather than 1.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
-        when: [MOVEMENT_PHASE],
-      },
     ],
   },
   'Wild Riders': {
     effects: [
+      HornblowerEffect,
+      StandardBearerEffect,
       {
         name: `Wild Hunter`,
         desc: `The leader of this unit is a Wild Hunter. A Wild Hunter makes 3 attacks rather than 2 with his Hunting Spear.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
-        when: [MOVEMENT_PHASE],
       },
       {
         name: `Unbound Fury`,
@@ -229,6 +215,8 @@ const Units = {
   },
   'Wildwood Rangers': {
     effects: [
+      HornblowerEffect,
+      StandardBearerEffect,
       {
         name: `Guardians of the Kindreds`,
         desc: `Rangers' Draichs inflict D3 Damage on Monsters instead of 1.`,
@@ -238,16 +226,6 @@ const Units = {
         name: `Wildwood Warden`,
         desc: `The leader of this unit is a Wildwood Warden. A Wildwood Warden makes 3 attacks rather than 2.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Standard Bearer`,
-        desc: `If the unit includes any Standard Bearers, add 1 to the Bravery of its models. Add 2 their Bravery instead if the unit is in cover.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `You can reroll the dice when determining how far this unit can run if it includes any Hornblowers.`,
-        when: [MOVEMENT_PHASE],
       },
     ],
   },

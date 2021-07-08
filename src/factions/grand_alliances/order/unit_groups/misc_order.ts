@@ -18,6 +18,7 @@ const DeadlyVenomEffect = {
   name: `Deadly Venom`,
   desc: `Each time you roll a hit roll of 6+ for this unit, that attack inflicts 1 mortal wound instead of normal damage (do not make a wound or save roll).`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 
 export const LegacyOrderUnits = {
