@@ -8,10 +8,11 @@ import {
   RealmscapeFeatures,
 } from 'generic_rules'
 // Meta
-import { DAUGHTERS_OF_KHAINE, ORRUK_WARCLANS, SYLVANETH } from 'meta/factions'
+import { CITIES_OF_SIGMAR, DAUGHTERS_OF_KHAINE, ORRUK_WARCLANS, SYLVANETH } from 'meta/factions'
 // Types
 import { IArmy } from 'types/army'
 import { TTurnAction } from 'types/data'
+import { END_OF_GAME, HERO_PHASE } from 'types/phases'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { processConditions, processReminders } from 'utils/processReminders'
 import { getRealmscape } from 'utils/realmUtils'
@@ -148,7 +149,7 @@ describe('processReminders', () => {
     const reminders = processConditions(army.Game, selections, {})
 
     const runeOfKhaineArtifact = reminders.WOUND_ALLOCATION.find(
-      x => x.name === 'Rune of Khaine' && x.artifact === true
+      x => x.name === 'Rune of Khaine' && x.artifact === true // This is added by the Hag Queens `mandatory` section, even though it's not in initial selections
     )
     const runeOfKhainePrayer = reminders.DURING_COMBAT_PHASE.find(
       x => x.name === 'Rune of Khaine' && x.prayer === true
@@ -157,8 +158,41 @@ describe('processReminders', () => {
       x => x.name === 'Concealment and Stealth' && x.condition[0] === 'Khailebron'
     )
 
-    expect(runeOfKhaineArtifact).toBeUndefined()
+    expect(runeOfKhaineArtifact).toBeDefined()
     expect(runeOfKhainePrayer).toBeDefined()
     expect(khailebroneEffect).toBeDefined()
+  })
+
+  it('should work with duplicate rule names', () => {
+    // https://github.com/daviseford/aos-reminders/issues/1348
+    const selections = {
+      artifacts: [],
+      battalions: [],
+      command_abilities: ['Hold the Line'],
+      command_traits: [],
+      core_rules: [],
+      endless_spells: [],
+      flavors: [],
+      grand_strategies: ['Hold the Line'],
+      mount_traits: [],
+      prayers: [],
+      scenery: [],
+      spells: [],
+      triumphs: [],
+      units: ['Freeguild General'],
+    }
+
+    const army = getArmy(CITIES_OF_SIGMAR, CITIES_OF_SIGMAR, null, null) as IArmy
+    const reminders = processConditions(army.Game, selections, {})
+
+    const commandAbility = reminders[HERO_PHASE].find(
+      x => x.name === 'Hold the Line' && x.command_ability === true
+    )
+    const grandStrategy = reminders[END_OF_GAME].find(
+      x => x.name === 'Hold the Line' && x.grand_strategy === true
+    )
+
+    expect(commandAbility).toBeDefined()
+    expect(grandStrategy).toBeDefined()
   })
 })
