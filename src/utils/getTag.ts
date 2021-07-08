@@ -1,4 +1,6 @@
-import { entryKeyToSelectionsKey, TEntry } from 'types/data'
+import { entryKeyToSelectionsKey, TEntry, TEntryProperties, TTurnAction } from 'types/data'
+
+const isSelectionKey = (val: string): val is TEntryProperties => !!val && !!entryKeyToSelectionsKey[val]
 
 /**
  * This utility helps extract a given tag from an entry
@@ -14,11 +16,12 @@ import { entryKeyToSelectionsKey, TEntry } from 'types/data'
  * @param entry
  * @returns string
  */
-export const getTagFromEntry = (entry: TEntry): string => {
+export const getTagFromEntry = (entry: TEntry | TTurnAction): TEntryProperties | undefined => {
   let tag = ''
   Object.keys(entryKeyToSelectionsKey).forEach(k => {
     if (tag) return
     if (entry?.[k] === true) tag = k
   })
-  return tag
+
+  return isSelectionKey(tag) ? tag : undefined
 }

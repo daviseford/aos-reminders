@@ -70,9 +70,12 @@ export const getCollection = (army: TInitialArmy): TCollection => {
 
       mergedEntries.forEach(_entry => {
         const { effects } = _entry as TEntry
+        const _tag = getTagFromEntry(_entry)
         const upperSlice = isString(slice)
           ? lowerToUpperLookup[slice]
-          : lowerToUpperLookup[entryKeyToSelectionsKey[getTagFromEntry(_entry)]]
+          : !!_tag
+          ? lowerToUpperLookup[entryKeyToSelectionsKey[_tag]]
+          : undefined
 
         effects.forEach(effect => checkEffects(effect, Collection, upperSlice))
       })

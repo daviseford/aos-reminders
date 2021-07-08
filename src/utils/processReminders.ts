@@ -5,11 +5,13 @@ import { TSupportedFaction } from 'meta/factions'
 import { getFactionFromList } from 'meta/faction_list'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { IArmy, TAllyArmies } from 'types/army'
-import { IReminder, selectionsKeyToEntryKey, TEffects, TTurnAction } from 'types/data'
+import { IReminder, selectionsKeyToEntryKey, TEffects, TEntryProperties, TTurnAction } from 'types/data'
 import { IAllySelections, TSelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { hashReminder } from 'utils/reminderUtils'
 import { getActionTitle, titleCase } from 'utils/textUtils'
+import { getTagFromEntry } from './getTag'
+import { mapListToDict } from './mapListToDict'
 
 type TProcessReminders = (
   army: IArmy,
@@ -128,21 +130,28 @@ export const processConditions = (
   selections: TSelections | IAllySelections,
   startVal = {}
 ) => {
-  const conditions: string[] = flatten(Object.values(selections))
+  const conditionNames = mapListToDict(flatten(Object.values(selections)))
 
-  const conditionsByTag = Object.entries(selections).reduce((a, [key, value]) => {
-    value.forEach(v => {
-      a[v] = selectionsKeyToEntryKey[key]
+  const conditionsWithMetadata = Object.entries(selections).reduce((a, [key, value]) => {
+    value.forEach(name => {
+      a.push({
+        name,
+        tag: selectionsKeyToEntryKey[key],
+      })
     })
     return a
-  }, {})
+  }, [] as { tag: TEntryProperties; name: string }[])
 
   const reminders = Object.keys(game).reduce((accum: Record<string, TTurnAction[]>, when) => {
     if (!game[when].length) return accum
 
     game[when].forEach((action: TTurnAction) => {
-      if (conditions.includes(action.condition[0])) {
-        const tag = conditionsByTag[action.condition[0]]
+      // Find a matching name/tag
+      if (conditionNames[action.condition[0]]) {
+        const tag = conditionsWithMetadata.find(
+          x => x.name === action.name && x.tag === getTagFromEntry(action)
+        )?.tag
+
         // Check for proper tag match (e.g spell, prayer, etc)
         if (!tag || action[tag] === true) {
           accum[when] = accum[when] ? processCondition(accum[when], action) : [action]
