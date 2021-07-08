@@ -137,11 +137,13 @@ const BarbarianHordesEffect = {
   name: `Barbarian Hordes`,
   desc: `Add 1 to the hit rolls of this unit while it has at least 10 models. Improve the rend characteristic of this unit's melee weapons by 1 while it has at least 20 models.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const DarkwoodShieldEffect = {
   name: `Darkwood Shield`,
   desc: `Add 1 to the save rolls for attacks that target this unit.`,
   when: [SAVES_PHASE],
+  shared: true,
 }
 
 // Chariot specific effects.
@@ -153,6 +155,7 @@ const ExaltedCharioteerEffect = {
     rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
     rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
   ],
+  shared: true,
 }
 
 // Chaos Mark Effects.

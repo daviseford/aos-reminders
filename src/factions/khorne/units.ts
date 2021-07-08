@@ -25,6 +25,96 @@ const MurderousChargeEffect = {
   name: `Murderous Charge`,
   desc: `After a model in this unit makes a charge move, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 2+ that enemy unit suffers 1 mortal wound. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model completes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have moved. If this unit has 6 or more models when it makes a charge move, change the mortal wounds inflicted by this ability from 1 to D3.`,
   when: [CHARGE_PHASE],
+  shared: true,
+}
+
+const ReaverEffects = [
+  {
+    name: `Frenzied Devotion`,
+    desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while this unit is wholly within 16" of any friendly KHORNE TOTEMS.`,
+    when: [COMBAT_PHASE],
+    shared: true,
+  },
+  {
+    name: `Reaver Blades`,
+    desc: `You can reroll hit rolls of 1 for attacks made with Reaver Blades.`,
+    when: [COMBAT_PHASE],
+    shared: true,
+  },
+]
+
+const WarriorEffects = [
+  {
+    name: `Gorefists`,
+    desc: `If an unmodified save roll for an attack made with a melee weapon that targets a unit that includes any models armed with a Goreaxe and Gorefist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+    when: [SAVES_PHASE],
+    shared: true,
+  },
+  {
+    name: `No Respite`,
+    desc: `If a model from this unit is slain in the combat phase, before that model is removed from play, that model can make a pile-in move and then attack with all of the melee weapons it is armed with.`,
+    when: [COMBAT_PHASE],
+    shared: true,
+  },
+]
+
+const BraveryIconBearerEffect = {
+  name: `Icon Bearer`,
+  desc: `Add 1 to the Bravery characteristic of this unit while it includes any Icon Bearers.`,
+  when: [BATTLESHOCK_PHASE],
+  shared: true,
+}
+
+const BattleshockHornblowerEffect = {
+  name: `Hornblower`,
+  desc: `While this unit includes any Hornblowers, if the unmodified roll for a battleshock test for an enemy unit that is within 8" of this unit is 1, that battleshock test must be rerolled.`,
+  when: [BATTLESHOCK_PHASE],
+  shared: true,
+}
+
+const CollarOfKhorneEffects = [
+  {
+    name: `Collar of Khorne`,
+    desc: `This unit can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD.`,
+    when: [HERO_PHASE],
+    shared: true,
+  },
+  {
+    name: `Collar of Khorne`,
+    desc: `This unit can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
+    when: [START_OF_HERO_PHASE],
+    shared: true,
+  },
+]
+
+const UnflaggingHunterEffect = {
+  name: `Unflagging Hunter`,
+  desc: `You can reroll charge rolls for this model.`,
+  when: [CHARGE_PHASE],
+  shared: true,
+}
+
+const SlaughterousChargeEffect = {
+  name: `Slaughterous Charge`,
+  desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of it and roll a D6. On a 2+ that enemy unit suffers D3 mortal wounds.`,
+  when: [CHARGE_PHASE],
+  shared: true,
+}
+
+const getDecapitatingBlowEffect = (
+  weapon: `a Hellblade` | `a Blade of Blood` | `Hellblades` | `a Blade of Blood or Hellblades`
+) => ({
+  name: `Decapitating Blow`,
+  desc: `If the unmodified hit roll for an attack made with ${weapon} is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+})
+
+const DrawnInForTheKillEffect = {
+  name: `Drawn in for the Kill`,
+  desc: `At the start of the enemy movement phase, pick 1 enemy unit within 3" of this model. That unit cannot retreat in that phase.`,
+  when: [START_OF_MOVEMENT_PHASE],
+  shared: true,
 }
 
 const Units = {
@@ -58,11 +148,7 @@ const Units = {
       command_abilities: [keyPicker(CommandAbilities, ['Rejoice in the Slaughter'])],
     },
     effects: [
-      {
-        name: `Drawn in for the Kill`,
-        desc: `At the start of the enemy movement phase, pick 1 enemy unit within 3" of this model. That unit cannot retreat in that phase.`,
-        when: [START_OF_MOVEMENT_PHASE],
-      },
+      DrawnInForTheKillEffect,
       {
         name: `The Land Rebels`,
         desc: `At the start of your hero phase, roll 1 dice for each enemy unit wholly within 8" of any units with this ability. On a 5+ that unit suffers 1 mortal wound.`,
@@ -139,11 +225,7 @@ const Units = {
   },
   Karanak: {
     effects: [
-      {
-        name: `Unflagging Hunter`,
-        desc: `You can reroll charge rolls for this model.`,
-        when: [CHARGE_PHASE],
-      },
+      UnflaggingHunterEffect,
       {
         name: `Brass Collar of Bloody Vengeance`,
         desc: `This model can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD. If this model successfully unbinds a spell, the caster suffers D3 mortal wounds.`,
@@ -187,49 +269,29 @@ const Units = {
   },
   'Skullmaster, Herald of Khorne': {
     effects: [
+      SlaughterousChargeEffect,
+      getDecapitatingBlowEffect(`a Blade of Blood`),
       {
         name: `Slaughter and Ruin`,
         desc: `You can reroll hit rolls for attacks made by this model if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Decapitating Blow`,
-        desc: `If the unmodified hit roll for an attack made with a Blade of Blood is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Slaughterous Charge`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of it and roll a D6. On a 2+ that enemy unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
     ],
   },
   'Bloodmaster, Herald of Khorne': {
     effects: [
+      getDecapitatingBlowEffect(`a Blade of Blood`),
       {
         name: `The Blood Must Flow`,
         desc: `In the combat phase, after this unit has fought in that combat phase for the first time, you can pick 1 friendly BLOODLETTER unit that is wholly within 12" of this model and is within 3" of an enemy unit, and which has not yet fought in that combat phase. The unit you pick must fight immediately, instead of being picked to fight later in that combat phase.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Decapitating Blow`,
-        desc: `If the unmodified hit roll for an attack made with a Blade of Blood is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
   Bloodletters: {
     effects: [
-      {
-        name: `Hornblower`,
-        desc: `While this unit includes any Hornblowers, if the unmodified roll for a battleshock test for an enemy unit that is within 8" of this unit is 1, that battleshock test must be rerolled.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Decapitating Blow`,
-        desc: `If the unmodified hit roll for an attack made with a Hellblade is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-      },
+      BattleshockHornblowerEffect,
+      getDecapitatingBlowEffect(`a Hellblade`),
       {
         name: `Gore-drenched Icon`,
         desc: `If an unmodified battleshock roll of 1 is made for this unit while it includes any Gore-drenched Icon Bearers, you can add D6 models to this unit, and no models from this unit will flee in that phase.`,
@@ -249,40 +311,29 @@ const Units = {
   },
   Bloodcrushers: {
     effects: [
+      BattleshockHornblowerEffect,
+      getDecapitatingBlowEffect(`a Hellblade`),
       {
         name: `Icon Bearer`,
         desc: `If an unmodified battleshock roll of 1 is made for this unit while it includes any Icon Bearers, you can add 1 model to this unit, and no models from this unit will flee in that phase.`,
         when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Hornblower`,
-        desc: `While this unit includes any Hornblowers, if the unmodified roll for a battleshock test for an enemy unit that is within 8" of this unit is 1, that battleshock test must be rerolled.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Decapitating Blow`,
-        desc: `If the unmodified hit roll for an attack made with a Hellblade is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
       },
       MurderousChargeEffect,
     ],
   },
   'Herald of Khorne on Blood Throne': {
     effects: [
+      getDecapitatingBlowEffect(`a Blade of Blood or Hellblades`),
       {
         name: `Gorefeast`,
         desc: `If any wounds are inflicted by this model's Gnashing Maw and not negated, you can heal up to D3 wounds allocated to this model.`,
         when: [END_OF_COMBAT_PHASE],
       },
-      {
-        name: `Decapitating Blow`,
-        desc: `If the unmodified hit roll for an attack made with a Blade of Blood or Hellblades is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-      },
     ],
   },
   'Skull Cannons': {
     effects: [
+      getDecapitatingBlowEffect(`Hellblades`),
       {
         name: `Burning Skulls`,
         desc: `Add 1 to hit rolls for attacks made with this unit's Burning Skulls if the target unit contains 10 or more models.`,
@@ -293,11 +344,6 @@ const Units = {
         desc: `After this unit attacks for the first time in each combat phase, if any enemy models were slain by this unit's attacks, this unit can attack with all of the missile weapons it is armed with.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Decapitating Blow`,
-        desc: `If the unmodified hit roll for an attack made with Hellblades is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-      },
     ],
   },
   'Exalted Greater Daemon of Khorne': {
@@ -305,11 +351,7 @@ const Units = {
       command_abilities: [keyPicker(CommandAbilities, ['Rejoice in Exalted Slaughter'])],
     },
     effects: [
-      {
-        name: `Drawn in for the Kill`,
-        desc: `At the start of the enemy movement phase, pick 1 enemy unit within 3" of this model. That unit cannot retreat in that phase.`,
-        when: [START_OF_MOVEMENT_PHASE],
-      },
+      DrawnInForTheKillEffect,
       {
         name: `The Land Rebels`,
         desc: `At the start of your hero phase, roll a D6 for each enemy unit within 8" of any friendly models with this ability. On a 5+ that enemy unit suffers 1 mortal wound.`,
@@ -419,16 +461,7 @@ const Units = {
       command_abilities: [keyPicker(CommandAbilities, ['Gorelord'])],
     },
     effects: [
-      {
-        name: `Collar of Khorne`,
-        desc: `This model can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Collar of Khorne`,
-        desc: `This model can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
-        when: [START_OF_HERO_PHASE],
-      },
+      ...CollarOfKhorneEffects,
       {
         name: `Reality-splitting Axe`,
         desc: `At the end of any phase, if any wounds inflicted by the Axe of Khorne in that phase were allocated to an enemy model and not negated, and that enemy model has not been slain, roll a D6. On a 5+ that enemy model is slain.`,
@@ -455,15 +488,11 @@ const Units = {
       command_abilities: [keyPicker(CommandAbilities, ['Blood Stampede'])],
     },
     effects: [
+      SlaughterousChargeEffect,
       {
         name: `Brass-clad Shield`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to this model that was inflicted by a spell. On a 5+ that wound or mortal wound is negated.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Slaughterous Charge`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of it and roll a D6. On a 2+ that enemy unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
       },
       {
         name: `Daemonic Axe`,
@@ -563,54 +592,29 @@ const Units = {
   },
   'Blood Warriors': {
     effects: [
-      {
-        name: `Icon Bearer`,
-        desc: `Add 1 to the Bravery characteristic of this unit while it includes any Icon Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `No Respite`,
-        desc: `If a model from this unit is slain in the combat phase, before that model is removed from play, that model can make a pile-in move and then attack with all of the melee weapons it is armed with.`,
-        when: [COMBAT_PHASE],
-      },
+      ...WarriorEffects,
+      BraveryIconBearerEffect,
       {
         name: `Goreaxes`,
         desc: `You can reroll hit rolls of 1 for attacks made with a pair of Goreaxes.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Gorefists`,
-        desc: `If an unmodified save roll for an attack made with a melee weapon that targets a unit that includes any models armed with a Goreaxe and Gorefist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [SAVES_PHASE],
-      },
     ],
   },
   Bloodreavers: {
     effects: [
-      {
-        name: `Icon Bearer`,
-        desc: `Add 1 to the Bravery characteristic of this unit while it includes any Icon Bearers.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      ...ReaverEffects,
+      BraveryIconBearerEffect,
       {
         name: `Hornblower`,
         desc: `Add 1 to run and charge rolls for this unit while it includes any Hornblowers.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
-      {
-        name: `Frenzied Devotion`,
-        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while this unit is wholly within 16" of any friendly KHORNE TOTEMS.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Reaver Blades`,
-        desc: `You can reroll hit rolls of 1 for attacks made with Reaver Blades.`,
-        when: [COMBAT_PHASE],
-      },
     ],
   },
   "Garrek's Reavers": {
     effects: [
+      ...ReaverEffects,
       {
         name: `Garrek Gorebeard`,
         desc: `If the unmodified hit roll for an attack made with Garrek Gorebeard's Blooddrinker Axe is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
@@ -621,28 +625,14 @@ const Units = {
         desc: `Do not take a battleshock test for this unit if any enemy models were slain by attacks made by this unit's Garrek Gorebeard earlier in the same turn.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Frenzied Devotion`,
-        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while this unit is wholly within 16" of any friendly KHORNE TOTEMS.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Reaver Blades`,
-        desc: `You can reroll hit rolls of 1 for attacks made with Reaver Blades.`,
-        when: [COMBAT_PHASE],
-      },
     ],
   },
   "Magore's Fiends": {
     effects: [
+      ...WarriorEffects,
       {
         name: `Magore Redhand`,
         desc: `You can reroll hit rolls for attacks made by this unit that target STORMCAST ETERNAL units while this unit includes Magore Redhand.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `No Respite`,
-        desc: `If a model from this unit is slain in the combat phase, before that model is removed from play, that model can make a pile-in move and then attack with all of the melee weapons it is armed with.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -650,31 +640,10 @@ const Units = {
         desc: `You can reroll charge rolls for this unit while it is wholly within 8" of a friendly RIPTOOTH model.`,
         when: [CHARGE_PHASE],
       },
-      {
-        name: `Gorefists`,
-        desc: `If an unmodified save roll for an attack made with a melee weapon that targets a unit that includes any models armed with a Goreaxe and Gorefist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [SAVES_PHASE],
-      },
     ],
   },
   Riptooth: {
-    effects: [
-      {
-        name: `Collar of Khorne`,
-        desc: `This unit can attempt to unbind one spell in the enemy hero phase in the same manner as a WIZARD.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Collar of Khorne`,
-        desc: `This unit can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Unflagging Hunter`,
-        desc: `You can reroll charge rolls for this model.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
+    effects: [...CollarOfKhorneEffects, UnflaggingHunterEffect],
   },
   Wrathmongers: {
     effects: [
