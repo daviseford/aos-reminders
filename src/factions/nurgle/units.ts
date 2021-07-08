@@ -32,6 +32,7 @@ const baseSorcerer = {
       name: `Blessed with Vitality`,
       desc: `Roll a D6 each time this model successfully casts a spell and it is not unbound. On a 4+ you can heal 1 wound allocated to this model.`,
       when: [HERO_PHASE],
+      shared: true,
     },
   ],
 }
@@ -70,6 +71,13 @@ const BloatedFleshEffect = {
   name: `Bloated Flesh`,
   desc: `Roll a D6 each time you allocate a mortal wound to a model in this unit. On a 4+, that mortal wound is negated.`,
   when: [WOUND_ALLOCATION_PHASE],
+  shared: true,
+}
+const RotEatersEffect = {
+  name: `Rot-eaters`,
+  desc: `If the unmodified hit roll for an attack made with this unit's Yawning Maw is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+  when: [COMBAT_PHASE],
+  shared: true,
 }
 
 const Units = {
@@ -668,18 +676,12 @@ const Units = {
     ],
   },
   'Daemon Plague Toads of Nurgle': {
-    effects: [
-      BloatedFleshEffect,
-      {
-        name: `Rot-eaters`,
-        desc: `If the unmodified hit roll for an attack made with this unit's Yawning Maw is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [BloatedFleshEffect, RotEatersEffect],
   },
   'Daemon Pox Riders of Nurgle': {
     effects: [
       BloatedFleshEffect,
+      RotEatersEffect,
       {
         name: `Cloud of Flies`,
         desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this unit.`,
@@ -689,11 +691,6 @@ const Units = {
         name: `Locus of Fecundity`,
         desc: `You can reroll save rolls of 1 for attacks that target this unit while this unit is wholly within 14" of a friendly Nurgle Hero.`,
         when: [SAVES_PHASE],
-      },
-      {
-        name: `Rot-eaters`,
-        desc: `If the unmodified hit roll for an attack made with this unit's Yawning Maw is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [COMBAT_PHASE],
       },
     ],
   },

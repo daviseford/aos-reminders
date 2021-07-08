@@ -160,30 +160,35 @@ const ChaosMarkAll = {
   name: `Mark of Chaos (${MARK_KHORNE}, ${MARK_NURGLE}, ${MARK_SLAANESH}, ${MARK_TZEENTCH}, ${MARK_UNDIVIDED})`,
   desc: `This unit either has or must take any Mark of Chaos during list construction.`,
   when: [DURING_SETUP],
+  shared: true,
 }
 
 const ChaosMarkGod = {
   name: `Mark of Chaos (${MARK_KHORNE}, ${MARK_NURGLE}, ${MARK_SLAANESH}, ${MARK_TZEENTCH})`,
   desc: `This unit must take any one of the following Marks of Chaos during list construction: Khorne, Nurgle, Slaanesh, or Tzeentch.`,
   when: [DURING_SETUP],
+  shared: true,
 }
 
 const ChaosMarkSorcerer = {
   name: `Mark of Chaos (${MARK_NURGLE}, ${MARK_SLAANESH}, ${MARK_TZEENTCH}, ${MARK_UNDIVIDED})`,
   desc: `This unit must take any one of the following Mark of Chaos during list construction: Nurgle, Slaanesh, Tzeentch, or Undivided.`,
   when: [DURING_SETUP],
+  shared: true,
 }
 
 const ChaosMarkKhorne = {
   name: `Mark of Chaos (${MARK_KHORNE})`,
   desc: `This unit must take the Khorne Mark of Chaos during list construction.`,
   when: [DURING_SETUP],
+  shared: true,
 }
 
 const ChaosMarkTzeentch = {
   name: `Mark of Chaos (${MARK_TZEENTCH})`,
   desc: `This unit must take the Tzeentch Mark of Chaos during list construction.`,
   when: [DURING_SETUP],
+  shared: true,
 }
 
 const Units = {

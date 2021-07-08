@@ -26,16 +26,19 @@ const getDeathlyInvocation = (numUnits: number) => ({
     numUnits === 4 ? 18 : numUnits === 3 ? 12 : 6
   }" of this model. You can heal D3 wounds that have been allocated to each unit you picked (roll separately for each unit). If no wounds are currently allocated to a unit you have picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D3.`,
   when: [START_OF_HERO_PHASE],
+  shared: true,
 })
 const ChaliceOfBloodEffect = {
   name: `Chalice of Blood`,
   desc: `If this model has a Chalice of Blood, then once per battle in your hero phase, you can heal D6 wounds that have been allocated to it.`,
   when: [HERO_PHASE],
+  shared: true,
 }
 const TheHungerEffect = {
   name: `The Hunger`,
   desc: `At the end of any combat phase in which this model slew any enemy models, you can heal 1 wound that has been allocated to this model.`,
   when: [END_OF_COMBAT_PHASE],
+  shared: true,
 }
 const FeasterOfSoulsEffect = {
   name: `Feaster of Souls`,

@@ -39,12 +39,14 @@ const getSunmetalWeaponsEffect = (weapon: string) => ({
   name: `Sunmetal Weapons`,
   desc: `If the unmodified hit roll for an attack made with a ${weapon} is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
   when: [COMBAT_PHASE],
+  shared: true,
 })
 
 const getVanariWizardsEffect = (minimumModelCountToBeWizard: number) => ({
   name: `Magic`,
   desc: `This unit is a WIZARD while it has ${minimumModelCountToBeWizard} or more models. They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. They know the Power of Hysh spell.`,
   when: [HERO_PHASE],
+  shared: true,
 })
 
 const alarithSpiritFreeCommandAbilityEffect = (effectName: string, effectRange: number) => ({
@@ -58,35 +60,41 @@ const StandardBearerEffect = {
   name: `Standard Bearer`,
   desc: `You can reroll battleshock tests for units that include any Standard Bearers.`,
   when: [BATTLESHOCK_PHASE],
+  shared: true,
 }
 
 const AllButImmovableEffect = {
   name: `All but Immovable`,
   desc: `If this model doesnt not make a charge move in your charge phase, add 1 to the Attacks characteristic of this model's melee weapons until your next movement phase.`,
   when: [CHARGE_PHASE, COMBAT_PHASE],
+  shared: true,
 }
 
 const StonemageSymbiosisEffect = {
   name: `Stonemage Symbiosis`,
   desc: `When looking at this model's damage table, if it is within 12" of a friendly STONEMAGE, it is treated as if it has suffered 0 wounds.`,
   when: [DURING_GAME],
+  shared: true,
 }
 
 const CrushingBlowEffect = {
   name: `Crushing Blow`,
   desc: `Unmodified hit rolls of 6 with Stone Mallets add 1 to the damage inflicted if the attack is successful.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 
 const PurestAetherquartzHitRollEffect = {
   name: `Purest Aetherquartz`,
   desc: `Subtract 1 for hit rolls that target this unit. If this unit uses its last Aetherquartz, it can no longer use this ability.`,
   when: [COMBAT_PHASE, SHOOTING_PHASE],
+  shared: true,
 }
 const PurestAetherquartzCastingEffect = {
   name: `Purest Aetherquartz`,
   desc: `Add 1 to the casting roll when attempting to cast Greater Power of Hysh. If this unit uses its last Aetherquartz, it can no longer use this ability.`,
   when: [COMBAT_PHASE, SHOOTING_PHASE],
+  shared: true,
 }
 
 const IntoTheGaleOverSaveEffect = {
@@ -94,18 +102,21 @@ const IntoTheGaleOverSaveEffect = {
   desc: `Roll a dice each time you allocate a wound or mortal wound to this unit, on a 5+ that wound or mortal wound is ignored.`,
   when: [WOUND_ALLOCATION_PHASE],
   rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
+  shared: true,
 }
 const IntoTheGalePileInRestrictionEffect = {
   name: `Into the Gale`,
   desc: `If an enemy model starts a pile-in move within 3" of any friendly units with this ability, subtract 2" from the distance that model can pile in during that phase (to a minimum of 1").`,
   when: [COMBAT_PHASE],
   rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
+  shared: true,
 }
 
 const LivingCycloneEffect = {
   name: `Living Cyclone`,
   desc: `Roll a dice each time an enemy unit that is within 3" of this model after it makes a charge move. On a 3+, the unit suffers a mortal wound and is -1 to hit until the end of the next combat phase (a unit can only be affected by this ability once per phase).`,
   when: [CHARGE_PHASE, COMBAT_PHASE],
+  shared: true,
 }
 
 const SpiritOfTheWindEffect = {
@@ -113,12 +124,14 @@ const SpiritOfTheWindEffect = {
   desc: `At the end of the shooting phase, this model can make a normal move or a retreat of 12" (it cannot run). Additionally it can retreat and still charge later in the turn.`,
   when: [END_OF_SHOOTING_PHASE],
   rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
+  shared: true,
 }
 
 const WindmageSymbiosisEffect = {
   name: `Windmage Symbiosis`,
   desc: `If this model is within 12" of any friendly WINDMAGES, it heals D3 wounds.`,
   when: [HERO_PHASE],
+  shared: true,
 }
 
 const Units = {
