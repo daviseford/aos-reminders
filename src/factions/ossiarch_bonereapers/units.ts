@@ -55,6 +55,13 @@ const UnstoppableChargeEffects = [
     shared: true,
   },
 ]
+export const OBRWarmasterEffect = {
+  name: `Warmaster`,
+  desc: `If this unit is included in an Ossiarch Bonereapers army, it is treated as a general even if it is not the model picked to be the army's general.`,
+  when: [DURING_GAME],
+  rule_sources: [rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021],
+  shared: true,
+}
 
 const Units = {
   'Gothizzar Harvester': {
@@ -271,6 +278,7 @@ const Units = {
       ],
     },
     effects: [
+      OBRWarmasterEffect,
       {
         name: `Deadly Combination`,
         desc: `If the unmodified hit roll for an attack made with the Shield Immortis is 6, that attack inflicts 2 mortal wounds on the target in addition to any normal damage.`,

@@ -47,12 +47,12 @@ const WailOfTheDamnedEffect = {
   shared: true,
 }
 
-const FrightfulTouchEffect = {
+const getFrightfulTouchEffect = (weapon: `Blades` | `Daggers`) => ({
   name: `Frightful Touch`,
-  desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and Blades is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+  desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and ${weapon} is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
   when: [COMBAT_PHASE],
   shared: true,
-}
+})
 
 const DeathlyChargeEffect = {
   name: `Deathly Charge`,
@@ -77,7 +77,7 @@ const Units = {
       spells: [keyPicker(spells, ['Invigorating Aura', 'Hand of Dust', 'Soul Stealer'])],
     },
     effects: [
-      FrightfulTouchEffect,
+      getFrightfulTouchEffect(`Daggers`),
       {
         name: `Alakanash, the Staff of Power`,
         desc: `Add the Staff of Power value shown on this model's damage table to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to cast Arcane Bolt any number of times in the same hero phase, even if another WIZARD has already attempted to cast the spell in that phase.`,
@@ -117,7 +117,7 @@ const Units = {
     },
     effects: [
       TheHungerEffect,
-      FrightfulTouchEffect,
+      getFrightfulTouchEffect(`Daggers`),
       {
         name: `Armour of Templehof`,
         desc: `The first wound or mortal wound allocated to this model in each phase is negated.`,
@@ -142,7 +142,7 @@ const Units = {
       spells: [keyPicker(spells, ['Invigorating Aura', 'Dark Mist'])],
     },
     effects: [
-      FrightfulTouchEffect,
+      getFrightfulTouchEffect(`Daggers`),
       {
         name: `Dagger of Jet`,
         desc: `At the end of any phase, if any wounds inflicted by this model's Akmet-har in that phase were allocated to an enemy HERO and not negated, and that enemy model has not been slain, roll a dice. On a 5+, that enemy HERO is slain.`,
@@ -490,7 +490,7 @@ const Units = {
         desc: `If an enemy HERO is slain within 9" of this model, add 1 to the Attacks characteristic of melee weapons used by friendly VAMPIRE units wholly within 12" of this model until your next hero phase.`,
         when: [COMBAT_PHASE, WOUND_ALLOCATION_PHASE],
       },
-      FrightfulTouchEffect,
+      getFrightfulTouchEffect(`Blades`),
       WailOfTheDamnedEffect,
     ],
   },
@@ -498,7 +498,7 @@ const Units = {
   'Mortis Engine': {
     effects: [
       WailOfTheDamnedEffect,
-      FrightfulTouchEffect,
+      getFrightfulTouchEffect(`Blades`),
       {
         name: `The Reliquary`,
         desc: `Once per battle, in your hero phase, you can say that this model will unleash the energies of its reliquary. If you do so, roll a dice for each unit within 12" of this model. On a 2+, that unit suffers D3 mortal wounds. DEATH units are not affected by this ability.`,
@@ -519,7 +519,7 @@ const Units = {
     },
     effects: [
       TheHungerEffect,
-      FrightfulTouchEffect,
+      getFrightfulTouchEffect(`Blades`),
       {
         name: `Scrying Pool`,
         desc: `Once per turn, you can reroll 1 hit roll or 1 wound roll for an attack made by this model or 1 save roll for an attack that targets this model.`,
