@@ -39,8 +39,49 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
-  it('should correctly read New_CoS', () => {
-    const pdfText = getFile('New_CoS')
+  it('should correctly read New_BoC1', () => {
+    const pdfText = getFile('New_BoC1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read New_Khorne1', () => {
+    const pdfText = getFile('New_Khorne1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.selections.command_traits).toContain('Unrivalled Battlelust')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read New_Seraphon1', () => {
+    const pdfText = getFile('New_Seraphon1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read New_Slaanesh1', () => {
+    const pdfText = getFile('New_Slaanesh1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read New_Tzeentch1', () => {
+    const pdfText = getFile('New_Tzeentch1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read New_CoS1', () => {
+    const pdfText = getFile('New_CoS1')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.factionName).toContain(CITIES_OF_SIGMAR)
@@ -62,8 +103,8 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read New_Ironjawz', () => {
-    const pdfText = getFile('New_Ironjawz')
+  it('should correctly read New_Ironjawz1', () => {
+    const pdfText = getFile('New_Ironjawz1')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.factionName).toContain(ORRUK_WARCLANS)

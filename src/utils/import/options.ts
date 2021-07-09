@@ -58,6 +58,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Aventis Firestrike Magister of Hammerhal': 'Aventis Firestrike',
   'Belladamma Volga, First of the Vyrkos': 'Belladamma Volga',
   'Berzerker Lord': 'Berserker Lord',
+  'Unrivalled Batte-lust': 'Unrivalled Battlelust',
   'Blade of All Frost': 'Blade of All-Frost',
   'Blade of the All-Frost': 'Blade of All-Frost',
   'Blue Horrors of Tzeentch': 'Horrors of Tzeentch',
