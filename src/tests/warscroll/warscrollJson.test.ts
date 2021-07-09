@@ -234,7 +234,6 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1612355735036-Warscroll_Builder', () => {
     const parsedText = getFile('1612355735036-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    console.log(res)
     expect(res.selections.flavors).toContain('Faultless Blades')
     expect(res.subFactionName).toEqual('Pretenders Host')
     expect(res.errors).toEqual([])

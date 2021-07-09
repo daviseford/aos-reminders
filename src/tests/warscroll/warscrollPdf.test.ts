@@ -2,6 +2,7 @@ import { OrrukWarclansFaction } from 'factions/orruk_warclans'
 import { SeraphonFaction } from 'factions/seraphon'
 import { readFileSync } from 'fs'
 import {
+  BEASTS_OF_CHAOS,
   CHAOS_GRAND_ALLIANCE,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
@@ -44,6 +45,15 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
+    expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
+    expect(res.selections.artifacts).toContain('The Knowing Eye (Brayherds)')
+    expect(res.selections.battalions).toContain('Warlord')
+    expect(res.selections.command_traits).toContain('Rampant Juggernaut (Warherd)')
+    expect(res.selections.flavors).toContain('Gavespawn')
+    expect(res.selections.grand_strategies).toContain('Pillars of Belief')
+    expect(res.selections.spells).toContain('Ghost-mist')
+    expect(res.selections.triumphs).toContain('Indomitable')
+
     expect(res.errors).toEqual([])
   })
 
@@ -52,16 +62,16 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.selections.artifacts).toContain('The Slaughterhelm')
-    expect(res.selections.artifacts).toContain('Skullshard Mantle')
     expect(res.selections.artifacts).toContain('Halo of Blood')
-    expect(res.selections.triumphs).toEqual([])
-    expect(res.selections.grand_strategies).toContain('Dominating Presence')
-    expect(res.selections.spells).toContain('Levitate')
-    expect(res.selections.prayers).toContain('Guidance')
-    expect(res.selections.flavors).toEqual(['The Flayed'])
+    expect(res.selections.artifacts).toContain('Skullshard Mantle')
+    expect(res.selections.artifacts).toContain('The Slaughterhelm')
     expect(res.selections.command_traits).toContain('Unrivalled Battlelust')
     expect(res.selections.endless_spells).toContain('Hexgorger Skulls')
+    expect(res.selections.flavors).toEqual(['The Flayed'])
+    expect(res.selections.grand_strategies).toContain('Dominating Presence')
+    expect(res.selections.prayers).toContain('Guidance')
+    expect(res.selections.spells).toContain('Levitate')
+    expect(res.selections.triumphs).toEqual([])
     expect(res.errors).toEqual([])
   })
 
@@ -90,12 +100,12 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.subFactionName).toEqual('Godseekers Host')
     expect(res.selections.artifacts).toContain('Bindings of Slaanesh')
     expect(res.selections.command_traits).toContain('High Priest')
     expect(res.selections.flavors).toContain('Scarlet Cavalcade')
     expect(res.selections.grand_strategies).toContain('Sever the Head')
     expect(res.selections.triumphs).toEqual(['Bloodthirsty'])
+    expect(res.subFactionName).toEqual('Godseekers Host')
 
     expect(res.errors).toEqual([
       // "Inspirer" is a Pretenders Host command_trait, so it's not a valid entry in this Godseekers list!
@@ -111,6 +121,16 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
+    expect(res.factionName).toEqual(TZEENTCH)
+    expect(res.selections.artifacts).toContain('Amulet of Destiny')
+    expect(res.selections.artifacts).toContain('Brimstone Familiar')
+    expect(res.selections.command_traits).toContain('Coruscating Flames')
+    expect(res.selections.endless_spells).toContain('The Burning Head')
+    expect(res.selections.flavors).toContain('Eternal Conflagration')
+    expect(res.selections.grand_strategies).toContain("Predator's Domain")
+    expect(res.selections.spells).toContain('Flaming Weapon')
+    expect(res.selections.spells).toContain('Unchecked Mutation')
+
     expect(res.errors).toEqual([])
   })
 
@@ -118,6 +138,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const pdfText = getFile('New_CoS1')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
+
     expect(res.factionName).toContain(CITIES_OF_SIGMAR)
     expect(res.selections.artifacts).toContain('Sawfang Dust (Misthavn Narcotic)')
     expect(res.selections.artifacts).toContain('Strangler-kelp Noose (Misthavn)')
@@ -131,8 +152,8 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.spells).toContain('Flaming Weapon')
     expect(res.selections.triumphs).toContain('Inspired')
     expect(res.selections.units).toContain('Freeguild General')
-    expect(res.selections.units).toContain('Sisters of the Thorn')
     expect(res.selections.units).toContain('Helstorm Rocket Battery')
+    expect(res.selections.units).toContain('Sisters of the Thorn')
     expect(res.selections.units).toContain('Steam Tank with Commander')
     expect(res.errors).toEqual([])
   })
@@ -141,11 +162,12 @@ describe('getWarscrollArmyFromPdf', () => {
     const pdfText = getFile('New_Ironjawz1')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
+
     expect(res.factionName).toContain(ORRUK_WARCLANS)
-    expect(res.subFactionName).toContain('Ironjawz')
     expect(res.selections.artifacts).toContain('Destroyer')
     expect(res.selections.battalions).toContain('Battle Regiment')
     expect(res.selections.battalions).toContain('Command Entourage')
+    expect(res.selections.flavors).toEqual(['Ironsunz'])
     expect(res.selections.grand_strategies).toContain('Hold the Line')
     expect(res.selections.triumphs).toContain('Indomitable')
     expect(res.selections.units).toEqual([
@@ -154,7 +176,7 @@ describe('getWarscrollArmyFromPdf', () => {
       "Morgok's Krushas",
       'Rogue Idol',
     ])
-    expect(res.selections.flavors).toEqual(['Ironsunz'])
+    expect(res.subFactionName).toContain('Ironjawz')
     expect(res.errors).toEqual([])
   })
 
