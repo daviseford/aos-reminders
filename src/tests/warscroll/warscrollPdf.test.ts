@@ -47,7 +47,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
-  it.only('should correctly read New_Khorne1', () => {
+  it('should correctly read New_Khorne1', () => {
     const pdfText = getFile('New_Khorne1')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -70,6 +70,18 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
+    expect(res.factionName).toEqual(SERAPHON)
+    expect(res.selections.flavors).toContain("Dracothion's Tail")
+    expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Starborne)
+
+    expect(res.allyUnits).toEqual(['Gotrek Gurnisson', 'Bundo Whalebiter'])
+    expect(res.selections.artifacts).toContain('Light of Dracothion')
+    expect(res.selections.command_traits).toContain('Vast Intellect')
+    expect(res.selections.grand_strategies).toContain('Hold the Line')
+    expect(res.selections.spells).toContain('Celestial Equilibrium')
+    expect(res.selections.spells).toContain('Mystical Unforging')
+    expect(res.selections.triumphs).toEqual([])
+
     expect(res.errors).toEqual([])
   })
 
@@ -78,7 +90,20 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.errors).toEqual([])
+    expect(res.subFactionName).toEqual('Godseekers Host')
+    expect(res.selections.artifacts).toContain('Bindings of Slaanesh')
+    expect(res.selections.command_traits).toContain('High Priest')
+    expect(res.selections.flavors).toContain('Scarlet Cavalcade')
+    expect(res.selections.grand_strategies).toContain('Sever the Head')
+    expect(res.selections.triumphs).toEqual(['Bloodthirsty'])
+
+    expect(res.errors).toEqual([
+      // "Inspirer" is a Pretenders Host command_trait, so it's not a valid entry in this Godseekers list!
+      {
+        severity: 'warn',
+        text: 'Inspirer',
+      },
+    ])
   })
 
   it('should correctly read New_Tzeentch1', () => {

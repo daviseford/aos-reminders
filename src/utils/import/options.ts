@@ -137,6 +137,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Vokmortian, Master of the Bone-tithe': 'Vokmortian',
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',
   'Warpfire Thrower Weapon Team': 'Warpfire Thrower',
+  'Scarlet Cavalcade Godseekers Host (Host of Chaos)': 'Scarlet Cavalcade',
   'Warrior Indomniate': 'Warrior Indominate',
   'Warstomper Mega-Gargant': 'Warstomper',
   'Windshief Charm': 'Windthief Charm',

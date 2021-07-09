@@ -234,12 +234,10 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1612355735036-Warscroll_Builder', () => {
     const parsedText = getFile('1612355735036-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Faultless Blades Pretenders Host (Host of Chaos)',
-      },
-    ])
+    console.log(res)
+    expect(res.selections.flavors).toContain('Faultless Blades')
+    expect(res.subFactionName).toEqual('Pretenders Host')
+    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1612659925132-Warscroll_Builder', () => {

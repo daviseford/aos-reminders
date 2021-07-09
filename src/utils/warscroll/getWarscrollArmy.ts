@@ -3,7 +3,7 @@ import { StormcastFaction } from 'factions/stormcast_eternals'
 import { CoreBattalions } from 'generic_rules'
 import GenericScenery from 'generic_rules/scenery'
 import { last, uniq } from 'lodash'
-import { KHARADRON_OVERLORDS, STORMCAST_ETERNALS, TSupportedFaction } from 'meta/factions'
+import { KHARADRON_OVERLORDS, SLAANESH, STORMCAST_ETERNALS, TSupportedFaction } from 'meta/factions'
 import { getFactionFromList, getFactionList } from 'meta/faction_list'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 import { TSelections } from 'types/selections'
@@ -291,9 +291,24 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           return accum
         }
 
+        // New in 2021
+        if (txt.search(/^- .+ Spell: /g) > -1) {
+          // Handles entries like "- Ancient Knowledge Spell: Celestial Equilibrium"
+          const spell = getTrait('Spell', txt)
+          accum.spells.push(spell)
+          return accum
+        }
+
         if (txt.startsWith('- Spell')) {
           const spell = getTrait('Spell', txt)
           accum.spells = accum.spells.concat(spell)
+          return accum
+        }
+
+        // New in 2021
+        if (txt.search(/^- .+ Prayer: /g) > -1) {
+          const prayer = getTrait('Prayer', txt)
+          accum.prayers.push(prayer)
           return accum
         }
 
@@ -354,12 +369,26 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
               return
             }
 
+            // Handle Slaanesh Subfactions/Flavors e.g. "- Host: Scarlet Cavalcade Godseekers Host (Host of Chaos)"
+            if (factionName === SLAANESH && val.endsWith('(Host of Chaos)')) {
+              const _faction = getFactionFromList(factionName)
+              const slaaneshSubFaction = _faction.subFactionKeys.find(x => val.includes(x))
+
+              if (slaaneshSubFaction) {
+                subFactionName = slaaneshSubFaction
+                val = val.split(slaaneshSubFaction)[0].trim()
+                accum.flavors.push(val)
+                stop_processing = true
+                return
+              }
+            }
+
             // Generic subfaction checker
             if (isValidFactionName(factionName)) {
               // Need to do something faction-specific to the value? Do it here.
               // if (factionName === SOME_FACTION) val = val.replace('something', '')
-              const _Faction = getFactionFromList(factionName)
-              if (_Faction.subFactionKeyMap[val]) {
+              const _faction = getFactionFromList(factionName)
+              if (_faction.subFactionKeyMap[val]) {
                 subFactionName = val
                 stop_processing = true
                 return
@@ -373,8 +402,9 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         })
         if (stop_processing) return accum
 
-        const commandTraitPrefixes = ['- Host Option : ', '- Big Name : ']
+        const commandTraitPrefixes = ['- Host Option : ', '- Host Option: ', '- Big Name : ']
         commandTraitPrefixes.forEach(val => {
+          if (stop_processing) return
           if (txt.startsWith(val)) {
             const command_trait = txt.replace(val, '').trim()
             accum.command_traits.push(command_trait)
