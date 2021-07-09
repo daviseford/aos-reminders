@@ -2,6 +2,7 @@ import { OrrukWarclansFaction } from 'factions/orruk_warclans'
 import { SeraphonFaction } from 'factions/seraphon'
 import { readFileSync } from 'fs'
 import {
+  BEASTS_OF_CHAOS,
   CHAOS_GRAND_ALLIANCE,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
@@ -21,6 +22,7 @@ import {
   SERAPHON,
   SKAVENTIDE,
   SLAANESH,
+  SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
   SOULBLIGHT_GRAVELORDS,
   STORMCAST_ETERNALS,
@@ -38,6 +40,223 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should correctly read New_BoC1', () => {
+    const pdfText = getFile('New_BoC1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
+    expect(res.selections.artifacts).toContain('The Knowing Eye (Brayherds)')
+    expect(res.selections.battalions).toContain('Warlord')
+    expect(res.selections.command_traits).toContain('Rampant Juggernaut (Warherd)')
+    expect(res.selections.flavors).toContain('Gavespawn')
+    expect(res.selections.grand_strategies).toContain('Pillars of Belief')
+    expect(res.selections.spells).toContain('Ghost-mist')
+    expect(res.selections.triumphs).toContain('Indomitable')
+
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read New_Khorne1', () => {
+    const pdfText = getFile('New_Khorne1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.selections.artifacts).toContain('Halo of Blood')
+    expect(res.selections.artifacts).toContain('Skullshard Mantle')
+    expect(res.selections.artifacts).toContain('The Slaughterhelm')
+    expect(res.selections.command_traits).toContain('Unrivalled Battlelust')
+    expect(res.selections.endless_spells).toContain('Hexgorger Skulls')
+    expect(res.selections.flavors).toEqual(['The Flayed'])
+    expect(res.selections.grand_strategies).toContain('Dominating Presence')
+    expect(res.selections.prayers).toContain('Guidance')
+    expect(res.selections.spells).toContain('Levitate')
+    expect(res.selections.triumphs).toEqual([])
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read New_Seraphon1', () => {
+    const pdfText = getFile('New_Seraphon1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.factionName).toEqual(SERAPHON)
+    expect(res.selections.flavors).toContain("Dracothion's Tail")
+    expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Starborne)
+
+    expect(res.allyUnits).toEqual(['Gotrek Gurnisson', 'Bundo Whalebiter'])
+    expect(res.selections.artifacts).toContain('Light of Dracothion')
+    expect(res.selections.command_traits).toContain('Vast Intellect')
+    expect(res.selections.grand_strategies).toContain('Hold the Line')
+    expect(res.selections.spells).toContain('Celestial Equilibrium')
+    expect(res.selections.spells).toContain('Mystical Unforging')
+    expect(res.selections.triumphs).toEqual([])
+
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read New_Slaanesh1', () => {
+    const pdfText = getFile('New_Slaanesh1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.selections.artifacts).toContain('Bindings of Slaanesh')
+    expect(res.selections.command_traits).toContain('High Priest')
+    expect(res.selections.flavors).toContain('Scarlet Cavalcade')
+    expect(res.selections.grand_strategies).toContain('Sever the Head')
+    expect(res.selections.triumphs).toEqual(['Bloodthirsty'])
+    expect(res.subFactionName).toEqual('Godseekers Host')
+
+    expect(res.errors).toEqual([
+      // "Inspirer" is a Pretenders Host command_trait, so it's not a valid entry in this Godseekers list!
+      {
+        severity: 'warn',
+        text: 'Inspirer',
+      },
+    ])
+  })
+
+  it('should correctly read New_Tzeentch1', () => {
+    const pdfText = getFile('New_Tzeentch1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.factionName).toEqual(TZEENTCH)
+    expect(res.selections.artifacts).toContain('Amulet of Destiny')
+    expect(res.selections.artifacts).toContain('Brimstone Familiar')
+    expect(res.selections.command_traits).toContain('Coruscating Flames')
+    expect(res.selections.endless_spells).toContain('The Burning Head')
+    expect(res.selections.flavors).toContain('Eternal Conflagration')
+    expect(res.selections.grand_strategies).toContain("Predator's Domain")
+    expect(res.selections.spells).toContain('Flaming Weapon')
+    expect(res.selections.spells).toContain('Unchecked Mutation')
+
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read New_CoS1', () => {
+    const pdfText = getFile('New_CoS1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.factionName).toContain(CITIES_OF_SIGMAR)
+    expect(res.selections.artifacts).toContain('Sawfang Dust (Misthavn Narcotic)')
+    expect(res.selections.artifacts).toContain('Strangler-kelp Noose (Misthavn)')
+    expect(res.selections.battalions).toContain('Alpha-Beast Pack')
+    expect(res.selections.battalions).toContain('Grand Battery')
+    expect(res.selections.battalions).toContain('Hunters of the Heartlands')
+    expect(res.selections.command_traits).toContain('Heroic Stature')
+    expect(res.selections.endless_spells).toContain('Prismatic Palisade')
+    expect(res.selections.flavors).toContain('Misthavn')
+    expect(res.selections.grand_strategies).toContain('Hold the Line')
+    expect(res.selections.spells).toContain('Flaming Weapon')
+    expect(res.selections.triumphs).toContain('Inspired')
+    expect(res.selections.units).toContain('Freeguild General')
+    expect(res.selections.units).toContain('Helstorm Rocket Battery')
+    expect(res.selections.units).toContain('Sisters of the Thorn')
+    expect(res.selections.units).toContain('Steam Tank with Commander')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read New_Ironjawz1', () => {
+    const pdfText = getFile('New_Ironjawz1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.factionName).toContain(ORRUK_WARCLANS)
+    expect(res.selections.artifacts).toContain('Destroyer')
+    expect(res.selections.battalions).toContain('Battle Regiment')
+    expect(res.selections.battalions).toContain('Command Entourage')
+    expect(res.selections.flavors).toEqual(['Ironsunz'])
+    expect(res.selections.grand_strategies).toContain('Hold the Line')
+    expect(res.selections.triumphs).toContain('Indomitable')
+    expect(res.selections.units).toEqual([
+      'Gordrakk the Fist of Gork',
+      'Megaboss on Maw-Krusha',
+      "Morgok's Krushas",
+      'Rogue Idol',
+    ])
+    expect(res.subFactionName).toContain('Ironjawz')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read New_Nurgle1', () => {
+    const pdfText = getFile('New_Nurgle1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.factionName).toEqual(NURGLE)
+    expect(res.selections.artifacts).toContain('Vial of Manticore Venom')
+    expect(res.selections.battalions).toContain('Alpha-Beast Pack')
+    expect(res.selections.battalions).toContain('Command Entourage - Strategists')
+    expect(res.selections.battalions).toContain('Command Entourage')
+    expect(res.selections.battalions).toContain('Hunters of the Heartlands')
+    expect(res.selections.battalions).toContain('Linebreaker')
+    expect(res.selections.battalions).toContain('Vanguard')
+    expect(res.selections.command_traits).toContain('Skilled Leader')
+    expect(res.selections.endless_spells).toContain('Umbral Spellportal')
+    expect(res.selections.flavors).toContain('Droning Guard')
+    expect(res.selections.grand_strategies).toContain('Beast Master')
+    expect(res.selections.prayers).toContain('Guidance')
+    expect(res.selections.spells).toContain('Gift of Contagion')
+    expect(res.selections.spells).toContain('Levitate')
+    expect(res.selections.triumphs).toContain('Bloodthirsty')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read New_Nurgle1_withStats', () => {
+    const pdfText = getFile('New_Nurgle1_withStats')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.factionName).toEqual(NURGLE)
+    expect(res.selections.artifacts).toContain('Vial of Manticore Venom')
+    expect(res.selections.battalions).toContain('Alpha-Beast Pack')
+    expect(res.selections.battalions).toContain('Command Entourage - Strategists')
+    expect(res.selections.battalions).toContain('Command Entourage')
+    expect(res.selections.battalions).toContain('Hunters of the Heartlands')
+    expect(res.selections.battalions).toContain('Linebreaker')
+    expect(res.selections.battalions).toContain('Vanguard')
+    expect(res.selections.command_traits).toContain('Skilled Leader')
+    expect(res.selections.endless_spells).toContain('Umbral Spellportal')
+    expect(res.selections.flavors).toContain('Droning Guard')
+    expect(res.selections.grand_strategies).toContain('Beast Master')
+    expect(res.selections.prayers).toContain('Guidance')
+    expect(res.selections.spells).toContain('Gift of Contagion')
+    expect(res.selections.spells).toContain('Levitate')
+    expect(res.selections.triumphs).toContain('Bloodthirsty')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read New_Nurgle1_withAlly', () => {
+    const pdfText = getFile('New_Nurgle1_withAlly')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.factionName).toEqual(NURGLE)
+    expect(res.selections.artifacts).toContain('Vial of Manticore Venom')
+    expect(res.selections.battalions).toContain('Alpha-Beast Pack')
+    expect(res.selections.battalions).toContain('Command Entourage - Strategists')
+    expect(res.selections.battalions).toContain('Command Entourage')
+    expect(res.selections.battalions).toContain('Hunters of the Heartlands')
+    expect(res.selections.battalions).toContain('Linebreaker')
+    expect(res.selections.battalions).toContain('Vanguard')
+    expect(res.selections.command_traits).toContain('Skilled Leader')
+    expect(res.selections.endless_spells).toContain('Umbral Spellportal')
+    expect(res.selections.flavors).toContain('Droning Guard')
+    expect(res.selections.grand_strategies).toContain('Beast Master')
+    expect(res.selections.prayers).toContain('Guidance')
+    expect(res.selections.spells).toContain('Gift of Contagion')
+    expect(res.selections.spells).toContain('Levitate')
+    expect(res.selections.triumphs).toContain('Bloodthirsty')
+
+    // Ally units
+    expect(res.allyFactionNames).toContain(SLAVES_TO_DARKNESS)
+    expect(res.allySelections[SLAVES_TO_DARKNESS]?.units).toEqual(['Fomoroid Crusher', 'Raptoryx'])
+
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read SoulblightGravelords1', () => {
     const pdfText = getFile('SoulblightGravelords1')
     const parsedText = parsePdf(pdfText)

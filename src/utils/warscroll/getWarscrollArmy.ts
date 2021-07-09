@@ -1,8 +1,9 @@
 import { SeraphonFaction } from 'factions/seraphon'
 import { StormcastFaction } from 'factions/stormcast_eternals'
+import { CoreBattalions } from 'generic_rules'
 import GenericScenery from 'generic_rules/scenery'
 import { last, uniq } from 'lodash'
-import { KHARADRON_OVERLORDS, STORMCAST_ETERNALS, TSupportedFaction } from 'meta/factions'
+import { KHARADRON_OVERLORDS, SLAANESH, STORMCAST_ETERNALS, TSupportedFaction } from 'meta/factions'
 import { getFactionFromList, getFactionList } from 'meta/faction_list'
 import { IImportedArmy, WARSCROLL_BUILDER } from 'types/import'
 import { TSelections } from 'types/selections'
@@ -19,9 +20,12 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
 
 const flavorTypes = uniq(
   Object.values(getFactionList())
-    .map(v => (v.AggregateArmy.FlavorType || '').replace(/s$/, '')) // Remove trailing s
+    .map(v => (v.AggregateArmy.FlavorType || '').replace(/s$/, '')) // Remove trailing 's'
     .filter(x => !!x)
+    .concat(['Host of Chaos']) // Manually add flavorTypes here
 )
+
+const coreBattalionNames = CoreBattalions.map(x => x.name)
 
 const unitIndicatorsPdf = [
   'Artillery',
@@ -106,12 +110,16 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         return accum
       }
 
-      if (txt === 'BATTALIONS') {
+      if (txt === 'BATTALIONS' || txt === 'CORE BATTALIONS') {
         selector = 'battalions'
         return accum
       }
 
-      if (txt === 'ENDLESS SPELLS / TERRAIN' || txt === 'ENDLESS SPELLS / TERRAIN / COMMAND POINTS') {
+      if (
+        txt === 'ENDLESS SPELLS / TERRAIN' ||
+        txt === 'ENDLESS SPELLS / TERRAIN / COMMAND POINTS' ||
+        txt === 'ENDLESS SPELLS & INVOCATIONS'
+      ) {
         selector = 'endless_spells'
         return accum
       }
@@ -122,6 +130,30 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (txt.startsWith('- General')) return accum
         if (txt.startsWith('- City Role')) return accum
         if (txt.startsWith('- Mark of Chaos : ')) return accum
+
+        // New in 2021
+        if (txt.startsWith('- Triumphs: ')) {
+          accum.triumphs.push(txt.replace('- Triumphs: ', ''))
+          return accum
+        }
+
+        // New in 2021
+        if (txt.startsWith('- Grand Strategy: ')) {
+          accum.grand_strategies.push(txt.replace('- Grand Strategy: ', ''))
+          return accum
+        }
+
+        // New in 2021
+        if (txt.startsWith('- Universal Spell Lore: ')) {
+          accum.spells.push(txt.replace('- Universal Spell Lore: ', ''))
+          return accum
+        }
+
+        // New in 2021
+        if (txt.startsWith('- Universal Prayer Scripture: ')) {
+          accum.prayers.push(txt.replace('- Universal Prayer Scripture: ', ''))
+          return accum
+        }
 
         if (txt.startsWith('- Tribe: ')) {
           const { flavor, trait } = getTribe(txt)
@@ -182,6 +214,13 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
             accum[selector] = accumMock
             allyUnits.push(alliedUnit)
           }
+          return accum
+        }
+
+        // Misthavn Narcotic
+        if (txt.startsWith('- Misthavn Narcotic: ')) {
+          const artifact = txt.replace('- Misthavn Narcotic: ', '').trim()
+          accum.artifacts.push(artifact)
           return accum
         }
 
@@ -252,13 +291,33 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           return accum
         }
 
+        // New in 2021
+        if (txt.search(/^- .+ Spell: /g) > -1) {
+          // Handles entries like "- Ancient Knowledge Spell: Celestial Equilibrium"
+          const spell = getTrait('Spell', txt)
+          accum.spells.push(spell)
+          return accum
+        }
+
         if (txt.startsWith('- Spell')) {
           const spell = getTrait('Spell', txt)
           accum.spells = accum.spells.concat(spell)
           return accum
         }
 
+        // New in 2021
+        if (txt.search(/^- .+ Prayer: /g) > -1) {
+          const prayer = getTrait('Prayer', txt)
+          accum.prayers.push(prayer)
+          return accum
+        }
+
         if (txt.startsWith('- Prayer')) {
+          // New (bug?) in 2021
+          if (txt.startsWith('- Prayer1')) {
+            txt = txt.replace('- Prayer1', '- Prayer')
+          }
+
           const prayer = getTrait('Prayer', txt)
           accum.prayers.push(prayer)
           return accum
@@ -310,12 +369,26 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
               return
             }
 
+            // Handle Slaanesh Subfactions/Flavors e.g. "- Host: Scarlet Cavalcade Godseekers Host (Host of Chaos)"
+            if (factionName === SLAANESH && val.endsWith('(Host of Chaos)')) {
+              const _faction = getFactionFromList(factionName)
+              const slaaneshSubFaction = _faction.subFactionKeys.find(x => val.includes(x))
+
+              if (slaaneshSubFaction) {
+                subFactionName = slaaneshSubFaction
+                val = val.split(slaaneshSubFaction)[0].trim()
+                accum.flavors.push(val)
+                stop_processing = true
+                return
+              }
+            }
+
             // Generic subfaction checker
             if (isValidFactionName(factionName)) {
               // Need to do something faction-specific to the value? Do it here.
               // if (factionName === SOME_FACTION) val = val.replace('something', '')
-              const _Faction = getFactionFromList(factionName)
-              if (_Faction.subFactionKeyMap[val]) {
+              const _faction = getFactionFromList(factionName)
+              if (_faction.subFactionKeyMap[val]) {
                 subFactionName = val
                 stop_processing = true
                 return
@@ -329,8 +402,9 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         })
         if (stop_processing) return accum
 
-        const commandTraitPrefixes = ['- Host Option : ', '- Big Name : ']
+        const commandTraitPrefixes = ['- Host Option : ', '- Host Option: ', '- Big Name : ']
         commandTraitPrefixes.forEach(val => {
+          if (stop_processing) return
           if (txt.startsWith(val)) {
             const command_trait = txt.replace(val, '').trim()
             accum.command_traits.push(command_trait)
@@ -341,7 +415,9 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
         if (txt.match(/^- Lore of .+ ?: /)) {
           const spell = txt.replace(/^- Lore of .+ ?: /, '').trim()
-          accum.spells.push(spell)
+          if (spell !== 'None') {
+            accum.spells.push(spell)
+          }
           stop_processing = true
         }
         if (stop_processing) return accum
@@ -350,7 +426,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
       }
 
       // Check for end of file stuff
-      if (['TOTAL: ', 'LEADERS: ', 'ARTEFACTS: '].some(e => txt.startsWith(e))) {
+      if (['TOTAL: ', 'LEADERS: ', 'ARTEFACTS: ', 'ADDITIONAL ENHANCEMENTS'].some(e => txt.startsWith(e))) {
         selector = ''
         return accum
       }
@@ -361,6 +437,16 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (selector === 'endless_spells' && genericScenery.includes(txt)) {
           accum.scenery = uniq(accum.scenery.concat(txt))
         } else {
+          // New in 2021
+          // Extract Core Battalions from a unit name (e.g. 'Freeguild General in Grand Battery')
+          if (selector === 'units') {
+            const coreBattalion = coreBattalionNames.find(name => txt.endsWith(` in ${name}`))
+            if (coreBattalion) {
+              accum.battalions = uniq(accum.battalions.concat(coreBattalion))
+              txt = txt.replace(` in ${coreBattalion}`, '')
+            }
+          }
+
           accum[selector] = uniq(accum[selector].concat(txt))
         }
       }
@@ -444,6 +530,7 @@ const removePrefix = (txt: string) => {
     'Lore of Smog -',
     'Lore of the Phoenix -',
     'Lore of Whitefire -',
+    'Universal Prayer Scripture: ',
   ]
   const regexp = new RegExp(`${prefixes.join('|')}`, 'g')
   return txt.replace(regexp, '').trim()

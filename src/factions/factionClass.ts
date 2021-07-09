@@ -18,7 +18,7 @@ export class Faction<
   BT extends TEffects[]
 > {
   public readonly AggregateArmy: TSubfactionArmy
-  public readonly subFactionKeys: K[]
+  public readonly subFactionKeys: string[]
   public readonly subFactionKeyMap: Record<K, K>
   public readonly subFactionArmies: Record<K, TSubfactionArmy>
 

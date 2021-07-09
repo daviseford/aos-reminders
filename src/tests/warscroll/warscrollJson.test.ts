@@ -234,12 +234,9 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1612355735036-Warscroll_Builder', () => {
     const parsedText = getFile('1612355735036-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Faultless Blades Pretenders Host (Host of Chaos)',
-      },
-    ])
+    expect(res.selections.flavors).toContain('Faultless Blades')
+    expect(res.subFactionName).toEqual('Pretenders Host')
+    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1612659925132-Warscroll_Builder', () => {
@@ -829,7 +826,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1581436593161-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.factionName).toEqual(LEGION_OF_THE_FIRST_PRINCE)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([{ text: 'Legion of the First Prince', severity: 'warn' }])
   })
 
   it('should work with Fecula Flyblown and The Wurmspat', () => {
