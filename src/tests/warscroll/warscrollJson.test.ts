@@ -829,7 +829,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1581436593161-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.factionName).toEqual(LEGION_OF_THE_FIRST_PRINCE)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([{ text: 'Legion of the First Prince', severity: 'warn' }])
   })
 
   it('should work with Fecula Flyblown and The Wurmspat', () => {

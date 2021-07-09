@@ -21,6 +21,7 @@ import {
   SERAPHON,
   SKAVENTIDE,
   SLAANESH,
+  SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
   SOULBLIGHT_GRAVELORDS,
   STORMCAST_ETERNALS,
@@ -106,16 +107,56 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read New_Nurgle1_withStats', () => {
+  it('should correctly read New_Nurgle1_withStats', () => {
     const pdfText = getFile('New_Nurgle1_withStats')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.factionName).toEqual(NURGLE)
+    expect(res.selections.artifacts).toContain('Vial of Manticore Venom')
+    expect(res.selections.battalions).toContain('Alpha-Beast Pack')
+    expect(res.selections.battalions).toContain('Command Entourage - Strategists')
+    expect(res.selections.battalions).toContain('Command Entourage')
+    expect(res.selections.battalions).toContain('Hunters of the Heartlands')
+    expect(res.selections.battalions).toContain('Linebreaker')
+    expect(res.selections.battalions).toContain('Vanguard')
+    expect(res.selections.command_traits).toContain('Skilled Leader')
+    expect(res.selections.endless_spells).toContain('Umbral Spellportal')
+    expect(res.selections.flavors).toContain('Droning Guard')
+    expect(res.selections.grand_strategies).toContain('Beast Master')
+    expect(res.selections.prayers).toContain('Guidance')
+    expect(res.selections.spells).toContain('Gift of Contagion')
+    expect(res.selections.spells).toContain('Levitate')
+    expect(res.selections.triumphs).toContain('Bloodthirsty')
     expect(res.errors).toEqual([])
   })
-  it.skip('should correctly read New_Nurgle1_withAlly', () => {
+
+  it('should correctly read New_Nurgle1_withAlly', () => {
     const pdfText = getFile('New_Nurgle1_withAlly')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.factionName).toEqual(NURGLE)
+    expect(res.selections.artifacts).toContain('Vial of Manticore Venom')
+    expect(res.selections.battalions).toContain('Alpha-Beast Pack')
+    expect(res.selections.battalions).toContain('Command Entourage - Strategists')
+    expect(res.selections.battalions).toContain('Command Entourage')
+    expect(res.selections.battalions).toContain('Hunters of the Heartlands')
+    expect(res.selections.battalions).toContain('Linebreaker')
+    expect(res.selections.battalions).toContain('Vanguard')
+    expect(res.selections.command_traits).toContain('Skilled Leader')
+    expect(res.selections.endless_spells).toContain('Umbral Spellportal')
+    expect(res.selections.flavors).toContain('Droning Guard')
+    expect(res.selections.grand_strategies).toContain('Beast Master')
+    expect(res.selections.prayers).toContain('Guidance')
+    expect(res.selections.spells).toContain('Gift of Contagion')
+    expect(res.selections.spells).toContain('Levitate')
+    expect(res.selections.triumphs).toContain('Bloodthirsty')
+
+    // Ally units
+    expect(res.allyFactionNames).toContain(SLAVES_TO_DARKNESS)
+    expect(res.allySelections[SLAVES_TO_DARKNESS]?.units).toEqual(['Fomoroid Crusher', 'Raptoryx'])
+
     expect(res.errors).toEqual([])
   })
 
