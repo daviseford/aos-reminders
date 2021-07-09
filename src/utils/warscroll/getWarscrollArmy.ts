@@ -149,6 +149,12 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           return accum
         }
 
+        // New in 2021
+        if (txt.startsWith('- Universal Prayer Scripture: ')) {
+          accum.prayers.push(txt.replace('- Universal Prayer Scripture: ', ''))
+          return accum
+        }
+
         if (txt.startsWith('- Tribe: ')) {
           const { flavor, trait } = getTribe(txt)
           accum.flavors.push(flavor)
