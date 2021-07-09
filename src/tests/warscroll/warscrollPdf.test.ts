@@ -61,18 +61,51 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read New_Ironjawz', () => {
+  it('should correctly read New_Ironjawz', () => {
     const pdfText = getFile('New_Ironjawz')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.factionName).toContain(ORRUK_WARCLANS)
+    expect(res.subFactionName).toContain('Ironjawz')
+    expect(res.selections.artifacts).toContain('Destroyer')
+    expect(res.selections.battalions).toContain('Battle Regiment')
+    expect(res.selections.battalions).toContain('Command Entourage')
+    expect(res.selections.grand_strategies).toContain('Hold the Line')
+    expect(res.selections.triumphs).toContain('Indomitable')
+    expect(res.selections.units).toEqual([
+      'Gordrakk the Fist of Gork',
+      'Megaboss on Maw-Krusha',
+      "Morgok's Krushas",
+      'Rogue Idol',
+    ])
+    expect(res.selections.flavors).toEqual(['Ironsunz'])
     expect(res.errors).toEqual([])
   })
-  it.skip('should correctly read New_Nurgle1', () => {
+
+  it('should correctly read New_Nurgle1', () => {
     const pdfText = getFile('New_Nurgle1')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
+
+    expect(res.factionName).toEqual(NURGLE)
+    expect(res.selections.artifacts).toContain('Vial of Manticore Venom')
+    expect(res.selections.battalions).toContain('Alpha-Beast Pack')
+    expect(res.selections.battalions).toContain('Command Entourage - Strategists')
+    expect(res.selections.battalions).toContain('Command Entourage')
+    expect(res.selections.battalions).toContain('Hunters of the Heartlands')
+    expect(res.selections.battalions).toContain('Linebreaker')
+    expect(res.selections.battalions).toContain('Vanguard')
+    expect(res.selections.command_traits).toContain('Skilled Leader')
+    expect(res.selections.endless_spells).toContain('Umbral Spellportal')
+    expect(res.selections.flavors).toContain('Droning Guard')
+    expect(res.selections.grand_strategies).toContain('Beast Master')
+    expect(res.selections.prayers).toContain('Guidance')
+    expect(res.selections.spells).toContain('Gift of Contagion')
+    expect(res.selections.spells).toContain('Levitate')
+    expect(res.selections.triumphs).toContain('Bloodthirsty')
     expect(res.errors).toEqual([])
   })
+
   it.skip('should correctly read New_Nurgle1_withStats', () => {
     const pdfText = getFile('New_Nurgle1_withStats')
     const parsedText = parsePdf(pdfText)

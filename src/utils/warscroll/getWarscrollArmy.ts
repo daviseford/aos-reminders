@@ -22,6 +22,7 @@ const flavorTypes = uniq(
   Object.values(getFactionList())
     .map(v => (v.AggregateArmy.FlavorType || '').replace(/s$/, '')) // Remove trailing 's'
     .filter(x => !!x)
+    .concat(['Host of Chaos']) // Manually add flavorTypes here
 )
 
 const coreBattalionNames = CoreBattalions.map(x => x.name)
@@ -291,6 +292,11 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         }
 
         if (txt.startsWith('- Prayer')) {
+          // New (bug?) in 2021
+          if (txt.startsWith('- Prayer1')) {
+            txt = txt.replace('- Prayer1', '- Prayer')
+          }
+
           const prayer = getTrait('Prayer', txt)
           accum.prayers.push(prayer)
           return accum
@@ -373,7 +379,9 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
         if (txt.match(/^- Lore of .+ ?: /)) {
           const spell = txt.replace(/^- Lore of .+ ?: /, '').trim()
-          accum.spells.push(spell)
+          if (spell !== 'None') {
+            accum.spells.push(spell)
+          }
           stop_processing = true
         }
         if (stop_processing) return accum
@@ -486,6 +494,7 @@ const removePrefix = (txt: string) => {
     'Lore of Smog -',
     'Lore of the Phoenix -',
     'Lore of Whitefire -',
+    'Universal Prayer Scripture: ',
   ]
   const regexp = new RegExp(`${prefixes.join('|')}`, 'g')
   return txt.replace(regexp, '').trim()
