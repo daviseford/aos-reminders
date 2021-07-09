@@ -38,6 +38,54 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
+  it('should correctly read New_CoS', () => {
+    const pdfText = getFile('New_CoS')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.factionName).toContain(CITIES_OF_SIGMAR)
+    expect(res.selections.artifacts).toContain('Sawfang Dust (Misthavn Narcotic)')
+    expect(res.selections.artifacts).toContain('Strangler-kelp Noose (Misthavn)')
+    expect(res.selections.battalions).toContain('Alpha-Beast Pack')
+    expect(res.selections.battalions).toContain('Grand Battery')
+    expect(res.selections.battalions).toContain('Hunters of the Heartlands')
+    expect(res.selections.command_traits).toContain('Heroic Stature')
+    expect(res.selections.endless_spells).toContain('Prismatic Palisade')
+    expect(res.selections.flavors).toContain('Misthavn')
+    expect(res.selections.grand_strategies).toContain('Hold the Line')
+    expect(res.selections.spells).toContain('Flaming Weapon')
+    expect(res.selections.triumphs).toContain('Inspired')
+    expect(res.selections.units).toContain('Freeguild General')
+    expect(res.selections.units).toContain('Sisters of the Thorn')
+    expect(res.selections.units).toContain('Helstorm Rocket Battery')
+    expect(res.selections.units).toContain('Steam Tank with Commander')
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read New_Ironjawz', () => {
+    const pdfText = getFile('New_Ironjawz')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+  it.skip('should correctly read New_Nurgle1', () => {
+    const pdfText = getFile('New_Nurgle1')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+  it.skip('should correctly read New_Nurgle1_withStats', () => {
+    const pdfText = getFile('New_Nurgle1_withStats')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+  it.skip('should correctly read New_Nurgle1_withAlly', () => {
+    const pdfText = getFile('New_Nurgle1_withAlly')
+    const parsedText = parsePdf(pdfText)
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read SoulblightGravelords1', () => {
     const pdfText = getFile('SoulblightGravelords1')
     const parsedText = parsePdf(pdfText)

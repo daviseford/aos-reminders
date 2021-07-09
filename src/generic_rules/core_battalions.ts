@@ -49,7 +49,6 @@ const CoreBattalions: TEntry[] = [
     name: 'Warlord',
     effects: [StrategistsEffect, MagnificentEffect],
   },
-
   {
     name: 'Battle Regiment',
     effects: [OneDropDeploymentEffect],

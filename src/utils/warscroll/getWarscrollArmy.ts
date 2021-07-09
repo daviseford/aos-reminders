@@ -1,5 +1,6 @@
 import { SeraphonFaction } from 'factions/seraphon'
 import { StormcastFaction } from 'factions/stormcast_eternals'
+import { CoreBattalions } from 'generic_rules'
 import GenericScenery from 'generic_rules/scenery'
 import { last, uniq } from 'lodash'
 import { KHARADRON_OVERLORDS, STORMCAST_ETERNALS, TSupportedFaction } from 'meta/factions'
@@ -19,9 +20,11 @@ export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
 
 const flavorTypes = uniq(
   Object.values(getFactionList())
-    .map(v => (v.AggregateArmy.FlavorType || '').replace(/s$/, '')) // Remove trailing s
+    .map(v => (v.AggregateArmy.FlavorType || '').replace(/s$/, '')) // Remove trailing 's'
     .filter(x => !!x)
 )
+
+const coreBattalionNames = CoreBattalions.map(x => x.name)
 
 const unitIndicatorsPdf = [
   'Artillery',
@@ -106,12 +109,16 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         return accum
       }
 
-      if (txt === 'BATTALIONS') {
+      if (txt === 'BATTALIONS' || txt === 'CORE BATTALIONS') {
         selector = 'battalions'
         return accum
       }
 
-      if (txt === 'ENDLESS SPELLS / TERRAIN' || txt === 'ENDLESS SPELLS / TERRAIN / COMMAND POINTS') {
+      if (
+        txt === 'ENDLESS SPELLS / TERRAIN' ||
+        txt === 'ENDLESS SPELLS / TERRAIN / COMMAND POINTS' ||
+        txt === 'ENDLESS SPELLS & INVOCATIONS'
+      ) {
         selector = 'endless_spells'
         return accum
       }
@@ -122,6 +129,24 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (txt.startsWith('- General')) return accum
         if (txt.startsWith('- City Role')) return accum
         if (txt.startsWith('- Mark of Chaos : ')) return accum
+
+        // New in 2021
+        if (txt.startsWith('- Triumphs: ')) {
+          accum.triumphs.push(txt.replace('- Triumphs: ', ''))
+          return accum
+        }
+
+        // New in 2021
+        if (txt.startsWith('- Grand Strategy: ')) {
+          accum.grand_strategies.push(txt.replace('- Grand Strategy: ', ''))
+          return accum
+        }
+
+        // New in 2021
+        if (txt.startsWith('- Universal Spell Lore: ')) {
+          accum.spells.push(txt.replace('- Universal Spell Lore: ', ''))
+          return accum
+        }
 
         if (txt.startsWith('- Tribe: ')) {
           const { flavor, trait } = getTribe(txt)
@@ -182,6 +207,13 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
             accum[selector] = accumMock
             allyUnits.push(alliedUnit)
           }
+          return accum
+        }
+
+        // Misthavn Narcotic
+        if (txt.startsWith('- Misthavn Narcotic: ')) {
+          const artifact = txt.replace('- Misthavn Narcotic: ', '').trim()
+          accum.artifacts.push(artifact)
           return accum
         }
 
@@ -350,7 +382,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
       }
 
       // Check for end of file stuff
-      if (['TOTAL: ', 'LEADERS: ', 'ARTEFACTS: '].some(e => txt.startsWith(e))) {
+      if (['TOTAL: ', 'LEADERS: ', 'ARTEFACTS: ', 'ADDITIONAL ENHANCEMENTS'].some(e => txt.startsWith(e))) {
         selector = ''
         return accum
       }
@@ -361,6 +393,16 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (selector === 'endless_spells' && genericScenery.includes(txt)) {
           accum.scenery = uniq(accum.scenery.concat(txt))
         } else {
+          // New in 2021
+          // Extract Core Battalions from a unit name (e.g. 'Freeguild General in Grand Battery')
+          if (selector === 'units') {
+            const coreBattalion = coreBattalionNames.find(name => txt.endsWith(` in ${name}`))
+            if (coreBattalion) {
+              accum.battalions = uniq(accum.battalions.concat(coreBattalion))
+              txt = txt.replace(` in ${coreBattalion}`, '')
+            }
+          }
+
           accum[selector] = uniq(accum[selector].concat(txt))
         }
       }
