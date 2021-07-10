@@ -43,14 +43,14 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('1625911854492-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([
-        // +   Object {
-        // +     "severity": "warn",
-        // +     "text": "Core Battalion: Battle Regiment",
-        // +   },
-        // +   Object {
-        // +     "severity": "warn",
-        // +     "text": "Grand Strategy",
-        // +   },
+      // +   Object {
+      // +     "severity": "warn",
+      // +     "text": "Core Battalion: Battle Regiment",
+      // +   },
+      // +   Object {
+      // +     "severity": "warn",
+      // +     "text": "Grand Strategy",
+      // +   },
     ])
   })
 

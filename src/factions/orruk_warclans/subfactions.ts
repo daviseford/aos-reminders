@@ -20,6 +20,9 @@ import IronjawzMountTraits from './ironjawz/mount_traits'
 import IronjawzPrayers from './ironjawz/prayers'
 import IronjawzSpells from './ironjawz/spells'
 import IronjawzUnits from './ironjawz/units'
+import KruleboyzBattleTraits from './kruleboyz/battle_traits'
+import KruleboyzSpells from './kruleboyz/spells'
+import KruleboyzUnits from './kruleboyz/units'
 
 const subFactions = {
   Ironjawz: {
@@ -62,16 +65,23 @@ const subFactions = {
   'Big Waaagh': {
     effects: pickEffects(BigWaaaghBattleTraits, ['Big Waaagh']),
     available: {
-      allied_units: [GreenskinzUnits, IronjawzUnits, BonesplitterzUnits],
+      allied_units: [GreenskinzUnits, IronjawzUnits, BonesplitterzUnits, KruleboyzUnits],
       artifacts: [IronjawzArtifacts, BonesplitterzArtifacts],
       battalions: [IronjawzBattalions, BonesplitterzBattalions],
       command_traits: [IronjawzCommandTraits, BonesplitterzCommandTraits],
       mount_traits: [IronjawzMountTraits],
       prayers: [IronjawzPrayers],
-      spells: [IronjawzSpells, BonesplitterzSpells],
+      spells: [IronjawzSpells, BonesplitterzSpells, KruleboyzSpells],
     },
     mandatory: {
       command_abilities: [keyPicker(BigWaaaghCommandAbilities, ['Da Big Waaagh!!!'])],
+    },
+  },
+  Kruleboyz: {
+    effects: pickEffects(KruleboyzBattleTraits, ['Venom-encrusted Weapons']),
+    available: {
+      spells: [KruleboyzSpells],
+      units: [KruleboyzUnits],
     },
   },
 }
