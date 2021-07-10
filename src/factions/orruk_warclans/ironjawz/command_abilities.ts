@@ -77,7 +77,7 @@ const IronjawzCommandAbilities = {
     effects: [
       {
         name: `Rabble Rouser`,
-        desc: `Pick a warchanter, that warchanter can pick 3 Brutes or Ardboyz to benefit from its Violent fury ability instead of 1.`,
+        desc: `Pick a Warchanter, that Warchanter can pick 3 Brutes or Ardboyz to benefit from its Violent Fury ability instead of 1.`,
         when: [HERO_PHASE],
       },
     ],
