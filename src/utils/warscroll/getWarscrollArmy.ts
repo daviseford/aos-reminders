@@ -144,7 +144,10 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
         // New in 2021
         if (txt.startsWith('- Grand Strategy: ')) {
-          accum.grand_strategies.push(txt.replace('- Grand Strategy: ', ''))
+          const grand_strategy = txt.replace('- Grand Strategy: ', '').trim()
+          if (grand_strategy !== 'None Chosen') {
+            accum.grand_strategies.push(grand_strategy)
+          }
           return accum
         }
 

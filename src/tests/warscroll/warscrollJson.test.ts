@@ -112,6 +112,12 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1625865392803-Warscroll_Builder', () => {
     const parsedText = getFile('1625865392803-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1625903655408-Warscroll_Builder', () => {
+    const parsedText = getFile('1625903655408-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Lord-Imperatant')
     expect(res.selections.units).toContain('Annihilators')
     expect(res.selections.units).toContain('Praetors')
@@ -136,11 +142,6 @@ describe('getWarscrollArmyFromJson', () => {
       //   +   },
       //   + ]
     ])
-  })
-
-  it('should correctly read 1625903655408-Warscroll_Builder', () => {
-    const parsedText = getFile('1625903655408-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
   })
 

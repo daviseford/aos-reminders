@@ -1272,7 +1272,7 @@ const Units = {
       {
         name: `Champion`,
         desc: `1 model in this unit can be a Praetor-Prime. Add 1 to the Attacks characteristic of that model's Soulguard's Halberd.`,
-        when: [DURING_GAME],
+        when: [COMBAT_PHASE],
       },
       {
         name: `Soul-forged Guardians`,
@@ -1287,6 +1287,51 @@ const Units = {
         
         On a 1-3, that wound or mortal wound is allocated to that HERO as normal. On a 3-4, that wound or mortal wound is allocated to this unit instead of that HERO. On a 5-6, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  Vindicators: {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Vindictor-Prime. Add 1 to the Attacks characteristic of that model's Stormspear.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `1 in every 5 models in this unit can be an Azyrite Signifier. Add 1 to the Bravery characteristic of this unit while it has any Azyrite Signifiers.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Stormsoul Arsenal`,
+        desc: `If the unmodified hit roll for an attack made with a Stormspear is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  Annihilators: {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be an Annihilator-Prime. Add 1 to the Attacks characteristic of that model's Meteoric Hammer.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Blazing Impact`,
+        desc: `After this unit is set up on the battlefield for the first time, roll a dice for each enemy unit within 10" of this unit. On a 3+, that unit suffers D3 mortal wounds.
+        
+        In addition, you can reroll charge rolls for this unit if it was set up on the battlefield in the same turn.`,
+        when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Blazing Impact`,
+        desc: `You can reroll charge rolls for this unit if it was set up on the battlefield in the same turn.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Force of a Falling Star`,
+        desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a number of dice equal to the unmodified charge roll for that charge move. Subtract 1 from the roll if this unit only has 2 models. Subtract 2 from the roll if this unit onlv has 1 model. For each 4+, that enemy unit suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
