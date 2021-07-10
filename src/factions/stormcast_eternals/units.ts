@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
@@ -15,6 +16,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
+  TURN_ONE_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
@@ -598,6 +600,18 @@ const Units = {
       },
     ],
   },
+  'Knight-Arcanum': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Blaze of the Heavens'])],
+    },
+    effects: [
+      {
+        name: `Indomitable Loreseekers`,
+        desc: `Predatory endless spells cannot pass across this unit or finish a move within 3" of this unit.`,
+        when: [END_OF_HERO_PHASE],
+      },
+    ],
+  },
   'Knight-Azyros': {
     effects: [
       {
@@ -737,6 +751,24 @@ const Units = {
         name: `Pennant of the Stormbringer`,
         desc: `Once per battle, pick a friendly STORMCAST ETERNAL unit on the battlefield. Remove that unit from the battlefield and then set it up again anywhere on the battlefield more than 9" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
+  'Knight-Vexillor with Banner of Apotheosis': {
+    effects: [
+      {
+        name: `Banner of the Reforged`,
+        desc: `Once per battle, in your hero phase, if this unit is on the battlefield, you can pick up to 3 friendly STORMCAST ETERNALS units wholly within 12" of this unit to be affected by the banner's energy (you can pick the same unit multiple times).
+
+        If you pick a unit once with this ability, you can heal up to D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined VVounds characteristic of D3 or less. If you pick a unit twice with this ability, you can heal up to 2D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain nodels to that unit that have a combined Wounds characteristic of 2D3 or less. 
+        
+        If you pick a unit three times with this ability, you can heal up to 3D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of 3D3 or less.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Soul-charged Icon`,
+        desc: `You can reroll charge rolls for STORMCAST ETERNALS units wholly within 12" of this unit.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -1190,6 +1222,117 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       SigmariteWarcloakEffect,
+    ],
+  },
+  'Yndrasta the Celestial Spear': {
+    effects: [
+      {
+        name: `The Prime Huntress`,
+        desc: `If any enemy MONSTERS are within 3" of this unit, add 10 to the number of wounds suffered by those MONSTERS when determining which row on their damage table to use.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Champion of Sigmar`,
+        desc: `This unit has a 4+ ward.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Dazzling Radiance`,
+        desc: `Once per turn, in your hero phase, if this unit is on the battlefield, you can return 1 slain model to each friendly STORMCAST ETERNALS unit with a Wounds characteristic of 3 or less that is wholly within 12" of this unit.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Hawk of the Celestial Skies`,
+        desc: `Do not take battleshock tests for friendly STORMCAST ETERNALS and CITIES OF SIGMAR units wholly within 12" of this unit.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  'Lord-Imperatant': {
+    effects: [
+      {
+        name: `Companion`,
+        desc: `A Lord-Imperatant is accompanied by a Gryph-hound that attacks with its Vicious Beak and Claws. The Gryph-hound must remain within 1" of the Lord-Imperatant. For rules purposes, the Lord-Imperatant and Gryph-hound are treated as a single model.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Distinguished Leader`,
+        desc: `Once per turn, this unit can issue a command without a command point being spent.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Guided by Lightning`,
+        desc: `Once per turn, at the end of your movement phase, if any friendly units with this ability are on the battlefield, you can say that they will guide the arrival of Sigmar's warriors. If you do so, pick 1 friendly STORMCAST ETERNALS THUNDERSTRIKE unit with a Wounds characteristic of 3 or less that is in reserve. When you use the Scions of the Storm allegiance ability to set up that unit on the battlefield in that phase, you can set it up more than 7" from all enemy units instead of more than 9".`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
+  Praetors: {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Praetor-Prime. Add 1 to the Attacks characteristic of that model's Soulguard's Halberd.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Soul-forged Guardians`,
+        desc: `At the start of the first battle round, before determining who has the first turn, you can pick 1 friendly STORMCAST ETERNALS HERO on the battlefield to which this unit will be bound. Roll a dice before you allocate a wound or mortal wound to that HERO while it is within 3" of this unit.
+        
+        On a 1-3, that wound or mortal wound is allocated to that HERO as normal. On a 3-4, that wound or mortal wound is allocated to this unit instead of that HERO. On a 5-6, that wound or mortal wound is negated.`,
+        when: [TURN_ONE_START_OF_ROUND],
+      },
+      {
+        name: `Soul-forged Guardians`,
+        desc: `Roll a dice before you allocate a wound or mortal wound to that (previously bound) HERO while it is within 3" of this unit.
+        
+        On a 1-3, that wound or mortal wound is allocated to that HERO as normal. On a 3-4, that wound or mortal wound is allocated to this unit instead of that HERO. On a 5-6, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  Vindicators: {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Vindictor-Prime. Add 1 to the Attacks characteristic of that model's Stormspear.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `1 in every 5 models in this unit can be an Azyrite Signifier. Add 1 to the Bravery characteristic of this unit while it has any Azyrite Signifiers.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Stormsoul Arsenal`,
+        desc: `If the unmodified hit roll for an attack made with a Stormspear is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  Annihilators: {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be an Annihilator-Prime. Add 1 to the Attacks characteristic of that model's Meteoric Hammer.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Blazing Impact`,
+        desc: `After this unit is set up on the battlefield for the first time, roll a dice for each enemy unit within 10" of this unit. On a 3+, that unit suffers D3 mortal wounds.
+        
+        In addition, you can reroll charge rolls for this unit if it was set up on the battlefield in the same turn.`,
+        when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Blazing Impact`,
+        desc: `You can reroll charge rolls for this unit if it was set up on the battlefield in the same turn.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Force of a Falling Star`,
+        desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a number of dice equal to the unmodified charge roll for that charge move. Subtract 1 from the roll if this unit only has 2 models. Subtract 2 from the roll if this unit onlv has 1 model. For each 4+, that enemy unit suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
+      },
     ],
   },
 }

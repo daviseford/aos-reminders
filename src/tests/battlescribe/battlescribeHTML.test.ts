@@ -39,6 +39,57 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it.skip('should correctly read 1625911854492-Battlescribe', () => {
+    const parsedText = getFile('1625911854492-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([
+        // +   Object {
+        // +     "severity": "warn",
+        // +     "text": "Core Battalion: Battle Regiment",
+        // +   },
+        // +   Object {
+        // +     "severity": "warn",
+        // +     "text": "Grand Strategy",
+        // +   },
+    ])
+  })
+
+  it.skip('should correctly read 1625913262959-Battlescribe', () => {
+    const parsedText = getFile('1625913262959-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1625916579390-Battlescribe', () => {
+    const parsedText = getFile('1625916579390-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1625916714029-Battlescribe', () => {
+    const parsedText = getFile('1625916714029-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1625916740089-Battlescribe', () => {
+    const parsedText = getFile('1625916740089-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1625934355496-Battlescribe', () => {
+    const parsedText = getFile('1625934355496-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1625935761556-Battlescribe', () => {
+    const parsedText = getFile('1625935761556-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
   it.skip('should correctly read 1604504461219-Battlescribe', () => {
     const parsedText = getFile('1604504461219-Battlescribe')
     const res = getBattlescribeArmy(parsedText)

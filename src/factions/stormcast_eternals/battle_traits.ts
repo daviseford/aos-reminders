@@ -7,6 +7,7 @@ import {
   DURING_SETUP,
   END_OF_MOVEMENT_PHASE,
   SAVES_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
 
@@ -15,13 +16,18 @@ const BattleTraits = {
     effects: [
       {
         name: `Scions of the Storm`,
-        desc: `Set up 1 unit in the Celestial Realm for every unit you set up on the battlefield. At the end of your movement phase you can set up one or more reserve units more than 9" from the enemy. Any units not set up before the 4th Battleround are slain.`,
-        when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
+        desc: `Instead of setting up a STORMCAST ETERNALS unit on the battlefield, you can place it to one side and say that it is set up in the Celestial Realm as a reserve unit. You can set up 1 unit in the Celestial Realm for each unit you have set up on the battlefield. At the end of your movement phase, you can set up 1 or more of the reserve units in the Celestial Realm on the battlefield, more than 9" from all enemy units.`,
+        when: [DURING_SETUP],
       },
       {
-        name: `Shock and Awe`,
-        desc: `Subtract 1 from hit rolls for attacks that target any unit set up this turn.`,
-        when: [COMBAT_PHASE],
+        name: `Scions of the Storm`,
+        desc: `At the end of your movement phase, you can set up 1 or more of the reserve units in the Celestial Realm on the battlefield, more than 9" from all enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Blaze of Glory`,
+        desc: `If a friendly STORMCAST ETERNALS model is slain within 1" of an enemy unit, before removing that model from play, pick 1 enemy unit within 1" of that model and roll a number of dice equal to the Wounds characteristic of that model. Add 1 to the number of dice you roll if the slain model has the THUNDERSTRIKE keyword. For each 6, the target suffers 1 mortal wound at the end of that phase.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

@@ -189,6 +189,15 @@ const Spells = {
       },
     ],
   },
+  'Blaze of the Heavens': {
+    effects: [
+      {
+        name: `Blaze of the Heavens`,
+        desc: `Casting value of 7 and a range of 18". If successfully cast, pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. Add 2" to the range of this spell for each other friendly STORMCAST ETERNALS THUNDERSTRIKE unit wholly within 12" of the caster.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Spells, 'spell')

@@ -29,7 +29,7 @@ const getDeathlyInvocation = (numUnits: number) => ({
   when: [START_OF_HERO_PHASE],
   shared: true,
 })
-const getFrightfulTouchEffect = (weapon: `Blades` | `Daggers`) => ({
+const getFrightfulTouchEffect = (weapon: 'Blades' | 'Daggers') => ({
   name: `Frightful Touch`,
   desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and ${weapon} is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
   when: [COMBAT_PHASE],

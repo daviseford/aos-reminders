@@ -403,7 +403,7 @@ const Units = {
       },
     ],
   },
-  'Severith, Lord of the Seventh Wind': {
+  'Sevireth, Lord of the Seventh Wind': {
     effects: [
       IntoTheGaleOverSaveEffect,
       IntoTheGalePileInRestrictionEffect,

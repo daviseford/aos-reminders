@@ -47,7 +47,7 @@ const WailOfTheDamnedEffect = {
   shared: true,
 }
 
-const getFrightfulTouchEffect = (weapon: `Blades` | `Daggers`) => ({
+const getFrightfulTouchEffect = (weapon: 'Blades' | 'Daggers') => ({
   name: `Frightful Touch`,
   desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and ${weapon} is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
   when: [COMBAT_PHASE],
@@ -61,7 +61,7 @@ const DeathlyChargeEffect = {
   shared: true,
 }
 
-const getStandardBearerEffect = (size: `5` | `10`) => {
+const getStandardBearerEffect = (size: 5 | 10) => {
   return {
     name: `Standard Bearer`,
     desc: `1 in every ${size} models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
@@ -423,7 +423,7 @@ const Units = {
   'Blood Knights': {
     effects: [
       TheHungerEffect,
-      getStandardBearerEffect(`5`),
+      getStandardBearerEffect(5),
       {
         name: `Champion`,
         desc: `1 model in this unit can be a Kastellan. Add 1 to the Attacks characteristic of a Kastellan's Templar Lance or Blade.`,
@@ -621,7 +621,7 @@ const Units = {
   'Black Knights': {
     effects: [
       DeathlyChargeEffect,
-      getStandardBearerEffect(`5`),
+      getStandardBearerEffect(5),
       {
         name: `Champion`,
         desc: `1 model in this unit can be a Hellknight. Add 1 to the Attacks characteristic of that model's Barrow Lance.`,
@@ -637,7 +637,7 @@ const Units = {
 
   'Grave Guard': {
     effects: [
-      getStandardBearerEffect(`10`),
+      getStandardBearerEffect(10),
       {
         name: `Champion`,
         desc: `1 model in this unit can be a Seneschal. Add 1 to the Attacks characteristic of that model's Wight Blade or Great Wight Blade.`,
@@ -663,7 +663,7 @@ const Units = {
 
   'Deathrattle Skeletons': {
     effects: [
-      getStandardBearerEffect(`10`),
+      getStandardBearerEffect(10),
       {
         name: `Champion`,
         desc: `1 model in this unit can be a Skeleton Champion. A Skeleton Champion can replace their Ancient Blade or Spear with a Champion's Mace or Halberd.`,
