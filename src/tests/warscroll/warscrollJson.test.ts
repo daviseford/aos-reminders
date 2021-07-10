@@ -121,7 +121,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.units).toContain('Lord-Imperatant')
     expect(res.selections.units).toContain('Annihilators')
     expect(res.selections.units).toContain('Praetors')
-    expect(res.selections.units).toContain('Vindicators')
+    expect(res.selections.units).toContain('Vindictors')
     expect(res.errors).toEqual([
       // + Array [
       //   +   Object {
