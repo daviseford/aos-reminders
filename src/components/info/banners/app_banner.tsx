@@ -4,7 +4,7 @@ import React from 'react'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = 'aos-3-core-rules-update'
+  const name = 'aos-3-dominion-update'
 
   return (
     <NotificationBanner
@@ -15,13 +15,9 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>We are fully up to date with AoS 3.0!</strong>
-
-        <li>Added Core Rules 2021</li>
-        <li>Added General's Handbook 2021</li>
-        <li>
-          Added <strong>all</strong> of the July 2021 FAQs! <em>(phew)</em>
-        </li>
+        <li>Added Kruleboyz</li>
+        <li>Added new Stormcast Eternals units (from the Dominion boxed set)</li>
+        <li>Updated Warscroll Builder PDF import code - working on Battlescribe imports next!</li>
       </span>
     </NotificationBanner>
   )

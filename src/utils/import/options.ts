@@ -138,6 +138,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
   'Unrivalled Batte-lust': 'Unrivalled Battlelust',
   'Vial of the Pure Blood': 'Vial of Pure Blood',
+  Vindicators: 'Vindictors',
   'Vitrolic Spray': 'Vitriolic Spray',
   'Vokmortian, Master of the Bone-tithe': 'Vokmortian',
   'Vulturnos, High King of the Deep': 'Volturnos, High King of the Deep',

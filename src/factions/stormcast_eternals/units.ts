@@ -1290,7 +1290,7 @@ const Units = {
       },
     ],
   },
-  Vindicators: {
+  Vindictors: {
     effects: [
       {
         name: `Champion`,
