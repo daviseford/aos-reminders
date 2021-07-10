@@ -144,6 +144,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Windshief Charm': 'Windthief Charm',
   "Anraheir's Claw": "Anraheirs's Claw",
   "Dakkbad's Brawl": 'Brawl',
+  "Lord Imperatant": 'Lord-Imperatant',
   'Kurnoth Hunters with Kurnoth Greatbows': 'Kurnoth Hunters',
   'Kurnoth Hunters with Kurnoth Greatswords': 'Kurnoth Hunters',
   "Mastro Vivetti's Maginificent Macroscope": "Mastro Vivetti's Magnificent Macroscope",

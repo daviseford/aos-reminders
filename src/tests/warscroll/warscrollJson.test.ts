@@ -75,7 +75,7 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1625851245173-Warscroll_Builder', () => {
     const parsedText = getFile('1625851245173-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.units).toContain('Kurnoth Hunters'])
+    expect(res.selections.units).toContain('Kurnoth Hunters')
     expect(res.errors).toEqual([])
   })
 
@@ -112,7 +112,30 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1625865392803-Warscroll_Builder', () => {
     const parsedText = getFile('1625865392803-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
+    expect(res.selections.units).toContain('Lord-Imperatant')
+    expect(res.selections.units).toContain('Annihilators')
+    expect(res.selections.units).toContain('Praetors')
+    expect(res.selections.units).toContain('Vindicators')
+    expect(res.errors).toEqual([
+      // + Array [
+      //   +   Object {
+      //   +     "severity": "warn",
+      //   +     "text": "Lord Imperatant",
+      //   +   },
+      //   +   Object {
+      //   +     "severity": "warn",
+      //   +     "text": "Annihilators",
+      //   +   },
+      //   +   Object {
+      //   +     "severity": "warn",
+      //   +     "text": "Praetors",
+      //   +   },
+      //   +   Object {
+      //   +     "severity": "warn",
+      //   +     "text": "Vindicators",
+      //   +   },
+      //   + ]
+    ])
   })
 
   it('should correctly read 1625903655408-Warscroll_Builder', () => {
@@ -127,15 +150,10 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1625929895225-Warscroll_Builder', () => {
-    const parsedText = getFile('1625929895225-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
   it('should correctly read 1625930081642-Warscroll_Builder', () => {
     const parsedText = getFile('1625930081642-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Yndrasta the Celestial Spear')
     expect(res.errors).toEqual([])
   })
 
