@@ -6,8 +6,10 @@ import {
   DURING_TURN,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
+  TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 import rule_sources from './rule_sources'
 
@@ -118,6 +120,33 @@ const CommandTraits = {
         name: `Burning Gaze`,
         desc: `Pick 1 enemy unit within 3" of this general and visible to them. Roll a dice, on a 2+ that unit suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Grand Strategist': {
+    effects: [
+      {
+        name: `Grand Strategist`,
+        desc: `If this general is on the battlefield at the start of the first battle round, you receive 1 extra command point.`,
+        when: [TURN_ONE_START_OF_ROUND],
+      },
+    ],
+  },
+  'Consummate Warrior': {
+    effects: [
+      {
+        name: `Consummate Warrior`,
+        desc: `Once per turn, you can reroll 1 hit roll or 1 wound roll for an attack made by this general, or 1 save roll for an attack that targets this general.`,
+        when: [COMBAT_PHASE, SAVES_PHASE],
+      },
+    ],
+  },
+  'Astute Commander': {
+    effects: [
+      {
+        name: `Astute Commander`,
+        desc: `If this general is on the battlefield, each time you spend a command point, roll a dice. On a 6, you receive 1 command point.`,
+        when: [DURING_GAME],
       },
     ],
   },

@@ -61,6 +61,8 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1625846409659-Warscroll_Builder', () => {
     const parsedText = getFile('1625846409659-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.triumphs).toContain('Inspired')
+    expect(res.selections.triumphs).toContain('Bloodthirsty')
     expect(res.errors).toEqual([])
   })
 
@@ -73,6 +75,7 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1625851245173-Warscroll_Builder', () => {
     const parsedText = getFile('1625851245173-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Kurnoth Hunters'])
     expect(res.errors).toEqual([])
   })
 
@@ -145,6 +148,8 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1625930557439-Warscroll_Builder', () => {
     const parsedText = getFile('1625930557439-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Sevireth, Lord of the Seventh Wind')
+    expect(res.selections.command_traits).toContain('Astute Commander')
     expect(res.errors).toEqual([])
   })
 

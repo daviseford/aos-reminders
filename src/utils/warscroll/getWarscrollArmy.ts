@@ -133,7 +133,12 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
         // New in 2021
         if (txt.startsWith('- Triumphs: ')) {
-          accum.triumphs.push(txt.replace('- Triumphs: ', ''))
+          // e.g. "- Triumphs: Inspired,Bloodthirsty"
+          const triumphs = txt
+            .replace('- Triumphs: ', '')
+            .split(',')
+            .map(x => x.trim())
+          accum.triumphs = accum.triumphs.concat(triumphs)
           return accum
         }
 

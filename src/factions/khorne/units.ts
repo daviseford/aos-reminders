@@ -102,7 +102,7 @@ const SlaughterousChargeEffect = {
 }
 
 const getDecapitatingBlowEffect = (
-  weapon: `a Hellblade` | `a Blade of Blood` | `Hellblades` | `a Blade of Blood or Hellblades`
+  weapon: 'a Hellblade' | 'a Blade of Blood' | 'Hellblades' | 'a Blade of Blood or Hellblades'
 ) => ({
   name: `Decapitating Blow`,
   desc: `If the unmodified hit roll for an attack made with ${weapon} is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,

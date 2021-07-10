@@ -42,15 +42,12 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getAzyrArmyFromPdf', () => {
-
-  
-
-it('should correctly read 1625898122403-Azyr', () => {
-  const fileTxt = getFile('1625898122403-Azyr')
-  const pages = handleAzyrPages(fileTxt)
-  const res = getAzyrArmyFromPdf(pages)
-  expect(res.errors).toEqual([])
-})
+  it('should correctly read 1625898122403-Azyr', () => {
+    const fileTxt = getFile('1625898122403-Azyr')
+    const pages = handleAzyrPages(fileTxt)
+    const res = getAzyrArmyFromPdf(pages)
+    expect(res.errors).toEqual([])
+  })
 
   it('should correctly read Soulblight_Gravelords', () => {
     const fileTxt = getFile('Soulblight_Gravelords')

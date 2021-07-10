@@ -87,7 +87,7 @@ const RegularBattalions = {
         keyPicker(units, [
           'Hurakan Windmage',
           'Hurakan Windchargers',
-          'Severith, Lord of the Seventh Wind',
+          'Sevireth, Lord of the Seventh Wind',
           'Hurakan Spirit of the Wind',
         ]),
       ],
