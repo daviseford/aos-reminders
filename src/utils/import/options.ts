@@ -104,9 +104,12 @@ const warscrollTypoMap: Record<string, string> = {
   'Knights of the Empty Throne Varanguard': 'Varanguard',
   'Kraken-eater Mega-Gargant': 'Kraken-eater',
   'Kritza, the Rat Prince': 'Kritza',
+  'Kurnoth Hunters with Kurnoth Greatbows': 'Kurnoth Hunters',
+  'Kurnoth Hunters with Kurnoth Greatswords': 'Kurnoth Hunters',
   'Lady Annika, the Thirsting Blade': 'Lady Annika',
   'Lauka Vai, Mother of Nightmares': 'Lauka Vai',
   'Lighntning Blast': 'Lightning Blast',
+  'Lord Imperatant': 'Lord-Imperatant',
   'Lunestone Talisman': 'Loonstone Talisman',
   'Lynus Ghalmorian on Gryph-Charger': 'Lynus Ghalmorian on Gryph Charger',
   'Magestic Horror': 'Majestic Horror',
@@ -144,9 +147,6 @@ const warscrollTypoMap: Record<string, string> = {
   'Windshief Charm': 'Windthief Charm',
   "Anraheir's Claw": "Anraheirs's Claw",
   "Dakkbad's Brawl": 'Brawl',
-  "Lord Imperatant": 'Lord-Imperatant',
-  'Kurnoth Hunters with Kurnoth Greatbows': 'Kurnoth Hunters',
-  'Kurnoth Hunters with Kurnoth Greatswords': 'Kurnoth Hunters',
   "Mastro Vivetti's Maginificent Macroscope": "Mastro Vivetti's Magnificent Macroscope",
   Ogors: 'Ogor Gluttons',
   Razordons: 'Razordon Hunting Pack',
@@ -172,6 +172,7 @@ const azyrTypoMap: Record<string, string> = {
   'Slaves to Darkness Chaos Spawn': 'Chaos Spawn',
   'Slaves to Darkness Daemon Prince': 'Daemon Prince',
   'The Skyborne Slayers': 'Skyborne Slayers',
+  "Gáisa's Falx": "Gaisa's Falx",
 }
 
 // Battlescribe on the left - AoS Reminders on the right

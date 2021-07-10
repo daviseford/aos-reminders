@@ -46,6 +46,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('1625898122403-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
+    expect(res.selections.artifacts).toContain("Gaisa's Falx")
     expect(res.errors).toEqual([])
   })
 
