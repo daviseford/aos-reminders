@@ -453,7 +453,7 @@ const Units = {
       },
     ],
   },
-  'Exalted HERO of Chaos': {
+  'Exalted Hero of Chaos': {
     effects: [
       ChaosMarkAll,
       ChaosRuneshieldEffect,
