@@ -6,12 +6,7 @@ import rule_sources from './rule_sources'
 const Scenery = {
   'Feculent Gnarlmaw': {
     effects: [
-      {
-        name: `Setup`,
-        desc: `After territories are determined, you can set up this faction terrain feature wholly within your territory and more than 3" from all objectives and other terrain features. If both players can set up faction terrain features at the same time, they must roll off and the winner chooses who sets up their faction terrain features first.`,
-        when: [START_OF_SETUP],
-        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_NURGLE_JULY_2021],
-      },
+      GenericEffects.FactionTerrainSetup,
       GenericEffects.Impassable,
       {
         name: `Entropic Chimes`,

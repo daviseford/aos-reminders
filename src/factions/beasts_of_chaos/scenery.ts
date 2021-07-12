@@ -1,20 +1,12 @@
 import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
-import { BATTLESHOCK_PHASE, SAVES_PHASE, START_OF_SETUP } from 'types/phases'
+import { BATTLESHOCK_PHASE, SAVES_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const Scenery = {
   Herdstone: {
     effects: [
-      {
-        name: `Set up Herdstone`,
-        desc: `After territories are determined, you can set up this faction terrain feature wholly within your territory and more than 3" from all objectives and other terrain features. If both players can set up faction terrain features at the same time, they must roll off and the winner chooses who sets up their faction terrain features first.`,
-        when: [START_OF_SETUP],
-        rule_sources: [
-          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
-          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
-        ],
-      },
+      GenericEffects.FactionTerrainSetup,
       GenericEffects.Impassable,
       {
         name: `Entropic Lodestone`,

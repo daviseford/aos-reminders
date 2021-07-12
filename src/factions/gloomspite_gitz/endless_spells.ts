@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   CHARGE_PHASE,
   END_OF_HERO_PHASE,
@@ -23,15 +24,7 @@ const EndlessSpells = {
           rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
         ],
       },
-      {
-        name: `Predatory`,
-        desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
-        when: [END_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
-          rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
-        ],
-      },
+      GenericEffects.Predatory.Eight_Inches,
       {
         name: `Malevolent Intentions`,
         desc: `After this endless spell has moved, roll a dice for each unit that has any models it passed across. On a 2+, that unit suffers D3 mortal wounds.`,

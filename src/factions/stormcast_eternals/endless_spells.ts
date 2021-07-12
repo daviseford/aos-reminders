@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import { COMBAT_PHASE, END_OF_HERO_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
@@ -14,15 +15,7 @@ const EndlessSpells = {
           rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
         ],
       },
-      {
-        name: `Predatory`,
-        desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
-        when: [END_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
-          rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
-        ],
-      },
+      GenericEffects.Predatory.Eight_Inches,
       {
         name: `Storm of Vengeance`,
         desc: `After this endless spell has moved, the commanding player picks 1 unit that has any models it passed across and rolls 12 dice. For each 6, that unit suffers 1 mortal wound.`,

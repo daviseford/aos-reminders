@@ -21,6 +21,13 @@ import command_traits from './command_traits'
 import flavors from './flavors'
 import units from './units'
 
+const EverVigilantEffect = {
+  name: `Ever Vigilant`,
+  desc: `You can remove the battalion units from the battlefield. You may then set up the Lord-Veritant more than 9" from enemy units followed by the remaining battalion units, again more than 9" from the enemy and wholly within 12" of the Lord-Veritant.`,
+  when: [END_OF_SETUP],
+  shared: true,
+}
+
 const RegularBattalions = {
   'Skyborne Slayers': {
     mandatory: {
@@ -346,13 +353,7 @@ const RegularBattalions = {
       units: [keyPicker(units, ['Lord-Veritant', 'Gryph-Hounds', 'Judicators', 'Castigators'])],
       command_traits: [keyPicker(command_traits, ['Fiendslayer'])],
     },
-    effects: [
-      {
-        name: `Ever Vigilent`,
-        desc: `You can remove the battalion units from the battlefield. You may then set up the Lord-Veritant more than 9" from enemy units followed by the remaining battalion units, again more than 9" from the enemy and wholly within 12" of the Lord-Veritant.`,
-        when: [END_OF_SETUP],
-      },
-    ],
+    effects: [EverVigilantEffect],
   },
 }
 
@@ -382,13 +383,7 @@ const StormkeepBattalions = {
     mandatory: {
       units: [keyPicker(units, ['Lord-Veritant', 'Gryph-Hounds'])],
     },
-    effects: [
-      {
-        name: `Ever Vigilent`,
-        desc: `You can remove the battalion units from the battlefield. You may then set up the Lord-Veritant more than 9" from enemy units followed by the remaining battalion units, again more than 9" from the enemy and wholly within 12" of the Lord-Veritant.`,
-        when: [END_OF_SETUP],
-      },
-    ],
+    effects: [EverVigilantEffect],
   },
 }
 

@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import { END_OF_HERO_PHASE, HERO_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
@@ -36,12 +37,7 @@ const EndlessSpells = {
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
       },
-      {
-        name: `Predatory`,
-        desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
-        when: [END_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
-      },
+      GenericEffects.Predatory.Eight_Inches,
       {
         name: `Soul Siphon`,
         desc: `After this endless spell has moved, roll a dice for each model within 6" of it. On a 6, that model's unit suffers 1 mortal wound. Keep track of the number of mortal wounds caused by this endless spell. If the total is 10 or more at the end of any phase, this endless spell erupts. If it does so, roll a dice for each unit within 6" of this endless spell. On a 2+, that unit suffers a number of mortal wounds equal to the roll. After you have rolled for each unit within 6" of this endless spell, this endless spell is removed from play.`,
@@ -58,12 +54,7 @@ const EndlessSpells = {
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
       },
-      {
-        name: `Predatory`,
-        desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
-        when: [END_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
-      },
+      GenericEffects.Predatory.Eight_Inches,
       {
         name: `Keeper of Mortality`,
         desc: `After this endless spell has moved, the commanding player can choose whether it will reverse or hasten time. If they choose to reverse time, heal D3 wounds allocated to each unit within 6" of this endless spell. If they choose to hasten time, roll a dice for each unit within 6" of this endless spell. On a 2+, that unit suffers D3 mortal wounds.`,

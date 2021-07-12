@@ -2,6 +2,13 @@ import { keyPicker, tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, DURING_ROUND, HERO_PHASE, SAVES_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 import Units from './units'
 
+const HeirOfTheFyreheartTempleEffect = {
+  name: `Heir of the Fyreheart Temple`,
+  desc: `If a friendly unit of AURIC HEARTHGUARD from this battalion is wholly within 12" of Dhurgan when he uses his Magmic Prayer of Runic Empowerment ability, the prayer is answered on a 2+ instead of 3+.`,
+  when: [HERO_PHASE],
+  shared: true,
+}
+
 const RegularBattalions = {
   'Lords of the Lodge': {
     mandatory: {
@@ -79,13 +86,7 @@ const RegularBattalions = {
     mandatory: {
       units: [keyPicker(Units, ['Auric Runesmiter', 'Auric Hearthguard'])],
     },
-    effects: [
-      {
-        name: `Heir of the Fyreheart Temple`,
-        desc: `If a friendly unit of AURIC HEARTHGUARD from this battalion is wholly within 12" of Dhurgan when he uses his Magmic Prayer of Runic Empowerment ability, the prayer is answered on a 2+ instead of 3+.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [HeirOfTheFyreheartTempleEffect],
   },
   "Hajkarl's Sons of Fortune": {
     mandatory: {
@@ -132,13 +133,7 @@ const SuperBattalions = {
       ],
       units: [keyPicker(Units, ['Grimwrath Berzerker'])],
     },
-    effects: [
-      {
-        name: `Heir of the Fyreheart Temple`,
-        desc: `If a friendly unit of AURIC HEARTHGUARD from this battalion is wholly within 12" of Dhurgan when he uses his Magmic Prayer of Runic Empowerment ability, the prayer is answered on a 2+ instead of 3+.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [HeirOfTheFyreheartTempleEffect],
   },
 }
 

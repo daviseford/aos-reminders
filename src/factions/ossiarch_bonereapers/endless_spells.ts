@@ -19,15 +19,6 @@ const EndlessSpells = {
   'Bone-tithe Shrieker': {
     effects: [
       {
-        name: `Predatory`,
-        desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
-        when: [END_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
-        ],
-      },
-      {
         name: `Summoning`,
         desc: `Casting value of 5 and a range of 12". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only OSSIARCH BONEREAPERS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
@@ -36,6 +27,7 @@ const EndlessSpells = {
           rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
         ],
       },
+      GenericEffects.Predatory.Eight_Inches,
       ...GenericEffects.Bonded,
       {
         name: `Portent of Doom`,
@@ -100,15 +92,7 @@ const EndlessSpells = {
   },
   'Soulstealer Carrion': {
     effects: [
-      {
-        name: `Predatory`,
-        desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
-        when: [END_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
-        ],
-      },
+      GenericEffects.Predatory.Eight_Inches,
       ...GenericEffects.Bonded,
       {
         name: `Summoning`,

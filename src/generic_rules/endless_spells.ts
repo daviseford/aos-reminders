@@ -1,3 +1,4 @@
+import { GenericEffects } from 'generic_rules'
 import meta_rule_sources from 'meta/rule_sources'
 import { TEntry } from 'types/data'
 import {
@@ -57,12 +58,7 @@ export const EmeraldLifeswarmEffects = [
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 8" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  GenericEffects.Predatory.Eight_Inches,
   {
     name: `Bounteous Healing`,
     desc: `After this endless spell is set up and after it has moved, the commanding player can pick 1 unit within 1" of it. 
@@ -99,12 +95,7 @@ export const SuffocatingGravetideEffects = [
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 8" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  GenericEffects.Predatory.Eight_Inches,
   {
     name: `Pulled to the Grave`,
     desc: `After this endless spell has moved, for each unit that has any models it passed across, roll a number of dice equal to the number of models in that unit. For each 6, that unit suffers 1 mortal wound.`,
@@ -139,12 +130,7 @@ export const BurningHeadEffects = [
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 8" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  GenericEffects.Predatory.Eight_Inches,
   {
     name: `Flaming Skull`,
     desc: `After this endless spell has moved, if any units are within 1" of it, roll a dice for each unit within 1" of this endless spell. On a 2+, that unit suffers D3 mortal wounds. Then, this endless spell is removed from play.`,
@@ -159,12 +145,7 @@ export const QuicksilverSwordsEffects = [
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 8" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  GenericEffects.Predatory.Eight_Inches,
   {
     name: `Dancing Blades`,
     desc: `After this endless spell has moved, the commanding player can pick 1 unit that has any models it passed across and roll 12 dice. For each 6, that unit suffers 1 mortal wound. In addition, ward rolls cannot be made for mortal wounds caused by this ability.`,
@@ -185,12 +166,7 @@ export const PurpleSunEffects = [
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 8" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  GenericEffects.Predatory.Eight_Inches,
   {
     name: `End Given Form`,
     desc: `At the end of the hero phase, before determining control of predatory endless spells, roll a D6 for this endless spell. On a 5+, this endless spell becomes wild for the rest of the battle (do not roll for it again).
@@ -221,12 +197,7 @@ export const MalevolentMaelstromEffects = [
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 8" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  GenericEffects.Predatory.Eight_Inches,
   {
     name: `Morbid Detonation`,
     desc: `When this endless spell is set up, place a D6 beside it with the '1' facing up. Each time a spell is successfully cast by a unit within 12" of this endless spell and not unbound, after the effects of the spell have been resolved, increase the value of the D6 beside this endless spell by 1 (to a maximum of 6). In addition, each time a model is slain within 12" of this endless spell, increase the value of the dice beside this endless spell by 1 (to a maximum of 6).
@@ -369,12 +340,7 @@ export const HorrorghastEffects = [
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 8" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  GenericEffects.Predatory.Eight_Inches,
   {
     name: `Prey on Fear`,
     desc: `Units wholly within 12" of this endless spell cannot receive commands in the battleshock phase. In addition, if a unit fails a battleshock test wholly within 12" of this endless spell, add D3 to the number of models that flee.`,

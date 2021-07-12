@@ -14,6 +14,13 @@ import {
 } from 'types/phases'
 import spells from './spells'
 
+const AllPartOfDaPlanEffect = {
+  name: `All Part of Da Plan`,
+  desc: `lf a friendly KRULEBOYZ unit fails a battleshock test within 3" of any friendly units with this ability, only 1 model from that unit will flee.`,
+  when: [BATTLESHOCK_PHASE],
+  shared: true,
+}
+
 const KruleboyzUnits = {
   'Man-skewer Boltboyz': {
     effects: [
@@ -83,11 +90,7 @@ const KruleboyzUnits = {
   },
   'Killaboss on Great Gnashtoof': {
     effects: [
-      {
-        name: `All Part of Da Plan`,
-        desc: `lf a friendly KRULEBOYZ unit fails a battleshock test within 3" of any friendly units with this ability, only 1 model from that unit will flee.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      AllPartOfDaPlanEffect,
       {
         name: `Savage Hound`,
         desc: `Add 1 to hit rolls for attacks made by this unit if this unit made a charge move in the same turn.`,
@@ -123,11 +126,7 @@ const KruleboyzUnits = {
         desc: `Killaboss is accompanied by a Stab-grot that attacks with its Prized Shiv. The Stab-grot must remain within 1" of the Killaboss. For rules purposes, the Killaboss and Stab-grot are treated as a single model.`,
         when: [DURING_GAME],
       },
-      {
-        name: `All Part of Da Plan`,
-        desc: `lf a friendly KRULEBOYZ unit fails a battleshock test within 3" of any friendly units with this ability, only 1 model from that unit will flee.`,
-        when: [BATTLESHOCK_PHASE],
-      },
+      AllPartOfDaPlanEffect,
       {
         name: `You Hold 'Em Off`,
         desc: `Each time a wound or mortal wound is allocated to this unit and not negated, you can choose to risk this unit's Stab-grot. If you do so. you must roll a dice. On a 1-5, the Stab-grot is killed and the wound is negated. On a 6 the Stab-grot is not killed and the wound is negated. If the Stab-grot is killed, the model representing it is removed from play before the wound is negated.`,

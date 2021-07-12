@@ -1,13 +1,7 @@
 import { tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import { BATTLESHOCK_PHASE, END_OF_HERO_PHASE, HERO_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
-
-const PredatoryEffect = {
-  name: `Predatory`,
-  desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
-  when: [END_OF_HERO_PHASE],
-  rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
-}
 
 const EndlessSpells = {
   Gladewyrm: {
@@ -18,7 +12,7 @@ const EndlessSpells = {
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
-      PredatoryEffect,
+      GenericEffects.Predatory.Eight_Inches,
       {
         name: `Death From Below`,
         desc: `After this endless spell has moved, roll a dice for each unit within 1" of it. On a 3+, that unit suffers D3 mortal wounds. This ability has no effect on SYLVANETH units.`,
@@ -73,7 +67,7 @@ const EndlessSpells = {
         when: [END_OF_HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
-      PredatoryEffect,
+      GenericEffects.Predatory.Eight_Inches,
     ],
   },
 }

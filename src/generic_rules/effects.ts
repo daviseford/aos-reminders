@@ -3,10 +3,12 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_MOVEMENT_PHASE,
+  START_OF_SETUP,
   TURN_ONE_START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -18,6 +20,7 @@ const GenericEffects = {
     name: `Disruptive Presence`,
     desc: `If your army includes any MERCENARY units, at the start of your hero phase in the first battle round, you do not receive 1 command point for your general being on the battlefield.`,
     when: [TURN_ONE_START_OF_HERO_PHASE],
+    shared: true,
   },
   // We re-use this Timber! a lot as well, so we stuck it here!
   Gargant: [
@@ -111,6 +114,39 @@ const GenericEffects = {
     name: `Impassable`,
     desc: `You cannot move a model over this terrain feature unless it can fly, and you cannot move a model onto this terrain feature or set up a model on this terrain feature (even if it can fly).`,
     when: [DURING_GAME],
+    shared: true,
+  },
+  Defensible: {
+    name: `Defensible`,
+    desc: `This terrain feature is a defensible terrain feature that can be garrisoned by 1 HERO with a Wounds characteristic of 8 or less.`,
+    when: [DURING_GAME],
+    shared: true,
+  },
+  FactionTerrainSetup: {
+    name: `Setup`,
+    desc: `After territories are determined, you can set up this faction terrain feature wholly within your territory and more than 3" from all objectives and other terrain features. If both players can set up faction terrain features at the same time, they must roll off and the winner chooses who sets up their faction terrain features first.`,
+    when: [START_OF_SETUP],
+    shared: true,
+  },
+  Predatory: {
+    Eight_Inches: {
+      name: `Predatory`,
+      desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
+      when: [END_OF_HERO_PHASE],
+      shared: true,
+    },
+    Nine_Inches: {
+      name: `Predatory`,
+      desc: `This endless spell is a predatory endless spell. It can be moved up to 9" and can fly.`,
+      when: [END_OF_HERO_PHASE],
+      shared: true,
+    },
+    Twelve_Inches: {
+      name: `Predatory`,
+      desc: `This endless spell is a predatory endless spell. It can be moved up to 12" and can fly.`,
+      when: [END_OF_HERO_PHASE],
+      shared: true,
+    },
   },
   Elite: {
     name: `Elite`,
@@ -123,11 +159,13 @@ const GenericEffects = {
       name: `Bonded`,
       desc: `This endless spell is bonded to the model that summoned it. A bonded endless spell is always controlled by the model to which it is bonded. A model cannot be bonded to more than one endless spell at the same time and cannot attempt to summon other endless spells while it is bonded. If the model that summoned this endless spell is removed from play, then this endless spell is removed from play.`,
       when: [DURING_GAME],
+      shared: true,
     },
     {
       name: `Bonded`,
       desc: `If the model that summoned this endless spell is removed from play, then this endless spell is removed from play.`,
       when: [WOUND_ALLOCATION_PHASE],
+      shared: true,
     },
   ],
   InfantryHornblowerEffect: {

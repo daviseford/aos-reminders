@@ -1,17 +1,12 @@
 import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
-import { END_OF_MOVEMENT_PHASE, START_OF_HERO_PHASE, START_OF_SETUP } from 'types/phases'
+import { END_OF_MOVEMENT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const Scenery = {
   'Fane of Slaanesh': {
     effects: [
-      {
-        name: `Set Up`,
-        desc: `After territories are determined, you can set up this faction terrain feature wholly within your territory and more than 3" from all objectives and other terrain features. If both players can set up faction terrain features at the same time, they must roll off and the winner chooses who sets up their faction terrain features first.`,
-        when: [START_OF_SETUP],
-        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
-      },
+      GenericEffects.FactionTerrainSetup,
       GenericEffects.Impassable,
       {
         name: `Power of Slaanesh`,
