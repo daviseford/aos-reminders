@@ -17,7 +17,7 @@ const VerminousValourEffect = {
   name: `Verminous Valour`,
   desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
   when: [WOUND_ALLOCATION_PHASE],
-  shared: true
+  shared: true,
 }
 
 const CommandTraits = {

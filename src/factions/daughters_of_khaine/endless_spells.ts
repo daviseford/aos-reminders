@@ -39,11 +39,7 @@ const EndlessSpells = {
   },
   'Bloodwrack Viper': {
     effects: [
-      {
-        name: `Predatory`,
-        desc: `Can move up to 9" and can fly.`,
-        when: [END_OF_HERO_PHASE],
-      },
+      GenericEffects.Predatory.Nine_Inches,
       {
         name: `Summoning`,
         desc: `Casting value of 7 and a range of 9". If successfully cast, set up 1 Bloodwrack Viper wholly within range of the caster. Only DAUGHTERS OF KHAINE WIZARDS can attempt to summon this endless spell.`,

@@ -14,13 +14,16 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
+const Summoning_Casting6_Range6_Effect = {
+  name: `Summoning`,
+  desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
+  when: [HERO_PHASE],
+  rule_sources: [meta_rule_sources.GHB_2021],
+  shared: true,
+}
+
 export const ChronomanticCogsEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  Summoning_Casting6_Range6_Effect,
   {
     name: `Mechanisms of Time`,
     desc: `When this endless spell is set up, the commanding player must decide if it is increasing or decreasing the flow of time.
@@ -52,12 +55,7 @@ export const ChronomanticCogsEffects = [
   },
 ]
 export const EmeraldLifeswarmEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  Summoning_Casting6_Range6_Effect,
   GenericEffects.Predatory.Eight_Inches,
   {
     name: `Bounteous Healing`,
@@ -89,12 +87,7 @@ export const SoulsnareShacklesEffects = [
   },
 ]
 export const SuffocatingGravetideEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  Summoning_Casting6_Range6_Effect,
   GenericEffects.Predatory.Eight_Inches,
   {
     name: `Pulled to the Grave`,
@@ -139,12 +132,7 @@ export const BurningHeadEffects = [
   },
 ]
 export const QuicksilverSwordsEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  Summoning_Casting6_Range6_Effect,
   GenericEffects.Predatory.Eight_Inches,
   {
     name: `Dancing Blades`,
@@ -220,18 +208,8 @@ export const MalevolentMaelstromEffects = [
   },
 ]
 export const RavenaksGnashingJawsEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 3D6" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  Summoning_Casting6_Range6_Effect,
+  GenericEffects.Predatory.Three_D6,
   {
     name: `Ravening Hunger`,
     desc: `After this endless spell has moved, the commanding player can pick 1 unit that has any models it passed across and roll a number of dice equal to the roll that was made for the move. For each 6, that unit suffers 1 mortal wound.`,
@@ -239,18 +217,7 @@ export const RavenaksGnashingJawsEffects = [
     rule_sources: [meta_rule_sources.GHB_2021],
   },
 ]
-// export const BalewindVortexEffects = [
-//   {
-//     name: `Against the Aetheric Wind`,
-//     desc: `Add 1 to save rolls for a Wizard on a Balewind Vortex.`,
-//     when: [SAVES_PHASE],
-//   },
-//   {
-//     name: `Arcane Invigoration`,
-//     desc: `A Wizard on a Balewind Vortex can attempt to cast an additional spell in each of their hero phases (including the turn in which the Summon Balewind Vortex spell was cast), and you can add 6" to the range of any spells that the Wizard casts.`,
-//     when: [HERO_PHASE],
-//   },
-// ]
+
 export const AethervoidPendulumEffects = [
   {
     name: `Summoning`,
@@ -292,12 +259,7 @@ export const UmbralSpellportalEffects = [
   },
 ]
 export const LauchonTheSoulseekerEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  Summoning_Casting6_Range6_Effect,
   {
     name: `Predatory`,
     desc: `Can move up to 18" and can fly.`,

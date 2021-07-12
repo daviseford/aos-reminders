@@ -51,15 +51,7 @@ const EndlessSpells = {
   },
   'Nightmare Predator': {
     effects: [
-      {
-        name: `Predatory`,
-        desc: `This endless spell is a predatory endless spell. It can be moved up to 2D6" and can fly.`,
-        when: [END_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
-        ],
-      },
+      GenericEffects.Predatory.Two_D6,
       ...GenericEffects.Bonded,
       {
         name: `Summoning`,

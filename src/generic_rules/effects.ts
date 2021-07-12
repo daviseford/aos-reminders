@@ -128,7 +128,19 @@ const GenericEffects = {
     when: [START_OF_SETUP],
     shared: true,
   },
+  FactionTerrainSetup_Removable: {
+    name: `Setup`,
+    desc: `After territories are determined, you can set up this faction terrain feature wholly within your territory and more than 3" from all objectives and other terrain features. If these restrictions mean you cannot set up this faction terrain feature, you can remove 1 terrain feature that is wholly or partially within your territory and attempt to set up this faction terrain feature again. If it is still impossible to set up this faction terrain feature, then it is not used. If both players can set up faction terrain features at the same time, they must roll off and the winner chooses who sets up their faction terrain features first.`,
+    when: [START_OF_SETUP],
+    shared: true,
+  },
   Predatory: {
+    Six_Inches: {
+      name: `Predatory`,
+      desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
+      when: [END_OF_HERO_PHASE],
+      shared: true,
+    },
     Eight_Inches: {
       name: `Predatory`,
       desc: `This endless spell is a predatory endless spell. It can be moved up to 8" and can fly.`,
@@ -147,6 +159,24 @@ const GenericEffects = {
       when: [END_OF_HERO_PHASE],
       shared: true,
     },
+    Two_D6: {
+      name: `Predatory`,
+      desc: `This endless spell is a predatory endless spell. It can be moved up to 2D6" and can fly.`,
+      when: [END_OF_HERO_PHASE],
+      shared: true,
+    },
+    Three_D6: {
+      name: `Predatory`,
+      desc: `This endless spell is a predatory endless spell. It can be moved up to 3D6" and can fly.`,
+      when: [END_OF_HERO_PHASE],
+      shared: true,
+    },
+  },
+  Linked: {
+    name: `Linked`,
+    desc: `If the model that summoned this endless spell is removed from play, then this endless spell is removed from play.`,
+    when: [WOUND_ALLOCATION_PHASE],
+    shared: true,
   },
   Elite: {
     name: `Elite`,

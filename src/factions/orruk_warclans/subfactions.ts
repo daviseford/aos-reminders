@@ -25,23 +25,22 @@ import KruleboyzSpells from './kruleboyz/spells'
 import KruleboyzUnits from './kruleboyz/units'
 
 const subFactions = {
-  Ironjawz: {
-    effects: pickEffects(IronjawzBattleTraits, ['Smashing and Bashing', 'Mad as Hell', 'Eager for Battle']),
+  'Big Waaagh': {
+    effects: pickEffects(BigWaaaghBattleTraits, ['Big Waaagh']),
     available: {
-      artifacts: [IronjawzArtifacts],
-      battalions: [IronjawzBattalions],
-      command_abilities: [IronjawzCommandAbilities],
-      command_traits: [IronjawzCommandTraits],
-      flavors: [IronjawzFlavors],
+      allied_units: [GreenskinzUnits, IronjawzUnits, BonesplitterzUnits, KruleboyzUnits],
+      artifacts: [IronjawzArtifacts, BonesplitterzArtifacts],
+      battalions: [IronjawzBattalions, BonesplitterzBattalions],
+      command_traits: [IronjawzCommandTraits, BonesplitterzCommandTraits],
       mount_traits: [IronjawzMountTraits],
       prayers: [IronjawzPrayers],
-      spells: [IronjawzSpells],
-      units: [IronjawzUnits],
+      spells: [IronjawzSpells, BonesplitterzSpells, KruleboyzSpells],
     },
     mandatory: {
-      command_abilities: [keyPicker(IronjawzCommandAbilities, ['Mighty Destroyers', 'Ironjawz Waaaagh!'])],
+      command_abilities: [keyPicker(BigWaaaghCommandAbilities, ['Da Big Waaagh!!!'])],
     },
   },
+
   Bonesplitterz: {
     effects: pickEffects(BonesplitterzBattleTraits, [
       'Monster Hunters',
@@ -62,21 +61,25 @@ const subFactions = {
       command_abilities: [keyPicker(BonesplitterzCommandAbilities, ['Bonesplitterz Waaagh!'])],
     },
   },
-  'Big Waaagh': {
-    effects: pickEffects(BigWaaaghBattleTraits, ['Big Waaagh']),
+
+  Ironjawz: {
+    effects: pickEffects(IronjawzBattleTraits, ['Smashing and Bashing', 'Mad as Hell', 'Eager for Battle']),
     available: {
-      allied_units: [GreenskinzUnits, IronjawzUnits, BonesplitterzUnits, KruleboyzUnits],
-      artifacts: [IronjawzArtifacts, BonesplitterzArtifacts],
-      battalions: [IronjawzBattalions, BonesplitterzBattalions],
-      command_traits: [IronjawzCommandTraits, BonesplitterzCommandTraits],
+      artifacts: [IronjawzArtifacts],
+      battalions: [IronjawzBattalions],
+      command_abilities: [IronjawzCommandAbilities],
+      command_traits: [IronjawzCommandTraits],
+      flavors: [IronjawzFlavors],
       mount_traits: [IronjawzMountTraits],
       prayers: [IronjawzPrayers],
-      spells: [IronjawzSpells, BonesplitterzSpells, KruleboyzSpells],
+      spells: [IronjawzSpells],
+      units: [IronjawzUnits],
     },
     mandatory: {
-      command_abilities: [keyPicker(BigWaaaghCommandAbilities, ['Da Big Waaagh!!!'])],
+      command_abilities: [keyPicker(IronjawzCommandAbilities, ['Mighty Destroyers', 'Ironjawz Waaaagh!'])],
     },
   },
+
   Kruleboyz: {
     effects: pickEffects(KruleboyzBattleTraits, ['Venom-encrusted Weapons']),
     available: {

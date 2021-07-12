@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -10,7 +11,6 @@ import {
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_MOVEMENT_PHASE,
-  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
 
@@ -43,12 +43,7 @@ const EndlessSpells = {
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
       },
-      {
-        name: `Linked`,
-        desc: `If the model that summoned this endless spell is removed from play, then this endless spell is removed from play.`,
-        when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [rule_sources.ERRATA_LUMINETH_JULY_2021],
-      },
+      GenericEffects.Linked,
       {
         name: `Stationary`,
         desc: `While this endless spell is on the battlefield, the model that summoned this endless spell cannot move.`,

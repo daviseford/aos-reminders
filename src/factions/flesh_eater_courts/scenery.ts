@@ -1,6 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
-import { BATTLESHOCK_PHASE, DURING_GAME, END_OF_MOVEMENT_PHASE, START_OF_SETUP } from 'types/phases'
+import { BATTLESHOCK_PHASE, END_OF_MOVEMENT_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const Scenery = {

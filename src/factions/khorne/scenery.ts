@@ -1,6 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
-import { HERO_PHASE, START_OF_SETUP } from 'types/phases'
+import { HERO_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const Scenery = {

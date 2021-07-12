@@ -1,11 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import {
-  END_OF_HERO_PHASE,
-  END_OF_MOVEMENT_PHASE,
-  HERO_PHASE,
-  MOVEMENT_PHASE,
-  WOUND_ALLOCATION_PHASE,
-} from 'types/phases'
+import { GenericEffects } from 'generic_rules'
+import { END_OF_HERO_PHASE, END_OF_MOVEMENT_PHASE, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 import Spells from './spells'
 
@@ -19,12 +14,7 @@ const EndlessSpells = {
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
       },
-      {
-        name: `Predatory`,
-        desc: `This endless spell is a predatory endless spell. It can be moved up to 9" and can fly.`,
-        when: [END_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
-      },
+      GenericEffects.Predatory.Nine_Inches,
       {
         name: `Snapping Jaws`,
         desc: `After this endless spell has moved, roll 9 dice for the closest unit within 6" of it. If more than 1 such unit is equally close, the commanding player can choose which unit to roll for. For each 5+, that unit suffers 1 mortal wound. If that unit is a Wizard, it suffers 1 mortal wound for each 4+ instead.`,
@@ -52,12 +42,7 @@ const EndlessSpells = {
         when: [MOVEMENT_PHASE],
         rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
       },
-      {
-        name: `Linked`,
-        desc: `If the model that summoned this endless spell is removed from play, then this endless spell is removed from play.`,
-        when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
-      },
+      GenericEffects.Linked,
       {
         name: `Transfixed by Countless Eyes`,
         desc: `You can reroll casting rolls for the model that summoned this endless spell while this endless spell is on the battlefield.`,

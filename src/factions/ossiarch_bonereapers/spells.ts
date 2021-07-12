@@ -38,6 +38,24 @@ const EmpowerNadiriteWeaponsEffect = {
   shared: true,
 }
 
+const ProtectionOfNagashEffect = {
+  name: `Protection of Nagash`,
+  desc: `Casting value of 6. Roll a D6 each time a wound or mortal wounds is allocated to the caster. On a 5+, that wound or mortal wound is negated. If any wounds or mortal wounds are allocated to the caster and not negated, and the caster is not slain, remove them from the battlefield after all wounds or mortal wounds have been allocated. Then, set them up anywhere on the battlefield more than 9" from any enemy units. After setting up this model, this spell is unbound.`,
+  when: [HERO_PHASE],
+  shared: true,
+}
+
+const MortalContractEffect = {
+  name: `Mortal Contract`,
+  desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible to them. For the rest of the battle, roll a D6 at the end of each phase during which any attacks made by that unit inflicted any damage on a friendly OSSIARCH BONEREAPERS unit. On a 3+, that enemy unit suffers D3 mortal wounds. You cannot pick the same unit to be the target of this spell more than once per battle.`,
+  when: [HERO_PHASE],
+  rule_sources: [
+    rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+    rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+  ],
+  shared: true,
+}
+
 const Spells = {
   'Arcane Command': {
     effects: [ArcaneCommandEffect],
@@ -46,13 +64,7 @@ const Spells = {
     effects: [EmpowerNadiriteWeaponsEffect],
   },
   'Protection of Nagash': {
-    effects: [
-      {
-        name: `Protection of Nagash`,
-        desc: `Casting value of 6. Roll a D6 each time a wound or mortal wounds is allocated to the caster. On a 5+, that wound or mortal wound is negated. If any wounds or mortal wounds are allocated to the caster and not negated, and the caster is not slain, remove them from the battlefield after all wounds or mortal wounds have been allocated. Then, set them up anywhere on the battlefield more than 9" from any enemy units. After setting up this model, this spell is unbound.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [ProtectionOfNagashEffect],
   },
   'Reinforce Battle-shields': {
     effects: [...ReinforceBattleShieldsEffects],
@@ -61,17 +73,7 @@ const Spells = {
     effects: [DrainVitalityEffect],
   },
   'Mortal Contract ': {
-    effects: [
-      {
-        name: `Mortal Contract`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible to them. For the rest of the battle, roll a D6 at the end of each phase during which any attacks made by that unit inflicted any damage on a friendly OSSIARCH BONEREAPERS unit. On a 3+, that enemy unit suffers D3 mortal wounds. You cannot pick the same unit to be the target of this spell more than once per battle.`,
-        when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
-        ],
-      },
-    ],
+    effects: [MortalContractEffect],
   },
   //Vokmortian spell
   'Mortal Touch': {
@@ -105,20 +107,12 @@ const Spells = {
   },
   'Lore of the Mortisans': {
     effects: [
-      ArcaneCommandEffect,
-      EmpowerNadiriteWeaponsEffect,
-      {
-        name: `Protection of Nagash`,
-        desc: `Casting value of 6. Roll a D6 each time a wound or mortal wounds is allocated to the caster. On a 5+, that wound or mortal wound is negated. If any wounds or mortal wounds are allocated to the caster and not negated, and the caster is not slain, remove them from the battlefield after all wounds or mortal wounds have been allocated. Then, set them up anywhere on the battlefield more than 9" from any enemy units. After setting up this model, this spell is unbound.`,
-        when: [HERO_PHASE],
-      },
       ...ReinforceBattleShieldsEffects,
+      ArcaneCommandEffect,
       DrainVitalityEffect,
-      {
-        name: `Mortal Contract`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible to them. For the rest of the battle, roll a D6 at the end of each phase during which any attacks made by that unit inflicted any damage on a friendly OSSIARCH BONEREAPERS unit. On a 3+, that enemy unit suffers D3 mortal wounds. You cannot pick the same unit to be affected by this spell more than once per battle.`,
-        when: [HERO_PHASE],
-      },
+      EmpowerNadiriteWeaponsEffect,
+      MortalContractEffect,
+      ProtectionOfNagashEffect,
     ],
   },
   'Shard-storm': {
