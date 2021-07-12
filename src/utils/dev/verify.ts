@@ -141,7 +141,6 @@ const verify = () => {
     const {
       Artifacts = [],
       Battalions = [],
-      BattleTraits = [],
       CommandAbilities = [],
       CommandTraits = [],
       EndlessSpells = [],
