@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   DURING_GAME,
   END_OF_HERO_PHASE,
@@ -12,15 +13,7 @@ import rule_sources from './rule_sources'
 const EndlessSpells = {
   'Corpsemare Stampede': {
     effects: [
-      {
-        name: `Predatory`,
-        desc: `Can move up to 12" and can fly.`,
-        when: [END_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_FLESH_EATER_COURTS,
-          rule_sources.ERRATA_FLESH_EATER_COURTS_JULY_2021,
-        ],
-      },
+      GenericEffects.Predatory.Twelve_Inches,
       {
         name: `Summoning`,
         desc: `Casting value of 7 and a range of 3D6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only FLESH-EATER COURTS WIZARDS can attempt to summon this endless spell.`,

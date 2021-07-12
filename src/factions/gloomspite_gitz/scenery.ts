@@ -1,21 +1,13 @@
 import { tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import meta_rule_sources from 'meta/rule_sources'
-import { BATTLESHOCK_PHASE, DURING_GAME, END_OF_TURN, START_OF_SETUP } from 'types/phases'
+import { BATTLESHOCK_PHASE, DURING_GAME, END_OF_TURN } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const Scenery = {
   'Bad Moon Loonshrine': {
     effects: [
-      {
-        name: `Setup`,
-        desc: `After territories are determined, you can set up this faction terrain feature wholly within your territory and more than 3" from all objectives and other terrain features. If these restrictions mean you cannot set up this faction terrain feature, you can remove 1 terrain feature that is wholly or partially within your territory and attempt to set up this faction terrain feature again. If it is still impossible to set up this faction terrain feature, then it is not used. If both players can set up faction terrain features at the same time, they must roll off and the winner chooses who sets up their faction terrain features first.`,
-        when: [START_OF_SETUP],
-        rule_sources: [
-          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
-          meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_KRAGNOS_JULY_2021,
-        ],
-      },
+      GenericEffects.FactionTerrainSetup_Removable,
       {
         name: `Defensible`,
         desc: `This terrain feature is a defensible terrain feature that can be garrisoned by up to 30 models.`,

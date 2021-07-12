@@ -1,5 +1,5 @@
 // Army Imports
-import { OrrukWarclansFaction } from 'factions/orruk_warclans'
+import IronjawzBattleTraits from 'factions/orruk_warclans/ironjawz/battle_traits'
 import { SylvanethFaction } from 'factions/sylvaneth'
 import {
   GenericCommandAbilities,
@@ -104,10 +104,11 @@ describe('processReminders', () => {
     const reminders = processReminders(army, ORRUK_WARCLANS, 'Ironjawz', selections, null, [], {}, {})
 
     // Check for Allegiance ability
-    const ability = OrrukWarclansFaction.AggregateArmy.BattleTraits[0]
+    const ability = IronjawzBattleTraits['Smashing and Bashing']
+
     const abilityEffect = ability
-      ? reminders[ability.when[0]].find(({ name }) => {
-          return name === ability.name
+      ? reminders[ability.effects[0].when[0]].find(({ name }) => {
+          return name === ability.effects[0].name
         })
       : undefined
     expect(abilityEffect).toBeDefined()

@@ -28,6 +28,7 @@ const BondedEffects = [
     desc: `Endless spells summoned by SERAPHON WIZARDS are bonded to the model that summoned them.`,
     when: [DURING_GAME],
     rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JULY_2021],
+    shared: true,
   },
   ...GenericEffects.Bonded,
 ]

@@ -6,7 +6,7 @@ const Scenery = {
   'Shrine Luminor': {
     effects: [
       {
-        name: `Set Up`,
+        name: `Setup`,
         desc: `After territories are determined, you can set up this faction terrain feature wholly within your territory and more than 3" from all objectives and other terrain features. If both players can set up faction terrain features at the same time, they must roll off and the winner chooses who sets up their faction terrain features first.`,
         when: [DURING_TURN],
         rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],

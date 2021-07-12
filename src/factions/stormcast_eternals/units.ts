@@ -1206,6 +1206,7 @@ const Units = {
         desc: `Roll a D6 each time you allocate a mortal wound to a friendly Hallowed Knights unit wholly within 12" of this model. On a 6 it is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
+      // This is slightly different from the Martyr's Strength command_trait
       {
         name: `Martyr's Strength`,
         desc: `Roll a D6 if this model is slain in this phase. On a 2+ it can pile in and attack with all its melee weapons before being removed.`,

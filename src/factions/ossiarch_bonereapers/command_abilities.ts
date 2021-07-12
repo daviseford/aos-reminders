@@ -8,6 +8,7 @@ import {
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
 
@@ -81,7 +82,7 @@ const CommandAbilities = {
       {
         name: `Hunt and Kill`,
         desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly NECROPOLIS STALKERS unit. You can reroll run and charge rolls for that unit until your next hero phase. In addition, until your next hero phase, when that unit makes a move, it can pass across terrain features in the same manner as a model that can fly.`,
-        when: [HERO_PHASE],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

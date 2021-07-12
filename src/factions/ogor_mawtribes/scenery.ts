@@ -1,17 +1,12 @@
 import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
-import { HERO_PHASE, START_OF_SETUP, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import { HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const Scenery = {
   'Great Mawpot': {
     effects: [
-      {
-        name: `Setup`,
-        desc: `After territories are determined, you can set up this faction terrain feature wholly within your territory and more than 3" from all objectives and other terrain features. If both players can set up faction terrain features at the same time, they must roll off and the winner chooses who sets up their faction terrain features first.`,
-        when: [START_OF_SETUP],
-        rule_sources: [rule_sources.BATTLETOME_OGOR_MAWTRIBES, rule_sources.ERRATA_OGOR_MAWTRIBES_JULY_2021],
-      },
+      GenericEffects.FactionTerrainSetup,
       GenericEffects.Impassable,
       {
         name: `Vessel of the Gulping God`,

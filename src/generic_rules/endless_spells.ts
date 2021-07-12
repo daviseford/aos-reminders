@@ -1,3 +1,4 @@
+import { GenericEffects } from 'generic_rules'
 import meta_rule_sources from 'meta/rule_sources'
 import { TEntry } from 'types/data'
 import {
@@ -13,13 +14,16 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
+const Summoning_Casting6_Range6_Effect = {
+  name: `Summoning`,
+  desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
+  when: [HERO_PHASE],
+  rule_sources: [meta_rule_sources.GHB_2021],
+  shared: true,
+}
+
 export const ChronomanticCogsEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  Summoning_Casting6_Range6_Effect,
   {
     name: `Mechanisms of Time`,
     desc: `When this endless spell is set up, the commanding player must decide if it is increasing or decreasing the flow of time.
@@ -51,18 +55,8 @@ export const ChronomanticCogsEffects = [
   },
 ]
 export const EmeraldLifeswarmEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 8" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  Summoning_Casting6_Range6_Effect,
+  GenericEffects.Predatory.Eight_Inches,
   {
     name: `Bounteous Healing`,
     desc: `After this endless spell is set up and after it has moved, the commanding player can pick 1 unit within 1" of it. 
@@ -93,18 +87,8 @@ export const SoulsnareShacklesEffects = [
   },
 ]
 export const SuffocatingGravetideEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 8" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  Summoning_Casting6_Range6_Effect,
+  GenericEffects.Predatory.Eight_Inches,
   {
     name: `Pulled to the Grave`,
     desc: `After this endless spell has moved, for each unit that has any models it passed across, roll a number of dice equal to the number of models in that unit. For each 6, that unit suffers 1 mortal wound.`,
@@ -139,12 +123,7 @@ export const BurningHeadEffects = [
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 8" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  GenericEffects.Predatory.Eight_Inches,
   {
     name: `Flaming Skull`,
     desc: `After this endless spell has moved, if any units are within 1" of it, roll a dice for each unit within 1" of this endless spell. On a 2+, that unit suffers D3 mortal wounds. Then, this endless spell is removed from play.`,
@@ -153,18 +132,8 @@ export const BurningHeadEffects = [
   },
 ]
 export const QuicksilverSwordsEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 8" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  Summoning_Casting6_Range6_Effect,
+  GenericEffects.Predatory.Eight_Inches,
   {
     name: `Dancing Blades`,
     desc: `After this endless spell has moved, the commanding player can pick 1 unit that has any models it passed across and roll 12 dice. For each 6, that unit suffers 1 mortal wound. In addition, ward rolls cannot be made for mortal wounds caused by this ability.`,
@@ -185,12 +154,7 @@ export const PurpleSunEffects = [
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 8" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  GenericEffects.Predatory.Eight_Inches,
   {
     name: `End Given Form`,
     desc: `At the end of the hero phase, before determining control of predatory endless spells, roll a D6 for this endless spell. On a 5+, this endless spell becomes wild for the rest of the battle (do not roll for it again).
@@ -221,12 +185,7 @@ export const MalevolentMaelstromEffects = [
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 8" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  GenericEffects.Predatory.Eight_Inches,
   {
     name: `Morbid Detonation`,
     desc: `When this endless spell is set up, place a D6 beside it with the '1' facing up. Each time a spell is successfully cast by a unit within 12" of this endless spell and not unbound, after the effects of the spell have been resolved, increase the value of the D6 beside this endless spell by 1 (to a maximum of 6). In addition, each time a model is slain within 12" of this endless spell, increase the value of the dice beside this endless spell by 1 (to a maximum of 6).
@@ -249,18 +208,8 @@ export const MalevolentMaelstromEffects = [
   },
 ]
 export const RavenaksGnashingJawsEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 3D6" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  Summoning_Casting6_Range6_Effect,
+  GenericEffects.Predatory.Three_D6,
   {
     name: `Ravening Hunger`,
     desc: `After this endless spell has moved, the commanding player can pick 1 unit that has any models it passed across and roll a number of dice equal to the roll that was made for the move. For each 6, that unit suffers 1 mortal wound.`,
@@ -268,18 +217,7 @@ export const RavenaksGnashingJawsEffects = [
     rule_sources: [meta_rule_sources.GHB_2021],
   },
 ]
-// export const BalewindVortexEffects = [
-//   {
-//     name: `Against the Aetheric Wind`,
-//     desc: `Add 1 to save rolls for a Wizard on a Balewind Vortex.`,
-//     when: [SAVES_PHASE],
-//   },
-//   {
-//     name: `Arcane Invigoration`,
-//     desc: `A Wizard on a Balewind Vortex can attempt to cast an additional spell in each of their hero phases (including the turn in which the Summon Balewind Vortex spell was cast), and you can add 6" to the range of any spells that the Wizard casts.`,
-//     when: [HERO_PHASE],
-//   },
-// ]
+
 export const AethervoidPendulumEffects = [
   {
     name: `Summoning`,
@@ -321,12 +259,7 @@ export const UmbralSpellportalEffects = [
   },
 ]
 export const LauchonTheSoulseekerEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  Summoning_Casting6_Range6_Effect,
   {
     name: `Predatory`,
     desc: `Can move up to 18" and can fly.`,
@@ -369,12 +302,7 @@ export const HorrorghastEffects = [
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
-  {
-    name: `Predatory`,
-    desc: `Can move up to 8" and can fly.`,
-    when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
+  GenericEffects.Predatory.Eight_Inches,
   {
     name: `Prey on Fear`,
     desc: `Units wholly within 12" of this endless spell cannot receive commands in the battleshock phase. In addition, if a unit fails a battleshock test wholly within 12" of this endless spell, add D3 to the number of models that flee.`,

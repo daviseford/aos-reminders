@@ -14,12 +14,14 @@ const LocusOfCorrosionEffect = {
   name: `Locus of Corrosion`,
   desc: `While an enemy unit is within 3" of any friendly Munificent Wanderers/Droning Guard daemon units, worsen the rend characteristic of that unit's melee weapons by 1 (to a minimum of '-'). Nurgle units are unaffected by this ability.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 
 const NurglesEmbraceEffect = {
   name: `Nurgle's Embrace`,
   desc: `Roll a D6 each time a friendly Blessed Sons/Drowned Men Rotbringer model is slain in this phase. On a 2+ the attacking unit suffers 1 mortal wound. If the attacking unit has the Nurgle keyword, heal 1 wound allocated to the unit instead.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 
 const BattleTraits = {

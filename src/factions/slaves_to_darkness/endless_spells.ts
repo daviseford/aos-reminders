@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import { END_OF_HERO_PHASE, END_OF_TURN, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
@@ -36,15 +37,7 @@ const EndlessSpells = {
   },
   'Darkfire Daemonrift': {
     effects: [
-      {
-        name: `Predatory`,
-        desc: `This endless spell is a predatory endless spell. It can be moved up to 9" and can fly.`,
-        when: [END_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
-        ],
-      },
+      GenericEffects.Predatory.Nine_Inches,
       {
         name: `Summoning`,
         desc: `Casting value of 7 and a range of 9". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SLAVES TO DARKNESS WIZARDS can attempt to summon this endless spell.`,

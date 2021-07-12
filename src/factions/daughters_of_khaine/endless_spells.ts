@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import { END_OF_HERO_PHASE, HERO_PHASE, SAVES_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
@@ -6,11 +7,7 @@ import rule_sources from './rule_sources'
 const EndlessSpells = {
   Bladewind: {
     effects: [
-      {
-        name: `Predatory`,
-        desc: `Can move up to 12" and can fly.`,
-        when: [END_OF_HERO_PHASE],
-      },
+      GenericEffects.Predatory.Twelve_Inches,
       {
         name: `Summoning`,
         desc: `Casting value of 6 and a range of 9". If successfully cast, set up 1 Bladewind wholly within range of the caster. Only DAUGHTERS OF KHAINE WIZARDS can attempt to summon this endless spell.`,
@@ -42,11 +39,7 @@ const EndlessSpells = {
   },
   'Bloodwrack Viper': {
     effects: [
-      {
-        name: `Predatory`,
-        desc: `Can move up to 9" and can fly.`,
-        when: [END_OF_HERO_PHASE],
-      },
+      GenericEffects.Predatory.Nine_Inches,
       {
         name: `Summoning`,
         desc: `Casting value of 7 and a range of 9". If successfully cast, set up 1 Bloodwrack Viper wholly within range of the caster. Only DAUGHTERS OF KHAINE WIZARDS can attempt to summon this endless spell.`,

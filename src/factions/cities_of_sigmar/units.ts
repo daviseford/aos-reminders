@@ -13,7 +13,6 @@ import {
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
-  START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
   TURN_FOUR_START_OF_ROUND,
@@ -971,16 +970,7 @@ const Units = {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Captain of the Phoenix Guard (Frostheart)'])],
     },
-    effects: [
-      ...FrostheartPhoenixEffects,
-      WitnessToDestinyEffect,
-      {
-        name: `Captain of the Phoenix Guard`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly FROSTHEART PHOENIX that includes an Anointed. Until the end of that phase, you can reroll wound rolls for attacks made by friendly PHOENIX TEMPLE units that are wholly within 12" of that FROSTHEART PHOENIX.`,
-        when: [START_OF_COMBAT_PHASE],
-        command_ability: true,
-      },
-    ],
+    effects: [...FrostheartPhoenixEffects, WitnessToDestinyEffect],
   },
   'Flamespyre Phoenix': {
     effects: [...FlamespyrePhoenixEffects],

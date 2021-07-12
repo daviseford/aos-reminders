@@ -134,19 +134,51 @@ const verify = () => {
   log_once('Starting rules verification...')
   const armyList = getFactionList()
   let identicalEffects: Record<string, TEffectInfo[]> = {}
+
   Object.values(armyList).forEach(faction => {
     const { AggregateArmy } = faction
 
-    const { Units = [] } = AggregateArmy
+    const {
+      Artifacts = [],
+      Battalions = [],
+      CommandAbilities = [],
+      CommandTraits = [],
+      EndlessSpells = [],
+      Flavors = [],
+      GrandStrategies = [],
+      MountTraits = [],
+      Prayers = [],
+      Scenery = [],
+      Spells = [],
+      Triumphs = [],
+      Units = [],
+    } = AggregateArmy
 
-    Units.forEach((unit: TEntry) => {
-      unit.effects.forEach(e => {
+    const combinedEntries = Units.concat(
+      Artifacts,
+      Battalions,
+      CommandAbilities,
+      CommandTraits,
+      EndlessSpells,
+      Flavors,
+      GrandStrategies,
+      MountTraits,
+      Prayers,
+      Scenery,
+      Spells,
+      Triumphs
+    )
+
+    combinedEntries.forEach((entry: TEntry) => {
+      entry.effects.forEach(e => {
         const matchBy = `${e.name} | ${e.desc} | ${e.when}`
-        const effectInfo = { name: unit.name, shared: e.shared || false }
+        const effectInfo = { name: entry.name, shared: e.shared || false }
         const matches = identicalEffects[matchBy]
+
         if (matches) {
-          if (!matches.find(existing => existing.name === effectInfo.name))
+          if (!matches.find(existing => existing.name === effectInfo.name)) {
             identicalEffects[matchBy] = [...matches, effectInfo]
+          }
         } else {
           identicalEffects[matchBy] = [effectInfo]
         }
@@ -154,7 +186,7 @@ const verify = () => {
         if (phasesWhitelist.includes(e.name)) return
         if (e.command_ability) return
 
-        if (e.spell || unit.spell) {
+        if (e.spell || entry.spell) {
           if (!e.when.includes(HERO_PHASE)) log_once(`${e.name} should be in ${HERO_PHASE}`)
           return
         }
@@ -181,10 +213,11 @@ const verify = () => {
     })
   })
 
+  console.log('\n------------------\n------------------\n\nChecking for identical effects...\n')
   Object.entries(identicalEffects).forEach(([description, entries]) => {
     if (entries.length > 1 && !entries.every(entry => entry.shared)) console.log(description, entries)
   })
-  console.log('Done!')
+  console.log('\nDone!')
 }
 
 verify()
