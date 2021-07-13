@@ -185,6 +185,7 @@ const azyrTypoMap: Record<string, string> = {
 // Battlescribe on the left - AoS Reminders on the right
 const battlescribeTypoMap: Record<string, string> = {
   'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
+  'Arcane Corrosion': 'Arcane Corrasion',
   'Aspiring Deathbringer with Goreaxe and Skullhammer': 'Aspiring Deathbringer',
   'Atherquartz Brooch': 'Aetherquartz Brooch',
   'Aventis Firestrike, Magister of Hammerhal': 'Aventis Firestrike',

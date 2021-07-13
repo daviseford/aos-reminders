@@ -58,7 +58,7 @@ describe('getBattlescribeArmy', () => {
   it('should correctly read 1625951571355-Battlescribe', () => {
     const parsedText = getFile('1625951571355-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.spells).toContain('Arcane Corrosion')
+    expect(res.selections.spells).toContain('Arcane Corrasion')
     expect(res.errors).toEqual([])
   })
 
