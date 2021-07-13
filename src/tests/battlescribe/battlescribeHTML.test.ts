@@ -39,9 +39,13 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
-  it.skip('should correctly read 1625939634457-Battlescribe', () => {
+  it('should correctly read 1625939634457-Battlescribe', () => {
     const parsedText = getFile('1625939634457-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.battalions).toContain('Warlord')
+    expect(res.selections.battalions).toContain('Battle Regiment')
+    expect(res.selections.triumphs).toContain('Inspired')
+    expect(res.selections.grand_strategies).toContain('Prized Sorcery')
     expect(res.errors).toEqual([])
   })
 
