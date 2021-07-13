@@ -49,127 +49,130 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1625948895475-Battlescribe', () => {
+  it('should correctly read 1625948895475-Battlescribe', () => {
     const parsedText = getFile('1625948895475-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1625951571355-Battlescribe', () => {
+  it('should correctly read 1625951571355-Battlescribe', () => {
     const parsedText = getFile('1625951571355-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.spells).toContain('Arcane Corrosion')
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1625952805411-Battlescribe', () => {
+  it('should correctly read 1625952805411-Battlescribe', () => {
     const parsedText = getFile('1625952805411-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1625957827535-Battlescribe', () => {
+  it('should correctly read 1625957827535-Battlescribe', () => {
     const parsedText = getFile('1625957827535-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1625965144984-Battlescribe', () => {
+  it('should correctly read 1625965144984-Battlescribe', () => {
     const parsedText = getFile('1625965144984-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1625978921488-Battlescribe', () => {
+  it('should correctly read 1625978921488-Battlescribe', () => {
     const parsedText = getFile('1625978921488-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.artifacts).toContain('Vial of Manticore Venom')
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1625979656671-Battlescribe', () => {
+  it('should correctly read 1625979656671-Battlescribe', () => {
     const parsedText = getFile('1625979656671-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1626023298424-Battlescribe', () => {
+  it('should correctly read 1626023298424-Battlescribe', () => {
     const parsedText = getFile('1626023298424-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1626035995532-Battlescribe', () => {
+  it('should correctly read 1626035995532-Battlescribe', () => {
     const parsedText = getFile('1626035995532-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1626036131697-Battlescribe', () => {
+  it('should correctly read 1626036131697-Battlescribe', () => {
     const parsedText = getFile('1626036131697-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1626039251773-Battlescribe', () => {
+  it('should correctly read 1626039251773-Battlescribe', () => {
     const parsedText = getFile('1626039251773-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1626051467555-Battlescribe', () => {
+  it('should correctly read 1626051467555-Battlescribe', () => {
     const parsedText = getFile('1626051467555-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1626056012773-Battlescribe', () => {
+  it('should correctly read 1626056012773-Battlescribe', () => {
     const parsedText = getFile('1626056012773-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1626076790334-Battlescribe', () => {
+  it('should correctly read 1626076790334-Battlescribe', () => {
     const parsedText = getFile('1626076790334-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1626095938109-Battlescribe', () => {
+  it('should correctly read 1626095938109-Battlescribe', () => {
     const parsedText = getFile('1626095938109-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1626123378890-Battlescribe', () => {
+  it('should correctly read 1626123378890-Battlescribe', () => {
     const parsedText = getFile('1626123378890-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Vindictors')
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1626124413584-Battlescribe', () => {
+  it('should correctly read 1626124413584-Battlescribe', () => {
     const parsedText = getFile('1626124413584-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1626128237545-Battlescribe', () => {
+  it('should correctly read 1626128237545-Battlescribe', () => {
     const parsedText = getFile('1626128237545-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1626169886006-Battlescribe', () => {
+  it('should correctly read 1626169886006-Battlescribe', () => {
     const parsedText = getFile('1626169886006-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1626175591099-Battlescribe', () => {
+  it('should correctly read 1626175591099-Battlescribe', () => {
     const parsedText = getFile('1626175591099-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1625911854492-Battlescribe', () => {
+  it('should correctly read 1625911854492-Battlescribe', () => {
     const parsedText = getFile('1625911854492-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([
@@ -184,37 +187,37 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
-  it.skip('should correctly read 1625913262959-Battlescribe', () => {
+  it('should correctly read 1625913262959-Battlescribe', () => {
     const parsedText = getFile('1625913262959-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1625916579390-Battlescribe', () => {
+  it('should correctly read 1625916579390-Battlescribe', () => {
     const parsedText = getFile('1625916579390-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1625916714029-Battlescribe', () => {
+  it('should correctly read 1625916714029-Battlescribe', () => {
     const parsedText = getFile('1625916714029-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1625916740089-Battlescribe', () => {
+  it('should correctly read 1625916740089-Battlescribe', () => {
     const parsedText = getFile('1625916740089-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1625934355496-Battlescribe', () => {
+  it('should correctly read 1625934355496-Battlescribe', () => {
     const parsedText = getFile('1625934355496-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should correctly read 1625935761556-Battlescribe', () => {
+  it('should correctly read 1625935761556-Battlescribe', () => {
     const parsedText = getFile('1625935761556-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
@@ -228,12 +231,6 @@ describe('getBattlescribeArmy', () => {
 
   it.skip('should correctly read 1605658437121-Battlescribe', () => {
     const parsedText = getFile('1605658437121-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1606053578073-Battlescribe', () => {
-    const parsedText = getFile('1606053578073-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })

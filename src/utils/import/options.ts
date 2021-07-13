@@ -106,9 +106,9 @@ const warscrollTypoMap: Record<string, string> = {
   'Knights of the Empty Throne Varanguard': 'Varanguard',
   'Kraken-eater Mega-Gargant': 'Kraken-eater',
   'Kritza, the Rat Prince': 'Kritza',
-  'Kurnoth Hunters with Kurnoth Scythes': 'Kurnoth Hunters',
   'Kurnoth Hunters with Kurnoth Greatbows': 'Kurnoth Hunters',
   'Kurnoth Hunters with Kurnoth Greatswords': 'Kurnoth Hunters',
+  'Kurnoth Hunters with Kurnoth Scythes': 'Kurnoth Hunters',
   'Lady Annika, the Thirsting Blade': 'Lady Annika',
   'Lauka Vai, Mother of Nightmares': 'Lauka Vai',
   'Lighntning Blast': 'Lightning Blast',
@@ -241,6 +241,7 @@ const battlescribeTypoMap: Record<string, string> = {
   'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
   'Vanguard-Raptor with Hurricane Crossbow': 'Vanguard-Raptors with Hurricane Crossbows',
   'Vanguard-Raptor with Longstrike Crossbow': 'Vanguard-Raptors with Longstrike Crossbows',
+  'Vial of Mantivore Venom': 'Vial of Manticore Venom',
   'Vokmortian, Master of the Bone-tithe': 'Vokmortian',
   'Vulkite Bezerkers': 'Vulkite Berzerkers',
   'Warp Lighting Storm': 'Warp Lightning Storm',
@@ -257,6 +258,7 @@ const battlescribeTypoMap: Record<string, string> = {
   Protector: 'Protectors',
   Razordons: 'Razordon Hunting Pack',
   Salamanders: 'Salamander Hunting Pack',
+  Vindicators: 'Vindictors',
   Voxaxe: 'Vosaxe',
 }
 
