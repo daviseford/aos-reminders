@@ -161,7 +161,7 @@ const modifyPrayers = (prayers: TEntry[], Collection: TCollection): TEntry[] => 
   const Prayers = prayers.concat(Collection.Prayers)
   return uniqBy(
     sortBy(Prayers, 'name')
-      .concat(sortBy(Prayers.length > 0 ? GenericPrayers : [], 'name'))
+      .concat(sortBy(GenericPrayers, 'name'))
       .map(s => ({ ...s, prayer: true })),
     'name'
   )

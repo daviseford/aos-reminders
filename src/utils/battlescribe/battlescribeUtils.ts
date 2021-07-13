@@ -32,6 +32,7 @@ export const ignoredValues = [
 export const fixKeys = (obj: Record<string, string[]>) => {
   const lookup: Record<string, Partial<keyof IArmy> | 'Weapons'> = {
     'Command Abilities': 'CommandAbilities',
+    'Grand Strategy': 'GrandStrategies',
     'The Kharadron Code': 'CommandTraits',
     Artefact: 'Artifacts',
     Prayer: 'Prayers',

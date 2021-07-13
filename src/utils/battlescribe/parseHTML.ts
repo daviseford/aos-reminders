@@ -115,6 +115,21 @@ export const parseRootSelection = (obj: IParentNode): IParsedRootSelection => {
     }
 
     const tableEntries = childNodes.reduce((a, x) => {
+      // New in 2021 (AoS3)
+      if (name === 'Grand Strategy' && x.nodeName === 'p') {
+        // @ts-expect-error
+        const potentialGrandStrategy = x?.childNodes?.[1]?.value
+        if (potentialGrandStrategy) name = `Grand Strategy: ${potentialGrandStrategy}`
+      }
+
+      // New in 2021 (AoS3)
+      if (name === 'Triumphs' && x.nodeName === 'p') {
+        // @ts-expect-error
+        const potentialGrandStrategy = x?.childNodes?.[1]?.value
+        if (potentialGrandStrategy) name = `Triumphs: ${potentialGrandStrategy}`
+      }
+
+      // Catch-all for units and battalions and everything else
       if (isParentNode(x) && x.nodeName === 'table') {
         const { tableName, names } = getNamesFromTableTags(x)
         if (tableName) a[tableName] = names
@@ -122,7 +137,9 @@ export const parseRootSelection = (obj: IParentNode): IParsedRootSelection => {
       return a
     }, {} as { [key: string]: string[] })
 
-    return { name, entries: fixKeys(tableEntries) }
+    const entries = fixKeys(tableEntries)
+
+    return { name, entries }
   } catch (err) {
     console.log('There was an error parsing a root selection')
     console.error(err)

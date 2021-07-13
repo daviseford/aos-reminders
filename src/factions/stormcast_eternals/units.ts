@@ -1191,7 +1191,7 @@ const Units = {
       ...CelestialLightningArcEffects,
     ],
   },
-  'Gardus Steel Soul': {
+  'Lord-Celestant Gardus Steel Soul': {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Furious Retribution'])],
     },
@@ -1203,7 +1203,7 @@ const Units = {
       },
       {
         name: `Aura of Purity`,
-        desc: `Roll a D6 each time you allocate a mortal wound to a friendly Hallowed Knights unit wholly within 12" of this model. On a 6 it is negated.`,
+        desc: `Roll a D6 each time you allocate a mortal wound to a friendly HALLOWED KNIGHTS unit wholly within 12" of this model. On a 6 it is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       // This is slightly different from the Martyr's Strength command_trait
@@ -1214,7 +1214,7 @@ const Units = {
       },
       {
         name: `Saintly Assault`,
-        desc: `Once per battle, this model and friendly Hallowed Knights heroes within 12" can choose reroll charge rolls this phase.`,
+        desc: `Once per battle, this model and friendly HALLOWED KNIGHTS HEROES within 12" can choose reroll charge rolls this phase.`,
         when: [START_OF_CHARGE_PHASE],
       },
       {

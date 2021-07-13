@@ -40,6 +40,225 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1625940517777-Warscroll_Builder', () => {
+    const parsedText = getFile('1625940517777-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1625940546002-Warscroll_Builder', () => {
+    const parsedText = getFile('1625940546002-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1625955999727-Warscroll_Builder', () => {
+    const parsedText = getFile('1625955999727-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1625959186400-Warscroll_Builder', () => {
+    const parsedText = getFile('1625959186400-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1625959227368-Warscroll_Builder', () => {
+    const parsedText = getFile('1625959227368-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1625987154925-Warscroll_Builder', () => {
+    const parsedText = getFile('1625987154925-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1625987159983-Warscroll_Builder', () => {
+    const parsedText = getFile('1625987159983-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626000307958-Warscroll_Builder', () => {
+    const parsedText = getFile('1626000307958-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626008505895-Warscroll_Builder', () => {
+    const parsedText = getFile('1626008505895-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Kurnoth Hunters')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626011545797-Warscroll_Builder', () => {
+    const parsedText = getFile('1626011545797-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626014331173-Warscroll_Builder', () => {
+    const parsedText = getFile('1626014331173-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Bastiladon')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626048977064-Warscroll_Builder', () => {
+    const parsedText = getFile('1626048977064-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626080009556-Warscroll_Builder', () => {
+    const parsedText = getFile('1626080009556-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626085857336-Warscroll_Builder', () => {
+    const parsedText = getFile('1626085857336-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626085936430-Warscroll_Builder', () => {
+    const parsedText = getFile('1626085936430-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626087512372-Warscroll_Builder', () => {
+    const parsedText = getFile('1626087512372-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.subFactionName).toEqual('Host of the Everchosen')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626089514944-Warscroll_Builder', () => {
+    const parsedText = getFile('1626089514944-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626089619207-Warscroll_Builder', () => {
+    const parsedText = getFile('1626089619207-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626094513986-Warscroll_Builder', () => {
+    const parsedText = getFile('1626094513986-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626098005165-Warscroll_Builder', () => {
+    const parsedText = getFile('1626098005165-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626098316564-Warscroll_Builder', () => {
+    const parsedText = getFile('1626098316564-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Swampcalla Shaman and Pot-grot')
+    expect(res.errors).toEqual([])
+  })
+
+  // TODO: Add Mancrusher Gargant Mob
+  it('should correctly read 1626098427592-Warscroll_Builder', () => {
+    const parsedText = getFile('1626098427592-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Mancrusher Gargant Mob',
+      },
+    ])
+  })
+
+  it('should correctly read 1626101150776-Warscroll_Builder', () => {
+    const parsedText = getFile('1626101150776-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626105120863-Warscroll_Builder', () => {
+    const parsedText = getFile('1626105120863-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.factionName).toEqual(LEGION_OF_THE_FIRST_PRINCE)
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Mark of Khorne',
+      },
+    ])
+  })
+
+  it('should correctly read 1626106760914-Warscroll_Builder', () => {
+    const parsedText = getFile('1626106760914-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626106853426-Warscroll_Builder', () => {
+    const parsedText = getFile('1626106853426-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626115430499-Warscroll_Builder', () => {
+    const parsedText = getFile('1626115430499-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626134104361-Warscroll_Builder', () => {
+    const parsedText = getFile('1626134104361-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain("Be'Lakor")
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626145186513-Warscroll_Builder', () => {
+    const parsedText = getFile('1626145186513-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.prayers).toContain('Heal')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626147878336-Warscroll_Builder', () => {
+    const parsedText = getFile('1626147878336-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Rotbringers Sorcerer')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626167570485-Warscroll_Builder', () => {
+    const parsedText = getFile('1626167570485-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Knight-Vexillor with Banner of Apotheosis')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626176891139-Warscroll_Builder', () => {
+    const parsedText = getFile('1626176891139-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Lord-Celestant Gardus Steel Soul')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626178634864-Warscroll_Builder', () => {
+    const parsedText = getFile('1626178634864-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1625844607093-Warscroll_Builder', () => {
     const parsedText = getFile('1625844607093-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
