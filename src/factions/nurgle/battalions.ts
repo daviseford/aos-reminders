@@ -212,7 +212,7 @@ const SuperBattalions = {
   },
   'The Blessed Sons': {
     mandatory: {
-      units: [keyPicker(Units, ['Sorcerer', 'Harbinger of Decay', 'Putrid Blightkings'])],
+      units: [keyPicker(Units, ['Rotbringers Sorcerer', 'Harbinger of Decay', 'Putrid Blightkings'])],
       battalions: [keyPicker(RegularBattalions, ['Plague Cyst'])],
     },
     effects: [

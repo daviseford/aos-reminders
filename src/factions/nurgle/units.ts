@@ -501,7 +501,7 @@ const Units = {
       },
     ],
   },
-  Sorcerer: {
+  'Rotbringers Sorcerer': {
     mandatory: {
       ...baseSorcerer.mandatory,
     },

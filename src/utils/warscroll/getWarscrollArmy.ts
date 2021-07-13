@@ -180,6 +180,15 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
           }
         }
 
+        if (txt.startsWith('- Damned Legion: ')) {
+          const name = txt
+            .replace('- Damned Legion: ', '')
+            .replace(/ \(.+\)/, '')
+            .trim()
+          if (name) subFactionName = name
+          return accum
+        }
+
         if (txt.startsWith('- Constellation: ')) {
           const name = txt.replace('- Constellation: ', '').trim()
           const data = getSeraphonConstellations(name)
