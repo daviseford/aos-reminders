@@ -98,6 +98,25 @@ const CommandAbilities = {
     effects: [
       {
         name: `Soul Energy of the First Host`,
+        desc: `If you use this command ability in your hero phase, pick a friendly unit of EVOCATORS wholly within 9" of a friendly model with this command ability. That unit can automatically cast Empower in that hero phase (no casting roll is required, and the spell cannot be unbound).`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Soul Energy of the First Host`,
+        desc: `If you use this command ability in your shooting phase, pick a friendly unit of CASTIGATORS wholly within 9" of a friendly model with this command ability. You can use Aetheric Channelling to increase the accuracy and power of that unit's Thunderhead Greatbows in that shooting phase instead of choosing only one of those options.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Soul Energy of the First Host`,
+        desc: `If you use this command ability in the combat phase, pick a friendly unit of SEQUITORS wholly within 9" of a friendly model with this command ability. You can use Aetheric Channelling to increase the power of the unit's weapons and shields in that combat phase instead of choosing only one of those options.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Soul Energy of the First Host (Astreia Solbright)': {
+    effects: [
+      {
+        name: `Soul Energy of the First Host`,
         desc: `Pick a friendly unit of HAMMERS OF SIGMAR EVOCATORS wholly within 12" of a friendly model with this command ability. That unit can automatically cast Empower in that hero phase (no casting roll is required, and the spell cannot be unbound).`,
         when: [HERO_PHASE],
       },
