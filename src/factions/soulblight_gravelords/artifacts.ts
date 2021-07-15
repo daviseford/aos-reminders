@@ -33,6 +33,11 @@ const Artifacts = {
         desc: `After armies have been set up but before the first battle round begins, you can pick 1 enemy HERO on the battlefield. In your hero phase, if the bearer and that HERO are on the battlefield, you can roll a dice. If the roll is equal to or greater than the number of the current battle round, that HERO suffers 1 mortal wound.`,
         when: [END_OF_SETUP],
       },
+      {
+        name: `Shadeglass Decanter`,
+        desc: `In your hero phase, if the bearer and that HERO are on the battlefield, you can roll a dice. If the roll is equal to or greater than the number of the current battle round, that HERO suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+      },
     ],
   },
   'Orb of Enchantment': {

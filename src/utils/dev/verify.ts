@@ -187,7 +187,9 @@ const verify = () => {
         if (e.command_ability) return
 
         if (e.spell || entry.spell) {
-          if (!e.when.includes(HERO_PHASE)) log_once(`${e.name} should be in ${HERO_PHASE}`)
+          if (!entry.effects.some(x => x.when.includes(HERO_PHASE))) {
+            log_once(`${e.name} should be in ${HERO_PHASE}`)
+          }
           return
         }
 
