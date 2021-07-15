@@ -291,7 +291,9 @@ const Units = {
   },
   'Astreia Solbright': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Soul Energy of the First Host'])],
+      command_abilities: [
+        keyPicker(command_abilities, ['Soul Energy of the First Host (Astreia Solbright)']),
+      ],
       spells: [keyPicker(spells, ['Lightning Pulse'])],
     },
     effects: [

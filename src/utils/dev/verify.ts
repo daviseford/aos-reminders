@@ -187,7 +187,9 @@ const verify = () => {
         if (e.command_ability) return
 
         if (e.spell || entry.spell) {
-          if (!e.when.includes(HERO_PHASE)) log_once(`${e.name} should be in ${HERO_PHASE}`)
+          if (!entry.effects.some(x => x.when.includes(HERO_PHASE))) {
+            log_once(`${e.name} should be in ${HERO_PHASE}`)
+          }
           return
         }
 
@@ -205,7 +207,7 @@ const verify = () => {
           if (e.when.includes(phase)) return
 
           const regex = new RegExp(phrase, 'gi')
-          if (regex.test(e.desc)) {
+          if (regex.test(e.desc) && !entry.effects.some(x => x.when.includes(phase))) {
             return log_once(`${e.name} should probably be in ${phase}`)
           }
         })

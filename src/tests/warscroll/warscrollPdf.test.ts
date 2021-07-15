@@ -469,6 +469,7 @@ describe('getWarscrollArmyFromPdf', () => {
         command_abilities: [
           'Furious Retribution',
           'Soul of the Stormhost',
+          'Soul Energy of the First Host (Astreia Solbright)',
           'Soul Energy of the First Host',
           'Vengeful Determination',
           'Sombre Exemplar',

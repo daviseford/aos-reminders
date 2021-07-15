@@ -1,5 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import { DURING_SETUP } from 'types/phases'
+import { DURING_SETUP, HERO_PHASE } from 'types/phases'
 import Units from './units'
 
 const Battalions = {
@@ -16,7 +16,7 @@ const Battalions = {
       {
         name: `Protective Volley`,
         desc: `In your hero phase, pick one enemy unit within 12" of the battalions Nomad Prince. All other Waystone Pathfinder units can immediately make a shooting attack against the unit as if it were the shooting phase.`,
-        when: [DURING_SETUP],
+        when: [HERO_PHASE],
       },
     ],
   },
