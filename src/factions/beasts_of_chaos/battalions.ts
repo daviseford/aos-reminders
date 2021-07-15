@@ -1,6 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
-import { CHARGE_PHASE, COMBAT_PHASE, DURING_GAME, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 import Units from './units'
 
 const RegularBattalions = {
@@ -56,6 +56,11 @@ const RegularBattalions = {
     effects: [
       {
         name: `Martial Ferocity`,
+        desc: `Once per battle, in your hero phase, you can choose to unleash this battalion's bestial rage. If you do so, until your next hero phase you can reroll failed wound rolls for attacks made by units from this battalion while they are wholly within 9" of another unit from the same battalion.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Martial Ferocity`,
         desc: `You can reroll hit rolls of 1 for attacks made by units from this battalion while they are wholly within 9" of another unit from the same battalion. In addition, once per battle, in your hero phase, you can choose to unleash this battalion's bestial rage. If you do so, until your next hero phase you can reroll failed wound rolls for attacks made by units from this battalion while they are wholly within 9" of another unit from the same battalion.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
@@ -75,7 +80,7 @@ const RegularBattalions = {
       {
         name: `Entropic Deluge`,
         desc: `If a unit from this battalion is destroyed, roll a D6 for each enemy unit within 7". On a 2+ that enemy unit suffers 1 mortal wound.`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -83,8 +88,13 @@ const RegularBattalions = {
     effects: [
       {
         name: `Covetous Fury`,
-        desc: `You can reroll failed charge rolls made for units from this battalion while they are within 12" of an enemy HERO with an artifact of power. In addition, you can reroll hit rolls for attacks made with melee weapons by models from this battalion that target an enemy HERO with an artifact of power.`,
+        desc: `You can reroll failed charge rolls made for units from this battalion while they are within 12" of an enemy HERO with an artifact of power.`,
         when: [CHARGE_PHASE],
+      },
+      {
+        name: `Covetous Fury`,
+        desc: `You can reroll hit rolls for attacks made with melee weapons by models from this battalion that target an enemy HERO with an artifact of power.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

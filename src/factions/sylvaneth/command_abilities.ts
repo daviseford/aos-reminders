@@ -7,6 +7,7 @@ import {
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
 
@@ -56,6 +57,11 @@ const CommandAbilities = {
         name: `The Earth Defends`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly GNARLROOT unit wholly within 12" of a friendly GNARLROOT HERO. Until the end of that phase, roll a D6 each time you allocate a wound or mortal wound to that unit. On a 6+ that wound or mortal wound is negated.`,
         when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `The Earth Defends`,
+        desc: `If active, until the end of that phase, roll a D6 each time you allocate a wound or mortal wound to that unit. On a 6+ that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

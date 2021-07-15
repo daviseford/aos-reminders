@@ -396,7 +396,7 @@ const Units = {
       {
         name: `Strike Unseen`,
         desc: `The cover modifier adds 2 to save rolls vs missile weapons for this model, instead of 1.`,
-        when: [SHOOTING_PHASE],
+        when: [SAVES_PHASE],
       },
       {
         name: `Oaken Arrows`,

@@ -219,7 +219,7 @@ const DestructionUnits = {
       },
       {
         name: `Rampaging Destruction`,
-        desc: `After making a charge move, choose to either roll a D6 for each enemy unit within 1" or roll 2D6 against 1 enemy monster within 1".
+        desc: `After making a charge move, choose to either roll a D6 for each enemy unit within 1" or roll 2D6 against 1 enemy MONSTER within 1".
                If targeting all units in 1", roll a D6 for each". On a 2+ that unit suffers D6 mortal wounds.
                If targeting a MONSTER, roll 2D6. No effect on a roll of 7. All other values inflict mortal wounds equal to the roll multiplied together.`,
         when: [CHARGE_PHASE],

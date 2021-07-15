@@ -68,7 +68,7 @@ const FuelledByCarnageEffect = {
 }
 const TerritorialPredatorEffect = {
   name: `Territorial Predator`,
-  desc: `You can reroll hit rolls for attacks with this model's Honed Fangs and Claws if the target is a monster.`,
+  desc: `You can reroll hit rolls for attacks with this model's Honed Fangs and Claws if the target is a MONSTER.`,
   when: [COMBAT_PHASE],
   shared: true,
 }
@@ -285,7 +285,7 @@ const Units = {
       },
       {
         name: `Hovering Disc of Tzeentch`,
-        desc: `Add 2 to this model's save rolls for attacks made with melee weapons unless the attacker is a monster or can fly.`,
+        desc: `Add 2 to this model's save rolls for attacks made with melee weapons unless the attacker is a MONSTER or can fly.`,
         when: [SAVES_PHASE],
       },
       {
@@ -459,12 +459,12 @@ const Units = {
       ChaosRuneshieldEffect,
       {
         name: `Glory-hungry Bladesman`,
-        desc: `Add 1 to the hit rolls for this model if the target is a hero or a monster.`,
+        desc: `Add 1 to the hit rolls for this model if the target is a hero or a MONSTER.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Thrice-damned Dagger`,
-        desc: `If this model slays an enemy hero or monster with a melee weapon you can heal up to D3 wounds allocated to this model after all of its attacks have resolved.`,
+        desc: `If this model slays an enemy hero or MONSTER with a melee weapon you can heal up to D3 wounds allocated to this model after all of its attacks have resolved.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {

@@ -312,7 +312,7 @@ const Spells = {
     effects: [
       {
         name: `Cower (Excelsis)`,
-        desc: `Casting value of 6+. Pick 1 enemy monster within 12" and visible to the caster. Roll 2D6 and if the roll is higher than the target's bravery characteristic, that target cannot make a charge move in your opponent's next turn.`,
+        desc: `Casting value of 6+. Pick 1 enemy MONSTER within 12" and visible to the caster. Roll 2D6 and if the roll is higher than the target's bravery characteristic, that target cannot make a charge move in your opponent's next turn.`,
         when: [HERO_PHASE],
         rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },

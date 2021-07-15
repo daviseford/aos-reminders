@@ -1,6 +1,13 @@
 import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
-import { BATTLESHOCK_PHASE, END_OF_HERO_PHASE, HERO_PHASE } from 'types/phases'
+import {
+  BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
+  END_OF_HERO_PHASE,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SAVES_PHASE,
+} from 'types/phases'
 import rule_sources from './rule_sources'
 
 const EndlessSpells = {
@@ -21,7 +28,7 @@ const EndlessSpells = {
       },
       {
         name: `Healing Mist`,
-        desc: `After this endless spell has moved, roll a dice for each Sylvaneth unit within 6" of this model. On a 3+, heal up to D3 wounds allocated to that unit.`,
+        desc: `After this endless spell has moved, roll a dice for each SYLVANETH unit within 6" of this model. On a 3+, heal up to D3 wounds allocated to that unit.`,
         when: [END_OF_HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
@@ -43,6 +50,18 @@ const EndlessSpells = {
 
         Shielding Swarm: Roll a dice for each friendly SYLVANETH unit wholly within 8" of this endless spell. On a 2+, add 1 to save rolls for attacks that target that unit until the end of that turn.`,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
+      },
+      {
+        name: `Vital Venoms`,
+        desc: `If active, add 3" to normal moves and charge moves for that unit until the end of that turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
+      },
+      {
+        name: `Shielding Swarm`,
+        desc: `If active, add 1 to save rolls for attacks that target that unit until the end of that turn.`,
+        when: [SAVES_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_JULY_2021],
       },
     ],

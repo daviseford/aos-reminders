@@ -410,7 +410,7 @@ const Units = {
       },
       {
         name: `Decapitating Strike`,
-        desc: `If a Necrosphinx directs all of its attacks with its Gigantic Scything Blades at the same Monster, and two or more of the wound rolls have a result of 6+, the Monster suffers 10 mortal wounds in addition to the normal damage.`,
+        desc: `If a Necrosphinx directs all of its attacks with its Gigantic Scything Blades at the same Monster, and two or more of the wound rolls have a result of 6+, the MONSTER suffers 10 mortal wounds in addition to the normal damage.`,
         when: [COMBAT_PHASE],
       },
     ],

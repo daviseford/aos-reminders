@@ -177,7 +177,7 @@ const IronjawzUnits = {
       DuffUpdaBigThingEffect,
       {
         name: `Beastbashas`,
-        desc: `The first time an enemy Monster is destroyed by an attack from this unit, add 1 to this unit's wound rolls for the remainder of the battle.`,
+        desc: `The first time an enemy MONSTER is destroyed by an attack from this unit, add 1 to this unit's wound rolls for the remainder of the battle.`,
         when: [COMBAT_PHASE],
       },
     ],

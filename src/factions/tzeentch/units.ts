@@ -51,7 +51,7 @@ const MasteryOfMagicEffect = {
 }
 const SkySharksEffect = {
   name: `Sky-sharks`,
-  desc: `If the target is an enemy Monster, change the Damage characteristic of this unit's Lamprey Bite to D3.`,
+  desc: `If the target is an enemy MONSTER, change the Damage characteristic of this unit's Lamprey Bite to D3.`,
   when: [COMBAT_PHASE],
   shared: true,
 }
@@ -384,7 +384,7 @@ const Units = {
       },
       {
         name: `Hovering Disc of Tzeentch`,
-        desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit unless the attacking unit is a Monster or can fly.`,
+        desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit unless the attacking unit is a MONSTER or can fly.`,
         when: [SAVES_PHASE],
         rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
       },

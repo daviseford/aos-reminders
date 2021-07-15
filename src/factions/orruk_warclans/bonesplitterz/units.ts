@@ -105,6 +105,16 @@ const BonesplitterzUnits = {
         Weirddokk Dance: Pick 1 friendly BONESPLITTERZ WIZARD wholly within 12" of this model and roll a D6. On a 3+, add 1 to casting, dispelling and unbinding rolls for that WIZARD until your next hero phase. A unit cannot benefit from this ability more than once per phase.`,
         when: [START_OF_HERO_PHASE],
       },
+      {
+        name: `Glyphdokk Dance`,
+        desc: `If active, add 1 to save rolls for attacks that target that unit until your next hero phase.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Weirddokk Dance`,
+        desc: `If active, add 1 to casting, dispelling and unbinding rolls for that WIZARD until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
     ],
   },
   'Savage Orruks': {

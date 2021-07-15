@@ -159,7 +159,7 @@ const Units = {
       ArcaneVassalEffect,
       {
         name: `Azyrite Force Barrier`,
-        desc: `The Attacks characteristic of Azyrite Force Barrier is equal to the number of enemy models within 3" of the attacking model when the number of attacks made with the weapon is determined. Count each enemy monster as 5 models for this rule.`,
+        desc: `The Attacks characteristic of Azyrite Force Barrier is equal to the number of enemy models within 3" of the attacking model when the number of attacks made with the weapon is determined. Count each enemy MONSTER as 5 models for this rule.`,
         when: [COMBAT_PHASE],
         rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
       },
@@ -575,7 +575,7 @@ const Units = {
       },
       {
         name: `Obliterating Charge`,
-        desc: `After this model makes a charge move, roll a D6 for each enemy unit within 1" of this model. On a 2+, that unit suffers D3 mortal wounds if it is a Monster or D6 mortal wounds if it is not a Monster.`,
+        desc: `After this model makes a charge move, roll a D6 for each enemy unit within 1" of this model. On a 2+, that unit suffers D3 mortal wounds if it is a MONSTER or D6 mortal wounds if it is not a Monster.`,
         when: [CHARGE_PHASE],
       },
       {

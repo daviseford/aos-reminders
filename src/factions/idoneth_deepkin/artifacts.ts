@@ -144,7 +144,7 @@ const Artifacts = {
       {
         name: `Steelshell Pearl`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer that was caused by a missile weapon. On a 5+ the wound is negated.`,
-        when: [SHOOTING_PHASE],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -161,7 +161,7 @@ const Artifacts = {
     effects: [
       {
         name: `Dritchleech`,
-        desc: `Subtract 1 from the casting rolls of WIZARDS while they are within 18" of the bearer. IDONETH DEEPKINWIZARDS are not affected by this artifact.`,
+        desc: `Subtract 1 from the casting rolls of WIZARDS while they are within 18" of the bearer. IDONETH DEEPKIN WIZARDS are not affected by this artifact.`,
         when: [HERO_PHASE],
       },
     ],
@@ -228,11 +228,6 @@ const Artifacts = {
   },
   'Bauble of Buoyancy': {
     effects: [
-      {
-        name: `Bauble of Buoyancy`,
-        desc: `The bearer can fly. In addition, double the result of run rolls for the bearer.`,
-        when: [DURING_GAME],
-      },
       {
         name: `Bauble of Buoyancy`,
         desc: `The bearer can fly. In addition, double the result of run rolls for the bearer.`,

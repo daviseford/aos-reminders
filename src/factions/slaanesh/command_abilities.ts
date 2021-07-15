@@ -1,11 +1,12 @@
 import { tagAs } from 'factions/metatagger'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   HERO_PHASE,
-  SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const CommandAbilities = {
@@ -23,8 +24,13 @@ const CommandAbilities = {
     effects: [
       {
         name: `Regal Authority`,
-        desc: `If this model is your general and on the battlefield, do not take battleshock tests for friendly Slaanesh units while they are wholly with 18" of this model.`,
+        desc: `You can use this command ability at the start of the battleshock phase if this model is your general and is on the battlefield. If you do so, until the end of that phase, do not take battleshock tests for friendly SLAANESH units while they are wholly within 18" of this model.`,
         when: [START_OF_BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Regal Authority`,
+        desc: `If active, until the end of that phase, do not take battleshock tests for friendly SLAANESH units while they are wholly within 18" of this model.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -47,7 +53,7 @@ const CommandAbilities = {
       {
         name: `Gorge on Excess`,
         desc: `If the buffed unit destroys an enemy with any outstanding wounds to be allocated, the buffed unit may heal wounds equal to those remaining allocations.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

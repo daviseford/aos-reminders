@@ -65,7 +65,7 @@ const Spells = {
     effects: [
       {
         name: `Call to Glory`,
-        desc: `Casting value of 5. Pick 1 friendly Slaves to Darkness hero wholly within 12" and visible. You can reroll hit and wound rolls for attacks made by the hero if the target is a hero or monster until your next hero phase.`,
+        desc: `Casting value of 5. Pick 1 friendly Slaves to Darkness hero wholly within 12" and visible. You can reroll hit and wound rolls for attacks made by the hero if the target is a hero or MONSTER until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -79,12 +79,12 @@ const Spells = {
     effects: [
       {
         name: `Ruinous Vigour`,
-        desc: `Casting value of 6. Pick 1 friendly Slaves to Darkness monster wholly within 12" and visible. Until your next hero phase the monster uses the 0 wounds suffered row of its damage table.`,
+        desc: `Casting value of 6. Pick 1 friendly Slaves to Darkness MONSTER wholly within 12" and visible. Until your next hero phase the MONSTER uses the 0 wounds suffered row of its damage table.`,
         when: [HERO_PHASE],
       },
       {
         name: `Ruinous Vigour`,
-        desc: `The affected monster uses the 0 wounds suffered row of its damage table.`,
+        desc: `The affected MONSTER uses the 0 wounds suffered row of its damage table.`,
         when: [DURING_GAME],
       },
     ],
@@ -93,7 +93,7 @@ const Spells = {
     effects: [
       {
         name: `Infernal Flames`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 12" of the caster that is visible to them, and roll 1 dice for each model in that unit. For each 5+, that unit suffers 1 mortal wound. If that unit is a Monster or War Machine, roll 3 dice for each model instead.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 12" of the caster that is visible to them, and roll 1 dice for each model in that unit. For each 5+, that unit suffers 1 mortal wound. If that unit is a MONSTER or War Machine, roll 3 dice for each model instead.`,
         when: [HERO_PHASE],
       },
     ],

@@ -49,7 +49,7 @@ export const LegacyDuardinUnits = {
       HornblowerEffect,
       {
         name: `Seeking a Glorious Death`,
-        desc: `If there is an enemy Monster visible to this unit you do not need to take battleshock tests for this unit.`,
+        desc: `If there is an enemy MONSTER visible to this unit you do not need to take battleshock tests for this unit.`,
         when: [BATTLESHOCK_PHASE],
       },
       {

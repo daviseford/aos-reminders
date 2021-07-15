@@ -153,7 +153,7 @@ const BattleTraits = {
     effects: [
       {
         name: `Blood-woken Runes`,
-        desc: `If any enemy heroes or monsters were slain by attacks made by friendly Flayed mortal units in this phase, you can add 1 to save rolls for attacks that target the Flayed Mortal unit for the rest of the battle. A unit cannot benefit from this more than once per battle.`,
+        desc: `If any enemy HEROES or MONSTERS were slain by attacks made by friendly Flayed mortal units in this phase, you can add 1 to save rolls for attacks that target the Flayed Mortal unit for the rest of the battle. A unit cannot benefit from this more than once per battle.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
