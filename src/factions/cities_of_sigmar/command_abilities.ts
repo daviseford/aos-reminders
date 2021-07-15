@@ -1,6 +1,8 @@
 import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import {
+  CHARGE_PHASE,
+  COMBAT_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SHOOTING_PHASE,
@@ -38,8 +40,18 @@ const CommandAbilities = {
     effects: [
       {
         name: `Rousing Battle Cry`,
-        desc: `Pick 1 friendly FREEGUILD HERO with this CA. Until the end of that phase, add 1 to charge rolls for friendly FREEGUILD units while they are wholly within 12" of that HERO. In addition, in the next combat phase, add 1 to hit rolls for attacks made with melee weapons by friendly FREEGUILD units while they are wholly within 12" of that HERO. A unit cannot benefit from this command ability more than once per phase.`,
+        desc: `Pick 1 friendly FREEGUILD HERO with this command ability. Until the end of that phase, add 1 to charge rolls for friendly FREEGUILD units while they are wholly within 12" of that HERO. In addition, in the next combat phase, add 1 to hit rolls for attacks made with melee weapons by friendly FREEGUILD units while they are wholly within 12" of that HERO. A unit cannot benefit from this command ability more than once per phase.`,
         when: [START_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Rousing Battle Cry`,
+        desc: `If active, until the end of that phase, add 1 to charge rolls for friendly FREEGUILD units while they are wholly within 12" of that HERO.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Rousing Battle Cry`,
+        desc: `If active, in the next combat phase, add 1 to hit rolls for attacks made with melee weapons by friendly FREEGUILD units while they are wholly within 12" of that HERO.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

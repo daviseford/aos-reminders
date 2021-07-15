@@ -400,12 +400,12 @@ export const LegacyBretonnianUnits = {
       },
       {
         name: `The Questing Vow`,
-        desc: `Add 1 to the Damage characteristic of a Knightly Greatblade if the target has the Monster keyword.`,
+        desc: `Add 1 to the Damage characteristic of a Knightly Greatblade if the target has the MONSTER keyword.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `The Questing Vow`,
-        desc: `You can reroll charge rolls for this unit if there is an enemy unit with the Monster keyword within 12" of it when the charge roll is made.`,
+        desc: `You can reroll charge rolls for this unit if there is an enemy unit with the MONSTER keyword within 12" of it when the charge roll is made.`,
         when: [CHARGE_PHASE],
       },
       KnightsShieldEffect,

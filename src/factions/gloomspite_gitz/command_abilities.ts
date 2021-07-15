@@ -1,6 +1,8 @@
 import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import {
+  CHARGE_PHASE,
+  COMBAT_PHASE,
   DURING_GAME,
   HERO_PHASE,
   START_OF_CHARGE_PHASE,
@@ -48,6 +50,24 @@ const CommandAbilities = {
         name: `Ride Em All Down`,
         desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly SPIDERFANG GROT unit wholly within 18" of a friendly model with this command ability. You can reroll charge rolls for that unit in that charge phase. In addition, you can reroll hit rolls for attacks made with that unit's Crooked Spears in the following combat phase.`,
         when: [START_OF_CHARGE_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
+          rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
+        ],
+      },
+      {
+        name: `Ride Em All Down`,
+        desc: `If active, you can reroll charge rolls for that unit in that charge phase.`,
+        when: [CHARGE_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
+          rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
+        ],
+      },
+      {
+        name: `Ride Em All Down`,
+        desc: `If active, you can reroll hit rolls for attacks made with that unit's Crooked Spears in the following combat phase.`,
+        when: [COMBAT_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
           rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,

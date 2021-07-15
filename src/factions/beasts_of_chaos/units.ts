@@ -68,7 +68,7 @@ const Units = {
       },
       {
         name: `Grisly Trophy`,
-        desc: `If any enemy heroes or monsters are slain by this hero's attacks, you can add 1 to hit rolls for friendly Brayherd units wholly within 18" of this model until the end of the phase. A unit cannot benefit from this more than once per phase.`,
+        desc: `If any enemy HEROES or MONSTERS are slain by this hero's attacks, you can add 1 to hit rolls for friendly Brayherd units wholly within 18" of this model until the end of the phase. A unit cannot benefit from this more than once per phase.`,
         when: [COMBAT_PHASE],
         rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },

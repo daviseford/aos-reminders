@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
@@ -55,8 +56,18 @@ const CommandAbilities = {
     effects: [
       {
         name: `Entourage of Sky-Sharks`,
-        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly Hosts Arcanum Screamers unit wholly within 12" of a friendly Hero. Until your next hero phase, add 1 to save rolls for attacks that target that unit. In addition, until your next hero phase improve the Rend characteristic of that unit's Lamprey Bite by 1. A unit cannot benefit from the effects of this ability more than once per turn.`,
-        when: [HERO_PHASE, COMBAT_PHASE],
+        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly Hosts Arcanum Screamers unit wholly within 12" of a friendly HERO. Until your next hero phase, add 1 to save rolls for attacks that target that unit. In addition, until your next hero phase improve the Rend characteristic of that unit's Lamprey Bite by 1. A unit cannot benefit from the effects of this ability more than once per turn.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Entourage of Sky-Sharks`,
+        desc: `If active, until your next hero phase, add 1 to save rolls for attacks that target that unit.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Entourage of Sky-Sharks`,
+        desc: `If active, until your next hero phase, improve the Rend characteristic of that unit's Lamprey Bite by 1. `,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -65,7 +76,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Fate of Transmutation`,
-        desc: `You can use this command ability in your hero phase. Pick 1 Kairic Acolyte unit wholly within 12" of a friendly Hero. Until your next hero phase, each time a Kairic Acolyte model from that unit is slain, add 1 to the dice roll made for that unit's Change-gift ability.`,
+        desc: `You can use this command ability in your hero phase. Pick 1 Kairic Acolyte unit wholly within 12" of a friendly HERO. Until your next hero phase, each time a Kairic Acolyte model from that unit is slain, add 1 to the dice roll made for that unit's Change-gift ability.`,
         when: [HERO_PHASE],
       },
     ],
@@ -85,7 +96,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Will of the Arcane Lords`,
-        desc: `You can use this command ability in your hero phase. If you do so, pick a friendly Guild of Summoners Wizard wholly within 9" of a friendly Guild of Summoners Hero or wholly within 18" of a friendly Hero that is a general. Add 1 to casting rolls for that Wizard until the end of that phase. A unit cannot benefit from this command ability more than once per turn.`,
+        desc: `You can use this command ability in your hero phase. If you do so, pick a friendly Guild of Summoners Wizard wholly within 9" of a friendly Guild of Summoners Hero or wholly within 18" of a friendly HERO that is a general. Add 1 to casting rolls for that Wizard until the end of that phase. A unit cannot benefit from this command ability more than once per turn.`,
         when: [HERO_PHASE],
       },
     ],

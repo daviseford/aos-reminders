@@ -13,7 +13,7 @@ const Spells = {
     effects: [
       {
         name: `Steed of Tides`,
-        desc: `Casting value of 5. Pick a friendly hero that is not a monster within 6". Remove them from the table and set them up within 24" of their original spot and outside of 9" of enemies. This counts as their movement in the movement phase. The Hero does not need to be an Idoneth Deepkin.`,
+        desc: `Casting value of 5. Pick a friendly hero that is not a MONSTER within 6". Remove them from the table and set them up within 24" of their original spot and outside of 9" of enemies. This counts as their movement in the movement phase. The Hero does not need to be an Idoneth Deepkin.`,
         when: [HERO_PHASE],
       },
     ],
@@ -27,7 +27,7 @@ const Spells = {
       },
       {
         name: `Abyssal Darkness`,
-        desc: `If cast in the hero phase, Friendly deepkin are treated as being within cover while wholly within 9" of the caster until your next hero phase.`,
+        desc: `If cast in the hero phase, friendly deepkin are treated as being within cover while wholly within 9" of the caster until your next hero phase.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],

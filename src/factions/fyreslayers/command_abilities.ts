@@ -22,7 +22,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Runefather's Favour`,
-        desc: `Pick 1 friendly VOSTARG HERO within 12" of this model other than this model and roll a D6. On a 4+ that HERO can immediately pile-in and attack with al of the melee weapons it is armed with. You cannot pick the same HERO to benefit from this ability more than once per hero phase.`,
+        desc: `Pick 1 friendly VOSTARG HERO within 12" of this model other than this model and roll a D6. On a 4+ that HERO can immediately pile-in and attack with all of the melee weapons it is armed with. You cannot pick the same HERO to benefit from this ability more than once per hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -43,6 +43,11 @@ const CommandAbilities = {
         desc: `Pick a friendly model with this command ability. Until the end of that phase, add 1 to hit rolls for attacks made by friendly VOSTARG units while they are wholly within 12" of that model. The same unit cannot be picked to be affected by this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
+      {
+        name: `Honour Our Oaths`,
+        desc: `If active, until the end of that phase, add 1 to hit rolls for attacks made by friendly VOSTARG units while they are wholly within 12" of that model.`,
+        when: [COMBAT_PHASE],
+      },
     ],
   },
   'Lodge Leader': {
@@ -50,6 +55,11 @@ const CommandAbilities = {
       {
         name: `Lodge Leader`,
         desc: `Pick a friendly model with this command ability. Add 1 charge rolls for friendly FYRESLAYERS units wholly within 12" of that model until the end of that phase.`,
+        when: [START_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Lodge Leader`,
+        desc: `If active, add 1 charge rolls for friendly FYRESLAYERS units wholly within 12" of that model until the end of that phase.`,
         when: [START_OF_CHARGE_PHASE],
       },
     ],

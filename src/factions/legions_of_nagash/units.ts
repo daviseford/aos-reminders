@@ -604,7 +604,7 @@ const Units = {
       CryptShieldsEffect,
       {
         name: `Serve in Death`,
-        desc: `You can add 1 to hit rolls for this unit if it is wholly within 18" of any friendly Death heroes.`,
+        desc: `You can add 1 to hit rolls for this unit if it is wholly within 18" of any friendly Death HEROES.`,
         when: [COMBAT_PHASE],
       },
       {

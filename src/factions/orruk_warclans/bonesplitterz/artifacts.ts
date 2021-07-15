@@ -67,7 +67,7 @@ const BonesplitterzArtifacts = {
     effects: [
       {
         name: `Mork's Boney Bitz`,
-        desc: `Add 1 to this Wizard's casting rolls, or +2 if there are 2 or more monsters within 24" of the caster.`,
+        desc: `Add 1 to this Wizard's casting rolls, or +2 if there are 2 or more MONSTERS within 24" of the caster.`,
         when: [HERO_PHASE],
       },
     ],

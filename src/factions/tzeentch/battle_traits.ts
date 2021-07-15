@@ -112,7 +112,7 @@ const BattleTraits = {
       },
       {
         name: `Agendas of Anarchy: Overthrow Leaders`,
-        desc: `Requirement: 1 selected enemy hero or monster on the battlefield with a wounds characteristic of 9 or more slain this turn.
+        desc: `Requirement: 1 selected enemy hero or MONSTER on the battlefield with a wounds characteristic of 9 or more slain this turn.
                Reward: Add 1 to the save rolls for the friendly Tzeentch unit that completed this agenda.`,
         when: [START_OF_HERO_PHASE],
       },

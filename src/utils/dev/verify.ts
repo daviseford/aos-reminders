@@ -61,6 +61,7 @@ const phaseMap = {
   'in the enemy shooting phase': SHOOTING_PHASE,
 
   "in your opponent's battleshock phase": BATTLESHOCK_PHASE,
+  'do not take battleshock tests for': BATTLESHOCK_PHASE,
   "in your opponent's charge phase": CHARGE_PHASE,
   "in your opponent's combat phase": COMBAT_PHASE,
   "in your opponent's hero phase": HERO_PHASE,
@@ -86,38 +87,7 @@ const phaseMap = {
 }
 
 // Effect names that are flagged by the script, but have been verified and should be ignored for the phase checking
-const phasesWhitelist = [
-  'Acid Ichor',
-  'Ahead Full',
-  'Been There, Done That',
-  'Blizzard Speaker',
-  'Bloodthirsty Predators',
-  'Bogeyman',
-  'Brass-clad Shield',
-  'Celestial Configuration',
-  'Celestial Rites',
-  'Clutching Pseudopods',
-  'Deadly Symbiosis',
-  'Deathblow',
-  'Dormant Energies',
-  'Great Cauldron',
-  'Hellshard Amulet',
-  'Horrific Opponent',
-  'Lurelight',
-  'None Shall Defile the Icon',
-  'Old Grumblers',
-  'Rune Lore: Ancestral Shield',
-  'Runemarked Shield',
-  'Seeker of Souls',
-  'Violent Fury',
-  'Beastshield',
-  'Whirling Death',
-  'Warding Lantern',
-  'Attuned to Magic',
-  'Tanglethorn Thicket',
-  'Grand Ritual of Awakening',
-  'Strike the Runes',
-]
+const whitelistedRules = ['The Shield Inviolate']
 
 let logged: string[] = []
 
@@ -183,7 +153,7 @@ const verify = () => {
           identicalEffects[matchBy] = [effectInfo]
         }
 
-        if (phasesWhitelist.includes(e.name)) return
+        if (whitelistedRules.includes(e.name)) return
         if (e.command_ability) return
 
         if (e.spell || entry.spell) {

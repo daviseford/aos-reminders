@@ -145,8 +145,13 @@ const CommandAbilities = {
     effects: [
       {
         name: `Once More, For Sigmar, Charge!`,
-        desc: `Until the end of the phase add 3 to charge rolls for friendly HAMMERS OF SIGMAR units that are wholly within 12" of this model when the charge roll is made.`,
+        desc: `You can use this command ability at the start of your charge phase. If you do so, until the end of that phase, add 3 to charge rolls for friendly HAMMERS OF SIGMAR units that are wholly within 12" of a friendly model with this command ability when the charge roll is made.`,
         when: [START_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Once More, For Sigmar, Charge!`,
+        desc: `If active, until the end of that phase, add 3 to charge rolls for friendly HAMMERS OF SIGMAR units that are wholly within 12" of a friendly model with this command ability when the charge roll is made.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },

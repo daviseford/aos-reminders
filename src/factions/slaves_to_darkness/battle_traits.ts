@@ -68,7 +68,7 @@ const BattleTraits = {
       },
       {
         name: `Eye of the Gods`,
-        desc: `If any attacks made by a friendly Slaves to Darkness hero with the Eye of the Gods keyword kills a hero or monster you can make a 2D6 roll for that hero. Apply the reward based on the result for the rest of the battle. Duplicate rewards are treated as 'Snubbed by the Gods' instead.
+        desc: `If any attacks made by a friendly Slaves to Darkness hero with the Eye of the Gods keyword kills a hero or MONSTER you can make a 2D6 roll for that hero. Apply the reward based on the result for the rest of the battle. Duplicate rewards are treated as 'Snubbed by the Gods' instead.
                2: Spawndom
                3: Slaughterer's Strength
                4: Murderous Mutation
@@ -179,7 +179,7 @@ const BattleTraits = {
     effects: [
       {
         name: `Blessed by the Unholy`,
-        desc: `You can roll a D6 for each friendly Despoilers Daemon Prince and friendly Despoilers monster on the battlefield. On a 4+ you can heal up to D3 wounds allocated to that model. Mutalith Vortex Beasts can only heal 1 wound instead.`,
+        desc: `You can roll a D6 for each friendly Despoilers Daemon Prince and friendly Despoilers MONSTER on the battlefield. On a 4+ you can heal up to D3 wounds allocated to that model. Mutalith Vortex Beasts can only heal 1 wound instead.`,
         when: [HERO_PHASE],
       },
     ],
@@ -188,7 +188,7 @@ const BattleTraits = {
     effects: [
       {
         name: `Twisted Dominion`,
-        desc: `If a friendly Despoilers Daemon Prince finishes a move within 6" of a terrain feature, you can give that terrain feature the Pitch-black and Nightmare Chasm scenery rules until your next hero phase. Despoilers Daemon Princes and Despoilers monsters are unaffected by these scenery rules.`,
+        desc: `If a friendly Despoilers Daemon Prince finishes a move within 6" of a terrain feature, you can give that terrain feature the Pitch-black and Nightmare Chasm scenery rules until your next hero phase. Despoilers Daemon Princes and Despoilers MONSTERS are unaffected by these scenery rules.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE],
       },
     ],

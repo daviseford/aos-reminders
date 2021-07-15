@@ -11,6 +11,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import Spells from './spells'
@@ -82,7 +83,7 @@ const Units = {
     effects: [
       {
         name: `Blazing Body`,
-        desc: `At the start of the combat phase, roll 1 dice for each enemy unit within 3" of this model. On a 4+,that unit suffers 1 mortal wound.`,
+        desc: `At the start of the combat phase, roll 1 dice for each enemy unit within 3" of this model. On a 4+, that unit suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -93,7 +94,7 @@ const Units = {
       {
         name: `Hellshard Amulet`,
         desc: `Roll a D6 each time you allocate a wound inflicted by an attack made with a melee weapon to this model. On a 5+, that wound is negated and the attacking unit suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Prophet of Ash and Flame`,

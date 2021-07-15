@@ -169,7 +169,7 @@ const Artifacts = {
     effects: [
       {
         name: `Doombringer Blade`,
-        desc: `After setup is complete but before the start of the turn, you can pick 1 enemy hero or monster on the battlefield. Friendly Despoilers units can reroll hit and wound rolls when targeting the selected model.`,
+        desc: `After setup is complete but before the start of the turn, you can pick 1 enemy hero or MONSTER on the battlefield. Friendly Despoilers units can reroll hit and wound rolls when targeting the selected model.`,
         when: [TURN_ONE_START_OF_ROUND],
       },
     ],
