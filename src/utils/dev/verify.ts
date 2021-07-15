@@ -207,7 +207,7 @@ const verify = () => {
           if (e.when.includes(phase)) return
 
           const regex = new RegExp(phrase, 'gi')
-          if (regex.test(e.desc)) {
+          if (regex.test(e.desc) && !entry.effects.some(x => x.when.includes(phase))) {
             return log_once(`${e.name} should probably be in ${phase}`)
           }
         })
