@@ -64,7 +64,7 @@ const CommandAbilities = {
       },
       {
         name: `Morbid Vigour`,
-        desc: `If active, roll a D6 each time you allocate a wound or mortal wound to a friendly Nurgle unit within 7" of this model. On a 5+ the wound is negated. The same unit cannot benefit from this ability more than once in the same phase.`,
+        desc: `If active, roll a D6 each time you allocate a wound or mortal wound to a friendly Nurgle mortal unit within 7" of this model. On a 5+ the wound is negated. The same unit cannot benefit from this ability more than once in the same phase.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
