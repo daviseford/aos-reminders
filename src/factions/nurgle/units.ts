@@ -266,8 +266,9 @@ const Units = {
       DisgustinglyResilientEffect,
       {
         name: `Cloud of Flies`,
-        desc: `Subtract 1 from hit rolls targeting this unit in the shooting phase. If the unit contains 20 or more models subtract 2 from hit rolls in the shooting phase and 1 from hit rolls in the combat phase.`,
+        desc: `Subtract 1 from hit rolls for attacks that target this unit while it has at least 10 models.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_NURGLE_JULY_2021],
       },
       {
         name: `Locus of Fecundity`,
