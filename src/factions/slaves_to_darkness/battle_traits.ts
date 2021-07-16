@@ -170,7 +170,7 @@ const BattleTraits = {
       },
       {
         name: `Sacrilegious Might`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a Despoilers Daemon Prince. On a 5+ it is negated.`,
+        desc: `Roll a D6 each time you allocate a wound or mortal wound to a Despoilers Daemon Prince that is a general. On a 5+ it is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
