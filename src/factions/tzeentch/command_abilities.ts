@@ -66,7 +66,7 @@ const CommandAbilities = {
       },
       {
         name: `Entourage of Sky-Sharks`,
-        desc: `If active, until your next hero phase, improve the Rend characteristic of that unit's Lamprey Bite by 1. `,
+        desc: `If active, until your next hero phase, improve the Rend characteristic of that unit's Lamprey Bite by 1.`,
         when: [COMBAT_PHASE],
       },
     ],
