@@ -1,5 +1,4 @@
 import { tagAs } from 'factions/metatagger'
-import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH } from 'meta/alliances'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -43,13 +42,13 @@ const CommandAbilities = {
   'Bloodslick Ground': {
     effects: [
       {
-        name: `Bloodslick Ground: ${MARK_KHORNE}`,
+        name: `Bloodslick Ground`,
         desc: `Until your next hero phase, run and charge rolls made for enemy units within 18" of this model are halved. You cannot use this command ability more than once per turn.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Bloodslick Ground: ${MARK_KHORNE}`,
-        desc: `If active run and charge rolls made for enemy units within 18" of this model are halved.`,
+        name: `Bloodslick Ground`,
+        desc: `If active, run and charge rolls made for enemy units within 18" of this model are halved.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
@@ -57,7 +56,7 @@ const CommandAbilities = {
   'Arcane Influence': {
     effects: [
       {
-        name: `Arcane Influence: ${MARK_TZEENTCH}`,
+        name: `Arcane Influence`,
         desc: `Pick 1 friendly SLAVES TO DARKNESS wizard wholly within 12" of this model and add 1 to its casting rolls until the end of the phase.`,
         when: [START_OF_HERO_PHASE],
       },
@@ -66,7 +65,7 @@ const CommandAbilities = {
   'Bloated Blessings': {
     effects: [
       {
-        name: `Bloated Blessings: ${MARK_NURGLE}`,
+        name: `Bloated Blessings`,
         desc: `Pick 1 friendly SLAVES TO DARKNESS Nurgle unit wholly within 12" of this model. Until your next hero phase, each time that unit is picked as the target for any attacks made with melee weapons, if the unmodified hit roll for any of those attacks is 6, the attacking unit suffers D3 mortal wounds after all of its attacks have been resolved. The same unit cannot benefit from this ability more than once per phase.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [
@@ -79,7 +78,7 @@ const CommandAbilities = {
   'Revel in Agony': {
     effects: [
       {
-        name: `Revel in Agony: ${MARK_SLAANESH}`,
+        name: `Revel in Agony`,
         desc: `Until your next hero phase, if any models from a friendly SLAVES TO DARKNESS Slaanesh unit wholly within 12" of this model are slain by an enemy melee weapon, add 1 to hits rolls for attacks made by that friendly unit. You cannot use this command ability more than once per turn.`,
         when: [START_OF_COMBAT_PHASE],
       },
