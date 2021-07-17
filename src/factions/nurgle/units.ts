@@ -379,7 +379,7 @@ const Units = {
       {
         name: `Acid Ichor`,
         desc: `Roll a D6 for each time you allocate a wound to this model in the combat phase (and it is not negated). On a 4+ the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Fury of the Halfblood`,
