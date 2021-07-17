@@ -39,6 +39,74 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should correctly read 1626199975730-Battlescribe', () => {
+    const parsedText = getFile('1626199975730-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626314280092-Battlescribe', () => {
+    const parsedText = getFile('1626314280092-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.scenery).toContain('Feculent Gnarlmaw')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626363752964-Battlescribe', () => {
+    const parsedText = getFile('1626363752964-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+    expect(res.selections.units).toContain('Gatebreaker')
+    expect(res.selections.units).toContain('Kraken-Eater')
+    expect(res.selections.units).toContain('Mancrusher Gargants')
+  })
+
+  it('should correctly read 1626386937893-Battlescribe', () => {
+    const parsedText = getFile('1626386937893-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626386947765-Battlescribe', () => {
+    const parsedText = getFile('1626386947765-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.flavors).toContain('Guild of Summoners')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626387026036-Battlescribe', () => {
+    const parsedText = getFile('1626387026036-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+
+  it('should correctly read 1626388412216-Battlescribe', () => {
+    const parsedText = getFile('1626388412216-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Corpse Cart w/ Balefire Brazier')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626389946645-Battlescribe', () => {
+    const parsedText = getFile('1626389946645-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626389982215-Battlescribe', () => {
+    const parsedText = getFile('1626389982215-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626447368607-Battlescribe', () => {
+    const parsedText = getFile('1626447368607-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.endless_spells).toContain('Heart of Fury')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1625939634457-Battlescribe', () => {
     const parsedText = getFile('1625939634457-Battlescribe')
     const res = getBattlescribeArmy(parsedText)

@@ -561,6 +561,7 @@ export const sortParsedRoots = (roots: IParsedRoot[], flavorInfo: IFlavorInfo[])
 }
 
 const ignoredNames = [
+  'Coalition',
   'Crew',
   'Screaming Skull Catapult Crew',
   'Show Celestial Conjuration Table',
@@ -571,6 +572,7 @@ const ignoredNames = [
   'Summon Umbral Spellportal',
   'Summon Wrath-Axe',
   'Summon Zharrgron Flame Splitter',
+  'Summoning',
   'Ur-Gold',
   "Summon Ravenak's Gnashing Jaws",
 ]
@@ -589,12 +591,12 @@ const prefixLookup: Record<string, keyof TSelections> = {
   'Bound Endless Spell': 'endless_spells',
   'Command Abilities': 'command_abilities',
   'Command Traits': 'command_traits',
+  'Core Battalion': 'battalions',
   'Endless Spell': 'endless_spells',
+  'Grand Strategy': 'grand_strategies',
+  'Invocation of Khaine': 'endless_spells',
   'Magmic Invocation': 'endless_spells',
   'Super Battalion': 'battalions',
-  'Core Battalion': 'battalions',
-  'Grand Strategy': 'grand_strategies',
-  Triumphs: 'triumphs',
   Artifacts: 'artifacts',
   Battalion: 'battalions',
   Commands: 'command_abilities',
@@ -604,6 +606,7 @@ const prefixLookup: Record<string, keyof TSelections> = {
   Scenery: 'scenery',
   Spells: 'spells',
   Traits: 'command_traits',
+  Triumphs: 'triumphs',
   Unit: 'units',
 }
 
@@ -613,6 +616,7 @@ const prefixLookup: Record<string, keyof TSelections> = {
  */
 const exactMatches: Record<string, keyof TSelections> = {
   'Charnel Throne': 'scenery',
+  'Feculent Gnarlmaw': 'scenery',
 }
 
 const isBattalion = (r: IParsedRoot): boolean => {

@@ -56,7 +56,7 @@ const Artifacts = {
       {
         name: `The Bileheart`,
         desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer in the combat phase (and it is not negated). On a 4+ the attacking unit suffers 1 mortal wound after all its attacks have been made.`,
-        when: [COMBAT_PHASE],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

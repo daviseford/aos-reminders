@@ -154,7 +154,12 @@ const verify = () => {
         }
 
         if (whitelistedRules.includes(e.name)) return
-        if (e.command_ability) return
+
+        if (e.command_ability) {
+          if (e.name !== entry.name)
+            log_once(`${e.name} is a command_ability with a different named effect than the entry itself.`)
+          return
+        }
 
         if (e.spell || entry.spell) {
           if (!entry.effects.some(x => x.when.includes(HERO_PHASE))) {

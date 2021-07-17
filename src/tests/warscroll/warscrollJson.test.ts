@@ -40,6 +40,37 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1626346073420-Warscroll_Builder', () => {
+    const parsedText = getFile('1626346073420-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.command_traits).toContain('Devoted Disciple')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1626464166387-Warscroll_Builder', () => {
+    const parsedText = getFile('1626464166387-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    // They don't have the Ravagers subfaction selected
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Cloak of the Relentless Conqueror',
+      },
+    ])
+  })
+
+  it('should correctly read 1626464255789-Warscroll_Builder', () => {
+    const parsedText = getFile('1626464255789-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    // expect(res.selections.artifacts).toContain('Cloak of the Relentless Conqueror')
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Cloak of the Relentless Conqueror',
+      },
+    ])
+  })
+
   it('should correctly read 1625940517777-Warscroll_Builder', () => {
     const parsedText = getFile('1625940517777-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
