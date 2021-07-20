@@ -7,11 +7,9 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
-  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const CommandTraits = {
   Spellmaster: {
@@ -83,16 +81,6 @@ const CommandTraits = {
         name: `Goading Arrogance`,
         desc: `You can pick 1 enemy HERO within 6" of this general. That enemy HERO can only target this general in that phase. In addition, you can add 1 to hit rolls for attacks that target that enemy HERO in that phase.`,
         when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'Strike in Unison': {
-    effects: [
-      {
-        name: `Strike in Unison`,
-        desc: `You can use this command ability in your shooting phase or in the combat phase. If you do so, pick 1 friendly ILIATHA VANARI unit with 2 or more models. You can reroll hit rolls of 1 for that unit until the end of that phase.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_MAY_2021],
       },
     ],
   },
