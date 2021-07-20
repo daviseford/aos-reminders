@@ -38,12 +38,12 @@ const Flavors = {
   Iliatha: {
     mandatory: {
       artifacts: [keyPicker(artifacts, ['Simulacra Amulet'])],
-      command_traits: [keyPicker(command_traits, ['Strike in Unison'])],
+      command_abilities: [keyPicker(command_abilities, ['Strike in Unison'])],
     },
     effects: [
       {
         name: `Soul-bond`,
-        desc: `Add 2 to the Bravery characteristic of ILIATHA VANARI amd ILIATHA AELEMENTIRI units.`,
+        desc: `Add 2 to the Bravery characteristic of ILIATHA VANARI and ILIATHA AELEMENTIRI units.`,
         when: [DURING_GAME],
       },
       {
