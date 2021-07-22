@@ -114,6 +114,6 @@
     "workbox-precaching": "6.1.5",
     "workbox-routing": "6.1.5",
     "workbox-strategies": "6.1.5",
-    "xlsx": "0.16.9"
+    "xlsx": "0.17.0"
   }
 }
