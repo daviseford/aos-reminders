@@ -80,7 +80,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-
   it('should correctly read 1626388412216-Battlescribe', () => {
     const parsedText = getFile('1626388412216-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
