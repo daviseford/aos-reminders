@@ -4,7 +4,7 @@ import { useSelector } from 'react-redux'
 import { titleCase } from 'utils/textUtils'
 
 const PrintArmy = () => {
-  const { factionName, subFactionName, realmscape_feature, selections, allySelections } = useSelector(
+  const { factionName, subFactionName, selections, allySelections, realmscape } = useSelector(
     selectors.selectCurrentArmy
   )
   const {
@@ -12,6 +12,7 @@ const PrintArmy = () => {
     battalions,
     command_abilities,
     command_traits,
+    core_rules,
     endless_spells,
     flavors,
     prayers,
@@ -19,9 +20,10 @@ const PrintArmy = () => {
     scenery,
     spells,
     triumphs,
+    grand_strategies,
     units,
   } = selections
-  const realmFeature = realmscape_feature ? [realmscape_feature] : []
+  const realm = realmscape ? [realmscape] : []
   return (
     <>
       <div className={'row text-center mt-4 mb-1 d-none d-print-block'}>
@@ -43,8 +45,10 @@ const PrintArmy = () => {
         <ItemsDisplayComponent name={'Prayer'} items={prayers} />
         <ItemsDisplayComponent name={'Endless Spell'} items={endless_spells} />
         <ItemsDisplayComponent name={'Scenery'} items={scenery} pluralize={false} />
-        <ItemsDisplayComponent name={'Realmscape Feature'} items={realmFeature} />
         <ItemsDisplayComponent name={'Triumph'} items={triumphs} />
+        <ItemsDisplayComponent name={'Core Rule'} items={core_rules} />
+        <ItemsDisplayComponent name={'Grand Strategy'} items={grand_strategies} pluralize={false} />
+        <ItemsDisplayComponent name={'Realmscape'} items={realm} pluralize={false} />
 
         {Object.keys(allySelections).map(name => (
           <ItemsDisplayComponent

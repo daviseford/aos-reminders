@@ -353,7 +353,7 @@ export default class CompactPdfLayout {
     }
 
   private _getArmyText = (): ICompactPdfTextObj[] => {
-    const { allyFactionNames, allySelections, factionName, subFactionName, realmscape_feature, selections } =
+    const { allyFactionNames, allySelections, factionName, subFactionName, realmscape, selections } =
       this._army
 
     const {
@@ -372,7 +372,7 @@ export default class CompactPdfLayout {
       units,
     } = selections
 
-    const realmFeature = realmscape_feature ? [realmscape_feature] : []
+    const realm = realmscape ? [realmscape] : []
 
     let text: ICompactPdfTextObj[] = [
       { text: '', type: 'spacer', position: 'full' },
@@ -400,9 +400,9 @@ export default class CompactPdfLayout {
       getText('Spell', spells),
       getText('Endless Spell', endless_spells),
       getText('Scenery', scenery, false),
-      getText('Realmscape Feature', realmFeature),
-      getText('Grand Strategies', grand_strategies, false),
+      getText('Grand Strategy', grand_strategies, false),
       getText('Triumph', triumphs),
+      getText('Realmscape', realm, false),
     ].flat()
 
     const endText: ICompactPdfTextObj[] = [

@@ -20,7 +20,6 @@ import { sortBy, uniqBy } from 'lodash'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
 import { TCollection } from 'types/army'
 import { TEntry } from 'types/data'
-import { TBattleRealms } from 'types/realmscapes'
 import { GrandAllianceConfig } from 'utils/getArmy/grandAllianceConfig'
 
 const modifyFlavors = (flavors: TEntry[], Collection: TCollection): TEntry[] => {
@@ -101,11 +100,7 @@ const modifyMountTraits = (mount_traits: TEntry[], Collection: TCollection): TEn
   )
 }
 
-const modifyCommandAbilities = (
-  command_abilities: TEntry[],
-  realmscape: TBattleRealms | null,
-  Collection: TCollection
-): TEntry[] => {
+const modifyCommandAbilities = (command_abilities: TEntry[], Collection: TCollection): TEntry[] => {
   return uniqBy(
     sortBy(command_abilities.concat(Collection.CommandAbilities), 'name')
       .concat(sortBy(GenericCommandAbilities, 'name'))
@@ -132,11 +127,7 @@ const modifyGrandStrategies = (grand_strategies: TEntry[], Collection: TCollecti
   )
 }
 
-const modifySpells = (
-  spells: TEntry[],
-  realmscape: TBattleRealms | null,
-  Collection: TCollection
-): TEntry[] => {
+const modifySpells = (spells: TEntry[], Collection: TCollection): TEntry[] => {
   return uniqBy(
     sortBy(spells.concat(Collection.Spells), 'name')
       .concat(sortBy(GenericSpells, 'name'))
