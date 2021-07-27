@@ -1,30 +1,20 @@
-// Army Imports
 import IronjawzBattleTraits from 'factions/orruk_warclans/ironjawz/battle_traits'
 import { SylvanethFaction } from 'factions/sylvaneth'
-import {
-  GenericCommandAbilities,
-  GenericTriumphs,
-  RealmscapeCommands,
-  RealmscapeFeatures,
-} from 'generic_rules'
-// Meta
+import { GenericCommandAbilities, GenericTriumphs } from 'generic_rules'
 import { CITIES_OF_SIGMAR, DAUGHTERS_OF_KHAINE, ORRUK_WARCLANS, SYLVANETH } from 'meta/factions'
-// Types
 import { IArmy } from 'types/army'
 import { TTurnAction } from 'types/data'
 import { END_OF_GAME, HERO_PHASE } from 'types/phases'
 import { getArmy } from 'utils/getArmy/getArmy'
 import { processConditions, processReminders } from 'utils/processReminders'
-import { getRealmscape } from 'utils/realmUtils'
 import { selectionsFactory } from './__mock'
 
 describe('processReminders', () => {
-  it('should work with a loaded army, multiple allies, and realmscape', () => {
+  it('should work with a loaded army and multiple allies', () => {
     const artifact = SylvanethFaction.AggregateArmy.Artifacts?.[0]
     const battalion = SylvanethFaction.AggregateArmy.Battalions?.[0]
     const command_trait = SylvanethFaction.AggregateArmy.CommandTraits?.[0]
     const command1 = GenericCommandAbilities[0]
-    const command2 = RealmscapeCommands[0]
     const endless_spell = SylvanethFaction.AggregateArmy.EndlessSpells?.[0]
     const flavor = SylvanethFaction.AggregateArmy.Flavors?.[0]
     const scenery = SylvanethFaction.AggregateArmy.Scenery?.[0]
@@ -33,12 +23,12 @@ describe('processReminders', () => {
     const triumph = GenericTriumphs[0]
     const unit = SylvanethFaction.AggregateArmy.Units?.[0]
 
-    const army = getArmy(SYLVANETH, null, null, getRealmscape(command2.name)) as IArmy
+    const army = getArmy(SYLVANETH, null, null, null) as IArmy
 
     const selections = selectionsFactory({
       artifacts: [artifact.name],
       battalions: [battalion.name],
-      command_abilities: [command1.name, command2.name],
+      command_abilities: [command1.name],
       command_traits: [command_trait.name],
       endless_spells: [endless_spell.name],
       flavors: [flavor.name],
@@ -47,17 +37,7 @@ describe('processReminders', () => {
       triumphs: [triumph.name],
       units: [unit.name],
     })
-    const realmscape_feature = RealmscapeFeatures[0]
-    const reminders = processReminders(
-      army,
-      SYLVANETH,
-      SYLVANETH,
-      selections,
-      realmscape_feature.name,
-      [],
-      {},
-      {}
-    )
+    const reminders = processReminders(army, SYLVANETH, SYLVANETH, selections, null, [], {}, {})
 
     const testEntries = [
       artifact,
@@ -88,13 +68,6 @@ describe('processReminders', () => {
       : undefined
     expect(abilityEffect).toBeDefined()
     expect((abilityEffect as TTurnAction).condition[0]).toEqual(`Sylvaneth Allegiance`)
-
-    // Check for Realmscape info
-    const realmscapeEffect = reminders[realmscape_feature.when[0]].find(
-      ({ name }) => name === realmscape_feature.name
-    )
-    expect(realmscapeEffect).toBeDefined()
-    expect((realmscapeEffect as TTurnAction).condition[0]).toEqual('Realmscape Feature')
   })
 
   it('should correctly attribute allegiance abilities to subfactions', () => {

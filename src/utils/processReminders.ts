@@ -1,4 +1,4 @@
-import { RealmscapeFeatures } from 'generic_rules'
+import Realmscapes from 'generic_rules/realmscapes'
 import produce from 'immer'
 import { flatten, sortBy, sortedUniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
@@ -6,6 +6,7 @@ import { getFactionFromList } from 'meta/faction_list'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { IArmy, TAllyArmies } from 'types/army'
 import { IReminder, selectionsKeyToEntryKey, TEffects, TEntryProperties, TTurnAction } from 'types/data'
+import { TBattleRealms } from 'types/realmscapes'
 import { IAllySelections, TSelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { hashReminder } from 'utils/reminderUtils'
@@ -18,7 +19,7 @@ type TProcessReminders = (
   factionName: TSupportedFaction,
   subFactionName: string,
   selections: TSelections,
-  realmscape_feature: string | null,
+  realmscape: TBattleRealms | null,
   allyFactionNames: TSupportedFaction[],
   allyArmies: TAllyArmies,
   allySelections: TAllySelectionStore
@@ -29,7 +30,7 @@ export const processReminders: TProcessReminders = (
   factionName,
   subFactionName,
   selections,
-  realmscape_feature,
+  realmscape,
   allyFactionNames,
   allyArmies,
   allySelections
@@ -88,19 +89,20 @@ export const processReminders: TProcessReminders = (
     })
   }
 
-  // Add Realmscape features
-  if (realmscape_feature) {
-    const r = RealmscapeFeatures.find(x => x.name === realmscape_feature)
-    if (r && r.when) {
-      r.when.forEach(when => {
-        const t: TTurnAction = {
-          id: hashReminder(when, r.name, r.desc),
-          name: r.name,
-          desc: r.desc,
-          condition: [`Realmscape Feature`],
-          when,
-        }
-        reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
+  // Add Realmscape effects
+  if (realmscape) {
+    const realm = Realmscapes.find(x => x.name === realmscape)
+    if (realm) {
+      realm.effects.forEach(e => {
+        e.when.forEach(when => {
+          const t: TTurnAction = {
+            ...e,
+            id: hashReminder(when, e.name, e.desc),
+            condition: [`Realmscape`],
+            when,
+          }
+          reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
+        })
       })
     }
   }
