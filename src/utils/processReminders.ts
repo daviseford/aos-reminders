@@ -1,4 +1,3 @@
-import { RealmscapeFeatures } from 'generic_rules'
 import produce from 'immer'
 import { flatten, sortBy, sortedUniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
@@ -90,20 +89,21 @@ export const processReminders: TProcessReminders = (
 
   // Add Realmscape features
   if (realmscape_feature) {
-    const r = RealmscapeFeatures.find(x => x.name === realmscape_feature)
-    if (r && r.when) {
-      r.when.forEach(when => {
-        const t: TTurnAction = {
-          id: hashReminder(when, r.name, r.desc),
-          name: r.name,
-          desc: r.desc,
-          condition: [`Realmscape Feature`],
-          when,
-        }
-        reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
-      })
-    }
+    // const r = RealmscapeFeatures.find(x => x.name === realmscape_feature)
+    // if (r && r.when) {
+    //   r.when.forEach(when => {
+    //     const t: TTurnAction = {
+    //       id: hashReminder(when, r.name, r.desc),
+    //       name: r.name,
+    //       desc: r.desc,
+    //       condition: [`Realmscape Feature`],
+    //       when,
+    //     }
+    //     reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
+    //   })
+    // }
   }
+  debugger
 
   // Last step, we need to sort by the original order
   const ordered = Object.keys(Game).reduce((accum, key) => {

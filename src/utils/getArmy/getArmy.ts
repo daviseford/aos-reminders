@@ -74,7 +74,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
     Triumphs = [],
     Units = [],
   } = Army
-  const { realmscape, GrandAlliance, Collection, factionName, originRealm } = meta
+  const { realmscape, GrandAlliance, Collection, factionName } = meta
 
   // TODO: Make sure this works
   const GrandAllianceEndlessSpells = getGrandAllianceEndlessSpells(GrandAlliance, EndlessSpells, factionName)
@@ -92,7 +92,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
     Units = getAllianceItems(GrandAlliance, 'Units', Units)
   }
 
-  Army.Artifacts = modify.Artifacts(Artifacts, originRealm, GrandAlliance, Collection)
+  Army.Artifacts = modify.Artifacts(Artifacts, GrandAlliance, Collection)
   Army.Battalions = modify.Battalions(Battalions, Collection)
   Army.CommandAbilities = modify.CommandAbilities(CommandAbilities, realmscape, Collection)
   Army.CommandTraits = modify.CommandTraits(CommandTraits, GrandAlliance, Collection)

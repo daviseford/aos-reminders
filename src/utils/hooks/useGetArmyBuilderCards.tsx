@@ -1,6 +1,5 @@
 import { realmscapeActions, selectionActions } from 'ducks'
 import { selectRealmscapeSlice, selectSelections } from 'ducks/selectors'
-import { RealmscapeFeatures } from 'generic_rules'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { IArmy } from 'types/army'
@@ -9,13 +8,8 @@ import { TSelectionTypes } from 'types/selections'
 import { getSideEffects } from 'utils/getSideEffects'
 
 const useGetArmyBuilderCards = (army: IArmy) => {
-  const { realmscape, realmscape_feature } = useSelector(selectRealmscapeSlice)
+  const { realmscape } = useSelector(selectRealmscapeSlice)
   const selections = useSelector(selectSelections)
-
-  const realmFeatureItems = useMemo(() => {
-    const features = RealmscapeFeatures.map(x => x.name)
-    return realmscape ? features.filter(f => f.includes(realmscape)) : features
-  }, [realmscape])
 
   const value = useMemo(() => {
     return [
@@ -162,15 +156,17 @@ const useGetArmyBuilderCards = (army: IArmy) => {
         value: realmscape || null,
         type: 'single',
       },
-      {
-        items: realmFeatureItems,
-        setValue: realmscapeActions.setRealmscapeFeature,
-        title: `Realm Feature`,
-        value: realmscape_feature || null,
-        type: 'single',
-      },
+      // In AoS 3.0, we just include ALL of the realmscape features for a given realm
+      // Which deprecates the need for this dropdown
+      // {
+      //   items: realmFeatureItems,
+      //   setValue: realmscapeActions.setRealmscapeFeature,
+      //   title: `Realm Feature`,
+      //   value: realmscape_feature || null,
+      //   type: 'single',
+      // },
     ]
-  }, [army, realmFeatureItems, realmscape, realmscape_feature, selections])
+  }, [army, realmscape, selections])
 
   return value
 }
