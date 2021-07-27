@@ -3,10 +3,10 @@ import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
-  HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
+  START_OF_HERO_PHASE,
 } from 'types/phases'
 
 // General command abilities from Core Rules 2021
@@ -17,7 +17,7 @@ const GenericCommandAbilities: TEntry[] = [
       {
         name: `Rally`,
         desc: `You can use this command ability at the start of the hero phase. The unit that receives the command must be more than 3" from all enemy units. Roll 1 dice for each slain model from that unit. For each 6, you can return 1 slain model to that unit.`,
-        when: [HERO_PHASE],
+        when: [START_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.CORE_RULES_2021],
       },
     ],
