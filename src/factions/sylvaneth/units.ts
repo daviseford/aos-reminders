@@ -18,6 +18,7 @@ import {
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import rule_sources from './rule_sources'
+import scenery from './scenery'
 import spells from './spells'
 
 const MartialMemoriesEffects = [
@@ -178,6 +179,7 @@ const Units = {
     mandatory: {
       spells: [keyPicker(spells, ['Awakening the Wood'])],
       command_abilities: [keyPicker(command_abilities, ['Heed the Spirit-song'])],
+      scenery: [keyPicker(scenery, ['Awakened Wyldwood'])],
     },
     effects: [
       ...TreeLordBaseEffects,

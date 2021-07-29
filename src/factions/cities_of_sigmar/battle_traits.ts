@@ -17,7 +17,7 @@ const BattleTraits = {
       },
       {
         name: `Loyal Shields`,
-        desc: `If your general is within 3" of their retinue, roll a D6 before allocating a wound or mw to the general. On a 4+ allocate the wound or mortal wound to the retinue.`,
+        desc: `If your general is within 3" of their retinue, roll a D6 before allocating a wound or mortal wound to the general. On a 4+ allocate the wound or mortal wound to the retinue.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
