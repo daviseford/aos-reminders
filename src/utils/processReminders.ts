@@ -55,15 +55,12 @@ export const processReminders: TProcessReminders = (
 
   // Add faction battle traits
   if (faction?.factionBattleTraits?.length) {
-    faction.factionBattleTraits.forEach(a => {
-      const command_ability = a.command_ability || false
-      a.when.forEach(when => {
+    faction.factionBattleTraits.forEach(e => {
+      e.when.forEach(when => {
         const t: TTurnAction = {
-          id: hashReminder(when, a.name, a.desc),
-          name: a.name,
-          desc: a.desc,
+          ...e,
+          id: hashReminder(when, e.name, e.desc),
           condition: [`${titleCase(factionName)} Allegiance`],
-          command_ability,
           when,
         }
         reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
@@ -73,15 +70,12 @@ export const processReminders: TProcessReminders = (
 
   // Add subfaction battle traits
   if (army.BattleTraits && army.BattleTraits.length) {
-    army.BattleTraits.forEach((a: TEffects) => {
-      const command_ability = a.command_ability || false
-      a.when.forEach(when => {
+    army.BattleTraits.forEach((e: TEffects) => {
+      e.when.forEach(when => {
         const t: TTurnAction = {
-          id: hashReminder(when, a.name, a.desc),
-          name: a.name,
-          desc: a.desc,
+          ...e,
+          id: hashReminder(when, e.name, e.desc),
           condition: [`${titleCase(subFactionName || factionName)} Allegiance`],
-          command_ability,
           when,
         }
         reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]
@@ -98,7 +92,7 @@ export const processReminders: TProcessReminders = (
           const t: TTurnAction = {
             ...e,
             id: hashReminder(when, e.name, e.desc),
-            condition: [`Realmscape`],
+            condition: [`Realmscape (${realmscape})`],
             when,
           }
           reminders[when] = reminders[when] ? reminders[when].concat(t) : [t]

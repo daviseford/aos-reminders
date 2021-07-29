@@ -1,9 +1,10 @@
 import { tagAs } from 'factions/metatagger'
 import {
+  CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
+  MOVEMENT_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
@@ -82,7 +83,7 @@ const BattleTraits = {
         name: `The Lores of Nurgle`,
         desc: `All wizards in a Nurgle army know the Foul Regenesis spell in addition to any other spells that they know.
 
-               In addition, each wizard know a selected spell from one of the Lores of Nurgle depending on the keyword type of the wizard.`,
+               In addition, each wizard knows a selected spell from one of the Lores of Nurgle depending on the keyword type of the wizard.`,
         when: [HERO_PHASE],
       },
     ],
@@ -106,7 +107,7 @@ const BattleTraits = {
       {
         name: `Winds of Corruption`,
         desc: `Subtract 1 from run and charge rolls for enemy units.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
         name: `Command Trait`,
