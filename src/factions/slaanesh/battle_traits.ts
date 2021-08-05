@@ -57,12 +57,12 @@ const BattleTraits = {
       },
       {
         name: `Locus of Diversion`,
-        desc: `Each friendly Hedonite hero that is within 1" of an enemy unit can create a Locus of Diversion. If they do, select 1 enemy unit within 1" of the selected hero and roll a D6, adding 1 if the Hedonite hero is a Greater Daemon. On a 4+, that enemy unit fights at the end of the following combat phase, after the players have picked any other units to fight in that combat phase. You cannot pick the same unit as the target for this ability more than once in the same charge phase (whether successful or not).`,
+        desc: `At the end of the charge phase, each friendly HEDONITE DAEMON HERO within 1" of an enemy unit can create a locus of diversion. If they do so, pick 1 enemy unit that is within 1" of that HERO and roll a dice, adding 1 if that HERO is a GREATER DAEMON. On a 4+, that unit cannot make a pile-in move before it attacks in the following combat phase. You cannot pick the same unit as the target for this ability more than once in the same phase (whether the roll is successful or not).`,
         when: [END_OF_CHARGE_PHASE],
       },
       {
         name: `Euphoric Killers`,
-        desc: `If the unmodified hit roll for an attack made with a melee weapon by a Hedonite model is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound or save roll for each hit. If the attacking unit is 20 or more models, its attacks inflict 3 hits instead.`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon by a HEDONITE model is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit. If the attacking model's unit has 20 or more models, its attacks inflict 3 hits on an unmodified hit roll of 6 instead.`,
         when: [COMBAT_PHASE],
       },
     ],
