@@ -85,7 +85,7 @@ const Units = {
       },
       {
         name: `Muster Royal Guard`,
-        desc: `In your hero phase, you can roll 6 dice for each friendly Crypt Infernal Courtier on the battlefield. If you do so, for each 5+, you can return 1 slain model to a friendly Crypt Flayers unit that is within 10" of that Crypt Infernal Courtier. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
+        desc: `In your hero phase, you can roll 6 dice for each friendly CRYPT INFERNAL COURTIER on the battlefield. If you do so, for each 5+, you can return 1 slain model to a friendly CRYPT FLAYERS UNIT that is within 10" of that CRYPT INFERNAL COURTIER. Slain models can be returned to more than one unit if you wish, but each successful dice roll can only be used to return a model to a single unit.`,
         when: [HERO_PHASE],
       },
     ],
