@@ -475,7 +475,7 @@ const Units = {
       },
       {
         name: `Evocation of Death - Third Level - Spectral Scythes`,
-        desc: `After this model completes a charge move, pick an enemy unit withini 1" of this model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `After this model completes a charge move, pick an enemy unit within 1" of this model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
       {
