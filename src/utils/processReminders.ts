@@ -1,13 +1,22 @@
+import { mergeParentEffectObjs } from 'factions/temporaryAdapter'
 import Realmscapes from 'generic_rules/realmscapes'
 import produce from 'immer'
-import { flatten, sortBy, sortedUniq } from 'lodash'
+import { flatten, sortBy, sortedUniq, uniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { getFactionFromList } from 'meta/faction_list'
 import { Game, TGameStructure } from 'meta/game_structure'
 import { IArmy, TAllyArmies } from 'types/army'
-import { IReminder, selectionsKeyToEntryKey, TEffects, TEntryProperties, TTurnAction } from 'types/data'
+import {
+  entryKeyToSelectionsKey,
+  IReminder,
+  selectionsKeyToEntryKey,
+  TEffects,
+  TEntry,
+  TEntryProperties,
+  TTurnAction,
+} from 'types/data'
 import { TBattleRealms } from 'types/realmscapes'
-import { IAllySelections, TSelections } from 'types/selections'
+import { IAllySelections, TSelections, TSelectionTypes } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { hashReminder } from 'utils/reminderUtils'
 import { getActionTitle, titleCase } from 'utils/textUtils'
@@ -47,7 +56,32 @@ export const processReminders: TProcessReminders = (
   if (allyData.length) {
     reminders = allyData.reduce((accum, data) => {
       if (!data.allySelections) return accum
-      return processConditions(data.allyArmy.Game, data.allySelections, accum)
+
+      // Get mandatory items and assign them to selections
+      const alliedMandatorySelections: TMandatorySelectionsAccum = data.allySelections.units.reduce(
+        (a, _unit) => {
+          const entry = data.allyArmy.Units.find(x => x.name === _unit)
+          if (entry) getMandatorySelectionsForAllies(entry, a) // Modifies the accumulator
+          return a
+        },
+        {}
+      )
+
+      // Merge the actual allied selections with their mandatory side effects
+      const allAlliedSelections = Object.keys(selectionsKeyToEntryKey).reduce(
+        (a, key) => {
+          if (!a[key]) a[key] = []
+
+          if (alliedMandatorySelections[key]) {
+            a[key] = uniq(a[key].concat(alliedMandatorySelections[key]))
+          }
+
+          return a
+        },
+        { ...data.allySelections }
+      )
+
+      return processConditions(data.allyArmy.Game, allAlliedSelections, accum)
     }, reminders)
   }
 
@@ -182,3 +216,33 @@ const processCondition = produce((phase: TTurnAction[], action: TTurnAction) => 
   phase[idx].condition = sortedUniq(sortBy(phase[idx].condition.concat(action.condition)))
   return phase
 })
+
+type TMandatorySelectionsAccum = {
+  [key in TSelectionTypes]?: string[]
+}
+
+const getMandatorySelectionsForAllies = (item: TEntry, accum: TMandatorySelectionsAccum) => {
+  if (!item.mandatory) return
+
+  Object.keys(item.mandatory).forEach(sliceKey => {
+    let key = sliceKey as TSelectionTypes
+
+    const slice = item?.mandatory?.[key]
+    if (!slice || !slice.length) return
+
+    const mergedEntries = mergeParentEffectObjs(slice)
+
+    mergedEntries.forEach(_entry => {
+      const tag = getTagFromEntry(_entry)
+      if (tag) {
+        const _slice: string[] = accum[entryKeyToSelectionsKey[tag]]
+        if (_slice) {
+          accum[entryKeyToSelectionsKey[tag]] = accum[entryKeyToSelectionsKey[tag]].concat(_entry.name)
+        } else {
+          accum[entryKeyToSelectionsKey[tag]] = [_entry.name]
+        }
+      }
+      if (_entry.mandatory) getMandatorySelectionsForAllies(_entry, accum)
+    })
+  })
+}
