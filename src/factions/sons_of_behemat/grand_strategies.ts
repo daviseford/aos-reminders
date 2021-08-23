@@ -1,11 +1,10 @@
-import { TEntry } from 'types/data'
+import { tagAs } from 'factions/metatagger'
 import { END_OF_GAME } from 'types/phases'
 import rule_sources from './rule_sources'
 
 // SOB Specific grand strategy available from WD Aug 2021
-const grandStrategies: TEntry[] = [
-  {
-    name: `Stomping Order`,
+const GrandStrategies = {
+  'Stomping Order': {
     effects: [
       {
         name: `Make the Land Tremble`,
@@ -15,6 +14,6 @@ const grandStrategies: TEntry[] = [
       },
     ],
   },
-]
+}
 
-export default grandStrategies
+export default tagAs(GrandStrategies, 'grand_strategy')
