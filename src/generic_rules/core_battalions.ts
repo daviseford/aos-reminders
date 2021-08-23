@@ -12,35 +12,35 @@ import {
 } from 'types/phases'
 import { OneDropDeploymentEffect } from './core_rules'
 
-const ExpertEffect = {
+export const ExpertBattalionEffect = {
   name: `Expert`,
   desc: `Once per battle, 1 unit from this battalion can receive the All-out Attack or All-out Defence command without the command being issued and without a command point being spent.`,
   when: [SHOOTING_PHASE, COMBAT_PHASE],
   rule_sources: [meta_rule_sources.CORE_RULES_2021],
   shared: true,
 }
-const MagnificentEffect = {
+export const MagnificentBattalionEffect = {
   name: `Magnificent`,
   desc: `When you pick enhancements for your army (see 27.3), you can pick 1 extra enhancement.`,
   when: [START_OF_SETUP],
   rule_sources: [meta_rule_sources.CORE_RULES_2021],
   shared: true,
 }
-const SlayersEffect = {
+export const SlayersBattalionEffect = {
   name: `Slayers`,
   desc: `Once per battle, 1 unit from this battalion can receive the All-out Attack or Unleash Hell command without the command being issued and without a command point being spent.`,
   when: [SHOOTING_PHASE, COMBAT_PHASE, CHARGE_PHASE],
   rule_sources: [meta_rule_sources.CORE_RULES_2021],
   shared: true,
 }
-const StrategistsEffect = {
+export const StrategistsBattalionEffect = {
   name: `Strategists`,
   desc: `Once per battle, when you receive command points at the start of your hero phase, you can receive 1 extra command point.`,
   when: [START_OF_HERO_PHASE],
   rule_sources: [meta_rule_sources.CORE_RULES_2021],
   shared: true,
 }
-const SwiftEffect = {
+export const SwiftBattalionEffect = {
   name: `Swift`,
   desc: `Once per battle, 1 unit from this battalion can receive the At the Double or Forward to Victory command without the command being issued and without a command point being spent.`,
   when: [MOVEMENT_PHASE],
@@ -52,7 +52,7 @@ const SwiftEffect = {
 const CoreBattalions: TEntry[] = [
   {
     name: 'Warlord',
-    effects: [StrategistsEffect, MagnificentEffect],
+    effects: [StrategistsBattalionEffect, MagnificentBattalionEffect],
   },
   {
     name: 'Battle Regiment',
@@ -60,27 +60,27 @@ const CoreBattalions: TEntry[] = [
   },
   {
     name: 'Grand Battery',
-    effects: [SlayersEffect],
+    effects: [SlayersBattalionEffect],
   },
   {
     name: 'Vanguard',
-    effects: [SwiftEffect],
+    effects: [SwiftBattalionEffect],
   },
   {
     name: 'Linebreaker',
-    effects: [ExpertEffect],
+    effects: [ExpertBattalionEffect],
   },
   {
     name: 'Command Entourage',
-    effects: [StrategistsEffect, MagnificentEffect],
+    effects: [StrategistsBattalionEffect, MagnificentBattalionEffect],
   },
   {
     name: 'Command Entourage - Magnificent',
-    effects: [MagnificentEffect],
+    effects: [MagnificentBattalionEffect],
   },
   {
     name: 'Command Entourage - Strategists',
-    effects: [StrategistsEffect],
+    effects: [StrategistsBattalionEffect],
   },
   {
     name: 'Alpha-Beast Pack',
