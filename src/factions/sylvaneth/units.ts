@@ -418,7 +418,7 @@ const Units = {
       {
         name: `Alarielle's Song`,
         desc: `Add 1 to the Bravery characteristic of friendly Sylvaneth units wholly within 12" of any models with this ability. Subtract 1 from enemy unit bravery characterisitics while they are within 12" of any models with this ability.`,
-        when: [DURING_GAME],
+        when: [BATTLESHOCK_PHASE],
         rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
