@@ -8,6 +8,11 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/zlz7V5Cs5CzGDO8k.pdf',
   },
+  ERRATA_GLOOMSPITE_GITZ_AUGUST_2021: {
+    name: 'Errata (August 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/fqa5LLQRILWM5VrI.pdf',
+  },
 }
 
 export default rule_sources

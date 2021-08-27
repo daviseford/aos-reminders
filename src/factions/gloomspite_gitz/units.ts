@@ -356,8 +356,12 @@ const Units = {
     effects: [
       {
         name: `Boing! Boing! Boing!`,
-        desc: `After a unit of Squig Hoppers has made a normal move, pick 1 enemy unit and roll a D6 for each model in this unit that passed across a model from that unit. For each 4+ that unit suffers 1 mortal wound.`,
+        desc: `After this unit has made a normal move, run or retreat, pick 1 enemy unit and roll a dice for each model in this unit that passed across a model from that unit. For each 4+, that unit suffers 1 mortal wound.`,
         when: [MOVEMENT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
+          rule_sources.ERRATA_GLOOMSPITE_GITZ_AUGUST_2021,
+        ],
       },
     ],
   },
