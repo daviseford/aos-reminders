@@ -21,6 +21,11 @@ const rule_sources = {
     name: 'White Dwarf (August 2021)',
     type: 'white_dwarf',
   },
+  ERRATA_SONS_OF_BEHEMAT_AUGUST_2021: {
+    name: 'Errata (August 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2020/11/JVwZBkal7nIn0oma.pdf',
+  },
 }
 
 export default rule_sources

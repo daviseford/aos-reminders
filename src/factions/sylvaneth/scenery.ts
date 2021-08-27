@@ -18,7 +18,7 @@ const Scenery = {
           rule_sources.BATTLETOME_SYLVANETH,
           meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS,
           rule_sources.ERRATA_SYLVANETH_JULY_2021,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_KRAGNOS_AUGUST_2021,
+          rule_sources.ERRATA_SYLVANETH_AUGUST_2021,
         ],
       },
       {
@@ -29,7 +29,7 @@ const Scenery = {
           rule_sources.BATTLETOME_SYLVANETH,
           meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS,
           rule_sources.ERRATA_SYLVANETH_JULY_2021,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_KRAGNOS_AUGUST_2021,
+          rule_sources.ERRATA_SYLVANETH_AUGUST_2021,
         ],
       },
       {
@@ -40,7 +40,7 @@ const Scenery = {
           rule_sources.BATTLETOME_SYLVANETH,
           meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS,
           rule_sources.ERRATA_SYLVANETH_JULY_2021,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_KRAGNOS_AUGUST_2021,
+          rule_sources.ERRATA_SYLVANETH_AUGUST_2021,
         ],
       },
     ],

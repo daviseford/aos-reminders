@@ -8,6 +8,11 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/08/EewmcuXFOE3Nt8nq.pdf',
   },
+  ERRATA_SYLVANETH_AUGUST_2021: {
+    name: 'Errata (August 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2019/08/CWcRDXI5WE2gw946.pdf',
+  },
 }
 
 export default rule_sources
