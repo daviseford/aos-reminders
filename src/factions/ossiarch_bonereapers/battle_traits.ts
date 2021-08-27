@@ -72,11 +72,14 @@ const BattleTraits = {
         name: `Using Relentless Discipline Points`,
         desc: `Relentless discipline points are used to issue a command in the same manner as command points, but can only be used to issue a command with command abilities that appear on a warscroll that has the OSSIARCH BONEREAPERS keyword, or to issue a command with an Ossiarch Bonereaper Legion command ability, or to issue the Unstoppable Advance command.
 
+        The restriction that you cannot use the same command ability more than once in the same phase does not apply to command abilities used with relentless discipline points. For example, you can use the Shieldwall command ability on the Mortek Guard warscroll more than once in the same phase, as long as that command is issued by a model that has not already issued a command in that phase and it is received by a unit that has not already received a command in that phase.
+
         In addition, you cannot use the Expert, Slayers, Strategists or Swift battalion abilities (core rules, 26.3). Instead, for each battalion in your army that has any of these battalion abilities, once per battle at the start of any battle round, you can choose to receive 1 relentless discipline point.`,
         when: [DURING_GAME],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
           rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_AUGUST_2021,
         ],
       },
     ],

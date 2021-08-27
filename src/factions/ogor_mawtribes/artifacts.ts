@@ -207,8 +207,12 @@ const Artifacts = {
     effects: [
       {
         name: `The Rime Shroud`,
-        desc: `Reroll unmodified hit rolls of 6 for attacks made with missile weapons that target the bearer.`,
+        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target the bearer.`,
         when: [SHOOTING_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OGOR_MAWTRIBES,
+          rule_sources.ERRATA_OGOR_MAWTRIBES_AUGUST_2021,
+        ],
       },
     ],
   },

@@ -133,8 +133,12 @@ const Units = {
       getFrightfulTouchEffect(`Daggers`),
       {
         name: `The Staff of Spirits`,
-        desc: `Add Khenash-an's modifier to casting, dispelling, and unbinding rolls for Arkhan. In addition, he can attempt to cast Arcane Bolt and Mystic Shield any number of times in the same Hero Phase, even if another Wizard has already attempted to cast the spell in that phase.`,
+        desc: `Add Khenash-an's modifier to casting, dispelling, and unbinding rolls for Arkhan. In addition, this model can attempt to cast Arcane Bolt any number of times in the same hero phase, even if another WIZARD has already attempted to cast the spell in that phase.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          obr_rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          obr_rule_sources.ERRATA_OSSIARCH_BONEREAPERS_AUGUST_2021,
+        ],
       },
       {
         name: `Mortarch of Sacrament`,

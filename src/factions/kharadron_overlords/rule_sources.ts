@@ -13,6 +13,11 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2018/06/T6LNSIDslUOTB0Ho.pdf',
   },
+  ERRATA_KHARADRON_OVERLORDS_AUGUST_2021: {
+    name: 'Errata (August 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2018/06/mnIpUNP536ZDzhzq.pdf',
+  },
 }
 
 export default rule_sources
