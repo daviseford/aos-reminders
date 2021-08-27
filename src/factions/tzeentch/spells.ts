@@ -225,7 +225,7 @@ const Spells = {
         when: [HERO_PHASE],
       },
     ],
-  }, 
+  },
   'Bolt of Change': {
     effects: [
       {
