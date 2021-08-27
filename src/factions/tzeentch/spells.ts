@@ -225,21 +225,7 @@ const Spells = {
         when: [HERO_PHASE],
       },
     ],
-  },
-  'Channelled Pink Fire': {
-    effects: [
-      {
-        name: `Channelled Pink Fire`,
-        desc: `Casting value of 6. Pick 1 friendly Horrors of Tzeentch unit wholly within 6" of the caster and visible to them. Add 1 to hit rolls for attacks made by that unit until the start of your next hero phase. A unit cannot benefit from this spell more than once per phase.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Channelled Pink Fire`,
-        desc: `If active, add 1 to hit rolls for attacks made by the buffed unit.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
+  }, 
   'Bolt of Change': {
     effects: [
       {
