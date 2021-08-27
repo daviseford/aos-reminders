@@ -12,6 +12,7 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Artifacts = {
   // Murderous Artifacts
@@ -88,8 +89,9 @@ const Artifacts = {
     effects: [
       {
         name: `Banner of Wrath`,
-        desc: `In the combat phase, roll a D6 for each enemy unit within 8" of the bearer. On a 4+ that unit suffers D3 mortal wounds.`,
-        when: [COMBAT_PHASE],
+        desc: `At the start of the combat phase, roll a dice for each enemy unit within 8" of the bearer. On a 4+, that unit suffers D3 mortal wounds.`,
+        when: [START_OF_COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_AUGUST_2021],
       },
     ],
   },
