@@ -735,6 +735,10 @@ describe('getBattlescribeArmy', () => {
         text: '5 - Fold Reality',
       },
       {
+        text: 'Channelled Pink Fire',
+        severity: 'warn',
+      },
+      {
         severity: 'warn',
         text: 'Umbral Spellportal',
       },
