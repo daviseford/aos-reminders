@@ -3,9 +3,9 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
-  END_OF_ROUND,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
@@ -75,9 +75,13 @@ const BattleTraits = {
       },
       {
         name: `Judgements of Khorne`,
-        desc: `At the end of each battle round, roll a D6 for each judgement of Khorne on the battlefield that you set up. Add 1 to the roll if there are any KHORNE PRIESTS from your army wholly within 8" of that judgement of Khorne. On a 1-4, that judgement of Khorne is removed from the battlefield. Judgements of Khorne are invocations (core rules, 20.3).`,
-        when: [END_OF_ROUND],
-        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_JULY_2021],
+        desc: `Judgements of Khorne use the rules for invocations (core rules, 20.3).`,
+        when: [DURING_GAME],
+        rule_sources: [
+          rule_sources.BATTLETOME_KHORNE,
+          rule_sources.ERRATA_KHORNE_JULY_2021,
+          rule_sources.ERRATA_KHORNE_AUGUST_2021,
+        ],
       },
       {
         name: `Summon Daemons of Khorne`,

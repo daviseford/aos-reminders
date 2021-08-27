@@ -18,6 +18,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
+import rule_sources from './rule_sources'
 import Spells from './spells'
 
 const InfuseWithBestialVigorEffect = {
@@ -141,8 +142,12 @@ const Units = {
       },
       {
         name: `Baying Anger`,
-        desc: `You can reroll hit rolls of 1 for attacks made by this unit with missile weapons while it has 20 or more models, or reroll hit rolls of 1 and 2 for attacks made by this unit with missile weapons while it has 30 or more models.`,
+        desc: `Add 1 to wound rolls for shooting attacks made by this unit while it has 10 or more models.`,
         when: [SHOOTING_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
+          rule_sources.ERRATA_BEASTS_OF_CHAOS_AUGUST_2021,
+        ],
       },
     ],
   },
@@ -271,6 +276,10 @@ const Units = {
         name: `Storm Rage`,
         desc: `You can reroll hit rolls of 1 for this unit while it is wholly within 12" of a friendly DRAGON OGOR SHAGGOTH.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        ...GenericEffects.Elite,
+        rule_sources: [rule_sources.ERRATA_BEASTS_OF_CHAOS_AUGUST_2021],
       },
     ],
   },

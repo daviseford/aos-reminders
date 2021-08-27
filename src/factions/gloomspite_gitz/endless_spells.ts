@@ -144,11 +144,12 @@ const EndlessSpells = {
       },
       {
         name: `Scuttling Horde`,
-        desc: `After this endless spell has moved, the commanding player can pick 1 unit within 1" of this endless spell and roll 6 dice. For each 5+, that unit suffers 1 mortal wound. In addition, roll 6 dice for each unit that finishes a normal move or charge move within 6" of this endless spell. For each 5+, that unit suffers 1 mortal wound. Spiderfang units are not affected by this ability.`,
+        desc: `After this endless spell has moved, the commanding player can pick 1 unit within 1" of this endless spell and roll 6 dice. For each 5+, that unit suffers 1 mortal wound. In addition, roll 6 dice for each unit that finishes a normal move, run, retreat or charge move within 6" of this endless spell. For each 5+, that unit suffers 1 mortal wound. SPIDERFANG units are not affected by this ability.`,
         when: [END_OF_HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
           rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
+          rule_sources.ERRATA_GLOOMSPITE_GITZ_AUGUST_2021,
         ],
       },
       {

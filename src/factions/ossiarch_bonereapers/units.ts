@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -99,6 +100,7 @@ const Units = {
       command_abilities: [keyPicker(CommandAbilities, ['Crushing Assault'])],
     },
     effects: [
+      { ...GenericEffects.Elite, rule_sources: [rule_sources.ERRATA_OSSIARCH_BONEREAPERS_AUGUST_2021] },
       {
         name: `Deadly Combination`,
         desc: `If the unmodified hit roll for an attack made with a Nadirite Battle-shield is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
@@ -128,6 +130,7 @@ const Units = {
       command_abilities: [keyPicker(CommandAbilities, ['Hunt and Kill'])],
     },
     effects: [
+      { ...GenericEffects.Elite, rule_sources: [rule_sources.ERRATA_OSSIARCH_BONEREAPERS_AUGUST_2021] },
       {
         name: `Quadrarch Aspects`,
         desc: `At the start of each combat phase, you must pick one of the following aspects for this unit. The rule for that aspect applies to this unit until the end of that phase.
@@ -164,6 +167,7 @@ const Units = {
   },
   'Morghast Archai': {
     effects: [
+      { ...GenericEffects.Elite, rule_sources: [rule_sources.ERRATA_OSSIARCH_BONEREAPERS_AUGUST_2021] },
       HeraldsOfTheAccursedOneEffect,
       {
         name: `Ebon-wrought Armour`,
@@ -174,6 +178,7 @@ const Units = {
   },
   'Morghast Harbingers': {
     effects: [
+      { ...GenericEffects.Elite, rule_sources: [rule_sources.ERRATA_OSSIARCH_BONEREAPERS_AUGUST_2021] },
       HeraldsOfTheAccursedOneEffect,
       {
         name: `Harbingers of Death`,

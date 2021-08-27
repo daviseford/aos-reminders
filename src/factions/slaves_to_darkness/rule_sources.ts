@@ -8,6 +8,11 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2020/07/hYwRMquWQiHKqBgp.pdf',
   },
+  ERRATA_SLAVES_TO_DARKNESS_AUGUST_2021: {
+    name: 'Errata (August 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2020/07/ct1LAEqXRcVkGiLl.pdf',
+  },
 }
 
 export default rule_sources

@@ -33,12 +33,13 @@ const DeathGripEffect = {
 }
 const LongshanksEffect = {
   name: `Longshanks`,
-  desc: `When this model makes a move, it can ignore models, endless spells, invocations and terrain features that are less than 4" tall at their highest point. It cannot finish the move on top of another model or within 3" of an enemy model.`,
+  desc: `When this unit makes a normal move, run or retreat, it can ignore other models and terrain features when you trace the path of its move across the battlefield, but it cannot finish that move within 3" of an enemy unit.`,
   when: [MOVEMENT_PHASE],
   rule_sources: [
     rule_sources.BATTLETOME_SONS_OF_BEHEMAT,
     rule_sources.ERRATA_SONS_OF_BEHEMAT_MARCH_2021,
     rule_sources.ERRATA_SONS_OF_BEHEMAT_JULY_2021,
+    rule_sources.ERRATA_SONS_OF_BEHEMAT_AUGUST_2021,
   ],
   shared: true,
 }

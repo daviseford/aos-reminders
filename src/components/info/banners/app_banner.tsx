@@ -14,11 +14,7 @@ const AppBanner = () => {
       persistClose={true}
       variant={isDark ? `info` : `info`}
     >
-      <span>
-        <li>Added Kruleboyz</li>
-        <li>Added new Stormcast Eternals units (from the Dominion boxed set)</li>
-        <li>Updated Warscroll Builder PDF import code - working on Battlescribe imports next!</li>
-      </span>
+      <span>We've added the latest August FAQs {':)'}</span>
     </NotificationBanner>
   )
 }

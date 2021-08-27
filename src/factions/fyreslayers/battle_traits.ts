@@ -5,7 +5,6 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  END_OF_ROUND,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -70,14 +69,13 @@ const BattleTraits = {
       },
       {
         name: `Magmic Invocations`,
-        desc: `At the end of every round roll a D6 for each Invocation on the table. The Invocation is removed unless the roll is a 4+. Add 1 to this roll if there is a Fyreslayers priest within 6" of the Invocation at the time of the roll.`,
-        when: [END_OF_ROUND],
-      },
-      {
-        name: `Magmic Invocations`,
-        desc: `Magmic Invocations are invocations (core rules, 20.3).`,
+        desc: `Magmic Invocations use the rules for invocations (core rules, 20.3).`,
         when: [DURING_GAME],
-        rule_sources: [rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
+        rule_sources: [
+          rule_sources.BATTLETOME_FYRESLAYERS,
+          rule_sources.ERRATA_FYRESLAYERS_JULY_2021,
+          rule_sources.ERRATA_FYRESLAYERS_AUGUST_2021,
+        ],
       },
     ],
   },

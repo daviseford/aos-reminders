@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -128,8 +129,9 @@ const CommandTraits = {
     effects: [
       {
         name: `One Last Gift`,
-        desc: `Unmodified melee hit rolls of 6 targeting a Munificent Wanderers daemon unit wholly within 12" of this general cause the attacking unit to suffer 1 mortal wound after all its attacks have resolved.`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon by an enemy unit that targets a friendly MUNIFICENT WANDERERS DAEMON unit that is wholly within 12" of this general is 1, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
+        rule_sources: [meta_rule_sources.ERRATA_WRATH_OF_THE_EVERCHOSEN_AUGUST_2021],
       },
     ],
   },

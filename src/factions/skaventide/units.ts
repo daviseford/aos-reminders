@@ -186,12 +186,17 @@ const Units = {
         name: `Scry-orb`,
         desc: `Add 1 to save rolls for attacks that target this model.`,
         when: [SAVES_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
+        rule_sources: [
+          rule_sources.BATTLETOME_SKAVEN,
+          rule_sources.ERRATA_SKAVEN_JULY_2021,
+          rule_sources.ERRATA_SKAVEN_AUGUST_2021,
+        ],
       },
       {
         name: `Scry-orb`,
-        desc: `Once per battle, in your shooting phase, you can pick 1 enemy unit within 13" of this model and visible to them. That unit suffers D6 mortal wounds, but you cannot use this ability to reroll save rolls for this model for the rest of the battle.`,
+        desc: `Once per battle, in your shooting phase, you can pick 1 enemy unit within 13" of this model and visible to it. That unit suffers D6 mortal wounds, but for the rest of the battle, you cannot use this ability to add 1 to save rolls for this model.`,
         when: [SHOOTING_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_AUGUST_2021],
       },
     ],
   },
@@ -745,8 +750,9 @@ const Units = {
     effects: [
       {
         name: `Wave of Rats`,
-        desc: `While a unit of Giant Rats has 10 or more models, the Range characteristic of its Vicious Teeth is 2" instead of 1". While a unit of Giant Rats has 20 or more models, the Range characteristic of its Vicious Teeth is 3" instead of 1".`,
+        desc: `The Range characteristic of this unit's Vicious Teeth is 2" while it has 6 or more models. In addition, add 1 to wound rolls for attacks made by this unit while it has 6 or more models.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_AUGUST_2021],
       },
     ],
   },

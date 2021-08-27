@@ -1,7 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
 import {
-  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
@@ -9,6 +8,7 @@ import {
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
+  START_OF_GAME,
   START_OF_HERO_PHASE,
   TURN_ONE_MOVEMENT_PHASE,
   TURN_ONE_START_OF_TURN,
@@ -257,56 +257,64 @@ const Units = {
     effects: [CapriciousWarpflameEffect, TouchedbyFireEffect],
   },
   'Horrors of Tzeentch': {
-    mandatory: {
-      spells: [keyPicker(Spells, ['Channelled Pink Fire'])],
-    },
     effects: [
       {
-        name: `Icon Bearer`,
-        desc: `If the unmodified roll for a battleshock test for this unit while it includes any Pink Horror Icon Bearers is 1, you can return D6 slain Horrors of Tzeentch models to this unit, and no models from this unit will flee in that battleshock phase. Set up the Horrors of Tzeentch models one at a time within 1" of a model from this unit that has not been returned in that phase. The models can only be set up within 3" of an enemy unit if this unit was within 3" of that enemy unit before any models were returned.`,
-        when: [BATTLESHOCK_PHASE],
+        name: `Battle Ability`,
+        desc: `When you pick this unit to be part of your army or when you add this unit to your army during a battle, you must decide if this unit will have either the Split and Split Again ability or the Petty Vengeance ability (it cannot have both). Note your choice on your army roster.`,
+        when: [START_OF_GAME],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_AUGUST_2021],
       },
       {
-        name: `Horn Blower`,
-        desc: `If the unmodified roll for a battleshock test for an enemy unit that is within 6" of this unit while this unit includes any Pink Horror Hornblowers is 1, that battleshock test must be rerolled.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Ectoplasmic Elasticity`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a Pink Horror from this unit. On a 6, that wound or mortal wound is negated.`,
+        name: `Horrors`,
+        desc: `Each model in a Horrors of Tzeentch unit must be either a Pink Horror, a Blue Horror or a Brimstone Horror (you can have different types of Horror in the same unit). You cannot allocate wounds or mortal wounds to a Blue Horror if its unit includes any Iridescent or Pink Horrors, and you cannot allocate a wound to a Brimstone Horror if its unit includes any Blue Horrors.`,
         when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_AUGUST_2021],
       },
       {
-        name: `Flickers Flames`,
-        desc: `Add 1 to hit rolls for attacks made with this unit's Magical Flames while this unit has 20 or more models.`,
-        when: [SHOOTING_PHASE],
+        name: `Champion`,
+        desc: `1 Pink Horror in this unit can be an Iridescent Horror instead.`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_AUGUST_2021],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `1 in every 10 Pink Horrors in this unit can be a Pink Horror Icon Bearer instead. At the start of your hero phase, if you have a Disciples of Tzeentch army, roll 1 dice for each Pink Horror Icon Bearer in this unit. For each 3+, you receive 1 Fate Point.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_AUGUST_2021],
+      },
+      {
+        name: `Musician`,
+        desc: `1 in every 10 Pink Horrors in this unit can be a Pink Horror Hornblower instead. Add 1 to save rolls for this unit while it includes any Pink Horror Hornblowers.`,
+        when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_AUGUST_2021],
       },
       {
         name: `Split and Split Again`,
-        desc: `When you allocate wounds or mortal wounds to this unit, you must allocate them to a Pink Horror model if it is possible to do so.
+        desc: `Each time an Iridescent Horror or Pink Horror in this unit is slain by a wound or mortal wound, it does not count as having been slain but you must immediately remove it from play and replace it with 2 Blue Horrors that are added to its unit.
 
-        Each time an Iridescent Horror or Pink Horror model from a friendly unit with this ability is slain, you can add 2 Blue Horror models to that unit after removing the slain model. Each time a Blue Horror model from a friendly unit with this ability is slain, you can add 1 Brimstone Horrors model to that unit after removing the slain model.
-
-        Set up the additional models one at a time within 1" of the position that the slain model had occupied. The additional models can only be set up within 3" of an enemy unit if the position that the slain model had occupied or any other models from the slain model's unit are within 3" of that enemy unit. If you cannot set up the additional models in this way, they are removed from play (they do not count as being slain).
-        
-        Iridescent Horrors, Pink Horrors and Blue Horrors that flee cannot Split and Split Again. This ability allows the number of models in this unit to exceed its maximum size`,
+        Each time a Blue Horror in this unit is slain by a wound or mortal wound, it does not count as having been slain but you must immediately remove it from play and replace it with 1 Brimstone Horrors model that is added to its unit.`,
         when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
+        rule_sources: [
+          rule_sources.BATTLETOME_TZEENTCH,
+          rule_sources.ERRATA_TZEENTCH_JULY_2021,
+          rule_sources.ERRATA_TZEENTCH_AUGUST_2021,
+        ],
       },
       {
-        name: `Locus of Conjuration`,
-        desc: `You can add 1 to any casting rolls made for this unit if it is wholly within 12" of any friendly TZEENTCH DAEMON HEROES.`,
-        when: [HERO_PHASE],
+        name: `Adding and Removing Horrors`,
+        desc: `Replacement models that are added to this unit must be set up one at a time within 1" of the position that was occupied by the model they are replacing.
+
+        Replacement models that are added to this unit can only be set up within 3" of an enemy unit if a model from this unit is already within 3" of that enemy unit. Replacement models added to this unit can take it above its maximum size.
+        
+        Designer's Note: Horrors that flee cannot Split and Split Again. If a Horror Splits and Splits again, it is immediately removed from play and the replacement models are added to the unit before the next wound or mortal wound is allocated to the unit. A Horror that is removed from play because it has Split and Split Again does not count as a slain model for the purposes of the Battleshock rules (core rules, 15.0) and it cannot be returned through the use of rules that allow you to return slain models to the unit.`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_AUGUST_2021],
       },
       {
         name: `Petty Vengeance`,
-        desc: `If a Pink Horror model from this unit is slain and you do not use its Split and Split Again ability to add any models to this unit, you can pick 1 enemy unit within 1" of this unit and roll a D6. On a 5+, that enemy unit suffers 1 mortal wound.`,
+        desc: `If a model in this unit is slain, you can pick 1 enemy unit within 1" of this unit and roll a dice. If the roll is equal to or greater than the Petty Vengeance Roll for the slain model, that enemy unit suffers 1 mortal wound.`,
         when: [WOUND_ALLOCATION_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This unit is a Wizard while it has 9 or more Pink Horrors. It can attempt to cast 1 spell in your hero phase and attmept to unbind 1 spell in the enemy hero phase. It knows the Channelled Pink Fire spell. It cannot attempt to cast any spells other than Channelled Pink Fire, but any number of Horrors of Tzeentch units that have 9 or more Pink Horrors can attempt to cast Channelled Pink Fire in the same hero phase.`,
-        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_AUGUST_2021],
       },
     ],
   },

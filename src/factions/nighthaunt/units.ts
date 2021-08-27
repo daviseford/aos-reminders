@@ -1,5 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -535,11 +536,19 @@ const Units = {
         name: `Empowering Excruciation`,
         desc: `Wounds inflicted by Phantasmal Torture and not negated empower this model until your next shooting phase.`,
         when: [SHOOTING_PHASE],
+        rule_sources: [
+          meta_rule_sources.BOOK_BROKEN_REALMS_BELAKOR,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_BELAKOR_AUGUST_2021,
+        ],
       },
       {
         name: `Empowering Excruciation`,
-        desc: `While empowered, this model's Deathless Spirits battle trait negates wounds for units wholly within 12" of on a 5+ instead of 6+.`,
+        desc: `The Deathless Spirits battle trait negates wounds and mortal wounds allocated to friendly NIGHTHAUNT units wholly within 12" of any friendly empowered KRULGHAST CRUCIATORS on a 5+ instead of 6+`,
         when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [
+          meta_rule_sources.BOOK_BROKEN_REALMS_BELAKOR,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_BELAKOR_AUGUST_2021,
+        ],
       },
     ],
   },
