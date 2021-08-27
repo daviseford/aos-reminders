@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH, MARK_UNDIVIDED } from 'meta/alliances'
 import {
   BATTLESHOCK_PHASE,
@@ -217,14 +218,17 @@ const Units = {
       },
       {
         name: `The Crown of Domination`,
-        desc: `Add 2 to the bravery characteristic of friendly Chaos models wholly within 12" of this model.
-               Subtract 2 from the bravery characteristic of enemy units within 12" of this model.`,
-        when: [DURING_GAME],
+        desc: `Add 2 to the bravery characteristic of friendly Chaos models wholly within 12" of this model. Subtract 2 from the bravery characteristic of enemy units within 12" of this model.`,
+        when: [BATTLESHOCK_PHASE],
       },
       {
         name: `The Eye of Sheerian`,
-        desc: `Reroll hit rolls of 6 for attacks made by enemy units that target this model.`,
-        when: [DURING_GAME],
+        desc: `Once per battle, at the start of your hero phase, you can say that Archaon will use the Eye of Sheerian. If you do so, subtract 1 from hit rolls for attacks that target this unit until your next hero phase.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_AUGUST_2021,
+        ],
       },
       {
         name: `The Everchosen`,
@@ -302,6 +306,13 @@ const Units = {
   },
   Varanguard: {
     effects: [
+      {
+        ...GenericEffects.Elite,
+        rule_sources: [
+          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
+          rule_sources.ERRATA_SLAVES_TO_DARKNESS_AUGUST_2021,
+        ],
+      },
       ChaosMarkAll,
       DaemonforgedWeaponEffect,
       {
