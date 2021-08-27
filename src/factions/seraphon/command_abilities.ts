@@ -88,8 +88,9 @@ const CommandAbilities = {
     effects: [
       {
         name: `Scent of Weakness`,
-        desc: `You can use this command ability in the combat phase. If you do so, pick 1 enemy unit within 12" of a friendly model with this command ability. Until the end of that phase, add 1 to wound rolls for attacks made by friendly SAURUS models that target that enemy unit. A unit cannot benefit from this command ability more than once per phase.`,
+        desc: `You can use this command ability when you pick a friendly SAURUS unit to fight in the combat phase. That unit must receive the command. Until the end of that phase, add 1 to wound rolls for attacks made by that unit.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_AUGUST_2021],
       },
     ],
   },

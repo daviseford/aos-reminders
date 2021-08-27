@@ -112,8 +112,9 @@ const Spells = {
     effects: [
       {
         name: `Drain Magic`,
-        desc: `Casting value of 9. All endless spells within 24" of the caster that are not BOUND are dispelled.`,
+        desc: `Casting value of 9. If successfully cast, all endless spells within 24" of the caster that are not bonded are dispelled.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_AUGUST_2021],
       },
     ],
   },
