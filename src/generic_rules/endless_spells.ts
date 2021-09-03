@@ -29,11 +29,11 @@ export const ChronomanticCogsEffects = [
     desc: `When this endless spell is set up, the commanding player must decide if it is increasing or decreasing the flow of time.
     
     If it is increasing the flow of time, add 1 to charge rolls for units wholly within 18" of this endless spell.
-    If it is decreasing the flow of time, WIZARDS can attempt to cast 1 extra spell in their command player's hero phase while they are within 6" of this endless spell.
+    If it is decreasing the flow of time, if a player has any friendly WIZARDS within 6" of this endless spell in their hero phase, they can pick 1 of those WIZARDS to attempt to cast 1 extra spell in that hero phase.
     
     At the start of the hero phase, if there is a friendly WIZARD within 6" of this endless spell, the player whose turn is taking place can change whether this endless spell is increasing or decreasing the flow of time.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2021, meta_rule_sources.ERRATA_GHB_SEPTEMBER_2021],
   },
   {
     name: `Mechanisms of Time`,
@@ -43,9 +43,9 @@ export const ChronomanticCogsEffects = [
   },
   {
     name: `Mechanisms of Time`,
-    desc: `If this endless spell is decreasing the flow of time, WIZARDS can attempt to cast 1 extra spell in their command player's hero phase while they are within 6" of this endless spell.`,
+    desc: `If this endless spell is decreasing the flow of time, if a player has any friendly WIZARDS within 6" of this endless spell in their hero phase, they can pick 1 of those WIZARDS to attempt to cast 1 extra spell in that hero phase.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2021, meta_rule_sources.ERRATA_GHB_SEPTEMBER_2021],
   },
   {
     name: `Mechanisms of Time`,
@@ -247,9 +247,9 @@ export const UmbralSpellportalEffects = [
   },
   {
     name: `Arcane Passage`,
-    desc: `Once per turn, if a WIZARD successfully casts a spell within 1" of this endless spell, the range, visibility and effect of that spell can be measured from this endless spell instead of the caster.`,
+    desc: `Once per turn, if a WIZARD successfully casts a spell within 1" of this endless spell, the range, visibility and effect of that spell can be measured from 1 part of this endless spell instead of the caster.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2021, meta_rule_sources.ERRATA_GHB_SEPTEMBER_2021],
   },
   {
     name: `Arcane Passage`,

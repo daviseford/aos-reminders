@@ -12,6 +12,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_ROUND,
   TURN_ONE_START_OF_TURN,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 export const OneDropDeploymentEffect = {
@@ -457,6 +458,18 @@ const CoreRules: TEntry[] = [
         Each wandering endless spell can be activated once per turn. To do so, roll a D3 and consult the behaviour table on page 67 of Soul Wars: Wrath of the Everchosen. The behaviour table has 3 columns, each with 6 results. The distance between the wandering endless spell and the closest enemy models determines which column you use. Each roll on the behaviour table has a corresponding action that the wandering endless spell will perform. The action is resolved before the next wandering endless spell is activated`,
         when: [END_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.ERRATA_WRATH_OF_THE_EVERCHOSEN_JULY_2021],
+      },
+    ],
+  },
+
+  {
+    name: 'Wards',
+    effects: [
+      {
+        name: `14.3 - Wards`,
+        desc: `Some abilities allow you to roll a dice to negate a wound or mortal wound. Abilities of this type are referred to as wards, and the dice roll is referred to as a ward roll. Unless stated otherwise, the ward roll is made before the wound is allocated to the model in question. Up to 1 ward roll can be made for each wound or mortal wound. If the ward roll is successful, the wound or mortal wound is negated and has no effect on the model.`,
+        when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [meta_rule_sources.CORE_RULES_2021, meta_rule_sources.ERRATA_CORE_RULES_SEPTEMBER_2021],
       },
     ],
   },
