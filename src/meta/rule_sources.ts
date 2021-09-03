@@ -73,15 +73,25 @@ const meta_rule_sources = {
     type: 'other_book',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2021/06/bHB57xEZVMKO4T1U.pdf',
   },
-  ERRATA_CORE_RULES_2021: {
+  ERRATA_CORE_RULES_JULY_2021: {
     name: 'Core Rules Errata (July 2021)',
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/u7QSQCYGoqZ6e4TL.pdf',
+  },
+  ERRATA_CORE_RULES_SEPTEMBER_2021: {
+    name: 'Core Rules Errata (September 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/0f2lPBAeWV2trBmu.pdf',
   },
 
   GHB_2021: {
     name: "General's Handbook (2021)",
     type: 'ghb',
+  },
+  ERRATA_GHB_SEPTEMBER_2021: {
+    name: "General's Handbook Errata (September 2021)",
+    type: 'ghb',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/Nx3vTlkaz7ekCv7J.pdf',
   },
 }
 

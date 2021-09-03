@@ -89,7 +89,11 @@ const CommandAbilities = {
         name: `Branch Blizzard`,
         desc: `You can use this command ability when you pick a friendly WINTERLEAF unit to shoot in your shooting phase. That unit must receive the command. Until the end of that phase, if the unmodified hit roll for a shooting attack made by that unit is 6, that attack causes 1 mortal wound to the target in addition to any damage it inflicts.`,
         when: [SHOOTING_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_SYLVANETH_AUGUST_2021],
+        rule_sources: [
+          rule_sources.BATTLETOME_SYLVANETH,
+          rule_sources.ERRATA_SYLVANETH_AUGUST_2021,
+          rule_sources.ERRATA_SYLVANETH_SEPTEMBER_2021,
+        ],
       },
     ],
   },
