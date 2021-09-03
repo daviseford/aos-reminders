@@ -152,7 +152,18 @@ const DeadlyVenomEffect = {
 const Units = {
   'Lord Kroak': {
     mandatory: {
-      spells: [keyPicker(Spells, ['Celestial Deliverance', "Comet's Call"])],
+      spells: [
+        keyPicker(Spells, [
+          'Celestial Apotheosis',
+          'Celestial Deliverance',
+          'Celestial Equilibrium',
+          'Drain Magic',
+          'Mystical Unforging',
+          'Stellar Tempest',
+          'Walk Between Realms',
+          "Comet's Call",
+        ]),
+      ],
       command_abilities: [keyPicker(CommandAbilities, ['Supreme Gift from the Heavens'])],
     },
     effects: [
