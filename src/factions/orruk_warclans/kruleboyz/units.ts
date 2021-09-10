@@ -21,15 +21,16 @@ const AllPartOfDaPlanEffect = {
   shared: true,
 }
 
+const PickEmOffEffect = {
+  name: `Pick 'Em Off`,
+  desc: `When this unit attacks with its ranged weapon, use the Aimed Shot missile weapon characteristics if it did not make a normal move in the same turn and is more than 3" from all enemy units. Otherwise, use the Hasty Shot missile weapon characteristics.`,
+  when: [SHOOTING_PHASE],
+  shared: true,
+}
+
 const KruleboyzUnits = {
   'Man-skewer Boltboyz': {
-    effects: [
-      {
-        name: `Pick 'Em Off`,
-        desc: `When this unit attacks with a Man-skewer Crossbow, use the Aimed Shot missile weapon characteristics if it did not make a normal move in the same turn and is more than 3" from all enemy units. Otherwise, use the Hasty Shot missile weapon characteristics.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
+    effects: [PickEmOffEffect],
   },
   'Hobgrot Slittaz': {
     effects: [
@@ -134,6 +135,31 @@ const KruleboyzUnits = {
       },
     ],
   },
+  'Beast-skewer Killbow': {
+    effects: [
+      PickEmOffEffect,
+      {
+        name: `Skewered`,
+        desc: `To determine the Damage characteristic for an attack made with Beast-skewer Bolts, roll a number of dice equal to the Wounds characteristic of the target unit. The Damage characteristic is equal to 2, plus 1 for each roll of 5+, up to a maximum Damage characteristic of 12.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Break-boss on Mirebrute Troggoth': {
+    effects: [
+      {
+        name: `Break-harness`,
+        desc: `At the start of the combat phase, you can say that the Breaka-boss is yanking on his Mirebrute Troggoth's harness. If you do so, this unit suffers D3 mortal wounds but for each mortal wound it suffers, you can add 2 to the Attacks characteristic of its Iron-bound Clubs until the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Regeneration`,
+        desc: `In your hero phase. you can roll a dice for this unit. If you do so, on a 4+, heal up to D3 wounds allocated to this unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+
   ...keyPicker(DestructionUnits, ['Rogue Idol']),
 }
 

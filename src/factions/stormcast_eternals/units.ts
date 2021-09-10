@@ -1338,6 +1338,34 @@ const Units = {
       },
     ],
   },
+  'Stormstrike Chariot': {
+    effects: [
+      {
+        name: `Celestial Blaze`,
+        desc: `Subtract 1 from hit rolls for attacks that target this unit if this unit made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Azyr Unleashed`,
+        desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a number Of dice equal to the unmodified charge roll for that charge move. For each 4+, that unit suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  'Knight-Judicator with Gryph-Hounds': {
+    effects: [
+      {
+        name: `Faithful Gryph-hounds`,
+        desc: `The first time this unit is set up on the battlefield, you must summon 1 GRYPH-HOUNDS unit consisting of 2 models to the battlefield and add it to your army. Set up the GRYPH-HOUNDS unit wholly within 3" of this unit and more than 9" from all enemy units.`,
+        when: [DURING_SETUP, DURING_GAME],
+      },
+      {
+        name: `Gaze of Sigmar`,
+        desc: `Once per battle, in your shooting phase, you can say that this unit will draw the gaze of Sigmar instead of attacking with its missile weapons. If you do so, pick 1 point on the battlefield within 30" of this unit and visible to it. Roll a dice for each enemy unit within 6" of that point. On a 4+, that unit suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Units, 'unit')
