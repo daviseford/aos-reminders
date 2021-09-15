@@ -115,10 +115,10 @@ Obviously, this does not work in production :)
 
 ### Warscroll Builder/Azyr/Battlescribe Import
 
-Found a discrepancy between Warscroll Builder/Azyr/Battlescribe and AoS Reminders? You have three options:
+Found a discrepancy between Warscroll Builder/Azyr/Battlescribe/Warhammer App and AoS Reminders? You have three options:
 
 1. [Open an issue on Github](https://github.com/daviseford/aos-reminders/issues) and let us know.
-2. Add to the typo list (`[warscroll|azyr|battlescribe]TypoMap`) in `src/utils/import/options.ts`
+2. Add to the typo list (`[warscroll|azyr|battlescribe|warhammerApp]TypoMap`) in `src/utils/import/options.ts`
 3. Just wait. :) Failed imports are fired off to Google Analytics - we will probably fix your issue within a couple days.
 
 

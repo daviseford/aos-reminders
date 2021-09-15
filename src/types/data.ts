@@ -106,10 +106,9 @@ export const selectionsKeyToEntryKey: Record<
   units: 'unit',
 }
 
-type TEntryMetadata = IItemDescription &
-  {
-    [prop in TEntryProperties]?: boolean
-  }
+type TEntryMetadata = IItemDescription & {
+  [prop in TEntryProperties]?: boolean
+}
 
 export type TEntry = {
   name: string
