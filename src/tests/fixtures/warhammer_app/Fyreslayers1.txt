@@ -1,0 +1,60 @@
+Army Name: Fyreslayers1
+Army Notes: Some notes go here
+Army Faction: Fyreslayers
+Subfaction: Greyfyrd
+Battlepack: Pitched Battles
+Points Limit: 2000 pts
+General: Auric Runefather
+
+Units
+Auric Runefather (General)
+Battlefield Role: Leader
+Enhancements
+Command Traits: Destroyer of Foes
+Artefacts of Power: Helm of Obsidia
+Points Cost: 100 pts
+Bundo Whalebiter (Ally)
+Battlefield Role: Battleline, Behemoth, Leader
+Points Cost: 490 pts
+Fjul-Grimnir
+Battlefield Role: Leader
+Points Cost: 150 pts
+Auric Runemaster
+Battlefield Role: Leader
+Points Cost: 115 pts
+Auric Runesmiter
+Battlefield Role: Leader
+Enhancements
+Artefacts of Power: Ancestor Helm
+Prayers: Prayer Of Ash
+Points Cost: 120 pts
+Auric Runesmiter on Magmadroth
+Battlefield Role: Behemoth, Leader
+Points Cost: 275 pts
+Auric Runeson
+Battlefield Role: Leader
+Enhancements
+Artefacts of Power: Helm of Obsidia
+Points Cost: 90 pts
+Auric Runeson on Magmadroth
+Battlefield Role: Behemoth, Leader
+Points Cost: 240 pts
+Battlesmith
+Battlefield Role: Leader
+Enhancements
+Artefacts of Power: Draught of Magmalt Ale
+Points Cost: 125 pts
+Fjul-Grimnir
+Battlefield Role: Leader
+Points Cost: 150 pts
+Warden King (Ally)
+Battlefield Role: Leader
+Points Cost: 100 pts
+
+Core Battalions
+Alpha-Beast Pack
+Alpha-Beast Pack
+Battle Regiment
+
+Total Points: 1805 pts
+Invalid: Created with Warhammer Age of Sigmar: The App

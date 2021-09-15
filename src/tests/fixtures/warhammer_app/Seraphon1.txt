@@ -1,0 +1,78 @@
+Army Name: Hammerfest
+Army Faction: Seraphon
+Army Type: Starborne
+Subfaction: Fangs of Sotek
+Battlepack: Pitched Battles
+Points Limit: 2000 pts
+Grand Strategies: Prized Sorcery
+Triumphs: Inspired
+Battle Trait Bonus: First to Battle, Parting Shot
+
+Core Battalions
+    Battle Regiment
+        Razordon Hunting Pack 
+            Battalion Slot Filled: Troops
+            Battlefield Role: Other
+            Reinforced: Once
+            Points Cost: 190 pts
+        Lord Kroak (General)
+            Battalion Slot Filled: Commander
+            Battlefield Role: Leader
+            Points Cost: 430 pts
+        Saurus Astrolith Bearer 
+            Battalion Slot Filled: Sub-commander
+            Battlefield Role: Leader
+            Points Cost: 150 pts
+        Saurus Guard 
+            Battalion Slot Filled: Troops
+            Battlefield Role: Battleline
+            Points Cost: 115 pts
+    Command Entourage
+    Magnificent Bonus: Artefact of Power
+        Skink Oracle on Troglodon 
+            Battalion Slot Filled: Commander
+            Battlefield Role: Behemoth, Leader
+            Enhancements
+                Artefacts of Power: Amulet of Destiny
+                Spells: Tide of Serpents
+            Points Cost: 270 pts
+        Skink Priest 
+            Battalion Slot Filled: Sub-commander
+            Battlefield Role: Leader
+            Enhancements
+                Prayers: Heal
+            Points Cost: 80 pts
+        Skink Starpriest 
+            Battalion Slot Filled: Sub-commander
+            Battlefield Role: Leader
+            Enhancements
+                Spells: Hand of Glory
+            Points Cost: 130 pts
+    Hunters of the Heartlands
+        Skinks 
+            Battalion Slot Filled: Troops
+            Battlefield Role: Battleline
+            Reinforced: Once
+            Points Cost: 150 pts
+        Skinks 
+            Battalion Slot Filled: Troops
+            Battlefield Role: Battleline
+            Reinforced: Once
+            Points Cost: 150 pts
+        Chameleon Skinks 
+            Battalion Slot Filled: Troops
+            Battlefield Role: Other
+            Reinforced: Once
+            Points Cost: 230 pts
+
+Endless Spells/Invocations
+    Soulsnare Shackles 
+        Points Cost: 65 pts
+    The Burning Head 
+        Points Cost: 20 pts
+
+Faction Terrain
+    Realmshaper Engine 
+
+Total Points: 1980 pts
+Valid: Created with Warhammer Age of Sigmar: The App
