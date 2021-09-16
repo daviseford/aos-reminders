@@ -188,7 +188,7 @@ describe('warhammerAppUtils', () => {
   it('correctly format Ironjawz1', () => {
     const parsedText = getFile('Ironjawz1')
     const cleanedText = cleanWarhammerAppText(parsedText)
-    console.log(cleanedText)
+
     expect(cleanedText).toEqual([
       'Army Name: Ironjawz1',
       'Army Faction: Orruk Warclans',
@@ -265,6 +265,115 @@ describe('warhammerAppUtils', () => {
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       'Aethervoid Pendulum',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      warhammerAppPlaceholders.END_OF_LIST,
+      'Invalid: Created with Warhammer Age of Sigmar: The App',
+    ])
+  })
+
+  it('correctly format Slaanesh1', () => {
+    const parsedText = getFile('Slaanesh1')
+    const cleanedText = cleanWarhammerAppText(parsedText)
+
+    expect(cleanedText).toEqual([
+      'Army Name: Slaanesh1',
+      'Army Faction: Hedonites of Slaanesh',
+      'Army Type: Invaders',
+      'Subfaction: The Lurid Haze',
+      'Units',
+      'Shalaxi Helbane (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Keeper of Secrets (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      "Syll'Esske (Ally)",
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'The Contorted Epitome (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'The Masque (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Viceleader (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Blissbarb Archers (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Daemonettes (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Hellstriders with Claw-spears (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Hellstriders with Hellscourges (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Blissbarb Seekers (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Exalted Chariot (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Fiends (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Hellflayer (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Seekers (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Archaon (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      "Be'lakor (Ally)",
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Gaunt Summoner (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Great Bray-Shaman (Coalition Ally)',
+      warhammerAppPlaceholders.ENHANCEMENTS,
+      'Artefacts of Power: Fallacious Gift',
+      'Spells: Ghost-mist',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Core Battalions',
+      'Warlord',
+      'Magnificent Bonus: Triumph',
+      'Keeper of Secrets (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Viceleader (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Bladebringer, Herald on Hellflayer (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Bladebringer, Herald on Exalted Chariot (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Bladebringer, Herald on Seeker Chariot (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Bladebringer, Herald on Seeker Chariot (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Daemonettes (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Daemonettes (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      warhammerAppPlaceholders.ENDLESS_SPELLS,
+      'Dreadful Visage (Ally)',
+      warhammerAppPlaceholders.END_OF_ENTRY,
+
+      'Wheels of Excruciation (Ally)',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       warhammerAppPlaceholders.END_OF_LIST,

@@ -1,0 +1,116 @@
+Army Name: Slaanesh1
+Army Notes: Some notes go here 👏
+Army Faction: Hedonites of Slaanesh
+Army Type: Invaders
+Subfaction: The Lurid Haze
+Battlepack: Pitched Battles
+Points Limit: 2000 pts
+
+Units
+Shalaxi Helbane (Ally)
+Battlefield Role: Behemoth, Leader
+Points Cost: 405 pts
+Keeper of Secrets (Ally)
+Battlefield Role: Behemoth, Leader
+Points Cost: 420 pts
+Syll'Esske (Ally)
+Battlefield Role: Behemoth, Leader
+Points Cost: 210 pts
+The Contorted Epitome (Ally)
+Battlefield Role: Leader
+Points Cost: 255 pts
+The Masque (Ally)
+Battlefield Role: Leader
+Points Cost: 135 pts
+Viceleader (Ally)
+Battlefield Role: Leader
+Points Cost: 140 pts
+Blissbarb Archers (Ally)
+Battlefield Role: Battleline
+Points Cost: 180 pts
+Daemonettes (Ally)
+Battlefield Role: Battleline
+Points Cost: 140 pts
+Hellstriders with Claw-spears (Ally)
+Battlefield Role: Battleline
+Reinforced: Twice
+Points Cost: 405 pts
+Hellstriders with Hellscourges (Ally)
+Battlefield Role: Battleline
+Reinforced: Once
+Points Cost: 270 pts
+Blissbarb Seekers (Ally)
+Battlefield Role: Other
+Points Cost: 220 pts
+Exalted Chariot (Ally)
+Battlefield Role: Other
+Points Cost: 200 pts
+Fiends (Ally)
+Battlefield Role: Other
+Points Cost: 200 pts
+Hellflayer (Ally)
+Battlefield Role: Other
+Points Cost: 155 pts
+Seekers (Ally)
+Battlefield Role: Other
+Points Cost: 140 pts
+Archaon (Ally)
+Battlefield Role: Behemoth, Leader
+Points Cost: 830 pts
+Be'lakor (Ally)
+Battlefield Role: Behemoth, Leader
+Points Cost: 360 pts
+Gaunt Summoner (Ally)
+Battlefield Role: Leader
+Points Cost: 230 pts
+Great Bray-Shaman (Coalition Ally)
+Battlefield Role: Leader
+Enhancements
+Artefacts of Power: Fallacious Gift
+Spells: Ghost-mist
+Points Cost: 100 pts
+
+Core Battalions
+Warlord
+Magnificent Bonus: Triumph
+Keeper of Secrets (Ally)
+Battalion Slot Filled: Commander
+Battlefield Role: Behemoth, Leader
+Points Cost: 420 pts
+Viceleader (Ally)
+Battalion Slot Filled: Commander
+Battlefield Role: Leader
+Points Cost: 140 pts
+Bladebringer, Herald on Hellflayer (Ally)
+Battalion Slot Filled: Sub-commander
+Battlefield Role: Leader
+Points Cost: 215 pts
+Bladebringer, Herald on Exalted Chariot (Ally)
+Battalion Slot Filled: Sub-commander
+Battlefield Role: Leader
+Points Cost: 265 pts
+Bladebringer, Herald on Seeker Chariot (Ally)
+Battalion Slot Filled: Sub-commander
+Battlefield Role: Leader
+Points Cost: 190 pts
+Bladebringer, Herald on Seeker Chariot (Ally)
+Battalion Slot Filled: Sub-commander
+Battlefield Role: Leader
+Points Cost: 190 pts
+Daemonettes (Ally)
+Battalion Slot Filled: Troops
+Battlefield Role: Battleline
+Points Cost: 140 pts
+Daemonettes (Ally)
+Battalion Slot Filled: Troops
+Battlefield Role: Battleline
+Points Cost: 140 pts
+
+Endless Spells/Invocations
+Dreadful Visage (Ally)
+Points Cost: 180 pts
+Wheels of Excruciation (Ally)
+Points Cost: 100 pts
+
+Total Points: 6975 pts
+Invalid: Created with Warhammer Age of Sigmar: The App
