@@ -44,7 +44,7 @@ type TUnknown = 'Unknown'
 type TWarhammerApp = 'Warhammer App'
 type TWarscrollBuilder = 'Warscroll Builder'
 
-export type TImportParsers = TWarscrollBuilder | TAzyr | TBattlescribe | TUnknown
+export type TImportParsers = TWarscrollBuilder | TWarhammerApp | TAzyr | TBattlescribe | TUnknown
 
 export const AZYR: TAzyr = 'Azyr'
 export const BATTLESCRIBE: TBattlescribe = 'Battlescribe'

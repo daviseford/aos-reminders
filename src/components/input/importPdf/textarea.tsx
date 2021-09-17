@@ -17,17 +17,14 @@ export const ImportTextarea: React.FC<IImportTextAreaProps> = ({ handleDrop }) =
     <>
       <div className="row">
         <div className="col-12">
-          <div className="form-group pt-2 px-2">
-            <label htmlFor="ImportTextarea">
-              <small>Or, copy+paste your Warhammer App list here:</small>
-            </label>
+          <div className="form-group">
             <textarea
               name="ImportTextarea"
               id="ImportTextarea"
               className={'ImportTextarea'}
+              placeholder={'Or paste your Warhammer App list here'}
               onChange={e => {
                 e.preventDefault()
-                console.log(e.target.value)
                 setText(e.target.value)
               }}
               value={text}

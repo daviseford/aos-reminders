@@ -14,10 +14,13 @@ describe('warhammerAppUtils', () => {
     expect(cleanedText).toEqual([
       'Army Name: Fyreslayers1',
       // 'Army Notes: Some notes go here',
-      'Army Faction: Fyreslayers',
-      'Subfaction: Greyfyrd',
+
+      `${warhammerAppPlaceholders.FACTION_NAME_PREFIX}Fyreslayers`,
+      `${warhammerAppPlaceholders.FLAVOR_PREFIX}Greyfyrd`,
+
       // 'General: Auric Runefather',
-      'Units',
+
+      warhammerAppPlaceholders.UNITS,
       'Auric Runefather',
       warhammerAppPlaceholders.ENHANCEMENTS,
       'Command Traits: Destroyer of Foes',
@@ -61,7 +64,7 @@ describe('warhammerAppUtils', () => {
       'Warden King (Ally)',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Core Battalions',
+      warhammerAppPlaceholders.BATTALIONS,
       'Alpha-Beast Pack',
       'Alpha-Beast Pack',
       'Battle Regiment',
@@ -76,9 +79,11 @@ describe('warhammerAppUtils', () => {
 
     expect(cleanedText).toEqual([
       'Army Name: Hammerfest',
-      'Army Faction: Seraphon',
-      'Army Type: Starborne',
-      'Subfaction: Fangs of Sotek',
+
+      `${warhammerAppPlaceholders.FACTION_NAME_PREFIX}Seraphon`,
+      `${warhammerAppPlaceholders.SUBFACTION_PREFIX}Starborne`,
+      `${warhammerAppPlaceholders.FLAVOR_PREFIX}Fangs of Sotek`,
+
       // 'Battlepack: Pitched Battles',
       // 'Points Limit: 2000 pts',
 
@@ -90,7 +95,7 @@ describe('warhammerAppUtils', () => {
       // so we can just ignore them here
       // 'Battle Trait Bonus: First to Battle, Parting Shot',
 
-      'Core Battalions',
+      warhammerAppPlaceholders.BATTALIONS,
       'Battle Regiment',
       // This will be a problem, no demarcation between Battalions/Units section
 
@@ -178,7 +183,7 @@ describe('warhammerAppUtils', () => {
       // 'Points Cost: 20 pts',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      warhammerAppPlaceholders.TERRAIN,
+      warhammerAppPlaceholders.SCENERY,
       'Realmshaper Engine',
       warhammerAppPlaceholders.END_OF_LIST,
       'Valid: Created with Warhammer Age of Sigmar: The App',
@@ -191,10 +196,12 @@ describe('warhammerAppUtils', () => {
 
     expect(cleanedText).toEqual([
       'Army Name: Ironjawz1',
-      'Army Faction: Orruk Warclans',
-      'Army Type: Ironjawz',
-      'Subfaction: Ironsunz',
-      'Units',
+
+      `${warhammerAppPlaceholders.FACTION_NAME_PREFIX}Orruk Warclans`,
+      `${warhammerAppPlaceholders.SUBFACTION_PREFIX}Ironjawz`,
+      `${warhammerAppPlaceholders.FLAVOR_PREFIX}Ironsunz`,
+
+      warhammerAppPlaceholders.UNITS,
       'Fungoid Cave-Shaman (Ally)',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
@@ -203,8 +210,8 @@ describe('warhammerAppUtils', () => {
 
       'Orruk Megaboss',
       warhammerAppPlaceholders.ENHANCEMENTS,
-      'Command Traits: Mega Bossy',
-      'Artefacts of Power: The Boss Skewer',
+      `${warhammerAppPlaceholders.COMMAND_TRAITS_PREFIX}Mega Bossy`,
+      `${warhammerAppPlaceholders.ARTIFACTS_PREFIX}The Boss Skewer`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       'Mollog (Ally)',
@@ -212,9 +219,9 @@ describe('warhammerAppUtils', () => {
 
       'Megaboss on Maw-krusha',
       warhammerAppPlaceholders.ENHANCEMENTS,
-      'Command Traits: Heroic Stature',
-      'Artefacts of Power: Arcane Tome',
-      "Mount Traits: Smelly 'Un",
+      `${warhammerAppPlaceholders.COMMAND_TRAITS_PREFIX}Heroic Stature`,
+      `${warhammerAppPlaceholders.ARTIFACTS_PREFIX}Arcane Tome`,
+      `${warhammerAppPlaceholders.MOUNT_TRAITS_PREFIX}Smelly 'Un`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       'Orruk Ardboys',
@@ -232,31 +239,32 @@ describe('warhammerAppUtils', () => {
       'Aleguzzler Gargant (Ally)',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Core Battalions',
+      warhammerAppPlaceholders.BATTALIONS,
       'Command Entourage',
       'Magnificent Bonus: Spell',
       'Orruk Megaboss',
       warhammerAppPlaceholders.ENHANCEMENTS,
-      'Artefacts of Power: Armour of Gork',
+      `${warhammerAppPlaceholders.ARTIFACTS_PREFIX}Armour of Gork`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       'Orruk Warchanter',
       warhammerAppPlaceholders.ENHANCEMENTS,
-      'Artefacts of Power: Vial of Manticore Venom',
+      `${warhammerAppPlaceholders.ARTIFACTS_PREFIX}Vial of Manticore Venom`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       'Orruk Weirdnob Shaman',
       warhammerAppPlaceholders.ENHANCEMENTS,
-      "Spells: Da Great Big Green Hand of Gork, Bash 'Em Ladz",
+      `${warhammerAppPlaceholders.SPELLS_PREFIX}Da Great Big Green Hand of Gork, Bash 'Em Ladz`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       'Gordrakk',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Fungoid Cave-Shaman (Ally)',
+      `Fungoid Cave-Shaman${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       'Warlord',
+
       warhammerAppPlaceholders.ENDLESS_SPELLS,
       'Emerald Lifeswarm',
       warhammerAppPlaceholders.END_OF_ENTRY,
@@ -278,10 +286,12 @@ describe('warhammerAppUtils', () => {
 
     expect(cleanedText).toEqual([
       'Army Name: Slaanesh1',
-      'Army Faction: Hedonites of Slaanesh',
-      'Army Type: Invaders',
-      'Subfaction: The Lurid Haze',
-      'Units',
+
+      `${warhammerAppPlaceholders.FACTION_NAME_PREFIX}Hedonites of Slaanesh`,
+      `${warhammerAppPlaceholders.SUBFACTION_PREFIX}Invaders`,
+      `${warhammerAppPlaceholders.FLAVOR_PREFIX}The Lurid Haze`,
+
+      warhammerAppPlaceholders.UNITS,
       'Shalaxi Helbane (Ally)',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
@@ -342,7 +352,7 @@ describe('warhammerAppUtils', () => {
       'Spells: Ghost-mist',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Core Battalions',
+      warhammerAppPlaceholders.BATTALIONS,
       'Warlord',
       'Magnificent Bonus: Triumph',
       'Keeper of Secrets (Ally)',
