@@ -4,7 +4,7 @@ import React from 'react'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = 'aos-3-dominion-update'
+  const name = 'aos-3-new-warhammer-app-import'
 
   return (
     <NotificationBanner
@@ -14,7 +14,15 @@ const AppBanner = () => {
       persistClose={true}
       variant={isDark ? `info` : `info`}
     >
-      <span>We've added the latest August FAQs {':)'}</span>
+      <span>
+        <strong>NEW: </strong>We've added the ability to import lists from the new Warhammer App. Just hit
+        "Import List" and then copy + paste your list to get started!
+        <br />
+        <small>
+          This feature is still in development and may change rapidly! Please let me know if you encounter
+          issues.
+        </small>
+      </span>
     </NotificationBanner>
   )
 }
