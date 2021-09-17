@@ -58,7 +58,8 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
       if (
         [END_OF_LIST, ENHANCEMENTS, VALID_LIST, INVALID_LIST, END_OF_ENTRY].includes(txt) ||
         txt.startsWith(ARMY_NAME_PREFIX) ||
-        txt.startsWith(ARMY_NOTES_PREFIX)
+        txt.startsWith(ARMY_NOTES_PREFIX) ||
+        txt.startsWith('Magnificent Bonus: ')
       ) {
         return accum
       }
