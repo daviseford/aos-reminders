@@ -10,6 +10,7 @@ import { logClick } from 'utils/analytics'
 import { GITHUB_URL, ROUTES } from 'utils/env'
 import { hasFatalError } from 'utils/import/warnings'
 import { addArmyToStore } from 'utils/loadArmy/loadArmyHelpers'
+import { ImportTextarea } from './textarea'
 
 const ImportContainer = () => {
   const [errors, setErrors] = useState<IImportedArmy['errors']>([])
@@ -30,8 +31,15 @@ const ImportContainer = () => {
   return (
     <>
       <div className="row my-2 d-flex justify-content-center">
-        <div className={'col-12 col-lg-6 col-xl-6 border border-secondary px-0'}>
-          <ImportDropzone handleDrop={handleDrop} />
+        <div className={'col-12 col-lg-9 col-xl-9 px-1'}>
+          <div className="row my-2 d-flex justify-content-center align-content-center">
+            <div className={'col-12 col-lg-6'}>
+              <ImportDropzone handleDrop={handleDrop} />
+            </div>
+            <div className={'col-12 col-lg-6 pt-2 pt-lg-0'}>
+              <ImportTextarea handleDrop={handleDrop} />
+            </div>
+          </div>
         </div>
       </div>
 

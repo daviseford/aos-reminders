@@ -1,0 +1,92 @@
+Army Name: Ironjawz1
+Army Notes: Some notes
+Army Faction: Orruk Warclans
+Army Type: Ironjawz
+Subfaction: Ironsunz
+Battlepack: Contest of Generals
+Points Limit: 3000 pts
+General: Orruk Megaboss, Megaboss on Maw-krusha
+
+Units
+Fungoid Cave-Shaman (Ally)
+Battlefield Role: Leader
+Points Cost: 95 pts
+Gordrakk
+Battlefield Role: Behemoth, Leader
+Points Cost: 560 pts
+Orruk Megaboss (General)
+Battlefield Role: Leader
+Enhancements
+Command Traits: Mega Bossy
+Artefacts of Power: The Boss Skewer
+Points Cost: 140 pts
+Mollog (Ally)
+Battlefield Role: Leader
+Points Cost: 175 pts
+Megaboss on Maw-krusha (General)
+Battlefield Role: Behemoth, Leader
+Enhancements
+Command Traits: Heroic Stature
+Artefacts of Power: Arcane Tome
+Mount Traits: Smelly ’Un
+Points Cost: 480 pts
+Orruk Ardboys
+Battlefield Role: Battleline
+Reinforced: Twice
+Points Cost: 255 pts
+Orruk Brutes
+Battlefield Role: Battleline
+Reinforced: Once
+Points Cost: 320 pts
+Shootas (Ally)
+Battlefield Role: Battleline
+Reinforced: Once
+Points Cost: 280 pts
+Stabbas (Ally)
+Battlefield Role: Battleline
+Points Cost: 150 pts
+Aleguzzler Gargant (Ally)
+Battlefield Role: Behemoth
+Points Cost: 165 pts
+
+Core Battalions
+Command Entourage
+Magnificent Bonus: Spell
+Orruk Megaboss
+Battalion Slot Filled: Sub-commander
+Battlefield Role: Leader
+Enhancements
+Artefacts of Power: Armour of Gork
+Points Cost: 140 pts
+Orruk Warchanter
+Battalion Slot Filled: Sub-commander
+Battlefield Role: Leader
+Enhancements
+Artefacts of Power: Vial of Manticore Venom
+Points Cost: 115 pts
+Orruk Weirdnob Shaman
+Battalion Slot Filled: Sub-commander
+Battlefield Role: Leader
+Enhancements
+Spells: Da Great Big Green Hand of Gork, Bash ’Em Ladz
+Points Cost: 90 pts
+Gordrakk
+Battalion Slot Filled: Commander
+Battlefield Role: Behemoth, Leader
+Points Cost: 560 pts
+Fungoid Cave-Shaman (Ally)
+Battalion Slot Filled: Sub-commander
+Battlefield Role: Leader
+Points Cost: 95 pts
+Warlord
+
+Endless Spells/Invocations
+Emerald Lifeswarm
+Points Cost: 60 pts
+Chronomantic Cogs
+Points Cost: 45 pts
+Aethervoid Pendulum
+Points Cost: 65 pts
+
+Total Points: 3790 pts
+Invalid: Created with Warhammer Age of Sigmar: The App

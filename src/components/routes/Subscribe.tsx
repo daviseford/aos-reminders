@@ -155,8 +155,9 @@ const CurrentFeatures = () => (
     </p>
     <ul className="lead">
       <li>
-        <strong>NEW:</strong> Write, edit, and save notes!
+        <strong>NEW:</strong> Import lists from the new Warhammer App!
       </li>
+      <li>Write, edit, and save notes!</li>
       <li>
         Access to <Link to={ROUTES.STATS}>advanced stats!</Link>
       </li>
@@ -167,7 +168,7 @@ const CurrentFeatures = () => (
         device - even <strong>offline!</strong>
       </li>
       <li>
-        Import your army lists <strong>instantly</strong> from Azyr, Warscroll Builder, and Battlescribe
+        Import your army lists <strong>instantly</strong> from Azyr, Warscroll Builder, and Battlescribe.
       </li>
     </ul>
   </div>

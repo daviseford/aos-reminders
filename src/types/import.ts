@@ -34,20 +34,24 @@ export type TImportError = {
 
 type THtmlFile = 'text/html'
 type TPdfFile = 'application/pdf'
+type TTextFile = 'text/plain'
 
-export type TImportFileTypes = TPdfFile | THtmlFile
+export type TImportFileTypes = TPdfFile | THtmlFile | TTextFile
 
 type TAzyr = 'Azyr'
 type TBattlescribe = 'Battlescribe'
 type TUnknown = 'Unknown'
+type TWarhammerApp = 'Warhammer App'
 type TWarscrollBuilder = 'Warscroll Builder'
 
-export type TImportParsers = TWarscrollBuilder | TAzyr | TBattlescribe | TUnknown
+export type TImportParsers = TWarscrollBuilder | TWarhammerApp | TAzyr | TBattlescribe | TUnknown
 
 export const AZYR: TAzyr = 'Azyr'
 export const BATTLESCRIBE: TBattlescribe = 'Battlescribe'
 export const UNKNOWN: TUnknown = 'Unknown'
+export const WARHAMMER_APP: TWarhammerApp = 'Warhammer App'
 export const WARSCROLL_BUILDER: TWarscrollBuilder = 'Warscroll Builder'
 
 export const HTML_FILE: THtmlFile = 'text/html'
 export const PDF_FILE: TPdfFile = 'application/pdf'
+export const TXT_FILE: TTextFile = 'text/plain'

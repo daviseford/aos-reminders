@@ -94,6 +94,15 @@ small {
     margin-block-start: 2px;
 }
 
+.ImportTextarea {
+    min-width: 45%;
+    width: 100%;
+    height: 7.5em;
+    resize: none;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
 .NoteInput {
     min-width: 45%;
     width: 95%;

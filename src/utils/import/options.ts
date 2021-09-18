@@ -44,7 +44,7 @@ import {
   TZEENTCH,
   WANDERERS,
 } from 'meta/factions'
-import { AZYR, BATTLESCRIBE, TImportParsers, UNKNOWN, WARSCROLL_BUILDER } from 'types/import'
+import { AZYR, BATTLESCRIBE, TImportParsers, UNKNOWN, WARHAMMER_APP, WARSCROLL_BUILDER } from 'types/import'
 
 // Add common typos here
 // Warscroll Builder on the left - AoS Reminders on the right
@@ -670,6 +670,12 @@ export const parserOptions: TParserOptions = {
     checkPoorSpacing: false,
     fileReadError: `There was a problem reading this file. Please try re-downloading it from ${WARSCROLL_BUILDER}.`,
     typoMap: warscrollTypoMap,
+  },
+  [WARHAMMER_APP]: {
+    ambiguousNamesMap: {},
+    checkPoorSpacing: false,
+    fileReadError: `There was a problem parsing this text. Please try copy + pasting it again from the ${WARHAMMER_APP}.`,
+    typoMap: azyrTypoMap,
   },
   [AZYR]: {
     ambiguousNamesMap: azyrAmbiguousNamesMap,
