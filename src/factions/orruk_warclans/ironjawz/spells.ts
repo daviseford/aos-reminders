@@ -6,7 +6,7 @@ const IronjawzSpells = {
     effects: [
       {
         name: `Green Puke`,
-        desc: `Casting value of 6. Pick 1 point on the battlefield within 2D6" of the caster that is visible to them, and draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Each unit that has models passed across by this line suffers D3 mortal wounds.`,
+        desc: `Casting value of 6 and a range of 2D6". If successfully cast, pick 1 point on the battlefield within range and visible to the caster. Draw a straight line between that point and the closest point on the caster's base. Each unit that has models passed across by that line suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -24,7 +24,7 @@ const IronjawzSpells = {
     effects: [
       {
         name: `Mighty 'Eadbutt`,
-        desc: `Casting value of 5. Pick 1 enemy HERO within 16" of the caster and visible to them. That HERO suffers D3 mortal wounds. If that HERO is a WIZARD, they suffer D6 mortal wounds instead.`,
+        desc: `Casting value of 5 and a range of 16". If successfully cast, pick 1 enemy HERO within range and visible to the caster. That HERO suffers 1 mortal wound. If that HERO is a WIZARD, they suffer D3 mortal wounds instead of 1.`,
         when: [HERO_PHASE],
       },
     ],
@@ -38,20 +38,29 @@ const IronjawzSpells = {
       },
     ],
   },
-  'Da Great Big Green Hand of Gork': {
+  'Foot of Gork': {
     effects: [
       {
-        name: `Da Great Big Green Hand of Gork`,
-        desc: `Casting value of 7. Pick 1 friendly IRONJAWZ unit wholly within 24" of the caster, visible to them and more than 3" from any enemy units. Remove that unit from the battlefeld and then set it up on the battlefeld anywhere more than 9" from any enemy units. That unit cannot move in the following movement phase.`,
+        name: `Foot of Gork`,
+        desc: `Casting value of 10 and a range of 18". If successfully cast, pick 1 enemy unit within range and visible to the caster. That unit suffers D6 mortal wounds. Then, roll a dice. On a 1-3, the sequence stops. On a 4+, the unit suffers D6 mortal wounds. Keep rolling dice in this way until the sequence stops or the target unit is destroyed.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  "Bash 'Em Ladz": {
+  'Da Great Big Green Hand of Gork': {
     effects: [
       {
-        name: `Bash 'Em Ladz`,
-        desc: `Casting value of 8. Until your next hero phase add 1 to wound rolls for friendly units within 16" of the caster.`,
+        name: `Da Great Big Green Hand of Gork`,
+        desc: `Casting value of 7 and a range of 12". If successfully cast, pick 1 friendly ORRUK unit wholly within range, visible to the caster and more than 3" from all enemy units. Remove that unit from the battlefield and set it up again anywhere on the battlefield more than 9" from any enemy units. It cannot move in the following movement phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  "Bash 'Em, Ladz!": {
+    effects: [
+      {
+        name: `Bash 'Em, Ladz!`,
+        desc: `Bash 'Em, Ladz! is a spell that has a casting value of 8. If successfully cast, until your next hero phase, you can add 1 to wound rolls for attacks made by friendly IRONJAWZ units that are wholly within 16" of the caster.`,
         when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],

@@ -1,59 +1,78 @@
 import GreenskinzUnits from '../greenskinz/units'
 import { keyPicker, pickEffects } from '../metatagger'
+import OrrukWarclansBattalions from './battalions'
+import OrrukWarclansBattleTraits from './battle_traits'
 import BigWaaaghBattleTraits from './big_waaagh/battle_traits'
-import BigWaaaghCommandAbilities from './big_waaagh/command_abilities'
 import BonesplitterzArtifacts from './bonesplitterz/artifacts'
-import BonesplitterzBattalions from './bonesplitterz/battalions'
 import BonesplitterzBattleTraits from './bonesplitterz/battle_traits'
 import BonesplitterzCommandAbilities from './bonesplitterz/command_abilities'
 import BonesplitterzCommandTraits from './bonesplitterz/command_traits'
 import BonesplitterzFlavors from './bonesplitterz/flavors'
 import BonesplitterzSpells from './bonesplitterz/spells'
 import BonesplitterzUnits from './bonesplitterz/units'
+import OrrukWarclansGrandStrategies from './grand_strategies'
 import IronjawzArtifacts from './ironjawz/artifacts'
-import IronjawzBattalions from './ironjawz/battalions'
 import IronjawzBattleTraits from './ironjawz/battle_traits'
 import IronjawzCommandAbilities from './ironjawz/command_abilities'
 import IronjawzCommandTraits from './ironjawz/command_traits'
 import IronjawzFlavors from './ironjawz/flavors'
-import IronjawzMountTraits from './ironjawz/mount_traits'
 import IronjawzPrayers from './ironjawz/prayers'
 import IronjawzSpells from './ironjawz/spells'
 import IronjawzUnits from './ironjawz/units'
+import KruleboyzArtifacts from './kruleboyz/artifacts'
 import KruleboyzBattleTraits from './kruleboyz/battle_traits'
+import KruleboyzCommandTraits from './kruleboyz/command_traits'
+import KruleboyzFlavors from './kruleboyz/flavors'
 import KruleboyzSpells from './kruleboyz/spells'
 import KruleboyzUnits from './kruleboyz/units'
+import OrrukWarclansMountTraits from './mount_traits'
 
 const subFactions = {
   'Big Waaagh': {
-    effects: pickEffects(BigWaaaghBattleTraits, ['Big Waaagh']),
+    effects: [
+      ...pickEffects(BigWaaaghBattleTraits, [
+        'The Power of the Waaagh!',
+        "'Ere We Go, 'Ere We Go, 'Ere We Go!",
+      ]),
+      ...pickEffects(BonesplitterzBattleTraits, ['Warpaint']),
+      ...pickEffects(KruleboyzBattleTraits, ['Venom-encrusted Weapons']),
+      ...pickEffects(OrrukWarclansBattleTraits, ['Battle Tactics']),
+    ],
     available: {
       allied_units: [GreenskinzUnits, IronjawzUnits, BonesplitterzUnits, KruleboyzUnits],
-      artifacts: [IronjawzArtifacts, BonesplitterzArtifacts],
-      battalions: [IronjawzBattalions, BonesplitterzBattalions],
-      command_traits: [IronjawzCommandTraits, BonesplitterzCommandTraits],
-      mount_traits: [IronjawzMountTraits],
+      artifacts: [IronjawzArtifacts, BonesplitterzArtifacts, KruleboyzArtifacts],
+      battalions: [OrrukWarclansBattalions],
+      command_traits: [IronjawzCommandTraits, BonesplitterzCommandTraits, KruleboyzCommandTraits],
+      grand_strategies: [keyPicker(OrrukWarclansGrandStrategies, ['Waaagh!', "Krump 'Em All!"])],
+      mount_traits: [OrrukWarclansMountTraits],
       prayers: [IronjawzPrayers],
       spells: [IronjawzSpells, BonesplitterzSpells, KruleboyzSpells],
     },
     mandatory: {
-      command_abilities: [keyPicker(BigWaaaghCommandAbilities, ['Da Big Waaagh!!!'])],
+      command_abilities: [keyPicker(IronjawzCommandAbilities, ['Mighty Destroyers'])],
     },
   },
 
   Bonesplitterz: {
-    effects: pickEffects(BonesplitterzBattleTraits, [
-      'Monster Hunters',
-      'Spirit of the Beast',
-      'Tireless Trackers',
-      'Warpaint',
-    ]),
+    effects: [
+      ...pickEffects(BonesplitterzBattleTraits, [
+        'Bonesplitterz Waaagh!',
+        'Spirit of Gorkamorka',
+        'Tireless Trackers',
+        'Warpaint',
+      ]),
+      ...pickEffects(OrrukWarclansBattleTraits, ['Battle Tactics']),
+    ],
     available: {
       artifacts: [BonesplitterzArtifacts],
-      battalions: [BonesplitterzBattalions],
+      battalions: [keyPicker(OrrukWarclansBattalions, ['Bonesplitterz Rukk'])],
       command_abilities: [BonesplitterzCommandAbilities],
       command_traits: [BonesplitterzCommandTraits],
       flavors: [BonesplitterzFlavors],
+      grand_strategies: [
+        keyPicker(OrrukWarclansGrandStrategies, ['Get Dem Bones!', 'Waaagh!', "Krump 'Em All!"]),
+      ],
+      mount_traits: [OrrukWarclansMountTraits],
       spells: [BonesplitterzSpells],
       units: [BonesplitterzUnits],
     },
@@ -63,26 +82,43 @@ const subFactions = {
   },
 
   Ironjawz: {
-    effects: pickEffects(IronjawzBattleTraits, ['Smashing and Bashing', 'Mad as Hell', 'Eager for Battle']),
+    effects: [
+      ...pickEffects(IronjawzBattleTraits, ['Smashing and Bashing', 'Ironjawz Waaaagh!']),
+      ...pickEffects(OrrukWarclansBattleTraits, ['Battle Tactics']),
+    ],
     available: {
       artifacts: [IronjawzArtifacts],
-      battalions: [IronjawzBattalions],
+      battalions: [keyPicker(OrrukWarclansBattalions, ['Ironjawz Fist'])],
       command_abilities: [IronjawzCommandAbilities],
       command_traits: [IronjawzCommandTraits],
       flavors: [IronjawzFlavors],
-      mount_traits: [IronjawzMountTraits],
+      grand_strategies: [
+        keyPicker(OrrukWarclansGrandStrategies, ["Show 'Em Who's Boss!", 'Waaagh!', "Krump 'Em All!"]),
+      ],
+      mount_traits: [OrrukWarclansMountTraits],
       prayers: [IronjawzPrayers],
       spells: [IronjawzSpells],
       units: [IronjawzUnits],
     },
     mandatory: {
-      command_abilities: [keyPicker(IronjawzCommandAbilities, ['Mighty Destroyers', 'Ironjawz Waaaagh!'])],
+      command_abilities: [keyPicker(IronjawzCommandAbilities, ['Mighty Destroyers'])],
     },
   },
 
   Kruleboyz: {
-    effects: pickEffects(KruleboyzBattleTraits, ['Venom-encrusted Weapons']),
+    effects: [
+      ...pickEffects(KruleboyzBattleTraits, ['Venom-encrusted Weapons', 'Dirty Tricks', 'Kruleboyz Waaagh!']),
+      ...pickEffects(OrrukWarclansBattleTraits, ['Battle Tactics']),
+    ],
     available: {
+      artifacts: [KruleboyzArtifacts],
+      battalions: [keyPicker(OrrukWarclansBattalions, ['Kruleboyz Finga'])],
+      command_traits: [KruleboyzCommandTraits],
+      flavors: [KruleboyzFlavors],
+      grand_strategies: [
+        keyPicker(OrrukWarclansGrandStrategies, ['In and Out, Ladz', 'Waaagh!', "Krump 'Em All!"]),
+      ],
+      mount_traits: [OrrukWarclansMountTraits],
       spells: [KruleboyzSpells],
       units: [KruleboyzUnits],
     },

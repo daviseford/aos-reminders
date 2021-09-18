@@ -1,4 +1,3 @@
-import { OrrukWarclansFaction } from 'factions/orruk_warclans'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
 import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
@@ -19,7 +18,6 @@ import {
   MERCENARY_COMPANIES,
   NIGHTHAUNT,
   OGOR_MAWTRIBES,
-  ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
   SKAVENTIDE,
@@ -175,19 +173,6 @@ describe('getAzyrArmyFromPdf', () => {
     ])
   })
 
-  it('should correctly read 1607146040635-Azyr', () => {
-    const fileTxt = getFile('1607146040635-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
-      {
-        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
-        severity: 'deprecation-warn',
-        text: 'Ethereal Amulet',
-      },
-    ])
-  })
-
   it.skip('should correctly read 1609264723788-Azyr', () => {
     const fileTxt = getFile('1609264723788-Azyr')
     const pages = handleAzyrPages(fileTxt)
@@ -283,32 +268,6 @@ describe('getAzyrArmyFromPdf', () => {
       //   severity: 'warn',
       //   text: 'Jutting Bones',
       // },
-    ])
-  })
-
-  it('should correctly read 1612839793461-Azyr', () => {
-    const fileTxt = getFile('1612839793461-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
-      {
-        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
-        severity: 'deprecation-warn',
-        text: 'Sepulchral Plate',
-      },
-    ])
-  })
-
-  it('should correctly read 1612918861529-Azyr', () => {
-    const fileTxt = getFile('1612918861529-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
-      {
-        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
-        severity: 'deprecation-warn',
-        text: 'Hydroxskin Cloak',
-      },
     ])
   })
 
@@ -616,27 +575,6 @@ describe('getAzyrArmyFromPdf', () => {
       //   text:
       //     'Allied Black Knights can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Legion Of Grief. Please add this unit manually.',
       // },
-    ])
-  })
-
-  it('should correctly read 1594846214316-Azyr', () => {
-    const fileTxt = getFile('1594846214316-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
-    expect(res.selections.prayers).toEqual(["Get 'Em Beat", 'Killa Beat'])
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Ethereal Amulet',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
     ])
   })
 
@@ -1159,20 +1097,6 @@ describe('getAzyrArmyFromPdf', () => {
     ])
   })
 
-  it('handles BigWaaagh3', () => {
-    const fileTxt = getFile('BigWaaagh3')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections.prayers).toContain("Get 'Em Beat")
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Aetherquartz Brooch',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
-  })
-
   it('handles deprecated KO8', () => {
     const fileTxt = getFile('KO8')
     const pages = handleAzyrPages(fileTxt)
@@ -1454,26 +1378,6 @@ describe('getAzyrArmyFromPdf', () => {
     ])
   })
 
-  it('handles Ironjawz3', () => {
-    const fileTxt = getFile('Ironjawz3')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Ironjawz)
-    expect(res.selections.command_traits).toContain("Burstin' with Power")
-    expect(res.errors).toEqual([])
-  })
-
-  it('handles Ironjawz2', () => {
-    const fileTxt = getFile('Ironjawz2')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Ironjawz)
-    expect(res.selections.spells).toContain('Brain-bursta')
-    expect(res.errors).toEqual([])
-  })
-
   it('handles LoG3', () => {
     const fileTxt = getFile('LoG3')
     const pages = handleAzyrPages(fileTxt)
@@ -1690,15 +1594,6 @@ describe('getAzyrArmyFromPdf', () => {
     ])
   })
 
-  it('handles BigWaaagh2', () => {
-    const fileTxt = getFile('BigWaaagh2')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
-    expect(res.errors).toEqual([])
-  })
-
   it('handles Seraphon2', () => {
     const fileTxt = getFile('Seraphon2')
     const pages = handleAzyrPages(fileTxt)
@@ -1818,18 +1713,6 @@ describe('getAzyrArmyFromPdf', () => {
         text: "Azyr lists more than one unit as 'Abhorrant Ghoul King'. Please check that we have imported the correct one.",
       },
     ])
-  })
-
-  it('handles Bonesplitterz2', () => {
-    const fileTxt = getFile('Bonesplitterz2')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Bonesplitterz)
-    expect(res.errors).toEqual([])
-    expect(res.selections.flavors).toEqual(['Icebone Clan'])
-    expect(res.selections.battalions).toEqual(["Kunnin' Rukk"])
-    expect(res.selections.artifacts).toEqual(["Mork's Boney Bitz", 'Kattanak Pelt'])
   })
 
   it('handles DoK2', () => {

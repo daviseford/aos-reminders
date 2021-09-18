@@ -10,7 +10,6 @@ import {
   DESTRUCTION_GRAND_ALLIANCE,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
-  GLOOMSPITE_GITZ,
   GREENSKINZ,
   KHARADRON_OVERLORDS,
   KHORNE,
@@ -190,31 +189,6 @@ describe('getWarscrollArmyFromJson', () => {
 
   it('should correctly read 1626098005165-Warscroll_Builder', () => {
     const parsedText = getFile('1626098005165-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626098316564-Warscroll_Builder', () => {
-    const parsedText = getFile('1626098316564-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.units).toContain('Swampcalla Shaman and Pot-grot')
-    expect(res.errors).toEqual([])
-  })
-
-  // TODO: Add Mancrusher Gargant Mob
-  it('should correctly read 1626098427592-Warscroll_Builder', () => {
-    const parsedText = getFile('1626098427592-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Mancrusher Gargant Mob',
-      },
-    ])
-  })
-
-  it('should correctly read 1626101150776-Warscroll_Builder', () => {
-    const parsedText = getFile('1626101150776-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.errors).toEqual([])
   })
@@ -428,19 +402,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1604455981827-Warscroll_Builder', () => {
-    const parsedText = getFile('1604455981827-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.battalions).toContain('Brawl')
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Incandescent Rageblade',
-      },
-    ])
-  })
-
   it('should correctly read 1605279569874-Warscroll_Builder', () => {
     const parsedText = getFile('1605279569874-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -452,32 +413,6 @@ describe('getWarscrollArmyFromJson', () => {
       {
         severity: 'warn',
         text: 'Thrill-seeker',
-      },
-    ])
-  })
-
-  it('should correctly read 1608226190127-Warscroll_Builder', () => {
-    const parsedText = getFile('1608226190127-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.battalions).toContain('Brawl')
-    expect(res.selections.battalions).toContain("Moggorz's Rekrootin' Krew")
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Syari Trueblade',
-      },
-    ])
-  })
-
-  it('should correctly read 1608492373224-Warscroll_Builder', () => {
-    const parsedText = getFile('1608492373224-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Syari Trueblade',
       },
     ])
   })
@@ -535,13 +470,6 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1610791095057-Warscroll_Builder', () => {
     const parsedText = getFile('1610791095057-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1610831742674-Warscroll_Builder', () => {
-    const parsedText = getFile('1610831742674-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.spells).toContain('Brain-bursta')
     expect(res.errors).toEqual([])
   })
 
@@ -771,18 +699,6 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.artifacts).toContain('Collar of Contempt')
     expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1596744633061-Warscroll_Builder', () => {
-    const parsedText = getFile('1596744633061-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Ethereal Amulet',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
   })
 
   it('should correctly read 1596798763772-Warscroll_Builder', () => {
@@ -1740,21 +1656,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with Ironjawz', () => {
-    const parsedText = getFile('1574391649028-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Ironjawz)
-    expect(res.selections.flavors).toContain('Ironsunz')
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: "Anraheirs's Claw",
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
-  })
   it('should work with OBR 3', () => {
     const parsedText = getFile('1574207831990-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -1787,7 +1688,12 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.factionName).toEqual(ORRUK_WARCLANS)
     expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
     expect(res.selections.units).toContain('Orruk Great Shaman')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Gorefist',
+      },
+    ])
   })
   it('should work with Fyreslayers', () => {
     const parsedText = getFile('1573446762118-Warscroll_Builder')
@@ -1869,22 +1775,6 @@ describe('getWarscrollArmyFromJson', () => {
     ])
   })
 
-  it('should work with Big Rukk', () => {
-    const parsedText = getFile('1573144291799-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Bonesplitterz)
-    expect(res.selections.battalions).toEqual(['Big Rukk', 'Brutal Rukk', 'Kop Rukk', 'Teef Rukk'])
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Thermalrider Cloak',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
-  })
-
   it('should work with Armour of Silvered Sigmarite (pt 2)', () => {
     const parsedText = getFile('1573174872898-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -1929,24 +1819,6 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(res.errors).toEqual([])
-  })
-
-  it("should work with Burstin' with Power", () => {
-    const parsedText = getFile('1573012088615-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
-    expect(res.selections.command_traits).toContain("Burstin' with Power")
-    expect(res.errors).toEqual([])
-  })
-
-  it("should work with Burstin' with Power 2", () => {
-    const parsedText = getFile('1573018890027-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
-    expect(res.selections.command_traits).toContain("Burstin' with Power")
     expect(res.errors).toEqual([])
   })
 
@@ -2153,15 +2025,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with Bonesplitterz spells', () => {
-    const parsedText = getFile('1572206506395-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Bonesplitterz)
-    expect(res.errors).toEqual([])
-  })
-
   it('should work with legacy Order units', () => {
     const parsedText = getFile('1572245593799-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -2198,59 +2061,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.factionName).toEqual(SYLVANETH)
     expect(res.errors).toEqual([])
     expect(res.selections.artifacts).toEqual(['Horn of the Consort'])
-  })
-
-  it('should work with Ironjawz allied with Gloomspite Gitz', () => {
-    const parsedText = getFile('1571425644480-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Ironjawz)
-    expect(res.selections.artifacts).toEqual(["Metalrippa's Klaw"])
-    expect(res.allyFactionNames).toEqual([GLOOMSPITE_GITZ])
-    expect(res.allySelections).toEqual({
-      GLOOMSPITE_GITZ: { battalions: [], units: ['Fungoid Cave-Shaman'] },
-    })
-    expect(res.selections.units).toEqual([
-      'Megaboss on Maw-Krusha',
-      'Orruk Megaboss',
-      'Orruk Warchanter',
-      'Orruk Ardboys',
-      'Orruk Brutes',
-      'Orruk Gore-gruntas',
-    ])
-    expect(res.selections.endless_spells).toContain('Scuttletide')
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Thermalrider Cloak',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-      {
-        severity: 'warn',
-        text: 'Wurrgog Prophet',
-      },
-    ])
-  })
-
-  it('should work with Bonesplitterz', () => {
-    const parsedText = getFile('1571329765256-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Bonesplitterz)
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-    ])
   })
 
   it('should work with Grundstock Thunderers', () => {
@@ -2292,23 +2102,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.factionName).toEqual(DESTRUCTION_GRAND_ALLIANCE)
     expect(res.selections.units).toContain('Firebelly')
     expect(res.errors).toEqual([])
-  })
-
-  it("should work with Bonesplitterz Burnin' Tattooz", () => {
-    const parsedText = getFile('1571240331862-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Bonesplitterz)
-    expect(res.selections.flavors).toEqual(['Drakkfoot Clan'])
-    expect(res.selections.artifacts).toEqual(["Burnin' Tattooz"])
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-    ])
   })
 
   it('should work with Cities of Sigmar and allies', () => {
@@ -2356,33 +2149,6 @@ describe('getWarscrollArmyFromJson', () => {
       'Vostarg Warrior Kinband',
       'Warrior Kinband',
     ])
-  })
-
-  it.skip('should work with Voltik', () => {
-    const parsedText = getFile('1571158898802-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(SKAVENTIDE)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should work with Orruk Warboss', () => {
-    const parsedText = getFile('1571165179317-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
-    expect(res.selections.units).toContain('Orruk Warboss')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should work with Orruk Warboss 2', () => {
-    const parsedText = getFile('1571171962804-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
-    expect(res.selections.units).toContain('Orruk Warboss')
-    expect(res.errors).toEqual([])
   })
 
   it('should figure out allies from context clues', () => {

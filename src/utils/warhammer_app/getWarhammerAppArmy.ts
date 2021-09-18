@@ -11,12 +11,13 @@ import { warhammerAppPlaceholders } from './warhammerAppUtils'
 export const getWarhammerAppArmy = (text: string[]): IImportedArmy => {
   const army = getInitialWarhammerAppArmy(text)
   const errorChecked = importErrorChecker(army, WARHAMMER_APP)
-  console.log({ army, errorChecked })
   return errorChecked
 }
 
 const {
   ALLY_SUFFIX,
+  ARMY_NAME_PREFIX,
+  ARMY_NOTES_PREFIX,
   ARTIFACTS_PREFIX,
   BATTALIONS,
   COMMAND_TRAITS_PREFIX,
@@ -27,6 +28,7 @@ const {
   FACTION_NAME_PREFIX,
   FLAVOR_PREFIX,
   GRAND_STRATEGIES_PREFIX,
+  INVALID_LIST,
   MOUNT_TRAITS_PREFIX,
   PRAYERS_PREFIX,
   SCENERY,
@@ -35,16 +37,12 @@ const {
   TRIUMPHS_PREFIX,
   UNITS,
   VALID_LIST,
-  INVALID_LIST,
-  ARMY_NAME_PREFIX,
-  ARMY_NOTES_PREFIX,
 } = warhammerAppPlaceholders
 
 const coreBattalionNames = CoreBattalions.map(x => x.name)
 
 const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(text)
-  // const genericScenery = GenericScenery.map(x => x.name)
 
   let allyUnits: string[] = []
   let factionName = ''

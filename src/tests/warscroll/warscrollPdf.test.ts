@@ -1,4 +1,3 @@
-import { OrrukWarclansFaction } from 'factions/orruk_warclans'
 import { SeraphonFaction } from 'factions/seraphon'
 import { readFileSync } from 'fs'
 import {
@@ -17,7 +16,6 @@ import {
   NURGLE,
   OGOR_MAWTRIBES,
   ORDER_GRAND_ALLIANCE,
-  ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
   SKAVENTIDE,
@@ -155,28 +153,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.units).toContain('Helstorm Rocket Battery')
     expect(res.selections.units).toContain('Sisters of the Thorn')
     expect(res.selections.units).toContain('Steam Tank with Commander')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read New_Ironjawz1', () => {
-    const pdfText = getFile('New_Ironjawz1')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toContain(ORRUK_WARCLANS)
-    expect(res.selections.artifacts).toContain('Destroyer')
-    expect(res.selections.battalions).toContain('Battle Regiment')
-    expect(res.selections.battalions).toContain('Command Entourage')
-    expect(res.selections.flavors).toEqual(['Ironsunz'])
-    expect(res.selections.grand_strategies).toContain('Hold the Line')
-    expect(res.selections.triumphs).toContain('Indomitable')
-    expect(res.selections.units).toEqual([
-      'Gordrakk the Fist of Gork',
-      'Megaboss on Maw-Krusha',
-      "Morgok's Krushas",
-      'Rogue Idol',
-    ])
-    expect(res.subFactionName).toContain('Ironjawz')
     expect(res.errors).toEqual([])
   })
 
@@ -1246,55 +1222,6 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  it('reads a Big Waaagh warscroll pdf file correctly', () => {
-    const pdfText = getFile('BigWaaagh1')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
-    expect(res.selections).toEqual({
-      grand_strategies: [],
-      flavors: [],
-      artifacts: ['Savage Trophy', "Glowin' Tattooz", 'Mystic Waaagh! Paint', 'Kattanak Pelt'],
-      battalions: ["Kunnin' Rukk"],
-      command_abilities: ['Da Big Waaagh!!!', 'Voice of Gork', 'Savage Attack'],
-      endless_spells: [],
-      scenery: [],
-      spells: [
-        "Da Blazin' Eyes",
-        'Brutal Beast Spirits',
-        'Bone Krusha',
-        'Green Puke',
-        'Fists of Gork',
-        'Bone Spirit',
-      ],
-      mount_traits: ["Fast 'Un", "Weird 'Un"],
-      prayers: [],
-      command_traits: ["Dead Kunnin'"],
-      core_rules: [],
-      triumphs: [],
-      units: [
-        'Gordrakk the Fist of Gork',
-        'Orruk Weirdnob Shaman',
-        'Savage Big Boss',
-        'Wurrgog Prophet',
-        'Maniak Weirdnob',
-        'Orruk Ardboys',
-        'Savage Boarboy Maniaks',
-        'Savage Orruk Morboys',
-        "Ironskull's Boyz",
-      ],
-    })
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Amberglaive',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
-  })
-
   it('reads a warscroll pdf file with metadata correctly', () => {
     const pdfText = getFile('SeraphonWithMetadata')
     const parsedText = parsePdf(pdfText)
@@ -1454,44 +1381,6 @@ describe('getWarscrollArmyFromPdf', () => {
         'Khinerai Heartrenders',
         'Sisters of Slaughter',
         'Avatar of Khaine',
-      ],
-    })
-  })
-
-  it('reads an Ironjawz warscroll pdf correctly', () => {
-    const pdfText = getFile('Ironjawz')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Ironjawz)
-    expect(res.selections).toEqual({
-      flavors: ['Da Choppas'],
-      artifacts: ['Destroyer', 'Megaskull Staff'],
-      battalions: [],
-      command_abilities: [
-        'Mighty Destroyers',
-        'Ironjawz Waaaagh!',
-        'Rabble Rouser',
-        'Voice of Gork',
-        'Go on Ladz, Get Stuck In!',
-      ],
-      endless_spells: [],
-      grand_strategies: [],
-      mount_traits: ["Fast 'Un"],
-      prayers: [],
-      scenery: [],
-      spells: [],
-      command_traits: ['Checked Out'],
-      core_rules: [],
-      triumphs: [],
-      units: [
-        'Gordrakk the Fist of Gork',
-        'Megaboss on Maw-Krusha',
-        "Ironskull's Boyz",
-        'Orruk Ardboys',
-        'Orruk Brutes',
-        'Orruk Gore-gruntas',
       ],
     })
   })

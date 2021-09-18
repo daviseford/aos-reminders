@@ -13,7 +13,7 @@ describe('getWarhammerAppArmy', () => {
     const parsedText = getFile('Seraphon1')
     const cleanedText = cleanWarhammerAppText(parsedText)
     const res = getWarhammerAppArmy(cleanedText)
-    console.log(res)
+
     expect(res).toEqual({
       allyFactionNames: [],
       allySelections: {},

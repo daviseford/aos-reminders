@@ -1,56 +1,51 @@
-import { keyPicker } from 'factions/metatagger'
-import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
-import artifacts from './artifacts'
-import command_abilities from './command_abilities'
-import command_traits from './command_traits'
-import spells from './spells'
+import { COMBAT_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 const BonesplitterzFlavors = {
-  'Bonegrinz Clan': {
+  Bonegrinz: {
     mandatory: {
-      artifacts: [keyPicker(artifacts, ['Maw-Krusha Beast Totem'])],
-      command_abilities: [keyPicker(command_abilities, ['Feel da Spirit'])],
-      command_traits: [keyPicker(command_traits, ['A Right Monster'])],
+      // artifacts: [keyPicker(artifacts, ['Maw-Krusha Beast Totem'])],
+      // command_abilities: [keyPicker(command_abilities, ['Feel da Spirit'])],
+      // command_traits: [keyPicker(command_traits, ['A Right Monster'])],
     },
     effects: [
       {
-        name: `Bring it On!`,
-        desc: `Enemy units within 12" of your units must attempt and finish a charge move if they are able. Enemy units within 3" of your units cannot choose to retreat.`,
-        when: [CHARGE_PHASE],
+        name: `Barrage of Arrows`,
+        desc: `Add 1 to the Attacks characteristic of missile weapons used by friendly BONEGRINZ SAVAGE ORRUK ARROWBOYS.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
-  'Icebone Clan': {
+  Icebone: {
     mandatory: {
-      artifacts: [keyPicker(artifacts, ['Kattanak Pelt'])],
-      command_abilities: [keyPicker(command_abilities, ['Freeze and Run'])],
-      command_traits: [keyPicker(command_traits, ['Pure-bred War Boar'])],
+      // artifacts: [keyPicker(artifacts, ['Kattanak Pelt'])],
+      // command_abilities: [keyPicker(command_abilities, ['Freeze and Run'])],
+      // command_traits: [keyPicker(command_traits, ['Pure-bred War Boar'])],
     },
     effects: [
       {
         name: `Freezing Strike`,
-        desc: `Unmodified wound rolls of 6 increase the rend of that attack by 1.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        desc: `If the unmodified wound roll for an attack made with a melee weapon by a friendly ICEBONE model is 6, that attack causes a number of mortal wounds to the target equal to the weapon's Damage characteristic and the attack sequence ends (do not make a save roll).`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
-  'Drakkfoot Clan': {
+  Drakkfoot: {
     mandatory: {
-      artifacts: [keyPicker(artifacts, ["Burnin' Tattooz"])],
-      command_abilities: [keyPicker(command_abilities, ['Shout Down da Magic!'])],
-      spells: [keyPicker(spells, ['Fireball!'])],
+      // artifacts: [keyPicker(artifacts, ["Burnin' Tattooz"])],
+      // command_abilities: [keyPicker(command_abilities, ['Shout Down da Magic!'])],
+      // spells: [keyPicker(spells, ['Fireball!'])],
     },
     effects: [
       {
         name: `Strength of Purpose`,
-        desc: `Units in this clan can ignore the Ethereal save keyword. Also all abilities that negate wounds are ignored whe taking wounds from this clan.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        desc: `Ward rolls cannot be made for wounds and mortal wounds caused by attacks made by. friendly DRAKKFOOT units.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE, SAVES_PHASE],
       },
-      {
-        name: `Fireball!`,
-        desc: `All wizards in the clan know the Fireball spell instead of Arcane Bolt and can cast it.`,
-        when: [HERO_PHASE],
-      },
+      // {
+      //   name: `Fireball!`,
+      //   desc: `All wizards in the clan know the Fireball spell instead of Arcane Bolt and can cast it.`,
+      //   when: [HERO_PHASE],
+      // },
     ],
   },
 }
