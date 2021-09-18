@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import orruk_rule_sources from 'factions/orruk_warclans/rule_sources'
 import meta_rule_sources from 'meta/rule_sources'
 import { TEffects } from 'types/data'
 import {
@@ -200,42 +201,37 @@ const DestructionUnits = {
     effects: [
       {
         name: `Bellow of Rage`,
-        desc: `At the end of each phase, if this model has allocated any wounds that have not been negated, roll a D6 for each unit and defensible terrain within 6" of this model. Each roll succeeds if it is greater than or equal to the value in the damage table. 
-               Success against unit targets inflict D3 mortal wounds, while success against terrain demolishes that terrain. If the terrain was garrisoned, roll a D6 for each model in the garrison unit. On a 1, that model is slain. Place the survivors within 6" of the terrain feature and more than 3" from enemy units.`,
+        desc: `At the end of any phase, if any wounds were allocated to this unit in that phase, roll a dice for each other unit and each defensible terrain feature within 6" of this unit. If the roll is equal to or greater than the Bellow of Rage value shown on this unit's damage table, that unit suffers D3 mortal wounds or that defensible terrain feature is demolished.`,
         when: [DURING_GAME],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [orruk_rule_sources.BATTLETOME_ORRUK_WARCLANS],
       },
       {
         name: `Destroyer of the Draconith Empire`,
-        desc: `You can reroll charge rolls while this model is within 12" of any enemy Stardrakes, Drakes, Dracoths, or Dracolines.`,
-        when: [CHARGE_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
-      },
-      {
-        name: `Destroyer of the Draconith Empire`,
-        desc: `You can reroll hit rolls while this model is within 12" of any enemy Stardrakes, Drakes, Dracoths, or Dracolines.`,
-        when: [COMBAT_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        desc: `You can reroll charge rolls for this unit and hit rolls for attacks made by this unit while it is within 12" of any enemy units with the STARDRAKE, DRACONITH, DRACOTH or DRACOLINE keyword.`,
+        when: [CHARGE_PHASE, COMBAT_PHASE],
+        rule_sources: [orruk_rule_sources.BATTLETOME_ORRUK_WARCLANS],
       },
       {
         name: `Rampaging Destruction`,
-        desc: `After making a charge move, choose to either roll a D6 for each enemy unit within 1" or roll 2D6 against 1 enemy MONSTER within 1".
-               If targeting all units in 1", roll a D6 for each". On a 2+ that unit suffers D6 mortal wounds.
-               If targeting a MONSTER, roll 2D6. No effect on a roll of 7. All other values inflict mortal wounds equal to the roll multiplied together.`,
+        desc: `After this unit makes a charge move, you can either roll a dice for each enemy unit within 1" of this unit or you can pick 1 enemy MONSTER within 1" of this unit and roll 2D6.
+
+        If you roll a dice for each enemy unit within 1" of this unit, on a 2+, that enemy unit suffers D6 mortal wounds.
+
+        If you pick 1 enemy MONSTER within 1" of this unit and roll 2D6, on a 7, nothing happens. On any other roll, that enemy MONSTER suffers a number of mortal wounds equal to the score of the dice used for the 2D6 roll multiplied together. For example, a 2D6 roll of 2 and 6 would inflict 12 mortal wounds (2 x 6 = 12).`,
         when: [CHARGE_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [orruk_rule_sources.BATTLETOME_ORRUK_WARCLANS],
       },
       {
         name: `Icon of Destruction`,
-        desc: `Add 1 to the Bravery characterisitic for friendly DESTRUCTION models wholly within 12" of this model.`,
+        desc: `Add 1 to the Bravery characteristic of friendly DESTRUCTION units while they are wholly within 12" of this unit.`,
         when: [DURING_GAME],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [orruk_rule_sources.BATTLETOME_ORRUK_WARCLANS],
       },
       {
         name: `The Shield Inviolate`,
-        desc: `Roll 3D6 each time this model is affected by a spell or endless spell. If the roll is a greater than the casting value on the spell's warscroll, it has no effect on this model.`,
+        desc: `Each time this unit is affected by a spell or the ability of an endless spell, you can roll 3D6. If the roll is greater than the casting value of that spell or the spell used to summon that endless spell, ignore the effects of that spell or the ability of that endless spell on this unit.`,
         when: [HERO_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        rule_sources: [orruk_rule_sources.BATTLETOME_ORRUK_WARCLANS],
       },
       {
         name: `Warmaster`,

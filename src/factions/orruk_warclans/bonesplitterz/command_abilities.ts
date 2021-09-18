@@ -34,20 +34,20 @@ const BonesplitterzCommandAbilities = {
     effects: [
       {
         name: `Shout Down da Magic!`,
-        desc: `If an enemy wizard casts a spell you may pick a unit with 10+ models and wholly within 18" of a friendly Wurrgog prophet or Wardokk, that unit can attempt to unbind that spell. +1 to unbind if the unit has 20 or more models.`,
+        desc: `If an enemy wizard casts a spell you may pick a unit with 10+ models and wholly within 18" of a friendly Wurrgog Prophet or Wardokk, that unit can attempt to unbind that spell. +1 to unbind if the unit has 20 or more models.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Savage Attack': {
-    effects: [
-      {
-        name: `Savage Attack`,
-        desc: `Pick 1 friendly BONESPLITTERZ unit wholly within 12" of a friendly model with this command ability. Until the end of that phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
+  // 'Savage Attack': {
+  //   effects: [
+  //     {
+  //       name: `Savage Attack`,
+  //       desc: `Pick 1 friendly BONESPLITTERZ unit wholly within 12" of a friendly model with this command ability. Until the end of that phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1. A unit cannot benefit from this command ability more than once per phase.`,
+  //       when: [START_OF_COMBAT_PHASE],
+  //     },
+  //   ],
+  // },
 }
 
 export default tagAs(BonesplitterzCommandAbilities, 'command_ability')

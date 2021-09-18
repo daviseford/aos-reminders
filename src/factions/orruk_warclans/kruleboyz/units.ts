@@ -5,7 +5,9 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
@@ -91,16 +93,6 @@ const KruleboyzUnits = {
       },
     ],
   },
-  'Killaboss on Great Gnashtoof': {
-    effects: [
-      AllPartOfDaPlanEffect,
-      {
-        name: `Savage Hound`,
-        desc: `Add 1 to hit rolls for attacks made by this unit if this unit made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
   'Swampcalla Shaman and Pot-grot': {
     mandatory: {
       spells: [keyPicker(spells, ['Summon Boggy Mist'])],
@@ -122,14 +114,34 @@ const KruleboyzUnits = {
       },
     ],
   },
+  'Killaboss on Great Gnashtoof': {
+    effects: [
+      AllPartOfDaPlanEffect,
+      {
+        name: `Savage Hound`,
+        desc: `Add 1 to hit rolls for attacks made by this unit if this unit made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Killaboss on Corpse-rippa Vulcha': {
+    effects: [
+      AllPartOfDaPlanEffect,
+      {
+        name: `Commanding View`,
+        desc: `You can use the same command ability more than once in the same phase if you pick this unit to issue the command (this unit still cannot issue more than 1 command in the same phase and a unit still cannot receive more than 1 command in the same phase).`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
   'Killaboss with Stab-grot': {
     effects: [
+      AllPartOfDaPlanEffect,
       {
         name: `Companion`,
         desc: `Killaboss is accompanied by a Stab-grot that attacks with its Prized Shiv. The Stab-grot must remain within 1" of the Killaboss. For rules purposes, the Killaboss and Stab-grot are treated as a single model.`,
         when: [DURING_GAME],
       },
-      AllPartOfDaPlanEffect,
       {
         name: `You Hold 'Em Off`,
         desc: `Each time a wound or mortal wound is allocated to this unit and not negated, you can choose to risk this unit's Stab-grot. If you do so. you must roll a dice. On a 1-5, the Stab-grot is killed and the wound is negated. On a 6 the Stab-grot is not killed and the wound is negated. If the Stab-grot is killed, the model representing it is removed from play before the wound is negated.`,
@@ -191,7 +203,7 @@ const KruleboyzUnits = {
       },
       {
         name: `Mouth of Mork`,
-        desc: `If this unit issues the Redeploy command to a Kruleboyz unit, you can re-roll the dice that determines the distance the unit that receives the command can move.`,
+        desc: `If this unit issues the Redeploy command to a Kruleboyz unit, you can reroll the dice that determines the distance the unit that receives the command can move.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -202,6 +214,64 @@ const KruleboyzUnits = {
       {
         name: `Screamin' Mandrakk`,
         desc: `Once per battle, when this unit attempts to unbind a spell, you can say that it is using its Screamin' Mandrakk. If you do so, the unbinding roll for that attempt is made with 3D6 instead of 2D6.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Snatchaboss on Sludgeraker Beast': {
+    effects: [
+      {
+        name: `Sludgeraker Venom`,
+        desc: `Add 1 to the number of mortal wounds caused by the Venom-encrusted Weapons battle trait if the unmodified hit roll was 6 and the attacking unit is wholly within 12" of any friendly units with this ability.
+        
+        Designer's Note: If a unit is affected by this ability and has been given a poison from the Swampcalla Shaman's Poisons and Elixirs ability, this ability does not affect unmodified hit rolls of 5 and only affects unmodified hit rolls of 6.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Snatch and Grab`,
+        desc: `Once per battle, at the end of the combat phase, you can pick 1 enemy model that has a Wounds characteristic of 7 or less, does not have a mount and is within 3" of this unit, and roll 2D6. If the roll is greater than that enemy model's Wounds characteristic, it is slain.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Swampboss Skumdrekk': {
+    effects: [
+      {
+        name: `Bet-master`,
+        desc: `If this unit is part of your army, after deployment but before the first battle round begins, you can pick 1 friendly Hobgrot unit to be the Kountin' Krew and 1 friendly unit to be the bet. You cannot pick this unit or the Kountin' Krew to be the bet.
+
+        If the bet is the first friendly unit to be destroyed during the battle, you can pick 1 extra triumph enhancement for your army that can be used during the battle and even if the points total of your army is not less than that of your opponent's army. The unit that is chosen to benefit from the triumph must be either this unit or the Kountin' Krew.`,
+        when: [END_OF_SETUP],
+      },
+      {
+        name: `Sludgeraker Venom`,
+        desc: `Add 1 to the number of mortal wounds caused by the Venom-encrusted Weapons battle trait if the unmodified hit roll was 6 and the attacking unit is wholly within 12" of any friendly units with this ability.
+
+        Designer's Note: If a unit is affected by this ability and has been given a poison from the Swampcalla Shaman's Poisons and Elixirs ability, this ability does not affect unmodified hit rolls of 5 and only affects unmodified hit rolls of 6.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Expert Snatch and Grab`,
+        desc: `Once per battle, at the end of the combat phase, you can pick enemy model that has a Wounds characteristic of 7 or less, does not have a mount and is within 3" of this unit, and roll 2D6. If the roll is equal to or greater than that enemy model's Wounds characteristic, it is slain.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Marshcrawla Sloggoth': {
+    effects: [
+      {
+        name: `Grot Snatcha-krew`,
+        desc: `At the end of the combat phase, you can pick 1 enemy model within 2" of this unit and roll a dice. If the roll is at least double that model's Wounds characteristic, it is slain.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Krew Drummer`,
+        desc: `Add 1 to hit rolls for attacks made with melee weapons by friendly units that are wholly within 18" of any friendly units with this ability.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Regeneration`,
+        desc: `In your hero phase, you can roll a dice for this unit. If you do so, on a 4+, heal up to D3 wounds allocated to this unit.`,
         when: [HERO_PHASE],
       },
     ],

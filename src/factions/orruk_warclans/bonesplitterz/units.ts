@@ -5,49 +5,35 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   HERO_PHASE,
-  MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import command_abilities from './command_abilities'
 import spells from './spells'
 
+const PrimalSurgeEffect = {
+  name: `Primal Surge`,
+  desc: `Add 1 to wound rolls for attacks made by this unit if this unit made a charge move in the same turn.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
 const TuskerChargeEffect = {
   name: `Tusker Charge`,
-  desc: `Add 1 to hit rolls and wound rolls for attacks made with this unit's Tusks and Hooves if this unit made a charge move in the same turn.`,
+  desc: `Add 1 to hit rolls and wound rolls for attacks made with Tusks and Hooves by this unit if this unit made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
   shared: true,
 }
 const SkullThumperEffect = {
-  name: `Skull Thumper`,
-  desc: `Add 2 to charge rolls for a unit while it includes any Skull Thumpers.`,
-  when: [CHARGE_PHASE],
-  shared: true,
-}
-const BoarThumperEffect = {
-  name: `Boar Thumper`,
-  desc: `Add 2 to charge rolls for a unit while it includes any Boar Thumpers.`,
+  name: `Musician`,
+  desc: `You can add 1 to charge rolls for a unit that includes any Skull Thumpers.`,
   when: [CHARGE_PHASE],
   shared: true,
 }
 const BoneTotemBearerEffect = {
-  name: `Bone Totem Bearer`,
-  desc: `Add 1 to the Bravery characteristic of a unit while it includes any Bone Totem Bearers.`,
+  name: `Standard Bearer`,
+  desc: `Add 1 to the Bravery characteristic of a unit that includes any Bone Totem Bearers. Musician`,
   when: [BATTLESHOCK_PHASE],
-  shared: true,
-}
-const SpiritOfGorkamorkaEffect = {
-  name: `Spirit of Gorkamorka`,
-  desc: `Add 1 to the Attacks characteristic of melee weapons used by this unit while it has 15 or more models.`,
-  when: [COMBAT_PHASE],
-  shared: true,
-}
-const BoneShieldEffect = {
-  name: `Bone Shield`,
-  desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit.`,
-  when: [SAVES_PHASE],
   shared: true,
 }
 
@@ -58,13 +44,10 @@ const BonesplitterzUnits = {
     },
     effects: [
       {
-        name: `Beast Mask`,
-        desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this model.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Prophet of da Waaagh!`,
-        desc: `Roll a D6. On a 4+, you receive 1 command point.`,
+        name: `Wurrgog Mask`,
+        desc: `At the start of your hero phase, instead of attempting to dispel an endless spell or cast any spells with this unit in that phase, you can pick 1 enemy unit within 12" of this unit that is visible it and roll a dice. On a 3+, that enemy unit suffers D3 mortal wounds.
+
+        If you wish, you can say that this unit will continue staring at the enemy unit. If you do so, roll an additional dice. On a 3+, the enemy unit suffers D3 mortal wounds, but on a 1-2, this unit suffers D6 mortal wounds. You can keep rolling additional dice in this way until the enemy unit is destroyed, this unit is destroyed or you decide to stop.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -83,13 +66,10 @@ const BonesplitterzUnits = {
     ],
   },
   'Savage Big Boss': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Savage Attack'])],
-    },
     effects: [
       {
         name: `Let Me at 'Em`,
-        desc: `After this model has fought in a combat phase for the first time, you can pick 1 friendly BONESPLITTERZ unit that has not yet fought in that combat phase, that is within 3" of an enemy unit and that is wholly within 12" of this model. That unit fights immediately, before the opposing player picks a unit to fight in that combat phase. That unit cannot fight again in that combat phase unless an ability or spell allows it to fight more than once.`,
+        desc: `After this unit has fought in the combat phase for the first time, you can pick 1 friendly BONESPLITTERZ unit that has not yet fought in that combat phase, that is within 3" of an enemy unit and that is wholly within 12" of this unit. That unit fights immediately.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -98,11 +78,13 @@ const BonesplitterzUnits = {
     effects: [
       {
         name: `Ritual Dance`,
-        desc: `At the start of your hero phase, you can say that this model is performing one of the following dances:
+        desc: `At the start of your hero phase, instead of attempting to dispel an endless spell or cast any spells with this unit in that phase, you can say that it is performing 1 of the following dances:
 
-        Grimdokk Dance: Pick 1 friendly BONESPLITTERZ model within 12" of this model and roll a D6. On a 3+, you can heal up to D3 wounds allocated to that model.
-        Glyphdokk Dance: Pick 1 friendly BONESPLITTERZ unit wholly within 12" of this model and roll a D6. On a 3+, add 1 to save rolls for attacks that target that unit until your next hero phase. A unit cannot benefit from this ability more than once per phase.
-        Weirddokk Dance: Pick 1 friendly BONESPLITTERZ WIZARD wholly within 12" of this model and roll a D6. On a 3+, add 1 to casting, dispelling and unbinding rolls for that WIZARD until your next hero phase. A unit cannot benefit from this ability more than once per phase.`,
+        Grimdokk Dance: Pick 1 friendly BONESPLITTERZ model within 12" of this unit and roll a dice. On a 3+, heal up to D3 wounds allocated to that model.
+
+        Glyphdokk Dance: Pick 1 friendly BONESPLITTERZ unit wholly within 12" of this unit and roll a dice. On a 3+, add 1 to save rolls for attacks that target that unit until your next hero phase. A unit cannot be affected by this dance more than once per phase.
+
+        Weirddokk Dance: Pick 1 friendly BONESPLITTERZ WIZARD within 12" of this unit and roll a dice. On a 3+, add 1 to casting, dispelling and unbinding rolls for that WIZARD until your next hero phase. A unit cannot be affected by this dance more than once per phase.`,
         when: [START_OF_HERO_PHASE],
       },
       {
@@ -118,36 +100,35 @@ const BonesplitterzUnits = {
     ],
   },
   'Savage Orruks': {
-    effects: [SkullThumperEffect, BoneTotemBearerEffect, SpiritOfGorkamorkaEffect, BoneShieldEffect],
+    effects: [
+      SkullThumperEffect,
+      BoneTotemBearerEffect,
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Savage Boss. Add 1 to the Attacks characteristic of that model's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      PrimalSurgeEffect,
+    ],
   },
   'Savage Boarboys': {
     effects: [
-      BoarThumperEffect,
       BoneTotemBearerEffect,
+      SkullThumperEffect,
+      TuskerChargeEffect,
       {
-        name: `Boarboy Charge`,
-        desc: `Add 1 to hit rolls and would rolls for attacks made with this unit's Savage Stikkas and Tusks and Hooves if this unit made a charge move in the same turn.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Savage Boar Boss. Add 1 to the Attacks characteristic of that model's melee weapons, excluding those of its mount.`,
         when: [COMBAT_PHASE],
       },
-      BoneShieldEffect,
     ],
   },
   'Savage Big Stabbas': {
     effects: [
       {
-        name: `The Bigger They Are...`,
-        desc: `The Damage characteristic of an attack made with a Gorktoof is D6 if the target is a MONSTER.`,
-        when: [COMBAT_PHASE],
-      },
-      {
         name: `Da Final Fling`,
-        desc: `Each time a model from this unit is slain by an attack made with a melee weapon, before the model is removed from play, pick 1 enemy unit within 3" of the slain model and roll a D6. Add 2 to the roll if that enemy unit is a MONSTER. On a 4+, that unit suffers D3 mortal wounds.`,
+        desc: `Each time a model in this unit is slain by an attack made with a melee weapon, before the model is removed from play, pick 1 enemy unit within 3" of the slain model and roll a dice. Add 2 to the roll if that enemy unit is a MONSTER. On a 4+, that enemy unit suffers D3 mortal wounds.`,
         when: [WOUND_ALLOCATION_PHASE],
-      },
-      {
-        name: `Savagely Enthusiastic`,
-        desc: `This unit can run and still charge in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
@@ -156,23 +137,32 @@ const BonesplitterzUnits = {
       SkullThumperEffect,
       BoneTotemBearerEffect,
       {
-        name: `Power of the Beast Spirit`,
-        desc: `Add 1 to the hit rolls for attacks made with melee weaspon by this unit if any enemy MONSTERS have been slain.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Savage Morboy Boss. Add 1 to the Attacks characteristic of that model's melee weapons.`,
         when: [COMBAT_PHASE],
       },
-      SpiritOfGorkamorkaEffect,
+      {
+        name: `Morboy Fury`,
+        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if this unit made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
     ],
   },
   'Savage Boarboy Maniaks': {
     effects: [
-      BoarThumperEffect,
       BoneTotemBearerEffect,
+      SkullThumperEffect,
+      TuskerChargeEffect,
       {
-        name: `Maniak Fury`,
-        desc: `Add 1 to the Attacks characteristic of this unit's Pairs of Chompas while it has 5 or more models.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Savage Boar Boss Maniak. Add 1 to the Attacks characteristic of that model's melee weapons, excluding those of its mount.`,
         when: [COMBAT_PHASE],
       },
-      TuskerChargeEffect,
+      {
+        name: `Maniak Fury`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Chompas if this unit made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
     ],
   },
   'Savage Orruk Arrowboys': {
@@ -180,17 +170,55 @@ const BonesplitterzUnits = {
       SkullThumperEffect,
       BoneTotemBearerEffect,
       {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Savage Arrow Boss. Replace that model's Bone Shiv with a Chompa.`,
+        when: [COMBAT_PHASE],
+      },
+      {
         name: `Aim Fer Its Eyes`,
         desc: `Improve the Rend characteristic of an attack made with a Stinga Bow by 1 if the target is a MONSTER.`,
         when: [SHOOTING_PHASE],
       },
+    ],
+  },
+  'Hedrakka, Gob of Gork': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Bone Krusha'])],
+    },
+    effects: [
       {
-        name: `Loads Arrows`,
-        desc: `Add 1 to the Attacks characteristic of missile weapons used by this unit while it has 15 or more models.`,
-        when: [SHOOTING_PHASE],
+        name: `Wizard`,
+        desc: `This unit can attempt to cast 2 spells in your hero phase and attempt to unbind 2 spells in the enemy hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Gobby Mask`,
+        desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this unit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `An Eye for Weakness`,
+        desc: `In your hero phase, you can pick 1 enemy unit within 18" of this unit and visible to it. Until your next hero phase, add 1 to hit rolls for attacks made by this unit that target that enemy unit. In addition, until your next hero phase, add 1 to hit rolls for attacks made by a friendly Hedkrakka's Madmob unit that target that enemy unit.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Venomous Bite`,
+        desc: `If the unmodified hit roll for an attack made with this unit's Fanged Maw is 6, the target suffers 1 mortal wound and the attack sequence ends (do not make a wound roll or save roll).`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
+  "Hedrakka's Madmob": {
+    effects: [
+      PrimalSurgeEffect,
+      {
+        name: `Da Mad Mob`,
+        desc: `If a friendly Hedkrakka is within 3" of this unit, before you allocate a wound or mortal wound to him, or instead of making a ward roll for him, you can roll a dice. On a 4+, that wound is allocated to this unit instead and cannot be negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+
   ...keyPicker(DestructionUnits, ['Rogue Idol']),
 }
 

@@ -11,15 +11,6 @@ const IronjawzCommandAbilities = {
       },
     ],
   },
-  'Voice of Gork': {
-    effects: [
-      {
-        name: `Voice of Gork`,
-        desc: `Pick up to 3 friendly DESTRUCTION units wholly within 24" of this model. Until the end of that phase, add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase, and a unit cannot benefit from this ability and the Go on Ladz, Get Stuck In! ability in the same phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
   'Mighty Destroyers': {
     effects: [
       {
@@ -47,6 +38,15 @@ const IronjawzCommandAbilities = {
   },
 
   // Removed in 2021
+  // 'Voice of Gork': {
+  //   effects: [
+  //     {
+  //       name: `Voice of Gork`,
+  //       desc: `Pick up to 3 friendly DESTRUCTION units wholly within 24" of this model. Until the end of that phase, add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase, and a unit cannot benefit from this ability and the Go on Ladz, Get Stuck In! ability in the same phase.`,
+  //       when: [START_OF_COMBAT_PHASE],
+  //     },
+  //   ],
+  // },
   // 'Drawn to the Waaagh!': {
   //   effects: [
   //     {

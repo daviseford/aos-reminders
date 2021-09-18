@@ -6,7 +6,7 @@ const IronjawzSpells = {
     effects: [
       {
         name: `Green Puke`,
-        desc: `Casting value of 6. Pick 1 point on the battlefield within 2D6" of the caster that is visible to them, and draw an imaginary straight line 1mm wide between that point and the closest part of the caster's base. Each unit that has models passed across by this line suffers D3 mortal wounds.`,
+        desc: `Casting value of 6 and a range of 2D6". If successfully cast, pick 1 point on the battlefield within range and visible to the caster. Draw a straight line between that point and the closest point on the caster's base. Each unit that has models passed across by that line suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],

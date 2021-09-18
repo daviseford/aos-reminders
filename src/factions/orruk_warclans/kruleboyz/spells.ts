@@ -2,7 +2,6 @@ import { tagAs } from 'factions/metatagger'
 import { CHARGE_PHASE, HERO_PHASE } from 'types/phases'
 
 const KruleboyzSpells = {
-
   // Lore of the Swamp
   'Summon Boggy Mist': {
     effects: [

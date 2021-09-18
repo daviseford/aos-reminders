@@ -1,5 +1,4 @@
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
-import { OrrukWarclansFaction } from 'factions/orruk_warclans'
 import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
 import { readFileSync } from 'fs'
@@ -18,7 +17,6 @@ import {
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
-  ORRUK_WARCLANS,
   SERAPHON,
   SKAVENTIDE,
   SLAANESH,
@@ -144,13 +142,6 @@ describe('getBattlescribeArmy', () => {
   it('should correctly read 1625965144984-Battlescribe', () => {
     const parsedText = getFile('1625965144984-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1625978921488-Battlescribe', () => {
-    const parsedText = getFile('1625978921488-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.artifacts).toContain('Vial of Manticore Venom')
     expect(res.errors).toEqual([])
   })
 
@@ -1318,12 +1309,6 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
-  it('should work with BigWaaagh4', () => {
-    const parsedText = getFile('BigWaaagh4')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.spells).toContain('Fireball!')
-    expect(res.errors).toEqual([])
-  })
   it('should work with LoG1 2', () => {
     const parsedText = getFile('LoG1')
     const res = getBattlescribeArmy(parsedText)
@@ -1517,16 +1502,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with Ironjawz1', () => {
-    const parsedText = getFile('Ironjawz1')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Ironjawz)
-    expect(res.selections.flavors).toEqual(['Da Choppas'])
-    expect(res.errors).toEqual([])
-  })
-
   it('should work with Mawtribes3', () => {
     const parsedText = getFile('Mawtribes3')
     const res = getBattlescribeArmy(parsedText)
@@ -1659,15 +1634,6 @@ describe('getBattlescribeArmy', () => {
         text: 'Kayzk the Befouled',
       },
     ])
-  })
-
-  it('should work with Ironjawz2', () => {
-    const parsedText = getFile('Ironjawz2')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Ironjawz)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Fyreslayers4', () => {
@@ -1828,28 +1794,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(NURGLE)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should work with BigWaaagh3', () => {
-    const parsedText = getFile('BigWaaagh3')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
-    expect(res.selections.flavors).toEqual([])
-    expect(res.selections.spells).toContain('Fireball!')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should work with BigWaaagh1', () => {
-    const parsedText = getFile('BigWaaagh1')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
-    expect(res.selections.flavors).toEqual([])
-    expect(res.selections.spells).toContain('Fireball!')
     expect(res.errors).toEqual([])
   })
 
@@ -2482,17 +2426,6 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
-  it('should work with BigWaaagh2', () => {
-    const parsedText = getFile('BigWaaagh2')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap['Big Waaagh'])
-    expect(res.selections.spells).toContain("Mighty 'Eadbutt")
-    expect(res.selections.spells).toContain('Fireball!')
-    expect(res.errors).toEqual([])
-  })
-
   it('should work with GHoN2', () => {
     const parsedText = getFile('GHoN2')
     const res = getBattlescribeArmy(parsedText)
@@ -2540,16 +2473,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
     expect(res.selections.flavors).toEqual(['Dhom Hain', 'Nautilar', "Mor'phann", 'Fuethan', 'Briomdar'])
     expect(res.errors).toEqual([])
-  })
-
-  it('should work with Bonesplitterz1', () => {
-    const parsedText = getFile('Bonesplitterz1')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(ORRUK_WARCLANS)
-    expect(res.subFactionName).toEqual(OrrukWarclansFaction.subFactionKeyMap.Bonesplitterz)
-    // This is characterized as a Super Battalion by Battlescribe (old version, pre Big Waaagh)
-    expect(res.errors).toEqual([{ text: 'Icebone Warclan', severity: 'warn' }])
   })
 
   it('should work with Gloomspite1', () => {

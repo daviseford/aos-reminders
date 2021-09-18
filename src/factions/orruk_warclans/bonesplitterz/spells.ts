@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
 
 const BonesplitterzSpells = {
+  // Lore
   'Squiggly Curse': {
     effects: [
       {
@@ -60,13 +61,24 @@ const BonesplitterzSpells = {
     effects: [
       {
         name: `Fists of Gork`,
-        desc: `Casting value of 5. Pick 1 enemy unit within 24" of the caster that is visible to them, and roll a number of dice equal to the number of models in that unit. For each 6, that unit suffers 1 mortal wound. If the casting roll was 10+, inflict 1 mortal wound for each 4+ instead of each 6.`,
+        desc: `Casting value of 5 and a range of 24". If successfully cast, pick 1 enemy unit within range and visible to the caster, and roll a number of dice equal to the number of models in that unit. For each 6, that unit suffers 1 mortal wound. If the casting roll was 10+, that unit suffers 1 mortal wound for each 4+ instead of each 6.`,
         when: [HERO_PHASE],
       },
     ],
   },
 
-  // Seem to have been removed in Orruk Warclans 2021 battletome
+  // Unit spells
+  'Bone Krusha': {
+    effects: [
+      {
+        name: `Bone Krusha`,
+        desc: `Casting value of 6 and a range of 24". If successfully cast, pick 1 enemy unit within range and visible to the caster. If that unit is within 6" of the caster, it suffers D6 mortal wounds. If that unit is more than 6" from and within 12" of the caster, it suffers D3 mortal wounds. If that unit is more than 12" from the caster, it suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+
+  // Removed in 2021
   // 'Breath of Gorkamorka': {
   //   effects: [
   //     {
