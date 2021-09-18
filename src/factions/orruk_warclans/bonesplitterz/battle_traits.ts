@@ -1,35 +1,36 @@
 import { tagAs } from 'factions/metatagger'
-import { BATTLESHOCK_PHASE, COMBAT_PHASE, START_OF_GAME, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import { COMBAT_PHASE, START_OF_COMBAT_PHASE, START_OF_GAME, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 const BonesplitterzBattleTraits = {
   Warpaint: {
     effects: [
       {
         name: `Warpaint`,
-        desc: `When a model in this army is allocated a wound or mortal wound roll a D6. On a 6+, that wound or mortal wound is negated.`,
+        desc: `Friendly BONESPLITTERZ units have a ward of 6+.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
-  'Monster Hunters': {
+  'Bonesplitterz Waaagh!': {
     effects: [
       {
-        name: `Monster Hunters`,
-        desc: `If a Bonesplitterz unit is chosen to make its attacks and it is within 3" of an enemy MONSTER, you can choose one of the benefits below before piling in.
-
-      - Wild Abandon: The unit can pile in 6" this phase.
-      - Stab! Stab! Stab!: Add 1 to hit rolls for attacks against a MONSTER this phase.
-      - Berserk Strength: Each time a model in this unit rolls an unmodified wound roll of 6 against a MONSTER, the MONSTER suffers a mortal wound in addition to the normal damage.`,
-        when: [COMBAT_PHASE],
+        name: `Bonesplitterz Waaagh!`,
+        desc: `Once per battle, at the start of the combat phase, you can pick 1 friendly BONESPLITTERZ general on the battlefield and say that they are calling a Bonesplitterz Waaagh!. If you do so, until the end of that phase, friendly BONESPLITTERZ units have a ward of 4+ instead of 6+.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Bonesplitterz Waaagh!`,
+        desc: `If active, friendly BONESPLITTERZ units have a ward of 4+ instead of 6+.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
-  'Spirit of the Beast': {
+  'Spirit of Gorkamorka': {
     effects: [
       {
-        name: `Spirit of the Beast`,
-        desc: `Do not take Battleshock tests for a Bonesplitterz unit if any enemy MONSTERS were slain by that unit in the same turn.`,
-        when: [BATTLESHOCK_PHASE],
+        name: `Spirit of Gorkamorka`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon by a friendly BONESPLITTERZ unit that has 5 or more models is 6, that attack scores 2 hits on the target instead of 1 (make a wound roll and save roll for each hit).`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -37,7 +38,7 @@ const BonesplitterzBattleTraits = {
     effects: [
       {
         name: `Tireless Trackers`,
-        desc: `After armies are set up, but before the first battle round begins, half the Bonesplitterz units in a Bonesplitterz army (rounding up) can move up to 5". If both players can move units before the first battle round begins, they must roll-off, and the winner chooses who moves their units first.`,
+        desc: `After deployment but before the first battle round begins, half of the BONESPLITTERZ units in your army (rounding up) can move up to 5". If both players can move units before the first battle round begins, they must roll off, and the winner chooses who moves their units first.`,
         when: [START_OF_GAME],
       },
     ],

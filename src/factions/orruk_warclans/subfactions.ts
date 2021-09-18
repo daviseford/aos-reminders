@@ -53,8 +53,8 @@ const subFactions = {
   Bonesplitterz: {
     effects: [
       ...pickEffects(BonesplitterzBattleTraits, [
-        'Monster Hunters',
-        'Spirit of the Beast',
+        'Bonesplitterz Waaagh!',
+        'Spirit of Gorkamorka',
         'Tireless Trackers',
         'Warpaint',
       ]),

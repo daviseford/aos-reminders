@@ -589,7 +589,7 @@ const traitToSpellMapper = [
   'Blood Sigil -',
   'Dark Acolyte -',
   'Druid of the Everspring -',
-  'Fuelled by the Spirits -',
+  'One Wiv Da Beast -',
   'Loremaster -',
   'Midnight Tome -',
   'One with Fire and Ice -',
