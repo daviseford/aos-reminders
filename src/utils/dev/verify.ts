@@ -84,6 +84,7 @@ const phaseMap = {
   'reroll save roll': SAVES_PHASE,
   'to save roll': SAVES_PHASE,
   'Worsen the rend of': SAVES_PHASE,
+  'have a ward of': SAVES_PHASE,
 }
 
 // Effect names that are flagged by the script, but have been verified and should be ignored for the phase checking

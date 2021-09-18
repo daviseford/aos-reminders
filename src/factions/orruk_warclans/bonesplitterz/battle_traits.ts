@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { COMBAT_PHASE, START_OF_COMBAT_PHASE, START_OF_GAME, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import { COMBAT_PHASE, SAVES_PHASE, START_OF_COMBAT_PHASE, START_OF_GAME } from 'types/phases'
 
 const BonesplitterzBattleTraits = {
   Warpaint: {
@@ -7,7 +7,7 @@ const BonesplitterzBattleTraits = {
       {
         name: `Warpaint`,
         desc: `Friendly BONESPLITTERZ units have a ward of 6+.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -21,7 +21,7 @@ const BonesplitterzBattleTraits = {
       {
         name: `Bonesplitterz Waaagh!`,
         desc: `If active, friendly BONESPLITTERZ units have a ward of 4+ instead of 6+.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
