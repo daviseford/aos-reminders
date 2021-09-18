@@ -53,8 +53,6 @@ const KruleboyzSpells = {
       },
     ],
   },
-
- 
 }
 
 export default tagAs(KruleboyzSpells, 'spell')

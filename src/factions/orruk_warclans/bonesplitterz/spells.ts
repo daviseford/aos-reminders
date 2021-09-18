@@ -55,7 +55,7 @@ const BonesplitterzSpells = {
         when: [HERO_PHASE],
       },
     ],
-  }, 
+  },
   'Fists of Gork': {
     effects: [
       {

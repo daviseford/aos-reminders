@@ -10,7 +10,6 @@ import {
   SAVES_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from '../rule_sources'
 import command_abilities from './command_abilities'
 import spells from './spells'
 
@@ -19,7 +18,6 @@ const MegabossEffects = [
     name: `Rip-toof Fist`,
     desc: `If the unmodified save roll for an attack made with a melee weapon that targets a model with a Riptoof-fist is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
     when: [SAVES_PHASE],
-    rule_sources: [rule_sources.BATTLETOME_ORRUK_WARCLANS, rule_sources.ERRATA_ORRUK_WARCLANS_JULY_2021],
     shared: true,
   },
   {

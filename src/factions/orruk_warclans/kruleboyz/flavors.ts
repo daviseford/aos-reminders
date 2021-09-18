@@ -1,4 +1,4 @@
-import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
+import { COMBAT_PHASE, SHOOTING_PHASE, TURN_ONE_DURING_ROUND, TURN_ONE_SHOOTING_PHASE } from 'types/phases'
 
 const KruleboyzFlavors = {
   "Grinnin' Blades": {
@@ -9,9 +9,9 @@ const KruleboyzFlavors = {
     },
     effects: [
       {
-        name: `Bring it On!`,
-        desc: `Enemy units within 12" of your units must attempt and finish a charge move if they are able. Enemy units within 3" of your units cannot choose to retreat.`,
-        when: [CHARGE_PHASE],
+        name: `Out of the Mists`,
+        desc: `During the first battle round, friendly GRINNIN' BLADES units are not visible to enemy models that are more than 12" away from them.`,
+        when: [TURN_ONE_DURING_ROUND],
       },
     ],
   },
@@ -23,9 +23,14 @@ const KruleboyzFlavors = {
     },
     effects: [
       {
-        name: `Freezing Strike`,
-        desc: `Unmodified wound rolls of 6 increase the rend of that attack by 1.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        name: `Only Da Best`,
+        desc: `Add 3" to the Range characteristic of missile weapons used by friendly BIG YELLERS ORRUK units.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Only Da Best`,
+        desc: `In the first battle round, each time a friendly BIG YELLERS ORRUK unit shoots, you can reroll 1 of the hit rolls for 1 of the attacks made by that unit.`,
+        when: [TURN_ONE_SHOOTING_PHASE],
       },
     ],
   },
@@ -37,14 +42,9 @@ const KruleboyzFlavors = {
     },
     effects: [
       {
-        name: `Strength of Purpose`,
-        desc: `Units in this clan can ignore the Ethereal save keyword. Also all abilities that negate wounds are ignored whe taking wounds from this clan.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-      {
-        name: `Fireball!`,
-        desc: `All wizards in the clan know the Fireball spell instead of Arcane Bolt and can cast it.`,
-        when: [HERO_PHASE],
+        name: `Crawly Swarm`,
+        desc: `When an enemy unit is picked to fight, roll a dice if it is within 3" of any friendly SKULBUGZ units. Add 2 to the roll if that enemy unit is within 3" of any friendly SKULBUGZ MONSTERS. On a roll of 6+, subtract 1 from hit rolls for attacks made by that enemy unit in that phase.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
