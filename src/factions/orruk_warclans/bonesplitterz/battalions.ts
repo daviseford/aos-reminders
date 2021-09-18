@@ -15,7 +15,7 @@ const BonesplitterzBattalions = {
     effects: [
       {
         name: `Savage Weird Power`,
-        desc: `Pick 1 Wardokk from this battalion that is wholly within 18" of 2 or more units from this same battalion that each have 10 or more models. That Wardokk can attempt to cast the Fists of Gork spell from the Wurrgog Prophet warscroll in that phase in addtion to any other spells it can cast.`,
+        desc: `Pick 1 Wardokk from this battalion that is wholly within 18" of 2 or more units from this same battalion that each have 10 or more models. That Wardokk can attempt to cast the Fists of Gork spell from the Wurrgog Prophet warscroll in that phase in addition to any other spells it can cast.`,
         when: [HERO_PHASE],
       },
     ],

@@ -206,7 +206,7 @@ const Units = {
       },
       {
         name: `Early One Evening My Pustule Was Seeping (Tune)`,
-        desc: `Unmodified hit rolls of 6 made by friendly Nurgle Daemon units wholly within 14" of any friendly Sloppity Bilepipers playing this tune inflict 1 mortal wound in addtion to normal damage.`,
+        desc: `Unmodified hit rolls of 6 made by friendly Nurgle Daemon units wholly within 14" of any friendly Sloppity Bilepipers playing this tune inflict 1 mortal wound in addition to normal damage.`,
         when: [COMBAT_PHASE],
       },
       {
