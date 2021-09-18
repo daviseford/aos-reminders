@@ -2,11 +2,13 @@ import { DestructionUnits } from 'factions/grand_alliances'
 import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_HERO_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
@@ -145,16 +147,61 @@ const KruleboyzUnits = {
       },
     ],
   },
-  'Break-boss on Mirebrute Troggoth': {
+  'Breaka-boss on Mirebrute Troggoth': {
     effects: [
       {
-        name: `Break-harness`,
+        name: `Breaka-harness`,
         desc: `At the start of the combat phase, you can say that the Breaka-boss is yanking on his Mirebrute Troggoth's harness. If you do so, this unit suffers D3 mortal wounds but for each mortal wound it suffers, you can add 2 to the Attacks characteristic of its Iron-bound Clubs until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Regeneration`,
         desc: `In your hero phase. you can roll a dice for this unit. If you do so, on a 4+, heal up to D3 wounds allocated to this unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  Gobsprakk: {
+    mandatory: {
+      spells: [
+        keyPicker(spells, [
+          'Choking Mist',
+          'Da Black Pit',
+          'Nasty Hex',
+          'Sneaky Miasma',
+          'Summon Boggy Mist',
+        ]),
+      ],
+    },
+    effects: [
+      {
+        name: `Wizard`,
+        desc: `This unit can attempt to cast 2 spells in your hero phase and attempt to unbind 2 spells in the enemy hero phase. If this unit is part of an Orruk Warclans army, it knows all of the spells from the Lore of the Swamp in addition to the other spells it knows.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Glyphic Banners`,
+        desc: `This model has a ward of 6+.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Mork Sez No!`,
+        desc: `Each time this unit unbinds a spell, the caster suffers D3 mortal wounds. If the spell was unbound with an unbinding roll of 10+, the caster suffers D6 mortal wounds instead.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Mouth of Mork`,
+        desc: `If this unit issues the Redeploy command to a Kruleboyz unit, you can re-roll the dice that determines the distance the unit that receives the command can move.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Mouth of Mork`,
+        desc: `If this unit issues the Unleash Hell command to a Kruleboyz unit, you do not have to subtract 1 from the hit rolls for the attacks made by the unit that receives the command.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Screamin' Mandrakk`,
+        desc: `Once per battle, when this unit attempts to unbind a spell, you can say that it is using its Screamin' Mandrakk. If you do so, the unbinding roll for that attempt is made with 3D6 instead of 2D6.`,
         when: [HERO_PHASE],
       },
     ],
