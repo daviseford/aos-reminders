@@ -45,8 +45,6 @@ const CommandTraits = {
       },
     ],
   },
-
- 
 }
 
 export default tagAs(CommandTraits, 'command_trait')

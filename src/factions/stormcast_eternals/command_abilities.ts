@@ -53,8 +53,6 @@ const CommandAbilities = {
       },
     ],
   },
-
-  
 }
 
 export default tagAs(CommandAbilities, 'command_ability')

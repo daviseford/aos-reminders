@@ -175,8 +175,6 @@ const Spells = {
       },
     ],
   },
-
- 
 }
 
 export default tagAs(Spells, 'spell')

@@ -152,6 +152,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Warrior Indomniate': 'Warrior Indominate',
   'Warstomper Mega-Gargant': 'Warstomper',
   'Windshief Charm': 'Windthief Charm',
+  'Yndrasta the Celestial Spear': 'Yndrasta',
   "Anraheir's Claw": "Anraheirs's Claw",
   "Be'Lakor, the Dark Master": "Be'Lakor",
   "Dakkbad's Brawl": 'Brawl',
