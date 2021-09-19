@@ -2,11 +2,6 @@ import { COMBAT_PHASE, SHOOTING_PHASE, TURN_ONE_DURING_ROUND, TURN_ONE_SHOOTING_
 
 const KruleboyzFlavors = {
   "Grinnin' Blades": {
-    mandatory: {
-      // artifacts: [keyPicker(artifacts, ['Maw-Krusha Beast Totem'])],
-      // command_abilities: [keyPicker(command_abilities, ['Feel da Spirit'])],
-      // command_traits: [keyPicker(command_traits, ['A Right Monster'])],
-    },
     effects: [
       {
         name: `Out of the Mists`,
@@ -16,11 +11,6 @@ const KruleboyzFlavors = {
     ],
   },
   'Big Yellers': {
-    mandatory: {
-      // artifacts: [keyPicker(artifacts, ['Kattanak Pelt'])],
-      // command_abilities: [keyPicker(command_abilities, ['Freeze and Run'])],
-      // command_traits: [keyPicker(command_traits, ['Pure-bred War Boar'])],
-    },
     effects: [
       {
         name: `Only Da Best`,
@@ -35,11 +25,6 @@ const KruleboyzFlavors = {
     ],
   },
   Skulbugz: {
-    mandatory: {
-      // artifacts: [keyPicker(artifacts, ["Burnin' Tattooz"])],
-      // command_abilities: [keyPicker(command_abilities, ['Shout Down da Magic!'])],
-      // spells: [keyPicker(spells, ['Fireball!'])],
-    },
     effects: [
       {
         name: `Crawly Swarm`,

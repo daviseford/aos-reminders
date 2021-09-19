@@ -83,7 +83,7 @@ const Prayers = {
     effects: [
       {
         name: `Incitement to Murder`,
-        desc: `This is a prayer that has an answer value of 3. If answered, pick 1 friendly HAR KURON unit wholly within 12" of the chanter. Until the start of your next hero phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. You cannot pick the same unit to benefit from this prayer more than once per phase.`,
+        desc: `Answer value of 3. If answered, pick 1 friendly HAR KURON unit wholly within 12" of the chanter. Until the start of your next hero phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. You cannot pick the same unit to benefit from this prayer more than once per phase.`,
         when: [HERO_PHASE],
         rule_sources: [meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021],
       },

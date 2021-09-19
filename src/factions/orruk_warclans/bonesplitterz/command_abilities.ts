@@ -39,15 +39,6 @@ const BonesplitterzCommandAbilities = {
       },
     ],
   },
-  // 'Savage Attack': {
-  //   effects: [
-  //     {
-  //       name: `Savage Attack`,
-  //       desc: `Pick 1 friendly BONESPLITTERZ unit wholly within 12" of a friendly model with this command ability. Until the end of that phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1. A unit cannot benefit from this command ability more than once per phase.`,
-  //       when: [START_OF_COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
 }
 
 export default tagAs(BonesplitterzCommandAbilities, 'command_ability')

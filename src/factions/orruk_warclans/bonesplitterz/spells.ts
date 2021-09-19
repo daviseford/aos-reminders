@@ -77,56 +77,6 @@ const BonesplitterzSpells = {
       },
     ],
   },
-
-  // Removed in 2021
-  // 'Breath of Gorkamorka': {
-  //   effects: [
-  //     {
-  //       name: `Breath of Gorkamorka`,
-  //       desc: `Casting value of 6. Pick a BONESPLITTERZ unit wholly within 24", that unit doubles how far it can move and can fly in your next movement phase. If casting roll was a double, triple how far the unit can move instead.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Brutal Beast Spirits': {
-  //   effects: [
-  //     {
-  //       name: `Brutal Beast Spirits`,
-  //       desc: `Casting value of 6. Pick a BONESPLITTERZ unit wholly within 24". Until your next hero phase, you can add 1 to all run, charge, and hit rolls made for that unit. If the casting roll was a double, you can pick 2 different friendly BONESPLITTERZ units wholly within 24" of the caster to be affected by this spell instead of 1.`,
-  //       when: [HERO_PHASE],
-  //       rule_sources: [rule_sources.BATTLETOME_ORRUK_WARCLANS, rule_sources.ERRATA_ORRUK_WARCLANS_JULY_2021],
-  //     },
-  //   ],
-  // },
-  // 'Bone Krusha': {
-  //   effects: [
-  //     {
-  //       name: `Bone Krusha`,
-  //       desc: `Casting value of 6. Pick an enemy unit within 24" that is visible to the caster.
-
-  //         If target is within 6": Deal D6 mortal wounds.
-
-  //         6" to 12" away: Deal D3 mortal wounds.
-
-  //         More than 12" away: Deal 1 mortal wound.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // "Kunnin' Beast Spirits": {
-  //   effects: [
-  //     {
-  //       name: `Kunnin' Beast Spirits`,
-  //       desc: `Casting value of 6. Pick a unit wholly within 24". Add 1 to save rolls for that unit until your next hero phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //     {
-  //       name: `Kunnin' Beast Spirits`,
-  //       desc: `If active, add 1 to save rolls for that unit until your next hero phase.`,
-  //       when: [SAVES_PHASE],
-  //     },
-  //   ],
-  // },
 }
 
 export default tagAs(BonesplitterzSpells, 'spell')

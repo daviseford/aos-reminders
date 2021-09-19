@@ -65,44 +65,6 @@ const BonesplitterzCommandTraits = {
       },
     ],
   },
-
-  // Removed in 2021
-  // 'Waaagh!-monger': {
-  //   effects: [
-  //     {
-  //       name: `Waaagh!-monger`,
-  //       desc: `If your general is alive, roll a D6 at the start of the hero phase, on a 4+ you get 1 CP.`,
-  //       when: [START_OF_HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // "Dead Kunnin'": {
-  //   effects: [
-  //     {
-  //       name: `Dead Kunnin'`,
-  //       desc: `At the start of the game, gain an additional D3 command points.`,
-  //       when: [START_OF_GAME],
-  //     },
-  //   ],
-  // },
-  // 'Master of the Weird': {
-  //   effects: [
-  //     {
-  //       name: `Master of the Weird`,
-  //       desc: `This general has +1 to cast, unbind, and dispell attempts.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Fuelled by the Spirits': {
-  //   effects: [
-  //     {
-  //       name: `Fuelled by the Spirits`,
-  //       desc: `Pick 1 extra spell from the Lore of the Savage Beast table. This general may also cast 1 additional spell.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
 }
 
 export default tagAs(BonesplitterzCommandTraits, 'command_trait')

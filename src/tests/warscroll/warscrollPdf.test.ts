@@ -4,14 +4,12 @@ import {
   BEASTS_OF_CHAOS,
   CHAOS_GRAND_ALLIANCE,
   CITIES_OF_SIGMAR,
-  DAUGHTERS_OF_KHAINE,
   DESTRUCTION_GRAND_ALLIANCE,
   FYRESLAYERS,
   GLOOMSPITE_GITZ,
   KHARADRON_OVERLORDS,
   KHORNE,
   LUMINETH_REALMLORDS,
-  MEGA_GARGANT_MERCENARIES,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -24,7 +22,6 @@ import {
   SONS_OF_BEHEMAT,
   SOULBLIGHT_GRAVELORDS,
   STORMCAST_ETERNALS,
-  SYLVANETH,
   TZEENTCH,
 } from 'meta/factions'
 import path from 'path'
@@ -401,101 +398,6 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.artifacts).not.toContain('Rune of Khaine')
     expect(res.selections.prayers).toContain('Rune of Khaine')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read StormcastStormkeep1', () => {
-    const pdfText = getFile('StormcastStormkeep1')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res).toEqual({
-      allyFactionNames: [MEGA_GARGANT_MERCENARIES],
-      allySelections: {
-        [MEGA_GARGANT_MERCENARIES]: { battalions: [], units: ['Bundo Whalebiter - Kraken-Eater'] },
-      },
-      allyUnits: ['Bundo Whalebiter'],
-      errors: [],
-      factionName: STORMCAST_ETERNALS,
-      subFactionName: 'Celestial Sentinels',
-      origin_realm: 'Ghur',
-      realmscape_feature: null,
-      realmscape: null,
-      selections: {
-        grand_strategies: [],
-        flavors: ['Hammers of Sigmar (Stormhost)'],
-        artifacts: [
-          'Scroll of Condemnation',
-          'Staff of Focus',
-          'Hammer of Might',
-          'Blade of Heroes',
-          'Gift of the Six Smiths',
-          'Staff of Azyr',
-          'Scroll of Unravelling',
-          'God-forged Blade',
-        ],
-        battalions: [
-          'Stormkeep Patrol',
-          'Soulstrike Brotherhood',
-          'Stormtower Garrison',
-          'Stormkeep Brotherhood',
-          'Skyborne Slayers',
-          'Cleansing Phalanx',
-          'Wardens of the Stormkeep',
-        ],
-        command_abilities: [
-          'Furious Retribution',
-          'Soul of the Stormhost',
-          'Soul Energy of the First Host (Astreia Solbright)',
-          'Soul Energy of the First Host',
-          'Vengeful Determination',
-          'Sombre Exemplar',
-        ],
-        endless_spells: ['The Burning Head'],
-        mount_traits: ['Savage Loyalty', 'Keen-clawed', 'Thunder Caller', 'Lithe-Limbed'],
-        prayers: [],
-        scenery: [],
-        spells: [
-          'Terrifying Aspect',
-          'Azyrite Halo',
-          'Lightning Blast',
-          'Celestial Blades',
-          'Empower',
-          'Lightning Pulse',
-          'Healing Light',
-          'Amethyst Gale',
-        ],
-        command_traits: ['We Cannot Fail'],
-        core_rules: [],
-        triumphs: [],
-        units: [
-          'Astreia Solbright',
-          'Errant-Questor',
-          'Knight-Questor',
-          'Lord-Arcanum on Gryph-Charger',
-          'Neave Blacktalon',
-          'Vandus Hammerhand',
-          'Lynus Ghalmorian on Gryph Charger',
-          'Evocators on Celestial Dracolines',
-          'Vanguard-Raptors with Longstrike Crossbows',
-          'The Farstriders',
-          'Prosecutors with Celestial Hammers',
-          'Decimators',
-          'Celestar Ballista',
-          'Lord-Veritant',
-          'Gryph-Hounds',
-          'Vanguard-Hunters',
-          'Castigators',
-          'Knight-Vexillor',
-          'Liberators',
-          'Lord-Celestant',
-          'Judicators',
-          'Protectors',
-          'Evocators',
-          'Sequitors',
-        ],
-      },
-      unknownSelections: [],
-    })
     expect(res.errors).toEqual([])
   })
 
@@ -1409,54 +1311,6 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  it('correctly imports the Drakesworn Templar and LAoCD together', () => {
-    const pdfText = getFile('DrakeswornandLAoCD')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(res.selections).toEqual({
-      grand_strategies: [],
-      flavors: [],
-      artifacts: [],
-      battalions: [],
-      command_abilities: ['Pack Alpha'],
-      endless_spells: [],
-      mount_traits: [],
-      prayers: [],
-      scenery: [],
-      spells: ['Storm Lance'],
-      command_traits: [],
-      core_rules: [],
-      triumphs: [],
-      units: ['Drakesworn Templar', 'Lord-Arcanum on Celestial Dracoline'],
-    })
-  })
-
-  it('correctly imports the LAoCD and its Storm Lance spell', () => {
-    const pdfText = getFile('LAoCD')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(res.selections).toEqual({
-      grand_strategies: [],
-      flavors: [],
-      artifacts: [],
-      battalions: [],
-      command_abilities: ['Pack Alpha'],
-      endless_spells: [],
-      mount_traits: [],
-      prayers: [],
-      scenery: [],
-      spells: ['Storm Lance'],
-      command_traits: [],
-      core_rules: [],
-      triumphs: [],
-      units: ['Lord-Arcanum on Celestial Dracoline'],
-    })
-  })
-
   it('correctly imports the Loonboss and its command ability', () => {
     const pdfText = getFile('Loonboss')
     const parsedText = parsePdf(pdfText)
@@ -1526,72 +1380,6 @@ describe('getWarscrollArmyFromPdf', () => {
       core_rules: [],
       triumphs: [],
       units: ['Lord Executioner'],
-    })
-  })
-
-  it('reads a complex warscroll pdf file with allies correctly', () => {
-    const pdfText = getFile('SeraphonMultipleAllies')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-    ])
-    expect(res.factionName).toEqual(SERAPHON)
-    expect(res.allySelections).toEqual({
-      DAUGHTERS_OF_KHAINE: {
-        battalions: [],
-        units: ['Sisters of Slaughter', 'Morathi-Khaine'],
-      },
-      KHARADRON_OVERLORDS: { battalions: [], units: ['Grundstok Gunhauler'] },
-      STORMCAST_ETERNALS: { battalions: [], units: ['Knight-Incantor', 'Concussors'] },
-      SYLVANETH: { battalions: [], units: ['Kurnoth Hunters'] },
-    })
-    expect(res.allyFactionNames).toEqual([
-      DAUGHTERS_OF_KHAINE,
-      KHARADRON_OVERLORDS,
-      STORMCAST_ETERNALS,
-      SYLVANETH,
-    ])
-    expect(res.allyUnits).toEqual([
-      'Knight-Incantor',
-      'Morathi High Oracle of Khaine',
-      'Concussors',
-      'Kurnoth Hunters',
-      'Grundstok Gunhauler',
-    ])
-    expect(res.selections).toEqual({
-      grand_strategies: [],
-      flavors: [],
-      artifacts: ['Zoetic Dial'],
-      battalions: [
-        'Eternal Starhost',
-        'Sunclaw Starhost',
-        'Firelance Starhost',
-        'Shadowstrike Starhost',
-        'Thunderquake Starhost',
-      ],
-      command_abilities: ['Prime Guardian', 'Gift from the Heavens'],
-      endless_spells: [],
-      mount_traits: [],
-      prayers: [],
-      scenery: [],
-      spells: ['Walk Between Realms', "Comet's Call"],
-      command_traits: ['Great Rememberer'],
-      core_rules: [],
-      triumphs: [],
-      units: [
-        'Slann Starmaster',
-        'Bastiladon',
-        'Saurus Guard',
-        'Saurus Eternity Warden',
-        'Saurus Warriors',
-        'Saurus Knights',
-      ],
     })
   })
 
@@ -1764,69 +1552,6 @@ describe('getWarscrollArmyFromPdf', () => {
           'Saurus Guard',
           'Stegadon',
         ],
-      },
-      unknownSelections: [],
-    })
-  })
-
-  it('reads a new (10/7/19) warscroll pdf file (with allies) correctly', () => {
-    const pdfText = getFile('SeraphonNewList')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res).toEqual({
-      allyFactionNames: [STORMCAST_ETERNALS],
-      allySelections: {
-        STORMCAST_ETERNALS: {
-          battalions: [],
-          units: [
-            'Celestant-Prime',
-            'Knight-Vexillor',
-            'Lynus Ghalmorian on Gryph Charger',
-            'Concussors',
-            'Evocators',
-            'Celestar Ballista',
-          ],
-        },
-      },
-      allyUnits: [
-        'Celestant-Prime',
-        'Knight-Vexillor',
-        'Lynus Ghalmorian on Gryph-Charger',
-        'Concussors',
-        'Evocators',
-        'Aleguzzler Gargant',
-        'Celestar Ballista',
-        // TODO: Why is Dread Saurian here?
-        'Dread Saurian',
-      ],
-      errors: [
-        {
-          reason: DEPRECATED_AOS_3,
-          severity: 'deprecation-warn',
-          text: 'Balewind Vortex',
-        },
-      ],
-      factionName: SERAPHON,
-      subFactionName: '',
-      origin_realm: 'Ghyran',
-      realmscape_feature: null,
-      realmscape: null,
-      selections: {
-        grand_strategies: [],
-        flavors: [],
-        mount_traits: [],
-        prayers: [],
-        artifacts: ['Blade of Realities'],
-        battalions: [],
-        command_abilities: [],
-        endless_spells: ['Chronomantic Cogs'],
-        scenery: [],
-        spells: [],
-        command_traits: ['Disciplined Fury'],
-        core_rules: [],
-        triumphs: [],
-        units: ['Engine of the Gods', 'Chameleon Skinks', 'Saurus Warriors', 'Bastiladon', 'Dread Saurian'],
       },
       unknownSelections: [],
     })

@@ -4,7 +4,7 @@ import React from 'react'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = 'aos-3-new-warhammer-app-import'
+  const name = 'aos-3-orruk-sce-battletome-release'
 
   return (
     <NotificationBanner
@@ -15,13 +15,8 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW: </strong>We've added the ability to import lists from the new Warhammer App. Just hit
-        "Import List" and then copy + paste your list to get started!
-        <br />
-        <small>
-          This feature is still in development and may change rapidly! Please let me know if you encounter
-          issues.
-        </small>
+        <strong>NEW: </strong>The newly-released Orruk Warclans and Stormcast Eternal battletomes have been
+        added!
       </span>
     </NotificationBanner>
   )

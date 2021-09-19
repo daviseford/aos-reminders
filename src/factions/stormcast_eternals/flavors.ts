@@ -1,126 +1,82 @@
-import { keyPicker } from 'factions/metatagger'
 import {
-  BATTLESHOCK_PHASE,
-  COMBAT_PHASE,
+  CHARGE_PHASE,
   DURING_GAME,
-  HERO_PHASE,
-  SHOOTING_PHASE,
-  START_OF_GAME,
+  END_OF_CHARGE_PHASE,
+  SAVES_PHASE,
+  START_OF_COMBAT_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import artifacts from './artifacts'
-import command_abilities from './command_abilities'
-import command_traits from './command_traits'
 
 const Flavors = {
-  'Hammers of Sigmar (Stormhost)': {
-    mandatory: {
-      artifacts: [keyPicker(artifacts, ['God-forged Blade'])],
-      command_abilities: [keyPicker(command_abilities, ['Soul of the Stormhost'])],
-      command_traits: [keyPicker(command_traits, ['We Cannot Fail'])],
-    },
+  'Hammers of Sigmar': {
     effects: [
       {
-        name: `First to be Forged`,
-        desc: `Add 1 to the Bravery characteristic of friendly HAMMERS OF SIGMAR units.`,
-        when: [BATTLESHOCK_PHASE],
+        name: `We Cannot Fail`,
+        desc: `Friendly HAMMERS OF SIGMAR units wholly within 12" of an objective have a ward of 6+.`,
+        when: [SAVES_PHASE],
       },
     ],
   },
-  'Hallowed Knights (Stormhost)': {
-    mandatory: {
-      artifacts: [keyPicker(artifacts, ['Parchment of Purity'])],
-      command_abilities: [keyPicker(command_abilities, ['Holy Crusaders'])],
-      command_traits: [keyPicker(command_traits, ["Martyr's Strength"])],
-    },
+  'Hallowed Knights': {
     effects: [
       {
         name: `Only the Faithful`,
-        desc: `If a friendly HALLOWED KNIGHTS unit is affected by a spell or endless spell, roll a D6. On a 6+ ignore the effects of that spell on that unit.`,
-        when: [HERO_PHASE],
+        desc: `If a friendly HALLOWED KNIGHTS REDEEMER model is slain within 3" of any enemy units, roll a dice. On a 4+, that model can fight before it is removed from play.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
-  'Celestial Vindicators (Stormhost)': {
-    mandatory: {
-      artifacts: [keyPicker(artifacts, ['Stormrage Blade'])],
-      command_abilities: [keyPicker(command_abilities, ['Righteous Hatred'])],
-      command_traits: [keyPicker(command_traits, ['Single-minded Fury'])],
-    },
+  'Celestial Vindicators': {
     effects: [
       {
         name: `Driven by Vengeance`,
-        desc: `You can reroll hit rolls of 1 for attacks made by friendly CELESTIAL VINDICATORS units if they made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
+        desc: `At thc start of the combat phase, you can pick 1 friendly CELESTIAL VINDICATORS unit that made a charge move that turn. Until your next hero phase, if the unmodified hit roll for an attack made with a melee weapon by that unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
-  'Anvils of the Heldenhammer (Stormhost)': {
-    mandatory: {
-      artifacts: [keyPicker(artifacts, ['Soulthief'])],
-      command_abilities: [keyPicker(command_abilities, ['Heroes of Another Age'])],
-      command_traits: [keyPicker(command_traits, ['Deathly Aura'])],
-    },
+  'Anvils of the Heldenhammer': {
     effects: [
       {
-        name: `No True Death`,
-        desc: `You can reroll failed battleshock tests for friendly ANVILS OF THE HELDENHAMMER units.`,
-        when: [BATTLESHOCK_PHASE],
+        name: `Deathly Aura`,
+        desc: `At the end of the charge phase, you can roll 2D6 for each enemy unit within 1" of any friendly ANVILS OF THE HELDENHAMMER units. If the roll is greater than that enemy unit's Bravery characteristic, the first 2 wounds caused by attacks made by that enemy unit in the following combat phase are negated.`,
+        when: [END_OF_CHARGE_PHASE],
       },
     ],
   },
-  'Knights Excelsior (Stormhost)': {
-    mandatory: {
-      artifacts: [keyPicker(artifacts, ['Chains of Celestial Lightning'])],
-      command_abilities: [keyPicker(command_abilities, ['No Mercy'])],
-      command_traits: [keyPicker(command_traits, ['Divine Executioner'])],
-    },
+  'Knights Excelsior': {
     effects: [
       {
-        name: `Storm of Annihilation`,
-        desc: `If a friendly KNIGHTS EXCELSIOR unit makes an attack that destroys an enemy unit, you can reroll hit rolls of 1 for attacks made by that KNIGHTS EXCELSIOR unit for the rest of the battle.`,
+        name: `Annihilation`,
+        desc: `Once per turn, at the start of the combat phase, you can pick 1 friendly KNIGHTS EXCELSIOR PALADIN unit on the battlefield. Until the end of that phase, when you pick that unit to fight, pick 1 enemy unit within 1" of that unit. If the number of models in that enemy unit is greater than the number of models in that PALADIN unit, add 1 to hit and wound rolls for attacks made by that PALADIN unit that target that enemy unit until the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Celestial Warbringers': {
+    effects: [
+      {
+        name: `Fearless Foresight`,
+        desc: `Once per phase, you can reroll 1 hit roll or 1 wound roll for an attack made bv a friendly CELESTIAL WARBRINGERS unit or 1 save roll for an attack that targets a friendly CELESTIAL WARBRINGERS unit.`,
         when: [DURING_GAME],
       },
     ],
   },
-  'Celestial Warbringers (Stormhost)': {
-    mandatory: {
-      artifacts: [keyPicker(artifacts, ['Hammers of Augury'])],
-      command_abilities: [keyPicker(command_abilities, ['Astral Conjunction'])],
-      command_traits: [keyPicker(command_traits, ['Portents and Omens'])],
-    },
+  'Tempest Lords': {
     effects: [
       {
-        name: `Fearless Foresight`,
-        desc: `Pick D3 friendly CELESTIAL WARBRINGERS units and set them up again (any restrictions in the set-up instructions for the battleplan being used still apply).`,
-        when: [START_OF_GAME],
+        name: `The Host on High`,
+        desc: `When you attempt a charge with a friendly TEMPEST LORDS unit that can fly, you can reroll 1 of the dice for that charge roll.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
-  'Tempest Lords (Stormhost)': {
-    mandatory: {
-      artifacts: [keyPicker(artifacts, ["Patrician's Helm"])],
-      command_abilities: [keyPicker(command_abilities, ['Rousing Oratory'])],
-      command_traits: [keyPicker(command_traits, ['Bonds of Noble Duty'])],
-    },
-    effects: [
-      {
-        name: `Grand Strategists`,
-        desc: `At the start of your hero phase roll a D6. On a 4+ you receive 1 extra command point.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Astral Templars (Stormhost)': {
-    mandatory: {
-      artifacts: [keyPicker(artifacts, ['Godbeast Plate'])],
-      command_abilities: [keyPicker(command_abilities, ['Cut off the Head'])],
-      command_traits: [keyPicker(command_traits, ['Dauntless Hunters'])],
-    },
+  'Astral Templars': {
     effects: [
       {
         name: `Beast Stalkers`,
-        desc: `Add 1 to hit rolls for attacks made by ASTRAL TEMPLARS units that target a MONSTER.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        desc: `Friendly ASTRAL TEMPLARS units cannot be picked when your opponent carries out a monstrous rampage.`,
+        when: [END_OF_CHARGE_PHASE],
       },
     ],
   },

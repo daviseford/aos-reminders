@@ -2,11 +2,6 @@ import { COMBAT_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 const BonesplitterzFlavors = {
   Bonegrinz: {
-    mandatory: {
-      // artifacts: [keyPicker(artifacts, ['Maw-Krusha Beast Totem'])],
-      // command_abilities: [keyPicker(command_abilities, ['Feel da Spirit'])],
-      // command_traits: [keyPicker(command_traits, ['A Right Monster'])],
-    },
     effects: [
       {
         name: `Barrage of Arrows`,
@@ -16,11 +11,6 @@ const BonesplitterzFlavors = {
     ],
   },
   Icebone: {
-    mandatory: {
-      // artifacts: [keyPicker(artifacts, ['Kattanak Pelt'])],
-      // command_abilities: [keyPicker(command_abilities, ['Freeze and Run'])],
-      // command_traits: [keyPicker(command_traits, ['Pure-bred War Boar'])],
-    },
     effects: [
       {
         name: `Freezing Strike`,
@@ -30,22 +20,12 @@ const BonesplitterzFlavors = {
     ],
   },
   Drakkfoot: {
-    mandatory: {
-      // artifacts: [keyPicker(artifacts, ["Burnin' Tattooz"])],
-      // command_abilities: [keyPicker(command_abilities, ['Shout Down da Magic!'])],
-      // spells: [keyPicker(spells, ['Fireball!'])],
-    },
     effects: [
       {
         name: `Strength of Purpose`,
         desc: `Ward rolls cannot be made for wounds and mortal wounds caused by attacks made by. friendly DRAKKFOOT units.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE, SAVES_PHASE],
       },
-      // {
-      //   name: `Fireball!`,
-      //   desc: `All wizards in the clan know the Fireball spell instead of Arcane Bolt and can cast it.`,
-      //   when: [HERO_PHASE],
-      // },
     ],
   },
 }

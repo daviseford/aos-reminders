@@ -30,7 +30,7 @@ import {
 import path from 'path'
 import { HYSH } from 'types/realmscapes'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
-import { DEPRECATED_AOS_3, DEPRECATED_MALIGN_SORCERY, DEPRECATED_PROFILE } from 'utils/import/options'
+import { DEPRECATED_AOS_3, DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 
 const getFile = (filename: string) => {
   return readFileSync(path.resolve(`src/tests/fixtures/battlescribe/html/${filename}.html`), 'utf8')
@@ -1291,7 +1291,6 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Stormcast7')
     const res = getBattlescribeArmy(parsedText)
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Tzeentch3', () => {
@@ -1343,17 +1342,6 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('StD3')
     const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
-  })
-  it('should work with Stormcast3', () => {
-    const parsedText = getFile('Stormcast3')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Aetherquartz Brooch',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
   })
 
   it('should work with Tzeentch2', () => {
@@ -1417,12 +1405,6 @@ describe('getBattlescribeArmy', () => {
         text: 'Allied Coven Throne can belong to Legions Of Nagash or Soulblight Gravelords. Please add this unit manually.',
       },
     ])
-  })
-
-  it('should work with Stormcast6', () => {
-    const parsedText = getFile('Stormcast6')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
   })
 
   it.skip('should work with StD2', () => {
@@ -1831,41 +1813,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Aetherquartz Brooch',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
-  })
-
-  it('should work with Stormcast4', () => {
-    const parsedText = getFile('Stormcast4')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(res.selections.command_abilities).toEqual([
-      'Heroes of Another Age',
-      'Cut off the Head',
-      'Righteous Hatred',
-      'Astral Conjunction',
-      'Holy Crusaders',
-      'Soul of the Stormhost',
-      'No Mercy',
-      'Rousing Oratory',
-    ])
-    expect(res.selections.flavors).toEqual([
-      'Anvils of the Heldenhammer (Stormhost)',
-      'Astral Templars (Stormhost)',
-      'Celestial Vindicators (Stormhost)',
-      'Celestial Warbringers (Stormhost)',
-      'Hallowed Knights (Stormhost)',
-      'Hammers of Sigmar (Stormhost)',
-      'Knights Excelsior (Stormhost)',
-      'Tempest Lords (Stormhost)',
-    ])
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Slaanesh2', () => {
@@ -1906,30 +1853,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(res.selections.flavors).toEqual(['Anvils of the Heldenhammer (Stormhost)'])
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Drakeforged Plate',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Blade of Carving',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Shardfist Pelt',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: "Beastcaller's Bones",
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      { text: "Blacktalon's Shadowhammers", reason: DEPRECATED_PROFILE, severity: 'deprecation-warn' },
-    ])
+    expect(res.selections.flavors).toEqual(['Anvils of the Heldenhammer'])
   })
 
   it('should work with Gloomspite2', () => {
@@ -2140,12 +2064,11 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
     expect(res.realmscape).toEqual(HYSH)
     expect(res.selections.flavors).toEqual([
-      'Hammers of Sigmar (Stormhost)',
-      'Astral Templars (Stormhost)',
-      'Celestial Vindicators (Stormhost)',
-      'Tempest Lords (Stormhost)',
+      'Hammers of Sigmar',
+      'Astral Templars',
+      'Celestial Vindicators',
+      'Tempest Lords',
     ])
-    expect(res.errors).toEqual([])
   })
 
   it('should work with GHoN3', () => {

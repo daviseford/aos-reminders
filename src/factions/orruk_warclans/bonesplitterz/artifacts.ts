@@ -89,53 +89,6 @@ const BonesplitterzArtifacts = {
       },
     ],
   },
-
-  // Seem to have been removed in the 2021 battletome
-  // 'Greatdrake Toof': {
-  //   effects: [
-  //     {
-  //       name: `Greatdrake Toof`,
-  //       desc: `Pick a melee weapon to become the Greatdrake Toof. On an unmodified wound roll of 6 this weapon deals double damage.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Weepwood Big Shiv': {
-  //   effects: [
-  //     {
-  //       name: `Weepwood Big Shiv`,
-  //       desc: `Pick a melee weapon. Add 1 to the attacks characteristic of this weapon.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Savage Trophy': {
-  //   effects: [
-  //     {
-  //       name: `Savage Trophy`,
-  //       desc: `Add 1 to the Bravery characteristic of all friendly Bonesplitterz models within 10" of the bearer.`,
-  //       when: [BATTLESHOCK_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Big Wurrgog Mask': {
-  //   effects: [
-  //     {
-  //       name: `Big Wurrgog Mask`,
-  //       desc: `Pick an enemy unit within 12" in the hero phase and roll up to 3 dice, each 2+ inflicts D3 MW's on the unit, on a 1 you take D3 MW's.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Mystic Waaagh! Paint': {
-  //   effects: [
-  //     {
-  //       name: `Mystic Waaagh! Paint`,
-  //       desc: `At the start of your hero phase roll a D6 on the spell lore table, this wizard can attempt to cast it for free, if it already knows the spell rolled it gets 1 additional spell cast for the turn.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
 }
 
 export default tagAs(BonesplitterzArtifacts, 'artifact')
