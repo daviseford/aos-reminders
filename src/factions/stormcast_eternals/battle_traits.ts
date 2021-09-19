@@ -1,22 +1,19 @@
 import { tagAs } from 'factions/metatagger'
-import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
-  COMBAT_PHASE,
+  CHARGE_PHASE,
   DURING_GAME,
   DURING_SETUP,
   END_OF_MOVEMENT_PHASE,
-  SAVES_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const BattleTraits = {
-  'Legends of the Living Tempest': {
+  'Scions of the Storm': {
     effects: [
       {
         name: `Scions of the Storm`,
-        desc: `Instead of setting up a STORMCAST ETERNALS unit on the battlefield, you can place it to one side and say that it is set up in the Celestial Realm as a reserve unit. You can set up 1 unit in the Celestial Realm for each unit you have set up on the battlefield. At the end of your movement phase, you can set up 1 or more of the reserve units in the Celestial Realm on the battlefield, more than 9" from all enemy units.`,
+        desc: `During deployment, instead of setting up a SCIONS OF THE STORM STORMCAST ETERNALS unit on the battlefield, you can place it to one side and say that it is set up in the Celestial Realm as a reserve unit. You can set up 1 unit in the Celestial Realm for each SCIONS OF THE STORM STORMCAST ETERNALS unit you have set up on the battlefield. At the end of your movement phase, you can set up 1 or more of the reserve units in the Celestial Realm on the battlefield, more than 9" from all enemy units.`,
         when: [DURING_SETUP],
       },
       {
@@ -26,52 +23,27 @@ const BattleTraits = {
       },
       {
         name: `Blaze of Glory`,
-        desc: `If a friendly STORMCAST ETERNALS model is slain within 1" of an enemy unit, before removing that model from play, pick 1 enemy unit within 1" of that model and roll a number of dice equal to the Wounds characteristic of that model. Add 1 to the number of dice you roll if the slain model has the THUNDERSTRIKE keyword. For each 6, the target suffers 1 mortal wound at the end of that phase.`,
+        desc: `If a friendly STORMCAST ETERNALS model is slain within 1" of an enemy unit, before removing that model from play, pick 1 enemy unit within 1" of that model and roll a number of dice equal to the Wounds characteristic of that slain model. Add 1 to the number of dice you roll if the slain model has the THUNDERSTRIKE keyword. For each 6+, the target suffers 1 mortal wound at the end of that phase.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
-  'Celestial Sentinels': {
+  Stormkeep: {
     effects: [
       {
         name: `Shield of Civilisation`,
-        desc: `Add 1 to the bravery characteristic of friendly STORMCAST ETERNAL units wholly within 12" of any friendly LIBERATORS units.`,
-        when: [DURING_GAME, BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Shield of Civilisation`,
-        desc: `You can pick any friendly LIBERATORS units that did not move and were not set up this phase. Selected units can add 1 to hit and save rolls until your next movement phase.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Shield of Civilisation`,
-        desc: `If active, you can add 1 to hit rolls for affected LIBERATORS units.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Shield of Civilisation`,
-        desc: `If active, you can add 1 to save rolls for affected LIBERATORS units.`,
-        when: [SAVES_PHASE],
-      },
-      {
-        name: `Mortal Auxiliaries`,
-        desc: `Add 1 to the Bravery characteristic of friendly CITIES OF SIGMAR units while they are wholly within 12" of a friendly LIBERATORS unit.`,
-        when: [BATTLESHOCK_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
-        ],
-      },
-      {
-        name: `Mortal Auxiliaries`,
-        desc: `When you use a command ability from Battletome: Stormcast Eternals and you pick a unit to receive a command, you can treat friendly CITIES OF SIGMAR units as if they were friendly STORMCAST ETERNALS units.`,
+        desc: `In the first and second battle rounds, if any friendly STORMKEEP REDEEMER units contest an objective that is partially or wholly within your territory, each model in that unit counts as 3 models for the purposes of contesting that objective. Starting from the third battle round, if any friendly STORMKEEP REDEEMER units contest an objective that is anywhere on the battlefield, each model in that unit counts as 3 models for the purposes of contesting that objective. In addition, if an enemy unit finishes a charge move within 1" of a friendly STORMKEEP REDEEMER unit that is within 6" of an objective you control, roll a dice. On a 3+, that unit suffers D3 mortal wounds.`,
         when: [DURING_GAME],
-        rule_sources: [
-          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
-        ],
+      },
+      {
+        name: `Shield of Civilisation`,
+        desc: `If an enemy unit finishes a charge move within 1" of a friendly STORMKEEP REDEEMER unit that is within 6" of an objective you control, roll a dice. On a 3+, that unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Mortal Auxiliaries`,
+        desc: `Add 1 to the Bravery characteristic of friendly STORMKEEP units wholly within 12" of any friendly STORMKEEP REDEEMER units.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },

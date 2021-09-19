@@ -1,5 +1,5 @@
 import { IItemDescription } from 'factions/factionTypes'
-import { keyOmitter, pickEffects } from 'factions/metatagger'
+import { keyOmitter, keyPicker, pickEffects } from 'factions/metatagger'
 import CitiesOfSigmarUnits from '../cities_of_sigmar/units'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
@@ -31,8 +31,8 @@ const baseSubFaction: IItemDescription = {
 }
 
 const subFactions = {
-  'Living Tempest': {
-    effects: pickEffects(BattleTraits, ['Legends of the Living Tempest']),
+  'Scions of the Storm': {
+    effects: pickEffects(BattleTraits, ['Scions of the Storm']),
     available: {
       ...baseSubFaction.available,
       battalions: [
@@ -44,13 +44,27 @@ const subFactions = {
           'Stormkeep Brotherhood',
         ]),
       ],
+      command_traits: [
+        keyPicker(CommandTraits, [
+          'Shock and Awe',
+          'Envoy of the Heavens',
+          'Master of the Celestial Menagerie',
+        ]),
+      ],
     },
   },
-  'Celestial Sentinels': {
-    effects: pickEffects(BattleTraits, ['Celestial Sentinels']),
+  Stormkeep: {
+    effects: pickEffects(BattleTraits, ['Stormkeep']),
     available: {
       ...baseSubFaction.available,
       allied_units: [CitiesOfSigmarUnits],
+      command_traits: [
+        keyPicker(CommandTraits, [
+          'Staunch Defender',
+          'Envoy of the Heavens',
+          'Master of the Celestial Menagerie',
+        ]),
+      ],
     },
   },
 }
