@@ -78,4 +78,12 @@ describe('getWarhammerAppArmy', () => {
       },
     ])
   })
+
+  it('should correctly read Seraphon2', () => {
+    const parsedText = getFile('Seraphon2')
+    const cleanedText = cleanWarhammerAppText(parsedText)
+    const res = getWarhammerAppArmy(cleanedText)
+    expect(res.selections.units).toContain('Bastiladon')
+    expect(res.errors).toEqual([])
+  })
 })

@@ -32,7 +32,7 @@ const SkullThumperEffect = {
 }
 const BoneTotemBearerEffect = {
   name: `Standard Bearer`,
-  desc: `Add 1 to the Bravery characteristic of a unit that includes any Bone Totem Bearers. Musician`,
+  desc: `Add 1 to the Bravery characteristic of a unit that includes any Bone Totem Bearers.`,
   when: [BATTLESHOCK_PHASE],
   shared: true,
 }

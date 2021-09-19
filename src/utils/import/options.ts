@@ -270,6 +270,13 @@ const battlescribeTypoMap: Record<string, string> = {
   Voxaxe: 'Vosaxe',
 }
 
+// Warhammer App on the left - AoS Reminders on the right
+const warhammerAppTypoMap: Record<string, string> = {
+  ...azyrTypoMap,
+  'Bastiladon with Solar Engine': 'Bastiladon',
+  'Bastiladon with Ark of Sotek': 'Bastiladon',
+}
+
 /**
  * This is where we store unknown values that are expected and inconsequential
  * Such as weapon options for units
@@ -675,7 +682,7 @@ export const parserOptions: TParserOptions = {
     ambiguousNamesMap: {},
     checkPoorSpacing: false,
     fileReadError: `There was a problem parsing this text. Please try copy + pasting it again from the ${WARHAMMER_APP}.`,
-    typoMap: azyrTypoMap,
+    typoMap: warhammerAppTypoMap,
   },
   [AZYR]: {
     ambiguousNamesMap: azyrAmbiguousNamesMap,
