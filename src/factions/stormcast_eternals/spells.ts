@@ -1,12 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
-  COMBAT_PHASE,
-  HERO_PHASE,
-  MOVEMENT_PHASE,
-  SHOOTING_PHASE,
-} from 'types/phases'
+import { HERO_PHASE } from 'types/phases'
 
 const Spells = {
   // Lore of the Storm
@@ -64,7 +57,6 @@ const Spells = {
       },
     ],
   },
-
 
   // Removed in 2021
   // Stormcaller: {

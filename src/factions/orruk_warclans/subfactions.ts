@@ -42,6 +42,7 @@ const subFactions = {
       allied_units: [GreenskinzUnits, IronjawzUnits, BonesplitterzUnits, KruleboyzUnits],
       artifacts: [IronjawzArtifacts, BonesplitterzArtifacts, KruleboyzArtifacts],
       battalions: [OrrukWarclansBattalions],
+      command_abilities: [BonesplitterzCommandAbilities, IronjawzCommandAbilities],
       command_traits: [IronjawzCommandTraits, BonesplitterzCommandTraits, KruleboyzCommandTraits],
       grand_strategies: [keyPicker(OrrukWarclansGrandStrategies, ['Waaagh!', "Krump 'Em All!"])],
       mount_traits: [OrrukWarclansMountTraits],

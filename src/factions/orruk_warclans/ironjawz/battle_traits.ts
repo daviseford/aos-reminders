@@ -20,26 +20,6 @@ const IronjawzBattleTraits = {
       },
     ],
   },
-
-  // Removed in 2021
-  // 'Eager for Battle': {
-  //   effects: [
-  //     {
-  //       name: `Eager for Battle`,
-  //       desc: `Add 1 to charge rolls for friendly IRONJAWZ units.`,
-  //       when: [CHARGE_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Mad as Hell': {
-  //   effects: [
-  //     {
-  //       name: `Mad as Hell`,
-  //       desc: `At the end of any phase, if any wounds or mortal wounds have been inflicted in that phase on an IRONJAWZ unit that is more than 9" from any enemy units, that IRONJAWZ unit can move D6".`,
-  //       when: [DURING_GAME],
-  //     },
-  //   ],
-  // },
 }
 
 export default tagAs(IronjawzBattleTraits, 'battle_trait')
