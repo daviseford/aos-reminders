@@ -1,10 +1,13 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_CHARGE_PHASE,
+  END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
@@ -19,48 +22,85 @@ import {
   TURN_ONE_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import command_abilities from './command_abilities'
-import rule_sources from './rule_sources'
+import prayers from './prayers'
 import spells from './spells'
 
-const SigmariteThundershield = {
+const ArcaneHeritageEffect = {
+  name: `Arcane Heritage`,
+  desc: `Each time this unit is affected by a spell or the abilities of an endless spell, you can roll a dice. On a 4+, ignore the effect of that spell or the effects of that endless spell's abilities on this unit.`,
+  when: [HERO_PHASE, END_OF_HERO_PHASE],
+  shared: true,
+}
+const DraconicFlamestreamEffect = {
+  name: `Draconic Flamestream`,
+  desc: `Do not use the attack sequence for an attack made with a Draconic Flamestream. Instead, roll a dice. On a 1-2, nothing happens. On a 3-4, the target suffers D3 mortal wounds. On a 5-6, the target suffers D6 mortal wounds.`,
+  when: [SHOOTING_PHASE],
+  shared: true,
+}
+const DraggedIntoTheTempestEffect = {
+  name: `Dragged into the Tempest`,
+  desc: `In the combat phase, after all of this unit's attacks have been resolved, you can pick 1 enemy unit within 1 " of this unit and roll a dice. If the roll is greater than that unit's Wounds characteristic, your opponent must pick 1 model in that unit. That model is slain.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const DispersedFormationEffect = {
+  name: `Dispersed Formation`,
+  desc: `If this unit has 2 to 5 models, it is coherent if each model in the unit is within 3" horizontally of at least 1 other model in the unit instead of 1". If this unit has more than 5 models, it is coherent if each model in the unit is within 3" horizontally of at least 2 other models in the unit instead of 1".`,
+  when: [DURING_GAME],
+  shared: true,
+}
+const ImpalingStrikesEffect = {
+  name: `Impaling Strikes`,
+  desc: `This unit's Stormstrike Glaive has a Damage characteristic of 3 instead of 1 if this unit made a charge move in the same turn.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const CleavingBlowEffect = {
+  name: `Cleaving Blow`,
+  desc: `Add 2 to the Attacks characteristic of a Thunderaxe if the number of models in the target unit is greater than the number of models in this unit.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const AncientMasterOfWarEffect = {
+  name: `Ancient Master of War`,
+  desc: `Subtract 1 from the Attacks characteristic of melee weapons that target this unit (to a minimum of 1).`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const BlazingTempestEffect = {
+  name: `Blazing Tempest`,
+  desc: `Do not use the attack sequence for an attack made with a Blazing Tempest. Instead, roll a dice. On a 1-2, the target suffers 1 mortal wound. On a 3-4, the target suffers D3 mortal wounds. On a 5-6, the target suffers D6 mortal wounds.`,
+  when: [SHOOTING_PHASE],
+  shared: true,
+}
+const CalamitousTailEffect = {
+  name: `Calamitous Tail`,
+  desc: `The Attacks characteristic of a Calamitous Tail is equal to the number of enemy models within 3" of the attacking model.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const VoidstormScrollEffect = {
+  name: `Voidstorm Scroll`,
+  desc: `Once per battle, in the enemy hero phase, when this unit attempts to unbind a spell, you can say that it is using its voidstorm scroll. If you do so, that spell is automatically unbound (do not make an unbinding roll).`,
+  when: [HERO_PHASE],
+  shared: true,
+}
+const SoulChargedIconEffect = {
+  name: `Soul-Charged Icon`,
+  desc: `You can reroll charge rolls for friendly Stormcast Eternals units wholly within 12" of this unit.`,
+  when: [CHARGE_PHASE],
+  shared: true,
+}
+const SigmariteThundershieldEffect = {
   name: `Sigmarite Thundershield`,
   desc: `If the unmodified save roll for an attack made with a melee weapon that targets this unit is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
   when: [SAVES_PHASE],
-  rule_sources: [
-    rule_sources.BATTLETOME_STORMCAST_ETERNALS,
-    rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
-  ],
   shared: true,
 }
 const CometTrailEffect = {
   name: `Comet Trail`,
-  desc: `At the end of your movement phase, you can pick 1 enemy unit that has any models that this model passed across. You can add 1 to hit rolls for friendly STORMCAST ETERNAL units' missile attacks that target that unit in the same turn.`,
-  when: [END_OF_MOVEMENT_PHASE],
-  shared: true,
-}
-const PrimeElectridsEffect = {
-  name: `Prime Electrids`,
-  desc: `If this model successfully casts Arcane Bolt and it is not unbound, then the spell inflicts D3 mortal wounds instead of 1, or D6 mortal wounds instead of D3 if the casting roll was 10+.`,
-  when: [HERO_PHASE],
-  shared: true,
-}
-const SupernaturalRoarEffect = {
-  name: `Supernatural Roar`,
-  desc: `Subtract 1 from the Bravery of enemy units while they are within 3" of one or more friendly DRACOLINES.`,
-  when: [BATTLESHOCK_PHASE],
-  shared: true,
-}
-const SpiritFlaskEffect = {
-  name: `Spirit Flask`,
-  desc: `Once per battle, at the start of the combat phase, you can say that this model will shatter 1, 2 or 3 spirit flasks. If you do so, each unit within 3" of this model suffers 1 mortal wound for each spirit flask that was shattered. Units within 3" with 10 or more models suffer D3 mortal wounds for each spirit flask that was shattered instead. Allocate the mortal wounds to this model last of all, after allocating them to any other units that are affected.`,
-  when: [START_OF_COMBAT_PHASE],
-  shared: true,
-}
-const AetherealStrikeEffect = {
-  name: `Aethereal Strike`,
-  desc: `Unmodified hit rolls of 6 for this Gryph-charger's Razor Beak and Claws inflict 1 mortal wound instead of the normal damage.`,
-  when: [COMBAT_PHASE],
+  desc: `After this unit has made a normal move, add 1 to hit rolls for attacks made by friendly Stormcast Eternals and Cities of Sigmar units within 3" of this unit until your next hero phase.`,
+  when: [MOVEMENT_PHASE],
   shared: true,
 }
 const StormBlastEffect = {
@@ -71,77 +111,56 @@ const StormBlastEffect = {
 }
 const AstralCompassEffect = {
   name: `Astral Compass`,
-  desc: `If you set up a unit that includes any models with an Astral Compass in the Celestial Realm using the Scions of the Storm battle trait, when you set it up on the battlefield for the first time, instead of setting it up more than 9" from the enemy, you can set it up wholly within 6" of any edge of the battlefield, more than 7" from the enemy.`,
-  when: [END_OF_MOVEMENT_PHASE],
+  desc: `If this unit includes any models carrying Astral Compasses, at the start of your movement phase, instead of taking a normal move, you can say that this unit will navigate the winds aetheric. If you do so, remove this unit from the battlefield and set it up again on the battlefield wholly within 6" of the battlefield edge and more than 9" from all enemy units.`,
+  when: [START_OF_MOVEMENT_PHASE],
   shared: true,
 }
 const RideTheWindsAethericEffect = {
   name: `Ride the Winds Aetheric`,
-  desc: `In your movement phase, this model can Ride the Winds Aetheric instead of moving normally. If it does so, choose the direction in which it will move, and roll 6D6. This model can move up to a number of inches equal to the result in the direction chosen, moving over terrain and other models as if it could fly. It must end the move more than 3" from enemy models - if this is impossible, it cannot move at all. This model cannot charge in a turn in which it Rides the Winds Aetheric.`,
+  desc: `Instead of picking this unit to make a normal move or retreat, you can say that it will ride the winds aetheric. If you do so, remove this unit from the battlefield and set it up again on the battlefield more than 1 " from all terrain features and objectives and more than 9" from all enemy units.`,
   when: [MOVEMENT_PHASE],
   shared: true,
 }
 const CycleOfTheStormEffect = {
   name: `Cycle of the Storm`,
-  desc: `Once per turn, when a friendly STORMCAST ETERNAL model is slain within 18" of this model, instead of removing the slain model, you can heal 1 wound allocated to it. This model cannot use this ability on itself.`,
+  desc: `Once per turn, when a friendly Stormcast Eternals model is slain within 18" of this model, instead of removing that model from play, you can heal 1 wound allocated to that model and it does not count as having been slain. This unit cannot use this ability on itself.`,
   when: [WOUND_ALLOCATION_PHASE],
   shared: true,
 }
 const SigmariteShieldEffect = {
-  name: `Sigmarite Shield`,
-  desc: `Worsen the Rend characteristic of weapons that target this unit by 1, to a minimum of '-'`,
+  name: `Sigmarite Shields`,
+  desc: `Add 1 to save rolls for attacks that target this unit if at least half of the models in this unit (rounding down) are armed with Sigmarite Shields.`,
   when: [SAVES_PHASE],
-  rule_sources: [
-    rule_sources.BATTLETOME_STORMCAST_ETERNALS,
-    rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
-  ],
   shared: true,
 }
-const SigmariteWarcloakEffect = {
-  name: `Sigmarite Warcloak`,
-  desc: `This model can make D6 storm magic strikes. For each strike, pick 1 enemy unit within 16" of this model that is visible to them and roll a D6. On a 4+ that unit suffers 1 mortal wound.`,
-  when: [SHOOTING_PHASE],
+const CelestialLightningArcEffect = {
+  name: `Celestial Lightning Arc`,
+  desc: `After this unit has fought for the first time in a phase and all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. Roll 2 dice for each model in this unit. For each 4+, that enemy unit suffers 1 mortal wound.`,
+  when: [COMBAT_PHASE],
   shared: true,
 }
-const CelestialLightningArcEffects = [
-  {
-    name: `Celestial Lightning Arc`,
-    desc: `After this unit has been picked to fight for the first time in a phase, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit. If you do so, roll 2 dice for each model in this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
-    when: [COMBAT_PHASE],
-    rule_sources: [
-      rule_sources.BATTLETOME_STORMCAST_ETERNALS,
-      rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
-    ],
-    shared: true,
-  },
-  {
-    name: `Celestial Lightning Arc`,
-    desc: `You can reroll save rolls of 1 for missile attacks that target this unit.`,
-    when: [SAVES_PHASE],
-    shared: true,
-  },
-]
+
 const IntolerableDamageEffect = {
   name: `Intolerable Damage`,
   desc: `If the unmodified wound roll for an attack made with a Dracoth's Claws and Fangs is 6, that attack has a Damage of D6 instead of 1.`,
   when: [COMBAT_PHASE],
   shared: true,
 }
-const StarsoulMacesEffect = {
-  name: `Starsoul Maces`,
-  desc: `Roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6+, the target unit suffers D3+1 mortal wounds.`,
+const StarsoulMaceEffect = {
+  name: `Starsoul Mace`,
+  desc: `Do not use the attack sequence for an attack made with a Starsoul Mace. Instead, roll a dice. On a 2+, the target sufers D3 mortal wounds.`,
   when: [COMBAT_PHASE],
   shared: true,
 }
 const ThunderousPounceEffect = {
   name: `Thunderous Pounce`,
-  desc: `You can reroll charge rolls for this model. In addition, the Damage for this model's Monstrous Claws is D3 instead of 1 if this model made a charge move in the same turn.`,
-  when: [CHARGE_PHASE, COMBAT_PHASE],
+  desc: `You can reroll charge rolls for this unit.`,
+  when: [CHARGE_PHASE],
   shared: true,
 }
 const WindriderEffect = {
   name: `Windrider`,
-  desc: `When a friendly STORMCAST ETERNAL unit within 9" of this model uses their Ride the Winds Aetheric ability, this model can follow in their wake if it has not already made a move in that movement phase. If it does so, immediately move this model up to the distance moved by the unit they are following. This model must end that move within 9" of the unit it is following and more than 3" from any enemy models. If this model uses this ability, it cannot move in that movement phase, and cannot make a charge move later in the same turn.`,
+  desc: `Instead of picking this unit to make a normal move or retreat, you can say that it will ride the winds aetheric. If you do so, remove this unit from the battlefield and set it up again on the battlefield more than 1 " from all terrain features and objectives and more than 9" from all enemy units.`,
   when: [MOVEMENT_PHASE],
   shared: true,
 }
@@ -153,75 +172,47 @@ const TirelessHuntersEffect = {
 }
 const LayLowTheTyrantsEffect = {
   name: `Lay Low the Tyrants`,
-  desc: `Add 1 to hit rolls for attacks made by this unit that target an enemy unit with a Wounds characteristic of 5 or more.`,
-  when: [COMBAT_PHASE],
-  shared: true,
-}
-const EvocatorPrimeEffect = {
-  name: `Evocator-Prime`,
-  desc: `+1 Attack.`,
-  when: [COMBAT_PHASE],
-  shared: true,
-}
-const EvocatorWizardEffect = {
-  name: `Magic`,
-  desc: `This unit is a WIZARD while it has 2 or more models.`,
-  when: [HERO_PHASE],
+  desc: `At the end of the combat phase, you can pick 1 enemy unit that is both within 1 " of this unit and within 6" of an objective, and roll a dice. On a 4+, that unit suffers D3 mortal wounds.`,
+  when: [END_OF_COMBAT_PHASE],
   shared: true,
 }
 const HeraldsOfRighteousnessEffect = {
   name: `Heralds of Righteousness`,
-  desc: `Can attempt charges within 18". Roll 3D6 for the charge roll.`,
+  desc: `You can attempt a charge with this unit if it is within 18" of an enemy unit instead of 12". Roll 3D6 instead of 2D6 when making a charge roll for this unit.`,
   when: [CHARGE_PHASE],
-  shared: true,
-}
-const FaithfulGryphHoundEffect = {
-  name: `Faithful Gryph-Hound`,
-  desc: `The first time this model is set up on the battlefield you can call a GRYPH-HOUND unit consisting of a single model to the battlefield and add it to your army. Set up the GRYPH-HOUND wholly within 3" of this model, and more than 9" from the enemy.`,
-  when: [DURING_SETUP],
-  shared: true,
-}
-const MeteoricStrikeEffect = {
-  name: `Meteoric Strike`,
-  desc: `Roll a D6 for each enemy unit that is within 1" of this model after this model makes a charge move. On a 2+ that unit suffers 1 mortal wound.`,
-  when: [CHARGE_PHASE],
-  shared: true,
-}
-const StormBreathEffect = {
-  name: `Storm Breath`,
-  desc: `Pick a point on the battlefield within 12" of this model that is visible to them. Roll a D6 for each enemy unit within 2" of that point. On a 4+ that unit suffers D3 mortal wounds.`,
-  when: [SHOOTING_PHASE],
   shared: true,
 }
 const LightningFastStrikesEffect = {
   name: `Lightning Fast Strikes`,
-  desc: `Add 1 to the Attacks of this model's Whirlwind Axes if this model made a charge move in the same turn.`,
+  desc: `Add D3 to the Attacks characteristic of this unit's Whirlwind Axes if this unit made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
   shared: true,
 }
 const StardrakeBaseEffects = [
   {
     name: `Arcane Lineage`,
-    desc: `Add 1 to casting rolls for friendly WIZARDS while they are within 18" of this model. In addition, subtract 1 from casting rolls for enemy WIZARDS while they are within 18" of this model.`,
+    desc: `Add 1 to casting rolls for friendly Wizards within 18" of this unit and subtract 1 from casting rolls for enemy Wizards within 18" of this unit.`,
     when: [HERO_PHASE],
     shared: true,
   },
   {
     name: `Cavernous Jaws`,
-    desc: `After this model makes a pile-in move, this model's Stardrake can bite one or more enemy models with its cavernous jaws. The number of bites it can make is shown on the damage table above. For each bite, pick one enemy model within 3" of this model and roll a D6. If the roll is greater than that model's Wounds characteristic, it is slain.`,
+    desc: `After this unit makes a pile-in move, you can say that this unit's Stardrake will bite the enemy with its cavernous jaws. If you do so, pick a number of enemy models within 3" of this unit equal to or less than the Cavernous Jaws value shown on this unit's damage table, and roll a dice for each. If the roll is greater than that model's Wounds characteristic, it is slain.`,
     when: [COMBAT_PHASE],
     shared: true,
   },
+]
+const AnnihilatorBaseEffects = [
   {
-    name: `Lord of the Heavens`,
-    desc: `This model can either breathe a Roiling Thunderhead or call down a Rain of Stars. If it breathes a Roiling Thunderhead, pick 1 enemy unit within 18" of this model that is visible to it. Roll a D6 for each model in that unit that is within 18" of this model. For each 6+ that unit suffers 1 mortal wound.If it calls down a Rain of Stars, pick up to D6 enemy units on the battlefield. Roll a D6 for each unit you pick. On a 4+ that unit suffers D3 mortal wounds.`,
-    when: [SHOOTING_PHASE],
+    name: `Blazing Impact`,
+    desc: `After this unit is set up on the battlefield for the first time, roll a dice for each enemy unit within 10" of this unit. On a 3+, that unit suffers D3 mortal wounds. In addition, you can reroll charge rolls for this unit if it was set up on the battlefield in the same turn.`,
+    when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
     shared: true,
   },
   {
-    name: `Sweeping Tail`,
-    desc: `Each time this model attacks, roll a D6 for each enemy unit within 3" of this model after all of this model's attacks have been resolved. If the roll is less than the number of models in that enemy unit, that enemy unit suffers D3 mortal wounds.`,
-    when: [COMBAT_PHASE],
+    name: `Force of a Falling Star`,
+    desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1 " of this unit and roll a number of dice equal to the unmodified charge roll for that charge move. Subtract 1 from the roll if this unit only has 2 models. Subtract 2 from the roll if this unit only has 1 model. For each 4+, that enemy unit suffers 1 mortal wound.`,
+    when: [CHARGE_PHASE],
     shared: true,
   },
 ]
@@ -231,317 +222,300 @@ const Units = {
     effects: [
       {
         name: `Cometstrike Sceptre`,
-        desc: `Pick a point on the battlefield within 24" of this model that is visible to them. Each unit within D6" of that point suffers D3 mortal wounds.`,
+        desc: `In your shooting phase, you can pick 1 point on the battlefield within 24" of this unit and visible to it. Each enemy unit within 3" of that point suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Retribution from On High`,
-        desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is set up in the Heavens as a reserve unit.`,
-        when: [DURING_SETUP],
-      },
-      {
-        name: `Strike from the Heavens`,
-        desc: `Declare whether this model will remain in reserve or strike from the Heavens. If this model strikes from the Heavens, set this model up on the battlefield more than 9" from any enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Strike from the Heavens`,
-        desc: `For every round this model remains in reserve, add 2 to the Attacks of Ghal Maraz until the end of the battle.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Retribution from On High`,
-        desc: `If this model was setup via Strike from the Heavens, until your next hero phase subtract 2 from the Bravery of enemy units while they are within 12" of this model.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Bearer of the Warhammer`,
-        desc: `Add 1 to the Bravery of friendly ORDER units while they are wholly within 18" of this model.`,
-        when: [BATTLESHOCK_PHASE],
+        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say that it is set up in the heavens as a reserve unit. If you do so, at the end of your movement phase, you must say if this unit will remain in reserve or if it will strike from the heavens.
+
+        At the end of your movement phase, if this unit remains in reserve, add 2 to the Attacks characteristic of this unit's Ghal Maraz for the rest of the battle. If this unit strikes from the heavens, set this unit up on the battlefield more than 9" from all enemy units.`,
+        when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Orrery of Celestial Fates`,
-        desc: `Once per turn, you can change one of the following dice rolls to a roll of your choice. Apply any modifiers to the new roll: hit roll, wound roll, save roll, run roll, charge roll, roll that determines the range or number of mortal wounds for this model's Cometstrike Sceptre.`,
+        desc: `Once per turn, before you make a hit or wound roll for an attack made by this unit, a save roll for an attack that targets this unit, or a run or charge roll for this unit, you can say that you will foresee the result of the roll. If you do so, instead of making the roll, you must choose the result of the roll. The result chosen for a D6 roll must be a whole number from 1 to 6, and the result chosen for a 2D6 roll must be a whole number from 2 to 12. The result cannot be rerolled, but any modifiers are applied to it as normal.`,
         when: [DURING_GAME],
+      },
+      {
+        name: `Eye of the Celestial Storm`,
+        desc: `This unit has a ward of 4+.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
   'Aventis Firestrike': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Fiery Orator'])],
       spells: [keyPicker(spells, ['Pyroelectric Blast'])],
     },
     effects: [
       CometTrailEffect,
       CycleOfTheStormEffect,
-      MeteoricStrikeEffect,
-      {
-        name: `Righteous Indignation`,
-        desc: `Each time a wound inflicted by a melee weapon is allocated to this model, roll a D6. On a 5+ the attacking unit suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
       {
         name: `Thunderhead Crown`,
-        desc: `In your hero phase, heal 1 wound allocated to this model.`,
+        desc: `In your hero phase, you can heal up to D3 wounds allocated to this unit.`,
         when: [HERO_PHASE],
       },
-      SpiritFlaskEffect,
-      PrimeElectridsEffect,
     ],
   },
   'Astreia Solbright': {
     mandatory: {
-      command_abilities: [
-        keyPicker(command_abilities, ['Soul Energy of the First Host (Astreia Solbright)']),
-      ],
       spells: [keyPicker(spells, ['Lightning Pulse'])],
     },
     effects: [
       CycleOfTheStormEffect,
-      SpiritFlaskEffect,
-      SupernaturalRoarEffect,
       ThunderousPounceEffect,
-      PrimeElectridsEffect,
+      {
+        name: `Soul Energy of the First Host`,
+        desc: `At the start of the combat phase, you can pick 1 friendly Hammers of Sigmar Sacrosanct unit wholly within 12" of this unit. Add 1 to save rolls for attacks made with melee weapons that target that unit until the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
     ],
   },
   'Vandus Hammerhand': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Vengeful Determination'])],
-    },
     effects: [
       {
         name: `Heldensen`,
-        desc: `Add D3 to the Attacks of Heldensen if this model made a charge move in the same turn.`,
+        desc: `Add 2 to the Attacks characteristic of this unit's Heldensen if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      IntolerableDamageEffect,
-      StormBreathEffect,
+      {
+        name: `Stormblast`,
+        desc: `Do not use the attack sequence for an attack made with a Stormblast. Instead, roll a dice. On a 4+, the target suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
+      },
       {
         name: `Lord of the Hammerhands`,
-        desc: `Friendly HAMMERS OF SIGMAR units wholly within 24" of this model at the start of the battleshock phase do not take battleshock tests.`,
-        when: [COMBAT_PHASE],
+        desc: `Do not take battleshock tests for friendly Hammers of Sigmar units wholly within 24" of this unit.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Vengeful Determination`,
+        desc: `Once per turn, at the start of the combat phase, you can pick 1 friendly Hammers of Sigmar Redeemer unit wholly within 12" of this unit. Add 1 to the Attacks characteristic of that unit's melee weapons until the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
   'Neave Blacktalon': {
-    effects: [
-      LightningFastStrikesEffect,
-      TirelessHuntersEffect,
-      {
-        name: `Nemesis`,
-        desc: `Add 1 to the Damage of this model's weapons if the target is a HERO.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      WindriderEffect,
-    ],
+    effects: [LightningFastStrikesEffect, WindriderEffect, TirelessHuntersEffect],
   },
   'Gavriel Sureheart': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Once More, For Sigmar, Charge!'])],
-    },
     effects: [
       {
         name: `Inescapable Vengeance`,
-        desc: `Add 1 to the Attacks of this model's Starbound Blade if it made a charge move in the same turn.`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon by this unit is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
-      SigmariteThundershield,
+      {
+        name: `Once More, For Sigmar, Charge!`,
+        desc: `You can reroll charge rolls for this unit. In addition, once per turn, this unit can issue the Forward to Victory command (core rules, 1 1.2) to a friendly Hammers of Sigmar unit without a command point being spent.`,
+        when: [COMBAT_PHASE],
+      },
+      SigmariteThundershieldEffect,
+    ],
+  },
+  'Karazai the Scarred': {
+    effects: [
+      AncientMasterOfWarEffect,
+      BlazingTempestEffect,
+      CalamitousTailEffect,
+      {
+        name: `Fires of Vengeance`,
+        desc: `Each time this unit destroys an enemy unit, you can apply the relevant effect below:
+
+        If the enemy unit was a Hero or Monster, add 1 to the Attacks characteristic of melee weapons used by this unit for the rest of the battle.
+
+        If the enemy unit had a Wounds characteristic of 3 or more and was not a Hero or Monster, add 1 to run and charge rolls for this unit for the rest of the battle.
+
+        If the enemy unit had a Wounds characteristic of 2 or less, you can heal 1 wound allocated to this unit.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
     ],
   },
   "Steelheart's Champions": {
     effects: [
-      LayLowTheTyrantsEffect,
+      {
+        name: `Champion`,
+        desc: `Severin Steelheart is the unit champion. If the target unit has 5 or more models, you can reroll failed hit rolls for attacks made with that model's Broadsword.`,
+        when: [COMBAT_PHASE],
+      },
       {
         name: `Heroic Guard`,
-        desc: `If one or more enemy units finishes a charge move within 1/2" of this unit, this unit can take a heroic guard. If it does so, for the rest of the turn, add 1 to save rolls for attacks that target this unit, but this unit does not receive the benefit of cover for the rest of the turn.`,
+        desc: `If an enemy unit finishes a charge move within 1/2" of this unit, add 1 to save rolls for attacks that target this unit until the end of that turn.`,
         when: [CHARGE_PHASE],
       },
-      {
-        name: `Heroic Guard`,
-        desc: `If active, add 1 to save rolls for attacks that target this unit, but this unit does not receive the benefit of cover for the rest of the turn.`,
-        when: [SAVES_PHASE],
-      },
-      {
-        name: `Sigmarite Shields`,
-        desc: `You can reroll save rolls of 1 for attacks that target this unit while it includes Angharad Brightshield.`,
-        when: [SAVES_PHASE],
-      },
+      LayLowTheTyrantsEffect,
     ],
   },
   'The Farstriders': {
     effects: [
-      AstralCompassEffect,
-      TirelessHuntersEffect,
+      {
+        name: `Champion`,
+        desc: `Sanson Farstrider is the unit champion. Sanson Farstrider is accompanied by a Star Falcon and carries an Astral Compass. Add 1 to the Attacks characteristic of that model's Stormwrought Weapon.`,
+        when: [COMBAT_PHASE],
+      },
       {
         name: `Star Falcon`,
-        desc: `Pick 1 enemy unit within 18" of Sanson Farstrider and roll a D6. On a 4+, that enemy unit suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE],
+        desc: `If this unit includes Sanson Farstrider, at the start of your shooting phase, you can pick 1 enemy unit within 18" of this unit and roll a dice. On a 4+, that unit suffers 1 mortal wound.`,
+        when: [START_OF_SHOOTING_PHASE],
+      },
+      {
+        name: `Astral Compass`,
+        desc: `If this unit includes Sanson Farstrider, at the start of your movement phase, instead of making a normal move, you can say that this unit will navigate the winds aetheric. If you do so, remove this unit from the battlefield and set it up again on the battlefield wholly within 6" of the battlefield edge and more than 9" from all enemy units.`,
+        when: [START_OF_MOVEMENT_PHASE],
       },
     ],
   },
   'Lord-Arcanum': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Aetheric Manipulation'])],
       spells: [keyPicker(spells, ['Thunderclap'])],
     },
-    effects: [CycleOfTheStormEffect, SpiritFlaskEffect, PrimeElectridsEffect],
+    effects: [
+      CycleOfTheStormEffect,
+      {
+        name: `Aetheric Manipulation`,
+        desc: `When moving a predatory endless spell controlled by this unit, add 6" to the distance that the endless spell can be moved in that phase.`,
+        when: [END_OF_HERO_PHASE],
+      },
+    ],
   },
   'Lord-Arcanum on Tauralon': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Swift of Wing'])],
       spells: [keyPicker(spells, ['Lightning Orb'])],
     },
-    effects: [
-      CometTrailEffect,
-      CycleOfTheStormEffect,
-      MeteoricStrikeEffect,
-      SpiritFlaskEffect,
-      PrimeElectridsEffect,
-    ],
+    effects: [CycleOfTheStormEffect, CometTrailEffect],
   },
   'Lord-Arcanum on Celestial Dracoline': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Pack Alpha'])],
       spells: [keyPicker(spells, ['Storm Lance'])],
     },
     effects: [
       CycleOfTheStormEffect,
-      SpiritFlaskEffect,
-      PrimeElectridsEffect,
       ThunderousPounceEffect,
-      SupernaturalRoarEffect,
+      {
+        name: `Pack Alpha`,
+        desc: `Add 1 to the Attacks characteristic of Monstrous Claws used by friendly Dracoline units wholly within 18" of any friendly units with this ability.`,
+        when: [COMBAT_PHASE],
+      },
     ],
   },
   'Lord-Arcanum on Gryph-Charger': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Soul Energy of the First Host'])],
       spells: [keyPicker(spells, ['Healing Light'])],
     },
-    effects: [
-      AetherealStrikeEffect,
-      RideTheWindsAethericEffect,
-      CycleOfTheStormEffect,
-      SpiritFlaskEffect,
-      PrimeElectridsEffect,
-    ],
+    effects: [RideTheWindsAethericEffect, CycleOfTheStormEffect],
   },
   'Lord-Aquilor': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Lord of the Azyrite Hurricane'])],
-    },
-    effects: [AstralCompassEffect, AetherealStrikeEffect, RideTheWindsAethericEffect],
+    effects: [
+      RideTheWindsAethericEffect,
+      {
+        name: `Lord of the Azyrite Hurricane`,
+        desc: `Once per battle round, this unit can issue a command to a friendly Vanguard unit wholly within 18" of this unit without a command point being spent.`,
+        when: [DURING_GAME],
+      },
+    ],
   },
   'Lord-Celestant on Dracoth': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Lord of the Host'])],
-    },
     effects: [
-      StormBreathEffect,
-      {
-        name: `Lightning Hammer`,
-        desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, that attack inflicts 2 mortal wounds on the target in addition to its normal damage. If a unit suffers any mortal wounds in this way, it cannot pile in later that phase.`,
-        when: [COMBAT_PHASE],
-      },
-      SigmariteThundershield,
-      IntolerableDamageEffect,
-      {
-        name: `Stormstrike Glaive`,
-        desc: `Add 2 to the Damage of this model's Stormstrike Glaive if this model made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
       {
         name: `Tempestos Hammer`,
-        desc: `Add D3 to the Attacks of this model's Tempestos Hammer if this model made a charge move in the same turn.`,
+        desc: `Add D3 to the Attacks characteristic of this unit's Tempestos Hammer if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
+      },
+      SigmariteThundershieldEffect,
+      {
+        name: `Stormblast`,
+        desc: `Do not use the attack sequence for an attack made with a Stormblast. Instead, roll a dice. On a 4+, the target suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
       },
       {
-        name: `Thunderaxe`,
-        desc: `Add 1 to the Attacks of this model's Thunderaxe for each other friendly STORMCAST ETERNAL unit wholly within 9" of this model when the attack is made.`,
+        name: `Furious Retribution`,
+        desc: `Once per battle, this unit can issue the All-out Attack command (core rules, 13.4) to a friendly Stormcast Eternals unit without a command point being spent.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      ImpalingStrikesEffect,
+      {
+        name: `Blast to Ashes`,
+        desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
+      CleavingBlowEffect,
     ],
   },
   'Lord-Celestant on Stardrake': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Lord of the Celestial Host'])],
-    },
     effects: [
       ...StardrakeBaseEffects,
+      SigmariteThundershieldEffect,
       {
-        name: `Inescapable Vengeance`,
-        desc: `Add D3 to the Attacks of this model's Celestine Hammer or Stormbound Blade if this model made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-      SigmariteThundershield,
-      {
-        name: `Stormbound Blade`,
-        desc: `If the unmodified hit roll for an attack made with a Stormbound Blade is 6, that attack inflicts 3 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [COMBAT_PHASE],
+        name: `Lord of the Host`,
+        desc: `Once per battle, this unit can issue a command to a friendly Stormcast Eternals unit wholly within 12" of this unit without a command point being spent.`,
+        when: [DURING_GAME],
       },
     ],
   },
   'Lord-Celestant': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Furious Retribution'])],
-    },
     effects: [
       {
         name: `Inescapable Vengeance`,
-        desc: `Add 1 to the Attacks of this model's weapons if this model made a charge move in the same turn.`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon by this unit is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
-      SigmariteWarcloakEffect,
+      {
+        name: `Furious Retribution`,
+        desc: `Once per battle, this unit can issue the All-out Attack command (core rules, 13.4) to a friendly Stormcast Eternals unit without a command point being spent.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
     ],
   },
   'Lord-Castellant': {
     effects: [
-      FaithfulGryphHoundEffect,
       {
         name: `Warding Lantern`,
-        desc: `Pick either a STORMCAST ETERNAL unit or a CHAOS unit wholly within 18". The same unit cannot be the target of Warding Lantern more than once per hero phase. If a CHAOS unit is picked, it suffers 1 mortal wound. CHAOS DAEMON units suffer D3 mortal wounds instead. If a STORMCAST ETERNAL unit is picked, add 1 to save rolls for attacks that target that unit until your next hero phase. In addition, each time you make a save roll of 7 for an attack that targets that unit, you can heal 1 wound allocated to a model from that unit.`,
+        desc: `In your hero phase, you can either pick 1 friendly Stormcast Eternals unit wholly within 1 8" of this unit or 1 enemy unit wholly within 18" of this unit.
+
+        If you pick a friendly Stormcast Eternals unit, add 1 to save rolls for attacks that target that unit until your next hero phase.
+
+        If you pick an enemy unit, roll a dice. On a 2+, the target suffers D3 mortal wounds. The same unit cannot be affected by this ability more than once per turn.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Warding Lantern`,
-        desc: `If active (and the target unit is STORMCAST ETERNAL), add 1 to save rolls for attacks that target that unit until your next hero phase. In addition, each time you make a save roll of 7 for an attack that targets that unit, you can heal 1 wound allocated to a model from that unit.`,
-        when: [SAVES_PHASE],
       },
     ],
   },
   'Gryph-Hounds': {
     effects: [
       {
+        name: `Champion`,
+        desc: `If this unit has 3 or more models, 1 model in this unit can be a Gryph-hound Alpha. Add 1 to the Attacks characteristics of that model's Vicious Beak and Claws.`,
+        when: [COMBAT_PHASE],
+      },
+      {
         name: `Warning Cry`,
-        desc: `If a reserve enemy unit is set up on the battlefield for the first time within 10" of this unit, friendly STORMCAST ETERNAL units wholly within 9" of this unit can attack that reserve unit with all of the missile weapons they are armed with. A unit that uses this ability to attack a reserve unit cannot use this ability to attack another reserve unit in the same phase.`,
+        desc: `If an enemy reserve unit or summoned unit (core rules, 3.1) is set up on the battlefield for the first time within 12" of this unit, you can pick up to 3 friendly Stormcast Eternals units wholly within 12" of this unit to shoot. Any shooting attacks made by a Stormcast Eternals unit picked with this ability must target that reserve unit or summoned unit.`,
         when: [DURING_GAME],
       },
       {
         name: `Darting Attacks`,
-        desc: `Each time this unit attacks, it can make a 6" retreat move after all of its attacks have been resolved.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Pack Leader Alpha`,
-        desc: `If a unit of GRYPH-HOUNDS has 3 or more models, one Gryph-hound can be a Gryph-hound Alpha. Add 1 to the Attacks of a Gryph-hound Alpha's Beak and Claws.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Loyal Companion`,
-        desc: `Add 2 to the Attacks of this unit's Beak and Claws while this unit is wholly within 6" of a friendly LORD-CASTELLANT or LORD-VERITANT.`,
+        desc: `After this unit has fought and all of its attacks have been resolved, it can retreat 6".`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  'Lord-Relictor': {
+  'Knight-Relictor': {
     effects: [
       {
-        name: `Healing Storm`,
-        desc: `Pick a friendly model with the STORMCAST ETERNAL keyword that is within 12" of this model and roll a D6. On a roll of 3 or more you can heal up to D3 wounds that have been suffered by the model that you picked. A Lord-Relictor cannot pray for a healing storm and a lightning storm in the same turn.`,
-        when: [HERO_PHASE],
+        name: `Relic Censer`,
+        desc: `Each time a friendly Stormcast Eternals unit wholly within 12" of this unit is affected by a prayer or the abilities of an invocation, you can roll a dice. On a 4+, ignore the effect of that prayer or the effects of that invocation's abilities on that unit.`,
+        when: [HERO_PHASE, END_OF_HERO_PHASE],
       },
+    ],
+  },
+  'Lord-Relictor': {
+    mandatory: {
+      prayers: [keyPicker(prayers, ['Healing Storm', 'Lightning Storm'])],
+    },
+    effects: [
       {
-        name: `Lightning Storm`,
-        desc: `Pick an enemy unit that is within 12" of this model and roll a D6. On a roll of 3 or more, the unit you picked suffers D3 mortal wounds, and your opponent must subtract 1 from all hit rolls for the unit until your next hero phase. A Lord-Relictor cannot pray for a lightning storm and a healing storm in the same turn.`,
+        name: `Mortis Priest`,
+        desc: `Add 1 to chanting rolls for this unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -553,8 +527,8 @@ const Units = {
     effects: [
       {
         name: `Redemptor Casket`,
-        desc: `Roll a D6 for each DAEMON or NIGHTHAUNT unit within 6" of this model. On a 4+ that unit suffers 1 mortal wound.`,
-        when: [START_OF_SHOOTING_PHASE],
+        desc: `Slain models cannot be returned to enemy units that are within 9" of any friendly units with this ability.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -562,42 +536,24 @@ const Units = {
     effects: [
       {
         name: `Arcane Engineer`,
-        desc: `Add 1 to hit rolls for friendly ORDER WAR MACHINES while wholly within 9" of any friendly LORD-ORDINATORS.`,
+        desc: `Add 1 to hit rolls for attacks made by friendly Order War Machines wholly within 9" of any friendly units with this ability.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
-        name: `Meteoric Slam`,
-        desc: `If you roll 2 or more unmodified hit rolls of 6 for this model's Astral Hammers, then after its attacks have been resolved that enemy unit suffers D3 mortal wounds.`,
-        when: [COMBAT_PHASE],
-      },
-      {
         name: `Comet Strike`,
-        desc: `If the unmodified hit roll for an attack made with an Astral Grandhammer is 6, that attack inflicts 2 mortal wounds and the attack sequence ends.`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon by this unit is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Solemn Duty`,
-        desc: `Until the end of that phase, you do not have to take battleshock tests for friendly STORMCAST ETERNAL units that are wholly within 18" of that model.`,
-        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
   'Lord-Veritant': {
+    mandatory: {
+      prayers: [keyPicker(prayers, ['Sanction'])],
+    },
     effects: [
-      FaithfulGryphHoundEffect,
       {
         name: `Lantern of Abjuration`,
-        desc: `This model can unbind one spell in each enemy hero phase in the same manner as a WIZARD.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Sanction`,
-        desc: `Pick 1 enemy WIZARD within 7" of this model and roll a D6. On a 4+ that enemy unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Bound in Service`,
-        desc: `Add 3 to the unbinding roll for this model's Lantern of Abjuration if there is a friendly GRYPH-HOUND model within 6" of the enemy WIZARD attempting to cast the spell.`,
+        desc: `This unit can attempt to unbind 1 spell in the enemy hero phase in the same manner as a Wizard.`,
         when: [HERO_PHASE],
       },
     ],
@@ -617,27 +573,29 @@ const Units = {
   'Knight-Azyros': {
     effects: [
       {
-        name: `Illuminator of the Lost`,
-        desc: `You can reroll hit rolls of 1 for attacks made by friendly units that target enemy units while the enemy unit is within 10" of this model.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
         name: `The Light of Sigmar`,
-        desc: `Once per battle, each enemy unit within 8" of this model suffers D3 mortal wounds. CHAOS units within 8" suffer D6 mortal wounds instead.`,
+        desc: `Once per turn, at the end of the charge phase, you can pick 1 enemy unit within 9" of this unit. Add 1 to hit rolls for attacks made by friendly Stormcast Eternals units that target that enemy unit in the following combat phase.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+    ],
+  },
+  'Knight-Draconis': {
+    effects: [
+      ArcaneHeritageEffect,
+      DraconicFlamestreamEffect,
+      {
+        name: `Wrath of the Draconith`,
+        desc: `Once per battle, in your hero phase, you can pick 1 friendly Stormdrake Guard unit wholly within 12" of this unit that has not made a shooting attack in that phase. That unit can shoot.`,
         when: [HERO_PHASE],
       },
+      DraggedIntoTheTempestEffect,
     ],
   },
   'Knight-Venator': {
     effects: [
       {
-        name: `Celestial Strike`,
-        desc: `If the unmodified wound roll for an attack made with a Star-eagle's Celestial Beak and Talons is 6, that attack has a Rend of -3 instead of '-'.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
         name: `Star-fated Arrow`,
-        desc: `Once per battle, this model can shoot a Star-fated Arrow. If it does so, until the end of that phase, the Attacks of this model's Realmhunter's Bow is reduced to 1, but it has a Damage of D3+3 instead of 1. If the target is a HERO or MONSTER, this weapon has a Damage of D6+3 until the end of that phase instead.`,
+        desc: `Once per battle, in your shooting phase, you can say that this unit will shoot a star-fated arrow instead of attacking with its missile weapons. If you do so, pick 1 enemy unit within 30" of this unit and roll a dice. On a 3+, the target suffers D3 mortal wounds. If the target is a Hero or Monster, it suffers D6 mortal wounds instead of D3.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -646,25 +604,13 @@ const Units = {
     mandatory: {
       spells: [keyPicker(spells, ['Spirit Storm'])],
     },
-    effects: [
-      {
-        name: `Voidstorm`,
-        desc: `Once per battle, you can declare an enemy spell is automatically unbound (do not roll the dice).`,
-        when: [HERO_PHASE],
-      },
-      SpiritFlaskEffect,
-    ],
+    effects: [VoidstormScrollEffect],
   },
   'Knight-Heraldor': {
     effects: [
       {
-        name: `Onwards to Glory`,
-        desc: `Pick a friendly STORMCAST ETERNAL unit wholly within 12" of this model. That unit can retreat and/or run in that movement phase and still charge later in the same turn.`,
-        when: [START_OF_MOVEMENT_PHASE],
-      },
-      {
         name: `Thunderblast`,
-        desc: `Pick a terrain feature wholly within 18" of this model. Each enemy unit within 3" of that terrain feature suffers D3 mortal wounds.`,
+        desc: `In your shooting phase, you can pick 1 terrain feature wholly within 18" of this unit. Roll a dice for each enemy unit within 3" of that terrain feature. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -698,18 +644,13 @@ const Units = {
     effects: [
       {
         name: `Heroic Challenge`,
-        desc: `If this model is within 6" of an enemy HERO when it makes a pile-in move, it can pile in an extra 3", but must end that pile-in move within 1" of an enemy HERO. In addition you can reroll failed hit rolls for attacks made by this model against a HERO.`,
+        desc: `Add 1 to hit rolls for attacks made by this unit that target a Hero.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Thundercharged Strike`,
-        desc: `If the unmodified wound roll for an attack made with a Questor Warblade is 6, that attack has a Damage of 2 instead of 1.`,
+        desc: `If the unmodified hit roll for an attack made with a Questor Warblade is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Sigmarite Shield`,
-        desc: `Reroll failed save rolls for attacks that target this model.`,
-        when: [SAVES_PHASE],
       },
     ],
   },
@@ -740,65 +681,55 @@ const Units = {
   'Knight-Vexillor': {
     effects: [
       {
-        name: `Icon of War`,
-        desc: `You can reroll charge rolls for friendly STORMCAST ETERNAL units that are wholly within 18" of this model when the charge roll is made.`,
-        when: [CHARGE_PHASE],
-      },
-      {
         name: `Meteoric Standard`,
-        desc: `Once per battle, pick a point on the battlefield within 24" of this model. Each unit within 2D6" of that point suffers D3 mortal wounds.`,
+        desc: `If this unit carries a Meteoric Standard, once per battle, in your hero phase, you can pick 1 point on the battlefield within 24" of this unit. Each enemy unit within 6" of that point suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
         name: `Pennant of the Stormbringer`,
-        desc: `Once per battle, pick a friendly STORMCAST ETERNAL unit on the battlefield. Remove that unit from the battlefield and then set it up again anywhere on the battlefield more than 9" from any enemy units.`,
+        desc: `If this unit carries a Pennant of the Stormbringer, once per battle, at the end of your movement phase, you can pick 1 friendly Stormcast Eternals unit on the battlefield. Remove that unit from the battlefield and set it up again on the battlefield more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
+      SoulChargedIconEffect,
     ],
   },
   'Knight-Vexillor with Banner of Apotheosis': {
     effects: [
       {
-        name: `Banner of the Reforged`,
-        desc: `Once per battle, in your hero phase, if this unit is on the battlefield, you can pick up to 3 friendly STORMCAST ETERNALS units wholly within 12" of this unit to be affected by the banner's energy (you can pick the same unit multiple times).
+        name: `The Banner of the Reforged`,
+        desc: `Once per battle, in your hero phase, you can pick up to 3 friendly Stormcast Eternals units wholly within 12" of this unit to be affected by the banner's energy (you can pick the same unit multiple times).
 
-        If you pick a unit once with this ability, you can heal up to D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined VVounds characteristic of D3 or less. If you pick a unit twice with this ability, you can heal up to 2D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain nodels to that unit that have a combined Wounds characteristic of 2D3 or less. 
-        
-        If you pick a unit three times with this ability, you can heal up to 3D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of 3D3 or less.`,
+        If you pick a unit once with this ability, you can heal up to D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of D3 or less. If you pick a unit twice with this ability, you can heal up to 2D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of 2D3 or less. If you pick a unit three times with this ability, you can heal up to 3D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of 3D3 or less.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Soul-charged Icon`,
-        desc: `You can reroll charge rolls for STORMCAST ETERNALS units wholly within 12" of this unit.`,
-        when: [CHARGE_PHASE],
-      },
+      SoulChargedIconEffect,
     ],
   },
   'Knight-Zephyros': {
-    effects: [LightningFastStrikesEffect, TirelessHuntersEffect, WindriderEffect],
+    effects: [TirelessHuntersEffect, WindriderEffect],
   },
   'Drakesworn Templar': {
     effects: [
       ...StardrakeBaseEffects,
       {
         name: `Arc Hammer`,
-        desc: `If the unmodified hit roll for an attack made with an Arc Hammer is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        desc: `If the unmodified hit roll for an attack made with an Arc Hammer is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Skybolt Bow`,
-        desc: `If you score one or more hits on an enemy unit with this model's Skybolt Bow, add 1 to hit rolls for attacks made by friendly DRACOTHIAN GUARD units that target that enemy unit until the end of that turn.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
         name: `Stormlance`,
-        desc: `If the unmodified hit roll for an attack made with a Stormlance that targets a MONSTER is 6, that attack inflicts D6 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
+        desc: `If the unmodified hit roll for an attack made with a Stormlance that targets a MONSTER is 6, the target suffers D6 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Tempest Axe`,
-        desc: `Subtract 2" from the distance enemy units can pile in when they start that pile-in move within 3" of this model.`,
+        desc: `Enemy models within 3" of a unit armed with a Tempest Axe cannot move more than 1" when making a pile-in move.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Celestial Blast`,
+        desc: `If the unmodified hit roll for an attack made with a Skybolt Bow is 6, the target suffers 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
@@ -857,137 +788,99 @@ const Units = {
   },
   Protectors: {
     effects: [
-      StarsoulMacesEffect,
       {
-        name: `Deathstrike`,
-        desc: `If the unmodified hit roll for an attack made with a Stormstrike Glaive that targets a MONSTER is 6, that attack has a Damage of D6 instead of 1.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Protector-Prime. Add 1 to the Attacks characteristic of that model's Stormstrike Glaive.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Stormshield`,
-        desc: `Subtract 1 from hit rolls for missile attacks target this unit. In addition, if another friendly unit wholly within 6" of this unit is targeted by an enemy model's missile weapon, that friendly unit receives the benefit of cover if the attacking model is closer to this unit than it is to the target unit.`,
-        when: [SHOOTING_PHASE],
+        name: `Shield of the Storm`,
+        desc: `Add 1 to save rolls for attacks that target this unit if at least half of the models in this unit (rounding down) are armed with Stormstrike Glaives.`,
+        when: [SAVES_PHASE],
       },
-      {
-        name: `Protector-Prime`,
-        desc: `1 Extra attack with Stormstrike Glaive.`,
-        when: [COMBAT_PHASE],
-      },
+      StarsoulMaceEffect,
     ],
   },
   Decimators: {
     effects: [
-      StarsoulMacesEffect,
       {
-        name: `Cleaving Blow`,
-        desc: `The Attacks of a Thunderaxe is equal to the number of enemy models within 2" of the attacking model when the number of attacks made with the weapon is determined.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Decimator-Prime. Add 1 to the Attacks characteristic of that model's Thunderaxe.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Grim Harvesters`,
-        desc: `Subtract 2 from the Bravery of enemy units while they are within 6" of one or more friendly units of DECIMATORS in the battleshock phase.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Decimator-Prime`,
-        desc: `+1 to wound rolls.`,
-        when: [HERO_PHASE],
-      },
+      StarsoulMaceEffect,
+      CleavingBlowEffect,
     ],
   },
   Liberators: {
     effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Liberator-Prime. Add 1 to the Attacks characteristic of that model's Heavens- wrought Weapons, Paired Heavens-wrought Weapons or Grandweapon.`,
+        when: [COMBAT_PHASE],
+      },
       LayLowTheTyrantsEffect,
       SigmariteShieldEffect,
-      {
-        name: `Paired Weapons`,
-        desc: `Each unmodified hit roll of 6 made for a model armed with either a pair of warhammers or a pair of warblades inflicts 2 hits on the target unit instead of 1. Make a wound and save roll for each hit.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Liberator-Prime`,
-        desc: `Add 1 to melee attacks.`,
-        when: [COMBAT_PHASE],
-      },
     ],
   },
   Retributors: {
     effects: [
-      StarsoulMacesEffect,
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Retributor-Prime. Add 1 to the Attacks characteristic of that model's Lightning Hammer.`,
+        when: [COMBAT_PHASE],
+      },
       {
         name: `Blast to Ashes`,
-        desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, that attack inflicts 2 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
+        desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Retributor-Prime`,
-        desc: `+1 hammer attacks.`,
-        when: [COMBAT_PHASE],
-      },
+      StarsoulMaceEffect,
     ],
   },
   'Prosecutors with Stormcall Javelins': {
     effects: [
       {
-        name: `Prosecutor-Prime`,
-        desc: `+1 Missile Weapon attacks.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Prosecutor-Prime. Add 1 to the Attacks characteristic of that model's Stormcall Javelin.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Stormcall Javelins`,
-        desc: `+1 to Stormcall Javelin damage if target is more than 9" from the attacking model.`,
-        when: [SHOOTING_PHASE],
-      },
-      SigmariteShieldEffect,
+      DispersedFormationEffect,
       HeraldsOfRighteousnessEffect,
+      SigmariteShieldEffect,
     ],
   },
   'Prosecutors with Celestial Hammers': {
     effects: [
       {
-        name: `Prosecutor-Prime`,
-        desc: `+1 Celestial Hammers attacks (melee)`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Prosecutor-Prime. Add 1 to the Attacks characteristic of that model's Celestial Hammer or Pair of Celestial Hammers.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Cleaving Blow`,
-        desc: `The Attacks of a Grandaxe is equal to the number of enemy models within 1" of the attacking model when the number of attacks made by the model is determined.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Paired Celestial Hammers`,
-        desc: `Reroll hits of 1.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-      SigmariteShieldEffect,
+      DispersedFormationEffect,
       HeraldsOfRighteousnessEffect,
+      SigmariteShieldEffect,
     ],
   },
-  Judicators: {
+  'Judicators with Boltstorm Crossbows': {
     effects: [
       {
-        name: `Judicator-Prime`,
-        desc: `+1 to hit.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Chained Lightning`,
-        desc: `If the hit roll for an attack made with a Shockbolt Bow scores a hit, that attack inflicts D6 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Judicator-Prime. Add 1 to the Attacks characteristic of that model's Boltstorm Crossbow or Thunderbolt Crossbow.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Rapid Fire`,
-        desc: `Add 1 to the Attacks of this unit's Boltstorm Crossbows if this unit did not move in the movement phase of the same turn.`,
+        desc: `If an attack made with a Boltstorm Crossbow scores a hit, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [SHOOTING_PHASE],
       },
+    ],
+  },
+  'Judicators with Skybolt Bows': {
+    effects: [
       {
-        name: `Eternal Judgement`,
-        desc: `Reroll hit rolls of 1 for attacks made with this unit's missile weapons that target a CHAOS unit.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Thunderbolt Crossbow`,
-        desc: `Do not use the attack sequence for an attack made with a Thunderbolt Crossbow. Instead, roll a D6. Subtract 1 from the roll if the target is a MONSTER. If the result is equal to or less than the number of models in the target unit, that unit suffers D3 mortal wounds.`,
+        name: `Celestial Blast`,
+        desc: `If the unmodified hit roll for an attack made with a Skybolt Bow is 6, the target suffers 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -995,60 +888,48 @@ const Units = {
   'Vanguard-Raptors with Hurricane Crossbows': {
     effects: [
       {
-        name: `Raptor-Prime`,
-        desc: `The leader of this unit is a Raptor-Prime. Add 1 to hit rolls for attacks made with a Raptor-Prime's Hurricane Crossbow and Heavy Stock.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-      {
-        name: `Rapid Fire`,
-        desc: `Add 3 to the Attacks of this unit's Hurricane Crossbows if this unit did not move in the movement phase of the same turn.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Raptor-Prime. Add 1 to the Attacks characteristic of that model's Hurricane Crossbow.`,
         when: [SHOOTING_PHASE],
       },
       {
-        name: `Suppressing Fire`,
-        desc: `Subtract 1 from charge rolls for enemy units while they are within 12" of one or more friendly VANGUARD-RAPTOR units armed with Hurricane Crossbows.`,
-        when: [CHARGE_PHASE],
+        name: `Rapid Fire`,
+        desc: `If an attack made with a Hurricane Crossbow scores a hit, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
   'Vanguard-Raptors with Longstrike Crossbows': {
     effects: [
       {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Raptor-Prime. That model is accompanied by an Aetherwing armed with a Beak and Claws. For rules purposes, the Aetherwing is treated in the same manner as a mount.`,
+        when: [COMBAT_PHASE],
+      },
+      {
         name: `Headshot`,
-        desc: `If the unmodified hit roll for an attack made with a Longstrike Crossbow is 6, that attack inflicts 2 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Hunting Call`,
-        desc: `If an enemy unit finishes a charge move within 1" of a friendly unit that includes a Raptor-Prime, roll a D6 for each model in that Raptor-Prime's unit. For each 6+, the charging unit suffers 2 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Longshot`,
-        desc: `Add 6" to the Range of this unit's Longstrike Crossbows if this unit did not move in the movement phase of the same turn.`,
+        desc: `If the unmodified hit roll for an attack made with a Longstrike Crossbow is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
         when: [SHOOTING_PHASE],
       },
     ],
   },
   'Vanguard-Hunters': {
     effects: [
-      AstralCompassEffect,
-      TirelessHuntersEffect,
       {
-        name: `Hunter-Prime`,
-        desc: `+1 attack.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Hunter-Prime. Add 1 to the Attacks characteristic of that model's Boltstorm Pistol and Stormwrought Weapon.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
+      AstralCompassEffect,
     ],
   },
   'Vanguard-Palladors': {
     effects: [
       {
-        name: `Lunar Blade`,
-        desc: `Each time a model armed with a Lunar Blade attacks, after all of that model's attacks have been resolved, you can pick 1 enemy unit within 1" of that model and roll a D6. On a 2+ the unit you picked suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        name: `Champion`,
+        desc: `1 model in this unit can be a Pallador-Prime. Add 1 to the Attacks characteristics of that model's Boltstorm Pistol and Shock Handaxe or Boltstorm Pistol and Starstrike Javelin.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
-      AetherealStrikeEffect,
       RideTheWindsAethericEffect,
     ],
   },
@@ -1060,26 +941,17 @@ const Units = {
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
-        name: `Watchful Guardians`,
-        desc: `At the start of the enemy charge phase, if this unit is wholly within 18" of a friendly unit of VANGUARD-RAPTORS, this unit can move up to 2D6". They must finish the move wholly within 18" of the same unit of VANGUARD-RAPTORS.`,
-        when: [CHARGE_PHASE],
+        name: `Marked for Destruction`,
+        desc: `Add 1 to hit rolls for attacks made with missile weapons by friendly Vanguard-Raptors units if the target is within 1 2" of any friendly units with this ability.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
   'Celestar Ballista': {
     effects: [
       {
-        name: `Bastions of Death`,
-        desc: `Worsen the Rend characteristic of missile weapons that target this unit when it is in cover by 1, to a minimum of '-'`,
-        when: [SAVES_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
-          rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
-        ],
-      },
-      {
-        name: `Chained Lightning`,
-        desc: `Each time you roll a hit for an attack made with this unit's Stormbolts, that attack inflicts D6 hits on the target instead of 1.`,
+        name: `Versatile Weapon`,
+        desc: `Each time this unit shoots, choose either the Lightning-charged Shot or Rapid Fire weapon characteristics for all the attacks it makes with its Celestar Stormbolts.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -1087,18 +959,22 @@ const Units = {
   Castigators: {
     effects: [
       {
-        name: `Castigator-Prime`,
-        desc: `Add 1 to hit rolls for attacks made with a Castigator-Prime's Thunderhead Greatbow.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Castigator-Prime. Add 1 to the Attacks characteristic of that model's Thunderhead Greatbow.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Castigator Aetheric Channelling`,
-        desc: `Say if this unit will increase the accuracy or the power of their Thunderhead Greatbows. If you choose accuracy, reroll hit rolls of 1 for attacks made by this unit in that shooting phase. If you choose power, this unit's Thunderhead Greatbows have a Rend of -2 instead of -1 in that shooting phase.`,
+        desc: `At the start of the shooting phase, you must say whether this unit will increase either the accuracy or the power of its Thunderhead Greatbows.
+
+        If you pick accuracy, until the end of that phase, add 1 to hit rolls for attacks made with this unit's Thunderhead Greatbows.
+
+        If you pick power, until the end of that phase, this unit's Thunderhead Greatbows have a Rend characteristic of -2 instead of -1.`,
         when: [START_OF_SHOOTING_PHASE],
       },
       {
         name: `Burst of Celestial Energy`,
-        desc: `If the unmodified hit roll for an attack made with a Thunderhead Greatbow that targets a DAEMON or NIGHTHAUNT unit is 6, that attack inflicts D3 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        desc: `If the unmodified hit roll for an attack made with a Thunderhead Greatbow that targets a Malignant or Daemon unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -1106,28 +982,47 @@ const Units = {
   Sequitors: {
     effects: [
       {
-        name: `Sequitor-Prime`,
-        desc: `Add 1 to the Attacks of a Sequitor-Prime's melee weapon.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Greatmace Blast`,
-        desc: `If the unmodified hit roll for an attack made with a Stormsmite Greatmace that targets a DAEMON or NIGHTHAUNT unit is 6, that attack inflicts D3 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Sequitor-Prime. Add 1 to the Attacks characteristic of that model's Sacrosanct Weapons or Stormsmite Greatmace. If a Sequitor- Prime is armed with Sacrosanct Weapons and a Soulshield, it can also carry a Redemption Cache.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Redemption Cache`,
-        desc: `Pick a CHAOS or DEATH unit within 6" of a Sequitor-Prime with a Redemption Cache and roll a D6. On a 4+, that unit suffers 1 mortal wound.`,
-        when: [START_OF_SHOOTING_PHASE],
+        name: `Sequitor Aetheric Channelling`,
+        desc: `At the start of the combat phase, you must say whether this unit will channel aetheric power into its weapons or into its shields.
+
+        If you pick its weapons, until the end of that phase, if the unmodified hit roll for an attack made by this unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.
+        
+        If you pick its shields, until the end of that phase, this unit has a ward of 5+.`,
+        when: [START_OF_COMBAT_PHASE],
       },
       {
-        name: `Sequitor Aetheric Channelling`,
-        desc: `Say if this unit will channel aetheric power into its weapons or its shields. If you choose its weapons, you can reroll failed hit rolls for attacks made by this unit in that combat phase. 'If you pick its shields, until the end of that phase, this unit has a 5+ ward.`,
-        when: [START_OF_COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
-          rule_sources.ERRATA_STORMCAST_ETERNALS_JULY_2021,
-        ],
+        name: `Redemption Cache`,
+        desc: `Slain models cannot be returned to enemy units that are within 3" of this unit's Sequitor-Prime.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  Vanquishers: {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Vanquisher-Prime. Add 1 to the Attacks characteristic of that model's Celestial Greatsword.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `1 in every 10 models in this unit can be a Storm-forged Icon Bearer. Add 1 to the Bravery characteristic of a unit that includes any Storm-forged Icon Bearers.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Musician`,
+        desc: `1 in every 10 models in this unit can be a Vanquisher Herald. If this unit receives the Rally command while it includes any Vanquisher Heralds, when you roll a dice for a slain model from this unit, you can return 1 slain model to this unit on a 5+ instead of only a 6.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Lightning Strikes`,
+        desc: `Add 1 to the Attacks characteristic of a Celestial Greatsword if there are 5 or more models in the target unit. Add 2 to the Attacks characteristic of a Celestial Greatsword instead of 1 if there are 10 or more models in the target unit.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -1135,48 +1030,90 @@ const Units = {
     mandatory: {
       spells: [keyPicker(spells, ['Empower'])],
     },
-    effects: [...CelestialLightningArcEffects, EvocatorPrimeEffect, EvocatorWizardEffect],
+    effects: [
+      {
+        name: `Wizard`,
+        desc: `This unit is a Wizard while this unit has 2 or more models. It can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. It only knows the Empower spell and cannot attempt to cast any other spells. Any number of Evocators units can attempt to cast Empower in the same hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be an Evocator-Prime. Add 1 to the Attacks characteristic of that model's Tempest Blade and Stormstave or Grandstave.`,
+        when: [COMBAT_PHASE],
+      },
+      CelestialLightningArcEffect,
+    ],
   },
   'Evocators on Celestial Dracolines': {
     mandatory: {
       spells: [keyPicker(spells, ['Empower'])],
     },
     effects: [
-      ...CelestialLightningArcEffects,
-      EvocatorPrimeEffect,
-      EvocatorWizardEffect,
-      SupernaturalRoarEffect,
-      ThunderousPounceEffect,
-    ],
-  },
-  'Lynus Ghalmorian on Gryph Charger': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Sombre Exemplar'])],
-      spells: [keyPicker(spells, ['Amethyst Gale'])],
-    },
-    effects: [
-      AetherealStrikeEffect,
-      RideTheWindsAethericEffect,
-      CycleOfTheStormEffect,
-      SpiritFlaskEffect,
       {
-        name: `Shield of the Pale Knight`,
-        desc: `You can reroll save rolls of 1 for attacks made with missile weapons that target this model or any friendly ANVILS OF HELDENHAMMER units wholly within 12" of this model.`,
-        when: [SAVES_PHASE],
+        name: `Wizard`,
+        desc: `This unit is a Wizard while it has 2 or more models. It can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. It only knows the Empower spell and cannot attempt to cast any other spells. Any number of Evocators units can attempt to cast Empower in the same hero phase.`,
+        when: [HERO_PHASE],
       },
-      PrimeElectridsEffect,
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be an Evocator-Prime. Add 1 to the Attacks characteristic of that model's Tempest Blade and Stormstave or Grandstave.`,
+        when: [COMBAT_PHASE],
+      },
+      ThunderousPounceEffect,
+      CelestialLightningArcEffect,
     ],
   },
+  // Removed in 2021
+  // 'Lynus Ghalmorian on Gryph Charger': {
+  //   mandatory: {
+  //     command_abilities: [keyPicker(command_abilities, ['Sombre Exemplar'])],
+  //     spells: [keyPicker(spells, ['Amethyst Gale'])],
+  //   },
+  //   effects: [
+  //     AetherealStrikeEffect,
+  //     RideTheWindsAethericEffect,
+  //     CycleOfTheStormEffect,
+  //     SpiritFlaskEffect,
+  //     {
+  //       name: `Shield of the Pale Knight`,
+  //       desc: `You can reroll save rolls of 1 for attacks made with missile weapons that target this model or any friendly ANVILS OF HELDENHAMMER units wholly within 12" of this model.`,
+  //       when: [SAVES_PHASE],
+  //     },
+  //     PrimeElectridsEffect,
+  //   ],
+  // },
   'Averon Stormsire': {
     mandatory: {
       spells: [keyPicker(spells, ['Stormsire'])],
     },
+    effects: [VoidstormScrollEffect],
+  },
+  'Bastian Carthalos': {
     effects: [
-      SpiritFlaskEffect,
       {
-        name: `Voidstorm Scroll`,
-        desc: `Once per battle, when this model attempts to unbind a spell, instead of making an unbinding roll you can say this model is using its Voidstorm Scroll. If you do so, the spell is automatically unbound (do not roll the dice).`,
+        name: `The Thunderborn`,
+        desc: `Once per turn, in your hero phase, you can pick 1 enemy unit on the battlefield and roll a number of dice equal to the Wounds characteristic of that unit. For each 6, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Castellan of Azyr`,
+        desc: `At the start of the first battle round, after determining who has the first turn but before the first turn begins, you can pick up to D3 friendly Hammers of Sigmar units on the battlefield and set them up again (any restrictions in the deployment instructions for the battleplan being used still apply).`,
+        when: [TURN_ONE_START_OF_ROUND],
+      },
+      {
+        name: `Vessel of the Tempest`,
+        desc: `This unit has a ward of 4+.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Voice of Thunder`,
+        desc: `Once per turn, this unit can issue a command to a Hammers of Sigmar unit anywhere on the battlefield without a command point being spent.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Mantle of the First Storm`,
+        desc: `At the end of a phase, if any enemy models were slain by wounds caused by this unit's attacks in that phase, you can heal all wounds allocated to this unit.`,
+        when: [DURING_GAME, WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -1186,52 +1123,37 @@ const Units = {
     },
     effects: [
       {
-        name: `Blessed Banishment`,
-        desc: `You can reroll hit rolls of 1 for attacks made by this unit that target Chaos or Death units.`,
-        when: [COMBAT_PHASE],
+        name: `Wizard`,
+        desc: `This unit is a Wizard while it has 2 models. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Empower spell. It cannot attempt to cast any spells other than Empower, but any number of units of Evocators can attempt to cast Empower in the same hero phase.`,
+        when: [HERO_PHASE],
       },
-      ...CelestialLightningArcEffects,
+      CelestialLightningArcEffect,
     ],
   },
-  'Lord-Celestant Gardus Steel Soul': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Furious Retribution'])],
-    },
+  'Gardus Steel Soul': {
     effects: [
       {
         name: `Aura of Purity`,
-        desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 5+ it is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `Friendly Hallowed Knights units wholly within 12" of this unit have a ward of 5+.`,
+        when: [SAVES_PHASE],
       },
-      {
-        name: `Aura of Purity`,
-        desc: `Roll a D6 each time you allocate a mortal wound to a friendly HALLOWED KNIGHTS unit wholly within 12" of this model. On a 6 it is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-      // This is slightly different from the Martyr's Strength command_trait
       {
         name: `Martyr's Strength`,
-        desc: `Roll a D6 if this model is slain in this phase. On a 2+ it can pile in and attack with all its melee weapons before being removed.`,
-        when: [COMBAT_PHASE],
+        desc: `Roll a dice if this unit is destroyed in the combat phase. On a 2+, this unit can fight before it is removed from play.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Saintly Assault`,
-        desc: `Once per battle, this model and friendly HALLOWED KNIGHTS HEROES within 12" can choose reroll charge rolls this phase.`,
+        desc: `Once per battle, at the start of your charge phase, you can declare a saintly assault. If you do so, until the end of that turn, you can reroll charge rolls for friendly Hallowed Knights units wholly within 12" of this unit and add 1 to the Attacks characteristic of melee weapons used by friendly Hallowed Knights Heroes wholly within 12" of this unit.`,
         when: [START_OF_CHARGE_PHASE],
       },
-      {
-        name: `Saintly Assault`,
-        desc: `If active, add 1 to the melee attacks characteristic for all affected models.`,
-        when: [COMBAT_PHASE],
-      },
-      SigmariteWarcloakEffect,
     ],
   },
-  'Yndrasta the Celestial Spear': {
+  Yndrasta: {
     effects: [
       {
         name: `The Prime Huntress`,
-        desc: `If any enemy MONSTERS are within 3" of this unit, add 10 to the number of wounds suffered by those MONSTERS when determining which row on their damage table to use.`,
+        desc: `If any enemy Monsters are within 3" of this unit, add 10 to the number of wounds suffered by those Monsters when determining which row on their damage table to use.`,
         when: [DURING_GAME],
       },
       {
@@ -1241,12 +1163,12 @@ const Units = {
       },
       {
         name: `Dazzling Radiance`,
-        desc: `Once per turn, in your hero phase, if this unit is on the battlefield, you can return 1 slain model to each friendly STORMCAST ETERNALS unit with a Wounds characteristic of 3 or less that is wholly within 12" of this unit.`,
+        desc: `Once per turn in your hero phase, if this unit is on the battlefield, you can return 1 slain model to each friendly Stormcast Eternals unit with a Wounds characteristic of 3 or less that is wholly within 12" of this unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `Hawk of the Celestial Skies`,
-        desc: `Do not take battleshock tests for friendly STORMCAST ETERNALS and CITIES OF SIGMAR units wholly within 12" of this unit.`,
+        desc: `Do not take battleshock tests for friendly Stormcast Eternals and Cities of Sigmar units wholly within 12" of this unit.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -1254,18 +1176,13 @@ const Units = {
   'Lord-Imperatant': {
     effects: [
       {
-        name: `Companion`,
-        desc: `A Lord-Imperatant is accompanied by a Gryph-hound that attacks with its Vicious Beak and Claws. The Gryph-hound must remain within 1" of the Lord-Imperatant. For rules purposes, the Lord-Imperatant and Gryph-hound are treated as a single model.`,
-        when: [DURING_GAME],
-      },
-      {
         name: `Distinguished Leader`,
         desc: `Once per turn, this unit can issue a command without a command point being spent.`,
         when: [DURING_GAME],
       },
       {
         name: `Guided by Lightning`,
-        desc: `Once per turn, at the end of your movement phase, if any friendly units with this ability are on the battlefield, you can say that they will guide the arrival of Sigmar's warriors. If you do so, pick 1 friendly STORMCAST ETERNALS THUNDERSTRIKE unit with a Wounds characteristic of 3 or less that is in reserve. When you use the Scions of the Storm allegiance ability to set up that unit on the battlefield in that phase, you can set it up more than 7" from all enemy units instead of more than 9".`,
+        desc: `Once per turn, at the end of your movement phase, if any friendly units with this ability are on the battlefield, you can say that they will guide the arrival of Sigmar's warriors. If you do so, pick 1 friendly Stormcast Eternals Thunderstrike unit with a Wounds characteristic of 3 or less that is in reserve. When you use the Scions of the Storm allegiance ability to set up that unit on the battlefield in that phase, you can set it up more than 7" from all enemy units instead of more than 9".`,
         when: [END_OF_MOVEMENT_PHASE],
       },
     ],
@@ -1279,16 +1196,18 @@ const Units = {
       },
       {
         name: `Soul-forged Guardians`,
-        desc: `At the start of the first battle round, before determining who has the first turn, you can pick 1 friendly STORMCAST ETERNALS HERO on the battlefield to which this unit will be bound. Roll a dice before you allocate a wound or mortal wound to that HERO while it is within 3" of this unit.
-        
-        On a 1-3, that wound or mortal wound is allocated to that HERO as normal. On a 3-4, that wound or mortal wound is allocated to this unit instead of that HERO. On a 5-6, that wound or mortal wound is negated.`,
+        desc: `At the start of the first battle round, before determining who has the first turn, you can pick 1 friendly Stormcast Eternals Hero on the battlefield to which this unit will be bound (the same Hero cannot have more than 1 unit of Praetors bound to it at any time).
+
+        Before you allocate a wound or mortal wound to that Hero, or instead of making a ward roll for a wound or mortal wound that would be allocated to that Hero, if that Hero is within 3" of this unit, you can roll a dice.
+
+        On a 1-2, that wound or mortal wound is allocated to that Hero as normal. On a 3-4, that wound or mortal wound is allocated to this unit instead of that Hero. On a 5-6, that wound or mortal wound is negated.`,
         when: [TURN_ONE_START_OF_ROUND],
       },
       {
         name: `Soul-forged Guardians`,
-        desc: `Roll a dice before you allocate a wound or mortal wound to that (previously bound) HERO while it is within 3" of this unit.
-        
-        On a 1-3, that wound or mortal wound is allocated to that HERO as normal. On a 3-4, that wound or mortal wound is allocated to this unit instead of that HERO. On a 5-6, that wound or mortal wound is negated.`,
+        desc: `Before you allocate a wound or mortal wound to that Hero, or instead of making a ward roll for a wound or mortal wound that would be allocated to that Hero, if that Hero is within 3" of this unit, you can roll a dice.
+
+        On a 1-2, that wound or mortal wound is allocated to that Hero as normal. On a 3-4, that wound or mortal wound is allocated to this unit instead of that Hero. On a 5-6, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -1302,12 +1221,12 @@ const Units = {
       },
       {
         name: `Standard Bearer`,
-        desc: `1 in every 5 models in this unit can be an Azyrite Signifier. Add 1 to the Bravery characteristic of this unit while it has any Azyrite Signifiers.`,
+        desc: `1 in every 5 models in this unit can be an Azyrite Signifier. Add 1 to the Bravery characteristic of a unit that includes any Azyrite Signifiers.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Stormsoul Arsenal`,
-        desc: `If the unmodified hit roll for an attack made with a Stormspear is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+        desc: `If the unmodified hit roll for an attack made with a Stormspear is 6, the target suffers 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -1319,23 +1238,17 @@ const Units = {
         desc: `1 model in this unit can be an Annihilator-Prime. Add 1 to the Attacks characteristic of that model's Meteoric Hammer.`,
         when: [COMBAT_PHASE],
       },
+      ...AnnihilatorBaseEffects,
+    ],
+  },
+  'Annihilators with Meteoric Grandhammers': {
+    effects: [
       {
-        name: `Blazing Impact`,
-        desc: `After this unit is set up on the battlefield for the first time, roll a dice for each enemy unit within 10" of this unit. On a 3+, that unit suffers D3 mortal wounds.
-        
-        In addition, you can reroll charge rolls for this unit if it was set up on the battlefield in the same turn.`,
-        when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
+        name: `Champion`,
+        desc: `1 model in this unit can be an Annihilator-Prime. Add 1 to the Attacks characteristic of that model's Meteoric Grandhammer.`,
+        when: [COMBAT_PHASE],
       },
-      {
-        name: `Blazing Impact`,
-        desc: `You can reroll charge rolls for this unit if it was set up on the battlefield in the same turn.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Force of a Falling Star`,
-        desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a number of dice equal to the unmodified charge roll for that charge move. Subtract 1 from the roll if this unit only has 2 models. Subtract 2 from the roll if this unit onlv has 1 model. For each 4+, that enemy unit suffers 1 mortal wound.`,
-        when: [CHARGE_PHASE],
-      },
+      ...AnnihilatorBaseEffects,
     ],
   },
   'Stormstrike Chariot': {
@@ -1356,12 +1269,97 @@ const Units = {
     effects: [
       {
         name: `Faithful Gryph-hounds`,
-        desc: `The first time this unit is set up on the battlefield, you must summon 1 GRYPH-HOUNDS unit consisting of 2 models to the battlefield and add it to your army. Set up the GRYPH-HOUNDS unit wholly within 3" of this unit and more than 9" from all enemy units.`,
-        when: [DURING_SETUP, DURING_GAME],
+        desc: `The first time this unit is set up on the battlefield, you must summon 1 Gryph-hounds unit consisting of 2 models to the battlefield and add it to your army. Set up the Gryph-hounds unit wholly within 3" of this unit and more than 9" from all enemy units.`,
+        when: [DURING_GAME],
       },
       {
         name: `Gaze of Sigmar`,
         desc: `Once per battle, in your shooting phase, you can say that this unit will draw the gaze of Sigmar instead of attacking with its missile weapons. If you do so, pick 1 point on the battlefield within 30" of this unit and visible to it. Roll a dice for each enemy unit within 6" of that point. On a 4+, that unit suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  Krondys: {
+    mandatory: {
+      spells: [keyPicker(spells, ['Atavistic Tempest'])],
+    },
+    effects: [
+      BlazingTempestEffect,
+      AncientMasterOfWarEffect,
+      CalamitousTailEffect,
+      {
+        name: `Regalia Fulmentarus`,
+        desc: `Add the Regalia Fulmentarus value shown on this unit's damage table to casting rolls for this unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Dracothian Guard Concussors': {
+    effects: [
+      GenericEffects.Elite,
+      StormBlastEffect,
+      {
+        name: `Blast to Ashes`,
+        desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Dracothian Guard Desolators': {
+    effects: [GenericEffects.Elite, StormBlastEffect, CleavingBlowEffect],
+  },
+  'Dracothian Guard Fulminators': {
+    effects: [GenericEffects.Elite, ImpalingStrikesEffect, StormBlastEffect],
+  },
+  'Dracothian Guard Tempestors': {
+    effects: [
+      GenericEffects.Elite,
+      StormBlastEffect,
+      {
+        name: `Volleystorm`,
+        desc: `If an attack made with a Volleystorm Crossbow scores a hit, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Stormdrake Guard': {
+    effects: [
+      {
+        name: `Monstrous Regiment`,
+        desc: `Only 1 model in this unit can carry out a monstrous rampage each turn.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Stormdrake-Prime. Add 1 to the Attacks characteristic of that model's Drakerider's Lance or Drakerider's Warblade.`,
+        when: [COMBAT_PHASE],
+      },
+      DispersedFormationEffect,
+      {
+        name: `Merciless Impact`,
+        desc: `This unit's Drakerider's Lances have a Rend characteristic of -2 instead of -1 and a Damage characteristic of 2 instead of 1 if this unit made a charge move in the same turn.`,
+        when: [SHOOTING_PHASE],
+      },
+      ArcaneHeritageEffect,
+      DraconicFlamestreamEffect,
+      DraggedIntoTheTempestEffect,
+      {
+        name: `Draconic Onslaught`,
+        desc: `Once per battle, in your hero phase, this unit can make a normal move. Roll a dice if any enemy units are within 12" of this unit after that normal move. On a 2+, this unit can immediately attempt a charge.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  Vigilors: {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Vigilor-Prime. Add 1 to the Attacks characteristic of that model's Stormcaller Bow.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Navigators of the Storm`,
+        desc: `In the shooting phase, if any wounds caused by attacks made with this unit's Stormcaller Bows are allocated to an enemy unit, add 1 to hit rolls for attacks that target that unit until the end of that turn. The same unit cannot be affected by this ability more than once per turn.`,
         when: [SHOOTING_PHASE],
       },
     ],

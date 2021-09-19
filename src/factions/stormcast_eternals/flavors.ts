@@ -57,7 +57,7 @@ const Flavors = {
     effects: [
       {
         name: `Fearless Foresight`,
-        desc: `Once per phase, you can re-roll 1 hit roll or 1 wound roll for an attack made bv a friendly CELESTIAL WARBRINGERS unit or 1 save roll for an attack that targets a friendly CELESTIAL WARBRINGERS unit.`,
+        desc: `Once per phase, you can reroll 1 hit roll or 1 wound roll for an attack made bv a friendly CELESTIAL WARBRINGERS unit or 1 save roll for an attack that targets a friendly CELESTIAL WARBRINGERS unit.`,
         when: [DURING_GAME],
       },
     ],
@@ -66,7 +66,7 @@ const Flavors = {
     effects: [
       {
         name: `The Host on High`,
-        desc: `When you attempt a charge with a friendly TEMPEST LORDS unit that can fly, you can re-roll 1 of the dice for that charge roll.`,
+        desc: `When you attempt a charge with a friendly TEMPEST LORDS unit that can fly, you can reroll 1 of the dice for that charge roll.`,
         when: [CHARGE_PHASE],
       },
     ],

@@ -29,6 +29,35 @@ const Prayers = {
       },
     ],
   },
+
+  // Unit prayers
+  'Lightning Storm': {
+    effects: [
+      {
+        name: `Lightning Storm`,
+        desc: `Answer value of 4 and a range of 12". If answered, pick 1 enemy unit within range and visible to the chanter. That unit suffers D3 mortal wounds. In addition, subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Healing Storm': {
+    effects: [
+      {
+        name: `Healing Storm`,
+        desc: `Answer value of 4 and a range of 12". If answered, pick 1 friendly Stormcast Eternals unit wholly within range and visible to the chanter. Heal up to D3 wounds allocated to that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  Sanction: {
+    effects: [
+      {
+        name: `Sanction`,
+        desc: `Answer value of 4 and a range of 12". If answered, pick 1 enemy unit within range and visible to the chanter. That unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Prayers, 'prayer')
