@@ -1,0 +1,63 @@
+Army Name: Seraphon 2K
+Army Faction: Seraphon
+Army Type: Coalesced
+Subfaction: Thunder Lizard
+Battlepack: Pitched Battles
+Points Limit: 2000 pts
+General: Saurus Scar-Veteran on Carnosaur
+Grand Strategy: Prized Sorcery
+Triumph: Inspired
+Battle Trait Bonus: Mighty Beasts of War, Trove of Old One Technology
+Units
+	Engine of the Gods
+		Battlefield Role: Artillery, Behemoth, Leader
+		Artefacts of Power: Fusil of Conflagration
+		Prayers: Heal
+		Points Cost: 265 pts
+	Skinks
+		Battlefield Role: Battleline
+		Points Cost: 75 pts
+	Skinks
+		Battlefield Role: Battleline
+		Points Cost: 75 pts
+	Salamander Hunting Pack
+		Battlefield Role: Other
+		Points Cost: 120 pts
+	Salamander Hunting Pack
+		Battlefield Role: Other
+		Points Cost: 120 pts
+	Bastiladon with Solar Engine
+		Battlefield Role: Behemoth
+		Points Cost: 235 pts
+Core Battalions
+	Warlord
+	Magnificent Bonus: Artefacts of Power
+		Saurus Astrolith Bearer
+			Battalion Slot Filled: Commander
+			Battlefield Role: Leader
+			Points Cost: 150 pts
+		Saurus Scar-Veteran on Carnosaur (General)
+			Battalion Slot Filled: Commander
+			Battlefield Role: Behemoth, Leader
+			Command Traits: Prime Warbeast
+			Artefacts of Power: Amulet of Destiny
+			Points Cost: 215 pts
+		Skink Starpriest
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Spells: Hand of Glory
+			Points Cost: 130 pts
+		Slann Starmaster
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Spells: Stellar Tempest
+			Points Cost: 265 pts
+		Saurus Guard
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Reinforced: Twice
+			Points Cost: 345 pts
+Faction Terrain
+	Realmshaper Engine
+Total Points: 1995 pts
+Valid: Created with Warhammer Age of Sigmar: The App
