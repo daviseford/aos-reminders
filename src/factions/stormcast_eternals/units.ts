@@ -25,6 +25,30 @@ import {
 import prayers from './prayers'
 import spells from './spells'
 
+const InescapableVengeanceEffect = {
+  name: `Inescapable Vengeance`,
+  desc: `If the unmodified hit roll for an attack made with a melee weapon by this unit is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const BlastToAshesEffect = {
+  name: `Blast to Ashes`,
+  desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const CelestialBlastEffect = {
+  name: `Celestial Blast`,
+  desc: `If the unmodified hit roll for an attack made with a Skybolt Bow is 6, the target suffers 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
+  when: [SHOOTING_PHASE],
+  shared: true,
+}
+const EvocatorChampionEffect = {
+  name: `Champion`,
+  desc: `1 model in this unit can be an Evocator-Prime. Add 1 to the Attacks characteristic of that model's Tempest Blade and Stormstave or Grandstave.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
 const ArcaneHeritageEffect = {
   name: `Arcane Heritage`,
   desc: `Each time this unit is affected by a spell or the abilities of an endless spell, you can roll a dice. On a 4+, ignore the effect of that spell or the effects of that endless spell's abilities on this unit.`,
@@ -104,8 +128,8 @@ const CometTrailEffect = {
   shared: true,
 }
 const StormBlastEffect = {
-  name: `Storm Blast`,
-  desc: `Hits inflict D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
+  name: `Stormblast`,
+  desc: `Do not use the attack sequence for an attack made with a Stormblast. Instead, roll a dice. On a 4+, the target suffers D3 mortal wounds.`,
   when: [SHOOTING_PHASE],
   shared: true,
 }
@@ -279,11 +303,7 @@ const Units = {
         desc: `Add 2 to the Attacks characteristic of this unit's Heldensen if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Stormblast`,
-        desc: `Do not use the attack sequence for an attack made with a Stormblast. Instead, roll a dice. On a 4+, the target suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
+      StormBlastEffect,
       {
         name: `Lord of the Hammerhands`,
         desc: `Do not take battleshock tests for friendly Hammers of Sigmar units wholly within 24" of this unit.`,
@@ -301,11 +321,7 @@ const Units = {
   },
   'Gavriel Sureheart': {
     effects: [
-      {
-        name: `Inescapable Vengeance`,
-        desc: `If the unmodified hit roll for an attack made with a melee weapon by this unit is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
+      InescapableVengeanceEffect,
       {
         name: `Once More, For Sigmar, Charge!`,
         desc: `You can reroll charge rolls for this unit. In addition, once per turn, this unit can issue the Forward to Victory command (core rules, 1 1.2) to a friendly Hammers of Sigmar unit without a command point being spent.`,
@@ -423,22 +439,14 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       SigmariteThundershieldEffect,
-      {
-        name: `Stormblast`,
-        desc: `Do not use the attack sequence for an attack made with a Stormblast. Instead, roll a dice. On a 4+, the target suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
+      StormBlastEffect,
       {
         name: `Furious Retribution`,
         desc: `Once per battle, this unit can issue the All-out Attack command (core rules, 13.4) to a friendly Stormcast Eternals unit without a command point being spent.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       ImpalingStrikesEffect,
-      {
-        name: `Blast to Ashes`,
-        desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
+      BlastToAshesEffect,
       CleavingBlowEffect,
     ],
   },
@@ -455,11 +463,7 @@ const Units = {
   },
   'Lord-Celestant': {
     effects: [
-      {
-        name: `Inescapable Vengeance`,
-        desc: `If the unmodified hit roll for an attack made with a melee weapon by this unit is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
+      InescapableVengeanceEffect,
       {
         name: `Furious Retribution`,
         desc: `Once per battle, this unit can issue the All-out Attack command (core rules, 13.4) to a friendly Stormcast Eternals unit without a command point being spent.`,
@@ -726,54 +730,38 @@ const Units = {
         desc: `Enemy models within 3" of a unit armed with a Tempest Axe cannot move more than 1" when making a pile-in move.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Celestial Blast`,
-        desc: `If the unmodified hit roll for an attack made with a Skybolt Bow is 6, the target suffers 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
-        when: [SHOOTING_PHASE],
-      },
+      CelestialBlastEffect,
     ],
   },
-  Concussors: {
-    effects: [
-      IntolerableDamageEffect,
-      SigmariteShieldEffect,
-      StormBlastEffect,
-      {
-        name: `Blast to Ashes`,
-        desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, that attack inflicts 1 mortal wound on the target in addition to its normal damage. If a unit suffers any mortal wounds in this way, it cannot pile in later that phase.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  Fulminators: {
-    effects: [
-      IntolerableDamageEffect,
-      SigmariteShieldEffect,
-      StormBlastEffect,
-      {
-        name: `Impaling Strikes`,
-        desc: `Add 2 to the Damage of this unit's Stormstrike Glaives if the unit made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Glaivewall`,
-        desc: `Add 1 to save rolls for attacks made with missiles weapons that target this unit.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
-  Desolators: {
-    effects: [
-      IntolerableDamageEffect,
-      SigmariteShieldEffect,
-      StormBlastEffect,
-      {
-        name: `Fury of the Storm`,
-        desc: `While this unit has 4 or more models, add 1 to the Attacks of this unit's Thunderaxes. While this unit has 6 or more models, add 2 to the Attacks instead.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
+  // Fulminators: {
+  //   effects: [
+  //     IntolerableDamageEffect,
+  //     SigmariteShieldEffect,
+  //     StormBlastEffect,
+  //     {
+  //       name: `Impaling Strikes`,
+  //       desc: `Add 2 to the Damage of this unit's Stormstrike Glaives if the unit made a charge move in the same turn.`,
+  //       when: [COMBAT_PHASE],
+  //     },
+  //     {
+  //       name: `Glaivewall`,
+  //       desc: `Add 1 to save rolls for attacks made with missiles weapons that target this unit.`,
+  //       when: [SAVES_PHASE],
+  //     },
+  //   ],
+  // },
+  // Desolators: {
+  //   effects: [
+  //     IntolerableDamageEffect,
+  //     SigmariteShieldEffect,
+  //     StormBlastEffect,
+  //     {
+  //       name: `Fury of the Storm`,
+  //       desc: `While this unit has 4 or more models, add 1 to the Attacks of this unit's Thunderaxes. While this unit has 6 or more models, add 2 to the Attacks instead.`,
+  //       when: [COMBAT_PHASE],
+  //     },
+  //   ],
+  // },
   Tempestors: {
     effects: [
       IntolerableDamageEffect,
@@ -830,11 +818,7 @@ const Units = {
         desc: `1 model in this unit can be a Retributor-Prime. Add 1 to the Attacks characteristic of that model's Lightning Hammer.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Blast to Ashes`,
-        desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
+      BlastToAshesEffect,
       StarsoulMaceEffect,
     ],
   },
@@ -877,13 +861,7 @@ const Units = {
     ],
   },
   'Judicators with Skybolt Bows': {
-    effects: [
-      {
-        name: `Celestial Blast`,
-        desc: `If the unmodified hit roll for an attack made with a Skybolt Bow is 6, the target suffers 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
+    effects: [CelestialBlastEffect],
   },
   'Vanguard-Raptors with Hurricane Crossbows': {
     effects: [
@@ -1036,11 +1014,7 @@ const Units = {
         desc: `This unit is a Wizard while this unit has 2 or more models. It can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. It only knows the Empower spell and cannot attempt to cast any other spells. Any number of Evocators units can attempt to cast Empower in the same hero phase.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Champion`,
-        desc: `1 model in this unit can be an Evocator-Prime. Add 1 to the Attacks characteristic of that model's Tempest Blade and Stormstave or Grandstave.`,
-        when: [COMBAT_PHASE],
-      },
+      EvocatorChampionEffect,
       CelestialLightningArcEffect,
     ],
   },
@@ -1054,16 +1028,12 @@ const Units = {
         desc: `This unit is a Wizard while it has 2 or more models. It can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. It only knows the Empower spell and cannot attempt to cast any other spells. Any number of Evocators units can attempt to cast Empower in the same hero phase.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Champion`,
-        desc: `1 model in this unit can be an Evocator-Prime. Add 1 to the Attacks characteristic of that model's Tempest Blade and Stormstave or Grandstave.`,
-        when: [COMBAT_PHASE],
-      },
+      EvocatorChampionEffect,
       ThunderousPounceEffect,
       CelestialLightningArcEffect,
     ],
   },
-  // Removed in 2021
+  // Removed in 2021 (?)
   // 'Lynus Ghalmorian on Gryph Charger': {
   //   mandatory: {
   //     command_abilities: [keyPicker(command_abilities, ['Sombre Exemplar'])],
@@ -1295,15 +1265,7 @@ const Units = {
     ],
   },
   'Dracothian Guard Concussors': {
-    effects: [
-      GenericEffects.Elite,
-      StormBlastEffect,
-      {
-        name: `Blast to Ashes`,
-        desc: `If the unmodified hit roll for an attack made with a Lightning Hammer is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [GenericEffects.Elite, StormBlastEffect, BlastToAshesEffect],
   },
   'Dracothian Guard Desolators': {
     effects: [GenericEffects.Elite, StormBlastEffect, CleavingBlowEffect],
