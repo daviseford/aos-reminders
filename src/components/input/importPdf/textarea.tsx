@@ -19,7 +19,13 @@ export const ImportTextarea: React.FC<IImportTextAreaProps> = ({ handleDrop }) =
   const { isDark } = useTheme()
   const [text, setText] = useState('')
 
-  const canImport = text && text.includes(warhammerAppPlaceholders.CREATED_BY_WARHAMMER_APP)
+  const canImport =
+    text &&
+    (text.includes(warhammerAppPlaceholders.CREATED_BY_WARHAMMER_APP) ||
+      text.startsWith('Army Name: ') ||
+      text.includes('Army Type: ') ||
+      text.includes('Battalion Slot Filled: ') ||
+      text.includes('Battlepack: '))
 
   const handleImport = () => {
     // Parse the text and then send it back as an army

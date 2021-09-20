@@ -1,8 +1,10 @@
 import { CoreBattalions } from 'generic_rules'
 import { uniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
+import { getFactionFromList } from 'meta/faction_list'
 import { IImportedArmy, WARHAMMER_APP } from 'types/import'
 import { TSelections } from 'types/selections'
+import { isValidFactionName } from 'utils/armyUtils'
 import { importErrorChecker } from 'utils/import'
 import { importFactionNameMap } from 'utils/import/options'
 import { cleanWarscrollText } from 'utils/warscroll/warscrollUtils'
@@ -40,8 +42,6 @@ const {
   VALID_LIST,
 } = warhammerAppPlaceholders
 
-const coreBattalionNames = CoreBattalions.map(x => x.name)
-
 const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(text)
 
@@ -50,6 +50,7 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
   let subFactionName = ''
   let origin_realm: string | null = null
   let selector = ''
+  let battalionNames = CoreBattalions.map(x => x.name)
 
   const selections = cleanedText.reduce(
     (accum, txt) => {
@@ -71,6 +72,14 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
 
         if (factionLookup?.subFactionName) {
           subFactionName = factionLookup.subFactionName
+        }
+
+        // Add faction-specific battalion names to look up later
+        if (isValidFactionName(factionName)) {
+          const additionalBattalions = getFactionFromList(factionName).AggregateArmy.Battalions.map(
+            x => x.name
+          )
+          battalionNames = battalionNames.concat(additionalBattalions)
         }
 
         return accum
@@ -175,10 +184,10 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
       // Add item to accum
       if (selector) {
         if (selector === 'units' || selector === 'battalions') {
-          const coreBattalion = coreBattalionNames.find(name => name === txt.trim())
+          const battalion = battalionNames.find(name => name === txt.trim())
 
-          if (coreBattalion) {
-            accum.battalions = uniq(accum.battalions.concat(coreBattalion))
+          if (battalion) {
+            accum.battalions = uniq(accum.battalions.concat(battalion))
             // TODO: Check for "Magnificent Bonus: blah blah" afterwards
             return accum
           } else {

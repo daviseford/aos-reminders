@@ -30,7 +30,7 @@ const Flavors = {
     effects: [
       {
         name: `Driven by Vengeance`,
-        desc: `At thc start of the combat phase, you can pick 1 friendly CELESTIAL VINDICATORS unit that made a charge move that turn. Until your next hero phase, if the unmodified hit roll for an attack made with a melee weapon by that unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        desc: `At the start of the combat phase, you can pick 1 friendly CELESTIAL VINDICATORS unit that made a charge move that turn. Until your next hero phase, if the unmodified hit roll for an attack made with a melee weapon by that unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
