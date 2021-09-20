@@ -1,15 +1,14 @@
 import { PreferenceApi } from 'api/preferenceApi'
 import GenericButton from 'components/input/generic_button'
 import { useAppStatus } from 'context/useAppStatus'
+import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'
 import { IImportedArmy, TXT_FILE, WARHAMMER_APP } from 'types/import'
 import { logEvent } from 'utils/analytics'
 import { isValidFactionName } from 'utils/armyUtils'
 import { hasErrorOrWarning } from 'utils/import/warnings'
 import { getWarhammerAppArmy } from 'utils/warhammer_app/getWarhammerAppArmy'
-import { cleanWarhammerAppText } from 'utils/warhammer_app/warhammerAppUtils'
-
-const BADGE_CLASS = `badge badge-pill badge-`
+import { warhammerAppPlaceholders } from 'utils/warhammer_app/warhammerAppUtils'
 
 interface IImportTextAreaProps {
   handleDrop: (army: IImportedArmy) => void
@@ -17,10 +16,13 @@ interface IImportTextAreaProps {
 
 export const ImportTextarea: React.FC<IImportTextAreaProps> = ({ handleDrop }) => {
   const { isOnline } = useAppStatus()
+  const { isDark } = useTheme()
   const [text, setText] = useState('')
 
+  const canImport = text && text.includes(warhammerAppPlaceholders.CREATED_BY_WARHAMMER_APP)
+
   const handleImport = () => {
-    // parse the text and then send it back as an army
+    // Parse the text and then send it back as an army
     const army = getWarhammerAppArmy(text)
 
     if (isOnline && hasErrorOrWarning(army.errors)) {
@@ -47,7 +49,9 @@ export const ImportTextarea: React.FC<IImportTextAreaProps> = ({ handleDrop }) =
             <textarea
               name="ImportTextarea"
               id="ImportTextarea"
-              className={'ImportTextarea'}
+              className={`form-control ImportTextarea${isDark ? '-Dark' : ''} ${
+                text && !canImport ? 'is-invalid' : ''
+              }`}
               placeholder={'Or paste your Warhammer App list here'}
               onChange={e => {
                 e.preventDefault()
@@ -57,17 +61,22 @@ export const ImportTextarea: React.FC<IImportTextAreaProps> = ({ handleDrop }) =
             />
           </div>
         </div>
-        {text && (
-          <div className="col-12 pb-3 ml-3">
+        {canImport && (
+          <div className="col-12 pb-3">
             <div className="btn-group" role="group">
-              <GenericButton className={`${BADGE_CLASS}success mr-1`} type="button" onClick={handleImport}>
+              <GenericButton
+                className={`btn ${isDark ? `btn-outline-light` : ``} btn-success btn-block`}
+                type="button"
+                onClick={handleImport}
+              >
                 Import
               </GenericButton>
-
-              <GenericButton className={`${BADGE_CLASS}danger mr-1`} onClick={() => setText('')}>
-                Clear
-              </GenericButton>
             </div>
+          </div>
+        )}
+        {text && !canImport && (
+          <div className="col-12 text-center">
+            <small className={'text-danger'}>This doesn't look like a list from the Warhammer App.</small>
           </div>
         )}
       </div>

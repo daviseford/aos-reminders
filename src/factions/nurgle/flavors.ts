@@ -5,7 +5,7 @@ import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 
 const Flavors = {
-  'Munificent Wanderers': {
+  'The Munificent Wanderers': {
     mandatory: {
       artifacts: [keyPicker(Artifacts, ['Mucktalon'])],
       command_abilities: [keyPicker(CommandAbilities, ['Infested with Wonders'])],

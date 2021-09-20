@@ -47,6 +47,15 @@ import {
 import { AZYR, BATTLESCRIBE, TImportParsers, UNKNOWN, WARHAMMER_APP, WARSCROLL_BUILDER } from 'types/import'
 
 // Add common typos here
+
+// Warhammer App on the left - AoS Reminders on the right
+const warhammerAppTypoMap: Record<string, string> = {
+  'Bastiladon with Solar Engine': 'Bastiladon',
+  'Bastiladon with Ark of Sotek': 'Bastiladon',
+  'Kurnoth Hunters with Kurnoth Scythes': 'Kurnoth Hunters',
+  'Kurnoth Hunters with Kurnoth Greatbows': 'Kurnoth Hunters',
+}
+
 // Warscroll Builder on the left - AoS Reminders on the right
 const warscrollTypoMap: Record<string, string> = {
   'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
@@ -269,13 +278,6 @@ const battlescribeTypoMap: Record<string, string> = {
   Salamanders: 'Salamander Hunting Pack',
   Vindicators: 'Vindictors',
   Voxaxe: 'Vosaxe',
-}
-
-// Warhammer App on the left - AoS Reminders on the right
-const warhammerAppTypoMap: Record<string, string> = {
-  ...azyrTypoMap,
-  'Bastiladon with Solar Engine': 'Bastiladon',
-  'Bastiladon with Ark of Sotek': 'Bastiladon',
 }
 
 /**
