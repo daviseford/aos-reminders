@@ -6,10 +6,11 @@ import { TSelections } from 'types/selections'
 import { importErrorChecker } from 'utils/import'
 import { importFactionNameMap } from 'utils/import/options'
 import { cleanWarscrollText } from 'utils/warscroll/warscrollUtils'
-import { warhammerAppPlaceholders } from './warhammerAppUtils'
+import { cleanWarhammerAppText, warhammerAppPlaceholders } from './warhammerAppUtils'
 
-export const getWarhammerAppArmy = (text: string[]): IImportedArmy => {
-  const army = getInitialWarhammerAppArmy(text)
+export const getWarhammerAppArmy = (text: string): IImportedArmy => {
+  const cleanedText = cleanWarhammerAppText(text)
+  const army = getInitialWarhammerAppArmy(cleanedText)
   const errorChecked = importErrorChecker(army, WARHAMMER_APP)
   return errorChecked
 }

@@ -21,8 +21,7 @@ export const ImportTextarea: React.FC<IImportTextAreaProps> = ({ handleDrop }) =
 
   const handleImport = () => {
     // parse the text and then send it back as an army
-    const cleanedText = cleanWarhammerAppText(text)
-    const army = getWarhammerAppArmy(cleanedText)
+    const army = getWarhammerAppArmy(text)
 
     if (isOnline && hasErrorOrWarning(army.errors)) {
       const payload = {

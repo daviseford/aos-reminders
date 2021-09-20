@@ -6,8 +6,9 @@ const AZYR_JSON_DIR = 'src/tests/fixtures/azyr/json'
 const BS_DIR = 'src/tests/fixtures/battlescribe/html'
 const WSB_JSON_DIR = 'src/tests/fixtures/warscroll/json'
 const WSB_PDF_DIR = 'src/tests/fixtures/warscroll/pdf'
+const WH_APP_DIR = 'src/tests/fixtures/warhammer_app'
 
-const FIXTURE_DIRS = [WSB_JSON_DIR, WSB_PDF_DIR, BS_DIR, AZYR_JSON_DIR]
+const FIXTURE_DIRS = [WSB_JSON_DIR, WSB_PDF_DIR, BS_DIR, AZYR_JSON_DIR, WH_APP_DIR]
 
 const azyrJsonTest = (filename: string) => `
 it('should correctly read ${filename}', () => {
@@ -39,6 +40,13 @@ it('should correctly read ${filename}', () => {
     expect(res.errors).toEqual([])
 })`
 
+const warhammerAppTest = (filename: string) => `
+it('should correctly read ${filename}', () => {
+  const parsedText = getFile('${filename}')
+  const res = getWarhammerAppArmy(parsedText)
+  expect(res.errors).toEqual([])
+})`
+
 const getFilesizeInBytes = (filename: string) => {
   const stats = fs.statSync(filename)
   const fileSizeInBytes = stats['size']
@@ -49,6 +57,7 @@ let AZYR_JSON_OUTPUT = ''
 let BS_OUTPUT = ''
 let WSB_JSON_OUTPUT = ''
 let WSB_PDF_OUTPUT = ''
+let WH_APP_OUTPUT = ''
 
 const run = () => {
   const intake_files: string[] = fs.readdirSync(INTAKE_DIR).filter((x: string) => !x.endsWith('.txt'))
@@ -95,13 +104,25 @@ const run = () => {
       AZYR_JSON_OUTPUT = `${AZYR_JSON_OUTPUT}\n${azyrJsonTest(filename.replace('.json', ''))}`
     }
 
+    // Warhammer App
+    if (filename.includes('Warhammer_App') && filename.endsWith('.txt')) {
+      fs.copyFileSync(src, `${WH_APP_DIR}/${filename}`)
+      WH_APP_OUTPUT = `${WH_APP_OUTPUT}\n${warhammerAppTest(filename.replace('.txt', ''))}`
+    }
+
     // Remove the file
     fs.unlinkSync(src)
   })
 }
 
 const print = () => {
-  const HAS_PROCESSED_FILES = !!(AZYR_JSON_OUTPUT || BS_OUTPUT || WSB_JSON_OUTPUT || WSB_PDF_OUTPUT)
+  const HAS_PROCESSED_FILES = !!(
+    AZYR_JSON_OUTPUT ||
+    BS_OUTPUT ||
+    WSB_JSON_OUTPUT ||
+    WSB_PDF_OUTPUT ||
+    WH_APP_OUTPUT
+  )
 
   if (!HAS_PROCESSED_FILES) return // No use if there's no data
 
@@ -110,6 +131,7 @@ const print = () => {
     [`${INTAKE_DIR}/${`BATTLESCRIBE_TESTS.txt`}`]: BS_OUTPUT,
     [`${INTAKE_DIR}/${`WSB_JSON_TESTS.txt`}`]: WSB_JSON_OUTPUT,
     [`${INTAKE_DIR}/${`WSB_PDF_TESTS.txt`}`]: WSB_PDF_OUTPUT,
+    [`${INTAKE_DIR}/${`WH_APP_TESTS.txt`}`]: WH_APP_OUTPUT,
   }
 
   Object.keys(reportMap).forEach(file => {

@@ -2,7 +2,6 @@ import { readFileSync } from 'fs'
 import { SERAPHON } from 'meta/factions'
 import path from 'path'
 import { getWarhammerAppArmy } from 'utils/warhammer_app/getWarhammerAppArmy'
-import { cleanWarhammerAppText } from 'utils/warhammer_app/warhammerAppUtils'
 
 const getFile = (filename: string): string => {
   return readFileSync(path.resolve(`src/tests/fixtures/warhammer_app/${filename}.txt`), 'utf8')
@@ -11,8 +10,7 @@ const getFile = (filename: string): string => {
 describe('getWarhammerAppArmy', () => {
   it('should correctly read Seraphon1', () => {
     const parsedText = getFile('Seraphon1')
-    const cleanedText = cleanWarhammerAppText(parsedText)
-    const res = getWarhammerAppArmy(cleanedText)
+    const res = getWarhammerAppArmy(parsedText)
 
     expect(res).toEqual({
       allyFactionNames: [],
@@ -69,8 +67,7 @@ describe('getWarhammerAppArmy', () => {
 
   it('should correctly read Fyreslayers1', () => {
     const parsedText = getFile('Fyreslayers1')
-    const cleanedText = cleanWarhammerAppText(parsedText)
-    const res = getWarhammerAppArmy(cleanedText)
+    const res = getWarhammerAppArmy(parsedText)
     expect(res.errors).toEqual([
       {
         severity: 'ally-warn',
@@ -81,8 +78,7 @@ describe('getWarhammerAppArmy', () => {
 
   it('should correctly read Seraphon2', () => {
     const parsedText = getFile('Seraphon2')
-    const cleanedText = cleanWarhammerAppText(parsedText)
-    const res = getWarhammerAppArmy(cleanedText)
+    const res = getWarhammerAppArmy(parsedText)
     expect(res.selections.units).toContain('Bastiladon')
     expect(res.errors).toEqual([])
   })
