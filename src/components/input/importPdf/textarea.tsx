@@ -18,6 +18,7 @@ export const ImportTextarea: React.FC<IImportTextAreaProps> = ({ handleDrop }) =
   const { isOnline } = useAppStatus()
   const { isDark } = useTheme()
   const [text, setText] = useState('')
+  const [isImporting, setIsImporting] = useState(false)
 
   const canImport =
     text &&
@@ -28,6 +29,8 @@ export const ImportTextarea: React.FC<IImportTextAreaProps> = ({ handleDrop }) =
       text.includes('Battlepack: '))
 
   const handleImport = () => {
+    setIsImporting(true) // Start the spinner
+
     // Parse the text and then send it back as an army
     const army = getWarhammerAppArmy(text)
 
@@ -43,6 +46,8 @@ export const ImportTextarea: React.FC<IImportTextAreaProps> = ({ handleDrop }) =
     if (isOnline && isValidFactionName(army.factionName)) {
       logEvent(`Import${WARHAMMER_APP}-${army.factionName}`)
     }
+
+    setTimeout(() => setIsImporting(false), 1000) // Stop the spinner after a second
 
     return handleDrop(army)
   }
@@ -69,15 +74,22 @@ export const ImportTextarea: React.FC<IImportTextAreaProps> = ({ handleDrop }) =
         </div>
         {canImport && (
           <div className="col-12 pb-3">
-            <div className="btn-group" role="group">
-              <GenericButton
-                className={`btn ${isDark ? `btn-outline-light` : ``} btn-success btn-block`}
-                type="button"
-                onClick={handleImport}
-              >
-                Import
-              </GenericButton>
-            </div>
+            <GenericButton
+              className={`btn ${isDark ? `btn-outline-light` : ``} btn-success btn-block`}
+              type="button"
+              onClick={handleImport}
+            >
+              {`Import${isImporting ? 'ing' : ''} `}
+              {isImporting ? (
+                <span
+                  className="spinner-border spinner-border-sm ml-2"
+                  role="status"
+                  aria-hidden="true"
+                ></span>
+              ) : (
+                ''
+              )}
+            </GenericButton>
           </div>
         )}
         {text && !canImport && (

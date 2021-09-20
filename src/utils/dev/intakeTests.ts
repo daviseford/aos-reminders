@@ -63,7 +63,7 @@ const run = () => {
   const intake_files: string[] = fs
     .readdirSync(INTAKE_DIR)
     .filter((x: string) => !x.endsWith('.txt') || x.endsWith('Warhammer_App.txt'))
-    
+
   const existing_files: string[] = FIXTURE_DIRS.map(x => fs.readdirSync(x)).flat()
 
   // console.log(intake_files)

@@ -15,7 +15,7 @@ const GrandStrategies = {
     effects: [
       {
         name: `Pillars of Victory`,
-        desc: `When the battle ends, you complete this grand strategy if the only Battleline units on the battlefield are friendly REDEEMER units`,
+        desc: `When the battle ends, you complete this grand strategy if the only Battleline units on the battlefield are friendly REDEEMER units.`,
         when: [END_OF_GAME],
       },
     ],

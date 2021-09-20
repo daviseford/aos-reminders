@@ -78,7 +78,7 @@ const BattleTraits = {
       },
       {
         name: `A Matter of Honour`,
-        desc: `Pick 1 MONSTER in your opponent's starting army that is on the battlefield« You complete this tactic if that unit is destroyed by wounds caused by attacks made by friendly DRACONITH or STARDRAKE units during this turn.`,
+        desc: `Pick 1 MONSTER in your opponent's starting army that is on the battlefield. You complete this tactic if that unit is destroyed by wounds caused by attacks made by friendly DRACONITH or STARDRAKE units during this turn.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
