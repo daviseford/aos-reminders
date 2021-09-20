@@ -38,6 +38,37 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1628815492817-Warscroll_Builder', () => {
+    const parsedText = getFile('1628815492817-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1628849242132-Warscroll_Builder', () => {
+    const parsedText = getFile('1628849242132-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1631218448766-Warscroll_Builder', () => {
+    const parsedText = getFile('1631218448766-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1631262247535-Warscroll_Builder', () => {
+    const parsedText = getFile('1631262247535-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1631830675004-Warscroll_Builder', () => {
+    const parsedText = getFile('1631830675004-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Kragnos')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1632141762265-Warscroll_Builder', () => {
     const parsedText = getFile('1632141762265-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)

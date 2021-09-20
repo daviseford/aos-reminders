@@ -102,13 +102,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.triumphs).toEqual(['Bloodthirsty'])
     expect(res.subFactionName).toEqual('Godseekers Host')
 
-    expect(res.errors).toEqual([
-      // "Inspirer" is a Pretenders Host command_trait, so it's not a valid entry in this Godseekers list!
-      {
-        severity: 'warn',
-        text: 'Inspirer',
-      },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should correctly read New_Tzeentch1', () => {
@@ -431,7 +425,7 @@ describe('getWarscrollArmyFromPdf', () => {
       'The Great Wrecka (Breaker Tribe)',
       'Kingslaughter Cowl (Breaker Tribe)',
     ])
-    expect(res.selections.units).toEqual(['Gatebreaker', 'Kraken-Eater', 'Warstomper', 'Mancrusher Gargants'])
+    expect(res.selections.units).toEqual(['Gatebreaker', 'Kraken-Eater', 'Warstomper', 'Mancrusher Gargant'])
     expect(res.errors).toEqual([
       {
         reason: DEPRECATED_AOS_3,
@@ -451,7 +445,7 @@ describe('getWarscrollArmyFromPdf', () => {
       'Gatebreaker',
       'Kraken-Eater',
       'Warstomper',
-      'Mancrusher Gargants',
+      'Mancrusher Gargant',
       'Bonegrinder Mega-Gargant',
     ])
     expect(res.errors).toEqual([])

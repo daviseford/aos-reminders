@@ -38,6 +38,7 @@ export const cleanWarhammerAppText = (text: string): string[] => {
         .trim()
         .replace(/ \(General\)$/g, '') // Remove General tag e.g. "Lord Kroak (General)" -> "Lord Kroak"
         .replace(/^Mark of Chaos: .+/g, '') // Remove Mark of Chaos tag e.g. "Mark of Chaos: Khorne"
+        .replace(/^Host Option: .+/g, '') // Remove Host Option tag e.g. "Host Option: General"
         .replace(
           /^(Army Notes|General|Battle Trait Bonus|Reinforced|Battlefield Role|Battlepack|Points Limit|Battalion Slot Filled): .+/g,
           ''

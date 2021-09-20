@@ -56,7 +56,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
     expect(res.selections.units).toContain('Gatebreaker')
     expect(res.selections.units).toContain('Kraken-Eater')
-    expect(res.selections.units).toContain('Mancrusher Gargants')
+    expect(res.selections.units).toContain('Mancrusher Gargant')
   })
 
   it('should correctly read 1626386937893-Battlescribe', () => {

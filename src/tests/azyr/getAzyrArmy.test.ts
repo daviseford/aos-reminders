@@ -233,7 +233,7 @@ describe('getAzyrArmyFromPdf', () => {
       command_traits: ['Extremely Bitter (Breaker Tribe)'],
       core_rules: [],
       triumphs: [],
-      units: ['Gatebreaker', 'Kraken-Eater', 'Warstomper', 'Mancrusher Gargants'],
+      units: ['Gatebreaker', 'Kraken-Eater', 'Warstomper', 'Mancrusher Gargant Mob'],
     })
     expect(res.errors).toEqual([
       {
