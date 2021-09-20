@@ -1,0 +1,46 @@
+Allegiance: Daughters of Khaine
+- Temple: Hagg Nar
+- Grand Strategy: Vendetta
+- Triumphs:
+
+Leaders
+Hag Queen (105)**
+- General
+- Command Trait: Devoted Disciples
+- Prayer: Blessing of Khaine
+Morathi-Khaine (330)**
+- Lore of Shadows: Mindrazor
+The Shadow Queen (330)*
+Hag Queen (105)**
+- Artefact: The Ulfuri
+- Prayer: Sacrament of Blood
+
+Battleline
+20 x Sisters of Slaughter (270)*
+- Barbed Whips and Sacrificial Knives
+- Reinforced x 1
+20 x Witch Aelves (240)**
+- Sacrificial Knives and Blade Bucklers
+- Reinforced x 1
+10 x Witch Aelves (120)**
+- Sacrificial Knives and Blade Bucklers
+
+Units
+10 x Blood Stalkers (340)*
+- Reinforced x 1
+
+Behemoths
+Avatar of Khaine (135)
+
+Endless Spells & Invocations
+The Burning Head (20)
+
+Core Battalions
+*Battle Regiment
+**Warlord
+
+Total: 1995 / 2000
+Reinforced Units: 3 / 4
+Allies: 0 / 400
+Wounds: 107
+Drops: 7

@@ -1,0 +1,64 @@
+Army Name: Unnamed Army 1
+Army Faction: Stormcast Eternals
+Army Type: Stormkeep
+Subfaction: Astral Templars
+Battlepack: Contest of Generals
+Points Limit: 2000 pts
+General: Knight-Judicator with Gryph-hounds
+Grand Strategy: Hold the Line
+Triumph: Inspired
+Holy Commands: Call for Aid
+Core Battalions
+Redemption Brotherhood
+Liberators
+Battalion Slot Filled: Troops
+Battlefield Role: Battleline
+Points Cost: 115 pts
+Vanguard-Hunters
+Battalion Slot Filled: Troops
+Battlefield Role: Battleline
+Points Cost: 125 pts
+Vanguard-Hunters
+Battalion Slot Filled: Troops
+Battlefield Role: Battleline
+Points Cost: 125 pts
+Vindictors
+Battalion Slot Filled: Troops
+Battlefield Role: Battleline
+Reinforced: Once
+Points Cost: 260 pts
+Vindictors
+Battalion Slot Filled: Troops
+Battlefield Role: Battleline
+Reinforced: Once
+Points Cost: 260 pts
+Liberators
+Battalion Slot Filled: Troops
+Battlefield Role: Battleline
+Points Cost: 115 pts
+Warlord
+Magnificent Bonus: Holy Commands
+Knight-Judicator with Gryph-hounds (General)
+Battalion Slot Filled: Sub-commander
+Battlefield Role: Leader
+Command Traits: Staunch Defender
+Artefacts of Power: Mirrorshield
+Points Cost: 205 pts
+Stormstrike Chariot
+Battalion Slot Filled: Troops
+Battlefield Role: Other
+Points Cost: 165 pts
+Stormstrike Chariot
+Battalion Slot Filled: Troops
+Battlefield Role: Other
+Points Cost: 165 pts
+Yndrasta
+Battalion Slot Filled: Commander
+Battlefield Role: Leader
+Points Cost: 320 pts
+Lord-Relictor
+Battalion Slot Filled: Sub-commander
+Battlefield Role: Leader
+Prayers: Translocation
+Points Cost: 145 pts
+Total Points: 2000 pts

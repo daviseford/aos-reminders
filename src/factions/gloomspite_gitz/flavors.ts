@@ -30,7 +30,7 @@ const Flavors = {
     mandatory: {
       artifacts: [keyPicker(Artifacts, ['Aetherquartz-studded Hide'])],
       command_abilities: [keyPicker(CommandAbilities, ['Oblivious to Sorcery'])],
-      command_traits: [keyPicker(CommandTraits, ['Shepard of Idiotic Destruction'])],
+      command_traits: [keyPicker(CommandTraits, ['Shepherd of Idiotic Destruction'])],
     },
     available: {
       batttalions: [keyPicker(Battlalions, ['Stomping Megamob'])],

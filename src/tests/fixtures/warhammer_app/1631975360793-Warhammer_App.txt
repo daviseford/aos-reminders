@@ -1,0 +1,60 @@
+Army Name: There be Maggots
+Army Faction: Maggotkin of Nurgle
+Subfaction: The Munificent Wanderers
+Battlepack: Pitched Battles
+Points Limit: 2000 pts
+General: Great Unclean One
+Grand Strategies: Vendetta
+Triumphs: Inspired
+Battle Trait Bonus: Cycle of Corruption, Fecund Vigour
+
+Units
+	The Glottkin 
+		Battlefield Role: Behemoth, Leader
+		Enhancements
+			Spells: Blades of Putrefaction
+		Points Cost: 395 pts
+	Great Unclean One (General)
+		Battlefield Role: Behemoth, Leader
+		Enhancements
+			Command Traits: One Last Gift
+			Artefacts of Power: Mucktalon
+			Spells: Favoured Poxes
+		Points Cost: 350 pts
+
+Core Battalions
+	Battle Regiment
+		Rotigus 
+			Battalion Slot Filled: Commander
+			Battlefield Role: Behemoth, Leader
+			Enhancements
+				Spells: Glorious Afflictions
+			Points Cost: 345 pts
+		Plaguebearers 
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Reinforced: Once
+			Points Cost: 220 pts
+		Plaguebearers 
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Reinforced: Once
+			Points Cost: 220 pts
+		Plaguebearers 
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Reinforced: Once
+			Points Cost: 220 pts
+		Sloppity Bilepiper 
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Points Cost: 130 pts
+
+Endless Spells/Invocations
+	Emerald Lifeswarm 
+		Points Cost: 60 pts
+	Suffocating Gravetide 
+		Points Cost: 50 pts
+
+Total Points: 1990 pts
+Valid: Created with Warhammer Age of Sigmar: The App

@@ -1,0 +1,59 @@
+Army Name: Stormcast vs Oruk 
+Army Faction: Stormcast Eternals
+Army Type: Stormkeep
+Subfaction: Celestial Warbringers
+Battlepack: Pitched Battles
+Points Limit: 2000 pts
+General: Lord-Arcanum on Gryph-Charger
+Grand Strategies: Dominating Presence
+Triumphs: Inspired
+Holy Commands: Thunderbolt Volley
+
+Units
+	Knight-Incantor 
+		Battlefield Role: Leader
+		Enhancements
+			Artefacts of Power: Mirrorshield
+			Spells: Flaming Weapon
+		Points Cost: 125 pts
+	Knight-Incantor 
+		Battlefield Role: Leader
+		Enhancements
+			Artefacts of Power: Amulet of Silvered Sigmarite
+			Spells: Lightning Blast
+		Points Cost: 125 pts
+	Lord-Arcanum on Gryph-Charger (General)
+		Battlefield Role: Leader
+		Enhancements
+			Command Traits: Staunch Defender
+			Artefacts of Power: Amulet of Destiny
+			Mount Traits: Scintillating Trail
+			Spells: Chain Lightning
+		Points Cost: 195 pts
+	Liberators 
+		Battlefield Role: Battleline
+		Points Cost: 115 pts
+	Liberators 
+		Battlefield Role: Battleline
+		Points Cost: 115 pts
+	Judicators with Skybolt Bows 
+		Battlefield Role: Battleline
+		Reinforced: Once
+		Points Cost: 400 pts
+	Stormstrike Chariot 
+		Battlefield Role: Other
+		Points Cost: 165 pts
+	Vanguard-Palladors 
+		Battlefield Role: Other
+		Points Cost: 215 pts
+	Knight-Judicator with Gryph-hounds 
+		Battlefield Role: Leader
+		Enhancements
+			Artefacts of Power: Luckstone
+		Points Cost: 205 pts
+	Yndrasta 
+		Battlefield Role: Leader
+		Points Cost: 320 pts
+
+Total Points: 1980 pts
+Invalid: Created with Warhammer Age of Sigmar: The App

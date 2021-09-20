@@ -1,0 +1,46 @@
+Army Name: Unnamed Army 1
+Army Faction: Sylvaneth
+Subfaction: Gnarlroot
+Battlepack: Pitched Battles
+Points Limit: 1000 pts
+General: Treelord Ancient
+Grand Strategies: Beast Master
+Triumphs: Inspired
+
+Units
+	Dryads 
+		Battlefield Role: Battleline
+		Points Cost: 95 pts
+	Treelord Ancient (General)
+		Battlefield Role: Behemoth, Leader
+		Enhancements
+			Command Traits: Nurtured by Magic
+			Artefacts of Power: Lifewreath
+			Spells: Verdurous Harmony
+		Points Cost: 295 pts
+	Branchwych 
+		Battlefield Role: Leader
+		Enhancements
+			Spells: Deadly Harvest
+		Points Cost: 90 pts
+
+Core Battalions
+	Hunters of the Heartlands
+		Kurnoth Hunters with Kurnoth Scythes 
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Points Cost: 215 pts
+		Kurnoth Hunters with Kurnoth Greatbows 
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Points Cost: 225 pts
+		Tree-Revenants 
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 80 pts
+
+Faction Terrain
+	Awakened Wyldwood 
+
+Total Points: 1000 pts
+Invalid: Created with Warhammer Age of Sigmar: The App

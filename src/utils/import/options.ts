@@ -99,6 +99,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Hammers of Aurgury': 'Hammers of Augury',
   'Horn of Consort': 'Horn of the Consort',
   'Horrible Resilient': 'Horribly Resilient',
+  'In and Out, Lads': 'In and Out, Ladz',
   'Inescapable Doom': 'Inescapeable Doom',
   'Katakros, Mortarch of the Necropolis': 'Katakros',
   'Khorghos Khul': 'Korghos Khul',
@@ -130,7 +131,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Rotbringer Sorcerer': 'Rotbringers Sorcerer',
   'Scarlet Cavalcade Godseekers Host (Host of Chaos)': 'Scarlet Cavalcade',
   'Secret Eater': 'Secret-eater',
-  'Sheperd of Idiotic Destruction': 'Shepard of Idiotic Destruction',
+  'Sheperd of Idiotic Destruction': 'Shepherd of Idiotic Destruction',
   'Slaves to Darkness Chaos Spawn': 'Chaos Spawn',
   'Slaves to Darkness Daemon Prince': 'Daemon Prince',
   'Spider Rider Skittermob': 'Spider Rider Skitterswarm',
@@ -187,10 +188,11 @@ const azyrTypoMap: Record<string, string> = {
 // Warhammer App on the left - AoS Reminders on the right
 const warhammerAppTypoMap: Record<string, string> = {
   ...azyrTypoMap,
-  'Bastiladon with Solar Engine': 'Bastiladon',
   'Bastiladon with Ark of Sotek': 'Bastiladon',
-  'Kurnoth Hunters with Kurnoth Scythes': 'Kurnoth Hunters',
+  'Bastiladon with Solar Engine': 'Bastiladon',
   'Kurnoth Hunters with Kurnoth Greatbows': 'Kurnoth Hunters',
+  'Kurnoth Hunters with Kurnoth Greatswords': 'Kurnoth Hunters',
+  'Kurnoth Hunters with Kurnoth Scythes': 'Kurnoth Hunters',
 }
 
 // Battlescribe on the left - AoS Reminders on the right
@@ -499,6 +501,10 @@ export const importFactionNameMap: Record<
   Gutbusters: { factionName: OGOR_MAWTRIBES },
   Ironjawz: { factionName: ORRUK_WARCLANS, subFactionName: OrrukWarclansFaction.subFactionKeyMap.Ironjawz },
   Khorne: { factionName: KHORNE },
+  Kruleboyz: {
+    factionName: ORRUK_WARCLANS,
+    subFactionName: OrrukWarclansFaction.subFactionKeyMap.Kruleboyz,
+  },
   Lethisian: { factionName: LETHISIAN_DEFENDERS },
   Lumineth: { factionName: LUMINETH_REALMLORDS },
   Nighthaunt: { factionName: NIGHTHAUNT },

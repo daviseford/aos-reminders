@@ -1,0 +1,59 @@
+Army Name: Jahshdkhsbsj
+Army Faction: Orruk Warclans
+Army Type: Ironjawz
+Battlepack: Pitched Battles
+Points Limit: 2000 pts
+General: Megaboss on Maw-krusha
+Grand Strategy: Hold the Line
+Triumph: Bloodthirsty
+Core Battalions
+	Command Entourage
+	Magnificent Bonus: Mount Traits
+		Megaboss on Maw-krusha (General)
+			Battalion Slot Filled: Commander
+			Battlefield Role: Behemoth, Leader
+			Command Traits: Mega Bossy
+			Artefacts of Power: Amulet of Destiny
+			Mount Traits: Loud ’Un
+			Points Cost: 480 pts
+		Orruk Weirdnob Shaman
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Points Cost: 90 pts
+		Orruk Warchanter
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Points Cost: 115 pts
+	Warlord
+	Magnificent Bonus: Artefacts of Power
+		Megaboss on Maw-krusha
+			Battalion Slot Filled: Commander
+			Battlefield Role: Behemoth, Leader
+			Artefacts of Power: Destroyer
+			Mount Traits: Mean ’Un
+			Points Cost: 480 pts
+		Orruk Megaboss
+			Battalion Slot Filled: Commander
+			Battlefield Role: Leader
+			Points Cost: 140 pts
+		Orruk Weirdnob Shaman
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Points Cost: 90 pts
+		Orruk Brutes
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Reinforced: Once
+			Points Cost: 320 pts
+	Hunters of the Heartlands
+		Orruk Ardboys
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Reinforced: Once
+			Points Cost: 170 pts
+		Orruk Ardboys
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 85 pts
+Total Points: 1970 pts
+Invalid: Created with Warhammer Age of Sigmar: The App

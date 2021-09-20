@@ -18,7 +18,7 @@ import {
   NURGLE,
   OGOR_MAWTRIBES,
   SERAPHON,
-  SKAVENTIDE,
+  SKAVEN,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   STORMCAST_ETERNALS,
@@ -2323,7 +2323,7 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Skaven2')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.factionName).toEqual(SKAVENTIDE)
+    expect(res.factionName).toEqual(SKAVEN)
     expect(res.errors).toEqual([])
   })
 
@@ -2331,7 +2331,7 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Skaven3')
     const res = getBattlescribeArmy(parsedText)
 
-    expect(res.factionName).toEqual(SKAVENTIDE)
+    expect(res.factionName).toEqual(SKAVEN)
     expect(res.errors).toEqual([])
   })
 
@@ -2394,7 +2394,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
-    expect(res.selections.flavors).toEqual(['Dhom Hain', 'Nautilar', "Mor'phann", 'Fuethan', 'Briomdar'])
+    expect(res.selections.flavors).toEqual(['Dhom-Hain', 'Nautilar', "Mor'phann", 'Fuethan', 'Briomdar'])
     expect(res.errors).toEqual([])
   })
 

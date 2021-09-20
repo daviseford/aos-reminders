@@ -1,0 +1,55 @@
+Army Name: Slaves to the D
+Army Faction: Slaves to Darkness
+Army Type: Despoilers
+Battlepack: Pitched Battles
+Points Limit: 2000 pts
+General: Be'lakor
+Grand Strategy: Prized Sorcery
+Triumph: Inspired
+Battle Trait Bonus: Aura of Chaos, Aura of Tzeentch
+Units
+	Archaon
+		Battlefield Role: Behemoth, Leader
+		Spells: Binding Damnation
+		Points Cost: 830 pts
+Core Battalions
+	Battle Regiment
+		Be'lakor (General)
+			Battalion Slot Filled: Commander
+			Battlefield Role: Behemoth, Leader
+			Spells: Binding Damnation
+			Points Cost: 360 pts
+		Chaos Lord
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Mark of Chaos: Tzeentch
+			Points Cost: 120 pts
+		Slaves to Darkness Daemon Prince
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Mark of Chaos: Khorne
+			Artefacts of Power: Doombringer Blade
+			Points Cost: 210 pts
+		Chaos Marauders
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Mark of Chaos: Tzeentch
+			Points Cost: 90 pts
+		Chaos Marauders
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Mark of Chaos: Tzeentch
+			Points Cost: 90 pts
+		Chaos Marauders
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Mark of Chaos: Tzeentch
+			Points Cost: 90 pts
+		Chaos Warshrine
+			Battalion Slot Filled: Monster
+			Battlefield Role: Behemoth
+			Mark of Chaos: Tzeentch
+			Prayers: Heal
+			Points Cost: 185 pts
+Total Points: 1975 pts
+Valid: Created with Warhammer Age of Sigmar: The App

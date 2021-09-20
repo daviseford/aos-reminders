@@ -1,0 +1,37 @@
+Army Name: Greshnik's Gatherers
+Army Faction: Skaven
+Battlepack: Pitched Battles
+Points Limit: 1000 pts
+General: Warlock Engineer
+Grand Strategy: Hold the Line
+Triumph: Indomitable
+Units
+	Warp Lightning Cannon
+		Battlefield Role: Artillery
+		Points Cost: 185 pts
+	Stormfiends
+		Battlefield Role: Other
+		Points Cost: 315 pts
+Core Battalions
+	Vanguard
+		Warlock Engineer (General)
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Command Traits: Deranged Inventor
+			Artefacts of Power: The Brass Orb
+			Spells: Chain Warp Lightning
+			Points Cost: 125 pts
+		Clanrats
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 130 pts
+		Clanrats
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 130 pts
+		Stormvermin
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 110 pts
+Total Points: 995 pts
+Valid: Created with Warhammer Age of Sigmar: The App

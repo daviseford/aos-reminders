@@ -1,0 +1,49 @@
+Army Name: Deepkin 3.0
+Army Faction: Idoneth Deepkin
+Subfaction: Dhom-Hain
+Battlepack: Pitched Battles
+Points Limit: 2000 pts
+General: Volturnos
+Units
+	Akhelian Ishlaen Guard
+		Battlefield Role: Battleline
+		Points Cost: 155 pts
+	Akhelian Leviadon
+		Battlefield Role: Behemoth
+		Points Cost: 380 pts
+	Akhelian Allopexes
+		Battlefield Role: Other
+		Points Cost: 125 pts
+Core Battalions
+	Command Entourage
+	Magnificent Bonus: Artefacts of Power
+		Volturnos (General)
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Points Cost: 260 pts
+		Eidolon of Mathlann Aspect of the Sea
+			Battalion Slot Filled: Commander
+			Battlefield Role: Leader
+			Artefacts of Power: Kraken Tooth
+			Spells: Vorpal Maelstrom
+			Points Cost: 355 pts
+		Isharann Soulscryer
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Prayers: Curse
+			Points Cost: 140 pts
+	Hunters of the Heartlands
+		Akhelian Morrsarr Guard
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 195 pts
+		Akhelian Morrsarr Guard
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 195 pts
+		Akhelian Morrsarr Guard
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 195 pts
+Total Points: 2000 pts
+Invalid: Created with Warhammer Age of Sigmar: The App
