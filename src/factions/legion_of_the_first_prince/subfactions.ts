@@ -1,7 +1,7 @@
 import KhorneUnits from 'factions/khorne/units'
 import { keyPicker, pickEffects } from 'factions/metatagger'
 import NurgleUnits from 'factions/nurgle/units'
-import SkavenUnits from 'factions/skaventide/units'
+import SkavenUnits from 'factions/skaven/units'
 import SlaaneshUnits from 'factions/slaanesh/units'
 import SlavesUnits from 'factions/slaves_to_darkness/units'
 import TzeentchUnits from 'factions/tzeentch/units'

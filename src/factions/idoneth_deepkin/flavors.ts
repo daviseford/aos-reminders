@@ -24,7 +24,7 @@ const Flavors = {
     ],
   },
 
-  'Dhom Hain': {
+  'Dhom-Hain': {
     effects: [
       {
         name: `Savage Fighters`,

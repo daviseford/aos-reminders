@@ -1,0 +1,37 @@
+Army Name: Trees
+Army Faction: Sylvaneth
+Subfaction: Winterleaf
+Battlepack: Pitched Battles
+Points Limit: 1000 pts
+General: Warsong Revenant
+Core Battalions
+	Battle Regiment
+		Warsong Revenant (General)
+			Battalion Slot Filled: Commander
+			Battlefield Role: Leader
+			Command Traits: My Heart Is Ice
+			Artefacts of Power: Frozen Kernel
+			Spells: Flaming Weapon
+			Points Cost: 275 pts
+		Dryads
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 95 pts
+		Kurnoth Hunters with Kurnoth Scythes
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Points Cost: 215 pts
+		Kurnoth Hunters with Kurnoth Greatswords
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Points Cost: 225 pts
+		Dryads
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 95 pts
+		Tree-Revenants
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 80 pts
+Total Points: 985 pts
+Invalid: Created with Warhammer Age of Sigmar: The App

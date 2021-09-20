@@ -130,6 +130,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (txt.startsWith('- General')) return accum
         if (txt.startsWith('- City Role')) return accum
         if (txt.startsWith('- Mark of Chaos : ')) return accum
+        if (txt.startsWith('- Host Option: ')) return accum
 
         // New in 2021
         if (txt.startsWith('- Triumphs: ')) {
@@ -304,7 +305,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (txt.match(/^- (.+ \()?Artefact(\))?( )?:/)) {
           const { trait: artifact, spell } = getTraitWithSpell('Artefact', txt)
           accum.artifacts = accum.artifacts.concat(artifact)
-          if (spell) accum.spells = accum.spells.concat(spell)
+          if (spell && spell !== 'None') accum.spells = accum.spells.concat(spell)
           return accum
         }
 
@@ -312,13 +313,17 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
         if (txt.search(/^- .+ Spell: /g) > -1) {
           // Handles entries like "- Ancient Knowledge Spell: Celestial Equilibrium"
           const spell = getTrait('Spell', txt)
-          accum.spells.push(spell)
+          if (spell !== 'None') {
+            accum.spells.push(spell)
+          }
           return accum
         }
 
         if (txt.startsWith('- Spell')) {
           const spell = getTrait('Spell', txt)
-          accum.spells = accum.spells.concat(spell)
+          if (spell !== 'None') {
+            accum.spells = accum.spells.concat(spell)
+          }
           return accum
         }
 

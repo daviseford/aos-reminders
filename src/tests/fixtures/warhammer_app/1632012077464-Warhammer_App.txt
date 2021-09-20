@@ -1,0 +1,61 @@
+Army Name: Mayor CupsOfCabbage
+Army Faction: Orruk Warclans
+Army Type: Ironjawz
+Subfaction: Da Choppas
+Battlepack: Pitched Battles
+Points Limit: 2000 pts
+General: Megaboss on Maw-krusha
+Grand Strategy: Waaagh!
+Triumph: Inspired
+Core Battalions
+	Warlord
+	Magnificent Bonus: Mount Traits
+		Megaboss on Maw-krusha (General)
+			Battalion Slot Filled: Commander
+			Battlefield Role: Behemoth, Leader
+			Command Traits: Mega Bossy
+			Artefacts of Power: Amulet of Destiny
+			Mount Traits: Mean ’Un
+			Points Cost: 480 pts
+		Orruk Megaboss
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Points Cost: 140 pts
+		Orruk Warchanter
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Points Cost: 115 pts
+		Orruk Ardboys
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Reinforced: Once
+			Points Cost: 170 pts
+	Hunters of the Heartlands
+		Orruk Ardboys
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Reinforced: Once
+			Points Cost: 170 pts
+		Orruk Ardboys
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Reinforced: Once
+			Points Cost: 170 pts
+	Command Entourage
+	Magnificent Bonus: Artefacts of Power
+		Megaboss on Maw-krusha
+			Battalion Slot Filled: Commander
+			Battlefield Role: Behemoth, Leader
+			Artefacts of Power: Destroyer
+			Mount Traits: Fast ’Un
+			Points Cost: 480 pts
+		Orruk Megaboss
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Points Cost: 140 pts
+		Orruk Warchanter
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Points Cost: 115 pts
+Total Points: 1980 pts
+Invalid: Created with Warhammer Age of Sigmar: The App

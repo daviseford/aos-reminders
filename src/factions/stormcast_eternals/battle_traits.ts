@@ -5,6 +5,7 @@ import {
   DURING_GAME,
   DURING_SETUP,
   END_OF_MOVEMENT_PHASE,
+  START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
@@ -44,6 +45,41 @@ const BattleTraits = {
         name: `Mortal Auxiliaries`,
         desc: `Add 1 to the Bravery characteristic of friendly STORMKEEP units wholly within 12" of any friendly STORMKEEP REDEEMER units.`,
         when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+
+  'Battle Tactics': {
+    effects: [
+      {
+        name: `Pioneers of the Realms`,
+        desc: `You complete this tactic if all of the objectives wholly within your opponent's territory are contested by friendly CITIES OF SIGMAR units at the end of this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `No Challenge Too Great`,
+        desc: `You complete this tactic if an enemy HERO is slain by wounds caused by an attack made with a melee weapon by a friendly REDEEMER unit during this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Hammerstrike Assault`,
+        desc: `Pick 1 HERO in your opponent's starting army that is on the battlefield, that has a Wounds characteristic of 10 or more and that has 0 wounds allocated to it. You complete this tactic if that HERO is slain during this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Lightning-shattered Morale`,
+        desc: `Pick 1 unit in your opponent's starting army that is on the battlefield and that has a Bravery characteristic of 10 or more. You complete this tactic if any models in that unit flee during this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Draconith Destruction`,
+        desc: `Pick 1 unit in your opponent's starting army that is on the battlefield and that has 10 or more models. You complete this tactic if that unit is destroyed by wounds caused by attacks made by friendly DRACONITH, STARDRAKE or DRACOTH units during this turm.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `A Matter of Honour`,
+        desc: `Pick 1 MONSTER in your opponent's starting army that is on the battlefield. You complete this tactic if that unit is destroyed by wounds caused by attacks made by friendly DRACONITH or STARDRAKE units during this turn.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

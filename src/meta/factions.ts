@@ -30,7 +30,7 @@ type TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
 type TOrrukWarclans = 'ORRUK_WARCLANS'
 type TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 type TSeraphon = 'SERAPHON'
-type TSkaventide = 'SKAVENTIDE'
+type TSkaven = 'SKAVEN'
 type TSlaanesh = 'SLAANESH'
 type TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 type TSonsOfBehemat = 'SONS_OF_BEHEMAT'
@@ -71,7 +71,7 @@ export const ORDER_GRAND_ALLIANCE: TOrderGrandAlliance = 'ORDER_GRAND_ALLIANCE'
 export const ORRUK_WARCLANS: TOrrukWarclans = 'ORRUK_WARCLANS'
 export const OSSIARCH_BONEREAPERS: TOssiarchBonereapers = 'OSSIARCH_BONEREAPERS'
 export const SERAPHON: TSeraphon = 'SERAPHON'
-export const SKAVENTIDE: TSkaventide = 'SKAVENTIDE'
+export const SKAVEN: TSkaven = 'SKAVEN'
 export const SLAANESH: TSlaanesh = 'SLAANESH'
 export const SLAVES_TO_DARKNESS: TSlavesToDarkness = 'SLAVES_TO_DARKNESS'
 export const SONS_OF_BEHEMAT: TSonsOfBehemat = 'SONS_OF_BEHEMAT'
@@ -116,7 +116,7 @@ export type TPrimaryFactions =
   | TOrrukWarclans
   | TOssiarchBonereapers
   | TSeraphon
-  | TSkaventide
+  | TSkaven
   | TSlaanesh
   | TSlavesToDarkness
   | TSonsOfBehemat
@@ -158,7 +158,7 @@ export const PRIMARY_FACTIONS: TPrimaryFactions[] = [
   ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
-  SKAVENTIDE,
+  SKAVEN,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,

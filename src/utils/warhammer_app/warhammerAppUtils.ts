@@ -1,3 +1,5 @@
+const CREATED_BY_WARHAMMER_APP = 'Created with Warhammer Age of Sigmar: The App'
+
 export const warhammerAppPlaceholders = {
   ALLY_SUFFIX: ' (Ally)',
   ARMY_NAME_PREFIX: 'Army Name: ',
@@ -5,6 +7,7 @@ export const warhammerAppPlaceholders = {
   ARTIFACTS_PREFIX: 'Artefacts of Power: ',
   BATTALIONS: '---BATTALIONS---',
   COMMAND_TRAITS_PREFIX: 'Command Traits: ',
+  CREATED_BY_WARHAMMER_APP,
   END_OF_ENTRY: '---END_OF_ENTRY---',
   END_OF_LIST: '---END_OF_LIST---',
   ENDLESS_SPELLS: '---ENDLESS_SPELLS---',
@@ -12,7 +15,7 @@ export const warhammerAppPlaceholders = {
   FACTION_NAME_PREFIX: 'FACTION_NAME: ',
   FLAVOR_PREFIX: 'FLAVOR: ',
   GRAND_STRATEGIES_PREFIX: 'Grand Strategies: ',
-  INVALID_LIST: 'Invalid: Created with Warhammer Age of Sigmar: The App',
+  INVALID_LIST: `Invalid: ${CREATED_BY_WARHAMMER_APP}`,
   MOUNT_TRAITS_PREFIX: 'Mount Traits: ',
   PRAYERS_PREFIX: 'Prayers: ',
   SCENERY: '---SCENERY---',
@@ -20,7 +23,7 @@ export const warhammerAppPlaceholders = {
   SUBFACTION_PREFIX: 'SUBFACTION: ',
   TRIUMPHS_PREFIX: 'Triumphs: ',
   UNITS: '---UNITS---',
-  VALID_LIST: 'Valid: Created with Warhammer Age of Sigmar: The App',
+  VALID_LIST: `Valid: ${CREATED_BY_WARHAMMER_APP}`,
 }
 
 export const cleanWarhammerAppText = (text: string): string[] => {
@@ -34,6 +37,8 @@ export const cleanWarhammerAppText = (text: string): string[] => {
         .replace(/ /g, ` `) // // Remove non ASCII-spaces
         .trim()
         .replace(/ \(General\)$/g, '') // Remove General tag e.g. "Lord Kroak (General)" -> "Lord Kroak"
+        .replace(/^Mark of Chaos: .+/g, '') // Remove Mark of Chaos tag e.g. "Mark of Chaos: Khorne"
+        .replace(/^Host Option: .+/g, '') // Remove Host Option tag e.g. "Host Option: General"
         .replace(
           /^(Army Notes|General|Battle Trait Bonus|Reinforced|Battlefield Role|Battlepack|Points Limit|Battalion Slot Filled): .+/g,
           ''

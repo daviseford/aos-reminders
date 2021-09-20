@@ -1,18 +1,91 @@
 import { readFileSync } from 'fs'
-import { SERAPHON } from 'meta/factions'
+import { SERAPHON, SKAVEN } from 'meta/factions'
 import path from 'path'
 import { getWarhammerAppArmy } from 'utils/warhammer_app/getWarhammerAppArmy'
-import { cleanWarhammerAppText } from 'utils/warhammer_app/warhammerAppUtils'
 
 const getFile = (filename: string): string => {
   return readFileSync(path.resolve(`src/tests/fixtures/warhammer_app/${filename}.txt`), 'utf8')
 }
 
 describe('getWarhammerAppArmy', () => {
+  it('should correctly read 1631975360793-Warhammer_App', () => {
+    const parsedText = getFile('1631975360793-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.flavors).toContain('The Munificent Wanderers')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1631976215041-Warhammer_App', () => {
+    const parsedText = getFile('1631976215041-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.units).toContain('Kurnoth Hunters')
+    expect(res.errors).toEqual([])
+  })
+
+  // This shouldn't work, it's actually a Warscroll Builder list
+  it('should correctly read 1631987356655-Warhammer_App', () => {
+    const parsedText = getFile('1631987356655-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.errors).toEqual([
+      {
+        severity: 'error',
+        text: 'There was a problem parsing this text. Please try copy + pasting it again from the Warhammer App.',
+      },
+    ])
+  })
+
+  it('should correctly read 1632017726597-Warhammer_App', () => {
+    const parsedText = getFile('1632017726597-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.command_traits).toContain('Shepherd of Idiotic Destruction')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1632029233553-Warhammer_App', () => {
+    const parsedText = getFile('1632029233553-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.units).toContain('Kurnoth Hunters')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1632069915266-Warhammer_App', () => {
+    const parsedText = getFile('1632069915266-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.artifacts).toContain('Amulet of Silvered Sigmarite')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1632078223244-Warhammer_App', () => {
+    const parsedText = getFile('1632078223244-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.factionName).toEqual(SKAVEN)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1632087431639-Warhammer_App', () => {
+    const parsedText = getFile('1632087431639-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.flavors).toContain('Dhom-Hain')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1632089083030-Warhammer_App', () => {
+    const parsedText = getFile('1632089083030-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.units).toContain('Daemon Prince')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1632120973397-Warhammer_App', () => {
+    const parsedText = getFile('1632120973397-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.battalions).toContain('Redemption Brotherhood')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read Seraphon1', () => {
     const parsedText = getFile('Seraphon1')
-    const cleanedText = cleanWarhammerAppText(parsedText)
-    const res = getWarhammerAppArmy(cleanedText)
+    const res = getWarhammerAppArmy(parsedText)
 
     expect(res).toEqual({
       allyFactionNames: [],
@@ -69,8 +142,7 @@ describe('getWarhammerAppArmy', () => {
 
   it('should correctly read Fyreslayers1', () => {
     const parsedText = getFile('Fyreslayers1')
-    const cleanedText = cleanWarhammerAppText(parsedText)
-    const res = getWarhammerAppArmy(cleanedText)
+    const res = getWarhammerAppArmy(parsedText)
     expect(res.errors).toEqual([
       {
         severity: 'ally-warn',
@@ -81,8 +153,7 @@ describe('getWarhammerAppArmy', () => {
 
   it('should correctly read Seraphon2', () => {
     const parsedText = getFile('Seraphon2')
-    const cleanedText = cleanWarhammerAppText(parsedText)
-    const res = getWarhammerAppArmy(cleanedText)
+    const res = getWarhammerAppArmy(parsedText)
     expect(res.selections.units).toContain('Bastiladon')
     expect(res.errors).toEqual([])
   })

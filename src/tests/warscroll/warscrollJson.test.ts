@@ -21,7 +21,7 @@ import {
   ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
-  SKAVENTIDE,
+  SKAVEN,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
@@ -38,6 +38,47 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1628815492817-Warscroll_Builder', () => {
+    const parsedText = getFile('1628815492817-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1628849242132-Warscroll_Builder', () => {
+    const parsedText = getFile('1628849242132-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1631218448766-Warscroll_Builder', () => {
+    const parsedText = getFile('1631218448766-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it.skip('should correctly read 1631262247535-Warscroll_Builder', () => {
+    const parsedText = getFile('1631262247535-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1631830675004-Warscroll_Builder', () => {
+    const parsedText = getFile('1631830675004-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Kragnos')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1632141762265-Warscroll_Builder', () => {
+    const parsedText = getFile('1632141762265-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.factionName).toEqual(ORRUK_WARCLANS)
+    expect(res.subFactionName).toEqual('Kruleboyz')
+    expect(res.selections.flavors).toContain('Big Yellers')
+    expect(res.selections.grand_strategies).toContain('In and Out, Ladz')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1626346073420-Warscroll_Builder', () => {
     const parsedText = getFile('1626346073420-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -526,14 +567,14 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1614288189630-Warscroll_Builder', () => {
     const parsedText = getFile('1614288189630-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.command_traits).toContain('Shepard of Idiotic Destruction')
+    expect(res.selections.command_traits).toContain('Shepherd of Idiotic Destruction')
     expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1614371993867-Warscroll_Builder', () => {
     const parsedText = getFile('1614371993867-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.flavors).toContain('Dhom Hain')
+    expect(res.selections.flavors).toContain('Dhom-Hain')
     expect(res.errors).toEqual([])
   })
 
@@ -1480,7 +1521,7 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(NURGLE)
     expect(res.allySelections).toEqual({
-      [SKAVENTIDE]: { battalions: ['Congregation of Filth'], units: [] },
+      [SKAVEN]: { battalions: ['Congregation of Filth'], units: [] },
     })
     expect(res.origin_realm).toEqual(HYSH)
     expect(res.errors).toEqual([
@@ -1759,7 +1800,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1572694928061-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(SKAVENTIDE)
+    expect(res.factionName).toEqual(SKAVEN)
     expect(res.selections.artifacts).toContain('Flaypelt Cloak (Verminus)')
     expect(res.errors).toEqual([])
   })
@@ -1768,7 +1809,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1572695046339-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(SKAVENTIDE)
+    expect(res.factionName).toEqual(SKAVEN)
     expect(res.selections.artifacts).toContain('Flaypelt Cloak (Verminus)')
     expect(res.errors).toEqual([])
   })
@@ -1777,7 +1818,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1571895994578-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
-    expect(res.factionName).toEqual(SKAVENTIDE)
+    expect(res.factionName).toEqual(SKAVEN)
     expect(res.selections.battalions).toEqual([
       'Warpcog Convocation',
       'Arkhspark Voltik (Enginecoven)',

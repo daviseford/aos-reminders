@@ -65,6 +65,33 @@ const BaseMegaGargantEffects = [
   TimberrrrrEffect,
 ]
 
+const BaseGargantEffects = [
+  {
+    name: `Keep Up!`,
+    desc: `If this unit is within 12" of a friendly MEGA-GARGANT at the start of the charge phase, it can attempt to charge in that charge phase even if it ran in the same turn.`,
+    when: [START_OF_CHARGE_PHASE],
+    shared: true,
+  },
+  {
+    name: `Stomping Charge`,
+    desc: `After a model from this unit makes a charge move, pick 1 enemy unit within 1" of it and roll a D6. If the roll is equal to or greater than the Stomping Charge value for the charging model shown on the damage table above, that unit suffers D3 mortal wounds. If this unit has more than 1 model, do not allocate the mortal wounds until all of the models in this unit have made their charge moves.`,
+    when: [CHARGE_PHASE],
+    shared: true,
+  },
+  {
+    name: `Stuff 'Em In Me Bag`,
+    desc: `After a model from this unit piles in, you can pick 1 enemy model within 3" of it and roll a D6. If the roll is at least double that model's Wounds characteristic, it is slain.`,
+    when: [COMBAT_PHASE],
+    shared: true,
+  },
+  {
+    name: `Timber!`,
+    desc: `If a model from this unit is slain, before removing it from the battlefield, the players must roll off. The winner must pick a point on the battlefield 3" from that model. Each unit within 2" of that point suffers D3 mortal wounds unless it is a GARGANT. The model is then removed from the battlefield.`,
+    when: [WOUND_ALLOCATION_PHASE],
+    shared: true,
+  },
+]
+
 const Units = {
   Gatebreaker: {
     effects: [
@@ -125,24 +152,11 @@ const Units = {
       },
     ],
   },
-  'Mancrusher Gargants': {
-    effects: [
-      {
-        name: `Keep Up!`,
-        desc: `If this unit is within 12" of a friendly MEGA-GARGANT at the start of the charge phase, it can attempt to charge in that charge phase even if it ran in the same turn.`,
-        when: [START_OF_CHARGE_PHASE],
-      },
-      {
-        name: `Stomping Charge`,
-        desc: `After a model from this unit makes a charge move, pick 1 enemy unit within 1" of it and roll a D6. If the roll is equal to or greater than the Stomping Charge value for the charging model shown on the damage table above, that unit suffers D3 mortal wounds. If this unit has more than 1 model, do not allocate the mortal wounds until all of the models in this unit have made their charge moves.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Stuff 'Em In Me Bag`,
-        desc: `After a model from this unit piles in, you can pick 1 enemy model within 3" of it and roll a D6. If the roll is at least double that model's Wounds characteristic, it is slain.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+  'Mancrusher Gargant': {
+    effects: [...BaseGargantEffects],
+  },
+  'Mancrusher Gargant Mob': {
+    effects: [...BaseGargantEffects],
   },
   'Bonegrinder Mega-Gargant': {
     effects: [
