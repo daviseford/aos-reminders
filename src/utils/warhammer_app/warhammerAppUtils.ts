@@ -37,6 +37,7 @@ export const cleanWarhammerAppText = (text: string): string[] => {
         .replace(/ /g, ` `) // // Remove non ASCII-spaces
         .trim()
         .replace(/ \(General\)$/g, '') // Remove General tag e.g. "Lord Kroak (General)" -> "Lord Kroak"
+        .replace(/^Mark of Chaos: .+/g, '') // Remove Mark of Chaos tag e.g. "Mark of Chaos: Khorne"
         .replace(
           /^(Army Notes|General|Battle Trait Bonus|Reinforced|Battlefield Role|Battlepack|Points Limit|Battalion Slot Filled): .+/g,
           ''

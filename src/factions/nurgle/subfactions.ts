@@ -1,7 +1,7 @@
 import BeastsOfChaosBattalions from 'factions/beasts_of_chaos/battalions'
 import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
 import { IItemDescription } from 'factions/factionTypes'
-import SkavenUnits from 'factions/skaventide/units'
+import SkavenUnits from 'factions/skaven/units'
 import SlavesToDarknessBattalions from 'factions/slaves_to_darkness/battalions'
 import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import { keyOmitter, keyPicker, pickEffects } from '../metatagger'

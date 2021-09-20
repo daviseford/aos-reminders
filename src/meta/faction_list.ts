@@ -24,7 +24,7 @@ import { OgorMawtribesFaction } from 'factions/ogor_mawtribes'
 import { OrrukWarclansFaction } from 'factions/orruk_warclans'
 import { OssiarchBonereapersFaction } from 'factions/ossiarch_bonereapers'
 import { SeraphonFaction } from 'factions/seraphon'
-import { SkaventideFaction } from 'factions/skaventide'
+import { SkavenFaction } from 'factions/skaven'
 import { SlaaneshFaction } from 'factions/slaanesh'
 import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { SonsOfBehematFaction } from 'factions/sons_of_behemat'
@@ -64,7 +64,7 @@ import {
   ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
-  SKAVENTIDE,
+  SKAVEN,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
@@ -109,7 +109,7 @@ const FactionList = {
   [ORRUK_WARCLANS]: { ...OrrukWarclansFaction },
   [OSSIARCH_BONEREAPERS]: { ...OssiarchBonereapersFaction },
   [SERAPHON]: { ...SeraphonFaction },
-  [SKAVENTIDE]: { ...SkaventideFaction },
+  [SKAVEN]: { ...SkavenFaction },
   [SLAANESH]: { ...SlaaneshFaction },
   [SLAVES_TO_DARKNESS]: { ...SlavesToDarknessFaction },
   [SONS_OF_BEHEMAT]: { ...SonsOfBehematFaction },

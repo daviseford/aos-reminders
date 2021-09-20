@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { SKAVENTIDE } from 'meta/factions'
+import { SKAVEN } from 'meta/factions'
 import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
@@ -12,7 +12,7 @@ import {
 import rule_sources from './rule_sources'
 
 const BattleTraits = {
-  [SKAVENTIDE]: {
+  [SKAVEN]: {
     effects: [
       {
         name: `Lead From The Back`,

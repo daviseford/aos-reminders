@@ -59,10 +59,10 @@ const Artifacts = {
       },
     ],
   },
-  'Armour of Silvered Sigmarite': {
+  'Amulet of Silvered Sigmarite': {
     effects: [
       {
-        name: `Armour of Silvered Sigmarite`,
+        name: `Amulet of Silvered Sigmarite`,
         desc: `Your opponent cannot reroll hit rolls for attacks made with melee weapons that target the bearer.`,
         when: [COMBAT_PHASE],
       },

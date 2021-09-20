@@ -32,7 +32,7 @@ import {
   ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
-  SKAVENTIDE,
+  SKAVEN,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
@@ -47,15 +47,6 @@ import {
 import { AZYR, BATTLESCRIBE, TImportParsers, UNKNOWN, WARHAMMER_APP, WARSCROLL_BUILDER } from 'types/import'
 
 // Add common typos here
-
-// Warhammer App on the left - AoS Reminders on the right
-const warhammerAppTypoMap: Record<string, string> = {
-  'Bastiladon with Solar Engine': 'Bastiladon',
-  'Bastiladon with Ark of Sotek': 'Bastiladon',
-  'Kurnoth Hunters with Kurnoth Scythes': 'Kurnoth Hunters',
-  'Kurnoth Hunters with Kurnoth Greatbows': 'Kurnoth Hunters',
-}
-
 // Warscroll Builder on the left - AoS Reminders on the right
 const warscrollTypoMap: Record<string, string> = {
   'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
@@ -86,7 +77,6 @@ const warscrollTypoMap: Record<string, string> = {
   'Dark Wizardy': 'Dark Wizardry (Royalty)',
   'Devoted Desciples': 'Devoted Disciple',
   'Devoted Disciples': 'Devoted Disciple',
-  'Dhom-Hain': 'Dhom Hain',
   'Eternal Conflaguration': 'Eternal Conflagration',
   'Ethereal Blessing': 'Etheral Blessings',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
@@ -178,7 +168,7 @@ const azyrTypoMap: Record<string, string> = {
   'Blade of Symmetr y': 'Blade of Symmetry',
   'Bursting with Power': "Burstin' with Power",
   'Chaos Gorebeast Chariots': 'Gorebeast Chariots',
-  'DHOM-HAIN': 'Dhom Hain',
+  'DHOM-HAIN': 'Dhom-Hain',
   'Druid of the Everspring Circle': 'Druid of the Everspring',
   'Greywater Artillery Battery': 'Greywater Artillery Company',
   'Gryph-f eather Charm': 'Gryph-feather Charm',
@@ -192,6 +182,15 @@ const azyrTypoMap: Record<string, string> = {
   'Slaves to Darkness Daemon Prince': 'Daemon Prince',
   'The Skyborne Slayers': 'Skyborne Slayers',
   "Gáisa's Falx": "Gaisa's Falx",
+}
+
+// Warhammer App on the left - AoS Reminders on the right
+const warhammerAppTypoMap: Record<string, string> = {
+  ...azyrTypoMap,
+  'Bastiladon with Solar Engine': 'Bastiladon',
+  'Bastiladon with Ark of Sotek': 'Bastiladon',
+  'Kurnoth Hunters with Kurnoth Scythes': 'Kurnoth Hunters',
+  'Kurnoth Hunters with Kurnoth Greatbows': 'Kurnoth Hunters',
 }
 
 // Battlescribe on the left - AoS Reminders on the right
@@ -213,7 +212,7 @@ const battlescribeTypoMap: Record<string, string> = {
   'Cloying Sea Mists': 'Cloying Seas Mists',
   'Corpse Cart with Balefire Brazier': 'Corpse Cart w/ Balefire Brazier',
   'Corpse Cart with Unholy Lodestone': 'Corpse Cart w/ Unholy Lodestone',
-  'DHOM-HAIN': 'Dhom Hain',
+  'DHOM-HAIN': 'Dhom-Hain',
   'Epicurean Raiders': 'Epicurean Revellers',
   'Ethereal Blessing': 'Etheral Blessings',
   'Exalted Deathbringer with Impaling Spear': 'Exalted Deathbringer',
@@ -401,11 +400,11 @@ export const importFactionNameMap: Record<
   },
   'Blades of Khorne': { factionName: KHORNE },
   'Cities of Sigmar': { factionName: CITIES_OF_SIGMAR },
-  'Clans Eshin': { factionName: SKAVENTIDE },
-  'Clans Moulder': { factionName: SKAVENTIDE },
-  'Clans Pestilens': { factionName: SKAVENTIDE },
-  'Clans Skryre': { factionName: SKAVENTIDE },
-  'Clans Verminus': { factionName: SKAVENTIDE },
+  'Clans Eshin': { factionName: SKAVEN },
+  'Clans Moulder': { factionName: SKAVEN },
+  'Clans Pestilens': { factionName: SKAVEN },
+  'Clans Skryre': { factionName: SKAVEN },
+  'Clans Verminus': { factionName: SKAVEN },
   'Darkling Covens': { factionName: CITIES_OF_SIGMAR },
   'Daughters of Khaine': { factionName: DAUGHTERS_OF_KHAINE },
   'Disciples of Tzeentch': { factionName: TZEENTCH },
@@ -507,7 +506,8 @@ export const importFactionNameMap: Record<
   Order: { factionName: ORDER_GRAND_ALLIANCE },
   Rampagers: { factionName: MERCENARY_COMPANIES },
   Seraphon: { factionName: SERAPHON },
-  Skaventide: { factionName: SKAVENTIDE },
+  Skaven: { factionName: SKAVEN },
+  Skaventide: { factionName: SKAVEN },
   Slaanesh: { factionName: SLAANESH },
   Soulblight: { factionName: LEGIONS_OF_NAGASH },
   Sylvaneth: { factionName: SYLVANETH },

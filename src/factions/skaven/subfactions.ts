@@ -1,4 +1,4 @@
-import { SKAVENTIDE } from 'meta/factions'
+import { SKAVEN } from 'meta/factions'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import CommandAbilities from './command_abilities'
@@ -11,7 +11,7 @@ import Spells from './spells'
 import Units from './units'
 
 const subFactions = {
-  [SKAVENTIDE]: {
+  [SKAVEN]: {
     effects: [],
     available: {
       artifacts: [Artifacts],
