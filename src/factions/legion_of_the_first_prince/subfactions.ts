@@ -95,6 +95,7 @@ const subFactions = {
           'Archaon the Everchosen',
           "Be'Lakor",
           'Daemon Prince',
+          'Furies',
           'Gaunt Summoner on Disc of Tzeentch',
           'Soul Grinder',
         ]),

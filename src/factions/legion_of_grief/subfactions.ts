@@ -1,4 +1,3 @@
-import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import { LEGION_OF_GRIEF } from 'meta/factions'
 import LegionsOfNagashUnits from '../legions_of_nagash/units'
 import { keyPicker, pickEffects } from '../metatagger'
@@ -40,7 +39,6 @@ const subFactions = {
           'Wight King with Black Axe',
           'Zombies',
         ]),
-        keyPicker(SlavesToDarknessUnits, ['Furies']),
       ],
     },
     mandatory: {
