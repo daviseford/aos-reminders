@@ -792,7 +792,12 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     expect(res.factionName).toEqual(KHORNE)
     expect(res.selections.artifacts).toContain('Blade of Endless Bloodshed')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text: 'Allied Furies can belong to Legion Of The First Prince or Slaves To Darkness. Please add this unit manually.',
+      },
+    ])
   })
 
   it('should correctly read 1599497906274-Battlescribe', () => {
@@ -1430,7 +1435,12 @@ describe('getBattlescribeArmy', () => {
   it('should work with Khorne6', () => {
     const parsedText = getFile('Khorne6')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text: 'Allied Furies can belong to Legion Of The First Prince or Slaves To Darkness. Please add this unit manually.',
+      },
+    ])
   })
 
   it('should work with Khorne5', () => {
@@ -2429,7 +2439,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.origin_realm).toEqual('Ghur')
     expect(res.selections.scenery).toContain('Skull Altar')
     expect(res.allySelections).toEqual({
-      SLAVES_TO_DARKNESS: { battalions: [], units: ['Furies'] },
       CHAOS_GRAND_ALLIANCE: { battalions: [], units: ['Gigantic Chaos Spawn'] },
     })
     expect(res.selections.units).toEqual([
@@ -2452,13 +2461,6 @@ describe('getBattlescribeArmy', () => {
       'Exalted Deathbringer',
       'Skullreapers',
       'Blood Warriors',
-    ])
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
     ])
   })
 
