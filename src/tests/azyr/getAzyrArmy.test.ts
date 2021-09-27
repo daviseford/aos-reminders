@@ -1991,7 +1991,6 @@ describe('getAzyrArmyFromPdf', () => {
             'Darkoath Warqueen',
             'Untamed Beasts',
             'Godsworn Hunt',
-            'Furies',
           ],
         },
       },
@@ -2003,7 +2002,12 @@ describe('getAzyrArmyFromPdf', () => {
         'Godsworn Hunt',
         'Furies',
       ],
-      errors: [],
+      errors: [
+        {
+          severity: 'ally-warn',
+          text: 'Allied Furies can belong to Legion Of The First Prince or Slaves To Darkness. Please add this unit manually.',
+        },
+      ],
       factionName: BEASTS_OF_CHAOS,
       origin_realm: null,
       realmscape_feature: null,
