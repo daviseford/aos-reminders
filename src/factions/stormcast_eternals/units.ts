@@ -264,7 +264,7 @@ const Units = {
       {
         name: `Eye of the Celestial Storm`,
         desc: `This unit has a ward of 4+.`,
-        when: [BATTLESHOCK_PHASE],
+        when: [SAVES_PHASE],
       },
     ],
   },
