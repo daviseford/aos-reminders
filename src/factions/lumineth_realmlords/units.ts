@@ -233,7 +233,7 @@ const Units = {
       },
     ],
   },
-  'Ellania and Allathor, Eclipsian Warsages': {
+  'Ellania and Ellathor, Eclipsian Warsages': {
     mandatory: {
       spells: [keyPicker(spells, ['Salvation of Hysh'])],
     },

@@ -453,7 +453,10 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
   if (liNode?.childNodes?.[0]?.childNodes?.[0].value === 'Allegiance: Lumineth') {
     // @ts-ignore
     const luminethAllegiance = liNode?.childNodes?.[2]?.childNodes?.[1]?.childNodes?.[0]?.value
-    if (luminethAllegiance) {
+    if (
+      luminethAllegiance &&
+      getFactionFromList(LUMINETH_REALMLORDS)?.flavorKeys?.includes(luminethAllegiance)
+    ) {
       fixedKeys.flavors = [luminethAllegiance]
       fixedKeys.factionName = LUMINETH_REALMLORDS
     }
@@ -617,6 +620,7 @@ const prefixLookup: Record<string, keyof TSelections> = {
 const exactMatches: Record<string, keyof TSelections> = {
   'Charnel Throne': 'scenery',
   'Feculent Gnarlmaw': 'scenery',
+  'Shrine Luminor': 'scenery',
 }
 
 const isBattalion = (r: IParsedRoot): boolean => {

@@ -192,7 +192,7 @@ const RegularBattalions = {
   },
   "Atra'zan's Blazing Cavalcade": {
     mandatory: {
-      flavors: [keyPicker(Flavors, ['Eternal Conflagration'])],
+      flavors: [keyPicker(Flavors, ['The Eternal Conflagration'])],
       units: [
         keyPicker(Units, ['Fateskimmer, Herald of Tzeentch on Burning Chariot', 'Horrors of Tzeentch']),
       ],

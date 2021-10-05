@@ -18,6 +18,7 @@ export class Faction<
   BT extends TEffects[]
 > {
   public readonly AggregateArmy: TSubfactionArmy
+  public readonly flavorKeys: string[] = []
   public readonly subFactionKeys: string[]
   public readonly subFactionKeyMap: Record<K, K>
   public readonly subFactionArmies: Record<K, TSubfactionArmy>
@@ -40,6 +41,8 @@ export class Faction<
   ) {
     this.AggregateArmy = getAggregateArmy(SubFactions, flavorLabel)
 
+    this.flavorKeys = this.AggregateArmy.Flavors.map(x => x.name)
+    
     this.subFactionKeys = Object.keys(SubFactions) as K[]
 
     this.subFactionKeyMap = this.subFactionKeys.reduce((a, k) => {
