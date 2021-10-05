@@ -1,0 +1,56 @@
+Army Name: DoK Built
+Army Faction: Daughters of Khaine
+Subfaction: Hagg Nar
+Battlepack: Contest of Generals
+Points Limit: 2000 pts
+General: Bloodwrack Medusa
+Triumph: Inspired
+Battle Trait Bonus: Daughters of the First Temple, Send Forth the Cauldrons
+Units
+	Morathi-Khaine
+		Battlefield Role: Leader
+		Spells: Mindrazor
+		Points Cost: 660 pts
+	The Shadow Queen
+		Battlefield Role: Behemoth, Leader
+		Points Cost: 660 pts
+	Witch Aelves
+		Battlefield Role: Battleline
+		Points Cost: 120 pts
+	Khinerai Heartrenders
+		Battlefield Role: Other
+		Points Cost: 95 pts
+Core Battalions
+	Warlord
+	Magnificent Bonus: Artefacts of Power
+		Slaughter Queen on Cauldron of Blood
+			Battalion Slot Filled: Commander
+			Battlefield Role: Behemoth, Leader
+			Artefacts of Power: Iron Circlet
+			Prayers: Catechism of Murder
+			Points Cost: 300 pts
+		Blood Sisters
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 140 pts
+		Blood Stalkers
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Reinforced: Once
+			Points Cost: 340 pts
+		Bloodwrack Medusa (General)
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Command Traits: Devoted Disciple
+			Spells: Pit of Shades
+			Points Cost: 120 pts
+		Melusai Ironscale
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Artefacts of Power: The Ulfúri
+			Points Cost: 115 pts
+Endless Spells/Invocations
+	Heart of Fury
+		Points Cost: 55 pts
+Total Points: 1945 pts
+Invalid: Created with Warhammer Age of Sigmar: The App

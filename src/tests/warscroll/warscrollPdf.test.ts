@@ -665,7 +665,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Blazing Starlight',
           'Control Fate',
         ],
-        command_traits: ['Mighty Warleader'],
+        command_traits: ['Mighty War Leader'],
         core_rules: [],
         triumphs: [],
         units: [

@@ -60,10 +60,10 @@ const CommandTraits = {
     ],
   },
 
-  'Mighty Warleader': {
+  'Mighty War Leader': {
     effects: [
       {
-        name: `Mighty Warleader`,
+        name: `Mighty War Leader`,
         desc: `If this general is part of your army and on the battlefield at the start of your hero phase, roll a D6. On a 4+, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
       },

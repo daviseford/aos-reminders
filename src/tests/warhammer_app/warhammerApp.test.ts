@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import { SERAPHON, SKAVEN } from 'meta/factions'
+import { MEGA_GARGANT_MERCENARIES, SERAPHON, SKAVEN } from 'meta/factions'
 import path from 'path'
 import { getWarhammerAppArmy } from 'utils/warhammer_app/getWarhammerAppArmy'
 
@@ -8,6 +8,51 @@ const getFile = (filename: string): string => {
 }
 
 describe('getWarhammerAppArmy', () => {
+  it('should correctly read 1632565338858-Warhammer_App', () => {
+    const parsedText = getFile('1632565338858-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.flavors).toContain('Fuethan')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1632626188332-Warhammer_App', () => {
+    const parsedText = getFile('1632626188332-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.command_traits).toContain('Mighty War Leader')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1632643609934-Warhammer_App', () => {
+    const parsedText = getFile('1632643609934-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.allySelections).toEqual({
+      [MEGA_GARGANT_MERCENARIES]: { battalions: [], units: ['One-Eyed Grunnock - Warstomper'] },
+    })
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1632785290009-Warhammer_App', () => {
+    const parsedText = getFile('1632785290009-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.artifacts).toContain('The Ulfuri')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1633021235077-Warhammer_App', () => {
+    const parsedText = getFile('1633021235077-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.flavors).toContain('The Blessed Sons')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1633294316295-Warhammer_App', () => {
+    const parsedText = getFile('1633294316295-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.artifacts).toContain('Magnificent Omniscope (Great Endrinwork)')
+    expect(res.selections.artifacts).toContain("Coalbeard's Collapsible Compartments (Great Endrinwork)")
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1631975360793-Warhammer_App', () => {
     const parsedText = getFile('1631975360793-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)

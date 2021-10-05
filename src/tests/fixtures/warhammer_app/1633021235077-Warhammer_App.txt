@@ -1,0 +1,49 @@
+Army Name: Maggotkin
+Army Faction: Maggotkin of Nurgle
+Subfaction: The Blessed Sons
+Battlepack: Contest of Generals
+Points Limit: 1500 pts
+General: Harbinger of Decay
+Core Battalions
+	Battle Regiment
+		Harbinger of Decay (General)
+			Battalion Slot Filled: Commander
+			Battlefield Role: Leader
+			Command Traits: Overpowering Stench
+			Points Cost: 145 pts
+		Putrid Blightkings
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 165 pts
+		Putrid Blightkings
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 165 pts
+		Putrid Blightkings
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 165 pts
+		Pusgoyle Blightlords
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Points Cost: 185 pts
+		Chaos Knights (Coalition Ally)
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Points Cost: 170 pts
+	Command Entourage
+		Gutrot Spume
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Points Cost: 145 pts
+		Sorcerer
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Spells: Gift of Contagion
+			Points Cost: 120 pts
+		Orghotts Daemonspew
+			Battalion Slot Filled: Commander
+			Battlefield Role: Behemoth, Leader
+			Points Cost: 220 pts
+Total Points: 1480 pts
+Invalid: Created with Warhammer Age of Sigmar: The App

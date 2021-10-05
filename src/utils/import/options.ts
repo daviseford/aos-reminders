@@ -197,6 +197,7 @@ const warhammerAppTypoMap: Record<string, string> = {
   'Kurnoth Hunters with Kurnoth Greatbows': 'Kurnoth Hunters',
   'Kurnoth Hunters with Kurnoth Greatswords': 'Kurnoth Hunters',
   'Kurnoth Hunters with Kurnoth Scythes': 'Kurnoth Hunters',
+  'One-eyed Grunnock': 'One-Eyed Grunnock - Warstomper',
 }
 
 // Battlescribe on the left - AoS Reminders on the right
