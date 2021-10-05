@@ -38,6 +38,49 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1633013898450-Warscroll_Builder', () => {
+    const parsedText = getFile('1633013898450-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Krondys')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1633110120610-Warscroll_Builder', () => {
+    const parsedText = getFile('1633110120610-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Gobsprakk')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1633180523625-Warscroll_Builder', () => {
+    const parsedText = getFile('1633180523625-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.artifacts).toContain('Amulet of Silvered Sigmarite')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1633314984451-Warscroll_Builder', () => {
+    const parsedText = getFile('1633314984451-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.command_traits).toContain('Shepherd of Idiotic Destruction')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1633446211037-Warscroll_Builder', () => {
+    const parsedText = getFile('1633446211037-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Yndrasta')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1633448352023-Warscroll_Builder', () => {
+    const parsedText = getFile('1633448352023-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Hedkrakka, Gob of Gork')
+    expect(res.selections.units).toContain("Hedkrakka's Madmob")
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1632218334853-Warscroll_Builder', () => {
     const parsedText = getFile('1632218334853-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
