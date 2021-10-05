@@ -115,7 +115,7 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.artifacts).toContain('Brimstone Familiar')
     expect(res.selections.command_traits).toContain('Coruscating Flames')
     expect(res.selections.endless_spells).toContain('The Burning Head')
-    expect(res.selections.flavors).toContain('Eternal Conflagration')
+    expect(res.selections.flavors).toContain('The Eternal Conflagration')
     expect(res.selections.grand_strategies).toContain("Predator's Domain")
     expect(res.selections.spells).toContain('Flaming Weapon')
     expect(res.selections.spells).toContain('Unchecked Mutation')
@@ -399,7 +399,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const pdfText = getFile('Tzeentch1')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.flavors).toContain('Eternal Conflagration')
+    expect(res.selections.flavors).toContain('The Eternal Conflagration')
     expect(res.errors).toEqual([])
   })
 
@@ -665,7 +665,7 @@ describe('getWarscrollArmyFromPdf', () => {
           'Blazing Starlight',
           'Control Fate',
         ],
-        command_traits: ['Mighty Warleader'],
+        command_traits: ['Mighty War Leader'],
         core_rules: [],
         triumphs: [],
         units: [

@@ -181,7 +181,7 @@ const BonesplitterzUnits = {
       },
     ],
   },
-  'Hedrakka, Gob of Gork': {
+  'Hedkrakka, Gob of Gork': {
     mandatory: {
       spells: [keyPicker(spells, ['Bone Krusha'])],
     },
@@ -208,7 +208,7 @@ const BonesplitterzUnits = {
       },
     ],
   },
-  "Hedrakka's Madmob": {
+  "Hedkrakka's Madmob": {
     effects: [
       PrimalSurgeEffect,
       {

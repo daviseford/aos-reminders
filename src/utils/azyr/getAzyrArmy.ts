@@ -1,6 +1,6 @@
 import { KharadronOverlordsFaction } from 'factions/kharadron_overlords'
 import { uniq } from 'lodash'
-import { TSupportedFaction } from 'meta/factions'
+import { SLAANESH, TSupportedFaction } from 'meta/factions'
 import { getFactionFromList } from 'meta/faction_list'
 import { AZYR, IImportedArmy } from 'types/import'
 import { TBattleRealms } from 'types/realmscapes'
@@ -83,6 +83,9 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
 
         // Need to do something faction-specific to the value? Do it here.
         // if (factionName === SOME_FACTION) txt = txt.replace('something', '')
+
+        // Add Host suffix when needed
+        if (factionName === SLAANESH && !txt.endsWith(' Host')) txt = `${txt} Host`
 
         const _Faction = getFactionFromList(factionName)
         if (_Faction.subFactionKeyMap[txt]) {

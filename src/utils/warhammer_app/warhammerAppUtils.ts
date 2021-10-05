@@ -34,11 +34,14 @@ export const cleanWarhammerAppText = (text: string): string[] => {
         .replace(/[‘’]/g, `'`) // Replace special quotes
         .replace(/[“”]/g, `"`) // Replace special quotes
         .replace(/[‑–—]/g, `-`) // Replace special dashes
-        .replace(/ /g, ` `) // // Remove non ASCII-spaces
+        .replace(/ /g, ` `) // Remove non ASCII-spaces
+
+        // Replace special characters
+        .replace(/ú/, 'u')
+        .replace(/á/, 'a')
+
         .trim()
         .replace(/ \(General\)$/g, '') // Remove General tag e.g. "Lord Kroak (General)" -> "Lord Kroak"
-        .replace(/^Mark of Chaos: .+/g, '') // Remove Mark of Chaos tag e.g. "Mark of Chaos: Khorne"
-        .replace(/^Host Option: .+/g, '') // Remove Host Option tag e.g. "Host Option: General"
         .replace(
           /^(Army Notes|General|Battle Trait Bonus|Reinforced|Battlefield Role|Battlepack|Points Limit|Battalion Slot Filled): .+/g,
           ''
@@ -53,6 +56,11 @@ export const cleanWarhammerAppText = (text: string): string[] => {
         .replace(/^Army Faction: /g, warhammerAppPlaceholders.FACTION_NAME_PREFIX)
         .replace(/^Army Type: /g, warhammerAppPlaceholders.SUBFACTION_PREFIX) // Army Type in WH App === Subfactions in AoSr
         .replace(/^Subfaction: /g, warhammerAppPlaceholders.FLAVOR_PREFIX) // Subfactions in WH App === Flavors in AoSr
+
+        // Faction specific and/or special prefixes go here
+        .replace(/^Mark of Chaos: .+/g, '') // Remove Mark of Chaos tag e.g. "Mark of Chaos: Khorne"
+        .replace(/^Host Option: .+/g, '') // Remove Host Option tag e.g. "Host Option: General"
+        .replace(/^Great Endrinworks: /g, warhammerAppPlaceholders.ARTIFACTS_PREFIX)
         .trim()
     )
     .filter(txt => txt && txt.length > 2)

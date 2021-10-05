@@ -37,6 +37,48 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should correctly read 1632263631817-Battlescribe', () => {
+    const parsedText = getFile('1632263631817-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Kurnoth Hunters')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1632323054450-Battlescribe', () => {
+    const parsedText = getFile('1632323054450-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Ellania and Ellathor, Eclipsian Warsages')
+  })
+
+  it('should correctly read 1632394710991-Battlescribe', () => {
+    const parsedText = getFile('1632394710991-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.flavors).toContain('The Eternal Conflagration')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1632426492475-Battlescribe', () => {
+    const parsedText = getFile('1632426492475-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Kurnoth Hunters')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1632980812991-Battlescribe', () => {
+    const parsedText = getFile('1632980812991-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Swampcalla Shaman and Pot-grot')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1633164617906-Battlescribe', () => {
+    const parsedText = getFile('1633164617906-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.flavors).toContain('Zaitrec')
+    expect(res.selections.scenery).toContain('Shrine Luminor')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1626199975730-Battlescribe', () => {
     const parsedText = getFile('1626199975730-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -671,14 +713,24 @@ describe('getBattlescribeArmy', () => {
   it('should correctly read 1602294536060-Battlescribe', () => {
     const parsedText = getFile('1602294536060-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aetherquartz Reserve, Alarith - Mountain Kindred, Iliatha, Vanari - Warriors of Light',
+      },
+    ])
   })
 
   it('should correctly read 1602294559289-Battlescribe', () => {
     const parsedText = getFile('1602294559289-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.factionName).toEqual(LUMINETH_REALMLORDS)
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'warn',
+        text: 'Aetherquartz Reserve, Alarith - Mountain Kindred, Iliatha, Vanari - Warriors of Light',
+      },
+    ])
   })
 
   it('should correctly read 1602790654401-Battlescribe', () => {

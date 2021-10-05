@@ -1,0 +1,36 @@
+Army Name: Deepkin 1060
+Army Faction: Idoneth Deepkin
+Subfaction: Fuethán
+Battlepack: Pitched Battles
+Points Limit: 1000 pts
+General: Akhelian King
+Grand Strategy: Beast Master
+Triumph: Inspired
+Units
+	Akhelian King (General)
+		Battlefield Role: Leader
+		Command Traits: Lord of Storm and Sea
+		Artefacts of Power: Amulet of Destiny
+		Mount Traits: Savage Ferocity
+		Points Cost: 230 pts
+	Akhelian Leviadon
+		Battlefield Role: Behemoth
+		Points Cost: 380 pts
+Core Battalions
+	Hunters of the Heartlands
+		Akhelian Ishlaen Guard
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 155 pts
+		Akhelian Ishlaen Guard
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 155 pts
+		Akhelian Allopexes
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Points Cost: 125 pts
+Faction Terrain
+	Gloomtide Shipwreck
+Total Points: 1045 pts
+Invalid: Created with Warhammer Age of Sigmar: The App

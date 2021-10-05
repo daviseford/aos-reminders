@@ -5,7 +5,7 @@ import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 
 const Flavors = {
-  'Eternal Conflagration': {
+  'The Eternal Conflagration': {
     mandatory: {
       artifacts: [keyPicker(Artifacts, ['Shroud of Warpflame'])],
       command_abilities: [keyPicker(CommandAbilities, ['Infernos of Mutation'])],

@@ -23,7 +23,7 @@ const Flavors = {
     effects: [...pickEffects(BattleTraits, ['Locus of Corrosion'])],
   },
 
-  'Blessed Sons': {
+  'The Blessed Sons': {
     mandatory: {
       artifacts: [keyPicker(Artifacts, ['Blotshell Bileplate'])],
       command_abilities: [keyPicker(CommandAbilities, ['Degraded and Defiled'])],

@@ -1,0 +1,40 @@
+Army Name: Black company
+Army Faction: Kharadron Overlords
+Subfaction: Barak-Zilfin
+Battlepack: Pitched Battles
+Points Limit: 1000 pts
+General: Arkanaut Admiral
+Grand Strategy: Hold the Line
+Triumph: Inspired
+Core Battalions
+	Battle Regiment
+		Arkanaut Admiral (General)
+			Battalion Slot Filled: Commander
+			Battlefield Role: Leader
+			Command Traits: Master Commander
+			Artefacts of Power: Staff of Ocular Optimisation
+			Points Cost: 125 pts
+		Arkanaut Company
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 100 pts
+		Arkanaut Frigate
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Great Endrinworks: Magnificent Omniscope
+			Points Cost: 250 pts
+		Grundstok Gunhauler
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Great Endrinworks: Coalbeard’s Collapsible Compartments
+			Points Cost: 155 pts
+		Grundstok Thunderers
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Points Cost: 135 pts
+		Skywardens
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Points Cost: 115 pts
+Total Points: 880 pts
+Valid: Created with Warhammer Age of Sigmar: The App
