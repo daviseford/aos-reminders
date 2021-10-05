@@ -5,9 +5,9 @@
   "homepage": "./",
   "dependencies": {
     "@auth0/auth0-react": "1.8.0",
-    "@reduxjs/toolkit": "1.6.1",
-    "@stripe/react-stripe-js": "1.5.0",
-    "@stripe/stripe-js": "1.19.0",
+    "@reduxjs/toolkit": "1.6.2",
+    "@stripe/react-stripe-js": "1.6.0",
+    "@stripe/stripe-js": "1.19.1",
     "bootstrap": "4.6.0",
     "core-js": "3.18.1",
     "deepmerge": "4.2.2",
@@ -34,7 +34,7 @@
     "react-switch": "6.0.0",
     "redux": "4.1.1",
     "redux-persist": "6.0.0",
-    "string.prototype.matchall": "4.0.5",
+    "string.prototype.matchall": "4.0.6",
     "superagent": "6.1.0"
   },
   "scripts": {
