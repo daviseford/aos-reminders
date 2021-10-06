@@ -38,6 +38,12 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1633511381814-Warscroll_Builder', () => {
+    const parsedText = getFile('1633511381814-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1633013898450-Warscroll_Builder', () => {
     const parsedText = getFile('1633013898450-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)

@@ -1,0 +1,49 @@
+Army Name: Unnamed Army 3
+Army Faction: Kharadron Overlords
+Subfaction: Barak-Thryng
+Battlepack: Pitched Battles
+Points Limit: 1000 pts
+Grand Strategies: Vendetta
+Triumphs: Indomitable
+
+Units
+	Hammerers (Coalition Ally) 
+		Battlefield Role: Other
+		Points Cost: 145 pts
+	Arkanaut Company 
+		Battlefield Role: Battleline
+		Points Cost: 100 pts
+	Skywardens 
+		Battlefield Role: Battleline
+		Points Cost: 115 pts
+	Skywardens 
+		Battlefield Role: Battleline
+		Points Cost: 115 pts
+	Skywardens 
+		Battlefield Role: Battleline
+		Points Cost: 115 pts
+
+Core Battalions
+	Command Entourage
+	Magnificent Bonus: Artefact of Power
+		Endrinmaster with Dirigible Suit (General)
+			Battalion Slot Filled: Commander
+			Battlefield Role: Leader
+			Enhancements
+				Command Traits: Supremely Stubborn
+				Artefacts of Power: Grudgehammer
+			Points Cost: 190 pts
+		Aether-Khemist 
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Points Cost: 90 pts
+		Warden King (Coalition Ally) 
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Enhancements
+				Artefacts of Power: Arcane Tome
+				Spells: Flaming Weapon
+			Points Cost: 100 pts
+
+Total Points: 970 pts
+Valid: Created with Warhammer Age of Sigmar: The App

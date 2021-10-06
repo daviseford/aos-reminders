@@ -27,7 +27,7 @@ describe('warhammerAppUtils', () => {
       'Artefacts of Power: Helm of Obsidia',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Bundo Whalebiter (Ally)',
+      `Bundo Whalebiter${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       'Fjul-Grimnir',
@@ -61,7 +61,7 @@ describe('warhammerAppUtils', () => {
       'Fjul-Grimnir',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Warden King (Ally)',
+      `Warden King${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       warhammerAppPlaceholders.BATTALIONS,
@@ -202,7 +202,7 @@ describe('warhammerAppUtils', () => {
       `${warhammerAppPlaceholders.FLAVOR_PREFIX}Ironsunz`,
 
       warhammerAppPlaceholders.UNITS,
-      'Fungoid Cave-Shaman (Ally)',
+      `Fungoid Cave-Shaman${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       'Gordrakk',
@@ -214,7 +214,7 @@ describe('warhammerAppUtils', () => {
       `${warhammerAppPlaceholders.ARTIFACTS_PREFIX}The Boss Skewer`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Mollog (Ally)',
+      `Mollog${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       'Megaboss on Maw-krusha',
@@ -230,13 +230,13 @@ describe('warhammerAppUtils', () => {
       'Orruk Brutes',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Shootas (Ally)',
+      `Shootas${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Stabbas (Ally)',
+      `Stabbas${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Aleguzzler Gargant (Ally)',
+      `Aleguzzler Gargant${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       warhammerAppPlaceholders.BATTALIONS,
@@ -292,61 +292,61 @@ describe('warhammerAppUtils', () => {
       `${warhammerAppPlaceholders.FLAVOR_PREFIX}The Lurid Haze`,
 
       warhammerAppPlaceholders.UNITS,
-      'Shalaxi Helbane (Ally)',
+      `Shalaxi Helbane${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Keeper of Secrets (Ally)',
+      `Keeper of Secrets${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      "Syll'Esske (Ally)",
+      `Syll'Esske${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'The Contorted Epitome (Ally)',
+      `The Contorted Epitome${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'The Masque (Ally)',
+      `The Masque${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Viceleader (Ally)',
+      `Viceleader${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Blissbarb Archers (Ally)',
+      `Blissbarb Archers${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Daemonettes (Ally)',
+      `Daemonettes${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Hellstriders with Claw-spears (Ally)',
+      `Hellstriders with Claw-spears${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Hellstriders with Hellscourges (Ally)',
+      `Hellstriders with Hellscourges${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Blissbarb Seekers (Ally)',
+      `Blissbarb Seekers${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Exalted Chariot (Ally)',
+      `Exalted Chariot${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Fiends (Ally)',
+      `Fiends${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Hellflayer (Ally)',
+      `Hellflayer${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Seekers (Ally)',
+      `Seekers${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Archaon (Ally)',
+      `Archaon${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      "Be'lakor (Ally)",
+      `Be'lakor${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Gaunt Summoner (Ally)',
+      `Gaunt Summoner${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Great Bray-Shaman (Coalition Ally)',
+      `Great Bray-Shaman${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.ENHANCEMENTS,
       'Artefacts of Power: Fallacious Gift',
       'Spells: Ghost-mist',
@@ -355,35 +355,35 @@ describe('warhammerAppUtils', () => {
       warhammerAppPlaceholders.BATTALIONS,
       'Warlord',
       'Magnificent Bonus: Triumph',
-      'Keeper of Secrets (Ally)',
+      `Keeper of Secrets${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Viceleader (Ally)',
+      `Viceleader${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Bladebringer, Herald on Hellflayer (Ally)',
+      `Bladebringer, Herald on Hellflayer${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Bladebringer, Herald on Exalted Chariot (Ally)',
+      `Bladebringer, Herald on Exalted Chariot${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Bladebringer, Herald on Seeker Chariot (Ally)',
+      `Bladebringer, Herald on Seeker Chariot${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Bladebringer, Herald on Seeker Chariot (Ally)',
+      `Bladebringer, Herald on Seeker Chariot${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Daemonettes (Ally)',
+      `Daemonettes${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Daemonettes (Ally)',
+      `Daemonettes${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       warhammerAppPlaceholders.ENDLESS_SPELLS,
-      'Dreadful Visage (Ally)',
+      `Dreadful Visage${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
-      'Wheels of Excruciation (Ally)',
+      `Wheels of Excruciation${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       warhammerAppPlaceholders.END_OF_LIST,
