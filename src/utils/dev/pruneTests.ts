@@ -58,6 +58,7 @@ const pruneTests = (info: {
       fs.unlinkSync(`${info.fixtures}/${fileName}`) // Remove the file
       console.log(`Deleted ${fileName}`)
     })
+    console.log(`Deleted ${filesToDelete.length} files in ${info.fixtures}`)
   } else {
     console.log(`No files deleted in ${info.fixtures}`)
   }

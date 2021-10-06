@@ -1,5 +1,4 @@
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
-import { SeraphonFaction } from 'factions/seraphon'
 import { SlaaneshFaction } from 'factions/slaanesh'
 import { readFileSync } from 'fs'
 import {
@@ -79,12 +78,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1626199975730-Battlescribe', () => {
-    const parsedText = getFile('1626199975730-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
   it('should correctly read 1626314280092-Battlescribe', () => {
     const parsedText = getFile('1626314280092-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -101,12 +94,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.units).toContain('Mancrusher Gargant')
   })
 
-  it('should correctly read 1626386937893-Battlescribe', () => {
-    const parsedText = getFile('1626386937893-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
   it('should correctly read 1626386947765-Battlescribe', () => {
     const parsedText = getFile('1626386947765-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -114,28 +101,10 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1626387026036-Battlescribe', () => {
-    const parsedText = getFile('1626387026036-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
   it('should correctly read 1626388412216-Battlescribe', () => {
     const parsedText = getFile('1626388412216-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Corpse Cart w/ Balefire Brazier')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626389946645-Battlescribe', () => {
-    const parsedText = getFile('1626389946645-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626389982215-Battlescribe', () => {
-    const parsedText = getFile('1626389982215-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
@@ -156,12 +125,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1625948895475-Battlescribe', () => {
-    const parsedText = getFile('1625948895475-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
   it('should correctly read 1625951571355-Battlescribe', () => {
     const parsedText = getFile('1625951571355-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -169,106 +132,10 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1625952805411-Battlescribe', () => {
-    const parsedText = getFile('1625952805411-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1625957827535-Battlescribe', () => {
-    const parsedText = getFile('1625957827535-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1625965144984-Battlescribe', () => {
-    const parsedText = getFile('1625965144984-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1625979656671-Battlescribe', () => {
-    const parsedText = getFile('1625979656671-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626023298424-Battlescribe', () => {
-    const parsedText = getFile('1626023298424-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626035995532-Battlescribe', () => {
-    const parsedText = getFile('1626035995532-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626036131697-Battlescribe', () => {
-    const parsedText = getFile('1626036131697-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626039251773-Battlescribe', () => {
-    const parsedText = getFile('1626039251773-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626051467555-Battlescribe', () => {
-    const parsedText = getFile('1626051467555-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626056012773-Battlescribe', () => {
-    const parsedText = getFile('1626056012773-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626076790334-Battlescribe', () => {
-    const parsedText = getFile('1626076790334-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626095938109-Battlescribe', () => {
-    const parsedText = getFile('1626095938109-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
   it('should correctly read 1626123378890-Battlescribe', () => {
     const parsedText = getFile('1626123378890-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Vindictors')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626124413584-Battlescribe', () => {
-    const parsedText = getFile('1626124413584-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626128237545-Battlescribe', () => {
-    const parsedText = getFile('1626128237545-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626169886006-Battlescribe', () => {
-    const parsedText = getFile('1626169886006-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1626175591099-Battlescribe', () => {
-    const parsedText = getFile('1626175591099-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
@@ -284,401 +151,6 @@ describe('getBattlescribeArmy', () => {
       // +     "severity": "warn",
       // +     "text": "Grand Strategy",
       // +   },
-    ])
-  })
-
-  it('should correctly read 1625913262959-Battlescribe', () => {
-    const parsedText = getFile('1625913262959-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1625916579390-Battlescribe', () => {
-    const parsedText = getFile('1625916579390-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1625916714029-Battlescribe', () => {
-    const parsedText = getFile('1625916714029-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1625916740089-Battlescribe', () => {
-    const parsedText = getFile('1625916740089-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1625934355496-Battlescribe', () => {
-    const parsedText = getFile('1625934355496-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1625935761556-Battlescribe', () => {
-    const parsedText = getFile('1625935761556-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1604504461219-Battlescribe', () => {
-    const parsedText = getFile('1604504461219-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1605658437121-Battlescribe', () => {
-    const parsedText = getFile('1605658437121-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1606053824134-Battlescribe', () => {
-    const parsedText = getFile('1606053824134-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1606162510326-Battlescribe', () => {
-    const parsedText = getFile('1606162510326-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1606245319009-Battlescribe', () => {
-    const parsedText = getFile('1606245319009-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1606590754107-Battlescribe', () => {
-    const parsedText = getFile('1606590754107-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1606786423004-Battlescribe', () => {
-    const parsedText = getFile('1606786423004-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1607614691714-Battlescribe', () => {
-    const parsedText = getFile('1607614691714-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1607684997234-Battlescribe', () => {
-    const parsedText = getFile('1607684997234-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1608554610132-Battlescribe', () => {
-    const parsedText = getFile('1608554610132-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1608995870147-Battlescribe', () => {
-    const parsedText = getFile('1608995870147-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1609268801129-Battlescribe', () => {
-    const parsedText = getFile('1609268801129-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1609276189809-Battlescribe', () => {
-    const parsedText = getFile('1609276189809-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1609276365473-Battlescribe', () => {
-    const parsedText = getFile('1609276365473-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1609324143459-Battlescribe', () => {
-    const parsedText = getFile('1609324143459-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1609363810392-Battlescribe', () => {
-    const parsedText = getFile('1609363810392-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1609463875327-Battlescribe', () => {
-    const parsedText = getFile('1609463875327-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1609669628289-Battlescribe', () => {
-    const parsedText = getFile('1609669628289-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1609816232834-Battlescribe', () => {
-    const parsedText = getFile('1609816232834-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1610170896164-Battlescribe', () => {
-    const parsedText = getFile('1610170896164-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1610503174407-Battlescribe', () => {
-    const parsedText = getFile('1610503174407-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1610595048084-Battlescribe', () => {
-    const parsedText = getFile('1610595048084-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1611824482058-Battlescribe', () => {
-    const parsedText = getFile('1611824482058-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1611919858764-Battlescribe', () => {
-    const parsedText = getFile('1611919858764-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1611923040850-Battlescribe', () => {
-    const parsedText = getFile('1611923040850-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1612221476202-Battlescribe', () => {
-    const parsedText = getFile('1612221476202-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1612580630224-Battlescribe', () => {
-    const parsedText = getFile('1612580630224-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1612697173306-Battlescribe', () => {
-    const parsedText = getFile('1612697173306-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1612712745032-Battlescribe', () => {
-    const parsedText = getFile('1612712745032-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1613257599607-Battlescribe', () => {
-    const parsedText = getFile('1613257599607-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1613262474399-Battlescribe', () => {
-    const parsedText = getFile('1613262474399-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1613410403603-Battlescribe', () => {
-    const parsedText = getFile('1613410403603-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1613486734746-Battlescribe', () => {
-    const parsedText = getFile('1613486734746-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1613744797236-Battlescribe', () => {
-    const parsedText = getFile('1613744797236-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1613760050310-Battlescribe', () => {
-    const parsedText = getFile('1613760050310-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1613761755133-Battlescribe', () => {
-    const parsedText = getFile('1613761755133-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1613883232866-Battlescribe', () => {
-    const parsedText = getFile('1613883232866-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1614143037953-Battlescribe', () => {
-    const parsedText = getFile('1614143037953-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      // +   Object {
-      //   +     "severity": "warn",
-      //   +     "text": "Ebullient Buoyancy Aids",
-      //   +   },
-    ])
-  })
-
-  it.skip('should correctly read 1614245794068-Battlescribe', () => {
-    const parsedText = getFile('1614245794068-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      // +   Object {
-      //   +     "severity": "warn",
-      //   +     "text": "Disease-disease!",
-      //   +   },
-      //   +   Object {
-      //   +     "severity": "warn",
-      //   +     "text": "Pestilence-pestilence!",
-      //   +   },
-      //   +   Object {
-      //   +     "severity": "warn",
-      //   +     "text": "Filth-filth!",
-      //   +   },
-      //   +   Object {
-      //   +     "severity": "warn",
-      //   +     "text": "Rabid-rabid!",
-      //   +   },
-    ])
-  })
-
-  it.skip('should correctly read 1614310802982-Battlescribe', () => {
-    const parsedText = getFile('1614310802982-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      // +   Object {
-      //   +     "severity": "warn",
-      //   +     "text": "Glogg's Megamob, Light of the Bad Moon",
-      //   +   },
-    ])
-  })
-
-  it.skip('should correctly read 1614312036903-Battlescribe', () => {
-    const parsedText = getFile('1614312036903-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      // +   Object {
-      //   +     "severity": "warn",
-      //   +     "text": "Spirit Storm",
-      //   +   },
-    ])
-  })
-
-  it.skip('should correctly read 1614345568308-Battlescribe', () => {
-    const parsedText = getFile('1614345568308-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      // +   Object {
-      //   +     "severity": "warn",
-      //   +     "text": "Beguile",
-      //   +   },
-    ])
-  })
-
-  it.skip('should correctly read 1614369787179-Battlescribe', () => {
-    const parsedText = getFile('1614369787179-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      // {
-      //   +     "severity": "warn",
-      //   +     "text": "Gatebreaker Mega-Gargant",
-      //   +   },
-      //   +   Object {
-      //   +     "severity": "warn",
-      //   +     "text": "Kraken-Eater Mega-Gargant",
-      //   +   },
-    ])
-  })
-
-  it.skip('should correctly read 1614385370306-Battlescribe', () => {
-    const parsedText = getFile('1614385370306-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      // {
-      //   severity: 'warn',
-      //   text: 'Agloraxi Prism',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Whitefire Tome',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Hallowheart',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Roaming Wildfire',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Sear Wounds',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Crystal Aegis',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Elemental Cyclone',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Comet of Casandora',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Ignite Weapons',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Transmutation of Lead',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Warding Brand',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Word of Pain',
-      // },
     ])
   })
 
@@ -702,12 +174,6 @@ describe('getBattlescribeArmy', () => {
         text: 'Gobbapalooza',
       },
     ])
-  })
-
-  it('should correctly read 1601411067591-Battlescribe', () => {
-    const parsedText = getFile('1601411067591-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1602294536060-Battlescribe', () => {
@@ -740,12 +206,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1603428388643-Battlescribe', () => {
-    const parsedText = getFile('1603428388643-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
   it('should correctly read 1603737835449-Battlescribe', () => {
     const parsedText = getFile('1603737835449-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -758,12 +218,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.flavors).toEqual([])
     expect(res.selections.flavors).not.toContain('Flesh-Eater Courts')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1600327940544-Battlescribe', () => {
-    const parsedText = getFile('1600327940544-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
@@ -794,33 +248,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.subFactionName).toEqual(SlaaneshFaction.subFactionKeyMap['Godseekers Host'])
     expect(res.selections.units).toContain('Seeker Chariots')
     expect(res.errors).toEqual([])
-  })
-
-  it.skip('should correctly read 1601219377000-Battlescribe', () => {
-    const parsedText = getFile('1601219377000-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Allherd',
-      },
-      {
-        severity: 'warn',
-        text: 'Blade of the Desecrator',
-      },
-      {
-        severity: 'warn',
-        text: 'Devolve',
-      },
-      {
-        severity: 'warn',
-        text: 'Tendrils of Atrophy',
-      },
-      {
-        severity: 'warn',
-        text: 'Great Bray-shaman',
-      },
-    ])
   })
 
   it('should correctly read 1598041271936-Battlescribe', () => {
@@ -865,30 +292,6 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
-  // TODO
-  it.skip('should correctly read 1599538605528-Battlescribe', () => {
-    const parsedText = getFile('1599538605528-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Spirit Gale',
-      },
-      {
-        severity: 'warn',
-        text: 'Vampire Lord (Flying Horror)',
-      },
-      {
-        severity: 'ally-warn',
-        text: 'Allied Vampire Lord can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
-      },
-      {
-        severity: 'ally-warn',
-        text: 'Allied Vampire Lord on Zombie Dragon can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
-      },
-    ])
-  })
-
   it('should correctly read 1597441117251-Battlescribe', () => {
     const parsedText = getFile('1597441117251-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -920,80 +323,6 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
-  it.skip('should correctly read 1593863449094-Battlescribe', () => {
-    const parsedText = getFile('1593863449094-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      // {
-      //   severity: 'warn',
-      //   text: 'Courts of Delusion',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Ethereal Amulet',
-      // },
-    ])
-  })
-
-  it.skip('should correctly read 1594226326192-Battlescribe', () => {
-    const parsedText = getFile('1594226326192-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      // {
-      //   severity: 'warn',
-      //   text: 'Allherd',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Blade of the Desecrator',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Devolve',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Great Bray-shaman',
-      // },
-    ])
-  })
-
-  it.skip('should correctly read 1594366095025-Battlescribe', () => {
-    const parsedText = getFile('1594366095025-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      // {
-      //   severity: 'warn',
-      //   text: 'Vile Transference',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Vampire Lord (Mounted on Nightmare)',
-      // },
-      // {
-      //   severity: 'ally-warn',
-      //   text:
-      //     'Allied Vampire Lord can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
-      // },
-      // {
-      //   severity: 'ally-warn',
-      //   text:
-      //     'Allied Vampire Lord on Zombie Dragon can belong to Grand Host Of Nagash or Legion Of Blood or Legion Of Night or Legion Of Sacrament or Soulblight. Please add this unit manually.',
-      // },
-    ])
-  })
-
-  it.skip('should correctly read 1595426828729-Battlescribe', () => {
-    const parsedText = getFile('1595426828729-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      // {
-      //   severity: 'warn',
-      //   text: 'Lifebane',
-      // },
-    ])
-  })
-
   it('should correctly read 1595627477984-Battlescribe', () => {
     const parsedText = getFile('1595627477984-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -1015,21 +344,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Kroxigor')
     expect(res.errors).toEqual([])
-  })
-
-  // TODO
-  it.skip('should work with 1588929444550-Battlescribe', () => {
-    const parsedText = getFile('1588929444550-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.factionName).toEqual(LEGIONS_OF_NAGASH)
-    expect(res.subFactionName).toEqual(LegionsOfNagashFaction.subFactionKeyMap.Soulblight)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Ethereal Amulet',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
   })
 
   it('should work with 1589444286540-Battlescribe', () => {
@@ -1054,12 +368,6 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('1589575638626-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.flavors).toContain('Stalliarch Lords')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should work with 1589673659590-Battlescribe', () => {
-    const parsedText = getFile('1589673659590-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
     expect(res.errors).toEqual([])
   })
 
@@ -1123,39 +431,10 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
-  it.skip('should work with 1586036421684-Battlescribe', () => {
-    const parsedText = getFile('1586036421684-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    // expect(res.selections.endless_spells).toContain("Ravenak's Gnashing Jaws")
-    // Technically, this should be a "Bound Ravenak's Gnashing Jaws"
-    // But we're matching too aggressively on the "Bound" prefix so I'm leaving this alone for now
-    expect(res.selections.endless_spells).toContain("Bound Ravenak's Gnashing Jaws")
-    expect(res.selections.units).toContain('Razordon Hunting Pack')
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should work with 1586096394855-Battlescribe', () => {
-    const parsedText = getFile('1586096394855-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Starborne)
-    expect(res.selections.flavors).toContain('Fangs of Sotek')
-    expect(res.selections.battalions).toContain('Shadowstrike Starhost')
-    expect(res.errors).toEqual([])
-  })
-
   it('should work with 1586243528222-Battlescribe', () => {
     const parsedText = getFile('1586243528222-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.flavors).toEqual([])
-    expect(res.errors).toEqual([])
-  })
-
-  it.skip('should work with 1585479992182-Battlescribe', () => {
-    const parsedText = getFile('1585479992182-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
-    expect(res.selections.flavors).toContain('Thunder Lizard')
-    expect(res.selections.units).toContain('Razordon Hunting Pack')
     expect(res.errors).toEqual([])
   })
 
@@ -1174,18 +453,6 @@ describe('getBattlescribeArmy', () => {
         text: 'Balewind Vortex',
       },
     ])
-  })
-
-  it('should work with Gloomspite5', () => {
-    const parsedText = getFile('Gloomspite5')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should work with Khorne7', () => {
-    const parsedText = getFile('Khorne7')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Nighthaunt6', () => {
@@ -1326,24 +593,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with OBR3', () => {
-    const parsedText = getFile('OBR3')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should work with OBR4', () => {
-    const parsedText = getFile('OBR4')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should work with StD4', () => {
-    const parsedText = getFile('StD4')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
   it('should work with Stormcast7', () => {
     const parsedText = getFile('Stormcast7')
     const res = getBattlescribeArmy(parsedText)
@@ -1394,11 +643,6 @@ describe('getBattlescribeArmy', () => {
         text: 'Allied Coven Throne can belong to Legions Of Nagash or Soulblight Gravelords. Please add this unit manually.',
       },
     ])
-  })
-  it('should work with StD3', () => {
-    const parsedText = getFile('StD3')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Tzeentch2', () => {
@@ -1464,26 +708,6 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
-  it.skip('should work with StD2', () => {
-    const parsedText = getFile('StD2')
-    const res = getBattlescribeArmy(parsedText)
-    // TODO fix this, just not in the mood right now
-    expect(res.errors).toEqual([
-      // {
-      //   severity: 'warn',
-      //   text: 'Mark of the All-favoured',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Bronzed Flesh',
-      // },
-      // {
-      //   severity: 'warn',
-      //   text: 'Favour of Khorne (Khorne)',
-      // },
-    ])
-  })
-
   it('should work with Khorne6', () => {
     const parsedText = getFile('Khorne6')
     const res = getBattlescribeArmy(parsedText)
@@ -1493,12 +717,6 @@ describe('getBattlescribeArmy', () => {
         text: 'Allied Furies can belong to Legion Of The First Prince or Slaves To Darkness. Please add this unit manually.',
       },
     ])
-  })
-
-  it('should work with Khorne5', () => {
-    const parsedText = getFile('Khorne5')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with TombKings1', () => {
@@ -2282,105 +1500,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it.skip('should work with Dok1', () => {
-    const parsedText = getFile('Dok1')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(DAUGHTERS_OF_KHAINE)
-    expect(res.selections).toEqual({
-      grand_strategies: [],
-      mount_traits: [],
-      prayers: [
-        'Rune of Khaine',
-        'Touch of Death',
-        'Wrath of Khaine',
-        'Covenant of the Iron Heart',
-        'Dance of Doom',
-        'Catechism of Murder',
-      ],
-      flavors: ['Hagg Nar'],
-      artifacts: [
-        'Rune of Ulgu',
-        'Thousand and One Dark Blessings',
-        'Cursed Blade',
-        'The Mirror Glaive',
-        'Crone Blade',
-        'Khainite Pendant',
-      ],
-      battalions: ['Cauldron Guard', 'Shadowhammer Compact', 'Temple Nest'],
-      command_abilities: ['Orgy of Slaughter', 'Worship Through Bloodshed'],
-      endless_spells: ['Emerald Lifeswarm', 'Quicksilver Swords', 'Soulsnare Shackles'],
-      scenery: [],
-      spells: [
-        'Arcane Bolt',
-        'Enfeebling Foe',
-        'Mystic Shield',
-        'The Withering',
-        'Doomfire',
-        'Black Horror of Ulgu',
-      ],
-      command_traits: ['Devoted Disciples'],
-      triumphs: [],
-      units: [
-        'Bloodwrack Medusa',
-        'Bloodwrack Shrine',
-        'Hag Queen',
-        'Hag Queen on Cauldron of Blood',
-        'Morathi-Khaine',
-        'The Shadow Queen',
-        'Slaughter Queen',
-        'Slaughter Queen on Cauldron of Blood',
-        'Avatar of Khaine',
-        'Sisters of Slaughter',
-        'Witch Aelves',
-        'Blood Sisters',
-        'Blood Stalkers',
-        'Doomfire Warlocks',
-        'Khinerai Heartrenders',
-        'Khinerai Lifetakers',
-        'Judicators',
-        'Protectors',
-        'Liberators',
-      ],
-    })
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: "Ignax's Scales",
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Ruby Ring',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Purefire Brazier',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Thermalrider Cloak',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Smouldering Helm',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Magmadroth Blood Vials',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'warn',
-        text: "Arnzipal's Black Horror",
-      },
-    ])
-  })
-
   it('should work with Skaven2', () => {
     const parsedText = getFile('Skaven2')
     const res = getBattlescribeArmy(parsedText)
@@ -2433,20 +1552,6 @@ describe('getBattlescribeArmy', () => {
         reason: DEPRECATED_AOS_3,
         severity: 'deprecation-warn',
         text: 'Balewind Vortex',
-      },
-    ])
-  })
-
-  it.skip('should work with Khorne2', () => {
-    const parsedText = getFile('Khorne2')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(KHORNE)
-    expect(res.selections.scenery).toEqual(['Herdstone'])
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Allherd', // BoC Allegiance
       },
     ])
   })
