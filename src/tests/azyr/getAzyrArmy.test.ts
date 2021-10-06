@@ -286,39 +286,11 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1600596804816-Azyr', () => {
-    const fileTxt = getFile('1600596804816-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1600596819595-Azyr', () => {
-    const fileTxt = getFile('1600596819595-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1600596837969-Azyr', () => {
-    const fileTxt = getFile('1600596837969-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
   it('should correctly read 1600597087449-Azyr', () => {
     const fileTxt = getFile('1600597087449-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.spells).toContain('Etheral Blessings')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1600597169631-Azyr', () => {
-    const fileTxt = getFile('1600597169631-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
     expect(res.errors).toEqual([])
   })
 
@@ -334,27 +306,6 @@ describe('getAzyrArmyFromPdf', () => {
         reason: DEPRECATED_MALIGN_SORCERY,
       },
     ])
-  })
-
-  it('should correctly read 1601035119838-Azyr', () => {
-    const fileTxt = getFile('1601035119838-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1601035209320-Azyr', () => {
-    const fileTxt = getFile('1601035209320-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1601035227410-Azyr', () => {
-    const fileTxt = getFile('1601035227410-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1598131399395-Azyr', () => {
@@ -393,55 +344,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1593305883532-Azyr', () => {
-    const fileTxt = getFile('1593305883532-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1593305922349-Azyr', () => {
-    const fileTxt = getFile('1593305922349-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1593307774554-Azyr', () => {
-    const fileTxt = getFile('1593307774554-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1595065135337-Azyr', () => {
-    const fileTxt = getFile('1595065135337-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1595065148866-Azyr', () => {
-    const fileTxt = getFile('1595065148866-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1595065157890-Azyr', () => {
-    const fileTxt = getFile('1595065157890-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1595065176255-Azyr', () => {
-    const fileTxt = getFile('1595065176255-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
     expect(res.errors).toEqual([])
   })
 
@@ -577,13 +479,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('handles 1583001514847-Azyr', () => {
-    const fileTxt = getFile('1583001514847-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
   it('handles 1583363189608-Azyr', () => {
     const fileTxt = getFile('1583363189608-Azyr')
     const pages = handleAzyrPages(fileTxt)
@@ -616,20 +511,6 @@ describe('getAzyrArmyFromPdf', () => {
         text: "Azyr lists more than one unit as 'Eidolon of Mathlann'. Please check that we have imported the correct one.",
       },
     ])
-  })
-
-  it('handles 1584173198145-Azyr', () => {
-    const fileTxt = getFile('1584173198145-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('handles 1584173207896-Azyr', () => {
-    const fileTxt = getFile('1584173207896-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
   })
 
   it('handles 1584223772080-Azyr', () => {
@@ -678,20 +559,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('handles KO10', () => {
-    const fileTxt = getFile('KO10')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('handles KO11', () => {
-    const fileTxt = getFile('KO11')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
   it('handles KO12', () => {
     const fileTxt = getFile('KO12')
     const pages = handleAzyrPages(fileTxt)
@@ -702,20 +569,6 @@ describe('getAzyrArmyFromPdf', () => {
         text: "Azyr lists more than one unit as 'Auric Runefather'. Please check that we have imported the correct one.",
       },
     ])
-  })
-
-  it('handles KO13', () => {
-    const fileTxt = getFile('KO13')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('handles KO14', () => {
-    const fileTxt = getFile('KO14')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
   })
 
   it('handles KO15', () => {
@@ -742,20 +595,6 @@ describe('getAzyrArmyFromPdf', () => {
         text: 'Allied Ironbreakers can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
       },
     ])
-  })
-
-  it('handles KO17', () => {
-    const fileTxt = getFile('KO17')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
-  })
-
-  it('handles Nurgle4', () => {
-    const fileTxt = getFile('Nurgle4')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([])
   })
 
   it('handles Tzeentch5', () => {
