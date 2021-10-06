@@ -3,7 +3,7 @@ import { uniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { getFactionFromList } from 'meta/faction_list'
 import { IImportedArmy, WARHAMMER_APP } from 'types/import'
-import { TSelections } from 'types/selections'
+import { TSelections, TSelectionTypes } from 'types/selections'
 import { isValidFactionName } from 'utils/armyUtils'
 import { importErrorChecker } from 'utils/import'
 import { importFactionNameMap } from 'utils/import/options'
@@ -49,7 +49,7 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
   let factionName = ''
   let subFactionName = ''
   let origin_realm: string | null = null
-  let selector = ''
+  let selector: TSelectionTypes | '' = ''
   let battalionNames = CoreBattalions.map(x => x.name)
 
   const selections = cleanedText.reduce(
@@ -133,6 +133,16 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
         return accum
       }
 
+      if (txt.startsWith(SPELLS_PREFIX)) {
+        accum.spells = accum.spells.concat(
+          txt
+            .replace(SPELLS_PREFIX, '')
+            .split(', ')
+            .map(x => x.trim())
+        )
+        return accum
+      }
+
       if (txt.startsWith(ARTIFACTS_PREFIX)) {
         const artifacts = txt
           .replace(ARTIFACTS_PREFIX, '')
@@ -145,16 +155,6 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
       if (txt.startsWith(GRAND_STRATEGIES_PREFIX)) {
         const grand_strategy = txt.replace(GRAND_STRATEGIES_PREFIX, '').trim()
         accum.grand_strategies.push(grand_strategy)
-        return accum
-      }
-
-      if (txt.startsWith(SPELLS_PREFIX)) {
-        accum.spells = accum.spells.concat(
-          txt
-            .replace(SPELLS_PREFIX, '')
-            .split(', ')
-            .map(x => x.trim())
-        )
         return accum
       }
 
@@ -171,7 +171,7 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
 
       if (txt.startsWith(COMMAND_TRAITS_PREFIX)) {
         const trait = txt.replace(COMMAND_TRAITS_PREFIX, '').trim()
-        accum.command_traits = accum.command_traits.concat(trait)
+        accum.command_traits.push(trait)
         return accum
       }
 

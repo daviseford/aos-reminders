@@ -68,7 +68,7 @@ const Flavors = {
     effects: [...pickEffects(BattleTraits, ['Maddening Cascade'])],
   },
 
-  'Cult of a Thousand Eyes': {
+  'The Cult of a Thousand Eyes': {
     mandatory: {
       artifacts: [keyPicker(Artifacts, ['Crown of Whispers'])],
       command_abilities: [keyPicker(CommandAbilities, ['Eyes Everywhere'])],

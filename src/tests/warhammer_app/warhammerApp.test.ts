@@ -8,6 +8,28 @@ const getFile = (filename: string): string => {
 }
 
 describe('getWarhammerAppArmy', () => {
+  it('should correctly read 1633516730420-Warhammer_App', () => {
+    const parsedText = getFile('1633516730420-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.allyUnits).toEqual(['Hammerers', 'Warden King']) // Coalition Allies
+    expect(res.errors).toEqual([
+      {
+        text: 'Allied Hammerers can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
+        severity: 'ally-warn',
+      },
+      {
+        text: 'Allied Warden King can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
+        severity: 'ally-warn',
+      },
+    ])
+  })
+
+  it('should correctly read 1633519072073-Warhammer_App', () => {
+    const parsedText = getFile('1633519072073-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.flavors).toContain('The Cult of a Thousand Eyes')
+  })
+
   it('should correctly read 1632565338858-Warhammer_App', () => {
     const parsedText = getFile('1632565338858-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
@@ -42,7 +64,12 @@ describe('getWarhammerAppArmy', () => {
     const parsedText = getFile('1633021235077-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
     expect(res.selections.flavors).toContain('The Blessed Sons')
-    expect(res.errors).toEqual([])
+    expect(res.errors).toEqual([
+      {
+        severity: 'ally-warn',
+        text: 'Allied Chaos Knights can belong to Khorne or Slaanesh or Slaves To Darkness or Tzeentch. Please add this unit manually.',
+      },
+    ])
   })
 
   it('should correctly read 1633294316295-Warhammer_App', () => {

@@ -747,7 +747,7 @@ const Units = {
   Hammerers: {
     effects: [
       {
-        name: `Keeper of the gate`,
+        name: `Keeper of The Gate`,
         desc: `Add 1 to the Attacks characteristic of this model's melee weapon.`,
         when: [COMBAT_PHASE],
       },
