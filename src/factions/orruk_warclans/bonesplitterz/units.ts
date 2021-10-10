@@ -56,14 +56,7 @@ const BonesplitterzUnits = {
     mandatory: {
       spells: [keyPicker(spells, ['Bone Spirit'])],
     },
-    effects: [
-      TuskerChargeEffect,
-      {
-        name: `Weird Squig`,
-        desc: `Once per turn, you can reroll a casting, dispelling or unbinding roll for this model.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [TuskerChargeEffect],
   },
   'Savage Big Boss': {
     effects: [
