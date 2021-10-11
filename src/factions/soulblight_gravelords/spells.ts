@@ -55,7 +55,7 @@ const Spells = {
     effects: [
       {
         name: `Vile Transference`,
-        desc: `Vile Transference is a spell that has a casting value of 7. If successfully cast, pick 1 enemy unit within 3" of the caster that is visible to them. Roll a number of dice equal to that enemy unit’s Wounds characteristic. For each 6, that unit suffers 1 mortal wound and you can heal 1 wound allocated to the caster.`,
+        desc: `Casting value of 7. If successfully cast, pick 1 enemy unit within 3" of the caster that is visible to them. Roll a number of dice equal to that enemy unit's Wounds characteristic. For each 6, that unit suffers 1 mortal wound and you can heal 1 wound allocated to the caster.`,
         when: [HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,

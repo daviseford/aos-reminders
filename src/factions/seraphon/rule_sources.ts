@@ -21,7 +21,7 @@ const rule_sources = {
   WHITE_DWARF_OCTOBER_2021: {
     name: 'White Dwarf (October 2021)',
     type: 'white_dwarf',
-    },
+  },
 }
 
 export default rule_sources

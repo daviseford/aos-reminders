@@ -17,6 +17,7 @@
     "skipLibCheck": true,
     "strict": true,
     "target": "es5",
+    "useUnknownInCatchVariables": false
   },
   "include": ["src"]
 }
