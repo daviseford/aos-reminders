@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { CHARGE_PHASE, HERO_PHASE, SAVES_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Spells = {
   // Every Soulblight hero knows this spell!
@@ -54,8 +55,12 @@ const Spells = {
     effects: [
       {
         name: `Vile Transference`,
-        desc: `Casting value of 4. If successfully cast, pick 1 enemy unit within 6" of the caster that is visible to them. Roll a number of dice equal to half of that enemy unit's Wounds characteristic (rounding up). For each 6, you can heal 1 wound allocated to the caster.`,
+        desc: `Vile Transference is a spell that has a casting value of 7. If successfully cast, pick 1 enemy unit within 3" of the caster that is visible to them. Roll a number of dice equal to that enemy unit’s Wounds characteristic. For each 6, that unit suffers 1 mortal wound and you can heal 1 wound allocated to the caster.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
+          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_AUGUST_2021,
+        ],
       },
     ],
   },

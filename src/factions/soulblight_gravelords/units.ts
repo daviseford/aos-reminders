@@ -555,8 +555,12 @@ const Units = {
       },
       {
         name: `The Newly Dead`,
-        desc: `At the end of the combat phase, you can roll a dice for each enemy model that was slain by wounds inflicted by this unit's attacks in that phase. For each 2+, you can add 1 DEADWALKER ZOMBIE model to this unit.`,
+        desc: `At the end of the combat phase, you can roll a dice for each enemy model that was slain by wounds inflicted by this unit's attacks in that phase. For each 2+, you can add 1 DEADWALKER ZOMBIE model to this unit. Models that are added to this unit must be set up within 1" of a model in this unit. They can only be set up within 3" of an enemy unit if a model in this unit is already within 3" of that enemy unit. Models added to this unit using this ability can take it above its maximum size.`,
         when: [END_OF_COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
+          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_AUGUST_2021,
+        ],
       },
     ],
   },
