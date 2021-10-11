@@ -546,7 +546,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1585867355154-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.artifacts).toContain('Fusil of Conflagration')
-    
   })
 
   it('should work with Hrothgorn', () => {

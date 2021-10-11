@@ -42,7 +42,7 @@ export class Faction<
     this.AggregateArmy = getAggregateArmy(SubFactions, flavorLabel)
 
     this.flavorKeys = this.AggregateArmy.Flavors.map(x => x.name)
-    
+
     this.subFactionKeys = Object.keys(SubFactions) as K[]
 
     this.subFactionKeyMap = this.subFactionKeys.reduce((a, k) => {
