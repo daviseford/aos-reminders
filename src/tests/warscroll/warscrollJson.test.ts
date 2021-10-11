@@ -534,8 +534,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  // TODO Legacy Death composition
-
   it('should work with Vast Intellect - Celestial Apotheosis (trait/spell)', () => {
     const parsedText = getFile('1585065423836-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -548,7 +546,7 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1585867355154-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.artifacts).toContain('Fusil of Conflagration')
-    expect(res.errors).toEqual([])
+    
   })
 
   it('should work with Hrothgorn', () => {
@@ -1474,18 +1472,6 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.selections.endless_spells).toContain('Everblaze Comet')
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: "Ignax's Scales",
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-    ])
   })
 
   it('should work with Horn of the Consort', () => {
