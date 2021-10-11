@@ -551,160 +551,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('imports new Seraphon armies correctly', () => {
-    const pdfText = getFile('NewSeraphon')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(SERAPHON)
-    expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
-      allyUnits: [],
-      errors: [
-        // These battalions aren't valid/present in a Starborne army
-        {
-          severity: 'warn',
-          text: 'Eternal Temple-host',
-        },
-        {
-          severity: 'warn',
-          text: 'Firelance Temple-host',
-        },
-        {
-          severity: 'warn',
-          text: 'Shadowstrike Temple-host',
-        },
-        {
-          severity: 'warn',
-          text: 'Sunclaw Temple-host',
-        },
-        {
-          severity: 'warn',
-          text: 'Thunderquake Temple-host',
-        },
-        {
-          reason: DEPRECATED_AOS_3,
-          severity: 'deprecation-warn',
-          text: 'Balewind Vortex',
-        },
-        {
-          reason: DEPRECATED_AOS_3,
-          severity: 'deprecation-warn',
-          text: 'Bound Balewind Vortex',
-        },
-      ],
-      factionName: SERAPHON,
-      subFactionName: 'Starborne',
-      origin_realm: CHAMON,
-      realmscape_feature: null,
-      realmscape: null,
-      selections: {
-        artifacts: [
-          'Cloak of Feathers',
-          'Incandescent Rectrices',
-          'Bloodrage Pendant',
-          'Blade of Realities',
-          'Sigils of the Prime Hunter',
-          'Sacred Stegadon Helm',
-          'Itxi Grubs',
-          'Plaque of Dominion',
-          'Throne of the Lost Gods',
-        ],
-        battalions: [
-          'Eternal Starhost',
-          'Firelance Starhost',
-          'Shadowstrike Starhost',
-          'Sunclaw Starhost',
-          'Thunderquake Starhost',
-        ],
-        command_abilities: [
-          'Prime Guardian',
-          'Supreme Gift from the Heavens',
-          'Ripperdactyl Assault',
-          'Wrath of the Seraphon',
-          'Saurian Savagery',
-          'Scent of Weakness',
-          'Herald of the Old Ones',
-          'Gift from the Heavens',
-          'Coordinated Strike',
-          'Coordinated Attack',
-        ],
-        endless_spells: [
-          'Aethervoid Pendulum',
-          'Bound Aethervoid Pendulum',
-          'Bound Chronomantic Cogs',
-          'Bound Emerald Lifeswarm',
-          'Bound Geminids of Uhl-Gysh',
-          'Bound Malevolent Maelstrom',
-          'Bound Prismatic Palisade',
-          'Bound Purple Sun of Shyish',
-          'Bound Quicksilver Swords',
-          "Bound Ravenak's Gnashing Jaws",
-          'Bound Soulsnare Shackles',
-          'Bound Suffocating Gravetide',
-          'Bound Burning Head',
-          'Bound Umbral Spellportal',
-        ],
-        grand_strategies: [],
-        flavors: [],
-        mount_traits: [],
-        prayers: [],
-        scenery: [],
-        spells: [
-          'Mystical Unforging',
-          'Extend Astromatrix',
-          'Bind Endless Spell',
-          'Walk Between Realms',
-          'Drain Magic',
-          'Celestial Apotheosis',
-          'Celestial Deliverance',
-          'Celestial Equilibrium',
-          'Stellar Tempest',
-          "Comet's Call",
-          'Blazing Starlight',
-          'Control Fate',
-        ],
-        command_traits: ['Mighty War Leader'],
-        core_rules: [],
-        triumphs: [],
-        units: [
-          'Engine of the Gods',
-          'Lord Kroak',
-          'Ripperdactyl Chief',
-          'Saurus Astrolith Bearer',
-          'Saurus Eternity Warden',
-          'Saurus Oldblood',
-          'Saurus Oldblood on Carnosaur',
-          'Saurus Scar-Veteran on Carnosaur',
-          'Saurus Scar-Veteran on Cold One',
-          'Saurus Sunblood',
-          'Skink Oracle on Troglodon',
-          'Skink Priest',
-          'Skink Starpriest',
-          'Skink Starseer',
-          'Slann Starmaster',
-          'Stegadon with Skink Chief',
-          'Terradon Chief',
-          'Chameleon Skinks',
-          'Kroxigor',
-          'Razordon Hunting Pack',
-          'Ripperdactyl Riders',
-          'Salamander Hunting Pack',
-          'Saurus Guard',
-          'Saurus Knights',
-          'Saurus Warriors',
-          'Skinks',
-          'Terradon Riders',
-          'Bastiladon',
-          'Dread Saurian',
-          'Stegadon',
-        ],
-      },
-      unknownSelections: [],
-    })
-  })
-
   it('does not import the wrong trait (issue #863)', () => {
     const pdfText = getFile('BloodVulture')
     const parsedText = parsePdf(pdfText)
@@ -724,7 +570,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.selections.flavors).toContain("Dracothion's Tail")
     expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Starborne)
-    expect(res.errors).toEqual([])
   })
 
   it('imports Seraphon Constellations properly (1)', () => {
@@ -735,7 +580,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.selections.flavors).toContain("Koatl's Claw")
     expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced) // auto-added because of Koatl's Claw
-    expect(res.errors).toEqual([])
   })
 
   it('reads 2020 KO pdf', () => {
@@ -1013,7 +857,7 @@ describe('getWarscrollArmyFromPdf', () => {
       grand_strategies: [],
       flavors: [],
       artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
-      battalions: ['Shadowstrike Starhost'],
+      battalions: [],
       command_abilities: ['Gift from the Heavens'],
       endless_spells: ['Chronomantic Cogs'],
       mount_traits: [],
@@ -1128,7 +972,7 @@ describe('getWarscrollArmyFromPdf', () => {
       grand_strategies: [],
       flavors: [],
       artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
-      battalions: ['Shadowstrike Starhost'],
+      battalions: [],
       command_abilities: ['Gift from the Heavens'],
       endless_spells: ['Chronomantic Cogs'],
       mount_traits: [],

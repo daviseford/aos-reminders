@@ -9,6 +9,7 @@ import {
   HERO_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
 
@@ -55,14 +56,18 @@ const BattleTraits = {
       },
       {
         name: `Primeval Domain`,
-        desc: `If a terrain feature is partially or wholly within the territory of a COALESCED army, then any Damned, Arcane, Inspiring and Mystical scenery rules for that terrain feature only apply to COALESCED units, while any Deadly and Sinister scenery rules for that terrain feature do not apply to COALESCED units. These scenery rules only apply if the Mysterious Terrain rules are being used.`,
+        desc: `If a terrain feature is partially or wholly within the territory of a Coalesced army, then it has the Mystical and Deadly Mysterious Terrain scenery rules (section 28.1.3 of the core rules) in addition to any other Mysterious Terrain scenery rules it may have. The Mystical scenery rule for these terrain features only applies to COALESCED units, while the Deadly scenery rule for these terrain not apply to COALESCED units.`,
         when: [DURING_GAME],
-        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JULY_2021],
+        rule_sources: [
+          rule_sources.BATTLETOME_SERAPHON,
+          rule_sources.ERRATA_SERAPHON_JULY_2021,
+          rule_sources.WHITE_DWARF_OCTOBER_2021,
+        ],
       },
       {
         name: `Scaly Skin`,
         desc: `Subtract 1 from the damage inflicted by each successful attack that targets a COALESCED unit (to a minimum of 1)`,
-        when: [DURING_GAME],
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -101,6 +106,23 @@ const BattleTraits = {
         name: `Starborne Constellations`,
         desc: `If your army is a STARBORNE army, you can give it the DRACOTHION'S TAIL or FANGS OF SOTEK keyword. All STARBORNE units in your army gain that keyword and you can use the extra abilities listed for that Constellation.`,
         when: [START_OF_SETUP],
+      },
+    ],
+  },
+
+  'Battle Tactics': {
+    effects: [
+      {
+        name: `Might of the Starborne`,
+        desc: `Pick 1 objective on the battlefield. You complete this battle tactic if you summon a friendly unit that has a CCP cost of 20 or more during the turn, and that unit is wholly within 12" of the objective you picked.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_OCTOBER_2021],
+      },
+      {
+        name: `Stampede of Scales`,
+        desc: `Pick 3 different friendly MONSTERS. You complete this battle tactic if all of the units you picked run in the following movement phase and finish that run within 6" of each other and wholly within enemy territory.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_OCTOBER_2021],
       },
     ],
   },

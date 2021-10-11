@@ -353,13 +353,6 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
     expect(res.selections.endless_spells).toContain('Bound Burning Head')
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Aetherquartz Brooch',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
   })
 
   it('handles 1584593035311-Azyr', () => {
@@ -367,12 +360,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles 1584593121651-Azyr', () => {
@@ -380,12 +367,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Starborne)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles 1584757344425-Azyr', () => {
@@ -406,17 +387,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Bound Balewind Vortex',
-      },
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles 1585918507211-Azyr', () => {
@@ -424,17 +394,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Bound Balewind Vortex',
-      },
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles Seraphon5', () => {
@@ -444,17 +403,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
     expect(res.selections.flavors).toContain('Thunder Lizard')
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Bound Balewind Vortex',
-      },
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles 1582094113733-Azyr', () => {
@@ -744,18 +692,6 @@ describe('getAzyrArmyFromPdf', () => {
         severity: 'warn',
         text: 'Coronal Shield',
       },
-      {
-        severity: 'warn',
-        text: 'Claws of Glor y',
-      },
-    ])
-  })
-
-  it('handles Seraphon4', () => {
-    const fileTxt = getFile('Seraphon4')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
       {
         severity: 'warn',
         text: 'Claws of Glor y',
@@ -1187,43 +1123,6 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.selections.artifacts).toEqual([])
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: "Anraheirs's Claw",
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Gryph-feather Charm',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'warn',
-        text: "Dracothion's Tail",
-      },
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-      {
-        severity: 'warn',
-        text: 'Meteoric Convocation',
-      },
-      {
-        severity: 'warn',
-        text: 'Salamanders',
-      },
-      {
-        severity: 'warn',
-        text: 'Skink Handlers',
-      },
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles Khorne5', () => {
@@ -1612,51 +1511,6 @@ describe('getAzyrArmyFromPdf', () => {
       'Ratling Gun',
       'Stormfiends',
     ])
-  })
-
-  it('handles Seraphon1', () => {
-    const fileTxt = getFile('Seraphon1')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
-      allyUnits: [],
-      errors: [
-        {
-          severity: 'warn',
-          text: 'Fangs of Sotek',
-        },
-      ],
-      factionName: SERAPHON,
-      origin_realm: null,
-      realmscape_feature: null,
-      realmscape: null,
-      subFactionName: '',
-      selections: {
-        grand_strategies: [],
-        mount_traits: [],
-        prayers: [],
-        flavors: [],
-        artifacts: [],
-        battalions: ['Sunclaw Starhost'],
-        command_abilities: ['Gift from the Heavens', 'Herald of the Old Ones'],
-        endless_spells: [],
-        scenery: [],
-        spells: ["Comet's Call"],
-        command_traits: [],
-        core_rules: [],
-        triumphs: [],
-        units: [
-          'Slann Starmaster',
-          'Engine of the Gods',
-          'Saurus Astrolith Bearer',
-          'Skink Priest',
-          'Saurus Warriors',
-        ],
-      },
-      unknownSelections: [],
-    })
   })
 
   it('handles deprecated KO1', () => {

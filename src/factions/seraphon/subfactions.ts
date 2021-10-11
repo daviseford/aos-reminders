@@ -7,6 +7,8 @@ import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
+import GrandStrategies from './grand_strategies'
+import MountTraits from './mount_traits'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
@@ -27,44 +29,24 @@ const baseSubFaction: IItemDescription = {
 
 const subFactions = {
   Coalesced: {
-    effects: pickEffects(BattleTraits, ['COALESCED']),
+    effects: pickEffects(BattleTraits, ['COALESCED', 'Battle Tactics']),
 
     available: {
       ...baseSubFaction.available,
       flavors: [keyPicker(Flavors, ["Koatl's Claw", 'Thunder Lizard'])],
-      battalions: [
-        keyPicker(Battalions, [
-          'Eternal Temple-host',
-          'Sunclaw Temple-host',
-          'Firelance Temple-host',
-          'Shadowstrike Temple-host',
-          'Thunderquake Temple-host',
-          'The Celestial Stampede',
-        ]),
-      ],
+      grand_strategies: [keyPicker(GrandStrategies, ['Continuous Expansion'])],
+      mount_traits: [keyPicker(MountTraits, ['Beastmaster'])],
     },
   },
 
   Starborne: {
-    ...baseSubFaction,
-
-    effects: pickEffects(BattleTraits, ['STARBORNE']),
+    effects: pickEffects(BattleTraits, ['STARBORNE', 'Battle Tactics']),
 
     available: {
       ...baseSubFaction.available,
       flavors: [keyPicker(Flavors, ["Dracothion's Tail", 'Fangs of Sotek'])],
-
-      battalions: [
-        keyPicker(Battalions, [
-          'Eternal Starhost',
-          'Sunclaw Starhost',
-          'Firelance Starhost',
-          'Shadowstrike Starhost',
-          'Thunderquake Starhost',
-          "Gul'Rok's Starhost",
-          'Venomblade Starhost',
-        ]),
-      ],
+      grand_strategies: [keyPicker(GrandStrategies, ['Astromatrix'])],
+      mount_traits: [keyPicker(MountTraits, ['Celestial Destruction'])],
     },
   },
 }
