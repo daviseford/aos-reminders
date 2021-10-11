@@ -1,7 +1,6 @@
 import { useTheme } from 'context/useTheme'
 import React, { useCallback } from 'react'
-import Select from 'react-select'
-import { ActionMeta, ValueType } from 'react-select/src/types'
+import Select, { ActionMeta, OnChangeValue } from 'react-select'
 import { logIndividualSelection } from 'utils/analytics'
 import { titleCase } from 'utils/textUtils'
 
@@ -9,8 +8,8 @@ export interface IDropdownOption {
   value: string
   label: string
 }
-type TSelectOneValueType = ValueType<IDropdownOption, false>
-type TSelectMultiValueType = ValueType<IDropdownOption, true>
+type TSelectOneValueType = OnChangeValue<IDropdownOption, false>
+type TSelectMultiValueType = OnChangeValue<IDropdownOption, true>
 
 export type TSelectOneSetValueFn = (value: TSelectOneValueType, action: ActionMeta<IDropdownOption>) => void
 export type TSelectMultiSetValueFn = (
