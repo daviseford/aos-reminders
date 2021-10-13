@@ -1537,16 +1537,6 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([])
-    expect(res.selections.battalions).toEqual([
-      'Forge Brethren',
-      'Lords of Vostarg',
-      'Lords of the Lodge',
-      'The Grand Fyrd of Furios Peak',
-      'Vostarg Forge Brethren',
-      'Vostarg Warrior Kinband',
-      'Warrior Kinband',
-    ])
   })
 
   it('should figure out allies from context clues', () => {

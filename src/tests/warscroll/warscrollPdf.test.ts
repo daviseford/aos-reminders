@@ -1000,19 +1000,14 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(SLAANESH)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Lord of Chaos',
-      },
-    ])
+   
     expect(res.allyFactionNames).toEqual([])
     expect(res.allyUnits).toEqual([])
     expect(res.selections).toEqual({
       grand_strategies: [],
       flavors: [],
       artifacts: ['Whip of Subversion', 'The Rod of Misrule', 'Fallacious Gift'],
-      battalions: ['Hedonite Host', 'Supreme Sybarites', 'Epicurean Revellers', 'Seeker Cavalcade'],
+      battalions: [ ],
       command_abilities: [
         'Bloodslick Ground',
         'Arcane Influence',
@@ -1094,20 +1089,14 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(ORDER_GRAND_ALLIANCE)
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-    ])
+
     expect(res.selections).toEqual({
       grand_strategies: [],
       flavors: [],
       mount_traits: [],
       prayers: ['Wrath of Khaine'],
       artifacts: ['Obstinate Blade (Order)'],
-      battalions: ['Shadow Patrol'],
+      battalions: [],
       command_abilities: [],
       endless_spells: [],
       scenery: [],

@@ -3,7 +3,6 @@ import { SlaaneshFaction } from 'factions/slaanesh'
 import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { readFileSync } from 'fs'
 import {
-  BEASTS_OF_CHAOS,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   FLESH_EATER_COURTS,
@@ -1372,12 +1371,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.artifacts).toContain("Nibbla's 'Itty Ring")
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Loonboss'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles CoS3', () => {
@@ -1671,105 +1664,6 @@ describe('getAzyrArmyFromPdf', () => {
           'Vulkite Berzerkers',
           'Auric Runeson',
           'Doomseeker',
-        ],
-      },
-      unknownSelections: [],
-    })
-  })
-
-  it('handles BoC1', () => {
-    const fileTxt = getFile('BoC1')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res).toEqual({
-      allyFactionNames: ['SLAVES_TO_DARKNESS'],
-      allySelections: {
-        SLAVES_TO_DARKNESS: {
-          battalions: [],
-          units: [
-            'Sayl the Faithless',
-            'Theddra Skull-Scryer',
-            'Darkoath Warqueen',
-            'Untamed Beasts',
-            'Godsworn Hunt',
-          ],
-        },
-      },
-      allyUnits: [
-        'Sayl the Faithless',
-        'Theddra Skull-Scryer',
-        'Darkoath Warqueen',
-        'Untamed Beasts',
-        'Godsworn Hunt',
-        'Furies',
-      ],
-      errors: [
-        {
-          severity: 'ally-warn',
-          text: 'Allied Furies can belong to Legion Of The First Prince or Slaves To Darkness. Please add this unit manually.',
-        },
-      ],
-      factionName: BEASTS_OF_CHAOS,
-      origin_realm: null,
-      realmscape_feature: null,
-      realmscape: null,
-      subFactionName: '',
-      selections: {
-        grand_strategies: [],
-        mount_traits: [],
-        prayers: [],
-        flavors: [],
-        artifacts: ['The Knowing Eye (Brayherds)', 'Blackened Armour of Chaos (Warherds)'],
-        battalions: [
-          'Brass Despoilers',
-          'Depraved Drove',
-          'Desolating Beastherd',
-          'Hungering Warherd',
-          'Marauding Brayherd',
-          'Pestilent Throng',
-          'Phantasmagoria of Fate',
-          'Thunderscorn Stormherd',
-        ],
-        command_abilities: ["Slaughterer's Call"],
-        endless_spells: [],
-        scenery: [],
-        spells: [
-          'Sundering Blades (Thunderscorn Wizard)',
-          'Tendrils of Atrophy (Brayherd Wizard)',
-          'Titanic Fury (Brayherd Wizard)',
-          'Devolve',
-          'Summon Lightning',
-          'Boon of Mutation',
-        ],
-        command_traits: ['Rampant Juggernaut (Warherd)'],
-        core_rules: [],
-        triumphs: [],
-        units: [
-          'Beastlord',
-          'Doombull',
-          'Dragon Ogor Shaggoth',
-          'Great Bray-Shaman',
-          'Tzaangor Shaman',
-          'Bullgors',
-          'Gors',
-          'Ungors',
-          'Chaos Gargant',
-          'Chimera',
-          'Cygor',
-          'Ghorgon',
-          'Jabberslythe',
-          'Bestigors',
-          'Centigors',
-          'Chaos Spawn',
-          'Chaos Warhounds',
-          'Cockatrice',
-          'Dragon Ogors',
-          'Razorgors',
-          'Tuskgor Chariots',
-          'Tzaangor Enlightened',
-          'Tzaangor Skyfires',
-          'Tzaangors',
-          'Ungor Raiders',
         ],
       },
       unknownSelections: [],

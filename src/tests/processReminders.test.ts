@@ -12,7 +12,7 @@ import { selectionsFactory } from './__mock'
 describe('processReminders', () => {
   it('should work with a loaded army and multiple allies', () => {
     const artifact = SylvanethFaction.AggregateArmy.Artifacts?.[0]
-    const battalion = SylvanethFaction.AggregateArmy.Battalions?.[0]
+    // const battalion = SylvanethFaction.AggregateArmy.Battalions?.[0]
     const command_trait = SylvanethFaction.AggregateArmy.CommandTraits?.[0]
     const command1 = GenericCommandAbilities[0]
     const endless_spell = SylvanethFaction.AggregateArmy.EndlessSpells?.[0]
@@ -27,7 +27,8 @@ describe('processReminders', () => {
 
     const selections = selectionsFactory({
       artifacts: [artifact.name],
-      battalions: [battalion.name],
+      battalions: [],
+      // battalions: [battalion.name],
       command_abilities: [command1.name],
       command_traits: [command_trait.name],
       endless_spells: [endless_spell.name],
@@ -41,7 +42,7 @@ describe('processReminders', () => {
 
     const testEntries = [
       artifact,
-      battalion,
+      // battalion,
       command_trait,
       command1,
       endless_spell,
