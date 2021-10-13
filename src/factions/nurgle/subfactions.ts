@@ -1,12 +1,9 @@
-import BeastsOfChaosBattalions from 'factions/beasts_of_chaos/battalions'
 import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
 import { IItemDescription } from 'factions/factionTypes'
 import SkavenUnits from 'factions/skaven/units'
-import SlavesToDarknessBattalions from 'factions/slaves_to_darkness/battalions'
 import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
-import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -84,11 +81,6 @@ const subFactions = {
     available: {
       ...baseSubFaction.available,
       artifacts: [keyOmitter(Artifacts, ['Daemon Flask'])],
-      battalions: [
-        keyOmitter(Battalions, ['Sons of the Maggot Lord', 'Leaping Pox']),
-        keyPicker(SlavesToDarknessBattalions, ['Plaguetouched Warband']),
-        keyPicker(BeastsOfChaosBattalions, ['Pestilent Throng']),
-      ],
       command_abilities: [keyOmitter(CommandAbilities, ['Shout of Command'])],
       command_traits: [keyOmitter(CommandTraits, ['Unrelenting Conqueror'])],
     },
@@ -106,11 +98,6 @@ const subFactions = {
     available: {
       ...baseSubFaction.available,
       artifacts: [Artifacts],
-      battalions: [
-        Battalions,
-        keyPicker(SlavesToDarknessBattalions, ['Plaguetouched Warband']),
-        keyPicker(BeastsOfChaosBattalions, ['Pestilent Throng']),
-      ],
       command_abilities: [CommandAbilities],
     },
   },
