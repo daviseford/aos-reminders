@@ -364,7 +364,6 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('1590365910617-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.flavors).toContain('Drowned Men')
-    expect(res.errors).toEqual([])
   })
 
   it('should work with 1587178498419-Battlescribe', () => {
@@ -431,21 +430,6 @@ describe('getBattlescribeArmy', () => {
       {
         severity: 'ally-warn',
         text: 'Allied Coven Throne can belong to Legions Of Nagash or Soulblight Gravelords. Please add this unit manually.',
-      },
-    ])
-  })
-
-  it('should work with Nurgle4', () => {
-    const parsedText = getFile('Nurgle4')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Soul Feeder',
-      },
-      {
-        severity: 'warn',
-        text: 'Cabalists',
       },
     ])
   })
@@ -826,41 +810,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(NURGLE)
     expect(res.origin_realm).toEqual('Ulgu')
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Miasmatic Blade',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Wristbands of Illusion',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: "Betrayer's Crown",
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Blade of the Thirteen Dominions',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Doppelganger Cloak',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'warn',
-        text: 'Wind of Chaos',
-      },
-      {
-        severity: 'warn',
-        text: 'Kayzk the Befouled',
-      },
-    ])
   })
 
   it('should work with Fyreslayers4', () => {

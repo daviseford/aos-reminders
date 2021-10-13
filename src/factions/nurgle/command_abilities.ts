@@ -113,12 +113,12 @@ const CommandAbilities = {
     effects: [
       {
         name: `Infested with Wonders`,
-        desc: `Pick 1 friendly Munificent Wanderers daemon unit wholly within 14" of a friendly Munificent Wanderers hero with this command ability. Until the start of your next hero phase, if an enemy unit ends a charge move within 3" of the target, that enemy unit suffers D3 mortal wounds. A unit cannot benefit from this ability more than once per turn.`,
+        desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly MUNIFICENT WANDERERS DAEMON unit wholly within 14" of a friendly MUNIFICENT WANDERERS DAEMON HERO with this command ability. Until the start of your next hero phase, if an enemy unit ends a charge move within 3" of that unit, that enemy unit suffers D3 mortal wounds. A unit cannot benefit from this command ability more than once per turn.`,
         when: [HERO_PHASE],
       },
       {
         name: `Infested with Wonders`,
-        desc: `If an enemy unit ends a charge move within 3" of the buffed unit, that enemy unit suffers D3 mortal wounds.`,
+        desc: `If active, until the start of your next hero phase, if an enemy unit ends a charge move within 3" of that unit, that enemy unit suffers D3 mortal wounds. A unit cannot benefit from this command ability more than once per turn.`,
         when: [CHARGE_PHASE],
       },
     ],

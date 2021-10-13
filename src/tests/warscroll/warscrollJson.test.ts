@@ -564,20 +564,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should work with Fecund Rituculturalists', () => {
-    const parsedText = getFile('1582292305596-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.battalions).toContain('Fecund Rituculturalists')
-    expect(res.selections.spells).toContain('Blades of Putrefaction')
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-    ])
-  })
-
   it('should work with Brand of the Split Daemon', () => {
     const parsedText = getFile('1582816094064-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -1105,13 +1091,6 @@ describe('getWarscrollArmyFromJson', () => {
       [SKAVEN]: { battalions: ['Congregation of Filth'], units: [] },
     })
     expect(res.origin_realm).toEqual(HYSH)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Aetherquartz Brooch',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
   })
 
   it('should work with OBR 2', () => {
