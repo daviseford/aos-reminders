@@ -1,6 +1,5 @@
 import { TOMB_KINGS } from 'meta/factions'
 import Artifacts from './artifacts'
-import Battalions from './battalions'
 import CommandAbilities from './command_abilities'
 import Spells from './spells'
 import Units from './units'
@@ -10,7 +9,7 @@ const subFactions = {
     effects: [],
     available: {
       artifacts: [Artifacts],
-      battalions: [Battalions],
+      battalions: [],
       command_abilities: [CommandAbilities],
       spells: [Spells],
       units: [Units],

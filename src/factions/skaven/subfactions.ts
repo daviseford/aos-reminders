@@ -1,6 +1,5 @@
 import { SKAVEN } from 'meta/factions'
 import Artifacts from './artifacts'
-import Battalions from './battalions'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
@@ -15,7 +14,7 @@ const subFactions = {
     effects: [],
     available: {
       artifacts: [Artifacts],
-      battalions: [Battalions],
+      battalions: [],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       endless_spells: [EndlessSpells],

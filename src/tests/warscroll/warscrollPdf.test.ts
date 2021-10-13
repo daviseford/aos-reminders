@@ -17,7 +17,6 @@ import {
   OSSIARCH_BONEREAPERS,
   SERAPHON,
   SKAVEN,
-  SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
   SOULBLIGHT_GRAVELORDS,
@@ -25,8 +24,8 @@ import {
   TZEENTCH,
 } from 'meta/factions'
 import path from 'path'
-import { CHAMON, GHUR } from 'types/realmscapes'
-import { DEPRECATED_AOS_3, DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
+import { CHAMON } from 'types/realmscapes'
+import { DEPRECATED_AOS_3 } from 'utils/import/options'
 import { parsePdf } from 'utils/pdf/pdfUtils'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
@@ -48,8 +47,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.grand_strategies).toContain('Pillars of Belief')
     expect(res.selections.spells).toContain('Ghost-mist')
     expect(res.selections.triumphs).toContain('Indomitable')
-
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read New_Khorne1', () => {
@@ -67,7 +64,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.prayers).toContain('Guidance')
     expect(res.selections.spells).toContain('Levitate')
     expect(res.selections.triumphs).toEqual([])
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read New_Seraphon1', () => {
@@ -86,8 +82,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.spells).toContain('Celestial Equilibrium')
     expect(res.selections.spells).toContain('Mystical Unforging')
     expect(res.selections.triumphs).toEqual([])
-
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read New_Slaanesh1', () => {
@@ -101,8 +95,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.grand_strategies).toContain('Sever the Head')
     expect(res.selections.triumphs).toEqual(['Bloodthirsty'])
     expect(res.subFactionName).toEqual('Godseekers Host')
-
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read New_Tzeentch1', () => {
@@ -119,8 +111,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.grand_strategies).toContain("Predator's Domain")
     expect(res.selections.spells).toContain('Flaming Weapon')
     expect(res.selections.spells).toContain('Unchecked Mutation')
-
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read New_CoS1', () => {
@@ -144,7 +134,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.units).toContain('Helstorm Rocket Battery')
     expect(res.selections.units).toContain('Sisters of the Thorn')
     expect(res.selections.units).toContain('Steam Tank with Commander')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read New_Nurgle1', () => {
@@ -168,7 +157,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.spells).toContain('Gift of Contagion')
     expect(res.selections.spells).toContain('Levitate')
     expect(res.selections.triumphs).toContain('Bloodthirsty')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read New_Nurgle1_withStats', () => {
@@ -192,7 +180,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.spells).toContain('Gift of Contagion')
     expect(res.selections.spells).toContain('Levitate')
     expect(res.selections.triumphs).toContain('Bloodthirsty')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read New_Nurgle1_withAlly', () => {
@@ -220,8 +207,6 @@ describe('getWarscrollArmyFromPdf', () => {
     // Ally units
     expect(res.allyFactionNames).toContain(SLAVES_TO_DARKNESS)
     expect(res.allySelections[SLAVES_TO_DARKNESS]?.units).toEqual(['Fomoroid Crusher', 'Raptoryx'])
-
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read SoulblightGravelords1', () => {
@@ -317,64 +302,6 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  it('should correctly read SoulblightGravelords2', () => {
-    const pdfText = getFile('SoulblightGravelords2')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
-      allyUnits: [],
-      errors: [],
-      factionName: SOULBLIGHT_GRAVELORDS,
-      origin_realm: null,
-      realmscape_feature: null,
-      realmscape: null,
-      selections: {
-        artifacts: [],
-        battalions: [
-          'Deathmarch',
-          'Deathstench Drove',
-          'Fellwing Flock',
-          'Legion of Shyish',
-          'Red Banqueters',
-        ],
-        command_abilities: [],
-        command_traits: [],
-        endless_spells: [],
-        grand_strategies: [],
-        flavors: [],
-        mount_traits: [],
-        prayers: [],
-        scenery: [],
-        spells: [],
-        core_rules: [],
-        triumphs: [],
-        units: [
-          'Black Knights',
-          'Blood Knights',
-          'Corpse Cart w/ Balefire Brazier',
-          'Corpse Cart w/ Unholy Lodestone',
-          'Deadwalker Zombies',
-          'Deathrattle Skeletons',
-          'Dire Wolves',
-          'Fell Bats',
-          'Grave Guard',
-          'Kosargi Nightguard',
-          'The Sepulchral Guard',
-          'Vargheists',
-          'Vargskyr',
-          'Vyrkos Blood-born',
-          'Mortis Engine',
-          'Terrorgheist',
-          'Zombie Dragon',
-        ],
-      },
-      subFactionName: 'Avengorii Dynasty',
-      unknownSelections: [],
-    })
-  })
-
   it('should correctly read ArkhanCurse', () => {
     const pdfText = getFile('ArkhanCurse')
     const parsedText = parsePdf(pdfText)
@@ -383,7 +310,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.units).toContain('Arkhan the Black, Mortarch of Sacrament')
     // This is a good test of how we extract mandatory objects from mandatory objects
     expect(res.selections.spells).toContain('Curse of Years')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read RuneOfKhaine', () => {
@@ -392,7 +318,6 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.artifacts).not.toContain('Rune of Khaine')
     expect(res.selections.prayers).toContain('Rune of Khaine')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read Tzeentch1', () => {
@@ -400,14 +325,6 @@ describe('getWarscrollArmyFromPdf', () => {
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.flavors).toContain('The Eternal Conflagration')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read SoB3', () => {
-    const pdfText = getFile('SoB3')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read SoB2', () => {
@@ -448,7 +365,6 @@ describe('getWarscrollArmyFromPdf', () => {
       'Mancrusher Gargant',
       'Bonegrinder Mega-Gargant',
     ])
-    expect(res.errors).toEqual([])
   })
 
   it('correctly reads Lumineth1', () => {
@@ -459,76 +375,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.units).toContain('Archmage Teclis')
     expect(res.selections.spells).toContain('Etheral Blessings')
     expect(res.factionName).toEqual(LUMINETH_REALMLORDS)
-
-    expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
-      allyUnits: [],
-      errors: [
-        {
-          severity: 'warn',
-          text: "Predator's Torc",
-        },
-      ],
-      factionName: LUMINETH_REALMLORDS,
-      subFactionName: '',
-      origin_realm: GHUR,
-      realmscape_feature: null,
-      realmscape: null,
-      selections: {
-        grand_strategies: [],
-        flavors: ['Syar'],
-        artifacts: ["Mountain's Gift", 'Simulacra Amulet', 'Hearthstone Amulet', 'The Perfect Blade'],
-        battalions: ['Alarith Temple', 'Auralan Legion', 'Dawnrider Lance', 'Teclian Vanguard'],
-        command_abilities: [
-          'Faith of the Mountains',
-          'Unshakeable Faith of the Mountains',
-          'Deplete Reserves',
-          'Unflinching Valour',
-        ],
-        endless_spells: ['Hyshian Twinstones', 'Soulscream Bridge', 'Shards of Valagharr'],
-        mount_traits: [],
-        prayers: [],
-        scenery: [],
-        spells: [
-          'Etheral Blessings',
-          'Voice of the Mountains',
-          'Living Fissure',
-          'Entomb',
-          'Solar Flare',
-          'Lambent Light',
-          'Speed of Hysh',
-          'Total Eclipse',
-          'Gravitic Reduction',
-          'Power of Hysh',
-          'Darkness of the Soul',
-          'Protection of Teclis',
-          'Storm of Searing White Light',
-        ],
-        command_traits: ['Loremaster - Alarith', 'Goading Arrogance'],
-        core_rules: [],
-        triumphs: [],
-        units: [
-          'Archmage Teclis',
-          'Alarith Stonemage',
-          'Avalenor, the Stoneheart King',
-          'Scinari Cathallar',
-          'The Light of Eltharion',
-          'Vanari Auralan Sentinels',
-          'Alarith Stoneguard',
-          'Vanari Auralan Wardens',
-          'Vanari Dawnriders',
-          'Alarith Spirit of the Mountain',
-        ],
-      },
-      unknownSelections: [],
-    })
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: "Predator's Torc",
-      },
-    ])
   })
   it("correctly imports Braum's list", () => {
     const pdfText = getFile('BraumSeraphonTTSList')
@@ -548,7 +394,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.spells).toContain('Stellar Tempest')
     expect(res.selections.artifacts).toContain('Incandescent Rectrices')
     expect(res.realmscape).toBeNull()
-    expect(res.errors).toEqual([])
   })
 
   it('does not import the wrong trait (issue #863)', () => {
@@ -559,7 +404,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.selections.command_traits).not.toContain("Blood Vulture's Gaze")
     expect(res.selections.mount_traits).toContain('Metalcruncher')
-    expect(res.errors).toEqual([])
   })
 
   it('imports Seraphon Constellations properly', () => {
@@ -588,112 +432,15 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
-      allyUnits: [],
-      errors: [],
-      factionName: KHARADRON_OVERLORDS,
-      subFactionName: '',
-      origin_realm: 'Ghur',
-      realmscape_feature: null,
-      realmscape: null,
-      selections: {
-        grand_strategies: [],
-        flavors: ['Barak-Zilfin, The Windswept City (Skyport)'],
-        artifacts: [
-          'Spell in a Bottle',
-          'Aethercharged Rune',
-          'Proclamator Mask-hailer',
-          'Miniaturised Aethermatic Repulsion Field',
-          'Seismic Shock-gauntlets',
-          'Cyclonic Aethometer',
-          "Svaregg-Stein 'Illuminator' Flarepistol",
-          'Voidstone Orb',
-          'Staff of Ocular Optimisation',
-          'Aethersped Hammer',
-          'Galeforce Stave',
-          'Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)',
-          "Zonbarcorp 'Debtsettler' Spar Torpedo (Great Endrinwork)",
-          "Coalbeard's Collapsible Compartments (Great Endrinwork)",
-          'Breath of Morgrim',
-          'Prudency Chutes (Great Endrinwork)',
-          "Hegsson Solutions 'Old Reliable' Hullplates (Great Endrinwork)",
-          'The Last Word (Great Endrinwork)',
-          "Zonbarcorp 'Dealbreaker' Battle Ram (Great Endrinwork)",
-        ],
-        battalions: [
-          'Grand Armada',
-          'Grundstok Escort Wing',
-          'Intrepid Prospectors',
-          'Iron Sky Attack Squadron',
-          'Iron Sky Command',
-        ],
-        command_abilities: [
-          'Master of the Skies',
-          'On My Mark, Fire!',
-          'Repel Boarders!',
-          'Up And At Them!',
-          'First Rule of Grungsson',
-          'By Grungni, I Have My Eye On You!',
-        ],
-        endless_spells: [],
-        mount_traits: [],
-        prayers: [],
-        scenery: [],
-        spells: [],
-        command_traits: [
-          'ARTYCLE: Master the Skies',
-          'AMENDMENT: Trust to Your Guns',
-          'FOOTNOTE: Show Them Your Steel',
-          'Grudgebearer',
-          'Master Commander',
-          "FOOTNOTE: There's Always a Breeze if You Look for it",
-          "AMENDMENT: Don't Argue With the Wind",
-        ],
-        core_rules: [],
-        triumphs: [],
-        units: [
-          'Aether-Khemist',
-          'Aetheric Navigator',
-          'Arkanaut Admiral',
-          'Bjorgen Thundrik',
-          'Brokk Grungsson, Lord-Magnate of Barak-Nar',
-          'Endrinmaster with Dirigible Suit',
-          'Endrinmaster with Endrinharness',
-          'Arkanaut Company',
-          'Endrinriggers',
-          'Grundstok Gunhauler',
-          'Grundstok Thunderers',
-          'Skywardens',
-          "Thundrik's Profiteers",
-          'Arkanaut Frigate',
-          'Arkanaut Ironclad',
-        ],
-      },
-      unknownSelections: [],
-    })
-    expect(res.errors).toEqual([])
   })
 
-  it('reads Warpcog Convocation correctly with no errors', () => {
+  it('reads Warpcog Convocation correctly', () => {
     const pdfText = getFile('WarpcogList')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(SKAVEN)
-    expect(res.selections.battalions).toEqual([
-      'Warpcog Convocation',
-      'Rattlegauge Warplock (Enginecoven)',
-      'Gascloud Chokelung (Enginecoven)',
-    ])
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Lens of Refraction',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
+    expect(res.selections.battalions).toEqual([])
   })
 
   it('does not include Quicksilver Swords via unknownSelections', () => {
@@ -704,7 +451,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.factionName).toEqual(KHORNE)
     expect(res.selections.units).toEqual(['Daemon Prince'])
     expect(res.selections.endless_spells).toEqual([])
-    expect(res.errors).toEqual([])
   })
 
   it('reads Ossiarch Bonereapers full pdf', () => {
@@ -713,7 +459,6 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([])
   })
 
   it('reads deprecated KO pdf (issue #794)', () => {
@@ -776,15 +521,13 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  it('reads Fyreslayers battalions properly', () => {
+  it('reads 3droth2k properly', () => {
     const pdfText = getFile('3droth2k')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
     expect(res.selections.flavors).toEqual(['Vostarg (Lodge)'])
-    expect(res.selections.battalions).toEqual(['Lords of the Lodge'])
-    expect(res.errors).toEqual([])
   })
 
   it('reads Ogor Mawtribes full pdf', () => {
@@ -793,8 +536,6 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
-    expect(res.selections.battalions).toContain("Kin-eater's Bully Boys")
-    expect(res.errors).toEqual([])
   })
 
   it('reads a unit with ignored unknown selections', () => {
@@ -806,45 +547,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.endless_spells).toEqual([])
     expect(res.selections.artifacts).toEqual([])
     expect(res.unknownSelections).toEqual([])
-    expect(res.errors).toEqual([])
-  })
-
-  it('reads a Nurgle PDF with a Skaven battalion', () => {
-    const pdfText = getFile('NurgleWithSkavenBattalion')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(NURGLE)
-    expect(res).toEqual({
-      allyFactionNames: [SKAVEN],
-      allySelections: { [SKAVEN]: { battalions: ['Congregation of Filth'], units: [] } },
-      allyUnits: [],
-      errors: [],
-      factionName: NURGLE,
-      subFactionName: '',
-      origin_realm: null,
-      realmscape_feature: null,
-      realmscape: null,
-      selections: {
-        artifacts: ['Daemon Flask'],
-        battalions: [],
-        command_abilities: ['Shout of Command'],
-        command_traits: ['Unrelenting Conqueror'],
-        endless_spells: [],
-        grand_strategies: [],
-        flavors: [],
-        mount_traits: [],
-        prayers: [],
-        scenery: [],
-        spells: ['Miasma of Pestilence'],
-        core_rules: [],
-        triumphs: [],
-        units: ['Bloab Rotspawned', 'Chaos Chariots', 'Plague Censer Bearers'],
-      },
-      unknownSelections: [],
-    })
-
-    expect(res.errors).toEqual([])
   })
 
   it('reads a basic warscroll pdf file (no metadata) correctly', () => {
@@ -886,7 +588,6 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.origin_realm).toEqual(null)
-    expect(res.errors).toEqual([])
     expect(res.unknownSelections).toEqual([])
     expect(res.selections).toEqual({
       flavors: ['Anvilgard'],
@@ -901,7 +602,7 @@ describe('getWarscrollArmyFromPdf', () => {
         'Deepmire Cloak (The Living City)',
         "Patrician's Helm (Tempest's Eye)",
       ],
-      battalions: ['Greywater Artillery Company'],
+      battalions: [],
       command_abilities: [
         'Make an Example of the Weak (Anvilgard)',
         'Command Underlings',
@@ -994,65 +695,13 @@ describe('getWarscrollArmyFromPdf', () => {
     })
   })
 
-  it('reads a slaanesh warscroll pdf file correctly', () => {
-    const pdfText = getFile('SlaaneshList')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(SLAANESH)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Lord of Chaos',
-      },
-    ])
-    expect(res.allyFactionNames).toEqual([])
-    expect(res.allyUnits).toEqual([])
-    expect(res.selections).toEqual({
-      grand_strategies: [],
-      flavors: [],
-      artifacts: ['Whip of Subversion', 'The Rod of Misrule', 'Fallacious Gift'],
-      battalions: ['Hedonite Host', 'Supreme Sybarites', 'Epicurean Revellers', 'Seeker Cavalcade'],
-      command_abilities: [
-        'Bloodslick Ground',
-        'Arcane Influence',
-        'Bloated Blessings',
-        'Revel in Agony',
-        'Excess of Violence',
-      ],
-      endless_spells: ['Chronomantic Cogs'],
-      mount_traits: [],
-      prayers: [],
-      scenery: [],
-      spells: ['Phantasmagoria', 'Soulslice Shards', 'Cacophonic Choir', 'Acquiescence'],
-      command_traits: [
-        'Inspirer',
-        'Strongest Alone',
-        'Hunter of Godbeasts',
-        'Delusions of Infallibility',
-        'Monarch of Lies',
-      ],
-      core_rules: [],
-      triumphs: [],
-      units: [
-        'Beastlord',
-        'Daemon Prince',
-        'Keeper of Secrets w/ Ritual Knife',
-        'Viceleader, Herald of Slaanesh',
-        'Cygor',
-        'Ghorgon',
-        'Daemonettes',
-      ],
-    })
-  })
-
   it('reads Command Traits/Artifacts and gets the spells attached to them', () => {
     const pdfText = getFile('CommandTraitWithSpell')
     const parsedText = parsePdf(pdfText)
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.errors).toEqual([])
+
     expect(res.selections.artifacts).toEqual(['Whitefire Tome (Hallowheart)'])
     expect(res.selections.command_traits).toEqual(['Secretive Warlock (Anvilgard)'])
     expect(res.selections.spells).toEqual([
@@ -1094,20 +743,14 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(ORDER_GRAND_ALLIANCE)
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-    ])
+
     expect(res.selections).toEqual({
       grand_strategies: [],
       flavors: [],
       mount_traits: [],
       prayers: ['Wrath of Khaine'],
       artifacts: ['Obstinate Blade (Order)'],
-      battalions: ['Shadow Patrol'],
+      battalions: [],
       command_abilities: [],
       endless_spells: [],
       scenery: [],
@@ -1401,7 +1044,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(TZEENTCH)
-    expect(res.errors).toEqual([])
+
     expect(res.selections.units).toEqual(['Horrors of Tzeentch'])
   })
 
@@ -1411,7 +1054,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(TZEENTCH)
-    expect(res.errors).toEqual([])
+
     expect(res.selections.units).toEqual(['Horrors of Tzeentch'])
   })
 
@@ -1421,7 +1064,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(TZEENTCH)
-    expect(res.errors).toEqual([])
+
     expect(res.selections.units).toEqual(['Horrors of Tzeentch'])
   })
 })

@@ -1,6 +1,5 @@
 import { SYLVANETH } from 'meta/factions'
 import Artifacts from './artifacts'
-import RegularBattalions from './battalions'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
@@ -14,7 +13,7 @@ const subFactions = {
     effects: [],
     available: {
       artifacts: [Artifacts],
-      battalions: [RegularBattalions],
+      battalions: [],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       endless_spells: [EndlessSpells],

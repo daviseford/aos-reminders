@@ -1,6 +1,5 @@
 import { WANDERERS } from 'meta/factions'
 import Artifacts from './artifacts'
-import Battalions from './battalions'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import Spells from './spells'
@@ -12,7 +11,7 @@ const subFactions = {
 
     available: {
       artifacts: [Artifacts],
-      battalions: [Battalions],
+      battalions: [],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       spells: [Spells],

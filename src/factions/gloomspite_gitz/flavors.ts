@@ -2,7 +2,6 @@ import { keyPicker } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import { COMBAT_PHASE, DURING_GAME, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
 import Artifacts from './artifacts'
-import Battlalions from './battalions'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 
@@ -12,9 +11,6 @@ const Flavors = {
       artifacts: [keyPicker(Artifacts, ['Syari Screamersquig'])],
       command_abilities: [keyPicker(CommandAbilities, ["Get Some Loonshine Down 'Em!"])],
       command_traits: [keyPicker(CommandTraits, ['Envoy of the Overbounder'])],
-    },
-    available: {
-      batttalions: [keyPicker(Battlalions, ['Moon-Jumper Stampede', 'Moon-Biter Squigalanche'])],
     },
     effects: [
       {
@@ -32,9 +28,6 @@ const Flavors = {
       command_abilities: [keyPicker(CommandAbilities, ['Oblivious to Sorcery'])],
       command_traits: [keyPicker(CommandTraits, ['Shepherd of Idiotic Destruction'])],
     },
-    available: {
-      batttalions: [keyPicker(Battlalions, ['Stomping Megamob'])],
-    },
     effects: [
       {
         name: `Monstrous Regeneration`,
@@ -50,15 +43,6 @@ const Flavors = {
       artifacts: [keyPicker(Artifacts, ['Shyishan Spider-sigils'])],
       command_abilities: [keyPicker(CommandAbilities, ['Masters of Feigned Flight'])],
       command_traits: [keyPicker(CommandTraits, ['Prophet of da Spider God'])],
-    },
-    available: {
-      batttalions: [
-        keyPicker(Battlalions, [
-          'Grimscuttle Spider Cluster',
-          'Grimscuttle Skitterswarm',
-          'Grimscuttle Nest',
-        ]),
-      ],
     },
     effects: [
       {

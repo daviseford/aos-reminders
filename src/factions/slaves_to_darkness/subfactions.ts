@@ -1,7 +1,6 @@
 import { IItemDescription } from 'factions/factionTypes'
 import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
-import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -14,6 +13,7 @@ import Units from './units'
 const baseSubFaction: IItemDescription = {
   effects: [],
   available: {
+    battalions: [],
     endless_spells: [EndlessSpells],
     prayers: [Prayers],
     spells: [Spells],
@@ -40,7 +40,7 @@ const subFactions = {
           'Desecrator Gauntlets',
         ]),
       ],
-      battalions: [keyOmitter(Battalions, ['Overlords of Chaos', "Gresh's Iron Reapers"])],
+
       command_traits: [
         keyPicker(CommandTraits, [
           'Bolstered by Hate',
@@ -74,7 +74,6 @@ const subFactions = {
           'Spell Familiar',
         ]),
       ],
-      battalions: [keyOmitter(Battalions, ['Overlords of Chaos', "Gresh's Iron Reapers"])],
       command_traits: [
         keyPicker(CommandTraits, [
           'Bolstered by Hate',
@@ -110,7 +109,6 @@ const subFactions = {
           "Realmwarper's Twist-rune",
         ]),
       ],
-      battalions: [keyOmitter(Battalions, ['Overlords of Chaos', "Gresh's Iron Reapers"])],
       command_traits: [
         keyPicker(CommandTraits, [
           'Bolstered by Hate',
@@ -139,7 +137,6 @@ const subFactions = {
 
     available: {
       ...baseSubFaction.available,
-      battalions: [keyOmitter(Battalions, ["Gresh's Iron Reapers"])],
       flavors: [Flavors],
       units: [keyOmitter(Units, ['Idolator Lord on Chaos Chariot', 'Idolator Lord on Gorebeast Chariot'])],
     },
@@ -155,7 +152,6 @@ const subFactions = {
     available: {
       ...baseSubFaction.available,
       artifacts: [keyPicker(Artifacts, ['Flask of Daemonblood', 'Grasping Plate', 'Corrupted Nullstone'])],
-      battalions: [keyOmitter(Battalions, ['Overlords of Chaos', "Gresh's Iron Reapers"])],
       command_traits: [
         keyPicker(CommandTraits, ['Annihilating Charge', 'Inescapeable Doom', 'Wall of Cursed Iron']),
       ],
@@ -172,7 +168,6 @@ const subFactions = {
 
     available: {
       ...baseSubFaction.available,
-      battalions: [keyOmitter(Battalions, ['Overlords of Chaos'])],
       command_traits: [
         keyPicker(CommandTraits, [
           'Bolstered by Hate',

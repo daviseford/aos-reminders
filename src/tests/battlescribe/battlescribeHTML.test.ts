@@ -2,7 +2,6 @@ import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { SlaaneshFaction } from 'factions/slaanesh'
 import { readFileSync } from 'fs'
 import {
-  BEASTS_OF_CHAOS,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   FLESH_EATER_COURTS,
@@ -12,7 +11,6 @@ import {
   KHORNE,
   LEGIONS_OF_NAGASH,
   LEGION_OF_GRIEF,
-  LUMINETH_REALMLORDS,
   NIGHTHAUNT,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -29,7 +27,6 @@ import {
 import path from 'path'
 import { HYSH } from 'types/realmscapes'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
-import { DEPRECATED_AOS_3, DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 
 const getFile = (filename: string) => {
   return readFileSync(path.resolve(`src/tests/fixtures/battlescribe/html/${filename}.html`), 'utf8')
@@ -40,7 +37,6 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('1632263631817-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Kurnoth Hunters')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1632323054450-Battlescribe', () => {
@@ -53,21 +49,18 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('1632394710991-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.flavors).toContain('The Eternal Conflagration')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1632426492475-Battlescribe', () => {
     const parsedText = getFile('1632426492475-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Kurnoth Hunters')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1632980812991-Battlescribe', () => {
     const parsedText = getFile('1632980812991-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Swampcalla Shaman and Pot-grot')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1633164617906-Battlescribe', () => {
@@ -75,20 +68,18 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.flavors).toContain('Zaitrec')
     expect(res.selections.scenery).toContain('Shrine Luminor')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1626314280092-Battlescribe', () => {
     const parsedText = getFile('1626314280092-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.scenery).toContain('Feculent Gnarlmaw')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1626363752964-Battlescribe', () => {
     const parsedText = getFile('1626363752964-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
+
     expect(res.selections.units).toContain('Gatebreaker')
     expect(res.selections.units).toContain('Kraken-Eater')
     expect(res.selections.units).toContain('Mancrusher Gargant')
@@ -98,21 +89,18 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('1626386947765-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.flavors).toContain('Guild of Summoners')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1626388412216-Battlescribe', () => {
     const parsedText = getFile('1626388412216-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Corpse Cart w/ Balefire Brazier')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1626447368607-Battlescribe', () => {
     const parsedText = getFile('1626447368607-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.endless_spells).toContain('Heart of Fury')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1625939634457-Battlescribe', () => {
@@ -122,36 +110,24 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.battalions).toContain('Battle Regiment')
     expect(res.selections.triumphs).toContain('Inspired')
     expect(res.selections.grand_strategies).toContain('Prized Sorcery')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1625951571355-Battlescribe', () => {
     const parsedText = getFile('1625951571355-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.spells).toContain('Arcane Corrasion')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1626123378890-Battlescribe', () => {
     const parsedText = getFile('1626123378890-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Vindictors')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1625911854492-Battlescribe', () => {
     const parsedText = getFile('1625911854492-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      // +   Object {
-      // +     "severity": "warn",
-      // +     "text": "Core Battalion: Battle Regiment",
-      // +   },
-      // +   Object {
-      // +     "severity": "warn",
-      // +     "text": "Grand Strategy",
-      // +   },
-    ])
+    expect(res.errors).toEqual([])
   })
 
   it('should not work with The Choir of Torments battalion (not in current book)', () => {
@@ -165,52 +141,10 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
-  it('should correctly read 1601408881720-Battlescribe', () => {
-    const parsedText = getFile('1601408881720-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Gobbapalooza',
-      },
-    ])
-  })
-
-  it('should correctly read 1602294536060-Battlescribe', () => {
-    const parsedText = getFile('1602294536060-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Aetherquartz Reserve, Alarith - Mountain Kindred, Iliatha, Vanari - Warriors of Light',
-      },
-    ])
-  })
-
-  it('should correctly read 1602294559289-Battlescribe', () => {
-    const parsedText = getFile('1602294559289-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.factionName).toEqual(LUMINETH_REALMLORDS)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Aetherquartz Reserve, Alarith - Mountain Kindred, Iliatha, Vanari - Warriors of Light',
-      },
-    ])
-  })
-
   it('should correctly read 1602790654401-Battlescribe', () => {
     const parsedText = getFile('1602790654401-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.artifacts).toContain('Bracers of Ember Iron')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1603737835449-Battlescribe', () => {
-    const parsedText = getFile('1603737835449-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.battalions).toContain('Moon-Biter Squigalanche')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1600111513593-Battlescribe', () => {
@@ -218,28 +152,12 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.flavors).toEqual([])
     expect(res.selections.flavors).not.toContain('Flesh-Eater Courts')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1600480417737-Battlescribe', () => {
     const parsedText = getFile('1600480417737-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.factionName).toEqual(TZEENTCH)
-    // TODO:
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: '5 - Fold Reality',
-      },
-      {
-        text: 'Channelled Pink Fire',
-        severity: 'warn',
-      },
-      {
-        severity: 'warn',
-        text: 'Umbral Spellportal',
-      },
-    ])
   })
 
   it('should correctly read 1600607745153-Battlescribe', () => {
@@ -247,14 +165,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     expect(res.subFactionName).toEqual(SlaaneshFaction.subFactionKeyMap['Godseekers Host'])
     expect(res.selections.units).toContain('Seeker Chariots')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1598041271936-Battlescribe', () => {
-    const parsedText = getFile('1598041271936-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.battalions).toContain('Rattlegauge Warplock (Enginecoven)')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1598085201630-Battlescribe', () => {
@@ -263,7 +173,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(LEGIONS_OF_NAGASH)
     expect(res.subFactionName).toEqual(LegionsOfNagashFaction.subFactionKeyMap['Legion of Sacrament'])
     expect(res.selections.artifacts).toContain('Asylumaticae')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1599083520842-Battlescribe', () => {
@@ -271,39 +180,18 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     expect(res.factionName).toEqual(KHORNE)
     expect(res.selections.artifacts).toContain('Blade of Endless Bloodshed')
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text: 'Allied Furies can belong to Legion Of The First Prince or Slaves To Darkness. Please add this unit manually.',
-      },
-    ])
-  })
-
-  it('should correctly read 1599497906274-Battlescribe', () => {
-    const parsedText = getFile('1599497906274-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.battalions).toContain('Dark Feast')
-    expect(res.selections.battalions).toContain('Tyrants of Blood')
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: '- Bloodfuelled Prayers',
-      },
-    ])
   })
 
   it('should correctly read 1597441117251-Battlescribe', () => {
     const parsedText = getFile('1597441117251-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.spells).toContain('Nikkit! Nikkit!')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1596870118915-Battlescribe', () => {
     const parsedText = getFile('1596870118915-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.scenery).toContain('Charnel Throne')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1593279607055-Battlescribe', () => {
@@ -314,13 +202,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.spells).toContain('Hag Curse')
     expect(res.selections.units).toContain('Troggoth Hag')
     expect(res.selections.endless_spells).toContain("Scrapskuttle's Arachnacauldron")
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-    ])
   })
 
   it('should correctly read 1595627477984-Battlescribe', () => {
@@ -329,28 +210,24 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.selections.units).toContain('Duke Crakmarrow')
     expect(res.selections.units).toContain('The Grymwatch')
-    expect(res.errors).toEqual([])
   })
 
   it('should work with 1590913977244-Battlescribe', () => {
     const parsedText = getFile('1590913977244-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Orpheon Katakros')
-    expect(res.errors).toEqual([])
   })
 
   it('should work with 1588693593835-Battlescribe', () => {
     const parsedText = getFile('1588693593835-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Kroxigor')
-    expect(res.errors).toEqual([])
   })
 
   it('should work with 1589575638626-Battlescribe', () => {
     const parsedText = getFile('1589575638626-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.flavors).toContain('Stalliarch Lords')
-    expect(res.errors).toEqual([])
   })
 
   it('should work with 1590190604257-Battlescribe', () => {
@@ -370,31 +247,12 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('1587178498419-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.flavors).toContain('Hermdar (Lodge)')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should work with 1586535165728-Battlescribe', () => {
-    const parsedText = getFile('1586535165728-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Rockjaws',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Gryph-feather Charm',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
   })
 
   it('should work with 1586790008426-Battlescribe', () => {
     const parsedText = getFile('1586790008426-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Aspiring Deathbringer')
-    expect(res.errors).toEqual([])
   })
 
   it('should work with 1585935571602-Battlescribe', () => {
@@ -408,7 +266,6 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('1586243528222-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.flavors).toEqual([])
-    expect(res.errors).toEqual([])
   })
 
   it('should work with 1585870135227-Battlescribe', () => {
@@ -419,118 +276,24 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.units).toContain('Razordon Hunting Pack')
   })
 
-  it('should work with Nighthaunt6', () => {
-    const parsedText = getFile('Nighthaunt6')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Beguile',
-      },
-      {
-        severity: 'ally-warn',
-        text: 'Allied Coven Throne can belong to Legions Of Nagash or Soulblight Gravelords. Please add this unit manually.',
-      },
-    ])
-  })
-
   it('should work with Slaanesh5', () => {
     const parsedText = getFile('Slaanesh5')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Hellstriders with Claw-spears')
     expect(res.selections.units).toContain('Bladebringer, Herald on Exalted Chariot')
     expect(res.selections.scenery).toContain('Fane of Slaanesh')
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_MALIGN_SORCERY,
-        severity: 'deprecation-warn',
-        text: 'Rageblade',
-      },
-      {
-        severity: 'ally-warn',
-        text: 'Allied Chaos Lord on Manticore can belong to Khorne or Nurgle or Slaves To Darkness. Please add this unit manually.',
-      },
-    ])
-  })
-
-  it('should work with StD5', () => {
-    const parsedText = getFile('StD5')
-    const res = getBattlescribeArmy(parsedText)
-    // Fractal Mindstorm is a deprecated spell from the old Tzeentch book
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Ethereal Amulet',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-      {
-        severity: 'warn',
-        text: 'Fractal Mindstorm',
-      },
-    ])
-  })
-
-  it('should work with StD6', () => {
-    const parsedText = getFile('StD6')
-    const res = getBattlescribeArmy(parsedText)
-    // Fractal Mindstorm is a deprecated spell from the old Tzeentch book
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Fractal Mindstorm',
-      },
-    ])
-  })
-
-  it('should work with Tzeentch4', () => {
-    const parsedText = getFile('Tzeentch4')
-    const res = getBattlescribeArmy(parsedText)
-    // Fractal Mindstorm is a deprecated spell from the old Tzeentch book
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Sword of Judgement',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-      {
-        severity: 'warn',
-        text: 'Fractal Mindstorm',
-      },
-    ])
   })
 
   it('should work with LoG1', () => {
     const parsedText = getFile('LoG1')
     const res = getBattlescribeArmy(parsedText)
     expect(res.factionName).toEqual(LEGION_OF_GRIEF)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Gryph-feather Charm',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'warn',
-        text: 'Overwhelming Dread',
-      },
-    ])
   })
 
   it('should work with OBR1', () => {
     const parsedText = getFile('OBR1')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Vokmortian')
-    expect(res.errors).toEqual([])
   })
 
   it('should work with OBR2', () => {
@@ -539,76 +302,12 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.selections.scenery).toContain('Bone-tithe Nexus')
     expect(res.selections.flavors).toContain('Petrifex Elite')
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Stormcast7', () => {
     const parsedText = getFile('Stormcast7')
     const res = getBattlescribeArmy(parsedText)
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-  })
-
-  it('should work with Tzeentch3', () => {
-    const parsedText = getFile('Tzeentch3')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Fireblast',
-      },
-      {
-        severity: 'warn',
-        text: 'Gaunt Summoner & Chaos Familiars',
-      },
-    ])
-  })
-
-  it('should work with LoG1 2', () => {
-    const parsedText = getFile('LoG1')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Gryph-feather Charm',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'warn',
-        text: 'Overwhelming Dread',
-      },
-    ])
-  })
-
-  it('should work with Soulblight2 (LoN subfaction)', () => {
-    const parsedText = getFile('Soulblight2')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Beguile',
-      },
-      {
-        severity: 'ally-warn',
-        text: 'Allied Coven Throne can belong to Legions Of Nagash or Soulblight Gravelords. Please add this unit manually.',
-      },
-    ])
-  })
-
-  it('should work with Tzeentch2', () => {
-    const parsedText = getFile('Tzeentch2')
-    const res = getBattlescribeArmy(parsedText)
-    // I don't think this is a valid spell in AOS 2.0
-    // Only found it in the old books
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Fractal Mindstorm',
-      },
-      {
-        severity: 'warn',
-        text: 'Pink Horrors of Tzeentch',
-      },
-    ])
   })
 
   it('should work with CoS1', () => {
@@ -627,45 +326,6 @@ describe('getBattlescribeArmy', () => {
       'The Phoenicium',
       "Tempest's Eye",
     ])
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: '"I thought duardin were made of sterner stuff!"',
-      },
-      {
-        severity: 'warn',
-        text: "'Put your back into it, beardling!'",
-      },
-      {
-        severity: 'warn',
-        text: "'Too much damned magic flying about these days!'",
-      },
-    ])
-  })
-
-  it('should work with Nighthaunt3', () => {
-    const parsedText = getFile('Nighthaunt3')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(NIGHTHAUNT)
-    expect(res.errors).toEqual([
-      { severity: 'warn', text: 'Beguile' },
-      {
-        severity: 'ally-warn',
-        text: 'Allied Coven Throne can belong to Legions Of Nagash or Soulblight Gravelords. Please add this unit manually.',
-      },
-    ])
-  })
-
-  it('should work with Khorne6', () => {
-    const parsedText = getFile('Khorne6')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text: 'Allied Furies can belong to Legion Of The First Prince or Slaves To Darkness. Please add this unit manually.',
-      },
-    ])
   })
 
   it('should work with TombKings1', () => {
@@ -673,19 +333,12 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
     expect(res.factionName).toEqual(TOMB_KINGS)
     expect(res.selections.units).toContain('Sepulchral Stalkers')
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Incantation of the Desert Wind - ROLL D6',
-      },
-    ])
   })
 
   it('should work with Sylvaneth3', () => {
     const parsedText = getFile('Sylvaneth3')
     const res = getBattlescribeArmy(parsedText)
     expect(res.factionName).toEqual(SYLVANETH)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Gloomspite4', () => {
@@ -694,7 +347,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
     expect(res.selections.scenery).toEqual(['Bad Moon Loonshrine'])
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Nighthaunt5', () => {
@@ -703,14 +355,12 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(NIGHTHAUNT)
     expect(res.selections.spells).toContain('Howling Vortex')
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Nighthaunt2', () => {
     const parsedText = getFile('Nighthaunt2')
     const res = getBattlescribeArmy(parsedText)
     expect(res.factionName).toEqual(NIGHTHAUNT)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Mawtribes3', () => {
@@ -719,7 +369,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.selections.scenery).toEqual(['Great Mawpot'])
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Mawtribes2', () => {
@@ -728,57 +377,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.selections.scenery).toEqual(['Great Mawpot'])
-    expect(res.errors).toEqual([])
-  })
-
-  it('should work with Mawtribes1', () => {
-    const parsedText = getFile('Mawtribes1')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
-      allyUnits: [],
-      errors: [],
-      factionName: OGOR_MAWTRIBES,
-      subFactionName: '',
-      origin_realm: null,
-      realmscape_feature: null,
-      realmscape: null,
-      selections: {
-        grand_strategies: [],
-        mount_traits: [],
-        prayers: [],
-        flavors: ['Bloodgullet (Mawtribe)'],
-        artifacts: ['Wizardflesh Apron', 'Splatter-cleaver'],
-        battalions: ['Goremand'],
-        command_abilities: ['Bloodbath', 'Bellowing Voice'],
-        core_rules: [],
-        endless_spells: [],
-        scenery: [],
-        spells: [
-          'Arcane Bolt',
-          'Fleshcrave Curse',
-          'Mystic Shield',
-          'Voracious Maw',
-          'Blood Feast',
-          'Rockchomper',
-        ],
-        command_traits: ["'Nice Drop of the Red Stuff!'"],
-        triumphs: [],
-        units: [
-          'Butcher',
-          'Frostlord on Stonehorn',
-          'Frost Sabres',
-          'Gnoblars',
-          'Leadbelchers',
-          'Ogor Gluttons',
-          'Slaughtermaster',
-          'Ironguts',
-        ],
-      },
-      unknownSelections: [],
-    })
   })
 
   it('should work with IDK5', () => {
@@ -787,7 +385,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
     expect(res.selections.artifacts).toContain('Ankusha Spur')
-    expect(res.errors).toEqual([])
   })
 
   it('should work with IDK4', () => {
@@ -796,12 +393,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
     expect(res.selections.flavors).toEqual(['Fuethan'])
-    // These are Sylvaneth spells
-    expect(res.errors).toEqual([
-      { severity: 'warn', text: 'Awakening the Wood' },
-      { severity: 'warn', text: 'Unleash Spites' },
-      { severity: 'warn', text: 'Verdant Blessing' },
-    ])
   })
 
   it('should work with Nurgle1', () => {
@@ -817,24 +408,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should work with Fyreslayers8', () => {
-    const parsedText = getFile('Fyreslayers8')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Thermalrider Cloak',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'warn',
-        text: 'Summon Starlight',
-      },
-    ])
   })
 
   it('should work with Fyreslayers3', () => {
@@ -843,7 +416,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(FYRESLAYERS)
     expect(res.selections.artifacts).toContain('Vosaxe')
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Nurgle3', () => {
@@ -851,7 +423,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(NURGLE)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Gloomspite3', () => {
@@ -859,13 +430,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Gryph-feather Charm',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
   })
 
   it('should work with Nighthaunt4', () => {
@@ -873,7 +437,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(NIGHTHAUNT)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Fyreslayers7', () => {
@@ -881,18 +444,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_MALIGN_SORCERY,
-        severity: 'deprecation-warn',
-        text: 'Rageblade',
-      },
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Molten Infusion',
-      },
-    ])
   })
 
   it('should work with Fyreslayers6', () => {
@@ -900,18 +451,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_MALIGN_SORCERY,
-        severity: 'deprecation-warn',
-        text: 'Rageblade',
-      },
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Molten Infusion',
-      },
-    ])
   })
 
   it('should work with Fyreslayers5', () => {
@@ -919,7 +458,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Slaanesh4', () => {
@@ -928,17 +466,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(SLAANESH)
     expect(res.selections.artifacts).toContain('Beguiling Gem (Chaos)')
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-      {
-        severity: 'ally-warn',
-        text: 'Allied Chaos Lord on Manticore can belong to Khorne or Nurgle or Slaves To Darkness. Please add this unit manually.',
-      },
-    ])
   })
 
   it('should work with Slaanesh3', () => {
@@ -947,22 +474,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(SLAANESH)
     expect(res.origin_realm).toEqual('Ulgu')
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Doppelganger Cloak',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Sword of Judgement',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'ally-warn',
-        text: 'Allied Chaos Lord on Manticore can belong to Khorne or Nurgle or Slaves To Darkness. Please add this unit manually.',
-      },
-    ])
   })
 
   it('should work with Nurgle2', () => {
@@ -970,7 +481,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(NURGLE)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with DoK2', () => {
@@ -980,12 +490,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(DAUGHTERS_OF_KHAINE)
     expect(res.selections.spells).toEqual(['Arcane Bolt', 'Mystic Shield', 'Black Horror of Ulgu'])
     expect(res.selections.flavors).toEqual(['Hagg Nar', 'Draichi Ganeth', 'The Kraith', 'Khailebron'])
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: "Arnzipal's Black Horror",
-      },
-    ])
   })
 
   it('should work with Fyreslayers2', () => {
@@ -999,7 +503,6 @@ describe('getBattlescribeArmy', () => {
       'Vostarg (Lodge)',
       'Hermdar (Lodge)',
     ])
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Stormcast5', () => {
@@ -1015,17 +518,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(SLAANESH)
     expect(res.subFactionName).toEqual(SlaaneshFaction.subFactionKeyMap['Invaders Host'])
-    // expect(res.selections.flavors).toEqual(['Invaders Host', 'Godseekers Host', 'Pretenders Host']) // How should we handle this?
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Godseekers Host',
-      },
-      {
-        severity: 'warn',
-        text: 'Pretenders Host',
-      },
-    ])
   })
 
   it('should work with Khorne3', () => {
@@ -1039,7 +531,6 @@ describe('getBattlescribeArmy', () => {
       'The Skullfiend Tribe',
       'The Goretide',
     ])
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Stormcast1', () => {
@@ -1069,7 +560,6 @@ describe('getBattlescribeArmy', () => {
       'Rockgut Troggoths',
       'Stabbas',
     ])
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Seraphon1', () => {
@@ -1084,7 +574,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(WANDERERS)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Tzeentch1', () => {
@@ -1092,57 +581,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(TZEENTCH)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Jade Diadem',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'The Sunderblade',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Jadewound Thorn',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Ghyrropian Gauntlets',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'warn',
-        text: 'Souldraught',
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Entangling Blade',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Blade of Hammerhal Ghyra',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Verdant Mantle',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Wand of Restoration',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-    ])
   })
 
   it('should work with StD1', () => {
@@ -1150,12 +588,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Wind of Chaos', // Pre-December 2019 battletome
-      },
-    ])
   })
 
   it('should work with Soulblight1', () => {
@@ -1164,7 +596,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(LEGIONS_OF_NAGASH)
     expect(res.subFactionName).toEqual(LegionsOfNagashFaction.subFactionKeyMap.Soulblight)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Sylvaneth1', () => {
@@ -1184,13 +615,13 @@ describe('getBattlescribeArmy', () => {
       'Wychwood Glaive',
     ])
     expect(res.selections.scenery).toEqual(['Awakened Wyldwood', 'Penumbral Engine'])
-    expect(res.selections.battalions).toEqual(['Lords of the Clan'])
-    expect(res.selections.command_abilities).toEqual(['Heed the Spirit-song', 'Call to Battle'])
+    // expect(res.selections.battalions).toEqual(['Lords of the Clan'])
+    expect(res.selections.command_abilities).toEqual(['Call to Battle', 'Heed the Spirit-song'])
     expect(res.selections.endless_spells).toEqual(['Horrorghast', "Ravenak's Gnashing Jaws"])
-    expect(res.errors).toEqual([])
+
     // The two below values come from the Battalion
-    expect(res.selections.units).toContain('Treelord')
-    expect(res.selections.units).toContain('Treelord Ancient')
+    // expect(res.selections.units).toContain('Treelord')
+    // expect(res.selections.units).toContain('Treelord Ancient')
   })
 
   it('should work with Nighthaunt1', () => {
@@ -1198,7 +629,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(NIGHTHAUNT)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with LoS1', () => {
@@ -1207,13 +637,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(LEGIONS_OF_NAGASH)
     expect(res.subFactionName).toEqual(LegionsOfNagashFaction.subFactionKeyMap['Legion of Sacrament'])
-    expect(res.allySelections).toEqual({
-      [NIGHTHAUNT]: {
-        battalions: ['Shroudguard'],
-        units: [],
-      },
-    })
-    expect(res.errors).toEqual([])
   })
 
   it('should work with GHoN1', () => {
@@ -1222,14 +645,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(LEGIONS_OF_NAGASH)
     expect(res.subFactionName).toEqual(LegionsOfNagashFaction.subFactionKeyMap['Grand Host of Nagash'])
-    // @ts-ignore
-    expect(res.allySelections[NIGHTHAUNT].battalions).toEqual(['Shrieker Host'])
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'COURT OF NULAHMIA',
-      },
-    ])
   })
 
   it('should work with Stormcast2', () => {
@@ -1254,13 +669,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.subFactionName).toEqual(LegionsOfNagashFaction.subFactionKeyMap['Grand Host of Nagash'])
     expect(res.selections.units).toContain('Corpse Cart w/ Unholy Lodestone')
     expect(res.origin_realm).toEqual('Ghyran')
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Ghyrstrike',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
   })
 
   it('should work with LoB1', () => {
@@ -1269,112 +677,7 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(LEGIONS_OF_NAGASH)
     expect(res.subFactionName).toEqual(LegionsOfNagashFaction.subFactionKeyMap['Legion of Blood'])
-    expect(res.allySelections[NIGHTHAUNT]).toEqual({
-      battalions: ['Nighthaunt Procession'],
-      units: [],
-    })
     expect(res.origin_realm).toEqual(null)
-    expect(res.errors).toEqual([])
-  })
-
-  it('should work with BoC', () => {
-    const parsedText = getFile('BoC1')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
-    expect(res.origin_realm).toEqual('Aqshy')
-    expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
-      allyUnits: [],
-      errors: [
-        {
-          severity: 'deprecation-warn',
-          text: "Ignax's Scales",
-          reason: DEPRECATED_MALIGN_SORCERY,
-        },
-        {
-          severity: 'deprecation-warn',
-          text: 'Ruby Ring',
-          reason: DEPRECATED_MALIGN_SORCERY,
-        },
-        {
-          severity: 'deprecation-warn',
-          text: 'Crown of Flames',
-          reason: DEPRECATED_MALIGN_SORCERY,
-        },
-        {
-          severity: 'deprecation-warn',
-          text: 'Magmaforged Blade',
-          reason: DEPRECATED_MALIGN_SORCERY,
-        },
-        {
-          severity: 'deprecation-warn',
-          text: 'Onyx Blade',
-          reason: DEPRECATED_MALIGN_SORCERY,
-        },
-        {
-          severity: 'deprecation-warn',
-          text: 'Smouldering Helm',
-          reason: DEPRECATED_MALIGN_SORCERY,
-        },
-        {
-          reason: DEPRECATED_AOS_3,
-          severity: 'deprecation-warn',
-          text: 'Balewind Vortex',
-        },
-      ],
-      realmscape_feature: null,
-      realmscape: 'Ghyran',
-      unknownSelections: [],
-      factionName: BEASTS_OF_CHAOS,
-      subFactionName: '',
-      origin_realm: 'Aqshy',
-      selections: {
-        grand_strategies: [],
-        mount_traits: [],
-        prayers: [],
-        flavors: [],
-        artifacts: [
-          'Bleating Gnarlstaff (Brayherds)',
-          'Glyph-etched Talisman (Warherds)',
-          'Thunderstrike Lodestone (Thunderscorn)',
-          'Volcanic Axe (Brayherds)',
-        ],
-        battalions: ['Depraved Drove', 'Marauding Brayherd'],
-        command_abilities: ["Slaughterer's Call"],
-        core_rules: [],
-        endless_spells: ['Lauchon the Soulseeker', "Ravenak's Gnashing Jaws", 'Soulscream Bridge'],
-        scenery: ['Herdstone', 'Penumbral Engine'],
-        spells: [
-          'Arcane Bolt',
-          'Mystic Shield',
-          'Summon Lightning',
-          'Thunderwave (Thunderscorn Wizard)',
-          'Devolve',
-          'Vicious Stranglethorns (Brayherd Wizard)',
-          'Boon of Mutation',
-        ],
-        command_traits: [],
-        triumphs: [],
-        units: [
-          'Beastlord',
-          'Doombull',
-          'Dragon Ogor Shaggoth',
-          'Great Bray-Shaman',
-          'Tzaangor Shaman',
-          'Chaos Gargant',
-          'Cygor',
-          'Gors',
-          'Ungors',
-          'Centigors',
-          'Dragon Ogors',
-          'Razorgors',
-          'Tzaangor Enlightened',
-          'Tzaangors',
-        ],
-      },
-    })
   })
 
   it('should work with FEC', () => {
@@ -1392,7 +695,6 @@ describe('getBattlescribeArmy', () => {
       'Blood-river Chalice (Royal Treasury)',
       'Ghurish Mawshard',
     ])
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Skaven2', () => {
@@ -1400,7 +702,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(SKAVEN)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Skaven3', () => {
@@ -1408,7 +709,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(SKAVEN)
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Khorne4', () => {
@@ -1416,13 +716,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(KHORNE)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Thermalrider Cloak',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
   })
 
   it('should work with GHoN2', () => {
@@ -1431,7 +724,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(LEGIONS_OF_NAGASH)
     expect(res.subFactionName).toEqual(LegionsOfNagashFaction.subFactionKeyMap['Grand Host of Nagash'])
-    expect(res.errors).toEqual([{ severity: 'warn', text: 'Beacon of Nagashizzar' }])
   })
 
   it('should work with Fyreslayers', () => {
@@ -1442,13 +734,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.origin_realm).toEqual(null)
     expect(res.selections.flavors).toEqual(['Hermdar (Lodge)'])
     expect(res.selections.scenery).toEqual(['Magmic Battleforge'])
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-    ])
   })
 
   it('should work with IDK3', () => {
@@ -1457,7 +742,6 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
     expect(res.selections.flavors).toEqual(['Dhom-Hain', 'Nautilar', "Mor'phann", 'Fuethan', 'Briomdar'])
-    expect(res.errors).toEqual([])
   })
 
   it('should work with Gloomspite1', () => {
@@ -1468,7 +752,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.spells).toContain('Speed of the Spider God')
     expect(res.selections.spells).toContain('Venom of the Spider God')
     expect(res.selections.spells).toContain('Night Shroud')
-    expect(res.errors).toEqual([])
   })
 
   it('should work with IDK1', () => {
@@ -1476,11 +759,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
-    expect(res.errors).toEqual([
-      { text: 'Awakening the Wood', severity: 'warn' },
-      { text: 'Unleash Spites', severity: 'warn' },
-      { text: 'Verdant Blessing', severity: 'warn' },
-    ])
   })
 
   it('should work with Khorne1', () => {
@@ -1512,7 +790,6 @@ describe('getBattlescribeArmy', () => {
       'Wrathmongers',
       'Exalted Deathbringer',
       'Skullreapers',
-      'Blood Warriors',
     ])
   })
 
@@ -1523,7 +800,7 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(SYLVANETH)
     expect(res.selections.flavors).toEqual(['Winterleaf (Glade)'])
     expect(res.selections.artifacts).toEqual(['Frozen Kernel', 'Spiritsong Stave'])
-    expect(res.selections.battalions).toEqual(['Outcasts'])
+    // expect(res.selections.battalions).toEqual(['Outcasts'])
     expect(res.selections.command_abilities).toEqual([
       'Branch Blizzard',
       'Call to Battle',
@@ -1546,6 +823,5 @@ describe('getBattlescribeArmy', () => {
       'Kurnoth Hunters',
       'Spite-Revenants',
     ])
-    expect(res.errors).toEqual([])
   })
 })

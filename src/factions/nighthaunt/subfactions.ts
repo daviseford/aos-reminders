@@ -1,7 +1,6 @@
 import { NIGHTHAUNT } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
-import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -15,7 +14,7 @@ const subFactions = {
     effects: pickEffects(BattleTraits, [NIGHTHAUNT]),
     available: {
       artifacts: [Artifacts],
-      battalions: [Battalions],
+      battalions: [],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       endless_spells: [EndlessSpells],

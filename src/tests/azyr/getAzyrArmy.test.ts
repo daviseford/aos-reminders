@@ -3,7 +3,6 @@ import { SlaaneshFaction } from 'factions/slaanesh'
 import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { readFileSync } from 'fs'
 import {
-  BEASTS_OF_CHAOS,
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   FLESH_EATER_COURTS,
@@ -33,7 +32,7 @@ import { AQSHY, ULGU } from 'types/realmscapes'
 import { handleAzyrPages } from 'utils/azyr/azyrPdf'
 import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
 import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
-import { DEPRECATED_AOS_3, DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
+import { DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 
 const getFile = (filename: string): string[] => {
   return JSON.parse(readFileSync(path.resolve(`src/tests/fixtures/azyr/json/${filename}.json`), 'utf8'))
@@ -45,7 +44,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.subFactionName).toEqual('Godseekers Host')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1625898122403-Azyr', () => {
@@ -53,7 +51,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.artifacts).toContain("Gaisa's Falx")
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read Soulblight_Gravelords', () => {
@@ -64,7 +61,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.subFactionName).toEqual('Avengorii Dynasty')
     expect(res.selections).toEqual({
       artifacts: [],
-      battalions: ['Deathmarch', 'Deathstench Drove', 'Fellwing Flock', 'Legion of Shyish', 'Red Banqueters'],
+      battalions: [],
       command_abilities: [
         'Pack Alpha',
         'Tactical Insight',
@@ -146,26 +143,8 @@ describe('getAzyrArmyFromPdf', () => {
         'Terrorgheist',
         'Zombie Dragon',
         'Mortis Engine',
-        'Black Knights',
-        'Grave Guard',
-        'Fell Bats',
-        'Vargheists',
-        'Blood Knights',
       ],
     })
-  })
-
-  it('should correctly read 1612002378427-Azyr', () => {
-    const fileTxt = getFile('1612002378427-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
-      {
-        reason: 'the artifacts from Malign Sorcery are no longer matched play legal',
-        severity: 'deprecation-warn',
-        text: 'Magmaforged Blade',
-      },
-    ])
   })
 
   it('should correctly read 1612043258621-Azyr', () => {
@@ -173,7 +152,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.spells).toContain('Arcane Corrasion')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1613405722187-Azyr', () => {
@@ -197,7 +175,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.allySelections).toEqual({
       [MEGA_GARGANT_MERCENARIES]: { battalions: [], units: ['One-Eyed Grunnock - Warstomper'] },
     })
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read SoB2', () => {
@@ -210,7 +187,6 @@ describe('getAzyrArmyFromPdf', () => {
       [GLOOMSPITE_GITZ]: { battalions: [], units: ['Fungoid Cave-Shaman'] },
       [MEGA_GARGANT_MERCENARIES]: { battalions: [], units: ['Big Drogg Fort-Kicka - Gatebreaker'] },
     })
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read SoB3', () => {
@@ -275,7 +251,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(LUMINETH_REALMLORDS)
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read Lumineth2', () => {
@@ -283,7 +258,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(LUMINETH_REALMLORDS)
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1600597087449-Azyr', () => {
@@ -291,7 +265,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.spells).toContain('Etheral Blessings')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1601025074185-Azyr', () => {
@@ -299,13 +272,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Argent Armour',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
   })
 
   it('should correctly read 1598131399395-Azyr', () => {
@@ -313,7 +279,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.spells).toContain('Spectral Tether')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1594502256562-Azyr', () => {
@@ -323,7 +288,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.mount_traits).toContain(
       'Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)'
     )
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1592750625890-Azyr', () => {
@@ -344,7 +308,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.errors).toEqual([])
   })
 
   it('handles 1586650197871-Azyr', () => {
@@ -405,26 +368,11 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.flavors).toContain('Thunder Lizard')
   })
 
-  it('handles 1582094113733-Azyr', () => {
-    const fileTxt = getFile('1582094113733-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections.battalions).toContain('Dragonlord Host')
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Doppelganger Cloak',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
-  })
-
   it('handles 1582914528373-Azyr', () => {
     const fileTxt = getFile('1582914528373-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.subFactionName).toEqual(SlavesToDarknessFaction.subFactionKeyMap.Ravagers)
-    expect(res.errors).toEqual([])
   })
 
   it('handles 1583363189608-Azyr', () => {
@@ -434,12 +382,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.artifacts).toContain("A'rgath, the King of Blades")
     expect(res.selections.flavors).toContain('The Baleful Lords')
     expect(res.selections.command_traits).toContain('Rage Unchained')
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles 1584088830450-Azyr', () => {
@@ -448,17 +390,6 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.flavors).toContain('Ionrach')
     expect(res.selections.command_traits).toContain('Emissary of the Deep Places')
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Argent Armour',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Eidolon of Mathlann'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles 1584223772080-Azyr', () => {
@@ -466,12 +397,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles 1584242711185-Azyr', () => {
@@ -479,23 +404,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.units).toContain('The Eyes of the Nine')
-    expect(res.errors).toEqual([])
-  })
-
-  it('handles 1584271452754-Azyr', () => {
-    const fileTxt = getFile('1584271452754-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Bound Emerald Lifeswarm',
-      },
-      {
-        severity: 'warn',
-        text: 'Bound Purple Sun of Shyish',
-      },
-    ])
   })
 
   it('handles KO9', () => {
@@ -504,7 +412,6 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.flavors).toContain('Barak-Urbaz, The Market City (Skyport)')
     expect(res.selections.mount_traits).toContain('Breath of Morgrim')
-    expect(res.errors).toEqual([])
   })
 
   it('handles KO12', () => {
@@ -526,23 +433,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.mount_traits).toContain(
       'Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)'
     )
-    expect(res.errors).toEqual([])
-  })
-
-  it('handles KO16', () => {
-    const fileTxt = getFile('KO16')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text: 'Allied Warden King can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
-      },
-      {
-        severity: 'ally-warn',
-        text: 'Allied Ironbreakers can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
-      },
-    ])
   })
 
   it('handles Tzeentch5', () => {
@@ -550,7 +440,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(TZEENTCH)
-    expect(res.errors).toEqual([])
   })
 
   it('handles Slaanesh4', () => {
@@ -559,30 +448,6 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
 
     expect(res.subFactionName).toEqual(SlaaneshFaction.subFactionKeyMap['Godseekers Host'])
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Sash of the Ten Paradises',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: "Guardian's Coronet",
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'warn',
-        text: 'Thrill-seeker',
-      },
-      {
-        severity: 'warn',
-        text: 'Song of Secrets',
-      },
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Bladebringer'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles IDK4', () => {
@@ -591,17 +456,6 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
 
     expect(res.selections.flavors).toEqual(['Dhom-Hain'])
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Blade of Symmetry',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Eidolon of Mathlann'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles Khorne6', () => {
@@ -611,12 +465,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(KHORNE)
     expect(res.selections.artifacts).toContain("A'rgath, the King of Blades")
     expect(res.selections.command_traits).toEqual(['Berserker Lord'])
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles Tzeentch3', () => {
@@ -624,7 +472,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(TZEENTCH)
-    expect(res.errors).toEqual([])
   })
 
   it('handles StD11', () => {
@@ -632,12 +479,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles StD1', () => {
@@ -646,41 +487,6 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
     expect(res.selections.spells).toContain('Binding Damnation')
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
-      },
-    ])
-  })
-
-  it('handles deprecated KO8', () => {
-    const fileTxt = getFile('KO8')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    // These are classified as Mount Traits instead of artifacts
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: "Gattlesson's Endless Repeater",
-      },
-      {
-        severity: 'warn',
-        text: 'Hammer of Aethermatic Might',
-      },
-      {
-        severity: 'warn',
-        text: 'Sledgeshock Hammer',
-      },
-      {
-        severity: 'warn',
-        text: 'These Are Just Guidelines',
-      },
-      {
-        severity: 'warn',
-        text: 'Incredible Self-healing Hull',
-      },
-    ])
   })
 
   it('handles Seraphon3', () => {
@@ -695,75 +501,6 @@ describe('getAzyrArmyFromPdf', () => {
       {
         severity: 'warn',
         text: 'Claws of Glor y',
-      },
-    ])
-  })
-
-  it('handles Slaanesh3', () => {
-    const fileTxt = getFile('Slaanesh3')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Thermalrider Cloak',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'warn',
-        text: 'Thrill-seek er',
-      },
-      {
-        severity: 'warn',
-        text: 'Song of Secr ets',
-      },
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Bladebringer'. Please check that we have imported the correct one.",
-      },
-    ])
-  })
-
-  it('handles StD8', () => {
-    const fileTxt = getFile('StD8')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
-      },
-    ])
-  })
-  it('handles StD9', () => {
-    const fileTxt = getFile('StD9')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
-      },
-    ])
-  })
-  it('handles StD10', () => {
-    const fileTxt = getFile('StD10')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Blade of Symmetry',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Aetherquartz Brooch',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Chaos Lord'. Please check that we have imported the correct one.",
       },
     ])
   })
@@ -788,7 +525,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
     expect(res.subFactionName).toEqual(SlavesToDarknessFaction.subFactionKeyMap['Host of the Everchosen'])
     expect(res.selections.flavors).toEqual([])
-    expect(res.errors).toEqual([])
   })
 
   it('handles StD4', () => {
@@ -954,7 +690,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES) // BCR are not supported anymore, switch to Ogor Mawtribes
-    expect(res.errors).toEqual([])
   })
 
   it('handles BCR1 (legacy, recognize as Ogor Mawtribes)', () => {
@@ -974,7 +709,6 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.selections.command_traits).toContain('Druid of the Everspring (Living City)')
-    expect(res.errors).toEqual([])
   })
 
   it('handles Gloomspite2', () => {
@@ -982,8 +716,7 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
-    expect(res.selections.battalions).toEqual(['Spider Rider Skitterswarm', 'Skitterstrand Nest'])
-    expect(res.errors).toEqual([])
+    expect(res.selections.battalions).toEqual([])
   })
 
   it('handles IDK3', () => {
@@ -992,13 +725,6 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
     expect(res.selections.flavors).toEqual(['Fuethan'])
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Gryph-feather Charm',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
   })
 
   it('handles IDK2', () => {
@@ -1017,13 +743,6 @@ describe('getAzyrArmyFromPdf', () => {
       'Akhelian Ishlaen Guard',
       'Akhelian Allopexes',
     ])
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Gryph-feather Charm',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
   })
 
   it('handles OgorMawtribes1', () => {
@@ -1031,7 +750,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
-    expect(res.errors).toEqual([])
   })
 
   it('handles OgorMawtribes2', () => {
@@ -1039,7 +757,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
-    expect(res.errors).toEqual([])
   })
 
   it('handles OgorMawtribes3', () => {
@@ -1063,7 +780,6 @@ describe('getAzyrArmyFromPdf', () => {
       'Thundertusk Beastriders',
       'Mournfang Pack',
     ])
-    expect(res.errors).toEqual([])
   })
 
   it('handles OgorMawtribes4', () => {
@@ -1071,7 +787,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
-    expect(res.errors).toEqual([])
   })
 
   it('handles OBR1', () => {
@@ -1079,7 +794,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([])
   })
 
   it('handles OBR2', () => {
@@ -1087,13 +801,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Balewind Vortex',
-      },
-    ])
   })
 
   it('handles OBR3', () => {
@@ -1101,7 +808,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.errors).toEqual([])
   })
 
   it('handles Nighthaunt2', () => {
@@ -1109,12 +815,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(NIGHTHAUNT)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Knight of Shrouds'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles Seraphon2', () => {
@@ -1130,7 +830,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
-    expect(res.errors).toEqual([])
   })
 
   it('handles Khorne4', () => {
@@ -1138,12 +837,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles Khorne3', () => {
@@ -1152,13 +845,6 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
     expect(res.selections.artifacts).toContain('The Brazen Rune')
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: "Ignax's Scales",
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
   })
 
   it('handles Khorne2', () => {
@@ -1166,12 +852,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Bloodthirster'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles LoG2', () => {
@@ -1179,13 +859,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(LEGION_OF_GRIEF)
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Aetherquartz Brooch',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
   })
 
   it('handles FEC3', () => {
@@ -1193,12 +866,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Abhorrant Ghoul King'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles DoK2', () => {
@@ -1230,38 +897,21 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
-    expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
-      allyUnits: [],
-      errors: [
-        {
-          severity: 'ambiguity-warn',
-          text: "Azyr lists more than one unit as 'Abhorrant Ghoul King'. Please check that we have imported the correct one.",
-        },
-      ],
-      factionName: 'FLESH_EATER_COURTS',
-      origin_realm: null,
-      realmscape_feature: null,
-      realmscape: null,
-      subFactionName: '',
-      selections: {
-        grand_strategies: [],
-        mount_traits: [],
-        prayers: [],
-        flavors: ['Gristlegore (Grand Court)'],
-        artifacts: ['Ghurish Mawshard', 'The Grim Garland (Royal Treasury)'],
-        battalions: ['Royal Menagerie'],
-        command_abilities: ['Feeding Frenzy', 'Call to War', 'Summon Men-at-arms'],
-        endless_spells: ['Cadaverous Barricade', 'Aethervoid Pendulum'],
-        scenery: [],
-        spells: ['Monstrous Vigour', 'Blood Feast', 'Black Hunger'],
-        command_traits: ['Savage Strike', 'The Feast Day (Delusion)'],
-        core_rules: [],
-        triumphs: [],
-        units: ['Abhorrant Ghoul King', 'Royal Terrorgheist'],
-      },
-      unknownSelections: [],
+    expect(res.selections).toEqual({
+      grand_strategies: [],
+      mount_traits: [],
+      prayers: [],
+      flavors: ['Gristlegore (Grand Court)'],
+      artifacts: ['Ghurish Mawshard', 'The Grim Garland (Royal Treasury)'],
+      battalions: [],
+      command_abilities: ['Feeding Frenzy', 'Call to War', 'Summon Men-at-arms'],
+      endless_spells: ['Cadaverous Barricade', 'Aethervoid Pendulum'],
+      scenery: [],
+      spells: ['Monstrous Vigour', 'Blood Feast', 'Black Hunger'],
+      command_traits: ['Savage Strike', 'The Feast Day (Delusion)'],
+      core_rules: [],
+      triumphs: [],
+      units: ['Abhorrant Ghoul King', 'Royal Terrorgheist'],
     })
   })
 
@@ -1276,7 +926,7 @@ describe('getAzyrArmyFromPdf', () => {
       prayers: ['Rune of Unfaltering Aim', 'Rune Lore: Ancestral Shield', 'Rune Lore: Forgefire'],
       flavors: ['Greywater Fastness'],
       artifacts: [],
-      battalions: ['Greywater Artillery Company'],
+      battalions: [],
       command_abilities: ['Salvo Fire', 'Target Sighted'],
       endless_spells: [],
       scenery: [],
@@ -1309,75 +959,11 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
-  it('handles CoS2', () => {
-    const fileTxt = getFile('CoS2')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections).toEqual({
-      grand_strategies: [],
-      mount_traits: [],
-      prayers: ['Rune of Unfaltering Aim'],
-      flavors: ['Greywater Fastness'],
-      artifacts: [
-        "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
-        'Steam-piston Plate Mail (Greywater Fastness)',
-      ],
-      battalions: [
-        'Aetherguard Windrunners',
-        'Greywater Artillery Company',
-        'Hammerhalian Lancers',
-        'Phoenix Flight',
-        'Viridian Pathfinders',
-        'Whitefire Retinue',
-      ],
-      command_abilities: [
-        'Rousing Battle Cry',
-        'Lord of the Deepwood Host',
-        'Salvo Fire',
-        'Hold the Line',
-        'Command Underlings',
-        'Inspire Hatred',
-        'Target Sighted',
-      ],
-      endless_spells: ['Prismatic Palisade'],
-      scenery: [],
-      spells: ['Eroding Blast (Greywater Fastness)', 'Burning Gaze', 'Bladewind'],
-      command_traits: ['Seat on the Council (Greywater Fastness)'],
-      core_rules: [],
-      triumphs: [],
-      units: [
-        'Freeguild General',
-        'Freeguild General on Griffon',
-        'Knight-Azyros',
-        'Luminark of Hysh with White Battlemage',
-        'Sorceress on Black Dragon',
-        'Steam Tank with Commander',
-        'Freeguild Handgunners',
-        'Ironbreakers',
-        'War Hydra',
-        'Celestar Ballista',
-        'Helblaster Volley Gun',
-        'Helstorm Rocket Battery',
-        'Cogsmith',
-        'Demigryph Knights',
-        'Nomad Prince',
-        'Wildwood Rangers',
-      ],
-    })
-  })
-
   it('handles Gloomspite3', () => {
     const fileTxt = getFile('Gloomspite3')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.artifacts).toContain("Nibbla's 'Itty Ring")
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Loonboss'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('handles CoS3', () => {
@@ -1435,7 +1021,6 @@ describe('getAzyrArmyFromPdf', () => {
       "FOOTNOTE: There's No Trading With Some People",
       'Opportunistic Privateers',
     ])
-    expect(res.errors).toEqual([])
   })
 
   it('handles deprecated KO4', () => {
@@ -1450,7 +1035,6 @@ describe('getAzyrArmyFromPdf', () => {
       'FOOTNOTE: Without Our Ships, We Are Naught',
       'Master Commander',
     ])
-    expect(res.errors).toEqual([])
   })
 
   it('handles Slaanesh1', () => {
@@ -1671,105 +1255,6 @@ describe('getAzyrArmyFromPdf', () => {
           'Vulkite Berzerkers',
           'Auric Runeson',
           'Doomseeker',
-        ],
-      },
-      unknownSelections: [],
-    })
-  })
-
-  it('handles BoC1', () => {
-    const fileTxt = getFile('BoC1')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res).toEqual({
-      allyFactionNames: ['SLAVES_TO_DARKNESS'],
-      allySelections: {
-        SLAVES_TO_DARKNESS: {
-          battalions: [],
-          units: [
-            'Sayl the Faithless',
-            'Theddra Skull-Scryer',
-            'Darkoath Warqueen',
-            'Untamed Beasts',
-            'Godsworn Hunt',
-          ],
-        },
-      },
-      allyUnits: [
-        'Sayl the Faithless',
-        'Theddra Skull-Scryer',
-        'Darkoath Warqueen',
-        'Untamed Beasts',
-        'Godsworn Hunt',
-        'Furies',
-      ],
-      errors: [
-        {
-          severity: 'ally-warn',
-          text: 'Allied Furies can belong to Legion Of The First Prince or Slaves To Darkness. Please add this unit manually.',
-        },
-      ],
-      factionName: BEASTS_OF_CHAOS,
-      origin_realm: null,
-      realmscape_feature: null,
-      realmscape: null,
-      subFactionName: '',
-      selections: {
-        grand_strategies: [],
-        mount_traits: [],
-        prayers: [],
-        flavors: [],
-        artifacts: ['The Knowing Eye (Brayherds)', 'Blackened Armour of Chaos (Warherds)'],
-        battalions: [
-          'Brass Despoilers',
-          'Depraved Drove',
-          'Desolating Beastherd',
-          'Hungering Warherd',
-          'Marauding Brayherd',
-          'Pestilent Throng',
-          'Phantasmagoria of Fate',
-          'Thunderscorn Stormherd',
-        ],
-        command_abilities: ["Slaughterer's Call"],
-        endless_spells: [],
-        scenery: [],
-        spells: [
-          'Sundering Blades (Thunderscorn Wizard)',
-          'Tendrils of Atrophy (Brayherd Wizard)',
-          'Titanic Fury (Brayherd Wizard)',
-          'Devolve',
-          'Summon Lightning',
-          'Boon of Mutation',
-        ],
-        command_traits: ['Rampant Juggernaut (Warherd)'],
-        core_rules: [],
-        triumphs: [],
-        units: [
-          'Beastlord',
-          'Doombull',
-          'Dragon Ogor Shaggoth',
-          'Great Bray-Shaman',
-          'Tzaangor Shaman',
-          'Bullgors',
-          'Gors',
-          'Ungors',
-          'Chaos Gargant',
-          'Chimera',
-          'Cygor',
-          'Ghorgon',
-          'Jabberslythe',
-          'Bestigors',
-          'Centigors',
-          'Chaos Spawn',
-          'Chaos Warhounds',
-          'Cockatrice',
-          'Dragon Ogors',
-          'Razorgors',
-          'Tuskgor Chariots',
-          'Tzaangor Enlightened',
-          'Tzaangor Skyfires',
-          'Tzaangors',
-          'Ungor Raiders',
         ],
       },
       unknownSelections: [],
