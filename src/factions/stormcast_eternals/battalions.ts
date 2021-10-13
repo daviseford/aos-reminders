@@ -2,7 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import { SlayersBattalionEffect, StrategistsBattalionEffect } from 'generic_rules/core_battalions'
 import { OneDropDeploymentEffect } from 'generic_rules/core_rules'
 
-const StormcastEternalssBattalions = {
+const Battalions = {
   'Redemption Brotherhood': {
     effects: [OneDropDeploymentEffect],
   },
@@ -14,4 +14,4 @@ const StormcastEternalssBattalions = {
   },
 }
 
-export default tagAs(StormcastEternalssBattalions, 'battalion')
+export default tagAs(Battalions, 'battalion')
