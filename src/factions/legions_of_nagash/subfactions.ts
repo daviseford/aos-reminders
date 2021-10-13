@@ -1,20 +1,15 @@
 import { keyPicker, pickEffects } from '../metatagger'
 import NighthauntEndlessSpells from '../nighthaunt/endless_spells'
 import NighthauntUnits from '../nighthaunt/units'
-import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import GHoNArtifacts from './grand_host_of_nagash/artifacts'
-import GHoNBattalions from './grand_host_of_nagash/battalions'
 import GHoNCommandTraits from './grand_host_of_nagash/command_traits'
 import LegionOfBloodArtifacts from './legion_of_blood/artifacts'
-import LegionOfBloodBattalions from './legion_of_blood/battalions'
 import LegionOfBloodCommandTraits from './legion_of_blood/command_traits'
 import LegionOfNightArtifacts from './legion_of_night/artifacts'
-import LegionOfNightBattalions from './legion_of_night/battalions'
 import LegionOfNightCommandTraits from './legion_of_night/command_traits'
 import LegionOfSacramentArtifacts from './legion_of_sacrament/artifacts'
-import LegionOfSacramentBattalions from './legion_of_sacrament/battalions'
 import LegionOfSacramentCommandTraits from './legion_of_sacrament/command_traits'
 import SoulblightArtifacts from './soulblight/artifacts'
 import SoulblightCommandTraits from './soulblight/command_traits'
@@ -28,7 +23,7 @@ const baseLegion = {
     command_abilities: [keyPicker(CommandAbilities, ['Endless Legions'])],
   },
   available: {
-    battalions: [Battalions],
+    battalions: [],
     command_abilities: [CommandAbilities],
     spells: [Spells],
     units: [
@@ -59,7 +54,6 @@ const subFactions = {
 
     available: {
       ...baseLegion.available,
-      battalions: [keyPicker(Battalions, ['Deathmarch', 'Castellans of the Crimson Keep']), GHoNBattalions],
       artifacts: [GHoNArtifacts],
       command_traits: [GHoNCommandTraits],
       endless_spells: [NighthauntEndlessSpells],
@@ -70,10 +64,7 @@ const subFactions = {
     effects: pickEffects(BattleTraits, ['Core Legions', 'Legion of Blood']),
     available: {
       ...baseLegion.available,
-      battalions: [
-        keyPicker(Battalions, ['Deathmarch', 'Castellans of the Crimson Keep']),
-        LegionOfBloodBattalions,
-      ],
+
       artifacts: [LegionOfBloodArtifacts],
       command_traits: [LegionOfBloodCommandTraits],
       endless_spells: [NighthauntEndlessSpells],
@@ -85,10 +76,7 @@ const subFactions = {
 
     available: {
       ...baseLegion.available,
-      battalions: [
-        keyPicker(Battalions, ['Deathmarch', 'Castellans of the Crimson Keep']),
-        LegionOfNightBattalions,
-      ],
+
       artifacts: [LegionOfNightArtifacts],
       command_traits: [LegionOfNightCommandTraits],
       endless_spells: [NighthauntEndlessSpells],
@@ -99,10 +87,7 @@ const subFactions = {
     effects: pickEffects(BattleTraits, ['Core Legions', 'Legion of Sacrament']),
     available: {
       ...baseLegion.available,
-      battalions: [
-        keyPicker(Battalions, ['Deathmarch', 'Castellans of the Crimson Keep']),
-        LegionOfSacramentBattalions,
-      ],
+
       artifacts: [LegionOfSacramentArtifacts],
       command_traits: [LegionOfSacramentCommandTraits],
       endless_spells: [NighthauntEndlessSpells],
@@ -112,7 +97,6 @@ const subFactions = {
     effects: pickEffects(BattleTraits, ['Soulblight']),
     available: {
       ...baseLegion.available,
-      battalions: [keyPicker(Battalions, ['Court of Nulahmia', 'Castellans of the Crimson Keep'])],
       artifacts: [SoulblightArtifacts],
       command_traits: [SoulblightCommandTraits],
       flavors: [SoulblightFlavors],

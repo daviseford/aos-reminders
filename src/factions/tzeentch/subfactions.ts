@@ -1,11 +1,8 @@
-import BeastsOfChaosBattalions from 'factions/beasts_of_chaos/battalions'
 import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
-import SlavesToDarknessBattalions from 'factions/slaves_to_darkness/battalions'
 import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import { TZEENTCH } from 'meta/factions'
 import { keyOmitter, keyPicker } from '../metatagger'
 import Artifacts from './artifacts'
-import Battalions from './battalions'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
@@ -19,11 +16,7 @@ const subFactions = {
 
     available: {
       artifacts: [Artifacts],
-      battalions: [
-        Battalions,
-        keyPicker(SlavesToDarknessBattalions, ['Fatesworn Warband']),
-        keyPicker(BeastsOfChaosBattalions, ['Phantasmagoria of Fate']),
-      ],
+      battalions: [],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       spells: [Spells],

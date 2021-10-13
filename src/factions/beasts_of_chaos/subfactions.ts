@@ -2,7 +2,6 @@ import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import { BEASTS_OF_CHAOS } from 'meta/factions'
 import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
-import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -18,7 +17,6 @@ const subFactions = {
 
     available: {
       artifacts: [Artifacts],
-      battalions: [Battalions],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       endless_spells: [EndlessSpells],

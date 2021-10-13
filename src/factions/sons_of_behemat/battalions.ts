@@ -5,16 +5,16 @@ import rule_sources from './rule_sources'
 
 // Battalions from White Dwarf August 2021
 const Battalions = {
-  'Bosses of the Stomp - Unified': {
+  'Bosses of the Stomp (Unified)': {
     effects: [{ ...OneDropDeploymentEffect, rule_sources: [rule_sources.WHITE_DWARF_AUGUST_2021] }],
   },
-  'Bosses of the Stomp - Magnificent': {
+  'Bosses of the Stomp (Magnificent)': {
     effects: [{ ...MagnificentBattalionEffect, rule_sources: [rule_sources.WHITE_DWARF_AUGUST_2021] }],
   },
-  'Footsloggas - Unified': {
+  'Footsloggas (Unified)': {
     effects: [{ ...OneDropDeploymentEffect, rule_sources: [rule_sources.WHITE_DWARF_AUGUST_2021] }],
   },
-  'Footsloggas - Swift': {
+  'Footsloggas (Swift)': {
     effects: [{ ...SwiftBattalionEffect, rule_sources: [rule_sources.WHITE_DWARF_AUGUST_2021] }],
   },
 }

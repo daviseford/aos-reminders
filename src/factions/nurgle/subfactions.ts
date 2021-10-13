@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+
+>>>>>>> 35079e94 (Remove old battalion references)
 import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
 import { IItemDescription } from 'factions/factionTypes'
 import SkavenUnits from 'factions/skaven/units'

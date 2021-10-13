@@ -1,7 +1,6 @@
 import { FLESH_EATER_COURTS } from 'meta/factions'
 import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
-import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -17,7 +16,6 @@ const subFactions = {
     effects: pickEffects(BattleTraits, [FLESH_EATER_COURTS]),
     available: {
       artifacts: [Artifacts],
-      battalions: [Battalions],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       endless_spells: [EndlessSpells],

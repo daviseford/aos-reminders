@@ -7,7 +7,6 @@ import SlavesUnits from 'factions/slaves_to_darkness/units'
 import TzeentchUnits from 'factions/tzeentch/units'
 import { LEGION_OF_THE_FIRST_PRINCE } from 'meta/factions'
 import Artifacts from './artifacts'
-import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandTraits from './command_traits'
 import Spells from './spells'
@@ -18,7 +17,7 @@ const subFactions = {
 
     available: {
       artifacts: [Artifacts],
-      battalions: [Battalions],
+      battalions: [],
       command_traits: [CommandTraits],
       spells: [Spells],
       units: [
