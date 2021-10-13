@@ -376,11 +376,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.artifacts).toContain('Tyrant Slayer')
   })
 
-  it('should correctly read 1594936358979-Warscroll_Builder', () => {
-    const parsedText = getFile('1594936358979-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-  })
-
   it('should correctly read 1595637879055-Warscroll_Builder', () => {
     const parsedText = getFile('1595637879055-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -1008,7 +1003,6 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
     expect(res.selections.units).toContain('Anointed on Frostheart Phoenix')
-  
   })
 
   it('should work with Firebelly', () => {

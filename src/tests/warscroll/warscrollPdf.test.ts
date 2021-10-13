@@ -327,12 +327,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.flavors).toContain('The Eternal Conflagration')
   })
 
-  it('should correctly read SoB3', () => {
-    const pdfText = getFile('SoB3')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-  })
-
   it('should correctly read SoB2', () => {
     const pdfText = getFile('SoB2')
     const parsedText = parsePdf(pdfText)

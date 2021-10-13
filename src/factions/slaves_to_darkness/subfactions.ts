@@ -40,7 +40,7 @@ const subFactions = {
           'Desecrator Gauntlets',
         ]),
       ],
-     
+
       command_traits: [
         keyPicker(CommandTraits, [
           'Bolstered by Hate',
