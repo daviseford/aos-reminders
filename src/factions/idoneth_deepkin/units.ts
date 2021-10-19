@@ -285,6 +285,34 @@ const Units = {
       },
     ],
   },
+  'Elathain Ill-fated': {
+    effects: [
+      {
+        name: `Soulnet`,
+        desc: `At the start of the combat phase, pick 1 enemy HERO within 3" of this model and roll a dice. Subtract 2 from the roll if that HERO is a MONSTER. On a 4+, you can reroll hit rolls for attacks made with this model's Talunsickle and Soulnet that target that HERO in that combat phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Envenomed Bite`,
+        desc: `If the unmodified hit roll for an attack made with an Envenomed Bite is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Lurelight`,
+        desc: `At the end of your battleshock phase, pick 1 friendly NAMARTI unit wholly within 12" of this model, or pick a friendly ELATHAIN'S SOULRAID unit in which Tammael has been slain that is wholly within 12" of this model. If you picked a NAMARTI unit, roll a D3. Add 1 to the roll for each enemy model that was slain by wounds inflicted by this model's Talnsickle and Soulnet in the combat phase of the same turn, then return a number of slain models to that unit up to the value of the roll. If you picked ELATHAIN'S SOULRAID, return Tammael to that unit.`,
+        when: [END_OF_BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  "Elathain's Soulraid": {
+    effects: [
+      {
+        name: `Fuirann's Shield`,
+        desc: `Roll a dice each time you allocate a wound or mortal wound to Fuirann. On a 6, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Units, 'unit')
