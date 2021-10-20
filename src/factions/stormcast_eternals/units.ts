@@ -23,6 +23,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import prayers from './prayers'
+import rule_sources from './rule_sources'
 import spells from './spells'
 
 const InescapableVengeanceEffect = {
@@ -147,8 +148,9 @@ const RideTheWindsAethericEffect = {
 }
 const CycleOfTheStormEffect = {
   name: `Cycle of the Storm`,
-  desc: `Once per turn, when a friendly Stormcast Eternals model is slain within 18" of this model, instead of removing that model from play, you can heal 1 wound allocated to that model and it does not count as having been slain. This unit cannot use this ability on itself.`,
+  desc: `Once per turn, before you allocate a wound or mortal wound to another friendly STORMCAST ETERNALS unit within 18" of this unit, and that wound or mortal wound would cause a model in that unit to be slain, you can say that this unit will capture and return that warrior's soul. If you do so, that wound or mortal wound is negated.`,
   when: [WOUND_ALLOCATION_PHASE],
+  rule_sources: [rule_sources.BATTLETOME_STORMCAST_ETERNALS, rule_sources.ERRATA_OCTOBER_2021],
   shared: true,
 }
 const SigmariteShieldEffect = {

@@ -6,6 +6,7 @@ import {
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandTraits = {
   // Aspects of Azyr
@@ -40,8 +41,9 @@ const CommandTraits = {
     effects: [
       {
         name: `Master of the Celestial Menagerie`,
-        desc: `If this general is a MONSTER and is on the battlefield, subtract 1 from wound rolls for attacks made with melee weapons that target friendly STORMCAST ETERNALS MONSTERS.`,
+        desc: `'If this general has the Behemoth battlefield role and is on the battlefield, subtract 1 from wound rolls for attacks made with melee weapons that target friendly STORMCAST ETERNALS units that have the Behemoth battlefield role.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_STORMCAST_ETERNALS, rule_sources.ERRATA_OCTOBER_2021],
       },
     ],
   },

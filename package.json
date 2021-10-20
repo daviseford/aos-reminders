@@ -1,6 +1,6 @@
 {
   "name": "aos-reminders",
-  "version": "5.1.4",
+  "version": "5.1.5",
   "private": true,
   "homepage": "./",
   "dependencies": {
@@ -95,7 +95,7 @@
     "@types/react-copy-to-clipboard": "5.0.2",
     "@types/react-dom": "17.0.10",
     "@types/react-modal": "3.13.1",
-    "@types/react-redux": "7.1.19",
+    "@types/react-redux": "7.1.20",
     "@types/react-router-dom": "5.3.1",
     "@types/superagent": "4.1.13",
     "@types/webpack-env": "1.16.3",

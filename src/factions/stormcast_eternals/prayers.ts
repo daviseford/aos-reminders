@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Prayers = {
   'Divine Light': {
@@ -15,8 +16,9 @@ const Prayers = {
     effects: [
       {
         name: `Translocation`,
-        desc: `Answer value of 3 and a range of 9" if the chanter is a KNIGHT or 12" if the chanter is a LORD, If answered, pick 1 friendly STORMCAST ETERNALS unit wholly within range and visible to the chanter. You can remove that unit from the battlefield and set it up again anywhere on the battlefield more than 9" from all enemy units.`,
+        desc: `Answer value of 3 and a range of 9" if the chanter is a KNIGHT or 12" if the chanter is a LORD, If answered, pick 1 friendly STORMCAST ETERNALS unit wholly within range and visible to the chanter. You can remove that unit from the battlefield and set it up again anywhere on the battlefield more than 9" from all enemy units. That unit cannot move in the following movement phase.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_STORMCAST_ETERNALS, rule_sources.ERRATA_OCTOBER_2021],
       },
     ],
   },
