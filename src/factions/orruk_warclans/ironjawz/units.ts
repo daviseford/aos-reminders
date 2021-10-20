@@ -13,6 +13,7 @@ import {
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
+import rule_sources from '../rule_sources'
 import command_abilities from './command_abilities'
 import spells from './spells'
 
@@ -54,8 +55,9 @@ const IronjawzUnits = {
       },
       {
         name: `Voice of Gork`,
-        desc: `When you pick this unit to issue a command, you can pick up to 3 friendly units to receive the command instead of only 1.`,
+        desc: `This unit can issue the same command up to 3 times in the same phase. If it does so, no command point is spent the second and third times this unit issues that command in that phase.`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_ORRUK_WARCLANS, rule_sources.ERRATA_OCTOBER_2021],
       },
     ],
   },
@@ -68,8 +70,9 @@ const IronjawzUnits = {
       DestructiveBulkEffect,
       {
         name: `Skull-shaking Bellow`,
-        desc: `When you pick this unit to issue a command, you can pick up to 3 friendly IRONJAWZ units to receive the command instead of only 1 friendly unit.`,
+        desc: `This unit can issue the same command up to 3 times in the same phase. If it does so, each command must be received by a friendly IRONJAWZ unit. No command point is spent the second and third times this unit issues that command in that phase.`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_ORRUK_WARCLANS, rule_sources.ERRATA_OCTOBER_2021],
       },
     ],
   },

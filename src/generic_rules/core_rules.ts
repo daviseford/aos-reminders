@@ -469,7 +469,7 @@ const CoreRules: TEntry[] = [
         name: `14.3 - Wards`,
         desc: `Some abilities allow you to roll a dice to negate a wound or mortal wound. Abilities of this type are referred to as wards, and the dice roll is referred to as a ward roll. Unless stated otherwise, the ward roll is made before the wound is allocated to the model in question. Up to 1 ward roll can be made for each wound or mortal wound. If the ward roll is successful, the wound or mortal wound is negated and has no effect on the model.`,
         when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [meta_rule_sources.CORE_RULES_2021, meta_rule_sources.ERRATA_CORE_RULES_SEPTEMBER_2021],
+        rule_sources: [meta_rule_sources.CORE_RULES_2021, meta_rule_sources.ERRATA_CORE_RULES_OCTOBER_2021],
       },
     ],
   },
