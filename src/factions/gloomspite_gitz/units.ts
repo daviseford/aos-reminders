@@ -542,7 +542,29 @@ const Units = {
     ],
   },
   'Spider Riders': {
-    effects: [getSpiderVenomEffect(`'s Fangs`, `1`)],
+    effects: [
+      getSpiderVenomEffect(`'s Fangs`, `1`),
+      {
+        name: `Wall Crawler`,
+        desc: `When this model makes a move, it can pass across terrain features in the same manner as a model that can fly.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Spider Rider Boss`,
+        desc: `The leader of this unit is a Spider Rider Boss. You can add 1 to hit rolls for attacks made with melee weapons by a Spider Rider Boss.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Bone Drummer`,
+        desc: `1 in every 10 models in this unit can be a Bone Drummer. Add 2 to run rolls for a unit that includes any Bone Drummers.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Spider Totem Bearer`,
+        desc: `1 in every 10 models in this unit can be a Spider Totem Bearer. Add 2 to the Bravery characteristic of a unit that includes any Spider Totem Bearers.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
   },
   'Arachnarok Spider with Flinger': {
     effects: [getSpiderVenomEffect(`'s Fangs`, `D3`)],
