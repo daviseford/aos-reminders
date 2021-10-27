@@ -1,0 +1,42 @@
+Army Name: Tzeentch
+Army Faction: Disciples of Tzeentch
+Subfaction: Cult of the Transient Form
+Battlepack: Pitched Battles
+Points Limit: 1000 pts
+Grand Strategy: Prized Sorcery
+Triumph: Inspired
+Core Battalions
+Command Entourage
+Gaunt Summoner of Tzeentch
+Battalion Slot Filled: Commander
+Battlefield Role: Leader
+Points Cost: 255 pts
+Magister
+Battalion Slot Filled: Sub-commander
+Battlefield Role: Leader
+Points Cost: 125 pts
+Ogroid Thaumaturge
+Battalion Slot Filled: Sub-commander
+Battlefield Role: Leader
+Points Cost: 165 pts
+Hunters of the Heartlands
+Kairic Acolytes
+Battalion Slot Filled: Troops
+Battlefield Role: Battleline
+Points Cost: 125 pts
+Kairic Acolytes
+Battalion Slot Filled: Troops
+Battlefield Role: Battleline
+Points Cost: 125 pts
+Tzaangors
+Battalion Slot Filled: Troops
+Battlefield Role: Battleline
+Points Cost: 195 pts
+Total Points: 990 pts
+Invalid: Created with Warhammer Age of Sigmar: The App
+
+
+
+
+Envoyé depuis mon appareil Galaxy
+

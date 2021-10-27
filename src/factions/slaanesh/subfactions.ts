@@ -144,7 +144,7 @@ const subFactions = {
       artifacts: [
         keyPicker(Artifacts, [
           'Cameo of the Dark Prince',
-          'Girdle of the Realm-race',
+          'Girdle of the Realm-racer',
           'Threnody Voicebox',
           'Lash of Despair',
           'Enrapturing Circlet',

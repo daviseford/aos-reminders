@@ -37,6 +37,27 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1634667703586-Warscroll_Builder', () => {
+    const parsedText = getFile('1634667703586-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.battalions).toContain('Footsloggas (Unified)')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635022761983-Warscroll_Builder', () => {
+    const parsedText = getFile('1635022761983-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.battalions).toContain('Bosses of the Stomp (Unified)')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635285549882-Warscroll_Builder', () => {
+    const parsedText = getFile('1635285549882-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.command_traits).toContain('Voice of Da Great Green God')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1633013898450-Warscroll_Builder', () => {
     const parsedText = getFile('1633013898450-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -436,7 +457,7 @@ describe('getWarscrollArmyFromJson', () => {
   it('should work with Morathi, High Oracle of Khaine (pre-Broken Realms)', () => {
     const parsedText = getFile('1582028528350-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    // @ts-ignore
+    // @ts-expect-error
     expect(res.allySelections[DAUGHTERS_OF_KHAINE].units).toContain('Morathi-Khaine')
   })
 

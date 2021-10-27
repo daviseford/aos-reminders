@@ -29,6 +29,7 @@ export const cleanWarscrollText = (pdfText: string[]) => {
         .replace(/[0-9]+ x /g, '') // Remove quantity from units e.g. "3 x Razordons"
         .replace(/ x [0-9]{1,3}( \([0-9]{1,4}\))?/g, '') // Remove quantity from units e.g. "Knights of the Empty Throne Varanguard x 6 (560)"
         .replace(/\*+$/g, '') // Remove asterik suffixes
+        .replace(/^\*+/g, '') // Remove asterik prefixes e.g. "**Bosses of the Stomp - Unified"
         .trim()
     )
 }

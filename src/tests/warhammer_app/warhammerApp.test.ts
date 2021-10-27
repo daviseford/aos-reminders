@@ -8,6 +8,40 @@ const getFile = (filename: string): string => {
 }
 
 describe('getWarhammerAppArmy', () => {
+  it('should correctly read 1634283728135-Warhammer_App', () => {
+    const parsedText = getFile('1634283728135-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.allySelections).toEqual({
+      [MEGA_GARGANT_MERCENARIES]: {
+        battalions: [],
+        units: ['Big Drogg Fort-Kicka - Gatebreaker', 'One-Eyed Grunnock - Warstomper'],
+      },
+    })
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1634935501696-Warhammer_App', () => {
+    const parsedText = getFile('1634935501696-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.units).toContain('Tzaangor Enlightened')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1634984507089-Warhammer_App', () => {
+    const parsedText = getFile('1634984507089-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.prayers).toContain('Blood Sacrifice')
+    expect(res.selections.prayers).toContain('Resanguination')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635118370422-Warhammer_App', () => {
+    const parsedText = getFile('1635118370422-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.mount_traits).toContain('Nullblood Construct (Cursed Mutation)')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1633516730420-Warhammer_App', () => {
     const parsedText = getFile('1633516730420-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)

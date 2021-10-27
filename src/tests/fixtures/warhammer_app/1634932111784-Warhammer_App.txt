@@ -1,0 +1,81 @@
+Army Name: Bash
+Army Faction: Beasts of Chaos
+Battlepack: Pitched Battles
+Points Limit: 2000 pts
+General: Doombull
+Grand Strategy: Beast Master
+Triumph: Inspired
+Core Battalions
+	Warlord
+	Magnificent Bonus: Artefacts of Power
+		Doombull (General)
+			Battalion Slot Filled: Commander
+			Battlefield Role: Leader
+			Command Traits: Gorger
+			Artefacts of Power: Vial of Manticore Venom
+			Points Cost: 115 pts
+		Grashrak Fellhoof
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Spells: Viletide
+			Points Cost: 150 pts
+		Great Bray-Shaman
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Spells: Titanic Fury
+			Points Cost: 100 pts
+		Tzaangor Shaman
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Artefacts of Power: Brayblast Trumpet
+			Spells: Savage Dominion
+			Points Cost: 135 pts
+		Gors
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 75 pts
+	Alpha-Beast Pack
+		Ghorgon
+			Battalion Slot Filled: Monster
+			Battlefield Role: Behemoth
+			Points Cost: 170 pts
+		Ghorgon
+			Battalion Slot Filled: Monster
+			Battlefield Role: Behemoth
+			Points Cost: 170 pts
+		Cygor
+			Battalion Slot Filled: Monster
+			Battlefield Role: Behemoth
+			Points Cost: 140 pts
+	Hunters of the Heartlands
+		Bestigors
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Reinforced: Once
+			Points Cost: 270 pts
+		Tzaangor Enlightened on Discs of Tzeentch
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Reinforced: Once
+			Points Cost: 360 pts
+		Bullgors
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 155 pts
+	Hunters of the Heartlands
+		Gors
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 75 pts
+		Grashrak's Despoilers
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Points Cost: 150 pts
+		Gors
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 75 pts
+Faction Terrain
+	Herdstone
+Total Points: 1990 pts
+Valid: Created with Warhammer Age of Sigmar: The App

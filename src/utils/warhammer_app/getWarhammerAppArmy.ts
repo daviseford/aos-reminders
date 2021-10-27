@@ -133,16 +133,6 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
         return accum
       }
 
-      if (txt.startsWith(SPELLS_PREFIX)) {
-        accum.spells = accum.spells.concat(
-          txt
-            .replace(SPELLS_PREFIX, '')
-            .split(', ')
-            .map(x => x.trim())
-        )
-        return accum
-      }
-
       if (txt.startsWith(ARTIFACTS_PREFIX)) {
         const artifacts = txt
           .replace(ARTIFACTS_PREFIX, '')
@@ -159,7 +149,11 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
       }
 
       if (txt.startsWith(PRAYERS_PREFIX)) {
-        accum.prayers.push(txt.replace(PRAYERS_PREFIX, '').trim())
+        const prayers = txt
+          .replace(PRAYERS_PREFIX, '')
+          .split(',')
+          .map(x => x.trim())
+        accum.prayers = accum.prayers.concat(prayers)
         return accum
       }
 

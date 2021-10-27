@@ -1,0 +1,51 @@
+Army Name: Mixed
+Army Faction: Skaven
+Battlepack: Pitched Battles
+Points Limit: 1000 pts
+General: Grey Seer
+Grand Strategy: Prized Sorcery
+Core Battalions
+	Battle Regiment
+		Grey Seer (General)
+			Battalion Slot Filled: Commander
+			Battlefield Role: Leader
+			Command Traits: Master of Magic
+			Spells: Splinter
+			Points Cost: 140 pts
+		Clanrats
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 130 pts
+		Stormvermin
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Reinforced: Once
+			Points Cost: 220 pts
+		Warp Lightning Cannon
+			Battalion Slot Filled: Artillery
+			Battlefield Role: Artillery
+			Points Cost: 185 pts
+		Rat Ogors
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Clans Moulder Mutations: Toughened Sinews
+			Points Cost: 95 pts
+		Giant Rats
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Reinforced: Once
+			Points Cost: 80 pts
+		Master Moulder
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Artefacts of Power: Rabid Crown
+			Points Cost: 95 pts
+		Giant Rats
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Points Cost: 40 pts
+Faction Terrain
+	Gnawhole
+Total Points: 985 pts
+Valid: Created with Warhammer Age of Sigmar: The App
+
