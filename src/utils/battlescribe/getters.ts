@@ -232,10 +232,10 @@ const factionH4Lookup = (
 ): { factionName: TSupportedFaction | null; subFactionName: string | null } => {
   const emptyResponse = { factionName: null, subFactionName: null }
   try {
-    // @ts-ignore
+    // @ts-expect-error
     const valNode = childNodes[2].childNodes[0].childNodes[0].childNodes[0]
 
-    // @ts-ignore
+    // @ts-expect-error
     if (childNodes[2].childNodes[0].childNodes[0].nodeName !== 'h4') return emptyResponse
     if (valNode.nodeName !== '#text') return emptyResponse
 
@@ -260,14 +260,14 @@ const flavorSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) => {
   ]
   try {
     // Don't run if we have categories
-    // @ts-ignore
+    // @ts-expect-error
     if (childNodes[2].childNodes[0].childNodes[2].childNodes[0].childNodes[0].value === 'Categories:') {
       return null
     }
-    // @ts-ignore
+    // @ts-expect-error
     const mainNode = childNodes[2].childNodes[0].childNodes[1]
     const spanNode = mainNode.childNodes[0]
-    // @ts-ignore
+    // @ts-expect-error
     const valNode = childNodes[2].childNodes[0].childNodes[1].childNodes[1]
 
     if (mainNode.nodeName !== 'p') return null
@@ -378,9 +378,9 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
   const tableTags = obj.childNodes.filter(x => isParentNode(x) && x.nodeName === 'table') as IParentNode[]
 
   const tableTraits = tableTags.reduce((a, table) => {
-    // @ts-ignore
+    // @ts-expect-error
     const tableName = table.childNodes[0].childNodes[0].childNodes[0].childNodes[0].value
-    // @ts-ignore
+    // @ts-expect-error
     const tds = table.childNodes[0].childNodes.slice(1).map(x => x.childNodes[0])
     const names = tds.map(x => x.childNodes[0].value).flat()
     a[tableName] = names
@@ -417,7 +417,7 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
 
   // Soulblight hotfix
   if (
-    // @ts-ignore
+    // @ts-expect-error
     obj?.childNodes[2]?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]?.value === 'Allegiance: Soulblight'
   ) {
     fixedKeys.factionName = LEGIONS_OF_NAGASH
@@ -428,15 +428,15 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
   // Seraphon hotfix
   // It's messy, sorry!
   if (
-    // @ts-ignore
+    // @ts-expect-error
     ulNode?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]?.value === 'Allegiance: Seraphon'
   ) {
     const way =
-      // @ts-ignore
+      // @ts-expect-error
       obj?.childNodes?.[2]?.childNodes?.[0]?.childNodes[2]?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]
         ?.value
     const constellation =
-      // @ts-ignore
+      // @ts-expect-error
       ulNode?.childNodes?.[0]?.childNodes[2]?.childNodes?.[0]?.childNodes?.[1]?.childNodes?.[1]?.value
         ?.replace('The ', '')
         ?.replace(', Show Celestial Conjuration Table', '')
@@ -449,9 +449,9 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
   }
 
   // Horrible Lumineth hotfix - 10/28/20
-  // @ts-ignore
+  // @ts-expect-error
   if (liNode?.childNodes?.[0]?.childNodes?.[0].value === 'Allegiance: Lumineth') {
-    // @ts-ignore
+    // @ts-expect-error
     const luminethAllegiance = liNode?.childNodes?.[2]?.childNodes?.[1]?.childNodes?.[0]?.value
     if (
       luminethAllegiance &&

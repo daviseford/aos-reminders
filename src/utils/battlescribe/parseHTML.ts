@@ -149,9 +149,9 @@ export const parseRootSelection = (obj: IParentNode): IParsedRootSelection => {
 
 const getNamesFromTableTags = (table: IParentNode): { tableName: string; names: string[] } => {
   try {
-    // @ts-ignore
+    // @ts-expect-error
     const tableName: string = table.childNodes[0].childNodes[0].childNodes[0].childNodes[0].value
-    // @ts-ignore
+    // @ts-expect-error
     const tds = table.childNodes[0].childNodes.slice(1).map(x => x.childNodes[0]) as IParentNode[]
     const names: string[] = tds.map(x => (x.childNodes[0] as IChildNode).value).flat()
     return { tableName, names }

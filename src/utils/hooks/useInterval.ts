@@ -9,7 +9,7 @@ export const useSetInterval = (callback, delay: number) => {
 
   useEffect(() => {
     function tick() {
-      // @ts-ignore
+      // @ts-expect-error
       savedCallback.current()
     }
     if (delay !== null) {
