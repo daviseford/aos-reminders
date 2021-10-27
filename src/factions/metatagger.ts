@@ -26,7 +26,7 @@ export const tagAs = <
       [tag]: true,
     }
 
-    // @ts-ignore
+    // @ts-expect-error
     a[key] = taggedObj
     return a
   }, {} as Record<keyof D, F & Record<E, true>>)

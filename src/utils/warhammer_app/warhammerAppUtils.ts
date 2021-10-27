@@ -67,6 +67,7 @@ export const cleanWarhammerAppText = (text: string): string[] => {
 
         // Faction specific and/or special prefixes go here
         .replace(/^Great Endrinworks: /g, warhammerAppPlaceholders.ARTIFACTS_PREFIX)
+        .replace(/^Cursed Mutations: /g, warhammerAppPlaceholders.MOUNT_TRAITS_PREFIX)
 
         // One final trim, and we're done!
         .trim()

@@ -417,7 +417,7 @@ I've talked to so many friends who haven't been able to find the will to paint a
 
 TableTop Simulator is great - but it doesn't scratch my itch. Age of Sigmar is a social, physical game. A virtual proxy simply doesn't feel right.
 
-I have marvelled at other content creators as they pushed through a terrible year. 
+I have marveled at other content creators as they pushed through a terrible year. 
 
 I struggled to find motivation after March.
 
@@ -431,67 +431,12 @@ AoS Reminders was not spared from the broad economic effects of COVID, either. L
 
 ![subscriber falloff post-covid](assets/subscriber_falloff.png)
 
-I gave away a lot of free subscriptions this year too - I got quite a few comments from people who liked the product but didn't want to spend the money in such a tumultous time.
+I gave away a lot of free subscriptions this year too - I got quite a few comments from people who liked the product but didn't want to spend the money in such a tumultuous time.
 
 I am an awful businessman - I will always give my product away for free if I can.
 
 I just want people to be happy.
 
----
-
-This year has made me contemplate death (more than usual). I've always been a somewhat morbid individual, but it seemed that Death took a liking to me this year.
-
-My dog Roxy developed a malignant tumor on her brain. It was worrisome, but surgery took care of it. She is now eleven years old and still plays like a puppy at times.  But she mostly sleeps now, and I know that I'm currently experiencing her final years.
-
-My father's small business of nearly 30 years was closed by the local government in order to make way for a movie theater and a parking lot. My dad was rushed to the emergency room in the summer for a health complication. He recovered, but it scared me.
-
-My mother had her own health scare - which thankfully turned out to be benign.
-
-My grandmother succumbed to pneumonia in the October. Because of COVID restrictions, I was forced to say goodbye to my Nana over Zoom.
-
-Right after I said goodbye, I went inside CVS Pharmacy to get a Flu/TDAP vaccine.
-
-My cousin had a baby this year (one of the few bright spots), and I wanted to be up to date on everything so that I could visit the baby.
-
-I got two shots in my arm, no problem. I left CVS, walked through the parking lot, sat down in my car, and told my girlfriend that I didn't feel very good.
-
-I woke up to my girlfriend screaming hysterically.
-
-She was outside the car, sobbing, because her boyfriend had passed out.
-
-I thought to myself, "Hey, _I'm_ your boyfriend, and I'm not passed out!"
-
-But I couldn't move my arms or my neck. I was draped over the center console of my car and the world was spinning. I couldn't talk and I couldn't focus my eyes on anything. Something had gone very wrong.
-
-By the time the ambulance arrived, I was able to talk and breathe again.
-
-That didn't stop the Fairfax County police from assuming I had overdosed on drugs. **(FUCK. YOU.)**
-
-There's no real resolution to this story. Maybe getting two vaccine shots in one arm wasn't wise. Maybe I had an allergic reaction. Maybe I was just stressed out, having said goodbye to my Nana just ten minutes before passing out.
-
----
-
-It was the second time in my life that I felt uncomfortably close to death.
-
-The first was in the midst of my kidney transplant in 2008. I was drifting in and out of conciousness post-operation.
-
-I remember thinking that it was too hard to breathe - it would be so easy to just... **stop**. 
-
-So I did. I didn't lift my chest. I didn't expand my lungs.
-
-It felt so good to not struggle - I was so tired. And the darkness looked inviting - no more pain, no more hurt.
-
-And then, through the muddy darkness, I heard my mom tell me to breathe.
-
-So I did.
-
----
-
-2020 was going to be a good year for me. It fell short of my expectations.
-
-But I am alive. And so are you, if you're reading this.
-
-And in 2020, that's good enough.
 ## Wrapping Up
 
 I'm probably not the first person to mention that 2020 was a rough year, so I won't dwell on it any longer.

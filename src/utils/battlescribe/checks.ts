@@ -50,7 +50,7 @@ export const isAllegianceObj = (obj: IParentNode | IChildNode): obj is IParentNo
 
   // Seraphon hotfix
   if (
-    // @ts-ignore
+    // @ts-expect-error
     obj?.childNodes?.[2]?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]?.value === 'Allegiance: Seraphon'
   ) {
     return true

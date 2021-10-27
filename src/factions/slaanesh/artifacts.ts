@@ -158,7 +158,7 @@ const Artifacts = {
       },
     ],
   },
-  'Girdle of the Realm-race': {
+  'Girdle of the Realm-racer': {
     effects: [
       {
         name: `Girdle of the Realm-racer`,

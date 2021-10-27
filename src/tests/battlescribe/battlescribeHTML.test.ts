@@ -33,6 +33,61 @@ const getFile = (filename: string) => {
 }
 
 describe('getBattlescribeArmy', () => {
+  it('should correctly read 1633693443120-Battlescribe', () => {
+    const parsedText = getFile('1633693443120-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.battalions).toContain('Redemption Brotherhood')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1634226266243-Battlescribe', () => {
+    const parsedText = getFile('1634226266243-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.spells).toContain('Living Fissure')
+  })
+
+  it('should correctly read 1634323032896-Battlescribe', () => {
+    const parsedText = getFile('1634323032896-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Bastian Carthalos')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1634345722526-Battlescribe', () => {
+    const parsedText = getFile('1634345722526-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain('Kurnoth Hunters')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1634417062945-Battlescribe', () => {
+    const parsedText = getFile('1634417062945-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.artifacts).toContain('Fang of Dracothion')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1634676056787-Battlescribe', () => {
+    const parsedText = getFile('1634676056787-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.artifacts).toContain('Girdle of the Realm-racer')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635034418636-Battlescribe', () => {
+    const parsedText = getFile('1635034418636-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.units).toContain("Grashrak's Despoilers")
+  })
+
+  it('should correctly read 1635131301976-Battlescribe', () => {
+    const parsedText = getFile('1635131301976-Battlescribe')
+    const res = getBattlescribeArmy(parsedText)
+    expect(res.selections.battalions).toContain('Kruleboyz Finga')
+    expect(res.selections.units).toContain('Gobsprakk')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1632263631817-Battlescribe', () => {
     const parsedText = getFile('1632263631817-Battlescribe')
     const res = getBattlescribeArmy(parsedText)

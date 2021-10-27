@@ -20,6 +20,7 @@ export const ignoredValues = [
   'Allegiance: The Ossiarch Empire',
   'Allegiance',
   'Alliegiance', // lol
+  'Battle Tactics',
   'Coalition',
   'Damage Table',
   'Extra Command Point',
