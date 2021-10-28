@@ -6,16 +6,16 @@ import {
 } from 'factions/grand_alliances'
 import {
   CoreBattalions,
+  GenericArtifacts,
   GenericCommandAbilities,
   GenericCommandTraits,
   GenericEndlessSpells,
+  GenericGrandStrategies,
+  GenericPrayers,
   GenericScenery,
   GenericSpells,
   GenericTriumphs,
 } from 'generic_rules'
-import GenericArtifacts from 'generic_rules/artifacts'
-import GenericGrandStrategies from 'generic_rules/grand_strategies'
-import GenericPrayers from 'generic_rules/prayers'
 import { sortBy, uniqBy } from 'lodash'
 import { CHAOS, DEATH, DESTRUCTION, ORDER, TGrandAlliances } from 'meta/alliances'
 import { TCollection } from 'types/army'

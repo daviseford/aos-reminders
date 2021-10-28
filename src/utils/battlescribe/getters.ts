@@ -578,7 +578,7 @@ const ignoredNames = [
   'Summoning',
   'Ur-Gold',
   "Summon Ravenak's Gnashing Jaws",
-]
+] as const
 
 // Convert names of units that contain multiple unit types
 const multiNameMap: Record<string, string[]> = {

@@ -35,8 +35,3 @@ export const selectionsFactory = (options: Partial<TSelections>): TSelections =>
     units,
   }
 }
-
-export const allySelectionsFactory = (units: string[] = [], battalions: string[] = []): IAllySelections => ({
-  units,
-  battalions,
-})

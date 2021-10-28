@@ -57,11 +57,11 @@ export class Faction<
   }
 }
 
-export type TGenericFaction = Faction<
-  TSupportedFaction,
-  TGrandAlliances,
-  TItemDescriptions,
-  string,
-  TRuleSource,
-  TEffects[]
->
+// export type TGenericFaction = Faction<
+//   TSupportedFaction,
+//   TGrandAlliances,
+//   TItemDescriptions,
+//   string,
+//   TRuleSource,
+//   TEffects[]
+// >

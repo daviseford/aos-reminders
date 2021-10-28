@@ -32,4 +32,5 @@ export const hasExpiredGrant = (subscription: ISubscription) => {
 }
 
 export const isStripe = (subscription: ISubscription) => subscription.createdBy === 'stripe'
+
 export const isPaypal = (subscription: ISubscription) => subscription.createdBy === 'paypal'

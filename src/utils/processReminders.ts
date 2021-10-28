@@ -1,5 +1,5 @@
 import { mergeParentEffectObjs } from 'factions/temporaryAdapter'
-import Realmscapes from 'generic_rules/realmscapes'
+import { Realmscapes } from 'generic_rules'
 import produce from 'immer'
 import { flatten, sortBy, sortedUniq, uniq } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
