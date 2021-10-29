@@ -15,4 +15,3 @@ export const hashReminder = (phase: string, name: string, desc: string): string 
   const str = `${phase}_${name}_${desc}`.split(' ').join('_')
   return `${phase}_${hashCode(str)}`
 }
-

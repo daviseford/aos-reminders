@@ -1,4 +1,4 @@
-import { IAllySelections, TSelections } from '../types/selections'
+import { TSelections } from '../types/selections'
 
 export const selectionsFactory = (options: Partial<TSelections>): TSelections => {
   const {
