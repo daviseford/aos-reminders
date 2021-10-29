@@ -28,7 +28,7 @@ import {
   TZEENTCH,
 } from 'meta/factions'
 import path from 'path'
-import { AQSHY, GHUR, HYSH, ULGU } from 'types/realmscapes'
+import { GHUR } from 'types/realmscapes'
 import { DEPRECATED_AOS_3, DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
@@ -725,7 +725,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
-    expect(res.origin_realm).toEqual(AQSHY)
+    expect(res.origin_realm).toEqual('Aqshy')
   })
 
   it('should work with Mark of Chaos and Scroll of Dark Unravelling', () => {
@@ -734,7 +734,7 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
     expect(res.subFactionName).toEqual(SlavesToDarknessFaction.subFactionKeyMap.Cabalists)
-    expect(res.origin_realm).toEqual(ULGU)
+    expect(res.origin_realm).toEqual('Ulgu')
 
     expect(res.selections).toEqual({
       flavors: [],
@@ -776,7 +776,7 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(NURGLE)
-    expect(res.origin_realm).toEqual(HYSH)
+    expect(res.origin_realm).toEqual('Hysh')
   })
 
   it('should work with OBR 2', () => {

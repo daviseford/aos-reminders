@@ -28,7 +28,6 @@ import {
   TZEENTCH,
 } from 'meta/factions'
 import path from 'path'
-import { AQSHY, ULGU } from 'types/realmscapes'
 import { handleAzyrPages } from 'utils/azyr/azyrPdf'
 import { getAzyrArmyFromPdf } from 'utils/azyr/getAzyrArmy'
 import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
@@ -1232,7 +1231,7 @@ describe('getAzyrArmyFromPdf', () => {
       factionName: FYRESLAYERS,
       origin_realm: null,
       realmscape_feature: null,
-      realmscape: AQSHY,
+      realmscape: 'Aqshy',
       subFactionName: '',
       selections: {
         grand_strategies: [],
@@ -1305,7 +1304,7 @@ describe('isPoorlySpacedMatch', () => {
 
     const sample2 = isPoorlySpacedMatch(
       'Blade of the Thir teen Dominions',
-      `Blade of the Thirteen Dominions (${ULGU})`
+      `Blade of the Thirteen Dominions (Ulgu)`
     )
     expect(sample2).toBeTruthy()
 

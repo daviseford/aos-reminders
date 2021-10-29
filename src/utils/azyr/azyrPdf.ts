@@ -292,7 +292,8 @@ const allegianceTypes = [
   'Warclan',
   'Warriors',
   'Way of the Seraphon',
-]
+] as const
+
 const allegianceRegexp = new RegExp(`(${allegianceTypes.join('|')}):`, 'g')
 
 const commonTypos = {

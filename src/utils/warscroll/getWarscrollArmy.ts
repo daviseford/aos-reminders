@@ -1,7 +1,6 @@
 import { SeraphonFaction } from 'factions/seraphon'
 import { StormcastFaction } from 'factions/stormcast_eternals'
-import { CoreBattalions } from 'generic_rules'
-import GenericScenery from 'generic_rules/scenery'
+import { CoreBattalions, GenericScenery } from 'generic_rules'
 import { last, uniq } from 'lodash'
 import { KHARADRON_OVERLORDS, SLAANESH, STORMCAST_ETERNALS, TSupportedFaction } from 'meta/factions'
 import { getFactionFromList, getFactionList } from 'meta/faction_list'
