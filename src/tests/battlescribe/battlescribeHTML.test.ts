@@ -25,7 +25,6 @@ import {
   WANDERERS,
 } from 'meta/factions'
 import path from 'path'
-import { HYSH } from 'types/realmscapes'
 import { getBattlescribeArmy } from 'utils/battlescribe/getBattlescribeArmy'
 
 const getFile = (filename: string) => {
@@ -707,7 +706,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-    expect(res.realmscape).toEqual(HYSH)
+    expect(res.realmscape).toEqual('Hysh')
     expect(res.selections.flavors).toEqual([
       'Hammers of Sigmar',
       'Astral Templars',

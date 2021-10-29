@@ -24,7 +24,6 @@ import {
   TZEENTCH,
 } from 'meta/factions'
 import path from 'path'
-import { CHAMON } from 'types/realmscapes'
 import { DEPRECATED_AOS_3 } from 'utils/import/options'
 import { parsePdf } from 'utils/pdf/pdfUtils'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
@@ -482,7 +481,7 @@ describe('getWarscrollArmyFromPdf', () => {
       ],
       factionName: KHARADRON_OVERLORDS,
       subFactionName: '',
-      origin_realm: CHAMON,
+      origin_realm: 'Chamon',
       realmscape_feature: null,
       realmscape: null,
       selections: {
