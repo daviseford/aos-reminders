@@ -39,8 +39,8 @@ const BattleTraits = {
       },
       {
         name: `Blood Rites - Level 3: Zealot's Rage`,
-        desc: `You can reroll hit rolls of 1. In addition, Avatar of Khaine units are automatically Animated.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by this unit. In addition, friendly AVATARS OF KHAINE are automatically animated (see the model's warscroll).`,
+        when: [COMBAT_PHASE],
       },
       {
         name: `Blood Rites - Level 4: Slaughterer's Strength`,
