@@ -6,6 +6,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_CHARGE_PHASE,
+  START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -37,19 +38,25 @@ const BattleTraits = {
       },
       {
         name: `Hidden Weapon Teams`,
-        desc: `You can reveal 1 or more hidden Weapon Team units. Set up each wholly within 3" of the unit it was hiding in, more than 3" from any enemy units. These units can shoot as long as the concealing unit did not run this turn.`,
+        desc: `When you select a WEAPON TEAM unit other than a WARP GRINDER to be part of your army, you can pick 1 friendly unit of CLANRATS or STORMVERMIN that has 10 or more models and is already part of your army to be the unit in which that WEAPON TEAM unit is hiding. Record this information on a piece of paper. Do not set up the WEAPON TEAM unit until it is revealed as described next. You can hide up to 1 WEAPON TEAM unit in a CLANRATS or STORMVERMIN unit for every 10 models in that CLANRATS or STORMVERMIN unit.`,
+        when: [START_OF_SETUP],
+        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+      },
+      {
+        name: `Hidden Weapon Teams`,
+        desc: `At the start of your shooting phase, you can reveal 1 or more hidden WEAPON TEAM units. If you do so, set up each hidden WEAPON TEAM unit wholly within 3" of the unit it was hiding in and more than 3" from any enemy units. WEAPON TEAM units can shoot in the turn in which they are revealed as long as the unit they were hiding in did not run in the same turn (it could have retreated).`,
         when: [START_OF_SHOOTING_PHASE],
         rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Hidden Weapon Teams`,
-        desc: `You can reveal 1 or more hidden Weapon Team units hiding in a unit that completed a charge move this phase. Set up each wholly within 3" of the unit it was hiding in. This unit can be set up within 3" of enemy units and can fight in the following combat phase.`,
+        desc: `At the end of your charge phase, you can reveal 1 or more hidden WEAPON TEAM units that were hiding in a unit that made a charge move in that phase. If you do so, set up each hidden WEAPON TEAM unit wholly within 3" of the unit it was hiding in (it can be set up within 3" of any enemy units and can fight in the following combat phase).`,
         when: [END_OF_CHARGE_PHASE],
         rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Hidden Weapon Teams`,
-        desc: `If the concealing unit is destroyed, the Weapon Team hiding inside it is also destroyed.`,
+        desc: `Hidden WEAPON TEAM units are destroyed if the unit they are hiding in is destroyed before they are revealed.`,
         when: [WOUND_ALLOCATION_PHASE],
         rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
