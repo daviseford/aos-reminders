@@ -8,7 +8,7 @@ import {
   TPrimaryFactions,
   TSupportedFaction,
 } from 'meta/factions'
-import { getFactionFromList, getFactionList } from 'meta/faction_list'
+import { getFactionFromList } from 'meta/faction_list'
 import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
 import { TSelections } from 'types/selections'
 import { isValidFactionName } from 'utils/armyUtils'
