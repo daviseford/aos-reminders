@@ -1,0 +1,70 @@
+Army Name: Vyrkos 
+Army Faction: Soulblight Gravelords
+Army Type: Vyrkos Dynasty
+Battlepack: Pitched Battles
+Points Limit: 2000 pts
+General: Coven Throne
+Grand Strategy: Hold the Line
+Triumph: Inspired
+Core Battalions
+	Warlord
+	Magnificent Bonus: Artefacts of Power
+		Radukar the Beast
+			Battalion Slot Filled: Commander
+			Battlefield Role: Leader
+			Points Cost: 315 pts
+		Vampire Lord
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Artefacts of Power: Sangsyron
+			Spells: Amaranthine Orb
+			Points Cost: 140 pts
+		Belladamma Volga
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Spells: Soulpike
+			Points Cost: 200 pts
+		Dire Wolves
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 135 pts
+		Dire Wolves
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 135 pts
+	Battle Regiment
+		Coven Throne (General)
+			Battalion Slot Filled: Commander
+			Battlefield Role: Behemoth, Leader
+			Command Traits: Pack Alpha
+			Artefacts of Power: Ulfenkarnian Phylactery
+			Spells: Flaming Weapon
+			Points Cost: 310 pts
+		Dire Wolves
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 135 pts
+		Deadwalker Zombies
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Reinforced: Once
+			Points Cost: 230 pts
+		Corpse Cart with Balefire Brazier
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Points Cost: 80 pts
+		Corpse Cart with Unholy Lodestone
+			Battalion Slot Filled: Troops
+			Battlefield Role: Other
+			Points Cost: 80 pts
+		Necromancer
+			Battalion Slot Filled: Sub-commander
+			Battlefield Role: Leader
+			Spells: Decrepify
+			Points Cost: 125 pts
+		Deadwalker Zombies
+			Battalion Slot Filled: Troops
+			Battlefield Role: Battleline
+			Points Cost: 115 pts
+Total Points: 2000 pts
+Valid: Created with Warhammer Age of Sigmar: The App
