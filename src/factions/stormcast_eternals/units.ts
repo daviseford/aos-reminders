@@ -1328,6 +1328,25 @@ const Units = {
       },
     ],
   },
+  "Xandire's Truthseekers": {
+    effects: [
+      {
+        name: `Blazing Arrows`,
+        desc: `If the unmodified hit roll for an attack made with this unit's Stormcaller Bow is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound roll or save roll).`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Kinetic Lodestone`,
+        desc: `After an enemy unit finishes a charge move within 3" of Dhoraz Giant-fell, roll a dice. On a 3+, that unit suffers D3 mortal wounds. If that unit has a mount or is a MONSTER, it suffers 3 mortal wounds instead of D3.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Lantern Astrala`,
+        desc: `Once per turn, at the end of the charge phase, you can pick 1 enemy unit within 9" of this unit. Add 1 to hit rolls for attacks made by friendly STORMCAST ETERNALS units that target that enemy unit in the following combat phase.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Units, 'unit')

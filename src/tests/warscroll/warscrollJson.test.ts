@@ -37,6 +37,176 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1635354974141-Warscroll_Builder', () => {
+    const parsedText = getFile('1635354974141-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635366576836-Warscroll_Builder', () => {
+    const parsedText = getFile('1635366576836-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635541105658-Warscroll_Builder', () => {
+    const parsedText = getFile('1635541105658-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635566707936-Warscroll_Builder', () => {
+    const parsedText = getFile('1635566707936-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635608806060-Warscroll_Builder', () => {
+    const parsedText = getFile('1635608806060-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635609853177-Warscroll_Builder', () => {
+    const parsedText = getFile('1635609853177-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635626202178-Warscroll_Builder', () => {
+    const parsedText = getFile('1635626202178-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635714346051-Warscroll_Builder', () => {
+    const parsedText = getFile('1635714346051-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635760061264-Warscroll_Builder', () => {
+    const parsedText = getFile('1635760061264-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635781104495-Warscroll_Builder', () => {
+    const parsedText = getFile('1635781104495-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635804420976-Warscroll_Builder', () => {
+    const parsedText = getFile('1635804420976-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635866791735-Warscroll_Builder', () => {
+    const parsedText = getFile('1635866791735-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1635983885046-Warscroll_Builder', () => {
+    const parsedText = getFile('1635983885046-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636037938417-Warscroll_Builder', () => {
+    const parsedText = getFile('1636037938417-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636047823777-Warscroll_Builder', () => {
+    const parsedText = getFile('1636047823777-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636050897669-Warscroll_Builder', () => {
+    const parsedText = getFile('1636050897669-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636126031173-Warscroll_Builder', () => {
+    const parsedText = getFile('1636126031173-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636131155650-Warscroll_Builder', () => {
+    const parsedText = getFile('1636131155650-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636164652626-Warscroll_Builder', () => {
+    const parsedText = getFile('1636164652626-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636203176736-Warscroll_Builder', () => {
+    const parsedText = getFile('1636203176736-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636203605605-Warscroll_Builder', () => {
+    const parsedText = getFile('1636203605605-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636289541545-Warscroll_Builder', () => {
+    const parsedText = getFile('1636289541545-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636295179531-Warscroll_Builder', () => {
+    const parsedText = getFile('1636295179531-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636494719233-Warscroll_Builder', () => {
+    const parsedText = getFile('1636494719233-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain("Mannok Da Kunnin'")
+    expect(res.selections.units).toContain("Da Kunnin' Krew")
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636657808445-Warscroll_Builder', () => {
+    const parsedText = getFile('1636657808445-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636657814568-Warscroll_Builder', () => {
+    const parsedText = getFile('1636657814568-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636657824610-Warscroll_Builder', () => {
+    const parsedText = getFile('1636657824610-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636657840724-Warscroll_Builder', () => {
+    const parsedText = getFile('1636657840724-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1634667703586-Warscroll_Builder', () => {
     const parsedText = getFile('1634667703586-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
