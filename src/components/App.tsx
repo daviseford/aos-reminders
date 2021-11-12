@@ -1,7 +1,7 @@
 import { LoadingBody } from 'components/helpers/suspenseFallbacks'
 import ProtectedRoute from 'components/page/privateRoute'
 import React, { lazy, Suspense, useEffect } from 'react'
-import { Route, Router, Switch } from 'react-router-dom'
+import { Route, Router, Routes } from 'react-router-dom'
 import { ROUTES } from 'utils/env'
 import { handleArmyLink, handleStripeCheckout } from 'utils/handleQueryParams'
 import history from 'utils/history'
@@ -25,28 +25,40 @@ const App = () => {
     <div className={`d-block`}>
       <Router history={history}>
         <Suspense fallback={<LoadingBody />}>
-          <Switch>
+          <Routes>
             {/* Main page of the app */}
-            <Route path={ROUTES.HOME} exact component={Home} />
+            <Route path={ROUTES.HOME}>
+              <Home />
+            </Route>
 
             {/* Help/FAQ */}
-            <Route path={ROUTES.FAQ} component={Faq} />
+            <Route path={ROUTES.FAQ}>
+              <Faq />
+            </Route>
 
             {/* Coupon redemption */}
-            <Route path={ROUTES.JOIN} component={Join} />
+            <Route path={ROUTES.JOIN}>
+              <Join />
+            </Route>
 
             {/* Gift subscription redemption */}
-            <Route path={ROUTES.REDEEM} component={Redeem} />
+            <Route path={ROUTES.REDEEM}>
+              <Redeem />
+            </Route>
 
             {/* Subscribe page */}
-            <Route path={ROUTES.SUBSCRIBE} component={Subscribe} />
+            <Route path={ROUTES.SUBSCRIBE}>
+              <Subscribe />
+            </Route>
 
             {/* Stats page */}
-            <Route path={ROUTES.STATS} component={Stats} />
+            <Route path={ROUTES.STATS}>
+              <Stats />
+            </Route>
 
             {/* Profile page */}
             <ProtectedRoute path={ROUTES.PROFILE} component={Profile} />
-          </Switch>
+          </Routes>
         </Suspense>
       </Router>
     </div>
