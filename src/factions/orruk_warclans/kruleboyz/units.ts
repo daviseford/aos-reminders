@@ -276,6 +276,46 @@ const KruleboyzUnits = {
       },
     ],
   },
+  "Mannok Da Kunnin'": {
+    effects: [
+      {
+        name: `Kunnin' Tricks`,
+        desc: `If this unit is part of a Kruleboyz army, after you have picked a Dirty Trick to employ during the battle, roll a dice. Add 1 to the roll if this unit is your general. On a 5+, you can pick a second Dirty Trick to employ during the battle. The second Dirty Trick must be different to the first one you picked.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Spasming Wreck`,
+        desc: `When you use the Venom-encrusted Weapons battle trait for this unit, mortal wounds are caused on an unmodified hit roll of 5+ instead of 6.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `You Lot Hold 'Em Off`,
+        desc: `Before you allocate a wound or mortal wound to this unit, or instead of making a ward roll for a wound or mortal wound that would be allocated to this unit, if this unit is within 3" of a friendly DA KUNNIN' KREW unit, you can roll a dice.
+
+        On a 1, that wound or mortal wound is allocated to this unit as normal. On a 2-5, that wound or mortal wound is allocated to that friendly DA KUNNIN' KREW unit instead of this unit. On a 6, that wound or mortal wound is negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  "Da Kunnin' Krew": {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `Torka Tuffskul is the unit champion. Add 1 to that model's Wounds characteristic.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Snatcha-krew`,
+        desc: `At the end of the combat phase, you can pick 1 enemy model within 2" of this unit and roll a dice. Add 1 to the roll if this unit includes Torka Tuffskul, and add 1 to the roll if this unit includes Shank. If the roll is at least double that model's Wounds characteristic, it is slain.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Paymaster`,
+        desc: `Do not take battleshock tests for this unit if it includes Krookgrin.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
 
   ...keyPicker(DestructionUnits, ['Rogue Idol']),
 }
