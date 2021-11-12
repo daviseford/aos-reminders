@@ -8,6 +8,27 @@ const getFile = (filename: string): string => {
 }
 
 describe('getWarhammerAppArmy', () => {
+  it('should correctly read 1635442222774-Warhammer_App', () => {
+    const parsedText = getFile('1635442222774-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.command_traits).toContain('Acidic Blood (Drakeblood Curse)')
+  })
+
+  it('should correctly read 1636660420710-Warhammer_App', () => {
+    const parsedText = getFile('1636660420710-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.units).toContain('Corpse Cart w/ Balefire Brazier')
+    expect(res.selections.units).toContain('Corpse Cart w/ Unholy Lodestone')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1636715973222-Warhammer_App', () => {
+    const parsedText = getFile('1636715973222-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.units).toContain("Xandire's Truthseekers")
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1634283728135-Warhammer_App', () => {
     const parsedText = getFile('1634283728135-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)

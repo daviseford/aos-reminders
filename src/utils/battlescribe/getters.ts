@@ -4,6 +4,7 @@ import {
   LEGIONS_OF_NAGASH,
   LUMINETH_REALMLORDS,
   SERAPHON,
+  SUPPORTED_FACTIONS,
   TPrimaryFactions,
   TSupportedFaction,
 } from 'meta/factions'
@@ -22,6 +23,7 @@ import {
 } from 'utils/battlescribe/getBattlescribeArmy'
 import { partialSearchDoc, stripParentNode } from 'utils/battlescribe/parseHTML'
 import { importFactionNameMap } from 'utils/import/options'
+import { titleCase } from 'utils/textUtils'
 
 type TFactionsAndFlavors = {
   factionName: TSupportedFaction | null
@@ -599,8 +601,15 @@ const prefixLookup: Record<string, keyof TSelections> = {
   'Grand Strategy': 'grand_strategies',
   'Invocation of Khaine': 'endless_spells',
   'Magmic Invocation': 'endless_spells',
+
+  // e.g. 'Orruk Warclans Core Battalion': 'battalions',
+  ...SUPPORTED_FACTIONS.reduce((accum, factionName) => {
+    accum[`${titleCase(factionName)} Core Battalion`] = 'battalions'
+    return accum
+  }, {}),
   'Orruk Warclans Core Battalion': 'battalions',
   'Slaves to Darkness Core Battalion': 'battalions',
+  'Sons of Behemat Core Battalion': 'battalions',
   'Stormcast Core Battalion': 'battalions',
   'Super Battalion': 'battalions',
   Artifacts: 'artifacts',

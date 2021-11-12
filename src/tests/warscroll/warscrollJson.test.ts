@@ -37,6 +37,14 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1636494719233-Warscroll_Builder', () => {
+    const parsedText = getFile('1636494719233-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain("Mannok Da Kunnin'")
+    expect(res.selections.units).toContain("Da Kunnin' Krew")
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1634667703586-Warscroll_Builder', () => {
     const parsedText = getFile('1634667703586-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
