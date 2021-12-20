@@ -183,7 +183,7 @@ const Units = {
       {
         name: `Nagash's Bidding`,
         desc: `You can reroll hit rolls of 1 for friendly NIGHTHAUNT units while they are wholly within 12" of any friendly SPIRIT TORMENTS.`,
-        when: [COMBAT_PHASE],
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Captured Soul Energy`,
