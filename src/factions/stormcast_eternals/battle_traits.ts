@@ -9,6 +9,13 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
+const BlazeOfGloryEffect = {
+  name: `Blaze of Glory`,
+  desc: `If a friendly STORMCAST ETERNALS model is slain within 1" of an enemy unit, before removing that model from play, pick 1 enemy unit within 1" of that model and roll a number of dice equal to the Wounds characteristic of that slain model. Add 1 to the number of dice you roll if the slain model has the THUNDERSTRIKE keyword. For each 6+, the target suffers 1 mortal wound at the end of that phase.`,
+  when: [WOUND_ALLOCATION_PHASE],
+  shared: true,
+}
+
 const BattleTraits = {
   'Scions of the Storm': {
     effects: [
@@ -22,11 +29,7 @@ const BattleTraits = {
         desc: `At the end of your movement phase, you can set up 1 or more of the reserve units in the Celestial Realm on the battlefield, more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
-      {
-        name: `Blaze of Glory`,
-        desc: `If a friendly STORMCAST ETERNALS model is slain within 1" of an enemy unit, before removing that model from play, pick 1 enemy unit within 1" of that model and roll a number of dice equal to the Wounds characteristic of that slain model. Add 1 to the number of dice you roll if the slain model has the THUNDERSTRIKE keyword. For each 6+, the target suffers 1 mortal wound at the end of that phase.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
+      BlazeOfGloryEffect,
     ],
   },
   Stormkeep: {
@@ -46,6 +49,7 @@ const BattleTraits = {
         desc: `Add 1 to the Bravery characteristic of friendly STORMKEEP units wholly within 12" of any friendly STORMKEEP REDEEMER units.`,
         when: [BATTLESHOCK_PHASE],
       },
+      BlazeOfGloryEffect,
     ],
   },
 
