@@ -570,7 +570,7 @@ describe('getAzyrArmyFromPdf', () => {
         flavors: [],
         artifacts: [],
         battalions: [],
-        command_abilities: ['Dark Prophecy', 'All-seeing Dominion', 'By My Will', 'Spurred by the Gods'],
+        command_abilities: ['Dark Prophecy', 'By My Will', 'Spurred by the Gods'],
         endless_spells: [],
         scenery: [],
         spells: [],
