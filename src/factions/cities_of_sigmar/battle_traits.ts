@@ -10,10 +10,7 @@ const BattleTraits = {
         name: `Amplified Sorceries`,
         desc: `Add 1 to casting rolls for CITIES OF SIGMAR WIZARDS attempting to cast a Summoning spell on an endless spell warscroll.`,
         when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Loyal Shields`,

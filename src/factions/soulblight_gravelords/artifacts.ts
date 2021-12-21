@@ -126,10 +126,7 @@ const Artifacts = {
         name: `Morbheg's Claw`,
         desc: `In your hero phase, you can say that the bearer will carve sigils into the ground using Morbheg's claw. If you do so, add 2 to casting rolls for friendly LEGION OF NIGHT WIZARDS wholly within 12" of the bearer until your next hero phase. However, the bearer cannot make a normal move, run, retreat, make a charge move, shoot or fight until your next hero phase.`,
         when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_AUGUST_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_AUGUST_2021],
       },
     ],
   },

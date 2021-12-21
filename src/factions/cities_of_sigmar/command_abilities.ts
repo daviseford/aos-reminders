@@ -196,19 +196,13 @@ const CommandAbilities = {
         name: `Arcane Channelling`,
         desc: `You can use this command ability once per turn at the start of your hero phase. If you do so, pick 1 friendly HALLOWHEART WIZARD HERO and roll a dice. That WIZARD suffers a number of mortal wounds equal to that roll. In addition, until the start of your next hero phase, add the number of mortal wounds suffered by that WIZARD and not negated to casting rolls made by other friendly HALLOWHEART WIZARDS while they are within 12" of that WIZARD.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Arcane Channelling`,
         desc: `If active, until the start of your next hero phase, add the number of mortal wounds suffered by that WIZARD and not negated to casting rolls made by other friendly HALLOWHEART WIZARDS while they are within 12" of that WIZARD.`,
         when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

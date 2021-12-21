@@ -51,19 +51,13 @@ const BattleTraits = {
         name: `Blood Rites - Level 5: Unquenchable Fervour`,
         desc: `Worsen the Rend characteristic of weapons that target this unit by 1, to a minimum of '-'.`,
         when: [SAVES_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
-          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Blood Rites - Level 5: Unquenchable Fervour`,
         desc: `Do not take battleshock tests for this unit.`,
         when: [BATTLESHOCK_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
-          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

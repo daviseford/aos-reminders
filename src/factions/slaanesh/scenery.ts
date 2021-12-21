@@ -12,7 +12,7 @@ const Scenery = {
         name: `Power of Slaanesh`,
         desc: `If you spend depravity points to summon a SLAANESH DAEMON unit to the battlefield, you can set up that unit wholly within 12" of this terrain feature and more than 9" from all enemy units instead of wholly within 12" of a SLAANESH HERO and more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Damned Conduit`,
@@ -22,7 +22,7 @@ const Scenery = {
 
         Designer's Note: You can sacrifice an artefact that can only be used a limited number of times during a battle and which has already been used. If a weapon was picked when the artefact of power was selected, that weapon reverts to normal.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

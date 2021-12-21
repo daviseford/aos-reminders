@@ -50,7 +50,7 @@ const Flavors = {
         name: `Unity of Purpose`,
         desc: `After a friendly ILIATHA VANARI unit receives a command, you can pick 1 other friendly ILIATHA VANARI unit within 3" of that unit. If you do so, that other unit also receives that command.`,
         when: [DURING_GAME],
-        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

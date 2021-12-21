@@ -188,7 +188,7 @@ const Artifacts = {
         name: `Liber Bubonicus (Pestilens)`,
         desc: `The bearer becomes a PRIEST. If the bearer is already a PRIEST, you can reroll chanting rolls for the bearer.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

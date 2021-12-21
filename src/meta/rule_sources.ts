@@ -88,6 +88,11 @@ const meta_rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/mx79gx5TnnSNrWI2.pdf',
   },
+  ERRATA_CORE_RULES_DECEMBER_2021: {
+    name: 'Core Rules Errata (December 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/VrQ1PX4ZvydjBuKl.pdf',
+  },
 
   GHB_2021: {
     name: "General's Handbook (2021)",

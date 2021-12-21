@@ -19,10 +19,7 @@ const CommandAbilities = {
         name: `I'm Da Boss, Now Stab 'Em Good!`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly MOONCLAN GROT unit wholly within 12" of a friendly model with this command ability, or wholly within 24" of a model with this command ability that is your general. If the unmodified wound roll for an attack made by that unit in that phase is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage. The same unit cannot be picked to be affected by this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
-          rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -50,28 +47,19 @@ const CommandAbilities = {
         name: `Ride Em All Down`,
         desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly SPIDERFANG GROT unit wholly within 18" of a friendly model with this command ability. You can reroll charge rolls for that unit in that charge phase. In addition, you can reroll hit rolls for attacks made with that unit's Crooked Spears in the following combat phase.`,
         when: [START_OF_CHARGE_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
-          rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Ride Em All Down`,
         desc: `If active, you can reroll charge rolls for that unit in that charge phase.`,
         when: [CHARGE_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
-          rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Ride Em All Down`,
         desc: `If active, you can reroll hit rolls for attacks made with that unit's Crooked Spears in the following combat phase.`,
         when: [COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
-          rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

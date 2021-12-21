@@ -290,9 +290,9 @@ const CoreRules: TEntry[] = [
       },
       {
         name: `Heroic Recovery`,
-        desc: `Pick 1 friendly HERO and make a heroic recovery roll by rolling 2D6. If the roll is less than that Hero's Bravery characteristic, you can heal up to D3 wounds allocated to that HERO. If the roll is equal to that Hero's Bravery characteristic, you can heal 1 wound allocated to that HERO.`,
+        desc: `Pick 1 friendly HERO more than 3" from all enemy units and make a heroic recovery roll by rolling 2D6. If the roll is less than or equal to that HERO'S Bravery characteristic, you can heal up to D3 wounds allocated to that HERO.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.CORE_RULES_2021],
+        rule_sources: [meta_rule_sources.CORE_RULES_2021, meta_rule_sources.ERRATA_CORE_RULES_DECEMBER_2021],
       },
     ],
   },

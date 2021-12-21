@@ -283,7 +283,7 @@ const Spells = {
         name: `The Parchment Curse`,
         desc: `The Parchment Curse is a spell that is known by the model that summoned this endless spell while this endless spell is on the battlefield. It has a casting value of 8 and a range of 18". If successfully cast, pick 1 enemy unit within range and visible to the caster, and roll a dice. On a 3+, that unit suffers D3 mortal wounds. In addition, for each model slain by those mortal wounds, subtract 1 from the Bravery characteristic of that model's unit (to a minimum of 1) for the rest of the battle.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

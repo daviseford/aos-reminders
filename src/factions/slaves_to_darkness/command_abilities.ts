@@ -20,22 +20,9 @@ const CommandAbilities = {
     effects: [
       {
         name: `By My Will`,
-        desc: `You can use this once per turn. Pick 1 friendly SLAVES TO DARKNESS unit on the battlefield. If a model from that unit is slain by a melee weapon, it may fight before it is removed from play. The same unit cannot benefit from this more than once per turn.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `By My Will`,
-        desc: `If affected by this ability, slain models from the buffed unit may fight before being removed from play.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'All-seeing Dominion': {
-    effects: [
-      {
-        name: `All-seeing Dominion`,
-        desc: `You can use this ability when your opponent spends a command point. Roll a D6 before resolving any of the effects of the opponents command ability. On a 1, this ability has no effect. On a 2+ this model can use By My Will without spending a command point. This can be used at any time the opponent spends a command point regardless of phase or if By My Will has already been used.`,
-        when: [DURING_GAME],
+        desc: `This is a command ability that this unit can issue at the start of the combat phase. Another friendly Chaos unit must receive it (this unit cannot issue this command to itself). Until the end of that phase, each time a model in the receiving unit is slain, it can fight.`,
+        when: [START_OF_COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_DECEMBER_2021],
       },
     ],
   },
@@ -68,10 +55,7 @@ const CommandAbilities = {
         name: `Bloated Blessings`,
         desc: `Pick 1 friendly SLAVES TO DARKNESS Nurgle unit wholly within 12" of this model. Until your next hero phase, each time that unit is picked as the target for any attacks made with melee weapons, if the unmodified hit roll for any of those attacks is 6, the attacking unit suffers D3 mortal wounds after all of its attacks have been resolved. The same unit cannot benefit from this ability more than once per phase.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -170,10 +154,7 @@ const CommandAbilities = {
         name: `Dark Prophecy`,
         desc: `You can use this command ability once per turn at the start of your hero phase if ARCHAON is on the battlefield. If you do so, roll a dice and keep the result hidden from your opponent beneath an opaque container, such as a cup. At the start of the next battle round, before players determine who has the first turn, you must reveal the result. On a 1-3 your opponent must take the first turn of that battle round. On a 4-6 you must take the first turn of that battle round.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

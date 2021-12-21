@@ -68,10 +68,7 @@ const CommandTraits = {
         name: `The Clammy Hand`,
         desc: `If this general is within 12" of a Bad Moon Loonshrine in your army at the end of your turn, you can use the Bad Moon Loonshrine's 'Moonclan Lair' scenery rule 2 times at the end of that turn.`,
         when: [END_OF_TURN],
-        rule_sources: [
-          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
-          rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

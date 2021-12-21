@@ -61,7 +61,7 @@ const GrotBaseEffects = [
     name: `Backstabbing Mob`,
     desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit while it has at least 10 models.`,
     when: [COMBAT_PHASE],
-    rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021],
+    rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_JULY_2021],
     shared: true,
   },
   {
@@ -89,7 +89,7 @@ const HallucinogenicFungusBrewsEffect = {
   name: `Hallucinogenic Fungus Brews`,
   desc: `In the first battle round, this unit has a ward of 5+. In the second battle round, this unit has a ward of 6+.`,
   when: [SAVES_PHASE],
-  rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021],
+  rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_JULY_2021],
   shared: true,
 }
 
@@ -187,10 +187,7 @@ const Units = {
         name: `The Loonking's Entreaty`,
         desc: `Once per battle, if this unit is your general and on the battlefield, before you roll the dice that determines how far the Bad Moon moves that battle round, you can choose for the Bad Moon to either not move that battle round or to make 1 move or 2 moves that battle round (do not roll the dice to determine how far it moves).'`,
         when: [START_OF_ROUND],
-        rule_sources: [
-          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
-          rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Babbling Wand`,
@@ -358,10 +355,7 @@ const Units = {
         name: `Boing! Boing! Boing!`,
         desc: `After this unit has made a normal move, run or retreat, pick 1 enemy unit and roll a dice for each model in this unit that passed across a model from that unit. For each 4+, that unit suffers 1 mortal wound.`,
         when: [MOVEMENT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
-          rule_sources.ERRATA_GLOOMSPITE_GITZ_AUGUST_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_AUGUST_2021],
       },
     ],
   },

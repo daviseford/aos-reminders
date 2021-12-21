@@ -166,19 +166,13 @@ const Spells = {
         name: `Darkness of the Soul`,
         desc: `Casting value of 7. If successfully cast, pick 1 enemy unit within 18" of the caster and visible to them. Until your next hero phase, roll 2D6 each time that unit makes a normal move, runs, retreats, makes a charge move, shoots or fights. Make the roll before the action is carried out. If the roll is greater than that unit's Bravery characteristic, that unit cannot perform that action in that phase.`,
         when: [HERO_PHASE],
-        rule_sources: [
-          lumineth_rule_sources.BATTLETOME_LUMINETH,
-          lumineth_rule_sources.ERRATA_LUMINETH_JULY_2021,
-        ],
+        rule_sources: [lumineth_rule_sources.BATTLETOME_LUMINETH, lumineth_rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Darkness of the Soul`,
         desc: `If active, until your next hero phase, roll 2D6 each time that unit makes a normal move, runs, retreats, makes a charge move, shoots or fights. Make the roll before the action is carried out. If the roll is greater than that unit's Bravery characteristic, that unit cannot perform that action in that phase.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
-        rule_sources: [
-          lumineth_rule_sources.BATTLETOME_LUMINETH,
-          lumineth_rule_sources.ERRATA_LUMINETH_JULY_2021,
-        ],
+        rule_sources: [lumineth_rule_sources.BATTLETOME_LUMINETH, lumineth_rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

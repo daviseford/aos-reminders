@@ -30,10 +30,7 @@ const CommandAbilities = {
         name: `Supreme Lord of Tides`,
         desc: `You can use this command ability if a friendly VOLTURNOS is on the battlefield and the High Tide ability from the Tides of Death table applies for the battle round. If you do so, pick up to 3 different friendly IDONETH DEEPKIN units wholly within 18" of that friendly VOLTURNOS. Add 1 to the Attacks characteristic of melee weapons used by those units until your next hero phase.`,
         when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_IDONETH_DEEPKIN,
-          rule_sources.ERRATA_IDONETH_DEEPKIN_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_IDONETH_DEEPKIN, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

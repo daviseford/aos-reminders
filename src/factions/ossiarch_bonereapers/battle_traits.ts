@@ -34,10 +34,7 @@ const BattleTraits = {
         name: `Relentless Discipline`,
         desc: `If your army is an OSSIARCH BONEREAPERS army, you do not receive command points. Instead, you receive relentless discipline points.`,
         when: [DURING_GAME],
-        rule_sources: [
-          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Generating Relentless Discipline Points`,
@@ -45,28 +42,19 @@ const BattleTraits = {
         
         If you will take the first turn, you receive 1 relentless discipline point. If you will take the second turn, you receive 2 relentless discipline points. `,
         when: [START_OF_ROUND],
-        rule_sources: [
-          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Generating Relentless Discipline Points`,
         desc: `At the start of each hero phase, roll a dice for each friendly OSSIARCH BONEREAPERS unit on the battlefield (including any Heroes). For each 6, you receive 1 extra relentless discipline point. All relentless discipline points that you have remaining are lost at the end of each battle round.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Generating Relentless Discipline Points`,
         desc: `All relentless discipline points that you have remaining are lost at the end of each battle round.`,
         when: [END_OF_ROUND],
-        rule_sources: [
-          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Using Relentless Discipline Points`,
@@ -78,8 +66,8 @@ const BattleTraits = {
         when: [DURING_GAME],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_AUGUST_2021,
+          rule_sources.ERRATA_JULY_2021,
+          rule_sources.ERRATA_AUGUST_2021,
         ],
       },
     ],
@@ -101,10 +89,7 @@ const BattleTraits = {
         name: `Unstoppable Juggernauts`,
         desc: `Worsen the Rend characteristic of weapons that target PETRIFEX ELITE units by 1, to a minimum of '-'.`,
         when: [SAVES_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

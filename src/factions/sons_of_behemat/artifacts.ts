@@ -56,9 +56,9 @@ const Artifacts = {
         desc: `The bearer is a WIZARD. They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase.`,
         rule_sources: [
           rule_sources.BATTLETOME_SONS_OF_BEHEMAT,
-          rule_sources.ERRATA_SONS_OF_BEHEMAT_NOV_2020,
-          rule_sources.ERRATA_SONS_OF_BEHEMAT_MARCH_2021,
-          rule_sources.ERRATA_SONS_OF_BEHEMAT_JULY_2021,
+          rule_sources.ERRATA_NOV_2020,
+          rule_sources.ERRATA_MARCH_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
         when: [HERO_PHASE],
       },

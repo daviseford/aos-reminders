@@ -34,7 +34,7 @@ const BattleTraits = {
         name: `Strength in Numbers`,
         desc: `When a SKAVENTIDE unit takes a battleshock test, subtract 1 from the battleshock roll for every 10 models that are in the unit.`,
         when: [BATTLESHOCK_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Hidden Weapon Teams`,

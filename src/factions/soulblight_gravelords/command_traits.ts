@@ -163,10 +163,7 @@ const CommandTraits = {
         name: `Hunter's Snare`,
         desc: `If this general contests an objective, the number of models this general counts as is equal to their Wounds characteristic. This general does not receive any further modification to this number for being a MONSTER or having a Wounds characteristic of 5 or more.`,
         when: [DURING_GAME],
-        rule_sources: [
-          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

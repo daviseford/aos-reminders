@@ -108,10 +108,7 @@ const CommandTraits = {
         name: `Ghoul Mere Ranger (Greywater Fastness)`,
         desc: `In your shooting phase, friendly units wholly within 12" of this general can shoot even if they ran in the same turn.`,
         when: [SHOOTING_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

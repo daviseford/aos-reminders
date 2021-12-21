@@ -91,7 +91,7 @@ const Artifacts = {
         name: `Banner of Wrath`,
         desc: `At the start of the combat phase, roll a dice for each enemy unit within 8" of the bearer. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [START_OF_COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_KHORNE_AUGUST_2021],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_AUGUST_2021],
       },
     ],
   },

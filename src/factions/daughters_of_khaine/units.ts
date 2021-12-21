@@ -33,10 +33,7 @@ const PriestessOfKhaineEffect = {
   name: `Priestess of Khaine`,
   desc: `This unit knows the Rune of Khaine and Touch of Death prayers.`,
   when: [HERO_PHASE],
-  rule_sources: [
-    rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
-    rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
-  ],
+  rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_JULY_2021],
   shared: true,
 }
 
@@ -221,8 +218,9 @@ const Morathi = {
       MorathiEffect,
       {
         name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 3 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Black Horror of Ulgu.`,
+        desc: `This model is a wizard. Can attempt to cast 3 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Black Horror of Ulgu. If this unit is part of a Daughters of Khaine army, it knows all of the spells from the Lore of Shadows in addition to the other spells it knows.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_DECEMBER_2021],
       },
     ],
   },
@@ -277,10 +275,7 @@ const Units = {
         name: `Priestess of Khaine`,
         desc: `This unit knows the Dance of Doom, Rune of Khaine and Touch of Death prayers.`,
         when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
-          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -292,10 +287,7 @@ const Units = {
         name: `Altar of Khaine`,
         desc: `Add 1 to chanting rolls for friendly Daughters of Khaine Priests while they are wholly within 9" of any friendly models with this ability.`,
         when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
-          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

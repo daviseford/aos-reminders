@@ -41,10 +41,7 @@ const Flavors = {
         name: `The Pride of Hammerhal`,
         desc: `Do not take battleshock tests for HAMMERHAL units that are wholly within their own territory.`,
         when: [BATTLESHOCK_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -139,10 +136,7 @@ const Flavors = {
         name: `Mages of the Whitefire Court`,
         desc: `HALLOWHEART WIZARDS can attempt to cast 1 extra spell in your hero phase. In addition, HALLOWHEART WIZARDS know 2 spells from the Lore of Whitefire (pg 75) instead of 1.`,
         when: [HERO_PHASE],
-        rule_source: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_AUGUST_2021,
-        ],
+        rule_source: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_AUGUST_2021],
       },
     ],
   },

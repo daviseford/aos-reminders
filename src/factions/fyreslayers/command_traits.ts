@@ -47,7 +47,7 @@ const CommandTraits = {
         name: `Blood of the Berzerker`,
         desc: `Once per battle in the combat phase, after this general has fought in that phase for the first time, if they are within 3" of an enemy unit, they and their mount (if they have one) can immediately fight for a second time.`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

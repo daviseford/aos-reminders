@@ -53,7 +53,7 @@ const alarithSpiritFreeCommandAbilityEffect = (effectName: string, effectRange: 
   name: effectName,
   desc: `At the end of your hero phase, you can pick 1 friendly LUMINETH REALM-LORDS AELF HERO within ${effectRange}"  of this model. If that LUMINETH REALM-LORDS AELF HERO is within ${effectRange}" of this model at the start of your next hero phase, then the first command issued by that LUMINETH REALM-LORDS AELF HERO in that turn is issued without a command point being spent.`,
   when: [END_OF_HERO_PHASE],
-  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
+  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_JULY_2021],
 })
 
 const StandardBearerEffect = {
@@ -101,14 +101,14 @@ const IntoTheGaleOverSaveEffect = {
   name: `Into the Gale`,
   desc: `Roll a dice each time you allocate a wound or mortal wound to this unit, on a 5+ that wound or mortal wound is ignored.`,
   when: [WOUND_ALLOCATION_PHASE],
-  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
+  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_JULY_2021],
   shared: true,
 }
 const IntoTheGalePileInRestrictionEffect = {
   name: `Into the Gale`,
   desc: `If an enemy model starts a pile-in move within 3" of any friendly units with this ability, subtract 2" from the distance that model can pile in during that phase (to a minimum of 1").`,
   when: [COMBAT_PHASE],
-  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
+  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_JULY_2021],
   shared: true,
 }
 
@@ -123,7 +123,7 @@ const SpiritOfTheWindEffect = {
   name: `Spirit of the Wind`,
   desc: `At the end of the shooting phase, this model can make a normal move or a retreat of 12" (it cannot run). Additionally it can retreat and still charge later in the turn.`,
   when: [END_OF_SHOOTING_PHASE],
-  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
+  rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_JULY_2021],
   shared: true,
 }
 
@@ -189,7 +189,7 @@ const Units = {
         name: `Archmage`,
         desc: `At the start of your hero phase, say if you're going to cast 1, 2 or 4 spells. If this model will cast 1 spell, when it attempts to cast that spell, it is automatically cast with a casting roll of 12 that cannot be modified (do not roll 2D6) and it cannot be unbound. If casting 2 spells, each is automatically cast with a casting roll of 12, and they can be unbound. If casting 4 spells, each is automatically cast with a casting roll of 10, and they can be unbound.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_MAY_2021],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_MAY_2021],
       },
       {
         name: `Wizard`,
@@ -572,7 +572,7 @@ const Units = {
         name: `Messenger Hawk`,
         desc: `Add 1 to hit rolls for attacks made with Starshard Bolts by this unit, if the attacks target an enemy unit that is visible to a friendly LUMINETH REALM-LORDS HERO that is within 18" of this unit.`,
         when: [SHOOTING_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Warding Lanterns`,

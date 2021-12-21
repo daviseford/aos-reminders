@@ -30,7 +30,7 @@ const BattleTraits = {
         name: `Navigate Realmroots`,
         desc: `At the end of your movement phase, if there is a friendly SYLVANETH unit wholly within 6" of an Awakened Wyldwood, you can remove that unit from the battlefield and set it up wholly within 6" of a different Awakened Wyldwood in your army and more than 9" from all enemy models. You can only transport up to 1 friendly unit in this way per battle round, regardless of the number of Awakened Wyldwoods in your army.`,
         when: [END_OF_MOVEMENT_PHASE],
-        rule_sources: [rule_sources.ERRATA_SYLVANETH_SEPTEMBER_2021],
+        rule_sources: [rule_sources.ERRATA_SEPTEMBER_2021],
       },
     ],
   },

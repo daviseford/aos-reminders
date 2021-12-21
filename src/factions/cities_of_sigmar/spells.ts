@@ -73,10 +73,7 @@ const Spells = {
         name: `Eroding Blast (Greywater Fastness)`,
         desc: `Casting value of 6. Pick 1 terrain feature wholly within 18" of the caster that is visible to them. Roll 1 dice for each model within 1" of that terrain feature. For each 5+, that model's unit suffers 1 mortal wound. In addition, until your next hero phase, that terrain feature has the Deadly scenery rule in addition to any other scenery rules it may have. (core rules, 28.1.3)`,
         when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

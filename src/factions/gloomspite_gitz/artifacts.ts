@@ -161,10 +161,7 @@ const Artifacts = {
         name: `Shiny Wotnot`,
         desc: `Roll a D6 each time a mortal wound caused by a spell is allocated to this model. On a 6+ the mortal wound is allocated to the caster of the spell instead of the bearer. If the mortal wound was caused by an endless spell, on a 6+, that mortal wound is negated and that endless spell is dispelled (any other mortal wounds it could have caused are negated).`,
         when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
-          rule_sources.ERRATA_GLOOMSPITE_GITZ_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

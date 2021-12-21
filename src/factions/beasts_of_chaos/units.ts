@@ -144,10 +144,7 @@ const Units = {
         name: `Baying Anger`,
         desc: `Add 1 to wound rolls for shooting attacks made by this unit while it has 10 or more models.`,
         when: [SHOOTING_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
-          rule_sources.ERRATA_BEASTS_OF_CHAOS_AUGUST_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_AUGUST_2021],
       },
     ],
   },
@@ -279,7 +276,7 @@ const Units = {
       },
       {
         ...GenericEffects.Elite,
-        rule_sources: [rule_sources.ERRATA_BEASTS_OF_CHAOS_AUGUST_2021],
+        rule_sources: [rule_sources.ERRATA_AUGUST_2021],
       },
     ],
   },

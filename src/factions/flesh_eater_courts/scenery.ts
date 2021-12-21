@@ -14,18 +14,15 @@ const Scenery = {
         when: [END_OF_MOVEMENT_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_FLESH_EATER_COURTS,
-          rule_sources.ERRATA_FLESH_EATER_COURTS_JANUARY_2021,
-          rule_sources.ERRATA_FLESH_EATER_COURTS_JULY_2021,
+          rule_sources.ERRATA_JANUARY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
       {
         name: `Ghoulish Landmark`,
         desc: `Add 1 to the Bravery characteristic of FLESH-EATER COURTS UNITS that are within 1" of any Charnel Thrones. Subtract 1 from the Bravery characteristic of other units that are within 1" of any Charnel Thrones.`,
         when: [BATTLESHOCK_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_FLESH_EATER_COURTS,
-          rule_sources.ERRATA_FLESH_EATER_COURTS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_FLESH_EATER_COURTS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

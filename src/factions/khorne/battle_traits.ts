@@ -35,13 +35,15 @@ const BattleTraits = {
       },
       {
         name: `Blood Tithe: Murderlust`,
-        desc: `Cost: 3 BTP. Pick 1 friendly Khorne unit to make a normal move. You can choose to normal move or charge instead if it is within 12" of an enemy unit.`,
+        desc: `Cost: 3 BTP. Pick 1 friendly BLADES OF KHORNE unit to make a normal move. You can choose to normal move or charge instead if it is within 12" of an enemy unit.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2021],
       },
       {
         name: `Blood Tithe: Apoplectic Frenzy`,
-        desc: `Cost: 4 BTP. Pick 1 friendly Khorne unit within 3" of an enemy unit can make a pile-in and attack with all its melee weapons.`,
+        desc: `Cost: 4 BTP. Pick 1 friendly BLADES OF KHORNE unit within 3" of an enemy unit can make a pile-in and attack with all its melee weapons.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2021],
       },
       {
         name: `Blood Tithe: Brass Skull Meteor`,
@@ -50,8 +52,9 @@ const BattleTraits = {
       },
       {
         name: `Blood Tithe: Relentless Fury`,
-        desc: `Cost: 6 BTP. Until your next hero phase, each time a friendly Khorne model is slain, before the model is removed from play it may pile-in and attack with all of its melee weapons.`,
+        desc: `Cost: 6 BTP. Until your next hero phase, each time a friendly BLADES OF KHORNE model is slain, before the model is removed from play it may pile-in and attack with all of its melee weapons.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2021],
       },
       {
         name: `Blood Tithe: Relentless Fury`,
@@ -60,13 +63,15 @@ const BattleTraits = {
       },
       {
         name: `Blood Tithe: Crimson Rain`,
-        desc: `Cost: 7 BTP. This may be used once per battle. Immeadiately and at the start of each subsequent hero phase you can heal up to D3 wounds allocated to each friendly Khorne unit on the battlefield.`,
+        desc: `Cost: 7 BTP. This may be used once per battle. Immeadiately and at the start of each subsequent hero phase you can heal up to D3 wounds allocated to each friendly BLADES OF KHORNE unit on the battlefield.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2021],
       },
       {
         name: `Blood Tithe: Slaughter Triumphant`,
-        desc: `Cost: 8 BTP. This may be used once per battle. After you do so, if the unmodified hit roll for friendly Khorne melee weapon attacks is a 6, the attack counts for 2 hits instead of 1. Make wound/save rolls for each hit.`,
+        desc: `Cost: 8 BTP. This may be used once per battle. After you do so, if the unmodified hit roll for friendly BLADES OF KHORNE melee weapon attacks is a 6, the attack counts for 2 hits instead of 1. Make wound/save rolls for each hit.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2021],
       },
       {
         name: `Locus of Fury`,
@@ -79,8 +84,8 @@ const BattleTraits = {
         when: [DURING_GAME],
         rule_sources: [
           rule_sources.BATTLETOME_KHORNE,
-          rule_sources.ERRATA_KHORNE_JULY_2021,
-          rule_sources.ERRATA_KHORNE_AUGUST_2021,
+          rule_sources.ERRATA_JULY_2021,
+          rule_sources.ERRATA_AUGUST_2021,
         ],
       },
       {

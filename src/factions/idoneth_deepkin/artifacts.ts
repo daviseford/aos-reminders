@@ -38,19 +38,13 @@ const Artifacts = {
         name: `Ankusha Spur`,
         desc: `Add 3" to the bearer's Move characteristic.`,
         when: [MOVEMENT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_IDONETH_DEEPKIN,
-          rule_sources.ERRATA_IDONETH_DEEPKIN_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_IDONETH_DEEPKIN, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Ankusha Spur`,
         desc: `Reroll wound rolls of 1 for attacks made by the bearer's mount.`,
         when: [COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_IDONETH_DEEPKIN,
-          rule_sources.ERRATA_IDONETH_DEEPKIN_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_IDONETH_DEEPKIN, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -123,10 +117,7 @@ const Artifacts = {
         name: `Cloud of Midnight`,
         desc: `Once per battle, at the start of any phase, the bearer can release the Cloud of Midnight. If they do so, they cannot be chosen as the target for attacks, spells or abilities for the rest of the phase, but cannot themselves attack or use spells and abilities for the rest of the phase. In the phase in which the bearer releases the Cloud of Midnight, they are ignored when determining which is the closest IDONETH DEEPKIN model for the purposes of the Forgotten Nightmares battle trait.`,
         when: [DURING_GAME],
-        rule_sources: [
-          rule_sources.BATTLETOME_IDONETH_DEEPKIN,
-          rule_sources.ERRATA_IDONETH_DEEPKIN_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_IDONETH_DEEPKIN, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

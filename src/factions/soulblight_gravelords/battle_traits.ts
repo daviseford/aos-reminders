@@ -27,10 +27,7 @@ const BattleTraits = {
 
         At the end of any of your movement phases, you can set up 1 or more of these units on the battlefield wholly within 12" of a gravesite and more than 9" from all enemy units. At the start of the fourth battle round, reserve units that are still in the grave are destroyed.`,
         when: [START_OF_SETUP],
-        rule_sources: [
-          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `The Unquiet Dead`,
@@ -61,10 +58,7 @@ const BattleTraits = {
         name: `Endless Legions`,
         desc: `At the end of the battleshock phase, count the number of enemy units that were destroyed during that turn and roll a dice, adding the number of destroyed enemy units to the roll. On a 5+, you can pick 1 friendly SOULBLIGHT GRAVELORDS SUMMONABLE DEADWALKERS or SOULBLIGHT GRAVELORDS SUMMONABLE DEATHRATTLE unit in your army that has been destroyed. If you do so, a new replacement unit with half the number of models in the unit that was destroyed (rounding up) is added to your army. Set up that unit wholly within 12" of a gravesite and more than 9" from all enemy units. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
         when: [END_OF_BATTLESHOCK_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Deathly Invocation`,
@@ -171,10 +165,7 @@ const BattleTraits = {
         
         If the enemy unit had a Wounds characteristic of 2 or less - Absorbed Speed; Add 2 to run and charge rolls for that unit.`,
         when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -185,10 +176,7 @@ const BattleTraits = {
         name: `Cursed Abominations`,
         desc: `Cursed Abominations are unique enhancements. If a Soulblight Gravelords army with the AVENGORII DYNASTY keyword includes any TERRORGHEISTS or ZOMBIE DRAGONS, 1 of those models has a cursed mutation. Choose which model will have the cursed mutation, then pick from or roll on the Cursed Mutations table.`,
         when: [START_OF_SETUP],
-        rule_sources: [
-          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Monstrous Might`,

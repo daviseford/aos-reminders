@@ -84,8 +84,8 @@ const Artifacts = {
         when: [DURING_ROUND],
         rule_sources: [
           rule_sources.BATTLETOME_FLESH_EATER_COURTS,
-          rule_sources.ERRATA_FLESH_EATER_COURTS_JANUARY_2021,
-          rule_sources.ERRATA_FLESH_EATER_COURTS_JULY_2021,
+          rule_sources.ERRATA_JANUARY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
     ],

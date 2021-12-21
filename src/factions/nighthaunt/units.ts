@@ -87,7 +87,7 @@ const Units = {
         name: `If I Cannot Rule, None Shall Rule!`,
         desc: `At the start of the hero phase, if your opponent receives a command point for their general being on the battlefield, after they receive that command point, roll a dice. On a 5+, your opponent must subtract 1 from their command points and you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_NIGHTHAUNT_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Soul-crushing Smite`,

@@ -9,9 +9,9 @@ const GenericArtifacts: TEntry[] = [
     effects: [
       {
         name: `Amulet of Destiny`,
-        desc: `The bearer has a ward of 5+.`,
+        desc: `The bearer has a ward of 6+.`,
         when: [SAVES_PHASE],
-        rule_sources: [meta_rule_sources.CORE_RULES_2021],
+        rule_sources: [meta_rule_sources.CORE_RULES_2021, meta_rule_sources.ERRATA_CORE_RULES_DECEMBER_2021],
       },
     ],
   },

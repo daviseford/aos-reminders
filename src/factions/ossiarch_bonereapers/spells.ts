@@ -49,10 +49,7 @@ const MortalContractEffect = {
   name: `Mortal Contract`,
   desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible to them. For the rest of the battle, roll a D6 at the end of each phase during which any attacks made by that unit inflicted any damage on a friendly OSSIARCH BONEREAPERS unit. On a 3+, that enemy unit suffers D3 mortal wounds. You cannot pick the same unit to be the target of this spell more than once per battle.`,
   when: [HERO_PHASE],
-  rule_sources: [
-    rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-    rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
-  ],
+  rule_sources: [rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, rule_sources.ERRATA_JULY_2021],
   shared: true,
 }
 

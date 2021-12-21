@@ -54,10 +54,7 @@ const CommandAbilities = {
         name: `A Queen Amongst Monsters`,
         desc: `This model can issue this command at the start of your hero phase. If it does so, pick 1 enemy unit that is visible to this model. Until your next hero phase, add 1 to hit rolls for attacks made with melee weapons by friendly SOULBLIGHT GRAVELORDS MONSTERS that target that enemy unit.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `A Queen Amongst Monsters`,
@@ -72,10 +69,7 @@ const CommandAbilities = {
         name: `Festering Feast`,
         desc: `This model can issue this command at the end of the combat phase. The command can only be received by a friendly SOULBLIGHT GRAVELORDS unit that made any attacks in that phase that destroyed any enemy units. You can heal up to D6 wounds allocated to that SOULBLIGHT GRAVELORDS unit.`,
         when: [END_OF_COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -85,19 +79,13 @@ const CommandAbilities = {
         name: `Pack Alpha`,
         desc: `You can use this command ability at the start of your hero phase. If you do so, pick 1 friendly DIRE WOLVES unit wholly within 12" of this model. Until your next hero phase, that unit is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Pack Alpha`,
         desc: `If active, until your next hero phase, that unit is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in.`,
         when: [COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -161,10 +149,7 @@ const CommandAbilities = {
         name: `Lord of Bones`,
         desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly DEATHRATTLE unit wholly within 12" of this model. Until the end of that phase, you can reroll hit rolls of 1 for attacks made with melee weapons by that unit.`,
         when: [START_OF_COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

@@ -93,32 +93,47 @@ const CryptShieldsEffect = {
 const Units = {
   'Nagash, Supreme Lord of the Undead': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Supreme Lord of Death'])],
+      command_abilities: [keyPicker(command_abilities, ['Death Magic Incarnate'])],
       spells: [keyPicker(spells, ['Hand of Dust', 'Soul Stealer'])],
     },
     effects: [
-      OBRWarmasterEffect,
-      getFrightfulTouchEffect(`Daggers`),
       {
-        name: `The Staff of Power`,
-        desc: `Add Alakanash's modifier (listed in the damage table) to casting, dispelling, and unbinding rolls for Nagash. In addition, this model can attempt to cast Arcane Bolt any number of times in the same hero phase, even if another Wizard has already attempted to cast the spell in that phase.`,
+        name: `Wizard`,
+        desc: `This unit can attempt to cast 3 spells in your hero phase and attempt to unbind 3 spells in the enemy hero phase. If this unit is part of a Nighthaunt, Flesh-eater Courts, Ossiarch Bonereapers or Soulblight Gravelords army, it knows all of the spells from the spell lores in that faction's allegiance abilities in addition to the other spells it knows.`,
         when: [HERO_PHASE],
-        rule_sources: [obr_rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021],
+        rule_sources: [obr_rule_sources.ERRATA_DECEMBER_2021],
       },
+      OBRWarmasterEffect,
       {
-        name: `Morikhane`,
-        desc: `Each time a mortal wound is allocated to Nagash, roll a D6. On a 4+ the mortal wound is negated. On a 6+ the attacking unit also suffers a mortal wound.`,
-        when: [DURING_GAME],
+        name: `Alakanash, the Staff of Power`,
+        desc: `Add the Staff of Power value shown on this unit's damage table to casting, dispelling and unbinding rolls for this unit. In addition, this unit can attempt to cast Arcane Bolt any number of times in the same hero phase, even if another Wizard has already attempted to cast the spell in that phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [obr_rule_sources.ERRATA_JULY_2021, obr_rule_sources.ERRATA_DECEMBER_2021],
       },
+
       {
         name: `The Nine Books of Nagash`,
-        desc: `The Nine Books of Nagash allow him to cast extra spells in your hero phase, and unbind extra spells in the enemy hero phase. The number of extra spells he can attempt to cast or unbind is shown on the damage table.`,
+        desc: `The Nine Books of Nagash allow this unit to cast extra spells in your hero phase and unbind extra spells in the enemy hero phase. The number of extra spells this unit can attempt to cast or unbind is shown on this unit's damage table.`,
         when: [HERO_PHASE],
+        rule_sources: [obr_rule_sources.ERRATA_DECEMBER_2021],
       },
       {
         name: `Invocation of Nagash`,
-        desc: `At the start of your hero phase, pick up to 5 different friendly SUMMONABLE units or friendly Ossiarch Bonereapers units on the battlefield in any combination. You can heal 3 wounds that have been allocated to each unit you picked. If no wounds are currently allocated to a unit you picked, you may instead return a number of slain models to it that have a combined Wounds characteristic equal to or less than 3.`,
+        desc: `At the start of your hero phase, if this unit is on the battlefield, you can pick up to 5 different friendly SUMMONABLE units or friendly OSSIARCH BONEREAPERS units in any combination. For each of those units, you can either heal up to 3 wounds that have been allocated to that unit or, if no wounds have been allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of 3 or less.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [obr_rule_sources.ERRATA_DECEMBER_2021],
+      },
+      {
+        name: `Morikhane`,
+        desc: `This unit has a ward of 4+ for damage inflicted by mortal wounds. In addition, if the unmodified ward roll for this unit is 6, that attacking unit suffers 1 mortal wound.`,
+        when: [SAVES_PHASE],
+        rule_sources: [obr_rule_sources.ERRATA_DECEMBER_2021],
+      },
+      {
+        name: `Supreme Lord of the Undead`,
+        desc: `If this unit is on the battlefield when you use an ability that returns slain models to a friendly DEATH unit, you can either reroll the dice that determines the number of slain models returned to that unit or add 1 to the number of slain models that are returned to that unit.`,
+        when: [DURING_GAME],
+        rule_sources: [obr_rule_sources.ERRATA_DECEMBER_2021],
       },
     ],
   },
@@ -135,10 +150,7 @@ const Units = {
         name: `The Staff of Spirits`,
         desc: `Add Khenash-an's modifier to casting, dispelling, and unbinding rolls for Arkhan. In addition, this model can attempt to cast Arcane Bolt any number of times in the same hero phase, even if another WIZARD has already attempted to cast the spell in that phase.`,
         when: [HERO_PHASE],
-        rule_sources: [
-          obr_rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          obr_rule_sources.ERRATA_OSSIARCH_BONEREAPERS_AUGUST_2021,
-        ],
+        rule_sources: [obr_rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, obr_rule_sources.ERRATA_AUGUST_2021],
       },
       {
         name: `Mortarch of Sacrament`,
