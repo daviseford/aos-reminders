@@ -82,8 +82,8 @@ const CommandAbilities = {
         when: [END_OF_MOVEMENT_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
-          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_MARCH_2021,
-          rule_sources.ERRATA_DAUGHTERS_OF_KHAINE_JULY_2021,
+          rule_sources.ERRATA_MARCH_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
     ],

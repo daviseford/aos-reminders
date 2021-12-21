@@ -27,8 +27,8 @@ const FlyingTransportEffect = {
   when: [DURING_GAME],
   rule_sources: [
     rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
-    rule_sources.ERRATA_KHARADRON_OVERLORDS_JANUARY_2021,
-    rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
+    rule_sources.ERRATA_JANUARY_2021,
+    rule_sources.ERRATA_JULY_2021,
   ],
   shared: true,
 }
@@ -48,10 +48,7 @@ const ArkanautFlyHighEffect = {
   name: `Fly High`,
   desc: `Instead of making a normal move or retreat with this model, if there are less than 7 wounds currently allocated to this model, you can say that it will fly high (it can disengage). If you do so, remove this model from the battlefield and set it up again more than 1" from any terrain features or objectives and more than 9" from any enemy models.`,
   when: [MOVEMENT_PHASE],
-  rule_sources: [
-    rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
-    rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
-  ],
+  rule_sources: [rule_sources.BATTLETOME_KHARADRON_OVERLORDS, rule_sources.ERRATA_JULY_2021],
   shared: true,
 }
 const SkyCannonEffect = {
@@ -100,10 +97,7 @@ const HitchersEffect = {
 
   No more than 7 models can hitch a lift on the same SKYVESSEL in the same turn.`,
   when: [MOVEMENT_PHASE],
-  rule_sources: [
-    rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
-    rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
-  ],
+  rule_sources: [rule_sources.BATTLETOME_KHARADRON_OVERLORDS, rule_sources.ERRATA_JULY_2021],
   shared: true,
 }
 const EndrincraftEffect = {
@@ -326,10 +320,7 @@ const Units = {
         name: `Fly High`,
         desc: `Instead of making a normal move or retreat with this model, you can say that it will fly high (it can disengage). If you do so, remove this model from the battlefield and set it up again more than 1" from any terrain features or objectives and more than 9" from any enemy models.`,
         when: [MOVEMENT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
-          rule_sources.ERRATA_KHARADRON_OVERLORDS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_KHARADRON_OVERLORDS, rule_sources.ERRATA_JULY_2021],
       },
       SkyCannonEffect,
     ],

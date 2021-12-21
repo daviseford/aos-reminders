@@ -82,10 +82,7 @@ const Units = {
         name: `Alakanash, the Staff of Power`,
         desc: `Add the Staff of Power value shown on this model's damage table to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to cast Arcane Bolt any number of times in the same hero phase, even if another WIZARD has already attempted to cast the spell in that phase.`,
         when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Invocation of Nagash`,
@@ -265,10 +262,7 @@ const Units = {
         name: `Scurrying Retreat`,
         desc: `At the end of your movement phase, if this model has been slain, roll a dice. On a 4+, you can set up this model anywhere on the battlefield more than 9" from all enemy units, with all wounds allocated to it removed.`,
         when: [END_OF_MOVEMENT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Nauseating Aroma`,
@@ -557,10 +551,7 @@ const Units = {
         name: `The Newly Dead`,
         desc: `At the end of the combat phase, you can roll a dice for each enemy model that was slain by wounds inflicted by this unit's attacks in that phase. For each 2+, you can add 1 DEADWALKER ZOMBIE model to this unit. Models that are added to this unit must be set up within 1" of a model in this unit. They can only be set up within 3" of an enemy unit if a model in this unit is already within 3" of that enemy unit. Models added to this unit using this ability can take it above its maximum size.`,
         when: [END_OF_COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-          rule_sources.ERRATA_SOULBLIGHT_GRAVELORDS_AUGUST_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_AUGUST_2021],
       },
     ],
   },

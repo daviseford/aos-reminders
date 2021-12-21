@@ -140,7 +140,7 @@ const Artifacts = {
         name: `Emberstone Rune`,
         desc: `Add 1 to chanting rolls for prayers chanted by the bearer that summon an invocation.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

@@ -66,7 +66,7 @@ const Artifacts = {
         name: `Paradoxical Shield`,
         desc: `Ignore modifiers (positive and negative) when making save rolls for attacks that target the bearer. However, you must reroll successful save rolls for attacks that target the bearer.`,
         when: [SAVES_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_TZEENTCH_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

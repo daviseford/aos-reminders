@@ -498,10 +498,7 @@ const Units = {
         name: `Massed Ranks`,
         desc: `+1 to hit for attacks made by this unit if it has 10 or more models.`,
         when: [COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Parry and Block`,
@@ -512,10 +509,7 @@ const Units = {
         name: `Wall of Spears`,
         desc: `Add 1 to wound rolls for attacks made with Freeguild Spears that target an enemy unit that made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -548,10 +542,7 @@ const Units = {
         name: `Stand and Shoot`,
         desc: `If an enemy unit finishes a charge move within 3" of this unit, this unit can receive the Unleash Hell command without the command being issued and without a command point being spent.'`,
         when: [CHARGE_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Steady Aim`,
@@ -849,10 +840,7 @@ const Units = {
         name: `Steam Gun`,
         desc: `Before attacking with a Steam Gun, pick 1 enemy unit that is within range of the attacking model's Steam Gun. The Attacks characteristic of that model's Steam Gun is equal to the number of models from that enemy unit within range of the attacking model's Steam Gun. All attacks made with that Steam Gun must target that enemy unit.`,
         when: [SHOOTING_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Guild Bombs`,
@@ -1157,10 +1145,7 @@ const Units = {
         name: `High Beastmaster`,
         desc: `If this unit has 3 or more models, 1 model in this unit can be a High Beastmaster. Add 1 to hit rolls for attacks made with that model's missile weapons.`,
         when: [SHOOTING_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Lay the Beast Low`,
@@ -1263,10 +1248,7 @@ const Units = {
         name: `Loose Until the Last`,
         desc: `If an enemy unit finishes a charge move within 3" of this unit, this unit can receive the Unleash Hell command without the command being issued and without a command point being spent.`,
         when: [CHARGE_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Quicksilver Shot`,

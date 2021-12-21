@@ -93,7 +93,7 @@ const Artifacts = {
         name: `Windblast Fan`,
         desc: `Once per battle, in the enemy movement phase. Pick 1 unit within 3" of the bearer. That unit must retreat.`,
         when: [MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_LUMINETH_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

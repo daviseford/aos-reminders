@@ -100,7 +100,7 @@ const CommandAbilities = {
         name: `Skull-breakers and Oath-takers`,
         desc: `You can use this command ability at the start of the combat phase. Pick 1 friendly HERMDAR VULKITE BERZERKERS unit or 1 friendly HERMDAR HEARTHGUARD BERZERKERS unit wholly within 12" of a friendly HERMDAR HERO. The strike-first effect applies to that unit in that phase.`,
         when: [START_OF_COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_FYRESLAYERS_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

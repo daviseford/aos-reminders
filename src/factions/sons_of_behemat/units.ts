@@ -37,9 +37,9 @@ const LongshanksEffect = {
   when: [MOVEMENT_PHASE],
   rule_sources: [
     rule_sources.BATTLETOME_SONS_OF_BEHEMAT,
-    rule_sources.ERRATA_SONS_OF_BEHEMAT_MARCH_2021,
-    rule_sources.ERRATA_SONS_OF_BEHEMAT_JULY_2021,
-    rule_sources.ERRATA_SONS_OF_BEHEMAT_AUGUST_2021,
+    rule_sources.ERRATA_MARCH_2021,
+    rule_sources.ERRATA_JULY_2021,
+    rule_sources.ERRATA_AUGUST_2021,
   ],
   shared: true,
 }
@@ -100,20 +100,14 @@ const Units = {
         name: `Smash Down`,
         desc: `Add 1 to the damage inflicted by each successful attack made by this unit that targets a unit that is part of a garrison or is wholly on or within a terrain feature.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SONS_OF_BEHEMAT,
-          rule_sources.ERRATA_SONS_OF_BEHEMAT_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SONS_OF_BEHEMAT, rule_sources.ERRATA_JULY_2021],
         shared: true, // it's not normally correct to set this directly on units, but this unit gets extended for the merc version
       },
       {
         name: `Smash Down`,
         desc: `Add 1 to the roll when you carry out a Smash To Rubble monstrous rampage with this unit.`,
         when: [END_OF_CHARGE_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SONS_OF_BEHEMAT,
-          rule_sources.ERRATA_SONS_OF_BEHEMAT_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SONS_OF_BEHEMAT, rule_sources.ERRATA_JULY_2021],
         shared: true, // it's not normally correct to set this directly on units, but this unit gets extended for the merc version
       },
     ],

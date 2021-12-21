@@ -24,7 +24,7 @@ const Flavors: TItemDescriptions = {
         name: `Appear on Command`,
         desc: `Instead of deploying a friendly DRACOTHION'S TAIL unit on the battlefield, you can place it to one side and say that it is set up waiting to appear at command as a reserve unit. You can set up 1 reserve unit waiting to appear at command for each friendly DRACOTHION'S TAIL unit you have already set up on the battlefield.`,
         when: [DURING_SETUP],
-        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Appear on Command`,

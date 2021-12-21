@@ -3,16 +3,16 @@ const rule_sources = {
     name: 'Battletome: Sons of Behemat',
     type: 'battletome',
   },
-  ERRATA_SONS_OF_BEHEMAT_NOV_2020: {
+  ERRATA_NOV_2020: {
     name: 'Errata (November 2020)',
     type: 'errata',
   },
-  ERRATA_SONS_OF_BEHEMAT_MARCH_2021: {
+  ERRATA_MARCH_2021: {
     name: 'Errata (March 2021)',
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2020/11/5hJh6gsSHuqScJiT.pdf',
   },
-  ERRATA_SONS_OF_BEHEMAT_JULY_2021: {
+  ERRATA_JULY_2021: {
     name: 'Errata (July 2021)',
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2020/11/DFG60Pr3z7N58B4w.pdf',
@@ -21,7 +21,7 @@ const rule_sources = {
     name: 'White Dwarf (August 2021)',
     type: 'white_dwarf',
   },
-  ERRATA_SONS_OF_BEHEMAT_AUGUST_2021: {
+  ERRATA_AUGUST_2021: {
     name: 'Errata (August 2021)',
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2020/11/JVwZBkal7nIn0oma.pdf',

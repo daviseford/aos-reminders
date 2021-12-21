@@ -14,19 +14,13 @@ const Scenery = {
 
         Subtract 1 from save rolls for attacks that target units within range of this terrain feature. This scenery rule has no effect on save rolls for attacks that target BEASTS OF CHAOS units.`,
         when: [SAVES_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
-          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Locus of Savagery`,
         desc: `Do not take battleshock tests for BEASTS OF CHAOS units wholly within range of this terrain feature (see the 'Entropic Lodestone' scenery rule).`,
         when: [BATTLESHOCK_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
-          rule_sources.ERRATA_BEASTS_OF_CHAOS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

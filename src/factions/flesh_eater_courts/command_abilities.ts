@@ -52,10 +52,7 @@ const CommandAbilities = {
         name: `Heaving Masses`,
         desc: `You can use this command ability when a friendly MORGAUNT SERFS unit is destroyed. If you do so, roll a D6. On a 4+ a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy models.`,
         when: [DURING_GAME],
-        rule_sources: [
-          rule_sources.BATTLETOME_FLESH_EATER_COURTS,
-          rule_sources.ERRATA_FLESH_EATER_COURTS_JANUARY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_FLESH_EATER_COURTS, rule_sources.ERRATA_JANUARY_2021],
       },
     ],
   },
@@ -94,8 +91,8 @@ const CommandAbilities = {
         when: [COMBAT_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_FLESH_EATER_COURTS,
-          rule_sources.ERRATA_FLESH_EATER_COURTS_JANUARY_2021,
-          rule_sources.ERRATA_FLESH_EATER_COURTS_JULY_2021,
+          rule_sources.ERRATA_JANUARY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
     ],

@@ -222,7 +222,7 @@ const Units = {
         name: `Foresight`,
         desc: `At the start of your hero phase, if any friendly models with this ability are on the battlefield, roll 2 dice. For each 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -322,7 +322,7 @@ const Units = {
         name: `Cosmic Herald`,
         desc: `At the start of your hero phase, if any friendly models with this ability are on the battlefield, roll 1 dice. On a 4+, you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Astromancer's Staff`,
@@ -426,7 +426,7 @@ const Units = {
         name: `Perfect Mimicry`,
         desc: `Models in this unit that are within 1" of a terrain feature have a ward of 4+`,
         when: [SAVES_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_SERAPHON_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Star-venom`,

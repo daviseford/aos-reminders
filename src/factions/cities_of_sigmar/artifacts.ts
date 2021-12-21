@@ -48,10 +48,7 @@ const Artifacts = {
         name: `Aqshy Aspect`,
         desc: `Until the start of your next hero phase, add 1 to hit rolls for attacks made with melee weapons by friendly HAMMERHAL units while they are wholly within 12" of the bearer.`,
         when: [COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_CITIES_OF_SIGMAR_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Ghyran Aspect`,

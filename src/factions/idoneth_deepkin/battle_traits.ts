@@ -24,10 +24,7 @@ const BattleTraits = {
 
           Round 5+ - Repeat starting with Low Tide`,
         when: [DURING_GAME],
-        rule_sources: [
-          rule_sources.BATTLETOME_IDONETH_DEEPKIN,
-          rule_sources.ERRATA_IDONETH_DEEPKIN_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_IDONETH_DEEPKIN, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

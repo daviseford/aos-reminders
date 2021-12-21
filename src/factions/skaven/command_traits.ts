@@ -138,7 +138,7 @@ const CommandTraits = {
         name: `Master of Rot and Ruin (Pestilens)`,
         desc: `You can reroll chanting rolls for this general.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_SKAVEN_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

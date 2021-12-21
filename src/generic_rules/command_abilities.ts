@@ -64,9 +64,9 @@ const GenericCommandAbilities: TEntry[] = [
     effects: [
       {
         name: `Unleash Hell`,
-        desc: `You can use this command ability after an enemy unit finishes a charge move. The unit that receives the command must be within 9" of that enemy unit and more than 3" from all other enemy units. The unit that receives the command can shoot in that phase, but when it does so, you must subtract 1 from hit rolls for its attacks and it can only target the unit that made the charge move.`,
+        desc: `You can use this command ability after an enemy unit finishes a charge move. The unit that receives the command must be within 6" of that enemy unit and more than 3" from all other enemy units. Models in the unit that receives the command that are within 6" of the target unit can shoot in that phase, but when they do so, you must subtract 1 from hit rolls for their attacks and they can only target the unit that made the charge move.`,
         when: [CHARGE_PHASE],
-        rule_sources: [meta_rule_sources.CORE_RULES_2021],
+        rule_sources: [meta_rule_sources.CORE_RULES_2021, meta_rule_sources.ERRATA_CORE_RULES_DECEMBER_2021],
       },
     ],
   },

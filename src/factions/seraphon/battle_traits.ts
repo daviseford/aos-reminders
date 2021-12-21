@@ -31,8 +31,8 @@ const BattleTraits = {
         when: [START_OF_HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_SERAPHON,
-          rule_sources.ERRATA_SERAPHON_JANUARY_2021,
-          rule_sources.ERRATA_SERAPHON_JULY_2021,
+          rule_sources.ERRATA_JANUARY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
     ],
@@ -60,7 +60,7 @@ const BattleTraits = {
         when: [DURING_GAME],
         rule_sources: [
           rule_sources.BATTLETOME_SERAPHON,
-          rule_sources.ERRATA_SERAPHON_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
           rule_sources.WHITE_DWARF_OCTOBER_2021,
         ],
       },

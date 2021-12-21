@@ -7,22 +7,22 @@ const rule_sources = {
     name: 'White Dwarf (October 2019)',
     type: 'white_dwarf',
   },
-  ERRATA_SLAANESH_MARCH_2021: {
+  ERRATA_MARCH_2021: {
     name: 'Errata (March 2021)',
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/05/gD5E3B2kgTsm0ojC.pdf',
   },
-  ERRATA_SLAANESH_JULY_2021: {
+  ERRATA_JULY_2021: {
     name: 'Errata (July 2021)',
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/05/kXdIDJ7KLLX6C20i.pdf',
   },
-  ERRATA_SLAANESH_AUGUST_2021: {
+  ERRATA_AUGUST_2021: {
     name: 'Errata (August 2021)',
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/05/dGP4R08mVSkKqolN.pdf',
   },
-  ERRATA_SLAANESH_DECEMBER_2021: {
+  ERRATA_DECEMBER_2021: {
     name: 'Errata (December 2021)',
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/05/ZbgFnnStVfNDTD63.pdf',

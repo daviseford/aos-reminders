@@ -613,19 +613,19 @@ const Units = {
         unit and it can attack using the Shadow-cloaked Claws melee weapon
         when it fights.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Mist Lurkers`,
         desc: `If active, until your next hero phase, you can add 1 to save rolls for attacks that target this unit.`,
         when: [SAVES_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Mist Lurkers`,
         desc: `If active, until your next hero phase, this unit can attack using the Shadow-cloaked Claws melee weapon when it fights.`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Twisted Mirror`,
@@ -709,7 +709,7 @@ const Units = {
         name: `Painbringer Shields`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit.`,
         when: [SAVES_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_SLAANESH_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

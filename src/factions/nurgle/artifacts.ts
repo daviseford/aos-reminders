@@ -121,7 +121,7 @@ const Artifacts = {
         name: `The Endless Gift`,
         desc: `At the start of the battleshock phase, roll a dice for each wound that was allocated to this model that turn and not negated. On a 4+ the wound is healed.`,
         when: [START_OF_BATTLESHOCK_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_NURGLE_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
