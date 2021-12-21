@@ -42,23 +42,30 @@ export const cleanWarhammerAppText = (text: string): string[] => {
 
         .trim()
 
+        // Replace leading "- "
+        .replace(/^- /g, '')
+
         // Remove unnecessary info
         .replace(/ \(General\)$/g, '') // Remove General tag e.g. "Lord Kroak (General)" -> "Lord Kroak"
+        .replace(/^General$/g, '') // Remove General entry
         .replace(
           /^(Army Notes|General|Battle Trait Bonus|Reinforced|Battlefield Role|Battlepack|Points Limit|Battalion Slot Filled): .+/g,
           ''
         )
         .replace(/^Mark of Chaos: .+/g, '') // Remove Mark of Chaos tag e.g. "Mark of Chaos: Khorne"
         .replace(/^Host Option: .+/g, '') // Remove Host Option tag e.g. "Host Option: General"
+        .replace(/^[0-9]+ x /g, '') // Remove quantity from units e.g. "3 x Razordons"
+        .replace(/ \([0-9]+\)$/g, '') // Remove point values e.g. "Slann Starmaster (360)"
 
         // Replace text with standardized endings
         .replace(/^Points Cost: .+/g, warhammerAppPlaceholders.END_OF_ENTRY) // Replace "Points Cost: 430 pts" with a constant separator (helps to mark the end of a unit entry)
-        .replace(/^Total Points: .+/g, warhammerAppPlaceholders.END_OF_LIST) // Replace "Total Points: 2000 pts" with a constant separator (helps to mark the end of a list)
+        .replace(/^(Total Points|TOTAL POINTS): .+/g, warhammerAppPlaceholders.END_OF_LIST) // Replace "Total Points: 2000 pts" with a constant separator (helps to mark the end of a list)
         .replace('Endless Spells/Invocations', warhammerAppPlaceholders.ENDLESS_SPELLS)
-        .replace(/^Core Battalions$/g, warhammerAppPlaceholders.BATTALIONS)
+        .replace(/^(Core Battalions|CORE BATTALIONS)$/g, warhammerAppPlaceholders.BATTALIONS)
         .replace(/^Enhancements$/g, warhammerAppPlaceholders.ENHANCEMENTS)
         .replace(/^Faction Terrain$/g, warhammerAppPlaceholders.SCENERY)
         .replace(/^Units$/g, warhammerAppPlaceholders.UNITS)
+        .replace(/^(BATTLELINE|LEADERS|OTHER)$/g, warhammerAppPlaceholders.UNITS)
         .replace(/^Army Faction: /g, warhammerAppPlaceholders.FACTION_NAME_PREFIX)
         .replace(/^Army Type: /g, warhammerAppPlaceholders.SUBFACTION_PREFIX) // Army Type in WH App === Subfactions in AoSr
         .replace(/^Subfaction: /g, warhammerAppPlaceholders.FLAVOR_PREFIX) // Subfactions in WH App === Flavors in AoSr

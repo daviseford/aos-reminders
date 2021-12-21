@@ -24,6 +24,7 @@ const {
   ARTIFACTS_PREFIX,
   BATTALIONS,
   COMMAND_TRAITS_PREFIX,
+  CREATED_BY_WARHAMMER_APP,
   END_OF_ENTRY,
   END_OF_LIST,
   ENDLESS_SPELLS,
@@ -59,6 +60,7 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
         [END_OF_LIST, ENHANCEMENTS, VALID_LIST, INVALID_LIST, END_OF_ENTRY].includes(txt) ||
         txt.startsWith(ARMY_NAME_PREFIX) ||
         txt.startsWith(ARMY_NOTES_PREFIX) ||
+        txt.endsWith(CREATED_BY_WARHAMMER_APP) ||
         txt.startsWith('Magnificent Bonus: ')
       ) {
         return accum
