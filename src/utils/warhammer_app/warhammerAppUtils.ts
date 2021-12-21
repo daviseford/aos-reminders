@@ -44,6 +44,10 @@ export const cleanWarhammerAppText = (text: string): string[] => {
 
         // Replace leading "- "
         .replace(/^- /g, '')
+        // .replace( // TODO: UNCOMMENT ME
+        //   /^- (Army Faction|Army Type|Subfaction|Points Cost|Host Option|Mark of Chaos|Army Notes|General|Battle Trait Bonus|Reinforced|Battlefield Role|Battlepack|Points Limit|Battalion Slot Filled)/g,
+        //   '$1'
+        // )
 
         // Remove unnecessary info
         .replace(/ \(General\)$/g, '') // Remove General tag e.g. "Lord Kroak (General)" -> "Lord Kroak"
@@ -61,11 +65,11 @@ export const cleanWarhammerAppText = (text: string): string[] => {
         .replace(/^Points Cost: .+/g, warhammerAppPlaceholders.END_OF_ENTRY) // Replace "Points Cost: 430 pts" with a constant separator (helps to mark the end of a unit entry)
         .replace(/^(Total Points|TOTAL POINTS): .+/g, warhammerAppPlaceholders.END_OF_LIST) // Replace "Total Points: 2000 pts" with a constant separator (helps to mark the end of a list)
         .replace('Endless Spells/Invocations', warhammerAppPlaceholders.ENDLESS_SPELLS)
+        .replace(/^ENDLESS SPELLS & INVOCATIONS/g, warhammerAppPlaceholders.ENDLESS_SPELLS)
         .replace(/^(Core Battalions|CORE BATTALIONS)$/g, warhammerAppPlaceholders.BATTALIONS)
         .replace(/^Enhancements$/g, warhammerAppPlaceholders.ENHANCEMENTS)
-        .replace(/^Faction Terrain$/g, warhammerAppPlaceholders.SCENERY)
-        .replace(/^Units$/g, warhammerAppPlaceholders.UNITS)
-        .replace(/^(BATTLELINE|LEADERS|OTHER)$/g, warhammerAppPlaceholders.UNITS)
+        .replace(/^(Faction Terrain|TERRAIN)$/g, warhammerAppPlaceholders.SCENERY)
+        .replace(/^(Units|BATTLELINE|LEADERS|OTHER|BEHEMOTH)$/g, warhammerAppPlaceholders.UNITS)
         .replace(/^Army Faction: /g, warhammerAppPlaceholders.FACTION_NAME_PREFIX)
         .replace(/^Army Type: /g, warhammerAppPlaceholders.SUBFACTION_PREFIX) // Army Type in WH App === Subfactions in AoSr
         .replace(/^Subfaction: /g, warhammerAppPlaceholders.FLAVOR_PREFIX) // Subfactions in WH App === Flavors in AoSr
@@ -77,6 +81,8 @@ export const cleanWarhammerAppText = (text: string): string[] => {
         .replace(/^Cursed Mutations: /g, warhammerAppPlaceholders.MOUNT_TRAITS_PREFIX)
         .replace(/^Drakeblood Curses: /g, warhammerAppPlaceholders.COMMAND_TRAITS_PREFIX)
 
+        // Remove uncategorized traits (e.g. "- Great Stormbow and Stormstrike Axe")
+        // TODO:
         // One final trim, and we're done!
         .trim()
     )
