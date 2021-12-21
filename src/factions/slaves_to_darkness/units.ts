@@ -38,20 +38,14 @@ const OracularVisionsEffects = [
     name: `Oracular Visions`,
     desc: `In your hero phase, you can pick 1 friendly MORTAL SLAVES TO DARKNESS unit wholly within 12" of this unit. If you do so, add 1 to save rolls for attacks that target that unit until your next hero phase.`,
     when: [HERO_PHASE],
-    rule_sources: [
-      rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-      rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
-    ],
+    rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_JULY_2021],
     shared: true,
   },
   {
     name: `Oracular Visions`,
     desc: `If active, add 1 to save rolls for attacks that target that unit until your next hero phase.`,
     when: [SAVES_PHASE],
-    rule_sources: [
-      rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-      rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
-    ],
+    rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_JULY_2021],
     shared: true,
   },
 ]
@@ -152,10 +146,7 @@ const ExaltedCharioteerEffect = {
   name: `Exalted Charioteer`,
   desc: `If this unit has 2 or more models, 1 model in this unit can be an Exalted Charioteer. Add 1 to hit rolls for attacks made with that model's melee weapons (excluding those of its mount)`,
   when: [COMBAT_PHASE],
-  rule_sources: [
-    rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-    rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
-  ],
+  rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_JULY_2021],
   shared: true,
 }
 
@@ -198,81 +189,88 @@ const ChaosMarkTzeentch = {
 const Units = {
   'Archaon the Everchosen': {
     mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['All-seeing Dominion', 'By My Will'])],
+      command_abilities: [keyPicker(CommandAbilities, ['By My Will'])],
     },
     effects: [
       ChaosMarkAll,
       {
+        name: `Wizard`,
+        desc: `This unit can attempt to cast 2 spells in your hero phase and attempt to unbind 2 spells in the enemy hero phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_DECEMBER_2021],
+      },
+      {
         name: `Warmaster`,
-        desc: `This unit can be included in a Blades of Khorne, Disciples of Tzeentch, Maggotkin of Nurgle or Hedonites of Slaanesh army. If it is, it is treated as a general even if it is not the model picked to be the army's general, and you can still use the army's allegiance abilities even if this unit is not from the army's faction.`,
+        desc: `If this unit is included in your army, it is treated as a general even if it is not the model picked to be the army's general. In addition, this unit can be included in a Blades of Khorne, Disciples of Tzeentch, Maggotkin of Nurgle or Hedonites of Slaanesh army. If you do so, you can still use the army's allegiance abilities even though this unit is not from the army's faction; however, this unit does not benefit from them.`,
         when: [WOUND_ALLOCATION_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
+          rule_sources.ERRATA_DECEMBER_2021,
         ],
       },
       {
         name: `The Armour of Morkar`,
-        desc: `Roll a D6 each time a mortal wound is allocated to this model. On a 4-6 the wound is negated. On a 6 the attacking unit also suffers 1 mortal wound.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `This unit has a ward of 4+ against mortal wounds. In addition, for each unmodified ward roll of 6, you can pick 1 enemy unit within 3" to suffer 1 mortal wound that cannot be negated.`,
+        when: [SAVES_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_DECEMBER_2021],
       },
       {
         name: `The Crown of Domination`,
-        desc: `Add 2 to the bravery characteristic of friendly Chaos models wholly within 12" of this model. Subtract 2 from the bravery characteristic of enemy units within 12" of this model.`,
+        desc: `Add 2 to the Bravery characteristic of friendly CHAOS units wholly within 12" of this unit. In addition, subtract 2 from the Bravery characteristic of enemy units while they are within 12" of this unit.`,
         when: [BATTLESHOCK_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_DECEMBER_2021],
       },
       {
         name: `The Eye of Sheerian`,
         desc: `Once per battle, at the start of your hero phase, you can say that Archaon will use the Eye of Sheerian. If you do so, subtract 1 from hit rolls for attacks that target this unit until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-          rule_sources.ERRATA_SLAVES_TO_DARKNESS_AUGUST_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_AUGUST_2021],
       },
       {
         name: `The Everchosen`,
-        desc: `You can roll a D6 if this model is affected by a spell or endless spell. On a 4+ it has no effect on this model.`,
-        when: [DURING_GAME],
+        desc: `Each time this unit is affected by a spell or endless spell, you can roll a dice. On a 4+, ignore the effect of that spell or that endless spell on this unit.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_DECEMBER_2021],
       },
       {
         name: `The Slayer of Kings`,
-        desc: `Each time this model fights, if the unmodified wound roll for 2 attacks that target the same enemy HERO with the Slayer of Kings is 6, that HERO is slain.`,
+        desc: `Each time this unit fights, if the unmodified wound roll for 2 or more attacks that target the same enemy HERO with the Slayer of Kings is 6, that HERO is slain.`,
         when: [COMBAT_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
+          rule_sources.ERRATA_DECEMBER_2021,
         ],
       },
       {
         name: `Three-headed Titan`,
-        desc: `You can select one Three-headed Titan effect during your turn.`,
+        desc: `At the start of your hero phase, you can say that Dorghar will draw upon his daemonic might. If you do so, choose 1 of the following effects:`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Three-headed Titan : Filth-spewer`,
-        desc: `Pick 1 enemy unit within 12" of this model and roll a D6. On a 3+ that unit suffers D3 mortal wounds.`,
+        name: `Three-headed Titan: Filth-spewer`,
+        desc: `Pick 1 enemy unit within 12" of this unit and roll a dice. On a 3+, that unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_DECEMBER_2021],
       },
       {
-        name: `Three-headed Titan : Skull-gorger`,
-        desc: `You can heal up to D3 wounds allocated to this model.`,
+        name: `Three-headed Titan: Skull-gorger`,
+        desc: `You can heal up to D3 wounds allocated to this unit.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_DECEMBER_2021],
       },
       {
-        name: `Three-headed Titan : Spell-eater`,
-        desc: `Pick one endless spell within 18" of this model and dispell it.`,
+        name: `Three-headed Titan: Spell-eater`,
+        desc: `Pick 1 endless spell within 18" of this unit; that endless spell is dispelled.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_DECEMBER_2021],
       },
       {
         name: `Warlord Without Equal`,
-        desc: `If this model is on the battlefield you receive 1 extra command point.`,
+        desc: `If this unit is on the battlefield at the start of your hero phase, you receive 1 extra command point.`,
         when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Wizard`,
-        desc: `This model is a WIZARD. Can attempt to cast 2 spells and unbind 2 spells. Knows Arcane Bolt and Mystic Shield.`,
-        when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_DECEMBER_2021],
       },
     ],
   },
@@ -308,10 +306,7 @@ const Units = {
     effects: [
       {
         ...GenericEffects.Elite,
-        rule_sources: [
-          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-          rule_sources.ERRATA_SLAVES_TO_DARKNESS_AUGUST_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_AUGUST_2021],
       },
       ChaosMarkAll,
       DaemonforgedWeaponEffect,
@@ -675,10 +670,7 @@ const Units = {
         name: `Legions of Chaos`,
         desc: `Add 1 to save rolls for attacks that target this unit while it has at least 10 models.`,
         when: [SAVES_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Pair of Chaos Hand Weapons`,
@@ -730,10 +722,7 @@ const Units = {
         name: `Protection of the Dark Gods`,
         desc: `Friendly MORTAL SLAVES TO DARKNESS units that are wholly within range of this unit's Protection of the Dark Gods ability, as shown on the damage table above, have a ward of 6+`,
         when: [SAVES_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -792,10 +781,7 @@ const Units = {
         name: `Sneaky Little Devils`,
         desc: `When selected for activation instead of fighting you may make a normal move and retreat. If you do so, this unit must retreat.`,
         when: [COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -905,10 +891,7 @@ const Units = {
         name: `Iron Resilience`,
         desc: `Add 1 to save rolls for attacks that target this unit if this unit has not made a normal move or been set up in the same turn.`,
         when: [SAVES_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-          rule_sources.ERRATA_SLAVES_TO_DARKNESS_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

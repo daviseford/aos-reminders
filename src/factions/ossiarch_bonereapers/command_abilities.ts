@@ -19,10 +19,7 @@ const CommandAbilities = {
         name: `Unstoppable Advance`,
         desc: `You can use this command ability in your movement phase when you pick a friendly OSSIARCH BONEREAPERS unit to make a normal move, run or retreat. Add 3" to that unit's Move characteristic in that phase.`,
         when: [MOVEMENT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -41,10 +38,7 @@ const CommandAbilities = {
         name: `Still Their Breath!`,
         desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly MORTIS PRAETORIANS unit that is wholly within 24" of this model. Reroll wound rolls of 1 for attacks made by that unit that target ORDER and DESTRUCTION units until the end of that phase. You can reroll any wound rolls for attacks made by that unit that target CHAOS units until the end of that phase.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -65,10 +59,7 @@ const CommandAbilities = {
 
         In addition, in the following combat phase, that Kavalos Deathriders unit can move an extra 3" when it piles in. The same unit cannot benefit from this command ability more than once per turn.`,
         when: [CHARGE_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_JULY_2021,
-        ],
+        rule_sources: [rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Deathrider Wedge`,
