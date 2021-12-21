@@ -4,7 +4,7 @@ import OfflineComponent from 'components/info/offline'
 import Contact from 'components/page/contact'
 import { useTheme } from 'context/useTheme'
 import React from 'react'
-import { version } from '../../../package.json'
+import pkgJson from '../../../package.json'
 
 /**
  * Hidden when printing
@@ -53,7 +53,7 @@ const ReleaseNotes = () => {
           href="https://github.com/daviseford/aos-reminders/releases/latest"
           label={'GithubLatestRelease'}
         >
-          <small className={theme.text}>AoS Reminders v{version} - Release Notes</small>
+          <small className={theme.text}>AoS Reminders v{pkgJson.version} - Release Notes</small>
         </LinkNewTab>
       </div>
     </div>
