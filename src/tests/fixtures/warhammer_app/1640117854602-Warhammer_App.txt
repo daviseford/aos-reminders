@@ -1,0 +1,31 @@
+- Army Faction: Stormcast Eternals 
+- Army Type: Scions of the Storm
+- Subfaction: Hallowed Knights
+- Grand Strategy: Prized Sorcery
+- Triumph: Inspired
+LEADERS
+Gardus Steel Soul (160)
+Lord-Arcanum on Tauralon (285)
+- Artefacts of Power: Mirrorshield
+- Spells: Chain Lightning
+Knight-Incantor (125)
+- Spells: Celestial Blades
+Lord-Relictor (145)
+- General
+- Command Traits: High Priest
+- Artefacts of Power: Arcane Tome
+- Spells: Thundershock
+- Prayers: Translocation
+BATTLELINE
+5 x Liberators (115)
+5 x Liberators (115)
+5 x Liberators (115)
+OTHER
+4 x Dracothian Guard Fulminators (460)
+6 x Vanguard-Raptors with Longstrike Crossbows (480)
+CORE BATTALIONS
+ -  Hunters of the Heartlands
+ -  Vanguard
+ -  Warlord
+TOTAL POINTS: 2000/2000
+Created with Warhammer Age of Sigmar: The App

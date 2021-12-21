@@ -8,6 +8,20 @@ const getFile = (filename: string): string => {
 }
 
 describe('getWarhammerAppArmy', () => {
+  it.only('should correctly read 1640117854602-Warhammer_App', () => {
+    const parsedText = getFile('1640117854602-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+
+    expect(res.selections.units).toContain('Liberators')
+    expect(res.selections.units).toContain('Knight-Incantor')
+    expect(res.selections.units).toContain('Gardus Steel Soul')
+    expect(res.selections.units).toContain('Lord-Arcanum on Tauralon')
+    expect(res.selections.units).toContain('Lord-Relictor')
+    expect(res.selections.units).toContain('Dracothian Guard Fulminators')
+    expect(res.selections.units).toContain('Vanguard-Raptors with Longstrike Crossbows')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1635442222774-Warhammer_App', () => {
     const parsedText = getFile('1635442222774-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
