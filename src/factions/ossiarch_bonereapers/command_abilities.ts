@@ -21,7 +21,7 @@ const CommandAbilities = {
         when: [MOVEMENT_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
     ],
@@ -43,7 +43,7 @@ const CommandAbilities = {
         when: [SHOOTING_PHASE, COMBAT_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
     ],
@@ -67,7 +67,7 @@ const CommandAbilities = {
         when: [CHARGE_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
       {

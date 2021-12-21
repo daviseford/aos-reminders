@@ -24,7 +24,7 @@ const EndlessSpells = {
         when: [HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
       GenericEffects.Predatory.Eight_Inches,
@@ -35,7 +35,7 @@ const EndlessSpells = {
         when: [BATTLESHOCK_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
       {
@@ -44,7 +44,7 @@ const EndlessSpells = {
         when: [COMBAT_PHASE, SHOOTING_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
     ],
@@ -59,7 +59,7 @@ const EndlessSpells = {
         when: [HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
       {
@@ -68,7 +68,7 @@ const EndlessSpells = {
         when: [HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
       {
@@ -77,7 +77,7 @@ const EndlessSpells = {
         when: [END_OF_HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
     ],
@@ -92,7 +92,7 @@ const EndlessSpells = {
         when: [HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
       {
@@ -101,7 +101,7 @@ const EndlessSpells = {
         when: [DURING_GAME],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
       {
@@ -117,7 +117,7 @@ const EndlessSpells = {
         ],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
       {
@@ -126,7 +126,7 @@ const EndlessSpells = {
         when: [DURING_GAME],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
     ],

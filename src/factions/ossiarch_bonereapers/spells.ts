@@ -51,7 +51,7 @@ const MortalContractEffect = {
   when: [HERO_PHASE],
   rule_sources: [
     rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-    rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+    rule_sources.ERRATA_JULY_2021,
   ],
   shared: true,
 }

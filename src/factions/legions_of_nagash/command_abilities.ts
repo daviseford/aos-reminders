@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
-import { COMBAT_PHASE, END_OF_MOVEMENT_PHASE, HERO_PHASE } from 'types/phases'
+import rule_sources from 'factions/ossiarch_bonereapers/rule_sources'
+import { END_OF_MOVEMENT_PHASE, HERO_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
 const CommandAbilities = {
   'Endless Legions': {
@@ -20,12 +21,13 @@ const CommandAbilities = {
       },
     ],
   },
-  'Supreme Lord of Death': {
+  'Death Magic Incarnate': {
     effects: [
       {
-        name: `Supreme Lord of Death`,
-        desc: `If Nagash uses this ability, then until your next hero phase you can reroll hit and save rolls of 1 for all friendly DEATH units. In addition, do not take battleshock tests for DEATH units affected by this ability.`,
-        when: [HERO_PHASE, COMBAT_PHASE],
+        name: `Death Magic Incarnate`,
+        desc: `You can use this command ability if this unit is on the battlefield at the start of the combat phase. The unit that receives this command must be a different friendly Death unit. Add 1 to ward rolls for that unit until the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+        rule_sources: [rule_sources.ERRATA_DECEMBER_2021],
       },
     ],
   },

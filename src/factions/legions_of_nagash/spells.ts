@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import rule_sources from 'factions/ossiarch_bonereapers/rule_sources'
 import { HERO_PHASE } from 'types/phases'
 
 const Spells = {
@@ -116,8 +117,9 @@ const Spells = {
     effects: [
       {
         name: `Hand of Dust`,
-        desc: `Casting value of 8. Pick an enemy model within 3" the caster. Then, take a dice and hide it in one of your hands. Your opponent must pick one of your hands. If they pick the one holding the dice, the spell has no effect. If they pick the empty hand, the enemy model is slain.`,
+        desc: `Casting value of 8 and a range of 3". If successfully cast, pick 1 enemy model within range and visible to the caster. Then, take a dice and hide it in one of your hands or under one of two appropriate containers. Your opponent must pick one of your hands or containers. If they pick the one holding the dice, the spell has no effect. If they pick the empty hand or container, the enemy model is slain.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.ERRATA_DECEMBER_2021],
       },
     ],
   },
@@ -125,8 +127,9 @@ const Spells = {
     effects: [
       {
         name: `Soul Stealer`,
-        desc: `Casting value of 6. Pick an enemy unit within 24" of the caster that is visible to them and roll two dice. If the total is greater than that unit's Bravery characteristic, it suffers D3 mortal wounds. If the total is at least double the unit's Bravery, it suffers D6 mortal wounds instead. For each mortal wound inflicted on the target and not negated, heal 1 wound that has been allocated to the caster.`,
+        desc: `Casting value of 6 and a range of 24". If successfully cast, pick 1 enemy unit within range and visible to the caster and roll 2D6. If the roll is greater than that unit's Bravery characteristic, it suffers D3 mortal wounds. If the roll is at least double that unit's Bravery characteristic, it suffers D6 mortal wounds instead. You can heal up to 1 wound that has been allocated to the caster for each mortal wound caused by this spell that is not negated.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.ERRATA_DECEMBER_2021],
       },
     ],
   },

@@ -59,9 +59,12 @@ const UnstoppableChargeEffects = [
 ]
 export const OBRWarmasterEffect = {
   name: `Warmaster`,
-  desc: `If this unit is included in an Ossiarch Bonereapers army, it is treated as a general even if it is not the model picked to be the army's general.`,
+  desc: `This unit can be included in a Nighthaunt, Flesh-eater Courts, Ossiarch Bonereapers or Soulblight Gravelords army. If it is, it is treated as a general even if it is not the model picked to be the army's general. In addition, you can still use the army's allegiance abilities even though this unit is not from the army's faction; however, this unit does not benefit from them.`,
   when: [DURING_GAME],
-  rule_sources: [rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021],
+  rule_sources: [
+    rule_sources.ERRATA_JULY_2021,
+    rule_sources.ERRATA_DECEMBER_2021,
+  ],
   shared: true,
 }
 
@@ -80,7 +83,7 @@ const Units = {
         when: [WOUND_ALLOCATION_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
       {
@@ -100,7 +103,7 @@ const Units = {
       command_abilities: [keyPicker(CommandAbilities, ['Crushing Assault'])],
     },
     effects: [
-      { ...GenericEffects.Elite, rule_sources: [rule_sources.ERRATA_OSSIARCH_BONEREAPERS_AUGUST_2021] },
+      { ...GenericEffects.Elite, rule_sources: [rule_sources.ERRATA_AUGUST_2021] },
       {
         name: `Deadly Combination`,
         desc: `If the unmodified hit roll for an attack made with a Nadirite Battle-shield is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
@@ -130,7 +133,7 @@ const Units = {
       command_abilities: [keyPicker(CommandAbilities, ['Hunt and Kill'])],
     },
     effects: [
-      { ...GenericEffects.Elite, rule_sources: [rule_sources.ERRATA_OSSIARCH_BONEREAPERS_AUGUST_2021] },
+      { ...GenericEffects.Elite, rule_sources: [rule_sources.ERRATA_AUGUST_2021] },
       {
         name: `Quadrarch Aspects`,
         desc: `At the start of each combat phase, you must pick one of the following aspects for this unit. The rule for that aspect applies to this unit until the end of that phase.
@@ -167,7 +170,7 @@ const Units = {
   },
   'Morghast Archai': {
     effects: [
-      { ...GenericEffects.Elite, rule_sources: [rule_sources.ERRATA_OSSIARCH_BONEREAPERS_AUGUST_2021] },
+      { ...GenericEffects.Elite, rule_sources: [rule_sources.ERRATA_AUGUST_2021] },
       HeraldsOfTheAccursedOneEffect,
       {
         name: `Ebon-wrought Armour`,
@@ -178,7 +181,7 @@ const Units = {
   },
   'Morghast Harbingers': {
     effects: [
-      { ...GenericEffects.Elite, rule_sources: [rule_sources.ERRATA_OSSIARCH_BONEREAPERS_AUGUST_2021] },
+      { ...GenericEffects.Elite, rule_sources: [rule_sources.ERRATA_AUGUST_2021] },
       HeraldsOfTheAccursedOneEffect,
       {
         name: `Harbingers of Death`,
@@ -301,7 +304,7 @@ const Units = {
         when: [DURING_GAME],
         rule_sources: [
           rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_OSSIARCH_BONEREAPERS_JULY_2021,
+          rule_sources.ERRATA_JULY_2021,
         ],
       },
       {
