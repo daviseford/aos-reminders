@@ -627,7 +627,7 @@ describe('getAzyrArmyFromPdf', () => {
         flavors: [],
         artifacts: [],
         battalions: [],
-        command_abilities: ['Dark Prophecy', 'All-seeing Dominion', 'By My Will'],
+        command_abilities: ['Dark Prophecy', 'By My Will'],
         endless_spells: ['Eightfold Doom-Sigil'],
         scenery: [],
         spells: ['Whispers of Chaos'],
