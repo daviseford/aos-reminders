@@ -18,6 +18,11 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/10/xnqyOyHIue0nCakJ.pdf',
   },
+  ERRATA_DAUGHTERS_OF_KHAINE_DECEMBER_2021: {
+    name: 'Errata (December 2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2019/10/kP31rWns94T6CUyx.pdf',
+  },
 }
 
 export default rule_sources
