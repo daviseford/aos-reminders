@@ -1,10 +1,8 @@
 import { tagAs } from 'factions/metatagger'
-import meta_rule_sources from 'meta/rule_sources'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  END_OF_SETUP,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
@@ -13,7 +11,7 @@ import {
   START_OF_ROUND,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
-const CommandTraits = { 
+const CommandTraits = {
   "Grandfather's Blessing": {
     effects: [
       {
@@ -31,7 +29,7 @@ const CommandTraits = {
         when: [START_OF_HERO_PHASE],
       },
     ],
-  }, 
+  },
   'Bloated with Corruption': {
     effects: [
       {

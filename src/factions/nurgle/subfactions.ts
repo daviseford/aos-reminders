@@ -1,13 +1,12 @@
-import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
 import { IItemDescription } from 'factions/factionTypes'
-import SkavenUnits from 'factions/skaven/units'
-import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
+import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import Flavors from './flavors'
+import GrandStrategies from './grand_strategies'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
@@ -20,55 +19,55 @@ const baseSubFaction: IItemDescription = {
     spells: [Spells],
     units: [
       Units,
-      keyOmitter(SlavesToDarknessUnits, [
-        'Gaunt Summoner on Disc of Tzeentch',
-        'Theddra Skull-Scryer',
-        'Godsworn Hunt',
-        'Darkoath Warqueen',
-        'Darkoath Chieftain',
-        'Sayl the Faithless',
-        'Nightmaw',
-        'Slambo',
-        "Curs'd Ettin",
-        'Furies',
-        'Raptoryx',
-        'Splintered Fang',
-        'Corvus Cabal',
-        'The Unmade',
-        'Cypher Lords',
-        'Iron Golems',
-        'Untamed Beasts',
-        'Spire Tyrants',
-        'Scions of the Flame',
-        "Be'Lakor",
-        'Mutalith Vortex Beast',
-        'Fomoroid Crusher',
-        'Mindstealer Sphiranx',
-      ]),
-      keyPicker(BeastsOfChaosUnits, [
-        'Beastlord',
-        'Bestigors',
-        'Bullgors',
-        'Centigors',
-        'Cygor',
-        'Doombull',
-        'Dragon Ogor Shaggoth',
-        'Dragon Ogors',
-        'Ghorgon',
-        'Gors',
-        'Great Bray-Shaman',
-        'Tuskgor Chariots',
-        'Ungor Raiders',
-        'Ungors',
-      ]),
-      keyPicker(SkavenUnits, [
-        'Plague Censer Bearers',
-        'Plague Monks',
-        'Plague Priest on Plague Furnace',
-        'Plague Priest',
-        'Plagueclaw',
-        'Verminlord Corruptor',
-      ]),
+      // keyOmitter(SlavesToDarknessUnits, [
+      //   'Gaunt Summoner on Disc of Tzeentch',
+      //   'Theddra Skull-Scryer',
+      //   'Godsworn Hunt',
+      //   'Darkoath Warqueen',
+      //   'Darkoath Chieftain',
+      //   'Sayl the Faithless',
+      //   'Nightmaw',
+      //   'Slambo',
+      //   "Curs'd Ettin",
+      //   'Furies',
+      //   'Raptoryx',
+      //   'Splintered Fang',
+      //   'Corvus Cabal',
+      //   'The Unmade',
+      //   'Cypher Lords',
+      //   'Iron Golems',
+      //   'Untamed Beasts',
+      //   'Spire Tyrants',
+      //   'Scions of the Flame',
+      //   "Be'Lakor",
+      //   'Mutalith Vortex Beast',
+      //   'Fomoroid Crusher',
+      //   'Mindstealer Sphiranx',
+      // ]),
+      // keyPicker(BeastsOfChaosUnits, [
+      //   'Beastlord',
+      //   'Bestigors',
+      //   'Bullgors',
+      //   'Centigors',
+      //   'Cygor',
+      //   'Doombull',
+      //   'Dragon Ogor Shaggoth',
+      //   'Dragon Ogors',
+      //   'Ghorgon',
+      //   'Gors',
+      //   'Great Bray-Shaman',
+      //   'Tuskgor Chariots',
+      //   'Ungor Raiders',
+      //   'Ungors',
+      // ]),
+      // keyPicker(SkavenUnits, [
+      //   'Plague Censer Bearers',
+      //   'Plague Monks',
+      //   'Plague Priest on Plague Furnace',
+      //   'Plague Priest',
+      //   'Plagueclaw',
+      //   'Verminlord Corruptor',
+      // ]),
     ],
     flavors: [Flavors],
   },
@@ -76,10 +75,12 @@ const baseSubFaction: IItemDescription = {
 
 const subFactions = {
   Nurgle: {
-    effects: [],
+    effects: [pickEffects(BattleTraits, ['Nurgle', 'Battle Tactics'])],
 
     available: {
       ...baseSubFaction.available,
+      battalions: [Battalions],
+      grand_strategies: [GrandStrategies],
       artifacts: [keyOmitter(Artifacts, ['Daemon Flask'])],
       command_abilities: [keyOmitter(CommandAbilities, ['Shout of Command'])],
       command_traits: [keyOmitter(CommandTraits, ['Unrelenting Conqueror'])],
