@@ -20,8 +20,11 @@ export const ImportTextarea: React.FC<IImportTextAreaProps> = ({ handleDrop }) =
   const [text, setText] = useState('')
   const [isImporting, setIsImporting] = useState(false)
 
+  const isFromAoSListCleaner = text.includes('Made with AoS App List Cleaner')
+
   const canImport =
     text &&
+    !isFromAoSListCleaner &&
     (text.includes(warhammerAppPlaceholders.CREATED_BY_WARHAMMER_APP) ||
       text.startsWith('Army Name: ') ||
       text.includes('Army Type: ') ||
@@ -94,7 +97,11 @@ export const ImportTextarea: React.FC<IImportTextAreaProps> = ({ handleDrop }) =
         )}
         {text && !canImport && (
           <div className="col-12 text-center">
-            <small className={'text-danger'}>This doesn't look like a list from the Warhammer App.</small>
+            <small className={'text-danger'}>
+              {isFromAoSListCleaner
+                ? "We don't support lists from AoS App List Cleaner, sorry."
+                : "This doesn't look like a list from the Warhammer App."}
+            </small>
           </div>
         )}
       </div>

@@ -8,7 +8,7 @@ const getFile = (filename: string): string => {
 }
 
 describe('getWarhammerAppArmy', () => {
-  it.only('should correctly read 1640117854602-Warhammer_App', () => {
+  it('should correctly read 1640117854602-Warhammer_App', () => {
     const parsedText = getFile('1640117854602-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
 

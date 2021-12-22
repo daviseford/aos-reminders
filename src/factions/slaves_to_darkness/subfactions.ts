@@ -153,7 +153,7 @@ const subFactions = {
       ...baseSubFaction.available,
       artifacts: [keyPicker(Artifacts, ['Flask of Daemonblood', 'Grasping Plate', 'Corrupted Nullstone'])],
       command_traits: [
-        keyPicker(CommandTraits, ['Annihilating Charge', 'Inescapeable Doom', 'Wall of Cursed Iron']),
+        keyPicker(CommandTraits, ['Annihilating Charge', 'Inescapable Doom', 'Wall of Cursed Iron']),
       ],
       units: [keyOmitter(Units, ['Idolator Lord on Chaos Chariot', 'Idolator Lord on Gorebeast Chariot'])],
     },

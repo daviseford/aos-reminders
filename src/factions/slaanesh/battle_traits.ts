@@ -144,7 +144,7 @@ const BattleTraits = {
     ],
   },
   // Lurid Haze Flavor
-  'Lurid Haze': {
+  'The Lurid Haze': {
     effects: [
       {
         name: `Billowing Mists`,

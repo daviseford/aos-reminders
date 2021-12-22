@@ -107,7 +107,6 @@ const warscrollTypoMap: Record<string, string> = {
   'Horn of Consort': 'Horn of the Consort',
   'Horrible Resilient': 'Horribly Resilient',
   'In and Out, Lads': 'In and Out, Ladz',
-  'Inescapable Doom': 'Inescapeable Doom',
   'Katakros, Mortarch of the Necropolis': 'Katakros',
   'Khorghos Khul': 'Korghos Khul',
   'Knight Vexillor with Banner of Apotheosis': 'Knight-Vexillor with Banner of Apotheosis',

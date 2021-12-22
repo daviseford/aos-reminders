@@ -74,7 +74,7 @@ const subFactions = {
     effects: pickEffects(BattleTraits, ["The Despoiler's Art"]),
     available: {
       ...baseSubfaction.available,
-      flavors: [keyPicker(Flavors, ['Lurid Haze'])],
+      flavors: [keyPicker(Flavors, ['The Lurid Haze'])],
       command_traits: [
         keyPicker(CommandTraits, [
           'Best of the Best',

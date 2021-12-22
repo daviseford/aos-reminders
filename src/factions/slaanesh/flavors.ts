@@ -5,13 +5,13 @@ import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 
 const Flavors = {
-  'Lurid Haze': {
+  'The Lurid Haze': {
     mandatory: {
       artifacts: [keyPicker(Artifacts, ['Oil of Exultation'])],
       command_traits: [keyPicker(CommandTraits, ['Feverish Anticipation'])],
       command_abilities: [keyPicker(CommandAbilities, ['Intoxicating Pall'])],
     },
-    effects: [...pickEffects(BattleTraits, ['Lurid Haze'])],
+    effects: [...pickEffects(BattleTraits, ['The Lurid Haze'])],
   },
   'Faultless Blades': {
     mandatory: {

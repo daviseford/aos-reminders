@@ -14,6 +14,7 @@ export const warhammerAppPlaceholders = {
   ENHANCEMENTS: '---ENHANCEMENTS---',
   FACTION_NAME_PREFIX: 'FACTION_NAME: ',
   FLAVOR_PREFIX: 'FLAVOR: ',
+  GRAND_STRATEGY_PREFIX: 'Grand Strategy: ',
   GRAND_STRATEGIES_PREFIX: 'Grand Strategies: ',
   INVALID_LIST: `Invalid: ${CREATED_BY_WARHAMMER_APP}`,
   MOUNT_TRAITS_PREFIX: 'Mount Traits: ',
@@ -27,31 +28,38 @@ export const warhammerAppPlaceholders = {
 }
 
 export const cleanWarhammerAppText = (text: string): string[] => {
-  return text
-    .split('\n')
+  const pass1 = text.split('\n').map(txt =>
+    txt
+      .replace(/[‘’]/g, `'`) // Replace special quotes
+      .replace(/[“”]/g, `"`) // Replace special quotes
+      .replace(/[‑–—]/g, `-`) // Replace special dashes
+      .replace(/ /g, ` `) // Remove non ASCII-spaces
+
+      // Replace special characters
+      .replace(/ú/, 'u')
+      .replace(/á/, 'a')
+
+      // Mark our units for later use
+      .replace(/^(Units|BATTLELINE|LEADERS|OTHER|BEHEMOTH)$/g, warhammerAppPlaceholders.UNITS)
+
+      .trim()
+  )
+
+  let pastBeginningSection = false
+  const pass2 = pass1.map(x => {
+    if (x === warhammerAppPlaceholders.UNITS) {
+      pastBeginningSection = true
+      return x
+    }
+    return pastBeginningSection ? x : x.replace(/^- /g, '')
+  })
+
+  // Remove unnecessary info
+  const pass3 = pass2
     .map(txt =>
       txt
-        .replace(/[‘’]/g, `'`) // Replace special quotes
-        .replace(/[“”]/g, `"`) // Replace special quotes
-        .replace(/[‑–—]/g, `-`) // Replace special dashes
-        .replace(/ /g, ` `) // Remove non ASCII-spaces
-
-        // Replace special characters
-        .replace(/ú/, 'u')
-        .replace(/á/, 'a')
-
-        .trim()
-
-        // Replace leading "- "
-        .replace(/^- /g, '')
-        // .replace( // TODO: UNCOMMENT ME
-        //   /^- (Army Faction|Army Type|Subfaction|Points Cost|Host Option|Mark of Chaos|Army Notes|General|Battle Trait Bonus|Reinforced|Battlefield Role|Battlepack|Points Limit|Battalion Slot Filled)/g,
-        //   '$1'
-        // )
-
-        // Remove unnecessary info
         .replace(/ \(General\)$/g, '') // Remove General tag e.g. "Lord Kroak (General)" -> "Lord Kroak"
-        .replace(/^General$/g, '') // Remove General entry
+        .replace(/^- General$/g, '') // Remove General entry
         .replace(
           /^(Army Notes|General|Battle Trait Bonus|Reinforced|Battlefield Role|Battlepack|Points Limit|Battalion Slot Filled): .+/g,
           ''
@@ -69,22 +77,37 @@ export const cleanWarhammerAppText = (text: string): string[] => {
         .replace(/^(Core Battalions|CORE BATTALIONS)$/g, warhammerAppPlaceholders.BATTALIONS)
         .replace(/^Enhancements$/g, warhammerAppPlaceholders.ENHANCEMENTS)
         .replace(/^(Faction Terrain|TERRAIN)$/g, warhammerAppPlaceholders.SCENERY)
-        .replace(/^(Units|BATTLELINE|LEADERS|OTHER|BEHEMOTH)$/g, warhammerAppPlaceholders.UNITS)
+        .replace(/^(Units|BATTLELINE|LEADERS|OTHER|BEHEMOTH|ARTILLERY)$/g, warhammerAppPlaceholders.UNITS)
         .replace(/^Army Faction: /g, warhammerAppPlaceholders.FACTION_NAME_PREFIX)
         .replace(/^Army Type: /g, warhammerAppPlaceholders.SUBFACTION_PREFIX) // Army Type in WH App === Subfactions in AoSr
         .replace(/^Subfaction: /g, warhammerAppPlaceholders.FLAVOR_PREFIX) // Subfactions in WH App === Flavors in AoSr
         .replace(/ \(Coalition Ally\)$/g, warhammerAppPlaceholders.ALLY_SUFFIX) // Mark Allies appropriately
         .replace(/ \(Ally\)$/g, warhammerAppPlaceholders.ALLY_SUFFIX) // Mark Allies appropriately
+        .replace(
+          warhammerAppPlaceholders.GRAND_STRATEGY_PREFIX,
+          warhammerAppPlaceholders.GRAND_STRATEGIES_PREFIX
+        )
 
         // Faction specific and/or special prefixes go here
         .replace(/^Great Endrinworks: /g, warhammerAppPlaceholders.ARTIFACTS_PREFIX)
         .replace(/^Cursed Mutations: /g, warhammerAppPlaceholders.MOUNT_TRAITS_PREFIX)
         .replace(/^Drakeblood Curses: /g, warhammerAppPlaceholders.COMMAND_TRAITS_PREFIX)
 
-        // Remove uncategorized traits (e.g. "- Great Stormbow and Stormstrike Axe")
-        // TODO:
         // One final trim, and we're done!
         .trim()
     )
     .filter(txt => txt && txt.length > 2)
+
+  const validPrefixes = Object.values(warhammerAppPlaceholders)
+  // Remove weapon/unit equipment options that are irrelevant for us
+  const pass4 = pass3
+    .filter(x => {
+      if (x.startsWith('- ')) {
+        return validPrefixes.some(prefix => x.startsWith(`- ${prefix}`))
+      }
+      return true
+    })
+    .map(x => x.replace(/^- /, '').trim())
+
+  return pass4
 }

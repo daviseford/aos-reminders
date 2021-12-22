@@ -415,7 +415,7 @@ describe('getWarscrollArmyFromJson', () => {
   it('should work with 1591871273929-Warscroll_Builder', () => {
     const parsedText = getFile('1591871273929-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.command_traits).toContain('Inescapeable Doom')
+    expect(res.selections.command_traits).toContain('Inescapable Doom')
   })
 
   it('should work with 1592258767793-Warscroll_Builder', () => {

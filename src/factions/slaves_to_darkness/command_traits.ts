@@ -161,10 +161,10 @@ const CommandTraits = {
       },
     ],
   },
-  'Inescapeable Doom': {
+  'Inescapable Doom': {
     effects: [
       {
-        name: `Inescapeable Doom`,
+        name: `Inescapable Doom`,
         desc: `Enemy units within 3" of this general cannot retreat.`,
         when: [MOVEMENT_PHASE],
       },
