@@ -11,7 +11,6 @@ import {
   START_OF_COMBAT_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const CommandAbilities = {
   "Grandfather's Joy": {
@@ -75,13 +74,11 @@ const CommandAbilities = {
         name: `Plague of Flies`,
         desc: `Pick a friendly Nurgle unit within 21" of this model. Until your next hero phase, subtract 1 from the hit rolls of attacks that target that unit in the shooting phase.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Plague of Flies`,
         desc: `If this ability had been activated, subtract 1 from the hit rolls of attacks targeting the buffed unit.`,
         when: [SHOOTING_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

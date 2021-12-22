@@ -2,13 +2,16 @@ import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
+  SHOOTING_PHASE,
+  START_OF_BATTLESHOCK_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
-  START_OF_ROUND,
-  TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 
 const LocusOfCorrosionEffect = {
@@ -29,54 +32,65 @@ const BattleTraits = {
   Nurgle: {
     effects: [
       {
-        name: `Cycle of Corruption`,
-        desc: `Roll a D6 to determine the starting stage of corruption.`,
-        when: [TURN_ONE_START_OF_ROUND],
+        name: `Diseased`,
+        desc: `At the end of the movement phase and at the end of the combat phase, give 1 disease point to each enemy unit that is within 3" of any friendly MAGGOTKIN OF NURGLE units. A unit can have a maximum of 7 disease points at any one time (it cannot be given any more until the number of disease points it has is reduced to less than 7).
+        
+        Designer's Note: Once a unit is 'infected', it will carry over 1 disease point into the next turn unless all disease points it has are healed. `,
+        when: [END_OF_MOVEMENT_PHASE, END_OF_COMBAT_PHASE],
       },
       {
-        name: `Cycle of Corruption`,
-        desc: `The Cycle of Corruption moves clockwise one step.`,
-        when: [START_OF_ROUND],
+        name: `Diseased`,
+        desc: `At the start of the battleshock phase, for each disease point that an enemy unit has, you must make 1 roll (called a disease roll). For each 4+, that unit suffers 1 mortal wound.`,
+        when: [START_OF_BATTLESHOCK_PHASE],
       },
       {
-        name: `Summon Daemons of Nurgle`,
-        desc: `You receive 3 contagion points if there are any friendly Nurgle models in your own territory.
-
-               You receive 3 additional contagion points if there are any friendly Nurgle models in your opponents territory.
-
-               You receive 1 extra contagion point if no enemy models are in a territory occupied by friendly Nurgle units.
-
-               In addition you receive D3 contagion points for each Feculent Gnarlmaw that has no enemy models within 3" of it.`,
+        name: `Diseased`,
+        desc: `At the end of the battleshock phase, reduce the number of disease each enemy unit has to l.`,
+        when: [START_OF_BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Diseased Weapons`,
+        desc: `If the unmodified hit roll for an attack made with a missile weapon or melee weapon by a friendly MAGGOTKIN OF NURGLE model is 6, that attack inflicts 1 disease point on the target unit in addition to any damage it inflicts.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Healing Disease Points`,
+        desc: `When a player uses an ability that allows them to heal any wounds that have been allocated to a unit, for each wound that they are allowed to heal, they can instead remove 1 disease point from the unit.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Disgustingly Resilient`,
+        desc: `Friendly MAGGOTKIN OF NURGLE models have a ward of 5+.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Disgustingly Resilient`,
+        desc: `At the start of your hero phase, you can heal 1 wound allocated to each friendly MAGGOTKIN OF NURGLE model.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Summon Daemons of Nurgle`,
-        desc: `If you have 7 or more contagion points, you can summon one or more units onto the battlefield.
-
-               Summoned units must be set up wholly within 12" of a Feculent Gnarlmaw or a friendly Nurgle hero and more than 9" away from enemy models.
-
-               If the summoned unit is a Feculent Gnarlmaw it must also be setup more than 3" from any other terrain feature and more the 1" from any objectives.
-
-               The cost of any units summoned in this manner is subtracted from the current total available contagion points.`,
+        desc: `You can summon NURGLE DAEMON units and Feculent Gnarlmaws to the battlefield if you have enough contagion points (referred to as 'CPs' in the following rules). At the start of your hero phase, you receive 3 CPs if there are any friendly MAGGOTKIN OF NURGLE units wholly within your territory, and 3 CPs if there are any friendly MAGGOTKIN OF NURGLE units wholly within your opponent's territory. If you receive CPs for a territory and there are no enemy models in that territory, you receive 1 extra CP.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Summon Daemons of Nurgle`,
+        desc: `If you have any CPs at the end phase, you can summon 1 unit or terrain feature from the list below to the battlefield and add it to your army. Each unit or terrain feature you summon costs the number of CPs shown on the list, and you can only summon it if you have enough CPs to do so. Units must be set more than 9" from all enemy units and wholly within 7" of a friendly MAGGOTKIN OF NURGLE HERO or wholly within 7" of a Feculent Gnarlmaw in your army. Feculent Gnarlmaws must be set up more than 7" from all other Feculent Gnarlmaws and more than 3" from all models, objectives, other terrain features, endless spells and invocations.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Summon Daemons of Nurgle`,
         desc: `Summoning Costs:
-               1 Exalted Greater Daemon of Nurgle - 35 CP
-               1 Great Unclean One -                28 CP
-               1 Horticulous Slimux -               21 CP
-               3 Plague Drones -                    21 CP
-               20 Plaguebearers -                   21 CP
-               1 Poxbringer -                       14 CP
-               1 Sloppity Bilepiper -               14 CP
-               1 Spoilpox Scrivener -               14 CP
-               10 Plaguebearers -                   14 CP
-               1 Beast of Nurgle -                  14 CP
-               3 Nurgling Bases -                   14 CP
-               5 Plaguebearers -                    7 CP
-               1 Nurgling Base -                    7 CP
-               1 Feculent Gnarlmaw -                7 CP`,
+
+              Great Unclean One -                     30 CP
+              Plague Drones unit with 3 models -      18 CP
+              PLAGUEBEARER HOST with 10 models -      14 CP
+              Poxbringer, Herald of Nurgle -          12 CP
+              Beasts of Nurgle unit with 1 model -    10 CP
+              Feculent Gnarlmaw -                     9 CP
+              NURGLING SWARM with 3 models -          8 CP
+              Sloppity Bilepiper, Herald of Nurgle -  7 CP
+              Spoilpox Scrivener, Herald of Nurgle -  7 CP`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {

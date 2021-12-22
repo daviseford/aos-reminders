@@ -14,7 +14,6 @@ import {
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const Spells = {
   // Unit Spells
@@ -33,7 +32,6 @@ const Spells = {
         name: `Deluge of Nurgle`,
         desc: `Casting value of 7. If successful roll 7 dice. For each roll that equals or beats the value from the damage table, pick a visible enemy unit and deal D3 mortal wounds to it. 'If more than one roll causes mortal wounds, you must pick a different enemy unit to suffer each set of mortal wounds.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

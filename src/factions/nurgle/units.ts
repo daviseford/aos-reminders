@@ -20,7 +20,6 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
-import rule_sources from './rule_sources'
 import Spells from './spells'
 
 const baseSorcerer = {
@@ -64,7 +63,6 @@ const BlightedWeaponsEffect = {
   name: `Blighted Weapons`,
   desc: `If the unmodified hit roll for an attack made with this unit's Blighted Weapons is 6, that attack scores D6 hits on the target instead of 1. Make a wound and save roll for each hit.`,
   when: [COMBAT_PHASE],
-  rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JULY_2021],
   shared: true,
 }
 const VirulentDischargeEffect = {
@@ -268,13 +266,11 @@ const Units = {
         name: `Cloud of Flies`,
         desc: `Subtract 1 from hit rolls for attacks that target this unit while it has at least 10 models.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Locus of Fecundity`,
         desc: `Add 1 to save rolls for attacks that target this unit while it is within 7" of a friendly Nurgle Daemon Hero.`,
         when: [SAVES_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -522,7 +518,6 @@ const Units = {
         name: `Vermid Shield`,
         desc: `In the combat phase, add 1 to save rolls for attacks that target this unit.`,
         when: [SAVES_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -569,7 +564,6 @@ const Units = {
         name: `Plague-ridden Great Weapons`,
         desc: `If the unmodified hit roll for an attack made with a melee weapon by this unit is 6, that attack scores D6 hits on the target instead of 1. Make a wound and save roll for each hit.`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
