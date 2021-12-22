@@ -175,7 +175,7 @@ const Artifacts = {
     effects: [
       {
         name: `The Shield of Growths`,
-        desc: `You can re-roll save rolls for attacks that target the bearer if the save roll is equal to or less than the number of wounds allocated to the bearer.`,
+        desc: `You can reroll save rolls for attacks that target the bearer if the save roll is equal to or less than the number of wounds allocated to the bearer.`,
         when: [SAVES_PHASE],
       },
     ],
