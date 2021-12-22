@@ -24,7 +24,7 @@ describe('warhammerAppUtils', () => {
       'Auric Runefather',
       warhammerAppPlaceholders.ENHANCEMENTS,
       'Command Traits: Destroyer of Foes',
-      'Artefacts of Power: Helm of Obsidia',
+      'Artefacts: Helm of Obsidia',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       `Bundo Whalebiter${warhammerAppPlaceholders.ALLY_SUFFIX}`,
@@ -38,7 +38,7 @@ describe('warhammerAppUtils', () => {
 
       'Auric Runesmiter',
       warhammerAppPlaceholders.ENHANCEMENTS,
-      'Artefacts of Power: Ancestor Helm',
+      'Artefacts: Ancestor Helm',
       'Prayers: Prayer Of Ash',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
@@ -47,7 +47,7 @@ describe('warhammerAppUtils', () => {
 
       'Auric Runeson',
       warhammerAppPlaceholders.ENHANCEMENTS,
-      'Artefacts of Power: Helm of Obsidia',
+      'Artefacts: Helm of Obsidia',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       'Auric Runeson on Magmadroth',
@@ -55,7 +55,7 @@ describe('warhammerAppUtils', () => {
 
       'Battlesmith',
       warhammerAppPlaceholders.ENHANCEMENTS,
-      'Artefacts of Power: Draught of Magmalt Ale',
+      'Artefacts: Draught of Magmalt Ale',
       warhammerAppPlaceholders.END_OF_ENTRY,
 
       'Fjul-Grimnir',
@@ -87,7 +87,7 @@ describe('warhammerAppUtils', () => {
       // 'Battlepack: Pitched Battles',
       // 'Points Limit: 2000 pts',
 
-      'Grand Strategies: Prized Sorcery',
+      'Grand Strategy: Prized Sorcery',
 
       'Triumphs: Inspired',
 
@@ -131,7 +131,7 @@ describe('warhammerAppUtils', () => {
       // 'Battalion Slot Filled: Commander',
       // 'Battlefield Role: Behemoth, Leader',
       warhammerAppPlaceholders.ENHANCEMENTS,
-      'Artefacts of Power: Amulet of Destiny',
+      'Artefacts: Amulet of Destiny',
       'Spells: Tide of Serpents',
       // 'Points Cost: 270 pts',
       warhammerAppPlaceholders.END_OF_ENTRY,
@@ -348,7 +348,7 @@ describe('warhammerAppUtils', () => {
 
       `Great Bray-Shaman${warhammerAppPlaceholders.ALLY_SUFFIX}`,
       warhammerAppPlaceholders.ENHANCEMENTS,
-      'Artefacts of Power: Fallacious Gift',
+      'Artefacts: Fallacious Gift',
       'Spells: Ghost-mist',
       warhammerAppPlaceholders.END_OF_ENTRY,
 

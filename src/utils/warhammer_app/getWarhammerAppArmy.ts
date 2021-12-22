@@ -14,6 +14,7 @@ export const getWarhammerAppArmy = (text: string): IImportedArmy => {
   const cleanedText = cleanWarhammerAppText(text)
   const army = getInitialWarhammerAppArmy(cleanedText)
   const errorChecked = importErrorChecker(army, WARHAMMER_APP)
+  debugger
   return errorChecked
 }
 
@@ -31,7 +32,7 @@ const {
   ENHANCEMENTS,
   FACTION_NAME_PREFIX,
   FLAVOR_PREFIX,
-  GRAND_STRATEGIES_PREFIX,
+  GRAND_STRATEGY_PREFIX,
   INVALID_LIST,
   MOUNT_TRAITS_PREFIX,
   PRAYERS_PREFIX,
@@ -57,6 +58,7 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
     (accum, txt) => {
       // Ignore these lines when processing
       if (
+        // @ts-expect-error
         [END_OF_LIST, ENHANCEMENTS, VALID_LIST, INVALID_LIST, END_OF_ENTRY].includes(txt) ||
         txt.startsWith(ARMY_NAME_PREFIX) ||
         txt.startsWith(ARMY_NOTES_PREFIX) ||
@@ -144,8 +146,8 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
         return accum
       }
 
-      if (txt.startsWith(GRAND_STRATEGIES_PREFIX)) {
-        const grand_strategy = txt.replace(GRAND_STRATEGIES_PREFIX, '').trim()
+      if (txt.startsWith(GRAND_STRATEGY_PREFIX)) {
+        const grand_strategy = txt.replace(GRAND_STRATEGY_PREFIX, '').trim()
         accum.grand_strategies.push(grand_strategy)
         return accum
       }

@@ -4,7 +4,7 @@ export const warhammerAppPlaceholders = {
   ALLY_SUFFIX: ' (ALLY)',
   ARMY_NAME_PREFIX: 'Army Name: ',
   ARMY_NOTES_PREFIX: 'Army Notes: ',
-  ARTIFACTS_PREFIX: 'Artefacts of Power: ',
+  ARTIFACTS_PREFIX: 'Artefacts: ',
   BATTALIONS: '---BATTALIONS---',
   COMMAND_TRAITS_PREFIX: 'Command Traits: ',
   CREATED_BY_WARHAMMER_APP,
@@ -15,7 +15,6 @@ export const warhammerAppPlaceholders = {
   FACTION_NAME_PREFIX: 'FACTION_NAME: ',
   FLAVOR_PREFIX: 'FLAVOR: ',
   GRAND_STRATEGY_PREFIX: 'Grand Strategy: ',
-  GRAND_STRATEGIES_PREFIX: 'Grand Strategies: ',
   INVALID_LIST: `Invalid: ${CREATED_BY_WARHAMMER_APP}`,
   MOUNT_TRAITS_PREFIX: 'Mount Traits: ',
   PRAYERS_PREFIX: 'Prayers: ',
@@ -25,7 +24,7 @@ export const warhammerAppPlaceholders = {
   TRIUMPHS_PREFIX: 'Triumphs: ',
   UNITS: '---UNITS---',
   VALID_LIST: `Valid: ${CREATED_BY_WARHAMMER_APP}`,
-}
+} as const
 
 export const cleanWarhammerAppText = (text: string): string[] => {
   const pass1 = text.split('\n').map(txt =>
@@ -60,6 +59,8 @@ export const cleanWarhammerAppText = (text: string): string[] => {
       txt
         .replace(/ \(General\)$/g, '') // Remove General tag e.g. "Lord Kroak (General)" -> "Lord Kroak"
         .replace(/^- General$/g, '') // Remove General entry
+        .replace(/^General$/g, '') // Remove General entry
+        .replace(/^Triumps: /g, warhammerAppPlaceholders.TRIUMPHS_PREFIX) // fix a typo
         .replace(
           /^(Army Notes|General|Battle Trait Bonus|Reinforced|Battlefield Role|Battlepack|Points Limit|Battalion Slot Filled): .+/g,
           ''
@@ -74,19 +75,20 @@ export const cleanWarhammerAppText = (text: string): string[] => {
         .replace(/^(Total Points|TOTAL POINTS): .+/g, warhammerAppPlaceholders.END_OF_LIST) // Replace "Total Points: 2000 pts" with a constant separator (helps to mark the end of a list)
         .replace('Endless Spells/Invocations', warhammerAppPlaceholders.ENDLESS_SPELLS)
         .replace(/^ENDLESS SPELLS & INVOCATIONS/g, warhammerAppPlaceholders.ENDLESS_SPELLS)
-        .replace(/^(Core Battalions|CORE BATTALIONS)$/g, warhammerAppPlaceholders.BATTALIONS)
+        .replace(/^(Core Battalions|CORE BATTALIONS|CORE BATTALIONS:)$/g, warhammerAppPlaceholders.BATTALIONS)
         .replace(/^Enhancements$/g, warhammerAppPlaceholders.ENHANCEMENTS)
         .replace(/^(Faction Terrain|TERRAIN)$/g, warhammerAppPlaceholders.SCENERY)
-        .replace(/^(Units|BATTLELINE|LEADERS|OTHER|BEHEMOTH|ARTILLERY)$/g, warhammerAppPlaceholders.UNITS)
+        .replace(
+          /^(Units|BATTLELINE|LEADERS|OTHER|BEHEMOTH|ARTILLERY|LEADER)$/g,
+          warhammerAppPlaceholders.UNITS
+        )
         .replace(/^Army Faction: /g, warhammerAppPlaceholders.FACTION_NAME_PREFIX)
         .replace(/^Army Type: /g, warhammerAppPlaceholders.SUBFACTION_PREFIX) // Army Type in WH App === Subfactions in AoSr
-        .replace(/^Subfaction: /g, warhammerAppPlaceholders.FLAVOR_PREFIX) // Subfactions in WH App === Flavors in AoSr
+        .replace(/^(Subfaction|Army Subfaction): /g, warhammerAppPlaceholders.FLAVOR_PREFIX) // Subfactions in WH App === Flavors in AoSr
         .replace(/ \(Coalition Ally\)$/g, warhammerAppPlaceholders.ALLY_SUFFIX) // Mark Allies appropriately
         .replace(/ \(Ally\)$/g, warhammerAppPlaceholders.ALLY_SUFFIX) // Mark Allies appropriately
-        .replace(
-          warhammerAppPlaceholders.GRAND_STRATEGY_PREFIX,
-          warhammerAppPlaceholders.GRAND_STRATEGIES_PREFIX
-        )
+        .replace(/^Artefacts of Power: /g, warhammerAppPlaceholders.ARTIFACTS_PREFIX)
+        .replace(/^Grand Strategies: /, warhammerAppPlaceholders.GRAND_STRATEGY_PREFIX)
 
         // Faction specific and/or special prefixes go here
         .replace(/^Great Endrinworks: /g, warhammerAppPlaceholders.ARTIFACTS_PREFIX)
