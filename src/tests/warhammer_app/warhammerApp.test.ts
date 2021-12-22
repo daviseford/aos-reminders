@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import { MEGA_GARGANT_MERCENARIES, SERAPHON, SKAVEN } from 'meta/factions'
+import { GLOOMSPITE_GITZ, MEGA_GARGANT_MERCENARIES, SERAPHON, SKAVEN } from 'meta/factions'
 import path from 'path'
 import { getWarhammerAppArmy } from 'utils/warhammer_app/getWarhammerAppArmy'
 
@@ -8,6 +8,24 @@ const getFile = (filename: string): string => {
 }
 
 describe('getWarhammerAppArmy', () => {
+  it('should correctly read Dec_22_update', () => {
+    const parsedText = getFile('Dec_22_update')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
+    expect(res.selections.flavors).toContain("Glogg's Megamob")
+    expect(res.selections.units).toContain('Loonboss')
+    expect(res.selections.artifacts).toContain('Aetherquartz-studded Hide')
+    expect(res.selections.artifacts).toContain('Amulet of Destiny')
+    expect(res.selections.grand_strategies).toContain('Sever the Head')
+    expect(res.selections.spells).toContain('Call da Moon')
+    expect(res.selections.spells).toContain('Itchy Nuisance')
+    expect(res.selections.battalions).toContain('Battle Regiment')
+    expect(res.selections.battalions).toContain('Linebreaker')
+    expect(res.selections.battalions).toContain('Warlord')
+    expect(res.selections.scenery).toContain('Bad Moon Loonshrine')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1640117854602-Warhammer_App', () => {
     const parsedText = getFile('1640117854602-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)

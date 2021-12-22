@@ -64,7 +64,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
       // or 'Davis Ford - Allegiance: Seraphon - Mortal Realm: Ghyran',
       if (txt.includes('Allegiance:')) {
         const nameRemoved = txt.replace(/(.+)?Allegiance: /g, '')
-        const parts = nameRemoved.split('-').map(t => t.trim())
+        const parts = nameRemoved.split(' - ').map(t => t.trim())
         const name = parts[0].trim()
 
         const factionLookup = importFactionNameMap[name]

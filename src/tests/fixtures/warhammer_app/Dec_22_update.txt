@@ -1,0 +1,99 @@
+Army Faction: Gloomspite Gitz
+	- Army Subfaction: Glogg's Megamob
+	- Grand Strategy: Sever the Head
+	- Triumps: Sever the Head
+
+LEADER
+
+Fungoid Cave-Shaman (95)
+
+Dankhold Troggboss (250)
+	- General
+	- Command Traits: Pulverising Grip
+	- Artefacts: Aetherquartz-studded Hide
+
+Gordrakk (560)
+
+Loonboss (75)
+
+Dankhold Troggboss (250)
+	- Artefacts: Amulet of Destiny
+
+Kragnos (720)
+
+Madcap Shamans (80)
+
+Madcap Shamans (80)
+
+Zarbag (185)
+	- Spells: Call da Moon, Itchy Nuisance
+
+Dankhold Troggboss (250)
+
+Gordrakk (560)
+
+Loonboss (75)
+
+Loonboss (75)
+
+Loonboss (75)
+
+Loonboss (75)
+
+Loonboss (75)
+
+Madcap Shamans (80)
+
+BATTLELINE
+
+Shootas (140)
+
+Stabbas (150)
+
+Stabbas (150)
+
+Shootas (140)
+
+Shootas (140)
+
+Rockgut Troggoths (145)
+
+ARTILLERY
+
+Squig Gobba (175)
+
+BEHEMOTH
+
+Colossal Squig (325)
+
+Aleguzzler Gargant (165)
+
+Arachnarok Spider With Spiderfang Warparty (225)
+
+Arachnarok Spider With Flinger (230)
+
+TERRAIN
+
+Bad Moon Loonshrine (0)
+
+OTHER
+
+Boggleye (190)
+
+1 x Boingrot Bounderz (210)
+
+Squig Hoppers (180)
+
+Sporesplatta Fanatics (135)
+
+CORE BATTALIONS:
+
+Battle Regiment
+
+Linebreaker
+
+Warlord
+
+TOTAL POINTS: (6260/2000)
+
+Created with Warhammer Age of Sigmar: The App
