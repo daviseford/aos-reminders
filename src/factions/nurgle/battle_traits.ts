@@ -5,28 +5,17 @@ import {
   DURING_GAME,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
+  END_OF_SETUP,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
+  START_OF_SETUP,
   TURN_ONE_START_OF_ROUND,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-
-const LocusOfCorrosionEffect = {
-  name: `Locus of Corrosion`,
-  desc: `While an enemy unit is within 3" of any friendly Munificent Wanderers/Droning Guard daemon units, worsen the rend characteristic of that unit's melee weapons by 1 (to a minimum of '-'). Nurgle units are unaffected by this ability.`,
-  when: [COMBAT_PHASE],
-  shared: true,
-}
-
-const NurglesEmbraceEffect = {
-  name: `Nurgle's Embrace`,
-  desc: `Roll a D6 each time a friendly Blessed Sons/Drowned Men Rotbringer model is slain in this phase. On a 2+ the attacking unit suffers 1 mortal wound. If the attacking unit has the Nurgle keyword, heal 1 wound allocated to the unit instead.`,
-  when: [COMBAT_PHASE],
-  shared: true,
-}
 
 const BattleTraits = {
   Nurgle: {
@@ -123,14 +112,67 @@ const BattleTraits = {
       },
     ],
   },
-  // Munificent Wanderers/Droning Guard Battle Traits
-  'Locus of Corrosion': {
-    effects: [LocusOfCorrosionEffect],
+  // Munificent Wanderers
+  'Infested With Wonders': {
+    effects: [
+      {
+        name: `Infested With Wonders`,
+        desc: `If an enemy unit is within 3" of a friendly MUNIFICENT WANDERERS PLAGUEBEARER HOST that has 10 or more models at the end of the movement phase or combat phase, it receives 2 disease points instead of 1 for being within 3" of any friendly MAGGOTKIN OF NURGLE units.`,
+        when: [END_OF_MOVEMENT_PHASE, END_OF_COMBAT_PHASE],
+      },
+    ],
   },
-  // Blessed Sons/Drowned Men Battle Traits
+  // Befouling Host
+  'Festerbark Pox': {
+    effects: [
+      {
+        name: `Festerbark Pox`,
+        desc: `A Befouling Host army that has a DAEMON general can include 2 Feculent Gnarlmaws instead of 1. Set up the second Feculent Gnarlmaw wholly within your territory, more than 7" from all other Feculent Gnarlmaws and more than 3" from all objectives and other terrain features.`,
+        when: [START_OF_SETUP],
+      },
+    ],
+  },
+  // Droning Guard
+  'Cloying Stench': {
+    effects: [
+      {
+        name: `Cloying Stench`,
+        desc: `Subtract 1 from hit rolls for attacks that target friendly PLAGUE DRONES units in the first battle round and in the battle round in which they were set up.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+  // Blessed Sons
   "Nurgle's Embrace": {
-    effects: [NurglesEmbraceEffect],
+    effects: [
+      {
+        name: `Nurgle's Embrace`,
+        desc: `If a friendly BLESSED SONS MORTAL model is slain within 1" of an enemy unit, before removing that model from play, pick 1 enemy unit within 1" of that model and roll a number of dice equal to the Wounds characteristic of that model. For each 6, give that enemy unit 1 disease point.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
   },
+  // Drowned Men
+  'Lords of Sea and Sky': {
+    effects: [
+      {
+        name: `Lords of Sea and Sky`,
+        desc: `After deployment but before the first battle round begins, you can move each friendly DROWNED MEN LORD OF AFFLICTIONS and PUSGOYLE BLIGHTLORDS unit up to 8". If both players can move units before the first battle round begins, they must roll off and the winner chooses who moves their units first.`,
+        when: [END_OF_SETUP],
+      },
+    ],
+  },
+  // Filthbringers
+  'Rot Covens': {
+    effects: [
+      {
+        name: `Rot Covens`,
+        desc: `You can include Rot Covens in your army (pg 104). At the start of hero phase, you can pick 1 WIZARD from each Rot Coven in your army. Add 1 to casting, unbinding, and dispelling rolls for that WIZARD in that phase. Add 2 instead of 1 if that WIZARD is within 3" of 1 other WIZARD from the same Rot Coven. Add 3 instead of 1 if that WIZARD is within 3" of 2 other WIZARDS from the same Rot Coven.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+
   // Tamurkhan's Horde Battle Traits
   "Tamurkhan's Horde": {
     effects: [
