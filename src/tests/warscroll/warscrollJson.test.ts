@@ -37,6 +37,34 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1636812085343-Warscroll_Builder', () => {
+    const parsedText = getFile('1636812085343-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Chaos Warshrine')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1639251960341-Warscroll_Builder', () => {
+    const parsedText = getFile('1639251960341-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Dracothian Guard Fulminators')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1639742595022-Warscroll_Builder', () => {
+    const parsedText = getFile('1639742595022-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Celestant-Prime')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1639830310424-Warscroll_Builder', () => {
+    const parsedText = getFile('1639830310424-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.factionName).toEqual(FLESH_EATER_COURTS)
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1636494719233-Warscroll_Builder', () => {
     const parsedText = getFile('1636494719233-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
