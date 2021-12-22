@@ -73,6 +73,8 @@ const warscrollTypoMap: Record<string, string> = {
   'Brimstone Horrors of Tzeentch': 'Horrors of Tzeentch',
   'Brute Fist': 'BruteFist',
   'Bursting with Power': "Burstin' with Power",
+  'Celestant-Prime, Hammer of Sigmar': 'Celestant-Prime',
+  'Idolator Chaos Warshrine': 'Chaos Warshrine',
   'Chaos Gorebeast Chariots': 'Gorebeast Chariots',
   'Corpse Cart with Balefire Brazier': 'Corpse Cart w/ Balefire Brazier',
   'Corpse Cart with Unholy Lodestone': 'Corpse Cart w/ Unholy Lodestone',
