@@ -13,7 +13,7 @@ import { cleanWarhammerAppText, warhammerAppPlaceholders } from './warhammerAppU
 export const getWarhammerAppArmy = (text: string): IImportedArmy => {
   const cleanedText = cleanWarhammerAppText(text)
   const army = getInitialWarhammerAppArmy(cleanedText)
-  const errorChecked = importErrorChecker(army, WARHAMMER_APP) 
+  const errorChecked = importErrorChecker(army, WARHAMMER_APP)
   return errorChecked
 }
 
