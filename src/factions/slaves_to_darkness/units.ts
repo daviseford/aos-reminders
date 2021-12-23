@@ -193,12 +193,7 @@ const Units = {
     },
     effects: [
       ChaosMarkAll,
-      {
-        name: `Wizard`,
-        desc: `This unit can attempt to cast 2 spells in your hero phase and attempt to unbind 2 spells in the enemy hero phase.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_DECEMBER_2021],
-      },
+      GenericEffects.WizardTwoSpellsEffect,
       {
         name: `Warmaster`,
         desc: `If this unit is included in your army, it is treated as a general even if it is not the model picked to be the army's general. In addition, this unit can be included in a Blades of Khorne, Disciples of Tzeentch, Maggotkin of Nurgle or Hedonites of Slaanesh army. If you do so, you can still use the army's allegiance abilities even though this unit is not from the army's faction; however, this unit does not benefit from them.`,

@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -30,18 +31,7 @@ const MountainOfLoathsomeFleshEffect = {
   when: [END_OF_CHARGE_PHASE],
   shared: true,
 }
-const WizardOneSpellEffect = {
-  name: `Wizard`,
-  desc: `This unit can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase.`,
-  when: [HERO_PHASE],
-  shared: true,
-}
-const WizardTwoSpellsEffect = {
-  name: `Wizard`,
-  desc: `This unit can attempt to cast 2 spells in your hero phase and attempt to unbind 2 spells in the enemy hero phase.`,
-  when: [HERO_PHASE],
-  shared: true,
-}
+
 const TaintedEndlessSpellEffect = {
   name: `Tainted Endless Spell`,
   desc: `If this unit summons an endless spell, then for the purposes of the Diseased battle trait, that endless spell is treated as a unit with the Maggotkin of Nurgle keyword that is in the same army as this unit.`,
@@ -74,7 +64,7 @@ const Units = {
     },
     effects: [
       WarmasterEffect,
-      WizardTwoSpellsEffect,
+      GenericEffects.WizardTwoSpellsEffect,
       BloatedWithCorruptionEffect,
       {
         name: `The Rainfather`,
@@ -89,7 +79,7 @@ const Units = {
       spells: [keyPicker(Spells, ['Plague Wind'])],
     },
     effects: [
-      WizardTwoSpellsEffect,
+      GenericEffects.WizardTwoSpellsEffect,
       BloatedWithCorruptionEffect,
       MountainOfLoathsomeFleshEffect,
       {
@@ -109,7 +99,7 @@ const Units = {
       spells: [keyPicker(Spells, ['Eruptive Infestation'])],
     },
     effects: [
-      WizardOneSpellEffect,
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Captain of the Tallybands`,
         desc: `In the combat phase, when you pick this unit to fight for the first time in that phase, you can pick 1 friendly Plaguebearer Host wholly within 12" of this unit and that has not yet fought in that phase. This unit and that Plaguebearer Host can fight one after the other in the order of your choice.`,
@@ -301,7 +291,7 @@ const Units = {
     },
     effects: [
       WarmasterEffect,
-      WizardTwoSpellsEffect,
+      GenericEffects.WizardTwoSpellsEffect,
       {
         name: `Horrific Opponent`,
         desc: `At the start of the enemy movement phase, you must roll 2D6 for each enemy unit that is within 3" of this unit. If the roll is equal to or greater than that unit's Bravery characteristic, that unit must retreat in that phase or it suffers D6 mortal wounds.`,
@@ -330,7 +320,7 @@ const Units = {
       spells: [keyPicker(Spells, ['Miasma of Pestilence'])],
     },
     effects: [
-      WizardOneSpellEffect,
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Daemon-flies`,
         desc: `At the start of the combat phase and the enemy shooting phase, roll a dice for each enemy unit within 7" of this unit. On a 4+, that enemy unit suffers 1 mortal wound and subtract 1 from hit rolls for attacks made by that enemy unit in that phase.`,
@@ -386,7 +376,7 @@ const Units = {
       spells: [keyPicker(Spells, ["The Leechlord's Curse"])],
     },
     effects: [
-      WizardOneSpellEffect,
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Delightful Brews, Splendid Restoratives`,
         desc: `At the start of your hero phase, you can pick 1 unit within 1 " of this unit. If you pick a friendly unit, roll a dice. On a 2+, you can heal up to D3 wounds allocated to that unit. If you pick an enemy unit, roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
@@ -412,7 +402,7 @@ const Units = {
     mandatory: {
       spells: [keyPicker(Spells, ['Stream of Corruption'])],
     },
-    effects: [WizardOneSpellEffect, TaintedEndlessSpellEffect],
+    effects: [GenericEffects.WizardOneSpellEffect, TaintedEndlessSpellEffect],
   },
   'Lord of Blights': {
     effects: [
@@ -506,7 +496,7 @@ const Units = {
       spells: [keyPicker(Spells, ['Stream of Corruption'])],
     },
     effects: [
-      WizardOneSpellEffect,
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Retchling`,
         desc: `Once per battle, in your hero phase, you can choose for this unit to channel the power of its familiar. If you do so, this unit can attempt to cast 1 additional spell that phase.`,
