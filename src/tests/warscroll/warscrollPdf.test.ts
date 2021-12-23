@@ -153,7 +153,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.flavors).toContain('Droning Guard')
     expect(res.selections.grand_strategies).toContain('Beast Master')
     expect(res.selections.prayers).toContain('Guidance')
-    expect(res.selections.spells).toContain('Gift of Contagion')
     expect(res.selections.spells).toContain('Levitate')
     expect(res.selections.triumphs).toContain('Bloodthirsty')
   })
@@ -176,7 +175,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.flavors).toContain('Droning Guard')
     expect(res.selections.grand_strategies).toContain('Beast Master')
     expect(res.selections.prayers).toContain('Guidance')
-    expect(res.selections.spells).toContain('Gift of Contagion')
     expect(res.selections.spells).toContain('Levitate')
     expect(res.selections.triumphs).toContain('Bloodthirsty')
   })
@@ -199,7 +197,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.flavors).toContain('Droning Guard')
     expect(res.selections.grand_strategies).toContain('Beast Master')
     expect(res.selections.prayers).toContain('Guidance')
-    expect(res.selections.spells).toContain('Gift of Contagion')
     expect(res.selections.spells).toContain('Levitate')
     expect(res.selections.triumphs).toContain('Bloodthirsty')
 

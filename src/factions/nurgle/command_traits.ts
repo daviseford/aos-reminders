@@ -3,7 +3,6 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
@@ -11,6 +10,7 @@ import {
   START_OF_ROUND,
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
+
 const CommandTraits = {
   "Grandfather's Blessing": {
     effects: [
@@ -93,86 +93,6 @@ const CommandTraits = {
       },
     ],
   },
-  // // Mortal Traits
-  // 'Hideous Visage': {
-  //   effects: [
-  //     {
-  //       name: `Hideous Visage`,
-  //       desc: `Subtract 2 from the Bravery characterisic of enemy units while they are within 3" of your general.`,
-  //       when: [DURING_GAME],
-  //     },
-  //   ],
-  // },
-  // 'Virulent Contagion': {
-  //   effects: [
-  //     {
-  //       name: `Virulent Contagion`,
-  //       desc: `Improve the Rend characterisic by 1 for attacks made by your general in the combat phase.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // // Munificent Wanderers Command Traits
-  // 'One Last Gift': {
-  //   effects: [
-  //     {
-  //       name: `One Last Gift`,
-  //       desc: `If the unmodified hit roll for an attack made with a melee weapon by an enemy unit that targets a friendly MUNIFICENT WANDERERS DAEMON unit that is wholly within 12" of this general is 1, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-  //       when: [COMBAT_PHASE],
-  //       rule_sources: [meta_rule_sources.ERRATA_WRATH_OF_THE_EVERCHOSEN_AUGUST_2021],
-  //     },
-  //   ],
-  // },
-  // // Droning Guard Command Traits
-  // 'Rotwing Commander': {
-  //   effects: [
-  //     {
-  //       name: `Rotwing Commander`,
-  //       desc: `After armies have been setup before the first battle round, friendly Droning Guard Plague Drones units can move up to 4".`,
-  //       when: [END_OF_SETUP],
-  //     },
-  //   ],
-  // },
-  // // Blessed Sons Command Traits
-  // 'Foul Conqueror': {
-  //   effects: [
-  //     {
-  //       name: `Foul Conqueror`,
-  //       desc: `Once per turn you can use the At the Double command ability on a friendly Blessed Sons Rotbringer unit within 12" of this general without spending any command points.`,
-  //       when: [MOVEMENT_PHASE],
-  //     },
-  //   ],
-  // },
-  // // Drowned Men Command Traits
-  // 'Bloated Raider': {
-  //   effects: [
-  //     {
-  //       name: `Bloated Raider`,
-  //       desc: `You can reroll charge rolls for friendly Drowned Men Pusgoyle Blightlords units wholly within 14" of this general.`,
-  //       when: [CHARGE_PHASE],
-  //     },
-  //   ],
-  // },
-  // Tamurkhan's Horde Command Traits
-  'Unrelenting Conqueror': {
-    effects: [
-      {
-        name: `Unrelenting Conqueror`,
-        desc: `Add 1 to run rolls for friendly Tamurkhan's Horde units while they are wholly within 14" of this general.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  // Invidian Plaguehost
-  // 'Rude Limericks': {
-  //   effects: [
-  //     {
-  //       name: `Rude Limericks`,
-  //       desc: `Add 1 to the Bravery characteristic of battalion Nurgle Daemon units wholly within 14" of the battaltion Sloppity Bilepiper. This is additive with Disease of Mirth.`,
-  //       when: [DURING_GAME],
-  //     },
-  //   ],
-  // },
 }
 
 export default tagAs(CommandTraits, 'command_trait')

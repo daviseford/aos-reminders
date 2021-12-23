@@ -1,5 +1,4 @@
 import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
-import { NurgleFaction } from 'factions/nurgle'
 import { OrrukWarclansFaction } from 'factions/orruk_warclans'
 import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { StormcastFaction } from 'factions/stormcast_eternals'
@@ -519,10 +518,6 @@ export const importFactionNameMap: Record<
   "Mercenaries: Skroug's Menagerie": { factionName: MERCENARY_COMPANIES },
   "Nimyard's Rough-Riders": { factionName: MERCENARY_COMPANIES },
   "Skroug's Menagerie": { factionName: MERCENARY_COMPANIES },
-  "Tamurkhan's Horde": {
-    factionName: NURGLE,
-    subFactionName: NurgleFaction.subFactionKeyMap["Tamurkhan's Horde"],
-  },
   Bonesplitterz: {
     factionName: ORRUK_WARCLANS,
     subFactionName: OrrukWarclansFaction.subFactionKeyMap.Bonesplitterz,

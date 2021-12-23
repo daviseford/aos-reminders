@@ -50,15 +50,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'The Bileheart': {
-  //   effects: [
-  //     {
-  //       name: `The Bileheart`,
-  //       desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer in the combat phase (and it is not negated). On a 4+ the attacking unit suffers 1 mortal wound after all its attacks have been made.`,
-  //       when: [WOUND_ALLOCATION_PHASE],
-  //     },
-  //   ],
-  // },
   'The Fecund Flask': {
     effects: [
       {
@@ -68,7 +59,6 @@ const Artifacts = {
       },
     ],
   },
-  // Daemon Artifacts
   'Noxious Nexus': {
     effects: [
       {
@@ -126,15 +116,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'The Virulent Blade': {
-  //   effects: [
-  //     {
-  //       name: `The Virulent Blade`,
-  //       desc: `Pick one of the bearer's melee weapons to be the Virulent Blade. Add 1 to the damage characteristic for attacks made by this weapon for wound rolls of 5+.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
   'The Foetid Shroud': {
     effects: [
       {
@@ -144,15 +125,6 @@ const Artifacts = {
       },
     ],
   },
-  // "Sublucus' Stenchplate": {
-  //   effects: [
-  //     {
-  //       name: `Sublucus' Stenchplate`,
-  //       desc: `Enemy units that are within 3" of the bearer at the end of their movement phase suffer D3 mortal wounds.`,
-  //       when: [MOVEMENT_PHASE],
-  //     },
-  //   ],
-  // },
   'The Eye of Nurgle': {
     effects: [
       {
@@ -162,66 +134,12 @@ const Artifacts = {
       },
     ],
   },
-  // 'The Carrion Dirge': {
-  //   effects: [
-  //     {
-  //       name: `The Carrion Dirge`,
-  //       desc: `Subtract 2 from the Bravery characteristic of enemy unit while they are within 12" of the bearer.`,
-  //       when: [DURING_GAME],
-  //     },
-  //   ],
-  // },
   'The Shield of Growths': {
     effects: [
       {
         name: `The Shield of Growths`,
         desc: `You can reroll save rolls for attacks that target the bearer if the save roll is equal to or less than the number of wounds allocated to the bearer.`,
         when: [SAVES_PHASE],
-      },
-    ],
-  },
-  // Mucktalon: {
-  //   effects: [
-  //     {
-  //       name: `Mucktalon`,
-  //       desc: `Add 1 to hit rolls for attacks made with this weapon if the target is a hero.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Cloak of Flies': {
-  //   effects: [
-  //     {
-  //       name: `Cloak of Flies`,
-  //       desc: `Subtract 1 from melee hit rolls made against the bearer.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Blotshell Bileplate': {
-  //   effects: [
-  //     {
-  //       name: `Blotshell Bileplate`,
-  //       desc: `You can reroll save rolls for attacks targeting the bearer.`,
-  //       when: [SAVES_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Rot-kraken Hide': {
-  //   effects: [
-  //     {
-  //       name: `Rot-kraken Hide`,
-  //       desc: `Add 1 to the bearer's wounds characteristic.`,
-  //       when: [WOUND_ALLOCATION_PHASE],
-  //     },
-  //   ],
-  // },
-  'Daemon Flask': {
-    effects: [
-      {
-        name: `Daemon Flask`,
-        desc: `Once per battle, the bearer can use this artifact. If they do so, roll a D6 for each enemy unit within 12" of the bearer. You can reroll the dice for a unit that is a War Machine or is within 3" of a terrain feature. On a 4+ that unit suffers 1 mortal wound. On a 6, that unit suffers D3 mortal wounds instead of 1.`,
-        when: [START_OF_HERO_PHASE],
       },
     ],
   },

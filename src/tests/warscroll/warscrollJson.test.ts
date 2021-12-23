@@ -141,12 +141,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1632227524917-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Tzaangor Enlightened')
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text: 'Allied Daemon Prince can belong to Khorne or Legion Of The First Prince or Nurgle or Slaanesh or Slaves To Darkness or Tzeentch. Please add this unit manually.',
-      },
-    ])
   })
 
   it('should correctly read 1631830675004-Warscroll_Builder', () => {

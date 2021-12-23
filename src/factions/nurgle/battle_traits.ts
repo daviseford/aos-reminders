@@ -1,16 +1,14 @@
 import { tagAs } from 'factions/metatagger'
 import {
-  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
-  MOVEMENT_PHASE,
+  END_OF_TURN,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
-  START_OF_GAME,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
   TURN_ONE_START_OF_ROUND,
@@ -34,7 +32,7 @@ const BattleTraits = {
       },
       {
         name: `Diseased`,
-        desc: `At the end of the battleshock phase, reduce the number of disease each enemy unit has to l.`,
+        desc: `At the end of the battleshock phase, reduce the number of disease each enemy unit has to 1.`,
         when: [START_OF_BATTLESHOCK_PHASE],
       },
 
@@ -176,60 +174,39 @@ const BattleTraits = {
   'Battle Tactics': {
     effects: [
       {
-        name: `Feed the Maggots`,
+        name: `Pick Battle Tactic`,
+        desc: `At the start of your hero phase, you can pick 1 of the battle tactics (pg. 82). You must reveal your choice to your opponent, and if your battle tactic instructs you to pick something, you must tell your opponent what you pick. You have until the end of that turn to complete the battle tactic. You cannot pick the same battle tactic more than once per battle.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Battle Tactic: Feed the Maggots`,
         desc: `You complete this tactic if at least 7 enemy models are slain by disease rolls during this turn.`,
-        when: [START_OF_HERO_PHASE],
+        when: [END_OF_TURN],
       },
       {
-        name: `Nurture the Gnarlmaw`,
+        name: `Battle Tactic: Nurture the Gnarlmaw`,
         desc: `Pick 1 Feculent Gnarlmaw in your army that is within 12" of any enemy units. You complete this tactic if that Feculent Gnarlmaw is more than 12" from all enemy units at the end of this turn.`,
-        when: [START_OF_HERO_PHASE],
+        when: [END_OF_TURN],
       },
       {
-        name: `Gifts of Nurgle`,
+        name: `Battle Tactic: Gifts of Nurgle`,
         desc: `You complete this tactic if all friendly units that were on the battlefield at the start of this turn inflict at least 1 disease point on at least 1 enemy unit during this turn.`,
-        when: [START_OF_HERO_PHASE],
+        when: [END_OF_TURN],
       },
       {
-        name: `Glory to the Grandfather!`,
+        name: `Battle Tactic: Glory to the Grandfather!`,
         desc: `You complete this tactic at the end of this turn if more enemy units than friendly units are destroyed during this turn.`,
-        when: [START_OF_HERO_PHASE],
+        when: [END_OF_TURN],
       },
       {
-        name: `The Droning`,
+        name: `Battle Tactic: The Droning`,
         desc: `You complete this tactic if there is a different friendly unit with a Rot Fly mount in each quarter of the battlefield at the end of this turn.`,
-        when: [START_OF_HERO_PHASE],
+        when: [END_OF_TURN],
       },
       {
-        name: `Sudden Domination`,
+        name: `Battle Tactic: Sudden Domination`,
         desc: `You complete this tactic if you summon a GREAT UNCLEAN ONE to the battlefield during this turn and it is within 3" of an objective that you control in your opponent's territory at the end of this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-
-  // Tamurkhan's Horde Battle Traits
-  "Tamurkhan's Horde": {
-    effects: [
-      {
-        name: `Tamurkhan's Horde Army`,
-        desc: `After you have chosen the Maggotkin of Nurgle allegiance for your army, you can give it the Tamurkhan's Horde keyword. All Maggotkin of Nurgle units in your army gain that keyword (with the exception of named characters that do not already have the Tamurkhan's Horde keyword on their warscroll). All units with that keyword benefit from the allegiance abilities listed below, in addition to the allegiance abilities in Battletome: Maggotkin of Nurgle.`,
-        when: [START_OF_GAME],
-      },
-      {
-        name: `Winds of Corruption`,
-        desc: `Subtract 1 from run and charge rolls for enemy units.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-      {
-        name: `Command Trait`,
-        desc: `A Tamurkhan's Horde general must have the Unrelenting Conqueror command trait instead of one from the Maggotkin of Nurgle allegiance abilities.`,
-        when: [START_OF_GAME],
-      },
-      {
-        name: `Artifact of Power`,
-        desc: `The first Tamurkhan's Horde Hero to receive an artifact of power must be given the Daemon Flask.`,
-        when: [START_OF_GAME],
+        when: [END_OF_TURN],
       },
     ],
   },
