@@ -1,5 +1,6 @@
 import { DestructionUnits } from 'factions/grand_alliances'
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -179,11 +180,7 @@ const BonesplitterzUnits = {
       spells: [keyPicker(spells, ['Bone Krusha'])],
     },
     effects: [
-      {
-        name: `Wizard`,
-        desc: `This unit can attempt to cast 2 spells in your hero phase and attempt to unbind 2 spells in the enemy hero phase.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardTwoSpellsEffect,
       {
         name: `Gobby Mask`,
         desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this unit.`,

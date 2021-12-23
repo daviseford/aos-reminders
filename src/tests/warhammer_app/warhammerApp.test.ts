@@ -151,12 +151,6 @@ describe('getWarhammerAppArmy', () => {
     const parsedText = getFile('1633021235077-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
     expect(res.selections.flavors).toContain('The Blessed Sons')
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text: 'Allied Chaos Knights can belong to Khorne or Slaanesh or Slaves To Darkness or Tzeentch. Please add this unit manually.',
-      },
-    ])
   })
 
   it('should correctly read 1633294316295-Warhammer_App', () => {
@@ -164,13 +158,6 @@ describe('getWarhammerAppArmy', () => {
     const res = getWarhammerAppArmy(parsedText)
     expect(res.selections.artifacts).toContain('Magnificent Omniscope (Great Endrinwork)')
     expect(res.selections.artifacts).toContain("Coalbeard's Collapsible Compartments (Great Endrinwork)")
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1631975360793-Warhammer_App', () => {
-    const parsedText = getFile('1631975360793-Warhammer_App')
-    const res = getWarhammerAppArmy(parsedText)
-    expect(res.selections.flavors).toContain('The Munificent Wanderers')
     expect(res.errors).toEqual([])
   })
 
