@@ -20,6 +20,11 @@ const BattleTraits = {
   [SOULBLIGHT_GRAVELORDS]: {
     effects: [
       {
+        name: `Deadly Coordination`,
+        desc: `In the combat phase, after a friendly SOULBLIGHT GRAVELORDS HERO that is not a MONSTER has fought in that phase for the first time, you can pick 1 friendly SUMMONABLE unit that has not yet fought in that phase, that is within 3" of an enemy unit and that is wholly within 12" of that friendly SOULBLIGHT GRAVELORDS HERO. That SUMMONABLE unit fights immediately.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
         name: `The Unquiet Dead`,
         desc: `After territories have been chosen but before armies are set up, you can pick up to 2 points within your territory and up to 2 points anywhere on the battlefield outside your territory to be gravesites. Each gravesite must be more than 1" from all terrain features and objectives. If both players can set up gravesites at the same time, or if one player can set up faction terrain features at the same time as the other player can set up gravesites, they must roll off, and the winner chooses who sets up their faction terrain features or gravesites first.
 
