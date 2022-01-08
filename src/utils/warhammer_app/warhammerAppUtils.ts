@@ -39,7 +39,7 @@ export const cleanWarhammerAppText = (text: string): string[] => {
       .replace(/á/, 'a')
 
       // Mark our units for later use
-      .replace(/^(Units|BATTLELINE|LEADERS|OTHER|BEHEMOTH)$/g, warhammerAppPlaceholders.UNITS)
+      .replace(/^(Units|BATTLELINE|LEADERS|OTHER|BEHEMOTH|LEADER)$/g, warhammerAppPlaceholders.UNITS)
 
       .trim()
   )
@@ -67,14 +67,18 @@ export const cleanWarhammerAppText = (text: string): string[] => {
         )
         .replace(/^Mark of Chaos: .+/g, '') // Remove Mark of Chaos tag e.g. "Mark of Chaos: Khorne"
         .replace(/^Host Option: .+/g, '') // Remove Host Option tag e.g. "Host Option: General"
+        .replace(/\*+$/g, '') // Remove asterik suffixes
+        .replace(/^\*+/g, '') // Remove asterik prefixes e.g. "**Bosses of the Stomp - Unified"
         .replace(/^[0-9]+ x /g, '') // Remove quantity from units e.g. "3 x Razordons"
         .replace(/ \([0-9]+\)$/g, '') // Remove point values e.g. "Slann Starmaster (360)"
+        .replace(/^-(\w)/g, `- $1`) //  Replace non-spaced list dash e.g. "-Warlord"
 
         // Replace text with standardized endings
         .replace(/^Points Cost: .+/g, warhammerAppPlaceholders.END_OF_ENTRY) // Replace "Points Cost: 430 pts" with a constant separator (helps to mark the end of a unit entry)
         .replace(/^(Total Points|TOTAL POINTS): .+/g, warhammerAppPlaceholders.END_OF_LIST) // Replace "Total Points: 2000 pts" with a constant separator (helps to mark the end of a list)
         .replace('Endless Spells/Invocations', warhammerAppPlaceholders.ENDLESS_SPELLS)
         .replace(/^ENDLESS SPELLS & INVOCATIONS/g, warhammerAppPlaceholders.ENDLESS_SPELLS)
+        .replace(/^(ENDLESS SPELL|INVOCATION)$/g, warhammerAppPlaceholders.ENDLESS_SPELLS)
         .replace(/^(Core Battalions|CORE BATTALIONS|CORE BATTALIONS:)$/g, warhammerAppPlaceholders.BATTALIONS)
         .replace(/^Enhancements$/g, warhammerAppPlaceholders.ENHANCEMENTS)
         .replace(/^(Faction Terrain|TERRAIN)$/g, warhammerAppPlaceholders.SCENERY)
