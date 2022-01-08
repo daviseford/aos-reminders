@@ -1,6 +1,6 @@
 import { keyPicker } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
-import { COMBAT_PHASE, DURING_GAME, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
+import { COMBAT_PHASE, END_OF_HERO_PHASE, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
 import Artifacts from './artifacts'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -48,7 +48,7 @@ const Flavors = {
       {
         name: `Deff Grotz of Shyish`,
         desc: `Each time a friendly GRIMSCUTTLE SPIDERFANG unit is affected by a spell or endless spell, you can roll a dice. If you do so, on a 5+, ignore the effects of that spell or endless spell on that unit.`,
-        when: [DURING_GAME],
+        when: [HERO_PHASE, END_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
