@@ -16,7 +16,6 @@ import IronjawzBattleTraits from './ironjawz/battle_traits'
 import IronjawzCommandAbilities from './ironjawz/command_abilities'
 import IronjawzCommandTraits from './ironjawz/command_traits'
 import IronjawzFlavors from './ironjawz/flavors'
-import IronjawzPrayers from './ironjawz/prayers'
 import IronjawzSpells from './ironjawz/spells'
 import IronjawzUnits from './ironjawz/units'
 import KruleboyzArtifacts from './kruleboyz/artifacts'
@@ -46,7 +45,6 @@ const subFactions = {
       command_traits: [IronjawzCommandTraits, BonesplitterzCommandTraits, KruleboyzCommandTraits],
       grand_strategies: [keyPicker(OrrukWarclansGrandStrategies, ['Waaagh!', "Krump 'Em All!"])],
       mount_traits: [OrrukWarclansMountTraits],
-      prayers: [IronjawzPrayers],
       spells: [IronjawzSpells, BonesplitterzSpells, KruleboyzSpells],
     },
     mandatory: {
@@ -97,7 +95,6 @@ const subFactions = {
         keyPicker(OrrukWarclansGrandStrategies, ["Show 'Em Who's Boss!", 'Waaagh!', "Krump 'Em All!"]),
       ],
       mount_traits: [OrrukWarclansMountTraits],
-      prayers: [IronjawzPrayers],
       spells: [IronjawzSpells],
       units: [IronjawzUnits],
     },
