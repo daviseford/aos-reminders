@@ -84,6 +84,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Ethereal Blessing': 'Etheral Blessings',
   'Evocators on Dracolines': 'Evocators on Celestial Dracolines',
   'Exalted Deathbringer with Impaling Spear': 'Exalted Deathbringer',
+  'Exalted Greater Daemon of Tzeentch': 'Exalted Greater Demon of Tzeentch',
   'Explosize Charge': 'Explosive Charge',
   'Extend Astomatrix': 'Extend Astromatrix',
   'Eyes of the Nine': 'The Eyes of the Nine',
@@ -155,6 +156,8 @@ const warscrollTypoMap: Record<string, string> = {
   'The Gorechosen': 'Gorechosen',
   'The Grand Fyrd of Furious Peak': 'The Grand Fyrd of Furios Peak',
   'The Skull-helm of Khorne': 'Skull-helm of Khorne',
+  'Thunderquake - Slayers': 'Thunderquake (Slayers)',
+  'Thunderquake - Swift': 'Thunderquake (Swift)',
   'Tzaangor Enlightened on Disc of Beasts of Chaos': 'Tzaangor Enlightened',
   'Tzaangor Enlightened on Disc': 'Tzaangor Enlightened',
   'Unrivalled Batte-lust': 'Unrivalled Battlelust',
@@ -214,7 +217,10 @@ const warhammerAppTypoMap: Record<string, string> = {
   'Kurnoth Hunters with Kurnoth Greatswords': 'Kurnoth Hunters',
   'Kurnoth Hunters with Kurnoth Scythes': 'Kurnoth Hunters',
   'One-eyed Grunnock': 'One-Eyed Grunnock - Warstomper',
+  'Rotbringer Sorcerer': 'Rotbringers Sorcerer',
   'Tzaangor Enlightened on Discs of Tzeentch': 'Tzaangor Enlightened',
+  "Be'lakor": "Be'Lakor",
+  Nagash: 'Nagash, Supreme Lord of the Undead',
 }
 
 // Battlescribe on the left - AoS Reminders on the right

@@ -37,6 +37,19 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1640472888490-Warscroll_Builder', () => {
+    const parsedText = getFile('1640472888490-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.battalions).toContain('Thunderquake (Slayers)')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1640813052545-Warscroll_Builder', () => {
+    const parsedText = getFile('1640813052545-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Exalted Greater Demon of Tzeentch')
+  })
+
   it('should correctly read 1636812085343-Warscroll_Builder', () => {
     const parsedText = getFile('1636812085343-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
