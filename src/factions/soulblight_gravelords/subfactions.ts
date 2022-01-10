@@ -1,15 +1,18 @@
 import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
+import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
+import GrandStrategies from './grand_strategies'
 import MountTraits from './mount_traits'
 import Spells from './spells'
 import Units from './units'
 
 const subFactionBase = {
-  battalions: [],
+  battalions: [Battalions],
   command_abilities: [CommandAbilities],
+  grand_strategies: [GrandStrategies],
   spells: [Spells],
   units: [Units],
 }

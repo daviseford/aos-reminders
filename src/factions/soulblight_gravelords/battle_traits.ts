@@ -23,6 +23,7 @@ const BattleTraits = {
         name: `Deadly Coordination`,
         desc: `In the combat phase, after a friendly SOULBLIGHT GRAVELORDS HERO that is not a MONSTER has fought in that phase for the first time, you can pick 1 friendly SUMMONABLE unit that has not yet fought in that phase, that is within 3" of an enemy unit and that is wholly within 12" of that friendly SOULBLIGHT GRAVELORDS HERO. That SUMMONABLE unit fights immediately.`,
         when: [END_OF_MOVEMENT_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_DECEMBER_2021],
       },
       {
         name: `The Unquiet Dead`,
@@ -95,6 +96,28 @@ const BattleTraits = {
         name: `Favoured Retainers`,
         desc: `Ignore negative modifiers to hit and wound rolls for attacks made with melee weapons by friendly LEGION OF BLOOD DEATHRATTLE units while they are wholly within 12" of a friendly LEGION OF BLOOD VAMPIRE unit or wholly within 18" of a friendly LEGION OF BLOOD VAMPIRE HERO that is a general.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Unparalleled Expertise`,
+        desc: `When you add a LEGION OF BLOOD VAMPIRE LORD to your army, you must decide if they have martial expertise or arcane expertise. Record your choice on the army roster.
+        
+        Martial: Add 1 to the Attacks characteristic of a Deathlance or Vampiric Sword used by a LEGION OF BLOOD VAMPIRE LORD that has martial expertise. Add 2 to the Attacks characteristic of Soulbound Blades used by a LEGION OF BLOOD VAMPIRE LORD that has martial expertise.
+        
+        Arcane: Add 1 to the first casting, dispelling, or unbinding roll in each hero phase for a LEGION OF BLOOD VAMPIRE LORD that has arcane expertise and that is mounted on a Zombie Dragon. Add 2 to the first casting, dispelling, or unbinding roll in each hero phase for a LEGION OF BLOOD VAMPIRE LORD that has arcane expertise and that is not mounted on a Zombie Dragon. `,
+        when: [START_OF_SETUP],
+        rule_sources: [rule_sources.WHITE_DWARF_DECEMBER_2021],
+      },
+      {
+        name: `Unparalleled Expertise (Martial)`,
+        desc: `Martial: Add 1 to the Attacks characteristic of a Deathlance or Vampiric Sword used by a LEGION OF BLOOD VAMPIRE LORD that has martial expertise. Add 2 to the Attacks characteristic of Soulbound Blades used by a LEGION OF BLOOD VAMPIRE LORD that has martial expertise.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_DECEMBER_2021],
+      },
+      {
+        name: `Unparalleled Expertise (Arcane)`,
+        desc: `Add 1 to the first casting, dispelling, or unbinding roll in each hero phase for a LEGION OF BLOOD VAMPIRE LORD that has arcane expertise and that is mounted on a Zombie Dragon. Add 2 to the first casting, dispelling, or unbinding roll in each hero phase for a LEGION OF BLOOD VAMPIRE LORD that has arcane expertise and that is not mounted on a Zombie Dragon.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_DECEMBER_2021],
       },
     ],
   },
@@ -192,6 +215,29 @@ const BattleTraits = {
         name: `Unstoppable Nightmares`,
         desc: `In the combat phase, you can pick 1 friendly AVENGORII DYNASTY TERRORGHEIST, AVENGORII DYNASTY ZOMBIE DRAGON or AVENGORII DYNASTY VAMPIRE MONSTER to unleash its monstrous power. If you do so, until the end of that phase, use the top row on that model's damage table, regardless of how many wounds it has suffered. The same model cannot benefit from this ability more than once per battle.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'Battle Tactics': {
+    effects: [
+      {
+        name: `Callous Overlord`,
+        desc: `Pick 1 friendly SUMMONABLE unit that is more than 3" from all enemy units. You complete this battle tactic if that friendly unit is destroyed during this turn.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_DECEMBER_2021],
+      },
+      {
+        name: `Lust for Blood`,
+        desc: `You complete this battle tactic if your general or two other friendly VAMPIRE models used The Hunger and/or Mortarch of Blood ability to heal any wounds during this turn.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_DECEMBER_2021],
+      },
+      {
+        name: `Unstoppable Armies`,
+        desc: `You complete this battle tactic if, during this turn, you roll a 5+ when determining if you can replace a destroyed unit from your army using the Endless Legions battle trait.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_DECEMBER_2021],
       },
     ],
   },

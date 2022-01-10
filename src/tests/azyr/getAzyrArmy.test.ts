@@ -60,7 +60,7 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.subFactionName).toEqual('Avengorii Dynasty')
     expect(res.selections).toEqual({
       artifacts: [],
-      battalions: [],
+      battalions: ['Deathstench Drove', 'Fellwing Flock'],
       command_abilities: [
         'Pack Alpha',
         'Tactical Insight',
