@@ -12,5 +12,5 @@ export const SoulblightGravelordsFaction = new Faction(
   SubFactions,
   'Lineages',
   rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
-  pickEffects(battle_traits, [SOULBLIGHT_GRAVELORDS])
+  pickEffects(battle_traits, [SOULBLIGHT_GRAVELORDS, 'Battle Tactics'])
 )
