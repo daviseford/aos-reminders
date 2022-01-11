@@ -299,6 +299,21 @@ const BattleTraits = {
       },
     ],
   },
+
+  'Battle Tactics': {
+    effects: [
+      {
+        name: `In Thrall to Chaos`,
+        desc: `Pick 1 objective on the battlefield that is within 12" of any enemy units. You complete this battle tactic if there are no enemy units within 12" of that objective at the end of this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Lust for Power`,
+        desc: `Pick 1 friendly SLAVES TO DARKNESS HERO that has the EYE OF THE GODS keyword. You complete this battle tactic if you roll on the EYE OF THE GODS table for that HERO during this turn.`,
+        when: [],
+      },
+    ],
+  },
 }
 
 export default tagAs(BattleTraits, 'battle_trait')
