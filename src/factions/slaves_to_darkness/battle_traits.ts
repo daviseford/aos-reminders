@@ -310,7 +310,7 @@ const BattleTraits = {
       {
         name: `Lust for Power`,
         desc: `Pick 1 friendly SLAVES TO DARKNESS HERO that has the EYE OF THE GODS keyword. You complete this battle tactic if you roll on the EYE OF THE GODS table for that HERO during this turn.`,
-        when: [],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
