@@ -12,5 +12,5 @@ export const SonsOfBehematFaction = new Faction(
   SubFactions,
   'Tribes',
   rule_sources.BATTLETOME_SONS_OF_BEHEMAT,
-  pickEffects(battle_traits, [SONS_OF_BEHEMAT])
+  pickEffects(battle_traits, [SONS_OF_BEHEMAT, 'Battle Tactics'])
 )
