@@ -299,7 +299,7 @@ const BattleTraits = {
       },
     ],
   },
-  
+
   'Battle Tactics': {
     effects: [
       {
