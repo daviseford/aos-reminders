@@ -3,6 +3,7 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   END_OF_CHARGE_PHASE,
+  END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
@@ -17,9 +18,13 @@ const CommandAbilities = {
     effects: [
       {
         name: `Unstoppable Advance`,
-        desc: `You can use this command ability in your movement phase when you pick a friendly OSSIARCH BONEREAPERS unit to make a normal move, run or retreat. Add 3" to that unit's Move characteristic in that phase.`,
+        desc: `You can use this Ossiarch command ability in your movement phase when you pick a friendly OSSIARCH BONEREAPERS unit to make a normal move, run or retreat. Add 3" to that unit's Move characteristic in that phase.`,
         when: [MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, rule_sources.ERRATA_JULY_2021],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          rule_sources.ERRATA_JULY_2021,
+          rule_sources.WHTE_DWARF_JANUARY_2022,
+        ],
       },
     ],
   },
@@ -29,6 +34,26 @@ const CommandAbilities = {
         name: `Endless Duty`,
         desc: `You can use this command ability in your shooting phase or any combat phase. If you do so, pick 1 friendly OSSIARCH BONEREAPERS unit that is wholly within 12" of a model with this command ability. Add 1 to the Attacks characteristic of weapons used by that unit in that phase. You cannot pick the same unit to benefit from this command ability more than once per phase.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
+  'Reknit Constructs': {
+    effects: [
+      {
+        name: `Reknit Constructs`,
+        desc: `You can use this Ossiarch command ability at the end of your movement phase. The unit that receives the command must be a friendly OSSIARCH BONEREAPERS unit that remained stationary in that phase, and that is more than 3" from all enemy units. You can heal up to D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of D3 or less.`,
+        when: [END_OF_MOVEMENT_PHASE],
+        rule_sources: [rule_sources.WHTE_DWARF_JANUARY_2022],
+      },
+    ],
+  },
+  'Unflinching Coordination': {
+    effects: [
+      {
+        name: `Unflinching Coordination`,
+        desc: `You can use this Ossiarch command ability in the combat phase after a friendly OSSIARCH BONEREAPERS HERO has fought for the first time in that phase. The unit that issues the command must be a friendly OSSIARCH BONEREAPERS HERO that has already fought in that phase. The unit that receives the command must be a friendly OSSIARCH BONEREAPERS unit that is not a HERO, that has not yet fought in that phase, and that is within 3" of an enemy unit. That unit can fight immediately.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.WHTE_DWARF_JANUARY_2022],
       },
     ],
   },
