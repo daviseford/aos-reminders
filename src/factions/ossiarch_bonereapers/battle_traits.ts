@@ -96,7 +96,7 @@ const BattleTraits = {
       },
       {
         name: `Necromantic Mastery`,
-        desc: `At the start ofyour hero phase, you can carry out this heroic action with a friendly instead of any other heroic action you can carry out with that MORTISAN. Pick 1 friendly MORTISAN. If the first spell that MORTISAN attempts to cast in this turn is successfully cast, that spell cannot be unbound.`,
+        desc: `At the start of your hero phase, you can carry out this heroic action with a friendly MORTISAN instead of any other heroic action you can carry out with that MORTISAN. Pick 1 friendly MORTISAN. If the first spell that MORTISAN attempts to cast in this turn is successfully cast, that spell cannot be unbound.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [rule_sources.WHTE_DWARF_JANUARY_2022],
       },
