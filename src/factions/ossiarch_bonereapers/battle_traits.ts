@@ -76,7 +76,7 @@ const BattleTraits = {
         name: `Using Relentless Discipline Points`,
         desc: `Relentless discipline points are used to issue a command in the same manner as command points, but they can only be spent to use an Ossiarch command ability. Ossiarch command abilities are command abilities that appear on a warscroll that has the OSSIARCH BONEREAPER keyword, or are an Ossiarch Bonereaper Legion command ability, or are included in the list of Ossiarch command abilities below.
 
-        The restriction that you cannot use the same command ability more than once in the same phase does not apply to Ossiarch command abilities. For example, you can use the Shieldwall command ability on the Mortek Guard warscroll more than once in the same phase, as long as that command is issued by a model that has not already issued a command in that phase and it is received by unit that has not already
+        The restriction that you cannot use the same command ability more than once in the same phase does not apply to Ossiarch command abilities. For example, you can use the Shieldwall command ability on the Mortek Guard warscroll more than once in the same phase, as long as that command is issued by a model that has not already issued a command in that phase and it is received by unit that has not already received a command in that phase.
         
         In addition, you cannot use the Expert, Slayers, Strategists or Swift battalion abilities (core rules, 26.3). Instead, for each battalion in your army that has any of these battalion abilities, once per battle at the start of any battle round, you can choose to receive 1 relentless discipline point.`,
         when: [DURING_GAME],
