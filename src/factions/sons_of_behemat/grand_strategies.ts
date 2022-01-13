@@ -4,7 +4,7 @@ import rule_sources from './rule_sources'
 
 // SOB Specific grand strategy available from WD Aug 2021
 const GrandStrategies = {
-  'Stomping Order': {
+  'Make the Land Tremble': {
     effects: [
       {
         name: `Make the Land Tremble`,

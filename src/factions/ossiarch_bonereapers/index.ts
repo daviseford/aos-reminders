@@ -12,5 +12,5 @@ export const OssiarchBonereapersFaction = new Faction(
   SubFactions,
   'Flavors',
   rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-  pickEffects(battle_traits, [OSSIARCH_BONEREAPERS])
+  pickEffects(battle_traits, [OSSIARCH_BONEREAPERS, 'Battle Tactics'])
 )

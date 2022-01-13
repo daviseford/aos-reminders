@@ -1,6 +1,6 @@
 import meta_rule_sources from 'meta/rule_sources'
 import { TEntry } from 'types/data'
-import { DURING_ROUND, HERO_PHASE, START_OF_COMBAT_PHASE, TURN_THREE_START_OF_ROUND } from 'types/phases'
+import { END_OF_ROUND, HERO_PHASE, START_OF_COMBAT_PHASE, TURN_THREE_START_OF_ROUND } from 'types/phases'
 import { GHUR } from 'types/realmscapes'
 
 // Realmscapes and their various effects/spells etc.
@@ -11,7 +11,7 @@ const Realmscapes: TEntry[] = [
       {
         name: `Predators and Prey`,
         desc: `Once per battle round, you score 1 additional victory point if any enemy MONSTERS were slain in that battle round.`,
-        when: [DURING_ROUND],
+        when: [END_OF_ROUND],
         rule_sources: [meta_rule_sources.GHB_2021],
       },
       {
