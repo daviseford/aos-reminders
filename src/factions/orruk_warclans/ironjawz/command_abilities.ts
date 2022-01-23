@@ -1,16 +1,7 @@
 import { tagAs } from 'factions/metatagger'
-import { END_OF_CHARGE_PHASE, HERO_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
+import { END_OF_CHARGE_PHASE, HERO_PHASE } from 'types/phases'
 
 const IronjawzCommandAbilities = {
-  'Go on Ladz, Get Stuck In!': {
-    effects: [
-      {
-        name: `Go on Ladz, Get Stuck In!`,
-        desc: `Pick 1 friendly IRONJAWZ unit wholly within 12" of a friendly model with this command ability, or wholly within 18" of a friendly model with this command ability that is a MONSTER. Until the end of that phase, add 1 to hit rolls for attacks made by that unit. A unit cannot benefit from this command ability more than once per phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
   'Mighty Destroyers': {
     effects: [
       {
