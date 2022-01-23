@@ -14,7 +14,6 @@ import {
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
 import rule_sources from '../rule_sources'
-import command_abilities from './command_abilities'
 import spells from './spells'
 
 const StrengthFromVictoryEffect = {
@@ -62,9 +61,6 @@ const IronjawzUnits = {
     ],
   },
   'Megaboss on Maw-Krusha': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Go on Ladz, Get Stuck In!'])],
-    },
     effects: [
       StrengthFromVictoryEffect,
       DestructiveBulkEffect,
@@ -77,9 +73,6 @@ const IronjawzUnits = {
     ],
   },
   'Orruk Megaboss': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Go on Ladz, Get Stuck In!'])],
-    },
     effects: [
       StrengthFromVictoryEffect,
       {
