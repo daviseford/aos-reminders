@@ -22,7 +22,7 @@ const BattleTraits = {
       {
         name: `Deadly Coordination`,
         desc: `In the combat phase, after a friendly SOULBLIGHT GRAVELORDS HERO that is not a MONSTER has fought in that phase for the first time, you can pick 1 friendly SUMMONABLE unit that has not yet fought in that phase, that is within 3" of an enemy unit and that is wholly within 12" of that friendly SOULBLIGHT GRAVELORDS HERO. That SUMMONABLE unit fights immediately.`,
-        when: [END_OF_MOVEMENT_PHASE],
+        when: [COMBAT_PHASE],
         rule_sources: [rule_sources.WHITE_DWARF_DECEMBER_2021],
       },
       {
