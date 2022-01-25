@@ -23,6 +23,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
+import rule_sources from './rule_sources'
 import Spells from './spells'
 
 const MountainOfLoathsomeFleshEffect = {
@@ -188,8 +189,9 @@ const Units = {
       },
       {
         name: `Cultivating the Garden of Nurgle`,
-        desc: `Once per battle, at the start of your hero phase, you can set up 1 Feculent Gnarlmaw within 7" of this unit, more than 7" from all other Feculent Gnarlmaws and more than 3" from all models, objectives, other terrain features, endless spells and invocations and add it to your army.`,
+        desc: `Once per battle, at the start of your hero phase, you can set up 1 Feculent Gnarlmaw within 7" of this unit, more than 7" from all other Feculent Gnarlmaws and more than 3" from all other models, objectives, other terrain features, endless spells and invocations and add it to your army.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JANUARY_2022],
       },
       {
         name: `Acidic Slime Trail`,

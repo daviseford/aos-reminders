@@ -14,6 +14,7 @@ import {
   TURN_ONE_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
   Nurgle: {
@@ -190,8 +191,9 @@ const BattleTraits = {
       },
       {
         name: `Battle Tactic: Gifts of Nurgle`,
-        desc: `You complete this tactic if all friendly units that were on the battlefield at the start of this turn inflict at least 1 disease point on at least 1 enemy unit during this turn.`,
+        desc: `You complete this tactic if 3 or more friendly MAGGOTKIN OF NURGLE units are within 3" of the same enemy unit at the end of this turn.`,
         when: [END_OF_TURN],
+        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JANUARY_2022],
       },
       {
         name: `Battle Tactic: Glory to the Grandfather!`,
