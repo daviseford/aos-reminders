@@ -2,12 +2,15 @@ import { keyPicker, tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   SAVES_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 import spells from './spells'
 
 const Artifacts = {
@@ -54,8 +57,9 @@ const Artifacts = {
     effects: [
       {
         name: `The Fecund Flask`,
-        desc: `Once per battle, at the start of your hero phase, you can say the bearer will drink from the Fecund Flask. If you do so, roll a dice. On a 2+, heal all wounds allocated to the bearer. On a 1, the bearer is slain. If the bearer is slain, before they are removed from play, you can add 1 BEASTS OF NURGLE unit that has 1 model to your army and set it up within If of the bearer. The BEASTS OF NURGLE unit can only be set up within 3" of an enemy unit if the bearer was within 3" of that enemy unit when they were slain.`,
+        desc: `Once per battle, at the start of your hero phase, you can say the bearer will drink from the Fecund Flask. If you do so, roll a dice. On a 2+, heal all wounds allocated to the bearer. On a 1, the bearer is slain. If the bearer is slain by this artefact, before they are removed from play, you can add 1 BEASTS OF NURGLE unit that has 1 model to your army and set it up within 1" of the bearer. The BEASTS OF NURGLE unit can only be set up within 3" of an enemy unit if the bearer was within 3" of that enemy unit when they were slain.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JANUARY_2022],
       },
     ],
   },
@@ -63,8 +67,9 @@ const Artifacts = {
     effects: [
       {
         name: `Noxious Nexus`,
-        desc: `The bearer counts as 2 units instead of 1 for the purposes of the Diseased battle trait.`,
-        when: [DURING_GAME],
+        desc: `If an enemy unit is within 3" of the bearer at the end of the movement phase or combat phase, give 2 disease points to that unit instead of 1 for being within 3" of any friendly MAGGOTKIN OF NURGLE units.`,
+        when: [END_OF_MOVEMENT_PHASE, END_OF_COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JANUARY_2022],
       },
     ],
   },

@@ -832,7 +832,6 @@ export const DeprecatedSelections = {
   'The Dolorous Guard': DEPRECATED_AOS_3,
   'The Emerald Host': DEPRECATED_AOS_3,
   'The Exquisite Pursuit': DEPRECATED_AOS_3,
-  'The Fecund Flask': DEPRECATED_AOS_3,
   'The First Cohort': DEPRECATED_AOS_3,
   'The Forgotten Scions': DEPRECATED_AOS_3,
   'The Grand Fyrd of Furios Peak': DEPRECATED_AOS_3,
