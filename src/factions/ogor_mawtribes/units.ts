@@ -4,6 +4,7 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   DURING_SETUP,
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
@@ -11,6 +12,8 @@ import {
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_GAME,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
   TURN_FOUR_START_OF_ROUND,
@@ -464,6 +467,55 @@ const Units = {
         desc: `The first time this model is set up on the battlefield, you can set up a Frost Sabres unit consisting of a single model on the battlefield and add it to your army. Set up the Frost Sabre wholly within 3" of this model and more than 9" from any enemy units.`,
         when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
       },
+    ],
+  },
+  "Blackpowder's Buccaneers": {
+    effects: [
+      {
+        name: `Companions`,
+        desc: `Gorlok Blackpowder is accompanied by four Minions: Peggz, Kagey, Mange and Shreek. The minions must remain within 1" of Gorlok Blackpowder. For rules purposes, Gorlok Blackpowder and their minions are treated as a single model.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Legendary Looter`,
+        desc: `At the start of the combat phase, you can pick 1 enemy Hero with an artefact of power enhancement that is within 3" of this unit, and roll 2d6. Add 2 to the roll if Kagey has not been removed, and add 1 to the roll for each other minion that has not been removed. If the roll is 12+, that enemy Hero cannot use that artefact of power for the rest of the battle. If the artefact of power modified any of the bearer's characteristics or weapon characteristics, they return to their original values.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Gorlok's Minions`,
+        desc: `Each time a wound or mortal wound is allocated to this model and not negated, you can choose to remove 1 minion. If you do so the wound or mortal wound is negated. In additiona, each minion confers an ability to this unit as shown below. If the minion is removed, that ability can no longer be used.
+        
+        Peggz: Add 1 to hit rolls for this unit. In addition, if you choose to remove this unit when this unit suffers a wound or mortal wound, roll a dice. On a 5+ this minion is not removed, but the wound or mortal wound is still negated.
+        
+        Kagey: See the Legendary Looter Ability
+        
+        Mange: After this unit fights, you can pick 1 enemy unit within 3" of this model and roll a dice. On a 5+ that enemy unit suffers 1 mortal wound.
+        
+        Shreek: In your shooting phase, you can pick 1 enemy unit within 18" of this model and roll a dice. On a 5+ that enemy unit suffers 1 mortal wound.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Gorlok's Minions - Peggz`,
+        desc: `Add 1 to hit rolls for this unit. In addition, if you choose to remove this unit when this unit suffers a wound or mortal wound, roll a dice. On a 5+ this minion is not removed, but the wound or mortal wound is still negated.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Gorlok's Minions - Kagey`,
+        desc: `See the Legendary Looter Ability`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Gorlok's Minions - Mange`,
+        desc: `After this unit fights, you can pick 1 enemy unit within 3" of this model and roll a dice. On a 5+ that enemy unit suffers 1 mortal wound.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Gorlok's Minions - Shreek`,
+        desc: `In your shooting phase, you can pick 1 enemy unit within 18" of this model and roll a dice. On a 5+ that enemy unit suffers 1 mortal wound.`,
+        when: [SHOOTING_PHASE],
+      },
+
+
     ],
   },
 }
