@@ -13,10 +13,6 @@ import {
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
-<<<<<<< HEAD
-=======
-  START_OF_GAME,
->>>>>>> 51f13ef7 (Adding Bucaneers)
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
   TURN_FOUR_START_OF_ROUND,
@@ -504,11 +500,7 @@ const Units = {
       },
       {
         name: `Gorlok's Minions - Kagey`,
-<<<<<<< HEAD
         desc: `See the Legendary Looter Ability.`,
-=======
-        desc: `See the Legendary Looter Ability`,
->>>>>>> 51f13ef7 (Adding Bucaneers)
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -521,11 +513,6 @@ const Units = {
         desc: `In your shooting phase, you can pick 1 enemy unit within 18" of this model and roll a dice. On a 5+ that enemy unit suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
-<<<<<<< HEAD
-=======
-
-
->>>>>>> 51f13ef7 (Adding Bucaneers)
     ],
   },
 }
