@@ -276,7 +276,7 @@ export const LauchonTheSoulseekerEffects = [
 export const SoulscreamBridgeEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 6 and a range of 18". Set up the parts of the endless spell wholly within range of the caster.`,
+    desc: `Casting value of 6 and a range of 18". If successfully cast, set up the parts of the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
@@ -286,12 +286,6 @@ export const SoulscreamBridgeEffects = [
     
     A unit cannot be removed and set up again in this way more than once per phase. A unit removed and set up again in this way cannot make a normal move or run in the charge phase.`,
     when: [START_OF_MOVEMENT_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
-  },
-  {
-    name: `Deathly Passage`,
-    desc: `A unit removed and set up again in this way cannot make a normal move or run in the charge phase.`,
-    when: [MOVEMENT_PHASE, CHARGE_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
 ]
