@@ -82,48 +82,66 @@ const BattleTraits = {
       },
       {
         name: `Eye of the Gods: Spawndom`,
-        desc: `You can add 1 Slaves to Darkness Chaos Spawn to your army. Set up the new model within 1" of the hero then remove the hero as slain.
+        desc: `Note: See the Eye of the Gods - End of Combat Ability 
+        
+        You can add 1 Slaves to Darkness Chaos Spawn to your army. Set up the new model within 1" of the hero then remove the hero as slain.
                If you don't add a spawn, the hero suffers D3 mortal wounds instead.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Eye of the Gods: Slaughterer's Strength`,
-        desc: `Improve the selected melee weapon's rend characteristic by 1.`,
+        desc: `Note: See the Eye of the Gods - End of Combat Ability 
+        
+        Improve the selected melee weapon's rend characteristic by 1.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Eye of the Gods: Murderous Mutation`,
-        desc: `Add 1 to the selected melee weapon's attacks characteristic.`,
+        desc: `Note: See the Eye of the Gods - End of Combat Ability 
+        
+        Add 1 to the selected melee weapon's attacks characteristic.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Eye of the Gods: Iron Flesh`,
-        desc: `Add 1 to save rolls for attacks targeting this hero.`,
+        desc: `Note: See the Eye of the Gods - End of Combat Ability 
+        
+        Add 1 to save rolls for attacks targeting this hero.`,
         when: [SAVES_PHASE],
       },
       {
         name: `Eye of the Gods: Flames of Chaos`,
-        desc: `Each time this hero is affected by a spell or endless spell you can roll a D6. On a 4+ ignore the effects on this hero.`,
+        desc: `Note: See the Eye of the Gods - End of Combat Ability 
+        
+        Each time this hero is affected by a spell or endless spell you can roll a D6. On a 4+ ignore the effects on this hero.`,
         when: [HERO_PHASE],
       },
       {
         name: `Eye of the Gods: Snubbed by the Gods`,
-        desc: `This reward has no effect.`,
+        desc: `Note: See the Eye of the Gods - End of Combat Ability 
+        
+        This reward has no effect.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Eye of the Gods: Unholy Resilience`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to this hero. On a 5+ it is negated.`,
+        desc: `Note: See the Eye of the Gods - End of Combat Ability 
+        
+        Roll a D6 each time you allocate a wound or mortal wound to this hero. On a 5+ it is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Eye of the Gods: Daemonic Legions`,
-        desc: `Summon 1 unit of the following to the battlefield based on the hero's Mark of Chaos: 10 Bloodletters, 10 Plaguebearers, 10 Daemonettes, 10 Pink Horrors or 6 Furies. The summoned unit must be set up wholly within 9" of a this model and more than 9" from any enemy units.`,
+        desc: `Note: See the Eye of the Gods - End of Combat Ability 
+        
+        Summon 1 unit of the following to the battlefield based on the hero's Mark of Chaos: 10 Bloodletters, 10 Plaguebearers, 10 Daemonettes, 10 Pink Horrors or 6 Furies. The summoned unit must be set up wholly within 9" of a this model and more than 9" from any enemy units.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Eye of the Gods: Dark Apotheosis`,
-        desc: `You can add 1 Slaves to Darkness Daemon Prince to your army. Set up the new model within 1" of the hero then remove the hero from play.
+        desc: `Note: See the Eye of the Gods - End of Combat Ability 
+        
+        You can add 1 Slaves to Darkness Daemon Prince to your army. Set up the new model within 1" of the hero then remove the hero from play.
                The Daemon Prince has the same Mark of Chaos as the hero (select a new one if the hero was Undivided).
                The Daemon Prince keeps any command traits and artefacts owned by the hero.
                If the hero was a wizard this Daemon Prince is also a wizard making the same number of casting, dispelling, and unbinding rolls while also knowing the same spells as the hero.

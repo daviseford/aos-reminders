@@ -12,6 +12,7 @@ import {
   SAVES_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
 } from 'types/phases'
 import rule_sources from '../rule_sources'
 import spells from './spells'
@@ -148,7 +149,7 @@ const IronjawzUnits = {
       {
         name: `Drawn to the Waaagh!`,
         desc: `If this unit's champion issues the Rally command to this unit while this unit is wholly within 12" of a friendly Warchanter, you can return 1 slain model to this unit for each roll of a 4+ instead of a 6.`,
-        when: [BATTLESHOCK_PHASE],
+        when: [START_OF_HERO_PHASE],
       },
       {
         name: `Orruk-forged Shields!`,
