@@ -5,15 +5,18 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   DURING_GAME,
+  END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
+  TURN_ONE_START_OF_HERO_PHASE,
   TURN_TWO_MOVEMENT_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
   [BEASTS_OF_CHAOS]: {
@@ -132,6 +135,64 @@ const BattleTraits = {
         name: `Shadowbeasts`,
         desc: `Up to half (rounding up) of the reserve units that are set up in ambush can arrive in your second movement phase instead of your first movement phase.`,
         when: [TURN_TWO_MOVEMENT_PHASE],
+      },
+    ],
+  },
+
+  'Battle Tactics': {
+    effects: [
+      {
+        name: `In the Shadow of the Herdstone`,
+        desc: `Pick 1 enemy unit within 9" of your Herdstone. You complete this battle tactic if that unit is destroyed during this turn.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_FEBRUARY_2022],
+      },
+      {
+        name: `Fury of the Wild`,
+        desc: `You can pick this tactic only in your first turn. You complete this battle tactic if the model picked to be your general and two or more other friendly BEASTS OF CHAOS units are within 3" of an enemy unit at the end of this turn.`,
+        when: [TURN_ONE_START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_FEBRUARY_2022],
+      },
+      {
+        name: `Wrath of the Warped Wilds`,
+        desc: `Pick 1 objective controlled by your opponent. You complete this battle tactic at the end of the turn if you control that objective and it is contested by any models in your army that were summoned with the Primordial Call battle trait.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_FEBRUARY_2022],
+      },
+    ],
+  },
+
+  'Monstrous Rampages': {
+    effects: [
+      {
+        name: `Primal Roar`,
+        desc: `Roll a D6. On a 1, nothing happens. On a 2-5, you receive 1 primordial call point. On a 6, you receive 3 primordial call points.`,
+        when: [END_OF_CHARGE_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_FEBRUARY_2022],
+      },
+      {
+        name: `Feast on Flesh`,
+        desc: `Only a GHORGON can be picked to carry out this monstrous rampage, and the same unit can only carry out this monstrous rampage once per battle. Improve the Rend characterisc of this model's melee weapons by 1 until the end of the following combat phase. In addition, until the end of the following combat phase, each time an enemy model is slain by an attack made by this model, this model heals a number of wounds equal to the Wounds characterisc of that slain model.`,
+        when: [END_OF_CHARGE_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_FEBRUARY_2022],
+      },
+      {
+        name: `Devour Spell`,
+        desc: `Only a CYGOR can be picked to carry out this monstrous rampage. Pick 1 endless spell within 6" of this model and roll 2D6. If the roll exceeds the casting value of the spell that summoned that endless spell, that endless spell IS dispelled and this model heals a number of wounds equal to the 2D6 roll.`,
+        when: [END_OF_CHARGE_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_FEBRUARY_2022],
+      },
+      {
+        name: `Entropic Miasma`,
+        desc: `Only a JABBERSLYTHE can be picked to carry out this monstrous rampage. Pick 1 enemy HERO within 3" of this model and roll a dice. On a 1, nothing happens. On a 2-5, worsen the Save characteristic of that HERO by 1 (to a minimum of 6+) until the end of the following combat phase. On a 6, worsen the Save characteristic of that HERO by 2 (to a minimum of 6+) until the end of he following combat phase.`,
+        when: [END_OF_CHARGE_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_FEBRUARY_2022],
+      },
+      {
+        name: `Thricefold Savagery`,
+        desc: `Only a CHIMERA can be picked to carry out this monstrous rampage. Until the end of the following combat phase, add 1 to the Attacks characteristic of this model's melee weapons, but all attacks made with this model's melee weapons must target the same enemy unit.`,
+        when: [END_OF_CHARGE_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_FEBRUARY_2022],
       },
     ],
   },

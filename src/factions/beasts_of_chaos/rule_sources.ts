@@ -13,6 +13,10 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2018/10/jUJe1sqnaUJm1RyN.pdf',
   },
+  WHITE_DWARF_FEBRUARY_2022: {
+    name: 'White Dwarf (February 2022)',
+    type: 'white_dwarf',
+  },
 }
 
 export default rule_sources
