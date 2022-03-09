@@ -32,7 +32,7 @@ const BattleTraits = {
       },
       {
         name: `Manskittles`,
-        desc: `You complete this tactic if a friendly WARSTOMPER MEGA-GARGANT uses its 'Hurled Body' ability, the enemy model you pick for the first part of this ability is slain, and an enemy Battleline unit is picked as the target for the second part of the ability and suffers and mortal wounds as a result.`,
+        desc: `You complete this tactic if a friendly WARSTOMPER MEGA-GARGANT uses its 'Hurled Body' ability, the enemy model you pick for the first part of this ability is slain, and an enemy Battleline unit is picked as the target for the second part of the ability and suffers any mortal wounds as a result.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

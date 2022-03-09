@@ -516,11 +516,6 @@ const Units = {
         desc: `This model can attempt to dispel one endless spell at the start of your hero phase in the same manner as a WIZARD.`,
         when: [START_OF_HERO_PHASE],
       },
-      {
-        name: `Bloodfuelled Prayers`,
-        desc: `In your hero phase, this model can chant one of the prayers on this unit's warscroll. If it does so, pick one of the prayers and then make a prayer roll by rolling a dice. On a 1, this model suffers D3 mortal wounds and the prayer is not answered. On a 2-3, the prayer is not answered. On a 4+ the prayer is answered.`,
-        when: [HERO_PHASE],
-      },
     ],
   },
   Skullgrinder: {
