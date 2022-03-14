@@ -14,7 +14,7 @@ const Flavors = {
     effects: pickEffects(BattleTraits, ['Cloying Stench']),
   },
 
-  'The Blessed Sons': {
+  'Blessed Sons': {
     effects: pickEffects(BattleTraits, ["Nurgle's Embrace"]),
   },
 
