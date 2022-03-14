@@ -246,7 +246,7 @@ describe('getWarscrollArmyFromJson', () => {
   it('should correctly read 1626147878336-Warscroll_Builder', () => {
     const parsedText = getFile('1626147878336-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.units).toContain('Rotbringers Sorcerer')
+    expect(res.selections.units).toContain('Rotbringer Sorcerer')
   })
 
   it('should correctly read 1625846409659-Warscroll_Builder', () => {
