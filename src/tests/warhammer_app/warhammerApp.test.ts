@@ -150,7 +150,7 @@ describe('getWarhammerAppArmy', () => {
   it('should correctly read 1633021235077-Warhammer_App', () => {
     const parsedText = getFile('1633021235077-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
-    expect(res.selections.flavors).toContain('The Blessed Sons')
+    expect(res.selections.flavors).toContain('Blessed Sons')
   })
 
   it('should correctly read 1633294316295-Warhammer_App', () => {
