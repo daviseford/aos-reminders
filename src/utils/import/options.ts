@@ -141,7 +141,6 @@ const warscrollTypoMap: Record<string, string> = {
   'Neferata, Mortarch of Blood': 'Neferata',
   'Orruk Gore Gruntas': 'Orruk Gore-gruntas',
   'Pink Horrors of Tzeentch': 'Horrors of Tzeentch',
-  'Rotbringer Sorcerer': 'Rotbringers Sorcerer',
   'Scarlet Cavalcade Godseekers Host (Host of Chaos)': 'Scarlet Cavalcade',
   'Secret Eater': 'Secret-eater',
   'Shepard of Idiotic Destruction': 'Shepherd of Idiotic Destruction',
