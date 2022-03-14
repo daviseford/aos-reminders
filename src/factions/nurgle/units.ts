@@ -400,7 +400,7 @@ const Units = {
       },
     ],
   },
-  'Rotbringers Sorcerer': {
+  'Rotbringer Sorcerer': {
     mandatory: {
       spells: [keyPicker(Spells, ['Stream of Corruption'])],
     },
