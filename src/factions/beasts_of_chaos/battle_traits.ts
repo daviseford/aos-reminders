@@ -71,7 +71,7 @@ const BattleTraits = {
                 3 Tzaangor Enlightened w/ Discs -  7 PP
                10 Bestigors -                      6 PP
                 1 Cockatrice -                     5 PP
-                1 Tzaangor Enlightened -           5 PP
+                3 Tzaangor Enlightened -           5 PP
                 5 Centigors -                      4 PP
                10 Chaos Warhounds -                4 PP
                10 Gors -                           4 PP
