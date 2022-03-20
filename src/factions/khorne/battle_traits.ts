@@ -182,6 +182,39 @@ const BattleTraits = {
       },
     ],
   },
+  'Hatred of Sorcery': {
+    effects: [
+      {
+        name: `Hatred of Sorcery`,
+        desc: `Each time a friendly KHORNE unit is affected by a spell or the abilities of an endless spell, you must roll a dice. On a 6, ignore the effect of that spell or that endless spell's abilities on that unit and you receive 1 blood tithe point.`,
+        when: [HERO_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_MARCH_2022],
+      },
+    ],
+  },
+
+  'Battle Tactics': {
+    effects: [
+      {
+        name: `Blood for the Altar`,
+        desc: `Pick 1 enemy unit within 9" of your Skull Altar. You complete this battle tactic if that unit is destroyed during this turn.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_MARCH_2022],
+      },
+      {
+        name: `Slay the Sorcerer`,
+        desc: `Pick 1 enemy HERO on the battlefield that is a WIZARD. You complete this battle tactic if that HERO is slain during this turn.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_MARCH_2022],
+      },
+      {
+        name: `The Trial of Skulls`,
+        desc: `Pick 1 friendly unit. You complete this battle tactic if 8 or more enemy models are slain by attacks made by that unit during this turn.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_MARCH_2022],
+      },
+    ],
+  },
 }
 
 export default tagAs(BattleTraits, 'battle_trait')
