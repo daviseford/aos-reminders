@@ -8,22 +8,25 @@ import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
+import GrandStrategies from './grand_strategies'
 import Prayers from './prayers'
 import Scenery from './scenery'
 import Units from './units'
 
 const subFactions = {
   [KHORNE]: {
-    effects: pickEffects(BattleTraits, ['Boundless Might']),
+    effects: pickEffects(BattleTraits, ['Boundless Might', 'Hatred of Sorcery', 'Battle Tactics']),
 
     available: {
       artifacts: [Artifacts],
       battalions: [],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
-      scenery: [Scenery],
-      prayers: [Prayers],
       endless_spells: [EndlessSpells],
+      flavors: [Flavors],
+      grand_strategies: [GrandStrategies],
+      prayers: [Prayers],
+      scenery: [Scenery],
       units: [
         Units,
         keyOmitter(SlavesToDarknessUnits, [
@@ -66,7 +69,6 @@ const subFactions = {
           'Tuskgor Chariots',
         ]),
       ],
-      flavors: [Flavors],
     },
   },
 }
