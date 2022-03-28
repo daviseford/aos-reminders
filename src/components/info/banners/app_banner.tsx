@@ -4,7 +4,7 @@ import React from 'react'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = 'aos-3-ideonth-deepkin-battletome-release'
+  const name = 'aos-3-idoneth-deepkin-fyreslayers-battletome-release'
 
   return (
     <NotificationBanner
@@ -15,7 +15,7 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW: </strong>The newly-released Idoneth Deepkin battletome has been added!
+        <strong>NEW: </strong>The newly-released Idoneth Deepkin and Fyreslayers battletomes have been added!
       </span>
     </NotificationBanner>
   )
