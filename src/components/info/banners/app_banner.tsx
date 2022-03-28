@@ -4,7 +4,7 @@ import React from 'react'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = 'aos-3-orruk-sce-battletome-release'
+  const name = 'aos-3-ideonth-deepkin-battletome-release'
 
   return (
     <NotificationBanner
@@ -15,8 +15,7 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW: </strong>The newly-released Orruk Warclans and Stormcast Eternal battletomes have been
-        added!
+        <strong>NEW: </strong>The newly-released Idoneth Deepkin battletome has been added!
       </span>
     </NotificationBanner>
   )

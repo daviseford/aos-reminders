@@ -19,7 +19,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `Casting value of 5 and a range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only LUMINETH REALM-LORDS WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 5 and range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only LUMINETH REALM-LORDS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_JULY_2021],
       },
@@ -37,7 +37,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `This endless spell is summoned with a spell that has a casting value of 7 and a range of 3". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 3" from all other models, terrain features, other endless spells, invocations and objectives. The parts of the endless spell must be set up touching each other so that they form a ring with the caster inside. Only LUMINETH REALM-LORDS WIZARDS can attempt to summon this endless spell.
+        desc: `This endless spell is summoned with a spell that has a casting value of 7 and range of 3". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 3" from all other models, terrain features, other endless spells, invocations and objectives. The parts of the endless spell must be set up touching each other so that they form a ring with the caster inside. Only LUMINETH REALM-LORDS WIZARDS can attempt to summon this endless spell.
 
         A WIZARD in a garrison cannot attempt to summon this endless spell, and if this endless spell is summoned, the WIZARD that summoned it cannot join a garrison until this endless spell has been removed from play`,
         when: [HERO_PHASE],
@@ -74,7 +74,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `Casting value of 8 and a range of 18". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only LUMINETH REALM-LORDS WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 8 and range of 18". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only LUMINETH REALM-LORDS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_JULY_2021],
       },

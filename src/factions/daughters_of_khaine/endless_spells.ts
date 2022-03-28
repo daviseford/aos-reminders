@@ -10,7 +10,7 @@ const EndlessSpells = {
       GenericEffects.Predatory.Twelve_Inches,
       {
         name: `Summoning`,
-        desc: `Casting value of 6 and a range of 9". If successfully cast, set up 1 Bladewind wholly within range of the caster. Only DAUGHTERS OF KHAINE WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 6 and range of 9". If successfully cast, set up 1 Bladewind wholly within range of the caster. Only DAUGHTERS OF KHAINE WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_JULY_2021],
       },
@@ -33,7 +33,7 @@ const EndlessSpells = {
       GenericEffects.Predatory.Nine_Inches,
       {
         name: `Summoning`,
-        desc: `Casting value of 7 and a range of 9". If successfully cast, set up 1 Bloodwrack Viper wholly within range of the caster. Only DAUGHTERS OF KHAINE WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 7 and range of 9". If successfully cast, set up 1 Bloodwrack Viper wholly within range of the caster. Only DAUGHTERS OF KHAINE WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_JULY_2021],
       },
@@ -49,7 +49,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `This invocation is summoned with a prayer that has an answer value of 3 and a range of 12". If answered, set up this invocation wholly within range and visible to the chanter. Only DAUGHTERS OF KHAINE PRIESTS can attempt to summon this invocation.`,
+        desc: `This invocation is summoned with a prayer that has an answer value of 3 and range of 12". If answered, set up this invocation wholly within range and visible to the chanter. Only DAUGHTERS OF KHAINE PRIESTS can attempt to summon this invocation.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_JULY_2021],
       },

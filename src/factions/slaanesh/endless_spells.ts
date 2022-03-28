@@ -16,7 +16,7 @@ const EndlessSpells = {
       GenericEffects.Predatory.Eight_Inches,
       {
         name: `Summoning`,
-        desc: `Casting value of 6 and a range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only HEDONITES OF SLAANESH WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 6 and range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only HEDONITES OF SLAANESH WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_JULY_2021],
       },
@@ -33,7 +33,7 @@ const EndlessSpells = {
       GenericEffects.Predatory.Six_Inches,
       {
         name: `Summoning`,
-        desc: `Casting value of 6 and a range of 18". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only HEDONITES OF SLAANESH WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 6 and range of 18". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only HEDONITES OF SLAANESH WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_JULY_2021],
       },
@@ -58,7 +58,7 @@ const EndlessSpells = {
       GenericEffects.Predatory.Eight_Inches,
       {
         name: `Summoning`,
-        desc: `Casting value of 7 and a range of 12". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only HEDONITES OF SLAANESH WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 7 and range of 12". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only HEDONITES OF SLAANESH WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_JULY_2021],
       },

@@ -225,7 +225,7 @@ const Units = {
       },
       {
         name: `Mighty Throw`,
-        desc: `This model can run and still shoot with its Great Throwing Spear later in the same turn. In addition, this unit's Great Throwing Spear has a Damage characteristic of D6 instead of D3 and a Range characteristic of 18" instead of 9" if it ran in the same turn.`,
+        desc: `This model can run and still shoot with its Great Throwing Spear later in the same turn. In addition, this unit's Great Throwing Spear has a Damage characteristic of D6 instead of D3 and range characteristic of 18" instead of 9" if it ran in the same turn.`,
         when: [SHOOTING_PHASE],
         rule_sources: [rule_sources.BATTLETOME_OGOR_MAWTRIBES, rule_sources.ERRATA_JULY_2021],
       },

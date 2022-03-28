@@ -7,7 +7,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `Casting value of 5 and a range of 6". If successfully cast, set up the endless spell wholly within range and visible to the caster, and more than 1 " from all models and other endless spells or invocations.`,
+        desc: `Casting value of 5 and range of 6". If successfully cast, set up the endless spell wholly within range and visible to the caster, and more than 1 " from all models and other endless spells or invocations.`,
         when: [HERO_PHASE],
       },
       GenericEffects.Predatory.Eight_Inches,
@@ -27,7 +27,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `This endless spell is summoned with a spell that has a casting value of 5 and a range of 3". Wizards that have a Wounds characteristic of 8 or more, that are Unique, that are part of a unit that has 2 or more models, or that are already on a Dais Arcanum cannot attempt to cast this spell. If successfully cast, set up the endless spell within range and visible to the caster, more than 3" from all terrain features and enemy models, and more than 1 " from all other models, endless spells and invocations. Then place the caster on top of the endless spell.
+        desc: `This endless spell is summoned with a spell that has a casting value of 5 and range of 3". Wizards that have a Wounds characteristic of 8 or more, that are Unique, that are part of a unit that has 2 or more models, or that are already on a Dais Arcanum cannot attempt to cast this spell. If successfully cast, set up the endless spell within range and visible to the caster, more than 3" from all terrain features and enemy models, and more than 1 " from all other models, endless spells and invocations. Then place the caster on top of the endless spell.
 
         For rules purposes, the caster and this endless spell are treated as a single model in the caster's army that uses the caster's warscroll as well as the endless spell rules (core rules, 19.3). A Wizard on a Dais Arcanum has a Move characteristic of 12" and can fly.
 
@@ -50,7 +50,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `Casting value of 6 and a range of 36". If successfully cast, set up the endless spell wholly within range and visible to the caster, and more than 1 " from all models and other endless spells or invocations.`,
+        desc: `Casting value of 6 and range of 36". If successfully cast, set up the endless spell wholly within range and visible to the caster, and more than 1 " from all models and other endless spells or invocations.`,
         when: [HERO_PHASE],
       },
       {

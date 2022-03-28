@@ -7,7 +7,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `This invocation is summoned with a prayer that has an answer value of 4 and a range of 12". If answered, set up the invocation wholly within range and visible to the chanter, and more than 1" from all models, terrain features, other invocations and endless spells.`,
+        desc: `This invocation is summoned with a prayer that has an answer value of 4 and range of 12". If answered, set up the invocation wholly within range and visible to the chanter, and more than 1" from all models, terrain features, other invocations and endless spells.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_JULY_2021],
       },
@@ -29,7 +29,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `This invocation is summoned with a prayer that has an answer value of 3 and a range of 18". If answered, set up the invocation wholly within range and visible to the chanter, and more than 1" from all models, terrain features, other invocations and endless spells.`,
+        desc: `This invocation is summoned with a prayer that has an answer value of 3 and range of 18". If answered, set up the invocation wholly within range and visible to the chanter, and more than 1" from all models, terrain features, other invocations and endless spells.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_JULY_2021],
       },
@@ -51,7 +51,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `This invocation is summoned with a prayer that has an answer value of 3 and a range of 6". If answered, set up the invocation wholly within range and visible to the chanter, and more than 1" from all models, terrain features, other invocations and endless spells.`,
+        desc: `This invocation is summoned with a prayer that has an answer value of 3 and range of 6". If answered, set up the invocation wholly within range and visible to the chanter, and more than 1" from all models, terrain features, other invocations and endless spells.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_FYRESLAYERS, rule_sources.ERRATA_JULY_2021],
       },

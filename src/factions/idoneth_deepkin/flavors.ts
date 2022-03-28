@@ -9,9 +9,6 @@ import {
 
 const Flavors = {
   Ionrach: {
-    // mandatory: {
-    //   command_trait: [keyPicker(CommandTraits, ['Emissary of the Deep Places'])],
-    // },
     effects: [
       {
         name: `Legacy of Glory`,
@@ -42,9 +39,6 @@ const Flavors = {
   },
 
   "Mor'phann": {
-    // mandatory: {
-    //   spells: [keyPicker(Spells, ['Freezing Mists'])],
-    // },
     effects: [
       {
         name: `Soul-magic Adepts`,
@@ -55,9 +49,6 @@ const Flavors = {
   },
 
   Nautilar: {
-    // mandatory: {
-    //   spells: [keyPicker(Spells, ['Protective Barrier'])],
-    // },
     effects: [
       {
         name: `Crushing Assault`,

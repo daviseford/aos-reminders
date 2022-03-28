@@ -117,7 +117,7 @@ const Spells = {
     effects: [
       {
         name: `Hand of Dust`,
-        desc: `Casting value of 8 and a range of 3". If successfully cast, pick 1 enemy model within range and visible to the caster. Then, take a dice and hide it in one of your hands or under one of two appropriate containers. Your opponent must pick one of your hands or containers. If they pick the one holding the dice, the spell has no effect. If they pick the empty hand or container, the enemy model is slain.`,
+        desc: `Casting value of 8 and range of 3". If successfully cast, pick 1 enemy model within range and visible to the caster. Then, take a dice and hide it in one of your hands or under one of two appropriate containers. Your opponent must pick one of your hands or containers. If they pick the one holding the dice, the spell has no effect. If they pick the empty hand or container, the enemy model is slain.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.ERRATA_DECEMBER_2021],
       },
@@ -127,7 +127,7 @@ const Spells = {
     effects: [
       {
         name: `Soul Stealer`,
-        desc: `Casting value of 6 and a range of 24". If successfully cast, pick 1 enemy unit within range and visible to the caster and roll 2D6. If the roll is greater than that unit's Bravery characteristic, it suffers D3 mortal wounds. If the roll is at least double that unit's Bravery characteristic, it suffers D6 mortal wounds instead. You can heal up to 1 wound that has been allocated to the caster for each mortal wound caused by this spell that is not negated.`,
+        desc: `Casting value of 6 and range of 24". If successfully cast, pick 1 enemy unit within range and visible to the caster and roll 2D6. If the roll is greater than that unit's Bravery characteristic, it suffers D3 mortal wounds. If the roll is at least double that unit's Bravery characteristic, it suffers D6 mortal wounds instead. You can heal up to 1 wound that has been allocated to the caster for each mortal wound caused by this spell that is not negated.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.ERRATA_DECEMBER_2021],
       },

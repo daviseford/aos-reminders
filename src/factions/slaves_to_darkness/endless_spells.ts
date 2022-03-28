@@ -8,7 +8,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `Casting value of 5 and a range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SLAVES TO DARKNESS WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 5 and range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SLAVES TO DARKNESS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_JULY_2021],
       },
@@ -31,7 +31,7 @@ const EndlessSpells = {
       GenericEffects.Predatory.Nine_Inches,
       {
         name: `Summoning`,
-        desc: `Casting value of 7 and a range of 9". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SLAVES TO DARKNESS WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 7 and range of 9". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SLAVES TO DARKNESS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_JULY_2021],
       },
@@ -59,7 +59,7 @@ const EndlessSpells = {
       },
       {
         name: `Summoning`,
-        desc: `Casting value of 7 and a range of 9". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SLAVES TO DARKNESS WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 7 and range of 9". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SLAVES TO DARKNESS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_JULY_2021],
       },

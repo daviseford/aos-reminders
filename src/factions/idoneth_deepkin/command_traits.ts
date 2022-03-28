@@ -92,16 +92,6 @@ const CommandTraits = {
       },
     ],
   },
-  // Ionrach Enclave
-  // 'Emissary of the Deep Places': {
-  //   effects: [
-  //     {
-  //       name: `Emissary of the Deep Places`,
-  //       desc: `Allied units in an Ionrach army are treated as having the Tides of Death battle trait and can therefore use abilities from the Tides of Death table each battle round.`,
-  //       when: [DURING_GAME],
-  //     },
-  //   ],
-  // },
 }
 
 export default tagAs(CommandTraits, 'command_trait')
