@@ -387,8 +387,7 @@ describe('getAzyrArmyFromPdf', () => {
     const fileTxt = getFile('1584088830450-Azyr')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections.flavors).toContain('Ionrach')
-    expect(res.selections.command_traits).toContain('Emissary of the Deep Places')
+    expect(res.selections.flavors).toContain('Ionrach') 
   })
 
   it('handles 1584223772080-Azyr', () => {

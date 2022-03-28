@@ -212,7 +212,6 @@ describe('getWarhammerAppArmy', () => {
     const parsedText = getFile('1632087431639-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
     expect(res.selections.flavors).toContain('Dhom-Hain')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1632089083030-Warhammer_App', () => {
