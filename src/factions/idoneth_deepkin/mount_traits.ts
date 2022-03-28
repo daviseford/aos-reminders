@@ -6,7 +6,7 @@ const MountTraits = {
     effects: [
       {
         name: `Swift-finned Impaler`,
-        desc: `If this model's Deepmare Horn roll is a 6, the nearest enemy unit suffers D6 mortal wounds instead of D3 mortal wounds.`,
+        desc: `If the roll for this unit's Deepmare Horn ability roll is a 6, the target suffers D6 mortal wounds instead of D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -15,7 +15,7 @@ const MountTraits = {
     effects: [
       {
         name: `Savage Ferocity`,
-        desc: `Add 1 to the attacks characteristic of this models Deepmare's Fanged Jaws and Talons and Deepmare's Lashing Tails attacks.`,
+        desc: `Add 1 to the attacks characteristic of this unit's Fangs and Talons and its Lashing Tails.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -24,7 +24,7 @@ const MountTraits = {
     effects: [
       {
         name: `Voidchill Darkness`,
-        desc: `Subtract 1 from hit rolls made against this model by enemies within 3".`,
+        desc: `Subtract 1 from hit rolls for attacks made by enemy units that are within 3" of this unit.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -33,7 +33,7 @@ const MountTraits = {
     effects: [
       {
         name: `Ancient`,
-        desc: `Attacks against this model with a rend of -1 have a rend of '-' instead.`,
+        desc: `If the Rend characteristic of a weapon used for an attack that targets this unit is -1, change it to '-' for that attack.`,
         when: [SAVES_PHASE],
       },
     ],
@@ -42,8 +42,8 @@ const MountTraits = {
     effects: [
       {
         name: `Denizen of the Darkest Depths`,
-        desc: `Add 1 to the number of mortal wounds inflicted by this model's Crushing Charge. A roll of 1 will inflict 1 mortal wound.`,
-        when: [CHARGE_PHASE],
+        desc: `Subtract 1 from wound rolls for attacks made with melee weapons that target this unit that have a Damage characteristic of 1.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -51,7 +51,7 @@ const MountTraits = {
     effects: [
       {
         name: `Reverberating Carapace`,
-        desc: `This model's Void Drum ability increases to 15".`,
+        desc: `Increase the range of this unit's Void Drum ability from 12" to 15".`,
         when: [SAVES_PHASE],
       },
     ],

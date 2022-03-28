@@ -16,7 +16,7 @@ const EndlessSpells = {
       GenericEffects.Predatory.Twelve_Inches,
       {
         name: `Summoning`,
-        desc: `Casting value of 7 and a range of 3D6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only FLESH-EATER COURTS WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 7 and range of 3D6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only FLESH-EATER COURTS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_FLESH_EATER_COURTS, rule_sources.ERRATA_JULY_2021],
       },
@@ -32,7 +32,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `Casting value of 6 and a range of 24". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only FLESH-EATER COURTS WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 6 and range of 24". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only FLESH-EATER COURTS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_FLESH_EATER_COURTS, rule_sources.ERRATA_JULY_2021],
       },
@@ -62,7 +62,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `Casting value of 5 and a range of 24". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, terrain features, other endless spells and invocations. Only FLESH-EATER COURTS WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 5 and range of 24". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, terrain features, other endless spells and invocations. Only FLESH-EATER COURTS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_FLESH_EATER_COURTS, rule_sources.ERRATA_JULY_2021],
       },

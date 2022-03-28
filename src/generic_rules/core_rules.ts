@@ -20,6 +20,7 @@ export const OneDropDeploymentEffect = {
   desc: `If a core battalion has the Unified icon, then after you set up a unit from the battalion, you must set up all of the other units from the battalion, one after the other, and you are not allowed to set up units that are not part of the battalion until all of the units in the battalion have been set up. In addition, if the set-up instructions for a battle say that the players must alternate setting up units one at a time, then after you set up a unit from the battalion, you must set up all of the other units from the battalion, one after the other, before your opponent is allowed to set up another unit.`,
   when: [DURING_SETUP],
   rule_sources: [meta_rule_sources.CORE_RULES_2021],
+  shared: true,
 }
 
 const CoreRules: TEntry[] = [

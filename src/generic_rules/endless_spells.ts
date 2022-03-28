@@ -16,7 +16,7 @@ import {
 
 const Summoning_Casting6_Range6_Effect = {
   name: `Summoning`,
-  desc: `Casting value of 6 and a range of 6". Set up the endless spell wholly within range of the caster.`,
+  desc: `Casting value of 6 and range of 6". Set up the endless spell wholly within range of the caster.`,
   when: [HERO_PHASE],
   rule_sources: [meta_rule_sources.GHB_2021],
   shared: true,
@@ -69,7 +69,7 @@ export const EmeraldLifeswarmEffects = [
 export const SoulsnareShacklesEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 7 and a range of 12". Set up the parts of the endless spell wholly 3" of each other and wholly within range of the caster.`,
+    desc: `Casting value of 7 and range of 12". Set up the parts of the endless spell wholly 3" of each other and wholly within range of the caster.`,
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
@@ -99,7 +99,7 @@ export const SuffocatingGravetideEffects = [
 export const GeminidsOfUhlGyshEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 6 and a range of 9". Set up the parts of the endless spell within 6" of each other and wholly within range of the caster.`,
+    desc: `Casting value of 6 and range of 9". Set up the parts of the endless spell within 6" of each other and wholly within range of the caster.`,
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
@@ -119,7 +119,7 @@ export const GeminidsOfUhlGyshEffects = [
 export const BurningHeadEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 7 and a range of 6". Set up the endless spell wholly within range of the caster.`,
+    desc: `Casting value of 7 and range of 6". Set up the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
@@ -150,7 +150,7 @@ export const QuicksilverSwordsEffects = [
 export const PurpleSunEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 8 and a range of 6". Set up the endless spell wholly within range of the caster.`,
+    desc: `Casting value of 8 and range of 6". Set up the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
@@ -167,7 +167,7 @@ export const PurpleSunEffects = [
 export const PrismaticPalisadeEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 5 and a range of 6". Set up the endless spell wholly within range of the caster.`,
+    desc: `Casting value of 5 and range of 6". Set up the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
@@ -181,7 +181,7 @@ export const PrismaticPalisadeEffects = [
 export const MalevolentMaelstromEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 5 and a range of 6". Set up the endless spell wholly within range of the caster.`,
+    desc: `Casting value of 5 and range of 6". Set up the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
@@ -221,7 +221,7 @@ export const RavenaksGnashingJawsEffects = [
 export const AethervoidPendulumEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 5 and a range of 6". Set up the endless spell wholly within range of the caster. When this endless spell is set up, pivot the model so that the tip of the pendulum blade is pointing in the direction in which the endless spell is to be moved.`,
+    desc: `Casting value of 5 and range of 6". Set up the endless spell wholly within range of the caster. When this endless spell is set up, pivot the model so that the tip of the pendulum blade is pointing in the direction in which the endless spell is to be moved.`,
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
@@ -241,7 +241,7 @@ export const AethervoidPendulumEffects = [
 export const UmbralSpellportalEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 5 and a range of 18". Set up the parts of the endless spell wholly within range of the caster.`,
+    desc: `Casting value of 5 and range of 18". Set up the parts of the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
@@ -276,7 +276,7 @@ export const LauchonTheSoulseekerEffects = [
 export const SoulscreamBridgeEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 6 and a range of 18". If successfully cast, set up the parts of the endless spell wholly within range of the caster.`,
+    desc: `Casting value of 6 and range of 18". If successfully cast, set up the parts of the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
@@ -292,7 +292,7 @@ export const SoulscreamBridgeEffects = [
 export const HorrorghastEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 6 and a range of 12". Set up the model wholly within range of the caster.`,
+    desc: `Casting value of 6 and range of 12". Set up the model wholly within range of the caster.`,
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },
@@ -307,7 +307,7 @@ export const HorrorghastEffects = [
 export const ShardsOfValagharrEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 5 and a range of 18". Set up the parts of the endless spell wholly within 12" of each other and wholly within range of the caster.`,
+    desc: `Casting value of 5 and range of 18". Set up the parts of the endless spell wholly within 12" of each other and wholly within range of the caster.`,
     when: [HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2021],
   },

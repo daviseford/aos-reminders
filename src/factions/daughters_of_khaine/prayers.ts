@@ -125,7 +125,7 @@ const Prayers = {
     effects: [
       {
         name: `Touch of Death`,
-        desc: `Answer value of 3 and a range of 3". If answered, pick 1 enemy unit within range and visible to the chanter. Then, take a dice and hide it in one of your hands. Your opponent must pick one of your hands. If they pick the one holding the dice, that enemy unit suffers D3 mortal wounds.`,
+        desc: `Answer value of 3 and range of 3". If answered, pick 1 enemy unit within range and visible to the chanter. Then, take a dice and hide it in one of your hands. Your opponent must pick one of your hands. If they pick the one holding the dice, that enemy unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_JULY_2021],
       },

@@ -57,6 +57,12 @@ const RelentlessAttackersEffect = {
   when: [END_OF_COMBAT_PHASE],
   shared: true,
 }
+const LordOfTheBlightkingsEffect = {
+  name: `Lord of the Blightkings`,
+  desc: `In the combat phase, when you pick this unit to fight for the first time in that phase, you can pick 1 friendly Putrid Blightkings unit wholly within 12" of this unit and that has not yet fought in that phase. This unit and that Putrid Blightkings unit can fight one after the other in the order of your choice.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
 
 const Units = {
   Rotigus: {
@@ -418,11 +424,7 @@ const Units = {
         desc: `The Attacks characteristic of a Thriceripened Death's Head is equal to the number of models in the target unit, to a maximum of 7.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Lord of the Blightkings`,
-        desc: `In the combat phase, when you pick this unit to fight for the first time in that phase, you can pick 1 friendly Putrid Blightkings unit wholly within 12" of this unit and that has not yet fought in that phase. This unit and that Putrid Blightkings unit can fight one after the other in the order of your choice.`,
-        when: [COMBAT_PHASE],
-      },
+      LordOfTheBlightkingsEffect,
     ],
   },
   'Gutrot Spume': {
@@ -456,11 +458,7 @@ const Units = {
         desc: `At the start of the combat phase, you can pick 1 friendly Putrid Blightkings unit that is wholly within 12" of this unit and that has not yet fought in that phase. Add 1 to the Attacks characteristic of melee weapons used by that unit until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
-      {
-        name: `Lord of the Blightkings`,
-        desc: `In the combat phase, when you pick this unit to fight for the first time in that phase, you can pick 1 friendly Putrid Blightkings unit wholly within 12" of this unit and that has not yet fought in that phase. This unit and that Putrid Blightkings unit can fight one after the other in the order of your choice.`,
-        when: [COMBAT_PHASE],
-      },
+      LordOfTheBlightkingsEffect,
     ],
   },
   'Putrid Blightkings': {

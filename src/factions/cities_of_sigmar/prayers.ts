@@ -8,7 +8,7 @@ const Prayers = {
     effects: [
       {
         name: `Rune Lore: Ancestral Shield`,
-        desc: `This prayer has an answer value of 2 and a range of 12". If answered, pick 1 friendly DISPOSSESSED unit wholly within range of the chanter that is visible to them. That unit has a ward of 6+ until the start of your next hero phase.`,
+        desc: `This prayer has an answer value of 2 and range of 12". If answered, pick 1 friendly DISPOSSESSED unit wholly within range of the chanter that is visible to them. That unit has a ward of 6+ until the start of your next hero phase.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
@@ -24,7 +24,7 @@ const Prayers = {
     effects: [
       {
         name: `Rune Lore: Forgefire`,
-        desc: `This prayer has an answer value of 2 and a range of 12". If answered, pick 1 friendly DISPOSSESSED unit wholly within range of the chanter that is visible to them. Improve the Rend characteristic of that unit's weapons by 1 until the start of your next hero phase.`,
+        desc: `This prayer has an answer value of 2 and range of 12". If answered, pick 1 friendly DISPOSSESSED unit wholly within range of the chanter that is visible to them. Improve the Rend characteristic of that unit's weapons by 1 until the start of your next hero phase.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },

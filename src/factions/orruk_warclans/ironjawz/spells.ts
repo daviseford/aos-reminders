@@ -6,7 +6,7 @@ const IronjawzSpells = {
     effects: [
       {
         name: `Green Puke`,
-        desc: `Casting value of 6 and a range of 2D6". If successfully cast, pick 1 point on the battlefield within range and visible to the caster. Draw a straight line between that point and the closest point on the caster's base. Each unit that has models passed across by that line suffers D3 mortal wounds.`,
+        desc: `Casting value of 6 and range of 2D6". If successfully cast, pick 1 point on the battlefield within range and visible to the caster. Draw a straight line between that point and the closest point on the caster's base. Each unit that has models passed across by that line suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -24,7 +24,7 @@ const IronjawzSpells = {
     effects: [
       {
         name: `Mighty 'Eadbutt`,
-        desc: `Casting value of 5 and a range of 16". If successfully cast, pick 1 enemy HERO within range and visible to the caster. That HERO suffers 1 mortal wound. If that HERO is a WIZARD, they suffer D3 mortal wounds instead of 1.`,
+        desc: `Casting value of 5 and range of 16". If successfully cast, pick 1 enemy HERO within range and visible to the caster. That HERO suffers 1 mortal wound. If that HERO is a WIZARD, they suffer D3 mortal wounds instead of 1.`,
         when: [HERO_PHASE],
       },
     ],
@@ -42,7 +42,7 @@ const IronjawzSpells = {
     effects: [
       {
         name: `Foot of Gork`,
-        desc: `Casting value of 10 and a range of 18". If successfully cast, pick 1 enemy unit within range and visible to the caster. That unit suffers D6 mortal wounds. Then, roll a dice. On a 1-3, the sequence stops. On a 4+, the unit suffers D6 mortal wounds. Keep rolling dice in this way until the sequence stops or the target unit is destroyed.`,
+        desc: `Casting value of 10 and range of 18". If successfully cast, pick 1 enemy unit within range and visible to the caster. That unit suffers D6 mortal wounds. Then, roll a dice. On a 1-3, the sequence stops. On a 4+, the unit suffers D6 mortal wounds. Keep rolling dice in this way until the sequence stops or the target unit is destroyed.`,
         when: [HERO_PHASE],
       },
     ],
@@ -51,7 +51,7 @@ const IronjawzSpells = {
     effects: [
       {
         name: `Da Great Big Green Hand of Gork`,
-        desc: `Casting value of 7 and a range of 12". If successfully cast, pick 1 friendly ORRUK unit wholly within range, visible to the caster and more than 3" from all enemy units. Remove that unit from the battlefield and set it up again anywhere on the battlefield more than 9" from any enemy units. It cannot move in the following movement phase.`,
+        desc: `Casting value of 7 and range of 12". If successfully cast, pick 1 friendly ORRUK unit wholly within range, visible to the caster and more than 3" from all enemy units. Remove that unit from the battlefield and set it up again anywhere on the battlefield more than 9" from any enemy units. It cannot move in the following movement phase.`,
         when: [HERO_PHASE],
       },
     ],
