@@ -114,6 +114,12 @@ const WalletCopyInput = ({ currentWallet, setCopied }: { currentWallet: string; 
 
 type TBtnProps = React.FC<{ handleClick: (e: React.MouseEvent) => void }>
 
-const BtcButton: TBtnProps = props => <FaBtc onClick={props.handleClick} className={'mx-2'} />
-const EthButton: TBtnProps = props => <FaEthereum onClick={props.handleClick} className={'mx-2'} />
-const PayPalButton: TBtnProps = props => <FaCcPaypal onClick={props.handleClick} className={'mx-2'} />
+const BtcButton: TBtnProps = props => (
+  <FaBtc onClick={props.handleClick} className={'mx-2'} style={{ cursor: 'pointer' }} />
+)
+const EthButton: TBtnProps = props => (
+  <FaEthereum onClick={props.handleClick} className={'mx-2'} style={{ cursor: 'pointer' }} />
+)
+const PayPalButton: TBtnProps = props => (
+  <FaCcPaypal onClick={props.handleClick} className={'mx-2'} style={{ cursor: 'pointer' }} />
+)
