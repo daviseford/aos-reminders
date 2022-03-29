@@ -14,7 +14,7 @@ import Units from './units'
 
 const subFactions = {
   [FYRESLAYERS]: {
-    effects: pickEffects(BattleTraits, [FYRESLAYERS, 'Battle Tactics', 'Battle Tactics']),
+    effects: pickEffects(BattleTraits, [FYRESLAYERS, 'Battle Tactics', 'Ur-Gold Runes']),
     available: {
       artifacts: [Artifacts],
       command_abilities: [CommandAbilities],
