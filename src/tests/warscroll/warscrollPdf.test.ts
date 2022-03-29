@@ -523,7 +523,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.selections.flavors).toEqual(['Vostarg (Lodge)'])
+    expect(res.selections.flavors).toEqual(['Vostarg'])
   })
 
   it('reads Ogor Mawtribes full pdf', () => {

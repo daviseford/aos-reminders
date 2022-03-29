@@ -381,13 +381,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.command_traits).toContain('Fateseeker (Big Name)')
   })
 
-  it('should correctly read 1594377130100-Warscroll_Builder', () => {
-    const parsedText = getFile('1594377130100-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.artifacts).toContain('Tyrant Slayer')
-    expect(res.selections.command_traits).toContain('Warrior Indominate')
-  })
-
   it('should correctly read 1596572409302-Warscroll_Builder', () => {
     const parsedText = getFile('1596572409302-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -431,13 +424,6 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Far-Ranger')
     expect(res.selections.units).toContain('Slayers')
-  })
-
-  it('should correctly read 1594377996514-Warscroll_Builder', () => {
-    const parsedText = getFile('1594377996514-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.command_traits).toContain('Warrior Indominate')
-    expect(res.selections.artifacts).toContain('Tyrant Slayer')
   })
 
   it('should correctly read 1595637879055-Warscroll_Builder', () => {
@@ -520,12 +506,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1582909138740-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.artifacts).toContain("A'rgath, the King of Blades")
-  })
-
-  it('should work with Bracers of Ember Iron', () => {
-    const parsedText = getFile('1583265530142-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.artifacts).toContain('Bracers of Ember Iron')
   })
 
   it('should work with Flask of Daemonblood and Varanguard', () => {
@@ -886,14 +866,6 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
-  })
-
-  it('should work with Vosaxe', () => {
-    const parsedText = getFile('1573252116567-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.selections.artifacts).toContain('Vosaxe')
   })
 
   it('should work with Lore of the Phoenix', () => {

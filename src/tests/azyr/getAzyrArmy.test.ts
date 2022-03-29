@@ -6,7 +6,6 @@ import {
   CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   FLESH_EATER_COURTS,
-  FYRESLAYERS,
   GLOOMSPITE_GITZ,
   IDONETH_DEEPKIN,
   KHARADRON_OVERLORDS,
@@ -1203,56 +1202,6 @@ describe('getAzyrArmyFromPdf', () => {
           'Warplock Jezzails',
           'Plague Monks',
           'Skryre Acolytes',
-        ],
-      },
-      unknownSelections: [],
-    })
-  })
-
-  it('handles Fyreslayers2', () => {
-    const fileTxt = getFile('Fyreslayers2')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
-      allyUnits: [],
-      errors: [
-        {
-          severity: 'ambiguity-warn',
-          text: "Azyr lists more than one unit as 'Auric Runesmiter'. Please check that we have imported the correct one.",
-        },
-        {
-          severity: 'ambiguity-warn',
-          text: "Azyr lists more than one unit as 'Auric Runeson'. Please check that we have imported the correct one.",
-        },
-      ],
-      factionName: FYRESLAYERS,
-      origin_realm: null,
-      realmscape_feature: null,
-      realmscape: 'Aqshy',
-      subFactionName: '',
-      selections: {
-        grand_strategies: [],
-        mount_traits: ['Fire-claw Adult'],
-        prayers: ['Prayer of Ash', 'Runic Empowerment'],
-        flavors: ['Hermdar (Lodge)'],
-        artifacts: ['Tyrant Slayer'],
-        battalions: [],
-        command_abilities: ['Skull-breakers and Oath-takers', 'Honour Our Oaths', 'Dauntless Assault'],
-        endless_spells: ['Runic Fyrewall'],
-        scenery: [],
-        spells: [],
-        command_traits: ['Warrior Indominate'],
-        core_rules: [],
-        triumphs: [],
-        units: [
-          'Fjul-Grimnir',
-          'The Chosen Axes',
-          'Auric Runesmiter',
-          'Vulkite Berzerkers',
-          'Auric Runeson',
-          'Doomseeker',
         ],
       },
       unknownSelections: [],
