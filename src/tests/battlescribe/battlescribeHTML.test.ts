@@ -211,12 +211,6 @@ describe('getBattlescribeArmy', () => {
     ])
   })
 
-  it('should correctly read 1602790654401-Battlescribe', () => {
-    const parsedText = getFile('1602790654401-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.artifacts).toContain('Bracers of Ember Iron')
-  })
-
   it('should correctly read 1600111513593-Battlescribe', () => {
     const parsedText = getFile('1600111513593-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -316,7 +310,7 @@ describe('getBattlescribeArmy', () => {
   it('should work with 1587178498419-Battlescribe', () => {
     const parsedText = getFile('1587178498419-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.flavors).toContain('Hermdar (Lodge)')
+    expect(res.selections.flavors).toContain('Hermdar')
   })
 
   it('should work with 1586790008426-Battlescribe', () => {
@@ -485,7 +479,6 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.selections.artifacts).toContain('Vosaxe')
   })
 
   it('should work with Nurgle3', () => {
@@ -567,12 +560,7 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-    expect(res.selections.flavors).toEqual([
-      'Greyfyrd (Lodge)',
-      'Lofnir (Lodge)',
-      'Vostarg (Lodge)',
-      'Hermdar (Lodge)',
-    ])
+    expect(res.selections.flavors).toEqual(['Greyfyrd', 'Lofnir', 'Vostarg', 'Hermdar'])
   })
 
   it('should work with Stormcast5', () => {
@@ -802,7 +790,7 @@ describe('getBattlescribeArmy', () => {
 
     expect(res.factionName).toEqual(FYRESLAYERS)
     expect(res.origin_realm).toEqual(null)
-    expect(res.selections.flavors).toEqual(['Hermdar (Lodge)'])
+    expect(res.selections.flavors).toEqual(['Hermdar'])
     expect(res.selections.scenery).toEqual(['Magmic Battleforge'])
   })
 

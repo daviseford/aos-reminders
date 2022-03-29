@@ -172,7 +172,7 @@ const IronjawzUnits = {
     effects: [
       {
         name: `Gore-grunta Charge`,
-        desc: `After a model in this unit finishes a charge move, roll a dice for each enemy unit within 1 " of that model. Add 1 to the roll if the model is armed with a Jagged Gore- hacka. On a 3+, that enemy unit suffers 1 mortal wound.
+        desc: `After a model in this unit finishes a charge move, roll a dice for each enemy unit within 1" of that model. Add 1 to the roll if the model is armed with a Jagged Gore- hacka. On a 3+, that enemy unit suffers 1 mortal wound.
 
         If this unit has more than 1 model, roll to determine if mortal wounds are caused after each model finishes its charge move, but do not allocate the mortal wounds until after all of the models in the unit have finished their charge moves.`,
         when: [CHARGE_PHASE],

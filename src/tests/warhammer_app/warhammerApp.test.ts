@@ -285,17 +285,6 @@ describe('getWarhammerAppArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read Fyreslayers1', () => {
-    const parsedText = getFile('Fyreslayers1')
-    const res = getWarhammerAppArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ally-warn',
-        text: 'Allied Warden King can belong to Cities Of Sigmar or Dispossessed. Please add this unit manually.',
-      },
-    ])
-  })
-
   it('should correctly read Seraphon2', () => {
     const parsedText = getFile('Seraphon2')
     const res = getWarhammerAppArmy(parsedText)

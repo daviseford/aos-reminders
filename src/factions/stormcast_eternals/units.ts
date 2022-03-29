@@ -64,7 +64,7 @@ const DraconicFlamestreamEffect = {
 }
 const DraggedIntoTheTempestEffect = {
   name: `Dragged into the Tempest`,
-  desc: `In the combat phase, after all of this unit's attacks have been resolved, you can pick 1 enemy unit within 1 " of this unit and roll a dice. If the roll is greater than that unit's Wounds characteristic, your opponent must pick 1 model in that unit. That model is slain.`,
+  desc: `In the combat phase, after all of this unit's attacks have been resolved, you can pick 1 enemy unit within 1" of this unit and roll a dice. If the roll is greater than that unit's Wounds characteristic, your opponent must pick 1 model in that unit. That model is slain.`,
   when: [COMBAT_PHASE],
   shared: true,
 }
@@ -142,7 +142,7 @@ const AstralCompassEffect = {
 }
 const RideTheWindsAethericEffect = {
   name: `Ride the Winds Aetheric`,
-  desc: `Instead of picking this unit to make a normal move or retreat, you can say that it will ride the winds aetheric. If you do so, remove this unit from the battlefield and set it up again on the battlefield more than 1 " from all terrain features and objectives and more than 9" from all enemy units.`,
+  desc: `Instead of picking this unit to make a normal move or retreat, you can say that it will ride the winds aetheric. If you do so, remove this unit from the battlefield and set it up again on the battlefield more than 1" from all terrain features and objectives and more than 9" from all enemy units.`,
   when: [MOVEMENT_PHASE],
   shared: true,
 }
@@ -186,7 +186,7 @@ const ThunderousPounceEffect = {
 }
 const WindriderEffect = {
   name: `Windrider`,
-  desc: `Instead of picking this unit to make a normal move or retreat, you can say that it will ride the winds aetheric. If you do so, remove this unit from the battlefield and set it up again on the battlefield more than 1 " from all terrain features and objectives and more than 9" from all enemy units.`,
+  desc: `Instead of picking this unit to make a normal move or retreat, you can say that it will ride the winds aetheric. If you do so, remove this unit from the battlefield and set it up again on the battlefield more than 1" from all terrain features and objectives and more than 9" from all enemy units.`,
   when: [MOVEMENT_PHASE],
   shared: true,
 }
@@ -198,7 +198,7 @@ const TirelessHuntersEffect = {
 }
 const LayLowTheTyrantsEffect = {
   name: `Lay Low the Tyrants`,
-  desc: `At the end of the combat phase, you can pick 1 enemy unit that is both within 1 " of this unit and within 6" of an objective, and roll a dice. On a 4+, that unit suffers D3 mortal wounds.`,
+  desc: `At the end of the combat phase, you can pick 1 enemy unit that is both within 1" of this unit and within 6" of an objective, and roll a dice. On a 4+, that unit suffers D3 mortal wounds.`,
   when: [END_OF_COMBAT_PHASE],
   shared: true,
 }
@@ -237,7 +237,7 @@ const AnnihilatorBaseEffects = [
   },
   {
     name: `Force of a Falling Star`,
-    desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1 " of this unit and roll a number of dice equal to the unmodified charge roll for that charge move. Subtract 1 from the roll if this unit only has 2 models. Subtract 2 from the roll if this unit only has 1 model. For each 4+, that enemy unit suffers 1 mortal wound.`,
+    desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a number of dice equal to the unmodified charge roll for that charge move. Subtract 1 from the roll if this unit only has 2 models. Subtract 2 from the roll if this unit only has 1 model. For each 4+, that enemy unit suffers 1 mortal wound.`,
     when: [CHARGE_PHASE],
     shared: true,
   },

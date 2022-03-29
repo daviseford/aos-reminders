@@ -268,7 +268,7 @@ const Units = {
       },
       {
         name: `Pestilent Battering Rams`,
-        desc: `After a model in this unit finishes a charge move, roll a dice for each enemy unit within 1 " of that model. On a 2+, that enemy unit suffers D3 mortal wounds. If this unit has more than 1 model, roll to determine if mortal wounds are caused after each model finishes its charge move, but do not allocate the mortal wounds until all of the models in the unit have finished their charge moves.`,
+        desc: `After a model in this unit finishes a charge move, roll a dice for each enemy unit within 1" of that model. On a 2+, that enemy unit suffers D3 mortal wounds. If this unit has more than 1 model, roll to determine if mortal wounds are caused after each model finishes its charge move, but do not allocate the mortal wounds until all of the models in the unit have finished their charge moves.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -364,7 +364,7 @@ const Units = {
       },
       {
         name: `Wrack and Ruin`,
-        desc: `After this unit finishes a charge move, roll a dice for each enemy unit within 1 " of this unit. Add 2 to the roll if this unit is armed with a Dolorous Tocsin. On a 4+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `After this unit finishes a charge move, roll a dice for each enemy unit within 1" of this unit. Add 2 to the roll if this unit is armed with a Dolorous Tocsin. On a 4+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
       {
@@ -387,7 +387,7 @@ const Units = {
       GenericEffects.WizardOneSpellEffect,
       {
         name: `Delightful Brews, Splendid Restoratives`,
-        desc: `At the start of your hero phase, you can pick 1 unit within 1 " of this unit. If you pick a friendly unit, roll a dice. On a 2+, you can heal up to D3 wounds allocated to that unit. If you pick an enemy unit, roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `At the start of your hero phase, you can pick 1 unit within 1" of this unit. If you pick a friendly unit, roll a dice. On a 2+, you can heal up to D3 wounds allocated to that unit. If you pick an enemy unit, roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -485,7 +485,7 @@ const Units = {
     effects: [
       {
         name: `Wrack and Ruin`,
-        desc: `After a model in this unit finishes a charge move, roll a dice for each enemy unit within 1 " of that model. Add 2 to the roll if the model is armed with a Dolorous Tocsin. On a 4+, that enemy unit suffers D3 mortal wounds. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model finishes its charge move, but do not allocate the mortal wounds until all of the models in the unit have finished their charge moves.`,
+        desc: `After a model in this unit finishes a charge move, roll a dice for each enemy unit within 1" of that model. Add 2 to the roll if the model is armed with a Dolorous Tocsin. On a 4+, that enemy unit suffers D3 mortal wounds. If this unit has more than 1 model, roll to determine if mortal wounds are inflicted after each model finishes its charge move, but do not allocate the mortal wounds until all of the models in the unit have finished their charge moves.`,
         when: [CHARGE_PHASE],
       },
       RelentlessAttackersEffect,
