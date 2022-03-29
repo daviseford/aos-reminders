@@ -52,7 +52,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Avalanche of Rotten Flesh`,
-        desc: `After this general makes a charge move, you can pick 1 enemy unit within 1" ofthem and roll a number of dice equal to the charge roll for that charge move. For each 6, that enemy unit suffers 1 mortal wound and give that enemy unit1 disease point.`,
+        desc: `After this general makes a charge move, you can pick 1 enemy unit within 1" of them and roll a number of dice equal to the charge roll for that charge move. For each 6, that enemy unit suffers 1 mortal wound and give that enemy unit1 disease point.`,
         when: [CHARGE_PHASE],
       },
     ],

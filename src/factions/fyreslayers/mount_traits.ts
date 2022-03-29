@@ -2,15 +2,6 @@ import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, END_OF_CHARGE_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 const MountTraits = {
-  // 'Cinder-crest Youngblood': {
-  //   effects: [
-  //     {
-  //       name: `Cinder-crest Youngblood`,
-  //       desc: `When you use this model's Lashing Tail ability subtract 1 from the dice roll that determines if the target unit suffers D3 mortal wounds. If this model made a charge move in the same turn, subtract 2 instead.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
   'Flame-scale Youngblood': {
     effects: [
       {
@@ -20,15 +11,6 @@ const MountTraits = {
       },
     ],
   },
-  // 'Fire-claw Adult': {
-  //   effects: [
-  //     {
-  //       name: `Fire-claw Adult`,
-  //       desc: `If the unmodified wound roll for an attack made with this mount's melee weapons is 6, that attack has a rend characteristic of -3.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
   'Lava-Tongue Adult': {
     effects: [
       {
@@ -47,15 +29,6 @@ const MountTraits = {
       },
     ],
   },
-  // 'Ash-horn Ancient': {
-  //   effects: [
-  //     {
-  //       name: `Ash-horn Ancient`,
-  //       desc: `You can reroll save rolls of 1 for attacks that target this model and friendly MAGMADROTHS within 6".`,
-  //       when: [SAVES_PHASE],
-  //     },
-  //   ],
-  // },
 }
 
 export default tagAs(MountTraits, 'mount_trait')

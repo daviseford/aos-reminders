@@ -2,20 +2,6 @@ import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
 
 const Prayers = {
-  // 'Searing Heat': {
-  //   effects: [
-  //     {
-  //       name: `Searing Heat`,
-  //       desc: `Answer value of 3 and range of 18". If answered, pick 1 enemy unit within range and visible to the chanter. Subtract 1 from hit rolls for attacks made by that unit until the start of your next hero phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //     {
-  //       name: `Searing Heat`,
-  //       desc: `If active, subtract 1 from hit rolls for attacks made by that unit until the start of your next hero phase.`,
-  //       when: [SHOOTING_PHASE, COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
   'Prayer of Ash': {
     effects: [
       {
@@ -52,39 +38,25 @@ const Prayers = {
       },
     ],
   },
-  // 'Gilded Claws': {
-  //   effects: [
-  //     {
-  //       name: `Gilded Claws`,
-  //       desc: `Answer value of 3 and range of 12". If answered, pick 1 friendly Magmadroth unit within range and visible to the chanter. Add 1 to wound rolls for attacks made by that unit with its Claws and Horns until the start of your next hero phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //     {
-  //       name: `Gilded Claws`,
-  //       desc: `If active, add 1 to wound rolls for attacks made by that unit with its Claws and Horns until the start of your next hero phase.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
   // // Unit prayers
-  // "Volcano's Call": {
-  //   effects: [
-  //     {
-  //       name: `Volcano's Call`,
-  //       desc: `Answer value of 3 and range of 18". If answered, pick 1 terrain feature wholly within range and visible to the chanter. Roll a dice for each model within 1" of that terrain feature. For each 6, that model's unit suffers 1 mortal wound.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Runic Empowerment': {
-  //   effects: [
-  //     {
-  //       name: `Runic Empowerment`,
-  //       desc: `Answer value of 3 and range of 12". If the chanter carries a Forge Key, this prayer has a range of 18" instead. If answered, pick 1 friendly FYRESLAYERS unit wholly within range and visible to the chanter. Add 1 to wound rolls for attacks made by that unit until the start of your next hero phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
+  "Volcano's Call": {
+    effects: [
+      {
+        name: `Volcano's Call`,
+        desc: `Answer value of 3 and a range of 18". As the chanter is carrying a Runic Iron, you can reroll the chanting roll. If answered, pick 1 terrain feature wholly within range and visible to the chanter. Roll a dice for each model within 1" of that terrain feature. For each 6, that model's unit suffers 1 mortal wound. In addition, until your next hero phase, that terrain feature blocks visibility in the same manner as a wyldwood.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Runic Empowerment': {
+    effects: [
+      {
+        name: `Runic Empowerment`,
+        desc: `Answer value of 3 and a range of 12" if the chanter is carrying a Runic Iron or 18" if the chanter is carrying a Forge Key. If the chanter is carrying a Runic Iron, you can reroll the chanting roll. If answered, pick 1 friendly Fyreslayers unit wholly within range and visible to the chanter. Add 1 to wound rolls for attacks made by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Prayers, 'prayer')

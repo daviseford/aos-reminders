@@ -2,7 +2,6 @@ import { pickEffects } from 'factions/metatagger'
 import { FYRESLAYERS } from 'meta/factions'
 import Artifacts from './artifacts'
 import BattleTraits from './battle_traits'
-import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
@@ -17,7 +16,6 @@ const subFactions = {
     effects: pickEffects(BattleTraits, [FYRESLAYERS, 'Battle Tactics', 'Ur-Gold Runes']),
     available: {
       artifacts: [Artifacts],
-      command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       endless_spells: [EndlessSpells],
       flavors: [Flavors],
