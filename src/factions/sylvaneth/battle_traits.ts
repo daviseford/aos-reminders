@@ -1,6 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { SYLVANETH } from 'meta/factions'
-import { BATTLESHOCK_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE } from 'types/phases'
+import { BATTLESHOCK_PHASE, DURING_SETUP, END_OF_MOVEMENT_PHASE, MOVEMENT_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const BattleTraits = {
@@ -28,8 +28,8 @@ const BattleTraits = {
       },
       {
         name: `Navigate Realmroots`,
-        desc: `Instead of making a normal move in your movement phase, 1 friendly SYLVANETH unit wholly within 6" of an Awakened Wyldwood can navigate the realmroots. If it does so, remove that unit from the battlefield and then set it up again wholly within 6" of another Awakened Wyldwood and more than 9" from any enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
+        desc: `Instead of making a normal move in your movement phase, 1 friendly SYLVANETH unit wholly within 6" of an AWAKENED WYLDWOOD can navigate the realmroots. If it does so, remove that unit from the battlefield and then set it up again wholly within 6" of another AWAKENED WYLDWOOD and more than 9" from any enemy units.`,
+        when: [MOVEMENT_PHASE],
         rule_sources: [rule_sources.ERRATA_SEPTEMBER_2021],
       },
     ],
