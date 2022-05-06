@@ -59,6 +59,8 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.subFactionName).toEqual('Avengorii Dynasty')
     expect(res.selections).toEqual({
       artifacts: [],
+      incarnates: [],
+      monstrous_rampages: [],
       battalions: ['Deathstench Drove', 'Fellwing Flock'],
       command_abilities: [
         'Pack Alpha',
@@ -198,6 +200,8 @@ describe('getAzyrArmyFromPdf', () => {
       grand_strategies: [],
       mount_traits: [],
       prayers: [],
+      incarnates: [],
+      monstrous_rampages: [],
       flavors: [],
       artifacts: [
         'The Great Wrecka (Breaker Tribe)',
@@ -564,6 +568,8 @@ describe('getAzyrArmyFromPdf', () => {
       selections: {
         grand_strategies: [],
         mount_traits: [],
+        incarnates: [],
+        monstrous_rampages: [],
         prayers: [],
         flavors: [],
         artifacts: [],
@@ -621,6 +627,8 @@ describe('getAzyrArmyFromPdf', () => {
       selections: {
         grand_strategies: [],
         mount_traits: [],
+        incarnates: [],
+        monstrous_rampages: [],
         prayers: [],
         flavors: [],
         artifacts: [],
@@ -874,6 +882,8 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections).toEqual({
       grand_strategies: [],
       mount_traits: [],
+      incarnates: [],
+      monstrous_rampages: [],
       prayers: ["Martyr's Sacrifice", 'Rune of Khaine', 'Touch of Death', 'Wrath of Khaine'],
       flavors: ['The Kraith'],
       artifacts: ['Crimson Shard', 'Venom of Nagendra'],
@@ -897,6 +907,8 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections).toEqual({
       grand_strategies: [],
       mount_traits: [],
+      incarnates: [],
+      monstrous_rampages: [],
       prayers: [],
       flavors: ['Gristlegore (Grand Court)'],
       artifacts: ['Ghurish Mawshard', 'The Grim Garland (Royal Treasury)'],
@@ -920,6 +932,8 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections).toEqual({
       grand_strategies: [],
       mount_traits: [],
+      incarnates: [],
+      monstrous_rampages: [],
       prayers: ['Rune of Unfaltering Aim', 'Rune Lore: Ancestral Shield', 'Rune Lore: Forgefire'],
       flavors: ['Greywater Fastness'],
       artifacts: [],
@@ -979,6 +993,8 @@ describe('getAzyrArmyFromPdf', () => {
       grand_strategies: [],
       mount_traits: [],
       prayers: [],
+      incarnates: [],
+      monstrous_rampages: [],
       flavors: ['Anvilgard'],
       artifacts: ['Venomfang Blade (Anvilgard)'],
       battalions: [],
@@ -1053,6 +1069,8 @@ describe('getAzyrArmyFromPdf', () => {
       mount_traits: [],
       prayers: [],
       flavors: [],
+      incarnates: [],
+      monstrous_rampages: [],
       artifacts: ['The Crown of Dark Secrets', 'Sceptre of Domination', 'Sliverslash'],
       battalions: [],
       command_abilities: ['Excess of Violence'],
@@ -1116,15 +1134,14 @@ describe('getAzyrArmyFromPdf', () => {
       selections: {
         grand_strategies: [],
         mount_traits: [],
+        incarnates: [],
+        monstrous_rampages: [],
         prayers: [],
         flavors: ['Barak-Thryng, City of the Ancestors (Skyport)'],
         artifacts: ['Grudgehammer'],
         battalions: [],
         command_abilities: [
           'Master of the Skies',
-          'On My Mark, Fire!',
-          'Repel Boarders!',
-          'Up And At Them!',
           'First Rule of Grungsson',
           'By Grungni, I Have My Eye On You!',
         ],
@@ -1184,6 +1201,8 @@ describe('getAzyrArmyFromPdf', () => {
       selections: {
         grand_strategies: [],
         mount_traits: [],
+        incarnates: [],
+        monstrous_rampages: [],
         prayers: [],
         flavors: ['Skilled Manipulators (Masterclan)', 'Warpstone Sparks (Skryre)'],
         artifacts: ['Vigordust Injector (Skryre)'],

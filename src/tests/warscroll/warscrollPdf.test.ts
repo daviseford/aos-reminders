@@ -240,6 +240,8 @@ describe('getWarscrollArmyFromPdf', () => {
         endless_spells: [],
         grand_strategies: [],
         flavors: [],
+        incarnates: [],
+        monstrous_rampages: [],
         mount_traits: [],
         prayers: [],
         scenery: [],
@@ -491,6 +493,8 @@ describe('getWarscrollArmyFromPdf', () => {
         scenery: [],
         spells: [],
         mount_traits: [],
+        incarnates: [],
+        monstrous_rampages: [],
         prayers: [],
         command_traits: [
           "FOOTNOTE: There's No Trading With Some People",
@@ -554,6 +558,8 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections).toEqual({
       grand_strategies: [],
       flavors: [],
+      incarnates: [],
+      monstrous_rampages: [],
       artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
       battalions: [],
       command_abilities: ['Gift from the Heavens'],
@@ -588,6 +594,8 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections).toEqual({
       flavors: ['Anvilgard'],
       grand_strategies: [],
+      incarnates: [],
+      monstrous_rampages: [],
       artifacts: [
         "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
         'Armour of Mallus (Hammerhal)',
@@ -668,6 +676,8 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections).toEqual({
       grand_strategies: [],
       flavors: [],
+      incarnates: [],
+      monstrous_rampages: [],
       artifacts: ['Incandescent Rectrices', 'Zoetic Dial'],
       battalions: [],
       command_abilities: ['Gift from the Heavens'],
@@ -743,6 +753,8 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections).toEqual({
       grand_strategies: [],
       flavors: [],
+      incarnates: [],
+      monstrous_rampages: [],
       mount_traits: [],
       prayers: ['Wrath of Khaine'],
       artifacts: ['Obstinate Blade (Order)'],
@@ -775,6 +787,8 @@ describe('getWarscrollArmyFromPdf', () => {
       flavors: [],
       artifacts: [],
       battalions: [],
+      incarnates: [],
+      monstrous_rampages: [],
       command_abilities: [],
       endless_spells: [],
       mount_traits: [],
@@ -797,6 +811,8 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections).toEqual({
       grand_strategies: [],
       flavors: [],
+      incarnates: [],
+      monstrous_rampages: [],
       artifacts: [],
       battalions: [],
       command_abilities: ["I'm Da Boss, Now Stab 'Em Good!"],
@@ -822,6 +838,8 @@ describe('getWarscrollArmyFromPdf', () => {
       grand_strategies: [],
       flavors: [],
       artifacts: [],
+      incarnates: [],
+      monstrous_rampages: [],
       battalions: [],
       command_abilities: ["I'm Da Boss, Now Stab 'Em Good!"],
       endless_spells: [],
@@ -844,6 +862,8 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.factionName).toEqual(NIGHTHAUNT)
     expect(res.selections).toEqual({
       grand_strategies: [],
+      incarnates: [],
+      monstrous_rampages: [],
       flavors: [],
       artifacts: ['Midnight Tome'],
       battalions: [],
@@ -883,6 +903,8 @@ describe('getWarscrollArmyFromPdf', () => {
       realmscape: null,
       selections: {
         grand_strategies: [],
+        incarnates: [],
+        monstrous_rampages: [],
         flavors: [],
         artifacts: ['Incandescent Rectrices'],
         battalions: [],
@@ -941,6 +963,8 @@ describe('getWarscrollArmyFromPdf', () => {
       realmscape: null,
       selections: {
         grand_strategies: [],
+        incarnates: [],
+        monstrous_rampages: [],
         flavors: [],
         artifacts: ['Incandescent Rectrices'],
         battalions: [],
@@ -1000,6 +1024,8 @@ describe('getWarscrollArmyFromPdf', () => {
       selections: {
         grand_strategies: [],
         flavors: [],
+        incarnates: [],
+        monstrous_rampages: [],
         artifacts: ['Incandescent Rectrices'],
         battalions: [],
         command_abilities: ['Supreme Gift from the Heavens', 'Wrath of the Seraphon'],

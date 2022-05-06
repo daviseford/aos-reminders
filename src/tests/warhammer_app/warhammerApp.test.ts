@@ -242,6 +242,8 @@ describe('getWarhammerAppArmy', () => {
       realmscape_feature: null,
       realmscape: null,
       selections: {
+        incarnates: [],
+        monstrous_rampages: [],
         artifacts: ['Amulet of Destiny', 'Serpent God Dagger'],
         battalions: ['Battle Regiment', 'Command Entourage', 'Hunters of the Heartlands'],
         command_abilities: ['Parting Shot', 'Supreme Gift from the Heavens', 'Herald of the Old Ones'],
