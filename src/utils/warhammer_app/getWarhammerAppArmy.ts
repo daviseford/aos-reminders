@@ -206,6 +206,7 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
       endless_spells: [],
       flavors: [],
       grand_strategies: [],
+      monstrous_rampages: [],
       mount_traits: [],
       prayers: [],
       scenery: [],

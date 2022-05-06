@@ -100,6 +100,9 @@ const selections = createSlice({
     setMountTraits: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'mount_traits')
     },
+    setMonstrousRampages: (state, action: PayloadAction<string[]>) => {
+      handleSideEffects(state, action.payload, 'monstrous_rampages')
+    },
     setTriumphs: (state, action: PayloadAction<string[]>) => {
       state.selections.triumphs = action.payload
     },

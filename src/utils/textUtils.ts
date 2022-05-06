@@ -27,6 +27,7 @@ export const getActionTitle = ({
   condition,
   endless_spell,
   grand_strategy,
+  monstrous_rampage,
   mount_trait,
   name,
   prayer,
@@ -41,6 +42,7 @@ export const getActionTitle = ({
   if (command_trait) return `Command Trait${suffix}`
   if (endless_spell) return `Endless Spell${suffix}`
   if (grand_strategy) return `Grand Strategy${suffix}`
+  if (monstrous_rampage) return `Monstrous Rampage${suffix}`
   if (mount_trait) return `Mount Trait${suffix}`
   if (prayer) return `Prayer${suffix}`
   if (scenery) return `Scenery${suffix}`

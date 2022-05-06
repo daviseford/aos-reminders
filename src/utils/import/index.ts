@@ -71,6 +71,7 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
     endless_spells: lookup('endless_spells'),
     flavors: lookup('flavors'),
     grand_strategies: lookup('grand_strategies'),
+    monstrous_rampages: lookup('monstrous_rampages'),
     mount_traits: lookup('mount_traits'),
     prayers: lookup('prayers'),
     scenery: lookup('scenery'),

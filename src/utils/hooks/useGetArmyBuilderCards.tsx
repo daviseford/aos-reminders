@@ -59,6 +59,15 @@ const useGetArmyBuilderCards = (army: IArmy) => {
         sideEffects: getSideEffects(army.MountTraits),
       },
       {
+        slice: 'monstrous_rampages' as TSelectionTypes,
+        items: army.MonstrousRampages,
+        setValues: selectionActions.setMonstrousRampages,
+        title: 'Monstrous Rampages',
+        values: selections.monstrous_rampages || [],
+        type: 'multi',
+        sideEffects: getSideEffects(army.MonstrousRampages),
+      },
+      {
         slice: 'command_abilities' as TSelectionTypes,
         items: army.CommandAbilities,
         setValues: selectionActions.setCommandAbilities,

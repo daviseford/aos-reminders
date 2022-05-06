@@ -67,6 +67,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
     EndlessSpells = [],
     Flavors = [],
     GrandStrategies = [],
+    MonstrousRampages = [],
     MountTraits = [],
     Prayers = [],
     Scenery = [],
@@ -86,6 +87,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
     CommandAbilities = getAllianceItems(GrandAlliance, 'CommandAbilities', CommandAbilities)
     CommandTraits = getAllianceItems(GrandAlliance, 'CommandTraits', CommandTraits)
     EndlessSpells = GrandAllianceEndlessSpells
+    MonstrousRampages = getAllianceItems(GrandAlliance, 'MonstrousRampages', MonstrousRampages)
     MountTraits = getAllianceItems(GrandAlliance, 'MountTraits', MountTraits) // new
     Prayers = getAllianceItems(GrandAlliance, 'Prayers', Prayers) // new
     Spells = getAllianceItems(GrandAlliance, 'Spells', Spells)
@@ -100,6 +102,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
   Army.EndlessSpells = modify.EndlessSpells(EndlessSpells, GrandAllianceEndlessSpells, Collection)
   Army.Flavors = modify.Flavors(Flavors, Collection)
   Army.GrandStrategies = modify.GrandStrategies(GrandStrategies, Collection)
+  Army.MonstrousRampages = modify.MonstrousRampages(MonstrousRampages, Collection)
   Army.MountTraits = modify.MountTraits(MountTraits, Collection)
   Army.Prayers = modify.Prayers(Prayers, Collection)
   Army.Scenery = modify.Scenery(Scenery, Collection)
@@ -117,6 +120,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
     Army.EndlessSpells,
     Army.Flavors,
     Army.GrandStrategies,
+    Army.MonstrousRampages,
     Army.MountTraits,
     Army.Prayers,
     Army.Scenery,
