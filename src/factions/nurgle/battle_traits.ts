@@ -62,7 +62,7 @@ const BattleTraits = {
       },
       {
         name: `Locus of Fecundity`,
-        desc: `The following friendly units are each a Locus of Fecundity: GREAT UNCLEAN ONE, HORTICULOUS SLIMUX, THE GLOTTKIN, FESTUS THE LEECHLORD. The Disgustingly Resilient battle trait heals D3 wounds allocated to a model instead of 1 if that model’s unit is within 14" of any Loci of Fecundity.`,
+        desc: `The following friendly units are each a Locus of Fecundity: GREAT UNCLEAN ONE, HORTICULOUS SLIMUX, THE GLOTTKIN, FESTUS THE LEECHLORD. The Disgustingly Resilient battle trait heals D3 wounds allocated to a model instead of 1 if that model's unit is within 14" of any Loci of Fecundity.`,
         when: [START_OF_HERO_PHASE],
       },
 

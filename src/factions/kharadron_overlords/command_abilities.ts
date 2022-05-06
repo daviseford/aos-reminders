@@ -21,7 +21,7 @@ const CommandAbilities = {
         rule_sources: [rule_sources.WHITE_DWARF_MAY_2022],
       },
     ],
-  }, 
+  },
   'First Rule of Grungsson': {
     effects: [
       {

@@ -122,6 +122,7 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
       endless_spells: [],
       flavors: [],
       grand_strategies: [],
+      incarnates: [],
       monstrous_rampages: [],
       mount_traits: [],
       prayers: [],

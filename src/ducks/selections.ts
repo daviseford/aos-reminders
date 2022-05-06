@@ -103,6 +103,9 @@ const selections = createSlice({
     setMonstrousRampages: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'monstrous_rampages')
     },
+    setIncarnates: (state, action: PayloadAction<string[]>) => {
+      handleSideEffects(state, action.payload, 'incarnates')
+    },
     setTriumphs: (state, action: PayloadAction<string[]>) => {
       state.selections.triumphs = action.payload
     },
@@ -130,9 +133,10 @@ const handleSideEffects = (state: IStore['selections'], payload: string[], type:
   const sideEffectNames = Object.keys(state.sideEffects)
 
   if (!state.selections?.[type]) {
-    return console.error(
+    console.error(
       `Invalid slice passed to handleSideEffects: ${type}. This usually means that you've committed a typo during data entry.`
     )
+    state.selections[type] = [] // assign a default value
   }
 
   const removedParentEffects = state.selections[type]

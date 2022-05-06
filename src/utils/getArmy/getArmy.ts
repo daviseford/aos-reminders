@@ -67,6 +67,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
     EndlessSpells = [],
     Flavors = [],
     GrandStrategies = [],
+    Incarnates = [],
     MonstrousRampages = [],
     MountTraits = [],
     Prayers = [],
@@ -102,6 +103,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
   Army.EndlessSpells = modify.EndlessSpells(EndlessSpells, GrandAllianceEndlessSpells, Collection)
   Army.Flavors = modify.Flavors(Flavors, Collection)
   Army.GrandStrategies = modify.GrandStrategies(GrandStrategies, Collection)
+  Army.Incarnates = modify.Incarnates(Incarnates, Collection)
   Army.MonstrousRampages = modify.MonstrousRampages(MonstrousRampages, Collection)
   Army.MountTraits = modify.MountTraits(MountTraits, Collection)
   Army.Prayers = modify.Prayers(Prayers, Collection)
@@ -120,6 +122,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
     Army.EndlessSpells,
     Army.Flavors,
     Army.GrandStrategies,
+    Army.Incarnates,
     Army.MonstrousRampages,
     Army.MountTraits,
     Army.Prayers,

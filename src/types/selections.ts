@@ -7,6 +7,7 @@ export type TSelectionTypes =
   | 'endless_spells'
   | 'flavors'
   | 'grand_strategies'
+  | 'incarnates'
   | 'monstrous_rampages'
   | 'mount_traits'
   | 'prayers'

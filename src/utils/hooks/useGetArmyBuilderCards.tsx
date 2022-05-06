@@ -122,6 +122,15 @@ const useGetArmyBuilderCards = (army: IArmy) => {
         sideEffects: getSideEffects(army.EndlessSpells),
       },
       {
+        slice: 'incarnates' as TSelectionTypes,
+        items: army.Incarnates,
+        setValues: selectionActions.setIncarnates,
+        title: 'Incarnates',
+        values: selections.incarnates || [],
+        type: 'multi',
+        sideEffects: getSideEffects(army.Incarnates),
+      },
+      {
         slice: 'scenery' as TSelectionTypes,
         items: army.Scenery,
         setValues: selectionActions.setScenery,
