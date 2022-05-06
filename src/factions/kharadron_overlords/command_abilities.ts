@@ -1,10 +1,6 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  START_OF_CHARGE_PHASE,
-  START_OF_COMBAT_PHASE,
-  START_OF_HERO_PHASE,
-  START_OF_SHOOTING_PHASE,
-} from 'types/phases'
+import { START_OF_CHARGE_PHASE, START_OF_HERO_PHASE, START_OF_SHOOTING_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandAbilities = {
   'By Grungni, I Have My Eye On You!': {
@@ -20,38 +16,12 @@ const CommandAbilities = {
     effects: [
       {
         name: `Master of the Skies`,
-        desc: `You can use this command ability at the start of your shooting phase. If you do so, pick 1 friendly SKYVESSEL that has a model with this command ability in its garrison. That SKYVESSEL can shoot in that phase even if it ran earlier in the same turn.`,
+        desc: `You can use this command ability at the start of your shooting phase. The command must be issued by this unit and must be received by a friendly SKYVESSEL. That Skyvessel can shoot in that phase even if it ran earlier in the turn.`,
         when: [START_OF_SHOOTING_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_MAY_2022],
       },
     ],
-  },
-  'On My Mark, Fire!': {
-    effects: [
-      {
-        name: `On My Mark, Fire!`,
-        desc: `You can use this command ability at the start of your shooting phase. If you do so, pick 1 friendly SKYVESSEL that has a model with this command ability in its garrison. You can reroll hit rolls of 1 for attacks made by that SKYVESSEL in that phase.`,
-        when: [START_OF_SHOOTING_PHASE],
-      },
-    ],
-  },
-  'Repel Boarders!': {
-    effects: [
-      {
-        name: `Repel Boarders!`,
-        desc: `You can use this command ability at the start of your combat phase. If you do so, pick 1 friendly SKYVESSEL that has a model with this command ability in its garrison. Add 1 to hit rolls for attacks made by that SKYVESSEL and any models in its garrison in that phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'Up And At Them!': {
-    effects: [
-      {
-        name: `Up And At Them!`,
-        desc: `You can use this command ability at the start of your charge phase. If you do so, pick 1 friendly SKYFARERS unit that is wholly within 12" of a friendly model with this command ability. You can reroll charge rolls for that unit in that phase.`,
-        when: [START_OF_CHARGE_PHASE],
-      },
-    ],
-  },
+  }, 
   'First Rule of Grungsson': {
     effects: [
       {

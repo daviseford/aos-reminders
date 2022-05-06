@@ -10,6 +10,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
+  TURN_ONE_START_OF_TURN,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
@@ -192,30 +193,32 @@ const Units = {
   },
   'Arkanaut Admiral': {
     mandatory: {
-      command_abilities: [
-        keyPicker(command_abilities, [
-          'Master of the Skies',
-          'On My Mark, Fire!',
-          'Repel Boarders!',
-          'Up And At Them!',
-        ]),
-      ],
+      command_abilities: [keyPicker(command_abilities, ['Master of the Skies'])],
     },
     effects: [
       {
-        name: `If You Want A Job Done...`,
-        desc: `You can reroll hit and wound rolls of 1 for attacks made with a melee weapon by this model that target a HERO or MONSTER.`,
-        when: [COMBAT_PHASE],
+        name: `If You Want a Job Done...`,
+        desc: `Add 1 to hit rolls for attacks made bv this unit that target a HERO or MONSTER.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_MAY_2022],
       },
       {
         name: `Protect the Admiral!`,
-        desc: `Do not take battleshock tests for friendly KHARADRON OVERLORDS units while they are wholly within 12" of this model.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Protect the Admiral!`,
-        desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly ARKANAUT ADMIRAL while it is within 3" of any friendly SKYFARERS units with 5 or more models. On a 5+, you must allocate that wound or mortal wound to a friendly SKYFARERS unit with 5 or more models that is within 3" of that ARKANAUT ADMIRAL, instead of to that ARKANAUT ADMIRAL.`,
+        desc: `Before you allocate a wound or mortal wound to this unit, or instead of making a ward roll for a wound or mortal wound that would be allocated to this unit, if this unit is within 3" of any other friendly SKYFARERS units, you can roll a dice. On a 1-2, that wound or mortal wound is allocated to this unit as normal. On a 3+, that wound or mortal wound is allocated to another friendly SKYFARERS unit within 3" of this unit instead and cannot be negated.`,
         when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [rule_sources.WHITE_DWARF_MAY_2022],
+      },
+      {
+        name: `Aether-powered Munitions`,
+        desc: `After the players have received their starting command points but before the start of the first turn, you can pick 1 of the following Aether-powered Munitions for this unit to use during the battle:
+                
+        Blazebeard and Sons 'Drakk-hobbler' Mag-bolas: Once per battle, at the start of your shooting phase, pick 1 enemy MONSTER within 12" of this unit and roll a dice. On a 2+, that unit is grappled until the end of your opponent's turn. While an enemy unit is grappled, charge rolls made for that unit are made by rolling 1D6 instead of 2D6.
+        
+        Celestium Burst-grenade: Once per battle, at the start of your shooting phase, pick 1 enemy unit within 12" of this unit and roll a dice. On a 2+, ward rolls cannot be made for wounds and mortal wounds caused by attacks that target that unit until the end of the phase.
+
+        Grudgebreaker Rounds: Once per battle, at the start of your shooting phase, pick 1 friendly KHARADRON OVERLORDS unit wholly within 12" of this unit that is not a SKYVESSEL. Until the end of that phase, improve the Rend characteristic of that unit's missle weapons by 1. The same unit cannot be picked to benefit from this ability than once in the same phase. `,
+        when: [TURN_ONE_START_OF_TURN],
+        rule_sources: [rule_sources.WHITE_DWARF_MAY_2022],
       },
     ],
   },
