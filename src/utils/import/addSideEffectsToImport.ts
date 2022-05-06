@@ -38,6 +38,8 @@ export const addSideEffectsToImport = (selections: TSelections, Army: IArmy): TS
     endless_spells: getSideEffects(Army.EndlessSpells),
     flavors: getSideEffects(Army.Flavors),
     grand_strategies: getSideEffects(Army.GrandStrategies),
+    incarnates: getSideEffects(Army.Incarnates),
+    monstrous_rampages: getSideEffects(Army.MonstrousRampages),
     mount_traits: getSideEffects(Army.MountTraits),
     prayers: getSideEffects(Army.Prayers),
     scenery: getSideEffects(Army.Scenery),

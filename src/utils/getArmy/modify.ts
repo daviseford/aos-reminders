@@ -11,6 +11,8 @@ import {
   GenericCommandTraits,
   GenericEndlessSpells,
   GenericGrandStrategies,
+  GenericIncarnates,
+  GenericMonstrousRampages,
   GenericPrayers,
   GenericScenery,
   GenericSpells,
@@ -93,6 +95,15 @@ const modifyCoreRules = (core_rules: TEntry[]): TEntry[] => {
   )
 }
 
+const modifyMonstrousRampages = (monstrous_rampages: TEntry[], Collection: TCollection): TEntry[] => {
+  return uniqBy(
+    sortBy(monstrous_rampages.concat(Collection.MonstrousRampages), 'name')
+      .concat(sortBy(GenericMonstrousRampages, 'name'))
+      .map(t => ({ ...t, monstrous_rampage: true })),
+    'name'
+  )
+}
+
 const modifyMountTraits = (mount_traits: TEntry[], Collection: TCollection): TEntry[] => {
   return uniqBy(
     sortBy(mount_traits.concat(Collection.MountTraits), 'name').map(t => ({ ...t, mount_trait: true })),
@@ -166,6 +177,15 @@ const modifyEndlessSpells = (
   )
 }
 
+const modifyIncarnates = (incarnates: TEntry[], Collection: TCollection): TEntry[] => {
+  return uniqBy(
+    sortBy(incarnates.concat(Collection.Incarnates), 'name')
+      .concat(sortBy(GenericIncarnates, 'name'))
+      .map(t => ({ ...t, incarnate: true })),
+    'name'
+  )
+}
+
 export const modify = {
   Artifacts: modifyArtifacts,
   Battalions: modifyBattalions,
@@ -175,6 +195,8 @@ export const modify = {
   EndlessSpells: modifyEndlessSpells,
   Flavors: modifyFlavors,
   GrandStrategies: modifyGrandStrategies,
+  Incarnates: modifyIncarnates,
+  MonstrousRampages: modifyMonstrousRampages,
   MountTraits: modifyMountTraits,
   Prayers: modifyPrayers,
   Scenery: modifyScenery,

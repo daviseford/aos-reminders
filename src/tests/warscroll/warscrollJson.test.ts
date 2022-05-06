@@ -762,6 +762,8 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections).toEqual({
       flavors: [],
       grand_strategies: [],
+      incarnates: [],
+      monstrous_rampages: [],
       mount_traits: [],
       prayers: ['Favour of the Ruinous Powers'],
       artifacts: ['Scroll of Dark Unravelling'],
@@ -1104,6 +1106,8 @@ describe('getWarscrollArmyFromJson', () => {
         battalions: [],
         command_abilities: ['Salvo Fire'],
         endless_spells: [],
+        incarnates: [],
+        monstrous_rampages: [],
         scenery: [],
         grand_strategies: [],
         mount_traits: [],

@@ -11,6 +11,7 @@ import {
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
+  START_OF_SETUP,
   TURN_ONE_START_OF_TURN,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -300,34 +301,11 @@ const CoreRules: TEntry[] = [
 
   {
     name: 'Monstrous Rampages',
+    monstrous_rampage: true,
     effects: [
       {
         name: `21.1 - Monstrous Rampages`,
         desc: `At the end of the charge phase, each player can carry out 1 monstrous rampage with each friendly MONSTER. The player whose turn is taking place carries out all of their monstrous rampages first. The same player cannot carry out the same monstrous rampage more than once per phase. The effect of the monstrous rampage is treated in the same way as the effect of an ability for rules purposes (see 1.6).`,
-        when: [END_OF_CHARGE_PHASE],
-        rule_sources: [meta_rule_sources.CORE_RULES_2021],
-      },
-      {
-        name: `Roar`,
-        desc: `Pick 1 enemy unit within 3" of this model and roll a dice. On a 3+, that unit cannot issue or receive commands in the following combat phase.`,
-        when: [END_OF_CHARGE_PHASE],
-        rule_sources: [meta_rule_sources.CORE_RULES_2021],
-      },
-      {
-        name: `Stomp`,
-        desc: `Pick 1 enemy unit within 3" of this model that is not a MONSTER and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
-        when: [END_OF_CHARGE_PHASE],
-        rule_sources: [meta_rule_sources.CORE_RULES_2021],
-      },
-      {
-        name: `Titanic Duel`,
-        desc: `Pick 1 enemy MONSTER within 3" of this model. Add 1 to hit rolls for attacks made by this model that target that enemy MONSTER until the end of the following combat phase.`,
-        when: [END_OF_CHARGE_PHASE],
-        rule_sources: [meta_rule_sources.CORE_RULES_2021],
-      },
-      {
-        name: `Smash To Rubble`,
-        desc: `Pick 1 faction terrain feature or defensible terrain feature within 3" of this model and roll a dice. On a 3+, the terrain feature is demolished if it was defensible (see 17.2.3), and the scenery rules on its warscroll cannot be used for the rest of the battle if it was a faction terrain feature.`,
         when: [END_OF_CHARGE_PHASE],
         rule_sources: [meta_rule_sources.CORE_RULES_2021],
       },
@@ -471,6 +449,42 @@ const CoreRules: TEntry[] = [
         desc: `Some abilities allow you to roll a dice to negate a wound or mortal wound. Abilities of this type are referred to as wards, and the dice roll is referred to as a ward roll. Unless stated otherwise, the ward roll is made before the wound is allocated to the model in question. Up to 1 ward roll can be made for each wound or mortal wound. If the ward roll is successful, the wound or mortal wound is negated and has no effect on the model.`,
         when: [WOUND_ALLOCATION_PHASE],
         rule_sources: [meta_rule_sources.CORE_RULES_2021, meta_rule_sources.ERRATA_CORE_RULES_OCTOBER_2021],
+      },
+    ],
+  },
+
+  {
+    name: 'Incarnates',
+    incarnate: true,
+    effects: [
+      {
+        name: `Bonding`,
+        desc: `An incarnate must be bonded to a HERO in the army it is part of. Bonding an incarnate to a HERO is a unique enhancement. Record which HERO the incarnate is bonded to on your army roster. A HERO cannot be bonded to more than 1 incarnate, and an incarnate cannot be bonded to more than 1 HERO.
+
+        An army that includes an incarnate cannot include any other allied units. However, an incarnate can included in an army even if its points cost exceeds the maximum number of points that you can spend on allies in the battlepack you are using.`,
+        when: [START_OF_SETUP],
+      },
+      {
+        name: `Wild Form`,
+        desc: `If the HERO an incarnate is bonded to is slain, the incarnate reverts to its wild form. An incarnate in its wild form remains part of your army, but it treats other units in your army as enemy units, and other units in your army treat it as an enemy unit. In addition, special rules apply to an incarnate in its wild form, as described on its warscroll.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Incarnate States`,
+        desc: `Incarnates have states. Each state has a level and a domination range, as shown on the State table on its warscroll. Incarnates start a battle at 2 (primal state).
+
+        Under certain circumstances, an incarnate's level can go up or down. When this happens, their state changes to that of their new level. For example, if an incarnate's level went up from 2 to 3, it would go from a primal state to an empowered state. An incarnate can never go above a level of 3 and is removed from play when it reaches a level 0.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Damage`,
+        desc: `Wounds are allocated to incarnates in the same way as they are to any other model. However, because an incarnate does not have a Wounds characteristic, it cannot be slain. An incarnate is treated as having a Wounds characteristic of 18 for all rules purposes other than determining if it is slain. If an incarnate is affected by an ability that slays the target without any wounds or mortal wounds being allocated, then the level of the incarnate goes down by 1 instead.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Damage`,
+        desc: `In the battleshock phase. if any wounds are allocated to an incarnate, its commanding player rolls 3D6. If the roll is less than or equal to the number of wounds allocated to the incarnate, its level is reduced by 1. Then all of the wounds allocated to the incarnate are healed.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },

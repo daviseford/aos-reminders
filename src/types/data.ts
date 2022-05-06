@@ -13,6 +13,8 @@ export type TEntryProperties =
   | 'core_rule'
   | 'endless_spell'
   | 'grand_strategy'
+  | 'incarnate'
+  | 'monstrous_rampage'
   | 'mount_trait'
   | 'prayer'
   | 'scenery'
@@ -29,6 +31,8 @@ export const ENTRY_PROPERTIES: TEntryProperties[] = [
   'core_rule',
   'endless_spell',
   'grand_strategy',
+  'incarnate',
+  'monstrous_rampage',
   'mount_trait',
   'prayer',
   'scenery',
@@ -46,6 +50,8 @@ export const lowerToUpperLookup: Record<TSelectionTypes, keyof TCollection> = {
   endless_spells: 'EndlessSpells',
   flavors: 'Flavors',
   grand_strategies: 'GrandStrategies',
+  incarnates: 'Incarnates',
+  monstrous_rampages: 'MonstrousRampages',
   mount_traits: 'MountTraits',
   prayers: 'Prayers',
   scenery: 'Scenery',
@@ -63,6 +69,8 @@ export const upperToLowerLookup: Record<keyof TCollection, TSelectionTypes> = {
   EndlessSpells: 'endless_spells',
   Flavors: 'flavors',
   GrandStrategies: 'grand_strategies',
+  Incarnates: 'incarnates',
+  MonstrousRampages: 'monstrous_rampages',
   MountTraits: 'mount_traits',
   Prayers: 'prayers',
   Scenery: 'scenery',
@@ -79,6 +87,8 @@ export const entryKeyToSelectionsKey: Record<Exclude<TEntryProperties, 'battle_t
   core_rule: 'core_rules',
   endless_spell: 'endless_spells',
   grand_strategy: 'grand_strategies',
+  incarnate: 'incarnates',
+  monstrous_rampage: 'monstrous_rampages',
   mount_trait: 'mount_traits',
   prayer: 'prayers',
   scenery: 'scenery',
@@ -98,6 +108,8 @@ export const selectionsKeyToEntryKey: Record<
   core_rules: 'core_rule',
   endless_spells: 'endless_spell',
   grand_strategies: 'grand_strategy',
+  incarnates: 'incarnate',
+  monstrous_rampages: 'monstrous_rampage',
   mount_traits: 'mount_trait',
   prayers: 'prayer',
   scenery: 'scenery',

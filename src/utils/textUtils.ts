@@ -22,11 +22,14 @@ export const hashCode = (str: string): string => {
 
 export const getActionTitle = ({
   artifact,
+  battalion,
   command_ability,
   command_trait,
   condition,
   endless_spell,
   grand_strategy,
+  incarnate,
+  monstrous_rampage,
   mount_trait,
   name,
   prayer,
@@ -37,10 +40,13 @@ export const getActionTitle = ({
   const joinedCond = condition.filter(x => x !== name).join(', ')
   const suffix = name === joinedCond || joinedCond === `` ? `` : `: ${joinedCond}`
   if (artifact) return `Artifact${suffix}`
+  if (battalion) return `Battalion${suffix}`
   if (command_ability) return `Command Ability${suffix}`
   if (command_trait) return `Command Trait${suffix}`
   if (endless_spell) return `Endless Spell${suffix}`
   if (grand_strategy) return `Grand Strategy${suffix}`
+  if (incarnate) return `Incarnate${suffix}`
+  if (monstrous_rampage) return `Monstrous Rampage${suffix}`
   if (mount_trait) return `Mount Trait${suffix}`
   if (prayer) return `Prayer${suffix}`
   if (scenery) return `Scenery${suffix}`
