@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { NURGLE } from 'meta/factions'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -17,7 +18,7 @@ import {
 import rule_sources from './rule_sources'
 
 const BattleTraits = {
-  Nurgle: {
+  [NURGLE]: {
     effects: [
       {
         name: `Diseased`,
@@ -57,6 +58,11 @@ const BattleTraits = {
       {
         name: `Disgustingly Resilient`,
         desc: `At the start of your hero phase, you can heal 1 wound allocated to each friendly MAGGOTKIN OF NURGLE model.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Locus of Fecundity`,
+        desc: `The following friendly units are each a Locus of Fecundity: GREAT UNCLEAN ONE, HORTICULOUS SLIMUX, THE GLOTTKIN, FESTUS THE LEECHLORD. The Disgustingly Resilient battle trait heals D3 wounds allocated to a model instead of 1 if that model’s unit is within 14" of any Loci of Fecundity.`,
         when: [START_OF_HERO_PHASE],
       },
 

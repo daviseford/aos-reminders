@@ -1,3 +1,4 @@
+import { NURGLE } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
@@ -12,7 +13,7 @@ import Units from './units'
 
 const subFactions = {
   Nurgle: {
-    effects: pickEffects(BattleTraits, ['Nurgle', 'Battle Tactics']),
+    effects: pickEffects(BattleTraits, [NURGLE, 'Battle Tactics']),
 
     available: {
       artifacts: [Artifacts],
