@@ -1,6 +1,7 @@
 import { keyPicker, pickEffects } from 'factions/metatagger'
 import { DAUGHTERS_OF_KHAINE } from 'meta/factions'
 import Artifacts from './artifacts'
+import Battalions from './battalions'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -21,6 +22,7 @@ const subFactions = {
 
     available: {
       artifacts: [Artifacts],
+      battalions: [Battalions],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       endless_spells: [EndlessSpells],
