@@ -7,6 +7,7 @@ import {
   SAVES_PHASE,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const BattleTraits = {
@@ -56,65 +57,55 @@ const BattleTraits = {
     ],
   },
   // Hagg Nar Flavor
-  // 'Daughters of the First Temple': {
-  //   effects: [
-  //     {
-  //       name: `Daughters of the First Temple`,
-  //       desc: `Add 1 to the current battle round when determining active Blood Rites. This effect is cumulative with other similar abilities.`,
-  //       when: [START_OF_ROUND],
-  //     },
-  //   ],
-  // },
+  'Daughters of the First Temple': {
+    effects: [
+      {
+        name: `Daughters of the First Temple`,
+        desc: `Add 1 to the number of the current battle round when determining the abilities gained by friendly HAGG NAR units from the Blood Rites battle trait (pg 66). This ability and other similar abilities are cumulative.`,
+        when: [START_OF_ROUND],
+      },
+    ],
+  },
   // // Draichi Ganeth Flavor
-  // 'Bladed Killers': {
-  //   effects: [
-  //     {
-  //       name: `Bladed Killers`,
-  //       desc: `Improve the melee rend characteristic of friendly Draichi Ganeth Witch Aelves and Sisters of Slaughter units by 1 if they charged this turn.`,
-  //       when: [CHARGE_PHASE, COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
+  'Bladed Killers': {
+    effects: [
+      {
+        name: `Bladed Killers`,
+        desc: `Improve the Rend characteristic of melee weapons used by friendly DRAICHI GANETH WITCH AELVES units and friendly DRAICHI GANETH SISTERS OF SLAUGHTER units by 1 if those units made a charge move in the same turn.`,
+        when: [CHARGE_PHASE, COMBAT_PHASE],
+      },
+    ],
+  },
   // // Kraith Flavor
-  // 'Disciples of Slaughter': {
-  //   effects: [
-  //     {
-  //       name: `Disciples of Slaughter`,
-  //       desc: `Roll a D6 for each Kraith Sisters of Slaughter unit that fought in this phase. On a 5+ that unit can fight a second time.`,
-  //       when: [END_OF_COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // // Khailebron Flavor
-  // 'Concealment and Stealth': {
-  //   effects: [
-  //     {
-  //       name: `Concealment and Stealth`,
-  //       desc: `Subtract 1 from missle hit rolls that target friendly Khailebron units.`,
-  //       when: [SHOOTING_PHASE],
-  //     },
-  //   ],
-  // },
+  'Disciples of Slaughter': {
+    effects: [
+      {
+        name: `Disciples of Slaughter`,
+        desc: `After a friendly KRAITH SISTERS OF SLAUGHTER unit has fought for the first time in the combat phase, roll a dice. On a 4+, that unit can fight for a second time in that phase. The strike-last effect applies to that unit when they fight for that second time.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
   // // Khelt Nar Flavor
-  // 'Strike and Fade': {
-  //   effects: [
-  //     {
-  //       name: `Strike and Fade`,
-  //       desc: `Friendly Khelt Nar units can retreat and charge in the same turn.`,
-  //       when: [MOVEMENT_PHASE, CHARGE_PHASE],
-  //     },
-  //   ],
-  // },
+  'Strike and Fade': {
+    effects: [
+      {
+        name: `Strike and Fade`,
+        desc: `Friendly KHELT NAR units can retreat and still charge in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+    ],
+  },
   // // Zainthar Kai Flavor
-  // "Khaine's Essence": {
-  //   effects: [
-  //     {
-  //       name: `Khaine's Essence`,
-  //       desc: `Add 1 to the bravery characteristic of Zainthar Kai Melusai and Khinerai Harpies units.`,
-  //       when: [DURING_GAME, BATTLESHOCK_PHASE],
-  //     },
-  //   ],
-  // },
+  "Khaine's Essence": {
+    effects: [
+      {
+        name: `Khaine's Essence`,
+        desc: `Each time a model in a friendly ZAINTHAR KAI MELUSAI unit is slain, that model can fight before it is removed from play.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(BattleTraits, 'battle_trait')

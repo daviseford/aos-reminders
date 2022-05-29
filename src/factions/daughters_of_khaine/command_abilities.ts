@@ -1,12 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  COMBAT_PHASE,
-  END_OF_MOVEMENT_PHASE,
-  HERO_PHASE,
-  MOVEMENT_PHASE,
-  START_OF_COMBAT_PHASE,
-  START_OF_MOVEMENT_PHASE,
-} from 'types/phases'
+import { COMBAT_PHASE, END_OF_MOVEMENT_PHASE } from 'types/phases'
 
 const CommandAbilities = {
   // DoK Allegiance Ability
@@ -84,15 +77,15 @@ const CommandAbilities = {
   //   ],
   // },
   // // Khailebron Flavor
-  // 'Masters of the Shadowpaths': {
-  //   effects: [
-  //     {
-  //       name: `Masters of the Shadowpaths`,
-  //       desc: `Pick 1 friendly Khailebron unit wholly within 12" of a friendly Khailebron general. Remove the target and set it up anywhere on the battlefield more than 9" from enemy units.`,
-  //       when: [END_OF_MOVEMENT_PHASE],
-  //     },
-  //   ],
-  // },
+  'Masters of the Shadowpaths': {
+    effects: [
+      {
+        name: `Masters of the Shadowpaths`,
+        desc: `You can use this command ability at the end of your movement phase. The command can only be issued by a friendly KHAILEBRON HERO, and the unit that receives the command must be a friendly KHAILEBRON unit. Remove the unit that receives this command from the battlefield and set it up again on the battlefield more than 9" from all enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+    ],
+  },
   // // Khelt Nar Flavor
   // 'Bleed the Mind': {
   //   effects: [
