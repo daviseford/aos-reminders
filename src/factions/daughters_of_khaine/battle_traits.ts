@@ -1,14 +1,10 @@
 import { tagAs } from 'factions/metatagger'
 import { DAUGHTERS_OF_KHAINE } from 'meta/factions'
 import {
-  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
-  END_OF_COMBAT_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
-  SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
 } from 'types/phases'
