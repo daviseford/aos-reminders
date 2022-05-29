@@ -1,4 +1,4 @@
-import { pickEffects } from 'factions/metatagger'
+import { keyPicker, pickEffects } from 'factions/metatagger'
 import { DAUGHTERS_OF_KHAINE } from 'meta/factions'
 import Artifacts from './artifacts'
 import BattleTraits from './battle_traits'
@@ -12,7 +12,11 @@ import Units from './units'
 
 const subFactions = {
   [DAUGHTERS_OF_KHAINE]: {
-    effects: pickEffects(BattleTraits, ['Apostles of the Murder God']),
+    effects: pickEffects(BattleTraits, [DAUGHTERS_OF_KHAINE]),
+
+    mandatory: {
+      command_abilities: keyPicker(CommandAbilities, ['All-out Slaughter']),
+    },
 
     available: {
       artifacts: [Artifacts],
