@@ -17,7 +17,7 @@ const subFactions = {
     effects: pickEffects(BattleTraits, [DAUGHTERS_OF_KHAINE, 'Battle Tactics']),
 
     mandatory: {
-      command_abilities: keyPicker(CommandAbilities, ['All-out Slaughter']),
+      command_abilities: [keyPicker(CommandAbilities, ['All-out Slaughter'])],
     },
 
     available: {

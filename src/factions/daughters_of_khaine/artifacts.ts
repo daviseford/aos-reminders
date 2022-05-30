@@ -17,24 +17,6 @@ const Artifacts = {
       },
     ],
   },
-  // "Shadracar's Fang": {
-  //   effects: [
-  //     {
-  //       name: `Shadracar's Fang`,
-  //       desc: `Add 1 to the hit rolls made for the selected melee weapon. In addition, each time an unmodified hit roll of 6 is made for that weapon, the target suffers 1 mortal wound in addition to normal damage.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Amulet of Dark Fire': {
-  //   effects: [
-  //     {
-  //       name: `Amulet of Dark Fire`,
-  //       desc: `Roll a D6 each time the bearer is allocated a mortal wound inflicted by an enemy spell. On a 4+ that wound is negated.`,
-  //       when: [WOUND_ALLOCATION_PHASE],
-  //     },
-  //   ],
-  // },
   'Crone Blade': {
     effects: [
       {
@@ -44,15 +26,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'Thousand and One Dark Blessings': {
-  //   effects: [
-  //     {
-  //       name: `Thousand and One Dark Blessings`,
-  //       desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 5+ it is negated.`,
-  //       when: [WOUND_ALLOCATION_PHASE],
-  //     },
-  //   ],
-  // },
   'Bloodbane Venom': {
     effects: [
       {
@@ -71,24 +44,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'Rune of Ulgu': {
-  //   effects: [
-  //     {
-  //       name: `Rune of Ulgu`,
-  //       desc: `The bearer knows one additional spell from the Lore of Shadows.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'The Mirror Glaive': {
-  //   effects: [
-  //     {
-  //       name: `The Mirror Glaive`,
-  //       desc: `Each time the bearer unbinds an enemy spell, they can immediately attempt to cast either the Mystic Shield or Arcane Bolt spells as if they were your hero phase. Your opponent cannot attempt to unbind this spell.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
   'Sevenfold Shadow': {
     effects: [
       {
@@ -107,15 +62,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'Shade Claw': {
-  //   effects: [
-  //     {
-  //       name: `Shade Claw`,
-  //       desc: `The bearer's Whisperclaw has a Rend characteristic of -2.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
   'Blood Sigil': {
     effects: [
       {
@@ -125,15 +71,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'Iron Circlet': {
-  //   effects: [
-  //     {
-  //       name: `Iron Circlet`,
-  //       desc: `You can reroll prayer rolls of 1 for the bearer.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
   'Rune of Khaine': {
     effects: [
       {
@@ -143,16 +80,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'Crimson Shard': {
-  //   effects: [
-  //     {
-  //       name: `Crimson Shard`,
-  //       desc: `The bearer's selected melee weapon adds 1 to its wound rolls.`,
-  //       when: [COMBAT_PHASE],
-  //       rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_JULY_2021],
-  //     },
-  //   ],
-  // },
   'Khainite Pendant': {
     effects: [
       {
@@ -162,75 +89,6 @@ const Artifacts = {
       },
     ],
   },
-  // Hagbrew: {
-  //   effects: [
-  //     {
-  //       name: `Hagbrew`,
-  //       desc: `Add 1 to the melee wound rolls of the bearer.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // // Hagg Nar Flavor
-  // 'The Ulfuri': {
-  //   effects: [
-  //     {
-  //       name: `The Ulfuri`,
-  //       desc: `The selected melee weapon adds 1 to its damage characteristic if the bearer charged this turn.`,
-  //       when: [CHARGE_PHASE, COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // // Draichi Ganeth Flavor
-  // "Death's Kiss": {
-  //   effects: [
-  //     {
-  //       name: `Death's Kiss`,
-  //       desc: `The selected melee weapon adds 2 to its attacks characteristic if the bearer charged this turn.`,
-  //       when: [CHARGE_PHASE, COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // // Kraith Flavor
-  // 'Venom of Nagendra': {
-  //   effects: [
-  //     {
-  //       name: `Venom of Nagendra`,
-  //       desc: `Once per battle, choose to not use the selected melee weapon in this combat phase. If you do, pick an enemy unit within 1" of the bearer and deal D6 mortal wounds.`,
-  //       when: [START_OF_COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // // Khailebron Flavor
-  // Whisperdeath: {
-  //   effects: [
-  //     {
-  //       name: `Whisperdeath`,
-  //       desc: `Unmodified melee hit rolls of 6 on the selected weapon inflict 1 mortal wound in addition to normal damage.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // // Khelt Nar Flavor
-  // "Gaisa's Falx": {
-  //   effects: [
-  //     {
-  //       name: `Gaisa's Falx`,
-  //       desc: `Unmodified melee hit rolls of 6 on the selected weapon score 2 hits instead of 1.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // // Zainthar Kai Flavor
-  // 'Crimson Talisman': {
-  //   effects: [
-  //     {
-  //       name: `Crimson Talisman`,
-  //       desc: `Subtract 1 from melee wound rolls targeting the bearer.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
 }
 
 export default tagAs(Artifacts, 'artifact')
