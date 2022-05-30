@@ -41,7 +41,7 @@ const CommandAbilities = {
       },
     ],
   },
-  // // Khailebron Flavor
+  // Khailebron Flavor
   'Masters of the Shadowpaths': {
     effects: [
       {

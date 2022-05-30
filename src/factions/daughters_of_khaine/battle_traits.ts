@@ -102,7 +102,7 @@ const BattleTraits = {
       },
     ],
   },
-  // // Draichi Ganeth Flavor
+  // Draichi Ganeth Flavor
   'Bladed Killers': {
     effects: [
       {
@@ -112,7 +112,7 @@ const BattleTraits = {
       },
     ],
   },
-  // // Kraith Flavor
+  // Kraith Flavor
   'Disciples of Slaughter': {
     effects: [
       {
@@ -122,7 +122,7 @@ const BattleTraits = {
       },
     ],
   },
-  // // Khelt Nar Flavor
+  // Khelt Nar Flavor
   'Strike and Fade': {
     effects: [
       {
@@ -132,7 +132,7 @@ const BattleTraits = {
       },
     ],
   },
-  // // Zainthar Kai Flavor
+  // Zainthar Kai Flavor
   "Khaine's Essence": {
     effects: [
       {
