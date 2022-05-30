@@ -3,7 +3,6 @@ import { DonateComponent } from 'components/info/donate'
 import OfflineComponent from 'components/info/offline'
 import Contact from 'components/page/contact'
 import { useTheme } from 'context/useTheme'
-import React from 'react'
 import pkgJson from '../../../package.json'
 
 /**

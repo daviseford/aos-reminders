@@ -1,5 +1,5 @@
 import { selectors } from 'ducks'
-import React, { Fragment, useMemo } from 'react'
+import { Fragment, useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { titleCase } from 'utils/textUtils'
 

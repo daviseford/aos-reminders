@@ -4,7 +4,7 @@ import { ShareArmyModal } from 'components/modals/share_army_modal'
 import SubscriberOnlyModal from 'components/modals/subscriber_only_modal'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSubscription } from 'context/useSubscription'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { FaLink } from 'react-icons/fa'
 import useLogin from 'utils/hooks/useLogin'
 

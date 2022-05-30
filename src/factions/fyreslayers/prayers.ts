@@ -38,7 +38,7 @@ const Prayers = {
       },
     ],
   },
-  // // Unit prayers
+  // Unit prayers
   "Volcano's Call": {
     effects: [
       {

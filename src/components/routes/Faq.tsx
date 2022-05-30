@@ -1,7 +1,7 @@
 import { LoadingHeader } from 'components/helpers/suspenseFallbacks'
 import Footer from 'components/page/footer'
 import { useTheme } from 'context/useTheme'
-import React, { lazy, Suspense, useEffect } from 'react'
+import { lazy, Suspense, useEffect } from 'react'
 import { logPageView } from 'utils/analytics'
 
 const Navbar = lazy(() => import('components/page/navbar'))

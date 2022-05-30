@@ -1,5 +1,4 @@
 import { useAppStatus } from 'context/useAppStatus'
-import React from 'react'
 import Switch from 'react-switch'
 import { centerContentClass } from 'theme/helperClasses'
 

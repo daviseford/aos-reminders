@@ -310,14 +310,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.spells).toContain('Curse of Years')
   })
 
-  it('should correctly read RuneOfKhaine', () => {
-    const pdfText = getFile('RuneOfKhaine')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.artifacts).not.toContain('Rune of Khaine')
-    expect(res.selections.prayers).toContain('Rune of Khaine')
-  })
-
   it('should correctly read Tzeentch1', () => {
     const pdfText = getFile('Tzeentch1')
     const parsedText = parsePdf(pdfText)
@@ -756,9 +748,9 @@ describe('getWarscrollArmyFromPdf', () => {
       incarnates: [],
       monstrous_rampages: [],
       mount_traits: [],
-      prayers: ['Wrath of Khaine'],
+      prayers: [],
       artifacts: ['Obstinate Blade (Order)'],
-      battalions: [],
+      battalions: ['Shadow Patrol'],
       command_abilities: [],
       endless_spells: [],
       scenery: [],

@@ -2,7 +2,7 @@ import { AllyArmyBuilder } from 'components/input/ally_army_builder'
 import { selectors } from 'ducks'
 import { without } from 'lodash'
 import { SUPPORTED_FACTIONS } from 'meta/factions'
-import React, { useMemo } from 'react'
+import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 
 const AlliedArmies = () => {

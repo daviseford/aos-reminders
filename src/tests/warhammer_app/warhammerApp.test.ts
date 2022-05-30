@@ -140,13 +140,6 @@ describe('getWarhammerAppArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1632785290009-Warhammer_App', () => {
-    const parsedText = getFile('1632785290009-Warhammer_App')
-    const res = getWarhammerAppArmy(parsedText)
-    expect(res.selections.artifacts).toContain('The Ulfuri')
-    expect(res.errors).toEqual([])
-  })
-
   it('should correctly read 1633021235077-Warhammer_App', () => {
     const parsedText = getFile('1633021235077-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
