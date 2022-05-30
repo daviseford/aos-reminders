@@ -4,7 +4,7 @@ import { SavedArmyCard } from 'components/input/savedArmies/saved_army_card'
 import { useAppStatus } from 'context/useAppStatus'
 import { useSavedArmies } from 'context/useSavedArmies'
 import { useSubscription } from 'context/useSubscription'
-import React, { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 import { paginateSavedArmies } from 'utils/paginate'
 
 const ShowSavedArmies = () => {

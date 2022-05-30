@@ -1,6 +1,6 @@
 import { CardMultiSelect, CardSingleSelect } from 'components/info/card'
 import { armyActions, selectors } from 'ducks'
-import React, { Fragment, useEffect, useMemo } from 'react'
+import { Fragment, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { TOriginRealms } from 'types/realmscapes'
 import useGetArmy from 'utils/hooks/useGetArmy'

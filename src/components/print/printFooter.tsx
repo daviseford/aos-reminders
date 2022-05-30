@@ -1,5 +1,3 @@
-import React from 'react'
-
 const PrintFooter = () => {
   return (
     <footer className={'text-center py-3 d-none d-print-block'}>

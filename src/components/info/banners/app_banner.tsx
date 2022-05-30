@@ -1,6 +1,5 @@
 import { NotificationBanner } from 'components/info/banners/notification_banner'
 import { useTheme } from 'context/useTheme'
-import React from 'react'
 
 const AppBanner = () => {
   const { isDark } = useTheme()

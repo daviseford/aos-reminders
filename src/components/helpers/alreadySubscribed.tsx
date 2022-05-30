@@ -1,6 +1,6 @@
 import Navbar from 'components/page/navbar'
 import { useTheme } from 'context/useTheme'
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import { ROUTES } from 'utils/env'
 
 const AlreadySubscribed = () => {

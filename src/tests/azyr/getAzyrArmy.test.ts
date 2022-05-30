@@ -44,13 +44,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.subFactionName).toEqual('Godseekers Host')
   })
 
-  it('should correctly read 1625898122403-Azyr', () => {
-    const fileTxt = getFile('1625898122403-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections.artifacts).toContain("Gaisa's Falx")
-  })
-
   it('should correctly read Soulblight_Gravelords', () => {
     const fileTxt = getFile('Soulblight_Gravelords')
     const pages = handleAzyrPages(fileTxt)
@@ -884,15 +877,15 @@ describe('getAzyrArmyFromPdf', () => {
       mount_traits: [],
       incarnates: [],
       monstrous_rampages: [],
-      prayers: ["Martyr's Sacrifice", 'Rune of Khaine', 'Touch of Death', 'Wrath of Khaine'],
+      prayers: ["Martyr's Sacrifice", 'Touch of Death'],
       flavors: ['The Kraith'],
-      artifacts: ['Crimson Shard', 'Venom of Nagendra'],
+      artifacts: [],
       battalions: [],
-      command_abilities: ['Inspired by Carnage', 'Worship Through Bloodshed'],
+      command_abilities: ['All-out Slaughter', 'Worship Through Bloodshed'],
       endless_spells: [],
       scenery: [],
       spells: ['Mindrazor', 'Black Horror of Ulgu'],
-      command_traits: ['Bathe in Their Blood'],
+      command_traits: [],
       core_rules: [],
       triumphs: [],
       units: ['Hag Queen on Cauldron of Blood', 'Morathi-Khaine', 'Sisters of Slaughter', 'The Shadow Queen'],

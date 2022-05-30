@@ -171,12 +171,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.grand_strategies).toContain('In and Out, Ladz')
   })
 
-  it('should correctly read 1626346073420-Warscroll_Builder', () => {
-    const parsedText = getFile('1626346073420-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.command_traits).toContain('Devoted Disciple')
-  })
-
   it('should correctly read 1626464166387-Warscroll_Builder', () => {
     const parsedText = getFile('1626464166387-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)

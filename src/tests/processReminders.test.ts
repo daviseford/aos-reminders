@@ -1,7 +1,7 @@
 import IronjawzBattleTraits from 'factions/orruk_warclans/ironjawz/battle_traits'
 import { SylvanethFaction } from 'factions/sylvaneth'
 import { GenericCommandAbilities, GenericTriumphs } from 'generic_rules'
-import { CITIES_OF_SIGMAR, DAUGHTERS_OF_KHAINE, ORRUK_WARCLANS, SYLVANETH } from 'meta/factions'
+import { CITIES_OF_SIGMAR, ORRUK_WARCLANS, SYLVANETH } from 'meta/factions'
 import { IArmy } from 'types/army'
 import { TTurnAction } from 'types/data'
 import { END_OF_GAME, HERO_PHASE } from 'types/phases'
@@ -87,55 +87,6 @@ describe('processReminders', () => {
       : undefined
     expect(abilityEffect).toBeDefined()
     expect((abilityEffect as TTurnAction).condition[0]).toEqual(`Ironjawz Allegiance`)
-  })
-
-  // fixes https://github.com/daviseford/aos-reminders/issues/1210
-  it('should work with Rune of Khaine', () => {
-    const selections = {
-      artifacts: ['Iron Circlet'],
-      battalions: [],
-      command_abilities: ['Worship Through Bloodshed'],
-      command_traits: ['Mistress of Illusion'],
-      endless_spells: [],
-      flavors: ['Khailebron'],
-      mount_traits: [],
-      prayers: [
-        'Catechism of Murder',
-        'Sacrament of Blood',
-        'Rune of Khaine',
-        'Touch of Death',
-        'Wrath of Khaine',
-      ],
-      scenery: [],
-      spells: ['Mindrazor', 'Black Horror of Ulgu'],
-      triumphs: [],
-      units: [
-        'Hag Queen on Cauldron of Blood',
-        'Hag Queen',
-        'The Shadow Queen',
-        'Morathi-Khaine',
-        'Sisters of Slaughter',
-        'Witch Aelves',
-        'Khainite Shadowstalkers',
-        'Blood Stalkers',
-      ],
-    }
-    const army = getArmy(DAUGHTERS_OF_KHAINE, DAUGHTERS_OF_KHAINE, null, null) as IArmy
-    const reminders = processConditions(army.Game, selections, {})
-
-    const runeOfKhaineArtifact = reminders.WOUND_ALLOCATION.find(
-      x => x.name === 'Rune of Khaine' && x.artifact === true // This is added by the Hag Queens `mandatory` section, even though it's not in initial selections
-    )
-    const runeOfKhainePrayer = reminders.DURING_COMBAT_PHASE.find(
-      x => x.name === 'Rune of Khaine' && x.prayer === true
-    )
-    const khailebroneEffect = reminders.DURING_SHOOTING_PHASE.find(
-      x => x.name === 'Concealment and Stealth' && x.condition[0] === 'Khailebron'
-    )
-
-    expect(runeOfKhaineArtifact).toBeDefined()
-    expect(runeOfKhainePrayer).toBeDefined()
-    expect(khailebroneEffect).toBeDefined()
   })
 
   it('should work with duplicate rule names', () => {
