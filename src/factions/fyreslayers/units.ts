@@ -85,13 +85,14 @@ const VyingForGloryEffect = {
   when: [COMBAT_PHASE, SHOOTING_PHASE],
   shared: true,
 }
+const ChampionEffect = {
+  name: `Champion`,
+  desc: `1 model in this unit can be a Karl. Add 1 to the Attacks characteristic of that model's melee weapons.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
 const VulkiteBezerkersBaseEffects = [
-  {
-    name: `Champion`,
-    desc: `1 model in this unit can be a Karl. Add 1 to the Attacks characteristic of that model's melee weapons.`,
-    when: [COMBAT_PHASE],
-    shared: true,
-  },
+  ChampionEffect,
   {
     name: `Musician`,
     desc: `1 in every 5 models in this unit can be a Hornblower of Grimnir. Add 1 to charge rolls for this unit if it includes any Hornblowers of Grimnir.`,
@@ -294,11 +295,7 @@ const Units = {
   },
   'Hearthguard Berzerkers': {
     effects: [
-      {
-        name: `Champion`,
-        desc: `1 model in this unit can be a Karl. Add 1 to the Attacks characteristic of that model's melee weapons.`,
-        when: [COMBAT_PHASE],
-      },
+      ChampionEffect,
       {
         name: `Duty Unto Death`,
         desc: `This unit has a ward of 4+ if it is wholly within 9" of any friendly FYRESLAYERS HEROES.`,
