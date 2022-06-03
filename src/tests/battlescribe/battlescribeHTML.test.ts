@@ -194,12 +194,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.units).toContain('Vindictors')
   })
 
-  it('should correctly read 1625911854492-Battlescribe', () => {
-    const parsedText = getFile('1625911854492-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-  })
-
   it('should not work with The Choir of Torments battalion (not in current book)', () => {
     const parsedText = getFile('1601345187171-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
