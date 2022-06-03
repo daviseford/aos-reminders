@@ -1,38 +1,38 @@
 import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
-  DURING_GAME,
+  END_OF_COMBAT_PHASE,
+  END_OF_MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
-  START_OF_HERO_PHASE,
-  START_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 
-// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+// Store Command Traits here. You can add them to units, abilities, flavors, and subfactions later.
 const CommandTraits = {
   'Hatred of the Living': {
     effects: [
       {
         name: `Hatred of the Living`,
-        desc: `You can reroll failed hit rolls for attacks made with this general's melee weapons unless the target has the DEATH keyword.`,
+        desc: `You can reroll hit and wound rolls for attacks made with melee weapons by this general that target an enemy unit that does not have the DEATH keyword.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  'Terrifying Entity': {
-    effects: [
-      {
-        name: `Terrifying Entity`,
-        desc: `At the start of the enemy movement phase, roll a D6 for each enemy unit within 3" of this model. If the roll is equal to or greater than that enemy unit's Bravery characteristic, that unit must make a retreat move in that movement phase.`,
-        when: [START_OF_MOVEMENT_PHASE],
-      },
-    ],
-  },
+  // 'Terrifying Entity': {
+  //   effects: [
+  //     {
+  //       name: `Terrifying Entity`,
+  //       desc: `At the start of the enemy movement phase, roll a D6 for each enemy unit within 3" of this model. If the roll is equal to or greater than that enemy unit's Bravery characteristic, that unit must make a retreat move in that movement phase.`,
+  //       when: [START_OF_MOVEMENT_PHASE],
+  //     },
+  //   ],
+  // },
   'Lingering Spirit': {
     effects: [
       {
         name: `Lingering Spirit`,
-        desc: `Add 1 to this general's Wounds characteristic.`,
-        when: [COMBAT_PHASE],
+        desc: `This general has a ward of 4+ for damage inflicted by mortal wounds.`,
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -40,8 +40,8 @@ const CommandTraits = {
     effects: [
       {
         name: `Spiteful Spirit`,
-        desc: `Roll a D6 each time you allocate a wound to this general that was inflicted by a melee weapon. On a 5+, the attacking unit suffers 1 mortal wound after all of its attacks have been made.`,
-        when: [COMBAT_PHASE],
+        desc: `At the end of the combat phase, if this general was allocated any wounds that were not negated during that phase, you can roll a number of dice equal to the Wounds characteristic of this general. For each 4+, each enemy unit within 6" of this general suffers 1 mortal wound.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -49,30 +49,30 @@ const CommandTraits = {
     effects: [
       {
         name: `Cloaked in Shadow`,
-        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this general.`,
-        when: [SHOOTING_PHASE],
+        desc: `This general cannot be picked as the target of a shooting or combat attack by more than 1 unit per phase.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
-  'Ruler of the Spirit Hosts': {
+  'Ruler of the Spectral Hosts': {
     effects: [
       {
-        name: `Ruler of the Spirit Hosts`,
-        desc: `At the start of your hero phase, you can pick a friendly SUMMONABLE NIGHTHAUNT unit within 9" of this general and return D3 slain models to that unit. The returning models must be set up within 9" of this general.`,
-        when: [START_OF_HERO_PHASE],
+        name: `Ruler of the Spectral Hosts`,
+        desc: `Once per battle, at the end of your movement phase, you can pick 1 friendly NIGHTHAUNT SUMMONABLE unit that has been destroyed. After you pick a unit that has been destroyed, roll a dice. On a 4+, a new replacement unit with half of the models from the unit that was destroyed (rounding up) is added to your army. Set up that unit wholly within 12" of this general and more than 3" from all enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
   // Emerald Host
-  'Lord of the Host': {
-    effects: [
-      {
-        name: `Lord of the Host`,
-        desc: `Once per battle, you can use the command ability from the general's warscroll without spending a command point.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
+  // 'Lord of the Host': {
+  //   effects: [
+  //     {
+  //       name: `Lord of the Host`,
+  //       desc: `Once per battle, you can use the command ability from the general's warscroll without spending a command point.`,
+  //       when: [DURING_GAME],
+  //     },
+  //   ],
+  // },
 }
 
 // Always export using tagAs

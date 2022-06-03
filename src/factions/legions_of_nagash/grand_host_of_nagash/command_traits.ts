@@ -1,7 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { CHARGE_PHASE, COMBAT_PHASE, START_OF_COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
-// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+// Store Command Traits here. You can add them to units, abilities, flavors, and subfactions later.
 const CommandTraits = {
   'Master of Death': {
     effects: [

@@ -1,7 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_SETUP, MOVEMENT_PHASE } from 'types/phases'
 
-// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+// Store Command Traits here. You can add them to units, abilities, flavors, and subfactions later.
 const CommandTraits = {
   'Above Suspicion': {
     effects: [

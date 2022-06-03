@@ -1,5 +1,5 @@
 import { NIGHTHAUNT } from 'meta/factions'
-import { pickEffects } from '../metatagger'
+import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
@@ -12,6 +12,9 @@ import Units from './units'
 const subFactions = {
   [NIGHTHAUNT]: {
     effects: pickEffects(BattleTraits, [NIGHTHAUNT]),
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['Discorporate'])],
+    },
     available: {
       artifacts: [Artifacts],
       battalions: [],

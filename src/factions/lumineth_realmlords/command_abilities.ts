@@ -10,7 +10,7 @@ import {
 } from 'types/phases'
 import rule_sources from './rule_sources'
 
-// Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
+// Store Command Abilities here. You can add them to units, abilities, flavors, and subfactions later.
 const CommandAbilities = {
   'Redoubled Force': {
     effects: [

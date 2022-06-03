@@ -14,7 +14,7 @@ import {
 } from 'types/phases'
 import rule_sources from './rule_sources'
 
-// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+// Store Command Traits here. You can add them to units, abilities, flavors, and subfactions later.
 const CommandTraits = {
   // Legion of Blood
   'Premeditated Violence': {

@@ -7,7 +7,7 @@ import {
   START_OF_CHARGE_PHASE,
 } from 'types/phases'
 
-// Store Command Traits here. You can add them to units, abilties, flavors, and subfactions later.
+// Store Command Traits here. You can add them to units, abilities, flavors, and subfactions later.
 const CommandTraits = {
   'Swift Strikes': {
     effects: [
