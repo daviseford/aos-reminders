@@ -16,7 +16,7 @@ const Spells = {
     effects: [
       {
         name: `Azyrite Halo`,
-        desc: `Casting value of 5 and range of 12" if the caster is a KNIGHT or 18" if the caster is a LORD or DRACONITH. If successfully cast, pick 1 friendly STORMCAST ETERNALS unit wholly within range and visible to the caster. Until your next hero phase, if the unmodified save roll for an attack that targets that unit is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        desc: `Casting value of 5 and range of 12" if the caster is a KNIGHT or 18" if the caster is a LORD or DRACONITH. Pick 1 friendly STORMCAST ETERNALS unit wholly within range and visible to the caster. Until your next hero phase, if the unmodified save roll for an attack that targets that unit is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [HERO_PHASE],
       },
     ],
@@ -25,7 +25,7 @@ const Spells = {
     effects: [
       {
         name: `Celestial Blades`,
-        desc: `Casting value of 5 and range of 12" if the caster is a KNIGHT or 18" if the caster is a LORD or DRACONITH. If successfully cast, pick 1 friendly STORMCAST ETERNALS unit wholly within range and visible to the caster. Add 1 to wound rolls for attacks made with melee weapons by that unit until your next hero phase.`,
+        desc: `Casting value of 5 and range of 12" if the caster is a KNIGHT or 18" if the caster is a LORD or DRACONITH. Pick 1 friendly STORMCAST ETERNALS unit wholly within range and visible to the caster. Add 1 to wound rolls for attacks made with melee weapons by that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -34,7 +34,7 @@ const Spells = {
     effects: [
       {
         name: `Chain Lightning`,
-        desc: `Casting value of 6 and range of 12" if the caster is a KNIGHT or 18" if the caster is a LORD or DRACONITH. If successfully cast, pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. Then, roll a dice for each other enemy unit within 6" of that unit. On a 3+, that other unit suffers 1 mortal wound.`,
+        desc: `Casting value of 6 and range of 12" if the caster is a KNIGHT or 18" if the caster is a LORD or DRACONITH. Pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. Then, roll a dice for each other enemy unit within 6" of that unit. On a 3+, that other unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -72,7 +72,7 @@ const Spells = {
     effects: [
       {
         name: `Pyroelectric Blast`,
-        desc: `Casting value of 7 and range of 9". If successfully cast, pick 1 point on the battlefield within range and visible to the caster. Each enemy unit within 3" of that point suffers D3 mortal wounds.`,
+        desc: `Casting value of 7 and range of 9". Pick 1 point on the battlefield within range and visible to the caster. Each enemy unit within 3" of that point suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -90,7 +90,7 @@ const Spells = {
     effects: [
       {
         name: `Blaze of the Heavens`,
-        desc: `Casting value of 7 and range of 18". If successfully cast, pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. Add 2" to the range of this spell for each other friendly Stormcast Eternals Thunderstrike unit wholly within 12" of the caster.`,
+        desc: `Casting value of 7 and range of 18". Pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. Add 2" to the range of this spell for each other friendly Stormcast Eternals Thunderstrike unit wholly within 12" of the caster.`,
         when: [HERO_PHASE],
       },
     ],
@@ -125,7 +125,7 @@ const Spells = {
     effects: [
       {
         name: `Thunderclap`,
-        desc: `Casting value of 6 and range of 18". If successfully cast, pick 1 enemy unit within range and visible to the caster. Subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
+        desc: `Casting value of 6 and range of 18". Pick 1 enemy unit within range and visible to the caster. Subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -134,7 +134,7 @@ const Spells = {
     effects: [
       {
         name: `Storm Lance`,
-        desc: `Casting value of 5 and range of 12". If successfully cast, pick 1 point on the battlefield within range and visible to the caster and draw a straight line between that point and the closest part of the caster's base. Roll a dice for each enemy unit passed across by that line. On a 4+, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 5 and range of 12". Pick 1 point on the battlefield within range and visible to the caster and draw a straight line between that point and the closest part of the caster's base. Roll a dice for each enemy unit passed across by that line. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -143,7 +143,7 @@ const Spells = {
     effects: [
       {
         name: `Healing Light`,
-        desc: `Casting value of 5 and range of 18". If successfully cast, pick 1 friendly Stormcast Eternals unit within range. Heal up to D3 wounds allocated to that unit. If the unmodified casting roll was 8+, heal up to D6 wounds allocated to that unit instead.`,
+        desc: `Casting value of 5 and range of 18". Pick 1 friendly Stormcast Eternals unit within range. Heal up to D3 wounds allocated to that unit. If the unmodified casting roll was 8+, heal up to D6 wounds allocated to that unit instead.`,
         when: [HERO_PHASE],
       },
     ],
@@ -152,7 +152,7 @@ const Spells = {
     effects: [
       {
         name: `Lightning Orb`,
-        desc: `Casting value of 6 and range of 12". If successfully cast, pick 1 point on the battlefield within range and visible to the caster. Roll a dice for each enemy unit within 3" of that point. On a 4+, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 6 and range of 12". Pick 1 point on the battlefield within range and visible to the caster. Roll a dice for each enemy unit within 3" of that point. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -170,7 +170,7 @@ const Spells = {
     effects: [
       {
         name: `Empower`,
-        desc: `Casting value of 6 and range of 12". If successfully cast, pick 1 friendly Redeemer or Sacrosanct unit wholly within range. Add 1 to wound rolls for attacks made by that unit until your next hero phase.`,
+        desc: `Casting value of 6 and range of 12". Pick 1 friendly Redeemer or Sacrosanct unit wholly within range. Add 1 to wound rolls for attacks made by that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
