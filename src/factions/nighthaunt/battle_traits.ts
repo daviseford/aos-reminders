@@ -1,15 +1,16 @@
 import { tagAs } from 'factions/metatagger'
 import { NIGHTHAUNT } from 'meta/factions'
 import {
-  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
-  DURING_SETUP,
+  END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
-  HERO_PHASE,
+  MOVEMENT_PHASE,
   SAVES_PHASE,
-  WOUND_ALLOCATION_PHASE,
+  SHOOTING_PHASE,
+  START_OF_BATTLESHOCK_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_ROUND,
 } from 'types/phases'
 
 const BattleTraits = {
@@ -17,81 +18,125 @@ const BattleTraits = {
     effects: [
       {
         name: `Aura of Dread`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly NIGHTHAUNT units.`,
-        when: [BATTLESHOCK_PHASE],
+        desc: `Enemy units are terrified while they are within 3" of any friendly NIGHTHAUNT units. While a unit is terrified, it cannot issue or receive the Inspiring Presence command, This ability has no effect on NIGHTHAUNT units.`,
+        when: [START_OF_BATTLESHOCK_PHASE],
       },
       {
-        name: `Deathless Spirit`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly NIGHTHAUNT model from a unit wholly within 12" of your general or a friendly NIGHTHAUNT HERO. On a 6+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        name: `Ethereal`,
+        desc: `Friendly NIGHTHAUNT units have a ward of 6+. Ignore modifiers (positive and negative) to save rolls for attacks that target friendly NIGHTHAUNT units.`,
+        when: [SAVES_PHASE],
       },
       {
-        name: `From the Underworlds They Come`,
-        desc: `Instead of setting up a NIGHTHAUNT unit on the battlefield, you can place it to one side and say that it is set up in the underworlds as a reserve unit. You can set up one unit in the underworlds for each unit you set up on the battlefield. At the end of your movement phase you can set up any of these units more than 9" from any enemy models. This counts as their move for that turn. Any units which are not set up on the battlefield before the start of the fourth battle round are slain.`,
-        when: [DURING_SETUP],
+        name: `Ethereal`,
+        desc: `Friendly NIGHTHAUNT units can retreat and still charge in the same turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
-        name: `Feed On Terror`,
-        desc: `Each time an enemy unit fails a battleshock test, pick one friendly NIGHTHAUNT HERO within 6" of that enemy unit. Heal 1 wound that has been allocated to that HERO.`,
-        when: [BATTLESHOCK_PHASE],
+        name: `Frightful Touch`,
+        desc: `If the unmodified hit roll for an attack made by a friendly NIGHTHAUNT unit is 6, that attack wounds the target automatically (do not make a wound roll).`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Vanishing Phantasms`,
+        desc: `At the end of deployment, before determining control of objectives, you can remove up to 3 friendly NIGHTHAUNT units from the battlefield and place them to one side to be set up in ambush as reserve units. At the end of your movement phase, you can set up 1 or more of the reserve units in ambush on the battlefield, more than 9" from all enemy units.`,
+        when: [END_OF_SETUP],
+      },
+      {
+        name: `Vanishing Phantasms`,
+        desc: `At the end of your movement phase, you can set up 1 or more of the reserve units in ambush on the battlefield, more than 9" from all enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Wave of Terror`,
-        desc: `If you make an unmodified charge roll of 10+ for a friendly NIGHTHAUNT unit, it can fight immediately after you complete the charge move. This does not stop the unit from being picked to fight in the combat phase of the same turn.`,
+        desc: `After a friendly NIGHTHAUNT unit finishes a charge move, you can look up the unmodified charge roll for the charging unit on the Wave of Terror table below, pick 1 enemy unit within 1" of that NIGHTHAUNT unit, and then apply the effect from the table to that enemy unit. If you prefer, you can pick an effect for a lower unmodified charge roll (e.g. if you rolled an 8, you could to apply the Shriek effect instead of the Stun effect).
+        
+        4-7 | Shriek: Subtract 1 from hit rolls for attacks made by that unit in the following combat phase.
+        8-9 | Stun: Subtract 1 from save rolls for attacks that target that unit in the following combat phase.
+        10+ | Petrify: The strike-last effect applies to that unit in the following combat.
+
+        Designer's Note: An enemy unit can be affected multiple times by Wave of Terror effects, as long as each effect is applied by an unmodified charge for a different charging NIGHTHAUNT unit. `,
         when: [CHARGE_PHASE],
       },
     ],
   },
+
+  'Battle Tactics': {
+    effects: [
+      {
+        name: `Overwhelmed with Dread`,
+        desc: `When you reveal this battle tactic, pick 1 enemy unit on the battlefield. You complete this tactic if that unit is affected by the Shriek, Stun and Petrify effects of the Wave of Terror battle trait (pg 58) during this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Tides of Terror`,
+        desc: `You complete this tactic if at least 2 friendly NIGHTHAUNT units are within 1/2" of the same enemy unit at the end of this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Mass Panic`,
+        desc: `You complete this tactic at the end of this turn if 3 or more enemy units on the battlefield are terrified.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Death by a Thousand Cuts`,
+        desc: `You complete this tactic if an enemy HERO or MONSTER is destroyed by attacks made by a friendly CHAINRASPS or SPIRIT HOST unit during this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `One Stop, No Return`,
+        desc: `When you reveal this battle tactic, pick 1 objective marker on the battlefield that your opponent controls. You complete this battle tactic if you control that objective marker at the end of this turn and there is a friendly BLACK COACH within 3" of that objective.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Ceaseless Nightmares`,
+        desc: `You complete this tactic if 2 or more terrified enemy units fail a battleshock test during this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+
   // The Emerald Host
-  'The Emerald Curse': {
+  'The Emerald Host': {
     effects: [
       {
         name: `The Emerald Curse`,
-        desc: `Pick 1 enemy hero. Subtract 1 from the target's save rolls for the duration of the battle.`,
+        desc: `After armies have been set up but before the first battle round begins, you can pick up to D3+1 different enemy units on the battlefield. At the end of each battle round, roll a dice for each unit you picked that is on the battlefield. On a 2+, that unit suffers D3 mortal wounds. If that unit is a MONSTER, it suffers D3+1 mortal wounds instead of D3.`,
         when: [END_OF_SETUP],
       },
       {
         name: `The Emerald Curse`,
-        desc: `Subtract 1 from the debuffed unit's save rolls.`,
+        desc: `At the end of each battle round, roll a dice for each unit you picked that is on the battlefield. On a 2+, that unit suffers D3 mortal wounds. If that unit is a MONSTER, it suffers D3+1 mortal wounds instead of D3.`,
+        when: [START_OF_ROUND],
+      },
+    ],
+  },
+  // The Scarlet Doom
+  'The Scarlet Doom': {
+    effects: [
+      {
+        name: `Vortex of Frenzied Violence`,
+        desc: `After a friendly SCARLET DOOM BLADEGHEIST REVENANTS unit makes a charge move, you can pick 1 enemy unit within of that unit. If you do so, roll a number of dice equal to the number of models from the charging unit. For each 5+, the target suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  // The Quicksilver Dead
+  'The Quicksilver Dead': {
+    effects: [
+      {
+        name: `Artisans of Harrowing Death`,
+        desc: `Ward rolls cannot be made for wounds caused by attacks made with melee weapons by friendly QUICKSILVER DEAD DREADSCYTHE HARRIDANS units.`,
         when: [SAVES_PHASE],
       },
     ],
   },
-  'Knights of Regret': {
+  // The Grieving Legion
+  'The Grieving Legion': {
     effects: [
       {
-        name: `Knights of Regret`,
-        desc: `Add 1 to the melee attacks characteristic of Emerald Host Hexwraiths that have charged this turn.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Knights of Regret`,
-        desc: `If your general is within 3" of any friendly Emerald Host Hexwraiths, roll a D6 for each allocated wound applied to the general. On a 2+, you must allocate the wound to the Hexwraiths instead.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
-  // Reikenor's Condemned
-  'Unrelenting Taskmasters': {
-    effects: [
-      {
-        name: `Unrelenting Taskmasters`,
-        desc: `You can reroll failed hit rolls for Reikenor's Condemned Chainrasp Horde and Glaivewraith stalker units wholly within 15" of any friendly Reikenor's Condemned Spirit Torments or Chainghasts.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Unrelenting Taskmasters`,
-        desc: `Each time a friendly Reikenor's Condemned Chainrasp Horde or Glaivewraith stalker unit is affected by Spectral Lure or Temporal Translocation cast from a Guardian of Souls, you can return D6 slain models in addition to any others.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Acolyte of the Grimhailer': {
-    effects: [
-      {
-        name: `Acolyte of the Grimhailer`,
-        desc: `Reikenor the Grimhailer counts as an additional general in your army.`,
-        when: [DURING_GAME],
+        name: `Dragged into Grave`,
+        desc: `Enemy units cannot retreat while they are within 3" of any friendly GRIEVING LEGION units with 10 or more models.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },

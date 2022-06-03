@@ -1,103 +1,138 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
-import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
+  DURING_SETUP,
+  END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
+  END_OF_GAME,
+  END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
-  START_OF_BATTLESHOCK_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
   START_OF_SHOOTING_PHASE,
+  TURN_ONE_START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
-import rule_sources from './rule_sources'
 import spells from './spells'
 
-const EtherealEffect = {
-  name: `Ethereal`,
-  desc: `Ignore modifiers (positive or negative) when making save rolls for attacks that target this model.`,
-  when: [SAVES_PHASE],
+const WarmasterEffect = {
+  name: `Warmaster`,
+  desc: `If this unit is included in a Nighthaunt army, it is treated as a general even if it is not the model picked to be the army's general.`,
+  when: [DURING_GAME],
   shared: true,
 }
 const StolenHoursEffect = {
   name: `Stolen Hours`,
-  desc: `Each time a wound inflicted by this model's Sword of Stolen Hours slays an enemy HERO, heal 1 wound allocated to this model.`,
-  when: [COMBAT_PHASE],
+  desc: `At the end of the combat phase, if any enemy models were slain by attacks made with this unit's Sword of Stolen Hours in that phase, you can heal 1 wound allocated to this unit and add 1 to the Wounds characteristic of this unit.`,
+  when: [END_OF_COMBAT_PHASE],
   shared: true,
 }
 
-const Units = {
-  'Lady Olynder, Mortarch of Grief': {
+export const Nagash = {
+  'Nagash, Supreme Lord of the Undead': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['No Rest For the Wicked'])],
-      spells: [keyPicker(spells, ['Grief-Stricken'])],
+      command_abilities: [keyPicker(command_abilities, ['Death Magic Incarnate'])],
+      spells: [keyPicker(spells, ['Hand of Dust', 'Soul Stealer'])],
     },
     effects: [
-      EtherealEffect,
       {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with the Banshee Handmaidens' Spectral Claws is 6, that attack inflicts 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Grave-sands of Time`,
-        desc: `Once per battle, in your hero phase, you can choose either to inflict D6 mortal wounds on an enemy HERO within 6" of this model, or heal D6 wounds that have been allocated to this model.`,
+        name: `Alakanash, the Staff of Power`,
+        desc: `Add the Staff of Power value shown on this model's damage table to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to cast Arcane Bolt any number of times in the same hero phase, even if another Wizard has already attempted to cast the spell in that phase.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Lifting the Veil`,
-        desc: `At the start of your hero phase, pick an enemy unit within 12" of this model that is visible to her and roll a D6. On a 1, nothing happens. On a 2+, that unit suffers a number of mortal wounds equal to the roll. In addition, if any enemy models are slain by this ability, immediately heal D3 wounds that have been allocated to this model.`,
+        name: `Invocation of Nagash`,
+        desc: `At the start of your hero phase, if this unit is on the battlefield, you can pick up to 5 different friendly Summonable units or friendly Ossiarch Bonereapers units in any combination. For each of those units, you can either heal up to 3 wounds that have been allocated to that unit or, if no wounds have been allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of 3 or less.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Mortarch of Grief`,
-        desc: `Add 1 to the number of models that flee from enemy units that fail a battleshock test while they are within 12" of this model.`,
-        when: [BATTLESHOCK_PHASE],
+        name: `Supreme Lord of the Undead`,
+        desc: `If this unit is on the battlefield when you use an ability that returns slain models to a friendly Death unit, you can either reroll the dice that determines the number of slain models returned to that unit or add 1 to the number of slain models that are returned to that unit.`,
+        when: [DURING_GAME],
       },
       {
-        name: `Wail of the Damned`,
-        desc: `At the start of your shooting phase, roll 2D6 for each enemy unit within 10" of this model. If the roll for the unit is higher than its Bravery characteristic, it suffers D3 mortal wounds.`,
-        when: [START_OF_SHOOTING_PHASE],
+        name: `Morikhane`,
+        desc: `This unit has a ward of 4+ for damage inflicted by mortal wounds. In addition, if the unmodified ward roll for this unit is 6, that attacking unit suffers 1 mortal wound.`,
+        when: [SAVES_PHASE],
       },
       {
-        name: `Magic`,
-        desc: `Lady Olynder is a WIZARD. She can attempt to cast two different spells in each of your hero phases, and attempt to unbind two spells in each enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Grief-stricken spells.`,
+        name: `The Nine Books of Nagash`,
+        desc: `The Nine Books of Nagash allow this unit to cast extra spells in your hero phase and unbind extra spells in the enemy hero phase. The number of extra spells this unit can attempt to cast or unbind is shown on this unit's damage table.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Warmaster`,
+        desc: `This unit can be included in a Nighthaunt, Flesh-eater Courts, Ossiarch Bonereapers or Soulblight Gravelords army. If it is, it is treated as a general even if it is not the model picked to be the army's general. In addition, you can still use the army's allegiance abilities even though this unit is not from the army's faction; however, this unit does not benefit from them.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Wizard`,
+        desc: `This unit can attempt to cast 3 spells in your hero phase and attempt to unbind 3 spells in the enemy hero phase. If this unit is part of a Nighthaunt, Flesh- eater Courts, Ossiarch Bonereapers or Soulblight Gravelords army, it knows all of the spells from the spell lores in that faction's allegiance abilities in addition to the other spells it knows.`,
         when: [HERO_PHASE],
       },
     ],
   },
+}
+
+const Units = {
+  ...Nagash,
+  'Awlrach the Drowner': {
+    mandatory: {
+      command_abilities: [keyPicker(command_abilities, ['Passage Through the Underworlds'])],
+    },
+    effects: [
+      {
+        name: `Scything Ram`,
+        desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 2+, that unit suffers D3 mortal wounds. If any models are slain by the mortal wounds caused by this ability, add D3 to the Attacks characteristic of this unit's Deathwood Oar until the end of that turn.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  'Lady Olynder, Mortarch of Grief': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Grief-Stricken'])],
+    },
+    effects: [
+      WarmasterEffect,
+      {
+        name: `Grave-sands of Time`,
+        desc: `This unit has a ward of 4+.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Lifting the Veil`,
+        desc: `At the start of your shooting phase, you can pick 1 enemy unit within 12" of this unit and roll a dice. On a 2+, that unit suffers a number of mortal wounds equal to the roll. Add 1 to the number of mortal wounds the target suffers if it is terrified. If any enemy models are slain by this ability, you can heal up to D3 wounds allocated to this unit for each enemy model that was slain.`,
+        when: [START_OF_SHOOTING_PHASE],
+      },
+      {
+        name: `Mortarch of Grief`,
+        desc: `Roll a dice each time an enemy unit issues a command within 12" of this unit. On a 5+, that command is not received (it still counts as having been used) and the command point that was spent to issue that command is lost.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `No Rest For the Wicked`,
+        desc: `Once per battle, at the start of your hero phase, if this unit is on the battlefield, you can return up to D6 slain models to each friendly Nighthaunt Summonable unit on the battlefield (roll separately for each unit).`,
+        when: [START_OF_HERO_PHASE],
+      },
+      GenericEffects.WizardTwoSpellsEffect,
+    ],
+  },
   'Kurdoss Valentian, the Craven King': {
     effects: [
-      EtherealEffect,
-      {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with the Wraith Heralds' Spectral Claws is 6, that attack inflicts 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
       {
         name: `If I Cannot Rule, None Shall Rule!`,
-        desc: `At the start of the hero phase, if your opponent receives a command point for their general being on the battlefield, after they receive that command point, roll a dice. On a 5+, your opponent must subtract 1 from their command points and you receive 1 extra command point.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_JULY_2021],
-      },
-      {
-        name: `Soul-crushing Smite`,
-        desc: `If the unmodified wound roll for an attack made with the Sepulchral Sceptre is 6, that attack has a Damage characteristic of D6 instead of D3.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Suffer No Rival`,
-        desc: `You can reroll failed hit rolls for attacks made with the Sepulchral Sceptre if the target is an enemy general.`,
-        when: [COMBAT_PHASE],
+        desc: `At the start of each battle round, after the players have received their starting command points, you can roll a dice if this unit is on the battlefield. Add 1 to the roll if this unit is within 6" of any enemy Hero. On a 5+, subtract 1 from your opponent's command points (to a minimum of 0) and add 1 to your command points.`,
+        when: [START_OF_ROUND],
       },
     ],
   },
@@ -106,247 +141,216 @@ const Units = {
       spells: [keyPicker(spells, ['Wraithstorm'])],
     },
     effects: [
-      EtherealEffect,
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Corpse Candles`,
-        desc: `In your hero phase, before this model attempts to cast a spell, you can say that it will snuff out a corpse candle. If you do so, pick either this model or an enemy model within 12" of this model. That model suffers 1 mortal wound. If the mortal wound was suffered by an enemy model, add 1 to the casting roll; if the mortal wound was suffered by this model, add 3 to the casting roll.`,
+        desc: `In your hero phase, before this unit attempts to cast a spell, you can say that it will snuff out a corpse candle. If you do so, pick either this unit or 1 enemy unit within 12" of this unit. The unit you picked suffers 1 mortal wound. If the mortal wound was suffered by an enemy unit, add 1 to the casting roll. If the mortal wound was suffered by this unit, add 3 to the casting roll.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with Fellreaper is 6, that attack inflicts 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
+        name: `Grim Justice`,
+        desc: `Add 1 to hit and wound rolls for attacks made with this unit's Fellreaper if the target is a PRIEST or WIZARD.`,
         when: [COMBAT_PHASE],
       },
+    ],
+  },
+  'Scriptor Mortis': {
+    effects: [
       {
-        name: `Reaped Like Corn`,
-        desc: `You can reroll failed hit rolls for attacks made with Fellreaper if the target unit has 5 or more models.`,
-        when: [COMBAT_PHASE],
+        name: `Flickers of Wychlight`,
+        desc: `Once per phase, you can allocate 1 wound or mortal wound that would be allocated to this Hero to a friendly Nighthaunt Summonable unit within 6" of this Hero instead.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
-        name: `Magic`,
-        desc: `Reikenor the Grimhailer is a WIZARD. He can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. He knows the Arcane Bolt, Mystic Shield and Wraithstorm spells.`,
+        name: `Sentenced to Eternal Torment`,
+        desc: `In your hero phase, you can say that this unit is going to record the name of a judged soul. If you do so, pick 1 enemy Hero that does not have the Death keyword and that is visible to this unit to be the judged soul. At the start of each of your subsequent hero phases, if the judged soul and this unit are on the battlefield, you must make a judgement roll for the judged soul, and this unit cannot record the name of a different judged soul in that phase. In addition, if the battle would end and the judged soul and this unit are on the battlefield, then before the battle ends, you must make a judgement roll for the judged soul.
+
+        To make a judgement roll, roll a dice. If the roll is less than the number of the current battle round, the judged soul suffers 2D6 mortal wounds. The same unit cannot be picked to be a judged soul more than once in the same battle.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Sentenced to Eternal Torment`,
+        desc: `At the start of each of your subsequent hero phases, if the judged soul and this unit are on the battlefield, you must make a judgement roll for the judged soul, and this unit cannot record the name of a different judged soul in that phase.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Sentenced to Eternal Torment`,
+        desc: `If the battle would end and the judged soul and this unit are on the battlefield, then before the battle ends, you must make a judgement roll for the judged soul.`,
+        when: [END_OF_GAME],
       },
     ],
   },
   'Knight of Shrouds': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Spectral Overseer'])],
-    },
-    effects: [EtherealEffect, StolenHoursEffect],
+    effects: [
+      StolenHoursEffect,
+      {
+        name: `Spectral Overseer`,
+        desc: `Once per battle round, this unit can issue the Redeploy or Unleash Hell command to a friendly Nighthaunt Summonable unit without a command point being spent.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Spectral Overseer`,
+        desc: `In the combat phase, when you pick this unit to fight for the first time in that phase, you can pick 1 friendly Nighthaunt Summonable unit wholly within 12" of this unit and that has not yet fought in that phase. This unit and that Nighthaunt Summonable unit can fight one after the other in the order of your choice.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
   },
   'Knight of Shrouds on Ethereal Steed': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Lord of Gheists'])],
-    },
-    effects: [EtherealEffect, StolenHoursEffect],
+    effects: [
+      StolenHoursEffect,
+      {
+        name: `Lord of Gheists`,
+        desc: `Once per battle round, this unit can issue the All-out Attack command to a friendly Nighthaunt Summonable unit without a command point being spent.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Lord of Gheists`,
+        desc: `In the combat phase, when you pick this unit to fight for the first time in that phase, you can pick 1 friendly Nighthaunt Summonable unit wholly within 12" of this unit and that has not yet fought in that phase. This unit and that Nighthaunt Summonable unit can fight one after the other in the order of your choice.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Craventhrone Guard': {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Craven Huntmaster. Add 1 to the Attacks characteristic of that model's Wicked Sidearm.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `1 in every 5 models in this unit can be a Spectral Standard Bearer. If this unit receives the Rally command while it includes any Spectral Standard Bearers, when you roll a dice for a slain model from this unit, you can return 1 slain model to this unit on a 5+ instead of a 6.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Spectral Bolts`,
+        desc: `This unit can target enemy units with shooting attacks even if the target is not visible to the attacking model. In addition, enemy units targeted by shooting attacks made by this unit do not receive the benefit of cover for those shooting attacks.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
   },
   'Guardian of Souls': {
     mandatory: {
       spells: [keyPicker(spells, ['Spectral Lure'])],
     },
     effects: [
-      EtherealEffect,
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Nightmare Lantern`,
-        desc: `Add 1 to wound rolls for attacks made with melee weapons used by friendly NIGHTHAUNT units that are wholly within 12" of this model.`,
+        desc: `Add 1 to wound rolls for attacks made with melee weapons by friendly Nighthaunt units that are wholly within 12" of this unit.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Spectral Lure spells.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Guardian of Souls w/ Mortality Glass': {
-    mandatory: {
-      spells: [keyPicker(spells, ['Temporal Translocation'])],
-    },
-    effects: [
-      EtherealEffect,
-      {
-        name: `Mortality Glass`,
-        desc: `When enemy units within 9" of this model charge, roll a D6 instead of 2D6 when determining the distance they can move.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Temporal Translocation spells.`,
-        when: [HERO_PHASE],
       },
     ],
   },
   'Spirit Torment': {
     effects: [
-      EtherealEffect,
-      {
-        name: `Nagash's Bidding`,
-        desc: `You can reroll hit rolls of 1 for friendly NIGHTHAUNT units while they are wholly within 12" of any friendly SPIRIT TORMENTS.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
       {
         name: `Captured Soul Energy`,
-        desc: `At the start of the battleshock phase, if 3 or more enemy models were slain that turn, pick a friendly NIGHTHAUNT unit within 6" of this model and heal D3 wounds that have been allocated to that unit. If 3 or more enemy STORMCAST ETERNAL models were slain that turn, heal 3 wounds instead of D3 wounds.
-
-        Alternatively, instead of healing the unit you picked, if models from that unit have been slain, you can return them to the unit. Roll a D3; you can return any slain models to that unit that have a combined Wounds characteristic of less than or equal to the number you rolled.
-
-        If your army includes more than one SPIRIT TORMENT, at least 3 enemy models must have been slain during the turn for each SPIRIT TORMENT that uses this ability, and no SPIRIT TORMENT can use this ability more than once in the same battleshock phase.`,
-        when: [START_OF_BATTLESHOCK_PHASE],
+        desc: `At the end of the combat phase, you can pick 1 friendly Nighthaunt Summonable unit wholly within 12" of this unit. You can either heal up to 3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of 3 or less. The same unit cannot benefit from this ability more than once per turn.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
   Chainghasts: {
     effects: [
-      EtherealEffect,
+      GenericEffects.Elite,
       {
         name: `Another Link in the Chain`,
-        desc: `While this unit is wholly within 12" of a friendly SPIRIT TORMENT, you can reroll hit rolls of 1 for friendly NIGHTHAUNT units while they are wholly within 12" of this unit.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-      {
-        name: `Sweeping Blows`,
-        desc: `The Attacks characteristic of the Ghastflails melee weapon is equal to the number of enemy models within 2" of the attacking model when the number of attacks made with the weapon is determined.`,
+        desc: `Add 1 to hit rolls for attacks made with melee weapons by friendly Nighthaunt units wholly within 12" of any friendly units with this ability while a friendly Spirit Torment is on the battlefield.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
   'Dreadblade Harrow': {
     effects: [
-      EtherealEffect,
       {
         name: `Phantasmal Discorporation`,
-        desc: `If this model is more than 3" from any enemy models at the start of your movement phase, instead of making a normal move, you can remove it from the battlefield and then set it up anywhere on the battlefield more than 9" from any enemy models.`,
-        when: [START_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Dreadblade`,
-        desc: `Add 1 to the Damage characteristic of this model's Dreadblade if it made a charge move in the same turn. Add 1 to the Attacks characteristic of this model's Dreadblade if it did not make a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
+        desc: `At the end of your movement phase, you can remove this unit from the battlefield and set it up again on the battlefield more than 1" from all terrain features and objectives and more than 9" from all enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Curse of Loyalty`,
-        desc: `Reroll wound rolls of 1 for attacks made with this model's Dreadblade while it is within 9" of a friendly KNIGHT OF SHROUDS.`,
-        when: [COMBAT_PHASE],
+        desc: `Once per battle round, if your general issues a command, this unit can issue the same command in the same phase without a command point being spent. If it does so, that command must be received by a friendly Nighthaunt unit.`,
+        when: [DURING_GAME],
       },
     ],
   },
   'Lord Executioner': {
     effects: [
-      EtherealEffect,
-      {
-        name: `Beheading Strike`,
-        desc: `If the unmodified wound roll for an attack made with a Decapitating Greataxe is 6, add 2 to the Damage characteristic of that weapon for that attack.`,
-        when: [COMBAT_PHASE],
-      },
       {
         name: `Staring Death in the Face`,
-        desc: `At the start of a combat phase, you can pick an enemy HERO within 3" of this model. Subtract 1 from hit rolls for attacks made by that HERO in that combat phase.`,
+        desc: `At the start of the combat phase, you can pick 1 enemy unit within 3" of this unit. Subtract 1 from wound rolls for attacks made by that unit until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Disembodied Skulls`,
-        desc: `Roll a D6 each time you allocate a mortal wound to this model. On a 5+, the wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `This unit has a ward of 5+.`,
+        when: [SAVES_PHASE],
       },
     ],
   },
   'Tomb Banshee': {
     effects: [
-      EtherealEffect,
-      {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with a Chill Dagger is 6, that attack inflicts D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
       {
         name: `Ghostly Howl`,
-        desc: `At the start of your shooting phase, pick an enemy unit within 10" of this model and roll 2D6. If the roll is higher than the unit's Bravery characteristic, it suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the roll.`,
-        when: [START_OF_SHOOTING_PHASE],
+        desc: `At the end of your charge phase, you can pick 1 enemy unit within 12" of this unit and roll a dice. Add 1 to the roll if the target is terrified. On a 4+, your opponent must add 1 to the number of command points that are spent to issue a command to that enemy unit until your next hero phase.`,
+        when: [END_OF_CHARGE_PHASE],
       },
     ],
   },
   'Cairn Wraith': {
     effects: [
-      EtherealEffect,
       {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with a Reaper Scythe is 6, that attack inflicts 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Reaped Like Corn`,
-        desc: `You can reroll failed hit rolls for attacks made with a Reaper Scythe if the target unit has 5 or more models.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  Mourngul: {
-    effects: [
-      EtherealEffect,
-      {
-        name: `Devourer of Flesh and Souls`,
-        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal up to D3 wounds allocated to this model.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with this model's Nightmarish Claws and Fangs is 6, that attack inflicts 2 mortal wounds and the attack sequence ends (do not make a save roll).`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Ghastly Apparition`,
-        desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 6" of any friendly models with this ability.`,
+        name: `Eager Death-dealers`,
+        desc: `The Attacks characteristic of this unit's Cairnoch Scythe is equal to the number of enemy models within 3" of this unit when the attack is made.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
   'Glaivewraith Stalkers': {
     effects: [
-      EtherealEffect,
+      GenericEffects.Elite,
       {
-        name: `Deathbeat Drummer`,
-        desc: `Models in this unit can be Deathbeat Drummers. A unit that includes any Deathbeat Drummers can retreat and charge in the same turn.`,
-        when: [MOVEMENT_PHASE],
+        name: `Musician`,
+        desc: `1 in every 4 models in this unit can be a Deathbeat Drummer. Add 1 to charge rolls for this unit while it has any Deathbeat Drummers.`,
+        when: [CHARGE_PHASE],
       },
       {
         name: `The Point of Death`,
-        desc: `You can reroll failed hit rolls for attacks made with this unit's Hunter's Glaives if this unit or the target unit made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
+        desc: `At the start of your first hero phase, if this unit is on the battlefield, you can pick 1 enemy unit to be its prey. After this unit makes a normal move, if this unit finishes that move closer to its prey, add 3 to charge rolls for this unit until your next hero phase.`,
+        when: [TURN_ONE_START_OF_HERO_PHASE],
+      },
+      {
+        name: `The Point of Death`,
+        desc: `After this unit makes a normal move, if this unit finishes that move closer to its prey, add 3 to charge rolls for this unit until your next hero phase.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
   'Grimghast Reapers': {
     effects: [
-      EtherealEffect,
       {
-        name: `Reaped Like Corn`,
-        desc: `You can reroll failed hit rolls for attacks made with this unit's Slasher Scythes if the target unit has 5 or more models.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be an Extoller of Shyish. That model is armed with a Death Knell instead of a Slasher Scythe.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `For Whom the Bell Tolls`,
-        desc: `Allocate wounds inflicted by a Death Knell after allocating wounds inflicted by Slasher Scythes. For each enemy model that is slain by wounds inflicted by a Death Knell, you can inflict 1 mortal wound on an enemy unit within 3" of the model armed with the Death Knell.`,
+        name: `Reaped Like Corn`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Slasher Scythes if there are 5 or more models in the target unit.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  'Chainrasp Horde': {
+  Chainrasps: {
     effects: [
-      EtherealEffect,
       {
-        name: `Dreadwarden`,
-        desc: `The leader of this unit is a Dreadwarden. Add 1 to the Attacks characteristic of a Dreadwarden's Malignant Weapon.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Dreadwarden. Add 1 to the Attacks characteristic of that model's Malignant Weapon.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Dreadwarden`,
-        desc: `A Chainrasp Horde has a Bravery characteristic of 10 instead of 6 while it includes a Dreadwarden.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
         name: `Chilling Horde`,
-        desc: `You can reroll wound rolls of 1 for this unit while it has more than 10 models.`,
+        desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -354,145 +358,107 @@ const Units = {
   'Bladegheist Revenants': {
     effects: [
       GenericEffects.Elite,
-      EtherealEffect,
-      {
-        name: `Fearful Frenzy`,
-        desc: `You can reroll failed hit rolls for attacks made by this unit if it is wholly within 12" of any friendly SPIRIT TORMENTS or CHAINGHASTS.`,
-        when: [COMBAT_PHASE],
-      },
       {
         name: `Whirling Death`,
-        desc: `Add 1 to the Attacks characteristic of this unit's Tomb Greatblades if it made a charge move in the same turn.`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Tomb Greatblades if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Whirling Death`,
-        desc: `This unit can retreat and charge in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
   'Myrmourn Banshees': {
     effects: [
-      EtherealEffect,
+      GenericEffects.Elite,
       {
         name: `Spell-eaters`,
-        desc: `Once in each enemy hero phase, if this unit is within 18" of an enemy WIZARD that successfully casts a spell, this unit can attempt to unbind the spell in the same manner as a WIZARD. If it does so, add 1 to the unbinding roll for every 4 models in this unit. In addition, if this unit unbinds an enemy spell, add 1 to the Attacks characteristic of this unit's Chill Daggers until the next enemy hero phase.
-
-        Once in each of your hero phases, if this unit is within 6" of an ENDLESS SPELL, this unit can attempt to dispel the endless spell in the same manner as a WIZARD. If this unit dispels an endless spell, it suffers D3 mortal wounds, but add 1 to the Attacks characteristic of this unit's Chill Daggers until your next hero phase.`,
+        desc: `You can roll 2D6 each time an enemy Wizard successfully casts a spell that is not unbound and chooses for the effect of the spell to apply to a unit wholly within 12" of this unit, or when an endless spell finishes a move within 6" of this unit. Add 1 to the roll if this unit has 3 or more models. If the roll is greater than the casting value for that spell or endless spell, that spell is unbound before it has any effect or that endless spell is dispelled.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Spell-eaters`,
-        desc: `If this unit unbinds an enemy spell, add 1 to the Attacks characteristic of this unit's Chill Daggers until the next enemy hero phase. If this unit dispels an endless spell, add 1 to the Attacks characteristic of this unit's Chill Daggers until your next hero phase.`,
-        when: [COMBAT_PHASE],
       },
     ],
   },
   'Dreadscythe Harridans': {
     effects: [
-      EtherealEffect,
       {
-        name: `Slasher Crone`,
-        desc: `The leader of this unit is a Slasher Crone. Add 1 to the Attacks characteristic of a Slasher Crone's Scythed Limbs.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Slasher Crone. Add 1 to that Attacks characteristic of that model's Scythed Limbs.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Harrowing Shriek`,
-        desc: `Subtract 1 from hit rolls for attacks made by enemy models within 3" of this unit unless they have a Bravery characteristic of 7 or more.`,
+        desc: `Subtract 1 from wound rolls for attacks made by enemy units within 3" of this unit if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Murderous Bloodlust`,
-        desc: `If the unmodified hit roll for an attack made with Scythed Limbs is 6, that attack scores 2 hits instead of 1.`,
+        desc: `Add 1 to hit and wound rolls for attacks made with melee weapons by this unit if it is within 6" of any enemy models that have any wounds allocated to them or if it is within 6" of any enemy units that have had any models slain in that turn.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
   'Spirit Hosts': {
     effects: [
-      EtherealEffect,
+      GenericEffects.Elite,
       {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with Spectral Claws and Daggers is 6, that attack inflicts 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
+        name: `Drawn to War`,
+        desc: `Before you allocate a wound or mortal wound to a friendly Nighthaunt Hero, or instead of making a ward roll for a wound or mortal wound that would be allocated to that Hero, if any friendly units with this ability are within 3" of that Hero, you can roll a dice. On a 3+, that wound or mortal wound is allocated to a friendly unit with this ability instead of that Hero and cannot be negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
   Hexwraiths: {
     effects: [
-      EtherealEffect,
       {
-        name: `Hellwraith`,
-        desc: `The leader of this unit is a Hellwraith. Add 1 to the Attacks characteristic of a Hellwraith's Spectral Scythe.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Hellwraith. Add 1 to the Attacks characteristic of that model's Spectral Scythe.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with a Spectral Scythe is 6, that attack inflicts 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
+        name: `Phantasmal Advance`,
+        desc: `At the start of your movement phase, you can say that this unit will perform a phantasmal advance. If you do so, double this unit's Move characteristic until the end of that phase, but this unit cannot charge in the same turn.`,
+        when: [START_OF_MOVEMENT_PHASE],
       },
       {
         name: `Spectral Hunters`,
-        desc: `In your movement phase, immediately after this unit has moved, you can pick an enemy unit that has any models that a model from this unit passed across. If you do so, roll a D6 for each model from this unit that passed across the enemy unit. For each roll of 5+, that enemy unit suffers 1 mortal wound.`,
-        when: [MOVEMENT_PHASE],
+        desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
   'Black Coach': {
     effects: [
-      EtherealEffect,
       {
-        name: `Frightful Touch`,
-        desc: `If the unmodified hit roll for an attack made with the Cairn Wraith's Reaper Scythe is 6, that attack inflicts 2 mortal wounds and the attack sequence ends (do not make a wound or save roll).
-
-        In addition, if the unmodified hit roll for an attack made with the Relic Bearers' Spectral Claws is 6, that attack inflicts 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Evocation of Death`,
-        desc: `At the start of each battle round, roll 3 dice for each BLACK COACH on the battlefield. For each 4+ that BLACK COACH gains a level of power. Levels of power are cumulative and last for the rest of the battle.`,
-        when: [START_OF_ROUND],
-      },
-      {
-        name: `Evocation of Death - First Level - Nimbus of Power`,
-        desc: `In your hero phase, heal D3 wounds that have been allocated to this model.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Evocation of Death - First Level - Nimbus of Power`,
-        desc: `At the start of your hero phase, pick 1 friendly SUMMONABLE NIGHTHAUNT unit wholly within 12" of this model and return D3 slain models to that unit. The returning models must be set up within 12" of this model.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Evocation of Death - Second Level - Unholy Vigour`,
-        desc: `Reroll hit rolls of 1 for this model's melee weapons.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Evocation of Death - Second Level - Unholy Vigour`,
-        desc: `This model can run and charge in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-      {
-        name: `Evocation of Death - Third Level - Spectral Scythes`,
-        desc: `After this model completes a charge move, pick an enemy unit within 1" of this model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
+        name: `Nimbus of Power`,
+        desc: `Instead of picking this unit to make a normal move or retreat, you can say it will travel the underworlds to a new location. If you do so, remove this unit from the battlefield and set it up again on the battlefield more than 1" from all terrain features and objectives and more than 9" from all enemy units.`,
         when: [MOVEMENT_PHASE],
       },
       {
-        name: `Evocation of Death - Fourth Level - Insubstantial Form`,
-        desc: `This model can retreat and charge in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        name: `Evocation of Death`,
+        desc: `When this unit is set up for the first time, place a D6 beside it with the 1 facing up.`,
+        when: [DURING_SETUP],
       },
       {
-        name: `Evocation of Death - Fifth Level - Witch-fire`,
-        desc: `In your hero phase, roll a D6 for each enemy unit within 3" of this model. On a 4+, that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
+        name: `Evocation of Death`,
+        desc: `Each time an enemy model is slain or flees within 12" of this unit, increase the value of the dice beside this unit by 1 (to a maximum of 6).`,
+        when: [WOUND_ALLOCATION_PHASE, BATTLESHOCK_PHASE],
       },
       {
-        name: `Reaped Like Corn`,
-        desc: `You can reroll failed hit rolls for attacks made with this model's Reaper Scythe if the target unit has 5 or more models.`,
-        when: [COMBAT_PHASE],
+        name: `Evocation of Death`,
+        desc: `If the value of the dice beside this unit is 5-6, this unit has a ward of 4+ instead of 5+ from the Insubstantial Form ability.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Evocation of Death`,
+        desc: `Once per turn, in your shooting phase, if the value of the dice beside this unit is 6, you can say this unit will unleash its stored necromantic energy. If you do so, pick 1 enemy unit within 12" of this unit and roll a dice. On a 2+, that enemy unit suffers 3D3 mortal wounds. Then, change the value of the dice beside this unit back to 1.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Insubstantial Form`,
+        desc: `This unit has a ward of 5+.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Runaway Coach`,
+        desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
@@ -501,54 +467,34 @@ const Units = {
       spells: [keyPicker(spells, ['Howling Vortex'])],
     },
     effects: [
-      EtherealEffect,
+      GenericEffects.WizardOneSpellEffect,
       {
-        name: `Magic`,
-        desc: `The Briar Queen is a WIZARD. She can attempt to cast one spell in each of your hero phases, and attempt to unbind one spell in each enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Howling Vortex spells.`,
-        when: [HERO_PHASE],
+        name: `Grasping Chains`,
+        desc: `Before you allocate a wound or mortal wound to this unit, or instead of making a ward roll for a wound or mortal wound that would be allocated to this unit, if this unit is within 3" of its retinue, roll a dice. On a 1-2, that wound or mortal wound is allocated to this unit as normal. On a 3+, that wound or mortal wound is allocated to this unit's retinue instead of this unit.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
   'Thorns of the Briar Queen': {
     effects: [
-      EtherealEffect,
       {
-        name: `Varclav the Cruel`,
-        desc: `Add 1 to the Attacks characteristic of Varclav the Cruel's Malignant Weapon.`,
+        name: `Champion`,
+        desc: `Varclav the Cruel is the unit champion. Add 1 to the Attacks characteristic of that model's Malignant Weapon.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Varclav the Cruel`,
-        desc: `This unit has a Bravery characteristic of 10 instead of 6 while it includes Varclav the Cruel.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Grasping Chains`,
-        desc: `You can reroll wound rolls of 1 for attacks made by this unit that target an enemy unit that is within 3" of two or more models from this unit.`,
+        name: `Chilling Horde`,
+        desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
   'Krulghast Cruciator': {
     effects: [
-      EtherealEffect,
       {
         name: `Empowering Excruciation`,
-        desc: `Wounds inflicted by Phantasmal Torture and not negated empower this model until your next shooting phase.`,
-        when: [SHOOTING_PHASE],
-        rule_sources: [
-          meta_rule_sources.BOOK_BROKEN_REALMS_BELAKOR,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_BELAKOR_AUGUST_2021,
-        ],
-      },
-      {
-        name: `Empowering Excruciation`,
-        desc: `The Deathless Spirits battle trait negates wounds and mortal wounds allocated to friendly NIGHTHAUNT units wholly within 12" of any friendly empowered KRULGHAST CRUCIATORS on a 5+ instead of 6+`,
-        when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [
-          meta_rule_sources.BOOK_BROKEN_REALMS_BELAKOR,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_BELAKOR_AUGUST_2021,
-        ],
+        desc: `If this unit is within 12" of any terrified units, subtract 1 from the damage inflicted (to a minimum of 1) by each successful attack that targets a friendly Nighthaunt unit wholly within 12" of this unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },

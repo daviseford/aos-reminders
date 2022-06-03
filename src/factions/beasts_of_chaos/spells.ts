@@ -26,7 +26,7 @@ const Spells = {
     effects: [
       {
         name: `Savage Dominion (Brayherd Wizard)`,
-        desc: `Casting value of 5 and range of 18". If successfully cast, pick 1 enemy MONSTER that is within range and visible to the caster, and roll 2D6. If the roll is equal to or greater than that Monster's Bravery characteristic, pick 1 other enemy unit within 3" of that MONSTER and roll a number of dice equal to that MONSTER Wounds characteristic. For each 4+, that enemy unit suffers 1 mortal wound.`,
+        desc: `Casting value of 5 and range of 18". Pick 1 enemy MONSTER that is within range and visible to the caster, and roll 2D6. If the roll is equal to or greater than that Monster's Bravery characteristic, pick 1 other enemy unit within 3" of that MONSTER and roll a number of dice equal to that MONSTER Wounds characteristic. For each 4+, that enemy unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_JULY_2021],
       },

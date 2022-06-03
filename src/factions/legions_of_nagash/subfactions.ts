@@ -30,10 +30,9 @@ const baseLegion = {
       Units,
       keyPicker(NighthauntUnits, [
         'Cairn Wraith',
-        'Chainrasp Horde',
+        'Chainrasps',
         'Glaivewraith Stalkers',
         'Grimghast Reapers',
-        'Guardian of Souls w/ Mortality Glass',
         'Guardian of Souls',
         'Hexwraiths',
         'Knight of Shrouds on Ethereal Steed',

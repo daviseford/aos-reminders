@@ -61,7 +61,7 @@ describe('getAzyrArmyFromPdf', () => {
         'Arise! Arise!',
         'A Queen Amongst Monsters',
         'Vigour of Undeath',
-        'Supreme Lord of the Undead',
+        'Death Magic Incarnate',
         "Twilight's Allure",
         'Fist of Nagash',
         'Call to the Hunt',
@@ -668,6 +668,10 @@ describe('getAzyrArmyFromPdf', () => {
         severity: 'deprecation-warn',
         text: 'Aetherquartz Brooch',
         reason: DEPRECATED_MALIGN_SORCERY,
+      },
+      {
+        severity: 'warn',
+        text: 'Chainrasp Horde',
       },
     ])
   })

@@ -1,7 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { END_OF_MOVEMENT_PHASE } from 'types/phases'
 
-// Store Command Abilities here. You can add them to units, abilties, flavors, and subfactions later.
+// Store Command Abilities here. You can add them to units, abilities, flavors, and subfactions later.
 const CommandAbilities = {
   'Endless Legions': {
     effects: [

@@ -1,6 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 
-// Store Mount Traits here. You can add them to units, abilties, flavors, and subfactions later.
+// Store Mount Traits here. You can add them to units, abilities, flavors, and subfactions later.
 const MountTraits = {
   // '': {
   //   effects: [

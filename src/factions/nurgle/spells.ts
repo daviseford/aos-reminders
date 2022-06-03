@@ -26,7 +26,7 @@ const Spells = {
     effects: [
       {
         name: `Plague Wind`,
-        desc: `Casting value of 7 and range of 14". If successfully cast, pick 1 point on the battlefield within range and visible to the caster and draw a straight line between that point and the closest part on the caster's base. Roll a dice for each enemy unit passed across by that line. On a 4+, that unit suffers 1 disease point.`,
+        desc: `Casting value of 7 and range of 14". Pick 1 point on the battlefield within range and visible to the caster and draw a straight line between that point and the closest part on the caster's base. Roll a dice for each enemy unit passed across by that line. On a 4+, that unit suffers 1 disease point.`,
         when: [HERO_PHASE],
       },
     ],
@@ -35,7 +35,7 @@ const Spells = {
     effects: [
       {
         name: `Eruptive Infestation`,
-        desc: `Casting value of 6. If successfully cast, pick 1 enemy unit that is within 3" of a friendly Plaguebearer Host that is visible to the caster. That enemy unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 6. Pick 1 enemy unit that is within 3" of a friendly Plaguebearer Host that is visible to the caster. That enemy unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -55,7 +55,7 @@ const Spells = {
     effects: [
       {
         name: `Miasma of Pestilence`,
-        desc: `Casting value of 6 and range of 14". If successfully cast, pick 1 enemy unit within range and visible to the caster. Until your next hero phase, roll a dice at the end of each phase in which any wounds or mortal wounds were allocated to that unit. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 6 and range of 14". Pick 1 enemy unit within range and visible to the caster. Until your next hero phase, roll a dice at the end of each phase in which any wounds or mortal wounds were allocated to that unit. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -64,7 +64,7 @@ const Spells = {
     effects: [
       {
         name: `Blades of Putrefaction`,
-        desc: `Casting value of 7 and range of 14". If successfully cast, pick 1 friendly MAGGOTKIN OF NURGLE unit within range and visible to the caster. Until your next hero phase, each attack made with a missile weapon or melee weapon by that unit inflicts 1 disease point on the target unit on an unmodified hit roll of 5 or 6.`,
+        desc: `Casting value of 7 and range of 14". Pick 1 friendly MAGGOTKIN OF NURGLE unit within range and visible to the caster. Until your next hero phase, each attack made with a missile weapon or melee weapon by that unit inflicts 1 disease point on the target unit on an unmodified hit roll of 5 or 6.`,
         when: [HERO_PHASE],
       },
     ],
@@ -73,7 +73,7 @@ const Spells = {
     effects: [
       {
         name: `Gift of Disease`,
-        desc: `Casting value of 6 and range of 21". If successfully cast, pick 1 enemy unit within range and visible to the caster. Give that unit and each other enemy unit within 7" of that unit 1 disease point.`,
+        desc: `Casting value of 6 and range of 21". Pick 1 enemy unit within range and visible to the caster. Give that unit and each other enemy unit within 7" of that unit 1 disease point.`,
         when: [HERO_PHASE],
       },
     ],
@@ -82,7 +82,7 @@ const Spells = {
     effects: [
       {
         name: `Rancid Visitations`,
-        desc: `Casting value of 6 and range of 7". If successfully cast, pick 1 enemy unit within range and visible to the caster and roll 1 dice for each model in that unit that is within range. For each 2+, that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 6 and range of 7". Pick 1 enemy unit within range and visible to the caster and roll 1 dice for each model in that unit that is within range. For each 2+, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -91,7 +91,7 @@ const Spells = {
     effects: [
       {
         name: `Favoured Poxes`,
-        desc: `Casting value of 7 and range of 14". If successfully cast, pick 1 enemy unit within range and visible to the caster. Until the caster moves, attacks, makes a casting, unbinding or dispelling attempt, or is slain, subtract 1 from hit and wound rolls for attacks made by that unit and subtract 1 from save rolls for attacks that target that unit.`,
+        desc: `Casting value of 7 and range of 14". Pick 1 enemy unit within range and visible to the caster. Until the caster moves, attacks, makes a casting, unbinding or dispelling attempt, or is slain, subtract 1 from hit and wound rolls for attacks made by that unit and subtract 1 from save rolls for attacks that target that unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -118,7 +118,7 @@ const Spells = {
     effects: [
       {
         name: `Cloying Quagmire`,
-        desc: `Casting value of 5 and range of 14". If successfully cast, pick 1 enemy unit within range and visible to the caster. Roll a dice. If the roll is equal to or higher than that unit's Save characteristic, until your next hero phase, halve that unit's Move characteristic and subtract 2 from run rolls and charge rolls for that unit.`,
+        desc: `Casting value of 5 and range of 14". Pick 1 enemy unit within range and visible to the caster. Roll a dice. If the roll is equal to or higher than that unit's Save characteristic, until your next hero phase, halve that unit's Move characteristic and subtract 2 from run rolls and charge rolls for that unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -127,7 +127,7 @@ const Spells = {
     effects: [
       {
         name: `The Leechlord's Curse`,
-        desc: `Casting value of 7 and range of 14". If successfully cast, pick 1 enemy unit within range and visible to the caster. Subtract 1 from save rolls for attacks that target that unit for the rest of the battle. The same unit cannot be affected by this spell more than once.`,
+        desc: `Casting value of 7 and range of 14". Pick 1 enemy unit within range and visible to the caster. Subtract 1 from save rolls for attacks that target that unit for the rest of the battle. The same unit cannot be affected by this spell more than once.`,
         when: [HERO_PHASE],
       },
     ],

@@ -62,7 +62,7 @@ const Spells = {
     effects: [
       {
         name: `Bind Endless Spell`,
-        desc: `Casting value of 7 and range of 18". A WIZARD that is bonded to an endless spell cannot attempt to cast this spell. If successfully cast, pick 1 endless spell within range and visible to the caster, and that is not bonded or linked to another model. That endless spell is bonded to the caster.`,
+        desc: `Casting value of 7 and range of 18". A WIZARD that is bonded to an endless spell cannot attempt to cast this spell. Pick 1 endless spell within range and visible to the caster, and that is not bonded or linked to another model. That endless spell is bonded to the caster.`,
         when: [HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_SERAPHON,
