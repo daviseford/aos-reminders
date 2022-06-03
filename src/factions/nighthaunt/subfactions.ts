@@ -8,6 +8,7 @@ import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
 import Spells from './spells'
 import Units from './units'
+import GrandStrategies from './grand_strategies'
 
 const subFactions = {
   [NIGHTHAUNT]: {
@@ -22,6 +23,7 @@ const subFactions = {
       command_traits: [CommandTraits],
       endless_spells: [EndlessSpells],
       flavors: [Flavors],
+      grand_strategies: [GrandStrategies],
       spells: [Spells],
       units: [Units],
     },
