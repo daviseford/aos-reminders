@@ -65,33 +65,51 @@ const Spells = {
       },
     ],
   },
-  // 'Grief-Stricken': {
-  //   effects: [
-  //     {
-  //       name: `Grief-Stricken`,
-  //       desc: `Casting value of 7. Pick an enemy unit that is within 18" of the caster and visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit and add 1 to hit rolls for attacks made with melee weapons that target that unit.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // Wraithstorm: {
-  //   effects: [
-  //     {
-  //       name: `Wraithstorm`,
-  //       desc: `Casting value of 7. Pick an enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds. If any models in that unit are slain as a result of this spell, that unit immediately suffers an additional D3 mortal wounds.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Spectral Lure': {
-  //   effects: [
-  //     {
-  //       name: `Spectral Lure`,
-  //       desc: `Casting value of 6. Pick a friendly SUMMONABLE NIGHTHAUNT unit wholly within 24" of the caster. You can either heal D6 wounds that have been allocated to that unit or, if no wounds have been allocated to the unit, you can return a number of slain models to it that have a combined Wounds characteristic equal to or less than the roll of a D6.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
+  'Grief-Stricken': {
+    effects: [
+      {
+        name: `Grief-Stricken`,
+        desc: `Grief-stricken is a spell that has a casting value of 7 and a range of 18". Pick 1 enemy unit within range and visible to the caster. Subtract 1 from hit rolls for attacks made by that unit and add 1 to hit rolls for attacks made with melee weapons by friendly Nighthaunt units that target that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  Wraithstorm: {
+    effects: [
+      {
+        name: `Wraithstorm`,
+        desc: `Casting value of 7 and a range of 12". Pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. If any models in that unit are slain as a result of this spell, that unit immediately suffers an additional D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Spectral Lure': {
+    effects: [
+      {
+        name: `Spectral Lure`,
+        desc: `Casting value of 6 and a range of 24". Pick 1 friendly Nighthaunt Summonable unit wholly within range and visible to the caster. You can heal up to D6 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of D6 or less.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Hand of Dust': {
+    effects: [
+      {
+        name: `Hand of Dust`,
+        desc: `Casting value of 8 and a range of 3". Pick 1 enemy model within range and visible to the caster. Then, take a dice and hide it in one of your hands or under one of two appropriate containers. Your opponent must pick one of your hands or containers. If they pick the one holding the dice, the spell has no effect. If they pick the empty hand or container, the enemy model is slain.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Soul Stealer': {
+    effects: [
+      {
+        name: `Soul Stealer`,
+        desc: `Casting value of 6 and a range of 24". Pick 1 enemy unit within range and visible to the caster and roll 2D6. If the roll is greater than that unit's Bravery characteristic, it suffers D3 mortal wounds. If the roll is at least double that unit's Bravery characteristic, it suffers D6 mortal wounds instead. You can heal up to 1 wound that has been allocated to the caster for each mortal wound caused by this spell that is not negated.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   // 'Temporal Translocation': {
   //   effects: [
   //     {
@@ -101,15 +119,15 @@ const Spells = {
   //     },
   //   ],
   // },
-  // 'Howling Vortex': {
-  //   effects: [
-  //     {
-  //       name: `Howling Vortex`,
-  //       desc: `Casting value of 7. Pick a point on the battlefield within 18" of the caster that is visible to them, and roll 2D6 for each enemy unit within 6" of that point. If the roll is greater than the value of that unit's Move characteristic, or that roll is a double, that unit suffers 1 mortal wound and its Move characteristic is halved until the caster's next hero phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
+  'Howling Vortex': {
+    effects: [
+      {
+        name: `Howling Vortex`,
+        desc: `Casting value of 7 and a range of 18". Pick a point on the battlefield within range and visible to the caster. Then, roll 2D6 for each enemy unit within 6" of that point. If the roll is greater than that unit's unmodified Move characteristic, or the roll is a double, that unit suffers 1 mortal wound and its Move characteristic is halved until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Spells, 'spell')

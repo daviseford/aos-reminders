@@ -18,15 +18,6 @@ const CommandTraits = {
       },
     ],
   },
-  // 'Terrifying Entity': {
-  //   effects: [
-  //     {
-  //       name: `Terrifying Entity`,
-  //       desc: `At the start of the enemy movement phase, roll a D6 for each enemy unit within 3" of this model. If the roll is equal to or greater than that enemy unit's Bravery characteristic, that unit must make a retreat move in that movement phase.`,
-  //       when: [START_OF_MOVEMENT_PHASE],
-  //     },
-  //   ],
-  // },
   'Lingering Spirit': {
     effects: [
       {
@@ -63,16 +54,6 @@ const CommandTraits = {
       },
     ],
   },
-  // Emerald Host
-  // 'Lord of the Host': {
-  //   effects: [
-  //     {
-  //       name: `Lord of the Host`,
-  //       desc: `Once per battle, you can use the command ability from the general's warscroll without spending a command point.`,
-  //       when: [DURING_GAME],
-  //     },
-  //   ],
-  // },
 }
 
 // Always export using tagAs

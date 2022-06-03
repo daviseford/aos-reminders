@@ -21,15 +21,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'Balefire Blade': {
-  //   effects: [
-  //     {
-  //       name: `Balefire Blade`,
-  //       desc: `Pick one of the bearer's melee weapons. Add 1 to that weapon's Damage characteristic.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
   Slitter: {
     effects: [
       {
@@ -48,24 +39,6 @@ const Artifacts = {
       },
     ],
   },
-  // "Headsman's Judgement": {
-  //   effects: [
-  //     {
-  //       name: `Headsman's Judgement`,
-  //       desc: `Pick one of the bearer's melee weapons. Add 1 to hit and wound rolls for attacks made with that weapon.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Shrieking Blade': {
-  //   effects: [
-  //     {
-  //       name: `Shrieking Blade`,
-  //       desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target the bearer.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
   'Cloak of the Waxing Moon': {
     effects: [
       {
@@ -84,24 +57,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'Dreadbolt Ring': {
-  //   effects: [
-  //     {
-  //       name: `Dreadbolt Ring`,
-  //       desc: `When the bearer fights, if they inflict one or more wounds with their melee weapons, you can inflict D3 mortal wounds on one enemy unit within 3" of the bearer after all of the bearer's attacks have been made.`,
-  //       when: [END_OF_COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Mirror of Screaming Souls': {
-  //   effects: [
-  //     {
-  //       name: `Mirror of Screaming Souls`,
-  //       desc: `At the start of your shooting phase, roll 2D6 for each enemy unit within 8" of the bearer. If the roll is higher than that unit's Bravery characteristic, it suffers 1 mortal wound.`,
-  //       when: [START_OF_SHOOTING_PHASE],
-  //     },
-  //   ],
-  // },
   'Midnight Tome': {
     effects: [
       {
@@ -147,31 +102,6 @@ const Artifacts = {
       },
     ],
   },
-  // Emerald Host
-  // "The Traitor Knight's Blade": {
-  //   effects: [
-  //     {
-  //       name: `The Traitor Knight's Blade`,
-  //       desc: `Add 1 to the attacks characteristic for the bearer's Sword of Stolen Hours attack.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // // Reikenor's Condemned
-  // 'Corpse Candle': {
-  //   effects: [
-  //     {
-  //       name: `Corpse Candle`,
-  //       desc: `Once per battle you can select either the bearer or 1 enemy model within 12" of them. The target suffers 1 mortal wound. If an enemy was targeted, add 1 to the bearer's next casting roll. Add 3 instead of the target was the bearer.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //     {
-  //       name: `Corpse Candle`,
-  //       desc: `Once per battle you can select either the bearer or 1 enemy model within 12" of them. The target suffers 1 mortal wound. If an enemy was targeted, add 1 to the bearer's hit rolls this phase. Add 1 to hit and wound rolls instead of the target was the bearer.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
 }
 
 // Always export using tagAs
