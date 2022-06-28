@@ -3,22 +3,14 @@ import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_COMBAT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
-
-const VerminousValourEffect = {
-  name: `Verminous Valour`,
-  desc: `Before you allocate a wound or mortal wound to this general, you can roll a D6. Subtract 1 from the roll if this general is a MONSTER or WAR MACHINE. On a 4+, instead of allocating the wound or mortal wound to this general, you can allocate it to a friendly SKAVENTIDE unit within 3" of this general.`,
-  when: [WOUND_ALLOCATION_PHASE],
-  shared: true,
-}
 
 const CommandTraits = {
   'Malevolent (Masterclan)': {
@@ -30,271 +22,179 @@ const CommandTraits = {
       },
     ],
   },
-  'Verminous Valour (Masterclan)': { effects: [VerminousValourEffect] },
-  'Savage Overlord (Masterclan)': {
+  'Verminus Valour': {
     effects: [
       {
-        name: `Savage Overlord (Masterclan)`,
-        desc: `Add 1 to the Bravery characteristic of friendly SKAVENTIDE units while they are wholly within 18" of this general.`,
+        name: `Verminus Valour`,
+        desc: `CLANS VERMINUS HERO only. If this general is within 3" of another friendly SKAVEN unit, before you allocate a wound or mortal wound to this general, or instead of making a ward roll for a wound or mortal wound that would be allocated to this general, you can roll a dice. On a 3+, that wound or mortal wound is allocated to that friendly unit instead of this general.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  'Savage Overlord': {
+    effects: [
+      {
+        name: `Savage Overlord`,
+        desc: `CLANS VERMINUS HERO only. If a friendly SKAVEN unit within 3" of this general fails a battleshock test, you can say that they will restore order with savage brutality. If you do so, that unit has not failed that battleshock test, but it suffers D3 mortal wounds.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
   },
-  'Supreme Manipulator (Masterclan)': {
+  'Supreme Manipulator': {
     effects: [
       {
-        name: `Supreme Manipulator (Masterclan)`,
-        desc: `You can reroll the dice that determines if you receive 1 extra command point when you use the Skilled Manipulators battle trait after this general uses a command ability.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  'Master of Magic (Masterclan)': {
-    effects: [
-      {
-        name: `Master of Magic (Masterclan)`,
-        desc: `Once per hero phase, you can add 1 to a casting, dispelling or unbinding roll for this general.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Cunning (Masterclan)': {
-    effects: [
-      {
-        name: `Cunning (Masterclan)`,
-        desc: `After the battle has started, roll a D6 each time your opponent receives a command point. On a 6 you receive the command point instead of them.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  'Malevolent (Skryre)': {
-    effects: [
-      {
-        name: `Malevolent (Skryre)`,
-        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by this general.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'Verminous Valour (Skryre)': { effects: [VerminousValourEffect] },
-  'Savage Overlord (Skryre)': {
-    effects: [
-      {
-        name: `Savage Overlord (Skryre)`,
-        desc: `Add 1 to the Bravery characteristic of friendly SKAVENTIDE units while they are wholly within 18" of this general.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  'Masterful Scavenger (Skryre)': {
-    effects: [
-      {
-        name: `Masterful Scavenger (Skryre)`,
-        desc: `Add 2 to the number of warpstone sparks this general's army can use during a battle.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  'Deranged Inventor (Skryre)': {
-    effects: [
-      {
-        name: `Deranged Inventor (Skryre)`,
-        desc: `At the start of your shooting phase, you can pick 1 friendly CLANS SKRYRE unit that is wholly within 13" of this general. You can reroll hit rolls for attacks made with missile weapons by that unit until the end of that phase.`,
-        when: [START_OF_SHOOTING_PHASE],
-      },
-    ],
-  },
-  'Overseer of Destruction (Skryre)': {
-    effects: [
-      {
-        name: `Overseer of Destruction (Skryre)`,
-        desc: `At the start of your shooting phase, you can pick up to 3 friendly WEAPON TEAM units that are wholly within 13" of this general. You can reroll hit rolls for attacks made by those units until the end of that phase.`,
-        when: [START_OF_SHOOTING_PHASE],
-      },
-    ],
-  },
-  'Malevolent (Pestilens)': {
-    effects: [
-      {
-        name: `Malevolent (Pestilens)`,
-        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by this general.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'Verminous Valour (Pestilens)': { effects: [VerminousValourEffect] },
-  'Savage Overlord (Pestilens)': {
-    effects: [
-      {
-        name: `Savage Overlord (Pestilens)`,
-        desc: `Add 1 to the Bravery characteristic of friendly SKAVENTIDE units while they are wholly within 18" of this general.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  'Master of Rot and Ruin (Pestilens)': {
-    effects: [
-      {
-        name: `Master of Rot and Ruin (Pestilens)`,
-        desc: `You can reroll chanting rolls for this general.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_JULY_2021],
-      },
-    ],
-  },
-  'Architect of Death (Pestilens)': {
-    effects: [
-      {
-        name: `Architect of Death (Pestilens)`,
-        desc: `You can reroll wound rolls for attacks made with missile weapons by friendly CLANS PESTILENS units while they are wholly within 18" of this general.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  'Diseased (Pestilens)': {
-    effects: [
-      {
-        name: `Diseased (Pestilens)`,
-        desc: `At the start of your hero phase, roll a D6 if this general is within 3" of any enemy units. On a 4+ inflict D3 mortal wounds on 1 enemy unit within 3" of this general.`,
+        name: `Supreme Manipulator`,
+        desc: `MASTERCLAN HERO only. If you carry out the Heroic Leadership heroic action (core rules, 7.1) with this general, you can reroll the dice that determines whether you receive 1 command point.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
   },
-  'Malevolent (Verminus)': {
+  'Master of Magic': {
     effects: [
       {
-        name: `Malevolent (Verminus)`,
-        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by this general.`,
-        when: [COMBAT_PHASE],
+        name: `Master of Magic`,
+        desc: `MASTERCLAN HERO only. You can reroll casting, dispelling and unbinding rolls for this general.`,
+        when: [HERO_PHASE],
       },
     ],
   },
-  'Verminous Valour (Verminus)': { effects: [VerminousValourEffect] },
-  'Savage Overlord (Verminus)': {
+  'Diabolical Schemer': {
     effects: [
       {
-        name: `Savage Overlord (Verminus)`,
-        desc: `Add 1 to the Bravery characteristic of friendly SKAVENTIDE units while they are wholly within 18" of this general.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  'Brutal Fury (Verminus)': {
-    effects: [
-      {
-        name: `Brutal Fury (Verminus)`,
-        desc: `Once per battle, at the start of the combat phase, you can add 3 to the Attacks characteristic of this general's melee weapons until the end of that phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'Powerful (Verminus)': {
-    effects: [
-      {
-        name: `Powerful (Verminus)`,
-        desc: `Add 1 to this general's Wounds characteristic.`,
+        name: `Diabolical Schemer`,
+        desc: `MASTERCLAN HERO only. Roll a dice each time an enemy model issues a command within 13" of this general. On a 5+, that command is not received, the command point spent is lost and you receive 1 command point.`,
         when: [DURING_GAME],
       },
     ],
   },
-  'Devious Adversary (Verminus)': {
+  'Cunning Mutator': {
     effects: [
       {
-        name: `Devious Adversary (Verminus)`,
-        desc: `If the unmodified hit roll for an attack made with a melee weapon that targets this general is a 1, add 1 to the Attacks characteristic of this general's melee weapons until the end of that phase.`,
-        when: [COMBAT_PHASE],
+        name: `Cunning Mutator`,
+        desc: `CLANS MOULDER HERO only. If this general is within 3" of another friendly CLANS MOULDER unit, before you allocate a wound or mortal wound to this general, or instead of making a ward roll for a wound or mortal wound that would be allocated to this general, you can roll a dice. On a 3+, that wound or mortal wound is allocated to that friendly unit instead of this general.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
-  'Malevolent (Moulder)': {
+  'Masterful Scavenger': {
     effects: [
       {
-        name: `Malevolent (Moulder)`,
-        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by this general.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'Verminous Valour (Moulder)': { effects: [VerminousValourEffect] },
-  'Savage Overlord (Moulder)': {
-    effects: [
-      {
-        name: `Savage Overlord (Moulder)`,
-        desc: `Add 1 to the Bravery characteristic of friendly SKAVENTIDE units while they are wholly within 18" of this general.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  'Moulder Supreme (Moulder)': {
-    effects: [
-      {
-        name: `Moulder Supreme (Moulder)`,
-        desc: `When you use the Prized Creations battle trait and pick 1 friendly CLANS MOULDER FIGHTING BEAST model for this general, you can either add 3 to that model's Wounds characteristic instead of D3, or add D6 to that model's Wounds characteristic instead of D3.`,
+        name: `Masterful Scavenger`,
+        desc: `CLANS SKRYRE HERO only. Add 2 to the number of warpstone sparks you can use during a battle if your army includes this general.`,
         when: [DURING_GAME],
       },
     ],
   },
-  'Hordemaster (Moulder)': {
+  'Deranged Inventor': {
     effects: [
       {
-        name: `Hordemaster (Moulder)`,
-        desc: `When this general uses the Unleash More-more Beasts! command ability, you receive a new unit on a roll of 4+ instead of 5+.`,
-        when: [DURING_GAME],
+        name: `Deranged Inventor`,
+        desc: `CLANS SKRYRE HERO only At the start of your shooting phase, you can pick 1 friendly CLANS SKRYRE unit wholly within 13" of this general. Add 1 to hit rolls for attacks made with missile weapons by that unit until the end of that phase.`,
+        when: [START_OF_SHOOTING_PHASE],
       },
     ],
   },
-  'Burly (Moulder)': {
+  'Overseer of Destruction': {
     effects: [
       {
-        name: `Burly (Moulder)`,
-        desc: `Add 1 to this general's Wounds characteristic.`,
-        when: [DURING_GAME],
+        name: `Overseer of Destruction`,
+        desc: `CLANS SKRYRE HERO only. If a friendly unit within 13" of this general that is hiding a WEAPON TEAM is destroyed, the hidden WEAPON TEAM is not destroyed. Instead, before removing the last slain model in the destroyed unit from play, you can set up the hidden WEAPON TEAM wholly within 3" of that model and more than 3" from all enemy units.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
-  'Malevolent (Eshin)': {
+  'Master of Rot and Ruin': {
     effects: [
       {
-        name: `Malevolent (Eshin)`,
-        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by this general.`,
+        name: `Master of Rot and Ruin`,
+        desc: `CLANS PESTILENS HERO only. Add 1 to chanting rolls for this general.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Architect of Death': {
+    effects: [
+      {
+        name: `Architect of Death`,
+        desc: `CLANS PESTILENS HERO only. Add 1 to the Damage characteristic of missile weapons used by friendly PLAGUECLAW units wholly within 18" of this general.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Ridden with Poxes': {
+    effects: [
+      {
+        name: `Ridden with Poxes`,
+        desc: `CLANS PESTILENS HERO only. At the end of the combat phase, roll a dice if this general is within 3" of any enemy units. On a 4+, each enemy unit within 3" of this general suffers D3 mortal wounds.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Powerful Alpha': {
+    effects: [
+      {
+        name: `Powerful Alpha`,
+        desc: `CLANS VERMINUS HERO only. The first 2 wounds or mortal wounds caused to this general in each phase are negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  'Devious Adversary': {
+    effects: [
+      {
+        name: `Devious Adversary`,
+        desc: `In the combat phase, if this general fights within 3" of an enemy unit that has not yet fought in that phase, add 2 to the Attacks characteristic of this general's melee weapon until the end of that phase.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  'Verminous Valour (Eshin)': { effects: [VerminousValourEffect] },
-  'Savage Overlord (Eshin)': {
+  'Moulder Supreme': {
     effects: [
       {
-        name: `Savage Overlord (Eshin)`,
-        desc: `Add 1 to the Bravery characteristic of friendly SKAVENTIDE units while they are wholly within 18" of this general.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  'Unrivalled Killer (Eshin)': {
-    effects: [
-      {
-        name: `Unrivalled Killer (Eshin)`,
-        desc: `You can reroll hit rolls for attacks made by this general that target the enemy HERO chosen for the Masters of Murder battle trait.`,
+        name: `Moulder Supreme`,
+        desc: `CLANS MOULDER HERO only. Add 1 to hit rolls and wound rolls for attacks made by friendly FIGHTING BEAST units wholly within 13" of this general.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  'Shadowmaster (Eshin)': {
+  Hordemaster: {
     effects: [
       {
-        name: `Shadowmaster (Eshin)`,
-        desc: `While this general is within 1" of a terrain feature, this general is not visible to enemy models while they are more than 6" from this general.`,
+        name: `Hordemaster`,
+        desc: `CLANS MOULDER HERO only. Once per battle, if this general is on the battlefield when a friendly PACK unit is destroyed, you can say that they will call more of their creatures to the fore. If you do so, roll a dice. On a 3+, a new replacement unit identical to the unit that was destroyed is added to your army. Set that unit wholly within 13" of this general and than 9" from all enemy units, A destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  'Unrivalled Killer': {
+    effects: [
+      {
+        name: `Unrivalled Killer`,
+        desc: `CLANS ESHIN HERO only. This general counts as 2 CLANS ESHIN HEROES for the purposes of the Masters of Murder battle trait.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+  Shadowmaster: {
+    effects: [
+      {
+        name: `Shadowmaster`,
+        desc: `CLANS ESHIN HERO only. This general cannot be picked as the target of attacks made with missile weapons while they are within 1" of a terrain feature.`,
         when: [DURING_GAME],
       },
     ],
   },
-  'Incredible Agility (Eshin)': {
+  'Incredible Agility': {
     effects: [
       {
-        name: `Incredible Agility (Eshin)`,
-        desc: `This general can fly.`,
+        name: `Incredible Agility`,
+        desc: `CLANS ESHIN HERO only. This general can fly.`,
         when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Incredible Agility`,
+        desc: `CLANS ESHIN HERO only. You can carry out the Their Finest Hour heroic action (core rules, 7.1) with this general twice in the same battle instead of once.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
