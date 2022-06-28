@@ -1,146 +1,128 @@
-import meta_rule_sources from 'meta/rule_sources'
 import {
+  CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
-  END_OF_COMBAT_PHASE,
-  END_OF_HERO_PHASE,
-  END_OF_SHOOTING_PHASE,
   HERO_PHASE,
+  MOVEMENT_PHASE,
   SHOOTING_PHASE,
+  START_OF_HERO_PHASE,
   START_OF_SETUP,
+  START_OF_SHOOTING_PHASE,
   TURN_ONE_START_OF_ROUND,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const Flavors = {
-  'Skilled Manipulators (Masterclan)': {
+  Masterclan: {
     effects: [
       {
-        name: `Skilled Manipulators (Masterclan)`,
-        desc: `Each time a friendly MASTERCLAN model uses a command ability, roll a D6. On a 5+ you receive 1 extra command point.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  'Prized Creations (Moulder)': {
-    effects: [
-      {
-        name: `Prized Creations (Moulder)`,
-        desc: `At the start of the first battle round, before determining which player has the first turn, you can pick 1 friendly CLANS MOULDER FIGHTING BEAST model for each MASTER MOULDER in your army. The same FIGHTING BEAST cannot be picked more than once to benefit from this ability. Add D3 to the Wounds characteristic of each of those models (roll separately for each).`,
-        when: [TURN_ONE_START_OF_ROUND],
+        name: `Skilled Manipulators`,
+        desc: `Roll a dice before you allocate a wound or mortal wound to a friendly MASTERCLAN HERO that is not a MONSTER, or instead of making a ward roll for a wound or mortal wound that would be allocated to a friendly MASTERCLAN HERO that is not a MONSTER, if that HERO is within 3" of any friendly SKAVEN units that have 3 or more models. On a 3+, that wound or mortal wound is allocated to 1 of those units instead of that HERO.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
-        name: `Prized Creations (Moulder)`,
-        desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by selected CLANS MOULDER FIGHTING BEASTS.`,
+        name: `Always Three Clawsteps Ahead`,
+        desc: `You can only use this ability if you include 3 or more MASTERCLAN HEROES in your starting army. After you pick a friendly SKAVEN unit to be your first unit to run in a phase and make a run roll for that unit, you can use that run roll in place of any other run rolls you make for friendly SKAVEN units until the end of that phase.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Always Three Clawsteps Ahead`,
+        desc: `You can only use this ability if you include 3 or more MASTERCLAN HEROES in your starting army. After you pick a friendly SKAVEN unit to be your first unit to attempt a charge in a phase and make a charge roll for that unit, you can use that charge roll in place of any other charge rolls you make for friendly SKAVEN units until the end of that phase.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Always Three Clawsteps Ahead`,
+        desc: `You can only use this ability if you include 3 or more MASTERCLAN HEROES in your starting army. After you pick a friendly SKAVEN unit to be your first unit to fight in a phase and make any pile-in moves for that unit, you can make pile-in moves for each other friendly SKAVEN unit on the battlefield that is within 3" of any enemy units.
+
+        Designer's Note: This ability does not prevent a unit from making another pile-in move when it is picked to fight.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  'Mutations (Moulder)': {
+  Moulder: {
     effects: [
       {
-        name: `Mutations`,
-        desc: `When selecting a FIGHTING BEAST unit to benefit from Prized Creations you can choose to have a CLANS MOULDER mutation instead of adding D3 to its wounds characteristic and rerolling hits of 1. Roll a D6 for the declared FIGHTING BEAST to select the mutation from the appropriate table. The same FIGHTING BEAST cannot have more than 1 Clans Moulder mutation and and army cannot have duplicate mutations.`,
+        name: `Prized Creations`,
+        desc: `At the start of the first battle round, after determining who has the first turn but before the first turn begins, you can pick 1 HELL PIT ABOMINATION in your army to have a mutation from the table. If you include 3 or more MASTER MOULDERS in your starting army, you can pick each HELL PIT ABOMINATION in your army to have a mutation instead of only 1.
+
+        The same HELL PIT ABOMINATION cannot have more than 1 mutation, and an army cannot include duplicates of the same mutation.
+        
+        Toughened Sinews: This unit has a Wounds characteristic of 16 and a Save characteristic of 4+.
+        Lumbering Behemoth: This unit has a Move characteristic of 7". In addition, charge rolls for this unit are automatically a 7(do not roll the dice).
+        Quivering Bulk: Add 1 to each roll you make for this unit's Avalanche of Flesh ability.
+        Accelerated Regeneration: You can use this unit's Regenerating Monstrosity ability in the enemy hero phase as well as in your hero phase.
+        Best-best Warpstone Spikes: You can reroll the dice when you use this unit's Warpstone Spikes ability.
+        Never-never Die-die: You can reroll the dice when you use this unit's Too Horrible To Die ability.`,
         when: [TURN_ONE_START_OF_ROUND],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
-      },
-      {
-        name: `Mutations - Hideous Abominiations`,
-        desc: `Use this mutation table for HELL PIT ABOMINATIONS only:
-              1 - Toughened Sinews: Mutation grants a wounds characteristic of 14 and a save characteristic of 4+.
-              2 - Lumbering Behemoth: Mutation grants a move characteristic of 7". Charge rolles are automatically a 7 (do not roll).
-              3 - Quivering Bulk: Mutation grants a +1 to each Avalanche of Flesh dice roll.
-              4 - Accelerated Regeneration: Mutation grants the use of Regenerating Monstrosity in the enemy hero phase as well as your own.
-              5 - Best-best Warpstone Spikes: Mutation grants a reroll of the dice for the Warpstone Spikes ability. You can also reroll wound rolls of 1 for melee weapons.
-              6 - Never-never Die-die: Mutation grants a reroll of the dice for the Too Horrible To Die ability.`,
-        when: [TURN_ONE_START_OF_ROUND],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
-      },
-      {
-        name: `Mutations - Big-Big Rat Ogors`,
-        desc: `Use this mutation table for RAT OGORS only:
-              1 - Toughened Sinews: Mutation grants a wounds characteristic of 6 and a save characteristic of 4+.
-              2 - Insanely Rabid: Mutation grants attacks characteristic of 6 for Tearing Claws and Blades and Fangs. You can also reroll charge rolls.
-              3 - Accelerated Metabolism: Mutation grants a move characteristic of 8". You can also heal D3 wounds allocated in your hero phase.`,
-        when: [TURN_ONE_START_OF_ROUND],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
-  'Masters of Murder (Eshin)': {
+  Eshin: {
     effects: [
       {
-        name: `Masters of Murder (Eshin)`,
-        desc: `At the start of the first battle round, before determining which player has the first turn, you can pick 1 enemy HERO for each CLANS ESHIN HERO in your army.`,
+        name: `Masters of Murder`,
+        desc: `At the start of the first battle round, after determining who has the first turn but before the first turn begins, you can pick 1 enemy on the battlefield. Add 1 to hit rolls and wound rolls for attacks made by friendly CLANS ESHIN units that target that HERO.
+
+        If you include 3 or more CLANS HEROES in your starting army, add 1 to hit rolls and wound rolls for attacks made with melee weapons by friendly CLANS ESHIN units that target enemy HEROES.`,
         when: [TURN_ONE_START_OF_ROUND],
       },
       {
-        name: `Masters of Murder (Eshin)`,
-        desc: `You can reroll wound rolls for attacks made by friendly CLANS ESHIN units that target the selected enemy HEROES.`,
+        name: `Masters of Murder`,
+        desc: `Add 1 to hit rolls and wound rolls for attacks made by friendly CLANS ESHIN units that target that HERO. If you include 3 or more CLANS HEROES in your starting army, add 1 to hit rolls and wound rolls for attacks made with melee weapons by friendly CLANS ESHIN units that target enemy HEROES.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
-  'Mighty Warlords (Verminus)': {
+  Verminus: {
     effects: [
       {
-        name: `Mighty Warlords (Verminus)`,
-        desc: `When you pick command traits, you can pick 1 command trait for up to 6 friendly CLAWLORDS, in addition to 1 command trait for your general if your general is not a CLAWLORD. You must pick a different command trait for each CLAWLORD that has a command trait, and no model can have more than 1 command trait. You can use the command trait for that CLAWLORD even though they are not your general.`,
-        when: [START_OF_SETUP],
+        name: `Mighty Warlords`,
+        desc: `This is a heroic action that you can carry out with 1 friendly CLAWLORD instead of picking 1 from the table in the core rules. If you do so, pick 1 eligible command trait from pages 70-71 that this CLAWLORD does not already have and apply its effect to this unit until the end of this turn.
+
+        If you include 3 or more CLAWLORDS in your starting army, you can carry out this heroic action with each friendly CLAWLORD instead just 1. The same command trait cannot be picked with this ability more than once in the same turn.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
-  'Warpstone Sparks (Skryre)': {
+  Skryre: {
     effects: [
       {
-        name: `Warpstone Sparks (Skryre)`,
-        desc: `If your army includes any CLANS SKRYRE HEROES, at the start of the battle, before either army is set up, you can roll a D3 and add 3 to the roll. The result is the number of warpstone sparks that you can use during the battle. You cannot use more than 1 warpstone spark in the same phase. Each warpstone spark can be used once per battle to carry out 1 of the warpstone spark abilities.`,
+        name: `Warpstone Sparks`,
+        desc: `If you include any CLANS SKRYRE HEROES in your starting army, at the start of the battle, before either player starts deploying units, you can roll a D3 and add 3 to the roll, If you include 3 or more CLANS SKRYRE HEROES in your starting army, you can roll a D6 and add 3 to the roll instead. The result is the number of warpstone sparks you receive that you can use during the battle, You cannot use more than 1 warpstone spark in the same phase. Each warpstone spark can be used once per battle to carry out 1 of the warpstone spark abilities: `,
         when: [START_OF_SETUP],
       },
       {
-        name: `Warpstone Sparks (Skryre)`,
-        desc: `In the hero phase, pick 1 friendly CLANS SKRYRE WIZARD. You can reroll casting, dispelling and unbinding rolls for that WIZARD until the end of that phase.`,
+        name: `Warpstone Sparks`,
+        desc: `In the hero phase, pick 1 friendly CLANS SKRYRE WIZARD. You can reroll casting, dispelling and unbinding rolls for that WIZARD until the end of that phase. At the end of that phase, roll a dice. On a 1, that WIZARD suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Warpstone Sparks (Skryre)`,
-        desc: `At the end of the phase, roll a D6. On a 1, that WIZARD suffers D3 mortal wounds.`,
-        when: [END_OF_HERO_PHASE],
+        name: `Warpstone Sparks`,
+        desc: `At the start of your shooting phase, pick 1 friendly CLANS SKRYRE HERO. Then pick up to 3 different friendly CLANS SKRYRE units wholly within 13" of that HERO. You can add 1 to the Damage characteristic of missile weapons used by those units until the end of that phase. At the end of that phase, roll a dice. On a 1, that HERO suffers D3 mortal wounds.`,
+        when: [START_OF_SHOOTING_PHASE],
       },
       {
-        name: `Warpstone Sparks (Skryre)`,
-        desc: `In your shooting phase, pick 1 friendly CLANS SKRYRE HERO. Then pick up to 3 different friendly CLANS SKRYRE units that are wholly within 13" of that HERO. You can add 1 to the Damage characteristic of missile weapons used by those units until the end of that phase.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Warpstone Sparks (Skryre)`,
-        desc: `At the end of the phase, roll a D6. On a 1, that HERO suffers D3 mortal wounds.`,
-        when: [END_OF_SHOOTING_PHASE, END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Warpstone Sparks (Skryre)`,
-        desc: `In the combat phase, pick 1 friendly CLANS SKRYRE HERO. You can reroll hit rolls for that HERO until the end of that phase.`,
+        name: `Warpstone Sparks`,
+        desc: `In the combat phase, when you pick a friendly CLANS SKRYRE HERO to fight, you can say that they will use this warpstone spark ability. If you do so, add 1 to hit rolls and wound attacks made by that HERO until the end phase. At the end of that phase, roll a dice. On a 1, that HERO suffers D3 mortal wounds.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  'Echoes of the Great Plagues (Pestilens)': {
+  Pestilens: {
     effects: [
       {
-        name: `Echoes of the Great Plagues (Pestilens)`,
-        desc: `If the unmodified chanting roll for a prayer chanted by a friendly CLANS PESTILENS PRIEST is 6, you can pick 1 of the following Great Plagues to manifest (in addition to the effect of the prayer).
+        name: `Echoes of the Great Plagues`,
+        desc: `When you make a chanting roll for a friendly CLANS PESTILENS PRIEST, you can add 1 to that chanting roll for each other friendly CLANS PESTILENS PRIEST wholly within 13" of the chanter. In addition, if the chanting roll for a prayer chanted by a friendly CLANS PESTILENS PRIEST is 6+, you can pick 1 of the following Great Plagues to manifest (in addition to the effect of the prayer). Each Great Plague can only manifest once per battle, and no more than one Great Plague can manifest in the same turn.
 
-        Bubonic Blightplague: If this Great Plague manifests, pick the nearest enemy unit within 13" of the PRIEST chanting the prayer. That unit is infected with the Bubonic Blightplague. If several enemy units are equally close, you can pick which is infected. The infected unit suffers D6 mortal wounds. If the infected unit is destroyed by these mortal wounds, you can pick another enemy unit within 6" of the last model to be slain from the infected unit. The new unit is infected and suffers D3 mortal wounds. If the second unit is also destroyed, then another enemy unit within 6" of the last model to be slain suffers D3 mortal wounds, and so on until a unit is not destroyed by the disease or there are no other enemy units within 6" when a unit is destroyed.
+        Bubonic Blightplague: If this Great Plague manifests, pick the nearest enemy unit within 13" of the chanter. That unit is infected with the Bubonic Blightplague. If several enemy units are tied to be the closest, you can pick which is infected. The infected unit suffers 2D6 mortal wounds. If the infected unit is destroyed by those mortal wounds, you can pick another enemy unit within 6" of the last model to be slain in the infected unit. That unit is now infected and suffers D6 mortal wounds. If that infected unit is likewise destroyed, you can pick another enemy unit within 6" of the last model to be slain. Ihat unit is now infected and suffers D3 mortal wounds, Continue in this manner until either a unit is not destroyed or there are no other enemy units within 6" of a destroyed unit.
 
-        Crimsonweal Curse: If this Great Plague manifests, pick the nearest enemy unit within 13" of the PRIEST chanting the prayer. That unit is infected with the Crimsonweal Curse. If several enemy units are equally close, you can pick which is infected. The infected unit suffers 1 mortal wound. In addition, at the start of each of your hero phases, the infected unit, and each enemy unit within 1" of the infected unit, suffers 1 mortal wound.
+        Crimsonweal Curse: If this Great Plague manifests, pick the nearest enemy unit within 13" of the chanter, That unit is infected with the Crimsonweal Curse for the rest of the battle. If several enemy units are tied to be the closest, you can pick which is infected. The infected unit suffers 1 mortal wound. In addition, at the start of each turn, the infected unit and each other enemy unit within 1" of the infected unit suffer 1 mortal wound.
 
-        Redmaw Plague: If this Great Plague manifests, pick the nearest enemy HERO within 13" of the PRIEST chanting the prayer. That HERO is infected with the Redmaw Plague. If several enemy HEROES are equally close, you can pick which is infected. If a HERO infected with the Redmaw Plague is within 3" of any other models from its own army at the start of any combat phase, and is not within 3" of any models from your army, then you can treat that HERO as a friendly model until the end of that combat phase.
+        Redmaw Plague: If this Great Plague manifests, pick the nearest enemy HERO within 13" of the chanter, That HERO is infected with the Redmaw Plague for the rest of the battle. If several enemy HEROES are tied to be the closest, you can pick which is infected. At the start of the combat phase, if the infected HERO is within 3" of any other units in your opponent's army and is not within 3" of any units in your army, then you can treat that HERO as a friendly unit until the end of that combat phase.
 
-        The Neverplague: If this Great Plague manifests, you can reroll prayer rolls for friendly CLANS PESTILENS PRIESTS for the rest of the battle.
+        The Neverplague: If this Great Plague manifests, you can reroll chanting rolls for friendly CLANS PESTILENS PRIESTS for the rest of the battle.
 
-        Undulant Scourge: If this Great Plague manifests, pick the nearest enemy unit within 13" of the PRIEST chanting the prayer, and roll 1 dice for each model in that unit. If several enemy units are equally close, you can pick which of those units to roll dice for. For each 5+ that unit suffers 1 mortal wound.`,
+        Undulant Scourge: If this Great Plague manifests, pick the nearest enemy unit within 13" of the chanter and roll a dice for each model in that unit. If several enemy units are tied to be the closest, you can pick which unit to roll dice for. For each 4+, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
