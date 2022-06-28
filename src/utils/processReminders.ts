@@ -15,7 +15,7 @@ import {
   TEntryProperties,
   TTurnAction,
 } from 'types/data'
-import { TBattleRealms } from 'types/realmscapes'
+import { RealmscapesEnum } from 'types/realmscapes'
 import { IAllySelections, TSelections, TSelectionTypes } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 import { hashReminder } from 'utils/reminderUtils'
@@ -28,7 +28,7 @@ type TProcessReminders = (
   factionName: TSupportedFaction,
   subFactionName: string,
   selections: TSelections,
-  realmscape: TBattleRealms | null,
+  realmscape: RealmscapesEnum | null,
   allyFactionNames: TSupportedFaction[],
   allyArmies: TAllyArmies,
   allySelections: TAllySelectionStore

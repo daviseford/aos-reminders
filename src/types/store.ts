@@ -1,7 +1,7 @@
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy, TAllyArmies } from 'types/army'
 import { INote } from 'types/notes'
-import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { RealmscapesEnum } from 'types/realmscapes'
 import { IAllySelections, TSelections, TSelectionTypes } from 'types/selections'
 
 export interface IArmyStore {
@@ -19,8 +19,8 @@ export interface INotesStore {
 }
 
 export interface IRealmscapeStore {
-  origin_realm: TOriginRealms | null
-  realmscape: TBattleRealms | null
+  origin_realm: RealmscapesEnum | null
+  realmscape: RealmscapesEnum | null
   realmscape_feature: string | null
 }
 

@@ -1,6 +1,6 @@
 import { TSupportedFaction } from 'meta/factions'
 import { ICurrentArmy } from 'types/army'
-import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { RealmscapesEnum } from 'types/realmscapes'
 import { ILinkedArmy, ISavedArmyFromApi } from 'types/savedArmy'
 import { TSelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
@@ -13,9 +13,9 @@ export interface IImportedArmy {
   factionName: TSupportedFaction
   subFactionName: string
   hiddenReminders?: undefined
-  origin_realm: TOriginRealms | null
+  origin_realm: RealmscapesEnum | null
   realmscape_feature: string | null
-  realmscape: TBattleRealms | null
+  realmscape: RealmscapesEnum | null
   selections: TSelections
   unknownSelections: string[]
 }

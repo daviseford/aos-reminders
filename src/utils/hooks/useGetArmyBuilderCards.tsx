@@ -3,7 +3,7 @@ import { selectRealmscapeSlice, selectSelections } from 'ducks/selectors'
 import { useMemo } from 'react'
 import { useSelector } from 'react-redux'
 import { IArmy } from 'types/army'
-import { SUPPORTED_BATTLE_REALMS } from 'types/realmscapes'
+import { SUPPORTED_REALMSCAPES } from 'types/realmscapes'
 import { TSelectionTypes } from 'types/selections'
 import { getSideEffects } from 'utils/getSideEffects'
 
@@ -167,7 +167,7 @@ const useGetArmyBuilderCards = (army: IArmy) => {
       //   type: 'single',
       // },
       {
-        items: SUPPORTED_BATTLE_REALMS,
+        items: SUPPORTED_REALMSCAPES,
         setValue: realmscapeActions.setRealmscape,
         title: `Realm of Battle`,
         mobileTitle: `Battle Realm`,

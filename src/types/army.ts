@@ -1,7 +1,7 @@
 import { TSupportedFaction } from 'meta/factions'
 import { TGameStructure } from 'meta/game_structure'
 import { TEffects, TEntry } from 'types/data'
-import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { RealmscapesEnum } from 'types/realmscapes'
 import { TSelections } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
 
@@ -42,8 +42,8 @@ export interface ICurrentArmy {
   allySelections: TAllySelectionStore
   factionName: TSupportedFaction
   subFactionName: string
-  origin_realm: TOriginRealms | null
+  origin_realm: RealmscapesEnum | null
   realmscape_feature: string | null
-  realmscape: TBattleRealms | null
+  realmscape: RealmscapesEnum | null
   selections: TSelections
 }
