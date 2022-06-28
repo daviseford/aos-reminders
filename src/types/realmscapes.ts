@@ -5,6 +5,7 @@
 // type TDolorum = `Dolorum`
 // type TEightpoints = `Eightpoints`
 // type TGenesisGate = `Genesis Gate`
+type TGallet = `Gallet`
 type TGhur = `Ghur`
 // type TGhyran = `Ghyran`
 // type THelleflux = `Helleflux`
@@ -19,14 +20,7 @@ type TGhur = `Ghur`
 // type TVaranthax = `Varanthax's Maw`
 // type TYmetrica = `Ymetrica`
 
-export type TOriginRealms =
-  // | TAqshy
-  // | TChamon
-  TGhur
-// | TGhyran
-// | THysh
-// | TShyish
-// | TUlgu
+export type TOriginRealms = TGallet | TGhur
 
 export type TBattleRealms = TOriginRealms
 // | TStygxx
@@ -50,6 +44,7 @@ export type TBattleRealms = TOriginRealms
 // export const DOLORUM: TDolorum = `Dolorum`
 // export const EIGHTPOINTS: TEightpoints = `Eightpoints`
 // export const GENESISGATE: TGenesisGate = `Genesis Gate`
+export const GALLET: TGallet = `Gallet`
 export const GHUR: TGhur = `Ghur`
 // export const GHYRAN: TGhyran = `Ghyran`
 // export const HELLEFlUX: THelleflux = `Helleflux`
@@ -72,6 +67,7 @@ export const SUPPORTED_BATTLE_REALMS: TBattleRealms[] = [
   // DOLORUM,
   // EIGHTPOINTS,
   // GENESISGATE,
+  GALLET,
   GHUR,
   // GHYRAN,
   // HELLEFlUX,
