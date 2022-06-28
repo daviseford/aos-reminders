@@ -9,6 +9,7 @@ import {
   END_OF_HERO_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   WOUND_ALLOCATION_PHASE,
@@ -26,32 +27,32 @@ export const ChronomanticCogsEffects = [
   Summoning_Casting6_Range6_Effect,
   {
     name: `Mechanisms of Time`,
-    desc: `When this endless spell is set up, the commanding player must decide if it is increasing or decreasing the flow of time.
+    desc: `When you set up this endless spell, you must decide if it is increasing or decreasing the flow of time.
     
-    If it is increasing the flow of time, add 1 to charge rolls for units wholly within 18" of this endless spell.
-    If it is decreasing the flow of time, if a player has any friendly WIZARDS within 6" of this endless spell in their hero phase, they can pick 1 of those WIZARDS to attempt to cast 1 extra spell in that hero phase.
-    
-    At the start of the hero phase, if there is a friendly WIZARD within 6" of this endless spell, the player whose turn is taking place can change whether this endless spell is increasing or decreasing the flow of time.`,
+    If it is increasing the flow of time, players can reroll charge rolls for friendly units that are wholly within 12" of this endless spell.
+    If it is decreasing the flow of time, players can reroll casting rolls for friendly WIZARDS that are wholly within 12" of this endless spell.
+        
+    If a player has any friendly WIZARDS within 6" of this endless spell at the start of their hero phase, they can change whether this endless spell is increasing or decreasing the flow of time.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021, meta_rule_sources.ERRATA_GHB_SEPTEMBER_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Mechanisms of Time`,
-    desc: `If this endless spell is increasing the flow of time, add 1 to charge rolls for units wholly within 18" of this endless spell.`,
+    desc: `If it is increasing the flow of time, players can reroll charge rolls for friendly units that are wholly within 12" of this endless spell.`,
     when: [CHARGE_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Mechanisms of Time`,
-    desc: `If this endless spell is decreasing the flow of time, if a player has any friendly WIZARDS within 6" of this endless spell in their hero phase, they can pick 1 of those WIZARDS to attempt to cast 1 extra spell in that hero phase.`,
+    desc: `If it is decreasing the flow of time, players can reroll casting rolls for friendly WIZARDS that are wholly within 12" of this endless spell.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021, meta_rule_sources.ERRATA_GHB_SEPTEMBER_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Mechanisms of Time`,
-    desc: `At the start of the hero phase, if there is a friendly WIZARD within 6" of this endless spell, the player whose turn is taking place can change whether this endless spell is increasing or decreasing the flow of time.`,
+    desc: `If a player has any friendly WIZARDS within 6" of this endless spell at the start of their hero phase, they can change whether this endless spell is increasing or decreasing the flow of time.`,
     when: [START_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const EmeraldLifeswarmEffects = [
@@ -59,76 +60,75 @@ export const EmeraldLifeswarmEffects = [
   GenericEffects.Predatory.Eight_Inches,
   {
     name: `Bounteous Healing`,
-    desc: `After this endless spell is set up and after it has moved, the commanding player can pick 1 unit within 1" of it. 
+    desc: `After this endless spell has moved up to 8", the commanding player can pick 1 unit within 3" of it. 
     
     They can heal up to D3 wounds allocated to that unit or, if no wounds are allocated to it, they can return a number of slain models to that unit that have a combined Wounds characteristic of D3 or less.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const SoulsnareShacklesEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 7 and range of 12". Set up the parts of the endless spell wholly 3" of each other and wholly within range of the caster.`,
+    desc: `Casting value of 7 and a range of 8". Set up the parts of the endless spell wholly within 3" of each other and wholly within range of the caster.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Bound for the Great Oubliette`,
-    desc: `Units within 6" of this endless spell cannot run or attempt a charge.`,
+    desc: `Units within 6' of this endless spell cannot run or attempt a charge.`,
     when: [MOVEMENT_PHASE, CHARGE_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Bound for the Great Oubliette`,
-    desc: `At the start of the movement phase, roll a D6 for each unit within 6" of this endless spell. On a 6, that unit suffers D3 mortal wounds.`,
+    desc: `At the start of the movement phase, roll a dice for each unit within 6" of this endless spell. On a 6, that unit suffers D3 mortal wounds.`,
     when: [START_OF_MOVEMENT_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const SuffocatingGravetideEffects = [
-  Summoning_Casting6_Range6_Effect,
   GenericEffects.Predatory.Eight_Inches,
   {
     name: `Pulled to the Grave`,
     desc: `After this endless spell has moved, for each unit that has any models it passed across, roll a number of dice equal to the number of models in that unit. For each 6, that unit suffers 1 mortal wound.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const GeminidsOfUhlGyshEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 6 and range of 9". Set up the parts of the endless spell within 6" of each other and wholly within range of the caster.`,
+    desc: `Casting value of 6 and range of 8". Set up the parts of the endless spell within 6" of each other and wholly within range of the caster.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Predatory`,
     desc: `Can move up to 8" and can fly. The parts of this endless spell must remain within 6" of each other.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Tendrils of Shadow and Light`,
-    desc: `After this endless spell has moved, roll a D6 for each unit that has any models it passed across and for each other unit that is within 1" of it at the end of its move. On a 2+, that unit suffers 1 mortal wound. In addition, if a mortal wound caused by this ability is allocated to a unit, that unit cannot issue or receive commands until the start of the next combat phase.`,
+    desc: `After this endless spell has moved, roll a dice for each unit that has any models that it passed across, and each unit that is within 1" of it at the end of its move. On a 2+, that unit suffers 1 mortal wound. In addition, if a mortal wound caused by this ability is allocated to a unit and not negated, that unit cannot issue or receive commands until the start of the next combat phase.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const BurningHeadEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 7 and range of 6". Set up the endless spell wholly within range of the caster.`,
+    desc: `Casting value of 6 and range of 8". Set up the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   GenericEffects.Predatory.Eight_Inches,
   {
     name: `Flaming Skull`,
-    desc: `After this endless spell has moved, if any units are within 1" of it, roll a dice for each unit within 1" of this endless spell. On a 2+, that unit suffers D3 mortal wounds. Then, this endless spell is removed from play.`,
+    desc: `After this endless spell has moved, if any units are within 3" of it, roll a dice for each unit within 3" of this endless spell. On a 2+, that unit suffers D3 mortal wounds. After this endless spell causes any mortal wounds with this ability, it is removed from play.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const QuicksilverSwordsEffects = [
@@ -136,106 +136,122 @@ export const QuicksilverSwordsEffects = [
   GenericEffects.Predatory.Eight_Inches,
   {
     name: `Dancing Blades`,
-    desc: `After this endless spell has moved, the commanding player can pick 1 unit that has any models it passed across and roll 12 dice. For each 6, that unit suffers 1 mortal wound. In addition, ward rolls cannot be made for mortal wounds caused by this ability.`,
+    desc: `After this endless spell has moved, you can pick 1 unit that has any models it passed across and roll 12 dice. For each 5+, that unit suffers 1 mortal wound. In addition, mortal wounds caused by this ability can not be negated.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Dancing Blades`,
-    desc: `Ward rolls cannot be made for mortal wounds caused by this ability.`,
+    desc: `Mortal wounds caused by this endless epell can not be negated.`,
     when: [WOUND_ALLOCATION_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const PurpleSunEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 8 and range of 6". Set up the endless spell wholly within range of the caster.`,
+    desc: `Casting value of 8 and range of 8". Set up the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   GenericEffects.Predatory.Eight_Inches,
   {
     name: `End Given Form`,
-    desc: `At the end of the hero phase, before determining control of predatory endless spells, roll a D6 for this endless spell. On a 5+, this endless spell becomes wild for the rest of the battle (do not roll for it again).
-    
-    After this endless spell has moved, roll a D6 for each unit that has any models it passed across and for each other unit that is within 1" of it at the end of its move. On a 1, nothing happens. On a 2-5, that unit suffers D3 mortal wounds. On a 6, that unit suffers D6 mortal wounds.`,
+    desc: `Subtract 1 from save rolls for attacks that target units within 6" of this endless spell. In addition, roll a dice for each unit within 3" of this endless spell after it has moved. On a 1, 1 model from that unit is slain.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
+  },
+  {
+    name: `End Given Form`,
+    desc: `Subtract 1 from save rolls for attacks that target units within 6" of this endless spell.`,
+    when: [SAVES_PHASE],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const PrismaticPalisadeEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 5 and range of 6". Set up the endless spell wholly within range of the caster.`,
+    desc: `Casting value of 5 and range of 8". Set up the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Blinding Light`,
-    desc: `Visibility between 2 models is blocked if a straight line drawn between the closest points of the 2 models passes across this endless spell.`,
+    desc: `Units within 6" of this endless spell cannot make shooting attacks. Add 3" to the range of this ability at the start of each battle round after the turn it was summoned.`,
     when: [DURING_GAME],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const MalevolentMaelstromEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 5 and range of 6". Set up the endless spell wholly within range of the caster.`,
+    desc: `Casting value of 5 and range of 8". Set up the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   GenericEffects.Predatory.Eight_Inches,
   {
     name: `Morbid Detonation`,
-    desc: `When this endless spell is set up, place a D6 beside it with the '1' facing up. Each time a spell is successfully cast by a unit within 12" of this endless spell and not unbound, after the effects of the spell have been resolved, increase the value of the D6 beside this endless spell by 1 (to a maximum of 6). In addition, each time a model is slain within 12" of this endless spell, increase the value of the dice beside this endless spell by 1 (to a maximum of 6).
+    desc: `After this endless spell is summoned, place a D6 beside it with the '1' facing up. Each time a spell is successfully cast by a unit within 12" of this endless spell and not unbound, after the effects of the spell have been resolved, increase the value of the dice beside this endless spell by 1 (to a maximum of 6).
     
-    At the end of the combat phase, if this endless spell is on the battlefield, roll a D6 and add the value of the D6 besides this endless spell to the roll. On a 10+, each unit within 12" of this endless spell suffers D3 mortal wounds. Then, this endless spell is removed from play.`,
+    In addition, each time a model is slain 12" of this endless spell, increase the value of the dice beside this endless spell by 1 (to a maximum of 6).
+    
+    At the end of the combat phase, if this endless spell is on the battlefield, roll a dice and add the value of the dice beside this endless spell to the roll. On a 10+, each unit within 12" of this endless spell suffers D3 mortal wounds. Then, this endless spell is removed from play.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Morbid Detonation`,
     desc: `Each time a model is slain within 12" of this endless spell, increase the value of the dice beside this endless spell by 1 (to a maximum of 6).`,
     when: [WOUND_ALLOCATION_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Morbid Detonation`,
-    desc: `At the end of the combat phase, if this endless spell is on the battlefield, roll a D6 and add the value of the D6 besides this endless spell to the roll. On a 10+, each unit within 12" of this endless spell suffers D3 mortal wounds. Then, this endless spell is removed from play.`,
+    desc: `At the end of the combat phase, if this endless spell is on the battlefield, roll a dice and add the value of the dice beside this endless spell to the roll. On a 10+, each unit within 12" of this endless spell suffers D3 mortal wounds. Then, this endless spell is removed from play.`,
     when: [END_OF_COMBAT_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const RavenaksGnashingJawsEffects = [
-  Summoning_Casting6_Range6_Effect,
-  GenericEffects.Predatory.Three_D6,
+  {
+    name: `Summoning`,
+    desc: `Casting value of 6 and range of 8". Set up the endless spell wholly within range of the caster.`,
+    when: [HERO_PHASE],
+    rule_sources: [meta_rule_sources.GHB_2022],
+  },
+  {
+    name: `Predatory`,
+    desc: `This endless spell is a predatory endless spell. It can be moved up to 3D6" and can fly. You can reroll the dice that determines how far it moves if it was summoned in the same turn.`,
+    when: [END_OF_HERO_PHASE],
+    rule_sources: [meta_rule_sources.GHB_2022],
+  },
   {
     name: `Ravening Hunger`,
-    desc: `After this endless spell has moved, the commanding player can pick 1 unit that has any models it passed across and roll a number of dice equal to the roll that was made for the move. For each 6, that unit suffers 1 mortal wound.`,
+    desc: `After this endless spell has moved, you can pick 1 unit that has any models it passed across or that is within 1" of it at the end of its move and roll a dice. On a 2+, if the roll for this endless spell's move was greater than the unit's Move characteristic, that unit suffers a number of mortal wounds equal to the difference between the Move characteristic and the roll for its move.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 
 export const AethervoidPendulumEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 5 and range of 6". Set up the endless spell wholly within range of the caster. When this endless spell is set up, pivot the model so that the tip of the pendulum blade is pointing in the direction in which the endless spell is to be moved.`,
+    desc: `Casting value of 5 and range of 8". Set up the endless spell wholly within range of the caster. When this endless spell is set up, pivot the model so that the tip of the pendulum blade is pointing in the direction in which the endless spell is to be moved.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Predatory`,
     desc: `Can move up to 8" and can fly. When this endless spell is moved, it must move in a straight line in the direction in which the tip of the pendulum blade is pointing.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Scything Blade`,
-    desc: `After this endless spell has moved, roll a D6 for each unit that has any models it passed across and for each other unit that is within 1" of it at the end of its move. On a 2+, that unit suffers D3 mortal wounds.`,
+    desc: `After this endless spell has moved, roll a dice for each unit that has any models that it passed across, and each other unit that is within 1" of it at the end of its move. On a 2+, that unit suffers D3 mortal wounds.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const UmbralSpellportalEffects = [
@@ -243,19 +259,19 @@ export const UmbralSpellportalEffects = [
     name: `Summoning`,
     desc: `Casting value of 5 and range of 18". Set up the parts of the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Arcane Passage`,
-    desc: `Once per turn, if a WIZARD successfully casts a spell within 1" of this endless spell, the range, visibility and effect of that spell can be measured from 1 part of this endless spell instead of the caster.`,
+    desc: `Once per turn, if a WIZARD successfully casts a spell within 1" of this endless spell, the range, visibility and effect of that spell can be measured from 1 part of this endless spell instead of the caster. Spells that summon endless spells do not benefit from this effect.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021, meta_rule_sources.ERRATA_GHB_SEPTEMBER_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Arcane Passage`,
-    desc: `Once per turn, when a predatory endless spell within 6" of this endless spell is picked to move, the commanding player of that predatory endless spell can remove it from the battlefield and set it up again within 6" of the other part of this endless spell. A predatory endless spell set up in this manner does not count as having moved, but it cannot be picked to move again in the same phase.`,
+    desc: `In addition, once per turn, if a predatory endless spell starts a move within 6" of this endless spell, instead of making a move with it, the commanding player can remove that predatory endless spell from the battlefield and set it up again anywhere within 6" of the other part of this endless spell. An endless spell set up in this manner does not count as having moved.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const LauchonTheSoulseekerEffects = [
@@ -264,21 +280,21 @@ export const LauchonTheSoulseekerEffects = [
     name: `Predatory`,
     desc: `Can move up to 18" and can fly.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Soul Price`,
-    desc: `Before the commanding player moves this endless spell, they can pick 1 friendly WIZARD wholly within 3" of this endless spell. Remove that WIZARD from the battlefield. After this endless spell has moved, set that WIZARD up again wholly within 3" of this endless spell and more than 9" from all enemy units. After that WIZARD has been set up, it suffers 1 mortal wound. That WIZARD cannot make a normal move or run in the following movement phase.`,
+    desc: `Before the commanding player moves this endless spell, they can pick 1 friendly WIZARD wholly within 3" of this endless spell. Remove that WIZARD from the battlefield. After this endless spell has moved, set that WIZARD up again wholly within 3" of this endless spell and more than 9" from all enemy units. After that WIZARD has been set up, it suffers 1 mortal wound. That WIZARD can make a normal move or run in the following movement phase.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const SoulscreamBridgeEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 6 and range of 18". If successfully cast, set up the parts of the endless spell wholly within range of the caster.`,
+    desc: `Casting value of 6 and range of 24". If successfully cast, set up the parts of the endless spell wholly within range of the caster.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Deathly Passage`,
@@ -286,22 +302,22 @@ export const SoulscreamBridgeEffects = [
     
     A unit cannot be removed and set up again in this way more than once per phase. A unit removed and set up again in this way cannot make a normal move or run in the charge phase.`,
     when: [START_OF_MOVEMENT_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const HorrorghastEffects = [
   {
     name: `Summoning`,
-    desc: `Casting value of 6 and range of 12". Set up the model wholly within range of the caster.`,
+    desc: `Casting value of 5 and range of 12". Set up the model wholly within range of the caster.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   GenericEffects.Predatory.Eight_Inches,
   {
     name: `Prey on Fear`,
-    desc: `Units wholly within 12" of this endless spell cannot receive commands in the battleshock phase. In addition, if a unit fails a battleshock test wholly within 12" of this endless spell, add D3 to the number of models that flee.`,
+    desc: `Units within 12" of this endless spell cannot receive commands in the battleshock phase. In addition, if a unit fails a battleshock test within 12" of this endless spell, add D3 to the number of models that flee.`,
     when: [BATTLESHOCK_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 export const ShardsOfValagharrEffects = [
@@ -309,25 +325,26 @@ export const ShardsOfValagharrEffects = [
     name: `Summoning`,
     desc: `Casting value of 5 and range of 18". Set up the parts of the endless spell wholly within 12" of each other and wholly within range of the caster.`,
     when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Predatory`,
     desc: `To move this endless spell, remove 1 of its parts from the battlefield and set it up again wholly within 12" of its other part.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Ensnaring Soul-drain`,
-    desc: `After this endless spell has moved, draw a straight line between the closest points of each part of this endless spell. Each unit that has any models passed across by this line is ensnared until the end of that turn. Halve the Move characteristic of a unit that is ensnared. In addition, a unit that is ensnared cannot fly.`,
+    desc: `After this endless spell has moved, draw a straight line between the closest points of each part of this endless spell. Each unit passed across by this line is until the end of that turn. Halve the Move characteristic of a unit that is ensnared. In addition, a unit that is ensnared cannot fly or be removed from the battlefield with an effect that would allow it to be set up again in the
+    same turn.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
   {
     name: `Ensnaring Soul-drain`,
-    desc: `Halve the Move characteristic of a unit that is ensnared. In addition, a unit that is ensnared cannot fly.`,
+    desc: `Halve the Move characteristic of a unit that is ensnared. In addition, a unit that is ensnared cannot fly. or be removed from the battlefield with an effect that would allow it to be set up again in the same turn.`,
     when: [MOVEMENT_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2021],
+    rule_sources: [meta_rule_sources.GHB_2022],
   },
 ]
 
