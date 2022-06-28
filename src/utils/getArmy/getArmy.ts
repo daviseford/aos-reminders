@@ -4,7 +4,7 @@ import { GRAND_ALLIANCE_FACTIONS, TGrandAllianceFactions, TGrandAlliances } from
 import { TSupportedFaction } from 'meta/factions'
 import { getFactionFromList } from 'meta/faction_list'
 import { IArmy, TCollection, TSubfactionArmy } from 'types/army'
-import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { RealmscapesEnum } from 'types/realmscapes'
 import { isValidFactionName } from 'utils/armyUtils'
 import { isDev } from 'utils/env'
 import { getAllianceItems, getGrandAllianceEndlessSpells } from 'utils/getArmy/getAllianceItems'
@@ -22,8 +22,8 @@ import { processGame } from 'utils/processGame'
 export const getArmy = (
   factionName: TSupportedFaction | null,
   subFactionName: string | null = null,
-  originRealm: TOriginRealms | null = null,
-  realmscape: TBattleRealms | null = null
+  originRealm: RealmscapesEnum | null = null,
+  realmscape: RealmscapesEnum | null = null
 ): IArmy | null => {
   if (!isValidFactionName(factionName)) return null
 
@@ -53,8 +53,8 @@ interface IModifyArmyMeta {
   Collection: TCollection
   factionName: TSupportedFaction
   GrandAlliance: TGrandAlliances
-  originRealm: TOriginRealms | null
-  realmscape: TBattleRealms | null
+  originRealm: RealmscapesEnum | null
+  realmscape: RealmscapesEnum | null
 }
 
 const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {

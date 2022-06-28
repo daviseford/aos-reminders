@@ -3,7 +3,7 @@ import { uniq } from 'lodash'
 import { SLAANESH, TSupportedFaction } from 'meta/factions'
 import { getFactionFromList } from 'meta/faction_list'
 import { AZYR, IImportedArmy } from 'types/import'
-import { TBattleRealms } from 'types/realmscapes'
+import { RealmscapesEnum } from 'types/realmscapes'
 import { TSelections, TSelectionTypes } from 'types/selections'
 import { isValidFactionName } from 'utils/armyUtils'
 import { importErrorChecker } from 'utils/import'
@@ -33,7 +33,7 @@ const selectorLookup: Record<string, TSelectionTypes> = {
 const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   let factionName = ''
   let subFactionName = ''
-  let realmscape: TBattleRealms | null = null
+  let realmscape: RealmscapesEnum | null = null
   let allyUnits: string[] = []
   let unknownSelections: string[] = []
 
@@ -48,7 +48,7 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
       }
 
       if (name.startsWith('REALMSCAPE:')) {
-        realmscape = titleCase(name.replace('REALMSCAPE: ', '')) as TBattleRealms
+        realmscape = titleCase(name.replace('REALMSCAPE: ', '')) as RealmscapesEnum
         return accum
       }
 

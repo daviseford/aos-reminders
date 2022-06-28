@@ -1,5 +1,5 @@
 import parse5 from 'parse5'
-import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { RealmscapesEnum } from 'types/realmscapes'
 import { cleanText, fixKeys } from 'utils/battlescribe/battlescribeUtils'
 import {
   isAllegianceObj,
@@ -21,8 +21,8 @@ import {
 type TTraverseDoc = (docObj: IParentNode | IChildNode) => {
   allegianceInfo: IFlavorInfo[]
   factionInfo: IFactionInfo
-  origin_realm: TOriginRealms | null
-  realmscape: TBattleRealms | null
+  origin_realm: RealmscapesEnum | null
+  realmscape: RealmscapesEnum | null
   rootSelections: IParentNode[]
 }
 
@@ -30,8 +30,8 @@ export const traverseDoc: TTraverseDoc = docObj => {
   const results = {
     allegianceInfo: [] as IFlavorInfo[],
     factionInfo: { factionName: null, grandAlliance: null } as IFactionInfo,
-    origin_realm: null as TOriginRealms | null,
-    realmscape: null as TBattleRealms | null,
+    origin_realm: null as RealmscapesEnum | null,
+    realmscape: null as RealmscapesEnum | null,
     rootSelections: [] as IParentNode[],
   }
 

@@ -98,6 +98,10 @@ const meta_rule_sources = {
     name: "General's Handbook (2021)",
     type: 'ghb',
   },
+  GHB_2022: {
+    name: "General's Handbook (2022)",
+    type: 'ghb',
+  },
   ERRATA_GHB_SEPTEMBER_2021: {
     name: "General's Handbook Errata (September 2021)",
     type: 'ghb',

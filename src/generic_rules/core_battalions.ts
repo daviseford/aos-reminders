@@ -3,6 +3,7 @@ import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_CHARGE_PHASE,
   END_OF_SETUP,
   MOVEMENT_PHASE,
@@ -82,6 +83,8 @@ const CoreBattalions: TEntry[] = [
     name: 'Command Entourage - Strategists',
     effects: [StrategistsBattalionEffect],
   },
+
+  // GHB 2021 Battalions
   {
     name: 'Alpha-Beast Pack',
     effects: [
@@ -101,6 +104,30 @@ const CoreBattalions: TEntry[] = [
         desc: `Units from this battalion cannot be picked when your opponent carries out a monstrous rampage.`,
         when: [END_OF_CHARGE_PHASE],
         rule_sources: [meta_rule_sources.GHB_2021],
+      },
+    ],
+  },
+
+  // GHB 2022 Battalions
+  {
+    name: 'Expert Conquerors',
+    effects: [
+      {
+        name: `Dominant Force`,
+        desc: `GALLETIAN VETERANS units only. Each model in this battalion counts as 3 models for the purposes of contesting objectives.`,
+        when: [DURING_GAME],
+        rule_sources: [meta_rule_sources.GHB_2022],
+      },
+    ],
+  },
+  {
+    name: 'Bounty Hunters',
+    effects: [
+      {
+        name: `Headhunters`,
+        desc: `If the target of an attack made with a melee weapon by a model in this battalion is a GALLETIAN VETERANS unit, add 1 to the Damage characteristic of that weapon for that attack.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2022],
       },
     ],
   },

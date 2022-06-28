@@ -2,7 +2,7 @@ import meta_rule_sources from 'meta/rule_sources'
 import { TEntry } from 'types/data'
 import { END_OF_GAME } from 'types/phases'
 
-// General grand strategies available from GHB 2021
+// General grand strategies
 const GenericGrandStrategies: TEntry[] = [
   {
     name: `Sever the Head`,
@@ -89,6 +89,74 @@ const GenericGrandStrategies: TEntry[] = [
         desc: `When the battle ends, you complete this grand strategy if you control more terrain features than your opponent.`,
         when: [END_OF_GAME],
         rule_sources: [meta_rule_sources.GHB_2021],
+      },
+    ],
+  },
+
+  // GHB 2022 Grand Strategies
+  {
+    name: `No Place for the Weak`,
+    effects: [
+      {
+        name: `No Place for the Weak`,
+        desc: `When the battle ends, you complete this grand strategy if there are no Battleline units from your opponent's starting army on the battlefield.`,
+        when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.GHB_2022],
+      },
+    ],
+  },
+  {
+    name: `Tame the Land`,
+    effects: [
+      {
+        name: `Tame the Land`,
+        desc: `When the battle ends, you complete this grand strategy if you control all of the objectives on the battlefield that are wholly outside your territory.`,
+        when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.GHB_2022],
+      },
+    ],
+  },
+  {
+    name: `Defend What's Ours`,
+    effects: [
+      {
+        name: `Defend What's Ours`,
+        desc: `When the battle ends, you complete this grand strategy if there are no enemy units wholly within your territory.`,
+        when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.GHB_2022],
+      },
+    ],
+  },
+  {
+    name: `Take What's Theirs`,
+    effects: [
+      {
+        name: `Take What's Theirs`,
+        desc: `When the battle ends, you complete this grand strategy if there are more friendly units than enemy units wholly within your opponent's territory.`,
+        when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.GHB_2022],
+      },
+    ],
+  },
+  {
+    name: `Demonstration of Strength`,
+    effects: [
+      {
+        name: `Demonstration of Strength`,
+        desc: `When the battle ends, you complete this grand strategy if there are 3 or more GALLETIAN VETERANS units from your starting army on the battlefield.`,
+        when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.GHB_2022],
+      },
+    ],
+  },
+  {
+    name: `Show of Dominance`,
+    effects: [
+      {
+        name: `Show of Dominance`,
+        desc: `When the battle ends, you complete this grand strategy if there are any friendly GALLETIAN VETERANS units in each quarter of the battlefield.`,
+        when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.GHB_2022],
       },
     ],
   },

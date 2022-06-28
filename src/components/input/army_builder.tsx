@@ -2,7 +2,7 @@ import { CardMultiSelect, CardSingleSelect } from 'components/info/card'
 import { armyActions, selectors } from 'ducks'
 import { Fragment, useEffect, useMemo } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { TOriginRealms } from 'types/realmscapes'
+import { RealmscapesEnum } from 'types/realmscapes'
 import useGetArmy from 'utils/hooks/useGetArmy'
 import useGetArmyBuilderCards from 'utils/hooks/useGetArmyBuilderCards'
 import useWindowSize from 'utils/hooks/useWindowSize'
@@ -48,7 +48,7 @@ const ArmyBuilder = () => {
                   key={card.title}
                   label={factionName}
                   mobileTitle={card.mobileTitle || null}
-                  setValue={withSelectOne(value => dispatch(card.setValue(value as TOriginRealms | null)))}
+                  setValue={withSelectOne(value => dispatch(card.setValue(value as RealmscapesEnum | null)))}
                   title={card.title}
                   value={card.value}
                   selectionCount={0}

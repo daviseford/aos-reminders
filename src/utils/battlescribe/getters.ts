@@ -9,7 +9,7 @@ import {
   TSupportedFaction,
 } from 'meta/factions'
 import { getFactionFromList } from 'meta/faction_list'
-import { TBattleRealms, TOriginRealms } from 'types/realmscapes'
+import { RealmscapesEnum } from 'types/realmscapes'
 import { TSelections } from 'types/selections'
 import { isValidFactionName } from 'utils/armyUtils'
 import { cleanText, fixKeys, ignoredValues } from 'utils/battlescribe/battlescribeUtils'
@@ -91,21 +91,21 @@ export const getFactionAndFlavors = (
   }
 }
 
-export const parseBattleRealmObj = (obj: IParentNode): TBattleRealms | null => {
+export const parseBattleRealmObj = (obj: IParentNode): RealmscapesEnum | null => {
   try {
     //@ts-ignore
     const text = obj.childNodes[1].childNodes[1].value
-    return text.split(': ')[1].trim() as TBattleRealms
+    return text.split(': ')[1].trim() as RealmscapesEnum
   } catch (err) {
     return null
   }
 }
 
-export const parseOriginRealmObj = (obj: IParentNode): TOriginRealms | null => {
+export const parseOriginRealmObj = (obj: IParentNode): RealmscapesEnum | null => {
   try {
     //@ts-ignore
     const text = obj.childNodes[1].childNodes[1].value
-    return text.split(': ')[1].trim() as TOriginRealms
+    return text.split(': ')[1].trim() as RealmscapesEnum
   } catch (err) {
     return null
   }

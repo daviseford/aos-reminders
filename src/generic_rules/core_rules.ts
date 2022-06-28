@@ -368,66 +368,6 @@ const CoreRules: TEntry[] = [
   },
 
   {
-    name: 'Battle Tactics',
-    effects: [
-      {
-        name: `Battle Tactics`,
-        desc: `At the start of your hero phase, you must pick 1 battle tactic. You must reveal your choice to your opponent, and if your battle tactics instructs you to pick something, you must tell your opponent what you pick. You have until the end of that turn to complete the battle tactic. You cannot pick the same battle tactic more than once per battle.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2021],
-      },
-      {
-        name: `Broken Ranks`,
-        desc: `When you reveal this battle tactic, pick 1 Battleline unit from your opponent's starting army on the battlefield. You complete this battle tactic if that unit is destroyed during this turn. If that unit was destroyed by an attack made by a friendly MONSTER or an ability of a friendly MONSTER, score 1 additional victory point.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2021],
-      },
-      {
-        name: `Conquer`,
-        desc: `When you reveal this battle tactic, pick 1 objective marker on the battlefield that your opponent controls. You complete this battle tactic if you control that objective marker at the end of this turn.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2021],
-      },
-      {
-        name: `Slay the Warlord`,
-        desc: `You complete this battle tactic if the model chosen to be your opponent's general is slain during this turn. If that model was destroyed by an attack made by a friendly MONSTER or an ability of a friendly MONSTER, score 1 additional victory point.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2021],
-      },
-      {
-        name: `Ferocious Advance`,
-        desc: `When you reveal this battle tactic, pick 3 different units from your starting army on the battlefield. You complete this battle tactic if all of the units your picked run in the following movement phase and finish that run within 3" of each other. If all 3 of those units are MONSTERS, score 1 additional victory point.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2021],
-      },
-      {
-        name: `Bring It Down!`,
-        desc: `When you reveal this battle tactic, pick 1 enemy MONSTER on the battlefield. You complete this battle tactic if that unit is destroyed during this turn. If that enemy MONSTER was destroyed by an attack made by a friendly MONSTER or an ability of a friendly MONSTER, score 1 additional victory point.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2021],
-      },
-      {
-        name: `Aggressive Expansion`,
-        desc: `When you reveal this battle tactic, pick 2 objective markers on the battlefield that are not wholly within your territory. You complete this battle tactic if you control both objective markers at the end of this turn.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2021],
-      },
-      {
-        name: `Monstrous Takeover`,
-        desc: `When you reveal this battle tactic, pick 1 MONSTER from your starting army on the battlefield. You complete this battle tactic if that MONSTER is contesting an objective marker that you control at the end of this turn, and that objective marker is not contested by an enemy MONSTER.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2021],
-      },
-      {
-        name: `Savage Spearhead`,
-        desc: `You complete this battle tactic if there are 2 or more units from your starting army wholly within your opponent's territory at the end of this turn. If 2 or more of those units are MONSTERS, score 1 additional victory point.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2021],
-      },
-    ],
-  },
-
-  {
     name: 'Wandering Endless Spells',
     effects: [
       {
