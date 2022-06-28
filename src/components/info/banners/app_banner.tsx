@@ -3,7 +3,7 @@ import { useTheme } from 'context/useTheme'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = 'aos-3-idoneth-deepkin-fyreslayers-battletome-release'
+  const name = 'aos-3-ghb-2022-release'
 
   return (
     <NotificationBanner
@@ -14,7 +14,7 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW: </strong>The newly-released Idoneth Deepkin and Fyreslayers battletomes have been added!
+        <strong>NEW: </strong>General's Handbook (2022) has been added. Sylvaneth and Skaven are coming soon!
       </span>
     </NotificationBanner>
   )
