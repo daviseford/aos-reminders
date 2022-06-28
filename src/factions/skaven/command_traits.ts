@@ -13,15 +13,6 @@ import {
 } from 'types/phases'
 
 const CommandTraits = {
-  'Malevolent (Masterclan)': {
-    effects: [
-      {
-        name: `Malevolent (Masterclan)`,
-        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by this general.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
   'Verminus Valour': {
     effects: [
       {
