@@ -16,7 +16,7 @@ const Spells = {
     effects: [
       {
         name: `Scorch`,
-        desc: `Scorch is a spell that has a casting value of 5 and a range of 13". If successfully cast, pick 1 enemy unit within range and visible to the caster and roll a number of dice equal to the casting roll. For each 6, that unit suffers 1 mortal wound`,
+        desc: `Casting value of 5 and a range of 13". Pick 1 enemy unit within range and visible to the caster and roll a number of dice equal to the casting roll. For each 6, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -34,7 +34,7 @@ const Spells = {
     effects: [
       {
         name: `Skitterleap`,
-        desc: `Skitterleap is a spell that has a casting value of 6 and a range of 13". If successfully cast, pick 1 friendly SKAVEN HERO with a wounds characteristic of 13 or less within range and visible to the caster. Remove that HERO from the battlefield and set it up again on the battlefield more than 9" from all enemy units. That HERO cannot move in the following movement phase.`,
+        desc: `Casting value of 6 and a range of 13". Pick 1 friendly SKAVEN HERO with a wounds characteristic of 13 or less within range and visible to the caster. Remove that HERO from the battlefield and set it up again on the battlefield more than 9" from all enemy units. That HERO cannot move in the following movement phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -52,12 +52,12 @@ const Spells = {
     effects: [
       {
         name: `Death Frenzy`,
-        desc: `Death Frenzy is a spell that has a casting value of 7 and a range of 13". If successfully cast, pick 1 friendly SKAVEN unit that is not a HERO within range and visible to the caster. Until your next hero phase, if any models in that unit are slain, those models can fight before they are removed from play.`,
+        desc: `Casting value of 7 and a range of 13". Pick 1 friendly SKAVEN unit that is not a HERO within range and visible to the caster. Until your next hero phase, if any models in that unit are slain, those models can fight before they are removed from play.`,
         when: [HERO_PHASE],
       },
       {
         name: `Death Frenzy`,
-        desc: `If active, if any models in that unit are slain, those models can fight before they are removed from play`,
+        desc: `If active, if any models in that unit are slain, those models can fight before they are removed from play.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -81,7 +81,7 @@ const Spells = {
     effects: [
       {
         name: `More-more-more Warp Power!`,
-        desc: `is a spell that has a casting value of 7 and a range of 13". If successfully cast, pick 1 friendly CLANS SKRYRE unit wholly within range and visible to the caster. Add 1 to hit rolls and wound rolls for attacks made by that unit until your next hero phase. However, that unit suffers D3 mortal wounds at the end of your next hero phase.`,
+        desc: `Casting value of 7 and a range of 13". Pick 1 friendly CLANS SKRYRE unit wholly within range and visible to the caster. Add 1 to hit rolls and wound rolls for attacks made by that unit until your next hero phase. However, that unit suffers D3 mortal wounds at the end of your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -90,7 +90,7 @@ const Spells = {
     effects: [
       {
         name: `Chain Warp Lightning`,
-        desc: `Chain Warp Lightning is a spell that has a casting value of 7 and a range of 13". If successfully cast, each unit within range suffers 1 mortal wound.`,
+        desc: `Casting value of 7 and a range of 13". If successfully cast, each unit within range suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -99,7 +99,7 @@ const Spells = {
     effects: [
       {
         name: `Warp Lightning Shield`,
-        desc: `Warp Lightning Shield is a spell that has a casting value of 6. If successfully cast, until your next hero phase, the first 3 wounds caused to the caster in each phase are negated. If a fourth wound is caused to the caster in the same phase, then the caster suffers 3 mortal wounds and this spell is unbound (the first wounds caused in that phase are still negated).`,
+        desc: `Casting value of 6. If successfully cast, until your next hero phase, the first 3 wounds caused to the caster in each phase are negated. If a fourth wound is caused to the caster in the same phase, then the caster suffers 3 mortal wounds and this spell is unbound (the first wounds caused in that phase are still negated).`,
         when: [HERO_PHASE],
       },
     ],
