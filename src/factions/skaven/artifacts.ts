@@ -1,302 +1,170 @@
 import { tagAs } from 'factions/metatagger'
 import {
-  BATTLESHOCK_PHASE,
   COMBAT_PHASE,
-  END_OF_COMBAT_PHASE,
+  DURING_GAME,
   END_OF_MOVEMENT_PHASE,
-  END_OF_ROUND,
   HERO_PHASE,
-  MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_ROUND,
-  START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const Artifacts = {
-  'Warpstorm Scroll (Masterclan)': {
+  'The Gnawshard': {
     effects: [
       {
-        name: `Warpstorm Scroll (Masterclan)`,
-        desc: `Once per battle, in your hero phase, the bearer can use this scroll. If they do so, roll 1 dice for each enemy unit within 13" of the bearer. On a 4+ that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Suspicious Stone (Masterclan)': {
-    effects: [
-      {
-        name: `Suspicious Stone (Masterclan)`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 5+ that wound or mortal wound is negated.`,
+        name: `The Gnawshard`,
+        desc: `MASTERCLAN HERO only. Pick 1 of the bearer's melee weapons. If any wounds caused by attacks made with that weapon are allocated to an enemy unit, that unit suffers 1 mortal wound at the end of each turn (even if those wounds are subsequently healed)`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
-  'The Gnawshard (Masterclan)': {
+  Skavenbrew: {
     effects: [
       {
-        name: `The Gnawshard (Masterclan)`,
-        desc: `Pick 1 of the bearer's melee weapons. If any wounds inflicted by that weapon are allocated to an enemy model and not negated, that enemy model suffers 1 mortal wound at the end of each battle round (even if the wounds inflicted by the Gnawshard are subsequently healed).`,
-        when: [END_OF_ROUND],
-      },
-    ],
-  },
-  'Skavenbrew (Masterclan)': {
-    effects: [
-      {
-        name: `Skavenbrew (Masterclan)`,
-        desc: `Once per battle, in your hero phase, you can pick 1 friendly SKAVENTIDE unit within 3" of the bearer. That unit suffers D3 mortal wounds, but you can add 1 to the Attacks characteristic of melee weapons used by that unit until your next hero phase.`,
+        name: `Skavenbrew`,
+        desc: `MASTERCLAN HERO only. Once per turn, in your hero phase, you can pick 1 other friendly SKAVEN unit within 3" of the bearer. That unit suffers D3 mortal wounds. but you can add 1 to the Attacks characteristic of melee weapons used by that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Snoutgrovel Robes (Masterclan)': {
+  'Staff of Rightful Supremacy': {
     effects: [
       {
-        name: `Snoutgrovel Robes (Masterclan)`,
-        desc: `Do not take battleshock tests for friendly SKAVENTIDE units while they are wholly within 13" of the bearer.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  'Staff of Rightful Supremacy (Masterclan)': {
-    effects: [
-      {
-        name: `Staff of Rightful Supremacy (Masterclan)`,
-        desc: `Subtract 1 from the casting rolls of enemy WIZARDS while they are within 13" of the bearer. In addition, once per battle, you can dispel one endless spell within 13" of the caster (you do not have to roll 2D6, the dispel is automatically successful).`,
+        name: `Staff of Rightful Supremacy`,
+        desc: `MASTERCLAN HERO only. Subtract 1 from casting rolls for enemy WIZARDS within 13" of the bearer. In addition, once per battle, in your hero phase, when a friendly unit attempts to dispel an endless spell that is within 13" of the bearer, that endless spell is automatically dispelled (do not make a dispelling roll)`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'The Brass Orb (Skryre)': {
+  'The Brass Orb': {
     effects: [
       {
-        name: `The Brass Orb (Skryre)`,
-        desc: `Once per battle, at the start of your hero phase, you can roll a D6. On a 6 the closest enemy model within 6" of the bearer is slain. If several enemy models are equally close, you can pick which one is slain.`,
+        name: `The Brass Orb`,
+        desc: `CLANS SKRYRE HERO only. Once per battle, at the start of your hero phase, you can pick 1 enemy unit within 6" of the bearer and roll a dice. On a 3+, remove that unit from the battlefield. At the end of that turn, your opponent must set up that unit again on the battlefield, wholly within their territory and more than 9" from all enemy units.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
   },
-  'Warpstone Armour (Skryre)': {
+  'Esoteric Warp Resonator': {
     effects: [
       {
-        name: `Warpstone Armour (Skryre)`,
-        desc: `Roll a D6 each time a wound inflicted by a melee weapon is allocated to the bearer and not negated. On a 5+ the attacking unit suffers 1 mortal wound.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'Esoteric Warp Resonator (Skryre)': {
-    effects: [
-      {
-        name: `Esoteric Warp Resonator (Skryre)`,
-        desc: `At the start of each battle round you receive 1 extra warpstone spark if the bearer is on the battlefield. That warpstone spark can only be used to perform a warpstone spark ability with the bearer in that battle round. If it is not used before the end of the battle round in which it was received, it is lost.`,
+        name: `Esoteric Warp Resonator`,
+        desc: `CLANS SKRYRE HERO only. At the start of each battle round, you receive 1 extra warpstone spark if the bearer is on the battlefield. That warpstone spark can only be used to carry out a warpstone spark ability with the bearer in that battle round. If it is not used before the end of the battle round in which it was received, it is lost.`,
         when: [START_OF_ROUND],
       },
     ],
   },
-  "Skryre's-breath Bellows (Skryre)": {
+  'Vial of the Fulminator': {
     effects: [
       {
-        name: `Skryre's-breath Bellows (Skryre)`,
-        desc: `At the start of your hero phase, the bearer can pump the bellows. If they do so, roll a D6 for each unit other than the bearer that is within 3" of the bearer. On a 4+ that unit suffers D3 mortal wounds.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  'Vial of the Fulminator (Skryre)': {
-    effects: [
-      {
-        name: `Vial of the Fulminator (Skryre)`,
-        desc: `At the start of your movement phase, you can pick 1 friendly CLANS SKRYRE WAR MACHINE within 3" of the bearer. Double that unit's Move characteristic until the end of that phase. At the end of that phase, roll a D6. On a 4+ that unit suffers D3 mortal wounds.`,
+        name: `Vial of the Fulminator`,
+        desc: `CLANS SKRYRE HERO only. At the start of your movement phase, you can pick 1 friendly CLANS SKRYRE WAR MACHINE within 6" of the bearer. Double that unit's Move characteristic until the end of that phase. At the end of that phase, roll a dice. On a 1, that unit suffers D3 mortal wounds.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
     ],
   },
-  'Vigordust Injector (Skryre)': {
+  'Blade of Corruption': {
     effects: [
       {
-        name: `Vigordust Injector (Skryre)`,
-        desc: `In your hero phase, you can pick 1 friendly SKAVENTIDE unit wholly within 12" of the bearer. Add 1 to charge rolls and hit rolls for that unit until your next hero phase. However, at the start of your next hero phase that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Blade of Corruption (Pestilens)': {
-    effects: [
-      {
-        name: `Blade of Corruption (Pestilens)`,
-        desc: `Pick 1 of the bearer's melee weapons. You can reroll wound rolls for attacks made with that weapon.`,
+        name: `Blade of Corruption`,
+        desc: `CLANS PESTILENS HERO only. Pick 1 of the bearer's melee weapons. If the unmodified wound roll for an attack made with that weapon is 6, that weapon has a Rend characteristic of -3 and a Damage characteristic of 6 for that attack.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  'The Foul Pendant (Pestilens)': {
+  'The Fumigatous': {
     effects: [
       {
-        name: `The Foul Pendant (Pestilens)`,
-        desc: `The bearer can attempt to unbind 1 spell in 5 each enemy hero phase in the same manner as a WIZARD.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Brooding Blade (Pestilens)': {
-    effects: [
-      {
-        name: `Brooding Blade (Pestilens)`,
-        desc: `Pick 1 of the bearer's melee weapons. At the end of the combat phase, roll a D6 for each model wounded by this weapon but not slain. On a 2+ that model's unit suffers D3 mortal wounds.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'The Fumigatous (Pestilens)': {
-    effects: [
-      {
-        name: `The Fumigatous (Pestilens)`,
-        desc: `At the start of each combat phase, you can pick 1 enemy unit within 6" of the bearer and roll a D6. On a 2+ that unit suffers 1 mortal wound. On a 5+ that unit suffers D3 mortal wounds instead of 1.`,
+        name: `The Fumigatous`,
+        desc: `CLANS PESTILENS HERO only. At the start of the combat phase, you can pick 1 enemy unit within of the bearer and roll a dice. On a 1-2. nothing happens. On a 3-4 that unit suffers D3 mortal wounds. On a 5-6. that unit suffers D6 mortal wounds.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
-  'Blistrevous, the Living Cyst (Pestilens)': {
+  'Blistrevous, the Living Cyst': {
     effects: [
       {
-        name: `Blistrevous, the Living Cyst (Pestilens)`,
-        desc: `Add 2" to the bearer's Move characteristic. In addition, you can reroll hit rolls for attacks made by the bearer. Starting from the second battle round, at the start of your hero phase, if there are any other friendly CLANS PESTILENS HEROES within 13" of the bearer, you must transfer this artifact to one of them, even if they already carry an artifact of power.`,
-        when: [MOVEMENT_PHASE],
-      },
-      {
-        name: `Blistrevous, the Living Cyst (Pestilens)`,
-        desc: `You can reroll hit rolls for attacks made by the bearer.`,
+        name: `Blistrevous, the Living Cyst`,
+        desc: `CLANS PESTILENS HERO only. The strike-first effect applies to the bearer if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Blistrevous, the Living Cyst (Pestilens)`,
-        desc: `Starting from the second battle round, at the start of your hero phase, if there are any other friendly CLANS PESTILENS HEROES within 13" of the bearer, you must transfer this artifact to one of them, even if they already carry an artifact of power.`,
+        name: `Blistrevous, the Living Cyst`,
+        desc: `CLANS PESTILENS HERO only. Starting from the second battle round, at the start of your hero phase, you must transfer this artefact to another friendly CLANS PESTILENS HERO on the battlefield if it is possible to do so, even if that HERO already has an artefact of power.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
   },
-  'Liber Bubonicus (Pestilens)': {
+  'Shield of Distraction': {
     effects: [
       {
-        name: `Liber Bubonicus (Pestilens)`,
-        desc: `The bearer becomes a PRIEST. If the bearer is already a PRIEST, you can reroll chanting rolls for the bearer.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_JULY_2021],
+        name: `Shield of Distraction`,
+        desc: `CLANS VERMINUS HERO only. The bearer cannot be picked as the target of a combat attack by more than 1 unit per phase.`,
+        when: [DURING_GAME],
       },
     ],
   },
-  'Things-Bane (Verminus)': {
+  'Rustcursed Armour': {
     effects: [
       {
-        name: `Things-Bane (Verminus)`,
-        desc: `Pick 1 of the bearer's melee weapons. Add 1 to the Damage characteristic of that weapon.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'Shield of Distraction (Verminus)': {
-    effects: [
-      {
-        name: `Shield of Distraction (Verminus)`,
-        desc: `Reroll save rolls of 1 for attacks that target the bearer.`,
+        name: `Rustcursed Armour`,
+        desc: `CLANS VERMINUS HERO only. Add 1 to save rolls for attacks that target the bearer.`,
         when: [SAVES_PHASE],
       },
       {
-        name: `Shield of Distraction (Verminus)`,
-        desc: `At the start of the combat phase, pick 1 enemy model within 3" of the bearer. Subtract 1 from hit rolls for attacks made with melee weapons by that model in that combat phase.`,
+        name: `Rustcursed Armour`,
+        desc: `CLANS VERMINUS HERO only. At the start of your combat phase, you can pick 1 enemy HERO that has an artefact of power within 3" of the bearer and roll 2D6. If the roll is greater than that HERO's Bravery characteristic, that HERO no longer bears that artefact of power (if a weapon was picked when the artefact of power was given to that HERO, that weapon reverts to normal).`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
-  'Screechskull Trophies (Verminus)': {
+  'Warpstone Charm': {
     effects: [
       {
-        name: `Screechskull Trophies (Verminus)`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 13" of the bearer.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  'Flaypelt Cloak (Verminus)': {
-    effects: [
-      {
-        name: `Flaypelt Cloak (Verminus)`,
-        desc: `You can reroll hit and wound rolls of 1 for attacks made with melee weapons by the bearer.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'Rustcursed Armour (Verminus)': {
-    effects: [
-      {
-        name: `Rustcursed Armour (Verminus)`,
-        desc: `Reroll save rolls of 1 for attacks that target the bearer.`,
+        name: `Warpstone Charm`,
+        desc: `CLANS VERMINUS HERO only. Subtract 1 from save rolls for enemy units within 3" of the bearer.`,
         when: [SAVES_PHASE],
       },
       {
-        name: `Rustcursed Armour (Verminus)`,
-        desc: `At the start of the combat phase, you can pick 1 enemy HERO with an artifact of power that is within 3" of the bearer and roll 3D6. If the roll is exactly 13, that artifact of power can no longer be used (if a weapon was picked when the artifact of power was selected, that weapon reverts to normal).`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'Warpstone Charm (Verminus)': {
-    effects: [
-      {
-        name: `Warpstone Charm (Verminus)`,
-        desc: `At the start of your hero phase, pick 1 unit within 3" of the bearer and roll a D6. On a 2-5 that unit suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds. (Note that if there are no enemy units within 3" you must pick either a friendly unit or the bearer to be the target.)`,
+        name: `Warpstone Charm`,
+        desc: `CLANS VERMINUS HERO only. At the start of your hero phase, roll a dice. On a 1, the bearer suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
   },
-  'Lash of Fangs (Moulder)': {
+  'Lash of Fangs': {
     effects: [
       {
-        name: `Lash of Fangs (Moulder)`,
-        desc: `Pick 1 of the bearer's melee weapons. If the unmodified hit roll for an attack made with that weapon is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        name: `Lash of Fangs`,
+        desc: `CLANS MOULDER HERO only. Pick 1 of the bearer's melee weapons. If the unmodified hit roll for an made with that weapon is 6, that attack causes D3 mortal wounds to the target in addition to any damage it inflicts.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  'Foulhide (Moulder)': {
+  Foulhide: {
     effects: [
       {
-        name: `Foulhide (Moulder)`,
-        desc: `In your hero phase, you can heal up to D3 wounds allocated to the bearer.`,
-        when: [HERO_PHASE],
+        name: `Foulhide`,
+        desc: `CLANS MOULDER HERO only. The bearer has a Wounds characteristic of 10.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Foulhide`,
+        desc: `CLANS MOULDER HERO only. At the start of your hero phase, you can heal 1 wound allocated to the bearer.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
-  'Snap-snap Snarepole (Moulder)': {
+  'Rabid Crown': {
     effects: [
       {
-        name: `Snap-snap Snarepole (Moulder)`,
-        desc: `At the start of the combat phase, pick 1 enemy model within 3" of the bearer. Subtract 1 from hit rolls for attacks made by that model in that combat phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'Rat-tail Snake (Moulder)': {
-    effects: [
-      {
-        name: `Rat-tail Snake (Moulder)`,
-        desc: `If the unmodified save roll for an attack that targets the bearer is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
-  'Rabid Crown (Moulder)': {
-    effects: [
-      {
-        name: `Rabid Crown (Moulder)`,
-        desc: `You can reroll wound rolls for attacks made by friendly CLANS MOULDER PACK units while they are wholly within 13" of the bearer.`,
+        name: `Rabid Crown`,
+        desc: `CLANS MOULDER HERO only. Add 1 to hit rolls for attacks made by friendly CLANS MOULDER FIGHTING BEAST and CLANS MOULDER PACK units wholly within 13" of the bearer.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -310,56 +178,29 @@ const Artifacts = {
       },
     ],
   },
-  'Shadow Magnet Trinket (Eshin)': {
+  'Shadow Magnet Trinket': {
     effects: [
       {
-        name: `Shadow Magnet Trinket (Eshin)`,
-        desc: `Once per battle, the bearer can fight at the start of the combat phase, before the players pick any other units to fight in that combat phase. The bearer cannot fight again in that combat phase unless an ability or spell allows it to fight more than once.`,
+        name: `Shadow Magnet Trinket`,
+        desc: `CLANS ESHIN HERO only. Once per battle, at the start of the combat phase, you can say that the bearer will use this artefact. If you do so, the strike-first effect applies to the bearer until your next hero phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
-  'Farskitter Cloak (Eshin)': {
+  'Farskitter Cloak': {
     effects: [
       {
-        name: `Farskitter Cloak (Eshin)`,
-        desc: `Once per battle, at the end of your movement phase, you can remove the bearer from the battlefield and set them up again anywhere on the battlefield more than 9" from any enemy units.`,
+        name: `Farskitter Cloak`,
+        desc: `CLANS ESHIN HERO only. Once per battle, at the end of your movement phase, you can remove the bearer from the battlefield and set them up again on the battlefield more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
-  'The Three Fangs (Eshin)': {
+  Gnawbomb: {
     effects: [
       {
-        name: `The Three Fangs (Eshin)`,
-        desc: `Once per battle, at the start of your shooting phase, you can pick 1 enemy HERO within 6" of the bearer and roll 3 dice. If all 3 rolls are 3+, and the combined value of the 3 dice is greater than that enemy model's Wounds characteristic, that enemy model is slain.`,
-        when: [START_OF_SHOOTING_PHASE],
-      },
-    ],
-  },
-  'Warpweeper Stars (Eshin)': {
-    effects: [
-      {
-        name: `Warpweeper Stars (Eshin)`,
-        desc: `Pick 1 of the bearer's missile weapons. If the unmodified wound roll for an attack made with that weapon is 6, that attack inflicts D3 mortal wounds on the target in addition to any normal damage.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  'The Cube of Mists (Eshin)': {
-    effects: [
-      {
-        name: `The Cube of Mists (Eshin)`,
-        desc: `Once per battle, at the start of the combat phase, you can pick 1 enemy unit within 6" of the bearer. That unit cannot make a pile-in move in that combat phase. In addition, subtract 1 from hit rolls for attacks made by that unit in that combat phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'Gnawbomb (Eshin)': {
-    effects: [
-      {
-        name: `Gnawbomb (Eshin)`,
-        desc: `Once per battle, in your hero phase, you can pick 1 terrain feature within 6" of the bearer. Until your next hero phase, that terrain feature has the scenery rules from the Gnawhole warscroll in addition to the scenery rules it already has.`,
+        name: `Gnawbomb`,
+        desc: `CLANS ESHIN HERO only. Once per battle, in hero phase, you can pick 1 terrain feature within 6" of the bearer. Until your next hero phase, that terrain feature has the scenery rules from the Gnawhole warscroll (pg 118) in addition to any other scenery rules that it may have.`,
         when: [HERO_PHASE],
       },
     ],
