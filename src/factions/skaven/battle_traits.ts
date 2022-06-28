@@ -1,6 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { SKAVEN } from 'meta/factions'
-import { COMBAT_PHASE } from 'types/phases'
+import { COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
 const BattleTraits = {
   [SKAVEN]: {
@@ -49,6 +49,31 @@ const BattleTraits = {
       //   when: [WOUND_ALLOCATION_PHASE],
       //   rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       // },
+    ],
+  },
+
+  'Battle Tactics': {
+    effects: [
+      {
+        name: `Restore the Beast`,
+        desc: `Pick 1 friendly RAT OGOR unit on the battlefield that has 3 or more wounds allocated to it. You complete this tactic if that RAT OGOR unit has 0 wounds allocated to it at the end of this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Deathmark`,
+        desc: `Pick 1 enemy HERO on the battlefield that has a Wounds characteristic of 10 or more and that has 0 wounds allocated to it. You complete this tactic if that HERO is slain in this turn by attacks made by friendly CLANS ESHIN units.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Fire-fire! More-more!`,
+        desc: `Pick 1 enemy MONSTER on the battlefield. You complete this tactic if that unit is destroyed in this turn by attacks made with missile weapons by friendly CLANS SKRVRE units.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Crescendo of the Diseased Choir`,
+        desc: `You complete this tactic if 3 or more prayers chanted by different friendly CLANS PESTILENS PRIESTS are answered in this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
     ],
   },
 }
