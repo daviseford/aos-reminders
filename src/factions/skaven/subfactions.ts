@@ -1,5 +1,7 @@
+import { pickEffects } from 'factions/metatagger'
 import { SKAVEN } from 'meta/factions'
 import Artifacts from './artifacts'
+import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
@@ -11,7 +13,7 @@ import Units from './units'
 
 const subFactions = {
   [SKAVEN]: {
-    effects: [],
+    effects: pickEffects(BattleTraits, [SKAVEN]),
     available: {
       artifacts: [Artifacts],
       battalions: [],
