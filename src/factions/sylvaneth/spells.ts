@@ -1,87 +1,13 @@
 import { tagAs } from 'factions/metatagger'
-import meta_rule_sources from 'meta/rule_sources'
-import { COMBAT_PHASE, HERO_PHASE } from 'types/phases'
+import { COMBAT_PHASE, HERO_PHASE, SAVES_PHASE } from 'types/phases'
 
 const Spells = {
-  Metamorphosis: {
-    effects: [
-      {
-        name: `Metamorphosis`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 16" of the caster that is visible. Roll a number of dice equal to the casting roll. For each 3+ the target suffers 1 mortal wound. In addition, if these wounds inflicted destroy the target, you can set up 1 AWAKENED WYLDWOOD wholly within 12" of the last slain model. This model is added to your army and must be set up more than 1" from other models, terrain features, or objectives.`,
-        when: [HERO_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
-      },
-    ],
-  },
-  'Primal Terror': {
-    effects: [
-      {
-        name: `Primal Terror`,
-        desc: `Casting value of 6. Roll 2D6. Each enemy unit within 10" of the caster with a Bravery characteristic lower than this roll suffers D3 mortal wounds (roll separately for each unit)`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Awakening the Wood': {
-    effects: [
-      {
-        name: `Awakening the Wood`,
-        desc: `Casting value of 6. Pick 1 friendly AWAKENED WYLDWOOD that is wholly within 30" of the caster. Each enemy unit within 3" of that AWAKENED WYLDWOOD suffers D3 mortal wounds (roll separately for each unit)`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Unleash Spites': {
-    effects: [
-      {
-        name: `Unleash Spites`,
-        desc: `Casting value of 5. Roll a number of dice equal to the casting roll for each enemy unit within 9" of the caster. For each 6, that enemy unit suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Roused to Wrath': {
-    effects: [
-      {
-        name: `Roused to Wrath`,
-        desc: `Casting value of 7. You can summon 1 unit of 10 DRYADS and add it to your army. The summoned unit must be set up more than 9" from any enemy units, and wholly within 1" of an AWAKENED WYLDWOOD that is within 12" of the caster. The summoned unit cannot move in the following movement phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'The Reaping': {
-    effects: [
-      {
-        name: `The Reaping`,
-        desc: `Casting value of 6. Pick 1 enemy unit within 12" of the caster that is visible to them and roll 6 dice. For each 5+ that unit suffers 1 mortal wound.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Might of Kurnoth': {
-    effects: [
-      {
-        name: `Might of Kurnoth`,
-        desc: `Casting value of 7. Pick 1 friendly Sylvaneth unit within 12" of the caster that is visible to them. Add 1 to wound rolls for attacks made with melee weapons until the start of your next hero phase.`,
-        when: [HERO_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  'Verdant Blessing': {
-    effects: [
-      {
-        name: `Verdant Blessing`,
-        desc: `Casting value of 6. Set up 1 AWAKENED WYLDWOOD wholly within 24" of the caster and more than 1" from any other model, terrain feature or objective.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
   // Lore of the Deepwood
   'Throne of Vines': {
     effects: [
       {
         name: `Throne of Vines`,
-        desc: `Casting value of 5. Add 2 to casting rolls for the caster until the caster makes a move or is set up in a different location.`,
+        desc: `At the end of each phase until the start of your next hero phase, you can heal 1 wound allocated to the caster.`,
         when: [HERO_PHASE],
       },
     ],
@@ -99,7 +25,7 @@ const Spells = {
     effects: [
       {
         name: `The Dwellers Below`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 10" of the caster and visible to them and roll a number of dice equal to the number of models in that unit. For each 6+ that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 12" of the caster and visible to them and roll a number of dice equal to the number of models in that unit. For each 5+ that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -126,16 +52,104 @@ const Spells = {
     effects: [
       {
         name: `Treesong`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 16" of the caster and within 6" of an AWAKENED WYLDWOOD. Until the end of the turn, you can reroll hit and wound rolls of 1 for attacks made with melee weapons that target that unit.`,
+        desc: `Casting value of 7. Pick 1 Awakend Wyldwood within 16" of the caster. Until the start of your next hero phase, improve the Rend characteristic of melee weapons used by friendly SYLVANETH units by 1 while they are wholly within 9" of that Awakend Wyldwood.`,
         when: [HERO_PHASE],
       },
     ],
   },
+  //BATLE TRAIT SPELLS
+  'Verdant Blessing': {
+    effects: [
+      {
+        name: `Verdant Blessing`,
+        desc: `Casting value of 6 and a range of 18". If successfully cast, setup an Awakened Wyldwood terrain feature wholly within range and visible to the caster, and more than 3" from all other models, endless spells, invocations, terrain features, and objectives, and add it to your army.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  //Alarielle Spells
+  Metamorphosis: {
+    effects: [
+      {
+        name: `Metamorphosis`,
+        desc: `Casting value of 7 and a range of 16". Pick 1 enemy unit within range and visible to the caster and roll a number of dice equal the casting roll. For each 3+, there suffers 1 mortal wound.
+        
+        If a unit is destroyed by a mortal wound caused by this spell: before removing the last model from play you can set up 1 Awakened Wyldwood terrain feature consisting of 1 piece wholly within 12" of that model and more than 3" from all other models, terrain features and objectives and add it to your army.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  //Branchwych Spells
+  'Unleash Spites': {
+    effects: [
+      {
+        name: `Unleash Spites`,
+        desc: `Casting value of 5 and a range of 9". Roll a number of dice equal to the casting roll for each enemy unit within range of the caster. For each 5+, That enemy unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  //Lady of Vines Spells
+  'Aspect of the Everqueen': {
+    effects: [
+      {
+        name: `Aspect of the Everqueen`,
+        desc: `Casting value of 7 and a range of 12". Until your next hero phase, friendly Sylvaneth units have a ward of 5+ while they are wholly within range of the caster.`,
+        when: [HERO_PHASE, SAVES_PHASE],
+      },
+    ],
+  },
+  //Drycha Spells
+  'Primal Terror': {
+    effects: [
+      {
+        name: `Primal Terror`,
+        desc: `Casting value of 6 and a range of 12". Roll 2D6, each enemy unit within range that has a Bravery characteristic lower than the roll suffers D3 mortal wounds (roll separatly each unit).`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  //Warsong Reveneant Spells
   'Unleash Swarm of Spites': {
     effects: [
       {
         name: `Unleash Swarm of Spites`,
-        desc: `Casting value of 7. Roll a number of dice equal to the casting roll for each enemy unit within 9" of this model. On a 5+ the target suffers 1 mortal wound.`,
+        desc: `Casting value of 7 and a range of 9". Roll a number of dice equal to the casting roll for each enemy unit within range of the caster. For each 5+, that enemy unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  //Treelord ancient Spells
+  'Awakening the Wood': {
+    effects: [
+      {
+        name: `Awakening the Wood`,
+        desc: `Casting value of 6. Pick 1 friendly Awakened Wyldwood on the battlefield. Each enemy unit within 3" of it suffers D3 mortal wounds (roll separately for each unit).`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  //SKAETH'S WILD HUNT Spells
+  'Might of Kurnoth': {
+    effects: [
+      {
+        name: `Might of Kurnoth`,
+        desc: `Casting value of 7 and a range of 12". Pick 1 friendly SYLVANETH unit within range and visible to the caster. Add 1 to wound rolls for attacks made with melee weapons by that unit until the start of your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Might of Kurnoth`,
+        desc: `If active, add 1 to wound rolls for attacks made with melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  //YLTHARI ancient Spells
+  'The Reaping': {
+    effects: [
+      {
+        name: `The Reaping`,
+        desc: `Casting value of 6 and a range of 12". Pick 1 enemy unit within range and visible to the caster, roll 6 dice. For each 5+, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],

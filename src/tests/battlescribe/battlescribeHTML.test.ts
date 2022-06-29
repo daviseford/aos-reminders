@@ -68,13 +68,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1634345722526-Battlescribe', () => {
-    const parsedText = getFile('1634345722526-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.units).toContain('Kurnoth Hunters')
-    expect(res.errors).toEqual([])
-  })
-
   it('should correctly read 1634417062945-Battlescribe', () => {
     const parsedText = getFile('1634417062945-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -650,32 +643,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.subFactionName).toEqual(LegionsOfNagashFaction.subFactionKeyMap.Soulblight)
   })
 
-  it('should work with Sylvaneth1', () => {
-    const parsedText = getFile('Sylvaneth1')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(SYLVANETH)
-    expect(res.selections.artifacts).toEqual([
-      'Briar Sheath',
-      'Greenwood Gladius',
-      'Lifewreath',
-      'The Vesperal Gem',
-      "Autumn's Ire",
-      'Crown of Fell Bowers',
-      'Glamourweave',
-      'Lashvines',
-      'Wychwood Glaive',
-    ])
-    expect(res.selections.scenery).toEqual(['Awakened Wyldwood', 'Penumbral Engine'])
-    // expect(res.selections.battalions).toEqual(['Lords of the Clan'])
-    expect(res.selections.command_abilities).toEqual(['Call to Battle', 'Heed the Spirit-song'])
-    expect(res.selections.endless_spells).toEqual(['Horrorghast', "Ravenak's Gnashing Jaws"])
-
-    // The two below values come from the Battalion
-    // expect(res.selections.units).toContain('Treelord')
-    // expect(res.selections.units).toContain('Treelord Ancient')
-  })
-
   it('should work with Nighthaunt1', () => {
     const parsedText = getFile('Nighthaunt1')
     const res = getBattlescribeArmy(parsedText)
@@ -842,38 +809,6 @@ describe('getBattlescribeArmy', () => {
       'Wrathmongers',
       'Exalted Deathbringer',
       'Skullreapers',
-    ])
-  })
-
-  it('should work with Sylvaneth2', () => {
-    const parsedText = getFile('Sylvaneth2')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(SYLVANETH)
-    expect(res.selections.flavors).toEqual(['Winterleaf (Glade)'])
-    expect(res.selections.artifacts).toEqual(['Frozen Kernel', 'Spiritsong Stave'])
-    // expect(res.selections.battalions).toEqual(['Outcasts'])
-    expect(res.selections.command_abilities).toEqual([
-      'Branch Blizzard',
-      'Call to Battle',
-      'Heed the Spirit-song',
-    ])
-    expect(res.selections.scenery).toEqual(['Awakened Wyldwood'])
-    expect(res.selections.spells).toEqual([
-      'Arcane Bolt',
-      'Mystic Shield',
-      'Roused to Wrath',
-      'Verdant Blessing',
-      'Primal Terror',
-      'Awakening the Wood',
-    ])
-    expect(res.selections.units).toEqual([
-      'Arch-Revenant',
-      'Branchwraith',
-      'Drycha Hamadreth',
-      'Treelord Ancient',
-      'Kurnoth Hunters',
-      'Spite-Revenants',
     ])
   })
 })

@@ -3,7 +3,7 @@ import { useTheme } from 'context/useTheme'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = 'aos-3-ghb-2022-release'
+  const name = 'aos-3-ghb-skaven-sylvaneth-2022-release'
 
   return (
     <NotificationBanner
@@ -14,7 +14,8 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW: </strong>General's Handbook (2022) has been added. Sylvaneth and Skaven are coming soon!
+        <strong>NEW: </strong>General's Handbook (2022) has been added, as well as the new Sylvaneth and
+        Skaven battletomes!
       </span>
     </NotificationBanner>
   )

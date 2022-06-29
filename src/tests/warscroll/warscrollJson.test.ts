@@ -23,7 +23,6 @@ import {
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
-  SYLVANETH,
   TZEENTCH,
 } from 'meta/factions'
 import path from 'path'
@@ -987,14 +986,6 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(SERAPHON)
     expect(res.selections.endless_spells).toContain('Everblaze Comet')
-  })
-
-  it('should work with Horn of the Consort', () => {
-    const parsedText = getFile('1571520651334-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(SYLVANETH)
-    expect(res.selections.artifacts).toEqual(['Horn of the Consort'])
   })
 
   it('should work with Grundstock Thunderers', () => {
