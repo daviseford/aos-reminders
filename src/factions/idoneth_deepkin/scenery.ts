@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { DURING_GAME, SAVES_PHASE, START_OF_SETUP } from 'types/phases'
+import { DURING_GAME, START_OF_SETUP, WARDS_PHASE } from 'types/phases'
 
 const Scenery = {
   'Gloomtide Shipwreck': {
@@ -21,7 +21,7 @@ const Scenery = {
       {
         name: `Guardians of the Deep`,
         desc: `IDONETH DEEPKIN units that do not have a mount have a ward of 5+ while they are wholly within 6" of this terrain feature. If a unit that does not have the IDONETH DEEPKIN keyword is within 3" of this terrain feature, this ability has no effect.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },

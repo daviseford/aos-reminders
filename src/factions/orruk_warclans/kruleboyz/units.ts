@@ -10,10 +10,10 @@ import {
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import spells from './spells'
@@ -194,7 +194,7 @@ const KruleboyzUnits = {
       {
         name: `Glyphic Banners`,
         desc: `This model has a ward of 6+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Mork Sez No!`,

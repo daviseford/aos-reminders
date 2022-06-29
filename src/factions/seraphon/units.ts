@@ -18,6 +18,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
@@ -425,7 +426,7 @@ const Units = {
       {
         name: `Perfect Mimicry`,
         desc: `Models in this unit that are within 1" of a terrain feature have a ward of 4+`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_JULY_2021],
       },
       {

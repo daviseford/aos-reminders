@@ -10,10 +10,10 @@ import {
   DURING_SETUP,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
-  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   TURN_TWO_END_OF_MOVEMENT_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import DestructionCommandAbilities from './command_abilities'
@@ -236,8 +236,14 @@ const DestructionUnits = {
       },
       {
         name: `The Shield Inviolate`,
-        desc: `This unit has a ward of 6+. In addition, each time this unit is affected by a spell or the abilities of an endless spell, you can roll 3D6. If the roll is greater than the casting value of that spell or the spell used to summon that endless spell, ignore the effect of that spell or the effects of that endless spell's abilities on this unit.`,
-        when: [SAVES_PHASE, HERO_PHASE],
+        desc: `This unit has a ward of 6+.`,
+        when: [WARDS_PHASE],
+        rule_sources: [orruk_rule_sources.BATTLETOME_ORRUK_WARCLANS, orruk_rule_sources.ERRATA_DECEMBER_2021],
+      },
+      {
+        name: `The Shield Inviolate`,
+        desc: `Each time this unit is affected by a spell or the abilities of an endless spell, you can roll 3D6. If the roll is greater than the casting value of that spell or the spell used to summon that endless spell, ignore the effect of that spell or the effects of that endless spell's abilities on this unit.`,
+        when: [HERO_PHASE],
         rule_sources: [orruk_rule_sources.BATTLETOME_ORRUK_WARCLANS, orruk_rule_sources.ERRATA_DECEMBER_2021],
       },
       {

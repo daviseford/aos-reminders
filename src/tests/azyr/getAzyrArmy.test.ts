@@ -285,19 +285,6 @@ describe('getAzyrArmyFromPdf', () => {
     )
   })
 
-  it('should correctly read 1592750625890-Azyr', () => {
-    const fileTxt = getFile('1592750625890-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(SKAVEN)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Grey Seer'. Please check that we have imported the correct one.",
-      },
-    ])
-  })
-
   it('should correctly read 1593305871564-Azyr', () => {
     const fileTxt = getFile('1593305871564-Azyr')
     const pages = handleAzyrPages(fileTxt)
@@ -1097,7 +1084,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SKAVEN)
-    expect(res.selections.flavors).toContain('Warpstone Sparks (Skryre)')
     expect(res.selections.endless_spells).toEqual(['Bell of Doom'])
     expect(res.selections.units).toEqual([
       'Arch-Warlock',
@@ -1170,54 +1156,6 @@ describe('getAzyrArmyFromPdf', () => {
           'Skywardens',
           'Grundstok Thunderers',
           'Endrinriggers',
-        ],
-      },
-      unknownSelections: [],
-    })
-  })
-
-  it('handles Skaven1', () => {
-    const fileTxt = getFile('Skaven1')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
-      allyUnits: [],
-      errors: [
-        {
-          severity: 'ambiguity-warn',
-          text: "Azyr lists more than one unit as 'Grey Seer'. Please check that we have imported the correct one.",
-        },
-      ],
-      factionName: SKAVEN,
-      origin_realm: null,
-      realmscape_feature: null,
-      realmscape: null,
-      subFactionName: '',
-      selections: {
-        grand_strategies: [],
-        mount_traits: [],
-        incarnates: [],
-        monstrous_rampages: [],
-        prayers: [],
-        flavors: ['Skilled Manipulators (Masterclan)', 'Warpstone Sparks (Skryre)'],
-        artifacts: ['Vigordust Injector (Skryre)'],
-        battalions: [],
-        command_abilities: [],
-        endless_spells: [],
-        scenery: [],
-        spells: ['Death Frenzy', 'Skitterleap', 'More-more-more Warp Power!', 'Wither', 'Warp Lightning'],
-        command_traits: ['Master of Magic'],
-        core_rules: [],
-        triumphs: [],
-        units: [
-          'Grey Seer',
-          'Warlock Bombardier',
-          'Clanrats',
-          'Warplock Jezzails',
-          'Plague Monks',
-          'Skryre Acolytes',
         ],
       },
       unknownSelections: [],

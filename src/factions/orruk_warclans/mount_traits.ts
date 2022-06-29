@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { COMBAT_PHASE, DURING_GAME, END_OF_CHARGE_PHASE, HERO_PHASE, SAVES_PHASE } from 'types/phases'
+import { COMBAT_PHASE, DURING_GAME, END_OF_CHARGE_PHASE, HERO_PHASE, WARDS_PHASE } from 'types/phases'
 
 const OrrukWarclanMountTraits = {
   "Tough 'Un": {
@@ -43,7 +43,7 @@ const OrrukWarclanMountTraits = {
       {
         name: `Weird 'Un`,
         desc: `This model has a ward of 4+ against mortal wounds caused by spells and the abilities of endless spells.`,
-        when: [SAVES_PHASE, HERO_PHASE],
+        when: [WARDS_PHASE, HERO_PHASE],
       },
     ],
   },

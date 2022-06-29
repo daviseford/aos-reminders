@@ -16,6 +16,7 @@ import {
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
@@ -126,7 +127,7 @@ const Units = {
       {
         name: `Morikhane`,
         desc: `This unit has a ward of 4+ for damage inflicted by mortal wounds. In addition, if the unmodified ward roll for this unit is 6, that attacking unit suffers 1 mortal wound.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
         rule_sources: [obr_rule_sources.ERRATA_DECEMBER_2021],
       },
       {

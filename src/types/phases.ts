@@ -32,6 +32,9 @@ type TBattleshockPhaseEnd = 'END_OF_BATTLESHOCK_PHASE'
 // Global Saves
 type TSavesPhase = 'SAVES'
 
+// Global Wards
+type TWardsPhase = 'WARDS'
+
 // Global Wound Allocation
 type TWoundAllocationPhase = 'WOUND_ALLOCATION'
 
@@ -57,6 +60,7 @@ export const END_OF_BATTLESHOCK_PHASE: TBattleshockPhaseEnd = 'END_OF_BATTLESHOC
 
 // Artificial phases that help organize the game better
 export const SAVES_PHASE: TSavesPhase = 'SAVES'
+export const WARDS_PHASE: TWardsPhase = 'WARDS'
 export const WOUND_ALLOCATION_PHASE: TWoundAllocationPhase = 'WOUND_ALLOCATION'
 
 // Turn Types
@@ -517,4 +521,5 @@ export type TTurnWhen =
   | TTurnDuring
   | TRoundDuring
   | TSavesPhase
+  | TWardsPhase
   | TWoundAllocationPhase

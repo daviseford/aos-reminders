@@ -1,6 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
-import { COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import { COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE, WARDS_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const Prayers = {
@@ -15,7 +15,7 @@ const Prayers = {
       {
         name: `Rune Lore: Ancestral Shield`,
         desc: `If active, that unit has a ward of 6+ until the start of your next hero phase.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [WARDS_PHASE],
         rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
     ],

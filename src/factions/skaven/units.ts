@@ -1,9 +1,14 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  DURING_ROUND,
+  DURING_SETUP,
+  END_OF_BATTLESHOCK_PHASE,
+  END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
@@ -13,140 +18,120 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_MOVEMENT_PHASE,
   START_OF_SETUP,
-  TURN_FOUR_START_OF_MOVEMENT_PHASE,
-  TURN_FOUR_START_OF_ROUND,
+  START_OF_SHOOTING_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
-  TURN_THREE_END_OF_MOVEMENT_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
-import flavors from './flavors'
 import prayers from './prayers'
-import rule_sources from './rule_sources'
 import spells from './spells'
 
-const AltarOfTheHornedRatEffect = {
-  name: `Altar of the Horned Rat`,
-  desc: `Do not take battleshock tests for friendly SKAVENTIDE units while they are wholly within 13" of this model.`,
-  when: [BATTLESHOCK_PHASE],
+const EshinToxinsEffect = {
+  name: `Eshin Toxins`,
+  desc: `If the unmodified hit roll for an attack made by this unit is 6, the target suffers D3 mortal wounds and the attack sequence ends (do not make a wound roll or save roll).`,
+  when: [SHOOTING_PHASE, COMBAT_PHASE],
   shared: true,
 }
-const ThrowingStarsEffect = {
-  name: `Throwing Stars`,
-  desc: `If the unmodified hit roll for an attack made with Eshin Throwing Stars is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-  when: [SHOOTING_PHASE],
-  shared: true,
-}
+const AltarOfTheHornedRatEffects = [
+  {
+    name: `Altar of the Horned Rat`,
+    desc: `This unit has a ward of 5+.`,
+    when: [WARDS_PHASE],
+    shared: true,
+  },
+  {
+    name: `Altar of the Horned Rat`,
+    desc: `At the start of your hero phase, you can say that this unit will beseech the Horned Rat instead of attempting to cast spells in that phase. If you do so, in that phase, this unit is treated as having the Priest keyword instead of the Wizard keyword.`,
+    when: [START_OF_HERO_PHASE],
+    shared: true,
+  },
+]
 const RunningDeathEffect = {
   name: `Running Death`,
-  desc: `This unit can run and still shoot later in the same turn.`,
+  desc: `This unit can run and still shoot later in the turn.`,
   when: [MOVEMENT_PHASE, SHOOTING_PHASE],
-  shared: true,
-}
-const ClanshieldEffect = {
-  name: `Clanshields`,
-  desc: `Add 1 to save rolls for attacks that target a unit that carries Clanshields while it has 10 or more models.`,
-  when: [SAVES_PHASE],
   shared: true,
 }
 const RegeneratingMonstrosityEffect = {
   name: `Regenerating Monstrosity`,
-  desc: `In your hero phase, you can heal up to D3 wounds allocated to this model.`,
+  desc: `In your hero phase, you can heal up to D3 wounds allocated to this unit.`,
   when: [HERO_PHASE],
   shared: true,
 }
-const PushedIntoBattleEffects = [
-  {
-    name: `Pushed into Battle`,
-    desc: `This model cannot move unless it starts the move within 6" of 10 or more friendly SKAVENTIDE models.`,
-    when: [MOVEMENT_PHASE],
-    shared: true,
-  },
-  {
-    name: `Pushed into Battle`,
-    desc: `This model's Rusty Spikes have an Attacks characteristic of 2D6 instead of D6 if this model made a charge move in the same turn.`,
-    when: [COMBAT_PHASE],
-    shared: true,
-  },
-]
-const TerrifyingEffect = {
-  name: `Terrifying`,
-  desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 3" of any models with this ability.`,
-  when: [BATTLESHOCK_PHASE],
+const PushedIntoBattleEffect = {
+  name: `Pushed into Battle`,
+  desc: `This unit cannot move unless it starts the move within 6" of 10 or more other friendly Skaven models.`,
+  when: [MOVEMENT_PHASE],
   shared: true,
 }
 const ProtectionOfTheHornedRatEffect = {
   name: `Protection of the Horned Rat`,
-  desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+ that wound or mortal wound is negated.`,
-  when: [WOUND_ALLOCATION_PHASE],
+  desc: `This unit has a ward of 5+.`,
+  when: [WARDS_PHASE],
   shared: true,
 }
 const PoisonousFumesEffect = {
   name: `Poisonous Fumes`,
-  desc: `At the end of the combat phase, roll 1 dice for each unit within 3" of any units with this ability. On a 4+ the unit being rolled for suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds instead of 1. This ability has no effect on CLANS PESTILENS units.`,
-  when: [END_OF_COMBAT_PHASE],
+  desc: `Subtract 1 from wound rolls for attacks made with melee weapons that target this unit.`,
+  when: [COMBAT_PHASE],
   shared: true,
 }
 const FrenziedAssaultEffect = {
   name: `Frenzied Assault`,
-  desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if this unit made a charge move in the same turn.`,
+  desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if it made a charge move in the same turn.`,
   when: [COMBAT_PHASE],
   shared: true,
 }
-const StandardBearerEffect = {
-  name: `Standard Bearer`,
-  desc: `This unit can retreat and still charge later in the same turn while it includes any Standard Bearers.`,
-  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+const CrackTheWhipEffect = {
+  name: `Crack the Whip`,
+  desc: `At the start of your movement phase, you can pick 1 friendly Clans Moulder Pack unit wholly within 13" of this unit. Until your next movement phase, you can add 3 to run rolls and charge rolls for that unit. In addition, until your next movement phase, add 1 to wound rolls for attacks made with melee weapons by that unit. The same unit cannot benefit from this ability more than once per turn.`,
+  when: [START_OF_MOVEMENT_PHASE],
   shared: true,
 }
-const CrackTheWhipEffects = [
-  {
-    name: `Crack the Whip`,
-    desc: `Add 1 to hit rolls for attacks made with melee weapons by friendly CLANS MOULDER PACK units while they are wholly within 12" of any models with this ability.`,
-    when: [COMBAT_PHASE],
-    shared: true,
-  },
-  {
-    name: `Crack the Whip`,
-    desc: `Double the Bravery characteristic of friendly CLANS MOULDER PACK units while they are wholly within 12" of any models with this ability.`,
-    when: [BATTLESHOCK_PHASE],
-    shared: true,
-  },
-]
 
 const Units = {
   'Thanquol on Boneripper': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Power Behind the Throne'])],
       spells: [keyPicker(spells, ['Madness'])],
-      flavors: [keyPicker(flavors, ['Skilled Manipulators (Masterclan)'])],
     },
     effects: [
+      GenericEffects.WizardTwoSpellsEffect,
       ProtectionOfTheHornedRatEffect,
       {
+        name: `Power Behind the Throne`,
+        desc: `Once per battle round, this unit can issue the same command up to 2 times in the same phase. If it does so, each command must be received by a friendly Skaven unit. No command point is spent the second time this unit issues that command in that phase.`,
+        when: [DURING_ROUND],
+      },
+      {
         name: `Staff of the Horned Rat`,
-        desc: `Add the Staff of the Horned Rat modifier shown on the damage table above to casting rolls for this model.`,
+        desc: `Add the Staff of the Horned Rat value shown on this unit's damage table to casting, unbinding and dispelling rolls for this unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `Warp-amulet`,
-        desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
-        when: [HERO_PHASE],
+        desc: `At the end of the combat phase, you can heal D3 wounds allocated to this unit.`,
+        when: [END_OF_COMBAT_PHASE],
       },
       {
         name: `Warpfire Braziers`,
-        desc: `The Attacks characteristic for this model's Warpfire Braziers is equal to double the number of Warpfire Braziers that Boneripper is armed with.`,
+        desc: `The Attacks characteristic of Warpfire Braziers is equal to double the number of Warpfire Braziers with which this unit is armed.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Warpfire Projectors`,
-        desc: `Do not use the attack sequence for an attack made with Warpfire Projectors. Instead, roll X dice for each model in the target unit that is within 8" of this model, where X is equal to the number of Warpfire Projectors this model is armed with. For each 4+ the target unit suffers 1 mortal wound.`,
+        desc: `Do not use the attack sequence for an attack made with Warpfire Projectors. Instead, roll x dice for each model in the target unit that is within range, where x is equal to the number of Warpfire Projectors with which this unit is armed. For each 4+, the target suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Warpstone Addiction`,
-        desc: `Once in each of your hero phases, when this model attempts to cast a spell, you can say it will consume a warpstone token before you make the casting roll. If you do so, roll 3D6. This roll cannot be rerolled or modified. If the 3D6 roll is 13, the spell is cast and cannot be unbound, and after the effects of the spell have been resolved this model suffers D6 mortal wounds. If the 3D6 roll was not 13, remove 1 dice of your choice, and then use the remaining 2D6 as the casting roll.`,
+        desc: `Once per turn, in your hero phase, when this unit attempts to cast a spell, you can say that it will first consume a warpstone token. If you do so, roll 3D6. This roll cannot be rerolled or modified.
+
+        If the 3D6 roll is 13, the spell is successfully cast and cannot be unbound; however, after the effects of the spell have been resolved, this unit suffers D6 mortal wounds.
+
+        If the 3D6 roll was not 13, remove 1 dice of your choice and use the remaining 2D6 as the casting roll.`,
         when: [HERO_PHASE],
       },
     ],
@@ -154,61 +139,68 @@ const Units = {
   'Lord Skreech Verminking': {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['The Rat King'])],
-      spells: [keyPicker(spells, ['Dreaded Thirteenth Spell'])],
-      flavors: [keyPicker(flavors, ['Skilled Manipulators (Masterclan)'])],
+      spells: [keyPicker(spells, ['The Dreaded Thirteenth Spell'])],
     },
     effects: [
+      GenericEffects.WizardTwoSpellsEffect,
       ProtectionOfTheHornedRatEffect,
-      TerrifyingEffect,
       {
         name: `The Thirteen-headed One`,
-        desc: `At the start of your hero phase, pick 1 of the areas of knowledge for this model to draw upon. The rule for that area of knowledge applies to this model until your next hero phase. You cannot pick the same area of knowledge more than once per battle.`,
+        desc: `At the start of your hero phase, pick 1 of the following areas of knowledge for this unit to draw upon. The effect of that area of knowledge applies to this unit until your next hero phase. You cannot pick the same area of knowledge more than once per battle.
+
+        Knowledge of the Arcane - Add 1 to casting, unbinding and dispelling rolls for this unit.
+
+        Knowledge of Fleshcrafting - When you pick this area of knowledge, heal D3 wounds allocated to this unit.
+
+        Knowledge of Plague-brewing - If the unmodified hit roll for an attack made with this unit's Plaguereaper is 6, that attack causes 1 mortal wound to the target in addition to any damage it inflicts.
+
+        Knowledge of Shadowslinking - Subtract 1 from hit rolls for attacks that target this unit.
+        
+        Knowledge of Warp-tech - This unit's Doom Glaive has a Rend characteristic of -3 and a Damage characteristic of 3.
+
+        Knowledge of the Warrior - Add 1 to wound rolls for attacks made by this unit. `,
         when: [START_OF_HERO_PHASE],
       },
     ],
   },
   'Verminlord Warpseer': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Forth-forth, Children of the Horned Rat!'])],
       spells: [keyPicker(spells, ['Dreaded Warpgale'])],
-      flavors: [keyPicker(flavors, ['Skilled Manipulators (Masterclan)'])],
     },
     effects: [
+      GenericEffects.WizardTwoSpellsEffect,
       ProtectionOfTheHornedRatEffect,
-      TerrifyingEffect,
+      {
+        name: `Forth-forth, Children of the Horned Rat!`,
+        desc: `Friendly Skaven units wholly within 13" of this unit have a Bravery characteristic of 10.`,
+        when: [BATTLESHOCK_PHASE],
+      },
       {
         name: `The Great Manipulators`,
-        desc: `At the start of your hero phase, if any friendly models with this ability are on the battlefield, roll 1 dice. On a 3+, you receive 1 command point.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_JULY_2021],
+        desc: `This unit counts as 2 Masterclan Heroes for the purposes of the Always Three Clawsteps Ahead battle trait.`,
+        when: [DURING_GAME],
       },
       {
         name: `Scry-orb`,
-        desc: `Add 1 to save rolls for attacks that target this model.`,
+        desc: `Add 1 to save rolls for attacks that target this unit.`,
         when: [SAVES_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SKAVEN,
-          rule_sources.ERRATA_JULY_2021,
-          rule_sources.ERRATA_AUGUST_2021,
-        ],
       },
       {
         name: `Scry-orb`,
-        desc: `Once per battle, in your shooting phase, you can pick 1 enemy unit within 13" of this model and visible to it. That unit suffers D6 mortal wounds, but for the rest of the battle, you cannot use this ability to add 1 to save rolls for this model.`,
+        desc: `Once per battle, in your shooting phase, you can pick 1 enemy unit within 13" of this unit and visible to them. That unit suffers D6 mortal wounds, but you cannot use this ability to add 1 to save rolls for attacks that target this unit for the rest of the battle.`,
         when: [SHOOTING_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_AUGUST_2021],
       },
     ],
   },
   'Grey Seer': {
     mandatory: {
       spells: [keyPicker(spells, ['Wither'])],
-      flavors: [keyPicker(flavors, ['Skilled Manipulators (Masterclan)'])],
     },
     effects: [
+      GenericEffects.WizardTwoSpellsEffect,
       {
         name: `Warpstone Tokens`,
-        desc: `Once in each of your hero phases, when this model attempts to cast a spell, you can say it will consume a warpstone token before you make the casting roll. If you do so, roll 3D6. This roll cannot be rerolled or modified. If the 3D6 roll is 13, the spell is cast and cannot be unbound, and after the effects of the spell have been resolved this model is slain. If the 3D6 roll was not 13, remove 1 dice of your choice, and then use the remaining 2D6 as the casting roll.`,
+        desc: `Once per turn, in your hero phase, when this unit attempts to cast a spell, you can say that it will first consume a warpstone token. If you do so, roll 3D6. This roll cannot be rerolled or modified. If the 3D6 roll is 13, the spell is successfully cast and cannot be unbound; however, after the effects of the spell have been resolved, this unit suffers D3 mortal wounds that cannot be negated. Ifthe 3D6 roll was not 13, remove 1 dice of your choice and use the remaining 2D6 as the casting roll.`,
         when: [HERO_PHASE],
       },
     ],
@@ -216,17 +208,17 @@ const Units = {
   'Arch-Warlock': {
     mandatory: {
       spells: [keyPicker(spells, ['Warp Lightning Storm'])],
-      flavors: [keyPicker(flavors, ['Warpstone Sparks (Skryre)'])],
     },
     effects: [
+      GenericEffects.WizardTwoSpellsEffect,
       {
         name: `More-more Stormcage!`,
-        desc: `Before you make a hit roll for an attack with a Stormcage Halberd, you can say that the engineer has overloaded its generator. If you do so, the Damage characteristic for that attack is D6 instead of D3. However, if you do so and the unmodified hit roll is 1, that attack fails and this model suffers D6 mortal wounds.`,
+        desc: `Before you make a hit roll for an attack made with a Stormcage Halberd, you can say that the engineer has overloaded its generator. If you do so, until the end of that phase, the Attacks characteristic of that weapon is D6 instead of D3. However, for each unmodified hit roll of 1 for an attack made with that weapon in that phase, this unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Warpfire Gauntlet`,
-        desc: `Once per battle, in your shooting phase, you can pick 1 enemy unit within 8" of this model and visible to them, and roll a D6. On a 2+ that unit suffers D3 mortal wounds.`,
+        desc: `Once per battle, in your shooting phase, you can pick 1 enemy unit within 9" of this unit and visible to it, and roll a dice. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -234,12 +226,12 @@ const Units = {
   'Warlock Engineer': {
     mandatory: {
       spells: [keyPicker(spells, ['Warp Lightning'])],
-      flavors: [keyPicker(flavors, ['Warpstone Sparks (Skryre)'])],
     },
     effects: [
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `More-more Warp-energy!`,
-        desc: `Before you make a hit roll for an attack with a Warp-energy Blade, you can say that the engineer has overloaded its generator. If you do so, the Damage characteristic for that attack is D6 instead of D3. However, if you do so and the unmodified hit roll is 1, that attack fails and this model suffers D6 mortal wounds.`,
+        desc: `Before you make a hit roll for an attack made with a Warp-energy Blade, you can say that the engineer has overloaded its generator. If you do so, until the end of that phase, the Attacks characteristic of that weapon is D6 instead of D3. However, for each unmodified hit roll of 1, this unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -247,46 +239,42 @@ const Units = {
   'Warlock Bombardier': {
     mandatory: {
       spells: [keyPicker(spells, ['Warp Lightning'])],
-      flavors: [keyPicker(flavors, ['Warpstone Sparks (Skryre)'])],
     },
     effects: [
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `More-more Doomrocket!`,
-        desc: `Before you make a hit roll for an attack with a Doomrocket, you can say that the engineer has overloaded its warhead. If you do so, the Damage characteristic for that attack is 2D6 instead of D6. However, if you do so and the unmodified hit roll is 1, that attack fails and this model suffers 2D6 mortal wounds.`,
+        desc: `Before you make a hit roll for an attack made with a Doomrocket, you can say that the engineer has overloaded its warhead. If you do so, until the end of that phase, the Attacks characteristic of that weapon is D6 instead of D3. However, for each unmodified hit roll of 1, this unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
         when: [SHOOTING_PHASE],
       },
     ],
   },
   Stormfiends: {
     effects: [
+      GenericEffects.Elite,
       {
         name: `Doomflayer Gauntlets`,
-        desc: `Add 1 to hit rolls for attacks made with Doomflayer Gauntlets if the attacking model made a charge move in the same turn.`,
+        desc: `Add 1 to the Attacks characteristic of Doomflayer Gauntlets if the attacking model made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Grinderfist Tunnellers`,
-        desc: `If a unit includes any models equipped with Grinderfists, instead of setting up that unit on the battlefield, you can place it to one side and say that it is set up underground as a reserve unit.`,
+        desc: `If this unit includes any models armed with Grinderfists, instead of setting up this unit on the battlefield, you can place it to one side and say that it is set up underground as a reserve unit.`,
         when: [START_OF_SETUP],
       },
       {
         name: `Grinderfist Tunnellers`,
-        desc: `At the end of each of your movement phases, roll a D6 for each underground reserve unit. On a 1 or 2, that unit remains underground in reserve (roll for it again in your next movement phase). On a 3+ set up that unit on the battlefield more than 9" from any enemy units.`,
+        desc: `At the end of your movement phase, you can set up this unit on the battlefield, more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
-        name: `Grinderfist Tunnellers`,
-        desc: `Any underground reserve units that are still underground and which fail to arrive at the end of your third movement phase suffer D6 mortal wounds. Any surviving models are then set up on the battlefield more than 9" from any enemy units.`,
-        when: [TURN_THREE_END_OF_MOVEMENT_PHASE],
-      },
-      {
         name: `Shock Gauntlets`,
-        desc: `If the unmodified hit roll for an attack made with Shock Gauntlets is 6, that attack inflicts D6 hits on that target instead of 1. Make a wound and save roll for each hit.`,
+        desc: `If the unmodified hit roll for an attack made with Shock Gauntlets is 6, that attack scores D6 hits on the target instead of 1. Make a wound roll and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Warpfire Projectors`,
-        desc: `Do not use the attack sequence for an attack made with Warpfire Projectors. Instead, roll a D6 for each model in the target unit that is within 8" of the attacking model. For each 4+ the target unit suffers 1 mortal wound.`,
+        desc: `Do not use the attack sequence for an attack made with Warpfire Projectors. Instead, roll a dice for each model in the target unit that is within range. For each 4+, the target suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -296,7 +284,7 @@ const Units = {
       },
       {
         name: `Windlaunchers`,
-        desc: `Add 1 to hit rolls for attacks made with Windlaunchers if the target has 10 or more models. In addition, Windlaunchers can target enemy units that are not visible to the attacking model.`,
+        desc: `The target of an attack made with Windlaunchers does not have to be visible to the attacking model. In addition, add 1 to wound rolls for attacks made with Windlaunchers if the target unit has 10 or more models.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -305,12 +293,12 @@ const Units = {
     effects: [
       {
         name: `Warp Lightning Blast`,
-        desc: `Do not use the attack sequence for an attack made with a Warp Lightning Blast. Instead roll a D6; that roll determines the power of that attack. Then roll 6 more dice. The target suffers 1 mortal wound for each of those rolls that is equal to or greater than the power of that attack.`,
+        desc: `Do not use the attack sequence for an attack made with a Warp Lightning Blast. Instead, roll a dice to determine the power of that attack. Then roll 6 more dice. For each roll that is equal to or greater than the power of that attack, the target suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `More-more Warp Lightning!`,
-        desc: `Before you roll the dice that determines the power of a Warp Lightning Blast for this model, if there is a friendly WARLOCK ENGINEER within 3" of this model you can say that the engineer will increase the weapon's power output. If you do so, roll 12 more dice instead of 6 more dice for that attack. However, after the attack has been resolved, this model suffers D3 mortal wounds for each unmodified roll of 1 on those 12 dice. A single WARLOCK ENGINEER cannot be used to increase the power output of more than one Warp Lightning Blast in the same phase.`,
+        desc: `Before you roll the dice to determine the power of an attack made with a Warp Lightning Blast, if there is a friendly Warlock Engineer within 3" of this unit, you can say that the engineer will increase the weapon's power output. If you do so, roll 12 more dice instead of 6 more dice for that attack. However, for each unmodified roll of 1 on those 12 dice, this unit suffers D3 mortal wounds after the attack has been resolved. The same unit cannot benefit from this ability more than once per phase.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -319,12 +307,12 @@ const Units = {
     effects: [
       {
         name: `Quick-quick Volley!`,
-        desc: `This unit can run and still shoot later in the same turn.`,
+        desc: `This unit can run and still shoot later in the turn.`,
         when: [MOVEMENT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Gas Clouds`,
-        desc: `Add 1 to hit rolls for attacks made with a Poisoned Wind Globe if the target unit has 10 or more models.`,
+        desc: `Add 1 to wound rolls for attacks made with a Poisoned Wind Globe if the target unit has 10 or more models.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -333,22 +321,17 @@ const Units = {
     effects: [
       {
         name: `Rolling Doom`,
-        desc: `When this model makes a normal move, it can pass across models with a Wounds characteristic of 3 or less in the same manner as a model that can fly.`,
+        desc: `When this unit moves, it can pass across models with a Wounds characteristic of 3 or less in the same manner as a unit that can fly. In addition, after this unit has moved, roll a dice for each unit that has any models it passed across and for each other unit within 1 " of this unit at the end of the move. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
       {
-        name: `Rolling Doom`,
-        desc: `After this model has made a normal move or a charge move, roll a D6 for each unit that has any models it passed across, and each other unit that is within 1" of this model at the end of the move. On a 2+ that unit suffers D3 mortal wounds.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-      {
         name: `More-more Speed!`,
-        desc: `When this model makes a normal move, you can reroll the 4D6 roll that determines its Move characteristic. However, if you do so and the new roll includes any dice with an unmodified roll of 1, then your opponent carries out that normal move for that model instead of you.`,
+        desc: `When you make a normal move with this unit, you can reroll the roll that determines its Move characteristic. However, if any of those dice are an unmodified 1, your opponent makes that normal move with this unit instead of you.`,
         when: [MOVEMENT_PHASE],
       },
       {
         name: `More-more Warp Bolts!`,
-        desc: `Before you determine the Attacks characteristic for this model's Warp Bolts attack, you can say that the engineer is overcharging the warp lightning generator. If you do so, the Attacks characteristic for that attack is 2D6 instead of D6. However, if you do so and you roll a double, this model suffers 2D6 mortal wounds after all of the attacks have been resolved.`,
+        desc: `Before you determine the Attacks characteristic of Warp Bolts, you can say that the engineer is overcharging the warp lightning generator. If you do so, the Attacks characteristic for that attack is 2D6 instead of D6. However, if you roll a double, this unit suffers 2D6 mortal wounds after all of its attacks have been resolved.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -357,105 +340,66 @@ const Units = {
     effects: [
       {
         name: `Warpstone Snipers`,
-        desc: `If the unmodified hit roll for an attack made with a Warplock Jezzail is 6, that attack inflicts 2 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
+        desc: `If the unmodified hit roll for an attack made with a Warplock Jezzail is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound roll or save roll).`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Pavise`,
-        desc: `You can reroll hit rolls for attacks made with this unit's Warplock Jezzails if this unit has not made a move in the same turn.`,
+        desc: `You can add 1 to hit rolls for attacks made with Warplock Jezzails if this unit remains stationary in the same turn.`,
         when: [SHOOTING_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Pavise`,
         desc: `Add 1 to save rolls for attacks made with missile weapons that target this unit.`,
         when: [SAVES_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
   Clanrats: {
     effects: [
-      ClanshieldEffect,
       {
-        name: `Clawleader`,
-        desc: `Add 1 to the Attacks characteristic for the Clawleader's melee weapons.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Clawleader. Add 1 to the Attacks characteristic of that model's melee weapon.`,
         when: [COMBAT_PHASE],
       },
-      StandardBearerEffect,
       {
-        name: `Bell-ringer`,
-        desc: `Add 2 to run rolls for this unit while it includes any Clanrat Bell-ringers.`,
+        name: `Standard Bearer`,
+        desc: `1 in every 10 models in this unit can be a Clanrat Standard Bearer. This unit can retreat and still charge later in the turn if it includes any Clanrat Standard Bearers.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Musician`,
+        desc: `1 in every 10 models in this unit can be a Clanrat Bellringer. Add 2 to run rolls for this unit if it includes any Clanrat Bellringers.`,
         when: [MOVEMENT_PHASE],
       },
-    ],
-  },
-  'Brood Horror': {
-    effects: [RegeneratingMonstrosityEffect],
-  },
-  'Skaven Clawlord on Brood Horror': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Gnash-gnaw on their Bones!'])],
-      flavors: [keyPicker(flavors, ['Mighty Warlords (Verminus)'])],
-    },
-    effects: [
-      RegeneratingMonstrosityEffect,
       {
-        name: `Mighty Warlord`,
-        desc: `Add 1 to the Bravery characteristic of friendly Clans Verminus units while they are wholly within 13" of any friendly models with this ability.`,
-        when: [BATTLESHOCK_PHASE],
+        name: `Seething Swarm`,
+        desc: `At the end of the battleshock phase, you can return D3 slain models to this unit.`,
+        when: [END_OF_BATTLESHOCK_PHASE],
       },
-    ],
-  },
-  'Skaven Wolf Rats': {
-    effects: [
-      {
-        name: `Blood-crazed`,
-        desc: `Do not take battleshock tests for this unit while it is within 3" of an enemy unit.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Snapping Jaws`,
-        desc: `Add 1 to wound rolls for attacks made by this unit if it made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'Warpgnaw Verminlord': {
-    mandatory: {
-      flavors: [keyPicker(flavors, ['Skilled Manipulators (Masterclan)'])],
-      spells: [keyPicker(spells, ['Splinter-screech'])],
-    },
-    effects: [
-      ProtectionOfTheHornedRatEffect,
-      {
-        name: `Realm Guide`,
-        desc: `Instead of setting up this model on the battlefield, you can place this model to one side and say that it is moving through the cracks in reality as a reserve unit.
-
-        Any units moving through the cracks in reality that are not set up on the battlefield before the start of the fourth battle round are slain.`,
-        when: [START_OF_SETUP, TURN_FOUR_START_OF_ROUND],
-      },
-      {
-        name: `Realm Guide`,
-        desc: `If this unit is placed in reserve, at the end of your movement phase, set up this model wholly within 6" of a Gnawhole and more than 9" from any enemy models. This counts as this model's move for that movement phase.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      TerrifyingEffect,
     ],
   },
   Stormvermin: {
     effects: [
-      ClanshieldEffect,
-      StandardBearerEffect,
       {
-        name: `Drummers`,
-        desc: `Add 2 to run rolls for this unit while it includes any Stormvermin Drummers.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Fangleader. Add 1 to the Attacks characteristic of that model's Rusty Halberd.`,
         when: [MOVEMENT_PHASE],
       },
       {
-        name: `Fangleader`,
-        desc: `Add 1 to the Attacks characteristic of the Fangleader's model's Rusty Halberd.`,
-        when: [COMBAT_PHASE],
+        name: `Standard Bearer`,
+        desc: `1 in every 10 models in this unit can be a Stormvermin Standard Bearer. This unit can retreat and still charge later in the turn if it includes any Stormvermin Standard Bearers.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Musician`,
+        desc: `1 in every 10 models in this unit can be a Stormvermin Drummer. Add 2 to run rolls for this unit if it includes any Stormvermin Drummers.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Elite Bodyguards`,
+        desc: `If a friendly Skaven Hero is within 3" of this unit, before you allocate a wound or mortal wound to that Hero, or instead of making a ward roll for a wound or mortal wound that would be allocated to that Hero, roll a dice. Add 2 to the roll if the Hero has the Clans Verminus keyword. On a 4+, that wound or mortal wound is allocated to this unit instead of that Hero and cannot be negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -463,13 +407,18 @@ const Units = {
     effects: [
       {
         name: `Aversion to Death`,
-        desc: `After the first wound or mortal wound is allocated to this unit in any phase, you can roll a D6 each time you allocate a further wound or mortal wound to this unit in that phase. On a 5+ that wound or mortal wound is negated.`,
-        when: [DURING_GAME],
+        desc: `After the first wound or mortal wound is allocated to this unit in any phase, this unit has a ward of 5+ until the end of that phase.`,
+        when: [WARDS_PHASE],
       },
       {
-        name: `Krrk the Almost-trusted`,
-        desc: `The leader of this unit is Krrk the Almost-trusted. Do not take battleshock tests for this unit while it includes Krrk the Almost-trusted. In addition, if Skritch Spiteclaw is slain, add 2 to the Attacks characteristic of Krrk's Rusty Spear for the rest of this battle.`,
-        when: [BATTLESHOCK_PHASE, COMBAT_PHASE],
+        name: `Champion`,
+        desc: `The leader of this unit is Krrk the Almost-trusted. Do not take battleshock tests for this unit while it includes Krrk the Almost-trusted.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Champion`,
+        desc: `The leader of this unit is Krrk the Almost-trusted. If Skritch Spiteclaw is slain, add 2 to the Attacks characteristic of Krrk's Rusty Spear for the rest of this battle.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -479,16 +428,16 @@ const Units = {
       spells: [keyPicker(spells, ['Dreaded Death Frenzy'])],
     },
     effects: [
+      GenericEffects.WizardTwoSpellsEffect,
       ProtectionOfTheHornedRatEffect,
-      TerrifyingEffect,
       {
         name: `Amidst the Seething Tide`,
-        desc: `You can reroll wound rolls for attacks made by this model while it is within 13" of 13 or more friendly SKAVEN models.`,
+        desc: `You can reroll wound rolls for attacks made by this unit while it is within 13" of 3 or more friendly Skaven units.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Fist of Verminus Supremacy`,
-        desc: `If the unmodified wound roll for an attack made with this model's Spike-fist is 6, add 4 to the damage inflicted by that attack.`,
+        desc: `If the unmodified hit roll for an attack made with a Spike-fist is 6, the Damage characteristic for that attack is 6 instead of 3.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -496,12 +445,11 @@ const Units = {
   Clawlord: {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Gnash-gnaw on their Bones!'])],
-      flavors: [keyPicker(flavors, ['Mighty Warlords (Verminus)'])],
     },
     effects: [
       {
         name: `Cornered Fury`,
-        desc: `Add the number of wounds allocated to this model to the Attacks characteristic of this model's melee weapons.`,
+        desc: `Add the number of wounds allocated to this unit to the Attacks characteristic of this unit's melee weapons.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -513,22 +461,59 @@ const Units = {
     effects: [
       {
         name: `There are Always More`,
-        desc: `At the start of your hero phase, if this model is within 13" of a friendly SPITECLAW'S SWARM , you can return D3 slain models to that unit (you cannot return Krrk the Almost-trusted). Set up the returning models one at a time within 1" of a model from that unit (this can be a model you returned to the unit earlier in the same phase). Returning models can only be set up within 3" of an enemy unit if one or more models from the same unit are already within 3" of that enemy unit.`,
+        desc: `At the start of your hero phase, if this unit is within 13" of a friendly Spiteclaw's Swarm unit, you can return D3 slain models to that unit. You cannot return Krrk the Almost-trusted.`,
         when: [START_OF_HERO_PHASE],
       },
+    ],
+  },
+  'Slynk Skittershank': {
+    effects: [
+      EshinToxinsEffect,
+      RunningDeathEffect,
+      {
+        name: `Misdirection`,
+        desc: `If this unit is within 1" of a friendly Skittershank's Clawpack unit at the start of the combat phase, the strike-first effect applies to this unit in that combat phase. In addition, after this unit has fought for the first time in the combat phase, if this unit is within 1" of a friendly Skittershank's Clawpack unit, this unit can retreat.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  "Skittershank's Clawpack": {
+    effects: [
+      EshinToxinsEffect,
+      {
+        name: `Kinwhisper's Ratlings`,
+        desc: `During deployment, instead of setting up this unit on the battlefield, you can place it to one side and say that it is infiltrating the foe as a reserve unit. If you do so, when you would set up a friendly Slynk Skittershank during deployment, you can say that it will join this unit infiltrating the foe as a reserve unit.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Kinwhisper's Ratlings`,
+        desc: `At the end of your first movement phase, you must set up this unit on the battlefield, wholly within 6" of a terrain feature and more than 6" from all enemy units. Then, if Slynk Skittershankj oined this unit in reserve, set up that unit within 1" of this unit and more than 6" from all enemy units.`,
+        when: [TURN_ONE_END_OF_MOVEMENT_PHASE],
+      },
+      RunningDeathEffect,
     ],
   },
   'Doom-Flayer': {
     effects: [
       {
         name: `Whirling Death`,
-        desc: `Add 1 to hit rolls for attacks made with this model's Whirling Blades if this model made a charge move in the same turn.`,
+        desc: `Add 1 to the Attacks characteristic of Whirling Blades if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `More-more Whirling Death!`,
-        desc: `Before you determine the Attacks characteristic for this model's Whirling Blades, you can say that the crew have kicked its generator into overdrive. If you do so, roll 2D6 to determine the Attacks characteristic for that attack instead of D6. However, if you do so and the roll that determines the Attacks characteristic is either a double or a roll of 7, this model is slain after all of the attacks have been resolved.`,
+        desc: `Before you determine the Attacks characteristic of Whirling Blades, you can say that the crew has kicked the generator into overdrive. If you do so, roll 2D6 to determine the Attacks characteristic for that attack instead of D6. However, if you roll either a double or a 7, this unit is destroyed after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Hidden Weapon Team`,
+        desc: `When you select this unit to be part of your army, you can pick 1 friendly Clanrats or Stormvermin unit that has 10 or more models and is already part of your army to be the unit in which this unit is hiding. Record this information on a separate piece of paper. Do not set up this unit until it is revealed as described next. You can hide up to 1 Doom-Flayer unit in a Clanrats or Stormvermin unit for every 10 models in that Clanratsor Stormvermin unit. Hidden Doom-Flayer units are destroyed if the unit in which they are hiding is destroyed before they are revealed.`,
+        when: [START_OF_SETUP],
+      },
+      {
+        name: `Hidden Weapon Team`,
+        desc: `At the end of your charge phase, you can reveal this hidden unit if the unit in which it was hiding made a charge move in that phase. If you do so, set up this unit wholly within 3" of the unit in which it was hiding (it can be set up within 3" of any enemy units and can fight in the following combat phase).`,
+        when: [END_OF_CHARGE_PHASE],
       },
     ],
   },
@@ -536,8 +521,18 @@ const Units = {
     effects: [
       {
         name: `More-more Warplead!`,
-        desc: `Before you determine the Attacks characteristic for this model's Ratling Gun, you can say that the crew are releasing its gimbal-limiter. If you do so, double the Attacks characteristic for that attack. However, if you do so and the roll that determines the Attacks characteristic is a double, this model is slain after all of the attacks have been resolved.`,
+        desc: `Before you determine the Attacks characteristic of a Ratling Gun, you can say that the crew are releasing its gimbal-limiter. If you do so, the Attacks characteristic for that attack is 4D6+3 instead of 2D6+3. However, if the roll includes any doubles, this unit is destroyed after all of its attacks have been resolved.`,
         when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Hidden Weapon Team`,
+        desc: `When you select this unit to be part of your army, you can pick 1 friendly Clanrats or Stormvermin unit that has 10 or more models and is already part of your army to be the unit in which this unit is hiding. Record this information on a separate piece of paper. Do not set up this unit until it is revealed as described next. You can hide up to 1 Ratling Gun unit in a Clanrats or Stormvermin unit for every 10 models in that Clanrats or Stormvermin unit. Hidden Ratling Gun units are destroyed if the unit in which they are hiding is destroyed before they are revealed.`,
+        when: [START_OF_SETUP],
+      },
+      {
+        name: `Hidden Weapon Team`,
+        desc: `At the start of your shooting phase, you can reveal this hidden unit. If you do so, set up this unit wholly within 3" of the unit in which it was hiding and more than 3" from all enemy units. This unit can shoot in the phase in which it is revealed as long as the unit in which it was hiding did not run in the same turn (it could have retreated).`,
+        when: [START_OF_SHOOTING_PHASE],
       },
     ],
   },
@@ -545,13 +540,23 @@ const Units = {
     effects: [
       {
         name: `Warpfire`,
-        desc: `Do not use the attack sequence for an attack made with a Warpfire Thrower. Instead, roll a D6 for each model in the target unit that is within 8" of the attacking model. For each 4+ the target unit suffers 1 mortal wound.`,
+        desc: `Do not use the attack sequence for an attack made with a Warpfire Thrower. Instead, roll a dice for each model in the target unit that is within range. For each 4+, the target suffers 1 mortal wound.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `More-more Warpfire!`,
-        desc: `Before you pick the target for this model's Warpfire Thrower, you can say that the crew are disabling the flow regulator. If you do so, roll 2 dice for each enemy model within 8" of this model instead of 1 dice. However, if you do so, you must roll a D6 after the dice have been rolled to see if the Warpfire Thrower inflicts any mortal wounds, and on a 1 or 2 this model is slain.`,
+        desc: `Before you pick the target for an attack made with a Warpfire Thrower, you can say that the crew are disabling the flow regulator. If you do so, increase the Range characteristic to 12" for that attack and add 1 to the roll that determines if an enemy model suffers 1 mortal wound. However, for each unmodified 1, this unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Hidden Weapon Team`,
+        desc: `When you select this unit to be part of your army, you can pick 1 friendly Clanrats or Stormvermin unit that has 10 or more models and is already part of your army to be the unit in which this unit is hiding. Record this information on a separate piece of paper. Do not set up this unit until it is revealed as described next. You can hide up to 1 Warpfire Thrower unit in a Clanrats or Stormvermin unit for every 10 models in that Clanrats or Stormvermin unit. Hidden Warpfire Thrower units are destroyed if the unit in which they are hiding is destroyed before they are revealed.`,
+        when: [START_OF_SETUP],
+      },
+      {
+        name: `Hidden Weapon Team`,
+        desc: `At the start of your shooting phase, you can reveal this hidden unit. If you do so, set up this unit wholly within 3" of the unit in which it was hiding and more than 3" from all enemy units. This unit can shoot in the phase in which it is revealed as long as the unit in which it was hiding did not run in the same turn (it could have retreated).`,
+        when: [START_OF_SHOOTING_PHASE],
       },
     ],
   },
@@ -559,18 +564,13 @@ const Units = {
     effects: [
       {
         name: `Tunnel Skulkers`,
-        desc: `Instead of setting up this model on the battlefield, you can place this model to one side and say that it is set up tunnelling as a reserve unit. If you do so, when you would set up another friendly SKAVENTIDE unit that is not a MONSTER or a WAR MACHINE, instead of setting up that unit on the battlefield, you can say that it is joining this model tunnelling as a reserve unit. Only 1 unit can join this model in this way.`,
-        when: [START_OF_SETUP],
+        desc: `During deployment, instead of setting up this unit on the battlefield, you can place it to one side and say that it is set up tunnelling as a reserve unit. If you do so, when you would set up another friendly Skaven unit that is not a Monster or a War Machine during deployment, you can say that it will join this unit tunnelling as a reserve unit. 1 unit can join this unit in this way.`,
+        when: [DURING_SETUP],
       },
       {
         name: `Tunnel Skulkers`,
-        desc: `At the end of any of your movement phases, if this model is tunnelling, it can arrive on the battlefield. If it does so, set up this model anywhere on the battlefield more than 9" from any enemy models, and then set up any unit that joined this model wholly within 13" of this model and more than 9" from any enemy models. Then roll a D6 for this model and any unit that joined it. On a 1 or 2, that unit suffers D6 mortal wounds.`,
+        desc: `At the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units. Then, if a friendly Skaven unit joined this unit in reserve, set up that unit on the battlefield, wholly within 13" of this unit and more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Tunnel Skulkers`,
-        desc: `Any tunnelling reserve units that fail to arrive on the battlefield before the start of your fourth movement phase are destroyed.`,
-        when: [TURN_FOUR_START_OF_MOVEMENT_PHASE],
       },
     ],
   },
@@ -578,12 +578,12 @@ const Units = {
     effects: [
       {
         name: `Barrage of Disease`,
-        desc: `A Plagueclaw Catapult can target enemy units that are not visible to the attacking model. In addition, add 1 to hit rolls and increase the Damage characteristic to 2D6 for attacks made with a Plagueclaw Catapult if the target has 10 or more models.`,
+        desc: `The target of an attack made with a Plagueclaw Catapult does not have to be visible to the attacking model. In addition, if the target unit has 10 or more models, add 1 to hit rolls for attacks made with a Plagueclaw Catapult and increase the Damage characteristic to 2D6.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Hideous Death`,
-        desc: `Subtract 1 from the Bravery characteristic of a unit targeted by any Plagueclaw Catapults until the end of the turn.`,
+        desc: `Add 2 to battleshock rolls for units targeted by any friendly units with this ability during that turn.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -591,25 +591,32 @@ const Units = {
   'Plague Monks': {
     effects: [
       {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Bringer-of-the-Word.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `1 in every 10 models in this unit can bear an Icon of Entropy. If this unit includes any models bearing Icons of Entropy, each time a model from this unit is slain by an attack made with a melee weapon, before removing that model from play, roll a dice. On a 6, pick 1 enemy unit within 3" of the slain model. That unit suffers 1 mortal wound.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Musician`,
+        desc: `1 in every 10 models in this unit can be a Plague Harbinger. Add 1 to run rolls and charge rolls for this unit if it includes any Plague Harbingers.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
         name: `Foetid Weapons`,
-        desc: `If the unmodified wound roll for an atack made with a melee weapon by this unit is 6, that attack succeeds twice instead of once. Make a save roll for each success.`,
+        desc: `If the unmodified hit roll for an attack made with a
+        melee weapon by this unit is 6, that attack has a Rend
+        characteristic of -2 instead of '-'.`,
         when: [COMBAT_PHASE],
       },
       FrenziedAssaultEffect,
       {
         name: `Book of Woes`,
-        desc: `In your hero phase, you can pick 1 enemy unit within 13" of this unit's Bringer-of-the-Word and roll a D6. On a 4-5 that unit suffers 1 mortal wound. On a 6 that unit suffers D3 mortal wounds. This ability has no effect on NURGLE units.`,
+        desc: `In your hero phase, you can pick 1 enemy unit within 13" of this unit's Bringer-of-the-Word and roll a dice. On a 1-2, nothing happens. On a 3-4, that unit suffers 1 mortal wound. On a 5-6, that unit suffers D3 mortal wounds. This ability has no effect on Nurgle units.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Standard Bearers`,
-        desc: `While this unit includes any Standard Bearers, each time a model from this unit is slain by an attack made with a melee weapon, before the model is removed from play, roll a D6. On a 6, pick 1 enemy unit within 3" of the slain model. That unit suffers 1 mortal wound.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-      {
-        name: `Plague Harbingers`,
-        desc: `Add 1 to run and charge rolls for this unit while it includes any Plague Harbingers.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
@@ -618,57 +625,31 @@ const Units = {
       FrenziedAssaultEffect,
       {
         name: `Plague Disciples`,
-        desc: `You can reroll hit rolls for attacks made by this ABILITIES unit while it is wholly within 18" of any friendly PLAGUE MONKS units.`,
+        desc: `Add 1 to wound rolls for attacks made by this unit if it is wholly within 18" of any friendly Plague Monks units.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Plague Disciples`,
-        desc: `You can reroll battleshock tests for this unit while it is wholly within 18" of any friendly PLAGUE MONKS units.`,
-        when: [BATTLESHOCK_PHASE],
       },
       PoisonousFumesEffect,
     ],
   },
   'Plague Priest': {
     mandatory: {
-      prayers: [keyPicker(prayers, ['Disease-disease!', 'Pestilence-pestilence!'])],
-      flavors: [keyPicker(flavors, ['Echoes of the Great Plagues (Pestilens)'])],
+      prayers: [keyPicker(prayers, ['Pestilence-pestilence!'])],
     },
-    effects: [
-      {
-        name: `Plague Prayers`,
-        desc: `In your hero phase, this model can chant one of the following prayers: Disease-disease! or Pestilence-pestilence!
-        
-        If it does so, pick 1 of the prayers and then make a prayer roll by rolling a dice. On a 1, this model suffers 1 mortal wound and the prayer is not answered. On a 2, the prayer is not answered. On a 3+ the prayer is answered.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_JULY_2021],
-      },
-      FrenziedAssaultEffect,
-      PoisonousFumesEffect,
-    ],
+    effects: [FrenziedAssaultEffect, PoisonousFumesEffect],
   },
   'Plague Priest on Plague Furnace': {
     mandatory: {
-      flavors: [keyPicker(flavors, ['Echoes of the Great Plagues (Pestilens)'])],
+      prayers: [keyPicker(prayers, ['Pestilence-pestilence!'])],
     },
     effects: [
-      AltarOfTheHornedRatEffect,
+      PushedIntoBattleEffect,
+      ...AltarOfTheHornedRatEffects,
       {
         name: `Great Plague Censer`,
-        desc: `Do not use the attack sequence for an attack made with this model's Great Plague Censer. Instead pick 1 enemy unit within 3" of this model and roll a D6. On a 2+ that unit suffers a number of mortal wounds equal to the Great Plague Censer value shown on the damage table above.`,
+        desc: `Do not use the attack sequence for an attack made with a Great Plague Censer. Instead, pick 1 enemy unit within range and roll a dice. On a 2+, that unit suffers a number of mortal wounds equal to the Great Plague Censer value shown on this unit's damage table.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Noxious Prayers`,
-        desc: `In your hero phase, this model can chant one of the following prayers: Filth-filth! or Rabid-rabid! 
-        
-        If it does so, pick 1 of the prayers and then make a prayer roll by rolling a dice. On a 1, this model suffers 1 mortal wound and the prayer is not answered. On a 2, the prayer is not answered. On a 3+ the prayer is answered.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_JULY_2021],
-      },
       PoisonousFumesEffect,
-      ProtectionOfTheHornedRatEffect,
-      ...PushedIntoBattleEffects,
     ],
   },
   'Verminlord Corruptor': {
@@ -677,16 +658,16 @@ const Units = {
       spells: [keyPicker(spells, ['Dreaded Plague'])],
     },
     effects: [
+      GenericEffects.WizardTwoSpellsEffect,
       ProtectionOfTheHornedRatEffect,
-      TerrifyingEffect,
       {
         name: `Plaguereapers`,
-        desc: `If the unmodified hit roll for an attack made with this model's Plaguereapers is 6, that attack inflicts 1 mortal wound and the attack sequence ends (do not make a wound or save roll).`,
+        desc: `If the unmodified hit roll for an attack made with Plaguereapers is 6, that attack causes 1 mortal wound to the target in addition to any damage it inflicts.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Plaguemaster`,
-        desc: `At the end of the combat phase, roll 1 dice for each enemy unit within 1" of this model. On a 4+ that enemy unit suffers D3 mortal wounds.`,
+        desc: `At the end of the combat phase, roll a dice for each enemy unit within 3" of this unit. On a 4+, that enemy unit suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -694,15 +675,38 @@ const Units = {
   'Grey Seer on Screaming Bell': {
     mandatory: {
       spells: [keyPicker(spells, ['Cracks Call'])],
-      flavors: [keyPicker(flavors, ['Skilled Manipulators (Masterclan)'])],
     },
     effects: [
-      ProtectionOfTheHornedRatEffect,
-      AltarOfTheHornedRatEffect,
-      ...PushedIntoBattleEffects,
+      GenericEffects.WizardTwoSpellsEffect,
+      ...AltarOfTheHornedRatEffects,
+      {
+        name: `Avalanche of Energy`,
+        desc: `Add the Avalanche of Energy value on this unit's damage table to casting and chanting rolls for this unit.`,
+        when: [HERO_PHASE],
+      },
+      PushedIntoBattleEffect,
+      {
+        name: `A Stirring Beyond the Veil`,
+        desc: `Once per battle, at the start of your hero phase, if 7 or more wounds are allocated to this unit, you can say that the Grey Seer will shatter the Screaming Bell. If you do so, roll a dice. On a 1, this unit is destroyed. On any other roll, add the number of wounds allocated to this unit to the roll.
+
+        Ifthe modified roll is 12 or less, the Screaming Bell is shattered see below). If the modified roll is 13 or more, the Screaming Bell is shattered and you can summon 1 Verminlord to the battlefield and add it to your army. The Verminlord must be set up wholly within 13" of this unit. It can be set up within 3" of an enemy unit if this unit is within 3" of that enemy unit, otherwise it must be set up more than 9" from all enemy units. If this unit's Screaming Bell is shattered, it can no longer attempt to cast Cracks Call and it can no longer use its Peal of Doom ability`,
+        when: [START_OF_HERO_PHASE],
+      },
       {
         name: `Peal of Doom`,
-        desc: `At the start of your hero phase, roll 2D6 for this model and look up the result on the warscroll.`,
+        desc: `At the start of your hero phase, you can say that this unit will ring its Screaming Bell. If you do so, roll a dice and look up the result below.
+
+        1: Magical Backlash - This unit suffers D3 mortal wounds that cannot be negated.
+
+        2: Unholy Clamour - Add 6" to this unit's Move characteristic until your next hero phase.
+
+        3: Wall of Unholy Sound - Until your next hero phase, subtract 1 from hit rolls for attacks made by enemy units within 13" of any friendly Screaming Bells for which you rolled this result in this phase.
+
+        4: Deafening Peals - Until your next hero phase, roll a dice each time an enemy model is picked to issue a command while it is within 13" of any friendly Screaming Bells for which you rolled this result in this phase. On a 5+, that command cannot be issued.
+        
+        5: Screaming Crescendo - Until your next hero phase, after this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 2+, that unit suffers D6 mortal wounds.
+        
+        6: Apocalyptic Doom - At the end of this hero phase, roll a dice for each enemy unit within 13" of any friendly Screaming Bells for which you rolled this result in this phase. On a 4+, that unit suffers D3 mortal wounds. `,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -711,38 +715,38 @@ const Units = {
     effects: [
       {
         name: `Avalanche of Flesh`,
-        desc: `Do not use the attack sequence for an attack made with an Avalanche of Flesh. Instead, roll a number of dice equal to the number of models from the target unit within 3" of the attacking model. You can reroll any of the dice if this model made a charge move in the same turn. The target unit suffers 1 mortal wound for each roll that is equal to or greater than the Avalanche of Flesh value shown on this model's damage table.`,
+        desc: `Do not use the attack sequence for an attack made with an Avalanche of Flesh. Instead, roll a number of dice equal to the number of models in the target unit that are within range. You can reroll any of the dice if this unit made a charge move in the same turn. For each roll that is equal to or greater than the Avalanche of Flesh value shown on this unit's damage table, the target suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
       },
       RegeneratingMonstrosityEffect,
-      TerrifyingEffect,
       {
         name: `Warpstone Spikes`,
-        desc: `Each time this model is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+ ignore the effects of that spell on this model.`,
+        desc: `Each time this unit is affected by a spell or the abilities of an endless spell, you can roll a dice. On a 4+, ignore the effect of that spell or the effects of that endless spell's abilities on this unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `Too Horrible to Die`,
-        desc: `The first time this model is slain, before removing it from the battlefield, roll a D6 and look up the roll on warscroll.`,
+        desc: `The first time this unit is destroyed, before removing it from the battlefield, roll a dice and look up the roll below.
+
+        1: Dead - Remove this unit from play as normal.
+
+        2-4: The Rats Emerge - All units within 3" of this unit suffer D3 mortal wounds. Then remove this unit from play.
+
+        5-6: It's Alive! - This unit is not destroyed. Instead, heal D6 wounds allocated to it, and any wounds or mortal wounds that remain to be allocated to it are negated and have no effect. `,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
   'Master Moulder': {
     mandatory: {
-      flavors: [keyPicker(flavors, ['Prized Creations (Moulder)'])],
+      command_abilities: keyPicker(command_abilities, ['Unleash More-more Beasts!']),
     },
     effects: [
-      ...CrackTheWhipEffects,
+      CrackTheWhipEffect,
       {
         name: `Master Moulder`,
-        desc: `In your hero phase, you can pick 1 friendly CLANS MOULDER PACK model within 3" of this model. Heal D3 wounds allocated to that model.`,
+        desc: `In your hero phase, you can pick 1 friendly Clans Moulder Pack unit within 3" of this unit. Heal D3 wounds allocated to that unit.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Unleash More-more Beasts!`,
-        desc: `You can use this command ability when a friendly CLANS MOULDER PACK unit is destroyed if a friendly model with this command ability is on the battlefield. If you do so, roll a D6. On a 5+ a new unit identical to the one that was destroyed is added to your army. Set up the new unit wholly within your territory and wholly within 6" of the edge of the battlefield, more than 9" from any enemy units. You cannot use this command ability more than once per phase.`,
-        when: [DURING_GAME],
       },
     ],
   },
@@ -750,9 +754,8 @@ const Units = {
     effects: [
       {
         name: `Wave of Rats`,
-        desc: `The Range characteristic of this unit's Vicious Teeth is 2" while it has 6 or more models. In addition, add 1 to wound rolls for attacks made by this unit while it has 6 or more models.`,
+        desc: `Improve the Rend characteristic of this unit's Vicious Teeth by 1 if it has 3-5 models. Improve the Rend characteristic of this unit's Vicious Teeth by 2 instead of 1 if it has 6 or more models.`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_AUGUST_2021],
       },
     ],
   },
@@ -760,8 +763,8 @@ const Units = {
     effects: [
       {
         name: `Endless Tide of Rats`,
-        desc: `In your hero phase you can return 1 slain model to this unit. Set up the returning model within 1" of this unit. The returning model can only be set up within 3" of an enemy unit if this unit is already within 3" of that enemy unit.`,
-        when: [HERO_PHASE],
+        desc: `At the end of the battleshock phase, you can return 1 slain model to this unit.`,
+        when: [END_OF_BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -769,78 +772,76 @@ const Units = {
     effects: [
       {
         name: `Rabid Fury`,
-        desc: `If the unmodified hit roll for an attack made with Tearing Claws, Blades and Fangs is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        desc: `If the unmodified hit roll for an attack made with Tearing Claws, Blades and Fangs is 6, that attack scores 2 hits on the target instead of 1. Make a wound roll and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
   Packmasters: {
-    effects: [...CrackTheWhipEffects],
+    effects: [CrackTheWhipEffect],
   },
   'Verminlord Deceiver': {
     mandatory: {
       command_abilities: [keyPicker(command_abilities, ['Lord of Assassins'])],
-      flavors: [keyPicker(flavors, ['Masters of Murder (Eshin)'])],
       spells: [keyPicker(spells, ['Dreaded Skitterleap'])],
     },
     effects: [
+      GenericEffects.WizardTwoSpellsEffect,
       ProtectionOfTheHornedRatEffect,
-      TerrifyingEffect,
       {
         name: `Doomstar`,
-        desc: `A Doomstar has a Damage characteristic of D6 instead of D3 if the target unit has 10 or more models.`,
+        desc: `If the unmodified hit roll for an attack made by a Doomstar is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound roll or save roll).`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Shrouded In Darkness`,
-        desc: `Subtract 2 from hit rolls for attacks made with missile weapons that target this model.`,
+        desc: `This unit cannot be picked as the target of a shooting attack unless the attacking model is within 9" of this unit.`,
         when: [SHOOTING_PHASE],
       },
     ],
   },
   Deathmaster: {
-    mandatory: {
-      flavors: [keyPicker(flavors, ['Masters of Murder (Eshin)'])],
-    },
     effects: [
       {
         name: `Hidden Killer`,
-        desc: `Instead of setting up this model on the battlefield, you can place it to one side and say that it is set up in hiding as a reserve unit. If you do so, at the start of a combat phase, you can set up this model within 1" of a friendly SKAVENTIDE unit that has 5 or more models and a Wounds characteristic of 1.`,
-        when: [START_OF_SETUP, START_OF_COMBAT_PHASE],
+        desc: `When you select this unit to be part of your army, you can pick 1 friendly Clanrats, Stormvermin or Night Runners unit that is already part of your army to be the unit in which this unit is hiding. Record this information on a separate piece of paper. Do not set up this unit until it is revealed as described next. You cannot hide more than 1 Deathmaster in the same unit.`,
+        when: [START_OF_SETUP],
       },
       {
         name: `Hidden Killer`,
-        desc: `If this model is not set up on the battlefield before the start of the fourth battle round, it is slain.`,
-        when: [TURN_FOUR_START_OF_ROUND],
+        desc: `At the start of a combat phase, if this unit is hidden, you can reveal it. In addition, if the unit in which this unit is hidden is destroyed, you must reveal this unit before the last model in the unit in which it is hidden is removed from play. When you reveal this unit, set it up wholly within 3" of the unit in which it was hidden. If this unit was revealed because the unit in which it was hidden was destroyed, this unit suffers 1 mortal wound after it is set up.`,
+        when: [START_OF_COMBAT_PHASE],
       },
+      EshinToxinsEffect,
       RunningDeathEffect,
-      ThrowingStarsEffect,
     ],
   },
   'Night Runners': {
     effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Nightleader. Add 1 to the Attacks characteristic of that model's Stabbing Blade.`,
+        when: [COMBAT_PHASE],
+      },
       RunningDeathEffect,
       {
-        name: `Throwing Weapons`,
-        desc: `If the unmodified hit roll for an attack made with Eshin Throwing Weapons is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
         name: `Slinking Advance`,
-        desc: `After armies are set up, but before the first battle round begins, you can move this unit up to 2D6".`,
+        desc: `After deployment but before the first battle round begins, this unit can make a normal move of up to 2D6".`,
         when: [END_OF_SETUP],
       },
+      EshinToxinsEffect,
     ],
   },
   'Gutter Runners': {
     effects: [
-      ThrowingStarsEffect,
+      GenericEffects.Elite,
       RunningDeathEffect,
       {
         name: `Sneaky Infiltrators`,
-        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say that it is infiltrating in reserve. If you do so, at the end of your first movement phase, you must set up this unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy units.`,
+        desc: `During deployment, instead of setting up this unit on the battlefield, you can place it to one side and say that it is infiltrating the foe as a reserve unit. If you do so, at the end of your first movement phase, you must set up this unit wholly within 6" of a terrain feature and more than 9" from all enemy units.`,
         when: [START_OF_SETUP, TURN_ONE_END_OF_MOVEMENT_PHASE],
       },
+      EshinToxinsEffect,
     ],
   },
 }

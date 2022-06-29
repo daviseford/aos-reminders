@@ -20,7 +20,6 @@ import {
   ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
-  SKAVEN,
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
@@ -949,22 +948,6 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(SLAANESH)
     expect(res.selections.artifacts).toContain('Enrapturing Circlet')
-  })
-
-  it('should work with Flaypelt Cloak', () => {
-    const parsedText = getFile('1572694928061-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(SKAVEN)
-    expect(res.selections.artifacts).toContain('Flaypelt Cloak (Verminus)')
-  })
-
-  it('should work with Flaypelt Cloak (part 2)', () => {
-    const parsedText = getFile('1572695046339-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(SKAVEN)
-    expect(res.selections.artifacts).toContain('Flaypelt Cloak (Verminus)')
   })
 
   it('should work with Dark Wizardry', () => {

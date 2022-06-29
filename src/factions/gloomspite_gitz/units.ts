@@ -19,6 +19,7 @@ import {
   START_OF_ROUND,
   START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
@@ -88,7 +89,7 @@ const FanaticsBaseEffects = [
 const HallucinogenicFungusBrewsEffect = {
   name: `Hallucinogenic Fungus Brews`,
   desc: `In the first battle round, this unit has a ward of 5+. In the second battle round, this unit has a ward of 6+.`,
-  when: [SAVES_PHASE],
+  when: [WARDS_PHASE],
   rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_JULY_2021],
   shared: true,
 }
