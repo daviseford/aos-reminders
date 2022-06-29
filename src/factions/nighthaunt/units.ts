@@ -25,6 +25,12 @@ import {
 import command_abilities from './command_abilities'
 import spells from './spells'
 
+const ChillingHordeEffect = {
+  name: `Chilling Horde`,
+  desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit if this unit made a charge move in the same turn.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
 const WarmasterEffect = {
   name: `Warmaster`,
   desc: `If this unit is included in a Nighthaunt army, it is treated as a general even if it is not the model picked to be the army's general.`,
@@ -348,11 +354,7 @@ const Units = {
         desc: `1 model in this unit can be a Dreadwarden. Add 1 to the Attacks characteristic of that model's Malignant Weapon.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Chilling Horde`,
-        desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit if this unit made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
+      ChillingHordeEffect,
     ],
   },
   'Bladegheist Revenants': {
@@ -482,11 +484,7 @@ const Units = {
         desc: `Varclav the Cruel is the unit champion. Add 1 to the Attacks characteristic of that model's Malignant Weapon.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Chilling Horde`,
-        desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit if this unit made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
+      ChillingHordeEffect,
     ],
   },
   'Krulghast Cruciator': {
