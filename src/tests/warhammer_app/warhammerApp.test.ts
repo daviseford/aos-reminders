@@ -154,13 +154,6 @@ describe('getWarhammerAppArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1631976215041-Warhammer_App', () => {
-    const parsedText = getFile('1631976215041-Warhammer_App')
-    const res = getWarhammerAppArmy(parsedText)
-    expect(res.selections.units).toContain('Kurnoth Hunters')
-    expect(res.errors).toEqual([])
-  })
-
   // This shouldn't work, it's actually a Warscroll Builder list
   it('should correctly read 1631987356655-Warhammer_App', () => {
     const parsedText = getFile('1631987356655-Warhammer_App')
@@ -177,13 +170,6 @@ describe('getWarhammerAppArmy', () => {
     const parsedText = getFile('1632017726597-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
     expect(res.selections.command_traits).toContain('Shepherd of Idiotic Destruction')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1632029233553-Warhammer_App', () => {
-    const parsedText = getFile('1632029233553-Warhammer_App')
-    const res = getWarhammerAppArmy(parsedText)
-    expect(res.selections.units).toContain('Kurnoth Hunters')
     expect(res.errors).toEqual([])
   })
 

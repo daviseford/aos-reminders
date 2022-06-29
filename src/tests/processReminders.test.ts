@@ -17,7 +17,7 @@ describe('processReminders', () => {
     const command1 = GenericCommandAbilities[0]
     const endless_spell = SylvanethFaction.AggregateArmy.EndlessSpells?.[0]
     const flavor = SylvanethFaction.AggregateArmy.Flavors?.[0]
-    const scenery = SylvanethFaction.AggregateArmy.Scenery?.[0]
+    // const scenery = SylvanethFaction.AggregateArmy.Scenery?.[0]
     const spell1 = SylvanethFaction.AggregateArmy.Spells?.[0]
     const spell2 = SylvanethFaction.AggregateArmy.Spells?.[1]
     const triumph = GenericTriumphs[0]
@@ -33,7 +33,7 @@ describe('processReminders', () => {
       command_traits: [command_trait.name],
       endless_spells: [endless_spell.name],
       flavors: [flavor.name],
-      scenery: [scenery.name],
+      // scenery: [scenery.name],
       spells: [spell1.name, spell2.name],
       triumphs: [triumph.name],
       units: [unit.name],
@@ -47,7 +47,7 @@ describe('processReminders', () => {
       command1,
       endless_spell,
       flavor,
-      scenery,
+      // scenery,
       spell1,
       spell2,
       triumph,
