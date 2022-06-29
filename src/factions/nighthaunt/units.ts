@@ -12,7 +12,6 @@ import {
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -20,6 +19,7 @@ import {
   START_OF_ROUND,
   START_OF_SHOOTING_PHASE,
   TURN_ONE_START_OF_HERO_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
@@ -63,7 +63,7 @@ export const Nagash = {
       {
         name: `Morikhane`,
         desc: `This unit has a ward of 4+ for damage inflicted by mortal wounds. In addition, if the unmodified ward roll for this unit is 6, that attacking unit suffers 1 mortal wound.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `The Nine Books of Nagash`,
@@ -107,7 +107,7 @@ const Units = {
       {
         name: `Grave-sands of Time`,
         desc: `This unit has a ward of 4+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Lifting the Veil`,
@@ -285,7 +285,7 @@ const Units = {
       {
         name: `Disembodied Skulls`,
         desc: `This unit has a ward of 5+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },
@@ -443,7 +443,7 @@ const Units = {
       {
         name: `Evocation of Death`,
         desc: `If the value of the dice beside this unit is 5-6, this unit has a ward of 4+ instead of 5+ from the Insubstantial Form ability.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Evocation of Death`,
@@ -453,7 +453,7 @@ const Units = {
       {
         name: `Insubstantial Form`,
         desc: `This unit has a ward of 5+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Runaway Coach`,

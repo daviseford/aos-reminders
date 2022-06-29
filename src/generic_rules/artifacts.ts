@@ -1,6 +1,6 @@
 import meta_rule_sources from 'meta/rule_sources'
 import { TEntry } from 'types/data'
-import { COMBAT_PHASE, HERO_PHASE, SAVES_PHASE, START_OF_HERO_PHASE } from 'types/phases'
+import { COMBAT_PHASE, HERO_PHASE, START_OF_HERO_PHASE, WARDS_PHASE } from 'types/phases'
 
 // General artifacts from Core Rules 2021
 const GenericArtifacts: TEntry[] = [
@@ -10,7 +10,7 @@ const GenericArtifacts: TEntry[] = [
       {
         name: `Amulet of Destiny`,
         desc: `The bearer has a ward of 6+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
         rule_sources: [meta_rule_sources.CORE_RULES_2021, meta_rule_sources.ERRATA_CORE_RULES_DECEMBER_2021],
       },
     ],

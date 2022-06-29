@@ -2,8 +2,8 @@ import {
   CHARGE_PHASE,
   DURING_GAME,
   END_OF_CHARGE_PHASE,
-  SAVES_PHASE,
   START_OF_COMBAT_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
@@ -13,7 +13,7 @@ const Flavors = {
       {
         name: `We Cannot Fail`,
         desc: `Friendly HAMMERS OF SIGMAR units wholly within 12" of an objective have a ward of 6+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },

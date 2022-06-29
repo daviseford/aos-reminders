@@ -8,11 +8,11 @@ import {
   END_OF_MOVEMENT_PHASE,
   END_OF_SHOOTING_PHASE,
   HERO_PHASE,
-  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   TURN_ONE_START_OF_ROUND,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import Prayers from './prayers'
@@ -192,7 +192,7 @@ const Units = {
       {
         name: `Icon of Grimnir`,
         desc: `Friendly FYRESLAYERS units wholly within 12" of this unit have a ward of 6+`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Icon of Grimnir`,
@@ -202,7 +202,7 @@ const Units = {
       {
         name: `Icon of Grimnir`,
         desc: `If the Icon of Grimnir is planted, friendly FYRESLAYERS units wholly within 12" of that unit have a ward of 5+ instead of 6+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Bard of the Lodge`,
@@ -299,7 +299,7 @@ const Units = {
       {
         name: `Duty Unto Death`,
         desc: `This unit has a ward of 4+ if it is wholly within 9" of any friendly FYRESLAYERS HEROES.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Smouldering Braziers`,

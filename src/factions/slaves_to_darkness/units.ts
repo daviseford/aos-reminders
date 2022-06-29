@@ -19,6 +19,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
@@ -207,7 +208,7 @@ const Units = {
       {
         name: `The Armour of Morkar`,
         desc: `This unit has a ward of 4+ against mortal wounds. In addition, for each unmodified ward roll of 6, you can pick 1 enemy unit within 3" to suffer 1 mortal wound that cannot be negated.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_DECEMBER_2021],
       },
       {
@@ -716,7 +717,7 @@ const Units = {
       {
         name: `Protection of the Dark Gods`,
         desc: `Friendly MORTAL SLAVES TO DARKNESS units that are wholly within range of this unit's Protection of the Dark Gods ability, as shown on the damage table above, have a ward of 6+`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_JULY_2021],
       },
     ],

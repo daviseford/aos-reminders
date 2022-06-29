@@ -3,8 +3,8 @@ import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   MOVEMENT_PHASE,
-  SAVES_PHASE,
   START_OF_COMBAT_PHASE,
+  WARDS_PHASE,
 } from 'types/phases'
 
 const IronjawzArtifacts = {
@@ -13,7 +13,7 @@ const IronjawzArtifacts = {
       {
         name: `Armour of Gork`,
         desc: `The bearer has a ward of 6+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Armour of Gork`,

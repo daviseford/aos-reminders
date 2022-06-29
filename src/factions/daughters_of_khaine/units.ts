@@ -14,6 +14,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
@@ -266,7 +267,7 @@ const Units = {
       {
         name: `Animus of Sorcery and Sacrifice`,
         desc: `This unit has a ward of 5+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
         shared: true,
       },
       {

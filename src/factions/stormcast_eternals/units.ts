@@ -20,6 +20,7 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
   TURN_ONE_START_OF_ROUND,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import prayers from './prayers'
@@ -266,7 +267,7 @@ const Units = {
       {
         name: `Eye of the Celestial Storm`,
         desc: `This unit has a ward of 4+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },
@@ -1075,7 +1076,7 @@ const Units = {
       {
         name: `Vessel of the Tempest`,
         desc: `This unit has a ward of 4+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Voice of Thunder`,
@@ -1107,7 +1108,7 @@ const Units = {
       {
         name: `Aura of Purity`,
         desc: `Friendly Hallowed Knights units wholly within 12" of this unit have a ward of 5+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Martyr's Strength`,

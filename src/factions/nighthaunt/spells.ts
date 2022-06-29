@@ -38,15 +38,6 @@ const Spells = {
       },
     ],
   },
-  // 'Reaping Scythe': {
-  //   effects: [
-  //     {
-  //       name: `Reaping Scythe`,
-  //       desc: `Casting value of 4. Pick one of the caster's weapons. Until the start of your next hero phase, you can reroll failed hit and wound rolls for attacks made with that weapon.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
   Shademist: {
     effects: [
       {
@@ -110,15 +101,6 @@ const Spells = {
       },
     ],
   },
-  // 'Temporal Translocation': {
-  //   effects: [
-  //     {
-  //       name: `Temporal Translocation`,
-  //       desc: `Casting value of 6. Pick a friendly NIGHTHAUNT unit wholly within 24" of the caster. You can make a normal move up to 6" with that unit. If the unit retreats as a part of this move it can still charge later in the turn.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
   'Howling Vortex': {
     effects: [
       {

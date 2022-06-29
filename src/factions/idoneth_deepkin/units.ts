@@ -16,6 +16,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   TURN_ONE_START_OF_TURN,
+  WARDS_PHASE,
 } from 'types/phases'
 import Spells from './spells'
 
@@ -28,13 +29,13 @@ const DeepmareHornEffect = {
 const StormshoalEffect = {
   name: `Stormshoal`,
   desc: `This unit has a ward of 5+.`,
-  when: [SAVES_PHASE],
+  when: [WARDS_PHASE],
   shared: true,
 }
 const GiftsOfTheDepthsEffect = {
   name: `Gifts of the Depths`,
   desc: `This unit has a ward of 5+.`,
-  when: [SAVES_PHASE],
+  when: [WARDS_PHASE],
   shared: true,
 }
 const WarmasterEffect = {
@@ -354,7 +355,7 @@ const Units = {
       {
         name: `Fuirann's Shield`,
         desc: `Fuirann has a ward of 6+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },

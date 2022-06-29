@@ -9,10 +9,10 @@ import {
   END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
   HERO_PHASE,
-  SAVES_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  WARDS_PHASE,
 } from 'types/phases'
 import rule_sources from '../rule_sources'
 import spells from './spells'
@@ -154,7 +154,7 @@ const IronjawzUnits = {
       {
         name: `Orruk-forged Shields!`,
         desc: `A model that has an Orruk-forged Shield has a ward of 6+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },
@@ -184,7 +184,7 @@ const IronjawzUnits = {
       {
         name: `Dead 'Ard`,
         desc: `Gurzag Ironskull has a ward of 5+. The other models in this unit have a ward of 6+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },

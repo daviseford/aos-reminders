@@ -47,10 +47,15 @@ const Flavors = {
         The same HELL PIT ABOMINATION cannot have more than 1 mutation, and an army cannot include duplicates of the same mutation.
         
         Toughened Sinews: This unit has a Wounds characteristic of 16 and a Save characteristic of 4+.
-        Lumbering Behemoth: This unit has a Move characteristic of 7". In addition, charge rolls for this unit are automatically a 7(do not roll the dice).
+
+        Lumbering Behemoth: This unit has a Move characteristic of 7". In addition, charge rolls for this unit are automatically a 7 (do not roll the dice).
+
         Quivering Bulk: Add 1 to each roll you make for this unit's Avalanche of Flesh ability.
+
         Accelerated Regeneration: You can use this unit's Regenerating Monstrosity ability in the enemy hero phase as well as in your hero phase.
+
         Best-best Warpstone Spikes: You can reroll the dice when you use this unit's Warpstone Spikes ability.
+        
         Never-never Die-die: You can reroll the dice when you use this unit's Too Horrible To Die ability.`,
         when: [TURN_ONE_START_OF_ROUND],
       },

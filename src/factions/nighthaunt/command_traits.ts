@@ -3,8 +3,8 @@ import {
   COMBAT_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
-  SAVES_PHASE,
   SHOOTING_PHASE,
+  WARDS_PHASE,
 } from 'types/phases'
 
 // Store Command Traits here. You can add them to units, abilities, flavors, and subfactions later.
@@ -23,7 +23,7 @@ const CommandTraits = {
       {
         name: `Lingering Spirit`,
         desc: `This general has a ward of 4+ for damage inflicted by mortal wounds.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },
