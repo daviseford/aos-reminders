@@ -8,6 +8,7 @@ import {
   MOVEMENT_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_ROUND,
 } from 'types/phases'
 
 const BigWaaaghBattleTraits = {
@@ -17,6 +18,15 @@ const BigWaaaghBattleTraits = {
         name: `'Ere We Go, 'Ere We Go, 'Ere We Go!`,
         desc: `This is a heroic action that you can carry out with 1 friendly ORRUK WARCLANS HERO instead of picking 1 from the table in the core rules. If you do so, roll a dice. If the roll is greater than the number of the current battle round, you receive a number of Waaagh! points equal to the number of the current battle round. For example, in the third battle round, on a roll of 4+, you would receive 3 Waaagh! points.`,
         when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  'Battle Tactics': {
+    effects: [
+      {
+        name: `Wait For It, Ladz...`,
+        desc: `You can pick this battle tactic only if your army has at least 24 Waaagh! points (pg 88). You complete this tactic if your army has at least 30 Waaagh! points at the end of this turn.`,
+        when: [START_OF_ROUND],
       },
     ],
   },

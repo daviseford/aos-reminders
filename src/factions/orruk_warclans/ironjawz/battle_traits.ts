@@ -1,7 +1,16 @@
 import { tagAs } from 'factions/metatagger'
-import { COMBAT_PHASE, START_OF_CHARGE_PHASE } from 'types/phases'
+import { COMBAT_PHASE, START_OF_CHARGE_PHASE, START_OF_ROUND } from 'types/phases'
 
 const IronjawzBattleTraits = {
+  'Battle Tactics': {
+    effects: [
+      {
+        name: `Squish Da Puny Gitz`,
+        desc: `You can pick this battle tactic only if the model picked to be your general has the IRONJAWZ keyword and there is at least 1 enemy Battleline unit on the battlefield. You complete this tactic if there are no enemy Battleline units on the battlefield at the end of this turn.`,
+        when: [START_OF_ROUND],
+      },
+    ],
+  },
   'Ironjawz Waaaagh!': {
     effects: [
       {
