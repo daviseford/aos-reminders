@@ -32,6 +32,7 @@ const subFactions = {
       ...pickEffects(BigWaaaghBattleTraits, [
         'The Power of the Waaagh!',
         "'Ere We Go, 'Ere We Go, 'Ere We Go!",
+        'Battle Tactics',
       ]),
       ...pickEffects(BonesplitterzBattleTraits, ['Warpaint']),
       ...pickEffects(KruleboyzBattleTraits, ['Venom-encrusted Weapons']),
@@ -59,6 +60,7 @@ const subFactions = {
         'Spirit of Gorkamorka',
         'Tireless Trackers',
         'Warpaint',
+        'Battle Tactics',
       ]),
       ...pickEffects(OrrukWarclansBattleTraits, ['Battle Tactics']),
     ],
@@ -82,7 +84,7 @@ const subFactions = {
 
   Ironjawz: {
     effects: [
-      ...pickEffects(IronjawzBattleTraits, ['Smashing and Bashing', 'Ironjawz Waaaagh!']),
+      ...pickEffects(IronjawzBattleTraits, ['Smashing and Bashing', 'Ironjawz Waaaagh!', 'Battle Tactics']),
       ...pickEffects(OrrukWarclansBattleTraits, ['Battle Tactics']),
     ],
     available: {
@@ -105,7 +107,12 @@ const subFactions = {
 
   Kruleboyz: {
     effects: [
-      ...pickEffects(KruleboyzBattleTraits, ['Venom-encrusted Weapons', 'Dirty Tricks', 'Kruleboyz Waaagh!']),
+      ...pickEffects(KruleboyzBattleTraits, [
+        'Venom-encrusted Weapons',
+        'Dirty Tricks',
+        'Kruleboyz Waaagh!',
+        'Battle Tactics',
+      ]),
       ...pickEffects(OrrukWarclansBattleTraits, ['Battle Tactics']),
     ],
     available: {
