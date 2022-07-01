@@ -1,38 +1,84 @@
 import { tagAs } from 'factions/metatagger'
-import { SYLVANETH } from 'meta/factions'
 import {
   COMBAT_PHASE,
+  DURING_GAME,
   DURING_SETUP,
   END_OF_MOVEMENT_PHASE,
+  HERO_PHASE,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
+  WARDS_PHASE,
 } from 'types/phases'
 
+const SylvanethBattleTraits = [
+  {
+    name: `Places of Power`,
+    desc: `After territories are determined, before faction terrain features are set up, you can pick up to 3 terrain features on the battlefield that are wholly outside enemy territory. Those terrain features are considered by you to be overgrown terrain features.`,
+    when: [DURING_SETUP],
+    shared: true,
+  },
+  {
+    name: `Places of Power`,
+    desc: `At the start of your hero phase, you can heal 1 wound allocated to each friendly SYLVANETH unit that is wholly within 9" of an overgrown terrain feature or friendly Awakened Wyldwood.`,
+    when: [START_OF_HERO_PHASE],
+    shared: true,
+  },
+  {
+    name: `Walk the Hidden Paths`,
+    desc: `Once per turn at the end of your movement phase, you can pick 1 friendly SYLVANETH unit that is wholly within 9" of an overgrown terrain feature or friendly Awakened Wyldwood. 
+      
+      Remove that unit from the battlefield and set it up again more than 9" from all enemy units and wholly within 9" of either a different overgrown terrain feature or Awakened Wyldwood that is more than 3" from all enemy units.`,
+    when: [END_OF_MOVEMENT_PHASE],
+    shared: true,
+  },
+  {
+    name: `Strike and Fade`,
+    desc: `Once per turn, in your combat phase, immediately after a friendly SYLVANETH unit that is wholly within 9" of an overgrown terrain feature or friendly Awakened Wyldwood has fought, you can remove that unit from the battlefield and set it up again more than 9" from all enemy units and wholly within 9" of either a different overgrown terrain feature that is more than 3" from all enemy units or a different Awakened Wyldwood that is more than 3" from enemy units.`,
+    when: [COMBAT_PHASE],
+    shared: true,
+  },
+]
+
 const BattleTraits = {
-  [SYLVANETH]: {
+  // Seasons of War
+  'The Burgeoning': {
     effects: [
       {
-        name: `Places of Power`,
-        desc: `After territories are determined, before faction terrain features are set up, you can pick up to 3 terrain features on the battlefield that are wholly outside enemy territory. Those terrain features are considered by you to be overgrown terrain features.`,
-        when: [DURING_SETUP],
+        name: `The Burgeoning`,
+        desc: `Friendly SYLVANETH units that did not charge in the same turn and are wholly within 9" of an overgrown terrain feature or friendly Awakened Wyldwood have a ward of 6+.`,
+        when: [WARDS_PHASE],
       },
+      ...SylvanethBattleTraits,
+    ],
+  },
+  'The Reaping': {
+    effects: [
       {
-        name: `Places of Power`,
-        desc: `At the start of your hero phase, you can heal 1 wound allocated to each friendly SYLVANETH unit that is wholly within 9" of an overgrown terrain feature or friendly Awakened Wyldwood.`,
-        when: [START_OF_HERO_PHASE],
+        name: `The Reaping`,
+        desc: `Add 3 to the range within which you can pick friendly SYLVANETH units with the Places of Power and From the Woodland Depths battle traits.`,
+        when: [DURING_GAME],
       },
+      ...SylvanethBattleTraits,
+    ],
+  },
+  'The Dwindling': {
+    effects: [
       {
-        name: `Walk the Hidden Paths`,
-        desc: `Once per turn at the end of your movement phase, you can pick 1 friendly SYLVANETH unit that is wholly within 9" of an overgrown terrain feature or friendly Awakened Wyldwood. 
-        
-        Remove that unit from the battlefield and set it up again more than 9" from all enemy units and wholly within 9" of either a different overgrown terrain feature or Awakened Wyldwood that is more than 3" from all enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
+        name: `The Dwindling`,
+        desc: `In the hero phase, you can reroll 1 casting roll, 1 unbinding roll and 1 dispelling roll, so long as the friendly WIZARD you pick is a SYLVANETH WIZARD that is wholly within 9" of an overgrown terrain feature or friendly Awakened Wyldwood.`,
+        when: [HERO_PHASE],
       },
+      ...SylvanethBattleTraits,
+    ],
+  },
+  Everdusk: {
+    effects: [
       {
-        name: `Strike and Fade`,
-        desc: `Once per turn, in your combat phase, immediately after a friendly SYLVANETH unit that is wholly within 9" of an overgrown terrain feature or friendly Awakened Wyldwood has fought, you can remove that unit from the battlefield and set it up again more than 9" from all enemy units and wholly within 9" of either a different overgrown terrain feature that is more than 3" from all enemy units or a different Awakened Wyldwood that is more than 3" from enemy units.`,
-        when: [COMBAT_PHASE],
+        name: `Everdusk`,
+        desc: `Subtract 3" from the range within which you can pick friendly SYLVANETH units with the Places of Power and From the Woodland Depths battle traits. However, if the unmodified hit roll for an attack made with a melee weapon by a friendly SYLVANETH unit wholly within 6" of an overgrown terrain feature or friendly Awakened Wyldwood is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        when: [DURING_GAME, COMBAT_PHASE],
       },
+      ...SylvanethBattleTraits,
     ],
   },
 

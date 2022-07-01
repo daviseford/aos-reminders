@@ -1,5 +1,5 @@
+import { IItemDescription } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from 'factions/metatagger'
-import { SYLVANETH } from 'meta/factions'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
@@ -11,26 +11,59 @@ import GrandStrategies from './grand_strategies'
 import Spells from './spells'
 import Units from './units'
 
+const baseSubFaction: IItemDescription = {
+  mandatory: {
+    spells: [keyPicker(Spells, ['Verdant Blessing'])],
+  },
+  available: {
+    artifacts: [Artifacts],
+    battalions: [Battalions],
+    command_abilities: [CommandAbilities],
+    command_traits: [CommandTraits],
+    endless_spells: [EndlessSpells],
+    flavors: [Flavors],
+    grand_strategies: [GrandStrategies],
+    spells: [Spells],
+    units: [Units],
+  },
+  effects: [],
+}
 const subFactions = {
-  [SYLVANETH]: {
-    effects: pickEffects(BattleTraits, [SYLVANETH, 'Battle Tactics']),
-
-    mandatory: {
-      spells: [keyPicker(Spells, ['Verdant Blessing'])],
-    },
-
+  'The Burgeoning': {
+    effects: pickEffects(BattleTraits, ['The Burgeoning', 'Battle Tactics']),
     available: {
-      artifacts: [Artifacts],
-      battalions: [Battalions],
-      command_abilities: [CommandAbilities],
-      command_traits: [CommandTraits],
-      endless_spells: [EndlessSpells],
-      flavors: [Flavors],
-      grand_strategies: [GrandStrategies],
-      spells: [Spells],
-      units: [Units],
+      ...baseSubFaction.available,
+    },
+    mandatory: {
+      ...baseSubFaction.mandatory,
+    },
+  },
+  'The Reaping': {
+    effects: pickEffects(BattleTraits, ['The Reaping', 'Battle Tactics']),
+    available: {
+      ...baseSubFaction.available,
+    },
+    mandatory: {
+      ...baseSubFaction.mandatory,
+    },
+  },
+  'The Dwindling': {
+    effects: pickEffects(BattleTraits, ['The Dwindling', 'Battle Tactics']),
+    available: {
+      ...baseSubFaction.available,
+    },
+    mandatory: {
+      ...baseSubFaction.mandatory,
+    },
+  },
+  Everdusk: {
+    effects: pickEffects(BattleTraits, ['Everdusk', 'Battle Tactics']),
+    available: {
+      ...baseSubFaction.available,
+    },
+    mandatory: {
+      ...baseSubFaction.mandatory,
     },
   },
 }
-
 export default subFactions

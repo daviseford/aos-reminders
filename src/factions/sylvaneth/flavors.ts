@@ -8,49 +8,10 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  WARDS_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 
 const Flavors = {
-  // Seasons of War
-  'The Burgeoning': {
-    effects: [
-      {
-        name: `The Burgeoning`,
-        desc: `Friendly SYLVANETH units that did not charge in the same turn and are wholly within 9" of an overgrown terrain feature or friendly Awakened Wyldwood have a ward of 6+.`,
-        when: [WARDS_PHASE],
-      },
-    ],
-  },
-  'The Reaping': {
-    effects: [
-      {
-        name: `The Reaping`,
-        desc: `Add 3 to the range within which you can pick friendly SYLVANETH units with the Places of Power and From the Woodland Depths battle traits.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  'The Dwindling': {
-    effects: [
-      {
-        name: `The Dwindling`,
-        desc: `In the hero phase, you can reroll 1 casting roll, 1 unbinding roll and 1 dispelling roll, so long as the friendly WIZARD you pick is a SYLVANETH WIZARD that is wholly within 9" of an overgrown terrain feature or friendly Awakened Wyldwood.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  Everdusk: {
-    effects: [
-      {
-        name: `Everdusk`,
-        desc: `Subtract 3" from the range within which you can pick friendly SYLVANETH units with the Places of Power and From the Woodland Depths battle traits. However, if the unmodified hit roll for an attack made with a melee weapon by a friendly SYLVANETH unit wholly within 6" of an overgrown terrain feature or friendly Awakened Wyldwood is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [DURING_GAME, COMBAT_PHASE],
-      },
-    ],
-  },
-
   // Glades
   Oakenbrow: {
     effects: [
