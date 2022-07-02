@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import { COMBAT_PHASE, SAVES_PHASE, START_OF_COMBAT_PHASE, START_OF_GAME, START_OF_ROUND } from 'types/phases'
 
 const BonesplitterzBattleTraits = {
@@ -38,8 +39,9 @@ const BonesplitterzBattleTraits = {
     effects: [
       {
         name: `Spirit of Gorkamorka`,
-        desc: `If the unmodified hit roll for an attack made with a melee weapon by a friendly BONESPLITTERZ unit that has 5 or more models is 6, that attack scores 2 hits on the target instead of 1 (make a wound roll and save roll for each hit).`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon by a friendly BONESPLITTERZ unit is 6, that attack scores 2 hits on the target instead of 1 (make a wound roll and save roll for each hit).`,
         when: [COMBAT_PHASE],
+        rule_sources: [meta_rule_sources.ERRATA_BATTLESCROLL_JUNE_2022],
       },
     ],
   },

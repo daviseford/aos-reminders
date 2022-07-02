@@ -107,6 +107,11 @@ const meta_rule_sources = {
     type: 'ghb',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/Nx3vTlkaz7ekCv7J.pdf',
   },
+  ERRATA_BATTLESCROLL_JUNE_2022: {
+    name: 'Battlescroll (June 2022)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2022/06/yviFjtzHMd1fG6iG.pdf',
+  },
 }
 
 export default meta_rule_sources

@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   COMBAT_PHASE,
   END_OF_BATTLESHOCK_PHASE,
@@ -12,8 +13,9 @@ const BattleTraits = {
     effects: [
       {
         name: `First-Damned Prince`,
-        desc: `You can reroll hit rolls for attacks made by Be'lakor while he is within 18" of at least 1 of each of the following friendly Legion of the First Prince units: Bloodletters, Plaguebearers, Daemonettes, and Horrors of Tzeentch.`,
+        desc: `Add 1 to hit rolls and wound rolls for attacks made by BE'LAKOR while he is within 18" of at least 1 friendly unit from each of the following warscrolls: Bloodletters, Horrors of Tzeentch, Plaguebearers, Daemonettes.`,
         when: [COMBAT_PHASE],
+        rule_sources: [meta_rule_sources.ERRATA_BATTLESCROLL_JUNE_2022],
       },
       {
         name: `First-Damned Prince`,

@@ -1,12 +1,14 @@
-import { COMBAT_PHASE, SHOOTING_PHASE, TURN_ONE_DURING_ROUND, TURN_ONE_SHOOTING_PHASE } from 'types/phases'
+import meta_rule_sources from 'meta/rule_sources'
+import { COMBAT_PHASE, DURING_GAME, SHOOTING_PHASE, TURN_ONE_SHOOTING_PHASE } from 'types/phases'
 
 const KruleboyzFlavors = {
   "Grinnin' Blades": {
     effects: [
       {
         name: `Out of the Mists`,
-        desc: `During the first battle round, friendly GRINNIN' BLADES units are not visible to enemy models that are more than 12" away from them.`,
-        when: [TURN_ONE_DURING_ROUND],
+        desc: `Friendly GRINNIN BALDES units are not visible to enemy models that are more than 12" away from them.`,
+        when: [DURING_GAME],
+        rule_sources: [meta_rule_sources.ERRATA_BATTLESCROLL_JUNE_2022],
       },
     ],
   },

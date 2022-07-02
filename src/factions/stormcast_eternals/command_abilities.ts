@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   HERO_PHASE,
   START_OF_COMBAT_PHASE,
@@ -30,8 +31,9 @@ const CommandAbilities = {
     effects: [
       {
         name: `Thunderbolt Volley`,
-        desc: `You can use this command ability once per battle in your hero phase. The command can only be issued by a friendly KNIGHT to a unit wholly within 12" of them or by a friendly LORD or DRACONITH to a unit wholly within 18" of them. The unit that receives the command must be a friendly JUSTICAR or ANGELOS unit. That unit can shoot in that phase.`,
+        desc: `You can use this command ability once per battle in your hero phase. The command can only be issued by a friendly KNIGHT to a unit wholly within 12" of them or by a friendly LORD or DRACONITH to a unit wholly within 18" of them. The unit that receives the command must be a friendly JUSTICAR or ANGELOS unit that is not reinforced. That unit can shoot in that phase.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.ERRATA_BATTLESCROLL_JUNE_2022],
       },
     ],
   },

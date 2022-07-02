@@ -1,8 +1,10 @@
 import { tagAs } from 'factions/metatagger'
 import { GLOOMSPITE_GITZ } from 'meta/factions'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   COMBAT_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
@@ -43,9 +45,10 @@ const BattleTraits = {
         when: [START_OF_CHARGE_PHASE],
       },
       {
-        name: `Light of the Bad Moon - Moonclan Fungus Brew`,
-        desc: `You can reroll hit rolls of 1 for attacks made by MOONCLAN GROT models while they are affected by the light of the Bad Moon.`,
-        when: [COMBAT_PHASE],
+        name: `Light of the Bad Moon - Moonclan Frothing Zealots`,
+        desc: `If a friendly MOONCLAN unit receives the Rally command while it is affected by the light of the Bad Moon, you can return 1 slain model to that unit for each 4+ instead of each 6.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.ERRATA_BATTLESCROLL_JUNE_2022],
       },
       {
         name: `Light of the Bad Moon - Spiderfang Venom`,
@@ -53,9 +56,10 @@ const BattleTraits = {
         when: [COMBAT_PHASE],
       },
       {
-        name: `Light of the Bad Moon - Troggoth Renewal`,
-        desc: `If all of the models in a friendly TROGGOTH unit are affected by the light of the Bad Moon when it uses its Regeneration ability, you can reroll the dice that determines if the ability heals any wounds, or you can double the number of wounds that are healed by the ability if the first roll is successful.`,
-        when: [HERO_PHASE],
+        name: `Light of the Bad Moon - Moonlit Hide`,
+        desc: `Add 1 to save rolls for friendly GLOOMSPITE GITZ TROGGOTH units while they are affected by the light of the Bad Moon.`,
+        when: [SAVES_PHASE],
+        rule_sources: [meta_rule_sources.ERRATA_BATTLESCROLL_JUNE_2022],
       },
     ],
   },

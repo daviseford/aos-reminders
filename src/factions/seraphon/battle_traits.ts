@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { SERAPHON } from 'meta/factions'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
@@ -66,8 +67,9 @@ const BattleTraits = {
       },
       {
         name: `Scaly Skin`,
-        desc: `Subtract 1 from the damage inflicted by each successful attack that targets a COALESCED unit (to a minimum of 1)`,
+        desc: `Subtract 1 from the damage inflicted by each successful attack that targets a COALESCED unit that has the SAURUS, KROXIGOR or MONSTER keyword (to a minimum of 1).`,
         when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [meta_rule_sources.ERRATA_BATTLESCROLL_JUNE_2022],
       },
     ],
   },

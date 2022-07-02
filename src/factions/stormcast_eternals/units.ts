@@ -1,5 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -1310,8 +1311,9 @@ const Units = {
       DraggedIntoTheTempestEffect,
       {
         name: `Draconic Onslaught`,
-        desc: `Once per battle, in your hero phase, this unit can make a normal move. Roll a dice if any enemy units are within 12" of this unit after that normal move. On a 2+, this unit can immediately attempt a charge.`,
-        when: [HERO_PHASE],
+        desc: `Once per battle, in your charge phase, you can say that this unit will unleash its draconic onslaught. If you do so, you can reroll charge rolls for this unit in that phase.`,
+        when: [CHARGE_PHASE],
+        rule_sources: [meta_rule_sources.ERRATA_BATTLESCROLL_JUNE_2022],
       },
     ],
   },

@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { FLESH_EATER_COURTS } from 'meta/factions'
+import meta_rule_sources from 'meta/rule_sources'
 import { DURING_GAME, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 const BattleTraits = {
@@ -7,8 +8,9 @@ const BattleTraits = {
     effects: [
       {
         name: `Deathless Courtiers`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly FLESH-EATER COURTS unit wholly within 12" of a friendly FLESH-EATER COURTS HERO. On a 6 that wound or mortal wound is negated.`,
+        desc: `Friendly FLESH-EATER COURTS units have a ward of 6+.`,
         when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [meta_rule_sources.ERRATA_BATTLESCROLL_JUNE_2022],
       },
       {
         name: `Courts of Delusion`,
