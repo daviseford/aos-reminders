@@ -8,6 +8,7 @@ import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
 import GrandStrategies from './grand_strategies'
+import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
@@ -23,6 +24,7 @@ const baseSubFaction: IItemDescription = {
     endless_spells: [EndlessSpells],
     flavors: [Flavors],
     grand_strategies: [GrandStrategies],
+    scenery: [Scenery],
     spells: [Spells],
     units: [Units],
   },
