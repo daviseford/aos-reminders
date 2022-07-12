@@ -30,42 +30,24 @@ const baseSubFaction: IItemDescription = {
   },
   effects: [],
 }
+
 const subFactions = {
   'The Burgeoning': {
-    effects: pickEffects(BattleTraits, ['The Burgeoning', 'Battle Tactics']),
-    available: {
-      ...baseSubFaction.available,
-    },
-    mandatory: {
-      ...baseSubFaction.mandatory,
-    },
+    ...baseSubFaction,
+    effects: pickEffects(BattleTraits, ['The Burgeoning']),
   },
   'The Reaping': {
-    effects: pickEffects(BattleTraits, ['The Reaping', 'Battle Tactics']),
-    available: {
-      ...baseSubFaction.available,
-    },
-    mandatory: {
-      ...baseSubFaction.mandatory,
-    },
+    ...baseSubFaction,
+    effects: pickEffects(BattleTraits, ['The Reaping']),
   },
   'The Dwindling': {
-    effects: pickEffects(BattleTraits, ['The Dwindling', 'Battle Tactics']),
-    available: {
-      ...baseSubFaction.available,
-    },
-    mandatory: {
-      ...baseSubFaction.mandatory,
-    },
+    ...baseSubFaction,
+    effects: pickEffects(BattleTraits, ['The Dwindling']),
   },
   Everdusk: {
-    effects: pickEffects(BattleTraits, ['Everdusk', 'Battle Tactics']),
-    available: {
-      ...baseSubFaction.available,
-    },
-    mandatory: {
-      ...baseSubFaction.mandatory,
-    },
+    ...baseSubFaction,
+    effects: pickEffects(BattleTraits, ['Everdusk']),
   },
 }
+
 export default subFactions
