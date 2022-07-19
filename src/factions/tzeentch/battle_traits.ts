@@ -56,7 +56,7 @@ const BattleTraits = {
         name: `Summon Daemons of DISCIPLES OF TZEENTCH`,
         desc: `If you have 10 or more Fate Points at the end of your movement phase, you can summon one unit from the summoning list onto the battlefield, and add them to your army. Each unit you summon costs a number of Fate Points, as shown on the list, and you can only summon a unit if you have enough Fate Points to pay its cost.
 
-        Summoned units must be set up wholly within 12" of a friendly DISCIPLES OF TZEENTCH Hero and more than 9" from any enemy units. Subtract the cost of the summoned unit from the number of Fate Points you have immediately after the summoned unit has been set up.`,
+        Summoned units must be set up wholly within 12" of a friendly DISCIPLES OF TZEENTCH HERO and more than 9" from any enemy units. Subtract the cost of the summoned unit from the number of Fate Points you have immediately after the summoned unit has been set up.`,
         when: [END_OF_MOVEMENT_PHASE],
         rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_DECEMBER_2021],
       },
@@ -80,7 +80,7 @@ const BattleTraits = {
       },
       {
         name: `Locus of Change`,
-        desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target friendly DISCIPLES OF TZEENTCH Daemon units that are wholly within 12" of a friendly DISCIPLES OF TZEENTCH Daemon Hero.`,
+        desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target friendly DISCIPLES OF TZEENTCH Daemon units that are wholly within 12" of a friendly DISCIPLES OF TZEENTCH Daemon HERO.`,
         when: [COMBAT_PHASE],
         rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_DECEMBER_2021],
       },

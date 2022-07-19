@@ -7,7 +7,6 @@ import {
   SAVES_PHASE,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
-  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const BattleTraits = {
@@ -88,57 +87,6 @@ const BattleTraits = {
         name: `Unexpected Attack`,
         desc: `You complete this tactic if a friendly KHAINITE SHADOWSTALKERS unit uses its Shadow Leap ability and makes a charge move this turn.`,
         when: [START_OF_ROUND],
-      },
-    ],
-  },
-
-  // Hagg Nar Flavor
-  'Daughters of the First Temple': {
-    effects: [
-      {
-        name: `Daughters of the First Temple`,
-        desc: `Add 1 to the number of the current battle round when determining the abilities gained by friendly HAGG NAR units from the Blood Rites battle trait (pg 66). This ability and other similar abilities are cumulative.`,
-        when: [START_OF_ROUND],
-      },
-    ],
-  },
-  // Draichi Ganeth Flavor
-  'Bladed Killers': {
-    effects: [
-      {
-        name: `Bladed Killers`,
-        desc: `Improve the Rend characteristic of melee weapons used by friendly DRAICHI GANETH WITCH AELVES units and friendly DRAICHI GANETH SISTERS OF SLAUGHTER units by 1 if those units made a charge move in the same turn.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  // Kraith Flavor
-  'Disciples of Slaughter': {
-    effects: [
-      {
-        name: `Disciples of Slaughter`,
-        desc: `After a friendly KRAITH SISTERS OF SLAUGHTER unit has fought for the first time in the combat phase, roll a dice. On a 4+, that unit can fight for a second time in that phase. The strike-last effect applies to that unit when they fight for that second time.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  // Khelt Nar Flavor
-  'Strike and Fade': {
-    effects: [
-      {
-        name: `Strike and Fade`,
-        desc: `Friendly KHELT NAR units can retreat and still charge in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-    ],
-  },
-  // Zainthar Kai Flavor
-  "Khaine's Essence": {
-    effects: [
-      {
-        name: `Khaine's Essence`,
-        desc: `Each time a model in a friendly ZAINTHAR KAI MELUSAI unit is slain, that model can fight before it is removed from play.`,
-        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

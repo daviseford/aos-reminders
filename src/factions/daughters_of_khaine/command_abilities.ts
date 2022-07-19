@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { CHARGE_PHASE, COMBAT_PHASE, END_OF_MOVEMENT_PHASE, HERO_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandAbilities = {
   // DoK Allegiance Ability
@@ -18,7 +19,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Orgy of Slaughter`,
-        desc: `You can use this command ability in your hero phase if this unit is part of your army and on the battlefield. The command can only be issued by this unit, and the unit that receives the command must be a friendly Daughters of Khaine unit within 3" of any enemy units. That unit can fight.`,
+        desc: `You can use this command ability in your hero phase if this unit is part of your army and on the battlefield. The command can only be issued by this unit, and the unit that receives the command must be a friendly DAUGHTERS OF KHAINE unit within 3" of any enemy units. That unit can fight.`,
         when: [HERO_PHASE],
       },
     ],
@@ -27,7 +28,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Worship Through Bloodshed`,
-        desc: `You can use this command ability in your hero phase if this unit is part of your army and on the battlefield. The command can only be issued by this unit, and the unit that receives the command must be a friendly Daughters of Khaine unit. That unit can shoot or, if it is within 3" of any enemy units, it can fight.`,
+        desc: `You can use this command ability in your hero phase if this unit is part of your army and on the battlefield. The command can only be issued by this unit, and the unit that receives the command must be a friendly DAUGHTERS OF KHAINE unit. That unit can shoot or, if it is within 3" of any enemy units, it can fight.`,
         when: [HERO_PHASE],
       },
     ],
@@ -36,8 +37,9 @@ const CommandAbilities = {
     effects: [
       {
         name: `Wrath of the Scathborn`,
-        desc: `You can use this command ability in your charge phase if this unit is part of your army and on the battlefield. The command can only be issued by this unit, and the unit that receives the command must be a friendly Melusai unit. That unit can attempt a charge even if it ran or shot in the same turn.`,
+        desc: `You can use this command ability in your charge phase if this unit is part of your army and on the battlefield. The command can only be issued by this unit, and the unit that receives the command must be a friendly MELUSAI unit. That unit can attempt a charge  even if it ran in the same turn.`,
         when: [CHARGE_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_JULY_2022],
       },
     ],
   },

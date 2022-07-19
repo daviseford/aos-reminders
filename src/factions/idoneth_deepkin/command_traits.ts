@@ -9,6 +9,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandTraits = {
   'Merciless Raider': {
@@ -33,8 +34,9 @@ const CommandTraits = {
     effects: [
       {
         name: `Unstoppable Fury`,
-        desc: `While this general is affected by the High Tide ability from the Tides of Death table (pg 64), for each enemy unit within 3" of them during the combat phase, add 2 to the Attacks characteristic of their melee weapons until the end of that phase.`,
+        desc: `While this general is affected by the High Tide ability from the Tides of Death table (pg 64), for each enemy unit within 3" of them when they fight in the combat phase, add 2 to the Attacks characteristic of their melee weapons until the end of that phase.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_IDONETH_DEEPKIN, rule_sources.ERRATA_JULY_2022],
       },
     ],
   },

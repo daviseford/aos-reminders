@@ -200,7 +200,7 @@ const Spells = {
     effects: [
       {
         name: `Refine Senses`,
-        desc: `Casting value of 4. If successfully cast, until your next hero phase, you can add 1 to hit rolls for attacks made by the caster that target a HERO, and you can add 1 to save rolls for attacks made by Heroes that target the caster.`,
+        desc: `Casting value of 4. If successfully cast, until your next hero phase, you can add 1 to hit rolls for attacks made by the caster that target a HERO, and you can add 1 to save rolls for attacks made by HEROES that target the caster.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_JULY_2021],
       },
@@ -212,7 +212,7 @@ const Spells = {
       },
       {
         name: `Refine Senses`,
-        desc: `If active, you can add 1 to save rolls for attacks made by Heroes that target the caster.`,
+        desc: `If active, you can add 1 to save rolls for attacks made by HEROES that target the caster.`,
         when: [SAVES_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_JULY_2021],
       },

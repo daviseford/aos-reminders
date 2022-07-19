@@ -67,6 +67,11 @@ const meta_rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2021/07/OQelhstq4HoJuYm6.pdf',
   },
+  ERRATA_BROKEN_REALMS_BELAKOR_JULY_2022: {
+    name: "Broken Realms: Be'lakor Errata (July 2022)",
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2021/07/Z4b4plVM8gDObBDe.pdf',
+  },
 
   CORE_RULES_2021: {
     name: 'Core Rules (2021)',
@@ -93,6 +98,11 @@ const meta_rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/VrQ1PX4ZvydjBuKl.pdf',
   },
+  ERRATA_CORE_RULES_JULY_2022: {
+    name: 'Core Rules Errata (July 2022)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/TKy3YFHtTFpL4ZVW.pdf',
+  },
 
   GHB_2021: {
     name: "General's Handbook (2021)",
@@ -106,6 +116,12 @@ const meta_rule_sources = {
     name: "General's Handbook Errata (September 2021)",
     type: 'ghb',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/Nx3vTlkaz7ekCv7J.pdf',
+  },
+
+  CROSS_FACTION_HEROES_JULY_2022: {
+    name: 'Cross Faction Heroes (July 2022)',
+    type: 'other_book',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2022/07/F7rLk5rmPJoiqZZw.pdf',
   },
 }
 

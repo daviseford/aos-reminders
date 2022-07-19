@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   COMBAT_PHASE,
   END_OF_BATTLESHOCK_PHASE,
@@ -12,13 +13,12 @@ const BattleTraits = {
     effects: [
       {
         name: `First-Damned Prince`,
-        desc: `You can reroll hit rolls for attacks made by Be'lakor while he is within 18" of at least 1 of each of the following friendly Legion of the First Prince units: Bloodletters, Plaguebearers, Daemonettes, and Horrors of Tzeentch.`,
+        desc: `Add 1 to hit rolls and wound rolls for attacks made by Be'lakor while he is within 18" of at least 1 friendly unit from each of the following warscrolls: Bloodletters, Horrors of Tzeentch, Plaguebearers, Daemonettes.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `First-Damned Prince`,
-        desc: `Before you allocate a wound or mortal wound to Be'lakor, pick 1 friendly Bloodletters, Plaguebearers, Daemonettes, or Horrors of Tzeentch unit within 9" of him and roll a D6. On a 4+ that wound/mortal wound is allocated to the selected unit instead.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [
+          meta_rule_sources.BOOK_BROKEN_REALMS_BELAKOR,
+          meta_rule_sources.ERRATA_BROKEN_REALMS_BELAKOR_JULY_2022,
+        ],
       },
       {
         name: `The Cursed Skies`,

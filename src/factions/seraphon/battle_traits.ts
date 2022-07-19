@@ -56,7 +56,7 @@ const BattleTraits = {
       },
       {
         name: `Primeval Domain`,
-        desc: `If a terrain feature is partially or wholly within the territory of a Coalesced army, then it has the Mystical and Deadly Mysterious Terrain scenery rules (section 28.1.3 of the core rules) in addition to any other Mysterious Terrain scenery rules it may have. The Mystical scenery rule for these terrain features only applies to COALESCED units, while the Deadly scenery rule for these terrain not apply to COALESCED units.`,
+        desc: `If a terrain feature is partially or wholly within the territory of a COALESCED army, then it has the Mystical and Deadly Mysterious Terrain scenery rules (section 28.1.3 of the core rules) in addition to any other Mysterious Terrain scenery rules it may have. The Mystical scenery rule for these terrain features only applies to COALESCED units, while the Deadly scenery rule for these terrain not apply to COALESCED units.`,
         when: [DURING_GAME],
         rule_sources: [
           rule_sources.BATTLETOME_SERAPHON,
@@ -66,8 +66,9 @@ const BattleTraits = {
       },
       {
         name: `Scaly Skin`,
-        desc: `Subtract 1 from the damage inflicted by each successful attack that targets a COALESCED unit (to a minimum of 1)`,
+        desc: `Subtract 1 from the damage inflicted by each successful attack that targets a COALESCED unit that has the SAURUS, KROXIGOR or MONSTER keyword (to a minimum of 1).`,
         when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_JULY_2022],
       },
     ],
   },

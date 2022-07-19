@@ -63,7 +63,7 @@ const RegeneratingMonstrosityEffect = {
 }
 const PushedIntoBattleEffect = {
   name: `Pushed into Battle`,
-  desc: `This unit cannot move unless it starts the move within 6" of 10 or more other friendly Skaven models.`,
+  desc: `This unit cannot move unless it starts the move within 6" of 10 or more other friendly SKAVEN models.`,
   when: [MOVEMENT_PHASE],
   shared: true,
 }
@@ -102,7 +102,7 @@ const Units = {
       ProtectionOfTheHornedRatEffect,
       {
         name: `Power Behind the Throne`,
-        desc: `Once per battle round, this unit can issue the same command up to 2 times in the same phase. If it does so, each command must be received by a friendly Skaven unit. No command point is spent the second time this unit issues that command in that phase.`,
+        desc: `Once per battle round, this unit can issue the same command up to 2 times in the same phase. If it does so, each command must be received by a friendly SKAVEN unit. No command point is spent the second time this unit issues that command in that phase.`,
         when: [DURING_ROUND],
       },
       {
@@ -172,12 +172,12 @@ const Units = {
       ProtectionOfTheHornedRatEffect,
       {
         name: `Forth-forth, Children of the Horned Rat!`,
-        desc: `Friendly Skaven units wholly within 13" of this unit have a Bravery characteristic of 10.`,
+        desc: `Friendly SKAVEN units wholly within 13" of this unit have a Bravery characteristic of 10.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
         name: `The Great Manipulators`,
-        desc: `This unit counts as 2 Masterclan Heroes for the purposes of the Always Three Clawsteps Ahead battle trait.`,
+        desc: `This unit counts as 2 MASTERCLAN HEROES for the purposes of the Always Three Clawsteps Ahead battle trait.`,
         when: [DURING_GAME],
       },
       {
@@ -398,7 +398,7 @@ const Units = {
       },
       {
         name: `Elite Bodyguards`,
-        desc: `If a friendly Skaven Hero is within 3" of this unit, before you allocate a wound or mortal wound to that Hero, or instead of making a ward roll for a wound or mortal wound that would be allocated to that Hero, roll a dice. Add 2 to the roll if the Hero has the Clans Verminus keyword. On a 4+, that wound or mortal wound is allocated to this unit instead of that Hero and cannot be negated.`,
+        desc: `If a friendly SKAVEN HERO is within 3" of this unit, before you allocate a wound or mortal wound to that HERO, or instead of making a ward roll for a wound or mortal wound that would be allocated to that HERO, roll a dice. Add 2 to the roll if the HERO has the Clans Verminus keyword. On a 4+, that wound or mortal wound is allocated to this unit instead of that HERO and cannot be negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -432,7 +432,7 @@ const Units = {
       ProtectionOfTheHornedRatEffect,
       {
         name: `Amidst the Seething Tide`,
-        desc: `You can reroll wound rolls for attacks made by this unit while it is within 13" of 3 or more friendly Skaven units.`,
+        desc: `You can reroll wound rolls for attacks made by this unit while it is within 13" of 3 or more friendly SKAVEN units.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
@@ -564,12 +564,12 @@ const Units = {
     effects: [
       {
         name: `Tunnel Skulkers`,
-        desc: `During deployment, instead of setting up this unit on the battlefield, you can place it to one side and say that it is set up tunnelling as a reserve unit. If you do so, when you would set up another friendly Skaven unit that is not a Monster or a War Machine during deployment, you can say that it will join this unit tunnelling as a reserve unit. 1 unit can join this unit in this way.`,
+        desc: `During deployment, instead of setting up this unit on the battlefield, you can place it to one side and say that it is set up tunnelling as a reserve unit. If you do so, when you would set up another friendly SKAVEN unit that is not a MONSTER or a War Machine during deployment, you can say that it will join this unit tunnelling as a reserve unit. 1 unit can join this unit in this way.`,
         when: [DURING_SETUP],
       },
       {
         name: `Tunnel Skulkers`,
-        desc: `At the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units. Then, if a friendly Skaven unit joined this unit in reserve, set up that unit on the battlefield, wholly within 13" of this unit and more than 9" from all enemy units.`,
+        desc: `At the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units. Then, if a friendly SKAVEN unit joined this unit in reserve, set up that unit on the battlefield, wholly within 13" of this unit and more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
     ],

@@ -117,7 +117,7 @@ const Spells = {
     effects: [
       {
         name: `Arcane Transformation`,
-        desc: `Casting value of 6. Pick a friendly Tzeentch hero wholly within 18" of the caster and visible to them. Until your next hero phase, you can either add 1 to that Hero's move and bravery characteristic or add 1 to the Attacks characteristic of one of that Hero's melee weapons.`,
+        desc: `Casting value of 6. Pick a friendly Tzeentch hero wholly within 18" of the caster and visible to them. Until your next hero phase, you can either add 1 to that HERO's move and bravery characteristic or add 1 to the Attacks characteristic of one of that HERO's melee weapons.`,
         when: [HERO_PHASE],
       },
       {

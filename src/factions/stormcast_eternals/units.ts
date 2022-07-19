@@ -113,7 +113,7 @@ const VoidstormScrollEffect = {
 }
 const SoulChargedIconEffect = {
   name: `Soul-Charged Icon`,
-  desc: `You can reroll charge rolls for friendly Stormcast Eternals units wholly within 12" of this unit.`,
+  desc: `You can reroll charge rolls for friendly STORMCAST ETERNALS units wholly within 12" of this unit.`,
   when: [CHARGE_PHASE],
   shared: true,
 }
@@ -125,7 +125,7 @@ const SigmariteThundershieldEffect = {
 }
 const CometTrailEffect = {
   name: `Comet Trail`,
-  desc: `After this unit has made a normal move, add 1 to hit rolls for attacks made by friendly Stormcast Eternals and Cities of Sigmar units within 3" of this unit until your next hero phase.`,
+  desc: `After this unit has made a normal move, add 1 to hit rolls for attacks made by friendly STORMCAST ETERNALS and Cities of Sigmar units within 3" of this unit until your next hero phase.`,
   when: [MOVEMENT_PHASE],
   shared: true,
 }
@@ -342,9 +342,9 @@ const Units = {
         name: `Fires of Vengeance`,
         desc: `Each time this unit destroys an enemy unit, you can apply the relevant effect below:
 
-        If the enemy unit was a Hero or Monster, add 1 to the Attacks characteristic of melee weapons used by this unit for the rest of the battle.
+        If the enemy unit was a HERO or Monster, add 1 to the Attacks characteristic of melee weapons used by this unit for the rest of the battle.
 
-        If the enemy unit had a Wounds characteristic of 3 or more and was not a Hero or Monster, add 1 to run and charge rolls for this unit for the rest of the battle.
+        If the enemy unit had a Wounds characteristic of 3 or more and was not a HERO or Monster, add 1 to run and charge rolls for this unit for the rest of the battle.
 
         If the enemy unit had a Wounds characteristic of 2 or less, you can heal 1 wound allocated to this unit.`,
         when: [WOUND_ALLOCATION_PHASE],
@@ -445,7 +445,7 @@ const Units = {
       StormBlastEffect,
       {
         name: `Furious Retribution`,
-        desc: `Once per battle, this unit can issue the All-out Attack command (core rules, 13.4) to a friendly Stormcast Eternals unit without a command point being spent.`,
+        desc: `Once per battle, this unit can issue the All-out Attack command (core rules, 13.4) to a friendly STORMCAST ETERNALS unit without a command point being spent.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       ImpalingStrikesEffect,
@@ -459,7 +459,7 @@ const Units = {
       SigmariteThundershieldEffect,
       {
         name: `Lord of the Host`,
-        desc: `Once per battle, this unit can issue a command to a friendly Stormcast Eternals unit wholly within 12" of this unit without a command point being spent.`,
+        desc: `Once per battle, this unit can issue a command to a friendly STORMCAST ETERNALS unit wholly within 12" of this unit without a command point being spent.`,
         when: [DURING_GAME],
       },
     ],
@@ -469,7 +469,7 @@ const Units = {
       InescapableVengeanceEffect,
       {
         name: `Furious Retribution`,
-        desc: `Once per battle, this unit can issue the All-out Attack command (core rules, 13.4) to a friendly Stormcast Eternals unit without a command point being spent.`,
+        desc: `Once per battle, this unit can issue the All-out Attack command (core rules, 13.4) to a friendly STORMCAST ETERNALS unit without a command point being spent.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -478,9 +478,9 @@ const Units = {
     effects: [
       {
         name: `Warding Lantern`,
-        desc: `In your hero phase, you can either pick 1 friendly Stormcast Eternals unit wholly within 1 8" of this unit or 1 enemy unit wholly within 18" of this unit.
+        desc: `In your hero phase, you can either pick 1 friendly STORMCAST ETERNALS unit wholly within 1 8" of this unit or 1 enemy unit wholly within 18" of this unit.
 
-        If you pick a friendly Stormcast Eternals unit, add 1 to save rolls for attacks that target that unit until your next hero phase.
+        If you pick a friendly STORMCAST ETERNALS unit, add 1 to save rolls for attacks that target that unit until your next hero phase.
 
         If you pick an enemy unit, roll a dice. On a 2+, the target suffers D3 mortal wounds. The same unit cannot be affected by this ability more than once per turn.`,
         when: [HERO_PHASE],
@@ -496,7 +496,7 @@ const Units = {
       },
       {
         name: `Warning Cry`,
-        desc: `If an enemy reserve unit or summoned unit (core rules, 3.1) is set up on the battlefield for the first time within 12" of this unit, you can pick up to 3 friendly Stormcast Eternals units wholly within 12" of this unit to shoot. Any shooting attacks made by a Stormcast Eternals unit picked with this ability must target that reserve unit or summoned unit.`,
+        desc: `If an enemy reserve unit or summoned unit (core rules, 3.1) is set up on the battlefield for the first time within 12" of this unit, you can pick up to 3 friendly STORMCAST ETERNALS units wholly within 12" of this unit to shoot. Any shooting attacks made by a STORMCAST ETERNALS unit picked with this ability must target that reserve unit or summoned unit.`,
         when: [DURING_GAME],
       },
       {
@@ -510,7 +510,7 @@ const Units = {
     effects: [
       {
         name: `Relic Censer`,
-        desc: `Each time a friendly Stormcast Eternals unit wholly within 12" of this unit is affected by a prayer or the abilities of an invocation, you can roll a dice. On a 4+, ignore the effect of that prayer or the effects of that invocation's abilities on that unit.`,
+        desc: `Each time a friendly STORMCAST ETERNALS unit wholly within 12" of this unit is affected by a prayer or the abilities of an invocation, you can roll a dice. On a 4+, ignore the effect of that prayer or the effects of that invocation's abilities on that unit.`,
         when: [HERO_PHASE, END_OF_HERO_PHASE],
       },
     ],
@@ -581,7 +581,7 @@ const Units = {
     effects: [
       {
         name: `The Light of Sigmar`,
-        desc: `Once per turn, at the end of the charge phase, you can pick 1 enemy unit within 9" of this unit. Add 1 to hit rolls for attacks made by friendly Stormcast Eternals units that target that enemy unit in the following combat phase.`,
+        desc: `Once per turn, at the end of the charge phase, you can pick 1 enemy unit within 9" of this unit. Add 1 to hit rolls for attacks made by friendly STORMCAST ETERNALS units that target that enemy unit in the following combat phase.`,
         when: [END_OF_CHARGE_PHASE],
       },
     ],
@@ -602,7 +602,7 @@ const Units = {
     effects: [
       {
         name: `Star-fated Arrow`,
-        desc: `Once per battle, in your shooting phase, you can say that this unit will shoot a star-fated arrow instead of attacking with its missile weapons. If you do so, pick 1 enemy unit within 30" of this unit and roll a dice. On a 3+, the target suffers D3 mortal wounds. If the target is a Hero or Monster, it suffers D6 mortal wounds instead of D3.`,
+        desc: `Once per battle, in your shooting phase, you can say that this unit will shoot a star-fated arrow instead of attacking with its missile weapons. If you do so, pick 1 enemy unit within 30" of this unit and roll a dice. On a 3+, the target suffers D3 mortal wounds. If the target is a HERO or Monster, it suffers D6 mortal wounds instead of D3.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -651,7 +651,7 @@ const Units = {
     effects: [
       {
         name: `Heroic Challenge`,
-        desc: `Add 1 to hit rolls for attacks made by this unit that target a Hero.`,
+        desc: `Add 1 to hit rolls for attacks made by this unit that target a HERO.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -694,7 +694,7 @@ const Units = {
       },
       {
         name: `Pennant of the Stormbringer`,
-        desc: `If this unit carries a Pennant of the Stormbringer, once per battle, at the end of your movement phase, you can pick 1 friendly Stormcast Eternals unit on the battlefield. Remove that unit from the battlefield and set it up again on the battlefield more than 9" from all enemy units.`,
+        desc: `If this unit carries a Pennant of the Stormbringer, once per battle, at the end of your movement phase, you can pick 1 friendly STORMCAST ETERNALS unit on the battlefield. Remove that unit from the battlefield and set it up again on the battlefield more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       SoulChargedIconEffect,
@@ -704,7 +704,7 @@ const Units = {
     effects: [
       {
         name: `The Banner of the Reforged`,
-        desc: `Once per battle, in your hero phase, you can pick up to 3 friendly Stormcast Eternals units wholly within 12" of this unit to be affected by the banner's energy (you can pick the same unit multiple times).
+        desc: `Once per battle, in your hero phase, you can pick up to 3 friendly STORMCAST ETERNALS units wholly within 12" of this unit to be affected by the banner's energy (you can pick the same unit multiple times).
 
         If you pick a unit once with this ability, you can heal up to D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of D3 or less. If you pick a unit twice with this ability, you can heal up to 2D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of 2D3 or less. If you pick a unit three times with this ability, you can heal up to 3D3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of 3D3 or less.`,
         when: [HERO_PHASE],
@@ -1107,7 +1107,7 @@ const Units = {
     effects: [
       {
         name: `Aura of Purity`,
-        desc: `Friendly Hallowed Knights units wholly within 12" of this unit have a ward of 5+.`,
+        desc: `Friendly HALLOWED KNIGHTS units wholly within 12" of this unit have a ward of 5+.`,
         when: [WARDS_PHASE],
       },
       {
@@ -1117,7 +1117,7 @@ const Units = {
       },
       {
         name: `Saintly Assault`,
-        desc: `Once per battle, at the start of your charge phase, you can declare a saintly assault. If you do so, until the end of that turn, you can reroll charge rolls for friendly Hallowed Knights units wholly within 12" of this unit and add 1 to the Attacks characteristic of melee weapons used by friendly Hallowed Knights Heroes wholly within 12" of this unit.`,
+        desc: `Once per battle, at the start of your charge phase, you can declare a saintly assault. If you do so, until the end of that turn, you can reroll charge rolls for friendly HALLOWED KNIGHTS units wholly within 12" of this unit and add 1 to the Attacks characteristic of melee weapons used by friendly HALLOWED KNIGHTS HEROES wholly within 12" of this unit.`,
         when: [START_OF_CHARGE_PHASE],
       },
     ],
@@ -1126,7 +1126,7 @@ const Units = {
     effects: [
       {
         name: `The Prime Huntress`,
-        desc: `If any enemy Monsters are within 3" of this unit, add 10 to the number of wounds suffered by those Monsters when determining which row on their damage table to use.`,
+        desc: `If any enemy MONSTERS are within 3" of this unit, add 10 to the number of wounds suffered by those MONSTERS when determining which row on their damage table to use.`,
         when: [DURING_GAME],
       },
       {
@@ -1136,12 +1136,12 @@ const Units = {
       },
       {
         name: `Dazzling Radiance`,
-        desc: `Once per turn in your hero phase, if this unit is on the battlefield, you can return 1 slain model to each friendly Stormcast Eternals unit with a Wounds characteristic of 3 or less that is wholly within 12" of this unit.`,
+        desc: `Once per turn in your hero phase, if this unit is on the battlefield, you can return 1 slain model to each friendly STORMCAST ETERNALS unit with a Wounds characteristic of 3 or less that is wholly within 12" of this unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `Hawk of the Celestial Skies`,
-        desc: `Do not take battleshock tests for friendly Stormcast Eternals and Cities of Sigmar units wholly within 12" of this unit.`,
+        desc: `Do not take battleshock tests for friendly STORMCAST ETERNALS and Cities of Sigmar units wholly within 12" of this unit.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -1155,7 +1155,7 @@ const Units = {
       },
       {
         name: `Guided by Lightning`,
-        desc: `Once per turn, at the end of your movement phase, if any friendly units with this ability are on the battlefield, you can say that they will guide the arrival of Sigmar's warriors. If you do so, pick 1 friendly Stormcast Eternals Thunderstrike unit with a Wounds characteristic of 3 or less that is in reserve. When you use the Scions of the Storm allegiance ability to set up that unit on the battlefield in that phase, you can set it up more than 7" from all enemy units instead of more than 9".`,
+        desc: `Once per turn, at the end of your movement phase, if any friendly units with this ability are on the battlefield, you can say that they will guide the arrival of Sigmar's warriors. If you do so, pick 1 friendly STORMCAST ETERNALS Thunderstrike unit with a Wounds characteristic of 3 or less that is in reserve. When you use the Scions of the Storm allegiance ability to set up that unit on the battlefield in that phase, you can set it up more than 7" from all enemy units instead of more than 9".`,
         when: [END_OF_MOVEMENT_PHASE],
       },
     ],
@@ -1169,18 +1169,18 @@ const Units = {
       },
       {
         name: `Soul-forged Guardians`,
-        desc: `At the start of the first battle round, before determining who has the first turn, you can pick 1 friendly Stormcast Eternals Hero on the battlefield to which this unit will be bound (the same Hero cannot have more than 1 unit of Praetors bound to it at any time).
+        desc: `At the start of the first battle round, before determining who has the first turn, you can pick 1 friendly STORMCAST ETERNALS HERO on the battlefield to which this unit will be bound (the same HERO cannot have more than 1 unit of Praetors bound to it at any time).
 
-        Before you allocate a wound or mortal wound to that Hero, or instead of making a ward roll for a wound or mortal wound that would be allocated to that Hero, if that Hero is within 3" of this unit, you can roll a dice.
+        Before you allocate a wound or mortal wound to that HERO, or instead of making a ward roll for a wound or mortal wound that would be allocated to that HERO, if that HERO is within 3" of this unit, you can roll a dice.
 
-        On a 1-2, that wound or mortal wound is allocated to that Hero as normal. On a 3-4, that wound or mortal wound is allocated to this unit instead of that Hero. On a 5-6, that wound or mortal wound is negated.`,
+        On a 1-2, that wound or mortal wound is allocated to that HERO as normal. On a 3-4, that wound or mortal wound is allocated to this unit instead of that HERO. On a 5-6, that wound or mortal wound is negated.`,
         when: [TURN_ONE_START_OF_ROUND],
       },
       {
         name: `Soul-forged Guardians`,
-        desc: `Before you allocate a wound or mortal wound to that Hero, or instead of making a ward roll for a wound or mortal wound that would be allocated to that Hero, if that Hero is within 3" of this unit, you can roll a dice.
+        desc: `Before you allocate a wound or mortal wound to that HERO, or instead of making a ward roll for a wound or mortal wound that would be allocated to that HERO, if that HERO is within 3" of this unit, you can roll a dice.
 
-        On a 1-2, that wound or mortal wound is allocated to that Hero as normal. On a 3-4, that wound or mortal wound is allocated to this unit instead of that Hero. On a 5-6, that wound or mortal wound is negated.`,
+        On a 1-2, that wound or mortal wound is allocated to that HERO as normal. On a 3-4, that wound or mortal wound is allocated to this unit instead of that HERO. On a 5-6, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -1310,8 +1310,9 @@ const Units = {
       DraggedIntoTheTempestEffect,
       {
         name: `Draconic Onslaught`,
-        desc: `Once per battle, in your hero phase, this unit can make a normal move. Roll a dice if any enemy units are within 12" of this unit after that normal move. On a 2+, this unit can immediately attempt a charge.`,
-        when: [HERO_PHASE],
+        desc: `Once per battle, in your charge phase, you can say that this unit will unleash its draconic onslaught. If you do so, you can reroll charge rolls for this unit in that phase.`,
+        when: [CHARGE_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_STORMCAST_ETERNALS, rule_sources.ERRATA_JULY_2022],
       },
     ],
   },

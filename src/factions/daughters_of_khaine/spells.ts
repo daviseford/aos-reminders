@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Spells = {
   // Lore of Shadows
@@ -25,8 +26,9 @@ const Spells = {
     effects: [
       {
         name: `Mirror Dance`,
-        desc: `Casting value of 6 and a range of 18". Pick 2 friendly DAUGHTERS OF KHAINE HEROES that are wholly within range, visible to the caster and each more than 3" from all enemy units. Remove those HEROES from the battlefield. Then, set each model up again within 1" of the location that had been occupied by the other model before it was removed from the battlefield and more than 3" from all enemy units.`,
+        desc: `Casting value of 6 and a range of 18". Pick 2 friendly DAUGHTERS OF KHAINE HEROES that are wholly within range, visible to the caster and each more than 3" from all enemy units. Remove those HEROES from the battlefield. Then, set each model up again within 1" of the location that had been occupied by the other model before it was removed from the battlefield and more than 3" from all enemy units. If it is not possible to set up either of the picked HEROES on the battlefield, return both HEROES to their original positions.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_JULY_2022],
       },
     ],
   },

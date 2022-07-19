@@ -1,6 +1,7 @@
 import { keyPicker } from 'factions/metatagger'
 import { OSSIARCH_BONEREAPERS } from 'meta/factions'
 import LegionsOfNagashUnits from '../legions_of_nagash/units'
+import NighthauntUnits from '../nighthaunt/units'
 import Artifacts from './artifacts'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -27,10 +28,8 @@ const subFactions = {
       spells: [Spells],
       units: [
         Units,
-        keyPicker(LegionsOfNagashUnits, [
-          'Arkhan the Black, Mortarch of Sacrament',
-          'Nagash, Supreme Lord of the Undead',
-        ]),
+        keyPicker(LegionsOfNagashUnits, ['Arkhan the Black, Mortarch of Sacrament']),
+        keyPicker(NighthauntUnits, ['Nagash, Supreme Lord of the Undead']),
       ],
     },
   },

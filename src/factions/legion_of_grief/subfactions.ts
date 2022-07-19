@@ -31,7 +31,6 @@ const subFactions = {
           'Morghast Archai',
           'Morghast Harbingers',
           'Mortis Engine',
-          'Nagash, Supreme Lord of the Undead',
           'Necromancer',
           'Neferata, Mortarch of Blood',
           'Skeleton Warriors',

@@ -124,7 +124,7 @@ export const LegacyHighElvesUnits = {
       },
       {
         name: `Ancient Dignity`,
-        desc: `This unit does not need to take a battleshock test if it is within 16" of any friendly Order Draconis Hero.`,
+        desc: `This unit does not need to take a battleshock test if it is within 16" of any friendly ORDER DRACONIS HERO.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
