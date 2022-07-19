@@ -78,7 +78,7 @@ const Spells = {
     effects: [
       {
         name: `Madness`,
-        desc: `Casting value of 8 and a range of 3". Pick 1 enemy Hero within range and visible to the caster and roll a number of dice equal to the combined value of the Attacks characteristics of all melee weapons with which that Hero is armed. For each 4+, you can pick 1 enemy unit within 3" of that Hero to suffer 1 mortal wound (you can pick different units to suffer the mortal wounds if you wish).`,
+        desc: `Casting value of 8 and a range of 3". Pick 1 enemy HERO within range and visible to the caster and roll a number of dice equal to the combined value of the Attacks characteristics of all melee weapons with which that HERO is armed. For each 4+, you can pick 1 enemy unit within 3" of that HERO to suffer 1 mortal wound (you can pick different units to suffer the mortal wounds if you wish).`,
         when: [HERO_PHASE],
       },
     ],
@@ -123,7 +123,7 @@ const Spells = {
     effects: [
       {
         name: `Dreaded Death Frenzy`,
-        desc: `Casting value of 7 and a range of 13". Pick up to D3 friendly Skaven units wholly within range and visible to the caster. Until your next hero phase, if any models in that unit are slain, those models can fight before they are removed from play.`,
+        desc: `Casting value of 7 and a range of 13". Pick up to D3 friendly SKAVEN units wholly within range and visible to the caster. Until your next hero phase, if any models in that unit are slain, those models can fight before they are removed from play.`,
         when: [HERO_PHASE],
       },
     ],
@@ -150,7 +150,7 @@ const Spells = {
     effects: [
       {
         name: `Dreaded Skitterleap`,
-        desc: `Casting value of 6 and a range of 18". Pick 1 friendly Skaven Hero with a Wounds characteristic of 13 or less within range and visible to the caster. Remove that Hero from the battlefield and set it up again on the battlefield more than 6" from all enemy units. That Hero cannot move in the following movement phase.`,
+        desc: `Casting value of 6 and a range of 18". Pick 1 friendly SKAVEN HERO with a Wounds characteristic of 13 or less within range and visible to the caster. Remove that HERO from the battlefield and set it up again on the battlefield more than 6" from all enemy units. That HERO cannot move in the following movement phase.`,
         when: [HERO_PHASE],
       },
     ],

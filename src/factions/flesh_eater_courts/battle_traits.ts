@@ -1,14 +1,16 @@
 import { tagAs } from 'factions/metatagger'
 import { FLESH_EATER_COURTS } from 'meta/factions'
-import { DURING_GAME, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import { DURING_GAME, HERO_PHASE, WARDS_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
   [FLESH_EATER_COURTS]: {
     effects: [
       {
         name: `Deathless Courtiers`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a friendly FLESH-EATER COURTS unit wholly within 12" of a friendly FLESH-EATER COURTS HERO. On a 6 that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `Friendly FLESH-EATER COURTS units have a ward of 6+.`,
+        when: [WARDS_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_FLESH_EATER_COURTS, rule_sources.ERRATA_JULY_2022],
       },
       {
         name: `Courts of Delusion`,
@@ -17,7 +19,7 @@ const BattleTraits = {
       },
       {
         name: `Muster Abilities`,
-        desc: `Several Flesh-eater Courts abilities allow you to return slain models to a unit. When you do so, set up the models one at a time within 1" of a model from the unit they are returning to (this can be a model you returned to the unit earlier in the same phase). The slain models you return to a unit can only be set up within 3" of an enemy unit if one or more models from the unit they are returning to are already within 3" of an enemy unit.`,
+        desc: `Several FLESH-EATER COURTS abilities allow you to return slain models to a unit. When you do so, set up the models one at a time within 1" of a model from the unit they are returning to (this can be a model you returned to the unit earlier in the same phase). The slain models you return to a unit can only be set up within 3" of an enemy unit if one or more models from the unit they are returning to are already within 3" of an enemy unit.`,
         when: [HERO_PHASE],
       },
     ],

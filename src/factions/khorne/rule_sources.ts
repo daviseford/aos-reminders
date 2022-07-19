@@ -22,6 +22,11 @@ const rule_sources = {
     name: 'White Dwarf (March 2022)',
     type: 'white_dwarf',
   },
+  ERRATA_JULY_2022: {
+    name: 'Errata (July 2022)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/2r41eEgPUgZQCUrG.pdf',
+  },
 }
 
 export default rule_sources

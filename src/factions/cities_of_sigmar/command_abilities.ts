@@ -158,8 +158,9 @@ const CommandAbilities = {
     effects: [
       {
         name: `Strike then Melt Away`,
-        desc: `Pick 1 friendly LIVING CITY unit that shot in that phase, is more than 9" from any enemy units and is wholly within 18" of af riendly LIVING CITY HERO. That unit can make a normal move (it cannot run). A unit cannot benefit from this command ability more than once per phase.`,
+        desc: `You can use this command ability at the end of your shooting phase. If you do so, pick 1 friendly LIVING CITY unit that shot in that phase, is more than 9" from any enemy units and is wholly within 18" of a friendly LIVING CITY HERO. That unit can make a normal move (it cannot run), but it cannot finish that move within 9" of any enemy units. A unit cannot benefit from this command ability more than once per phase.`,
         when: [END_OF_SHOOTING_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2022],
       },
     ],
   },

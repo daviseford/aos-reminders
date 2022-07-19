@@ -466,7 +466,7 @@ const Units = {
       },
       {
         name: `Legendary Looter`,
-        desc: `At the start of the combat phase, you can pick 1 enemy Hero with an artefact of power enhancement that is within 3" of this unit, and roll 2d6. Add 2 to the roll if Kagey has not been removed, and add 1 to the roll for each other minion that has not been removed. If the roll is 12+, that enemy Hero cannot use that artefact of power for the rest of the battle. If the artefact of power modified any of the bearer's characteristics or weapon characteristics, they return to their original values.`,
+        desc: `At the start of the combat phase, you can pick 1 enemy HERO with an artefact of power enhancement that is within 3" of this unit, and roll 2d6. Add 2 to the roll if Kagey has not been removed, and add 1 to the roll for each other minion that has not been removed. If the roll is 12+, that enemy HERO cannot use that artefact of power for the rest of the battle. If the artefact of power modified any of the bearer's characteristics or weapon characteristics, they return to their original values.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {

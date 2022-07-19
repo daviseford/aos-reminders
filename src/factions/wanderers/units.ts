@@ -219,7 +219,7 @@ const Units = {
       StandardBearerEffect,
       {
         name: `Guardians of the Kindreds`,
-        desc: `Rangers' Draichs inflict D3 Damage on Monsters instead of 1.`,
+        desc: `Rangers' Draichs inflict D3 Damage on MONSTERS instead of 1.`,
         when: [COMBAT_PHASE],
       },
       {

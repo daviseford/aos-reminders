@@ -73,7 +73,7 @@ const GallantEffect = {
 }
 
 export const LegacyBretonnianUnits = {
-  'Bretonnian Lord': {
+  'BRETONNIAN Lord': {
     effects: [
       {
         name: `Dragonbane`,
@@ -98,17 +98,17 @@ export const LegacyBretonnianUnits = {
     effects: [
       {
         name: `Soothing Aura`,
-        desc: `In your hero phase, you can heal 1 wound allocated to a friendly Bretonnian model that is within 6" of this model.`,
+        desc: `In your hero phase, you can heal 1 wound allocated to a friendly BRETONNIAN model that is within 6" of this model.`,
         when: [HERO_PHASE],
       },
       {
         name: `Wizard`,
-        desc: `A Damsel is a wizard. She can attempt to cast one spell in each of your hero phases, and attempt to unbind one spell in each enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Divine Blessing spells.`,
+        desc: `A Damsel is a WIZARD. She can attempt to cast one spell in each of your hero phases, and attempt to unbind one spell in each enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Divine Blessing spells.`,
         when: [HERO_PHASE],
       },
       {
         name: `Divine Blessing`,
-        desc: `Casting value of 5. Pick a friendly Bretonnian unit that is within 16" of the caster. Until your next hero phase, roll a D6 each time you allocate a wound or mortal wound to that unit. Add 1 to the dice roll if the unit has Nobility keyword. On a roll of 6+, the wound is negated and has no effect.`,
+        desc: `Casting value of 5. Pick a friendly BRETONNIAN unit that is within 16" of the caster. Until your next hero phase, roll a D6 each time you allocate a wound or mortal wound to that unit. Add 1 to the dice roll if the unit has Nobility keyword. On a roll of 6+, the wound is negated and has no effect.`,
         when: [HERO_PHASE],
         spell: true,
       },
@@ -164,13 +164,13 @@ export const LegacyBretonnianUnits = {
       },
       {
         name: `Divine Favour`,
-        desc: `Casting value of 6. Pick a friendly Bretonnian unit that is visible to the caster and within 16" of them. Until your next hero phase, add 1 to hit rolls for that unit's melee weapons.`,
+        desc: `Casting value of 6. Pick a friendly BRETONNIAN unit that is visible to the caster and within 16" of them. Until your next hero phase, add 1 to hit rolls for that unit's melee weapons.`,
         when: [HERO_PHASE],
         spell: true,
       },
       {
         name: `Wizard`,
-        desc: `An Enchantress is a wizard. She can attempt to cast two spells in each of your own hero phases, and attempt to unbind two spells in each enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Divine Favour spells.`,
+        desc: `An Enchantress is a WIZARD. She can attempt to cast two spells in each of your own hero phases, and attempt to unbind two spells in each enemy hero phase. She knows the Arcane Bolt, Mystic Shield and Divine Favour spells.`,
         when: [HERO_PHASE],
       },
     ],
@@ -213,7 +213,7 @@ export const LegacyBretonnianUnits = {
     effects: [
       {
         name: `Regal Crown`,
-        desc: `Do not take battleshock tests for friendly Bretonnian units while they are within 24" of this model.`,
+        desc: `Do not take battleshock tests for friendly BRETONNIAN units while they are within 24" of this model.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -228,7 +228,7 @@ export const LegacyBretonnianUnits = {
       },
       {
         name: `Sword of the King`,
-        desc: `Reroll failed hit rolls for the Sword of the King if the target is a Hero or Monster.`,
+        desc: `Reroll failed hit rolls for the Sword of the King if the target is a HERO or MONSTER.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -238,7 +238,7 @@ export const LegacyBretonnianUnits = {
       },
       {
         name: `King of the Realm`,
-        desc: `If this model uses this ability, then in your next combat phase add 1 to hit rolls for friendly Nobility units within 24" of this model that made a charge move in the same turn.`,
+        desc: `If this model uses this ability, then in your next combat phase add 1 to hit rolls for friendly NOBILITY units within 24" of this model that made a charge move in the same turn.`,
         when: [HERO_PHASE],
         command_ability: true,
       },

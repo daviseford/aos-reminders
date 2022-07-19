@@ -35,7 +35,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Infernos of Mutation`,
-        desc: `You can use this command ability in the shooting phase. If you do so, pick 1 friendly Eternal Conflagration Daemon unit wholly within 12" of a friendly Daemon Hero. If the unmodified hit roll for any attack made by that unit's Warpflame, Billowing Warpflame, or Magical Flames missile weapons is 6, subtract 2 from the Bravery characteristic of the target unit until the end of the battle round. A unit cannot benefit from this command ability more than once per turn.`,
+        desc: `You can use this command ability in the shooting phase. If you do so, pick 1 friendly Eternal Conflagration Daemon unit wholly within 12" of a friendly DAEMON HERO. If the unmodified hit roll for any attack made by that unit's Warpflame, Billowing Warpflame, or Magical Flames missile weapons is 6, subtract 2 from the Bravery characteristic of the target unit until the end of the battle round. A unit cannot benefit from this command ability more than once per turn.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -45,7 +45,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Impossible to Anticipate`,
-        desc: `You can use this command ability once per battle after a friendly HOSTS DUPLICITOUS HORRORS OF TZEENTCH unit is destroyed. If you do so, roll a dice. On a 5+, add a new HOSTS DUPLICITOUS HORRORS OF TZEENTCH unit with 10 models to your army. Set up the new unit wholly within 12" of a friendly HOSTS DUPLICITOUS Hero and more than 9" from all enemy units.`,
+        desc: `You can use this command ability once per battle after a friendly HOSTS DUPLICITOUS HORRORS OF TZEENTCH unit is destroyed. If you do so, roll a dice. On a 5+, add a new HOSTS DUPLICITOUS HORRORS OF TZEENTCH unit with 10 models to your army. Set up the new unit wholly within 12" of a friendly HOSTS DUPLICITOUS HERO and more than 9" from all enemy units.`,
         when: [WOUND_ALLOCATION_PHASE],
         rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_JULY_2021],
       },
@@ -86,7 +86,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Immolate`,
-        desc: `You can use this command ability in your shooting phase. Pick 1 friendly Kairic Acolyte unit wholly within 12" of a friendly Pryofane Cult Hero. You can reroll wound rolls for attacks made by that unit until the end of that phase.`,
+        desc: `You can use this command ability in your shooting phase. Pick 1 friendly Kairic Acolyte unit wholly within 12" of a friendly Pryofane Cult HERO. You can reroll wound rolls for attacks made by that unit until the end of that phase.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -96,7 +96,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Will of the Arcane Lords`,
-        desc: `You can use this command ability in your hero phase. If you do so, pick a friendly Guild of Summoners Wizard wholly within 9" of a friendly Guild of Summoners Hero or wholly within 18" of a friendly HERO that is a general. Add 1 to casting rolls for that Wizard until the end of that phase. A unit cannot benefit from this command ability more than once per turn.`,
+        desc: `You can use this command ability in your hero phase. If you do so, pick a friendly Guild of Summoners Wizard wholly within 9" of a friendly Guild of Summoners HERO or wholly within 18" of a friendly HERO that is a general. Add 1 to casting rolls for that Wizard until the end of that phase. A unit cannot benefit from this command ability more than once per turn.`,
         when: [HERO_PHASE],
       },
     ],

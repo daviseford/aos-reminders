@@ -249,7 +249,7 @@ const Spells = {
     effects: [
       {
         name: `Erasure`,
-        desc: `Casting value of 7. Pick 1 enemy HERO within 24" of the caster. You can either inflict D3 mortal wounds on that Hero or mark them for erasure. If the HERO is already marked for erasure, they instead suffer D6 mortal wounds and are no longer marked for erasure.`,
+        desc: `Casting value of 7. Pick 1 enemy HERO within 24" of the caster. You can either inflict D3 mortal wounds on that HERO or mark them for erasure. If the HERO is already marked for erasure, they instead suffer D6 mortal wounds and are no longer marked for erasure.`,
         when: [HERO_PHASE],
         rule_sources: [
           lumineth_rule_sources.BATTLETOME_LUMINETH,
@@ -262,7 +262,7 @@ const Spells = {
     effects: [
       {
         name: `Greater Power of Hysh`,
-        desc: `Casting value of 7. Pick up to D3 LUMINETH REALM-LORDS units with the Sunmetal Weapons ability wholly within 18" and visible to the caster. Until your next Hero Phase, the Sunmetal Weapons ability for the units affected cause mortal wounds to be inflicted on an unmodified hit roll of 5+ instead of 6.`,
+        desc: `Casting value of 7. Pick up to D3 LUMINETH REALM-LORDS units with the Sunmetal Weapons ability wholly within 18" and visible to the caster. Until your next hero phase, the Sunmetal Weapons ability for the units affected cause mortal wounds to be inflicted on an unmodified hit roll of 5+ instead of 6.`,
         when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],

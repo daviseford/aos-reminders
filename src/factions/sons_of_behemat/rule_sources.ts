@@ -26,6 +26,11 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2020/11/JVwZBkal7nIn0oma.pdf',
   },
+  ERRATA_JULY_2022: {
+    name: 'Errata (July 2022)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2020/11/UAXqGclWKSPiDS3F.pdf',
+  },
 }
 
 export default rule_sources

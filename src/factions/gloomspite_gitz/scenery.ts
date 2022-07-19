@@ -34,6 +34,12 @@ const Scenery = {
           meta_rule_sources.ERRATA_BROKEN_REALMS_KRAGNOS_JULY_2021,
         ],
       },
+      {
+        name: `Effigy of Da Bad Moon`,
+        desc: `GLOOMSPITE GITZ units are affected by the light of the Bad Moon while they are wholly within 12" of this terrain feature.`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.ERRATA_JULY_2022],
+      },
     ],
   },
 }

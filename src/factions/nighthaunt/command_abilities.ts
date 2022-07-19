@@ -28,7 +28,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Death Magic Incarnate`,
-        desc: `You can use this command ability if this unit is on the battlefield at the start of the combat phase. The unit that receives this command must be a different friendly Death unit. Add 1 to ward rolls for that unit until the end of that phase.`,
+        desc: `You can use this command ability if this unit is on the battlefield at the start of the combat phase. The unit that receives this command must be a different friendly DEATH unit. Add 1 to ward rolls for that unit until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

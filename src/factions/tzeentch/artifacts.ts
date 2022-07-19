@@ -28,7 +28,7 @@ const Artifacts = {
     effects: [
       {
         name: `Changeblade`,
-        desc: `Pick 1 of the bearer's melee weapons. Each time an enemy HERO is slain by attacks made with that weapon, after all of the bearer's attacks have been resolved and before removing the slain model, you can add 1 Tzeentch Chaos Spawn to your army. Set up the Tzeentch chaos spawn within 1" of the slain Hero.`,
+        desc: `Pick 1 of the bearer's melee weapons. Each time an enemy HERO is slain by attacks made with that weapon, after all of the bearer's attacks have been resolved and before removing the slain model, you can add 1 Tzeentch Chaos Spawn to your army. Set up the Tzeentch chaos spawn within 1" of the slain HERO.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -130,7 +130,7 @@ const Artifacts = {
     effects: [
       {
         name: `Souleater`,
-        desc: `Pick 1 of the bearer's melee weapons. If any enemy Heroes are slain by attacks made with that weapon, after all of the bearer's attacks have been resolved, add 1 to that weapon's Attacks characteristic for the rest of the battle.`,
+        desc: `Pick 1 of the bearer's melee weapons. If any enemy HEROES are slain by attacks made with that weapon, after all of the bearer's attacks have been resolved, add 1 to that weapon's Attacks characteristic for the rest of the battle.`,
         when: [COMBAT_PHASE],
       },
     ],

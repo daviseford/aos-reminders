@@ -20,8 +20,9 @@ const BattleTraits = {
     effects: [
       {
         name: `Blood for the Blood God!`,
-        desc: `At the start of the hero phase, you can use 1 or more Blood Tithe points to receive 1 reward from the Blood Tithe Rewards table below. Immediately carry out that reward's effect. Each reward costs a number of points, as shown on the Blood Tithe Rewards table, and you can only receive a reward if you have enough Blood Tithe points to pay its cost. Note that Blood Tithe points can be spent to receive the Spelleater Curse reward at any point during the hero phase, instead of at the start of the hero phase. If you choose a reward, after resolving its effects your Blood Tithe points total is reset to zero.`,
+        desc: `At the start of the hero phase, you can use 1 or more Blood Tithe points to receive 1 reward from the Blood Tithe Rewards table below. Immediately carry out that reward's effect. Each reward costs a number of points, as shown on the Blood Tithe Rewards table, and you can only receive a reward if you have enough Blood Tithe points to pay its cost. Note that Blood Tithe points can be spent to receive the Spelleater Curse reward at any point during the hero phase, instead of at the start of the hero phase.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_JULY_2022],
       },
       {
         name: `Blood Tithe: Bloody Exemplar`,
@@ -90,10 +91,9 @@ const BattleTraits = {
       },
       {
         name: `Summon Daemons of Khorne`,
-        desc: `If you have 2 or more Blood Tithe points at the end of your movement phase, you can summon one or more units onto the battlefield. If you summon any units in this manner, your Blood Tithe points total is reset to zero immediately after the last unit has been set up (you cannot save any Blood Tithe points you did not use).
-
-        Summoned units must be set up wholly within 12" of a friendly KHORNE HERO or SKULL ALTAR and more than 9" away from any enemy units.`,
+        desc: `If you have 2 or more Blood Tithe points at the end of your movement phase, you can summon one or more units onto the battlefield. Summoned units must be set up wholly within 12" of a friendly KHORNE HERO or SKULL ALTAR and more than 9" away from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_JULY_2022],
       },
       {
         name: `Summon Daemons of Khorne`,

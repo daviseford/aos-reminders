@@ -25,7 +25,7 @@ const BattleTraits = {
       },
       {
         name: `The Unquiet Dead`,
-        desc: `At the end of your movement phase, for each friendly Death Hero within 9" of a gravesite, you may pick a single friendly unit in the grave and set it up wholly within 9" of the gravesite and more than 9" from any enemy models. Any model that is unable to be set up in this way is slain. If a unit is still in the grave at the end of the battle, it is considered to be slain.`,
+        desc: `At the end of your movement phase, for each friendly DEATH HERO within 9" of a gravesite, you may pick a single friendly unit in the grave and set it up wholly within 9" of the gravesite and more than 9" from any enemy models. Any model that is unable to be set up in this way is slain. If a unit is still in the grave at the end of the battle, it is considered to be slain.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {

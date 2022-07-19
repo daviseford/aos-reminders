@@ -1,5 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -23,6 +24,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
+import rule_sources from './rule_sources'
 import spells from './spells'
 
 const ChillingHordeEffect = {
@@ -53,17 +55,18 @@ export const Nagash = {
     effects: [
       {
         name: `Alakanash, the Staff of Power`,
-        desc: `Add the Staff of Power value shown on this model's damage table to casting, dispelling and unbinding rolls for this model. In addition, this model can attempt to cast Arcane Bolt any number of times in the same hero phase, even if another Wizard has already attempted to cast the spell in that phase.`,
+        desc: `Add the Staff of Power value shown on this unit's damage table to casting, dispelling and unbinding rolls for this unit. In addition, this unit can attempt to cast Arcane Bolt any number of times in the same hero phase, even if another Wizard has already attempted to cast the spell in that phase.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.CROSS_FACTION_HEROES_JULY_2022],
       },
       {
         name: `Invocation of Nagash`,
-        desc: `At the start of your hero phase, if this unit is on the battlefield, you can pick up to 5 different friendly Summonable units or friendly Ossiarch Bonereapers units in any combination. For each of those units, you can either heal up to 3 wounds that have been allocated to that unit or, if no wounds have been allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of 3 or less.`,
+        desc: `At the start of your hero phase, if this unit is on the battlefield, you can pick up to 5 different friendly SUMMONABLE units or friendly OSSIARCH BONEREAPERS units in any combination. For each of those units, you can either heal up to 3 wounds that have been allocated to that unit or, if no wounds have been allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of 3 or less.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Supreme Lord of the Undead`,
-        desc: `If this unit is on the battlefield when you use an ability that returns slain models to a friendly Death unit, you can either reroll the dice that determines the number of slain models returned to that unit or add 1 to the number of slain models that are returned to that unit.`,
+        desc: `If this unit is on the battlefield when you use an ability that returns slain models to a friendly DEATH unit, you can either reroll the dice that determines the number of slain models returned to that unit or add 1 to the number of slain models that are returned to that unit.`,
         when: [DURING_GAME],
       },
       {
@@ -83,8 +86,9 @@ export const Nagash = {
       },
       {
         name: `Wizard`,
-        desc: `This unit can attempt to cast 3 spells in your hero phase and attempt to unbind 3 spells in the enemy hero phase. If this unit is part of a Nighthaunt, Flesh- eater Courts, Ossiarch Bonereapers or Soulblight Gravelords army, it knows all of the spells from the spell lores in that faction's allegiance abilities in addition to the other spells it knows.`,
+        desc: `This unit can attempt to cast 3 spells in your hero phase and attempt to unbind 3 spells in the enemy hero phase. If this unit is part of a Nighthaunt, Flesh-eater Courts, Ossiarch Bonereapers or Soulblight Gravelords army, it knows all of the spells from the spell lores in that faction's allegiance abilities in addition to the other spells it knows.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.CROSS_FACTION_HEROES_JULY_2022],
       },
     ],
   },
@@ -127,7 +131,7 @@ const Units = {
       },
       {
         name: `No Rest For the Wicked`,
-        desc: `Once per battle, at the start of your hero phase, if this unit is on the battlefield, you can return up to D6 slain models to each friendly Nighthaunt Summonable unit on the battlefield (roll separately for each unit).`,
+        desc: `Once per battle, at the start of your hero phase, if this unit is on the battlefield, you can return up to D6 slain models to each friendly NIGHTHAUNT SUMMONABLE unit on the battlefield (roll separately for each unit).`,
         when: [START_OF_HERO_PHASE],
       },
       GenericEffects.WizardTwoSpellsEffect,
@@ -137,7 +141,7 @@ const Units = {
     effects: [
       {
         name: `If I Cannot Rule, None Shall Rule!`,
-        desc: `At the start of each battle round, after the players have received their starting command points, you can roll a dice if this unit is on the battlefield. Add 1 to the roll if this unit is within 6" of any enemy Hero. On a 5+, subtract 1 from your opponent's command points (to a minimum of 0) and add 1 to your command points.`,
+        desc: `At the start of each battle round, after the players have received their starting command points, you can roll a dice if this unit is on the battlefield. Add 1 to the roll if this unit is within 6" of any enemy HERO. On a 5+, subtract 1 from your opponent's command points (to a minimum of 0) and add 1 to your command points.`,
         when: [START_OF_ROUND],
       },
     ],
@@ -164,12 +168,12 @@ const Units = {
     effects: [
       {
         name: `Flickers of Wychlight`,
-        desc: `Once per phase, you can allocate 1 wound or mortal wound that would be allocated to this Hero to a friendly Nighthaunt Summonable unit within 6" of this Hero instead.`,
+        desc: `Once per phase, you can allocate 1 wound or mortal wound that would be allocated to this HERO to a friendly NIGHTHAUNT SUMMONABLE unit within 6" of this HERO instead.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Sentenced to Eternal Torment`,
-        desc: `In your hero phase, you can say that this unit is going to record the name of a judged soul. If you do so, pick 1 enemy Hero that does not have the Death keyword and that is visible to this unit to be the judged soul. At the start of each of your subsequent hero phases, if the judged soul and this unit are on the battlefield, you must make a judgement roll for the judged soul, and this unit cannot record the name of a different judged soul in that phase. In addition, if the battle would end and the judged soul and this unit are on the battlefield, then before the battle ends, you must make a judgement roll for the judged soul.
+        desc: `In your hero phase, you can say that this unit is going to record the name of a judged soul. If you do so, pick 1 enemy HERO that does not have the DEATH keyword and that is visible to this unit to be the judged soul. At the start of each of your subsequent hero phases, if the judged soul and this unit are on the battlefield, you must make a judgement roll for the judged soul, and this unit cannot record the name of a different judged soul in that phase. In addition, if the battle would end and the judged soul and this unit are on the battlefield, then before the battle ends, you must make a judgement roll for the judged soul.
 
         To make a judgement roll, roll a dice. If the roll is less than the number of the current battle round, the judged soul suffers 2D6 mortal wounds. The same unit cannot be picked to be a judged soul more than once in the same battle.`,
         when: [HERO_PHASE],
@@ -191,12 +195,12 @@ const Units = {
       StolenHoursEffect,
       {
         name: `Spectral Overseer`,
-        desc: `Once per battle round, this unit can issue the Redeploy or Unleash Hell command to a friendly Nighthaunt Summonable unit without a command point being spent.`,
+        desc: `Once per battle round, this unit can issue the Redeploy or Unleash Hell command to a friendly NIGHTHAUNT SUMMONABLE unit without a command point being spent.`,
         when: [DURING_GAME],
       },
       {
         name: `Spectral Overseer`,
-        desc: `In the combat phase, when you pick this unit to fight for the first time in that phase, you can pick 1 friendly Nighthaunt Summonable unit wholly within 12" of this unit and that has not yet fought in that phase. This unit and that Nighthaunt Summonable unit can fight one after the other in the order of your choice.`,
+        desc: `In the combat phase, when you pick this unit to fight for the first time in that phase, you can pick 1 friendly NIGHTHAUNT SUMMONABLE unit wholly within 12" of this unit and that has not yet fought in that phase. This unit and that NIGHTHAUNT SUMMONABLE unit can fight one after the other in the order of your choice.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -206,12 +210,12 @@ const Units = {
       StolenHoursEffect,
       {
         name: `Lord of Gheists`,
-        desc: `Once per battle round, this unit can issue the All-out Attack command to a friendly Nighthaunt Summonable unit without a command point being spent.`,
+        desc: `Once per battle round, this unit can issue the All-out Attack command to a friendly NIGHTHAUNT SUMMONABLE unit without a command point being spent.`,
         when: [DURING_GAME],
       },
       {
         name: `Lord of Gheists`,
-        desc: `In the combat phase, when you pick this unit to fight for the first time in that phase, you can pick 1 friendly Nighthaunt Summonable unit wholly within 12" of this unit and that has not yet fought in that phase. This unit and that Nighthaunt Summonable unit can fight one after the other in the order of your choice.`,
+        desc: `In the combat phase, when you pick this unit to fight for the first time in that phase, you can pick 1 friendly NIGHTHAUNT SUMMONABLE unit wholly within 12" of this unit and that has not yet fought in that phase. This unit and that NIGHTHAUNT SUMMONABLE unit can fight one after the other in the order of your choice.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -252,7 +256,7 @@ const Units = {
     effects: [
       {
         name: `Captured Soul Energy`,
-        desc: `At the end of the combat phase, you can pick 1 friendly Nighthaunt Summonable unit wholly within 12" of this unit. You can either heal up to 3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of 3 or less. The same unit cannot benefit from this ability more than once per turn.`,
+        desc: `At the end of the combat phase, you can pick 1 friendly NIGHTHAUNT SUMMONABLE unit wholly within 12" of this unit. You can either heal up to 3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of 3 or less. The same unit cannot benefit from this ability more than once per turn.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -276,8 +280,9 @@ const Units = {
       },
       {
         name: `Curse of Loyalty`,
-        desc: `Once per battle round, if your general issues a command, this unit can issue the same command in the same phase without a command point being spent. If it does so, that command must be received by a friendly Nighthaunt unit.`,
+        desc: `Once per battle round, if your general has the NIGHTHAUNT keyword and issues a command, this unit can issue the same command in the same phase without a command point being spent. If it does so, that command must be received by a friendly NIGHTHAUNT unit.`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_JULY_2022],
       },
     ],
   },
@@ -401,7 +406,7 @@ const Units = {
       GenericEffects.Elite,
       {
         name: `Drawn to War`,
-        desc: `Before you allocate a wound or mortal wound to a friendly Nighthaunt Hero, or instead of making a ward roll for a wound or mortal wound that would be allocated to that Hero, if any friendly units with this ability are within 3" of that Hero, you can roll a dice. On a 3+, that wound or mortal wound is allocated to a friendly unit with this ability instead of that Hero and cannot be negated.`,
+        desc: `Before you allocate a wound or mortal wound to a friendly Nighthaunt HERO, or instead of making a ward roll for a wound or mortal wound that would be allocated to that HERO, if any friendly units with this ability are within 3" of that HERO, you can roll a dice. On a 3+, that wound or mortal wound is allocated to a friendly unit with this ability instead of that HERO and cannot be negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],

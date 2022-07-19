@@ -20,7 +20,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `By My Will`,
-        desc: `This is a command ability that this unit can issue at the start of the combat phase. Another friendly Chaos unit must receive it (this unit cannot issue this command to itself). Until the end of that phase, each time a model in the receiving unit is slain, it can fight.`,
+        desc: `This is a command ability that this unit can issue at the start of the combat phase. Another friendly CHAOS unit must receive it (this unit cannot issue this command to itself). Until the end of that phase, each time a model in the receiving unit is slain, it can fight.`,
         when: [START_OF_COMBAT_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_DECEMBER_2021],
       },
