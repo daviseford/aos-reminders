@@ -110,7 +110,7 @@ const Units = {
       },
       {
         name: `Tranquillity of the Abyss`,
-        desc: `Add 3 to the Bravery characteristic of friendly IDONETH DEEPKIN units while they are wholly within 18" of any friendly models with this ability.`,
+        desc: `Friendly IDONETH DEEPKIN units wholly within 18" of this unit have a Bravery characteristic of 10.`,
         when: [DURING_GAME, BATTLESHOCK_PHASE],
       },
     ],
