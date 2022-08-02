@@ -351,7 +351,7 @@ const Units = {
       },
       {
         name: `Sundering Strikes (Greatswords)`,
-        desc: `If the unmodified wound roll for an attack made with a Kurnoth Greatsword is 6, that attack inflicts 2 mortal wounds on the target and the attack sequence ends.`,
+        desc: `If the unmodified hit roll for an attack made with a Kurnoth Greatsword is 6, that attack inflicts 2 mortal wounds on the target and the attack sequence ends.`,
         when: [COMBAT_PHASE],
       },
     ],
