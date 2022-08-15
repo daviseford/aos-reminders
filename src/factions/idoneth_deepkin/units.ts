@@ -15,6 +15,7 @@ import {
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
   TURN_ONE_START_OF_TURN,
   WARDS_PHASE,
 } from 'types/phases'
@@ -247,6 +248,11 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       GiftsOfTheDepthsEffect,
+      {
+        name: `Fount of Willpower`,
+        desc: `Once per battle, if this unit is on the battlefield at the start of your hero phase, you can pick 1 ritual from the Isharann Rituals table and 1 friendly IDONETH DEEPKIN unit wholly within 12" of this unit. Until your next hero phase, the unit you picked is affected by that ritual in addition to any others it is affected by, even if the Tides of Death ability required for that ritual does not apply.`,
+        when: [START_OF_HERO_PHASE],
+      },
     ],
   },
   'Akhelian Leviadon': {
