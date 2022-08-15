@@ -77,11 +77,13 @@ const GlorySeekersEffects = [
     name: `Glory Seekers`,
     desc: `You can reroll battleshock tests for this unit while it is wholly within 9" of an objective. This ability cannot be used if this unit is part of a garrison.`,
     when: [BATTLESHOCK_PHASE],
+    shared: true,
   },
   {
     name: `Glory Seekers`,
     desc: `You can add 1 to hit rolls for attacks made by this unit while it is wholly within 9" of an objective. This ability cannot be used if this unit is part of a garrison.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
+    shared: true,
   },
 ]
 const getSkyhookEffect = (val: number) => ({
@@ -122,12 +124,28 @@ const SkyminesEffect = {
   name: `Skymines`,
   desc: `If an enemy unit that can fly ends a charge move within 1" of any friendly units with this ability, you can roll 1 dice for each model in that enemy unit. For each 6, that unit suffers 1 mortal wound.`,
   when: [CHARGE_PHASE],
+  shared: true,
 }
 const EndrinmasterHealEffect = (val: '3' | 'D3') => ({
   name: `Endrinmaster`,
   desc: `At the start of your hero phase, you can pick 1 friendly SKYVESSEL within 1" of this model. Heal up to ${val} wounds allocated to that SKYVESSEL.`,
   when: [START_OF_HERO_PHASE],
+  shared: true,
 })
+const AethericNavigatorAndEndinriggerEffects = [
+  {
+    name: `Aetheric Navigator and Endrinrigger`,
+    desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
+    when: [HERO_PHASE],
+    shared: true,
+  },
+  {
+    name: `Aetheric Navigator and Endrinrigger`,
+    desc: `You can reroll run rolls for this model.`,
+    when: [MOVEMENT_PHASE],
+    shared: true,
+  },
+]
 
 const Units = {
   'Endrinmaster with Dirigible Suit': {
@@ -330,6 +348,7 @@ const Units = {
   },
   'Arkanaut Frigate': {
     effects: [
+      ...AethericNavigatorAndEndinriggerEffects,
       BombRacksEffect,
       DisengageEffect,
       ArkanautFlyHighEffect,
@@ -340,16 +359,7 @@ const Units = {
   },
   'Arkanaut Ironclad': {
     effects: [
-      {
-        name: `Aetheric Navigator and Endrinrigger`,
-        desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Aetheric Navigator and Endrinrigger`,
-        desc: `You can reroll run rolls for this model.`,
-        when: [MOVEMENT_PHASE],
-      },
+      ...AethericNavigatorAndEndinriggerEffects,
       BombRacksEffect,
       DisengageEffect,
       ArkanautFlyHighEffect,
