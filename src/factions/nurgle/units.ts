@@ -528,6 +528,20 @@ const Units = {
       TaintedEndlessSpellEffect,
     ],
   },
+  'Rotmire Creed': {
+    effects: [
+      {
+        name: `Witherlord`,
+        desc: `1 in every 10 models in this unit must be a Witherlord. That model has a Wounds characteristic of 2. In addition, Witherlords can issue commands to their own unit.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Virulent Concoctions`,
+        desc: `If this unit is included in a Maggotkin of Nurgle army, each time a disease point is given to an enemy unit from an attack or ability by this unit, each other enemy unit within 3" of that enemy unit is also given 1 disease point.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
 }
 
 export default tagAs(Units, 'unit')
