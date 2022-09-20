@@ -1113,6 +1113,83 @@ const Units = {
       },
     ],
   },
+  'Centaurion Marshal': {
+    effects: [
+      {
+        name: `Skewer, Drag and Bludgeon`,
+        desc: `Each time this unit fights, make the attacks with its Mauling Spear first. Until the end of the phase, add 1 to the Attacks characteristic of its Skull Bludgeon and Varanspire Gladius for each successful hit scored by attacks made with its Mauling Spear.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Gladiator's Net`,
+        desc: `At the start of each combat phase, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 6+, the strike-last effect applies to that enemy unit until the end of the phase. This ability has no effect on enemy units that are Monsters or have more than 5 models.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Marshal of the Legions`,
+        desc: `If this unit issues the Rally command (core rules, 7.2) and an Undivided Mortal unit receives it, you can return 1 slain model to the unit that receives the command for each 5+ instead of each 6.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  'Chaos Legionnaires': {
+    effects: [
+      {
+        name: `Decuriarch`,
+        desc: `1 in every 8 models in this unit must be a Decuriarch. Add 1 to the Attacks characteristic of that model's melee weapons. In addition, Decuriarchs can issue commands to their own unit.`,
+        when: [DURING_GAME, COMBAT_PHASE],
+      },
+      {
+        name: `Mutandor`,
+        desc: `1 in every 8 models in this unit must be a Mutandor. Add 1 to the Attacks characteristic of that model's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Hornhelms`,
+        desc: `3 in every 8 models in this unit must be a Hornhelm. Add 1 to the Damage characteristic of those models' melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Sow Confusion`,
+        desc: `Once per turn, at the start of any phase, you can say this unit will sow confusion. If you do so, pick an enemy unit within 6" of this unit and roll a dice. On a 4+, that unit cannot issue or receive commands in that phase. You cannot pick the same unit as the target for this ability more than once in the same phase.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Devoted of the Dark Creed`,
+        desc: `Add 1 to wound rolls for attacks made by this unit while it is wholly within 12" of a friendly Be'lakor.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Horns of Hashut': {
+    effects: [
+      {
+        name: `Ruinator Alpha`,
+        desc: `1 in every 10 models in this unit must be a Ruinator Alpha. Add 1 to the Attacks characteristic of that model's melee weapons. In addition, Ruinator Alphas can issue commands to their own unit.`,
+        when: [DURING_GAME, COMBAT_PHASE],
+      },
+      {
+        name: `Ruinator`,
+        desc: `1 in every 8 models in this unit must be a Ruinator. Add 1 to the Attacks characteristic of that model's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Demolisher with Flamehurler`,
+        desc: `1 in every 10 models in this unit must be a Demolisher with Flamehurler. A Demolisher with Flamehurler is armed with a Flamehurler and Forge Weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Torrent of Flames`,
+        desc: `The Attacks characteristic of a Flamehurler is equal to the number of models in the target unit (to a maximum Attacks characteristic of 8).`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Stampede of Iron`,
+        desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll 1 dice for each model in this unit. For each 6, that enemy unit suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Units, 'unit')
