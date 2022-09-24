@@ -155,16 +155,16 @@ const Spells = {
     effects: [
       {
         name: `Infernal Gateway`,
-        desc: `Casting value of 7. Pick a visible enemy within 18" of the caster and roll 9 dice. That unit suffers 1 mortal wound for each roll that is equal to or greater than the Infernal Gateway value shown on the caster's damage table.`,
+        desc: `Casting value of 7 and range of 18". Pick 1 enemy unit within range and visible to the caster, and roll 9 dice. That enemy unit suffers 1 mortal wound for each roll that is equal to or greater than the Infernal Gateway value shown on the caster's damage table.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Gift of Change': {
+  "Tzeentch's Firestorm (Fateskimmer)": {
     effects: [
       {
-        name: `Gift of Change`,
-        desc: `Casting value of 8. Pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers a number of mortal wounds equal to the Gift of Change value shown on the caster's damage table. If any models were slain by this spell, before removing the first slain model, you can add a Tzeentch Chaos Spawn to your army and set it up within 3" of the slain model's unit.`,
+        name: `Tzeentch's Firestorm`,
+        desc: `Casting value of 9 and a range of 9". If successfully cast, roll a dice for each enemy unit within range and visible to the caster. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -173,7 +173,7 @@ const Spells = {
     effects: [
       {
         name: `Infernal Flames`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 12" of the caster that is visible to them, and roll 1 dice for each model in that unit. For each 5+, that unit suffers 1 mortal wound. If that unit is a MONSTER or War Machine, roll 3 dice for each model instead.`,
+        desc: `Casting value of 7 and a range of 12". Pick 1 enemy unit within range and visible to the caster. Roll 1 dice for each model in that unit. For each 5+, that unit suffers 1 mortal wound. If that unit is a Monster or War Machine, roll 5 dice for each model instead.`,
         when: [HERO_PHASE],
       },
     ],
@@ -182,7 +182,7 @@ const Spells = {
     effects: [
       {
         name: `Blue Fire of Tzeentch`,
-        desc: `Casting value of 5. Pick 1 enemy unit within 18" of the caster and visible to them, and roll 9 dice. For each 6, that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 8 and a range of 18". Pick 1 enemey unit within range and visible to the caster, and roll 9 dice. For each 5+, that enemy unit suffers 1 mortal wound and the caster's army receives 1 Fate Point if it is a Disciples of Tzeentch Army.`,
         when: [HERO_PHASE],
       },
     ],
@@ -191,7 +191,7 @@ const Spells = {
     effects: [
       {
         name: `Pink Fire of Tzeentch`,
-        desc: `Casting value of 9. Pick an enemy unit within 18" of the caster that is visible and deal D6 mortal wounds.`,
+        desc: `Casting value of 7 and a range of 18". Pick 1 enemy unit within range and visible to the caster. Subtract 1 from save rolls for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -209,7 +209,7 @@ const Spells = {
     effects: [
       {
         name: `Bolt of Change`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers D3 mortal wounds. If any models were slain by this spell, before removing the first slain model, you can add 1 Tzeentch Chaos Spawn to your army and set it up within 3" of the slain model's unit.`,
+        desc: `Casting value of 7 and a range of 18". Pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. You can say that the first enemy model slain by this spell each time it is cast is transformed into a Spawn instead of being slain (pg 65).`,
         when: [HERO_PHASE],
       },
     ],
@@ -218,7 +218,9 @@ const Spells = {
     effects: [
       {
         name: `Glean Magic`,
-        desc: `Casting value of 3. Pick 1 enemy Wizard within 24" of the caster and visible to them. Pick 1 spell from that Wizard's warscroll that is possible for this model to cast and roll a D6. On a 3+, the caster knows that spell for the rest of the battle.`,
+        desc: `Casting value of 4 and a range of 30". If successfully cast, pick 1 enemy Wizard within range and visible to the caster. Pick 1 spell from that Wizard's warscroll that is possible for this unit to cast and roll a dice. On a 2+, the caster knows that spell for the rest of the battle. 
+        
+        Designer's Note: Spells that require the caster to have a specific keyword, refer to a damage table, or require an endless spell to be a part of their army cannot be picked with this ability.`,
         when: [HERO_PHASE],
       },
     ],
@@ -227,7 +229,7 @@ const Spells = {
     effects: [
       {
         name: `Sorcerous Insight`,
-        desc: `Casting value of 5. You receive 1 extra command point. This extra command point can only be spent by picking this model to use the At the Double, Forward to Victory or Inspiring Presence command ability.`,
+        desc: `Casting value of 5. If successfully cast, you receive 1 command point that can only be spent to allow the caster to issue a command.`,
         when: [HERO_PHASE],
       },
     ],
@@ -236,7 +238,16 @@ const Spells = {
     effects: [
       {
         name: `Choking Tendrils`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers D6 mortal wounds. For each model that is slain by mortal wounds inflicted by this spell, you can heal 1 wound allocated to this model.`,
+        desc: `Casting value of 7 and a range of 18". Pick 1 enemy unit range and visible to the caster. That unit suffers D6 mortal wounds. For each model that is slain by mortal wounds inflicted by this spell, you can heal 1 wound allocated to this model.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Boon of Mutation': {
+    effects: [
+      {
+        name: `Boon of Mutation`,
+        desc: `Casting value of 7 and a range of 18". Pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. For each model that is slain by a mortal wound caused by this spell, you can add 1 Tzaangor model that is not a Tzaangor Champion or Tzaangor Mutant to a friendly Tzaangor Host within 12" of the caster. Set up models that are added to a unit one at a time within 1" of the unit they are being added to. Models that are added to a unit can only be set up within 3" of an enemy unit if a model from their unit is already within 3" of that enemy unit. The models added to a unit can take it above its maximum size.`,
         when: [HERO_PHASE],
       },
     ],
@@ -254,9 +265,8 @@ const Spells = {
         when: [SHOOTING_PHASE],
       },
     ],
-  }
-  /*
-   */,
+  },
+
   'The Parchment Curse': {
     effects: [
       {

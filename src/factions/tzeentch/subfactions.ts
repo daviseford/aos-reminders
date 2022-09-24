@@ -4,7 +4,6 @@ import { TZEENTCH } from 'meta/factions'
 import { keyOmitter, keyPicker } from '../metatagger'
 import Artifacts from './artifacts'
 import TzeentchBattalions from './battalions'
-import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
@@ -19,7 +18,6 @@ const subFactions = {
     available: {
       artifacts: [Artifacts],
       battalions: [TzeentchBattalions],
-      command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       spells: [Spells],
       endless_spells: [EndlessSpells],
@@ -62,10 +60,11 @@ const subFactions = {
           'Gors',
           'Great Bray-Shaman',
           'Tuskgor Chariots',
-          'Tzaangors',
+          /* Replaced by warscrolls in Disciples of Tzeentch book 
+         'Tzaangors',
           `Tzaangor Enlightened`,
           `Tzaangor Skyfires`,
-          `Tzaangor Shaman`,
+          `Tzaangor Shaman`,*/
           'Ungor Raiders',
           'Ungors',
         ]),

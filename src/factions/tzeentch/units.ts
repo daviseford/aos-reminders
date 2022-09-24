@@ -4,6 +4,9 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  DURING_SETUP,
+  END_OF_MOVEMENT_PHASE,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
@@ -11,69 +14,55 @@ import {
   START_OF_GAME,
   START_OF_HERO_PHASE,
   TURN_ONE_MOVEMENT_PHASE,
-  TURN_ONE_START_OF_TURN,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import CommandAbilities from './command_abilities'
 import Spells from './spells'
 
 const ArcaneTomeEffect = {
   name: `Arcane Tome`,
-  desc: `Once per battle, when this model attempts to cast or unbind a spell, you can roll 3D6, remove 1 dice of your choice, and then use the remaining 2D6 to determine the casting or unbinding roll.`,
+  desc: `Once per battle, you can reroll 1 casting roll for this unit. If you do so, add 3 to the new casting roll.`,
   when: [HERO_PHASE],
   shared: true,
 }
 const CapriciousWarpflameEffect = {
   name: `Capricious Warpflame`,
-  desc: `Add 1 to hit rolls for attacks made by this unit if the target unit has 10 or more models.`,
+  desc: `Add 1 to hit rolls for attacks made by this unit's Warpflame, Billowing Warpflame or Flaming Maws weapon if the target unit has 5 or more models.`,
   when: [SHOOTING_PHASE],
   shared: true,
 }
 const MagicTouchedEffect = {
   name: `Magic-touched`,
-  desc: `If the casting roll for this model is a double and the casting attempt is successful and not unbound, this model can attempt to cast 1 extra spell this turn. If it does so and the extra casting roll is a double, the spell automatically fails and this model is slain. If a friendly Magister is slain by this effect, roll a D6 before removing the model. On a 2+, 1 Tzeentch Chaos Spawn is added to your army. Set up the Tzeentch Chaos Spawn anywhere on the battlefield within 1" of the slain Magister and more than 3" from any enemy units.`,
+  desc: `If the first casting attempt made by this unit in your hero phase is successful and the spell is not unbound, this unit can attempt to cast 1 extra spell in that phase. If it does so and the casting roll for that extra spell is a double, the casting attempt automatically fails and this unit is slain. If this happens, you can choose for this unit to be transformed into a Spawn (pg 65) instead of being slain.`,
   when: [HERO_PHASE],
   shared: true,
 }
 const MagisterMagicEffect = {
-  name: `Magic`,
+  name: `Wizard`,
   desc: `This model is a wizard. It can attempt to cast 1 spell and attempt to unbind 1 spell. It knows Arcane Bolt, Mystic Shield, and Bolt of Change.`,
+  when: [HERO_PHASE],
+  shared: true,
+}
+const BeaconOfSorcery = {
+  name: `Beacon of Sorcery`,
+  desc: `Add 1 to casting rolls, dispelling rolls and unbinding rolls for friendly Tzeentch Wizards while they are wholly within 18" of this unit. In addition, this unit knows all of the spells from the Lore of Change.`,
   when: [HERO_PHASE],
   shared: true,
 }
 const MasteryOfMagicEffect = {
   name: `Mastery of Magic`,
-  desc: `When this model makes a casting, unbinding or dispelling roll, you can change the lowest D6 to match the highest D6. This counts as a modifier.`,
-  when: [HERO_PHASE],
-  shared: true,
-}
-const SkySharksEffect = {
-  name: `Sky-sharks`,
-  desc: `If the target is an enemy MONSTER, change the Damage characteristic of this unit's Lamprey Bite to D3.`,
-  when: [COMBAT_PHASE],
-  shared: true,
-}
-const SpellEaterEffect = {
-  name: `Spell-eater`,
-  desc: `Once per turn, in your hero phase, you can pick 1 endless spell within 18" of this model. That endless spell is dispelled.`,
+  desc: `When you make a casting, unbinding or dispelling roll for this unit, you can change the lowest D6 to match the highest D6.`,
   when: [HERO_PHASE],
   shared: true,
 }
 const SpellThiefEffect = {
   name: `Spell-thief`,
-  desc: `If this model successfully unbinds an enemy spell with an unbinding roll of 9+, this model can attempt to cast that spell, if it is possible for it to do so, for the rest of the battle.`,
+  desc: `If this unit successfully dispels an endless spell, instead of dispelling it, you can say that it will steal it. If you do so, this unit gains control of that endless spell and counts as the Wizard that summoned it until its dispelled or another unit steals it.`,
   when: [HERO_PHASE],
-  shared: true,
-}
-const TouchedbyFireEffect = {
-  name: `Touched by Fire`,
-  desc: `Roll a D6 each time you allocate a wound or mortal wound to this unit that was inflicted by a melee weapon. On a 5+, the attacking unit suffers 1 mortal wound.`,
-  when: [WOUND_ALLOCATION_PHASE],
   shared: true,
 }
 const WakeofFireEffect = {
   name: `Wake of Fire`,
-  desc: `After this unit has made a normal move, you can pick 1 enemy unit that has any models passed across by any models from this unit and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+  desc: `After this unit has made a normal move, pick 1 enemy unit and roll a dice if this unit passed across any models in that enemy unit. On a 2+, that enemy unit suffers D3 mortal wounds.`,
   when: [MOVEMENT_PHASE],
   shared: true,
 }
@@ -83,61 +72,94 @@ const Units = {
   'Lord of Change': {
     mandatory: {
       spells: [keyPicker(Spells, ['Infernal Gateway'])],
-      command_abilities: [keyPicker(CommandAbilities, ['Beacon of Sorcery'])],
     },
     effects: [
       MasteryOfMagicEffect,
-      SpellEaterEffect,
       SpellThiefEffect,
+      BeaconOfSorcery,
       {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Infernal Gateway.`,
+        name: `Wizard`,
+        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells.`,
         when: [HERO_PHASE],
       },
     ],
   },
   'Kairos Fateweaver': {
     mandatory: {
-      spells: [keyPicker(Spells, ['Gift of Change'])],
+      spells: [keyPicker(Spells, ['Infernal Gateway'])],
     },
     effects: [
       MasteryOfMagicEffect,
-      SpellEaterEffect,
+      BeaconOfSorcery,
+      SpellThiefEffect,
       {
         name: `Oracle of Eternity`,
-        desc: `Once per battle, in either player's turn, if this model is on the battlefield, you can replace a single dice from one of the following dice rolls with a result of your choice.
-
-        Casting rolls, Unbinding rolls, Dispelling rolls, Run rolls, Charge rolls, Hit rolls, Wound rolls, Save rolls, Any roll that determines the Damage characteristic of a missile or melee weapon, Battleshock test
-
-        Note that this ability only allows you to replace a single dice roll. For 2D6 rolls (such as casting rolls or charge rolls), you can only replace 1 of the dice. In addition, any rolls that have been replaced count as unmodified rolls and cannot be rerolled or modified further.`,
-        when: [DURING_GAME],
+        desc: `At the start of your hero phase, if this unit is part of your army and on the battlefield, and you have fewer than 9 Destiny Dice, you can roll a dice and add it to your Destiny Dice.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 3 spells and attempt to unbind 3 spells. Knows Arcane Bolt, Mystic Shield, and Gift of Change.
-               While friendly Wizards are wholly within 18" of him, Kairos Fateweaver knows any spells on those Wizards' warscrolls that are possible for him to cast.`,
+        name: `Wizard`,
+        desc: `This model is a wizard. Can attempt to cast 3 spells and attempt to unbind 3 spells.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Gaunt Summoner of Tzeentch': {
+  'Gaunt Summoner': {
     mandatory: {
       spells: [keyPicker(Spells, ['Infernal Flames'])],
     },
     effects: [
       {
         name: `Book of Profane Secrets`,
-        desc: `Once per battle this model can use this ability at the start of your hero phase. Summon 1 unit of the following to the battlefield: 5 Horrors of Tzeentch, 10 Bloodletters, 10 Daemonettes, 10 Plaguebearers or 6 Furies. The summoned unit must be set up wholly within 9" of a this model and more than 9" from any enemy units.`,
-        when: [START_OF_HERO_PHASE],
+        desc: `Add 1 to casting rolls, dispelling rolls, and unbinding rolls for this unit. In additioin, this unit knows all of the spells from the Lore of Fate.`,
+        when: [HERO_PHASE],
       },
       {
-        name: `Warptongue Blade`,
-        desc: `If the unmodified wound roll for an attack made with a Warptongue Blade is 6, that attack inflicts D6 mortal wounds on the target and the attack sequence ends (do not make a save roll).`,
-        when: [COMBAT_PHASE],
+        name: `Lords of the Silver Towers`,
+        desc: `Once per battle, at the end of a phase, you can pick 1 enemy unit Hero that is within 9" of this unit and that made an attack that targeted this unit in that phase, or caused any mortal wounds to this unit with an ability or spell in that phase (even if the wounds or mortal wounds were negated). If you do so, roll 2D6, If the roll is greater than the Wounds characteristic of that Hero, that Hero is removed from play.
+        
+        Designer's Note: The Hero cannot be returned if you are allowed to bring back slain models (the model has not been slain).`,
+        when: [DURING_GAME],
+      },
+
+      {
+        name: `Silvered Portal`,
+        desc: `After you have deployed this unit, when you would set up another friendly Tzeentch unit that is not a monster, you can say that it is in this Gaunt Summoner's Silver Tower as a reserve unit. Up to 2 units can be set up in reserve this way. At teh end of any of your movement phases, you can set up 1 or more of these units wholly within 9" from all enemy units. At the start of the fourth battle round, reserve units that are still in a Silver Tower are destroyed.`,
+        when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
       },
       {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Infernal Flames.`,
+        name: `Wizard`,
+        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Gaunt Summoner on Disc of Tzeentch': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Infernal Flames'])],
+    },
+    effects: [
+      {
+        name: `Book of Profane Secrets`,
+        desc: `Add 1 to casting rolls, dispelling rolls, and unbinding rolls for this unit. In additioin, this unit knows all of the spells from the Lore of Fate.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Lords of the Silver Towers`,
+        desc: `Once per battle, at the end of a phase, you can pick 1 enemy unit Hero that is within 9" of this unit and that made an attack that targeted this unit in that phase, or caused any mortal wounds to this unit with an ability or spell in that phase (even if the wounds or mortal wounds were negated). If you do so, roll 2D6, If the roll is greater than the Wounds characteristic of that Hero, that Hero is removed from play.
+        
+        Designer's Note: The Hero cannot be returned if you are allowed to bring back slain models (the model has not been slain).`,
+        when: [DURING_GAME],
+      },
+
+      {
+        name: `Silvered Portal`,
+        desc: `After you have deployed this unit, when you would set up another friendly Tzeentch unit that is not a monster, you can say that it is in this Gaunt Summoner's Silver Tower as a reserve unit. Up to 2 units can be set up in reserve this way. At teh end of any of your movement phases, you can set up 1 or more of these units wholly within 9" from all enemy units. At the start of the fourth battle round, reserve units that are still in a Silver Tower are destroyed.`,
+        when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Wizard`,
+        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells.`,
         when: [HERO_PHASE],
       },
     ],
@@ -148,11 +170,10 @@ const Units = {
     },
     effects: [
       ArcaneTomeEffect,
-      SkySharksEffect,
       WakeofFireEffect,
       {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Tzeentch's Firestorm.`,
+        name: `Wizard`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
         when: [HERO_PHASE],
       },
     ],
@@ -164,8 +185,8 @@ const Units = {
     effects: [
       ArcaneTomeEffect,
       {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Blue Fire of Tzeentch.`,
+        name: `Wizard`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
         when: [HERO_PHASE],
       },
     ],
@@ -174,8 +195,8 @@ const Units = {
     effects: [
       {
         name: `Arch-deceiver`,
-        desc: `At the start of the first battle round, after armies have been set up but before the first turn begins, you can remove this model from the battlefield. If you do so, at the end of your first movement phase, you must set this model up again anywhere within your opponent's territory more than 3" from any enemy units.`,
-        when: [TURN_ONE_START_OF_TURN, TURN_ONE_MOVEMENT_PHASE],
+        desc: `After deployment but before the first battle round begins, you can remove this unit from the battlefield. If you do so, at the end of your first movement phase, you must set this unit up again anywhere within your opponent's territory more than 3" from all enemy units.`,
+        when: [END_OF_SETUP, TURN_ONE_MOVEMENT_PHASE],
       },
       {
         name: `Puckish Misdirection`,
@@ -183,12 +204,7 @@ const Units = {
         when: [HERO_PHASE],
       },
       {
-        name: `Changeling Magic`,
-        desc: `While this model is within 9" of an enemy Wizard, it knows any spell on that Wizard's warscroll that are possible for this model to cast.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Magic`,
+        name: `Wizard`,
         desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt and Mystic Shield.`,
         when: [HERO_PHASE],
       },
@@ -201,13 +217,8 @@ const Units = {
     effects: [
       ArcaneTomeEffect,
       {
-        name: `Fortune and Fate`,
-        desc: `If this model successfully casts a spell with a casting roll of 9+, this model can attempt to cast 1 extra spell in that phase. The extra spell casts also have this ability.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Pink Fire of Tzeentch.`,
+        name: `Wizard`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
         when: [HERO_PHASE],
       },
     ],
@@ -219,45 +230,51 @@ const Units = {
     effects: [
       {
         name: `Frantic Scribbling`,
-        desc: `Each time a Wizard wholly within 18" of this model successfully casts a spell that is not unbound and that is possible for this model to cast, you can roll a D6. On a 4+, this model knows that spell for the rest of the battle.`,
+        desc: `If this unit is part of a Disciples of Tzeentch army, each time an enemy Wizard within 9" of this unit successfully casts a spell, and that spell is not unbound, you can roll a dice. On a 3+, you receive 1 Fate Point.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Wizard`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
         when: [HERO_PHASE],
       },
       {
         name: `Scrolls of Sorcery`,
-        desc: `Once in each of your hero phases, when this model attempts to cast a spell, instead of making a casting roll, you can say that it will read from its scrolls of sorcery. If you do so, roll a D6. On a 2+, that spell is automatically cast and cannot be unbound.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Boon of Tzeentch.`,
+        desc: `This unit knows all of the spells from the Lore of Fate and Lore of Change. In addition, once in each of your hero phases, when this unit attempts to cast a spell, instead of making a casting roll, you can say that it will read from its scrolls of sorcery. If you do so, roll a dice. On a 2+, that spell is succesfully cast and cannot be unbound.`,
         when: [HERO_PHASE],
       },
     ],
   },
   'Screamers of Tzeentch': {
     effects: [
-      SkySharksEffect,
       {
         name: `Slashing Fins`,
-        desc: `After this unit has made a normal move, pick 1 enemy unit and roll 1 dice for each model in this unit that passed across any models from that unit. For each 5+, that unit suffers 1 mortal wound. If that enemy unit is a Wizard, for each 5+, inflict D3 mortal wounds instead of 1.`,
+        desc: `After this unit has made a normal move, run, retreated or made a charge move, pick 1 enemy unit and roll a dice for each model in this unit that passed across any models in that enemy unit. For each 4+, that enemy unit suffers 1 mortal wound.`,
         when: [MOVEMENT_PHASE],
       },
     ],
   },
   'Burning Chariots of Tzeentch': {
-    effects: [SkySharksEffect, CapriciousWarpflameEffect, TouchedbyFireEffect, WakeofFireEffect],
+    effects: [CapriciousWarpflameEffect, WakeofFireEffect, GenericEffects.Elite],
   },
   'Exalted Flamers of Tzeentch': {
-    effects: [CapriciousWarpflameEffect, TouchedbyFireEffect, GenericEffects.Elite],
+    effects: [CapriciousWarpflameEffect, GenericEffects.Elite],
   },
   'Flamers of Tzeentch': {
-    effects: [CapriciousWarpflameEffect, TouchedbyFireEffect],
+    effects: [
+      CapriciousWarpflameEffect,
+      {
+        name: `Guided by Billowing Flames`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Warpflame while it is wholly within 9" of any friendly Exalted Flamers and/or any friendly Burning Chariots.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
   },
   'Horrors of Tzeentch': {
     effects: [
       {
         name: `Battle Ability`,
-        desc: `When you pick this unit to be part of your army or when you add this unit to your army during a battle, you must decide if this unit will have either the Split and Split Again ability or the Petty Vengeance ability (it cannot have both). Note your choice on your army roster.`,
+        desc: `When you pick this unit to be part of your army or when you summon this unit and add it to your army during a battle, you must decide if this unit will have either the Split and Split Again ability or the Petty Vengeance ability (it cannot have both). Note your choice on your army roster.`,
         when: [START_OF_GAME],
       },
       {
@@ -291,7 +308,9 @@ const Units = {
         name: `Adding and Removing Horrors`,
         desc: `Replacement models that are added to this unit must be set up one at a time within 1" of the position that was occupied by the model they are replacing.
 
-        Replacement models that are added to this unit can only be set up within 3" of an enemy unit if a model from this unit is already within 3" of that enemy unit. Replacement models added to this unit can take it above its maximum size.
+        Replacement models that are added to this unit can only be set up within 3" of an enemy unit if a model from this unit is already within 3" of that enemy unit. 
+        
+        Replacement models added to this unit can take it above its maximum size.
         
         Designer's Note: Horrors that flee cannot Split and Split Again. If a Horror Splits and Splits again, it is immediately removed from play and the replacement models are added to the unit before the next wound or mortal wound is allocated to the unit. A Horror that is removed from play because it has Split and Split Again does not count as a slain model for the purposes of the Battleshock rules (core rules, 15.0) and it cannot be returned through the use of rules that allow you to return slain models to the unit.`,
         when: [DURING_GAME],
@@ -332,7 +351,7 @@ const Units = {
         when: [HERO_PHASE],
       },
       {
-        name: `Magic`,
+        name: `Wizard`,
         desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield and Glean Magic.`,
         when: [HERO_PHASE],
       },
@@ -342,12 +361,12 @@ const Units = {
     effects: [
       {
         name: `Arcanite Shield`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a unit that has any models armed with Arcanite Shields. On a 6, that wound or mortal wound is negated.`,
+        desc: `Narvia and Turosh have a ward of 6+.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Split`,
-        desc: `If the Blue Horror model from a friendly unit with this ability is slain, you can add 1 Brimstone Horrors model to that unit after removing the slain model. The Brimstone Horrors' Magical Flames have an Attacks characteristic of 1 instead of 2, and their Taloned Hands have an Attacks characteristic of 2 instead of 1.`,
+        desc: `If the Blue Horror model from this unit is slain, you can add 1 Brimstone Horrors model to that unit. The Brimstone Horrors model is armed with Magical Flames and Taloned Hands. Its Magical Flames have an Attacks characteristic of 1 instead of 2, and its Taloned Hands have an Attacks characteristic of 2 instead of 1.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -359,26 +378,23 @@ const Units = {
     effects: [
       MagicTouchedEffect,
       {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Sorcerous Insight.`,
+        name: `Wizard`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
         when: [HERO_PHASE],
       },
     ],
   },
   Fatemaster: {
-    mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Lord of Fate'])],
-    },
     effects: [
       {
-        name: `Soulbound Shield`,
-        desc: `Each time this model is affected by a spell or endless spell, you can roll a D6. If you do so, on a 4+, ignore the effects of that spell or endless spell on this model.`,
-        when: [HERO_PHASE],
+        name: `Lord of Fate`,
+        desc: `Add 1 to wound rolls for attacks made by friendly Disciples of Tzeentch units wholly within 9" of this unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
-        name: `Hovering Disc of Tzeentch`,
-        desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit unless the attacking unit is a MONSTER or can fly.`,
-        when: [SAVES_PHASE],
+        name: `Soulbound Shield`,
+        desc: `Each time this unit is affected by a spell or the ability of an endless spell, you can roll a dice. If you do so, on a 4+, ignore the effects of that spell or that endless spell's ability on this unit.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -388,18 +404,13 @@ const Units = {
     },
     effects: [
       {
-        name: `Brutal Rage`,
-        desc: `You can reroll hit and wound rolls for attacks made with melee weapons by this model if any wounds or mortal wounds were allocated to this model earlier in the same phase.`,
+        name: `Berserk Rage`,
+        desc: `Add 1 to hit rolls and wound rolls for attacks made with melee weapons by this unit if any wounds or mortal wounds were allocated to this unit earlier in the phase.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Mighty Rampage`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Choking Tendrils.`,
+        name: `Wizard`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
         when: [HERO_PHASE],
       },
     ],
@@ -411,23 +422,23 @@ const Units = {
     effects: [
       GenericEffects.ArcaniteShieldEffect,
       {
-        name: `Paired Cursed Blades`,
-        desc: `You can reroll hit rolls for attacks made with a pair of Cursed Blades.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be an Kairic Adept. Add 1 to the Attacks characteristic of that model's melee weapons.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Scroll of Dark Arts`,
-        desc: `A unit that includes any Scrolls of Dark Arts can add 1 to casting and unbinding rolls.`,
+        desc: `1 in every 10 models in this unit can carry a Scroll of Dark Arts. Add 1 to casting and unbinding rolls for this unit while it has any Scroll of Dark Arts.`,
         when: [HERO_PHASE],
       },
       {
         name: `Vulcharc`,
-        desc: `If an enemy Wizard successfully casts a spell within 18" of a friendly unit that includes any Vulcharcs, roll a D6. On a 4+, that Wizard suffers 1 mortal wound after the effects of that spell have been resolved.`,
+        desc: `1 in every 10 models in this unit can be accompanied by a Vulcharc. If an enemy Wizard successfully casts a spell within 18" of a friendly unit that includes any Vulcharcs, roll a dice. On a 4+, that Wizard suffers 1 mortal wound after the effects of that spell have been resolved.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Magic`,
-        desc: `This unit is a Wizard while it has 9 or more models. It can attempt to cast 1 spell in your hero phase and attmept to unbind 1 spell in the enemy hero phase. It knows the Gestalt Sorcery spell. It cannot attempt to cast any spells other than Gestalt Sorcery, but any number of Kairic Acolytes units that have 9 or more models can attempt to cast Gestalt Sorcery in the same hero phase.`,
+        name: `Wizard`,
+        desc: `This unit is a Wizard while it has 9 or more models. It can attempt to cast 1 spell in your hero phase and attmept to unbind 1 spell in the enemy hero phase. It knows the Gestalt Sorcery spell and cannot attempt to cast any spells. Any number of Kairic Acolytes units can attempt to cast Gestalt Sorcery in the same hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -436,8 +447,118 @@ const Units = {
     effects: [
       {
         name: `Writhing Tentacles`,
-        desc: `If you roll a double when determining the number of attacks made by a Tzeentch Chaos Spawn's Freakish Mutations, resolve those attacks with a To Hit and To Wound characteristic of 3+ instead of 4+.`,
+        desc: `If the unmodified hit roll for an attack made with Freakish Mutations is 6, the target suffers 1 mortal wound and the attack sequence ends (do not make a wound roll or save roll).`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Spawn of Sorcery`,
+        desc: `Heal all of the wounds allocated to this unit if a Wizard within 9" of this unit successfully casts a spell that is not unbound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  // Tzaangors
+  'Tzaangor Shaman': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Boon of Mutation'])],
+    },
+    effects: [
+      {
+        name: `Wizard`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Sorcerous Elixer`,
+        desc: `Once per battle, in your hero phase, this unit can attempt to cast 1 extra spell. If it does so, you can add 3 to the casting roll for that spell.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Tzaangor Skyfires': {
+    effects: [
+      {
+        name: `Guided by the Future`,
+        desc: `Ignore negative modifiers to hit or wound rolls for attacks made with missle weapons by this unit, and ignore positive modifiers to save rolls for attacks made with missle weapons by this unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Judgement from Afar`,
+        desc: `If the unmodified hit roll for an attack made with an Arrow of Fate is 6, the target suffers D3 mortal wounds and the attack sequence ends (do not make a wound roll or save roll).`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Tzaangor Enlightened': {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be an Aviarch. Add 1 to the Attacks characteristic of that model's Tzeentchian Spear.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Babbling Stream of Secrets`,
+        desc: `In the combat phase, enemy units withn 3" of any friendly units with this ability cannot receive commands.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Guided by the Past`,
+        desc: `You can add 1 to wound rolls for attacks made with melee weapons by friendly units with this ability if you are taking the second turn in the current battleround. This ability does not affect attacks made by a mount.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Tzaangor Enlightened on Discs of Tzeentch': {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be an Aviarch. Add 1 to the Attacks characteristic of that model's Tzeentchian Spear.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Babbling Stream of Secrets`,
+        desc: `In the combat phase, enemy units withn 3" of any friendly units with this ability cannot receive commands.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Guided by the Past`,
+        desc: `You can add 1 to wound rolls for attacks made with melee weapons by friendly units with this ability if you are taking the second turn in the current battleround. This ability does not affect attacks made by a mount.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  Tzaangors: {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be an Twistbray. Add 1 to the Attacks characteristic of that model's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `1 in every 10 models in this unit can be an Icon Bearer. While this unit includes any Icon Bearers, it can use the Ornate Totems ability.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Musician`,
+        desc: `1 in every 10 models in this unit can be a Brayhorn Blower. While this unit includes any Brayhorn Blowers, it can run and still charge later in the turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Tzaangor Mutant`,
+        desc: `1 in every 5 models in this unit can be a Tzaangor Mutant armed with a pair of Savage Blades and Vicious Beak. Add 1 to the Attacks characteristic of that model's pair of Savage Blades.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Savagery Unleashed`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Vicious Beaks if it made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+
+      {
+        name: `Ornate Totem`,
+        desc: `While this unit includes any Icon Bearers, at the start of your hero phase, you can pick 1 enemy unit within 18" of this unit and roll a dice for each Wizard that is within 9" of this unit. For each 4+, the unit you picked suffers 1 mortal wound.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -449,7 +570,7 @@ const Units = {
       MasteryOfMagicEffect,
       SpellThiefEffect,
       {
-        name: `Magic`,
+        name: `Wizard`,
         desc: `This model is a Wizard. It can attempt to cast two spells in your hero phase, and attempt to unbind two spells in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Infernal Gateway spells.`,
         when: [HERO_PHASE],
       },
