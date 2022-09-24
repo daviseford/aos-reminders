@@ -15,7 +15,6 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
-import rule_sources from './rule_sources'
 import Spells from './spells'
 
 const ArcaneTomeEffect = {
@@ -28,7 +27,6 @@ const CapriciousWarpflameEffect = {
   name: `Capricious Warpflame`,
   desc: `Add 1 to hit rolls for attacks made by this unit if the target unit has 10 or more models.`,
   when: [SHOOTING_PHASE],
-  rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_JULY_2021],
   shared: true,
 }
 const MagicTouchedEffect = {
@@ -131,7 +129,6 @@ const Units = {
         name: `Book of Profane Secrets`,
         desc: `Once per battle this model can use this ability at the start of your hero phase. Summon 1 unit of the following to the battlefield: 5 Horrors of Tzeentch, 10 Bloodletters, 10 Daemonettes, 10 Plaguebearers or 6 Furies. The summoned unit must be set up wholly within 9" of a this model and more than 9" from any enemy units.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_JULY_2020],
       },
       {
         name: `Warptongue Blade`,
@@ -147,7 +144,7 @@ const Units = {
   },
   'Fateskimmer, Herald of Tzeentch on Burning Chariot': {
     mandatory: {
-      spells: [keyPicker(Spells, ["Tzeentch's Firestorm (Fateskimmer)"])],
+      spells: [keyPicker(Spells, ["Tzeentch's Firestorm"])],
     },
     effects: [
       ArcaneTomeEffect,
@@ -262,31 +259,26 @@ const Units = {
         name: `Battle Ability`,
         desc: `When you pick this unit to be part of your army or when you add this unit to your army during a battle, you must decide if this unit will have either the Split and Split Again ability or the Petty Vengeance ability (it cannot have both). Note your choice on your army roster.`,
         when: [START_OF_GAME],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_AUGUST_2021],
       },
       {
         name: `Horrors`,
         desc: `Each model in a Horrors of Tzeentch unit must be either a Pink Horror, a Blue Horror or a Brimstone Horror (you can have different types of Horror in the same unit). You cannot allocate wounds or mortal wounds to a Blue Horror if its unit includes any Iridescent or Pink Horrors, and you cannot allocate a wound to a Brimstone Horror if its unit includes any Blue Horrors.`,
         when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_AUGUST_2021],
       },
       {
         name: `Champion`,
         desc: `1 Pink Horror in this unit can be an Iridescent Horror instead.`,
         when: [DURING_GAME],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_AUGUST_2021],
       },
       {
         name: `Standard Bearer`,
         desc: `1 in every 10 Pink Horrors in this unit can be a Pink Horror Icon Bearer instead. At the start of your hero phase, if you have a Disciples of Tzeentch army, roll 1 dice for each Pink Horror Icon Bearer in this unit. For each 3+, you receive 1 Fate Point.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_AUGUST_2021],
       },
       {
         name: `Musician`,
         desc: `1 in every 10 Pink Horrors in this unit can be a Pink Horror Hornblower instead. Add 1 to save rolls for this unit while it includes any Pink Horror Hornblowers.`,
         when: [SAVES_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_AUGUST_2021],
       },
       {
         name: `Split and Split Again`,
@@ -294,11 +286,6 @@ const Units = {
 
         Each time a Blue Horror in this unit is slain by a wound or mortal wound, it does not count as having been slain but you must immediately remove it from play and replace it with 1 Brimstone Horrors model that is added to its unit.`,
         when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_TZEENTCH,
-          rule_sources.ERRATA_JULY_2021,
-          rule_sources.ERRATA_AUGUST_2021,
-        ],
       },
       {
         name: `Adding and Removing Horrors`,
@@ -308,13 +295,11 @@ const Units = {
         
         Designer's Note: Horrors that flee cannot Split and Split Again. If a Horror Splits and Splits again, it is immediately removed from play and the replacement models are added to the unit before the next wound or mortal wound is allocated to the unit. A Horror that is removed from play because it has Split and Split Again does not count as a slain model for the purposes of the Battleshock rules (core rules, 15.0) and it cannot be returned through the use of rules that allow you to return slain models to the unit.`,
         when: [DURING_GAME],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_AUGUST_2021],
       },
       {
         name: `Petty Vengeance`,
         desc: `If a model in this unit is slain, you can pick 1 enemy unit within 1" of this unit and roll a dice. If the roll is equal to or greater than the Petty Vengeance Roll for the slain model, that enemy unit suffers 1 mortal wound.`,
         when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_AUGUST_2021],
       },
     ],
   },
@@ -394,7 +379,6 @@ const Units = {
         name: `Hovering Disc of Tzeentch`,
         desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit unless the attacking unit is a MONSTER or can fly.`,
         when: [SAVES_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

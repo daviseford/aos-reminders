@@ -12,5 +12,5 @@ export const TzeentchFaction = new Faction(
   SubFactions,
   'Change Covens',
   rule_sources.BATTLETOME_TZEENTCH,
-  pickEffects(battle_traits, ['The Flow of Change'])
+  pickEffects(battle_traits, ['Allegiance Abilities', 'Battle Tactics'])
 )

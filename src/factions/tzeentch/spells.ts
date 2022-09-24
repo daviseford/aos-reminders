@@ -3,19 +3,17 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   HERO_PHASE,
-  MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 const Spells = {
   // Common
   'Bolt of Tzeentch': {
     effects: [
       {
         name: `Bolt of Tzeentch`,
-        desc: `Casting value of 7. Pick an enemy unit within 18" of the caster that is visible to them. That unit suffers D6 mortal wounds.`,
+        desc: `Casting value of 7 and a range of 18". Pick 1 enemy unit within range and visible to the caster. That unit suffers D6 mortal wounds. This spell cannot be cast more than once per turn, even though it appears in both the Lore of Fate and the Lore of Change.`,
         when: [HERO_PHASE],
       },
     ],
@@ -25,31 +23,27 @@ const Spells = {
     effects: [
       {
         name: `Arcane Suggestion`,
-        desc: `Casting value of 8. Pick an enemy unit within 18" of the caster that is visible to them and pick one of the following:
-
-        - The unit suffers D3 mortal wounds.
-        - Subtract 1 from hit and wound rolls made by that unit until your next hero phase.
-        - Subtract 1 from save rolls for attacks that target that unit until your next hero phase`,
+        desc: `Arcane Suggestion is a spell that has a casting value of 8 and a range of 18". If successfully cast, pick 1 enemy unit within range and visible to the caster, and pick one of the following effects:
+        
+        - It's Hopeless - That unit cannot issue or receive commands until your next hero phase.
+        - Drop Your Weapons - Subtract 1 from hit and would rolls for attacks made by that unit until your next hero phase.
+        - Kneel - Subtract 1 from save rolls for attacks that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Arcane Suggestion`,
-        desc: `If active, subtract 1 from the hit and wound rolls from the debuffed unit.`,
+        name: `Arcane Suggestion - It's Hopeless`,
+        desc: `That unit cannot issue or receive commands until your next hero phase.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Arcane Suggestion - Drop Your Weapons`,
+        desc: `Subtract 1 from hit and would rolls for attacks made by that unit until your next hero phase.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
-        name: `Arcane Suggestion`,
-        desc: `If active, subtract 1 from the save rolls made by the debuffed unit.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  'Glimpse the Future': {
-    effects: [
-      {
-        name: `Glimpse the Future`,
-        desc: `Casting value of 7. Roll a D6 and add it to your Destiny Dice pool.`,
-        when: [HERO_PHASE],
+        name: `Arcane Suggestion - Kneel`,
+        desc: `Subtract 1 from save rolls for attacks that target that unit until your next hero phase.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
@@ -57,16 +51,30 @@ const Spells = {
     effects: [
       {
         name: `Shield of Fate`,
-        desc: `Casting value of 6. Pick a friendly Tzeentch unit wholly within 18" of the caster and visible. Until the start of your next hero phase, the selected unit gains a benefit based on the number of destiny dice left in your pool.`,
+        desc: `Shield of Fate is a spell that has a casting value of 6 and a range of 18". If successfully cast, pick a friendly Tzeentch unit wholly within range and visible to the caster. Until the start of your next hero phase, that unit gains one of the following effects based on the number of your remaining Destiny Dice at the time that the effect is applied:
+        
+        1-3 - That unit has a ward of 6+.
+        4-6 - That unit has a ward of 5+.
+        7-9 - That unit has a ward of 5+. In addition, each time that unit is affected by a spell or the abilities of an endless spell, you can roll a dice. On a 4+ ignore the effect of that spell or the effects of that endless spell's abilities on that unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `Shield of Fate`,
-        desc: `Effect based on number of destiny dice in pool:
-               1-3: You can reroll save rolls of 1 for attacks that target that unit.
-               4-6: You can reroll save rolls for attacks that target that unit.
-               7-9: You can roll a D6 each time that unit is affected by a spell or endless spell. On a 4+, ignore the effects of that spell or endless spell. In addition, you can reroll save rolls for attacks that target that unit.`,
-        when: [HERO_PHASE, SAVES_PHASE],
+        desc: `Effect based on the number of your Destiny Dice at the time that the effect is applied:
+
+        1-3 - That unit has a ward of 6+.
+        4-6 - That unit has a ward of 5+.
+        7-9 - That unit has a ward of 5+. In addition, each time that unit is affected by a spell or the abilities of an endless spell, you can roll a dice. On a 4+ ignore the effect of that spell or the effects of that endless spell's abilities on that unit.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+  'Glimpse the Future': {
+    effects: [
+      {
+        name: `Glimpse the Future`,
+        desc: `Casting value of 7. If successfully cast, if you have fewer than 9 Destiny Dice, you can roll a dice and add it to your Destiny Dice.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -74,12 +82,12 @@ const Spells = {
     effects: [
       {
         name: `Infusion Arcanum`,
-        desc: `Casting value of 5. Until your next hero phase you can add 1 to all hit and wound rolls for the caster.`,
+        desc: `Casting value of 5. If successfully cast, add 1 to hit and wound rolls for attacks made by the caster until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Infusion Arcanum`,
-        desc: `If active, you can add 1 to all hit and wound rolls on the buffed unit.`,
+        desc: `If active, add 1 to hit and wound rolls for attacks made by the caster until your next hero phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -88,12 +96,12 @@ const Spells = {
     effects: [
       {
         name: `Treacherous Bond`,
-        desc: `Casting value of 5. Pick 1 friendly Tzeentch Mortal unit wholly within 9" of the caster and visible to them. Until your next hero phase, roll a D6 before you allocate any wounds or mortal wounds to the caster. On a 3+, you must allocate those wounds or mortal wounds to that friendly unit instead.`,
+        desc: `Casting value of 5 and a range of 9". Pick 1 friendly Tzeentch Mortal unit wholly within range and visible to the caster. Until your next hero phase, while that unit is within 9" of the caster, before you allocate a wound or mortal wound to the caster, or instead of making a ward roll for the caster, you can roll a dice. On a 3+, that wound or mortal wound is allocated to the Tzeentch Mortal unit you picked and cannot be negated.`,
         when: [HERO_PHASE],
       },
       {
         name: `Treacherous Bond`,
-        desc: `If active, roll a D6 before allocating wounds/mortal wounds to the caster. On a 3+, you must allocate those wounds to the bonded friendly unit instead.`,
+        desc: `If active, roll a dice before allocating wounds/mortal wounds to the caster. On a 3+, you must allocate those wounds to the bonded friendly unit instead.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -103,32 +111,13 @@ const Spells = {
     effects: [
       {
         name: `Treason of Tzeentch`,
-        desc: `Casting value of 5. Pick 1 enemy unit within 18" of the caster and visible to them. Roll a number of dice equal to the number of models in that unit. For each 6, that unit suffers 1 mortal wound. if any models are slain by this spell, subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
+        desc: `Casting value of 7 and a range of 18". Pick 1 enemy unit that has 2 or more models and is wholly within range and visible to the caster. Roll a number of dice equal to the number of models in that unit. For each 6, that unit suffers 1 mortal wound. In additioni, subtract 1 from hit rolls for attacks made by that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Treason of Tzeentch`,
-        desc: `If any models had been slain by this spell subtract 1 from hit rolls for attacks made by that unit.`,
+        desc: `If active, subtract 1 from hit rolls for attacks made by this unit.`,
         when: [DURING_GAME],
-      },
-    ],
-  },
-  'Arcane Transformation': {
-    effects: [
-      {
-        name: `Arcane Transformation`,
-        desc: `Casting value of 6. Pick a friendly Tzeentch hero wholly within 18" of the caster and visible to them. Until your next hero phase, you can either add 1 to that HERO's move and bravery characteristic or add 1 to the Attacks characteristic of one of that HERO's melee weapons.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Arcane Transformation`,
-        desc: `If active, add 1 to the buffed hero's move and bravery characteristic.`,
-        when: [DURING_GAME, MOVEMENT_PHASE],
-      },
-      {
-        name: `Arcane Transformation`,
-        desc: `If active, add 1 to the buffed hero's melee Attacks characteristic for one weapon.`,
-        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -136,7 +125,7 @@ const Spells = {
     effects: [
       {
         name: `Unchecked Mutation`,
-        desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster and visible to them. That unit suffers D3 mortal wounds. If any models are slain by this spell, you can roll a D6. On a 3+, that unit suffers an additional D3 mortal wounds and this spell ends.`,
+        desc: `Casting value of 6 and a range of 18". Pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. If any models are slain by this spell, you can roll a dice. On a 3+, that unit suffers an additional D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -145,7 +134,7 @@ const Spells = {
     effects: [
       {
         name: `Fold Reality`,
-        desc: `Casting value of 7. Pick a friendly unit of Tzeentch Daemons wholly within 18" of the caster and visible to them, and roll a D6. On a 1, that unit is destroyed. On a 2+, you can return a number of slaim models equal to that roll to that unit. Set up the models one at a time 1" of a model from that unit that has not been returned in that phase. The models can only be set up within 3" of an enemy unit if the friendly unit was within 3" of that enemy unit before any models were returned.`,
+        desc: `Casting value of 7 and a range of 18". Pick 1 friendly Tzeentch Daemon unit wholly within range and visible to the caster, and roll a dice. On a 1, that unit is destroyed. On a 2+, you can return a number of slain models equal to that roll to that unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -153,25 +142,15 @@ const Spells = {
   "Tzeentch's Firestorm": {
     effects: [
       {
-        name: `Tzeentch's Firestorm.`,
-        desc: `Casting value of 9. Pick an enemy unit within 18" of the caster and visible to them. Roll 9 dice - for each 6 the unit targeted suffers D3 mortal wounds.`,
+        name: `Tzeentch's Firestorm`,
+        desc: `Casting value of 9 and a range of 12". Pick 1 enemy unit that is within range and visible to the caster, and roll 9 dice. For each 6, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  "Tzeentch's Firestorm (Fateskimmer)": {
-    effects: [
-      {
-        name: `Tzeentch's Firestorm (Fateskimmer)`,
-        desc: `Casting value of 8. Roll a D6 for each enemy unit within 9" of the caster and visible to them. On a 3+, that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-
-  // Flavor spells
-
   // Unit spells
+  // TO DO
+
   'Infernal Gateway': {
     effects: [
       {
@@ -275,15 +254,15 @@ const Spells = {
         when: [SHOOTING_PHASE],
       },
     ],
-  },
-
+  }
+  /*
+   */,
   'The Parchment Curse': {
     effects: [
       {
         name: `The Parchment Curse`,
-        desc: `The Parchment Curse is a spell that is known by the model that summoned this endless spell while this endless spell is on the battlefield. It has a casting value of 8 and range of 18". Pick 1 enemy unit within range and visible to the caster, and roll a dice. On a 3+, that unit suffers D3 mortal wounds. In addition, for each model slain by those mortal wounds, subtract 1 from the Bravery characteristic of that model's unit (to a minimum of 1) for the rest of the battle.`,
+        desc: `The Parchment Curse is a spell that is known by the model that summoned this endless spell while this endless spell is on the battlefield. It has a casting value of 8 and range of 18". if successfully cast, pick 1 enemy unit within range and visible to the caster, and roll a dice. On a 3+, that unit suffers D3 mortal wounds. In addition, for each model slain by those mortal wounds, subtract 1 from the Bravery characteristic of that model's unit (to a minimum of 1) for the rest of the battle.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
