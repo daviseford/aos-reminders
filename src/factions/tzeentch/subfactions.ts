@@ -60,11 +60,6 @@ const subFactions = {
           'Gors',
           'Great Bray-Shaman',
           'Tuskgor Chariots',
-          /* Replaced by warscrolls in Disciples of Tzeentch book 
-         'Tzaangors',
-          `Tzaangor Enlightened`,
-          `Tzaangor Skyfires`,
-          `Tzaangor Shaman`,*/
           'Ungor Raiders',
           'Ungors',
         ]),

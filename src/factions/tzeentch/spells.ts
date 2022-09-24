@@ -149,7 +149,6 @@ const Spells = {
     ],
   },
   // Unit spells
-  // TO DO
 
   'Infernal Gateway': {
     effects: [
