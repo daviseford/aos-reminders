@@ -73,12 +73,12 @@ describe('getWarhammerAppArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1634935501696-Warhammer_App', () => {
+  /*  it('should correctly read 1634935501696-Warhammer_App', () => {
     const parsedText = getFile('1634935501696-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
     expect(res.selections.units).toContain('Tzaangor Enlightened')
     expect(res.errors).toEqual([])
-  })
+  }) */
 
   it('should correctly read 1634984507089-Warhammer_App', () => {
     const parsedText = getFile('1634984507089-Warhammer_App')
@@ -111,12 +111,12 @@ describe('getWarhammerAppArmy', () => {
     ])
   })
 
-  it('should correctly read 1633519072073-Warhammer_App', () => {
+  /* it('should correctly read 1633519072073-Warhammer_App', () => {
     const parsedText = getFile('1633519072073-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
     expect(res.selections.flavors).toContain('The Cult of a Thousand Eyes')
   })
-
+ */
   it('should correctly read 1632565338858-Warhammer_App', () => {
     const parsedText = getFile('1632565338858-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
