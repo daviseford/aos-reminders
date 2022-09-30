@@ -1,6 +1,5 @@
 import { tagAs } from 'factions/metatagger'
 import {
-  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_MOVEMENT_PHASE,
@@ -8,151 +7,114 @@ import {
   END_OF_SHOOTING_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   TURN_FIVE_HERO_PHASE,
   TURN_ONE_HERO_PHASE,
+  TURN_ONE_START_OF_ROUND,
   TURN_THREE_HERO_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const BattleTraits = {
   // Tzeentch Allegiance
-  'The Flow of Change': {
+  'Allegiance Abilities': {
     effects: [
       {
+        name: `Arcane Armies`,
+        desc: `In the first battle round, after the players have received their starting command points, but before the start of the first turn, you can pick 1 friendly Disciples of Tzeentch Wizard on the battlefield. That Wizard can automatically cast that they know that summons a Burning Sigil of Tzeentch, Tome of Eyes or Daemonic Simulacrum endless spell (do not make a casting roll). That spell cannot be unbound, and cannot be dispelled in the first battle round. Set up the endless spell as described in the effect for that spell.`,
+        when: [TURN_ONE_START_OF_ROUND],
+      },
+      {
         name: `Masters of Destiny`,
-        desc: `After set-up, but before rolling to see which player takes the first turn in the first battle round, roll 9 dice and keep them to one side; this is your pool of Destiny Dice. Though it is possible for some or even all of these dice to be replenished during the course of the battle, the number of dice in your pool of Destiny Dice can never exceed 9.`,
+        desc: `At the end of deployment, roll 9 dice and keep them to one side. These are your Destiny Dice. Destiny Dice can be used during the battle to change dice rolls.`,
         when: [END_OF_SETUP],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_JULY_2020],
       },
       {
         name: `Masters of Destiny`,
-        desc: `Before rolling any dice for a DISCIPLES OF TZEENTCH unit, you can use one or more of the remaining Destiny Dice from your pool in their stead; the result of the roll you would have made is automatically substituted with the result shown on the Destiny Dice you have chosen to use.
-
-        Each Destiny Dice spent only allows you to replace a single dice roll. If you want to replace a 2D6 roll (such as a casting roll or charge roll), you must spend 2 Destiny Dice. In addition, any rolls that have been replaced count as unmodified rolls and cannot be rerolled. They also cannot be modified, with the following two exceptions:
-
-        - If you spend a Destiny Dice to replace a save roll, the result of that Destiny Dice is modified by the Rend characteristic of the attack as normal.
-
-        - If you spend a Destiny Dice to replace a battleshock test, the result of that Destiny Dice is modified by the number of models slain from that unit as normal.
-
-        Designer's Note: This means that for the purposes of Pink Horror Icon Bearers, a Destiny Dice of 1 used to replace a battleshock roll counts as an unmodified roll of 1. `,
+        desc: `Instead of making 1 of the rolls from the list below for a friendly Disciples of Tzeentch unit, you can spend 1 or more of your Destiny Dice. The roll you would have is replaced with the roll on the Destiny Dice you spend. If you want to replace an xD6 (core rules, 1.5.2), you must spend a number of Destiny Dice equal to the 'x'. Any rolls that have been replaced count as unmodified rolls and cannot be rerolled or modified unless noted below. Destiny Dice can be spent in place of the following dice rolls:
+        
+        - Casting rolls
+        - Unbinding rolls
+        - Dispelling rolls
+        - Run rolls
+        - Charge rolls
+        - Hit rolls
+        - Wound rolls
+        - Save rolls (You must still modify the roll by the Rend characteristic of the attacking weapon)
+        - Any roll that determines the Damage characteristic of a missle or melee weapon
+        - Battleshock rolls (You must still modify the roll by the number of models slain from the unit)
+        
+        Designer's Note: It is recommended the you represent your Destiny Dice with dice that are a different colour and/or size to those used for other rolls.`,
         when: [DURING_GAME],
-        rule_sources: [
-          rule_sources.BATTLETOME_TZEENTCH,
-          rule_sources.ERRATA_JULY_2020,
-          rule_sources.ERRATA_JULY_2021,
-          rule_sources.ERRATA_DECEMBER_2021,
-        ],
-      },
-      {
-        name: `Summon Daemons of DISCIPLES OF TZEENTCH`,
-        desc: `You can summon units of DISCIPLES OF TZEENTCH Daemons to the battlefield by expending Fate Points. You receive 1 Fate Point each time a casting roll is successful, and the spell is not unbound. Note that you receive Fate Points whenever a spell is cast, be it by friend or foe - DISCIPLES OF TZEENTCH cares not from whence the magic flows.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_DECEMBER_2021],
-      },
-      {
-        name: `Summon Daemons of DISCIPLES OF TZEENTCH`,
-        desc: `If you have 10 or more Fate Points at the end of your movement phase, you can summon one unit from the summoning list onto the battlefield, and add them to your army. Each unit you summon costs a number of Fate Points, as shown on the list, and you can only summon a unit if you have enough Fate Points to pay its cost.
-
-        Summoned units must be set up wholly within 12" of a friendly DISCIPLES OF TZEENTCH HERO and more than 9" from any enemy units. Subtract the cost of the summoned unit from the number of Fate Points you have immediately after the summoned unit has been set up.`,
-        when: [END_OF_MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_DECEMBER_2021],
-      },
-      {
-        name: `Summon Daemons of DISCIPLES OF TZEENTCH`,
-        desc: `Summoning Costs:
-               1 Exalted Greater Daemon of DISCIPLES OF TZEENTCH - 45 FP
-               1 Lord of Change -                     30 FP
-               1 Fateskimmer on Burning Chariot -     24 FP
-               10 Pink Horrors -                      20 FP
-               1 Burning Chariot -                    18 FP
-               3 Flamers -                            18 FP
-               1 Changecaster -                       12 FP
-               1 Exalted Flamer -                     12 FP
-               1 Fluxmaster -                         12 FP
-               10 Blue Horrors -                      10 FP
-               10 Brimstone Horrors -                 10 FP
-               3 Screamers -                          10 FP`,
-        when: [END_OF_MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_DECEMBER_2021],
       },
       {
         name: `Locus of Change`,
-        desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target friendly DISCIPLES OF TZEENTCH Daemon units that are wholly within 12" of a friendly DISCIPLES OF TZEENTCH Daemon HERO.`,
+        desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target friendly Disciples of Tzeentch Daemon units that are wholly within 12" of a friendly Disciples of Tzeentch Daemon Hero.`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_DECEMBER_2021],
       },
+      //Omitted Change Covens (you can pick 1 of the following subfactions)... not necessary
       {
-        name: `Agendas of Anarchy`,
-        desc: `At the start of your hero phase, you can say that your army intends to complete one of the following agendas before the start of your next hero phase. You must tell your opponent which agenda you intend to complete, and you cannot complete the same agenda more than once per battle.
-
-        If a friendly DISCIPLES OF TZEENTCH unit completes one of the following agendas during a battle, that unit gains that agenda's ability for the rest of the game.
-
-        Friendly DISCIPLES OF TZEENTCH units that complete more than 1 agenda must choose which ability they wish to keep; any other ability gained are lost.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_DECEMBER_2021],
-      },
-      {
-        name: `Agendas of Anarchy: Mass Conjuration`,
-        desc: `Requirement: 1 selected DISCIPLES OF TZEENTCH wizard successfully casts 2 spells/endless spells in this hero phase with unmodified casting rolls of 9+ without being unbound.
-               Reward: Add 1 to the casting rolls of the completing model.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_DECEMBER_2021],
-      },
-      {
-        name: `Agendas of Anarchy: Mass Conjuration`,
-        desc: `If active, add 1 to casting rolls for the buffed wizard.`,
+        name: `Summon Daemons of Tzeentch`,
+        desc: `You can summon units of Disciples of Tzeentch Daemons units to the battlefield if you have enough Fate Points. Each time a casting roll is successful and the spell is not unbound, you receive 1 Fate Point. Designer's Note: You receive a Fate Point when a friendly or an enemy Wizard successfully casts a spell.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Agendas of Anarchy: Ninefold Dismantlement`,
-        desc: `Requirement: 1 selected enemy unit with 9 or more models is destroyed this turn.
-               Reward: Add 1 to the melee hits rolls of the friendly DISCIPLES OF TZEENTCH unit that completed this agenda.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_DECEMBER_2021],
+        name: `Summon Daemons of Tzeentch`,
+        desc: `If you have any Fate Points at the end of your movement phase, you can summon 1 unit from the list below to the battlefield and add it to your army. Each unit you summon costs the number of Fate Points shown on the list, and you can only summon it if you have enough Fate Points to do so. Units must be set up more than 9" from any enemy units and wholly within 9" of a friendly Disciples of Tzeentch Hero.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
-        name: `Agendas of Anarchy: Ninefold Dismantlement`,
-        desc: `If active, add 1 to the melee hit rolls for the buffed unit.`,
-        when: [COMBAT_PHASE],
+        name: `Summon Daemons of Tzeentch`,
+        desc: `Summoning Costs:
+               1 Lord of Change -                     30 FP
+               1 Fateskimmer on Burning Chariot -     24 FP
+               10 Pink Horrors of Tzeentch -          20 FP
+               1 Burning Chariot of Tzeentch -        18 FP
+               3 Flamers of Tzeentch-                 18 FP
+               1 Changecaster, Herald of Tzeentch -   12 FP
+               1 Exalted Flamer of Tzeentch -         12 FP
+               1 Fluxmaster, Herald of Tzeentch -     12 FP
+               10 Blue Horrors of Tzeentch -          10 FP
+               10 Brimstone Horrors of Tzeentch -     10 FP
+               3 Screamers of Tzeentch -              10 FP`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
-        name: `Agendas of Anarchy: Overthrow Leaders`,
-        desc: `Requirement: 1 selected enemy hero or MONSTER on the battlefield with a wounds characteristic of 9 or more slain this turn.
-               Reward: Add 1 to the save rolls for the friendly DISCIPLES OF TZEENTCH unit that completed this agenda.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_DECEMBER_2021],
-      },
-      {
-        name: `Agendas of Anarchy: Overthrow Leaders`,
-        desc: `If active, add 1 to the save rolls for the buffed unit.`,
-        when: [SAVES_PHASE],
-      },
-      {
-        name: `Agendas of Anarchy: Reckless Abandon`,
-        desc: `Requirement: 1 selected friendly DISCIPLES OF TZEENTCH unit 9" or more from any enemy units successfully completes a charge within 1/2" of an enemy model.
-               Reward: Add 1 to the melee attacks characteristic of the freindly DISCIPLES OF TZEENTCH unit that completed this agenda if it charges in the same turn.`,
-        when: [START_OF_HERO_PHASE, CHARGE_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_DECEMBER_2021],
-      },
-      {
-        name: `Agendas of Anarchy: Reckless Abandon`,
-        desc: `If active, add 1 to the melee attacks characteristic of the buffed unit if it charged this turn.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Agendas of Anarchy: Tides of Anarcy`,
-        desc: `Requirement: 1 selected friendly DISCIPLES OF TZEENTCH unit with 9 or more models takes control of an objective controlled by an enemy at the start of this phase.
-               Reward: Each DISCIPLES OF TZEENTCH model in the unit the completed this agenda counts as 2 models instead of 1 when determining objective control.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_DECEMBER_2021],
-      },
-      {
-        name: `Agendas of Anarchy: Tides of Anarchy`,
-        desc: `If active, each model in the buffed unit counts as 2 models when determining objective control.`,
+        name: `Transformed to Spawn`,
+        desc: `If a model is transformed into a Spawn, you can add 1 Tzeentch Chaos Spawn unit that has 1 model to your army. Set up the Tzeentch Chaos Spawn unit within 1" of the model that has been transformed, adn then remove the transform model from play.
+        
+        Designer's Note: A transformed model does not count as a slain model for the purposes of the Battleshock rules, and cannot be returned if you are allowed to bring back slain models (the model has not been slain). In addition, if your general is transformed to spawn, that Chaos Spawn becomes the general and cannot issue commands.`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+
+  'Battle Tactics': {
+    effects: [
+      {
+        name: `Call for Change`,
+        desc: `You complete this battle tactic if you summon a Lord of Change to the battlefield this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Mass Conjuration`,
+        desc: `Pick 1 friendly Disciples of Tzeentch Wizard. You complete this battle tactic if that Wizard successfully casts 3 or more spells in that turn and none of those spells are unbound.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Ninefold Dismantelment`,
+        desc: `Pick 1 enemy unit that has 9 or more models, or pick 1 enemy Hero or Monster with a Wounds characteristic of 9 ore more. You complete this battle tactic if that unit is destroyed by the end of this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Reckless Abandon`,
+        desc: `Pick 1 friendly Mortal Disciples of Tzeentch unit that is more than 18" from all enemy units. You complete this battle tactic if that unit completes a charge move in this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Tides of Anarchy`,
+        desc: `You complete this battle tactic if you gain control of an objective that was controlled by your opponent at the start of your hero phase, and you have 9 ore more friendly models within 6" of that objective when you gain control of it.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -171,8 +133,12 @@ const BattleTraits = {
     effects: [
       {
         name: `Ranks of Mischievous Mirages`,
-        desc: `Enemy units within 3" of a Hosts Duplicitous unit cannot retreat.`,
-        when: [MOVEMENT_PHASE],
+        desc: `Enemy units within 3"of a friendly Hosts Duplicitous unit
+        models cannot retreat. In addition, once per battle, when a Hosts
+        Horrors of Tzeentch unit from your starting army is destroyed
+        a dice. On a 4+, add a Hosts Duplicitous Horrors of Tzeentch
+        models to your army. Set up the new unit wholly within 12" of a friendly Hosts Duplicitious Hero and more than 9" from all enemy units.`,
+        when: [MOVEMENT_PHASE, DURING_GAME],
       },
     ],
   },
@@ -181,7 +147,7 @@ const BattleTraits = {
     effects: [
       {
         name: `Thieves of All Things Arcane`,
-        desc: `Once per turn, in the first, third, and fifth battle rounds, when a friendly Host Arcanum Wizard attempts to unbind a spell, the spell is automatically unbound. (Do not roll 2D6).`,
+        desc: `Once per turn, in the first, third, and fifth battle rounds, when a friendly Host Arcanum Wizard attempts to unbind a spell, you can choose for the spell to be automatically unbound (do not roll 2D6).`,
         when: [TURN_ONE_HERO_PHASE, TURN_THREE_HERO_PHASE, TURN_FIVE_HERO_PHASE],
       },
     ],
@@ -191,9 +157,8 @@ const BattleTraits = {
     effects: [
       {
         name: `The Change-gift`,
-        desc: `Roll a dice each time a friendly CULT OF THE TRANSIENT FORM KAIRIC ACOLYTE model is slain in the combat phase. On a 2-5, before removing that model from play, that model can fight. On a 6, before removing that model from play, you can add 1 model to a friendly TZAANGORS unit within 9" of the slain model. The new model can only be set up within 3" of an enemy unit if the unit to which it is added is within 3" of that enemy unit.'`,
+        desc: `Roll a dice each time a friendly Cult of the Transient Form Kairic Acolyte model is slain in the combat phase. On a 2-5, before removing that model from play, that model can fight. On a 6, before removing that model from play, you can add 1 Tzaangor model to a friendly Tzaangor Host unit within 9" of the slain model. The new model can only be set up within 3" of an enemy unit if the unit to which it is added is within 3" of that enemy unit.'`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -202,12 +167,12 @@ const BattleTraits = {
     effects: [
       {
         name: `Arrows of Tzeentch`,
-        desc: `Add 1 to hit rolls for attacks made with Sorcerous Bolts by friendly Kairic Acolytes units. In addition, at the end of your shooting phase, roll a D6 for each enemy unit that suffered any wounds inflicted by attacks made with Sorcerous Bolts in that phase. On a 5+, that unit suffers D3 mortal wounds.`,
+        desc: `Add 1 to hit rolls for attacks made with Sorcerous Bolts by friendly Pyrofane Cult Kairic Acolytes units. In addition, at the end of your shooting phase, roll a dice for each enemy unit that suffered any wounds caused by attacks made with Sorcerous Bolts by friendly Pyrofane Cult units in that phase. On a 5+, that unit suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
       },
       {
         name: `Arrows of Tzeentch`,
-        desc: `At the end of your shooting phase, roll a D6 for each enemy unit that suffered any wounds inflicted by attacks made with Sorcerous Bolts in that phase. On a 5+, that unit suffers D3 mortal wounds.`,
+        desc: `In addition, at the end of your shooting phase, roll a dice for each enemy unit that suffered any wounds caused by attacks made with Sorcerous Bolts by friendly Pyrofane Cult units in that phase. On a 5+, that unit suffers D3 mortal wounds.`,
         when: [END_OF_SHOOTING_PHASE],
       },
     ],
@@ -217,33 +182,8 @@ const BattleTraits = {
     effects: [
       {
         name: `Scions of the Exiled`,
-        desc: `If your army has the Guild of Summoners keyword, your Fate Points can only be used to summon Lord of Change untis. Instead of a Fate Point cost of 30, a Lord of Change costs 9 Fate Points to summon the first time, 18 Fate Points for the second time, and 30 Fate Points each time thereafter for the rest of the battle.`,
+        desc: `If your army has the Guild of Summoners keyword, your Fate Points can only be used to summon Lord of Change units. Instead of a Fate Point cost of 30, a Guild of Summoners Lord of Change costs 9 Fate Points to summon the first time, and 18 Fate Points each time thereafter for the rest of the battle. In addition, Lord of Change units summoned in this way must be set up wholly within 9" of a Guild of Summoners Arcanite Hero and more than 9"from all enemy units.`,
         when: [DURING_GAME],
-      },
-    ],
-  },
-  // Unbound Flux Flavor
-  'Maddening Cascade': {
-    effects: [
-      {
-        name: `Maddening Cascade`,
-        desc: `Each time an Unbound Flux Daemon wizard casts a spell inflicting mortal wounds, roll a D6 for each unit that suffered any mortal wounds from the spell. On a 4+ that unit suffers 1 additional mortal wound.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  // Cult of a Thousand Eyes Flavor
-  'Marked for Death': {
-    effects: [
-      {
-        name: `Marked for Death`,
-        desc: `After armies have been setup before the first battle round, pick up to D3 different enemy units. For the rest of the battle, you can reroll hit rolls for melee attacks by friendly Cult of a Thousand Eyes mortal units targeting the selected units.`,
-        when: [END_OF_SETUP],
-      },
-      {
-        name: `Marked for Death`,
-        desc: `You can reroll hit rolls for melee attacks against the pre-selected targets.`,
-        when: [COMBAT_PHASE],
       },
     ],
   },

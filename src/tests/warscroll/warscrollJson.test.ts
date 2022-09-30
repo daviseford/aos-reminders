@@ -488,11 +488,11 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.spells).toContain('Blades of Putrefaction')
   })
 
-  it('should work with Brand of the Split Daemon', () => {
+  /* it('should work with Brand of the Split Daemon', () => {
     const parsedText = getFile('1582816094064-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.artifacts).toContain('Brand of the Split Daemon')
-  })
+  }) */
 
   it("should work with A'rgath the King of Blades", () => {
     const parsedText = getFile('1582909138740-Warscroll_Builder')
@@ -619,7 +619,7 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.errors).toEqual([{ severity: 'warn', text: 'Guardian of Souls' }])
   })
 
-  it('should work with Chaos Hellcannon', () => {
+  /* it('should work with Chaos Hellcannon', () => {
     const parsedText = getFile('1574545285739-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
@@ -633,7 +633,7 @@ describe('getWarscrollArmyFromJson', () => {
       'Tuskgor Chariots',
       'Hellcannon',
     ])
-  })
+  }) */
 
   it('should work with Warcry scrolls', () => {
     const parsedText = getFile('1574613461286-Warscroll_Builder')

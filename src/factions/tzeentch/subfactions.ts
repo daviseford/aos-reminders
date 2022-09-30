@@ -3,10 +3,11 @@ import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import { TZEENTCH } from 'meta/factions'
 import { keyOmitter, keyPicker } from '../metatagger'
 import Artifacts from './artifacts'
-import CommandAbilities from './command_abilities'
+import TzeentchBattalions from './battalions'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
+import GrandStrategies from './grand_strategies'
 import Spells from './spells'
 import Units from './units'
 
@@ -16,8 +17,7 @@ const subFactions = {
 
     available: {
       artifacts: [Artifacts],
-      battalions: [],
-      command_abilities: [CommandAbilities],
+      battalions: [TzeentchBattalions],
       command_traits: [CommandTraits],
       spells: [Spells],
       endless_spells: [EndlessSpells],
@@ -60,15 +60,12 @@ const subFactions = {
           'Gors',
           'Great Bray-Shaman',
           'Tuskgor Chariots',
-          'Tzaangors',
-          `Tzaangor Enlightened`,
-          `Tzaangor Skyfires`,
-          `Tzaangor Shaman`,
           'Ungor Raiders',
           'Ungors',
         ]),
       ],
       flavors: [Flavors],
+      GrandStrategies: [GrandStrategies],
     },
   },
 }
