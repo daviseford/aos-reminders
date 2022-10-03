@@ -103,8 +103,8 @@ describe('getWarscrollArmyFromPdf', () => {
 
     expect(res.factionName).toEqual(TZEENTCH)
     expect(res.selections.artifacts).toContain('Amulet of Destiny')
-    expect(res.selections.artifacts).toContain('Brimstone Familiar')
-    expect(res.selections.command_traits).toContain('Coruscating Flames')
+    //expect(res.selections.artifacts).toContain('Brimstone Familiar')
+    //expect(res.selections.command_traits).toContain('Coruscating Flames')
     expect(res.selections.endless_spells).toContain('The Burning Head')
     expect(res.selections.flavors).toContain('The Eternal Conflagration')
     expect(res.selections.grand_strategies).toContain("Predator's Domain")

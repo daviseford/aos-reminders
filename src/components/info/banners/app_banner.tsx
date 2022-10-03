@@ -3,7 +3,7 @@ import { useTheme } from 'context/useTheme'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = 'july-2022-erratas'
+  const name = '2022-tzeentch-battletome'
 
   return (
     <NotificationBanner
@@ -14,7 +14,7 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW: </strong>July 2022 erratas have all been added!
+        <strong>NEW: </strong>Tzeentch battletome has been added!
       </span>
     </NotificationBanner>
   )
