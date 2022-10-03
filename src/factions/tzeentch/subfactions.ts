@@ -65,7 +65,7 @@ const subFactions = {
         ]),
       ],
       flavors: [Flavors],
-      GrandStrategies: [GrandStrategies],
+      grand_strategies: [GrandStrategies],
     },
   },
 }
