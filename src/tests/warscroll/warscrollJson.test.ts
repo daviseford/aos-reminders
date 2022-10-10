@@ -22,7 +22,6 @@ import {
   SERAPHON,
   SLAANESH,
   SLAVES_TO_DARKNESS,
-  SONS_OF_BEHEMAT,
   TZEENTCH,
 } from 'meta/factions'
 import path from 'path'
@@ -81,20 +80,6 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain("Mannok Da Kunnin'")
     expect(res.selections.units).toContain("Da Kunnin' Krew")
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1634667703586-Warscroll_Builder', () => {
-    const parsedText = getFile('1634667703586-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.battalions).toContain('Footsloggas (Unified)')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1635022761983-Warscroll_Builder', () => {
-    const parsedText = getFile('1635022761983-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.battalions).toContain('Bosses of the Stomp (Unified)')
     expect(res.errors).toEqual([])
   })
 
@@ -282,20 +267,6 @@ describe('getWarscrollArmyFromJson', () => {
     ])
   })
 
-  it('should correctly read 1609436742680-Warscroll_Builder', () => {
-    const parsedText = getFile('1609436742680-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.artifacts).toContain('Krakenskin Sandals (Taker Tribe)')
-    expect(res.selections.command_traits).toContain('Very Acquisitive (Taker Tribe)')
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Plate of Perfect Protection',
-      },
-    ])
-  })
-
   it('should correctly read 1610861933877-Warscroll_Builder', () => {
     const parsedText = getFile('1610861933877-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -345,12 +316,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1614371993867-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.flavors).toContain('Dhom-Hain')
-  })
-
-  it('should correctly read 1603703587229-Warscroll_Builder', () => {
-    const parsedText = getFile('1603703587229-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
   })
 
   it('should correctly read 1598074473619-Warscroll_Builder', () => {
