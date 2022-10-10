@@ -16,7 +16,7 @@ const BattleTraits = {
         name: `Blaze of Fury`,
         desc: `At the start of your hero phase, you can carry out this heroic action with a friendly FYRESLAYERS HERO instead of any other heroic action you can carry out with that HERO.
         
-        Pick 1 friendly FYRESLAYERS HERO. Until the end of your turn, the enhanced effect of the ur-gold rune that is activated in this hero phase applies to that HERO regardless of the activation roll. You cannot carry out this heroic action with the same HERO more than once in the same battle. `,
+        Pick 1 friendly FYRESLAYERS HERO. Until the end of your turn, the enhanced effect of the ur-gold rune that is activated in this hero phase applies to that HERO regardless of the activation roll. You cannot carry out this heroic action with the same HERO more than once in the same battle.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
