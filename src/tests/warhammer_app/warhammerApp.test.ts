@@ -61,25 +61,6 @@ describe('getWarhammerAppArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1634283728135-Warhammer_App', () => {
-    const parsedText = getFile('1634283728135-Warhammer_App')
-    const res = getWarhammerAppArmy(parsedText)
-    expect(res.allySelections).toEqual({
-      [MEGA_GARGANT_MERCENARIES]: {
-        battalions: [],
-        units: ['Big Drogg Fort-Kicka - Gatebreaker', 'One-Eyed Grunnock - Warstomper'],
-      },
-    })
-    expect(res.errors).toEqual([])
-  })
-
-  /*  it('should correctly read 1634935501696-Warhammer_App', () => {
-    const parsedText = getFile('1634935501696-Warhammer_App')
-    const res = getWarhammerAppArmy(parsedText)
-    expect(res.selections.units).toContain('Tzaangor Enlightened')
-    expect(res.errors).toEqual([])
-  }) */
-
   it('should correctly read 1634984507089-Warhammer_App', () => {
     const parsedText = getFile('1634984507089-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)

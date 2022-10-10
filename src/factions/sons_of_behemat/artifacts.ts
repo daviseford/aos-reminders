@@ -1,10 +1,8 @@
 import { tagAs } from 'factions/metatagger'
-import rule_sources from 'factions/sons_of_behemat/rule_sources'
 import {
   BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
   COMBAT_PHASE,
-  END_OF_COMBAT_PHASE,
+  DURING_GAME,
   HERO_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
@@ -13,11 +11,38 @@ import {
 } from 'types/phases'
 
 const Artifacts = {
-  'Jaws of the Mogalodon (Taker Tribe)': {
+  'Extra-calloused Feet': {
     effects: [
       {
-        name: `Jaws of the Mogalodon (Taker Tribe)`,
-        desc: `Once per phase, you can reroll 1 hit roll or 1 wound roll for an attack made by the bearer, or 1 save roll for an attack that targets the bearer. You cannot use this ability to reroll more than one dice for the bearer in the same phase.`,
+        name: `Extra-calloused Feet`,
+        desc: `Model armed with an Almighty Stomp only. The bearer's Almighty Stomp has an Attacks characteristic of 3 instead of 2, a Rend characteristic of -3 instead of -2, and a Damage characteristic of 3 instead of d3.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Glowy Shield of Protectiness': {
+    effects: [
+      {
+        name: `Glowy Shield of Protectiness`,
+        desc: `When this unit is targeted by an attack, if the weapon used for that attack has a Rend characteristic of -1, change the Rend characteristic for that attack to '-'. In addition, if the unmodified save roll for an attack made with a melee weapon that targets the bearer is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Scavenger Wake': {
+    effects: [
+      {
+        name: `Scavenger Wake`,
+        desc: `Once per battle,at the start of the combat phase, you can pick I enemy unit within 3" of the bearer and roll a number of dice equal to the number of models in that unit(to a maximum of 10). For each 4+, that enemy unit suffers I mortal wound.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  'Amberbone Totem': {
+    effects: [
+      {
+        name: `Amberbone Totem`,
+        desc: `The bearer can attempt a charge even if they ran in the same turn.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
@@ -26,25 +51,7 @@ const Artifacts = {
     effects: [
       {
         name: `Wallopin' Tentacle (Taker Tribe)`,
-        desc: `At the start of the combat phase, you can pick 1 enemy HERO within 3" of the bearer and roll a D6. On a 4+, that HERO suffers 1 mortal wound, and you can reroll hit rolls of 1 for attacks that target that HERO until the end of that phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'Jar of Burny Grog (Taker Tribe)': {
-    effects: [
-      {
-        name: `Jar of Burny Grog (Taker Tribe)`,
-        desc: `Once per battle, at the start of the combat phase, you can pick 1 enemy unit within 3" of the bearer and roll a D6. On a 2+, that unit suffers D3 mortal wounds and, until the end of that phase, you can reroll wounds rolls for attacks made by friendly GARGANTS that target that unit. On a 1, the bearer suffers mortal wounds.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'Net of the Beast-reaver (Taker Tribe)': {
-    effects: [
-      {
-        name: `Net of the Beast-reaver (Taker Tribe)`,
-        desc: `At the start of the combat phase, you can pick 1 enemy MONSTER within 3" of the bearer and roll a D6. On a 4+, until the end of that phase, subtract 1 from hit rolls for attacks made by that MONSTER, and you can add 1 to hit rolls for attacks that target that MONSTER.`,
+        desc: `Kraken-Eater only. At the start of the combat phase, you can pick 1 enemy HERO within 3"of the bearer and roll a dice. On a 4+, that HERO suffers D3 mortal wounds and  the strike-last effect applies to that HERO until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -53,47 +60,23 @@ const Artifacts = {
     effects: [
       {
         name: `Glowy Lantern (Taker Tribe)`,
-        desc: `The bearer is a WIZARD. They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase.`,
-        rule_sources: [
-          rule_sources.BATTLETOME_SONS_OF_BEHEMAT,
-          rule_sources.ERRATA_NOV_2020,
-          rule_sources.ERRATA_MARCH_2021,
-          rule_sources.ERRATA_JULY_2021,
-        ],
+        desc: `Kraken-Eater only. In your hero phase, the bearer can attempt to cast 1 spell that summons an endless spell in the same manner as a Wizard. When they do so, the range of that spell is doubled.`,
         when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Krakenskin Sandals (Taker Tribe)': {
-    effects: [
-      {
-        name: `Krakenskin Sandals (Taker Tribe)`,
-        desc: `The bearer's Almighty Stomp has an Attacks characteristic of 3 instead of 2, a Rend characteristic of -3 instead of -2, and a Damage characteristic of 3 instead of D3.`,
-        when: [COMBAT_PHASE],
       },
     ],
   },
   // Stomper Tribe
-  'Ironweld Cestus (Stomper Tribe)': {
-    effects: [
-      {
-        name: `Ironweld Cestus (Stomper Tribe)`,
-        desc: `You can reroll save rolls for attacks that target the bearer. In addition, if the rerolled save roll is an unmodified 6 and the attack was made with a melee weapon, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
   'Club of the First Oak (Stomper Tribe)': {
     effects: [
       {
         name: `Club of the First Oak (Stomper Tribe)`,
-        desc: `In your hero phase, you can heal 1 wound allocated to the bearer.`,
-        when: [HERO_PHASE],
+        desc: `Warstomper only. In your hero phase, you can heal 1 wound allocated to the bearer. In addition, while the bearer has 25 or more wounds allocated to them, they have a ward of 5+.`,
+        when: [HERO_PHASE, WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Club of the First Oak (Stomper Tribe)`,
-        desc: `If the bearer is slain, roll a D6 before the bearer's model is removed from play. On a 4+, the wound or mortal wound is negated and the bearer is not slain, and any wounds that remain to be allocated to the bearer are negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `Warstomper only. In addition, while the bearer has 25 or more wounds allocated to them, they have a ward of 5+.`,
+        when: [SAVES_PHASE],
       },
     ],
   },
@@ -101,37 +84,37 @@ const Artifacts = {
     effects: [
       {
         name: `Mantle of the Destroyer (Stomper Tribe)`,
-        desc: `Friendly GARGANTS have a Bravery characteristic of 10 while they are within 12" of the bearer.`,
+        desc: `Warstomper only. Friendly Sons of Behemat units within 12" of the bearer have a Bravery characteristic of 10.`,
         when: [BATTLESHOCK_PHASE],
       },
+    ],
+  },
+  // Smasher Tribe
+  'The Shatterer (Smasher Tribe)': {
+    effects: [
       {
-        name: `Mantle of the Destroyer (Stomper Tribe)`,
-        desc: `You can reroll charge rolls for friendly GARGANTS that are within 12" of the bearer.`,
-        when: [CHARGE_PHASE],
+        name: `The Shatterer (Smasher Tribe)`,
+        desc: `Beast-Smasher Only. If the unmodified wound roll for an attack made with the bearer's Menhir Club that targets an enemy Hero, Monster, or War Machine is 6, that unit's armour has been shattered. If a unit's armor has been shattered, until the end of the battle, ignore positive modifiers to save rolls for attacks that target that unit.`,
+        when: [COMBAT_PHASE, DURING_GAME],
+      },
+    ],
+  },
+  'Mantle of Tusks and Horns (Smasher Tribe)': {
+    effects: [
+      {
+        name: `Mantle of Tusks and Horns (Smasher Tribe)`,
+        desc: `Beast-Smasher Only. Once per battle, at the start of the combat phase, you can say that the bearer will channel the Waaagh!. If you do so, add 1 to hit rolls for attacks made with melee weapons by friendly Sons of Behemat units until the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
   // Breaker Tribe
-  'Enchanted Portcullis (Breaker Tribe)': {
-    effects: [
-      {
-        name: `Enchanted Portcullis (Breaker Tribe)`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 6, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
   'The Great Wrecka (Breaker Tribe)': {
     effects: [
       {
         name: `The Great Wrecka (Breaker Tribe)`,
-        desc: `If the unmodified hit roll for an attack made with the bearer's Fortcrusha Flail is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        desc: `Gatebreaker Only. If the unmodified hit roll for an attack made with the bearer's Fortcrusha Flail is 6, that attack causes D3 mortal wounds to the target in addition to any damage it inflicts.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `The Great Wrecka (Breaker Tribe)`,
-        desc: `When you use the bearer's Smash Down ability, you can add 1 to the dice roll that determines if the terrain feature is reduced to rubble.`,
-        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -139,7 +122,7 @@ const Artifacts = {
     effects: [
       {
         name: `Kingslaughter Cowl (Breaker Tribe)`,
-        desc: `You can reroll wound rolls of 1 for attacks made by the bearer that target a HERO. In addition, you can reroll wound rolls for attacks made by the bearer that target a general.`,
+        desc: `Gatebreaker Only. Add 1 to wound rolls for attacks made by the bearer that target an enemy Hero.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],

@@ -1,4 +1,3 @@
-import { SeraphonFaction } from 'factions/seraphon'
 import { readFileSync } from 'fs'
 import {
   BEASTS_OF_CHAOS,
@@ -24,7 +23,6 @@ import {
   TZEENTCH,
 } from 'meta/factions'
 import path from 'path'
-import { DEPRECATED_AOS_3 } from 'utils/import/options'
 import { parsePdf } from 'utils/pdf/pdfUtils'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
@@ -323,23 +321,7 @@ describe('getWarscrollArmyFromPdf', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
     expect(res.selections.flavors).toEqual(['Breaker Tribe'])
-    expect(res.selections.command_traits).toEqual([
-      "Shiny 'Uns (Fierce Loathing)",
-      'Extremely Bitter (Breaker Tribe)',
-    ])
-    expect(res.selections.artifacts).toEqual([
-      'Enchanted Portcullis (Breaker Tribe)',
-      'The Great Wrecka (Breaker Tribe)',
-      'Kingslaughter Cowl (Breaker Tribe)',
-    ])
     expect(res.selections.units).toEqual(['Gatebreaker', 'Kraken-Eater', 'Warstomper', 'Mancrusher Gargant'])
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Incandescent Rageblade',
-      },
-    ])
   })
 
   it('should correctly read SoB1', () => {
