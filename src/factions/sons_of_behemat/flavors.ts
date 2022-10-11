@@ -1,56 +1,57 @@
 import { TItemDescriptions } from 'factions/factionTypes'
-import { keyPicker } from 'factions/metatagger'
-import { COMBAT_PHASE, DURING_GAME, END_OF_COMBAT_PHASE, START_OF_SETUP } from 'types/phases'
-import command_abilities from './command_abilities'
-import command_traits from './command_traits'
+import {
+  COMBAT_PHASE,
+  DURING_GAME,
+  SHOOTING_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_SETUP,
+  START_OF_SHOOTING_PHASE,
+} from 'types/phases'
 
 const Flavors: TItemDescriptions = {
   'Taker Tribe': {
     effects: [
       {
         name: `Get Rid Of 'Em!`,
-        desc: `When using the Mightier Makes Rightier rule to determining control of an objective, each friendly MANCRUSHER GARGANT model counts as 15 models instead of 10, and each friendly MEGA-GARGANT counts as 30 models instead of 20.`,
+        desc: `For the purposes of contesting objectives, each friendly MANCRUSHER GARGANT model counts as 15 models instead of 10. In addition, add 5 to the Mightier Makes Rightier value for friendly KRAKEN-EATERS that are contesting an objective.`,
         when: [DURING_GAME],
       },
       {
-        name: `More Stuff For Me Collection`,
-        desc: `Each time an enemy model with an artefact of power is slain, you can roll for a triumph on the Triumph table. You can use that triumph during the current battle, even if you have already used it. If you do not use it during the current battle, it is lost (you cannot use it in your next battle).`,
-        when: [DURING_GAME],
+        name: `I Want That For Me Collection`,
+        desc: `You can use this command ability at the start of the combat phase.The command can only be issued by your general, and the unit that receives the command must be a  friendly Mancrusher Gargant unit. Until the end of that phase, add 1 to the Damage characteristic of attacks made with melee weapons that target an enemy unit that bears an artefact of power or is Unique.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
   'Stomper Tribe': {
-    mandatory: {
-      command_abilities: [
-        keyPicker(command_abilities, [
-          'Get a Move On, You Slackers! (Big Shout)',
-          "Grab Those Rocks and Chuck 'Em at Somethin'! (Big Shout)",
-          'Oi, You! Yes, You! Charge! (Big Shout)',
-          "Stop Muckin' About and Hit 'Em! (Big Shout)",
-          'Watch Yer Backs, You Gormless Lot! (Big Shout)',
-          "Where Do You Think You're Going? (Big Shout)",
-        ]),
-      ],
-
-      command_traits: [
-        keyPicker(command_traits, [
-          'Eager for the Fight (Stomper Tribe)',
-          'Inescapable Grip (Stomper Tribe)',
-          'Very Shouty (Stomper Tribe)',
-          'Louder Than Words (Stomper Tribe)',
-        ]),
-      ],
-    },
-
     effects: [
       {
         name: `Getting Stuck In`,
-        desc: `Add 1 to the damage inflicted by each successful attack made by a friendly MANCRUSHER GARGANT unit that targets a unit with 10 or more models. Add 2 instead of 1 to the damage inflicted by each successful attack made by a friendly MANCRUSHER GARGANT unit that targets a unit with 20 or more models.`,
+        desc: `Add 1 to the damage inflicted by each successful attack made by a friendly Mancrusher Gargant unit if it targets an enemy unit that has 10-19 models. Add 2 to the damage inflicted by each successful attack made by a friendly Mancrusher Gargant unit if it targets an enemy unit that has 20 or more models.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Big Shouts`,
-        desc: `If your army is a Stomper Tribe, your general must use the Big Shout command abilities (they cannot use any other command abilities)`,
+        desc: `After your general issues a command to a friendly Mancrusher Gargant unit, until the end of the phase, they can issue the same command to any other friendly Mancrusher Gargant units without any further command points being spent.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Grab Those Rocks and Chuck 'Em at Somethin'! (Stomper Tribe)`,
+        desc: `You can use this command ability at the start of your shooting phase. The unit that receives the command must be a friendly Mancrusher Gargant unit. Until the end of that phase, add 1 to the Attacks characteristic of that unit's Throwin' Rocks.`,
+        when: [START_OF_SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Smasher Tribe': {
+    effects: [
+      {
+        name: `Bone-crunching Strikes`,
+        desc: `When a friendly Mancrusher Gargant unit fights, if it is within 3" of an enemy Monster, you can say that it will unleash a bone-crunching strike. If you do so, until the end of the phase, the Attacks characteristic of that unit's Massive Club is 1 and cannot be modified, the Damage characteristic is 4d6, and all attacks made with its Massive Club must target an enemy Monster.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Don't Let a Few Cuts Stop Yer!`,
+        desc: `You can use this command ability at the start of the combat phase. The command can only be issued by your general, and the unit that receives the command must be a friendly Mancrusher Gargant unit. Until the end of that phase, use the top row on that unit's damage table, regardless of how many wounds it has suffered. In addition, until the end of that phase, each time a model in that unit is slain, if that unit has not yet fought in that phase, that model can fight before it is removed from play.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -59,17 +60,32 @@ const Flavors: TItemDescriptions = {
     effects: [
       {
         name: `Breaking Down The Houses`,
-        desc: `Add 1 to the damage inflicted by each successful attack made by a friendly MANCRUSHER GARGANT unit that targets a unit that is part of a garrison or is wholly on or within a terrain feature.`,
+        desc: `Add 1 to the damage inflicted by each successful attack made by a friendly MANCRUSHER GARGANT unit that targets an enemy unit that is part of a garrison or is wholly on a terrain feature.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Breaking Down The Houses`,
-        desc: `At the end of the combat phase, you can pick 1 terrain feature within 3" of a friendly MANCRUSHER GARGANT unit and roll a D6. Add the number of models in that unit to the roll. On a 7+, that terrain feature is reduced to rubble: all of its scenery rules are replaced with the Deadly scenery rule, and its keywords are changed to SCENERY, RUBBLE.`,
-        when: [END_OF_COMBAT_PHASE],
+        name: `Fierce Loathings`,
+        desc: `When you pick a Breaker Tribe army, you can pick 1 of the fierce loathings below and record it on your army roster. The rule for that fierce loathing applies to friendly Gatebreaker and Mancrusher Gargant Units.`,
+        when: [START_OF_SETUP],
       },
       {
-        name: `Fierce Loathings`,
-        desc: `When you pick a Breaker Tribe army, you can choose or roll for 1 ability from the Fierce Loathings table. The ability applies to friendly GATEBREAKER MEGA-GARGANTS and friendly MANCRUSHER GARGANT units.`,
+        name: `Fierce Loathings - Bossyboots and Clever Clogs`,
+        desc: `Add 1 to hit rolls for attacks made by this unit that target an enemy Hero or Wizard.`,
+        when: [START_OF_SETUP, SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Fierce Loathings - Idiots with Flags`,
+        desc: `Add 1 to hit rolls for attacks made by this unit that target an enemy Totem or unit with any command models.`,
+        when: [START_OF_SETUP, SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Fierce Loathings - Wannabes`,
+        desc: `Add 1 to hit rolls for attacks made by this unit that target an enemy War Machine or Monster.`,
+        when: [START_OF_SETUP, SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Ramming Speed`,
+        desc: `You can use this command ability at the start of your charge phase. The command can only be issued by your general, and the unit that receives the command must be a friendly Mancrusher Gargant unit. Until the end of that phase, you can attempt a charge with the uni that received the command if it is within 18" of an enemy unit instead of 12". In addition, roll 3d6 instead of 2d6 when making a charge roll for that unit until the end of that phase.`,
         when: [START_OF_SETUP],
       },
     ],

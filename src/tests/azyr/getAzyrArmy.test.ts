@@ -182,52 +182,6 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
-  it('should correctly read SoB3', () => {
-    const fileTxt = getFile('SoB3')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(SONS_OF_BEHEMAT)
-    expect(res.allyFactionNames).toContain(GLOOMSPITE_GITZ)
-    expect(res.allyFactionNames).toContain(MEGA_GARGANT_MERCENARIES)
-    expect(res.selections).toEqual({
-      grand_strategies: [],
-      mount_traits: [],
-      prayers: [],
-      incarnates: [],
-      monstrous_rampages: [],
-      flavors: [],
-      artifacts: [
-        'The Great Wrecka (Breaker Tribe)',
-        'Kingslaughter Cowl (Breaker Tribe)',
-        "Wallopin' Tentacle (Taker Tribe)",
-        'Net of the Beast-reaver (Taker Tribe)',
-        'Jaws of the Mogalodon (Taker Tribe)',
-        'Mantle of the Destroyer (Stomper Tribe)',
-      ],
-      battalions: [],
-      command_abilities: [],
-      endless_spells: [],
-      scenery: [],
-      spells: [],
-      command_traits: ['Extremely Bitter (Breaker Tribe)'],
-      core_rules: [],
-      triumphs: [],
-      units: ['Gatebreaker', 'Kraken-Eater', 'Warstomper', 'Mancrusher Gargant Mob'],
-    })
-    expect(res.errors).toEqual([
-      {
-        severity: 'deprecation-warn',
-        text: 'Hypersnare Seeds',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-      {
-        severity: 'deprecation-warn',
-        text: 'Arboreal Stave',
-        reason: DEPRECATED_MALIGN_SORCERY,
-      },
-    ])
-  })
-
   it('should correctly read ScarVeteran (issue #1037)', () => {
     const fileTxt = getFile('ScarVeteran')
     const pages = handleAzyrPages(fileTxt)
