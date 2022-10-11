@@ -1,3 +1,4 @@
+import { SeraphonFaction } from 'factions/seraphon'
 import { readFileSync } from 'fs'
 import {
   BEASTS_OF_CHAOS,
