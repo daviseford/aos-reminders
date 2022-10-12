@@ -2,27 +2,20 @@ import { tagAs } from 'factions/metatagger'
 import { LUMINETH_REALMLORDS } from 'meta/factions'
 import {
   BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  DURING_SETUP,
-  END_OF_COMBAT_PHASE,
-  END_OF_SETUP,
   HERO_PHASE,
-  MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const BattleTraits = {
   [LUMINETH_REALMLORDS]: {
     effects: [
       {
         name: `Aetherquartz Reserve`,
-        desc: `Each unit in a Lumineth Realm-Lords army starts the battle with 1 aetherquartz reserve. Once per phase you can say a unit will use its reserve to trigger 1 aetherquartz ability. However, if you do so, subtract 1 from the unit's Bravery characteristic for the remainder of the battle.`,
+        desc: `Each Lumineth Realm-Lords unit in your army starts the battle with 1 aetherquartz reserve. Once per phase you can say a unit will use its reserve to trigger 1 aetherquartz ability. However, if you do so, subtract 1 from the unit's Bravery characteristic for the remainder of the battle.`,
         when: [DURING_GAME],
       },
       {
@@ -32,85 +25,56 @@ const BattleTraits = {
       },
       {
         name: `Aetherquartz Reserve - Heightened Reflexes`,
-        desc: `Can be used when a unit is picked to be the target of an enemy attack. Add 1 to save rolls for attacks that target the unit until the end of the phase.`,
+        desc: `You can say that a unit will use this ability when it is picked to be the target of an attack. If you do so, until the end of that phase, add 1 to save rolls for attacks that target the unit until the end of the phase.`,
         when: [SAVES_PHASE],
       },
       {
         name: `Aetherquartz Reserve - Heightened Senses`,
-        desc: `Can be used when a unit is picked to shoot or fight. Add 1 to hit rolls for attacks made by this unit until the end of the phase.`,
+        desc: `You can say that a unit will use this ability when it is picked to shoot or fight. If you do so, add 1 to hit rolls for attacks made by that unit until the end of the phase.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Aetherquartz Reserve - Magical Boost`,
-        desc: `Can be used after a unit has attempted to cast a spell but before any unbinding rolls are made for that spell. Add 1 to the casting roll or reroll that casting roll.`,
+        desc: `You can say that a unit will use this ability after it has attempted to cast a spell but before any unbinding rolls are made for that spell. If you do so, you can either add 1 to the casting roll or reroll that casting roll.`,
         when: [HERO_PHASE],
       },
+    ],
+  },
+
+  'Battle Tactics': {
+    effects: [
       {
-        name: `Aetherquartz Reserve - Magical Insight`,
-        desc: `WIZARDS only. You can say that a unit will use this ability at the start of your hero phase. If you do so, that unit can attempt to cast 1 extra spell in that phase.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_JULY_2021],
-      },
-      {
-        name: `Absorb Dispair`,
-        desc: `If a friendly unit uses its aetherquartz reserve while it is wholly within 18" of any friendly CATHALLARS, you can pick 1 to absorb the negative energy. A CATHALLAR cannot absorb negative energy more than once per phase. If a CATHALLAR absorbs the negative energy, do not subtract 1 from the units Bravery characteristic. Instead pick 1 enemy unit within 18" of that CATHALLAR and subtract 1 from their Bravery characteristic for the rest of the battle. An enemy unit cannot be affected by this ability more than once per battle.`,
-        when: [WOUND_ALLOCATION_PHASE, COMBAT_PHASE, SHOOTING_PHASE, HERO_PHASE],
-      },
-      {
-        name: `Deep Thinkers`,
-        desc: `Pick any friendly SCINARI WIZARDS, you can declare they will contemplate. If you do so, in your next hero phase, the wizard that contemplated auto casts their first spell with a casting roll of 9 (do not roll 2D6) that cannot be modified (it can be unbound).`,
+        name: `Priority Target`,
+        desc: `Pick 1 enemy Monster on the battlefield. You complete this tactic if that Monster is slain in this turn by attacks made by any friendly Starshard Ballistas.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Lightning Reactions`,
-        desc: `During the combat phase, after any units with the strike-first effect have attacked, when it is your turn to pick a unit to fight, you can pick 2 eligible units instead of 1. Neither unit can have the strike-last effect. Each of those units can fight one after the other in the order of your choice.`,
-        when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_JULY_2021],
+        name: `Conserve Aetherquartz`,
+        desc: `Pick 1 enemy unit on the battlefield and 1 friendly Lumineth Realm-Lords unit that has at least 1 aetherquartz reserve. You complete this tactic if that enemy unit is destroyed by that Lumineth Realm-Lords unit in this turn and that Lumineth Realm-Lords still has at least 1 aetherquartz reserve at the end of this turn.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Shining Company`,
-        desc: `After a VANARI unit is set up, if the base of each model touches the bases of 2 other models in the same unit, they become a shining company. They remain a shining company until each model is no longer touching 2 other models from the same unit. Subtract 1 from hit rolls that target a shining company. However, a shining company cannot run or charge and can only move 1" when they pile-in.`,
-        when: [DURING_SETUP, COMBAT_PHASE, SHOOTING_PHASE, MOVEMENT_PHASE, CHARGE_PHASE],
+        name: `Blind the Enemy`,
+        desc: `You complete this tactic if 4 or more spells are successfully cast with different friendly Lumineth Realm-Lords units in this turn.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Shining Company`,
-        desc: `Subtract 1 from hit rolls that target a VANARI shining company.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        name: `Elemental Supremacy`,
+        desc: `Pick 1 enemy Hero on the battlefield and 1 friendly Aelementiri unit that has at least 1 aetherquartz reserve. You complete this tactc if that Hero is slain by that Aelementiri unit in this turn.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Shining Company`,
-        desc: `A VANARI shining company can only move 1" when they pile-in.`,
-        when: [COMBAT_PHASE],
+        name: `Hysh Made Manifest`,
+        desc: `You complete this tactic if there are 2 or more endless spells from your army on the battlefield at the end of this turn.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Shining Company`,
-        desc: `A VANARI shining company cannot run or charge.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-      {
-        name: `Enduring as Rock`,
-        desc: `Before the first battle round, or at the start of your hero phase, pick any number of ALARITH units and say they are adopting a mountain stance. If they do so, weapons that target them with Rend -1 count as Rend -.`,
-        when: [START_OF_HERO_PHASE, END_OF_SETUP],
-      },
-      {
-        name: `Enduring as Rock`,
-        desc: `If an ALARITH unit has adopted a mountain stance, weapons that target them with Rend -1 count as Rend -.`,
-        when: [SAVES_PHASE],
-      },
-      {
-        name: `Move Like the Wind`,
-        desc: `When you make a pile-in move with a Hurakan model, it does not have to finish the move no further from the nearest enemy unit than it was at the start of the move.`,
-        when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_JULY_2021],
-      },
-      {
-        name: `Tectonic Force`,
-        desc: `Pick one enemy unit within 1" of each ALARITH unit. You cannot pick the same enemy unit more than once in the same phase. After you pick each unit, your opponent must move that unit 2" and that unit must finish more than 1" from any ALARITH units from your army if it is possible for it to do so. Once those enemy units have moved, any friendly ALARITH units within 3" of any unit can make a 1" pile-in move.`,
-        when: [END_OF_COMBAT_PHASE],
+        name: `Ignore the Odds`,
+        desc: `When you reveal this battle tactic, pick 1 friendly Lumineth Realm-Lords unit and 1 enemy unit that are within 1" of each other. You complete this tactic if that enemy unit is destroyed in this turn and the Lumineth Realm-Lords unit you picked has not been destroyed.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
 }
-
 // Always export using tagAs
 export default tagAs(BattleTraits, 'battle_trait')

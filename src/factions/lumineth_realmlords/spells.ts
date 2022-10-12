@@ -1,24 +1,20 @@
 import { tagAs } from 'factions/metatagger'
-import meta_rule_sources from 'meta/rule_sources'
 import {
-  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_TURN,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
-  SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import lumineth_rule_sources from './rule_sources'
 
 const Spells = {
+  //Lore of Hysh
   'Speed of Hysh': {
     effects: [
       {
         name: `Speed of Hysh`,
-        desc: `Casting value of 5. Pick 1 friendly LUMINETH REALM-LORDS unit wholly within 18" of the caster and visible to them. Double the move characteristic of the unit until your next hero phase.`,
+        desc: `Casting value of 5 and a range of 18". Pick 1 friendly Lumineth Realm-Lords unit wholly within range and visible to the caster. Double the move characteristic of that unit until your next hero phase.`,
         when: [HERO_PHASE, MOVEMENT_PHASE],
       },
     ],
@@ -27,39 +23,7 @@ const Spells = {
     effects: [
       {
         name: `Solar Flare`,
-        desc: `Casting value of 8. Pick a point on the battlefield within 10" of the caster and visible to them. If there is an endless spell at that point, it is dispelled. If there is a unit at that point. Roll a number of dice equal to the number of models in the unit. On a 6+ the unit suffers a mortal wound. If there are WIZARDS within 12", subject 2 from casting and dispell rolls until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Lambent Light': {
-    effects: [
-      {
-        name: `Lambent Light`,
-        desc: `Casting value of 5. Pick 1 enemy unit wholly within 18" and visible to them. Until your next hero phase, reroll missile weapon attacks that target the unit.`,
-        when: [HERO_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  'Etheral Blessings': {
-    effects: [
-      {
-        name: `Etheral Blessings`,
-        desc: `Casting value of 6. Pick 1 friendly LUMINETH REALM-LORDS unit wholly within 18" and visible to them. Until your next hero phase, ignore modifiers (positive and negative) when making saving throws for attacks that target the unit.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Etheral Blessings`,
-        desc: `If active, until your next hero phase, ignore modifiers (positive and negative) when making saving throws for attacks that target the unit.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
-  'Total Eclipse': {
-    effects: [
-      {
-        name: `Total Eclipse`,
-        desc: `Casting value of 8. Until your next hero phase, your opponent must spend 2 command points to use a command ability.`,
+        desc: `Casting value of 8 and a range of 10". Pick a point on the battlefield within range and visible to the caster. If there is an endless spell at that point, it is dispelled, and if there is a unit at that point, roll a number of dice equal to the number of models in that unit. For each 6, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -68,27 +32,83 @@ const Spells = {
     effects: [
       {
         name: `Protection of Hysh`,
-        desc: `Casting value of 8. Until your next hero phase, roll a D6 each time you allocate a wound or mortal wound to a friendly unit wholly within 9" of the caster. On a 5+ the wound or mortal wound is negated. Cannot be saved in the same hero phase as Protection of Teclis.`,
+        desc: `Casting value of 8 and a range of 9". If successfully cast, until your next hero phase, friendly units wholly within range of the caster have a ward of 5+. This spell cannot be cast in the same hero phase as Protection of Teclis.`,
         when: [HERO_PHASE],
       },
       {
         name: `Protection of Hysh`,
-        desc: `If active, until your next hero phase, roll a D6 each time you allocate a wound or mortal wound to a friendly unit wholly within 9" of the caster. On a 5+ the wound or mortal wound is negated. Cannot be saved in the same hero phase as Protection of Teclis.`,
+        desc: `If active, until your next hero phase, friendly units wholly within range of the caster have a ward of 5+.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
-  'Unyielding Calm': {
+  'Overwhelming Heat': {
     effects: [
       {
-        name: `Unyielding Calm`,
-        desc: `Casting value of 4. Pick 1 friendly LUMINETH REALM-LORDS unit wholly within 18" of the caster. Until your next hero phase, do not take battleshock tests for that unit.`,
+        name: `Overwhelming Heat`,
+        desc: `Casting value of 7 and a range of 24". Pick 1 enemy unit wholly within range and visible to the caster. Halve the Move characteristic of that unit until your next hero phase. Then roll a dice. If the roll is equal to or greater than the unit's Save characteristic, that unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE, MOVEMENT_PHASE],
+      },
+    ],
+  },
+  'Etheral Blessings': {
+    effects: [
+      {
+        name: `Etheral Blessings`,
+        desc: `Casting value of 6 and a range of 18". Pick 1 friendly Lumineth Realm-Lords unit wholly within range and visible to the caster. Until your next hero phase, ignore modifiers (positive and negative) when making save rolls for attacks that target that unit.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Unyielding Calm`,
-        desc: `If active, until your next hero phase, do not take battleshock tests for that unit.`,
-        when: [BATTLESHOCK_PHASE],
+        name: `Etheral Blessings`,
+        desc: `If active, until your next hero phase, ignore modifiers (positive and negative) when making save rolls for attacks that target that unit.`,
+        when: [SAVES_PHASE],
+      },
+    ],
+  },
+  'Total Eclipse': {
+    effects: [
+      {
+        name: `Total Eclipse`,
+        desc: `Casting value of 9. If successfully cast, until your next hero phase, your opponent must spend 2 command points to issue a command instead of 1.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  //Hurakan
+  'Howling Gale': {
+    effects: [
+      {
+        name: `Howling Gale`,
+        desc: `Casting value of 7 and a range of 12". Pick 1 enemy unit within range and visible to the caster. That unit cannot issue or receive commands until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Healing Zephyr': {
+    effects: [
+      {
+        name: `Healing Zephyr`,
+        desc: `Casting value of 6 and a range of 18". Pick 1 friendly Lumineth Realm-Lords unit wholly within range and visible to the caster. You can heal up to D3 wounds allocated to that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Transporting Vortex': {
+    effects: [
+      {
+        name: `Transporting Vortex`,
+        desc: `Casting value of 8 and a range of 12". Pick 1 friendly Lumineth Realm-Lords unit wholly within range and visible to the caster. Remove that unit from the battlefield and set it up again on the battlefield more than 9" from all enemy units. That unit cannot move in the next movement phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  //Alarith
+  'Unbreakable Stoicism': {
+    effects: [
+      {
+        name: `Unbreakable Stoicism`,
+        desc: `Casting value of 7 and a range of 12". Pick 1 friendly Stoneguard unit wholly within range and visible to the caster. Unitl your next hero phase, that unit's Crushing Blow ability causes mortal wounds on an unmodified hit roll of 5+ instead of 6.`,
+        when: [HERO_PHASE, COMBAT_PHASE],
       },
     ],
   },
@@ -96,22 +116,13 @@ const Spells = {
     effects: [
       {
         name: `Crippling Vertigo`,
-        desc: `Casting value of 6. Pick 1 enemy unit wholly within 18" of the caster and visible to them. Until your next hero phase, roll 2D6 before that unit makes a normal move, charge move or pile-in move. If the roll is greater than that unit's bravery, it cannot make that move.`,
+        desc: `Casting value of 6 and a range of 18". Pick 1 enemy unit wholly within  range and visible to the caster. Until your next hero phase, roll 2D6 before that unit makes a normal move, runs, retreats, makes a charge move or makes a pile-in move. If the roll is greater than that unit's bravery, it cannot make that move.`,
         when: [HERO_PHASE],
       },
       {
         name: `Crippling Vertigo`,
-        desc: `If active, until your next hero phase, roll 2D6 before that unit makes a normal move, charge move or pile-in move. If the roll is greater than that unit's bravery, it cannot make that move.`,
+        desc: `If active, until your next hero phase, roll 2D6 before that unit makes a normal move, runs, retreats, makes a charge move or makes a pile-in move. If the roll is greater than that unit's bravery, it cannot make that move.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  'Voice of the Mountains': {
-    effects: [
-      {
-        name: `Voice of the Mountains`,
-        desc: `Casting value of 6. Until the end of the turn, subtract 2 from the bravery of all enemy units. Then, until your next hero phase, subtract 1 from the bravery of all enemy units.`,
-        when: [HERO_PHASE, BATTLESHOCK_PHASE],
       },
     ],
   },
@@ -119,11 +130,14 @@ const Spells = {
     effects: [
       {
         name: `Living Fissure`,
-        desc: `Casting value of 6. Pick one point on the battlefield within 9" of the caster and visible to them. Draw a straight line 1mm wide between that point and the closest part of the caster's base. Roll a D6 for each unt that has models passed by the line. On a 2+ the unit suffers D3 mortal wounds.`,
+        desc: `Casting value of 7 and a range of 18". Pick one point on the battlefield within range of the caster that is visible to them and draw a straight line between that point and the closest part of the caster's base. Roll a dice for each unt that has models passed across by this line. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
   },
+
+  //Units???
+  /*
   Entomb: {
     effects: [
       {
@@ -213,15 +227,6 @@ const Spells = {
       },
     ],
   },
-  'Overwhelming Heat': {
-    effects: [
-      {
-        name: `Overwhelming Heat`,
-        desc: `All ZAITREC WIZARDS know Overwhelming Heat. Casting value of 7. Pick 1 enemy unit wholly within 24" of the caster and visible to them. Halve the Move characteristic of that unit until your next hero phase. Roll a D6, if the roll is equal to or greater than the unit's Save characteristic, that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE, MOVEMENT_PHASE],
-      },
-    ],
-  },
   'Windblast Vortex': {
     effects: [
       {
@@ -276,15 +281,6 @@ const Spells = {
       },
     ],
   },
-  'Howling Gale': {
-    effects: [
-      {
-        name: `Howling Gale`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 12" that is visible to the caster. That unit cannot benefit from command abilities until your next hero phase.`,
-        when: [HERO_PHASE, DURING_TURN],
-      },
-    ],
-  },
   'Guiding Flurries': {
     effects: [
       {
@@ -311,16 +307,7 @@ const Spells = {
         when: [HERO_PHASE],
       },
     ],
-  },
-  'Transporting Vortex': {
-    effects: [
-      {
-        name: `Transporting Vortex`,
-        desc: `Casting value of 8. Pick 1 friendly LUMINETH REALM-LORDS unit wholly within 12" of the caster and visible to them. Remove that unit from the battlefield and set it back up again anywhere on the battlefield more than 9" from enemy units. It cannot move in the next movement phase.`,
-        when: [HERO_PHASE, MOVEMENT_PHASE],
-      },
-    ],
-  },
+  },*/
 }
 
 export default tagAs(Spells, 'spell')
