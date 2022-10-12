@@ -249,7 +249,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1625930557439-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Sevireth, Lord of the Seventh Wind')
-    expect(res.selections.command_traits).toContain('Astute Commander')
   })
 
   it('should correctly read 1605279569874-Warscroll_Builder', () => {

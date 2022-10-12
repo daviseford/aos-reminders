@@ -3,119 +3,21 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  DURING_TURN,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
-  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_SHOOTING_PHASE,
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
 
 const CommandTraits = {
-  Spellmaster: {
-    effects: [
-      {
-        name: `Spellmaster`,
-        desc: `Once in each of your hero phases, you can reroll 1 failed casting roll.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Loremaster - Scinari': {
-    effects: [
-      {
-        name: `Loremaster - Scinari`,
-        desc: `The general knows 1 extra spell from the Lore of Hysh.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  Warmaster: {
-    effects: [
-      {
-        name: `Warmaster`,
-        desc: `If your general is a part of your army and on the battlefield, roll a D6. On a 4+  you receive 1 extra command point.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  Majestic: {
-    effects: [
-      {
-        name: `Majestic`,
-        desc: `Add 1 to the Bravery characteristic for friendly LUMINETH REALM-LORDS wholly within 12" of this general. Subtract 1 from the Bravery characteristic for enemy units within 18" of this general.`,
-        when: [DURING_TURN],
-      },
-    ],
-  },
-  Enduring: {
-    effects: [
-      {
-        name: `Enduring`,
-        desc: `Add 3 to the general's wound characteristic.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  'Loremaster - Alarith': {
-    effects: [
-      {
-        name: `Loremaster - Alarith`,
-        desc: `If this general is a WIZARD, they know 1 extra spell from the Lore of the High Peaks.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Almighty Blow': {
-    effects: [
-      {
-        name: `Almighty Blow`,
-        desc: `Instead of piling in and attacking, you can say you will unleash a single mighty blow. If you do so, pick one enemy unit with 1" of this general and roll 1 dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'Goading Arrogance': {
-    effects: [
-      {
-        name: `Goading Arrogance`,
-        desc: `You can pick 1 enemy HERO within 6" of this general. That enemy HERO can only target this general in that phase. In addition, you can add 1 to hit rolls for attacks that target that enemy HERO in that phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'Fast Learner': {
-    effects: [
-      {
-        name: `Fast Learner`,
-        desc: `This general can attempt to unbind 1 extra spell in the enemy hero phase. In addition, the second time that this general attempts to unbind a spell in the same enemy hero phase, you can reroll the unbinding roll.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Skyrace Grand Champion': {
-    effects: [
-      {
-        name: `Skyrace Grand Champion`,
-        desc: `Once per battle, you can reroll 1 run roll, 1 charge roll, and 1 casting roll for this general.`,
-        when: [HERO_PHASE, CHARGE_PHASE, MOVEMENT_PHASE],
-      },
-    ],
-  },
-  'Burning Gaze': {
-    effects: [
-      {
-        name: `Burning Gaze`,
-        desc: `Pick 1 enemy unit within 3" of this general and visible to them. Roll a dice, on a 2+ that unit suffers 1 mortal wound.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
+  //Vanari
   'Grand Strategist': {
     effects: [
       {
         name: `Grand Strategist`,
-        desc: `If this general is on the battlefield at the start of the first battle round, you receive 1 extra command point.`,
+        desc: `You can add 1 to the roll that determines whether you receive 1 command point if you carry out the Heroic Leadership heroic action with this general.`,
         when: [TURN_ONE_START_OF_ROUND],
       },
     ],
@@ -129,12 +31,96 @@ const CommandTraits = {
       },
     ],
   },
-  'Astute Commander': {
+  'Almighty Blow': {
     effects: [
       {
-        name: `Astute Commander`,
-        desc: `If this general is on the battlefield, each time you spend a command point, roll a dice. On a 6, you receive 1 command point.`,
+        name: `Almighty Blow`,
+        desc: `When this general fights, instead of piling in and attacking, you can say you will unleash a single mighty blow. If you do so, pick one enemy unit with 1" of this general and roll 1 dice. On a 2+, that enemy unit suffers D6 mortal wounds.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  //Scinari
+  Spellmaster: {
+    effects: [
+      {
+        name: `Spellmaster`,
+        desc: `Once per battle, this general can use the Magical Boost aetherquartz reserve ability without using an aetherquartz reserve to do so.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  Loremaster: {
+    effects: [
+      {
+        name: `Loremaster`,
+        desc: `The general knows 1 extra spell from the Lore of Hysh.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Fast Learner': {
+    effects: [
+      {
+        name: `Fast Learner`,
+        desc: `This general can attempt to unbind 1 extra spell in the enemy hero phase. In addition, the second time that this general attempts to unbind a spell in the same enemy hero phase, you can reroll the unbinding roll.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  //Windmage
+  'Grand Windrider': {
+    effects: [
+      {
+        name: `Grand Windrider`,
+        desc: `Replace this general's Windleap ability with: "If a friendly Windchargers unit starts a move wholly within 24" of this general, when it makes that move, that unit has a Move characteristic of 16" and can fly.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  Swift: {
+    effects: [
+      {
+        name: `Swift`,
+        desc: `Add 3" to this general's Move characteristic.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  'Gravity-defying Champion': {
+    effects: [
+      {
+        name: `Gravity-defying Champion`,
+        desc: `Once per battle, you can reroll 1 run roll, 1 charge roll, and 1 casting roll for this general.`,
+        when: [HERO_PHASE, CHARGE_PHASE, MOVEMENT_PHASE],
+      },
+    ],
+  },
+  //Stonemage
+  'Tectonically Attuned': {
+    effects: [
+      {
+        name: `Tectonically Attuned`,
+        desc: `At the start of your shooting phase, you can pick 1 friendly Spirit of the Mountain within 3" of this general. Add 1 to the Attacks characteristic of that unit's Geomantic Blast until the end of that phase.`,
+        when: [START_OF_SHOOTING_PHASE],
+      },
+    ],
+  },
+  Enduring: {
+    effects: [
+      {
+        name: `Enduring`,
+        desc: `Add 3 to the general's wound characteristic.`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+  'Unyielding Toughness': {
+    effects: [
+      {
+        name: `Unyielding Toughness`,
+        desc: `At the start of your hero phase, you can pick 1 friendly Stoneguard unit wholly within 6" of this general. Add 1 to the Wounds characteristic of that unit until your next hero phase. Designer's Note: This can result in a model that is affected by this ability being slain if the wounds allocated to that model equal or exceed its Wounds characteristic once the effect of this ability ends.`,
+        when: [START_OF_HERO_PHASE, DURING_GAME],
       },
     ],
   },
