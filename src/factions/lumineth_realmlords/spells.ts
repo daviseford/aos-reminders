@@ -5,6 +5,7 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
+  SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
@@ -137,7 +138,7 @@ const Spells = {
   },
 
   //Units???
-  /*
+
   Entomb: {
     effects: [
       {
@@ -160,7 +161,7 @@ const Spells = {
     effects: [
       {
         name: `Protection of Teclis`,
-        desc: `Casting value of 10. Until your next hero phase, roll a D6 each time you allocate a wound or mortal wound to a friendly unit wholly within 18" of the caster. On a 5+ the wound or mortal wound is negated. Cannot be used in the same hero phase as Protection of Hysh.`,
+        desc: `Casting value of 10 and a range of 18". If successfully cast, friendly Lumineth Realm-Lords units wholly within range of the caster have a ward of 5+. This spell cannot be cast in the same phase as Protection of Hysh.`,
         when: [HERO_PHASE, WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -169,7 +170,7 @@ const Spells = {
     effects: [
       {
         name: `Storm of Searing White Light`,
-        desc: `Casting value of 10. Roll a D6 for each enemy unit within 18" of the caster and visible to them. On a 1, nothing happens. On a 2-4 that unit suffers D3 mortal wounds. On a 5+ that unit suffers D6 mortal wounds.`,
+        desc: `Casting value of 10 and a range of 18". If successfully cast, roll a dice for each enemy unit within range and visible to the caster.. On a 1, nothing happens. On a 2-4 that unit suffers D3 mortal wounds. On a 5+ that unit suffers D6 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -178,43 +179,22 @@ const Spells = {
     effects: [
       {
         name: `Darkness of the Soul`,
-        desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible to them. Until your next hero phase, roll 2D6 each time that unit makes a normal move, runs, retreats, makes a charge move, shoots or fights. Make the roll before the action is carried out. If the roll is greater than that unit's Bravery characteristic, that unit cannot perform that action in that phase.`,
+        desc: `Casting value of 7 and a range of 18". Pick 1 enemy unit within range and visible to the caster. Until your next hero phase, roll 2D6 each time that unit makes a normal move, runs, retreats, makes a charge move, shoots or fights. Make the roll before the action is carried out. If the roll is greater than that unit's Bravery characteristic, that unit cannot perform that action in that phase.`,
         when: [HERO_PHASE],
-        rule_sources: [lumineth_rule_sources.BATTLETOME_LUMINETH, lumineth_rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Darkness of the Soul`,
         desc: `If active, until your next hero phase, roll 2D6 each time that unit makes a normal move, runs, retreats, makes a charge move, shoots or fights. Make the roll before the action is carried out. If the roll is greater than that unit's Bravery characteristic, that unit cannot perform that action in that phase.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
-        rule_sources: [lumineth_rule_sources.BATTLETOME_LUMINETH, lumineth_rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
-  'Gravitic Reduction': {
+  'Gravitic Redirection': {
     effects: [
       {
-        name: `Gravitic Reduction`,
-        desc: `Casting value of 5. The caster can fly. In addition pick 1 enemy unit within 18" of the caster. The unit suffers 1 mortal wound and, until your next hero phase, its Movement characteristic is halved and it cannot fly.`,
+        name: `Gravitic Redirection`,
+        desc: `Casting value of 5 and a range of 18". If successfully cast, until your next hero phase, the caster can fly. In addition, you can pick 1 enemy unit within range and visible to the caster. If you do so, until your next hero phase, that unit's Move characteristic is halved and it cannot fly.`,
         when: [HERO_PHASE, MOVEMENT_PHASE],
-      },
-    ],
-  },
-  'Dazzling Light': {
-    effects: [
-      {
-        name: `Dazzling Light`,
-        desc: `Casting value of 6. Until your next hero phase, subtract 1 from hit rolls targeting the caster and subtract 1 from missle weapon attacks targeting friendly units wholly within 6" of the caster.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Dazzling Light`,
-        desc: `If active subtract, 1 from hit rolls targeting friendly units wholly within 6" of the caster.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Dazzling Light`,
-        desc: `If active subtract 1 from hit rolls targeting the caster.`,
-        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -240,12 +220,12 @@ const Spells = {
     effects: [
       {
         name: `Salvation of Hysh`,
-        desc: `Casting value of 6. Until your next hero phase, roll a dice for each wound or mortal wound allocated to the caster. On a 5+ the wound or mortal wound is ignored.`,
+        desc: `Casting value of 6. If successfully cast, the caster has a ward of 5+ until your next hero phase.`,
         when: [HERO_PHASE],
       },
       {
         name: `Salvation of Hysh`,
-        desc: `If active, until your next hero phase, roll a dice for each wound or mortal wound allocated to the caster. On a 5+ the wound or mortal wound is ignored.`,
+        desc: `If active, until your next hero phase, the caster has a ward of 5+.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -256,10 +236,6 @@ const Spells = {
         name: `Erasure`,
         desc: `Casting value of 7. Pick 1 enemy HERO within 24" of the caster. You can either inflict D3 mortal wounds on that HERO or mark them for erasure. If the HERO is already marked for erasure, they instead suffer D6 mortal wounds and are no longer marked for erasure.`,
         when: [HERO_PHASE],
-        rule_sources: [
-          lumineth_rule_sources.BATTLETOME_LUMINETH,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_TECLIS_JULY_2021,
-        ],
       },
     ],
   },
@@ -267,47 +243,38 @@ const Spells = {
     effects: [
       {
         name: `Greater Power of Hysh`,
-        desc: `Casting value of 7. Pick up to D3 LUMINETH REALM-LORDS units with the Sunmetal Weapons ability wholly within 18" and visible to the caster. Until your next hero phase, the Sunmetal Weapons ability for the units affected cause mortal wounds to be inflicted on an unmodified hit roll of 5+ instead of 6.`,
+        desc: `Casting value of 7 and a range of 18". Pick up to D3 friendly Lumineth Realm-Lords units with the Sunmetal Weapons ability wholly within range and visible to the caster. Until your next hero phase, the Sunmetal Weapons ability of those units causes mortal wounds on an unmodified hit roll of 5+ instead of 6.`,
         when: [HERO_PHASE, COMBAT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
-  'Freezing Squall': {
+  'Twinned Tether': {
     effects: [
       {
-        name: `Freezing Squall`,
-        desc: `Casting value of 5. Pick 1 enemy unit within 12" that is visible to the caster. That unit cannot run until your next hero phase.`,
-        when: [HERO_PHASE, MOVEMENT_PHASE],
-      },
-    ],
-  },
-  'Guiding Flurries': {
-    effects: [
-      {
-        name: `Guiding Flurries`,
-        desc: `Casting value of 7. Pick 1 friendly LUMINETH REALM-LORDS unit armed with missile weapons wholly within 12" of the caster. Pick to either loft the missiles or direct the missles. Loft - Until your next hero phase, add 6" to the range characteristic of missile weapons used by that unit. Direct - Add 1 to hit rolls for missile weapons used by that unit.`,
-        when: [HERO_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  'Calming Zephyr': {
-    effects: [
-      {
-        name: `Calming Zephyr`,
-        desc: `Casting value of 6. Pick 1 friendly LUMINETH REALM-LORDS unit wholly within 18" of the caster and visible to them. Heal up to D3 wounds allocated to that unit. Additionally, do not take battleshock tests for that unit until your next hero phase.`,
-        when: [HERO_PHASE, BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  'Burning Simoom': {
-    effects: [
-      {
-        name: `Burning Simoom`,
-        desc: `Casting value of 6. Pick 1 enemy unit wholly within 18" of the caster and visible to them. Roll a number of dice equal to the number of models in the unit. For each 6, the unit suffers 1 mortal wound. If the casting roll was 10+, each 5+ causes a mortal wound.`,
+        name: `Twinned Tether`,
+        desc: `Casting value of 6 and a range of 12". Pick 1 enemy unit within range and visible to the caster. Until your next hero phase, each time a wound or mortal wound is allocated to the caster, your opponent must allocate a wound to that enemy unit.`,
         when: [HERO_PHASE],
       },
     ],
-  },*/
+  },
+  'Dazzling Light': {
+    effects: [
+      {
+        name: `Dazzling Light`,
+        desc: `Casting value of 6. Until your next hero phase, subtract 1 from hit rolls targeting the caster and subtract 1 from missle weapon attacks targeting friendly units wholly within 6" of the caster.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Dazzling Light`,
+        desc: `If active subtract, 1 from hit rolls targeting friendly units wholly within 6" of the caster.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Dazzling Light`,
+        desc: `If active subtract 1 from hit rolls targeting the caster.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
 }
-
 export default tagAs(Spells, 'spell')

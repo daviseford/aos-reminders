@@ -44,9 +44,8 @@ const CommandAbilities = {
     effects: [
       {
         name: `Faith of the Mountains`,
-        desc: `Pick 1 ALARITH AELF unit wholly within 18" of a friendly model with this command ability. Add 1 to the Attacks characteristic for melee weapons for the unit affected in that combat phase. Units cannot benefit more than once per combat phase from this ability.`,
+        desc: `You can use this command ability at the start of your combat phase. The unit that receives this command must be a friendly Alarith Aelf unit. Add 1 to the attacks characteristic of that unit's melee weapons until the end of that phase. This unit can issue this command up to D3 times in the same phase. If it does so, no command points are spent the second and third times this unit issues this command in that phase. The same unit cannot benefit from this ability and the Unshakeable Faith of the Mountains ability in the same phase.`,
         when: [START_OF_COMBAT_PHASE, COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -54,9 +53,8 @@ const CommandAbilities = {
     effects: [
       {
         name: `Unshakeable Faith of the Mountains`,
-        desc: `Pick D3 ALARITH AELF units wholly within 24" of a friendly model with this command ability. Add 1 to the Attacks characteristic for melee weapons for the units affected in that combat phase. Units cannot benefit more than once per combat phase from this ability.`,
-        when: [START_OF_COMBAT_PHASE, COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_JULY_2021],
+        desc: `You can use this command ability at the start of your combat phase. the unit that receives the command must be a friendly Alarith Aelf unit. Add 1 to the Attacks characteristic of that unit's melee weapons until the end of that phase. THis unit can issue this command up to 3 times in the same phase. If it does so, no command points are spent the second and third times this unit issues this command in that phase. The same unit cannot benefit from this ability and the Faith of the Mountains ability in the same phase.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
