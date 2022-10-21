@@ -8,6 +8,7 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_GAME,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   TURN_ONE_START_OF_TURN,
@@ -379,6 +380,31 @@ const Units = {
         name: `Reel 'Em In`,
         desc: `If an attack made with this model's Harpoon Gun scores a hit on a MONSTER, if that MONSTER is not slain after that attack has been resolved, roll a dice. On a 4+, that MONSTER is skewered until the start of your next shooting phase. While that MONSTER is skewered, each time it makes a move, it must finish that move at least as close to this model as it was at the start of the move.`,
         when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Drekki Flynt': {
+    effects: [
+      {
+        name: `Captain of the Aelsling`,
+        desc: `You can pick 1 Barak-Mhornar Arkanaut Frigate in your army to be the Aelsling. Record this information on your roster. Add 1 to the Damage characteristic of that unit's Boarding Weapons.`,
+        when: [START_OF_GAME, COMBAT_PHASE],
+      },
+      {
+        name: `Let Me Drive!`,
+        desc: `You can reroll run rolls and charge rolls made for the Aelsling while this unit is in its garrison.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+
+      {
+        name: `Auxiliary Skyhook`,
+        desc: `Each time this unit fights, after all of its attacks have been resolved, you can pick 1 enemy Monster within 3" of this unit and roll a dice. On a 2+, that Monster suffers 3 mortal wounds.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Light-fingered`,
+        desc: `At the start of the combat phase, if this unit is within 1" of an enemy Hero that has an artefact of power, you can say that Drekki will try to 'borrow' that artefact. If you do so, roll a dice. On a 3+, that artefact of power can no longer be used (if a weapon was picked when the artefact of power was selected, that weapon reverts to normal). This ability cannot be used while this unit is part of a garrison.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },

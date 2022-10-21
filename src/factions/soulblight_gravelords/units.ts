@@ -689,6 +689,23 @@ const Units = {
     ],
   },
 
+  'Cado Ezechiar': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Retribution or Salvation'])],
+    },
+    effects: [
+      TheHungerEffect,
+      {
+        name: `The Court of the Lost`,
+        desc: `At the start of your hero phase, if this unit is on the battlefield, you can say it will summon a spirit from the Court of the Lost. If you do so, pick 1 of the effects below. That effect lasts until the start of your next hero phase.
+        Spirit of the Steed: This unit has a Move characteristic of 14".
+        Spirit of the Tutor: Add 1 to casting, unbinding and dispelling rolls for this unit.
+        Spirit of the Fallen: If an attack made by this unit wounds the target, that attack causes a number of mortal wounds to the target equal to the weapon's Damage characteristic and the attack sequence ends (do not make a save roll).`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+
   // '': {
   //   effects: [
   //     {
