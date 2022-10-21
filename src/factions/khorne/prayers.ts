@@ -102,6 +102,15 @@ const Prayers = {
       },
     ],
   },
+  'Wound the Realm': {
+    effects: [
+      {
+        name: `Wound the Realm`,
+        desc: `Answer value of 4 and a range of 16". If answered, pick 1 point on the battlefield within range and visible to the chanter and draw a straight line between that point and the closest part on the chanter's base. Roll a dice for each enemy unit passed across by that line. On a 2+, that unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Prayers, 'prayer')

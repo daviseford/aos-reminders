@@ -813,6 +813,37 @@ const Units = {
       },
     ],
   },
+  Dromm: {
+    mandatory: {
+      prayers: [keyPicker(Prayers, ['Wound the Realm'])],
+    },
+    effects: [
+      {
+        name: `Scorn of Sorcery`,
+        desc: `This unit can attempt to unbind 1 spell in the enemy hero phase in the same manner as a Wizard.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Gorechosen of Dromm': {
+    effects: [
+      {
+        name: `Gorechosen of Dromm`,
+        desc: `While this unit is wholly within 3" of a friendly Dromm, he has a ward of 4+.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Throttle`,
+        desc: `At the end of the combat phase, if this unit includes the Gorehulk, you can pick 1 enemy model within 3" of this unit and roll a dice. If the roll is more than double that model's Wounds characteristic, it is slain.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `White-hot Anger`,
+        desc: `At the end of the combat phase, roll a dice for each enemy model within 3" of this unit's Skullgrinder Herax. For each 5+, that enemy model's unit suffers 1 mortal wound.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Units, 'unit')

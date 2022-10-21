@@ -257,7 +257,15 @@ const Spells = {
       },
     ],
   },
-
+  'Retribution or Salvation': {
+    effects: [
+      {
+        name: `Retribution or Salvation`,
+        desc: `Casting value of 6 and a range of 18". Pick 1 unit within range and visible to the caster. If that unit is an enemy unit, it suffers D3 mortal wounds. If that enemy unit has the Chaos keyword, it suffers 3 mortal wounds instead of D3. If that unit is a friendly Soulblight Gravelords Summonable unit, you can heal up to D3 wounds allocated to that unit or, if no wounds are allocated to that unit, you can return a number of slain models to it that have a combined Wounds characteristic of D3 or less.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   // '': {
   //   effects: [
   //     {
