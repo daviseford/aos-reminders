@@ -2,16 +2,6 @@ import { tagAs } from 'factions/metatagger'
 import { END_OF_COMBAT_PHASE, HERO_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
 const BonesplitterzCommandAbilities = {
-  'Bonesplitterz Waaagh!': {
-    effects: [
-      {
-        name: `Bonesplitterz Waaagh!`,
-        desc: `You can use this command ability once per battle at the start of your combat phase if your general is still alive. Roll a D6 and add the number of friendly Bonesplitterz units wholly within 18" of your general to the roll. On an 11 or lower all friendly Bonesplitterz units wholly within range of the general get +1 to their attacks, if the roll is 12 or more then add +2 to their attacks instead.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-
   'Feel da Spirit': {
     effects: [
       {
