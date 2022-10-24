@@ -77,9 +77,6 @@ const subFactions = {
       spells: [BonesplitterzSpells],
       units: [BonesplitterzUnits],
     },
-    mandatory: {
-      command_abilities: [keyPicker(BonesplitterzCommandAbilities, ['Bonesplitterz Waaagh!'])],
-    },
   },
 
   Ironjawz: {
