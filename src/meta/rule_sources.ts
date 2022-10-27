@@ -123,6 +123,11 @@ const meta_rule_sources = {
     type: 'other_book',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2022/07/F7rLk5rmPJoiqZZw.pdf',
   },
+  ERRATA_BATTLESCROLL_OCTOBER_2022: {
+    name: 'BATTLESCROLL GALLETIAN REINFORCEMENTS (October 2022)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2022/10/NDq0U3c5F0hiPLeW.pdf',
+  },
 }
 
 export default meta_rule_sources

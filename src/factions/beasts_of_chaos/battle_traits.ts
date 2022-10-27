@@ -166,9 +166,12 @@ const BattleTraits = {
     effects: [
       {
         name: `Primal Roar`,
-        desc: `Roll a D6. On a 1, nothing happens. On a 2-5, you receive 1 primordial call point. On a 6, you receive 3 primordial call points.`,
+        desc: `Roll a D6. On a 3+, you receive 1 primordial call point.`,
         when: [END_OF_CHARGE_PHASE],
-        rule_sources: [rule_sources.WHITE_DWARF_FEBRUARY_2022],
+        rule_sources: [
+          rule_sources.WHITE_DWARF_FEBRUARY_2022,
+          meta_rule_sources.ERRATA_BATTLESCROLL_OCTOBER_2022,
+        ],
       },
       {
         name: `Feast on Flesh`,
