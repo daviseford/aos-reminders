@@ -496,8 +496,9 @@ const Units = {
     effects: [
       {
         name: `Empowering Excruciation`,
-        desc: `If this unit is within 12" of any terrified units, subtract 1 from the damage inflicted (to a minimum of 1) by each successful attack that targets a friendly Nighthaunt unit wholly within 12" of this unit.`,
+        desc: `If this unit is within 12" of any terrified units, subtract 1 from the damage inflicted (to a minimum of 1) by each successful attack that targets a friendly Nighthaunt unit wholly within 12" of this unit. The same enemy unit cannot be affected by this ability more than once per phase.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [rule_sources.ERRATA_OCTOBER_2022],
       },
     ],
   },

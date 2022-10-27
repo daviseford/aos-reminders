@@ -102,8 +102,9 @@ const Spells = {
     effects: [
       {
         name: `Devolve`,
-        desc: `Casting value of 7. Pick an enemy unit within 18" of the caster that is visible to them and not within 3" of any friendly units. Your opponent must move that unit up to 2D6" so that each model in the unit ends its move as close as possible to a model from the friendly unit that was closest to it at the start of the move.`,
+        desc: `Casting value of 7. Pick an enemy unit within 18" of the caster that is visible to them and not within 3" of any friendly units. If it is possible to do so, your opponent must make a normal move with that unit up to 2D6" so that each model in the unit ends its move as close as possible to a model from the friendly unit that was closest to it at the start of the move.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.ERRATA_OCTOBER_2022],
       },
     ],
   },

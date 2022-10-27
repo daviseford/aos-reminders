@@ -7,7 +7,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `Casting value of 5 and range of 6". If successfully cast, set up the endless spell wholly within range and visible to the caster, and more than 1" from all models and other endless spells or invocations.`,
+        desc: `Casting value of 5 and range of 6". If successfully cast, set up the endless spell wholly within range and visible to the caster, and more than 1" from all models and other endless spells or invocations. Only Stormcast Eternals Wizards can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
       },
       GenericEffects.Predatory.Eight_Inches,
@@ -31,7 +31,7 @@ const EndlessSpells = {
 
         For rules purposes, the caster and this endless spell are treated as a single model in the caster's army that uses the caster's warscroll as well as the endless spell rules (core rules, 19.3). A Wizard on a Dais Arcanum has a Move characteristic of 12" and can fly.
 
-        If the caster attempts to dispel this endless spell, it is automatically dispelled (do not make a dispelling roll). If the caster is slain, this endless spell is dispelled. If this endless spell is dispelled and the caster has not been slain, before removing the endless spell from play, set up the caster wholly within 6" of the endless spell and more than 3" from all enemy units.`,
+        If the caster attempts to dispel this endless spell, it is automatically dispelled (do not make a dispelling roll). If the caster is slain, this endless spell is dispelled. If this endless spell is dispelled and the caster has not been slain, before removing the endless spell from play, set up the caster wholly within 6" of the endless spell and more than 3" from all enemy units. Only Stormcast Eternals Wizards can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
       },
       {
@@ -50,7 +50,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `Casting value of 6 and range of 36". If successfully cast, set up the endless spell wholly within range and visible to the caster, and more than 1" from all models and other endless spells or invocations.`,
+        desc: `Casting value of 6 and range of 36". If successfully cast, set up the endless spell wholly within range and visible to the caster, and more than 1" from all models and other endless spells or invocations. Only Stormcast Eternals Wizards can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
       },
       {

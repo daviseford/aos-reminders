@@ -368,57 +368,72 @@ const Units = {
       },
     ],
   },
-  'Tzaangor Skyfires': {
-    effects: [
-      {
-        name: `Guided by the Future`,
-        desc: `In the combat phase, you can reroll hit and wound rolls for attacks made by this unit if no enemy units within 3" of this unit have already fought in that phase.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Judgement from Afar`,
-        desc: `An unmodified hit roll of 6 for an attack made with an Arrow of Fate inflicts D3 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
+  // Tzaangors
   'Tzaangor Shaman': {
     mandatory: {
       spells: [keyPicker(Spells, ['Boon of Mutation'])],
     },
     effects: [
       {
-        name: `Sorcerous Elixir`,
-        desc: `Once per battle, in your hero phase, this model can attempt to cast one additional spell. If it does so, you can reroll the casting roll for that spell.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Visions of the Future`,
-        desc: `Add 1 to hit rolls for attacks made with a friendly TZAANGOR SKYFIRE unit's Arrows of Fate while that unit is wholly within 12" of a friendly TZAANGOR SHAMAN.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Visions of the Past`,
-        desc: `Add 1 to hit rolls for attacks made with a friendly TZAANGOR ENLIGHTENED unit's Tzeentchian Spears and Vicious Beaks while that unit is wholly within 12" of a friendly TZAANGOR SHAMAN.`,
+        name: `Wizard`,
+        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Magic`,
-        desc: `This model is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Boon of Mutation spells.`,
+        name: `Sorcerous Elixer`,
+        desc: `Once per battle, in your hero phase, this unit can attempt to cast 1 extra spell. If it does so, you can add 3 to the casting roll for that spell.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Tzaangor Skyfires': {
+    effects: [
+      {
+        name: `Guided by the Future`,
+        desc: `Ignore negative modifiers to hit or wound rolls for attacks made with missle weapons by this unit, and ignore positive modifiers to save rolls for attacks made with missle weapons by this unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Judgement from Afar`,
+        desc: `If the unmodified hit roll for an attack made with an Arrow of Fate is 6, the target suffers D3 mortal wounds and the attack sequence ends (do not make a wound roll or save roll).`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
   'Tzaangor Enlightened': {
     effects: [
       {
+        name: `Champion`,
+        desc: `1 model in this unit can be an Aviarch. Add 1 to the Attacks characteristic of that model's Tzeentchian Spear.`,
+        when: [COMBAT_PHASE],
+      },
+      {
         name: `Babbling Stream of Secrets`,
-        desc: `If an enemy unit fails a battleshock test within 9" of any friendly TZAANGOR ENLIGHTENED units, add 1 to the number of models that flee.`,
-        when: [BATTLESHOCK_PHASE],
+        desc: `In the combat phase, enemy units withn 3" of any friendly units with this ability cannot receive commands.`,
+        when: [COMBAT_PHASE],
       },
       {
         name: `Guided by the Past`,
-        desc: `In the combat phase, you can reroll hit and wound rolls for attacks made by this unit if any enemy units within 3" of this unit have already fought in that phase.`,
+        desc: `You can add 1 to wound rolls for attacks made with melee weapons by friendly units with this ability if you are taking the second turn in the current battleround. This ability does not affect attacks made by a mount.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Tzaangor Enlightened on Discs of Tzeentch': {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be an Aviarch. Add 1 to the Attacks characteristic of that model's Tzeentchian Spear.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Babbling Stream of Secrets`,
+        desc: `In the combat phase, enemy units withn 3" of any friendly units with this ability cannot receive commands.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Guided by the Past`,
+        desc: `You can add 1 to wound rolls for attacks made with melee weapons by friendly units with this ability if you are taking the second turn in the current battleround. This ability does not affect attacks made by a mount.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -426,35 +441,34 @@ const Units = {
   Tzaangors: {
     effects: [
       {
-        name: `Twistbray`,
-        desc: `The leader of this unit is a Twistbray. Add 1 to hit rolls for attacks made with a Twistbray's melee weapons.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be an Twistbray. Add 1 to the Attacks characteristic of that model's melee weapons.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Icon Bearers`,
-        desc: `While this unit has any Icon Bearers, it can use the Ornate Totems ability.`,
+        name: `Standard Bearer`,
+        desc: `1 in every 10 models in this unit can be an Icon Bearer. While this unit includes any Icon Bearers, it can use the Ornate Totems ability.`,
         when: [START_OF_HERO_PHASE],
       },
-      BrayhornEffect,
-      GenericEffects.ArcaniteShieldEffect,
       {
-        name: `Destined Mayhem`,
-        desc: `Add 1 to wound rolls for attacks made by this unit with melee weapons while this unit is wholly within 12" of any friendly ARCANITE HEROES.`,
-        when: [COMBAT_PHASE],
+        name: `Musician`,
+        desc: `1 in every 10 models in this unit can be a Brayhorn Blower. While this unit includes any Brayhorn Blowers, it can run and still charge later in the turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
-        name: `Paired Savage Blades`,
-        desc: `Add 1 to hit rolls for attacks made with a pair of Savage Blades.`,
+        name: `Tzaangor Mutant`,
+        desc: `1 in every 5 models in this unit can be a Tzaangor Mutant armed with a pair of Savage Blades and Vicious Beak. Add 1 to the Attacks characteristic of that model's pair of Savage Blades.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Savagery Unleashed`,
-        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if it has at least 9 models when the attacks are being made.`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Vicious Beaks if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
+
       {
-        name: `Ornate Totems`,
-        desc: `While this unit has one or more Icon Bearers, at the start of your hero phase you can pick an enemy unit within 18" of this unit and visible to it. Then, roll a number of dice equal to the number of WIZARD units that are within 9" of this unit. For each 4+ that enemy unit suffers 1 mortal wound.`,
+        name: `Ornate Totem`,
+        desc: `While this unit includes any Icon Bearers, at the start of your hero phase, you can pick 1 enemy unit within 18" of this unit and roll a dice for each Wizard that is within 9" of this unit. For each 4+, the unit you picked suffers 1 mortal wound.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

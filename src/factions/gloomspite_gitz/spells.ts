@@ -154,8 +154,9 @@ const Spells = {
     effects: [
       {
         name: `Face of Da Bad Moon`,
-        desc: `Casting value of 5. Pick 1 enemy unit within 3" of the caster that is visible to them. That unit must make a normal move, and must retreat. If it is impossible for the unit to make the move for any reason, it suffers D6 mortal wounds instead.`,
+        desc: `Casting value of 5. Pick 1 enemy unit within 3" of the caster that is visible to them. That unit must retreat. If it is impossible for the unit to make the move for any reason, it suffers D6 mortal wounds instead.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.ERRATA_OCTOBER_2022],
       },
     ],
   },

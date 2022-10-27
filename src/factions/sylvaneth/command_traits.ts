@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SAVES_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandTraits = {
   'Gnarled Warrior': {
@@ -44,8 +45,9 @@ const CommandTraits = {
         name: `Spellsinger`,
         desc: `When this general attempts to cast a spell, before making the roll, you can pick 1 friendly Awakened Wyldwood on the battlefield. 
 
-        If you do so and the spell is successfully cast and not unbound, you must measure the range and visibility for that spell from that friendly Awakened Wyldwood.`,
+        If you do so and the spell is successfully cast and not unbound, the range, visibility and effect of that spell can be measured from 1 scenery piece that is a part of that friendly Awakened Wyldwood. Spells that summon endless spells do not benefit from this effect.`,
         when: [HERO_PHASE],
+        rules_sources: [rule_sources.ERRATA_OCTOBER_2022],
       },
     ],
   },

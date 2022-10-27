@@ -22,6 +22,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
+import rule_sources from './rule_sources'
 import scenery from './scenery'
 import spells from './spells'
 
@@ -68,9 +69,10 @@ const BugRiderEffects = [
   },
   {
     name: `Thrumming with Life`,
-    desc: `At the end of each phase, if any models were slain by an attack made by this unit, you can heal all wounds allocated to this unit.`,
+    desc: `At the end of each phase, if any models were slain by an attack made by this unit in that phase, you can heal all wounds allocated to this unit.`,
     when: [DURING_GAME, WOUND_ALLOCATION_PHASE],
     shared: true,
+    rules_sources: [rule_sources.ERRATA_OCTOBER_2022],
   },
 ]
 const WarmasterEffect = {

@@ -70,7 +70,7 @@ const Units = {
     effects: [
       {
         name: `Bone Harvest`,
-        desc: `Roll a dice each time a model is slain within 3" of any models with this ability. On a 4+, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. If you do so, and the slain model had a Wounds characteristic of:
+        desc: `Roll a dice each time a model is removed from play after being slain within 3" of any models with this ability. On a 4+, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. If you do so, and the slain model had a Wounds characteristic of:
 
         4 or less - you can heal 1 wound allocated to that unit
         5-9 - you can heal up to D3 wounds allocated to that unit
@@ -78,7 +78,7 @@ const Units = {
 
         If there are no wounds allocated to the unit you pick, you can return a number of slain models to that unit with a combined Wounds chacteristic that is equal to or less than the number of wounds you could have healed.`,
         when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, rule_sources.ERRATA_JULY_2021],
+        rule_sources: [rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, rule_sources.ERRATA_OCTOBER_2022],
       },
       {
         name: `Soulcrusher Bludgeons`,

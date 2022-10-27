@@ -30,9 +30,9 @@ const BattleTraits = {
       },
       {
         name: `Boots on the Ground`,
-        desc: `Pick 3 friendly units garrisoned in SKYVESSELS. You complete this battle tactic at the end of the turn if those units are all on the battlefield and wholly within enemy territory.`,
+        desc: `Pick 3 friendly units garrisoned in SKYVESSELS. You complete this battle tactic at the end of the turn if those units are all on the battlefield, are not garrisoned and wholly within enemy territory.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.WHITE_DWARF_MAY_2022],
+        rule_sources: [rule_sources.WHITE_DWARF_MAY_2022, rule_sources.ERRATA_OCTOBER_2022],
       },
     ],
   },

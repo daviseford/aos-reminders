@@ -128,6 +128,11 @@ const meta_rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2022/10/NDq0U3c5F0hiPLeW.pdf',
   },
+  ERRATA_GHB_OCTOBER_2022: {
+    name: "General's Handbook Errata (October 2022)",
+    type: 'ghb',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2022/06/v1iepvOM3Oycl774.pdf',
+  },
 }
 
 export default meta_rule_sources

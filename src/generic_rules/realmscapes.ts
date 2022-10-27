@@ -126,9 +126,9 @@ const Realmscapes: TEntry[] = [
       },
       {
         name: `Gaze of Ghur`,
-        desc: `Casting value of 7 and a range of 12". Pick 1 enemy unit within range and visible to the caster. When determining the number of models in that enemy unit that are contesting an objective, your opponent must halve that number, rounding down. All WIZARDS know the Gaze of Ghur in addition to any others that they know.`,
+        desc: `Casting value of 7 and a range of 12". Pick 1 enemy unit within range and visible to the caster. Until your next hero phase, when determining the number of models in that enemy unit that are contesting an objective, your opponent must halve that number, rounding down. All WIZARDS know the Gaze of Ghur in addition to any others that they know.`,
         when: [HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2022],
+        rule_sources: [meta_rule_sources.GHB_2022, meta_rule_sources.ERRATA_GHB_OCTOBER_2022],
         spell: true, // TODO: This doesn't appear in dropdowns
       },
       {
