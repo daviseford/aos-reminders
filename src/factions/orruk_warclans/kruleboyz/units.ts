@@ -16,6 +16,7 @@ import {
   WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from '../rule_sources'
 import spells from './spells'
 
 const AllPartOfDaPlanEffect = {
@@ -105,12 +106,13 @@ const KruleboyzUnits = {
       },
       {
         name: `Poisons and Elixers`,
-        desc: `In your hero phase, if this unit is more than 3" from all enemy units, instead of attempting to cast any spells with this unit, you can say that they are brewing either a poison or an elixir. If you do so, pick 1 friendly KRULEBOYZ ORRUK unit wholly within 12" of this unit, more than 3" from all enemy units and that has at least 1 model within 3" of this unit to be given that poison or elixir. A unit that has been given a poison or elixir cannot be given another poison or elixir in the same hero phase.
+        desc: `In your hero phase, if this unit is more than 3" from all enemy units, you can say that they are brewing either a poison or an elixir. If you do so, pick 1 friendly KRULEBOYZ ORRUK unit wholly within 12" of this unit, more than 3" from all enemy units and that has at least 1 model within 3" of this unit to be given that poison or elixir. A unit that has been given a poison or elixir cannot be given another poison or elixir in the same hero phase.
         
         If that unit is given a poison, until your next hero phase, when you use the Venom-crusted Weapons allegiance ability for that unit, mortal wounds are caused on an unmodified roll of 5+ instead of 6. 
         
         If that unit is given an elixir, add 1 to save rolls for that unit until your next hero phase.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_ORRUK_WARCLANS, rule_sources.ERRATA_OCTOBER_2022],
       },
     ],
   },

@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Spells = {
   Bonestorm: {
@@ -15,8 +16,9 @@ const Spells = {
     effects: [
       {
         name: `Spectral Host`,
-        desc: `Casting value of 6. Pick 1 friendly unit wholly within 12" of the caster that is visible to them. That unit can fly until your next hero phase. If that unit can already fly, until your next hero phase it can run and still charge in the same turn. If the casting roll was 10 or more, you can pick up to 3 friendly units to be affected by the spell instead of 1.`,
+        desc: `Casting value of 6. Pick 1 friendly unit wholly within 12" of the caster that is visible to them. That unit can fly until your next hero phase. If that unit can already fly, until your next hero phase, it can run and still charge in the same turn. If the casting roll was 10 or more, you can pick up to 3 different friendly units to be affected by the spell instead of 1.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_FLESH_EATER_COURTS, rule_sources.ERRATA_OCTOBER_2022],
       },
     ],
   },

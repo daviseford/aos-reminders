@@ -134,9 +134,13 @@ const Flavors = {
       },
       {
         name: `Mages of the Whitefire Court`,
-        desc: `HALLOWHEART WIZARDS can attempt to cast 1 extra spell in your hero phase. In addition, HALLOWHEART WIZARDS know 2 spells from the Lore of Whitefire (pg 75) instead of 1.`,
+        desc: `HALLOWHEART WIZARDS can attempt to cast 1 extra spell in your hero phase. In addition, when you pick a spell from the Lore of Whitefire (pg 75) for a friendly HALLOWHEART WIZARD to know, if it is the first time you have picked a spell from that spell lore for that WIZARD, you can pick a second spell from that spell lore for that WIZARD to know as well.`,
         when: [HERO_PHASE],
-        rule_source: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_AUGUST_2021],
+        rule_sources: [
+          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
+          rule_sources.ERRATA_AUGUST_2021,
+          rule_sources.ERRATA_OCTOBER_2022,
+        ],
       },
     ],
   },

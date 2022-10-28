@@ -14,7 +14,7 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW: </strong>Tzeentch battletome has been added!
+        <strong>NEW: </strong>October 2022 FAQs have been added!
       </span>
     </NotificationBanner>
   )
