@@ -3,7 +3,7 @@ import { useTheme } from 'context/useTheme'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = '2022-tzeentch-battletome'
+  const name = '2022-october-faqs'
 
   return (
     <NotificationBanner
