@@ -103,6 +103,11 @@ const meta_rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/TKy3YFHtTFpL4ZVW.pdf',
   },
+  ERRATA_CORE_RULES_OCTOBER_2022: {
+    name: 'Core Rules Errata (October 2022)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/svhEUwlP6J1AQFXl.pdf',
+  },
 
   GHB_2021: {
     name: "General's Handbook (2021)",
@@ -116,6 +121,11 @@ const meta_rule_sources = {
     name: "General's Handbook Errata (September 2021)",
     type: 'ghb',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/Nx3vTlkaz7ekCv7J.pdf',
+  },
+  ERRATA_GHB_OCTOBER_2022: {
+    name: "General's Handbook Errata (October 2022)",
+    type: 'ghb',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2022/06/v1iepvOM3Oycl774.pdf',
   },
 
   CROSS_FACTION_HEROES_JULY_2022: {

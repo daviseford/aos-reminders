@@ -121,9 +121,9 @@ const CoreRules: TEntry[] = [
     effects: [
       {
         name: `20.3 - Invocations`,
-        desc: `An invocation is a divine entity that is summoned to the battlefield by chanting the prayer on its invocation warscroll (see 24.0). Unless noted otherwise, an invocation cannot be attacked or be affected by abilities. You can move models across or through an invocation as if it were not there, but you cannot finish a model's move on an invocation. Invocations are under the command of the player who summoned them.`,
+        desc: `An invocation is a divine entity that is summoned to the battlefield by chanting the prayer on its invocation warscroll (see 24.0). Unless noted otherwise, an invocation cannot be attacked or be affected by abilities. You can move models across or through an invocation as if it were not there, but you cannot finish a model's move on an invocation. Invocations are under the command of the player who summoned them. After an invocation is removed from play (see 20.3.3), it can be summoned again if the prayer on its warscroll is successfully chanted in a different hero phase (it cannot be set up in the turn in which it is removed).`,
         when: [HERO_PHASE],
-        rule_sources: [meta_rule_sources.CORE_RULES_2021],
+        rule_sources: [meta_rule_sources.CORE_RULES_2021, meta_rule_sources.ERRATA_CORE_RULES_OCTOBER_2022],
       },
       {
         name: `20.3.1 - Summoning Invocations`,

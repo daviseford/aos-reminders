@@ -18,6 +18,11 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/10/K12650xacakOrNCt.pdf',
   },
+  ERRATA_OCTOBER_2022: {
+    name: 'Errata (October 2022)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2019/10/y8MJra9HoDU6VlqR.pdf',
+  },
 }
 
 export default rule_sources

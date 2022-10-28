@@ -26,7 +26,7 @@ const Spells = {
     effects: [
       {
         name: `Spectral Grasp (Deathmages)`,
-        desc: `Casting value of 6. Pick a terrain feature within 18" of the caster that is visible to them. Until your next hero phase, halve the Move characteristic (rounding down) of enemy units within 3" of any terrain features affected by any Spectral Grasp spells at the start of their movement phase.`,
+        desc: `Casting value of 6. Pick 1 terrain feature wholly within 18" of the caster that is visible to them. Until your next hero phase, if an enemy unit starts a normal move within 3" of that terrain feature, halve the Move characteristic (rounding down) of that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],

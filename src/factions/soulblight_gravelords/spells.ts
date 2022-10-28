@@ -94,8 +94,9 @@ const Spells = {
     effects: [
       {
         name: `Spectral Grasp`,
-        desc: `Casting value of 6. Pick 1 terrain feature wholly within 18" of the caster that is visible to them. Until your next hero phase, halve the Move characteristic (rounding down) of enemy units that start a normal move within 3" of that terrain feature.`,
+        desc: `Casting value of 6. Pick 1 terrain feature wholly within 18" of the caster that is visible to them. Until your next hero phase, if an enemy unit starts a normal move within 3" of that terrain feature, halve the Move characteristic (rounding down) of that unit until your next hero phase.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_OCTOBER_2022],
       },
     ],
   },

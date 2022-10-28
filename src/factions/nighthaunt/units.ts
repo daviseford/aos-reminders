@@ -406,8 +406,9 @@ const Units = {
       GenericEffects.Elite,
       {
         name: `Drawn to War`,
-        desc: `Before you allocate a wound or mortal wound to a friendly Nighthaunt HERO, or instead of making a ward roll for a wound or mortal wound that would be allocated to that HERO, if any friendly units with this ability are within 3" of that HERO, you can roll a dice. On a 3+, that wound or mortal wound is allocated to a friendly unit with this ability instead of that HERO and cannot be negated.`,
+        desc: `Before you allocate a wound or mortal wound to a friendly NIGHTHAUNT HERO, or instead of making a ward roll for a wound or mortal wound that would be allocated to that HERO, if any friendly units with this ability are within 3" of that HERO, you can roll a dice. On a 3+, that wound or mortal wound is allocated to a friendly unit with this ability that is within 3" of that HERO instead of that HERO and cannot be negated.`,
         when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_OCTOBER_2022],
       },
     ],
   },
@@ -495,9 +496,10 @@ const Units = {
   'Krulghast Cruciator': {
     effects: [
       {
-        name: `Empowering Excruciation`,
-        desc: `If this unit is within 12" of any terrified units, subtract 1 from the damage inflicted (to a minimum of 1) by each successful attack that targets a friendly Nighthaunt unit wholly within 12" of this unit.`,
+        name: `Empowered Through Excruciation`,
+        desc: `If this unit is within 12" of any terrified units, subtract 1 from the damage inflicted (to a minimum of 1) by each successful attack that targets a friendly NIGHTHAUNT unit wholly within 12" of this unit. The same enemy unit cannot be affected by this ability more than once per phase.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_OCTOBER_2022],
       },
     ],
   },

@@ -10,6 +10,7 @@ import {
   TURN_ONE_START_OF_ROUND,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Flavors = {
   Masterclan: {
@@ -21,13 +22,15 @@ const Flavors = {
       },
       {
         name: `Always Three Clawsteps Ahead`,
-        desc: `You can only use this ability if you include 3 or more MASTERCLAN HEROES in your starting army. After you pick a friendly SKAVEN unit to be your first unit to run in a phase and make a run roll for that unit, you can use that run roll in place of any other run rolls you make for friendly SKAVEN units until the end of that phase.`,
+        desc: `You can only use this ability if you include 3 or more MASTERCLAN HEROES in your starting army. After you pick a friendly Skaven unit to be your first unit to run in a phase and make a run roll for that unit, you can use that unmodified run roll in place of any other run rolls you make for friendly Skaven units until the end of that phase.`,
         when: [MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_OCTOBER_2022],
       },
       {
         name: `Always Three Clawsteps Ahead`,
         desc: `You can only use this ability if you include 3 or more MASTERCLAN HEROES in your starting army. After you pick a friendly SKAVEN unit to be your first unit to attempt a charge in a phase and make a charge roll for that unit, you can use that charge roll in place of any other charge rolls you make for friendly SKAVEN units until the end of that phase.`,
         when: [CHARGE_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_OCTOBER_2022],
       },
       {
         name: `Always Three Clawsteps Ahead`,
@@ -35,6 +38,7 @@ const Flavors = {
 
         Designer's Note: This ability does not prevent a unit from making another pile-in move when it is picked to fight.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_OCTOBER_2022],
       },
     ],
   },
