@@ -3,17 +3,18 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   DURING_GAME,
-  HERO_PHASE,
+  END_OF_COMBAT_PHASE,
   MOVEMENT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
 const BattleTraits = {
+  //allegiance abilities
   'Trampling Charge': {
     effects: [
       {
         name: `Trampling Charge`,
-        desc: `After an OGOR or RHINOX unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a number of dice equal to the unmodified charge roll for that charge move. Add 2 to each roll if the OGOR unit that made the charge move has 8 or more models or is a MONSTER. For each 6+, that enemy unit suffers 1 mortal wound.`,
+        desc: `After a friendly OGOR or RHINOX unit makes a charge move, you can pick 1 enemy unit within 1" of that unit and roll a number of dice equal to the unmodified charge roll for that charge move. Add 1 to each roll if the charging unit is an OGOR unit that has 3 or more models. Add 2 to each roll if it is a MONSTER. For each 6+, that enemy unit suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -23,7 +24,7 @@ const BattleTraits = {
     effects: [
       {
         name: `Grasp of the Everwinter`,
-        desc: `At the start of your hero phase, roll 1 dice for each enemy unit within 3" of any friendly BEASTCLAW RAIDERS units. If the roll is equal to or less than the number of the current battle round, that unit suffers D3 mortal wounds.`,
+        desc: `At the start of your hero phase, roll a dice for each enemy unit within 3" of any friendly BEASTCLAW RAIDERS units. If the roll is equal to or less than the number of the current battle round, that unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -33,7 +34,7 @@ const BattleTraits = {
     effects: [
       {
         name: `Might Makes Right`,
-        desc: `When determining control of an objective, each OGOR counts as 2 models instead of 1, and each OGOR MONSTER counts as 10 models instead of 1.`,
+        desc: `For the purposes of contesting objectives (core rules, 18.1.2), each friendly OGOR MAWTRIBES OGOR counts as 2 models, each friendly OGOR MAWTRIBES HERO that is not a MONSTER counts as 5 models, and each friendly OGOR MAWTRIBES MONSTER counts as 10 models.`,
         when: [DURING_GAME],
       },
     ],
@@ -59,18 +60,48 @@ const BattleTraits = {
     ],
   },
 
-  'Everwinter Prayers': {
+  'Gulping Bites': {
     effects: [
       {
-        name: `Everwinter Prayers`,
-        desc: `Each BEASTCLAW RAIDERS PRIEST in an Ogor Mawtribes army knows 1 Everwinter prayer from the Manifestations of the Eternal Snowstorm table in addition to any other prayers they know.
+        name: `Gulping Bites`,
+        desc: `Roll a dice for each enemy unit within 3" of any friendly GUTBUSTERS OGOR units. On a 4+, that unit suffers D3 mortal wounds.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
 
-    In your hero phase, each friendly BEASTCLAW RAIDERS PRIEST that knows any Everwinter prayers can chant 1 Everwinter prayer. If they do so, make a prayer roll by rolling a dice.
-
-    Each Everwinter prayer has a chanting value. If the prayer roll is equal to or greater than the chanting value of the Everwinter prayer, the prayer is answered.
-
-    Each Everwinter prayer can only be attempted once per turn, regardless of how many BEASTCLAW RAIDERS PRIESTS know that Everwinter prayer.`,
-        when: [HERO_PHASE],
+  //Battle tactics
+  'Battle Tactics': {
+    effects: [
+      {
+        name: `Battle Tactic - Eat Your Fill`,
+        desc: `You complete this tactic at the start of the combat phase if every friendly OGOR unit is eating.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Battle Tactic - Savour the Taste`,
+        desc: `You cannot pick this battle tactic in the first battle round. You complete this tactic at the end of your turn if every friendly OGOR unit is hungry.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Battle Tactic - Avalanche of Flesh`,
+        desc: `You complete this tactic at the end of the turn if 10+ mortal wounds were caused by the trampling charge battle trait this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Battle Tactic - Winter Take Thee`,
+        desc: `Pick 1 enemy HERO of enemy MONSTER. You complete this tactic if that enemy unit is destroyed by wounds caused by the Grasp of the Everwinter battle trait (pg 64) this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Battle Tactic - Let them Loose`,
+        desc: `You complete this tactic at the end of your turn if you carried out 4 or more monstrous rampages this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Battle Tactic - Boil their Bones`,
+        desc: `Pick 1 enemy HEREO or enemy MONSTER. You complete this tactic if that enemy unit is destroyed within 6 of an empty Great Mawpot in your army.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
