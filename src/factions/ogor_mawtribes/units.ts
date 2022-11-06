@@ -6,6 +6,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_CHARGE_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
@@ -14,15 +15,16 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
   TURN_FOUR_START_OF_ROUND,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
   TURN_ONE_START_OF_HERO_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import prayers from './prayers'
-import rule_sources from './rule_sources'
 import spells from './spells'
 
 const ThundertuskEffects = [
@@ -37,8 +39,14 @@ const ThundertuskEffects = [
   },
   {
     name: `Numbing Chill`,
-    desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this model.`,
+    desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this unit.`,
     when: [COMBAT_PHASE],
+    shared: true,
+  },
+  {
+    name: `Chill of the Everwinter`,
+    desc: `Only a THUNDERTUSK unit that has made a charge move in the same phase can carry out this monstrous rampage. Roll a dice for each enemy unit within 1" of this unit. On a 3+, the strike-last effect applies to that unit until the end of the following combat phase.`,
+    when: [END_OF_CHARGE_PHASE],
     shared: true,
   },
 ]
@@ -51,39 +59,38 @@ const StonehornEffects = [
   },
   {
     name: `Stone Skeleton`,
-    desc: `Roll a D6 each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
-    when: [WOUND_ALLOCATION_PHASE],
+    desc: `This unit has a ward of 5+.`,
+    when: [WOUND_ALLOCATION_PHASE, WARDS_PHASE],
+    shared: true,
+  },
+  {
+    name: `Unstoppable Charge`,
+    desc: `Only a STONEHORN unit that has made a charge move in the same phase can carry out this monstrous rampage. This unit makes a 3D6" move and can pass across enemy units in the same manner as a unit that can fly. It must finish the move within 3" of any enemy units. At the end of the move, roll a dice for each unit it passed across. On a 2+, that unit suffers D3 mortal wounds.`,
+    when: [END_OF_CHARGE_PHASE],
     shared: true,
   },
 ]
-const IronfistEffect = {
-  name: `Ironfist`,
-  desc: `If the unmodified save roll for an attack made with a melee weapon that targets a unit armed with Ironfists is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-  when: [SAVES_PHASE],
-  shared: true,
-}
-const BellowerEffect = {
-  name: `Bellower`,
-  desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any Bellowers.`,
-  when: [BATTLESHOCK_PHASE],
-  shared: true,
-}
-const RhinoxChargeEffect = {
-  name: `Rhinox Charge`,
-  desc: `Add 1 to the damage inflicted by attacks made with this model's Rhinox's Sharp Horns if this model made a charge move in the same turn.`,
-  when: [COMBAT_PHASE],
-  shared: true,
-}
+const ReelEmInEffects = [
+  {
+    name: `Reel Em In`,
+    desc: `If an attack made with a Chaintrap scores a hit on an enemy MONSTER and that MONSTER unit is not
+  destroyed and not already snagged, after that attack has been resolved, you can roll a dice. On a 4+ that MONSTER unit is snagged until the start of your next shooting phase. 
+  
+  While a MONSTER unit is snagged, each time it makes a move, it must finish that move at least as close to the unit that snagged it as it was at the start of the move.`,
+    when: [SHOOTING_PHASE],
+    shared: true,
+  },
+  {
+    name: `Reel Em In`,
+    desc: `While an enemy MONSTER unit is snagged, each time it makes a move, it must finish that move at least as close to the unit that snagged it as it was at the start of the move.`,
+    when: [MOVEMENT_PHASE],
+    shared: true,
+  },
+]
 const BloodVultureEffect = {
   name: `Blood Vulture`,
-  desc: `If this model is armed with a Blood Vulture, at the start of your shooting phase, pick 1 enemy unit within 30" of this model that is visible to it and roll a D6. On a 2+, that unit suffers 1 mortal wound.`,
+  desc: `If this model is armed with a Blood Vulture, at the start of your shooting phase, pick 1 enemy unit that is visible to it and roll a D6. On a 2+, that unit suffers 1 mortal wound.`,
   when: [START_OF_SHOOTING_PHASE],
-  shared: true,
-}
-const BloodgruelEffect = {
-  name: `Bloodgruel`,
-  desc: `Roll a D6 each time this model successfully casts or unbinds a spell, after the effects of the spell have been resolved. On a 2+, you can heal 1 wound allocated to this model. On a 1, this model suffers 1 mortal wound.`,
-  when: [HERO_PHASE],
   shared: true,
 }
 const MastersOfAmbushEffects = (otherUnit: 'Frost Sabres' | "Hrothgorn's Mantrappers") => [
@@ -106,18 +113,65 @@ const MastersOfAmbushEffects = (otherUnit: 'Frost Sabres' | "Hrothgorn's Mantrap
     shared: true,
   },
 ]
+const RhinoxChargeEffect = {
+  name: `Rhinox Charge`,
+  desc: `Add 1 to the damage inflicted by attacks made with this unit's Rhinox's Sharp Horns if this model made a charge move in the same turn.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const IronfistEffect = {
+  name: `Ironfist`,
+  desc: `If the unmodified save roll for an attack made with a melee weapon that targets a unit armed with Ironfists is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+  when: [SAVES_PHASE],
+  shared: true,
+}
+const BellowerEffect = {
+  name: `Bellower`,
+  desc: `Add 1 to charge rolls for this unit if it includes any bellowers.`,
+  when: [CHARGE_PHASE],
+  shared: true,
+}
+const BloodgruelEffect = {
+  name: `Bloodgruel`,
+  desc: `Roll a D6 each time this model successfully casts or unbinds a spell, after the effects of the spell have been resolved. On a 2+, you can heal 1 wound allocated to this model. On a 1, this model suffers 1 mortal wound.`,
+  when: [HERO_PHASE],
+  shared: true,
+}
+const FrostlordEffects = [
+  {
+    name: `Frost Spear`,
+    desc: `If the unmodified wound roll for an attack made with a frost spear that targets an enemy HERO or MONSTER is a 6, subtract 1 from the Attacks characteristic of that unit's melee weapons (to a minimum of 1) until the end of that phase. The same unit can only be affected by this ability once per phase.`,
+    when: [COMBAT_PHASE],
+    shared: true,
+  },
+  {
+    name: `Bellowing Voice`,
+    desc: `Add 1 to charge rolls for friendly BEASTCLAW RAIDERS units wholly within 12" of this unit.`,
+    when: [CHARGE_PHASE],
+    shared: true,
+  },
+]
+const ChampionEffect = {
+  name: `Champion`,
+  desc: `1 model in this unit can be a champion. Add 1 to the Attacks characteristic for that model.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
 
 const Units = {
   Butcher: {
-    mandatory: { spells: [keyPicker(spells, ['Voracious Maw'])] },
-    effects: [BloodgruelEffect],
+    mandatory: {
+      spells: [keyPicker(spells, ['Voracious Maw'])],
+    },
+    effects: [BloodgruelEffect, GenericEffects.WizardOneSpellEffect],
   },
   Firebelly: {
     mandatory: { spells: [keyPicker(spells, ['Cascading Fire-cloak'])] },
     effects: [
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Fire Breath`,
-        desc: `Do not use the attack sequence for an attack made with Fire Breath. Instead, pick 1 enemy unit that is within range of the attack and roll a D6. On a 4+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `The attacks characteristic of Fire breath is equal to the number of models in the target unit to a max of 10.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -125,51 +179,63 @@ const Units = {
   'Frost Sabres': {
     effects: [
       {
-        name: `Their Master's Voice`,
-        desc: `Add 3 to charge rolls for this unit if it is wholly within 16" of a friendly Icebrow Hunter when the charge roll is made.`,
-        when: [CHARGE_PHASE],
+        name: `Hunters of the Frozen Wilds`,
+        desc: `This unit is not visible to enemy units while it is in cover.`,
+        when: [DURING_GAME],
       },
       {
         name: `Their Master's Voice`,
-        desc: `Add 2 to the Bravery characteristic of this unit while it is wholly within 16" of a friendly Icebrow Hunter.`,
+        desc: `Do not take battleshock tests for this unit if it is wholly within 12" of a friednly ICEBROW HUNTER.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
   },
   'Frostlord on Stonehorn': {
-    mandatory: { command_abilities: [keyPicker(command_abilities, ['Bellowing Voice'])] },
-    effects: [...StonehornEffects],
+    effects: [...StonehornEffects, ...FrostlordEffects],
   },
   'Frostlord on Thundertusk': {
-    mandatory: { command_abilities: [keyPicker(command_abilities, ['Bellowing Voice'])] },
-    effects: [...ThundertuskEffects],
+    effects: [...ThundertuskEffects, ...FrostlordEffects],
+  },
+  'Huskard on Stonehorn': {
+    mandatory: {
+      prayers: [keyPicker(prayers, ["Winter's Endurance", "Winter's Strength"])],
+    },
+    effects: [...StonehornEffects, BloodVultureEffect, ...ReelEmInEffects],
+  },
+  'Huskard on Thundertusk': {
+    mandatory: {
+      prayers: [keyPicker(prayers, ["Winter's Endurance", "Winter's Strength"])],
+    },
+    effects: [...ThundertuskEffects, BloodVultureEffect, ...ReelEmInEffects],
+  },
+  'Stonehorn Beastriders': {
+    effects: [...StonehornEffects, BloodVultureEffect, ...ReelEmInEffects],
+  },
+  'Thundertusk Beastriders': {
+    effects: [...ThundertuskEffects, BloodVultureEffect, ...ReelEmInEffects],
   },
   'Gnoblar Scraplauncher': {
     effects: [
       RhinoxChargeEffect,
       {
         name: `Deadly Rain of Scrap`,
-        desc: `Add 1 to hit rolls and increase the Damage characteristic to D6 for attacks made with Piles of Old Scrap if the target unit has 10 or more models.`,
+        desc: `The attacks characteristic of Piles of Old Scrap is equal to the number of models in the target unit (to a maxumum of 20)`,
         when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Load it Up!`,
+        desc: `Pick 1 freindly GNOBLARS unit wholly within 9" of this unit and roll 2D6. If the roll is less than the number of models in that unit, add 1 to hit rolls for attacks made with this unit's Piles of Old Scrap until the end of that phase.`,
+        when: [START_OF_SHOOTING_PHASE],
       },
     ],
   },
   Gnoblars: {
     effects: [
+      ChampionEffect,
       {
-        name: `Groinbiter`,
-        desc: `1 model in this unit can be a Groinbiter. Add 1 to the Attacks characteristic of that model's Motley Assortment of Weapons.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Screeching Horde`,
-        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while it has 10 or more models.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Trappers`,
-        desc: `Roll 1 dice for each enemy unit that is within 3" of a model from this unit after that enemy unit finishes a charge move. On a 6, that enemy unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
+        name: `Nasty Traps and Tricks`,
+        desc: `Roll a dice each time an enemy unit fishines a move within 6" of any friendly units with this ability, on a 4+ that unit suffers D3 mortal wounds.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
@@ -186,144 +252,33 @@ const Units = {
         when: [TURN_ONE_END_OF_MOVEMENT_PHASE],
       },
       {
-        name: `Insatiable Hunger`,
-        desc: `You can reroll charge rolls for this unit.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  'Huskard on Stonehorn': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Line-breakers'])],
-    },
-    effects: [...StonehornEffects, BloodVultureEffect],
-  },
-  'Huskard on Thundertusk': {
-    mandatory: {
-      prayers: [keyPicker(prayers, ["Winter's Endurance", "Winter's Strength"])],
-    },
-    effects: [
-      ...ThundertuskEffects,
-      BloodVultureEffect,
-      {
-        name: `Blizzard Speaker`,
-        desc: `Add 1 to chanting rolls for this unit for each other friendly THUNDERTUSK within 18" of this unit. In addition, this unit knows the following 2 prayers: Winter's Endurance and Winter's Strength.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_OGOR_MAWTRIBES, rule_sources.ERRATA_JULY_2021],
-      },
-    ],
-  },
-  'Icebrow Hunter': {
-    mandatory: { command_abilities: [keyPicker(command_abilities, ['Lead the Skal'])] },
-    effects: [
-      ...MastersOfAmbushEffects('Frost Sabres'),
-      {
-        name: `Mighty Throw`,
-        desc: `This model can run and still shoot with its Great Throwing Spear later in the same turn.`,
-        when: [MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_OGOR_MAWTRIBES, rule_sources.ERRATA_JULY_2021],
-      },
-      {
-        name: `Mighty Throw`,
-        desc: `This model can run and still shoot with its Great Throwing Spear later in the same turn. In addition, this unit's Great Throwing Spear has a Damage characteristic of D6 instead of D3 and range characteristic of 18" instead of 9" if it ran in the same turn.`,
-        when: [SHOOTING_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_OGOR_MAWTRIBES, rule_sources.ERRATA_JULY_2021],
-      },
-      {
-        name: `Icy Breath`,
-        desc: `In your shooting phase, you can say that this model will attack with its Icy Breath instead of attacking with its missile weapons. If you do so, pick 1 enemy unit within 6" of this model that is visible to it and roll a D6. On a 4+, that enemy unit suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  'Icefall Yhetees': {
-    effects: [
-      {
-        name: `Aura of Frost`,
-        desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this unit.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Bounding Leaps`,
-        desc: `This unit is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Invigorated by the Blizzard`,
-        desc: `This unit can run and still charge later in the same turn if it is wholly within 16" of a friendly Thundertusk when the charge roll is made.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-    ],
-  },
-  Ironblaster: {
-    effects: [
-      {
-        name: `Lethal Payload`,
-        desc: `Before attacking with an Ironblaster Cannon, choose either the Cannon Ball or Hail Shot missile weapon characteristics for that shooting attack.`,
-        when: [SHOOTING_PHASE],
-      },
-      RhinoxChargeEffect,
-    ],
-  },
-  Ironguts: {
-    effects: [
-      {
-        name: `Gutlord`,
-        desc: `1 model in this unit can be a Gutlord. Add 1 to the Attacks characteristic of that model's Mighty Bashing Weapon.`,
-        when: [COMBAT_PHASE],
-      },
-      BellowerEffect,
-      {
-        name: `Rune Maw Bearer`,
-        desc: `If an enemy unit fails a battleshock test within 6" of any Rune Maw Bearers, you can roll a D6. On a 6, add D3 to the number of models that flee.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Rune Maw Bearer`,
-        desc: `Each time a unit with any Rune Maw Bearers is affected by a spell or endless spell, you can roll a D6. If you do so, on a 6, ignore the effects of that spell or endless spell on that unit.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Down to the Ironguts`,
-        desc: `Once per battle, in your hero phase, if at least 1 Ogor model from your army has fled the battle, you can use this ability. If you do so, you can reroll hit, wound and save rolls of 1 for this unit until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  Leadbelchers: {
-    effects: [
-      {
-        name: `Thunderfist`,
-        desc: `1 model in this unit can be a Thunderfist. Add 1 to the Attacks characteristic of that model's Bludgeoning Blow.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Thunderous Blasts of Hot Metal`,
-        desc: `This unit's Leadbelcher Guns have an Attacks characteristic of D6 instead of D3 if this unit did not make a move in the same turn.`,
-        when: [SHOOTING_PHASE],
+        name: `Gruesome Devourers`,
+        desc: `Enemy units within 9" of this unit cannot receive the Inspiring Presence or Rally commands while it is eating (within 3" of enemy models).`,
+        when: [START_OF_HERO_PHASE, BATTLESHOCK_PHASE],
       },
     ],
   },
   Maneaters: {
+    mandatory: { command_abilities: [keyPicker(command_abilities, ['A Barrel of Meat and the Jobs Done'])] },
     effects: [
       GenericEffects.Elite,
       {
         name: `Been There, Done That`,
-        desc: `After armies have been set up but before the first battle round begins, pick 1 ability to apply to this unit from the following list:
-            Brawlers: You can reroll hit rolls of 1 for attacks made with melee weapons by this unit.
-            Crack Shots: You can reroll hit rolls of 1 for attacks made with missile weapons by this unit.
+        desc: `After deployment, pick 1 ability to apply to this unit from the following list:
+            Brawlers: Add 1 to wound rolls for melee weapons used by this unit.
+            Crack Shots: The Range characteristic for this unit's Pistols and Throwing weapons is 18".
             Striders: This unit can run and still charge later in the same turn.
             Stubborn: Do not take battleshock tests for this unit.`,
         when: [END_OF_SETUP],
       },
       {
         name: `Brawlers`,
-        desc: `If you selected this ability, you can reroll hit rolls of 1 for attacks made with melee weapons by this unit.`,
+        desc: `If you selected this ability, you can add 1 to wound rolls for attacks made with melee weapons by this unit.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Crack Shots`,
-        desc: `If you selected this ability, you can reroll hit rolls of 1 for attacks made with missile weapons by this unit.`,
+        desc: `If you selected this ability, the Range of this unit's shooting attacks is 18".`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -338,23 +293,119 @@ const Units = {
       },
     ],
   },
+  'Icebrow Hunter': {
+    mandatory: { command_abilities: [keyPicker(command_abilities, ['Lead the Skal'])] },
+    effects: [
+      ...MastersOfAmbushEffects('Frost Sabres'),
+      {
+        name: `Icy Breath`,
+        desc: `In your shooting phase, you can say that this unit will attack with its Icy Breath instead of attacking with its missile weapons. If you do so, pick 1 enemy unit within 6" of this model that is visible to it and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Icefall Yhetees': {
+    effects: [
+      {
+        name: `Aura of Frost`,
+        desc: `This unit has a ward of 6+.`,
+        when: [WOUND_ALLOCATION_PHASE, WARDS_PHASE],
+      },
+      {
+        name: `Bounding Leaps`,
+        desc: `This unit is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Invigorated by the Blizzard`,
+        desc: `This unit can run and still charge later in the same turn if it is wholly within 15" of a friendly Thundertusk when the charge roll is made.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+    ],
+  },
   'Mournfang Pack': {
     effects: [
       {
+        name: `Skalg`,
+        desc: `This model is armed with the Ironlock Pistol in addition to any other weapons.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Skalg`,
+        desc: `Add 1 to the attack characteristics of this models melee weapons excluding the mount.`,
+        when: [COMBAT_PHASE],
+      },
+      {
         name: `Horn Blower`,
-        desc: `1 in every 4 models in this unit can be a Horn Blower. Add 1 to charge rolls for this unit while it includes any Horn Blowers.`,
+        desc: `Add 1 to charge rolls for this unit while it includes any Horn Blowers.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Banner Bearer`,
-        desc: `1 in every 4 models in this unit can be a Banner Bearer. Add 1 to the Bravery characteristic of this unit while it includes any Banner Bearers.`,
+        desc: `Add 1 to the Bravery characteristic of this unit while it includes any Banner Bearers.`,
         when: [BATTLESHOCK_PHASE],
       },
-      IronfistEffect,
       {
-        name: `Mournfang Charge`,
-        desc: `Add 1 to the damage inflicted by attacks made with this unit's Tusks if this unit made a charge move in the same turn.`,
+        name: `Line Breaker`,
+        desc: `Subtract 1 from wound rolls for attacks made with missle weapons that target this unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Line Breaker`,
+        desc: `Attacks made by a unit that received the Unleash Hell command in that phase only wound on an unmodifed roll of 6 when targeting this unit.`,
+        when: [CHARGE_PHASE],
+      },
+      IronfistEffect,
+    ],
+  },
+  Ironblaster: {
+    effects: [
+      {
+        name: `Lethal Payload`,
+        desc: `Each time this unit shoots, choose either the Cannon Ball or Hail Shot missile weapon characteristics for that shooting attack.`,
+        when: [SHOOTING_PHASE],
+      },
+      RhinoxChargeEffect,
+    ],
+  },
+  Leadbelchers: {
+    effects: [
+      {
+        name: `Thunderfist`,
+        desc: `1 model in this unit can be a Thunderfist. Add 1 to the Attacks characteristic of that model's Bludgeoning Blow.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Thunderous Blasts of Hot Metal`,
+        desc: `If this unit remained stationary in your movement phase, when this unit shoots in your following shooting phase, the Attacks characterisitc is 2D3 instead of D3.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  Ironguts: {
+    effects: [
+      {
+        name: `Gutlord`,
+        desc: `1 model in this unit can be a Gutlord. Add 1 to the Attacks characteristic of that model's Mighty Bashing Weapon.`,
+        when: [COMBAT_PHASE],
+      },
+      BellowerEffect,
+      {
+        name: `Rune Maw Bearer`,
+        desc: `Each time a unit with any Rune Maw Bearers is affected by a spell or endless spell, you can roll a D6. If you do so, on a 6, ignore the effects of that spell or endless spell on that unit.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Down to the Ironguts`,
+        desc: `Once per battle, in the combat phase, after this unit has fought for the first time in that phase you can say they will unleash their ferocity. If you do so they can fight for a second time in that phase. The strike-last effect applies to this unit when they fight for that second time.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Gutguard`,
+        desc: `Before you allocate a wound, mortal to a friendly TYRANT within 3" or make a ward roll for that TYRANT you can roll a dice. 
+        On a 1-2 that wound or mortal wound is allocated to that TYRANT as normal. 
+        On a 3+ that wound or mortal wound is allocated to this unit instead of that TYRANT.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -368,23 +419,13 @@ const Units = {
       BellowerEffect,
       {
         name: `Beast Skull Bearer`,
-        desc: `You can reroll charge rolls for this unit while it includes any Beast Skull Bearers.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Tribal Banner Bearer`,
-        desc: `Add 1 to the Bravery characteristic of this unit while it includes any Tribal Banner Bearers.`,
+        desc: `Add 1 to the Bravery characteristic of this unit while it includes any Beast Skull Bearers.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
-        name: `Lookout Gnoblar`,
-        desc: `Roll a D6 each time you allocate a wound inflicted by a missile weapon to a unit that includes any Lookout Gnoblars. On a 6, that wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-      {
-        name: `Paired Clubs or Blades`,
-        desc: `If the unmodified hit roll for an attack made with paired Clubs or Blades is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [COMBAT_PHASE],
+        name: `Tribal Banner Bearer with Lookout Gnoblar`,
+        desc: `Subtract 1 from wound rolls from missle weapons that target this unit while it has any Tribal Banner Bearer with Lookout Gnoblar.`,
+        when: [SHOOTING_PHASE],
       },
       IronfistEffect,
     ],
@@ -393,28 +434,61 @@ const Units = {
     mandatory: { spells: [keyPicker(spells, ['Rockchomper'])] },
     effects: [
       BloodgruelEffect,
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Great Cauldron`,
         desc: `In your hero phase, you can say that this model will reach into its cauldron and feast on the contents. If you do so, roll a D6 and consult the table below.
-            1: Bad Meat: This model suffers D3 mortal wounds.
-            2: Troggoth Guts: You can heal D3 wounds allocated to this model. In addition, you can heal 1 wound allocated to each friendly Ogor unit wholly within 12" of this model.
-            3-4: Spinemarrow: Pick a friendly Ogor unit wholly within 12" of this model. Add 1 to hit rolls for attacks made with melee weapons by that unit until the start of your next hero phase.
-            5-6: Bonecrusher: Roll a D6 for each enemy unit within 6" of this model. On a 4+, that unit suffers D3 mortal wounds.`,
+            1: Bad Meat: This model suffers 1 mortal wound.
+            2: Troggoth Guts: You can heal D3 wounds allocated to this model. In addition, you can heal 1 wound allocated to each friendly OGOR unit wholly within 12" of this model.
+            3-4: Spinemarrow: Pick a friendly Ogor unit wholly within 12" of this model. Add 1 to wound rolls for attacks made with melee weapons by that unit until the start of your next hero phase.
+            5-6: Bonecrusher: Roll a D6 for each enemy unit within 6" of this model. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Stonehorn Beastriders': {
-    effects: [...StonehornEffects, BloodVultureEffect],
-  },
-  'Thundertusk Beastriders': {
-    effects: [...ThundertuskEffects, BloodVultureEffect],
-  },
   Tyrant: {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Bully of the First Degree'])],
-    },
     effects: [
+      {
+        name: `Big Name`,
+        desc: `When you pick this unit to be a part of your amry, you can pick 1 of the big names from the list below and record it on your army roster.
+              Deathcheater: This unit has a ward of 5+.
+              Brawlerguts: This unit is treated as a monster for the purposes of the Trampling charge battle trait.
+              Fateseeker: this unit has a Save characteristic of 3+ instead of 4+.
+              Longstrider: This unit has a Move characteristic of 8".
+              Giantbreaker: Add 1 to the damage inflicted by attacks made with this unit's weapones that target a MONSTER.
+              Wallcrusher: Improve the Rend characteristic of this unit's melee weapons by 1 if the target is in cover or in a garrison.`,
+        when: [START_OF_SETUP],
+      },
+      {
+        name: `Deathcheater (Big Name)`,
+        desc: `This unit has a ward of 5+.`,
+        when: [WOUND_ALLOCATION_PHASE, WARDS_PHASE],
+      },
+      {
+        name: `Brawlerguts (Big Name)`,
+        desc: `This unit is treated as a monster for the purposes of the Trampling charge battle trait.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Fateseeker (Big Name)`,
+        desc: `This unit has a Save characteristic of 3+ instead of 4+.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Longstrider (Big Name)`,
+        desc: `This unit has a Move characteristic of 8".`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Giantbreaker (Big Name)`,
+        desc: `Add 1 to the damage inflicted by attacks made with this unit's weapones that target a MONSTER.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Wallcrusher (Big Name)`,
+        desc: `Improve the Rend characteristic of this unit's melee weapons by 1 if the target is in cover or in a garrison.`,
+        when: [COMBAT_PHASE],
+      },
       {
         name: `Beastskewer Glaive`,
         desc: `If the unmodified hit roll for an attack made with a Beastskewer Glaive that targets a HERO or MONSTER is 6, the Beastskewer Glaive has a Damage characteristic of D6 instead of D3 for that attack.`,
@@ -422,22 +496,22 @@ const Units = {
       },
       {
         name: `Thundermace`,
-        desc: `If the unmodified hit roll for an attack made with a Thundermace is 6, that attack inflicts 1 mortal wound in addition to any normal damage. If the target unit has more than 3 models, on an unmodified 6, that attack inflicts D3 mortal wounds instead of 1.`,
+        desc: `If the unmodified hit roll for an attack made with a Thundermace is 6, that attack inflicts 1 mortal wound in addition to any normal damage. If the target unit has more than 3 models, that attack inflicts D3 mortal wounds instead of 1.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Bully of the First Degree`,
+        desc: `If a friendly OGOR MAWTRIBES unit fails a battleshock test within 3" of any friendly units with this ability, only 1 model in that unit will flee.`,
+        when: [BATTLESHOCK_PHASE],
       },
     ],
   },
   "Hrothgorn's Mantrappers": {
     effects: [
       {
-        name: `Shivering Gnoblars`,
-        desc: `This unit is not considered a Beastclaw Raiders unit for the purposes of the 'Grasp of the Everwinter' battle trait.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
         name: `Hidden Trap`,
         desc: `At the start of the first hero phase, if this unit is in your army, you can pick 1 terrain feature or objective that is not wholly within enemy territory and say that it is trapped. If you do so, place 1 Bushwakka's Trap marker next to that terrain feature or objective.
-          The first time a unit finishes a move within 1" of the trapped terrain feature or objective, roll a D6. On a 2+, that unit suffers D6 mortal wounds and the Bushwakka's Trap marker is removed.`,
+          The first time a unit finishes a move within 1" of the trapped terrain feature or objective remove the Bushwakka's Trap minature and roll a D6. On a 2+, that unit suffers a number of mortal wounds equal to the roll.`,
         when: [TURN_ONE_START_OF_HERO_PHASE],
       },
       {
@@ -500,6 +574,25 @@ const Units = {
       {
         name: `Gorlok's Minions - Shreek`,
         desc: `In your shooting phase, you can pick 1 enemy unit within 18" of this model and roll a dice. On a 5+ that enemy unit suffers 1 mortal wound.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Bloodpelt Hunter': {
+    effects: [
+      {
+        name: `Hidden Predator`,
+        desc: `This unit is not visible to enemy units while it is within cover.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Unrelenting Hunter`,
+        desc: `At the end of your opponent's movement phase, if this unit is more than 9" from all enemy units, it can make a normal move.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Beast-Breaker`,
+        desc: `If the target is a MONSTER, the damage of a Skullshatter Crossbow is 3 and the damage of an Impaling Spear is 6.`,
         when: [SHOOTING_PHASE],
       },
     ],

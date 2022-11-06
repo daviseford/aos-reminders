@@ -708,14 +708,13 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.selections.flavors).toEqual(['Boulderhead (Mawtribe)'])
-    expect(res.selections.artifacts).toEqual(['Brand of the Svard'])
+    // expect(res.selections.artifacts).toEqual(['Brand of the Svard'])
     expect(res.selections.prayers).toEqual([
       'Pulverising Hailstorm',
       "Winter's Endurance",
       "Winter's Strength",
     ])
     expect(res.selections.mount_traits).toEqual(['Belligerent Charger', 'Fleshgreed'])
-    expect(res.selections.command_traits).toEqual(['Lord of Beasts'])
     expect(res.selections.units).toEqual([
       'Frostlord on Stonehorn',
       'Huskard on Thundertusk',
