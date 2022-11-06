@@ -382,13 +382,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.units).toContain('Slayers')
   })
 
-  it('should correctly read 1595637879055-Warscroll_Builder', () => {
-    const parsedText = getFile('1595637879055-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    // expect(res.selections.spells).toContain('Ribcracker')
-    // expect(res.selections.command_traits).toContain('Fateseeker (Big Name)')
-  })
-
   it('should work with 1591871273929-Warscroll_Builder', () => {
     const parsedText = getFile('1591871273929-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
