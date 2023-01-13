@@ -302,8 +302,9 @@ const Units = {
       GenericEffects.WizardTwoSpellsEffect,
       {
         name: `Horrific Opponent`,
-        desc: `At the start of the enemy movement phase, you must roll 2D6 for each enemy unit that is within 3" of this unit. If the roll is equal to or greater than that unit's Bravery characteristic, that unit must retreat in that phase or it suffers D6 mortal wounds.`,
+        desc: `At the start of the enemy movement phase, you must roll 2D6 for each enemy unit that is within 3" of this unit. If the roll is equal to or greater than that unit's Bravery characteristic, that unit must retreat in that phase or, if it is unable to retreat, it suffers D6 mortal wounds instead.`,
         when: [START_OF_MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JANUARY_2023],
       },
       MountainOfLoathsomeFleshEffect,
     ],
