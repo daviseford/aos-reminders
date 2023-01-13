@@ -179,8 +179,9 @@ const CommandTraits = {
     effects: [
       {
         name: `Hidden Agents (Anvilgard Battle Trait)`,
-        desc: `You receive D3 extra command points.`,
-        when: [START_OF_SETUP],
+        desc: `Once per battle, when you receive command points at the start of your hero phase, you can receive D3 extra command points.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_DECEMBER_2022],
       },
     ],
   },

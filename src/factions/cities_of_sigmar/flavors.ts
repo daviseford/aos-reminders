@@ -110,8 +110,9 @@ const Flavors = {
 
         Dabblings in Sorcery: 1 additional friendly ANVILGARD DRAGON, ANVILGARD KHARIBDYSS or ANVILGARD WAR HYDRA can have a Drakeblood curse from the Drakeblood Curses table.
 
-        Hidden Agents: You receive D3 extra command points.`,
+        Hidden Agents: Once per battle, when you receive command points at the start of your hero phase, you can receive D3 extra command points.`,
         when: [START_OF_SETUP],
+        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_DECEMBER_2022],
       },
       {
         name: `Drakeblood Curses`,
