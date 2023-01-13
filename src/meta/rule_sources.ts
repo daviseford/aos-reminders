@@ -122,19 +122,23 @@ const meta_rule_sources = {
     name: "General's Handbook (2022)",
     type: 'ghb',
   },
+  GHB_2022_2023_SEASON_2: {
+    name: "General's Handbook (2022-23 - Season 2)",
+    type: 'ghb',
+  },
   ERRATA_GHB_SEPTEMBER_2021: {
     name: "General's Handbook Errata (September 2021)",
-    type: 'ghb',
+    type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/Nx3vTlkaz7ekCv7J.pdf',
   },
   ERRATA_GHB_OCTOBER_2022: {
     name: "General's Handbook Errata (October 2022)",
-    type: 'ghb',
+    type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2022/06/v1iepvOM3Oycl774.pdf',
   },
   ERRATA_GHB_JANUARY_2023: {
-    name: "General's Handbook Errata (January 2023)",
-    type: 'ghb',
+    name: "General's Handbook (2022-23 - Season 2) Errata (January 2023)",
+    type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2022/06/0niAh9Z8ntoVaTlG.pdf',
   },
 

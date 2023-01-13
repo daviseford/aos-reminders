@@ -3,7 +3,7 @@ import { useTheme } from 'context/useTheme'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = '2022-october-faqs'
+  const name = '2023-january-faqs-and-ghb'
 
   return (
     <NotificationBanner
@@ -14,7 +14,8 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW: </strong>October 2022 FAQs have been added!
+        <strong>NEW: </strong>January 2023 FAQs have been added, as well as the new General's Handbook
+        (2022-23 Season 2)!
       </span>
     </NotificationBanner>
   )
