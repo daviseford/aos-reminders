@@ -139,6 +139,12 @@ const meta_rule_sources = {
     url: 'https://www.warhammer-community.com/wp-content/uploads/2022/07/F7rLk5rmPJoiqZZw.pdf',
   },
 
+  ERRATA_SEASON_OF_WAR_THONDIA: {
+    name: 'Core Rules (2021)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2022/10/AIPRIiH3XKEsLKFl.pdf',
+  },
+
   BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2023: {
     name: 'Battlescroll: Galletian Champions (July 2023)',
     type: 'other_book',
