@@ -127,6 +127,11 @@ const meta_rule_sources = {
     type: 'ghb',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2022/06/v1iepvOM3Oycl774.pdf',
   },
+  ERRATA_GHB_JANUARY_2023: {
+    name: "General's Handbook Errata (January 2023)",
+    type: 'ghb',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2022/06/0niAh9Z8ntoVaTlG.pdf',
+  },
 
   CROSS_FACTION_HEROES_JULY_2022: {
     name: 'Cross Faction Heroes (July 2022)',

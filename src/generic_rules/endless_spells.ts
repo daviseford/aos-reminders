@@ -231,9 +231,9 @@ export const RavenaksGnashingJawsEffects = [
   },
   {
     name: `Ravening Hunger`,
-    desc: `After this endless spell has moved, you can pick 1 unit that has any models it passed across or that is within 1" of it at the end of its move and roll a dice. On a 2+, if the roll for this endless spell's move was greater than the unit's Move characteristic, that unit suffers a number of mortal wounds equal to the difference between the Move characteristic and the roll for its move.`,
+    desc: `After this endless spell has moved, pick 1 unit that has any models it passed across or that is within 1" of it at the end of its move and roll a dice. On a 2+, if the roll for this endless spell's move was greater than that unit's Move characteristic, that unit suffers a number of mortal wounds equal to the difference between that unit's Move characteristic (rounded up if necessary) and the roll for this endless spell's move.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2022],
+    rule_sources: [meta_rule_sources.GHB_2022, meta_rule_sources.ERRATA_GHB_JANUARY_2023],
   },
 ]
 
