@@ -9,6 +9,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const CommandAbilities = {
   // Reapers of Vengeance
@@ -151,8 +152,9 @@ const CommandAbilities = {
     effects: [
       {
         name: `Slaughter Incarnate`,
-        desc: `If you choose to activate this ability, until the end of the phase, add 1 to the Attacks characteristic of melee weapons used by friendly KHORNE MORTAL units while they are wholly within 12" of that model. A unit cannot benefit from this command ability more than once per phase.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly BLADES OF KHORNE MORTAL units while they are wholly within 12" of that model. A unit cannot benefit from this command ability more than once per phase.`,
         when: [START_OF_COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2022],
       },
     ],
   },
@@ -160,8 +162,9 @@ const CommandAbilities = {
     effects: [
       {
         name: `Brutal Command`,
-        desc: `You can use this command ability at the start of the battleshock phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, you do not have to take battleshock tests for friendly KHORNE MORTAL units that are wholly within 18" of that model.`,
+        desc: `You can use this command ability at the start of the battleshock phase. If you do so, pick a friendly model with this command ability. Until the end of that phase, you do not have to take battleshock tests for friendly BLADES OF KHORNE MORTAL units that are wholly within 18" of that model.`,
         when: [START_OF_BATTLESHOCK_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2022],
       },
     ],
   },

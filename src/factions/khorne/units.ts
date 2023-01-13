@@ -478,8 +478,9 @@ const Units = {
       },
       {
         name: `Rage of Khorne`,
-        desc: `Add 1 to the Attacks characteristic of melee weapons used by friendly KHORNE units while they are wholly within 16" of any models with this ability.`,
+        desc: `Add 1 to the Attacks characteristic of melee weapons used by friendly BLADES OF KHORNE units while they are wholly within 16" of any models with this ability.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2022],
       },
     ],
   },
@@ -522,8 +523,9 @@ const Units = {
     effects: [
       {
         name: `Favoured by Khorne`,
-        desc: `Add 1 to the Bravery characteristic of friendly KHORNE MORTAL units wholly within 12" of any friendly models with this ability.`,
+        desc: `Add 1 to the Bravery characteristic of friendly BLADES OF KHORNE MORTAL units wholly within 12" of any friendly models with this ability.`,
         when: [BATTLESHOCK_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2022],
       },
       {
         name: `Fiery Anvil`,
@@ -575,13 +577,9 @@ const Units = {
     effects: [
       {
         name: `Whipped to Fury`,
-        desc: `At the start of your movement phase, you can pick 1 other friendly KHORNE MORTAL unit wholly within 8" of this model. Until your next movement phase, you can add 3" to run and charge rolls made for that unit.`,
+        desc: `At the start of your movement phase, you can pick 1 other friendly BLADES OF KHORNE MORTAL unit wholly within 8" of this model. Until your next movement phase, you can add 3 to run and charge rolls made for that unit. In addition, until your next movement phase, you can reroll wound rolls for attacks made by that unit. A unit cannot be picked to benefit from this ability more than once per turn.`,
         when: [START_OF_MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-      {
-        name: `Whipped to Fury`,
-        desc: `Until your next movement phase you can reroll wound rolls for attacks made by a unit that has been "Whipped to Fury". A unit cannot be picked to benefit from this ability more than once per turn.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2022],
       },
     ],
   },
@@ -654,9 +652,13 @@ const Units = {
       },
       {
         name: `Crimson Haze`,
-        desc: `Add 1 to the Attacks characteristic of melee weapons used by Khorne units that are wholly within 8" of any units with this ability. This ability has no effect on WRATHMONGERS.`,
+        desc: `Add 1 to the Attacks characteristic of melee weapons used by BLADES OF KHORNE units while they are wholly within 8" of any units with this ability. This ability has no effect on WRATHMONGERS.`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_JULY_2021],
+        rule_sources: [
+          rule_sources.BATTLETOME_KHORNE,
+          rule_sources.ERRATA_JULY_2021,
+          rule_sources.ERRATA_DECEMBER_2022,
+        ],
       },
     ],
   },
