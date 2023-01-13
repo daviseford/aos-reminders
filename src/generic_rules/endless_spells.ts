@@ -157,7 +157,7 @@ export const PurpleSunEffects = [
   GenericEffects.Predatory.Eight_Inches,
   {
     name: `End Given Form`,
-    desc: `Subtract 1 from save rolls for attacks that target units within 6" of this endless spell. In addition, roll a dice for each unit within 3" of this endless spell after it has moved. On a 1, 1 model from that unit is slain.`,
+    desc: `Roll a dice for each unit within 1" of this endless spell after this endless spell has moved. On a 1, that unit has been touched by the Purple Sun's rays. If that unit has a Wounds characteristic of 9 or less, 1 model in that unit is slain. Otherwise, that unit suffers D6+6 mortal wounds.`,
     when: [END_OF_HERO_PHASE],
     rule_sources: [meta_rule_sources.GHB_2022],
   },
@@ -165,7 +165,10 @@ export const PurpleSunEffects = [
     name: `End Given Form`,
     desc: `Subtract 1 from save rolls for attacks that target units within 6" of this endless spell.`,
     when: [SAVES_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2022],
+    rule_sources: [
+      meta_rule_sources.GHB_2022,
+      meta_rule_sources.BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2023,
+    ],
   },
 ]
 export const PrismaticPalisadeEffects = [
