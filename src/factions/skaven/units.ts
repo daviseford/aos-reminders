@@ -27,6 +27,7 @@ import {
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import prayers from './prayers'
+import rule_sources from './rule_sources'
 import spells from './spells'
 
 const EshinToxinsEffect = {
@@ -230,9 +231,10 @@ const Units = {
     effects: [
       GenericEffects.WizardOneSpellEffect,
       {
-        name: `More-more Warp-energy!`,
-        desc: `Before you make a hit roll for an attack made with a Warp-energy Blade, you can say that the engineer has overloaded its generator. If you do so, until the end of that phase, the Attacks characteristic of that weapon is D6 instead of D3. However, for each unmodified hit roll of 1, this unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
+        name: `More-more Warp Energy!`,
+        desc: `Before you determine the number of attacks made with a Warp-energy Blade, you can say that the engineer has overloaded its generator. If you do so, until the end of that phase, the Attacks characteristic of that weapon is D6 instead of D3. However, for each unmodified hit roll of 1, this unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_JANUARY_2023],
       },
     ],
   },
@@ -244,8 +246,9 @@ const Units = {
       GenericEffects.WizardOneSpellEffect,
       {
         name: `More-more Doomrocket!`,
-        desc: `Before you make a hit roll for an attack made with a Doomrocket, you can say that the engineer has overloaded its warhead. If you do so, until the end of that phase, the Attacks characteristic of that weapon is D6 instead of D3. However, for each unmodified hit roll of 1, this unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
+        desc: `Before you determine the number of attacks made with a Doomrocket, you can say that the engineer has overloaded its warhead. If you do so, until the end of that phase, the Attacks characteristic of that weapon is D6 instead of D3. However, for each unmodified hit roll of 1, this unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
         when: [SHOOTING_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SKAVEN, rule_sources.ERRATA_JANUARY_2023],
       },
     ],
   },
