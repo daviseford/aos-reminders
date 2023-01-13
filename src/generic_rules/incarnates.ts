@@ -1,3 +1,4 @@
+import meta_rule_sources from 'meta/rule_sources'
 import { TEntry } from 'types/data'
 import {
   CHARGE_PHASE,
@@ -6,7 +7,6 @@ import {
   END_OF_CHARGE_PHASE,
   HERO_PHASE,
   SHOOTING_PHASE,
-  START_OF_CHARGE_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
@@ -38,20 +38,9 @@ const GenericIncarnates: TEntry[] = [
 
       {
         name: `Wild Form`,
-        desc: `Add 1 to hit attacks made by this incarnate while it is in its wild form.`,
+        desc: `Add 1 to hit rolls for attacks made by this incarnate while it is in its wild form. This incarnate can run and still charge in the same turn while it is in its wild form. If this incarnate is in its wild form, is within 12" of another unit or an endless spell, and is not within 3" of another unit at the start of your charge phase, it must attempt a charge and must make a charge move if it is possible for it to do so.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Wild Form`,
-        desc: `This incarnate can run and still charge in the same turn while it is in its wild form.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Wild Form`,
-        desc: `If this incarnate is in its wild form and is within 12" of a unit or an endless spell at the start of your charge phase, it must attempt a charge and must make a charge move if it is possible for it to do so.
-
-        Designer's Note: Remember that an incarnate in its wild form treats other units in your army as enemy units, so it may be forced to charge and attack those units.`,
-        when: [START_OF_CHARGE_PHASE],
+        rule_sources: [meta_rule_sources.ERRATA_SEASON_OF_WAR_THONDIA],
       },
 
       {
