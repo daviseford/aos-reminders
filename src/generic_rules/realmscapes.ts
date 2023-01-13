@@ -1,15 +1,15 @@
 import meta_rule_sources from 'meta/rule_sources'
 import { TEntry } from 'types/data'
 import {
-  COMBAT_PHASE,
-  DURING_GAME,
-  END_OF_CHARGE_PHASE,
+  DURING_SETUP,
   END_OF_ROUND,
+  END_OF_TURN,
   HERO_PHASE,
+  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  START_OF_ROUND,
   TURN_THREE_START_OF_ROUND,
+  TURN_TWO_START_OF_HERO_PHASE,
 } from 'types/phases'
 import { RealmscapesEnum } from 'types/realmscapes'
 
@@ -107,38 +107,59 @@ const Realmscapes: TEntry[] = [
     name: RealmscapesEnum.GALLET,
     effects: [
       {
-        name: `Masters of the Splintered Land`,
-        desc: `Friendly Battleline units that have a Wounds characteristic of 4 or less and do not have mounts gain the GALLETIAN VETERANS keyword.`,
-        when: [DURING_GAME],
-        rule_sources: [meta_rule_sources.GHB_2022],
+        name: `Galletian Champions`,
+        desc: `HEROES with a Wounds characteristic of less than 10, that do not have a mount (with the exception of companions) and that are not Unique gain the GALLETIAN CHAMPION keyword.`,
+        when: [DURING_SETUP],
+        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2, meta_rule_sources.ERRATA_GHB_JANUARY_2023],
       },
       {
-        name: `Proving Grounds`,
-        desc: `At the start of each battle round, after the players have determined who will take the first turn, the player who will take the second turn can pick 1 objective on the battlefield to be the proving ground until the end of that battle round. The same objective cannot be picked as the proving ground more than once per battle, and only 1 objective can be marked as the proving ground at any one time. Only models in units with the GALLETIAN VETERANS keyword can contest an objective marked as the proving ground.`,
-        when: [START_OF_ROUND],
-        rule_sources: [meta_rule_sources.GHB_2022],
+        name: `The Key to Victory`,
+        desc: `Friendly GALLETIAN CHAMPIONS cannot be picked as the target of attacks made with missile weapons while they are within 1" of any friendly Battleline units.`,
+        when: [SHOOTING_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
       },
       {
-        name: `The Bonds of Battle`,
-        desc: `When a model in a GALLETIAN VETERANS unit makes an attack with a melee weapon, you can target an enemy unit within 1/2" of another model from that GALLETIAN VETERANS unit instead of using the weapon's Range characteristic for that attack. If you do so, the attacking model must be within 1/2" of another model from its own unit that is within 1/2" of the target.`,
-        when: [COMBAT_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2022],
+        name: `Desperate Action`,
+        desc: `If you are taking the second turn in the current battle round, at the start of your hero phase, you can pick 1 friendly GALLETIAN CHAMPION on the battlefield to carry out 2 different heroic actions in that phase instead of 1.`,
+        when: [TURN_TWO_START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
       },
       {
-        name: `Gaze of Ghur`,
-        desc: `Gaze of Ghur is a spell that has a casting value of 7 and a range of 12". If successfully cast, pick 1 enemy unit within range and visible to the caster. Until your next hero phase, when determining the number of models in that enemy unit that are contesting an objective, your opponent must halve that number, rounding down.
-        
-        Designer's Note: Effects that modify the number of models a model counts as when contesting an objective are applied after effects that fix the number of models a model counts as when contesting an objective at a set value. For example, if a Mega-Gargant counts as 20 models because of the 'Mightier Makes Rightier' battle trait, 'Gaze of Ghur' would make that unit count as 10 models instead. `,
+        name: `Strike at the Opening (Heroic Action)`,
+        desc: `Pick 1 friendly GALLETIAN CHAMPION within 3" of an enemy unit. That HERO can fight if it has not already fought in that phase. However, that HERO cannot fight again in that phase and the strike-last effect applies to that HERO until the end of the turn.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
+      },
+      {
+        name: `Lead by Example (Heroic Action)`,
+        desc: `Pick 1 friendly GALLETIAN CHAMPION that has a Sworn Bodyguard unit (pg 14) and that has just carried out the 'Strike at the Opening' heroic action. If that Sworn Bodyguard unit is wholly within 6" of that GALLETIAN CHAMPION and within 3" of an enemy unit, that Sworn Bodyguard unit can fight if it has not already fought in that phase. However, that unit cannot fight again in that phase and the strike-last effect applies to that unit until the end of the turn.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
+      },
+      {
+        name: `Grinding Teeth of Gallet`,
+        desc: `Casting value of 6 and a range of 12". Pick 1 objective within range and visible to the caster. Then, roll a dice for each unit within 6" of that objective. On a 4+, that unit suffers D6 mortal wounds. All Wizards know this spell in addition to any others that they know.`,
         when: [HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2022, meta_rule_sources.ERRATA_GHB_OCTOBER_2022],
-        spell: true, // TODO: This doesn't appear in dropdowns
+        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
+        spell: true,
       },
       {
-        name: `Overwhelming Assault`,
-        desc: `You can use this command ability at the end of your charge phase. The unit that receives the command must be a GALLETIAN VETERANS that has 10 or more models. Pick 1 enemy unit within 1" of that unit that has a Wounds characteristic of 4 or less and roll a dice. If the roll is greater than the number of models in that enemy unit, the strike-last effect applies to that enemy unit in the following combat phase.`,
-        when: [END_OF_CHARGE_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2022],
+        name: `No Retreat, No Surrender`,
+        desc: `You can use this command ability at the start of the combat phase. The unit that receives the command must be a friendly unit that is not a HERO or MONSTER, that did not charge in the same turn, and that is within 3" of an enemy unit. That unit cannot make pile-in moves in that phase, but add 1 to the Attacks characteristic of melee weapons used by that unit until the end of that phase (excluding those of its mounts, if it has any). Each player can use this command ability in addition to any others that they can use.`,
+        when: [START_OF_COMBAT_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
         command_ability: true,
+      },
+      {
+        name: `The Prize of Gallet - Victory Points`,
+        desc: `Each player scores victory points at the end of each of their turns as follows:
+
+        - Score 1 victory point if you control at least one activated objective.
+        - Score 1 victory point if you control two or more activated objectives.
+        - Score 1 victory point if you control more activated objectives than your opponent.
+        - Score 2 victory points if you completed the battle tactic you picked that turn.`,
+        when: [END_OF_TURN],
+        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
       },
 
       // Battle tactics
