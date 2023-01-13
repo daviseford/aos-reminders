@@ -8,6 +8,11 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/10/DiOjGMyi3tGkZuOm.pdf',
   },
+  ERRATA_DECEMBER_2022: {
+    name: 'Errata (December 2022)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2019/10/4IQvpkhYMBDojDZ6.pdf',
+  },
 }
 
 export default rule_sources

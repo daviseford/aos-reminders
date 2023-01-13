@@ -24,12 +24,13 @@ import Spells from './spells'
 
 const MorathiEffect = {
   name: `One Soul, Two Bodies/ Two Bodies, One Soul`,
-  desc: `If the Shadow Queen is on the battlefield, wounds and mortal wounds that would be allocated to Morathi-Khaine are instead allocated to the Shadow Queen and have no effect on Morathi-Khaine. Wounds and mortal wounds allocated to the Shadow Queen in this way cannot be negated.
+  desc: `If the Shadow Queen is on the battlefield, after making ward rolls for wounds or mortal wounds that would be allocated to this unit, any wounds or mortal wounds that have not been negated are instead allocated to the Shadow Queen and have no effect on this unit. Wounds and mortal wounds allocated to the Shadow Queen in this way cannot be negated.
 
-  In addition, if the Shadow Queen is on the battlefield and the effect of an ability or spell would cause Morathi-Khaine to be destroyed without any wounds being allocated, then Morathi-Khaine is not destroyed and 3 wounds are allocated to the Shadow Queen instead.
+  In addition, if the Shadow Queen is on the battlefield and the effect of an ability or spell would cause this unit to be destroyed without any wounds being allocated, then this unit is not destroyed and 3 wounds are allocated to the Shadow Queen instead. Wounds allocated to the Shadow Queen in this way cannot be negated.
 
-  If the Shadow Queen is destroyed, after removing that unit from play, Morathi-Khaine is also destroyed.`,
+  If the Shadow Queen is destroyed, after removing that unit from play, this unit is also destroyed.`,
   when: [WOUND_ALLOCATION_PHASE],
+  rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_DECEMBER_2022],
   shared: true,
 }
 
