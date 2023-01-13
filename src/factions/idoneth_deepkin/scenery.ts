@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { DURING_GAME, START_OF_SETUP, WARDS_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Scenery = {
   'Gloomtide Shipwreck': {
@@ -13,10 +14,11 @@ const Scenery = {
       },
       {
         name: `Defensible`,
-        desc: `If this terrain feature was set up as a small Gloomtide Shipwreck, it is a defensible terrain feature that can be garrisoned by up to 5 IDONETH DEEPKIN models with a Wounds characteristic of 5 or less that do not have mounts.
-
-        If this terrain feature was set up as a large Gloomtide Shipwreck, it is a defensible terrain feature that can be garrisoned by up to 10 IDONETH DEEPKIN models with a Wounds characteristic of 5 or less that do not have mounts.`,
+        desc: `If this terrain feature was set up as a small Gloomtide Shipwreck, it is a defensible terrain feature that can be garrisoned by up to 5 Idoneth Deepkin models with a Wounds characteristic of 5 or less that do not have mounts (with the exception of companions).
+        
+        If this terrain feature was set up as a large Gloomtide Shipwreck, it is a defensible terrain feature that can be garrisoned by up to 10 Idoneth Deepkin models with a Wounds characteristic of 5 or less that do not have mounts (with the exception of companions).`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_IDONETH_DEEPKIN, rule_sources.ERRATA_JANUARY_2023],
       },
       {
         name: `Guardians of the Deep`,
