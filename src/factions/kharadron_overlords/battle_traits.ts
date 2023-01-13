@@ -24,9 +24,9 @@ const BattleTraits = {
       },
       {
         name: `Mobilise the Fleet`,
-        desc: `You cannot pick this battle tactic in the first battle round. Pick 3 friendly units on the battlefield. You complete this battle tactic at the end of the turn if those units are all garrisoned within SKYVESSELS.`,
+        desc: `You cannot pick this battle tactic in the first battle round. Pick 3 friendly units that are not garrisoned within SKYVESSELS. You complete this battle tactic at the end of this turn if those units are all garrisoned within SKYVESSELS.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.WHITE_DWARF_MAY_2022],
+        rule_sources: [rule_sources.WHITE_DWARF_MAY_2022, rule_sources.ERRATA_JANUARY_2023],
       },
       {
         name: `Boots on the Ground`,
