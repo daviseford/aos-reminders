@@ -7,6 +7,7 @@ import {
   SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 const Spells = {
   // Common
   'Bolt of Tzeentch': {
@@ -148,8 +149,8 @@ const Spells = {
       },
     ],
   },
-  // Unit spells
 
+  // Unit spells
   'Infernal Gateway': {
     effects: [
       {
@@ -159,12 +160,13 @@ const Spells = {
       },
     ],
   },
-  "Tzeentch's Firestorm (Fateskimmer)": {
+  'Red Fire of Tzeentch': {
     effects: [
       {
-        name: `Tzeentch's Firestorm`,
+        name: `Red Fire of Tzeentch`,
         desc: `Casting value of 9 and a range of 9". If successfully cast, roll a dice for each enemy unit within range and visible to the caster. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_TZEENTCH, rule_sources.ERRATA_JANUARY_2022],
       },
     ],
   },

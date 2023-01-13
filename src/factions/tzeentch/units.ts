@@ -166,7 +166,7 @@ const Units = {
   },
   'Fateskimmer, Herald of Tzeentch on Burning Chariot': {
     mandatory: {
-      spells: [keyPicker(Spells, ["Tzeentch's Firestorm"])],
+      spells: [keyPicker(Spells, ['Red Fire of Tzeentch'])],
     },
     effects: [
       ArcaneTomeEffect,
