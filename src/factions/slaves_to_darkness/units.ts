@@ -291,11 +291,7 @@ const Units = {
         desc: `If the unmodified wound roll for an attack made with the Warptongue Blade is 6, the attack inflicts D6 mortal wounds on the target and the attack sequence ends.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Wizard`,
-        desc: `This model is a WIZARD. Can attempt to cast 2 spells and unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Infernal Flames.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardTwoSpellsEffect,
     ],
   },
   Varanguard: {
@@ -434,26 +430,14 @@ const Units = {
       ChaosMarkSorcerer,
       ...OracularVisionsEffects,
       TerritorialPredatorEffect,
-      {
-        name: `Wizard`,
-        desc: `This model is a WIZARD. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Winds of Chaos.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
   'Chaos Sorcerer Lord': {
     mandatory: {
       spells: [keyPicker(Spells, ['Daemonic Power'])],
     },
-    effects: [
-      ChaosMarkSorcerer,
-      ...OracularVisionsEffects,
-      {
-        name: `Wizard`,
-        desc: `This model is a WIZARD. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Daemonic Power.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [ChaosMarkSorcerer, ...OracularVisionsEffects, GenericEffects.WizardOneSpellEffect],
   },
   'Exalted Hero of Chaos': {
     effects: [
@@ -480,14 +464,7 @@ const Units = {
     mandatory: {
       spells: [keyPicker(Spells, ['Enfeeblement'])],
     },
-    effects: [
-      PactOfSoulAndIronEffect,
-      {
-        name: `Wizard`,
-        desc: `This model is a WIZARD. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Enfeeblement.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [PactOfSoulAndIronEffect, GenericEffects.WizardOneSpellEffect],
   },
   'Godsworn Hunt': {
     effects: [PactOfSoulAndIronEffect],
@@ -546,11 +523,7 @@ const Units = {
         desc: `You can pick 1 enemy unit within 8" of this model and roll a D6. On a 5+, that unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Wizard`,
-        desc: `This model is a WIZARD. Can attempt to cast 1 spell and unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Traitor's Mist.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
   Nightmaw: {
@@ -946,11 +919,7 @@ const Units = {
         desc: `If an enemy unit within 12" fails a battleshock test, this model heals D3 wounds currently allocated to it.`,
         when: [BATTLESHOCK_PHASE],
       },
-      {
-        name: `Wizard`,
-        desc: `This model is a WIZARD. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Enfeeble Foe.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardTwoSpellsEffect,
     ],
   },
   'Soul Grinder': {

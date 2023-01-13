@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import rule_sources from 'factions/slaves_to_darkness/rule_sources'
 import { GenericEffects } from 'generic_rules'
 import {
   CHARGE_PHASE,
@@ -18,6 +19,13 @@ import {
 } from 'types/phases'
 import Spells from './spells'
 
+const SilveredPortalEffect = {
+  name: `Silvered Portal`,
+  desc: `After you have deployed this unit, when you would set up another friendly TZEENTCH unit that is not a MONSTER, you can say that it is in this Gaunt Summoner's Silver Tower as a reserve unit. Up to 2 units can be set up in reserve in this way. At the end of any of your movement phases, you can set up 1 or more of these units on the battlefield wholly within 9" of this unit and more than 9" from all enemy units. At the start of the fourth battle round, reserve units that are still in a Silver Tower are destroyed.`,
+  when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
+  rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS, rule_sources.ERRATA_JANUARY_2023],
+  shared: true,
+}
 const ArcaneTomeEffect = {
   name: `Arcane Tome`,
   desc: `Once per battle, you can reroll 1 casting roll for this unit. If you do so, add 3 to the new casting roll.`,
@@ -33,12 +41,6 @@ const CapriciousWarpflameEffect = {
 const MagicTouchedEffect = {
   name: `Magic-touched`,
   desc: `If the first casting attempt made by this unit in your hero phase is successful and the spell is not unbound, this unit can attempt to cast 1 extra spell in that phase. If it does so and the casting roll for that extra spell is a double, the casting attempt automatically fails and this unit is slain. If this happens, you can choose for this unit to be transformed into a Spawn (pg 65) instead of being slain.`,
-  when: [HERO_PHASE],
-  shared: true,
-}
-const MagisterMagicEffect = {
-  name: `Wizard`,
-  desc: `This model is a wizard. It can attempt to cast 1 spell and attempt to unbind 1 spell. It knows Arcane Bolt, Mystic Shield, and Bolt of Change.`,
   when: [HERO_PHASE],
   shared: true,
 }
@@ -73,16 +75,7 @@ const Units = {
     mandatory: {
       spells: [keyPicker(Spells, ['Infernal Gateway'])],
     },
-    effects: [
-      MasteryOfMagicEffect,
-      SpellThiefEffect,
-      BeaconOfSorcery,
-      {
-        name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [MasteryOfMagicEffect, SpellThiefEffect, BeaconOfSorcery, GenericEffects.WizardTwoSpellsEffect],
   },
   'Kairos Fateweaver': {
     mandatory: {
@@ -99,7 +92,7 @@ const Units = {
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 3 spells and attempt to unbind 3 spells.`,
+        desc: `This model is a WIZARD. Can attempt to cast 3 spells and attempt to unbind 3 spells.`,
         when: [HERO_PHASE],
       },
     ],
@@ -121,17 +114,8 @@ const Units = {
         Designer's Note: The Hero cannot be returned if you are allowed to bring back slain models (the model has not been slain).`,
         when: [DURING_GAME],
       },
-
-      {
-        name: `Silvered Portal`,
-        desc: `After you have deployed this unit, when you would set up another friendly Tzeentch unit that is not a monster, you can say that it is in this Gaunt Summoner's Silver Tower as a reserve unit. Up to 2 units can be set up in reserve this way. At teh end of any of your movement phases, you can set up 1 or more of these units wholly within 9" from all enemy units. At the start of the fourth battle round, reserve units that are still in a Silver Tower are destroyed.`,
-        when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells.`,
-        when: [HERO_PHASE],
-      },
+      SilveredPortalEffect,
+      GenericEffects.WizardTwoSpellsEffect,
     ],
   },
   'Gaunt Summoner on Disc of Tzeentch': {
@@ -151,11 +135,7 @@ const Units = {
         Designer's Note: The Hero cannot be returned if you are allowed to bring back slain models (the model has not been slain).`,
         when: [DURING_GAME],
       },
-      {
-        name: `Silvered Portal`,
-        desc: `After you have deployed this unit, when you would set up another friendly Tzeentch unit that is not a monster, you can say that it is in this Gaunt Summoner's Silver Tower as a reserve unit. Up to 2 units can be set up in reserve this way. At teh end of any of your movement phases, you can set up 1 or more of these units wholly within 9" from all enemy units. At the start of the fourth battle round, reserve units that are still in a Silver Tower are destroyed.`,
-        when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
-      },
+      SilveredPortalEffect,
       GenericEffects.WizardTwoSpellsEffect,
     ],
   },
@@ -163,28 +143,13 @@ const Units = {
     mandatory: {
       spells: [keyPicker(Spells, ['Red Fire of Tzeentch'])],
     },
-    effects: [
-      ArcaneTomeEffect,
-      WakeofFireEffect,
-      {
-        name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [ArcaneTomeEffect, WakeofFireEffect, GenericEffects.WizardOneSpellEffect],
   },
   'Fluxmaster, Herald of Tzeentch on Disc': {
     mandatory: {
       spells: [keyPicker(Spells, ['Blue Fire of Tzeentch'])],
     },
-    effects: [
-      ArcaneTomeEffect,
-      {
-        name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [ArcaneTomeEffect, GenericEffects.WizardOneSpellEffect],
   },
   'The Changeling': {
     effects: [
@@ -198,25 +163,14 @@ const Units = {
         desc: `In the enemy hero phase, you can pick 1 enemy unit within 9" of this model. If you do so, until your next hero phase, subtract 1 from hit rolls for attacks made by that unit and half the Move characteristic of that unit (rounding up).`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt and Mystic Shield.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardTwoSpellsEffect,
     ],
   },
   'Changecaster, Herald of Tzeentch': {
     mandatory: {
       spells: [keyPicker(Spells, ['Pink Fire of Tzeentch'])],
     },
-    effects: [
-      ArcaneTomeEffect,
-      {
-        name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [ArcaneTomeEffect, GenericEffects.WizardOneSpellEffect],
   },
   'The Blue Scribes': {
     mandatory: {
@@ -228,11 +182,7 @@ const Units = {
         desc: `If this unit is part of a Disciples of Tzeentch army, each time an enemy Wizard within 9" of this unit successfully casts a spell, and that spell is not unbound, you can roll a dice. On a 3+, you receive 1 Fate Point.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Scrolls of Sorcery`,
         desc: `This unit knows all of the spells from the Lore of Fate and Lore of Change. In addition, once in each of your hero phases, when this unit attempts to cast a spell, instead of making a casting roll, you can say that it will read from its scrolls of sorcery. If you do so, roll a dice. On a 2+, that spell is succesfully cast and cannot be unbound.`,
@@ -322,13 +272,13 @@ const Units = {
     mandatory: {
       spells: [keyPicker(Spells, ['Bolt of Change'])],
     },
-    effects: [MagicTouchedEffect, MagisterMagicEffect],
+    effects: [MagicTouchedEffect, GenericEffects.WizardOneSpellEffect],
   },
   Magister: {
     mandatory: {
       spells: [keyPicker(Spells, ['Bolt of Change'])],
     },
-    effects: [MagicTouchedEffect, MagisterMagicEffect],
+    effects: [MagicTouchedEffect, GenericEffects.WizardOneSpellEffect],
   },
   'Curseling, Eye of Tzeentch': {
     mandatory: {
@@ -345,11 +295,7 @@ const Units = {
         desc: `You can reroll unbinding and dispelling rolls for this model.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield and Glean Magic.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardTwoSpellsEffect,
     ],
   },
   'The Eyes of the Nine': {
@@ -370,14 +316,7 @@ const Units = {
     mandatory: {
       spells: [keyPicker(Spells, ['Sorcerous Insight'])],
     },
-    effects: [
-      MagicTouchedEffect,
-      {
-        name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [MagicTouchedEffect, GenericEffects.WizardOneSpellEffect],
   },
   Fatemaster: {
     effects: [
@@ -403,11 +342,7 @@ const Units = {
         desc: `Add 1 to hit rolls and wound rolls for attacks made with melee weapons by this unit if any wounds or mortal wounds were allocated to this unit earlier in the phase.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
   'Kairic Acolytes': {
@@ -458,11 +393,7 @@ const Units = {
       spells: [keyPicker(Spells, ['Boon of Mutation'])],
     },
     effects: [
-      {
-        name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell.`,
-        when: [COMBAT_PHASE],
-      },
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Sorcerous Elixer`,
         desc: `Once per battle, in your hero phase, this unit can attempt to cast 1 extra spell. If it does so, you can add 3 to the casting roll for that spell.`,
@@ -564,11 +495,7 @@ const Units = {
     effects: [
       MasteryOfMagicEffect,
       SpellThiefEffect,
-      {
-        name: `Wizard`,
-        desc: `This model is a Wizard. It can attempt to cast two spells in your hero phase, and attempt to unbind two spells in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Infernal Gateway spells.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardTwoSpellsEffect,
       // Intentionally placed command ability here thanks to duplicate key names and different effects.
       {
         name: `Beacon of Sorcery`,

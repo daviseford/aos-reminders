@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -19,20 +20,6 @@ import {
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import spells from './spells'
-
-const getBoltAndShieldWizardEffect = (
-  numberOfCasts: number,
-  numberOfUnbinds: number,
-  additionalKnownSpell: string
-) => ({
-  name: `Magic`,
-  desc: `This model is a wizard. It can attempt to cast ${numberOfCasts} spell and attempt to unbind ${numberOfUnbinds} spell. It knows ${
-    additionalKnownSpell === ''
-      ? 'Arcane Bolt and Mystic Shield'
-      : 'Arcane Bolt, Mystic Shield and ' + additionalKnownSpell
-  }.`,
-  when: [HERO_PHASE],
-})
 
 const getSunmetalWeaponsEffect = (weapon: string) => ({
   name: `Sunmetal Weapons`,
@@ -153,7 +140,7 @@ const Units = {
       },
       {
         name: `Wizard`,
-        desc: `This model is a wizard. The number of spells it can cast depends on the Archmage ability. It can unbind any number of spells in the enemy hero phase.`,
+        desc: `This model is a WIZARD. The number of spells it can cast depends on the Archmage ability. It can unbind any number of spells in the enemy hero phase.`,
         when: [HERO_PHASE],
       },
       {
@@ -353,7 +340,7 @@ const Units = {
       spells: [keyPicker(spells, ['Darkness of the Soul'])],
     },
     effects: [
-      getBoltAndShieldWizardEffect(1, 1, 'Darkness of the Soul'),
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Absorb Despair`,
         desc: `Once per phase, if a friendly unit uses its aetherquartz reserve while it is wholly within 18" of any friendly units with this ability, you can say that this unit will absorb the negative energy. If you do so, do not subtract 1 from that unit's Bravery characterstic. Instead, you can pick 1 enemy unit within 18" of this unit. If you do so, subtract 1 from the Bravery characteristic of that unit for the rest of the battle. The same enemy unit cannot be affected by this ability more than once per battle.`,
@@ -366,7 +353,7 @@ const Units = {
       spells: [keyPicker(spells, ['Twinned Tether'])],
     },
     effects: [
-      getBoltAndShieldWizardEffect(2, 2, 'Twinned Tether'),
+      GenericEffects.WizardTwoSpellsEffect,
       DeepThinkersEffect,
       {
         name: `Rune of Enthlai`,
@@ -380,7 +367,7 @@ const Units = {
       spells: [keyPicker(spells, ['Erasure'])],
     },
     effects: [
-      getBoltAndShieldWizardEffect(1, 1, 'Erasure'),
+      GenericEffects.WizardOneSpellEffect,
       DeepThinkersEffect,
       {
         name: `Realmscribe`,
@@ -391,7 +378,7 @@ const Units = {
   },
   'Scinari Loreseeker': {
     effects: [
-      getBoltAndShieldWizardEffect(1, 1, ''),
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Lone Agent`,
         desc: `Add 1 to save rolls for attacks that target this unit if it is more than 9" from all friendly models.`,
@@ -438,7 +425,7 @@ const Units = {
     },
     effects: [
       EnduringAsRockEffect,
-      getBoltAndShieldWizardEffect(1, 1, 'Gravitic Redirection'),
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Stonemage stance`,
         desc: `At the start of the combat phase, you can say that this unit will adopt the Stonemage stance. If you do so, this unit and any friendly Stoneguard units wholly within 12" of this unit cannot make pile-in moves in that phase. However, until the end of that phase, improve the Rend characteristic of melee weapons used by this unit and those friendly units by 1.`,
@@ -471,7 +458,7 @@ const Units = {
       spells: [keyPicker(spells, ['Salvation of Hysh'])],
     },
     effects: [
-      getBoltAndShieldWizardEffect(2, 2, 'Salvation of Hysh'),
+      GenericEffects.WizardTwoSpellsEffect,
       {
         name: `Aspect of Celennar`,
         desc: `Add 1 to casting, dispelling and unbinding rolls.`,
@@ -504,7 +491,7 @@ const Units = {
       spells: [keyPicker(spells, ['Windblast Vortex'])],
     },
     effects: [
-      getBoltAndShieldWizardEffect(1, 1, 'Windblast Vortex'),
+      GenericEffects.WizardOneSpellEffect,
       MoveLikeTheWindEffect,
       {
         name: `Fan of Redirection`,
@@ -560,7 +547,7 @@ const Units = {
       spells: [keyPicker(spells, ['Dazzling Light'])],
     },
     effects: [
-      getBoltAndShieldWizardEffect(1, 1, 'Dazzling Light'),
+      GenericEffects.WizardOneSpellEffect,
       DeepThinkersEffect,
       {
         name: `Scryowl Familiar`,

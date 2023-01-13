@@ -210,11 +210,7 @@ const Units = {
         desc: `Roll a D6 each time a wound or mortal wound is allocated to this model. On a 4+ that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Nikkit! Nikkit!.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardTwoSpellsEffect,
     ],
   },
   Loonboss: {
@@ -251,11 +247,7 @@ const Units = {
         desc: `Once per battle, in your hero phase, you can attempt to cast one additional spell with a Madcap Shaman. If you do so, and the casting roll is a double, this model suffers D3 mortal wounds after the effects of the spell (if any) have been resolved.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Night Shroud.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
   'Fungoid Cave-Shaman': {
@@ -278,11 +270,7 @@ const Units = {
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a Fungoid Cave-Shaman. On a 4+ the wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Spore Maws.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
   Zarbag: {
@@ -295,11 +283,7 @@ const Units = {
         desc: `Once per battle, before you attempt to cast a spell with Zarbag, you can roll a D6. On a 2+ add 2 to the casting roll.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Face of Da Bad Moon.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
   "Zarbag's Gitz": {
@@ -411,29 +395,13 @@ const Units = {
     mandatory: {
       spells: [keyPicker(Spells, ['Mesmerise'])],
     },
-    effects: [
-      HallucinogenicFungusBrewsEffect,
-      SlipperyGitEffect,
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Mesmerise.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [HallucinogenicFungusBrewsEffect, SlipperyGitEffect, GenericEffects.WizardOneSpellEffect],
   },
   Shroomancer: {
     mandatory: {
       spells: [keyPicker(Spells, ['Fungoid Cloud'])],
     },
-    effects: [
-      HallucinogenicFungusBrewsEffect,
-      SlipperyGitEffect,
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Fungoid Cloud.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [HallucinogenicFungusBrewsEffect, SlipperyGitEffect, GenericEffects.WizardOneSpellEffect],
   },
   'Sneaky Snufflers': {
     effects: [
@@ -508,7 +476,7 @@ const Units = {
       },
       {
         name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Venom of the Spider God.`,
+        desc: `This model is a WIZARD. Can attempt to cast 2 spells and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Venom of the Spider God.`,
         when: [HERO_PHASE],
       },
     ],
@@ -529,11 +497,7 @@ const Units = {
         desc: `Roll a D6 each time you allocate a wound or mortal wound to a Webspinner Shaman. On a 5+ that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Speed of the Spider God.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
   'Spider Riders': {
@@ -610,11 +574,7 @@ const Units = {
         when: [HERO_PHASE],
       },
       TerribleStenchEffect,
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Hag Curse.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
   'Dankhold Troggboss': {

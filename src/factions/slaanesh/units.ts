@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
@@ -20,12 +21,6 @@ import CommandAbilities from './command_abilities'
 import rule_sources from './rule_sources'
 import Spells from './spells'
 
-const KeeperOfSecretsMagicEffect = {
-  name: `Magic`,
-  desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Cacophonic Choir.`,
-  when: [HERO_PHASE],
-  shared: true,
-}
 const DarkTemptationsEffect = {
   name: `Dark Temptations`,
   desc: `You can pick 1 enemy hero within 3" of this model and ask your opponent if they wish that hero to accept temptation. If they refuse, that hero suffers D3 mortal wounds. If they accept, add 1 to hit rolls for attacks made by that hero. Then, at the start of the next combat phase, roll a D6. On 1-3, that hero no longer receives this modifier to their hit rolls. On 4-6, that hero is slain.`,
@@ -97,7 +92,7 @@ const baseKeeperOfSecrets = {
     spells: [keyPicker(Spells, ['Cacophonic Choir'])],
     command_abilities: [keyPicker(CommandAbilities, ['Excess of Violence'])],
   },
-  effects: [DarkTemptationsEffect, DelicatePrecisionEffect, KeeperOfSecretsMagicEffect],
+  effects: [DarkTemptationsEffect, DelicatePrecisionEffect, GenericEffects.WizardTwoSpellsEffect],
 }
 const MesmerisingLepidopteraEffect = {
   name: `Mesmerising Lepidoptera`,
@@ -125,14 +120,6 @@ const getSoulscentEffect = (type?: string) => {
     name: name,
     desc: `Roll a D6 for each enemy unit within 1" of this model. On a ${roll} that enemy unit suffers D3 mortal wounds. In addition, for each ${roll} add 1 to the attacks characteristic of this model's melee weapons until the end of the phase.`,
     when: [START_OF_COMBAT_PHASE],
-    shared: true,
-  }
-}
-const getSingleCasterMagicEffect = (spell: string) => {
-  return {
-    name: `Magic`,
-    desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and ${spell}.`,
-    when: [HERO_PHASE],
     shared: true,
   }
 }
@@ -184,7 +171,7 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       LitheAndSwiftEffect,
-      getSingleCasterMagicEffect(`Subvert`),
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
   'Shalaxi Helbane': {
@@ -210,11 +197,7 @@ const Units = {
         desc: `You can pick 1 enemy hero within 3" of this model. If you do so, all attacks made by this model in that combat phase must target that model, but the damage characteristic for this model's Soulpiercer is 6 in that combat phase instead of D6.`,
         when: [START_OF_COMBAT_PHASE],
       },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Refine Senses.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardTwoSpellsEffect,
     ],
   },
   'The Contorted Epitome': {
@@ -237,11 +220,7 @@ const Units = {
         desc: `Roll a D6 for each enemy unit that is within 6" of any friendly models with this ability. On a 4+, this model cannot be a target of attacks made by the selected unit until this model attacks in this phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Overwhelming Acquiescence.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardTwoSpellsEffect,
     ],
   },
   'Infernal Enrapturess, Herald of Slaanesh': {
@@ -294,14 +273,14 @@ const Units = {
         when: [WOUND_ALLOCATION_PHASE],
       },
       LitheAndSwiftEffect,
-      getSingleCasterMagicEffect(`Acquiescence`),
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
   'Bladebringer, Herald on Hellflayer': {
     mandatory: {
       spells: [keyPicker(Spells, ['Acquiescence'])],
     },
-    effects: [CrewAndSteedsEffect, getSoulscentEffect(), getSingleCasterMagicEffect(`Acquiescence`)],
+    effects: [CrewAndSteedsEffect, getSoulscentEffect(), GenericEffects.WizardOneSpellEffect],
   },
   'Bladebringer, Herald on Seeker Chariot': {
     mandatory: {
@@ -310,7 +289,7 @@ const Units = {
     effects: [
       CrewAndSteedsEffect,
       ImpossiblySwiftEffect,
-      getSingleCasterMagicEffect(`Acquiescence`),
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Mutilating Blades`,
         desc: `Roll a D6 for each enemy unit within 1" of this model when it finishes a charge move. On a 2+, that enemy unit suffers D3 mortal wounds.`,
@@ -340,7 +319,7 @@ const Units = {
       CrewAndSteedsEffect,
       ExcessOfBladesEffect,
       getSoulscentEffect('pungent'),
-      getSingleCasterMagicEffect(`Acquiescence`),
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
   'Exalted Chariot': {
@@ -460,7 +439,7 @@ const Units = {
       DarkTemptationsEffect,
       DelicatePrecisionEffect,
       SinistrousHandEffect,
-      KeeperOfSecretsMagicEffect,
+      GenericEffects.WizardTwoSpellsEffect,
       {
         name: `Soulfeaster Tendrils`,
         desc: `At the start of the combat phase, you can pick 1 enemy hero within 3" of this model and roll 3D6. If the roll is greater than that model's bravery characteristic, you gain D3 depravity points, and 1 is subtracted from hit rolls for attacks made by that hero until the end of that phase.`,
@@ -565,11 +544,7 @@ const Units = {
         desc: `If active, roll a D6 for each wound/mortal wound allocated. On a 5+ the wound is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells. Knows Arcane Bolt, Mystic Shield, and Crippling Famishment.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardTwoSpellsEffect,
     ],
   },
   'Sigvald, Prince of Slaanesh': {
@@ -637,11 +612,7 @@ const Units = {
         desc: `If active, add 1 to the wound rolls against the debuffed unit.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, and Reflection Eternal.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
   'Blissbarb Archers': {
@@ -810,12 +781,7 @@ const Units = {
         when: [HERO_PHASE],
         rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows Arcane Bolt, Mystic Shield, Whispers of Doubt, and all spells from the Lore of Slaanesh, Forbidden Sorceries of Slaanesh, and the Lore of Pain and Pleasure.`,
-        when: [HERO_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
-      },
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
 }
