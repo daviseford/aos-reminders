@@ -194,7 +194,7 @@ const Realmscapes: TEntry[] = [
       // Battle tactics
       {
         name: `Battle Tactics`,
-        desc: `At the start of your hero phase, you must pick 1 battle tactic. You must reveal your choice to your opponent, and if your battle tactics instructs you to pick something, you must tell your opponent what you pick. You have until the end of that turn to complete the battle tactic. You cannot pick the same battle tactic more than once per battle.`,
+        desc: `At the start of your hero phase, you must pick 1 battle tactic from the list below. You must reveal your choice to your opponent, and if your battle tactic instructs you to pick something, you must tell your opponent what you pick. You have until the end of that turn to complete the battle tactic. You cannot pick the same battle tactic more than once per battle.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
       },
@@ -212,7 +212,7 @@ const Realmscapes: TEntry[] = [
       },
       {
         name: `Battle Tactic: Desecrate their Lands`,
-        desc: `Pick 1 terrain feature or faction terrain feature that is partially or wholly within your opponent's territory. You complete this battle tactic if you control that terrain feature at the end of this turn.`,
+        desc: `Pick 1 terrain feature or faction terrain feature that is partially or wholly within enemy territory. You complete this battle tactic if you control that terrain feature at the end of this turn.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
       },
@@ -223,26 +223,26 @@ const Realmscapes: TEntry[] = [
         rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
       },
       {
-        name: `Battle Tactic: Head-to-Head`,
-        desc: `Pick 1 enemy GALLETIAN VETERANS unit on the battlefield. You complete this battle tactic if that unit is destroyed during this turn by an attack made by a friendly GALLETIAN VETERANS unit or an ability of a friendly GALLETIAN VETERANS unit.`,
+        name: `Battle Tactic: A Matter of Honour`,
+        desc: `Pick 1 enemy GALLETIAN CHAMPION or Sworn Bodyguard unit on the battlefield. You complete this battle tactic if that unit is destroyed during this turn by an attack made by a friendly GALLETIAN CHAMPION or Sworn Bodyguard unit.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
       },
       {
-        name: `Battle Tactic: Outmuscle`,
-        desc: `Pick 1 enemy GALLETIAN VETERANS unit that has any models contesting an objective marked as the proving ground (pg 12). You complete this battle tactic if no models from that enemy unit are contesting the proving ground at the end of this turn.`,
+        name: `Battle Tactic: Lead the Assault`,
+        desc: `You complete this battle tactic if at least 2 of the objectives you control are in enemy territory and are each contested by any friendly GALLETIAN CHAMPIONS.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
       },
       {
-        name: `Battle Tactic: Against the Odds`,
-        desc: `Pick 1 unit from your starting army on the battlefield. You complete this battle tactic if, at the end of this turn, any models from that unit are contesting an objective you control and that objective is not being contested by any enemy GALLETIAN VETERANS models.`,
+        name: `Battle Tactic: United Offence`,
+        desc: `Pick 1 objective controlled by your opponent. You complete this battle tactic if you control that objective and 2 or more friendly GALLETIAN CHAMPIONS are contesting that objective at the end of this turn.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
       },
       {
-        name: `Battle Tactic: Barge Through Enemy Lines`,
-        desc: `You complete this battle tactic if there are 2 or more units from your starting army wholly within your opponent's territory at the end of this turn. If 2 or more of those units are GALLETIAN VETERANS units, score 1 additional victory point.`,
+        name: `Battle Tactic: Cunning Manoeuvre`,
+        desc: `Pick 1 friendly GALLETIAN CHAMPION on the battlefield that is more than 3" from all enemy units. You complete this battle tactic if, at the end of the turn, that GALLETIAN CHAMPION is more than 3" from all enemy units and is contesting an objective you control that is wholly outside your territory.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
       },
