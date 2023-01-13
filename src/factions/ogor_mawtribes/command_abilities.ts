@@ -2,7 +2,6 @@ import { tagAs } from 'factions/metatagger'
 import { START_OF_CHARGE_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
 const CommandAbilities = {
-  //maneaters
   'A Barrel of Meat and the Jobs Done': {
     effects: [
       {
@@ -12,7 +11,6 @@ const CommandAbilities = {
       },
     ],
   },
-  //icebrow hunter
   'Lead the Skal': {
     effects: [
       {
