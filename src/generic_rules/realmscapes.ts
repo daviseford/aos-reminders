@@ -1,15 +1,18 @@
 import meta_rule_sources from 'meta/rule_sources'
 import { TEntry } from 'types/data'
 import {
+  DURING_GAME,
   DURING_SETUP,
   END_OF_ROUND,
   END_OF_TURN,
   HERO_PHASE,
+  MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   TURN_THREE_START_OF_ROUND,
   TURN_TWO_START_OF_HERO_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import { RealmscapesEnum } from 'types/realmscapes'
 
@@ -162,61 +165,87 @@ const Realmscapes: TEntry[] = [
         rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
       },
 
+      // Aspect of the Champion
+      {
+        name: `Tunnel Master (Aspect of the Champion)`,
+        desc: `Once per battle, instead of picking this GALLETIAN CHAMPION to make a normal move, you can remove it from the battlefield and set it up again on the battlefield more than 9" from all enemy units.`,
+        when: [MOVEMENT_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
+      },
+      {
+        name: `Fuelled by Ghurish Rage (Aspect of the Champion)`,
+        desc: `Once per battle, before you allocate a wound or mortal wound to this GALLETIAN CHAMPION and that wound or mortal wound would cause it to be slain, you can roll a dice. On a 3+, that wound or mortal wound is negated, you can heal up to D3 wounds allocated to it and any wounds that currently remain to be allocated to it are negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
+      },
+      {
+        name: `Stubborn as a Rhinox (Aspect of the Champion)`,
+        desc: `This GALLETIAN CHAMPION counts as 10 models for the purposes of contesting objectives while there are no enemy GALLETIAN CHAMPIONS contesting the same objective.`,
+        when: [DURING_GAME],
+        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
+      },
+      {
+        name: `Leadership of the Alpha (Aspect of the Champion)`,
+        desc: `Once per battle, this GALLETIAN CHAMPION can issue one of the following commands up to 3 times in the same phase: Rally, All-out Attack, All-out Defence or Redeploy. If it does so, no command point is spent the second and third times this GALLETIAN CHAMPION issues that command in that phase.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
+      },
+
       // Battle tactics
-      {
-        name: `Battle Tactics`,
-        desc: `At the start of your hero phase, you must pick 1 battle tactic. You must reveal your choice to your opponent, and if your battle tactics instructs you to pick something, you must tell your opponent what you pick. You have until the end of that turn to complete the battle tactic. You cannot pick the same battle tactic more than once per battle.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
-      {
-        name: `Battle Tactic: Gaining Momentum`,
-        desc: `Pick 1 enemy unit on the battlefield. You complete this battle tactic if that unit is destroyed during this turn and you control more objectives than your opponent at the end of this turn.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
-      {
-        name: `Battle Tactic: An Eye for an Eye`,
-        desc: `You complete this battle tactic if 1 or more friendly units were destroyed in the previous turn and 1 or more enemy units are destroyed during this turn.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
-      {
-        name: `Battle Tactic: Desecrate their Lands`,
-        desc: `Pick 1 terrain feature or faction terrain feature that is partially or wholly within your opponent's territory. You complete this battle tactic if you control that terrain feature at the end of this turn.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
-      {
-        name: `Battle Tactic: This One's Mine!`,
-        desc: `Pick 1 enemy unit on the battlefield. You complete this battle tactic if that unit is destroyed during this turn by an attack made by the model picked to be your general.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
-      {
-        name: `Battle Tactic: Head-to-Head`,
-        desc: `Pick 1 enemy GALLETIAN VETERANS unit on the battlefield. You complete this battle tactic if that unit is destroyed during this turn by an attack made by a friendly GALLETIAN VETERANS unit or an ability of a friendly GALLETIAN VETERANS unit.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
-      {
-        name: `Battle Tactic: Outmuscle`,
-        desc: `Pick 1 enemy GALLETIAN VETERANS unit that has any models contesting an objective marked as the proving ground (pg 12). You complete this battle tactic if no models from that enemy unit are contesting the proving ground at the end of this turn.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
-      {
-        name: `Battle Tactic: Against the Odds`,
-        desc: `Pick 1 unit from your starting army on the battlefield. You complete this battle tactic if, at the end of this turn, any models from that unit are contesting an objective you control and that objective is not being contested by any enemy GALLETIAN VETERANS models.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
-      {
-        name: `Battle Tactic: Barge Through Enemy Lines`,
-        desc: `You complete this battle tactic if there are 2 or more units from your starting army wholly within your opponent's territory at the end of this turn. If 2 or more of those units are GALLETIAN VETERANS units, score 1 additional victory point.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
+      // {
+      //   name: `Battle Tactics`,
+      //   desc: `At the start of your hero phase, you must pick 1 battle tactic. You must reveal your choice to your opponent, and if your battle tactics instructs you to pick something, you must tell your opponent what you pick. You have until the end of that turn to complete the battle tactic. You cannot pick the same battle tactic more than once per battle.`,
+      //   when: [START_OF_HERO_PHASE],
+      //   rule_sources: [meta_rule_sources.GHB_2022],
+      // },
+      // {
+      //   name: `Battle Tactic: Gaining Momentum`,
+      //   desc: `Pick 1 enemy unit on the battlefield. You complete this battle tactic if that unit is destroyed during this turn and you control more objectives than your opponent at the end of this turn.`,
+      //   when: [START_OF_HERO_PHASE],
+      //   rule_sources: [meta_rule_sources.GHB_2022],
+      // },
+      // {
+      //   name: `Battle Tactic: An Eye for an Eye`,
+      //   desc: `You complete this battle tactic if 1 or more friendly units were destroyed in the previous turn and 1 or more enemy units are destroyed during this turn.`,
+      //   when: [START_OF_HERO_PHASE],
+      //   rule_sources: [meta_rule_sources.GHB_2022],
+      // },
+      // {
+      //   name: `Battle Tactic: Desecrate their Lands`,
+      //   desc: `Pick 1 terrain feature or faction terrain feature that is partially or wholly within your opponent's territory. You complete this battle tactic if you control that terrain feature at the end of this turn.`,
+      //   when: [START_OF_HERO_PHASE],
+      //   rule_sources: [meta_rule_sources.GHB_2022],
+      // },
+      // {
+      //   name: `Battle Tactic: This One's Mine!`,
+      //   desc: `Pick 1 enemy unit on the battlefield. You complete this battle tactic if that unit is destroyed during this turn by an attack made by the model picked to be your general.`,
+      //   when: [START_OF_HERO_PHASE],
+      //   rule_sources: [meta_rule_sources.GHB_2022],
+      // },
+      // {
+      //   name: `Battle Tactic: Head-to-Head`,
+      //   desc: `Pick 1 enemy GALLETIAN VETERANS unit on the battlefield. You complete this battle tactic if that unit is destroyed during this turn by an attack made by a friendly GALLETIAN VETERANS unit or an ability of a friendly GALLETIAN VETERANS unit.`,
+      //   when: [START_OF_HERO_PHASE],
+      //   rule_sources: [meta_rule_sources.GHB_2022],
+      // },
+      // {
+      //   name: `Battle Tactic: Outmuscle`,
+      //   desc: `Pick 1 enemy GALLETIAN VETERANS unit that has any models contesting an objective marked as the proving ground (pg 12). You complete this battle tactic if no models from that enemy unit are contesting the proving ground at the end of this turn.`,
+      //   when: [START_OF_HERO_PHASE],
+      //   rule_sources: [meta_rule_sources.GHB_2022],
+      // },
+      // {
+      //   name: `Battle Tactic: Against the Odds`,
+      //   desc: `Pick 1 unit from your starting army on the battlefield. You complete this battle tactic if, at the end of this turn, any models from that unit are contesting an objective you control and that objective is not being contested by any enemy GALLETIAN VETERANS models.`,
+      //   when: [START_OF_HERO_PHASE],
+      //   rule_sources: [meta_rule_sources.GHB_2022],
+      // },
+      // {
+      //   name: `Battle Tactic: Barge Through Enemy Lines`,
+      //   desc: `You complete this battle tactic if there are 2 or more units from your starting army wholly within your opponent's territory at the end of this turn. If 2 or more of those units are GALLETIAN VETERANS units, score 1 additional victory point.`,
+      //   when: [START_OF_HERO_PHASE],
+      //   rule_sources: [meta_rule_sources.GHB_2022],
+      // },
     ],
   },
 ]
