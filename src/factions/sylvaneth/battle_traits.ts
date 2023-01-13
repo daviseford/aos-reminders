@@ -34,9 +34,15 @@ const BattleTraits = {
       },
       {
         name: `Strike and Fade`,
-        desc: `Once per turn, in your combat phase, immediately after a friendly Sylvaneth unit that is wholly within 9" of an overgrown terrain feature or friendly Awakened Wyldwood has fought and any slain models have been removed from play (core rules, 14.2), you can remove that unit from the battlefield and set it up again more than 9" from all enemy units and wholly within 9" of either a different overgrown terrain feature that is more than 3" from all enemy units or a different friendly Awakened Wyldwood that is more than 3" from all enemy units.`,
+        desc: `Once per turn, in your combat phase, immediately after a friendly Sylvaneth unit that is wholly within 9" of an overgrown terrain feature or friendly Awakened Wyldwood has fought and slain models (if any) have been removed from play (core rules, 14.2), you can remove that unit from the battlefield and set it up again more than 9" from all enemy units and wholly within 9" of either a different overgrown terrain feature that is more than 3" from all enemy units or a different friendly Awakened Wyldwood that is more than 3" from all enemy units.
+
+        Designer's Note: This errata means that any abilities or effects that come into play when a model is slain but before it is removed from play (such as the 'Blaze of Glory' battle trait for the Stormcast Eternals) are resolved before the 'Strike and Fade' effect regardless of whose turn is taking place.`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_OCTOBER_2022],
+        rule_sources: [
+          rule_sources.BATTLETOME_SYLVANETH,
+          rule_sources.ERRATA_OCTOBER_2022,
+          rule_sources.ERRATA_JANUARY_2023,
+        ],
       },
     ],
   },
