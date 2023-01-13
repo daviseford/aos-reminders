@@ -62,8 +62,9 @@ const BattleTraits = {
     effects: [
       {
         name: `Clash of Arms`,
-        desc: `You complete this tactic if 3 or more friendly units make a charge move this turn. If 2 or more of those units are WITCH AELVES or SISTERS OF SLAUGHTER, score 1 additional victory point.`,
+        desc: `You complete this tactic if 3 or more friendly units make a charge move this turn.`,
         when: [START_OF_ROUND],
+        rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_DECEMBER_2022],
       },
       {
         name: `Cruel Delight`,
@@ -76,6 +77,7 @@ const BattleTraits = {
         when: [START_OF_ROUND],
         rule_sources: [
           rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DECEMBER_2022,
           meta_rule_sources.BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2023,
         ],
       },
