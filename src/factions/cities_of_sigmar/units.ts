@@ -1366,11 +1366,7 @@ const Units = {
         when: [WOUND_ALLOCATION_PHASE],
       },
       DenizenOfUlfenkarnEffect,
-      {
-        name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 1 spell and attempt to unbind 1 spell. Knows the Arcane Bolt, Mystic Shield, and Withering Hex spells.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
   'Jelsen Darrock': {

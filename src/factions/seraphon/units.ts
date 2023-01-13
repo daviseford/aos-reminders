@@ -201,7 +201,7 @@ const Units = {
       },
       {
         name: `Magic`,
-        desc: `This model is a wizard. Can attempt to cast 4 spells and attempt to unbind 4 spells. Knows Arcane Bolt, Mystic Shield, Celestial Deliverance, and Comet's Call. In addition it also knows all the spells from the Lore of Celestial Domination.`,
+        desc: `This model is a WIZARD. Can attempt to cast 4 spells and attempt to unbind 4 spells. Knows Arcane Bolt, Mystic Shield, Celestial Deliverance, and Comet's Call. In addition it also knows all the spells from the Lore of Celestial Domination.`,
         when: [HERO_PHASE],
         rule_sources: [rule_sources_meta.BOOK_BROKEN_REALMS_KRAGNOS],
       },
