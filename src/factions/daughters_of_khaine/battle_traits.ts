@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { DAUGHTERS_OF_KHAINE } from 'meta/factions'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -8,6 +9,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_ROUND,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
   // Daughters of Khaine Allegiance
@@ -70,8 +72,12 @@ const BattleTraits = {
       },
       {
         name: `Tide of Blades`,
-        desc: `You complete this tactic if there are 2 or more units from your starting army wholly within your opponent's territory at the end of this turn. If 2 or more of those units are WITCH AELVES, score 1 additional victory point.`,
+        desc: `You complete this tactic if there are 2 or more units from your starting army wholly within your opponent's territory at the end of this turn.`,
         when: [START_OF_ROUND],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          meta_rule_sources.BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2023,
+        ],
       },
       {
         name: `Executioner's Cult`,

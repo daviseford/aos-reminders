@@ -1,5 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -1312,7 +1313,11 @@ const Units = {
         name: `Draconic Onslaught`,
         desc: `Once per battle, in your charge phase, you can say that this unit will unleash its draconic onslaught. If you do so, you can reroll charge rolls for this unit in that phase.`,
         when: [CHARGE_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_STORMCAST_ETERNALS, rule_sources.ERRATA_JULY_2022],
+        rule_sources: [
+          rule_sources.BATTLETOME_STORMCAST_ETERNALS,
+          rule_sources.ERRATA_JULY_2022,
+          meta_rule_sources.BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2023,
+        ],
       },
     ],
   },

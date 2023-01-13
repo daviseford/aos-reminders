@@ -133,6 +133,12 @@ const meta_rule_sources = {
     type: 'other_book',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2022/07/F7rLk5rmPJoiqZZw.pdf',
   },
+
+  BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2023: {
+    name: 'Battlescroll: Galletian Champions (July 2023)',
+    type: 'other_book',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2023/01/Ugb15RoC5uAQIMWi.pdf',
+  },
 }
 
 export default meta_rule_sources
