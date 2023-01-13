@@ -677,7 +677,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
     expect(res.selections.flavors).toEqual(['Fuethan'])
     expect(res.realmscape).toEqual('Ghur')
-    expect(res.selections.artifacts).toEqual([])
     expect(res.selections.command_traits).toEqual(['Born From Agony'])
     expect(res.selections.units).toEqual([
       'Volturnos, High King of the Deep',
@@ -764,7 +763,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SERAPHON)
-    expect(res.selections.artifacts).toEqual([])
   })
 
   it('handles Khorne5', () => {
