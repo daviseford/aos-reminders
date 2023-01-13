@@ -151,22 +151,17 @@ const Units = {
         Designer's Note: The Hero cannot be returned if you are allowed to bring back slain models (the model has not been slain).`,
         when: [DURING_GAME],
       },
-
       {
         name: `Silvered Portal`,
         desc: `After you have deployed this unit, when you would set up another friendly Tzeentch unit that is not a monster, you can say that it is in this Gaunt Summoner's Silver Tower as a reserve unit. Up to 2 units can be set up in reserve this way. At teh end of any of your movement phases, you can set up 1 or more of these units wholly within 9" from all enemy units. At the start of the fourth battle round, reserve units that are still in a Silver Tower are destroyed.`,
         when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
       },
-      {
-        name: `Wizard`,
-        desc: `This model is a wizard. Can attempt to cast 2 spells and attempt to unbind 2 spells.`,
-        when: [HERO_PHASE],
-      },
+      GenericEffects.WizardTwoSpellsEffect,
     ],
   },
   'Fateskimmer, Herald of Tzeentch on Burning Chariot': {
     mandatory: {
-      spells: [keyPicker(Spells, ["Tzeentch's Firestorm"])],
+      spells: [keyPicker(Spells, ['Red Fire of Tzeentch'])],
     },
     effects: [
       ArcaneTomeEffect,
