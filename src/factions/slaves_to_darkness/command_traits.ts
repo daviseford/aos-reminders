@@ -1,126 +1,79 @@
 import { tagAs } from 'factions/metatagger'
-import meta_rule_sources from 'meta/rule_sources'
 import {
-  BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  END_OF_COMBAT_PHASE,
+  END_OF_CHARGE_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
-  MOVEMENT_PHASE,
-  SHOOTING_PHASE,
-  START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const CommandTraits = {
   // Shared Command Traits
-  // Ravagers, Cabalists, and Despoilers.
-  'Bolstered by Hate': {
+  'Death Dealer': {
     effects: [
       {
-        name: `Bolstered by Hate`,
-        desc: `Add 2 to this general's wounds characteristic.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        name: `Death Dealer`,
+        desc: `Once per battle, in the combat phase, after this general has fought for the first time in that phase, you can say that they will deal death. 
+        If you do so, this general can fight for a second time in that phase. The strike-last effect applies to this general when they fight for that second time.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
-  // Ravagers and Cabalists.
   'Favoured of the Pantheon': {
     effects: [
       {
-        name: `Favoured of the Pantheon (Ravagers, Cabalists)`,
-        desc: `You can add or subtract 2 from the result of any rolls made for this general on the Eye of the Gods table.`,
-        when: [END_OF_COMBAT_PHASE],
+        name: `Favoured of the Pantheon`,
+        desc: `EYE OF THE GODS HERO only. After deployment, you can roll once on the Eve of the Gods table for this general (pg 71).`,
+        when: [END_OF_SETUP],
       },
     ],
   },
-  // Cabalists and Despoilers.
-  'Lord of Terror': {
+  'Arch-sorcerer': {
     effects: [
       {
-        name: `Lord of Terror (Cabalists, Despoilers)`,
-        desc: `Subtract 1 from the bravery characteristic of enemy units within 6" of this general.`,
+        name: `Arch-sorcerer`,
+        desc: `WIZARD only. This general knows all of the spells from the Lore of the Damned in addition to the other spells it knows.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Idolater Lord': {
+    effects: [
+      {
+        name: `Idolater Lord`,
+        desc: `This general becomes a PRIEST.
+        In addition, you can choose to replace the UNDIVIDED keyword on every UNDIVIDED CULTIST unit in your army with one of the following keywords: 
+        KHORNE, TEENTCH, NURGLE or SLAANESH.
+        All CULTIST units must be given the same keyword and it must be one this general has too.`,
         when: [DURING_GAME],
       },
     ],
   },
 
-  // Ravagers Only
-  'Unquestioned Resolve': {
+  //SLAVES TO DARKNESS DAEMON PRINCES only
+  'Not to be Denied': {
     effects: [
       {
-        name: `Unquestioned Resolve`,
-        desc: `Once per turn, you can use At the Double, Forward to Victory, or Inspiring Presence command ability without a command point if the target is a Cultists unit within 12" of this general.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE, BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  'Eternal Vendetta': {
-    effects: [
-      {
-        name: `Eternal Vendetta`,
-        desc: `You can reroll wound rolls for attacks made by this general. You can also reroll hit rolls if the target is an Order unit.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  'Flames of Spite': {
-    effects: [
-      {
-        name: `Flames of Spite`,
-        desc: `If the unmodified wound roll for an attack made by this general is 6, the target suffers 1 mortal wound in addition to any normal damage.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  'Master of Deception': {
-    effects: [
-      {
-        name: `Master of Deception`,
-        desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this general.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  // Cabalists Traits
-  'Mighty Ritualist': {
-    effects: [
-      {
-        name: `Mighty Ritualist`,
-        desc: `When this general attampts to perform a Ritual of Sorcerous Might it is successful on a 2+.`,
+        name: `Not to be Denied`,
+        desc: `In each hero phase, once you have carried out a heroic action, if you did not carry out the heroic action with this general you carry out an additional heroic action with this general. 
+        The heroic action carried out with this general cannot be the same as the other heroic action you carried out in this phase.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
   },
-  'Blasphemous Influence': {
+  'Bolstered by Chaos': {
     effects: [
       {
-        name: `Blasphemous Influence`,
-        desc: `When this general attempts to perform a Ritual of Corruption it is successful on a 2+.`,
-        when: [START_OF_HERO_PHASE],
+        name: `Bolstered by Chaos`,
+        desc: `Add 2 to this general's Wounds characteristic.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
-    ],
-  },
-  'All for One': {
-    effects: [
       {
-        name: `All for One`,
-        desc: `Once per battle, when this general successfully performs a Binding Ritual, for each model slain in that ritual you can heal 1 wound allocated to this general.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  // Despoilers Traits
-  'Lightning Reflexes': {
-    effects: [
-      {
-        name: `Lightning Reflexes`,
-        desc: `Subtract 1 from hit rolls for attacks made with missile weapons targeting this general.`,
-        when: [SHOOTING_PHASE],
+        name: `Bolstered by Chaos`,
+        desc: `This general becomes a MONSTER.`,
+        when: [DURING_GAME, END_OF_CHARGE_PHASE],
       },
     ],
   },
@@ -128,96 +81,18 @@ const CommandTraits = {
     effects: [
       {
         name: `Radiance of Dark Glory`,
-        desc: `You can pick 1 friendly Despoilers unit wholly within 18" of this general and roll a D6. On a 3+, you can heal up to D3 wounds allocated to that unit.`,
-        when: [HERO_PHASE],
+        desc: `At the start of your hero phase, roll a dice for each friendly model within 9" of this general that has any  wounds allocated to them. 
+        On a 3+, you can heal 1 wound from the model being rolled for. If the model being rolled for is a MONSTER, on a 3+ you can heal up to 3 wounds instead.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
-  'Distorting Miasma': {
+  'Diabolic Majesty': {
     effects: [
       {
-        name: `Distorting Miasma`,
-        desc: `You can give a terrain feature Pitch-black and Nightmare Chasm scenery rules if this general finishes a move within 9" of it.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  'Paragon of Ruin': {
-    effects: [
-      {
-        name: `Paragon of Ruin`,
-        desc: `Before the first battle round begins, D3 friendly Despoilers units can move up to 5".`,
-        when: [END_OF_SETUP],
-      },
-    ],
-  },
-  // Knights of the Empty Throne
-  'Annihilating Charge': {
-    effects: [
-      {
-        name: `Annihilating Charge`,
-        desc: `You can reroll charge rolls for friendly Knights of the Empty Throne units wholly within 12" of this general.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  'Inescapable Doom': {
-    effects: [
-      {
-        name: `Inescapable Doom`,
-        desc: `Enemy units within 3" of this general cannot retreat.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  'Wall of Cursed Iron': {
-    effects: [
-      {
-        name: `Wall of Cursed Iron`,
-        desc: `When friendly Knights of the Empty Throne units wholly within 12" of this general use their Warpsteel Shields ability, add 1 to the roll.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  // Idolators
-  'Fiery Orator': {
-    effects: [
-      {
-        name: `Fiery Orator`,
-        desc: `This general can chant 2 prayers instead of 1. The same prayer may be chanted more than once.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Bane of False Idols': {
-    effects: [
-      {
-        name: `Bane of False Idols`,
-        desc: `Once per turn, this general can issue the Desecrate command without a command point being spent.`,
-        when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
-        ],
-      },
-    ],
-  },
-  'Smite the Unbeliever': {
-    effects: [
-      {
-        name: `Smite the Unbeliever`,
-        desc: `Add 2 to the attacks characteristic of this general's melee weapons.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  // Idolators, Gresh's Iron Reapers Battalion
-  'Profane Oratory': {
-    effects: [
-      {
-        name: `Profane Oratory`,
-        desc: `You can pick 1 friendly Slaves to Darkness unit wholly within 18" of this general and add 1 to their hit rolls until the end of the phase.`,
-        when: [START_OF_COMBAT_PHASE],
+        name: `Diabolic Majesty`,
+        desc: `UNDIVIDED only. Once per battle, when you carry out a heroic action with this general you can carry out any one of the heroic actions on its warscroll even if it does not have the required keywords.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

@@ -10,7 +10,7 @@ export const SlavesToDarknessFaction = new Faction(
   SLAVES_TO_DARKNESS,
   CHAOS,
   SubFactions,
-  'Damned Legions',
+  'Mark of Chaos',
   rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-  pickEffects(battle_traits, ['Bane of the Mortal Realms', 'Battle Tactics'])
+  pickEffects(battle_traits, ['Battle Tactics', 'Ensorcelled Banners: Icons of Chaos'])
 )
