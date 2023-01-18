@@ -7,6 +7,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_GAME,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
@@ -102,7 +103,7 @@ const Artifacts = {
       {
         name: `Hearthstone Amulet`,
         desc: `The bearer has a ward of 4+ against mortal wounds.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },

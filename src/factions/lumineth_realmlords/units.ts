@@ -16,6 +16,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
@@ -84,7 +85,7 @@ const PurestAetherquartzCastingEffect = {
 const IntoTheGaleOverSaveEffect = {
   name: `Into the Gale`,
   desc: `This unit has a ward of 5+.`,
-  when: [WOUND_ALLOCATION_PHASE],
+  when: [WARDS_PHASE],
   shared: true,
 }
 const LivingCycloneEffect = {
@@ -126,6 +127,7 @@ const SunmetalWeaponEffect = {
   name: `Sunmetal Weapons`,
   desc: `If the unmodified hit roll for an attack made by this unit is 6, that attack causes 1 mortal wound to the target and the attack sequence ends (do not make a wound roll or save roll). This ability has no effect made by this unti's mounts.`,
   when: [COMBAT_PHASE],
+  shared: true,
 }
 const Units = {
   'Archmage Teclis': {
@@ -288,11 +290,7 @@ const Units = {
         desc: `If this unit made a charge move in the same turn, add 1 to wound rolls for attacks made with this unit's Sunmetal Lances and improve the Rend characteristic of that weapon by 1.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Sunmetal Weapons`,
-        desc: `If the unmodified hit roll for an attack made by this unit is 6, that attack causes 1 mortal wound to the target and the attack sequence ends (do not make a wound roll or save roll). This ability has no effect made by this unti's mounts.`,
-        when: [COMBAT_PHASE],
-      },
+      SunmetalWeaponEffect,
       getVanariWizardsEffect(3, `Steedmaster`),
       StandardBearerEffect,
       ShiningCompanyEffect,
@@ -313,7 +311,7 @@ const Units = {
       {
         name: `Warding Lanterns`,
         desc: `This unit has a ward of 6+ if it remains stationary in the same turn.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },
@@ -415,7 +413,7 @@ const Units = {
       {
         name: `Fortitude of the Earth`,
         desc: `This unit has a ward of 4+ against mortal wounds while it is contesting an objective that you control.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },

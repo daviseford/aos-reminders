@@ -1,17 +1,12 @@
 import { tagAs } from 'factions/metatagger'
-import { MARK_KHORNE, MARK_NURGLE, MARK_SLAANESH, MARK_TZEENTCH, MARK_UNDIVIDED } from 'meta/alliances'
-import meta_rule_sources from 'meta/rule_sources'
 import {
-  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  DURING_SETUP,
   END_OF_COMBAT_PHASE,
+  END_OF_HERO_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SAVES_PHASE,
-  SHOOTING_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -19,315 +14,249 @@ import rule_sources from './rule_sources'
 
 const BattleTraits = {
   // Slaves to Darkness Allegiance
-  'Bane of the Mortal Realms': {
+  'Eye of the Gods': {
     effects: [
       {
-        name: `Aura of ${MARK_KHORNE}`,
-        desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by friendly Slaves to Darkness Khorne units wholly within 12" of this model. If this model is a general, additionally add 1 to the wound rolls of those units.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Aura of ${MARK_TZEENTCH}`,
-        desc: `You can reroll save rolls of 1 for attacks that target friendly Slaves to Darkness Tzeentch units wholly within 12" of this model.`,
-        when: [SAVES_PHASE],
-      },
-      {
-        name: `Aura of ${MARK_TZEENTCH}`,
-        desc: `If this model is a general, additionally each time a friendly Slaves to Darkness Tzeentch unit in range of this aura is affected by a spell or endless spell, you can roll a D6. On a 5+ it has no effect on the unit.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Aura of ${MARK_NURGLE}`,
-        desc: `Friendly Slaves to Darkness Nurgle unit wholly within 12" of this model add 1 to the damage inflicted by melee attacks with unmodified wound rolls of 6.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Aura of ${MARK_NURGLE}`,
-        desc: `If this model is a general, subtract 1 from missile attacks made against friendly Slaves to Darkness Nurgle units wholly within 12" of this model.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Aura of ${MARK_SLAANESH}`,
-        desc: `Friendly Slaves to Darkness Slaanesh units wholly within 12" of this model score 2 hits instead of 1 on melee attacks for each unmodified hit roll of 6. Make a wound and save roll for each hit.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Aura of ${MARK_SLAANESH}`,
-        desc: `If this model is a general, you can reroll run and charge rolls for friendly Slaves to Darkness Slaanesh units wholly within 12" of this model.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-      {
-        name: `Aura of ${MARK_UNDIVIDED}`,
-        desc: `Friendly Slaves to Darkness Undivided units wholly within 12" of this model do not take battleshock tests.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Aura of ${MARK_UNDIVIDED}`,
-        desc: `If this model is a general, roll a D6 each time a friendly Slaves to Darkness Undivided unit wholly within 12" of this model allocates a wound or mortal wound. On a 6 it is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-      {
         name: `Eye of the Gods`,
-        desc: `If any attacks made by a friendly Slaves to Darkness hero with the Eye of the Gods keyword kills a hero or MONSTER you can make a 2D6 roll for that hero. Apply the reward based on the result for the rest of the battle. Duplicate rewards are treated as 'Snubbed by the Gods' instead.
+        desc: `At the end of each phase, for each enemy HERO or MONSTER destroyed by a friendly SLAVES TO DARKNESS unit with the EYE OF THE GODS keyword, including those destroyed by an ability or spell, make 1 roll on the Eye of the Gods table for that unit and apply the effect of the result.
+        In addition, if you gain control of an objective previously controlled by your opponent, make 1 roll on the Eye of the Gods table for each friendly SLAVES TO DARKNESS unit with the EYE OF THE GODS keyword that is contesting it.
+        When rolling on the Eye of the Gods table, roll 2D6 for HEROES. For all other units, roll 1 dice and add 2 to the roll (giving a score between 3-8).
                2: Spawndom
-               3: Slaughterer's Strength
-               4: Murderous Mutation
-               5: Iron Flesh
-               6: Flames of Chaos
-               7: Snubbed by the Gods
-               8: Unholy Resilience
-               9-10: Daemonic Legions
+               3: Snubbed bt the Gods
+               4: Mutative Regrowth
+               5: Flames of Chaos
+               6: Unearthly Reflexes
+               7: Unholy Resilience
+               8: Slaughterer's Strength
+               9: Arcane Awakening
+               10: Aura of Chaos
                11-12: Dark Apotheosis`,
-        when: [END_OF_COMBAT_PHASE],
+        when: [DURING_GAME, END_OF_HERO_PHASE, END_OF_COMBAT_PHASE],
       },
       {
         name: `Eye of the Gods: Spawndom`,
-        desc: `Note: See the Eye of the Gods - End of Combat Ability 
-        
-        You can add 1 Slaves to Darkness Chaos Spawn to your army. Set up the new model within 1" of the hero then remove the hero as slain.
-               If you don't add a spawn, the hero suffers D3 mortal wounds instead.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Eye of the Gods: Slaughterer's Strength`,
-        desc: `Note: See the Eye of the Gods - End of Combat Ability 
-        
-        Improve the selected melee weapon's rend characteristic by 1.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Eye of the Gods: Murderous Mutation`,
-        desc: `Note: See the Eye of the Gods - End of Combat Ability 
-        
-        Add 1 to the selected melee weapon's attacks characteristic.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Eye of the Gods: Iron Flesh`,
-        desc: `Note: See the Eye of the Gods - End of Combat Ability 
-        
-        Add 1 to save rolls for attacks targeting this hero.`,
-        when: [SAVES_PHASE],
-      },
-      {
-        name: `Eye of the Gods: Flames of Chaos`,
-        desc: `Note: See the Eye of the Gods - End of Combat Ability 
-        
-        Each time this hero is affected by a spell or endless spell you can roll a D6. On a 4+ ignore the effects on this hero.`,
-        when: [HERO_PHASE],
+        desc: `This HERO is slain. Before they are removed from the battlefield you can add 1 SLAVES TO DARKNESS CHAOS SPAWN to your army. If you do so, set it up within 1" of this HERO, then remove this HERO from play.`,
+        when: [DURING_GAME],
       },
       {
         name: `Eye of the Gods: Snubbed by the Gods`,
-        desc: `Note: See the Eye of the Gods - End of Combat Ability 
-        
-        This reward has no effect.`,
-        when: [END_OF_COMBAT_PHASE],
+        desc: `This reward has no effect.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Eye of the Gods: Mutative Regrowth`,
+        desc: `You can heal up to D3 wounds allocated to this unit. If this unit has no wounds allocated to it, treat this result as Snubbed by the Gods' instead.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Eye of the Gods: Flames of Chaos`,
+        desc: `The next time this unit is affected by a spell cast by an enemy unit, roll a dice. On a 2+, ignore the effects of that spell on this unit. A unit cannot be affected by this result more than once at the same time.
+      Note: See the Eye of the Gods - During Game`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Eye of the Gods: Unearthly Reflexes`,
+        desc: `Until the end of the battle, add 1 to charge rolls made for this unit.
+        Note: See the Eye of the Gods - During Game`,
+        when: [CHARGE_PHASE],
       },
       {
         name: `Eye of the Gods: Unholy Resilience`,
-        desc: `Note: See the Eye of the Gods - End of Combat Ability 
-        
-        Roll a D6 each time you allocate a wound or mortal wound to this hero. On a 5+ it is negated.`,
+        desc: `Until the end of the battle, this unit has a ward of 6+.
+        Note: See the Eye of the Gods - During Game`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
-        name: `Eye of the Gods: Daemonic Legions`,
-        desc: `Note: See the Eye of the Gods - End of Combat Ability 
-        
-        Summon 1 unit of the following to the battlefield based on the hero's Mark of Chaos: 10 Bloodletters, 10 Plaguebearers, 10 Daemonettes, 10 Pink Horrors or 6 Furies. The summoned unit must be set up wholly within 9" of a this model and more than 9" from any enemy units.`,
-        when: [END_OF_COMBAT_PHASE],
+        name: `Eye of the Gods: Slaughterer's Strength`,
+        desc: `Until the end of the battle, improve the Rend characteristic of this unit's melee weapons by 1.
+        Note: See the Eye of the Gods - `,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Eye of the Gods: Arcane Awakening`,
+        desc: `Until the end of the battle, this unit becomes a WIZARD. They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. 
+        If this unit is already a WIZARD, they can attempt to cast 1 additional spell instead. 
+        If this unit has the KHORNE keyword, treat this result as Slaughterer's Strength' instead.
+        Note: See the Eye of the Gods - During Game`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Eye of the Gods: Aura of Chaos`,
+        desc: `Until the end of the battle, this unit has a ward of 5+.
+        Note: See the Eye of the Gods - During Game`,
+        when: [COMBAT_PHASE],
       },
       {
         name: `Eye of the Gods: Dark Apotheosis`,
-        desc: `Note: See the Eye of the Gods - End of Combat Ability 
+        desc: `If you roll this result you can choose either the Daemonhood effect below or any other result on this table instead.
         
-        You can add 1 Slaves to Darkness Daemon Prince to your army. Set up the new model within 1" of the hero then remove the hero from play.
-               The Daemon Prince has the same Mark of Chaos as the hero (select a new one if the hero was Undivided).
-               The Daemon Prince keeps any command traits and artefacts owned by the hero.
-               If the hero was a wizard this Daemon Prince is also a wizard making the same number of casting, dispelling, and unbinding rolls while also knowing the same spells as the hero.
-               If the hero was your general, the Daemon Prince is now your general.
-               If you choose not to add a Daemon Prince, this hero can heal D3 wounds instead.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  // Ravagers Traits
-  'Glory for the Taking': {
-    effects: [
-      {
-        name: `Glory for the Taking`,
-        desc: `If your general is not a Daemon Prince you can pick a different command trait for each of up to 5 different friendly Ravagers heroes in addition to your general. None of these heroes can have more than 1 command trait.`,
-        when: [DURING_SETUP],
-      },
-      {
-        name: `Glory for the Taking`,
-        desc: `You can pick 1 friendly Ravagers hero (excluding Daemon Princes) on the battlefield to become the army general until your next hero phase.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  // Cabalists Traits
-  'Binding Rituals': {
-    effects: [
-      {
-        name: `Binding Rituals`,
-        desc: `You may select 1 friendly Cabalists wizard to perform 1 binding ritual. For either ritual selection, pick 1 friendly Cabalists unit within 3" this wizard and roll a D6. On a 3+, D3 models from the target unit are slain.
-               Ritual of Sorcerous Might: For each slain model, add 1 to the casting rolls made for friendly Cabalists wizards until the end of this phase.
-               Ritual of Corruption: Pick 1 predatory endless spell within 12" of the ritual wizard. You may move that endless spell 3" per each slain model.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  // Despoilers Traits
-  'Sacrilegious Might': {
-    effects: [
-      {
-        name: `Sacrilegious Might`,
-        desc: `Friendly units with the same Mark of Chaos as your general are affected by your general's Aura of Chaos ability while they are wholly within 18" of your general.`,
+        Daemonhood: 
+        You can add a Slaves to Darkness Daemon Prince to your army. If you do so, set it up within 1" of this Hero then remove this Hero from play (they do not count as being slain).
+        The Daemon Prince has the same Mark of Chaos keyword that the had. It has any enhancements that the Hero had. If the Hero was your general, the Daemon Prince is now your general. 
+        Any other results on the Eye of the Gods table that applied to the Hero now apply to the Daemon Prince.`,
         when: [DURING_GAME],
-      },
-      {
-        name: `Sacrilegious Might`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to a Despoilers Daemon Prince that is a general. On a 5+ it is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
-  'Blessed by the Unholy': {
-    effects: [
-      {
-        name: `Blessed by the Unholy`,
-        desc: `You can roll a D6 for each friendly Despoilers Daemon Prince and friendly Despoilers MONSTER on the battlefield. On a 4+ you can heal up to D3 wounds allocated to that model. Mutalith Vortex Beasts can only heal 1 wound instead.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Twisted Dominion': {
-    effects: [
-      {
-        name: `Twisted Dominion`,
-        desc: `If a friendly Despoilers Daemon Prince finishes a move within 6" of a terrain feature, you can give that terrain feature the Pitch-black and Nightmare Chasm scenery rules until your next hero phase. Despoilers Daemon Princes and Despoilers MONSTERS are unaffected by these scenery rules.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  'Pitch Black': {
-    effects: [
-      {
-        name: `Pitch Black`,
-        desc: `Models are not visible to each other if an imaginary straight line 1mm wide drawn between the closest points of the two models crosses over more than 1" of this terrain feature.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  'Nightmare Chasm': {
-    effects: [
-      {
-        name: `Nightmare Chasm`,
-        desc: `Roll a D6 for this terrain feature. On a 6, each unit within 1" of the terrain suffers D3 mortal wounds (roll damage separately for each unit).`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  // Host of the Everchosen
-  'Exalted Grand Marshall of the Apocalypse': {
-    effects: [
-      {
-        name: `Exalted Grand Marshall of the Apocalypse`,
-        desc: `If Archaon is your general and on the battlefield, friendly Host of the Everchosen units are affected by his Aura of Chaos ability if they are wholly within 18" of him.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  'Fearless in His Presence': {
-    effects: [
-      {
-        name: `Fearless in His Presence`,
-        desc: `If Archaon is your general and on the battlefield, do not take battleshock tests for friendly Host of the Everchosen units.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  'The Will of the Everchosen': {
-    effects: [
-      {
-        name: `The Will of the Everchosen`,
-        desc: `If Archaon is your general and on the battlefield, you can pick 1 enemy unit on the battlefield. You can reroll hit and wound rolls of 1 for melee attacks against the target by friendly Host of the Everchosen units until your next hero phase.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `The Will of the Everchosen`,
-        desc: `You can reroll hit and wound rolls of 1 for melee attacks against the target by friendly Host of the Everchosen units.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'The Eight Circles of the Varanguard': {
-    effects: [
-      {
-        name: `The Eight Circles of the Varanguard`,
-        desc: `During army construction, you must choose one of Varanguard Circle keywords from the table. All Varanguard units in your army gain that keyword and the associated effects.`,
-        when: [DURING_SETUP],
-      },
-    ],
-  },
-  // The Knights of the Empty Throne
-  'Fists of the Everchosen': {
-    effects: [
-      {
-        name: `Fists of the Everchosen`,
-        desc: `Varanguard units gain the HERO keyword. The 'Look Out, Sir!' rule does not apply to them.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  // Idolators
-  'Blessed of Chaos': {
-    effects: [
-      {
-        name: `Blessed of Chaos`,
-        desc: `Add 1 to chanting rolls for IDOLATORS PRIESTS. In addition, units in your army with the PRIEST keyword have the Leader battlefield role.`,
-        when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SLAVES_TO_DARKNESS,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
-        ],
-      },
-    ],
-  },
-  'Panoply of Ruin': {
-    effects: [
-      {
-        name: `Panoply of Ruin`,
-        desc: `When you make a charge roll for an IDOLATORS CULTISTS unit, change the lowest dice to a 6. If the roll is a double, change one of the dice to a 6.`,
-        when: [CHARGE_PHASE],
-        rule_sources: [
-          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JANUARY_2021,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
-        ],
-      },
-    ],
-  },
-  'Destroy the False Idols': {
-    effects: [
-      {
-        name: `Destroy the False Idols`,
-        desc: `Add 1 to wound rolls made by Idolators models targetting enemy priests.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [rule_sources.ERRATA_JANUARY_2023],
       },
     ],
   },
 
-  'Battle Tactics': {
+  //ENSORCELLED BANNERS
+  'Ensorcelled Banners: Icons of Chaos': {
     effects: [
       {
-        name: `In Thrall to Chaos`,
-        desc: `Pick 1 objective on the battlefield that is within 12" of any enemy units. You complete this battle tactic if there are no enemy units within 12" of that objective at the end of this turn.`,
+        name: `The Blasphemous Icon`,
+        desc: `While this model is on the battlefield, subtract 1 from chanting rolls for prayers chanted by PRIESTS that do not have the CHAOS keyword.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+
+  //Heroic Actions
+  'Vows of Darkness': {
+    effects: [
+      {
+        name: `Heroic Action: Pledge to Dark Gods`,
+        desc: `Pick 1 friendly SLAVES TO DARKNESS HERO with the EYE OF THE GODS keyword. Until the end of that turn, each time you roll on the Eye of the Gods table for that HERO,
+        you can roll 3 dice instead of 2, and pick any 2 of the dice rolled as your score.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Lust for Power`,
-        desc: `Pick 1 friendly SLAVES TO DARKNESS HERO that has the EYE OF THE GODS keyword. You complete this battle tactic if you roll on the EYE OF THE GODS table for that HERO during this turn.`,
+        name: `Heroic Action: Draw on Power`,
+        desc: `Pick 1 friendly SLAVES TO DARKNESS WIZARD. Until the end of that turn, when making casting rolls with that WIZARD, roll 3 dice instead of 2. 
+        However, if the unmodified roll on 2 or more of the dice is 1, the spell miscasts, and the caster suffers D6 mortal wounds instead of D3.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+
+  // SUB FACTIONS
+  Ravagers: {
+    effects: [
+      {
+        name: `Heroic Action: Rally the Tribes`,
+        desc: `You can carry out the following heroic action with a RAVAGERS HERO instead of any other heroic action you can carry out with that HERO.
+        
+        Pick 1 CHAOS MARAUDERS, CHAOS MARAUDER HORSEMEN, CULTIST or DARKOATH unit in your army that has been destroyed. 
+        If you do so, a new replacement unit with half the number of models in the unit that was destroyed (rounding up) is added to your army.
+        Set up that unit wholly within 12' of the HERO carrying out this heroic action and more than 9" from all enemy units. 
+        Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  Cabalists: {
+    effects: [
+      {
+        name: `Blasphemous Rituals`,
+        desc: `CABALIST HEROES become WIZARDS. If the HERO is already a WIZARD, they can attempt to cast 1 additional spell in each of your hero phases and know 1 additional spell from the Lore of the Damned spell lore.`,
+        when: [DURING_GAME, HERO_PHASE],
+        rule_sources: [rule_sources.ERRATA_JANUARY_2023],
+      },
+      {
+        name: `Blasphemous Rituals`,
+        desc: `In addition, if you carry out the Draw on Power heroic action with a CABALIST HERO, you can immediately carry out the same heroic action with each other CABALIST HERO within 3" of the first.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  Despoilers: {
+    effects: [
+      {
+        name: `The Favoured and the Cursed`,
+        desc: `Each DESPOILER DAEMON PRINCE can be given a command trait in addition to your general, which can be used as if they were a general. Each command trait must be different.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `The Favoured and the Cursed`,
+        desc: `Add 2 to the Wounds characteristic of friendly DESPOILERS MONSTER units.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+  'Host of the Everchosen': {
+    effects: [
+      {
+        name: `Legions of Darkness`,
+        desc: `Chaos Chosen, Chaos Knights or Chaos Warriors unit that receives the Rally command, you can return 1 slain model to that unit for each 5+ instead of each 6.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.ERRATA_JANUARY_2023],
+      },
+      {
+        name: `Legions of Darkness`,
+        desc: `You can pick 1 additional Ensorcelled Banners enhancement for your army.`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.ERRATA_JANUARY_2023],
+      },
+    ],
+  },
+  'The Knights of the Empty Throne': {
+    effects: [
+      {
+        name: `Unmatched Conquerors`,
+        desc: `KNIGHTS OF THE EMPTY THRONE units that have a Mount can run and still charge in the same turn.`,
+        when: [CHARGE_PHASE, MOVEMENT_PHASE],
+      },
+      {
+        name: `Dread Lieutenant`,
+        desc: `When you pick the general for your army, if Archaon is not included in the army, you can pick a model in a friendly VARANGUARD unit to be your general. If you do so, that unit gains the Leader battlefield role.
+        Designer's Note: This general cannot be given a command trait as it is not a HERO.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Dread Lieutenant`,
+        desc: `If a VARANGUARD general issues the Rally command and a friendly VARANGUARD unit receives it, you can return 1 slain model to that unit for each 5+ instead of each 6.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  'Legions of the First Prince': {
+    effects: [
+      {
+        name: `The Favour of the Four`,
+        desc: `You can pick 1 LEGION OF THE FIRST PRINCE UNDIVIDED unit and then pick 1 of the following Marks of Chaos keywords; KHORNE, TZEENTCH, NURGLE or SLAANESH. 
+        That unit has that Mark of Chaos until the start of your next hero phase in addition to the UNDIVIDED Mark of Chaos.
+        Designer's Note: If you pick a WIZARD unit to have the TEENTCH Mark of Chaos, it knows the Warp Reality' spell until the start of your next hero phase.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Infernal Servants`,
+        desc: `Allied Bloodletters, Horrors of Teentch, Plaguebearers and Daemonettes units benefit from the Marks of Chaos battle trait (pg 70) as if they had the SLAVES TO DARKNESS keyword.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+
+  //BATTLE TACTICS
+  'Battle Tactics': {
+    effects: [
+      {
+        name: `Battle Tactic: In Thrall to Chaos`,
+        desc: `Pick 1 objective marker on the battlefield that is within 12" of any enemy units. You complete this battle tactic if there are no enemy units within 12" of that objective marker at the end of this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Battle Tactic: Lust for Power`,
+        desc: `Pick 1 friendly SLAVES TO DARKNESS HERO that has the EYE OF THE GODS keyword. You complete this battle tactic if you roll on the Eye of the Gods table for that HERO during this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Battle Tactic: The March of Ruin`,
+        desc: `Pick 1 friendly SLAVES TO DARKNESS unit that includes an Ensorcelled Banner and is not within enemy territory. You complete this battle tactic if at the end of this turn that unit is wholly within enemy territory and within 3" of any other friendly units.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Battle Tactic: Iconoclasts`,
+        desc: `Pick 1 enemy unit that is a PRIEST Of TOTEM. You complete this battle tactic if that unit is destroyed at the end of the turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Battle Tactic: Champions of Chaos`,
+        desc: `You complete this battle tactic if at the end of your turn there are 3 or more friendly HEROES within 3" of enemy HEROES.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Battle Tactic: Run Them Down`,
+        desc: `You complete this battle tactic if at the end of your turn, 3 or more friendly SLAVES TO DARKNESS units made a charge move in that turn.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

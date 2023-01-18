@@ -1,5 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import rule_sources from 'factions/slaves_to_darkness/rule_sources'
+import { BookOfProfaneSecretsEffect, LordsOfTheSilverTowerEffect } from 'factions/slaves_to_darkness/units'
 import { GenericEffects } from 'generic_rules'
 import {
   CHARGE_PHASE,
@@ -15,10 +16,29 @@ import {
   START_OF_GAME,
   START_OF_HERO_PHASE,
   TURN_ONE_MOVEMENT_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import Spells from './spells'
 
+export const TzaangorChampionEffect = {
+  name: `Champion`,
+  desc: `1 model in this unit can be an Aviarch. Add 1 to the Attacks characteristic of that model's Tzeentchian Spear.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+export const BabblingStreamOfSecretsEffect = {
+  name: `Babbling Stream of Secrets`,
+  desc: `In the combat phase, enemy units within 3" of any friendly units with this ability cannot receive commands.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const GuidedByThePastEffect = {
+  name: `Guided by the Past`,
+  desc: `You can add 1 to wound rolls for attacks made with melee weapons by friendly units with this ability if you are taking the second turn in the current battleround. This ability does not affect attacks made by a mount.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
 const SilveredPortalEffect = {
   name: `Silvered Portal`,
   desc: `After you have deployed this unit, when you would set up another friendly TZEENTCH unit that is not a MONSTER, you can say that it is in this Gaunt Summoner's Silver Tower as a reserve unit. Up to 2 units can be set up in reserve in this way. At the end of any of your movement phases, you can set up 1 or more of these units on the battlefield wholly within 9" of this unit and more than 9" from all enemy units. At the start of the fourth battle round, reserve units that are still in a Silver Tower are destroyed.`,
@@ -102,18 +122,8 @@ const Units = {
       spells: [keyPicker(Spells, ['Infernal Flames'])],
     },
     effects: [
-      {
-        name: `Book of Profane Secrets`,
-        desc: `Add 1 to casting rolls, dispelling rolls, and unbinding rolls for this unit. In additioin, this unit knows all of the spells from the Lore of Fate.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Lords of the Silver Towers`,
-        desc: `Once per battle, at the end of a phase, you can pick 1 enemy unit Hero that is within 9" of this unit and that made an attack that targeted this unit in that phase, or caused any mortal wounds to this unit with an ability or spell in that phase (even if the wounds or mortal wounds were negated). If you do so, roll 2D6, If the roll is greater than the Wounds characteristic of that Hero, that Hero is removed from play.
-        
-        Designer's Note: The Hero cannot be returned if you are allowed to bring back slain models (the model has not been slain).`,
-        when: [DURING_GAME],
-      },
+      BookOfProfaneSecretsEffect,
+      LordsOfTheSilverTowerEffect,
       SilveredPortalEffect,
       GenericEffects.WizardTwoSpellsEffect,
     ],
@@ -123,18 +133,8 @@ const Units = {
       spells: [keyPicker(Spells, ['Infernal Flames'])],
     },
     effects: [
-      {
-        name: `Book of Profane Secrets`,
-        desc: `Add 1 to casting rolls, dispelling rolls, and unbinding rolls for this unit. In additioin, this unit knows all of the spells from the Lore of Fate.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Lords of the Silver Towers`,
-        desc: `Once per battle, at the end of a phase, you can pick 1 enemy unit Hero that is within 9" of this unit and that made an attack that targeted this unit in that phase, or caused any mortal wounds to this unit with an ability or spell in that phase (even if the wounds or mortal wounds were negated). If you do so, roll 2D6, If the roll is greater than the Wounds characteristic of that Hero, that Hero is removed from play.
-        
-        Designer's Note: The Hero cannot be returned if you are allowed to bring back slain models (the model has not been slain).`,
-        when: [DURING_GAME],
-      },
+      BookOfProfaneSecretsEffect,
+      LordsOfTheSilverTowerEffect,
       SilveredPortalEffect,
       GenericEffects.WizardTwoSpellsEffect,
     ],
@@ -303,7 +303,7 @@ const Units = {
       {
         name: `Arcanite Shield`,
         desc: `Narvia and Turosh have a ward of 6+.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Split`,
@@ -416,42 +416,10 @@ const Units = {
     ],
   },
   'Tzaangor Enlightened': {
-    effects: [
-      {
-        name: `Champion`,
-        desc: `1 model in this unit can be an Aviarch. Add 1 to the Attacks characteristic of that model's Tzeentchian Spear.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Babbling Stream of Secrets`,
-        desc: `In the combat phase, enemy units withn 3" of any friendly units with this ability cannot receive commands.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Guided by the Past`,
-        desc: `You can add 1 to wound rolls for attacks made with melee weapons by friendly units with this ability if you are taking the second turn in the current battleround. This ability does not affect attacks made by a mount.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [TzaangorChampionEffect, BabblingStreamOfSecretsEffect, GuidedByThePastEffect],
   },
   'Tzaangor Enlightened on Discs of Tzeentch': {
-    effects: [
-      {
-        name: `Champion`,
-        desc: `1 model in this unit can be an Aviarch. Add 1 to the Attacks characteristic of that model's Tzeentchian Spear.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Babbling Stream of Secrets`,
-        desc: `In the combat phase, enemy units withn 3" of any friendly units with this ability cannot receive commands.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Guided by the Past`,
-        desc: `You can add 1 to wound rolls for attacks made with melee weapons by friendly units with this ability if you are taking the second turn in the current battleround. This ability does not affect attacks made by a mount.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [TzaangorChampionEffect, BabblingStreamOfSecretsEffect, GuidedByThePastEffect],
   },
   Tzaangors: {
     effects: [

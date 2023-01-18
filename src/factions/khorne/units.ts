@@ -15,6 +15,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
@@ -832,7 +833,7 @@ const Units = {
       {
         name: `Gorechosen of Dromm`,
         desc: `While this unit is wholly within 3" of a friendly Dromm, he has a ward of 4+.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Throttle`,

@@ -1,34 +1,22 @@
 import { tagAs } from 'factions/metatagger'
 import {
-  CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
-  DURING_SETUP,
+  END_OF_TURN,
   HERO_PHASE,
-  SHOOTING_PHASE,
-  START_OF_COMBAT_PHASE,
+  START_OF_BATTLESHOCK_PHASE,
   START_OF_HERO_PHASE,
-  TURN_ONE_START_OF_ROUND,
-  WOUND_ALLOCATION_PHASE,
+  TURN_ONE_START_OF_TURN,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const Artifacts = {
-  // Ravagers
+  // Shared
   'Hellfire Sword': {
     effects: [
       {
         name: `Hellfire Sword`,
-        desc: `Once per battle, you can pick 1 enemy unit within 8" of the bearer and visible. The target suffers D3 mortal wounds.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
-  'Blasphemous Cuirass': {
-    effects: [
-      {
-        name: `Blasphemous Cuirass`,
-        desc: `Roll a D6 each time a mortal wound is allocated to the bearer. On a 5+ it is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `Pick 1 of the bearer's melee weapons. If the unmodified wound roll for an attack made with that weapon is 6, that attack causes a number of mortal wounds to the target equal to the weapon's Damage characteristic and the attack sequence ends (do not make a save roll).`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -36,58 +24,27 @@ const Artifacts = {
     effects: [
       {
         name: `Helm of the Oppressor`,
-        desc: `Subtract 1 from the bravery characteristic of enemy units within 6" of the bearer.`,
-        when: [DURING_GAME],
+        desc: `Enemy units cannot receive the Inspiring Presence and Rally commands while they are within 6" of the bearer.`,
+        when: [START_OF_BATTLESHOCK_PHASE, START_OF_HERO_PHASE],
       },
     ],
   },
-  'Cloak of the Relentless Conqueror': {
+  'The Conquerors Crown': {
     effects: [
       {
-        name: `Cloak of the Relentless Conqueror`,
-        desc: `You can reroll charge rolls for the bearer.`,
-        when: [CHARGE_PHASE],
+        name: `The Conqueror's Crown`,
+        desc: `Enemy models with a Wounds characteristic of 1 or 2 that are within 6" of the bearer cannot contest objectives.`,
+        when: [END_OF_TURN],
       },
     ],
   },
-  'Mark of the High-favoured': {
+  //SLAVES TO DARKNESS WIZARD HEROES
+  'Chaos Familiar': {
     effects: [
       {
-        name: `Mark of the High-favoured`,
-        desc: `Friendly Ravagers units are affected by the bearer's Aura of Chaos ability while they are wholly within 18".`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  'Desecrator Gauntlets': {
-    effects: [
-      {
-        name: `Desecrator Gauntlets`,
-        desc: `Subtract 2 from the casting rolls for enemy wizards within 3" of the bearer.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Desecrator Gauntlets`,
-        desc: `Add 1 to the wound rolls made by the bearer if their target is a wizard or priest.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  // Cabalists
-  'Soul Feeder': {
-    effects: [
-      {
-        name: `Soul Feeder`,
-        desc: `Pick 1 of the bearer's melee weapons. If the unmodified wound roll for an attack made by that weapon is a 6, you can heal 1 would allocated to the bearer.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'Black Athame': {
-    effects: [
-      {
-        name: `Black Athame`,
-        desc: `Once per battle, when the bearer attempts to perform a binding ritual, you can use this artifact to automatically succeed the ritual attempt.`,
+        name: `Chaos Familiar`,
+        desc: `Once per battle, at the start of your hero phase you can say the bearer will call upon their Chaos Familiar.
+        If you do so, the bearer can attempt to cast 1 additional spell in that hero phase, and that spell can be any from the Lore of the Damned.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -96,72 +53,31 @@ const Artifacts = {
     effects: [
       {
         name: `Infernal Puppet`,
-        desc: `Once per battle, you can pick 1 enemy wizard within 24" and visible. In the next enemy hero phase, each time that wizard attempts to cast a spell they suffer D3 mortal wounds before the casting roll is made. If the wiazrd is slain by these mortal wounds the casting attempt fails (do not roll dice).`,
-        when: [HERO_PHASE],
+        desc: `Once per battle, at the start of the enemy hero phase, you can pick 1 enemy WIZARD within 24" of the bearer and visible to them.
+        Until the end of the phase, each time that WIZARD attempts to cast a spell they suffer D3 mortal wounds before the casting roll is made. 
+        If the WIZARD is slain by these mortal wounds, the casting attempt fails (do not roll the dice).`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
-  'Spelleater Pendant': {
+  'Helm of Eldritch Command': {
     effects: [
       {
-        name: `Spelleater Pendant`,
-        desc: `The bearer gains the wizard keyword and can attempt to unbind 1 spell. If the bearer is already a wizard they gain an extra unbind attempt.`,
-        when: [HERO_PHASE],
+        name: `Helm of Eldritch Command`,
+        desc: `If this unit dispells and endless spell, instead of it being dispelled you can say the bearer has seized control of it. 
+        If you do so, the bearer now controls that endless spell in the same manner as if they had summoned it, and the model that summoned the
+        endless spell does not control it. If that endless spell is later dispelled and summoned again the bearer does not control it.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
-  'Scroll of Dark Unravelling': {
-    effects: [
-      {
-        name: `Scroll of Dark Unravelling`,
-        desc: `Once per battle, when the bearer attempts to unbind a spell, you can use this artifact to automatically unbind it (do not roll the dice).`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Spell Familiar': {
-    effects: [
-      {
-        name: `Spell Familiar`,
-        desc: `The bearer knows 1 extra spell from the Lore of the Damned.`,
-        when: [DURING_SETUP],
-      },
-    ],
-  },
-  // Despoilers
-  'Crown of Hellish Adoration': {
-    effects: [
-      {
-        name: `Crown of Hellish Adoration`,
-        desc: `Subtract 1 from wound rolls for attacks made with missile weapons targeting the bearer while they are within 3" of any friendly Despoilers units with at least 3 models.`,
-        when: [SHOOTING_PHASE],
-      },
-    ],
-  },
+  //SLAVES TO DARKNESS DAEMON PRINCES only.
   'Helm of Many Eyes': {
     effects: [
       {
         name: `Helm of Many Eyes`,
-        desc: `The bearer and their mount fight at the start of the combat phase if they charged this turn, but cannot fight again in this phase unless an ability or spells allows them to fight more than once.`,
-        when: [CHARGE_PHASE, START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'Armour of Tortured Souls': {
-    effects: [
-      {
-        name: `Armour of Tortured Souls`,
-        desc: `Worsen the read characteristic of attacks that target the bearer by 1 (to a minimum of '-').`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  'Diabolic Mantle': {
-    effects: [
-      {
-        name: `Diabolic Mantle`,
-        desc: `If the bearer is on the battlefield, you receive D3 comamnd points.`,
-        when: [TURN_ONE_START_OF_ROUND],
+        desc: `The strike-first effect applies to the bearer.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -169,8 +85,9 @@ const Artifacts = {
     effects: [
       {
         name: `Doombringer Blade`,
-        desc: `After setup is complete but before the start of the turn, you can pick 1 enemy hero or MONSTER on the battlefield. Friendly Despoilers units can reroll hit and wound rolls when targeting the selected model.`,
-        when: [TURN_ONE_START_OF_ROUND],
+        desc: `At the start of the first battle round, after set-up is complete but before the first turn begins, you can pick 1 enemy HERO or enemy MONSTER on the battlefield.
+        If you do so, add 1 to wound rolls for attacks made with melee weapons by friendly units that target that unit.`,
+        when: [TURN_ONE_START_OF_TURN],
       },
     ],
   },
@@ -178,36 +95,9 @@ const Artifacts = {
     effects: [
       {
         name: `Realmwarper's Twist-rune`,
-        desc: `Friendly Despoilers units wholly within 12" of the bearer are unaffected by Pitch-black and Nightmare Chasm scenery rules.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  // Knights of the Empty Throne
-  'Flask of Daemonblood': {
-    effects: [
-      {
-        name: `Flask of Daemonblood`,
-        desc: `This unit can roll a D6 and 4+ you can heal D3 wounds that have been allocated.`,
+        desc: `Once per battle, in your hero phase, you can pick 1 terrain feature within 12" of the bearer. Roll a dice for each model within 1" of that terrain feature. For each 5+, that model's unit suffers 1 mortal wound. In addition, until your next hero phase, that terrain feature blocks visibility in the same manner as a wyldwood.`,
         when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Grasping Plate': {
-    effects: [
-      {
-        name: `Grasping Plate`,
-        desc: `This unit is eligible to fight if it is within 6" of an enemy unit. It can move an extra 3" when it piles in.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'Corrupted Nullstone': {
-    effects: [
-      {
-        name: `Corrupted Nullstone`,
-        desc: `Once per battle, this unit can attempt to unbind 1 spell. If it does so the spell is automatically unbound.`,
-        when: [HERO_PHASE],
+        rule_sources: [rule_sources.ERRATA_JANUARY_2023],
       },
     ],
   },

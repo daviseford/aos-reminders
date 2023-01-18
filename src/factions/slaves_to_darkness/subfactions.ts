@@ -1,184 +1,69 @@
 import { IItemDescription } from 'factions/factionTypes'
-import { keyOmitter, keyPicker, pickEffects } from '../metatagger'
+import { pickEffects } from 'factions/metatagger'
 import Artifacts from './artifacts'
-import BattleTraits from './battle_traits'
-import CommandAbilities from './command_abilities'
+import Battalions from './battalions'
+import battle_traits from './battle_traits'
+import command_abilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
+import GrandStrategies from './grand_strategies'
 import Prayers from './prayers'
 import Spells from './spells'
 import Units from './units'
 
 const baseSubFaction: IItemDescription = {
-  effects: [],
   available: {
-    battalions: [],
+    allied_units: [],
+    artifacts: [Artifacts],
+    battalions: [Battalions],
+    command_abilities: [command_abilities],
+    command_traits: [CommandTraits],
     endless_spells: [EndlessSpells],
+    flavors: [Flavors],
+    grand_strategies: [GrandStrategies],
     prayers: [Prayers],
     spells: [Spells],
+    units: [Units],
   },
+  effects: [],
 }
 
 const subFactions = {
   Ravagers: {
-    effects: pickEffects(BattleTraits, ['Glory for the Taking']),
-
-    mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Rally the Tribes'])],
-    },
-
+    effects: pickEffects(battle_traits, ['Ravagers']),
     available: {
       ...baseSubFaction.available,
-      artifacts: [
-        keyPicker(Artifacts, [
-          'Hellfire Sword',
-          'Blasphemous Cuirass',
-          'Helm of the Oppressor',
-          'Cloak of the Relentless Conqueror',
-          'Mark of the High-favoured',
-          'Desecrator Gauntlets',
-        ]),
-      ],
-
-      command_traits: [
-        keyPicker(CommandTraits, [
-          'Bolstered by Hate',
-          'Unquestioned Resolve',
-          'Favoured of the Pantheon',
-          'Eternal Vendetta',
-          'Flames of Spite',
-          'Master of Deception',
-        ]),
-      ],
-      units: [keyOmitter(Units, ['Idolator Lord on Chaos Chariot', 'Idolator Lord on Gorebeast Chariot'])],
     },
   },
-
   Cabalists: {
-    effects: pickEffects(BattleTraits, ['Binding Rituals']),
-
-    mandatory: {
-      spells: [keyPicker(Spells, ['Crippling Ruin'])],
-    },
-
+    effects: pickEffects(battle_traits, ['Cabalists']),
     available: {
       ...baseSubFaction.available,
-      artifacts: [
-        keyPicker(Artifacts, [
-          'Soul Feeder',
-          'Black Athame',
-          'Infernal Puppet',
-          'Spelleater Pendant',
-          'Scroll of Dark Unravelling',
-          'Spell Familiar',
-        ]),
-      ],
-      command_traits: [
-        keyPicker(CommandTraits, [
-          'Bolstered by Hate',
-          'Lord of Terror',
-          'Favoured of the Pantheon',
-          'Mighty Ritualist',
-          'Blasphemous Influence',
-          'All for One',
-        ]),
-      ],
-      units: [keyOmitter(Units, ['Idolator Lord on Chaos Chariot', 'Idolator Lord on Gorebeast Chariot'])],
     },
   },
-
   Despoilers: {
-    effects: pickEffects(BattleTraits, [
-      'Sacrilegious Might',
-      'Blessed by the Unholy',
-      'Twisted Dominion',
-      'Pitch Black',
-      'Nightmare Chasm',
-    ]),
-
+    effects: pickEffects(battle_traits, ['Despoilers']),
     available: {
       ...baseSubFaction.available,
-      artifacts: [
-        keyPicker(Artifacts, [
-          'Crown of Hellish Adoration',
-          'Helm of Many Eyes',
-          'Armour of Tortured Souls',
-          'Diabolic Mantle',
-          'Doombringer Blade',
-          "Realmwarper's Twist-rune",
-        ]),
-      ],
-      command_traits: [
-        keyPicker(CommandTraits, [
-          'Bolstered by Hate',
-          'Lord of Terror',
-          'Lightning Reflexes',
-          'Radiance of Dark Glory',
-          'Distorting Miasma',
-          'Paragon of Ruin',
-        ]),
-      ],
-      units: [keyOmitter(Units, ['Idolator Lord on Chaos Chariot', 'Idolator Lord on Gorebeast Chariot'])],
     },
   },
-
   'Host of the Everchosen': {
-    effects: pickEffects(BattleTraits, [
-      'Exalted Grand Marshall of the Apocalypse',
-      'Fearless in His Presence',
-      'The Will of the Everchosen',
-      'The Eight Circles of the Varanguard',
-    ]),
-
-    mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Dark Prophecy'])],
-    },
-
+    effects: pickEffects(battle_traits, ['Host of the Everchosen']),
     available: {
       ...baseSubFaction.available,
-      flavors: [Flavors],
-      units: [keyOmitter(Units, ['Idolator Lord on Chaos Chariot', 'Idolator Lord on Gorebeast Chariot'])],
     },
   },
-
-  'Knights of the Empty Throne': {
-    effects: pickEffects(BattleTraits, ['Fists of the Everchosen']),
-
-    mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Unmatched Conquerors', 'Failure is Not an Option'])],
-    },
-
+  'The Knights of the Empty Throne': {
+    effects: pickEffects(battle_traits, ['The Knights of the Empty Throne']),
     available: {
       ...baseSubFaction.available,
-      artifacts: [keyPicker(Artifacts, ['Flask of Daemonblood', 'Grasping Plate', 'Corrupted Nullstone'])],
-      command_traits: [
-        keyPicker(CommandTraits, ['Annihilating Charge', 'Inescapable Doom', 'Wall of Cursed Iron']),
-      ],
-      units: [keyOmitter(Units, ['Idolator Lord on Chaos Chariot', 'Idolator Lord on Gorebeast Chariot'])],
     },
   },
-
-  Idolators: {
-    effects: pickEffects(BattleTraits, ['Blessed of Chaos', 'Panoply of Ruin', 'Destroy the False Idols']),
-
-    mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Desecrate'])],
-    },
-
+  'Legions of the First Prince': {
+    effects: pickEffects(battle_traits, ['Legions of the First Prince']),
     available: {
       ...baseSubFaction.available,
-      command_traits: [
-        keyPicker(CommandTraits, [
-          'Bolstered by Hate',
-          'Lord of Terror',
-          'Favoured of the Pantheon',
-          'Fiery Orator',
-          'Bane of False Idols',
-          'Smite the Unbeliever',
-        ]),
-      ],
-      units: [Units],
     },
   },
 }

@@ -173,7 +173,7 @@ export const LegacyWoodElvesUnits: TItemDescriptions = {
       {
         name: `Bridge of Shadows`,
         desc: `Casting value of 5. For the duration of your next Movement phase this model's Move characteristic is doubled and it can fly.`,
-        when: [MOVEMENT_PHASE],
+        when: [HERO_PHASE],
         spell: true,
       },
     ],

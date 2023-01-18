@@ -30,6 +30,20 @@ import prayers from './prayers'
 import rule_sources from './rule_sources'
 import spells from './spells'
 
+const HiddenWeaponsTeamsEffects = [
+  {
+    name: `Hidden Weapon Team`,
+    desc: `When you select this unit to be part of your army, you can pick 1 friendly Clanrats or Stormvermin unit that has 10 or more models and is already part of your army to be the unit in which this unit is hiding. Record this information on a separate piece of paper. Do not set up this unit until it is revealed as described next. You can hide up to 1 unit in a Clanrats or Stormvermin unit for every 10 models in that Clanrats or Stormvermin unit. Hidden units are destroyed if the unit in which they are hiding is destroyed before they are revealed.`,
+    when: [START_OF_SETUP],
+    shared: true,
+  },
+  {
+    name: `Hidden Weapon Team`,
+    desc: `At the start of your shooting phase, you can reveal this hidden unit. If you do so, set up this unit wholly within 3" of the unit in which it was hiding and more than 3" from all enemy units. This unit can shoot in the phase in which it is revealed as long as the unit in which it was hiding did not run in the same turn (it could have retreated).`,
+    when: [START_OF_SHOOTING_PHASE],
+    shared: true,
+  },
+]
 const EshinToxinsEffect = {
   name: `Eshin Toxins`,
   desc: `If the unmodified hit roll for an attack made by this unit is 6, the target suffers D3 mortal wounds and the attack sequence ends (do not make a wound roll or save roll).`,
@@ -527,16 +541,7 @@ const Units = {
         desc: `Before you determine the Attacks characteristic of a Ratling Gun, you can say that the crew are releasing its gimbal-limiter. If you do so, the Attacks characteristic for that attack is 4D6+3 instead of 2D6+3. However, if the roll includes any doubles, this unit is destroyed after all of its attacks have been resolved.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Hidden Weapon Team`,
-        desc: `When you select this unit to be part of your army, you can pick 1 friendly Clanrats or Stormvermin unit that has 10 or more models and is already part of your army to be the unit in which this unit is hiding. Record this information on a separate piece of paper. Do not set up this unit until it is revealed as described next. You can hide up to 1 Ratling Gun unit in a Clanrats or Stormvermin unit for every 10 models in that Clanrats or Stormvermin unit. Hidden Ratling Gun units are destroyed if the unit in which they are hiding is destroyed before they are revealed.`,
-        when: [START_OF_SETUP],
-      },
-      {
-        name: `Hidden Weapon Team`,
-        desc: `At the start of your shooting phase, you can reveal this hidden unit. If you do so, set up this unit wholly within 3" of the unit in which it was hiding and more than 3" from all enemy units. This unit can shoot in the phase in which it is revealed as long as the unit in which it was hiding did not run in the same turn (it could have retreated).`,
-        when: [START_OF_SHOOTING_PHASE],
-      },
+      ...HiddenWeaponsTeamsEffects,
     ],
   },
   'Warpfire Thrower': {
@@ -551,16 +556,7 @@ const Units = {
         desc: `Before you pick the target for an attack made with a Warpfire Thrower, you can say that the crew are disabling the flow regulator. If you do so, increase the Range characteristic to 12" for that attack and add 1 to the roll that determines if an enemy model suffers 1 mortal wound. However, for each unmodified 1, this unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [SHOOTING_PHASE],
       },
-      {
-        name: `Hidden Weapon Team`,
-        desc: `When you select this unit to be part of your army, you can pick 1 friendly Clanrats or Stormvermin unit that has 10 or more models and is already part of your army to be the unit in which this unit is hiding. Record this information on a separate piece of paper. Do not set up this unit until it is revealed as described next. You can hide up to 1 Warpfire Thrower unit in a Clanrats or Stormvermin unit for every 10 models in that Clanrats or Stormvermin unit. Hidden Warpfire Thrower units are destroyed if the unit in which they are hiding is destroyed before they are revealed.`,
-        when: [START_OF_SETUP],
-      },
-      {
-        name: `Hidden Weapon Team`,
-        desc: `At the start of your shooting phase, you can reveal this hidden unit. If you do so, set up this unit wholly within 3" of the unit in which it was hiding and more than 3" from all enemy units. This unit can shoot in the phase in which it is revealed as long as the unit in which it was hiding did not run in the same turn (it could have retreated).`,
-        when: [START_OF_SHOOTING_PHASE],
-      },
+      ...HiddenWeaponsTeamsEffects,
     ],
   },
   'Warp-Grinder': {

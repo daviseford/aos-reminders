@@ -11,6 +11,7 @@ import {
   START_OF_MOVEMENT_PHASE,
   START_OF_SETUP,
   TURN_ONE_START_OF_HERO_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
@@ -214,7 +215,7 @@ const GenericEffects = {
   ArcaniteShieldEffect: {
     name: `Arcanite Shield`,
     desc: `A model that has an Arcanite Shield has a ward of 6+.`,
-    when: [WOUND_ALLOCATION_PHASE],
+    when: [WARDS_PHASE],
     shared: true,
   },
   WizardOneSpellEffect: {

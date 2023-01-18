@@ -5,7 +5,7 @@ import {
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION_PHASE,
+  WARDS_PHASE,
 } from 'types/phases'
 
 const MountTraits = {
@@ -23,7 +23,7 @@ const MountTraits = {
       {
         name: `Rimefrost Hide`,
         desc: `This unit has a ward of 5+.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },

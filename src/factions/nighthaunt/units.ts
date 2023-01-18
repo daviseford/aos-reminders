@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { OBRWarmasterEffect } from 'factions/ossiarch_bonereapers/units'
 import { GenericEffects } from 'generic_rules'
 import meta_rule_sources from 'meta/rule_sources'
 import {
@@ -79,11 +80,7 @@ export const Nagash = {
         desc: `The Nine Books of Nagash allow this unit to cast extra spells in your hero phase and unbind extra spells in the enemy hero phase. The number of extra spells this unit can attempt to cast or unbind is shown on this unit's damage table.`,
         when: [HERO_PHASE],
       },
-      {
-        name: `Warmaster`,
-        desc: `This unit can be included in a Nighthaunt, Flesh-eater Courts, Ossiarch Bonereapers or Soulblight Gravelords army. If it is, it is treated as a general even if it is not the model picked to be the army's general. In addition, you can still use the army's allegiance abilities even though this unit is not from the army's faction; however, this unit does not benefit from them.`,
-        when: [DURING_GAME],
-      },
+      OBRWarmasterEffect,
       {
         name: `Wizard`,
         desc: `This unit can attempt to cast 3 spells in your hero phase and attempt to unbind 3 spells in the enemy hero phase. If this unit is part of a Nighthaunt, Flesh-eater Courts, Ossiarch Bonereapers or Soulblight Gravelords army, it knows all of the spells from the spell lores in that faction's allegiance abilities in addition to the other spells it knows.`,

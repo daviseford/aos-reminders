@@ -4,10 +4,9 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   HERO_PHASE,
-  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
-  WOUND_ALLOCATION_PHASE,
+  WARDS_PHASE,
 } from 'types/phases'
 
 const Artifacts = {
@@ -71,12 +70,12 @@ const Artifacts = {
       {
         name: `Club of the First Oak (Stomper Tribe)`,
         desc: `Warstomper only. In your hero phase, you can heal 1 wound allocated to the bearer. In addition, while the bearer has 25 or more wounds allocated to them, they have a ward of 5+.`,
-        when: [HERO_PHASE, WOUND_ALLOCATION_PHASE],
+        when: [HERO_PHASE, WARDS_PHASE],
       },
       {
         name: `Club of the First Oak (Stomper Tribe)`,
         desc: `Warstomper only. In addition, while the bearer has 25 or more wounds allocated to them, they have a ward of 5+.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },

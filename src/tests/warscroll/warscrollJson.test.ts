@@ -1,5 +1,4 @@
 import { OrrukWarclansFaction } from 'factions/orruk_warclans'
-import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { readFileSync } from 'fs'
 import {
   BEASTS_OF_CHAOS,
@@ -45,13 +44,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1640813052545-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Exalted Greater Demon of Tzeentch')
-  })
-
-  it('should correctly read 1636812085343-Warscroll_Builder', () => {
-    const parsedText = getFile('1636812085343-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.units).toContain('Chaos Warshrine')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1639251960341-Warscroll_Builder', () => {
@@ -382,18 +374,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.units).toContain('Slayers')
   })
 
-  it('should work with 1591871273929-Warscroll_Builder', () => {
-    const parsedText = getFile('1591871273929-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.command_traits).toContain('Inescapable Doom')
-  })
-
-  it('should work with 1592258767793-Warscroll_Builder', () => {
-    const parsedText = getFile('1592258767793-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.command_traits).toContain('Khemist Supreme')
-  })
-
   it('should work with 1588368330846-Warscroll_Builder', () => {
     const parsedText = getFile('1588368330846-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -455,19 +435,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1582909138740-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.artifacts).toContain("A'rgath, the King of Blades")
-  })
-
-  it('should work with Flask of Daemonblood and Varanguard', () => {
-    const parsedText = getFile('1583954971824-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.artifacts).toContain('Flask of Daemonblood')
-    expect(res.selections.units).toContain('Varanguard')
-  })
-
-  it('should work with Warpfire Thrower', () => {
-    const parsedText = getFile('1583957769353-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.units).toContain('Warpfire Thrower')
   })
 
   it('should work with The Eyes of the Nine', () => {
@@ -698,51 +665,6 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.origin_realm).toEqual('Aqshy')
-  })
-
-  it('should work with Mark of Chaos and Scroll of Dark Unravelling', () => {
-    const parsedText = getFile('1576681454336-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
-    expect(res.subFactionName).toEqual(SlavesToDarknessFaction.subFactionKeyMap.Cabalists)
-    expect(res.origin_realm).toEqual('Ulgu')
-
-    expect(res.selections).toEqual({
-      flavors: [],
-      grand_strategies: [],
-      incarnates: [],
-      monstrous_rampages: [],
-      mount_traits: [],
-      prayers: ['Favour of the Ruinous Powers'],
-      artifacts: ['Scroll of Dark Unravelling'],
-      battalions: [],
-      command_abilities: ['Spurred by the Gods'],
-      core_rules: [],
-      endless_spells: ['Eightfold Doom-Sigil'],
-      scenery: [],
-      spells: [
-        'Binding Damnation',
-        'Ruinous Vigour',
-        'Whispers of Chaos',
-        'Mask of Darkness',
-        'Crippling Ruin',
-        'Winds of Chaos',
-        'Daemonic Power',
-      ],
-      command_traits: ['Mighty Ritualist'],
-      triumphs: [],
-      units: [
-        'Chaos Lord',
-        'Chaos Sorcerer Lord on Manticore',
-        'Chaos Sorcerer Lord',
-        'Chaos Warriors',
-        'Chaos Marauders',
-        'Chaos Chosen',
-        'Untamed Beasts',
-        'Chaos Warshrine',
-      ],
-    })
   })
 
   it('should work with Nurgle and a Skaven battalion', () => {
