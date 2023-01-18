@@ -294,6 +294,7 @@ const Units = {
       {
         name: `Immortal Champion`,
         desc: `This unit can carry out a heroic action based on it's Mark of Chaos.
+        
         Undivided: Until the end of the turn, the strike-first effect applies to this unit.
         Khorne: Until the end of the turn, each time an enemy model is slain by wounds allocated from attacks made by this unit, heal 1 wound allocated to this unit.
         Tzeentch: If it is the enemy hero phase, 2+ spell ignore for this unit. If it is your hero phase, this unit can attempt to cast 1 spell from the Lore of the Damned in the same manner as a WIZARD. If this unit is already a WiZARD, this spell is in addition to any others it can attempt to cast.
