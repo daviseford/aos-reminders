@@ -1178,7 +1178,7 @@ const Units = {
       },
       {
         name: `Deathblow`,
-        desc: `Unmodified hit rolls of 6 deal 1 mortal wound in addtiona to any normal damage.`,
+        desc: `Unmodified hit rolls of 6 deal 1 mortal wound in addition to any normal damage.`,
         when: [COMBAT_PHASE],
       },
       {
