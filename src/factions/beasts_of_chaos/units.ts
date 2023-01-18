@@ -1,4 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { BabblingStreamOfSecretsEffect, TzaangorChampionEffect } from 'factions/tzeentch/units'
 import { GenericEffects } from 'generic_rules'
 import meta_rule_sources from 'meta/rule_sources'
 import {
@@ -403,18 +404,8 @@ const Units = {
   },
   'Tzaangor Enlightened': {
     effects: [
-      {
-        name: `Champion`,
-        desc: `1 model in this unit can be an Aviarch. Add 1 to the Attacks characteristic of that model's Tzeentchian Spear.`,
-        when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
-      },
-      {
-        name: `Babbling Stream of Secrets`,
-        desc: `In the combat phase, enemy units within 3" of any friendly units with this ability cannot receive commands.`,
-        when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
-      },
+      TzaangorChampionEffect,
+      BabblingStreamOfSecretsEffect,
       {
         name: `Guided by the Past`,
         desc: `You can add 1 to wound rolls for attacks made with melee weapons by friendly units with this ability if you are taking the second turn in the current battle round. This ability does not affect attacks made by a mount.`,

@@ -8,7 +8,7 @@ import {
   DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SHOOTING_PHASE,
+  WARDS_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import rule_sources from './rule_sources'
@@ -36,13 +36,13 @@ const Flavors: TItemDescriptions = {
     effects: [
       {
         name: `Mark of ${MARK_TZEENTCH}`,
-        desc: `You can roll a dice each time a spell targets a friendly TZEENTCH SLAVES TO DARKNES unit. On a 6, that spell has no effect on that unit.`,
+        desc: `You can roll a dice each time a spell targets a friendly TZEENTCH SLAVES TO DARKNESS unit. On a 6, that spell has no effect on that unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `The Blasted Standard: Tzeentch Unit Only`,
         desc: `This unit has a ward of 4+ for attacks made with missile weapons that target this unit.`,
-        when: [SHOOTING_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
     mandatory: {

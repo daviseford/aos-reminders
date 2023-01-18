@@ -10,6 +10,14 @@ import {
 } from 'types/phases'
 import rule_sources from './rule_sources'
 
+const Summoning_Casting7_Range9_Effect = {
+  name: `Summoning`,
+  desc: `Casting value of 7 and range of 9". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SLAVES TO DARKNESS WIZARDS can attempt to summon this endless spell.`,
+  when: [HERO_PHASE],
+  rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS],
+  shared: true,
+}
+
 const EndlessSpells = {
   'Eightfold Doom-Sigil': {
     effects: [
@@ -42,12 +50,7 @@ const EndlessSpells = {
   'Darkfire Daemonrift': {
     effects: [
       GenericEffects.Predatory.Nine_Inches,
-      {
-        name: `Summoning`,
-        desc: `Casting value of 7 and range of 9". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SLAVES TO DARKNESS WIZARDS can attempt to summon this endless spell.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS],
-      },
+      Summoning_Casting7_Range9_Effect,
       {
         name: `Billowing Energies`,
         desc: `After this endless spell has moved, roll a dice for each unit that has any models it passed across and for each other unit within 1" of it at the end of its move. On a 2+, that unit suffers D3 mortal wounds.`,
@@ -70,12 +73,7 @@ const EndlessSpells = {
         when: [END_OF_HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS],
       },
-      {
-        name: `Summoning`,
-        desc: `Casting value of 7 and range of 9". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only SLAVES TO DARKNESS WIZARDS can attempt to summon this endless spell.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS],
-      },
+      Summoning_Casting7_Range9_Effect,
       {
         name: `Debilitating Shockwave`,
         desc: `After this endless spell has moved, roll a dice for each unit that has any models it passed across and for each other unit within 1" of it at the end of its move. On a 2+, that unit suffers D3 mortal wounds and its Move characteristic is halved until the end of the battle round.`,

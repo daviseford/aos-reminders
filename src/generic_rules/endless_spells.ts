@@ -21,6 +21,20 @@ const Summoning_Casting6_Range6_Effect = {
   rule_sources: [meta_rule_sources.GHB_2021],
   shared: true,
 }
+const Summoning_Casting5_Range8_Effect = {
+  name: `Summoning`,
+  desc: `Casting value of 5 and range of 8". Set up the endless spell wholly within range of the caster.`,
+  when: [HERO_PHASE],
+  rule_sources: [meta_rule_sources.GHB_2022, meta_rule_sources.GHB_2022_2023_SEASON_2],
+  shared: true,
+}
+const Summoning_Casting6_Range8_Effect = {
+  name: `Summoning`,
+  desc: `Casting value of 6 and range of 8". Set up the endless spell wholly within range of the caster.`,
+  when: [HERO_PHASE],
+  rule_sources: [meta_rule_sources.GHB_2022, meta_rule_sources.GHB_2022_2023_SEASON_2],
+  shared: true,
+}
 
 export const ChronomanticCogsEffects = [
   Summoning_Casting6_Range6_Effect,
@@ -103,12 +117,7 @@ export const GeminidsOfUhlGyshEffects = [
   },
 ]
 export const BurningHeadEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 6 and range of 8". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2022, meta_rule_sources.GHB_2022_2023_SEASON_2],
-  },
+  Summoning_Casting6_Range8_Effect,
   GenericEffects.Predatory.Eight_Inches,
   {
     name: `Flaming Skull`,
@@ -155,12 +164,7 @@ export const PurpleSunEffects = [
   },
 ]
 export const PrismaticPalisadeEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 5 and range of 8". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2022, meta_rule_sources.GHB_2022_2023_SEASON_2],
-  },
+  Summoning_Casting5_Range8_Effect,
   {
     name: `Blinding Light`,
     desc: `Units within 6" of this endless spell cannot make shooting attacks. Add 3" to the range of this ability at the start of each battle round after the turn it was summoned.`,
@@ -169,12 +173,7 @@ export const PrismaticPalisadeEffects = [
   },
 ]
 export const MalevolentMaelstromEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 5 and range of 8". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2022, meta_rule_sources.GHB_2022_2023_SEASON_2],
-  },
+  Summoning_Casting5_Range8_Effect,
   GenericEffects.Predatory.Eight_Inches,
   {
     name: `Morbid Detonation`,
@@ -186,12 +185,7 @@ export const MalevolentMaelstromEffects = [
   },
 ]
 export const RavenaksGnashingJawsEffects = [
-  {
-    name: `Summoning`,
-    desc: `Casting value of 6 and range of 8". Set up the endless spell wholly within range of the caster.`,
-    when: [HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2022, meta_rule_sources.GHB_2022_2023_SEASON_2],
-  },
+  Summoning_Casting6_Range8_Effect,
   {
     name: `Predatory`,
     desc: `This endless spell is a predatory endless spell. It can be moved up to 3D6" and can fly. You can reroll the dice that determines how far this endless spell can move if it was summoned in the same turn.`,

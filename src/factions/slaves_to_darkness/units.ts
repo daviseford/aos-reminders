@@ -33,6 +33,32 @@ import rule_sources from './rule_sources'
 import Spells from './spells'
 
 // Common effects used on multiple warscrolls.
+const ChaosRuneshieldSaveEffect = {
+  name: `Shield`,
+  desc: `If this unit has a Chaos Runeshield it has a save of 3+ instead of 4+`,
+  when: [SAVES_PHASE],
+  shared: true,
+}
+const ArcaneFuryEffect = {
+  name: `Arcane Fury`,
+  desc: `If the unmodified hit roll for a melee attack by this model is a 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+export const LordsOfTheSilverTowerEffect = {
+  name: `Lords of the Silver Towers`,
+  desc: `Once per battle, at the end of a phase, you can pick 1 enemy unit HERO that is within 9" of this unit and that made an attack that targeted this unit in that phase, or caused any mortal wounds to this unit with an ability or spell in that phase (even if the wounds or mortal wounds were negated). If you do so, roll 2D6, If the roll is greater than the Wounds characteristic of that HERO, that HERO is removed from play.
+  
+  Designer's Note: The HERO cannot be returned if you are allowed to bring back slain models (the model has not been slain).`,
+  when: [DURING_GAME],
+  shared: true,
+}
+export const BookOfProfaneSecretsEffect = {
+  name: `Book of Profane Secrets`,
+  desc: `Add 1 to casting, dispelling, and unbinding rolls for this unit.`,
+  when: [HERO_PHASE],
+  shared: true,
+}
 const WarmasterEffect = {
   name: `Warmaster`,
   desc: `If this unit is included in your army, it is treated as a general even if it is not the model picked to be the army's general.`,
@@ -51,10 +77,10 @@ const knightsOfChaosEffect = {
   when: [COMBAT_PHASE],
   shared: true,
 }
-const ChaosRuneshieldEffect = {
+const ChaosRuneshieldPlatingEffect = {
   name: `Chaos Runeshield / Rune-etched Plating`,
   desc: `Roll a D6 each time the equipped model suffers a mortal wound. On a 5+ it is negated.`,
-  when: [WOUND_ALLOCATION_PHASE],
+  when: [WARDS_PHASE],
   shared: true,
 }
 const DarkBlessingsEffect = {
@@ -407,18 +433,8 @@ const Units = {
     effects: [
       ChaosMarkTzeentch,
       SilveredPortalEffect,
-      {
-        name: `Book of Profane Secrets`,
-        desc: `Add 1 to casting, dispelling, and unbinding rolls. This unit knows all of the spells in the lore of the Damned.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Lords of the Silver Towers`,
-        desc: `Once per battle, at the end of a phase, you can pick 1 enemy unit Hero that is within 9" of this unit and that made an attack that targeted this unit in that phase, or caused any mortal wounds to this unit with an ability or spell in that phase (even if the wounds or mortal wounds were negated). If you do so, roll 2D6, If the roll is greater than the Wounds characteristic of that Hero, that Hero is removed from play.
-        
-        Designer's Note: The Hero cannot be returned if you are allowed to bring back slain models (the model has not been slain).`,
-        when: [DURING_GAME],
-      },
+      BookOfProfaneSecretsEffect,
+      LordsOfTheSilverTowerEffect,
       GenericEffects.WizardTwoSpellsEffect,
     ],
   },
@@ -429,25 +445,15 @@ const Units = {
     effects: [
       ChaosMarkTzeentch,
       SilveredPortalEffect,
-      {
-        name: `Book of Profane Secrets`,
-        desc: `Add 1 to casting, dispelling, and unbinding rolls. This unit knows all of the spells in the lore of the Damned.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Lords of the Silver Towers`,
-        desc: `Once per battle, at the end of a phase, you can pick 1 enemy unit Hero that is within 9" of this unit and that made an attack that targeted this unit in that phase, or caused any mortal wounds to this unit with an ability or spell in that phase (even if the wounds or mortal wounds were negated). If you do so, roll 2D6, If the roll is greater than the Wounds characteristic of that Hero, that Hero is removed from play.
-        
-        Designer's Note: The Hero cannot be returned if you are allowed to bring back slain models (the model has not been slain).`,
-        when: [DURING_GAME],
-      },
+      BookOfProfaneSecretsEffect,
+      LordsOfTheSilverTowerEffect,
       GenericEffects.WizardTwoSpellsEffect,
     ],
   },
   'Chaos Lord on Daemonic Mount': {
     effects: [
       ChaosMarkAll,
-      ChaosRuneshieldEffect,
+      ChaosRuneshieldPlatingEffect,
       strikeFirstOnChargeEffect,
       knightsOfChaosEffect,
       chaosLanceEffect,
@@ -459,15 +465,11 @@ const Units = {
       DaemonforgedWeaponEffect,
       TerritorialPredatorEffect,
       chaosLanceEffect,
-      {
-        name: `Shield`,
-        desc: `If this unit has a Chaos Runeshield it has a save of 3+ instead of 4+`,
-        when: [SAVES_PHASE],
-      },
+      ChaosRuneshieldSaveEffect,
       {
         name: `Shield`,
         desc: `If this unit has a Chaos Runeshield it has a 5+ ward.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Daggerfist`,
@@ -497,7 +499,7 @@ const Units = {
       ChaosMarkAll,
       knightsOfChaosEffect,
       strikeFirstOnChargeEffect,
-      ChaosRuneshieldEffect,
+      ChaosRuneshieldPlatingEffect,
       DaemonforgedWeaponEffect,
       {
         name: `Brutish Rampage`,
@@ -537,13 +539,9 @@ const Units = {
   'Exalted Hero of Chaos': {
     effects: [
       ChaosMarkAll,
-      ChaosRuneshieldEffect,
+      ChaosRuneshieldPlatingEffect,
       DarkBlessingsEffect,
-      {
-        name: `Shield`,
-        desc: `If this unit has a Chaos Runeshield it has a save of 3+ instead of 4+`,
-        when: [SAVES_PHASE],
-      },
+      ChaosRuneshieldSaveEffect,
       {
         name: `Glory-seeker`,
         desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while it is within 3" of any enemy HEROES Or enemy MONSTERS.`,
@@ -552,14 +550,7 @@ const Units = {
     ],
   },
   'Ogroid Myrmidon': {
-    effects: [
-      BerserkRageEffect,
-      {
-        name: `Arcane Fury`,
-        desc: `If the unmodified hit roll for a melee attack by this model is a 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
+    effects: [BerserkRageEffect, ArcaneFuryEffect],
   },
   'Ogroid Theridons': {
     effects: [
@@ -567,11 +558,7 @@ const Units = {
       StandardBearersEffect,
       BerserkRageEffect,
       MusiciansEffect,
-      {
-        name: `Arcane Fury`,
-        desc: `If the unmodified hit roll for a melee attack by this model is a 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [COMBAT_PHASE],
-      },
+      ArcaneFuryEffect,
       {
         name: `Unleashed Savagery`,
         desc: `Once per battle, when this unit is picked to fight, add 1 to the Attacks characteristic of this unit's melee weapons until the end of that phase. However, this unit cannot receive the Inspiring Presence command in the same turn.`,
@@ -579,7 +566,7 @@ const Units = {
       },
       {
         name: `Unleashed Savagery`,
-        desc: `If this unit unleashed savagery this turn it receive the Inspiring Presence command.`,
+        desc: `If this unit unleashed savagery this turn it receives the Inspiring Presence command.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
@@ -725,7 +712,7 @@ const Units = {
       UnitLeaderEffect,
       StandardBearersEffect,
       MusiciansEffect,
-      ChaosRuneshieldEffect,
+      ChaosRuneshieldPlatingEffect,
       {
         name: `Bringers of Desolation`,
         desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while it is wholly within enemy territory or wholly within 12' of an objective that you do not control.`,
@@ -739,7 +726,7 @@ const Units = {
       ChaosMarkAll,
       UnitLeaderEffect,
       StandardBearersEffect,
-      ChaosRuneshieldEffect,
+      ChaosRuneshieldPlatingEffect,
       {
         name: `Musician`,
         desc: `If the unit includes any musicians, you can change one of the charge roll dice to a 4.`,
@@ -1262,7 +1249,7 @@ const Units = {
   },
   "Khagra's Ravagers": {
     effects: [
-      ChaosRuneshieldEffect,
+      ChaosRuneshieldPlatingEffect,
       {
         name: `Fierce Conquerors`,
         desc: `Models in this unit count as 2 models for the purposes of contesting objectives.`,

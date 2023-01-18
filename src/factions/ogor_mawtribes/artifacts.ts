@@ -6,7 +6,7 @@ import {
   END_OF_COMBAT_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  WOUND_ALLOCATION_PHASE,
+  WARDS_PHASE,
 } from 'types/phases'
 
 const Artifacts = {
@@ -43,7 +43,7 @@ const Artifacts = {
       {
         name: `Flask of Stonehorn Blood`,
         desc: `Once per battle, at the start of a phase, you can say that the bearer will drink this potion. The bearer has a ward of 3+ until the end of that phase.`,
-        when: [DURING_GAME, WOUND_ALLOCATION_PHASE],
+        when: [DURING_GAME, WARDS_PHASE],
       },
     ],
   },
