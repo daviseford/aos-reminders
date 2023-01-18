@@ -1235,8 +1235,7 @@ const Units = {
       },
       {
         name: `Cursed Destroyers`,
-        desc: `In your hero phase, pick 1 terrain feature within 6" of this model and roll a D6 for each other unit within 6" of that terrain feature. On a 3+, that unit suffers D3 mortal wounds.
-        In addition, if the terrain featured picked is a faction terrain feature or defensible terrain feature and the roll was a 3 or more, the terrain feature is demolished if it was defensible (see 17.2.3), and the scenery rules on its warscroll cannot be used for the rest of the battle if it was a faction terrain feature.`,
+        desc: `In your hero phase, pick 1 terrain feature within 6" of this model and roll a D6 for each other unit within 6" of that terrain feature. On a 3+, that unit suffers D3 mortal wounds. In addition, if the terrain featured picked is a faction terrain feature or defensible terrain feature and the roll was a 3 or more, the terrain feature is demolished if it was defensible (see 17.2.3), and the scenery rules on its warscroll cannot be used for the rest of the battle if it was a faction terrain feature.`,
         when: [HERO_PHASE],
       },
     ],
