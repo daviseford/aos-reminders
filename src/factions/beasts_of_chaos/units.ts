@@ -274,10 +274,7 @@ const Units = {
         desc: `You can reroll hit rolls of 1 for this unit while it is wholly within 12" of a friendly DRAGON OGOR SHAGGOTH.`,
         when: [COMBAT_PHASE],
       },
-      {
-        ...GenericEffects.Elite,
-        rule_sources: [rule_sources.ERRATA_AUGUST_2021],
-      },
+      GenericEffects.Elite,
     ],
   },
   'Chaos Warhounds': {

@@ -331,10 +331,7 @@ const Units = {
   },
   Varanguard: {
     effects: [
-      {
-        ...GenericEffects.Elite,
-        rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS],
-      },
+      GenericEffects.Elite,
       ChaosMarkAll,
       DaemonforgedWeaponEffect,
       {
@@ -350,7 +347,7 @@ const Units = {
       {
         name: `Warpsteel Shields`,
         desc: `4+ ward against mortal wounds.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },

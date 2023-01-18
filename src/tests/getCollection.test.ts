@@ -11,8 +11,8 @@ describe('getCollection', () => {
 
     const Collection = getCollection(Army)
 
-    const hasBloodslickGroundAbility = Collection.CommandAbilities.some(x => x.name === 'Bloodslick Ground')
+    const hasBelakorSpell = Collection.Spells.some(x => x.name === 'Enfeeble Foe')
 
-    expect(hasBloodslickGroundAbility).toBeTruthy()
+    expect(hasBelakorSpell).toBeTruthy()
   })
 })
