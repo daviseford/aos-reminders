@@ -130,19 +130,43 @@ const StarbucklersEffect = {
 const ChameleonAmbushEffects = [
   {
     name: `Chameleon Ambush`,
-    desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say that it is hiding as a reserve unit.`,
-    when: [DURING_SETUP],
+    desc: `During deployment, instead of setting up this unit on the battlefield, you can place it to one side and say that it is hiding as a reserve unit. If you do so, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units.`,
+    when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
+    rule_sources: [rule_sources.WARCRY_SUNDERED_FATE_NOVEMBER_2022],
     shared: true,
   },
   {
     name: `Chameleon Ambush`,
-    desc: `If you set this unit up in reserve, at the end of any of your movement phases, you can set up this unit on the battlefield more than 9" from any enemy units.
-           
-    If this unit is on the battlefield at the end of your movement phase, you can remove it and say that it is hiding as a reserve unit. You can reveal it as described above at the end of any of your subsequent movement phases.`,
+    desc: `If this unit is on the battlefield at the end of your movement phase, you can remove it from the battlefield and say that it is hiding as a reserve unit. If you do so, at the end of any of your subsequent movement phases, you can set up this unit on the battlefield more than 9" from all enemy units.`,
     when: [END_OF_MOVEMENT_PHASE],
+    rule_sources: [rule_sources.WARCRY_SUNDERED_FATE_NOVEMBER_2022],
     shared: true,
   },
 ]
+const HuntersOfHuanchiBaseEffects = [
+  {
+    name: `Musician`,
+    desc: `1 in every 5 models in this unit can be a Hornblower. Add 1 to run rolls and charge rolls for this unit if it includes any Hornblowers.`,
+    when: [CHARGE_PHASE, MOVEMENT_PHASE],
+    rule_sources: [rule_sources.WARCRY_SUNDERED_FATE_NOVEMBER_2022],
+    shared: true,
+  },
+  ...ChameleonAmbushEffects,
+  {
+    name: `Perfect Mimicry`,
+    desc: `This unit is not visible to enemy units that are more than 12" away or while it is in cover.`,
+    when: [DURING_GAME],
+    rule_sources: [rule_sources.WARCRY_SUNDERED_FATE_NOVEMBER_2022],
+    shared: true,
+  },
+]
+const StarVenomEffect = {
+  name: `Star-venom`,
+  desc: `If the unmodified hit roll for an attack made with a Dartpipe is 6, the target suffers 1 mortal wound and the attack sequence ends (do not make a wound roll or save roll).`,
+  when: [SHOOTING_PHASE],
+  rule_sources: [rule_sources.WARCRY_SUNDERED_FATE_NOVEMBER_2022],
+  shared: true,
+}
 const DeadlyVenomEffect = {
   name: `Deadly Venom`,
   desc: `Each hit roll of 6+ inflicts 1 mortal wound and ends the combat sequence.`,
@@ -429,11 +453,7 @@ const Units = {
         when: [WARDS_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SERAPHON, rule_sources.ERRATA_JULY_2021],
       },
-      {
-        name: `Star-venom`,
-        desc: `If the unmodified hit roll for an attack made with a Dartpipe is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [SHOOTING_PHASE],
-      },
+      StarVenomEffect,
     ],
   },
   'Terradon Chief': {
@@ -657,6 +677,51 @@ const Units = {
         name: `Priestly Rites`,
         desc: `If active you can reroll save rolls.`,
         when: [SAVES_PHASE],
+      },
+    ],
+  },
+  'Hunters of Huanchi with Dartpipes': {
+    effects: [
+      ...HuntersOfHuanchiBaseEffects,
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Chameleon Skink Alpha. Add 1 to the Attacks characteristic of that model's Dartpipe.`,
+        when: [SHOOTING_PHASE],
+        rule_sources: [rule_sources.WARCRY_SUNDERED_FATE_NOVEMBER_2022],
+      },
+      StarVenomEffect,
+    ],
+  },
+  'Hunters of Huanchi with Starstone Bolas': {
+    effects: [
+      ...HuntersOfHuanchiBaseEffects,
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Chameleon Skink Alpha. Add 1 to the Attacks characteristic of that model's Moonstone Club.`,
+        when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.WARCRY_SUNDERED_FATE_NOVEMBER_2022],
+      },
+      {
+        name: `Starstone Bolas`,
+        desc: `If the unmodified hit roll for an attack made with a Starstone Bolas is 6, the target unit is stunned until the end of the following combat phase. Subtract 1 from hit rolls for attacks made by a unit that is stunned.`,
+        when: [SHOOTING_PHASE],
+        rule_sources: [rule_sources.WARCRY_SUNDERED_FATE_NOVEMBER_2022],
+      },
+    ],
+  },
+  Terrawings: {
+    effects: [
+      {
+        name: `Nerve-shredding Screeches`,
+        desc: `In the shooting phase, you can pick 1 enemy unit within 12" of this unit and roll 2D6. If the roll is higher than that unit's Bravery characteristic, that enemy unit cannot issue or receive commands until the end of the turn.`,
+        when: [SHOOTING_PHASE],
+        rule_sources: [rule_sources.WARCRY_SUNDERED_FATE_NOVEMBER_2022],
+      },
+      {
+        name: `Symbiotic Relationship`,
+        desc: `During deployment, instead of setting up this unit on the battlefield, if you have any HUNTERS OF HUANCHI units in reserve, you can place this unit to one side and say that it is hiding as a reserve unit. If you do so, at the end of your movement phase, you can set up this unit on the battlefield, within 3" of a friendly HUNTERS OF HUANCHI unit and more than 9" from all enemy units.`,
+        when: [SHOOTING_PHASE],
+        rule_sources: [rule_sources.WARCRY_SUNDERED_FATE_NOVEMBER_2022],
       },
     ],
   },
