@@ -27,6 +27,11 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2018/12/9LC4jbuS5i4mdHV6.pdf',
   },
+  WARCRY_SUNDERED_FATE_NOVEMBER_2022: {
+    name: 'Warcry: Sundered Fate (November 2022)',
+    type: 'other',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2022/11/rGc7Mm5gQUUXTL9o.pdf',
+  },
 }
 
 export default rule_sources
