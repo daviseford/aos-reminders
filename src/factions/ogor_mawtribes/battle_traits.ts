@@ -6,6 +6,10 @@ import {
   END_OF_COMBAT_PHASE,
   MOVEMENT_PHASE,
   START_OF_HERO_PHASE,
+  TURN_FIVE_START_OF_HERO_PHASE,
+  TURN_FOUR_START_OF_HERO_PHASE,
+  TURN_THREE_START_OF_HERO_PHASE,
+  TURN_TWO_START_OF_HERO_PHASE,
 } from 'types/phases'
 
 const BattleTraits = {
@@ -74,33 +78,33 @@ const BattleTraits = {
   'Battle Tactics': {
     effects: [
       {
-        name: `Battle Tactic - Eat Your Fill`,
+        name: `Eat Your Fill`,
         desc: `You complete this tactic at the start of the combat phase if every friendly OGOR unit is eating.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Battle Tactic - Savour the Taste`,
+        name: `Savour the Taste`,
         desc: `You cannot pick this battle tactic in the first battle round. You complete this tactic at the end of your turn if every friendly OGOR unit is hungry.`,
-        when: [START_OF_HERO_PHASE],
+        when: [TURN_TWO_START_OF_HERO_PHASE, TURN_THREE_START_OF_HERO_PHASE, TURN_FOUR_START_OF_HERO_PHASE, TURN_FIVE_START_OF_HERO_PHASE],
       },
       {
-        name: `Battle Tactic - Avalanche of Flesh`,
+        name: `Avalanche of Flesh`,
         desc: `You complete this tactic at the end of the turn if 10+ mortal wounds were caused by the trampling charge battle trait this turn.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Battle Tactic - Winter Take Thee`,
+        name: `Winter Take Thee`,
         desc: `Pick 1 enemy HERO of enemy MONSTER. You complete this tactic if that enemy unit is destroyed by wounds caused by the Grasp of the Everwinter battle trait (pg 64) this turn.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Battle Tactic - Let them Loose`,
+        name: `Let them Loose`,
         desc: `You complete this tactic at the end of your turn if you carried out 4 or more monstrous rampages this turn.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Battle Tactic - Boil their Bones`,
-        desc: `Pick 1 enemy HEREO or enemy MONSTER. You complete this tactic if that enemy unit is destroyed within 6 of an empty Great Mawpot in your army.`,
+        name: `Boil their Bones`,
+        desc: `Pick 1 enemy HERO or enemy MONSTER. You complete this tactic if that enemy unit is destroyed within 6 of an empty Great Mawpot in your army.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
