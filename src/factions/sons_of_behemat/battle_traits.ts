@@ -56,7 +56,7 @@ const BattleTraits = {
     effects: [
       {
         name: `Beast Grapple`,
-        desc: `Pick 1 enemy MONSTER within 3"of this unit and roll a dice. On a 3+, until the end of the following combat phase, the strike-last effect applies to both that Monster and the unit carrying out this monstrous rampage.`,
+        desc: `Pick 1 enemy MONSTER within 3" of this unit and roll a dice. On a 3+, until the end of the following combat phase, the strike-last effect applies to both that Monster and the unit carrying out this monstrous rampage.`,
         when: [END_OF_CHARGE_PHASE],
       },
       {
