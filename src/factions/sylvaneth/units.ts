@@ -186,7 +186,7 @@ const Units = {
       ...TreeLordBaseEffects,
       {
         name: `Silent Communion`,
-        desc: `Once per battle, in your hero phase, if this unit is on the battlefield, you can setup 1 friendly Awakend Wyldwood terrain feature consisting of 1 scenery piece on the battlefield of that model and more than 3" from all other models, endless spells, invocations, terrain features or objectives, and add it to your army.`,
+        desc: `Once per battle, in your hero phase, if this unit is on the battlefield, you can setup 1 friendly Awakened Wyldwood terrain feature consisting of 1 scenery piece on the battlefield of that model and more than 3" from all other models, endless spells, invocations, terrain features or objectives, and add it to your army.`,
         when: [HERO_PHASE],
       },
       GenericEffects.WizardOneSpellEffect,
@@ -342,7 +342,7 @@ const Units = {
         when: [DURING_GAME],
       },
       {
-        name: `Tanglethorn Thicket (Sythes)`,
+        name: `Tanglethorn Thicket (Scythes)`,
         desc: `If any models in an enemy unit finish a pile-in move within 3" of any friendly units with this ability, that enemy unit suffers 1 mortal wound after it finishes its pile-in.`,
         when: [COMBAT_PHASE],
       },

@@ -52,7 +52,7 @@ const Spells = {
     effects: [
       {
         name: `Treesong`,
-        desc: `Casting value of 7. Pick 1 Awakend Wyldwood within 16" of the caster. Until the start of your next hero phase, improve the Rend characteristic of melee weapons used by friendly SYLVANETH units by 1 while they are wholly within 9" of that Awakend Wyldwood.`,
+        desc: `Casting value of 7. Pick 1 Awakened Wyldwood within 16" of the caster. Until the start of your next hero phase, improve the Rend characteristic of melee weapons used by friendly SYLVANETH units by 1 while they are wholly within 9" of that Awakened Wyldwood.`,
         when: [HERO_PHASE],
       },
     ],
@@ -109,7 +109,7 @@ const Spells = {
       },
     ],
   },
-  //Warsong Reveneant Spells
+  //Warsong Revenant Spells
   'Unleash Swarm of Spites': {
     effects: [
       {
