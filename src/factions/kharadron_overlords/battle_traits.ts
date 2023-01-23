@@ -1,6 +1,13 @@
 import { tagAs } from 'factions/metatagger'
 import { KHARADRON_OVERLORDS } from 'meta/factions'
-import { DURING_GAME, START_OF_HERO_PHASE } from 'types/phases'
+import {
+  DURING_GAME,
+  START_OF_HERO_PHASE,
+  TURN_FIVE_START_OF_HERO_PHASE,
+  TURN_FOUR_START_OF_HERO_PHASE,
+  TURN_THREE_START_OF_HERO_PHASE,
+  TURN_TWO_START_OF_HERO_PHASE,
+} from 'types/phases'
 import rule_sources from './rule_sources'
 
 const BattleTraits = {
@@ -25,7 +32,7 @@ const BattleTraits = {
       {
         name: `Mobilise the Fleet`,
         desc: `You cannot pick this battle tactic in the first battle round. Pick 3 friendly units that are not garrisoned within SKYVESSELS. You complete this battle tactic at the end of this turn if those units are all garrisoned within SKYVESSELS.`,
-        when: [START_OF_HERO_PHASE],
+        when: [TURN_TWO_START_OF_HERO_PHASE, TURN_THREE_START_OF_HERO_PHASE, TURN_FOUR_START_OF_HERO_PHASE, TURN_FIVE_START_OF_HERO_PHASE],
         rule_sources: [rule_sources.WHITE_DWARF_MAY_2022, rule_sources.ERRATA_JANUARY_2023],
       },
       {
