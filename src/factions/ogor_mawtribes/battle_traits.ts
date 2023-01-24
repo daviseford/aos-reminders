@@ -85,7 +85,12 @@ const BattleTraits = {
       {
         name: `Savour the Taste`,
         desc: `You cannot pick this battle tactic in the first battle round. You complete this tactic at the end of your turn if every friendly OGOR unit is hungry.`,
-        when: [TURN_TWO_START_OF_HERO_PHASE, TURN_THREE_START_OF_HERO_PHASE, TURN_FOUR_START_OF_HERO_PHASE, TURN_FIVE_START_OF_HERO_PHASE],
+        when: [
+          TURN_TWO_START_OF_HERO_PHASE,
+          TURN_THREE_START_OF_HERO_PHASE,
+          TURN_FOUR_START_OF_HERO_PHASE,
+          TURN_FIVE_START_OF_HERO_PHASE,
+        ],
       },
       {
         name: `Avalanche of Flesh`,

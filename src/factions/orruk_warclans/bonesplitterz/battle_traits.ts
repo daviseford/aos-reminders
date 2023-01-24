@@ -1,5 +1,11 @@
 import { tagAs } from 'factions/metatagger'
-import { COMBAT_PHASE, SAVES_PHASE, START_OF_COMBAT_PHASE, START_OF_GAME, START_OF_HERO_PHASE } from 'types/phases'
+import {
+  COMBAT_PHASE,
+  SAVES_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_GAME,
+  START_OF_HERO_PHASE,
+} from 'types/phases'
 import rule_sources from '../rule_sources'
 
 const BonesplitterzBattleTraits = {
