@@ -40,22 +40,23 @@
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",
     "build": "react-app-rewired build",
+    "clean": "node clean.js",
     "format": "yarn prettier --write \"**/*.*(js|jsx|ts|tsx)\"",
     "gitclean:win": "git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }",
     "gitclean": "git branch | grep -v \"master\" | xargs git branch -D",
     "intake:win": "ts-node-dev --respawn --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --transpile-only -r tsconfig-paths/register src/utils/dev/intakeTests.ts",
     "intake": "ts-node-dev --respawn --compiler-options '{ \"module\": \"commonjs\"}' --transpile-only -r tsconfig-paths/register src/utils/dev/intakeTests.ts",
+    "lint": "eslint --max-warnings 0 --ext ts,tsx src",
+    "prepush": "yarn clean && yarn format && yarn lint && yarn tsc && CI=true yarn test",
     "pruneTests:win": "ts-node-dev --respawn --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --transpile-only -r tsconfig-paths/register src/utils/dev/pruneTests.ts",
     "pruneTests": "ts-node-dev --respawn --compiler-options '{ \"module\": \"commonjs\"}' --transpile-only -r tsconfig-paths/register src/utils/dev/pruneTests.ts",
-    "lint": "eslint --max-warnings 0 --ext ts,tsx src",
     "start": "react-app-rewired start",
     "test": "react-app-rewired test",
     "up": "yarn install && yarn upgrade-interactive --latest",
     "verify:win": "ts-node-dev --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/verify.ts",
     "verify": "ts-node-dev --compiler-options '{ \"module\": \"commonjs\"}' --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/verify.ts",
     "xlsx:win": "ts-node-dev --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/exportToSheet.ts",
-    "xlsx": "ts-node-dev --compiler-options '{ \"module\": \"commonjs\"}' --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/exportToSheet.ts",
-    "prepush": "yarn format && yarn lint && yarn tsc && CI=true yarn test"
+    "xlsx": "ts-node-dev --compiler-options '{ \"module\": \"commonjs\"}' --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/exportToSheet.ts"
   },
   "eslintConfig": {
     "extends": [
