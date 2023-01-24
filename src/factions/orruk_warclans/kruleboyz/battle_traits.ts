@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { COMBAT_PHASE, END_OF_SETUP, SHOOTING_PHASE, START_OF_ROUND } from 'types/phases'
+import { COMBAT_PHASE, END_OF_SETUP, SHOOTING_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
 const KruleboyzBattleTraits = {
   'Battle Tactics': {
@@ -11,7 +11,7 @@ const KruleboyzBattleTraits = {
         - At least 10 wounds or mortal wounds in any combination that were caused by friendly units are allocated to enemy models this turn.
 
         - Fewer than 10 wounds or mortal wounds in any combination that were caused by enemy units are allocated to friendly models this turn.`,
-        when: [START_OF_ROUND],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

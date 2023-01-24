@@ -63,18 +63,18 @@ const BattleTraits = {
       {
         name: `Clash of Arms`,
         desc: `You complete this tactic if 3 or more friendly units make a charge move this turn.`,
-        when: [START_OF_ROUND],
+        when: [START_OF_HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_DECEMBER_2022],
       },
       {
         name: `Cruel Delight`,
         desc: `You complete this tactic if 2 or more friendly KHINERAI units move using their Fire and Flight ability or Fight and Flight ability this turn.`,
-        when: [START_OF_ROUND],
+        when: [START_OF_HERO_PHASE],
       },
       {
         name: `Tide of Blades`,
         desc: `You complete this tactic if there are 2 or more units from your starting army wholly within your opponent's territory at the end of this turn.`,
-        when: [START_OF_ROUND],
+        when: [START_OF_HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
           rule_sources.ERRATA_DECEMBER_2022,
@@ -84,17 +84,17 @@ const BattleTraits = {
       {
         name: `Executioner's Cult`,
         desc: `You can pick this battle tactic only if there is a friendly HIGH GLADIATRIX on the battlefield. You complete this tactic if an enemy HERO is slain by that unit's Killing Stroke ability this turn.`,
-        when: [START_OF_ROUND],
+        when: [START_OF_HERO_PHASE],
       },
       {
         name: `Hatred of Chaos`,
         desc: `You can pick this battle tactic only if you have a Hagg Nar or Khelt Nar army. You complete this tactic if 2 or more CHAOS units are destroyed this turn.`,
-        when: [START_OF_ROUND],
+        when: [START_OF_HERO_PHASE],
       },
       {
         name: `Unexpected Attack`,
         desc: `You complete this tactic if a friendly KHAINITE SHADOWSTALKERS unit uses its Shadow Leap ability and makes a charge move this turn.`,
-        when: [START_OF_ROUND],
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
