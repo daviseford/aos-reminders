@@ -22,7 +22,7 @@ const Scenery = {
       },
       {
         name: `Vengeful Forest Spirits`,
-        desc: `At the end of the charge phase, roll a dice for each unit that does not have the SYLVANETH keyword that is within 1" of any Awakend Wyldwood. Add 2 to the roll if any WIZARDS or endless spells are within 6" of any Awakend Wyldwood. On a 6+, that unit suffers D3 mortal wounds.`,
+        desc: `At the end of the charge phase, roll a dice for each unit that does not have the SYLVANETH keyword that is within 1" of any Awakened Wyldwood. Add 2 to the roll if any WIZARDS or endless spells are within 6" of any Awakened Wyldwood. On a 6+, that unit suffers D3 mortal wounds.`,
         when: [END_OF_CHARGE_PHASE],
       },
     ],
