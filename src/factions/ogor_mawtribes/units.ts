@@ -18,7 +18,6 @@ import {
   START_OF_SETUP,
   START_OF_SHOOTING_PHASE,
   TURN_FOUR_START_OF_ROUND,
-  TURN_ONE_END_OF_MOVEMENT_PHASE,
   TURN_ONE_START_OF_HERO_PHASE,
   WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
@@ -243,17 +242,17 @@ const Units = {
     effects: [
       {
         name: `Ambushing Hunters`,
-        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit.`,
+        desc: `During deployment, instead of setting up this unit on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit. If you do so, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units.`,
         when: [DURING_SETUP],
       },
       {
         name: `Ambushing Hunters`,
-        desc: `If you set this unit up in reserve, at the end of your first movement phase, you must set up this unit on the battlefield more than 9" from any enemy units.`,
-        when: [TURN_ONE_END_OF_MOVEMENT_PHASE],
+        desc: `If you set this unit up in reserve, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Gruesome Devourers`,
-        desc: `Enemy units within 9" of this unit cannot receive the Inspiring Presence or Rally commands while it is eating (within 3" of enemy models).`,
+        desc: `If this unit is part of an Ogor Mawtribes army and it is eating, enemy units within 9" of this unit cannot receive the Inspiring Presence or Rally commands.`,
         when: [START_OF_HERO_PHASE, BATTLESHOCK_PHASE],
       },
     ],

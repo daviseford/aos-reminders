@@ -47,7 +47,7 @@
     "intake:win": "ts-node-dev --respawn --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --transpile-only -r tsconfig-paths/register src/utils/dev/intakeTests.ts",
     "intake": "ts-node-dev --respawn --compiler-options '{ \"module\": \"commonjs\"}' --transpile-only -r tsconfig-paths/register src/utils/dev/intakeTests.ts",
     "lint": "eslint --max-warnings 0 --ext ts,tsx src",
-    "prepush": "yarn clean && yarn format && yarn lint && yarn tsc && CI=true yarn test",
+    "prepush": "yarn clean && yarn format && yarn lint && yarn tsc && yarn test",
     "pruneTests:win": "ts-node-dev --respawn --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --transpile-only -r tsconfig-paths/register src/utils/dev/pruneTests.ts",
     "pruneTests": "ts-node-dev --respawn --compiler-options '{ \"module\": \"commonjs\"}' --transpile-only -r tsconfig-paths/register src/utils/dev/pruneTests.ts",
     "start": "react-app-rewired start",
