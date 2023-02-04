@@ -689,7 +689,7 @@ const Units = {
     ],
   },
 
-  'Cado Ezechiar, The Hollow King': {
+  'Cado Ezechiar': {
     mandatory: {
       spells: [keyPicker(spells, ['Retribution or Salvation'])],
     },
