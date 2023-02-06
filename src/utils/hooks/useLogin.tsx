@@ -50,7 +50,7 @@ const useLogin = (props: IUseLoginProps) => {
           }
         }, 1000)
 
-        return loginWithPopup({ redirect_uri: window.location.href }, { popup })
+        return loginWithPopup({ authorizationParams: { redirect_uri: window.location.href } }, { popup })
       },
     }),
     [isLoading, loginWithPopup, popupIsClosed, props]
