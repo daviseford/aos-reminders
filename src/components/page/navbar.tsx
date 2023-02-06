@@ -31,7 +31,7 @@ const Navbar = () => {
       LocalUserName.clear() // Get rid of stored user info
       LocalSavedArmies.clear() // Remove any saved armies that we've fetched from the API
       LocalTheme.clear() // Revert back to default theme settings
-      return logout({ client_id: config.clientId, returnTo: BASE_URL })
+      return logout({ clientId: config.clientId, logoutParams: { returnTo: BASE_URL } })
     } else {
       return login()
     }

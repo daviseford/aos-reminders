@@ -15,7 +15,7 @@ const Spinner: React.FC<ISpinnerProps> = ({ variant = 'dark', size = 'normal', c
   }[variant]
 
   const style = size === 'large' ? { width: '3.5rem', height: '3.5rem' } : {}
-  const sizeClass = size === 'normal' || style === 'large' ? `` : `spinner-border-sm`
+  const sizeClass = size === 'normal' || size === 'large' ? `` : `spinner-border-sm`
 
   return (
     <div className={`d-flex justify-content-center ${className}`}>
