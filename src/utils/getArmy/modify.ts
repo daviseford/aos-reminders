@@ -149,6 +149,7 @@ const modifySpells = (spells: TEntry[], Collection: TCollection): TEntry[] => {
 
 const modifyPrayers = (prayers: TEntry[], Collection: TCollection): TEntry[] => {
   const Prayers = prayers.concat(Collection.Prayers)
+  debugger
   return uniqBy(
     sortBy(Prayers, 'name')
       .concat(sortBy(GenericPrayers, 'name'))

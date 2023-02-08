@@ -41,6 +41,25 @@ export const ENTRY_PROPERTIES: TEntryProperties[] = [
   'unit',
 ]
 
+export const SELECTION_TYPES: TSelectionTypes[] = [
+  'artifacts',
+  'battalions',
+  'command_abilities',
+  'command_traits',
+  'core_rules',
+  'endless_spells',
+  'flavors',
+  'grand_strategies',
+  'incarnates',
+  'monstrous_rampages',
+  'mount_traits',
+  'prayers',
+  'scenery',
+  'spells',
+  'triumphs',
+  'units',
+]
+
 export const lowerToUpperLookup: Record<TSelectionTypes, keyof TCollection> = {
   artifacts: 'Artifacts',
   battalions: 'Battalions',
@@ -58,7 +77,7 @@ export const lowerToUpperLookup: Record<TSelectionTypes, keyof TCollection> = {
   spells: 'Spells',
   triumphs: 'Triumphs',
   units: 'Units',
-}
+} as const
 
 export const upperToLowerLookup: Record<keyof TCollection, TSelectionTypes> = {
   Artifacts: 'artifacts',

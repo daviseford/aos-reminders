@@ -41,4 +41,6 @@ const Prayers = {
   },
 }
 
+console.log(tagAs(Prayers, 'prayer'))
+
 export default tagAs(Prayers, 'prayer')

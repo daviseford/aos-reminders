@@ -1,9 +1,11 @@
+import { uniq } from 'lodash'
 import { TGrandAlliances } from 'meta/alliances'
 import { TSupportedFaction } from 'meta/factions'
 import { TRuleSource } from 'meta/rule_sources'
 import { TSubfactionArmy } from 'types/army'
-import { TEffects } from 'types/data'
-import { TItemDescriptions } from './factionTypes'
+import { SELECTION_TYPES, TEffects } from 'types/data'
+import { TSelectionTypes } from 'types/selections'
+import { TItemDescriptions, TItemKey } from './factionTypes'
 import { getAggregateArmy, temporaryAdapter } from './temporaryAdapter'
 
 /**
@@ -54,6 +56,25 @@ export class Faction<
       a[subFactionName] = temporaryAdapter(this.SubFactions[subFactionName], subFactionName, this.flavorLabel)
       return a
     }, {} as Record<K, TSubfactionArmy>)
+
+    // throw error if we've got bad data (this will discover bad data entry)
+    const validSelectionKeys: TItemKey[] = [...SELECTION_TYPES, 'allied_units']
+
+    this.subFactionKeys.forEach(k => {
+      const _subfaction = SubFactions[k]
+      const availableKeys = _subfaction?.available ? Object.keys(_subfaction.available) : []
+      const mandatoryKeys = _subfaction?.mandatory ? Object.keys(_subfaction.mandatory) : []
+
+      const allKeys = uniq([...availableKeys, ...mandatoryKeys])
+
+      allKeys.forEach(selection => {
+        if (!validSelectionKeys.includes(selection as TSelectionTypes)) {
+          throw new Error(
+            `${factionName} subfaction ${k} has an invalid/unknown key: ${selection}. Please check your data in this faction's subfactions.ts file`
+          )
+        }
+      })
+    })
   }
 }
 

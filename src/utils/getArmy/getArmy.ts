@@ -36,6 +36,8 @@ export const getArmy = (
 
   const Army: TSubfactionArmy = (subFactionName && subFactionArmies?.[subFactionName]) || AggregateArmy
 
+  debugger
+
   const Collection = getCollection(Army)
 
   const army = modifyArmy(Army, {
@@ -45,6 +47,8 @@ export const getArmy = (
     originRealm,
     realmscape,
   })
+
+  debugger
 
   return army as unknown as IArmy
 }
