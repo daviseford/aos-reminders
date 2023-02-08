@@ -2,6 +2,7 @@ import { GenericEndlessSpells, GenericTriumphs } from 'generic_rules'
 import { sortBy } from 'lodash'
 import { ORDER } from 'meta/alliances'
 import { BEASTS_OF_CHAOS, SERAPHON, SYLVANETH } from 'meta/factions'
+import { getFactionList } from 'meta/faction_list'
 import { IArmy } from 'types/army'
 import { getAllianceItems } from 'utils/getArmy/getAllianceItems'
 import { getArmy } from 'utils/getArmy/getArmy'
@@ -47,5 +48,11 @@ describe('getArmy', () => {
     const army = getArmy(SERAPHON) as IArmy
     const shouldNotHaveThisUnit = army.Units.find(x => x.name === 'Selfless Protector')
     expect(shouldNotHaveThisUnit).toBeUndefined()
+  })
+})
+
+describe('getFactionList', () => {
+  it('should not throw errors when using getFactionList', () => {
+    expect(getFactionList).not.toThrow()
   })
 })
