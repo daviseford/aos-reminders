@@ -90,8 +90,6 @@ export const getCollection = (army: TInitialArmy): TCollection => {
   checkForMandatoryItems(army.SubFaction)
   types.forEach(x => x?.forEach(checkForMandatoryItems))
 
-  debugger
-
   return {
     Artifacts: sortBy(Collection.Artifacts, 'name'),
     Battalions: sortBy(Collection.Battalions, 'name'),

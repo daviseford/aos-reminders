@@ -77,7 +77,7 @@ export const lowerToUpperLookup: Record<TSelectionTypes, keyof TCollection> = {
   spells: 'Spells',
   triumphs: 'Triumphs',
   units: 'Units',
-} as const
+}
 
 export const upperToLowerLookup: Record<keyof TCollection, TSelectionTypes> = {
   Artifacts: 'artifacts',

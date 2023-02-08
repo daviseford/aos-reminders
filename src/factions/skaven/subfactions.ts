@@ -23,7 +23,7 @@ const subFactions = {
       endless_spells: [EndlessSpells],
       flavors: [Flavors],
       grand_strategies: [GrandStrategies],
-      Prayers: [Prayers],
+      prayers: [Prayers],
       scenery: [Scenery],
       spells: [Spells],
       units: [Units],
