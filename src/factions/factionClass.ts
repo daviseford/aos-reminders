@@ -60,19 +60,18 @@ export class Faction<
     this.checkForDataEntryErrors()
   }
 
+  /** Throw an error if we've got bad data (this will discover bad data entry) */
   private checkForDataEntryErrors = () => {
-    // throw error if we've got bad data (this will discover bad data entry)
     const validSelectionKeys: TItemKey[] = [...SELECTION_TYPES, 'allied_units']
 
     this.subFactionKeys.forEach(k => {
-      const _subfaction = this.SubFactions[k]
-      const availableKeys = _subfaction?.available ? Object.keys(_subfaction.available) : []
-      const mandatoryKeys = _subfaction?.mandatory ? Object.keys(_subfaction.mandatory) : []
-
-      const allKeys = uniq([...availableKeys, ...mandatoryKeys])
+      const allKeys = uniq([
+        ...Object.keys(this.SubFactions[k]?.available ?? {}),
+        ...Object.keys(this.SubFactions[k]?.mandatory ?? {}),
+      ]) as TSelectionTypes[]
 
       allKeys.forEach(selection => {
-        if (!validSelectionKeys.includes(selection as TSelectionTypes)) {
+        if (!validSelectionKeys.includes(selection)) {
           throw new Error(
             `${this.factionName} subfaction ${k} has an invalid/unknown key: ${selection}. Please check your data in this faction's subfactions.ts file`
           )
