@@ -26,42 +26,46 @@ const baseSubFaction: IItemDescription = {
     spells: [Spells],
     units: [Units],
   },
-  effects: [],
+  effects: pickEffects(battle_traits, [
+    'Eye of the Gods',
+    'Vows of Darkness',
+    'Ensorcelled Banners: Icons of Chaos',
+  ]),
 }
 
 const subFactions = {
   Ravagers: {
-    effects: pickEffects(battle_traits, ['Ravagers']),
+    effects: [...baseSubFaction.effects, ...pickEffects(battle_traits, ['Ravagers'])],
     available: {
       ...baseSubFaction.available,
     },
   },
   Cabalists: {
-    effects: pickEffects(battle_traits, ['Cabalists']),
+    effects: [...baseSubFaction.effects, ...pickEffects(battle_traits, ['Cabalists'])],
     available: {
       ...baseSubFaction.available,
     },
   },
   Despoilers: {
-    effects: pickEffects(battle_traits, ['Despoilers']),
+    effects: [...baseSubFaction.effects, ...pickEffects(battle_traits, ['Despoilers'])],
     available: {
       ...baseSubFaction.available,
     },
   },
   'Host of the Everchosen': {
-    effects: pickEffects(battle_traits, ['Host of the Everchosen']),
+    effects: [...baseSubFaction.effects, ...pickEffects(battle_traits, ['Host of the Everchosen'])],
     available: {
       ...baseSubFaction.available,
     },
   },
   'The Knights of the Empty Throne': {
-    effects: pickEffects(battle_traits, ['The Knights of the Empty Throne']),
+    effects: [...baseSubFaction.effects, ...pickEffects(battle_traits, ['The Knights of the Empty Throne'])],
     available: {
       ...baseSubFaction.available,
     },
   },
   'Legions of the First Prince': {
-    effects: pickEffects(battle_traits, ['Legions of the First Prince']),
+    effects: [...baseSubFaction.effects, ...pickEffects(battle_traits, ['Legions of the First Prince'])],
     available: {
       ...baseSubFaction.available,
     },
