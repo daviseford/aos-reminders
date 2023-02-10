@@ -50,40 +50,32 @@ const BattleTraits = {
       },
       {
         name: `Eye of the Gods: Flames of Chaos`,
-        desc: `The next time this unit is affected by a spell cast by an enemy unit, roll a dice. On a 2+, ignore the effects of that spell on this unit. A unit cannot be affected by this result more than once at the same time.
-      Note: See the Eye of the Gods - During Game`,
+        desc: `The next time this unit is affected by a spell cast by an enemy unit, roll a dice. On a 2+, ignore the effects of that spell on this unit. A unit cannot be affected by this result more than once at the same time. Note: See the Eye of the Gods - During Game.`,
         when: [HERO_PHASE],
       },
       {
         name: `Eye of the Gods: Unearthly Reflexes`,
-        desc: `Until the end of the battle, add 1 to charge rolls made for this unit.
-        Note: See the Eye of the Gods - During Game`,
+        desc: `Until the end of the battle, add 1 to charge rolls made for this unit. Note: See the Eye of the Gods - During Game.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Eye of the Gods: Unholy Resilience`,
-        desc: `Until the end of the battle, this unit has a ward of 6+.
-        Note: See the Eye of the Gods - During Game`,
+        desc: `Until the end of the battle, this unit has a ward of 6+. Note: See the Eye of the Gods - During Game.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Eye of the Gods: Slaughterer's Strength`,
-        desc: `Until the end of the battle, improve the Rend characteristic of this unit's melee weapons by 1.
-        Note: See the Eye of the Gods - `,
+        desc: `Until the end of the battle, improve the Rend characteristic of this unit's melee weapons by 1. Note: See the Eye of the Gods -`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Eye of the Gods: Arcane Awakening`,
-        desc: `Until the end of the battle, this unit becomes a WIZARD. They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. 
-        If this unit is already a WIZARD, they can attempt to cast 1 additional spell instead. 
-        If this unit has the KHORNE keyword, treat this result as Slaughterer's Strength' instead.
-        Note: See the Eye of the Gods - During Game`,
+        desc: `Until the end of the battle, this unit becomes a WIZARD. They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. If this unit is already a WIZARD, they can attempt to cast 1 additional spell instead. If this unit has the KHORNE keyword, treat this result as Slaughterer's Strength' instead. Note: See the Eye of the Gods - During Game.`,
         when: [HERO_PHASE],
       },
       {
         name: `Eye of the Gods: Aura of Chaos`,
-        desc: `Until the end of the battle, this unit has a ward of 5+.
-        Note: See the Eye of the Gods - During Game`,
+        desc: `Until the end of the battle, this unit has a ward of 5+. Note: See the Eye of the Gods - During Game.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -100,7 +92,7 @@ const BattleTraits = {
     ],
   },
 
-  //ENSORCELLED BANNERS
+  // ENSORCELLED BANNERS
   'Ensorcelled Banners: Icons of Chaos': {
     effects: [
       {
@@ -116,14 +108,12 @@ const BattleTraits = {
     effects: [
       {
         name: `Heroic Action: Pledge to Dark Gods`,
-        desc: `Pick 1 friendly SLAVES TO DARKNESS HERO with the EYE OF THE GODS keyword. Until the end of that turn, each time you roll on the Eye of the Gods table for that HERO,
-        you can roll 3 dice instead of 2, and pick any 2 of the dice rolled as your score.`,
+        desc: `Pick 1 friendly SLAVES TO DARKNESS HERO with the EYE OF THE GODS keyword. Until the end of that turn, each time you roll on the Eye of the Gods table for that HERO, you can roll 3 dice instead of 2, and pick any 2 of the dice rolled as your score.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Heroic Action: Draw on Power`,
-        desc: `Pick 1 friendly SLAVES TO DARKNESS WIZARD. Until the end of that turn, when making casting rolls with that WIZARD, roll 3 dice instead of 2. 
-        However, if the unmodified roll on 2 or more of the dice is 1, the spell miscasts, and the caster suffers D6 mortal wounds instead of D3.`,
+        desc: `Pick 1 friendly SLAVES TO DARKNESS WIZARD. Until the end of that turn, when making casting rolls with that WIZARD, roll 3 dice instead of 2. However, if the unmodified roll on 2 or more of the dice is 1, the spell miscasts, and the caster suffers D6 mortal wounds instead of D3.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -134,12 +124,7 @@ const BattleTraits = {
     effects: [
       {
         name: `Heroic Action: Rally the Tribes`,
-        desc: `You can carry out the following heroic action with a RAVAGERS HERO instead of any other heroic action you can carry out with that HERO.
-        
-        Pick 1 CHAOS MARAUDERS, CHAOS MARAUDER HORSEMEN, CULTIST or DARKOATH unit in your army that has been destroyed. 
-        If you do so, a new replacement unit with half the number of models in the unit that was destroyed (rounding up) is added to your army.
-        Set up that unit wholly within 12' of the HERO carrying out this heroic action and more than 9" from all enemy units. 
-        Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
+        desc: `You can carry out the following heroic action with a RAVAGERS HERO instead of any other heroic action you can carry out with that HERO. Pick 1 CHAOS MARAUDERS, CHAOS MARAUDER HORSEMEN, CULTIST or DARKOATH unit in your army that has been destroyed. If you do so, a new replacement unit with half the number of models in the unit that was destroyed (rounding up) is added to your army. Set up that unit wholly within 12' of the HERO carrying out this heroic action and more than 9" from all enemy units. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -213,8 +198,8 @@ const BattleTraits = {
     effects: [
       {
         name: `The Favour of the Four`,
-        desc: `You can pick 1 LEGION OF THE FIRST PRINCE UNDIVIDED unit and then pick 1 of the following Marks of Chaos keywords; KHORNE, TZEENTCH, NURGLE or SLAANESH. 
-        That unit has that Mark of Chaos until the start of your next hero phase in addition to the UNDIVIDED Mark of Chaos.
+        desc: `You can pick 1 LEGION OF THE FIRST PRINCE UNDIVIDED unit and then pick 1 of the following Marks of Chaos keywords; KHORNE, TZEENTCH, NURGLE or SLAANESH. That unit has that Mark of Chaos until the start of your next hero phase in addition to the UNDIVIDED Mark of Chaos.
+        
         Designer's Note: If you pick a WIZARD unit to have the TEENTCH Mark of Chaos, it knows the Warp Reality' spell until the start of your next hero phase.`,
         when: [START_OF_HERO_PHASE],
       },
@@ -226,7 +211,7 @@ const BattleTraits = {
     ],
   },
 
-  //BATTLE TACTICS
+  // BATTLE TACTICS
   'Battle Tactics': {
     effects: [
       {
@@ -246,7 +231,7 @@ const BattleTraits = {
       },
       {
         name: `Iconoclasts`,
-        desc: `Pick 1 enemy unit that is a PRIEST Of TOTEM. You complete this battle tactic if that unit is destroyed at the end of the turn.`,
+        desc: `Pick 1 enemy unit that is a PRIEST OF TOTEM. You complete this battle tactic if that unit is destroyed at the end of the turn.`,
         when: [START_OF_HERO_PHASE],
       },
       {

@@ -43,8 +43,7 @@ const Artifacts = {
     effects: [
       {
         name: `Chaos Familiar`,
-        desc: `Once per battle, at the start of your hero phase you can say the bearer will call upon their Chaos Familiar.
-        If you do so, the bearer can attempt to cast 1 additional spell in that hero phase, and that spell can be any from the Lore of the Damned.`,
+        desc: `Once per battle, at the start of your hero phase you can say the bearer will call upon their Chaos Familiar. If you do so, the bearer can attempt to cast 1 additional spell in that hero phase, and that spell can be any from the Lore of the Damned.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -53,9 +52,7 @@ const Artifacts = {
     effects: [
       {
         name: `Infernal Puppet`,
-        desc: `Once per battle, at the start of the enemy hero phase, you can pick 1 enemy WIZARD within 24" of the bearer and visible to them.
-        Until the end of the phase, each time that WIZARD attempts to cast a spell they suffer D3 mortal wounds before the casting roll is made. 
-        If the WIZARD is slain by these mortal wounds, the casting attempt fails (do not roll the dice).`,
+        desc: `Once per battle, at the start of the enemy hero phase, you can pick 1 enemy WIZARD within 24" of the bearer and visible to them. Until the end of the phase, each time that WIZARD attempts to cast a spell they suffer D3 mortal wounds before the casting roll is made. If the WIZARD is slain by these mortal wounds, the casting attempt fails (do not roll the dice).`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -64,9 +61,7 @@ const Artifacts = {
     effects: [
       {
         name: `Helm of Eldritch Command`,
-        desc: `If this unit dispells and endless spell, instead of it being dispelled you can say the bearer has seized control of it. 
-        If you do so, the bearer now controls that endless spell in the same manner as if they had summoned it, and the model that summoned the
-        endless spell does not control it. If that endless spell is later dispelled and summoned again the bearer does not control it.`,
+        desc: `If this unit dispells and endless spell, instead of it being dispelled you can say the bearer has seized control of it. If you do so, the bearer now controls that endless spell in the same manner as if they had summoned it, and the model that summoned the endless spell does not control it. If that endless spell is later dispelled and summoned again the bearer does not control it.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -85,8 +80,7 @@ const Artifacts = {
     effects: [
       {
         name: `Doombringer Blade`,
-        desc: `At the start of the first battle round, after set-up is complete but before the first turn begins, you can pick 1 enemy HERO or enemy MONSTER on the battlefield.
-        If you do so, add 1 to wound rolls for attacks made with melee weapons by friendly units that target that unit.`,
+        desc: `At the start of the first battle round, after set-up is complete but before the first turn begins, you can pick 1 enemy HERO or enemy MONSTER on the battlefield. If you do so, add 1 to wound rolls for attacks made with melee weapons by friendly units that target that unit.`,
         when: [TURN_ONE_START_OF_TURN],
       },
     ],

@@ -250,9 +250,7 @@ const Units = {
       },
       {
         name: `The Eye of Sheerian`,
-        desc: `Once per battle, at the start of your hero phase, you can say that Archaon will consult the Eye of Sheerian. 
-        Roll a dice, on a 1-3 your opponent must take the first turn in the next battle round, on a 4+ you must take the first turn.
-        This ability cannot be used while there is an enemy Archaon on the battlefield.`,
+        desc: `Once per battle, at the start of your hero phase, you can say that Archaon will consult the Eye of Sheerian. Roll a dice, on a 1-3 your opponent must take the first turn in the next battle round, on a 4+ you must take the first turn. This ability cannot be used while there is an enemy Archaon on the battlefield.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS],
       },
@@ -264,8 +262,7 @@ const Units = {
       },
       {
         name: `The Favoured Warlord`,
-        desc: `After players have received their starting command points, you can pick 1 of the following Mark of Chaos Keywords: KHORNE, TZEENTCH, NURGLE, or SLAANESH.
-        This unit has that Mark of Chaos in addition to the UNDIVIDED Mark of Chaos.`,
+        desc: `After players have received their starting command points, you can pick 1 of the following Mark of Chaos Keywords: KHORNE, TZEENTCH, NURGLE, or SLAANESH. This unit has that Mark of Chaos in addition to the UNDIVIDED Mark of Chaos.`,
         when: [TURN_ONE_START_OF_ROUND],
       },
       {
@@ -824,8 +821,7 @@ const Units = {
       ChaosMarkKhorne,
       {
         name: `Sigils of Enslavement`,
-        desc: `When you select this unit to be a part of your army, you can pick 1 friendly Slaves to Darkness Hero or 1 Khorne Mortal Hero in your army to be its master. 
-        This unit can receive the Leave None Alive, Let Loose the Chains, or Unbridled Ferocity command abilities from it's master.`,
+        desc: `When you select this unit to be a part of your army, you can pick 1 friendly Slaves to Darkness Hero or 1 Khorne Mortal Hero in your army to be its master. This unit can receive the Leave None Alive, Let Loose the Chains, or Unbridled Ferocity command abilities from it's master.`,
         when: [DURING_SETUP],
       },
       {
