@@ -15,8 +15,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Death Dealer`,
-        desc: `Once per battle, in the combat phase, after this general has fought for the first time in that phase, you can say that they will deal death. 
-        If you do so, this general can fight for a second time in that phase. The strike-last effect applies to this general when they fight for that second time.`,
+        desc: `Once per battle, in the combat phase, after this general has fought for the first time in that phase, you can say that they will deal death. If you do so, this general can fight for a second time in that phase. The strike-last effect applies to this general when they fight for that second time.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -43,10 +42,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Idolater Lord`,
-        desc: `This general becomes a PRIEST.
-        In addition, you can choose to replace the UNDIVIDED keyword on every UNDIVIDED CULTIST unit in your army with one of the following keywords: 
-        KHORNE, TEENTCH, NURGLE or SLAANESH.
-        All CULTIST units must be given the same keyword and it must be one this general has too.`,
+        desc: `This general becomes a PRIEST. In addition, you can choose to replace the UNDIVIDED keyword on every UNDIVIDED CULTIST unit in your army with one of the following keywords: KHORNE, TEENTCH, NURGLE or SLAANESH. All CULTIST units must be given the same keyword and it must be one this general has too.`,
         when: [DURING_GAME],
       },
     ],
@@ -57,8 +53,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Not to be Denied`,
-        desc: `In each hero phase, once you have carried out a heroic action, if you did not carry out the heroic action with this general you carry out an additional heroic action with this general. 
-        The heroic action carried out with this general cannot be the same as the other heroic action you carried out in this phase.`,
+        desc: `In each hero phase, once you have carried out a heroic action, if you did not carry out the heroic action with this general you carry out an additional heroic action with this general. The heroic action carried out with this general cannot be the same as the other heroic action you carried out in this phase.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -81,8 +76,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Radiance of Dark Glory`,
-        desc: `At the start of your hero phase, roll a dice for each friendly model within 9" of this general that has any  wounds allocated to them. 
-        On a 3+, you can heal 1 wound from the model being rolled for. If the model being rolled for is a MONSTER, on a 3+ you can heal up to 3 wounds instead.`,
+        desc: `At the start of your hero phase, roll a dice for each friendly model within 9" of this general that has any  wounds allocated to them. On a 3+, you can heal 1 wound from the model being rolled for. If the model being rolled for is a MONSTER, on a 3+ you can heal up to 3 wounds instead.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
