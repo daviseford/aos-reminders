@@ -1,13 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  CHARGE_PHASE,
-  COMBAT_PHASE,
-  HERO_PHASE,
-  MOVEMENT_PHASE,
-  SAVES_PHASE,
-  SHOOTING_PHASE,
-} from 'types/phases'
-import rule_sources from './rule_sources'
+import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 const Spells = {
   // Twisted Wilds

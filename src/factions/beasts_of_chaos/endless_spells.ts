@@ -5,11 +5,9 @@ import {
   COMBAT_PHASE,
   END_OF_HERO_PHASE,
   HERO_PHASE,
-  MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 // Endless spells.
 const EndlessSpells = {
