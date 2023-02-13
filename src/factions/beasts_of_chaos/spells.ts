@@ -1,5 +1,12 @@
 import { tagAs } from 'factions/metatagger'
-import { COMBAT_PHASE, HERO_PHASE, SAVES_PHASE } from 'types/phases'
+import {
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  HERO_PHASE,
+  MOVEMENT_PHASE,
+  SAVES_PHASE,
+  SHOOTING_PHASE,
+} from 'types/phases'
 import rule_sources from './rule_sources'
 
 const Spells = {
@@ -8,7 +15,7 @@ const Spells = {
     effects: [
       {
         name: `Viletide (Brayherd Wizard)`,
-        desc: `Casting value of 6. Pick an enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds. If the unit is within 6" of the caster, it suffers D6 mortal wounds instead.`,
+        desc: `Casting value of 6. Pick an enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds and cannot receive commands until the end of that turn.`,
         when: [HERO_PHASE],
       },
     ],
@@ -17,18 +24,17 @@ const Spells = {
     effects: [
       {
         name: `Vicious Stranglethorns (Brayherd Wizard)`,
-        desc: `Casting value of 7. Pick a terrain feature wholly within 24" of the caster that is visible to them. Each enemy unit within 3" of that terrain feature suffers D3 mortal wounds.`,
+        desc: `Casting value of 5. pick 1 enemy unit within 18" and visible to the caster. That enemy unit cannot make pile-in moves until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Savage Dominion (Brayherd Wizard)': {
+  'Primal Dominance (Brayherd Wizard)': {
     effects: [
       {
-        name: `Savage Dominion (Brayherd Wizard)`,
-        desc: `Casting value of 5 and range of 18". Pick 1 enemy MONSTER that is within range and visible to the caster, and roll 2D6. If the roll is equal to or greater than that Monster's Bravery characteristic, pick 1 other enemy unit within 3" of that MONSTER and roll a number of dice equal to that MONSTER Wounds characteristic. For each 4+, that enemy unit suffers 1 mortal wound.`,
+        name: `Primal Dominance (Brayherd Wizard)`,
+        desc: `Casting value of 5. Pick 1 enemy MONSTER within 18" and visible to the caster. Until your next hero phase, that MONSTER counts as 1 model for the purposes of contesting objectives and cannot carry out monstrous rampages.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -36,13 +42,8 @@ const Spells = {
     effects: [
       {
         name: `Tendrils of Atrophy (Brayherd Wizard)`,
-        desc: `Casting value of 6. Pick an enemy unit within 12" of the caster that is visible to them. Until your next hero phase, subtract 1 from save rolls for attacks that target that unit.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 12" and visible to the caster. Add 1 to the damage inflicted by each successful attack made with a melee weapon that targets that unit until your next hero phase.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Tendrils of Atrophy (Brayherd Wizard)`,
-        desc: `If active, until your next hero phase, subtract 1 from save rolls for attacks that target that unit.`,
-        when: [SAVES_PHASE],
       },
     ],
   },
@@ -50,13 +51,13 @@ const Spells = {
     effects: [
       {
         name: `Wild Rampage (Brayherd Wizard)`,
-        desc: `Casting value of 6. Pick a friendly unit within 12" of the caster that is visible to them. Until your next hero phase, you can reroll failed wound rolls for attacks with melee weapons made by this unit. However, subtract 1 from save rolls for attacks that target this unit.`,
+        desc: `Casting value of 7. Pick 1 friendly BEASTS OF CHAOS unit wholly within 12" and visible to the caster. Until your next hero phase, if the unmodified hit roll for an attack made with a melee weapon by that unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound roll and save roll for each hit.`,
         when: [HERO_PHASE],
       },
       {
         name: `Wild Rampage (Brayherd Wizard)`,
-        desc: `If active, subtract 1 from save rolls for attacks that target this friendly unit.`,
-        when: [SAVES_PHASE],
+        desc: `If active, 6s to hit score 2 hits instead of 1.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -64,47 +65,79 @@ const Spells = {
     effects: [
       {
         name: `Titanic Fury (Brayherd Wizard)`,
-        desc: `Casting value of 7. Pick a friendly BEASTS OF CHAOS MONSTER within 12" of the caster that is visible to them. Until your next hero phase, add 1 to the Attacks characteristic of that MONSTER's melee weapons.`,
+        desc: `Casting value of 6. Pick 1 friendly BEASTS OF CHAOS MONSTER wholly within 12" and visible to the caster. Until your next hero phase, add 1 to the Attacks characteristic of that MONSTER'S melee weapons.`,
         when: [HERO_PHASE],
       },
     ],
   },
   // Dark Storms
-  'Thunderwave (Thunderscorn Wizard)': {
-    effects: [
-      {
-        name: `Thunderwave (Thunderscorn Wizard)`,
-        desc: `Casting value of 7. Each unit within 3" of the caster suffers D3 mortal wounds. THUNDERSCORN units are not affected by this spell.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
   'Hailstorm (Thunderscorn Wizard)': {
     effects: [
       {
         name: `Hailstorm (Thunderscorn Wizard)`,
-        desc: `Casting value of 6. Pick an enemy unit within 21" of the caster that is visible to them. Until your next hero phase, halve the Move characteristic of, and run and charge rolls for, that unit.`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 21" and visible to the caster. Until your next hero phase, halve the Move characteristic of that unit, and halve run rolls and charge rolls for that unit.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Hailstorm (Thunderscorn Wizard)`,
+        desc: `If active, halve the movement, run, and charge rolls for the picked unit.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
-  'Sundering Blades (Thunderscorn Wizard)': {
+  'Fulgurous Blades (Thunderscorn Wizard)': {
     effects: [
       {
-        name: `Sundering Blades (Thunderscorn Wizard)`,
-        desc: `Casting value of 7. Pick a friendly unit wholly within 18" of the caster that is visible to them. Until your next hero phase, improve the Rend characteristic of that unit's melee weapons by 1.`,
+        name: `Fulgurous Blades (Thunderscorn Wizard)`,
+        desc: `Casting value of 6. Pick 1 friendly BEASTS OF CHAOS unit wholly within 18" and visible to the caster. Until your next hero phase, subtract 1 from the Attacks characteristic of melee weapons that target that unit (to a minimum of 1).`,
         when: [HERO_PHASE],
       },
     ],
+    'Thunderwave (Thunderscorn Wizard)': {
+      effects: [
+        {
+          name: `Thunderwave (Thunderscorn Wizard)`,
+          desc: `Casting value of 5. Each unit within 3" of the caster suffers D3 mortal wounds. THUNDERSCORN units are not affected by this spell.`,
+          when: [HERO_PHASE],
+        },
+      ],
+    },
+    'Furious Gale (Thunderscorn Wizard)': {
+      effects: [
+        {
+          name: `Furious Gale (Thunderscorn Wizard)`,
+          desc: `Casting value of 6. Until your next hero phase, subtract 1 from the Attacks characteristic of missile weapons used by enemy units while they are within 18" of the caster (to a minimum of 1).`,
+          when: [HERO_PHASE],
+        },
+        {
+          name: `Furious Gale (Thunderscorn Wizard)`,
+          desc: `If active, subtract 1 from the Attacks characteristic of missile weapons used by enemy units while they are within 18" of the caster (to a minimum of 1).`,
+          when: [SHOOTING_PHASE],
+        },
+      ],
+    },
+    'Raging Storm (Thunderscorn Wizard)': {
+      effects: [
+        {
+          name: `Raging Storm (Thunderscorn Wizard)`,
+          desc: `Casting value of 8. Heal 1 wound allocated to each friendly THUNDERSCORN unit on the battlefield. In addition, each enemy unit on the battlefield suffers 1 mortal wound.`,
+          when: [HERO_PHASE],
+        },
+      ],
+    },
   },
   // Unit Spells
   Devolve: {
     effects: [
       {
         name: `Devolve`,
-        desc: `Casting value of 7. Pick an enemy unit within 18" of the caster that is visible to them and not within 3" of any friendly units. If it is possible to do so, your opponent must make a normal move with that unit of up to 2D6" so that each model in the unit ends its move as close as possible to a model from the friendly unit that was closest to it at the start of the move.`,
+        desc: `Casting value of 7. Pick 1 enemy unit within 18" and visible to the caster. Until your next hero phase, roll 3D6 before that unit makes a normal move, runs, retreats or makes a charge move. If the roll is greater than that unit's Bravery characteristic, the maximum distance of that move is halved.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
+      },
+      {
+        name: `Devolve`,
+        desc: `If active, roll 3D6 before the picked unit makes a normal move, runs, retreats or makes a charge move. If the roll is greater than that unit's Bravery characteristic, the maximum distance of that move is halved.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
@@ -112,7 +145,7 @@ const Spells = {
     effects: [
       {
         name: `Summon Lightning`,
-        desc: `Casting value of 7. Pick a friendly THUNDERSCORN unit wholly within 20" of the caster and visible to them. You can heal D3 wounds allocated to that unit. In addition, you can reroll failed wound rolls for attacks made by that unit until your next hero phase.`,
+        desc: `Casting value of 7. Pick up to D3 friendly THUNDERSCORN unit within 24" of the caster and visible to them. You can heal D3 wounds allocated to those units (roll separately for each unit).`,
         when: [HERO_PHASE],
       },
     ],
@@ -121,9 +154,8 @@ const Spells = {
     effects: [
       {
         name: `Boon of Mutation`,
-        desc: `Casting value of 7 and a range of 18". Pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. For each model that is slain by a mortal wound caused by this spell, you can add 1 Tzaangor model that is not a Tzaangor Champion or Tzaangor Mutant to a friendly TZAANGOR HOST within 12" of the caster. Set up models that are added to a unit one at a time within 1" of the unit they are being added to. Models that are added to a unit can only be set up within 3" of an enemy unit if a model from their unit is already within 3" of that enemy unit. The models added to a unit can take it above its maximum size.`,
+        desc: `Casting value of 7 and a range of 18". Pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. For each model that is slain by a mortal wound caused by this spell, you can add 1 Tzaangor model that is not a Tzaangor Champion or Tzaangor Mutant to a friendly Tzaangor Host within 12" of the caster. Set up models that are added to a unit one at a time within 1" of the unit they are being added to. Models that are added to a unit can only be set up within 3" of an enemy unit if a model from their unit is already within 3" of that enemy unit. The models added to a unit can take it above its maximum size.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
       },
     ],
   },

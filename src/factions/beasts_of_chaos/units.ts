@@ -1,12 +1,13 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import { BabblingStreamOfSecretsEffect, TzaangorChampionEffect } from 'factions/tzeentch/units'
 import { GenericEffects } from 'generic_rules'
-import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_CHARGE_PHASE,
+  END_OF_COMBAT_PHASE,
+  END_OF_HERO_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -15,40 +16,68 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
-  START_OF_TURN,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
-import rule_sources from './rule_sources'
 import Spells from './spells'
 
 const InfuseWithBestialVigorEffect = {
   name: `Infuse with Bestial Vigour`,
-  desc: `At the start of your movement phase, add 3" to the Move characteristic of models in friendly BRAYHERD units wholly within 12" of any friendly GREAT BRAY-SHAMANS until the end of that phase.`,
-  when: [START_OF_MOVEMENT_PHASE],
-  shared: true,
-}
-const BloodgreedEffect = {
-  name: `Bloodgreed`,
-  desc: `Each unmodified wound roll of 6 for attacks made by this unit inflicts 1 mortal wound on the target in addition to any normal damage.`,
-  when: [COMBAT_PHASE],
-  shared: true,
-}
-const BannerBearerEffect = {
-  name: `Banner Bearer`,
-  desc: `A unit that includes any Banner Bearers can move an extra 1" when it runs or piles in.`,
-  when: [COMBAT_PHASE, MOVEMENT_PHASE],
+  desc: `Add 6" to the range of heroic actions from the Rituals of Ruin battle trait that you carry out with this unit.`,
+  when: [START_OF_HERO_PHASE],
   shared: true,
 }
 const BrayhornEffect = {
   name: `Brayhorn`,
-  desc: `A unit that includes any Brayhorns can run and still charge later in the same turn.`,
+  desc: `A unit that includes any Brayhorns can add 1 to run and charge rolls.`,
   when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  shared: true,
+}
+const BrayStandardBearerEffect = {
+  name: `Standard Bearer`,
+  desc: `1 in every 10 models in this unit can be a Banner Bearer. If this unit receives the Rally command while it includes any Banner Bearers, when you roll a dice for a slain model from this unit, you can return 1 slain model to this unit on a 5+ instead of only a 6.`,
+  when: [START_OF_HERO_PHASE],
+  shared: true,
+}
+const ChampionEffect = {
+  name: `Champion`,
+  desc: `1 model in this unit can be a Champion. Add 1 to the attacks characteristic of melee weapons for the champion.`,
+  when: [COMBAT_PHASE],
   shared: true,
 }
 const DespoilersEffect = {
   name: `Despoilers`,
-  desc: `Add 1 to hit rolls for attacks made by this unit that target enemy units with 10 or more models. In addition, you can reroll hit rolls of 1 for attacks by this unit that target ORDER units.`,
+  desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while it is within 3" of any enemy units that received the All-out Defence command in the same phase.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const BloodgreedEffect = {
+  name: `Bloodgreed`,
+  desc: `Each unmodified hit roll for an attack made with a melee weapon by this unit is 6, that attack causes a number of mortal wounds to the target equal to the weapon's Damage characteristic and the attack sequence ends (do not make a wound roll or save roll).`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const BeneathTheTempestEffect = {
+  name: `Beneath the Tempest`,
+  desc: `At the end of the combat phase, roll a dice for this unit. On a 2+, you can heal up to D3 wounds allocated to this unit. In addition, at the end of the combat phase, roll a dice for each enemy unit within 3" of any friendly units with this ability. On a 2+, that unit suffers D3 mortal wounds.`,
+  when: [END_OF_COMBAT_PHASE],
+  shared: true,
+}
+const TzaangorChampionEffect = {
+  name: `Champion`,
+  desc: `1 model in this unit can be an Aviarch. Add 1 to the Attacks characteristic of that model's Tzeentchian Spear.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const BabblingStreamOfSecretsEffect = {
+  name: `Babbling Stream of Secrets`,
+  desc: `In the combat phase, enemy units within 3" of any friendly units with this ability cannot receive commands.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const GuidedByThePastEffect = {
+  name: `Guided by the Past`,
+  desc: `You can add 1 to wound rolls for attacks made with melee weapons by friendly units with this ability if you are taking the second turn in the current battleround. This ability does not affect attacks made by a mount.`,
   when: [COMBAT_PHASE],
   shared: true,
 }
@@ -57,28 +86,19 @@ const Units = {
   Beastlord: {
     effects: [
       {
+        name: `Dual Axes`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon by this unit is 6, that attack causes a number of mortal wounds to the target equal to the weapon's Damage characteristic and the attack sequence ends (do not make a  wound roll or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
         name: `Call of Battle`,
-        desc: `This model can run and charge in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
-      },
-      {
-        name: `Grisly Trophy`,
-        desc: `If any enemy models are slain by this hero's attacks, you can add 1 to wound rolls for friendly Brayherd units wholly within 18" of this model until the end of the phase. A unit cannot benefit from this more than once per phase.`,
+        desc: `In the combat phase, when you pick this unit to fight for the first time in that phase, you can pick 1 other friendly BRAYHERD unit that is not a HERO, that is wholly within 12" of this unit and that has not yet fought in that phase. This unit and that other BRAYHERD unit can fight one after the other in the order of your choice.`,
         when: [COMBAT_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
-      },
-      {
-        name: `Grisly Trophy`,
-        desc: `If any enemy HEROES or MONSTERS are slain by this hero's attacks, you can add 1 to hit rolls for friendly Brayherd units wholly within 18" of this model until the end of the phase. A unit cannot benefit from this more than once per phase.`,
-        when: [COMBAT_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
       {
         name: `Hatred of Heroes`,
-        desc: `Unmodified hit rolls of 6 made with Paired Man-ripper Axes score 2 hits instead of 1.`,
+        desc: `If this unit is within 3" of any enemy HEROES, add 1 to hit rolls and wound rolls for attacks made with melee weapons by friendly BEASTS OF CHAOS units while they are wholly within 12" of this unit.`,
         when: [COMBAT_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -86,78 +106,67 @@ const Units = {
     mandatory: {
       spells: [keyPicker(Spells, ['Devolve'])],
     },
-    effects: [
-      InfuseWithBestialVigorEffect,
-      {
-        name: `Magic`,
-        desc: `Great Bray-Shaman is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Devolve spells.`,
-        when: [HERO_PHASE],
-      },
-    ],
+    effects: [GenericEffects.WizardOneSpellEffect, InfuseWithBestialVigorEffect],
   },
   Gors: {
     effects: [
       BrayhornEffect,
-      BannerBearerEffect,
+      BrayStandardBearerEffect,
+      ChampionEffect,
       {
-        name: `Rend and Tear`,
-        desc: `You can reroll hit rolls of 1 for attacks made with a pair of Gor Blades.`,
-        when: [COMBAT_PHASE],
+        name: `Gor Stampede`,
+        desc: `At the end of your charge phase, if this unit made a charge move in the same turn, you can pick 1 enemy unit within 1" of this unit that has fewer models than this unit and roll a dice. On a 3+, the strike-last effect applies to that enemy unit in the following combat phase.`,
+        when: [CHARGE_PHASE],
       },
       {
-        name: `Beastshield`,
-        desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Beastshields.`,
+        name: `Shield`,
+        desc: `If this unit is armed with Hacking Blades and Beastshields, it has a Save characteristic of 4+ instead of 5+.`,
         when: [SAVES_PHASE],
-      },
-      {
-        name: `Anarchy and Mayhem`,
-        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while it has 20 or more models.`,
-        when: [COMBAT_PHASE],
       },
     ],
   },
   Ungors: {
     effects: [
       BrayhornEffect,
-      BannerBearerEffect,
+      BrayStandardBearerEffect,
+      ChampionEffect,
       {
-        name: `Baying Hatred`,
-        desc: `You can reroll hit rolls of 1 for attacks made by this unit while it has 20 or more models, or reroll hit rolls of 1 and 2 for attacks made by this unit while it has 30 or more models.`,
+        name: `Fleet of Hoof`,
+        desc: `In the combat phase, when you pick this unit to fight, you can say that it will evade the enemy. If you do so, this unit retreats instead of fighting.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Half-shields`,
-        desc: `Add 1 to save rolls for attacks made with melee weapons that target this unit.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
-  'Ungor Raiders': {
-    effects: [
-      BrayhornEffect,
-      BannerBearerEffect,
-      {
-        name: `Vile Invaders`,
-        desc: `After armies are set up, but before the first battle round begins, this unit can move up to 6".`,
-        when: [END_OF_SETUP],
-      },
-      {
-        name: `Baying Anger`,
-        desc: `Add 1 to wound rolls for shooting attacks made by this unit while it has 10 or more models.`,
-        when: [SHOOTING_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_AUGUST_2021],
       },
     ],
   },
   Bestigors: {
     effects: [
       BrayhornEffect,
-      BannerBearerEffect,
+      BrayStandardBearerEffect,
+      ChampionEffect,
       DespoilersEffect,
       {
         name: `Bestial Charge`,
-        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons in a turn in which it made a charge move.`,
-        when: [COMBAT_PHASE],
+        desc: `Subtract 1 from wound rolls for attacks that target this unit if the attack was made with a missile weapon by an enemy unit that received the Unleash Hell command in the same phase.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  'Ungor Raiders': {
+    effects: [
+      BrayStandardBearerEffect,
+      {
+        name: `Vile Invaders`,
+        desc: `After armies are set up, but before the first battle round begins, this unit can move up to 6".`,
+        when: [END_OF_SETUP],
+      },
+      {
+        name: `Musician`,
+        desc: `1 in every 10 models in this unit can be a Brayhorn Blower. This unit can run and still shoot later in the turn if it includes any Brayhorn Blowers.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
+      },
+      {
+        name: `Hidden Volley`,
+        desc: `Once per battle, at the start of your movement phase, if this unit is in reserve, you can pick a point on the battlefield edge and say that this unit will unleash a hidden volley. If you do so, this unit can shoot in that phase, but it must target the closest enemy unit to that point. If more than 1 enemy unit is tied to be the closest, you can pick which unit is the target.`,
+        when: [START_OF_MOVEMENT_PHASE],
       },
     ],
   },
@@ -165,48 +174,93 @@ const Units = {
     effects: [
       {
         name: `Tuskgor Charge`,
-        desc: `You can reroll charge rolls for this unit. In addition, add 1 to the Attacks characteristic of this unit's melee weapons in a turn in which it made a charge move.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
+        desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a number of dice equal to the unmodified charge roll for that charge move. Add 1 to each roll if that enemy unit has a Wounds characteristic of 1 or 2. For each 5+, that unit suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
       },
-      DespoilersEffect,
+      {
+        name: `CHAMPION`,
+        desc: `If this unit has 2 or more models, 1 model in this unit can be a Charioteer Alpha. Add 1 to the Attacks characteristic of that model's melee weapons.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  Centigors: {
+    effects: [
+      BrayhornEffect,
+      ChampionEffect,
+      {
+        name: `Standard Bearer`,
+        desc: `1 in every 5 models in this unit can be a Banner Bearer. This unit can retreat and still charge later in the turn if it includes any Banner Bearers.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Unruly Hooligans`,
+        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while it is wholly within 9" of any objectives that you do not control.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Drunken Revelry`,
+        desc: `The first 2 wounds or mortal wounds caused to this unit in the combat phase are negated. In addition, if a model in this unit would flee as a result of a failed battleshock test, you can roll a dice. On a 2+, that model does not flee.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Drunken Revelry`,
+        desc: `If a model in this unit would flee as a result of a failed battleshock test, you can roll a dice. On a 2+, that model does not flee.`,
+        when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  Razorgors: {
+    effects: [
+      {
+        name: `Baited Charge`,
+        desc: `If this unit is within 3" of any friendly UNGORS units at the end of your charge phase, and this unit made a charge move in the same turn, double the Attacks characteristic of this unit's melee weapons until the end of that turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Feed on Mangled Remains`,
+        desc: `At the end of each phase, you can heal 1 wound allocated to this unit if it is within 6" of any enemy units that have had any models slain in that phase.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  'Slaangor Fiendbloods': {
+    effects: [
+      ChampionEffect,
+      {
+        name: `Slaughter at Any Cost`,
+        desc: `At the end of any phase, if any wounds or mortal wounds were allocated to this unit in that phase, and this unit is more than 9" from all enemy units, this unit can move up to D6".`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Obsessive Violence`,
+        desc: `Once per battle, in the combat phase, after this unit has fought for the first time in that phase, you can say that it will continue its obsessive onslaught. If you do so, this unit can fight for a second time in that phase. The strike- last effect applies to this unit when it fights for that second time.`,
+        when: [COMBAT_PHASE],
+      },
     ],
   },
   Doombull: {
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ["Slaughterer's Call"])],
     },
-    effects: [BloodgreedEffect],
-  },
-  Cygor: {
     effects: [
+      BloodgreedEffect,
       {
-        name: `Soul-eater`,
-        desc: `This model can attempt to unbind 2 spells in the enemy hero phase in the same manner as a WIZARD. In addition, each time it unbinds a spell, the caster suffers 1 mortal wound and you can heal 1 wound allocated to this model.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Ghostsight`,
-        desc: `You can reroll failed hit rolls for attacks made by this model that target a WIZARD.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  Ghorgon: {
-    effects: [
-      {
-        name: `Ravenous Bloodgreed`,
-        desc: `Each unmodified wound roll of 6 for attacks made by this model inflicts D3 mortal wounds on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Swallow Whole`,
-        desc: `Each time this model attacks, you can pick an enemy model within 1" of this model after all of this model's attacks have been resolved and roll a D6. If the roll is equal to or greater than that enemy model's Wounds characteristic, it is slain.`,
-        when: [COMBAT_PHASE],
+        name: `Alpha Charge`,
+        desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 2+, that unit suffers D3 mortal wounds at the end of that phase.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
   Bullgors: {
     effects: [
+      ChampionEffect,
+      BloodgreedEffect,
+      {
+        name: `Warherd Charge`,
+        desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 2+, that unit suffers 1 mortal wound at the end of that phase.`,
+        when: [CHARGE_PHASE],
+      },
       {
         name: `Warherd Drummer`,
         desc: `Add 1 to charge rolls for a unit that includes any Warherd Drummers.`,
@@ -214,10 +268,9 @@ const Units = {
       },
       {
         name: `Warherd Banner Bearer`,
-        desc: `Add 1 to the Bravery characteristic of a unit that includes any Warherd Banner Bearers for each enemy unit within 12" of that unit.`,
-        when: [BATTLESHOCK_PHASE],
+        desc: `1 in every 3 models in this unit can be a Warherd Banner Bearer. if it includes any Warherd Banner Bearers, you can reroll the dice that determines whether an enemy unit suffers 1 mortal wound from the Warherd Charge.`,
+        when: [CHARGE_PHASE],
       },
-      BloodgreedEffect,
       {
         name: `Dual Axes`,
         desc: `You can reroll hit rolls of 1 for attacks made with a pair of Bullgor Axes.`,
@@ -225,29 +278,42 @@ const Units = {
       },
       {
         name: `Bullshields`,
-        desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Bullshields.`,
+        desc: `If this unit is armed with Cleaving Axes and Bullshields, it has a Save characteristic of 4+ instead of 5+.`,
         when: [SAVES_PHASE],
       },
     ],
   },
-  Centigors: {
+  Ghorgon: {
     effects: [
-      BrayhornEffect,
-      BannerBearerEffect,
       {
-        name: `Beastbucklers`,
-        desc: `Add 1 to save rolls for attacks made with melee weapons that target a unit with Beastbucklers.`,
-        when: [SAVES_PHASE],
+        name: `Feast on Flesh`,
+        desc: `You can carry out this monstrous rampage instead of any others with this unit. Improve the Rend characteristic of this unit's melee weapons by 1 until the end of the following combat phase. In addition, until the end of the following combat phase, if any enemy models are slain by attacks made by this unit, you can heal up to 3 wounds allocated to this unit after all of its attacks have been resolved.`,
+        when: [END_OF_CHARGE_PHASE],
       },
       {
-        name: `Charging Spear`,
-        desc: `You can reroll failed wound rolls for attacks made with this unit's Centigor Spears if it made a charge move in the same turn.`,
+        name: `Feast on Flesh`,
+        desc: `If active, Improve the Rend characteristic of this unit's melee weapons by 1 until the end of the following combat phase. In addition, until the end of the following combat phase, if any enemy models are slain by attacks made by this unit, you can heal up to 3 wounds allocated to this unit after all of its attacks have been resolved.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Drunken Revelry`,
-        desc: `At the start of your hero phase, you can say that this unit is drinking wildly. If you do so, until your next hero phase, add 1 to hit rolls for attacks made by this unit and attacks that target this unit.`,
-        when: [START_OF_HERO_PHASE],
+        name: `Swallow Whole`,
+        desc: `After this unit makes a pile-in move, you can pick a number of enemy models within 3" of this unit equal to or less than the Swallow Whole value shown on this unit's damage table, and roll a dice for each. If the roll is greater than that model's Wounds characteristic, it is slain. If an enemy model is slain by this ability, you can heal a number of wounds allocated to this unit equal to the Wounds characteristic of that slain model.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  Cygor: {
+    effects: [
+      {
+        name: `Soul-eater`,
+        desc: `This unit can attempt to unbind 2 spells in the enemy hero phase in the same manner as a WIZARD. 
+        In addition, each time an enemy WIZARD within 30" of any friendly units with this ability successfully casts a spell and that spell is not unbound, the caster suffers 1 mortal wound after the effect of that spell has been resolved.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Consume Endless Spell`,
+        desc: `You can carry out this monstrous rampage instead of any others with this unit. Pick 1 endless spell within 6" of this unit and roll 2D6. If the roll is greater than the casting value of the endless spell, that endiess spell is dispelled and you can heal a number of wounds allocated to this unit equal to the 2D6 roll.`,
+        when: [END_OF_CHARGE_PHASE],
       },
     ],
   },
@@ -256,34 +322,46 @@ const Units = {
       spells: [keyPicker(Spells, ['Summon Lightning'])],
     },
     effects: [
+      GenericEffects.WizardOneSpellEffect,
+      BeneathTheTempestEffect,
       {
-        name: `Beneath the Tempest`,
-        desc: `If the roll-off at the start of a battle round to determine who takes the first turn is a tie, roll a D6 for each THUNDERSCORN unit on the battlefield. On a 4+ heal D3 wounds allocated to that unit.`,
-        when: [START_OF_TURN],
-      },
-      {
-        name: `Magic`,
-        desc: `Dragon Ogor Shaggoth is a WIZARD. It can attempt to cast one spell in your hero phase, and attempt to unbind one spell in the enemy hero phase. It knows the Arcane Bolt, Mystic Shield and Summon Lightning spells.`,
-        when: [HERO_PHASE],
+        name: `Scion of the Primordial Storm`,
+        desc: `Each time this unit is affected by a spell or the abilities of an endless spell, you can roll a dice. On a 4+, ignore the effect of that spell or the effects of that endless spell's abilities on this unit.`,
+        when: [HERO_PHASE, END_OF_HERO_PHASE],
       },
     ],
   },
   'Dragon Ogors': {
     effects: [
+      GenericEffects.Elite,
+      BeneathTheTempestEffect,
       {
         name: `Storm Rage`,
-        desc: `You can reroll hit rolls of 1 for this unit while it is wholly within 12" of a friendly DRAGON OGOR SHAGGOTH.`,
+        desc: `If this unit made a charge move in the same turn, if the unmodified hit roll for an attack made by this unit is 6, that attack wounds the target automatically (do not make a wound roll).`,
         when: [COMBAT_PHASE],
       },
-      GenericEffects.Elite,
     ],
   },
   'Chaos Warhounds': {
     effects: [
       {
         name: `Outrunners of Chaos`,
-        desc: `In your movement phase, if you declare that this unit will run, do not make a run roll. Instead, add 6" to the Move characteristic of all models in this unit for that phase.`,
-        when: [MOVEMENT_PHASE],
+        desc: `When you make a charge roll for this unit, you can change 1 of the dice in that roll to a 4.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  'Chaos Spawn': {
+    effects: [
+      {
+        name: `Writhing Tentacles`,
+        desc: `If you roll a double when determining the number of attacks, add 1 to hit rolls and wound rolls for attacks made by this unit until the end of that phase.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Propagator of Devolution`,
+        desc: `This unit can run and still charge later in the turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
@@ -291,21 +369,18 @@ const Units = {
     effects: [
       {
         name: `Aura of Madness`,
-        desc: `Subtract 1 from casting, dispelling, and unbinding rolls for enemy wizards within 6" any units in your army with this ability.`,
-        when: [HERO_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        desc: `You can carry out this monstrous rampage instead of any others with this unit. Pick 1 enemy HERO within 3" of this unit and roll a dice. On a 2-5, worsen the Save characteristic of that HERO by 1 (to a minimum of 6+) until the end of the following combat phase. On a 6, worsen the Save characteristic of that HERO by 2 (to a minimum of 6t) until the end of the following combat phase.`,
+        when: [END_OF_CHARGE_PHASE],
       },
       {
         name: `Aura of Madness`,
-        desc: `Each time an enemy unit within 3" of any unit in your army with this ability is chosen to fight, roll 3D6. If the roll is greater than the target's bravery characteristic, the unit is derranged. Add 1 to the target's melee attacks characteristic. Each unmodified hit roll of 1 made by that unit causes it to suffer 1 mortal wound after all it's attacks.`,
-        when: [COMBAT_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        desc: `If active, subtract 1 or 2 for saves for the picked enemy hero.`,
+        when: [SAVES_PHASE],
       },
       {
         name: `Spurting Bile Blood`,
-        desc: `Roll a D6 each time a melee wound was inflicted on this model and not negated. On a 4+ the attacker suffers 1 mortal wound.`,
+        desc: `Roll a dice each time a melee wound is allocated to this unit. On a 4+ the attacker suffers 1 mortal wound.`,
         when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
       },
     ],
   },
@@ -313,12 +388,18 @@ const Units = {
     effects: [
       {
         name: `Petrifying Gaze`,
-        desc: `Do not use the attack sequence for an attack made with a Cockatrice's Petrifying Gaze. Instead, roll a D6. On a 4+ the target suffers D6 mortal wounds.`,
-        when: [SHOOTING_PHASE],
+        desc: `At the start of the combat phase, you can pick 1 enemy unit within 6" of this unit and roll a dice. On a 4+, that unit suffers D3 mortal wounds.
+        In addition, if any mortal wounds caused by this ability are allocated to a unit, until the end of that phase, only unmodified hit rolls of 6 for attacks made with melee weapons by that unit score a hit. The same unit cannot be affected by this ability more than once per phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Petrifying Gaze`,
+        desc: `If active, only unmodified hit rolls of 6 for attacks made with melee weapons by that unit score a hit for the enemy unit.`,
+        when: [COMBAT_PHASE],
       },
       {
         name: `Maddened Ferocity`,
-        desc: `A Cockatrice has an Attacks characteristic of 8 instead of 4 with its Sword-like Talons if it made a charge move in the same turn.`,
+        desc: `Double the Attacks characteristic of this unit's melee weapons if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -326,65 +407,19 @@ const Units = {
   Chimera: {
     effects: [
       {
-        name: `Draconic Head's Fiery Breath`,
-        desc: `Do not use the attack sequence for an attack made with a Chimera's Fiery Breath. Instead the target suffers the number of mortal wounds shown on the Damage table above.`,
+        name: `Thricefold Savagery`,
+        desc: `You can carry out this monstrous rampage instead of any others with this unit. Until the end of the following combat phase, add 1 to the Attacks characteristic of this unit's melee weapons, but all of the attacks made with this unit's melee weapons must target the same enemy unit.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Thricefold Savagery`,
+        desc: `If active, Add 1 to the Attacks characteristic of this unit's melee weapons, but all of the attacks made with this unit's melee weapons must target the same enemy unit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Fiery Breath`,
+        desc: `Do not use the attack sequence for an attack made with Fiery Breath. Instead the target suffers D3 mortal wounds.`,
         when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Vicious Charge`,
-        desc: `Add 2 to charge rolls for this model.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  'Chaos Gargant': {
-    effects: [
-      ...GenericEffects.Gargant,
-      {
-        name: `Stuff 'Em In Me Bag`,
-        desc: `After this model piles in, you can pick an enemy model within 3" of this model and roll a D6. If the roll is equal to or greater than double that enemy model's Wounds characteristic, it is slain.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Drunken Stagger`,
-        desc: `If a charge roll for this model is a double, this model cannot make a charge move that phase. In addition, the players must roll off. The player who wins the roll-off picks a point on the battlefield 3" from this model. Each unit within 2" of that point suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
-      },
-      {
-        name: `Whipped into a Frenzy`,
-        desc: `At the start of the combat phase, if this model is within 3" of any friendly BEASTS OF CHAOS HEROES, you can whip it into a frenzy. If you do so, this model suffers 1 mortal wound, but you can add 1 to the Attacks characteristic of this model's melee weapons until the end of that phase.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  Razorgors: {
-    effects: [
-      {
-        name: `Uncontrollable Stampede`,
-        desc: `You can reroll charge rolls for this unit. In addition, if this unit made a charge move in the same turn, an unmodified hit roll of 6 for an attack made by this unit inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  'Tzaangor Skyfires': {
-    effects: [
-      {
-        name: `Champion`,
-        desc: `The leader of this unit is an Aviarch. Add 1 to the Attacks characteristic of that model's Arrow of Fate.`,
-        when: [SHOOTING_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
-      },
-      {
-        name: `Guided by the Future`,
-        desc: `Ignore negative modifiers to hit rolls or wound rolls for attacks made with missile weapons by this unit, and ignore positive modifiers to save rolls for attacks made with missile weapons by this unit.`,
-        when: [SHOOTING_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
-      },
-      {
-        name: `Judgement from Afar`,
-        desc: `If the unmodified hit roll for an attack made with an Arrow of Fate is 6, the target suffers D3 mortal wounds and the attack sequence ends (do not make a wound roll or save roll).`,
-        when: [SHOOTING_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
       },
     ],
   },
@@ -398,60 +433,95 @@ const Units = {
         name: `Sorcerous Elixir`,
         desc: `Once per battle, in your hero phase, this unit can attempt to cast 1 extra spell. If it does so, you can add 3 to the casting roll for that spell.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
+      },
+    ],
+  },
+  'Tzaangor Skyfires': {
+    effects: [
+      ChampionEffect,
+      {
+        name: `Guided by the Future`,
+        desc: `Ignore negative modifiers to hit or wound rolls for attacks made with missle weapons by this unit, and ignore positive modifiers to save rolls for attacks made with missle weapons by this unit.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Judgement from Afar`,
+        desc: `If the unmodified hit roll for an attack made with an Arrow of Fate is 6, the target suffers D3 mortal wounds and the attack sequence ends (do not make a wound roll or save roll).`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
   'Tzaangor Enlightened': {
-    effects: [
-      TzaangorChampionEffect,
-      BabblingStreamOfSecretsEffect,
-      {
-        name: `Guided by the Past`,
-        desc: `You can add 1 to wound rolls for attacks made with melee weapons by friendly units with this ability if you are taking the second turn in the current battle round. This ability does not affect attacks made by a mount.`,
-        when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
-      },
-    ],
+    effects: [TzaangorChampionEffect, BabblingStreamOfSecretsEffect, GuidedByThePastEffect],
+  },
+  'Tzaangor Enlightened on Discs of Tzeentch': {
+    effects: [TzaangorChampionEffect, BabblingStreamOfSecretsEffect, GuidedByThePastEffect],
   },
   Tzaangors: {
     effects: [
       {
         name: `Champion`,
-        desc: `1 model in this unit can be a Twistbray. Add 1 to the Attacks characteristic of that model's melee weapons.`,
+        desc: `1 model in this unit can be an Twistbray. Add 1 to the Attacks characteristic of that model's melee weapons.`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
       },
       {
         name: `Standard Bearer`,
         desc: `1 in every 10 models in this unit can be an Icon Bearer. While this unit includes any Icon Bearers, it can use the Ornate Totems ability.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
       },
       {
         name: `Musician`,
         desc: `1 in every 10 models in this unit can be a Brayhorn Blower. While this unit includes any Brayhorn Blowers, it can run and still charge later in the turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
       },
       {
         name: `Tzaangor Mutant`,
         desc: `1 in every 5 models in this unit can be a Tzaangor Mutant armed with a pair of Savage Blades and Vicious Beak. Add 1 to the Attacks characteristic of that model's pair of Savage Blades.`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
       },
-      GenericEffects.ArcaniteShieldEffect,
       {
         name: `Savagery Unleashed`,
         desc: `Add 1 to the Attacks characteristic of this unit's Vicious Beaks if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
       },
       {
-        name: `Ornate Totems`,
-        desc: `While this unit includes any Icon Bearers, at the start of your hero phase, you can pick 1 enemy unit within 18" of this unit that is visible to it and roll 1 dice for each Wizard that is within 9" of this unit. For each 4+, the unit you picked suffers 1 mortal wound.`,
+        name: `Ornate Totem`,
+        desc: `While this unit includes any Icon Bearers, at the start of your hero phase, you can pick 1 enemy unit within 18" of this unit and roll a dice for each Wizard that is within 9" of this unit. For each 4+, the unit you picked suffers 1 mortal wound.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_BEASTS_OF_CHAOS, rule_sources.ERRATA_OCTOBER_2022],
+      },
+    ],
+  },
+  'Morghurite Chaos Spawn': {
+    effects: [
+      {
+        name: `Aura of Insanity`,
+        desc: `Subtract 1 from the Attacks characteristic of weapons used by enemy units while they are within 1" of this unit (to a minimum of 1).`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Propagator of Devolution`,
+        desc: `This unit can run and still charge later in the turn.`,
+        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+    ],
+  },
+  'Chaos Gargant': {
+    effects: [
+      ...GenericEffects.Gargant,
+      {
+        name: `Stuff 'Em In Me Bag`,
+        desc: `After this unit makes a pile-in move, pick 1 enemy model within 3" of it and roll a dice. If the roll is at least double that model's Wounds characteristic, it is slain.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Aura of Foulness`,
+        desc: `Subtract 1 from save rolls for enemy units within 3" of any friendly units with this ability.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Whipped into a Frenzy`,
+        desc: `If this unit is within 6" of any friendly BEASTS OF CHAOS HEROES, add 1 to the Attacks characteristic of this unit's melee weapons until the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -459,19 +529,19 @@ const Units = {
     mandatory: {
       spells: [keyPicker(Spells, ['Savage Bolt'])],
     },
-    effects: [InfuseWithBestialVigorEffect],
+    effects: [InfuseWithBestialVigorEffect, GenericEffects.WizardOneSpellEffect],
   },
   "Grashrak's Despoilers": {
     effects: [
       {
         name: `Violent Despoilers`,
-        desc: `Add 1 to hit rolls for attacks made by the Despoilers' unit while it is wholly within enemy territory.`,
+        desc: `Add 1 to hit rolls for attacks made by the Despoilers' unit while it is wholly outside your territory.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
       },
       {
         name: `Grashrak's Savage Herd`,
-        desc: `Roll a D6 for each wound or mortal wound Grashrak suffers while he is within 3" of Grashrak's Despoilers. On a 4+ the Despoilers take that wound or mortal wound instead.`,
-        when: [DURING_GAME],
+        desc: `Before you allocate a wound or mortal wound to a friendly GRASHRAK FELLHOOF within 3" of this unit, or instead of making a ward roll for a wound or mortal wound that would be allocated to a friendly GRASHRAK FELLHOOF within 3" of this unit, roll a dice. On a 4+, that wound or mortal wound must be allocated to this unit instead of GRASHRAK FELLHOOF.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },

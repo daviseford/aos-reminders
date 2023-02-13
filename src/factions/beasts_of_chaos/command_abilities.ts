@@ -7,11 +7,12 @@ const CommandAbilities = {
     effects: [
       {
         name: `Slaughterer's Call`,
-        desc: `You can use this command ability at the start of the combat phase. If you do so, pick a friendly WARHERD unit wholly within 12" of a friendly model with this command ability. Add 1 to wound rolls for attacks made by that unit until the end of that phase.`,
+        desc: `You can use this command ability at the start of the combat phase. This unit must issue the command and the unit that receives the command must be a friendly WARHERD unit within 12" of an enemy unit and more than 3" from all enemy units. If you do so, you must attempt a charge with that unit.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
+
   // Allherd Greatfray
   'Booming Roar': {
     effects: [
