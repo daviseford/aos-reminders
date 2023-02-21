@@ -19,6 +19,18 @@ const BattleTraits = {
   'Thrilling Compulsions': {
     effects: [
       {
+        name: `Revel in Pain`,
+        desc: `During battle, a Hedonites of Slaanesh army gains the following abilities based on their current number of unspent depravity points (DP). These abilities are cumulative:
+        
+              6+ DP: If a friendly HEDONITES OF SLAANESH unit receives the Rally command (core rules, 7.2), you can return 1 slain model to the unit for each 5+ instead of each 6.
+
+              12+ DP: Add 2" to the Move characteristic of friendly HEDONITES OF SLAANESH units.
+
+              18+ DP: Friendly HEDONITES OF SLAANESH units have a ward of 5+.`,
+        when: [DURING_GAME],
+        rule_sources: [rule_sources.WHITE_DWARF_MAY_2022],
+      },
+      {
         name: `Feast of Depravities`,
         desc: `Keep track of all units that have have taken non-negated wounds or lost models this turn.`,
         when: [WOUND_ALLOCATION_PHASE],
