@@ -48,68 +48,59 @@ const BattleTraits = {
         desc: `Add 1 to save rolls for attacks that target GLOOMSPITE GITZ TROGGOTH units while they are affected by the Light of the Bad Moon.`,
         when: [SAVES_PHASE],
       },
-    ],
-  },
 
-  'Battle Tactics': {
-    effects: [
+      // Battle Tactics
       {
-        name: `Follow da Moon`,
+        name: `Battle Tactic - Follow da Moon`,
         desc: `You cannot pick this tactic in the first battle round. You complete this tactic if at the end of this turn every friendly GLOOMSPITE GITZ unit on the battlefield is affected by the Light of the Bad Moon and you control more objectives than your opponent.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Glory Grabbers`,
+        name: `Battle Tactic - Glory Grabbers`,
         desc: `Pick 1 objective controlled by your opponent. You complete this tactic if at the end of this turn you control that objective and a friendly GLOOMSPITE GITZ unit that was added to your army as a replacement unit using the Bad Moon Loonshrine's Moonclan Lairs ability is contesting it.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Venomous Assault`,
+        name: `Battle Tactic - Venomous Assault`,
         desc: `You complete this tactic if at least 8 mortal wounds were caused by the Spider Venom ability of friendly SPIDERFANG units during this turn and not negated.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Stab 'Em in the Dark`,
+        name: `Battle Tactic - Stab 'Em in the Dark`,
         desc: `Pick 1 enemy unit on the battlefield. You complete this tactic if that unit was destroyed by an attack made by a friendly GLOOMSPITE GITZ unit during this turn while it was not affected by the Light of the Bad Moon.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Moonlight Raid`,
+        name: `Battle Tactic - Moonlight Raid`,
         desc: `Pick 1 objective controlled by your opponent. You complete this tactic if at the end of this turn you control that objective and every friendly GLOOMSPITE GITZ unit that is contesting it is affected by the Light of the Bad Moon.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `You Ain't So Big`,
+        name: `Battle Tactic - You Ain't So Big`,
         desc: `Pick 1 enemy MONSTER on the battlefield. You complete this tactic if that MONSTER was slain by an attack made by a friendly GLOOMSPITE GITZ TROGGOTH unit during this turn.`,
         when: [START_OF_HERO_PHASE],
       },
-    ],
-  },
 
-  'Monstrous Rampage': {
-    effects: [
+      // Monstrous Rampages
       {
-        name: `Ensnaring Webbing`,
+        name: `Monstrous Rampage - Ensnaring Webbing`,
         desc: `Only an ARACHNAROK unit can carry out this monstrous rampage. Pick 1 enemy HERO within 3" of this ARACHNAROK unit that is not a MONSTER and roll a dice. If the score equals or exceeds that HERO's Wounds characteristic, that hero cannot fight in the following combat phase.`,
         when: [END_OF_CHARGE_PHASE],
       },
       {
-        name: `Giant Boing!`,
+        name: `Monstrous Rampage - Giant Boing!`,
         desc: `Only a MANGLER SQUIGS unit that has made a charge move this turn can carry out this monstrous rampage. This MANGLER SQUIGS unit can make a 3D6" move but it must finish that move within 3" of any enemy units.`,
         when: [END_OF_CHARGE_PHASE],
       },
-    ],
-  },
 
-  'Heroic Action': {
-    effects: [
+      // Heroic Actions
       {
-        name: `Beckon the Loonatic Hordes`,
+        name: `Heroic Action - Beckon the Loonatic Hordes`,
         desc: `Only a MOONCLAN HERO affected by the Light of the Bad Moon can carry out this heroic action. This HERO can immediately issue the Rally command up to 3 times without any command points being spent. Each unit that receives the command must be a different friendly MOONCLAN unit.`,
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Wade and Smash`,
+        name: `Heroic Action - Wade and Smash`,
         desc: `Only a DANKHOLD TROGGBOSS within 3" of any enemy units can carry out this heroic action. This DANKHOLD TROGGBOSS can make a 6" move but must finish the move within 3" of any enemy units. At the end of that move, roll a dice for each enemy unit within 1" of this DANKHOLD TROGGBOSS. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [START_OF_HERO_PHASE],
       },

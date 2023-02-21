@@ -14,12 +14,7 @@ import Units from './units'
 
 const subFactions = {
   [GLOOMSPITE_GITZ]: {
-    effects: pickEffects(BattleTraits, [
-      GLOOMSPITE_GITZ,
-      'Battle Tactics',
-      'Monstrous Rampage',
-      'Heroic Action',
-    ]),
+    effects: pickEffects(BattleTraits, [GLOOMSPITE_GITZ]),
 
     available: {
       artifacts: [Artifacts],
