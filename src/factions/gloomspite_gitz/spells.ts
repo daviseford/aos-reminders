@@ -2,16 +2,6 @@ import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 const Spells = {
-  // Lore of the Moonclan
-  // 'Vindictive Glare': {
-  //   effects: [
-  //     {
-  //       name: `Vindictive Glare`,
-  //       desc: `Casting value of 5. Pick 1 enemy unit within 12" of the caster and visible to them. That unit suffers D3 mortal wounds.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
   'Itchy Nuisance': {
     effects: [
       {
@@ -21,15 +11,6 @@ const Spells = {
       },
     ],
   },
-  // 'The Great Green Spite': {
-  //   effects: [
-  //     {
-  //       name: `The Great Green Spite`,
-  //       desc: `Casting value of 7. Pick 1 friendly GLOOMSPITE GITZ unit wholly within 18" of the caster, and an enemy unit within 24" of the caster and visible to them. The enemy unit suffers 1 mortal wound if the friendly unit has fewer than 10 models, D3 mortal wounds if the friendly unit has 10 to 20 models, and D6 mortal wounds if it has more than 20 models.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
   'The Hand of Gork': {
     effects: [
       {
@@ -48,35 +29,6 @@ const Spells = {
       },
     ],
   },
-  // 'Call da Moon': {
-  //   effects: [
-  //     {
-  //       name: `Call da Moon`,
-  //       desc: `Casting value of 8. Pick 1 enemy unit visible to the caster. That unit suffers D3 mortal wounds. If that unit is wholly affected by the Light of the Bad Moon, you can reroll the D3 that determines the number of mortal wounds.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // Lore of the Spiderfangs
-  // 'Deadly Webbing': {
-  //   effects: [
-  //     {
-  //       name: `Deadly Webbing`,
-  //       desc: `Casting value of 5. Pick 1 terrain feature within 24" of the caster that is visible to them. Until your next hero phase, that terrain feature has the Deadly and Sinister scenery rules in addition to any other scenery rules it already has (core rules, 28.1.3). SPIDERFANG units ignore the effects of this spell.`,
-  //       when: [HERO_PHASE],
-  //       rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_JULY_2021],
-  //     },
-  //   ],
-  // },
-  // 'Venomous Spiderlings': {
-  //   effects: [
-  //     {
-  //       name: `Venomous Spiderlings`,
-  //       desc: `Casting value of 6. Pick 1 enemy unit within 12" of the caster and visible to them and roll a number of dice equal to the number of models in that unit. For each 6+ that unit suffers 1 mortal wound.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
   'Scuttling Terrors': {
     effects: [
       {
@@ -104,15 +56,7 @@ const Spells = {
       },
     ],
   },
-  // 'Gift of da Spider God': {
-  //   effects: [
-  //     {
-  //       name: `Gift of da Spider God`,
-  //       desc: `Casting value of 8. Pick 1 friendly SPIDERFANG MONSTER within 12" of the caster that is visible to them. You can heal D6 wounds allocated to that unit.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
+
   // Unit spells
   'Nikkit! Nikkit!': {
     effects: [

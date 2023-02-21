@@ -2,11 +2,6 @@ import { COMBAT_PHASE, DURING_SETUP, END_OF_TURN, HERO_PHASE } from 'types/phase
 
 const Flavors = {
   'Jaws of Mork': {
-    mandatory: {
-      // artifacts: [keyPicker(Artifacts, ['Syari Screamersquig'])],
-      // command_abilities: [keyPicker(CommandAbilities, ["Get Some Loonshine Down 'Em!"])],
-      // command_traits: [keyPicker(CommandTraits, ['Envoy of the Overbounder'])],
-    },
     effects: [
       {
         name: `Crushing Gobs`,
@@ -17,11 +12,6 @@ const Flavors = {
   },
 
   "Glogg's Megamob": {
-    mandatory: {
-      // artifacts: [keyPicker(Artifacts, ['Aetherquartz-studded Hide'])],
-      // command_abilities: [keyPicker(CommandAbilities, ['Oblivious to Sorcery'])],
-      // command_traits: [keyPicker(CommandTraits, ['Shepherd of Idiotic Destruction'])],
-    },
     effects: [
       {
         name: `Monstrous Regeneration`,
@@ -32,11 +22,6 @@ const Flavors = {
   },
 
   Grimscuttle: {
-    mandatory: {
-      // artifacts: [keyPicker(Artifacts, ['Shyishan Spider-sigils'])],
-      // command_abilities: [keyPicker(CommandAbilities, ['Masters of Feigned Flight'])],
-      // command_traits: [keyPicker(CommandTraits, ['Prophet of da Spider God'])],
-    },
     effects: [
       {
         name: `Through the Cracks they Creep`,

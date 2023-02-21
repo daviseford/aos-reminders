@@ -391,51 +391,6 @@ const Units = {
       },
     ],
   },
-  // Scaremonger: {
-  //   effects: [
-  //     HallucinogenicFungusBrewsEffect,
-  //     SlipperyGitEffect,
-  //     {
-  //       name: `Bogeyman`,
-  //       desc: `You can make a Gobbapalooza Know-wotz roll for a Scaremonger. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT unit wholly within 18" of this model that is visible to them. You can reroll charge rolls and run rolls for that unit until your next hero phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // Brewgit: {
-  //   effects: [
-  //     HallucinogenicFungusBrewsEffect,
-  //     SlipperyGitEffect,
-  //     {
-  //       name: `Loonshine Potion`,
-  //       desc: `You can make a Gobbapalooza Know-wotz roll for a Brewgit. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT HERO within 18" of this model that is visible to them. You can reroll hit rolls for that HERO until your next hero phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // Spiker: {
-  //   effects: [
-  //     HallucinogenicFungusBrewsEffect,
-  //     SlipperyGitEffect,
-  //     {
-  //       name: `Poison Brewer`,
-  //       desc: `You can make a Gobbapalooza Know-wotz roll for a Spiker. If you do so, roll a D6. On a 3+ pick 1 friendly MOONCLAN GROT unit wholly within 18" of this model that is visible to them. You can reroll wound rolls of 1 for that unit until your next hero phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // Boggleye: {
-  //   mandatory: {
-  //     spells: [keyPicker(Spells, ['Mesmerise'])],
-  //   },
-  //   effects: [HallucinogenicFungusBrewsEffect, SlipperyGitEffect, GenericEffects.WizardOneSpellEffect],
-  // },
-  // Shroomancer: {
-  //   mandatory: {
-  //     spells: [keyPicker(Spells, ['Fungoid Cloud'])],
-  //   },
-  //   effects: [HallucinogenicFungusBrewsEffect, SlipperyGitEffect, GenericEffects.WizardOneSpellEffect],
-  // },
   'Sneaky Snufflers': {
     effects: [
       {
@@ -703,7 +658,6 @@ const Units = {
   },
   'Sourbreath Troggoths': {
     effects: [
-      // This Regeneration rule is not like the others, since it's a per-model basis
       {
         name: `Regeneration`,
         desc: `In your hero phase, you can roll a dice for this unit. If you do so, on a 4+, heal up to D3 wounds allocated to this unit.`,
@@ -749,26 +703,6 @@ const Units = {
       ...GenericEffects.Gargant,
     ],
   },
-  // 'Bonegrinder Gargant': {
-  //   effects: [
-  //     {
-  //       name: `I'll Bite Your Head Off!`,
-  //       desc: `At the start of the combat phase, you can pick 1 enemy model that has a Wounds characteristic of 4 or less and that is within 3" of this model, and roll a D6. On a 6, that model is slain.`,
-  //       when: [START_OF_COMBAT_PHASE],
-  //     },
-  //     {
-  //       name: `Jump Up and Down`,
-  //       desc: `At the end of the combat phase, you can pick 1 enemy unit within 1" of this model. If you do so, roll a D6. If the dice roll is equal to or less than the number of models in that unit, that unit suffers D6 mortal wounds.`,
-  //       when: [END_OF_COMBAT_PHASE],
-  //     },
-  //     {
-  //       name: `Longshanks`,
-  //       desc: `This model is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //     ...GenericEffects.Gargant,
-  //   ],
-  // },
   "Rippa's Snarlfangs": {
     effects: [
       {
@@ -809,7 +743,6 @@ const Units = {
       },
     ],
   },
-
   Gobbapalooza: {
     mandatory: {
       spells: [keyPicker(Spells, ['Mesmerise', 'Fungoid Cloud'])],
@@ -836,7 +769,6 @@ const Units = {
       },
     ],
   },
-
   'Grinkrak the Great': {
     effects: [
       DeadTricksyEffect,
