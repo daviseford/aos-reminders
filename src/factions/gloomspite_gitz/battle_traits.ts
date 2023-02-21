@@ -1,65 +1,117 @@
 import { tagAs } from 'factions/metatagger'
 import { GLOOMSPITE_GITZ } from 'meta/factions'
 import {
+  BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
-  HERO_PHASE,
+  END_OF_CHARGE_PHASE,
   SAVES_PHASE,
-  START_OF_CHARGE_PHASE,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
   TURN_ONE_START_OF_ROUND,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const BattleTraits = {
   [GLOOMSPITE_GITZ]: {
     effects: [
       {
         name: `The Bad Moon Setup`,
-        desc: `At the start of the first battle round, before determining who has the first turn, the player commanding the GLOOMSPITE GITZ army must pick one corner of the battlefield as the starting location of the Bad Moon. If both players have GLOOMSPITE GITZ armies, then they must roll off and the winner picks the starting location. The Bad Moon is located at the edge of the battlefield in that corner.`,
+        desc: `If any of the armies in a battle are Gloomspite Gitz armies, in the first battle round, after players have received their starting command points but before the start of the first turn, the player commanding the Gloomspite Gitz army picks 1 large quarter of the battlefield (core rules 28.2.8) as the Bad Moon's starting location. If more than 1 player in the battle is commanding a Gloomspite Gitz army, then those players roll off and the winner picks which large quarter is the Bad Moon's starting location.`,
         when: [TURN_ONE_START_OF_ROUND],
       },
       {
         name: `The Bad Moon Movement`,
-        desc: `Starting from the second battle round, before determining who has the first turn, the player commanding the GLOOMSPITE GITZ army must roll a D6. On a 1 the Bad Moon does not move. On a 2-5 it makes 1 move. On a 6 it makes 2 moves.`,
+        desc: `During the battle, the Bad Moon will move and its location will change. The Bad Moon starts in a large quarter of the battlefield. The first time it moves, it moves to the centre of the battlefield. Then it moves to the large quarter diagonally opposite the large quarter in which it started. Finally, it moves off the battlefield.
+
+        At the start of the second and each subsequent battle round, before the priority roll, the player commanding the Gloomspite Gitz army rolls a dice. If more than 1 player in the battle is commanding a Gloomspite Gitz army, then those players roll off and the winner rolls the dice. On a 1-3, the Bad Moon does not move and instead stays at its current location. On a 4+, it moves to the next location. When the Bad Moon moves off the battlefield, it has no further effect on the battle.
+        
+        The location of the Bad Moon determines which GLOOMSPITE GITZ units are affected by the Light of the Bad Moon. While the Bad Moon is located in a large quarter of the battlefield, all GLOOMSPITE GITZ units wholly within the same large quarter are affected. While it is located in the centre of the battlefield, all GLOOMSPITE GITZ units on the battlefield are affected.`,
         when: [START_OF_ROUND],
       },
       {
-        name: `Light of the Bad Moon - Fangz of the Bad Moon`,
-        desc: `If your army is a GLOOMSPITE GITZ army, at the start of your hero phase you can pick 1 enemy unit and roll a dice. If the roll is equal to or less than the number of models in that unit affected by the light of the Bad Moon, that unit suffers D3 mortal wounds.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Light of the Bad Moon - Bad Moon Magic`,
-        desc: `Add 1 to casting rolls for WIZARDS affected by the light of the Bad Moon if they have the GLOOMSPITE GITZ keyword, and subtract 1 from casting rolls for WIZARDS affected by the light of the Bad Moon that do not have the GLOOMSPITE GITZ keyword.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Light of the Bad Moon - Loonatic Inspiration`,
-        desc: `If your general has the GLOOMSPITE GITZ keyword and is affected by the light of the Bad Moon at the start of your hero phase, you receive 1 extra command point.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
         name: `Light of the Bad Moon - Lunar Squigs`,
-        desc: `If all of the models in a friendly SQUIG unit are affected by the light of the Bad Moon at the start of your charge phase, that unit can attempt to charge even if it ran in the same turn.`,
-        when: [START_OF_CHARGE_PHASE],
+        desc: `While GLOOMSPITE GITZ SQUIG units are affected by the Light of the Bad Moon they can attempt a charge even if they ran in the same turn.`,
+        when: [CHARGE_PHASE],
       },
       {
         name: `Light of the Bad Moon - Frothing Zealots`,
-        desc: `If a friendly MOONCLAN unit receives the Rally command while it is affected by the light of the Bad Moon, you can return 1 slain model to that unit for each 4+ instead of each 6.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_JULY_2022],
+        desc: `If a friendly MOONCLAN unit receives the rally command while it is affected by the Light of the Bad Moon, you can return 1 slain model to the unit that receives the command for each 4+ instead of each 6.`,
+        when: [BATTLESHOCK_PHASE],
       },
       {
         name: `Light of the Bad Moon - Spiderfang Venom`,
-        desc: `While a SPIDERFANG model is affected by the light of the Bad Moon, its Spider Venom ability causes mortal wounds on an unmodified hit roll of 5+ instead of 6.`,
+        desc: `While SPIDERFANG units are affected by the Light of the Bad Moon, their Spider Venom ability causes mortal wounds on an unmodified roll of 5+ instead of a 6.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Light of the Bad Moon - Moonlit Hide`,
-        desc: `Add 1 to save rolls for friendly GLOOMSPITE GITZ TROGGOTH units while they are affected by the light of the Bad Moon.`,
+        desc: `Add 1 to save rolls for attacks that target GLOOMSPITE GITZ TROGGOTH units while they are affected by the Light of the Bad Moon.`,
         when: [SAVES_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_JULY_2022],
+      },
+    ],
+  },
+
+  'Battle Tactics': {
+    effects: [
+      {
+        name: `Follow da Moon`,
+        desc: `You cannot pick this tactic in the first battle round. You complete this tactic if at the end of this turn every friendly GLOOMSPITE GITZ unit on the battlefield is affected by the Light of the Bad Moon and you control more objectives than your opponent.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Glory Grabbers`,
+        desc: `Pick 1 objective controlled by your opponent. You complete this tactic if at the end of this turn you control that objective and a friendly GLOOMSPITE GITZ unit that was added to your army as a replacement unit using the Bad Moon Loonshrine's Moonclan Lairs ability is contesting it.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Venomous Assault`,
+        desc: `You complete this tactic if at least 8 mortal wounds were caused by the Spider Venom ability of friendly SPIDERFANG units during this turn and not negated.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Stab 'Em in the Dark`,
+        desc: `Pick 1 enemy unit on the battlefield. You complete this tactic if that unit was destroyed by an attack made by a friendly GLOOMSPITE GITZ unit during this turn while it was not affected by the Light of the Bad Moon.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Moonlight Raid`,
+        desc: `Pick 1 objective controlled by your opponent. You complete this tactic if at the end of this turn you control that objective and every friendly GLOOMSPITE GITZ unit that is contesting it is affected by the Light of the Bad Moon.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `You Ain't So Big`,
+        desc: `Pick 1 enemy MONSTER on the battlefield. You complete this tactic if that MONSTER was slain by an attack made by a friendly GLOOMSPITE GITZ TROGGOTH unit during this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+
+  'Monstrous Rampage': {
+    effects: [
+      {
+        name: `Ensnaring Webbing`,
+        desc: `Only an ARACHNAROK unit can carry out this monstrous rampage. Pick 1 enemy HERO within 3" of this ARACHNAROK unit that is not a MONSTER and roll a dice. If the score equals or exceeds that HERO's Wounds characteristic, that hero cannot fight in the following combat phase.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Giant Boing!`,
+        desc: `Only a MANGLER SQUIGS unit that has made a charge move this turn can carry out this monstrous rampage. This MANGLER SQUIGS unit can make a 3D6" move but it must finish that move within 3" of any enemy units.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+    ],
+  },
+
+  'Heroic Action': {
+    effects: [
+      {
+        name: `Beckon the Loonatic Hordes`,
+        desc: `Only a MOONCLAN HERO affected by the Light of the Bad Moon can carry out this heroic action. This HERO can immediately issue the Rally command up to 3 times without any command points being spent. Each unit that receives the command must be a different friendly MOONCLAN unit.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Wade and Smash`,
+        desc: `Only a DANKHOLD TROGGBOSS within 3" of any enemy units can carry out this heroic action. This DANKHOLD TROGGBOSS can make a 6" move but must finish the move within 3" of any enemy units. At the end of that move, roll a dice for each enemy unit within 1" of this DANKHOLD TROGGBOSS. On a 2+, that unit suffers D3 mortal wounds.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

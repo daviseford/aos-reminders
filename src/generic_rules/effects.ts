@@ -28,7 +28,7 @@ const GenericEffects = {
   Gargant: [
     {
       name: `Timber!`,
-      desc: `If this model is slain, before removing the model from the battlefield the players must roll off. The player who wins the roll-off picks a point on the battlefield 3" from this model. Each unit within 2" of that point suffers D3 mortal wounds. This model is then removed from the battlefield.`,
+      desc: `If this model is slain, before removing the model from the battlefield, the players must roll off. The winner picks a point on the battlefield 3" from the slain model. Each unit within 2" of that point that is not a Gargant or a Mega-Gargant suffers D3 mortal wounds. The slain model is then removed from the battlefield.`,
       when: [WOUND_ALLOCATION_PHASE],
       shared: true,
     },

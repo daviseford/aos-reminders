@@ -6,7 +6,6 @@ import {
   CITIES_OF_SIGMAR,
   DESTRUCTION_GRAND_ALLIANCE,
   FYRESLAYERS,
-  GLOOMSPITE_GITZ,
   KHARADRON_OVERLORDS,
   KHORNE,
   LUMINETH_REALMLORDS,
@@ -800,32 +799,6 @@ describe('getWarscrollArmyFromPdf', () => {
       core_rules: [],
       triumphs: [],
       units: ['Loonboss'],
-    })
-  })
-
-  it('adds the command ability that the Boss Shaman trait gives you', () => {
-    const pdfText = getFile('BossShaman')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
-    expect(res.selections).toEqual({
-      grand_strategies: [],
-      flavors: [],
-      artifacts: [],
-      incarnates: [],
-      monstrous_rampages: [],
-      battalions: [],
-      command_abilities: ["I'm Da Boss, Now Stab 'Em Good!"],
-      endless_spells: [],
-      mount_traits: [],
-      prayers: [],
-      scenery: [],
-      spells: ['Spore Maws'],
-      command_traits: ['Boss Shaman'],
-      core_rules: [],
-      triumphs: [],
-      units: ['Fungoid Cave-Shaman'],
     })
   })
 

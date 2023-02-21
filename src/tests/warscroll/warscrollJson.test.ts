@@ -100,12 +100,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.artifacts).toContain('Amulet of Silvered Sigmarite')
   })
 
-  it('should correctly read 1633314984451-Warscroll_Builder', () => {
-    const parsedText = getFile('1633314984451-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.command_traits).toContain('Shepherd of Idiotic Destruction')
-  })
-
   it('should correctly read 1633446211037-Warscroll_Builder', () => {
     const parsedText = getFile('1633446211037-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -295,12 +289,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1612918099089-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Bonegrinder Mega-Gargant')
-  })
-
-  it('should correctly read 1614288189630-Warscroll_Builder', () => {
-    const parsedText = getFile('1614288189630-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.command_traits).toContain('Shepherd of Idiotic Destruction')
   })
 
   it('should correctly read 1614371993867-Warscroll_Builder', () => {

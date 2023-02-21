@@ -8,7 +8,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `Casting value of 6 and a range of 6". Only Nighthaunt Wizards can attempt to summon this endless spell. If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1 " from all models and other endless spells or invocations.`,
+        desc: `Casting value of 6 and a range of 6". Only Nighthaunt Wizards can attempt to summon this endless spell. If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models and other endless spells or invocations.`,
         when: [HERO_PHASE],
       },
       {
@@ -42,7 +42,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `Casting value of 6 and a range of 12". Only Nighthaunt Wizards can attempt to summon this endless spell. If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1 " from all models and other endless spells or invocations.`,
+        desc: `Casting value of 6 and a range of 12". Only Nighthaunt Wizards can attempt to summon this endless spell. If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models and other endless spells or invocations.`,
         when: [HERO_PHASE],
       },
       GenericEffects.Predatory.Eight_Inches,

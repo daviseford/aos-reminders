@@ -14,7 +14,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `Casting value of 8 and a range of 13". If successfully cast, set up 1 part of the endless spell wholly within range of the caster, then set up the second and third parts exactly 7" from the first part and exactly 7" from each other (the parts will form a triangle with each part exactly 7" from the other two parts). All of the parts must be set up more than 1 " from all models, other endless spells and invocations. Only Skaven Wizards can attempt to summon this endless spell.`,
+        desc: `Casting value of 8 and a range of 13". If successfully cast, set up 1 part of the endless spell wholly within range of the caster, then set up the second and third parts exactly 7" from the first part and exactly 7" from each other (the parts will form a triangle with each part exactly 7" from the other two parts). All of the parts must be set up more than 1" from all models, other endless spells and invocations. Only Skaven Wizards can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
       },
       {
@@ -38,7 +38,7 @@ const EndlessSpells = {
       },
       {
         name: `Summoning`,
-        desc: `Casting value of 5 and a range of 18". If successfully cast, set up the endless spell wholly within range and visible to the caster, more than 1 " from all models, other endless spells and invocations. Only Skaven Wizards can attempt to summon this endless spell.`,
+        desc: `Casting value of 5 and a range of 18". If successfully cast, set up the endless spell wholly within range and visible to the caster, more than 1" from all models, other endless spells and invocations. Only Skaven Wizards can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
       },
       {
@@ -58,7 +58,7 @@ const EndlessSpells = {
       GenericEffects.Predatory.Two_D6,
       {
         name: `Summoning`,
-        desc: `Casting value of 5 and a range of 13". If successfully cast, set up the endless spell wholly within range and visible to the caster, more than 1 " from all models, other endless spells and invocations. Only Skaven Wizards can attempt to summon this endless spell.`,
+        desc: `Casting value of 5 and a range of 13". If successfully cast, set up the endless spell wholly within range and visible to the caster, more than 1" from all models, other endless spells and invocations. Only Skaven Wizards can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
       },
       {

@@ -591,19 +591,12 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
-    expect(res.selections.command_abilities).toEqual(['Instinctive Leader'])
-    expect(res.selections.spells).toEqual([
-      'Arcane Bolt',
-      'Mystic Shield',
-      'Spore Maws',
-      'The Great Green Spite',
-    ])
     expect(res.selections.units).toEqual([
       'Dankhold Troggboss',
       'Fungoid Cave-Shaman',
       'Fellwater Troggoths',
       'Rockgut Troggoths',
-      'Stabbas',
+      'Moonclan Stabbas',
     ])
   })
 

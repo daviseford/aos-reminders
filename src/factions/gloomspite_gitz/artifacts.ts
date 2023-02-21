@@ -1,61 +1,59 @@
 import { tagAs } from 'factions/metatagger'
-import meta_rule_sources from 'meta/rule_sources'
 import {
-  BATTLESHOCK_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_COMBAT_PHASE,
   HERO_PHASE,
-  MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
-  START_OF_SHOOTING_PHASE,
+  START_OF_HERO_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const Artifacts = {
-  'Spiteful Prodder': {
-    effects: [
-      {
-        name: `Spiteful Prodder`,
-        desc: `At the start of your shooting phase, pick 1 enemy unit within 18" of the bearer and visible to them. Then roll 1 dice for each friendly GROT unit wholly within 12" of the bearer that has at least 5 models. For each 5+ that enemy unit suffers D3 mortal wounds.`,
-        when: [START_OF_SHOOTING_PHASE],
-      },
-    ],
-  },
+  // 'Spiteful Prodder': {
+  //   effects: [
+  //     {
+  //       name: `Spiteful Prodder`,
+  //       desc: `At the start of your shooting phase, pick 1 enemy unit within 18" of the bearer and visible to them. Then roll 1 dice for each friendly GROT unit wholly within 12" of the bearer that has at least 5 models. For each 5+ that enemy unit suffers D3 mortal wounds.`,
+  //       when: [START_OF_SHOOTING_PHASE],
+  //     },
+  //   ],
+  // },
   "Backstabber's Blade": {
     effects: [
       {
         name: `Backstabber's Blade`,
-        desc: `Pick one of the bearer's melee weapons. If the unmodified hit roll for an attack made with that weapon is 6, the save roll for that attack automatically fails (do not roll the dice).`,
-        when: [COMBAT_PHASE],
+        desc: `Once per battle, at the end of the combat phase, you can say the bearer will use the Backstabber's Blade. If you do so, pick 1 enemy unit within 1" of the bearer and roll a dice. On a 2+, that unit suffers D6 mortal wounds that cannot be negated.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
-  'Loonstone Talisman': {
-    effects: [
-      {
-        name: `Loonstone Talisman`,
-        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
-  'The Pipes of Doom': {
-    effects: [
-      {
-        name: `The Pipes of Doom`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 12" of the bearer.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
+  // 'Loonstone Talisman': {
+  //   effects: [
+  //     {
+  //       name: `Loonstone Talisman`,
+  //       desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+ that mortal wound is negated.`,
+  //       when: [WOUND_ALLOCATION_PHASE],
+  //     },
+  //   ],
+  // },
+  // 'The Pipes of Doom': {
+  //   effects: [
+  //     {
+  //       name: `The Pipes of Doom`,
+  //       desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 12" of the bearer.`,
+  //       when: [BATTLESHOCK_PHASE],
+  //     },
+  //   ],
+  // },
   'The Clammy Cowl': {
     effects: [
       {
         name: `The Clammy Cowl`,
-        desc: `Subtract 1 from hit rolls for attacks that target the bearer.`,
+        desc: `Subtract 1 from hit rolls for attacks that target the bearer.`, // updated for 2023
         when: [DURING_GAME],
       },
     ],
@@ -64,25 +62,34 @@ const Artifacts = {
     effects: [
       {
         name: `Leering Gitshield`,
-        desc: `If the unmodified save roll for an attack made with a melee weapon that targets the bearer is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
-  'Spiteshroom Familiar': {
-    effects: [
-      {
-        name: `Spiteshroom Familiar`,
-        desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 3" of the bearer.`,
+        desc: `Unmodified hit rolls of 1 for attacks that target the bearer cause 1 mortal wound to the attacking unit after all of that unit's attacks have been resolved. In addition, if the bearer is slain by an attack made by an enemy unit, subtract 1 from hit rolls for attacks made by that unit until the end of the battle.`,
         when: [DURING_GAME],
       },
     ],
   },
+  'Loonstone Teefcaps': {
+    effects: [
+      {
+        name: `Loonstone Teefcaps`,
+        desc: `SQUIG HERO with mount or companion only. Improve the Rend characteristic of the bearer's Fang-filled Gob, Massive Fang-filled Gob or Huge Fang-filled Gobs by 1.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  // 'Spiteshroom Familiar': {
+  //   effects: [
+  //     {
+  //       name: `Spiteshroom Familiar`,
+  //       desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 3" of the bearer.`,
+  //       when: [DURING_GAME],
+  //     },
+  //   ],
+  // },
   'Moonface Mommet': {
     effects: [
       {
         name: `Moonface Mommet`,
-        desc: `At the start of the combat phase, pick 1 enemy unit within 12" of the bearer. Subtract 1 from save rolls for attacks that target that unit until the end of the phase.`,
+        desc: `WIZARD only. At the start of the combat phase, pick 1 enemy unit within 12" of the bearer. Subtract 1 from save rolls for attacks that target that unit until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
@@ -96,7 +103,7 @@ const Artifacts = {
     effects: [
       {
         name: `Staff of Sneaky Stealin'`,
-        desc: `Add 1 to casting and unbinding rolls for the bearer for each enemy WIZARD within 12" of the bearer. In addition, add 1 to casting and unbinding rolls for the bearer for each enemy HERO with an artifact of power within 12" of the bearer.`,
+        desc: `WIZARD only. Add 1 to casting rolls for the bearer. Each time the bearer unbinds a spell, add 1 to casting rolls for the bearer for the rest of the battle.`,
         when: [HERO_PHASE],
       },
     ],
@@ -105,7 +112,9 @@ const Artifacts = {
     effects: [
       {
         name: `Totem of the Spider God`,
-        desc: `While a friendly SPIDERFANG unit is wholly within 12" of the bearer, its Spider Venom ability causes mortal wounds on an unmodified hit roll of 5+ instead of 6.`,
+        desc: `While other friendly SPIDERFANG units are wholly within 12" of the bearer, add 1 to the number of mortal wounds caused by the Spider Venom ability of those units if the unmodified hit roll was 6.
+
+        Designer's Note: If a unit is affected by the Light of the Bad Moon, this artefact of power does not affect unmodified hit rolls of 5; it only affects unmodified hit rolls of 6.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -114,63 +123,71 @@ const Artifacts = {
     effects: [
       {
         name: `Headdress of Many Eyes`,
-        desc: `Subtract 1 from hit rolls for attacks that target the bearer.`,
+        desc: `SCUTTLEBOSS only. Only unmodified hit rolls of 5 or 6 successfully score a hit for attacks that target the bearer.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
-  'The Black Fang': {
-    effects: [
-      {
-        name: `The Black Fang`,
-        desc: `Pick one of the bearer's melee weapons. If the unmodified hit roll for an attack made with that weapon is 6, that attack inflicts D3 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll). If the weapon already inflicts mortal wounds on a roll of 6, add D3 to the number of mortal wounds it inflicts instead.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
+  // 'The Black Fang': {
+  //   effects: [
+  //     {
+  //       name: `The Black Fang`,
+  //       desc: `Pick one of the bearer's melee weapons. If the unmodified hit roll for an attack made with that weapon is 6, that attack inflicts D3 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll). If the weapon already inflicts mortal wounds on a roll of 6, add D3 to the number of mortal wounds it inflicts instead.`,
+  //       when: [COMBAT_PHASE],
+  //     },
+  //   ],
+  // },
   "Nibbla's 'Itty Ring": {
     effects: [
       {
         name: `Nibbla's 'Itty Ring`,
-        desc: `Once per battle, at the start of a combat phase, you can pick 1 enemy unit within 3" of the bearer and roll a D6. On a 1 there is no effect. On a 2-5 that enemy unit suffers D3 mortal wounds. On a 6, that enemy unit suffer D6 mortal wounds.`,
-        when: [START_OF_COMBAT_PHASE],
+        desc: `WIZARD only. Once per battle, at the start of your hero phase, you can say the bearer will call upon the ring's power. If you do so, roll a dice and add the result to casting rolls made by the bearer until the end of the phase.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
-  Earskuttla: {
-    effects: [
-      {
-        name: `Earskuttla`,
-        desc: `Once per battle, at the start of a combat phase, you can pick 1 enemy WIZARD within 3", and roll a D6. On a 2+, that enemy WIZARD suffers D3 mortal wounds. In addition, for the rest of the battle, subtract 1 from casting and unbinding rolls for that WIZARD for each mortal wound that was inflicted.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'Web Strung Cloak': {
-    effects: [
-      {
-        name: `Web Strung Cloak`,
-        desc: `Enemy units cannot retreat if they are within 3" of the bearer.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  'Shiny Wotnot': {
-    effects: [
-      {
-        name: `Shiny Wotnot`,
-        desc: `Roll a D6 each time a mortal wound caused by a spell is allocated to this model. On a 6+ the mortal wound is allocated to the caster of the spell instead of the bearer. If the mortal wound was caused by an endless spell, on a 6+, that mortal wound is negated and that endless spell is dispelled (any other mortal wounds it could have caused are negated).`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_GLOOMSPITE_GITZ, rule_sources.ERRATA_JULY_2021],
-      },
-    ],
-  },
+  // Earskuttla: {
+  //   effects: [
+  //     {
+  //       name: `Earskuttla`,
+  //       desc: `Once per battle, at the start of a combat phase, you can pick 1 enemy WIZARD within 3", and roll a D6. On a 2+, that enemy WIZARD suffers D3 mortal wounds. In addition, for the rest of the battle, subtract 1 from casting and unbinding rolls for that WIZARD for each mortal wound that was inflicted.`,
+  //       when: [START_OF_COMBAT_PHASE],
+  //     },
+  //   ],
+  // },
+  // 'Web Strung Cloak': {
+  //   effects: [
+  //     {
+  //       name: `Web Strung Cloak`,
+  //       desc: `Enemy units cannot retreat if they are within 3" of the bearer.`,
+  //       when: [MOVEMENT_PHASE],
+  //     },
+  //   ],
+  // },
+  // 'Shiny Wotnot': {
+  //   effects: [
+  //     {
+  //       name: `Shiny Wotnot`,
+  //       desc: `Roll a D6 each time a mortal wound caused by a spell is allocated to this model. On a 6+ the mortal wound is allocated to the caster of the spell instead of the bearer. If the mortal wound was caused by an endless spell, on a 6+, that mortal wound is negated and that endless spell is dispelled (any other mortal wounds it could have caused are negated).`,
+  //       when: [HERO_PHASE],
+  //     },
+  //   ],
+  // },
   'Glowy Howzit': {
     effects: [
       {
         name: `Glowy Howzit`,
-        desc: `Roll a D6 each time you allocate a wound or mortal wound to the bearer. On a 4+ that wound is negated. On a 1, the bearer eats the Glowy Howzit and it cannot be used again for the rest of the battle.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `The bearer has a ward of 4+. At the end of each phase, if the bearer was allocated any wounds in that phase that were not negated, roll a dice. On a 1, the bearer eats the Glowy Howzit and it cannot be used again for the rest of the battle.`,
+        when: [WARDS_PHASE, DURING_GAME],
+      },
+    ],
+  },
+  'Speaky-skull Fetish': {
+    effects: [
+      {
+        name: `Speaky-skull Fetish`,
+        desc: `At the start of your hero phase roll 3 dice. For each 6, you receive 1 extra command point. In addition, the bearer can issue the same command up to 2 times in the same phase (a command point is spent each time a command is issued by the bearer as normal).`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -178,44 +195,44 @@ const Artifacts = {
     effects: [
       {
         name: `Pet Gribbly`,
-        desc: `If an enemy unit attacks the bearer in the combat phase before the bearer has been selected to fight in that combat phase, then the enemy unit suffers D3 mortal wounds after all of its attacks have been resolved.`,
-        when: [COMBAT_PHASE],
+        desc: `Add 1 to the bearer's Wounds characteristic. In addition, each time a wound is allocated to the bearer and not negated, roll a dice. On a 1, the Pet Gribbly is squished. When the Pet Gribbly is squished, the bearer becomes enraged for the rest of the battle. Add 1 to hit rolls and wound rolls for attacks made by the bearer while they are enraged.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
   // Jaws of Mork
-  'Syari Screamersquig': {
-    effects: [
-      {
-        name: `Syari Screamersquig`,
-        desc: `At the start of the combat phase, you can pick 1 enemy HERO within 3" of the bearer. If you do so, until your next hero phase, add 1 to hit rolls for attacks made with melee weapons by the bearer that target that HERO.`,
-        when: [START_OF_COMBAT_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
-      },
-    ],
-  },
+  // 'Syari Screamersquig': {
+  //   effects: [
+  //     {
+  //       name: `Syari Screamersquig`,
+  //       desc: `At the start of the combat phase, you can pick 1 enemy HERO within 3" of the bearer. If you do so, until your next hero phase, add 1 to hit rolls for attacks made with melee weapons by the bearer that target that HERO.`,
+  //       when: [START_OF_COMBAT_PHASE],
+  //       rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+  //     },
+  //   ],
+  // },
   // Glogg's Megamob
-  'Aetherquartz-studded Hide': {
-    effects: [
-      {
-        name: `Aetherquartz-studded Hide`,
-        desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+, that mortal wound is ignored.`,
-        when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
-      },
-    ],
-  },
+  // 'Aetherquartz-studded Hide': {
+  //   effects: [
+  //     {
+  //       name: `Aetherquartz-studded Hide`,
+  //       desc: `Roll a D6 each time you allocate a mortal wound to the bearer. On a 5+, that mortal wound is ignored.`,
+  //       when: [WOUND_ALLOCATION_PHASE],
+  //       rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+  //     },
+  //   ],
+  // },
   // Grimscuttle Tribes
-  'Shyishan Spider-sigils': {
-    effects: [
-      {
-        name: `Shyishan Spider-sigils`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of the bearer. In addition, add 1 to the Bravery characteristic of a friendly GRIMSCUTTLE SPIDERFANG units while they are wholly within 12" of the bearer.`,
-        when: [BATTLESHOCK_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
-      },
-    ],
-  },
+  // 'Shyishan Spider-sigils': {
+  //   effects: [
+  //     {
+  //       name: `Shyishan Spider-sigils`,
+  //       desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of the bearer. In addition, add 1 to the Bravery characteristic of a friendly GRIMSCUTTLE SPIDERFANG units while they are wholly within 12" of the bearer.`,
+  //       when: [BATTLESHOCK_PHASE],
+  //       rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+  //     },
+  //   ],
+  // },
 }
 
 export default tagAs(Artifacts, 'artifact')
