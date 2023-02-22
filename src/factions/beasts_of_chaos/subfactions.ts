@@ -1,6 +1,5 @@
-import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
+import { pickEffects } from 'factions/metatagger'
 import { BEASTS_OF_CHAOS } from 'meta/factions'
-import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
@@ -12,22 +11,22 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-const subFactions = {
+const SubFactions = {
   [BEASTS_OF_CHAOS]: {
-    effects: pickEffects(BattleTraits, [BEASTS_OF_CHAOS, 'Battle Tactics', 'Monstrous Rampages']),
+    effects: pickEffects(BattleTraits, [BEASTS_OF_CHAOS, 'Battle Tactics']),
 
     available: {
       artifacts: [Artifacts],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       endless_spells: [EndlessSpells],
+      flavors: [Flavors],
       grand_strategies: [GrandStrategies],
       scenery: [Scenery],
       spells: [Spells],
-      units: [Units, keyPicker(SlavesToDarknessUnits, ['Chaos Spawn'])],
-      flavors: [Flavors],
+      units: [Units],
     },
   },
 }
 
-export default subFactions
+export default SubFactions

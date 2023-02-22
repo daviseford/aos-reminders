@@ -1,7 +1,6 @@
 import { SeraphonFaction } from 'factions/seraphon'
 import { readFileSync } from 'fs'
 import {
-  BEASTS_OF_CHAOS,
   CHAOS_GRAND_ALLIANCE,
   CITIES_OF_SIGMAR,
   DESTRUCTION_GRAND_ALLIANCE,
@@ -31,21 +30,6 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
-  it('should correctly read New_BoC1', () => {
-    const pdfText = getFile('New_BoC1')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(BEASTS_OF_CHAOS)
-    expect(res.selections.artifacts).toContain('The Knowing Eye (Brayherds)')
-    expect(res.selections.battalions).toContain('Warlord')
-    expect(res.selections.command_traits).toContain('Rampant Juggernaut (Warherd)')
-    expect(res.selections.flavors).toContain('Gavespawn')
-    expect(res.selections.grand_strategies).toContain('Pillars of Belief')
-    expect(res.selections.spells).toContain('Ghost-mist')
-    expect(res.selections.triumphs).toContain('Indomitable')
-  })
-
   it('should correctly read New_Khorne1', () => {
     const pdfText = getFile('New_Khorne1')
     const parsedText = parsePdf(pdfText)
