@@ -215,7 +215,7 @@ const Units = {
       GenericEffects.WizardTwoSpellsEffect,
       {
         name: `Warpstone Tokens`,
-        desc: `Once per turn, in your hero phase, when this unit attempts to cast a spell, you can say that it will first consume a warpstone token. If you do so, roll 3D6. This roll cannot be rerolled or modified. If the 3D6 roll is 13, the spell is successfully cast and cannot be unbound; however, after the effects of the spell have been resolved, this unit suffers D3 mortal wounds that cannot be negated. Ifthe 3D6 roll was not 13, remove 1 dice of your choice and use the remaining 2D6 as the casting roll.`,
+        desc: `Once per turn, in your hero phase, when this unit attempts to cast a spell, you can say that it will first consume a warpstone token. If you do so, roll 3D6. This roll cannot be rerolled or modified. If the 3D6 roll is 13, the spell is successfully cast and cannot be unbound; however, after the effects of the spell have been resolved, this unit suffers D3 mortal wounds that cannot be negated. If the 3D6 roll was not 13, remove 1 dice of your choice and use the remaining 2D6 as the casting roll.`,
         when: [HERO_PHASE],
       },
     ],
@@ -338,7 +338,7 @@ const Units = {
     effects: [
       {
         name: `Rolling Doom`,
-        desc: `When this unit moves, it can pass across models with a Wounds characteristic of 3 or less in the same manner as a unit that can fly. In addition, after this unit has moved, roll a dice for each unit that has any models it passed across and for each other unit within 1 " of this unit at the end of the move. On a 2+, that unit suffers D3 mortal wounds.`,
+        desc: `When this unit moves, it can pass across models with a Wounds characteristic of 3 or less in the same manner as a unit that can fly. In addition, after this unit has moved, roll a dice for each unit that has any models it passed across and for each other unit within 1" of this unit at the end of the move. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
       {
@@ -688,7 +688,7 @@ const Units = {
         name: `A Stirring Beyond the Veil`,
         desc: `Once per battle, at the start of your hero phase, if 7 or more wounds are allocated to this unit, you can say that the Grey Seer will shatter the Screaming Bell. If you do so, roll a dice. On a 1, this unit is destroyed. On any other roll, add the number of wounds allocated to this unit to the roll.
 
-        Ifthe modified roll is 12 or less, the Screaming Bell is shattered see below). If the modified roll is 13 or more, the Screaming Bell is shattered and you can summon 1 Verminlord to the battlefield and add it to your army. The Verminlord must be set up wholly within 13" of this unit. It can be set up within 3" of an enemy unit if this unit is within 3" of that enemy unit, otherwise it must be set up more than 9" from all enemy units. If this unit's Screaming Bell is shattered, it can no longer attempt to cast Cracks Call and it can no longer use its Peal of Doom ability`,
+        If the modified roll is 12 or less, the Screaming Bell is shattered see below). If the modified roll is 13 or more, the Screaming Bell is shattered and you can summon 1 Verminlord to the battlefield and add it to your army. The Verminlord must be set up wholly within 13" of this unit. It can be set up within 3" of an enemy unit if this unit is within 3" of that enemy unit, otherwise it must be set up more than 9" from all enemy units. If this unit's Screaming Bell is shattered, it can no longer attempt to cast Cracks Call and it can no longer use its Peal of Doom ability`,
         when: [START_OF_HERO_PHASE],
       },
       {

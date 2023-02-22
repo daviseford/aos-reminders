@@ -1,61 +1,52 @@
-import { keyPicker } from 'factions/metatagger'
-import meta_rule_sources from 'meta/rule_sources'
-import { COMBAT_PHASE, END_OF_HERO_PHASE, HERO_PHASE, MOVEMENT_PHASE } from 'types/phases'
-import Artifacts from './artifacts'
-import CommandAbilities from './command_abilities'
-import CommandTraits from './command_traits'
+import { COMBAT_PHASE, DURING_SETUP, END_OF_TURN, HERO_PHASE } from 'types/phases'
 
 const Flavors = {
   'Jaws of Mork': {
-    mandatory: {
-      artifacts: [keyPicker(Artifacts, ['Syari Screamersquig'])],
-      command_abilities: [keyPicker(CommandAbilities, ["Get Some Loonshine Down 'Em!"])],
-      command_traits: [keyPicker(CommandTraits, ['Envoy of the Overbounder'])],
-    },
     effects: [
       {
-        name: `Running Riot`,
-        desc: `You can reroll the roll that determines the Move characteristic of friendly SQUIG units.`,
-        when: [MOVEMENT_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        name: `Crushing Gobs`,
+        desc: `Add 1 to the Attacks characteristic of Fang-filled Gobs, Massive Fang-filled Gobs and Huge Fang-filled Gobs used by friendly JAWS OF MORK SQUIG units if they made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
 
   "Glogg's Megamob": {
-    mandatory: {
-      artifacts: [keyPicker(Artifacts, ['Aetherquartz-studded Hide'])],
-      command_abilities: [keyPicker(CommandAbilities, ['Oblivious to Sorcery'])],
-      command_traits: [keyPicker(CommandTraits, ['Shepherd of Idiotic Destruction'])],
-    },
     effects: [
       {
         name: `Monstrous Regeneration`,
-        desc: `Add 1 to the dice that determines if a friendly GLOGG'S MEGAMOB TROGGOTH unit heals any wounds when it uses its Regeneration ability.`,
-        when: [HERO_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        desc: `Each time a friendly GLOGG'S MEGAMOB TROGGOTH unit fights, after all of its attacks have been resolved, the effect of its Regeneration or Greater Regeneration ability is triggered..`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
 
-  'Grimscuttle Tribes': {
-    mandatory: {
-      artifacts: [keyPicker(Artifacts, ['Shyishan Spider-sigils'])],
-      command_abilities: [keyPicker(CommandAbilities, ['Masters of Feigned Flight'])],
-      command_traits: [keyPicker(CommandTraits, ['Prophet of da Spider God'])],
-    },
+  Grimscuttle: {
     effects: [
       {
-        name: `Deff Grotz of Shyish`,
-        desc: `Each time a friendly GRIMSCUTTLE SPIDERFANG unit is affected by a spell or endless spell, you can roll a dice. If you do so, on a 5+, ignore the effects of that spell or endless spell on that unit.`,
-        when: [HERO_PHASE, END_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        name: `Through the Cracks they Creep`,
+        desc: `During deployment, if any friendly GRIMSCUTTLE SKITTERSTRAND ARACHNAROKS have been set up in ambush as reserve units using the Ambush From Beyond ability, instead of setting up another friendly GRIMSCUTTLE SPIDERFANG unit, you can place that unit to one side and say that it will join a friendly GRIMSCUTTLE SKITTERSTRAND ARACHNAROK in ambush as a reserve unit. Up to 2 units can join each friendly GRIMSCUTTLE SKITTERSTRAND ARACHNAROK as a reserve unit. When a friendly GRIMSCUTTLE SKITTERSTRAND ARACHNAROK is set up on the battlefield for the first time, set up all units that joined it wholly within 12" of it and more than 9" from all enemy units.`,
+        when: [DURING_SETUP],
       },
+    ],
+  },
+
+  "Da King's Gitz": {
+    effects: [
       {
-        name: `Drawn to the Aetherglow`,
-        desc: `You can reroll hit rolls for attacks made with melee weapons by friendly SKITTERSTRAND models if the target is a Wizard of Priest.`,
-        when: [COMBAT_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        name: `Lairs of the Loonking's Ladz`,
+        desc: `If you command a KING'S GITZ army, you can reroll the dice roll when using the Bad Moon Loonshrine's Moonclan Lairs ability.`,
+        when: [END_OF_TURN],
+      },
+    ],
+  },
+
+  Badsnatchers: {
+    effects: [
+      {
+        name: `Harbingers of the Everdank`,
+        desc: `Each time a casting roll is made for a friendly BADSNATCHERS MOONCLAN WIZARD, if that WIZARD is wholly within 9" of any other friendly BADSNATCHERS MOONCLAN WIZARDS, you can reroll 1 of the dice in that casting roll.`,
+        when: [HERO_PHASE],
       },
     ],
   },

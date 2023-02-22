@@ -14,16 +14,12 @@ describe('getWarhammerAppArmy', () => {
     expect(res.factionName).toEqual(GLOOMSPITE_GITZ)
     expect(res.selections.flavors).toContain("Glogg's Megamob")
     expect(res.selections.units).toContain('Loonboss')
-    expect(res.selections.artifacts).toContain('Aetherquartz-studded Hide')
-    expect(res.selections.artifacts).toContain('Amulet of Destiny')
     expect(res.selections.grand_strategies).toContain('Sever the Head')
-    expect(res.selections.spells).toContain('Call da Moon')
     expect(res.selections.spells).toContain('Itchy Nuisance')
     expect(res.selections.battalions).toContain('Battle Regiment')
     expect(res.selections.battalions).toContain('Linebreaker')
     expect(res.selections.battalions).toContain('Warlord')
     expect(res.selections.scenery).toContain('Bad Moon Loonshrine')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1640117854602-Warhammer_App', () => {
@@ -145,13 +141,6 @@ describe('getWarhammerAppArmy', () => {
         text: 'There was a problem parsing this text. Please try copy + pasting it again from the Warhammer App.',
       },
     ])
-  })
-
-  it('should correctly read 1632017726597-Warhammer_App', () => {
-    const parsedText = getFile('1632017726597-Warhammer_App')
-    const res = getWarhammerAppArmy(parsedText)
-    expect(res.selections.command_traits).toContain('Shepherd of Idiotic Destruction')
-    expect(res.errors).toEqual([])
   })
 
   it('should correctly read 1632069915266-Warhammer_App', () => {

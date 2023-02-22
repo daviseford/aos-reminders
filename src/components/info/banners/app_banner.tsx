@@ -3,7 +3,7 @@ import { useTheme } from 'context/useTheme'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = '2023-january-faqs-and-ghb'
+  const name = '2023-gloomspite-gitz-battletome-release'
 
   return (
     <NotificationBanner
@@ -14,8 +14,7 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW: </strong>January 2023 FAQs have been added, as well as the new General's Handbook
-        (2022-23 Season 2)!
+        <strong>NEW: </strong> Gloomspite Gitz battletome is live!
       </span>
     </NotificationBanner>
   )
