@@ -3,121 +3,123 @@ import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE 
 
 const Spells = {
   // Twisted Wilds
-  'Viletide (Brayherd Wizard)': {
+  Viletide: {
     effects: [
       {
-        name: `Viletide (Brayherd Wizard)`,
+        name: `Viletide`,
         desc: `Casting value of 6. Pick an enemy unit within 12" of the caster that is visible to them. That unit suffers D3 mortal wounds and cannot receive commands until the end of that turn.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Vicious Stranglethorns (Brayherd Wizard)': {
+  'Vicious Stranglethorns': {
     effects: [
       {
-        name: `Vicious Stranglethorns (Brayherd Wizard)`,
+        name: `Vicious Stranglethorns`,
         desc: `Casting value of 5. pick 1 enemy unit within 18" and visible to the caster. That enemy unit cannot make pile-in moves until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Primal Dominance (Brayherd Wizard)': {
+  'Primal Dominance': {
     effects: [
       {
-        name: `Primal Dominance (Brayherd Wizard)`,
+        name: `Primal Dominance`,
         desc: `Casting value of 5. Pick 1 enemy MONSTER within 18" and visible to the caster. Until your next hero phase, that MONSTER counts as 1 model for the purposes of contesting objectives and cannot carry out monstrous rampages.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Tendrils of Atrophy (Brayherd Wizard)': {
+  'Tendrils of Atrophy': {
     effects: [
       {
-        name: `Tendrils of Atrophy (Brayherd Wizard)`,
+        name: `Tendrils of Atrophy`,
         desc: `Casting value of 7. Pick 1 enemy unit within 12" and visible to the caster. Add 1 to the damage inflicted by each successful attack made with a melee weapon that targets that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Wild Rampage (Brayherd Wizard)': {
+  'Wild Rampage': {
     effects: [
       {
-        name: `Wild Rampage (Brayherd Wizard)`,
+        name: `Wild Rampage`,
         desc: `Casting value of 7. Pick 1 friendly BEASTS OF CHAOS unit wholly within 12" and visible to the caster. Until your next hero phase, if the unmodified hit roll for an attack made with a melee weapon by that unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound roll and save roll for each hit.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Wild Rampage (Brayherd Wizard)`,
+        name: `Wild Rampage`,
         desc: `If active, 6s to hit score 2 hits instead of 1.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  'Titanic Fury (Brayherd Wizard)': {
+  'Titanic Fury': {
     effects: [
       {
-        name: `Titanic Fury (Brayherd Wizard)`,
+        name: `Titanic Fury`,
         desc: `Casting value of 6. Pick 1 friendly BEASTS OF CHAOS MONSTER wholly within 12" and visible to the caster. Until your next hero phase, add 1 to the Attacks characteristic of that MONSTER'S melee weapons.`,
         when: [HERO_PHASE],
       },
     ],
   },
+
   // Dark Storms
-  'Hailstorm (Thunderscorn Wizard)': {
+  Hailstorm: {
     effects: [
       {
-        name: `Hailstorm (Thunderscorn Wizard)`,
+        name: `Hailstorm`,
         desc: `Casting value of 6. Pick 1 enemy unit within 21" and visible to the caster. Until your next hero phase, halve the Move characteristic of that unit, and halve run rolls and charge rolls for that unit.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Hailstorm (Thunderscorn Wizard)`,
+        name: `Hailstorm`,
         desc: `If active, halve the movement, run, and charge rolls for the picked unit.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
     ],
   },
-  'Fulgurous Blades (Thunderscorn Wizard)': {
+  'Fulgurous Blades': {
     effects: [
       {
-        name: `Fulgurous Blades (Thunderscorn Wizard)`,
+        name: `Fulgurous Blades`,
         desc: `Casting value of 6. Pick 1 friendly BEASTS OF CHAOS unit wholly within 18" and visible to the caster. Until your next hero phase, subtract 1 from the Attacks characteristic of melee weapons that target that unit (to a minimum of 1).`,
         when: [HERO_PHASE],
       },
     ],
-    'Thunderwave (Thunderscorn Wizard)': {
-      effects: [
-        {
-          name: `Thunderwave (Thunderscorn Wizard)`,
-          desc: `Casting value of 5. Each unit within 3" of the caster suffers D3 mortal wounds. THUNDERSCORN units are not affected by this spell.`,
-          when: [HERO_PHASE],
-        },
-      ],
-    },
-    'Furious Gale (Thunderscorn Wizard)': {
-      effects: [
-        {
-          name: `Furious Gale (Thunderscorn Wizard)`,
-          desc: `Casting value of 6. Until your next hero phase, subtract 1 from the Attacks characteristic of missile weapons used by enemy units while they are within 18" of the caster (to a minimum of 1).`,
-          when: [HERO_PHASE],
-        },
-        {
-          name: `Furious Gale (Thunderscorn Wizard)`,
-          desc: `If active, subtract 1 from the Attacks characteristic of missile weapons used by enemy units while they are within 18" of the caster (to a minimum of 1).`,
-          when: [SHOOTING_PHASE],
-        },
-      ],
-    },
-    'Raging Storm (Thunderscorn Wizard)': {
-      effects: [
-        {
-          name: `Raging Storm (Thunderscorn Wizard)`,
-          desc: `Casting value of 8. Heal 1 wound allocated to each friendly THUNDERSCORN unit on the battlefield. In addition, each enemy unit on the battlefield suffers 1 mortal wound.`,
-          when: [HERO_PHASE],
-        },
-      ],
-    },
   },
+  Thunderwave: {
+    effects: [
+      {
+        name: `Thunderwave`,
+        desc: `Casting value of 5. Each unit within 3" of the caster suffers D3 mortal wounds. THUNDERSCORN units are not affected by this spell.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Furious Gale': {
+    effects: [
+      {
+        name: `Furious Gale`,
+        desc: `Casting value of 6. Until your next hero phase, subtract 1 from the Attacks characteristic of missile weapons used by enemy units while they are within 18" of the caster (to a minimum of 1).`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Furious Gale`,
+        desc: `If active, subtract 1 from the Attacks characteristic of missile weapons used by enemy units while they are within 18" of the caster (to a minimum of 1).`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Raging Storm': {
+    effects: [
+      {
+        name: `Raging Storm`,
+        desc: `Casting value of 8. Heal 1 wound allocated to each friendly THUNDERSCORN unit on the battlefield. In addition, each enemy unit on the battlefield suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+
   // Unit Spells
   Devolve: {
     effects: [

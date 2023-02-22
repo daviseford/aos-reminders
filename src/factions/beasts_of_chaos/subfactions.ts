@@ -20,11 +20,11 @@ const SubFactions = {
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       endless_spells: [EndlessSpells],
+      flavors: [Flavors],
       grand_strategies: [GrandStrategies],
       scenery: [Scenery],
       spells: [Spells],
       units: [Units],
-      flavors: [Flavors],
     },
   },
 }

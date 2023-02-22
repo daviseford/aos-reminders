@@ -45,6 +45,7 @@ const Flavors = {
         name: `Living Idols of Ruin`,
         desc: `Earthshatter is a prayer, answer value of 3. Pick 1 objective within 12" and visible to the chanter. Each unit within 6" of that objective suffers D3 mortal wounds, and, until your next hero phase, when determining the number of models in units that are contesting that objective, that number must be halved (rounding down). This prayer has no effect on BEASTS OF CHAOS units.`,
         when: [HERO_PHASE],
+        prayer: true,
       },
       {
         name: `Living Idols of Ruin`,

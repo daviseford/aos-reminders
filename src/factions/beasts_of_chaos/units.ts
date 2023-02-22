@@ -21,6 +21,12 @@ import {
 import CommandAbilities from './command_abilities'
 import Spells from './spells'
 
+const PropagatorOfDevolutionEffect = {
+  name: `Propagator of Devolution`,
+  desc: `This unit can run and still charge later in the turn.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+  shared: true,
+}
 const InfuseWithBestialVigorEffect = {
   name: `Infuse with Bestial Vigour`,
   desc: `Add 6" to the range of heroic actions from the Rituals of Ruin battle trait that you carry out with this unit.`,
@@ -358,11 +364,7 @@ const Units = {
         desc: `If you roll a double when determining the number of attacks, add 1 to hit rolls and wound rolls for attacks made by this unit until the end of that phase.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Propagator of Devolution`,
-        desc: `This unit can run and still charge later in the turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      PropagatorOfDevolutionEffect,
     ],
   },
   Jabberslythe: {
@@ -498,11 +500,7 @@ const Units = {
         desc: `Subtract 1 from the Attacks characteristic of weapons used by enemy units while they are within 1" of this unit (to a minimum of 1).`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
-      {
-        name: `Propagator of Devolution`,
-        desc: `This unit can run and still charge later in the turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
+      PropagatorOfDevolutionEffect,
     ],
   },
   'Chaos Gargant': {
@@ -547,4 +545,4 @@ const Units = {
   },
 }
 
-export default tagAs({ ...Units }, 'unit')
+export default tagAs(Units, 'unit')
