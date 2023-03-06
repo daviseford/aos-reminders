@@ -181,6 +181,7 @@ const warscrollTypoMap: Record<string, string> = {
   Salamanders: 'Salamander Hunting Pack',
   Vindicators: 'Vindictors',
   'Cado Ezechiar, The Hollow King': 'Cado Ezechiar',
+  'Squigboss with Gnasha-squig': 'Squigboss',
 }
 
 // Azyr on the left - AoS Reminders on the right
