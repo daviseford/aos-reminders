@@ -151,15 +151,9 @@ const AethericNavigatorAndEndinriggerEffects = [
 
 const Units = {
   'Endrinmaster with Dirigible Suit': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['By Grungni, I Have My Eye On You!'])],
-    },
     effects: [EndrinmasterHealEffect('3'), HitchersEffect],
   },
   'Endrinmaster with Endrinharness': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['By Grungni, I Have My Eye On You!'])],
-    },
     effects: [EndrinmasterHealEffect('D3'), EndrinharnessEffect],
   },
   'Aether-Khemist': {
@@ -213,7 +207,7 @@ const Units = {
   },
   'Arkanaut Admiral': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Master of the Skies'])],
+      command_abilities: [keyPicker(command_abilities, ['Bring Every Gun to Bear', 'Master of the Skies'])],
     },
     effects: [
       {
@@ -268,7 +262,7 @@ const Units = {
   },
   'Brokk Grungsson, Lord-Magnate of Barak-Nar': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['First Rule of Grungsson'])],
+      command_abilities: [keyPicker(command_abilities, ['Command the Fleet'])],
     },
     effects: [
       {
