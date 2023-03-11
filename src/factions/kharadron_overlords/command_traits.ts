@@ -2,40 +2,25 @@ import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
-  COMBAT_PHASE,
   DURING_GAME,
-  END_OF_COMBAT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  START_OF_COMBAT_PHASE,
   START_OF_GAME,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
-  START_OF_SHOOTING_PHASE,
-  TURN_ONE_MOVEMENT_PHASE,
-  TURN_ONE_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const AllegianceCommandTraits = {
-  'AMENDMENT: Prosecute Wars With All Haste': {
-    effects: [
-      {
-        name: `AMENDMENT: Prosecute Wars With All Haste`,
-        desc: `In your first turn, friendly KHARADRON OVERLORDS units can run and still shoot later in the turn.`,
-        when: [TURN_ONE_MOVEMENT_PHASE, TURN_ONE_SHOOTING_PHASE],
-      },
-    ],
-  },
   'ARTYCLE: Honour is Everything': {
     effects: [
       {
         name: `ARTYCLE: Honour is Everything`,
-        desc: `You can reroll hit rolls of 1 for attacks made by friendly KHARADRON OVERLORDS HEROES that target a HERO or MONSTER.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        desc: `When a friendly KHARADRON OVERLORDS unit receives the Rally command, you can return 1 slain model to the unit for each 4+ instead of each 6.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -43,8 +28,17 @@ const AllegianceCommandTraits = {
     effects: [
       {
         name: `ARTYCLE: Master the Skies`,
-        desc: `You can reroll hit rolls of 1 for attacks made by friendly SKYVESSELS that target a unit that can fly.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        desc: `Add 2" to the Move characteristic of friendly SKYVESSELS.`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  'ARTYCLE: Settle the Grudges': {
+    effects: [
+      {
+        name: `ARTYCLE: Settle the Grudges`,
+        desc: `After deployment but before the first battle round begins, pick 1 enemy unit, add 1 to wound rolls for attacks made by friendly KHARADRON OVERLORDS units that target that unit.`,
+        when: [END_OF_SETUP],
       },
     ],
   },
@@ -52,127 +46,53 @@ const AllegianceCommandTraits = {
     effects: [
       {
         name: `AMENDMENT: Always Take What You Are Owed`,
-        desc: `Pick up to D3 different KHARADRON OVERLORDS units in your army. Each of those units starts the battle with 1 share of aether-gold in addition to any they normally receive.`,
-        when: [START_OF_SETUP],
+        desc: `At the start of your hero phase, pick 1 friendly ARKANAUT COMPANY unit. Until the start of your next hero phase, each model in that unit counts as 2 models instead of 1 for the purposes of contesting objectives.`,
+        when: [HERO_PHASE],
       },
     ],
   },
-  'ARTYCLE: Seek New Prospects': {
+  'AMENDMENT: Prosecute Wars With All Haste': {
     effects: [
       {
-        name: `ARTYCLE: Seek New Prospects`,
-        desc: `You can reroll battleshock tests for friendly BARAK-URBAZ units while they are wholly within your opponent's territory.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  "AMENDMENT: Don't Argue With the Wind": {
-    effects: [
-      {
-        name: `AMENDMENT: Don't Argue With the Wind`,
-        desc: `In your movement phase, if you declare a friendly BARAK-ZILFIN unit will run, do not make a run roll Instead, add 6" to the Move characteristic of all models in that unit for that phase.`,
+        name: `AMENDMENT: Prosecute Wars With All Haste`,
+        desc: `Once per turn in your movement phase, when you make a run roll for a KHARADRON OVERLORDS unit, you can roll 2D6 instead of a single dice.`,
         when: [MOVEMENT_PHASE],
       },
     ],
   },
-  "FOOTNOTE: There's Always a Breeze if You Look for it": {
+  'AMENDMENT: Trust to Your Guns': {
     effects: [
       {
-        name: `FOOTNOTE: There's Always a Breeze if You Look for it`,
-        desc: `Once per battle, in your hero phase, 1 friendly BARAK-ZILFIN unit can make a normal move, or retreat or disengage.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_KHARADRON_OVERLORDS, rule_sources.ERRATA_JULY_2021],
+        name: `AMENDMENT: Trust to Your Guns`,
+        desc: `Once per turn in your shooting phase, you can reroll 1 hit roll of 1 for an attack made by a friendly KHARADRON OVERLORDS unit.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
-  'AMENDMENT: Leave no Duardin Behind': {
+  "FOOTNOTE: There's No Reward Without Risk": {
     effects: [
       {
-        name: `AMENDMENT: Leave no Duardin Behind`,
-        desc: `Add 2 to the Bravery characteristic of friendly SKYFARERS units while they are wholly within 12" of a friendly SKYVESSEL.`,
-        when: [BATTLESHOCK_PHASE],
+        name: `FOOTNOTE: There's No Reward Without Risk`,
+        desc: `Once per battle, in your charge phase, you can attempt a charge with 1 friendly KHARADRON OVERLORDS unit within 18" of an enemy unit. If you do so, roll 3D6 for the charge roll instead of 2D6.`,
+        when: [CHARGE_PHASE],
       },
     ],
   },
-  'FOOTNOTE: Show Them Your Steel': {
+  "FOOTNOTE: There's No Trading With Some People": {
     effects: [
       {
-        name: `FOOTNOTE: Show Them Your Steel`,
-        desc: `Once per battle, in your hero phase, 1 friendly SKYFARERS unit that is part of a garrison on a SKYVESSEL can leave that garrison. Set up that unit wholly within 3" of that SKYVESSEL and more than 9" from any enemy units.`,
-        when: [HERO_PHASE],
+        name: `FOOTNOTE: There's No Trading With Some People`,
+        desc: `One per battle, at the end of the enemy shooting phase, pick 1 friendly SKYFARERS unit that was targeted by any shooting attacks in that phase. That unit can immediately shoot.`,
+        when: [SHOOTING_PHASE],
       },
     ],
   },
-  "FOOTNOTE: Where There's War, There's Gold": {
+  'FOOTNOTE: Without Our Ships, We Are Naught': {
     effects: [
       {
-        name: `FOOTNOTE: Where There's War, There's Gold`,
-        desc: `Once per battle, at the end of the combat phase, 1 friendly SKYFARERS unit that fought in that phase gains 1 share of aether-gold.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'FOOTNOTE: Who Strikes First, Strikes Hardest': {
-    effects: [
-      {
-        name: `FOOTNOTE: Who Strikes First, Strikes Hardest`,
-        desc: `Once per battle, at the start of your combat phase, you can pick 1 friendly BARAK-MHORNAR unit that is within 3" of an enemy unit. That friendly unit fights at the start of that combat phase, but cannot fight again in that combat phase unless an ability or spell allows it to fight more than once.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'ARTYCLE: Chronicle of Grudges': {
-    effects: [
-      {
-        name: `ARTYCLE: Chronicle of Grudges`,
-        desc: `After armies are set up but before the first battle round begins, pick up to 3 different enemy units. You can reroll hit rolls of 1 for attacks made by friendly BARAK-THRYNG units that target those units.`,
-        when: [END_OF_SETUP],
-      },
-    ],
-  },
-  'FOOTNOTE: Honour the Gods, Just in Case': {
-    effects: [
-      {
-        name: `FOOTNOTE: Honour the Gods, Just in Case`,
-        desc: `Once per battle, at the start of your shooting phase or a combat phase, you can pick 1 friendly BARAK-THRYNG unit. Until the end of that phase, unmodified hit rolls of 6 for attacks made by that unit score 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [START_OF_SHOOTING_PHASE, START_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  'AMENDMENT: Take Help Where You Can Get It': {
-    effects: [
-      {
-        name: `AMENDMENT: Take Help Where You Can Get It`,
-        desc: `1 in every 4 units in a Barak-Thryng army can be a coalition unit (see below) from the Cities of Sigmar or Fyreslayers faction that has the DUARDIN keyword.`,
-        when: [START_OF_SETUP],
-        rule_sources: [rule_sources.BATTLETOME_KHARADRON_OVERLORDS, rule_sources.ERRATA_JULY_2021],
-      },
-    ],
-  },
-  'ARTYCLE: Respect Your Commanders': {
-    effects: [
-      {
-        name: `ARTYCLE: Respect Your Commanders`,
-        desc: `You can reroll battleshock tests for friendly BARAK-NAR units while they are wholly within 12" of a friendly BARAK-NAR HERO.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  'AMENDMENT: Trust Aethermatics, Not Superstition': {
-    effects: [
-      {
-        name: `AMENDMENT: Trust Aethermatics, Not Superstition`,
-        desc: `Each BARAK-NAR HERO can attempt to unbind 1 spell in the enemy hero phase. If they can already attempt to unbind a spell, they can attempt to unbind 1 extra spell in the enemy hero phase.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'FOOTNOTE: Through Knowledge, Power': {
-    effects: [
-      {
-        name: `FOOTNOTE: Through Knowledge, Power`,
-        desc: `Add 1 to unbinding rolls for BARAK-NAR HEROES.`,
-        when: [HERO_PHASE],
+        name: `FOOTNOTE: Without Our Ships, We Are Naught`,
+        desc: `Once per battle, at the start of any phase, pick 1 friendly SKYVESSEL. That unit can receive up to 2 commands in that phase instead of only 1.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -379,51 +299,6 @@ const CommandTraits = {
         name: `Collector`,
         desc: `If you choose this general to have an artefact of power, you can choose 1 extra friendly HERO to have an artefact of power.`,
         when: [START_OF_SETUP],
-      },
-    ],
-  },
-  'ARTYCLE: Settle the Grudges': {
-    effects: [
-      {
-        name: `ARTYCLE: Settle the Grudges`,
-        desc: `After armies are set up but before the first battle round begins, pick 1 enemy unit, You can reroll hit rolls of 1 for attacks made by friendly KHARADRON OVERLORDS units that target that unit.`,
-        when: [END_OF_SETUP],
-      },
-    ],
-  },
-  'AMENDMENT: Trust to Your Guns': {
-    effects: [
-      {
-        name: `AMENDMENT: Trust to Your Guns`,
-        desc: `Add 1 to the Bravery characteristic of friendly KHARADRON OVERLORDS units while they are more than 3" from any enemy units.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  "FOOTNOTE: There's No Reward Without Risk": {
-    effects: [
-      {
-        name: `FOOTNOTE: There's No Reward Without Risk`,
-        desc: `Once per battle, you can reroll a charge roll for a friendly KHARADRON OVERLORDS unit.`,
-        when: [CHARGE_PHASE],
-      },
-    ],
-  },
-  "FOOTNOTE: There's No Trading With Some People": {
-    effects: [
-      {
-        name: `FOOTNOTE: There's No Trading With Some People`,
-        desc: `Once per battle, a friendly KHARADRON OVERLORDS unit that has run and/or retreated in the same turn can still shoot and/or charge.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  'FOOTNOTE: Without Our Ships, We Are Naught': {
-    effects: [
-      {
-        name: `FOOTNOTE: Without Our Ships, We Are Naught`,
-        desc: `Once per battle, you can heal up to D3 wounds allocated to a friendly SKYVESSEL.`,
-        when: [DURING_GAME],
       },
     ],
   },
