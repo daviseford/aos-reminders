@@ -231,9 +231,9 @@ const Units = {
       {
         name: `Aether-powered Munitions`,
         desc: `After the players have received their starting command points but before the start of the first turn, you can pick 1 of the following Aether-powered Munitions for this unit to use during the battle:
-                
+
         Blazebeard and Sons 'Drakk-hobbler' Mag-bolas: Once per battle, at the start of your shooting phase, pick 1 enemy MONSTER within 12" of this unit and roll a dice. On a 2+, that unit is grappled until the end of your opponent's turn. While an enemy unit is grappled, charge rolls made for that unit are made by rolling 1D6 instead of 2D6.
-        
+
         Celestium Burst-grenade: Once per battle, at the start of your shooting phase, pick 1 enemy unit within 12" of this unit and roll a dice. On a 2+, ward rolls cannot be made for wounds and mortal wounds caused by attacks that target that unit until the end of the phase.
 
         Grudgebreaker Rounds: Once per battle, at the start of your shooting phase, pick 1 friendly KHARADRON OVERLORDS unit wholly within 12" of this unit that is not a SKYVESSEL. Until the end of that phase, improve the Rend characteristic of that unit's missle weapons by 1. The same unit cannot be picked to benefit from this ability than once in the same phase. `,
@@ -393,7 +393,7 @@ const Units = {
       },
       {
         name: `Let Me Drive!`,
-        desc: `You can reroll run rolls and charge rolls made for the Aelsling while this unit is in its garrison.`,
+        desc: `You can reroll run rolls and charge rolls made for the Aelsling while this unit is embarked in it.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
 
@@ -404,7 +404,7 @@ const Units = {
       },
       {
         name: `Light-fingered`,
-        desc: `At the start of the combat phase, if this unit is within 1" of an enemy Hero that has an artefact of power, you can say that Drekki will try to 'borrow' that artefact. If you do so, roll a dice. On a 3+, that artefact of power can no longer be used (if a weapon was picked when the artefact of power was selected, that weapon reverts to normal). This ability cannot be used while this unit is part of a garrison.`,
+        desc: `At the start of the combat phase, if this unit is within 1" of an enemy Hero that has an artefact of power, you can say that Drekki will try to 'borrow' that artefact. If you do so, roll a dice. On a 3+, that artefact of power can no longer be used (if a weapon was picked when the artefact of power was selected, that weapon reverts to normal). This ability cannot be used while this unit is embarked.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
