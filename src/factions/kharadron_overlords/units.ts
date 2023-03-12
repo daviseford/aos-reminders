@@ -4,6 +4,7 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  DURING_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -17,43 +18,57 @@ import {
 import command_abilities from './command_abilities'
 import rule_sources from './rule_sources'
 
+const EmbarkingDeployEffect = {
+  name: `Embarking (Deployment)`,
+  desc: `During deployment, instead of setting up a SKYFARER unit on the battlefield, you can say that it is embarked in a friendly TRANSPORT VESSEL that is already on the battlefield.`,
+  when: [DURING_SETUP],
+  shared: true,
+}
+
+const EmbarkingEffect = {
+  name: `Embarking`,
+  desc: `In the movement phase, if a friendly SKYFARER unit finishes a move wholly within 3" of a friendly TRANSPORT VESSEL and both of those units are more than 3" from all enemy units, you can say that the TRANSPORT VESSEL will embark that SKYFARER unit.`,
+  when: [MOVEMENT_PHASE],
+  shared: true,
+}
+
+const EmbarkedEffect = {
+  name: `Embarked`,
+  desc: `Embarked units are still treated as being on the battlefield. Range and visiblity is measured to and from the TRANSPORT VESSEL in which the unit is embarked.
+
+  For the purposes of visibilty, models in an embarked unit are treated as models that can fly.
+
+  Embarked units are in cover. In addition, subtract 1 from hit rolls for attackes that target embarked units.
+
+  Models in an embarked unit cannot contest objectives.
+
+  Embarked units cannot move. However when a TRASNPORT VESSEL finished any type of move, all units embarked in it are considered to have made the same type of move.`,
+  when: [DURING_GAME],
+  shared: true,
+}
+
+const DisembarkEffect = {
+  name: `Disembarking`,
+  desc: `In your movement phase, if a friendly SKYFARER unit is embarked in a TRANSPORT VESSEL that has not yet moved in that phase, you can say that the SKYFARER unit will disembark. If you do so, set up that SKYFARER unit wholly within 3" of that TRANSPORT VESSEL and more than 3" from all enemy units. A unit disembarks in this way can still move in the same turn.`,
+  when: [MOVEMENT_PHASE],
+}
+
+const DisembarkFromDestroyedVessel = {
+  name: `Disembarking from a Destroyed Vessel`,
+  desc: `If a friendly TRANSPORT VESSEL is destroyed, before removing it from play, roll a number of dice equal to the number of models embarked in it. For each roll of 1, 1 embarked model is slain (you choose which models are slain). Then, all units embarked in that TRANSPORT VESSEL must immediately disembark before it is removed from play.
+
+  When a unit disembarks, if a model cannot be set up wholly within 3" of the TRANSPORT VESSEL in which it is embared and more than 3" from all enemy units, it is slain.`,
+  when: [WOUND_ALLOCATION_PHASE],
+  shared: true,
+}
+
 const FlyingTransportEffect = {
   name: `Flying Transport`,
-  desc: `This model can fly, and can be garrisoned by up to 15 (25 if IRONCLAD) friendly Marine models even though it is not a terrain feature. If this unit is in a warscroll battalion, other units in the same battalion that can garrison this unit can be set up as this unit's garrison when this unit is set up.
-
-  Halve this model's Move characteristic and it cannot Fly High if there are 11 (16 if IRONCLAD) or more models in its garrison. Units cannot join or leave this model's garrison if it has made a move or flown high in the same phase (they can join or leave before it does so). Models cannot contest objectives while garrisoning a SKYVESSEL.
-
-  An attack made by a weapon that is in range of this model can target either this model or a unit in its garrison. If this model is destroyed, before it is removed from play, roll 1 dice for each model in its garrison. On a 1, that model is slain. Set up any surviving models wholly within 3" of this model and more than 3" from any enemy units.
-
-  If this model is in a warscroll battalion, units from the same battalion that can garrison this model can be set up as this model's garrison when this model is set up.`,
+  desc: `This model can fly. In addition, up to 12 (22 for Ironclad) SKYFARER models can be embarked in it. If this unit is part of an army that is not a Kharadron Overlords army, it can still use the Sky-fleets battle trait (Embark/Disembark rules).`,
   when: [DURING_GAME],
-  rule_sources: [
-    rule_sources.BATTLETOME_KHARADRON_OVERLORDS,
-    rule_sources.ERRATA_JANUARY_2021,
-    rule_sources.ERRATA_JULY_2021,
-    rule_sources.ERRATA_OCTOBER_2022,
-  ],
   shared: true,
 }
-const EndrinharnessEffect = {
-  name: `Endrinharness`,
-  desc: `If the unmodified hit roll for an attack made with a melee weapon by this model is 6, that attack inflicts D3 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
-  when: [COMBAT_PHASE],
-  shared: true,
-}
-const DisengageEffect = {
-  name: `Disengage`,
-  desc: `This model and any models in its garrison can still shoot if this model retreats in the same turn, as long as there are no enemy units that can fly within 3" of this model at the start of the retreat move and there are less than 10 wounds allocated to this model at the start of the retreat move.`,
-  when: [MOVEMENT_PHASE, SHOOTING_PHASE],
-  shared: true,
-}
-const ArkanautFlyHighEffect = {
-  name: `Fly High`,
-  desc: `Instead of making a normal move or retreat with this model, if there are less than 7 wounds currently allocated to this model, you can say that it will fly high (it can disengage). If you do so, remove this model from the battlefield and set it up again more than 1" from any terrain features or objectives and more than 9" from any enemy models.`,
-  when: [MOVEMENT_PHASE],
-  rule_sources: [rule_sources.BATTLETOME_KHARADRON_OVERLORDS, rule_sources.ERRATA_JULY_2021],
-  shared: true,
-}
+
 const SkyCannonEffect = {
   name: `Sky Cannon`,
   desc: `Before attacking with a Sky Cannon, choose either the Shrapnel or Shell missile weapon characteristics for that shooting attack.`,
@@ -63,31 +78,31 @@ const SkyCannonEffect = {
 const AetherKhemistEffects = [
   {
     name: `Aetheric Augmentation`,
-    desc: `In your hero phase you can pick 1 friendly SKYFARERS unit wholly within 12" of this model. Until your next hero phase, you can reroll wound rolls of 1 for attacks made by that unit. This ability cannot be used by an AETHER-KHEMIST that is part of a garrison, or on a friendly unit that is part of a garrison.`,
-    when: [HERO_PHASE],
-    shared: true,
+    desc: `At the start of your shooting phase, if this unit is not embarked, you can pick 1 friendly SKYFARERS unit that is not embarked and is wholly within 12" of this unit. Improve the Rend characteristic of that unit's missile weapons by 1 until the end of that phase. That same unit cannot be affects by this ability more than once per phase.`,
+    when: [SHOOTING_PHASE],
+    rule_sources: [rule_sources.BATTLETOME_KHARADRON_OVERLORDS, rule_sources.ERRATA_MARCH_2023],
   },
   {
     name: `Atmospheric Isolation`,
-    desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 3" of any friendly models with this ability. This ability cannot be used by an AETHER-KHEMIST that is part of a garrison.`,
+    desc: `Subtract 1 from hit rolls for attacks made by enemy models while they are within 3" of any friendly units with this ability that are not embarked.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
-    shared: true,
   },
 ]
-const GlorySeekersEffects = [
+const GlorySeekersEffect = [
   {
-    name: `Glory Seekers`,
-    desc: `You can reroll battleshock tests for this unit while it is wholly within 9" of an objective. This ability cannot be used if this unit is part of a garrison.`,
-    when: [BATTLESHOCK_PHASE],
-    shared: true,
-  },
-  {
-    name: `Glory Seekers`,
-    desc: `You can add 1 to hit rolls for attacks made by this unit while it is wholly within 9" of an objective. This ability cannot be used if this unit is part of a garrison.`,
+    name: `Glory-Seekers`,
+    desc: `While this unit is not embarked, add 1 to hit rolls for attacks made by this unit that target a unit contesting an objective.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
-    shared: true,
   },
 ]
+
+const SkyhookEffect = {
+  name: `Skyhook`,
+  desc: `The Damage characteristic of this unit's Skyhook or Light Skyhook is 3 if the target of the attack is a MONSTER.`,
+  when: [SHOOTING_PHASE],
+  shared: true,
+}
+
 const getSkyhookEffect = (val: number) => ({
   name: `Skyhook`,
   desc: `Add ${val} to charge rolls for this unit if it is armed with a Skyhook.`,
@@ -118,8 +133,8 @@ const GrapnelLauncherEffect = {
 }
 const BombRacksEffect = {
   name: `Bomb Racks`,
-  desc: `At the start of the combat phase, you can pick 1 enemy unit within 1" of this model and roll a D6. Add the Bomb Rack modifier from this model's damage table to the roll. On a 4+, that enemy unit suffers D3 mortal wounds.`,
-  when: [START_OF_COMBAT_PHASE],
+  desc: `After this unit finishes a normal move or a run, you can pick 1 enemy unit that this unit passed across and roll a number of dice equal to the Bomb Racks value shown on this unit's damage table. For each 4+, that enemy unit suffers 1 mortal wound. This ability has no effect on units that can fly.`,
+  when: [MOVEMENT_PHASE],
   shared: true,
 }
 const SkyminesEffect = {
@@ -339,6 +354,11 @@ const Units = {
         when: [MOVEMENT_PHASE],
         rule_sources: [rule_sources.BATTLETOME_KHARADRON_OVERLORDS, rule_sources.ERRATA_JULY_2021],
       },
+      EmbarkedEffect,
+      EmbarkingDeployEffect,
+      EmbarkingEffect,
+      DisembarkEffect,
+      DisembarkFromDestroyedVessel,
       SkyCannonEffect,
     ],
   },
@@ -349,6 +369,11 @@ const Units = {
       DisengageEffect,
       ArkanautFlyHighEffect,
       FlyingTransportEffect,
+      EmbarkedEffect,
+      EmbarkingDeployEffect,
+      EmbarkingEffect,
+      DisembarkEffect,
+      DisembarkFromDestroyedVessel,
       getSkyhookEffect(2),
       SkyCannonEffect,
     ],
@@ -360,6 +385,11 @@ const Units = {
       DisengageEffect,
       ArkanautFlyHighEffect,
       FlyingTransportEffect,
+      EmbarkedEffect,
+      EmbarkingDeployEffect,
+      EmbarkingEffect,
+      DisembarkEffect,
+      DisembarkFromDestroyedVessel,
       getSkyhookEffect(2),
       SkyCannonEffect,
     ],
