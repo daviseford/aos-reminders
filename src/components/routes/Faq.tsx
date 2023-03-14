@@ -37,7 +37,7 @@ const Faq = () => {
           />
           <FaqEntry
             title="I've noticed an incorrect or missing rule!"
-            text={`Please ping me on Discord, Twitter, email, or open a new issue on Github.`}
+            text={`Please ping me on Discord, email me, or open a new issue on Github.`}
           />
         </div>
       </div>
