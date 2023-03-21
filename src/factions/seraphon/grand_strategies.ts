@@ -17,7 +17,7 @@ const GrandStrategies = {
     effects: [
       {
         name: `Astromatrix`,
-        desc: `Starborne army only. An imaginary key line 1mm wide runs from the each corner of the battlefield to the diagonally opposite corner of the battlefield. When the battle ends, you complete this objective if a ley line does not pass over any enemy models with the WIZARD keyword, and at least 1 ley line passes over a friendly model with the WIZARD keyword.`,
+        desc: `Starborne army only. An imaginary ley line 1mm wide runs from the each corner of the battlefield to the diagonally opposite corner of the battlefield. When the battle ends, you complete this objective if a ley line does not pass over any enemy models with the WIZARD keyword, and at least 1 ley line passes over a friendly model with the WIZARD keyword.`,
         when: [END_OF_GAME],
         rule_sources: [rule_sources.WHITE_DWARF_OCTOBER_2021],
       },
