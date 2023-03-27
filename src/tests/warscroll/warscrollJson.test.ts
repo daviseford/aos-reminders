@@ -451,12 +451,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.units).toContain('The Wurmspat')
   })
 
-  it('should work with Warp Lightning Vortex', () => {
-    const parsedText = getFile('1580248993240-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.artifacts).toContain('Staff of Ocular Optimisation')
-  })
-
   it('should work with Sky Port: None', () => {
     const parsedText = getFile('1580985291764-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)

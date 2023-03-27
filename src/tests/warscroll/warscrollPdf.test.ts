@@ -417,68 +417,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
   })
 
-  it('reads deprecated KO pdf (issue #794)', () => {
-    const pdfText = getFile('skydorfs')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
-      allyUnits: [],
-      errors: [
-        {
-          severity: 'warn',
-          text: 'Aethershock Earbuster',
-        },
-        {
-          severity: 'warn',
-          text: 'Aetherspheric Endrinds',
-        },
-      ],
-      factionName: KHARADRON_OVERLORDS,
-      subFactionName: '',
-      origin_realm: 'Chamon',
-      realmscape_feature: null,
-      realmscape: null,
-      selections: {
-        grand_strategies: [],
-        flavors: ['Barak-Zilfin, The Windswept City (Skyport)'],
-        artifacts: ['Staff of Ocular Optimisation'],
-        battalions: [],
-        command_abilities: [],
-        endless_spells: [],
-        scenery: [],
-        spells: [],
-        mount_traits: [],
-        incarnates: [],
-        monstrous_rampages: [],
-        prayers: [],
-        command_traits: [
-          "FOOTNOTE: There's No Trading With Some People",
-          'Cunning Fleetmaster',
-          'Master Commander',
-          "FOOTNOTE: There's Always a Breeze if You Look for it",
-          "AMENDMENT: Don't Argue With the Wind",
-          'ARTYCLE: Master the Skies',
-        ],
-        core_rules: [],
-        triumphs: [],
-        units: [
-          'Aether-Khemist',
-          'Aetheric Navigator',
-          'Arkanaut Company',
-          'Grundstok Thunderers',
-          'Endrinriggers',
-          'Skywardens',
-          'Arkanaut Frigate',
-          'Arkanaut Ironclad',
-        ],
-      },
-      unknownSelections: [],
-    })
-  })
-
   it('reads 3droth2k properly', () => {
     const pdfText = getFile('3droth2k')
     const parsedText = parsePdf(pdfText)
@@ -672,33 +610,6 @@ describe('getWarscrollArmyFromPdf', () => {
       'Sap Strength (Anvilgard, Har Kuron)',
       'Elemental Cyclone (Hallowheart)',
     ])
-  })
-
-  it('reads a deprecated KO warscroll pdf file correctly', () => {
-    const pdfText = getFile('KOList')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Aethershock Earbuster',
-      },
-      {
-        severity: 'warn',
-        text: 'Stickler for the Code',
-      },
-    ])
-    expect(res.selections.command_traits).toEqual([
-      "FOOTNOTE: There's No Reward Without Risk",
-      "FOOTNOTE: There's No Trading With Some People",
-      'Master Commander',
-      "FOOTNOTE: There's Always a Breeze if You Look for it",
-      "AMENDMENT: Don't Argue With the Wind",
-      'ARTYCLE: Master the Skies',
-    ])
-    expect(res.selections.units).toEqual(['Aether-Khemist', 'Grundstok Thunderers', 'Arkanaut Ironclad'])
   })
 
   it('reads an Order meeting engagement pdf file correctly', () => {

@@ -11,9 +11,8 @@ import {
 const BattleTraits = {
   [KHARADRON_OVERLORDS]: {
     effects: [
-      {
-        // Should I put Embark and Disembark in here?
-      },
+      // Should I put Embark and Disembark in here?
+      // Yes, if it's an army-wide rule that's always in effect
     ],
   },
 
