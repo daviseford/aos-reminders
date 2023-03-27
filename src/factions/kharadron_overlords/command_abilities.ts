@@ -34,10 +34,10 @@ const CommandAbilities = {
       },
     ],
   },
-  'Master of the Skies': {
+  'Command the Skies': {
     effects: [
       {
-        name: `Master of the Skies`,
+        name: `Command the Skies`,
         desc: `You can use this command ability at the start of your movement phase. The unit that receives the command must be a friendly SKYVESSEL more than 3" from all enemy units. That unit can reroll run rolls this phase. In addition, that unit can run and still shoot and/or charge later in the turn.`,
         when: [START_OF_MOVEMENT_PHASE],
       },

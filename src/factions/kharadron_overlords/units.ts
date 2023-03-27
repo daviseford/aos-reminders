@@ -5,6 +5,8 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_CHARGE_PHASE,
+  END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
@@ -13,7 +15,8 @@ import {
   START_OF_GAME,
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
-  TURN_ONE_START_OF_TURN,
+  START_OF_SETUP,
+  START_OF_SHOOTING_PHASE,
   WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -26,14 +29,12 @@ const EmbarkingDeployEffect = {
   when: [DURING_SETUP],
   shared: true,
 }
-
 const EmbarkingEffect = {
   name: `Embarking`,
   desc: `In the movement phase, if a friendly SKYFARER unit finishes a move wholly within 3" of a friendly TRANSPORT VESSEL and both of those units are more than 3" from all enemy units, you can say that the TRANSPORT VESSEL will embark that SKYFARER unit.`,
   when: [MOVEMENT_PHASE],
   shared: true,
 }
-
 const EmbarkedEffect = {
   name: `Embarked`,
   desc: `Embarked units are still treated as being on the battlefield. Range and visiblity is measured to and from the TRANSPORT VESSEL in which the unit is embarked.
@@ -48,14 +49,12 @@ const EmbarkedEffect = {
   when: [DURING_GAME],
   shared: true,
 }
-
 const DisembarkEffect = {
   name: `Disembarking`,
   desc: `In your movement phase, if a friendly SKYFARER unit is embarked in a TRANSPORT VESSEL that has not yet moved in that phase, you can say that the SKYFARER unit will disembark. If you do so, set up that SKYFARER unit wholly within 3" of that TRANSPORT VESSEL and more than 3" from all enemy units. A unit disembarks in this way can still move in the same turn.`,
   when: [MOVEMENT_PHASE],
   shared: true,
 }
-
 const DisembarkFromDestroyedVessel = {
   name: `Disembarking from a Destroyed Vessel`,
   desc: `If a friendly TRANSPORT VESSEL is destroyed, before removing it from play, roll a number of dice equal to the number of models embarked in it. For each roll of 1, 1 embarked model is slain (you choose which models are slain). Then, all units embarked in that TRANSPORT VESSEL must immediately disembark before it is removed from play.
@@ -64,14 +63,12 @@ const DisembarkFromDestroyedVessel = {
   when: [WOUND_ALLOCATION_PHASE],
   shared: true,
 }
-
 const FlyingTransportEffect = {
   name: `Flying Transport`,
   desc: `This model can fly. In addition, up to 12 (22 for Ironclad) SKYFARER models can be embarked in it. If this unit is part of an army that is not a Kharadron Overlords army, it can still use the Sky-fleets battle trait (Embark/Disembark rules).`,
   when: [DURING_GAME],
   shared: true,
 }
-
 const SkyCannonEffect = {
   name: `Sky Cannon`,
   desc: `Before attacking with a Sky Cannon, choose either the Shrapnel or Shell missile weapon characteristics for that shooting attack.`,
@@ -103,15 +100,16 @@ const ShipSkyhookEffect = {
   when: [SHOOTING_PHASE],
   shared: true,
 }
-const EndrincraftEffect = {
-  name: `Endrincraft`,
-  desc: `At the start of your hero phase, you can pick 1 friendly SKYVESSEL within 1" of this unit and roll 1 dice for each model in this unit. For each 4+, heal 1 wound allocated to that SKYVESSEL.`,
-  when: [START_OF_HERO_PHASE],
-}
 const GrapnelLauncherEffect = {
   name: `Grapnel Launcher`,
   desc: `While this unit includes any models armed with a grapnel launcher, once per battle, at the end of your movement phase, you can say this unit will reel itself twoards an object. If you do so, pick a point on the battlefield within 15" of this unit and on a terrain feature. Then, remove this unit from the battlefield and set it up again wholly within 3" of that point and more than 9" from all enemy units.`,
   when: [END_OF_MOVEMENT_PHASE],
+  shared: true,
+}
+const BulwarksOfIron = {
+  name: `Bulwarks of Iron`,
+  desc: `This unit counts as 5 models for the purposes of contesting objectives.`,
+  when: [DURING_GAME],
   shared: true,
 }
 const BombRacksEffect = {
@@ -126,13 +124,47 @@ const EndrinmasterHealEffect = (val: '3' | 'D3') => ({
   when: [START_OF_HERO_PHASE],
   shared: true,
 })
+const DrillEffect = (nVal: 'Cannon' | 'Launcher', rVal: '5+' | '6') => ({
+  name: `Drill ${nVal}`,
+  desc: `If the unmodified hit roll for an attack made with a Drill ${nVal} is ${rVal}, that attack causes 3 mortal wounds to the target and the attack sequence ends.`,
+  when: [SHOOTING_PHASE],
+  shared: true,
+})
 
 const Units = {
+  Codewright: {
+    effects: [
+      {
+        name: `Advisory Role`,
+        desc: `At the start of your hero phase, if this unit is within 6" of another friendly KHARADRON OVERLORDS HERO, roll 2 dice. For each 4+, you receieve 1 command point.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `I Think You'll Find...`,
+        desc: `A Codewright can carry out the "Search for a Precedent" heroic action instead of any other heroic action. Roll a dice. On a 1, nothing happens. On a 2-3, you can pick a new footnote to apply to your army until the end of the battle. On a 4+ you can pick a new footnote and/or amendment until the end of the battle. You cannot pick a footnote or amendment previously picked for your army. The new footnote/amendment replaces your current one.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   'Endrinmaster with Dirigible Suit': {
-    effects: [EndrinmasterHealEffect('3')],
+    effects: [
+      {
+        name: `By Grungi, I Have My Eye On You!`,
+        desc: `Add 1 to field repairs rolls made for friendly ENDRINRIGGERS units while they are wholly within 12" of this unit.`,
+        when: [DURING_GAME],
+      },
+      EndrinmasterHealEffect('3'),
+    ],
   },
   'Endrinmaster with Endrinharness': {
-    effects: [EndrinmasterHealEffect('3')],
+    effects: [
+      {
+        name: `'Aye Aye, Captain!`,
+        desc: `At the start of your hero phase, if this unit is embarked and it has not yet used its Endrinmaster ability, you can say that this unit will attempt to crank up the power. If you do so, roll a dice. On a 1, the TRANSPORT VESSEL in which this unit is embarked suffers D3 mortal wounds and the Endrinmaster ability cannot be used by this unit in this phase. On a 2+, until the end of the turn, you can use the top row of that TRANSPORT VESSEL's damage table, regardless of how many wounds it has suffered.`,
+        when: [HERO_PHASE],
+      },
+      EndrinmasterHealEffect('3'),
+    ],
   },
   'Aether-Khemist': {
     effects: [...AetherKhemistEffects],
@@ -178,69 +210,69 @@ const Units = {
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Aetherstorm`,
-        desc: `In your hero phase, you can pick 1 enemy unit within 36" of this model that is visible to them and can fly, and roll a D6. On a 1-2 nothing happens. On a 3-5 halve the Move characteristic of that unit until your next hero phase. On a 6, halve the Move characteristic of that unit until your next hero phase, and that unit suffers D3 mortal wounds.`,
-        when: [HERO_PHASE],
-      },
-      {
         name: `Read the Winds`,
-        desc: `You can reroll run and charge rolls for friendly SKYVESSELS that are visible to a friendly AETHERIC NAVIGATOR that has not attempted to use the Aetherstorm ability in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
+        desc: `In your hero phase, you can say that 1 friendly unit with this ability will read the winds. If you do so, roll 6 dice. Then pick 1 of the following effects:
+
+        Aetherstorm: For each roll of 1, pick 1 different enemy unit within 30" of this unit and visible to this unit. That enemy unit suffers D3 mortal wounds. In addition. If any mortal wounds caused by this ability are allocated to an enemy unit and not negated, halve that unit's Move characteristic until the start of your next hero phase.
+
+        Favourable Conditions: For each roll of 6, pick 1 different friendly SKYVESSEL within 30" of this unit and visible to this unit. That SKYVESSEL can make a normal move of D3+3"`,
+        when: [HERO_PHASE],
       },
     ],
   },
   'Arkanaut Admiral': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Bring Every Gun to Bear', 'Master of the Skies'])],
+      command_abilities: [keyPicker(command_abilities, ['Bring Every Gun to Bear', 'Command the Skies'])],
     },
     effects: [
       {
-        name: `If You Want a Job Done...`,
-        desc: `Add 1 to hit rolls for attacks made bv this unit that target a HERO or MONSTER.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-        rule_sources: [rule_sources.WHITE_DWARF_MAY_2022],
+        name: `The Admiral's Flagship`,
+        desc: `If this unit is the general of a Kharadron Overlords army, you can pick 1 ARKANAUT IRONCLAD or ARKANAUT FRIGATE in the army to be its flagship. Record this information on your army roster. Once per turn, this unit can issue a command to its flagship without a command point being spent.`,
+        when: [START_OF_SETUP],
       },
       {
-        name: `Protect the Admiral!`,
-        desc: `Before you allocate a wound or mortal wound to this unit, or instead of making a ward roll for a wound or mortal wound that would be allocated to this unit, if this unit is within 3" of any other friendly SKYFARERS units, you can roll a dice. On a 1-2, that wound or mortal wound is allocated to this unit as normal. On a 3+, that wound or mortal wound is allocated to another friendly SKYFARERS unit within 3" of this unit instead and cannot be negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [rule_sources.WHITE_DWARF_MAY_2022],
-      },
-      {
-        name: `Aether-powered Munitions`,
-        desc: `After the players have received their starting command points but before the start of the first turn, you can pick 1 of the following Aether-powered Munitions for this unit to use during the battle:
-
-        Blazebeard and Sons 'Drakk-hobbler' Mag-bolas: Once per battle, at the start of your shooting phase, pick 1 enemy MONSTER within 12" of this unit and roll a dice. On a 2+, that unit is grappled until the end of your opponent's turn. While an enemy unit is grappled, charge rolls made for that unit are made by rolling 1D6 instead of 2D6.
-
-        Celestium Burst-grenade: Once per battle, at the start of your shooting phase, pick 1 enemy unit within 12" of this unit and roll a dice. On a 2+, ward rolls cannot be made for wounds and mortal wounds caused by attacks that target that unit until the end of the phase.
-
-        Grudgebreaker Rounds: Once per battle, at the start of your shooting phase, pick 1 friendly KHARADRON OVERLORDS unit wholly within 12" of this unit that is not a SKYVESSEL. Until the end of that phase, improve the Rend characteristic of that unit's missle weapons by 1. The same unit cannot be picked to benefit from this ability than once in the same phase. `,
-        when: [TURN_ONE_START_OF_TURN],
-        rule_sources: [rule_sources.WHITE_DWARF_MAY_2022],
+        name: `Grudgebreaker Rounds`,
+        desc: `Once per battle, at the start of your shooting phase, pick 1 friendly KHARADRON OVERLORDS unit wholly within 12" of this unit that is not a SKYVESSEL. Until the end of that phase, improve the Rend characteristic of that unit's missle weapons by 1. The same unit cannot be picked to benefit from this ability than once in the same phase.`,
+        when: [START_OF_SHOOTING_PHASE],
       },
     ],
   },
   'Grundstok Thunderers': {
     effects: [
       {
-        name: `Honour Bearer`,
-        desc: `Reroll battleshock tests for units with a Honor Bearer.`,
+        name: `Champion`,
+        desc: `1 model in this unit can be a Gunnery Sergeant. Add 2 to the Attacks characteristic of that model's Aethershot Rifle.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Standard Bearer`,
+        desc: `1 in every 5 models in this unit can be an Honour Bearer. Add 1 to the Bravery characteristic of this unit if it includes any Honour Bearers.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
-        name: `Choking Fug`,
-        desc: `Subtract 1 from hit rolls for attacks made by enemy models within 3" of any friendly models armed with an Aetheric Fumigator. This ability cannot be used by a model that is part of a garrison.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-      {
-        name: `Pin Them, Shred Them, Finish Them`,
-        desc: `Add 1 to hit rolls for attacks made with a Grundstok Mortar, Decksweeper or Aethercannon when it is used by a unit that has at least 1 of each of these weapons (i.e. at least 1 Grundstok Mortar, and at least 1 Decksweeper, and at least 1 Aethercannon). This ability cannot be used by a model that is part of a garrison.`,
+        name: `Choking Fug - Shooting`,
+        desc: `Attacks made with an Aetheric Fumigator automatically hit.`,
         when: [SHOOTING_PHASE],
       },
       {
-        name: `Drive Them Back!`,
-        desc: `Add 1 to the Attacks characteristic of missile weapons used by this unit while any enemy units are within 3" of this unit. This ability cannot be used by a model that is part of a garrison.`,
+        name: `Choking Fug - Combat`,
+        desc: `At the end of the combat phase, you can pick 1 enemy unit within 3" of a model in this unit that is armed with an Aetheric Fumigator. If you do so, roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Explosive Shells`,
+        desc: `The Attacks characteristic of a Grundstok Mortar is equal to the number of models in the target unit, to a maximum Attacks characteristic of 5.`,
         when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Suppressing Fire`,
+        desc: `Each time this unit shoots, after all of its attacks have been resolved, if every model in this unit shot and targeted the same enemy unit, roll 2D6. Add to the roll the number of wounds caused by those attacks that were allocated to that enemy unit and not negated. If the score exceeds that enemy unit's Bravery characteristic, it is suppressed until the start of your next hero phase. Subtract 1 from hit rolls for attacks made by a unint is suppressed. A unit cannot be suppressed more than once at the same time.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Drillbill`,
+        desc: `Each time this unit fights, once all of its attacks have been resolved, if this unit includes a Gunnery Sergeant, pick 1 enemy unit within 3" of its Gunnery Sergean and roll a dice. On a 5+, that enemy unit suffers 1 mortal wound.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -250,9 +282,14 @@ const Units = {
     },
     effects: [
       {
-        name: `Custom-built Dirigible Suit`,
-        desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
-        when: [CHARGE_PHASE],
+        name: `Moustache-mounted Aetherblasters`,
+        desc: `Each time this unit fights, after all of its attacks have been resolved, you can pick 1 enemy unit within 3" of this unit and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `First Rule of Grungsson`,
+        desc: `If this unit made a charge move in the same turn, add 1 to the Attacks characteristic of melee weapons used by friendly BARAK-NAR SKYFARER units while they are wholly within 12" of this unit.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -279,7 +316,12 @@ const Units = {
         desc: `1 model in this unit can be a Mizzenmaster. Add 1 to the Attacks characteristic of that model's melee weapons.`,
         when: [COMBAT_PHASE],
       },
-      EndrincraftEffect,
+      {
+        name: `Emergency Field Repairs`,
+        desc: `Once per turn, at the end of any phase, if this unit is more than 3" from all enemy units, you can say this unit will carry out emergency field repairs. If you do so, pick 1 friendly SKYVESSEL within 3" of this unit and roll a dice for each model in this unit. Each of these rolls is called a field repairs roll. For each 4-5, you can heal 1 wound allocated to that SKYVESSEL. For each 6+, you can heal 2 wounds instead.`,
+        when: [DURING_GAME],
+      },
+      DrillEffect('Launcher', '6'),
       SkyhookEffect,
       GrapnelLauncherEffect,
     ],
@@ -307,31 +349,28 @@ const Units = {
         when: [START_OF_MOVEMENT_PHASE],
       },
       {
-        name: `Drill Cannon`,
-        desc: `If the unmodified hit roll for an attack made with a Drill Cannon is 5+, that attack inflicts 3 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [SHOOTING_PHASE],
-      },
-      {
         name: `Escort Vessel`,
-        desc: `Roll 1 dice each time you allocate a wound or mortal wound to a friendly SKYVESSEL other than a GRUNDSTOK GUNHAULER while it is within 3" of any friendly GRUNDSTOK GUNHAULERS. On a 6, that wound or mortal wound is negated.`,
+        desc: `Friendly SKYVESSELS other than GRUNDSTOK GUNHAULERS have a ward of 6+ while they are within 3" of any friendly GRUNDSTOK GUNHAULERS.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
-      // Differs from the other Bomb Racks ability
-      {
-        name: `Bomb Racks`,
-        desc: `At the start of the combat phase, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 4+, that enemy unit suffers D3 mortal wounds.`,
-        when: [START_OF_COMBAT_PHASE],
-      },
+      BombRacksEffect,
       EmbarkedEffect,
       EmbarkingDeployEffect,
       EmbarkingEffect,
       DisembarkEffect,
       DisembarkFromDestroyedVessel,
+      DrillEffect('Cannon', '5+'),
       SkyCannonEffect,
     ],
   },
   'Arkanaut Frigate': {
     effects: [
+      {
+        name: `Assault Boat`,
+        desc: `After this unit finishes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a number of dice equal to the Ramming Dice value shown on this unit's damage table. For each 4+, that enemy unit suffers 1 mortal wound. Then, you can pick any friendly units embarked in this unit to disembark. Units that disembark in this way must be set up within 3" of an enemy unit and count as having made a charge move. In addition, in the following combat phase, the strike-first effect applies to units that disembarked in this way.`,
+        when: [CHARGE_PHASE],
+      },
+      BulwarksOfIron,
       BombRacksEffect,
       FlyingTransportEffect,
       EmbarkedEffect,
@@ -345,6 +384,12 @@ const Units = {
   },
   'Arkanaut Ironclad': {
     effects: [
+      {
+        name: `Supremacy Mine`,
+        desc: `Once per battle, at the end of the enemy charge phasem you can say this unit will drop its supremacy mine. If you do so, pick 1 enemy unit within 3" of this unit and roll a dice. On a 2+, that enemy unit suffers a number of mortal wounds equal to the roll.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+      BulwarksOfIron,
       BombRacksEffect,
       FlyingTransportEffect,
       EmbarkedEffect,
