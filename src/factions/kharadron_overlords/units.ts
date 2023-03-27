@@ -250,12 +250,12 @@ const Units = {
         when: [BATTLESHOCK_PHASE],
       },
       {
-        name: `Choking Fug - Shooting`,
+        name: `Choking Fug`,
         desc: `Attacks made with an Aetheric Fumigator automatically hit.`,
         when: [SHOOTING_PHASE],
       },
       {
-        name: `Choking Fug - Combat`,
+        name: `Choking Fug`,
         desc: `At the end of the combat phase, you can pick 1 enemy unit within 3" of a model in this unit that is armed with an Aetheric Fumigator. If you do so, roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
       },
