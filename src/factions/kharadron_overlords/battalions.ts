@@ -6,10 +6,10 @@ import {
 } from 'generic_rules/core_battalions'
 
 const KharadronOverlordsBattalions = {
-  'Iron Sky Attack Squadron': {
+  'Attack Squadron': {
     effects: [ExpertBattalionEffect, SwiftBattalionEffect],
   },
-  'Grundstok Escort Wing': {
+  'Escort Wing': {
     effects: [SlayersBattalionEffect],
   },
 }
