@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
@@ -13,6 +14,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   TURN_ONE_START_OF_TURN,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
@@ -51,6 +53,7 @@ const DisembarkEffect = {
   name: `Disembarking`,
   desc: `In your movement phase, if a friendly SKYFARER unit is embarked in a TRANSPORT VESSEL that has not yet moved in that phase, you can say that the SKYFARER unit will disembark. If you do so, set up that SKYFARER unit wholly within 3" of that TRANSPORT VESSEL and more than 3" from all enemy units. A unit disembarks in this way can still move in the same turn.`,
   when: [MOVEMENT_PHASE],
+  shared: true,
 }
 
 const DisembarkFromDestroyedVessel = {
@@ -88,36 +91,16 @@ const AetherKhemistEffects = [
     when: [SHOOTING_PHASE, COMBAT_PHASE],
   },
 ]
-const GlorySeekersEffect = [
-  {
-    name: `Glory-Seekers`,
-    desc: `While this unit is not embarked, add 1 to hit rolls for attacks made by this unit that target a unit contesting an objective.`,
-    when: [SHOOTING_PHASE, COMBAT_PHASE],
-  },
-]
-
 const SkyhookEffect = {
   name: `Skyhook`,
   desc: `The Damage characteristic of this unit's Skyhook or Light Skyhook is 3 if the target of the attack is a MONSTER.`,
   when: [SHOOTING_PHASE],
   shared: true,
 }
-
-const getSkyhookEffect = (val: number) => ({
-  name: `Skyhook`,
-  desc: `Add ${val} to charge rolls for this unit if it is armed with a Skyhook.`,
-  when: [CHARGE_PHASE],
-  shared: true,
-})
-const HitchersEffect = {
-  name: `Hitchers`,
-  desc: `If this model is wholly within 6" of a friendly SKYVESSEL immediately before the SKYVESSEL uses its Fly High ability, you can say that this model will hitch a lift instead of making a normal move or retreat (as long as this model has not already made a normal move or retreat in the same phase).
-
-  If you do so, after that SKYVESSEL has moved, remove this model from the battlefield and set it up again wholly within 6" of that SKYVESSEL, more than 1" from any terrain features or objectives and more than 9" from any enemy models.
-
-  No more than 7 models can hitch a lift on the same SKYVESSEL in the same turn.`,
-  when: [MOVEMENT_PHASE],
-  rule_sources: [rule_sources.BATTLETOME_KHARADRON_OVERLORDS, rule_sources.ERRATA_JULY_2021],
+const ShipSkyhookEffect = {
+  name: `Skyvessel Skyhook`,
+  desc: `The Damage characters of this unit's Great Skyhook or Heavy Skyhook is 6 if that target is a MONSTER. In addition, if an attack is made with this unit's Great/Heavy Skyhook scores a hit on a MONSTER, if that MONSTER is not slain, after that attack has been resovled, roll a dice. On a 4+, that MONSTER is snagged until the end of the turn. While a MONSTER is snagged, it cannot carry out monstrous rampages. A MONSTER cannot be snagged more than once in the same turn.`,
+  when: [SHOOTING_PHASE],
   shared: true,
 }
 const EndrincraftEffect = {
@@ -127,8 +110,8 @@ const EndrincraftEffect = {
 }
 const GrapnelLauncherEffect = {
   name: `Grapnel Launcher`,
-  desc: `Enemy units cannot retreat if they are within 3" of any models from this unit armed with a Grapnel Launcher.`,
-  when: [MOVEMENT_PHASE],
+  desc: `While this unit includes any models armed with a grapnel launcher, once per battle, at the end of your movement phase, you can say this unit will reel itself twoards an object. If you do so, pick a point on the battlefield within 15" of this unit and on a terrain feature. Then, remove this unit from the battlefield and set it up again wholly within 3" of that point and more than 9" from all enemy units.`,
+  when: [END_OF_MOVEMENT_PHASE],
   shared: true,
 }
 const BombRacksEffect = {
@@ -137,62 +120,48 @@ const BombRacksEffect = {
   when: [MOVEMENT_PHASE],
   shared: true,
 }
-const SkyminesEffect = {
-  name: `Skymines`,
-  desc: `If an enemy unit that can fly ends a charge move within 1" of any friendly units with this ability, you can roll 1 dice for each model in that enemy unit. For each 6, that unit suffers 1 mortal wound.`,
-  when: [CHARGE_PHASE],
-  shared: true,
-}
 const EndrinmasterHealEffect = (val: '3' | 'D3') => ({
   name: `Endrinmaster`,
   desc: `At the start of your hero phase, you can pick 1 friendly SKYVESSEL within 1" of this model. Heal up to ${val} wounds allocated to that SKYVESSEL.`,
   when: [START_OF_HERO_PHASE],
   shared: true,
 })
-const AethericNavigatorAndEndinriggerEffects = [
-  {
-    name: `Aetheric Navigator and Endrinrigger`,
-    desc: `In your hero phase, you can heal 1 wound allocated to this model.`,
-    when: [HERO_PHASE],
-    shared: true,
-  },
-  {
-    name: `Aetheric Navigator and Endrinrigger`,
-    desc: `You can reroll run rolls for this model.`,
-    when: [MOVEMENT_PHASE],
-    shared: true,
-  },
-]
 
 const Units = {
   'Endrinmaster with Dirigible Suit': {
-    effects: [EndrinmasterHealEffect('3'), HitchersEffect],
+    effects: [EndrinmasterHealEffect('3')],
   },
   'Endrinmaster with Endrinharness': {
-    effects: [EndrinmasterHealEffect('D3'), EndrinharnessEffect],
+    effects: [EndrinmasterHealEffect('3')],
   },
   'Aether-Khemist': {
     effects: [...AetherKhemistEffects],
   },
   'Bjorgen Thundrik': {
-    effects: [...AetherKhemistEffects],
+    effects: [
+      {
+        name: `Toxic Gases`,
+        desc: `Once per battle, at the start of the combat phase, you can say this unit will release toxic gases. If you do so, for each enemy unit within 6" of this unit, roll a number of dice equal to the number of models in that unit that are within 6" of this unit. For each 5+, that enemy unit suffers 1 mortal wound.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Paymaster`,
+        desc: `Once per turn, this unit can issue a command to a friendly THUNDRIK's PROFITEERS unit without a command point being spent.`,
+        when: [DURING_GAME],
+      },
+    ],
   },
   "Thundrik's Profiteers": {
     effects: [
       {
         name: `Khazgan Drakkskewer`,
-        desc: `Add 1 to Khazgan Drakkskewer's Wounds characteristic. In addition, Khazgan Drakkskewer can fly.`,
+        desc: `Khazgan Drakkskewer has a Wounds characteristic of 3. In addition, Khazgan Drakkskewer can fly.`,
         when: [DURING_GAME],
       },
       {
-        name: `Thundrik's Profiteers`,
-        desc: `You can add 1 to hit rolls for attacks made by this unit while it is wholly within 9" of BJORGEN THUNDRIK. This ability cannot be used if this unit is part of a garrison.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-      {
-        name: `Thundrik's Profiteers`,
-        desc: `You can reroll battleshock tests for this unit while it is wholly within 9" of BJORGEN THUNDRIK. This ability cannot be used if this unit is part of a garrison.`,
-        when: [BATTLESHOCK_PHASE],
+        name: `Protect the Boss`,
+        desc: `While this unit is wholly within 3" of a friendly BJORGEN THUNDRIK, he has a ward of 4+.`,
+        when: [WARDS_PHASE],
       },
     ],
   },
@@ -285,8 +254,6 @@ const Units = {
         desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
-      EndrinharnessEffect,
-      HitchersEffect,
     ],
   },
   Skywardens: {
@@ -301,10 +268,8 @@ const Units = {
         desc: `Roll 1 dice for each enemy unit that is within 3" of this unit immediately before this unit makes a retreat move. On a 4+, the unit being rolled for suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
-      getSkyhookEffect(1),
+      SkyhookEffect,
       GrapnelLauncherEffect,
-      HitchersEffect,
-      SkyminesEffect,
     ],
   },
   Endrinriggers: {
@@ -315,13 +280,24 @@ const Units = {
         when: [COMBAT_PHASE],
       },
       EndrincraftEffect,
-      getSkyhookEffect(1),
+      SkyhookEffect,
       GrapnelLauncherEffect,
-      HitchersEffect,
     ],
   },
   'Arkanaut Company': {
-    effects: [...GlorySeekersEffects],
+    effects: [
+      {
+        name: 'Champion',
+        desc: '1 model in this unit can be a Company Captain. That model is army with an Aetherflare Pistol or Volley Pistol instead of a Privateer Pistol.',
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Glory-seekers`,
+        desc: `While this unit is not embarked, add 1 to hit rolls for attacks made by this unit that target a unit contesting an objective.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      SkyhookEffect,
+    ],
   },
   'Grundstok Gunhauler': {
     effects: [
@@ -346,14 +322,6 @@ const Units = {
         desc: `At the start of the combat phase, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 4+, that enemy unit suffers D3 mortal wounds.`,
         when: [START_OF_COMBAT_PHASE],
       },
-      DisengageEffect,
-      // This differs from the Arkanaut flavor of Fly High
-      {
-        name: `Fly High`,
-        desc: `Instead of making a normal move or retreat with this model, you can say that it will fly high (it can disengage). If you do so, remove this model from the battlefield and set it up again more than 1" from any terrain features or objectives and more than 9" from any enemy models.`,
-        when: [MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_KHARADRON_OVERLORDS, rule_sources.ERRATA_JULY_2021],
-      },
       EmbarkedEffect,
       EmbarkingDeployEffect,
       EmbarkingEffect,
@@ -364,55 +332,35 @@ const Units = {
   },
   'Arkanaut Frigate': {
     effects: [
-      ...AethericNavigatorAndEndinriggerEffects,
       BombRacksEffect,
-      DisengageEffect,
-      ArkanautFlyHighEffect,
       FlyingTransportEffect,
       EmbarkedEffect,
       EmbarkingDeployEffect,
       EmbarkingEffect,
       DisembarkEffect,
       DisembarkFromDestroyedVessel,
-      getSkyhookEffect(2),
+      ShipSkyhookEffect,
       SkyCannonEffect,
     ],
   },
   'Arkanaut Ironclad': {
     effects: [
-      ...AethericNavigatorAndEndinriggerEffects,
       BombRacksEffect,
-      DisengageEffect,
-      ArkanautFlyHighEffect,
       FlyingTransportEffect,
       EmbarkedEffect,
       EmbarkingDeployEffect,
       EmbarkingEffect,
       DisembarkEffect,
       DisembarkFromDestroyedVessel,
-      getSkyhookEffect(2),
+      ShipSkyhookEffect,
       SkyCannonEffect,
-    ],
-  },
-  'Dagnai Holdenstock': {
-    effects: [
-      {
-        name: `Gold-plated Reputation`,
-        desc: `If this model is included in a Kharadron Overlords army, it starts the battle with 2 shares of aether-gold instead of 1.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Reel 'Em In`,
-        desc: `If an attack made with this model's Harpoon Gun scores a hit on a MONSTER, if that MONSTER is not slain after that attack has been resolved, roll a dice. On a 4+, that MONSTER is skewered until the start of your next shooting phase. While that MONSTER is skewered, each time it makes a move, it must finish that move at least as close to this model as it was at the start of the move.`,
-        when: [SHOOTING_PHASE],
-      },
     ],
   },
   'Drekki Flynt': {
     effects: [
       {
         name: `Captain of the Aelsling`,
-        desc: `You can pick 1 Barak-Mhornar Arkanaut Frigate in your army to be the Aelsling. Record this information on your roster. Add 1 to the Damage characteristic of that unit's Boarding Weapons.`,
+        desc: `You can pick 1 Barak-Mhornar Arkanaut Frigate in your army to be the Aelsling. This unit you pick cannot also be picked to be a flagship. Record this information on your roster. Add 1 to the Damage characteristic of that unit's Boarding Weapons.`,
         when: [START_OF_GAME, COMBAT_PHASE],
       },
       {

@@ -5,6 +5,7 @@ import {
   START_OF_SHOOTING_PHASE,
   WOUND_ALLOCATION_PHASE,
   START_OF_SETUP,
+  WARDS_PHASE,
 } from 'types/phases'
 
 const Artifacts = {
@@ -13,7 +14,7 @@ const Artifacts = {
       {
         name: `Masterwrought Armour`,
         desc: `The bearer has a ward of 5+`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },
@@ -67,7 +68,6 @@ const Artifacts = {
       },
     ],
   },
-
 }
 
 export default tagAs({ ...Artifacts }, 'artifact')
