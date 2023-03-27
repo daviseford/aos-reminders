@@ -8,7 +8,6 @@ import CommandTraits from './command_traits'
 import Flavors from './flavors'
 import GrandStrategies from './grand_strategies'
 import MountTraits from './mount_traits'
-import Triumphs from './triumphs'
 import Units from './units'
 
 const subFactions = {
@@ -22,7 +21,6 @@ const subFactions = {
       flavors: [Flavors],
       grand_strategies: [GrandStrategies],
       mount_traits: [MountTraits],
-      triumphs: [Triumphs], // Note that KO has custom Triumphs (currently the only army to follow this pattern)
       units: [Units],
     },
   },
