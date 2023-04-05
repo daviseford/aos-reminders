@@ -1,15 +1,40 @@
 import { tagAs } from 'factions/metatagger'
 import { END_OF_GAME } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const GrandStrategies = {
-  'Spend Shares to Make Shares': {
+  'Rule the Skies': {
     effects: [
       {
-        name: `Spend Shares to Make Shares`,
-        desc: `When the battle ends, you complete this grand strategy if no unit in your army has a share of aethergold that has not been spent, and at least 1 share of aethergold was spent by friendly units in every battle round.`,
+        name: `Rule the Skies`,
+        desc: `When the battle ends, you complete this grand strategy if there are 1 or more friendly SKYVESSELS on the battlefield and there are no enemy Behemoths that can fly on the battlefield.`,
         when: [END_OF_GAME],
-        rule_sources: [rule_sources.WHITE_DWARF_MAY_2022],
+      },
+    ],
+  },
+  'Defend the Flagship': {
+    effects: [
+      {
+        name: `Defend the Flagship`,
+        desc: `You can pick this grand strategy only if the model picked to be your general is an ARKANAUT ADMIRAL. When the battle ends, you complete this grand strategy if that general has not been slain and the SKYVESSEL picked to be their flagship has not been destroyed.`,
+        when: [END_OF_GAME],
+      },
+    ],
+  },
+  'Prospector Fleet': {
+    effects: [
+      {
+        name: `Prospector Fleet`,
+        desc: `After deployment, your opponent must pick 1 terrain feature to hold a bounty of mineral wealth. When the battle ends, you complete this grand strategy if you control that terrain feature.`,
+        when: [END_OF_GAME],
+      },
+    ],
+  },
+  'Guided by the Code': {
+    effects: [
+      {
+        name: `Guided by the Code`,
+        desc: `When the battle ends, you complete this grand strategy if you completed at least 4 battle tactics and every battle tactic you completed this battle was a Kharadron Overlords specific battle tactic.`,
+        when: [END_OF_GAME],
       },
     ],
   },

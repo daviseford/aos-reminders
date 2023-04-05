@@ -1,6 +1,6 @@
 import { tagAs } from 'factions/metatagger'
-import { BreathOfMorgrimEffect, GreatEndrinworks } from './common'
+import { GreatEndrinworks } from './common'
 
-const MountTraits = { ...GreatEndrinworks, ...BreathOfMorgrimEffect }
+const MountTraits = { ...GreatEndrinworks }
 
 export default tagAs(MountTraits, 'mount_trait')

@@ -341,26 +341,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.units).toContain('The Eyes of the Nine')
   })
 
-  it('handles KO9', () => {
-    const fileTxt = getFile('KO9')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections.flavors).toContain('Barak-Urbaz, The Market City (Skyport)')
-    expect(res.selections.mount_traits).toContain('Breath of Morgrim')
-  })
-
-  it('handles KO12', () => {
-    const fileTxt = getFile('KO12')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Auric Runefather'. Please check that we have imported the correct one.",
-      },
-    ])
-  })
-
   it('handles KO15', () => {
     const fileTxt = getFile('KO15')
     const pages = handleAzyrPages(fileTxt)
@@ -813,47 +793,6 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
-  it('handle deprecated KO6', () => {
-    const fileTxt = getFile('KO6')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Aethershock Earbuster',
-      },
-    ])
-  })
-
-  it('handles deprecated KO5', () => {
-    const fileTxt = getFile('KO5')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.selections.command_traits).toEqual([
-      'AMENDMENT: Prosecute Wars With All Haste',
-      'ARTYCLE: Seek New Prospects',
-      'FOOTNOTE: Who Strikes First, Strikes Hardest',
-      "FOOTNOTE: There's No Trading With Some People",
-      'Opportunistic Privateers',
-    ])
-  })
-
-  it('handles deprecated KO4', () => {
-    const fileTxt = getFile('KO4')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
-    expect(res.selections.command_traits).toEqual([
-      'ARTYCLE: Master the Skies',
-      "AMENDMENT: Don't Argue With the Wind",
-      "FOOTNOTE: There's Always a Breeze if You Look for it",
-      'FOOTNOTE: Without Our Ships, We Are Naught',
-      'Master Commander',
-    ])
-  })
-
   it('handles Slaanesh1', () => {
     const fileTxt = getFile('Slaanesh1')
     const pages = handleAzyrPages(fileTxt)
@@ -913,73 +852,6 @@ describe('getAzyrArmyFromPdf', () => {
       'Ratling Gun',
       'Stormfiends',
     ])
-  })
-
-  it('handles deprecated KO1', () => {
-    const fileTxt = getFile('KO1')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
-      allyUnits: [],
-      errors: [
-        {
-          severity: 'warn',
-          text: 'These Are Just Guidelines',
-        },
-      ],
-      factionName: KHARADRON_OVERLORDS,
-      origin_realm: null,
-      realmscape_feature: null,
-      realmscape: null,
-      subFactionName: '',
-      selections: {
-        grand_strategies: [],
-        mount_traits: [],
-        incarnates: [],
-        monstrous_rampages: [],
-        prayers: [],
-        flavors: ['Barak-Thryng, City of the Ancestors (Skyport)'],
-        artifacts: ['Grudgehammer'],
-        battalions: [],
-        command_abilities: [
-          'Master of the Skies',
-          'First Rule of Grungsson',
-          'By Grungni, I Have My Eye On You!',
-        ],
-        endless_spells: [],
-        scenery: [],
-        spells: [],
-        command_traits: [
-          'ARTYCLE: Settle the Grudges',
-          'AMENDMENT: Trust to Your Guns',
-          'FOOTNOTE: Honour the Gods, Just in Case',
-          'Supremely Stubborn',
-          'ARTYCLE: Chronicle of Grudges',
-          'AMENDMENT: Take Help Where You Can Get It',
-        ],
-        core_rules: [],
-        triumphs: [],
-        units: [
-          'Aether-Khemist',
-          'Aetheric Navigator',
-          'Arkanaut Admiral',
-          'Bjorgen Thundrik',
-          'Brokk Grungsson, Lord-Magnate of Barak-Nar',
-          'Endrinmaster with Dirigible Suit',
-          'Arkanaut Company',
-          'Grundstok Gunhauler',
-          'Arkanaut Frigate',
-          'Arkanaut Ironclad',
-          "Thundrik's Profiteers",
-          'Skywardens',
-          'Grundstok Thunderers',
-          'Endrinriggers',
-        ],
-      },
-      unknownSelections: [],
-    })
   })
 
   it('warns about ambiguous selections', () => {

@@ -3,11 +3,9 @@ import {
   DURING_GAME,
   END_OF_CHARGE_PHASE,
   MOVEMENT_PHASE,
-  SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 /**
  * These are used as both artifacts and mount_traits
@@ -26,17 +24,8 @@ export const GreatEndrinworks = {
     effects: [
       {
         name: `Hegsson Solutions 'Old Reliable' Hullplates (Great Endrinwork)`,
-        desc: `Add 2 to this model's Wounds characteristic.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  'Ebullient Buoyancy Aid (Great Endrinwork)': {
-    effects: [
-      {
-        name: `Ebullient Buoyancy Aid (Great Endrinwork)`,
-        desc: `This model can fly high and/or disengage even while it has a garrison of 16 or more models.`,
-        when: [MOVEMENT_PHASE],
+        desc: `The first wound that would be allocated to this unit each phase is ignored.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -44,7 +33,7 @@ export const GreatEndrinworks = {
     effects: [
       {
         name: `Prudency Chutes (Great Endrinwork)`,
-        desc: `If this model is destroyed, you do not have to roll to see if models in its garrison are slain (they all survive).`,
+        desc: `If this model is destroyed, you do not have to roll to see if models embarked in it are slain. In addition, if this unit is destroyed, embarked units do not have to be set up more than 3" form all enemy units.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -76,13 +65,21 @@ export const GreatEndrinworks = {
       },
     ],
   },
+  "'Khazzar Farewell' Scuttling Fail-safe (Great Endrinwork)": {
+    effects: [
+      {
+        name: `'Khazzar Farewell' Scuttling Fail-safe (Great Endrinwork)`,
+        desc: `If this unit is destroyed, before it is removed from play and before any units embarked in it disembark, roll a dice for each unit within 3" of this unit. On a 2+, that unit suffers D3 mortal wounds.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
   'Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)': {
     effects: [
       {
         name: `Iggrind-Kaz Surge-injection Endrin Mk. IV (Great Endrinwork)`,
         desc: `When this model makes a normal move or retreats, you can add D3" to that move. If you wish, you can add 2D3" to that move instead of D3", but if you do so and you roll a double, then this model suffers 1 mortal wound after the move is made.`,
         when: [MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_KHARADRON_OVERLORDS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -90,7 +87,7 @@ export const GreatEndrinworks = {
     effects: [
       {
         name: `Zonbarcorp 'Debtsettler' Spar Torpedo (Great Endrinwork)`,
-        desc: `Once per battle, after this model makes its first charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers D6 mortal wounds.`,
+        desc: `Once per battle, after this model makes its first charge move, you can pick 1 enemy unit within 1" of this model and roll a D6. On a 2+, that enemy unit suffers a number of mortal wounds equal to the roll.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -99,20 +96,8 @@ export const GreatEndrinworks = {
     effects: [
       {
         name: `Coalbeard's Collapsible Compartments (Great Endrinwork)`,
-        desc: `This model can use the Flying Transport ability from the Arkanaut Ironclad warscroll. If it does so, the maximum number of models that can garrison it is 5 instead of 25, and it can always fly high and/or disengage no matter how many models are in its garrison.`,
+        desc: `This unit gains the TRANSPORT VESSEL keyword. Up to 6 friendly SKYFARER models can be embarked in it.`,
         when: [DURING_GAME],
-      },
-    ],
-  },
-}
-
-export const BreathOfMorgrimEffect = {
-  'Breath of Morgrim': {
-    effects: [
-      {
-        name: `Breath of Morgrim`,
-        desc: `In your shooting phase, you can pick 1 enemy unit and roll 1 dice for each model from that unit within 6" of the bearer. For each 6, that unit suffers 1 mortal wound.`,
-        when: [SHOOTING_PHASE],
       },
     ],
   },
