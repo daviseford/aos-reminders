@@ -11,7 +11,7 @@ CF_PATH="/*"
 
 # Set up our environment, install dependencies, and build
 pip install awscli
-yarn install
+yarn install --frozen-lockfile
 yarn build
 
 # Upload to S3 and invalidate the Cloudfront cache
