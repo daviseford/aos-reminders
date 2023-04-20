@@ -82,7 +82,6 @@ const SubscribedView = () => {
         </div>
 
         {/* Post-stats section */}
-        <CoachShoutout />
         <Methodology />
       </div>
     </>
@@ -145,45 +144,6 @@ const PageHeader = () => {
   return (
     <div className={`container ${theme.bgColor} ${theme.text} text-center mt-3 pb-2`}>
       <h2>Advanced Analytics</h2>
-    </div>
-  )
-}
-
-const CoachShoutout = () => {
-  const { theme } = useTheme()
-  return (
-    <div
-      className={`row ${theme.bgColor} ${theme.text} mt-3 text-center align-items-start justify-content-center`}
-    >
-      <div className="col-12 mt-2">
-        <h3>Go Deeper with AoS Coach</h3>
-      </div>
-      <div className="col-12 col-md-8 col-xl-6">
-        <div className="embed-responsive embed-responsive-16by9">
-          <iframe
-            className="embed-responsive-item"
-            title="Emerging Meta Series"
-            width="100%"
-            height="100%"
-            src="https://www.youtube-nocookie.com/embed/videoseries?list=PLVceda-W9EygvVeoWhrKaBBCvIiSWasVo"
-            frameBorder="0"
-            allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture"
-            allowFullScreen
-          ></iframe>
-        </div>
-      </div>
-      <div className="col-12 mt-2">
-        <p>
-          Check out AoS Coach's{' '}
-          <LinkNewTab
-            href="https://www.youtube.com/playlist?list=PLVceda-W9EygvVeoWhrKaBBCvIiSWasVo"
-            label={`CoachLink`}
-          >
-            Emerging Meta
-          </LinkNewTab>{' '}
-          series, where he goes in depth on these stats and explains the latest trends.
-        </p>
-      </div>
     </div>
   )
 }
@@ -261,7 +221,6 @@ const UnsubscribedView = () => {
         </Link>
       </div>
 
-      <CoachShoutout />
       <div className="row px-5">
         <Methodology />
       </div>
