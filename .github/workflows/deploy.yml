@@ -1,0 +1,42 @@
+name: Deploy to production
+
+# from https://github.com/linuxacademy/content-github-actions-deep-dive-lab/blob/solution/%20.github/workflows/production.yaml
+
+on:
+  push:
+    branches:
+      - master
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    env:
+      SITE_S3: s3://aosreminders.com/
+      SITE_BUILD_DIR: ./build/
+      CF_DIST_ID: E3OO9Y9QRVZ2L1
+      CF_PATH: /*
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      - name: Configure AWS cli
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Use Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 14
+      - name: Build
+        run: |
+          yarn install
+          yarn build
+      - name: Deploy bundle to bucket
+        run: |
+            echo "Now uploading to S3"
+            aws s3 sync --delete ${{ env.SITE_BUILD_DIR }} ${{ env.SITE_S3 }} --exclude "*build_log.txt" --exclude "*.idea*" --exclude "*.sh" --exclude "*.git*" --exclude "*.DS_Store"
+            echo "Now invalidating CF cache"
+            aws cloudfront create-invalidation --distribution-id ${{ env.CF_DIST_ID }} --paths "${{ env.CF_PATH }}"
+            echo "Deployed to https://aosreminders.com/"
