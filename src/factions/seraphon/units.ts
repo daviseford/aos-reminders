@@ -18,6 +18,7 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SHOOTING_PHASE,
+  TURN_FOUR_START_OF_ROUND,
   WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -723,6 +724,27 @@ const Units = {
         when: [SHOOTING_PHASE],
         rule_sources: [rule_sources.WARCRY_SUNDERED_FATE_NOVEMBER_2022],
       },
+    ],
+  },
+  'Starblood Stalkers': {
+    effects: [
+      {
+        name: `Chameleon Ambush`,
+        desc: `Instead of setting up this unit, KIXI-TAKA and KLAQ-TROK on the battlefield, you can place them to one side and say that they are hiding as reserve units. If you do so, at the end of any of your movement phases, you can set up this unit, KIXI-TAKA and KLAQ-TROK on the battlefield more than 9" from any enemy units and wholly within 9" of each other. Any reserve units that are in hiding and not on the battlefield at the start of the fourth battle round are slain.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Chameleon Ambush`,
+        desc: `At the end of any of your movement phases, you can set up this unit, KIXI-TAKA and KLAQ-TROK on the battlefield more than 9" from any enemy units and wholly within 9" of each other.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Chameleon Ambush`,
+        desc: `Any reserve units that are in hiding and not on the battlefield at the start of the fourth battle round are slain.`,
+        when: [TURN_FOUR_START_OF_ROUND],
+      },
+      StarbucklersEffect,
+      StarVenomEffect,
     ],
   },
 }
