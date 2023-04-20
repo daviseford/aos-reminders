@@ -1,4 +1,4 @@
-[![Codeship Status for daviseford/aos-reminders](https://app.codeship.com/projects/c0b303b0-94f9-0137-ac21-1aa1838f71d2/status?branch=master)](https://app.codeship.com/projects/357042)
+![Deployment Status](https://github.com/daviseford/aos-reminders/actions/workflows/deploy.yml/badge.svg?branch=master)
 
 ## Discord
 
@@ -11,34 +11,6 @@ If you want to add an army or edit an existing army, please do so! Use the `src/
 Feel free to submit a PR for any incorrect/missing rules! I am only human, and the amount of data entry needed for a single army can sometimes be overwhelming.
 
 **For more contribution guidelines, check out [docs/CONTRIBUTING.md](./docs/CONTRIBUTING.md)**
-
-## Contributors
-
-+ [Zirhark](https://github.com/Zirhark)
-+ [JohnSchramm](https://github.com/JohnSchramm)
-+ [exonian](https://github.com/exonian)
-+ [thundergore](https://github.com/thundergore)
-+ [wspencermiller](https://github.com/wspencermiller)
-+ [grzegorzmiazga](https://github.com/grzegorzmiazga)
-+ [ctcodie](https://github.com/ctcodie)
-+ [CptAsgard](https://github.com/CptAsgard)
-+ [PixelTom](https://github.com/PixelTom)
-+ [LiuSeeker](https://github.com/LiuSeeker)
-+ [NiklassMM](https://github.com/NiklasMM)
-+ [T-Nightingale](https://github.com/T-Nightingale)
-+ [mattbarkerdev](https://github.com/mattbarkerdev)
-+ [mmorrison](https://github.com/mmorrison)
-+ [Sobakaa](https://github.com/Sobakaa)
-+ [lucienLopez](https://github.com/lucienLopez)
-+ [BenKidd](https://github.com/BenKidd)
-+ [stures](https://github.com/stures)
-+ [Redmongrel](https://github.com/Redmongrel)
-+ [bszonye](https://github.com/bszonye)
-+ [Flui](https://github.com/Flui)
-+ [dccourt](https://github.com/dccourt)
-+ Lorax
-+ [amcalvert](https://github.com/amcalvert)
-+ [drmartin1998](https://github.com/drmartin1998)
 
 ## Available Scripts
 
