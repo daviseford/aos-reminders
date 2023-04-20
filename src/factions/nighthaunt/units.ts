@@ -14,6 +14,7 @@ import {
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
+  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
@@ -497,6 +498,30 @@ const Units = {
         desc: `If this unit is within 12" of any terrified units, subtract 1 from the damage inflicted (to a minimum of 1) by each successful attack that targets a friendly NIGHTHAUNT unit wholly within 12" of this unit. The same enemy unit cannot be affected by this ability more than once per phase.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
         rule_sources: [rule_sources.BATTLETOME_NIGHTHAUNT, rule_sources.ERRATA_OCTOBER_2022],
+      },
+    ],
+  },
+  Mourngul: {
+    effects: [
+      {
+        name: `Devourer of Flesh and Souls`,
+        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that combat phase, you can heal up to D3 wounds allocated to this model.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Ethereal`,
+        desc: `Ignore modifiers (positive and negative) when making save rolls for attacks that target this model.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Frightful Touch`,
+        desc: `If the unmodified hit roll for an attack made with this model's Nightmarish Claws and Fangs is 6, that attack causes 2 mortal wounds to the target and the attack sequence ends (do not make a wound or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Ghastly Apparition`,
+        desc: `Subtract 1 from hit rolls for attacks made by enemy units while they are within 6" of any friendly models with this ability.`,
+        when: [DURING_GAME],
       },
     ],
   },
