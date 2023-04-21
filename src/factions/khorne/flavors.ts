@@ -1,62 +1,76 @@
-import { keyPicker, pickEffects } from 'factions/metatagger'
-import Artifacts from './artifacts'
-import BattleTraits from './battle_traits'
-import CommandAbilities from './command_abilities'
-import CommandTraits from './command_traits'
+import {
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  HERO_PHASE,
+  WARDS_PHASE,
+  WOUND_ALLOCATION_PHASE,
+} from 'types/phases'
 
 const Flavors = {
   'Reapers of Vengeance': {
-    mandatory: {
-      artifacts: [keyPicker(Artifacts, ['Skullshard Mantle'])],
-      command_abilities: [keyPicker(CommandAbilities, ['Leave None Alive'])],
-      command_traits: [keyPicker(CommandTraits, ['Mage Eater'])],
-    },
-    effects: [...pickEffects(BattleTraits, ['Devour the Craven'])],
+    effects: [
+      {
+        name: `Brutal Retribution`,
+        desc: `Add 1 to hit rolls for attacks made by friendly REAPERS OF VENGEANCE DAEMON units that target an enemy HERO. In addition, each time an enemy HERO is slain, you receive 1 additional Blood Tithe point.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Brutal Retribution`,
+        desc: `Each time an enemy HERO is slain, you receive 1 additional Blood Tithe point.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
   },
 
-  'The Bloodlords': {
-    mandatory: {
-      artifacts: [keyPicker(Artifacts, ['Halo of Blood'])],
-      command_abilities: [keyPicker(CommandAbilities, ['First in His Sight'])],
-      command_traits: [keyPicker(CommandTraits, ["Slaughterer's Thirst"])],
-    },
-    effects: [...pickEffects(BattleTraits, ['Slay the Mighty'])],
+  Bloodlords: {
+    effects: [
+      {
+        name: `The First to Draw Blood`,
+        desc: `When you use the Decapitating Blow ability for a BLOODLORDS BLOODLETTER unit, mortal wounds are caused on an unmodified roll of 5+ instead of 6 if that unit made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
   },
 
-  'The Goretide': {
-    mandatory: {
-      artifacts: [keyPicker(Artifacts, ["Thronebreaker's Torc"])],
-      command_abilities: [keyPicker(CommandAbilities, ['Ever Onwards'])],
-      command_traits: [keyPicker(CommandTraits, ['Hew the Foe'])],
-    },
-    effects: [...pickEffects(BattleTraits, ['Tireless Conquerors'])],
+  Goretide: {
+    effects: [
+      {
+        name: `Tireless Conquerors`,
+        desc: `Add 1 to wound rolls for attacks made with melee weapons by friendly GORETIDE BLOODBOUND units that target an enemy unit that is contesting an objective you do not control, or that target an enemy unit wholly within enemy territory.`,
+        when: [HERO_PHASE],
+      },
+    ],
   },
 
-  'The Skullfiend Tribe': {
-    mandatory: {
-      artifacts: [keyPicker(Artifacts, ['Crowncleaver'])],
-      command_abilities: [keyPicker(CommandAbilities, ['For the Brass Citadel'])],
-      command_traits: [keyPicker(CommandTraits, ['Master Decapitator'])],
-    },
-    effects: [...pickEffects(BattleTraits, ['Skull Hunters'])],
+  'Skullfiend Tribe': {
+    effects: [
+      {
+        name: `Blood-crazed Berserkers`,
+        desc: `If you make an unmodified charge roll of 8+ for a friendly SKULLFIEND TRIBE BLOODBOUND unit, the strike-first effect applies to that unit until the end of the turn.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
   },
 
   'The Flayed': {
-    mandatory: {
-      artifacts: [keyPicker(Artifacts, ['The Slaughterhelm'])],
-      command_abilities: [keyPicker(CommandAbilities, ['Wrathspeaker'])],
-      command_traits: [keyPicker(CommandTraits, ['Vessel of Butchery'])],
-    },
-    effects: [...pickEffects(BattleTraits, ['Blood-woken Runes'])],
+    effects: [
+      {
+        name: `Blood-woken Runes`,
+        desc: `Friendly THE FLAYED BLOODBOUND units have a ward of 5+ if they have been picked to fight in the same phase.`,
+        when: [WARDS_PHASE],
+      },
+    ],
   },
 
-  'The Baleful Lords': {
-    mandatory: {
-      artifacts: [keyPicker(Artifacts, ['Black Brass Crown'])],
-      command_abilities: [keyPicker(CommandAbilities, ['Frenzied Annihilator'])],
-      command_traits: [keyPicker(CommandTraits, ['Thirst for Carnage'])],
-    },
-    effects: [...pickEffects(BattleTraits, ['Unbound Slaughter'])],
+  'Baleful Lords': {
+    effects: [
+      {
+        name: `Unbound Slaughter`,
+        desc: `While a friendly BALEFUL LORDS BLOODTHIRSTER, other than SKARBRAND, is wholly within 8" of any other friendly BALEFUL LORDS BLOODTHIRSTERS, other than SKARBRAND, use the top row on its damage table regardless of how many wounds it has suffered.`,
+        when: [DURING_GAME],
+      },
+    ],
   },
 }
 

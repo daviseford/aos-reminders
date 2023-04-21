@@ -311,15 +311,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.subFactionName).toEqual(SlavesToDarknessFaction.subFactionKeyMap.Ravagers)
   })
 
-  it('handles 1583363189608-Azyr', () => {
-    const fileTxt = getFile('1583363189608-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections.artifacts).toContain("A'rgath, the King of Blades")
-    expect(res.selections.flavors).toContain('The Baleful Lords')
-    expect(res.selections.command_traits).toContain('Rage Unchained')
-  })
-
   it('handles 1584088830450-Azyr', () => {
     const fileTxt = getFile('1584088830450-Azyr')
     const pages = handleAzyrPages(fileTxt)
@@ -371,15 +362,6 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
 
     expect(res.selections.flavors).toEqual(['Dhom-Hain'])
-  })
-
-  it('handles Khorne6', () => {
-    const fileTxt = getFile('Khorne6')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(KHORNE)
-    expect(res.selections.artifacts).toContain("A'rgath, the King of Blades")
-    expect(res.selections.command_traits).toEqual(['Berserker Lord'])
   })
 
   it('handles Tzeentch3', () => {
@@ -626,14 +608,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(KHORNE)
-  })
-
-  it('handles Khorne3', () => {
-    const fileTxt = getFile('Khorne3')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(KHORNE)
-    expect(res.selections.artifacts).toContain('The Brazen Rune')
   })
 
   it('handles Khorne2', () => {

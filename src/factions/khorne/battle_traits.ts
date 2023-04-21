@@ -1,217 +1,143 @@
 import { tagAs } from 'factions/metatagger'
+import { KHORNE } from 'meta/factions'
 import {
-  BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
-  COMBAT_PHASE,
-  DURING_GAME,
-  END_OF_COMBAT_PHASE,
+  END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
-  MOVEMENT_PHASE,
-  SAVES_PHASE,
-  SHOOTING_PHASE,
   START_OF_HERO_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const BattleTraits = {
-  'Boundless Might': {
+  [KHORNE]: {
     effects: [
       {
-        name: `Blood for the Blood God!`,
-        desc: `At the start of the hero phase, you can use 1 or more Blood Tithe points to receive 1 reward from the Blood Tithe Rewards table below. Immediately carry out that reward's effect. Each reward costs a number of points, as shown on the Blood Tithe Rewards table, and you can only receive a reward if you have enough Blood Tithe points to pay its cost. Note that Blood Tithe points can be spent to receive the Spelleater Curse reward at any point during the hero phase, instead of at the start of the hero phase.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_JULY_2022],
+        name: `Locus of Fury`,
+        desc: `While a friendly BLADES OF KHORNE DAEMON unit is more than 8" from all enemy units, it benefits from the Locus of Fury. Units have a ward of 5+ while they benefit from the Locus of Fury. If a friendly BLADES OF KHORNE DAEMON unit retreats, it does not benefit from the Locus of Fury for the rest of the battle.`,
+        when: [WARDS_PHASE],
       },
       {
-        name: `Blood Tithe: Bloody Exemplar`,
-        desc: `Cost: 1 BTP. You receive 1 command point.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Blood Tithe: Spelleater Curse`,
-        desc: `Cost: 2 BTP. Immediately unbind a spellcast before any unbind attempts are made.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Blood Tithe: Murderlust`,
-        desc: `Cost: 3 BTP. Pick 1 friendly BLADES OF KHORNE unit to make a normal move. You can choose to normal move or charge instead if it is within 12" of an enemy unit.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2021],
-      },
-      {
-        name: `Blood Tithe: Apoplectic Frenzy`,
-        desc: `Cost: 4 BTP. Pick 1 friendly BLADES OF KHORNE unit within 3" of an enemy unit can make a pile-in and attack with all its melee weapons.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2021],
-      },
-      {
-        name: `Blood Tithe: Brass Skull Meteor`,
-        desc: `Cost: 5 BTP. Pick 1 unit anywhere on the battlefield to receive D3 mortal wounds. Roll a D6 for each unit within 8" of the target. On a 3+ the rolled for unit suffers 1 mortal wound (D3 mortal wounds instead if the roll was a 6).`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Blood Tithe: Relentless Fury`,
-        desc: `Cost: 6 BTP. Until your next hero phase, each time a friendly BLADES OF KHORNE model is slain, before the model is removed from play it may pile-in and attack with all of its melee weapons.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2021],
-      },
-      {
-        name: `Blood Tithe: Relentless Fury`,
-        desc: `If active, before the buffed model is removed from play, it may pile-in and attack with all of its melee weapons.`,
+        name: `Murderous to the Last`,
+        desc: `Each time a friendly BLOODBOUND model is slain by an attack made with a melee weapon, you can pick 1 enemy unit within 3" of that model and make a murder roll by rolling a dice. On a 5+, that unit suffers 1 mortal wound. If the slain BLOODBOUND model was a HERO, make 3 murder rolls instead of 1.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
-        name: `Blood Tithe: Crimson Rain`,
-        desc: `Cost: 7 BTP. This may be used once per battle. Immeadiately and at the start of each subsequent hero phase you can heal up to D3 wounds allocated to each friendly BLADES OF KHORNE unit on the battlefield.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2021],
+        name: `Hatred of Sorcery`,
+        desc: `Each time a friendly BLADES OF KHORNE unit is affected by a spell cast by an enemy unit or the abilities of an endless spell summoned by an enemy unit, make a Hatred of Sorcery roll by rolling a dice. On a 5+, ignore the effects of that spell or endless spell's abilities on that unit and you receive 1 Blood Tithe point.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'The Blood Tithe': {
+    effects: [
+      {
+        name: `The Blood Tithe`,
+        desc: `When commanding a Blades of Khorne army, you can earn Blood Tithe points (BP) and spend them to use the Blood Tithe Reward abilities below and to summon units to the battlefield.
+
+        You begin the battle with 0 Blood Tithe points. Each time a unit is destroyed, you earn 1 Blood Tithe point.
+        
+        Once at the end of each hero phase, you can spend your Blood Tithe points on 1 of the Blood Tithe Reward abilities from the list below. Each ability costs the number of Blood Tithe points shown next to its entry, and you can only spend Blood Tithe points on a Reward if you have enough Blood Tithe points to do so.
+        
+        'Rising Hatred' and 'Slaughter Triumphant' can be picked multiple times in the same battle, and they are cumulative.`,
+        when: [END_OF_HERO_PHASE],
+      },
+      {
+        name: `Blood Tithe: Murderlust`,
+        desc: `Cost: 1 BTP. Up to 3 different friendly BLADES OF KHORNE units more than 3" from all enemy units can make a move of D6" (roll separately for each unit). They can finish this move within 3" of enemy units.`,
+        when: [END_OF_HERO_PHASE],
+      },
+      {
+        name: `Blood Tithe: Spelleater Curse`,
+        desc: `Cost: 2 BTP. You can spend Blood Tithe points on this Reward in your opponent's hero phase immediately after an enemy WIZARD has cast a spell but before an unbinding attempt is made. That spell is automatically unbound (do not make an unbinding roll). If you spend Blood Tithe points on this Reward, you cannot spend any Blood Tithe points at the end of the same hero phase.`,
+        when: [END_OF_HERO_PHASE],
+      },
+      {
+        name: `Blood Tithe: Brass Skull Meteor`,
+        desc: `Cost: 3 BTP. Pick 1 enemy unit on the battlefield and roll 8 dice. For each 5+, that unit suffers 1 mortal wound. Add 2 to each roll if the enemy unit has a Wounds characteristic of 10 or more or has 10 or more models.`,
+        when: [END_OF_HERO_PHASE],
+      },
+      {
+        name: `Blood Tithe: Apoplectic Frenzy`,
+        desc: `Cost: 4 BTP. Pick 1 friendly BLADES OF KHORNE unit within 3" of an enemy unit. That BLADES OF KHORNE unit can fight.`,
+        when: [END_OF_HERO_PHASE],
+      },
+      {
+        name: `Blood Tithe: Rising Hatred`,
+        desc: `Cost: 5 BTP. Add 1 to Hatred of Sorcery rolls until the end of the battle.`,
+        when: [END_OF_HERO_PHASE],
+      },
+      {
+        name: `Blood Tithe: Heads Must Roll`,
+        desc: `Cost: 6 BTP. Improve the Rend characteristic of melee weapons used by friendly BLADES OF KHORNE units by 1 until the end of the turn.`,
+        when: [END_OF_HERO_PHASE],
+      },
+      {
+        name: `Blood Tithe: Let the Blood Flow`,
+        desc: `Cost: 7 BTP. Roll 1 dice for each enemy unit on the battlefield that is within 3" of any friendly BLADES OF KHORNE units. On a 2+, that unit suffers D3 mortal wounds.`,
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Blood Tithe: Slaughter Triumphant`,
-        desc: `Cost: 8 BTP. This may be used once per battle. After you do so, if the unmodified hit roll for friendly BLADES OF KHORNE melee weapon attacks is a 6, the attack counts for 2 hits instead of 1. Make wound/save rolls for each hit.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_DECEMBER_2021],
-      },
-      {
-        name: `Locus of Fury`,
-        desc: `You can reroll hit rolls of 1 for attacks made by friendly KHORNE DAEMON units while they are wholly within 12" of any friendly KHORNE DAEMON HEROES, or wholly within 16" of any friendly KHORNE GREATER DAEMONS.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-      {
-        name: `Judgements of Khorne`,
-        desc: `Judgements of Khorne use the rules for invocations (core rules, 20.3).`,
-        when: [DURING_GAME],
-        rule_sources: [
-          rule_sources.BATTLETOME_KHORNE,
-          rule_sources.ERRATA_JULY_2021,
-          rule_sources.ERRATA_AUGUST_2021,
-        ],
+        desc: `Cost: 8 BTP. Add 1 to the Attacks characteristic of melee weapons used by friendly BLADES OF KHORNE units until the end of the battle.`,
+        when: [END_OF_HERO_PHASE],
       },
       {
         name: `Summon Daemons of Khorne`,
-        desc: `If you have 2 or more Blood Tithe points at the end of your movement phase, you can summon one or more units onto the battlefield. Summoned units must be set up wholly within 12" of a friendly KHORNE HERO or SKULL ALTAR and more than 9" away from any enemy units.`,
+        desc: `If you have any Blood Tithe points at the end of your movement phase, you can summon 1 unit from the list below to the battlefield and add it to your army. Each unit you summon costs the number of Blood Tithe points shown next to its entry, and you can only summon it if you have enough Blood Tithe points to do so. Units must be set up more than 9" from all enemy units and either wholly within 8" of a friendly KHORNE HERO or wholly within 16" of a Skull Altar in your army.`,
         when: [END_OF_MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_JULY_2022],
       },
       {
         name: `Summon Daemons of Khorne`,
         desc: `Summoning Costs:
-               1 Exalted Greater Daemon of Khorne - 16 BTP (if your army includes this model, your max BTP becomes 16 instead of 8)
-               1 Wrath of Khorne Bloodthirster -    8 BTP
-               1 Bloodthirster of Unfettered Fury - 8 BTP
-               1 Bloodthirster of Insensate Rage -  8 BTP
-               20 Bloodletters -                    7 BTP
-               15 Bloodletters -                    6 BTP
+               1 Exalted Greater Daemon of Khorne - 16 BTP
+               1 Wrath of Khorne Bloodthirster -    10 BTP
+               1 Bloodthirster of Insensate Rage -  10 BTP
+               1 Bloodthirster of Unfettered Fury - 10 BTP
+               20 Bloodletters -                    8 BTP
                10 Flesh Hounds -                    6 BTP
+               10 Bloodletters -                    5 BTP
                1 Skull Cannon -                     5 BTP
                3 Bloodcrushers -                    5 BTP
-               1 Herald of Khorne on Blood Throne - 4 BTP
-               10 Bloodletters -                    4 BTP
+               1 Herald of Khorne on Blood Throne - 5 BTP
+               1 Skullmaster, Herald of Khorne -    4 BTP
                5 Flesh Hounds -                     3 BTP
-               1 Skullmaster -                      3 BTP
-               1 Bloodmaster -                      2 BTP
-               5 Bloodletters -                     2 BTP`,
+               1 Bloodmaster, Herald of Khorne -    3 BTP`,
         when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
-  // Reapers of Vengeance
-  'Devour the Craven': {
-    effects: [
-      {
-        name: `Devour the Craven`,
-        desc: `If an enemy unit fails a battleshock test within 3" of any friendly REAPERS OF VENGEANCE DAEMON units, add D3 to the number of models that flee.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  // Bloodlords
-  'Slay the Mighty': {
-    effects: [
-      {
-        name: `Slay the Mighty`,
-        desc: `You can reroll wound rolls of 1 for attacks made by friendly BLOODLORDS DAEMON units that target a HERO or MONSTER.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  // Goretide
-  'Tireless Conquerors': {
-    effects: [
-      {
-        name: `Tireless Conquerors`,
-        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by friendly GORETIDE MORTAL units wholly within 12" of an objective marker.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  // Skullfiend Tribe
-  'Skull Hunters': {
-    effects: [
-      {
-        name: `Skull Hunters`,
-        desc: `You can reroll hit rolls of 1 for attacks made by friendly SKULLFIEND TRIBE MORTAL units that are wholly within 12" of an enemy HERO.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  // Flayed
-  'Blood-woken Runes': {
-    effects: [
-      {
-        name: `Blood-woken Runes`,
-        desc: `If any enemy HEROES or MONSTERS were slain by attacks made by friendly Flayed mortal units in this phase, you can add 1 to save rolls for attacks that target the Flayed Mortal unit for the rest of the battle. A unit cannot benefit from this more than once per battle.`,
-        when: [END_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Blood-woken Runes`,
-        desc: `If active, you can add 1 to save rolls for attacks that target the Flayed Mortal unit.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
-  // Baleful Lords
-  'Unbound Slaughter': {
-    effects: [
-      {
-        name: `Unbound Slaughter`,
-        desc: `Friendly Baleful Lords Bloodthirsters can run and still charge later in the same turn.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-    ],
-  },
-  'Hatred of Sorcery': {
-    effects: [
-      {
-        name: `Hatred of Sorcery`,
-        desc: `Each time a friendly KHORNE unit is affected by a spell or the abilities of an endless spell, you must roll a dice. On a 6, ignore the effect of that spell or that endless spell's abilities on that unit and you receive 1 blood tithe point.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.WHITE_DWARF_MARCH_2022],
-      },
-    ],
-  },
-
   'Battle Tactics': {
     effects: [
       {
-        name: `Blood for the Altar`,
-        desc: `Pick 1 enemy unit within 9" of your Skull Altar. You complete this battle tactic if that unit is destroyed during this turn.`,
+        name: `Battle Tactics: Blood for the Altar`,
+        desc: `Pick 1 enemy unit within 8" of your Skull Altar. You complete this battle tactic if that enemy unit is destroyed during this turn.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.WHITE_DWARF_MARCH_2022],
       },
       {
-        name: `Slay the Sorcerer`,
-        desc: `Pick 1 enemy HERO on the battlefield that is a WIZARD. You complete this battle tactic if that HERO is slain during this turn.`,
+        name: `Battle Tactics: Slay the Sorcerer`,
+        desc: `Pick 1 enemy WIZARD HERO on the battlefield. You complete this battle tactic if that HERO is slain during this turn.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.WHITE_DWARF_MARCH_2022],
       },
       {
         name: `The Trial of Skulls`,
         desc: `Pick 1 friendly unit. You complete this battle tactic if 8 or more enemy models are slain by attacks made by that unit during this turn.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.WHITE_DWARF_MARCH_2022],
+      },
+      {
+        name: `No Cowards Among Us`,
+        desc: `You complete this battle tactic at the end of this turn if all friendly BLADES OF KHORNE units on the battlefield are within 8" of any enemy units.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Leave None Standing`,
+        desc: `Pick 1 friendly unit within 3" of any enemy units. You complete this battle tactic if that unit fights in the combat phase of this turn and at the end of that phase there are no enemy units within 3" of that unit.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `The Battlefield Runs Red`,
+        desc: `You complete this battle tactic if 4 or more units were destroyed during this turn.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

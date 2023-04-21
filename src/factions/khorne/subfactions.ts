@@ -15,7 +15,7 @@ import Units from './units'
 
 const subFactions = {
   [KHORNE]: {
-    effects: pickEffects(BattleTraits, ['Boundless Might', 'Hatred of Sorcery', 'Battle Tactics']),
+    effects: pickEffects(BattleTraits, [KHORNE, 'The Blood Tithe', 'Battle Tactics']),
 
     available: {
       artifacts: [Artifacts],

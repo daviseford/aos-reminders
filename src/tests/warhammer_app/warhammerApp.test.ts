@@ -56,14 +56,7 @@ describe('getWarhammerAppArmy', () => {
     expect(res.selections.units).toContain("Xandire's Truthseekers")
     expect(res.errors).toEqual([])
   })
-
-  it('should correctly read 1634984507089-Warhammer_App', () => {
-    const parsedText = getFile('1634984507089-Warhammer_App')
-    const res = getWarhammerAppArmy(parsedText)
-    expect(res.selections.prayers).toContain('Blood Sacrifice')
-    expect(res.selections.prayers).toContain('Resanguination')
-    expect(res.errors).toEqual([])
-  })
+ 
 
   it('should correctly read 1635118370422-Warhammer_App', () => {
     const parsedText = getFile('1635118370422-Warhammer_App')
@@ -85,15 +78,7 @@ describe('getWarhammerAppArmy', () => {
     expect(res.selections.command_traits).toContain('Mighty War Leader')
     expect(res.errors).toEqual([])
   })
-
-  it('should correctly read 1632643609934-Warhammer_App', () => {
-    const parsedText = getFile('1632643609934-Warhammer_App')
-    const res = getWarhammerAppArmy(parsedText)
-    expect(res.allySelections).toEqual({
-      [MEGA_GARGANT_MERCENARIES]: { battalions: [], units: ['One-Eyed Grunnock - Warstomper'] },
-    })
-    expect(res.errors).toEqual([])
-  })
+ 
 
   it('should correctly read 1633021235077-Warhammer_App', () => {
     const parsedText = getFile('1633021235077-Warhammer_App')

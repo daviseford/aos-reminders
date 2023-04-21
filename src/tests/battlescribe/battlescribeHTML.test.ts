@@ -226,13 +226,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.artifacts).toContain('Asylumaticae')
   })
 
-  it('should correctly read 1599083520842-Battlescribe', () => {
-    const parsedText = getFile('1599083520842-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.factionName).toEqual(KHORNE)
-    expect(res.selections.artifacts).toContain('Blade of Endless Bloodshed')
-  })
-
   it('should correctly read 1597441117251-Battlescribe', () => {
     const parsedText = getFile('1597441117251-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -565,19 +558,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.subFactionName).toEqual(SlaaneshFaction.subFactionKeyMap['Invaders Host'])
   })
 
-  it('should work with Khorne3', () => {
-    const parsedText = getFile('Khorne3')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(KHORNE)
-    expect(res.selections.flavors).toEqual([
-      'The Bloodlords',
-      'Reapers of Vengeance',
-      'The Skullfiend Tribe',
-      'The Goretide',
-    ])
-  })
-
   it('should work with Stormcast1', () => {
     const parsedText = getFile('Stormcast1')
     const res = getBattlescribeArmy(parsedText)
@@ -771,37 +751,5 @@ describe('getBattlescribeArmy', () => {
     const res = getBattlescribeArmy(parsedText)
 
     expect(res.factionName).toEqual(IDONETH_DEEPKIN)
-  })
-
-  it('should work with Khorne1', () => {
-    const parsedText = getFile('Khorne1')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(KHORNE)
-    expect(res.origin_realm).toEqual('Ghur')
-    expect(res.selections.scenery).toContain('Skull Altar')
-    expect(res.allySelections).toEqual({
-      CHAOS_GRAND_ALLIANCE: { battalions: [], units: ['Gigantic Chaos Spawn'] },
-    })
-    expect(res.selections.units).toEqual([
-      'Bloodmaster, Herald of Khorne',
-      'Bloodstoker',
-      'Bloodthirster of Insensate Rage',
-      'Exalted Greater Daemon of Khorne',
-      'Skaarac the Bloodborn',
-      'Skarr Bloodwrath',
-      'Vorgaroth the Scarred & Skalok the Skull Host of Khorne',
-      'Wrath of Khorne Bloodthirster',
-      'Mazarall the Butcher',
-      'Skull Cannons',
-      'Bloodletters',
-      'Gorebeast Chariots',
-      "Garrek's Reavers",
-      'Khorgoraths',
-      'Skullgrinder',
-      'Wrathmongers',
-      'Exalted Deathbringer',
-      'Skullreapers',
-    ])
   })
 })
