@@ -67,7 +67,7 @@ I have set this repository up to automatically take care of some chores when you
 
 ## Deployment
 
-This repository is automatically deployed using CodeShip.
+This repository is automatically deployed using Github Actions.
 
 Whenever a commit is pushed to the `master` branch, the project is built and uploaded to S3.
 
