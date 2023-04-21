@@ -17,9 +17,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Set up Node
-        uses: actions/setup-node@v1
+        uses: actions/setup-node@v2
         with:
-          node-version: '12.x'
+          node-version: 14
       - name: Install dependencies with yarn
         run: yarn install --frozen-lockfile
       - name: Lint with eslint
