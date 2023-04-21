@@ -16,15 +16,21 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - name: Set up Node
-        uses: actions/setup-node@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 14
+          node-version: '16'
+          cache: 'yarn'
+
       - name: Install dependencies with yarn
         run: yarn install --frozen-lockfile
+
       - name: Lint with eslint
         run: yarn lint
+
       - name: Test with jest
         run: yarn test
+
       - name: Build with TypeScript
         run: yarn build
