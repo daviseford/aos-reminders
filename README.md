@@ -65,6 +65,8 @@ I have set this repository up to automatically take care of some chores when you
 3. Periods are added to the end of descriptions if they are missing.
 4. Finally, we use `pretty-quick` to format the code according to the repository standards.
 
+Alternatively, just run `yarn prepush` before you open a pull request - it'll catch any errors may have missed.
+
 ## Deployment
 
 This repository is automatically deployed using Github Actions.
