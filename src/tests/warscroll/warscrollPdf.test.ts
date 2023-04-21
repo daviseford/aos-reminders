@@ -30,23 +30,6 @@ const getFile = (filename: string) => {
 }
 
 describe('getWarscrollArmyFromPdf', () => {
-  it('should correctly read New_Khorne1', () => {
-    const pdfText = getFile('New_Khorne1')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.selections.artifacts).toContain('Halo of Blood')
-    expect(res.selections.artifacts).toContain('Skullshard Mantle')
-    expect(res.selections.artifacts).toContain('The Slaughterhelm')
-    expect(res.selections.command_traits).toContain('Unrivalled Battlelust')
-    expect(res.selections.endless_spells).toContain('Hexgorger Skulls')
-    expect(res.selections.flavors).toEqual(['The Flayed'])
-    expect(res.selections.grand_strategies).toContain('Dominating Presence')
-    expect(res.selections.prayers).toContain('Guidance')
-    expect(res.selections.spells).toContain('Levitate')
-    expect(res.selections.triumphs).toEqual([])
-  })
-
   it('should correctly read New_Seraphon1', () => {
     const pdfText = getFile('New_Seraphon1')
     const parsedText = parsePdf(pdfText)

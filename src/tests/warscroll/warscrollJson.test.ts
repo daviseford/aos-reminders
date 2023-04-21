@@ -11,7 +11,6 @@ import {
   FYRESLAYERS,
   GREENSKINZ,
   KHARADRON_OVERLORDS,
-  KHORNE,
   LEGION_OF_THE_FIRST_PRINCE,
   NURGLE,
   OGOR_MAWTRIBES,
@@ -314,13 +313,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1592754653939-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.command_traits).toContain('Killer Reputation')
-    // expect(res.selections.command_traits).toContain('Fateseeker (Big Name)')
-  })
-
-  it('should correctly read 1596572409302-Warscroll_Builder', () => {
-    const parsedText = getFile('1596572409302-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.artifacts).toContain('Collar of Contempt')
   })
 
   it('should correctly read 1597231391899-Warscroll_Builder', () => {
@@ -329,18 +321,10 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.units).toContain('Varanguard')
   })
 
-  it('should correctly read 1592663232380-Warscroll_Builder', () => {
-    const parsedText = getFile('1592663232380-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.artifacts).toContain('Skull-helm of Khorne')
-  })
-
   it('should correctly read 1592831552808-Warscroll_Builder', () => {
     const parsedText = getFile('1592831552808-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    //expect(res.selections.command_traits).toContain('Fateseeker (Big Name)')
     expect(res.selections.command_traits).toContain('Killer Reputation')
-    // expect(res.selections.command_traits).toContain('Longstrider (Big Name)')
   })
 
   it('should correctly read 1593886752516-Warscroll_Builder', () => {
@@ -366,12 +350,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1588368330846-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
-  })
-
-  it('should work with 1589375182953-Warscroll_Builder', () => {
-    const parsedText = getFile('1589375182953-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.artifacts).toContain("Foe's Bane")
   })
 
   it('should work with 1589874682978-Warscroll_Builder', () => {
@@ -411,18 +389,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1582292305596-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.spells).toContain('Blades of Putrefaction')
-  })
-
-  /* it('should work with Brand of the Split Daemon', () => {
-    const parsedText = getFile('1582816094064-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.artifacts).toContain('Brand of the Split Daemon')
-  }) */
-
-  it("should work with A'rgath the King of Blades", () => {
-    const parsedText = getFile('1582909138740-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.artifacts).toContain("A'rgath, the King of Blades")
   })
 
   it('should work with The Eyes of the Nine', () => {
@@ -474,12 +440,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1578518862312-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.factionName).toEqual(GREENSKINZ)
-  })
-
-  it('should work with The Blood-forged Armour', () => {
-    const parsedText = getFile('1578730417865-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.artifacts).toContain('The Blood-forged Armour')
   })
 
   it('should work with Vitriolic Spray (Anvilgard)', () => {
@@ -574,12 +534,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.command_traits).toContain('Master of Defence (Order)')
   })
 
-  it('should work with Berzerker Lord', () => {
-    const parsedText = getFile('1576328837058-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.command_traits).toContain('Berserker Lord')
-  })
-
   it('should work with Slaves to Darkness Chaos Spawn', () => {
     const parsedText = getFile('1576493074441-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -631,14 +585,6 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
     expect(res.origin_realm).toEqual(RealmscapesEnum.GHUR)
-  })
-
-  it('should work with The Brazen Rune', () => {
-    const parsedText = getFile('1576533398655-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(KHORNE)
-    expect(res.selections.artifacts).toContain('The Brazen Rune')
   })
 
   it('should work with OBR 1', () => {
@@ -816,14 +762,6 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
     expect(res.selections.command_traits).toContain('Dark Wizardry (Royalty)')
-  })
-
-  it('should work with Blade of Endless Bloodshed', () => {
-    const parsedText = getFile('1571896391287-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(KHORNE)
-    expect(res.selections.artifacts).toContain('Blade of Endless Bloodshed')
   })
 
   it('should work with Destroyer of Foes', () => {

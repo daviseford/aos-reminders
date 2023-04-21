@@ -33,7 +33,7 @@ const subFactions = {
           'Karanak',
           'Mazarall the Butcher',
           'Skarbrand',
-          'Skull Cannons',
+          'Skull Cannon',
           'Skullmaster, Herald of Khorne',
           'Skulltaker',
           'Wrath of Khorne Bloodthirster',

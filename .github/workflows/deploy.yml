@@ -1,4 +1,4 @@
-name: Deploy to production
+name: Deployment
 
 # from https://github.com/linuxacademy/content-github-actions-deep-dive-lab/blob/solution/%20.github/workflows/production.yaml
 
@@ -29,14 +29,11 @@ jobs:
         uses: actions/setup-node@v2
         with:
           node-version: 14
-      - name: Build
-        run: |
-          yarn install --frozen-lockfile
-          yarn build
-      - name: Deploy bundle to bucket
-        run: |
-            echo "Now uploading to S3"
-            aws s3 sync --delete ${{ env.SITE_BUILD_DIR }} ${{ env.SITE_S3 }} --exclude "*build_log.txt" --exclude "*.idea*" --exclude "*.sh" --exclude "*.git*" --exclude "*.DS_Store"
-            echo "Now invalidating CF cache"
-            aws cloudfront create-invalidation --distribution-id ${{ env.CF_DIST_ID }} --paths "${{ env.CF_PATH }}"
-            echo "Deployed to https://aosreminders.com/"
+      - name: Install dependencies with yarn
+        run: yarn install --frozen-lockfile
+      - name: Build with TypeScript
+        run: yarn build
+      - name: Deploy build bundle to S3 bucket
+        run: aws s3 sync --delete ${{ env.SITE_BUILD_DIR }} ${{ env.SITE_S3 }} --exclude "*build_log.txt" --exclude "*.idea*" --exclude "*.sh" --exclude "*.git*" --exclude "*.DS_Store"
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id ${{ env.CF_DIST_ID }} --paths "${{ env.CF_PATH }}"
