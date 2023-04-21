@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import { GLOOMSPITE_GITZ, MEGA_GARGANT_MERCENARIES, SERAPHON, SKAVEN } from 'meta/factions'
+import { GLOOMSPITE_GITZ, SERAPHON, SKAVEN } from 'meta/factions'
 import path from 'path'
 import { getWarhammerAppArmy } from 'utils/warhammer_app/getWarhammerAppArmy'
 
@@ -56,7 +56,6 @@ describe('getWarhammerAppArmy', () => {
     expect(res.selections.units).toContain("Xandire's Truthseekers")
     expect(res.errors).toEqual([])
   })
- 
 
   it('should correctly read 1635118370422-Warhammer_App', () => {
     const parsedText = getFile('1635118370422-Warhammer_App')
@@ -78,7 +77,6 @@ describe('getWarhammerAppArmy', () => {
     expect(res.selections.command_traits).toContain('Mighty War Leader')
     expect(res.errors).toEqual([])
   })
- 
 
   it('should correctly read 1633021235077-Warhammer_App', () => {
     const parsedText = getFile('1633021235077-Warhammer_App')
