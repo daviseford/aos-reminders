@@ -10,13 +10,14 @@ import {
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+
 const CommandTraits = {
   // Invaders Host - Obessions of the Invader
   'Best of the Best': {
     effects: [
       {
         name: `Best of the Best`,
-        desc: `You can reroll wound rolls for attacks made by this general while they are within 6" of another hero.`,
+        desc: `You can reroll wound rolls for attacks made by this general while it is within 6" of another HERO.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -25,7 +26,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Glory Hog`,
-        desc: `If any enemy units were destroyed in the combat phase, and this general is on the battlefield, you receive 1 command point.`,
+        desc: `At the end of the combat phase, if any enemy units were destroyed in that phase and this general is on the battlefield, you receive 1 command point.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -34,7 +35,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Hurler of Obscenities`,
-        desc: `You can pick 1 enemy hero within 6" of this general. Until the end of the combat phase, add 1 to the hit rolls for attacks made by that enemy hero but subtract 1 from the save rolls that target that enemy hero.`,
+        desc: `At the start of the combat phase, you can pick 1 enemy HERO within 6" of this general. Until the end of that phase, add 1 to hit rolls for attacks made by that HERO that target this general, but subtract 1 from save rolls for attacks that target that HERO.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -43,7 +44,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Territorial`,
-        desc: `You can reroll hit rolls for melee attacks made by this general while they are wholly within your territory.`,
+        desc: `You can reroll hit rolls for attacks made with melee weapons by this general if they are wholly within your territory.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -52,7 +53,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Skin-taker`,
-        desc: `If any enemy models were slain by wounds inflicted by this general's attacks in the combat phase, you can heal D3 wounds allocated to this general.`,
+        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this general's attacks in that phase, you can heal up to D3 wounds allocated to this general.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],
@@ -61,7 +62,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Delusions of Infallibility`,
-        desc: `Add 2 to the wounds characteristic of this general.`,
+        desc: `Add 2 to the Wounds characteristic of this general.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -71,7 +72,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Strength of Godhood`,
-        desc: `Once per combat phase, in step 4 of the attack sequence, you can add D3 to the damage inflicted by 1 successful attack made by this general.`,
+        desc: `Once per combat phase, in step 4 of the attack sequence, you can add 1 to the damage inflicted by 1 successful attack made by this general.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -80,7 +81,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Monarch of Lies`,
-        desc: `Pick 1 enemy hero within 3" of this general. Subtract 1 from hit rolls for attacks made by that enemy hero in this phase.`,
+        desc: `At the start of the combat phase, pick 1 enemy HERO within 3" of this general. Subtract 1 from hit rolls for attacks made by that HERO in that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -89,7 +90,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Craving Stare`,
-        desc: `Enemy units that fail battleshock tests within 6" of this general add D3 to the number of models fleeing.`,
+        desc: `If an enemy unit fails a battleshock test within 6" of this general, add D3 to the number of models that flee.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -98,7 +99,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Strongest Alone`,
-        desc: `You can reroll hits roll for attacks made by this general while there are no other friendly models within 6" of this general.`,
+        desc: `You can reroll hit rolls for attacks made by this general while there are no other friendly models within 6" of them.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -107,7 +108,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Hunter of Godbeasts`,
-        desc: `Add 1 to the damage inflicted by successful attacks made by this general that target a monster.`,
+        desc: `Add 1 to the damage inflicted by successful attacks made by this general that target a MONSTER.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
@@ -116,7 +117,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Inspirer`,
-        desc: `You can reroll battleshock tests for friendly Pretenders units while they are wholly within 9" of this general.`,
+        desc: `You can reroll battleshock tests for friendly PRETENDERS units while they are wholly within 9" of this general.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],
@@ -126,7 +127,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Hunter Supreme`,
-        desc: `You can reroll hit and wound rolls of 1 for attacks made by this general if this general made a charge move this turn.`,
+        desc: `Reroll hit and wound rolls of 1 for attacks made with melee weapons by this general if it made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -135,7 +136,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Sweeping Slash`,
-        desc: `After this general makes a charge move, roll a D6 for each enemy unit within 1". On a 2+ the target suffers D3 mortal wounds.`,
+        desc: `After this general makes a charge move, roll a dice for each enemy unit within 1" of them. On a 2+, that unit suffers D3 mortal wounds.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -153,13 +154,8 @@ const CommandTraits = {
     effects: [
       {
         name: `Trail-sniffer`,
-        desc: `Roll a D6 for this general if it is wholly within enemy territory. On a 3+ add 1 to attacks characteristic of this general's melee weapons until your next hero phase.`,
+        desc: `At the start of your hero phase, roll a dice if this general is wholly within enemy territory. On a 3+, add 1 to the Attacks characteristic of this general's melee weapons until your next hero phase.`,
         when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Trail-sniffer`,
-        desc: `If active, add 1 to melee attacks characteristic of this general.`,
-        when: [COMBAT_PHASE],
       },
     ],
   },
@@ -167,7 +163,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Symphoniac`,
-        desc: `Roll 1 dice for each enemy unit within 3" of this general. On a 3+ that enemy unit suffers 1 mortal wound.`,
+        desc: `At the start of the combat phase, roll 1 dice for each enemy unit within 3" of this general. On a 3+, that unit suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -181,32 +177,30 @@ const CommandTraits = {
       },
     ],
   },
-  // Lurid Haze Flavor
+
   'Feverish Anticipation': {
     effects: [
       {
         name: `Feverish Anticipation`,
-        desc: `You can reroll run rolls for friendly Lurid Haze Invaders Host units that are wholly within 12" of this general before the run roll is made.`,
+        desc: `You can reroll run rolls for friendly LURID HAZE INVADERS HOST units that are wholly within 12" of this general when the run roll is made.`,
         when: [MOVEMENT_PHASE],
       },
     ],
   },
-  // Faultless Blades Flavor
   'Contest of Cruelty': {
     effects: [
       {
         name: `Contest of Cruelty`,
-        desc: `Friendly Faultless Blades Pretenders Host units that start a pile-in move wholly within 12" of this general can move an extra 3" when they pile in.`,
+        desc: `Friendly FAULTLESS BLADES PRETENDERS HOST units that start a pile-in move wholly within 12" of this general can move an extra 3" when they pile in.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  // Scarlet Cavalcade Flavor
   'Embodiment of Haste': {
     effects: [
       {
         name: `Embodiment of Haste`,
-        desc: `You can reroll battleshock tests for friendly Scarlet Cavalcade Godseekers Host units wholly within 12" of this general.`,
+        desc: `You can reroll battleshock tests for friendly SCARLET CAVALCADE GODSEEKERS HOST units wholly within 12" of this general.`,
         when: [BATTLESHOCK_PHASE],
       },
     ],

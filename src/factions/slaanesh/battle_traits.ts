@@ -1,22 +1,16 @@
 import { tagAs } from 'factions/metatagger'
+import { SLAANESH } from 'meta/factions'
 import {
-  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_BATTLESHOCK_PHASE,
   END_OF_CHARGE_PHASE,
   END_OF_MOVEMENT_PHASE,
-  END_OF_SETUP,
-  START_OF_CHARGE_PHASE,
-  START_OF_GAME,
-  TURN_ONE_END_OF_MOVEMENT_PHASE,
-  WOUND_ALLOCATION_PHASE,
+  START_OF_HERO_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const BattleTraits = {
-  // Slaanesh Allegiance
-  'Thrilling Compulsions': {
+  [SLAANESH]: {
     effects: [
       {
         name: `Revel in Pain`,
@@ -28,27 +22,21 @@ const BattleTraits = {
 
               18+ DP: Friendly HEDONITES OF SLAANESH units have a ward of 5+.`,
         when: [DURING_GAME],
-        rule_sources: [rule_sources.WHITE_DWARF_MAY_2022],
       },
       {
         name: `Feast of Depravities`,
-        desc: `Keep track of all units that have have taken non-negated wounds or lost models this turn.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-      {
-        name: `Feast of Depravities`,
-        desc: `Each unit on the battlefield that has taken wounds or lost models this turn provide 1 Depravity Point.`,
+        desc: `At the end of the battleshock phase, you receive 1 depravity point for each unit on the battlefield that had a wound or mortal wound that was not negated allocated to it in that turn, or has fewer models than it had at the start of that turn.`,
         when: [END_OF_BATTLESHOCK_PHASE],
       },
       {
         name: `Feast of Depravities`,
-        desc: `If you have any depravity points you may summon one unit from the summoning table. Summoned units must be setup wholly within 12" of a friendly Slaanesh hero and more than 9" from any enemy models.`,
+        desc: `If you have any depravity points at the end of your movement phase, you can summon 1 unit from the list below to the battlefield and add it to your army. Each unit you summon costs a number of depravity points as shown on the list, and you can only summon a unit if you have enough depravity points to do so. Summoned units must be set up wholly within 12" of a friendly SLAANESH HERO and more than 9" from any enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Feast of Depravities`,
         desc: `Summoning Costs:
-             1 Soulfeaster Keeper of Secrets -             30 DP
+             1 Soulfeaster Keeper of Secrets -             12 DP
              1 Keeper of Secrets                           12 DP
              30 Daemonettes -                              12 DP
              3 Seeker Chariots -                           10 DP
@@ -79,114 +67,23 @@ const BattleTraits = {
       },
     ],
   },
-  // Invaders Host
-  "The Despoiler's Art": {
+
+  'Battle Tactics': {
     effects: [
       {
-        name: `Figurehead of the Dark Prince`,
-        desc: `This army can have up to 3 generals instead of 1. Only 1 of the generals (your choice) can have a command trait but all 3 are considered to be a general for command ability purposes. An Invaders Host general cannot use a command trait or command ability while within 12" of another Invaders Host general. In addition each time 1 of your generals is slain for the first time, you receive 1 extra command point. You receive the command point for having a general on the battlefield at the start of the hero phase if 1 or more of these generals are on the battlefield (you still only receive 1 command point if you have 2 or more generals on the battlefield). You receive the +2 modifier to the Heroic Leadership heroic action only if all of the generals have been slain.`,
-        when: [START_OF_GAME],
-        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_JULY_2021],
+        name: 'Death by a Thousand Cuts',
+        desc: `Pick 1 enemy unit. You complete this tactic if wounds caused by attacks made by 3 or more different friendly units are allocated to that unit in this turn.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Escalating Havoc`,
-        desc: `You receive 1 depravity point if any friendly Invaders Host units are wholly within enemy territory. If 3 or more friendly Invaders Host units are wholly within enemy territory at the start of your hero phase, you receive D3 depravity points instead.`,
-        when: [END_OF_BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  // Pretenders Host
-  'Magnificence Made Flesh': {
-    effects: [
-      {
-        name: `Heir to the Throne`,
-        desc: `If the general of a Pretenders Host army is a hero, they have 2 different command traits instead of 1. If you randomly generate traits, roll again if the second result matches the first.`,
-        when: [START_OF_GAME],
+        name: `An Enrapturing Blur`,
+        desc: `Pick 1 enemy HERO that has no wounds allocated to them. You complete this tactic if that unit is destroyed in the combat phase of this turn before it is picked to fight.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Heir to the Throne`,
-        desc: `You can reroll hit rolls of 1 for attacks made with melee weapons by Pretenders Host units while they have 10 or more models.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Warlord Supreme`,
-        desc: `You receive 1 depravity point if your general is within 3" of an enemy unit. If your general is within 3" of 2 or more enemy units you receive D3 depravity points instead.`,
-        when: [END_OF_BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  // Godseekers Host
-  'Blessings of the Gleeful Chase': {
-    effects: [
-      {
-        name: `Thundering Cavalcade`,
-        desc: `Add 1 to charge rolls for units in a Godseekers Host army.`,
-        when: [CHARGE_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SLAANESH,
-          rule_sources.ERRATA_MARCH_2021,
-          rule_sources.ERRATA_JULY_2021,
-        ],
-      },
-      {
-        name: `Maniacal Hunters`,
-        desc: `You receive D3 depravity points if your general made a charge move in this turn. Add 1 to the roll if any other friendly Godseekers Host units made a charge move this turn.`,
-        when: [END_OF_CHARGE_PHASE],
-      },
-    ],
-  },
-  // Syll'Esskan Host
-  'Vengeance Unleashed': {
-    effects: [
-      {
-        name: `Common Purpose`,
-        desc: `If the number of mortal units is exactly equal to the number of daemon units in your army, you receive D3 extra command points. If this condition is true and the army contains more that 12 units, you receive D6 command points instead of D3. Syll'Esske counts as 2 units towards this condition (1 mortal, 1 daemon).`,
-        when: [START_OF_GAME],
-      },
-      {
-        name: `Deadly Symbiosis`,
-        desc: `Add 1 to the number of depravity points you receive in the battleshock phase if a friendly SYLL'ESSKE is on the battlefield and is within 6" of at least 1 other friendly SYLL'ESSKAN HOST DAEMON unit and at least 1 friendly SYLL'ESSKAN HOST MORTAL unit.`,
-        when: [DURING_GAME],
-        rule_sources: [
-          rule_sources.WHITE_DWARF_OCTOBER_2019,
-          rule_sources.ERRATA_MARCH_2021,
-          rule_sources.ERRATA_JULY_2021,
-        ],
-      },
-    ],
-  },
-  // Lurid Haze Flavor
-  'The Lurid Haze': {
-    effects: [
-      {
-        name: `Billowing Mists`,
-        desc: `After set up is complete before the first battle round, you can remove D3 friendly Lurid Haze Invaders Host units from the battlefield and say that they are in ambush as reserves (following any battleplan set-up restrictions). At the end of your first movement phase, you must set up these reserves within 6" of a battlefield edge and more than 9" away from any enemy units.`,
-        when: [END_OF_SETUP],
-      },
-      {
-        name: `Billowing Mists`,
-        desc: `You must set up the selected reserves within 6" of a battlefield edge and more than 9" away from any enemy units.`,
-        when: [TURN_ONE_END_OF_MOVEMENT_PHASE],
-      },
-    ],
-  },
-  // Faultless Blades Flavor
-  'Faultless Blades': {
-    effects: [
-      {
-        name: `Send Me Your Best`,
-        desc: `Add 1 to the hit rolls for melee attacks made by friendly Faultless Blades Pretenders Host units that target a hero if that friendly unit made a charge move this turn.`,
-        when: [CHARGE_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  // Scarlet Cavalcade Flavor
-  'Scarlet Cavalcade': {
-    effects: [
-      {
-        name: `Excessive Swiftness`,
-        desc: `If 2 friendly Scarlet Cavalcade Godseekers Host units that each have 10 or more models are within 6" of each other, you can make 1 charge roll to determine the distance for both units.`,
-        when: [START_OF_CHARGE_PHASE],
+        name: `The Grand Feast`,
+        desc: `You complete this tactic if you receive 12 or more depravity points this turn.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

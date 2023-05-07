@@ -5,7 +5,7 @@ const GrandStrategies = {
   'Chorus of the Woodlands': {
     effects: [
       {
-        name: `Chorus of the Woodlands:`,
+        name: `Chorus of the Woodlands`,
         desc: `When the battle ends, you complete this grand strategy if you completed at least 4 battle tactics and every battle tactic you completed was from the 'Songs of War' list.`,
         when: [END_OF_GAME],
       },

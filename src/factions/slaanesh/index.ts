@@ -12,5 +12,5 @@ export const SlaaneshFaction = new Faction(
   SubFactions,
   'Hosts',
   rule_sources.BATTLETOME_SLAANESH,
-  pickEffects(battle_traits, ['Thrilling Compulsions'])
+  pickEffects(battle_traits, [SLAANESH])
 )

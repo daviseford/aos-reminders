@@ -1,21 +1,12 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  BATTLESHOCK_PHASE,
-  CHARGE_PHASE,
-  COMBAT_PHASE,
-  HERO_PHASE,
-  START_OF_BATTLESHOCK_PHASE,
-  START_OF_COMBAT_PHASE,
-  WOUND_ALLOCATION_PHASE,
-} from 'types/phases'
+import { COMBAT_PHASE, HERO_PHASE, START_OF_BATTLESHOCK_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
 const CommandAbilities = {
-  // Unit abilities
   'Excess of Violence': {
     effects: [
       {
         name: `Excess of Violence`,
-        desc: `When it is your turn to pick a unit to fight with, select 1 friendly Hedonite unit that has already fought once in that combat phase and is wholly within 12". That unit can be selected to fight for a second time if it is within 3" of any enemy units. You cannot pick the same unit to benefit from this command ability more than once in the same combat phase."`,
+        desc: `You can use this command ability in the combat phase when it is your turn to pick a unit to fight with. If you do so, pick 1 other friendly HEDONITE unit that has already fought once in that phase and is wholly within 12" of a model with this command ability. That unit can be picked to fight for a second time if it is within 3" of any enemy units. You cannot pick the same unit to benefit from this command ability more than once in the same phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -27,18 +18,13 @@ const CommandAbilities = {
         desc: `You can use this command ability at the start of the battleshock phase if this model is your general and is on the battlefield. If you do so, until the end of that phase, do not take battleshock tests for friendly SLAANESH units while they are wholly within 18" of this model.`,
         when: [START_OF_BATTLESHOCK_PHASE],
       },
-      {
-        name: `Regal Authority`,
-        desc: `If active, until the end of that phase, do not take battleshock tests for friendly SLAANESH units while they are wholly within 18" of this model.`,
-        when: [BATTLESHOCK_PHASE],
-      },
     ],
   },
   'Paragon of Depravity': {
     effects: [
       {
         name: `Paragon of Depravity`,
-        desc: `You may pick 1 friendly Hedonite mortal unit wholly within 12". The target unit may reroll hit rolls in this phase.`,
+        desc: `You can use this command ability in the combat phase. If you do so, pick 1 friendly MORTAL HEDONITE unit wholly within 12" of this model. You can reroll hit rolls for attacks made by that unit in that phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -47,49 +33,36 @@ const CommandAbilities = {
     effects: [
       {
         name: `Gorge on Excess`,
-        desc: `Once per hero phase you may select 1 friendly Hedonite unit wholly within 12" of this model. Until your next hero phase, if the buffed unit destroys an enemy with any outstanding wounds to be allocated, the buffed unit may heal wounds equal to those remaining allocations.`,
+        desc: `You can use this command ability once per turn in your hero phase. If you do so, pick 1 friendly HEDONITE unit wholly within 12" of this model. Until your next hero phase, if an enemy unit is destroyed by an attack made by that HEDONITE unit and there are wounds that remain to be allocated to that enemy unit from that attack, heal up to the same number of wounds allocated to that HEDONITE unit.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Gorge on Excess`,
-        desc: `If the buffed unit destroys an enemy with any outstanding wounds to be allocated, the buffed unit may heal wounds equal to those remaining allocations.`,
-        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
 
-  // Lurid Haze Flavor
   'Intoxicating Pall': {
     effects: [
       {
         name: `Intoxicating Pall`,
-        desc: `You can use this ability once per turn in this phase. Pick 1 friendly Lurid Haze Invaders Host unit wholly within 12" of a friendly Lurid Haze Invaders Host hero with this ability. Until the end of the phase, add 1 to the save rolls for attacks that target the selected unit. The same unit cannot benefit from this more than once per turn.`,
+        desc: `You can use this command ability once per turn in the combat phase. If you do so, pick 1 friendly LURID HAZE INVADERS HOST unit wholly within 12" of a friendly LURID HAZE INVADERS HOST HERO with this command ability. Until the end of that phase, add 1 to save rolls for attacks that target that unit. The same unit cannot benefit from this command ability more than once per turn.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  // Faultless Blades Flavor
   'Armour of Arrogance': {
     effects: [
       {
         name: `Armour of Arrogance`,
-        desc: `You can use this ability once per turn. Pick 1 friendly Faultless Blades Pretenders Host unit wholly within 12" of a friendly Faultless Blades Pretenders Host hero with this ability. The first 2 wounds allocated to that unit in this phase are negated.`,
+        desc: `You can use this command ability once per turn in the combat phase. If you do so, pick 1 friendly FAULTLESS BLADES PRETENDERS HOST unit wholly within 12" of a friendly FAULTLESS BLADES PRETENDERS HOST HERO with this command ability. The first 2 wounds allocated to that unit in that phase are negated.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  // Scarlet Cavalcade Flavor
   'Vicious Spurs': {
     effects: [
       {
         name: `Vicious Spurs`,
-        desc: `Pick 1 friendly Scarlet Cavalcade Godseekers Host unit that made a charge move this turn wholly within 12" of a friendly Scarlet Cavalcade Godseekers Host hero. Until the end of the phase, if the unmodified save roll for an attack that targets the unit is a 6, the attacking unit suffers 1 mortal wound after all its attacks have resolved.`,
+        desc: `You can use this command ability at the start of the combat phase. If you do so, pick 1 friendly SCARLET CAVALCADE GODSEEKERS HOST unit that made a charge move that turn and is wholly within 12" of a friendly SCARLET CAVALCADE GODSEEKERS HOST HERO. Until the end of that phase, if the unmodified save roll for an attack that targets that unit is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [START_OF_COMBAT_PHASE],
-      },
-      {
-        name: `Vicious Spurs`,
-        desc: `A unit that charges in this phase will be an eligible target for Vicious Spurs if it is wholly within 12" of a Scarlet Cavalcade Godseekers hero.`,
-        when: [CHARGE_PHASE],
       },
     ],
   },
