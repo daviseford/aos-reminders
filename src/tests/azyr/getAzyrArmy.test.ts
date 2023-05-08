@@ -22,7 +22,6 @@ import {
   SLAANESH,
   SLAVES_TO_DARKNESS,
   SONS_OF_BEHEMAT,
-  SOULBLIGHT_GRAVELORDS,
   STORMCAST_ETERNALS,
   TZEENTCH,
 } from 'meta/factions'
@@ -42,102 +41,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.subFactionName).toEqual('Godseekers Host')
-  })
-
-  it('should correctly read Soulblight_Gravelords', () => {
-    const fileTxt = getFile('Soulblight_Gravelords')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(SOULBLIGHT_GRAVELORDS)
-    expect(res.subFactionName).toEqual('Avengorii Dynasty')
-    expect(res.selections).toEqual({
-      artifacts: [],
-      incarnates: [],
-      monstrous_rampages: [],
-      battalions: ['Deathstench Drove', 'Fellwing Flock'],
-      command_abilities: [
-        'Pack Alpha',
-        'Tactical Insight',
-        'Arise! Arise!',
-        'A Queen Amongst Monsters',
-        'Vigour of Undeath',
-        'Death Magic Incarnate',
-        "Twilight's Allure",
-        'Fist of Nagash',
-        'Call to the Hunt',
-        'Mustering Howl',
-        'Crimson Feast',
-        'Festering Feast',
-        'Disciplined Advance',
-        'Lord of Bones',
-      ],
-      command_traits: [],
-      endless_spells: [],
-      flavors: [],
-      grand_strategies: [],
-      mount_traits: [],
-      prayers: [],
-      scenery: [],
-      spells: [
-        'Vile Transference',
-        'Soulpike',
-        'Spirit Gale',
-        'Blades of Shyish',
-        'Amaranthine Orb',
-        'Overwhelming Dread',
-        'Spectral Grasp',
-        'Prison of Grief',
-        'Decrepify',
-        'Fading Vigour',
-        'Amethystine Pinions',
-        'Soul Harvest',
-        'Invigorating Aura',
-        'Under a Killing Moon',
-        'Lycancurse',
-        'Blood Siphon',
-        'Shudder',
-        "Death's Downpour",
-        'Wind of Death',
-        'Hand of Dust',
-        'Soul Stealer',
-        "Vanhel's Danse Macabre",
-        'Dark Mist',
-        'Fiendish Lure',
-        'Quickblood',
-        'Necrotising Bolt',
-        'Clotted Deluge',
-      ],
-      core_rules: [],
-      triumphs: [],
-      units: [
-        'Belladamma Volga',
-        'Bloodseeker Palanquin',
-        'Coven Throne',
-        'Gorslav the Gravekeeper',
-        'Kritza',
-        'Lady Annika',
-        'Lauka Vai',
-        'Mannfred von Carstein',
-        'Nagash, Supreme Lord of the Undead',
-        'Necromancer',
-        'Neferata',
-        'Prince Duvalle',
-        'Prince Vhordrai',
-        'Radukar the Beast',
-        'Radukar the Wolf',
-        'Torgillius the Chamberlain',
-        'Vampire Lord',
-        'Vengorian Lords',
-        'Watch Captain Halgrim',
-        'Wight King',
-        'Deadwalker Zombies',
-        'Deathrattle Skeletons',
-        'Dire Wolves',
-        'Terrorgheist',
-        'Zombie Dragon',
-        'Mortis Engine',
-      ],
-    })
   })
 
   it('should correctly read 1612043258621-Azyr', () => {

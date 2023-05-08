@@ -154,12 +154,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.flavors).toContain('Guild of Summoners')
   })
 
-  it('should correctly read 1626388412216-Battlescribe', () => {
-    const parsedText = getFile('1626388412216-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.units).toContain('Corpse Cart w/ Balefire Brazier')
-  })
-
   it('should correctly read 1626447368607-Battlescribe', () => {
     const parsedText = getFile('1626447368607-Battlescribe')
     const res = getBattlescribeArmy(parsedText)

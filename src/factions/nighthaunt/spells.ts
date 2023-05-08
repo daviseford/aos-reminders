@@ -96,7 +96,7 @@ const Spells = {
     effects: [
       {
         name: `Soul Stealer`,
-        desc: `Casting value of 6 and a range of 24". Pick 1 enemy unit within range and visible to the caster and roll 2D6. If the roll is greater than that unit's Bravery characteristic, it suffers D3 mortal wounds. If the roll is at least double that unit's Bravery characteristic, it suffers D6 mortal wounds instead. You can heal up to 1 wound that has been allocated to the caster for each mortal wound caused by this spell that is not negated.`,
+        desc: `Casting value of 7 and a range of 24". Pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. If the unmodified casting roll for this spell is 9+ and this spell is not unbound, that unit suffers D6 mortal wounds instead of D3. You can heal up to 1 wound that has been allocated to the caster for each mortal wound caused by this spell that is not negated.`,
         when: [HERO_PHASE],
       },
     ],

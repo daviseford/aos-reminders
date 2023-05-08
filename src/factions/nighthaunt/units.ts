@@ -1,7 +1,5 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
-import { OBRWarmasterEffect } from 'factions/ossiarch_bonereapers/units'
 import { GenericEffects } from 'generic_rules'
-import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -51,42 +49,38 @@ const StolenHoursEffect = {
 export const Nagash = {
   'Nagash, Supreme Lord of the Undead': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Death Magic Incarnate'])],
       spells: [keyPicker(spells, ['Hand of Dust', 'Soul Stealer'])],
     },
     effects: [
       {
         name: `Alakanash, the Staff of Power`,
-        desc: `Add the Staff of Power value shown on this unit's damage table to casting, dispelling and unbinding rolls for this unit. In addition, this unit can attempt to cast Arcane Bolt any number of times in the same hero phase, even if another Wizard has already attempted to cast the spell in that phase.`,
+        desc: `Add 3 to casting, unbinding and dispelling rolls for this unit.`,
         when: [HERO_PHASE],
-        rule_sources: [meta_rule_sources.CROSS_FACTION_HEROES_JULY_2022],
       },
       {
         name: `Invocation of Nagash`,
-        desc: `At the start of your hero phase, if this unit is on the battlefield, you can pick up to 5 different friendly SUMMONABLE units or friendly OSSIARCH BONEREAPERS units in any combination. For each of those units, you can either heal up to 3 wounds that have been allocated to that unit or, if no wounds have been allocated to it, you can return a number of slain models to that unit that have a combined Wounds characteristic of 3 or less.`,
+        desc: `At the start of your hero phase, for each friendly SUMMONABLE, MORDANT or OSSIARCH BONEREAPERS unit wholly within range of this unit, you can either heal up to 3 wounds allocated to that unit or, if no wounds have been allocated to that unit, you can return a number of slain models to it that have a combined Wounds characteristic of 3 or less. The range of this ability is shown on this unit's damage table.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Supreme Lord of the Undead`,
-        desc: `If this unit is on the battlefield when you use an ability that returns slain models to a friendly DEATH unit, you can either reroll the dice that determines the number of slain models returned to that unit or add 1 to the number of slain models that are returned to that unit.`,
-        when: [DURING_GAME],
+        desc: `At the start of your hero phase, you can pick 1 friendly SUMMONABLE, MORDANT or OSSIARCH BONEREAPERS unit with a Wounds characteristic of 3 or less that has been destroyed and roll a dice. On a 3+, a new replacement unit with half of the models from the unit that was destroyed (rounding up) is added to your army. Replacement units must be set up wholly within 12" of this unit and more than 9" from all enemy units. Units set up in this way cannot move in the following movement phase. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
         name: `Morikhane`,
-        desc: `This unit has a ward of 4+ for damage inflicted by mortal wounds. In addition, if the unmodified ward roll for this unit is 6, that attacking unit suffers 1 mortal wound.`,
+        desc: `Friendly DEATH units wholly within 12" of this unit have a ward of 5+.`,
         when: [WARDS_PHASE],
       },
       {
         name: `The Nine Books of Nagash`,
-        desc: `The Nine Books of Nagash allow this unit to cast extra spells in your hero phase and unbind extra spells in the enemy hero phase. The number of extra spells this unit can attempt to cast or unbind is shown on this unit's damage table.`,
+        desc: `The number of spells this unit can attempt to cast is shown on this unit's damage table.`,
         when: [HERO_PHASE],
       },
-      OBRWarmasterEffect,
       {
         name: `Wizard`,
-        desc: `This unit can attempt to cast 3 spells in your hero phase and attempt to unbind 3 spells in the enemy hero phase. If this unit is part of a Nighthaunt, Flesh-eater Courts, Ossiarch Bonereapers or Soulblight Gravelords army, it knows all of the spells from the spell lores in that faction's allegiance abilities in addition to the other spells it knows.`,
+        desc: `The number of spells this unit can attempt to cast in your hero phase is determined using the Nine Books of Nagash ability below. This unit can attempt to unbind any number of spells in the enemy hero phase. If this unit is part of a Nighthaunt, Flesh-eater Courts, Ossiarch Bonereapers or Soulblight Gravelords army, it knows all of the spells from the spell lores in that faction's allegiance abilities in addition to the other spells it knows.`,
         when: [HERO_PHASE],
-        rule_sources: [meta_rule_sources.CROSS_FACTION_HEROES_JULY_2022],
       },
     ],
   },

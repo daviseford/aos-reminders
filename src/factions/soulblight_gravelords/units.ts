@@ -2,73 +2,62 @@ import { keyPicker, tagAs } from 'factions/metatagger'
 import { Nagash } from 'factions/nighthaunt/units'
 import { GenericEffects } from 'generic_rules'
 import {
+  BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   DURING_SETUP,
+  END_OF_BATTLESHOCK_PHASE,
+  END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
+  END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
-  TURN_FOUR_START_OF_ROUND,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import command_abilities from './command_abilities'
-import rule_sources from './rule_sources'
 import spells from './spells'
 
-const TheHungerEffect = {
-  name: `The Hunger`,
-  desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this unit's attacks in that phase, you can heal up to D3 wounds allocated to this unit.`,
-  when: [END_OF_COMBAT_PHASE],
+const LocusOfUndeathEffect = {
+  name: `Locus of Undeath`,
+  desc: `Add 1 to save rolls for attacks that target friendly DEADWALKER ZOMBIES units wholly within 12" of any friendly models with this ability.`,
+  when: [SAVES_PHASE],
   shared: true,
 }
-
-const NightmaresMiasmaEffect = {
-  name: `Nightmares Miasma`,
-  desc: `While an enemy unit is within 3" of any friendly models with this ability, worsen the Rend characteristic of that unit's melee weapons by 1 (to a minimum of '-')`,
+const TerrorEffect = {
+  name: `Terror`,
+  desc: `Enemy units cannot receive the Inspiring Presence command while they are within 3" of any friendly units with this ability.`,
+  when: [BATTLESHOCK_PHASE],
+  shared: true,
+}
+const TheHungerEffect = {
+  name: `The Hunger`,
+  desc: `Each time this unit fights, after all of its attacks have been resolved, you can heal up to a number of wounds allocated to this unit equal to the number of wounds and mortal wounds caused by those attacks that were allocated to enemy units (to a maximum of 6).`,
   when: [COMBAT_PHASE],
   shared: true,
 }
-
-const UndeniableImpulseEffect = {
-  name: `Undeniable Impulse`,
-  desc: `At the start of your hero phase, roll a dice for this model. If the roll is equal to or less than the number of the current battle round, until your next hero phase, this model can run and still charge later in the same turn. However, this model cannot use command abilities until your next hero phase.`,
-  when: [START_OF_HERO_PHASE],
+const NightmaresMiasmaEffect = {
+  name: `Nightmares Miasma`,
+  desc: `While an enemy unit is within 3" of any friendly units with this ability, worsen the Rend characteristic of that unit's melee weapons by 1 (to a minimum of '-').`,
+  when: [COMBAT_PHASE],
   shared: true,
 }
-
 const WailOfTheDamnedEffect = {
   name: `Wail of the Damned`,
-  desc: `Do not use the attack sequence for an attack made with a Wail of the Damned. Instead, roll a dice for each enemy unit within range of this model's Wail of the Damned. On a 4+, that unit suffers D3 mortal wounds.`,
+  desc: `In your shooting phase, roll a dice for each enemy unit within range of this unit's Wail of the Damned ability. The range of this unit's Wail of the Damned ability is shown on its damage table. On a 4+, that unit suffers D3 mortal wounds.`,
   when: [SHOOTING_PHASE],
   shared: true,
 }
-
-const getFrightfulTouchEffect = (weapon: 'Blades' | 'Daggers') => ({
-  name: `Frightful Touch`,
-  desc: `If the unmodified hit roll for an attack made with this model's Spectral Claws and ${weapon} is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends (do not make a wound or save roll).`,
-  when: [COMBAT_PHASE],
-  shared: true,
-})
-
 const DeathlyChargeEffect = {
   name: `Deathly Charge`,
-  desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+  desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit. If you do so, roll 2 dice for each model in this unit. For each 5+, the target suffers 1 mortal wound.`,
   when: [CHARGE_PHASE],
   shared: true,
-}
-
-const getStandardBearerEffect = (size: 5 | 10) => {
-  return {
-    name: `Standard Bearer`,
-    desc: `1 in every ${size} models in this unit can be a Standard Bearer. You can reroll rolls of 1 for the Deathless Minions battle trait for this unit while it has any Standard Bearers.`,
-    when: [WOUND_ALLOCATION_PHASE],
-    shared: true,
-  }
 }
 
 const Units = {
@@ -76,88 +65,109 @@ const Units = {
 
   'Mannfred von Carstein': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Vigour of Undeath'])],
-      spells: [keyPicker(spells, ['Invigorating Aura', 'Wind of Death'])],
+      spells: [keyPicker(spells, ['Wind of Death'])],
     },
     effects: [
+      GenericEffects.WizardTwoSpellsEffect,
       TheHungerEffect,
-      getFrightfulTouchEffect(`Daggers`),
       {
         name: `Armour of Templehof`,
-        desc: `The first wound or mortal wound allocated to this model in each phase is negated.`,
+        desc: `The first wound or mortal wound caused to this unit in each phase is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `Sword of Unholy Power`,
-        desc: `If any enemy models are slain by wounds inflicted by this model's Gheistvor, until the end of that phase, add 1 to the Attacks characteristic of melee weapons used by friendly SOULBLIGHT GRAVELORDS SUMMONABLE units while they are wholly within 12" of this model.`,
+        desc: `Each time this unit fights, any wounds caused by this unit's Ebon Claws, Sickle-glaive and Spectral Claws and Daggers must be allocated first, followed by any wounds caused by this unit's Gheistvor. If any enemy models are slain by wounds caused by this unit's Gheistvor, until the end of the phase, add 1 to the Attacks characteristic of melee weapons used by friendly LEGION OF NIGHT SUMMONABLE units while they are wholly within 12" of this unit.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Mortarch of Night`,
-        desc: `At the start of the combat phase, if this model is within 3" of any enemy units, you can remove this model from the battlefield and set it up again anywhere on the battlefield more than 9" from all enemy units.`,
+        desc: `The strike-first effect applies to this unit if it makes a charge move in the same turn.`,
         when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Mortarch of Night`,
+        desc: `If this unit receives the Redeploy command, it can attempt a charge instead of making a D6" move.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
 
   Neferata: {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ["Twilight's Allure"])],
-      spells: [keyPicker(spells, ['Invigorating Aura', 'Dark Mist'])],
+      spells: [keyPicker(spells, ['Dark Mist'])],
     },
     effects: [
-      getFrightfulTouchEffect(`Daggers`),
+      GenericEffects.WizardTwoSpellsEffect,
       {
         name: `Dagger of Jet`,
-        desc: `At the end of any phase, if any wounds inflicted by this model's Akmet-har in that phase were allocated to an enemy HERO and not negated, and that enemy model has not been slain, roll a dice. On a 5+, that enemy HERO is slain.`,
-        when: [WOUND_ALLOCATION_PHASE, END_OF_COMBAT_PHASE],
+        desc: `At the end of any phase, if any wounds caused by this unit's Akmet-har were allocated to an enemy HERO in that phase and that enemy HERO has not been slain, roll a dice. On a 5+, that enemy HERO is slain.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Twilight's Allure`,
+        desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target friendly LEGION OF BLOOD units wholly within 12" of this unit.`,
+        when: [COMBAT_PHASE],
       },
       {
         name: `Mortarch of Blood`,
-        desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this model's attacks in that phase, you can heal up to D6 wounds allocated to this model.`,
+        desc: `At the end of deployment, before determining control of objectives, you can pick up to 3 friendly LEGION OF BLOOD units on the battlefield. First, remove this unit from the battlefield and set it up again wholly within your territory. Then, remove those friendly LEGION OF BLOOD units from the battlefield and set them up again wholly within your territory.`,
         when: [END_OF_COMBAT_PHASE],
       },
+      TheHungerEffect,
     ],
   },
 
   'Prince Vhordrai': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Fist of Nagash'])],
-      spells: [keyPicker(spells, ['Invigorating Aura', 'Quickblood'])],
+      spells: [keyPicker(spells, ['Quickblood'])],
     },
     effects: [
+      GenericEffects.WizardOneSpellEffect,
       TheHungerEffect,
       {
-        name: `Chalice of Blood`,
-        desc: `Once per battle, in your hero phase, you can heal up to D6 wounds allocated to this model.`,
-        when: [HERO_PHASE],
+        name: `Fist of Nagash`,
+        desc: `Once per turn, if this unit is on the battlefield when a friendly KASTELAI VAMPIRE unit gains an ability with the Might of the Crimson Keep battle trait, you can pick 1 other friendly KASTELAI VAMPIRE unit wholly within 24" of this unit that has not already gained that ability and that has not gained any other abilities with the Might of the Crimson Keep battle trait in that turn. That unit gains the same ability.`,
+        when: [END_OF_COMBAT_PHASE],
       },
+      TerrorEffect,
       {
         name: `Bloodlance Charge`,
-        desc: `Add 2 to the Damage characteristic of this model's Bloodlance and improve the Rend characteristic of that weapon by 1 if this model made a charge move in the same turn.`,
+        desc: `This unit's Bloodlance has a Rend characteristic of -3 and a Damage characteristic of 3 if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
-      },
-      {
-        name: `Breath of Shyish`,
-        desc: `In your shooting phase, you can pick 1 enemy unit within 9" of this model that is visible to it and roll a dice. On a 3+, that unit suffers a number of mortal wounds equal to the Breath of Shyish value shown on this model's damage table.`,
-        when: [SHOOTING_PHASE],
       },
     ],
   },
 
   'Prince Duvalle': {
     mandatory: {
-      spells: [keyPicker(spells, ['Invigorating Aura', 'Fiendish Lure'])],
+      spells: [keyPicker(spells, ['Fiendish Lure'])],
     },
-    effects: [TheHungerEffect],
+    effects: [
+      TheHungerEffect,
+      {
+        name: `'Come Then, Amuse Us'`,
+        desc: `At the start of the combat phase, if this unit and any friendly THE CRIMSON COURT models are within 3" of the same enemy unit, your opponent must pick 1 of the following effects to apply until the end of that phase:
+        
+        - Improve the Rend characteristic of this unit's Possessed Blade by 1.
+        
+        - This unit cannot be picked as the target of attacks made with melee weapons.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
   },
 
   'The Crimson Court': {
     effects: [
       TheHungerEffect,
       {
+        name: `Gorath the Enforcer`,
+        desc: `Gorath the Enforcer has a Wounds characteristic of 4.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
         name: `Vampiric Agility`,
-        desc: `When this unit makes a move, it can pass across terrain features in the same manner as a model that can fly.`,
+        desc: `When this unit makes a move, it can pass across terrain features in the same manner as a unit that can fly.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -165,150 +175,172 @@ const Units = {
 
   'Lauka Vai': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['A Queen Amongst Monsters'])],
-      spells: [keyPicker(spells, ['Invigorating Aura', "Death's Downpour"])],
+      spells: [keyPicker(spells, ["The Queen's Dictat"])],
     },
     effects: [
+      GenericEffects.WizardOneSpellEffect,
       TheHungerEffect,
+      {
+        name: `A Queen Amongst Monsters`,
+        desc: `Once per turn, at the end of the charge phase, you can pick 1 friendly AVENGORII MONSTER wholly within 12" of this unit. You can carry out 2 different monstrous rampages with that MONSTER in that phase instead of 1.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
       {
         name: `Champion of the Avengorii`,
         desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a number of dice equal to the charge roll for that charge move. For each 5+, that enemy unit suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
       NightmaresMiasmaEffect,
-      UndeniableImpulseEffect,
     ],
   },
 
-  'Vengorian Lords': {
+  'Vengorian Lord': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Festering Feast'])],
-      spells: [keyPicker(spells, ['Invigorating Aura', 'Clotted Deluge'])],
+      spells: [keyPicker(spells, ['Cursed Reflection'])],
     },
-    effects: [NightmaresMiasmaEffect, UndeniableImpulseEffect, TheHungerEffect],
+    effects: [
+      GenericEffects.WizardOneSpellEffect,
+      NightmaresMiasmaEffect,
+      TheHungerEffect,
+      {
+        name: `Festering Feast`,
+        desc: `Once per turn, at the end of the combat phase, you can pick 1 friendly SOULBLIGHT GRAVELORDS MONSTER that is not a HERO, that is wholly within 12" of this unit and that destroyed any enemy units in that phase. Heal all wounds allocated to that MONSTER.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
   },
 
   'Belladamma Volga': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Pack Alpha'])],
-      spells: [keyPicker(spells, ['Invigorating Aura', 'Under a Killing Moon', 'Lycancurse'])],
+      spells: [keyPicker(spells, ['Under a Killing Moon', 'Lycancurse'])],
     },
     effects: [
       TheHungerEffect,
       {
         name: `First of the Vyrkos`,
-        desc: `Add 1 to casting, dispelling and unbinding rolls for this model.`,
+        desc: `Add 1 to casting, dispelling and unbinding rolls for this unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `First of the Vyrkos`,
-        desc: `Roll a dice before you allocate wound or mortal wound to this model if it is within 3" of any friendly DIRE WOLVES units. On a 3+, that wound or mortal wound is allocated to 1 of those units instead of this model.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `If this unit is within 3" of any friendly VYRKOS DIRE WOLVES units, before you allocate a wound or mortal wound to this unit, or instead of making a ward roll for a wound or mortal wound that would be allocated to this unit, roll a dice. On a 3+, that wound or mortal wound is allocated to 1 of those friendly units instead of this unit.`,
+        when: [WOUND_ALLOCATION_PHASE, WARDS_PHASE],
       },
     ],
   },
 
   'Lady Annika': {
     effects: [
+      TheHungerEffect,
       {
         name: `Supernatural Speed`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 4+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `This unit has a ward of 4+.`,
+        when: [WARDS_PHASE],
+      },
+      {
+        name: `Supernatural Speed`,
+        desc: `During deployment, instead of setting up this unit on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit. If you do so, at the end of your movement phase, you can set up this unit anywhere within enemy territory and more than 9" from all enemy units.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Supernatural Speed`,
+        desc: `If you set this unit up in reserve, at the end of your movement phase, you can set up this unit anywhere within enemy territory and more than 9" from all enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
       {
         name: `Kiss of the Blade Proboscian`,
-        desc: `At the end of a phase, if any enemy models were slain by wounds inflicted by this model's attacks in that phase, you can heal all wounds allocated to this model.`,
-        when: [END_OF_COMBAT_PHASE],
+        desc: `At the end of any phase, if any wounds caused by attacks made with this unit's Blade Proboscian in that phase were allocated to an enemy HERO or MONSTER, and that enemy unit has not been destroyed, worsen the Save characteristic of that unit by 1 (to a minimum of 6+) for the rest of the battle.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
 
   Kritza: {
     effects: [
+      TheHungerEffect,
       {
         name: `Scurrying Retreat`,
-        desc: `At the end of your movement phase, if this model has been slain, roll a dice. On a 4+, you can set up this model anywhere on the battlefield more than 9" from all enemy units, with all wounds allocated to it removed.`,
-        when: [END_OF_MOVEMENT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_JULY_2021],
+        desc: `In the combat phase, when you pick this unit to fight, you can say that it will make a scurrying retreat. If you do so, this unit retreats instead of fighting.`,
+        when: [COMBAT_PHASE],
       },
       {
-        name: `Nauseating Aroma`,
-        desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target this model.`,
-        when: [COMBAT_PHASE],
+        name: `The Verminous Court`,
+        desc: `At the start of the combat phase, you can pick 1 enemy unit within 1" of this unit that has an artefact of power and roll a dice. On a 3+, that artefact of power can no longer be used (if it was used to enhance a weapon, that weapon reverts to its normal form).`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
 
   'Radukar the Wolf': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Call to the Hunt'])],
-    },
     effects: [
+      GenericEffects.WizardOneSpellEffect,
       TheHungerEffect,
       {
-        name: `Supernatural Strength`,
-        desc: `If the unmodified wound roll for an attack made with a melee weapon by this model is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        name: `Call to the Hunt`,
+        desc: `In the combat phase, if this unit made a charge move in the same turn, add 1 to the Attacks characteristic of melee weapons used by friendly VYRKOS SUMMONABLE units while they are wholly within 12" of this unit.`,
         when: [COMBAT_PHASE],
       },
       {
         name: `Loyal to the Last`,
-        desc: `Roll a dice before you allocate a wound or mortal wound to this model while it is within 3" of any friendly KOSARGI NIGHTGUARD units. On a 2+, that wound or mortal wound is allocated to 1 of those units instead of this model.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `If this unit is within 3" of a friendly KOSARGI NIGHTGUARD unit, before you allocate a wound or mortal wound to this unit, or instead of making a ward roll for a wound or mortal wound that would be allocated to this unit, roll a dice. On a 3+, that wound or mortal wound is allocated to that friendly unit instead of this unit.`,
+        when: [WOUND_ALLOCATION_PHASE, WARDS_PHASE],
       },
     ],
   },
 
   'Radukar the Beast': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Call to the Hunt', 'Mustering Howl'])],
-    },
     effects: [
       TheHungerEffect,
       {
         name: `Bounding Charge`,
-        desc: `This model can run and still charge later in the same turn.`,
+        desc: `This unit can run and still charge later in the turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
       {
+        name: `Call to the Hunt`,
+        desc: `In the combat phase, if this unit made a charge move in the same turn, add 1 to the Attacks characteristic of melee weapons used by friendly VYRKOS SUMMONABLE units while they are wholly within 12" of this unit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
         name: `Supernatural Reflexes`,
-        desc: `Subtract 1 from hit rolls for attacks that target this model.`,
+        desc: `Subtract 1 from hit rolls and wound rolls for attacks that target this model.`,
         when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Unleashed Ferocity`,
-        desc: `If the unmodified hit roll for an attack made with this model's Blood-slick Claws is 6, that attack inflicts 2 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
+        desc: `If the unmodified hit roll for an attack made with this unit's Blood-slick Claws is 6, the target suffers 2 mortal wounds and the attack sequence ends (do not make a wound roll or save roll).`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `The Beast Will Out`,
+        desc: `This unit cannot retreat. However, at the end of any phase, if any wounds or mortal wounds were allocated to this unit in that phase, and this unit is more than 12" from all enemy units, this unit can move up to D6".`,
+        when: [DURING_GAME],
       },
     ],
   },
 
   'Gorslav the Gravekeeper': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Arise! Arise!'])],
-    },
     effects: [
       {
         name: `Keeper of the Corpse-gardens`,
-        desc: `Roll a dice before you allocate wound or mortal wound to this model if it is within 3" of any friendly DEADWALKERS units. On a 4+, that wound or mortal wound is allocated to 1 units instead of this model.`,
+        desc: `If this unit is within 3" of any friendly VYRKOS DEADWALKER ZOMBIES units, before you allocate a wound or mortal wound to this unit, or instead of making a ward roll for a wound or mortal wound that would be allocated to this unit, roll a dice. On a 2+, that wound or mortal wound is allocated to 1 of those friendly units instead of this unit.`,
         when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Arise! Arise!`,
+        desc: `Once per turn, at the end of your movement phase, you can pick 1 friendly VYRKOS DEADWALKER ZOMBIES unit that has been destroyed. A new replacement unit with half of the models from the unit that was destroyed (rounding up) is added to your army. Replacement units must be set up wholly within 9" of this unit and more than 9" from all enemy units. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
 
   'Torgillius the Chamberlain': {
-    mandatory: {
-      spells: [keyPicker(spells, ['Invigorating Aura', 'Necrotising Bolt'])],
-    },
     effects: [
-      {
-        name: `Mastery of Grave-sand`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit. On a 4+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Trusted Lieutenant`,
-        desc: `At the start of your hero phase, if this model is within 3" of a friendly RADUKAR THE WOLF, roll a dice. On a 4+, you receive 1 extra command point.`,
-        when: [START_OF_HERO_PHASE],
+        desc: `Friendly VYRKOS SUMMONABLE units have a ward of 5+ while they are wholly within 12" of this unit.`,
+        when: [WARDS_PHASE],
       },
     ],
   },
@@ -317,21 +349,29 @@ const Units = {
     effects: [
       {
         name: `Shadowfast`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit. On a 5+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `After deployment but before the first battle round begins, you can move this unit up to 10". If both players can move units before the first battle round begins, they must roll off and the winner chooses who moves their units first.`,
+        when: [END_OF_SETUP],
       },
+      {
+        name: `Vampiric Agility`,
+        desc: `When this unit makes a move, it can pass across terrain features in the same manner as a unit that can fly.`,
+        when: [MOVEMENT_PHASE],
+      },
+      TheHungerEffect,
     ],
   },
 
   'Watch Captain Halgrim': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Disciplined Advance'])],
-    },
     effects: [
       {
         name: `Cursed Halberd`,
-        desc: `If the unmodified hit roll for an attack made with a Cursed Halberd is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
+        desc: `If the unmodified hit roll for an attack made with a Cursed Halberd is 6, that attack causes 2 mortal wounds to the target in addition to any damage it inflicts.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Disciplined Advance`,
+        desc: `This unit can issue the At the Double command up to 3 times to friendly VYRKOS DEATHRATTLE units in the same phase. If it does so, no command points are spent the second and third times this unit issues that command in that phase.`,
+        when: [MOVEMENT_PHASE],
       },
     ],
   },
@@ -339,15 +379,11 @@ const Units = {
   Vargskyr: {
     effects: [
       {
-        name: `Gnarled Hide`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 5+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-      {
         name: `Bounding Leaps`,
-        desc: `You can attempt to charge with this model if it is within 18" of the enemy instead of 12". Roll 3D6 instead of 2D6 when making a charge roll for this model.`,
+        desc: `You can attempt a charge with this unit if it is within 18" of an enemy unit instead of 12". In addition, roll 3D6 instead of 2D6 when making a charge roll for this unit.`,
         when: [CHARGE_PHASE],
       },
+      TheHungerEffect,
     ],
   },
 
@@ -355,12 +391,12 @@ const Units = {
     effects: [
       {
         name: `Deathly Vigour`,
-        desc: `Roll a dice each time you allocate a wound or mortal wound to this unit. On a 5+, that wound or mortal wound is negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `This unit has a ward of 5+.`,
+        when: [WARDS_PHASE],
       },
       {
-        name: `Servants Even in Death`,
-        desc: `Add 1 to the Attacks characteristic of this unit's Bardiches while it is wholly within 12" of a friendly RADUKAR THE WOLF.`,
+        name: `A Pact Maintained`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Bardiches while it is wholly within 12" of a friendly RADUKAR THE WOLF or RADUKAR THE BEAST.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -368,36 +404,41 @@ const Units = {
 
   'Vampire Lord on Zombie Dragon': {
     mandatory: {
-      spells: [keyPicker(spells, ['Invigorating Aura', 'Curse of Exsanguination'])],
+      spells: [keyPicker(spells, ['Curse of Exsanguination'])],
     },
     effects: [
-      ...GenericEffects.ZombieDragon, // Pestilential Breath
+      GenericEffects.WizardOneSpellEffect,
       TheHungerEffect,
       {
         name: `Deathlance Charge`,
-        desc: `Add 2 to the Damage characteristic of this model's Deathlance and improve the Rend characteristic of that weapon by 1 if this model made a charge move in the same turn.`,
+        desc: `This unit's Deathlance has a Rend characteristic of -3 and a Damage characteristic of 3 if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
+      TerrorEffect,
     ],
   },
 
   'Blood Knights': {
     effects: [
       TheHungerEffect,
-      getStandardBearerEffect(5),
       {
         name: `Champion`,
-        desc: `1 model in this unit can be a Kastellan. Add 1 to the Attacks characteristic of a Kastellan's Templar Lance or Blade.`,
+        desc: `1 model in this unit can be a Kastellan. Add 1 to the Attacks characteristic of that model's Templar Lance or Templar Blade.`,
         when: [COMBAT_PHASE],
       },
       {
+        name: `Standard Bearer`,
+        desc: `1 in every 5 models in this unit can be a Standard Bearer. You can reroll ward rolls of 1 for this unit for the purposes of the Deathless Minions battle trait if this unit includes any Standard Bearers.`,
+        when: [WARDS_PHASE],
+      },
+      {
         name: `Riders of Ruin`,
-        desc: `In your movement phase, if this unit is within 3" of an enemy unit, it can make a normal move. If it does so, it can pass across other models with a Wounds characteristic of 3 or less (that do not have a mount) in the same manner as a model that can fly. After this unit has made a normal move, roll a dice for each enemy unit that has any models passed across by any models in this unit. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        desc: `Models in this unit can pass across other models with a Wounds characteristic of 3 or less in the same manner as a model that can fly. After this unit has moved, roll a dice for each enemy unit that has any models it passed across. On a 2+, that enemy unit suffers D3 mortal wounds.`,
         when: [MOVEMENT_PHASE],
       },
       {
         name: `Martial Fury`,
-        desc: `Add 1 to the Damage characteristic of this unit's Templar Lances or Blades if this unit made a charge move in the same turn.`,
+        desc: `Add 1 to the Damage characteristic of this unit's melee weapons if this unit made a charge move in the same turn. This ability has no effect on attacks made by this unit's mounts.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -407,67 +448,67 @@ const Units = {
     effects: [
       {
         name: `Champion`,
-        desc: `1 model in this unit can be a Vargoyle. Add 1 to the Attacks characteristic of a Vargoyle's Murderous Fangs and Talons.`,
+        desc: `1 model in this unit can be a Vargoyle. Add 1 to the Attacks characteristic of that model's Murderous Fangs and Talons.`,
         when: [COMBAT_PHASE],
       },
+      TheHungerEffect,
       {
         name: `Death's Descent`,
-        desc: `Instead of setting up this unit on the battlefield, you can place it to one side and say that it is circling high above as a reserve unit. If you do so, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from any enemy units. At the start of the fourth battle round, any models that are still in reserve are slain.`,
+        desc: `During deployment, instead of setting up this unit on the battlefield, you can place it to one side and say that it is circling high above as a reserve unit. If you do so, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units.`,
         when: [DURING_SETUP],
       },
       {
         name: `Death's Descent`,
-        desc: `If this unit was placed in reserve during setup, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from any enemy units.`,
+        desc: `If you set this unit up in reserve, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {
-        name: `Death's Descent`,
-        desc: `At the start of the fourth battle round, any models that are still in reserve are slain.`,
-        when: [TURN_FOUR_START_OF_ROUND],
-      },
-      {
-        name: `Blood-maddened Feeding Frenzy`,
-        desc: `If the unmodified hit roll for an attack made by this unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        name: `Blood-maddened Frenzy`,
+        desc: `If the unmodified hit roll for an attack made by this unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound roll and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
 
   'Vampire Lord': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Crimson Feast'])],
-      spells: [keyPicker(spells, ['Invigorating Aura'])],
-    },
-    effects: [TheHungerEffect],
+    effects: [
+      GenericEffects.WizardOneSpellEffect,
+      TheHungerEffect,
+      {
+        name: `Crimson Feast`,
+        desc: `Once per turn, at the start of the combat phase, you can pick 1 friendly SOULBLIGHT GRAVELORDS SUMMONABLE unit wholly within 12" of this unit. Add 1 to the Attacks characteristic of that unit's melee weapons until the end of that phase. The same unit cannot benefit from this ability more than once per phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
   },
 
   'Bloodseeker Palanquin': {
     mandatory: {
-      spells: [keyPicker(spells, ['Invigorating Aura', 'Blood Siphon'])],
+      spells: [keyPicker(spells, ['Blood Siphon'])],
     },
     effects: [
+      TheHungerEffect,
       {
-        name: `A Fine Vintage`,
-        desc: `If an enemy HERO is slain within 9" of this model, add 1 to the Attacks characteristic of melee weapons used by friendly VAMPIRE units wholly within 12" of this model until your next hero phase.`,
-        when: [COMBAT_PHASE, WOUND_ALLOCATION_PHASE],
+        name: `A Promising Concoction`,
+        desc: `The first time an enemy HERO is slain by an attack made by this unit, for the rest of the battle, add 1 to the Attacks characteristic of melee weapons used by friendly VAMPIRE units while they are wholly within 12" of this unit, and you can carry out 2 different heroic actions with this unit at the start of the hero phase instead of 1.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
-      getFrightfulTouchEffect(`Blades`),
       WailOfTheDamnedEffect,
+      GenericEffects.WizardOneSpellEffect,
     ],
   },
 
   'Mortis Engine': {
     effects: [
       WailOfTheDamnedEffect,
-      getFrightfulTouchEffect(`Blades`),
       {
         name: `The Reliquary`,
-        desc: `Once per battle, in your hero phase, you can say that this model will unleash the energies of its reliquary. If you do so, roll a dice for each unit within 12" of this model. On a 2+, that unit suffers D3 mortal wounds. DEATH units are not affected by this ability.`,
+        desc: `Each time a friendly SOULBLIGHT GRAVELORDS WIZARD successfully casts a spell that is not unbound, unbinds a spell or dispels an endless spell, place 1 reliquary counter beside this unit (to a maximum of 6). Once per battle, in your hero phase, you can say that this unit will unleash the energies of its reliquary. If you do so, each enemy unit within 6" of this unit suffers a number of mortal wounds equal to the number of reliquary counters beside this unit.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Bound Necromancer`,
-        desc: `Add 1 to casting rolls for friendly SOULBLIGHT GRAVELORDS WIZARDS wholly within 12" of any friendly models with this ability.`,
+        name: `Nexus of Death Energy`,
+        desc: `Each time you pick a friendly SOULBLIGHT GRAVELORDS SUMMONABLE unit wholly within 12" of this unit using the Deathly Invocation battle trait, you can either heal up to D3+3 wounds allocated to that unit instead of 3 or, if no wounds have been allocated to that unit, you can return a number of slain models to it that have a combined Wounds characteristic of D3+3 or less instead of 3 or less.`,
         when: [HERO_PHASE],
       },
     ],
@@ -475,29 +516,34 @@ const Units = {
 
   'Coven Throne': {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Tactical Insight'])],
-      spells: [keyPicker(spells, ['Invigorating Aura', 'Shudder'])],
+      spells: [keyPicker(spells, ['Undying Servitude'])],
     },
     effects: [
+      GenericEffects.WizardOneSpellEffect,
       TheHungerEffect,
-      getFrightfulTouchEffect(`Blades`),
+      {
+        name: `Tactical Insight`,
+        desc: `This unit can issue the same command up to 2 times in the same phase. If it does so, each command must be received by a friendly SOULBLIGHT GRAVELORDS SUMMONABLE unit. No command point is spent the second time this unit issues that command in that phase.`,
+        when: [DURING_GAME],
+      },
       {
         name: `Scrying Pool`,
-        desc: `Once per turn, you can reroll 1 hit roll or 1 wound roll for an attack made by this model or 1 save roll for an attack that targets this model.`,
-        when: [COMBAT_PHASE, SAVES_PHASE],
+        desc: `If you take the first turn in the current battle round, this unit can attempt to cast 1 extra spell in your hero phase. If you take the second turn in the current battle round, you receive 1 extra command point.`,
+        when: [HERO_PHASE],
       },
     ],
   },
 
   Necromancer: {
     mandatory: {
-      spells: [keyPicker(spells, ['Invigorating Aura', "Vanhel's Danse Macabre"])],
+      spells: [keyPicker(spells, ["Vanhel's Danse Macabre"])],
     },
     effects: [
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Undead Minions`,
-        desc: `Roll a dice before you allocate a wound or mortal wound to this model if it is within 3" of any friendly SOULBLIGHT GRAVELORDS SUMMONABLE units. On a 3+, that wound or mortal wound is allocated to 1 of those units instead of this model.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `If this unit is within 3" of any friendly SOULBLIGHT GRAVELORDS SUMMONABLE units, before you allocate a wound or mortal wound to this unit, or instead of making a ward roll for a wound or mortal wound that would be allocated to this unit, roll a dice. On a 4+, that wound or mortal wound is allocated to 1 of those friendly units instead of this unit.`,
+        when: [WOUND_ALLOCATION_PHASE, WARDS_PHASE],
       },
     ],
   },
@@ -506,49 +552,29 @@ const Units = {
     effects: [
       {
         name: `Dragged Down and Torn Apart`,
-        desc: `This unit is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in.`,
-        when: [COMBAT_PHASE],
+        desc: `Roll a dice each time a model in this unit is slain by an attack made with a melee weapon. On a 5+, the attacking unit suffers 1 mortal wound.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
         name: `The Newly Dead`,
-        desc: `If the unmodified hit roll for an attack made by this unit is 6, that attack inflicts 1 mortal wound on the target and the attack sequence ends.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `The Newly Dead`,
-        desc: `At the end of the combat phase, you can roll a dice for each enemy model that was slain by wounds inflicted by this unit's attacks in that phase. For each 2+, you can add 1 DEADWALKER ZOMBIE model to this unit. Models that are added to this unit must be set up within 1" of a model in this unit. They can only be set up within 3" of an enemy unit if a model in this unit is already within 3" of that enemy unit. Models added to this unit using this ability can take it above its maximum size.`,
+        desc: `At the end of the combat phase, you can roll a dice for each enemy model that was slain by wounds caused by this unit's attacks in that phase. For each 2+, you can add 1 Deadwalker Zombie model to this unit.`,
         when: [END_OF_COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS, rule_sources.ERRATA_AUGUST_2021],
       },
     ],
   },
 
-  'Corpse Cart w/ Unholy Lodestone': {
+  'Corpse Cart': {
     effects: [
       {
-        name: `Unholy Lodestone`,
-        desc: `Add 1 to casting rolls for friendly SOULBLIGHT GRAVELORDS WIZARDS wholly within 12" of any friendly models with this ability.`,
+        name: `Shyishan Relic`,
+        desc: `This unit can have an Unholy Lodestone or a Balefire Brazier.
+
+        - Add 1 to casting rolls for friendly SOULBLIGHT GRAVELORDS WIZARDS wholly within 12" of any friendly units that have an Unholy Lodestone.
+
+        - Subtract 1 from casting rolls for enemy WIZARDS within 12" of any friendly units that have a Balefire Brazier. `,
         when: [HERO_PHASE],
       },
-      {
-        name: `Locus of Undeath`,
-        desc: `Add 1 to save rolls for attacks that target friendly DEADWALKER ZOMBIES units wholly within 12" of any friendly models with this ability.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
-  'Corpse Cart w/ Balefire Brazier': {
-    effects: [
-      {
-        name: `Balefire Brazier`,
-        desc: `Subtract 1 from casting rolls for enemy WIZARDS within 18" of any friendly models with this ability.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Malefic Fumes`,
-        desc: `Subtract 1 from wound rolls for attacks made with melee weapons by enemy units while they are within 9" of any friendly models with this ability.`,
-        when: [COMBAT_PHASE],
-      },
+      LocusOfUndeathEffect,
     ],
   },
 
@@ -561,37 +587,51 @@ const Units = {
   },
 
   'Wight King': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Lord of Bones'])],
-    },
     effects: [
       {
         name: `Beheading Strike`,
-        desc: `If the unmodified hit roll for an attack made with this model's Baleful Tomb Blade is 6, the target suffers 1 mortal wound in addition to any normal damage.`,
+        desc: `If the unmodified hit roll for an attack made with a Baleful Tomb Blade is 6, that attack causes 2 mortal wounds to the target in addition to any damage it inflicts.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Lord of Shambling Bones`,
+        desc: `Once per turn, at the start of your hero phase, you can pick 1 friendly Deathrattle Skeletons unit or Grave Guard unit wholly within 12" of this unit. Until your next hero phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound roll and save roll for each hit.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
 
   'Wight King on Skeletal Steed': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Lord of Bones'])],
-    },
-    effects: [DeathlyChargeEffect],
+    effects: [
+      {
+        name: `The King's Charge`,
+        desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 2+, that enemy unit suffers D3 mortal wounds.`,
+        when: [CHARGE_PHASE],
+      },
+      {
+        name: `Lord of Trampling Bones`,
+        desc: `You can reroll charge rolls for friendly BLACK KNIGHTS units wholly within 12" of this unit. In addition, if a friendly BLACK KNIGHTS unit finishes a charge move wholly within 12" of this unit, the effect of its Deathly Charge ability is triggered on each 4+ instead of each 5+.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
   },
 
   'Black Knights': {
     effects: [
       DeathlyChargeEffect,
-      getStandardBearerEffect(5),
       {
         name: `Champion`,
         desc: `1 model in this unit can be a Hellknight. Add 1 to the Attacks characteristic of that model's Barrow Lance.`,
         when: [COMBAT_PHASE],
       },
       {
+        name: `Standard Bearer`,
+        desc: `1 in every 5 models in this unit can be a Standard Bearer. You can reroll ward rolls of 1 for this unit for the purposes of the Deathless Minions battle trait if this unit includes any Standard Bearers.`,
+        when: [WARDS_PHASE],
+      },
+      {
         name: `Musician`,
-        desc: `1 in every 5 models in this unit can be a Hornblower. While this unit has any Hornblowers, charge rolls for this unit of less than 6 are treated as being 6.`,
+        desc: `1 in every 5 models in this unit can be a Hornblower. Treat charge rolls of less than 6 for this unit as 6 if it includes any Hornblowers.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -599,25 +639,29 @@ const Units = {
 
   'Grave Guard': {
     effects: [
-      getStandardBearerEffect(10),
       {
         name: `Champion`,
-        desc: `1 model in this unit can be a Seneschal. Add 1 to the Attacks characteristic of that model's Wight Blade or Great Wight Blade.`,
+        desc: `1 model in this unit can be a Seneschal. Add 1 to the Attacks characteristic of that model's melee weapons.`,
         when: [COMBAT_PHASE],
       },
       {
+        name: `Standard Bearer`,
+        desc: `1 in every 10 models in this unit can be a Standard Bearer. You can reroll ward rolls of 1 for this unit for the purposes of the Deathless Minions battle trait if this unit includes any Standard Bearers.`,
+        when: [WARDS_PHASE],
+      },
+      {
         name: `Musician`,
-        desc: `1 in every 10 models in this unit can be a Hornblower. While this unit has any Hornblowers, charge rolls for this unit of less than 6 are treated as being 6.`,
+        desc: `1 in every 10 models in this unit can be a Hornblower. Treat charge rolls of less than 6 for this unit as 6 if it includes any Hornblowers.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Cursed Weapons`,
-        desc: `If the unmodified wound roll for an attack made with a melee weapon by this unit is 6, the target suffers 1 mortal wound in addition to any normal damage.`,
+        desc: `If the unmodified wound roll for an attack made with a melee weapon by this unit is 6, that attack causes 1 mortal wound to the target in addition to any damage it inflicts.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Crypt Shields`,
-        desc: `Add 1 to save rolls for attacks that target a unit armed with Wight Blades and Crypt Shields.`,
+        name: `Shields`,
+        desc: `If this unit is armed with Wight Blades and Crypt Shields, it has a Save characteristic of 4+ instead of 5+.`,
         when: [SAVES_PHASE],
       },
     ],
@@ -625,15 +669,24 @@ const Units = {
 
   'Deathrattle Skeletons': {
     effects: [
-      getStandardBearerEffect(10),
       {
         name: `Champion`,
-        desc: `1 model in this unit can be a Skeleton Champion. A Skeleton Champion can replace their Ancient Blade or Spear with a Champion's Mace or Halberd.`,
+        desc: `1 model in this unit can be a Skeleton Champion. Add 1 to the Attacks characteristic of that model's Ancient Weapon.`,
         when: [COMBAT_PHASE],
       },
       {
+        name: `Standard Bearer`,
+        desc: `1 in every 10 models in this unit can be a Standard Bearer. You can reroll ward rolls of 1 for this unit for the purposes of the Deathless Minions battle trait if this unit includes any Standard Bearers.`,
+        when: [WARDS_PHASE],
+      },
+      {
         name: `Skeleton Legion`,
-        desc: `When you pick this unit to fight, roll a dice for each model in this unit that was slain in that phase. On a 4+, you can return that model to this unit.`,
+        desc: `At the start of the combat phase, roll a dice for each slain model from this unit. On a 4+, you can return 1 slain model to this unit.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Tide of Bones and Blades`,
+        desc: `Improve the Rend characteristic of this unit's melee weapons by 1 if the number of models in this unit is greater than the number of models in the target unit.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -643,7 +696,7 @@ const Units = {
     effects: [
       {
         name: `The Sepulchral Warden`,
-        desc: `The Sepulchral Warden has a Wounds characteristic of 2.`,
+        desc: `The Sepulchral Warden has a Wounds characteristic of 3.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
@@ -657,8 +710,13 @@ const Units = {
         when: [CHARGE_PHASE],
       },
       {
+        name: `Frightening Speed`,
+        desc: `This unit is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in.`,
+        when: [COMBAT_PHASE],
+      },
+      {
         name: `Serve in Death`,
-        desc: `If the unmodified hit roll for an attack made by this unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        desc: `If the unmodified hit roll for an attack made by this unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound roll and save roll for each hit.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -668,12 +726,12 @@ const Units = {
     effects: [
       {
         name: `Champion`,
-        desc: `1 in every 10 models in this unit must be a Doom Wolf. Add 1 to the Attacks characteristic of that model's Rotting Fangs.`,
+        desc: `1 in every 10 models in this unit must be a Doom Wolf. Add 1 to the Attacks characteristic of that model's Rotting Fangs and Claws.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Slavering Charge`,
-        desc: `Add 1 to hit and wound rolls for attacks made with melee weapons by this unit if it made a charge move in the same turn.`,
+        name: `On the Hunt`,
+        desc: `This unit is eligible to fight in the combat phase if it is within 6" of an enemy unit instead of 3", and it can move an extra 3" when it piles in.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -681,10 +739,16 @@ const Units = {
 
   'Fell Bats': {
     effects: [
+      TheHungerEffect,
       {
         name: `Single-minded Ferocity`,
-        desc: `This unit can retreat and still charge later in the same turn.`,
+        desc: `This unit can retreat and still charge later in the turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Single-minded Ferocity`,
+        desc: `At the end of any phase, if any enemy models were slain by wounds caused by this unit's attacks in that phase, add 1 to the Attacks characteristic of this unit's Elongated Fangs for the rest of the battle.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -694,27 +758,158 @@ const Units = {
       spells: [keyPicker(spells, ['Retribution or Salvation'])],
     },
     effects: [
+      GenericEffects.WizardOneSpellEffect,
       TheHungerEffect,
       {
         name: `The Court of the Lost`,
         desc: `At the start of your hero phase, if this unit is on the battlefield, you can say it will summon a spirit from the Court of the Lost. If you do so, pick 1 of the effects below. That effect lasts until the start of your next hero phase.
+
         Spirit of the Steed: This unit has a Move characteristic of 14".
+
         Spirit of the Tutor: Add 1 to casting, unbinding and dispelling rolls for this unit.
+
         Spirit of the Fallen: If an attack made by this unit wounds the target, that attack causes a number of mortal wounds to the target equal to the weapon's Damage characteristic and the attack sequence ends (do not make a save roll).`,
         when: [START_OF_HERO_PHASE],
       },
     ],
   },
 
-  // '': {
-  //   effects: [
-  //     {
-  //       name: ``,
-  //       desc: ``,
-  //       when: [],
-  //     },
-  //   ],
-  // },
+  'Deintalos the Exile': {
+    mandatory: {
+      spells: [keyPicker(spells, ['Channelled Dynamism'])],
+    },
+    effects: [
+      GenericEffects.WizardOneSpellEffect,
+      TheHungerEffect,
+      {
+        name: `Crackling Field`,
+        desc: `This unit has a ward of 5+.`,
+        when: [WARDS_PHASE],
+      },
+      {
+        name: `Terrible Dynamism`,
+        desc: `At the end of the battleshock phase, if a friendly THE EXILED DEAD unit is within 6" of this unit, you can return 1 slain model to that unit.`,
+        when: [END_OF_BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+
+  'Ivya Volga': {
+    effects: [
+      TheHungerEffect,
+      {
+        name: `Shrieking Swarm`,
+        desc: `Subtract 1 from hit rolls for attacks that target this unit. In addition, if this unit has any wounds allocated to it, the Attacks characteristic of this unit's Needling Fangs is 12 instead of 2D6.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Behemoth's Bane`,
+        desc: `If any enemy MONSTERS are within 3" of this unit, this unit counts as 10 models for the purposes of contesting objectives. In addition, while an enemy MONSTER is within 3" of this unit, the Attacks characteristic of that MONSTER's melee weapons is 1.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Behemoth's Bane`,
+        desc: `While an enemy MONSTER is within 3" of this unit, the Attacks characteristic of that MONSTER's melee weapons is 1.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'King Morlak Velmorn': {
+    effects: [
+      {
+        name: `Beheading Strike`,
+        desc: `If the unmodified hit roll for an attack made with a Baleful Tomb Blade is 6, that attack causes 2 mortal wounds to the target in addition to any damage it inflicts.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Deadly Command`,
+        desc: `Once per turn, this unit can issue a command to a friendly THE SONS OF VELMORN unit without a command point being spent.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Undying Dynasty`,
+        desc: `At the start of the combat phase, roll a dice for each slain model from a friendly THE SONS OF VELMORN unit wholly within 12" of this unit. On a 4+, you can return 1 slain model to that unit.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'Askurgan Trueblades': {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be an Askurgan Exemplar. That model has a Wounds characteristic of 4 and is armed with Paired Askurgan Blades instead of Askurgan Weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Curseblood`,
+        desc: `1 in every 8 models in this unit can be a Curseblood. A Curseblood has a Wounds characteristic of 4 and is armed with Elongated Claws and Slavering Maw instead of Askurgan Weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      TheHungerEffect,
+      {
+        name: `Gut-wrenching Howl`,
+        desc: `At the end of the charge phase, if this unit includes any Cursebloods, you can pick 1 enemy unit within 1" of this unit and say that the Curseblood will unleash a gut wrenching howl. If you do so, roll a dice. Add 1 to the roll for each Curseblood in this unit. On a 4+, the strike-last effect applies to that enemy unit in the following combat phase.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Creed of the Beast`,
+        desc: `Subtract 1 from hit rolls and wound rolls for attacks made with melee weapons by enemy MONSTERS that target this unit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Creed of the Beast`,
+        desc: `Each time an enemy MONSTER unit is destroyed by attacks made by this unit, add 3" to this unit's Move characteristic and add 1 to the Attacks characteristic of this unit's melee weapons for the rest of the battle.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+
+  'The Exiled Dead': {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `Prentice Marcov is the unit champion and has a Wounds characteristic of 3. Add 1 to casting and unbinding rolls for a friendly DEINTALOS THE EXILE if this unit includes Prentice Marcov.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Dynamic Cage`,
+        desc: `If the unmodified hit roll for an attack made with an Arco-electric Weapon is 6, the target suffers 1 mortal wound and the attack sequence ends (do not make a wound roll or save roll).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Crackling Field`,
+        desc: `While this unit is wholly within 9" of a friendly DEINTALOS THE EXILE, Bault, Vlash, Ione and Coyl have a ward of 5+.`,
+        when: [WARDS_PHASE],
+      },
+    ],
+  },
+
+  'The Sons of Velmorn': {
+    effects: [
+      {
+        name: `Sir Jedran Falseborn`,
+        desc: `Sir Jedran Falseborn has a Wounds characteristic of 4.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Cursed Weapons`,
+        desc: `If the unmodified wound roll for an attack made with a melee weapon by this unit is 6, that attack causes 1 mortal wound to the target in addition to any damage it inflicts.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Shield Up!`,
+        desc: `Once per turn, at the start of the combat phase, you can say that this unit will form a shieldwall. If you do so, this unit has a Save characteristic of 3+ instead of 4+ until the end of that phase. However, if you do so, this unit cannot make pile-in moves in that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Canny Strike`,
+        desc: `At the start of the combat phase, you can pick 1 enemy unit within 1" of this unit and roll a dice. On a 2+, that unit cannot make pile-in moves in that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Units, 'unit')
