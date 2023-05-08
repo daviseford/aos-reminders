@@ -13,7 +13,6 @@ import {
   WARDS_PHASE,
 } from 'types/phases'
 
-// Add individual artifacts here, and access them in other files!
 const Artifacts = {
   'Orb of Enchantment': {
     effects: [

@@ -9,7 +9,6 @@ import {
 } from 'types/phases'
 
 import Artifacts from './artifacts'
-import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import GrandStrategies from './grand_strategies'
 import MountTraits from './mount_traits'
@@ -18,7 +17,7 @@ import Units from './units'
 
 const subFactionBase = {
   artifacts: [Artifacts],
-  command_abilities: [CommandAbilities],
+  command_abilities: [],
   command_traits: [CommandTraits],
   grand_strategies: [GrandStrategies],
   mount_traits: [MountTraits],

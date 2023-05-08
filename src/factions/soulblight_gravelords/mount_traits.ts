@@ -40,5 +40,4 @@ const MountTraits = {
   },
 }
 
-// Always export using tagAs
 export default tagAs(MountTraits, 'mount_trait')
