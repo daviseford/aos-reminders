@@ -1,19 +1,11 @@
 import { tagAs } from 'factions/metatagger'
 import { SOULBLIGHT_GRAVELORDS } from 'meta/factions'
 import {
-  BATTLESHOCK_PHASE,
-  COMBAT_PHASE,
   DURING_SETUP,
-  END_OF_BATTLESHOCK_PHASE,
   END_OF_MOVEMENT_PHASE,
-  HERO_PHASE,
-  SAVES_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
-  TURN_FOUR_START_OF_ROUND,
-  TURN_ONE_DURING_ROUND,
   WARDS_PHASE,
-  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const BattleTraits = {

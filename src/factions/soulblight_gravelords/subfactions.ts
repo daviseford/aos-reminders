@@ -1,4 +1,12 @@
-import { CHARGE_PHASE, COMBAT_PHASE, DURING_GAME, END_OF_COMBAT_PHASE, HERO_PHASE, START_OF_COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
+import {
+  CHARGE_PHASE,
+  COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_COMBAT_PHASE,
+  HERO_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
+} from 'types/phases'
 
 import Artifacts from './artifacts'
 import CommandAbilities from './command_abilities'

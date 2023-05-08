@@ -1,14 +1,6 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  COMBAT_PHASE,
-  END_OF_COMBAT_PHASE,
-  END_OF_MOVEMENT_PHASE,
-  HERO_PHASE,
-  START_OF_COMBAT_PHASE,
-  START_OF_HERO_PHASE,
-  START_OF_MOVEMENT_PHASE,
-} from 'types/phases' 
- 
+import {} from 'types/phases'
+
 const CommandAbilities = {
   // 'Vigour of Undeath': {
   //   effects: [
@@ -143,5 +135,5 @@ const CommandAbilities = {
   //   ],
   // },
 }
- 
+
 export default tagAs(CommandAbilities, 'command_ability')
