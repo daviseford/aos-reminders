@@ -23,6 +23,7 @@ import {
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import Prayers from './prayers'
+import rule_sources from './rule_sources'
 
 const BrassCladShieldEffect = {
   name: `Brass-clad Shield`,
@@ -597,8 +598,9 @@ const Units = {
       ...WarriorEffects,
       {
         name: `Riptooth`,
-        desc: `The first time this unit is set up on the battlefield, you must summon 1 FLESH HOUNDS unit consisting of 1 model on the battlefield and add it to your army. Set up that FLESH HOUNDS unit wholly within 3" of this unit and more than 9" from all enemy units.`,
+        desc: `The first time this unit is set up on the battlefield, you must summon 1 FLESH HOUNDS unit consisting of 1 model to the battlefield and add it to your army. That model must not be a Gore Hound and must be on a 50mm base. Set up that FLESH HOUNDS unit wholly within 3" of this unit and more than 9" from all enemy units.`,
         when: [DURING_GAME],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, rule_sources.ERRATA_APRIL_2023],
       },
     ],
   },

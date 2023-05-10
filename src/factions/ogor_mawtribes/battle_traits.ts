@@ -6,14 +6,10 @@ import {
   END_OF_COMBAT_PHASE,
   MOVEMENT_PHASE,
   START_OF_HERO_PHASE,
-  TURN_FIVE_START_OF_HERO_PHASE,
-  TURN_FOUR_START_OF_HERO_PHASE,
-  TURN_THREE_START_OF_HERO_PHASE,
-  TURN_TWO_START_OF_HERO_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
-  //allegiance abilities
   'Trampling Charge': {
     effects: [
       {
@@ -74,7 +70,6 @@ const BattleTraits = {
     ],
   },
 
-  //Battle tactics
   'Battle Tactics': {
     effects: [
       {
@@ -84,13 +79,9 @@ const BattleTraits = {
       },
       {
         name: `Savour the Taste`,
-        desc: `You cannot pick this battle tactic in the first battle round. You complete this tactic at the end of your turn if every friendly OGOR unit is hungry.`,
-        when: [
-          TURN_TWO_START_OF_HERO_PHASE,
-          TURN_THREE_START_OF_HERO_PHASE,
-          TURN_FOUR_START_OF_HERO_PHASE,
-          TURN_FIVE_START_OF_HERO_PHASE,
-        ],
+        desc: `You cannot pick this battle tactic in the first battle round. You complete this tactic at the end of your turn if every friendly OGOR unit on the battlefield is hungry.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_OGOR_MAWTRIBES, rule_sources.ERRATA_APRIL_2023],
       },
       {
         name: `Avalanche of Flesh`,
@@ -99,7 +90,7 @@ const BattleTraits = {
       },
       {
         name: `Winter Take Thee`,
-        desc: `Pick 1 enemy HERO of enemy MONSTER. You complete this tactic if that enemy unit is destroyed by wounds caused by the Grasp of the Everwinter battle trait (pg 64) this turn.`,
+        desc: `Pick 1 enemy HERO or enemy MONSTER. You complete this tactic if that enemy unit is destroyed by wounds caused by the Grasp of the Everwinter battle trait (pg 64) this turn.`,
         when: [START_OF_HERO_PHASE],
       },
       {

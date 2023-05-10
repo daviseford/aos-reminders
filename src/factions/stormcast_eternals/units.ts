@@ -885,8 +885,9 @@ const Units = {
     effects: [
       {
         name: `Champion`,
-        desc: `1 model in this unit can be a Raptor-Prime. That model is accompanied by an Aetherwing armed with a Beak and Claws. For rules purposes, the Aetherwing is treated in the same manner as a mount.`,
+        desc: `1 model in this unit can be a Raptor-Prime. That model is accompanied by an Aetherwing armed with a Beak and Claws. For rules purposes, the Aetherwing is considered to be a companion (core rules, 22.3.1).`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_STORMCAST_ETERNALS, rule_sources.ERRATA_APRIL_2023],
       },
       {
         name: `Headshot`,
@@ -1316,7 +1317,7 @@ const Units = {
         rule_sources: [
           rule_sources.BATTLETOME_STORMCAST_ETERNALS,
           rule_sources.ERRATA_JULY_2022,
-          meta_rule_sources.BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2023,
+          meta_rule_sources.BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2022,
         ],
       },
     ],

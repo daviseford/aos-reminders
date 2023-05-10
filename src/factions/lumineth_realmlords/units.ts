@@ -21,6 +21,8 @@ import {
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import spells from './spells'
+import rule_sources from './rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 
 const getSunmetalWeaponsEffect = (weapon: string) => ({
   name: `Sunmetal Weapons`,
@@ -31,7 +33,7 @@ const getSunmetalWeaponsEffect = (weapon: string) => ({
 
 const getVanariWizardsEffect = (minimumModelCountToBeWizard: number, modelToBeWizard: string) => ({
   name: `Magic`,
-  desc: `The ${modelToBeWizard} is a Wizard while this unit has ${minimumModelCountToBeWizard} or more models. That model can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase.`,
+  desc: `The ${modelToBeWizard} is a WIZARD while this unit has ${minimumModelCountToBeWizard} or more models. That model can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase.`,
   when: [HERO_PHASE],
   shared: true,
 })
@@ -152,13 +154,27 @@ const Units = {
       },
       {
         name: `Discs of the Aelementari`,
-        desc: `In your hero phase, in addition to casting spells, this unit can automatically dispell 1 endless spell (do not roll 2D6). In the enemy hero phase, this unit can automatically unbind 1 enemy spell (do not roll 2D6).`,
+        desc: `At the start of your hero phase, in addition to casting spells, this unit can automatically dispel 1 endless spell (do not roll 2D6).`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_LUMINETH,
+          meta_rule_sources.BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023,
+        ],
+      },
+      {
+        name: `Discs of the Aelementari`,
+        desc: `In the enemy hero phase, this unit can automatically unbind 1 enemy spell (do not roll 2D6).`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_LUMINETH,
+          meta_rule_sources.BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023,
+        ],
       },
       {
         name: `Seeing Stone of Celennar`,
-        desc: `Each time a friendly unit within range of this unit's Aura of Celennar ability is affected by the abilities of an endless spell or spell cast by an enemy Wizzard, you can roll a dice. On a 4+, ignore the effect of that spell or effects of that endless spell's abilities on that unit. Then, pick 1 enemy unit within 18" of that unit. That enemy unit suffers D3 mortal wounds.`,
+        desc: `Each time a friendly unit within range of this unit's Aura of Celennar ability is affected by the abilities of an endless spell summoned by an enemy WIZARD or a spell cast by an enemy WIZARD, you can roll a dice. On a 4+, ignore the effect of that spell or the effects of that endless spell's abilities on that unit. Then, if the dice roll was successful, pick 1 enemy unit within 18" of that unit. That enemy unit suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_LUMINETH, rule_sources.ERRATA_APRIL_2023],
       },
     ],
   },

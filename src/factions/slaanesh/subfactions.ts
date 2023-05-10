@@ -19,6 +19,7 @@ import {
   END_OF_CHARGE_PHASE,
   START_OF_GAME,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const baseSubfaction: IItemDescription = {
   effects: [],
@@ -86,8 +87,9 @@ const subFactions = {
       },
       {
         name: `Escalating Havoc`,
-        desc: `At the end of your battleshock phase, you receive 1 depravity point if any of your generals are wholly within enemy territory. If 3 of your generals are wholly within enemy territory at the end of your battleshock phase, you receive D3 depravity points instead of 1.`,
+        desc: `This is a heroic action that you can carry out with 1 friendly INVADERS HERO instead of picking 1 from the table in the core rules. If you do so, pick 1 eligible command trait from the list below that that INVADERS HERO does not already have. That HERO is considered to have that command trait until the end of the turn. The same command trait cannot be picked with this ability more than once in the same turn. Unique units cannot benefit from this ability.`,
         when: [END_OF_BATTLESHOCK_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_APRIL_2023],
       },
     ],
   },

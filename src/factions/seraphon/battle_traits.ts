@@ -72,7 +72,7 @@ const BattleTraits = {
         rule_sources: [
           rule_sources.BATTLETOME_SERAPHON,
           rule_sources.ERRATA_JULY_2022,
-          meta_rule_sources.BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2023,
+          meta_rule_sources.BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2022,
         ],
       },
     ],
