@@ -11,13 +11,13 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import rule_sources from '../rule_sources'
 import spells from './spells'
+import meta_rule_sources from 'meta/rule_sources'
 
 const AllPartOfDaPlanEffect = {
   name: `All Part of Da Plan`,
@@ -70,13 +70,12 @@ const KruleboyzUnits = {
       },
       {
         name: `Scare Taktikz`,
-        desc: `At the start of the charge phase, if this unit is more than 3" from all enemy units, you can pick 1 enemy unit within 12" of this unit that is not a HERO or MONSTER and roll 2D6. Add 1 to the roll for every 5 models in this unit. If the roll is equal to or greater than the Bravery characteristic of that enenny unit, subtract 1 from hit rolls for attacks made by that enemy unit that target this unit until the end of that turn.`,
-        when: [START_OF_CHARGE_PHASE],
-      },
-      {
-        name: `Scare Taktikz`,
-        desc: `If active, subtract 1 from hit rolls for attacks made by that enemy unit that target this unit until the end of that turn.`,
+        desc: `Subtract 1 from hit rolls for attacks made with melee weapons by enemy units that are not Heroes or Monsters that target this unit.`,
         when: [COMBAT_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_ORRUK_WARCLANS,
+          meta_rule_sources.BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023,
+        ],
       },
     ],
   },

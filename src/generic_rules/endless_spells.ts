@@ -158,9 +158,13 @@ export const PurpleSunEffects = [
   },
   {
     name: `End Given Form`,
-    desc: `Roll a dice for each unit within 3" of this endless spell after this endless spell has moved. On a 1, 1 model from that unit is slain.`,
+    desc: `Roll a dice for each unit within 1" of this endless spell after this endless spell has moved. On a 1, that unit has been touched by the Purple Sun's rays. If that unit has a Wounds characteristic of 9 or less, 1 model in that unit is slain. Otherwise, that unit suffers D6+6 mortal wounds.`,
     when: [END_OF_HERO_PHASE],
-    rule_sources: [meta_rule_sources.GHB_2022, meta_rule_sources.GHB_2022_2023_SEASON_2],
+    rule_sources: [
+      meta_rule_sources.GHB_2022,
+      meta_rule_sources.GHB_2022_2023_SEASON_2,
+      meta_rule_sources.BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023,
+    ],
   },
 ]
 export const PrismaticPalisadeEffects = [

@@ -3,6 +3,11 @@ const rule_sources = {
     name: 'Battletome: Ogor Mawtribes',
     type: 'battletome',
   },
+  ERRATA_APRIL_2023: {
+    name: 'Errata (April 2023)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2020/07/AmayJMooi82E8FI5.pdf',
+  },
 }
 
 export default rule_sources

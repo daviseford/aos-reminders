@@ -1,5 +1,7 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import { COMBAT_PHASE, END_OF_SETUP, SHOOTING_PHASE, START_OF_HERO_PHASE } from 'types/phases'
+import rule_sources from '../rule_sources'
 
 const KruleboyzBattleTraits = {
   'Battle Tactics': {
@@ -37,7 +39,7 @@ const KruleboyzBattleTraits = {
     effects: [
       {
         name: `Dirty Tricks`,
-        desc: `After the players have received their starting command points but before the start of the first turn, you can pick 1 of the following Dirty Tricks to employ during the battle:
+        desc: `After the players have received their starting command points but before the start of the first turn, you can pick 2 different Dirty Tricks to employ during the battle:
 
         Noisy Racket: Subtract 1 from wound rolls for attacks made by enemy units in the first battle round.
 
@@ -47,6 +49,10 @@ const KruleboyzBattleTraits = {
 
         Covered in Mud: Roll 3 dice. For each 4+, pick 1 friendly unit that is nota HERO or MONSTER. While that unit is in cover, it is not visible to enemy units.`,
         when: [END_OF_SETUP],
+        rule_sources: [
+          rule_sources.BATTLETOME_ORRUK_WARCLANS,
+          meta_rule_sources.BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023,
+        ],
       },
     ],
   },

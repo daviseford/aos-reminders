@@ -39,9 +39,12 @@ const GenericArtifacts: TEntry[] = [
     effects: [
       {
         name: `Arcane Tome`,
-        desc: `The bearer becomes a WIZARD that knows the Arcane Bolt and Mystic Shield spells. They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. If the bearer is already a Wizard, they can attempt to cast 1 additional spell instead.`,
+        desc: `HERO that does not have the WIZARD, PRIEST or KHORNE keyword. The bearer becomes a WIZARD that only knows the Arcane Bolt and Mystic Shield spells (if you take a spell lore enhancement, you cannot pick any spells from that spell lore for the bearer to know, but the bearer can attempt to summon any endless spells included on your roster if otherwise eligible). They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase.`,
         when: [HERO_PHASE],
-        rule_sources: [meta_rule_sources.CORE_RULES_2021],
+        rule_sources: [
+          meta_rule_sources.CORE_RULES_2021,
+          meta_rule_sources.BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023,
+        ],
       },
     ],
   },

@@ -20,6 +20,8 @@ import {
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import Spells from './spells'
+import rule_sources from './rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 
 const PropagatorOfDevolutionEffect = {
   name: `Propagator of Devolution`,
@@ -53,8 +55,12 @@ const ChampionEffect = {
 }
 const DespoilersEffect = {
   name: `Despoilers`,
-  desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while it is within 3" of any enemy units that received the All-out Defence command in the same phase.`,
+  desc: `Add 1 to wound rolls for attacks made with melee weapons by this unit while it is within 3" of any enemy units that received the All-out Defence command in the same phase.`,
   when: [COMBAT_PHASE],
+  rule_sources: [
+    rule_sources.BATTLETOME_BEASTS_OF_CHAOS,
+    meta_rule_sources.BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023,
+  ],
   shared: true,
 }
 const BloodgreedEffect = {

@@ -154,10 +154,16 @@ const meta_rule_sources = {
     url: 'https://www.warhammer-community.com/wp-content/uploads/2022/10/AIPRIiH3XKEsLKFl.pdf',
   },
 
-  BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2023: {
-    name: 'Battlescroll: Galletian Champions (July 2023)',
+  BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2022: {
+    name: 'Battlescroll: Galletian Champions (July 2022)',
     type: 'other_book',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2023/01/Ugb15RoC5uAQIMWi.pdf',
+  },
+
+  BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023: {
+    name: 'Battlescroll: Depleted Reserves (April 2023)',
+    type: 'other_book',
+    url: 'https://mail.google.com/mail/u/0/#inbox/FMfcgzGsmWvfDfJlpPmDrqmjPfPhtzsr?projector=1&messagePartId=0.1',
   },
 }
 
