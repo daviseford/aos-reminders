@@ -25,8 +25,8 @@ import spells from './spells'
 
 const LocusOfUndeathEffect = {
   name: `Locus of Undeath`,
-  desc: `Add 1 to save rolls for attacks that target friendly DEADWALKER ZOMBIES units wholly within 12" of any friendly models with this ability.`,
-  when: [SAVES_PHASE],
+  desc: `If the unmodified wound roll for an attack made by a friendly DEADWALKER ZOMBIES unit wholly within 12" of any friendly units with this ability is 6, that attack causes 1 mortal wound to the target in addition to any damage it inflicts.`,
+  when: [COMBAT_PHASE],
   shared: true,
 }
 const TerrorEffect = {
