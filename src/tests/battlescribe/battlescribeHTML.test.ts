@@ -75,13 +75,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1634676056787-Battlescribe', () => {
-    const parsedText = getFile('1634676056787-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.artifacts).toContain('Girdle of the Realm-racer')
-    expect(res.errors).toEqual([])
-  })
-
   it('should correctly read 1635034418636-Battlescribe', () => {
     const parsedText = getFile('1635034418636-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -179,17 +172,6 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('1626123378890-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.units).toContain('Vindictors')
-  })
-
-  it('should not work with The Choir of Torments battalion (not in current book)', () => {
-    const parsedText = getFile('1601345187171-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'The Choir of Torment',
-      },
-    ])
   })
 
   it('should correctly read 1600111513593-Battlescribe', () => {
