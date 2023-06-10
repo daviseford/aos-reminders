@@ -16,8 +16,8 @@ import {
   CHARGE_PHASE,
   DURING_GAME,
   END_OF_BATTLESHOCK_PHASE,
-  END_OF_CHARGE_PHASE,
-  START_OF_GAME,
+  START_OF_HERO_PHASE,
+  START_OF_ROUND,
 } from 'types/phases'
 import rule_sources from './rule_sources'
 
@@ -82,7 +82,7 @@ const subFactions = {
     effects: [
       {
         name: `Figureheads of the Dark Prince`,
-        desc: `Your army can have up to 3 generals instead of 1. Only 1 of your generals can have a command trait, but all 3 are considered to be a general for the purposes of using command abilities. However, none of your generals can use a command trait or command ability while they are within 12" of any of your other generals. In addition, each time 1 of your generals is slain for the first time, you receive 1 command point. You receive the command point for having a general on the battlefield at the start of the hero phase if 1 or more of these generals are on the battlefield (you still only receive 1 command point if you have 2 or more generals on the battlefield). You receive the +2 modifier to the Heroic Leadership heroic action only if all of the generals have been slain.`,
+        desc: `All friendly INVADERS HEROES are treated as generals even if they are not the model picked to be your general. In addition, roll a dice each time you pick a friendly INVADERS HERO to carry out a heroic action. On a 2+, you can pick 1 other eligible INVADERS HERO on the battlefield to also carry out that heroic action.`,
         when: [DURING_GAME],
       },
       {
@@ -99,13 +99,13 @@ const subFactions = {
     effects: [
       {
         name: `Heir to the Throne`,
-        desc: `If the general of a PRETENDERS army is a HERO, they have 2 different command traits instead of 1. In addition, you can reroll hit rolls of 1 for attacks made with melee weapons by friendly PRETENDERS units that have 10 or more models while your general is on the battlefield.`,
-        when: [DURING_GAME],
+        desc: `If the model picked to be your general is a PRETENDERS HERO, you receive 3 command points instead of 1 if they are on the battlefield at the start of the hero phase.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
         name: `Warlord Supreme`,
-        desc: `At the end of your battleshock phase, you receive 1 depravity point if your general is within 3" of an enemy unit. At the end of your battleshock phase, you receive D3 depravity points instead of 1 if your general is within 3" of 2 or more enemy units.`,
-        when: [END_OF_BATTLESHOCK_PHASE],
+        desc: `If the model picked to be your general is a PRETENDERS HERO. they can issue the same command up to 3 times in the same phase. If it does so, each command must be received by a  friendly PRETENDERS unit. No command points are spent the second and third times your general issues that command in that phase.`,
+        when: [DURING_GAME],
       },
     ],
   },
@@ -115,32 +115,33 @@ const subFactions = {
     effects: [
       {
         name: `Thundering Cavalcade`,
-        desc: `Add 1 to charge rolls for friendly GODSEEKERS units.`,
+        desc: `You can reroll charge rolls for friendly GODSEEKERS units while they are wholly within 12" of a friendly GODSEEKERS HERO.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Maniacal Hunters`,
-        desc: `At the end of your charge phase, you receive D3 depravity points if your general made a charge move in the same turn. Add 1 to the roll if any other friendly GODSEEKERS units made a charge move in that turn.`,
-        when: [END_OF_CHARGE_PHASE],
+        desc: `At the start of each battle round, before the players receive their starting command points, you can move up to friendly GODSEEKERS units that are more than 3" from all enemy units up to D6" (roll separately for each unit). Those units must finish the move more than 3" from all enemy units.`,
+        when: [START_OF_ROUND],
       },
     ],
   },
 
-  "Syll'Esskan Host": {
-    ...baseSubfaction,
-    effects: [
-      {
-        name: `Common Purpose`,
-        desc: `At the start of the battle, if the number of MORTAL units in a Syll'Esskan Host army is exactly equal to the number of DAEMON units, you receive D3 extra command points. If the total number of units in the army is more than 12, and the number of MORTAL units in a Syll'Esskan Host army is exactly equal to the number of DAEMON units, you receive D6 extra command points instead of D3 extra points. Syll'Esske counts as 2 units, 1 MORTAL and 1 DAEMON, for the purposes of this rule.`,
-        when: [START_OF_GAME],
-      },
-      {
-        name: `Deadly Symbiosis`,
-        desc: `Add 1 to the number of depravity points you receive in the battleshock phase if a friendly SYLL'ESSKE is on the battlefield and is within 6" of at least 1 other friendly SYLL'ESSKAN HOST DAEMON unit and at least 1 friendly SYLL'ESSKAN HOST MORTAL unit.`,
-        when: [END_OF_BATTLESHOCK_PHASE],
-      },
-    ],
-  },
+  // TODO: Is this still around?
+  // "Syll'Esskan Host": {
+  //   ...baseSubfaction,
+  //   effects: [
+  //     {
+  //       name: `Common Purpose`,
+  //       desc: `At the start of the battle, if the number of MORTAL units in a Syll'Esskan Host army is exactly equal to the number of DAEMON units, you receive D3 extra command points. If the total number of units in the army is more than 12, and the number of MORTAL units in a Syll'Esskan Host army is exactly equal to the number of DAEMON units, you receive D6 extra command points instead of D3 extra points. Syll'Esske counts as 2 units, 1 MORTAL and 1 DAEMON, for the purposes of this rule.`,
+  //       when: [START_OF_GAME],
+  //     },
+  //     {
+  //       name: `Deadly Symbiosis`,
+  //       desc: `Add 1 to the number of depravity points you receive in the battleshock phase if a friendly SYLL'ESSKE is on the battlefield and is within 6" of at least 1 other friendly SYLL'ESSKAN HOST DAEMON unit and at least 1 friendly SYLL'ESSKAN HOST MORTAL unit.`,
+  //       when: [END_OF_BATTLESHOCK_PHASE],
+  //     },
+  //   ],
+  // },
 }
 
 export default subFactions

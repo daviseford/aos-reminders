@@ -1,69 +1,66 @@
 import { tagAs } from 'factions/metatagger'
 import { SLAANESH } from 'meta/factions'
 import {
-  COMBAT_PHASE,
   DURING_GAME,
-  END_OF_BATTLESHOCK_PHASE,
-  END_OF_CHARGE_PHASE,
   END_OF_MOVEMENT_PHASE,
+  END_OF_ROUND,
+  START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_ROUND,
 } from 'types/phases'
 
 const BattleTraits = {
   [SLAANESH]: {
     effects: [
       {
-        name: `Revel in Pain`,
-        desc: `During battle, a Hedonites of Slaanesh army gains the following abilities based on their current number of unspent depravity points (DP). These abilities are cumulative:
-        
-              6+ DP: If a friendly HEDONITES OF SLAANESH unit receives the Rally command (core rules, 7.2), you can return 1 slain model to the unit for each 5+ instead of each 6.
+        name: `Temptations of Slaanesh`,
+        desc: `At the start of each battle round, after determining who will take the first turn, you gain a pool of 6 dice. These are your Temptation Dice. Each time your opponent makes a failed hit roll, a failed wound roll or a failed save roll, you can offer them a Temptation Dice. If they accept your offer, that roll is replaced with a 6. Rolls replaced in this way cannot be rerolled or modified.
 
-              12+ DP: Add 2" to the Move characteristic of friendly HEDONITES OF SLAANESH units.
+        Designer's Note: Remember that the success or failure of a hit roll, wound roll or save roll is determined after rerolls and modifiers.
 
-              18+ DP: Friendly HEDONITES OF SLAANESH units have a ward of 5+.`,
+        Each time your opponent accepts your offer of a Temptation Dice, you gain D6 depravity points. Each time your opponent rejects your offer of a Temptation Dice, the unit for which the roll was made suffers D3 mortal wounds after all of the attacks have been resolved. You cannot offer your opponent a Temptation Dice for the same enemy unit mote than once per phase. At the end of the battle round, any Temptation Dice that have not been offered are lost.`,
         when: [DURING_GAME],
       },
       {
-        name: `Feast of Depravities`,
-        desc: `At the end of the battleshock phase, you receive 1 depravity point for each unit on the battlefield that had a wound or mortal wound that was not negated allocated to it in that turn, or has fewer models than it had at the start of that turn.`,
-        when: [END_OF_BATTLESHOCK_PHASE],
+        name: `Temptations of Slaanesh`,
+        desc: `At the start of each battle round, after determining who will take the first turn, you gain a pool of 6 dice. These are your Temptation Dice.`,
+        when: [START_OF_ROUND],
       },
       {
-        name: `Feast of Depravities`,
-        desc: `If you have any depravity points at the end of your movement phase, you can summon 1 unit from the list below to the battlefield and add it to your army. Each unit you summon costs a number of depravity points as shown on the list, and you can only summon a unit if you have enough depravity points to do so. Summoned units must be set up wholly within 12" of a friendly SLAANESH HERO and more than 9" from any enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Feast of Depravities`,
-        desc: `Summoning Costs:
-             1 Soulfeaster Keeper of Secrets -             12 DP
-             1 Keeper of Secrets                           12 DP
-             30 Daemonettes -                              12 DP
-             3 Seeker Chariots -                           10 DP
-             20 Daemonettes -                              10 DP
-             1 Contorted Epitome -                          9 DP
-             1 Bladebringer, Herald on Exalted Chariot -    9 DP
-             3 Fiends -                                     8 DP
-             1 Bladebringer, Herald on Hellflayer -         8 DP
-             1 Exalted Chariot -                            7 DP
-             1 Infernal Enrapturess -                       7 DP
-             1 Bladebringer, Herald on Seeker Chariot -     7 DP
-             1 Hellflayer -                                 7 DP
-             1 Viceleader -                                 6 DP
-             1 Seeker Chariot -                             6 DP
-             5 Seekers -                                    6 DP
-             10 Daemonettes -                               6 DP`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Locus of Diversion`,
-        desc: `At the end of the charge phase, each friendly HEDONITE DAEMON HERO within 1" of an enemy unit can create a locus of diversion. If they do so, pick 1 enemy unit that is within 1" of that HERO and roll a dice, adding 1 if that HERO is a GREATER DAEMON. On a 4+, that unit cannot make a pile-in move before it attacks in the following combat phase. You cannot pick the same unit as the target for this ability more than once in the same phase (whether the roll is successful or not).`,
-        when: [END_OF_CHARGE_PHASE],
+        name: `Temptations of Slaanesh`,
+        desc: `At the end of the battle round, any Temptation Dice that have not been offered are lost.`,
+        when: [END_OF_ROUND],
       },
       {
         name: `Euphoric Killers`,
-        desc: `If the unmodified hit roll for an attack made with a melee weapon by a HEDONITE model is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit. If the attacking model's unit has 20 or more models, its attacks inflict 3 hits on an unmodified hit roll of 6 instead.`,
-        when: [COMBAT_PHASE],
+        desc: `Once per turn, at the start of your combat phase, you can pick 1 friendly HEDONITES OF SLAANESH unit and 1 enemy unit within 1" of that unit. If you do so, until the end of that phase, you gain 1 depravity point for each wound and mortal wound caused by attacks made by that friendly unit that are allocated to that enemy unit.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Revel in Depravity`,
+        desc: `Friendly HEDONITES OF SLAANESH units gain abilities based on the number of depravity points (DP) you have. These abilities are cumulative.
+
+        12+ DP - Tantalising Torment: Subtract 1 from hit rolls for attacks that target friendly HEDONITES OF SLAANESH units.
+
+        24+ DP - Sadistic Spite: If the unmodified hit roll for an attack made with a melee weapon by a friendly HEDONITES OF SLAANESH unit is 6, that attack causes 1 mortal wound to the target in addition to any damage it inflicts.
+
+        36+ DP - Oblivious Indulgence: Friendly HEDONITES OF SLAANESH units have a ward of 5+.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Summon Slaanesh Demons`,
+        desc: `You can summon HEDONITES OF SLAANESH DAEMON units to the battlefield if you collect enough depravity points (DP). If you have any depravity points at the end of your movement phase, you can summon 1 unit from the list below to the battlefield and add it to your army. Each unit you summon costs the number of depravity points shown on the list, and you can only summon it if you have enough depravity points to do so. Units must be set up more than 9" from all enemy units and wholly within 12" of a friendly HEDONITES OF SLAANESH HERO.
+        
+        36 DP - 1 Keeper of Secrets
+        30 DP - 1 Fiends unit with 3 models
+        30 DP - 1 BLADEBRINGER
+        24 DP - 1 Contorted Epitome
+        24 DP - 1 Seekers unit with 3 models
+        24 DP - 1 CHARIOT OF SLAANESH
+        18 DP - 1 Infernal Enrapturess, Herald of Slaanesh
+        18 DP - 1 Viceleader, Herald of Slaanesh
+        18 DP - 1 Daemonettes unit with 10 models`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
@@ -83,6 +80,21 @@ const BattleTraits = {
       {
         name: `The Grand Feast`,
         desc: `You complete this tactic if you receive 12 or more depravity points this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Excessive Carnage`,
+        desc: `Pick 1 enemy unit that is contesting an objective. You complete this tactic if you pick that unit using the Euphoric Killers battle trait (pg 79) and that unit is destroyed during this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Realm-racers`,
+        desc: `You complete this tactic if 3 or more different friendly HEDONITES OF SLAANESH units make a charge move of 7" or more during this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Depraved Unity`,
+        desc: `Pick 1 objective that you do not control. You complete this tactic if you control that objective at the end of this turn and at least 1 friendly HEDONITES OF SLAANESH MORTAL unit and 1 friendly HEDONITES OF SLAANESH DAEMON unit are contesting that objective.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
