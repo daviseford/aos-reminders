@@ -18,7 +18,6 @@ import {
   ORRUK_WARCLANS,
   OSSIARCH_BONEREAPERS,
   SERAPHON,
-  SLAANESH,
   SLAVES_TO_DARKNESS,
   TZEENTCH,
 } from 'meta/factions'
@@ -275,13 +274,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1611179341633-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.spells).toContain('Arcane Corrasion')
-  })
-
-  it('should correctly read 1612355735036-Warscroll_Builder', () => {
-    const parsedText = getFile('1612355735036-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.flavors).toContain('Faultless Blades')
-    expect(res.subFactionName).toEqual('Pretenders Host')
   })
 
   it('should correctly read 1612918099089-Warscroll_Builder', () => {
@@ -746,14 +738,6 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
-  })
-
-  it('should work with Enrapturing Circlet', () => {
-    const parsedText = getFile('1572660547365-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(SLAANESH)
-    expect(res.selections.artifacts).toContain('Enrapturing Circlet')
   })
 
   it('should work with Dark Wizardry', () => {

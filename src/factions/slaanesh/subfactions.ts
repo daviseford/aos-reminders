@@ -4,7 +4,6 @@ import { keyOmitter, keyPicker } from 'factions/metatagger'
 import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
-import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import GrandStrategies from './grand_strategies'
@@ -26,7 +25,7 @@ const baseSubfaction: IItemDescription = {
   available: {
     artifacts: [Artifacts],
     battalions: [Battalions],
-    command_abilities: [CommandAbilities],
+    command_abilities: [],
     command_traits: [CommandTraits],
     endless_spells: [EndlessSpells],
     flavors: [Flavors],

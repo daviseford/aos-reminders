@@ -47,19 +47,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.triumphs).toEqual([])
   })
 
-  it('should correctly read New_Slaanesh1', () => {
-    const pdfText = getFile('New_Slaanesh1')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.selections.artifacts).toContain('Bindings of Slaanesh')
-    expect(res.selections.command_traits).toContain('High Priest')
-    expect(res.selections.flavors).toContain('Scarlet Cavalcade')
-    expect(res.selections.grand_strategies).toContain('Sever the Head')
-    expect(res.selections.triumphs).toEqual(['Bloodthirsty'])
-    expect(res.subFactionName).toEqual('Godseekers Host')
-  })
-
   it('should correctly read New_Tzeentch1', () => {
     const pdfText = getFile('New_Tzeentch1')
     const parsedText = parsePdf(pdfText)

@@ -14,7 +14,7 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW: </strong> Gloomspite Gitz battletome is live!
+        <strong>NEW: </strong> Slaanesh battletome is live!
       </span>
     </NotificationBanner>
   )

@@ -10,7 +10,7 @@ import {
 } from 'types/phases'
 
 const Artifacts = {
-  // Invaders Host - Sacred Spoils of War
+  // Invaders Host
   'The Rod of Misrule': {
     effects: [
       {
@@ -20,24 +20,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'Rapier of Ecstatic Conquest': {
-  //   effects: [
-  //     {
-  //       name: `Rapier of Ecstatic Conquest`,
-  //       desc: `Pick 1 of the bearer's melee weapons. If the unmodified wound roll for an attack made with that weapon is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Whip of Subversion': {
-  //   effects: [
-  //     {
-  //       name: `Whip of Subversion`,
-  //       desc: `At the end of the combat phase, you can pick 1 enemy HERO within 6" of the bearer. Pick 1 melee weapon that HERO is armed with, then pick 1 other enemy unit within 3" of that HERO. That unit suffers a number of mortal wounds equal to the unmodified Attacks characteristic of the melee weapon you picked.`,
-  //       when: [END_OF_COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
   'Icon of Infinite Excess': {
     effects: [
       {
@@ -47,20 +29,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'Fallacious Gift': {
-  //   effects: [
-  //     {
-  //       name: `Fallacious Gift`,
-  //       desc: `After set-up is complete, but before the battle begins, pick 1 enemy HERO on the battlefield, then pick one of their weapons. At the end of each battle round in which that HERO has attacked with that weapon, that HERO suffers 1 mortal wound.`,
-  //       when: [END_OF_SETUP],
-  //     },
-  //     {
-  //       name: `Fallacious Gift`,
-  //       desc: `At the end of each battle round in which that HERO has attacked with that weapon, that HERO suffers 1 mortal wound.`,
-  //       when: [END_OF_ROUND],
-  //     },
-  //   ],
-  // },
   'The Beguiling Gem': {
     effects: [
       {
@@ -70,7 +38,7 @@ const Artifacts = {
       },
     ],
   },
-  // Pretenders Host - Regalia of the Rightful Heir
+  // Pretenders Host
   'The Crown of Dark Secrets': {
     effects: [
       {
@@ -80,24 +48,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'Pendant of Slaanesh': {
-  //   effects: [
-  //     {
-  //       name: `Pendant of Slaanesh`,
-  //       desc: `At the start of your hero phase, you can heal up to D3 wounds allocated to the bearer.`,
-  //       when: [START_OF_HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // Sliverslash: {
-  //   effects: [
-  //     {
-  //       name: `Sliverslash`,
-  //       desc: `Pick 1 of the bearer's melee weapons. Add 1 to the Attacks characteristic of that weapon.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
   'Sceptre of Domination': {
     effects: [
       {
@@ -116,16 +66,7 @@ const Artifacts = {
       },
     ],
   },
-  // 'Mask of Spiteful Beauty': {
-  //   effects: [
-  //     {
-  //       name: `Mask of Spiteful Beauty`,
-  //       desc: `At the start of your hero phase, pick 1 enemy unit within 6" of the bearer. Subtract 2 from that unit's Bravery characteristic until your next hero phase.`,
-  //       when: [START_OF_HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // Godseekers Host - Treasures of the Hunt
+  // Godseekers Host
   'Cameo of the Dark Prince': {
     effects: [
       {
@@ -158,66 +99,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'Lash of Despair': {
-  //   effects: [
-  //     {
-  //       name: `Lash of Despair`,
-  //       desc: `At the start of your shooting phase, you can roll a dice for each enemy unit within 6" of the bearer. On a 4+, that unit suffers 1 mortal wound.`,
-  //       when: [START_OF_SHOOTING_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Enrapturing Circlet': {
-  //   effects: [
-  //     {
-  //       name: `Enrapturing Circlet`,
-  //       desc: `Enemy units within 3" of the bearer cannot retreat.`,
-  //       when: [MOVEMENT_PHASE],
-  //     },
-  //     {
-  //       name: `Enrapturing Circlet`,
-  //       desc: `At the start of your hero phase, roll a dice for each enemy unit within 3" of the bearer. On a 3+, that unit suffers 1 mortal wound.`,
-  //       when: [START_OF_HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Bindings of Slaanesh': {
-  //   effects: [
-  //     {
-  //       name: `Bindings of Slaanesh`,
-  //       desc: `At the start of the combat phase, you can pick 1 enemy HERO within 3" of the bearer and roll 2D6. If the roll is greater than that HERO's Move characteristic, subtract 1 from hit rolls for attacks made by that HERO until the end of that phase.`,
-  //       when: [START_OF_COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-
-  // 'Oil of Exultation': {
-  //   effects: [
-  //     {
-  //       name: `Oil of Exultation`,
-  //       desc: `Add 1 to the Wounds characteristic of the bearer.`,
-  //       when: [WOUND_ALLOCATION_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Contemptuous Brand': {
-  //   effects: [
-  //     {
-  //       name: `Contemptuous Brand`,
-  //       desc: `Pick one of the bearer's melee weapons. Add 1 to wound rolls for attacks made with that weapon that target a HERO.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Helm of the Last Rider': {
-  //   effects: [
-  //     {
-  //       name: `Helm of the Last Rider`,
-  //       desc: `Add 1 to the Bravery characteristic of friendly SCARLET CAVALCADE GODSEEKERS HOST units while they are wholly within 12" of the bearer.`,
-  //       when: [DURING_GAME, BATTLESHOCK_PHASE],
-  //     },
-  //   ],
-  // },
 }
 
 export default tagAs(Artifacts, 'artifact')

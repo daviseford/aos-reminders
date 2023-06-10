@@ -83,106 +83,78 @@ const Spells = {
       },
     ],
   },
-  // 'Battle Rapture': {
-  //   effects: [
-  //     {
-  //       name: `Battle Rapture`,
-  //       desc: `Casting value of 5. Pick 1 friendly MORTAL SLAANESH unit wholly within 18" of the caster that is visible to them. Do not take battleshock tests for that unit until your next hero phase. If the casting roll is 10+, you can pick up to 3 friendly SLAANESH MORTAL units wholly within 18" of the caster that is visible to them instead of 1.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Judgement of Excess': {
-  //   effects: [
-  //     {
-  //       name: `Judgement of Excess`,
-  //       desc: `Casting value of 5. Pick 1 enemy unit within 12" of the caster that is visible to them. That unit suffers 1 mortal wound for every 5 models in that unit. If that unit has fewer than 5 models, it suffers 1 mortal wound instead.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Dark Delusions': {
-  //   effects: [
-  //     {
-  //       name: `Dark Delusions`,
-  //       desc: `Casting value of 4. Pick 1 enemy unit wholly within 18" of the caster that is visible to them and roll 2D6. If the roll is equal to or greater than that unit's Bravery characteristic, add 1 to hit rolls for attacks that target that unit until your next hero phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-
-  // 'Cacophonic Choir': {
-  //   effects: [
-  //     {
-  //       name: `Cacophonic Choir`,
-  //       desc: `Casting value of 6. If successfully cast, roll 2D6. Each enemy unit within 6" of the caster that has a Bravery characteristic of less than the roll suffers D3 mortal wounds.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // Acquiescence: {
-  //   effects: [
-  //     {
-  //       name: `Acquiescence`,
-  //       desc: `Casting value of 5. Pick 1 enemy unit within 18" of the caster that is visible to them. You can reroll hit rolls of 1 for attacks that target that unit until your next hero phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // Subvert: {
-  //   effects: [
-  //     {
-  //       name: `Subvert`,
-  //       desc: `Casting value of 7. If successfully cast, you can pick 1 enemy HERO within 18" of the caster that is visible to them. Until your next hero phase, that HERO cannot issue or receive commands.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Refine Senses': {
-  //   effects: [
-  //     {
-  //       name: `Refine Senses`,
-  //       desc: `Casting value of 4. If successfully cast, until your next hero phase, you can add 1 to hit rolls for attacks made by the caster that target a HERO, and you can add 1 to save rolls for attacks made by HEROES that target the caster.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Overwhelming Acquiescence': {
-  //   effects: [
-  //     {
-  //       name: `Overwhelming Acquiescence`,
-  //       desc: `Casting value of 7. Pick up to D3 enemy units within 24" of the caster that are visible to them. You can reroll hit rolls of 1 for attacks that target those units until your next hero phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Crippling Famishment': {
-  //   effects: [
-  //     {
-  //       name: `Crippling Famishment`,
-  //       desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster that is visible to them. Until your next hero phase, halve the Move characteristic of that unit, halve run rolls for that unit, and halve charge rolls for that unit.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Reflection Eternal': {
-  //   effects: [
-  //     {
-  //       name: `Reflection Eternal`,
-  //       desc: `Casting value of 6. Pick 1 enemy unit within 12" of the caster that is visible to them. Subtract 1 from wound rolls for attacks made by that unit in the following combat phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Whispers of Doubt': {
-  //   effects: [
-  //     {
-  //       name: `Whispers of Doubt`,
-  //       desc: `Casting value of 6. Pick 1 enemy HERO within 3" of the caster and visible to them, and roll 3D6. If the roll is equal to or greater than that HERO's Bravery characteristic, add 1 to hit rolls for attacks that target that HERO until your next hero phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
+  'Cacophonic Choir': {
+    effects: [
+      {
+        name: `Cacophonic Choir`,
+        desc: `Casting value of 6 and a range of 6". If successfully cast, roll 2D6. Each enemy unit within range that has a Bravery characteristic of less than the roll suffers D3 mortal wounds (roll separately for each unit).`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  Acquiescence: {
+    effects: [
+      {
+        name: `Acquiescence`,
+        desc: `Casting value of 5 and a range of 18". Pick 1 enemy unit within range and visible to the caster. Add 1 to wound rolls for attacks that target that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  Subvert: {
+    effects: [
+      {
+        name: `Subvert`,
+        desc: `Casting value of 7 and a range of 18". Pick 1 enemy unit within range and visible to the caster. That unit cannot issue or receive commands until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Refine Senses': {
+    effects: [
+      {
+        name: `Refine Senses`,
+        desc: `Casting value of 4. If successfully cast, until your next hero phase, add 1 to hit rolls and wound rolls for attacks made by the caster that target an enemy Hero and add 1 to save rolls for attacks made by enemy Heroes that target the caster.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Overwhelming Acquiescence': {
+    effects: [
+      {
+        name: `Overwhelming Acquiescence`,
+        desc: `Casting value of 6 and a range of 24". Pick up to D3 different enemy units within range and visible to the caster. Add 1 to wound rolls for attacks that target those units until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Crippling Famishment': {
+    effects: [
+      {
+        name: `Crippling Famishment`,
+        desc: `Casting value of 7 and a range of 18". Pick 1 enemy unit within range and visible to the caster. Until your next hero phase, halve the Move characteristic of that unit, and halve run rolls and charge rolls for that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Reflection Eternal': {
+    effects: [
+      {
+        name: `Reflection Eternal`,
+        desc: `Casting value of 6 and a range of 12". Pick 1 enemy unit within range and visible to the caster. Subtract 1 from the Attacks characteristic of that unit's melee weapons (to a minimum of 1) until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Whispers of Doubt': {
+    effects: [
+      {
+        name: `Whispers of Doubt`,
+        desc: `Casting value of 6. Pick 1 enemy Hero visible to the caster and roll 3D6. If the roll is equal to or greater than that Hero's Bravery characteristic, add 1 to hit rolls and wound rolls for attacks that target that Hero until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Spells, 'spell')

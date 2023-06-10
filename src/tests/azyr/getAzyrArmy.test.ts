@@ -678,43 +678,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.allyFactionNames).toEqual([MERCENARY_COMPANIES])
   })
 
-  it('handles Slaanesh2', () => {
-    const fileTxt = getFile('Slaanesh2')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(SLAANESH)
-    expect(res.subFactionName).toEqual(SlaaneshFaction.subFactionKeyMap['Pretenders Host'])
-    expect(res.selections).toEqual({
-      grand_strategies: [],
-      mount_traits: [],
-      prayers: [],
-      flavors: [],
-      incarnates: [],
-      monstrous_rampages: [],
-      artifacts: ['The Crown of Dark Secrets', 'Sceptre of Domination', 'Sliverslash'],
-      battalions: [],
-      command_abilities: ['Excess of Violence'],
-      endless_spells: [],
-      scenery: [],
-      spells: [
-        'Hysterical Frenzy',
-        'Slothful Stupor',
-        'Soulslice Shards',
-        'Cacophonic Choir',
-        'Overwhelming Acquiescence',
-      ],
-      command_traits: ['Monarch of Lies'],
-      core_rules: [],
-      triumphs: [],
-      units: [
-        'Keeper of Secrets w/ Living Whip',
-        'The Contorted Epitome',
-        'The Masque',
-        'Keeper of Secrets w/ Ritual Knife',
-      ],
-    })
-  })
-
   it('handles Skryre1', () => {
     const fileTxt = getFile('Skryre1')
     const pages = handleAzyrPages(fileTxt)

@@ -37,33 +37,6 @@ const CommandTraits = {
       },
     ],
   },
-  // Territorial: {
-  //   effects: [
-  //     {
-  //       name: `Territorial`,
-  //       desc: `You can reroll hit rolls for attacks made with melee weapons by this general if they are wholly within your territory.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Skin-taker': {
-  //   effects: [
-  //     {
-  //       name: `Skin-taker`,
-  //       desc: `At the end of the combat phase, if any enemy models were slain by wounds inflicted by this general's attacks in that phase, you can heal up to D3 wounds allocated to this general.`,
-  //       when: [END_OF_COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Delusions of Infallibility': {
-  //   effects: [
-  //     {
-  //       name: `Delusions of Infallibility`,
-  //       desc: `Add 2 to the Wounds characteristic of this general.`,
-  //       when: [WOUND_ALLOCATION_PHASE],
-  //     },
-  //   ],
-  // },
   // Pretenders Host - Aspects of the Perfect Liege
   'Strength of Godhood': {
     effects: [
@@ -83,15 +56,6 @@ const CommandTraits = {
       },
     ],
   },
-  // 'Craving Stare': {
-  //   effects: [
-  //     {
-  //       name: `Craving Stare`,
-  //       desc: `If an enemy unit fails a battleshock test within 6" of this general, add D3 to the number of models that flee.`,
-  //       when: [BATTLESHOCK_PHASE],
-  //     },
-  //   ],
-  // },
   'Strongest Alone': {
     effects: [
       {
@@ -101,24 +65,6 @@ const CommandTraits = {
       },
     ],
   },
-  // 'Hunter of Godbeasts': {
-  //   effects: [
-  //     {
-  //       name: `Hunter of Godbeasts`,
-  //       desc: `Add 1 to the damage inflicted by successful attacks made by this general that target a MONSTER.`,
-  //       when: [SHOOTING_PHASE, COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // Inspirer: {
-  //   effects: [
-  //     {
-  //       name: `Inspirer`,
-  //       desc: `You can reroll battleshock tests for friendly PRETENDERS units while they are wholly within 9" of this general.`,
-  //       when: [BATTLESHOCK_PHASE],
-  //     },
-  //   ],
-  // },
   // Godseekers Host
   'Hunter Supreme': {
     effects: [
@@ -129,15 +75,6 @@ const CommandTraits = {
       },
     ],
   },
-  // 'Sweeping Slash': {
-  //   effects: [
-  //     {
-  //       name: `Sweeping Slash`,
-  //       desc: `After this general makes a charge move, roll a dice for each enemy unit within 1" of them. On a 2+, that unit suffers D3 mortal wounds.`,
-  //       when: [CHARGE_PHASE],
-  //     },
-  //   ],
-  // },
   'Into the Fray': {
     effects: [
       {
@@ -147,24 +84,6 @@ const CommandTraits = {
       },
     ],
   },
-  // 'Trail-sniffer': {
-  //   effects: [
-  //     {
-  //       name: `Trail-sniffer`,
-  //       desc: `At the start of your hero phase, roll a dice if this general is wholly within enemy territory. On a 3+, add 1 to the Attacks characteristic of this general's melee weapons until your next hero phase.`,
-  //       when: [START_OF_HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // Symphoniac: {
-  //   effects: [
-  //     {
-  //       name: `Symphoniac`,
-  //       desc: `At the start of the combat phase, roll 1 dice for each enemy unit within 3" of this general. On a 3+, that unit suffers 1 mortal wound.`,
-  //       when: [START_OF_COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
   'Speed-chaser': {
     effects: [
       {
@@ -174,34 +93,6 @@ const CommandTraits = {
       },
     ],
   },
-
-  // 'Feverish Anticipation': {
-  //   effects: [
-  //     {
-  //       name: `Feverish Anticipation`,
-  //       desc: `You can reroll run rolls for friendly LURID HAZE INVADERS HOST units that are wholly within 12" of this general when the run roll is made.`,
-  //       when: [MOVEMENT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Contest of Cruelty': {
-  //   effects: [
-  //     {
-  //       name: `Contest of Cruelty`,
-  //       desc: `Friendly FAULTLESS BLADES PRETENDERS HOST units that start a pile-in move wholly within 12" of this general can move an extra 3" when they pile in.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Embodiment of Haste': {
-  //   effects: [
-  //     {
-  //       name: `Embodiment of Haste`,
-  //       desc: `You can reroll battleshock tests for friendly SCARLET CAVALCADE GODSEEKERS HOST units wholly within 12" of this general.`,
-  //       when: [BATTLESHOCK_PHASE],
-  //     },
-  //   ],
-  // },
 }
 
 export default tagAs(CommandTraits, 'command_trait')
