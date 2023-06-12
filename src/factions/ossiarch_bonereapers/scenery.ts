@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
 import { HERO_PHASE } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const Scenery = {
   'Bone-tithe Nexus': {
@@ -19,7 +18,6 @@ const Scenery = {
 
         Punishment of Lethargy: Pick 1 enemy unit wholly within 18" of this terrain feature and visible to it, and roll a dice. On a 4+, that unit cannot run until your next hero phase, and a D6 is used to make charge rolls for that unit instead of 2D6 until your next hero phase. `,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

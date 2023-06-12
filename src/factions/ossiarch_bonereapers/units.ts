@@ -16,7 +16,6 @@ import {
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
-import rule_sources from './rule_sources'
 import Spells from './spells'
 
 const NecrophorosEffect = {
@@ -61,7 +60,7 @@ export const OBRWarmasterEffect = {
   name: `Warmaster`,
   desc: `This unit can be included in a Nighthaunt, Flesh-eater Courts, Ossiarch Bonereapers or Soulblight Gravelords army. If it is, it is treated as a general even if it is not the model picked to be the army's general. In addition, you can still use the army's allegiance abilities even though this unit is not from the army's faction; however, this unit does not benefit from them.`,
   when: [DURING_GAME],
-  rule_sources: [rule_sources.ERRATA_JULY_2021, rule_sources.ERRATA_DECEMBER_2021],
+
   shared: true,
 }
 
@@ -78,11 +77,6 @@ const Units = {
 
         If there are no wounds allocated to the unit you pick, you can return a number of slain models to that unit with a combined Wounds chacteristic that is equal to or less than the number of wounds you could have healed.`,
         when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
-          rule_sources.ERRATA_JULY_2021,
-          rule_sources.ERRATA_OCTOBER_2022,
-        ],
       },
       {
         name: `Soulcrusher Bludgeons`,
@@ -300,7 +294,6 @@ const Units = {
         name: `Warmaster`,
         desc: `If this unit is included in an Ossiarch Bonereapers army, it is treated as a general even if it is not the model picked to be the army's general.`,
         when: [DURING_GAME],
-        rule_sources: [rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS, rule_sources.ERRATA_JULY_2021],
       },
       {
         name: `Nadirite Weapons`,
