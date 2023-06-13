@@ -2,15 +2,6 @@ import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
 
 const Spells = {
-  // 'Arcane Command': {
-  //   effects: [
-  //     {
-  //       name: `Arcane Command`,
-  //       desc: `Casting value of 5. You receive D3 relentless discipline points.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
   'Empower Nadirite Weapons': {
     effects: [
       {
@@ -38,20 +29,6 @@ const Spells = {
       },
     ],
   },
-  // 'Reinforce Battle-shields': {
-  //   effects: [
-  //     {
-  //       name: `Reinforce Battle-shields`,
-  //       desc: `Reinforce Battle-shields has a casting value of 6. Pick 1 friendly OSSIARCH BONEREAPERS unit armed wit Shields or Nadirite Battle-shields that is wholly within 24" of the caster and visible to them. Until the start of your next hero phase, roll a D6 each time you allocate a mortal wound to that unit. On a 5+ that wound is negated.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //     {
-  //       name: `Reinforce Battle-shields`,
-  //       desc: `If active, roll a D6 each time you allocate a mortal wound to that unit. On a 5+ that wound is negated.`,
-  //       when: [WOUND_ALLOCATION_PHASE],
-  //     },
-  //   ],
-  // },
   'Drain Vitality': {
     effects: [
       {
@@ -79,42 +56,60 @@ const Spells = {
       },
     ],
   },
-  // 'Mortal Touch': {
-  //   effects: [
-  //     {
-  //       name: `Mortal Touch`,
-  //       desc: `Casting value of 8. Pick 1 enemy model within 1" of the caster that is visible to them and roll a D6. On a 5+, that model is slain. The range of this spell cannot be modified.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Soul-guide': {
-  //   effects: [
-  //     {
-  //       name: `Soul-guide`,
-  //       desc: `Casting value of 6. Pick 1 friendly OSSIARCH BONEREAPERS unit wholly within 24" of the caster that is visible to them. You can reroll hit rolls of 1 for attacks made by that unit until your next hero phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Soul-blast': {
-  //   effects: [
-  //     {
-  //       name: `Soul-blast`,
-  //       desc: `Casting value of 7. You can either roll 1 dice for each enemy unit within 3" of the caster or roll 1 dice for 1 enemy unit within 18" of the caster that is visible to them. On a 1, nothing happens. On a 2-3, that unit suffers 1 mortal wound. On a 4+, that unit suffers D3 mortal wounds.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Shard-storm': {
-  //   effects: [
-  //     {
-  //       name: `Shard-storm`,
-  //       desc: `Casting value of 5. Pick 1 enemy unit and roll 1 dice for each model from that unit that is within 18" of the caster and visible to them. For each 6, that unit suffers 1 mortal wound.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
+  'Mortal Touch': {
+    effects: [
+      {
+        name: `Mortal Touch`,
+        desc: `Casting value of 7 and a range of 1". Pick 1 enemy model within range and visible to the caster and roll a dice. On a 4+, that model is slain. The range of this spell cannot be modified and must be measured from the caster, even if an ability would allow you to measure it from elsewhere.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Soul-guide': {
+    effects: [
+      {
+        name: `Soul-guide`,
+        desc: `Soul-guide is a spell that has a casting value of 6 and a range of 24". Pick 1 friendly MORTEK GUARD or KAVALOS DEATHRIDERS unit wholly within range and visible to the caster. Add 1 to wound rolls for attacks made with melee weapons by that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Soul-blast': {
+    effects: [
+      {
+        name: `Soul-blast`,
+        desc: `Soul-blast is a spell that has a casting value of 6 and a range of 12". If successfully cast, at the start of any 1 phase before your next hero phase, you can pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. If that unit is within 3" of the caster, it suffers 3 mortal wounds instead of D3.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Shard-storm': {
+    effects: [
+      {
+        name: `Shard-storm`,
+        desc: `Shard-storm is a spell that has a casting value of 5 and a range of 18". Pick 1 enemy unit within range and visible to the caster and roll a number of dice equal to the number of models in that unit. For each 5+, that unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Empower Ossification': {
+    effects: [
+      {
+        name: `Empower Ossification`,
+        desc: `Casting value of 5 and a range of 24". If successfully cast, the caster can pick up to 3 different friendly GOTHIZZAR HARVESTERS, MORTEK CRAWLERS or MORGHAST units in any combination that are wholly within range to benefit from the Refined Creations ability instead of 1 unit that is wholly within 12".`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Dire Ultimatum': {
+    effects: [
+      {
+        name: `Dire Ultimatum`,
+        desc: `Casting value of 4 and a range of 3". Pick 1 enemy unit within range and visible to the caster. Until your next hero phase, any attacks made with melee weapons by that unit must target this unit. The range of this spell must be measured from the caster, even if an ability would allow you to measure it from elsewhere.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Spells, 'spell')

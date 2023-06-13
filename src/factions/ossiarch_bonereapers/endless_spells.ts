@@ -1,17 +1,12 @@
 import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
 import {
-  BATTLESHOCK_PHASE,
-  COMBAT_PHASE,
   DURING_GAME,
-  END_OF_BATTLESHOCK_PHASE,
-  END_OF_CHARGE_PHASE,
-  END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
-  END_OF_MOVEMENT_PHASE,
-  END_OF_SHOOTING_PHASE,
   HERO_PHASE,
-  SHOOTING_PHASE,
+  START_OF_BATTLESHOCK_PHASE,
+  START_OF_HERO_PHASE,
+  WARDS_PHASE,
 } from 'types/phases'
 
 const EndlessSpells = {
@@ -19,40 +14,35 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `Casting value of 5 and range of 12". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only OSSIARCH BONEREAPERS WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 5 and a range of 12". If successfully cast, set up this endless spell within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only OSSIARCH BONEREAPERS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
       },
       GenericEffects.Predatory.Eight_Inches,
       ...GenericEffects.Bonded,
       {
         name: `Portent of Doom`,
-        desc: `Units cannot receive the Inspiring Presence or Rally command while they are within 12" of this endless spell. This ability has no effect on OSSIARCH BONEREAPERS units.`,
-        when: [BATTLESHOCK_PHASE],
+        desc: `Units cannot receive the Inspiring Presence or Rally commands while they are within 12" of this endless spell. This ability has no effect on OSSIARCH BONEREAPERS units.`,
+        when: [START_OF_BATTLESHOCK_PHASE, START_OF_HERO_PHASE],
       },
       {
         name: `No Escape`,
-        desc: `Add 1 to hit rolls for attacks made by OSSIARCH BONEREAPERS units that target a unit that is within 12" of this endless spell.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        desc: `Subtract 1 from ward rolls for units within 12" of this endless spell. This ability has no effect on OSSIARCH BONEREAPERS units.`,
+        when: [WARDS_PHASE],
       },
     ],
   },
   'Nightmare Predator': {
     effects: [
-      GenericEffects.Predatory.Two_D6,
+      GenericEffects.Predatory.Eight_Inches,
       ...GenericEffects.Bonded,
       {
         name: `Summoning`,
-        desc: `Casting value of 7 and range of 6". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only OSSIARCH BONEREAPERS WIZARDS can attempt to summon this endless spell.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Perpetual Hunter`,
-        desc: `When this endless spell is set up, the player who set it up can pick 1 HERO as its prey. If this endless spell's prey is destroyed, this endless spell is removed from play.`,
+        desc: `Casting value of 5 and a range of 12". If successfully cast, set up this endless spell within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only OSSIARCH BONEREAPERS WIZARDS can attempt to summon this endless spell. A WIZARD in a garrison cannot attempt to summon this endless spell, and if this endless spell is summoned, the WIZARD that summoned it cannot join a garrison until this endless spell has been removed from play.`,
         when: [HERO_PHASE],
       },
       {
         name: `Death Incarnate`,
-        desc: `After this endless spell has moved, roll a dice for each unit within 3" of it. On a 2+, that unit suffers D3 mortal wounds. If that unit was this endless spell's prey, on a 2+, it suffers D6 mortal wounds instead of D3. This ability has no effect on OSSIARCH BONEREAPERS units.`,
+        desc: `After this endless spell has moved, roll a dice for each unit that has any models it passed across. On a 2+, that unit suffers D3 mortal wounds. Then, the commanding player can pick 1 unit within 1" of this endless spell and roll a dice. On a 1, nothing happens. On a 2-5, that unit suffers D3 mortal wounds. On a 6, that unit suffers D6 mortal wounds. This ability has no effect on OSSIARCH BONEREAPERS units.`,
         when: [END_OF_HERO_PHASE],
       },
     ],
@@ -63,29 +53,12 @@ const EndlessSpells = {
       ...GenericEffects.Bonded,
       {
         name: `Summoning`,
-        desc: `Casting value of 7. If successfully cast, set up this endless spell anywhere on the battlefield and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only OSSIARCH BONEREAPERS WIZARDS can attempt to summon this endless spell.`,
+        desc: `Casting value of 6. If successfully cast, set up this endless spell anywhere on the battlefield that is visible to the caster, and more than 1" from all models, other endless spells and invocations. Only OSSIARCH BONEREAPERS WIZARDS can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
       },
       {
-        name: `Soul Thief`,
-        desc: `At the end of each phase, the commanding player must roll a dice if any CHAOS, DESTRUCTION or ORDER models were slain within 6" of this endless spell during that phase. On a 1-2, they can heal 1 wound allocated to the model bonded to this endless spell. On a 3-4, each CHAOS, DESTRUCTION and ORDER unit within 6" of this endless spell suffers 1 mortal wound. On a 5-6, both of these effects apply.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Soul Thief`,
-        desc: `See "Soul Thief - During Game"`,
-        when: [
-          END_OF_BATTLESHOCK_PHASE,
-          END_OF_CHARGE_PHASE,
-          END_OF_COMBAT_PHASE,
-          END_OF_HERO_PHASE,
-          END_OF_MOVEMENT_PHASE,
-          END_OF_SHOOTING_PHASE,
-        ],
-      },
-      {
-        name: `Second Sight`,
-        desc: `Anything visible to this endless spell is also visible to the model that is bonded to this endless spell.`,
+        name: `Aviarch Sentry`,
+        desc: `Models with a Wounds characteristic of 1 or 2 that are within 6" of this endless spell cannot contest objectives. This ability has no effect on OSSIARCH BONEREAPERS units.`,
         when: [DURING_GAME],
       },
     ],

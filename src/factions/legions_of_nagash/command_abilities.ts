@@ -1,5 +1,4 @@
 import { tagAs } from 'factions/metatagger'
-import rule_sources from 'factions/ossiarch_bonereapers/rule_sources'
 import { END_OF_MOVEMENT_PHASE, HERO_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 
 const CommandAbilities = {
@@ -27,16 +26,6 @@ const CommandAbilities = {
         name: `Death Magic Incarnate`,
         desc: `You can use this command ability if this unit is on the battlefield at the start of the combat phase. The unit that receives this command must be a different friendly Death unit. Add 1 to ward rolls for that unit until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
-        rule_sources: [rule_sources.ERRATA_DECEMBER_2021],
-      },
-    ],
-  },
-  'First of the Mortarchs': {
-    effects: [
-      {
-        name: `First of the Mortarchs`,
-        desc: `If Arkhan the Black uses this ability, then until the end of the hero phase all friendly DEATH WIZARDS within 18" of him can increase the range of their spells by 6". You cannot use this command ability multiple times.`,
-        when: [HERO_PHASE],
       },
     ],
   },

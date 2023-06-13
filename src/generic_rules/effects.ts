@@ -61,6 +61,7 @@ const GenericEffects = {
       name: `Terror`,
       desc: `Enemy units cannot receive the Inspiring Presence command while they are within 3" of any friendly units with this ability.`,
       when: [BATTLESHOCK_PHASE],
+      shared: true,
     },
     {
       name: `Loathsome Descent`,

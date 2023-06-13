@@ -5,39 +5,47 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  DURING_SETUP,
+  END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
+  END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
-import CommandTraits from './command_traits'
 import Spells from './spells'
 
-const NecrophorosEffect = {
-  name: `Necrophoros`,
-  desc: `Add 1 to run rolls and charge rolls for a unit that includes any Necrophoroi.`,
-  when: [MOVEMENT_PHASE, CHARGE_PHASE],
+const TheWillOfTheLegionsEffect = {
+  name: `The Will of the Legions`,
+  desc: `Once per turn, this unit can issue a command to a friendly OSSIARCH BONEREAPERS unit without a command point being spent.`,
+  when: [DURING_GAME],
   shared: true,
 }
-const NadariteWeaponsEffect = {
-  name: `Nadirite Weapons`,
-  desc: `If the unmodified hit roll for an attack made with this unit's Nadirite Blades or Nadirite Spears is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. For attacks made with Nadirite Spears, 2 hits are scored on a 5+ instead of 6 if this unit made a charge move in the same turn.`,
-  when: [COMBAT_PHASE],
+const GrimOpponentsEffect = {
+  name: `Grim Opponents`,
+  desc: `If you make an unmodified charge roll of 8+ for this unit, the strike-first effect applies to this unit until the end of that turn.`,
+  when: [CHARGE_PHASE],
+  shared: true,
+}
+const NecrophorosEffect = {
+  name: `Standard Bearer`,
+  desc: `Add 1 to run rolls and charge rolls for this unit if it includes any Necrophoroi.`,
+  when: [MOVEMENT_PHASE, CHARGE_PHASE],
   shared: true,
 }
 const HeraldsOfTheAccursedOneEffect = {
   name: `Heralds of the Accursed One`,
-  desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 6" of any friendly MORGHASTS.`,
-  when: [BATTLESHOCK_PHASE],
+  desc: `Enemy units cannot receive commands while they are within 3" of any friendly units with this ability.`,
+  when: [DURING_GAME],
   shared: true,
 }
 const MortekHekatosEffect = {
-  name: `Mortek Hekatos`,
+  name: `Champion`,
   desc: `1 model in this unit can be a Mortek Hekatos. Add 1 to the Attacks characteristic of that model's melee weapon.`,
   when: [COMBAT_PHASE],
   shared: true,
@@ -45,48 +53,31 @@ const MortekHekatosEffect = {
 const UnstoppableChargeEffects = [
   {
     name: `Unstoppable Charge`,
-    desc: `After this model makes a charge move, you can pick 1 enemy unit within 1" of this model and roll a number of dice equal to the charge roll for that charge move. For each 6, that enemy unit suffers 1 mortal wound.`,
+    desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a number of dice equal to the unmodified charge roll for that charge move. For each 5+, that enemy unit suffers 1 mortal wound.`,
     when: [CHARGE_PHASE],
     shared: true,
   },
   {
     name: `Unstoppable Charge`,
-    desc: `This model can move an extra 3" when it piles in if it made a charge move in the same turn.`,
+    desc: `This unit can move an extra 3" when it piles in if it made a charge move in the same turn.`,
     when: [COMBAT_PHASE],
     shared: true,
   },
 ]
-export const OBRWarmasterEffect = {
-  name: `Warmaster`,
-  desc: `This unit can be included in a Nighthaunt, Flesh-eater Courts, Ossiarch Bonereapers or Soulblight Gravelords army. If it is, it is treated as a general even if it is not the model picked to be the army's general. In addition, you can still use the army's allegiance abilities even though this unit is not from the army's faction; however, this unit does not benefit from them.`,
-  when: [DURING_GAME],
-
-  shared: true,
-}
 
 const Units = {
   'Gothizzar Harvester': {
     effects: [
       {
         name: `Bone Harvest`,
-        desc: `Roll a dice each time a model is removed from play after being slain within 3" of any models with this ability. On a 4+, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. If you do so, and the slain model had a Wounds characteristic of:
-
-        4 or less - you can heal 1 wound allocated to that unit
-        5-9 - you can heal up to D3 wounds allocated to that unit
-        10 or more - you can heal up to D6 wounds allocated to that unit.
-
-        If there are no wounds allocated to the unit you pick, you can return a number of slain models to that unit with a combined Wounds chacteristic that is equal to or less than the number of wounds you could have healed.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-      {
-        name: `Soulcrusher Bludgeons`,
-        desc: `If the unmodified hit roll for an attack made with Soulcrusher Bludgeons is 6, that attack inflicts 2 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Soulcleaver Sickles`,
-        desc: `Add 1 to hit rolls for attacks made with Soulcleaver Sickles if the target unit has 5 or more models.`,
-        when: [COMBAT_PHASE],
+        desc: `At the end of the combat phase, you can pick 1 friendly OSSIARCH BONEREAPERS unit that is within 6" of this unit and had models slain in that phase. If you do so, roll a dice for each model from that unit that was slain in that phase. On a 4+:
+        
+        If the slain model had a Wounds characteristic of 4 or less, you can heal 1 wound allocated to its unit.
+        If the slain model had a Wounds characteristic of 5 or more, you can heal up to 3 wounds allocated to its unit.
+        If no wounds are currently allocated to the unit you picked, you can return a number of slain models to it that have a combined Wounds characteristic of equal to or less than the number of wounds you could have healed.
+        
+        You cannot pick the same unit with this ability more than once per phase.`,
+        when: [END_OF_COMBAT_PHASE],
       },
     ],
   },
@@ -97,13 +88,8 @@ const Units = {
     effects: [
       GenericEffects.Elite,
       {
-        name: `Deadly Combination`,
-        desc: `If the unmodified hit roll for an attack made with a Nadirite Battle-shield is 6, that attack inflicts 1 mortal wound on the target in addition to any normal damage.`,
-        when: [COMBAT_PHASE],
-      },
-      {
         name: `Soulbound Protectors`,
-        desc: `Roll a D6 before you allocate a wound or mortal wound to a friendly OSSIARCH BONEREAPERS HERO while it is within 3" of any friendly units with this ability. On a 2+, you must allocate that wound or mortal wound to a friendly unit with this ability that is within 3" of that OSSIARCH BONEREAPERS HERO instead of allocating it to that OSSIARCH BONEREAPERS HERO.`,
+        desc: `If a friendly OSSIARCH BONEREAPERS HERO is within 3" of this unit, before you allocate a wound or mortal wound to that HERO, or instead of making a ward roll for a wound or mortal wound that would be allocated to that HERO, roll a dice. On a 2+, that wound or mortal wound is allocated to this unit instead of that HERO and cannot be negated.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -112,13 +98,20 @@ const Units = {
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Shieldwall'])],
     },
-    effects: [NecrophorosEffect, NadariteWeaponsEffect, MortekHekatosEffect],
+    effects: [
+      {
+        name: `Champion`,
+        desc: `1 model in this unit can be a Mortek Hekatos. Add 1 to the Attacks characteristic of that model's Nadirite Spear or Nadirite Blade.`,
+        when: [COMBAT_PHASE],
+      },
+      NecrophorosEffect,
+    ],
   },
   'Kavalos Deathriders': {
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Deathrider Wedge'])],
     },
-    effects: [NecrophorosEffect, NadariteWeaponsEffect, MortekHekatosEffect],
+    effects: [NecrophorosEffect, MortekHekatosEffect, ...UnstoppableChargeEffects],
   },
   'Necropolis Stalkers': {
     mandatory: {
@@ -128,15 +121,15 @@ const Units = {
       GenericEffects.Elite,
       {
         name: `Quadrarch Aspects`,
-        desc: `At the start of each combat phase, you must pick one of the following aspects for this unit. The rule for that aspect applies to this unit until the end of that phase.
+        desc: `At the start of the combat phase, you must pick 1 of the following aspects to apply to this unit until the end of that phase.
 
-        Blade-strike Aspect: You can reroll hit rolls for attacks made by this unit.
-
-        Blade-parry Aspect: You can reroll save rolls for attacks that target this unit.
-
-        Destroyer Aspect: You can reroll wound rolls for attacks made by this unit.
-
-        Precision Aspect: Improve the Rend and Damage characteristics of this unit's melee weapons by 1.`,
+        Blade-strike Aspect: Add 1 to hit rolls for attacks made by this unit.
+        
+        Blade-parry Aspect: Add 1 to save rolls for attacks that target this unit.
+        
+        Destroyer Aspect: Add 1 to wound rolls for attacks made by this unit.
+        
+        Precision Aspect: Add 1 to the Damage characteristic of this unit's melee weapons.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -145,17 +138,12 @@ const Units = {
     effects: [
       {
         name: `Dread Catapult`,
-        desc: `Before shooting with a Dread Catapult, choose either the Necrotic Skulls, Cauldron of Torment or Cursed Stele weapon characteristics for that attack. Each Dread Catapult can only make 1 Cauldron of Torment and 1 Cursed Stele attack per battle.`,
+        desc: `Each time this unit shoots, choose either the Cauldron of Torment, Necrotic Skulls or Cursed Stele weapon characteristics for all the attacks it makes with its Dread Catapult.`,
         when: [SHOOTING_PHASE],
       },
       {
-        name: `Cauldron of Torment`,
-        desc: `Do not use the attack sequence for an attack made with a Cauldron of Torment. Instead, pick 1 enemy unit that is in range of the attack and roll 1 dice for each model in the target unit. Add the modifier for Cauldron of Torment shown on the damage table on the warscroll to each roll. If the result is equal to or greater than the unmodified Bravery characteristic of the target unit, 1 model from that unit is slain.`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Cursed Stele`,
-        desc: `Do not use the attack sequence for an attack made with a Cursed Stele. Instead, pick 1 enemy model that is in range of the attack and roll 2D6. Add the modifier for Cursed Stele shown on the damage table above to the roll. If the result is equal to or greater than the Wounds characteristic of the target, it is slain.`,
+        name: `Deathly Barrage`,
+        desc: `After this unit shoots, roll a dice for each enemy unit that was targeted by this unit's attacks in that phase. Add 2 to the roll if that unit was targeted by all of this unit's attacks in that phase. On a 5+, the strike-last effect applies to that unit until the end of that turn.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -164,10 +152,11 @@ const Units = {
     effects: [
       GenericEffects.Elite,
       HeraldsOfTheAccursedOneEffect,
+      GrimOpponentsEffect,
       {
-        name: `Ebon-wrought Armour`,
-        desc: `Each time you allocate a mortal wound to this unit, roll a D6. On a 5+, that mortal wound is ignored.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        name: `Necromantic Custodians`,
+        desc: `This unit has a ward of 5+ if it is wholly within 12" of any friendly OSSIARCH BONEREAPERS HEROES.`,
+        when: [WARDS_PHASE],
       },
     ],
   },
@@ -175,27 +164,34 @@ const Units = {
     effects: [
       GenericEffects.Elite,
       HeraldsOfTheAccursedOneEffect,
+      GrimOpponentsEffect,
       {
-        name: `Harbingers of Death`,
-        desc: `You can attempt to charge with this unit if it is within 18" of the enemt instead of 12". Roll 3D6 instead of 2D6 when making a charge roll for this unit.`,
-        when: [CHARGE_PHASE],
+        name: `On Wings of Malice`,
+        desc: `During deployment, instead of setting up this unit on the battlefield, you can place it to one side and say that it is soaring above the battlefield as a reserve unit. If you do so, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `On Wings of Malice`,
+        desc: `If you set this unit up in reserve, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
   'Arch-Kavalos Zandtos': {
     mandatory: {
-      command_abilities: [keyPicker(CommandAbilities, ['Still Their Breath!', 'Endless Duty'])],
+      command_abilities: [keyPicker(CommandAbilities, ['Still Their Breath!'])],
     },
     effects: [
       ...UnstoppableChargeEffects,
       {
-        name: `The Dark Lance`,
-        desc: `The Dark Lance has a Damage characteristic of 3 instead of 2 if this model made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
+        name: `Warmaster`,
+        desc: `If this unit is included in a Mortis Praetorians army, it is treated as a general even if it is not the model picked to be the army's general.`,
+        when: [DURING_GAME],
       },
+      TheWillOfTheLegionsEffect,
       {
-        name: `Hatred of the Living`,
-        desc: `Reroll wound rolls of 1 for attacks made by this model that target ORDER and DESTRUCTION units. You can reroll any wound rolls for attacks made by this model that target CHAOS units.`,
+        name: `The Dark Lance`,
+        desc: `Add 1 to the Damage characteristic of this unit's Dark Lance if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -206,19 +202,19 @@ const Units = {
     },
     effects: [
       {
+        name: `Wizard`,
+        desc: `This unit can attempt to cast 2 spells in your hero phase and attempt to unbind 2 spells in the enemy hero phase. If this unit is part of an Ossiarch Bonereapers army, it knows all of the spells from the Lore of Ossian Sorcery in addition to the other spells it knows.`,
+        when: [HERO_PHASE],
+      },
+      {
         name: `Contract of Nagash`,
-        desc: `At the start of the combat phase, roll a D6. On a 5+, you can pick 1 enemy model within 3" of Vokmortian. That enemy model cannot attack Vokmortian in that combat phase.`,
+        desc: `At the start of the combat phase, you can pick 1 enemy unit within 3" of this unit and roll a dice. On a 3+, your opponent must spend a command point to pick this unit to be the target of that enemy unit's attacks in that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
       {
         name: `Grim Warnings`,
-        desc: `Subtract 1 from the Bravery characteristic of enemy units while they are within 12" of this model. If an enemy general is slain within 3" of this model, for the rest of the battle subtract 2 from the Bravery of enemy units within 12" of this model instead of 1.`,
+        desc: `Subtract 2 from the Bravery characteristic of enemy units while they are within 12" of this unit. If the model picked to be the enemy general has been slain, subtract 3 from the Bravery characteristic of those units instead of 2.`,
         when: [BATTLESHOCK_PHASE],
-      },
-      {
-        name: `Grim Warnings`,
-        desc: `Subtract 1 from unbinding rolls for WIZARDS attempting to unbind a spell cast by this model. If an enemy general is slain within 3" of this model, for the rest of the battle subtract 2 from unbinding rolls for WIZARDS attempting to unbind a spell cast by this model instead of 1.`,
-        when: [HERO_PHASE],
       },
     ],
   },
@@ -226,16 +222,17 @@ const Units = {
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Endless Duty'])],
     },
-    effects: [...UnstoppableChargeEffects],
+    effects: [TheWillOfTheLegionsEffect, ...UnstoppableChargeEffects],
   },
   'Mortisan Boneshaper': {
     mandatory: {
       spells: [keyPicker(Spells, ['Shard-storm'])],
     },
     effects: [
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Boneshaper`,
-        desc: `In your hero phase, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this model. You can either heal up to 3 wounds that have been allocated to that unit or, if no wounds have been allocated to the unit, you can return a number of slain models to it that have a combined Wounds characteristic of 3 or less.`,
+        desc: `In your hero phase, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this unit. If that unit is not an IMMORTIS GUARD or NECROPOLIS STALKERS unit, you can either heal up to 3 wounds allocated to that unit or, if no wounds have been allocated to that unit, you can return a number of slain models to it that have a combined Wounds characteristic of 3 or less. If that unit is an IMMORTIS GUARD or NECROPOLIS STALKERS unit, you can either heal up to 3 wounds allocated to that unit or, if no wounds have been allocated to that unit, roll a dice. On a 3+, you can return 1 slain model to that unit.`,
         when: [HERO_PHASE],
       },
     ],
@@ -246,8 +243,13 @@ const Units = {
     },
     effects: [
       {
+        name: `Wizard`,
+        desc: `This unit can attempt to cast 2 spells in your hero phase and attempt to unbind 2 spells in the enemy hero phase. If this unit is part of an Ossiarch Bonereapers army, it knows all of the spells from the Lore of Ossian Sorcery in addition to the other spells it knows.`,
+        when: [HERO_PHASE],
+      },
+      {
         name: `Mortek Throne`,
-        desc: `At the end of your hero phase, roll a D6 for this model. On a 1, nothing happens. On a 2-5, this model can attempt to cast Soul-guide even if a casting attempt has already been made for that spell in the same phase. On a 6, this model can attempt to cast Soul-guide D3 more times even if a casting attempt has already been made for that spell in the same phase.`,
+        desc: `At the end of your hero phase, roll a dice for this unit. On a 1, nothing happens. On a 2-5, this unit can immediately attempt to cast Soul-guide even if a casting attempt has already been made for that spell in that phase. On a 6, this unit can immediately attempt to cast Soul-guide D3 times even if a casting attempt has already been made for that spell in that phase.`,
         when: [END_OF_HERO_PHASE],
       },
     ],
@@ -257,29 +259,40 @@ const Units = {
       spells: [keyPicker(Spells, ['Soul-blast'])],
     },
     effects: [
-      {
-        name: `Deathly Touch`,
-        desc: `If the unmodified hit roll for an attack made with a Soulreaper Scythe is 6, that attack inflicts 2 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
-      },
+      GenericEffects.WizardOneSpellEffect,
       {
         name: `Soulreaper`,
-        desc: `You can reroll hit rolls for attacks made with a Soulreaper Scythe if the target unit has 5 or more models.`,
+        desc: `Each time this unit fights, you can say it will unleash a reaping strike. If you do so, add 2 to the Attacks characteristic of this unit's melee weapons until the end of the phase, but this unit can only target enemy units that have 5 or more models.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  'Orpheon Katakros': {
+  'Mortisan Ossifector': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Empower Ossification'])],
+    },
+    effects: [
+      GenericEffects.WizardOneSpellEffect,
+      {
+        name: `Refined Creations`,
+        desc: `In your hero phase, you can pick 1 friendly GOTHIZZAR HARVESTER, MORTEK CRAWLER or MORGHAST unit wholly within 12" of this unit and pick 1 of the following augmentations to apply to that unit until your next hero phase. The same unit cannot be picked to benefit from this ability more than once per turn.
+
+        Ossified Barbs: Improve the Rend characteristic of that unit's melee weapons by 1.
+        
+        Accelerated Calcification: The first wound or mortal wound caused to that unit in each phase is negated.
+        
+        Enhanced Clawspan: If the unmodified hit roll for an attack made with a missile weapon by that unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound roll and save roll for each hit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  Katakros: {
     mandatory: {
       command_abilities: [
         keyPicker(CommandAbilities, ['Supreme Lord of the Bonereaper Legions', 'Endless Duty']),
       ],
-      command_traits: [
-        keyPicker(CommandTraits, ['Aviarch Spymaster', 'Gnosis Scrollbearer', 'Prime Necrophoros']),
-      ],
     },
     effects: [
-      OBRWarmasterEffect,
       {
         name: `Deadly Combination`,
         desc: `If the unmodified hit roll for an attack made with the Shield Immortis is 6, that attack inflicts 2 mortal wounds on the target in addition to any normal damage.`,
@@ -292,38 +305,77 @@ const Units = {
       },
       {
         name: `Warmaster`,
-        desc: `If this unit is included in an Ossiarch Bonereapers army, it is treated as a general even if it is not the model picked to be the army's general.`,
+        desc: `If this unit is included in a Mortis Praetorians army, it is treated as a general even if it is not the model picked to be the army's general.`,
         when: [DURING_GAME],
       },
       {
-        name: `Nadirite Weapons`,
-        desc: `If the unmodified hit roll for an attack made with a Nadirite weapon is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
+        name: `Companion`,
+        desc: `This unit is accompanied by a personal guard armed with Retinue Blades. The Nadirite Weapons battle trait applies to attacks made with Retinue Blades.`,
         when: [COMBAT_PHASE],
+      },
+      {
+        name: `Prime Necrophoros`,
+        desc: `Once per turn, this unit can issue a command to a friendly OSSIARCH BONEREAPERS unit anywhere on the battlefield without a command point being spent.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Gnosis Scrollbearer`,
+        desc: `At the start of your hero phase, you can pick 1 enemy unit on the battlefield. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit that target friendly OSSIARCH BONEREAPERS units.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Aviarch Spymaster`,
+        desc: `Once per turn, you can roll a dice when your opponent receives a command point. If you do so, on a 5+, that command point is lost.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Do Nothing! This One is Mine!`,
+        desc: `Use the bottom row of this unit's damage table while it is within 3" of any enemy HEROES.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Mortarch of the Necropolis`,
+        desc: `In your hero phase, you can pick up to 3 different friendly OSSIARCH BONEREAPERS units wholly within 24" of this unit. If that unit is not an IMMORTIS GUARD or NECROPOLIS STALKERS unit, you can either heal up to 3 wounds allocated to that unit or, if no wounds have been allocated to that unit, you can return a number of slain models to it that have a combined Wounds characteristic of 3 or less.
+
+        If that unit is an IMMORTIS GUARD or NECROPOLIS STALKERS unit, you can either heal up to 3 wounds allocated to that unit or, if no wounds have been allocated to that unit, roll a dice. On a 3+, you can return 1 slain model to that unit. `,
+        when: [HERO_PHASE],
       },
     ],
   },
   'Mir Kainan': {
+    mandatory: {
+      spells: [keyPicker(Spells, ['Dire Ultimatum'])],
+    },
     effects: [
+      GenericEffects.WizardOneSpellEffect,
       {
-        name: `Executioner's Strike`,
-        desc: `If the unmodified hit roll for an attack made with a Soulreaper Axe is 6, that attack inflicts D3+1 mortal wounds on the target and the attack sequence ends (do not make a wound or save roll).`,
-        when: [COMBAT_PHASE],
+        name: `Bone-tithe`,
+        desc: `This unit has a tithe score that starts at 0 at the start of the battle. Each time an enemy model is slain by this unit's attacks, increase this unit's tithe score by 1. If that slain model had a Wounds characteristic of 4 or more, increase this unit's tithe score by 2 instead of 1.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
       {
-        name: `Magic`,
-        desc: `Mir Kainan is a WIZARD. He can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase. He knows the Arcane Bolt and Mystic shield rules.`,
-        when: [HERO_PHASE],
+        name: `Bone-tithe`,
+        desc: `At the start of your hero phase, if this unit has a tithe score of 1 or more, you can reduce its tithe score by 1. If you do so, pick 1 of the following abilities:
+
+        Built for War: Pick 1 friendly KAINAN'S REAPERS unit wholly within 6" of this unit. You can return up to 3 slain models to that unit.
+        
+        Invigorated: Until your next hero phase, add 1 to the Attacks characteristic of melee weapons used by this unit and by friendly KAINAN'S REAPERS units wholly within 6" of this unit.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
   "Kainan's Reapers": {
     effects: [
       {
-        name: `Nadirite Shields`,
-        desc: `You can reroll save rolls for this unit while this unit includes 2 models with Shields.`,
-        when: [SAVES_PHASE],
+        name: `Dark Efficiency`,
+        desc: `If a friendly MIR KAINAN is within 3" of this unit, before you allocate a wound or mortal wound to that HERO, or instead of making a ward roll for a wound or mortal wound that would be allocated to that HERO, roll a dice. On a 2+, that wound or mortal wound is allocated to this unit instead of MIR KAINAN and cannot be negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
-      NadariteWeaponsEffect,
+      {
+        name: `Tithe Reapers`,
+        desc: `Each model in this unit counts as 3 models for the purposes of controlling objectives.`,
+        when: [DURING_GAME],
+      },
     ],
   },
 }

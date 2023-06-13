@@ -82,6 +82,11 @@ export const Nagash = {
         desc: `The number of spells this unit can attempt to cast in your hero phase is determined using the Nine Books of Nagash ability below. This unit can attempt to unbind any number of spells in the enemy hero phase. If this unit is part of a Nighthaunt, Flesh-eater Courts, Ossiarch Bonereapers or Soulblight Gravelords army, it knows all of the spells from the spell lores in that faction's allegiance abilities in addition to the other spells it knows.`,
         when: [HERO_PHASE],
       },
+      {
+        name: `Warmaster`,
+        desc: `This unit can be included in a Nighthaunt, Flesh-eater Courts, Ossiarch Bonereapers or Soulblight Gravelords army. If it is, it is treated as a general even if it is not the model picked to be the army's general. In addition, you can still use the army's allegiance abilities even though this unit is not from the army's faction; however, this unit does not benefit from them.`,
+        when: [DURING_GAME],
+      },
     ],
   },
 }

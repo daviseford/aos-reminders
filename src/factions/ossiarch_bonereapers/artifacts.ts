@@ -2,7 +2,6 @@ import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   SHOOTING_PHASE,
@@ -12,7 +11,6 @@ import {
 } from 'types/phases'
 
 const Artifacts = {
-  //Relics of the Kavaloi - Leige-Kavalos only
   Mindblade: {
     effects: [
       {
@@ -22,24 +20,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'Lordly Phylactery': {
-  //   effects: [
-  //     {
-  //       name: `Lordly Phylactery`,
-  //       desc: `Once per battle, at the start of any phase, the bearer can use this artefact. When they do so, you receive D3 relentless discipline points.`,
-  //       when: [DURING_GAME],
-  //     },
-  //   ],
-  // },
-  // 'Scroll of Command': {
-  //   effects: [
-  //     {
-  //       name: `Scroll of Command`,
-  //       desc: `Subtract 2 from the Bravery characteristic of enemy units while they are within 6" of the bearer.`,
-  //       when: [BATTLESHOCK_PHASE],
-  //     },
-  //   ],
-  // },
   'Bones of the Abyss': {
     effects: [
       {
@@ -72,18 +52,12 @@ const Artifacts = {
       },
     ],
   },
-  //Tools of the Boneshaper - Mortisan Boneshaper only
   "Artisan's Key": {
     effects: [
       {
         name: `Artisan's Key`,
-        desc: `BONESHAPER only. Before you use the bearer's
-        Boneshaper ability, roll a dice. On a 3+, you can
-        either pick 2 units within 6" of the bearer to be
-        affected by the Boneshaper ability instead of 1, or
-        you can pick 1 unit within 6" of the bearer to be
-        affected by the Boneshaper ability twice.`,
-        when: [DURING_GAME], // TODO
+        desc: `BONESHAPER only. Before you use the bearer's Boneshaper ability, roll a dice. On a 3+, you can either pick 2 units within 6" of the bearer to be affected by the Boneshaper ability instead of 1, or you can pick 1 unit within 6" of the bearer to be affected by the Boneshaper ability twice.`,
+        when: [HERO_PHASE],
       },
     ],
   },
@@ -96,16 +70,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'The Crafter-gems': {
-  //   effects: [
-  //     {
-  //       name: `The Crafter-gems`,
-  //       desc: `In your hero phase, you can heal up to 3 wounds allocated to the bearer. Once the total number of wounds this artefact has been used to heal during the battle equals 3, it cannot be used again for the rest of the battle.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  //Treasures of the Soulmason - Mortisan Soulmason only
   'Gothizzar Cartouche': {
     effects: [
       {
@@ -115,29 +79,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'Soul Reservoir': {
-  //   effects: [
-  //     {
-  //       name: `Soul Reservoir`,
-  //       desc: `Add 2 to casting rolls for the bearer. However, if the casting roll for the bearer is an unmodified 10+, this artefact cannot be used again for the rest of the battle.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Throne of Dzendt': {
-  //   effects: [
-  //     {
-  //       name: `Throne of Dzendt`,
-  //       desc: `Add 2 to the bearer's Wounds characteristic.`,
-  //       when: [DURING_GAME],
-  //     },
-  //     {
-  //       name: `Throne of Dzendt`,
-  //       desc: `Add 2 to the Attacks characteristic of the Ossified Claws of the bearer's mount.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
   Luminscythe: {
     effects: [
       {
@@ -147,78 +88,6 @@ const Artifacts = {
       },
     ],
   },
-  // 'Vial of Binding': {
-  //   effects: [
-  //     {
-  //       name: `Vial of Binding`,
-  //       desc: `Once per battle, in your hero phase, pick 1 enemy model within 12" of the bearer that is visible to them and roll a D6. If the roll is equal to or greater than that model's Wounds characteristic that enemy model is slain.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Guardian Reavesoul': {
-  //   effects: [
-  //     {
-  //       name: `Guardian Reavesoul`,
-  //       desc: `The Deathless Warriors battle trait negates a wound or mortal wound allocated to the bearer on a roll of a 5+ instead of 6. Instead of rolling the dice, you can say that the bearer will shatter this artefact. If you do so, the wound or mortal wound is negated without a dice being rolled, but this artefact cannot be used again for the rest of the battle.`,
-  //       when: [DURING_GAME],
-  //     },
-  //   ],
-  // },
-  // "Artificer's Blade": {
-  //   effects: [
-  //     {
-  //       name: `Artificer's Blade`,
-  //       desc: `Pick 1 of this bearer's melee weapons. Change the Rend characteristic of that weapon to -3.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Godbone Armour': {
-  //   effects: [
-  //     {
-  //       name: `Godbone Armour`,
-  //       desc: `The first wound allocated to the bearer in each phase is negated.`,
-  //       when: [DURING_GAME],
-  //     },
-  //   ],
-  // },
-  // 'Nadir-bound Mount': {
-  //   effects: [
-  //     {
-  //       name: `Nadir-bound Mount`,
-  //       desc: `You can roll D3 additional dice when this LIEGE uses their Unstoppable Charge ability.`,
-  //       when: [CHARGE_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Beastbone Blade': {
-  //   effects: [
-  //     {
-  //       name: `Beastbone Blade`,
-  //       desc: `Pick 1 of this bearer's melee weapons. Add 1 to the Attacks characteristic of that weapon.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Baleful Blade': {
-  //   effects: [
-  //     {
-  //       name: `Baleful Blade`,
-  //       desc: `Pick 1 of this bearer's melee weapons. Do not make save rolls for attacks made with that weapon, and wounds inflicted by that weapon cannot be negated when they are allocated to a model(the wounds can be healed later in the battle).`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Searing Blade': {
-  //   effects: [
-  //     {
-  //       name: `Searing Blade`,
-  //       desc: `Pick 1 of this bearer's melee weapons. Add 1 to the Damage characteristic of that weapon.`,
-  //       when: [COMBAT_PHASE],
-  //     },
-  //   ],
-  // },
 }
 
 export default tagAs(Artifacts, 'artifact')

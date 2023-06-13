@@ -23,6 +23,36 @@ import {
 } from 'types/phases'
 import spells from './spells'
 
+const VampiricAgilityEffect = {
+  name: `Vampiric Agility`,
+  desc: `When this unit makes a move, it can pass across terrain features in the same manner as a unit that can fly.`,
+  when: [MOVEMENT_PHASE],
+  shared: true,
+}
+const CallToTheHuntEffect = {
+  name: `Call to the Hunt`,
+  desc: `In the combat phase, if this unit made a charge move in the same turn, add 1 to the Attacks characteristic of melee weapons used by friendly VYRKOS SUMMONABLE units while they are wholly within 12" of this unit.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const StandardBearerEffect = {
+  name: `Standard Bearer`,
+  desc: `You can reroll ward rolls of 1 for this unit for the purposes of the Deathless Minions battle trait if this unit includes any Standard Bearers.`,
+  when: [WARDS_PHASE],
+  shared: true,
+}
+const BeheadingStrikeEffect = {
+  name: `Beheading Strike`,
+  desc: `If the unmodified hit roll for an attack made with a Baleful Tomb Blade is 6, that attack causes 2 mortal wounds to the target in addition to any damage it inflicts.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
+const CursedWeaponsEffect = {
+  name: `Cursed Weapons`,
+  desc: `If the unmodified wound roll for an attack made with a melee weapon by this unit is 6, that attack causes 1 mortal wound to the target in addition to any damage it inflicts.`,
+  when: [COMBAT_PHASE],
+  shared: true,
+}
 const LocusOfUndeathEffect = {
   name: `Locus of Undeath`,
   desc: `If the unmodified wound roll for an attack made by a friendly DEADWALKER ZOMBIES unit wholly within 12" of any friendly units with this ability is 6, that attack causes 1 mortal wound to the target in addition to any damage it inflicts.`,
@@ -165,11 +195,7 @@ const Units = {
         desc: `Gorath the Enforcer has a Wounds characteristic of 4.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
-      {
-        name: `Vampiric Agility`,
-        desc: `When this unit makes a move, it can pass across terrain features in the same manner as a unit that can fly.`,
-        when: [MOVEMENT_PHASE],
-      },
+      VampiricAgilityEffect,
     ],
   },
 
@@ -275,11 +301,7 @@ const Units = {
     effects: [
       GenericEffects.WizardOneSpellEffect,
       TheHungerEffect,
-      {
-        name: `Call to the Hunt`,
-        desc: `In the combat phase, if this unit made a charge move in the same turn, add 1 to the Attacks characteristic of melee weapons used by friendly VYRKOS SUMMONABLE units while they are wholly within 12" of this unit.`,
-        when: [COMBAT_PHASE],
-      },
+      CallToTheHuntEffect,
       {
         name: `Loyal to the Last`,
         desc: `If this unit is within 3" of a friendly KOSARGI NIGHTGUARD unit, before you allocate a wound or mortal wound to this unit, or instead of making a ward roll for a wound or mortal wound that would be allocated to this unit, roll a dice. On a 3+, that wound or mortal wound is allocated to that friendly unit instead of this unit.`,
@@ -296,11 +318,7 @@ const Units = {
         desc: `This unit can run and still charge later in the turn.`,
         when: [MOVEMENT_PHASE, CHARGE_PHASE],
       },
-      {
-        name: `Call to the Hunt`,
-        desc: `In the combat phase, if this unit made a charge move in the same turn, add 1 to the Attacks characteristic of melee weapons used by friendly VYRKOS SUMMONABLE units while they are wholly within 12" of this unit.`,
-        when: [COMBAT_PHASE],
-      },
+      CallToTheHuntEffect,
       {
         name: `Supernatural Reflexes`,
         desc: `Subtract 1 from hit rolls and wound rolls for attacks that target this model.`,
@@ -352,11 +370,7 @@ const Units = {
         desc: `After deployment but before the first battle round begins, you can move this unit up to 10". If both players can move units before the first battle round begins, they must roll off and the winner chooses who moves their units first.`,
         when: [END_OF_SETUP],
       },
-      {
-        name: `Vampiric Agility`,
-        desc: `When this unit makes a move, it can pass across terrain features in the same manner as a unit that can fly.`,
-        when: [MOVEMENT_PHASE],
-      },
+      VampiricAgilityEffect,
       TheHungerEffect,
     ],
   },
@@ -426,11 +440,7 @@ const Units = {
         desc: `1 model in this unit can be a Kastellan. Add 1 to the Attacks characteristic of that model's Templar Lance or Templar Blade.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `1 in every 5 models in this unit can be a Standard Bearer. You can reroll ward rolls of 1 for this unit for the purposes of the Deathless Minions battle trait if this unit includes any Standard Bearers.`,
-        when: [WARDS_PHASE],
-      },
+      StandardBearerEffect,
       {
         name: `Riders of Ruin`,
         desc: `Models in this unit can pass across other models with a Wounds characteristic of 3 or less in the same manner as a model that can fly. After this unit has moved, roll a dice for each enemy unit that has any models it passed across. On a 2+, that enemy unit suffers D3 mortal wounds.`,
@@ -588,11 +598,7 @@ const Units = {
 
   'Wight King': {
     effects: [
-      {
-        name: `Beheading Strike`,
-        desc: `If the unmodified hit roll for an attack made with a Baleful Tomb Blade is 6, that attack causes 2 mortal wounds to the target in addition to any damage it inflicts.`,
-        when: [COMBAT_PHASE],
-      },
+      BeheadingStrikeEffect,
       {
         name: `Lord of Shambling Bones`,
         desc: `Once per turn, at the start of your hero phase, you can pick 1 friendly Deathrattle Skeletons unit or Grave Guard unit wholly within 12" of this unit. Until your next hero phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound roll and save roll for each hit.`,
@@ -624,11 +630,7 @@ const Units = {
         desc: `1 model in this unit can be a Hellknight. Add 1 to the Attacks characteristic of that model's Barrow Lance.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `1 in every 5 models in this unit can be a Standard Bearer. You can reroll ward rolls of 1 for this unit for the purposes of the Deathless Minions battle trait if this unit includes any Standard Bearers.`,
-        when: [WARDS_PHASE],
-      },
+      StandardBearerEffect,
       {
         name: `Musician`,
         desc: `1 in every 5 models in this unit can be a Hornblower. Treat charge rolls of less than 6 for this unit as 6 if it includes any Hornblowers.`,
@@ -644,21 +646,13 @@ const Units = {
         desc: `1 model in this unit can be a Seneschal. Add 1 to the Attacks characteristic of that model's melee weapons.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `1 in every 10 models in this unit can be a Standard Bearer. You can reroll ward rolls of 1 for this unit for the purposes of the Deathless Minions battle trait if this unit includes any Standard Bearers.`,
-        when: [WARDS_PHASE],
-      },
+      StandardBearerEffect,
       {
         name: `Musician`,
         desc: `1 in every 10 models in this unit can be a Hornblower. Treat charge rolls of less than 6 for this unit as 6 if it includes any Hornblowers.`,
         when: [CHARGE_PHASE],
       },
-      {
-        name: `Cursed Weapons`,
-        desc: `If the unmodified wound roll for an attack made with a melee weapon by this unit is 6, that attack causes 1 mortal wound to the target in addition to any damage it inflicts.`,
-        when: [COMBAT_PHASE],
-      },
+      CursedWeaponsEffect,
       {
         name: `Shields`,
         desc: `If this unit is armed with Wight Blades and Crypt Shields, it has a Save characteristic of 4+ instead of 5+.`,
@@ -674,11 +668,7 @@ const Units = {
         desc: `1 model in this unit can be a Skeleton Champion. Add 1 to the Attacks characteristic of that model's Ancient Weapon.`,
         when: [COMBAT_PHASE],
       },
-      {
-        name: `Standard Bearer`,
-        desc: `1 in every 10 models in this unit can be a Standard Bearer. You can reroll ward rolls of 1 for this unit for the purposes of the Deathless Minions battle trait if this unit includes any Standard Bearers.`,
-        when: [WARDS_PHASE],
-      },
+      StandardBearerEffect,
       {
         name: `Skeleton Legion`,
         desc: `At the start of the combat phase, roll a dice for each slain model from this unit. On a 4+, you can return 1 slain model to this unit.`,
@@ -817,11 +807,7 @@ const Units = {
 
   'King Morlak Velmorn': {
     effects: [
-      {
-        name: `Beheading Strike`,
-        desc: `If the unmodified hit roll for an attack made with a Baleful Tomb Blade is 6, that attack causes 2 mortal wounds to the target in addition to any damage it inflicts.`,
-        when: [COMBAT_PHASE],
-      },
+      BeheadingStrikeEffect,
       {
         name: `Deadly Command`,
         desc: `Once per turn, this unit can issue a command to a friendly THE SONS OF VELMORN unit without a command point being spent.`,
@@ -893,11 +879,7 @@ const Units = {
         desc: `Sir Jedran Falseborn has a Wounds characteristic of 4.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
-      {
-        name: `Cursed Weapons`,
-        desc: `If the unmodified wound roll for an attack made with a melee weapon by this unit is 6, that attack causes 1 mortal wound to the target in addition to any damage it inflicts.`,
-        when: [COMBAT_PHASE],
-      },
+      CursedWeaponsEffect,
       {
         name: `Shield Up!`,
         desc: `Once per turn, at the start of the combat phase, you can say that this unit will form a shieldwall. If you do so, this unit has a Save characteristic of 3+ instead of 4+ until the end of that phase. However, if you do so, this unit cannot make pile-in moves in that phase.`,
