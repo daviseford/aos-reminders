@@ -45,10 +45,10 @@ const CommandTraits = {
       },
     ],
   },
-  'Ruler of the Spectral Hosts': {
+  'Ruler of the Spirit Hosts': {
     effects: [
       {
-        name: `Ruler of the Spectral Hosts`,
+        name: `Ruler of the Spirit Hosts`,
         desc: `Once per battle, at the end of your movement phase, you can pick 1 friendly NIGHTHAUNT SUMMONABLE unit that has been destroyed. After you pick a unit that has been destroyed, roll a dice. On a 4+, a new replacement unit with half of the models from the unit that was destroyed (rounding up) is added to your army. Set up that unit wholly within 12" of this general and more than 3" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
