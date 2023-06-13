@@ -232,12 +232,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.units).toContain('The Grymwatch')
   })
 
-  it('should work with 1590913977244-Battlescribe', () => {
-    const parsedText = getFile('1590913977244-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.units).toContain('Orpheon Katakros')
-  })
-
   it('should work with 1588693593835-Battlescribe', () => {
     const parsedText = getFile('1588693593835-Battlescribe')
     const res = getBattlescribeArmy(parsedText)

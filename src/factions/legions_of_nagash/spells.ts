@@ -1,5 +1,4 @@
 import { tagAs } from 'factions/metatagger'
-import rule_sources from 'factions/ossiarch_bonereapers/rule_sources'
 import { HERO_PHASE } from 'types/phases'
 
 const Spells = {
@@ -119,7 +118,6 @@ const Spells = {
         name: `Hand of Dust`,
         desc: `Casting value of 8 and range of 3". Pick 1 enemy model within range and visible to the caster. Then, take a dice and hide it in one of your hands or under one of two appropriate containers. Your opponent must pick one of your hands or containers. If they pick the one holding the dice, the spell has no effect. If they pick the empty hand or container, the enemy model is slain.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.ERRATA_DECEMBER_2021],
       },
     ],
   },
@@ -129,7 +127,6 @@ const Spells = {
         name: `Soul Stealer`,
         desc: `Casting value of 6 and range of 24". Pick 1 enemy unit within range and visible to the caster and roll 2D6. If the roll is greater than that unit's Bravery characteristic, it suffers D3 mortal wounds. If the roll is at least double that unit's Bravery characteristic, it suffers D6 mortal wounds instead. You can heal up to 1 wound that has been allocated to the caster for each mortal wound caused by this spell that is not negated.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.ERRATA_DECEMBER_2021],
       },
     ],
   },
@@ -138,9 +135,7 @@ const Spells = {
     effects: [
       {
         name: `Curse of Years`,
-        desc: `Casting value of 6. Pick an enemy unit within 18" of the caster that is visible to them and roll ten dice. For each roll of 6, that unit suffers a mortal wound and you can roll an extra dice. For each roll of 5+ on these extra dice, the target suffers another mortal wound and you can roll another dice. Now, for each roll of 4+, the target suffers another mortal wound and you can roll another dice. Keep rolling dice in this way, inflicting mortal wounds and reducing the roll needed to cause them by 1 each time, until either no wounds are inflicted or the target unit is destroyed. A roll of 1 always fails to inflict a mortal wound.
-
-        The target can roll mortal wound negation as the effects are applied, if any are negated then you do not roll a new dice for that wound.`,
+        desc: `Casting value of 6 and a range of 18". Pick 1 enemy unit within range and visible to the caster and roll 10 dice. For each 6, that unit suffers 1 mortal wound and you can roll another dice. For each 5+ on these extra dice, the target suffers 1 mortal wound and you can roll another dice. Now, for each 4+, the target suffers 1 mortal wound and you can roll another dice. Keep rolling dice in this way, causing mortal wounds and reducing the roll needed to cause them by 1 each time, until either no mortal wounds are caused or the target unit is destroyed. A roll of 1 always fails to cause a mortal wound.`,
         when: [HERO_PHASE],
       },
     ],

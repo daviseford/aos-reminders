@@ -1,6 +1,6 @@
 {
   "name": "aos-reminders",
-  "version": "5.2.3",
+  "version": "5.2.4",
   "private": true,
   "homepage": "./",
   "dependencies": {
@@ -9,7 +9,7 @@
     "@stripe/react-stripe-js": "2.1.0",
     "@stripe/stripe-js": "1.54.0",
     "bootstrap": "4.6.0",
-    "core-js": "3.30.2",
+    "core-js": "3.31.0",
     "deepmerge": "4.3.1",
     "jspdf": "1.5.3",
     "lodash": "4.17.21",
@@ -47,7 +47,7 @@
     "intake:win": "ts-node-dev --respawn --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --transpile-only -r tsconfig-paths/register src/utils/dev/intakeTests.ts",
     "intake": "ts-node-dev --respawn --compiler-options '{ \"module\": \"commonjs\"}' --transpile-only -r tsconfig-paths/register src/utils/dev/intakeTests.ts",
     "lint": "eslint --max-warnings 0 --ext ts,tsx src",
-    "prepush": "yarn clean && yarn format && yarn lint && yarn tsc && yarn test",
+    "prepush": "yarn clean && yarn format && yarn lint --fix && yarn tsc && yarn test",
     "pruneTests:win": "ts-node-dev --respawn --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --transpile-only -r tsconfig-paths/register src/utils/dev/pruneTests.ts",
     "pruneTests": "ts-node-dev --respawn --compiler-options '{ \"module\": \"commonjs\"}' --transpile-only -r tsconfig-paths/register src/utils/dev/pruneTests.ts",
     "start": "react-app-rewired start",

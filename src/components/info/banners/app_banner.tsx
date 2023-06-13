@@ -3,7 +3,7 @@ import { useTheme } from 'context/useTheme'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = '2023-gloomspite-gitz-battletome-release'
+  const name = '2023-slaanesh-obr-release'
 
   return (
     <NotificationBanner
@@ -14,7 +14,7 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW: </strong> Slaanesh battletome is live!
+        <strong>NEW: </strong> Slaanesh and Ossiarch Bonereapers battletomes are live!
       </span>
     </NotificationBanner>
   )
