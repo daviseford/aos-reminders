@@ -17,6 +17,8 @@ export const Game: TGameStructure = {
   [Phases.WOUND_ALLOCATION_PHASE]: [],
 
   // Any Turn/Round Actions
+  [Phases.START_OF_ANY_PHASE]: [],
+  [Phases.END_OF_ANY_PHASE]: [],
   [Phases.START_OF_TURN]: [],
   [Phases.START_OF_ROUND]: [],
   [Phases.DURING_TURN]: [],

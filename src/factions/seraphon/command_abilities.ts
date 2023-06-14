@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import { HERO_PHASE } from 'types/phases'
 
 const CommandAbilities = {
   // 'Parting Shot': {
@@ -51,15 +52,15 @@ const CommandAbilities = {
   //     },
   //   ],
   // },
-  // 'Gift from the Heavens': {
-  //   effects: [
-  //     {
-  //       name: `Gift from the Heavens`,
-  //       desc: `You can use this command ability in your hero phase. If you do so, pick 1 friendly SERAPHON unit wholly within 18" of a friendly model with this command ability. Until your next hero phase, that unit can fly and you can add 1 to save rolls for attacks made with missile weapons that target that unit. You can only use this command ability once per hero phase.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
+  'Gift from the Heavens': {
+    effects: [
+      {
+        name: `Gift from the Heavens`,
+        desc: `You can use this command ability in your hero phase. The command can only be issued by this unit, and the unit that receives the command must be a friendly SERAPHON unit. Until your next hero phase, that unit can fly. In addition, add 1 to save rolls for attacks made with missile weapons that target that unit until your next hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   // 'Prime Guardian': {
   //   effects: [
   //     {

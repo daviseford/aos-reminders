@@ -110,15 +110,15 @@ const Spells = {
       },
     ],
   },
-  // 'Celestial Equilibrium': {
-  //   effects: [
-  //     {
-  //       name: `Celestial Equilibrium`,
-  //       desc: `Casting value of 7. Until your next hero phase, add 1 to casting, dispelling and unbinding rolls for friendly WIZARDS other than the caster.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
+  'Celestial Equilibrium': {
+    effects: [
+      {
+        name: `Celestial Equilibrium`,
+        desc: `Casting value of 6. If successfully cast, until the end of the phase, add 1 to casting rolls for friendly WIZARDS other than the caster.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   'Drain Magic': {
     effects: [
       {
@@ -137,24 +137,20 @@ const Spells = {
       },
     ],
   },
-  "Tepok's Beneficence": {
-    effects: [
-      {
-        name: `Tepok's Beneficence`,
-        desc: `Casting value of 5 and a range of 18". Pick 1 friendly SKINK unit wholly within range and visible to the caster. Until the start of your next hero phase, subtract 1 from wound rolls for attacks that target that unit.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
+  // "Tepok's Beneficence": {
+  //   effects: [
+  //     {
+  //       name: `Tepok's Beneficence`,
+  //       desc: `Casting value of 5 and a range of 18". Pick 1 friendly SKINK unit wholly within range and visible to the caster. Until the start of your next hero phase, subtract 1 from wound rolls for attacks that target that unit.`,
+  //       when: [HERO_PHASE],
+  //     },
+  //   ],
+  // },
   'Celestial Deliverance': {
     effects: [
       {
         name: `Celestial Deliverance`,
-        desc: `The caster can attempt to cast this spell up to 3 times in the same hero phase.
-
-    Casting value of 7 the first time it is attempted in a phase, a casting value of 8 the second time it is attempted in a phase, and a casting value of 9 the third time it is attempted in a phase.
-
-    Each time this spell is successfully cast, pick up to 3 different enemy units within 10" of the caster and visible to them, and roll 1 dice for each unit you pick. On a 2+, that unit suffers D3 mortal wounds. If that unit is a CHAOS DAEMON unit, on a 2+ it suffers 3 mortal wounds instead of D3 mortal wounds.`,
+        desc: `Casting value of 7 and a range of 12". This unit can attempt to cast this spell multiple times in your hero phase. Each time this spell is successfully cast, pick up to 3 different enemy units within range and visible to the caster. Each of those units suffers D3 mortal wounds.`,
         when: [HERO_PHASE],
       },
     ],
@@ -170,15 +166,15 @@ const Spells = {
   //   ],
   // },
 
-  // 'Blazing Starlight': {
-  //   effects: [
-  //     {
-  //       name: `Blazing Starlight`,
-  //       desc: `Casting value of 6. Pick 1 enemy unit within 18" of the caster and visible to them. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
+  'Blazing Starlight': {
+    effects: [
+      {
+        name: `Blazing Starlight`,
+        desc: `Casting value of 6 and a range of 18". Pick 1 enemy unit within range and visible to the caster. Until your next hero phase, subtract 1 from hit rolls for attacks made by that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   'The Earth Trembles': {
     effects: [
       {
@@ -229,6 +225,33 @@ const Spells = {
       {
         name: `Heavenly Frenzy`,
         desc: `Casting value of 7 and a range of 18". Pick 1 friendly SERAPHON unit wholly within range and visible to the caster. Until the end of the turn, that unit can run and still charge later in the turn.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Primordial Mire': {
+    effects: [
+      {
+        name: `Primordial Mire`,
+        desc: `Casting value of 7 and a range of 12". Pick 1 objective or terrain feature within range and visible to the caster. Until your next hero phase, units within 3" of that objective or terrain feature cannot run or retreat and must halve the result of any charge rolls. This spell has no effect on SKINK units and units that can fly.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Celestial Doom': {
+    effects: [
+      {
+        name: `Celestial Doom`,
+        desc: `Casting value of 7 and a range of 12". Pick 1 enemy unit within range and visible to the caster. Until the end of your turn, ward rolls cannot be made for models in that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Shield of the Old Ones': {
+    effects: [
+      {
+        name: `Shield of the Old Ones`,
+        desc: `Casting value of 7. If successfully cast, the caster has a ward of 4+ against mortal wounds until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
