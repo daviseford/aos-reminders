@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   SHOOTING_PHASE,
+  START_OF_ANY_PHASE,
   START_OF_HERO_PHASE,
   START_OF_SETUP,
   WOUND_ALLOCATION_PHASE,
@@ -82,7 +83,7 @@ const CommandTraits = {
       {
         name: `Sees Green (Smasher Tribe)`,
         desc: `Once per battle, at the start of a phase, you can say that this general is Gorkamorka made manifest. If you do so, this general has a ward of 4+ against mortal wounds until the end of that phase.`,
-        when: [DURING_GAME],
+        when: [START_OF_ANY_PHASE],
       },
     ],
   },

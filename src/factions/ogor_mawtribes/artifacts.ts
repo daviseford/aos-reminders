@@ -2,11 +2,10 @@ import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   END_OF_COMBAT_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  WARDS_PHASE,
+  START_OF_ANY_PHASE,
 } from 'types/phases'
 
 const Artifacts = {
@@ -43,7 +42,7 @@ const Artifacts = {
       {
         name: `Flask of Stonehorn Blood`,
         desc: `Once per battle, at the start of a phase, you can say that the bearer will drink this potion. The bearer has a ward of 3+ until the end of that phase.`,
-        when: [DURING_GAME, WARDS_PHASE],
+        when: [START_OF_ANY_PHASE],
       },
     ],
   },

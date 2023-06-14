@@ -6,6 +6,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_ROUND,
+  END_OF_ANY_PHASE,
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
@@ -127,7 +128,7 @@ const Units = {
       {
         name: `Talon of the Dwindling`,
         desc: `Roll a D6 at the end of any phase if any wounds are allocated from this weapon and not negated, and the enemy model has not been slain. On a 6 the enemy model is slain.`,
-        when: [COMBAT_PHASE],
+        when: [END_OF_ANY_PHASE],
       },
       {
         name: `Rise of Life`,

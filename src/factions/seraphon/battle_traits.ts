@@ -1,117 +1,116 @@
 import { tagAs } from 'factions/metatagger'
-import { SERAPHON } from 'meta/factions'
-import meta_rule_sources from 'meta/rule_sources'
 import {
-  BATTLESHOCK_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
-  END_OF_HERO_PHASE,
+  END_OF_CHARGE_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
+  SAVES_PHASE,
   START_OF_HERO_PHASE,
-  START_OF_SETUP,
-  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const BattleTraits = {
-  [SERAPHON]: {
+  STARBORNE: {
     effects: [
       {
-        name: `Contemplations of the Ancient Ones`,
-        desc: `At the end of your hero phase, you can pick 1 friendly SLANN and replace the spell they know from the Lore of Celestial Domination table (pg 60) with a new spell from that table. Choose or roll for the new spell, rolling again if you generate the spell the SLANN already had.`,
-        when: [END_OF_HERO_PHASE],
+        name: `Contemplations of the Ancient Ones (Heroic Action)`,
+        desc: `At the start of your hero phase, you can carry out this heroic action with a friendly STARBORNE SLANN instead of any other heroic action you can carry out with that HERO. Pick 1 friendly STARBORNE SLANN. Replace 1 spell that they know from the Lore of Celestial Domination with another spell from that table.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Sacred Asterisms`,
-        desc: `At the start of your hero phase, you can pick 1 of the following asterisms to be in the ascendant until your next hero phase:
-
-                The Great Drake: In the combat phase, pick 1 friendly SERAPHON HERO. Until the end of that phase, you can add 1 to the Attacks characteristic of melee weapons used by that HERO.
-                The Hunter's Steed: Add 1 to run rolls and charge rolls for friendly SERAPHON units.
-                The Sage's Staff: At the start of the hero phase, pick 1 friendly SERAPHON WIZARD. You can add 1 to casting or dispelling rolls for that WIZARD if it is your hero phase, and you can add 1 to unbinding rolls for that WIZARD if it is the enemy hero phase.`,
+        name: `Spatial Translocation (Heroic Action)`,
+        desc: `At the start of your hero phase, you can carry out this heroic action with a friendly STARBORNE SLANN instead of any other heroic action you can carry out with that HERO. Pick 1 friendly STARBORNE SLANN, and then pick 1 other friendly STARBORNE unit wholly within 12" of them. Remove that other STARBORNE unit from the battlefield and set it up again on the battlefield more than 9" from all enemy units. That unit cannot move in the following movement phase.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SERAPHON,
-          rule_sources.ERRATA_JANUARY_2021,
-          rule_sources.ERRATA_JULY_2021,
-        ],
+      },
+      {
+        name: `Cosmic Power`,
+        desc: `If you have a Starborne army, the following are considered to be cosmic nodes:
+
+        Friendly STARBORNE WIZARD units
+        Friendly STARBORNE ASTROLITH BEARER units
+        Friendly Starborne Realmshaper Engine faction terrain features.
+        
+        During the battle, you will be able to receive cosmic power points (CPP) to spend on abilities and summoning units to the battlefield.
+        
+        You begin the battle with 0 cosmic power points.
+        
+        At the start of your hero phase, you receive 1 cosmic power point for each friendly STARBORNE WIZARD or friendly STARBORNE ASTROLITH BEARER on the battlefield.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Cosmic Power`,
+        desc: `You receive 1 cosmic power point each time a friendly STARBORNE WIZARD successfully casts a spell that is not unbound, successfully unbinds a spell or successfully dispels an endless spell.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Spending Cosmic Power Points`,
+        desc: `In your hero phase, you can spend your cosmic power points on any of the listed abilities. You can only use the ability if you have enough cosmic power points to do so, and the same ability cannot be used more than once each phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Azure Light (Cosmic Power)`,
+        desc: `You must spend 5 cosmic power points to use this ability. You can return D3 slain models to each friendly STARBORNE unit with a Wounds characteristic of 1 or 2 that is wholly within 12" of any friendly cosmic nodes. Roll separately for each unit.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Protection of the Old Ones (Cosmic Power)`,
+        desc: `You must spend 10 cosmic power points to use this ability. Until the start of your next hero phase, friendly units affected by the Revivifying Energies ability have a ward of 5+ instead of 6+.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Cleanse the Realms (Cosmic Power)`,
+        desc: `You must spend 15 cosmic power points to use this ability. Roll a dice for each enemy unit within 12" of any friendly cosmic nodes. On a 2+, that unit suffers a number of mortal wounds equal to the roll.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Summoning Seraphon`,
+        desc: `At the end of your movement phase, you can spend your cosmic power points to summon 1 unit from the following list and add it to your army. Each unit you summon costs the number of cosmic power points shown on the list, and you can only summon the unit if you have enough cosmic power points to do so. Units must be set up more than 9" from all enemy units and wholly within 12" of a friendly cosmic node.
+
+        1 Dread Saurian	      50 CPP
+        1 Engine of the Gods	30 CPP
+        1 Stegadon	          28 CPP
+        1 Bastiladon	        24 CPP
+        3 Aggradon Lancers	  22 CPP
+        10 Saurus Guard	      22 CPP
+        10 Saurus Warriors	  20 CPP
+        3 Kroxigor Warspawned	18 CPP
+        3 Kroxigor	          18 CPP
+        5 Raptadon Hunters	  16 CPP
+        5 Raptadon Chargers	  16 CPP
+        1 Spawn of Chotec	    16 CPP
+        5 Hunters of Huanchi with Dartpipes	12 CPP
+        3 Terradon Riders	    12 CPP
+        3 Ripperdactyl Riders	10 CPP
+        5 Hunters of Huanchi with Starstone Bolas	10 CPP
+        3 Terrawings	        8 CPP
+        10 Skinks	            8 CPP`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
   COALESCED: {
     effects: [
       {
-        name: 'COALESCED',
-        desc: `If your army is a COALESCED army, you can give it the KOATL'S CLAW or THUNDER LIZARD keyword. All COALESCED units in your army gain that keyword and you can use the extra abilities listed for that Constellation.`,
-        when: [START_OF_SETUP],
-      },
-      {
-        name: `Cold-blooded`,
-        desc: `Ignore modifiers (positive or negative) to the Bravery characteristic of COALESCED units.`,
-        when: [BATTLESHOCK_PHASE],
-      },
-      {
         name: `Predatory Fighters`,
-        desc: `Add 1 to the Attacks characteristic of Jaws weapons used by COALESCED units.`,
+        desc: `Add 1 to bite rolls made for COALESCED SAURUS and COALESCED KROXIGOR units with the Mighty Saurus Jaws, Saurus Jaws or Vice-like Jaws ability.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Primeval Domain`,
-        desc: `If a terrain feature is partially or wholly within the territory of a COALESCED army, then it has the Mystical and Deadly Mysterious Terrain scenery rules (section 28.1.3 of the core rules) in addition to any other Mysterious Terrain scenery rules it may have. The Mystical scenery rule for these terrain features only applies to COALESCED units, while the Deadly scenery rule for these terrain not apply to COALESCED units.`,
-        when: [DURING_GAME],
-        rule_sources: [
-          rule_sources.BATTLETOME_SERAPHON,
-          rule_sources.ERRATA_JULY_2021,
-          rule_sources.WHITE_DWARF_OCTOBER_2021,
-        ],
-      },
-      {
         name: `Scaly Skin`,
-        desc: `Subtract 1 from the damage inflicted by each successful attack that targets a COALESCED unit that has the SAURUS, KROXIGOR or MONSTER keyword (to a minimum of 1).`,
-        when: [WOUND_ALLOCATION_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_SERAPHON,
-          rule_sources.ERRATA_JULY_2022,
-          meta_rule_sources.BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2022,
-        ],
-      },
-    ],
-  },
-  STARBORNE: {
-    effects: [
-      {
-        name: `Unfeeling`,
-        desc: `STARBORNE units have a Bravery characteristic of 10 instead of the Bravery characteristic on their warscroll.`,
-        when: [BATTLESHOCK_PHASE],
+        desc: `Subtract 1 from the damage inflicted (to a minimum of 1) by each successful attack that targets a friendly COALESCED unit that has the SAURUS, KROXIGOR or MONSTER keyword.`,
+        when: [SAVES_PHASE],
       },
       {
-        name: `Celestial Conjuration`,
-        desc: `You can summon STARBORNE units to the battlefield if you collect enough celestial conjuration points (CCPs). At the start of your hero phase you receive D3 celestial conjuration points if your general is a SLANN or STARSEER and is on the battlefield, and D3 CCP if there are one or more friendly SAURUS ASTROLITH BEARERS on the battlefield.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Celestial Conjuration`,
-        desc: `In addition, in your hero phase, before attempting to cast the first spell with each friendly SLANN or ORACLE, you can say that it will carry out a celestial conjuration. If you do so, you receive D3 celestial conjuration points but the number of spells which that model can attempt to cast in that phase is reduced by 1.`,
-        when: [HERO_PHASE],
-      },
-      {
-        name: `Celestial Conjuration`,
-        desc: `If you have 6 or more celestial conjuration points at the end of your movement phase, you can summon 1 or more units from the conjuration list to the battlefield and add them to your army. Each unit you summon costs a number of celestial conjuration points as shown on the list, and you can only summon a unit if you have enough celestial conjuration points to pay its cost.
+        name: `Beasts of the Dark Jungles`,
+        desc: `When you carry out a monstrous rampage with a COALESCED MONSTER, you can carry out 1 of the monstrous rampages below instead of any other monstrous rampage you can carry out with that unit.
 
-            Summoned units must be set up wholly within 12" of a friendly SLANN, friendly ORACLE or friendly SAURUS ASTROLITH BEARER and more than 9" from any enemy units. Subtract the cost of the summoned unit from the number of celestial conjuration points you have immediately after the summoned unit has been set up. Summoned units have the STARBORNE keyword.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Lords of Space and Time`,
-        desc: `At the end of your movement phase, you can pick 1 friendly STARBORNE unit anywhere on the battlefield to be transported through space and time.
-
-            If you do so, remove that unit from the battlefield and then set it up on the battlefield anywhere that is more than 9" from any enemy unit.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Starborne Constellations`,
-        desc: `If your army is a STARBORNE army, you can give it the DRACOTHION'S TAIL or FANGS OF SOTEK keyword. All STARBORNE units in your army gain that keyword and you can use the extra abilities listed for that Constellation.`,
-        when: [START_OF_SETUP],
+        Gargantuan Jaws: Only a CARNOSAUR can carry out this monstrous rampage. Pick 1 enemy model within 3" of this unit and roll a dice. If the roll is greater than that model's Wounds characteristic, it is slain.
+        
+        Earthshaking Charge: Only a STEGADON that has made a charge move in the same phase can carry out this monstrous rampage. Pick 1 enemy unit within 1" of this unit and roll a dice. On a 4+, the strike-last effect applies to that unit until the end of the following combat phase.
+        
+        Odious Roar: Only a TROGLODON can carry out this monstrous rampage. Roll a dice. On a 2+, until the end of the following combat phase, the range of this unit's Stench of Death ability is 12" instead of 9".
+        
+        Bludgeoning Sweep: Only a BASTILADON can carry out this monstrous rampage. Pick 1 enemy unit within 3" of this unit that is not a MONSTER and roll a dice. If the roll is less than the number of models in that enemy unit, that enemy unit suffers a number of mortal wounds equal to the roll.`,
+        when: [END_OF_CHARGE_PHASE],
       },
     ],
   },
@@ -119,16 +118,34 @@ const BattleTraits = {
   'Battle Tactics': {
     effects: [
       {
-        name: `Might of the Starborne`,
-        desc: `Pick 1 objective on the battlefield. You complete this battle tactic if you summon a friendly unit that has a CCP cost of 20 or more during the turn, and that unit is wholly within 12" of the objective you picked.`,
+        name: `Celestial Obliteration`,
+        desc: `Pick 1 enemy unit on the battlefield. You complete this tactic if that unit is destroyed this turn by mortal wounds caused by a spell or the abilities of an endless spell.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.WHITE_DWARF_OCTOBER_2021],
+      },
+      {
+        name: `Overwhelming Numbers`,
+        desc: `Pick 1 objective controlled by the enemy. You complete this tactic at the end of this turn if you control that objective and all friendly units contesting it have the SKINK keyword.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Apex Predator`,
+        desc: `Pick 1 enemy MONSTER. You complete this tactic at the end of this turn if that enemy unit was destroyed by an attack made by a friendly SERAPHON MONSTER.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Cold-blooded Resilience`,
+        desc: `Pick 1 friendly SAURUS or KROXIGOR unit within 3" of an enemy unit. You complete this tactic at the end of this turn if that unit was not destroyed, did not retreat and was not removed from the battlefield.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Pack Hunters`,
+        desc: `Pick 1 enemy unit within 3" of only 1 friendly AGGRADON unit. You complete this tactic if, at the end of this turn, that unit is within 3" of 2 or more friendly AGGRADON units.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
         name: `Stampede of Scales`,
-        desc: `Pick 3 different friendly MONSTERS. You complete this battle tactic if all of the units you picked run in the following movement phase and finish that run within 6" of each other and wholly within enemy territory.`,
+        desc: `Pick 3 different friendly SERAPHON MONSTERS. You complete this tactic if each of those units runs in the following movement phase and finishes that run within 6" of at least 1 of the other units you picked and wholly within enemy territory.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.WHITE_DWARF_OCTOBER_2021],
       },
     ],
   },

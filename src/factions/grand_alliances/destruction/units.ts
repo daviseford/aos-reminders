@@ -8,6 +8,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_ANY_PHASE,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   SHOOTING_PHASE,
@@ -203,7 +204,7 @@ const DestructionUnits = {
       {
         name: `Bellow of Rage`,
         desc: `At the end of any phase, if any wounds were allocated to this unit in that phase, roll a dice for each other unit and each defensible terrain feature within 6" of this unit. If the roll is equal to or greater than the Bellow of Rage value shown on this unit's damage table, that unit suffers D3 mortal wounds or that defensible terrain feature is demolished.`,
-        when: [DURING_GAME],
+        when: [END_OF_ANY_PHASE],
         rule_sources: [orruk_rule_sources.BATTLETOME_ORRUK_WARCLANS],
       },
       {

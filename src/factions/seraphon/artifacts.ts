@@ -2,13 +2,14 @@ import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_ANY_PHASE,
+  END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SAVES_PHASE,
   SHOOTING_PHASE,
+  START_OF_ANY_PHASE,
   START_OF_HERO_PHASE,
-  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const Artifacts = {
@@ -16,8 +17,17 @@ const Artifacts = {
     effects: [
       {
         name: `Zoetic Dial`,
-        desc: `After set-up is complete but before the battle begins, secretly record the number of a battle round. At the start of that battle round, reveal the information and then heal all wounds allocated to the bearer. In addition, during that battle round, you can reroll save rolls for attacks that target the bearer.`,
+        desc: `After deployment but before the first battle round begins, secretly record the number of a battle round on a piece of paper. At the start of that battle round, reveal the information and then heal all wounds allocated to the bearer. In addition, during that battle round, add 1 to save rolls for attacks that target the bearer.`,
         when: [END_OF_SETUP],
+      },
+    ],
+  },
+  'Relocation Orb': {
+    effects: [
+      {
+        name: `Relocation Orb`,
+        desc: `Once per battle, at the end of a phase, if the bearer has had any wounds allocated to them in that phase, you can remove the bearer from the battlefield and set them up anywhere wholly within 12" of a friendly cosmic node and more than 9" from all enemy units.`,
+        when: [END_OF_ANY_PHASE],
       },
     ],
   },
@@ -25,8 +35,8 @@ const Artifacts = {
     effects: [
       {
         name: `Incandescent Rectrices`,
-        desc: `The first time bearer is slain, before removing them from the battlefield, roll a D6. On a 1-3, the bearer is slain. On a 4-6, the bearer is not slain, all wounds allocated to them are healed, and any wounds that currently remain to be allocated to them are negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        desc: `At the start of each of your hero phases, you can heal up to D3 wounds allocated to the bearer......`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
@@ -39,21 +49,30 @@ const Artifacts = {
       },
     ],
   },
-  'Light of Dracothion': {
-    effects: [
-      {
-        name: `Light of Dracothion`,
-        desc: `Once per battle, you can automatically unbind 1 spell cast by an enemy WIZARD within 15" of the bearer, or automatically dispel 1 endless spell within 15" of the bearer.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
+  // 'Light of Dracothion': {
+  //   effects: [
+  //     {
+  //       name: `Light of Dracothion`,
+  //       desc: `Once per battle, you can automatically unbind 1 spell cast by an enemy WIZARD within 15" of the bearer, or automatically dispel 1 endless spell within 15" of the bearer.`,
+  //       when: [HERO_PHASE],
+  //     },
+  //   ],
+  // },
   'Prism of Amyntok': {
     effects: [
       {
         name: `Prism of Amyntok`,
-        desc: `Once per the battle, at the start of any phase, pick 1 enemy unit within 12" of the bearer and roll a D6. On a 1, that unit suffers 1 mortal wound. On a 2-5, that unit suffers D3 mortal wounds. On a 6, that unit suffers D6 mortal wounds.`,
-        when: [DURING_GAME],
+        desc: `Once per battle, at the start of a phase, pick 1 enemy unit within 12" of the bearer and roll a dice. On a 1, nothing happens. On a 2+, that enemy unit suffers a number of mortal wounds equal to the roll.`,
+        when: [START_OF_ANY_PHASE],
+      },
+    ],
+  },
+  "Spacefolder's Stave": {
+    effects: [
+      {
+        name: `Spacefolder's Stave`,
+        desc: `Once per turn, at the end of your movement phase, if the bearer is on the battlefield, you can say that they will guide the arrival of their celestial reinforcements. If you do so, the next friendly STARBORNE unit to be set up on the battlefield can be set up more than 7" from all enemy units instead of more than 9".`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
@@ -66,48 +85,48 @@ const Artifacts = {
       },
       {
         name: `Itxi Grubs`,
-        desc: `In your hero phase you can reroll 1 casting or dispelling roll for the bearer, and in the enemy hero phase you can reroll 1 unbinding roll for the bearer.`,
+        desc: `In your hero phase, you can reroll 1 casting roll or 1 dispelling roll for the bearer, and in the enemy hero phase, you can reroll 1 unbinding roll for the bearer.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Plaque of Dominion': {
-    effects: [
-      {
-        name: `Plaque of Dominion`,
-        desc: `In your hero phase, you can pick 1 enemy HERO within 12" of the bearer and visible to them. Until your next hero phase, that HERO fights at the end of the combat phase. In addition, if that HERO is a WIZARD, until your next hero phase, subtract 1 from casting, dispelling and unbinding rolls for that HERO.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Throne of the Lost Gods': {
-    effects: [
-      {
-        name: `Throne of the Lost Gods`,
-        desc: `Add 1 to the bearer's Wounds characteristic.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-      {
-        name: `Throne of the Lost Gods`,
-        desc: `Add 4" to the bearer's Move characteristic.`,
-        when: [MOVEMENT_PHASE],
-      },
-    ],
-  },
-  'Sigils of the Prime Hunter': {
-    effects: [
-      {
-        name: `Sigils of the Prime Hunter`,
-        desc: `Each time the bearer fights, after all of the bearer's attacks have been resolved, you can pick 1 enemy unit within 1" of the bearer and roll a D6. On a 1, nothing happens. On a 2-5, that enemy unit suffers 1 mortal wound. On a 6, that enemy unit suffers D3 mortal wounds.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
+  // 'Plaque of Dominion': {
+  //   effects: [
+  //     {
+  //       name: `Plaque of Dominion`,
+  //       desc: `In your hero phase, you can pick 1 enemy HERO within 12" of the bearer and visible to them. Until your next hero phase, that HERO fights at the end of the combat phase. In addition, if that HERO is a WIZARD, until your next hero phase, subtract 1 from casting, dispelling and unbinding rolls for that HERO.`,
+  //       when: [HERO_PHASE],
+  //     },
+  //   ],
+  // },
+  // 'Throne of the Lost Gods': {
+  //   effects: [
+  //     {
+  //       name: `Throne of the Lost Gods`,
+  //       desc: `Add 1 to the bearer's Wounds characteristic.`,
+  //       when: [WOUND_ALLOCATION_PHASE],
+  //     },
+  //     {
+  //       name: `Throne of the Lost Gods`,
+  //       desc: `Add 4" to the bearer's Move characteristic.`,
+  //       when: [MOVEMENT_PHASE],
+  //     },
+  //   ],
+  // },
+  // 'Sigils of the Prime Hunter': {
+  //   effects: [
+  //     {
+  //       name: `Sigils of the Prime Hunter`,
+  //       desc: `Each time the bearer fights, after all of the bearer's attacks have been resolved, you can pick 1 enemy unit within 1" of the bearer and roll a D6. On a 1, nothing happens. On a 2-5, that enemy unit suffers 1 mortal wound. On a 6, that enemy unit suffers D3 mortal wounds.`,
+  //       when: [COMBAT_PHASE],
+  //     },
+  //   ],
+  // },
   'Bloodrage Pendant': {
     effects: [
       {
         name: `Bloodrage Pendant`,
-        desc: `Add 1 to the Attacks characteristic of the bearer's melee weapons if the number of wounds allocated to the bearer is equal to or greater than half of the bearer's Wounds characteristic (rounding up)`,
+        desc: `Add 1 to the Attacks characteristic of the bearer's melee weapons. If the number of wounds allocated to the bearer is equal to or greater than half of the bearer's Wounds characteristic (rounding up), add 2 instead.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -126,36 +145,36 @@ const Artifacts = {
       },
     ],
   },
-  'Sacred Stegadon Helm': {
-    effects: [
-      {
-        name: `Sacred Stegadon Helm`,
-        desc: `Add 1 to save rolls for attacks that target the bearer.`,
-        when: [SAVES_PHASE],
-      },
-      {
-        name: `Sacred Stegadon Helm`,
-        desc: `Add 1 to the Damage characteristic of melee weapons used by the bearer if they made a charge move in the same turn.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
+  // 'Sacred Stegadon Helm': {
+  //   effects: [
+  //     {
+  //       name: `Sacred Stegadon Helm`,
+  //       desc: `Add 1 to save rolls for attacks that target the bearer.`,
+  //       when: [SAVES_PHASE],
+  //     },
+  //     {
+  //       name: `Sacred Stegadon Helm`,
+  //       desc: `Add 1 to the Damage characteristic of melee weapons used by the bearer if they made a charge move in the same turn.`,
+  //       when: [COMBAT_PHASE],
+  //     },
+  //   ],
+  // },
 
-  'Godbeast Pendant': {
-    effects: [
-      {
-        name: `Godbeast Pendant`,
-        desc: `The first time the bearer is slain, before removing them from the battlefield, roll a D6. On a 1-3, the bearer is slain. On a 4-6, the bearer is not slain, all wounds allocated to them are healed, and any wounds that currently remain to be allocated to them are negated.`,
-        when: [WOUND_ALLOCATION_PHASE],
-      },
-    ],
-  },
+  // 'Godbeast Pendant': {
+  //   effects: [
+  //     {
+  //       name: `Godbeast Pendant`,
+  //       desc: `The first time the bearer is slain, before removing them from the battlefield, roll a D6. On a 1-3, the bearer is slain. On a 4-6, the bearer is not slain, all wounds allocated to them are healed, and any wounds that currently remain to be allocated to them are negated.`,
+  //       when: [WOUND_ALLOCATION_PHASE],
+  //     },
+  //   ],
+  // },
   'Serpent God Dagger': {
     effects: [
       {
         name: `Serpent God Dagger`,
         desc: `Pick 1 of the bearer's melee weapons. At the end of any phase, if any wounds inflicted by that weapon in that phase were allocated to an enemy model and not negated, and that enemy model has not been slain, roll a D6. On a 5+, that enemy model is slain.`,
-        when: [DURING_GAME],
+        when: [END_OF_ANY_PHASE],
       },
     ],
   },
@@ -174,6 +193,33 @@ const Artifacts = {
         name: `Fusil of Conflagration`,
         desc: `In your shooting phase, you can pick 1 enemy unit within 12" of the bearer and visible to them and roll a D6. On a 1, this artefact cannot be used again for the rest of the battle. On a 2-3, nothing happens. On a 4-5 that enemy unit suffers D3 mortal wounds. On a 6, that enemy unit suffers D6 mortal wounds.`,
         when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Crystalline Skull': {
+    effects: [
+      {
+        name: `Crystalline Skull`,
+        desc: `The bearer starts with a power reserve of 0. Each time the bearer successfully casts a spell that is not unbound, increase the bearer's power reserve by 1. Once per battle, in your hero phase, you can say that the bearer will shatter the crystalline skull. If you do so, pick 1 enemy unit within 12" of the bearer and roll a number of dice equal to the power reserve. For each 3+, that unit suffers 1 mortal wound.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Coati Familiar': {
+    effects: [
+      {
+        name: `Coati Familiar`,
+        desc: `Once per battle, at the start of your hero phase, you can say that the bearer will be blessed by Tepok. If you do so, the bearer can attempt to cast 1 additional spell in that hero phase, and that spell can be any spell from the Lore of Ancient Domains.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  "Sotek's Gaze": {
+    effects: [
+      {
+        name: `Sotek's Gaze`,
+        desc: `Enemy models with a Wounds characteristic of 1 or 2 cannot contest objectives while they are within 6" of the bearer.`,
+        when: [DURING_GAME],
       },
     ],
   },

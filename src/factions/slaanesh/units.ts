@@ -5,6 +5,7 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_ANY_PHASE,
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
@@ -695,7 +696,7 @@ const Units = {
       {
         name: `Slaughter At Any Cost`,
         desc: `At the end of any phase, if any wounds or mortal wounds were allocated to this unit in that phase, and this unit is more than 9" from all enemy units, this unit can move up to D6".`,
-        when: [DURING_GAME],
+        when: [END_OF_ANY_PHASE],
       },
       {
         name: `Obsessive Violence`,

@@ -7,6 +7,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_ANY_PHASE,
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
@@ -1088,7 +1089,7 @@ const Units = {
       {
         name: `Mantle of the First Storm`,
         desc: `At the end of a phase, if any enemy models were slain by wounds caused by this unit's attacks in that phase, you can heal all wounds allocated to this unit.`,
-        when: [DURING_GAME, WOUND_ALLOCATION_PHASE],
+        when: [END_OF_ANY_PHASE],
       },
     ],
   },

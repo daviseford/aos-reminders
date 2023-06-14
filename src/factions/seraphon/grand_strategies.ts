@@ -1,27 +1,42 @@
 import { tagAs } from 'factions/metatagger'
 import { END_OF_GAME } from 'types/phases'
-import rule_sources from './rule_sources'
 
 const GrandStrategies = {
   'Continuous Expansion': {
     effects: [
       {
         name: `Continuous Expansion`,
-        desc: `Coalesced army only. When the battle ends, you complete this objective if you have a least 1 friendly unit wholly within each large quarter of the battlefield.`,
+        desc: `When the battle ends, you complete this grand strategy if there is at least 1 friendly SERAPHON unit wholly within each large quarter of the battlefield (core rules, 28.2.8).`,
         when: [END_OF_GAME],
-        rule_sources: [rule_sources.WHITE_DWARF_OCTOBER_2021],
       },
     ],
   },
-  Astromatrix: {
+  'Realmshaper Guardians': {
     effects: [
       {
-        name: `Astromatrix`,
-        desc: `Starborne army only. An imaginary ley line 1mm wide runs from the each corner of the battlefield to the diagonally opposite corner of the battlefield. When the battle ends, you complete this objective if a ley line does not pass over any enemy models with the WIZARD keyword, and at least 1 ley line passes over a friendly model with the WIZARD keyword.`,
+        name: `Realmshaper Guardians`,
+        desc: `When the battle ends, you complete this grand strategy if you have a Coalesced Realmshaper Engine or Starborne Realmshaper Engine on the battlefield, there are no enemy models within 12" of it and it was not affected by a successful Smash To Rubble monstrous rampage.`,
         when: [END_OF_GAME],
-        rule_sources: [rule_sources.WHITE_DWARF_OCTOBER_2021],
       },
     ],
+    'Repel Corruption': {
+      effects: [
+        {
+          name: `Repel Corruption`,
+          desc: `When the battle ends, you complete this grand strategy if there are no enemy units wholly within your territory.`,
+          when: [END_OF_GAME],
+        },
+      ],
+    },
+    'Further the Great Plan': {
+      effects: [
+        {
+          name: `Further the Great Plan`,
+          desc: `When the battle ends, you complete this grand strategy if you completed 4 or more battle tactics and each of those battle tactics was from the March of the Seraphon Host table below.`,
+          when: [END_OF_GAME],
+        },
+      ],
+    },
   },
 }
 
