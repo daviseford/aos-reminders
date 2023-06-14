@@ -16,6 +16,7 @@ const replaceOptions = {
     /(?<=[name|desc|tag]: )` +(?=.+`)/g, // Remove leading whitespaces
     /(?<!:)(?<=[name|desc|tag]: `.+) +`/g, // Remove trailing whitespaces
     /(?<!:)(?<=desc: `.+[\w()])[,(/#!$^&;=\-_~]`/g, // Replace trailing punctuation with periods in descriptions
+    /(?<!:)(?<=desc: `.+[\w()])[.]+`/g, // Replace trailing ellipses with one period
     /(?<!:)(?<=desc: `.+\w)`/g, // Add a period to descriptions
     /(?<=[desc]: `)[\w' ]+ has a casting value of+(?=.+`)/g, // Shorten casting descriptions
     /(?<=\. )If successfully cast, pick+(?=.+`)/g, // Shorten casting descriptions
@@ -34,8 +35,9 @@ const replaceOptions = {
     ': ', // Replace extra spaces after punctuation
     ', ', // Replace extra spaces after punctuation
     '`', // Remove leading whitespaces
-    '`', // Remove leading whitespaces
+    '`', // Remove trailing whitespaces
     '.`', // Replace trailing punctuation with periods in descriptions
+    '.`', // Replace trailing ellipses with one period
     '.`', // Add a period to descriptions
     `Casting value of`, // Shorten casting descriptions
     `Pick`, // Shorten casting descriptions

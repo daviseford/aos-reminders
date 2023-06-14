@@ -7,6 +7,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_ANY_PHASE,
   END_OF_BATTLESHOCK_PHASE,
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
@@ -132,7 +133,7 @@ const Units = {
       {
         name: `Dagger of Jet`,
         desc: `At the end of any phase, if any wounds caused by this unit's Akmet-har were allocated to an enemy HERO in that phase and that enemy HERO has not been slain, roll a dice. On a 5+, that enemy HERO is slain.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [END_OF_ANY_PHASE],
       },
       {
         name: `Twilight's Allure`,
@@ -276,7 +277,7 @@ const Units = {
       {
         name: `Kiss of the Blade Proboscian`,
         desc: `At the end of any phase, if any wounds caused by attacks made with this unit's Blade Proboscian in that phase were allocated to an enemy HERO or MONSTER, and that enemy unit has not been destroyed, worsen the Save characteristic of that unit by 1 (to a minimum of 6+) for the rest of the battle.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [END_OF_ANY_PHASE],
       },
     ],
   },
@@ -331,8 +332,13 @@ const Units = {
       },
       {
         name: `The Beast Will Out`,
-        desc: `This unit cannot retreat. However, at the end of any phase, if any wounds or mortal wounds were allocated to this unit in that phase, and this unit is more than 12" from all enemy units, this unit can move up to D6".`,
-        when: [DURING_GAME],
+        desc: `This unit cannot retreat.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `The Beast Will Out`,
+        desc: `At the end of any phase, if any wounds or mortal wounds were allocated to this unit in that phase, and this unit is more than 12" from all enemy units, this unit can move up to D6".`,
+        when: [END_OF_ANY_PHASE],
       },
     ],
   },
@@ -738,7 +744,7 @@ const Units = {
       {
         name: `Single-minded Ferocity`,
         desc: `At the end of any phase, if any enemy models were slain by wounds caused by this unit's attacks in that phase, add 1 to the Attacks characteristic of this unit's Elongated Fangs for the rest of the battle.`,
-        when: [DURING_GAME],
+        when: [END_OF_ANY_PHASE],
       },
     ],
   },

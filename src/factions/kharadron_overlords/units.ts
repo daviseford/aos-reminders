@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_ANY_PHASE,
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -319,7 +320,7 @@ const Units = {
       {
         name: `Emergency Field Repairs`,
         desc: `Once per turn, at the end of any phase, if this unit is more than 3" from all enemy units, you can say this unit will carry out emergency field repairs. If you do so, pick 1 friendly SKYVESSEL within 3" of this unit and roll a dice for each model in this unit. Each of these rolls is called a field repairs roll. For each 4-5, you can heal 1 wound allocated to that SKYVESSEL. For each 6+, you can heal 2 wounds instead.`,
-        when: [DURING_GAME],
+        when: [END_OF_ANY_PHASE],
       },
       DrillEffect('Launcher', '6'),
       SkyhookEffect,

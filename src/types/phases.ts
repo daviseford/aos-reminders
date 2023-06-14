@@ -76,20 +76,28 @@ type TRoundDuring = 'DURING_ROUND'
 type TTurnEnd = 'END_OF_TURN'
 type TRoundEnd = 'END_OF_ROUND'
 type TGameEnd = 'END_OF_GAME'
+type TPhaseStartOfAny = 'START_OF_ANY_PHASE'
+type TPhaseEndOfAny = 'END_OF_ANY_PHASE'
 
 // Turn Exports
 export const START_OF_SETUP: TSetupStart = 'START_OF_SETUP'
 export const DURING_SETUP: TDuringSetup = 'DURING_SETUP'
 export const END_OF_SETUP: TSetupEnd = 'END_OF_SETUP'
+
 export const START_OF_GAME: TGameStart = 'START_OF_GAME'
 export const DURING_GAME: TGameDuring = 'DURING_GAME'
-export const START_OF_TURN: TTurnStart = 'START_OF_TURN'
-export const START_OF_ROUND: TRoundStart = 'START_OF_ROUND'
-export const DURING_TURN: TTurnDuring = 'DURING_TURN'
-export const DURING_ROUND: TRoundDuring = 'DURING_ROUND'
-export const END_OF_TURN: TTurnEnd = 'END_OF_TURN'
-export const END_OF_ROUND: TRoundEnd = 'END_OF_ROUND'
 export const END_OF_GAME: TGameEnd = 'END_OF_GAME'
+
+export const START_OF_TURN: TTurnStart = 'START_OF_TURN'
+export const DURING_TURN: TTurnDuring = 'DURING_TURN'
+export const END_OF_TURN: TTurnEnd = 'END_OF_TURN'
+
+export const START_OF_ANY_PHASE: TPhaseStartOfAny = 'START_OF_ANY_PHASE'
+export const END_OF_ANY_PHASE: TPhaseEndOfAny = 'END_OF_ANY_PHASE'
+
+export const START_OF_ROUND: TRoundStart = 'START_OF_ROUND'
+export const DURING_ROUND: TRoundDuring = 'DURING_ROUND'
+export const END_OF_ROUND: TRoundEnd = 'END_OF_ROUND'
 
 // Specific Turn Phases
 type TTurnOne_START_OF_TURN = 'TURN_ONE_START_OF_TURN'
@@ -523,3 +531,5 @@ export type TTurnWhen =
   | TSavesPhase
   | TWardsPhase
   | TWoundAllocationPhase
+  | TPhaseStartOfAny
+  | TPhaseEndOfAny

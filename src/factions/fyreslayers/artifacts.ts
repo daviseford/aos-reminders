@@ -2,9 +2,9 @@ import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   HERO_PHASE,
   SHOOTING_PHASE,
+  START_OF_ANY_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
@@ -15,7 +15,7 @@ const Artifacts = {
       {
         name: `Master Rune of Unbreakable Resolve`,
         desc: `Once per battle, at the start of a phase, you can say that the bearer will use their master rune. If you do so, the bearer has a ward of 3+ until the end of that phase.`,
-        when: [DURING_GAME],
+        when: [START_OF_ANY_PHASE],
       },
     ],
   },

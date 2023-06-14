@@ -15,7 +15,7 @@ const Flavors = {
     effects: [
       {
         name: `Monstrous Regeneration`,
-        desc: `Each time a friendly GLOGG'S MEGAMOB TROGGOTH unit fights, after all of its attacks have been resolved, the effect of its Regeneration or Greater Regeneration ability is triggered..`,
+        desc: `Each time a friendly GLOGG'S MEGAMOB TROGGOTH unit fights, after all of its attacks have been resolved, the effect of its Regeneration or Greater Regeneration ability is triggered.`,
         when: [COMBAT_PHASE],
       },
     ],

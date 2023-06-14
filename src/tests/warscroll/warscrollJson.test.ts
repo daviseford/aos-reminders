@@ -23,7 +23,7 @@ import {
 } from 'meta/factions'
 import path from 'path'
 import { RealmscapesEnum } from 'types/realmscapes'
-import { DEPRECATED_AOS_3, DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
+import { DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
 const getFile = (filename: string): string[] => {
@@ -31,13 +31,6 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
-  it('should correctly read 1640472888490-Warscroll_Builder', () => {
-    const parsedText = getFile('1640472888490-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.battalions).toContain('Thunderquake (Slayers)')
-    expect(res.errors).toEqual([])
-  })
-
   it('should correctly read 1640813052545-Warscroll_Builder', () => {
     const parsedText = getFile('1640813052545-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -319,18 +312,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.command_traits).toContain('Killer Reputation')
   })
 
-  it('should correctly read 1593886752516-Warscroll_Builder', () => {
-    const parsedText = getFile('1593886752516-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_AOS_3,
-        severity: 'deprecation-warn',
-        text: 'Bound Balewind Vortex',
-      },
-    ])
-  })
-
   it('should correctly read 1593895699238-Warscroll_Builder', () => {
     const parsedText = getFile('1593895699238-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -348,13 +329,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1589874682978-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Aether-Khemist')
-  })
-
-  it('should work with Vast Intellect - Celestial Apotheosis (trait/spell)', () => {
-    const parsedText = getFile('1585065423836-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.spells).toContain('Celestial Apotheosis')
-    expect(res.selections.command_traits).toContain('Vast Intellect')
   })
 
   it('should work with Fusil of Conflagration', () => {

@@ -50,18 +50,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.selections.spells).toContain('Arcane Corrasion')
   })
 
-  it('should correctly read 1613405722187-Azyr', () => {
-    const fileTxt = getFile('1613405722187-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
-      },
-    ])
-  })
-
   it('should correctly read SoB1', () => {
     const fileTxt = getFile('SoB1')
     const pages = handleAzyrPages(fileTxt)
@@ -83,19 +71,6 @@ describe('getAzyrArmyFromPdf', () => {
       [GLOOMSPITE_GITZ]: { battalions: [], units: ['Fungoid Cave-Shaman'] },
       [MEGA_GARGANT_MERCENARIES]: { battalions: [], units: ['Big Drogg Fort-Kicka - Gatebreaker'] },
     })
-  })
-
-  it('should correctly read ScarVeteran (issue #1037)', () => {
-    const fileTxt = getFile('ScarVeteran')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
-      },
-    ])
   })
 
   it('should correctly read Lumineth1', () => {
@@ -149,14 +124,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.factionName).toEqual(KHARADRON_OVERLORDS)
   })
 
-  it('handles 1586650197871-Azyr', () => {
-    const fileTxt = getFile('1586650197871-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
-    expect(res.selections.endless_spells).toContain('Bound Burning Head')
-  })
-
   it('handles 1584593035311-Azyr', () => {
     const fileTxt = getFile('1584593035311-Azyr')
     const pages = handleAzyrPages(fileTxt)
@@ -171,19 +138,6 @@ describe('getAzyrArmyFromPdf', () => {
     expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Starborne)
   })
 
-  it('handles 1584757344425-Azyr', () => {
-    const fileTxt = getFile('1584757344425-Azyr')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
-    expect(res.errors).toEqual([
-      {
-        severity: 'ambiguity-warn',
-        text: "Azyr lists more than one unit as 'Saurus Scar-Veteran'. Please check that we have imported the correct one.",
-      },
-    ])
-  })
-
   it('handles 1585918489536-Azyr', () => {
     const fileTxt = getFile('1585918489536-Azyr')
     const pages = handleAzyrPages(fileTxt)
@@ -196,15 +150,6 @@ describe('getAzyrArmyFromPdf', () => {
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
-  })
-
-  it('handles Seraphon5', () => {
-    const fileTxt = getFile('Seraphon5')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(SERAPHON)
-    expect(res.subFactionName).toEqual(SeraphonFaction.subFactionKeyMap.Coalesced)
-    expect(res.selections.flavors).toContain('Thunder Lizard')
   })
 
   it('handles 1582914528373-Azyr', () => {
@@ -287,22 +232,6 @@ describe('getAzyrArmyFromPdf', () => {
     const res = getAzyrArmyFromPdf(pages)
     expect(res.factionName).toEqual(SLAVES_TO_DARKNESS)
     expect(res.selections.spells).toContain('Binding Damnation')
-  })
-
-  it('handles Seraphon3', () => {
-    const fileTxt = getFile('Seraphon3')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.errors).toEqual([
-      {
-        severity: 'warn',
-        text: 'Coronal Shield',
-      },
-      {
-        severity: 'warn',
-        text: 'Claws of Glor y',
-      },
-    ])
   })
 
   it('handles StD3', () => {

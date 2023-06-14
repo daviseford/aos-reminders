@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import { GLOOMSPITE_GITZ, SERAPHON, SKAVEN } from 'meta/factions'
+import { GLOOMSPITE_GITZ, SKAVEN } from 'meta/factions'
 import path from 'path'
 import { getWarhammerAppArmy } from 'utils/warhammer_app/getWarhammerAppArmy'
 
@@ -46,13 +46,6 @@ describe('getWarhammerAppArmy', () => {
     const parsedText = getFile('1632565338858-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
     expect(res.selections.flavors).toContain('Fuethan')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1632626188332-Warhammer_App', () => {
-    const parsedText = getFile('1632626188332-Warhammer_App')
-    const res = getWarhammerAppArmy(parsedText)
-    expect(res.selections.command_traits).toContain('Mighty War Leader')
     expect(res.errors).toEqual([])
   })
 
@@ -105,72 +98,6 @@ describe('getWarhammerAppArmy', () => {
     const parsedText = getFile('1632120973397-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
     expect(res.selections.battalions).toContain('Redemption Brotherhood')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read Seraphon1', () => {
-    const parsedText = getFile('Seraphon1')
-    const res = getWarhammerAppArmy(parsedText)
-
-    expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
-      allyUnits: [],
-      errors: [],
-      factionName: SERAPHON,
-      origin_realm: null,
-      realmscape_feature: null,
-      realmscape: null,
-      selections: {
-        incarnates: [],
-        monstrous_rampages: [],
-        artifacts: ['Amulet of Destiny', 'Serpent God Dagger'],
-        battalions: ['Battle Regiment', 'Command Entourage', 'Hunters of the Heartlands'],
-        command_abilities: ['Parting Shot', 'Supreme Gift from the Heavens', 'Herald of the Old Ones'],
-        command_traits: ['Old and Grizzled'],
-        core_rules: [],
-        endless_spells: ['Soulsnare Shackles', 'The Burning Head'],
-        flavors: ['Fangs of Sotek'],
-        grand_strategies: ['Prized Sorcery'],
-        mount_traits: [],
-        prayers: ['Heal'],
-        scenery: ['Realmshaper Engine'],
-        spells: [
-          'Tide of Serpents',
-          'Hand of Glory',
-          'Celestial Apotheosis',
-          'Celestial Deliverance',
-          'Celestial Equilibrium',
-          'Drain Magic',
-          'Mystical Unforging',
-          'Stellar Tempest',
-          'Walk Between Realms',
-          "Comet's Call",
-          'Blazing Starlight',
-        ],
-        triumphs: ['Inspired'],
-        units: [
-          'Razordon Hunting Pack',
-          'Lord Kroak',
-          'Saurus Astrolith Bearer',
-          'Saurus Guard',
-          'Skink Oracle on Troglodon',
-          'Skink Priest',
-          'Skink Starpriest',
-          'Skinks',
-          'Chameleon Skinks',
-        ],
-      },
-      subFactionName: 'Starborne',
-      unknownSelections: [],
-    })
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read Seraphon2', () => {
-    const parsedText = getFile('Seraphon2')
-    const res = getWarhammerAppArmy(parsedText)
-    expect(res.selections.units).toContain('Bastiladon')
     expect(res.errors).toEqual([])
   })
 })

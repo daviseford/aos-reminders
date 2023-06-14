@@ -5,6 +5,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_ANY_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
@@ -406,7 +407,7 @@ const Units = {
       {
         name: `Reality-splitting Axe`,
         desc: `Each time this unit fights, wounds caused by its Blood-dark Claws must be allocated before wounds caused by its Axe of Khorne. At the end of any phase, if any wounds caused by this unit's Axe of Khorne in that phase were allocated to an enemy model and that enemy model has not been slain, roll a dice. On a 5+, that enemy model is slain.`,
-        when: [DURING_GAME],
+        when: [END_OF_ANY_PHASE],
       },
       {
         name: `Lord of the Goretide`,

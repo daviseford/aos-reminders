@@ -269,25 +269,10 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.units).toContain('Aspiring Deathbringer')
   })
 
-  it('should work with 1585935571602-Battlescribe', () => {
-    const parsedText = getFile('1585935571602-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    // Skink Handler -> Razordon Hunting Pack
-    expect(res.selections.units).toContain('Razordon Hunting Pack')
-  })
-
   it('should work with 1586243528222-Battlescribe', () => {
     const parsedText = getFile('1586243528222-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
     expect(res.selections.flavors).toEqual([])
-  })
-
-  it('should work with 1585870135227-Battlescribe', () => {
-    const parsedText = getFile('1585870135227-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.selections.flavors).toContain('Thunder Lizard')
-    expect(res.selections.scenery).toContain('Realmshaper Engine')
-    expect(res.selections.units).toContain('Razordon Hunting Pack')
   })
 
   it('should work with Slaanesh5', () => {

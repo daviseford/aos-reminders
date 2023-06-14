@@ -7,6 +7,7 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_ANY_PHASE,
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -16,6 +17,7 @@ import {
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
+  START_OF_ANY_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
@@ -50,7 +52,7 @@ export const LordsOfTheSilverTowerEffect = {
   desc: `Once per battle, at the end of a phase, you can pick 1 enemy unit HERO that is within 9" of this unit and that made an attack that targeted this unit in that phase, or caused any mortal wounds to this unit with an ability or spell in that phase (even if the wounds or mortal wounds were negated). If you do so, roll 2D6, If the roll is greater than the Wounds characteristic of that HERO, that HERO is removed from play.
   
   Designer's Note: The HERO cannot be returned if you are allowed to bring back slain models (the model has not been slain).`,
-  when: [DURING_GAME],
+  when: [END_OF_ANY_PHASE],
   shared: true,
 }
 export const BookOfProfaneSecretsEffect = {
@@ -873,7 +875,7 @@ const Units = {
       {
         name: `Sow Confusion`,
         desc: `Once per turn, at the start of any phase, you can say this unit will sow confusion. If you do so, pick an enemy unit within 6" of this unit and roll a dice. On a 4+, that unit cannot issue or receive commands in that phase. You cannot pick the same unit as the target for this ability more than once in the same phase.`,
-        when: [DURING_GAME],
+        when: [START_OF_ANY_PHASE],
       },
       {
         name: `Devoted of the Dark Creed`,

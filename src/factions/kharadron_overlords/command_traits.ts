@@ -8,6 +8,7 @@ import {
   SHOOTING_PHASE,
   START_OF_SETUP,
   END_OF_MOVEMENT_PHASE,
+  START_OF_ANY_PHASE,
 } from 'types/phases'
 
 const AllegianceCommandTraits = {
@@ -88,7 +89,7 @@ const AllegianceCommandTraits = {
       {
         name: `FOOTNOTE: Without Our Ships, We Are Naught`,
         desc: `Once per battle, at the start of any phase, pick 1 friendly SKYVESSEL. That unit can receive up to 2 commands in that phase instead of only 1.`,
-        when: [DURING_GAME],
+        when: [START_OF_ANY_PHASE],
       },
     ],
   },
