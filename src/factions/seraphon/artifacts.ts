@@ -35,7 +35,7 @@ const Artifacts = {
     effects: [
       {
         name: `Incandescent Rectrices`,
-        desc: `At the start of each of your hero phases, you can heal up to D3 wounds allocated to the bearer......`,
+        desc: `At the start of each of your hero phases, you can heal up to D3 wounds allocated to the bearer.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
