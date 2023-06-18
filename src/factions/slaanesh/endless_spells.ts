@@ -39,9 +39,7 @@ const EndlessSpells = {
       },
       {
         name: `Gaze Not into its Depths`,
-        desc: `At the end of the movement phase, roll 6 dice for each HERO within 6" of this endless spell (roll separately for each HERO). For each 6, that HERO suffers a number of mortal wounds equal to the number of 6s that were rolled for that HERO. This ability has no effect on friendly units.
-
-        Designer's Note: If you rolled one 6 for a HERO, that HERO would suffer 1 x 1 = 1 mortal wound. If you rolled two 6s, that HERO would suffer 2 x 2 = 4 mortal wounds, if you rolled three 6s, that HERO would suffer 3 x 3 = 9 mortal wounds, and so on.`,
+        desc: `At the end of the movement phase, roll 6 dice for each unit within 6" of this endless spell. For each 6, that unit's commanding player must choose whether that unit gazes into the mirror or resists temptation. If it resists temptation, that unit suffers D3 mortal wounds. If it gazes into the mirror, the player who summoned this endless spell gains D3 depravity points. This ability has no effect on friendly units.`,
         when: [END_OF_MOVEMENT_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAANESH, rule_sources.ERRATA_APRIL_2023],
       },
