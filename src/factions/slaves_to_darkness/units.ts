@@ -381,7 +381,7 @@ const Units = {
       },
       {
         name: `The Dark Master`,
-        desc: `Once per battle, pick 1 enemy unit on the battlefield. Starting now and until your next hero phase, roll a D6 at the start of each phase. On a 3+ the target cannot move, shoot, fight, use command abilities, chant prayers, or cast/dispell/unbind spells in that phase.`,
+        desc: `Once per battle, at the start of the enemy hero phase, pick 1 enemy unit on the battlefield. Starting now and until your next hero phase, roll a D6 at the start of each phase. On a 3+ the target cannot move, shoot, fight, use command abilities, chant prayers, or cast/dispell/unbind spells in that phase.`,
         when: [START_OF_HERO_PHASE],
       },
       {
