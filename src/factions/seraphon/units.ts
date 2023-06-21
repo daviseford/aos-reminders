@@ -256,20 +256,16 @@ const Units = {
       },
     ],
   },
-  // 'Saurus Oldblood on Carnosaur': {
-  //   mandatory: {
-  //     command_abilities: [keyPicker(CommandAbilities, ['Wrath of the Seraphon'])],
-  //   },
-  //   effects: [
-  //     ...CarnosaurBaseEffects,
-  //     {
-  //       name: `Blazing Sunbolts`,
-  //       desc: `Add 1 to wound rolls for attacks made with a Sunbolt Gauntlet if the target is a CHAOS DAEMON unit.`,
-  //       when: [SHOOTING_PHASE],
-  //     },
-  //     ColdFerocityEffect,
-  //   ],
-  // },
+  'Saurus Oldblood on Carnosaur': {
+    effects: [
+      ...CarnosaurBaseEffects,
+      {
+        name: `Ancient Warlord`,
+        desc: `This unit can issue the same command up to 2 times in the same phase. If it does so, each command must be received by a friendly SERAPHON unit. No command point is spent the second time this unit issues that command in that phase.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
   'Saurus Oldblood': {
     effects: [
       {
