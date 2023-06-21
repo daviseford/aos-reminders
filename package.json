@@ -4,10 +4,10 @@
   "private": true,
   "homepage": "./",
   "dependencies": {
-    "@auth0/auth0-react": "2.1.0",
+    "@auth0/auth0-react": "2.1.1",
     "@reduxjs/toolkit": "1.9.5",
-    "@stripe/react-stripe-js": "2.1.0",
-    "@stripe/stripe-js": "1.54.0",
+    "@stripe/react-stripe-js": "2.1.1",
+    "@stripe/stripe-js": "1.54.1",
     "bootstrap": "4.6.0",
     "core-js": "3.31.0",
     "deepmerge": "4.3.1",
