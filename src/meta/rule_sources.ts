@@ -165,6 +165,10 @@ const meta_rule_sources = {
     type: 'other_book',
     url: 'https://mail.google.com/mail/u/0/#inbox/FMfcgzGsmWvfDfJlpPmDrqmjPfPhtzsr?projector=1&messagePartId=0.1',
   },
+  GHB_2023_2024: {
+    name: "General's Handbook (2023-2024)",
+    type: 'ghb',
+  }
 }
 
 export default meta_rule_sources
