@@ -248,6 +248,104 @@ const Realmscapes: TEntry[] = [
       },
     ],
   },
+  {
+    name: RealmscapesEnum.ANDTOR,
+    effects: [
+      {
+        name: `Optimal Focus`,
+        desc: `At the start of the hero phase, both players roll a dice. For each 4+, each player receives 1 primal magic dice. After a player attempts to cast or unbind a spell, or after a player attempts to dispel an endless spell, they can roll 1 of their primal magic dice. If they do so, add the result to the casting, unbinding or dispelling roll. That player can continue to roll additional primal magic dice until the caster suffers a primal miscast (see below) or there are no more primal magic dice to be rolled.
+        Abilities that allow you to re-roll casting, unbinding or dispelling rolls must be used before primal magic dice are rolled. If you choose to use an ability to re-roll a casting, unbinding or dispelling roll, you cannot use primal magic dice to supplement that roll. At the end of each battle round, any primal magic dice that have not been used are lost.
+        When a primal magic dice is rolled as part of a casting roll, on an unmodified casting roll that includes a double 1, the caster suffers a primal miscast instead of a miscast. The spell is not successfully cast, the caster suffers D3+3 mortal wounds and each other unit within 3 Inches of the caster suffers D3 mortal wounds. In addition, the caster cannot attempt to cast any more spells in that phase.
+        When a primal magic dice is rolled as part of a casting roll, on an unmodified casting roll that includes a double 6, the spell is successfully cast and cannot be unbound. In addition, the caster cannot attempt to cast any more spells in that phase and both players receive 1 primal magic dice`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024]
+      },
+      {
+        name: `Primal Magic`,
+        desc: ``,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024]
+      },
+      
+      // Command Traits
+      {
+        name: `Shaman of the Chilled Lands`,
+        desc: `This general knows all of the spells from the Lore of Primal Frost.`,
+        when: [DURING_GAME],
+        rule_sources: [meta_rule_sources.GHB_2023_2024]
+      },
+      {
+        name: `Eye of the Blizzard`,
+        desc: `At the start of your hero phase, if this general is on the battlefield, roll a dice. On a 5+, you gain 1 primal magic dice.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024]
+      },
+      {
+        name: `Chilled to the Bone`,
+        desc: `Once per battle, if this general suffers a miscast or primal miscast, you can roll a dice. On a 3+, this general can ignore the effects of that miscast or primal miscast.`,
+        when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024]
+      },
+      {
+        name: `Eater of Magic`,
+        desc: `Each time this general successfully unbinds a spell, roll a dice. On a 5+, the caster no longer knows that spell and may not cast it again for the rest of the battle.`,
+        when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024]
+      },
+
+      // Battle tactics
+      {
+        name: `Battle Tactic: Intimidate the Invaders`,
+        desc: `You complete this battle tactic at the end of your turn if there are more friendly units wholly outside your territory than there are friendly units within your territory.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+      {
+        name: `Battle Tactic: Reprisal`,
+        desc: `You complete this battle tactic if an enemy unit that destroyed a friendly general earlier in the battle is destroyed in this turn.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+      {
+        name: `Battle Tactic: Endless Expropriation`,
+        desc: `Pick 1 enemy unit that is controlling or bonded to an endless spell or INCARNATE. You complete this battle tactic at the end of your turn if either of the following are true:
+        That enemy unit has been destroyed.
+        That INCARNATE is wild.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+      {
+        name: `Battle Tactic: Magical Dominance`,
+        desc: `You complete this battle tactic at the end of your turn if there are more friendly units wholly outside your territory than there are friendly units within your territory.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+      {
+        name: `Battle Tactic: Magical Mayhem`,
+        desc: `Pick 1 enemy unit on the battlefield. You complete this battle tactic if that unit is destroyed by a spell or the abilities of an endless spell.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+      {
+        name: `Battle Tactic: Bait and Trap`,
+        desc: `You complete this battle tactic if 2 or more friendly units retreated this turn and 2 or more different friendly units made a charge move this turn.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+      {
+        name: `Battle Tactic: Led into the Maelstrom`,
+        desc: `You complete this battle tactic if 1 or more friendly HEROES and 1 or more friendly Battleline units each made a charge move this turn and at least 1 of those units is within 3" of an enemy unit at the end of the turn.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+      {
+        name: `Battle Tactic: Surround and Destroy`,
+        desc: `Pick 3 different friendly units on the battlefield. You complete this battle tactic at the end of your turn if each of those units is wholly within 6" of a different battlefield edge and 2 or more of those units are wholly outside your territory.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      }
+    ]
+  }
 ]
 
 export default Realmscapes
