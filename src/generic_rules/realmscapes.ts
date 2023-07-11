@@ -254,43 +254,43 @@ const Realmscapes: TEntry[] = [
       {
         name: `Optimal Focus`,
         desc: `At the start of the hero phase, both players roll a dice. For each 4+, each player receives 1 primal magic dice. After a player attempts to cast or unbind a spell, or after a player attempts to dispel an endless spell, they can roll 1 of their primal magic dice. If they do so, add the result to the casting, unbinding or dispelling roll. That player can continue to roll additional primal magic dice until the caster suffers a primal miscast (see below) or there are no more primal magic dice to be rolled.
-        Abilities that allow you to re-roll casting, unbinding or dispelling rolls must be used before primal magic dice are rolled. If you choose to use an ability to re-roll a casting, unbinding or dispelling roll, you cannot use primal magic dice to supplement that roll. At the end of each battle round, any primal magic dice that have not been used are lost.
+        Abilities that allow you to reroll casting, unbinding or dispelling rolls must be used before primal magic dice are rolled. If you choose to use an ability to reroll a casting, unbinding or dispelling roll, you cannot use primal magic dice to supplement that roll. At the end of each battle round, any primal magic dice that have not been used are lost.
         When a primal magic dice is rolled as part of a casting roll, on an unmodified casting roll that includes a double 1, the caster suffers a primal miscast instead of a miscast. The spell is not successfully cast, the caster suffers D3+3 mortal wounds and each other unit within 3 Inches of the caster suffers D3 mortal wounds. In addition, the caster cannot attempt to cast any more spells in that phase.
         When a primal magic dice is rolled as part of a casting roll, on an unmodified casting roll that includes a double 6, the spell is successfully cast and cannot be unbound. In addition, the caster cannot attempt to cast any more spells in that phase and both players receive 1 primal magic dice`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2023_2024]
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
       },
       {
         name: `Primal Magic`,
         desc: ``,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2023_2024]
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
       },
-      
+
       // Command Traits
       {
         name: `Shaman of the Chilled Lands`,
         desc: `This general knows all of the spells from the Lore of Primal Frost.`,
         when: [DURING_GAME],
-        rule_sources: [meta_rule_sources.GHB_2023_2024]
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
       },
       {
         name: `Eye of the Blizzard`,
         desc: `At the start of your hero phase, if this general is on the battlefield, roll a dice. On a 5+, you gain 1 primal magic dice.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2023_2024]
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
       },
       {
         name: `Chilled to the Bone`,
         desc: `Once per battle, if this general suffers a miscast or primal miscast, you can roll a dice. On a 3+, this general can ignore the effects of that miscast or primal miscast.`,
         when: [HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2023_2024]
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
       },
       {
         name: `Eater of Magic`,
         desc: `Each time this general successfully unbinds a spell, roll a dice. On a 5+, the caster no longer knows that spell and may not cast it again for the rest of the battle.`,
         when: [HERO_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2023_2024]
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
       },
 
       // Battle tactics
@@ -359,12 +359,12 @@ const Realmscapes: TEntry[] = [
       },
       {
         name: `Polished Nullstone Pebble`,
-        desc: `When this unit is picked as the target of a spell or the abilities of an endless spell, you can roll a dice. On a 4+, the caster must pick another unit within 3" of this unit and within range of that spell or endless spell's abilities to be the target. If, when picking another unit, there are no other units within 3" of this unit and within range, ignore the effect of that spell or the effects of that endless spell's abilities on this unit instead`,
+        desc: `When this unit is picked as the target of a spell or the abilities of an endless spell, you can roll a dice. On a 4+, the caster must pick another unit within 3" of this unit and within range of that spell or endless spell's abilities to be the target. If, when picking another unit, there are no other units within 3" of this unit and within range, ignore the effect of that spell or the effects of that endless spell's abilities on this unit instead.`,
         when: [HERO_PHASE],
         rule_sources: [meta_rule_sources.GHB_2023_2024],
       },
-    ]
-  }
+    ],
+  },
 ]
 
 export default Realmscapes

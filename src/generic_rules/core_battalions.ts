@@ -173,7 +173,7 @@ const CoreBattalions: TEntry[] = [
     effects: [
       {
         name: `Coordinated Augmentation`,
-        desc: `At the start of the hero phase, if there are 2 or more friendly ANDTORIAN LOCUS units in this battalion on the battlefield, roll a dice. On a 3+, you gain 1 primal magic dice.`,
+        desc: `At the start of the hero phase, if there are 2 or more friendly ANDTORIAN LOCUS units in this battalion on the battlefield, roll a dice. On a 3+, you gain 1 primal magic dice.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.GHB_2023_2024],
       },
@@ -184,7 +184,7 @@ const CoreBattalions: TEntry[] = [
     effects: [
       {
         name: `Magic Hunters`,
-        desc: `Each time a unit in this battalion is picked to fight, you can say that it will go on a wizard hunt. If you do so, pick 1 melee weapon profile on that unit’s warscroll. Until the end of that phase, add 1 to the Attacks characteristic of that melee weapon, but all of the attacks that unit makes in that phase must target an enemy WIZARD.`,
+        desc: `Each time a unit in this battalion is picked to fight, you can say that it will go on a wizard hunt. If you do so, pick 1 melee weapon profile on that unit's warscroll. Until the end of that phase, add 1 to the Attacks characteristic of that melee weapon, but all of the attacks that unit makes in that phase must target an enemy WIZARD.`,
         when: [COMBAT_PHASE],
         rule_sources: [meta_rule_sources.GHB_2023_2024],
       },
