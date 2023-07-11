@@ -343,7 +343,26 @@ const Realmscapes: TEntry[] = [
         desc: `Pick 3 different friendly units on the battlefield. You complete this battle tactic at the end of your turn if each of those units is wholly within 6" of a different battlefield edge and 2 or more of those units are wholly outside your territory.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.GHB_2023_2024],
-      }
+      },
+      // Nullstone Adornments
+      {
+        name: `Hand - Carved Nullstone Icon`,
+        desc: `The bearer can attempt to unbind 1 spell or attempt to dispel 1 endless spell in the enemy hero phase in the same manner as a Wizard. Each time the bearer successfully unbinds a spell or dispels an endless spell using this ability, the bearer can attempt to unbind 1 additional spell in that phase.`,
+        when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+      {
+        name: `Pouch of Nulldust`,
+        desc: `Once per battle, at the start of the hero phase, you can say that the bearer will use their Pouch of Nulldust. If you do so, until the end of that phase, unmodified casting rolls that include a double 1, double 2 or double 3 are treated as miscasts or, if a primal magic dice was rolled as part of the casting roll, as primal miscasts. In addition, roll a dice for each endless spell on the battlefield. On a 5+, that endless spell is dispelled.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+      {
+        name: `Polished Nullstone Pebble`,
+        desc: `When this unit is picked as the target of a spell or the abilities of an endless spell, you can roll a dice. On a 4+, the caster must pick another unit within 3" of this unit and within range of that spell or endless spell's abilities to be the target. If, when picking another unit, there are no other units within 3" of this unit and within range, ignore the effect of that spell or the effects of that endless spell's abilities on this unit instead`,
+        when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
     ]
   }
 ]
