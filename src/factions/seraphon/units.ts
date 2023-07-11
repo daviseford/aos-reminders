@@ -602,9 +602,14 @@ const Units = {
     },
     effects: [
       {
+        name: `Wizard`,
+        desc: `This unit can attempt to cast 1 spells in your hero phase and attempt to unbind 1 spells in the enemy hero phase.`,
+        when: [HERO_PHASE],
+      },
+      {
         name: `Stench of Death`,
         desc: `Subtract 1 from hit rolls for attacks made by enemy units within 9" of any friendly units with this ability.`,
-        when: [HERO_PHASE],
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
       {
         name: `Regeneration`,
