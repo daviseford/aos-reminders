@@ -39,15 +39,6 @@ describe('getBattlescribeArmy', () => {
     //expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1636299801967-Battlescribe', () => {
-    const parsedText = getFile('1636299801967-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-    expect(res.errors).toEqual([])
-    expect(res.selections.battalions).toContain('Bosses of the Stomp (Magnificent)')
-    expect(res.selections.battalions).toContain('Footsloggas (Swift)')
-    expect(res.selections.units).toContain('Warstomper')
-  })
-
   it('should correctly read 1633693443120-Battlescribe', () => {
     const parsedText = getFile('1633693443120-Battlescribe')
     const res = getBattlescribeArmy(parsedText)

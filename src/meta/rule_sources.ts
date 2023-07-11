@@ -130,7 +130,7 @@ const meta_rule_sources = {
     name: "General's Handbook (2023-2024)",
     type: 'ghb',
   },
-  
+
   ERRATA_GHB_SEPTEMBER_2021: {
     name: "General's Handbook Errata (September 2021)",
     type: 'errata',
@@ -170,7 +170,7 @@ const meta_rule_sources = {
     type: 'other_book',
     url: 'https://mail.google.com/mail/u/0/#inbox/FMfcgzGsmWvfDfJlpPmDrqmjPfPhtzsr?projector=1&messagePartId=0.1',
   },
-      
+
   BATTLESCROLL_ANDTOR_JULY_2023: {
     name: 'Battlescroll: Depleted Reserves (April 2023)',
     type: 'other_book',
