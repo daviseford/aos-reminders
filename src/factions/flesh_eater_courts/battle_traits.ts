@@ -2,15 +2,20 @@ import { tagAs } from 'factions/metatagger'
 import { FLESH_EATER_COURTS } from 'meta/factions'
 import { DURING_GAME, HERO_PHASE, WARDS_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 
 const BattleTraits = {
   [FLESH_EATER_COURTS]: {
     effects: [
       {
         name: `Deathless Courtiers`,
-        desc: `Friendly FLESH-EATER COURTS units have a ward of 6+.`,
+        desc: `Friendly Flesh-eater Courts units have a ward of 6+.`,
         when: [WARDS_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_FLESH_EATER_COURTS, rule_sources.ERRATA_JULY_2022],
+        rule_sources: [
+          rule_sources.BATTLETOME_FLESH_EATER_COURTS,
+          rule_sources.ERRATA_JULY_2022,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023,
+        ],
       },
       {
         name: `Courts of Delusion`,

@@ -168,7 +168,12 @@ const meta_rule_sources = {
   GHB_2023_2024: {
     name: "General's Handbook (2023-2024)",
     type: 'ghb',
-  }
+  },
+  BATTLESCROLL_ANDTOR_JULY_2023: {
+    name: 'Battlescroll: Depleted Reserves (April 2023)',
+    type: 'other_book',
+    url: 'https://mail.google.com/mail/u/0/#inbox/FMfcgzGsmWvfDfJlpPmDrqmjPfPhtzsr?projector=1&messagePartId=0.1',
+  },
 }
 
 export default meta_rule_sources

@@ -244,7 +244,7 @@ const GenericGrandStrategies: TEntry[] = [
     effects: [
       {
         name: `Spellcasting Savant`,
-        desc: `When the battle ends, you complete this grand strategy if the model picked to be your general is an ANDTORIAN LOCUS and that unit has not been slain.`,
+        desc: `When the battle ends, you complete this grand strategy if the model picked to be your general is an ANDTORIAN LOCUS and that unit has not been slain.`,
         when: [END_OF_GAME],
         rule_sources: [meta_rule_sources.GHB_2023_2024],
       },
@@ -277,7 +277,7 @@ const GenericGrandStrategies: TEntry[] = [
     effects: [
       {
         name: `Overshadow`,
-        desc: `When the battle ends, you complete this grand strategy if all enemy Battleline units from your opponent’s starting army are destroyed and there is at least 1 friendly Battleline unit from your starting army on the battlefield.`,
+        desc: `When the battle ends, you complete this grand strategy if all enemy Battleline units from your opponent's starting army are destroyed and there is at least 1 friendly Battleline unit from your starting army on the battlefield.`,
         when: [END_OF_GAME],
         rule_sources: [meta_rule_sources.GHB_2023_2024],
       },

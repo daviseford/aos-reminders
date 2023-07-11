@@ -92,7 +92,7 @@ const KersplatEffect = {
 }
 const SquigsGoneWildEffect = {
   name: `Squigs Gone Wild`,
-  desc: `Each time a Cave Squig in this unit flees, before that model is removed from play, roll a dice. On a 2+, you can pick 1 enemy unit within 9" of that model. That unit suffers 1 mortal wound.`,
+  desc: `Each time a Cave Squig in this unit flees as a result of a failed battleshock test, before that model is removed from play, roll a dice. On a 3+, you can pick the closest enemy unit within 9" of that model. That unit suffers 1 mortal wound. If multiple units are tied to be the closest within 9" of it, you can pick which suffers the mortal wound.`,
   when: [BATTLESHOCK_PHASE],
   shared: true,
 }

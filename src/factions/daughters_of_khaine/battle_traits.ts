@@ -64,7 +64,11 @@ const BattleTraits = {
         name: `Clash of Arms`,
         desc: `You complete this tactic if 3 or more friendly units make a charge move this turn.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_DECEMBER_2022],
+        rule_sources: [
+          rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
+          rule_sources.ERRATA_DECEMBER_2022,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023,
+        ],
       },
       {
         name: `Cruel Delight`,
@@ -79,6 +83,7 @@ const BattleTraits = {
           rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
           rule_sources.ERRATA_DECEMBER_2022,
           meta_rule_sources.BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2022,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023,
         ],
       },
       {

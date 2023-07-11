@@ -30,8 +30,9 @@ const CoreRules: TEntry[] = [
     effects: [
       {
         name: `1.3.3 - Unit Coherency`,
-        desc: `Units must be set up and finish every move as a single coherent group. A unit with 2 to 5 models is coherent if each model in the unit is within 1" horizontally and 6" vertically of at least 1 other model in the unit. A unit with more than 5 models is coherent if each model in the unit is within 1" horizontally and 6" vertically of at least 2 other models in the unit. If a friendly unit is not coherent at the end of a turn or after you set it up, you must remove models in the unit from play, one at a time, until it is coherent.`,
+        desc: `Units must be set up and finish every move as a single coherent group. A unit with 2 to 6 models is coherent if each model in the unit is within 1" horizontally and 6" vertically of at least 1 other model in the unit. A unit with more than 6 models is coherent if each model in the unit is within 1" horizontally and 6" vertically of at least 2 other models in the unit. If a friendly unit is not coherent at the end of a turn or after you set it up, you must remove models in the unit from play, one at a time, until it is coherent.`,
         when: [DURING_GAME],
+        rule_sources: [meta_rule_sources.CORE_RULES_2021, meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023],
       },
     ],
   },
@@ -317,9 +318,9 @@ const CoreRules: TEntry[] = [
     effects: [
       {
         name: `10.1.2 - Look Out, Sir!`,
-        desc: `You must subtract 1 from the hit roll (see 13.3) for an attack made with a missile weapon if the target is an enemy HERO within 3" of an enemy unit that has 3 or more models. The Look Out, Sir! rule does not apply if the enemy HERO has a Wounds characteristic of 10 or more.`,
+        desc: `You must subtract 1 from the hit roll (see 13.3) for an attack made with a missile weapon if the target is an enemy HERO within 3" of an enemy unit that has 3 or more models. If that Hero does not have a mount (with the exception of companions), it also cannot be targeted by attacks made with missile weapons if the attacking model is more than 12" away from them. The Look Out, Sir! rule does not apply if the enemy HERO has a Wounds characteristic of 10 or more.`,
         when: [SHOOTING_PHASE],
-        rule_sources: [meta_rule_sources.CORE_RULES_2021],
+        rule_sources: [meta_rule_sources.CORE_RULES_2021, meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023],
       },
     ],
   },
