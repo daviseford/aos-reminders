@@ -44,7 +44,7 @@ const BattleTraits = {
       },
       {
         name: `Blood Tithe: Murderlust`,
-        desc: `Cost: 1 BTP. Up to 3 different friendly BLADES OF KHORNE units more than 3" from all enemy units can make a move of D6" (roll separately for each unit). They can finish this move within 3" of enemy units.`,
+        desc: `Cost: 1 BTP. Pick 1 friendly Blades of Khorne unit that is more than 3" from all enemy units. That unit can make a D6" move, and it can finish that move within 3" of any enemy units. You can spend Blood Tithe points on this Reward up to 3 times at the end of each hero phase instead of only once, but you cannot pick the same unit to benefit from this ability more than once per phase.`,
         when: [END_OF_HERO_PHASE],
       },
       {

@@ -32,13 +32,14 @@ const CommandAbilities = {
     effects: [
       {
         name: `Thunderbolt Volley`,
-        desc: `You can use this command ability once per battle in your hero phase. The command can only be issued by a friendly KNIGHT to a unit wholly within 12" of them or by a friendly LORD or DRACONITH to a unit wholly within 18" of them. The unit that receives the command must be a friendly JUSTICAR or ANGELOS unit that is not reinforced. That unit can shoot in that phase.`,
+        desc: `You can use this command ability once per battle in your hero phase. The command can only be issued by a friendly Knight to a unit wholly within 12" of them or by a friendly Lord or Draconith to a unit wholly within 18" of them. The unit that receives the command must be a friendly Justicar or Angelos unit that is not reinforced. That unit can shoot in that phase.`,
         when: [HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_STORMCAST_ETERNALS,
           rule_sources.ERRATA_JULY_2022,
           meta_rule_sources.BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2022,
           meta_rule_sources.BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023,
         ],
       },
     ],

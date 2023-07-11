@@ -35,9 +35,9 @@ const BattleTraits = {
         name: `Endless Legions`,
         desc: `At the end of the movement phase, you can pick 1 friendly SOULBLIGHT GRAVELORDS SUMMONABLE unit that has been destroyed and roll a dice. Add 1 to the roll if it is your movement phase.
 
-        If you pick a SUMMONABLE unit that is not a HERO, on a 4+, a new replacement unit with half of the models from the unit that was destroyed (rounding up) is added to your army. That unit must be set up wholly within 12" of a friendly SOULBLIGHT GRAVELORDS HERO or gravesite and more than 3" from all enemy units, and it cannot attempt a charge or make pile-in moves in the same turn. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.
+        If you pick a Summonable unit that is not a Hero, on a 4+, a new replacement unit with half of the models from the unit that was destroyed (rounding up) is added to your army. That unit must be set up wholly within 12" of a friendly Soulblight Gravelords Hero or gravesite and more than 3" from all enemy units if it is your turn or more than 9" if it is the enemy turn, and it cannot attempt a charge or make pile-in moves in the same turn. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.
 
-        If you pick a SUMMONABLE HERO, on a 4+, you can set up that HERO wholly within 12" of a friendly SOULBLIGHT GRAVELORDS HERO or gravesite, more than 3" from all enemy units and with 3 wounds allocated to it. That HERO cannot attempt a charge or make a pile-in move in the same turn. You cannot pick the same HERO to benefit from this ability more than once per battle.`,
+        If you pick a Summonable Hero, on a 4+, you can set up that Hero wholly within 12" of a friendly Soulblight Gravelords Hero or gravesite, more than 3" from all enemy units if it is your turn or more than 9" if it is the enemy turn, and with 3 wounds allocated to it. That Hero cannot attempt a charge or make a pile-in move in the same turn. You cannot pick the same Hero to benefit from this ability more than once per battle.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
       {

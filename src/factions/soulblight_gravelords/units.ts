@@ -568,7 +568,7 @@ const Units = {
     effects: [
       {
         name: `Dragged Down and Torn Apart`,
-        desc: `Roll a dice each time a model in this unit is slain by an attack made with a melee weapon. On a 5+, the attacking unit suffers 1 mortal wound.`,
+        desc: `Each time a model in this unit is slain by an attack made with a melee weapon, if that model is within 3" of the attacking unit, roll a dice. On a 5+, the attacking unit suffers 1 mortal wound.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
