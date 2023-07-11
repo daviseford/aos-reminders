@@ -228,6 +228,72 @@ const GenericGrandStrategies: TEntry[] = [
       },
     ],
   },
+  {
+    name: `Control the Nexus`,
+    effects: [
+      {
+        name: `Control the Nexus`,
+        desc: `When the battle ends, you complete this grand strategy if 2 or more friendly WIZARD units are wholly within 6" of the centre of the battlefield.`,
+        when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+    ],
+  },
+  {
+    name: `Spellcasting Savant`,
+    effects: [
+      {
+        name: `Spellcasting Savant`,
+        desc: `When the battle ends, you complete this grand strategy if the model picked to be your general is an ANDTORIAN LOCUS and that unit has not been slain.`,
+        when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+    ],
+  },
+  {
+    name: `Slaughter of Sorcery`,
+    effects: [
+      {
+        name: `Slaughter of Sorcery`,
+        desc: `When the battle ends, you complete this grand strategy if there are no WIZARD units on the battlefield.`,
+        when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+    ],
+  },
+  {
+    name: `Barren Icescape`,
+    effects: [
+      {
+        name: `Barren Icescape`,
+        desc: `When the battle ends, you complete this grand strategy if all enemy units that have artefacts of power are destroyed and there are no enemy units within 6" of the centre of the battlefield.`,
+        when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+    ],
+  },
+  {
+    name: `Overshadow`,
+    effects: [
+      {
+        name: `Overshadow`,
+        desc: `When the battle ends, you complete this grand strategy if all enemy Battleline units from your opponent's starting army are destroyed and there is at least 1 friendly Battleline unit from your starting army on the battlefield.`,
+        when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+    ],
+  },
+  {
+    name: `Magic Made Manifest`,
+    effects: [
+      {
+        name: `Magic Made Manifest`,
+        desc: `When the battle ends, you complete this grand strategy if there are 2 or more endless spells or INCARNATES on the battlefield that are controlled by or bonded to friendly units.`,
+        when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+      },
+    ],
+  },
 ]
 
 export default GenericGrandStrategies
