@@ -79,7 +79,7 @@ const BattleTraits = {
       },
       {
         name: `The Grand Feast`,
-        desc: `You complete this tactic if you receive 12 or more depravity points this turn.`,
+        desc: `You complete this tactic if you receive 12 or more depravity points from the Euphoric Killers battle trait during this turn.`,
         when: [START_OF_HERO_PHASE],
       },
       {
