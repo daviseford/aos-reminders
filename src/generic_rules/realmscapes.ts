@@ -363,6 +363,27 @@ const Realmscapes: TEntry[] = [
         when: [HERO_PHASE],
         rule_sources: [meta_rule_sources.GHB_2023_2024],
       },
+      {
+        name: `Hoarfrost`,
+        desc: `Casting value of 8 and a range of 12&quot;. Pick 1 friendly unit wholly within range and visible to the caster. Pick 1 melee weapon profile on that unit's warscroll and roll a D3. Change the To Hit, To Wound or Rend characteristic of that melee weapon to match the result until the start of your next hero phase. For example, if the result was 2, you could change either the To Hit characteristic to 2+, the To Wound characteristic to 2+ or the Rend characteristic to -2. While a characteristic has been changed by the effects of this spell, that characteristic cannot be further changed or modified.`,
+        when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+        spell: true,
+      },
+      {
+        name: `Rupture`,
+        desc: `If successfully cast, pick 1 predatory endless spell or 1 Incarnate wholly within range and visible to the caster. The target immediately becomes wild and cannot be picked to be controlled or bonded for the rest of the battle.`,
+        when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+        spell: true,
+      },
+      {
+        name: `Merciless Blizzard`,
+        desc: `If successfully cast, pick 1 enemy unit within range and visible to the caster. That unit suffers 4D6 mortal wounds, but for each roll of 1, the caster also suffers D3 mortal wounds that cannot be negated. The range of this spell cannot be modified and must be measured from the caster, even if an ability would allow you to measure it from elsewhere.`,
+        when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024],
+        spell: true,
+      },
     ],
   },
 ]
