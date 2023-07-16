@@ -13,6 +13,7 @@ import {
   END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
+  END_OF_TURN,
   HERO_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
@@ -1354,6 +1355,30 @@ const Units = {
         name: `Lantern Astrala`,
         desc: `Once per turn, at the end of the charge phase, you can pick 1 enemy unit within 9" of this unit. Add 1 to hit rolls for attacks made by friendly STORMCAST ETERNALS units that target that enemy unit in the following combat phase.`,
         when: [END_OF_CHARGE_PHASE],
+      },
+    ],
+  },
+  'Questor Soulsworn': {
+    effects: [
+      {
+        name: `CHAMPION`,
+        desc: `1 model in this unit can be a Questor-Prime. Add 1 to the Attacks characteristic of that model's Soulsworn Weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Soulsworn Knight-Reflector`,
+        desc: `1 model in this unit can be a Soulsworn Knight-Relictor. This unit can only use the Relictor Soulguide ability while it includes a Soulsworn Knight-Relictor.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Relictor Soulguide`,
+        desc: `Once per battle, in your hero phase, you can say that this unit is being guided to glory. When you do so, remove this unit from the battlefield and set it up again anywhere on the battlefield more than 9" from all enemy units. It cannot move in the following movement phase.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Ordained Quest`,
+        desc: `For the purposes of contesting objectives wholly outside your territory, each model in this unit counts as 3 models.`,
+        when: [END_OF_TURN],
       },
     ],
   },
