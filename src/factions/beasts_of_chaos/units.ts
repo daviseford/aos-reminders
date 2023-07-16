@@ -32,7 +32,7 @@ const PropagatorOfDevolutionEffect = {
 }
 const InfuseWithBestialVigorEffect = {
   name: `Infuse with Bestial Vigour`,
-  desc: `Add 6" to the range of heroic actions from the Rituals of Ruin battle trait that you carry out with this unit.`,
+  desc: `Add 6" to the range of heroic actions from the Rituals of Ruin battle trait that you carry out with this unit. This ability can be used while this unit is set up in ambush as a reserve unit.`,
   when: [START_OF_HERO_PHASE],
   shared: true,
 }

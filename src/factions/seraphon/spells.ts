@@ -123,7 +123,8 @@ const Spells = {
     effects: [
       {
         name: `Drain Magic`,
-        desc: `Casting value of 6. If successfully cast, until the end of the phase, add 1 to dispelling rolls made by friendly units and subtract 1 from unbinding rolls made by enemy units.`,
+        desc: `Casting value of 6. Until the end of the phase, each time a friendly Seraphon Wizard is picked to cast a spell, instead of attempting to cast that spell, they can attempt to dispel an endless spell. If they do so, add 1 to the dispelling roll. In addition, until the end of the phase, subtract
+        1 from unbinding rolls made for enemy units.`,
         when: [HERO_PHASE],
       },
     ],
@@ -206,7 +207,7 @@ const Spells = {
     effects: [
       {
         name: `Telepathic Summons`,
-        desc: `Casting value of 6 and a range of 9". Pick 1 friendly SAURUS unit that is not a MONSTER and that is visible to the caster. Remove that unit from the battlefield and set it up again on the battlefield wholly within range of the caster.`,
+        desc: `Casting value of 6 and a range of 9". Pick 1 friendly Seraphon unit that is not a Monster and that is visible to the caster. Remove that unit from the battlefield and set it up again wholly within range of the caster and more than 9" from all enemy units. That unit cannot move in the next movement phase.`,
         when: [HERO_PHASE],
       },
     ],

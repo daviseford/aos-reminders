@@ -33,7 +33,7 @@ const Spells = {
     effects: [
       {
         name: `Protection of Hysh`,
-        desc: `Casting value of 8 and a range of 9". If successfully cast, until your next hero phase, friendly units wholly within range of the caster have a ward of 5+. This spell cannot be cast in the same hero phase as Protection of Teclis.`,
+        desc: `Casting value of 8 and a range of 9". Until your next hero phase, friendly units have a ward of 5+ while they are wholly within range of the caster. This spell cannot be cast in the same hero phase as Protection of Teclis.`,
         when: [HERO_PHASE],
       },
       {
@@ -161,7 +161,7 @@ const Spells = {
     effects: [
       {
         name: `Protection of Teclis`,
-        desc: `Casting value of 10 and a range of 18". If successfully cast, friendly Lumineth Realm-Lords units wholly within range of the caster have a ward of 5+. This spell cannot be cast in the same phase as Protection of Hysh.`,
+        desc: `Casting value of 10 and a range of 18". Until your next hero phase, friendly units have a ward of 5+ while they are wholly within range of the caster. This spell cannot be cast in the same phase as Protection of Hysh.`,
         when: [HERO_PHASE, WOUND_ALLOCATION_PHASE],
       },
     ],

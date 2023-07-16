@@ -72,7 +72,7 @@ const Spells = {
     effects: [
       {
         name: `Metamorphosis`,
-        desc: `Casting value of 7 and a range of 16". Pick 1 enemy unit within range and visible to the caster and roll a number of dice equal the casting roll. For each 3+, there suffers 1 mortal wound.
+        desc: `Casting value of 7 and a range of 16". Pick 1 enemy unit within range and visible to the caster, and roll a number of dice equal to the unmodified casting roll. For each 3+, there suffers 1 mortal wound.
         
         If a unit is destroyed by a mortal wound caused by this spell: before removing the last model from play you can set up 1 Awakened Wyldwood terrain feature consisting of 1 piece wholly within 12" of that model and more than 3" from all other models, terrain features and objectives and add it to your army.`,
         when: [HERO_PHASE],
@@ -84,7 +84,7 @@ const Spells = {
     effects: [
       {
         name: `Unleash Spites`,
-        desc: `Casting value of 5 and a range of 9". Roll a number of dice equal to the casting roll for each enemy unit within range of the caster. For each 5+, That enemy unit suffers 1 mortal wound.`,
+        desc: `Casting value of 5 and a range of 9". Roll a number of dice equal to the unmodified casting roll for each enemy unit within range of the caster. For each 5+, That enemy unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
@@ -114,7 +114,7 @@ const Spells = {
     effects: [
       {
         name: `Unleash Swarm of Spites`,
-        desc: `Casting value of 7 and a range of 9". Roll a number of dice equal to the casting roll for each enemy unit within range of the caster. For each 5+, that enemy unit suffers 1 mortal wound.`,
+        desc: `Casting value of 7 and a range of 9". Roll a number of dice equal to the unmodified casting roll for each enemy unit within range of the caster. For each 5+, that enemy unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],

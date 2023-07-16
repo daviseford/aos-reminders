@@ -6,7 +6,7 @@ const GrandStrategies = {
     effects: [
       {
         name: `Lust for Domination`,
-        desc: `When the battle ends, you complete this grand strategy if you control more gravesites than your opponent. Control of gravesites is determined in the same way as control of objectives.`,
+        desc: `When the battle ends, you complete this grand strategy if you control more gravesites than your opponent. Control of gravesites is determined in the same way as control of objectives. However, unlike objectives, gravesites do not remain under your control if there are no longer any friendly models contesting them.`,
         when: [END_OF_GAME],
       },
     ],

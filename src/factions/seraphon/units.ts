@@ -115,7 +115,7 @@ const CarnosaurBaseEffects = [
 ]
 const ArcaneVassalEffect = {
   name: `Arcane Vassal`,
-  desc: `When this unit attempts to cast a spell, before making the casting roll, you can pick either 1 friendly SKINK WIZARD within 12" of this unit or 1 friendly ORACLE anywhere on the battlefield. If you do so and the spell is successfully cast and not unbound, you must measure the range and visibility for that spell from that SKINK WIZARD or ORACLE.`,
+  desc: `Once per phase, when this unit attempts to cast a spell, before making the casting roll, you can pick either 1 friendly Skink Wizard within 12" of this unit or 1 friendly Oracle anywhere on the battlefield. If you do so and the spell is successfully cast and not unbound, you must measure the range and visibility for that spell from that SKINK WIZARD or ORACLE.`,
   when: [HERO_PHASE],
   shared: true,
 }
@@ -560,7 +560,7 @@ const Units = {
       },
       {
         name: `Spawn of Sotek`,
-        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons if any models in friendly SKINK units wholly within 12" of this unit have been slain in this phase.`,
+        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons until the end of the phase if any models in friendly Skink units wholly within 12" of this unit have been slain in this phase.`,
         when: [COMBAT_PHASE],
       },
     ],
@@ -729,7 +729,7 @@ const Units = {
     effects: [
       {
         name: `Nerve-shredding Screeches`,
-        desc: `In the shooting phase, you can pick 1 enemy unit within 12" of this unit and roll 2D6. If the roll is higher than that unit's Bravery characteristic, that enemy unit cannot issue or receive commands until the end of the turn.`,
+        desc: `At the start of the shooting phase, you can pick 1 enemy unit within 12" of this unit and roll 2D6. If the roll is higher than that unit's Bravery characteristic, that enemy unit cannot issue or receive commands until the end of the turn.`,
         when: [SHOOTING_PHASE],
       },
       {

@@ -808,7 +808,7 @@ const Units = {
       },
       {
         name: `Release Da Squigs`,
-        desc: `Once per battle, at the start of your hero phase, you can say this unit will release da squigs. If you do so, each friendly Squig Herd unit wholly within 12" of this unit can make a normal move.`,
+        desc: `Once per battle, at the start of your hero phase, you can say this unit will release da squigs. If you do so, each friendly Squig Herd unit wholly within 12" of this unit that has not moved this phase can make a normal move.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
