@@ -31,7 +31,7 @@ const BattleTraits = {
       },
       {
         name: `Masters of Destiny`,
-        desc: `Instead of making 1 of the rolls from the list below for a friendly Disciples of Tzeentch unit, you can spend 1 or more of your Destiny Dice. The roll you would have is replaced with the roll on the Destiny Dice you spend. If you want to replace an xD6 (core rules, 1.5.2), you must spend a number of Destiny Dice equal to the 'x'. Any rolls that have been replaced count as unmodified rolls and cannot be rerolled or modified unless noted below. Destiny Dice can be spent in place of the following dice rolls:
+        desc: `Instead of making 1 of the rolls from the list below for a friendly Disciples of Tzeentch unit, you can spend 1 or more of your Destiny Dice. The roll you would have is replaced with the roll on the Destiny Dice you spend. If you want to replace an xD6 (core rules, 1.5.2), you must spend a number of Destiny Dice equal to the 'x'. Any rolls that have been replaced count as unmodified rolls and cannot be rerolled, changed or modified unless noted below. Destiny Dice can be spent in place of the following dice rolls:
         
         - Casting rolls
         - Unbinding rolls

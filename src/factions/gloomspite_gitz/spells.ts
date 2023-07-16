@@ -62,7 +62,7 @@ const Spells = {
     effects: [
       {
         name: `Nikkit! Nikkit!`,
-        desc: `Nikkit! Nikkit! is a spell that has a casting value of 8 and a range of 12". Pick 1 enemy model within range and visible to the caster. That model's unit suffers D3 mortal wounds. In addition, if that model bears an artefact of power and the casting roll was 10+, that model's artefact of power can no longer be used (if it was used to enhance a weapon, that weapon reverts to its normal form).`,
+        desc: `Casting value of 8 and a range of 12". Pick 1 enemy model within range and visible to the caster. That model's unit suffers D3 mortal wounds. In addition, if that model bears an artefact of power and the unmodified casting roll was 10+, that model's artefact of power can no longer be used (if it was used to enhance a weapon, that weapon reverts to its normal form)`,
         when: [HERO_PHASE],
       },
     ],
@@ -89,7 +89,7 @@ const Spells = {
     effects: [
       {
         name: `Fangz of da Bad Moon`,
-        desc: `Casting value of 3 and a range of 24". Pick 1 enemy unit within range and visible to the caster and roll a number of dice equal to the casting roll. For each 3+, that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 3 and a range of 24". Pick 1 enemy unit within range and visible to the caster and roll a number of dice equal to the unmodified casting roll. For each 3+, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],

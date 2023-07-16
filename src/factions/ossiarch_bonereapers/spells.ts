@@ -51,7 +51,7 @@ const Spells = {
     effects: [
       {
         name: `Soul Release`,
-        desc: `Casting value of 5. If successfully cast, until your next hero phase, enemy reserve units and enemy summoned units (core rules, 3.1) cannot be set up within 12" of the caster. The range of this spell must be measured from the caster, even if an ability would allow you to measure it from elsewhere.`,
+        desc: `Casting value of 5 and a range of 12". Until your next hero phase, enemy reserve units and enemy summoned units (core rules, 3.1) cannot be set up within range of the caster. The range of this spell cannot be modified andmust be measured from the caster, even if an ability would allow youto measure it from elsewhere.`,
         when: [HERO_PHASE],
       },
     ],
@@ -105,7 +105,7 @@ const Spells = {
     effects: [
       {
         name: `Dire Ultimatum`,
-        desc: `Casting value of 4 and a range of 3". Pick 1 enemy unit within range and visible to the caster. Until your next hero phase, any attacks made with melee weapons by that unit must target this unit. The range of this spell must be measured from the caster, even if an ability would allow you to measure it from elsewhere.`,
+        desc: `Casting value of 4 and a range of 3". Pick 1 enemy unit within range and visible to the caster. Until your next hero phase, if this unit is within 3" of that enemy unit when that enemy unit is picked to fight, all attacks made with melee weapons by that enemy unit must target this unit. The range of this spell must be measured from the caster, even if an ability would allow you to measure it from elsewhere.`,
         when: [HERO_PHASE],
       },
     ],

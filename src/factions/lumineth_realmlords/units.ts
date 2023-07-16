@@ -114,7 +114,7 @@ const SpiritOfTheWindEffect = {
 
 const EnduringAsRockEffect = {
   name: `Enduring as Rock`,
-  desc: `When this unit is targeted by an attack, if the weapon used for that attack has a Rend characteristic of -1, change the Rend characteristic for that attack to '-'.`,
+  desc: `When this unit is targeted by an attack, if the weapon used for that attack has an unmodified Rend characteristic of -1, change the Rend characteristic for that attack to '-'.`,
   when: [COMBAT_PHASE, SHOOTING_PHASE],
   shared: true,
 }

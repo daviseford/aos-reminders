@@ -42,7 +42,7 @@ const Spells = {
     effects: [
       {
         name: `Phantasmagoria`,
-        desc: `Casting value of 5 and a range of 12". Pick 1 enemy unit within range and visible to the caster. Until your next hero phase, each time that unit is picked to fight, you can pick 1 friendly HEDONITES OF SLAANESH unit within 3" of that unit. That friendly unit can retreat.`,
+        desc: `Casting value of 5 and a range of 12". Pick 1 enemy unit within range and visible to the caster. Until your next hero phase, each time that unit is picked to fight, roll a dice. On a 3+, you can pick 1 friendly Hedonites of Slaanesh unit within 3" of that unit. That friendly unit can retreat before that enemy unit piles in.`,
         when: [HERO_PHASE],
       },
     ],

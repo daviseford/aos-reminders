@@ -147,7 +147,7 @@ const Units = {
       },
       {
         name: `Masterflame Rune`,
-        desc: `Each time a friendly FYRESLAYERS model is slain within 12" of this unit, increase the value of the dice beside this unit by 1 (to a maximum of 6).`,
+        desc: `Each time a friendly FYRESLAYERS model is slain within 12" of this unit as a result of attacks or abilities, increase the value of the dice beside this unit by 1 (to a maximum of 6).`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {

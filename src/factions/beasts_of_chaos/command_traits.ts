@@ -14,7 +14,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Bestial Cunning`,
-        desc: `After deployment, you can pick 1 friendly BEASTS OF CHAOS reserve unit. When you set up that unit at the end of your movement phase, you can set it up anywhere on the battlefield more than 7" from all enemy units.`,
+        desc: `After deployment, you can pick 1 friendly BEASTS OF CHAOS reserve unit. When you set up that unit at the end of your movement phase, you can set it up anywhere on the battlefield more than 7" from all enemy units. This ability can be used while this unit is set up in ambush as a reserve unit.`,
         when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
       },
     ],

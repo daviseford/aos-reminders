@@ -18,7 +18,7 @@ const BattleTraits = {
 
         Designer's Note: Remember that the success or failure of a hit roll, wound roll or save roll is determined after rerolls and modifiers.
 
-        Each time your opponent accepts your offer of a Temptation Dice, you gain D6 depravity points. Each time your opponent rejects your offer of a Temptation Dice, the unit for which the roll was made suffers D3 mortal wounds after all of the attacks have been resolved. You cannot offer your opponent a Temptation Dice for the same enemy unit mote than once per phase. At the end of the battle round, any Temptation Dice that have not been offered are lost.`,
+        Each time your opponent accepts your offer of a Temptation Dice, you gain D6 depravity points after all of the attacks have been resolved. Each time your opponent rejects your offer of a Temptation Dice, the unit for which the roll was made suffers D3 mortal wounds after all of the attacks have been resolved. You cannot offer your opponent a Temptation Dice for the same enemy unit mote than once per phase. At the end of the battle round, any Temptation Dice that have not been offered are lost.`,
         when: [DURING_GAME],
       },
       {

@@ -170,7 +170,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Dark Acolyte (Nobility)`,
-        desc: `This general gains the WIZARD keyword and can cast and unbind spells in the same manner as an ABHORRANT GHOUL KING from the Abhorrant Ghoul King warscroll.`,
+        desc: `Wizard only. In your hero phase, if the first spell this general attempts to cast from the Lore of Ossian Sorcery in that phase is successfully cast, that spell cannot be unbound.`,
         when: [HERO_PHASE],
       },
     ],
