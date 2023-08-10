@@ -316,7 +316,7 @@ const Realmscapes: TEntry[] = [
       },
       {
         name: `Battle Tactic: Magical Dominance`,
-        desc: `You complete this battle tactic at the end of your turn if there are more friendly units wholly outside your territory than there are friendly units within your territory.`,
+        desc: ` You complete this battle tactic at the end of your turn if a friendly WIZARD unit successfully cast 1 or more spells and none of the spells cast by any units in your army were unbound.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.GHB_2023_2024],
       },
