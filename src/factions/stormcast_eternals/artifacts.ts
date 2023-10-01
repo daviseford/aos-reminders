@@ -83,7 +83,7 @@ const Artifacts = {
     effects: [
       {
         name: `Luckstone`,
-        desc: `Once per battle, before you make a hit or wound roll for an attack made by the bearer, a save roll for an attack that targets the bearer, you can say that the bearer will draw upon the power of the luckstone. If you do so, instead of making the roll, you must choose the result of the roll. The result chosen for a D6 roll must be a whole number from 1 to 6, and the result chosen for a 2D6 roll must be a whole number between 2 to 12. The result cannot be rerolled, but any modifiers are applied to it as normal.`,
+        desc: `Once per battle, before you make a hit or wound roll for an attack made by the bearer, a save roll for an attack that targets the bearer, a run roll or a charge roll made by the bearer, you can say that the bearer will draw upon the power of the luckstone. If you do so, instead of making the roll, you must choose the result of the roll. The result chosen for a D6 roll must be a whole number from 1 to 6, and the result chosen for a 2D6 roll must be a whole number between 2 to 12. The result cannot be rerolled, but any modifiers are applied to it as normal.`,
         when: [DURING_GAME],
       },
     ],
