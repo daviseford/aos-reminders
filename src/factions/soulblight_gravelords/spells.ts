@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import { HERO_PHASE } from 'types/phases'
 
 const Spells = {
@@ -6,8 +7,9 @@ const Spells = {
     effects: [
       {
         name: `Spirit Gale`,
-        desc: `Casting value of 7. If successfully cast, each enemy unit on the battlefield suffers 1 mortal wound. If the unmodified casting roll for this spell is 9+ and this spell is not unbound, after the effect of this spell has been resolved, you can immediately resolve the effect of this spell for a second time.`,
+        desc: `Casting value of 7. Pick up to 3 different enemy units on the battlefield to suffer 1 mortal wound. If the unmodified casting roll for this spell is 9+ and this spell is not unbound, pick up to 6 different enemy units on the battlefield to suffer 1 mortal wound instead.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
     ],
   },

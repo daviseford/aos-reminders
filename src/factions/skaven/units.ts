@@ -76,12 +76,6 @@ const RegeneratingMonstrosityEffect = {
   when: [HERO_PHASE],
   shared: true,
 }
-const PushedIntoBattleEffect = {
-  name: `Pushed into Battle`,
-  desc: `This unit cannot move unless it starts the move within 6" of 10 or more other friendly SKAVEN models.`,
-  when: [MOVEMENT_PHASE],
-  shared: true,
-}
 const ProtectionOfTheHornedRatEffect = {
   name: `Protection of the Horned Rat`,
   desc: `This unit has a ward of 5+.`,
@@ -641,7 +635,6 @@ const Units = {
       prayers: [keyPicker(prayers, ['Pestilence-pestilence!'])],
     },
     effects: [
-      PushedIntoBattleEffect,
       ...AltarOfTheHornedRatEffects,
       {
         name: `Great Plague Censer`,
@@ -683,7 +676,6 @@ const Units = {
         desc: `Add the Avalanche of Energy value on this unit's damage table to casting and chanting rolls for this unit.`,
         when: [HERO_PHASE],
       },
-      PushedIntoBattleEffect,
       {
         name: `A Stirring Beyond the Veil`,
         desc: `Once per battle, at the start of your hero phase, if 7 or more wounds are allocated to this unit, you can say that the Grey Seer will shatter the Screaming Bell. If you do so, roll a dice. On a 1, this unit is destroyed. On any other roll, add the number of wounds allocated to this unit to the roll.

@@ -44,7 +44,7 @@ const GenericArtifacts: TEntry[] = [
         rule_sources: [
           meta_rule_sources.CORE_RULES_2021,
           meta_rule_sources.BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023,
-          meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
         ],
       },
     ],

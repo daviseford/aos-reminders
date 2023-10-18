@@ -7,6 +7,7 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 import rule_sources from '../rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 
 const BonesplitterzBattleTraits = {
   'Battle Tactics': {
@@ -47,7 +48,11 @@ const BonesplitterzBattleTraits = {
         name: `Spirit of Gorkamorka`,
         desc: `If the unmodified hit roll for an attack made with a melee weapon by a friendly BONESPLITTERZ unit is 6, that attack scores 2 hits on the target instead of 1 (make a wound roll and save roll for each hit).`,
         when: [COMBAT_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_ORRUK_WARCLANS, rule_sources.ERRATA_JULY_2022],
+        rule_sources: [
+          rule_sources.BATTLETOME_ORRUK_WARCLANS,
+          rule_sources.ERRATA_JULY_2022,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
+        ],
       },
     ],
   },

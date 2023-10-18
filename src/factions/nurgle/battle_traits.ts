@@ -15,6 +15,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 
 const BattleTraits = {
   [NURGLE]: {
@@ -209,6 +210,12 @@ const BattleTraits = {
         name: `Sudden Domination`,
         desc: `You complete this tactic if you summon a GREAT UNCLEAN ONE to the battlefield during this turn and it is within 3" of an objective that you control in your opponent's territory at the end of this turn.`,
         when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Don't Squabble, Children`,
+        desc: `Pick an objective wholly outside your territory. You complete this battle tactic at the end of the turn if you control that objective and any friendly Rotbringers units and any friendly Nurgle Daemon units contest that objective.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
     ],
   },

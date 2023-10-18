@@ -67,7 +67,7 @@ const BattleTraits = {
         rule_sources: [
           rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
           rule_sources.ERRATA_DECEMBER_2022,
-          meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
         ],
       },
       {
@@ -83,7 +83,7 @@ const BattleTraits = {
           rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE,
           rule_sources.ERRATA_DECEMBER_2022,
           meta_rule_sources.BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2022,
-          meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
         ],
       },
       {

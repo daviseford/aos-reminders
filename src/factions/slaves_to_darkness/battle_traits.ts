@@ -11,6 +11,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 
 const BattleTraits = {
   // Slaves to Darkness Allegiance
@@ -135,12 +136,19 @@ const BattleTraits = {
         name: `Blasphemous Rituals`,
         desc: `CABALIST HEROES become WIZARDS. If the HERO is already a WIZARD, they can attempt to cast 1 additional spell in each of your hero phases and know 1 additional spell from the Lore of the Damned spell lore.`,
         when: [DURING_GAME, HERO_PHASE],
-        rule_sources: [rule_sources.ERRATA_JANUARY_2023],
+        rule_sources: [
+          rule_sources.ERRATA_JANUARY_2023,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
+        ],
       },
       {
         name: `Blasphemous Rituals`,
-        desc: `In addition, if you carry out the Draw on Power heroic action with a CABALIST HERO, you can immediately carry out the same heroic action with each other CABALIST HERO within 3" of the first.`,
+        desc: `In addition, if you carry out the Draw on Power heroic action (pg 72) with a Cabalist Hero, you can immediately carry out the same heroic action with each other Cabalist Hero that has the Eye of Gods keyword and that is within 3" of the first.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.ERRATA_JANUARY_2023,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
+        ],
       },
     ],
   },

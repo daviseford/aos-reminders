@@ -1,9 +1,10 @@
+import meta_rule_sources from 'meta/rule_sources'
 import {
   COMBAT_PHASE,
   DURING_SETUP,
   END_OF_CHARGE_PHASE,
   HERO_PHASE,
-  START_OF_COMBAT_PHASE,
+  SHOOTING_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
 
@@ -32,8 +33,9 @@ const Flavors = {
     effects: [
       {
         name: `Bloodthirsty Shiver`,
-        desc: `You can include Bloodthirsty Shivers in your army (pg 96). At the start of the combat phase, you can pick 1 unit from each Bloodthirsty Shiver in your army. If you do so, until the end of that phase, if the unmodified hit roll for an attack made with that unit's Ferocious Bites is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. If the attacking unit is within 3" of 1 or more other units from the same Bloodthirsty Shiver, its Ferocious Bite scores 3 hits on an unmodified hit roll of 6 instead.`,
-        when: [START_OF_COMBAT_PHASE],
+        desc: `You can include Bloodthirsty Shivers in your army (pg 96). If the unmodified hit roll for an attack made by a unit in a Bloodthirsty Shiver is a 6, that attack scores 2 hits on the target instead of 1.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
     ],
   },

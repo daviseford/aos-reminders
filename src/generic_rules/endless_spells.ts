@@ -219,12 +219,13 @@ export const MalevolentMaelstromEffects = [
     
     At the end of a phase in which the dice beside this endless spell reaches '6', this endless spell is removed from play.
     
-    When this endless spell is removed from play, add 6 to the value of the dice beside it. Each unit within a number of inches equal to the result suffers D3 mortal wounds. Wizards suffer 3 mortal wounds instead of D3`,
+    When this endless spell is removed from play, if the dice beside it is a 6, this endless spell explodes. When it explodes, each unit within 12" of this endless spell suffers D3 mortal wounds. Wizard Heroes suffer 3 mortal wounds instead of D3.`,
     when: [HERO_PHASE],
     rule_sources: [
       meta_rule_sources.GHB_2022,
       meta_rule_sources.GHB_2022_2023_SEASON_2,
       meta_rule_sources.GHB_2023_2024,
+      meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
     ],
   },
 ]
@@ -307,12 +308,13 @@ export const UmbralSpellportalEffects = [
   },
   {
     name: `Arcane Passage`,
-    desc: `In additions, once per turn, if a predatory endless spell starts a move within 6" of this endless spell, instead of making a move with it, the commanding player can remove that predatory endless spell from the battlefield and set it up again anywhere within 6" of the other part of this endless spell. An endless spell set up in this manner does not count as having moved.`,
+    desc: `In addition, once per turn, if a predatory endless spell starts a move within 6" of this endless spell, instead of making a move with it, the commanding player can remove that predatory endless spell from the battlefield and set it up again anywhere within 6" of the other part of this endless spell. An endless spell set up in this manner does not count as having moved but cannot move until the next hero phase.`,
     when: [END_OF_HERO_PHASE],
     rule_sources: [
       meta_rule_sources.GHB_2022,
       meta_rule_sources.GHB_2022_2023_SEASON_2,
       meta_rule_sources.GHB_2023_2024,
+      meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
     ],
   },
 ]

@@ -23,6 +23,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import spells from './spells'
+import meta_rule_sources from 'meta/rule_sources'
 
 const VampiricAgilityEffect = {
   name: `Vampiric Agility`,
@@ -570,6 +571,7 @@ const Units = {
         name: `Dragged Down and Torn Apart`,
         desc: `Each time a model in this unit is slain by an attack made with a melee weapon, if that model is within 3" of the attacking unit, roll a dice. On a 5+, the attacking unit suffers 1 mortal wound.`,
         when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
       {
         name: `The Newly Dead`,

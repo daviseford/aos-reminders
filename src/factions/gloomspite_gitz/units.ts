@@ -25,6 +25,8 @@ import {
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import Spells from './spells'
+import meta_rule_sources from 'meta/rule_sources'
+import rule_sources from './rule_sources'
 
 const ArachnarokSpiderVenomEffect = {
   name: `Spider Venom`,
@@ -94,6 +96,10 @@ const SquigsGoneWildEffect = {
   name: `Squigs Gone Wild`,
   desc: `Each time a Cave Squig in this unit flees as a result of a failed battleshock test, before that model is removed from play, roll a dice. On a 3+, you can pick the closest enemy unit within 9" of that model. That unit suffers 1 mortal wound. If multiple units are tied to be the closest within 9" of it, you can pick which suffers the mortal wound.`,
   when: [BATTLESHOCK_PHASE],
+  rule_sources: [
+    rule_sources.BATTLETOME_GLOOMSPITE_GITZ,
+    meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
+  ],
   shared: true,
 }
 const WallCrawlerEffect = {

@@ -1,3 +1,4 @@
+import meta_rule_sources from 'meta/rule_sources'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_GAME, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
 const Flavors = {
@@ -5,8 +6,9 @@ const Flavors = {
     effects: [
       {
         name: `Mountain Realm`,
-        desc: `When friendly Ymetrica Alarith units that have the Enduring as Rock ability are targeted by an attack, change the Rend characteristic for that attack to '-' if the weapon used for that attack has a Rend characteristic of -1 or -2 instead of only -1.`,
+        desc: `The Enduring as Rock ability of friendly Ymetrica Alarith units worsens the Rend characteristic of attacks that target those units by 2 instead of 1, to a minimum of 0.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
     ],
   },
@@ -50,12 +52,12 @@ const Flavors = {
     effects: [
       {
         name: `Gale of Killing Shafts`,
-        desc: `Add 1 to the hit and wound roll of missile weapons used by friendly Helon units that are within 6" of any enemy units.`,
+        desc: `In your shooting phase, when you pick a friendly Helon unit to shoot, you can say that it will unleash a gale of killing shafts. If you do so, in that phase, you can add 1 to hit rolls and wound rolls for that unit's missile weapons, but that unit can only target enemy units within 6" of it.`,
         when: [SHOOTING_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
     ],
   },
 }
 
-// Note: We do NOT use tagAs for Flavors
 export default Flavors

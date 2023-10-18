@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { KHORNE } from 'meta/factions'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
@@ -46,6 +47,7 @@ const BattleTraits = {
         name: `Blood Tithe: Murderlust`,
         desc: `Cost: 1 BTP. Pick 1 friendly Blades of Khorne unit that is more than 3" from all enemy units. That unit can make a D6" move, and it can finish that move within 3" of any enemy units. You can spend Blood Tithe points on this Reward up to 3 times at the end of each hero phase instead of only once, but you cannot pick the same unit to benefit from this ability more than once per phase.`,
         when: [END_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
       {
         name: `Blood Tithe: Spelleater Curse`,

@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import { START_OF_HERO_PHASE, TURN_ONE_START_OF_HERO_PHASE, TURN_TWO_START_OF_HERO_PHASE } from 'types/phases'
 
 const OrrukWarclansBattleTraits = {
@@ -18,11 +19,13 @@ const OrrukWarclansBattleTraits = {
         name: `Sneak Up`,
         desc: `You complete this tactic if, at the end of the turn, every friendly Kruleboyz unit is within 3" of any terrain features and is more than 3" from all enemy units.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
       {
         name: `Dat's Our Turf Now!`,
         desc: `You complete this tactic if, at the end of the turn, 2 or more friendly Ironjawz units are within 3" of the centre of the battlefield.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
     ],
   },

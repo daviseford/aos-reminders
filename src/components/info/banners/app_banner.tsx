@@ -3,7 +3,7 @@ import { useTheme } from 'context/useTheme'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = '2023-slaanesh-obr-seraphon-release'
+  const name = '2023-sept-tactics-of-andtor'
 
   return (
     <NotificationBanner
@@ -14,7 +14,7 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW: </strong> Seraphon, Slaanesh, and Ossiarch Bonereapers battletomes are live!
+        <strong>NEW: </strong> Battlescroll: Tactics of Andtor (Sept 2023) is live!
       </span>
     </NotificationBanner>
   )
