@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { SOULBLIGHT_GRAVELORDS } from 'meta/factions'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   DURING_SETUP,
   END_OF_MOVEMENT_PHASE,
@@ -39,6 +40,7 @@ const BattleTraits = {
 
         If you pick a Summonable Hero, on a 4+, you can set up that Hero wholly within 12" of a friendly Soulblight Gravelords Hero or gravesite, more than 3" from all enemy units if it is your turn or more than 9" if it is the enemy turn, and with 3 wounds allocated to it. That Hero cannot attempt a charge or make a pile-in move in the same turn. You cannot pick the same Hero to benefit from this ability more than once per battle.`,
         when: [END_OF_MOVEMENT_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
       {
         name: `Deathly Invocation`,

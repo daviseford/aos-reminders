@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import { END_OF_GAME, END_OF_SETUP } from 'types/phases'
 
 const GrandStrategies = {
@@ -20,8 +21,9 @@ const GrandStrategies = {
     effects: [
       {
         name: `Fright or Flight`,
-        desc: `When the battle ends you complete this grand strategy if there are no enemy units within 6" of any friendly NIGHTHAUNT units that are contesting an objective.`,
+        desc: `When the battle ends, you complete this grand strategy if 1 or more objectives are being contesting by friendly Nighthaunt units and there are no enemy units within 6" of any friendly Nighthaunt units that are contesting an objective.`,
         when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
     ],
   },

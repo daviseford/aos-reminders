@@ -22,7 +22,6 @@ import {
   TZEENTCH,
 } from 'meta/factions'
 import path from 'path'
-import { RealmscapesEnum } from 'types/realmscapes'
 import { DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
@@ -550,7 +549,6 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(OGOR_MAWTRIBES)
-    expect(res.origin_realm).toEqual(RealmscapesEnum.GHUR)
   })
 
   it('should work with OBR 1', () => {

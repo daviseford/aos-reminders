@@ -19,6 +19,7 @@ import {
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import Spells from './spells'
+import meta_rule_sources from 'meta/rule_sources'
 
 const TheWillOfTheLegionsEffect = {
   name: `The Will of the Legions`,
@@ -232,8 +233,9 @@ const Units = {
       GenericEffects.WizardOneSpellEffect,
       {
         name: `Boneshaper`,
-        desc: `In your hero phase, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this unit. If that unit is not an IMMORTIS GUARD or NECROPOLIS STALKERS unit, you can either heal up to 3 wounds allocated to that unit or, if no wounds have been allocated to that unit, you can return a number of slain models to it that have a combined Wounds characteristic of 3 or less. If that unit is an IMMORTIS GUARD or NECROPOLIS STALKERS unit, you can either heal up to 3 wounds allocated to that unit or, if no wounds have been allocated to that unit, roll a dice. On a 3+, you can return 1 slain model to that unit.`,
+        desc: `In your hero phase, you can pick 1 friendly OSSIARCH BONEREAPERS unit within 6" of this unit. If that unit is an Immortis Guard or Necropolis Stalkers unit, you can heal up to 3 wounds allocated to that unit, or if no wounds have been allocated to that unit, roll a dice. On a 3+, you can return 1 slain model to that unit with 4 wounds allocated to it.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
     ],
   },
@@ -300,8 +302,9 @@ const Units = {
       },
       {
         name: `Mortarch of the Necropolis`,
-        desc: `At the start of your hero phase, if this model is on the battlefield you can pick up to 3 different friendly OSSIARCH BONEREAPERS units wholly within 24" of this model. For each of those units, you can either heal up to 3 wounds allocated to that unit or, if no wounds are allocated to it, you can return a number of slain models to that unit with a combined Wounds characteristic of 3 or less.`,
+        desc: `At the start of your hero phase, if this model is on the battlefield you can pick up to 3 different friendly OSSIARCH BONEREAPERS units wholly within 24" of this model. If that unit is an Immortis Guard or Necropolis Stalkers unit, you can heal up to 3 wounds allocated to that unit, or if no wounds have been allocated to that unit, roll a dice. On a 3+, you can return 1 slain model to that unit with 4 wounds allocated to it.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
       {
         name: `Warmaster`,

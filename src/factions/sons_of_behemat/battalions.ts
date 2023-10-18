@@ -10,11 +10,17 @@ const Battalions = {
     effects: [
       {
         ...MagnificentBattalionEffect,
-        rule_sources: [rule_sources.WHITE_DWARF_AUGUST_2021, meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023],
+        rule_sources: [
+          rule_sources.WHITE_DWARF_AUGUST_2021,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
+        ],
       },
       {
         ...OneDropDeploymentEffect,
-        rule_sources: [rule_sources.WHITE_DWARF_AUGUST_2021, meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023],
+        rule_sources: [
+          rule_sources.WHITE_DWARF_AUGUST_2021,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
+        ],
       },
     ],
   },
@@ -22,11 +28,17 @@ const Battalions = {
     effects: [
       {
         ...OneDropDeploymentEffect,
-        rule_sources: [rule_sources.WHITE_DWARF_AUGUST_2021, meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023],
+        rule_sources: [
+          rule_sources.WHITE_DWARF_AUGUST_2021,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
+        ],
       },
       {
         ...SwiftBattalionEffect,
-        rule_sources: [rule_sources.WHITE_DWARF_AUGUST_2021, meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023],
+        rule_sources: [
+          rule_sources.WHITE_DWARF_AUGUST_2021,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
+        ],
       },
     ],
   },

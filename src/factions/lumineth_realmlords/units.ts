@@ -68,8 +68,9 @@ const CrushingBlowEffect = {
 }
 const DeepThinkersEffect = {
   name: `Deep Thinkers`,
-  desc: `Once per battle, in your hero phase, when this unit attempts to cast its first spell in that phase, it is automatically cast with a casting roll of 9 that cannot be modified (do not roll 2d6), but it can be unbound.`,
+  desc: `Once per battle, in your hero phase, when this unit attempts to cast its first spell in that phase, it is automatically cast with a casting roll of 9 (do not roll 2d6), but it can be unbound.`,
   when: [HERO_PHASE],
+  rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
   shared: true,
 }
 const PurestAetherquartzHitRollEffect = {
@@ -114,8 +115,9 @@ const SpiritOfTheWindEffect = {
 
 const EnduringAsRockEffect = {
   name: `Enduring as Rock`,
-  desc: `When this unit is targeted by an attack, if the weapon used for that attack has an unmodified Rend characteristic of -1, change the Rend characteristic for that attack to '-'.`,
+  desc: `When this unit is targeted by an attack, worsen the Rend characteristic of that attack by 1, to a minimum of 0.`,
   when: [COMBAT_PHASE, SHOOTING_PHASE],
+  rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
   shared: true,
 }
 

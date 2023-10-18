@@ -19,6 +19,7 @@ import {
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import spells from './spells'
+import meta_rule_sources from 'meta/rule_sources'
 
 const getDeathlyInvocation = (numUnits: number) => ({
   name: `Deathly Invocation`,
@@ -119,8 +120,9 @@ const Units = {
       },
       {
         name: `Mortarch of Sacrament`,
-        desc: `In your hero phase, you can pick up to 3 different friendly OSSIARCH BONEREAPERS units wholly within 24" of this unit. If that unit is not an IMMORTIS GUARD or NECROPOLIS STALKERS unit, you can either heal up to 3 wounds allocated to that unit or, if no wounds have been allocated to that unit, you can return a number of slain models to it that have a combined Wounds characteristic of 3 or less.`,
+        desc: `In your hero phase, you can pick up to 3 different friendly OSSIARCH BONEREAPERS units wholly within 24" of this unit. If that unit is an Immortis Guard or Necropolis Stalkers unit, you can heal up to 3 wounds allocated to that unit, or if no wounds have been allocated to that unit, roll a dice. On a 3+, you can return 1 slain model to that unit with 4 wounds allocated to it.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
     ],
   },

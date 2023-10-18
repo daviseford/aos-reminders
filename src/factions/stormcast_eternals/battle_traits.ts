@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -84,6 +85,12 @@ const BattleTraits = {
         name: `A Matter of Honour`,
         desc: `Pick 1 MONSTER in your opponent's starting army that is on the battlefield. You complete this tactic if that unit is destroyed by wounds caused by attacks made by friendly DRACONITH or STARDRAKE units during this turn.`,
         when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Secure the Battlefield`,
+        desc: `You complete this battle tactic at the end of your turn if there are any friendly Stormcast Eternals units wholly within each large quarter of the battlefield and more than 6" from all enemy units.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
     ],
   },

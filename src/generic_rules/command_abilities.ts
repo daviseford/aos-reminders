@@ -16,12 +16,12 @@ const GenericCommandAbilities: TEntry[] = [
     effects: [
       {
         name: `Rally`,
-        desc: `You can use this command ability at the start of the hero phase. The unit that receives the command must be more than 3" from all enemy units. Roll 1 dice for each slain model from that unit. For each 6, you can return 1 slain model to that unit. 'You can only return models to that unit that have a combined Wounds characteristic of 10 or less. For example, if the unit that received the command has a Wounds characteristic of 2, you can return a maximum of 5 models to that unit. You can only return models to that unit that have a combined Wounds characteristic of 10 or less. For example, if the unit that received the command has a Wounds characteristic of 2, you can return a maximum of 5 models to that unit.`,
+        desc: `You can use this command ability at the start of the hero phase. The unit that receives the command must be more than 3" from all enemy units. Roll 1 dice for each slain model from that unit. For each 6, you can return 1 slain model to that unit. You can only return models to that unit that have a combined Wounds characteristic of 10 or less. For example, if the unit that received the command has a Wounds characteristic of 2, you can return a maximum of 5 models to that unit. You can only return models to that unit that have a combined Wounds characteristic of 10 or less. For example, if the unit that received the command has a Wounds characteristic of 2, you can return a maximum of 5 models to that unit.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [
           meta_rule_sources.CORE_RULES_2021,
           meta_rule_sources.BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023,
-          meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
         ],
       },
     ],

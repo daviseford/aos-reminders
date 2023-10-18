@@ -94,140 +94,142 @@ const GenericGrandStrategies: TEntry[] = [
   },
 
   // GHB 2022 Grand Strategies
-  {
-    name: `No Place for the Weak`,
-    effects: [
-      {
-        name: `No Place for the Weak`,
-        desc: `When the battle ends, you complete this grand strategy if there are no Battleline units from your opponent's starting army on the battlefield.`,
-        when: [END_OF_GAME],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
-    ],
-  },
-  {
-    name: `Tame the Land`,
-    effects: [
-      {
-        name: `Tame the Land`,
-        desc: `When the battle ends, you complete this grand strategy if you control all of the objectives on the battlefield that are wholly outside your territory.`,
-        when: [END_OF_GAME],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
-    ],
-  },
-  {
-    name: `Defend What's Ours`,
-    effects: [
-      {
-        name: `Defend What's Ours`,
-        desc: `When the battle ends, you complete this grand strategy if there are no enemy units wholly within your territory.`,
-        when: [END_OF_GAME],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
-    ],
-  },
-  {
-    name: `Take What's Theirs`,
-    effects: [
-      {
-        name: `Take What's Theirs`,
-        desc: `When the battle ends, you complete this grand strategy if there are more friendly units than enemy units wholly within your opponent's territory.`,
-        when: [END_OF_GAME],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
-    ],
-  },
-  {
-    name: `Demonstration of Strength`,
-    effects: [
-      {
-        name: `Demonstration of Strength`,
-        desc: `When the battle ends, you complete this grand strategy if there are 3 or more GALLETIAN VETERANS units from your starting army on the battlefield.`,
-        when: [END_OF_GAME],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
-    ],
-  },
-  {
-    name: `Show of Dominance`,
-    effects: [
-      {
-        name: `Show of Dominance`,
-        desc: `When the battle ends, you complete this grand strategy if there are any friendly GALLETIAN VETERANS units in each quarter of the battlefield.`,
-        when: [END_OF_GAME],
-        rule_sources: [meta_rule_sources.GHB_2022],
-      },
-    ],
-  },
+  // {
+  //   name: `No Place for the Weak`,
+  //   effects: [
+  //     {
+  //       name: `No Place for the Weak`,
+  //       desc: `When the battle ends, you complete this grand strategy if there are no Battleline units from your opponent's starting army on the battlefield.`,
+  //       when: [END_OF_GAME],
+  //       rule_sources: [meta_rule_sources.GHB_2022],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: `Tame the Land`,
+  //   effects: [
+  //     {
+  //       name: `Tame the Land`,
+  //       desc: `When the battle ends, you complete this grand strategy if you control all of the objectives on the battlefield that are wholly outside your territory.`,
+  //       when: [END_OF_GAME],
+  //       rule_sources: [meta_rule_sources.GHB_2022],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: `Defend What's Ours`,
+  //   effects: [
+  //     {
+  //       name: `Defend What's Ours`,
+  //       desc: `When the battle ends, you complete this grand strategy if there are no enemy units wholly within your territory.`,
+  //       when: [END_OF_GAME],
+  //       rule_sources: [meta_rule_sources.GHB_2022],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: `Take What's Theirs`,
+  //   effects: [
+  //     {
+  //       name: `Take What's Theirs`,
+  //       desc: `When the battle ends, you complete this grand strategy if there are more friendly units than enemy units wholly within your opponent's territory.`,
+  //       when: [END_OF_GAME],
+  //       rule_sources: [meta_rule_sources.GHB_2022],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: `Demonstration of Strength`,
+  //   effects: [
+  //     {
+  //       name: `Demonstration of Strength`,
+  //       desc: `When the battle ends, you complete this grand strategy if there are 3 or more GALLETIAN VETERANS units from your starting army on the battlefield.`,
+  //       when: [END_OF_GAME],
+  //       rule_sources: [meta_rule_sources.GHB_2022],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: `Show of Dominance`,
+  //   effects: [
+  //     {
+  //       name: `Show of Dominance`,
+  //       desc: `When the battle ends, you complete this grand strategy if there are any friendly GALLETIAN VETERANS units in each quarter of the battlefield.`,
+  //       when: [END_OF_GAME],
+  //       rule_sources: [meta_rule_sources.GHB_2022],
+  //     },
+  //   ],
+  // },
 
   // GHB 2022-23 Season 2 Grand Strategies
-  {
-    name: `Tame the Land`,
-    effects: [
-      {
-        name: `Tame the Land`,
-        desc: `When the battle ends, you complete this grand strategy if you control all of the objectives on the battlefield that are wholly outside your territory.`,
-        when: [END_OF_GAME],
-        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
-      },
-    ],
-  },
-  {
-    name: `Defend What's Ours`,
-    effects: [
-      {
-        name: `Defend What's Ours`,
-        desc: `When the battle ends, you complete this grand strategy if there are no enemy units wholly within your territory.`,
-        when: [END_OF_GAME],
-        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
-      },
-    ],
-  },
-  {
-    name: `Take What's Theirs`,
-    effects: [
-      {
-        name: `Take What's Theirs`,
-        desc: `When the battle ends, you complete this grand strategy if there are more friendly than enemy units wholly within enemy territory.`,
-        when: [END_OF_GAME],
-        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
-      },
-    ],
-  },
-  {
-    name: `Stake a Claim`,
-    effects: [
-      {
-        name: `Stake a Claim`,
-        desc: `When the battle ends, you complete this grand strategy if 3 or more friendly GALLETIAN CHAMPIONS are wholly within enemy territory.`,
-        when: [END_OF_GAME],
-        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
-      },
-    ],
-  },
-  {
-    name: `Survivor's Instinct`,
-    effects: [
-      {
-        name: `Survivor's Instinct`,
-        desc: `When the battle ends, you complete this grand strategy if the model picked to be your general is a GALLETIAN CHAMPION and that model is contesting an objective wholly outside your territory.`,
-        when: [END_OF_GAME],
-        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
-      },
-    ],
-  },
-  {
-    name: `The Day is Ours!`,
-    effects: [
-      {
-        name: `The Day is Ours!`,
-        desc: `When the battle ends, you complete this grand strategy if there are more friendly GALLETIAN CHAMPIONS from your starting army than GALLETIAN CHAMPIONS from your opponent's starting army on the battlefield.`,
-        when: [END_OF_GAME],
-        rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
-      },
-    ],
-  },
+  // {
+  //   name: `Tame the Land`,
+  //   effects: [
+  //     {
+  //       name: `Tame the Land`,
+  //       desc: `When the battle ends, you complete this grand strategy if you control all of the objectives on the battlefield that are wholly outside your territory.`,
+  //       when: [END_OF_GAME],
+  //       rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: `Defend What's Ours`,
+  //   effects: [
+  //     {
+  //       name: `Defend What's Ours`,
+  //       desc: `When the battle ends, you complete this grand strategy if there are no enemy units wholly within your territory.`,
+  //       when: [END_OF_GAME],
+  //       rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: `Take What's Theirs`,
+  //   effects: [
+  //     {
+  //       name: `Take What's Theirs`,
+  //       desc: `When the battle ends, you complete this grand strategy if there are more friendly than enemy units wholly within enemy territory.`,
+  //       when: [END_OF_GAME],
+  //       rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: `Stake a Claim`,
+  //   effects: [
+  //     {
+  //       name: `Stake a Claim`,
+  //       desc: `When the battle ends, you complete this grand strategy if 3 or more friendly GALLETIAN CHAMPIONS are wholly within enemy territory.`,
+  //       when: [END_OF_GAME],
+  //       rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: `Survivor's Instinct`,
+  //   effects: [
+  //     {
+  //       name: `Survivor's Instinct`,
+  //       desc: `When the battle ends, you complete this grand strategy if the model picked to be your general is a GALLETIAN CHAMPION and that model is contesting an objective wholly outside your territory.`,
+  //       when: [END_OF_GAME],
+  //       rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
+  //     },
+  //   ],
+  // },
+  // {
+  //   name: `The Day is Ours!`,
+  //   effects: [
+  //     {
+  //       name: `The Day is Ours!`,
+  //       desc: `When the battle ends, you complete this grand strategy if there are more friendly GALLETIAN CHAMPIONS from your starting army than GALLETIAN CHAMPIONS from your opponent's starting army on the battlefield.`,
+  //       when: [END_OF_GAME],
+  //       rule_sources: [meta_rule_sources.GHB_2022_2023_SEASON_2],
+  //     },
+  //   ],
+  // },
+
+  // GHB 2023-24 Season 2 Grand Strategies
   {
     name: `Control the Nexus`,
     effects: [

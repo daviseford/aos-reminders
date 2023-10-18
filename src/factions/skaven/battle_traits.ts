@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { SKAVEN } from 'meta/factions'
+import meta_rule_sources from 'meta/rule_sources'
 import { COMBAT_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 
 const BattleTraits = {
@@ -44,6 +45,12 @@ const BattleTraits = {
         name: `Crescendo of the Diseased Choir`,
         desc: `You complete this tactic if 3 or more prayers chanted by different friendly CLANS PESTILENS PRIESTS are answered in this turn.`,
         when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Flee-flee!`,
+        desc: `You complete this battle tactic at the end of the turn if any friendly Skaven Battleline units retreated this turn and any friendly Skaven Heroes retreated this turn.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
       },
     ],
   },

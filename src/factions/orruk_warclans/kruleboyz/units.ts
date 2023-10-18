@@ -75,6 +75,7 @@ const KruleboyzUnits = {
         rule_sources: [
           rule_sources.BATTLETOME_ORRUK_WARCLANS,
           meta_rule_sources.BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
         ],
       },
     ],
@@ -111,7 +112,11 @@ const KruleboyzUnits = {
         
         If that unit is given an elixir, add 1 to save rolls for that unit until your next hero phase.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_ORRUK_WARCLANS, rule_sources.ERRATA_OCTOBER_2022],
+        rule_sources: [
+          rule_sources.BATTLETOME_ORRUK_WARCLANS,
+          rule_sources.ERRATA_OCTOBER_2022,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
+        ],
       },
     ],
   },

@@ -39,7 +39,7 @@ const CommandAbilities = {
           rule_sources.ERRATA_JULY_2022,
           meta_rule_sources.BATTLESCROLL_GALLETIAN_CHAMPIONS_JANUARY_2022,
           meta_rule_sources.BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023,
-          meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
         ],
       },
     ],

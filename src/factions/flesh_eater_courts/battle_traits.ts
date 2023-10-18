@@ -14,7 +14,7 @@ const BattleTraits = {
         rule_sources: [
           rule_sources.BATTLETOME_FLESH_EATER_COURTS,
           rule_sources.ERRATA_JULY_2022,
-          meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
         ],
       },
       {

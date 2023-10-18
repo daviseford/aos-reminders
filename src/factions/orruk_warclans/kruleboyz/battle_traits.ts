@@ -52,6 +52,7 @@ const KruleboyzBattleTraits = {
         rule_sources: [
           rule_sources.BATTLETOME_ORRUK_WARCLANS,
           meta_rule_sources.BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
         ],
       },
     ],

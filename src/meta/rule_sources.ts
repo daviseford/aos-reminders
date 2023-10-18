@@ -154,7 +154,7 @@ const meta_rule_sources = {
   },
 
   ERRATA_SEASON_OF_WAR_THONDIA: {
-    name: 'Core Rules (2021)',
+    name: 'Season of War: Thondia (January 2023)',
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2022/10/AIPRIiH3XKEsLKFl.pdf',
   },
@@ -168,13 +168,12 @@ const meta_rule_sources = {
   BATTLESCROLL_DEPLETED_RESERVES_APRIL_2023: {
     name: 'Battlescroll: Depleted Reserves (April 2023)',
     type: 'other_book',
-    url: 'https://mail.google.com/mail/u/0/#inbox/FMfcgzGsmWvfDfJlpPmDrqmjPfPhtzsr?projector=1&messagePartId=0.1',
   },
 
-  BATTLESCROLL_ANDTOR_JULY_2023: {
-    name: 'Battlescroll: Depleted Reserves (April 2023)',
+  BATTLESCROLL_ANDTOR_SEPTEMBER_2023: {
+    name: 'Battlescroll: Tactics of Andtor (September 2023)',
     type: 'other_book',
-    url: 'https://mail.google.com/mail/u/0/#inbox/FMfcgzGsmWvfDfJlpPmDrqmjPfPhtzsr?projector=1&messagePartId=0.1',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2023/07/AefiGVn8NoPchpF2.pdf',
   },
 }
 

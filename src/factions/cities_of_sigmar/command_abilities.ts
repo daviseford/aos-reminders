@@ -164,7 +164,7 @@ const CommandAbilities = {
         rule_sources: [
           rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
           rule_sources.ERRATA_JULY_2022,
-          meta_rule_sources.BATTLESCROLL_ANDTOR_JULY_2023,
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
         ],
       },
     ],
