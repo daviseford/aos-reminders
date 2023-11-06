@@ -132,6 +132,12 @@ const CrushingGripEffect = {
   when: [END_OF_COMBAT_PHASE],
   shared: true,
 }
+const WarmasterEffect = {
+  name: `Warmaster`,
+  desc: `If this unit is included in a Gloomspite Gitz army, it is treated as a general even if it is not the model picked to be the army's general.`,
+  when: [DURING_GAME],
+  shared: true,
+}
 
 // TODO: Make sure we have Kragnos available
 
@@ -142,11 +148,7 @@ const Units = {
     },
     effects: [
       GenericEffects.WizardTwoSpellsEffect,
-      {
-        name: `Warmaster`,
-        desc: `If this unit is included in a Gloomspite Gitz army, it is treated as a general even if it is not the model picked to be the army's general.`,
-        when: [DURING_GAME],
-      },
+      WarmasterEffect,
       {
         name: `Da Moon Onna Stikk`,
         desc: `If this unit is included in a Gloomspite Gitz army, friendly Gloomspite Gitz units are affected by the Light of the Bad Moon while they are wholly within 12" of this unit.`,
@@ -815,6 +817,36 @@ const Units = {
       {
         name: `Release Da Squigs`,
         desc: `Once per battle, at the start of your hero phase, you can say this unit will release da squigs. If you do so, each friendly Squig Herd unit wholly within 12" of this unit that has not moved this phase can make a normal move.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+
+  'Trugg the Troggoth King': {
+    effects: [
+      WarmasterEffect,
+      {
+        name: `Malfunctioning Leystone`,
+        desc: `At the start of your hero phase, if this unit is on the battlefield, you can say that it will clobber its Malfunctioning Leystone. If you do so, roll a number of dice equal to the Malfunctioning Leystone value shown on this unit's damage table. Each roll corresponds to one of the results below. You must pick 1 of the results you rolled and apply its effects. Results 2-6 last until this unit next clobbers its Malfunctioning Leystone.
+
+        1 Glyph of Shyish: This unit suffers D3 mortal wounds.
+
+        2 Glyph of Ghur: Add 1 to the Attacks characteristic of this unit's melee weapons.
+
+        3 Glyph of Aqshy: Improve the Rend characteristic of this unit's melee weapons by 1.
+
+        4 Glyph of Hysh: Roll a dice each time this unit receives a command. On a 2+, you receive 1 command point.
+
+        5 Glyph of Ulgu: Only unmodified hit rolls of 6 for attacks made with missile weapons that target this unit score a hit.
+
+        6 Glyph of Chamon: This unit has a ward of 5+.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      CrushingGripEffect,
+      RegenerationEffect,
+      {
+        name: `Imbued with Life`,
+        desc: `When you roll the dice that determines the number of wounds you can heal with this unit's Regeneration ability, add 3 to the number of wounds you can heal.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
