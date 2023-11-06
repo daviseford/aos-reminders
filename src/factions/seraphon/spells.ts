@@ -138,15 +138,15 @@ const Spells = {
       },
     ],
   },
-  // "Tepok's Beneficence": {
-  //   effects: [
-  //     {
-  //       name: `Tepok's Beneficence`,
-  //       desc: `Casting value of 5 and a range of 18". Pick 1 friendly SKINK unit wholly within range and visible to the caster. Until the start of your next hero phase, subtract 1 from wound rolls for attacks that target that unit.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
+  "Tepok's Beneficence": {
+    effects: [
+      {
+        name: `Tepok's Beneficence`,
+        desc: `Casting value of 5 and a range of 18". Pick 1 friendly SKINK unit wholly within range and visible to the caster. Until the start of your next hero phase, subtract 1 from wound rolls for attacks that target that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   'Celestial Deliverance': {
     effects: [
       {
