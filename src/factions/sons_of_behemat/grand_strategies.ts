@@ -23,7 +23,7 @@ const GrandStrategies = {
   'On the Warpath': {
     effects: [
       {
-        name: `Brodd's Revenge`,
+        name: `On the Warpath`,
         desc: `When the battle ends, you complete this grand strategy if every friendly unit on the battlefield is within enemy territory.`,
         when: [END_OF_GAME],
       },
@@ -32,9 +32,17 @@ const GrandStrategies = {
   "Show 'Em Who's Boss!": {
     effects: [
       {
-        name: `Brodd's Revenge`,
-        desc: `At the start of the battle, the enemy unit with the highest Wounds characteristic is marked as the big'un. If there are multiple enemy units tied for the highest Wounds
-        characteristic, you can pick which of these will be the big'un. When the battle ends, you complete this grand strategy if the big'un has been slain and the model chosen to be your general has not been slain.`,
+        name: `Show 'Em Who's Boss!`,
+        desc: `At the start of the battle, the enemy unit with the highest Wounds characteristic is marked as the big'un. If there are multiple enemy units tied for the highest Wounds characteristic, you can pick which of these will be the big'un. When the battle ends, you complete this grand strategy if the big'un has been slain and the model chosen to be your general has not been slain.`,
+        when: [START_OF_GAME, END_OF_GAME],
+      },
+    ],
+  },
+  'Flatten the Lands': {
+    effects: [
+      {
+        name: `Flatten the Lands`,
+        desc: `When the battle ends, you complete this grand strategy if there are no terrain features on the battlefield.`,
         when: [START_OF_GAME, END_OF_GAME],
       },
     ],

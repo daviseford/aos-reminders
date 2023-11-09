@@ -115,6 +115,35 @@ const CommandTraits = {
       },
     ],
   },
+
+  // King Brodd's Stomp Army of Renown
+  'High Expectations': {
+    effects: [
+      {
+        name: `High Expectations`,
+        desc: `Add 1 to the Attacks characteristic of Death Grip attacks made by friendly MEGA- GARGANTS while they are within 3" of any other friendly MEGA-GARGANTS.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Big Eater': {
+    effects: [
+      {
+        name: `Big Eater`,
+        desc: `In the combat phase, if any enemy models are slain by attacks made by a friendly MEGA-GARGANT wholly within 12" of this general, you can heal up to D3 wounds allocated to that MEGA-GARGANT after all of its attacks have been resolved.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Loud-mouthed Bully': {
+    effects: [
+      {
+        name: `Loud-mouthed Bully`,
+        desc: `Once per turn, in the combat phase, you can pick 1 friendly KING BRODD'S STOMP unit wholly within 12" of this general, If you do so, until the end of that phase, use the top row on that unit's damage table, regardless of how many wounds it has suffered.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(CommandTraits, 'command_trait')
