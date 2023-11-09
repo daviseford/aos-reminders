@@ -1,6 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import {
   BATTLESHOCK_PHASE,
+  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
   HERO_PHASE,
@@ -123,6 +124,35 @@ const Artifacts = {
         name: `Kingslaughter Cowl (Breaker Tribe)`,
         desc: `Gatebreaker Only. Add 1 to wound rolls for attacks made by the bearer that target an enemy Hero.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+
+  // King Brodd's Stomp Army of Renown
+  'Brand of the Gargant King': {
+    effects: [
+      {
+        name: `Brand of the Gargant King`,
+        desc: `If the bearer makes a charge move and the unmodified charge roll was 8+, the strike-first effect applies to them until the end of the turn.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
+  'Lucky Shiny Hat': {
+    effects: [
+      {
+        name: `Lucky Shiny Hat`,
+        desc: `The bearer has a ward of 5+ against mortal wounds.`,
+        when: [WARDS_PHASE],
+      },
+    ],
+  },
+  'Crafty Creepers': {
+    effects: [
+      {
+        name: `Crafty Creepers`,
+        desc: `At the start of the combat phase, you can pick 1 enemy HERO that has an artefact of power and is within 1" of the bearer and roll a dice. On a 5+, that artefact of power can no longer be used (if a weapon was picked when the artefact of power was selected, that weapon reverts to normal).`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },
