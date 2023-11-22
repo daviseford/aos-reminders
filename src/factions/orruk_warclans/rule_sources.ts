@@ -23,6 +23,11 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2020/07/koYAcRdlIdWRYJhN.pdf',
   },
+  BATTLETOME_SUPPLEMENT_IRONJAWZ: {
+    name: 'Batteltome Supplement Ironjawz (December 2023)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2023/09/r8DTAWmkrsW2fiRW.pdf',
+  },
 }
 
 export default rule_sources
