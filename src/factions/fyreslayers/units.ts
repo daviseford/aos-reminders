@@ -308,6 +308,35 @@ const Units = {
       },
     ],
   },
+  'Vulkyn Flameseekers': {
+    effects: [
+      {
+        name: `Vulkyn Runefather`,
+        desc: `1 in every 9 models in this unit must be a Vulkyn Runefather. Add 1 to the Attacks characteristic of that model's Vulkyn Fyresteel Weapons That model can issue commands to their own unit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Drothmaster`,
+        desc: `1 in every 9 models in this unit must be a Drothmaster.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Kyndledroth`,
+        desc: `1 in every 9 models in this unit must be a Kyndledroth. A Kyndledroth is armed with Emberteeth instead of a Fyresteel Throwing Axe and Vulkyn Fyresteel Weapon.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Magmadroth-scale Whip`,
+        desc: `While this unit includes a Drothmaster, enemy MONSTERS within 3" of this unit cannot carry out monstrous rampages.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Kyndledroth`,
+        desc: `At the end of the combat phase, pick 1 enemy unit within l" of this unit's Kyndledroth and roll 2 dice. For each 4+, that enemy unit suffers 1 mortal wound.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Units, 'unit')
