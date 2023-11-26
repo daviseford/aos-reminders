@@ -214,12 +214,6 @@ const HeraldsOfRighteousnessEffect = {
   when: [CHARGE_PHASE],
   shared: true,
 }
-const LightningFastStrikesEffect = {
-  name: `Lightning Fast Strikes`,
-  desc: `Add D3 to the Attacks characteristic of this unit's Whirlwind Axes if this unit made a charge move in the same turn.`,
-  when: [COMBAT_PHASE],
-  shared: true,
-}
 const StardrakeBaseEffects = [
   {
     name: `Arcane Lineage`,
@@ -325,7 +319,56 @@ const Units = {
     ],
   },
   'Neave Blacktalon': {
-    effects: [LightningFastStrikesEffect, WindriderEffect, TirelessHuntersEffect],
+    effects: [
+      {
+        name: `Justice from Azyr`,
+        desc: `Add 1 to the Damage characteristic of this unit's Whirlwind Axes for attacks that target an enemy HERO.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Sigmar's Assassin`,
+        desc: `This unit can run and still shoot and/or charge later in the turn.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE, CHARGE_PHASE],
+      },
+      {
+        name: `Windrider`,
+        desc: `In your combat phase, immediately after this unit has fought and slain models (if any) have been removed from play, you can roll a dice. On a 2+, remove this unit from the battlefield and set it up again more than 3" from all enemy units and wholly within 3" of a friendly THE BLACKTALONS unit that is more than 3" from all enemy units.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  "Neave's Companions": {
+    effects: [
+      GenericEffects.Elite,
+      {
+        name: `Shield of Azyr`,
+        desc: `If a friendly THE BLACKTALONS HERO is within 3" of this unit, before you allocate a wound or mortal wound to that HERO, or instead of making a ward roll for a wound or mortal wound that would be allocated to that HERO, roll a dice. On a 2+, that wound or mortal wound is allocated to this unit instead of that HERO and cannot be negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Consummate Aim`,
+        desc: `Each time this unit shoots with its Typhoon Crossbow, if the target is an enemy HERO, you can choose the Headshot weapon characteristics. Otherwise, use the Rapid Shot weapon characteristics.`,
+        when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  Lorai: {
+    mandatory: {
+      spells: [keyPicker(spells, ['Nebulous Sea-fog'])],
+    },
+    effects: [
+      GenericEffects.WizardOneSpellEffect,
+      {
+        name: `Aquatic Illusions`,
+        desc: `Subtract 1 from hit rolls for combat attacks that target this unit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Gift of the Depths`,
+        desc: `This unit has a ward of 5+.`,
+        when: [WARDS_PHASE],
+      },
+    ],
   },
   'Gavriel Sureheart': {
     effects: [
