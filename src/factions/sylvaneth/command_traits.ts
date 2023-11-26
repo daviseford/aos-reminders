@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SAVES_PHASE } from 'types/phases'
+import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SAVES_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 
 const CommandTraits = {
@@ -55,6 +55,16 @@ const CommandTraits = {
         name: `Radiant Spirit`,
         desc: `Each time a friendly SYLVANETH unit wholly within 12" of this general is affected by a spell or the abilities of an endless spell, you can roll a dice. On a 4+, ignore the effect of that spell or the effects of that endless spell's abilities on that unit.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  // Evergreen Hunt
+  'Sapwood Leader': {
+    effects: [
+      {
+        name: `Sapwood Leader`,
+        desc: `When you use the Abundant Growth battle trait to heal this general, you can heal up to D3 wounds allocated to this general instead of 1.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

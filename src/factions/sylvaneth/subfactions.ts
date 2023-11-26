@@ -1,5 +1,5 @@
 import { IItemDescription } from 'factions/factionTypes'
-import { keyPicker, pickEffects } from 'factions/metatagger'
+import { keyOmitter, keyPicker, pickEffects } from 'factions/metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
@@ -11,19 +11,20 @@ import GrandStrategies from './grand_strategies'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
+import { SYLVANETH } from 'meta/factions'
 
 const baseSubFaction: IItemDescription = {
   mandatory: {
     spells: [keyPicker(Spells, ['Verdant Blessing'])],
   },
   available: {
-    artifacts: [Artifacts],
+    artifacts: [keyOmitter(Artifacts, ['Heartwood Hunting Horn'])],
     battalions: [Battalions],
     command_abilities: [CommandAbilities],
-    command_traits: [CommandTraits],
+    command_traits: [keyOmitter(CommandTraits, ['Sapwood Leader'])],
     endless_spells: [EndlessSpells],
     flavors: [Flavors],
-    grand_strategies: [GrandStrategies],
+    grand_strategies: [keyOmitter(GrandStrategies, ['The Grand Hunt'])],
     scenery: [Scenery],
     spells: [Spells],
     units: [Units],
@@ -34,19 +35,30 @@ const baseSubFaction: IItemDescription = {
 const subFactions = {
   'The Burgeoning': {
     ...baseSubFaction,
-    effects: pickEffects(BattleTraits, ['The Burgeoning']),
+    effects: pickEffects(BattleTraits, ['The Burgeoning', SYLVANETH, 'Battle Tactics']),
   },
   'The Reaping': {
     ...baseSubFaction,
-    effects: pickEffects(BattleTraits, ['The Reaping']),
+    effects: pickEffects(BattleTraits, ['The Reaping', SYLVANETH, 'Battle Tactics']),
   },
   'The Dwindling': {
     ...baseSubFaction,
-    effects: pickEffects(BattleTraits, ['The Dwindling']),
+    effects: pickEffects(BattleTraits, ['The Dwindling', SYLVANETH, 'Battle Tactics']),
   },
   Everdusk: {
     ...baseSubFaction,
-    effects: pickEffects(BattleTraits, ['Everdusk']),
+    effects: pickEffects(BattleTraits, ['Everdusk', SYLVANETH, 'Battle Tactics']),
+  },
+  'The Evergreen Hunt': {
+    ...baseSubFaction,
+    available: {
+      ...baseSubFaction.available,
+      flavors: [],
+      artifacts: [Artifacts],
+      command_traits: [CommandTraits],
+      grand_strategies: [GrandStrategies],
+    },
+    effects: pickEffects(BattleTraits, ['The Evergreen Hunt', 'The Evergreen Hunt Battle Tactics']),
   },
 }
 
