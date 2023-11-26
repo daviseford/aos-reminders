@@ -1,5 +1,5 @@
-import { DestructionUnits } from 'factions/grand_alliances'
 import { keyPicker, tagAs } from 'factions/metatagger'
+import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -8,14 +8,63 @@ import {
   END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
+  END_OF_TURN,
   HERO_PHASE,
+  MOVEMENT_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   WARDS_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import rule_sources from '../rule_sources'
 import spells from './spells'
+
+const MawGruntaSharedEffects = [
+  {
+    name: `Unstoppable Momentum`,
+    desc: `Each time this unit finishes a run or charge move, add D3 to its momentum score. This unit's momentum score can never exceed 6 or go below 1. At the end of each turn, subtract 1 from this unit's momentum score (to a minimum of 1).`,
+    when: [DURING_GAME],
+    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+    shared: true,
+  },
+  {
+    name: `Unstoppable Momentum`,
+    desc: `Each time this unit finishes a run add D3 to its momentum score. This unit's momentum score can never exceed 6.`,
+    when: [MOVEMENT_PHASE],
+    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+    shared: true,
+  },
+  {
+    name: `Unstoppable Momentum`,
+    desc: `Each time this unit finishes a charge move, add D3 to its momentum score. This unit's momentum score can never exceed 6.`,
+    when: [CHARGE_PHASE],
+    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+    shared: true,
+  },
+  {
+    name: `Unstoppable Momentum`,
+    desc: `Subtract 1 from this unit's momentum score (to a minimum of 1).`,
+    when: [END_OF_TURN],
+    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+    shared: true,
+  },
+  {
+    name: `Headlong Charger`,
+    desc: `While this unit has a momentum score of 4 or more, this unit can charge even if it ran earlier in the turn.`,
+    when: [CHARGE_PHASE],
+    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+    shared: true,
+  },
+]
+
+const CarvePathEffect = {
+  name: `Hack 'n' Charge`,
+  desc: `Pick an enemy unit with a Wounds characteristic of 4 or less and within 3" of this unit. Roll a dice if theroll is less than this unit's momentum score, that enemy unit suffers a number of mortal wounds equal to the roll and you can immediately attempt a charge with this unit even though it is within 3" of an enemy unit. This unit can pass across enemy units with a Wounds characteristic of 4 or less in the same manner as a unit that can fly.`,
+  when: [END_OF_CHARGE_PHASE],
+  shared: true,
+  rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+}
 
 const StrengthFromVictoryEffect = {
   name: `Strength from Victory`,
@@ -36,6 +85,12 @@ const DuffUpdaBigThingEffect = {
   desc: `Add 1 to hit rolls for attacks made by this unit that target a unit with a Wounds characteristic of 4 or more.`,
   when: [COMBAT_PHASE],
   shared: true,
+}
+
+const BerserkersEffect = {
+  name: `Berserkers`,
+  desc: `This unit can run and still charge later in the turn.`,
+  when: [CHARGE_PHASE],
 }
 
 const IronjawzUnits = {
@@ -129,6 +184,22 @@ const IronjawzUnits = {
       },
     ],
   },
+  'Ardboy Big Boss': {
+    effects: [
+      {
+        name: `Iron-fisted Commander`,
+        desc: `This unit can issue the Rally command up to 2 times in the same phase, eah commmand must be to a friendly ARDBOYS unit. No command point is spent the second time this unit issues that command in that phase. 
+        In addition, when a friendly ARDBOYS unit receives the Rally command from a friendly unit with this ability, you can return 1 slain model to that unit for each 5+ instead of each 6.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Get Bashin!'`,
+        desc: `Add 1 to shield bash rolls made for friendly ARDBOYS units while they are wholly within 12" of any friendly units with this ability.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+  },
   'Orruk Ardboys': {
     effects: [
       {
@@ -137,26 +208,27 @@ const IronjawzUnits = {
         when: [COMBAT_PHASE],
       },
       {
-        name: `Musician`,
-        desc: `1 in every 5 models in this unit can be a Waaagh! Drummer. You can add 1 to charge rolls for a unit that includes any Waaagh! Drummers.`,
-        when: [CHARGE_PHASE],
-      },
-      {
         name: `Standard Bearer`,
-        desc: `1 in every 5 models in this unit can be a Gorkamorka Glyph Bearer. Add 1 to the Bravery characteristic of a unit that includes any Gorkamorka Glyph Bearers.`,
+        desc: `1 in every 10 models in this unit can be a Gorkamorka Glyph Bearer. Add 1 to the Bravery characteristic of a unit that includes any Gorkamorka Glyph Bearers.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
-        name: `Drawn to the Waaagh!`,
-        desc: `If this unit's champion issues the Rally command to this unit while this unit is wholly within 12" of a friendly Warchanter, you can return 1 slain model to this unit for each roll of a 4+ instead of a 6.`,
-        when: [START_OF_HERO_PHASE],
+        name: `'Ere We Go!`,
+        desc: `Add 1 to the Attacks characteristic of this unit's Ardboy Choppas if this unit made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
       },
       {
-        name: `Orruk-forged Shields!`,
-        desc: `A model that has an Orruk-forged Shield has a ward of 6+.`,
-        when: [WARDS_PHASE],
+        name: `Da Stikkas`,
+        desc: `Improve the Rend characteristic of this unit's Ardboy Stikkas by 1 if the target made a charge move in the same turn.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Shield Bash`,
+        desc: `After all of this units attacks have been resolved, pick 1 enemy unit within 1" of this unit and roll a dice for each model in this unit within 1" of that unit. For roll of 6+, that enemy unit suffers 1 mortal wound.`,
+        when: [COMBAT_PHASE],
       },
     ],
+    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
   },
   'Orruk Brutes': {
     effects: [
@@ -198,7 +270,82 @@ const IronjawzUnits = {
       },
     ],
   },
-  ...keyPicker(DestructionUnits, ['Rogue Idol']),
+  'Tuskboss On Maw-Grunta': {
+    effects: [
+      ...MawGruntaSharedEffects,
+      CarvePathEffect,
+      {
+        name: `Head of the Stampede`,
+        desc: `If this unit makes a charge move, you can reroll charge rolls for all friendly MAW-GRUNTA units on the battlefield until the end of the phase.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+  },
+  "Maw-Grunta with Hakkin' Krew": {
+    effects: [...MawGruntaSharedEffects, CarvePathEffect],
+    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+  },
+  'Maw-Grunta Gougers': {
+    effects: [
+      ...MawGruntaSharedEffects,
+      {
+        name: `Flattened into the Mud`,
+        desc: `Only a model in a unit that has made a charge move this turn can carry out this monstrous rampage. Pick an enemy unit with a Wounds characteristic of 1 or 2 within 3" of this unit and roll a dice. If the roll is less than this unit's momentum score, the strike-last effect applies to that enemy unit until the end of the turn.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+    ],
+    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+  },
+  'Zoggrok Anvilsmasha': {
+    effects: [
+      {
+        name: `Power of Da Great Green God`,
+        desc: `In your hero phase, pick 1 friendly IRONJAWZ unit wholly within 12" of this unit and roll a dice. On a 4+, unmodified hit rolls of 6 for attacks made with melee weapons by that unit cause 1 mortal wound in addition to any damage they inflict. Add 2 to the roll if this unit is armed with Grunta-tongs.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Power of Da Great Green God`,
+        desc: `Unmodified hit rolls of 6 for attacks made with melee weapons by an effected unit cause 1 mortal wound in addition to any damage they inflict.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Ward-smashing Choppa`,
+        desc: `If the unmodified hit roll for an attack made with this unit's Ward-smashing Choppa is 6 ward rolls cannot be made for that unit for the rest of the battle.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+  },
+  'Brute Ragerz': {
+    effects: [
+      GenericEffects.Elite,
+      BerserkersEffect,
+      {
+        name: `Bone-shattering Strike`,
+        desc: `Unmodified hit rolls for attacks made with a Brute Crusha is 6, that attack causes 3 mortal wounds to the target and the attack sequence ends.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+  },
+  'Weirdbrute Wrekkaz': {
+    effects: [
+      GenericEffects.Elite,
+      BerserkersEffect,
+      {
+        name: `Green Rage`,
+        desc: `If the unmodified hit roll for an attack made by this unit is 6 and the target unit has 10 or more models, that attack scores 2 hits on the target instead of 1. Make a wound roll and save roll for each hit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Weirdbrute Masks`,
+        desc: `This unit has a ward of 5+ while it is within 3" of any enemy units.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+  },
 }
 
 export default tagAs(IronjawzUnits, 'unit')
