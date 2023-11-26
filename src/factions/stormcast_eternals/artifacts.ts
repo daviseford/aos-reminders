@@ -97,6 +97,15 @@ const Artifacts = {
       },
     ],
   },
+  'Celestium Ensign': {
+    effects: [
+      {
+        name: `Celestium Ensign`,
+        desc: `Once per battle, at the start of any phase, the bearer can say that they will raise their Celestium Ensign. If they do so, you can heal up to D3 wounds allocated to each friendly DRACONITH unit wholly within 9" of the bearer.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
 }
 
 export default tagAs(Artifacts, 'artifact')

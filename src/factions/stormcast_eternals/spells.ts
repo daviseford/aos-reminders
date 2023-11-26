@@ -175,6 +175,15 @@ const Spells = {
       },
     ],
   },
+  'Regal Authority': {
+    effects: [
+      {
+        name: `Regal Authority`,
+        desc: `Casting value of 7 and a range of 18". Pick 1 friendly DRACONITH unit wholly within range and visible to the caster. Until the start of your next hero phase, each time that unit issues a command, roll a dice. On a 5+, the command point used to issue that command is not spent.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Spells, 'spell')
