@@ -108,7 +108,7 @@ const Units = {
       },
       {
         name: `Soul Amphorae`,
-        desc: `Once per battle you can summon 1 of the following units to the battlefield:
+        desc: `Once per battle, at the end of your movement phase, you can summon 1 of the following non-Unique units to the battlefield:
         
         20 Dryads
         10 Tree-Revenants
@@ -119,6 +119,7 @@ const Units = {
 
         The summoned unit is added to your army, and must be set up wholly within 9" of this model and more than 9" from any enemy units`,
         when: [END_OF_MOVEMENT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SYLVANETH, rule_sources.ERRATA_NOVEMBER_2023],
       },
       {
         name: `Swirling Glowspites`,
