@@ -29,6 +29,15 @@ const GrandStrategies = {
       },
     ],
   },
+  'On Wings of Death': {
+    effects: [
+      {
+        name: `On Wings of Death`,
+        desc: `When the battle ends, you complete this grand strategy if 3 friendly DRACONITH units are wholly within 9" of each other.`,
+        when: [END_OF_GAME],
+      },
+    ],
+  },
 }
 
 export default tagAs(GrandStrategies, 'grand_strategy')
