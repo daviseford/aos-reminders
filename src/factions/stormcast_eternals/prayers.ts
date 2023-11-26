@@ -60,6 +60,15 @@ const Prayers = {
       },
     ],
   },
+  'Lightning Tempest': {
+    effects: [
+      {
+        name: `Lightning Tempest`,
+        desc: `Answer value of 3 and a range of 18". If answered, pick 1 enemy unit within range. That unit is struck by lightning and suffers D3 mortal wounds. Then, roll a dice. On a 1-2, the tempest clears and the sequence ends. On a 3+, pick 1 other enemy unit within 3" of the last unit that was struck by lightning. "Ihat unit is struck by lightning and suffers D3 mortal wounds. Keep rolling dice in this way until the tempest clears or there are no other enemy units within 3" of the last unit to be struck by lightning. A unit cannot be affected by this prayer more than once per hero phase.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Prayers, 'prayer')

@@ -18,8 +18,10 @@ import {
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
+  START_OF_BATTLESHOCK_PHASE,
   START_OF_CHARGE_PHASE,
   START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   START_OF_SHOOTING_PHASE,
   TURN_ONE_START_OF_ROUND,
@@ -1379,6 +1381,37 @@ const Units = {
         name: `Ordained Quest`,
         desc: `For the purposes of contesting objectives wholly outside your territory, each model in this unit counts as 3 models.`,
         when: [END_OF_TURN],
+      },
+    ],
+  },
+  'Ionus Cryptborn': {
+    mandatory: {
+      prayers: [keyPicker(prayers, ['Lightning Tempest'])],
+    },
+    effects: [
+      {
+        name: `Spirit-scouring Flames`,
+        desc: `Each time a wound caused by an attack made with Spirit-scouring Flames is allocated to an enemy unit, that unit is soulburned. At the end of each hero phase, roll a dice for each soulburned unit. If the roll is equal to or less than the number of the current battle round, that unit suffers D3 mortal wounds.
+
+        When a player uses an ability that allows them to heal any wounds that have been allocated to a unit, instead of healing any wounds allocated to a soulburned unit, that unit is no longer soulburned.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Draconic Horror`,
+        desc: `Enemy units cannot receive the Rally and Inspiring Presence commands while they are within 12" of this unit.`,
+        when: [START_OF_HERO_PHASE, START_OF_BATTLESHOCK_PHASE],
+      },
+      {
+        name: `Scry Intent`,
+        desc: `Subtract 1 from the Attacks characteristic of melee weapons that target this unit (to a minimum of 1).`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Arch-Relictor`,
+        desc: `In your hero phase, this unit can chant 2 prayers that it knows instead of 1. At the start of your hero phase, you must say how many prayers this unit will chant. If you say 1, when it chants that prayer, it is automatically answered with a chanting roll of 6 and no additional prayers may be chanted. If you say 2, make chanting rolls for both prayers as normal.
+        
+        At the start of the enemy hero phase, you can pick 1 endless spell or invocation within 12" of this unit and roll a dice. On a 2+, that endless spell is dispelled or that invocation is banished.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
