@@ -41,9 +41,18 @@ const CommandTraits = {
     effects: [
       {
         name: `Master of the Celestial Menagerie`,
-        desc: `'If this general has the Behemoth battlefield role and is on the battlefield, subtract 1 from wound rolls for attacks made with melee weapons that target friendly STORMCAST ETERNALS units that have the Behemoth battlefield role.`,
+        desc: `If this general has the Behemoth battlefield role and is on the battlefield, subtract 1 from wound rolls for attacks made with melee weapons that target friendly STORMCAST ETERNALS units that have the Behemoth battlefield role.`,
         when: [COMBAT_PHASE],
         rule_sources: [rule_sources.BATTLETOME_STORMCAST_ETERNALS, rule_sources.ERRATA_OCTOBER_2021],
+      },
+    ],
+  },
+  'Favour the Bold': {
+    effects: [
+      {
+        name: `Favour the Bold`,
+        desc: `After this general has fought for the first time in the combat phase, if there are no enemy units within 3" of this general, roll a dice. On a 2+, this general can immediately make a D6" move and can finish that move within 3" of any enemy units.`,
+        when: [COMBAT_PHASE],
       },
     ],
   },

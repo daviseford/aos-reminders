@@ -5,7 +5,9 @@ import {
   CHARGE_PHASE,
   DURING_GAME,
   DURING_SETUP,
+  END_OF_CHARGE_PHASE,
   END_OF_MOVEMENT_PHASE,
+  START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -51,6 +53,66 @@ const BattleTraits = {
         when: [BATTLESHOCK_PHASE],
       },
       BlazeOfGloryEffect,
+    ],
+  },
+
+  'Draconith Skywing': {
+    effects: [
+      {
+        name: `Draconith Echelon`,
+        desc: `Friendly KRONDYS, KARAZAI, and STORMDRAKE GUARD units that have 2 models have the Battleline battlefield role.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Draconith Guardians`,
+        desc: `If a friendly IONUS CRYPTBORN is within 3" of any friendly STORMDRAKE GUARD units, before you allocate a wound or mortal wound to that HERO, or instead of making a ward roll for a wound or mortal wound that would be allocated to that HERO, roll a dice. On a 4+, that wound or mortal wound is allocated to 1 of those friendly units instead of IONUS CRYPTBORN and cannot be negated.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Exemplars of Fury`,
+        desc: `At the start of the combat phase, if there are 2 or more other friendly DRACONITH SKYWING units within 6" of a friendly HERO, add 1 to the Attacks characteristic of melee weapons used by that HERO'S mount until the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
+      },
+      {
+        name: `Stormdrake Champions`,
+        desc: `For each DRACONITH SKY WING HERO you include in your army, you can include 1 STORMDRAKE GUARD unit that has 1 model. That STORMDRAKE GUARD unit cannot have the Battleline battlefield role.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Heroic Action: Thunderous Roars`,
+        desc: `Pick 1 friendly DRACONITH SKYWING HERO and roll a dice. On a 2+, until the end of that turn, enemy units within 3" of that HERO cannot receive the Inspiring Presence command.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Monstrous Rampages: Stun`,
+        desc: `Pick 1 enemy unit within 3" of this unit and roll a dice. On a 3+, subtract 1 from wound rolls for attacks made by that unit in the following combat phase.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Monstrous Rampages: Impact Tremors`,
+        desc: `Pick 1 enemy unit within 3" of this unit and roll a dice. On a 3+, in the following combat phase, models in that unit can only move up to 1" when they make a pile-in move instead of up to 3"`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+    ],
+  },
+
+  'Draconith Skywing Battle Tactics': {
+    effects: [
+      {
+        name: `Concentrated Force`,
+        desc: `You complete this tactic if the same enemy unit was targeted by attacks made with melee weapons by 3 or more friendly DRACONITH SKY WING units in the combat phase of this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Focused Destruction`,
+        desc: `You complete this tactic if the same enemy unit was picked as the target of 3 different monstrous rampages carried out by friendly DRACONITH SKY WING units in this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Cleansing Strike`,
+        desc: `Pick 2 objectives that are contested by enemy units. You complete this tactic if there are no enemy units contesting either objective at the end of this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
     ],
   },
 

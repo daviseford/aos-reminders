@@ -60,6 +60,11 @@ const subFactions = {
       ],
     },
   },
+
+  'Draconith Skywing': {
+    ...baseSubFaction,
+    effects: pickEffects(BattleTraits, ['Draconith Skywing', 'Draconith Skywing Battle Tactics']),
+  },
 }
 
 export default subFactions

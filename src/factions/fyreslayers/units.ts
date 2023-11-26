@@ -312,7 +312,7 @@ const Units = {
     effects: [
       {
         name: `Vulkyn Runefather`,
-        desc: `1 in every 9 models in this unit must be a Vulkyn Runefather. Add 1 to the Attacks characteristic of that model's Vulkyn Fyresteel Weapons That model can issue commands to their own unit.`,
+        desc: `1 in every 9 models in this unit must be a Vulkyn Runefather. Add 1 to the Attacks characteristic of that model's Vulkyn Fyresteel Weapons. That model can issue commands to their own unit.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -332,7 +332,7 @@ const Units = {
       },
       {
         name: `Kyndledroth`,
-        desc: `At the end of the combat phase, pick 1 enemy unit within l" of this unit's Kyndledroth and roll 2 dice. For each 4+, that enemy unit suffers 1 mortal wound.`,
+        desc: `At the end of the combat phase, pick 1 enemy unit within 1" of this unit's Kyndledroth and roll 2 dice. For each 4+, that enemy unit suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],

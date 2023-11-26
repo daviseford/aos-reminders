@@ -69,6 +69,34 @@ const Prayers = {
       },
     ],
   },
+  // Draconith skywing
+  "Sigmar's Grace": {
+    effects: [
+      {
+        name: `Sigmar's Grace`,
+        desc: `Answer value of 3 and a range of 12". If answered, pick I friendly unit wholly within range and visible to the chanter. You can heal up to 3 wounds allocated to that unit.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  Sanctification: {
+    effects: [
+      {
+        name: `Sanctification`,
+        desc: `Answer value of 4. If answered, until the start of your next hero phase, subtract 1 from casting rolls for enemy WIZARDS and subtract 1 from chanting rolls for enemy PRIESTS.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  Sovereignty: {
+    effects: [
+      {
+        name: `Sovereignty`,
+        desc: `Answer value of 4 and a range of 12". If answered, pick 1 enemy unit within range. Until the start of your next hero phase, that unit counts as a maximum of 5 models for the purposes of contesting objectives.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Prayers, 'prayer')
