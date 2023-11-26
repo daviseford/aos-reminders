@@ -29,6 +29,16 @@ const GrandStrategies = {
       },
     ],
   },
+  // Evergreen Hunt
+  'The Grand Hunt': {
+    effects: [
+      {
+        name: `The Grand Hunt`,
+        desc: `When the battle ends, you complete this grand strategy if you have destroyed 4 or more quarries.`,
+        when: [END_OF_GAME],
+      },
+    ],
+  },
 }
 
 export default tagAs(GrandStrategies, 'grand_strategy')

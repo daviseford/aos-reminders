@@ -1,5 +1,11 @@
 import { tagAs } from 'factions/metatagger'
-import { HERO_PHASE, START_OF_COMBAT_PHASE, START_OF_HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import {
+  HERO_PHASE,
+  START_OF_COMBAT_PHASE,
+  START_OF_HERO_PHASE,
+  START_OF_ROUND,
+  WOUND_ALLOCATION_PHASE,
+} from 'types/phases'
 
 const Artifacts = {
   'Greenwood Gladius': {
@@ -53,6 +59,16 @@ const Artifacts = {
         name: `Luneth's Lamp`,
         desc: `The bearer can attempt to banish 1 invocation in the hero phase even if they are not a PRIEST. In addition, add 2 to dispelling rolls and banishment rolls for the bearer.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  // Evergreen Hunt
+  'Heartwood Hunting Horn': {
+    effects: [
+      {
+        name: `Heartwood Hunting Horn`,
+        desc: `Once per battle, at the start of any battle round, the bearer can say that they will blow their Heartwood Hunting Horn. If they do so, you receive 1 additional Hunting Harmony chord for that battle round.`,
+        when: [START_OF_ROUND],
       },
     ],
   },
