@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { SONS_OF_BEHEMAT } from 'meta/factions'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   DURING_GAME,
   END_OF_CHARGE_PHASE,
@@ -92,12 +93,13 @@ const BattleTraits = {
       },
       {
         name: `Smash It All To Bits`,
-        desc: `Once per turn, in your shooting phase, you can pick 1 terrain feature and 1 friendly MEGA-GARGANT within 1" of it. If you do so, roll a dice. On a 2+, that terrain feature is sundered.
+        desc: `Once per turn, in your shooting phase, you can pick 1 terrain feature that does not have any units with the Monster keyword wholly or partially on it and 1 friendly Mega-Gargant within 1" of it. If you do so, roll a dice. On a 2+, that terrain feature is sundered.
 
-        If a terrain feature is sundered, roll a dice for each unit that has any models on or garrisoning that terrain feature. On a 2+, that unit suffers D3 mortal wounds. Then, all models from units that were on or garrisoning that terrain feature must be set up wholly within 6" of that terrain feature and more than 3" from all enemy units. Ifa model cannot be set up wholly within 6" of that terrain feature and more than 3" from all enemy units. it is slain. The terrain feature is then removed from play.
-        
-        Finally, the MEGA-GARGANT you picked can make a shooting attack in that phase with the Hurled Terrain missile weapon.`,
+        If a terrain feature is sundered, roll a dice for each unit that has any models on or garrisoning that terrain feature. On a 2+, that unit suffers D3 mortal wounds. Then, starting with the active player, each player must remove all friendly models that were on or garrisoning that terrain feature and set them up wholly within 6" of, but not on, that terrain feature and more than 3" from all enemy units. Those models must be set up in coherency with any models in their unit, including those that were not on or garrisoning that terrain feature. If a model cannot be set up following these restrictions, it is slain. The terrain feature is then removed from play.
+
+        Finally, the Mega-Gargant you picked can make a shooting attack in that phase with the Hurled Terrain missile weapon below (this is treated as an additional weapon profile that can be used when you pick that unit to shoot)`,
         when: [SHOOTING_PHASE],
+        rule_sources: [meta_rule_sources.ERRATA_DAWNBRINGERS_BOOK_2],
       },
       {
         name: `Monstrous Rampage: The King's Stomp`,

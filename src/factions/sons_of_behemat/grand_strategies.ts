@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import { END_OF_GAME, START_OF_GAME } from 'types/phases'
 
 const GrandStrategies = {
@@ -42,8 +43,9 @@ const GrandStrategies = {
     effects: [
       {
         name: `Flatten the Lands`,
-        desc: `When the battle ends, you complete this grand strategy if there are no terrain features on the battlefield.`,
+        desc: `When the battle ends, you complete this battle tactic if there are no terrain features that are wholly or partially within enemy territory on the battlefield.`,
         when: [START_OF_GAME, END_OF_GAME],
+        rule_sources: [meta_rule_sources.ERRATA_DAWNBRINGERS_BOOK_2],
       },
     ],
   },

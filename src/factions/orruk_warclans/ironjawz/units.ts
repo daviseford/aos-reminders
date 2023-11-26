@@ -19,6 +19,7 @@ import {
 } from 'types/phases'
 import rule_sources from '../rule_sources'
 import spells from './spells'
+import meta_rule_sources from 'meta/rule_sources'
 
 const MawGruntaSharedEffects = [
   {
@@ -60,10 +61,10 @@ const MawGruntaSharedEffects = [
 
 const CarvePathEffect = {
   name: `Hack 'n' Charge`,
-  desc: `Pick an enemy unit with a Wounds characteristic of 4 or less and within 3" of this unit. Roll a dice if theroll is less than this unit's momentum score, that enemy unit suffers a number of mortal wounds equal to the roll and you can immediately attempt a charge with this unit even though it is within 3" of an enemy unit. This unit can pass across enemy units with a Wounds characteristic of 4 or less in the same manner as a unit that can fly.`,
+  desc: `Pick an enemy unit with a Wounds characteristic of 4 or less within 3" of this unit and roll a dice. If the roll is less than this unit's momentum score, that enemy unit suffers a number of mortal wounds equal to the roll and you can immediately attempt a charge with this unit even though it is within 3" of an enemy unit. When a unit charges in this manner, it can pass across enemy units with a Wounds characteristic of 4 or less in the same manner as a unit that can fly.`,
   when: [END_OF_CHARGE_PHASE],
   shared: true,
-  rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+  rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ, meta_rule_sources.ERRATA_DAWNBRINGERS_BOOK_2],
 }
 
 const StrengthFromVictoryEffect = {
