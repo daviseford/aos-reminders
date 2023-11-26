@@ -1,5 +1,5 @@
 import { tagAs } from 'factions/metatagger'
-import { COMBAT_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
+import { COMBAT_PHASE, START_OF_COMBAT_PHASE, START_OF_MOVEMENT_PHASE } from 'types/phases'
 
 const CommandAbilities = {
   // IRONBARK Flavor
@@ -19,6 +19,16 @@ const CommandAbilities = {
         name: `Call to Battle`,
         desc: `You can use this command ability at the start of the combat phase. Pick 1 friendly SYLVANETH, add 1 to the Attacks characteristic of melee weapons used by that unit until the end of the phase.`,
         when: [START_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+  // Belthanos
+  'The Unending Hunt': {
+    effects: [
+      {
+        name: `The Unending Hunt`,
+        desc: `You can use this command ability at the start of your movement phase. The unit that receives the command must be a friendly SYLVANETH unit. That unit can retreat and still charge later in the turn.`,
+        when: [START_OF_MOVEMENT_PHASE],
       },
     ],
   },

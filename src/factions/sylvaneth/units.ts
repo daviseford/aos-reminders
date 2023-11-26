@@ -477,6 +477,26 @@ const Units = {
       },
     ],
   },
+  Belthanos: {
+    mandatory: { command_abilities: [keyPicker(command_abilities, ['The Unending Hunt'])] },
+    effects: [
+      {
+        name: `Nature Aetheric`,
+        desc: `In your hero phase, you can pick 1 terrain feature within 6" of this unit and roll a dice. On a 3+, pick 1 scenery rule from the Mysterious Terrain table (core rules, 28.1.3) to apply to that terrain feature for the rest of the battle. If that terrain feature already has a scenery rule from the Mysterious Terrain table, that rule is replaced by the one that you pick. That terrain feature is also considered by you to be an overgrown terrain feature.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Mantle of Leaves`,
+        desc: `This unit has a ward of 5+.`,
+        when: [WARDS_PHASE],
+      },
+      {
+        name: `Kurnothi War-horn`,
+        desc: `Friendly SYLVANETH units wholly within range of this ability can attempt a charge even if they ran in the same turn.`,
+        when: [CHARGE_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Units, 'unit')
