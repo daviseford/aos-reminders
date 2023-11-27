@@ -34,7 +34,7 @@ const BonesplitterzSpells = {
     effects: [
       {
         name: `Power of the Were-boar`,
-        desc: `Power of the Were-boar is a spell that has a casting value of 6 and range of 24". If successfully pick 1 friendly BONESPLITTERZ unit wholly within range and visible to the caster. Until your next hero phase, add 1 to run rolls and charge rolls for that unit, and add 1 to hit rolls for attacks made by that unit, but that unit cannot shoot.`,
+        desc: `Casting value of 6 and range of 24". If successfully pick 1 friendly BONESPLITTERZ unit wholly within range and visible to the caster. Until your next hero phase, add 1 to run rolls and charge rolls for that unit, and add 1 to hit rolls for attacks made by that unit, but that unit cannot shoot.`,
         when: [HERO_PHASE],
       },
     ],

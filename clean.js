@@ -18,9 +18,9 @@ const replaceOptions = {
     /(?<!:)(?<=desc: `.+[\w()])[,(/#!$^&;=\-_~]`/g, // Replace trailing punctuation with periods in descriptions
     /(?<!:)(?<=desc: `.+[\w()])[.]+`/g, // Replace trailing ellipses with one period
     /(?<!:)(?<=desc: `.+\w)`/g, // Add a period to descriptions
-    /(?<=[desc]: `)[\w' ]+ has a casting value of+(?=.+`)/g, // Shorten casting descriptions
+    /(?<=[desc]: `)[\w' -]+ has a casting value of+(?=.+`)/g, // Shorten casting descriptions
     /(?<=\. )If successfully cast, pick+(?=.+`)/g, // Shorten casting descriptions
-    /(?<=[desc]: `)[\w' ]+ is a prayer that has an answer value of+(?=.+`)/g, // Shorten prayer descriptions
+    /(?<=[desc]: `)[\w' -]+ is a prayer that has an answer value of+(?=.+`)/g, // Shorten prayer descriptions
     /R[eE] ?- ?[rR][oO][lL]{2}/g, // Handle "Re - roll" -> "Reroll"
     /r[eE] ?- ?[rR][oO][lL]{2}/g, // Handle "re-roll" -> "reroll"
   ],

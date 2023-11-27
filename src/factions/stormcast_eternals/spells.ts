@@ -188,7 +188,7 @@ const Spells = {
     effects: [
       {
         name: `Nebulous Sea-fog`,
-        desc: `Nebulous Sea-fog is a spell that has a casting value of 6. If cast, until the start of your next hero phase, shooting attacks that target friendly THE BLACKTALONS units that are wholly within 6" of this unit only score a hit on an unmodified hit roll of 6.`,
+        desc: `Casting value of 6. If cast, until the start of your next hero phase, shooting attacks that target friendly THE BLACKTALONS units that are wholly within 6" of this unit only score a hit on an unmodified hit roll of 6.`,
         when: [HERO_PHASE],
       },
     ],

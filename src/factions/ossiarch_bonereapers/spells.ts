@@ -69,7 +69,7 @@ const Spells = {
     effects: [
       {
         name: `Soul-guide`,
-        desc: `Soul-guide is a spell that has a casting value of 6 and a range of 24". Pick 1 friendly MORTEK GUARD or KAVALOS DEATHRIDERS unit wholly within range and visible to the caster. Add 1 to wound rolls for attacks made with melee weapons by that unit until your next hero phase.`,
+        desc: `Casting value of 6 and a range of 24". Pick 1 friendly MORTEK GUARD or KAVALOS DEATHRIDERS unit wholly within range and visible to the caster. Add 1 to wound rolls for attacks made with melee weapons by that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
@@ -78,7 +78,7 @@ const Spells = {
     effects: [
       {
         name: `Soul-blast`,
-        desc: `Soul-blast is a spell that has a casting value of 6 and a range of 12". If successfully cast, at the start of any 1 phase before your next hero phase, you can pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. If that unit is within 3" of the caster, it suffers 3 mortal wounds instead of D3.`,
+        desc: `Casting value of 6 and a range of 12". If successfully cast, at the start of any 1 phase before your next hero phase, you can pick 1 enemy unit within range and visible to the caster. That unit suffers D3 mortal wounds. If that unit is within 3" of the caster, it suffers 3 mortal wounds instead of D3.`,
         when: [HERO_PHASE],
       },
     ],
@@ -87,7 +87,7 @@ const Spells = {
     effects: [
       {
         name: `Shard-storm`,
-        desc: `Shard-storm is a spell that has a casting value of 5 and a range of 18". Pick 1 enemy unit within range and visible to the caster and roll a number of dice equal to the number of models in that unit. For each 5+, that unit suffers 1 mortal wound.`,
+        desc: `Casting value of 5 and a range of 18". Pick 1 enemy unit within range and visible to the caster and roll a number of dice equal to the number of models in that unit. For each 5+, that unit suffers 1 mortal wound.`,
         when: [HERO_PHASE],
       },
     ],
