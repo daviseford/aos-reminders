@@ -18,10 +18,12 @@ import OrderTraits from './order/command_traits'
 import OrderUnits from './order/units'
 
 // Available to ALL factions in this Grand Alliance
-const AvailableOrderUnits = mergeParentEffectObjs([keyPicker(OrderUnits, ['Gotrek Gurnisson'])])
+const AvailableOrderUnits = mergeParentEffectObjs([
+  keyPicker(OrderUnits, ['Gotrek Gurnisson', "Fjori's Flamebearers"]),
+])
 const AvailableDestructionUnits = mergeParentEffectObjs([{ ...DestructionUnits }])
-const AvailableDeathUnits = mergeParentEffectObjs([{}])
-const AvailableChaosUnits = mergeParentEffectObjs([{}])
+const AvailableDeathUnits = mergeParentEffectObjs([keyPicker(DeathUnits, ["Jerrion's Delegation"])])
+const AvailableChaosUnits = mergeParentEffectObjs([keyPicker(ChaosUnits, ["Phulgoth's Shudderhood"])])
 
 export {
   AvailableChaosUnits,

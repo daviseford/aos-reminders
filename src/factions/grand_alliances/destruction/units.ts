@@ -11,8 +11,10 @@ import {
   END_OF_ANY_PHASE,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
+  MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
+  TURN_ONE_START_OF_HERO_PHASE,
   TURN_TWO_END_OF_MOVEMENT_PHASE,
   WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
@@ -256,6 +258,25 @@ const DestructionUnits = {
           meta_rule_sources.ERRATA_BROKEN_REALMS_KRAGNOS_JULY_2021,
           orruk_rule_sources.ERRATA_DECEMBER_2021,
         ],
+      },
+    ],
+  },
+  "Braggit's Bottle-Snatchaz": {
+    effects: [
+      {
+        name: `Major Irritant`,
+        desc: `If a unit in this regiment of renown receives the Redeploy command, any other friendly units in this regiment of renown within 6" of that unit can immediately make a D6" move but they must finish that move more than 3" from all enemy units and cannot shoot later in the turn.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Secret Tunnels`,
+        desc: `Instead of setting up the units in this regiment of renown on the battlefield, you can place them to one side and say that they are navigating secret tunnels. If you do so, at the start of your first hero phase, you can set up all of these units wholly within 6" of the edge of the battlefield and more than 9" from all enemy units. The units you set up cannot move in the following movement phase.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Secret Tunnels`,
+        desc: `If you set this unit up in secret tunnels, at the start of your first hero phase, you can set up all of these units wholly within 6" of the edge of the battlefield and more than 9" from all enemy units. The units you set up cannot move in the following movement phase.`,
+        when: [TURN_ONE_START_OF_HERO_PHASE],
       },
     ],
   },

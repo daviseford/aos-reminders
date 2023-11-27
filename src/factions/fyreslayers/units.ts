@@ -4,7 +4,6 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
-  END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SHOOTING_PHASE,
@@ -335,20 +334,6 @@ const Units = {
         name: `Kyndledroth`,
         desc: `At the end of the combat phase, pick 1 enemy unit within 1" of this unit's Kyndledroth and roll 2 dice. For each 4+, that enemy unit suffers 1 mortal wound.`,
         when: [END_OF_COMBAT_PHASE],
-      },
-    ],
-  },
-  "Fjori's Flamebearers": {
-    effects: [
-      {
-        name: `Toe to Toe`,
-        desc: `Enemy MONSTERS within 3" of any units in this regiment of renown cannot contest objectives.`,
-        when: [DURING_GAME],
-      },
-      {
-        name: `Defiance of Grimnir`,
-        desc: `Units in this regiment of renown cannot be picked when your opponent carries out a monstrous rampage.`,
-        when: [END_OF_CHARGE_PHASE],
       },
     ],
   },

@@ -12,6 +12,7 @@ import {
   START_OF_HERO_PHASE,
   START_OF_MOVEMENT_PHASE,
   TURN_ONE_HERO_PHASE,
+  WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
@@ -249,6 +250,25 @@ const Units = {
         name: `Warpfire`,
         desc: `Do not use the attack sequence for an attack made with this model's Warpfire. Instead roll a D6. On a 1, nothing happens. On a 2-5, the target unit suffers D3 mortal wounds. On a 6, the target unit suffers D6 mortal wounds.`,
         when: [DURING_GAME],
+      },
+    ],
+  },
+  "Phulgoth's Shudderhood": {
+    effects: [
+      {
+        name: `Fog of Despair`,
+        desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target a unit in this regiment of renown.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Disgustingly Resilient`,
+        desc: `Units in this regiment of renown have a ward of 5+.`,
+        when: [WARDS_PHASE],
+      },
+      {
+        name: `Disgustingly Resilient`,
+        desc: `At the start of your hero phase, you can heal 1 wound allocated to each unit in this regiment of renown.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

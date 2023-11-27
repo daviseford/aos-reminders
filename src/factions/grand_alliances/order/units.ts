@@ -1,6 +1,13 @@
 import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
-import { COMBAT_PHASE, END_OF_COMBAT_PHASE, START_OF_GAME, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import {
+  COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_CHARGE_PHASE,
+  END_OF_COMBAT_PHASE,
+  START_OF_GAME,
+  WOUND_ALLOCATION_PHASE,
+} from 'types/phases'
 import { LegacyBretonnianUnits } from './unit_groups/bretonnia'
 import { LegacyDuardinUnits } from './unit_groups/duardin'
 import { LegacyDwarfUnits } from './unit_groups/dwarfs'
@@ -44,6 +51,20 @@ const OrderUnits = {
         desc: `Roll a dice each time you allocate a wound or mortal wound to this model. On a 3+, that wound or mortal wound is negated.`,
         when: [WOUND_ALLOCATION_PHASE],
         rule_sources: [meta_rule_sources.CROSS_FACTION_HEROES_JULY_2022],
+      },
+    ],
+  },
+  "Fjori's Flamebearers": {
+    effects: [
+      {
+        name: `Toe to Toe`,
+        desc: `Enemy MONSTERS within 3" of any units in this regiment of renown cannot contest objectives.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Defiance of Grimnir`,
+        desc: `Units in this regiment of renown cannot be picked when your opponent carries out a monstrous rampage.`,
+        when: [END_OF_CHARGE_PHASE],
       },
     ],
   },
