@@ -1,4 +1,3 @@
-import { OGOR_MAWTRIBES } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import OgorBattalions from './battalions'
@@ -12,9 +11,28 @@ import Prayers from './prayers'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
+import { IItemDescription } from 'factions/factionTypes'
+
+const baseSubfaction: IItemDescription = {
+  effects: [],
+  available: {
+    artifacts: [Artifacts],
+    battalions: [OgorBattalions],
+    command_abilities: [CommandAbilities],
+    command_traits: [CommandTraits],
+    flavors: [Flavors],
+    mount_traits: [MountTraits],
+    prayers: [Prayers],
+    scenery: [Scenery],
+    spells: [Spells],
+    units: [Units],
+    grand_strategies: [GrandStrategies],
+  },
+}
 
 const subFactions = {
-  [OGOR_MAWTRIBES]: {
+  'Ogor Mawtribes': {
+    ...baseSubfaction,
     effects: pickEffects(BattleTraits, [
       'Grasp of the Everwinter',
       'Might Makes Right',
@@ -23,19 +41,15 @@ const subFactions = {
       'Gulping Bites',
       'Battle Tactics',
     ]),
-    available: {
-      artifacts: [Artifacts],
-      battalions: [OgorBattalions],
-      command_abilities: [CommandAbilities],
-      command_traits: [CommandTraits],
-      flavors: [Flavors],
-      mount_traits: [MountTraits],
-      prayers: [Prayers],
-      scenery: [Scenery],
-      spells: [Spells],
-      units: [Units],
-      grand_strategies: [GrandStrategies],
-    },
+  },
+  'The Roving Maw': {
+    ...baseSubfaction,
+    effects: pickEffects(BattleTraits, [
+      'The Roving Maw',
+      'The Roving Maw Battle Tactics',
+      'Ravenous Brutes',
+      'Might Makes Right',
+    ]),
   },
 }
 

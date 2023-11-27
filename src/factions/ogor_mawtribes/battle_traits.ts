@@ -5,7 +5,9 @@ import {
   DURING_GAME,
   END_OF_COMBAT_PHASE,
   MOVEMENT_PHASE,
+  START_OF_CHARGE_PHASE,
   START_OF_HERO_PHASE,
+  START_OF_ROUND,
 } from 'types/phases'
 import rule_sources from './rule_sources'
 
@@ -66,6 +68,59 @@ const BattleTraits = {
         name: `Gulping Bites`,
         desc: `Roll a dice for each enemy unit within 3" of any friendly GUTBUSTERS OGOR units. On a 4+, that unit suffers D3 mortal wounds.`,
         when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'The Roving Maw': {
+    effects: [
+      {
+        name: `Mawpits of Ghur`,
+        desc: `At the start of each battle round, after determining which player will take the first turn, you must determine the hunger status of the Mawpits on the battlefield by rolling 2D6. If you included a Mawpit in your army, add the number of models slain by its Head Butcher ability during the battle to the roll. If the Mawpit is garrisoned by a Head Butcher, add 1 to the roll. Then, pick 1 result from the Mawpit Table that has a score equal to or less than your modified dice roll to apply for that battle round.
+
+        A unit is vulnerable to Mawpits if it is on the battlefield unless it is wholly within 1" of a terrain feature that is not a Mawpit or it can fly. This ability has no effect on ROVING MAW units.
+                
+        2-3: Subdued: No effect.
+        4-5: Peckish: Subtract 1 from the Bravery characteristic of units that are vulnerable to Mawpits.
+        6-8: Rumbling: Roll a dice for each unit that is vulnerable to Mawpits. On a 5+, that unit suffers 1 mortal wound.
+        9-11: Famished: Units that are vulnerable to Mawpits and that do not have the HERO keyword cannot issue commands.
+        12+: Ravenous: Roll a dice for each unit that is vulnerable to Mawpits. On a 4+, that unit suffers D3 mortal wounds. `,
+        when: [START_OF_ROUND],
+      },
+      {
+        name: `Driven by Starvation`,
+        desc: `Friendly GORGERS units that are not wholly within 1" of a terrain feature at the start of your charge phase can attempt a charge even if they ran in the same turn.`,
+        when: [START_OF_CHARGE_PHASE],
+      },
+      {
+        name: `The Butcher's Kitchen`,
+        desc: `For each BUTCHER included in your army, you can include 1 GORGERS unit as a Battleline unit.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Gobbling Bites`,
+        desc: `At the end of the combat phase, roll a dice for each enemy unit within 3" of any friendly GUTBUSTERS units. On a 2+, that enemy unit suffers D3+1 mortal wounds.`,
+        when: [END_OF_COMBAT_PHASE],
+      },
+    ],
+  },
+
+  'The Roving Maw Battle Tactics': {
+    effects: [
+      {
+        name: `That Was Just a Morsel`,
+        desc: `You complete this tactic if any enemy models were slain by the Mawpit's Head Butcher ability in this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Slavering Ambush`,
+        desc: `You complete this tactic if a friendly GORGERS unit was set up on the battlefield using the Ambushing Hunters ability this turn and made a charge move this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `We Eated 'Em All`,
+        desc: `Pick 1 objective controlled by your opponent. You complete this tactic if you control that objective at the end of this turn and there are no enemy models contesting it.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

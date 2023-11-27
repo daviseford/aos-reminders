@@ -38,6 +38,16 @@ const GrandStrategies = {
       },
     ],
   },
+  // The Roving Maw
+  'Still Not Satiated': {
+    effects: [
+      {
+        name: `Still Not Satiated`,
+        desc: `When the battle ends, you complete this grand strategy if 6 or more enemy models were slain by the Mawpit'sHead Butcher ability.`,
+        when: [END_OF_GAME],
+      },
+    ],
+  },
 }
 
 export default tagAs(GrandStrategies, 'grand_strategy')

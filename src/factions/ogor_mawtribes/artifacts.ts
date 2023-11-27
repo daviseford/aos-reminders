@@ -6,6 +6,7 @@ import {
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_ANY_PHASE,
+  START_OF_HERO_PHASE,
 } from 'types/phases'
 
 const Artifacts = {
@@ -81,6 +82,17 @@ const Artifacts = {
         name: `The Seat of Alvagr`,
         desc: `Once per battle, in the charge phase, you can carry out a second monstrous rampage with the bearer. The second monstrous rampage cannot be monstrous rampage you have already carried out in that phase.`,
         when: [CHARGE_PHASE],
+      },
+    ],
+  },
+
+  // The Roving Maw
+  'Flask of Congealed Maw-juices': {
+    effects: [
+      {
+        name: `Flask of Congealed Maw-juices`,
+        desc: `Once per battle, at the start of the hero phase, you can pick 1 Mawpit in your army that is within 9" of the bearer and that has been affected by a rule that says you cannot use the scenery rules on its warscroll (such as Smash To Rubble) and roll a dice. On a 2+, that Mawpit is no longer affected by that rule and you can use the scenery rules on its warscroll once more.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },

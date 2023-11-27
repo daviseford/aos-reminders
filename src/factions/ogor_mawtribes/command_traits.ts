@@ -100,6 +100,16 @@ const CommandTraits: TItemDescriptions = {
       },
     ],
   },
+  // The Roving Maw
+  'Prime Gutserver': {
+    effects: [
+      {
+        name: `Prime Gutserver`,
+        desc: `This general knows all of the spells from the Lore of the Great Maw in addition to any other spells they know.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(CommandTraits, 'command_trait')
