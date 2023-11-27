@@ -73,7 +73,7 @@ const BattleTraits = {
       },
       {
         name: `Colossal Slam`,
-        desc: `Pick 1 enemy MONSTER that is not part of a unit consisting of 2 or more models and that is within% of this unit. Roll a dice.On a 3+,you can remove that MONSTER from the battlefield and set it up again anywhere wholly on open ground within 1/2"of this unit.That MONSTER suffers D3 mortal wounds. In addition, subtract 1 from hit rolls for attacks made by the unit carrying out this monstrous rampage until the end of the following combat phase.`,
+        desc: `Pick 1 enemy MONSTER that is not part of a unit consisting of 2 or more models and that is within 1/2" of this unit. Roll a dice. On a 3+, you can remove that MONSTER from the battlefield and set it up again anywhere wholly on open ground within 1/2" of this unit. That MONSTER suffers D3 mortal wounds. In addition, subtract 1 from hit rolls for attacks made by the unit carrying out this monstrous rampage until the end of the following combat phase.`,
         when: [END_OF_CHARGE_PHASE],
       },
     ],

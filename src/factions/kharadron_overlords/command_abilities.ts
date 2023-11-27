@@ -47,7 +47,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Bring Every Gun to Bear`,
-        desc: `You can use this command ability at the start of your shooting phase. The unit that receieves the command must be a friendly SKYVESSEL that is more than 3" from all enemy units, that remained stationary in the preceding movement phase and that did not receive the Fly High command in the preceding movement phase. Add 1 to the Attacks characteristic of that unit's missile weapons until the end of the phase.`,
+        desc: `You can use this command ability at the start of your shooting phase. The unit that receieves the command must be a friendly SKYVESSEL that is more than 3" from all enemy units, that remained stationery in the preceding movement phase and that did not receive the Fly High command in the preceding movement phase. Add 1 to the Attacks characteristic of that unit's missile weapons until the end of the phase.`,
         when: [START_OF_SHOOTING_PHASE],
       },
     ],
@@ -56,7 +56,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Command the Fleet`,
-        desc: `You can use this command ability at the start of your movement phase. Up to 3 friendly SKYVESSELS that are more than 3" from all enemy units can receive the command. In that phase you can reroll run rolls for the units that receive the command. In addition, the units that recieve the command can run and still shoot and/or charge later in the turn.`,
+        desc: `You can use this command ability at the start of your movement phase. Up to 3 friendly SKYVESSELS that are more than 3" from all enemy units can receive the command. In that phase you can reroll run rolls for the units that receive the command. In addition, the units that receive the command can run and still shoot and/or charge later in the turn.`,
         when: [START_OF_MOVEMENT_PHASE],
       },
     ],

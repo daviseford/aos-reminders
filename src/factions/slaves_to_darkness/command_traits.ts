@@ -76,7 +76,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Radiance of Dark Glory`,
-        desc: `At the start of your hero phase, roll a dice for each friendly model within 9" of this general that has any  wounds allocated to them. On a 3+, you can heal 1 wound from the model being rolled for. If the model being rolled for is a MONSTER, on a 3+ you can heal up to 3 wounds instead.`,
+        desc: `At the start of your hero phase, roll a dice for each friendly model within 9" of this general that has any wounds allocated to them. On a 3+, you can heal 1 wound from the model being rolled for. If the model being rolled for is a MONSTER, on a 3+ you can heal up to 3 wounds instead.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

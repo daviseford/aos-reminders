@@ -18,7 +18,7 @@ const Flavors: TItemDescriptions = {
       },
       {
         name: `I Want That For Me Collection`,
-        desc: `You can use this command ability at the start of the combat phase.The command can only be issued by your general, and the unit that receives the command must be a  friendly Mancrusher Gargant unit. Until the end of that phase, add 1 to the Damage characteristic of attacks made with melee weapons that target an enemy unit that bears an artefact of power or is Unique.`,
+        desc: `You can use this command ability at the start of the combat phase. The command can only be issued by your general, and the unit that receives the command must be a friendly Mancrusher Gargant unit. Until the end of that phase, add 1 to the Damage characteristic of attacks made with melee weapons that target an enemy unit that bears an artefact of power or is Unique.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

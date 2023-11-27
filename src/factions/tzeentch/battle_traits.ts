@@ -41,7 +41,7 @@ const BattleTraits = {
         - Hit rolls
         - Wound rolls
         - Save rolls (You must still modify the roll by the Rend characteristic of the attacking weapon)
-        - Any roll that determines the Damage characteristic of a missle or melee weapon
+        - Any roll that determines the Damage characteristic of a missile or melee weapon
         - Battleshock rolls (You must still modify the roll by the number of models slain from the unit)
         
         Designer's Note: It is recommended the you represent your Destiny Dice with dice that are a different colour and/or size to those used for other rolls.`,
@@ -182,7 +182,7 @@ const BattleTraits = {
     effects: [
       {
         name: `Scions of the Exiled`,
-        desc: `If your army has the Guild of Summoners keyword, your Fate Points can only be used to summon Lord of Change units. Instead of a Fate Point cost of 30, a Guild of Summoners Lord of Change costs 9 Fate Points to summon the first time, and 18 Fate Points each time thereafter for the rest of the battle. In addition, Lord of Change units summoned in this way must be set up wholly within 9" of a Guild of Summoners Arcanite Hero and more than 9"from all enemy units.`,
+        desc: `If your army has the Guild of Summoners keyword, your Fate Points can only be used to summon Lord of Change units. Instead of a Fate Point cost of 30, a Guild of Summoners Lord of Change costs 9 Fate Points to summon the first time, and 18 Fate Points each time thereafter for the rest of the battle. In addition, Lord of Change units summoned in this way must be set up wholly within 9" of a Guild of Summoners Arcanite Hero and more than 9" from all enemy units.`,
         when: [DURING_GAME],
       },
     ],

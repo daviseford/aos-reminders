@@ -60,7 +60,7 @@ const Spells = {
     effects: [
       {
         name: `Grief-Stricken`,
-        desc: `Grief-stricken is a spell that has a casting value of 7 and a range of 18". Pick 1 enemy unit within range and visible to the caster. Subtract 1 from hit rolls for attacks made by that unit and add 1 to hit rolls for attacks made with melee weapons by friendly Nighthaunt units that target that unit until your next hero phase.`,
+        desc: `Casting value of 7 and a range of 18". Pick 1 enemy unit within range and visible to the caster. Subtract 1 from hit rolls for attacks made by that unit and add 1 to hit rolls for attacks made with melee weapons by friendly Nighthaunt units that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],

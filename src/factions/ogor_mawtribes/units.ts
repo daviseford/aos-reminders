@@ -346,7 +346,7 @@ const Units = {
       },
       {
         name: `Line Breaker`,
-        desc: `Subtract 1 from wound rolls for attacks made with missle weapons that target this unit.`,
+        desc: `Subtract 1 from wound rolls for attacks made with missile weapons that target this unit.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -376,7 +376,7 @@ const Units = {
       },
       {
         name: `Thunderous Blasts of Hot Metal`,
-        desc: `If this unit remained stationary in your movement phase, when this unit shoots in your following shooting phase, the Attacks characterisitc is 2D3 instead of D3.`,
+        desc: `If this unit remained stationery in your movement phase, when this unit shoots in your following shooting phase, the Attacks characterisitc is 2D3 instead of D3.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -401,9 +401,7 @@ const Units = {
       },
       {
         name: `Gutguard`,
-        desc: `Before you allocate a wound, mortal to a friendly TYRANT within 3" or make a ward roll for that TYRANT you can roll a dice. 
-        On a 1-2 that wound or mortal wound is allocated to that TYRANT as normal. 
-        On a 3+ that wound or mortal wound is allocated to this unit instead of that TYRANT.`,
+        desc: `Before you allocate a wound, mortal to a friendly TYRANT within 3" or make a ward roll for that TYRANT you can roll a dice. On a 1-2 that wound or mortal wound is allocated to that TYRANT as normal. On a 3+ that wound or mortal wound is allocated to this unit instead of that TYRANT.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -423,7 +421,7 @@ const Units = {
       },
       {
         name: `Tribal Banner Bearer with Lookout Gnoblar`,
-        desc: `Subtract 1 from wound rolls from missle weapons that target this unit while it has any Tribal Banner Bearer with Lookout Gnoblar.`,
+        desc: `Subtract 1 from wound rolls from missile weapons that target this unit while it has any Tribal Banner Bearer with Lookout Gnoblar.`,
         when: [SHOOTING_PHASE],
       },
       IronfistEffect,
@@ -593,6 +591,35 @@ const Units = {
         name: `Beast-Breaker`,
         desc: `If the target is a MONSTER, the damage of a Skullshatter Crossbow is 3 and the damage of an Impaling Spear is 6.`,
         when: [SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Gorger Mawpack': {
+    effects: [
+      {
+        name: `Clawback`,
+        desc: `1 in every 5 models in this unit must be a Clawback. Add 1 to the Attacks characteristic of that model's Bone-shattering Strikes. That model can issue commands to their own unit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Cave Howler`,
+        desc: `1 in every 5 models in this unit must be a Cave Howler.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Ambushing Hunters`,
+        desc: `During deployment, instead of setting up this unit on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit. If you do so, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Ambushing Hunters`,
+        desc: `If this unit is set up in ambush as a reserve unit, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
+      },
+      {
+        name: `Agonising Roar`,
+        desc: `Roll a dice each time an enemy unit receives a command within 12" of a friendly Cave Howler. On a 5+, that command is not received (the command ability still counts as having been used) and the command point that was spent to issue that command is lost.`,
+        when: [DURING_GAME],
       },
     ],
   },

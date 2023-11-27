@@ -117,7 +117,7 @@ const Spells = {
     effects: [
       {
         name: `Crippling Vertigo`,
-        desc: `Casting value of 6 and a range of 18". Pick 1 enemy unit wholly within  range and visible to the caster. Until your next hero phase, roll 2D6 before that unit makes a normal move, runs, retreats, makes a charge move or makes a pile-in move. If the roll is greater than that unit's bravery, it cannot make that move.`,
+        desc: `Casting value of 6 and a range of 18". Pick 1 enemy unit wholly within range and visible to the caster. Until your next hero phase, roll 2D6 before that unit makes a normal move, runs, retreats, makes a charge move or makes a pile-in move. If the roll is greater than that unit's bravery, it cannot make that move.`,
         when: [HERO_PHASE],
       },
       {
@@ -261,7 +261,7 @@ const Spells = {
     effects: [
       {
         name: `Dazzling Light`,
-        desc: `Casting value of 6. Until your next hero phase, subtract 1 from hit rolls targeting the caster and subtract 1 from missle weapon attacks targeting friendly units wholly within 6" of the caster.`,
+        desc: `Casting value of 6. Until your next hero phase, subtract 1 from hit rolls targeting the caster and subtract 1 from missile weapon attacks targeting friendly units wholly within 6" of the caster.`,
         when: [HERO_PHASE],
       },
       {

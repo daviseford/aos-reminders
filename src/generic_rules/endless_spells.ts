@@ -138,7 +138,7 @@ export const BurningHeadEffects = [
   GenericEffects.Predatory.Eight_Inches,
   {
     name: `Flaming Skull`,
-    desc: `After this endleAfter this endless spell has moved, the commanding player can pick 1 enemy unit within 1&quot; of this endless spell and roll a dice. On a 2+, this endless spell is treated as part of that enemy unit until either that unit is destroyed or the endless spell is dispelled, at which point the endless spell is removed from play. While this endless spell is part of a unit, at the end of each movement phase, roll a dice. On a 2+, the unit that this endless spell is part of suffers D3 mortal wounds.ss spell has moved, if any units are within 3" of it, roll a dice for each unit within 3" of this endless spell. On a 2+, that unit suffers D3 mortal wounds. After this endless spell causes any mortal wounds with this ability, it is removed from play.`,
+    desc: `After this endless spell has moved, the commanding player can pick 1 enemy unit within 1" of this endless spell and roll a dice. On a 2+, this endless spell is treated as part of that enemy unit until either that unit is destroyed or the endless spell is dispelled, at which point the endless spell is removed from play. While this endless spell is part of a unit, at the end of each movement phase, roll a dice. On a 2+, the unit that this endless spell is part of suffers D3 mortal wounds. After this endless spell causes any mortal wounds with this ability, it is removed from play.`,
     when: [END_OF_HERO_PHASE],
     rule_sources: [
       meta_rule_sources.GHB_2022,

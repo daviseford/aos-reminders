@@ -100,7 +100,7 @@ const Units = {
     effects: [
       {
         name: `Dual Axes`,
-        desc: `If the unmodified hit roll for an attack made with a melee weapon by this unit is 6, that attack causes a number of mortal wounds to the target equal to the weapon's Damage characteristic and the attack sequence ends (do not make a  wound roll or save roll).`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon by this unit is 6, that attack causes a number of mortal wounds to the target equal to the weapon's Damage characteristic and the attack sequence ends (do not make a wound roll or save roll).`,
         when: [COMBAT_PHASE],
       },
       {
@@ -450,7 +450,7 @@ const Units = {
       ChampionEffect,
       {
         name: `Guided by the Future`,
-        desc: `Ignore negative modifiers to hit or wound rolls for attacks made with missle weapons by this unit, and ignore positive modifiers to save rolls for attacks made with missle weapons by this unit.`,
+        desc: `Ignore negative modifiers to hit or wound rolls for attacks made with missile weapons by this unit, and ignore positive modifiers to save rolls for attacks made with missile weapons by this unit.`,
         when: [SHOOTING_PHASE],
       },
       {

@@ -405,7 +405,7 @@ const Units = {
     effects: [
       {
         name: `Guided by the Future`,
-        desc: `Ignore negative modifiers to hit or wound rolls for attacks made with missle weapons by this unit, and ignore positive modifiers to save rolls for attacks made with missle weapons by this unit.`,
+        desc: `Ignore negative modifiers to hit or wound rolls for attacks made with missile weapons by this unit, and ignore positive modifiers to save rolls for attacks made with missile weapons by this unit.`,
         when: [SHOOTING_PHASE],
       },
       {

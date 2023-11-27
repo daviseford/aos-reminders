@@ -103,7 +103,7 @@ const subFactions = {
       },
       {
         name: `Warlord Supreme`,
-        desc: `If the model picked to be your general is a PRETENDERS HERO. they can issue the same command up to 3 times in the same phase. If it does so, each command must be received by a  friendly PRETENDERS unit. No command points are spent the second and third times your general issues that command in that phase.`,
+        desc: `If the model picked to be your general is a PRETENDERS HERO. they can issue the same command up to 3 times in the same phase. If it does so, each command must be received by a friendly PRETENDERS unit. No command points are spent the second and third times your general issues that command in that phase.`,
         when: [DURING_GAME],
       },
     ],

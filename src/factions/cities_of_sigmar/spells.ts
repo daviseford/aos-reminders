@@ -275,12 +275,12 @@ const Spells = {
     effects: [
       {
         name: `Illuminate (Settler's Gain)`,
-        desc: `Casting value of 6. Pick 1 enemy unit within 12" of the caster and visible. Until your next hero phase add 1 to missle hit rolls targeting that unit.`,
+        desc: `Casting value of 6. Pick 1 enemy unit within 12" of the caster and visible. Until your next hero phase add 1 to missile hit rolls targeting that unit.`,
         when: [HERO_PHASE],
       },
       {
         name: `Illuminate (Settler's Gain)`,
-        desc: `If active, add 1 to missle hit rolls targeting the debuffed unit.`,
+        desc: `If active, add 1 to missile hit rolls targeting the debuffed unit.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -442,7 +442,7 @@ const Spells = {
     effects: [
       {
         name: `Armour of Thorns`,
-        desc: `7+ casting value. Pick 1 friendly WANDERERS unit wholly within 18" of the caster that is visible to them. Until that unit moves, that unit is treated as being in cover.In addition, until that unit moves, if the unmodified save roll for an attack made with a melee weapon that targets that unit is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
+        desc: `7+ casting value. Pick 1 friendly WANDERERS unit wholly within 18" of the caster that is visible to them. Until that unit moves, that unit is treated as being in cover. In addition, until that unit moves, if the unmodified save roll for an attack made with a melee weapon that targets that unit is 6, the attacking unit suffers 1 mortal wound after all of its attacks have been resolved.`,
         when: [HERO_PHASE],
       },
     ],

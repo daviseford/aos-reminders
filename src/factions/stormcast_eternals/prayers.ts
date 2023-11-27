@@ -74,7 +74,7 @@ const Prayers = {
     effects: [
       {
         name: `Sigmar's Grace`,
-        desc: `Answer value of 3 and a range of 12". If answered, pick I friendly unit wholly within range and visible to the chanter. You can heal up to 3 wounds allocated to that unit.`,
+        desc: `Answer value of 3 and a range of 12". If answered, pick 1 friendly unit wholly within range and visible to the chanter. You can heal up to 3 wounds allocated to that unit.`,
         when: [HERO_PHASE],
       },
     ],

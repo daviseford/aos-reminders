@@ -329,7 +329,7 @@ const Units = {
       },
       {
         name: `Warding Lanterns`,
-        desc: `This unit has a ward of 6+ if it remains stationary in the same turn.`,
+        desc: `This unit has a ward of 6+ if it remains stationery in the same turn.`,
         when: [WARDS_PHASE],
       },
     ],
@@ -512,7 +512,7 @@ const Units = {
       MoveLikeTheWindEffect,
       {
         name: `Fan of Redirection`,
-        desc: `Add 1 to save rolls for attacks made with missile weapons that target this model. In addition, if the unmodified save roll for an attack made with a missle weapon that targets this unit is 6, after all the attacking unit's attacks have been resolved, you can cause 1 mortal wound to 1 enemy unit within 9" of this unit and visible to it.`,
+        desc: `Add 1 to save rolls for attacks made with missile weapons that target this model. In addition, if the unmodified save roll for an attack made with a missile weapon that targets this unit is 6, after all the attacking unit's attacks have been resolved, you can cause 1 mortal wound to 1 enemy unit within 9" of this unit and visible to it.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
       {
@@ -528,7 +528,7 @@ const Units = {
       MoveLikeTheWindEffect,
       {
         name: `Windcharger Arrows`,
-        desc: `Ward rolls cannot be made for wounds and mortal wounds caused by attacks made with missle weapons by this unit.`,
+        desc: `Ward rolls cannot be made for wounds and mortal wounds caused by attacks made with missile weapons by this unit.`,
         when: [SAVES_PHASE],
       },
       {
