@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   HERO_PHASE,
   SHOOTING_PHASE,
   START_OF_ANY_PHASE,
@@ -97,6 +98,15 @@ const Artifacts = {
         name: `Nulsidian Icon`,
         desc: `This artefact of power can only be given to a BATTLESMITH. Each time a friendly FYRESLAYERS unit wholly within 12" of the bearer is affected by a spell or the abilities of an endless spell, you can roll a dice. On a 4+, ignore the effect of that spell or the effects of that endless spell's abilities on that unit.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Mastery Over Monsters': {
+    effects: [
+      {
+        name: `Mastery Over Monsters`,
+        desc: `While the bearer is contesting an objective, each enemy MONSTER contesting that objective counts as 2 models regardless of any other abilities that would allow that enemy MONSTER to count as more models (such as Mightier Makes Rightier).`,
+        when: [DURING_GAME],
       },
     ],
   },
