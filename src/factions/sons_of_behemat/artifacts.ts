@@ -33,7 +33,7 @@ const Artifacts = {
     effects: [
       {
         name: `Scavenger Wake`,
-        desc: `Once per battle,at the start of the combat phase, you can pick 1 enemy unit within 3" of the bearer and roll a number of dice equal to the number of models in that unit (to a maximum of 10). For each 4+, that enemy unit suffers 1 mortal wound.`,
+        desc: `Once per battle, at the start of the combat phase, you can pick 1 enemy unit within 3" of the bearer and roll a number of dice equal to the number of models in that unit (to a maximum of 10). For each 4+, that enemy unit suffers 1 mortal wound.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],
@@ -51,7 +51,7 @@ const Artifacts = {
     effects: [
       {
         name: `Wallopin' Tentacle (Taker Tribe)`,
-        desc: `Kraken-Eater only. At the start of the combat phase, you can pick 1 enemy HERO within 3"of the bearer and roll a dice. On a 4+, that HERO suffers D3 mortal wounds and  the strike-last effect applies to that HERO until the end of that phase.`,
+        desc: `Kraken-Eater only. At the start of the combat phase, you can pick 1 enemy HERO within 3" of the bearer and roll a dice. On a 4+, that HERO suffers D3 mortal wounds and the strike-last effect applies to that HERO until the end of that phase.`,
         when: [START_OF_COMBAT_PHASE],
       },
     ],

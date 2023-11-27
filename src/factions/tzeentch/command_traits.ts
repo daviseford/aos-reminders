@@ -13,7 +13,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Cult Demagogue`,
-        desc: `WIZARDS only. If a casting roll for this general is a double,the casting attempt is successful and the spell cannot be unbound (regardless of the roll). In addition,you receive 2 Fate Points instead of 1.`,
+        desc: `WIZARDS only. If a casting roll for this general is a double, the casting attempt is successful and the spell cannot be unbound (regardless of the roll). In addition, you receive 2 Fate Points instead of 1.`,
         when: [HERO_PHASE],
       },
     ],
@@ -22,7 +22,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Arcane Sacrifice`,
-        desc: `WIZARDS only. At the start of your hero phase,you can cause 1 mortal wound to a friendly TZEENTCH unit within 3"of this general. If you do so,until the end of that phase, add 9"to the range of all spells successfully cast by this general.`,
+        desc: `WIZARDS only. At the start of your hero phase, you can cause 1 mortal wound to a friendly TZEENTCH unit within 3" of this general. If you do so, until the end of that phase, add 9" to the range of all spells successfully cast by this general.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
@@ -78,7 +78,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Nexus of Fate`,
-        desc: `At the start of your hero phase, if this general is on the battlefield, you can roll a dice. If you do so,you can replace one of your Destiny Dice with that roll.`,
+        desc: `At the start of your hero phase, if this general is on the battlefield, you can roll a dice. If you do so, you can replace one of your Destiny Dice with that roll.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

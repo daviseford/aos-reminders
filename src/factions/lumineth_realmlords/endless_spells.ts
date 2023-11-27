@@ -42,7 +42,7 @@ const EndlessSpells = {
       },
       GenericEffects.Linked,
       {
-        name: `Stationary`,
+        name: `stationery`,
         desc: `While this endless spell is on the battlefield, the model that summoned this endless spell cannot move.`,
         when: [MOVEMENT_PHASE],
         rule_sources: [rule_sources.ERRATA_JULY_2021],

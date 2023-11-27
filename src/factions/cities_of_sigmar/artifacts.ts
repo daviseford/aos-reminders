@@ -329,7 +329,7 @@ const Artifacts = {
     effects: [
       {
         name: `Traitor's Banner (Har Kuron)`,
-        desc: `Subtract 1 from missle attack hit rolls made against units wholly within 12" of the bearer.`,
+        desc: `Subtract 1 from missile attack hit rolls made against units wholly within 12" of the bearer.`,
         when: [SHOOTING_PHASE],
       },
     ],

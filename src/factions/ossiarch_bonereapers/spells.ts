@@ -51,7 +51,7 @@ const Spells = {
     effects: [
       {
         name: `Soul Release`,
-        desc: `Casting value of 5 and a range of 12". Until your next hero phase, enemy reserve units and enemy summoned units (core rules, 3.1) cannot be set up within range of the caster. The range of this spell cannot be modified andmust be measured from the caster, even if an ability would allow youto measure it from elsewhere.`,
+        desc: `Casting value of 5 and a range of 12". Until your next hero phase, enemy reserve units and enemy summoned units (core rules, 3.1) cannot be set up within range of the caster. The range of this spell cannot be modified and must be measured from the caster, even if an ability would allow youto measure it from elsewhere.`,
         when: [HERO_PHASE],
       },
     ],

@@ -37,7 +37,7 @@ const CommandAbilities = {
     effects: [
       {
         name: `Wrath of the Scathborn`,
-        desc: `You can use this command ability in your charge phase if this unit is part of your army and on the battlefield. The command can only be issued by this unit, and the unit that receives the command must be a friendly MELUSAI unit. That unit can attempt a charge  even if it ran in the same turn.`,
+        desc: `You can use this command ability in your charge phase if this unit is part of your army and on the battlefield. The command can only be issued by this unit, and the unit that receives the command must be a friendly MELUSAI unit. That unit can attempt a charge even if it ran in the same turn.`,
         when: [CHARGE_PHASE],
         rule_sources: [rule_sources.BATTLETOME_DAUGHTERS_OF_KHAINE, rule_sources.ERRATA_JULY_2022],
       },

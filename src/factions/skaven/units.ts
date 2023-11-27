@@ -356,7 +356,7 @@ const Units = {
       },
       {
         name: `Pavise`,
-        desc: `You can add 1 to hit rolls for attacks made with Warplock Jezzails if this unit remains stationary in the same turn.`,
+        desc: `You can add 1 to hit rolls for attacks made with Warplock Jezzails if this unit remains stationery in the same turn.`,
         when: [SHOOTING_PHASE],
       },
       {

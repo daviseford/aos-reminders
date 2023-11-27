@@ -233,7 +233,7 @@ const Units = {
       },
       {
         name: `Grudgebreaker Rounds`,
-        desc: `Once per battle, at the start of your shooting phase, pick 1 friendly KHARADRON OVERLORDS unit wholly within 12" of this unit that is not a SKYVESSEL. Until the end of that phase, improve the Rend characteristic of that unit's missle weapons by 1. The same unit cannot be picked to benefit from this ability than once in the same phase.`,
+        desc: `Once per battle, at the start of your shooting phase, pick 1 friendly KHARADRON OVERLORDS unit wholly within 12" of this unit that is not a SKYVESSEL. Until the end of that phase, improve the Rend characteristic of that unit's missile weapons by 1. The same unit cannot be picked to benefit from this ability than once in the same phase.`,
         when: [START_OF_SHOOTING_PHASE],
       },
     ],

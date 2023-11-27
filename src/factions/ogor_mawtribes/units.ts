@@ -346,7 +346,7 @@ const Units = {
       },
       {
         name: `Line Breaker`,
-        desc: `Subtract 1 from wound rolls for attacks made with missle weapons that target this unit.`,
+        desc: `Subtract 1 from wound rolls for attacks made with missile weapons that target this unit.`,
         when: [SHOOTING_PHASE],
       },
       {
@@ -376,7 +376,7 @@ const Units = {
       },
       {
         name: `Thunderous Blasts of Hot Metal`,
-        desc: `If this unit remained stationary in your movement phase, when this unit shoots in your following shooting phase, the Attacks characterisitc is 2D3 instead of D3.`,
+        desc: `If this unit remained stationery in your movement phase, when this unit shoots in your following shooting phase, the Attacks characterisitc is 2D3 instead of D3.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -401,9 +401,7 @@ const Units = {
       },
       {
         name: `Gutguard`,
-        desc: `Before you allocate a wound, mortal to a friendly TYRANT within 3" or make a ward roll for that TYRANT you can roll a dice. 
-        On a 1-2 that wound or mortal wound is allocated to that TYRANT as normal. 
-        On a 3+ that wound or mortal wound is allocated to this unit instead of that TYRANT.`,
+        desc: `Before you allocate a wound, mortal to a friendly TYRANT within 3" or make a ward roll for that TYRANT you can roll a dice. On a 1-2 that wound or mortal wound is allocated to that TYRANT as normal. On a 3+ that wound or mortal wound is allocated to this unit instead of that TYRANT.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],
@@ -423,7 +421,7 @@ const Units = {
       },
       {
         name: `Tribal Banner Bearer with Lookout Gnoblar`,
-        desc: `Subtract 1 from wound rolls from missle weapons that target this unit while it has any Tribal Banner Bearer with Lookout Gnoblar.`,
+        desc: `Subtract 1 from wound rolls from missile weapons that target this unit while it has any Tribal Banner Bearer with Lookout Gnoblar.`,
         when: [SHOOTING_PHASE],
       },
       IronfistEffect,

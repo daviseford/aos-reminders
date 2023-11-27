@@ -16,7 +16,7 @@ const GrandStrategies = {
     effects: [
       {
         name: `Brodd's Revenge`,
-        desc: `You can only pick this grand strategy if your army includes King Brodd. When the battle ends,you complete this grand strategy if the friendly KING BRODD has not been slain and you picked each of the 3 effects of the Power of Behemat prayer to apply at least once during the battle.`,
+        desc: `You can only pick this grand strategy if your army includes King Brodd. When the battle ends, you complete this grand strategy if the friendly KING BRODD has not been slain and you picked each of the 3 effects of the Power of Behemat prayer to apply at least once during the battle.`,
         when: [END_OF_GAME],
       },
     ],

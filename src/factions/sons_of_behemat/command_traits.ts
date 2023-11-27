@@ -34,7 +34,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Rabble Rouser`,
-        desc: `Add 1 to charge rolls for friendly SONS OF BEHEMAT units wholly within 18"of this general.`,
+        desc: `Add 1 to charge rolls for friendly SONS OF BEHEMAT units wholly within 18" of this general.`,
         when: [CHARGE_PHASE],
       },
     ],

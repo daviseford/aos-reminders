@@ -39,7 +39,7 @@ const GenericArtifacts: TEntry[] = [
     effects: [
       {
         name: `Arcane Tome`,
-        desc: `HERO that does not have the WIZARD, PRIEST or KHORNE keyword. The bearer becomes a WIZARD that can only cast  Arcane Bolt, Mystic Shield and spells to summon endless spells on your army roster. They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase.`,
+        desc: `HERO that does not have the WIZARD, PRIEST or KHORNE keyword. The bearer becomes a WIZARD that can only cast Arcane Bolt, Mystic Shield and spells to summon endless spells on your army roster. They can attempt to cast 1 spell in your hero phase and attempt to unbind 1 spell in the enemy hero phase.`,
         when: [HERO_PHASE],
         rule_sources: [
           meta_rule_sources.CORE_RULES_2021,
