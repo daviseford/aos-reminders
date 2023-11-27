@@ -38,6 +38,15 @@ const GrandStrategies = {
       },
     ],
   },
+  'Clear the Corral': {
+    effects: [
+      {
+        name: `Clear the Corral`,
+        desc: `When the battle ends, you complete this grand strategy if there are no enemy MONSTERS in your territory.`,
+        when: [END_OF_GAME],
+      },
+    ],
+  },
 }
 
 export default tagAs(GrandStrategies, 'grand_strategy')

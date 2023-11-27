@@ -73,6 +73,15 @@ const CommandTraits = {
       },
     ],
   },
+  'Raised Around Beasts': {
+    effects: [
+      {
+        name: `Raised Around Beasts`,
+        desc: `Improve the Rend characteristic of melee weapons used by friendly LOFNIR DROTHKEEPERS units that do not have the MAGMADROTH keyword and are wholly within 9" of this general by 2 if the target is a MONSTER.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(CommandTraits, 'command_trait')

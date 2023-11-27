@@ -3,10 +3,13 @@ import { FYRESLAYERS } from 'meta/factions'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_CHARGE_PHASE,
   MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
+  WARDS_PHASE,
 } from 'types/phases'
 
 const BattleTraits = {
@@ -17,6 +20,71 @@ const BattleTraits = {
         desc: `At the start of your hero phase, you can carry out this heroic action with a friendly FYRESLAYERS HERO instead of any other heroic action you can carry out with that HERO.
         
         Pick 1 friendly FYRESLAYERS HERO. Until the end of your turn, the enhanced effect of the ur-gold rune that is activated in this hero phase applies to that HERO regardless of the activation roll. You cannot carry out this heroic action with the same HERO more than once in the same battle.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+
+  'Lofnir Drothkeepers': {
+    effects: [
+      {
+        name: `Daring Tamers`,
+        desc: `The strike-last effect applies to enemy MONSTER units while they are within 3" of 2 or more friendly VULKYN FLAMESEEKERS units.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Honourbound Drothmasters`,
+        desc: `Friendly VULKYN FLAMESEEKERS units have the Battleline battlefield role. In addition, for each VULKYN FLAMESEEKERS unit included in your army, you can include 1 Auric Runeson on Magmadroth as a Battleline unit.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Flame-filled Beasts`,
+        desc: `You can pick up to 3 LOFNIR DROTHKEEPERS units in your army to have different mount traits instead of 1.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Skilled Drothwranglers`,
+        desc: `Once per turn, in your movement phase, you can pick 1 friendly VULKYN FLAMESEEKERS unit wholly within 6" of a friendly MAGMADROTH that has not yet moved in that phase and say that it will hitch a lift on that MAGMADROTH. If you do so, after you have moved that MAGMADROTH, instead of making a move with that unit, remove it from the battlefield and set it up again on the battlefield wholly within 6" of that MAGMADROTH and more than 3" from all enemy units.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Protective Family`,
+        desc: `While a friendly VULKYN FLAMESEEKERS Kyndledroth is within 1" of a friendly MAGMADROTH, that VULKYN FLAMESEEKERS unit has a ward of 5+.`,
+        when: [WARDS_PHASE],
+      },
+      {
+        name: `Monstrous Rampage: Rearing Punches`,
+        desc: `Pick 1 enemy unit within 3" of this unit and roll 2 dice. Add 2 to each roll if that unit is a MONSTER. For each 5+, that unit suffers D3 mortal wounds.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Monstrous Rampage: Magma-fuelled Grasp`,
+        desc: `Pick 1 enemy MONSTER within 3" of this unit and roll a dice. On a 3+, improve the Rend characteristic of melee weapons used by other friendly LOFNIR DROTHKEEPERS units that target that MONSTER by 1 in the following combat phase.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Monstrous Rampage: Eruption of Ferocity`,
+        desc: `Pick 1 enemy unit within 3" of this unit and roll a dice. On a 2+, ward rolls cannot be made for models in that unit in the following combat phase.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+    ],
+  },
+
+  'Lofnir Drothkeepers Battle Tactics': {
+    effects: [
+      {
+        name: `Circle the Magmadroths`,
+        desc: `You complete this tactic if, at the end of this turn, any friendly LOFNIR DROTHKEEPERS units are within 6" of the centre of the battlefield and there are 1 or more friendly LOFNIR DROTHKEEPERS units wholly within each large quarter of the battlefield.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Sulphur Seam`,
+        desc: `Pick 1 objective that is partially or wholly within enemy territory and 1 terrain feature or faction terrain feature that is partially or wholly within enemy territory and more than 6" from that objective. You complete this tactic if you control both that objective and that terrain feature at the end of this turn.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Igneous Wranglers`,
+        desc: `Pick 1 objective partially or wholly in enemy territory and 1 other objective anywhere on the battlefield. You complete this tactic if you control both objectives at the end of this turn and both are contested by friendly VULKYN FLAMESEEKERS units.`,
         when: [START_OF_HERO_PHASE],
       },
     ],
