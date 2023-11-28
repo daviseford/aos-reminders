@@ -1,6 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 
 const Prayers = {
   'Divine Light': {
@@ -66,6 +67,7 @@ const Prayers = {
         name: `Lightning Tempest`,
         desc: `Answer value of 3 and a range of 18". If answered, pick 1 enemy unit within range. That unit is struck by lightning and suffers D3 mortal wounds. Then, roll a dice. On a 1-2, the tempest clears and the sequence ends. On a 3+, pick 1 other enemy unit within 3" of the last unit that was struck by lightning. "Ihat unit is struck by lightning and suffers D3 mortal wounds. Keep rolling dice in this way until the tempest clears or there are no other enemy units within 3" of the last unit to be struck by lightning. A unit cannot be affected by this prayer more than once per hero phase.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },
@@ -76,6 +78,7 @@ const Prayers = {
         name: `Sigmar's Grace`,
         desc: `Answer value of 3 and a range of 12". If answered, pick 1 friendly unit wholly within range and visible to the chanter. You can heal up to 3 wounds allocated to that unit.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },
@@ -85,6 +88,7 @@ const Prayers = {
         name: `Sanctification`,
         desc: `Answer value of 4. If answered, until the start of your next hero phase, subtract 1 from casting rolls for enemy WIZARDS and subtract 1 from chanting rolls for enemy PRIESTS.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },
@@ -94,6 +98,7 @@ const Prayers = {
         name: `Sovereignty`,
         desc: `Answer value of 4 and a range of 12". If answered, pick 1 enemy unit within range. Until the start of your next hero phase, that unit counts as a maximum of 5 models for the purposes of contesting objectives.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },

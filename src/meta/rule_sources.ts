@@ -176,6 +176,11 @@ const meta_rule_sources = {
     url: 'https://www.warhammer-community.com/wp-content/uploads/2023/07/AefiGVn8NoPchpF2.pdf',
   },
 
+  BOOK_DAWNBRINGERS_BOOK_1: {
+    name: 'Dawnbringers Book I',
+    type: 'other_book',
+  },
+
   BOOK_DAWNBRINGERS_BOOK_2: {
     name: 'Dawnbringers Book II',
     type: 'other_book',
@@ -184,6 +189,11 @@ const meta_rule_sources = {
     name: 'Dawnbringers Book II Errata (October 2023)',
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2023/10/82g1IHzMFxXDUL4j.pdf',
+  },
+
+  BOOK_DAWNBRINGERS_BOOK_3: {
+    name: 'Dawnbringers Book III',
+    type: 'other_book',
   },
 }
 

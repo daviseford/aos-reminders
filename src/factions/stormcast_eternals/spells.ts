@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import { HERO_PHASE } from 'types/phases'
 
 const Spells = {
@@ -181,6 +182,7 @@ const Spells = {
         name: `Regal Authority`,
         desc: `Casting value of 7 and a range of 18". Pick 1 friendly DRACONITH unit wholly within range and visible to the caster. Until the start of your next hero phase, each time that unit issues a command, roll a dice. On a 5+, the command point used to issue that command is not spent.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },
@@ -190,6 +192,7 @@ const Spells = {
         name: `Nebulous Sea-fog`,
         desc: `Casting value of 6. If cast, until the start of your next hero phase, shooting attacks that target friendly THE BLACKTALONS units that are wholly within 6" of this unit only score a hit on an unmodified hit roll of 6.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },

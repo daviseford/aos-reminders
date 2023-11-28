@@ -60,11 +60,13 @@ const OrderUnits = {
         name: `Toe to Toe`,
         desc: `Enemy MONSTERS within 3" of any units in this regiment of renown cannot contest objectives.`,
         when: [DURING_GAME],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_1],
       },
       {
         name: `Defiance of Grimnir`,
         desc: `Units in this regiment of renown cannot be picked when your opponent carries out a monstrous rampage.`,
         when: [END_OF_CHARGE_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_1],
       },
     ],
   },

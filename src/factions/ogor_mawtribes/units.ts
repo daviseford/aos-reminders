@@ -25,6 +25,7 @@ import {
 import command_abilities from './command_abilities'
 import prayers from './prayers'
 import spells from './spells'
+import meta_rule_sources from 'meta/rule_sources'
 
 const ThundertuskEffects = [
   {
@@ -600,26 +601,31 @@ const Units = {
         name: `Clawback`,
         desc: `1 in every 5 models in this unit must be a Clawback. Add 1 to the Attacks characteristic of that model's Bone-shattering Strikes. That model can issue commands to their own unit.`,
         when: [COMBAT_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
       {
         name: `Cave Howler`,
         desc: `1 in every 5 models in this unit must be a Cave Howler.`,
         when: [DURING_GAME],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
       {
         name: `Ambushing Hunters`,
         desc: `During deployment, instead of setting up this unit on the battlefield, you can place it to one side and say that it is set up in ambush as a reserve unit. If you do so, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units.`,
         when: [DURING_SETUP],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
       {
         name: `Ambushing Hunters`,
         desc: `If this unit is set up in ambush as a reserve unit, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
       {
         name: `Agonising Roar`,
         desc: `Roll a dice each time an enemy unit receives a command within 12" of a friendly Cave Howler. On a 5+, that command is not received (the command ability still counts as having been used) and the command point that was spent to issue that command is lost.`,
         when: [DURING_GAME],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },

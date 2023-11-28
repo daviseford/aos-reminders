@@ -1,5 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import { GLOOMSPITE_GITZ } from 'meta/factions'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -119,16 +120,19 @@ const BattleTraits = {
         name: `Moonlit Hide`,
         desc: `Add 1 to save rolls for attacks that target friendly TRUGG'S TROGGHERD units while they are affected by the Light of the Bad Moon.`,
         when: [SAVES_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
       {
         name: `Aura of Haywire Magic`,
         desc: `At the start of your hero phase, if you use a friendly TRUGG'S Malfunctioning Leystone ability, the effect you pick applies to all other friendly TRUGG'S TROGGHERD units until the start of your next hero phase.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
       {
         name: `The King's Wreckerz`,
         desc: `Friendly TRUGG'S TROGGHERD units that do not have the HERO keyword gain the Battleline battlefield role.`,
         when: [DURING_GAME],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
 
       // Battle Tactics
@@ -136,16 +140,19 @@ const BattleTraits = {
         name: `Battle Tactic - Don't Like Dat One!`,
         desc: `Pick 1 enemy HERO. You complete this battle tactic if that HERO was destroyed during this turn by an attack made by a friendly TRUGG.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
       {
         name: `Battle Tactic - Feels Funny`,
         desc: `You complete this battle tactic if a friendly TRUGG'S TROGGHERD unit destroyed an enemy unit during this turn while it was affected by the Aura of Haywire Magic battle trait (pg 76).`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
       {
         name: `Battle Tactic - Wot's Dat Glowy Fing?`,
         desc: `Pick 1 objective you do not control. You complete this battle tactic if you control that objective at the end of this turn and 2 or more friendly TRUGG'S TROGGHERD units that are affected by the Light of the Bad Moon are contesting that objective.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
     ],
   },

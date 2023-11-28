@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import { COMBAT_PHASE, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 const Spells = {
@@ -116,6 +117,7 @@ const Spells = {
         name: `Mawmeat`,
         desc: `Casting value of 6 and a range of 18". Pick 1 terrain feature within range and visible to the caster. For the rest of the battle, units on or within 1" of that terrain feature are vulnerable to Mawpits.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },
@@ -125,6 +127,7 @@ const Spells = {
         name: `Retcher`,
         desc: `Casting value of 7. If successfully cast, until your next hero phase, improve the Rend characteristic of melee weapons used by the caster by 2.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },
@@ -134,6 +137,7 @@ const Spells = {
         name: `Offal Bringer`,
         desc: `Casting value of 6 and a range of 12". Pick 1 enemy unit within range and visible to the caster. Your opponent must make a move of up to 6" with that unit. All of the models in that unit must finish that move as close as possible to the caster and can finish that move within 3" of the caster. If it is impossible for that unit to make the move, it suffers D3 mortal wounds instead. After that unit has moved, if that unit is within 3" of the caster and the caster is within 6" of a Mawpit in your army, you can immediately use the Mawpit's Head Butcher ability, but you must pick that enemy unit to be the target.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },

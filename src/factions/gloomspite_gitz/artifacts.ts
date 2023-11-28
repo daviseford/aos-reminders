@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -139,6 +140,7 @@ const Artifacts = {
         name: `Thwackwheezer Club`,
         desc: `Subtract 1 from hit rolls and wound rolls for attacks that target the bearer if they have been picked to fight in the same phase.`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
     ],
   },
@@ -148,6 +150,7 @@ const Artifacts = {
         name: `Crunchy Shinies`,
         desc: `The bearer has a Move characteristic of D6+5"`,
         when: [MOVEMENT_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
     ],
   },
@@ -157,6 +160,7 @@ const Artifacts = {
         name: `Loonstone Teef`,
         desc: `The bearer gains the MONSTER keyword. If the bearer already has the MONSTER keyword, you can carry out 2 different monstrous rampages with it in the same phase instead of 1.`,
         when: [END_OF_CHARGE_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
     ],
   },

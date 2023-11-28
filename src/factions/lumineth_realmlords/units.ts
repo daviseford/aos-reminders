@@ -255,7 +255,7 @@ const Units = {
       },
       {
         name: `World Banner`,
-        desc: `In addition, once per battle at the start of any phase, you can say that this unit will draw upon the power of its World Banner. If you do so, roll a dice for each enemy unit within 18" of this unit. If the roll is equal to or less than the current battle round, that unit suffers D3 mortal wounds, and subtract 1 from hit rolls for that unit until the end of that phase.`,
+        desc: `Once per battle at the start of any phase, you can say that this unit will draw upon the power of its World Banner. If you do so, roll a dice for each enemy unit within 18" of this unit. If the roll is equal to or less than the current battle round, that unit suffers D3 mortal wounds, and subtract 1 from hit rolls for that unit until the end of that phase.`,
         when: [START_OF_ANY_PHASE],
       },
     ],

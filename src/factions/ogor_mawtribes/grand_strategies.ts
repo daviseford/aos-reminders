@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import { END_OF_GAME } from 'types/phases'
 
 const GrandStrategies = {
@@ -45,6 +46,7 @@ const GrandStrategies = {
         name: `Still Not Satiated`,
         desc: `When the battle ends, you complete this grand strategy if 6 or more enemy models were slain by the Mawpit'sHead Butcher ability.`,
         when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },

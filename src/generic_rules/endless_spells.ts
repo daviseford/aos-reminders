@@ -308,7 +308,7 @@ export const UmbralSpellportalEffects = [
   },
   {
     name: `Arcane Passage`,
-    desc: `In addition, once per turn, if a predatory endless spell starts a move within 6" of this endless spell, instead of making a move with it, the commanding player can remove that predatory endless spell from the battlefield and set it up again anywhere within 6" of the other part of this endless spell. An endless spell set up in this manner does not count as having moved but cannot move until the next hero phase.`,
+    desc: `Once per turn, if a predatory endless spell starts a move within 6" of this endless spell, instead of making a move with it, the commanding player can remove that predatory endless spell from the battlefield and set it up again anywhere within 6" of the other part of this endless spell. An endless spell set up in this manner does not count as having moved but cannot move until the next hero phase.`,
     when: [END_OF_HERO_PHASE],
     rule_sources: [
       meta_rule_sources.GHB_2022,

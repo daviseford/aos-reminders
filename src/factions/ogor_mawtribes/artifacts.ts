@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -93,6 +94,7 @@ const Artifacts = {
         name: `Flask of Congealed Maw-juices`,
         desc: `Once per battle, at the start of the hero phase, you can pick 1 Mawpit in your army that is within 9" of the bearer and that has been affected by a rule that says you cannot use the scenery rules on its warscroll (such as Smash To Rubble) and roll a dice. On a 2+, that Mawpit is no longer affected by that rule and you can use the scenery rules on its warscroll once more.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },

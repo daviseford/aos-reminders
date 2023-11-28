@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import { END_OF_GAME } from 'types/phases'
 
 const GrandStrategies = {
@@ -35,6 +36,16 @@ const GrandStrategies = {
         name: `Guided by the Code`,
         desc: `When the battle ends, you complete this grand strategy if you completed at least 4 battle tactics and every battle tactic you completed this battle was a Kharadron Overlords specific battle tactic.`,
         when: [END_OF_GAME],
+      },
+    ],
+  },
+  'Acceptable Profit Margin': {
+    effects: [
+      {
+        name: `Acceptable Profit Margin`,
+        desc: `When the battle ends, you complete this grand strategy if there is at least 1 friendly GRUNDSTOK THUNDERERS unit and at least 1 friendly GRUNDSTOK GUNHAULER on the battlefield.`,
+        when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
     ],
   },

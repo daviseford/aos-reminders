@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
 import { END_OF_CHARGE_PHASE, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 
 const Scenery = {
   'Great Mawpot': {
@@ -39,11 +40,13 @@ const Scenery = {
 
         If this terrain feature has a Head Butcher, this ability affects units within 18" of this terrain feature instead of 12". This ability has no effect on GUTBUSTERS units.`,
         when: [END_OF_CHARGE_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
       {
         name: `Head Butcher`,
         desc: `If this terrain feature has a Head Butcher, in your hero phase, you can say that an offering will be made to the Mawpit. If you do so, pick 1 enemy unit within 18" of this terrain feature and roll D6. If the roll is more than twice that enemy unit's Wounds characteristic, 1 model in that unit is slain. If the roll is more than three times that enemy unit's Wounds characteristic, 3 models in that unit are slain.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
       {
         name: `It Fights Back`,
@@ -51,6 +54,7 @@ const Scenery = {
 
         Designer's Note: A Smash To Rubble monstrous rampage is unsuccessful if the roll was not a 3+.`,
         when: [END_OF_CHARGE_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },
