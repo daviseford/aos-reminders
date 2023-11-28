@@ -2,8 +2,10 @@ import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
+  MOVEMENT_PHASE,
   SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_COMBAT_PHASE,
@@ -126,6 +128,35 @@ const Artifacts = {
         name: `Pet Gribbly`,
         desc: `Add 1 to the bearer's Wounds characteristic. In addition, each time a wound is allocated to the bearer and not negated, roll a dice. On a 1, the Pet Gribbly is squished. When the Pet Gribbly is squished, the bearer becomes enraged for the rest of the battle. Add 1 to hit rolls and wound rolls for attacks made by the bearer while they are enraged.`,
         when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
+
+  // Trugg's Troggherd
+  'Thwackwheezer Club': {
+    effects: [
+      {
+        name: `Thwackwheezer Club`,
+        desc: `Subtract 1 from hit rolls and wound rolls for attacks that target the bearer if they have been picked to fight in the same phase.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+      },
+    ],
+  },
+  'Crunchy Shinies': {
+    effects: [
+      {
+        name: `Crunchy Shinies`,
+        desc: `The bearer has a Move characteristic of D6+5"`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
+  'Loonstone Teef': {
+    effects: [
+      {
+        name: `Loonstone Teef`,
+        desc: `The bearer gains the MONSTER keyword. If the bearer already has the MONSTER keyword, you can carry out 2 different monstrous rampages with it in the same phase instead of 1.`,
+        when: [END_OF_CHARGE_PHASE],
       },
     ],
   },
