@@ -851,6 +851,27 @@ const Units = {
       },
     ],
   },
+  'Rabble-Rowza': {
+    effects: [
+      {
+        name: `Mushroom-stuffed Bat Squigs`,
+        desc: `Once per battle, in your shooting phase, you can say that this unit will deploy its Bat Squigs. If you do so, pick 3 different enemy units within 12" of this unit. Each of those enemy units suffers D3 mortal wounds.`,
+        when: [SHOOTING_PHASE],
+      },
+      {
+        name: `Squig-skull Armour`,
+        desc: `This unit has a ward of 4+ while it is more than 6" from all enemy units.`,
+        when: [WARDS_PHASE],
+      },
+      {
+        name: `Get Goin', Ya Gitz!`,
+        desc: `While any friendly units with this ability are on the battlefield, when you pick a friendly MONSTER to move in the movement phase, you can say that it is goaded until the end of the turn.
+
+        While a friendly MONSTER is goaded, it can run and still charge later in the turn. However, a goaded unit must finish any kind of move, except pile-in moves, closer to a unit with this ability than it was at the start of the move. In addition, each time a goaded unit finishes a move, each friendly unit with this ability within 3" of that unit suffers D6 mortal wounds (roll separately for each),`,
+        when: [MOVEMENT_PHASE],
+      },
+    ],
+  },
 }
 
 export default tagAs(Units, 'unit')
