@@ -12,6 +12,8 @@ import BonesplitterzSpells from './bonesplitterz/spells'
 import BonesplitterzUnits from './bonesplitterz/units'
 import OrrukWarclansGrandStrategies from './grand_strategies'
 import GruntaStampedeGrandStrategies from './grunta_stampede/grand_strategies'
+import GruntaStampedeMonstrousRampages from './grunta_stampede/monstrous_rampages'
+import IronjawzMonstrousRampages from './ironjawz/monstrous_rampages'
 import IronjawzArtifacts from './ironjawz/artifacts'
 import GruntaStampedeArtifacts from './grunta_stampede/artifacts'
 import IronjawzBattleTraits from './ironjawz/battle_traits'
@@ -99,6 +101,7 @@ const subFactions = {
         keyPicker(OrrukWarclansGrandStrategies, ["Show 'Em Who's Boss!", 'Waaagh!', "Krump 'Em All!"]),
       ],
       mount_traits: [OrrukWarclansMountTraits],
+      monstrous_rampages: [IronjawzMonstrousRampages],
       spells: [IronjawzSpells],
       units: [IronjawzUnits],
     },
@@ -136,7 +139,6 @@ const subFactions = {
       'Battle Tactics',
       'Grunta Waaagh!',
       'Hogs of War',
-      'Monstrous Rampages',
       "'Ere We Come!",
     ]),
     available: {
@@ -145,6 +147,7 @@ const subFactions = {
       command_traits: [GruntaStampedeCommandTraits],
       grand_strategies: [GruntaStampedeGrandStrategies],
       mount_traits: [GruntaStampedeMountTraits],
+      monstrous_rampages: [GruntaStampedeMonstrousRampages],
     },
   },
 }

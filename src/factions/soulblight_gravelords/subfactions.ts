@@ -11,22 +11,27 @@ import {
 import Artifacts from './artifacts'
 import CommandTraits from './command_traits'
 import GrandStrategies from './grand_strategies'
-import MountTraits from './mount_traits'
 import Spells from './spells'
+import MonstrousRampages from './monstrous_rampages'
 import Units from './units'
+import { IItemDescription } from 'factions/factionTypes'
 
-const subFactionBase = {
-  artifacts: [Artifacts],
-  command_abilities: [],
-  command_traits: [CommandTraits],
-  grand_strategies: [GrandStrategies],
-  mount_traits: [MountTraits],
-  spells: [Spells],
-  units: [Units],
+const baseSubfaction: IItemDescription = {
+  effects: [],
+  available: {
+    artifacts: [Artifacts],
+    command_abilities: [],
+    command_traits: [CommandTraits],
+    grand_strategies: [GrandStrategies],
+    monstrous_rampages: [MonstrousRampages],
+    spells: [Spells],
+    units: [Units],
+  },
 }
 
 const subFactions = {
   'Legion of Blood': {
+    ...baseSubfaction,
     effects: [
       {
         name: `Unparalleled Expertise`,
@@ -54,10 +59,10 @@ const subFactions = {
         when: [START_OF_HERO_PHASE],
       },
     ],
-    available: { ...subFactionBase },
   },
 
   'Legion of Night': {
+    ...baseSubfaction,
     effects: [
       {
         name: `Ageless Cunning`,
@@ -70,10 +75,10 @@ const subFactions = {
         when: [START_OF_HERO_PHASE],
       },
     ],
-    available: { ...subFactionBase },
   },
 
   'Vyrkos Dynasty': {
+    ...baseSubfaction,
     effects: [
       {
         name: `The Strength of the Wolf is the Pack`,
@@ -95,10 +100,10 @@ const subFactions = {
         when: [START_OF_HERO_PHASE],
       },
     ],
-    available: { ...subFactionBase },
   },
 
   'Kastelai Dynasty': {
+    ...baseSubfaction,
     effects: [
       {
         name: `Might of the Crimson Keep`,
@@ -123,10 +128,10 @@ const subFactions = {
         when: [START_OF_HERO_PHASE],
       },
     ],
-    available: { ...subFactionBase },
   },
 
   'Avengorii Dynasty': {
+    ...baseSubfaction,
     effects: [
       {
         name: `Cursed Abominations`,
@@ -134,7 +139,6 @@ const subFactions = {
         when: [START_OF_COMBAT_PHASE],
       },
     ],
-    available: { ...subFactionBase },
   },
 }
 

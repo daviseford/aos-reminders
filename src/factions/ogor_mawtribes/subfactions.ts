@@ -6,6 +6,7 @@ import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import Flavors from './flavors'
 import GrandStrategies from './grand_strategies'
+import MonstrousRampages from './monstrous_rampages'
 import MountTraits from './mount_traits'
 import Prayers from './prayers'
 import Scenery from './scenery'
@@ -22,6 +23,7 @@ const baseSubfaction: IItemDescription = {
     command_traits: [CommandTraits],
     flavors: [Flavors],
     mount_traits: [MountTraits],
+    monstrous_rampages: [MonstrousRampages],
     prayers: [Prayers],
     scenery: [Scenery],
     spells: [Spells],

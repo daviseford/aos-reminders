@@ -439,7 +439,7 @@ describe('getWarscrollArmyFromPdf', () => {
       artifacts: [],
       battalions: [],
       incarnates: [],
-      monstrous_rampages: ['Stun', 'Impact Tremors'],
+      monstrous_rampages: [],
       command_abilities: [],
       endless_spells: [],
       mount_traits: [],

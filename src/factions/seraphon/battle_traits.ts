@@ -1,7 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
-  END_OF_CHARGE_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   SAVES_PHASE,
@@ -98,20 +97,6 @@ const BattleTraits = {
         name: `Scaly Skin`,
         desc: `Subtract 1 from the damage inflicted (to a minimum of 1) by each successful attack that targets a friendly COALESCED unit that has the SAURUS, KROXIGOR or MONSTER keyword.`,
         when: [SAVES_PHASE],
-      },
-      {
-        name: `Beasts of the Dark Jungles`,
-        desc: `When you carry out a monstrous rampage with a COALESCED MONSTER, you can carry out 1 of the monstrous rampages below instead of any other monstrous rampage you can carry out with that unit.
-
-        Gargantuan Jaws: Only a CARNOSAUR can carry out this monstrous rampage. Pick 1 enemy model within 3" of this unit and roll a dice. If the roll is greater than that model's Wounds characteristic, it is slain.
-        
-        Earthshaking Charge: Only a STEGADON that has made a charge move in the same phase can carry out this monstrous rampage. Pick 1 enemy unit within 1" of this unit and roll a dice. On a 4+, the strike-last effect applies to that unit until the end of the following combat phase.
-        
-        Odious Roar: Only a TROGLODON can carry out this monstrous rampage. Roll a dice. On a 2+, until the end of the following combat phase, the range of this unit's Stench of Death ability is 12" instead of 9".
-        
-        Bludgeoning Sweep: Only a BASTILADON can carry out this monstrous rampage. Pick 1 enemy unit within 3" of this unit that is not a MONSTER and roll a dice. If the roll is less than the number of models in that enemy unit, that enemy unit suffers a number of mortal wounds equal to the roll.`,
-        when: [END_OF_CHARGE_PHASE],
-        monstrous_rampage: true,
       },
     ],
   },

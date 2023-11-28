@@ -6,7 +6,6 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   DURING_SETUP,
-  END_OF_CHARGE_PHASE,
   END_OF_MOVEMENT_PHASE,
   END_OF_SETUP,
   HERO_PHASE,
@@ -26,6 +25,7 @@ import command_abilities from './command_abilities'
 import prayers from './prayers'
 import spells from './spells'
 import meta_rule_sources from 'meta/rule_sources'
+import monstrous_rampages from './monstrous_rampages'
 
 const ThundertuskEffects = [
   {
@@ -43,13 +43,6 @@ const ThundertuskEffects = [
     when: [COMBAT_PHASE],
     shared: true,
   },
-  {
-    name: `Chill of the Everwinter`,
-    desc: `Only a THUNDERTUSK unit that has made a charge move in the same phase can carry out this monstrous rampage. Roll a dice for each enemy unit within 1" of this unit. On a 3+, the strike-last effect applies to that unit until the end of the following combat phase.`,
-    when: [END_OF_CHARGE_PHASE],
-    monstrous_rampage: true,
-    shared: true,
-  },
 ]
 const StonehornEffects = [
   {
@@ -62,13 +55,6 @@ const StonehornEffects = [
     name: `Stone Skeleton`,
     desc: `This unit has a ward of 5+.`,
     when: [WOUND_ALLOCATION_PHASE, WARDS_PHASE],
-    shared: true,
-  },
-  {
-    name: `Unstoppable Charge`,
-    desc: `Only a STONEHORN unit that has made a charge move in the same phase can carry out this monstrous rampage. This unit makes a 3D6" move and can pass across enemy units in the same manner as a unit that can fly. It must finish the move within 3" of any enemy units. At the end of the move, roll a dice for each unit it passed across. On a 2+, that unit suffers D3 mortal wounds.`,
-    when: [END_OF_CHARGE_PHASE],
-    monstrous_rampage: true,
     shared: true,
   },
 ]
@@ -193,14 +179,21 @@ const Units = {
     ],
   },
   'Frostlord on Stonehorn': {
+    mandatory: {
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Chill of the Everwinter', 'Unstoppable Charge'])],
+    },
     effects: [...StonehornEffects, ...FrostlordEffects],
   },
   'Frostlord on Thundertusk': {
+    mandatory: {
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Chill of the Everwinter'])],
+    },
     effects: [...ThundertuskEffects, ...FrostlordEffects],
   },
   'Huskard on Stonehorn': {
     mandatory: {
       prayers: [keyPicker(prayers, ["Winter's Endurance", "Winter's Strength"])],
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Unstoppable Charge'])],
     },
     effects: [...StonehornEffects, BloodVultureEffect, ...ReelEmInEffects],
   },
@@ -211,9 +204,15 @@ const Units = {
     effects: [...ThundertuskEffects, BloodVultureEffect, ...ReelEmInEffects],
   },
   'Stonehorn Beastriders': {
+    mandatory: {
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Unstoppable Charge'])],
+    },
     effects: [...StonehornEffects, BloodVultureEffect, ...ReelEmInEffects],
   },
   'Thundertusk Beastriders': {
+    mandatory: {
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Chill of the Everwinter'])],
+    },
     effects: [...ThundertuskEffects, BloodVultureEffect, ...ReelEmInEffects],
   },
   'Gnoblar Scraplauncher': {

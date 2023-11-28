@@ -6,7 +6,6 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
-  END_OF_CHARGE_PHASE,
   SAVES_PHASE,
   START_OF_HERO_PHASE,
   START_OF_ROUND,
@@ -86,20 +85,6 @@ const BattleTraits = {
         name: `Battle Tactic - You Ain't So Big`,
         desc: `Pick 1 enemy MONSTER on the battlefield. You complete this tactic if that MONSTER was slain by an attack made by a friendly GLOOMSPITE GITZ TROGGOTH unit during this turn.`,
         when: [START_OF_HERO_PHASE],
-      },
-
-      // Monstrous Rampages
-      {
-        name: `Ensnaring Webbing`,
-        desc: `Only an ARACHNAROK unit can carry out this monstrous rampage. Pick 1 enemy HERO within 3" of this ARACHNAROK unit that is not a MONSTER and roll a dice. If the score equals or exceeds that HERO's Wounds characteristic, that hero cannot fight in the following combat phase.`,
-        when: [END_OF_CHARGE_PHASE],
-        monstrous_rampage: true,
-      },
-      {
-        name: `Giant Boing!`,
-        desc: `Only a MANGLER SQUIGS unit that has made a charge move this turn can carry out this monstrous rampage. This MANGLER SQUIGS unit can make a 3D6" move but it must finish that move within 3" of any enemy units.`,
-        when: [END_OF_CHARGE_PHASE],
-        monstrous_rampage: true,
       },
 
       // Heroic Actions

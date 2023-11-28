@@ -1,5 +1,5 @@
 import { IItemDescription } from 'factions/factionTypes'
-import { keyOmitter, keyPicker, pickEffects } from 'factions/metatagger'
+import { keyPicker, pickEffects } from 'factions/metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import BattleTraits from './battle_traits'
@@ -8,6 +8,7 @@ import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
 import GrandStrategies from './grand_strategies'
+import MonstrousRampages from './monstrous_rampages'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
@@ -18,13 +19,14 @@ const baseSubFaction: IItemDescription = {
     spells: [keyPicker(Spells, ['Verdant Blessing'])],
   },
   available: {
-    artifacts: [keyOmitter(Artifacts, ['Heartwood Hunting Horn'])],
+    artifacts: [Artifacts],
     battalions: [Battalions],
     command_abilities: [CommandAbilities],
-    command_traits: [keyOmitter(CommandTraits, ['Sapwood Leader'])],
+    command_traits: [CommandTraits],
     endless_spells: [EndlessSpells],
     flavors: [Flavors],
-    grand_strategies: [keyOmitter(GrandStrategies, ['The Grand Hunt'])],
+    grand_strategies: [GrandStrategies],
+    monstrous_rampages: [MonstrousRampages],
     scenery: [Scenery],
     spells: [Spells],
     units: [Units],
@@ -51,13 +53,6 @@ const subFactions = {
   },
   'The Evergreen Hunt': {
     ...baseSubFaction,
-    available: {
-      ...baseSubFaction.available,
-      flavors: [],
-      artifacts: [Artifacts],
-      command_traits: [CommandTraits],
-      grand_strategies: [GrandStrategies],
-    },
     effects: pickEffects(BattleTraits, ['The Evergreen Hunt', 'The Evergreen Hunt Battle Tactics']),
   },
 }
