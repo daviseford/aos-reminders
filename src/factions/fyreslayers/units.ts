@@ -16,6 +16,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import Prayers from './prayers'
+import meta_rule_sources from 'meta/rule_sources'
 
 const MagmadrothEffects = [
   {
@@ -343,16 +344,19 @@ const Units = {
         name: `Last of the Lodge-fire`,
         desc: `Once per battle, when you pick this unit to fight, instead of piling in and attacking with it, you can say that it will unleash the last of the lodge-fire. If you do so, pick 1 enemy unit within 1" of this unit and roll a number of dice equal to the Wounds characteristic of that enemy unit. For each 4+, that enemy unit suffers a mortal wound.`,
         when: [COMBAT_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_1],
       },
       {
         name: `Honour to Grimnir!`,
         desc: `Once per battle in your hero phase, this unit can raise this battle cry. If it does so, friendly FYRESLAYERS units that do not have a mount and are wholly within 6" of this unit when it raises this battle cry are inspired until the end of the turn. Inspired units can run and still charge later in the turn.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_1],
       },
       {
         name: `Living Legacy`,
         desc: `While this unit is within 3" of another friendly unit that has 3 or more models, this unit has a ward of 4+`,
         when: [WARDS_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_1],
       },
     ],
   },

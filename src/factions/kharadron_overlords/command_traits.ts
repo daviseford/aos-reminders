@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   CHARGE_PHASE,
   DURING_GAME,
@@ -9,6 +10,9 @@ import {
   START_OF_SETUP,
   END_OF_MOVEMENT_PHASE,
   START_OF_ANY_PHASE,
+  START_OF_HERO_PHASE,
+  COMBAT_PHASE,
+  END_OF_HERO_PHASE,
 } from 'types/phases'
 
 const AllegianceCommandTraits = {
@@ -147,6 +151,40 @@ const CommandTraits = {
         name: `Stormcaller`,
         desc: `While this general is on the battlefield, you can reroll any of the dice rolled when a friendly AETHERIC NAVIGATOR reads the winds.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+
+  // Grundstok Expeditionary Force
+  'Back On Your Feet!': {
+    effects: [
+      {
+        name: `Back On Your Feet!`,
+        desc: `When a friendly GRUNDSTOK EXPEDITIONARY FORCE unit receives the Rally command (core rules, 7.2), you can return 1 slain model to the unit for each 4+ instead of each 6.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
+      },
+    ],
+  },
+  'Entrenchment Expert': {
+    effects: [
+      {
+        name: `Entrenchment Expert`,
+        desc: `When this general issues the All-out Defence command to a friendly GRUNDSTOK EXPEDITIONARY FORCE unit, until the end of the phase, that unit has a ward of 5+.
+        
+        Designer's Note: This effect is in addition to the normal effect of All-out Defence.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
+      },
+    ],
+  },
+  'Grundcorps Technician': {
+    effects: [
+      {
+        name: `Grundcorps Technician`,
+        desc: `Once per battle, at the end of your hero phase, if a friendly GRUNDSTOK GUNHAULER has been destroyed, you can roll a dice and add the number of the current battle round to the roll. On a 6+, you can set up that GRUNDSTOK GUNHAULER again on the battlefield more than 9" from all enemy units and with 5 wounds allocated to it.`,
+        when: [END_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
     ],
   },

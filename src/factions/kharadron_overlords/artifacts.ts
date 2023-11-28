@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   HERO_PHASE,
   SHOOTING_PHASE,
@@ -67,6 +68,37 @@ const Artifacts = {
       },
     ],
   },
+  // Grundstok Expeditionary Force
+  'Aetheric Nullifier': {
+    effects: [
+      {
+        name: `Aetheric Nullifier`,
+        desc: `Each time a friendly GRUNDSTOK EXPEDITIONARY FORCE unit wholly within 12" of the bearer is affected by a spell or the abilities of an endless spell, you can roll a dice. On a 4+, ignore the effect of that spell or the effects of that endless spell's abilities on that unit.`,
+        when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
+      },
+    ],
+  },
+  "'Gimlet Gaze' Scope": {
+    effects: [
+      {
+        name: `'Gimlet Gaze' Scope`,
+        desc: `Add 9" to the Range characteristic of missile weapons used by the bearer.`,
+        when: [SHOOTING_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
+      },
+    ],
+  },
+  'Grudgefire Rounds': {
+    effects: [
+      {
+        name: `Grudgefire Rounds`,
+        desc: `Pick 1 of the bearer's missile weapons. If the unmodified hit roll for an attack made with that weapon is 6, that attack causes a number of mortal wounds to the target equal to its Damage characteristic and the attack sequence ends (do not make a wound roll or save roll).`,
+        when: [SHOOTING_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
+      },
+    ],
+  },
 }
 
-export default tagAs({ ...Artifacts }, 'artifact')
+export default tagAs(Artifacts, 'artifact')

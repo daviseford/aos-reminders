@@ -18,6 +18,7 @@ export const Game: TGameStructure = {
 
   // Any Turn/Round Actions
   [Phases.START_OF_ANY_PHASE]: [],
+  [Phases.DURING_ANY_PHASE]: [],
   [Phases.END_OF_ANY_PHASE]: [],
   [Phases.START_OF_TURN]: [],
   [Phases.START_OF_ROUND]: [],

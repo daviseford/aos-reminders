@@ -1,5 +1,6 @@
 import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   BATTLESHOCK_PHASE,
   DURING_GAME,
@@ -107,6 +108,7 @@ const CommandTraits: TItemDescriptions = {
         name: `Prime Gutserver`,
         desc: `This general knows all of the spells from the Lore of the Great Maw in addition to any other spells they know.`,
         when: [HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },

@@ -172,7 +172,7 @@ const BattleTraits = {
       },
       {
         name: `Arrows of Tzeentch`,
-        desc: `In addition, at the end of your shooting phase, roll a dice for each enemy unit that suffered any wounds caused by attacks made with Sorcerous Bolts by friendly Pyrofane Cult units in that phase. On a 5+, that unit suffers D3 mortal wounds.`,
+        desc: `At the end of your shooting phase, roll a dice for each enemy unit that suffered any wounds caused by attacks made with Sorcerous Bolts by friendly Pyrofane Cult units in that phase. On a 5+, that unit suffers D3 mortal wounds.`,
         when: [END_OF_SHOOTING_PHASE],
       },
     ],

@@ -7,6 +7,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 
 const CommandTraits = {
   // Aspects of Azyr
@@ -53,6 +54,7 @@ const CommandTraits = {
         name: `Favour the Bold`,
         desc: `After this general has fought for the first time in the combat phase, if there are no enemy units within 3" of this general, roll a dice. On a 2+, this general can immediately make a D6" move and can finish that move within 3" of any enemy units.`,
         when: [COMBAT_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
       },
     ],
   },

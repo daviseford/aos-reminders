@@ -16,6 +16,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
+import meta_rule_sources from 'meta/rule_sources'
 
 const ChaosMonstrousArcanum = {
   'Chaos Siege Gargant': {
@@ -259,16 +260,19 @@ const Units = {
         name: `Fog of Despair`,
         desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target a unit in this regiment of renown.`,
         when: [SHOOTING_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_1],
       },
       {
         name: `Disgustingly Resilient`,
         desc: `Units in this regiment of renown have a ward of 5+.`,
         when: [WARDS_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_1],
       },
       {
         name: `Disgustingly Resilient`,
         desc: `At the start of your hero phase, you can heal 1 wound allocated to each unit in this regiment of renown.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_1],
       },
     ],
   },

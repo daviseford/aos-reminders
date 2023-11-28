@@ -143,7 +143,7 @@ const BattleTraits = {
       },
       {
         name: `Blasphemous Rituals`,
-        desc: `In addition, if you carry out the Draw on Power heroic action (pg 72) with a Cabalist Hero, you can immediately carry out the same heroic action with each other Cabalist Hero that has the Eye of Gods keyword and that is within 3" of the first.`,
+        desc: `If you carry out the Draw on Power heroic action (pg 72) with a Cabalist Hero, you can immediately carry out the same heroic action with each other Cabalist Hero that has the Eye of Gods keyword and that is within 3" of the first.`,
         when: [START_OF_HERO_PHASE],
         rule_sources: [
           rule_sources.ERRATA_JANUARY_2023,

@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import { END_OF_GAME } from 'types/phases'
 
 const GrandStrategies = {
@@ -44,6 +45,7 @@ const GrandStrategies = {
         name: `Leave Me Alone!`,
         desc: `When the battle ends, you complete this grand strategy if a friendly TRUGG is on the battlefield and no enemy HEROES are on the battlefield.`,
         when: [END_OF_GAME],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
     ],
   },

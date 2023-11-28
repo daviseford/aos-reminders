@@ -11,6 +11,7 @@ import {
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import spells from './spells'
+import meta_rule_sources from 'meta/rule_sources'
 
 const NobleBloodEffect = {
   name: `Noble Blood`,
@@ -219,11 +220,13 @@ const Units = {
 
         If it accepts, that enemy unit becomes infected. For the rest of the battle, roll 2D6 before an infected unit issues or receives a command, attempts to cast a spell, or chants a prayer. Make the roll before the action is carried out. Ifthe roll is greater than that unit's Bravery characteristic, that unit cannot perform that action in that phase.`,
         when: [END_OF_CHARGE_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_1],
       },
       {
         name: `Don't Shoot the Messenger`,
         desc: `This unit is not visible to enemy models while it is wholly within 6" of 5 or more other friendly FLESH-EATER COURTS models.`,
         when: [DURING_GAME],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_1],
       },
     ],
   },

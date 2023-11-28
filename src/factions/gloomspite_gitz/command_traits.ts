@@ -1,4 +1,5 @@
 import { tagAs } from 'factions/metatagger'
+import meta_rule_sources from 'meta/rule_sources'
 import {
   COMBAT_PHASE,
   DURING_GAME,
@@ -96,6 +97,7 @@ const CommandTraits = {
         name: `Ceaseless Growth`,
         desc: `When you roll the dice that determines the number of wounds you can heal with a friendly TRUGG'S TROGGHERD unit's Regeneration or Greater Regeneration ability, add 1 to the number.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
     ],
   },
@@ -105,6 +107,7 @@ const CommandTraits = {
         name: `Prized Trogglet`,
         desc: `Roll a dice each time an enemy model within 12" of this general issues a command. On a 5+, that command is not received (it still counts as having been used) and the command point that was spent to issue that command is lost.`,
         when: [DURING_GAME],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
     ],
   },
@@ -114,11 +117,13 @@ const CommandTraits = {
         name: `Living Landmark`,
         desc: `During deployment, instead of setting up this general on the battlefield, you can place them to one side and say that they are set up in ambush as a reserve unit. At the end of your first movement phase, you can set them up on the battlefield, within 3" ofa terrain feature and more than 9" from all enemy units.`,
         when: [DURING_SETUP],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
       {
         name: `Living Landmark`,
         desc: `If you set this unit up as a reserve unit, at the end of your first movement phase, you can set them up on the battlefield, within 3" ofa terrain feature and more than 9" from all enemy units.`,
         when: [TURN_ONE_END_OF_MOVEMENT_PHASE],
+        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
     ],
   },
