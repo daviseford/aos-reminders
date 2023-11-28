@@ -11,23 +11,34 @@ import GrandStrategies from './grand_strategies'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
+import { IItemDescription } from 'factions/factionTypes'
+
+const baseSubfaction: IItemDescription = {
+  effects: [],
+
+  available: {
+    artifacts: [Artifacts],
+    battalions: [Battalions],
+    command_abilities: [CommandAbilities],
+    command_traits: [CommandTraits],
+    endless_spells: [EndlessSpells],
+    flavors: [Flavors],
+    grand_strategies: [GrandStrategies],
+    scenery: [Scenery],
+    spells: [Spells],
+    units: [Units],
+  },
+}
 
 const subFactions = {
-  [GLOOMSPITE_GITZ]: {
-    effects: pickEffects(BattleTraits, [GLOOMSPITE_GITZ]),
+  'Gloomspite Gitz': {
+    ...baseSubfaction,
+    effects: pickEffects(BattleTraits, [GLOOMSPITE_GITZ, 'The Bad Moon']),
+  },
 
-    available: {
-      artifacts: [Artifacts],
-      battalions: [Battalions],
-      command_abilities: [CommandAbilities],
-      command_traits: [CommandTraits],
-      endless_spells: [EndlessSpells],
-      flavors: [Flavors],
-      grand_strategies: [GrandStrategies],
-      scenery: [Scenery],
-      spells: [Spells],
-      units: [Units],
-    },
+  "Trugg's Troggherd": {
+    ...baseSubfaction,
+    effects: pickEffects(BattleTraits, ["Trugg's Troggherd", 'The Bad Moon']),
   },
 }
 

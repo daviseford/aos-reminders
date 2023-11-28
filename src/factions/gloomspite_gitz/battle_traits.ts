@@ -4,6 +4,7 @@ import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
   COMBAT_PHASE,
+  DURING_GAME,
   END_OF_CHARGE_PHASE,
   SAVES_PHASE,
   START_OF_HERO_PHASE,
@@ -12,7 +13,7 @@ import {
 } from 'types/phases'
 
 const BattleTraits = {
-  [GLOOMSPITE_GITZ]: {
+  'The Bad Moon': {
     effects: [
       {
         name: `The Bad Moon Setup`,
@@ -28,6 +29,11 @@ const BattleTraits = {
         The location of the Bad Moon determines which GLOOMSPITE GITZ units are affected by the Light of the Bad Moon. While the Bad Moon is located in a large quarter of the battlefield, all GLOOMSPITE GITZ units wholly within the same large quarter are affected. While it is located in the centre of the battlefield, all GLOOMSPITE GITZ units on the battlefield are affected.`,
         when: [START_OF_ROUND],
       },
+    ],
+  },
+
+  [GLOOMSPITE_GITZ]: {
+    effects: [
       {
         name: `Light of the Bad Moon - Lunar Squigs`,
         desc: `While GLOOMSPITE GITZ SQUIG units are affected by the Light of the Bad Moon they can attempt a charge even if they ran in the same turn.`,
@@ -102,6 +108,43 @@ const BattleTraits = {
       {
         name: `Heroic Action - Wade and Smash`,
         desc: `Only a DANKHOLD TROGGBOSS within 3" of any enemy units can carry out this heroic action. This DANKHOLD TROGGBOSS can make a 6" move but must finish the move within 3" of any enemy units. At the end of that move, roll a dice for each enemy unit within 1" of this DANKHOLD TROGGBOSS. On a 2+, that unit suffers D3 mortal wounds.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+
+  "Trugg's Troggherd": {
+    effects: [
+      {
+        name: `Moonlit Hide`,
+        desc: `Add 1 to save rolls for attacks that target friendly TRUGG'S TROGGHERD units while they are affected by the Light of the Bad Moon.`,
+        when: [SAVES_PHASE],
+      },
+      {
+        name: `Aura of Haywire Magic`,
+        desc: `At the start of your hero phase, if you use a friendly TRUGG'S Malfunctioning Leystone ability, the effect you pick applies to all other friendly TRUGG'S TROGGHERD units until the start of your next hero phase.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `The King's Wreckerz`,
+        desc: `Friendly TRUGG'S TROGGHERD units that do not have the HERO keyword gain the Battleline battlefield role.`,
+        when: [DURING_GAME],
+      },
+
+      // Battle Tactics
+      {
+        name: `Battle Tactic - Don't Like Dat One!`,
+        desc: `Pick 1 enemy HERO. You complete this battle tactic if that HERO was destroyed during this turn by an attack made by a friendly TRUGG.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Battle Tactic - Feels Funny`,
+        desc: `You complete this battle tactic if a friendly TRUGG'S TROGGHERD unit destroyed an enemy unit during this turn while it was affected by the Aura of Haywire Magic battle trait (pg 76).`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Battle Tactic - Wot's Dat Glowy Fing?`,
+        desc: `Pick 1 objective you do not control. You complete this battle tactic if you control that objective at the end of this turn and 2 or more friendly TRUGG'S TROGGHERD units that are affected by the Light of the Bad Moon are contesting that objective.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

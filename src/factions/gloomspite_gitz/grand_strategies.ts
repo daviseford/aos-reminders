@@ -38,6 +38,15 @@ const GrandStrategies = {
       },
     ],
   },
+  'Leave Me Alone!': {
+    effects: [
+      {
+        name: `Leave Me Alone!`,
+        desc: `When the battle ends, you complete this grand strategy if a friendly TRUGG is on the battlefield and no enemy HEROES are on the battlefield.`,
+        when: [END_OF_GAME],
+      },
+    ],
+  },
 }
 
 export default tagAs(GrandStrategies, 'grand_strategy')

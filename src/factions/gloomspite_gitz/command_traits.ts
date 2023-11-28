@@ -2,9 +2,12 @@ import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
   DURING_GAME,
+  DURING_SETUP,
   END_OF_TURN,
   HERO_PHASE,
+  START_OF_HERO_PHASE,
   START_OF_SETUP,
+  TURN_ONE_END_OF_MOVEMENT_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
@@ -83,6 +86,39 @@ const CommandTraits = {
         name: `Loonskin`,
         desc: `In your hero phase, this general can attempt to cast the spell that summons that endless spell in the same manner as a WIZARD.`,
         when: [HERO_PHASE],
+      },
+    ],
+  },
+  // Trugg's Troggherd
+  'Ceaseless Growth': {
+    effects: [
+      {
+        name: `Ceaseless Growth`,
+        desc: `When you roll the dice that determines the number of wounds you can heal with a friendly TRUGG'S TROGGHERD unit's Regeneration or Greater Regeneration ability, add 1 to the number.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  'Prized Trogglet': {
+    effects: [
+      {
+        name: `Prized Trogglet`,
+        desc: `Roll a dice each time an enemy model within 12" of this general issues a command. On a 5+, that command is not received (it still counts as having been used) and the command point that was spent to issue that command is lost.`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
+  'Living Landmark': {
+    effects: [
+      {
+        name: `Living Landmark`,
+        desc: `During deployment, instead of setting up this general on the battlefield, you can place them to one side and say that they are set up in ambush as a reserve unit. At the end of your first movement phase, you can set them up on the battlefield, within 3" ofa terrain feature and more than 9" from all enemy units.`,
+        when: [DURING_SETUP],
+      },
+      {
+        name: `Living Landmark`,
+        desc: `If you set this unit up as a reserve unit, at the end of your first movement phase, you can set them up on the battlefield, within 3" ofa terrain feature and more than 9" from all enemy units.`,
+        when: [TURN_ONE_END_OF_MOVEMENT_PHASE],
       },
     ],
   },
