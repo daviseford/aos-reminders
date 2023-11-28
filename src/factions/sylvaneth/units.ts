@@ -26,6 +26,7 @@ import command_abilities from './command_abilities'
 import rule_sources from './rule_sources'
 import scenery from './scenery'
 import spells from './spells'
+import monstrous_rampages from './monstrous_rampages'
 
 const BlessingsOfTheForestEffect = {
   name: `Blessings of the Forest`,
@@ -39,13 +40,6 @@ const TreeLordBaseEffects = [
     name: `Spirit Paths`,
     desc: `At the start of your movement phase, if this unit is wholly within 6" of an overgrown terrain or Awakened Wyldwood in your army, it can walk the spirit paths instead of making a move in that phase. If it does so, remove this unit from the battlefield and set it up wholly within 6" of a different overgrown terrain or AWAKENED WYLDWOOD in your army and more than 9" from any enemy units.`,
     when: [START_OF_MOVEMENT_PHASE],
-    shared: true,
-  },
-  {
-    name: `Groundshaker`,
-    desc: `You can carry out this monstrous rampage instead of any others with this unit. Pick 1 enemy unit within 3" of this unit and roll a dice. On a 3+, the strike-last effect applies to that enemy unit in the following combat phase.`,
-    when: [END_OF_CHARGE_PHASE],
-    monstrous_rampage: true,
     shared: true,
   },
 ]
@@ -171,6 +165,9 @@ const Units = {
     ],
   },
   'Spirit of Durthu': {
+    mandatory: {
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Groundshaker'])],
+    },
     effects: [
       ...TreeLordBaseEffects,
       {
@@ -184,6 +181,7 @@ const Units = {
     mandatory: {
       spells: [keyPicker(spells, ['Awakening the Wood'])],
       scenery: [keyPicker(scenery, ['Awakened Wyldwood'])],
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Groundshaker'])],
     },
     effects: [
       ...TreeLordBaseEffects,
@@ -196,6 +194,9 @@ const Units = {
     ],
   },
   Treelord: {
+    mandatory: {
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Groundshaker'])],
+    },
     effects: [
       ...TreeLordBaseEffects,
       {

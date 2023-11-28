@@ -5,6 +5,7 @@ import BattleTraits from './battle_traits'
 import CommandTraits from './command_traits'
 import Flavors from './flavors'
 import GrandStrategies from './grand_strategies'
+import MonstrousRampages from './monstrous_rampages'
 import MountTraits from './mount_traits'
 import Scenery from './scenery'
 import Spells from './spells'
@@ -19,6 +20,7 @@ const subFactions = {
       command_traits: [CommandTraits],
       flavors: [Flavors],
       grand_strategies: [GrandStrategies],
+      monstrous_rampages: [MonstrousRampages],
       mount_traits: [MountTraits],
       scenery: [Scenery],
       spells: [Spells],

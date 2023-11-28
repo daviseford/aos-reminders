@@ -7,7 +7,6 @@ import {
   DURING_GAME,
   DURING_SETUP,
   END_OF_BATTLESHOCK_PHASE,
-  END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
@@ -25,14 +24,7 @@ import {
 import CommandAbilities from './command_abilities'
 import rule_sources from './rule_sources'
 import Spells from './spells'
-
-const MountainOfLoathsomeFleshEffect = {
-  name: `Mountain of Loathsome Flesh`,
-  desc: `You can carry out this monstrous rampage with this unit instead of any other monstrous rampage you can carry out with this unit. If you do so, pick 1 enemy unit within 3" of this unit and roll a dice. On a 2+, that enemy unit suffers a number of mortal wounds equal to the Mountain of Loathsome Flesh value on this unit's damage table.`,
-  when: [END_OF_CHARGE_PHASE],
-  monstrous_rampage: true,
-  shared: true,
-}
+import monstrous_rampages from './monstrous_rampages'
 
 const TaintedEndlessSpellEffect = {
   name: `Tainted Endless Spell`,
@@ -69,6 +61,7 @@ const Units = {
   Rotigus: {
     mandatory: {
       spells: [keyPicker(Spells, ['Deluge of Nurgle'])],
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Mountain of Loathsome Flesh'])],
     },
     effects: [
       WarmasterEffect,
@@ -79,17 +72,16 @@ const Units = {
         desc: `You can reroll the casting roll when this unit attempts to cast the Deluge of Nurgle spell.`,
         when: [HERO_PHASE],
       },
-      MountainOfLoathsomeFleshEffect,
     ],
   },
   'Great Unclean One': {
     mandatory: {
       spells: [keyPicker(Spells, ['Plague Wind'])],
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Mountain of Loathsome Flesh'])],
     },
     effects: [
       GenericEffects.WizardTwoSpellsEffect,
       BloatedWithCorruptionEffect,
-      MountainOfLoathsomeFleshEffect,
       {
         name: `Putrid Offering`,
         desc: `In your hero phase, if this unit is armed with a Bileblade, you can say that it is making an offering to Nurgle. If you do so, this unit suffers 1 mortal wound that cannot be negated, but it can attempt to cast 1 extra spell in that hero phase.`,
@@ -297,6 +289,7 @@ const Units = {
     mandatory: {
       command_abilities: [keyPicker(CommandAbilities, ['Blightkrieg'])],
       spells: [keyPicker(Spells, ['Abundance of Flesh'])],
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Mountain of Loathsome Flesh'])],
     },
     effects: [
       WarmasterEffect,
@@ -307,7 +300,6 @@ const Units = {
         when: [START_OF_MOVEMENT_PHASE],
         rule_sources: [rule_sources.BATTLETOME_NURGLE, rule_sources.ERRATA_JANUARY_2023],
       },
-      MountainOfLoathsomeFleshEffect,
     ],
   },
   'Orghotts Daemonspew': {

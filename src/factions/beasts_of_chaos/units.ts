@@ -6,7 +6,6 @@ import {
   COMBAT_PHASE,
   DURING_GAME,
   END_OF_ANY_PHASE,
-  END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
   END_OF_SETUP,
@@ -23,6 +22,7 @@ import CommandAbilities from './command_abilities'
 import Spells from './spells'
 import rule_sources from './rule_sources'
 import meta_rule_sources from 'meta/rule_sources'
+import monstrous_rampages from './monstrous_rampages'
 
 const PropagatorOfDevolutionEffect = {
   name: `Propagator of Devolution`,
@@ -297,18 +297,10 @@ const Units = {
     ],
   },
   Ghorgon: {
+    mandatory: {
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Feast on Flesh'])],
+    },
     effects: [
-      {
-        name: `Feast on Flesh`,
-        desc: `You can carry out this monstrous rampage instead of any others with this unit. Improve the Rend characteristic of this unit's melee weapons by 1 until the end of the following combat phase. In addition, until the end of the following combat phase, if any enemy models are slain by attacks made by this unit, you can heal up to 3 wounds allocated to this unit after all of its attacks have been resolved.`,
-        when: [END_OF_CHARGE_PHASE],
-        monstrous_rampage: true,
-      },
-      {
-        name: `Feast on Flesh`,
-        desc: `If active, Improve the Rend characteristic of this unit's melee weapons by 1 until the end of the following combat phase. In addition, until the end of the following combat phase, if any enemy models are slain by attacks made by this unit, you can heal up to 3 wounds allocated to this unit after all of its attacks have been resolved.`,
-        when: [COMBAT_PHASE],
-      },
       {
         name: `Swallow Whole`,
         desc: `After this unit makes a pile-in move, you can pick a number of enemy models within 3" of this unit equal to or less than the Swallow Whole value shown on this unit's damage table, and roll a dice for each. If the roll is greater than that model's Wounds characteristic, it is slain. If an enemy model is slain by this ability, you can heal a number of wounds allocated to this unit equal to the Wounds characteristic of that slain model.`,
@@ -317,18 +309,14 @@ const Units = {
     ],
   },
   Cygor: {
+    mandatory: {
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Consume Endless Spell'])],
+    },
     effects: [
       {
         name: `Soul-eater`,
-        desc: `This unit can attempt to unbind 2 spells in the enemy hero phase in the same manner as a WIZARD. 
-        In addition, each time an enemy WIZARD within 30" of any friendly units with this ability successfully casts a spell and that spell is not unbound, the caster suffers 1 mortal wound after the effect of that spell has been resolved.`,
+        desc: `This unit can attempt to unbind 2 spells in the enemy hero phase in the same manner as a WIZARD. In addition, each time an enemy WIZARD within 30" of any friendly units with this ability successfully casts a spell and that spell is not unbound, the caster suffers 1 mortal wound after the effect of that spell has been resolved.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Consume Endless Spell`,
-        desc: `You can carry out this monstrous rampage instead of any others with this unit. Pick 1 endless spell within 6" of this unit and roll 2D6. If the roll is greater than the casting value of the endless spell, that endiess spell is dispelled and you can heal a number of wounds allocated to this unit equal to the 2D6 roll.`,
-        when: [END_OF_CHARGE_PHASE],
-        monstrous_rampage: true,
       },
     ],
   },
@@ -377,18 +365,10 @@ const Units = {
     ],
   },
   Jabberslythe: {
+    mandatory: {
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Aura of Madness'])],
+    },
     effects: [
-      {
-        name: `Aura of Madness`,
-        desc: `You can carry out this monstrous rampage instead of any others with this unit. Pick 1 enemy HERO within 3" of this unit and roll a dice. On a 2-5, worsen the Save characteristic of that HERO by 1 (to a minimum of 6+) until the end of the following combat phase. On a 6, worsen the Save characteristic of that HERO by 2 (to a minimum of 6t) until the end of the following combat phase.`,
-        when: [END_OF_CHARGE_PHASE],
-        monstrous_rampage: true,
-      },
-      {
-        name: `Aura of Madness`,
-        desc: `If active, subtract 1 or 2 for saves for the picked enemy hero.`,
-        when: [SAVES_PHASE],
-      },
       {
         name: `Spurting Bile Blood`,
         desc: `Roll a dice each time a melee wound is allocated to this unit. On a 4+ the attacker suffers 1 mortal wound.`,
@@ -417,18 +397,10 @@ const Units = {
     ],
   },
   Chimera: {
+    mandatory: {
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Thricefold Savagery'])],
+    },
     effects: [
-      {
-        name: `Thricefold Savagery`,
-        desc: `You can carry out this monstrous rampage instead of any others with this unit. Until the end of the following combat phase, add 1 to the Attacks characteristic of this unit's melee weapons, but all of the attacks made with this unit's melee weapons must target the same enemy unit.`,
-        when: [END_OF_CHARGE_PHASE],
-        monstrous_rampage: true,
-      },
-      {
-        name: `Thricefold Savagery`,
-        desc: `If active, add 1 to the Attacks characteristic of this unit's melee weapons, but all of the attacks made with this unit's melee weapons must target the same enemy unit.`,
-        when: [COMBAT_PHASE],
-      },
       {
         name: `Fiery Breath`,
         desc: `Do not use the attack sequence for an attack made with Fiery Breath. Instead the target suffers D3 mortal wounds.`,

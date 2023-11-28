@@ -1,12 +1,7 @@
+import { keyPicker } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
-import {
-  COMBAT_PHASE,
-  DURING_SETUP,
-  END_OF_CHARGE_PHASE,
-  HERO_PHASE,
-  SHOOTING_PHASE,
-  START_OF_HERO_PHASE,
-} from 'types/phases'
+import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE, SHOOTING_PHASE, START_OF_HERO_PHASE } from 'types/phases'
+import monstrous_rampages from './monstrous_rampages'
 
 const Flavors = {
   Ionrach: {
@@ -51,14 +46,10 @@ const Flavors = {
   },
 
   Nautilar: {
-    effects: [
-      {
-        name: `Crushing Assault`,
-        desc: `You can carry out this monstrous rampage with a friendly NAUTILAR LEVIADON instead of any other monstrous rampage you can carry out with that LEVIADON. If you do so, change the Rend characteristic of that LEVIADON'S Massive Scythed Fins and Crushing Jaws to -3 until the end of the next combat phase.`,
-        when: [END_OF_CHARGE_PHASE],
-        monstrous_rampage: true,
-      },
-    ],
+    mandatory: {
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Crushing Assault'])],
+    },
+    effects: [],
   },
 
   Briomdar: {

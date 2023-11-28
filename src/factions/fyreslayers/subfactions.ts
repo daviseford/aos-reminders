@@ -7,6 +7,7 @@ import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
 import GrandStrategies from './grand_strategies'
+import MonstrousRampages from './monstrous_rampages'
 import MountTraits from './mount_traits'
 import Prayers from './prayers'
 import Scenery from './scenery'
@@ -22,6 +23,7 @@ const baseSubfaction: IItemDescription = {
     endless_spells: [EndlessSpells],
     flavors: [Flavors],
     grand_strategies: [GrandStrategies],
+    monstrous_rampages: [MonstrousRampages],
     mount_traits: [MountTraits],
     prayers: [Prayers],
     scenery: [Scenery],

@@ -20,6 +20,7 @@ import {
 import rule_sources from '../rule_sources'
 import spells from './spells'
 import meta_rule_sources from 'meta/rule_sources'
+import monstrous_rampages from './monstrous_rampages'
 
 const MawGruntaSharedEffects = [
   {
@@ -288,15 +289,10 @@ const IronjawzUnits = {
     rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
   },
   'Maw-Grunta Gougers': {
-    effects: [
-      ...MawGruntaSharedEffects,
-      {
-        name: `Flattened into the Mud`,
-        desc: `Only a model in a unit that has made a charge move this turn can carry out this monstrous rampage. Pick an enemy unit with a Wounds characteristic of 1 or 2 within 3" of this unit and roll a dice. If the roll is less than this unit's momentum score, the strike-last effect applies to that enemy unit until the end of the turn.`,
-        when: [END_OF_CHARGE_PHASE],
-        monstrous_rampage: true,
-      },
-    ],
+    mandatory: {
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Flattened into the Mud'])],
+    },
+    effects: [...MawGruntaSharedEffects],
     rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
   },
   'Zoggrok Anvilsmasha': {
