@@ -10,6 +10,7 @@ import { importErrorChecker } from 'utils/import'
 import { isPoorlySpacedMatch } from 'utils/import/isPoorlySpacedMatch'
 import { factionToFlavorMap, importFactionNameMap } from 'utils/import/options'
 import { titleCase } from 'utils/textUtils'
+import { lowerToUpperLookup } from 'types/data'
 
 export const getAzyrArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialAzyrArmy(pdfText)
@@ -37,101 +38,86 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   let allyUnits: string[] = []
   let unknownSelections: string[] = []
 
-  const selections = pages.reduce(
-    (accum, name) => {
-      if (name.startsWith('FACTION:')) {
-        const lookup = getFactionName(name)
-        if (lookup.factionName) factionName = lookup.factionName
-        if (lookup.subFactionName) subFactionName = lookup.subFactionName
-        if (lookup.flavor) accum.flavors = accum.flavors.concat(lookup.flavor)
-        return accum
-      }
+  const initialSelections = Object.keys(lowerToUpperLookup).reduce((a, key) => {
+    a[key] = []
+    return a
+  }, {} as TSelections)
 
-      if (name.startsWith('REALMSCAPE:')) {
-        realmscape = titleCase(name.replace('REALMSCAPE: ', '')) as RealmscapesEnum
-        return accum
-      }
-
-      if (name.startsWith('ALLY:') || name.startsWith('MERCENARY COMPANY:')) {
-        name = name.replace(/(MERCENARY COMPANY|ALLY): /g, '')
-        allyUnits.push(name)
-        return accum
-      }
-
-      if (name.startsWith('WEAPON:')) {
-        name = name.replace('WEAPON: ', '')
-        unknownSelections.push(name)
-        return accum
-      }
-
-      if (name.startsWith('UPGRADE:')) {
-        name = name.replace('UPGRADE: ', '')
-        unknownSelections.push(name)
-        return accum
-      }
-
-      // Special KO case for footnotes
-      if (name.startsWith('Kharadron Code:')) {
-        const footnotes = handleKOTraits(name)
-        accum.command_traits = accum.command_traits.concat(footnotes)
-        return accum
-      }
-
-      // Flavor/Subfaction checker
-      if (name.startsWith('ALLEGIANCE:') && isValidFactionName(factionName)) {
-        let txt = name.replace('ALLEGIANCE:', '').trim()
-
-        // Need to do something faction-specific to the value? Do it here.
-        // if (factionName === SOME_FACTION) txt = txt.replace('something', '')
-
-        // Add Host suffix when needed
-        if (factionName === SLAANESH && !txt.endsWith(' Host')) txt = `${txt} Host`
-
-        const _Faction = getFactionFromList(factionName)
-        if (_Faction.subFactionKeyMap[txt]) {
-          // If we can match this subfaction, do it!
-          subFactionName = txt
-          return accum
-        } else {
-          // Otherwise, add to flavors instead
-          accum.flavors.push(name.replace('ALLEGIANCE:', '').trim())
-        }
-      }
-
-      let found = false
-
-      // Check all other types
-      Object.entries(selectorLookup).forEach(([_prefix, _slice]) => {
-        if (found) return
-        if (name.startsWith(`${_prefix}:`)) {
-          name = name.replace(`${_prefix}: `, '')
-          accum[_slice] = accum[_slice].concat(name)
-          found = true
-          return accum
-        }
-      })
-
+  const selections = pages.reduce((accum, name) => {
+    if (name.startsWith('FACTION:')) {
+      const lookup = getFactionName(name)
+      if (lookup.factionName) factionName = lookup.factionName
+      if (lookup.subFactionName) subFactionName = lookup.subFactionName
+      if (lookup.flavor) accum.flavors = accum.flavors.concat(lookup.flavor)
       return accum
-    },
-    {
-      artifacts: [],
-      battalions: [],
-      command_abilities: [],
-      command_traits: [],
-      core_rules: [],
-      endless_spells: [],
-      flavors: [],
-      grand_strategies: [],
-      incarnates: [],
-      monstrous_rampages: [],
-      mount_traits: [],
-      prayers: [],
-      scenery: [],
-      spells: [],
-      triumphs: [],
-      units: [],
-    } as TSelections
-  )
+    }
+
+    if (name.startsWith('REALMSCAPE:')) {
+      realmscape = titleCase(name.replace('REALMSCAPE: ', '')) as RealmscapesEnum
+      return accum
+    }
+
+    if (name.startsWith('ALLY:') || name.startsWith('MERCENARY COMPANY:')) {
+      name = name.replace(/(MERCENARY COMPANY|ALLY): /g, '')
+      allyUnits.push(name)
+      return accum
+    }
+
+    if (name.startsWith('WEAPON:')) {
+      name = name.replace('WEAPON: ', '')
+      unknownSelections.push(name)
+      return accum
+    }
+
+    if (name.startsWith('UPGRADE:')) {
+      name = name.replace('UPGRADE: ', '')
+      unknownSelections.push(name)
+      return accum
+    }
+
+    // Special KO case for footnotes
+    if (name.startsWith('Kharadron Code:')) {
+      const footnotes = handleKOTraits(name)
+      accum.command_traits = accum.command_traits.concat(footnotes)
+      return accum
+    }
+
+    // Flavor/Subfaction checker
+    if (name.startsWith('ALLEGIANCE:') && isValidFactionName(factionName)) {
+      let txt = name.replace('ALLEGIANCE:', '').trim()
+
+      // Need to do something faction-specific to the value? Do it here.
+      // if (factionName === SOME_FACTION) txt = txt.replace('something', '')
+
+      // Add Host suffix when needed
+      if (factionName === SLAANESH && !txt.endsWith(' Host')) txt = `${txt} Host`
+
+      const _Faction = getFactionFromList(factionName)
+      if (_Faction.subFactionKeyMap[txt]) {
+        // If we can match this subfaction, do it!
+        subFactionName = txt
+        return accum
+      } else {
+        // Otherwise, add to flavors instead
+        accum.flavors.push(name.replace('ALLEGIANCE:', '').trim())
+      }
+    }
+
+    let found = false
+
+    // Check all other types
+    Object.entries(selectorLookup).forEach(([_prefix, _slice]) => {
+      if (found) return
+      if (name.startsWith(`${_prefix}:`)) {
+        name = name.replace(`${_prefix}: `, '')
+        accum[_slice] = accum[_slice].concat(name)
+        found = true
+        return accum
+      }
+    })
+
+    return accum
+  }, initialSelections)
 
   return {
     allyFactionNames: [],

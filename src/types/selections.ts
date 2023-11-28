@@ -1,6 +1,7 @@
 export type TSelectionTypes =
   | 'artifacts'
   | 'battalions'
+  | 'battle_tactics'
   | 'command_abilities'
   | 'command_traits'
   | 'core_rules'

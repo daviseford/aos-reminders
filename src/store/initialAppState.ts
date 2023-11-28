@@ -11,6 +11,7 @@ const DefaultAppState: IStore = {
     selections: {
       artifacts: [],
       battalions: [],
+      battle_tactics: [],
       command_abilities: [],
       command_traits: [],
       core_rules: [],
@@ -33,6 +34,7 @@ const DefaultAppState: IStore = {
     army: {
       Artifacts: [],
       Battalions: [],
+      BattleTactics: [],
       BattleTraits: [],
       CommandAbilities: [],
       CommandTraits: [],

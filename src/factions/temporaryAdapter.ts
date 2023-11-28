@@ -13,6 +13,7 @@ export const temporaryAdapter: TAdapter = (subFaction, subFactionName, FlavorTyp
     AlliedUnits: mergeData(subFaction, 'allied_units'),
     Artifacts: mergeData(subFaction, 'artifacts'),
     Battalions: mergeData(subFaction, 'battalions'),
+    BattleTactics: mergeData(subFaction, 'battle_tactics'),
     BattleTraits: subFaction.effects,
     CommandAbilities: mergeData(subFaction, 'command_abilities'),
     CommandTraits: mergeData(subFaction, 'command_traits'),

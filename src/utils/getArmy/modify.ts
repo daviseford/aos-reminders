@@ -36,6 +36,13 @@ const modifyBattalions = (battalions: TEntry[], Collection: TCollection): TEntry
   )
 }
 
+const modifyBattleTactics = (battle_tactics: TEntry[], Collection: TCollection): TEntry[] => {
+  return uniqBy(
+    sortBy(battle_tactics.concat(Collection.BattleTactics), 'name').map(u => ({ ...u, battle_tactic: true })),
+    'name'
+  )
+}
+
 const modifyUnits = (
   units: TEntry[],
   alliedUnits: TEntry[],
@@ -189,6 +196,7 @@ const modifyIncarnates = (incarnates: TEntry[], Collection: TCollection): TEntry
 export const modify = {
   Artifacts: modifyArtifacts,
   Battalions: modifyBattalions,
+  BattleTactics: modifyBattleTactics,
   CommandAbilities: modifyCommandAbilities,
   CommandTraits: modifyCommandTraits,
   CoreRules: modifyCoreRules,

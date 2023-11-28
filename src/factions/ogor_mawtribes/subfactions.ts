@@ -1,6 +1,7 @@
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import OgorBattalions from './battalions'
+import BattleTactics from './battle_tactics'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -19,6 +20,7 @@ const baseSubfaction: IItemDescription = {
   available: {
     artifacts: [Artifacts],
     battalions: [OgorBattalions],
+    battle_tactics: [BattleTactics],
     command_abilities: [CommandAbilities],
     command_traits: [CommandTraits],
     flavors: [Flavors],
@@ -41,7 +43,6 @@ const subFactions = {
       'Ravenous Brutes',
       'Trampling Charge',
       'Gulping Bites',
-      'Battle Tactics',
     ]),
   },
   'The Roving Maw': {

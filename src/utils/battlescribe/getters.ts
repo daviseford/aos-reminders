@@ -24,6 +24,7 @@ import {
 import { partialSearchDoc, stripParentNode } from 'utils/battlescribe/parseHTML'
 import { importFactionNameMap } from 'utils/import/options'
 import { titleCase } from 'utils/textUtils'
+import { lowerToUpperLookup } from 'types/data'
 
 type TFactionsAndFlavors = {
   factionName: TSupportedFaction | null
@@ -470,24 +471,10 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
 const stripAllegiancePrefix = (str: string) => str.replace(/(Legion: )/g, '')
 
 export const sortParsedRoots = (roots: IParsedRoot[], flavorInfo: IFlavorInfo[]) => {
-  const Collection: TSelections = {
-    artifacts: [],
-    battalions: [],
-    command_abilities: [],
-    command_traits: [],
-    core_rules: [],
-    endless_spells: [],
-    flavors: [],
-    grand_strategies: [],
-    incarnates: [],
-    monstrous_rampages: [],
-    mount_traits: [],
-    prayers: [],
-    scenery: [],
-    spells: [],
-    triumphs: [],
-    units: [],
-  }
+  const Collection: TSelections = Object.keys(lowerToUpperLookup).reduce((a, key) => {
+    a[key] = []
+    return a
+  }, {} as TSelections)
 
   roots.forEach(r => {
     // Handle name first

@@ -9,6 +9,7 @@ import { importErrorChecker } from 'utils/import'
 import { importFactionNameMap } from 'utils/import/options'
 import { cleanWarscrollText } from 'utils/warscroll/warscrollUtils'
 import { cleanWarhammerAppText, warhammerAppPlaceholders } from './warhammerAppUtils'
+import { lowerToUpperLookup } from 'types/data'
 
 export const getWarhammerAppArmy = (text: string): IImportedArmy => {
   const cleanedText = cleanWarhammerAppText(text)
@@ -53,169 +54,152 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
   let selector: TSelectionTypes | '' = ''
   let battalionNames = CoreBattalions.map(x => x.name)
 
-  const selections = cleanedText.reduce(
-    (accum, txt) => {
-      // Ignore these lines when processing
-      if (
-        // @ts-expect-error
-        [END_OF_LIST, ENHANCEMENTS, VALID_LIST, INVALID_LIST, END_OF_ENTRY].includes(txt) ||
-        txt.startsWith(ARMY_NAME_PREFIX) ||
-        txt.startsWith(ARMY_NOTES_PREFIX) ||
-        txt.endsWith(CREATED_BY_WARHAMMER_APP) ||
-        txt.startsWith('Magnificent Bonus: ')
-      ) {
-        return accum
+  const initialSelections = Object.keys(lowerToUpperLookup).reduce((a, key) => {
+    a[key] = []
+    return a
+  }, {} as TSelections)
+
+  const selections = cleanedText.reduce((accum, txt) => {
+    // Ignore these lines when processing
+    if (
+      // @ts-expect-error
+      [END_OF_LIST, ENHANCEMENTS, VALID_LIST, INVALID_LIST, END_OF_ENTRY].includes(txt) ||
+      txt.startsWith(ARMY_NAME_PREFIX) ||
+      txt.startsWith(ARMY_NOTES_PREFIX) ||
+      txt.endsWith(CREATED_BY_WARHAMMER_APP) ||
+      txt.startsWith('Magnificent Bonus: ')
+    ) {
+      return accum
+    }
+
+    if (txt.startsWith(FACTION_NAME_PREFIX)) {
+      const name = txt.replace(FACTION_NAME_PREFIX, '').trim()
+      const factionLookup = importFactionNameMap[name]
+
+      factionName = factionLookup?.factionName || name
+
+      if (factionLookup?.subFactionName) {
+        subFactionName = factionLookup.subFactionName
       }
 
-      if (txt.startsWith(FACTION_NAME_PREFIX)) {
-        const name = txt.replace(FACTION_NAME_PREFIX, '').trim()
-        const factionLookup = importFactionNameMap[name]
-
-        factionName = factionLookup?.factionName || name
-
-        if (factionLookup?.subFactionName) {
-          subFactionName = factionLookup.subFactionName
-        }
-
-        // Add faction-specific battalion names to look up later
-        if (isValidFactionName(factionName)) {
-          const additionalBattalions = getFactionFromList(factionName).AggregateArmy.Battalions.map(
-            x => x.name
-          )
-          battalionNames = battalionNames.concat(additionalBattalions)
-        }
-
-        return accum
-      }
-
-      if (txt.startsWith(SUBFACTION_PREFIX)) {
-        subFactionName = txt.replace(SUBFACTION_PREFIX, '').trim()
-        return accum
-      }
-
-      if (txt.startsWith(FLAVOR_PREFIX)) {
-        accum.flavors.push(txt.replace(FLAVOR_PREFIX, '').trim())
-        return accum
-      }
-
-      if (txt === UNITS) {
-        selector = 'units'
-        return accum
-      }
-
-      if (txt === BATTALIONS) {
-        selector = 'battalions'
-        return accum
-      }
-
-      if (txt === ENDLESS_SPELLS) {
-        selector = 'endless_spells'
-        return accum
-      }
-
-      if (txt === SCENERY) {
-        selector = 'scenery'
-        return accum
-      }
-
-      if (txt.startsWith(TRIUMPHS_PREFIX)) {
-        const triumphs = txt
-          .replace(TRIUMPHS_PREFIX, '')
-          .split(',')
-          .map(x => x.trim())
-        accum.triumphs = accum.triumphs.concat(triumphs)
-        return accum
-      }
-
-      if (txt.startsWith(SPELLS_PREFIX)) {
-        const spells = txt
-          .replace(SPELLS_PREFIX, '')
-          .split(',')
-          .map(x => x.trim())
-        accum.spells = accum.spells.concat(spells)
-        return accum
-      }
-
-      if (txt.startsWith(ARTIFACTS_PREFIX)) {
-        const artifacts = txt
-          .replace(ARTIFACTS_PREFIX, '')
-          .split(',')
-          .map(x => x.trim())
-        accum.artifacts = accum.artifacts.concat(artifacts)
-        return accum
-      }
-
-      if (txt.startsWith(GRAND_STRATEGY_PREFIX)) {
-        const grand_strategy = txt.replace(GRAND_STRATEGY_PREFIX, '').trim()
-        accum.grand_strategies.push(grand_strategy)
-        return accum
-      }
-
-      if (txt.startsWith(PRAYERS_PREFIX)) {
-        const prayers = txt
-          .replace(PRAYERS_PREFIX, '')
-          .split(',')
-          .map(x => x.trim())
-        accum.prayers = accum.prayers.concat(prayers)
-        return accum
-      }
-
-      if (txt.endsWith(ALLY_SUFFIX)) {
-        const alliedUnit = txt.replace(ALLY_SUFFIX, '').trim()
-        allyUnits.push(alliedUnit)
-        return accum
-      }
-
-      if (txt.startsWith(COMMAND_TRAITS_PREFIX)) {
-        const trait = txt.replace(COMMAND_TRAITS_PREFIX, '').trim()
-        accum.command_traits.push(trait)
-        return accum
-      }
-
-      if (txt.startsWith(MOUNT_TRAITS_PREFIX)) {
-        const trait = txt.replace(MOUNT_TRAITS_PREFIX, '').trim()
-        accum.mount_traits.push(trait)
-        return accum
-      }
-
-      // Add item to accum
-      if (selector) {
-        if (selector === 'units' || selector === 'battalions') {
-          const battalion = battalionNames.find(name => name === txt.trim())
-
-          if (battalion) {
-            accum.battalions = uniq(accum.battalions.concat(battalion))
-            // TODO: Check for "Magnificent Bonus: blah blah" afterwards
-            return accum
-          } else {
-            selector = 'units'
-          }
-        }
-
-        accum[selector] = uniq(accum[selector].concat(txt.trim()))
+      // Add faction-specific battalion names to look up later
+      if (isValidFactionName(factionName)) {
+        const additionalBattalions = getFactionFromList(factionName).AggregateArmy.Battalions.map(x => x.name)
+        battalionNames = battalionNames.concat(additionalBattalions)
       }
 
       return accum
-    },
-    {
-      artifacts: [],
-      battalions: [],
-      command_abilities: [],
-      command_traits: [],
-      core_rules: [],
-      endless_spells: [],
-      flavors: [],
-      grand_strategies: [],
-      incarnates: [],
-      monstrous_rampages: [],
-      mount_traits: [],
-      prayers: [],
-      scenery: [],
-      spells: [],
-      triumphs: [],
-      units: [],
-    } as TSelections
-  )
+    }
+
+    if (txt.startsWith(SUBFACTION_PREFIX)) {
+      subFactionName = txt.replace(SUBFACTION_PREFIX, '').trim()
+      return accum
+    }
+
+    if (txt.startsWith(FLAVOR_PREFIX)) {
+      accum.flavors.push(txt.replace(FLAVOR_PREFIX, '').trim())
+      return accum
+    }
+
+    if (txt === UNITS) {
+      selector = 'units'
+      return accum
+    }
+
+    if (txt === BATTALIONS) {
+      selector = 'battalions'
+      return accum
+    }
+
+    if (txt === ENDLESS_SPELLS) {
+      selector = 'endless_spells'
+      return accum
+    }
+
+    if (txt === SCENERY) {
+      selector = 'scenery'
+      return accum
+    }
+
+    if (txt.startsWith(TRIUMPHS_PREFIX)) {
+      const triumphs = txt
+        .replace(TRIUMPHS_PREFIX, '')
+        .split(',')
+        .map(x => x.trim())
+      accum.triumphs = accum.triumphs.concat(triumphs)
+      return accum
+    }
+
+    if (txt.startsWith(SPELLS_PREFIX)) {
+      const spells = txt
+        .replace(SPELLS_PREFIX, '')
+        .split(',')
+        .map(x => x.trim())
+      accum.spells = accum.spells.concat(spells)
+      return accum
+    }
+
+    if (txt.startsWith(ARTIFACTS_PREFIX)) {
+      const artifacts = txt
+        .replace(ARTIFACTS_PREFIX, '')
+        .split(',')
+        .map(x => x.trim())
+      accum.artifacts = accum.artifacts.concat(artifacts)
+      return accum
+    }
+
+    if (txt.startsWith(GRAND_STRATEGY_PREFIX)) {
+      const grand_strategy = txt.replace(GRAND_STRATEGY_PREFIX, '').trim()
+      accum.grand_strategies.push(grand_strategy)
+      return accum
+    }
+
+    if (txt.startsWith(PRAYERS_PREFIX)) {
+      const prayers = txt
+        .replace(PRAYERS_PREFIX, '')
+        .split(',')
+        .map(x => x.trim())
+      accum.prayers = accum.prayers.concat(prayers)
+      return accum
+    }
+
+    if (txt.endsWith(ALLY_SUFFIX)) {
+      const alliedUnit = txt.replace(ALLY_SUFFIX, '').trim()
+      allyUnits.push(alliedUnit)
+      return accum
+    }
+
+    if (txt.startsWith(COMMAND_TRAITS_PREFIX)) {
+      const trait = txt.replace(COMMAND_TRAITS_PREFIX, '').trim()
+      accum.command_traits.push(trait)
+      return accum
+    }
+
+    if (txt.startsWith(MOUNT_TRAITS_PREFIX)) {
+      const trait = txt.replace(MOUNT_TRAITS_PREFIX, '').trim()
+      accum.mount_traits.push(trait)
+      return accum
+    }
+
+    // Add item to accum
+    if (selector) {
+      if (selector === 'units' || selector === 'battalions') {
+        const battalion = battalionNames.find(name => name === txt.trim())
+
+        if (battalion) {
+          accum.battalions = uniq(accum.battalions.concat(battalion))
+          // TODO: Check for "Magnificent Bonus: blah blah" afterwards
+          return accum
+        } else {
+          selector = 'units'
+        }
+      }
+
+      accum[selector] = uniq(accum[selector].concat(txt.trim()))
+    }
+
+    return accum
+  }, initialSelections)
 
   return {
     allyFactionNames: [],

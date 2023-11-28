@@ -8,6 +8,7 @@ export type TEntryProperties =
   | 'artifact'
   | 'battalion'
   | 'battle_trait'
+  | 'battle_tactic'
   | 'command_ability'
   | 'command_trait'
   | 'core_rule'
@@ -26,6 +27,7 @@ export const ENTRY_PROPERTIES: TEntryProperties[] = [
   'artifact',
   'battalion',
   'battle_trait',
+  'battle_tactic',
   'command_ability',
   'command_trait',
   'core_rule',
@@ -44,6 +46,7 @@ export const ENTRY_PROPERTIES: TEntryProperties[] = [
 export const SELECTION_TYPES: TSelectionTypes[] = [
   'artifacts',
   'battalions',
+  'battle_tactics',
   'command_abilities',
   'command_traits',
   'core_rules',
@@ -63,6 +66,7 @@ export const SELECTION_TYPES: TSelectionTypes[] = [
 export const lowerToUpperLookup: Record<TSelectionTypes, keyof TCollection> = {
   artifacts: 'Artifacts',
   battalions: 'Battalions',
+  battle_tactics: 'BattleTactics',
   command_abilities: 'CommandAbilities',
   command_traits: 'CommandTraits',
   core_rules: 'CoreRules',
@@ -82,6 +86,7 @@ export const lowerToUpperLookup: Record<TSelectionTypes, keyof TCollection> = {
 export const upperToLowerLookup: Record<keyof TCollection, TSelectionTypes> = {
   Artifacts: 'artifacts',
   Battalions: 'battalions',
+  BattleTactics: 'battle_tactics',
   CommandAbilities: 'command_abilities',
   CommandTraits: 'command_traits',
   CoreRules: 'core_rules',
@@ -101,6 +106,7 @@ export const upperToLowerLookup: Record<keyof TCollection, TSelectionTypes> = {
 export const entryKeyToSelectionsKey: Record<Exclude<TEntryProperties, 'battle_trait'>, TSelectionTypes> = {
   artifact: 'artifacts',
   battalion: 'battalions',
+  battle_tactic: 'battle_tactics',
   command_ability: 'command_abilities',
   command_trait: 'command_traits',
   core_rule: 'core_rules',
@@ -122,6 +128,7 @@ export const selectionsKeyToEntryKey: Record<
 > = {
   artifacts: 'artifact',
   battalions: 'battalion',
+  battle_tactics: 'battle_tactic',
   command_abilities: 'command_ability',
   command_traits: 'command_trait',
   core_rules: 'core_rule',
