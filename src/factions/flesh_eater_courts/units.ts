@@ -218,7 +218,7 @@ const Units = {
 
         If it refuses, the strike-first effect applies to friendly FLESH-EATER COURTS units within 3" of this unit until the end of the following combat phase.
 
-        If it accepts, that enemy unit becomes infected. For the rest of the battle, roll 2D6 before an infected unit issues or receives a command, attempts to cast a spell, or chants a prayer. Make the roll before the action is carried out. Ifthe roll is greater than that unit's Bravery characteristic, that unit cannot perform that action in that phase.`,
+        If it accepts, that enemy unit becomes infected. For the rest of the battle, roll 2D6 before an infected unit issues or receives a command, attempts to cast a spell, or chants a prayer. Make the roll before the action is carried out. If the roll is greater than that unit's Bravery characteristic, that unit cannot perform that action in that phase.`,
         when: [END_OF_CHARGE_PHASE],
         rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_1],
       },

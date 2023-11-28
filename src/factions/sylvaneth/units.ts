@@ -45,6 +45,7 @@ const TreeLordBaseEffects = [
     name: `Groundshaker`,
     desc: `You can carry out this monstrous rampage instead of any others with this unit. Pick 1 enemy unit within 3" of this unit and roll a dice. On a 3+, the strike-last effect applies to that enemy unit in the following combat phase.`,
     when: [END_OF_CHARGE_PHASE],
+    monstrous_rampage: true,
     shared: true,
   },
 ]

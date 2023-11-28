@@ -134,9 +134,10 @@ const BattleTraits = {
         when: [START_OF_HERO_PHASE],
       },
       {
-        name: `Monstrous Rampage: Merciful Strike`,
+        name: `Merciful Strike`,
         desc: `If the quarry has any wounds allocated to it and is within 3" of this unit, roll a dice and add the number of wounds allocated to the quarry to the roll. If the result is greater than the quarry's Wounds characteristic, 1 model in that unit is slain.`,
         when: [END_OF_CHARGE_PHASE],
+        monstrous_rampage: true,
       },
     ],
   },
