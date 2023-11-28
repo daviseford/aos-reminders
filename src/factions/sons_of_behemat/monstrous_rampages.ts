@@ -15,7 +15,7 @@ const MonstrousRampages = {
     effects: [
       {
         name: `Earth-shaking Roar`,
-        desc: `Pick 1 enemy unit with a Wounds characteristic of 1 or 2 within 3" of this unit and roll 2D6. If the roll is higher than that unit's Bravery characteristic, for each point by which the roll exceeds the unit's Bravery characteristic, 1 model in that unit flees. That unit's commanding player decides battleshock which test models flee. The effect of this monstrous rampage is not considered to be a battleshock test.`,
+        desc: `Pick 1 enemy unit with a Wounds characteristic of 1 or 2 within 3" of this unit and roll 2D6. If the roll is higher than that unit's Bravery characteristic, for each point by which the roll exceeds the unit's Bravery characteristic, 1 model in that unit flees. That unit's commanding player decides which models flee. The effect of this monstrous rampage is not considered to be a battleshock test.`,
         when: [END_OF_CHARGE_PHASE],
       },
     ],
