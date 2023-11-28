@@ -45,7 +45,7 @@ const EndlessSpells = {
       },
       {
         name: `Monster of Blood`,
-        desc: `At the end of the charge phase, the commanding player can count this endless spell as a Monster for the purposes of the Monstrous Rampage rules (core rules, 21.1) but they can only carry out a Stomp or Smash To Rubble monstrous rampage with it. It cannot be picked to be the target of a monstrous rampage.`,
+        desc: `At the end of the charge phase, the commanding player can count this endless spell as a MONSTER for the purposes of the Monstrous Rampage rules (core rules, 21.1) but they can only carry out a Stomp or Smash To Rubble monstrous rampage with it. It cannot be picked to be the target of a monstrous rampage.`,
         when: [END_OF_CHARGE_PHASE],
       },
     ],

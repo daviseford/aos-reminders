@@ -11,10 +11,14 @@ import BonesplitterzFlavors from './bonesplitterz/flavors'
 import BonesplitterzSpells from './bonesplitterz/spells'
 import BonesplitterzUnits from './bonesplitterz/units'
 import OrrukWarclansGrandStrategies from './grand_strategies'
+import GruntaStampedeGrandStrategies from './grunta_stampede/grand_strategies'
 import IronjawzArtifacts from './ironjawz/artifacts'
+import GruntaStampedeArtifacts from './grunta_stampede/artifacts'
 import IronjawzBattleTraits from './ironjawz/battle_traits'
+import GruntaStampedeBattleTraits from './grunta_stampede/battle_traits'
 import IronjawzCommandAbilities from './ironjawz/command_abilities'
 import IronjawzCommandTraits from './ironjawz/command_traits'
+import GruntaStampedeCommandTraits from './grunta_stampede/command_traits'
 import IronjawzFlavors from './ironjawz/flavors'
 import IronjawzSpells from './ironjawz/spells'
 import IronjawzUnits from './ironjawz/units'
@@ -25,6 +29,7 @@ import KruleboyzFlavors from './kruleboyz/flavors'
 import KruleboyzSpells from './kruleboyz/spells'
 import KruleboyzUnits from './kruleboyz/units'
 import OrrukWarclansMountTraits from './mount_traits'
+import GruntaStampedeMountTraits from './grunta_stampede/mount_traits'
 
 const subFactions = {
   'Big Waaagh': {
@@ -123,6 +128,23 @@ const subFactions = {
       mount_traits: [OrrukWarclansMountTraits],
       spells: [KruleboyzSpells],
       units: [KruleboyzUnits],
+    },
+  },
+
+  'Grunta Stampede': {
+    effects: pickEffects(GruntaStampedeBattleTraits, [
+      'Battle Tactics',
+      'Grunta Waaagh!',
+      'Hogs of War',
+      'Monstrous Rampages',
+      "'Ere We Come!",
+    ]),
+    available: {
+      units: [GreenskinzUnits, IronjawzUnits, BonesplitterzUnits, KruleboyzUnits],
+      artifacts: [GruntaStampedeArtifacts],
+      command_traits: [GruntaStampedeCommandTraits],
+      grand_strategies: [GruntaStampedeGrandStrategies],
+      mount_traits: [GruntaStampedeMountTraits],
     },
   },
 }

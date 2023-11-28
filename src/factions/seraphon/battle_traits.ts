@@ -111,6 +111,7 @@ const BattleTraits = {
         
         Bludgeoning Sweep: Only a BASTILADON can carry out this monstrous rampage. Pick 1 enemy unit within 3" of this unit that is not a MONSTER and roll a dice. If the roll is less than the number of models in that enemy unit, that enemy unit suffers a number of mortal wounds equal to the roll.`,
         when: [END_OF_CHARGE_PHASE],
+        monstrous_rampage: true,
       },
     ],
   },
