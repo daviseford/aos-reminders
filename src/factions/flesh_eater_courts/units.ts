@@ -2,6 +2,8 @@ import { keyPicker, tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
 import {
   COMBAT_PHASE,
+  DURING_GAME,
+  END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   HERO_PHASE,
   SHOOTING_PHASE,
@@ -206,6 +208,24 @@ const Units = {
   },
   'Royal Zombie Dragon': {
     effects: [...GenericEffects.ZombieDragon],
+  },
+  'Marrowscroll Herald': {
+    effects: [
+      {
+        name: `The King's Entreaty`,
+        desc: `At the end of the charge phase, you can pick 1 enemy unit within 3" of this unit and say that this unit will offer it an infected bone. If you do so, your opponent must choose whether that enemy unit accepts or refuses the bone.
+
+        If it refuses, the strike-first effect applies to friendly FLESH-EATER COURTS units within 3" of this unit until the end of the following combat phase.
+
+        If it accepts, that enemy unit becomes infected. For the rest of the battle, roll 2D6 before an infected unit issues or receives a command, attempts to cast a spell, or chants a prayer. Make the roll before the action is carried out. Ifthe roll is greater than that unit's Bravery characteristic, that unit cannot perform that action in that phase.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Don't Shoot the Messenger`,
+        desc: `This unit is not visible to enemy models while it is wholly within 6" of 5 or more other friendly FLESH-EATER COURTS models.`,
+        when: [DURING_GAME],
+      },
+    ],
   },
 }
 
