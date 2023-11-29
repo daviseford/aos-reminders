@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import {
@@ -98,6 +99,6 @@ const BattleTactics = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BattleTactics, 'battle_tactic')

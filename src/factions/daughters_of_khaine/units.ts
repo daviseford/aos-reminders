@@ -21,6 +21,7 @@ import CommandAbilities from './command_abilities'
 import Prayers from './prayers'
 import rule_sources from './rule_sources'
 import Spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const MorathiEffect = {
   name: `One Soul, Two Bodies/ Two Bodies, One Soul`,
@@ -448,6 +449,6 @@ const Units = {
       TurnedToCrystalEffect,
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

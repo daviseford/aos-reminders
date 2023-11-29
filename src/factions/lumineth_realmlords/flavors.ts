@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import meta_rule_sources from 'meta/rule_sources'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_GAME, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
@@ -58,6 +59,6 @@ const Flavors = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default Flavors

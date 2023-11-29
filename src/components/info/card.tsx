@@ -19,7 +19,7 @@ interface ICardProps extends IBaseCardProps {
   selectionCount: number
 }
 
-const CardComponent: React.FC<ICardProps> = props => {
+const CardComponent = (props: React.PropsWithChildren<ICardProps>) => {
   const { title, isVisible, mobileTitle, children, selectionCount } = props
   const { isMobile } = useWindowSize()
   const { theme } = useTheme()
@@ -85,7 +85,7 @@ interface ICardSingleSelectProps extends IBaseCardProps {
   value?: string | null
 }
 
-export const CardSingleSelect: React.FC<ICardSingleSelectProps> = props => {
+export const CardSingleSelect = (props: ICardSingleSelectProps) => {
   const hiddenSelectors = useSelector(selectors.selectSelectors)
   const { enableLog = false, items, label = null, mobileTitle = null, setValue, title, value = null } = props
   const isVisible = useMemo(() => !hiddenSelectors.find(x => x === title), [hiddenSelectors, title])

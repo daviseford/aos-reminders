@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import { START_OF_HERO_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const BattleTactics = {
   'Feed the Maggots': {
@@ -69,6 +70,6 @@ const BattleTactics = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BattleTactics, 'battle_tactic')

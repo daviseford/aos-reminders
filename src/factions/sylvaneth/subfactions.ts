@@ -1,4 +1,4 @@
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from 'factions/metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
@@ -14,7 +14,7 @@ import Spells from './spells'
 import Units from './units'
 import { SYLVANETH } from 'meta/factions'
 
-const baseSubFaction: IItemDescription = {
+const baseSubFaction = {
   mandatory: {
     spells: [keyPicker(Spells, ['Verdant Blessing'])],
   },
@@ -32,7 +32,7 @@ const baseSubFaction: IItemDescription = {
     units: [Units],
   },
   effects: [],
-}
+} satisfies IItemDescription
 
 const subFactions = {
   'The Burgeoning': {
@@ -55,6 +55,6 @@ const subFactions = {
     ...baseSubFaction,
     effects: pickEffects(BattleTraits, ['The Evergreen Hunt', 'The Evergreen Hunt Battle Tactics']),
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

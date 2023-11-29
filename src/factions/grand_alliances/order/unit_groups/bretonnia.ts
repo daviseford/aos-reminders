@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -436,4 +437,4 @@ export const LegacyBretonnianUnits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions

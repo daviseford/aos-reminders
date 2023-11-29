@@ -10,9 +10,9 @@ import Flavors from './flavors'
 import GrandStrategies from './grand_strategies'
 import Spells from './spells'
 import Units from './units'
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 
-const baseSubfaction: IItemDescription = {
+const baseSubfaction = {
   effects: [],
   mandatory: {
     command_abilities: [keyPicker(CommandAbilities, ['Discorporate'])],
@@ -28,13 +28,13 @@ const baseSubfaction: IItemDescription = {
     spells: [Spells],
     units: [Units],
   },
-}
+} satisfies IItemDescription
 
 const subFactions = {
   [NIGHTHAUNT]: {
     ...baseSubfaction,
     effects: pickEffects(BattleTraits, [NIGHTHAUNT]),
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

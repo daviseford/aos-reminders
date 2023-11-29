@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { COMBAT_PHASE, DURING_SETUP, END_OF_TURN, HERO_PHASE } from 'types/phases'
 
 const Flavors = {
@@ -50,6 +51,6 @@ const Flavors = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default Flavors

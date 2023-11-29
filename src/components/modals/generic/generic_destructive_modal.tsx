@@ -23,7 +23,7 @@ interface IModalComponentProps {
  *
  * @param props
  */
-const GenericDestructiveModal: React.FC<IModalComponentProps> = props => {
+const GenericDestructiveModal = (props: React.PropsWithChildren<IModalComponentProps>) => {
   const {
     bodyText = '',
     children,

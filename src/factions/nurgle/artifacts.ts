@@ -12,6 +12,7 @@ import {
 } from 'types/phases'
 import rule_sources from './rule_sources'
 import spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Artifacts = {
   'The Splithorn Helm': {
@@ -148,6 +149,6 @@ const Artifacts = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Artifacts, 'artifact')

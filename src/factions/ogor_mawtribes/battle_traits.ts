@@ -10,6 +10,7 @@ import {
   START_OF_ROUND,
 } from 'types/phases'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const BattleTraits = {
   'Trampling Charge': {
@@ -108,6 +109,6 @@ const BattleTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BattleTraits, 'battle_trait')

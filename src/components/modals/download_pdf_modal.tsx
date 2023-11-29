@@ -23,7 +23,7 @@ const getDefaultName = (name: string) => {
   return `${name.trim().split(' ').join('_')}_Reminders`
 }
 
-export const DownloadPDFModal: React.FC<IModalComponentProps> = props => {
+export const DownloadPDFModal = (props: IModalComponentProps) => {
   const { closeModal, modalIsOpen, factionName, pdf } = props
   const { isOnline } = useAppStatus()
   const { loadedArmy } = useSavedArmies()

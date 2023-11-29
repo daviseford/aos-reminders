@@ -11,9 +11,9 @@ import MountTraits from './mount_traits'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 
-const baseSubfaction: IItemDescription = {
+const baseSubfaction = {
   effects: [],
 
   available: {
@@ -28,13 +28,13 @@ const baseSubfaction: IItemDescription = {
     spells: [Spells],
     units: [Units],
   },
-}
+} satisfies IItemDescription
 
 const subFactions = {
   [IDONETH_DEEPKIN]: {
     ...baseSubfaction,
     effects: pickEffects(BattleTraits, [IDONETH_DEEPKIN]),
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

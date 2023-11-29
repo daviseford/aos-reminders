@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import { COMBAT_PHASE, END_OF_CHARGE_PHASE, SHOOTING_PHASE } from 'types/phases'
@@ -33,6 +34,6 @@ const GruntaStampedeMountTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(GruntaStampedeMountTraits, 'mount_trait')

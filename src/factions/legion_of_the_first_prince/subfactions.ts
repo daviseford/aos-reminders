@@ -10,6 +10,7 @@ import Artifacts from './artifacts'
 import BattleTraits from './battle_traits'
 import CommandTraits from './command_traits'
 import Spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [LEGION_OF_THE_FIRST_PRINCE]: {
@@ -92,6 +93,6 @@ const subFactions = {
       ],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

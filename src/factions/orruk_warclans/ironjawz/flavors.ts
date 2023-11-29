@@ -1,6 +1,7 @@
 import { keyPicker } from 'factions/metatagger'
 import { END_OF_COMBAT_PHASE, HERO_PHASE } from 'types/phases'
 import command_abilities from './command_abilities'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const IronjawzFlavors = {
   Ironsunz: {
@@ -27,7 +28,7 @@ const IronjawzFlavors = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 // Note: We do NOT use tagAs for Flavors
 export default IronjawzFlavors

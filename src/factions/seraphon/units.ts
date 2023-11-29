@@ -23,6 +23,7 @@ import {
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import Spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const TerradonBaseEffects = [
   {
@@ -855,6 +856,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

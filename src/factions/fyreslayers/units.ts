@@ -17,6 +17,7 @@ import {
 } from 'types/phases'
 import Prayers from './prayers'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const MagmadrothEffects = [
   {
@@ -360,6 +361,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

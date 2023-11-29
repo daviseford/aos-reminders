@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { CHARGE_PHASE, START_OF_COMBAT_PHASE, START_OF_SHOOTING_PHASE } from 'types/phases'
 
@@ -38,6 +39,6 @@ const KruleboyzArtifacts = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(KruleboyzArtifacts, 'artifact')

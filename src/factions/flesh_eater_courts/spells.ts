@@ -1,6 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Spells = {
   Bonestorm: {
@@ -96,6 +97,6 @@ const Spells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Spells, 'spell')

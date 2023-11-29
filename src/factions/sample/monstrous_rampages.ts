@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 
 const MonstrousRampages = {
@@ -10,7 +11,7 @@ const MonstrousRampages = {
   //     },
   //   ],
   // },
-}
+} satisfies TItemDescriptions
 
 // Always export using tagAs
 export default tagAs(MonstrousRampages, 'monstrous_rampage')

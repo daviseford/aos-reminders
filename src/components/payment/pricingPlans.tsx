@@ -70,7 +70,7 @@ interface IPlanProps {
   setPaypalModalIsOpen: (x: boolean) => void
 }
 
-const PlanComponent: React.FC<IPlanProps> = props => {
+const PlanComponent = (props: IPlanProps) => {
   const { supportPlan } = props
   const { user, isAuthenticated } = useAuth0()
   const { login } = useLogin({ origin: supportPlan.title })

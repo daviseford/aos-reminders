@@ -176,7 +176,7 @@ interface IPlanProps {
   supportPlan: IGiftedSubscriptionPlans
 }
 
-const PlanComponent: React.FC<IPlanProps> = ({ supportPlan }) => {
+const PlanComponent = ({ supportPlan }: IPlanProps) => {
   const origin = `${supportPlan.title}-GiftedSubscription`
   const { user, isAuthenticated } = useAuth0()
   const { login } = useLogin({ origin })

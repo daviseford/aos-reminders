@@ -1,5 +1,5 @@
 import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 import { keyOmitter, keyPicker } from 'factions/metatagger'
 import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import Artifacts from './artifacts'
@@ -7,7 +7,6 @@ import Battalions from './battalions'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import GrandStrategies from './grand_strategies'
-import Flavors from './flavors'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
@@ -20,15 +19,13 @@ import {
 } from 'types/phases'
 import rule_sources from './rule_sources'
 
-const baseSubfaction: IItemDescription = {
+const baseSubfaction = {
   effects: [],
   available: {
     artifacts: [Artifacts],
     battalions: [Battalions],
-    command_abilities: [],
     command_traits: [CommandTraits],
     endless_spells: [EndlessSpells],
-    flavors: [Flavors],
     grand_strategies: [GrandStrategies],
     scenery: [Scenery],
     spells: [Spells],
@@ -73,7 +70,7 @@ const baseSubfaction: IItemDescription = {
       ]),
     ],
   },
-}
+} satisfies IItemDescription
 
 const subFactions = {
   'Invaders Host': {
@@ -124,23 +121,6 @@ const subFactions = {
       },
     ],
   },
-
-  // TODO: Is this still around?
-  // "Syll'Esskan Host": {
-  //   ...baseSubfaction,
-  //   effects: [
-  //     {
-  //       name: `Common Purpose`,
-  //       desc: `At the start of the battle, if the number of MORTAL units in a Syll'Esskan Host army is exactly equal to the number of DAEMON units, you receive D3 extra command points. If the total number of units in the army is more than 12, and the number of MORTAL units in a Syll'Esskan Host army is exactly equal to the number of DAEMON units, you receive D6 extra command points instead of D3 extra points. Syll'Esske counts as 2 units, 1 MORTAL and 1 DAEMON, for the purposes of this rule.`,
-  //       when: [START_OF_GAME],
-  //     },
-  //     {
-  //       name: `Deadly Symbiosis`,
-  //       desc: `Add 1 to the number of depravity points you receive in the battleshock phase if a friendly SYLL'ESSKE is on the battlefield and is within 6" of at least 1 other friendly SYLL'ESSKAN HOST DAEMON unit and at least 1 friendly SYLL'ESSKAN HOST MORTAL unit.`,
-  //       when: [END_OF_BATTLESHOCK_PHASE],
-  //     },
-  //   ],
-  // },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

@@ -8,6 +8,7 @@ import {
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Flavors = {
   'Hagg Nar': {
@@ -62,6 +63,6 @@ const Flavors = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default Flavors

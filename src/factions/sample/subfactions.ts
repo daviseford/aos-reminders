@@ -1,4 +1,4 @@
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
 import CommandAbilities from './command_abilities'
@@ -12,7 +12,7 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-const baseSubFaction: IItemDescription = {
+const baseSubFaction = {
   effects: [],
   available: {
     artifacts: [Artifacts],
@@ -28,7 +28,7 @@ const baseSubFaction: IItemDescription = {
     spells: [Spells],
     units: [Units],
   },
-}
+} satisfies IItemDescription
 
 /**
  * - A SubFaction belongs to a Faction.
@@ -41,6 +41,6 @@ const subFactions = {
     ...baseSubFaction,
     effects: [],
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

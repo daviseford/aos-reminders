@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import {
   MagnificentBattalionEffect,
@@ -18,6 +19,6 @@ const OgorBattalions = {
   Torrbad: {
     effects: [MagnificentBattalionEffect],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(OgorBattalions, 'battalion')

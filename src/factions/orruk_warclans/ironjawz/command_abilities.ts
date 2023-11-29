@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { END_OF_CHARGE_PHASE, HERO_PHASE } from 'types/phases'
 
@@ -27,6 +28,6 @@ const IronjawzCommandAbilities = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(IronjawzCommandAbilities, 'command_ability')

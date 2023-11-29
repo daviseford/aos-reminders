@@ -1,6 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { DURING_GAME, DURING_SETUP, DURING_TURN, HERO_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Scenery = {
   'Shrine Luminor': {
@@ -29,6 +30,6 @@ const Scenery = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Scenery, 'scenery')

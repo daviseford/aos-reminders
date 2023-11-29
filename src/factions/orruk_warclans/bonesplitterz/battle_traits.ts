@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, END_OF_SETUP, SAVES_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 import rule_sources from '../rule_sources'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const BonesplitterzBattleTraits = {
   Warpaint: {
@@ -50,6 +51,6 @@ const BonesplitterzBattleTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BonesplitterzBattleTraits, 'battle_trait')

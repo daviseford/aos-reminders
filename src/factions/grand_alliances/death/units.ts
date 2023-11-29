@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import { CHARGE_PHASE, MOVEMENT_PHASE, WARDS_PHASE } from 'types/phases'
@@ -19,6 +20,6 @@ const DeathUnits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(DeathUnits, 'unit')

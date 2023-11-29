@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { SOULBLIGHT_GRAVELORDS } from 'meta/factions'
 import meta_rule_sources from 'meta/rule_sources'
@@ -84,6 +85,6 @@ const BattleTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BattleTraits, 'battle_trait')

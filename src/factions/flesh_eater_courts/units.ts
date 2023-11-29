@@ -12,6 +12,7 @@ import {
 import command_abilities from './command_abilities'
 import spells from './spells'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const NobleBloodEffect = {
   name: `Noble Blood`,
@@ -230,6 +231,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

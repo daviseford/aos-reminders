@@ -13,9 +13,9 @@ import GrandStrategies from './grand_strategies'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 
-const baseSubfaction: IItemDescription = {
+const baseSubfaction = {
   effects: [],
 
   available: {
@@ -32,7 +32,7 @@ const baseSubfaction: IItemDescription = {
     spells: [Spells],
     units: [Units],
   },
-}
+} satisfies IItemDescription
 
 const subFactions = {
   'Gloomspite Gitz': {
@@ -44,6 +44,6 @@ const subFactions = {
     ...baseSubfaction,
     effects: pickEffects(BattleTraits, ["Trugg's Troggherd", 'The Bad Moon']),
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

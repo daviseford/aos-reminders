@@ -1,6 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { START_OF_HERO_PHASE, TURN_ONE_START_OF_HERO_PHASE, TURN_TWO_START_OF_HERO_PHASE } from 'types/phases'
 import meta_rule_sources from 'meta/rule_sources'
+import { TParentEffectsObjWithEffects } from 'factions/factionTypes'
 
 const BattleTactics = {
   'Time to Get Stuck In!': {
@@ -41,6 +42,6 @@ const BattleTactics = {
       },
     ],
   },
-}
+} satisfies TParentEffectsObjWithEffects
 
 export default tagAs(BattleTactics, 'battle_tactic')

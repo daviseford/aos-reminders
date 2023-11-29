@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, TURN_ONE_START_OF_ROUND, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
@@ -31,6 +32,6 @@ const KruleboyzCommandTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(KruleboyzCommandTraits, 'command_trait')

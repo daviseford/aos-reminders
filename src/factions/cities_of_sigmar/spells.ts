@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import { CHARGE_PHASE, HERO_PHASE, SHOOTING_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Spells = {
   'Wings of Fire (Hammerhal)': {
@@ -456,6 +457,6 @@ const Spells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Spells, 'spell')

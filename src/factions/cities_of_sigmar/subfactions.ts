@@ -13,6 +13,7 @@ import Flavors from './flavors'
 import Prayers from './prayers'
 import Spells from './spells'
 import Units from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [CITIES_OF_SIGMAR]: {
@@ -28,6 +29,6 @@ const subFactions = {
       units: [Units],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

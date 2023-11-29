@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 
 const DeathCommandAbilities = {
@@ -10,6 +11,6 @@ const DeathCommandAbilities = {
   //     },
   //   ],
   // },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(DeathCommandAbilities, 'command_ability')

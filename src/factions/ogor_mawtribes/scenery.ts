@@ -3,6 +3,7 @@ import { GenericEffects } from 'generic_rules'
 import { END_OF_CHARGE_PHASE, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Scenery = {
   'Great Mawpot': {
@@ -58,6 +59,6 @@ const Scenery = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Scenery, 'scenery')

@@ -1,5 +1,6 @@
 import { pickEffects } from 'factions/metatagger'
 import BattleTraits from './battle_traits'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Flavors = {
   'The Emerald Host': {
@@ -17,6 +18,6 @@ const Flavors = {
   'The Grieving Legion': {
     effects: pickEffects(BattleTraits, ['The Grieving Legion']),
   },
-}
+} satisfies TItemDescriptions
 
 export default Flavors

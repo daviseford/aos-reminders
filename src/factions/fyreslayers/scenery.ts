@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
 import { START_OF_HERO_PHASE } from 'types/phases'
@@ -19,6 +20,6 @@ const Scenery = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Scenery, 'scenery')

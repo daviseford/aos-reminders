@@ -8,7 +8,7 @@ interface ILoginSectionProps {
   handleClick: (e: React.MouseEvent) => any
 }
 
-export const RedemptionLogin: React.FC<ILoginSectionProps> = props => {
+export const RedemptionLogin = (props: React.PropsWithChildren<ILoginSectionProps>) => {
   return (
     <div>
       {props.children}
@@ -41,7 +41,7 @@ export const RedemptionSuccess = () => {
   )
 }
 
-export const RedemptionError: React.FC<{ error: string; showButton: boolean }> = ({ error, showButton }) => {
+export const RedemptionError = ({ error, showButton }: { error: string; showButton: boolean }) => {
   return (
     <>
       {showButton && (

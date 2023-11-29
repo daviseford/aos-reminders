@@ -16,7 +16,7 @@ interface ISavedArmyCardProps {
   army: ISavedArmyFromApi
 }
 
-export const SavedArmyCard: React.FC<ISavedArmyCardProps> = props => {
+export const SavedArmyCard = (props: ISavedArmyCardProps) => {
   const { army } = props
   const { isOffline } = useAppStatus()
   const { theme } = useTheme()

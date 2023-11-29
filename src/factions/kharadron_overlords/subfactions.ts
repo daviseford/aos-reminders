@@ -9,9 +9,9 @@ import Flavors from './flavors'
 import GrandStrategies from './grand_strategies'
 import MountTraits from './mount_traits'
 import Units from './units'
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 
-const baseSubfaction: IItemDescription = {
+const baseSubfaction = {
   effects: [],
   available: {
     artifacts: [Artifacts],
@@ -24,7 +24,7 @@ const baseSubfaction: IItemDescription = {
     mount_traits: [MountTraits],
     units: [Units],
   },
-}
+} satisfies IItemDescription
 
 const subFactions = {
   'Kharadron Overlords': { ...baseSubfaction },
@@ -32,6 +32,6 @@ const subFactions = {
     ...baseSubfaction,
     effects: pickEffects(BattleTraits, ['Grundstok Expeditionary Force']),
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

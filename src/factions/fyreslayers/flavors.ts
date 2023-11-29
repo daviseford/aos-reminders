@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, START_OF_SETUP, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
 const Flavors = {
@@ -47,7 +48,7 @@ const Flavors = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 // Note: We do NOT use tagAs for Flavors
 export default Flavors

@@ -18,7 +18,7 @@ interface IBannerProps {
  * Can be hidden - will be stored in local storage
  * @param props
  */
-export const NotificationBanner: React.FC<IBannerProps> = props => {
+export const NotificationBanner = (props: React.PropsWithChildren<IBannerProps>) => {
   const {
     children,
     displayOnce = false,

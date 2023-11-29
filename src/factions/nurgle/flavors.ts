@@ -1,5 +1,6 @@
 import { pickEffects } from 'factions/metatagger'
 import BattleTraits from './battle_traits'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Flavors = {
   'Munificent Wanderers': {
@@ -25,6 +26,6 @@ const Flavors = {
   Filthbringers: {
     effects: pickEffects(BattleTraits, ['Rot Covens']),
   },
-}
+} satisfies TItemDescriptions
 
 export default Flavors

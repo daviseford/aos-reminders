@@ -46,7 +46,7 @@ const icons: Record<TVisibilityIconType, { visible: IconType; hidden: IconType }
   },
 }
 
-export const VisibilityToggle: React.FC<IVisibilityToggleProps> = props => {
+export const VisibilityToggle = (props: IVisibilityToggleProps) => {
   const {
     isVisible,
     setVisibility,

@@ -27,6 +27,7 @@ import CommandAbilities from './command_abilities'
 import Spells from './spells'
 import meta_rule_sources from 'meta/rule_sources'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const ArachnarokSpiderVenomEffect = {
   name: `Spider Venom`,
@@ -877,6 +878,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

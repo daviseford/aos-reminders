@@ -1,6 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { START_OF_HERO_PHASE } from 'types/phases'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const BattleTactics = {
   'Out of Control': {
@@ -33,6 +34,6 @@ const BattleTactics = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BattleTactics, 'battle_tactic')

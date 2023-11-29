@@ -13,7 +13,7 @@ interface ISaveArmyProps {
   showSavedArmies: () => void
 }
 
-const SaveArmyBtn: React.FC<ISaveArmyProps> = ({ showSavedArmies }) => {
+const SaveArmyBtn = ({ showSavedArmies }: ISaveArmyProps) => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isActive } = useSubscription()

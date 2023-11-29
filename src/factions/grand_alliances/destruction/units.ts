@@ -1,7 +1,6 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import orruk_rule_sources from 'factions/orruk_warclans/rule_sources'
 import meta_rule_sources from 'meta/rule_sources'
-import { TEffects } from 'types/data'
 import {
   BATTLESHOCK_PHASE,
   CHARGE_PHASE,
@@ -20,8 +19,9 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import DestructionCommandAbilities from './command_abilities'
+import { TItemDescriptions } from 'factions/factionTypes'
 
-const ShroudingMistEffects: TEffects[] = [
+const ShroudingMistEffects = [
   {
     name: `Shrouding Mists`,
     desc: `Subtract 1 from hit rolls for attacks made with missile weapons that target this model.`,
@@ -283,6 +283,6 @@ const DestructionUnits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(DestructionUnits, 'unit')

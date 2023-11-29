@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import { DURING_GAME, START_OF_CHARGE_PHASE, TURN_ONE_DURING_ROUND } from 'types/phases'
@@ -33,6 +34,6 @@ const GruntaStampedeBattleTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(GruntaStampedeBattleTraits, 'battle_trait')

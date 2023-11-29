@@ -1,6 +1,7 @@
 import { pickEffects } from 'factions/metatagger'
 
 import BattleTraits from './battle_traits'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Flavors = {
   'The Eternal Conflagration': {
@@ -26,6 +27,6 @@ const Flavors = {
   'Guild of Summoners': {
     effects: [...pickEffects(BattleTraits, ['Scions of the Exiled'])],
   },
-}
+} satisfies TItemDescriptions
 
 export default Flavors

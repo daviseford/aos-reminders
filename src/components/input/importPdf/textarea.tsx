@@ -2,7 +2,7 @@ import { PreferenceApi } from 'api/preferenceApi'
 import GenericButton from 'components/input/generic_button'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
-import React, { useState } from 'react'
+import { useState } from 'react'
 import { IImportedArmy, TXT_FILE, WARHAMMER_APP } from 'types/import'
 import { logEvent } from 'utils/analytics'
 import { isValidFactionName } from 'utils/armyUtils'
@@ -14,7 +14,7 @@ interface IImportTextAreaProps {
   handleDrop: (army: IImportedArmy) => void
 }
 
-export const ImportTextarea: React.FC<IImportTextAreaProps> = ({ handleDrop }) => {
+export const ImportTextarea = ({ handleDrop }: IImportTextAreaProps) => {
   const { isOnline } = useAppStatus()
   const { isDark } = useTheme()
   const [text, setText] = useState('')

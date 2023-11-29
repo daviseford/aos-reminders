@@ -4,6 +4,7 @@ import Artifacts from './artifacts'
 import BattleTraits from './battle_traits'
 import CommandTraits from './command_traits'
 import Units from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [ORDER_GRAND_ALLIANCE]: {
@@ -14,6 +15,6 @@ const subFactions = {
       units: [Units],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

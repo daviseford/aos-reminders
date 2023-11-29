@@ -20,6 +20,7 @@ import {
   WARDS_PHASE,
 } from 'types/phases'
 import Spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const DeepmareHornEffect = {
   name: `Deepmare Horn`,
@@ -365,6 +366,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

@@ -10,6 +10,7 @@ import MountTraits from './mount_traits'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [FLESH_EATER_COURTS]: {
@@ -29,6 +30,6 @@ const subFactions = {
       command_abilities: [keyPicker(CommandAbilities, ['Feeding Frenzy'])],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

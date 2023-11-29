@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
 import {
@@ -63,6 +64,6 @@ const EndlessSpells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(EndlessSpells, 'endless_spell')

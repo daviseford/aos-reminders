@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import {
   CHARGE_PHASE,
   COMBAT_PHASE,
@@ -100,4 +101,4 @@ export const LegacyDwarfUnits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions

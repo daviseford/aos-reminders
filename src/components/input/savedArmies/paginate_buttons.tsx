@@ -8,7 +8,7 @@ interface IPaginateButtonsProps {
   setPageNum: (num: number) => void
 }
 
-export const PaginateButtons: React.FC<IPaginateButtonsProps> = props => {
+export const PaginateButtons = (props: IPaginateButtonsProps) => {
   const { pageNum, setPageNum, numPages } = props
 
   if (numPages < 2) return null

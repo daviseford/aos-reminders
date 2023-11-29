@@ -25,6 +25,7 @@ import {
 import CommandAbilities from './command_abilities'
 import Prayers from './prayers'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const BrassCladShieldEffect = {
   name: `Brass-clad Shield`,
@@ -844,6 +845,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

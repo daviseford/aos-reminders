@@ -22,7 +22,7 @@ const SwifthawkDiscipline = {
   shared: true,
 }
 
-export const LegacySwifthawkAgentUnits: TItemDescriptions = {
+export const LegacySwifthawkAgentUnits = {
   Chariots: {
     effects: [
       {
@@ -151,4 +151,4 @@ export const LegacySwifthawkAgentUnits: TItemDescriptions = {
       SwifthawkDiscipline,
     ],
   },
-}
+} satisfies TItemDescriptions

@@ -3,6 +3,7 @@ import { COMBAT_PHASE, DURING_GAME, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types
 import artifacts from './artifacts'
 import command_abilities from './command_abilities'
 import command_traits from './command_traits'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Flavors = {
   'Morgaunt (Grand Court)': {
@@ -61,7 +62,7 @@ const Flavors = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 // Note: We do NOT use tagAs for Flavors
 export default Flavors

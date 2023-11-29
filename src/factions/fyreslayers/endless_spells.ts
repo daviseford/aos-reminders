@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { DURING_GAME, HERO_PHASE, START_OF_HERO_PHASE, START_OF_SHOOTING_PHASE } from 'types/phases'
 
@@ -54,6 +55,6 @@ const EndlessSpells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(EndlessSpells, 'endless_spell')

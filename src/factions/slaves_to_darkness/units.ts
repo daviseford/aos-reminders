@@ -33,6 +33,7 @@ import CommandAbilities from './command_abilities'
 import Prayers from './prayers'
 import rule_sources from './rule_sources'
 import Spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 // Common effects used on multiple warscrolls.
 const ChaosRuneshieldSaveEffect = {
@@ -1247,6 +1248,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

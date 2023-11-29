@@ -13,9 +13,9 @@ import Prayers from './prayers'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 
-const baseSubfaction: IItemDescription = {
+const baseSubfaction = {
   effects: [],
   available: {
     artifacts: [Artifacts],
@@ -32,7 +32,7 @@ const baseSubfaction: IItemDescription = {
     units: [Units],
     grand_strategies: [GrandStrategies],
   },
-}
+} satisfies IItemDescription
 
 const subFactions = {
   'Ogor Mawtribes': {
@@ -49,6 +49,6 @@ const subFactions = {
     ...baseSubfaction,
     effects: pickEffects(BattleTraits, ['The Roving Maw', 'Ravenous Brutes', 'Might Makes Right']),
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { START_OF_HERO_PHASE } from 'types/phases'
 
@@ -11,6 +12,6 @@ const BattleTactics = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BattleTactics, 'battle_tactic')

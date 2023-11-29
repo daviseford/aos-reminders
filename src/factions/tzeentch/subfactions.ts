@@ -10,6 +10,7 @@ import Flavors from './flavors'
 import GrandStrategies from './grand_strategies'
 import Spells from './spells'
 import Units from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [TZEENTCH]: {
@@ -64,6 +65,6 @@ const subFactions = {
       grand_strategies: [GrandStrategies],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

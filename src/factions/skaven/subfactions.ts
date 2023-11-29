@@ -11,6 +11,7 @@ import Prayers from './prayers'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [SKAVEN]: {
@@ -29,6 +30,6 @@ const subFactions = {
       units: [Units],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

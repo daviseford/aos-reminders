@@ -24,6 +24,7 @@ import command_abilities from './command_abilities'
 import spells from './spells'
 import rule_sources from './rule_sources'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const getSunmetalWeaponsEffect = (weapon: string) => ({
   name: `Sunmetal Weapons`,
@@ -276,8 +277,8 @@ const Units = {
         desc: `Each time this unit shoots, choose either the Aimed or Lofted weapon characteristic for all the attacks it makes with its Auralan Bows.`,
         when: [SHOOTING_PHASE],
       },
+      SunmetalWeaponEffect,
     ],
-    SunmetalWeaponEffect,
   },
   'Vanari Auralan Wardens': {
     mandatory: {
@@ -592,6 +593,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

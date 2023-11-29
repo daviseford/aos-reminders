@@ -24,7 +24,7 @@ interface IDropzoneProps {
   handleDrop: (army: IImportedArmy) => void
 }
 
-const ImportDropzone: React.FC<IDropzoneProps> = ({ handleDrop }) => {
+const ImportDropzone = ({ handleDrop }: IDropzoneProps) => {
   const { isMobile } = useWindowSize()
   const { isOnline } = useAppStatus()
   const { setLoadedArmy } = useSavedArmies()

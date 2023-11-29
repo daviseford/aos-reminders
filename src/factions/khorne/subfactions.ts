@@ -13,9 +13,9 @@ import GrandStrategies from './grand_strategies'
 import Prayers from './prayers'
 import Scenery from './scenery'
 import Units from './units'
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 
-const baseSubfaction: IItemDescription = {
+const baseSubfaction = {
   effects: [],
 
   available: {
@@ -67,13 +67,13 @@ const baseSubfaction: IItemDescription = {
       ]),
     ],
   },
-}
+} satisfies IItemDescription
 
 const subFactions = {
   [KHORNE]: {
     ...baseSubfaction,
     effects: pickEffects(BattleTraits, [KHORNE, 'The Blood Tithe']),
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

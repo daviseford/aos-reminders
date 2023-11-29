@@ -12,8 +12,7 @@ interface IModalComponentProps {
   closeModal: () => void
 }
 
-export const PaypalPostSubscribeModal: React.FC<IModalComponentProps> = props => {
-  const { closeModal, modalIsOpen } = props
+export const PaypalPostSubscribeModal = ({ closeModal, modalIsOpen }: IModalComponentProps) => {
   const { isActive, subscriptionLoading, getSubscription } = useSubscription()
   const { theme } = useTheme()
 

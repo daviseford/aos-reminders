@@ -16,8 +16,7 @@ interface IModalComponentProps {
  * Use this modal when we want to stop non-subscribers from accessing paid functionality
  * @param props
  */
-const SubscriberOnlyModal: React.FC<IModalComponentProps> = props => {
-  const { closeModal, isOpen, featureName } = props
+const SubscriberOnlyModal = ({ closeModal, isOpen, featureName }: IModalComponentProps) => {
   const { theme } = useTheme()
 
   const handleConfirm = () => {

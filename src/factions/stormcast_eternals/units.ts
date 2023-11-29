@@ -31,6 +31,7 @@ import {
 import prayers from './prayers'
 import rule_sources from './rule_sources'
 import spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const InescapableVengeanceEffect = {
   name: `Inescapable Vengeance`,
@@ -1469,6 +1470,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

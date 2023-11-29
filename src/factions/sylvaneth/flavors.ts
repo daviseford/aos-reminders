@@ -10,6 +10,7 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 import CommandAbilities from './command_abilities'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Flavors = {
   // Glades
@@ -73,6 +74,6 @@ const Flavors = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default Flavors

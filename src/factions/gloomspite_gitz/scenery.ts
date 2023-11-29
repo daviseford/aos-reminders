@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
 import { DURING_GAME, END_OF_TURN } from 'types/phases'
@@ -19,6 +20,6 @@ const Scenery = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Scenery, 'scenery')

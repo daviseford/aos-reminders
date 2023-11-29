@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { pickEffects, tagAs } from 'factions/metatagger'
 import SonsOfBehematUnits from 'factions/sons_of_behemat/units'
 import { COMBAT_PHASE, END_OF_COMBAT_PHASE, SHOOTING_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
@@ -43,6 +44,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

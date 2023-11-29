@@ -23,6 +23,7 @@ import {
 } from 'types/phases'
 import Spells from './spells'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const BannerBearerEffect = {
   name: `Banner Bearer`,
@@ -750,5 +751,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
+
 export default tagAs(Units, 'unit')

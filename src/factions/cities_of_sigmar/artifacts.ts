@@ -17,6 +17,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Artifacts = {
   'Armour of Mallus (Hammerhal)': {
@@ -438,6 +439,6 @@ const Artifacts = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Artifacts, 'artifact')

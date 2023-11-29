@@ -10,6 +10,7 @@ import {
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const CommandTraits = {
   'Merciless Raider': {
@@ -94,6 +95,6 @@ const CommandTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(CommandTraits, 'command_trait')

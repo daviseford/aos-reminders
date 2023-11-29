@@ -1,6 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Prayers = {
   'Pulverising Hailstorm': {
@@ -55,6 +56,6 @@ const Prayers = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Prayers, 'prayer')

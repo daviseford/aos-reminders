@@ -6,7 +6,7 @@ interface ISpinnerProps {
   className?: string
 }
 
-const Spinner: React.FC<ISpinnerProps> = ({ variant = 'dark', size = 'normal', className = '' }) => {
+const Spinner = ({ variant = 'dark', size = 'normal', className = '' }: ISpinnerProps) => {
   const colorClass = {
     light: 'text-light',
     dark: 'text-dark',

@@ -11,6 +11,7 @@ import Flavors from './flavors'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [OSSIARCH_BONEREAPERS]: {
@@ -34,6 +35,6 @@ const subFactions = {
       ],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

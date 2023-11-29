@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { GenericEffects } from 'generic_rules'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SAVES_PHASE } from 'types/phases'
 
@@ -122,4 +123,4 @@ export const LegacyEldritchUnits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions

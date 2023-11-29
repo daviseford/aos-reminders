@@ -31,7 +31,7 @@ interface IPayPalButtonProps {
   style?: IStyle
 }
 
-const PaypalButton: React.FC<IPayPalButtonProps> = props => {
+const PaypalButton = (props: IPayPalButtonProps) => {
   const { user, isAuthenticated } = useAuth0()
   const { login } = useLogin({ origin: props.planTitle })
   const { paypalIsReady } = usePaypal()

@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import {
@@ -97,7 +98,7 @@ const AllegianceCommandTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 const CommandTraits = {
   Grudgebearer: {
@@ -188,6 +189,6 @@ const CommandTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs({ ...AllegianceCommandTraits, ...CommandTraits }, 'command_trait')

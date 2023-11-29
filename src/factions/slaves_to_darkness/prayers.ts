@@ -9,6 +9,7 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Prayers = {
   'Favour of the Ruinous Powers': {
@@ -151,6 +152,6 @@ const Prayers = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Prayers, 'prayer')

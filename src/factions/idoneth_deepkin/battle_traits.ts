@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { IDONETH_DEEPKIN } from 'meta/factions'
 import { DURING_GAME, SHOOTING_PHASE, TURN_ONE_START_OF_TURN } from 'types/phases'
@@ -40,6 +41,6 @@ const BattleTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BattleTraits, 'battle_trait')

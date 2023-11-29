@@ -3,6 +3,7 @@ import { FLESH_EATER_COURTS } from 'meta/factions'
 import { DURING_GAME, HERO_PHASE, WARDS_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const BattleTraits = {
   [FLESH_EATER_COURTS]: {
@@ -29,7 +30,7 @@ const BattleTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 // Always export using tagAs
 export default tagAs(BattleTraits, 'battle_trait')

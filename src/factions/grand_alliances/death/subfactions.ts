@@ -5,6 +5,7 @@ import BattleTraits from './battle_traits'
 import DeathCommandAbilities from './command_abilities'
 import DeathCommandTraits from './command_traits'
 import DeathUnits from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [DEATH_GRAND_ALLIANCE]: {
@@ -16,6 +17,6 @@ const subFactions = {
       units: [DeathUnits],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

@@ -5,6 +5,7 @@ import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import Units from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [DISPOSSESSED]: {
@@ -16,6 +17,6 @@ const subFactions = {
       units: [Units],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

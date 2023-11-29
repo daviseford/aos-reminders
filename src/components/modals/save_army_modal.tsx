@@ -19,8 +19,7 @@ interface IModalComponentProps {
   showSavedArmies: () => void
 }
 
-export const SaveArmyModal: React.FC<IModalComponentProps> = props => {
-  const { closeModal, modalIsOpen, showSavedArmies } = props
+export const SaveArmyModal = ({ closeModal, modalIsOpen, showSavedArmies }: IModalComponentProps) => {
   const army = useSelector(selectors.selectCurrentArmy)
   const { relevantNotes } = useGetReminders()
   const hiddenReminders = useSelector(selectors.selectReminders)

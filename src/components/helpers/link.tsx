@@ -11,7 +11,7 @@ interface ILinkProps {
   onClick?: (...args: any[]) => void
 }
 
-export const LinkNewTab: React.FC<ILinkProps> = ({ href, children, label, ...props }) => (
+export const LinkNewTab = ({ href, children, label, ...props }: React.PropsWithChildren<ILinkProps>) => (
   <a href={href} target="_blank" rel="noopener noreferrer" aria-label={label} {...props}>
     {children}
   </a>
@@ -24,7 +24,7 @@ interface ILinkBtnProps {
   text: string
 }
 
-export const LinkButton: React.FC<ILinkBtnProps> = props => {
+export const LinkButton = (props: ILinkBtnProps) => {
   const { Icon, href, btnClass, text } = props
   const { isMobile } = useWindowSize()
 

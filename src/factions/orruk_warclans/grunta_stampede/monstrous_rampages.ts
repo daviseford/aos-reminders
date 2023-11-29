@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import { END_OF_CHARGE_PHASE } from 'types/phases'
@@ -23,6 +24,6 @@ const MonstrousRampages = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(MonstrousRampages, 'monstrous_rampage')

@@ -2,6 +2,7 @@ import { keyPicker } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE, SHOOTING_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 import monstrous_rampages from './monstrous_rampages'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Flavors = {
   Ionrach: {
@@ -61,6 +62,6 @@ const Flavors = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default Flavors

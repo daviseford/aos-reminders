@@ -10,7 +10,7 @@ interface ILoadButtonProps {
   army: ISavedArmyFromApi
 }
 
-export const LoadArmyBtn: React.FC<ILoadButtonProps> = ({ army }) => {
+export const LoadArmyBtn = ({ army }: ILoadButtonProps) => {
   const { isOnline } = useAppStatus()
   const { setLoadedArmy } = useSavedArmies()
 

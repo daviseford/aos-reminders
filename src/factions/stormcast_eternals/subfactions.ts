@@ -1,4 +1,4 @@
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from 'factions/metatagger'
 import CitiesOfSigmarUnits from '../cities_of_sigmar/units'
 import Artifacts from './artifacts'
@@ -15,7 +15,7 @@ import Prayers from './prayers'
 import Spells from './spells'
 import Units from './units'
 
-const baseSubFaction: IItemDescription = {
+const baseSubFaction = {
   available: {
     allied_units: [],
     artifacts: [Artifacts],
@@ -32,7 +32,7 @@ const baseSubFaction: IItemDescription = {
     units: [Units],
   },
   effects: [],
-}
+} satisfies IItemDescription
 
 const subFactions = {
   'Scions of the Storm': {
@@ -67,6 +67,6 @@ const subFactions = {
     ...baseSubFaction,
     effects: pickEffects(BattleTraits, ['Draconith Skywing', 'Draconith Skywing Battle Tactics']),
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

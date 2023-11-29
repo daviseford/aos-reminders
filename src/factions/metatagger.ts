@@ -1,6 +1,6 @@
 import { omit, pick } from 'lodash'
 import { TEffects, TEntryProperties } from 'types/data'
-import { IObjWithEffects, TParentEffectsObjWithEffects } from './factionTypes'
+import { IItemDescription, TParentEffectsObjWithEffects } from './factionTypes'
 
 /**
  * Adds the given tag to all sub-objects
@@ -9,7 +9,7 @@ import { IObjWithEffects, TParentEffectsObjWithEffects } from './factionTypes'
  * @param tag
  */
 export const tagAs = <
-  D extends Record<string, IObjWithEffects>,
+  D extends Record<string, IItemDescription>,
   E extends TEntryProperties,
   F extends D[keyof D]
 >(

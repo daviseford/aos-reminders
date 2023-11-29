@@ -11,7 +11,7 @@ import {
   START_OF_SETUP,
 } from 'types/phases'
 
-const CommandTraits: TItemDescriptions = {
+const CommandTraits = {
   //Gutbuster Heros
   'Reluctant Rabble-rouser': {
     effects: [
@@ -112,6 +112,6 @@ const CommandTraits: TItemDescriptions = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(CommandTraits, 'command_trait')

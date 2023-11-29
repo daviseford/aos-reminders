@@ -4,7 +4,7 @@ import { centerContentClass } from 'theme/helperClasses'
 
 type ButtonProps = React.DetailedHTMLProps<React.ButtonHTMLAttributes<HTMLButtonElement>, HTMLButtonElement>
 
-const GenericButton: React.FC<ButtonProps> = ({ children, ...props }) => {
+const GenericButton = ({ children, ...props }: React.PropsWithChildren<ButtonProps>) => {
   const { theme } = useTheme()
 
   return (

@@ -11,6 +11,7 @@ import {
   SHOOTING_PHASE,
 } from 'types/phases'
 import command_abilities from './command_abilities'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const ThrongMusiciansAndStandardBearerEffects = [
   {
@@ -242,6 +243,6 @@ const Units = {
       ...DuardinBucklersEffects,
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

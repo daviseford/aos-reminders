@@ -12,7 +12,7 @@ import GrandStrategies from './grand_strategies'
 import Prayers from './prayers'
 import Spells from './spells'
 import Units from './units'
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 
 const baseSubFaction: IItemDescription = {
   effects: [],
@@ -41,6 +41,6 @@ const subFactions = {
     ...baseSubFaction,
     effects: pickEffects(BattleTraits, [DAUGHTERS_OF_KHAINE]),
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

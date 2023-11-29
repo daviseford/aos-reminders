@@ -1,10 +1,10 @@
 import { withAuthenticationRequired } from '@auth0/auth0-react'
-import React from 'react'
+import { ComponentType } from 'react'
 import { Route } from 'react-router-dom'
 
-type TProps = { component: React.FC; [x: string]: any }
+type TProps = { component: ComponentType; [x: string]: any }
 
-const ProtectedRoute: React.FC<TProps> = ({ component, ...args }) => (
+const ProtectedRoute = ({ component, ...args }: TProps) => (
   <Route component={withAuthenticationRequired(component)} {...args} />
 )
 

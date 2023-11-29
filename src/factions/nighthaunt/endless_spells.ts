@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
 import { END_OF_HERO_PHASE, HERO_PHASE } from 'types/phases'
@@ -57,6 +58,6 @@ const EndlessSpells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(EndlessSpells, 'endless_spell')

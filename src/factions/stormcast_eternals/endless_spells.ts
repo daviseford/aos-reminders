@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
 import { COMBAT_PHASE, END_OF_HERO_PHASE, HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const EndlessSpells = {
   'Celestian Vortex': {
@@ -71,6 +72,6 @@ const EndlessSpells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(EndlessSpells, 'endless_spell')

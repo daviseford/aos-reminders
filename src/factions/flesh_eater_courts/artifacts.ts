@@ -10,6 +10,7 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 // Add individual artifacts here, and access them in other files!
 const Artifacts = {
@@ -162,7 +163,7 @@ const Artifacts = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 // Always export using tagAs
 export default tagAs(Artifacts, 'artifact')

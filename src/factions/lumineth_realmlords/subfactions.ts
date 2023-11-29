@@ -10,9 +10,9 @@ import Flavors from './flavors'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 
-const baseSubfaction: IItemDescription = {
+const baseSubfaction = {
   effects: [],
   available: {
     artifacts: [Artifacts],
@@ -25,13 +25,13 @@ const baseSubfaction: IItemDescription = {
     spells: [Spells],
     units: [Units],
   },
-}
+} satisfies IItemDescription
 
 const subFactions = {
   [LUMINETH_REALMLORDS]: {
     ...baseSubfaction,
     effects: pickEffects(BattleTraits, [LUMINETH_REALMLORDS]),
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

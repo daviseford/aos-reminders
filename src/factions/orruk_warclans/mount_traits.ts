@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, DURING_GAME, END_OF_CHARGE_PHASE, HERO_PHASE, WARDS_PHASE } from 'types/phases'
 
@@ -56,6 +57,6 @@ const OrrukWarclanMountTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(OrrukWarclanMountTraits, 'mount_trait')

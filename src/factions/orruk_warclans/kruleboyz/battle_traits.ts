@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import { COMBAT_PHASE, END_OF_SETUP, SHOOTING_PHASE } from 'types/phases'
 import rule_sources from '../rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const KruleboyzBattleTraits = {
   'Venom-encrusted Weapons': {
@@ -44,6 +45,6 @@ const KruleboyzBattleTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(KruleboyzBattleTraits, 'battle_trait')

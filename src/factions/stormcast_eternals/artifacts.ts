@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
@@ -107,6 +108,6 @@ const Artifacts = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Artifacts, 'artifact')

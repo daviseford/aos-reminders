@@ -1,6 +1,7 @@
 import { keyPicker, tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, DURING_SETUP, HERO_PHASE } from 'types/phases'
 import prayers from './prayers'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Units = {
   'Excelsior Warpriest': {
@@ -25,6 +26,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

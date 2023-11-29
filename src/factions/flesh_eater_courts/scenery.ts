@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
 import { BATTLESHOCK_PHASE, END_OF_MOVEMENT_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Scenery = {
   'Charnel Throne': {
@@ -26,6 +27,6 @@ const Scenery = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Scenery, 'scenery')

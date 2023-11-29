@@ -38,7 +38,7 @@ export const Header = () => {
   )
 }
 
-const Jumbotron: React.FC = () => {
+const Jumbotron = () => {
   const { isGameMode } = useAppStatus()
   const { isMobile } = useWindowSize()
   const { loadedArmy } = useSavedArmies()

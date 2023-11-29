@@ -12,6 +12,7 @@ import {
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const WarbossBaseEffects = [
   {
@@ -163,6 +164,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

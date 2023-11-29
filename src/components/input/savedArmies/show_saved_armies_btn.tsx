@@ -13,11 +13,11 @@ interface IShowSavedArmiesBtn {
   isShowingSavedArmies: boolean
 }
 
-const ShowSavedArmiesBtn: React.FC<IShowSavedArmiesBtn> = ({
+const ShowSavedArmiesBtn = ({
   isShowingSavedArmies,
   showSavedArmies,
   hideSavedArmies,
-}) => {
+}: IShowSavedArmiesBtn) => {
   const { isOnline, isOffline } = useAppStatus()
   const { isAuthenticated } = useAuth0()
   const { isSubscribed } = useSubscription()

@@ -5,6 +5,7 @@ import BattleTraits from './battle_traits'
 import DestructionCommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import DestructionUnits from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [DESTRUCTION_GRAND_ALLIANCE]: {
@@ -16,6 +17,6 @@ const subFactions = {
       units: [DestructionUnits],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

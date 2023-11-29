@@ -21,6 +21,7 @@ import rule_sources from '../rule_sources'
 import spells from './spells'
 import meta_rule_sources from 'meta/rule_sources'
 import monstrous_rampages from './monstrous_rampages'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const MawGruntaSharedEffects = [
   {
@@ -193,14 +194,15 @@ const IronjawzUnits = {
         desc: `This unit can issue the Rally command up to 2 times in the same phase, eah commmand must be to a friendly ARDBOYS unit. No command point is spent the second time this unit issues that command in that phase. 
         In addition, when a friendly ARDBOYS unit receives the Rally command from a friendly unit with this ability, you can return 1 slain model to that unit for each 5+ instead of each 6.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
       },
       {
         name: `Get Bashin!'`,
         desc: `Add 1 to shield bash rolls made for friendly ARDBOYS units while they are wholly within 12" of any friendly units with this ability.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
       },
     ],
-    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
   },
   'Orruk Ardboys': {
     effects: [
@@ -208,29 +210,33 @@ const IronjawzUnits = {
         name: `Champion`,
         desc: `1 model in this unit can be an Ardboy Boss. Add 1 to the Attacks characteristic of that model's melee weapons.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
       },
       {
         name: `Standard Bearer`,
         desc: `1 in every 10 models in this unit can be a Gorkamorka Glyph Bearer. Add 1 to the Bravery characteristic of a unit that includes any Gorkamorka Glyph Bearers.`,
         when: [BATTLESHOCK_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
       },
       {
         name: `'Ere We Go!`,
         desc: `Add 1 to the Attacks characteristic of this unit's Ardboy Choppas if this unit made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
       },
       {
         name: `Da Stikkas`,
         desc: `Improve the Rend characteristic of this unit's Ardboy Stikkas by 1 if the target made a charge move in the same turn.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
       },
       {
         name: `Shield Bash`,
         desc: `After all of this units attacks have been resolved, pick 1 enemy unit within 1" of this unit and roll a dice for each model in this unit within 1" of that unit. For roll of 6+, that enemy unit suffers 1 mortal wound.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
       },
     ],
-    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
   },
   'Orruk Brutes': {
     effects: [
@@ -280,20 +286,18 @@ const IronjawzUnits = {
         name: `Head of the Stampede`,
         desc: `If this unit makes a charge move, you can reroll charge rolls for all friendly MAW-GRUNTA units on the battlefield until the end of the phase.`,
         when: [CHARGE_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
       },
     ],
-    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
   },
   "Maw-Grunta with Hakkin' Krew": {
     effects: [...MawGruntaSharedEffects, CarvePathEffect],
-    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
   },
   'Maw-Grunta Gougers': {
     mandatory: {
       monstrous_rampages: [keyPicker(monstrous_rampages, ['Flattened into the Mud'])],
     },
     effects: [...MawGruntaSharedEffects],
-    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
   },
   'Zoggrok Anvilsmasha': {
     effects: [
@@ -301,19 +305,21 @@ const IronjawzUnits = {
         name: `Power of Da Great Green God`,
         desc: `In your hero phase, pick 1 friendly IRONJAWZ unit wholly within 12" of this unit and roll a dice. On a 4+, unmodified hit rolls of 6 for attacks made with melee weapons by that unit cause 1 mortal wound in addition to any damage they inflict. Add 2 to the roll if this unit is armed with Grunta-tongs.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
       },
       {
         name: `Power of Da Great Green God`,
         desc: `Unmodified hit rolls of 6 for attacks made with melee weapons by an effected unit cause 1 mortal wound in addition to any damage they inflict.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
       },
       {
         name: `Ward-smashing Choppa`,
         desc: `If the unmodified hit roll for an attack made with this unit's Ward-smashing Choppa is 6 ward rolls cannot be made for that unit for the rest of the battle.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
       },
     ],
-    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
   },
   'Brute Ragerz': {
     effects: [
@@ -323,9 +329,9 @@ const IronjawzUnits = {
         name: `Bone-shattering Strike`,
         desc: `Unmodified hit rolls for attacks made with a Brute Crusha is 6, that attack causes 3 mortal wounds to the target and the attack sequence ends.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
       },
     ],
-    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
   },
   'Weirdbrute Wrekkaz': {
     effects: [
@@ -335,15 +341,16 @@ const IronjawzUnits = {
         name: `Green Rage`,
         desc: `If the unmodified hit roll for an attack made by this unit is 6 and the target unit has 10 or more models, that attack scores 2 hits on the target instead of 1. Make a wound roll and save roll for each hit.`,
         when: [COMBAT_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
       },
       {
         name: `Weirdbrute Masks`,
         desc: `This unit has a ward of 5+ while it is within 3" of any enemy units.`,
         when: [WOUND_ALLOCATION_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
       },
     ],
-    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(IronjawzUnits, 'unit')

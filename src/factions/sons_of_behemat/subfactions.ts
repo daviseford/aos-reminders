@@ -8,9 +8,9 @@ import Units from './units'
 import { pickEffects } from 'factions/metatagger'
 import battle_traits from './battle_traits'
 import MonstrousRampages from './monstrous_rampages'
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 
-const baseSubFaction: IItemDescription = {
+const baseSubFaction = {
   effects: [],
 
   available: {
@@ -22,7 +22,7 @@ const baseSubFaction: IItemDescription = {
     monstrous_rampages: [MonstrousRampages],
     units: [Units],
   },
-}
+} satisfies IItemDescription
 
 const subFactions = {
   'Sons Of Behemat': {
@@ -34,6 +34,6 @@ const subFactions = {
     ...baseSubFaction,
     effects: pickEffects(battle_traits, ["King Brodd's Stomp", "King Brodd's Stomp Battle Tactics"]),
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

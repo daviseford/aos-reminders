@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import { COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE, WARDS_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Prayers = {
   'Rune Lore: Ancestral Shield': {
@@ -80,6 +81,6 @@ const Prayers = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Prayers, 'prayer')

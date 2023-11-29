@@ -12,6 +12,7 @@ import {
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const getIconBearerEffect = (strength: `1` | `D3` | `D6`) => {
   const plural = strength === `1` ? `` : `s`
@@ -491,6 +492,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')
