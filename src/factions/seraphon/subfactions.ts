@@ -2,6 +2,7 @@ import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
+import BattleTactics from './battle_tactics'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -17,6 +18,7 @@ const baseSubFaction = {
   available: {
     artifacts: [Artifacts],
     battalions: [Battalions],
+    battle_tactics: [BattleTactics],
     command_abilities: [CommandAbilities],
     command_traits: [CommandTraits],
     grand_strategies: [GrandStrategies],

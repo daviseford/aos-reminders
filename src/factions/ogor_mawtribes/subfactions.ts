@@ -1,6 +1,6 @@
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
-import OgorBattalions from './battalions'
+import Battalions from './battalions'
 import BattleTactics from './battle_tactics'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
@@ -19,7 +19,7 @@ const baseSubfaction = {
   effects: [],
   available: {
     artifacts: [Artifacts],
-    battalions: [OgorBattalions],
+    battalions: [Battalions],
     battle_tactics: [BattleTactics],
     command_abilities: [CommandAbilities],
     command_traits: [CommandTraits],

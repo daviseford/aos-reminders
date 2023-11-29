@@ -1,6 +1,7 @@
 import { SONS_OF_BEHEMAT } from 'meta/factions'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
+import BattleTactics from './battle_tactics'
 import CommandTraits from './command_traits'
 import Flavors from './flavors'
 import GrandStrategies from './grand_strategies'
@@ -16,6 +17,7 @@ const baseSubFaction = {
   available: {
     artifacts: [Artifacts],
     battalions: [Battalions],
+    battle_tactics: [BattleTactics],
     command_traits: [CommandTraits],
     grand_strategies: [GrandStrategies],
     flavors: [Flavors],
@@ -27,12 +29,12 @@ const baseSubFaction = {
 const subFactions = {
   'Sons Of Behemat': {
     ...baseSubFaction,
-    effects: pickEffects(battle_traits, [SONS_OF_BEHEMAT, 'Battle Tactics']),
+    effects: pickEffects(battle_traits, [SONS_OF_BEHEMAT]),
   },
 
   "King Brodd's Stomp": {
     ...baseSubFaction,
-    effects: pickEffects(battle_traits, ["King Brodd's Stomp", "King Brodd's Stomp Battle Tactics"]),
+    effects: pickEffects(battle_traits, ["King Brodd's Stomp"]),
   },
 } satisfies TItemDescriptions
 

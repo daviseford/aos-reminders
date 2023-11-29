@@ -3,6 +3,7 @@ import { keyPicker, pickEffects } from 'factions/metatagger'
 import CitiesOfSigmarUnits from '../cities_of_sigmar/units'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
+import BattleTactics from './battle_tactics'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -17,9 +18,9 @@ import Units from './units'
 
 const baseSubFaction = {
   available: {
-    allied_units: [],
     artifacts: [Artifacts],
     battalions: [Battalions],
+    battle_tactics: [BattleTactics],
     command_abilities: [CommandAbilities],
     command_traits: [CommandTraits],
     endless_spells: [EndlessSpells],
@@ -36,7 +37,7 @@ const baseSubFaction = {
 
 const subFactions = {
   'Scions of the Storm': {
-    effects: pickEffects(BattleTraits, ['Scions of the Storm', 'Battle Tactics']),
+    effects: pickEffects(BattleTraits, ['Scions of the Storm']),
     available: {
       ...baseSubFaction.available,
       command_traits: [
@@ -49,7 +50,7 @@ const subFactions = {
     },
   },
   Stormkeep: {
-    effects: pickEffects(BattleTraits, ['Stormkeep', 'Battle Tactics']),
+    effects: pickEffects(BattleTraits, ['Stormkeep']),
     available: {
       ...baseSubFaction.available,
       allied_units: [CitiesOfSigmarUnits],
@@ -65,7 +66,7 @@ const subFactions = {
 
   'Draconith Skywing': {
     ...baseSubFaction,
-    effects: pickEffects(BattleTraits, ['Draconith Skywing', 'Draconith Skywing Battle Tactics']),
+    effects: pickEffects(BattleTraits, ['Draconith Skywing']),
   },
 } satisfies TItemDescriptions
 
