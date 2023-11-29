@@ -6,6 +6,7 @@ import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import Spells from './spells'
 import Units from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [LEGION_OF_AZGORH]: {
@@ -28,6 +29,6 @@ const subFactions = {
       flavors: [],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

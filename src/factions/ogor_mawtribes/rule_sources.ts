@@ -1,3 +1,5 @@
+import { TRuleSources } from 'meta/rule_sources'
+
 const rule_sources = {
   BATTLETOME_OGOR_MAWTRIBES: {
     name: 'Battletome: Ogor Mawtribes',
@@ -8,6 +10,6 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2020/07/AmayJMooi82E8FI5.pdf',
   },
-}
+} satisfies TRuleSources
 
 export default rule_sources

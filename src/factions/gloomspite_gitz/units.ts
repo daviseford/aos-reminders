@@ -27,6 +27,7 @@ import CommandAbilities from './command_abilities'
 import Spells from './spells'
 import meta_rule_sources from 'meta/rule_sources'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const ArachnarokSpiderVenomEffect = {
   name: `Spider Venom`,
@@ -356,7 +357,7 @@ const Units = {
       },
       {
         name: `Spore Cloud`,
-        desc: `Visibility between 2 models is blocked if a straight line drawn between the closest points of the 2 models passes across a model in this unit or passes within 1 " of this unit. This ability does not apply if either of the models the line is drawn between is a model in this unit, a model that can fly, or a Monster.`,
+        desc: `Visibility between 2 models is blocked if a straight line drawn between the closest points of the 2 models passes across a model in this unit or passes within 1" of this unit. This ability does not apply if either of the models the line is drawn between is a model in this unit, a model that can fly, or a Monster.`,
         when: [DURING_GAME],
       },
       {
@@ -877,6 +878,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

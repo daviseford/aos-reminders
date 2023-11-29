@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import {
   SlayersBattalionEffect,
@@ -15,6 +16,6 @@ const OrrukWarclansBattalions = {
   'Bonesplitterz Rukk': {
     effects: [SwiftBattalionEffect],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(OrrukWarclansBattalions, 'battalion')

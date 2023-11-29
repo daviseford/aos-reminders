@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import {
   DURING_GAME,
   END_OF_BATTLESHOCK_PHASE,
@@ -29,7 +30,7 @@ const Flavors = {
     effects: [
       {
         name: `Shadowbeasts`,
-        desc: `At the end of your movement phase, you can pick 1 friendly DARKWALKERS GOR HERD, DARKWALKERS UNGORS or DARKWALKERS UNGOR RAIDERS unit that is wholly within 9" of the battlefield edge and say that it will slink into the shadows. If you do so, remove that unit from the battlefield and set it up again wholly within 9" of the battlefield edge and more than 9' from all enemy units.`,
+        desc: `At the end of your movement phase, you can pick 1 friendly DARKWALKERS GOR HERD, DARKWALKERS UNGORS or DARKWALKERS UNGOR RAIDERS unit that is wholly within 9" of the battlefield edge and say that it will slink into the shadows. If you do so, remove that unit from the battlefield and set it up again wholly within 9" of the battlefield edge and more than 9" from all enemy units.`,
         when: [END_OF_MOVEMENT_PHASE],
       },
     ],
@@ -54,6 +55,6 @@ const Flavors = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default Flavors

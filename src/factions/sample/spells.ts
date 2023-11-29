@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 
 const Spells = {
@@ -10,6 +11,6 @@ const Spells = {
   //     },
   //   ],
   // },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Spells, 'spell')

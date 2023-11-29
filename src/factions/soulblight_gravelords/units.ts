@@ -24,6 +24,7 @@ import {
 } from 'types/phases'
 import spells from './spells'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const VampiricAgilityEffect = {
   name: `Vampiric Agility`,
@@ -900,6 +901,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import {
   COMBAT_PHASE,
@@ -8,11 +9,11 @@ import {
   HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  START_OF_HERO_PHASE,
   TURN_FIVE_HERO_PHASE,
   TURN_ONE_HERO_PHASE,
   TURN_ONE_START_OF_ROUND,
   TURN_THREE_HERO_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 
 const BattleTraits = {
@@ -89,35 +90,6 @@ const BattleTraits = {
     ],
   },
 
-  'Battle Tactics': {
-    effects: [
-      {
-        name: `Call for Change`,
-        desc: `You complete this battle tactic if you summon a Lord of Change to the battlefield this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Mass Conjuration`,
-        desc: `Pick 1 friendly Disciples of Tzeentch Wizard. You complete this battle tactic if that Wizard successfully casts 3 or more spells in that turn and none of those spells are unbound.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Ninefold Dismantelment`,
-        desc: `Pick 1 enemy unit that has 9 or more models, or pick 1 enemy Hero or Monster with a Wounds characteristic of 9 ore more. You complete this battle tactic if that unit is destroyed by the end of this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Reckless Abandon`,
-        desc: `Pick 1 friendly Mortal Disciples of Tzeentch unit that is more than 18" from all enemy units. You complete this battle tactic if that unit completes a charge move in this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Tides of Anarchy`,
-        desc: `You complete this battle tactic if you gain control of an objective that was controlled by your opponent at the start of your hero phase, and you have 9 ore more friendly models within 6" of that objective when you gain control of it.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
   // Eternal Conflagration Flavor
   'Twisters of Materiality': {
     effects: [
@@ -133,12 +105,13 @@ const BattleTraits = {
     effects: [
       {
         name: `Ranks of Mischievous Mirages`,
-        desc: `Enemy units within 3"of a friendly Hosts Duplicitous unit
-        models cannot retreat. In addition, once per battle, when a Hosts
-        Horrors of Tzeentch unit from your starting army is destroyed
-        a dice. On a 4+, add a Hosts Duplicitous Horrors of Tzeentch
-        models to your army. Set up the new unit wholly within 12" of a friendly Hosts Duplicitious Hero and more than 9" from all enemy units.`,
-        when: [MOVEMENT_PHASE, DURING_GAME],
+        desc: `Enemy units within 3" of a friendly Hosts Duplicitous unit models cannot retreat.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Ranks of Mischievous Mirages`,
+        desc: `Once per battle, when a Hosts Horrors of Tzeentch unit from your starting army is destroyed a dice. On a 4+, add a Hosts Duplicitous Horrors of Tzeentch models to your army. Set up the new unit wholly within 12" of a friendly Hosts Duplicitious Hero and more than 9" from all enemy units.`,
+        when: [WOUND_ALLOCATION_PHASE],
       },
     ],
   },
@@ -187,6 +160,6 @@ const BattleTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BattleTraits, 'battle_trait')

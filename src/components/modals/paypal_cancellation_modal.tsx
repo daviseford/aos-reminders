@@ -9,8 +9,7 @@ interface IModalComponentProps {
   closeModal: () => void
 }
 
-export const CancelPaypalSubscriptionModal: React.FC<IModalComponentProps> = props => {
-  const { closeModal, modalIsOpen } = props
+export const CancelPaypalSubscriptionModal = ({ closeModal, modalIsOpen }: IModalComponentProps) => {
   const { subscription } = useSubscription()
 
   const handleClick = () => {

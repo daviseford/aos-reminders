@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import {
   ExpertBattalionEffect,
@@ -12,6 +13,6 @@ const KharadronOverlordsBattalions = {
   'Escort Wing': {
     effects: [SlayersBattalionEffect],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(KharadronOverlordsBattalions, 'battalion')

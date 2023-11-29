@@ -10,6 +10,7 @@ import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import Prayers from './prayers'
 import Units from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [LETHISIAN_DEFENDERS]: {
@@ -39,6 +40,6 @@ const subFactions = {
       command_abilities: [keyPicker(CommandAbilities, ['Onyx Shield Wall'])],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

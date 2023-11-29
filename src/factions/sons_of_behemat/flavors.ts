@@ -8,7 +8,7 @@ import {
   START_OF_SHOOTING_PHASE,
 } from 'types/phases'
 
-const Flavors: TItemDescriptions = {
+const Flavors = {
   'Taker Tribe': {
     effects: [
       {
@@ -90,6 +90,6 @@ const Flavors: TItemDescriptions = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default Flavors

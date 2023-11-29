@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
 
@@ -16,7 +17,7 @@ const BonesplitterzSpells = {
     effects: [
       {
         name: `Glowy Green Tusks`,
-        desc: `Casting value of 5 and range of 18'. Pick 1 friendly BONESPLITTERZ unit wholly within range and visible to the caster. Until the start of your next hero phase, improve the Rend characteristic of weapons used by that unit's mounts by 2.`,
+        desc: `Casting value of 5 and range of 18". Pick 1 friendly BONESPLITTERZ unit wholly within range and visible to the caster. Until the start of your next hero phase, improve the Rend characteristic of weapons used by that unit's mounts by 2.`,
         when: [HERO_PHASE],
       },
     ],
@@ -77,6 +78,6 @@ const BonesplitterzSpells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BonesplitterzSpells, 'spell')

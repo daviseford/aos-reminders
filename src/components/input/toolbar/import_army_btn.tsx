@@ -14,7 +14,7 @@ interface IImportArmyButtonProps {
   hide: () => void
 }
 
-const ImportArmyButton: React.FC<IImportArmyButtonProps> = props => {
+const ImportArmyButton = (props: IImportArmyButtonProps) => {
   const { show, hide, isShowing, isSubscribed } = props
   const { theme } = useTheme()
 

@@ -1,6 +1,7 @@
 import { difference, uniqBy } from 'lodash'
 import { TSupportedFaction } from 'meta/factions'
 import { IArmy } from 'types/army'
+import { SELECTION_TYPES } from 'types/data'
 import { IImportedArmy, TImportError, TImportParsers } from 'types/import'
 import { IAllySelections, TSelectionTypes } from 'types/selections'
 import { TAllySelectionStore } from 'types/store'
@@ -62,24 +63,10 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
     opts.typoMap
   )
 
-  const errorFreeSelections: Record<TSelectionTypes, string[]> = {
-    artifacts: lookup('artifacts'),
-    battalions: lookup('battalions'),
-    command_abilities: lookup('command_abilities'),
-    command_traits: lookup('command_traits'),
-    core_rules: lookup('core_rules'),
-    endless_spells: lookup('endless_spells'),
-    flavors: lookup('flavors'),
-    grand_strategies: lookup('grand_strategies'),
-    incarnates: lookup('incarnates'),
-    monstrous_rampages: lookup('monstrous_rampages'),
-    mount_traits: lookup('mount_traits'),
-    prayers: lookup('prayers'),
-    scenery: lookup('scenery'),
-    spells: lookup('spells'),
-    triumphs: lookup('triumphs'),
-    units: lookup('units'),
-  }
+  const errorFreeSelections = SELECTION_TYPES.reduce((a, key) => {
+    a[key] = lookup(key)
+    return a
+  }, {} as Record<TSelectionTypes, string[]>)
 
   const couldNotFind = difference(unknownSelections, foundSelections)
   if (couldNotFind.length > 0 && isDev) console.log('Could not find: ', couldNotFind)

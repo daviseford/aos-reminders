@@ -23,6 +23,7 @@ import {
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const EmbarkingDeployEffect = {
   name: `Embarking (Deployment)`,
@@ -427,6 +428,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

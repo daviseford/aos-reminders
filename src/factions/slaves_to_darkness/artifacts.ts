@@ -8,6 +8,7 @@ import {
   TURN_ONE_START_OF_TURN,
 } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Artifacts = {
   // Shared
@@ -95,6 +96,6 @@ const Artifacts = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Artifacts, 'artifact')

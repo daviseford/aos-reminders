@@ -11,6 +11,7 @@ import {
   START_OF_HERO_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const CommandTraits = {
   'Crusading Army (Delusion)': {
@@ -225,7 +226,7 @@ const CommandTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 // Always export using tagAs
 export default tagAs(CommandTraits, 'command_trait')

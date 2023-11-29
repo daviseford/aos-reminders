@@ -1,6 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE, MOVEMENT_PHASE, SAVES_PHASE, START_OF_HERO_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const CommandTraits = {
   'Gnarled Warrior': {
@@ -25,7 +26,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Warsinger`,
-        desc: `If this general is on the battlefield at the start of your movement phase, add 3" to the Move characteristic of friendly SYLVANETH units that start a move wholly within 12' of this general until the end of that phase.`,
+        desc: `If this general is on the battlefield at the start of your movement phase, add 3" to the Move characteristic of friendly SYLVANETH units that start a move wholly within 12" of this general until the end of that phase.`,
         when: [MOVEMENT_PHASE],
       },
     ],
@@ -68,6 +69,6 @@ const CommandTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(CommandTraits, 'command_trait')

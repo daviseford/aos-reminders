@@ -12,7 +12,7 @@ interface IModalComponentProps {
   id: string
 }
 
-const UpdateArmyNameModal: React.FC<IModalComponentProps> = props => {
+const UpdateArmyNameModal = (props: IModalComponentProps) => {
   const { closeModal, modalIsOpen, currentArmyName, id } = props
   const { updateArmyName } = useSavedArmies()
   const { theme } = useTheme()

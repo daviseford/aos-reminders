@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import { END_OF_GAME, END_OF_SETUP } from 'types/phases'
@@ -52,6 +53,6 @@ const GrandStrategies = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(GrandStrategies, 'grand_strategy')

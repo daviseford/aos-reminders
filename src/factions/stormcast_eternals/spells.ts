@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import { HERO_PHASE } from 'types/phases'
@@ -196,6 +197,6 @@ const Spells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Spells, 'spell')

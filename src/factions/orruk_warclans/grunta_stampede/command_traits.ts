@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
 import { COMBAT_PHASE } from 'types/phases'
@@ -13,6 +14,6 @@ const CommandTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(CommandTraits, 'command_trait')

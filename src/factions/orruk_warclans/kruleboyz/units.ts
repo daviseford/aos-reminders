@@ -18,6 +18,7 @@ import {
 import rule_sources from '../rule_sources'
 import spells from './spells'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const AllPartOfDaPlanEffect = {
   name: `All Part of Da Plan`,
@@ -324,6 +325,6 @@ const KruleboyzUnits = {
   },
 
   ...keyPicker(DestructionUnits, ['Rogue Idol']),
-}
+} satisfies TItemDescriptions
 
 export default tagAs(KruleboyzUnits, 'unit')

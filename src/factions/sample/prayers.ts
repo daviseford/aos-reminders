@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 
 const Prayers = {
@@ -10,6 +11,6 @@ const Prayers = {
   //     },
   //   ],
   // },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Prayers, 'prayer')

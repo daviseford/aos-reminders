@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, HERO_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
 
@@ -48,6 +49,6 @@ const Prayers = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Prayers, 'prayer')

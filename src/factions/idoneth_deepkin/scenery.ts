@@ -1,6 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { DURING_GAME, START_OF_SETUP, WARDS_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Scenery = {
   'Gloomtide Shipwreck': {
@@ -27,6 +28,6 @@ const Scenery = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Scenery, 'scenery')

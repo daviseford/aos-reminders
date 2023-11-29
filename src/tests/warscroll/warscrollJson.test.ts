@@ -827,6 +827,7 @@ describe('getWarscrollArmyFromJson', () => {
         flavors: ['Greywater Fastness'],
         artifacts: ['Runic Munitions (Greywater Fastness)'],
         battalions: [],
+        battle_tactics: [],
         command_abilities: ['Salvo Fire'],
         endless_spells: [],
         incarnates: [],

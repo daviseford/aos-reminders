@@ -1,5 +1,6 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
-import { BATTLESHOCK_PHASE, DURING_GAME, START_OF_MOVEMENT_PHASE } from 'types/phases'
+import { BATTLESHOCK_PHASE, MOVEMENT_PHASE, SHOOTING_PHASE, START_OF_MOVEMENT_PHASE } from 'types/phases'
 
 const BattleTraits = {
   Wanderers: {
@@ -17,10 +18,10 @@ const BattleTraits = {
       {
         name: `Navigate Realmroots`,
         desc: `Friendly WANDERERS units can retreat and still shoot later in the same turn.`,
-        when: [DURING_GAME],
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BattleTraits, 'battle_trait')

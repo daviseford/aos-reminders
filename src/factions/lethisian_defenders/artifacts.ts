@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, START_OF_COMBAT_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
@@ -29,6 +30,6 @@ const Artifacts = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Artifacts, 'artifact')

@@ -9,7 +9,7 @@ interface IContactProps {
   size?: 'normal' | 'small' | 'large'
 }
 
-const Contact: React.FC<IContactProps> = ({ size = 'normal' }) => {
+const Contact = ({ size = 'normal' }: IContactProps) => {
   const { isOffline } = useAppStatus()
   const { isDark } = useTheme()
   const btnSize = size === 'small' ? 'btn-sm' : size === 'large' ? 'btn-lg' : ''

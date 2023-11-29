@@ -1,3 +1,5 @@
+import { TRuleSources } from 'meta/rule_sources'
+
 const rule_sources = {
   BATTLETOME_ORRUK_WARCLANS: {
     name: 'Battletome: Orruk Warclans (2021)',
@@ -28,6 +30,6 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2023/09/r8DTAWmkrsW2fiRW.pdf',
   },
-}
+} satisfies TRuleSources
 
 export default rule_sources

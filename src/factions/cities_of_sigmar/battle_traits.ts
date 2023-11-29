@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import { CITIES_OF_SIGMAR } from 'meta/factions'
 import { HERO_PHASE, START_OF_HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const BattleTraits = {
   [CITIES_OF_SIGMAR]: {
@@ -24,6 +25,6 @@ const BattleTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BattleTraits, 'battle_trait')

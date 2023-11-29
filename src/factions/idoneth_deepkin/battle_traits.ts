@@ -1,6 +1,7 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { IDONETH_DEEPKIN } from 'meta/factions'
-import { DURING_GAME, SHOOTING_PHASE, START_OF_HERO_PHASE, TURN_ONE_START_OF_TURN } from 'types/phases'
+import { DURING_GAME, SHOOTING_PHASE, TURN_ONE_START_OF_TURN } from 'types/phases'
 
 const BattleTraits = {
   [IDONETH_DEEPKIN]: {
@@ -40,41 +41,6 @@ const BattleTraits = {
       },
     ],
   },
-
-  'Battle Tactics': {
-    effects: [
-      {
-        name: `Assassins of the High Tide`,
-        desc: `You complete this battle tactic if 2 or more enemy units are destroyed during this turn by attacks made by friendly IDONETH DEEPKIN units that are affected by the High Tide ability.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Predators of the Deep`,
-        desc: `Pick 1 unit in your that has a Wounds characteristic of 8 or more and that has 0 wounds allocated to it. You complete this tactic if that unit is destroyed during this turn by a friendly AKHELIAN ALLOPEXES unit.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Revenge of the Namarti`,
-        desc: `You complete this battle tactic if an enemy HERO or MONSTER is destroyed during this turn by an attack made by a friendly NAMARTI unit.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Deny Trespassers`,
-        desc: `Pick 1 Gloomtide Shipwreck in your army that is within 12" of any enemy units. You complete this battle tactic if that Gloomtide Shipwreck is more than 12" from all enemy units at the end of this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Trapped in the Undercurrents`,
-        desc: `You complete this battle tactic if 3 or more friendly IDONETH DEEPKIN units retreated and made a charge move during this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Isharann Defiance`,
-        desc: `When you reveal this battle tactic, pick 1 objective wholly within enemy territory. At the end of this turn, you complete this battle tactic if you control that objective and there is a friendly ISHARANN unit within 6" of that objective.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BattleTraits, 'battle_trait')

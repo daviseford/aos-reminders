@@ -20,7 +20,7 @@ const timeout = (ms: number, promise: Promise<any>) => {
 
 const AppStatusContext = React.createContext<IAppStatusProvider | void>(undefined)
 
-const AppStatusProvider: React.FC = ({ children }) => {
+const AppStatusProvider = ({ children }: React.PropsWithChildren<{}>) => {
   const [isGameMode, setIsGameMode] = useState(false)
   const [isOffline, setIsOffline] = useState(false)
   const [hasNewContent, setHasNewContent] = useState(false)

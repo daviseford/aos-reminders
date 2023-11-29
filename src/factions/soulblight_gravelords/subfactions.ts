@@ -9,25 +9,26 @@ import {
 } from 'types/phases'
 
 import Artifacts from './artifacts'
+import BattleTactics from './battle_tactics'
 import CommandTraits from './command_traits'
 import GrandStrategies from './grand_strategies'
 import Spells from './spells'
 import MonstrousRampages from './monstrous_rampages'
 import Units from './units'
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 
-const baseSubfaction: IItemDescription = {
+const baseSubfaction = {
   effects: [],
   available: {
     artifacts: [Artifacts],
-    command_abilities: [],
+    battle_tactics: [BattleTactics],
     command_traits: [CommandTraits],
     grand_strategies: [GrandStrategies],
     monstrous_rampages: [MonstrousRampages],
     spells: [Spells],
     units: [Units],
   },
-}
+} satisfies IItemDescription
 
 const subFactions = {
   'Legion of Blood': {
@@ -140,6 +141,6 @@ const subFactions = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

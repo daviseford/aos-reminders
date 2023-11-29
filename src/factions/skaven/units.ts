@@ -29,6 +29,7 @@ import command_abilities from './command_abilities'
 import prayers from './prayers'
 import rule_sources from './rule_sources'
 import spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const HiddenWeaponsTeamsEffects = [
   {
@@ -730,7 +731,7 @@ const Units = {
   },
   'Master Moulder': {
     mandatory: {
-      command_abilities: keyPicker(command_abilities, ['Unleash More-more Beasts!']),
+      command_abilities: [keyPicker(command_abilities, ['Unleash More-more Beasts!'])],
     },
     effects: [
       CrackTheWhipEffect,
@@ -835,6 +836,6 @@ const Units = {
       EshinToxinsEffect,
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

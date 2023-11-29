@@ -20,6 +20,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import Spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 export const TzaangorChampionEffect = {
   name: `Champion`,
@@ -473,6 +474,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
-export default tagAs({ ...Units }, 'unit')
+export default tagAs(Units, 'unit')

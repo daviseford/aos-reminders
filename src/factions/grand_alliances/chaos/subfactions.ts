@@ -5,6 +5,7 @@ import BattleTraits from './battle_traits'
 import ChaosCommandAbilities from './command_abilities'
 import ChaosCommandTraits from './command_traits'
 import Units from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [CHAOS_GRAND_ALLIANCE]: {
@@ -16,6 +17,6 @@ const subFactions = {
       units: [Units],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

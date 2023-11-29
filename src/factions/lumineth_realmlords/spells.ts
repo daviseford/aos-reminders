@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
@@ -276,5 +277,6 @@ const Spells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
+
 export default tagAs(Spells, 'spell')

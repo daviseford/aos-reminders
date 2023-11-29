@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { GenericEffects } from 'generic_rules'
 import { HERO_PHASE, SHOOTING_PHASE } from 'types/phases'
 
@@ -42,4 +43,4 @@ export const LegacyEmpireUnits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions

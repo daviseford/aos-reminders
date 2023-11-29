@@ -14,6 +14,7 @@ export const getCollection = (army: TInitialArmy): TCollection => {
   const Collection: TCollection = {
     Artifacts: [],
     Battalions: [],
+    BattleTactics: [],
     CommandAbilities: [],
     CommandTraits: [],
     CoreRules: [],
@@ -37,6 +38,7 @@ export const getCollection = (army: TInitialArmy): TCollection => {
     army.AlliedUnits || [],
     army.Artifacts || [],
     army.Battalions || [],
+    army.BattleTactics || [],
     army.CommandAbilities || [],
     army.CommandTraits || [],
     army.CoreRules || [],
@@ -93,6 +95,7 @@ export const getCollection = (army: TInitialArmy): TCollection => {
   return {
     Artifacts: sortBy(Collection.Artifacts, 'name'),
     Battalions: sortBy(Collection.Battalions, 'name'),
+    BattleTactics: sortBy(Collection.BattleTactics, 'name'),
     CommandAbilities: sortBy(Collection.CommandAbilities, 'name'),
     CommandTraits: sortBy(Collection.CommandTraits, 'name'),
     CoreRules: sortBy(Collection.CoreRules, 'name'),

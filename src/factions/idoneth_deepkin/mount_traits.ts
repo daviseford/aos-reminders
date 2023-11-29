@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { CHARGE_PHASE, COMBAT_PHASE, SAVES_PHASE, SHOOTING_PHASE } from 'types/phases'
 
@@ -56,6 +57,6 @@ const MountTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(MountTraits, 'mount_trait')

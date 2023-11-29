@@ -7,7 +7,7 @@ import {
   MOVEMENT_PHASE,
 } from 'types/phases'
 
-const Flavors: TItemDescriptions = {
+const Flavors = {
   "Dracothion's Tail": {
     effects: [
       {
@@ -52,6 +52,6 @@ const Flavors: TItemDescriptions = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default Flavors

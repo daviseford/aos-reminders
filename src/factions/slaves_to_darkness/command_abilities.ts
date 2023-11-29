@@ -1,6 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { COMBAT_PHASE, START_OF_CHARGE_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const CommandAbilities = {
   //MARKS OF CHAOS
@@ -52,6 +53,6 @@ const CommandAbilities = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(CommandAbilities, 'command_ability')

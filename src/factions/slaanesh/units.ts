@@ -23,6 +23,7 @@ import {
 } from 'types/phases'
 import Spells from './spells'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const BannerBearerEffect = {
   name: `Banner Bearer`,
@@ -130,7 +131,7 @@ const Units = {
       GenericEffects.WizardTwoSpellsEffect,
       {
         name: `Ritual Knife`,
-        desc: `If this unit is armed with a Ritual Knife, at the end of the combat phase, you can pick 1 enemy model within 1 " of this unit that has any wounds allocated to it and roll a dice. On a 2+, that model's unit suffers a number of mortal wounds equal to the roll.`,
+        desc: `If this unit is armed with a Ritual Knife, at the end of the combat phase, you can pick 1 enemy model within 1" of this unit that has any wounds allocated to it and roll a dice. On a 2+, that model's unit suffers a number of mortal wounds equal to the roll.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -149,7 +150,7 @@ const Units = {
       WarmasterEffect,
       {
         name: `Deadly Symbiosis`,
-        desc: `If the number of friendly Hedonites of Slaanesh Mortal units wholly within 1 8" of this unit is equal to the number of other friendly Hedonites of Slaanesh Daemon units wholly within 18" of this unit, add 1 to hit rolls and wound rolls for attacks made with melee weapons by friendly Hedonites of Slaanesh units wholly within 18" of this unit.`,
+        desc: `If the number of friendly Hedonites of Slaanesh Mortal units wholly within 18" of this unit is equal to the number of other friendly Hedonites of Slaanesh Daemon units wholly within 18" of this unit, add 1 to hit rolls and wound rolls for attacks made with melee weapons by friendly Hedonites of Slaanesh units wholly within 18" of this unit.`,
         when: [COMBAT_PHASE],
       },
       LitheAndSwiftEffect,
@@ -750,5 +751,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
+
 export default tagAs(Units, 'unit')

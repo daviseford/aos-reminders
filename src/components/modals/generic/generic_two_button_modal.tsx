@@ -28,7 +28,7 @@ interface IModalComponentProps {
  *
  * @param props
  */
-const GenericTwoButtonModal: React.FC<IModalComponentProps> = props => {
+const GenericTwoButtonModal = (props: React.PropsWithChildren<IModalComponentProps>) => {
   const { theme } = useTheme()
   const [isProcessing, setIsProcessing] = useState(false)
 

@@ -1,6 +1,7 @@
-import { IItemDescription } from 'factions/factionTypes'
+import { TItemDescriptions } from 'factions/factionTypes'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
+import BattleTactics from './battle_tactics'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
@@ -12,24 +13,6 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-const baseSubFaction: IItemDescription = {
-  effects: [],
-  available: {
-    artifacts: [Artifacts],
-    battalions: [Battalions],
-    command_abilities: [CommandAbilities],
-    command_traits: [CommandTraits],
-    endless_spells: [EndlessSpells],
-    flavors: [Flavors],
-    monstrous_rampages: [MonstrousRampages],
-    mount_traits: [MountTraits],
-    prayers: [Prayers],
-    scenery: [Scenery],
-    spells: [Spells],
-    units: [Units],
-  },
-}
-
 /**
  * - A SubFaction belongs to a Faction.
  * - A SubFaction can dictate:
@@ -38,9 +21,23 @@ const baseSubFaction: IItemDescription = {
  */
 const subFactions = {
   SAMPLE: {
-    ...baseSubFaction,
     effects: [],
+    available: {
+      artifacts: [Artifacts],
+      battalions: [Battalions],
+      battle_tactics: [BattleTactics],
+      command_abilities: [CommandAbilities],
+      command_traits: [CommandTraits],
+      endless_spells: [EndlessSpells],
+      flavors: [Flavors],
+      monstrous_rampages: [MonstrousRampages],
+      mount_traits: [MountTraits],
+      prayers: [Prayers],
+      scenery: [Scenery],
+      spells: [Spells],
+      units: [Units],
+    },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

@@ -12,7 +12,7 @@ interface IGenericModalProps {
 
 Modal.setAppElement('#root')
 
-const GenericModal: React.FC<IGenericModalProps> = props => {
+const GenericModal = (props: React.PropsWithChildren<IGenericModalProps>) => {
   const { children, closeModal, isOpen, label, isProcessing = false } = props
   const { isDark } = useTheme()
 

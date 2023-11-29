@@ -1,6 +1,7 @@
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
-import OgorBattalions from './battalions'
+import Battalions from './battalions'
+import BattleTactics from './battle_tactics'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -12,13 +13,14 @@ import Prayers from './prayers'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 
-const baseSubfaction: IItemDescription = {
+const baseSubfaction = {
   effects: [],
   available: {
     artifacts: [Artifacts],
-    battalions: [OgorBattalions],
+    battalions: [Battalions],
+    battle_tactics: [BattleTactics],
     command_abilities: [CommandAbilities],
     command_traits: [CommandTraits],
     flavors: [Flavors],
@@ -30,7 +32,7 @@ const baseSubfaction: IItemDescription = {
     units: [Units],
     grand_strategies: [GrandStrategies],
   },
-}
+} satisfies IItemDescription
 
 const subFactions = {
   'Ogor Mawtribes': {
@@ -41,18 +43,12 @@ const subFactions = {
       'Ravenous Brutes',
       'Trampling Charge',
       'Gulping Bites',
-      'Battle Tactics',
     ]),
   },
   'The Roving Maw': {
     ...baseSubfaction,
-    effects: pickEffects(BattleTraits, [
-      'The Roving Maw',
-      'The Roving Maw Battle Tactics',
-      'Ravenous Brutes',
-      'Might Makes Right',
-    ]),
+    effects: pickEffects(BattleTraits, ['The Roving Maw', 'Ravenous Brutes', 'Might Makes Right']),
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

@@ -12,6 +12,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const PrimalSurgeEffect = {
   name: `Primal Surge`,
@@ -210,6 +211,6 @@ const BonesplitterzUnits = {
   },
 
   ...keyPicker(DestructionUnits, ['Rogue Idol']),
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BonesplitterzUnits, 'unit')

@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import {
   CHARGE_PHASE,
@@ -20,15 +21,6 @@ const BigWaaaghBattleTraits = {
       },
     ],
   },
-  'Battle Tactics': {
-    effects: [
-      {
-        name: `Wait For It, Ladz...`,
-        desc: `You can pick this battle tactic only if your army has at least 24 Waaagh! points (pg 88). You complete this tactic if your army has at least 30 Waaagh! points at the end of this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
   'The Power of the Waaagh!': {
     effects: [
       {
@@ -44,25 +36,27 @@ const BigWaaaghBattleTraits = {
       },
       {
         name: `Waaagh! Points`,
-        desc: `You receive Waaagh! points (pts) as shown below.
-        
-        D6 pts - At the start of your hero phase, if your general is on the battlefield.
-        2 pts - At the start of your hero phase, if there are any friendly WARCHANTERS on the battlefield.
-        1 pt - At the start of your hero phase, if there are any friendly BONESPLITTERZ WIZARDS on the battlefield. `,
+        desc: `D6 pts - At the start of your hero phase, if your general is on the battlefield.`,
         when: [START_OF_HERO_PHASE],
       },
       {
         name: `Waaagh! Points`,
-        desc: `You receive Waaagh! points (pts) as shown below.
-        
-        1 pt - In your charge phase, for each friendly ORRUK unit that finishes a charge move. `,
+        desc: `2 pts - At the start of your hero phase, if there are any friendly WARCHANTERS on the battlefield.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Waaagh! Points`,
+        desc: `1 pt - At the start of your hero phase, if there are any friendly BONESPLITTERZ WIZARDS on the battlefield.`,
+        when: [START_OF_HERO_PHASE],
+      },
+      {
+        name: `Waaagh! Points`,
+        desc: `1 pt - In your charge phase, for each friendly ORRUK unit that finishes a charge move.`,
         when: [CHARGE_PHASE],
       },
       {
         name: `Waaagh! Points`,
-        desc: `You receive Waaagh! points (pts) as shown below.
-        
-        1 pt - At the end of the combat phase, for each friendly ORRUK unit that is within 3" of an enemy unit. `,
+        desc: `1 pt - At the end of the combat phase, for each friendly ORRUK unit that is within 3" of an enemy unit.`,
         when: [END_OF_COMBAT_PHASE],
       },
       {
@@ -97,6 +91,6 @@ const BigWaaaghBattleTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BigWaaaghBattleTraits, 'battle_trait')

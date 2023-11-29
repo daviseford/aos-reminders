@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { SLAANESH } from 'meta/factions'
 import {
@@ -5,7 +6,6 @@ import {
   END_OF_MOVEMENT_PHASE,
   END_OF_ROUND,
   START_OF_COMBAT_PHASE,
-  START_OF_HERO_PHASE,
   START_OF_ROUND,
 } from 'types/phases'
 
@@ -64,41 +64,6 @@ const BattleTraits = {
       },
     ],
   },
-
-  'Battle Tactics': {
-    effects: [
-      {
-        name: 'Death by a Thousand Cuts',
-        desc: `Pick 1 enemy unit. You complete this tactic if wounds caused by attacks made by 3 or more different friendly units are allocated to that unit in this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `An Enrapturing Blur`,
-        desc: `Pick 1 enemy HERO that has no wounds allocated to them. You complete this tactic if that unit is destroyed in the combat phase of this turn before it is picked to fight.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `The Grand Feast`,
-        desc: `You complete this tactic if you receive 12 or more depravity points from the Euphoric Killers battle trait during this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Excessive Carnage`,
-        desc: `Pick 1 enemy unit that is contesting an objective. You complete this tactic if you pick that unit using the Euphoric Killers battle trait (pg 79) and that unit is destroyed during this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Realm-racers`,
-        desc: `You complete this tactic if 3 or more different friendly HEDONITES OF SLAANESH units make a charge move of 7" or more during this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Depraved Unity`,
-        desc: `Pick 1 objective that you do not control. You complete this tactic if you control that objective at the end of this turn and at least 1 friendly HEDONITES OF SLAANESH MORTAL unit and 1 friendly HEDONITES OF SLAANESH DAEMON unit are contesting that objective.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BattleTraits, 'battle_trait')

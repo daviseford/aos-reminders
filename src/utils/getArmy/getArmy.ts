@@ -62,6 +62,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
     AlliedUnits = [],
     Artifacts = [],
     Battalions = [],
+    BattleTactics = [],
     CommandAbilities = [],
     CommandTraits = [],
     EndlessSpells = [],
@@ -97,6 +98,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
 
   Army.Artifacts = modify.Artifacts(Artifacts, GrandAlliance, Collection)
   Army.Battalions = modify.Battalions(Battalions, Collection)
+  Army.BattleTactics = modify.BattleTactics(BattleTactics, Collection)
   Army.CommandAbilities = modify.CommandAbilities(CommandAbilities, Collection)
   Army.CommandTraits = modify.CommandTraits(CommandTraits, GrandAlliance, Collection)
   Army.CoreRules = modify.CoreRules(CoreRules)
@@ -116,6 +118,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
   Army.Game = processGame([
     Army.Artifacts,
     Army.Battalions,
+    Army.BattleTactics,
     Army.CommandAbilities,
     Army.CommandTraits,
     Army.CoreRules,

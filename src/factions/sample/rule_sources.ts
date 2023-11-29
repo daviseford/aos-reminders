@@ -1,3 +1,5 @@
+import { TRuleSources } from 'meta/rule_sources'
+
 const rule_sources = {
   BATTLETOME_SAMPLE_ARMY: {
     name: 'Battletome: Sample Army',
@@ -8,6 +10,6 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.youtube.com/watch?v=dQw4w9WgXcQ',
   },
-}
+} satisfies TRuleSources
 
 export default rule_sources

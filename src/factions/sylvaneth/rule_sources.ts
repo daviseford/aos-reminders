@@ -1,3 +1,5 @@
+import { TRuleSources } from 'meta/rule_sources'
+
 const rule_sources = {
   BATTLETOME_SYLVANETH: {
     name: 'Battletome: Sylvaneth',
@@ -18,6 +20,6 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/08/OoFjYBMRphTA30o3.pdf',
   },
-}
+} satisfies TRuleSources
 
 export default rule_sources

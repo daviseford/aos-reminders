@@ -14,7 +14,7 @@ import command_abilities from './command_abilities'
 import rule_sources from './rule_sources'
 import spells from './spells'
 
-const Flavors: TItemDescriptions = {
+const Flavors = {
   Khorne: {
     effects: [
       {
@@ -106,6 +106,6 @@ const Flavors: TItemDescriptions = {
       command_abilities: [keyPicker(command_abilities, ['Slay Worthy Foes'])],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default Flavors

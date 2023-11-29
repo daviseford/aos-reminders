@@ -9,6 +9,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Summoning_Casting7_Range9_Effect = {
   name: `Summoning`,
@@ -88,6 +89,6 @@ const EndlessSpells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(EndlessSpells, 'endless_spell')

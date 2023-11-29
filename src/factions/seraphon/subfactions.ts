@@ -1,7 +1,8 @@
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
+import BattleTactics from './battle_tactics'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -12,11 +13,12 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 
-const baseSubFaction: IItemDescription = {
+const baseSubFaction = {
   effects: [],
   available: {
     artifacts: [Artifacts],
     battalions: [Battalions],
+    battle_tactics: [BattleTactics],
     command_abilities: [CommandAbilities],
     command_traits: [CommandTraits],
     grand_strategies: [GrandStrategies],
@@ -25,7 +27,7 @@ const baseSubFaction: IItemDescription = {
     spells: [Spells],
     units: [Units],
   },
-}
+} satisfies IItemDescription
 
 const subFactions = {
   Coalesced: {
@@ -45,6 +47,6 @@ const subFactions = {
       flavors: [keyPicker(Flavors, ["Dracothion's Tail", 'Fangs of Sotek'])],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

@@ -8,6 +8,7 @@ import {
   MOVEMENT_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const EndlessSpells = {
   'Wheels of Excruciation': {
@@ -15,7 +16,7 @@ const EndlessSpells = {
       GenericEffects.Predatory.Eight_Inches,
       {
         name: `Summoning`,
-        desc: `Casting value of 6 and a range of 12". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1 " from all models, other endless spells and invocations. Only Hedonites of Slaanesh Wizards can attempt to summon this endless spell.`,
+        desc: `Casting value of 6 and a range of 12". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only Hedonites of Slaanesh Wizards can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
       },
       {
@@ -29,7 +30,7 @@ const EndlessSpells = {
     effects: [
       {
         name: `Summoning`,
-        desc: `Casting value of 6 and a range of 18". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1 " from all models, other endless spells and invocations. Only Hedonites of Slaanesh Wizards can attempt to summon this endless spell.`,
+        desc: `Casting value of 6 and a range of 18". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only Hedonites of Slaanesh Wizards can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
       },
       {
@@ -50,7 +51,7 @@ const EndlessSpells = {
       GenericEffects.Predatory.Eight_Inches,
       {
         name: `Summoning`,
-        desc: `Casting value of 7 and a range of 12". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1 " from all models, other endless spells and invocations. Only Hedonites of Slaanesh Wizards can attempt to summon this endless spell.`,
+        desc: `Casting value of 7 and a range of 12". If successfully cast, set up this endless spell wholly within range and visible to the caster, and more than 1" from all models, other endless spells and invocations. Only Hedonites of Slaanesh Wizards can attempt to summon this endless spell.`,
         when: [HERO_PHASE],
       },
       {
@@ -65,6 +66,6 @@ const EndlessSpells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(EndlessSpells, 'endless_spell')

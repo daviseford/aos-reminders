@@ -1,5 +1,6 @@
 import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
 import CitiesOfSigmarUnits from 'factions/cities_of_sigmar/units'
+import { TItemDescriptions } from 'factions/factionTypes'
 import GloomspiteGitzUnits from 'factions/gloomspite_gitz/units'
 import LegionsOfNagashUnits from 'factions/legions_of_nagash/units'
 import { keyPicker, tagAs } from 'factions/metatagger'
@@ -111,6 +112,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

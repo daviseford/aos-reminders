@@ -2,6 +2,7 @@ import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Prayers = {
   'Divine Light': {
@@ -102,6 +103,6 @@ const Prayers = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Prayers, 'prayer')

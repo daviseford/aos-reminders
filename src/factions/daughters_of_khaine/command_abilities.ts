@@ -1,6 +1,7 @@
 import { tagAs } from 'factions/metatagger'
 import { CHARGE_PHASE, COMBAT_PHASE, END_OF_MOVEMENT_PHASE, HERO_PHASE } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const CommandAbilities = {
   // DoK Allegiance Ability
@@ -53,6 +54,6 @@ const CommandAbilities = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(CommandAbilities, 'command_ability')

@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { END_OF_GAME } from 'types/phases'
 
@@ -19,25 +20,26 @@ const GrandStrategies = {
         when: [END_OF_GAME],
       },
     ],
-    'Repel Corruption': {
-      effects: [
-        {
-          name: `Repel Corruption`,
-          desc: `When the battle ends, you complete this grand strategy if there are no enemy units wholly within your territory.`,
-          when: [END_OF_GAME],
-        },
-      ],
-    },
-    'Further the Great Plan': {
-      effects: [
-        {
-          name: `Further the Great Plan`,
-          desc: `When the battle ends, you complete this grand strategy if you completed 4 or more battle tactics and each of those battle tactics was from the March of the Seraphon Host table below.`,
-          when: [END_OF_GAME],
-        },
-      ],
-    },
   },
-}
+
+  'Repel Corruption': {
+    effects: [
+      {
+        name: `Repel Corruption`,
+        desc: `When the battle ends, you complete this grand strategy if there are no enemy units wholly within your territory.`,
+        when: [END_OF_GAME],
+      },
+    ],
+  },
+  'Further the Great Plan': {
+    effects: [
+      {
+        name: `Further the Great Plan`,
+        desc: `When the battle ends, you complete this grand strategy if you completed 4 or more battle tactics and each of those battle tactics was from the March of the Seraphon Host table below.`,
+        when: [END_OF_GAME],
+      },
+    ],
+  },
+} satisfies TItemDescriptions
 
 export default tagAs(GrandStrategies, 'grand_strategy')

@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { BATTLESHOCK_PHASE, COMBAT_PHASE, DURING_GAME, MOVEMENT_PHASE, START_OF_GAME } from 'types/phases'
 
@@ -65,6 +66,6 @@ const BonesplitterzCommandTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BonesplitterzCommandTraits, 'command_trait')

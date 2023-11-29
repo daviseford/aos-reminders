@@ -1,25 +1,8 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
 
 const Spells = {
-  // 'Celestial Apotheosis': {
-  //   effects: [
-  //     {
-  //       name: `Celestial Apotheosis`,
-  //       desc: `Casting value of 5. Pick 1 friendly unit wholly within 18" of the caster and visible to them. Heal 1 wound allocated to that unit. In addition, until your next hero phase, subtract 1 from the Bravery characteristic of enemy units while they are within 3" of that unit. If the casting roll was 10+, heal up to D3 wounds instead of 1.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Walk Between Realms': {
-  //   effects: [
-  //     {
-  //       name: `Walk Between Realms`,
-  //       desc: `Casting value of 6. Pick 1 friendly unit wholly within 18" of the caster and visible to them. Until your next hero phase, that unit can fly.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
   'Tide of Serpents': {
     effects: [
       {
@@ -56,42 +39,7 @@ const Spells = {
       },
     ],
   },
-  // 'Fiery Convocation': {
-  //   effects: [
-  //     {
-  //       name: `Fiery Convocation`,
-  //       desc: `Casting value of 7. Pick 1 enemy unit within 18" of the caster and visible to them. Until your next hero phase, at the end of each phase of a turn, roll a D6 for that unit. On a 6, that unit suffers D3 mortal wounds.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Bind Endless Spell': {
-  //   effects: [
-  //     {
-  //       name: `Bind Endless Spell`,
-  //       desc: `Casting value of 7 and range of 18". A WIZARD that is bonded to an endless spell cannot attempt to cast this spell. Pick 1 endless spell within range and visible to the caster, and that is not bonded or linked to another model. That endless spell is bonded to the caster.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Extend Astromatrix': {
-  //   effects: [
-  //     {
-  //       name: `Extend Astromatrix`,
-  //       desc: `Casting value of 6. Pick 1 terrain feature wholly within 18" of the caster and visible to them. Any Damned, Arcane, Inspiring and Mystical scenery rules for that terrain feature only apply to SERAPHON units, while any Deadly and Sinister scenery rules for that terrain feature do not apply to SERAPHON units.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
-  // 'Hand of Glory': {
-  //   effects: [
-  //     {
-  //       name: `Hand of Glory`,
-  //       desc: `Casting value of 6. Pick 1 friendly unit wholly within 18" of the caster and visible to them. Until your next hero phase, you can reroll hit rolls of 1 for attacks made by that unit.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
+
   'Celestial Harmony': {
     effects: [
       {
@@ -156,16 +104,6 @@ const Spells = {
       },
     ],
   },
-
-  // 'Control Fate': {
-  //   effects: [
-  //     {
-  //       name: `Control Fate`,
-  //       desc: `Casting value of 7. Pick 1 unit within 18" of the caster and visible to them. If that unit is an enemy unit, until your next hero phase, subtract 1 from save rolls for attacks that target that unit. If that unit is a friendly SERAPHON unit, until your next hero phase, add 1 to save rolls for attacks that target that unit.`,
-  //       when: [HERO_PHASE],
-  //     },
-  //   ],
-  // },
 
   'Blazing Starlight': {
     effects: [
@@ -257,6 +195,6 @@ const Spells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Spells, 'spell')

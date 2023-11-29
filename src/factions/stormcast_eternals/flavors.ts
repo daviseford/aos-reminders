@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import {
   CHARGE_PHASE,
   DURING_GAME,
@@ -80,7 +81,7 @@ const Flavors = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 // Note: We do NOT use tagAs for Flavors
 export default Flavors

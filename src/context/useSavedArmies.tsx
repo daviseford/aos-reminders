@@ -45,7 +45,7 @@ const saveArmyToS3 = async (army: IImportedArmy | ISavedArmy | ICurrentArmy) => 
 
 const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undefined)
 
-const SavedArmiesProvider: React.FC = ({ children }) => {
+const SavedArmiesProvider = ({ children }: React.PropsWithChildren<{}>) => {
   const { isOffline } = useAppStatus()
   const { user } = useAuth0()
   const { relevantNotes } = useGetReminders()

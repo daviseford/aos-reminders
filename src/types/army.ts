@@ -8,6 +8,7 @@ import { TAllySelectionStore } from 'types/store'
 export interface IArmy {
   Artifacts: TEntry[]
   Battalions: TEntry[]
+  BattleTactics: TEntry[] // New in v5.2.6
   BattleTraits: TEffects[] // Previously 'Abilities'
   CommandAbilities: TEntry[] // Previously 'Commands'
   CommandTraits: TEntry[] // Previously 'Traits'

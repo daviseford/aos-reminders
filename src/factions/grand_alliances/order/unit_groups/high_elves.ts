@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { GenericEffects } from 'generic_rules'
 import {
   BATTLESHOCK_PHASE,
@@ -193,4 +194,4 @@ export const LegacyHighElvesUnits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions

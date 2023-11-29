@@ -26,6 +26,7 @@ import {
 import command_abilities from './command_abilities'
 import rule_sources from './rule_sources'
 import spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const ChillingHordeEffect = {
   name: `Chilling Horde`,
@@ -524,6 +525,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

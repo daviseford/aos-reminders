@@ -1,5 +1,6 @@
 import { uniq } from 'lodash'
 import { IArmy } from 'types/army'
+import { lowerToUpperLookup } from 'types/data'
 import { TSelections, TSelectionTypes } from 'types/selections'
 import { isDev } from 'utils/env'
 import { getSideEffects } from 'utils/getSideEffects'
@@ -29,24 +30,10 @@ export const addSideEffectsToImport = (selections: TSelections, Army: IArmy): TS
   })
 
   // Handle selection side effects
-  const selectionSideEffects: Record<TSelectionTypes, ISideEffectsPayload> = {
-    artifacts: getSideEffects(Army.Artifacts),
-    battalions: getSideEffects(Army.Battalions),
-    command_abilities: getSideEffects(Army.CommandAbilities),
-    command_traits: getSideEffects(Army.CommandTraits),
-    core_rules: getSideEffects(Army.CoreRules),
-    endless_spells: getSideEffects(Army.EndlessSpells),
-    flavors: getSideEffects(Army.Flavors),
-    grand_strategies: getSideEffects(Army.GrandStrategies),
-    incarnates: getSideEffects(Army.Incarnates),
-    monstrous_rampages: getSideEffects(Army.MonstrousRampages),
-    mount_traits: getSideEffects(Army.MountTraits),
-    prayers: getSideEffects(Army.Prayers),
-    scenery: getSideEffects(Army.Scenery),
-    spells: getSideEffects(Army.Spells),
-    triumphs: getSideEffects(Army.Triumphs),
-    units: getSideEffects(Army.Units),
-  }
+  const selectionSideEffects = Object.entries(lowerToUpperLookup).reduce((a, [k, v]) => {
+    a[k] = getSideEffects(Army[v])
+    return a
+  }, {} as Record<TSelectionTypes, ISideEffectsPayload>)
 
   Object.keys(selectionSideEffects).forEach(slice => {
     const effectsObj = selectionSideEffects[slice as TSelectionTypes]

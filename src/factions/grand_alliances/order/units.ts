@@ -18,6 +18,7 @@ import { LegacyOrderUnits } from './unit_groups/misc_order'
 import { MonstrousArcanumOrder } from './unit_groups/monstrous_arcanum'
 import { LegacySwifthawkAgentUnits } from './unit_groups/swifthawk_agents'
 import { LegacyWoodElvesUnits } from './unit_groups/wood_elves'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const OrderUnits = {
   'Gotrek Gurnisson': {
@@ -80,6 +81,6 @@ const OrderUnits = {
   ...LegacySwifthawkAgentUnits,
   ...LegacyWoodElvesUnits,
   ...MonstrousArcanumOrder,
-}
+} satisfies TItemDescriptions
 
 export default tagAs(OrderUnits, 'unit')

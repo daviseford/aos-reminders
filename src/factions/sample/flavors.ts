@@ -1,3 +1,5 @@
+import { TItemDescriptions } from 'factions/factionTypes'
+
 /**
  * Flavors (coined by exonian) is the term that we now use at AoS Reminders to describe these "Specific Allegiances".
  * Think Kharadron Overlords Skyports, Flesh Eater Court Grand Courts, Seraphon Constellations, Stormcast Stormhosts, etc.
@@ -18,7 +20,7 @@ const Flavors = {
   //     },
   //   ],
   // },
-}
+} satisfies TItemDescriptions
 
 // Note: We do NOT use tagAs for Flavors
 export default Flavors

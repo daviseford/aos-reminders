@@ -8,6 +8,7 @@ import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import Spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [LEGION_OF_GRIEF]: {
@@ -44,6 +45,6 @@ const subFactions = {
       command_abilities: [keyPicker(CommandAbilities, ['Endless Legions'])],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

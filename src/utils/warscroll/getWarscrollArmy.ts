@@ -10,6 +10,7 @@ import { isValidFactionName } from 'utils/armyUtils'
 import { importErrorChecker } from 'utils/import'
 import { importFactionNameMap, importUnitOptionMap } from 'utils/import/options'
 import { cleanWarscrollText } from 'utils/warscroll/warscrollUtils'
+import { lowerToUpperLookup } from 'types/data'
 
 export const getWarscrollArmyFromPdf = (pdfText: string[]): IImportedArmy => {
   const army = getInitialWarscrollArmyPdf(pdfText)
@@ -50,449 +51,434 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   let origin_realm: string | null = null
   let selector = ''
 
-  const selections = cleanedText.reduce(
-    (accum, txt) => {
-      // Force certain values into a certain part of the selections
-      if (manualLookup[txt]) {
-        const slice = manualLookup[txt]
-        accum[slice] = accum[slice].concat(txt)
-        return accum
-      }
+  const initialSelections = Object.keys(lowerToUpperLookup).reduce((a, key) => {
+    a[key] = []
+    return a
+  }, {} as TSelections)
 
-      // Get Allegiance
-      // e.g. 'Allegiance: Seraphon - Mortal Realm: Ghyran',
-      // or 'Davis Ford - Allegiance: Seraphon - Mortal Realm: Ghyran',
-      if (txt.includes('Allegiance:')) {
-        const nameRemoved = txt.replace(/(.+)?Allegiance: /g, '')
-        const parts = nameRemoved.split(' - ').map(t => t.trim())
-        const name = parts[0].trim()
+  const selections = cleanedText.reduce((accum, txt) => {
+    // Force certain values into a certain part of the selections
+    if (manualLookup[txt]) {
+      const slice = manualLookup[txt]
+      accum[slice] = accum[slice].concat(txt)
+      return accum
+    }
 
-        const factionLookup = importFactionNameMap[name]
+    // Get Allegiance
+    // e.g. 'Allegiance: Seraphon - Mortal Realm: Ghyran',
+    // or 'Davis Ford - Allegiance: Seraphon - Mortal Realm: Ghyran',
+    if (txt.includes('Allegiance:')) {
+      const nameRemoved = txt.replace(/(.+)?Allegiance: /g, '')
+      const parts = nameRemoved.split(' - ').map(t => t.trim())
+      const name = parts[0].trim()
 
-        factionName = factionLookup?.factionName || name
+      const factionLookup = importFactionNameMap[name]
 
-        if (factionLookup?.subFactionName) {
-          subFactionName = factionLookup.subFactionName
-        }
+      factionName = factionLookup?.factionName || name
 
-        return accum
-      }
-
-      // 2/10/20 hotfix
-      if (txt.startsWith('undefined x ')) {
-        txt = txt.replace('undefined x ', '')
-      }
-
-      // Deprecated format
-      if (txt.startsWith('Skyport: ')) {
-        const skyport = txt.replace(/^Skyport: /g, '').trim()
-        accum.flavors = accum.flavors.concat(skyport)
-        return accum
-      }
-
-      // New format
-      if (txt.startsWith('- Sky Port: ')) {
-        const skyport = txt.replace('- Sky Port: ', '').trim().replace(' ', '-') // e.g. Barak Zilfin -> Barak-Zilfin
-        if (skyport !== 'None') {
-          accum.flavors = accum.flavors.concat(skyport)
-        }
-        return accum
-      }
-
-      if (txt.startsWith('- Mortal Realm: ')) {
-        origin_realm = txt.replace('- Mortal Realm: ', '').trim()
-        return accum
-      }
-
-      if (unitIndicatorsPdf.includes(txt)) {
-        selector = 'units'
-        return accum
-      }
-
-      if (txt === 'BATTALIONS' || txt === 'CORE BATTALIONS') {
-        selector = 'battalions'
-        return accum
-      }
-
-      if (
-        txt === 'ENDLESS SPELLS / TERRAIN' ||
-        txt === 'ENDLESS SPELLS / TERRAIN / COMMAND POINTS' ||
-        txt === 'ENDLESS SPELLS & INVOCATIONS'
-      ) {
-        selector = 'endless_spells'
-        return accum
-      }
-
-      if (txt === 'Extra Command Point') return accum
-
-      if (txt.startsWith('- ')) {
-        if (txt.startsWith('- General')) return accum
-        if (txt.startsWith('- City Role')) return accum
-        if (txt.startsWith('- Mark of Chaos : ')) return accum
-        if (txt.startsWith('- Host Option: ')) return accum
-
-        // New in 2021
-        if (txt.startsWith('- Triumphs: ')) {
-          // e.g. "- Triumphs: Inspired,Bloodthirsty"
-          const triumphs = txt
-            .replace('- Triumphs: ', '')
-            .split(',')
-            .map(x => x.trim())
-          accum.triumphs = accum.triumphs.concat(triumphs)
-          return accum
-        }
-
-        // New in 2021
-        if (txt.startsWith('- Grand Strategy: ')) {
-          const grand_strategy = txt.replace('- Grand Strategy: ', '').trim()
-          if (grand_strategy !== 'None Chosen') {
-            accum.grand_strategies.push(grand_strategy)
-          }
-          return accum
-        }
-
-        // New in 2021
-        if (txt.startsWith('- Universal Spell Lore: ')) {
-          accum.spells.push(txt.replace('- Universal Spell Lore: ', ''))
-          return accum
-        }
-
-        // New in 2021
-        if (txt.startsWith('- Universal Prayer Scripture: ')) {
-          accum.prayers.push(txt.replace('- Universal Prayer Scripture: ', ''))
-          return accum
-        }
-
-        if (txt.startsWith('- Tribe: ')) {
-          const { flavor, trait } = getTribe(txt)
-          accum.flavors.push(flavor)
-          if (trait) {
-            accum.command_traits = accum.command_traits.concat(trait)
-          }
-          return accum
-        }
-
-        if (txt.startsWith('- Additional Footnote: ')) {
-          const trait = txt.replace('- Additional Footnote: ', '').trim()
-          if (trait) {
-            accum.command_traits = accum.command_traits.concat(trait)
-            return accum
-          }
-        }
-
-        if (txt.startsWith('- Damned Legion: ')) {
-          const name = txt
-            .replace('- Damned Legion: ', '')
-            .replace(/ \(.+\)/, '')
-            .trim()
-          if (name) subFactionName = name
-          return accum
-        }
-
-        if (txt.startsWith('- Constellation: ')) {
-          const name = txt.replace('- Constellation: ', '').trim()
-          const data = getSeraphonConstellations(name)
-          if (data.flavor) accum.flavors.push(data.flavor)
-          if (data.subFactionName) subFactionName = data.subFactionName
-          return accum
-        }
-
-        if (txt.startsWith('- Great Endrinworks')) {
-          const name = txt.replace(/- Great Endrinworks ?: /, '').trim()
-          const artifact = name.replace(/\(.+\)/g, '').trim()
-          if (artifact) {
-            accum.artifacts = accum.artifacts.concat(artifact)
-            return accum
-          }
-        }
-
-        if (txt.startsWith('- Grand Court')) {
-          const flavor = ['Gristlegore', 'Morgaunt', 'Blisterskin', 'Hollowmourne'].find(x => txt.includes(x))
-          if (flavor) {
-            accum.flavors = accum.flavors.concat(flavor)
-            return accum
-          }
-        }
-
-        if (txt.startsWith('- City')) {
-          const { flavor, trait } = getCity(txt)
-          accum.flavors = accum.flavors.concat(flavor)
-          if (trait) {
-            accum.command_traits = accum.command_traits.concat(trait)
-          }
-          return accum
-        }
-
-        if (txt.startsWith('- Allies')) {
-          const alliedUnit = last(accum.units)
-          if (alliedUnit) {
-            const accumMock = [...accum.units]
-            accumMock.pop()
-            accum[selector] = accumMock
-            allyUnits.push(alliedUnit)
-          }
-          return accum
-        }
-
-        // Misthavn Narcotic
-        if (txt.startsWith('- Misthavn Narcotic: ')) {
-          const artifact = txt.replace('- Misthavn Narcotic: ', '').trim()
-          accum.artifacts.push(artifact)
-          return accum
-        }
-
-        // Handle cases where two command traits are in the same entry
-        if (txt.startsWith('- Command Trait : ') && txt.replace('- Command Trait : ', '').match(':')) {
-          const traits = txt // e.g. "- Command Trait : Killer Reputation: Fateseeker"
-            .replace('- Command Trait : ', '')
-            .split(':')
-            .map(x => x.trim()) // results in ['Killer Reputation', 'Fateseeker']
-          accum.command_traits = accum.command_traits.concat(...traits)
-          return accum
-        }
-
-        // Same as above (could probably be refactored)
-        if (txt.startsWith('- Command Trait: ') && txt.replace('- Command Trait: ', '').match(':')) {
-          const traits = txt
-            .replace('- Command Trait: ', '')
-            .split(':')
-            .map(x => x.trim())
-          accum.command_traits = accum.command_traits.concat(...traits)
-          return accum
-        }
-
-        // Handles Sons of Behemat issue with double command traits
-        if (txt.startsWith('- Command Trait: Extremely Bitter')) {
-          let traits = ['Extremely Bitter (Breaker Tribe)']
-          const secondTrait = txt.replace('- Command Trait: Extremely Bitter - ', '').trim()
-          if (secondTrait) traits.push(secondTrait)
-          accum.command_traits = accum.command_traits.concat(...traits)
-          return accum
-        }
-
-        // Handles Very Acquisitive command traits/artifacts
-        if (txt.startsWith('- Command Trait: Very Acquisitive - ')) {
-          accum.command_traits.push('Very Acquisitive (Taker Tribe)')
-          const artifact = txt.replace('- Command Trait: Very Acquisitive - ', '').trim()
-          if (artifact) accum.artifacts.push(artifact)
-          return accum
-        }
-
-        // General handling of Command Traits, checks for attached spells
-        if (txt.startsWith('- Command Trait')) {
-          const { trait, spell } = getTraitWithSpell('Command Trait', txt)
-          accum.command_traits = accum.command_traits.concat(trait)
-          if (spell) accum.spells = accum.spells.concat(spell)
-          return accum
-        }
-        if (txt.startsWith('- Mount Trait')) {
-          const trait = getTrait('Mount Trait', txt)
-          accum.mount_traits.push(trait)
-          return accum
-        }
-        if (txt.startsWith('- Drakeblood Curse')) {
-          const trait = getTrait('Drakeblood Curse', txt)
-          accum.command_traits = accum.command_traits.concat(trait)
-          return accum
-        }
-        if (txt.startsWith('- Grand Court')) {
-          const trait = getTrait('Grand Court', txt)
-          accum.command_traits = accum.command_traits.concat(trait)
-          return accum
-        }
-
-        if (txt.match(/^- (.+ \()?Artefact(\))?( )?:/)) {
-          const { trait: artifact, spell } = getTraitWithSpell('Artefact', txt)
-          accum.artifacts = accum.artifacts.concat(artifact)
-          if (spell && spell !== 'None') accum.spells = accum.spells.concat(spell)
-          return accum
-        }
-
-        // New in 2021
-        if (txt.search(/^- .+ Spell: /g) > -1) {
-          // Handles entries like "- Ancient Knowledge Spell: Celestial Equilibrium"
-          const spell = getTrait('Spell', txt)
-          if (spell !== 'None') {
-            accum.spells.push(spell)
-          }
-          return accum
-        }
-
-        if (txt.startsWith('- Spell')) {
-          const spell = getTrait('Spell', txt)
-          if (spell !== 'None') {
-            accum.spells = accum.spells.concat(spell)
-          }
-          return accum
-        }
-
-        // New in 2021
-        if (txt.search(/^- .+ Prayer: /g) > -1) {
-          const prayer = getTrait('Prayer', txt)
-          accum.prayers.push(prayer)
-          return accum
-        }
-
-        if (txt.startsWith('- Prayer')) {
-          // New (bug?) in 2021
-          if (txt.startsWith('- Prayer1')) {
-            txt = txt.replace('- Prayer1', '- Prayer')
-          }
-
-          const prayer = getTrait('Prayer', txt)
-          accum.prayers.push(prayer)
-          return accum
-        }
-
-        if (txt.startsWith('- Mortal Realm') && last(accum.units) === 'Battlemage') {
-          const battlemage_realm = txt.replace(/- Mortal Realm ?: /, '').trim()
-          accum.units.pop()
-          accum.units.push(`Battlemage (${battlemage_realm})`)
-          return accum
-        }
-
-        // Add weapon options and other configuration
-        if (selector === 'units' && accum.units.length > 0) {
-          const attr = txt.split('-')[1].trim().replace('Weapon: ', '').replace('Weapon : ', '').trim()
-
-          if (importUnitOptionMap[attr]) {
-            const accumMock = [...accum.units]
-            accumMock.pop()
-            accumMock.push(importUnitOptionMap[attr])
-            accum.units = accumMock
-            return accum
-          }
-        }
-
-        // Handle some new stuff I've noticed
-        // We _REALLY_ need to test this stuff better
-
-        if (factionName === KHARADRON_OVERLORDS && txt.match(/^- (Artycle|Amendment|Footnote)( )?: /g)) {
-          const command_trait = txt.replace(/^- /, '').trim()
-          accum.command_traits.push(command_trait)
-          return accum
-        }
-
-        // Handle allegiances programmatically
-        // TODO: Break this out into a testable function
-        let stop_processing = false
-        flavorTypes.forEach(t => {
-          if (stop_processing) return
-          let val = txt.replace(`- ${t}: `, '').trim()
-
-          if (val && val !== 'None' && txt.startsWith(`- ${t}: `)) {
-            // Handle SCE Subfactions
-            if (factionName === STORMCAST_ETERNALS && val.includes('(Stormkeep)')) {
-              const sceFlavor = val.replace(/\(Stormkeep\)$/g, '(Stormhost)')
-              accum.flavors.push(sceFlavor)
-              subFactionName = StormcastFaction.subFactionKeyMap['Celestial Sentinels'] // Stormkeep
-              stop_processing = true
-              return
-            }
-
-            // Handle Slaanesh Subfactions/Flavors e.g. "- Host: Scarlet Cavalcade Godseekers Host (Host of Chaos)"
-            if (factionName === SLAANESH && val.endsWith('(Host of Chaos)')) {
-              const _faction = getFactionFromList(factionName)
-              const slaaneshSubFaction = _faction.subFactionKeys.find(x => val.includes(x))
-
-              if (slaaneshSubFaction) {
-                subFactionName = slaaneshSubFaction
-                val = val.split(slaaneshSubFaction)[0].trim()
-                accum.flavors.push(val)
-                stop_processing = true
-                return
-              }
-            }
-
-            // Generic subfaction checker
-            if (isValidFactionName(factionName)) {
-              // Need to do something faction-specific to the value? Do it here.
-              // if (factionName === SOME_FACTION) val = val.replace('something', '')
-              const _faction = getFactionFromList(factionName)
-              if (_faction.subFactionKeyMap[val]) {
-                subFactionName = val
-                stop_processing = true
-                return
-              }
-            }
-
-            // If we can't find a subfaction match, it's probably a Flavor
-            accum.flavors.push(val)
-            stop_processing = true
-          }
-        })
-        if (stop_processing) return accum
-
-        const commandTraitPrefixes = ['- Host Option : ', '- Host Option: ', '- Big Name : ']
-        commandTraitPrefixes.forEach(val => {
-          if (stop_processing) return
-          if (txt.startsWith(val)) {
-            const command_trait = txt.replace(val, '').trim()
-            accum.command_traits.push(command_trait)
-            stop_processing = true
-          }
-        })
-        if (stop_processing) return accum
-
-        if (txt.match(/^- Lore of .+ ?: /)) {
-          const spell = txt.replace(/^- Lore of .+ ?: /, '').trim()
-          if (spell !== 'None') {
-            accum.spells.push(spell)
-          }
-          stop_processing = true
-        }
-        if (stop_processing) return accum
-
-        return accum
-      }
-
-      // Check for end of file stuff
-      if (['TOTAL: ', 'LEADERS: ', 'ARTEFACTS: ', 'ADDITIONAL ENHANCEMENTS'].some(e => txt.startsWith(e))) {
-        selector = ''
-        return accum
-      }
-
-      // Add item to accum
-      if (selector) {
-        // Endless spells and terrain are grouped together, so we have to do this check manually
-        if (selector === 'endless_spells' && genericScenery.includes(txt)) {
-          accum.scenery = uniq(accum.scenery.concat(txt))
-        } else {
-          // New in 2021
-          // Extract Core Battalions from a unit name (e.g. 'Freeguild General in Grand Battery')
-          if (selector === 'units') {
-            const coreBattalion = coreBattalionNames.find(name => txt.endsWith(` in ${name}`))
-            if (coreBattalion) {
-              accum.battalions = uniq(accum.battalions.concat(coreBattalion))
-              txt = txt.replace(` in ${coreBattalion}`, '')
-            }
-          }
-
-          accum[selector] = uniq(accum[selector].concat(txt))
-        }
+      if (factionLookup?.subFactionName) {
+        subFactionName = factionLookup.subFactionName
       }
 
       return accum
-    },
-    {
-      artifacts: [],
-      battalions: [],
-      command_abilities: [],
-      command_traits: [],
-      core_rules: [],
-      endless_spells: [],
-      flavors: [],
-      grand_strategies: [],
-      incarnates: [],
-      monstrous_rampages: [],
-      mount_traits: [],
-      prayers: [],
-      scenery: [],
-      spells: [],
-      triumphs: [],
-      units: [],
-    } as TSelections
-  )
+    }
+
+    // 2/10/20 hotfix
+    if (txt.startsWith('undefined x ')) {
+      txt = txt.replace('undefined x ', '')
+    }
+
+    // Deprecated format
+    if (txt.startsWith('Skyport: ')) {
+      const skyport = txt.replace(/^Skyport: /g, '').trim()
+      accum.flavors = accum.flavors.concat(skyport)
+      return accum
+    }
+
+    // New format
+    if (txt.startsWith('- Sky Port: ')) {
+      const skyport = txt.replace('- Sky Port: ', '').trim().replace(' ', '-') // e.g. Barak Zilfin -> Barak-Zilfin
+      if (skyport !== 'None') {
+        accum.flavors = accum.flavors.concat(skyport)
+      }
+      return accum
+    }
+
+    if (txt.startsWith('- Mortal Realm: ')) {
+      origin_realm = txt.replace('- Mortal Realm: ', '').trim()
+      return accum
+    }
+
+    if (unitIndicatorsPdf.includes(txt)) {
+      selector = 'units'
+      return accum
+    }
+
+    if (txt === 'BATTALIONS' || txt === 'CORE BATTALIONS') {
+      selector = 'battalions'
+      return accum
+    }
+
+    if (
+      txt === 'ENDLESS SPELLS / TERRAIN' ||
+      txt === 'ENDLESS SPELLS / TERRAIN / COMMAND POINTS' ||
+      txt === 'ENDLESS SPELLS & INVOCATIONS'
+    ) {
+      selector = 'endless_spells'
+      return accum
+    }
+
+    if (txt === 'Extra Command Point') return accum
+
+    if (txt.startsWith('- ')) {
+      if (txt.startsWith('- General')) return accum
+      if (txt.startsWith('- City Role')) return accum
+      if (txt.startsWith('- Mark of Chaos : ')) return accum
+      if (txt.startsWith('- Host Option: ')) return accum
+
+      // New in 2021
+      if (txt.startsWith('- Triumphs: ')) {
+        // e.g. "- Triumphs: Inspired,Bloodthirsty"
+        const triumphs = txt
+          .replace('- Triumphs: ', '')
+          .split(',')
+          .map(x => x.trim())
+        accum.triumphs = accum.triumphs.concat(triumphs)
+        return accum
+      }
+
+      // New in 2021
+      if (txt.startsWith('- Grand Strategy: ')) {
+        const grand_strategy = txt.replace('- Grand Strategy: ', '').trim()
+        if (grand_strategy !== 'None Chosen') {
+          accum.grand_strategies.push(grand_strategy)
+        }
+        return accum
+      }
+
+      // New in 2021
+      if (txt.startsWith('- Universal Spell Lore: ')) {
+        accum.spells.push(txt.replace('- Universal Spell Lore: ', ''))
+        return accum
+      }
+
+      // New in 2021
+      if (txt.startsWith('- Universal Prayer Scripture: ')) {
+        accum.prayers.push(txt.replace('- Universal Prayer Scripture: ', ''))
+        return accum
+      }
+
+      if (txt.startsWith('- Tribe: ')) {
+        const { flavor, trait } = getTribe(txt)
+        accum.flavors.push(flavor)
+        if (trait) {
+          accum.command_traits = accum.command_traits.concat(trait)
+        }
+        return accum
+      }
+
+      if (txt.startsWith('- Additional Footnote: ')) {
+        const trait = txt.replace('- Additional Footnote: ', '').trim()
+        if (trait) {
+          accum.command_traits = accum.command_traits.concat(trait)
+          return accum
+        }
+      }
+
+      if (txt.startsWith('- Damned Legion: ')) {
+        const name = txt
+          .replace('- Damned Legion: ', '')
+          .replace(/ \(.+\)/, '')
+          .trim()
+        if (name) subFactionName = name
+        return accum
+      }
+
+      if (txt.startsWith('- Constellation: ')) {
+        const name = txt.replace('- Constellation: ', '').trim()
+        const data = getSeraphonConstellations(name)
+        if (data.flavor) accum.flavors.push(data.flavor)
+        if (data.subFactionName) subFactionName = data.subFactionName
+        return accum
+      }
+
+      if (txt.startsWith('- Great Endrinworks')) {
+        const name = txt.replace(/- Great Endrinworks ?: /, '').trim()
+        const artifact = name.replace(/\(.+\)/g, '').trim()
+        if (artifact) {
+          accum.artifacts = accum.artifacts.concat(artifact)
+          return accum
+        }
+      }
+
+      if (txt.startsWith('- Grand Court')) {
+        const flavor = ['Gristlegore', 'Morgaunt', 'Blisterskin', 'Hollowmourne'].find(x => txt.includes(x))
+        if (flavor) {
+          accum.flavors = accum.flavors.concat(flavor)
+          return accum
+        }
+      }
+
+      if (txt.startsWith('- City')) {
+        const { flavor, trait } = getCity(txt)
+        accum.flavors = accum.flavors.concat(flavor)
+        if (trait) {
+          accum.command_traits = accum.command_traits.concat(trait)
+        }
+        return accum
+      }
+
+      if (txt.startsWith('- Allies')) {
+        const alliedUnit = last(accum.units)
+        if (alliedUnit) {
+          const accumMock = [...accum.units]
+          accumMock.pop()
+          accum[selector] = accumMock
+          allyUnits.push(alliedUnit)
+        }
+        return accum
+      }
+
+      // Misthavn Narcotic
+      if (txt.startsWith('- Misthavn Narcotic: ')) {
+        const artifact = txt.replace('- Misthavn Narcotic: ', '').trim()
+        accum.artifacts.push(artifact)
+        return accum
+      }
+
+      // Handle cases where two command traits are in the same entry
+      if (txt.startsWith('- Command Trait : ') && txt.replace('- Command Trait : ', '').match(':')) {
+        const traits = txt // e.g. "- Command Trait : Killer Reputation: Fateseeker"
+          .replace('- Command Trait : ', '')
+          .split(':')
+          .map(x => x.trim()) // results in ['Killer Reputation', 'Fateseeker']
+        accum.command_traits = accum.command_traits.concat(...traits)
+        return accum
+      }
+
+      // Same as above (could probably be refactored)
+      if (txt.startsWith('- Command Trait: ') && txt.replace('- Command Trait: ', '').match(':')) {
+        const traits = txt
+          .replace('- Command Trait: ', '')
+          .split(':')
+          .map(x => x.trim())
+        accum.command_traits = accum.command_traits.concat(...traits)
+        return accum
+      }
+
+      // Handles Sons of Behemat issue with double command traits
+      if (txt.startsWith('- Command Trait: Extremely Bitter')) {
+        let traits = ['Extremely Bitter (Breaker Tribe)']
+        const secondTrait = txt.replace('- Command Trait: Extremely Bitter - ', '').trim()
+        if (secondTrait) traits.push(secondTrait)
+        accum.command_traits = accum.command_traits.concat(...traits)
+        return accum
+      }
+
+      // Handles Very Acquisitive command traits/artifacts
+      if (txt.startsWith('- Command Trait: Very Acquisitive - ')) {
+        accum.command_traits.push('Very Acquisitive (Taker Tribe)')
+        const artifact = txt.replace('- Command Trait: Very Acquisitive - ', '').trim()
+        if (artifact) accum.artifacts.push(artifact)
+        return accum
+      }
+
+      // General handling of Command Traits, checks for attached spells
+      if (txt.startsWith('- Command Trait')) {
+        const { trait, spell } = getTraitWithSpell('Command Trait', txt)
+        accum.command_traits = accum.command_traits.concat(trait)
+        if (spell) accum.spells = accum.spells.concat(spell)
+        return accum
+      }
+      if (txt.startsWith('- Mount Trait')) {
+        const trait = getTrait('Mount Trait', txt)
+        accum.mount_traits.push(trait)
+        return accum
+      }
+      if (txt.startsWith('- Drakeblood Curse')) {
+        const trait = getTrait('Drakeblood Curse', txt)
+        accum.command_traits = accum.command_traits.concat(trait)
+        return accum
+      }
+      if (txt.startsWith('- Grand Court')) {
+        const trait = getTrait('Grand Court', txt)
+        accum.command_traits = accum.command_traits.concat(trait)
+        return accum
+      }
+
+      if (txt.match(/^- (.+ \()?Artefact(\))?( )?:/)) {
+        const { trait: artifact, spell } = getTraitWithSpell('Artefact', txt)
+        accum.artifacts = accum.artifacts.concat(artifact)
+        if (spell && spell !== 'None') accum.spells = accum.spells.concat(spell)
+        return accum
+      }
+
+      // New in 2021
+      if (txt.search(/^- .+ Spell: /g) > -1) {
+        // Handles entries like "- Ancient Knowledge Spell: Celestial Equilibrium"
+        const spell = getTrait('Spell', txt)
+        if (spell !== 'None') {
+          accum.spells.push(spell)
+        }
+        return accum
+      }
+
+      if (txt.startsWith('- Spell')) {
+        const spell = getTrait('Spell', txt)
+        if (spell !== 'None') {
+          accum.spells = accum.spells.concat(spell)
+        }
+        return accum
+      }
+
+      // New in 2021
+      if (txt.search(/^- .+ Prayer: /g) > -1) {
+        const prayer = getTrait('Prayer', txt)
+        accum.prayers.push(prayer)
+        return accum
+      }
+
+      if (txt.startsWith('- Prayer')) {
+        // New (bug?) in 2021
+        if (txt.startsWith('- Prayer1')) {
+          txt = txt.replace('- Prayer1', '- Prayer')
+        }
+
+        const prayer = getTrait('Prayer', txt)
+        accum.prayers.push(prayer)
+        return accum
+      }
+
+      if (txt.startsWith('- Mortal Realm') && last(accum.units) === 'Battlemage') {
+        const battlemage_realm = txt.replace(/- Mortal Realm ?: /, '').trim()
+        accum.units.pop()
+        accum.units.push(`Battlemage (${battlemage_realm})`)
+        return accum
+      }
+
+      // Add weapon options and other configuration
+      if (selector === 'units' && accum.units.length > 0) {
+        const attr = txt.split('-')[1].trim().replace('Weapon: ', '').replace('Weapon : ', '').trim()
+
+        if (importUnitOptionMap[attr]) {
+          const accumMock = [...accum.units]
+          accumMock.pop()
+          accumMock.push(importUnitOptionMap[attr])
+          accum.units = accumMock
+          return accum
+        }
+      }
+
+      // Handle some new stuff I've noticed
+      // We _REALLY_ need to test this stuff better
+
+      if (factionName === KHARADRON_OVERLORDS && txt.match(/^- (Artycle|Amendment|Footnote)( )?: /g)) {
+        const command_trait = txt.replace(/^- /, '').trim()
+        accum.command_traits.push(command_trait)
+        return accum
+      }
+
+      // Handle allegiances programmatically
+      // TODO: Break this out into a testable function
+      let stop_processing = false
+      flavorTypes.forEach(t => {
+        if (stop_processing) return
+        let val = txt.replace(`- ${t}: `, '').trim()
+
+        if (val && val !== 'None' && txt.startsWith(`- ${t}: `)) {
+          // Handle SCE Subfactions
+          if (factionName === STORMCAST_ETERNALS && val.includes('(Stormkeep)')) {
+            const sceFlavor = val.replace(/\(Stormkeep\)$/g, '(Stormhost)')
+            accum.flavors.push(sceFlavor)
+            subFactionName = StormcastFaction.subFactionKeyMap['Celestial Sentinels'] // Stormkeep
+            stop_processing = true
+            return
+          }
+
+          // Handle Slaanesh Subfactions/Flavors e.g. "- Host: Scarlet Cavalcade Godseekers Host (Host of Chaos)"
+          if (factionName === SLAANESH && val.endsWith('(Host of Chaos)')) {
+            const _faction = getFactionFromList(factionName)
+            const slaaneshSubFaction = _faction.subFactionKeys.find(x => val.includes(x))
+
+            if (slaaneshSubFaction) {
+              subFactionName = slaaneshSubFaction
+              val = val.split(slaaneshSubFaction)[0].trim()
+              accum.flavors.push(val)
+              stop_processing = true
+              return
+            }
+          }
+
+          // Generic subfaction checker
+          if (isValidFactionName(factionName)) {
+            // Need to do something faction-specific to the value? Do it here.
+            // if (factionName === SOME_FACTION) val = val.replace('something', '')
+            const _faction = getFactionFromList(factionName)
+            if (_faction.subFactionKeyMap[val]) {
+              subFactionName = val
+              stop_processing = true
+              return
+            }
+          }
+
+          // If we can't find a subfaction match, it's probably a Flavor
+          accum.flavors.push(val)
+          stop_processing = true
+        }
+      })
+      if (stop_processing) return accum
+
+      const commandTraitPrefixes = ['- Host Option : ', '- Host Option: ', '- Big Name : ']
+      commandTraitPrefixes.forEach(val => {
+        if (stop_processing) return
+        if (txt.startsWith(val)) {
+          const command_trait = txt.replace(val, '').trim()
+          accum.command_traits.push(command_trait)
+          stop_processing = true
+        }
+      })
+      if (stop_processing) return accum
+
+      if (txt.match(/^- Lore of .+ ?: /)) {
+        const spell = txt.replace(/^- Lore of .+ ?: /, '').trim()
+        if (spell !== 'None') {
+          accum.spells.push(spell)
+        }
+        stop_processing = true
+      }
+      if (stop_processing) return accum
+
+      return accum
+    }
+
+    // Check for end of file stuff
+    if (['TOTAL: ', 'LEADERS: ', 'ARTEFACTS: ', 'ADDITIONAL ENHANCEMENTS'].some(e => txt.startsWith(e))) {
+      selector = ''
+      return accum
+    }
+
+    // Add item to accum
+    if (selector) {
+      // Endless spells and terrain are grouped together, so we have to do this check manually
+      if (selector === 'endless_spells' && genericScenery.includes(txt)) {
+        accum.scenery = uniq(accum.scenery.concat(txt))
+      } else {
+        // New in 2021
+        // Extract Core Battalions from a unit name (e.g. 'Freeguild General in Grand Battery')
+        if (selector === 'units') {
+          const coreBattalion = coreBattalionNames.find(name => txt.endsWith(` in ${name}`))
+          if (coreBattalion) {
+            accum.battalions = uniq(accum.battalions.concat(coreBattalion))
+            txt = txt.replace(` in ${coreBattalion}`, '')
+          }
+        }
+
+        accum[selector] = uniq(accum[selector].concat(txt))
+      }
+    }
+
+    return accum
+  }, initialSelections)
 
   return {
     allyFactionNames: [],

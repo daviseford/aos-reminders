@@ -1,6 +1,7 @@
 import { keyPicker } from 'factions/metatagger'
 import { OSSIARCH_BONEREAPERS } from 'meta/factions'
 import Battalions from './battalions'
+import BattleTactics from './battle_tactics'
 import LegionsOfNagashUnits from '../legions_of_nagash/units'
 import NighthauntUnits from '../nighthaunt/units'
 import Artifacts from './artifacts'
@@ -11,6 +12,7 @@ import Flavors from './flavors'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [OSSIARCH_BONEREAPERS]: {
@@ -21,6 +23,7 @@ const subFactions = {
     available: {
       artifacts: [Artifacts],
       battalions: [Battalions],
+      battle_tactics: [BattleTactics],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       endless_spells: [EndlessSpells],
@@ -34,6 +37,6 @@ const subFactions = {
       ],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

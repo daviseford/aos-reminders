@@ -13,6 +13,7 @@ import {
   START_OF_MOVEMENT_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const EndlessSpells = {
   'Hyshian Twinstones': {
@@ -85,6 +86,6 @@ const EndlessSpells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(EndlessSpells, 'endless_spell')

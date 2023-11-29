@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 
 const Units = {
@@ -10,6 +11,6 @@ const Units = {
   //     },
   //   ],
   // },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

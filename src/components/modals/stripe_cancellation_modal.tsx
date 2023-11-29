@@ -8,7 +8,7 @@ interface IModalComponentProps {
   closeModal: () => void
 }
 
-export const CancelStripeSubscriptionModal: React.FC<IModalComponentProps> = props => {
+export const CancelStripeSubscriptionModal = (props: IModalComponentProps) => {
   const { closeModal, modalIsOpen } = props
   const { cancelSubscription } = useSubscription()
 

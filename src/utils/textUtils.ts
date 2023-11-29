@@ -23,6 +23,7 @@ export const hashCode = (str: string): string => {
 export const getActionTitle = ({
   artifact,
   battalion,
+  battle_tactic,
   command_ability,
   command_trait,
   condition,
@@ -41,6 +42,7 @@ export const getActionTitle = ({
   const suffix = name === joinedCond || joinedCond === `` ? `` : `: ${joinedCond}`
   if (artifact) return `Artifact${suffix}`
   if (battalion) return `Battalion${suffix}`
+  if (battle_tactic) return `Battle Tactic${suffix}`
   if (command_ability) return `Command Ability${suffix}`
   if (command_trait) return `Command Trait${suffix}`
   if (endless_spell) return `Endless Spell${suffix}`

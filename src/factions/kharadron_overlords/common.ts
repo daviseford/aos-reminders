@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import {
   CHARGE_PHASE,
   DURING_GAME,
@@ -101,4 +102,4 @@ export const GreatEndrinworks = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions

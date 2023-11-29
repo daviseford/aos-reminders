@@ -4,6 +4,7 @@ import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import Spells from './spells'
 import Units from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [WANDERERS]: {
@@ -11,13 +12,12 @@ const subFactions = {
 
     available: {
       artifacts: [Artifacts],
-      battalions: [],
       command_abilities: [CommandAbilities],
       command_traits: [CommandTraits],
       spells: [Spells],
       units: [Units],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

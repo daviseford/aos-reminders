@@ -34,7 +34,7 @@ interface IReminderProps {
   when: TTurnWhen
 }
 
-export const Reminder: React.FC<IReminderProps> = props => {
+export const Reminder = (props: IReminderProps) => {
   const { actions, isMobile, when, factionRuleSource } = props
   const { loadedArmy, setHasOrderChanges } = useSavedArmies()
   const dispatch = useDispatch()
@@ -267,7 +267,7 @@ const ActionDescription = (props: { text: string }) => {
   )
 }
 
-const RulesSource: React.FC<{ rule_sources: TRuleSource[] }> = ({ rule_sources }) => {
+const RulesSource = ({ rule_sources }: { rule_sources: TRuleSource[] }) => {
   const { isMobile } = useWindowSize()
   const numRuleSources = rule_sources.length
 

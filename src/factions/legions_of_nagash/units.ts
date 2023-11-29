@@ -20,6 +20,7 @@ import {
 import command_abilities from './command_abilities'
 import spells from './spells'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const getDeathlyInvocation = (numUnits: number) => ({
   name: `Deathly Invocation`,
@@ -660,6 +661,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

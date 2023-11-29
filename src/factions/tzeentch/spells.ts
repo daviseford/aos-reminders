@@ -8,6 +8,7 @@ import {
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 const Spells = {
   // Common
   'Bolt of Tzeentch': {
@@ -277,6 +278,6 @@ const Spells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Spells, 'spell')

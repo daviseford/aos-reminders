@@ -1,7 +1,8 @@
-import { IItemDescription } from 'factions/factionTypes'
+import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
 import { pickEffects } from 'factions/metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
+import BattleTactics from './battle_tactics'
 import battle_traits from './battle_traits'
 import command_abilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -12,11 +13,11 @@ import Prayers from './prayers'
 import Spells from './spells'
 import Units from './units'
 
-const baseSubFaction: IItemDescription = {
+const baseSubFaction = {
   available: {
-    allied_units: [],
     artifacts: [Artifacts],
     battalions: [Battalions],
+    battle_tactics: [BattleTactics],
     command_abilities: [command_abilities],
     command_traits: [CommandTraits],
     endless_spells: [EndlessSpells],
@@ -27,7 +28,7 @@ const baseSubFaction: IItemDescription = {
     units: [Units],
   },
   effects: [],
-}
+} satisfies IItemDescription
 
 const subFactions = {
   Ravagers: {
@@ -66,6 +67,6 @@ const subFactions = {
       ...baseSubFaction.available,
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

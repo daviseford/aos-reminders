@@ -27,6 +27,7 @@ import rule_sources from './rule_sources'
 import scenery from './scenery'
 import spells from './spells'
 import monstrous_rampages from './monstrous_rampages'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const BlessingsOfTheForestEffect = {
   name: `Blessings of the Forest`,
@@ -500,6 +501,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

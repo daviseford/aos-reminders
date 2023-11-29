@@ -25,6 +25,7 @@ import CommandAbilities from './command_abilities'
 import rule_sources from './rule_sources'
 import Spells from './spells'
 import monstrous_rampages from './monstrous_rampages'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const TaintedEndlessSpellEffect = {
   name: `Tainted Endless Spell`,
@@ -536,6 +537,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

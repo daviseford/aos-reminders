@@ -70,6 +70,9 @@ const selections = createSlice({
     setBattalions: (state, action: PayloadAction<string[]>) => {
       handleSideEffects(state, action.payload, 'battalions')
     },
+    setBattleTactics: (state, action: PayloadAction<string[]>) => {
+      handleSideEffects(state, action.payload, 'battle_tactics')
+    },
     setCommandAbilities: (state, action: PayloadAction<string[]>) => {
       state.selections.command_abilities = action.payload
     },

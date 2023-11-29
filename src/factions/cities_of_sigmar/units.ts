@@ -22,6 +22,7 @@ import command_abilities from './command_abilities'
 import prayers from './prayers'
 import rule_sources from './rule_sources'
 import spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const DuardinArtilleryEffects = [
   {
@@ -1408,6 +1409,6 @@ const Units = {
       ...WeaponsOfBanishmentEffects,
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

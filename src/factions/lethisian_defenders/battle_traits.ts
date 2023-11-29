@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { LETHISIAN_DEFENDERS } from 'meta/factions'
 import { BATTLESHOCK_PHASE, CHARGE_PHASE, COMBAT_PHASE, MOVEMENT_PHASE } from 'types/phases'
@@ -27,6 +28,6 @@ const BattleTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BattleTraits, 'battle_trait')

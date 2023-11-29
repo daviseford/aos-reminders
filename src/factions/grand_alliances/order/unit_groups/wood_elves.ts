@@ -51,7 +51,7 @@ const LionCloakEffect = {
   shared: true,
 }
 
-export const LegacyWoodElvesUnits: TItemDescriptions = {
+export const LegacyWoodElvesUnits = {
   'Avatar of the Hunt': {
     effects: [
       {
@@ -271,4 +271,4 @@ export const LegacyWoodElvesUnits: TItemDescriptions = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions

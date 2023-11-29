@@ -4,6 +4,7 @@ export const selectionsFactory = (options: Partial<TSelections>): TSelections =>
   const {
     artifacts = [],
     battalions = [],
+    battle_tactics = [],
     command_abilities = [],
     command_traits = [],
     core_rules = [],
@@ -23,6 +24,7 @@ export const selectionsFactory = (options: Partial<TSelections>): TSelections =>
   return {
     artifacts,
     battalions,
+    battle_tactics,
     command_abilities,
     command_traits,
     core_rules,

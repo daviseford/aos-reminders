@@ -9,6 +9,7 @@ import {
   START_OF_COMBAT_PHASE,
 } from 'types/phases'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 // Store Command Abilities here. You can add them to units, abilities, flavors, and subfactions later.
 const CommandAbilities = {
@@ -87,7 +88,7 @@ const CommandAbilities = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 // Always export using tagAs
 export default tagAs(CommandAbilities, 'command_ability')

@@ -17,6 +17,7 @@ import {
 } from 'types/phases'
 import command_abilities from './command_abilities'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const ChaosMonstrousArcanum = {
   'Chaos Siege Gargant': {
@@ -91,7 +92,7 @@ const ChaosMonstrousArcanum = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 const Units = {
   Hellcannon: {
@@ -276,8 +277,8 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
-const ChaosUnits = { ...ChaosMonstrousArcanum, ...Units }
+const ChaosUnits = { ...ChaosMonstrousArcanum, ...Units } satisfies TItemDescriptions
 
 export default tagAs(ChaosUnits, 'unit')

@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { CHARGE_PHASE, HERO_PHASE } from 'types/phases'
 
@@ -53,6 +54,6 @@ const KruleboyzSpells = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(KruleboyzSpells, 'spell')

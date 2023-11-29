@@ -20,6 +20,7 @@ import {
 import command_abilities from './command_abilities'
 import prayers from './prayers'
 import rule_sources from './rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const Flavors = {
   Hammerhal: {
@@ -237,6 +238,6 @@ const Flavors = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default Flavors

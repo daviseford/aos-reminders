@@ -3,13 +3,15 @@ import SlavesToDarknessUnits from 'factions/slaves_to_darkness/units'
 import { TZEENTCH } from 'meta/factions'
 import { keyOmitter, keyPicker } from '../metatagger'
 import Artifacts from './artifacts'
-import TzeentchBattalions from './battalions'
+import Battalions from './battalions'
+import BattleTactics from './battle_tactics'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
 import Flavors from './flavors'
 import GrandStrategies from './grand_strategies'
 import Spells from './spells'
 import Units from './units'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [TZEENTCH]: {
@@ -17,7 +19,8 @@ const subFactions = {
 
     available: {
       artifacts: [Artifacts],
-      battalions: [TzeentchBattalions],
+      battalions: [Battalions],
+      battle_tactics: [BattleTactics],
       command_traits: [CommandTraits],
       spells: [Spells],
       endless_spells: [EndlessSpells],
@@ -64,6 +67,6 @@ const subFactions = {
       grand_strategies: [GrandStrategies],
     },
   },
-}
+} satisfies TItemDescriptions
 
 export default subFactions

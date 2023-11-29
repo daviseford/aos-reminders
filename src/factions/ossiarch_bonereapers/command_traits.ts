@@ -1,3 +1,4 @@
+import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { DURING_GAME, HERO_PHASE, SAVES_PHASE, SHOOTING_PHASE, START_OF_ROUND } from 'types/phases'
 
@@ -56,6 +57,6 @@ const CommandTraits = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(CommandTraits, 'command_trait')

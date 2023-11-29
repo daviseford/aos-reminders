@@ -1,7 +1,7 @@
 import { TItemDescriptions } from 'factions/factionTypes'
 import { DURING_GAME, SHOOTING_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
 
-export const MonstrousArcanumOrder: TItemDescriptions = {
+export const MonstrousArcanumOrder = {
   'Carmine Dragon': {
     effects: [
       {
@@ -21,4 +21,4 @@ export const MonstrousArcanumOrder: TItemDescriptions = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions

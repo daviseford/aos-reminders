@@ -26,6 +26,7 @@ import prayers from './prayers'
 import spells from './spells'
 import meta_rule_sources from 'meta/rule_sources'
 import monstrous_rampages from './monstrous_rampages'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const ThundertuskEffects = [
   {
@@ -630,6 +631,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

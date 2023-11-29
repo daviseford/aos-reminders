@@ -13,7 +13,7 @@ interface ISavedArmyTable {
   army: ISavedArmyFromApi | ISavedArmy | ICurrentArmy
 }
 
-export const SavedArmyTable: React.FC<ISavedArmyTable> = ({ army }) => {
+export const SavedArmyTable = ({ army }: ISavedArmyTable) => {
   const {
     factionName,
     subFactionName,

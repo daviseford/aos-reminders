@@ -1,6 +1,7 @@
 import { COMBAT_PHASE, DURING_GAME, SHOOTING_PHASE, TURN_ONE_SHOOTING_PHASE } from 'types/phases'
 import rule_sources from '../rule_sources'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const KruleboyzFlavors = {
   "Grinnin' Blades": {
@@ -40,7 +41,7 @@ const KruleboyzFlavors = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 // Note: We do NOT use tagAs for Flavors
 export default KruleboyzFlavors

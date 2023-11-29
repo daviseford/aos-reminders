@@ -31,6 +31,7 @@ import {
 import prayers from './prayers'
 import rule_sources from './rule_sources'
 import spells from './spells'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const InescapableVengeanceEffect = {
   name: `Inescapable Vengeance`,
@@ -533,7 +534,7 @@ const Units = {
     effects: [
       {
         name: `Warding Lantern`,
-        desc: `In your hero phase, you can either pick 1 friendly STORMCAST ETERNALS unit wholly within 1 8" of this unit or 1 enemy unit wholly within 18" of this unit.
+        desc: `In your hero phase, you can either pick 1 friendly STORMCAST ETERNALS unit wholly within 18" of this unit or 1 enemy unit wholly within 18" of this unit.
 
         If you pick a friendly STORMCAST ETERNALS unit, add 1 to save rolls for attacks that target that unit until your next hero phase.
 
@@ -979,7 +980,7 @@ const Units = {
       },
       {
         name: `Marked for Destruction`,
-        desc: `Add 1 to hit rolls for attacks made with missile weapons by friendly Vanguard-Raptors units if the target is within 1 2" of any friendly units with this ability.`,
+        desc: `Add 1 to hit rolls for attacks made with missile weapons by friendly Vanguard-Raptors units if the target is within 12" of any friendly units with this ability.`,
         when: [SHOOTING_PHASE],
       },
     ],
@@ -1469,6 +1470,6 @@ const Units = {
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

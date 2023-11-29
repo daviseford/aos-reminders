@@ -1,24 +1,10 @@
 import { tagAs } from 'factions/metatagger'
-import {
-  COMBAT_PHASE,
-  SAVES_PHASE,
-  START_OF_COMBAT_PHASE,
-  START_OF_GAME,
-  START_OF_HERO_PHASE,
-} from 'types/phases'
+import { COMBAT_PHASE, END_OF_SETUP, SAVES_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 import rule_sources from '../rule_sources'
 import meta_rule_sources from 'meta/rule_sources'
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const BonesplitterzBattleTraits = {
-  'Battle Tactics': {
-    effects: [
-      {
-        name: `Kill Da Big 'Un!`,
-        desc: `You can pick this battle tactic only if the model picked to be your general has the BONESPLITTERZ keyword. Pick 1 enemy MONSTER. You complete this tactic if that MONSTER was slain by attacks made by a friendly BONESPLITTERZ unit during this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
   Warpaint: {
     effects: [
       {
@@ -61,10 +47,10 @@ const BonesplitterzBattleTraits = {
       {
         name: `Tireless Trackers`,
         desc: `After deployment but before the first battle round begins, half of the BONESPLITTERZ units in your army (rounding up) can move up to 5". If both players can move units before the first battle round begins, they must roll off, and the winner chooses who moves their units first.`,
-        when: [START_OF_GAME],
+        when: [END_OF_SETUP],
       },
     ],
   },
-}
+} satisfies TItemDescriptions
 
 export default tagAs(BonesplitterzBattleTraits, 'battle_trait')
