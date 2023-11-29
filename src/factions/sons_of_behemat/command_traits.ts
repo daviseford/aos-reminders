@@ -122,7 +122,7 @@ const CommandTraits = {
     effects: [
       {
         name: `High Expectations`,
-        desc: `Add 1 to the Attacks characteristic of Death Grip attacks made by friendly MEGA- GARGANTS while they are within 3" of any other friendly MEGA-GARGANTS.`,
+        desc: `Add 1 to the Attacks characteristic of Death Grip attacks made by friendly MEGA-GARGANTS while they are within 3" of any other friendly MEGA-GARGANTS.`,
         when: [COMBAT_PHASE],
       },
     ],

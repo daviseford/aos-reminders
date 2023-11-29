@@ -619,7 +619,7 @@ const Units = {
       },
       {
         name: `Avowed Kinsmen`,
-        desc: `Before you allocate a wound or mortal wound to a friendly THEDDRA SOUL- SCRYER, or instead of making a ward roll, if this unit is within 3" of that friendly THEDDRA SOUL-SCRYER, vou can roll a dice. On a 3+, that wound or mortal wound is allocated to this unit instead.`,
+        desc: `Before you allocate a wound or mortal wound to a friendly THEDDRA SOUL-SCRYER, or instead of making a ward roll, if this unit is within 3" of that friendly THEDDRA SOUL-SCRYER, vou can roll a dice. On a 3+, that wound or mortal wound is allocated to this unit instead.`,
         when: [WOUND_ALLOCATION_PHASE],
       },
     ],

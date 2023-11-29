@@ -353,7 +353,7 @@ const Units = {
       {
         name: `Escort Vessel`,
         desc: `Friendly SKYVESSELS other than GRUNDSTOK GUNHAULERS have a ward of 6+ while they are within 3" of any friendly GRUNDSTOK GUNHAULERS.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [WARDS_PHASE],
       },
       BombRacksEffect,
       EmbarkedEffect,

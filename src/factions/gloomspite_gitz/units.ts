@@ -793,7 +793,12 @@ const Units = {
       {
         name: `The Looncourt's Quest`,
         desc: `After this unit has been set up on the battlefield for the first time, you can pick 1 objective or 1 terrain feature in enemy territory to be the object of this unit's quest. If you gain control of that objective or terrain feature while this unit is contesting it, this unit completes its quest. Once the quest is complete, for the rest of the battle, this unit has a ward of 4+.`,
-        when: [DURING_GAME],
+        when: [DURING_SETUP],
+      },
+      {
+        name: `The Looncourt's Quest`,
+        desc: `Once the quest is complete, for the rest of the battle, this unit has a ward of 4+.`,
+        when: [WARDS_PHASE],
       },
       {
         name: `Grinkrak's Toadies`,
@@ -812,7 +817,7 @@ const Units = {
 
         Yellow Lurka: If the unmodified hit roll for an attack made by that unit with a Fang-filled Gob, Massive Fang-filled Gob or Huge Fang-filled Gobs is 6, that attack causes 1 mortal wound to the target in addition to any damage it inflicts.
 
-        Sproutin' Moon: Add 1 to the Attacks characteristic of that unit's Fang- filled Gob, Massive Fang-filled Gob or Huge Fang-filled Gobs.`,
+        Sproutin' Moon: Add 1 to the Attacks characteristic of that unit's Fang-filled Gob, Massive Fang-filled Gob or Huge Fang-filled Gobs.`,
         when: [HERO_PHASE],
       },
       {

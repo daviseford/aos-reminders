@@ -19,7 +19,6 @@ import {
   START_OF_HERO_PHASE,
   START_OF_ROUND,
   WARDS_PHASE,
-  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
 import Spells from './spells'
 import rule_sources from './rule_sources'
@@ -200,7 +199,7 @@ const Units = {
       {
         name: `Swallow Energy`,
         desc: `This unit has a ward of 2+ against mortal wounds.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Horrible Fascination`,

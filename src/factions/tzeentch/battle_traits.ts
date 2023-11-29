@@ -53,7 +53,7 @@ const BattleTraits = {
         desc: `Subtract 1 from hit rolls for attacks made with melee weapons that target friendly Disciples of Tzeentch Daemon units that are wholly within 12" of a friendly Disciples of Tzeentch Daemon Hero.`,
         when: [COMBAT_PHASE],
       },
-      //Omitted Change Covens (you can pick 1 of the following subfactions)... not necessary
+      // Omitted Change Covens (you can pick 1 of the following subfactions)... not necessary
       {
         name: `Summon Daemons of Tzeentch`,
         desc: `You can summon units of Disciples of Tzeentch Daemons units to the battlefield if you have enough Fate Points. Each time a casting roll is successful and the spell is not unbound, you receive 1 Fate Point. Designer's Note: You receive a Fate Point when a friendly or an enemy Wizard successfully casts a spell.`,
@@ -100,7 +100,7 @@ const BattleTraits = {
       },
     ],
   },
-  // Hosts  Duplicitous Flavor
+  // Hosts Duplicitous Flavor
   'Ranks of Mischievous Mirages': {
     effects: [
       {

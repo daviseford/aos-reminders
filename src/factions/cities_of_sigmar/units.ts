@@ -276,7 +276,7 @@ const GrimResolveEffect = {
 const WeaponsOfBanishmentEffects = [
   {
     name: `Weapons of Banishment`,
-    desc: `Double the damage characteristic for this models attacks if targeting a Wizard or Daemon.`,
+    desc: `Double the damage characteristic for this model's attacks if targeting a WIZARD or DAEMON.`,
     when: [SHOOTING_PHASE, COMBAT_PHASE],
     rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
     shared: true,
