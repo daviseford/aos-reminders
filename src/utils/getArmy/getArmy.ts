@@ -86,7 +86,6 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
     // TODO: Make sure all of this works
     Artifacts = getAllianceItems(GrandAlliance, 'Artifacts', Artifacts)
     Battalions = getAllianceItems(GrandAlliance, 'Battalions', Battalions)
-    BattleTactics = getAllianceItems(GrandAlliance, 'BattleTactics', BattleTactics)
     CommandAbilities = getAllianceItems(GrandAlliance, 'CommandAbilities', CommandAbilities)
     CommandTraits = getAllianceItems(GrandAlliance, 'CommandTraits', CommandTraits)
     EndlessSpells = GrandAllianceEndlessSpells
