@@ -2,6 +2,7 @@ import { keyPicker, pickEffects } from 'factions/metatagger'
 import { FYRESLAYERS } from 'meta/factions'
 import Artifacts from './artifacts'
 import BattleTraits from './battle_traits'
+import BattleTactics from './battle_tactics'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
@@ -18,6 +19,7 @@ const baseSubfaction: IItemDescription = {
   effects: [],
   available: {
     artifacts: [Artifacts],
+    battle_tactics: [BattleTactics],
     command_abilities: [CommandAbilities],
     command_traits: [CommandTraits],
     endless_spells: [EndlessSpells],
@@ -37,11 +39,11 @@ const baseSubfaction: IItemDescription = {
 const subFactions = {
   Fyreslayers: {
     ...baseSubfaction,
-    effects: pickEffects(BattleTraits, [FYRESLAYERS, 'Battle Tactics', 'Ur-Gold Runes']),
+    effects: pickEffects(BattleTraits, [FYRESLAYERS, 'Ur-Gold Runes']),
   },
   'Lofnir Drothkeepers': {
     ...baseSubfaction,
-    effects: pickEffects(BattleTraits, ['Lofnir Drothkeepers', 'Lofnir Drothkeepers Battle Tactics']),
+    effects: pickEffects(BattleTraits, ['Lofnir Drothkeepers']),
   },
 }
 

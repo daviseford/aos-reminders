@@ -47,12 +47,7 @@ const subFactions = {
   },
   'The Roving Maw': {
     ...baseSubfaction,
-    effects: pickEffects(BattleTraits, [
-      'The Roving Maw',
-      'The Roving Maw Battle Tactics',
-      'Ravenous Brutes',
-      'Might Makes Right',
-    ]),
+    effects: pickEffects(BattleTraits, ['The Roving Maw', 'Ravenous Brutes', 'Might Makes Right']),
   },
 }
 

@@ -1,3 +1,4 @@
+import { IItemDescription } from 'factions/factionTypes'
 import { keyPicker, pickEffects } from '../metatagger'
 import NighthauntEndlessSpells from '../nighthaunt/endless_spells'
 import NighthauntUnits from '../nighthaunt/units'
@@ -17,7 +18,7 @@ import SoulblightFlavors from './soulblight/flavors'
 import Spells from './spells'
 import Units from './units'
 
-const baseLegion = {
+const baseSubFaction: IItemDescription = {
   effects: pickEffects(BattleTraits, ['Core Legions']),
   mandatory: {
     command_abilities: [keyPicker(CommandAbilities, ['Endless Legions'])],
@@ -48,21 +49,21 @@ const baseLegion = {
 
 const subFactions = {
   'Grand Host of Nagash': {
-    ...baseLegion,
+    ...baseSubFaction,
     effects: pickEffects(BattleTraits, ['Core Legions', 'Grand Host of Nagash']),
 
     available: {
-      ...baseLegion.available,
+      ...baseSubFaction.available,
       artifacts: [GHoNArtifacts],
       command_traits: [GHoNCommandTraits],
       endless_spells: [NighthauntEndlessSpells],
     },
   },
   'Legion of Blood': {
-    ...baseLegion,
+    ...baseSubFaction,
     effects: pickEffects(BattleTraits, ['Core Legions', 'Legion of Blood']),
     available: {
-      ...baseLegion.available,
+      ...baseSubFaction.available,
 
       artifacts: [LegionOfBloodArtifacts],
       command_traits: [LegionOfBloodCommandTraits],
@@ -70,11 +71,11 @@ const subFactions = {
     },
   },
   'Legion of Night': {
-    ...baseLegion,
+    ...baseSubFaction,
     effects: pickEffects(BattleTraits, ['Core Legions', 'Legion of Night']),
 
     available: {
-      ...baseLegion.available,
+      ...baseSubFaction.available,
 
       artifacts: [LegionOfNightArtifacts],
       command_traits: [LegionOfNightCommandTraits],
@@ -82,10 +83,10 @@ const subFactions = {
     },
   },
   'Legion of Sacrament': {
-    ...baseLegion,
+    ...baseSubFaction,
     effects: pickEffects(BattleTraits, ['Core Legions', 'Legion of Sacrament']),
     available: {
-      ...baseLegion.available,
+      ...baseSubFaction.available,
 
       artifacts: [LegionOfSacramentArtifacts],
       command_traits: [LegionOfSacramentCommandTraits],
@@ -95,7 +96,7 @@ const subFactions = {
   Soulblight: {
     effects: pickEffects(BattleTraits, ['Soulblight']),
     available: {
-      ...baseLegion.available,
+      ...baseSubFaction.available,
       artifacts: [SoulblightArtifacts],
       command_traits: [SoulblightCommandTraits],
       flavors: [SoulblightFlavors],

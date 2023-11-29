@@ -35,56 +35,24 @@ const BattleTraits = {
   [GLOOMSPITE_GITZ]: {
     effects: [
       {
-        name: `Light of the Bad Moon - Lunar Squigs`,
+        name: `Lunar Squigs`,
         desc: `While GLOOMSPITE GITZ SQUIG units are affected by the Light of the Bad Moon they can attempt a charge even if they ran in the same turn.`,
         when: [CHARGE_PHASE],
       },
       {
-        name: `Light of the Bad Moon - Frothing Zealots`,
+        name: `Frothing Zealots`,
         desc: `If a friendly MOONCLAN unit receives the rally command while it is affected by the Light of the Bad Moon, you can return 1 slain model to the unit that receives the command for each 4+ instead of each 6.`,
         when: [BATTLESHOCK_PHASE],
       },
       {
-        name: `Light of the Bad Moon - Spiderfang Venom`,
+        name: `Spiderfang Venom`,
         desc: `While SPIDERFANG units are affected by the Light of the Bad Moon, their Spider Venom ability causes mortal wounds on an unmodified roll of 5+ instead of a 6.`,
         when: [COMBAT_PHASE],
       },
       {
-        name: `Light of the Bad Moon - Moonlit Hide`,
+        name: `Moonlit Hide`,
         desc: `Add 1 to save rolls for attacks that target GLOOMSPITE GITZ TROGGOTH units while they are affected by the Light of the Bad Moon.`,
         when: [SAVES_PHASE],
-      },
-
-      // Battle Tactics
-      {
-        name: `Battle Tactic - Follow da Moon`,
-        desc: `You cannot pick this tactic in the first battle round. You complete this tactic if at the end of this turn every friendly GLOOMSPITE GITZ unit on the battlefield is affected by the Light of the Bad Moon and you control more objectives than your opponent.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Battle Tactic - Glory Grabbers`,
-        desc: `Pick 1 objective controlled by your opponent. You complete this tactic if at the end of this turn you control that objective and a friendly GLOOMSPITE GITZ unit that was added to your army as a replacement unit using the Bad Moon Loonshrine's Moonclan Lairs ability is contesting it.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Battle Tactic - Venomous Assault`,
-        desc: `You complete this tactic if at least 8 mortal wounds were caused by the Spider Venom ability of friendly SPIDERFANG units during this turn and not negated.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Battle Tactic - Stab 'Em in the Dark`,
-        desc: `Pick 1 enemy unit on the battlefield. You complete this tactic if that unit was destroyed by an attack made by a friendly GLOOMSPITE GITZ unit during this turn while it was not affected by the Light of the Bad Moon.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Battle Tactic - Moonlight Raid`,
-        desc: `Pick 1 objective controlled by your opponent. You complete this tactic if at the end of this turn you control that objective and every friendly GLOOMSPITE GITZ unit that is contesting it is affected by the Light of the Bad Moon.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Battle Tactic - You Ain't So Big`,
-        desc: `Pick 1 enemy MONSTER on the battlefield. You complete this tactic if that MONSTER was slain by an attack made by a friendly GLOOMSPITE GITZ TROGGOTH unit during this turn.`,
-        when: [START_OF_HERO_PHASE],
       },
 
       // Heroic Actions
@@ -119,26 +87,6 @@ const BattleTraits = {
         name: `The King's Wreckerz`,
         desc: `Friendly TRUGG'S TROGGHERD units that do not have the HERO keyword gain the Battleline battlefield role.`,
         when: [DURING_GAME],
-        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
-      },
-
-      // Battle Tactics
-      {
-        name: `Battle Tactic - Don't Like Dat One!`,
-        desc: `Pick 1 enemy HERO. You complete this battle tactic if that HERO was destroyed during this turn by an attack made by a friendly TRUGG.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
-      },
-      {
-        name: `Battle Tactic - Feels Funny`,
-        desc: `You complete this battle tactic if a friendly TRUGG'S TROGGHERD unit destroyed an enemy unit during this turn while it was affected by the Aura of Haywire Magic battle trait (pg 76).`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
-      },
-      {
-        name: `Battle Tactic - Wot's Dat Glowy Fing?`,
-        desc: `Pick 1 objective you do not control. You complete this battle tactic if you control that objective at the end of this turn and 2 or more friendly TRUGG'S TROGGHERD units that are affected by the Light of the Bad Moon are contesting that objective.`,
-        when: [START_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
     ],

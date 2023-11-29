@@ -6,10 +6,8 @@ import {
   DURING_SETUP,
   START_OF_HERO_PHASE,
   TURN_ONE_END_OF_MOVEMENT_PHASE,
-  TURN_ONE_START_OF_HERO_PHASE,
   TURN_TWO_END_OF_MOVEMENT_PHASE,
-  TURN_TWO_START_OF_HERO_PHASE,
-  WOUND_ALLOCATION_PHASE,
+  WARDS_PHASE,
 } from 'types/phases'
 
 const BattleTraits = {
@@ -37,9 +35,7 @@ const BattleTraits = {
       },
       {
         name: `Rituals of Ruin`,
-        desc: `In your hero phase, you can carry out 1 of the heroic actions from the table below with each friendly BEASTS OF CHAOS HERO that is on the battlefield in addition to any other heroic actions you can carry out with those HEROES. If you do so, before resolving the effect of that heroic action, you must allocate D3 mortal wounds that cannot be negated to that HERO or to another friendly BEASTS OF CHAOS unit within 3" of that HERO. If those mortal wounds slay that HERO, the heroic action has no effect.
-          In addition, in your hero phase, you can carry out 1 of the heroic actions from the table below with 1 friendly BEASTS OF CHAOS HERO that is in reserve. If the heroic action instructs you to pick an enemy unit, you must also pick 1 point on the battlefield edge. That point is considered to be the HERO carrying out that heroic action for the purposes of measuring range and visibility. If the heroic action instructs you to pick a friendly unit, you must pick the HERO carrying out that heroic action.
-          The same heroic action from the table below cannot be carried out more than once per phase.
+        desc: `In your hero phase, you can carry out 1 of the heroic actions from the table below with each friendly BEASTS OF CHAOS HERO that is on the battlefield in addition to any other heroic actions you can carry out with those HEROES. If you do so, before resolving the effect of that heroic action, you must allocate D3 mortal wounds that cannot be negated to that HERO or to another friendly BEASTS OF CHAOS unit within 3" of that HERO. If those mortal wounds slay that HERO, the heroic action has no effect. In addition, in your hero phase, you can carry out 1 of the heroic actions from the table below with 1 friendly BEASTS OF CHAOS HERO that is in reserve. If the heroic action instructs you to pick an enemy unit, you must also pick 1 point on the battlefield edge. That point is considered to be the HERO carrying out that heroic action for the purposes of measuring range and visibility. If the heroic action instructs you to pick a friendly unit, you must pick the HERO carrying out that heroic action. The same heroic action from the table below cannot be carried out more than once per phase.
           
           Warping Curse: Pick 1 enemy unit within 12" of the BEASTS OF CHAOS HERO carrying out this heroic action and visible to them. That unit suffers D6 mortal wounds.
           Blood Taunt: Pick 1 enemy unit within 12" of the BEASTS OF CHAOS HERO carrying out this heroic action that is more than 3" from all friendly units and is visible to that HERO. Your opponent must make a 2D6" move with that unit. All of the models in that unit must finish that move as close as possible to the BEASTS OF CHAOS HERO carrying out this heroic action and more than 3" from all other units in your army.
@@ -50,46 +46,12 @@ const BattleTraits = {
       {
         name: `Brand of Wild Fury`,
         desc: `When active, friendly BEASTS OF CHAOS units have a ward of 6+ while they are wholly within 12" of the HERO you picked.`,
-        when: [WOUND_ALLOCATION_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `Alphabeast Instinct`,
         desc: `When active, the picked unit does not battleshock tests.`,
         when: [BATTLESHOCK_PHASE],
-      },
-    ],
-  },
-  'Battle Tactics': {
-    effects: [
-      {
-        name: `In the Shadow of the Herdstone`,
-        desc: `Pick 1 enemy unit within 12" of your Herdstone. You complete this battle tactic if that unit is destroyed during this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Bestial Wrath`,
-        desc: `You can pick this battle tactic only in your first or second turn. You complete this tactic if your general and 2 or more other friendly BEASTS OF CHAOS units are within 3" of any enemy units at the end of this turn.`,
-        when: [TURN_ONE_START_OF_HERO_PHASE, TURN_TWO_START_OF_HERO_PHASE],
-      },
-      {
-        name: `Rampaging Beastherd`,
-        desc: `Pick 1 objective controlled by your opponent. You complete this tactic if you control that objective at the end of this turn and that objective is contested by a friendly unit that has 10 or more models.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Reduced to Savagery`,
-        desc: `Pick 1 enemy unit on the battlefield. You complete this tactic if that unit is picked as the target of a heroic action from the Rituals of Ruin battle trait (pg 62-63) and is destroyed during this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Trampled to Mulch`,
-        desc: `You complete this tactic if any enemy units are destroyed during this turn by mortal wounds allocated in your charge phase.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Aid of the Wilderness`,
-        desc: `You complete this tactic if there are 2 or more friendly BEASTS OF CHAOS units in cover wholly outside of your territory at the end of this turn.`,
-        when: [START_OF_HERO_PHASE],
       },
     ],
   },

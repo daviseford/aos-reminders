@@ -1,7 +1,7 @@
-import { KHARADRON_OVERLORDS } from 'meta/factions'
 import { pickEffects } from '../metatagger'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
+import BattleTactics from './battle_tactics'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -16,6 +16,7 @@ const baseSubfaction: IItemDescription = {
   available: {
     artifacts: [Artifacts],
     battalions: [Battalions],
+    battle_tactics: [BattleTactics],
     command_abilities: [CommandAbilities],
     command_traits: [CommandTraits],
     flavors: [Flavors],
@@ -26,10 +27,7 @@ const baseSubfaction: IItemDescription = {
 }
 
 const subFactions = {
-  'Kharadron Overlords': {
-    ...baseSubfaction,
-    effects: pickEffects(BattleTraits, [KHARADRON_OVERLORDS]),
-  },
+  'Kharadron Overlords': { ...baseSubfaction },
   'Grundstok Expeditionary Force': {
     ...baseSubfaction,
     effects: pickEffects(BattleTraits, ['Grundstok Expeditionary Force']),

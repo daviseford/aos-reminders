@@ -2,6 +2,7 @@ import { pickEffects } from 'factions/metatagger'
 import { GLOOMSPITE_GITZ } from 'meta/factions'
 import Artifacts from './artifacts'
 import Battalions from './battalions'
+import BattleTactics from './battle_tactics'
 import BattleTraits from './battle_traits'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
@@ -20,6 +21,7 @@ const baseSubfaction: IItemDescription = {
   available: {
     artifacts: [Artifacts],
     battalions: [Battalions],
+    battle_tactics: [BattleTactics],
     command_abilities: [CommandAbilities],
     command_traits: [CommandTraits],
     endless_spells: [EndlessSpells],

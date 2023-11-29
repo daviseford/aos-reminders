@@ -1,6 +1,6 @@
 import { tagAs } from 'factions/metatagger'
 import meta_rule_sources from 'meta/rule_sources'
-import { DURING_GAME, START_OF_CHARGE_PHASE, START_OF_HERO_PHASE, TURN_ONE_DURING_ROUND } from 'types/phases'
+import { DURING_GAME, START_OF_CHARGE_PHASE, TURN_ONE_DURING_ROUND } from 'types/phases'
 
 const GruntaStampedeBattleTraits = {
   'Grunta Waaagh!': {
@@ -29,28 +29,6 @@ const GruntaStampedeBattleTraits = {
         name: `'Ere We Come!`,
         desc: `During the first battle round, do not subtract 1 from the momentum score of friendly MAW-GRUNTA units at the end of each turn.`,
         when: [TURN_ONE_DURING_ROUND],
-        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
-      },
-    ],
-  },
-  'Battle Tactics': {
-    effects: [
-      {
-        name: `Battle Tactics - Out of Control`,
-        desc: `You complete this battle tactic if you carry out Greedy Gobble, Charge Down and 2 other monstrous rampages this turn.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
-      },
-      {
-        name: `Battle Tactics - Da Boss Leads Da Way`,
-        desc: `You complete this battle tactic if, during this turn, your general calls a Grunta Waaagh! and any enemy units are destroyed by attacks made by your general or abilities used by your general this turn.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
-      },
-      {
-        name: `Battle Tactics - Full-speed Stampede`,
-        desc: `You complete this battle tactic if, at the end of the turn, there are 3 or more friendly MAW-GRUNTA units on the battlefield that each have a momentum score of 5+.`,
-        when: [START_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_2],
       },
     ],

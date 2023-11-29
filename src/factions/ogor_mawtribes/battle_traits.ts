@@ -108,29 +108,6 @@ const BattleTraits = {
       },
     ],
   },
-
-  'The Roving Maw Battle Tactics': {
-    effects: [
-      {
-        name: `That Was Just a Morsel`,
-        desc: `You complete this tactic if any enemy models were slain by the Mawpit's Head Butcher ability in this turn.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
-      },
-      {
-        name: `Slavering Ambush`,
-        desc: `You complete this tactic if a friendly GORGERS unit was set up on the battlefield using the Ambushing Hunters ability this turn and made a charge move this turn.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
-      },
-      {
-        name: `We Eated 'Em All`,
-        desc: `Pick 1 objective controlled by your opponent. You complete this tactic if you control that objective at the end of this turn and there are no enemy models contesting it.`,
-        when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_DAWNBRINGERS_BOOK_3],
-      },
-    ],
-  },
 }
 
 export default tagAs(BattleTraits, 'battle_trait')

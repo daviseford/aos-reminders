@@ -2,6 +2,7 @@ import { pickEffects } from 'factions/metatagger'
 import { IDONETH_DEEPKIN } from 'meta/factions'
 import Artifacts from './artifacts'
 import BattleTraits from './battle_traits'
+import BattleTactics from './battle_tactics'
 import CommandTraits from './command_traits'
 import Flavors from './flavors'
 import GrandStrategies from './grand_strategies'
@@ -10,22 +11,29 @@ import MountTraits from './mount_traits'
 import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
+import { IItemDescription } from 'factions/factionTypes'
+
+const baseSubfaction: IItemDescription = {
+  effects: [],
+
+  available: {
+    artifacts: [Artifacts],
+    battle_tactics: [BattleTactics],
+    command_traits: [CommandTraits],
+    flavors: [Flavors],
+    grand_strategies: [GrandStrategies],
+    monstrous_rampages: [MonstrousRampages],
+    mount_traits: [MountTraits],
+    scenery: [Scenery],
+    spells: [Spells],
+    units: [Units],
+  },
+}
 
 const subFactions = {
   [IDONETH_DEEPKIN]: {
-    effects: pickEffects(BattleTraits, [IDONETH_DEEPKIN, 'Battle Tactics']),
-
-    available: {
-      artifacts: [Artifacts],
-      command_traits: [CommandTraits],
-      flavors: [Flavors],
-      grand_strategies: [GrandStrategies],
-      monstrous_rampages: [MonstrousRampages],
-      mount_traits: [MountTraits],
-      scenery: [Scenery],
-      spells: [Spells],
-      units: [Units],
-    },
+    ...baseSubfaction,
+    effects: pickEffects(BattleTraits, [IDONETH_DEEPKIN]),
   },
 }
 

@@ -2,6 +2,7 @@ import { pickEffects } from 'factions/metatagger'
 import { BEASTS_OF_CHAOS } from 'meta/factions'
 import Artifacts from './artifacts'
 import BattleTraits from './battle_traits'
+import BattleTactics from './battle_tactics'
 import CommandAbilities from './command_abilities'
 import CommandTraits from './command_traits'
 import EndlessSpells from './endless_spells'
@@ -17,6 +18,7 @@ const baseSubFaction: IItemDescription = {
   effects: [],
   available: {
     artifacts: [Artifacts],
+    battle_tactics: [BattleTactics],
     command_abilities: [CommandAbilities],
     command_traits: [CommandTraits],
     endless_spells: [EndlessSpells],
@@ -32,7 +34,7 @@ const baseSubFaction: IItemDescription = {
 const SubFactions = {
   [BEASTS_OF_CHAOS]: {
     ...baseSubFaction,
-    effects: pickEffects(BattleTraits, [BEASTS_OF_CHAOS, 'Battle Tactics']),
+    effects: pickEffects(BattleTraits, [BEASTS_OF_CHAOS]),
   },
 }
 

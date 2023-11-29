@@ -5,7 +5,6 @@ import {
   END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
-  START_OF_HERO_PHASE,
   WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
@@ -106,40 +105,6 @@ const BattleTraits = {
                5 Flesh Hounds -                     3 BTP
                1 Bloodmaster, Herald of Khorne -    3 BTP`,
         when: [END_OF_MOVEMENT_PHASE],
-      },
-    ],
-  },
-  'Battle Tactics': {
-    effects: [
-      {
-        name: `Battle Tactics: Blood for the Altar`,
-        desc: `Pick 1 enemy unit within 8" of your Skull Altar. You complete this battle tactic if that enemy unit is destroyed during this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Battle Tactics: Slay the Sorcerer`,
-        desc: `Pick 1 enemy WIZARD HERO on the battlefield. You complete this battle tactic if that HERO is slain during this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `The Trial of Skulls`,
-        desc: `Pick 1 friendly unit. You complete this battle tactic if 8 or more enemy models are slain by attacks made by that unit during this turn.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `No Cowards Among Us`,
-        desc: `You complete this battle tactic at the end of this turn if all friendly BLADES OF KHORNE units on the battlefield are within 8" of any enemy units.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `Leave None Standing`,
-        desc: `Pick 1 friendly unit within 3" of any enemy units. You complete this battle tactic if that unit fights in the combat phase of this turn and at the end of that phase there are no enemy units within 3" of that unit.`,
-        when: [START_OF_HERO_PHASE],
-      },
-      {
-        name: `The Battlefield Runs Red`,
-        desc: `You complete this battle tactic if 4 or more units were destroyed during this turn.`,
-        when: [START_OF_HERO_PHASE],
       },
     ],
   },
