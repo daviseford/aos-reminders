@@ -233,7 +233,7 @@ const DestructionUnits = {
 
         If you roll a dice for each enemy unit within 1" of this unit, on a 2+, that enemy unit suffers D6 mortal wounds.
 
-        If you pick 1 enemy MONSTER within 1" of this unit and roll 2D6, on a 7, nothing happens. On any other roll, that enemy MONSTER suffers a number of mortal wounds equal to the score of the dice used for the 2D6 roll multiplied together. For example, a 2D6 roll of 2 and 6 would inflict 12 mortal wounds (2  6 = 12).`,
+        If you pick 1 enemy MONSTER within 1" of this unit and roll 2D6, on a 7, nothing happens. On any other roll, that enemy MONSTER suffers a number of mortal wounds equal to the score of the dice used for the 2D6 roll multiplied together. For example, a 2D6 roll of 2 and 6 would inflict 12 mortal wounds (2x6 = 12).`,
         when: [CHARGE_PHASE],
         rule_sources: [orruk_rule_sources.BATTLETOME_ORRUK_WARCLANS, orruk_rule_sources.ERRATA_DECEMBER_2021],
       },

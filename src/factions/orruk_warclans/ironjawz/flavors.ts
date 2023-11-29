@@ -14,7 +14,7 @@ const IronjawzFlavors = {
     effects: [
       {
         name: `Hunt and Crush`,
-        desc: `At the end of the combat phase, friendly BLOODTOOFS GORE- GRUNTAS units that fought in that phase and are within 3" of any enemy units can make a pile- in move. In addition, those that fought but are not within 3" of any enemy units can each make a normal move or attempt a charge.`,
+        desc: `At the end of the combat phase, friendly BLOODTOOFS GORE-GRUNTAS units that fought in that phase and are within 3" of any enemy units can make a pile-in move. In addition, those that fought but are not within 3" of any enemy units can each make a normal move or attempt a charge.`,
         when: [END_OF_COMBAT_PHASE],
       },
     ],

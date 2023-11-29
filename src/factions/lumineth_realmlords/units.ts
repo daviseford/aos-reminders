@@ -404,7 +404,7 @@ const Units = {
       },
       {
         name: `Lone Agent`,
-        desc: `Instead of setting this unit on the battlefield, you can place it to one side and say that it is set up as a Lone Agent reserve unit. If you do so, at the end of  deployment, before determining control of objectives, you must set up all friendly Lone Agent reserve units on the battlefield more than 3" from all enemy units and not in your territory.
+        desc: `Instead of setting this unit on the battlefield, you can place it to one side and say that it is set up as a Lone Agent reserve unit. If you do so, at the end of deployment, before determining control of objectives, you must set up all friendly Lone Agent reserve units on the battlefield more than 3" from all enemy units and not in your territory.
         
         If you set up a friendly Lone Agent reserve unit within 6" of an objective that is not controlled by enemy units, that Lone Agent reserve unit counts as 10 models for the purposes of contesting that objective.`,
         when: [END_OF_SETUP],

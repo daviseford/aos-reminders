@@ -24,7 +24,7 @@ const BattleTraits = {
     effects: [
       {
         name: `These Realms Is Ours`,
-        desc: `Each MEGA-GARGANT has a Mightier Makes Righlier value listed on its damage table on its warscroll. For the purposes of contesting objectives, each MEGA- GARGANT model in a King Brodd's Stomp army counts as a number of models equal to its Mightier Makes Rightier value, while each MANCRUSHER GARGANT model counts as 10 models.`,
+        desc: `Each MEGA-GARGANT has a Mightier Makes Righlier value listed on its damage table on its warscroll. For the purposes of contesting objectives, each MEGA-GARGANT model in a King Brodd's Stomp army counts as a number of models equal to its Mightier Makes Rightier value, while each MANCRUSHER GARGANT model counts as 10 models.`,
         when: [DURING_GAME],
       },
       {

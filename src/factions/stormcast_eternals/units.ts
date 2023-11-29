@@ -863,7 +863,7 @@ const Units = {
     effects: [
       {
         name: `Champion`,
-        desc: `1 model in this unit can be a Liberator-Prime. Add 1 to the Attacks characteristic of that model's Heavens- wrought Weapons, Paired Heavens-wrought Weapons or Grandweapon.`,
+        desc: `1 model in this unit can be a Liberator-Prime. Add 1 to the Attacks characteristic of that model's Heavens-wrought Weapons, Paired Heavens-wrought Weapons or Grandweapon.`,
         when: [COMBAT_PHASE],
       },
       LayLowTheTyrantsEffect,
@@ -1021,7 +1021,7 @@ const Units = {
     effects: [
       {
         name: `Champion`,
-        desc: `1 model in this unit can be a Sequitor-Prime. Add 1 to the Attacks characteristic of that model's Sacrosanct Weapons or Stormsmite Greatmace. If a Sequitor- Prime is armed with Sacrosanct Weapons and a Soulshield, it can also carry a Redemption Cache.`,
+        desc: `1 model in this unit can be a Sequitor-Prime. Add 1 to the Attacks characteristic of that model's Sacrosanct Weapons or Stormsmite Greatmace. If a Sequitor-Prime is armed with Sacrosanct Weapons and a Soulshield, it can also carry a Redemption Cache.`,
         when: [COMBAT_PHASE],
       },
       {

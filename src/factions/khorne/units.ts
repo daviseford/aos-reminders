@@ -451,7 +451,7 @@ const Units = {
       {
         name: `Daemonshield`,
         desc: `This unit has a ward of 5+.`,
-        when: [COMBAT_PHASE],
+        when: [WARDS_PHASE],
       },
       {
         name: `The Gaze of Khorne`,

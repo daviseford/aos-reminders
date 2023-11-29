@@ -248,7 +248,7 @@ const Units = {
       },
       {
         name: `Obsessive Violence`,
-        desc: `Once per battle, in the combat phase, after this unit has fought for the first time in that phase, you can say that it will continue its obsessive onslaught. If you do so, this unit can fight for a second time in that phase. The strike- last effect applies to this unit when it fights for that second time.`,
+        desc: `Once per battle, in the combat phase, after this unit has fought for the first time in that phase, you can say that it will continue its obsessive onslaught. If you do so, this unit can fight for a second time in that phase. The strike-last effect applies to this unit when it fights for that second time.`,
         when: [COMBAT_PHASE],
       },
     ],
