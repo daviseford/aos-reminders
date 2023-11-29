@@ -1,3 +1,5 @@
+import { TRuleSources } from 'meta/rule_sources'
+
 const rule_sources = {
   BATTLETOME_SLAVES_TO_DARKNESS: {
     name: 'Battletome: Slaves To Darkness',
@@ -8,6 +10,6 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2022/11/ksqazT5l435bK8TK.pdf',
   },
-}
+} satisfies TRuleSources
 
 export default rule_sources

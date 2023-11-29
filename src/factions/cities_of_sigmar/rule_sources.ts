@@ -1,3 +1,5 @@
+import { TRuleSources } from 'meta/rule_sources'
+
 const rule_sources = {
   BATTLETOME_CITIES_OF_SIGMAR: {
     name: 'Battletome: Cities of Sigmar',
@@ -28,6 +30,6 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2023/01/8IYkHzgINhIUYSd7.pdf',
   },
-}
+} satisfies TRuleSources
 
 export default rule_sources

@@ -126,7 +126,7 @@ const BattleTraits = {
     effects: [
       {
         name: `Heroic Action: Rally the Tribes`,
-        desc: `You can carry out the following heroic action with a RAVAGERS HERO instead of any other heroic action you can carry out with that HERO. Pick 1 CHAOS MARAUDERS, CHAOS MARAUDER HORSEMEN, CULTIST or DARKOATH unit in your army that has been destroyed. If you do so, a new replacement unit with half the number of models in the unit that was destroyed (rounding up) is added to your army. Set up that unit wholly within 12' of the HERO carrying out this heroic action and more than 9" from all enemy units. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
+        desc: `You can carry out the following heroic action with a RAVAGERS HERO instead of any other heroic action you can carry out with that HERO. Pick 1 CHAOS MARAUDERS, CHAOS MARAUDER HORSEMEN, CULTIST or DARKOATH unit in your army that has been destroyed. If you do so, a new replacement unit with half the number of models in the unit that was destroyed (rounding up) is added to your army. Set up that unit wholly within 12" of the HERO carrying out this heroic action and more than 9" from all enemy units. Each destroyed unit can only be replaced once - replacement units cannot themselves be replaced.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

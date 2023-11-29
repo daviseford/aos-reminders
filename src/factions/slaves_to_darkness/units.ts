@@ -708,7 +708,7 @@ const Units = {
       ChaosRuneshieldPlatingEffect,
       {
         name: `Bringers of Desolation`,
-        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while it is wholly within enemy territory or wholly within 12' of an objective that you do not control.`,
+        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while it is wholly within enemy territory or wholly within 12" of an objective that you do not control.`,
         when: [COMBAT_PHASE],
         rule_sources: [rule_sources.BATTLETOME_SLAVES_TO_DARKNESS],
       },
@@ -727,7 +727,7 @@ const Units = {
       },
       {
         name: `Riders of Doom`,
-        desc: `Models armed with a Cursed Lance can target enemy units that are within 1/2' of another model from this unit that is itself within 1/2" of the attacking model.`,
+        desc: `Models armed with a Cursed Lance can target enemy units that are within 1/2" of another model from this unit that is itself within 1/2" of the attacking model.`,
         when: [COMBAT_PHASE],
       },
       {
@@ -986,7 +986,7 @@ const Units = {
       },
       {
         name: `Denizens of Ulgu`,
-        desc: `Instead of setting up this unit on the battlefield, you can place this unit to one side as a reserve unit. At the end of your movement phase, you can set up this unit anywhere on the battlefield more than 9' from all enemy units. Any reserve units not set up on the battlefield before the start of the fourth battle round are destroyed.`,
+        desc: `Instead of setting up this unit on the battlefield, you can place this unit to one side as a reserve unit. At the end of your movement phase, you can set up this unit anywhere on the battlefield more than 9" from all enemy units. Any reserve units not set up on the battlefield before the start of the fourth battle round are destroyed.`,
         when: [DURING_SETUP, END_OF_MOVEMENT_PHASE],
       },
     ],
@@ -1082,7 +1082,7 @@ const Units = {
       },
       {
         name: `Fight for Glory`,
-        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while they are wholly within 9' of any friendly MORTAL HERO.`,
+        desc: `Add 1 to the Attacks characteristic of this unit's melee weapons while they are wholly within 9" of any friendly MORTAL HERO.`,
         when: [COMBAT_PHASE],
       },
       {

@@ -1,3 +1,5 @@
+import { TRuleSources } from 'meta/rule_sources'
+
 const rule_sources = {
   BATTLETOME_FLESH_EATER_COURTS: {
     name: 'Battletome: Flesh-Eater Courts',
@@ -23,6 +25,6 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/YycRW11IwpyhGToB.pdf',
   },
-}
+} satisfies TRuleSources
 
 export default rule_sources

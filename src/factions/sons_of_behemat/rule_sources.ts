@@ -1,3 +1,5 @@
+import { TRuleSources } from 'meta/rule_sources'
+
 const rule_sources = {
   BATTLETOME_SONS_OF_BEHEMAT: {
     name: 'Battletome: Sons of Behemat',
@@ -31,6 +33,6 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2020/11/UAXqGclWKSPiDS3F.pdf',
   },
-}
+} satisfies TRuleSources
 
 export default rule_sources

@@ -1,3 +1,5 @@
+import { TRuleSources } from 'meta/rule_sources'
+
 const rule_sources = {
   BATTLETOME_BEASTS_OF_CHAOS: {
     name: 'Battletome: Beasts of Chaos (2023)',
@@ -8,6 +10,6 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2018/10/WotnUpw97M7nNtlG.pdf',
   },
-}
+} satisfies TRuleSources
 
 export default rule_sources

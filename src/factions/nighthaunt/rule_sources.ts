@@ -1,3 +1,5 @@
+import { TRuleSources } from 'meta/rule_sources'
+
 const rule_sources = {
   BATTLETOME_NIGHTHAUNT: {
     name: 'Battletome: Nighthaunt',
@@ -13,6 +15,6 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/07/p2QjqiUdVWzSKpbn.pdf',
   },
-}
+} satisfies TRuleSources
 
 export default rule_sources

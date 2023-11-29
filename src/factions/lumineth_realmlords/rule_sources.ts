@@ -1,3 +1,5 @@
+import { TRuleSources } from 'meta/rule_sources'
+
 const rule_sources = {
   BATTLETOME_LUMINETH: {
     name: 'Battletome: Lumineth Realm-Lords',
@@ -18,6 +20,6 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2020/08/Nr72FSWnhsPFWgoZ.pdf',
   },
-}
+} satisfies TRuleSources
 
 export default rule_sources

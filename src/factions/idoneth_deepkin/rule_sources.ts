@@ -1,3 +1,5 @@
+import { TRuleSources } from 'meta/rule_sources'
+
 const rule_sources = {
   BATTLETOME_IDONETH_DEEPKIN: {
     name: 'Battletome: Idoneth Deepkin',
@@ -13,6 +15,6 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2018/12/uuihArRNKxeFtWfb.pdf',
   },
-}
+} satisfies TRuleSources
 
 export default rule_sources

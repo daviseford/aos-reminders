@@ -1,11 +1,13 @@
 export type TRuleSource = {
   name: string
-  type: 'battletome' | 'white_dwarf' | 'errata' | 'ghb' | 'other_book' | 'boxed_game' | string
+  type: 'battletome' | 'white_dwarf' | 'errata' | 'ghb' | 'other_book' | 'boxed_game'
   /**
    * A helpful link to where these rules can be found. Optional.
    */
   url?: string
 }
+
+export type TRuleSources = Record<string, TRuleSource>
 
 // Use this as the centralized rule_sources
 // Core books, non-faction books, General's Handbooks, etc
@@ -195,6 +197,6 @@ const meta_rule_sources = {
     name: 'Dawnbringers Book III',
     type: 'other_book',
   },
-}
+} satisfies TRuleSources
 
 export default meta_rule_sources

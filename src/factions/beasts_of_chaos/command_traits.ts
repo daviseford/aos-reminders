@@ -33,7 +33,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Skullfray Gorehorn`,
-        desc: `While this general is within 3" of any enemy units, add 1 to the Attacks characteristic of melee weapons used by friendly BEASTS OF CHAOS BRAYHERD units wholly within 12' of this general.`,
+        desc: `While this general is within 3" of any enemy units, add 1 to the Attacks characteristic of melee weapons used by friendly BEASTS OF CHAOS BRAYHERD units wholly within 12" of this general.`,
         when: [COMBAT_PHASE],
       },
     ],

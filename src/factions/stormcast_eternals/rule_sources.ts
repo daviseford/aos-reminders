@@ -1,3 +1,5 @@
+import { TRuleSources } from 'meta/rule_sources'
+
 const rule_sources = {
   BATTLETOME_STORMCAST_ETERNALS: {
     name: 'Battletome: Stormcast Eternals (2021)',
@@ -28,6 +30,6 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2019/10/eGLbgZceSvG1dJnx.pdf',
   },
-}
+} satisfies TRuleSources
 
 export default rule_sources

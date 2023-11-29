@@ -55,7 +55,7 @@ const BattleTactics = {
     effects: [
       {
         name: `Boil their Bones`,
-        desc: `Pick 1 enemy HERO or enemy MONSTER. You complete this tactic if that enemy unit is destroyed within 6 of an empty Great Mawpot in your army.`,
+        desc: `Pick 1 enemy HERO or enemy MONSTER. You complete this tactic if that enemy unit is destroyed within 6" of an empty Great Mawpot in your army.`,
         when: [START_OF_HERO_PHASE],
       },
     ],

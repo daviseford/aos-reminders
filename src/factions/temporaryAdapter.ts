@@ -1,7 +1,7 @@
 import deepmerge from 'deepmerge'
 import { TSubfactionArmy } from 'types/army'
 import { TEntry } from 'types/data'
-import { IItemDescription, TItemDescriptions, TItemKey, TParentEffectsObjWithEffects } from './factionTypes'
+import { IItemDescription, TItemKey, TItemDescriptions } from './factionTypes'
 
 type TAdapter = (subFaction: IItemDescription, subFactionName: string, FlavorType?: string) => TSubfactionArmy
 
@@ -50,21 +50,21 @@ const subFactionAdapter = (subFaction: IItemDescription, name: string): TEntry =
 
 const mergeData = (subFaction: IItemDescription, slice: TItemKey): TEntry[] => {
   const { available = {}, mandatory = {} } = subFaction
-  const merged: TParentEffectsObjWithEffects[] = [...(available[slice] || []), ...(mandatory[slice] || [])]
+  const merged: TItemDescriptions[] = [...(available[slice] || []), ...(mandatory[slice] || [])]
   return mergeParentEffectObjs(merged)
 }
 
-export const mergeParentEffectObjs = <T extends TParentEffectsObjWithEffects>(
+export const mergeParentEffectObjs = <T extends TItemDescriptions>(
   objs: T[]
-): (TParentEffectsObjWithEffects & TEntry)[] => {
+): (TItemDescriptions & TEntry)[] => {
   return objs.reduce((a, obj) => {
     const arr = parentEffectObjConverter(obj)
     a = a.concat(arr)
     return a
-  }, [] as (TParentEffectsObjWithEffects & TEntry)[])
+  }, [] as (TItemDescriptions & TEntry)[])
 }
 
-const parentEffectObjConverter = <T extends TParentEffectsObjWithEffects>(obj: T): (T & TEntry)[] => {
+const parentEffectObjConverter = <T extends TItemDescriptions>(obj: T): (T & TEntry)[] => {
   return Object.keys(obj).reduce((a, name) => {
     const entry = { ...obj[name], name }
     a.push(entry as T & TEntry)

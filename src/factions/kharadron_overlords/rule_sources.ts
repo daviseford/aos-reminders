@@ -1,3 +1,5 @@
+import { TRuleSources } from 'meta/rule_sources'
+
 const rule_sources = {
   BATTLETOME_KHARADRON_OVERLORDS: {
     name: 'Battletome: Kharadron Overlords',
@@ -42,6 +44,6 @@ const rule_sources = {
     type: 'errata',
     url: 'https://www.warhammer-community.com/wp-content/uploads/2023/03/ww7V9OeWxIUgjNtI.pdf',
   },
-}
+} satisfies TRuleSources
 
 export default rule_sources

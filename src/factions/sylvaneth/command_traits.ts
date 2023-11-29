@@ -26,7 +26,7 @@ const CommandTraits = {
     effects: [
       {
         name: `Warsinger`,
-        desc: `If this general is on the battlefield at the start of your movement phase, add 3" to the Move characteristic of friendly SYLVANETH units that start a move wholly within 12' of this general until the end of that phase.`,
+        desc: `If this general is on the battlefield at the start of your movement phase, add 3" to the Move characteristic of friendly SYLVANETH units that start a move wholly within 12" of this general until the end of that phase.`,
         when: [MOVEMENT_PHASE],
       },
     ],

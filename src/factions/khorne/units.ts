@@ -43,7 +43,7 @@ const ScornOfSorceryEffect = {
 
 const MurderousChargeEffect = {
   name: `Murderous Charge`,
-  desc: `After this unit makes a charge move, pick 1 enemy unit and roll a dice for each model in this unit that is within 3 of that enemy unit. For each 2-4, that enemy unit suffers 1 mortal wound. For each 5+, that enemy unit suffers 2 mortal wounds.`,
+  desc: `After this unit makes a charge move, pick 1 enemy unit and roll a dice for each model in this unit that is within 3" of that enemy unit. For each 2-4, that enemy unit suffers 1 mortal wound. For each 5+, that enemy unit suffers 2 mortal wounds.`,
   when: [CHARGE_PHASE],
   shared: true,
 }
@@ -540,7 +540,7 @@ const Units = {
       },
       {
         name: `First of the Gorechosen`,
-        desc: `Add 1 to hit rolls for attacks made by this unit while it is wholly within 8 of another friendly BLOODBOUND unit that is a general.`,
+        desc: `Add 1 to hit rolls for attacks made by this unit while it is wholly within 8" of another friendly BLOODBOUND unit that is a general.`,
         when: [COMBAT_PHASE],
       },
     ],

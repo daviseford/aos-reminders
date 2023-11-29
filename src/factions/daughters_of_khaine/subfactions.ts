@@ -12,34 +12,29 @@ import GrandStrategies from './grand_strategies'
 import Prayers from './prayers'
 import Spells from './spells'
 import Units from './units'
-import { IItemDescription, TItemDescriptions } from 'factions/factionTypes'
-
-const baseSubFaction: IItemDescription = {
-  effects: [],
-
-  mandatory: {
-    command_abilities: [keyPicker(CommandAbilities, ['All-out Slaughter'])],
-  },
-
-  available: {
-    artifacts: [Artifacts],
-    battalions: [Battalions],
-    battle_tactics: [BattleTactics],
-    command_abilities: [CommandAbilities],
-    command_traits: [CommandTraits],
-    endless_spells: [EndlessSpells],
-    flavors: [Flavors],
-    grand_strategies: [GrandStrategies],
-    prayers: [Prayers],
-    spells: [Spells],
-    units: [Units],
-  },
-}
+import { TItemDescriptions } from 'factions/factionTypes'
 
 const subFactions = {
   [DAUGHTERS_OF_KHAINE]: {
-    ...baseSubFaction,
     effects: pickEffects(BattleTraits, [DAUGHTERS_OF_KHAINE]),
+
+    mandatory: {
+      command_abilities: [keyPicker(CommandAbilities, ['All-out Slaughter'])],
+    },
+
+    available: {
+      artifacts: [Artifacts],
+      battalions: [Battalions],
+      battle_tactics: [BattleTactics],
+      command_abilities: [CommandAbilities],
+      command_traits: [CommandTraits],
+      endless_spells: [EndlessSpells],
+      flavors: [Flavors],
+      grand_strategies: [GrandStrategies],
+      prayers: [Prayers],
+      spells: [Spells],
+      units: [Units],
+    },
   },
 } satisfies TItemDescriptions
 
