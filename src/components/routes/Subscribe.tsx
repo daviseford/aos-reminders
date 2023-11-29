@@ -77,7 +77,7 @@ const ExamplesRow = () => {
           label={'Demo-Import'}
         />
       </div>
-      <StatsDemo />
+      {/* <StatsDemo /> */}
       <div className={'col-12 col-xl-8 col-xxl-5'}>
         <WebmWithFallback
           webmUrl={'/img/save_load_demo.mp4'}
@@ -90,23 +90,23 @@ const ExamplesRow = () => {
   )
 }
 
-const StatsDemo = () => {
-  const { isMobile } = useWindowSize()
-  return (
-    <div className={'col-12 col-xl-8 col-xxl-5 text-center'}>
-      <figure className="figure">
-        <img
-          className={`figure-img img-fluid rounded img-thumbnail`}
-          src={`/img/stats_demo_${isMobile ? `mobile` : `desktop`}.png`}
-          alt="Subscribe to access advanced stats"
-        />
-        <figcaption className="figure-caption text-center">
-          <strong>Advanced Stats</strong>
-        </figcaption>
-      </figure>
-    </div>
-  )
-}
+// const StatsDemo = () => {
+//   const { isMobile } = useWindowSize()
+//   return (
+//     <div className={'col-12 col-xl-8 col-xxl-5 text-center'}>
+//       <figure className="figure">
+//         <img
+//           className={`figure-img img-fluid rounded img-thumbnail`}
+//           src={`/img/stats_demo_${isMobile ? `mobile` : `desktop`}.png`}
+//           alt="Subscribe to access advanced stats"
+//         />
+//         <figcaption className="figure-caption text-center">
+//           <strong>Advanced Stats</strong>
+//         </figcaption>
+//       </figure>
+//     </div>
+//   )
+// }
 
 const MobileDarkModeDemo = () => {
   const { isMobile } = useWindowSize()

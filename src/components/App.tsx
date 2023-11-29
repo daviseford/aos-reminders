@@ -12,7 +12,7 @@ const Home = lazy(() => import('components/routes/Home'))
 const Join = lazy(() => import('components/routes/Join'))
 const Profile = lazy(() => import('components/routes/Profile'))
 const Redeem = lazy(() => import('components/routes/Redeem'))
-const Stats = lazy(() => import('components/routes/Stats'))
+// const Stats = lazy(() => import('components/routes/Stats'))
 const Subscribe = lazy(() => import('components/routes/Subscribe'))
 
 const App = () => {
@@ -42,7 +42,7 @@ const App = () => {
             <Route path={ROUTES.SUBSCRIBE} component={Subscribe} />
 
             {/* Stats page */}
-            <Route path={ROUTES.STATS} component={Stats} />
+            {/* <Route path={ROUTES.STATS} component={Stats} /> */}
 
             {/* Profile page */}
             <ProtectedRoute path={ROUTES.PROFILE} component={Profile} />
