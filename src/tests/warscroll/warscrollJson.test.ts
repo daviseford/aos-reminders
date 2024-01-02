@@ -407,12 +407,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.factionName).toEqual(GREENSKINZ)
   })
 
-  it('should work with Vitriolic Spray (Anvilgard)', () => {
-    const parsedText = getFile('1577866703167-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.spells).toContain('Vitriolic Spray (Anvilgard, Har Kuron)')
-  })
-
   it('should work with Amethyst Glow/Dread Withering trait/spell', () => {
     const parsedText = getFile('1577088536258-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -536,14 +530,6 @@ describe('getWarscrollArmyFromJson', () => {
     })
   })
 
-  it('should work with Dabblings in Sorcery (Anvilgard Battle Trait)', () => {
-    const parsedText = getFile('1576513040341-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections.command_traits).toContain('Dabblings in Sorcery (Anvilgard Battle Trait)')
-  })
-
   it('should work with Ogor Mawtribes', () => {
     const parsedText = getFile('1574686232621-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -573,15 +559,6 @@ describe('getWarscrollArmyFromJson', () => {
 
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
     expect(res.origin_realm).toEqual(null)
-  })
-
-  it('should work with One with Fire and Ice trait/spell', () => {
-    const parsedText = getFile('1574356951165-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections.command_traits).toContain('One with Fire and Ice (The Phoenicium)')
-    expect(res.selections.spells).toContain('Golden Mist (The Phoenicium)')
   })
 
   it('should work with OBR 3', () => {
@@ -682,14 +659,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.factionName).toEqual(OSSIARCH_BONEREAPERS)
   })
 
-  it('should work with Druid of the Everspring', () => {
-    const parsedText = getFile('1572871747455-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections.command_traits).toContain('Druid of the Everspring (Living City)')
-  })
-
   it('should work with Ogor Gluttons', () => {
     const parsedText = getFile('1572868206060-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -758,31 +727,12 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
   })
 
-  it('should work with Anointed on Frostheart Phoenix', () => {
-    const parsedText = getFile('1571285206236-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections.units).toContain('Anointed on Frostheart Phoenix')
-  })
-
   it('should work with Firebelly', () => {
     const parsedText = getFile('1571287948786-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(DESTRUCTION_GRAND_ALLIANCE)
     expect(res.selections.units).toContain('Firebelly')
-  })
-
-  it('should work with Cities of Sigmar and allies', () => {
-    const parsedText = getFile('1571220408099-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections.spells).toContain('Vitriolic Spray (Anvilgard, Har Kuron)')
-    expect(res.selections.command_traits).toContain('Secretive Warlock (Anvilgard)')
-    expect(res.selections.units).toContain('Knight-Azyros')
-    expect(res.selections.units).toContain('Prosecutors with Celestial Hammers')
   })
 
   it('should work with Cities of Sigmar and allies 1', () => {
@@ -806,52 +756,5 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(FYRESLAYERS)
-  })
-
-  it('should figure out allies from context clues', () => {
-    const parsedText = getFile('1571040089053-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res).toEqual({
-      allyFactionNames: [],
-      allySelections: {},
-      allyUnits: [],
-      errors: [],
-      factionName: CITIES_OF_SIGMAR,
-      subFactionName: '',
-      origin_realm: null,
-      realmscape_feature: null,
-      realmscape: null,
-      selections: {
-        flavors: ['Greywater Fastness'],
-        artifacts: ['Runic Munitions (Greywater Fastness)'],
-        battalions: [],
-        battle_tactics: [],
-        command_abilities: ['Salvo Fire'],
-        endless_spells: [],
-        incarnates: [],
-        monstrous_rampages: [],
-        scenery: [],
-        grand_strategies: [],
-        mount_traits: [],
-        prayers: ['Rune of Unfaltering Aim', 'Rune Lore: Ancestral Shield', 'Rune Lore: Forgefire'],
-        spells: ['Choking Fumes (Greywater Fastness)', 'Transmutation of Lead (Chamon)'],
-        command_traits: ['Ghoul Mere Ranger (Greywater Fastness)'],
-        core_rules: [],
-        triumphs: [],
-        units: [
-          'Runelord',
-          'Irondrakes',
-          'Gyrobombers',
-          'Battlemage (Chamon)',
-          'Liberators',
-          'Cogsmith',
-          'Freeguild Guard',
-          'Helblaster Volley Gun',
-        ],
-      },
-      unknownSelections: [],
-    })
   })
 })

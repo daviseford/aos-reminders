@@ -1,18 +1,16 @@
 import IronjawzBattleTraits from 'factions/orruk_warclans/ironjawz/battle_traits'
 import { SylvanethFaction } from 'factions/sylvaneth'
 import { GenericCommandAbilities, GenericTriumphs } from 'generic_rules'
-import { CITIES_OF_SIGMAR, ORRUK_WARCLANS, SYLVANETH } from 'meta/factions'
+import { ORRUK_WARCLANS, SYLVANETH } from 'meta/factions'
 import { IArmy } from 'types/army'
 import { TTurnAction } from 'types/data'
-import { END_OF_GAME, HERO_PHASE } from 'types/phases'
 import { getArmy } from 'utils/getArmy/getArmy'
-import { processConditions, processReminders } from 'utils/processReminders'
+import { processReminders } from 'utils/processReminders'
 import { selectionsFactory } from './__mock'
 
 describe('processReminders', () => {
   it('should work with a loaded army and multiple allies', () => {
     const artifact = SylvanethFaction.AggregateArmy.Artifacts?.[0]
-    // const battalion = SylvanethFaction.AggregateArmy.Battalions?.[0]
     const command_trait = SylvanethFaction.AggregateArmy.CommandTraits?.[0]
     const command1 = GenericCommandAbilities[0]
     const endless_spell = SylvanethFaction.AggregateArmy.EndlessSpells?.[0]
@@ -28,7 +26,6 @@ describe('processReminders', () => {
     const selections = selectionsFactory({
       artifacts: [artifact.name],
       battalions: [],
-      // battalions: [battalion.name],
       command_abilities: [command1.name],
       command_traits: [command_trait.name],
       endless_spells: [endless_spell.name],
@@ -42,7 +39,6 @@ describe('processReminders', () => {
 
     const testEntries = [
       artifact,
-      // battalion,
       command_trait,
       command1,
       endless_spell,
@@ -59,16 +55,6 @@ describe('processReminders', () => {
         : undefined
       expect(effect).toBeDefined()
     })
-
-    // Check for Allegiance ability
-    // const ability = SylvanethFaction?.factionBattleTraits?.[0]
-    // const abilityEffect = ability
-    //   ? reminders[ability.when[0]].find(({ name }) => {
-    //       return name === ability.name
-    //     })
-    //   : undefined
-    // expect(abilityEffect).toBeDefined()
-    // expect((abilityEffect as TTurnAction).condition[0]).toEqual(`Sylvaneth Allegiance`)
   })
 
   it('should correctly attribute allegiance abilities to subfactions', () => {
@@ -85,40 +71,8 @@ describe('processReminders', () => {
           return name === ability.effects[0].name
         })
       : undefined
+
     expect(abilityEffect).toBeDefined()
     expect((abilityEffect as TTurnAction).condition[0]).toEqual(`Ironjawz Allegiance`)
-  })
-
-  it('should work with duplicate rule names', () => {
-    // https://github.com/daviseford/aos-reminders/issues/1348
-    const selections = {
-      artifacts: [],
-      battalions: [],
-      command_abilities: ['Hold the Line'],
-      command_traits: [],
-      core_rules: [],
-      endless_spells: [],
-      flavors: [],
-      grand_strategies: ['Hold the Line'],
-      mount_traits: [],
-      prayers: [],
-      scenery: [],
-      spells: [],
-      triumphs: [],
-      units: ['Freeguild General'],
-    }
-
-    const army = getArmy(CITIES_OF_SIGMAR, CITIES_OF_SIGMAR, null, null) as IArmy
-    const reminders = processConditions(army.Game, selections, {})
-
-    const commandAbility = reminders[HERO_PHASE].find(
-      x => x.name === 'Hold the Line' && x.command_ability === true
-    )
-    const grandStrategy = reminders[END_OF_GAME].find(
-      x => x.name === 'Hold the Line' && x.grand_strategy === true
-    )
-
-    expect(commandAbility).toBeDefined()
-    expect(grandStrategy).toBeDefined()
   })
 })

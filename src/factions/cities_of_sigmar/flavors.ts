@@ -1,240 +1,139 @@
 import { keyPicker } from 'factions/metatagger'
-import meta_rule_sources from 'meta/rule_sources'
 import {
-  BATTLESHOCK_PHASE,
   COMBAT_PHASE,
-  DURING_GAME,
   DURING_SETUP,
+  END_OF_HERO_PHASE,
   END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
   MOVEMENT_PHASE,
-  SAVES_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
-  START_OF_SETUP,
-  TURN_FOUR_START_OF_ROUND,
-  TURN_ONE_DURING_ROUND,
-  TURN_ONE_MOVEMENT_PHASE,
-  TURN_ONE_START_OF_HERO_PHASE,
+  START_OF_ROUND,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import command_abilities from './command_abilities'
 import prayers from './prayers'
-import rule_sources from './rule_sources'
 import { TItemDescriptions } from 'factions/factionTypes'
 
 const Flavors = {
-  Hammerhal: {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Righteous Purpose'])],
-    },
+  'Hammerhal Aqsha': {
     effects: [
       {
-        name: `Banners Held High`,
-        desc: `At the start of your hero phase, roll a D6 for each friendly HAMMERHAL unit that includes any Standard Bearers. For each 6, you receive 1 extra command point.`,
-        when: [START_OF_HERO_PHASE],
+        name: `Officars of the Acadamae Martial`,
+        desc: `When orders are being given to friendly HAMMERHAL AQSHA HEROES, 1 of those units can be given 2 orders instead of 1, but they must be different orders.`,
+        when: [START_OF_ROUND],
       },
       {
         name: `The Magister of Hammerhal`,
-        desc: `If your army includes AVENTIS FIRESTRIKE and he is your general, you receive 1 extra command point.`,
-        when: [TURN_ONE_START_OF_HERO_PHASE],
+        desc: `If you command a Hammerhal Aqsha army that includes an allied AVENTIS FIRESTRIKE, at the start of your hero phase, you receive 1 additional command point if that model is on the battlefield.`,
+        when: [START_OF_HERO_PHASE],
       },
+    ],
+  },
+  'Hammerhal Ghyra': {
+    effects: [
       {
-        name: `The Pride of Hammerhal`,
-        desc: `Do not take battleshock tests for HAMMERHAL units that are wholly within their own territory.`,
-        when: [BATTLESHOCK_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
+        name: `Bounty of the Verdant City`,
+        desc: `When picking a Hammerhal Ghyra army, if the battlepack you are using has restrictions on the number of reinforced units you can include, you can include 1 additional CITIES OF SIGMAR reinforced unit in your army. In addition, friendly HAMMERHAL GHYRA HUMAN units have a Bravery characteristic of 10 while they have 10 or more models.`,
+        when: [DURING_SETUP],
       },
     ],
   },
   'The Living City': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Strike then Melt Away'])],
-    },
     effects: [
       {
         name: `Hunters of the Hidden Paths`,
-        desc: `You can set up 1 reserve unit on the hidden paths for each LIVING CITY unit you have set up on the battlefield. At the end of your movement phase, you can setup 1 or more of these units on the battlefield, wholly within 6" of the edge of the battlefield and more than 9" from any enemy units. Any reserve units on the hidden paths that are not set up on the battlefield before the start of the fourth battleround are destroyed.`,
+        desc: `During deployment, instead of setting up a LIVING CITY unit or an allied SYLVANETH unit on the battlefield, you can place it to one side and say that it is set up in the Hidden Paths as a reserve unit. You can set up 1 unit in the Hidden Paths for each LIVING CITY unit you have set up on the battlefield. At the end of your movement phase, you can set up 1 or more of these reserve units on the battlefield, wholly within 6" of the edge of the battlefield and more than 9" from all enemy units.`,
         when: [DURING_SETUP],
       },
       {
-        name: `Attuned to Nature`,
-        desc: `You can heal 1 wound allocated to each friendly LIVING CITY unit.`,
-        when: [START_OF_HERO_PHASE],
+        name: `Hunters of the Hidden Paths`,
+        desc: `At the end of your movement phase, you can set up 1 or more of these reserve units on the battlefield, wholly within 6" of the edge of the battlefield and more than 9" from all enemy units.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
   'Greywater Fastness': {
-    mandatory: {
-      prayers: [keyPicker(prayers, ['Rune of Unfaltering Aim'])],
-      command_abilities: [keyPicker(command_abilities, ['Salvo Fire'])],
-    },
     effects: [
       {
-        name: `Home of the Great Ironweld Guilds`,
-        desc: `Increase the Range characteristic of missile weapons used by friendly GREYWATER FASTNESS IRONWELD ARSENAL units by 3" (this does not affect the weapon's minimum range, if it has one).`,
-        when: [SHOOTING_PHASE],
-      },
-      {
-        name: `Rune Lore`,
-        desc: `GREYWATER FASTNESS RUNELORDS know the Rune of Unfaltering Aim prayer.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'The Phoenicium': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Living Idols'])],
-    },
-    effects: [
-      {
-        name: `Vengeful Revenants`,
-        desc: `Add 1 to hit and wound rolls for attacks made with melee weapons by friendly PHOENICIUM units if any friendly PHOENICIUM units have been destroyed in the same phase.`,
-        when: [COMBAT_PHASE],
-      },
-      {
-        name: `Blood of the Ur-Phoenix`,
-        desc: `Add 1 to the Wounds characteristic of PHOENICIUM FROSTHEART PHOENIXES and PHOENICIUM FLAMESPYRE PHOENIXES.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  Anvilgard: {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Make an Example of the Weak (Anvilgard)'])],
-    },
-    effects: [
-      {
-        name: `Illicit Dealings`,
-        desc: `When you choose an Anvilgard army, you can profit from one of the following benefits of illicit dealings:
-
-        Black Market Bounty: 1 additional friendly ANVILGARD HERO can bear an artefact of power from the Anvilgard Artefacts of Power table.
-
-        Dabblings in Sorcery: 1 additional friendly ANVILGARD DRAGON, ANVILGARD KHARIBDYSS or ANVILGARD WAR HYDRA can have a Drakeblood curse from the Drakeblood Curses table.
-
-        Hidden Agents: Once per battle, when you receive command points at the start of your hero phase, you can receive D3 extra command points.`,
-        when: [START_OF_SETUP],
-        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_DECEMBER_2022],
-      },
-      {
-        name: `Drakeblood Curses`,
-        desc: `If an Anvilgard army includes any DRAGONS, KHARIBDYSSES or WAR HYDRAS, 1 of those models has a Drakeblood curse. Choose which model will have the Drakeblood curse, then pick from or roll on the Drakeblood Curses table opposite.
-
-        You can choose 1 additional friendly ANVILGARD DRAGON, ANVILGARD KHARIBDYSS or ANVILGARD WAR HYDRA to have a Drakeblood curse for each warscroll battalion in your army. A model cannot have more than 1 Drakeblood curse, and an army may not include duplicates of the same Drakeblood curse.`,
-        when: [START_OF_SETUP],
+        name: `A Greywater Welcome`,
+        desc: `You can use the All-out Attack command up to 3 times in your shooting phase. In addition, the first 2 times a friendly GREYWATER FASTNESS unit receives the All-out Attack command in your shooting phase, a command point is not spent.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
       },
     ],
   },
   Hallowheart: {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Arcane Channelling'])],
-    },
     effects: [
       {
-        name: `Eldritch Attunement`,
-        desc: `Each time a friendly HALLOWHEART unit is affected by a spell or endless spell, you can roll a D6. If you do so, on a 5+, ignore the effects of that spell or endless spell on that unit.`,
+        name: `Wild Magic`,
+        desc: `When you attempt to cast a spell with a friendly HALLOWHEART WIZARD, you can say they will harness wild magic. If you do so, roll 3 dice instead of 2 for that casting roll. However, on an unmodified roll of 10+, the caster suffers D3 mortal wounds after any effects of the spell have been resolved.`,
         when: [HERO_PHASE],
-      },
-      {
-        name: `Mages of the Whitefire Court`,
-        desc: `HALLOWHEART WIZARDS can attempt to cast 1 extra spell in your hero phase. In addition, when you pick a spell from the Lore of Whitefire (pg 75) for a friendly HALLOWHEART WIZARD to know, if it is the first time you have picked a spell from that spell lore for that WIZARD, you can pick a second spell from that spell lore for that WIZARD to know as well.`,
-        when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          rule_sources.ERRATA_AUGUST_2021,
-          rule_sources.ERRATA_OCTOBER_2022,
-        ],
       },
     ],
   },
   "Tempest's Eye": {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Rapid Redeploy'])],
-    },
     effects: [
       {
-        name: `Alert and Forewarned`,
-        desc: `Add 3" to the Move characteristic of friendly TEMPEST'S EYE units until the end of the first battle round.`,
-        when: [TURN_ONE_MOVEMENT_PHASE],
-      },
-      {
-        name: `Alert and Forewarned`,
-        desc: `Add 1 to save rolls for attacks that target friendly TEMPEST'S EYE units in the first battle round.`,
-        when: [TURN_ONE_DURING_ROUND, SAVES_PHASE],
-      },
-      {
-        name: `Outriders of the Realms`,
-        desc: `Add 1 to run rolls for friendly TEMPEST'S EYE units.`,
-        when: [MOVEMENT_PHASE],
+        name: `Rapid Redeploy`,
+        desc: `Friendly TEMPEST'S EYE and allied KHARADRON OVERLORDS SKYVESSEL units (including units embarked in them), can retreat and still shoot in the same turn.`,
+        when: [MOVEMENT_PHASE, SHOOTING_PHASE],
       },
     ],
   },
   Misthavn: {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Shadowstrike'])],
-    },
     effects: [
       {
-        name: `Underhanded Tactics`,
-        desc: `You may set up the following units in reserve (max size 10 models per unit): Misthavn Order Sepentis, Shadowblades or Scourge Privateers.
-               1 unit may be in reserve for each Darkling Covens, Freeguild, or Duardin unit already on the battlefield.`,
-        when: [DURING_SETUP],
-      },
-      {
-        name: `Underhanded Tactics`,
-        desc: `You may set up 1 or more units from reserve more than 9" from enemy units.`,
-        when: [END_OF_MOVEMENT_PHASE],
-      },
-      {
-        name: `Underhanded Tactics`,
-        desc: `Any of your units still in reserve are slain.`,
-        when: [TURN_FOUR_START_OF_ROUND],
-      },
-      {
-        name: `Misthavn Narcotics`,
-        desc: `An equipped hero can use its narcotic once per battle. It has no effect on the bearer's mount.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Har Kuron': {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Make an Example of the Weak (Har Kuron)'])],
-      prayers: [keyPicker(prayers, ['Incitement to Murder'])],
-    },
-    effects: [
-      {
-        name: `Temples of Khaine`,
-        desc: `In each of your hero phases, you can pick 1 friendly DAUGHTERS OF KHAINE PRIEST to chant the Incitement to Murder prayer in addition to the 1 other prayer that they can chant in that phase.`,
-        when: [HERO_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
-          meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021,
-        ],
+        name: `Shadowed Approach`,
+        desc: `At the end of your hero phase, you can pick up to 3 different friendly MISTHVN units that are more than 12" from all enemy units. Each of those units can make a move of up to D6" (roll separately for each). If the unit has a mount/s (not including crew and/or companions), it can make a move of up to 2D6" instead of D6". Units can finish this move within 3" of enemy units.`,
+        when: [END_OF_HERO_PHASE],
       },
     ],
   },
   "Settler's Gain": {
-    mandatory: {
-      command_abilities: [keyPicker(command_abilities, ["Aelven Training (Settler's Gain)"])],
-    },
     effects: [
       {
-        name: `Lumineth Tutors`,
-        desc: `You can add 1 to casting rolls for Settler's Gain Collegiate Arcane Wizards.`,
+        name: `Expert Instruction`,
+        desc: `Add 1 to casting rolls for friendly SETTLER'S GAIN WIZARDS.`,
         when: [HERO_PHASE],
+      },
+      {
+        name: `Expert Instruction`,
+        desc: `At the start of each hero phase, you receive 1 additional command point if the model picked to be your general is within 3" of any friendly allied LUMINETH REALM-LORDS HEROES.`,
+        when: [START_OF_HERO_PHASE],
       },
     ],
   },
   Excelsis: {
+    effects: [
+      {
+        name: `Fearsome Breeds`,
+        desc: `Add 1 to the Wounds characteristic of friendly EXCELSIS MONSTERS. In addition, each time a friendly EXCELSIS FREEGUILD CAVALIERS unit fights, after all of its attacks have been resolved, pick 1 enemy unit within 3" of that FREEGUILD CAVALIERS unit and roll a dice for each model in that FREEGUILD CAVALIERS unit. For each roll of 4+, that enemy unit suffers 1 mortal wound.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Fearsome Breeds`,
+        desc: `Each time a friendly EXCELSIS FREEGUILD CAVALIERS unit fights, after all of its attacks have been resolved, pick 1 enemy unit within 3" of that FREEGUILD CAVALIERS unit and roll a dice for each model in that FREEGUILD CAVALIERS unit. For each roll of 4+, that enemy unit suffers 1 mortal wound.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  Vindicarum: {
+    effects: [
+      {
+        name: `Unyielding Faith`,
+        desc: `Friendly VINDICARUM units can receive the Rally command while they are within 3" of any enemy units. In addition, when a friendly VINDICARUM FLAGELLANTS unit receives the Rally command, you can return 1 slain model to that unit for each 5+ instead of each 6.`,
+        when: [START_OF_HERO_PHASE],
+      },
+    ],
+  },
+  Lethis: {
     mandatory: {
-      command_abilities: [keyPicker(command_abilities, ['Riposte (Excelsis)'])],
+      prayers: [keyPicker(prayers, ["Morrda's Embrace"])],
     },
     effects: [
       {
-        name: `Gift of Prophecy`,
-        desc: `Once per phase, when selecting a unit to shoot or fight, you can roll a D6. On a 1, subtract 1 from hit rolls made by the target. On a 2-6 add 1 to the target's hit rolls.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-        rule_sources: [meta_rule_sources.BOOK_BROKEN_REALMS_KRAGNOS],
+        name: `The Raven Priests`,
+        desc: `Friendly LETHIS HUMAN HEROES that are not WIZARDS become PRIESTS. In addition, friendly LETHIS HUMAN PRIESTS and friendly allied STORMCAST ETERNALS PRIESTS know the "Morrda's Embrace" prayer in addition to any others they know.`,
+        when: [HERO_PHASE],
       },
     ],
   },

@@ -36,12 +36,6 @@ describe('getWarhammerAppArmy', () => {
     expect(res.errors).toEqual([])
   })
 
-  it('should correctly read 1635442222774-Warhammer_App', () => {
-    const parsedText = getFile('1635442222774-Warhammer_App')
-    const res = getWarhammerAppArmy(parsedText)
-    expect(res.selections.command_traits).toContain('Acidic Blood (Drakeblood Curse)')
-  })
-
   it('should correctly read 1632565338858-Warhammer_App', () => {
     const parsedText = getFile('1632565338858-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
