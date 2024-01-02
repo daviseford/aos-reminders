@@ -2,7 +2,6 @@ import { LegionsOfNagashFaction } from 'factions/legions_of_nagash'
 import { SlaaneshFaction } from 'factions/slaanesh'
 import { readFileSync } from 'fs'
 import {
-  CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   FLESH_EATER_COURTS,
   FYRESLAYERS,
@@ -298,24 +297,6 @@ describe('getBattlescribeArmy', () => {
     const parsedText = getFile('Stormcast7')
     const res = getBattlescribeArmy(parsedText)
     expect(res.factionName).toEqual(STORMCAST_ETERNALS)
-  })
-
-  it('should work with CoS1', () => {
-    const parsedText = getFile('CoS1')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections.prayers).toContain('Rune of Unfaltering Aim')
-    expect(res.selections.prayers).toContain('Rune Lore: Forgefire')
-    expect(res.selections.flavors).toEqual([
-      'Greywater Fastness',
-      'Anvilgard',
-      'Hallowheart',
-      'Hammerhal',
-      'The Living City',
-      'The Phoenicium',
-      "Tempest's Eye",
-    ])
   })
 
   it('should work with TombKings1', () => {

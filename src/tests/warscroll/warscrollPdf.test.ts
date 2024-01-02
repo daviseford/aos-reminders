@@ -2,7 +2,6 @@ import { SeraphonFaction } from 'factions/seraphon'
 import { readFileSync } from 'fs'
 import {
   CHAOS_GRAND_ALLIANCE,
-  CITIES_OF_SIGMAR,
   DESTRUCTION_GRAND_ALLIANCE,
   FYRESLAYERS,
   KHARADRON_OVERLORDS,
@@ -43,29 +42,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.grand_strategies).toContain("Predator's Domain")
     expect(res.selections.spells).toContain('Flaming Weapon')
     expect(res.selections.spells).toContain('Unchecked Mutation')
-  })
-
-  it('should correctly read New_CoS1', () => {
-    const pdfText = getFile('New_CoS1')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toContain(CITIES_OF_SIGMAR)
-    expect(res.selections.artifacts).toContain('Sawfang Dust (Misthavn Narcotic)')
-    expect(res.selections.artifacts).toContain('Strangler-kelp Noose (Misthavn)')
-    expect(res.selections.battalions).toContain('Alpha-Beast Pack')
-    expect(res.selections.battalions).toContain('Grand Battery')
-    expect(res.selections.battalions).toContain('Hunters of the Heartlands')
-    expect(res.selections.command_traits).toContain('Heroic Stature')
-    expect(res.selections.endless_spells).toContain('Prismatic Palisade')
-    expect(res.selections.flavors).toContain('Misthavn')
-    expect(res.selections.grand_strategies).toContain('Hold the Line')
-    expect(res.selections.spells).toContain('Flaming Weapon')
-    expect(res.selections.triumphs).toContain('Inspired')
-    expect(res.selections.units).toContain('Freeguild General')
-    expect(res.selections.units).toContain('Helstorm Rocket Battery')
-    expect(res.selections.units).toContain('Sisters of the Thorn')
-    expect(res.selections.units).toContain('Steam Tank with Commander')
   })
 
   it('should correctly read New_Nurgle1', () => {
@@ -293,106 +269,6 @@ describe('getWarscrollArmyFromPdf', () => {
     expect(res.selections.endless_spells).toEqual([])
     expect(res.selections.artifacts).toEqual([])
     expect(res.unknownSelections).toEqual([])
-  })
-
-  it('reads a CoS warscroll pdf file correctly', () => {
-    const pdfText = getFile('CoS1')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.origin_realm).toEqual(null)
-    expect(res.unknownSelections).toEqual([])
-    expect(res.selections).toEqual({
-      flavors: ['Anvilgard'],
-      grand_strategies: [],
-      incarnates: [],
-      monstrous_rampages: [],
-      artifacts: [
-        "Mastro Vivetti's Magnificent Macroscope (Greywater Fastness)",
-        'Armour of Mallus (Hammerhal)',
-        'Whitefire Tome (Hallowheart)',
-        'Asphyxica Censer (Anvilgard)',
-        'Drakescale Cloak (Anvilgard)',
-        "Saint's Blade (Hammerhal)",
-        'Deepmire Cloak (The Living City)',
-        "Patrician's Helm (Tempest's Eye)",
-      ],
-      battalions: [],
-      battle_tactics: [],
-      command_abilities: [
-        'Make an Example of the Weak (Anvilgard)',
-        'Command Underlings',
-        'Inspire Hatred',
-        'Target Sighted',
-        'Rousing Battle Cry',
-        'Hold the Line',
-        'Lord of the Deepwood Host',
-        'Feast of Bones',
-      ],
-      endless_spells: ['Quicksilver Swords'],
-      mount_traits: [],
-      prayers: [],
-      scenery: [],
-      spells: [
-        "Strike of Eagles (Tempest's Eye)",
-        'Choking Fumes (Greywater Fastness)',
-        'Crystal Aegis (Hallowheart)',
-        'Twin-Tailed Comet (Hammerhal)',
-        'Sap Strength (Anvilgard, Har Kuron)',
-        'Sear Wounds (Hallowheart)',
-        'Comet of Casandora',
-        'Chain Lightning (Azyr)',
-        'Burning Gaze',
-        'Bladewind',
-        'Shield of Thorns (Ghyran)',
-        'Amber Spear',
-        'Wildform (Ghur)',
-      ],
-      command_traits: [
-        'Black Market Bounty (Anvilgard Battle Trait)',
-        'Jutting Bones (Drakeblood Curse)',
-        'Secretive Warlock (Anvilgard)',
-        'Acidic Blood (Drakeblood Curse)',
-        'Fell Gaze (Drakeblood Curse)',
-      ],
-      core_rules: [],
-      triumphs: [],
-      units: [
-        'Celestial Hurricanum with Celestial Battlemage',
-        'Luminark of Hysh with White Battlemage',
-        'Sorceress on Black Dragon',
-        'Steam Tank with Commander',
-        'Freeguild General on Griffon',
-        'Freeguild General',
-        'Nomad Prince',
-        'Cogsmith',
-        'Battlemage (Ghyran)',
-        'Battlemage on Griffon',
-        'Black Ark Corsairs',
-        'Drakespawn Chariots',
-        'Dark Riders',
-        'Kharibdyss',
-        'War Hydra',
-        'Helblaster Volley Gun',
-        'Helstorm Rocket Battery',
-      ],
-    })
-  })
-
-  it('reads Command Traits/Artifacts and gets the spells attached to them', () => {
-    const pdfText = getFile('CommandTraitWithSpell')
-    const parsedText = parsePdf(pdfText)
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-
-    expect(res.selections.artifacts).toEqual(['Whitefire Tome (Hallowheart)'])
-    expect(res.selections.command_traits).toEqual(['Secretive Warlock (Anvilgard)'])
-    expect(res.selections.spells).toEqual([
-      'Sap Strength (Anvilgard, Har Kuron)',
-      'Elemental Cyclone (Hallowheart)',
-    ])
   })
 
   it('reads an Order meeting engagement pdf file correctly', () => {

@@ -1,39 +1,14 @@
 import { tagAs } from 'factions/metatagger'
-import meta_rule_sources from 'meta/rule_sources'
-import { COMBAT_PHASE, HERO_PHASE, SHOOTING_PHASE, WARDS_PHASE } from 'types/phases'
-import rule_sources from './rule_sources'
+import { HERO_PHASE } from 'types/phases'
 import { TItemDescriptions } from 'factions/factionTypes'
 
 const Prayers = {
-  'Rune Lore: Ancestral Shield': {
+  Forgefire: {
     effects: [
       {
-        name: `Rune Lore: Ancestral Shield`,
-        desc: `This prayer has an answer value of 2 and range of 12". If answered, pick 1 friendly DISPOSSESSED unit wholly within range of the chanter that is visible to them. That unit has a ward of 6+ until the start of your next hero phase.`,
+        name: `Forgefire`,
+        desc: `Answer value of 4 and a range of 18". If answered, pick 1 friendly CITIES OF SIGMAR DUARDIN unit wholly within range and visible to the chanter. Until the start of your next hero phase, improve the Rend characteristic of that unit's melee weapons by 1.`,
         when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
-      },
-      {
-        name: `Rune Lore: Ancestral Shield`,
-        desc: `If active, that unit has a ward of 6+ until the start of your next hero phase.`,
-        when: [WARDS_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
-      },
-    ],
-  },
-  'Rune Lore: Forgefire': {
-    effects: [
-      {
-        name: `Rune Lore: Forgefire`,
-        desc: `This prayer has an answer value of 2 and range of 12". If answered, pick 1 friendly DISPOSSESSED unit wholly within range of the chanter that is visible to them. Improve the Rend characteristic of that unit's weapons by 1 until the start of your next hero phase.`,
-        when: [HERO_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
-      },
-      {
-        name: `Rune Lore: Forgefire`,
-        desc: `If active, improve the Rend characteristic of that unit's weapons by 1 until the start of your next hero phase.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },
@@ -41,43 +16,59 @@ const Prayers = {
     effects: [
       {
         name: `Rune of Unfaltering Aim`,
-        desc: `If active, add 1 to hit rolls for attacks made with missile weapons by that unit until your next hero phase.`,
-        when: [SHOOTING_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_CITIES_OF_SIGMAR, rule_sources.ERRATA_JULY_2021],
-      },
-    ],
-  },
-  'Celestial Prayers: Invigorating Touch': {
-    effects: [
-      {
-        name: `Invigorating Touch`,
-        desc: `4+ for this prayer to succeed. Pick 1 friendly model within 3". Heal up to D6 wounds allocated to that model.`,
+        desc: `Rune of Unfaltering Aim is a prayer with an answer value of 3 and a range of 12". If answered, pick 1 friendly CITIES OF SIGMAR DUARDIN unit wholly within range and visible to the chanter. Add 1 to hit rolls for attacks made with missile weapons by that unit until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Celestial Prayers: Cometary Blast': {
+  'Rune of Oath and Steel': {
     effects: [
       {
-        name: `Cometary Blast`,
-        desc: `4+ for this prayer to succeed. Pick a point on the battlefield within 18" and visible to this model. Roll a D6 for each unit within 3" of point. 1-3: Nothing. 4-5: 1 mortal wound, 6: D3 mortal wounds.`,
+        name: `Rune of Oath and Steel`,
+        desc: `Rune of Oath and Steel is a prayer with an answer value of 3 and a range of 12". If answered, pick 1 friendly CITIES OF SIGMAR DUARDIN unit wholly within range and visible to the chanter. Subtract 1 from wound rolls for attacks that target that unit until the start of your next hero phase.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Incitement to Murder': {
+  'Rune of Wrath and Ruin': {
     effects: [
       {
-        name: `Incitement to Murder`,
-        desc: `Answer value of 3. If answered, pick 1 friendly HAR KURON unit wholly within 12" of the chanter. Until the start of your next hero phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. You cannot pick the same unit to benefit from this prayer more than once per phase.`,
+        name: `Rune of Wrath and Ruin`,
+        desc: `Rune of Wrath and Ruin is a prayer with an answer value of 3 and a range of 18". If answered, pick 1 enemy unit within range and visible to the chanter. Roll 6 dice. For each roll of 5+, that enemy unit suffers 1 mortal wound. In addition, if a unit suffers 3 or more mortal wounds when this prayer is answered, that unit is ruined until the start of your next hero phase. While a unit is ruined, ignore positive modifiers to save rolls for attacks that target that unit.`,
         when: [HERO_PHASE],
-        rule_sources: [meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021],
       },
+    ],
+  },
+  'Vessel of Sigmar': {
+    effects: [
       {
-        name: `Incitement to Murder`,
-        desc: `If active, until the start of your next hero phase, if the unmodified hit roll for an attack made by that unit is 6, that attack scores 2 hits on the target instead of 1. Make a wound and save roll for each hit. You cannot pick the same unit to benefit from this prayer more than once per phase.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-        rule_sources: [meta_rule_sources.ERRATA_BROKEN_REALMS_MORATHI_JULY_2021],
+        name: `Vessel of Sigmar`,
+        desc: `Vessel of Sigmar is a prayer with an answer value of 3. If answered, and this unit is within your territory, pick 1 of the effects below to apply until the start of your next hero phase. If answered and this unit is not within your territory, pick 2 of the effects below to apply until the start ofyour next hero phase instead of 1:
+
+        Hallowed Ground: Friendly CITIES OF SIGMAR HUMAN units have a ward of 5+ while they are wholly within 18" of this unit.
+        
+        The Great Wheel Turns: Add 2" to the Move characteristic of friendly CITIES OF SIGMAR HUMAN units on the battlefield.
+        
+        Cast Out Evil: Roll a dice for each enemy WIZARD and PRIEST on the battlefield. On a 2+, that unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  'Hammer of Sigmar': {
+    effects: [
+      {
+        name: `Hammer of Sigmar`,
+        desc: `Answer value of 4 and a range of 12". If answered, until the start of your next hero phase, add 1 to wound rolls for attacks made with melee weapons by friendly CITIES OF SIGMAR HUMAN units while they are wholly within range of the chanter.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
+  "Morrda's Embrace": {
+    effects: [
+      {
+        name: `Morrda's Embrace`,
+        desc: `Morrda's Embrace is a prayer with an answer value of 4 and a range of 12". If answered, pick 1 enemy unit within range and visible to the chanter. Ward saves cannot be made for that enemy unit until the start of your next hero phase.`,
+        when: [HERO_PHASE],
       },
     ],
   },

@@ -1,5 +1,4 @@
 import BeastsOfChaosUnits from 'factions/beasts_of_chaos/units'
-import CitiesOfSigmarUnits from 'factions/cities_of_sigmar/units'
 import { TItemDescriptions } from 'factions/factionTypes'
 import GloomspiteGitzUnits from 'factions/gloomspite_gitz/units'
 import LegionsOfNagashUnits from 'factions/legions_of_nagash/units'
@@ -12,7 +11,6 @@ import {
   DURING_SETUP,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
-  TURN_ONE_MOVEMENT_PHASE,
 } from 'types/phases'
 
 const Units = {
@@ -64,16 +62,16 @@ const Units = {
       },
     ],
   },
-  "Nimyard's Rough-Riders Mercenary Company": {
-    mandatory: { units: [keyPicker(CitiesOfSigmarUnits, ['Freeguild Pistoliers'])] },
-    effects: [
-      {
-        name: `Eyes And Ears`,
-        desc: `Instead of setting up a unit from this mercenary company on the battlefield, you can place it to one side and say that it is scouting as a reserve unit. If you do so, at the end of your first movement phase, you must set up that unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy units. Any number of units from this mercenary company can be set up this way.`,
-        when: [DURING_SETUP, TURN_ONE_MOVEMENT_PHASE],
-      },
-    ],
-  },
+  // "Nimyard's Rough-Riders Mercenary Company": {
+  //   mandatory: { units: [keyPicker(CitiesOfSigmarUnits, ['Freeguild Pistoliers'])] },
+  //   effects: [
+  //     {
+  //       name: `Eyes And Ears`,
+  //       desc: `Instead of setting up a unit from this mercenary company on the battlefield, you can place it to one side and say that it is scouting as a reserve unit. If you do so, at the end of your first movement phase, you must set up that unit wholly within 6" of the edge of the battlefield and more than 9" from any enemy units. Any number of units from this mercenary company can be set up this way.`,
+  //       when: [DURING_SETUP, TURN_ONE_MOVEMENT_PHASE],
+  //     },
+  //   ],
+  // },
   'The Blacksmoke Battery Mercenary Company': {
     effects: [
       {

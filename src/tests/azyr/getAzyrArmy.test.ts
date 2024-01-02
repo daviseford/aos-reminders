@@ -3,7 +3,6 @@ import { SlaaneshFaction } from 'factions/slaanesh'
 import { SlavesToDarknessFaction } from 'factions/slaves_to_darkness'
 import { readFileSync } from 'fs'
 import {
-  CITIES_OF_SIGMAR,
   DAUGHTERS_OF_KHAINE,
   FLESH_EATER_COURTS,
   GLOOMSPITE_GITZ,
@@ -309,14 +308,6 @@ describe('getAzyrArmyFromPdf', () => {
     ])
   })
 
-  it('handles CoS5', () => {
-    const fileTxt = getFile('CoS5')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections.command_traits).toContain('Druid of the Everspring (Living City)')
-  })
-
   it('handles Gloomspite2', () => {
     const fileTxt = getFile('Gloomspite2')
     const pages = handleAzyrPages(fileTxt)
@@ -516,91 +507,11 @@ describe('getAzyrArmyFromPdf', () => {
     })
   })
 
-  it('handles CoS1', () => {
-    const fileTxt = getFile('CoS1')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-    expect(res.selections).toEqual({
-      grand_strategies: [],
-      mount_traits: [],
-      incarnates: [],
-      monstrous_rampages: [],
-      prayers: ['Rune of Unfaltering Aim', 'Rune Lore: Ancestral Shield', 'Rune Lore: Forgefire'],
-      flavors: ['Greywater Fastness'],
-      artifacts: [],
-      battalions: [],
-      battle_tactics: [],
-      command_abilities: ['Salvo Fire', 'Target Sighted'],
-      endless_spells: [],
-      scenery: [],
-      spells: [
-        'Descending Ash Cloud (Greywater Fastness)',
-        'Choking Fumes (Greywater Fastness)',
-        'Chain Lightning (Azyr)',
-        'Fireball (Aqshy)',
-        'Mystifying Miasma (Ulgu)',
-        'Pall of Doom (Shyish)',
-        "Pha's Protection (Hysh)",
-        'Shield of Thorns (Ghyran)',
-        'Transmutation of Lead (Chamon)',
-        'Wildform (Ghur)',
-      ],
-      command_traits: ['Drillmaster (Greywater Fastness)'],
-      core_rules: [],
-      triumphs: [],
-      units: [
-        'Battlemage',
-        'Cogsmith',
-        'Runelord',
-        'Freeguild Guard',
-        'Freeguild Handgunners',
-        'Steam Tank with Commander',
-        'Helblaster Volley Gun',
-        'Dark Riders',
-        'Freeguild Greatswords',
-      ],
-    })
-  })
-
   it('handles Gloomspite3', () => {
     const fileTxt = getFile('Gloomspite3')
     const pages = handleAzyrPages(fileTxt)
     const res = getAzyrArmyFromPdf(pages)
     expect(res.selections.artifacts).toContain("Nibbla's 'Itty Ring")
-  })
-
-  it('handles CoS3', () => {
-    const fileTxt = getFile('CoS3')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections.units).toEqual(['Battlemage', 'Freeguild General', 'Dreadspears'])
-    expect(res.selections.command_traits).toEqual(['Aggressive General (Hammerhal)'])
-  })
-
-  it('handles CoS4', () => {
-    const fileTxt = getFile('CoS4')
-    const pages = handleAzyrPages(fileTxt)
-    const res = getAzyrArmyFromPdf(pages)
-    expect(res.selections).toEqual({
-      grand_strategies: [],
-      mount_traits: [],
-      prayers: [],
-      incarnates: [],
-      monstrous_rampages: [],
-      flavors: ['Anvilgard'],
-      artifacts: ['Venomfang Blade (Anvilgard)'],
-      battalions: [],
-      battle_tactics: [],
-      command_abilities: ['Make an Example of the Weak (Anvilgard)'],
-      endless_spells: [],
-      scenery: [],
-      spells: ['Sap Strength (Anvilgard, Har Kuron)', 'Amber Spear', 'Wildform (Ghur)'],
-      command_traits: ['Blackfang Crimelord (Anvilgard)', 'Hidden Agents (Anvilgard Battle Trait)'],
-      core_rules: [],
-      triumphs: [],
-      units: ['Battlemage on Griffon', 'Freeguild Handgunners', 'War Hydra'],
-    })
   })
 
   it('handles Slaanesh1', () => {
