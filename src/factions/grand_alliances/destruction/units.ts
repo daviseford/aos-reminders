@@ -283,6 +283,25 @@ const DestructionUnits = {
       },
     ],
   },
+  "Big Grikk's Kruleshots": {
+    effects: [
+      {
+        name: `Back-stabbin' Big Shot`,
+        desc: `The BEAST-SKEWER KILLBOW in this regiment of renown has the HERO keyword.`,
+        when: [DURING_GAME],
+      },
+      {
+        name: `Toxin-laden Skewers`,
+        desc: `If the unmodified hit roll for an attack made by a model in this regiment of renown is 6, that attack causes a number of mortal wounds to the target equal to the weapon's Damage characteristic and the attack sequence ends (do not make a wound roll or save roll).`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+      },
+      {
+        name: `Skewer It Again!`,
+        desc: `If any wounds and/or mortal wounds caused by a shooting attack made by this regiment of renown's BEAST-SKEWER KILLBOW are allocated to an enemy MONSTER and not negated, you can pick any number of other models in this regiment of renown and say that they are focusing fire. If you do so, until the end of the phase, add 1 to the Attacks characteristic of missile weapons used by those models but all of their attacks must target that enemy MONSTER.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+    ],
+  },
 } satisfies TItemDescriptions
 
 export default tagAs(DestructionUnits, 'unit')
