@@ -12,10 +12,10 @@ const MonstrousRampages = {
       },
     ],
   },
-  'Magma-fuelled Grasp': {
+  'Giant Boing!': {
     effects: [
       {
-        name: `Magma-fuelled Grasp`,
+        name: `Giant Boing!`,
         desc: `Only a MANGLER SQUIGS unit that has made a charge move this turn can carry out this monstrous rampage. This MANGLER SQUIGS unit can make a 3D6" move but it must finish that move within 3" of any enemy units.`,
         when: [END_OF_CHARGE_PHASE],
       },

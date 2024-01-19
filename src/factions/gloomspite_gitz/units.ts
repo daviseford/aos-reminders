@@ -883,6 +883,28 @@ const Units = {
       },
     ],
   },
+  'Grotmas Gitz': {
+    effects: [
+      {
+        name: `Bludgeoning Cheer`,
+        desc: `After this unit makes a charge move, you can pick 1 enemy unit within 1" of this unit and roll a number of dice equal to the unmodified charge roll for that charge move. For each 4+, that enemy unit suffers 1 mortal wound.`,
+        when: [CHARGE_PHASE],
+        rule_sources: [rule_sources.GROTMAS_GITZ],
+      },
+      {
+        name: `Giftz for All!`,
+        desc: `After this unit has made a normal move, run or retreated, pick 1 enemy unit that this unit passed across and roll a dice. On a 4+, subtract 1 from the Damage characteristic of that unit's melee weapons (to a minimum of 1) until the start of your next hero phase.`,
+        when: [MOVEMENT_PHASE],
+        rule_sources: [rule_sources.GROTMAS_GITZ],
+      },
+      {
+        name: `'Oh! Grotmas bellz, Skragrott smellz'`,
+        desc: `Subtract 1 from hit rolls for attacks made by friendly Gloomspite Gitz units while they are wholly within 6" of this unit. Add 1 to the Damage characteristic of melee weapons used by friendly Gloomspite Gitz units while they are wholly within 6" of this unit.`,
+        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        rule_sources: [rule_sources.GROTMAS_GITZ],
+      },
+    ],
+  },
 } satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')
