@@ -176,6 +176,13 @@ const baseBloodwrack = {
   ],
 }
 
+const ShadowLeapEffect = {
+  name: `Shadow Leap`,
+  desc: `In your movement phase, instead of making a normal move or retreat with this unit, you can say that it will shadow leap. If you do so, remove this unit from the battlefield and set it up again anywhere on the battlefield more than 9" from all enemy units.`,
+  when: [MOVEMENT_PHASE],
+  shared: true,
+}
+
 const Morathi = {
   'Morathi-Khaine': {
     mandatory: {
@@ -448,6 +455,24 @@ const Units = {
       },
       TurnedToCrystalEffect,
     ],
+  },
+  'Slythael Shadestalker': {
+    effects: [
+      ShadowLeapEffect,
+      {
+        name: `Impenetrable Darkness`,
+        desc: `While this unit is more than 9" from all enemy units, this unit and friendly THE SHADEBORN units wholly within 9" of this unit have a ward of 4+.`,
+        when: [WARDS_PHASE],
+      },
+      {
+        name: `Mask of Shadowed Mirrors`,
+        desc: `At the end of the charge phase, you can pick 1 enemy unit within 3" of this unit and roll 2D6. If the score exceeds that enemy unit's Bravery characteristic, that enemy unit cannot issue or receive commands until the end of the turn.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+    ],
+  },
+  'The Shadeborn': {
+    effects: [ShadowLeapEffect],
   },
 } satisfies TItemDescriptions
 

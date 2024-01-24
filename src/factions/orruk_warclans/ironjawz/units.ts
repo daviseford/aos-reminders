@@ -18,7 +18,6 @@ import {
 } from 'types/phases'
 import rule_sources from '../rule_sources'
 import spells from './spells'
-import meta_rule_sources from 'meta/rule_sources'
 import monstrous_rampages from './monstrous_rampages'
 import { TItemDescriptions } from 'factions/factionTypes'
 
@@ -59,14 +58,6 @@ const MawGruntaSharedEffects = [
     shared: true,
   },
 ]
-
-const CarvePathEffect = {
-  name: `Hack 'n' Charge`,
-  desc: `Pick an enemy unit with a Wounds characteristic of 4 or less within 3" of this unit and roll a dice. If the roll is less than this unit's momentum score, that enemy unit suffers a number of mortal wounds equal to the roll and you can immediately attempt a charge with this unit even though it is within 3" of an enemy unit. When a unit charges in this manner, it can pass across enemy units with a Wounds characteristic of 4 or less in the same manner as a unit that can fly.`,
-  when: [END_OF_CHARGE_PHASE],
-  shared: true,
-  rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ, meta_rule_sources.ERRATA_DAWNBRINGERS_BOOK_2],
-}
 
 const StrengthFromVictoryEffect = {
   name: `Strength from Victory`,
@@ -278,9 +269,11 @@ const IronjawzUnits = {
     ],
   },
   'Tuskboss On Maw-Grunta': {
+    mandatory: {
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Carve a Path'])],
+    },
     effects: [
       ...MawGruntaSharedEffects,
-      CarvePathEffect,
       {
         name: `Head of the Stampede`,
         desc: `If this unit makes a charge move, you can reroll charge rolls for all friendly MAW-GRUNTA units on the battlefield until the end of the phase.`,
@@ -290,7 +283,10 @@ const IronjawzUnits = {
     ],
   },
   "Maw-Grunta with Hakkin' Krew": {
-    effects: [...MawGruntaSharedEffects, CarvePathEffect],
+    mandatory: {
+      monstrous_rampages: [keyPicker(monstrous_rampages, ['Carve a Path'])],
+    },
+    effects: [...MawGruntaSharedEffects],
   },
   'Maw-Grunta Gougers': {
     mandatory: {
