@@ -8,6 +8,13 @@ const getFile = (filename: string): string => {
 }
 
 describe('getWarhammerAppArmy', () => {
+  it('should correctly read 1706904119603-Warhammer_App', () => {
+    const parsedText = getFile('1706904119603-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.units).toContain("Gryselle's Arenai")
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1707162510353-Warhammer_App', () => {
     const parsedText = getFile('1707162510353-Warhammer_App')
     const res = getWarhammerAppArmy(parsedText)
