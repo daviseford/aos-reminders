@@ -98,6 +98,7 @@ export const cleanWarhammerAppText = (text: string): string[] => {
         .replace(/^Great Endrinworks: /g, warhammerAppPlaceholders.ARTIFACTS_PREFIX)
         .replace(/^Cursed Mutations: /g, warhammerAppPlaceholders.MOUNT_TRAITS_PREFIX)
         .replace(/^Drakeblood Curses: /g, warhammerAppPlaceholders.COMMAND_TRAITS_PREFIX)
+        .replace(/^Seasons of War: /g, warhammerAppPlaceholders.SUBFACTION_PREFIX)
 
         // One final trim, and we're done!
         .trim()

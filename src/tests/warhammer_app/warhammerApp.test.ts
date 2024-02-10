@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import { GLOOMSPITE_GITZ, SKAVEN } from 'meta/factions'
+import { GLOOMSPITE_GITZ, SKAVEN, SYLVANETH } from 'meta/factions'
 import path from 'path'
 import { getWarhammerAppArmy } from 'utils/warhammer_app/getWarhammerAppArmy'
 
@@ -8,6 +8,14 @@ const getFile = (filename: string): string => {
 }
 
 describe('getWarhammerAppArmy', () => {
+  it('should correctly read Sylvaneth_Seasons_vs_Subfaction', () => {
+    const parsedText = getFile('Sylvaneth_Seasons_vs_Subfaction')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.factionName).toEqual(SYLVANETH)
+    expect(res.selections.flavors).toContain("Oakenbrow")
+    expect(res.subFactionName).toEqual('The Dwindling')
+  })
+
   it('should correctly read Dec_22_update', () => {
     const parsedText = getFile('Dec_22_update')
     const res = getWarhammerAppArmy(parsedText)
