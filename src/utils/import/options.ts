@@ -49,6 +49,7 @@ import { AZYR, BATTLESCRIBE, TImportParsers, UNKNOWN, WARHAMMER_APP, WARSCROLL_B
 // Warscroll Builder on the left - AoS Reminders on the right
 const warscrollTypoMap: Record<string, string> = {
   'Abhorrant Ghoul King on Terrorgheist': 'Abhorrant Ghoul King on Royal Terrorgheist',
+  'Alarith Afterschock': 'Alarith Aftershock',
   'Anointed of Asuryan on Flamespyre Phoenix': 'Anointed on Flamespyre Phoenix',
   'Anointed of Asuryan on Frostheart Phoenix': 'Anointed on Frostheart Phoenix',
   'Arch Sorcerer': 'Arch-Sorcerer',
@@ -59,6 +60,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Bastiladon with Ark of Sotek': 'Bastiladon',
   'Bastiladon with Solar Engine': 'Bastiladon',
   'Belladamma Volga, First of the Vyrkos': 'Belladamma Volga',
+  'Belthanos, First Thorn of Kurnoth': 'Belthanos',
   'Berzerker Lord': 'Berserker Lord',
   'Blade of All Frost': 'Blade of All-Frost',
   'Blade of the All-Frost': 'Blade of All-Frost',
@@ -72,6 +74,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Brimstone Horrors of Tzeentch': 'Horrors of Tzeentch',
   'Brute Fist': 'BruteFist',
   'Bursting with Power': "Burstin' with Power",
+  'Cado Ezechiar, The Hollow King': 'Cado Ezechiar',
   'Celestant-Prime, Hammer of Sigmar': 'Celestant-Prime',
   'Chaos Gorebeast Chariots': 'Gorebeast Chariots',
   'Corpse Cart with Balefire Brazier': 'Corpse Cart w/ Balefire Brazier',
@@ -148,6 +151,7 @@ const warscrollTypoMap: Record<string, string> = {
   'Slaves to Darkness Chaos Spawn': 'Chaos Spawn',
   'Slaves to Darkness Daemon Prince': 'Daemon Prince',
   'Spider Rider Skittermob': 'Spider Rider Skitterswarm',
+  'Squigboss with Gnasha-squig': 'Squigboss',
   'Strength of Goodhood': 'Strength of Godhood',
   'Swampcalla Shaman with Pot-grot': 'Swampcalla Shaman and Pot-grot',
   'Terrorghiest Mantle': 'Terrorgheist Mantle',
@@ -180,8 +184,6 @@ const warscrollTypoMap: Record<string, string> = {
   Razordons: 'Razordon Hunting Pack',
   Salamanders: 'Salamander Hunting Pack',
   Vindicators: 'Vindictors',
-  'Cado Ezechiar, The Hollow King': 'Cado Ezechiar',
-  'Squigboss with Gnasha-squig': 'Squigboss',
 }
 
 // Azyr on the left - AoS Reminders on the right

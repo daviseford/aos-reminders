@@ -30,6 +30,20 @@ const getFile = (filename: string): string[] => {
 }
 
 describe('getWarscrollArmyFromJson', () => {
+  it('should correctly read 1707188390783-Warscroll_Builder', () => {
+    const parsedText = getFile('1707188390783-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.units).toContain('Belthanos')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1707246579982-Warscroll_Builder', () => {
+    const parsedText = getFile('1707246579982-Warscroll_Builder')
+    const res = getWarscrollArmyFromPdf(parsedText)
+    expect(res.selections.grand_strategies).toContain('Alarith Aftershock')
+    expect(res.errors).toEqual([])
+  })
+
   it('should correctly read 1640813052545-Warscroll_Builder', () => {
     const parsedText = getFile('1640813052545-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
