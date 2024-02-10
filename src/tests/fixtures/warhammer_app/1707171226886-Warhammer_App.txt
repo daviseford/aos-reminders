@@ -1,0 +1,33 @@
+- Army Faction: Soulblight Gravelords
+- Army Type: Vyrkos
+- Grand Strategy: Empire of Corpses
+- Triumph: Inspired
+LEADERS
+Gorslav the Gravekeeper (140)*
+- General
+- Command Traits: Spoor Trackers
+- Artefacts of Power: Ulfenkarni Phylactery
+Vampire Lord (150)**
+- Spells: Hoarfrost
+Torgillius the Chamberlain (180)**
+- Spells: Fading Vigour
+BATTLELINE
+Deadwalker Zombies (300)*
+Deadwalker Zombies (300)*
+Deadwalker Zombies (150)*
+Dire Wolves (150)**
+- Doom Wolf
+Deadwalker Zombies (300)**
+Deadwalker Zombies (150)**
+OTHER
+Corpse Cart (90)*
+- Corpse Lash
+- Unholy Lodestone
+Corpse Cart (90)**
+- Corpse Lash
+- Unholy Lodestone
+CORE BATTALIONS
+*Battle Regiment
+**Battle Regiment
+TOTAL POINTS: 2000/2000
+Created with Warhammer Age of Sigmar: The App

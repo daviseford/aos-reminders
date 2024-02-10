@@ -70,7 +70,7 @@ export const cleanWarhammerAppText = (text: string): string[] => {
         .replace(/\*+$/g, '') // Remove asterik suffixes
         .replace(/^\*+/g, '') // Remove asterik prefixes e.g. "**Bosses of the Stomp - Unified"
         .replace(/^[0-9]+ x /g, '') // Remove quantity from units e.g. "3 x Razordons"
-        .replace(/ \([0-9]+\)$/g, '') // Remove point values e.g. "Slann Starmaster (360)"
+        .replace(/\([0-9]+\)$/g, '') // Remove point values e.g. "Slann Starmaster (360)"
         .replace(/^-(\w)/g, `- $1`) //  Replace non-spaced list dash e.g. "-Warlord"
 
         // Replace text with standardized endings
@@ -106,6 +106,7 @@ export const cleanWarhammerAppText = (text: string): string[] => {
     .filter(txt => txt && txt.length > 2)
 
   const validPrefixes = Object.values(warhammerAppPlaceholders)
+
   // Remove weapon/unit equipment options that are irrelevant for us
   const pass4 = pass3
     .filter(x => {

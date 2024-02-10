@@ -1,0 +1,58 @@
+Army Faction: Orruk Warclans
+- Army Type: Kruleboyz
+- Army Subfaction: Big Yellers
+
+LEADER
+
+1 x Gobsprakk (240)
+
+1 x Breaka-boss on Mirebrute Troggoth (180)
+- Mount Traits: Fast ’Un
+
+1 x Swampcalla Shaman and Pot-grot (100)*
+- Spells: Sneaky Miasma
+
+1 x Swampcalla Shaman and Pot-grot (100)*
+- Spells: Choking Mist
+
+1 x Snatchaboss on Sludgeraker Beast (290)**
+- General
+- Command Traits: Supa Sneaky
+- Artefacts: Mork’s Eye Pebble
+
+BATTLELINE
+
+20 x Gutrippaz (150)**
+- Gutrippa Boss
+- 2 x Gutrippa Banner Bearer
+- 2 x Gutrippa Drummer
+- Wicked Stikka
+
+6 x Man-skewer Boltboyz (120)**
+- Boltboy Boss
+
+6 x Man-skewer Boltboyz (120)**
+- Boltboy Boss
+
+10 x Hobgrot Slittaz (80)**
+- Noise-maker
+- Hobgrot Boss
+- Scrap Totem Bearer
+
+ARTILLERY
+
+1 x Beast-skewer Killbow (80)**
+
+OTHER
+
+8 x Kruleboyz Monsta-killaz (135)**
+
+CORE BATTALIONS:
+
+*Andtorian Acolytes
+
+**Battle Regiment
+
+TOTAL POINTS: (1985/2000)
+
+Created with Warhammer Age of Sigmar: The App

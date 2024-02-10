@@ -836,6 +836,36 @@ const Units = {
       EshinToxinsEffect,
     ],
   },
+  'Skabbik Plagueseeker': {
+    mandatory: {
+      prayers: [keyPicker(prayers, ['Befoul-befoul!'])],
+    },
+    effects: [FrenziedAssaultEffect, PoisonousFumesEffect],
+  },
+  "Skabbik's Plaguepack": {
+    effects: [
+      {
+        name: `Rabidius Skench`,
+        desc: `1 model in this unit is Rabidius Skench. That model is armed with a Plague Censer instead of Plaguepack Weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Skritter`,
+        desc: `1 model in this unit is Skritter. That model is armed with an Aura of Corruption instead of Plaguepack Weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Aura of Corruption`,
+        desc: `Do not use the attack sequence for an attack made with an Aura of Corruption. Instead, roll a dice for each enemy unit that is within range. On a 4+, that unit suffers D3 mortal wounds.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Ruinous Supremacy`,
+        desc: `While this unit contests a befouled objective, enemy models cannot contest that objective (see Befoul-befoul! on the Skabbik Plagueseeker warscroll).`,
+        when: [DURING_GAME],
+      },
+    ],
+  },
 } satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

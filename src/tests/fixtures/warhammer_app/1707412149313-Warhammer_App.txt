@@ -1,0 +1,41 @@
+Army Faction: Soulblight Gravelords
+	- Army Type: Legion of Night
+	- Grand Strategy: Lust for Domination
+	- Triumphs: Inspired
+
+LEADER
+
+1 x Necromancer (100)*
+	- Spells: Fading Vigour
+
+1 x Vampire Lord (150)*
+	- Artefacts: Morbheg’s Claw
+	- Spells: Hoarfrost
+
+1 x Wight King (150)**
+	- General
+	- Command Traits: Unbending Will
+
+BATTLELINE
+
+20 x Deadwalker Zombies (150)**
+
+10 x Deathrattle Skeletons (110)**
+	- Skeleton Champion
+	- Standard Bearer
+
+20 x Grave Guard (160)**
+	- Seneschal
+	- Standard Bearer
+	- Hornblower
+	- Wight Blade and Crypt Shield
+
+CORE BATTALIONS:
+
+*Andtorian Acolytes
+
+**Battle Regiment
+
+TOTAL POINTS: (980/1000)
+
+Created with Warhammer Age of Sigmar: The App

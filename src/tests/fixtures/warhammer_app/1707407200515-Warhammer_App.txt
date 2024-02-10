@@ -1,0 +1,48 @@
+Army Faction: Slaves to Darkness
+	- Army Subfaction: Host of the Everchosen
+
+LEADER
+
+1 x Chaos Lord on Karkadrak (180)
+	- General
+	- Command Traits: Death Dealer
+	- Artefacts: Hellfire Sword
+	- Mark of Chaos: Khorne
+
+1 x Chaos Sorcerer Lord (120)
+	- Mark of Chaos: Slaanesh
+
+1 x Chaos Lord (110)
+	- Reaperblade and Daemonbound Steel
+	- Mark of Chaos: Nurgle
+
+1 x Slaves to Darkness Daemon Prince (150)
+
+BATTLELINE
+
+10 x Chaos Knights (220)
+	- Doom Knight
+	- Cursed Lance
+	- Mark of Chaos: Nurgle
+
+20 x Chaos Warriors (180)
+	- Aspiring Champion
+	- Standard Bearer
+	- Murderous Weapon
+	- Mark of Chaos: Nurgle
+
+10 x Chaos Chosen (230)
+	- Exalted Champion
+	- Skull Drummer
+	- Mark of Chaos: Khorne
+
+OTHER
+
+3 x Ogroid Theridons (150)
+	- Thorakon
+	- Goroan Great Axe
+	- Mark of Chaos: Khorne
+
+TOTAL POINTS: (1970/2000)
+
+Created with Warhammer Age of Sigmar: The App

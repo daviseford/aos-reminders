@@ -5,6 +5,7 @@ import {
   CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_CHARGE_PHASE,
   END_OF_COMBAT_PHASE,
   END_OF_HERO_PHASE,
   END_OF_SETUP,
@@ -320,6 +321,35 @@ const KruleboyzUnits = {
         name: `Paymaster`,
         desc: `Do not take battleshock tests for this unit if it includes Krookgrin.`,
         when: [BATTLESHOCK_PHASE],
+      },
+    ],
+  },
+  'Kruleboyz Monsta-killaz': {
+    effects: [
+      {
+        name: `Beastnob`,
+        desc: `1 in every 8 models in this unit must be a Beastnob. Add 1 to the Attacks characteristic of that model's Monsta-killaz Weapons. That model can issue commands to their own unit.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `Musician`,
+        desc: `1 in every 8 models in this unit must be a Bawla Boy. While this unit includes any Bawla Boyz, enemy MONSTERS within 3" of this unit cannot retreat.`,
+        when: [MOVEMENT_PHASE],
+      },
+      {
+        name: `Klutcha-grot`,
+        desc: `1 in every 8 models in this unit must be a Klutcha-grot. That model is armed with a Spiky Shell instead of Monsta-killaz Weapons.`,
+        when: [COMBAT_PHASE],
+      },
+      {
+        name: `A Tough Grot to Swallow`,
+        desc: `Once per phase, when an enemy MONSTER within 6" of this unit is picked to carry out a monstrous rampage, if this unit has any Klutcha-grots, you can say that the MONSTER will try to gobble up a Klutcha-grot. If you do so, roll a dice. On a 2+, that MONSTER cannot carry out a monstrous rampage that phase. On a 1, a Klutcha-grot in this unit is slain.`,
+        when: [END_OF_CHARGE_PHASE],
+      },
+      {
+        name: `Bait and Trap`,
+        desc: `At the start of the combat phase, you can pick 1 enemy MONSTER within 6" of this unit and roll a dice. Add 1 to the roll if that MONSTER has any wounds allocated to it. On a 3+, the strike-last effect applies to that MONSTER until the end of that phase.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },

@@ -30,6 +30,8 @@ export const importSelectionLookup =
       .map(val => {
         const orig = `${val}`
 
+        debugger
+
         // Check for typos
         if (typoMap[val]) val = typoMap[val]
 

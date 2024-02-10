@@ -1,0 +1,29 @@
+ - Army Faction: Ossiarch Bonereapers
+	 - Subfaction: Mortis Praetorians
+	 - Grand Strategy: The Scales Balanced
+LEADERS
+Katakros (500)*
+Liege-Kavalos (180)*
+Mortisan Ossifector (120)*
+	 - General
+	 - Command Traits: Show of Superiority
+	 - Artefacts of Power: Gothizzar Cartouche
+	 - Spells: Empower Nadirite Weapons
+BATTLELINE
+Immortis Guard (440)*
+Kavalos Deathriders (190)*
+	 - Necrophoros
+	 - Mortek Hekatos
+	 - Nadirite Blade
+Mortek Guard (130)*
+	 - Necrophoros
+	 - Mortek Hekatos
+	 - Soulcleaver Greatblade
+	 - Nadirite Blade
+OTHER
+Morghast Archai (440)*
+	 - Spirit Halberd
+CORE BATTALIONS
+*Battle Regiment
+TOTAL POINTS: 2000/2000
+Created with Warhammer Age of Sigmar: The App

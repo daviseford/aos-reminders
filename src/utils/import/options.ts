@@ -214,6 +214,7 @@ const warhammerAppTypoMap: Record<string, string> = {
   'Big Drogg Fort-kicka': 'Big Drogg Fort-Kicka - Gatebreaker',
   'Corpse Cart with Balefire Brazier': 'Corpse Cart w/ Balefire Brazier',
   'Corpse Cart with Unholy Lodestone': 'Corpse Cart w/ Unholy Lodestone',
+  'Grotmass Gitz': 'Grotmas Gitz',
   'Kurnoth Hunters with Kurnoth Greatbows': 'Kurnoth Hunters',
   'Kurnoth Hunters with Kurnoth Greatswords': 'Kurnoth Hunters',
   'Kurnoth Hunters with Kurnoth Scythes': 'Kurnoth Hunters',
