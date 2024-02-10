@@ -1,0 +1,24 @@
+- Army Faction: Gloomspite Gitz
+	 - Subfaction: Jaws of Mork
+	 - Grand Strategy: Chasing the Moon
+	 - Triumph: Indomitable
+LEADERS
+Fungoid Cave-Shaman (110)*
+	 - General
+	 - Command Traits: Eye of the Blizzard kill
+	 - Artefacts of Power: The Clammy Cowl
+	 - Spells: Hoarfrost
+Skragrott, the Loonking (230)*
+	 - Spells: Itchy Nuisance
+Grotmass Gitz(210)*
+BATTLELINE
+Squig Herd (140)*
+Boingrot Bounderz (300)*
+	 - Bounder Boss
+OTHER
+Gobbapalooza (170)*
+	 - Spells: Squig Lure
+CORE BATTALIONS
+*Battle Regiment
+TOTAL POINTS: 1160/1000
+Created with Warhammer Age of Sigmar: The App

@@ -1,0 +1,37 @@
+Army Faction: Sylvaneth
+    - Army Subfaction: Oakenbrow
+    - Grand Strategy: Hold the Line
+    - Triumphs: Bloodthirsty
+    - Seasons of War: The Dwindling
+
+LEADER
+
+1 x The Lady of Vines (250)
+    - Spells: Regrowth, Verdant Blessing
+
+1 x Spirit of Durthu (350)*
+    - General
+    - Command Traits: Warsinger
+    - Artefacts: Greenwood Gladius
+
+BATTLELINE
+
+1 x Treelord (230)*
+
+5 x Tree-Revenants (110)*
+
+ENDLESS SPELL
+
+1 x Spiteswarm Hive (40)
+
+TERRAIN
+
+1 x Awakened Wyldwood (0)
+
+CORE BATTALIONS:
+
+*Battle Regiment
+
+TOTAL POINTS: (980/1000)
+
+Created with Warhammer Age of Sigmar: The App

@@ -13,6 +13,7 @@ import Scenery from './scenery'
 import Spells from './spells'
 import Units from './units'
 import { TItemDescriptions } from 'factions/factionTypes'
+import grand_strategies from './grand_strategies'
 
 const subFactions = {
   [OSSIARCH_BONEREAPERS]: {
@@ -28,6 +29,7 @@ const subFactions = {
       command_traits: [CommandTraits],
       endless_spells: [EndlessSpells],
       flavors: [Flavors],
+      grand_strategies: [grand_strategies],
       scenery: [Scenery],
       spells: [Spells],
       units: [

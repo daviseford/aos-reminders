@@ -1,6 +1,6 @@
 import { CoreBattalions } from 'generic_rules'
 import { uniq } from 'lodash'
-import { TSupportedFaction } from 'meta/factions'
+import { SLAVES_TO_DARKNESS, TSupportedFaction } from 'meta/factions'
 import { getFactionFromList } from 'meta/faction_list'
 import { IImportedArmy, WARHAMMER_APP } from 'types/import'
 import { TSelections, TSelectionTypes } from 'types/selections'
@@ -97,6 +97,13 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
     }
 
     if (txt.startsWith(FLAVOR_PREFIX)) {
+      // Disagreement between WH App and AoSr. We think the "Hosts" are subfactions, in this specific case
+      if (factionName === SLAVES_TO_DARKNESS) {
+        subFactionName = txt.replace(FLAVOR_PREFIX, '').trim()
+        return accum
+      }
+
+      // Normal behavior
       accum.flavors.push(txt.replace(FLAVOR_PREFIX, '').trim())
       return accum
     }

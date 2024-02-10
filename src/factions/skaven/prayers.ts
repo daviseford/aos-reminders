@@ -40,6 +40,15 @@ const Prayers = {
       },
     ],
   },
+  'Befoul-befoul!': {
+    effects: [
+      {
+        name: `Befoul-befoul!`,
+        desc: `Befoul-befoul! is a prayer that has an answer value of 3 and a range of 13". If answered, pick an objective on the battlefield within range and visible to the chanter. That objective is befouled until the start of your next hero phase (see the Skabbik's Plaguepack warscroll). In addition, roll a dice for each friendly and enemy unit contesting that objective. On a 4+, that unit suffers D3 mortal wounds.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
 } satisfies TItemDescriptions
 
 export default tagAs(Prayers, 'prayer')

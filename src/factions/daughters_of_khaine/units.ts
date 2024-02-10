@@ -474,6 +474,21 @@ const Units = {
   'The Shadeborn': {
     effects: [ShadowLeapEffect],
   },
+  "Gryselle's Arenai": {
+    effects: [
+      {
+        name: `Champion`,
+        desc: `Gryselle, the Slaughterer, is the unit champion and has a Wounds characteristic of 3. That model can issue commands to their own unit.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      DanceOfDeathEffect,
+      {
+        name: `Acrobatic Bloodshed`,
+        desc: `If the unmodified hit rolls of 3 or more attacks made by this unit that target the same enemy unit in the same phase are 6, the strike-last effect applies to that enemy unit until the end of the turn.`,
+        when: [COMBAT_PHASE],
+      },
+    ],
+  },
 } satisfies TItemDescriptions
 
 export default tagAs(Units, 'unit')

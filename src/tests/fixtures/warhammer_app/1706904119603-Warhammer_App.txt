@@ -1,0 +1,33 @@
+ - Army Faction: Daughters of Khaine
+	 - Subfaction: Hagg Nar
+	 - Grand Strategy: Bloodthirsty Zealots
+	 - Triumph: Bloodthirsty
+LEADERS
+Hag Queen (110)
+	 - Prayers: Catechism of Murder
+Bloodwrack Shrine (180)
+	 - General
+	 - Command Traits: Arcane Mastery
+	 - Artefacts of Power: Shadow Stone
+	 - Spells: Flaming Weapon
+Slaughter Queen (110)
+	 - Prayers: Sacrament of Blood
+BATTLELINE
+Witch Aelves (110)
+	 - Hag
+	 - Death Pennant Bearer
+	 - Hornblower
+	 - Paired Sciansá
+Sisters of Slaughter (120)
+	 - Handmaiden
+	 - Hornblower
+	 - Death Pennant Bearer
+	 - Kruiplash and Bladed Buckler
+OTHER
+Gryselle’s Arenai (100)
+Blood Sisters (150)
+ENDLESS SPELLS & INVOCATIONS
+1 x Heart of Fury (50)
+1 x Bloodwrack Viper (60)
+TOTAL POINTS: 990/1000
+Created with Warhammer Age of Sigmar: The App

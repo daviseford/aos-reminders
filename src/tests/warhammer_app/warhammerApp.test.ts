@@ -1,5 +1,5 @@
 import { readFileSync } from 'fs'
-import { GLOOMSPITE_GITZ, SKAVEN } from 'meta/factions'
+import { GLOOMSPITE_GITZ, NURGLE, SKAVEN, SYLVANETH } from 'meta/factions'
 import path from 'path'
 import { getWarhammerAppArmy } from 'utils/warhammer_app/getWarhammerAppArmy'
 
@@ -8,6 +8,57 @@ const getFile = (filename: string): string => {
 }
 
 describe('getWarhammerAppArmy', () => {
+  it('should correctly read 1706904119603-Warhammer_App', () => {
+    const parsedText = getFile('1706904119603-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.units).toContain("Gryselle's Arenai")
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1707162510353-Warhammer_App', () => {
+    const parsedText = getFile('1707162510353-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.units).toContain('Kruleboyz Monsta-killaz')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1707409327935-Warhammer_App', () => {
+    const parsedText = getFile('1707409327935-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.factionName).toEqual(NURGLE)
+    expect(res.selections.units).toContain('Skabbik Plagueseeker')
+    expect(res.selections.units).toContain("Skabbik's Plaguepack")
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1707428733911-Warhammer_App', () => {
+    const parsedText = getFile('1707428733911-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.subFactionName).toEqual('Host of the Everchosen')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1707522049892-Warhammer_App', () => {
+    const parsedText = getFile('1707522049892-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.grand_strategies).toContain('The Scales Balanced')
+    expect(res.errors).toEqual([])
+  })
+
+  it('should correctly read 1707564526882-Warhammer_App', () => {
+    const parsedText = getFile('1707564526882-Warhammer_App')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.selections.units).toContain('Grotmas Gitz')
+  })
+
+  it('should correctly read Sylvaneth_Seasons_vs_Subfaction', () => {
+    const parsedText = getFile('Sylvaneth_Seasons_vs_Subfaction')
+    const res = getWarhammerAppArmy(parsedText)
+    expect(res.factionName).toEqual(SYLVANETH)
+    expect(res.selections.flavors).toContain('Oakenbrow')
+    expect(res.subFactionName).toEqual('The Dwindling')
+  })
+
   it('should correctly read Dec_22_update', () => {
     const parsedText = getFile('Dec_22_update')
     const res = getWarhammerAppArmy(parsedText)
