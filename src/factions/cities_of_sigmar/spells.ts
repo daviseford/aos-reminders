@@ -126,7 +126,7 @@ const Spells = {
     effects: [
       {
         name: `Blazing Weapons`,
-        desc: `Blazing Weapons is a spell with a casting value of 7 and a range of 12". If successfully cast, until the start of your next hero phase, friendly CITIES OF SIGMAR HUMAN units have blazing weapons while they are wholly within 12" of this unit. While a unit has blazing weapons, each unmodified hit roll of 6 for an attack made by that unit with a melee weapon causes 1 mortal wound to the target in addition to any damage it inflicts.`,
+        desc: `Casting value of 7 and a range of 12". If successfully cast, until the start of your next hero phase, friendly CITIES OF SIGMAR HUMAN units have blazing weapons while they are wholly within 12" of this unit. While a unit has blazing weapons, each unmodified hit roll of 6 for an attack made by that unit with a melee weapon causes 1 mortal wound to the target in addition to any damage it inflicts.`,
         when: [HERO_PHASE],
         rule_sources: [
           rule_sources.BATTLETOME_CITIES_OF_SIGMAR,
@@ -157,7 +157,7 @@ const Spells = {
     effects: [
       {
         name: `Tenebrael Blades`,
-        desc: `Tenebrael Blades is a spell with a casting value of 7 and a range of 9". Pick 1 friendly CITIES OF SIGMAR AELF unit wholly within range and visible to the caster. Until the start of your next hero phase, when making save rolls for attacks made with melee weapons by that CITIES OF SIGMAR AELF unit, the target's Save characteristic is '-'.`,
+        desc: `Casting value of 7 and a range of 9". Pick 1 friendly CITIES OF SIGMAR AELF unit wholly within range and visible to the caster. Until the start of your next hero phase, when making save rolls for attacks made with melee weapons by that CITIES OF SIGMAR AELF unit, the target's Save characteristic is '-'.`,
         when: [HERO_PHASE],
       },
     ],
