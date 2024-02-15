@@ -9,6 +9,7 @@ import {
   WARDS_PHASE,
   WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
 
 const BattleTraits = {
   [KHORNE]: {
@@ -25,8 +26,9 @@ const BattleTraits = {
       },
       {
         name: `Hatred of Sorcery`,
-        desc: `Each time a friendly BLADES OF KHORNE unit is affected by a spell cast by an enemy unit or the abilities of an endless spell summoned by an enemy unit, make a Hatred of Sorcery roll by rolling a dice. On a 5+, ignore the effects of that spell or endless spell's abilities on that unit and you receive 1 Blood Tithe point.`,
+        desc: `Each time a friendly BLADES OF KHORNE unit is affected by a spell cast by an enemy unit or the abilities of an endless spell summoned by an enemy unit, make a Hatred of Sorcery roll by rolling a dice. On a 5+, ignore the effects of that spell or endless spell's abilities on that unit and you receive 1 Blood Tithe point. Each time a friendly unit casts a spell, you must roll a dice. On a 5+, that spell is automatically unbound.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_KHORNE, meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE],
       },
     ],
   },

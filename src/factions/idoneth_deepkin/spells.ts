@@ -1,6 +1,8 @@
 import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { HERO_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 
 const Spells = {
   'Steed of Tides': {
@@ -54,8 +56,12 @@ const Spells = {
     effects: [
       {
         name: `Tsunami of Terror`,
-        desc: `Casting value of 7 and range of 12". If cast, pick up to D3 enemy units within range and visible to the caster. Subtract 1 from save rolls for attacks made with melee weapons that target that unit until your next hero phase.`,
+        desc: `Casting value of 7 and range of 18". If cast, pick up to 3 enemy units within range and visible to the caster. Subtract 1 from save rolls for attacks made with melee weapons that target that unit until your next hero phase.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_IDONETH_DEEPKIN,
+          meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE,
+        ],
       },
     ],
   },

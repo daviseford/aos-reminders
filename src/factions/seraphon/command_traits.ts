@@ -9,6 +9,8 @@ import {
   START_OF_COMBAT_PHASE,
   START_OF_HERO_PHASE,
 } from 'types/phases'
+import rule_sources from './rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 
 const CommandTraits = {
   'Arcane Might': {
@@ -35,8 +37,9 @@ const CommandTraits = {
     effects: [
       {
         name: `Lord of Celestial Resonance`,
-        desc: `Each time this general successfully casts a spell that is not unbound, successfully unbinds a spell or successfully dispels an endless spell, you receive 2 cosmic power points instead of 1.`,
+        desc: `The first time each phase that this general either successfully casts a spell that is not unbound, successfully unbinds a spell or successfully dispels an endless spell, you receive 2 cosmic power points instead of 1.`,
         when: [HERO_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_SERAPHON, meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE],
       },
     ],
   },

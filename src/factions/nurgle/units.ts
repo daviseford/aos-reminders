@@ -26,6 +26,7 @@ import rule_sources from './rule_sources'
 import Spells from './spells'
 import monstrous_rampages from './monstrous_rampages'
 import { TItemDescriptions } from 'factions/factionTypes'
+import meta_rule_sources from 'meta/rule_sources'
 
 const TaintedEndlessSpellEffect = {
   name: `Tainted Endless Spell`,
@@ -170,8 +171,9 @@ const Units = {
       },
       {
         name: `My Love Is Like a Ripe, Ripe Fart (Tune)`,
-        desc: `Enemy models within 3" of a friendly Nurgle Daemon unit that is wholly within 14" of any friendly Sloppity Bilepipers playing this tune cannot finish pile-in moves closer to a model in that unit than they were at the start of the move.`,
-        when: [COMBAT_PHASE],
+        desc: `Subtract 1 from hit rolls for attacks that target friendly Nurgle Daemon units wholly within 14" of any friendly Sloppity Bilepipers playing this tune.`,
+        when: [COMBAT_PHASE, SHOOTING_PHASE],
+        rule_sources: [rule_sources.BATTLETOME_NURGLE, meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE],
       },
     ],
   },

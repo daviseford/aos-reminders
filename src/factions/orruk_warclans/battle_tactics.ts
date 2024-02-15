@@ -26,9 +26,12 @@ const BattleTactics = {
     effects: [
       {
         name: `Sneak Up`,
-        desc: `You complete this tactic if, at the end of the turn, every friendly Kruleboyz unit is within 3" of any terrain features and is more than 3" from all enemy units.`,
+        desc: `You complete this tactic if, at the end of the turn, every friendly Kruleboyz unit is within 3" of any terrain features and is more than 3" from all enemy units. You can only pick this tactic if the model picked to be your general has the Kruleboyz keyword.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
+        rule_sources: [
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
+          meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE,
+        ],
       },
     ],
   },
@@ -36,9 +39,12 @@ const BattleTactics = {
     effects: [
       {
         name: `Dat's Our Turf Now!`,
-        desc: `You complete this tactic if, at the end of the turn, 2 or more friendly Ironjawz units are within 3" of the centre of the battlefield.`,
+        desc: `You complete this tactic if, at the end of the turn, 2 or more friendly Ironjawz units are within 3" of the centre of the battlefield. You can only pick this tactic if the model picked to be your general has the Ironjawz keyword.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
+        rule_sources: [
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
+          meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE,
+        ],
       },
     ],
   },

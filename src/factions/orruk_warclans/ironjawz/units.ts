@@ -20,34 +20,47 @@ import rule_sources from '../rule_sources'
 import spells from './spells'
 import monstrous_rampages from './monstrous_rampages'
 import { TItemDescriptions } from 'factions/factionTypes'
+import meta_rule_sources from 'meta/rule_sources'
 
 const MawGruntaSharedEffects = [
   {
     name: `Unstoppable Momentum`,
-    desc: `Each time this unit finishes a run or charge move, add D3 to its momentum score. This unit's momentum score can never exceed 6 or go below 1. At the end of each turn, subtract 1 from this unit's momentum score (to a minimum of 1).`,
+    desc: `Each time this unit finishes a run or charge move, add D3 to its momentum score. This unit's momentum score can never exceed 6 or go below 1. At the end of the battle round, subtract 1 from this unit's momentum score (to a minimum of 1).`,
     when: [DURING_GAME],
-    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+    rule_sources: [
+      rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ,
+      meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE,
+    ],
     shared: true,
   },
   {
     name: `Unstoppable Momentum`,
     desc: `Each time this unit finishes a run add D3 to its momentum score. This unit's momentum score can never exceed 6.`,
     when: [MOVEMENT_PHASE],
-    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+    rule_sources: [
+      rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ,
+      meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE,
+    ],
     shared: true,
   },
   {
     name: `Unstoppable Momentum`,
     desc: `Each time this unit finishes a charge move, add D3 to its momentum score. This unit's momentum score can never exceed 6.`,
     when: [CHARGE_PHASE],
-    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+    rule_sources: [
+      rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ,
+      meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE,
+    ],
     shared: true,
   },
   {
     name: `Unstoppable Momentum`,
-    desc: `Subtract 1 from this unit's momentum score (to a minimum of 1).`,
+    desc: `At the end of the battle round, subtract 1 from this unit's momentum score (to a minimum of 1).`,
     when: [END_OF_TURN],
-    rule_sources: [rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ],
+    rule_sources: [
+      rule_sources.BATTLETOME_SUPPLEMENT_IRONJAWZ,
+      meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE,
+    ],
     shared: true,
   },
   {
