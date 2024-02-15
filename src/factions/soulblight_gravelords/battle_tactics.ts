@@ -1,6 +1,8 @@
 import { tagAs } from 'factions/metatagger'
 import { START_OF_HERO_PHASE } from 'types/phases'
 import { TItemDescriptions } from 'factions/factionTypes'
+import rule_sources from './rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 
 const BattleTactics = {
   'Callous Overlord': {
@@ -25,8 +27,12 @@ const BattleTactics = {
     effects: [
       {
         name: `The Grasping Dead`,
-        desc: `Pick 1 friendly SUMMONABLE unit within 3" of any enemy units. You complete this tactic if that unit is within 3" of any enemy units at the end of this turn.`,
+        desc: `Pick 1 friendly Summonable unit within 3" of any enemy units. You complete this tactic if any enemy models were slain by that friendly unit this turn, and that friendly unit is within 3" of any enemy units at the end of this turn.`,
         when: [START_OF_HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SOULBLIGHT_GRAVELORDS,
+          meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE,
+        ],
       },
     ],
   },

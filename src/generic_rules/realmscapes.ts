@@ -349,6 +349,12 @@ const Realmscapes: TEntry[] = [
         when: [START_OF_HERO_PHASE],
         rule_sources: [meta_rule_sources.GHB_2023_2024],
       },
+      {
+        name: `Battle Tactic: Drain Their Power`,
+        desc: `You complete this battle tactic at the end of your turn if a friendly Hero with a Nullstone Adornment is contesting an objective that was controlled by your opponent at the start of your turn.`,
+        when: [START_OF_HERO_PHASE],
+        rule_sources: [meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE],
+      },
 
       // Nullstone Adornments
       {

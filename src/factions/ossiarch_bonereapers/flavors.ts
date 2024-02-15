@@ -1,5 +1,7 @@
 import { TItemDescriptions } from 'factions/factionTypes'
 import { CHARGE_PHASE, COMBAT_PHASE, HERO_PHASE, WOUND_ALLOCATION_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 
 const Flavors = {
   'Mortis Praetorians': {
@@ -44,8 +46,12 @@ const Flavors = {
     effects: [
       {
         name: `Eldritch Nulls`,
-        desc: `You can roll a dice each time a friendly NULL MYRIAD unit wholly within 9" of any friendly NULL MYRIAD MORTISANS or a friendly ARKHAN is affected by a spell cast by an enemy unit or the abilities of an endless spell summoned by an enemy unit. On a 2+, ignore the effect of that spell or the effects of that endless spell's abilities on that unit.`,
+        desc: `You can roll a dice each time a friendly Null Myriad unit is affected by a spell cast by an enemy unit or the abilities of an endless spell summoned by an enemy unit. On a 4+, ignore the effect of that spell or the effects of that endless spell's abilities on that unit.`,
         when: [HERO_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_OSSIARCH_BONEREAPERS,
+          meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE,
+        ],
       },
     ],
   },

@@ -6,6 +6,7 @@ import {
   DURING_GAME,
   END_OF_CHARGE_PHASE,
   END_OF_SETUP,
+  HERO_PHASE,
   MOVEMENT_PHASE,
   SHOOTING_PHASE,
   START_OF_HERO_PHASE,
@@ -184,9 +185,11 @@ const CoreBattalions: TEntry[] = [
     effects: [
       {
         name: `Magic Hunters`,
-        desc: `Each time a unit in this battalion is picked to fight, you can say that it will go on a wizard hunt. If you do so, pick 1 melee weapon profile on that unit's warscroll. Until the end of that phase, add 1 to the Attacks characteristic of that melee weapon, but all of the attacks that unit makes in that phase must target an enemy WIZARD.`,
-        when: [COMBAT_PHASE],
-        rule_sources: [meta_rule_sources.GHB_2023_2024],
+        desc: `Each time a unit in this battalion is affected by a spell cast by an enemy unit or the abilities of an endless spell summoned by an enemy unit, you can roll a dice. On a 5+, ignore the effect of that spell or the effects of that endless spell's abilities on this unit. 
+        
+        Each time a unit in this battalion is picked to fight, you can say that it will go on a wizard hunt. If you do so, pick 1 melee weapon profile on that unit's warscroll. Until the end of that phase, add 1 to the Attacks characteristic of that melee weapon, but all of the attacks that unit makes in that phase must target an enemy WIZARD.`,
+        when: [COMBAT_PHASE, HERO_PHASE],
+        rule_sources: [meta_rule_sources.GHB_2023_2024, meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE],
       },
     ],
   },

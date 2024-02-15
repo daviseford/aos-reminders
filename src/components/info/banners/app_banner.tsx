@@ -3,7 +3,7 @@ import { useTheme } from 'context/useTheme'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = '2023-sept-tactics-of-andtor'
+  const name = '2024-feb-battlescroll-nullstone-cache'
 
   return (
     <NotificationBanner
@@ -14,7 +14,7 @@ const AppBanner = () => {
       variant={isDark ? `info` : `info`}
     >
       <span>
-        <strong>NEW: </strong> Battlescroll: Tactics of Andtor (Sept 2023) is live!
+        <strong>NEW: </strong> Battlescroll: Nullstone Cache (Feb 2024) is live!
       </span>
     </NotificationBanner>
   )

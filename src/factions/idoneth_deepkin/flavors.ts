@@ -29,9 +29,12 @@ const Flavors = {
     effects: [
       {
         name: `Bloodthirsty Shiver`,
-        desc: `You can include Bloodthirsty Shivers in your army (pg 96). If the unmodified hit roll for an attack made by a unit in a Bloodthirsty Shiver is a 6, that attack scores 2 hits on the target instead of 1.`,
+        desc: `You can include Bloodthirsty Shivers in your army (pg 96). If the unmodified hit roll for an attack made by a unit in a Bloodthirsty Shiver is a 6, that attack automatically wounds (do not make a wound roll).`,
         when: [COMBAT_PHASE, SHOOTING_PHASE],
-        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
+        rule_sources: [
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
+          meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE,
+        ],
       },
     ],
   },

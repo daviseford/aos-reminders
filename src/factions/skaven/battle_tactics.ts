@@ -45,9 +45,12 @@ const BattleTactics = {
     effects: [
       {
         name: `Flee-flee!`,
-        desc: `You complete this battle tactic at the end of the turn if any friendly Skaven Battleline units retreated this turn and any friendly Skaven Heroes retreated this turn.`,
+        desc: `You complete this battle tactic at the end of the turn if 2 or more friendly Skaven units retreated this turn.`,
         when: [START_OF_HERO_PHASE],
-        rule_sources: [meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023],
+        rule_sources: [
+          meta_rule_sources.BATTLESCROLL_ANDTOR_SEPTEMBER_2023,
+          meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE,
+        ],
       },
     ],
   },

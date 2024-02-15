@@ -1,6 +1,8 @@
 import { TItemDescriptions } from 'factions/factionTypes'
 import { tagAs } from 'factions/metatagger'
 import { END_OF_CHARGE_PHASE } from 'types/phases'
+import rule_sources from './rule_sources'
+import meta_rule_sources from 'meta/rule_sources'
 
 const MonstrousRampages = {
   'Beast Grapple': {
@@ -16,8 +18,12 @@ const MonstrousRampages = {
     effects: [
       {
         name: `Earth-shaking Roar`,
-        desc: `Pick 1 enemy unit with a Wounds characteristic of 1 or 2 within 3" of this unit and roll 2D6. If the roll is higher than that unit's Bravery characteristic, for each point by which the roll exceeds the unit's Bravery characteristic, 1 model in that unit flees. That unit's commanding player decides which models flee. The effect of this monstrous rampage is not considered to be a battleshock test.`,
+        desc: `Pick 1 enemy unit within 3" of this model and roll a dice. On a 3+, that unit cannot issue or receive orders in the following combat phase. In addition, if the first roll was successful and that enemy unit has a Wounds characteristic of 1 or 2, roll 2D6. If that roll is higher than that unit's Bravery characteristic, for each point by which the roll exceeds the unit's Bravery characteristic, 1 model in that unit flees. That unit's commanding player decides which models flee. The effect of this monstrous rampage is not considered to be a battleshock test.`,
         when: [END_OF_CHARGE_PHASE],
+        rule_sources: [
+          rule_sources.BATTLETOME_SONS_OF_BEHEMAT,
+          meta_rule_sources.BATTLESCROLL_NULLSTONE_CACHE,
+        ],
       },
     ],
   },

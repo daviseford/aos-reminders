@@ -197,6 +197,12 @@ const meta_rule_sources = {
     name: 'Dawnbringers Book III',
     type: 'other_book',
   },
+
+  BATTLESCROLL_NULLSTONE_CACHE: {
+    name: 'Battlescroll: Nullstone Cache (February 2024)',
+    type: 'errata',
+    url: 'https://www.warhammer-community.com/wp-content/uploads/2023/07/u46c37l8ZQIPm57N.pdf',
+  },
 } satisfies TRuleSources
 
 export default meta_rule_sources
