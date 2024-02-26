@@ -1,29 +1,26 @@
 import { tagAs } from 'factions/metatagger'
 import { GenericEffects } from 'generic_rules'
-import { BATTLESHOCK_PHASE, END_OF_MOVEMENT_PHASE } from 'types/phases'
-import rule_sources from './rule_sources'
+import { BATTLESHOCK_PHASE, DURING_GAME, START_OF_HERO_PHASE } from 'types/phases'
 import { TItemDescriptions } from 'factions/factionTypes'
 
 const Scenery = {
   'Charnel Throne': {
     effects: [
       GenericEffects.FactionTerrainSetup,
-      GenericEffects.Defensible,
+      {
+        name: `Defensible`,
+        desc: `This terrain feature is a defensible terrain feature that can be garrisoned by 1 FLESH-EATER COURTS HERO that has a Wounds characteristic of up to 7.`,
+        when: [DURING_GAME],
+      },
       {
         name: `Ruler of All He Surveys`,
-        desc: `If you use the Summon Men-at-arms or Summon Imperial Guard command ability and the model you pick to issue the command is within 1" of this terrain feature, you can do so without a command point being spent.`,
-        when: [END_OF_MOVEMENT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_FLESH_EATER_COURTS,
-          rule_sources.ERRATA_JANUARY_2021,
-          rule_sources.ERRATA_JULY_2021,
-        ],
+        desc: `At the start of your hero phase, add D3 noble deeds points to any friendly FLESH-EATER COURTS HERO that is garrisoning this terrain feature.`,
+        when: [START_OF_HERO_PHASE],
       },
       {
         name: `Ghoulish Landmark`,
-        desc: `Add 1 to the Bravery characteristic of FLESH-EATER COURTS UNITS that are within 1" of any Charnel Thrones. Subtract 1 from the Bravery characteristic of other units that are within 1" of any Charnel Thrones.`,
+        desc: `While an enemy unit is within 12" of this terrain feature, it cannot be affected by any abilities that allow units to ignore battleshock tests.`,
         when: [BATTLESHOCK_PHASE],
-        rule_sources: [rule_sources.BATTLETOME_FLESH_EATER_COURTS, rule_sources.ERRATA_JULY_2021],
       },
     ],
   },

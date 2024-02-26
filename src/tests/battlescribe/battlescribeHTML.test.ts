@@ -214,14 +214,6 @@ describe('getBattlescribeArmy', () => {
     expect(res.selections.endless_spells).toContain("Scrapskuttle's Arachnacauldron")
   })
 
-  it('should correctly read 1595627477984-Battlescribe', () => {
-    const parsedText = getFile('1595627477984-Battlescribe')
-    const res = getBattlescribeArmy(parsedText)
-
-    expect(res.selections.units).toContain('Duke Crakmarrow')
-    expect(res.selections.units).toContain('The Grymwatch')
-  })
-
   it('should work with 1588693593835-Battlescribe', () => {
     const parsedText = getFile('1588693593835-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
@@ -237,7 +229,6 @@ describe('getBattlescribeArmy', () => {
   it('should work with 1590190604257-Battlescribe', () => {
     const parsedText = getFile('1590190604257-Battlescribe')
     const res = getBattlescribeArmy(parsedText)
-    // expect(res.selections.battalions).toContain('Sunclaw Starhost')
     expect(res.selections.units).not.toContain('Sunclaw Starhost')
   })
 
@@ -606,14 +597,8 @@ describe('getBattlescribeArmy', () => {
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
     expect(res.realmscape).toEqual('Chamon')
     expect(res.selections.scenery).toEqual(['Charnel Throne', 'Penumbral Engine'])
-    expect(res.selections.flavors).toEqual(['Gristlegore (Grand Court)'])
-    expect(res.selections.artifacts).toEqual([
-      'The Grim Garland (Royal Treasury)',
-      'The Dermal Robe (Royal Treasury)',
-      'Carrion Wand (Noble Heirlooms)',
-      'Blood-river Chalice (Royal Treasury)',
-      'Ghurish Mawshard',
-    ])
+    expect(res.selections.flavors).toEqual(['Gristlegore'])
+    expect(res.selections.artifacts).toEqual(['The Grim Garland', 'Blood-river Chalice'])
   })
 
   it('should work with Skaven2', () => {
