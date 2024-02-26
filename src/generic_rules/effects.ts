@@ -39,13 +39,13 @@ const GenericEffects = {
   Terrorgheist: [
     {
       name: `Death Shriek`,
-      desc: `Do not use the attack sequence for an attack made with a Death Shriek. Instead, roll a dice and add the Death Shriek value shown on this unit's damage table. If the total is higher than the target unit's Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the total.`,
+      desc: `Do not use the attack sequence for an attack made with this unit's Death Shriek. Instead, roll a dice and add the Death Shriek value shown on this unit's damage table. If the total is higher than the target unit's Bravery characteristic, the target unit suffers a number of mortal wounds equal to the difference between its Bravery characteristic and the total.`,
       when: [SHOOTING_PHASE],
       shared: true,
     },
     {
       name: `Gaping Maw`,
-      desc: `If the unmodified hit roll for an attack made with this unit's Fanged Maw is 6, the target suffers 6 mortal wounds and the attack sequence ends (do not make a wound roll or save roll).`,
+      desc: `If the unmodified hit roll for an attack made with this unit's Fanged Maw is 6, the target suffers 6 mortal wounds and the attack sequence ends (do not make a wound or save roll).`,
       when: [COMBAT_PHASE],
       shared: true,
     },
@@ -65,7 +65,7 @@ const GenericEffects = {
     },
     {
       name: `Loathsome Descent`,
-      desc: `During deployment, instead of setting up this unit on the battlefield, you can place it to one side and say that it is circling high above as a reserve unit. If you do so, at the end of your movement phase, you can set up this unit on the battlefield more than 9" from all enemy units.`,
+      desc: `During deployment, instead of setting up this unit on the battlefield, you can place it to one side and say that it is circling high above as a reserve unit.`,
       when: [DURING_SETUP],
       shared: true,
     },

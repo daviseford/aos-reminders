@@ -22,7 +22,6 @@ import {
   TZEENTCH,
 } from 'meta/factions'
 import path from 'path'
-import { DEPRECATED_MALIGN_SORCERY } from 'utils/import/options'
 import { getWarscrollArmyFromPdf } from 'utils/warscroll/getWarscrollArmy'
 
 const getFile = (filename: string): string[] => {
@@ -61,13 +60,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1639742595022-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Celestant-Prime')
-    expect(res.errors).toEqual([])
-  })
-
-  it('should correctly read 1639830310424-Warscroll_Builder', () => {
-    const parsedText = getFile('1639830310424-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.factionName).toEqual(FLESH_EATER_COURTS)
     expect(res.errors).toEqual([])
   })
 
@@ -260,13 +252,6 @@ describe('getWarscrollArmyFromJson', () => {
     const parsedText = getFile('1610861933877-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
     expect(res.selections.units).toContain('Abhorrant Ghoul King on Royal Terrorgheist')
-    expect(res.errors).toEqual([
-      {
-        reason: DEPRECATED_MALIGN_SORCERY,
-        severity: 'deprecation-warn',
-        text: 'Ethereal Amulet',
-      },
-    ])
   })
 
   it('should correctly read 1611179135350-Warscroll_Builder', () => {
@@ -443,12 +428,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.selections.units).toContain('Loremaster')
   })
 
-  it('should work with The Fleshform Raiment (Noble Heirlooms)', () => {
-    const parsedText = getFile('1576858425499-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-    expect(res.selections.artifacts).toContain('The Fleshform Raiment (Noble Heirlooms)')
-  })
-
   it('should work with Guardian of Souls and Chaos allegiance', () => {
     const parsedText = getFile('1574504452431-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -457,22 +436,6 @@ describe('getWarscrollArmyFromJson', () => {
     // Guardian of Souls is a DEATH unit...
     expect(res.errors).toEqual([{ severity: 'warn', text: 'Guardian of Souls' }])
   })
-
-  /* it('should work with Chaos Hellcannon', () => {
-    const parsedText = getFile('1574545285739-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(CHAOS_GRAND_ALLIANCE)
-    expect(res.selections.units).toEqual([
-      'Chaos Lord on Daemonic Mount',
-      'Gaunt Summoner of Tzeentch',
-      'Chaos Chosen',
-      'Chaos Warriors',
-      'Varanguard',
-      'Tuskgor Chariots',
-      'Hellcannon',
-    ])
-  }) */
 
   it('should work with Warcry scrolls', () => {
     const parsedText = getFile('1574613461286-Warscroll_Builder')
@@ -695,14 +658,6 @@ describe('getWarscrollArmyFromJson', () => {
     expect(res.factionName).toEqual(FLESH_EATER_COURTS)
   })
 
-  it('should work with Dark Wizardry', () => {
-    const parsedText = getFile('1572497009675-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(FLESH_EATER_COURTS)
-    expect(res.selections.command_traits).toContain('Dark Wizardry (Royalty)')
-  })
-
   it('should work with Destroyer of Foes', () => {
     const parsedText = getFile('1572123301755-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
@@ -754,15 +709,6 @@ describe('getWarscrollArmyFromJson', () => {
     const res = getWarscrollArmyFromPdf(parsedText)
 
     expect(res.factionName).toEqual(CITIES_OF_SIGMAR)
-  })
-
-  it('should work with FEC Command Traits', () => {
-    const parsedText = getFile('1571084621521-Warscroll_Builder')
-    const res = getWarscrollArmyFromPdf(parsedText)
-
-    expect(res.factionName).toEqual(FLESH_EATER_COURTS)
-    expect(res.selections.command_traits).toEqual(['The Feast Day (Delusion)', 'Dark Acolyte (Nobility)'])
-    expect(res.unknownSelections).toEqual([])
   })
 
   it('should work with The Grand Fyrd of Furios Peak', () => {

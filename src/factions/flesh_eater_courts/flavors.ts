@@ -1,64 +1,40 @@
-import { keyPicker } from 'factions/metatagger'
-import { COMBAT_PHASE, DURING_GAME, MOVEMENT_PHASE, SHOOTING_PHASE } from 'types/phases'
-import artifacts from './artifacts'
-import command_abilities from './command_abilities'
-import command_traits from './command_traits'
+import { COMBAT_PHASE, END_OF_TURN, HERO_PHASE, START_OF_COMBAT_PHASE } from 'types/phases'
 import { TItemDescriptions } from 'factions/factionTypes'
 
 const Flavors = {
-  'Morgaunt (Grand Court)': {
-    mandatory: {
-      artifacts: [keyPicker(artifacts, ['Decrepit Coronet'])],
-      command_abilities: [keyPicker(command_abilities, ['Heaving Masses'])],
-      command_traits: [keyPicker(command_traits, ['Savage Chivalry'])],
-    },
+  Morgaunt: {
     effects: [
       {
-        name: `Bloody Loyalty`,
-        desc: `You can reroll hit rolls of 1 for friendly MORGAUNT COURTIER units that are wholly within 12" of a friendly MORGAUNT SERFS unit. In addition, while a friendly MORGAUNT SERFS unit is wholly within 12" of a friendly MORGAUNT COURTIER, its Boundless Ferocity ability activates if the SERFS unit has 10 or more models. You cannot use this command ability more than once per phase.`,
-        when: [DURING_GAME],
+        name: `Morgaunt Kingdoms`,
+        desc: `Give 1 noble deeds point to each friendly MORGAUNT FLESH-EATER COURTS HERO at the end of the turn if that HERO is contesting an objective.`,
+        when: [END_OF_TURN],
       },
     ],
   },
-  'Hollowmourne (Grand Court)': {
-    mandatory: {
-      artifacts: [keyPicker(artifacts, ['Corpsefane Gauntlet'])],
-      command_abilities: [keyPicker(command_abilities, ['Ravenous Crusaders'])],
-      command_traits: [keyPicker(command_traits, ['Grave Robber'])],
-    },
+  Hollowmourne: {
     effects: [
       {
-        name: `Shattering Charge`,
-        desc: `You can reroll wound rolls of 1 for attacks made with melee weapons by friendly HOLLOWMOURNE COURTIER units and friendly HOLLOWMOURNE KNIGHTS units that have made a charge move in the same turn.`,
+        name: `Grisly Cavaliers`,
+        desc: `Add 1 to the Damage characteristic of melee weapons used by friendly HOLLOWMOURNE KNIGHTS units that have made a charge move in the same turn. This ability has no effect on attacks made by mounts.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  'Blisterskin (Grand Court)': {
-    mandatory: {
-      artifacts: [keyPicker(artifacts, ['Eye of Hysh'])],
-      command_abilities: [keyPicker(command_abilities, ['Lords of the Burning Skies'])],
-      command_traits: [keyPicker(command_traits, ['Hellish Orator'])],
-    },
+  Blisterskin: {
     effects: [
       {
-        name: `Blistering Speed`,
-        desc: `Add 2" to the Move characteristic of BLISTERSKIN units.`,
-        when: [MOVEMENT_PHASE],
+        name: `Pious Nobility`,
+        desc: `Friendly ABHORRANTS gain the PRIEST keyword but they cannot cast spells and chant prayers in the same hero phase.`,
+        when: [HERO_PHASE],
       },
     ],
   },
-  'Gristlegore (Grand Court)': {
-    mandatory: {
-      artifacts: [keyPicker(artifacts, ['Ghurish Mawshard'])],
-      command_abilities: [keyPicker(command_abilities, ['Call to War'])],
-      command_traits: [keyPicker(command_traits, ['Savage Strike'])],
-    },
+  Gristlegore: {
     effects: [
       {
-        name: `Peerless Ferocity`,
-        desc: `If the unmodified hit roll for an attack made by a GRISTLEGORE HERO or GRISTLEGORE MONSTER is 6, that attack inflicts 2 hits on that target instead of 1. Make a wound and save roll for each hit.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        name: `Savage Strike`,
+        desc: `At the start of your combat phase, you can pick 1 friendly GRISTLEGORE MONSTER on the battlefield. The strike-first effect applies to that MONSTER until the end of the phase.`,
+        when: [START_OF_COMBAT_PHASE],
       },
     ],
   },

@@ -1,228 +1,73 @@
 import { tagAs } from 'factions/metatagger'
 import {
-  CHARGE_PHASE,
   COMBAT_PHASE,
   DURING_GAME,
+  END_OF_MOVEMENT_PHASE,
   HERO_PHASE,
-  MOVEMENT_PHASE,
-  SAVES_PHASE,
-  SHOOTING_PHASE,
-  START_OF_COMBAT_PHASE,
-  START_OF_HERO_PHASE,
+  WARDS_PHASE,
+  WOUND_ALLOCATION_PHASE,
 } from 'types/phases'
-import rule_sources from './rule_sources'
 import { TItemDescriptions } from 'factions/factionTypes'
 
 const CommandTraits = {
-  'Crusading Army (Delusion)': {
+  'Shadowy Obfuscation': {
     effects: [
       {
-        name: `Crusading Army (Delusion)`,
-        desc: `Add 1 to run and charge rolls for friendly FLESH-EATER COURTS units.`,
-        when: [MOVEMENT_PHASE, CHARGE_PHASE],
-      },
-    ],
-  },
-  'The Royal Hunt (Delusion)': {
-    effects: [
-      {
-        name: `The Royal Hunt (Delusion)`,
-        desc: `You can reroll hit rolls of 1 and wound rolls of 1 for attacks made by friendly FLESH-EATER COURTS units that target a MONSTER.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  'The Feast Day (Delusion)': {
-    effects: [
-      {
-        name: `The Feast Day (Delusion)`,
-        desc: `Once per turn, you can use the Feeding Frenzy command ability without a command point being spent.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'A Matter of Honour (Delusion)': {
-    effects: [
-      {
-        name: `A Matter of Honour (Delusion)`,
-        desc: `You can reroll hit rolls of 1 for attacks made by friendly FLESH-EATER COURTS units that target a HERO. If the target is a general, you can reroll wound rolls of 1 as well.`,
-        when: [COMBAT_PHASE, SHOOTING_PHASE],
-      },
-    ],
-  },
-  'The Grand Tournament (Delusion)': {
-    effects: [
-      {
-        name: `The Grand Tournament (Delusion)`,
-        desc: `You can reroll hit rolls of 1 for attacks made by friendly FLESH-EATER COURTS HEROES other than your general.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  'Defenders of the Realm (Delusion)': {
-    effects: [
-      {
-        name: `Defenders of the Realm (Delusion)`,
-        desc: `You can reroll save rolls of 1 for friendly FLESH-EATER COURTS units that have at least half their models wholly within their own territory.`,
-        when: [SAVES_PHASE],
-      },
-    ],
-  },
-  'Bringer of Death (Royalty)': {
-    effects: [
-      {
-        name: `Bringer of Death (Royalty)`,
-        desc: `You can reroll wound rolls for attacks made by this general.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  'Frenzied Flesh-eater (Royalty)': {
-    effects: [
-      {
-        name: `Frenzied Flesh-eater (Royalty)`,
-        desc: `You can reroll hit and wound rolls for attacks made by this general if there are any enemy models that have suffered any wounds within 3" of this general.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  'Savage Beyond Reason (Royalty)': {
-    effects: [
-      {
-        name: `Savage Beyond Reason (Royalty)`,
-        desc: `If the unmodified hit roll for an attack made with a melee weapon by this general is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'Majestic Horror (Royalty)': {
-    effects: [
-      {
-        name: `Majestic Horror (Royalty)`,
-        desc: `If this general is chosen as the model that uses a command ability that summons FLESH-EATER COURTS models to the battlefield, they can use it without a command point having to be spent.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'Dark Wizardry (Royalty)': {
-    effects: [
-      {
-        name: `Dark Wizardry (Royalty)`,
-        desc: `Add 1 to casting, dispelling and unbinding rolls for this general.`,
-        when: [HERO_PHASE],
-      },
-    ],
-  },
-  'Completely Delusional (Royalty)': {
-    effects: [
-      {
-        name: `Completely Delusional (Royalty)`,
-        desc: `Once per battle, if this general has not been slain, you can pick a new delusion in your hero phase to replace the original delusion you chose for your army.`,
+        name: `Shadowy Obfuscation`,
+        desc: `This general is not visible to enemy models that are more than 12" away from them.`,
         when: [DURING_GAME],
       },
     ],
   },
-  'Bringer of Death (Nobility)': {
+  'Feverish Scholar': {
     effects: [
       {
-        name: `Bringer of Death (Nobility)`,
-        desc: `You can reroll wound rolls for attacks made by this general.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  'Frenzied Flesh-eater (Nobility)': {
-    effects: [
-      {
-        name: `Frenzied Flesh-eater (Nobility)`,
-        desc: `You can reroll hit and wound rolls for attacks made by this general if there are any enemy models that have suffered any wounds within 3" of this general.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
-      },
-    ],
-  },
-  'Savage Beyond Reason (Nobility)': {
-    effects: [
-      {
-        name: `Savage Beyond Reason (Nobility)`,
-        desc: `If the unmodified hit roll for an attack made with a melee weapon by this general is 6, that attack inflicts 2 hits on the target instead of 1. Make a wound and save roll for each hit.`,
-        when: [COMBAT_PHASE],
-      },
-    ],
-  },
-  'Hulking Brute (Nobility)': {
-    effects: [
-      {
-        name: `Hulking Brute (Nobility)`,
-        desc: `Add 1 to this general's Wounds characteristic.`,
-        when: [DURING_GAME],
-      },
-    ],
-  },
-  'Cruel Taskmaster (Nobility)': {
-    effects: [
-      {
-        name: `Cruel Taskmaster (Nobility)`,
-        desc: `If this general uses a Muster ability you can reroll the dice for this general that determine if slain models are returned to units (you must reroll all of the dice).`,
+        name: `Feverish Scholar`,
+        desc: `Add 1 to casting rolls, dispelling rolls and unbinding rolls for this general. If this general has 6 noble deeds points, add 2 to casting rolls, dispelling rolls and unbinding rolls for this general instead of 1.`,
         when: [HERO_PHASE],
       },
     ],
   },
-  'Dark Acolyte (Nobility)': {
+  'Master of the Menagerie': {
     effects: [
       {
-        name: `Dark Acolyte (Nobility)`,
-        desc: `Wizard only. In your hero phase, if the first spell this general attempts to cast from the Lore of Ossian Sorcery in that phase is successfully cast, that spell cannot be unbound.`,
-        when: [HERO_PHASE],
+        name: `Master of the Menagerie`,
+        desc: `When using the Summon Loyal Subjects battle trait, you can pick 1 friendly FLESH-EATER COURTS MONSTER that is not a HERO and that has been destroyed, instead of a unit of SERFS or KNIGHTS. Set up a replacement unit as described in the battle trait and allocate 6 wounds to that replacement MONSTER that cannot be negated. In addition, when that unit is set up, it can be set up wholly within 7" of the edge of the battlefield instead of 6".`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
-  'Savage Chivalry': {
+  'Stronger in Madness': {
     effects: [
       {
-        name: `Savage Chivalry`,
-        desc: `You can reroll hit rolls of 1 for this general while this general is within 12" of a friendly MORGAUNT SERFS unit.`,
-        when: [SHOOTING_PHASE, COMBAT_PHASE],
+        name: `Stronger in Madness`,
+        desc: `Add 2 to this general's Wounds characteristic.`,
+        when: [WOUND_ALLOCATION_PHASE],
+      },
+      {
+        name: `Stronger in Madness`,
+        desc: `While this general has 6 noble deeds points, they have a ward of 5+.`,
+        when: [WARDS_PHASE],
       },
     ],
   },
-  'Grave Robber': {
+
+  'Savage Beyond Reason': {
     effects: [
       {
-        name: `Grave Robber`,
-        desc: `Add 1 to the Attacks characteristic and Damage characteristic of this general's melee weapons while this general is within 3" of any enemy HEROES with an artifact of power.`,
+        name: `Savage Beyond Reason`,
+        desc: `If the unmodified hit roll for an attack made with a melee weapon by this general is 6, that attack scores 2 hits on the target instead of 1. If this general has 6 noble deeds points, that attack scores 3 hits on the target instead of 2.`,
         when: [COMBAT_PHASE],
       },
     ],
   },
-  'Hellish Orator': {
+
+  'Cruel Taskmaster': {
     effects: [
       {
-        name: `Hellish Orator`,
-        desc: `If this general is on the battlefield at the start of your hero phase, roll a D6. On a 4+ you receive 1 additional command point.`,
-        when: [START_OF_HERO_PHASE],
-      },
-    ],
-  },
-  'Savage Strike': {
-    effects: [
-      {
-        name: `Savage Strike`,
-        desc: `The strike-first effect applies to this general and their mount if they made a charge move in the same turn.`,
-        when: [START_OF_COMBAT_PHASE],
-        rule_sources: [
-          rule_sources.BATTLETOME_FLESH_EATER_COURTS,
-          rule_sources.ERRATA_JANUARY_2021,
-          rule_sources.ERRATA_JULY_2021,
-        ],
-      },
-    ],
-  },
-  'The Bright Emperor': {
-    effects: [
-      {
-        name: `The Bright Emperor`,
-        desc: `Once per battle, the battalion general can use the Ravenous Crusaders command ability without spending a command point.`,
-        when: [START_OF_HERO_PHASE],
+        name: `Cruel Taskmaster`,
+        desc: `If this general uses the Muster Guard ability to return models to a unit, reduce the noble deeds cost of each returned model by 1, or if the cost was already 1, you can bring back 1 additional model instead.`,
+        when: [END_OF_MOVEMENT_PHASE],
       },
     ],
   },
