@@ -8,7 +8,7 @@ import { GiftedSubscriptionPlans, SubscriptionPlans } from 'utils/plans'
 import { generateUUID, titleCase } from 'utils/textUtils'
 
 if (!isTest) {
-  ReactGA.initialize('386405185', {
+  ReactGA.initialize('G-EM4GX294XG', {
     // titleCase: false,
     gaOptions: { siteSpeedSampleRate: 100 },
   })
