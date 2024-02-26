@@ -1,4 +1,4 @@
-import ReactGA from 'react-ga'
+import ReactGA from 'react-ga4'
 import { TImportParsers, TLoadedArmy } from 'types/import'
 import { TSavePdfType } from 'types/pdf'
 import { TSelections } from 'types/selections'
@@ -8,11 +8,11 @@ import { GiftedSubscriptionPlans, SubscriptionPlans } from 'utils/plans'
 import { generateUUID, titleCase } from 'utils/textUtils'
 
 if (!isTest) {
-  ReactGA.initialize('UA-55820654-5', {
-    titleCase: false,
+  ReactGA.initialize('G-EM4GX294XG', {
+    // titleCase: false,
     gaOptions: { siteSpeedSampleRate: 100 },
   })
-  if (isProd) ReactGA.plugin.require('ecommerce')
+  // if (isProd) ReactGA.plugin.require('ecommerce')
 }
 
 /**
@@ -20,7 +20,8 @@ if (!isTest) {
  */
 export const logPageView = () => {
   if (isProd) {
-    ReactGA.pageview(window.location.pathname + window.location.search)
+    ReactGA.send({ hitType: 'pageview', page: window.location.pathname + window.location.search })
+    // ReactGA.pageview(window.location.pathname + window.location.search)
   }
 }
 
@@ -230,18 +231,36 @@ export const logSubscription = (planTitle: string, provider: 'stripe' | 'paypal'
   const plan = SubscriptionPlans.find(x => x.title === planTitle)
   if (!isProd || !plan) return
   try {
-    const id = generateUUID()
-    ReactGA.plugin.execute('ecommerce', 'addItem', {
-      id,
-      name: plan.title,
-      sku: provider === 'paypal' ? plan.paypal_prod : plan.stripe_prod,
-      price: plan.cost,
-      category: 'Subscription',
-      quantity: '1',
+    const transaction_id = generateUUID()
+
+    // https://github.com/codler/react-ga4/issues/11
+
+    // ReactGA.gtag('event', 'addItem', {
+    //   transaction_id,
+    //   name: plan.title,
+    //   sku: provider === 'paypal' ? plan.paypal_prod : plan.stripe_prod,
+    //   price: plan.cost,
+    //   category: 'Subscription',
+    //   quantity: '1',
+    // })
+
+    ReactGA.gtag('event', 'purchase', {
+      transaction_id,
+      value: plan.cost,
+      items: [
+        {
+          transaction_id,
+          name: plan.title,
+          sku: provider === 'paypal' ? plan.paypal_prod : plan.stripe_prod,
+          price: plan.cost,
+          category: 'Subscription',
+          quantity: '1',
+        },
+      ],
     })
-    ReactGA.plugin.execute('ecommerce', 'addTransaction', { id, revenue: plan.cost })
-    ReactGA.plugin.execute('ecommerce', 'send', 'ga')
-    ReactGA.plugin.execute('ecommerce', 'clear', 'ga')
+
+    // ReactGA.gtag('event', 'send', 'ga')
+    // ReactGA.gtag('event', 'clear', 'ga')
   } catch (err) {}
 }
 
@@ -249,20 +268,35 @@ export const logGiftedSubscription = (planTitle: string, quantity: string) => {
   const plan = GiftedSubscriptionPlans.find(x => x.title === planTitle)
   if (!isProd || !plan) return
   try {
-    const id = generateUUID()
-    const revenue = (parseFloat(plan.cost) * parseInt(quantity)).toFixed(2)
+    const transaction_id = generateUUID()
+    const value = (parseFloat(plan.cost) * parseInt(quantity)).toFixed(2)
 
-    ReactGA.plugin.execute('ecommerce', 'addItem', {
-      id,
-      name: plan.title,
-      sku: plan.stripe_prod,
-      price: plan.cost,
-      category: 'Gifted-Subscription',
-      quantity,
+    // https://github.com/codler/react-ga4/issues/11
+    // ReactGA.gtag('event', 'addItem', {
+    //   transaction_id,
+    //   name: plan.title,
+    //   sku: plan.stripe_prod,
+    //   price: plan.cost,
+    //   category: 'Gifted-Subscription',
+    //   quantity,
+    // })
+    ReactGA.gtag('event', 'purchase', {
+      transaction_id,
+      value,
+      items: [
+        {
+          transaction_id,
+          name: plan.title,
+          sku: plan.stripe_prod,
+          price: plan.cost,
+          category: 'Gifted-Subscription',
+          quantity,
+        },
+      ],
     })
-    ReactGA.plugin.execute('ecommerce', 'addTransaction', { id, revenue })
-    ReactGA.plugin.execute('ecommerce', 'send', 'ga')
-    ReactGA.plugin.execute('ecommerce', 'clear', 'ga')
+
+    // ReactGA.gtag('event', 'send', 'ga')
+    // ReactGA.gtag('event', 'clear', 'ga')
   } catch (err) {}
 }
 
