@@ -97,6 +97,7 @@ const BerserkersEffect = {
   name: `Berserkers`,
   desc: `This unit can run and still charge later in the turn.`,
   when: [CHARGE_PHASE],
+  shared: true,
 }
 
 const IronjawzUnits = {

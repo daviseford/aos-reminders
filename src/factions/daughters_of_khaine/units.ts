@@ -22,6 +22,7 @@ import Prayers from './prayers'
 import rule_sources from './rule_sources'
 import Spells from './spells'
 import { TItemDescriptions } from 'factions/factionTypes'
+import prayers from './prayers'
 
 const MorathiEffect = {
   name: `One Soul, Two Bodies/ Two Bodies, One Soul`,
@@ -486,6 +487,31 @@ const Units = {
         name: `Acrobatic Bloodshed`,
         desc: `If the unmodified hit rolls of 3 or more attacks made by this unit that target the same enemy unit in the same phase are 6, the strike-last effect applies to that enemy unit until the end of the turn.`,
         when: [COMBAT_PHASE],
+      },
+    ],
+  },
+  'Krethusa The Croneseer': {
+    mandatory: {
+      prayers: [keyPicker(prayers, ['Murder of Crows'])],
+    },
+    effects: [
+      {
+        name: `Burnt Offerings`,
+        desc: `Once per turn, in the hero phase, if this unit is wholly within 6" of a friendly Cauldron of Blood, you can say that it will commune with Morai-Heg.
+
+        If you do so, pick 1 friendly Daughters of Khaine unit wholly within 9" of this unit that does not have the Scthborn, Medusae, Melusai, The Shadow Queen or Morathi-Khaine keyword and roll a dice. On a 2+, you can pick 1 of the following prophecies to apply to that unit. A unit cannot be affected by the same prophecy more than once per turn.
+
+        Prophecy of Silence: Until the end of the turn, enemy units within 3" of this unit cannot receive commands.
+
+        Prophecy of Dark Wings: This unit can immediately make a normal move if it has not already made a normal move, retreated or been set up on the battlefield in this phase.
+        
+        Prophecy of Reclamation: Until the end of the turn, while this unit is contesting an objective, enemy units can only contest that objective if they have the Hero or Monster keyword.`,
+        when: [HERO_PHASE],
+      },
+      {
+        name: `Foresight of Morai-Heg`,
+        desc: `This unit has a ward of 4+.`,
+        when: [WARDS_PHASE],
       },
     ],
   },

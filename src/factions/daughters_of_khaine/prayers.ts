@@ -93,6 +93,15 @@ const Prayers = {
       },
     ],
   },
+  'Murder of Crows': {
+    effects: [
+      {
+        name: `Murder of Crows`,
+        desc: `Answer value of 4 and a range of 18". If answered, pick 1 enemy unit within range and visible to the chanter. That unit suffers D3 mortal wounds. Then, roll a dice. If the roll is equal to or higher than the Wounds characteristic of that enemy unit, subtract 1 from hit rolls for attacks made by that unit for the rest of the battle.`,
+        when: [HERO_PHASE],
+      },
+    ],
+  },
   'Dance of Doom': {
     effects: [
       {
