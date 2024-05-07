@@ -15,7 +15,7 @@
     "lodash": "4.17.21",
     "luxon": "2.5.2",
     "parse5": "6.0.1",
-    "pdfjs-dist": "2.4.456",
+    "pdfjs-dist": "4.2.67",
     "qs": "6.11.2",
     "react": "17.0.2",
     "react-beautiful-dnd": "13.1.1",
