@@ -34,4 +34,5 @@ export const ROUTES = {
   REDEEM: '/redeem',
   STATS: '/stats',
   SUBSCRIBE: '/subscribe',
+  GOODBYE: '/goodbye',
 }

@@ -1,8 +1,7 @@
 import { LinkButton } from 'components/helpers/link'
 import { useAppStatus } from 'context/useAppStatus'
 import { useTheme } from 'context/useTheme'
-import React from 'react'
-import { FaDiscord, FaEnvelopeOpenText, FaGithub, FaReddit } from 'react-icons/fa'
+import { FaDiscord, FaEnvelopeOpenText, FaGithub } from 'react-icons/fa'
 import { GITHUB_URL } from 'utils/env'
 
 interface IContactProps {
@@ -26,7 +25,7 @@ const Contact = ({ size = 'normal' }: IContactProps) => {
         Icon={FaEnvelopeOpenText}
         text={'Email'}
       />
-      <LinkButton href="//reddit.com/r/AoSReminders/" btnClass={btnClass} Icon={FaReddit} text={'Reddit'} />
+      {/* <LinkButton href="//reddit.com/r/AoSReminders/" btnClass={btnClass} Icon={FaReddit} text={'Reddit'} /> */}
       <LinkButton href="//discord.gg/2nt9Fxp" btnClass={btnClass} Icon={FaDiscord} text={'Discord'} />
     </>
   )
