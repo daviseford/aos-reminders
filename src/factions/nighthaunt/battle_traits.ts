@@ -11,6 +11,7 @@ import {
   SHOOTING_PHASE,
   START_OF_BATTLESHOCK_PHASE,
   START_OF_ROUND,
+  WARDS_PHASE,
 } from 'types/phases'
 
 const BattleTraits = {
@@ -80,7 +81,7 @@ const BattleTraits = {
     effects: [
       {
         name: `Vortex of Frenzied Violence`,
-        desc: `After a friendly SCARLET DOOM BLADEGHEIST REVENANTS unit makes a charge move, you can pick 1 enemy unit within of that unit. If you do so, roll a number of dice equal to the number of models from the charging unit. For each 5+, the target suffers 1 mortal wound.`,
+        desc: `After a friendly SCARLET DOOM BLADEGHEIST REVENANTS unit makes a charge move, you can pick 1 enemy unit within 1" of that unit. If you do so, roll a number of dice equal to the number of models from the charging unit. For each 5+, the target suffers 1 mortal wound.`,
         when: [CHARGE_PHASE],
       },
     ],
@@ -91,7 +92,7 @@ const BattleTraits = {
       {
         name: `Artisans of Harrowing Death`,
         desc: `Ward rolls cannot be made for wounds caused by attacks made with melee weapons by friendly QUICKSILVER DEAD DREADSCYTHE HARRIDANS units.`,
-        when: [SAVES_PHASE],
+        when: [WARDS_PHASE],
       },
     ],
   },

@@ -4,6 +4,8 @@
 
 [https://discord.gg/2nt9Fxp](https://discord.gg/2nt9Fxp)
 
+## THIS REPOSITORY IS LOOKING FOR A NEW MAINTAINER!
+
 ## How to Contribute
 
 If you want to add an army or edit an existing army, please do so! Use the `src/factions/sample/` folder as a reference for how things are added!

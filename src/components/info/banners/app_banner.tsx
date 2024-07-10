@@ -3,18 +3,19 @@ import { useTheme } from 'context/useTheme'
 
 const AppBanner = () => {
   const { isDark } = useTheme()
-  const name = '2024-feb-battletome-fec'
+  const name = '2024-goodbye'
 
   return (
     <NotificationBanner
-      displayOnce={true}
+      displayOnce={false}
       enableLog={true}
       name={name}
       persistClose={true}
-      variant={isDark ? `info` : `info`}
+      variant={isDark ? `warning` : `warning`}
     >
       <span>
-        <strong>NEW: </strong> Battletome: Flesh-Eater Courts is live!
+        AoS Reminders will <strong>not</strong> be updated to AoS 4th Edition. This website is no longer
+        actively maintained. <a href="/goodbye">Read more here</a>
       </span>
     </NotificationBanner>
   )
