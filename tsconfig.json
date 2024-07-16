@@ -19,5 +19,5 @@
     "target": "es5",
     "useUnknownInCatchVariables": false
   },
-  "include": ["src"],
+  "include": ["src",  "eslint.config.js"],
 }

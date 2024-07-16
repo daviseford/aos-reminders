@@ -1,4 +1,4 @@
-const replace = require('replace-in-file')
+import replace from 'replace-in-file';
 
 const replaceOptions = {
   files: ['src/factions/**/*.*(ts|tsx)', 'src/generic_rules/*.*(ts|tsx)'],
@@ -6,7 +6,7 @@ const replaceOptions = {
     /[‘’]/g, // Replace special apostrophes
     /[“”]/g, // Replace special quotes
     /[‑–—]/g, // Replace special dashes
-    / /g, // Remove non ASCII-spaces
+    / /g, // Remove non ASCII-spaces
     /½/g, // Remove 1/2 character
     // eslint-disable-next-line no-control-regex
     /[^\x00-\x7F]/g, // Remove all other non-ASCII characters

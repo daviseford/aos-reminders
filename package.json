@@ -2,6 +2,7 @@
   "name": "aos-reminders",
   "version": "5.2.9",
   "private": true,
+  "type": "module",
   "homepage": "./",
   "dependencies": {
     "@auth0/auth0-react": "2.2.4",
@@ -11,6 +12,7 @@
     "bootstrap": "4.6.0",
     "core-js": "3.35.0",
     "deepmerge": "4.3.1",
+    "eslint-plugin-import": "^2.29.1",
     "jspdf": "1.5.3",
     "lodash": "4.17.21",
     "luxon": "2.5.2",
@@ -45,7 +47,7 @@
     "gitclean": "git branch | grep -v \"master\" | xargs git branch -D",
     "intake:win": "ts-node-dev --respawn --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --transpile-only -r tsconfig-paths/register src/utils/dev/intakeTests.ts",
     "intake": "ts-node-dev --respawn --compiler-options '{ \"module\": \"commonjs\"}' --transpile-only -r tsconfig-paths/register src/utils/dev/intakeTests.ts",
-    "lint": "eslint --max-warnings 0 --ext ts,tsx src",
+    "lint": "eslint src --max-warnings 0",
     "prepush": "yarn clean && yarn format && yarn lint --fix && yarn tsc && yarn test",
     "pruneTests:win": "ts-node-dev --respawn --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --transpile-only -r tsconfig-paths/register src/utils/dev/pruneTests.ts",
     "pruneTests": "ts-node-dev --respawn --compiler-options '{ \"module\": \"commonjs\"}' --transpile-only -r tsconfig-paths/register src/utils/dev/pruneTests.ts",
@@ -56,12 +58,6 @@
     "verify": "ts-node-dev --compiler-options '{ \"module\": \"commonjs\"}' --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/verify.ts",
     "xlsx:win": "ts-node-dev --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/exportToSheet.ts",
     "xlsx": "ts-node-dev --compiler-options '{ \"module\": \"commonjs\"}' --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/exportToSheet.ts"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "husky": {
     "hooks": {
@@ -83,6 +79,8 @@
     ]
   },
   "devDependencies": {
+    "@eslint/compat": "^1.1.1",
+    "@eslint/js": "^9.7.0",
     "@types/jest": "^29.5.12",
     "@types/jspdf": "1.3.3",
     "@types/lodash": "4.14.202",
@@ -99,17 +97,24 @@
     "@types/react-redux": "7.1.31",
     "@types/react-router-dom": "5.3.3",
     "@types/superagent": "4.1.24",
+    "@typescript-eslint/eslint-plugin": "^7.16.0",
+    "@typescript-eslint/parser": "^7.16.0",
     "@vitejs/plugin-react-swc": "^3.7.0",
+    "eslint": "^9.7.0",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-react": "^7.34.4",
+    "globals": "^15.8.0",
     "husky": "4.3.8",
     "jsdom": "^24.1.0",
-    "prettier": "2.8.8",
-    "prettier-plugin-organize-imports": "2.3.4",
-    "pretty-quick": "3.1.3",
+    "prettier": "^3.3.3",
+    "prettier-plugin-organize-imports": "4.0.0",
+    "pretty-quick": "4.0.0",
     "replace-in-file": "6.3.5",
     "source-map-explorer": "2.5.3",
     "ts-node-dev": "1.1.8",
     "tsconfig-paths": "3.13.0",
     "typescript": "5.3.3",
+    "typescript-eslint": "^7.16.0",
     "vite": "^5.3.3",
     "vitest": "^2.0.2",
     "workbox-core": "6.5.4",
@@ -121,7 +126,7 @@
   },
   "resolutions": {
     "typescript": "5.3.3",
-    "@typescript-eslint/parser": "^6.7.5",
+    "@typescript-eslint/parser": "^7.16.0",
     "autoprefixer": "10.4.5"
   }
 }
