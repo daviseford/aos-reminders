@@ -114,28 +114,31 @@ export const parseRootSelection = (obj: IParentNode): IParsedRootSelection => {
       name = `Scenery: ${name}`
     }
 
-    const tableEntries = childNodes.reduce((a, x) => {
-      // New in 2021 (AoS3)
-      if (name === 'Grand Strategy' && x.nodeName === 'p') {
-        // @ts-expect-error
-        const potentialGrandStrategy = x?.childNodes?.[1]?.value
-        if (potentialGrandStrategy) name = `Grand Strategy: ${potentialGrandStrategy}`
-      }
+    const tableEntries = childNodes.reduce(
+      (a, x) => {
+        // New in 2021 (AoS3)
+        if (name === 'Grand Strategy' && x.nodeName === 'p') {
+          // @ts-expect-error
+          const potentialGrandStrategy = x?.childNodes?.[1]?.value
+          if (potentialGrandStrategy) name = `Grand Strategy: ${potentialGrandStrategy}`
+        }
 
-      // New in 2021 (AoS3)
-      if (name === 'Triumphs' && x.nodeName === 'p') {
-        // @ts-expect-error
-        const potentialGrandStrategy = x?.childNodes?.[1]?.value
-        if (potentialGrandStrategy) name = `Triumphs: ${potentialGrandStrategy}`
-      }
+        // New in 2021 (AoS3)
+        if (name === 'Triumphs' && x.nodeName === 'p') {
+          // @ts-expect-error
+          const potentialGrandStrategy = x?.childNodes?.[1]?.value
+          if (potentialGrandStrategy) name = `Triumphs: ${potentialGrandStrategy}`
+        }
 
-      // Catch-all for units and battalions and everything else
-      if (isParentNode(x) && x.nodeName === 'table') {
-        const { tableName, names } = getNamesFromTableTags(x)
-        if (tableName) a[tableName] = names
-      }
-      return a
-    }, {} as { [key: string]: string[] })
+        // Catch-all for units and battalions and everything else
+        if (isParentNode(x) && x.nodeName === 'table') {
+          const { tableName, names } = getNamesFromTableTags(x)
+          if (tableName) a[tableName] = names
+        }
+        return a
+      },
+      {} as { [key: string]: string[] }
+    )
 
     const entries = fixKeys(tableEntries)
 

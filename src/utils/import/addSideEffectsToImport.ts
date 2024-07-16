@@ -30,10 +30,13 @@ export const addSideEffectsToImport = (selections: TSelections, Army: IArmy): TS
   })
 
   // Handle selection side effects
-  const selectionSideEffects = Object.entries(lowerToUpperLookup).reduce((a, [k, v]) => {
-    a[k] = getSideEffects(Army[v])
-    return a
-  }, {} as Record<TSelectionTypes, ISideEffectsPayload>)
+  const selectionSideEffects = Object.entries(lowerToUpperLookup).reduce(
+    (a, [k, v]) => {
+      a[k] = getSideEffects(Army[v])
+      return a
+    },
+    {} as Record<TSelectionTypes, ISideEffectsPayload>
+  )
 
   Object.keys(selectionSideEffects).forEach(slice => {
     const effectsObj = selectionSideEffects[slice as TSelectionTypes]

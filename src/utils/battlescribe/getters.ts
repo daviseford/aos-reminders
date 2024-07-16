@@ -336,59 +336,68 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
 
   let className = ''
   let key = ''
-  const entries = pChildren.reduce((accum, x) => {
-    x.childNodes.forEach(cNode => {
-      let val = ''
+  const entries = pChildren.reduce(
+    (accum, x) => {
+      x.childNodes.forEach(cNode => {
+        let val = ''
 
-      if (isParentNode(cNode)) {
-        if (cNode.attrs.length > 0) {
-          if (cNode.attrs[0].value === 'bold' && className !== 'bold') {
-            className = 'bold'
-            key = ''
-          } else if (cNode.attrs[0].value !== 'bold' && className !== 'not_bold') {
-            accum[key] = ''
-            className = 'not_bold'
+        if (isParentNode(cNode)) {
+          if (cNode.attrs.length > 0) {
+            if (cNode.attrs[0].value === 'bold' && className !== 'bold') {
+              className = 'bold'
+              key = ''
+            } else if (cNode.attrs[0].value !== 'bold' && className !== 'not_bold') {
+              accum[key] = ''
+              className = 'not_bold'
+            }
           }
+          val = cleanText((cNode.childNodes[0] as IChildNode).value)
+        } else if (isChildNode(cNode)) {
+          if (!accum[key]) accum[key] = ''
+          className = 'not_bold'
+          val = cleanText(cNode.value)
         }
-        val = cleanText((cNode.childNodes[0] as IChildNode).value)
-      } else if (isChildNode(cNode)) {
-        if (!accum[key]) accum[key] = ''
-        className = 'not_bold'
-        val = cleanText(cNode.value)
-      }
 
-      if (className === 'bold') {
-        key = cleanText(`${key} ${val}`).replace(/:$/g, '')
-      } else {
-        accum[key] = cleanText(`${accum[key]} ${val}`)
-      }
-    })
+        if (className === 'bold') {
+          key = cleanText(`${key} ${val}`).replace(/:$/g, '')
+        } else {
+          accum[key] = cleanText(`${accum[key]} ${val}`)
+        }
+      })
 
-    return accum
-  }, {} as Record<string, string>)
+      return accum
+    },
+    {} as Record<string, string>
+  )
 
-  const liEntries = Object.keys(entries).reduce((a, key) => {
-    const val = entries[key]
-      .replace(/^Allegiance: /g, '') // Remove leading Allegiance indicator for subfactions
-      .replace(/^Awakened Wyldwood(,)?/g, '') // Remove random Sylvaneth Wyldwood entry
-      .replace(/(, )?Ur-Gold(,)?/g, '') // Remove Ur-Gold (not an allegiance)
-      .replace(/ {1,},$/g, '') // remove trailing comma
-      .trim()
-    a[key] = val
-    return a
-  }, {} as Record<string, string>)
+  const liEntries = Object.keys(entries).reduce(
+    (a, key) => {
+      const val = entries[key]
+        .replace(/^Allegiance: /g, '') // Remove leading Allegiance indicator for subfactions
+        .replace(/^Awakened Wyldwood(,)?/g, '') // Remove random Sylvaneth Wyldwood entry
+        .replace(/(, )?Ur-Gold(,)?/g, '') // Remove Ur-Gold (not an allegiance)
+        .replace(/ {1,},$/g, '') // remove trailing comma
+        .trim()
+      a[key] = val
+      return a
+    },
+    {} as Record<string, string>
+  )
 
   const tableTags = obj.childNodes.filter(x => isParentNode(x) && x.nodeName === 'table') as IParentNode[]
 
-  const tableTraits = tableTags.reduce((a, table) => {
-    // @ts-expect-error
-    const tableName = table.childNodes[0].childNodes[0].childNodes[0].childNodes[0].value
-    // @ts-expect-error
-    const tds = table.childNodes[0].childNodes.slice(1).map(x => x.childNodes[0])
-    const names = tds.map(x => x.childNodes[0].value).flat()
-    a[tableName] = names
-    return a
-  }, {} as Record<string, string[] | string>)
+  const tableTraits = tableTags.reduce(
+    (a, table) => {
+      // @ts-expect-error
+      const tableName = table.childNodes[0].childNodes[0].childNodes[0].childNodes[0].value
+      // @ts-expect-error
+      const tds = table.childNodes[0].childNodes.slice(1).map(x => x.childNodes[0])
+      const names = tds.map(x => x.childNodes[0].value).flat()
+      a[tableName] = names
+      return a
+    },
+    {} as Record<string, string[] | string>
+  )
 
   const mergedTraits = fixKeys(
     Object.keys(liEntries).reduce((a, key) => {
@@ -438,8 +447,7 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
       // @ts-expect-error
       obj?.childNodes?.[2]?.childNodes?.[0]?.childNodes[2]?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]
         ?.value
-    const constellation =
-      // @ts-expect-error
+    const constellation = // @ts-expect-error
       ulNode?.childNodes?.[0]?.childNodes[2]?.childNodes?.[0]?.childNodes?.[1]?.childNodes?.[1]?.value
         ?.replace('The ', '')
         ?.replace(', Show Celestial Conjuration Table', '')

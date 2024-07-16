@@ -80,8 +80,8 @@ export const getCollection = (army: TInitialArmy): TCollection => {
         const upperSlice = isString(slice)
           ? lowerToUpperLookup[slice]
           : !!_tag
-          ? lowerToUpperLookup[entryKeyToSelectionsKey[_tag]]
-          : undefined
+            ? lowerToUpperLookup[entryKeyToSelectionsKey[_tag]]
+            : undefined
 
         effects.forEach(effect => checkEffects(effect, Collection, upperSlice))
       })

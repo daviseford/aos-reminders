@@ -515,10 +515,10 @@ const getTrait = (type: TTraitType, txt: string) => {
   const sep = txt.includes(`${type} : `)
     ? `${type} : `
     : txt.includes(` (${type}) : `)
-    ? ` (${type}) : `
-    : txt.includes(`(${type}): `)
-    ? `(${type}): `
-    : `${type}: `
+      ? ` (${type}) : `
+      : txt.includes(`(${type}): `)
+        ? `(${type}): `
+        : `${type}: `
 
   const newTxt = txt.split(sep)[1].trim()
   return removePrefix(newTxt)

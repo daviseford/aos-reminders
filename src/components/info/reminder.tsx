@@ -165,8 +165,8 @@ const ActionText = (props: IActionTextProps) => {
     const _sources = actionRuleSources?.length
       ? actionRuleSources
       : factionRuleSource
-      ? [factionRuleSource]
-      : []
+        ? [factionRuleSource]
+        : []
     return _sources.slice().reverse() // Reverse the array so that newest entries are on top!
   }, [actionRuleSources, factionRuleSource])
 

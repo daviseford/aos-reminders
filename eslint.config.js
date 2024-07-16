@@ -15,7 +15,7 @@ export default [
     },
   },
   { languageOptions: { parserOptions: { ecmaFeatures: { jsx: true } } } },
-  { languageOptions: { globals: { ...globals.browser, ...globals.jest, ...globals.node} } },
+  { languageOptions: { globals: { ...globals.browser, ...globals.jest, ...globals.node } } },
   pluginJs.configs.recommended,
   ...tseslint.configs.recommended,
   ...fixupConfigRules(pluginReactConfig),

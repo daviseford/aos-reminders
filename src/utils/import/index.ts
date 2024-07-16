@@ -63,10 +63,13 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
     opts.typoMap
   )
 
-  const errorFreeSelections = SELECTION_TYPES.reduce((a, key) => {
-    a[key] = lookup(key)
-    return a
-  }, {} as Record<TSelectionTypes, string[]>)
+  const errorFreeSelections = SELECTION_TYPES.reduce(
+    (a, key) => {
+      a[key] = lookup(key)
+      return a
+    },
+    {} as Record<TSelectionTypes, string[]>
+  )
 
   const couldNotFind = difference(unknownSelections, foundSelections)
   if (couldNotFind.length > 0 && isDev) console.log('Could not find: ', couldNotFind)

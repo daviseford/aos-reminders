@@ -11,25 +11,28 @@ import { IItemDescription, TItemDescriptions } from './factionTypes'
 export const tagAs = <
   D extends Record<string, IItemDescription>,
   E extends TEntryProperties,
-  F extends D[keyof D]
+  F extends D[keyof D],
 >(
   obj: D,
   tag: E
 ) => {
-  return Object.keys(obj).reduce((a, key) => {
-    const origObj = obj[key]
+  return Object.keys(obj).reduce(
+    (a, key) => {
+      const origObj = obj[key]
 
-    const taggedObj = {
-      ...origObj,
-      // TODO: We used to tag all sub-effects. I'm not sure we need to anymore, tbh
-      // effects: origObj.effects.map(x => ({ ...x, [tag]: true })),
-      [tag]: true,
-    }
+      const taggedObj = {
+        ...origObj,
+        // TODO: We used to tag all sub-effects. I'm not sure we need to anymore, tbh
+        // effects: origObj.effects.map(x => ({ ...x, [tag]: true })),
+        [tag]: true,
+      }
 
-    // @ts-expect-error
-    a[key] = taggedObj
-    return a
-  }, {} as Record<keyof D, F & Record<E, true>>)
+      // @ts-expect-error
+      a[key] = taggedObj
+      return a
+    },
+    {} as Record<keyof D, F & Record<E, true>>
+  )
 }
 
 /**

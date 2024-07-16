@@ -162,15 +162,18 @@ export const processConditions = (
 ) => {
   const conditionNames = mapListToDict(flatten(Object.values(selections)))
 
-  const conditionsWithMetadata = Object.entries(selections).reduce((a, [key, value]) => {
-    value.forEach(name => {
-      a.push({
-        name,
-        tag: selectionsKeyToEntryKey[key],
+  const conditionsWithMetadata = Object.entries(selections).reduce(
+    (a, [key, value]) => {
+      value.forEach(name => {
+        a.push({
+          name,
+          tag: selectionsKeyToEntryKey[key],
+        })
       })
-    })
-    return a
-  }, [] as { tag: TEntryProperties; name: string }[])
+      return a
+    },
+    [] as { tag: TEntryProperties; name: string }[]
+  )
 
   const reminders = Object.keys(game).reduce((accum: Record<string, TTurnAction[]>, when) => {
     if (!game[when].length) return accum

@@ -57,17 +57,23 @@ const mergeData = (subFaction: IItemDescription, slice: TItemKey): TEntry[] => {
 export const mergeParentEffectObjs = <T extends TItemDescriptions>(
   objs: T[]
 ): (TItemDescriptions & TEntry)[] => {
-  return objs.reduce((a, obj) => {
-    const arr = parentEffectObjConverter(obj)
-    a = a.concat(arr)
-    return a
-  }, [] as (TItemDescriptions & TEntry)[])
+  return objs.reduce(
+    (a, obj) => {
+      const arr = parentEffectObjConverter(obj)
+      a = a.concat(arr)
+      return a
+    },
+    [] as (TItemDescriptions & TEntry)[]
+  )
 }
 
 const parentEffectObjConverter = <T extends TItemDescriptions>(obj: T): (T & TEntry)[] => {
-  return Object.keys(obj).reduce((a, name) => {
-    const entry = { ...obj[name], name }
-    a.push(entry as T & TEntry)
-    return a
-  }, [] as (T & TEntry)[])
+  return Object.keys(obj).reduce(
+    (a, name) => {
+      const entry = { ...obj[name], name }
+      a.push(entry as T & TEntry)
+      return a
+    },
+    [] as (T & TEntry)[]
+  )
 }

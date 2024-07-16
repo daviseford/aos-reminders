@@ -17,7 +17,7 @@ export class Faction<
   S extends TItemDescriptions,
   K extends Extract<keyof S, string>,
   RS extends TRuleSource,
-  BT extends TEffects[]
+  BT extends TEffects[],
 > {
   public readonly AggregateArmy: TSubfactionArmy
   public readonly flavorKeys: string[] = []
@@ -47,15 +47,25 @@ export class Faction<
 
     this.subFactionKeys = Object.keys(SubFactions) as K[]
 
-    this.subFactionKeyMap = this.subFactionKeys.reduce((a, k) => {
-      a[k] = k
-      return a
-    }, {} as Record<K, K>)
+    this.subFactionKeyMap = this.subFactionKeys.reduce(
+      (a, k) => {
+        a[k] = k
+        return a
+      },
+      {} as Record<K, K>
+    )
 
-    this.subFactionArmies = this.subFactionKeys.reduce((a, subFactionName) => {
-      a[subFactionName] = temporaryAdapter(this.SubFactions[subFactionName], subFactionName, this.flavorLabel)
-      return a
-    }, {} as Record<K, TSubfactionArmy>)
+    this.subFactionArmies = this.subFactionKeys.reduce(
+      (a, subFactionName) => {
+        a[subFactionName] = temporaryAdapter(
+          this.SubFactions[subFactionName],
+          subFactionName,
+          this.flavorLabel
+        )
+        return a
+      },
+      {} as Record<K, TSubfactionArmy>
+    )
 
     this.checkForDataEntryErrors()
   }

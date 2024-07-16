@@ -197,10 +197,13 @@ const DefaultScenery: TEntry[] = [
   // },
 ]
 
-export const SceneryEffectLookup = DefaultScenery.reduce((accum, entry: TEntry) => {
-  accum[entry.name as TSceneryEffects] = entry.effects
-  return accum
-}, {} as Record<TSceneryEffects, TEffects[]>)
+export const SceneryEffectLookup = DefaultScenery.reduce(
+  (accum, entry: TEntry) => {
+    accum[entry.name as TSceneryEffects] = entry.effects
+    return accum
+  },
+  {} as Record<TSceneryEffects, TEffects[]>
+)
 
 // Penumbral is now a scenery type.
 const PenumbralEffects: TEffects[] = [
