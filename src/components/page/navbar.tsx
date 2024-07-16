@@ -1,5 +1,4 @@
 import { useAuth0 } from '@auth0/auth0-react'
-import config from 'auth_config.json'
 import { LoadingHeader, OfflineHeader } from 'components/helpers/suspenseFallbacks'
 import GenericButton from 'components/input/generic_button'
 import NavbarWrapper from 'components/page/navbar_wrapper'
@@ -14,6 +13,7 @@ import useLogin from 'utils/hooks/useLogin'
 import useWindowSize from 'utils/hooks/useWindowSize'
 import { LocalSavedArmies, LocalTheme, LocalUserName } from 'utils/localStore'
 import { SubscriptionPlans } from 'utils/plans'
+import config from '../../auth_config.json'
 
 const Navbar = () => {
   const { isOffline } = useAppStatus()

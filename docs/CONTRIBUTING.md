@@ -129,7 +129,7 @@ Next, run `yarn build` and then `cd` into the directory and serve it up!
 
 ```bash
 yarn build
-cd build/
+cd dist/
 serve
 ```
 

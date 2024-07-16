@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta property=og:site_name content="AoS Reminders">
+    <meta property="og:image" content="https://aosreminders.com/img/logo_border.png">
+    <meta property="article:tag" content="warhammer">
+    <meta name="author" content="Davis E. Ford">
+    <meta property="profile:first_name" content="Davis">
+    <meta property="profile:last_name" content="Ford">
+    <meta name="description"
+      content="Never forget your Warhammer: Age of Sigmar abilities again! Generate helpful in-game reminders tailored to your AoS army.">
+    <meta name="keywords" content="warhammer, sigmar, cheat, sheet, competitive">
+    <meta name="og:description"
+      content="Never forget your Warhammer: Age of Sigmar abilities again! Generate helpful in-game reminders tailored to your AoS army.">
+    <meta property="og:url" content="https://aosreminders.com/">
+    <meta property="og:locale" content="en_US">
+
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=vMQB3wPOMa">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?v=vMQB3wPOMa">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?v=vMQB3wPOMa">
+    <link rel="manifest" href="/site.webmanifest?v=vMQB3wPOMa">
+    <link rel="mask-icon" href="/safari-pinned-tab.svg?v=vMQB3wPOMa" color="#1c7595">
+    <link rel="shortcut icon" href="/favicon.ico?v=vMQB3wPOMa">
+    <meta name="apple-mobile-web-app-title" content="AoS Reminders">
+    <meta name="application-name" content="AoS Reminders">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="theme-color" content="#ffffff">
+
+    <!-- https://developers.google.com/web/fundamentals/performance/resource-prioritization#preconnect -->
+    <link rel="dns-prefetch" href="https://google.com">
+
+    <title>AoS Reminders</title>
+
+  </head>
+  <body>
+    <div id="root"></div>
+    <script>
+      // To fix problems when using db-react-ui components (see https://github.com/vitejs/vite/discussions/5912#discussioncomment-5569850)
+      if (global === undefined) {
+        var global = window;
+      }
+    </script>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

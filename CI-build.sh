@@ -5,7 +5,7 @@ export AWS_SECRET_ACCESS_KEY=""
 export AWS_DEFAULT_REGION="us-east-1"
 export AWS_S3_BUCKET="aosreminders.com/"
 SITE_S3="s3://aosreminders.com/"
-SITE_BUILD_DIR="./build/"
+SITE_BUILD_DIR="./dist/"
 CF_DIST_ID="E3OO9Y9QRVZ2L1"
 CF_PATH="/*"
 

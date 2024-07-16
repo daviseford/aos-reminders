@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SITE_S3: s3://aosreminders.com/
-      SITE_BUILD_DIR: ./build/
+      SITE_BUILD_DIR: ./dist/
       CF_DIST_ID: E3OO9Y9QRVZ2L1
       CF_PATH: /*
     steps:
