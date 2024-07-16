@@ -47,10 +47,10 @@ const {
 const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(text)
 
-  let allyUnits: string[] = []
+  const allyUnits: string[] = []
   let factionName = ''
   let subFactionName = ''
-  let origin_realm: string | null = null
+  const origin_realm: string | null = null
   let selector: TSelectionTypes | '' = ''
   let battalionNames = CoreBattalions.map(x => x.name)
 
@@ -62,7 +62,7 @@ const getInitialWarhammerAppArmy = (text: string[]): IImportedArmy => {
   const selections = cleanedText.reduce((accum, txt) => {
     // Ignore these lines when processing
     if (
-      // @ts-expect-error
+      // @ts-expect-error bracause we're checking for a string
       [END_OF_LIST, ENHANCEMENTS, VALID_LIST, INVALID_LIST, END_OF_ENTRY].includes(txt) ||
       txt.startsWith(ARMY_NAME_PREFIX) ||
       txt.startsWith(ARMY_NOTES_PREFIX) ||

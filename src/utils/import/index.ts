@@ -27,7 +27,8 @@ import {
 export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers): IImportedArmy => {
   const opts = parserOptions[parser]
 
-  let { errors, factionName, subFactionName, selections, unknownSelections, allyUnits } = army
+  const { factionName, subFactionName, selections, allyUnits } = army
+  let { errors, unknownSelections } = army
 
   // If we've already gotten an error, go ahead and bail out
   if (hasFatalError(errors)) return army
@@ -35,10 +36,10 @@ export const importErrorChecker = (army: IImportedArmy, parser: TImportParsers):
   // If we're missing a faction name, we won't be able to do much with this
   if (!isValidFactionName(factionName)) {
     const deprecation = DeprecatedSelections[factionName]
-    const logFn = !!deprecation ? logDeprecatedImport : logFailedImport
+    const logFn = deprecation ? logDeprecatedImport : logFailedImport
     logFn(`faction:${factionName || 'Unknown'}`, parser)
-    const errorTxt = !!factionName ? `${factionName} are not supported.` : opts.fileReadError
-    const error = !!deprecation
+    const errorTxt = factionName ? `${factionName} are not supported.` : opts.fileReadError
+    const error = deprecation
       ? createDeprecationWarning(factionName, deprecation)
       : createFatalError(errorTxt)
     return {

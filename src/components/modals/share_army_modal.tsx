@@ -42,7 +42,6 @@ export const ShareArmyModal = ({ closeModal, modalIsOpen }: IModalComponentProps
   useEffect(() => {
     handleLinkGeneration()
     return () => setLink(null)
-    // eslint-disable-next-line
   }, [])
 
   return (

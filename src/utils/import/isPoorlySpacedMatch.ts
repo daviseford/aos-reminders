@@ -14,7 +14,7 @@ export const isPoorlySpacedMatch = (value: string, potentialMatch: string): bool
     .filter(x => x > -1)
 
   let smushedIdx = 0
-  let assemblyStore: string[] = []
+  const assemblyStore: string[] = []
   for (let i = 0; i <= smushed.length; i++) {
     if (spaceIndices.includes(i)) {
       assemblyStore.push(' ')

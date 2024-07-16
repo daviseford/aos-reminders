@@ -33,7 +33,7 @@ const useLogin = (props: IUseLoginProps) => {
     () => ({
       isLoggingIn: isLoading && !popupIsClosed,
       popupIsClosed,
-      login: (e?: any) => {
+      login: (e?: React.MouseEvent) => {
         e?.preventDefault?.()
         logClick(`${props.origin}-Login`)
 

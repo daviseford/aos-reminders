@@ -17,7 +17,7 @@ export const removeSideEffectsFromImport = (
   parser: TImportParsers
 ): TSelections => {
   Object.keys(selections).forEach(slice => {
-    let _slice = slice as TSelectionTypes
+    const _slice = slice as TSelectionTypes
     // Store the previous state of our selections
     const previous: string[] = [...selections[_slice]]
 

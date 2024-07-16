@@ -79,7 +79,7 @@ export const getCollection = (army: TInitialArmy): TCollection => {
         const _tag = getTagFromEntry(_entry)
         const upperSlice = isString(slice)
           ? lowerToUpperLookup[slice]
-          : !!_tag
+          : _tag
             ? lowerToUpperLookup[entryKeyToSelectionsKey[_tag]]
             : undefined
 

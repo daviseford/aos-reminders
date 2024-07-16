@@ -106,6 +106,7 @@ export const saveCompactPdf = (data: IPrintPdf): jsPDF => {
 
   pages.forEach((page, pageNum) => {
     if (pageNum !== 0) doc.addPage()
+    // eslint-disable-next-line prefer-const
     let [x, y, colY] = [PageOpts.xMargin, PageOpts.yMargin, PageOpts.yMargin]
 
     page.forEach((t, i) => {

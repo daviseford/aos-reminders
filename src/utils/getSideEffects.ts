@@ -56,7 +56,7 @@ const checkForMandatory = (item: TEntry, accum: ISideEffectsPayload, accumKey: s
   if (!item.mandatory) return
 
   Object.keys(item.mandatory).forEach(sliceKey => {
-    let key = sliceKey as TSelectionTypes
+    const key = sliceKey as TSelectionTypes
 
     const slice = item?.mandatory?.[key]
     if (!slice || !slice.length) return

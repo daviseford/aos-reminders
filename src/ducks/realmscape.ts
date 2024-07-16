@@ -18,7 +18,7 @@ const realmscape = createSlice({
 
     setRealmscape: (state, action: PayloadAction<RealmscapesEnum | null>) => {
       const realmscape = action.payload
-      let realmscape_feature = state.realmscape_feature
+      const realmscape_feature = state.realmscape_feature
       if (realmscape && realmscape_feature && !realmscape_feature.includes(realmscape)) {
         state.realmscape_feature = null // Reset the realmscape_feature
       }

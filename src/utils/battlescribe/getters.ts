@@ -134,7 +134,7 @@ export const parseFaction = (obj: IParentNode): IFactionInfo => {
       .replace(/.+\((.+)\).+/g, '$1')
 
     const sep = factionValue.includes(': ') ? ': ' : ' - '
-    let [grandAlliance, ...rest] = factionValue.split(sep).map(x => {
+    const [grandAlliance, ...rest] = factionValue.split(sep).map(x => {
       // Remove any stray parentheses
       return x.replace(/(\(|\))/g, '').trim()
     })
@@ -235,7 +235,7 @@ const factionH4Lookup = (
 ): { factionName: TSupportedFaction | null; subFactionName: string | null } => {
   const emptyResponse = { factionName: null, subFactionName: null }
   try {
-    // @ts-expect-error
+    // @ts-expect-error - We're assuming the structure of the HTML here
     const valNode = childNodes[2].childNodes[0].childNodes[0].childNodes[0]
 
     // @ts-expect-error
@@ -263,14 +263,14 @@ const flavorSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) => {
   ]
   try {
     // Don't run if we have categories
-    // @ts-expect-error
+    // @ts-expect-error - We're assuming the structure of the HTML here
     if (childNodes[2].childNodes[0].childNodes[2].childNodes[0].childNodes[0].value === 'Categories:') {
       return null
     }
-    // @ts-expect-error
+    // @ts-expect-error - We're assuming the structure of the HTML here
     const mainNode = childNodes[2].childNodes[0].childNodes[1]
     const spanNode = mainNode.childNodes[0]
-    // @ts-expect-error
+    // @ts-expect-error - We're assuming the structure of the HTML here
     const valNode = childNodes[2].childNodes[0].childNodes[1].childNodes[1]
 
     if (mainNode.nodeName !== 'p') return null

@@ -18,7 +18,7 @@ export const getPdfPages: TGetPdfPages = async typedarray => {
     //Step 5:PDFJS should be able to read this
     const pdf = await pdfjsLib.getDocument(typedarray).promise
 
-    var numPages: number[] = []
+    const numPages: number[] = []
     for (let i = 0; i < pdf.numPages; i++) {
       numPages.push(i)
     }
@@ -33,7 +33,7 @@ export const getPdfPages: TGetPdfPages = async typedarray => {
       })
     )
 
-    let heights: number[] = []
+    const heights: number[] = []
     const pdfText = pages.flat()
 
     pdfText.forEach(x => heights.push(x.height))

@@ -21,6 +21,7 @@ export const addSideEffectsToImport = (selections: TSelections, Army: IArmy): TS
         console.warn(
           `Invalid side effect key: '${slice}'. It probably is a typo in this subfaction's files: "${Army.SubFaction.name}"`
         )
+        // eslint-disable-next-line no-debugger
         debugger // If you've arrived here (as a dev), you need to fix the above error - no excuses.
       }
       return // Ignore bad values
@@ -52,6 +53,7 @@ export const addSideEffectsToImport = (selections: TSelections, Army: IArmy): TS
             console.warn(
               `Invalid side effect key: '${effectSlice}'. It probably is a typo in this subfaction's files: "${Army.SubFaction.name}"`
             )
+            // eslint-disable-next-line no-debugger
             debugger // If you've arrived here (as a dev), you need to fix the above error - no excuses.
           }
           return // Ignore bad values

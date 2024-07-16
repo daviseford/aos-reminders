@@ -1,4 +1,4 @@
-const fs = require('fs')
+import fs from 'fs'
 
 const INTAKE_DIR = 'src/tests/fixtures/intake'
 
@@ -140,7 +140,9 @@ const print = () => {
   Object.keys(reportMap).forEach(file => {
     try {
       fs.unlinkSync(file)
-    } catch (err) {}
+    } catch (err) {
+      // Do nothing?
+    }
     const val = reportMap[file]
     if (val) fs.writeFileSync(file, reportMap[file])
   })

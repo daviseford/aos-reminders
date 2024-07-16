@@ -45,7 +45,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
   const cleanedText = cleanWarscrollText(pdfText)
   const genericScenery = GenericScenery.map(x => x.name)
 
-  let allyUnits: string[] = []
+  const allyUnits: string[] = []
   let factionName = ''
   let subFactionName = ''
   let origin_realm: string | null = null
@@ -268,7 +268,7 @@ const getInitialWarscrollArmyPdf = (pdfText: string[]): IImportedArmy => {
 
       // Handles Sons of Behemat issue with double command traits
       if (txt.startsWith('- Command Trait: Extremely Bitter')) {
-        let traits = ['Extremely Bitter (Breaker Tribe)']
+        const traits = ['Extremely Bitter (Breaker Tribe)']
         const secondTrait = txt.replace('- Command Trait: Extremely Bitter - ', '').trim()
         if (secondTrait) traits.push(secondTrait)
         accum.command_traits = accum.command_traits.concat(...traits)
