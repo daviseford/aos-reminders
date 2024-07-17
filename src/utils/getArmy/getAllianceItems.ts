@@ -31,7 +31,7 @@ export const getAllianceItems = (
   const FactionList = getFactionList()
 
   const allianceItems = without(Object.keys(FactionList), factionName).reduce((a, k) => {
-    let faction = k as TSupportedFaction
+    const faction = k as TSupportedFaction
 
     // Skip on these conditions
     if (!FactionList?.[faction] || FactionList[faction].GrandAlliance !== grandAlliance) {

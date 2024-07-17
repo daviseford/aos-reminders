@@ -53,7 +53,7 @@ const Goodbye = () => {
               world, written medical software to improve patient outcomes, and created tools that help normal
               people do their jobs better and faster.
             </p>
-            <p>But none of the things I've worked on have meant so much to me as this website.</p>
+            <p>But none of the things I&apos;ve worked on have meant so much to me as this website.</p>
             <hr />
             <h5>What now?</h5>
             <p>
@@ -77,37 +77,37 @@ const Goodbye = () => {
             </p>
             <hr />
             <h5>But why?</h5>
-            <p>I haven't played a single game of Age of Sigmar in nearly four years.</p>
+            <p>I haven&apos;t played a single game of Age of Sigmar in nearly four years.</p>
             <p>
               Right before COVID struck, I had started to play competitively in tournaments and against local
-              skilled players. This had moved my skill level to an uncomfortable level - I wasn't quite good
-              enough to win serious tournament games, but I was too good to play casually with friends. This
-              left me chasing incredibly powerful lists and gimmicks that were unfair to my casual friends,
-              and mediocre in a competitive environment. And the more I chased the competitive high, the more
-              I encountered broken, unfun lists to play against (like Tzeentch gimmick lists with endless dice
-              due to a generous rules interpretation, remember those?).
+              skilled players. This had moved my skill level to an uncomfortable level - I wasn&apos;t quite
+              good enough to win serious tournament games, but I was too good to play casually with friends.
+              This left me chasing incredibly powerful lists and gimmicks that were unfair to my casual
+              friends, and mediocre in a competitive environment. And the more I chased the competitive high,
+              the more I encountered broken, unfun lists to play against (like Tzeentch gimmick lists with
+              endless dice due to a generous rules interpretation, remember those?).
             </p>
             <p>
               I have gotten pretty good at games before. I know what it takes. I have won multiple world
               championships in one video game (Red Orchestra), and traveled the country playing Team Fortress
               2 in ESEA Invite. I have been down this path before. And as I grinded Tabletop Simulator and
               watched tournament games and practiced against whoever would play me at the local game stores,
-              the gnawing sensation that I could not escape was - this wasn't fun. The games were getting
-              harder, but they weren't getting more rewarding. When I won, I felt like I had basically cheated
-              and exploited my way to victory. And when I lost, I felt like I was at the mercy of a list that
-              relied on an overpowered gimmick to beat my overpowered gimmick.
+              the gnawing sensation that I could not escape was - this wasn&apos;t fun. The games were getting
+              harder, but they weren&apos;t getting more rewarding. When I won, I felt like I had basically
+              cheated and exploited my way to victory. And when I lost, I felt like I was at the mercy of a
+              list that relied on an overpowered gimmick to beat my overpowered gimmick.
             </p>
             <p>
               Because I maintain this website, I have read every rule in the game, I have read every iteration
               of every rule in this game, I have read every update to every revision to every errata to every
               addendum to everything that has ever existed in this game.
             </p>
-            <p>I'm just tired of it.</p>
+            <p>I&apos;m just tired of it.</p>
             <p>
               I was explaining this to a family member, who pointed out that I was suffering from the
-              "astronomer's dilemma"; the idea that professional astronomers, who spend a significant amount
-              of time studying the universe in great detail, might find it difficult to simply enjoy the
-              beauty of the night sky without thinking about the complex science behind it.
+              &#39;astronomer&apos;s dilemma&#39;; the idea that professional astronomers, who spend a
+              significant amount of time studying the universe in great detail, might find it difficult to
+              simply enjoy the beauty of the night sky without thinking about the complex science behind it.
             </p>
             <p>
               When I looked at an Age of Sigmar game, I no longer saw two armies engaging in battle, heroic
@@ -122,8 +122,8 @@ const Goodbye = () => {
               something to be played for its ruleset alone.
             </p>
             <p>
-              So I ceased playing. It's been nearly four years. I have moved on to enjoy other games, and I
-              still paint miniatures. I have kept updating this website out of a sense of duty to my
+              So I ceased playing. It&apos;s been nearly four years. I have moved on to enjoy other games, and
+              I still paint miniatures. I have kept updating this website out of a sense of duty to my
               subscribers.
             </p>
             <p>
@@ -136,7 +136,7 @@ const Goodbye = () => {
               codebase forward, please contact me via email, Github, or Discord.
             </h4>
             <hr />
-            <h5>That's all, folks!</h5>
+            <h5>That&apos;s all, folks!</h5>
             <p>Thanks for everything. I hope you enjoyed using this website.</p>
             <p>
               Davis Ford

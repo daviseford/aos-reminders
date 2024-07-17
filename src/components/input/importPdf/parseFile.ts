@@ -28,13 +28,15 @@ interface IUseParseArgs {
   stopProcessing: () => boolean
 }
 
-type TUseParse = (args: IUseParseArgs) => (acceptedFiles: any[]) => void
+type TUseParse = (args: IUseParseArgs) => (acceptedFiles: unknown[]) => void
 
-const arrayBufferToString = (buf: any) => {
+const arrayBufferToString = (buf: unknown) => {
+  // @ts-expect-error Don't worry
   return new TextDecoder('utf-8').decode(new Uint8Array(buf))
 }
 
-const checkFileInformation = async (typedArray: any) => {
+const checkFileInformation = async (typedArray: unknown) => {
+  // @ts-expect-error Don't worry
   const { pdfPages, parser } = await getPdfPages(typedArray)
   return { pdfPages, parser }
 }
@@ -56,8 +58,10 @@ export const handleParseFile: TUseParse = handlers => {
         console.log('File reading has failed.')
       }
       reader.onload = async () => {
-        const typedArray = new Uint8Array(reader.result as any)
+        // @ts-expect-error It's there
+        const typedArray = new Uint8Array(reader.result)
 
+        // @ts-expect-error It's there
         if (file.type === HTML_FILE) {
           setParser(BATTLESCRIBE)
           return handleBattlescribeHTML(reader.result as string, isOnline, handlers)
@@ -92,11 +96,16 @@ export const handleParseFile: TUseParse = handlers => {
       startProcessing() // Start processing spinner
 
       // Read the file
+      // @ts-expect-error It's there
       if (file && file.type === PDF_FILE) {
+        // @ts-expect-error It's there
         reader.readAsArrayBuffer(file)
+        // @ts-expect-error It's there
       } else if (file && file.type === HTML_FILE) {
+        // @ts-expect-error It's there
         reader.readAsText(file)
       } else {
+        // @ts-expect-error It's there
         const fileType = file ? file.type : UNKNOWN
         if (isOnline) logEvent(`Import${fileType}`)
         console.error(`Error: File type not supported - ${fileType}`)

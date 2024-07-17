@@ -61,7 +61,7 @@ const pReducer = persistReducer(
 
 export const store = createStore(
   pReducer,
-  //@ts-ignore
+  //@ts-expect-error - Expected warning
   window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
 )
 

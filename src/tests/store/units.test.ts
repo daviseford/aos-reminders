@@ -74,9 +74,8 @@ describe('Daughters of Khaine units', () => {
 
   it('should handle adding and removing Morathi-Khaine', () => {
     const values = convertToOptions([MORATHI_KHAINE])
-    // @ts-ignore
     const setAction: ActionMeta<IDropdownOption> = { option: values[0], action: 'select-option' }
-    // @ts-ignore
+    // @ts-expect-error - Expected warning
     const unsetAction: ActionMeta<IDropdownOption> = { option: values[0], action: 'remove-value' }
 
     setValues(values, setAction)

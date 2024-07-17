@@ -11,7 +11,7 @@ import useLogin from 'utils/hooks/useLogin'
 
 declare global {
   interface Window {
-    paypal: any
+    paypal: unknown
   }
 }
 
@@ -26,8 +26,8 @@ interface IStyle {
 interface IPayPalButtonProps {
   planId: string
   planTitle: string
-  onSuccess?: (data: IApprovalResponse) => any
-  onCancel?: (data: any) => any
+  onSuccess?: (data: IApprovalResponse) => unknown
+  onCancel?: (data: unknown) => unknown
   style?: IStyle
 }
 
@@ -42,11 +42,12 @@ const PaypalButton = (props: IPayPalButtonProps) => {
     return <></>
   }
 
-  const _onApprove = (data: IApprovalResponse, actions: IApprovalActions) => {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const _onApprove = (data: IApprovalResponse, _actions: IApprovalActions) => {
     if (onSuccess) onSuccess(data)
   }
 
-  const _createSubscription = async (data: any, actions: ICreateSubscriptionsActions) => {
+  const _createSubscription = async (_data: unknown, actions: ICreateSubscriptionsActions) => {
     return actions.subscription.create({
       plan_id: planId,
       subscriber: {
@@ -64,6 +65,7 @@ const PaypalButton = (props: IPayPalButtonProps) => {
     ...(style || {}),
   }
 
+  // @ts-expect-error It's there
   const Button = window.paypal.Buttons.driver('react', {
     React,
     ReactDOM,

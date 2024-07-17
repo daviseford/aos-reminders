@@ -9,7 +9,7 @@
     "jsx": "react-jsx",
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "esnext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
     "noEmit": true,
     "noFallthroughCasesInSwitch": true,
     "noImplicitAny": false,
@@ -19,5 +19,5 @@
     "target": "es5",
     "useUnknownInCatchVariables": false
   },
-  "include": ["src"]
+  "include": ["src",  "eslint.config.js"],
 }

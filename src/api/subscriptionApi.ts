@@ -29,6 +29,7 @@ interface IRedeemGift {
   userName: string // userName receiving the gift
 }
 
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const withAuth = (data: Record<string, any>) => ({ ...data, authKey: SUBSCRIPTION_AUTH_KEY })
 
 const cancelSubscription = (data: ICancel) => request.post(`${api}/cancel`).send(withAuth(data))

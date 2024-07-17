@@ -31,6 +31,7 @@ export const getArmy = (
 
   if (isDev && subFactionName && !subFactionArmies[subFactionName]) {
     console.warn(`Invalid subFactionName: '${subFactionName}'. Please fix this.`)
+    // eslint-disable-next-line no-debugger
     debugger // If you've arrived here (as a dev), you need to fix the above error - no excuses.
   }
 
@@ -58,23 +59,25 @@ interface IModifyArmyMeta {
 }
 
 const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
-  let {
+  const {
     AlliedUnits = [],
-    Artifacts = [],
-    Battalions = [],
     BattleTactics = [],
-    CommandAbilities = [],
-    CommandTraits = [],
-    EndlessSpells = [],
     Flavors = [],
     GrandStrategies = [],
     Incarnates = [],
+    Scenery = [],
+    Triumphs = [],
+  } = Army
+  let {
+    Artifacts = [],
+    Battalions = [],
+    CommandAbilities = [],
+    CommandTraits = [],
+    EndlessSpells = [],
     MonstrousRampages = [],
     MountTraits = [],
     Prayers = [],
-    Scenery = [],
     Spells = [],
-    Triumphs = [],
     Units = [],
   } = Army
   const { GrandAlliance, Collection, factionName } = meta
@@ -114,7 +117,7 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
   Army.Triumphs = modify.Triumphs(Triumphs, Collection)
   Army.Units = modify.Units(Units, AlliedUnits, GrandAlliance, Collection)
 
-  // @ts-expect-error
+  // @ts-expect-error ignore this
   Army.Game = processGame([
     Army.Artifacts,
     Army.Battalions,

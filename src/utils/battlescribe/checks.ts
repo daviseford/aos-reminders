@@ -1,7 +1,13 @@
 import { IChildNode, IParentNode } from 'utils/battlescribe/getBattlescribeArmy'
+import parse5 from 'parse5'
 
-export const isParentNode = (node: any): node is IParentNode => !!node && 'childNodes' in node
-export const isChildNode = (node: any): node is IChildNode => !!node && 'value' in node
+export const isParentNode = (
+  node: IParentNode | IChildNode | parse5.Document | undefined
+): node is IParentNode => !!node && 'childNodes' in node
+
+export const isChildNode = (
+  node: IParentNode | IChildNode | parse5.Document | undefined
+): node is IChildNode => !!node && 'value' in node
 
 export const isFactionObj = (obj: IParentNode | IChildNode): obj is IParentNode => {
   if (isChildNode(obj)) return false
@@ -50,7 +56,7 @@ export const isAllegianceObj = (obj: IParentNode | IChildNode): obj is IParentNo
 
   // Seraphon hotfix
   if (
-    // @ts-expect-error
+    // @ts-expect-error - Expected HTML structure
     obj?.childNodes?.[2]?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]?.value === 'Allegiance: Seraphon'
   ) {
     return true

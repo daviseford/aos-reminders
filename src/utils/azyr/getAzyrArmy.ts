@@ -35,8 +35,8 @@ const getInitialAzyrArmy = (pages: string[]): IImportedArmy => {
   let factionName = ''
   let subFactionName = ''
   let realmscape: RealmscapesEnum | null = null
-  let allyUnits: string[] = []
-  let unknownSelections: string[] = []
+  const allyUnits: string[] = []
+  const unknownSelections: string[] = []
 
   const initialSelections = Object.keys(lowerToUpperLookup).reduce((a, key) => {
     a[key] = []
@@ -172,9 +172,9 @@ const handleKOTraits = (name: string): string[] => {
     let result = ''
     const valUpper = note.toUpperCase()
     traits.forEach(trait => {
-      if (!!result) return
+      if (result) return
       possiblePrefix.forEach(pre => {
-        if (!!result) return
+        if (result) return
         if (isPoorlySpacedMatch(`${pre}: ${valUpper}`, trait.toUpperCase())) {
           result = trait
         }

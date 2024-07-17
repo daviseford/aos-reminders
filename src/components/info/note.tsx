@@ -18,8 +18,8 @@ export const NoteMenu = (props: TUseNoteValue) => {
   let [txt, handleClick] = !note
     ? ['Add', add, 'light']
     : isEditing
-    ? ['Save', save, 'success']
-    : ['Edit', edit, 'light']
+      ? ['Save', save, 'success']
+      : ['Edit', edit, 'light']
 
   if (!isSubscribed) {
     handleClick = () => setModalIsOpen(true)

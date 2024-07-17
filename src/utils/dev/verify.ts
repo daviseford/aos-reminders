@@ -82,7 +82,7 @@ type TEffectInfo = { name: string; shared: boolean }
 const verify = () => {
   log_once('Starting rules verification...')
   const armyList = getFactionList()
-  let identicalEffects: Record<string, TEffectInfo[]> = {}
+  const identicalEffects: Record<string, TEffectInfo[]> = {}
 
   Object.values(armyList).forEach(faction => {
     const { AggregateArmy } = faction

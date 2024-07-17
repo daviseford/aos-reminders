@@ -18,7 +18,7 @@ interface IThemeProvider {
 
 const ThemeContext = React.createContext<IThemeProvider | void>(undefined)
 
-const ThemeProvider = ({ children }: React.PropsWithChildren<{}>) => {
+const ThemeProvider = ({ children }: React.PropsWithChildren<object>) => {
   const { subscription } = useSubscription()
   const [theme, setTheme] = useState(LocalTheme.get() === 'dark' ? DarkTheme : LightTheme)
   const [isDark, setIsDark] = useState(LocalTheme.get() === 'dark')

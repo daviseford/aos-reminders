@@ -374,7 +374,7 @@ export default class CompactPdfLayout {
 
     const realm = realmscape ? [realmscape] : []
 
-    let text: ICompactPdfTextObj[] = [
+    const text: ICompactPdfTextObj[] = [
       { text: '', type: 'spacer', position: 'full' },
       { text: '', type: 'spacer', position: 'full' },
       { text: getFactionTitle(factionName, subFactionName), type: 'armyName', position: 'full' },

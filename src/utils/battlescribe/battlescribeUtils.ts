@@ -10,6 +10,7 @@ export const cleanText = (txt: string) => {
       .replace(/[‘’]/g, `'`) // Replace special apostrophes
       .replace(/[“”]/g, `"`) // Replace special quotes
       .replace(/[‑–—]/g, `-`) // Replace special dashes
+      // eslint-disable-next-line no-irregular-whitespace
       .replace(/ /g, ` `) // Remove non ASCII-spaces
       // eslint-disable-next-line no-control-regex
       .replace(/[^\x00-\x7F]/g, '') // Remove all other non-ASCII characters
@@ -43,14 +44,17 @@ export const fixKeys = (obj: Record<string, string[]>) => {
     Weapon: 'Weapons',
   }
 
-  return Object.keys(obj).reduce((a, key) => {
-    if (ignoredValues.includes(key)) return a
+  return Object.keys(obj).reduce(
+    (a, key) => {
+      if (ignoredValues.includes(key)) return a
 
-    if (lookup[key]) {
-      a[lookup[key]] = obj[key]
-    } else {
-      a[key] = obj[key]
-    }
-    return a
-  }, {} as Record<string, string[]>)
+      if (lookup[key]) {
+        a[lookup[key]] = obj[key]
+      } else {
+        a[key] = obj[key]
+      }
+      return a
+    },
+    {} as Record<string, string[]>
+  )
 }

@@ -4,7 +4,7 @@ import { centerContentClass } from 'theme/helperClasses'
 
 type TCustomDropdownToggleProps = {
   children?: React.ReactNode
-  onClick: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {}
+  onClick: (event: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => object
 }
 
 export const CustomDropdownToggle = React.forwardRef(
@@ -13,7 +13,6 @@ export const CustomDropdownToggle = React.forwardRef(
     const { theme } = useTheme()
 
     return (
-      // eslint-disable-next-line jsx-a11y/anchor-is-valid
       <a
         href=""
         className={`${theme.text} ${centerContentClass}`}
@@ -28,3 +27,5 @@ export const CustomDropdownToggle = React.forwardRef(
     )
   }
 )
+
+CustomDropdownToggle.displayName = 'CustomDropdownToggle'

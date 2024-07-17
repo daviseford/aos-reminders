@@ -93,6 +93,6 @@ export const prepareArmyForS3 = (army: ISavedArmy | IImportedArmy | ICurrentArmy
   }
 }
 
-export const isValidFactionName = (val: any): val is TSupportedFaction => {
-  return val && SUPPORTED_FACTIONS.includes(val)
+export const isValidFactionName = (val: string | null | void): val is TSupportedFaction => {
+  return Boolean(val && SUPPORTED_FACTIONS.includes(val as TSupportedFaction))
 }

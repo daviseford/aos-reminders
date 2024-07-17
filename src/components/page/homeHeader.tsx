@@ -176,7 +176,9 @@ const SubFactionSelectComponent = () => {
     const sideEffectKeysToRemoveFromSelections = Object.entries(sideEffects).reduce((a, [key, slice]) => {
       if (validKeysInArmy.includes(key)) return a
       a = a.concat(key) // Add the parent element obviously
+
       // And now find all sub-keys for that element (we need to remove them too)
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       Object.entries(slice).forEach(([_k, _v]) => {
         a = a.concat(..._v)
       })

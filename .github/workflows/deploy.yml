@@ -13,7 +13,7 @@ jobs:
     runs-on: ubuntu-latest
     env:
       SITE_S3: s3://aosreminders.com/
-      SITE_BUILD_DIR: ./build/
+      SITE_BUILD_DIR: ./dist/
       CF_DIST_ID: E3OO9Y9QRVZ2L1
       CF_PATH: /*
     steps:
@@ -30,7 +30,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '16'
+          node-version: '20'
           cache: 'yarn'
 
       - name: Install dependencies with yarn

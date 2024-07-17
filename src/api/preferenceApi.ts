@@ -17,6 +17,7 @@ interface ICreateError {
 
 interface ICreateItem {
   userName: string
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any
 }
 
@@ -25,11 +26,13 @@ interface ICreateSavedArmy extends ISavedArmy {
 }
 
 interface IUpdateItem {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any
 }
 
 const createErrorFile = (data: ICreateError) => request.post(`${api}/errors`).send(data)
 const createItem = (data: ICreateItem) => request.post(`${api}/items`).send(data)
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const createLink = (data: Record<string, any>) => request.post(`${api}/links`).send(data)
 const createSavedArmy = (data: ICreateSavedArmy) => request.post(`${api}/items`).send(data)
 const deleteItem = (id: string, userName: string) => request.delete(`${api}/items/${id}/${userName}`)

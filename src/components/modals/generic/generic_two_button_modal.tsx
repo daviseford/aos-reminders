@@ -7,7 +7,7 @@ import { FaCheck } from 'react-icons/fa'
 
 interface IModalComponentProps {
   bodyText?: string
-  closeModal: () => any
+  closeModal: () => unknown
   confirmIcon?: IconType
   confirmText?: string
   confirmBtnClass?: string
@@ -16,9 +16,9 @@ interface IModalComponentProps {
   disableConfirmIcon?: boolean
   headerText?: string
   isOpen: boolean
-  onConfirm?: () => any
-  onConfirmAsync?: () => Promise<any>
-  onDeny?: () => any
+  onConfirm?: () => unknown
+  onConfirmAsync?: () => Promise<unknown>
+  onDeny?: () => unknown
 }
 
 /**

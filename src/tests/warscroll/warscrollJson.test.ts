@@ -345,7 +345,7 @@ describe('getWarscrollArmyFromJson', () => {
   it('should work with Morathi, High Oracle of Khaine (pre-Broken Realms)', () => {
     const parsedText = getFile('1582028528350-Warscroll_Builder')
     const res = getWarscrollArmyFromPdf(parsedText)
-    // @ts-expect-error
+    // @ts-expect-error It's there
     expect(res.allySelections[DAUGHTERS_OF_KHAINE].units).toContain('Morathi-Khaine')
   })
 

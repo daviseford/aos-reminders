@@ -30,7 +30,7 @@ interface ISavedArmiesContext {
   saveLink: (army: ISavedArmy) => Promise<string | null>
   setLoadedArmy: (army: TLoadedArmy) => void
   setHasOrderChanges: (hasChanged: boolean) => void
-  updateArmy: (id: string, data: Record<string, any>) => Promise<void>
+  updateArmy: (id: string, data: Record<string, unknown>) => Promise<void>
   updateArmyName: (id: string, armyName: string) => Promise<void>
 }
 
@@ -45,7 +45,7 @@ const saveArmyToS3 = async (army: IImportedArmy | ISavedArmy | ICurrentArmy) => 
 
 const SavedArmiesContext = React.createContext<ISavedArmiesContext | void>(undefined)
 
-const SavedArmiesProvider = ({ children }: React.PropsWithChildren<{}>) => {
+const SavedArmiesProvider = ({ children }: React.PropsWithChildren<object>) => {
   const { isOffline } = useAppStatus()
   const { user } = useAuth0()
   const { relevantNotes } = useGetReminders()
@@ -72,6 +72,7 @@ const SavedArmiesProvider = ({ children }: React.PropsWithChildren<{}>) => {
         return noChangesResponse
       }
 
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { id, armyName, userName, createdAt, updatedAt, schemaVersion, ...loaded } = original
 
       const hiddenReminders = store.getState().visibility.reminders
@@ -168,7 +169,7 @@ const SavedArmiesProvider = ({ children }: React.PropsWithChildren<{}>) => {
   )
 
   const updateArmy = useCallback(
-    async (id: string, data: Record<string, any>) => {
+    async (id: string, data: Record<string, unknown>) => {
       try {
         if (!user?.email) return
         setHasOrderChanges(false)

@@ -1,3 +1,4 @@
+import React from 'react'
 import { LargeSpinner } from 'components/helpers/suspenseFallbacks'
 import { Header } from 'components/page/homeHeader'
 import { useAppStatus } from 'context/useAppStatus'

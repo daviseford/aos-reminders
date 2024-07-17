@@ -5,7 +5,7 @@ import { FaRegFrown, FaRegSmileBeam } from 'react-icons/fa'
 import { ROUTES } from 'utils/env'
 
 interface ILoginSectionProps {
-  handleClick: (e: React.MouseEvent) => any
+  handleClick: (e: React.MouseEvent) => unknown
 }
 
 export const RedemptionLogin = (props: React.PropsWithChildren<ILoginSectionProps>) => {
@@ -13,8 +13,8 @@ export const RedemptionLogin = (props: React.PropsWithChildren<ILoginSectionProp
     <div>
       {props.children}
       <p>
-        First, you're going to need to create an account and log in. Once you've done that, we'll set your
-        subscription up!
+        First, you&apos;re going to need to create an account and log in. Once you&apos;ve done that,
+        we&apos;ll set your subscription up!
       </p>
       <GenericButton className={`btn btn-primary btn-lg`} onClick={props.handleClick}>
         Log In / Sign Up
@@ -30,7 +30,7 @@ export const RedemptionSuccess = () => {
 
   return (
     <>
-      <h5>Woohoo! You're all set!</h5>
+      <h5>Woohoo! You&apos;re all set!</h5>
       <h2 className="my-2">
         <FaRegSmileBeam />
       </h2>
@@ -51,7 +51,7 @@ export const RedemptionError = ({ error, showButton }: { error: string; showButt
         </GenericButton>
       )}
 
-      <p className="pt-3">We're sorry. There was an error redeeming your subscription.</p>
+      <p className="pt-3">We&apos;re sorry. There was an error redeeming your subscription.</p>
       <p>
         <code>{error}</code>
       </p>

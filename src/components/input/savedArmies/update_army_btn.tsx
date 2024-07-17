@@ -11,13 +11,13 @@ import { logEvent } from 'utils/analytics'
 import { armyHasEntries, prepareArmy } from 'utils/armyUtils'
 import useGetReminders from 'utils/hooks/useGetReminders'
 
-type TUpdateArmyBtn = React.FC<{
+type TUpdateArmyBtnProps = {
   id: string
   currentArmy: ISavedArmy
   changedKeys: string[]
-}>
+}
 
-const UpdateArmyBtn: TUpdateArmyBtn = ({ currentArmy, id, changedKeys }) => {
+const UpdateArmyBtn = ({ currentArmy, id, changedKeys }: TUpdateArmyBtnProps) => {
   const { isGameMode } = useAppStatus()
   const { relevantNotes } = useGetReminders()
   const { updateArmy } = useSavedArmies()

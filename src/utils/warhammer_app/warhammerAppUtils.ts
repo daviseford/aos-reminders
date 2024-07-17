@@ -32,7 +32,7 @@ export const cleanWarhammerAppText = (text: string): string[] => {
       .replace(/[‘’]/g, `'`) // Replace special quotes
       .replace(/[“”]/g, `"`) // Replace special quotes
       .replace(/[‑–—]/g, `-`) // Replace special dashes
-      .replace(/ /g, ` `) // Remove non ASCII-spaces
+      .replace(/ /g, ` `) // Remove non ASCII-spaces
 
       // Replace special characters
       .replace(/ú/, 'u')

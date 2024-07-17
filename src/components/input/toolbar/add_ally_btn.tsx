@@ -3,6 +3,7 @@ import React from 'react'
 import { FaPlus } from 'react-icons/fa'
 
 interface IAddAllyButton {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setAllyClick: (e: any) => void
 }
 

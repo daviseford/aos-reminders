@@ -37,7 +37,7 @@ const GenericModal = (props: React.PropsWithChildren<IGenericModalProps>) => {
 
 export default GenericModal
 
-const ModalSpinner = ({ isDark = false }) => {
+const ModalSpinner = ({ isDark = false }: { isDark?: boolean }) => {
   const variant = isDark ? 'light-gray' : 'dark'
   return (
     <div className={`d-flex flex-row justify-content-center`}>

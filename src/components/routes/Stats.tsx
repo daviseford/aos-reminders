@@ -100,33 +100,34 @@ const Methodology = () => {
           logged. Every PDF or HTML file that is imported is also logged.
         </p>
 
-        <h5>Doesn't that just mean these are popular choices?</h5>
+        <h5>Doesn&apos;t that just mean these are popular choices?</h5>
         <p>
-          Yes. The great thing about the Warhammer community is that it's full of detailed-oriented players
-          who tend to congregate towards powerful, efficient choices. If you build lists using this data as a
-          starting point, you will generally find yourself building a very strong list.
+          Yes. The great thing about the Warhammer community is that it&apos;s full of detailed-oriented
+          players who tend to congregate towards powerful, efficient choices. If you build lists using this
+          data as a starting point, you will generally find yourself building a very strong list.
         </p>
 
         <h5>Player X just won a tournament without using the most popular choices! Your stats suck!</h5>
         <p>
-          That's not a question, but listen - you should view these stats as a helpful aggregation of
+          That&apos;s not a question, but listen - you should view these stats as a helpful aggregation of
           prevailing ideas regarding the current AoS meta - in other words, these stats represent the{' '}
           <LinkNewTab label="WisdomOfCrowds" href="https://en.wikipedia.org/wiki/Wisdom_of_the_crowd">
             wisdom of the crowds.
           </LinkNewTab>
         </p>
         <p>
-          We're not necessarily going to be able to predict the list composition of a specific top-table army
-          - but we can <em>probably</em> predict the number of Ossiarch Bonereapers armies that will use the
-          Petrifex Elite legion in a given tournament.
+          We&apos;re not necessarily going to be able to predict the list composition of a specific top-table
+          army - but we can <em>probably</em> predict the number of Ossiarch Bonereapers armies that will use
+          the Petrifex Elite legion in a given tournament.
         </p>
 
-        <h5>My gaming group doesn't use this, so these stats aren't accurate!</h5>
+        <h5>My gaming group doesn&apos;t use this, so these stats aren&apos;t accurate!</h5>
         <p>
           One of the great things about statistics is that we can infer large trends in a population from a
-          smaller subset of data. For example, when political parties conduct polling, they don't literally
-          call every single person in the country to get their thoughts. They collect data from a varied
-          subset of the population and extrapolate from there. That's how population-based statistics work!
+          smaller subset of data. For example, when political parties conduct polling, they don&apos;t
+          literally call every single person in the country to get their thoughts. They collect data from a
+          varied subset of the population and extrapolate from there. That&apos;s how population-based
+          statistics work!
         </p>
         <p>
           Similarly, while you may not personally be represented in these stats, that does not render them
