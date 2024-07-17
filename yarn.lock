@@ -3549,7 +3549,7 @@ jsdom@^24.1.0:
 jsdom@^8.1.0:
   version "8.5.0"
   resolved "https://registry.yarnpkg.com/jsdom/-/jsdom-8.5.0.tgz#d4d8f5dbf2768635b62a62823b947cf7071ebc98"
-  integrity sha1-1Nj12/J2hjW2KmKCO5R89wcevJg=
+  integrity sha512-rvWfcn2O8SrXPaX5fTYIfPVwvnbU8DnZkjAXK305wfP67csyaJBhgg0F2aU6imqJ+lZmj9EmrBAXy6rWHf2/9Q==
   dependencies:
     abab "^1.0.0"
     acorn "^2.4.0"
