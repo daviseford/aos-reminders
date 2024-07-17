@@ -109,7 +109,9 @@ interface ICardHeaderProps extends IBaseCardProps {
   isVisible: boolean
   selectionCount?: number
   type?: TVisibilityIconType
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   hide: ActionCreatorWithPayload<any>
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   show: ActionCreatorWithPayload<any>
 }
 

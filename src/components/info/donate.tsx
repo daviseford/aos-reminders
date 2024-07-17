@@ -62,7 +62,7 @@ export const DonateComponent = () => {
             <small className="text-center mt-3">
               Creating this took a lot of time and effort.
               <br />
-              If you'd like to thank me, buy me a beer!
+              If you&apos;d like to thank me, buy me a beer!
             </small>
           </div>
         </div>
@@ -112,14 +112,14 @@ export const DonateComponent = () => {
 //   </div>
 // )
 
-type TBtnProps = React.FC<{ handleClick: (e: React.MouseEvent) => void }>
+type TBtnProps = { handleClick: (e: React.MouseEvent) => void }
 
-// const BtcButton: TBtnProps = props => (
+// const BtcButton= (props: TBtnProps) => (
 //   <FaBtc onClick={props.handleClick} className={'mx-2'} style={{ cursor: 'pointer' }} />
 // )
-// const EthButton: TBtnProps = props => (
+// const EthButton= (props: TBtnProps) => (
 //   <FaEthereum onClick={props.handleClick} className={'mx-2'} style={{ cursor: 'pointer' }} />
 // )
-const PayPalButton: TBtnProps = props => (
+const PayPalButton = (props: TBtnProps) => (
   <FaCcPaypal onClick={props.handleClick} className={'mx-2'} style={{ cursor: 'pointer' }} />
 )

@@ -25,8 +25,8 @@ export const CancelStripeSubscriptionModal = (props: IModalComponentProps) => {
       headerText={`Cancel Subscription?`}
       confirmText={`Cancel Subscription`}
     >
-      <p>We'll be sad to see you go, but you're always welcome back!</p>
-      <p>You'll still have access to everything until your current subscription expires.</p>
+      <p>We&apos;ll be sad to see you go, but you&apos;re always welcome back!</p>
+      <p>You&apos;ll still have access to everything until your current subscription expires.</p>
     </GenericDestructiveModal>
   )
 }

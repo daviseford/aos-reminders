@@ -109,9 +109,9 @@ const RedeemSection = () => {
       {!error && !success && <Preamble />}
       {!error && !success && (
         <p>
-          You're currently logged in as <strong>{user?.email}</strong>.
+          You&apos;re currently logged in as <strong>{user?.email}</strong>.
           <br />
-          If you're ready to redeem this gifted subscription, click the button below!
+          If you&apos;re ready to redeem this gifted subscription, click the button below!
         </p>
       )}
 
@@ -128,7 +128,7 @@ const RedeemSection = () => {
 }
 
 const NoKeyFound = () => (
-  <p>We couldn't locate a subscription id. You may have arrived here via a malformed link.</p>
+  <p>We couldn&apos;t locate a subscription id. You may have arrived here via a malformed link.</p>
 )
 
 const setLocalRedemptionKey = () => {

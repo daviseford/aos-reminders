@@ -64,7 +64,6 @@ const ImportDropzone = ({ handleDrop }: IDropzoneProps) => {
     return true
   }
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps
   const onDrop = useCallback(
     handleParseFile({
       handleDrop,

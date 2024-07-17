@@ -8,7 +8,7 @@ interface ILinkProps {
   className?: string
   href: string
   label: string
-  onClick?: (...args: any[]) => void
+  onClick?: (...args: unknown[]) => void
 }
 
 export const LinkNewTab = ({ href, children, label, ...props }: React.PropsWithChildren<ILinkProps>) => (
@@ -32,7 +32,7 @@ export const LinkButton = (props: ILinkBtnProps) => {
     <LinkNewTab
       href={href}
       className={`${btnClass} mb-1`}
-      onClick={e => logClick(`Contact-${text}`)}
+      onClick={() => logClick(`Contact-${text}`)}
       label={text}
     >
       <div className={centerContentClass}>

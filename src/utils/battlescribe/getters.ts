@@ -94,7 +94,7 @@ export const getFactionAndFlavors = (
 
 export const parseBattleRealmObj = (obj: IParentNode): RealmscapesEnum | null => {
   try {
-    //@ts-ignore
+    //@ts-expect-error - Expected warning
     const text = obj.childNodes[1].childNodes[1].value
     return text.split(': ')[1].trim() as RealmscapesEnum
   } catch (err) {
@@ -104,7 +104,7 @@ export const parseBattleRealmObj = (obj: IParentNode): RealmscapesEnum | null =>
 
 export const parseOriginRealmObj = (obj: IParentNode): RealmscapesEnum | null => {
   try {
-    //@ts-ignore
+    //@ts-expect-error - Expected warning
     const text = obj.childNodes[1].childNodes[1].value
     return text.split(': ')[1].trim() as RealmscapesEnum
   } catch (err) {
@@ -238,7 +238,7 @@ const factionH4Lookup = (
     // @ts-expect-error - We're assuming the structure of the HTML here
     const valNode = childNodes[2].childNodes[0].childNodes[0].childNodes[0]
 
-    // @ts-expect-error
+    // @ts-expect-error - Expected HTML structure
     if (childNodes[2].childNodes[0].childNodes[0].nodeName !== 'h4') return emptyResponse
     if (valNode.nodeName !== '#text') return emptyResponse
 
@@ -295,12 +295,12 @@ const flavorSelectionLookup = (childNodes: Array<IParentNode | IChildNode>) => {
  */
 const flavorCategoryLookup = (childNodes: Array<IParentNode | IChildNode>): string | null => {
   try {
-    //@ts-ignore
+    //@ts-expect-error - Expected warning
     if (childNodes[2].childNodes[0].childNodes[2].childNodes[0].childNodes[0].value !== 'Categories:') {
       return null
     }
 
-    //@ts-ignore
+    //@ts-expect-error - Expected warning
     const value = childNodes[2].childNodes[0].childNodes[2].childNodes[1].childNodes[0].value
     const possibleFlavors: string[] = value
       .split(', ')
@@ -388,9 +388,9 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
 
   const tableTraits = tableTags.reduce(
     (a, table) => {
-      // @ts-expect-error
+      // @ts-expect-error - Expected HTML structure
       const tableName = table.childNodes[0].childNodes[0].childNodes[0].childNodes[0].value
-      // @ts-expect-error
+      // @ts-expect-error - Expected HTML structure
       const tds = table.childNodes[0].childNodes.slice(1).map(x => x.childNodes[0])
       const names = tds.map(x => x.childNodes[0].value).flat()
       a[tableName] = names
@@ -429,7 +429,7 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
 
   // Soulblight hotfix
   if (
-    // @ts-expect-error
+    // @ts-expect-error - Expected HTML structure
     obj?.childNodes[2]?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]?.value === 'Allegiance: Soulblight'
   ) {
     fixedKeys.factionName = LEGIONS_OF_NAGASH
@@ -440,14 +440,14 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
   // Seraphon hotfix
   // It's messy, sorry!
   if (
-    // @ts-expect-error
+    // @ts-expect-error - Expected HTML structure
     ulNode?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]?.value === 'Allegiance: Seraphon'
   ) {
     const way =
-      // @ts-expect-error
+      // @ts-expect-error - Expected HTML structure
       obj?.childNodes?.[2]?.childNodes?.[0]?.childNodes[2]?.childNodes?.[0]?.childNodes?.[0]?.childNodes?.[0]
         ?.value
-    const constellation = // @ts-expect-error
+    const constellation = // @ts-expect-error - Expected HTML structure
       ulNode?.childNodes?.[0]?.childNodes[2]?.childNodes?.[0]?.childNodes?.[1]?.childNodes?.[1]?.value
         ?.replace('The ', '')
         ?.replace(', Show Celestial Conjuration Table', '')
@@ -460,9 +460,9 @@ const getFlavorMetadata = (obj: IParentNode): IFlavorInfo => {
   }
 
   // Horrible Lumineth hotfix - 10/28/20
-  // @ts-expect-error
+  // @ts-expect-error - Expected HTML structure
   if (liNode?.childNodes?.[0]?.childNodes?.[0].value === 'Allegiance: Lumineth') {
-    // @ts-expect-error
+    // @ts-expect-error - Expected HTML structure
     const luminethAllegiance = liNode?.childNodes?.[2]?.childNodes?.[1]?.childNodes?.[0]?.value
     if (
       luminethAllegiance &&

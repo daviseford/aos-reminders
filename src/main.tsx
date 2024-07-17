@@ -17,8 +17,9 @@ import { persistor, store } from 'store'
 import history from 'utils/history'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
 
-const onRedirectCallback = (appState: any) => {
+const onRedirectCallback = (appState: unknown) => {
   // Use the router's history module to replace the url
+  // @ts-expect-error returnTo is there
   history.replace(appState?.returnTo || window.location.pathname)
 }
 
@@ -52,7 +53,7 @@ render(
 // https://github.com/facebook/create-react-app/issues/5316
 // https://github.com/facebook/create-react-app/issues/7237
 serviceWorkerRegistration.register({
-  onUpdate: async registration => {
+  onUpdate: async () => {
     // We post a message letting the rest of the app know that we have updated content
     if (typeof BroadcastChannel !== 'undefined') {
       const bc = new BroadcastChannel('app-update')

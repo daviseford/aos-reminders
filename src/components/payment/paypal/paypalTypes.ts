@@ -1,21 +1,21 @@
 export interface ICreateSubscriptionsActions {
   payment: null
   subscription: {
-    create: (...args: any[]) => Promise<string>
-    review: (...args: any[]) => Promise<string>
+    create: (...args: unknown[]) => Promise<string>
+    review: (...args: unknown[]) => Promise<string>
   }
 }
 export interface IApprovalActions {
   order: {
-    authorize: (...args: any[]) => any
-    capture: (...args: any[]) => any
-    get: (...args: any[]) => any
-    patch: (...args: any[]) => any
+    authorize: (...args: unknown[]) => unknown
+    capture: (...args: unknown[]) => unknown
+    get: (...args: unknown[]) => unknown
+    patch: (...args: unknown[]) => unknown
   }
   payment: null
-  redirect?: (...args: any[]) => any
-  restart?: (...args: any[]) => any
-  subscription: { get: (...args: any[]) => any; activate: (...args: any[]) => any }
+  redirect?: (...args: unknown[]) => unknown
+  restart?: (...args: unknown[]) => unknown
+  subscription: { get: (...args: unknown[]) => unknown; activate: (...args: unknown[]) => unknown }
 }
 
 export interface IApprovalResponse {

@@ -52,7 +52,7 @@ const Join = () => {
   )
 }
 
-const Preamble = () => <p>Congratulations! We'll help you redeem your coupon code ASAP!</p>
+const Preamble = () => <p>Congratulations! We&apos;ll help you redeem your coupon code ASAP!</p>
 
 const RedeemSection = () => {
   const { user } = useAuth0()
@@ -90,10 +90,10 @@ const RedeemSection = () => {
     <div>
       {!success && (
         <p>
-          You're currently logged in as <strong>{user?.email || ''}</strong>.
+          You&apos;re currently logged in as <strong>{user?.email || ''}</strong>.
           <br />
           <br />
-          If you're ready to redeem your coupon code, just enter it below.
+          If you&apos;re ready to redeem your coupon code, just enter it below.
         </p>
       )}
 

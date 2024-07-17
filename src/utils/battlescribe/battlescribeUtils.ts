@@ -10,6 +10,7 @@ export const cleanText = (txt: string) => {
       .replace(/[‘’]/g, `'`) // Replace special apostrophes
       .replace(/[“”]/g, `"`) // Replace special quotes
       .replace(/[‑–—]/g, `-`) // Replace special dashes
+      // eslint-disable-next-line no-irregular-whitespace
       .replace(/ /g, ` `) // Remove non ASCII-spaces
       // eslint-disable-next-line no-control-regex
       .replace(/[^\x00-\x7F]/g, '') // Remove all other non-ASCII characters

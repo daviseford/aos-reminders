@@ -26,7 +26,7 @@ export const getPdfPages: TGetPdfPages = async typedarray => {
     const pages = await Promise.all(
       numPages.map(async pageNumber => {
         const page = await pdf.getPage(pageNumber + 1)
-        //@ts-ignore
+        //@ts-expect-error - Expected warning
         const textContent = await page.getTextContent({ normalizeWhitespace: true })
 
         return textContent.items
@@ -239,6 +239,7 @@ const getTextHeights = (heights: number[]) => {
 
 const factionReplacer = (match: string, p1: string, p2: string) => `FACTION: ${p1.trim()}${sep}${p2}`
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const generalReplacer = (match: string, p1: string, p2: string) => {
   const validPrefixes = ['Aggressive', 'Freeguild']
   if (p1 && validPrefixes.includes(p1)) return match // Leave General

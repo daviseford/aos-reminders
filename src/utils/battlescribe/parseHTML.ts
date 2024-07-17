@@ -76,7 +76,7 @@ const isUncategorizedScenery = (obj: IParentNode, name: string) => {
   try {
     if (name.startsWith(`Scenery: `)) return false // It's categorized properly already
     if (knownScenery.includes(name)) return true
-    //@ts-ignore
+    //@ts-expect-error - Expected warning
     if (obj.childNodes[1].childNodes[1].childNodes[0].value.includes('SCENERY')) {
       return true
     }
@@ -118,14 +118,14 @@ export const parseRootSelection = (obj: IParentNode): IParsedRootSelection => {
       (a, x) => {
         // New in 2021 (AoS3)
         if (name === 'Grand Strategy' && x.nodeName === 'p') {
-          // @ts-expect-error
+          // @ts-expect-error - Expected HTML structure
           const potentialGrandStrategy = x?.childNodes?.[1]?.value
           if (potentialGrandStrategy) name = `Grand Strategy: ${potentialGrandStrategy}`
         }
 
         // New in 2021 (AoS3)
         if (name === 'Triumphs' && x.nodeName === 'p') {
-          // @ts-expect-error
+          // @ts-expect-error - Expected HTML structure
           const potentialGrandStrategy = x?.childNodes?.[1]?.value
           if (potentialGrandStrategy) name = `Triumphs: ${potentialGrandStrategy}`
         }
@@ -152,9 +152,9 @@ export const parseRootSelection = (obj: IParentNode): IParsedRootSelection => {
 
 const getNamesFromTableTags = (table: IParentNode): { tableName: string; names: string[] } => {
   try {
-    // @ts-expect-error
+    // @ts-expect-error - Expected HTML structure
     const tableName: string = table.childNodes[0].childNodes[0].childNodes[0].childNodes[0].value
-    // @ts-expect-error
+    // @ts-expect-error - Expected HTML structure
     const tds = table.childNodes[0].childNodes.slice(1).map(x => x.childNodes[0]) as IParentNode[]
     const names: string[] = tds.map(x => (x.childNodes[0] as IChildNode).value).flat()
     return { tableName, names }
@@ -172,11 +172,11 @@ export const stripParentNode = (
   if (isChildNode(docObj) && docObj.value) {
     docObj.value = cleanText(docObj.value)
   }
-  //@ts-ignore
+  //@ts-expect-error - Expected warning
   delete docObj.parentNode // Get rid of circular references
-  //@ts-ignore
+  //@ts-expect-error - Expected warning
   delete docObj.namespaceURI // Unnecessary key
-  //@ts-ignore
+  //@ts-expect-error - Expected warning
   delete docObj.tagName // Unnecessary key (duplicates nodeName)
 
   if (!isParentNode(docObj)) return docObj as IChildNode

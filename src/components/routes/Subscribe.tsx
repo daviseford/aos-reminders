@@ -199,9 +199,14 @@ const ComingSoon = () => (
   </div>
 )
 
-type TWebmWithFallback = React.FC<{ webmUrl: string; gifUrl: string; description: string; label: string }>
+type TWebmWithFallbackProps = {
+  webmUrl: string
+  gifUrl: string
+  description: string
+  label: string
+}
 
-const WebmWithFallback: TWebmWithFallback = ({ webmUrl, gifUrl, description, label }) => {
+const WebmWithFallback = ({ webmUrl, gifUrl, description, label }: TWebmWithFallbackProps) => {
   const supportsWebm = !!document.createElement('video').canPlayType
 
   return (

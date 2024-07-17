@@ -9,7 +9,7 @@ interface IAppStatusProvider {
   toggleGameMode: () => void
 }
 
-const timeout = (ms: number, promise: Promise<any>) => {
+const timeout = (ms: number, promise: Promise<unknown>) => {
   return new Promise(function (resolve, reject) {
     setTimeout(function () {
       reject(new Error('timeout'))
@@ -20,7 +20,7 @@ const timeout = (ms: number, promise: Promise<any>) => {
 
 const AppStatusContext = React.createContext<IAppStatusProvider | void>(undefined)
 
-const AppStatusProvider = ({ children }: React.PropsWithChildren<{}>) => {
+const AppStatusProvider = ({ children }: React.PropsWithChildren<object>) => {
   const [isGameMode, setIsGameMode] = useState(false)
   const [isOffline, setIsOffline] = useState(false)
   const [hasNewContent, setHasNewContent] = useState(false)

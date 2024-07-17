@@ -27,7 +27,7 @@ export const tagAs = <
         [tag]: true,
       }
 
-      // @ts-expect-error
+      // @ts-expect-error TS can't understand
       a[key] = taggedObj
       return a
     },

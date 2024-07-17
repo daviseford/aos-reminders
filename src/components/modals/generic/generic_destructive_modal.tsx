@@ -5,13 +5,13 @@ import React, { useState } from 'react'
 import { FaCheck } from 'react-icons/fa'
 
 interface IModalComponentProps {
-  closeModal: () => any
+  closeModal: () => unknown
   confirmText?: string
   denyText?: string
   isOpen: boolean
-  onConfirmAsync?: () => Promise<any>
-  onConfirm?: () => any
-  onDeny?: () => any
+  onConfirmAsync?: () => Promise<unknown>
+  onConfirm?: () => unknown
+  onDeny?: () => unknown
   headerText: string
   bodyText?: string
 }

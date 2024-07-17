@@ -44,7 +44,7 @@ export default ShowSavedArmies
 const NoArmiesFound = () => (
   <div>
     <div className="alert alert-primary text-center" role="alert">
-      You haven't saved any armies yet!
+      You haven&apos;t saved any armies yet!
     </div>
   </div>
 )

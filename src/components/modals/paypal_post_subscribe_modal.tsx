@@ -44,7 +44,7 @@ export const PaypalPostSubscribeModal = ({ closeModal, modalIsOpen }: IModalComp
         <IconContext.Provider value={{ size: '1.7em' }}>
           <div className={`col ${theme.text}`}>
             <h4 className="mb-3">Thanks! :)</h4>
-            <p className="text-center mb-1">One sec, we're verifying your PayPal transaction...</p>
+            <p className="text-center mb-1">One sec, we&apos;re verifying your PayPal transaction...</p>
 
             <LargeSpinner className={'text-dark'} />
 

@@ -261,7 +261,9 @@ export const logSubscription = (planTitle: string, provider: 'stripe' | 'paypal'
 
     // ReactGA.gtag('event', 'send', 'ga')
     // ReactGA.gtag('event', 'clear', 'ga')
-  } catch (err) {}
+  } catch (err) {
+    // empty
+  }
 }
 
 export const logGiftedSubscription = (planTitle: string, quantity: string) => {
@@ -297,7 +299,9 @@ export const logGiftedSubscription = (planTitle: string, quantity: string) => {
 
     // ReactGA.gtag('event', 'send', 'ga')
     // ReactGA.gtag('event', 'clear', 'ga')
-  } catch (err) {}
+  } catch (err) {
+    // empty
+  }
 }
 
 /**
