@@ -117,7 +117,8 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
   Army.Triumphs = modify.Triumphs(Triumphs, Collection)
   Army.Units = modify.Units(Units, AlliedUnits, GrandAlliance, Collection)
 
-  const Game = processGame([
+  // @ts-expect-error ignore this
+  Army.Game = processGame([
     Army.Artifacts,
     Army.Battalions,
     Army.BattleTactics,
@@ -137,5 +138,5 @@ const modifyArmy = produce((Army: TSubfactionArmy, meta: IModifyArmyMeta) => {
     Army.Units,
   ])
 
-  return { ...Army, Game }
+  return Army
 })
