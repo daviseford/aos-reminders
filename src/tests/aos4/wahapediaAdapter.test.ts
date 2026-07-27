@@ -124,6 +124,32 @@ describe('Wahapedia AoS 4 export adapter', () => {
     expect(ability.meta.sourceRecordId).toMatch(/^source-record:wahapedia:/)
   })
 
+  it('reports and excludes empty keyword association sentinels', async () => {
+    const inputs = replaceFile(
+      await loadInputs(),
+      'Warscrolls_keywords.csv',
+      source => `${source}ws-1||false||\n`
+    )
+    const result = decodeWahapediaExports(inputs)
+
+    expect(result.dataset.warscrollKeywords).toHaveLength(2)
+    expect(result.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'empty-association-record',
+        severity: 'warning',
+        file: 'Warscrolls_keywords.csv',
+        field: 'keyword',
+      })
+    )
+    expect(result.diagnostics).not.toContainEqual(
+      expect.objectContaining({
+        code: 'missing-required-field',
+        file: 'Warscrolls_keywords.csv',
+        field: 'keyword',
+      })
+    )
+  })
+
   it('normalizes weapon types and retains source weapon abilities as facts', async () => {
     const { dataset } = decodeWahapediaExports(await loadInputs())
     const weapons = dataset.warscrollWeapons.map(normalizeWahapediaWeapon)

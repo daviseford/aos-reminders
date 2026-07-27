@@ -133,7 +133,12 @@ describe('AoS 4 source acquisition', () => {
       dependencies(transport, cache)
     )
     const offline = await acquireArtifact(
-      { ...request, acceptedManifest, offline: true },
+      {
+        ...request,
+        acceptedManifest,
+        candidateManifest: createArtifactManifest(),
+        offline: true,
+      },
       dependencies(new FakeTransport([new Error('network must not be called')]), cache)
     )
 
@@ -143,6 +148,7 @@ describe('AoS 4 source acquisition', () => {
     expect(revalidated.bytes).toEqual(bytes)
     expect(offline.bytes).toEqual(bytes)
     expect(offline.entry).toEqual(first.entry)
+    expect(offline.candidateManifest.artifacts).toEqual([first.entry])
     expect(acceptedManifest).toEqual(acceptedSnapshot)
   })
 

@@ -10,7 +10,6 @@ import {
   type HttpTransport,
 } from './http'
 import {
-  createArtifactManifest,
   findArtifactEntry,
   upsertArtifactEntry,
   type ArtifactManifest,
@@ -101,8 +100,7 @@ export const acquireArtifact = async (
     return {
       bytes,
       entry: accepted,
-      candidateManifest:
-        request.candidateManifest ?? request.acceptedManifest ?? createArtifactManifest([accepted]),
+      candidateManifest: upsertArtifactEntry(request.candidateManifest, accepted),
       changed: false,
     }
   }

@@ -1,0 +1,145 @@
+{
+  "schemaVersion": 1,
+  "artifacts": [
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/Faction_abilities.csv",
+      "finalUrl": "https://wahapedia.ru/aos4/Faction_abilities.csv",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-27T19:10:42.873Z",
+      "adapterVersion": "wahapedia-export/1",
+      "mediaType": "text/csv",
+      "byteLength": 1248023,
+      "checksum": "12c54620832b9cdd4390a3c09ad98010c13dee521f6736b630bc3f4c2347fcdf"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/Faction_ability_subtypes.csv",
+      "finalUrl": "https://wahapedia.ru/aos4/Faction_ability_subtypes.csv",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-27T19:10:36.020Z",
+      "adapterVersion": "wahapedia-export/1",
+      "mediaType": "text/csv",
+      "byteLength": 92336,
+      "checksum": "1ba800415ac99371fdc729315033bfef45c36e179a333ccf81c0985e8e3551a5"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/Faction_ability_types.csv",
+      "finalUrl": "https://wahapedia.ru/aos4/Faction_ability_types.csv",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-27T19:10:35.360Z",
+      "adapterVersion": "wahapedia-export/1",
+      "mediaType": "text/csv",
+      "byteLength": 52490,
+      "checksum": "294e0c93164d40d78709b2e5f47eb4db72ebf97df38a6cb0bb2613c748c7b44a"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/Factions.csv",
+      "finalUrl": "https://wahapedia.ru/aos4/Factions.csv",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-27T19:10:19.098Z",
+      "adapterVersion": "wahapedia-export/1",
+      "mediaType": "text/csv",
+      "byteLength": 2059,
+      "checksum": "42596b20e7bb09f13372bd9b9c3a4f1baadd5036ecab9b415b98fa73ee417ff0"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/Last_update.csv",
+      "finalUrl": "https://wahapedia.ru/aos4/Last_update.csv",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-27T19:10:43.067Z",
+      "adapterVersion": "wahapedia-export/1",
+      "mediaType": "text/csv",
+      "byteLength": 39,
+      "checksum": "cf6cb2303c54b585427e1cfd44adef7bbfc750837407991ee8caca365df74766"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/Source.csv",
+      "finalUrl": "https://wahapedia.ru/aos4/Source.csv",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-27T19:10:19.484Z",
+      "adapterVersion": "wahapedia-export/1",
+      "mediaType": "text/csv",
+      "byteLength": 21621,
+      "checksum": "bfdbd80ac89c6a1b4c727997f8fa3e32b09852104b27d303d9d842bbf44e9156"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/Warscrolls.csv",
+      "finalUrl": "https://wahapedia.ru/aos4/Warscrolls.csv",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-27T19:10:21.265Z",
+      "adapterVersion": "wahapedia-export/1",
+      "mediaType": "text/csv",
+      "byteLength": 942185,
+      "checksum": "c16e4a8a8403277f67a714b1727bafd0fa3c809cbdc805776dc6bced26b53db5"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/Warscrolls_RoRfactions.csv",
+      "finalUrl": "https://wahapedia.ru/aos4/Warscrolls_RoRfactions.csv",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-27T19:10:34.873Z",
+      "adapterVersion": "wahapedia-export/1",
+      "mediaType": "text/csv",
+      "byteLength": 7584,
+      "checksum": "a48d7ac592c507e895e1eb67ad4e407b06f0245938fe2ef73cbca774aad8a1b0"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/Warscrolls_abilities.csv",
+      "finalUrl": "https://wahapedia.ru/aos4/Warscrolls_abilities.csv",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-27T19:10:29.538Z",
+      "adapterVersion": "wahapedia-export/1",
+      "mediaType": "text/csv",
+      "byteLength": 1411036,
+      "checksum": "4f9e15b6fa4f62536322ae626b1061a27b261f36fac9e460c2cc714f18a5d339"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/Warscrolls_bases.csv",
+      "finalUrl": "https://wahapedia.ru/aos4/Warscrolls_bases.csv",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-27T19:10:33.979Z",
+      "adapterVersion": "wahapedia-export/1",
+      "mediaType": "text/csv",
+      "byteLength": 52545,
+      "checksum": "7475b5492e8a0e926a3d9cf2d8f2983dc003c3a016774d47c5ea254aa9e353b0"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/Warscrolls_keywords.csv",
+      "finalUrl": "https://wahapedia.ru/aos4/Warscrolls_keywords.csv",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-27T19:10:33.496Z",
+      "adapterVersion": "wahapedia-export/1",
+      "mediaType": "text/csv",
+      "byteLength": 205374,
+      "checksum": "d38a901a1dfafeb86fcaad5b806cce1413776ad0d8e6542ecbd0be9e9815932c"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/Warscrolls_organisation.csv",
+      "finalUrl": "https://wahapedia.ru/aos4/Warscrolls_organisation.csv",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-27T19:10:34.684Z",
+      "adapterVersion": "wahapedia-export/1",
+      "mediaType": "text/csv",
+      "byteLength": 98363,
+      "checksum": "9231baa3e16f50fdd5265aa6f935dd7752fad6e6cd595469a1d360ede42f7d36"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/Warscrolls_weapons.csv",
+      "finalUrl": "https://wahapedia.ru/aos4/Warscrolls_weapons.csv",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-27T19:10:31.205Z",
+      "adapterVersion": "wahapedia-export/1",
+      "mediaType": "text/csv",
+      "byteLength": 160235,
+      "checksum": "0b002d2762087d079efcdaf2715ae08a01fc88b8aeb2dcccab40af5b506892ca"
+    },
+    {
+      "requestUrl": "https://assets.warhammer-community.com/eng_aos_battle_profiles-2wsrrn6poc-wb3lenb8nn.pdf",
+      "finalUrl": "https://assets.warhammer-community.com/eng_aos_battle_profiles-2wsrrn6poc-wb3lenb8nn.pdf",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-27T19:46:15.960Z",
+      "adapterVersion": "games-workshop-pdf/1",
+      "mediaType": "application/pdf",
+      "byteLength": 1393103,
+      "checksum": "0e69101a8adf954eedadc6caa098514f05c8a61f136eb423f89bfc22f0a733d0"
+    }
+  ]
+}

@@ -42,6 +42,7 @@
     "analyze": "source-map-explorer 'dist/static/js/*.js'",
     "build": "tsc && vite build",
     "clean": "node clean.js",
+    "data:aos4:candidate": "vite-node --script src/aos4/data/candidateCommand.ts",
     "format": "yarn prettier --write \"**/*.*(js|jsx|ts|tsx)\"",
     "gitclean:win": "git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }",
     "gitclean": "git branch | grep -v \"master\" | xargs git branch -D",

@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "status": "candidate-review-required",
+  "retrievedAt": "2026-07-27",
+  "wahapediaExportMarker": "2026-05-26",
+  "artifacts": {
+    "wahapediaExports": 13,
+    "gamesWorkshopDocuments": 1
+  },
+  "decodedRecords": {
+    "factions": 28,
+    "sources": 120,
+    "warscrolls": 1795,
+    "warscrollAbilities": 2444,
+    "warscrollWeapons": 2147,
+    "warscrollKeywords": 6700,
+    "warscrollBases": 1251,
+    "warscrollOrganisation": 1406,
+    "regimentOfRenownFactions": 492,
+    "factionAbilityTypes": 282,
+    "factionAbilitySubtypes": 732,
+    "factionAbilities": 1648
+  },
+  "normalization": {
+    "abilities": 4092,
+    "weapons": 2147,
+    "unknownWeaponTypes": 0,
+    "unresolvedTimings": 21,
+    "sourcePhaseFallbacks": 200
+  },
+  "diagnostics": {
+    "errors": 2,
+    "warnings": 1716,
+    "pollutedMarkers": 522,
+    "identicalDuplicateRecords": 635,
+    "emptyKeywordAssociationRecords": 559,
+    "missingFactionJoins": 2
+  },
+  "coverage": {
+    "representativeStormcastCohort": "complete",
+    "approvedCorpus": "not-yet-reviewed",
+    "candidateManifestAccepted": false
+  },
+  "notes": [
+    "All live source bytes remain in the ignored checksum cache.",
+    "Counts are reconnaissance results, not an assertion that the complete corpus is release-ready.",
+    "Empty keyword association sentinels are reported and excluded from the decoded record count.",
+    "Two Regiment of Renown rows reference the absent LCA faction and remain unresolved.",
+    "The Games Workshop private download endpoint returned HTTP 500 during discovery; the official Battle Profiles PDF was independently located and checksummed."
+  ]
+}

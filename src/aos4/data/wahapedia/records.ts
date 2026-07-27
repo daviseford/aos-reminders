@@ -185,6 +185,7 @@ export type WahapediaDiagnosticCode =
   | 'invalid-source-date'
   | 'duplicate-record-key'
   | 'duplicate-identical-record'
+  | 'empty-association-record'
   | 'missing-faction'
   | 'missing-source'
   | 'missing-warscroll'

@@ -362,6 +362,18 @@ const parseExport = (
 
   const seenKeys = new Map<string, string>()
   const uniqueRecords = records.filter(record => {
+    if (record.file === 'Warscrolls_keywords.csv' && !record.values.keyword && !record.values.parameter) {
+      diagnostics.push({
+        code: 'empty-association-record',
+        severity: 'warning',
+        file,
+        row: record.row,
+        field: 'keyword',
+        message: `${file} row ${record.row} is an empty keyword association and was ignored`,
+      })
+      return false
+    }
+
     const key = primaryKey(record)
     const recordValue = JSON.stringify(record.values)
     primaryKeyFields(file).forEach(field => {
