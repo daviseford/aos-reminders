@@ -1,0 +1,302 @@
+{
+  "schemaVersion": 1,
+  "entries": [
+    {
+      "kind": "publication",
+      "canonicalId": "publication:80000000-0000-4000-8000-000000000002",
+      "name": "Warhammer Age of Sigmar Battle Profiles — June 2026",
+      "aliases": [
+        {
+          "publisher": "games-workshop",
+          "externalId": "battle-profiles:june-2026"
+        }
+      ]
+    },
+    {
+      "kind": "faction",
+      "canonicalId": "faction:80000000-0000-4000-8000-000000000003",
+      "name": "Stormcast Eternals",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Factions.csv:SE"
+        }
+      ]
+    },
+    {
+      "kind": "content-group",
+      "canonicalId": "content-group:80000000-0000-4000-8000-000000000004",
+      "name": "Battle Traits",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Faction_ability_types.csv:SE:000000610"
+        }
+      ]
+    },
+    {
+      "kind": "content-group",
+      "canonicalId": "content-group:80000000-0000-4000-8000-000000000005",
+      "name": "Lightning Echelon",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Faction_ability_subtypes.csv:SE:000000606:000002238"
+        }
+      ]
+    },
+    {
+      "kind": "content-group",
+      "canonicalId": "content-group:80000000-0000-4000-8000-000000000006",
+      "name": "Quicksilver Draught",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Faction_abilities.csv:SE:000000612:000002233:3"
+        }
+      ]
+    },
+    {
+      "kind": "content-group",
+      "canonicalId": "content-group:80000000-0000-4000-8000-000000000007",
+      "name": "Lore of the Storm",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Faction_ability_types.csv:SE:000000605"
+        }
+      ]
+    },
+    {
+      "kind": "content-group",
+      "canonicalId": "content-group:80000000-0000-4000-8000-000000000008",
+      "name": "Prayers of the Stormhosts",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Faction_ability_types.csv:SE:000000614"
+        }
+      ]
+    },
+    {
+      "kind": "content-group",
+      "canonicalId": "content-group:80000000-0000-4000-8000-000000000009",
+      "name": "Manifestations of the Storm",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Faction_ability_types.csv:SE:000000613"
+        }
+      ]
+    },
+    {
+      "kind": "warscroll",
+      "canonicalId": "warscroll:80000000-0000-4000-8000-000000000010",
+      "name": "Liberators",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Warscrolls.csv:000000061"
+        }
+      ]
+    },
+    {
+      "kind": "warscroll",
+      "canonicalId": "warscroll:80000000-0000-4000-8000-000000000011",
+      "name": "Vigilors",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Warscrolls.csv:000001366"
+        }
+      ]
+    },
+    {
+      "kind": "battle-profile",
+      "canonicalId": "battle-profile:80000000-0000-4000-8000-000000000012",
+      "name": "Liberators — June 2026 battle profile",
+      "aliases": [
+        {
+          "publisher": "games-workshop",
+          "externalId": "june-2026:stormcast-eternals:liberators"
+        }
+      ]
+    },
+    {
+      "kind": "battle-profile",
+      "canonicalId": "battle-profile:80000000-0000-4000-8000-000000000013",
+      "name": "Vigilors — June 2026 battle profile",
+      "aliases": [
+        {
+          "publisher": "games-workshop",
+          "externalId": "june-2026:stormcast-eternals:vigilors"
+        }
+      ]
+    },
+    {
+      "kind": "ability",
+      "canonicalId": "ability:80000000-0000-4000-8000-000000000014",
+      "name": "The Celestial Realm",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Faction_abilities.csv:SE:000000610:000002231:2"
+        }
+      ]
+    },
+    {
+      "kind": "ability",
+      "canonicalId": "ability:80000000-0000-4000-8000-000000000015",
+      "name": "Scions of the Storm",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Faction_abilities.csv:SE:000000610:000002231:3"
+        }
+      ]
+    },
+    {
+      "kind": "ability",
+      "canonicalId": "ability:80000000-0000-4000-8000-000000000016",
+      "name": "Their Finest Hour",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Faction_abilities.csv:SE:000000610:000002231:5"
+        }
+      ]
+    },
+    {
+      "kind": "ability",
+      "canonicalId": "ability:80000000-0000-4000-8000-000000000017",
+      "name": "Oncoming Storm",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Faction_abilities.csv:SE:000000606:000002238:2"
+        }
+      ]
+    },
+    {
+      "kind": "ability",
+      "canonicalId": "ability:80000000-0000-4000-8000-000000000018",
+      "name": "Quicksilver Draught",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Faction_abilities.csv:SE:000000612:000002233:3"
+        }
+      ]
+    },
+    {
+      "kind": "ability",
+      "canonicalId": "ability:80000000-0000-4000-8000-000000000019",
+      "name": "Lightning Blast",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Faction_abilities.csv:SE:000000605:000002236:2"
+        }
+      ]
+    },
+    {
+      "kind": "ability",
+      "canonicalId": "ability:80000000-0000-4000-8000-000000000020",
+      "name": "Healing Storm",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Faction_abilities.csv:SE:000000614:000002234:2"
+        }
+      ]
+    },
+    {
+      "kind": "ability",
+      "canonicalId": "ability:80000000-0000-4000-8000-000000000021",
+      "name": "Summon Everblaze Comet",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Faction_abilities.csv:SE:000000613:000002235:4"
+        }
+      ]
+    },
+    {
+      "kind": "ability",
+      "canonicalId": "ability:80000000-0000-4000-8000-000000000022",
+      "name": "Stalwart Defenders",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Warscrolls_abilities.csv:000000061:1"
+        }
+      ]
+    },
+    {
+      "kind": "ability",
+      "canonicalId": "ability:80000000-0000-4000-8000-000000000023",
+      "name": "Navigators of the Storm",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Warscrolls_abilities.csv:000001366:1"
+        }
+      ]
+    },
+    {
+      "kind": "ability",
+      "canonicalId": "ability:80000000-0000-4000-8000-000000000024",
+      "name": "Defensive Reflex",
+      "aliases": [
+        {
+          "publisher": "other",
+          "externalId": "fixture:defensive-reflex"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "canonicalId": "weapon:80000000-0000-4000-8000-000000000025",
+      "name": "Warhammer",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Warscrolls_weapons.csv:000000061:1"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "canonicalId": "weapon:80000000-0000-4000-8000-000000000026",
+      "name": "Grandhammer",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Warscrolls_weapons.csv:000000061:2"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "canonicalId": "weapon:80000000-0000-4000-8000-000000000027",
+      "name": "Stormcaller Bow",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Warscrolls_weapons.csv:000001366:1"
+        }
+      ]
+    },
+    {
+      "kind": "weapon",
+      "canonicalId": "weapon:80000000-0000-4000-8000-000000000028",
+      "name": "Stormblade",
+      "aliases": [
+        {
+          "publisher": "wahapedia",
+          "externalId": "Warscrolls_weapons.csv:000001366:2"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 1,
+  "status": "strict-pass",
+  "cohort": "Stormcast Eternals representative slice",
+  "catalogEntities": 27,
+  "sourceArtifacts": 7,
+  "sourceRecords": 19,
+  "rulesContexts": 1,
+  "unacknowledgedErrors": 0,
+  "acknowledgedDiagnostics": {
+    "unknownTimingExcludedFromRuntime": 1
+  },
+  "attribution": "Powered by Wahapedia",
+  "contentPolicy": {
+    "rawArtifactsCommitted": false,
+    "fullRuleBodiesCommitted": false,
+    "runtimeUsesReminderSummaries": true
+  }
+}
