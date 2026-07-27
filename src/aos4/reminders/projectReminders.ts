@@ -32,7 +32,9 @@ const uniqueBy = <T>(values: Iterable<T>, key: (value: T) => string): T[] => {
     const valueKey = key(value)
     if (!unique.has(valueKey)) unique.set(valueKey, value)
   })
-  return Array.from(unique.values()).sort((left, right) => key(left).localeCompare(key(right)))
+  return Array.from(unique.entries())
+    .sort(([left], [right]) => left.localeCompare(right))
+    .map(([, value]) => value)
 }
 
 const textKey = (text: AbilityText): string =>

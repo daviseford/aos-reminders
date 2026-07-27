@@ -36,6 +36,19 @@ const PERSPECTIVE_WINDOW_PATTERN =
   'start of (?:the )?turn(?: phase)?|hero phase|movement phase|shooting phase|charge phase|' +
   'combat phase|end of (?:the )?turn(?: phase)?'
 
+const PERSPECTIVE_PATTERNS: Array<[RegExp, TimingPerspective]> = [
+  [new RegExp(`\\byour\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))`, 'i'), 'your'],
+  [new RegExp(`\\benemy\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))`, 'i'), 'enemy'],
+  [new RegExp(`\\bany\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))`, 'i'), 'any'],
+]
+
+const USAGE_PERIODS: Record<string, UsagePeriod> = {
+  phase: 'phase',
+  turn: 'turn',
+  'battle round': 'battle-round',
+  battle: 'battle',
+}
+
 const usageScopeFromActor = (actor: AbilityActor): UsageScope => {
   if (actor === 'army') return 'army'
   if (actor === 'player') return 'player'
@@ -46,13 +59,9 @@ const findPerspective = (
   value: string,
   diagnostics: NormalizationDiagnostic[]
 ): TimingPerspective => {
-  const perspectives = [
-    [new RegExp(`\\byour\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))`, 'i'), 'your'],
-    [new RegExp(`\\benemy\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))`, 'i'), 'enemy'],
-    [new RegExp(`\\bany\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))`, 'i'), 'any'],
-  ]
-    .filter(([pattern]) => (pattern as RegExp).test(value))
-    .map(([, perspective]) => perspective as TimingPerspective)
+  const perspectives = PERSPECTIVE_PATTERNS.filter(([pattern]) => pattern.test(value)).map(
+    ([, perspective]) => perspective
+  )
 
   if (perspectives.length > 1) {
     diagnostics.push({
@@ -94,16 +103,9 @@ const findUsage = (
   const match = value.match(/\bonce per (battle round|phase|turn|battle)\b/i)
   if (!match) return undefined
 
-  const periodLookup: Record<string, UsagePeriod> = {
-    phase: 'phase',
-    turn: 'turn',
-    'battle round': 'battle-round',
-    battle: 'battle',
-  }
-
   return {
     limit: 1,
-    period: periodLookup[match[1].toLowerCase()],
+    period: USAGE_PERIODS[match[1].toLowerCase()],
     scope: /\(\s*army\s*\)/i.test(value) ? 'army' : usageScopeFromActor(actor),
   }
 }
