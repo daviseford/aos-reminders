@@ -192,9 +192,15 @@ yarn build
 
 The 2026-07-27 live snapshot decodes 28 factions, 1,795 warscrolls, 4,092 abilities, and 2,147
 weapons after excluding 559 empty keyword association sentinels. All timing windows are classified;
-20 abilities still use the lossy source-phase fallback, 13 reaction flags contradict explicit
+two abilities still use the lossy source-phase fallback, 13 reaction flags contradict explicit
 Reaction text, and two Regiment of Renown joins reference the absent `LCA` faction. Those items are
 review work, not accepted exceptions.
+
+Eighteen earlier fallbacks were resolved from the condition field itself: first/third battle-round
+boundaries now retain their round qualifier, and the adapter corrects only eight instances of the
+two exact observed source typos `Any Comhat Phase` and `Your Hero Quest` while emitting
+`source-timing-correction`. The remaining Nighthaunt and Ossiarch Bonereapers rows are not guessed.
+The checked candidate summary records the exact two fallback and eight corrected source-record IDs.
 
 Official full-corpus discovery, publication-family extraction, identity review, and conflict
 resolution remain cohort work. Expand from the representative faction rather than treating a

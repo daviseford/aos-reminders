@@ -39,6 +39,11 @@ const laneOrder = {
   passive: 2,
 } as const
 
+const roundOrder = (timing: AbilityTiming): number =>
+  timing.window.kind === 'battle-round-start' || timing.window.kind === 'battle-round-end'
+    ? (timing.window.round ?? 0)
+    : 0
+
 const perspectiveOrder: Record<TimingPerspective, number> = {
   your: 0,
   any: 1,
@@ -48,6 +53,7 @@ const perspectiveOrder: Record<TimingPerspective, number> = {
 
 export const compareReminders = (left: ProjectedReminder, right: ProjectedReminder): number =>
   windowOrder(left.timing) - windowOrder(right.timing) ||
+  roundOrder(left.timing) - roundOrder(right.timing) ||
   priorityOrder[left.timing.priority ?? 'normal'] - priorityOrder[right.timing.priority ?? 'normal'] ||
   laneOrder[left.lane] - laneOrder[right.lane] ||
   perspectiveOrder[left.timing.perspective ?? 'neutral'] -

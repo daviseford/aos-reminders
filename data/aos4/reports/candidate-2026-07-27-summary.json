@@ -26,8 +26,25 @@
     "weapons": 2147,
     "unknownWeaponTypes": 0,
     "unresolvedTimings": 0,
-    "sourcePhaseFallbacks": 20,
+    "sourcePhaseFallbacks": 2,
+    "sourceTimingCorrections": 8,
     "reactionFlagMismatches": 13
+  },
+  "timingReview": {
+    "sourcePhaseFallbackSourceRecordIds": [
+      "source-record:wahapedia:Faction_abilities.csv%3AOB%3A000001045%3A000004250%3A3",
+      "source-record:wahapedia:Warscrolls_abilities.csv%3A000001746%3A1"
+    ],
+    "sourceTimingCorrectionSourceRecordIds": [
+      "source-record:wahapedia:Faction_abilities.csv%3ACoS%3A000000900%3A000003400%3A6",
+      "source-record:wahapedia:Faction_abilities.csv%3AFY%3A000000899%3A000003388%3A6",
+      "source-record:wahapedia:Faction_abilities.csv%3AIJ%3A000000793%3A000002579%3A2",
+      "source-record:wahapedia:Faction_abilities.csv%3AIJ%3A000000903%3A000003416%3A2",
+      "source-record:wahapedia:Faction_abilities.csv%3AIJ%3A000000903%3A000003416%3A3",
+      "source-record:wahapedia:Faction_abilities.csv%3AIJ%3A000000903%3A000003416%3A4",
+      "source-record:wahapedia:Faction_abilities.csv%3AKB%3A000000789%3A000002528%3A2",
+      "source-record:wahapedia:Faction_abilities.csv%3AKO%3A000000901%3A000003394%3A6"
+    ]
   },
   "diagnostics": {
     "errors": 2,
@@ -47,6 +64,8 @@
     "Counts are reconnaissance results, not an assertion that the complete corpus is release-ready.",
     "Empty keyword association sentinels are reported and excluded from the decoded record count.",
     "Phase-independent Reaction timings are modeled as triggered windows instead of being forced into a turn phase.",
+    "Ordinal battle-round windows and eight diagnosed instances of two exact source-typo patterns classify 18 timings without relying on the lossy ability_phase field.",
+    "The two remaining source-phase fallbacks are retained for official-source review rather than guessed.",
     "Thirteen records contradict their textual Reaction timing with is_reaction=false and remain blocked for review.",
     "Two Regiment of Renown rows reference the absent LCA faction and remain unresolved.",
     "The Games Workshop private download endpoint returned HTTP 500 during discovery; the official Battle Profiles PDF was independently located and checksummed."

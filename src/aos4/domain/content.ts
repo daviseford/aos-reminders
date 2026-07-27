@@ -82,6 +82,7 @@ export type DomainValidationIssueCode =
   | 'missing-rules-context'
   | 'missing-entity-provenance'
   | 'invalid-turn-phase'
+  | 'invalid-battle-round'
   | 'missing-ability-effect'
   | 'missing-reaction-trigger'
   | 'ability-timing-kind-mismatch'
@@ -287,6 +288,19 @@ export const validateCatalog = (catalog: Aos4Catalog): DomainValidationIssue[] =
           code: 'invalid-turn-phase',
           subject: entity.id,
           message: `Ability ${entity.id} has invalid turn phase ${timing.window.phase}`,
+        })
+      }
+
+      if (
+        (timing.window.kind === 'battle-round-start' ||
+          timing.window.kind === 'battle-round-end') &&
+        timing.window.round !== undefined &&
+        (!Number.isInteger(timing.window.round) || timing.window.round < 1)
+      ) {
+        issues.push({
+          code: 'invalid-battle-round',
+          subject: entity.id,
+          message: `Ability ${entity.id} has invalid battle round ${timing.window.round}`,
         })
       }
 

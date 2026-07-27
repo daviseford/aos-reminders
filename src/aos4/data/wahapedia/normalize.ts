@@ -96,6 +96,30 @@ const abilityKind = (record: WahapediaAbilityRecord): AbilityKind => {
 const reactionTrigger = (conditionHtml: string): string | undefined =>
   conditionHtml.match(/\bReaction:\s*([\s\S]*)$/i)?.[1]?.trim()
 
+const correctKnownSourceTimingTypos = (
+  value: string
+): { value: string; diagnostics: NormalizationDiagnostic[] } => {
+  const corrections = [
+    { pattern: /\bAny Comhat Phase\b/gi, replacement: 'Any Combat Phase' },
+    { pattern: /\bYour Hero Quest\b/gi, replacement: 'Your Hero Phase' },
+  ]
+  const diagnostics: NormalizationDiagnostic[] = []
+  let corrected = value
+
+  corrections.forEach(correction => {
+    if (!correction.pattern.test(corrected)) return
+    correction.pattern.lastIndex = 0
+    corrected = corrected.replace(correction.pattern, correction.replacement)
+    diagnostics.push({
+      code: 'source-timing-correction',
+      severity: 'warning',
+      message: `Corrected a known Wahapedia timing typo to "${correction.replacement}"`,
+    })
+  })
+
+  return { value: corrected, diagnostics }
+}
+
 const normalizeKeywords = (
   keywordsHtml: string
 ): { keywords: string[]; diagnostics: NormalizationDiagnostic[] } => {
@@ -119,7 +143,8 @@ export const normalizeWahapediaAbility = (
     abilityKind: kind,
     actor,
   }
-  const primaryTiming = parseTiming(record.conditionHtml || record.abilityPhase, timingOptions)
+  const timingSource = correctKnownSourceTimingTypos(record.conditionHtml || record.abilityPhase)
+  const primaryTiming = parseTiming(timingSource.value, timingOptions)
   const sourcePhaseTiming =
     primaryTiming.timings[0]?.window.kind === 'unknown' && record.abilityPhase
       ? parseTiming(record.abilityPhase, timingOptions)
@@ -175,6 +200,7 @@ export const normalizeWahapediaAbility = (
     },
     diagnostics: [
       ...text.diagnostics,
+      ...timingSource.diagnostics,
       ...timingDiagnostics,
       ...keywords.diagnostics,
       ...reactionFlagDiagnostics,

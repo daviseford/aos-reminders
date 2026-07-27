@@ -17,9 +17,9 @@ export const isTurnPhaseId = (value: string): value is TurnPhaseId => TURN_PHASE
 export type GameWindow =
   | { kind: 'battle-start' }
   | { kind: 'deployment' }
-  | { kind: 'battle-round-start' }
+  | { kind: 'battle-round-start'; round?: number }
   | { kind: 'turn-phase'; phase: TurnPhaseId }
-  | { kind: 'battle-round-end' }
+  | { kind: 'battle-round-end'; round?: number }
   | { kind: 'battle-end' }
   | { kind: 'reaction' }
   | { kind: 'always' }

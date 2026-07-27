@@ -32,7 +32,8 @@ const PHASE_PATTERNS: Array<[TurnPhaseId, RegExp]> = [
 ]
 
 const PERSPECTIVE_WINDOW_PATTERN =
-  'deployment(?: phase)?|start of (?:the )?battle(?: round)?|end of (?:the )?battle(?: round)?|' +
+  'deployment(?: phase)?|start of (?:the )?(?:(?:first|second|third|fourth|fifth|\\d+(?:st|nd|rd|th)?) )?battle(?: round)?|' +
+  'end of (?:the )?(?:(?:first|second|third|fourth|fifth|\\d+(?:st|nd|rd|th)?) )?battle(?: round)?|' +
   'start of (?:the )?turn(?: phase)?|hero phase|movement phase|shooting phase|charge phase|' +
   'combat phase|end of (?:the )?turn(?: phase)?'
 
@@ -76,6 +77,36 @@ const usageScopeFromActor = (actor: AbilityActor): UsageScope => {
   return 'unit'
 }
 
+const BATTLE_ROUND_VALUES: Record<string, number> = {
+  first: 1,
+  second: 2,
+  third: 3,
+  fourth: 4,
+  fifth: 5,
+}
+
+const battleRoundWindow = (
+  value: string,
+  boundary: 'start' | 'end'
+): Extract<GameWindow, { kind: 'battle-round-start' | 'battle-round-end' }> | undefined => {
+  const match = value.match(
+    new RegExp(
+      `\\b${boundary} of (?:the )?(?:(first|second|third|fourth|fifth|\\d+(?:st|nd|rd|th)?) )?battle round\\b`,
+      'i'
+    )
+  )
+  if (!match) return undefined
+
+  const rawRound = match[1]?.toLowerCase()
+  const round = rawRound
+    ? BATTLE_ROUND_VALUES[rawRound] ?? Number.parseInt(rawRound, 10)
+    : undefined
+  return {
+    kind: boundary === 'start' ? 'battle-round-start' : 'battle-round-end',
+    ...(round === undefined ? {} : { round }),
+  }
+}
+
 const findPerspective = (value: string, diagnostics: NormalizationDiagnostic[]): TimingPerspective => {
   const perspectives = PERSPECTIVE_PATTERNS.filter(([pattern]) => pattern.test(value)).map(
     ([, perspective]) => perspective
@@ -98,14 +129,16 @@ const findWindows = (value: string, abilityKind: AbilityKind): GameWindow[] => {
 
   const windows: GameWindow[] = []
   if (/\bdeployment(?: phase)?\b/i.test(value)) windows.push({ kind: 'deployment' })
-  if (/\bstart of (?:the )?battle round\b/i.test(value)) {
-    windows.push({ kind: 'battle-round-start' })
+  const roundStart = battleRoundWindow(value, 'start')
+  const roundEnd = battleRoundWindow(value, 'end')
+  if (roundStart) windows.push(roundStart)
+  if (roundEnd) windows.push(roundEnd)
+  if (/\bstart of (?:the )?battle(?! round|\s+(?:first|second|third|fourth|fifth|\d))\b/i.test(value)) {
+    windows.push({ kind: 'battle-start' })
   }
-  if (/\bend of (?:the )?battle round\b/i.test(value)) {
-    windows.push({ kind: 'battle-round-end' })
+  if (/\bend of (?:the )?battle(?! round|\s+(?:first|second|third|fourth|fifth|\d))\b/i.test(value)) {
+    windows.push({ kind: 'battle-end' })
   }
-  if (/\bstart of (?:the )?battle(?! round)\b/i.test(value)) windows.push({ kind: 'battle-start' })
-  if (/\bend of (?:the )?battle(?! round)\b/i.test(value)) windows.push({ kind: 'battle-end' })
 
   PHASE_PATTERNS.forEach(([phase, pattern]) => {
     if (pattern.test(value)) windows.push({ kind: 'turn-phase', phase })

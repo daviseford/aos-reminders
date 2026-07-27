@@ -265,6 +265,7 @@ describe('Wahapedia AoS 4 export adapter', () => {
         weapons: 2,
         unknownWeaponSourceRecordIds: [],
         unresolvedTimingSourceRecordIds: [],
+        sourceTimingCorrectionSourceRecordIds: [],
         reactionFlagMismatchSourceRecordIds: [],
       },
       diagnostics: { errors: 0, warnings: 0, byCode: {} },
@@ -303,6 +304,41 @@ describe('Wahapedia AoS 4 export adapter', () => {
       })
     )
   })
+
+  it.each([
+    ['Once Per Turn (Army), Any Comhat Phase', 'Combat Phase', 'combat'],
+    ['Your Hero Quest', 'Hero Phase', 'hero'],
+  ] as const)(
+    'corrects a known source timing typo without using the lossy phase fallback',
+    async (conditionHtml, abilityPhase, phase) => {
+      const { dataset } = decodeWahapediaExports(await loadInputs())
+      const record = {
+        ...dataset.warscrollAbilities[0],
+        conditionHtml,
+        abilityPhase,
+      }
+      const fact = normalizeWahapediaAbility(record, 'unit')
+
+      expect(fact.raw.condition).toBe(conditionHtml)
+      expect(fact.timings[0].window).toEqual({ kind: 'turn-phase', phase })
+      expect(fact.diagnostics).toContainEqual(
+        expect.objectContaining({
+          code: 'source-timing-correction',
+          severity: 'warning',
+        })
+      )
+      expect(fact.diagnostics).not.toContainEqual(
+        expect.objectContaining({ code: 'source-phase-fallback' })
+      )
+      expect(
+        createWahapediaFactionCohortReport(
+          { ...dataset, warscrollAbilities: [record] },
+          [],
+          'SCE'
+        ).normalization.sourceTimingCorrectionSourceRecordIds
+      ).toEqual([String(record.meta.sourceRecordId)])
+    }
+  )
 
   it('emits row-addressable diagnostics for schema, value, vocabulary, and join failures', async () => {
     let inputs = await loadInputs()

@@ -66,7 +66,10 @@ describe('AoS 4 timing normalization', () => {
       ['Deployment Phase', { kind: 'deployment' }],
       ['Start of Battle', { kind: 'battle-start' }],
       ['Start of Battle Round', { kind: 'battle-round-start' }],
+      ['Start of the First Battle Round', { kind: 'battle-round-start', round: 1 }],
+      ['Start of the Third Battle Round', { kind: 'battle-round-start', round: 3 }],
       ['End of Battle Round', { kind: 'battle-round-end' }],
+      ['End of the 2nd Battle Round', { kind: 'battle-round-end', round: 2 }],
       ['End of Battle', { kind: 'battle-end' }],
     ] as const
 

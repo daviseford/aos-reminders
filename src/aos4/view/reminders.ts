@@ -17,11 +17,11 @@ const windowLabel = (timing: AbilityTiming): string => {
     case 'deployment':
       return 'Deployment'
     case 'battle-round-start':
-      return 'Start of Battle Round'
+      return `Start of Battle Round${timing.window.round ? ` ${timing.window.round}` : ''}`
     case 'turn-phase':
       return `${phaseNames.get(timing.window.phase) ?? timing.window.phase} Phase`
     case 'battle-round-end':
-      return 'End of Battle Round'
+      return `End of Battle Round${timing.window.round ? ` ${timing.window.round}` : ''}`
     case 'battle-end':
       return 'End of Battle'
     case 'reaction':

@@ -1,8 +1,16 @@
 import type { AbilityTiming, CanonicalId, GameWindow } from '../domain'
 import type { ReminderOccurrenceId } from './types'
 
-export const gameWindowKey = (window: GameWindow): string =>
-  window.kind === 'turn-phase' ? `${window.kind}:${window.phase}` : window.kind
+export const gameWindowKey = (window: GameWindow): string => {
+  if (window.kind === 'turn-phase') return `${window.kind}:${window.phase}`
+  if (
+    (window.kind === 'battle-round-start' || window.kind === 'battle-round-end') &&
+    window.round !== undefined
+  ) {
+    return `${window.kind}:${window.round}`
+  }
+  return window.kind
+}
 
 export const semanticTimingKey = (timing: AbilityTiming): string => {
   const usage = timing.usage

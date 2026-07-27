@@ -141,7 +141,8 @@ describe('AoS 4 catalog generation integrity', () => {
       status: 'candidate-review-required',
       normalization: {
         unresolvedTimings: 0,
-        sourcePhaseFallbacks: 20,
+        sourcePhaseFallbacks: 2,
+        sourceTimingCorrections: 8,
         reactionFlagMismatches: 13,
       },
       coverage: {
@@ -149,6 +150,17 @@ describe('AoS 4 catalog generation integrity', () => {
         candidateManifestAccepted: false,
       },
     })
+    expect(candidateReport.timingReview.sourcePhaseFallbackSourceRecordIds).toHaveLength(2)
+    expect(candidateReport.timingReview.sourceTimingCorrectionSourceRecordIds).toHaveLength(8)
+    expect(
+      candidateReport.timingReview.sourcePhaseFallbackSourceRecordIds.concat(
+        candidateReport.timingReview.sourceTimingCorrectionSourceRecordIds
+      )
+    ).toEqual(
+      expect.arrayContaining([
+        expect.stringMatching(/^source-record:wahapedia:/),
+      ])
+    )
   })
 
   it('keeps the full Stormcast cohort blocked and outside the runtime catalog', () => {
@@ -157,6 +169,7 @@ describe('AoS 4 catalog generation integrity', () => {
       normalization: {
         unresolvedTimings: 0,
         sourcePhaseFallbacks: 0,
+        sourceTimingCorrections: 0,
         reactionFlagMismatches: 2,
       },
       coverage: {
@@ -178,7 +191,8 @@ describe('AoS 4 catalog generation integrity', () => {
         reviewableFactions: 17,
         decoderErrors: 2,
         unresolvedTimings: 0,
-        sourcePhaseFallbacks: 20,
+        sourcePhaseFallbacks: 2,
+        sourceTimingCorrections: 8,
         reactionFlagMismatches: 13,
       },
       coverage: {

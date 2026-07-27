@@ -9,7 +9,8 @@
     "reviewableFactions": 17,
     "decoderErrors": 2,
     "unresolvedTimings": 0,
-    "sourcePhaseFallbacks": 20,
+    "sourcePhaseFallbacks": 2,
+    "sourceTimingCorrections": 8,
     "reactionFlagMismatches": 13
   },
   "cohorts": [
@@ -54,7 +55,7 @@
       "sourceRecords": 1138,
       "errors": 0,
       "warnings": 25,
-      "sourcePhaseFallbacks": 2,
+      "sourcePhaseFallbacks": 0,
       "reactionFlagMismatches": 0
     },
     {
@@ -65,7 +66,7 @@
       "sourceRecords": 688,
       "errors": 0,
       "warnings": 15,
-      "sourcePhaseFallbacks": 1,
+      "sourcePhaseFallbacks": 0,
       "reactionFlagMismatches": 0
     },
     {
@@ -76,7 +77,7 @@
       "sourceRecords": 800,
       "errors": 0,
       "warnings": 19,
-      "sourcePhaseFallbacks": 1,
+      "sourcePhaseFallbacks": 0,
       "reactionFlagMismatches": 1
     },
     {
@@ -109,7 +110,7 @@
       "sourceRecords": 559,
       "errors": 0,
       "warnings": 14,
-      "sourcePhaseFallbacks": 2,
+      "sourcePhaseFallbacks": 0,
       "reactionFlagMismatches": 0
     },
     {
@@ -120,7 +121,7 @@
       "sourceRecords": 935,
       "errors": 1,
       "warnings": 22,
-      "sourcePhaseFallbacks": 1,
+      "sourcePhaseFallbacks": 0,
       "reactionFlagMismatches": 1
     },
     {
@@ -164,7 +165,7 @@
       "sourceRecords": 520,
       "errors": 0,
       "warnings": 13,
-      "sourcePhaseFallbacks": 5,
+      "sourcePhaseFallbacks": 0,
       "reactionFlagMismatches": 0
     },
     {
@@ -175,7 +176,7 @@
       "sourceRecords": 500,
       "errors": 0,
       "warnings": 16,
-      "sourcePhaseFallbacks": 2,
+      "sourcePhaseFallbacks": 0,
       "reactionFlagMismatches": 0
     },
     {
@@ -186,7 +187,7 @@
       "sourceRecords": 677,
       "errors": 1,
       "warnings": 15,
-      "sourcePhaseFallbacks": 1,
+      "sourcePhaseFallbacks": 0,
       "reactionFlagMismatches": 0
     },
     {
@@ -219,7 +220,7 @@
       "sourceRecords": 695,
       "errors": 0,
       "warnings": 21,
-      "sourcePhaseFallbacks": 2,
+      "sourcePhaseFallbacks": 1,
       "reactionFlagMismatches": 3
     },
     {
@@ -274,7 +275,7 @@
       "sourceRecords": 705,
       "errors": 0,
       "warnings": 17,
-      "sourcePhaseFallbacks": 1,
+      "sourcePhaseFallbacks": 0,
       "reactionFlagMismatches": 0
     },
     {
@@ -307,7 +308,7 @@
       "sourceRecords": 1090,
       "errors": 0,
       "warnings": 30,
-      "sourcePhaseFallbacks": 1,
+      "sourcePhaseFallbacks": 0,
       "reactionFlagMismatches": 0
     },
     {
@@ -330,6 +331,8 @@
     "Cohort source-record counts overlap because shared sources and Regiment of Renown associations can belong to more than one faction review.",
     "Reviewable means the automated blocker set is empty; it is not approval or official-source reconciliation.",
     "The two decoder errors are the known Regiment of Renown joins to the absent LCA faction.",
-    "All raw records and complete row-level reports remain in the ignored checksum cache and candidate output."
+    "All raw records and complete row-level reports remain in the ignored checksum cache and candidate output.",
+    "Eighteen former fallbacks are now classified from explicit ordinal battle-round timing or eight diagnosed instances of two narrowly-scoped source-typo patterns.",
+    "The remaining two fallbacks belong to Nighthaunt and Ossiarch Bonereapers and still require official-source review."
   ]
 }

@@ -784,9 +784,10 @@ current Stormcast Eternals erratum corroborates the Reaction text on both rows; 
 and the rest of the faction publication review remain.
 
 The same inventory now covers all 28 source factions: 17 have no automated blocker and 11 are
-blocked by the two known join errors and/or 13 contradictory reaction flags. All 20 remaining lossy
-source-phase fallbacks are assigned to a faction review queue. These statuses are review routing,
-not corpus acceptance.
+blocked by the two known join errors and/or 13 contradictory reaction flags. Round-qualified battle
+round windows and eight diagnosed instances of two exact source-typo patterns classify 18 former
+fallbacks. The remaining two lossy source-phase fallbacks are assigned to the Nighthaunt and
+Ossiarch Bonereapers review queues. These statuses are review routing, not corpus acceptance.
 
 The synthetic reaction previously used to demonstrate runtime placement was removed from the
 accepted representative catalog once official reaction evidence was available. A strict generation

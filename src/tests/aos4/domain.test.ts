@@ -346,6 +346,26 @@ describe('AoS 4 domain', () => {
     )
   })
 
+  it('rejects invalid battle-round qualifiers', () => {
+    const catalog = createCatalog()
+    const invalidRound = structuredClone(ability)
+    invalidRound.timings = [
+      {
+        kind: 'reaction',
+        window: { kind: 'battle-round-start', round: 0 },
+        raw: 'Start of Battle Round 0',
+      },
+    ]
+    catalog.entities.push({
+      ...invalidRound,
+      id: abilityId('10000000-0000-4000-8000-000000000020'),
+    })
+
+    expect(validateCatalog(catalog)).toContainEqual(
+      expect.objectContaining({ code: 'invalid-battle-round' })
+    )
+  })
+
   it('validates source applicability and required entity fields', () => {
     const catalog = createCatalog()
     const missingContext = rulesContextId('10000000-0000-4000-8000-000000000012')

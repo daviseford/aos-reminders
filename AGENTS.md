@@ -59,7 +59,7 @@ Phase 1 has two parts:
 The representative vertical slice and AoS 4 runtime cutover are complete. The next body of work is
 reviewed corpus expansion through the AoS 4-only pipeline. Do not promote the live candidate
 snapshot wholesale: resolve or explicitly disposition its diagnostics and review a bounded cohort.
-The current candidate has zero unknown timing windows, 20 lossy phase fallbacks, 13 contradictory
+The current candidate has zero unknown timing windows, two lossy phase fallbacks, 13 contradictory
 reaction flags, and two missing Regiment of Renown faction joins.
 
 Avoid dependency churn during Phase 1 unless a package blocks correct data work, the build, or safe
@@ -174,7 +174,8 @@ explicit decision.
 `src/aos4/domain/` defines:
 
 - stable branded canonical IDs
-- seven ordered turn phases plus battle/deployment/round/triggered-reaction/always/unknown windows
+- seven ordered turn phases plus battle/deployment/round/triggered-reaction/always/unknown windows;
+  round boundaries may carry a specific positive battle-round number
 - active, reaction, and passive ability timings
 - perspective, combat priority, and scoped usage limits
 - declare/trigger/effect text

@@ -27,6 +27,7 @@ export interface WahapediaFactionCohortReport {
     unknownWeaponSourceRecordIds: string[]
     unresolvedTimingSourceRecordIds: string[]
     sourcePhaseFallbackSourceRecordIds: string[]
+    sourceTimingCorrectionSourceRecordIds: string[]
     reactionFlagMismatchSourceRecordIds: string[]
   }
   diagnostics: {
@@ -126,6 +127,11 @@ export const createWahapediaFactionCohortReport = (
       .filter(fact => fact.diagnostics.some(diagnostic => diagnostic.code === 'source-phase-fallback'))
       .map(fact => String(fact.sourceRecordId))
   )
+  const sourceTimingCorrectionSourceRecordIds = uniqueSorted(
+    abilityFacts
+      .filter(fact => fact.diagnostics.some(diagnostic => diagnostic.code === 'source-timing-correction'))
+      .map(fact => String(fact.sourceRecordId))
+  )
   const unknownWeaponSourceRecordIds = uniqueSorted(
     weaponFacts.filter(fact => fact.weaponType === 'unknown').map(fact => String(fact.sourceRecordId))
   )
@@ -166,6 +172,7 @@ export const createWahapediaFactionCohortReport = (
       unknownWeaponSourceRecordIds,
       unresolvedTimingSourceRecordIds,
       sourcePhaseFallbackSourceRecordIds,
+      sourceTimingCorrectionSourceRecordIds,
       reactionFlagMismatchSourceRecordIds,
     },
     diagnostics: diagnosticCounts,

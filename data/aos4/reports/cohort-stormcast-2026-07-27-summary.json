@@ -27,6 +27,7 @@
     "unknownWeaponTypes": 0,
     "unresolvedTimings": 0,
     "sourcePhaseFallbacks": 0,
+    "sourceTimingCorrections": 0,
     "reactionFlagMismatches": 2
   },
   "diagnostics": {

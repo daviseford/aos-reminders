@@ -77,6 +77,7 @@ export interface CandidateAcquisitionReport {
     unknownWeaponTypes: number
     unresolvedTimings: number
     sourcePhaseFallbacks: number
+    sourceTimingCorrections: number
     reactionFlagMismatches: number
   }
   diagnostics: {
@@ -210,6 +211,9 @@ const createCandidateAnalysis = (
       ).length,
       sourcePhaseFallbacks: abilities.filter(ability =>
         ability.diagnostics.some(diagnostic => diagnostic.code === 'source-phase-fallback')
+      ).length,
+      sourceTimingCorrections: abilities.filter(ability =>
+        ability.diagnostics.some(diagnostic => diagnostic.code === 'source-timing-correction')
       ).length,
       reactionFlagMismatches: abilities.filter(ability =>
         ability.diagnostics.some(diagnostic => diagnostic.code === 'reaction-flag-mismatch')

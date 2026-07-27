@@ -313,6 +313,13 @@ describe('AoS 4 reminder identity', () => {
     }
 
     expect(semanticTimingKey(timing)).toBe('turn-phase:combat|reaction|enemy|strike-last|1:turn:unit')
+    expect(
+      semanticTimingKey({
+        ...timing,
+        kind: 'active',
+        window: { kind: 'battle-round-start', round: 3 },
+      })
+    ).toBe('battle-round-start:3|active|enemy|strike-last|1:turn:unit')
   })
 })
 
