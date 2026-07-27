@@ -1,5 +1,4 @@
 import 'core-js/stable' // organize-imports-ignore
-import 'css/animations.scss' // organize-imports-ignore
 import 'css/aos4.scss' // organize-imports-ignore
 import 'css/index.scss' // organize-imports-ignore
 import App from 'components/App'

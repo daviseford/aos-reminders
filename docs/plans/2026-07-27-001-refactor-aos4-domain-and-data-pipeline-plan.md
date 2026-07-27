@@ -258,9 +258,10 @@ product to advance without making that decision implicitly.
 - KTD10. Keep network access out of ordinary tests. Adapters receive an injectable fetch boundary
   and contract fixtures; explicit maintenance commands exercise live sources and write a candidate
   manifest for review. This realizes R13-R18.
-- KTD11. Increment the Redux Persist and saved-army schema at cutover and reset incompatible local
-  caches, reminder ordering, and selection state. This realizes R20 without encoding AoS 3 aliases
-  in the new domain.
+- KTD11. Replace Redux Persist and the remote saved-army boundary at cutover with a versioned local
+  AoS 4 army document. Delete old browser keys without parsing them; defer remote save/share until
+  it has an explicit AoS 4 contract. This realizes R20 without encoding AoS 3 aliases in the new
+  domain.
 - KTD12. Use existing Node 20 APIs and `parse5` first. If robust delimiter handling or TypeScript
   command execution remains unsafe, add one focused dependency in the unit that proves the need
   and record it as the R22 exception.
@@ -309,7 +310,7 @@ Games Workshop downloads        Wahapedia exports
                          |
                  reminder projection
                          |
-          Redux/UI/save/share/PDF presentation
+          AoS 4 browser state + reminder UI
 ```
 
 The domain has four principal layers:
@@ -331,7 +332,7 @@ The domain has four principal layers:
 | Rules | `TEntry`/`TEffects` arrays and boolean category tags | Canonical entities, typed metadata, and relations |
 | Selection | Fixed `TSelectionTypes` arrays keyed by names | Selected entity IDs resolved through the catalog |
 | Reminders | Pre-expanded `Game`, content hashes, name filtering | Post-selection projection with stable occurrence IDs |
-| Persistence | Redux Persist v4 and AoS 3 saved-army shape | New schema version with intentional reset |
+| Persistence | Redux Persist v4 and AoS 3 saved-army shape | Versioned AoS 4 document with intentional reset |
 | Sources | Hand-entered modules and coarse `rule_sources` | Artifact, source record, canonical field, and override provenance |
 | Bundle | Every supported faction eagerly bundled | Compact runtime projection separate from audit evidence |
 | Imports | Alias-heavy AoS 3 parser options | AoS 4 adapters mapped directly to canonical entity IDs |
@@ -339,7 +340,9 @@ The domain has four principal layers:
 
 ### Assumptions and Constraints
 
-- Node `v20.15.1`, Yarn Classic, React 17, Redux, Vite, and Vitest remain in place for Phase 1.
+- Node `v20.15.1`, Yarn Classic, React 17, Vite, and Vitest remain in place for Phase 1. Redux and
+  Redux Persist packages remain installed until Phase 2 dependency cleanup, but no source imports
+  them.
 - The Games Workshop download catalog and document URLs can change without notice.
 - Wahapedia export timestamps can lag visible page/source updates; `Last_update.csv` is one signal,
   not proof that all files changed atomically.
@@ -718,37 +721,36 @@ verification passes.
 
 ### U10. Runtime cutover and AoS 3 removal
 
+**Status:** Complete on `aos4-phase-1a-domain-model`.
+
 **Goal:** Make the validated AoS 4 catalog the only rule path on the migration branch and delete the
 superseded AoS 3 implementation before bulk data entry.
 
 **Requirements:** R10-R12 and R20-R23.
 
-**Files:**
+**Outcome:**
 
-- Replace relevant state and saved-army types under `src/store/`, `src/ducks/`, and `src/types/`.
-- Replace reminder and builder wiring under `src/utils/` and `src/components/`.
-- Remove obsolete AoS 3 faction, generic-rule, phase, importer, alias, compatibility modules, and
-  fixtures after their last imports disappear.
-- Remove transitional adapters and development fallbacks introduced by U8-U10.
-- Update tests to assert AoS 4 behavior only.
+- Replaced the live provider/router/Redux graph with the representative AoS 4 builder and reminder
+  workbench.
+- Added versioned local AoS 4 persistence and delete-without-parsing retirement of every AoS 3
+  browser key.
+- Preserved stable notes and hiding through AoS 4 army-document serialization.
+- Moved pure builder/reminder presentation models inside the isolated `src/aos4/` boundary.
+- Deleted 1,116 tracked legacy files: the rules corpus, phase/state model, saved-army and API paths,
+  importers, old product UI, source corrections, tests, and historical fixtures.
+- Removed obsolete aliases, scripts, hooks, Auth0 configuration, and CSS that referenced deleted
+  subsystems.
+- Added an executable boundary test that rejects both imports out of `src/aos4/` and reappearance
+  of retired paths.
+- Verified selection, hide, note, reload, focus mode, dark mode, source links, desktop layout, and
+  a 390-pixel mobile layout in a real browser.
 
-**Approach:** Bump persistence and remote saved-army schemas, clear incompatible local caches, and
-switch runtime entry points to the AoS 4 catalog. Coordinate remote saved-army API schema changes
-without deploying or merging the integration PR. Trace runtime imports, delete each superseded
-subsystem rather than adapting it, and accept that the migration branch temporarily exposes only
-the representative AoS 4 cohort.
+Remote save/share, PDF generation, subscription, and import behavior were deliberately removed
+rather than adapted. They require separately designed AoS 4 contracts and are not U10 blockers.
 
-**Test scenarios:**
-
-- Start with AoS 3 persisted state and verify the app resets safely to a valid AoS 4 default.
-- Load, save, update, share, and reload an AoS 4 army document with stable reminder preferences.
-- Exercise representative builder, reminder, note, hide/order, PDF, offline, and source-trace flows.
-- Search the runtime graph for AoS 3 phase literals, faction registries, aliases, temporary
-  adapters, and dormant data modules.
-- Verify legacy import controls and routes are absent until a dedicated AoS 4 importer is planned.
-
-**Verification:** The AoS 4 path is the production default, clean-reset and save/share tests pass,
-no AoS 3 rules path remains, and no production deployment or merge occurs without user approval.
+**Verification:** TypeScript, the AoS 4 test suite, repository search, browser checks, and the
+production build pass with only the representative AoS 4 runtime. No production deployment or
+integration merge occurred.
 
 ### U11. Approved corpus expansion and final documentation
 

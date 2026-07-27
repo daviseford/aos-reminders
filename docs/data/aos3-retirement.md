@@ -1,66 +1,65 @@
-# AoS 3 retirement policy
+# AoS 3 retirement record
 
-AoS 3 is an untrusted legacy implementation, not a compatibility target or a source for AoS 4.
-The migration must not leave two rule models evolving beside one another.
+AoS 3 is an untrusted historical implementation, not a compatibility target or a source for AoS 4.
+The migration branch completed its clean runtime cutover on 2026-07-27.
 
-## Immediate boundary
+## Result
 
-The old production application remains runnable only until the migration branch performs its
-clean cutover. During that interval:
+- `src/main.tsx` mounts only the theme provider and AoS 4 application.
+- `src/components/routes/Home.tsx` reads the generated AoS 4 catalog through AoS 4 view models.
+- Browser persistence accepts only the schema-versioned AoS 4 army document.
+- Old browser keys are deleted without parsing or translation.
+- The static faction/generic-rule corpus, Redux graph, phase model, selection side effects, reminder
+  hashes, importers, old UI, and historical fixtures are absent.
+- 1,116 tracked legacy files were removed in the retirement change.
+- `src/tests/aos4/legacyIsolation.test.ts` enforces both dependency direction and physical absence.
+- TypeScript, AoS 4 tests, and the production build are the clean-cut gate.
 
-- freeze AoS 3 rule data and source-specific corrections
-- never enter AoS 4 data into `src/factions/`, `src/generic_rules/`, old phase structures, or legacy
-  importer alias tables
-- never infer AoS 4 semantics from an AoS 3 name, category, timing, mandatory-selection side
-  effect, or reminder hash
-- keep imports directed from application seams into `src/aos4/`; `src/aos4/` must not import the
-  legacy application graph
+The representative Stormcast cohort is intentionally the only accepted runtime cohort immediately
+after cutover. Full-corpus candidate artifacts remain review input, not live data.
 
-`src/tests/aos4/legacyIsolation.test.ts` enforces that dependency direction.
+## Persistence reset
 
-## Clean-cut gate
+The only browser document key is:
 
-The representative Stormcast slice proves the replacement pipeline but is not permission to grow
-a second permanent corpus. Before accepting and entering bulk AoS 4 cohorts:
+`aos-reminders:aos4:army:v1`
 
-1. Make the AoS 4 army document, catalog, selection graph, and reminder projection the only runtime
-   rule path on the migration branch.
-2. Reset incompatible persisted state instead of translating AoS 3 selections or reminder hashes.
-3. Remove the old static faction and generic-rule corpus.
-4. Remove the old phase model, name-based selection side effects, mutable-wording reminder
-   identity, temporary faction adapter, and rule-processing utilities after their last runtime
-   imports disappear.
-5. Remove legacy importer corrections and fixtures. A future AoS 4 importer must resolve against
-   stable canonical IDs and current sources.
-6. Prove with repository search, TypeScript, tests, and the production build that no dormant AoS 3
-   rules path remains.
+On load, the runtime removes:
 
-The migration branch may be temporarily useful for only the representative AoS 4 cohort while this
-happens. That incomplete state is deliberate and is never merged to production.
+- `persist:root`
+- `loadedArmy`
+- `reminderOrder`
+- `savedArmies`
 
-## Deletion inventory
+It does not deserialize, map, or infer anything from those values. An invalid current document also
+resets to a clean AoS 4 representative document.
 
-These locations are deletion targets, not migration inputs:
+## Deleted architecture
 
-| Legacy area | Examples | Replacement |
+| Retired area | Deleted examples | AoS 4 replacement |
 | --- | --- | --- |
-| Static rules | `src/factions/`, `src/generic_rules/` | Accepted AoS 4 catalog and runtime projection |
-| Faction composition | `src/factions/factionTypes.ts`, `factionClass.ts`, `temporaryAdapter.ts` | Canonical entities and stable-ID relationships |
-| Timing and reminders | `src/types/phases.ts`, `processGame.ts`, `processReminders.ts`, `reminderUtils.ts` | AoS 4 windows and stable reminder projection |
-| Selection effects | `getSideEffects.ts`, `withSelect.ts`, name-keyed Redux selections | Stable-ID selection graph and AoS 4 army document |
-| Import corrections | `src/utils/import/options.ts` and legacy format adapters | A separately planned AoS 4 canonical-ID importer |
-| Legacy persistence | Redux Persist v4 state and old saved-army types | Clean-reset AoS 4 persistence schema |
+| Static rules | `src/factions/`, `src/generic_rules/` | Accepted generated catalog |
+| Composition | faction classes, metatags, temporary adapter, registries | Canonical entities and relationships |
+| Timing | `types/phases.ts`, `game_structure.ts`, `processGame.ts` | Canonical windows and timings |
+| Selection | name-keyed Redux slices, `getSideEffects.ts`, `withSelect.ts` | Stable-ID relationship resolver |
+| Reminders | `processReminders.ts`, wording hashes, old reminder UI | Stable occurrences and AoS 4 view model |
+| Persistence | Redux Persist v4 and old saved-army types | AoS 4 army-document schema |
+| Import | Azyr, Battlescribe, Warscroll Builder, old app parsers and correction maps | Future canonical-ID import flow |
+| Fixtures | historical PDF/JSON/HTML/text import corpus | Small source-contract AoS 4 fixtures |
+| Product UI | old builder, profile, saved-army, import, PDF, and subscription routes | Minimal AoS 4 migration workbench |
 
-Reusable UI, authentication, subscriptions, offline shell, notes, hiding/reordering, printing, and
-save/share infrastructure may survive only when they no longer encode AoS 3 rule assumptions.
+Git history is the archive. No copied reference implementation remains in the working tree.
 
-## Retention exceptions
+## Reintroduction policy
 
-Any legacy file retained after the clean cutover needs a written entry in this document containing:
+There are no approved post-cutover legacy exceptions.
 
-- the exact file or module
-- the non-rules capability it still provides
-- the owner of its replacement
-- the concrete deletion condition
+Do not restore a deleted file to accelerate new work. If a non-rules capability is needed again:
 
-There are currently no approved post-cutover exceptions.
+1. define its AoS 4 contract
+2. implement it against canonical IDs and the AoS 4 army document
+3. add current-source and behavior tests
+4. avoid copying old aliases, corrections, phase assumptions, or storage shapes
+
+Any proposed exception requires an exact file/module, a non-rules justification, an owner, and a
+concrete deletion condition before it enters the repository.

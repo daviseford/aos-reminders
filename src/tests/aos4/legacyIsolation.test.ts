@@ -1,4 +1,4 @@
-import { readdir, readFile } from 'node:fs/promises'
+import { access, readdir, readFile } from 'node:fs/promises'
 import path from 'node:path'
 
 const sourceRoot = path.resolve(process.cwd(), 'src')
@@ -19,6 +19,15 @@ const sourceFiles = async (directory: string): Promise<string[]> => {
 
 const importedSpecifiers = (source: string): string[] =>
   Array.from(source.matchAll(importPattern), match => match[1])
+
+const exists = async (target: string): Promise<boolean> => {
+  try {
+    await access(target)
+    return true
+  } catch {
+    return false
+  }
+}
 
 describe('AoS 4 legacy isolation', () => {
   it('does not import from the AoS 3 application or rules graph', async () => {
@@ -48,5 +57,59 @@ describe('AoS 4 legacy isolation', () => {
     }
 
     expect(violations).toEqual([])
+  })
+
+  it('keeps the retired AoS 3 rules and application graph physically absent', async () => {
+    const retiredPaths = [
+      'api',
+      'ducks',
+      'factions',
+      'generic_rules',
+      'meta',
+      'store',
+      'components/info',
+      'components/input',
+      'components/modals',
+      'components/page',
+      'components/payment',
+      'components/print',
+      'utils/azyr',
+      'utils/battlescribe',
+      'utils/getArmy',
+      'utils/import',
+      'utils/loadArmy',
+      'utils/pdf',
+      'utils/warhammer_app',
+      'utils/warscroll',
+      'types/army.ts',
+      'types/data.ts',
+      'types/phases.ts',
+      'types/savedArmy.ts',
+      'types/selections.ts',
+      'types/store.ts',
+    ]
+    const survivors = (
+      await Promise.all(
+        retiredPaths.map(async retiredPath => ({
+          retiredPath,
+          exists: await exists(path.join(sourceRoot, retiredPath)),
+        }))
+      )
+    )
+      .filter(result => result.exists)
+      .map(result => result.retiredPath)
+
+    expect(survivors).toEqual([])
+
+    const fixtureFamilies = (
+      await readdir(path.join(sourceRoot, 'tests', 'fixtures'), {
+        withFileTypes: true,
+      })
+    )
+      .filter(entry => entry.isDirectory())
+      .map(entry => entry.name)
+      .sort()
+
+    expect(fixtureFamilies).toEqual(['aos4'])
   })
 })

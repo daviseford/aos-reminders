@@ -16,9 +16,11 @@ import {
   serializeAos4ArmyDocument,
   setAos4ReminderPreference,
 } from '../../aos4/state'
-import { createAos4ReminderViewModel } from '../../components/info/aos4ReminderViewModel'
-import { createAos4BuilderViewModel } from '../../components/input/aos4BuilderViewModel'
-import { createPrintableAos4Reminders } from '../../components/info/aos4ReminderViewModel'
+import {
+  createAos4BuilderViewModel,
+  createAos4ReminderViewModel,
+  createPrintableAos4Reminders,
+} from '../../aos4/view'
 
 const createDocument = () =>
   createAos4ArmyDocument({
