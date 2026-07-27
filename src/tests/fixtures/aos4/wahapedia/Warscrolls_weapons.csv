@@ -1,0 +1,3 @@
+warscroll_id|line|name|Rng|Atk|Hit|Wnd|Rnd|Dmg|type|abilities|has_battle_damage|
+ws-1|1|Warhammer|1"|2|3+|3+|1|2|MELEE|Crit (Mortal)|false|
+ws-1|2|Castigating Bolt|18"|1|3+|3+|1|1|RANGED|Shoot in Combat|true|

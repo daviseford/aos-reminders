@@ -22,13 +22,13 @@ export interface TimingParseResult {
 }
 
 const PHASE_PATTERNS: Array<[TurnPhaseId, RegExp]> = [
-  ['start-of-turn', /\bstart of (?:the )?turn(?: phase)?\b/i],
+  ['start-of-turn', /\bstart of (?:(?:your|the enemy|enemy|any|the) )?turn(?: phase)?\b/i],
   ['hero', /\bhero phase\b/i],
   ['movement', /\bmovement phase\b/i],
   ['shooting', /\bshooting phase\b/i],
   ['charge', /\bcharge phase\b/i],
   ['combat', /\bcombat phase\b/i],
-  ['end-of-turn', /\bend of (?:the )?turn(?: phase)?\b/i],
+  ['end-of-turn', /\bend of (?:(?:your|the enemy|enemy|any|the) )?turn(?: phase)?\b/i],
 ]
 
 const PERSPECTIVE_WINDOW_PATTERN =
@@ -37,9 +37,30 @@ const PERSPECTIVE_WINDOW_PATTERN =
   'combat phase|end of (?:the )?turn(?: phase)?'
 
 const PERSPECTIVE_PATTERNS: Array<[RegExp, TimingPerspective]> = [
-  [new RegExp(`\\byour\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))`, 'i'), 'your'],
-  [new RegExp(`\\benemy\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))`, 'i'), 'enemy'],
-  [new RegExp(`\\bany\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))`, 'i'), 'any'],
+  [
+    new RegExp(
+      `(?:\\byour\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))|` +
+        `\\b(?:start|end) of your turn\\b)`,
+      'i'
+    ),
+    'your',
+  ],
+  [
+    new RegExp(
+      `(?:\\benemy\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))|` +
+        `\\b(?:start|end) of (?:the )?enemy turn\\b)`,
+      'i'
+    ),
+    'enemy',
+  ],
+  [
+    new RegExp(
+      `(?:\\bany\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))|` +
+        `\\b(?:start|end) of any turn\\b)`,
+      'i'
+    ),
+    'any',
+  ],
 ]
 
 const USAGE_PERIODS: Record<string, UsagePeriod> = {
@@ -55,10 +76,7 @@ const usageScopeFromActor = (actor: AbilityActor): UsageScope => {
   return 'unit'
 }
 
-const findPerspective = (
-  value: string,
-  diagnostics: NormalizationDiagnostic[]
-): TimingPerspective => {
+const findPerspective = (value: string, diagnostics: NormalizationDiagnostic[]): TimingPerspective => {
   const perspectives = PERSPECTIVE_PATTERNS.filter(([pattern]) => pattern.test(value)).map(
     ([, perspective]) => perspective
   )
@@ -96,10 +114,7 @@ const findWindows = (value: string, abilityKind: AbilityKind): GameWindow[] => {
   return windows
 }
 
-const findUsage = (
-  value: string,
-  actor: AbilityActor
-): AbilityTiming['usage'] | undefined => {
+const findUsage = (value: string, actor: AbilityActor): AbilityTiming['usage'] | undefined => {
   const match = value.match(/\bonce per (battle round|phase|turn|battle)\b/i)
   if (!match) return undefined
 

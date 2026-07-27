@@ -11,6 +11,7 @@ export type NormalizationDiagnosticCode =
   | 'unlabeled-ability-preamble'
   | 'missing-ability-effect'
   | 'missing-reaction-trigger'
+  | 'source-phase-fallback'
 
 export type NormalizationDiagnosticSeverity = 'warning' | 'error'
 

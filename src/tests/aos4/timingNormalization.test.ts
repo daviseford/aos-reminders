@@ -24,26 +24,42 @@ const expectedPhases: Array<[string, TurnPhaseId]> = [
 ]
 
 describe('AoS 4 timing normalization', () => {
-  it.each(['Your', 'Enemy', 'Any'] as const)(
-    'normalizes every %s turn-phase perspective',
-    perspective => {
-      expectedPhases.forEach(([sourcePhase, phase]) => {
-        const result = parseTiming(`${perspective} ${sourcePhase}`, {
-          abilityKind: 'active',
-          actor: 'unit',
-        })
+  it.each([
+    ['Start of Any Turn', 'start-of-turn', 'any'],
+    ['End of Your Turn', 'end-of-turn', 'your'],
+    ['End of the Enemy Turn', 'end-of-turn', 'enemy'],
+  ] as const)('parses perspective embedded inside %s', (source, phase, perspective) => {
+    const result = parseTiming(source, {
+      abilityKind: 'active',
+      actor: 'unit',
+    })
 
-        expect(result.diagnostics).toEqual([])
-        expect(result.timings).toEqual([
-          expect.objectContaining({
-            kind: 'active',
-            perspective: perspective.toLowerCase(),
-            window: { kind: 'turn-phase', phase },
-          }),
-        ])
+    expect(result.timings).toEqual([
+      expect.objectContaining({
+        window: { kind: 'turn-phase', phase },
+        perspective,
+      }),
+    ])
+    expect(result.diagnostics).toEqual([])
+  })
+
+  it.each(['Your', 'Enemy', 'Any'] as const)('normalizes every %s turn-phase perspective', perspective => {
+    expectedPhases.forEach(([sourcePhase, phase]) => {
+      const result = parseTiming(`${perspective} ${sourcePhase}`, {
+        abilityKind: 'active',
+        actor: 'unit',
       })
-    }
-  )
+
+      expect(result.diagnostics).toEqual([])
+      expect(result.timings).toEqual([
+        expect.objectContaining({
+          kind: 'active',
+          perspective: perspective.toLowerCase(),
+          window: { kind: 'turn-phase', phase },
+        }),
+      ])
+    })
+  })
 
   it('normalizes deployment, battle boundaries, passive timing, and combat priority', () => {
     const cases = [
@@ -55,9 +71,7 @@ describe('AoS 4 timing normalization', () => {
     ] as const
 
     cases.forEach(([raw, window]) => {
-      expect(
-        parseTiming(raw, { abilityKind: 'active', actor: 'player' }).timings[0].window
-      ).toEqual(window)
+      expect(parseTiming(raw, { abilityKind: 'active', actor: 'player' }).timings[0].window).toEqual(window)
     })
 
     expect(parseTiming('Passive', { abilityKind: 'passive', actor: 'unit' }).timings[0]).toEqual({
@@ -123,24 +137,17 @@ describe('AoS 4 timing normalization', () => {
       actor: 'unit',
     })
     expect(conflict.timings[0].perspective).toBe('neutral')
-    expect(conflict.diagnostics.map(diagnostic => diagnostic.code)).toContain(
-      'conflicting-perspective'
-    )
+    expect(conflict.diagnostics.map(diagnostic => diagnostic.code)).toContain('conflicting-perspective')
   })
 
   it('does not mistake reaction trigger prose for the phase perspective', () => {
-    const result = parseTiming(
-      'Your Shooting Phase (Reaction): When an enemy declares an ATTACK ability.',
-      {
-        abilityKind: 'reaction',
-        actor: 'unit',
-      }
-    )
+    const result = parseTiming('Your Shooting Phase (Reaction): When an enemy declares an ATTACK ability.', {
+      abilityKind: 'reaction',
+      actor: 'unit',
+    })
 
     expect(result.timings[0].perspective).toBe('your')
-    expect(result.diagnostics.map(diagnostic => diagnostic.code)).not.toContain(
-      'conflicting-perspective'
-    )
+    expect(result.diagnostics.map(diagnostic => diagnostic.code)).not.toContain('conflicting-perspective')
   })
 
   it('uses polluted markup only as parsing evidence and retains safe raw text', () => {
@@ -217,8 +224,7 @@ describe('AoS 4 ability normalization', () => {
       abilityKind,
       actor,
       descriptionHtml: '<b>Effect:</b> Apply the fixture effect.',
-      reactionTriggerHtml:
-        abilityKind === 'reaction' ? 'An enemy declares an ATTACK ability.' : undefined,
+      reactionTriggerHtml: abilityKind === 'reaction' ? 'An enemy declares an ATTACK ability.' : undefined,
       rawTiming,
       keywords: [' CORE ', 'CORE'],
       rulesContextIds: [rulesContextId('20000000-0000-4000-8000-000000000002')],

@@ -1,0 +1,3 @@
+warscroll_id|line|name|description|legend|ability_type|is_reaction|condition|keywords|ability_phase|points_type|points|
+ws-1|1|Shield Wall|"<b>Declare:</b> Pick this unit | or a friendly unit.
+<br><br><b>Effect:</b> Add 1 to save rolls."||Defensive|false|Your Combat Phase|Core, Fight|Combat Phase|||
