@@ -1,7 +1,7 @@
 import type { Ability } from './ability'
 import type { DomainEntity } from './entity'
 import { isTurnPhaseId } from './game'
-import type { CanonicalId } from './identity'
+import type { CanonicalId, RulesContextId } from './identity'
 import type { RulesContext } from './rulesContext'
 import type { SourceArtifact, SourceRecord } from './source'
 import type { Weapon } from './weapon'
@@ -32,6 +32,7 @@ export interface ContentRelationship {
   kind: ContentRelationshipKind
   from: CanonicalId
   to: CanonicalId
+  rulesContextIds?: RulesContextId[]
 }
 
 export interface Aos4Catalog {
@@ -63,6 +64,7 @@ export type DomainValidationIssueCode =
   | 'invalid-weapon-profile'
   | 'missing-relationship-source'
   | 'missing-relationship-target'
+  | 'missing-relationship-rules-context'
 
 export interface DomainValidationIssue {
   code: DomainValidationIssueCode
@@ -260,6 +262,15 @@ export const validateCatalog = (catalog: Aos4Catalog): DomainValidationIssue[] =
         message: `Relationship ${relationship.id} has missing target ${relationship.to}`,
       })
     }
+    relationship.rulesContextIds?.forEach(contextId => {
+      if (!contextIds.has(contextId)) {
+        issues.push({
+          code: 'missing-relationship-rules-context',
+          subject: relationship.id,
+          message: `Relationship ${relationship.id} refers to missing rules context ${contextId}`,
+        })
+      }
+    })
   })
 
   return issues

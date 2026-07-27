@@ -271,6 +271,7 @@ describe('AoS 4 domain', () => {
       kind: 'requires',
       from: ids.faction,
       to: abilityId('10000000-0000-4000-8000-000000000013'),
+      rulesContextIds: [rulesContextId('10000000-0000-4000-8000-000000000014')],
     })
 
     expect(validateCatalog(catalog).map(issue => issue.code)).toEqual([
@@ -279,6 +280,7 @@ describe('AoS 4 domain', () => {
       'missing-rules-context',
       'invalid-turn-phase',
       'missing-relationship-target',
+      'missing-relationship-rules-context',
     ])
   })
 
