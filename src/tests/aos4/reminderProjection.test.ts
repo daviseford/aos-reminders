@@ -13,6 +13,8 @@ import {
 } from '../../aos4/domain'
 import { projectReminders, reminderOccurrenceId, semanticTimingKey } from '../../aos4/reminders'
 import { resolveSelection } from '../../aos4/select'
+import { createAos4ArmyDocument } from '../../aos4/state'
+import { createAos4ReminderViewModel } from '../../aos4/view'
 
 const contextId = rulesContextId('40000000-0000-4000-8000-000000000001')
 
@@ -82,6 +84,12 @@ const phaseTimings: AbilityTiming[] = [
   { kind: 'active', window: { kind: 'battle-start' }, raw: 'Start of Battle' },
   { kind: 'active', window: { kind: 'deployment' }, raw: 'Deployment Phase' },
   { kind: 'active', window: { kind: 'battle-round-start' }, raw: 'Start of Battle Round' },
+  {
+    kind: 'active',
+    window: { kind: 'phase-independent' },
+    usage: { limit: 1, period: 'turn', scope: 'army' },
+    raw: 'Once Per Turn (Army)',
+  },
   {
     kind: 'active',
     window: { kind: 'turn-phase', phase: 'start-of-turn' },
@@ -331,6 +339,7 @@ describe('AoS 4 reminder projection', () => {
       'battle-start',
       'deployment',
       'battle-round-start',
+      'phase-independent',
       'turn-phase',
       'turn-phase',
       'turn-phase',
@@ -362,6 +371,29 @@ describe('AoS 4 reminder projection', () => {
       'normal',
       'strike-last',
     ])
+  })
+
+  it('labels a phase-independent reminder without inventing a named phase', () => {
+    const catalog = createCatalog()
+    const reminders = createAos4ReminderViewModel(
+      catalog,
+      createAos4ArmyDocument({
+        id: 'army:phase-independent-view',
+        name: 'Phase-independent view',
+        rulesContextId: contextId,
+        explicitSelectionIds: [ids.army],
+      })
+    )
+    const reminder = reminders.find(
+      candidate =>
+        candidate.projected.abilityIds.includes(ids.matrix) &&
+        candidate.projected.timing.window.kind === 'phase-independent'
+    )
+
+    expect(reminder).toMatchObject({
+      windowKey: 'phase-independent',
+      windowLabel: 'No Named Phase',
+    })
   })
 
   it('merges display-equivalent reminders after identity while retaining causes and provenance', () => {

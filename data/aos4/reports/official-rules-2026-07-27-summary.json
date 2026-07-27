@@ -26,6 +26,18 @@
       "mediaType": "application/pdf",
       "pages": 73,
       "extractionDiagnostics": 0
+    },
+    {
+      "title": "Nighthaunt Faction Pack",
+      "role": "superseded-faction-rules",
+      "version": "September 2024",
+      "url": "https://assets.warhammer-community.com/rules-downloads/age-of-sigmar/nighthaunt-v2---sept-2024/ageofsigmar_factionpacks_nighthaunt_eng_30.09.16.pdf",
+      "checksum": "8ce09243b04c3e8e8283a14355758b126711b100baa72a5cdf4e9cd96a26b9a3",
+      "byteLength": 32911862,
+      "retrievedAt": "2026-07-27T21:58:42.013Z",
+      "mediaType": "application/pdf",
+      "pages": 43,
+      "extractionDiagnostics": 0
     }
   ],
   "structuralEvidence": [
@@ -61,6 +73,41 @@
         "source-record:wahapedia:Warscrolls_abilities.csv%3A000001718%3A5",
         "source-record:wahapedia:Warscrolls_abilities.csv%3A000001884%3A3"
       ]
+    },
+    {
+      "subject": "phase-independent-active-window",
+      "status": "supported",
+      "finding": "The current Nighthaunt update replaces the Pyregheists' older End of Any Turn timing with usage-only Once Per Turn (Army), so the active ability has no named phase and must not inherit the stale source phase.",
+      "sourceRecords": [
+        {
+          "id": "source-record:games-workshop:8ce09243b04c3e8e8283a14355758b126711b100baa72a5cdf4e9cd96a26b9a3%3Apage%3A21",
+          "page": 21,
+          "recordChecksum": "ef26415d695d8cb150b0eae87327f831a0ceea5448cbfca6a608628780bc3f2c"
+        },
+        {
+          "id": "source-record:games-workshop:15e050fa3663d3a57da675ecc059b37f7932d48e3dea79012d7260195530b80a%3Apage%3A57",
+          "page": 57,
+          "recordChecksum": "27ee409222eafd5a086619159474b55775caa5a2ec0e79cc88a298a91d23f013"
+        }
+      ],
+      "candidateSourceRecordIds": [
+        "source-record:wahapedia:Warscrolls_abilities.csv%3A000001746%3A1"
+      ]
+    },
+    {
+      "subject": "lumineth-multiple-parts-passive",
+      "status": "supported",
+      "finding": "The current Lumineth Realm-lords update adds Multiple Parts to the Sanctum of Amyntok with Passive timing, identifying the authoritative value for a candidate export row whose condition is empty and whose ability_phase metadata says Start of Turn; formal reconciliation is still required.",
+      "sourceRecords": [
+        {
+          "id": "source-record:games-workshop:15e050fa3663d3a57da675ecc059b37f7932d48e3dea79012d7260195530b80a%3Apage%3A55",
+          "page": 55,
+          "recordChecksum": "902c10f7f39e4c58916d586396e05ae2b4bde3f168d4c66fb8bc239468921a47"
+        }
+      ],
+      "candidateSourceRecordIds": [
+        "source-record:wahapedia:Warscrolls_abilities.csv%3A000000851%3A2"
+      ]
     }
   ],
   "coverage": {
@@ -69,9 +116,11 @@
     "domainModelChanged": true
   },
   "notes": [
-    "Both official PDFs extracted without diagnostics under the bounded page and text limits.",
+    "All three official PDFs extracted without diagnostics under the bounded page and text limits.",
     "The checked-in report contains locators and checksums but no page text.",
     "The current June 2026 update from the live downloads index was reviewed with the base rules when defining the reaction window.",
-    "Its Stormcast Eternals erratum corroborates the explicit Reaction text on both remaining contradictory candidate rows."
+    "Its Stormcast Eternals erratum corroborates the explicit Reaction text on both remaining contradictory candidate rows.",
+    "The current Nighthaunt update supersedes the September 2024 phase for Light a Pyre; the Wahapedia CSV condition is current while its separate ability_phase column is stale.",
+    "The current Lumineth Realm-lords update supplies the Passive timing omitted from the Multiple Parts export row; the candidate remains blocked until formal reconciliation links both source records."
   ]
 }

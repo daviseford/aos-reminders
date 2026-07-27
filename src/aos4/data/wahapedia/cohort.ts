@@ -26,7 +26,9 @@ export interface WahapediaFactionCohortReport {
     weapons: number
     unknownWeaponSourceRecordIds: string[]
     unresolvedTimingSourceRecordIds: string[]
-    sourcePhaseFallbackSourceRecordIds: string[]
+    phaseIndependentSourceRecordIds: string[]
+    effectPhaseWindowSourceRecordIds: string[]
+    sourcePhaseConflictSourceRecordIds: string[]
     sourceTimingCorrectionSourceRecordIds: string[]
     reactionFlagMismatchSourceRecordIds: string[]
   }
@@ -122,9 +124,19 @@ export const createWahapediaFactionCohortReport = (
       .filter(fact => fact.timings.some(timing => timing.window.kind === 'unknown'))
       .map(fact => String(fact.sourceRecordId))
   )
-  const sourcePhaseFallbackSourceRecordIds = uniqueSorted(
+  const effectPhaseWindowSourceRecordIds = uniqueSorted(
     abilityFacts
-      .filter(fact => fact.diagnostics.some(diagnostic => diagnostic.code === 'source-phase-fallback'))
+      .filter(fact => fact.diagnostics.some(diagnostic => diagnostic.code === 'effect-phase-windows'))
+      .map(fact => String(fact.sourceRecordId))
+  )
+  const phaseIndependentSourceRecordIds = uniqueSorted(
+    abilityFacts
+      .filter(fact => fact.timings.some(timing => timing.window.kind === 'phase-independent'))
+      .map(fact => String(fact.sourceRecordId))
+  )
+  const sourcePhaseConflictSourceRecordIds = uniqueSorted(
+    abilityFacts
+      .filter(fact => fact.diagnostics.some(diagnostic => diagnostic.code === 'source-phase-conflict'))
       .map(fact => String(fact.sourceRecordId))
   )
   const sourceTimingCorrectionSourceRecordIds = uniqueSorted(
@@ -171,7 +183,9 @@ export const createWahapediaFactionCohortReport = (
       weapons: weaponFacts.length,
       unknownWeaponSourceRecordIds,
       unresolvedTimingSourceRecordIds,
-      sourcePhaseFallbackSourceRecordIds,
+      phaseIndependentSourceRecordIds,
+      effectPhaseWindowSourceRecordIds,
+      sourcePhaseConflictSourceRecordIds,
       sourceTimingCorrectionSourceRecordIds,
       reactionFlagMismatchSourceRecordIds,
     },

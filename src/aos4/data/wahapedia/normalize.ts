@@ -120,6 +120,53 @@ const correctKnownSourceTimingTypos = (
   return { value: corrected, diagnostics }
 }
 
+const explicitEffectPhaseTimings = (
+  effect: string,
+  options: { abilityKind: AbilityKind; actor: AbilityActor },
+  conditionTiming: AbilityTiming
+): { timings: AbilityTiming[]; diagnostics: NormalizationDiagnostic[] } | undefined => {
+  if (
+    !['unknown', 'phase-independent'].includes(conditionTiming.window.kind) ||
+    conditionTiming.usage?.period !== 'phase'
+  ) {
+    return undefined
+  }
+
+  const labels =
+    effect.match(
+      /\b(?:Your|Enemy|Any) (?:Start of Turn|Hero Phase|Movement Phase|Shooting Phase|Charge Phase|Combat Phase|End of Turn):/gi
+    ) ?? []
+  const timings = labels
+    .map(label => parseTiming(label.slice(0, -1), options))
+    .flatMap(result => result.timings)
+    .filter(timing => timing.window.kind !== 'unknown')
+    .map(timing => ({
+      ...timing,
+      usage: conditionTiming.usage,
+      raw: `${conditionTiming.raw}; ${timing.raw}`,
+    }))
+  const uniqueTimings = Array.from(
+    new Map(
+      timings.map(timing => [
+        `${timing.window.kind === 'turn-phase' ? timing.window.phase : timing.window.kind}:${timing.perspective}`,
+        timing,
+      ])
+    ).values()
+  )
+  if (!uniqueTimings.length) return undefined
+
+  return {
+    timings: uniqueTimings,
+    diagnostics: [
+      {
+        code: 'effect-phase-windows',
+        severity: 'warning',
+        message: `Classified ${uniqueTimings.length} windows from explicit phase labels in the effect text`,
+      },
+    ],
+  }
+}
+
 const normalizeKeywords = (
   keywordsHtml: string
 ): { keywords: string[]; diagnostics: NormalizationDiagnostic[] } => {
@@ -128,6 +175,44 @@ const normalizeKeywords = (
     keywords: splitList(normalized.text).map(keyword => keyword.toUpperCase()),
     diagnostics: normalized.diagnostics,
   }
+}
+
+const windowKey = (timing: AbilityTiming): string =>
+  timing.window.kind === 'turn-phase'
+    ? `${timing.window.kind}:${timing.window.phase}`
+    : timing.window.kind
+
+const sourcePhaseConflict = (
+  record: WahapediaAbilityRecord,
+  kind: AbilityKind,
+  actor: AbilityActor,
+  timings: AbilityTiming[]
+): NormalizationDiagnostic[] => {
+  if (kind !== 'active' || !record.abilityPhase) return []
+
+  const sourcePhaseTiming = parseTiming(record.abilityPhase, { abilityKind: kind, actor })
+  const sourceWindows = sourcePhaseTiming.timings
+    .filter(timing => timing.window.kind !== 'unknown')
+    .map(windowKey)
+  const canonicalWindows = timings
+    .filter(timing => timing.window.kind !== 'unknown')
+    .map(windowKey)
+  if (
+    !sourceWindows.length ||
+    !canonicalWindows.length ||
+    (sourceWindows.length === canonicalWindows.length &&
+      sourceWindows.every(window => canonicalWindows.includes(window)))
+  ) {
+    return []
+  }
+
+  return [
+    {
+      code: 'source-phase-conflict',
+      severity: 'warning',
+      message: `Wahapedia ability_phase "${record.abilityPhase}" conflicts with the canonical timing and was retained only as review evidence`,
+    },
+  ]
 }
 
 export const normalizeWahapediaAbility = (
@@ -143,32 +228,17 @@ export const normalizeWahapediaAbility = (
     abilityKind: kind,
     actor,
   }
-  const timingSource = correctKnownSourceTimingTypos(record.conditionHtml || record.abilityPhase)
+  const timingSource = correctKnownSourceTimingTypos(record.conditionHtml)
   const primaryTiming = parseTiming(timingSource.value, timingOptions)
-  const sourcePhaseTiming =
-    primaryTiming.timings[0]?.window.kind === 'unknown' && record.abilityPhase
-      ? parseTiming(record.abilityPhase, timingOptions)
-      : undefined
-  const canUseSourcePhase = sourcePhaseTiming && sourcePhaseTiming.timings[0]?.window.kind !== 'unknown'
-  const timings = canUseSourcePhase
-    ? sourcePhaseTiming.timings.map(timing => ({
-        ...timing,
-        raw: primaryTiming.timings[0].raw,
-        ...(primaryTiming.timings[0].usage ? { usage: primaryTiming.timings[0].usage } : {}),
-        ...(primaryTiming.timings[0].priority ? { priority: primaryTiming.timings[0].priority } : {}),
-      }))
-    : primaryTiming.timings
-  const timingDiagnostics = canUseSourcePhase
+  const effectTimings = explicitEffectPhaseTimings(text.text.effect, timingOptions, primaryTiming.timings[0])
+  const timings = effectTimings ? effectTimings.timings : primaryTiming.timings
+  const timingDiagnostics = effectTimings
     ? [
         ...primaryTiming.diagnostics.filter(diagnostic => diagnostic.code !== 'unknown-timing'),
-        {
-          code: 'source-phase-fallback' as const,
-          severity: 'warning' as const,
-          message: `Used lossy Wahapedia ability_phase "${record.abilityPhase}" because condition did not identify a window`,
-        },
-        ...sourcePhaseTiming.diagnostics,
+        ...effectTimings.diagnostics,
       ]
     : primaryTiming.diagnostics
+  const sourcePhaseDiagnostics = sourcePhaseConflict(record, kind, actor, timings)
   const keywords = normalizeKeywords(record.keywordsHtml)
   const reactionFlagDiagnostics: NormalizationDiagnostic[] =
     record.isReaction === false && /\breaction\s*:/i.test(record.conditionHtml)
@@ -202,6 +272,7 @@ export const normalizeWahapediaAbility = (
       ...text.diagnostics,
       ...timingSource.diagnostics,
       ...timingDiagnostics,
+      ...sourcePhaseDiagnostics,
       ...keywords.diagnostics,
       ...reactionFlagDiagnostics,
     ],

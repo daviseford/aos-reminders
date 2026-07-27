@@ -1,6 +1,7 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { artifactChecksum, type ArtifactManifestEntry } from '../../aos4/data'
+import { sourceRecordId } from '../../aos4/domain'
 import {
   WAHAPEDIA_EXPORT_FILES,
   assessWahapediaFreshness,
@@ -265,6 +266,9 @@ describe('Wahapedia AoS 4 export adapter', () => {
         weapons: 2,
         unknownWeaponSourceRecordIds: [],
         unresolvedTimingSourceRecordIds: [],
+        phaseIndependentSourceRecordIds: [],
+        effectPhaseWindowSourceRecordIds: [],
+        sourcePhaseConflictSourceRecordIds: [],
         sourceTimingCorrectionSourceRecordIds: [],
         reactionFlagMismatchSourceRecordIds: [],
       },
@@ -309,7 +313,7 @@ describe('Wahapedia AoS 4 export adapter', () => {
     ['Once Per Turn (Army), Any Comhat Phase', 'Combat Phase', 'combat'],
     ['Your Hero Quest', 'Hero Phase', 'hero'],
   ] as const)(
-    'corrects a known source timing typo without using the lossy phase fallback',
+    'corrects a known source timing typo without using non-canonical phase metadata',
     async (conditionHtml, abilityPhase, phase) => {
       const { dataset } = decodeWahapediaExports(await loadInputs())
       const record = {
@@ -328,7 +332,7 @@ describe('Wahapedia AoS 4 export adapter', () => {
         })
       )
       expect(fact.diagnostics).not.toContainEqual(
-        expect.objectContaining({ code: 'source-phase-fallback' })
+        expect.objectContaining({ code: 'source-phase-conflict' })
       )
       expect(
         createWahapediaFactionCohortReport(
@@ -339,6 +343,129 @@ describe('Wahapedia AoS 4 export adapter', () => {
       ).toEqual([String(record.meta.sourceRecordId)])
     }
   )
+
+  it('uses explicit effect headings for a once-per-phase multi-window ability', async () => {
+    const { dataset } = decodeWahapediaExports(await loadInputs())
+    const record = {
+      ...dataset.warscrollAbilities[0],
+      conditionHtml: 'Once Per Phase (Army)',
+      abilityPhase: 'Start of Turn',
+      descriptionHtml:
+        '<b>Effect:</b><ul><li><b>Your Movement Phase:</b> Move.</li><li><b>Your Charge Phase:</b> Charge.</li><li><b>Any Combat Phase:</b> Fight.</li><li><b>Any Combat Phase:</b> Defend.</li></ul>',
+    }
+    const fact = normalizeWahapediaAbility(record, 'army')
+
+    expect(fact.timings.map(timing => [timing.window, timing.perspective])).toEqual([
+      [{ kind: 'turn-phase', phase: 'movement' }, 'your'],
+      [{ kind: 'turn-phase', phase: 'charge' }, 'your'],
+      [{ kind: 'turn-phase', phase: 'combat' }, 'any'],
+    ])
+    fact.timings.forEach(timing => {
+      expect(timing.usage).toEqual({ limit: 1, period: 'phase', scope: 'army' })
+    })
+    expect(fact.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'effect-phase-windows', severity: 'warning' })
+    )
+    expect(fact.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'source-phase-conflict', severity: 'warning' })
+    )
+    expect(
+      createWahapediaFactionCohortReport(
+        { ...dataset, warscrollAbilities: [record] },
+        [],
+        'SCE'
+      ).normalization.effectPhaseWindowSourceRecordIds
+    ).toEqual([String(record.meta.sourceRecordId)])
+    expect(
+      createWahapediaFactionCohortReport(
+        { ...dataset, warscrollAbilities: [record] },
+        [],
+        'SCE'
+      ).normalization.sourcePhaseConflictSourceRecordIds
+    ).toEqual([String(record.meta.sourceRecordId)])
+  })
+
+  it('does not restore a named phase when the source timing is phase-independent', async () => {
+    const { dataset } = decodeWahapediaExports(await loadInputs())
+    const record = {
+      ...dataset.warscrollAbilities[0],
+      conditionHtml: 'Once Per Turn (Army)',
+      abilityPhase: 'End of Turn',
+    }
+    const fact = normalizeWahapediaAbility(record, 'unit')
+
+    expect(fact.timings).toEqual([
+      expect.objectContaining({
+        window: { kind: 'phase-independent' },
+        usage: { limit: 1, period: 'turn', scope: 'army' },
+      }),
+    ])
+    expect(fact.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'source-phase-conflict', severity: 'warning' })
+    )
+    expect(
+      createWahapediaFactionCohortReport(
+        { ...dataset, warscrollAbilities: [record] },
+        [],
+        'SCE'
+      ).normalization.phaseIndependentSourceRecordIds
+    ).toEqual([String(record.meta.sourceRecordId)])
+  })
+
+  it('blocks an unclassifiable condition instead of promoting source phase metadata', async () => {
+    const { dataset } = decodeWahapediaExports(await loadInputs())
+    const fact = normalizeWahapediaAbility(
+      {
+        ...dataset.warscrollAbilities[0],
+        conditionHtml: '',
+        abilityPhase: 'Combat Phase',
+      },
+      'unit'
+    )
+
+    expect(fact.timings[0].window).toEqual({ kind: 'unknown' })
+    expect(fact.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'unknown-timing', severity: 'error' })
+    )
+  })
+
+  it('leaves an official timing correction blocked until reconciliation links both sources', async () => {
+    const { dataset } = decodeWahapediaExports(await loadInputs())
+    const record = {
+      ...dataset.warscrollAbilities[0],
+      conditionHtml: '',
+      abilityPhase: 'Start of Turn',
+      meta: {
+        ...dataset.warscrollAbilities[0].meta,
+        sourceRecordId: sourceRecordId('wahapedia', 'Warscrolls_abilities.csv:000000851:2'),
+        recordChecksum: '951e327f393829bfb36b6bf955a92048721780edb6da060ab4dcc1b23921c2f4',
+      },
+    }
+    const fact = normalizeWahapediaAbility(record, 'unit')
+
+    expect(fact.abilityKind).toBe('active')
+    expect(fact.timings[0].window).toEqual({ kind: 'unknown' })
+    expect(fact.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'unknown-timing', severity: 'error' })
+    )
+    expect(fact.diagnostics).not.toContainEqual(
+      expect.objectContaining({ code: 'source-timing-correction' })
+    )
+    expect(
+      createWahapediaFactionCohortReport(
+        { ...dataset, warscrollAbilities: [record] },
+        [],
+        'SCE'
+      ).normalization.unresolvedTimingSourceRecordIds
+    ).toEqual([String(record.meta.sourceRecordId)])
+    expect(
+      createWahapediaFactionCohortReport(
+        { ...dataset, warscrollAbilities: [record] },
+        [],
+        'SCE'
+      ).status
+    ).toBe('blocked')
+  })
 
   it('emits row-addressable diagnostics for schema, value, vocabulary, and join failures', async () => {
     let inputs = await loadInputs()

@@ -12,8 +12,9 @@ export type NormalizationDiagnosticCode =
   | 'missing-ability-effect'
   | 'missing-reaction-trigger'
   | 'reaction-flag-mismatch'
+  | 'effect-phase-windows'
   | 'source-timing-correction'
-  | 'source-phase-fallback'
+  | 'source-phase-conflict'
 
 export type NormalizationDiagnosticSeverity = 'warning' | 'error'
 

@@ -140,8 +140,10 @@ describe('AoS 4 catalog generation integrity', () => {
     expect(candidateReport).toMatchObject({
       status: 'candidate-review-required',
       normalization: {
-        unresolvedTimings: 0,
-        sourcePhaseFallbacks: 2,
+        unresolvedTimings: 1,
+        phaseIndependentAbilities: 1,
+        effectPhaseWindowAbilities: 1,
+        sourcePhaseConflicts: 177,
         sourceTimingCorrections: 8,
         reactionFlagMismatches: 13,
       },
@@ -150,10 +152,18 @@ describe('AoS 4 catalog generation integrity', () => {
         candidateManifestAccepted: false,
       },
     })
-    expect(candidateReport.timingReview.sourcePhaseFallbackSourceRecordIds).toHaveLength(2)
+    expect(candidateReport.timingReview.sourcePhaseConflictCountsByFile).toEqual({
+      'Faction_abilities.csv': 93,
+      'Warscrolls_abilities.csv': 84,
+    })
+    expect(candidateReport.timingReview.phaseIndependentSourceRecordIds).toHaveLength(1)
+    expect(candidateReport.timingReview.effectPhaseWindowSourceRecordIds).toHaveLength(1)
+    expect(candidateReport.timingReview.unresolvedTimingSourceRecordIds).toHaveLength(1)
     expect(candidateReport.timingReview.sourceTimingCorrectionSourceRecordIds).toHaveLength(8)
     expect(
-      candidateReport.timingReview.sourcePhaseFallbackSourceRecordIds.concat(
+      candidateReport.timingReview.phaseIndependentSourceRecordIds.concat(
+        candidateReport.timingReview.effectPhaseWindowSourceRecordIds,
+        candidateReport.timingReview.unresolvedTimingSourceRecordIds,
         candidateReport.timingReview.sourceTimingCorrectionSourceRecordIds
       )
     ).toEqual(
@@ -168,7 +178,9 @@ describe('AoS 4 catalog generation integrity', () => {
       status: 'blocked',
       normalization: {
         unresolvedTimings: 0,
-        sourcePhaseFallbacks: 0,
+        phaseIndependentAbilities: 0,
+        effectPhaseWindowAbilities: 0,
+        sourcePhaseConflicts: 7,
         sourceTimingCorrections: 0,
         reactionFlagMismatches: 2,
       },
@@ -187,11 +199,13 @@ describe('AoS 4 catalog generation integrity', () => {
       status: 'candidate-review-required',
       totals: {
         factions: 28,
-        blockedFactions: 11,
-        reviewableFactions: 17,
+        blockedFactions: 12,
+        reviewableFactions: 16,
         decoderErrors: 2,
-        unresolvedTimings: 0,
-        sourcePhaseFallbacks: 2,
+        unresolvedTimings: 1,
+        phaseIndependentAbilities: 1,
+        effectPhaseWindowAbilities: 1,
+        sourcePhaseConflicts: 177,
         sourceTimingCorrections: 8,
         reactionFlagMismatches: 13,
       },
@@ -203,7 +217,11 @@ describe('AoS 4 catalog generation integrity', () => {
     expect(cohortIndexReport.cohorts).toHaveLength(28)
     expect(
       cohortIndexReport.cohorts.filter(cohort => cohort.status === 'blocked')
-    ).toHaveLength(11)
+    ).toHaveLength(12)
+    expect(cohortIndexReport.cohorts.find(cohort => cohort.id === 'LRL')).toMatchObject({
+      status: 'blocked',
+      unresolvedTimings: 1,
+    })
   })
 
   it('records official structural evidence without accepting source data', () => {
@@ -215,7 +233,7 @@ describe('AoS 4 catalog generation integrity', () => {
         domainModelChanged: true,
       },
     })
-    expect(officialRulesReport.artifacts).toHaveLength(2)
+    expect(officialRulesReport.artifacts).toHaveLength(3)
     expect(officialRulesReport.structuralEvidence).toEqual(
       expect.arrayContaining([
         expect.objectContaining({
@@ -224,6 +242,14 @@ describe('AoS 4 catalog generation integrity', () => {
         }),
         expect.objectContaining({
           subject: 'stormcast-ruination-reaction',
+          status: 'supported',
+        }),
+        expect.objectContaining({
+          subject: 'phase-independent-active-window',
+          status: 'supported',
+        }),
+        expect.objectContaining({
+          subject: 'lumineth-multiple-parts-passive',
           status: 'supported',
         }),
       ])

@@ -15,7 +15,7 @@ The migration branch is now an Age of Sigmar fourth-edition-only workbench:
 - old browser state is deleted and replaced with a schema-valid AoS 4 document; it is never
   translated
 - full-corpus candidate acquisition exists, but candidate output is not accepted runtime data
-- all 28 factions have non-verbatim cohort inventories; 17 are reviewable and 11 retain automated
+- all 28 factions have non-verbatim cohort inventories; 16 are reviewable and 12 retain automated
   blockers, while the runtime remains the representative slice
 - package upgrades and broader framework modernization remain Phase 2 work
 
@@ -59,8 +59,10 @@ Phase 1 has two parts:
 The representative vertical slice and AoS 4 runtime cutover are complete. The next body of work is
 reviewed corpus expansion through the AoS 4-only pipeline. Do not promote the live candidate
 snapshot wholesale: resolve or explicitly disposition its diagnostics and review a bounded cohort.
-The current candidate has zero unknown timing windows, two lossy phase fallbacks, 13 contradictory
-reaction flags, and two missing Regiment of Renown faction joins.
+The current candidate has one unresolved timing pending formal official-source reconciliation, one
+reviewed phase-independent active timing, 177 reported disagreements with the non-canonical
+`ability_phase` metadata, 13 contradictory reaction flags, and two missing Regiment of Renown
+faction joins.
 
 Avoid dependency churn during Phase 1 unless a package blocks correct data work, the build, or safe
 operation.
@@ -174,8 +176,8 @@ explicit decision.
 `src/aos4/domain/` defines:
 
 - stable branded canonical IDs
-- seven ordered turn phases plus battle/deployment/round/triggered-reaction/always/unknown windows;
-  round boundaries may carry a specific positive battle-round number
+- seven ordered turn phases plus battle/deployment/round/phase-independent/triggered-reaction/
+  always/unknown windows; round boundaries may carry a specific positive battle-round number
 - active, reaction, and passive ability timings
 - perspective, combat priority, and scoped usage limits
 - declare/trigger/effect text
@@ -186,6 +188,11 @@ explicit decision.
 
 Unknown source values are retained explicitly for review. Do not coerce them into a nearby known
 enum merely to make generation pass.
+
+An active timing with a valid usage limit but no named phase uses the `phase-independent` window.
+Wahapedia's lossy `ability_phase` field is review evidence only and must never create a canonical
+timing. A missing or unclassifiable condition stays blocked until formal reconciliation links the
+applicable official and secondary source records, their exact checksums, and the rules context.
 
 ### Normalization, selection, and reminders
 

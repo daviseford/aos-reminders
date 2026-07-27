@@ -76,7 +76,9 @@ export interface CandidateAcquisitionReport {
     weapons: number
     unknownWeaponTypes: number
     unresolvedTimings: number
-    sourcePhaseFallbacks: number
+    phaseIndependentAbilities: number
+    effectPhaseWindowAbilities: number
+    sourcePhaseConflicts: number
     sourceTimingCorrections: number
     reactionFlagMismatches: number
   }
@@ -209,8 +211,14 @@ const createCandidateAnalysis = (
       unresolvedTimings: abilities.filter(ability =>
         ability.timings.some(timing => timing.window.kind === 'unknown')
       ).length,
-      sourcePhaseFallbacks: abilities.filter(ability =>
-        ability.diagnostics.some(diagnostic => diagnostic.code === 'source-phase-fallback')
+      phaseIndependentAbilities: abilities.filter(ability =>
+        ability.timings.some(timing => timing.window.kind === 'phase-independent')
+      ).length,
+      effectPhaseWindowAbilities: abilities.filter(ability =>
+        ability.diagnostics.some(diagnostic => diagnostic.code === 'effect-phase-windows')
+      ).length,
+      sourcePhaseConflicts: abilities.filter(ability =>
+        ability.diagnostics.some(diagnostic => diagnostic.code === 'source-phase-conflict')
       ).length,
       sourceTimingCorrections: abilities.filter(ability =>
         ability.diagnostics.some(diagnostic => diagnostic.code === 'source-timing-correction')

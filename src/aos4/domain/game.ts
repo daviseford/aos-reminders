@@ -18,6 +18,7 @@ export type GameWindow =
   | { kind: 'battle-start' }
   | { kind: 'deployment' }
   | { kind: 'battle-round-start'; round?: number }
+  | { kind: 'phase-independent' }
   | { kind: 'turn-phase'; phase: TurnPhaseId }
   | { kind: 'battle-round-end'; round?: number }
   | { kind: 'battle-end' }

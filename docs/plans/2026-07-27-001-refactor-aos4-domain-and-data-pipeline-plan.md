@@ -783,11 +783,19 @@ Reaction/is_reaction contradictions and pending official faction-publication rec
 current Stormcast Eternals erratum corroborates the Reaction text on both rows; formal fact linking
 and the rest of the faction publication review remain.
 
-The same inventory now covers all 28 source factions: 17 have no automated blocker and 11 are
+The same inventory now covers all 28 source factions: 16 have no automated blocker and 12 are
 blocked by the two known join errors and/or 13 contradictory reaction flags. Round-qualified battle
 round windows and eight diagnosed instances of two exact source-typo patterns classify 18 former
-fallbacks. The remaining two lossy source-phase fallbacks are assigned to the Nighthaunt and
-Ossiarch Bonereapers review queues. These statuses are review routing, not corpus acceptance.
+fallbacks. The Ossiarch once-per-phase ability now produces the three phase windows explicitly
+labelled in its effect instead of using the contradictory Start of Turn source column. Official
+Nighthaunt evidence confirms that Light a Pyre's current usage-only timing supersedes its older End
+of Any Turn phase, so the domain now retains it as a phase-independent active window instead of
+trusting Wahapedia's stale `ability_phase` column. Official Lumineth evidence identifies the Passive
+timing omitted from one Multiple Parts export row, but that row remains unknown until formal
+reconciliation links both source records. The phase metadata is now review-only: it cannot create
+canonical timing, and all 177 disagreements with condition-derived timing are reported. Of 4,092
+candidate abilities, 4,091 classify without relying on that lossy field and the remaining record
+fails closed. These statuses are review routing, not corpus acceptance.
 
 The synthetic reaction previously used to demonstrate runtime placement was removed from the
 accepted representative catalog once official reaction evidence was available. A strict generation
@@ -863,10 +871,10 @@ The integration branch remains deployable, but no Phase 1 verification command m
 - Reminder IDs currently hash phase, name, and description. Notes, visibility, and ordering depend
   on those IDs, so KTD3 and KTD5 address an observed data-integrity problem rather than a cosmetic
   refactor.
-- Wahapedia's `ability_phase` is a useful display hint but collapses Deployment and Start of Battle
-  Round into Start of Turn in sampled exports. The free-form condition field also contains reaction
-  triggers, embedded markup, and source markers. U2 and U6 therefore preserve raw timing and make
-  uncertainty explicit.
+- Wahapedia's `ability_phase` collapses distinct windows and contradicts canonical timing on 177
+  sampled records, so it is retained as review evidence but never used to create a timing. The
+  free-form condition field also contains reaction triggers, embedded markup, and source markers.
+  U2 and U6 therefore preserve raw timing and make uncertainty explicit.
 - The Warhammer Community downloads page is a dynamic Next.js application. Its observed private
   search request returned an error during the 2026-07-27 research pass, which justifies U7's
   isolated adapter and fallback.

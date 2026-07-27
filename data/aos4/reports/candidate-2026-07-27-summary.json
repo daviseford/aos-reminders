@@ -25,15 +25,26 @@
     "abilities": 4092,
     "weapons": 2147,
     "unknownWeaponTypes": 0,
-    "unresolvedTimings": 0,
-    "sourcePhaseFallbacks": 2,
+    "unresolvedTimings": 1,
+    "phaseIndependentAbilities": 1,
+    "effectPhaseWindowAbilities": 1,
+    "sourcePhaseConflicts": 177,
     "sourceTimingCorrections": 8,
     "reactionFlagMismatches": 13
   },
   "timingReview": {
-    "sourcePhaseFallbackSourceRecordIds": [
-      "source-record:wahapedia:Faction_abilities.csv%3AOB%3A000001045%3A000004250%3A3",
+    "unresolvedTimingSourceRecordIds": [
+      "source-record:wahapedia:Warscrolls_abilities.csv%3A000000851%3A2"
+    ],
+    "sourcePhaseConflictCountsByFile": {
+      "Faction_abilities.csv": 93,
+      "Warscrolls_abilities.csv": 84
+    },
+    "phaseIndependentSourceRecordIds": [
       "source-record:wahapedia:Warscrolls_abilities.csv%3A000001746%3A1"
+    ],
+    "effectPhaseWindowSourceRecordIds": [
+      "source-record:wahapedia:Faction_abilities.csv%3AOB%3A000001045%3A000004250%3A3"
     ],
     "sourceTimingCorrectionSourceRecordIds": [
       "source-record:wahapedia:Faction_abilities.csv%3ACoS%3A000000900%3A000003400%3A6",
@@ -65,7 +76,10 @@
     "Empty keyword association sentinels are reported and excluded from the decoded record count.",
     "Phase-independent Reaction timings are modeled as triggered windows instead of being forced into a turn phase.",
     "Ordinal battle-round windows and eight diagnosed instances of two exact source-typo patterns classify 18 timings without relying on the lossy ability_phase field.",
-    "The two remaining source-phase fallbacks are retained for official-source review rather than guessed.",
+    "One once-per-phase ability is projected into the three phase windows explicitly labelled in its effect instead of trusting its contradictory ability_phase field.",
+    "One usage-only active ability is retained in a phase-independent window because the current official update removed its older End of Any Turn timing; the stale Wahapedia ability_phase value is not used.",
+    "The current official update identifies Passive timing for one Lumineth ability whose export condition is empty and whose ability_phase metadata is wrong; the candidate remains blocked until both records are linked through formal reconciliation.",
+    "The lossy Wahapedia ability_phase field can no longer create a canonical timing; 177 disagreements are reported for cohort review.",
     "Thirteen records contradict their textual Reaction timing with is_reaction=false and remain blocked for review.",
     "Two Regiment of Renown rows reference the absent LCA faction and remain unresolved.",
     "The Games Workshop private download endpoint returned HTTP 500 during discovery; the official Battle Profiles PDF was independently located and checksummed."

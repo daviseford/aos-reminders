@@ -12,6 +12,8 @@ const windowOrder = (timing: AbilityTiming): number => {
       return 10
     case 'battle-round-start':
       return 20
+    case 'phase-independent':
+      return 25
     case 'turn-phase':
       return 30 + (phaseOrder.get(timing.window.phase) ?? TURN_PHASES.length)
     case 'battle-round-end':

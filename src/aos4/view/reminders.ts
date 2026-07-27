@@ -18,6 +18,8 @@ const windowLabel = (timing: AbilityTiming): string => {
       return 'Deployment'
     case 'battle-round-start':
       return `Start of Battle Round${timing.window.round ? ` ${timing.window.round}` : ''}`
+    case 'phase-independent':
+      return 'No Named Phase'
     case 'turn-phase':
       return `${phaseNames.get(timing.window.phase) ?? timing.window.phase} Phase`
     case 'battle-round-end':

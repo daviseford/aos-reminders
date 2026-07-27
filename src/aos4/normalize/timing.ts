@@ -166,9 +166,12 @@ export const parseTiming = (source: string, options: TimingParseOptions): Timing
   const diagnostics = [...normalized.diagnostics]
   const parsingText = normalized.text.replace(/%[A-Za-z0-9_-]+/g, ' ')
   const windows = findWindows(parsingText, options.abilityKind)
+  const usage = findUsage(parsingText, options.actor)
   let window: GameWindow
 
-  if (windows.length === 0) {
+  if (windows.length === 0 && options.abilityKind === 'active' && usage) {
+    window = { kind: 'phase-independent' }
+  } else if (windows.length === 0) {
     window = { kind: 'unknown' }
     diagnostics.push({
       code: 'unknown-timing',
@@ -196,7 +199,6 @@ export const parseTiming = (source: string, options: TimingParseOptions): Timing
   if (/\bstrike[\s-]*first\b/i.test(parsingText)) timing.priority = 'strike-first'
   if (/\bstrike[\s-]*last\b/i.test(parsingText)) timing.priority = 'strike-last'
 
-  const usage = findUsage(parsingText, options.actor)
   if (usage) timing.usage = usage
 
   return {

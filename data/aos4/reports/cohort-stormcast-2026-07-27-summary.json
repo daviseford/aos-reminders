@@ -26,7 +26,9 @@
     "weapons": 209,
     "unknownWeaponTypes": 0,
     "unresolvedTimings": 0,
-    "sourcePhaseFallbacks": 0,
+    "phaseIndependentAbilities": 0,
+    "effectPhaseWindowAbilities": 0,
+    "sourcePhaseConflicts": 7,
     "sourceTimingCorrections": 0,
     "reactionFlagMismatches": 2
   },
@@ -50,6 +52,7 @@
     "The complete row-addressable cohort report remains in the ignored candidate output directory.",
     "Official core rules support phase-independent triggered Reaction windows, eliminating all previously unresolved Stormcast timings.",
     "The current official Stormcast Eternals erratum corroborates the Reaction text on both contradictory flag rows.",
+    "Seven disagreements between canonical timing text and the lossy ability_phase column are retained as review diagnostics; the column cannot create canonical timing.",
     "The cohort remains blocked until that evidence is linked through formal fact reconciliation and the applicable official faction publication family is reviewed.",
     "Polluted source markers require review even though they are not promotion blockers by themselves."
   ]

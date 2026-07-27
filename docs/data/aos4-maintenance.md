@@ -139,11 +139,12 @@ needs formal fact linking and the rest of the applicable faction publication fam
 reconciled. The cohort does not change the runtime catalog.
 
 The checked-in `official-rules-2026-07-27-summary` records the checksums and page locators supporting
-the triggered Reaction window. The base rules and June 2026 update both extracted without
-diagnostics; neither raw PDF nor page text is committed.
+the triggered Reaction window and the phase-independent active window. The base rules, June 2026
+update, and superseded September 2024 Nighthaunt pack extracted without diagnostics; neither raw
+PDF nor page text is committed.
 
 The checked-in `cohort-index-2026-07-27` applies the same non-verbatim inventory to all 28 factions:
-17 have no automated blocker and still require source review, while 11 are blocked by decoder
+16 have no automated blocker and still require source review, while 12 are blocked by decoder
 errors or contradictory reaction flags. “Reviewable” is not “accepted”; no full faction has entered
 the runtime catalog.
 
@@ -191,16 +192,26 @@ yarn build
 ## Current known candidate gaps
 
 The 2026-07-27 live snapshot decodes 28 factions, 1,795 warscrolls, 4,092 abilities, and 2,147
-weapons after excluding 559 empty keyword association sentinels. All timing windows are classified;
-two abilities still use the lossy source-phase fallback, 13 reaction flags contradict explicit
-Reaction text, and two Regiment of Renown joins reference the absent `LCA` faction. Those items are
-review work, not accepted exceptions.
+weapons after excluding 559 empty keyword association sentinels. One timing is unresolved pending
+formal official-source reconciliation; 177 disagreements with the non-canonical `ability_phase`
+metadata are reported, 13 reaction flags contradict explicit Reaction text, and two Regiment of
+Renown joins reference the absent `LCA` faction. Those items are review work, not accepted
+exceptions.
 
 Eighteen earlier fallbacks were resolved from the condition field itself: first/third battle-round
 boundaries now retain their round qualifier, and the adapter corrects only eight instances of the
 two exact observed source typos `Any Comhat Phase` and `Your Hero Quest` while emitting
-`source-timing-correction`. The remaining Nighthaunt and Ossiarch Bonereapers rows are not guessed.
-The checked candidate summary records the exact two fallback and eight corrected source-record IDs.
+`source-timing-correction`. The Ossiarch once-per-phase ability is now projected into the Movement,
+Charge, and Combat windows explicitly labelled in its effect instead of trusting the contradictory
+Start of Turn source column. The current official Nighthaunt update replaces Light a Pyre's older
+End of Any Turn timing with usage-only `Once Per Turn (Army)`, so it is represented by a
+phase-independent active window and the stale Wahapedia `ability_phase` column is ignored. The
+current official Lumineth update also supplies Passive timing for one Multiple Parts row whose
+export condition is empty and whose `ability_phase` value is wrong. The phase metadata can no
+longer create canonical timing. That Lumineth row remains unknown and blocks its cohort until formal
+reconciliation links the exact official and secondary source-record checksums and rules context.
+The checked candidate summary records the exact unresolved, phase-independent, effect-derived, and
+corrected source-record IDs; complete conflict IDs remain in the ignored cohort reports.
 
 Official full-corpus discovery, publication-family extraction, identity review, and conflict
 resolution remain cohort work. Expand from the representative faction rather than treating a

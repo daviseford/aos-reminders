@@ -5,11 +5,13 @@
   "wahapediaExportMarker": "2026-05-26",
   "totals": {
     "factions": 28,
-    "blockedFactions": 11,
-    "reviewableFactions": 17,
+    "blockedFactions": 12,
+    "reviewableFactions": 16,
     "decoderErrors": 2,
-    "unresolvedTimings": 0,
-    "sourcePhaseFallbacks": 2,
+    "unresolvedTimings": 1,
+    "phaseIndependentAbilities": 1,
+    "effectPhaseWindowAbilities": 1,
+    "sourcePhaseConflicts": 177,
     "sourceTimingCorrections": 8,
     "reactionFlagMismatches": 13
   },
@@ -22,7 +24,7 @@
       "sourceRecords": 342,
       "errors": 0,
       "warnings": 5,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 2,
       "reactionFlagMismatches": 1
     },
     {
@@ -33,7 +35,7 @@
       "sourceRecords": 752,
       "errors": 0,
       "warnings": 26,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 5,
       "reactionFlagMismatches": 1
     },
     {
@@ -44,7 +46,7 @@
       "sourceRecords": 233,
       "errors": 0,
       "warnings": 5,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 2,
       "reactionFlagMismatches": 0
     },
     {
@@ -55,7 +57,7 @@
       "sourceRecords": 1138,
       "errors": 0,
       "warnings": 25,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 11,
       "reactionFlagMismatches": 0
     },
     {
@@ -66,7 +68,7 @@
       "sourceRecords": 688,
       "errors": 0,
       "warnings": 15,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 3,
       "reactionFlagMismatches": 0
     },
     {
@@ -77,7 +79,7 @@
       "sourceRecords": 800,
       "errors": 0,
       "warnings": 19,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 12,
       "reactionFlagMismatches": 1
     },
     {
@@ -88,7 +90,7 @@
       "sourceRecords": 171,
       "errors": 0,
       "warnings": 0,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 0,
       "reactionFlagMismatches": 0
     },
     {
@@ -99,7 +101,7 @@
       "sourceRecords": 744,
       "errors": 0,
       "warnings": 23,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 5,
       "reactionFlagMismatches": 0
     },
     {
@@ -110,7 +112,7 @@
       "sourceRecords": 559,
       "errors": 0,
       "warnings": 14,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 6,
       "reactionFlagMismatches": 0
     },
     {
@@ -121,7 +123,7 @@
       "sourceRecords": 935,
       "errors": 1,
       "warnings": 22,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 15,
       "reactionFlagMismatches": 1
     },
     {
@@ -132,7 +134,7 @@
       "sourceRecords": 435,
       "errors": 0,
       "warnings": 8,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 3,
       "reactionFlagMismatches": 0
     },
     {
@@ -143,7 +145,7 @@
       "sourceRecords": 649,
       "errors": 0,
       "warnings": 18,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 4,
       "reactionFlagMismatches": 0
     },
     {
@@ -154,7 +156,7 @@
       "sourceRecords": 613,
       "errors": 0,
       "warnings": 19,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 4,
       "reactionFlagMismatches": 1
     },
     {
@@ -165,7 +167,7 @@
       "sourceRecords": 520,
       "errors": 0,
       "warnings": 13,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 6,
       "reactionFlagMismatches": 0
     },
     {
@@ -176,7 +178,7 @@
       "sourceRecords": 500,
       "errors": 0,
       "warnings": 16,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 4,
       "reactionFlagMismatches": 0
     },
     {
@@ -187,18 +189,19 @@
       "sourceRecords": 677,
       "errors": 1,
       "warnings": 15,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 11,
       "reactionFlagMismatches": 0
     },
     {
       "id": "LRL",
       "name": "Lumineth Realm-lords",
-      "status": "cohort-review-required",
+      "status": "blocked",
       "warscrolls": 66,
       "sourceRecords": 702,
       "errors": 0,
       "warnings": 21,
-      "sourcePhaseFallbacks": 0,
+      "unresolvedTimings": 1,
+      "sourcePhaseConflicts": 10,
       "reactionFlagMismatches": 0
     },
     {
@@ -209,7 +212,7 @@
       "sourceRecords": 825,
       "errors": 0,
       "warnings": 26,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 5,
       "reactionFlagMismatches": 0
     },
     {
@@ -220,7 +223,7 @@
       "sourceRecords": 695,
       "errors": 0,
       "warnings": 21,
-      "sourcePhaseFallbacks": 1,
+      "sourcePhaseConflicts": 5,
       "reactionFlagMismatches": 3
     },
     {
@@ -231,7 +234,7 @@
       "sourceRecords": 772,
       "errors": 0,
       "warnings": 21,
-      "sourcePhaseFallbacks": 1,
+      "sourcePhaseConflicts": 7,
       "reactionFlagMismatches": 1
     },
     {
@@ -242,7 +245,7 @@
       "sourceRecords": 624,
       "errors": 0,
       "warnings": 13,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 6,
       "reactionFlagMismatches": 0
     },
     {
@@ -253,7 +256,7 @@
       "sourceRecords": 1486,
       "errors": 0,
       "warnings": 46,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 7,
       "reactionFlagMismatches": 2
     },
     {
@@ -264,7 +267,7 @@
       "sourceRecords": 1032,
       "errors": 0,
       "warnings": 37,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 9,
       "reactionFlagMismatches": 1
     },
     {
@@ -275,7 +278,7 @@
       "sourceRecords": 705,
       "errors": 0,
       "warnings": 17,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 7,
       "reactionFlagMismatches": 0
     },
     {
@@ -286,7 +289,7 @@
       "sourceRecords": 366,
       "errors": 0,
       "warnings": 8,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 3,
       "reactionFlagMismatches": 0
     },
     {
@@ -297,7 +300,7 @@
       "sourceRecords": 971,
       "errors": 0,
       "warnings": 25,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 7,
       "reactionFlagMismatches": 1
     },
     {
@@ -308,7 +311,7 @@
       "sourceRecords": 1090,
       "errors": 0,
       "warnings": 30,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 9,
       "reactionFlagMismatches": 0
     },
     {
@@ -319,7 +322,7 @@
       "sourceRecords": 719,
       "errors": 0,
       "warnings": 14,
-      "sourcePhaseFallbacks": 0,
+      "sourcePhaseConflicts": 9,
       "reactionFlagMismatches": 0
     }
   ],
@@ -333,6 +336,9 @@
     "The two decoder errors are the known Regiment of Renown joins to the absent LCA faction.",
     "All raw records and complete row-level reports remain in the ignored checksum cache and candidate output.",
     "Eighteen former fallbacks are now classified from explicit ordinal battle-round timing or eight diagnosed instances of two narrowly-scoped source-typo patterns.",
-    "The remaining two fallbacks belong to Nighthaunt and Ossiarch Bonereapers and still require official-source review."
+    "The Ossiarch once-per-phase ability now uses its three explicit effect headings instead of the contradictory source phase column.",
+    "The current official Nighthaunt update supersedes Light a Pyre's older End of Any Turn phase, so the usage-only timing is phase-independent and the stale source phase column is ignored.",
+    "The current official Lumineth update supplies Passive timing omitted from one Multiple Parts export row; that row remains blocked until formal reconciliation links both sources.",
+    "The lossy source phase column cannot create canonical timing; all 177 disagreements are retained for cohort review."
   ]
 }

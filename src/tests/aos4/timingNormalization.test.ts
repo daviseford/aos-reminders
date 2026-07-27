@@ -122,6 +122,24 @@ describe('AoS 4 timing normalization', () => {
     ).toBe('army')
   })
 
+  it('retains a usage-only active timing as phase-independent', () => {
+    const result = parseTiming('Once Per Turn (Army)', {
+      abilityKind: 'active',
+      actor: 'unit',
+    })
+
+    expect(result.timings).toEqual([
+      {
+        kind: 'active',
+        perspective: 'neutral',
+        raw: 'Once Per Turn (Army)',
+        usage: { limit: 1, period: 'turn', scope: 'army' },
+        window: { kind: 'phase-independent' },
+      },
+    ])
+    expect(result.diagnostics).toEqual([])
+  })
+
   it('preserves unknown and conflicting timing as diagnostics instead of guessing', () => {
     const unknown = parseTiming('After mustering the army', {
       abilityKind: 'active',
