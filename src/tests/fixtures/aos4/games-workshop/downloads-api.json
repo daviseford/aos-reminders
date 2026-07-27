@@ -1,0 +1,25 @@
+{
+  "hits": [
+    {
+      "id": {
+        "uuid": "official-core-rules",
+        "slug": "age-of-sigmar-core-rules",
+        "title": "Age of Sigmar Core Rules",
+        "file": "aos4/core-rules.pdf",
+        "created_at": "2024-07-08",
+        "last_updated": "27/07/2026",
+        "game_systems": [{ "slug": "warhammer-age-of-sigmar" }],
+        "topics": [{ "title": "Core Rules" }]
+      },
+      "download_categories": ["core-rules-and-key-downloads"]
+    },
+    {
+      "id": {
+        "uuid": "official-core-rules-duplicate",
+        "title": "Age of Sigmar Core Rules",
+        "file": "aos4/core-rules.pdf"
+      },
+      "download_categories": []
+    }
+  ]
+}

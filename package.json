@@ -39,29 +39,20 @@
     "superagent": "7.1.6"
   },
   "scripts": {
-    "analyze": "source-map-explorer 'dist/static/js/*.js'",
     "build": "tsc && vite build",
-    "clean": "node clean.js",
+    "data:aos4:candidate": "vite-node --script src/aos4/data/candidateCommand.ts",
     "format": "yarn prettier --write \"**/*.*(js|jsx|ts|tsx)\"",
     "gitclean:win": "git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }",
     "gitclean": "git branch | grep -v \"master\" | xargs git branch -D",
-    "intake:win": "ts-node-dev --respawn --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --transpile-only -r tsconfig-paths/register src/utils/dev/intakeTests.ts",
-    "intake": "ts-node-dev --respawn --compiler-options '{ \"module\": \"commonjs\"}' --transpile-only -r tsconfig-paths/register src/utils/dev/intakeTests.ts",
     "lint": "eslint src --max-warnings 0",
-    "prepush": "yarn clean && yarn format && yarn lint --fix && yarn tsc && yarn test",
-    "pruneTests:win": "ts-node-dev --respawn --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --transpile-only -r tsconfig-paths/register src/utils/dev/pruneTests.ts",
-    "pruneTests": "ts-node-dev --respawn --compiler-options '{ \"module\": \"commonjs\"}' --transpile-only -r tsconfig-paths/register src/utils/dev/pruneTests.ts",
+    "prepush": "yarn lint && yarn tsc --noEmit && yarn test --run && yarn build",
     "start": "vite",
     "test": "cross-env TZ=UTC vitest",
-    "up": "yarn install && yarn upgrade-interactive --latest",
-    "verify:win": "ts-node-dev --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/verify.ts",
-    "verify": "ts-node-dev --compiler-options '{ \"module\": \"commonjs\"}' --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/verify.ts",
-    "xlsx:win": "ts-node-dev --compiler-options \"{ \"\"module\"\": \"\"commonjs\"\"}\" --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/exportToSheet.ts",
-    "xlsx": "ts-node-dev --compiler-options '{ \"module\": \"commonjs\"}' --respawn --transpile-only -r tsconfig-paths/register src/utils/dev/exportToSheet.ts"
+    "up": "yarn install && yarn upgrade-interactive --latest"
   },
   "husky": {
     "hooks": {
-      "pre-commit": "node clean.js && pretty-quick --staged --pattern \"**/*.*(ts|tsx)\""
+      "pre-commit": "pretty-quick --staged --pattern \"**/*.*(ts|tsx)\""
     }
   },
   "browserslist": {

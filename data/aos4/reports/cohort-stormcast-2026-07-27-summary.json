@@ -1,0 +1,59 @@
+{
+  "schemaVersion": 1,
+  "status": "blocked",
+  "retrievedAt": "2026-07-27",
+  "wahapediaExportMarker": "2026-05-26",
+  "faction": {
+    "id": "SE",
+    "name": "Stormcast Eternals"
+  },
+  "counts": {
+    "sources": 15,
+    "sourceRecords": 1486,
+    "warscrolls": 130,
+    "warscrollAbilities": 217,
+    "warscrollWeapons": 209,
+    "warscrollKeywords": 567,
+    "warscrollBases": 103,
+    "warscrollOrganisation": 59,
+    "regimentOfRenownFactions": 44,
+    "factionAbilityTypes": 14,
+    "factionAbilitySubtypes": 42,
+    "factionAbilities": 85
+  },
+  "normalization": {
+    "abilities": 302,
+    "weapons": 209,
+    "unknownWeaponTypes": 0,
+    "unresolvedTimings": 0,
+    "phaseIndependentAbilities": 0,
+    "effectPhaseWindowAbilities": 0,
+    "sourcePhaseConflicts": 7,
+    "sourceTimingCorrections": 0,
+    "reactionFlagMismatches": 2
+  },
+  "diagnostics": {
+    "errors": 0,
+    "warnings": 46,
+    "pollutedMarkers": 46
+  },
+  "blockingSourceRecordIds": [
+    "source-record:wahapedia:Warscrolls_abilities.csv%3A000001718%3A5",
+    "source-record:wahapedia:Warscrolls_abilities.csv%3A000001884%3A3"
+  ],
+  "coverage": {
+    "reactionFlagOfficialEvidence": "supported",
+    "officialReconciliation": "not-yet-reviewed",
+    "candidateManifestAccepted": false,
+    "runtimeCatalogChanged": false
+  },
+  "notes": [
+    "This is a non-verbatim review inventory generated from the checked-in candidate manifest and ignored checksum cache.",
+    "The complete row-addressable cohort report remains in the ignored candidate output directory.",
+    "Official core rules support phase-independent triggered Reaction windows, eliminating all previously unresolved Stormcast timings.",
+    "The current official Stormcast Eternals erratum corroborates the Reaction text on both contradictory flag rows.",
+    "Seven disagreements between canonical timing text and the lossy ability_phase column are retained as review diagnostics; the column cannot create canonical timing.",
+    "The cohort remains blocked until that evidence is linked through formal fact reconciliation and the applicable official faction publication family is reviewed.",
+    "Polluted source markers require review even though they are not promotion blockers by themselves."
+  ]
+}

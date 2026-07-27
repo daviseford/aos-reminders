@@ -1,0 +1,2 @@
+faction_id|type_id|type_name|subtype_id|subtype_name|line|name|description|legend|ability_type|is_reaction|condition|keywords|ability_phase|points_type|points|
+SCE|type-1|Battle Traits|subtype-1|Scions of the Storm|1|Ride the Winds|<b>Effect:</b> Move the target D6".||Movement|true|Once Per Turn (Army), Reaction: You declared a <ky>MOVE</ky> ability for a friendly unit.|Move|Defensive reaction|||
