@@ -15,12 +15,14 @@ import { resolveDnsAddresses } from './urlPolicy'
 import {
   WAHAPEDIA_EXPORT_FILES,
   assessWahapediaFreshness,
+  createWahapediaFactionCohortReport,
   decodeWahapediaExports,
   normalizeWahapediaAbility,
   normalizeWahapediaWeapon,
   wahapediaExportRequest,
   type WahapediaDiagnostic,
   type WahapediaExportInputs,
+  type WahapediaFactionCohortReport,
 } from './wahapedia'
 
 const GAMES_WORKSHOP_ADAPTER_VERSION = 'games-workshop-pdf/1'
@@ -31,6 +33,7 @@ export interface CandidateAcquisitionOptions {
   outputDirectory: string
   acceptedManifest?: ArtifactManifest
   officialDocumentUrls?: string[]
+  factionIds?: string[]
   offline?: boolean
   requestPauseMs?: number
 }
@@ -83,7 +86,10 @@ export interface CandidateAcquisitionResult {
   manifestPath: string
   reportPath: string
   diagnosticsPath: string
+  cohortReportPaths: string[]
 }
+
+const FACTION_ID_PATTERN = /^[A-Za-z0-9_-]+$/
 
 const pause = async (milliseconds: number): Promise<void> => {
   if (milliseconds <= 0) return
@@ -114,8 +120,13 @@ const countDiagnostics = (diagnostics: WahapediaDiagnostic[]): CandidateAcquisit
 const createCandidateAnalysis = (
   inputs: WahapediaExportInputs,
   manifest: ArtifactManifest,
-  retrievedAt: string
-): { report: CandidateAcquisitionReport; diagnostics: WahapediaDiagnostic[] } => {
+  retrievedAt: string,
+  factionIds: string[]
+): {
+  report: CandidateAcquisitionReport
+  diagnostics: WahapediaDiagnostic[]
+  cohortReports: WahapediaFactionCohortReport[]
+} => {
   const decoded = decodeWahapediaExports(inputs)
   const freshness = assessWahapediaFreshness(decoded.dataset)
   const abilities = [
@@ -167,7 +178,13 @@ const createCandidateAnalysis = (
       candidateManifestAccepted: false,
     },
   }
-  return { report, diagnostics }
+  return {
+    report,
+    diagnostics,
+    cohortReports: factionIds.map(factionId =>
+      createWahapediaFactionCohortReport(decoded.dataset, diagnostics, factionId)
+    ),
+  }
 }
 
 const dependencies = (): AcquisitionDependencies => ({
@@ -188,6 +205,7 @@ const dependencies = (): AcquisitionDependencies => ({
 export const acquireCandidateData = async (
   options: CandidateAcquisitionOptions
 ): Promise<CandidateAcquisitionResult> => {
+  const factionIds = uniqueFactionIds(options.factionIds ?? [])
   const acquisitionDependencies = dependencies()
   const pauseMs = options.requestPauseMs ?? DEFAULT_REQUEST_PAUSE_MS
   const inputs: WahapediaExportInputs = {}
@@ -230,12 +248,15 @@ export const acquireCandidateData = async (
   }
 
   const retrievedAt = new Date().toISOString()
-  const analysis = createCandidateAnalysis(inputs, manifest, retrievedAt)
+  const analysis = createCandidateAnalysis(inputs, manifest, retrievedAt, factionIds)
   const report = analysis.report
   const outputDirectory = path.resolve(options.outputDirectory)
   const manifestPath = path.join(outputDirectory, 'candidate-manifest.json')
   const reportPath = path.join(outputDirectory, 'candidate-report.json')
   const diagnosticsPath = path.join(outputDirectory, 'candidate-diagnostics.json')
+  const cohortReportPaths = factionIds.map(factionId =>
+    path.join(outputDirectory, `cohort-${factionId}-report.json`)
+  )
 
   await mkdir(path.dirname(outputDirectory), { recursive: true })
   await mkdir(outputDirectory)
@@ -252,9 +273,22 @@ export const acquireCandidateData = async (
       encoding: 'utf8',
       flag: 'wx',
     }),
+    ...analysis.cohortReports.map((cohortReport, index) =>
+      writeFile(cohortReportPaths[index], stableJson(cohortReport), {
+        encoding: 'utf8',
+        flag: 'wx',
+      })
+    ),
   ])
 
-  return { manifest, report, manifestPath, reportPath, diagnosticsPath }
+  return {
+    manifest,
+    report,
+    manifestPath,
+    reportPath,
+    diagnosticsPath,
+    cohortReportPaths,
+  }
 }
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -300,10 +334,11 @@ const loadAcceptedManifest = async (manifestPath: string): Promise<ArtifactManif
   return createArtifactManifest(value.artifacts.map(parseManifestEntry))
 }
 
-interface ParsedArguments {
+export interface CandidateArguments {
   outputDirectory: string
   acceptedManifestPath?: string
   officialDocumentUrls: string[]
+  factionIds: string[]
   offline: boolean
 }
 
@@ -315,11 +350,21 @@ const nextValue = (arguments_: string[], index: number, flag: string): string =>
   return value
 }
 
-const parseArguments = (arguments_: string[]): ParsedArguments => {
+const uniqueFactionIds = (factionIds: string[]): string[] => {
+  factionIds.forEach(factionId => {
+    if (!FACTION_ID_PATTERN.test(factionId)) {
+      throw new Error(`Invalid faction ID: ${factionId}`)
+    }
+  })
+  return Array.from(new Set(factionIds)).sort((left, right) => left.localeCompare(right))
+}
+
+export const parseCandidateArguments = (arguments_: string[]): CandidateArguments => {
   const defaultLabel = new Date().toISOString().replace(/[:.]/g, '-')
-  const parsed: ParsedArguments = {
+  const parsed: CandidateArguments = {
     outputDirectory: path.join('.cache', 'aos4', 'candidates', defaultLabel),
     officialDocumentUrls: [],
+    factionIds: [],
     offline: false,
   }
 
@@ -334,6 +379,9 @@ const parseArguments = (arguments_: string[]): ParsedArguments => {
     } else if (argument === '--official-url') {
       parsed.officialDocumentUrls.push(nextValue(arguments_, index, argument))
       index += 1
+    } else if (argument === '--faction') {
+      parsed.factionIds.push(nextValue(arguments_, index, argument))
+      index += 1
     } else if (argument === '--offline') {
       parsed.offline = true
     } else {
@@ -344,11 +392,12 @@ const parseArguments = (arguments_: string[]): ParsedArguments => {
   if (parsed.offline && !parsed.acceptedManifestPath) {
     throw new Error('--offline requires --accepted-manifest')
   }
+  parsed.factionIds = uniqueFactionIds(parsed.factionIds)
   return parsed
 }
 
 const run = async (): Promise<void> => {
-  const arguments_ = parseArguments(process.argv.slice(2))
+  const arguments_ = parseCandidateArguments(process.argv.slice(2))
   const acceptedManifest = arguments_.acceptedManifestPath
     ? await loadAcceptedManifest(arguments_.acceptedManifestPath)
     : undefined
@@ -356,12 +405,16 @@ const run = async (): Promise<void> => {
     outputDirectory: arguments_.outputDirectory,
     acceptedManifest,
     officialDocumentUrls: arguments_.officialDocumentUrls,
+    factionIds: arguments_.factionIds,
     offline: arguments_.offline,
   })
 
   console.log(`Candidate manifest: ${result.manifestPath}`)
   console.log(`Candidate report: ${result.reportPath}`)
   console.log(`Candidate diagnostics: ${result.diagnosticsPath}`)
+  result.cohortReportPaths.forEach(cohortReportPath => {
+    console.log(`Faction cohort report: ${cohortReportPath}`)
+  })
   console.log(
     `Review required: ${result.report.diagnostics.errors} errors, ${result.report.diagnostics.warnings} warnings`
   )

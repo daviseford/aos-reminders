@@ -212,6 +212,8 @@ Runtime code must not fetch source data. It loads checked-in generated artifacts
 - `src/aos4/data/` provides HTTPS-only allowlisted acquisition with DNS/public-IP checks, redirect,
   timeout, size, media-type, and content-encoding limits.
 - Immutable artifacts are cached by SHA-256 and recorded in manifests.
+- Wahapedia records retain the exact decoded row, row locator, stable source-record ID, and SHA-256
+  record checksum before normalization.
 - Official and Wahapedia adapters decode provider shapes without turning them into domain entities.
 - `src/aos4/reconcile/` links facts conservatively, applies explicit reviewed overrides, and records
   conflicts/diagnostics.
@@ -224,12 +226,13 @@ Runtime code must not fetch source data. It loads checked-in generated artifacts
 Candidate acquisition:
 
 ```powershell
-yarn data:aos4:candidate --output <new-directory>
+yarn data:aos4:candidate --faction <Wahapedia-faction-id> --output <new-directory>
 ```
 
 The command never accepts data into runtime and refuses to overwrite an output directory. Use
-`--accepted-manifest <path> --offline` for deterministic replay. Raw artifacts belong under the
-ignored `.cache/aos4/` tree.
+repeatable `--faction` arguments for bounded, non-verbatim cohort inventories and
+`--accepted-manifest <path> --offline` for deterministic replay. A cohort marked `blocked` must not
+be promoted. Raw artifacts belong under the ignored `.cache/aos4/` tree.
 
 ## Retired architecture
 

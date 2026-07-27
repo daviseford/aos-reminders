@@ -42,9 +42,13 @@ Use accepted-manifest offline replay for reproducible investigation:
 ```bash
 yarn data:aos4:candidate \
   --accepted-manifest <manifest-path> \
+  --faction <Wahapedia-faction-id> \
   --offline \
   --output <new-directory>
 ```
+
+Use `--faction` to create a bounded, non-verbatim review inventory before proposing a faction
+cohort. A report marked `blocked` must not be promoted.
 
 ## Code contributions
 

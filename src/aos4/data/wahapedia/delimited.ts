@@ -1,6 +1,8 @@
 export interface DelimitedRow {
   line: number
   values: string[]
+  raw: string
+  lineEnding: '' | '\n' | '\r' | '\r\n'
 }
 
 export interface DelimitedDiagnostic {
@@ -26,18 +28,19 @@ export const parsePipeDelimited = (source: string): DelimitedParseResult => {
   let line = 1
   let column = 1
   let rowLine = 1
+  let rowStart = 0
   let inQuotedField = false
   let closedQuotedField = false
   let endedWithDelimiter = false
 
-  const pushRow = (): void => {
+  const pushRow = (raw: string, lineEnding: DelimitedRow['lineEnding']): void => {
     values.push(value)
     const normalizedValues = withoutTerminalSentinel(values, endedWithDelimiter)
     if (normalizedValues.some(cell => cell.length > 0)) {
       if (rows.length === 0 && normalizedValues[0]?.startsWith('\uFEFF')) {
         normalizedValues[0] = normalizedValues[0].slice(1)
       }
-      rows.push({ line: rowLine, values: normalizedValues })
+      rows.push({ line: rowLine, values: normalizedValues, raw, lineEnding })
     }
     values = []
     value = ''
@@ -105,11 +108,14 @@ export const parsePipeDelimited = (source: string): DelimitedParseResult => {
       continue
     }
     if (character === '\r' || character === '\n') {
-      if (character === '\r' && next === '\n') index += 1
-      pushRow()
+      const lineEnding = character === '\r' && next === '\n' ? '\r\n' : character
+      const rowEnd = index
+      if (lineEnding === '\r\n') index += 1
+      pushRow(source.slice(rowStart, rowEnd), lineEnding)
       line += 1
       column = 1
       rowLine = line
+      rowStart = index + 1
       continue
     }
 
@@ -127,7 +133,9 @@ export const parsePipeDelimited = (source: string): DelimitedParseResult => {
     })
   }
 
-  if (values.length || value.length || endedWithDelimiter) pushRow()
+  if (values.length || value.length || endedWithDelimiter) {
+    pushRow(source.slice(rowStart), '')
+  }
 
   return { rows, diagnostics }
 }

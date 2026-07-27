@@ -4,6 +4,7 @@ import { artifactChecksum, type ArtifactManifestEntry } from '../../aos4/data'
 import {
   WAHAPEDIA_EXPORT_FILES,
   assessWahapediaFreshness,
+  createWahapediaFactionCohortReport,
   decodeWahapediaExports,
   normalizeWahapediaAbility,
   normalizeWahapediaWeapon,
@@ -61,8 +62,18 @@ describe('Wahapedia pipe-delimited decoding', () => {
     const result = parsePipeDelimited('\uFEFFid|description|\n1|"A | value\nwith Stormcast — text"|\n')
 
     expect(result.rows).toEqual([
-      { line: 1, values: ['id', 'description'] },
-      { line: 2, values: ['1', 'A | value\nwith Stormcast — text'] },
+      {
+        line: 1,
+        values: ['id', 'description'],
+        raw: '\uFEFFid|description|',
+        lineEnding: '\n',
+      },
+      {
+        line: 2,
+        values: ['1', 'A | value\nwith Stormcast — text'],
+        raw: '1|"A | value\nwith Stormcast — text"|',
+        lineEnding: '\n',
+      },
     ])
     expect(result.diagnostics).toEqual([])
   })
@@ -113,6 +124,11 @@ describe('Wahapedia AoS 4 export adapter', () => {
       raw: '2026-07-27 01:33:36',
       instant: '2026-07-26T22:33:36.000Z',
     })
+    expect(result.dataset.factions[0].meta.recordChecksum).toBe(
+      artifactChecksum(
+        textEncoder.encode('SCE|Stormcast Eternals|https://wahapedia.ru/aos4/factions/stormcast-eternals|')
+      )
+    )
 
     const ability = result.dataset.warscrollAbilities[0]
     expect(ability.descriptionHtml).toContain('Pick this unit | or a friendly unit.\n')
@@ -120,6 +136,7 @@ describe('Wahapedia AoS 4 export adapter', () => {
       file: 'Warscrolls_abilities.csv',
       row: 2,
       artifactId: `artifact:sha256:${result.dataset.artifacts['Warscrolls_abilities.csv']!.checksum}`,
+      recordChecksum: expect.stringMatching(/^[0-9a-f]{64}$/),
     })
     expect(ability.meta.sourceRecordId).toMatch(/^source-record:wahapedia:/)
   })
@@ -218,6 +235,53 @@ describe('Wahapedia AoS 4 export adapter', () => {
       period: 'turn',
       scope: 'army',
     })
+  })
+
+  it('creates a bounded, non-verbatim faction cohort review report', async () => {
+    const decoded = decodeWahapediaExports(await loadInputs())
+    const report = createWahapediaFactionCohortReport(decoded.dataset, decoded.diagnostics, 'SCE')
+
+    expect(report).toMatchObject({
+      schemaVersion: 1,
+      status: 'blocked',
+      faction: { id: 'SCE', name: 'Stormcast Eternals' },
+      counts: {
+        sources: 1,
+        warscrolls: 1,
+        warscrollAbilities: 1,
+        warscrollWeapons: 2,
+        warscrollKeywords: 2,
+        warscrollBases: 1,
+        warscrollOrganisation: 1,
+        regimentOfRenownFactions: 1,
+        factionAbilityTypes: 1,
+        factionAbilitySubtypes: 1,
+        factionAbilities: 1,
+      },
+      normalization: {
+        abilities: 2,
+        weapons: 2,
+        unknownWeaponSourceRecordIds: [],
+        unresolvedTimingSourceRecordIds: [
+          'source-record:wahapedia:Faction_abilities.csv%3ASCE%3Atype-1%3Asubtype-1%3A1',
+        ],
+      },
+      diagnostics: { errors: 0, warnings: 0, byCode: {} },
+      sourceIds: ['source-1'],
+    })
+    expect(report.sourceRecords).toHaveLength(14)
+    report.sourceRecords.forEach(sourceRecord => {
+      expect(sourceRecord.recordChecksum).toMatch(/^[0-9a-f]{64}$/)
+    })
+    expect(JSON.stringify(report)).not.toMatch(/Pick this unit|Add 1 to save rolls|Move the target/)
+  })
+
+  it('refuses to invent a cohort for an unknown faction ID', async () => {
+    const decoded = decodeWahapediaExports(await loadInputs())
+
+    expect(() => createWahapediaFactionCohortReport(decoded.dataset, decoded.diagnostics, 'UNKNOWN')).toThrow(
+      'Wahapedia faction UNKNOWN does not exist'
+    )
   })
 
   it('emits row-addressable diagnostics for schema, value, vocabulary, and join failures', async () => {

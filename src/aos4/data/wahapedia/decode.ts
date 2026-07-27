@@ -1,3 +1,4 @@
+import { createHash } from 'node:crypto'
 import { artifactId, sourceRecordId } from '../../domain'
 import { parsePipeDelimited } from './delimited'
 import {
@@ -21,6 +22,7 @@ interface RawRecord {
   file: WahapediaExportFileName
   row: number
   values: Record<string, string>
+  raw: string
   input: WahapediaExportInput
 }
 
@@ -85,6 +87,7 @@ const recordMeta = (record: RawRecord): WahapediaRecordMeta => ({
   row: record.row,
   artifactId: artifactId(record.input.artifact.checksum),
   sourceRecordId: sourceRecordId('wahapedia', `${record.file}:${primaryKey(record)}`),
+  recordChecksum: createHash('sha256').update(record.raw, 'utf8').digest('hex'),
 })
 
 const parseBoolean = (
@@ -339,9 +342,16 @@ const parseExport = (
         `${previous.values.at(-1)}\n${row.values[0]}`,
         ...row.values.slice(1),
       ]
+      previous.raw = `${previous.raw}${previous.lineEnding}${row.raw}`
+      previous.lineEnding = row.lineEnding
       return logicalRows
     }
-    logicalRows.push({ line: row.line, values: [...row.values] })
+    logicalRows.push({
+      line: row.line,
+      values: [...row.values],
+      raw: row.raw,
+      lineEnding: row.lineEnding,
+    })
     return logicalRows
   }, [])
 
@@ -357,7 +367,7 @@ const parseExport = (
       return []
     }
     const values = Object.fromEntries(headers.map((headerName, index) => [headerName, row.values[index]]))
-    return [{ file, row: row.line, values, input }]
+    return [{ file, row: row.line, values, raw: row.raw, input }]
   })
 
   const seenKeys = new Map<string, string>()

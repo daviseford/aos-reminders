@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "status": "blocked",
+  "retrievedAt": "2026-07-27",
+  "wahapediaExportMarker": "2026-05-26",
+  "faction": {
+    "id": "SE",
+    "name": "Stormcast Eternals"
+  },
+  "counts": {
+    "sources": 15,
+    "sourceRecords": 1486,
+    "warscrolls": 130,
+    "warscrollAbilities": 217,
+    "warscrollWeapons": 209,
+    "warscrollKeywords": 567,
+    "warscrollBases": 103,
+    "warscrollOrganisation": 59,
+    "regimentOfRenownFactions": 44,
+    "factionAbilityTypes": 14,
+    "factionAbilitySubtypes": 42,
+    "factionAbilities": 85
+  },
+  "normalization": {
+    "abilities": 302,
+    "weapons": 209,
+    "unknownWeaponTypes": 0,
+    "unresolvedTimings": 11,
+    "sourcePhaseFallbacks": 10
+  },
+  "diagnostics": {
+    "errors": 0,
+    "warnings": 46,
+    "pollutedMarkers": 46
+  },
+  "blockingSourceRecordIds": [
+    "source-record:wahapedia:Warscrolls_abilities.csv%3A000000066%3A1",
+    "source-record:wahapedia:Warscrolls_abilities.csv%3A000000084%3A1",
+    "source-record:wahapedia:Warscrolls_abilities.csv%3A000001718%3A5",
+    "source-record:wahapedia:Warscrolls_abilities.csv%3A000001827%3A1",
+    "source-record:wahapedia:Warscrolls_abilities.csv%3A000001832%3A1",
+    "source-record:wahapedia:Warscrolls_abilities.csv%3A000001833%3A1",
+    "source-record:wahapedia:Warscrolls_abilities.csv%3A000001834%3A1",
+    "source-record:wahapedia:Warscrolls_abilities.csv%3A000001881%3A1",
+    "source-record:wahapedia:Warscrolls_abilities.csv%3A000001884%3A3",
+    "source-record:wahapedia:Warscrolls_abilities.csv%3A000001885%3A3",
+    "source-record:wahapedia:Warscrolls_abilities.csv%3A000002403%3A2"
+  ],
+  "coverage": {
+    "officialReconciliation": "not-yet-reviewed",
+    "candidateManifestAccepted": false,
+    "runtimeCatalogChanged": false
+  },
+  "notes": [
+    "This is a non-verbatim review inventory generated from the checked-in candidate manifest and ignored checksum cache.",
+    "The complete row-addressable cohort report remains in the ignored candidate output directory.",
+    "The cohort cannot be promoted until every blocking timing is classified and applicable official publications are reconciled.",
+    "Polluted source markers and lossy source-phase fallbacks require review even though they are not promotion blockers by themselves."
+  ]
+}

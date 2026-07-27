@@ -1,3 +1,4 @@
+export * from './cohort'
 export * from './decode'
 export * from './delimited'
 export * from './exportCatalog'

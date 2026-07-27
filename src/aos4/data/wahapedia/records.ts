@@ -14,6 +14,7 @@ export interface WahapediaRecordMeta {
   row: number
   artifactId: ArtifactId
   sourceRecordId: SourceRecordId
+  recordChecksum: string
 }
 
 export interface WahapediaFactionRecord {

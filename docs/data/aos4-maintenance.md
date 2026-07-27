@@ -48,6 +48,18 @@ yarn data:aos4:candidate --official-url <official-pdf-url>
 `--official-url` is repeatable. By default, the command writes a new timestamped directory under
 `.cache/aos4/candidates/`. Use `--output <directory>` for a stable review location. The output
 directory must not already exist, so the command fails instead of overwriting an earlier candidate.
+Add one or more `--faction <Wahapedia-faction-id>` arguments to emit bounded, non-verbatim faction
+cohort reports alongside the full-corpus diagnostics:
+
+```powershell
+yarn data:aos4:candidate `
+  --official-url <official-pdf-url> `
+  --faction SE
+```
+
+A cohort report inventories linked records with source-record IDs and exact row checksums, then
+blocks the cohort when it contains decoder errors, unknown weapon types, or unresolved timing. It
+never promotes the records or copies rule text into the repository.
 
 The acquisition layer:
 
@@ -59,6 +71,7 @@ The acquisition layer:
 - pauses between requests
 - writes `candidate-manifest.json`, `candidate-report.json`, and
   `candidate-diagnostics.json`
+- optionally writes `cohort-<faction-id>-report.json` for each requested faction
 
 To replay an accepted manifest entirely from the checksum cache:
 
@@ -66,6 +79,7 @@ To replay an accepted manifest entirely from the checksum cache:
 yarn data:aos4:candidate `
   --accepted-manifest <accepted-manifest.json> `
   --official-url <official-pdf-url> `
+  --faction <Wahapedia-faction-id> `
   --offline
 ```
 
@@ -107,6 +121,10 @@ Repository locations:
 The checked-in `candidate-2026-07-27` files are reconnaissance only and explicitly remain
 unaccepted. The representative Stormcast cohort is the current strict-pass proof; it is not a
 complete AoS 4 corpus.
+
+The checked-in `cohort-stormcast-2026-07-27-summary` is the first full-faction inventory. It remains
+blocked by 11 unresolved timings and has not been reconciled against the applicable official
+publication family. It does not change the runtime catalog.
 
 ## Generation gates
 

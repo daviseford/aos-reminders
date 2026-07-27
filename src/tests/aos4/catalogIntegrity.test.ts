@@ -1,5 +1,6 @@
 import candidateManifestJson from '../../../data/aos4/manifests/candidate-2026-07-27.json'
 import candidateReport from '../../../data/aos4/reports/candidate-2026-07-27-summary.json'
+import stormcastCohortReport from '../../../data/aos4/reports/cohort-stormcast-2026-07-27-summary.json'
 import identityRegistryJson from '../../../data/aos4/identities/representative.json'
 import { sourceRecordId, type Ability, type Aos4Catalog } from '../../aos4/domain'
 import type { ArtifactManifest } from '../../aos4/data'
@@ -126,6 +127,22 @@ describe('AoS 4 catalog generation integrity', () => {
         candidateManifestAccepted: false,
       },
     })
+  })
+
+  it('keeps the full Stormcast cohort blocked and outside the runtime catalog', () => {
+    expect(stormcastCohortReport).toMatchObject({
+      status: 'blocked',
+      normalization: {
+        unresolvedTimings: 11,
+        sourcePhaseFallbacks: 10,
+      },
+      coverage: {
+        officialReconciliation: 'not-yet-reviewed',
+        candidateManifestAccepted: false,
+        runtimeCatalogChanged: false,
+      },
+    })
+    expect(stormcastCohortReport.blockingSourceRecordIds).toHaveLength(11)
   })
 
   it('emits deterministic runtime JSON without audit-only source payload metadata', () => {
