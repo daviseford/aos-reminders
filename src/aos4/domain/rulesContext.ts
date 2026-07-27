@@ -15,4 +15,3 @@ export interface RulesContext {
   validTo?: string
   rawMode?: string
 }
-

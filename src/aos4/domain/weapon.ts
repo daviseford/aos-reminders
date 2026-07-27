@@ -32,4 +32,3 @@ export interface Weapon extends DomainEntity<'weapon'> {
   profile: WeaponProfile
   keywords: WeaponKeyword[]
 }
-

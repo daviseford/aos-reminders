@@ -2,6 +2,7 @@ export type EntityKind =
   | 'publication'
   | 'faction'
   | 'warscroll'
+  | 'battle-profile'
   | 'ability'
   | 'weapon'
   | 'content-group'
@@ -41,6 +42,7 @@ const canonicalId = <TKind extends EntityKind>(kind: TKind, uuid: string): Canon
 export const publicationId = (uuid: string) => canonicalId('publication', uuid)
 export const factionId = (uuid: string) => canonicalId('faction', uuid)
 export const warscrollId = (uuid: string) => canonicalId('warscroll', uuid)
+export const battleProfileId = (uuid: string) => canonicalId('battle-profile', uuid)
 export const abilityId = (uuid: string) => canonicalId('ability', uuid)
 export const weaponId = (uuid: string) => canonicalId('weapon', uuid)
 export const contentGroupId = (uuid: string) => canonicalId('content-group', uuid)
@@ -73,4 +75,3 @@ export const sourceRecordId = (provider: string, externalId: string): SourceReco
     normalizedExternalId
   )}` as SourceRecordId
 }
-

@@ -14,16 +14,41 @@ export interface Publication extends DomainEntity<'publication'> {
 
 export interface Faction extends DomainEntity<'faction'> {}
 
+export interface WarscrollCharacteristics {
+  move: string
+  save: string
+  control: string
+  health: string
+  ward?: string
+}
+
 export interface Warscroll extends DomainEntity<'warscroll'> {
   factionIds: CanonicalId<'faction'>[]
   keywords: string[]
+  characteristics: WarscrollCharacteristics
+}
+
+export interface BattleProfile extends DomainEntity<'battle-profile'> {
+  warscrollId: CanonicalId<'warscroll'>
+  unitSize: number
+  points: number
+  baseSizes: string[]
+  regimentOptions: string[]
+  notes: string[]
 }
 
 export interface ContentGroup extends DomainEntity<'content-group'> {
   groupType: string
 }
 
-export type ContentEntity = Publication | Faction | Warscroll | Ability | Weapon | ContentGroup
+export type ContentEntity =
+  | Publication
+  | Faction
+  | Warscroll
+  | BattleProfile
+  | Ability
+  | Weapon
+  | ContentGroup
 
 export type ContentRelationshipKind = 'belongs-to' | 'offers' | 'requires' | 'includes' | 'excludes'
 
@@ -62,6 +87,9 @@ export type DomainValidationIssueCode =
   | 'invalid-passive-timing'
   | 'invalid-usage-limit'
   | 'invalid-weapon-profile'
+  | 'invalid-warscroll-characteristics'
+  | 'missing-battle-profile-warscroll'
+  | 'invalid-battle-profile'
   | 'missing-relationship-source'
   | 'missing-relationship-target'
   | 'missing-relationship-rules-context'
@@ -187,6 +215,41 @@ export const validateCatalog = (catalog: Aos4Catalog): DomainValidationIssue[] =
   })
 
   catalog.entities.forEach(entity => {
+    if (entity.kind === 'warscroll') {
+      const { move, save, control, health } = entity.characteristics
+      if ([move, save, control, health].some(value => !value.trim())) {
+        issues.push({
+          code: 'invalid-warscroll-characteristics',
+          subject: entity.id,
+          message: `Warscroll ${entity.id} must retain its core characteristics`,
+        })
+      }
+      return
+    }
+
+    if (entity.kind === 'battle-profile') {
+      if (!entityIds.has(entity.warscrollId)) {
+        issues.push({
+          code: 'missing-battle-profile-warscroll',
+          subject: entity.id,
+          message: `Battle profile ${entity.id} refers to missing warscroll ${entity.warscrollId}`,
+        })
+      }
+      if (
+        !Number.isInteger(entity.unitSize) ||
+        entity.unitSize < 1 ||
+        !Number.isInteger(entity.points) ||
+        entity.points < 0
+      ) {
+        issues.push({
+          code: 'invalid-battle-profile',
+          subject: entity.id,
+          message: `Battle profile ${entity.id} has invalid unit size or points`,
+        })
+      }
+      return
+    }
+
     if (entity.kind === 'weapon') {
       const { attacks, hit, wound, rend, damage } = entity.profile
       if ([attacks, hit, wound, rend, damage].some(value => !value.trim())) {

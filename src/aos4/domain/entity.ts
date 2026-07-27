@@ -9,4 +9,3 @@ export interface DomainEntity<TKind extends EntityKind> {
   rulesContextIds: RulesContextId[]
   sourceRefs: SourceReference[]
 }
-
