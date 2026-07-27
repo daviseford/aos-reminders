@@ -3,8 +3,8 @@
   "status": "strict-pass",
   "cohort": "Stormcast Eternals representative slice",
   "catalogEntities": 27,
-  "sourceArtifacts": 7,
-  "sourceRecords": 19,
+  "sourceArtifacts": 9,
+  "sourceRecords": 24,
   "rulesContexts": 1,
   "unacknowledgedErrors": 0,
   "acknowledgedDiagnostics": {

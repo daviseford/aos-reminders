@@ -14,6 +14,8 @@ const CHECKSUMS = {
   warscrollAbilities: '4f9e15b6fa4f62536322ae626b1061a27b261f36fac9e460c2cc714f18a5d339',
   warscrollWeapons: '0b002d2762087d079efcdaf2715ae08a01fc88b8aeb2dcccab40af5b506892ca',
   factionAbilities: '12c54620832b9cdd4390a3c09ad98010c13dee521f6736b630bc3f4c2347fcdf',
+  factionAbilityTypes: '294e0c93164d40d78709b2e5f47eb4db72ebf97df38a6cb0bb2613c748c7b44a',
+  factionAbilitySubtypes: '1ba800415ac99371fdc729315033bfef45c36e179a333ccf81c0985e8e3551a5',
   timingFixture: 'aaf494a92e0a3e87529a758892cc14b7d18db31e47fa60189501035cb5b3ccf2',
 } as const
 
@@ -52,6 +54,8 @@ export const REPRESENTATIVE_SOURCE_ARTIFACTS: SourceArtifact[] = [
   wahaArtifact('Warscrolls_abilities.csv', CHECKSUMS.warscrollAbilities),
   wahaArtifact('Warscrolls_weapons.csv', CHECKSUMS.warscrollWeapons),
   wahaArtifact('Faction_abilities.csv', CHECKSUMS.factionAbilities),
+  wahaArtifact('Faction_ability_types.csv', CHECKSUMS.factionAbilityTypes),
+  wahaArtifact('Faction_ability_subtypes.csv', CHECKSUMS.factionAbilitySubtypes),
   {
     id: artifactId(CHECKSUMS.timingFixture),
     publisher: 'other',
@@ -75,6 +79,8 @@ interface WahaRecordDefinition {
     | 'Warscrolls_abilities.csv'
     | 'Warscrolls_weapons.csv'
     | 'Faction_abilities.csv'
+    | 'Faction_ability_types.csv'
+    | 'Faction_ability_subtypes.csv'
   row: number
   checksum: string
 }
@@ -182,6 +188,36 @@ const wahaRecordDefinitions: WahaRecordDefinition[] = [
     row: 1253,
     checksum: '7bcc231170b2383cdf54cd6a813c6d3be2551cf9cd621b7827d5d569ce9e97ea',
   },
+  {
+    key: 'Faction_ability_types.csv:SE:000000605',
+    file: 'Faction_ability_types.csv',
+    row: 562,
+    checksum: '20d9a1cb3990e39cc0ea4368f3406c74eda971e675f26e417433b52e7da894ed',
+  },
+  {
+    key: 'Faction_ability_types.csv:SE:000000610',
+    file: 'Faction_ability_types.csv',
+    row: 540,
+    checksum: 'c8a70089c93aa4f7cc2fb4d74dae654d9222d38a1e3c64144c018a0df443933a',
+  },
+  {
+    key: 'Faction_ability_types.csv:SE:000000613',
+    file: 'Faction_ability_types.csv',
+    row: 555,
+    checksum: 'd3e4915764e933bffc2fc2b8ebae4f23c70f6018d5bf9f0b32a419f98c71f5b0',
+  },
+  {
+    key: 'Faction_ability_types.csv:SE:000000614',
+    file: 'Faction_ability_types.csv',
+    row: 557,
+    checksum: '6000b93bb3eadd399731c7f568cc04f5431cdd1b4f012694a7ea4c6cf40a30be',
+  },
+  {
+    key: 'Faction_ability_subtypes.csv:SE:000002238:000000606',
+    file: 'Faction_ability_subtypes.csv',
+    row: 547,
+    checksum: 'cc5ae5cc7e80751c1500a816061afa1b0a9335e31ce325faa8e547b0cd6cc31a',
+  },
 ]
 
 const artifactByFile = new Map(
@@ -241,5 +277,10 @@ export const REPRESENTATIVE_SOURCE_IDS = {
   summonEverblazeComet: sourceRecordId('wahapedia', 'Faction_abilities.csv:SE:000000613:000002235:4'),
   healingStorm: sourceRecordId('wahapedia', 'Faction_abilities.csv:SE:000000614:000002234:2'),
   lightningBlast: sourceRecordId('wahapedia', 'Faction_abilities.csv:SE:000000605:000002236:2'),
+  battleTraitsGroup: sourceRecordId('wahapedia', 'Faction_ability_types.csv:SE:000000610'),
+  lightningEchelonGroup: sourceRecordId('wahapedia', 'Faction_ability_subtypes.csv:SE:000002238:000000606'),
+  loreOfTheStormGroup: sourceRecordId('wahapedia', 'Faction_ability_types.csv:SE:000000605'),
+  manifestationsOfTheStormGroup: sourceRecordId('wahapedia', 'Faction_ability_types.csv:SE:000000613'),
+  prayersOfTheStormhostsGroup: sourceRecordId('wahapedia', 'Faction_ability_types.csv:SE:000000614'),
   defensiveReflex: sourceRecordId('fixture', 'defensive-reflex'),
 } satisfies Record<string, SourceRecordId>

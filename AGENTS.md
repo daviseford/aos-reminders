@@ -15,6 +15,8 @@ The migration branch is now an Age of Sigmar fourth-edition-only workbench:
 - old browser state is deleted and replaced with a schema-valid AoS 4 document; it is never
   translated
 - full-corpus candidate acquisition exists, but candidate output is not accepted runtime data
+- all 28 factions have non-verbatim cohort inventories; 17 are reviewable and 11 retain automated
+  blockers, while the runtime remains the representative slice
 - package upgrades and broader framework modernization remain Phase 2 work
 
 Do not confuse these version numbers:
@@ -57,6 +59,8 @@ Phase 1 has two parts:
 The representative vertical slice and AoS 4 runtime cutover are complete. The next body of work is
 reviewed corpus expansion through the AoS 4-only pipeline. Do not promote the live candidate
 snapshot wholesale: resolve or explicitly disposition its diagnostics and review a bounded cohort.
+The current candidate has zero unknown timing windows, 20 lossy phase fallbacks, 13 contradictory
+reaction flags, and two missing Regiment of Renown faction joins.
 
 Avoid dependency churn during Phase 1 unless a package blocks correct data work, the build, or safe
 operation.
@@ -168,7 +172,7 @@ bodies. Do not broaden that publication boundary without an explicit decision.
 `src/aos4/domain/` defines:
 
 - stable branded canonical IDs
-- seven ordered turn phases plus battle/deployment/round/always/unknown windows
+- seven ordered turn phases plus battle/deployment/round/triggered-reaction/always/unknown windows
 - active, reaction, and passive ability timings
 - perspective, combat priority, and scoped usage limits
 - declare/trigger/effect text
@@ -226,11 +230,15 @@ Runtime code must not fetch source data. It loads checked-in generated artifacts
 Candidate acquisition:
 
 ```powershell
-yarn data:aos4:candidate --faction <Wahapedia-faction-id> --output <new-directory>
+yarn data:aos4:candidate `
+  --official-search "rules section heading" `
+  --faction <Wahapedia-faction-id> `
+  --output <new-directory>
 ```
 
 The command never accepts data into runtime and refuses to overwrite an output directory. Use
 repeatable `--faction` arguments for bounded, non-verbatim cohort inventories and
+`--official-search` arguments for page locators without page text. Use
 `--accepted-manifest <path> --offline` for deterministic replay. A cohort marked `blocked` must not
 be promoted. Raw artifacts belong under the ignored `.cache/aos4/` tree.
 

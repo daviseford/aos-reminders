@@ -18,10 +18,12 @@ const windowOrder = (timing: AbilityTiming): number => {
       return 40
     case 'battle-end':
       return 50
-    case 'always':
+    case 'reaction':
       return 60
-    case 'unknown':
+    case 'always':
       return 70
+    case 'unknown':
+      return 80
   }
 }
 
@@ -44,13 +46,9 @@ const perspectiveOrder: Record<TimingPerspective, number> = {
   neutral: 3,
 }
 
-export const compareReminders = (
-  left: ProjectedReminder,
-  right: ProjectedReminder
-): number =>
+export const compareReminders = (left: ProjectedReminder, right: ProjectedReminder): number =>
   windowOrder(left.timing) - windowOrder(right.timing) ||
-  priorityOrder[left.timing.priority ?? 'normal'] -
-    priorityOrder[right.timing.priority ?? 'normal'] ||
+  priorityOrder[left.timing.priority ?? 'normal'] - priorityOrder[right.timing.priority ?? 'normal'] ||
   laneOrder[left.lane] - laneOrder[right.lane] ||
   perspectiveOrder[left.timing.perspective ?? 'neutral'] -
     perspectiveOrder[right.timing.perspective ?? 'neutral'] ||

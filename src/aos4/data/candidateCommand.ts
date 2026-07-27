@@ -24,15 +24,25 @@ import {
   type WahapediaExportInputs,
   type WahapediaFactionCohortReport,
 } from './wahapedia'
+import {
+  extractGamesWorkshopPdfText,
+  type GamesWorkshopDiagnostic,
+  type GamesWorkshopPdfExtractionResult,
+  type GamesWorkshopPdfInput,
+} from './gamesWorkshop'
 
 const GAMES_WORKSHOP_ADAPTER_VERSION = 'games-workshop-pdf/1'
 const DEFAULT_CACHE_DIRECTORY = path.join('.cache', 'aos4', 'artifacts')
 const DEFAULT_REQUEST_PAUSE_MS = 250
+const OFFICIAL_PDF_MAX_PAGES = 400
+const OFFICIAL_PDF_MAX_TEXT_BYTES = 32 * 1024 * 1024
+const OFFICIAL_PDF_TIMEOUT_MS = 120_000
 
 export interface CandidateAcquisitionOptions {
   outputDirectory: string
   acceptedManifest?: ArtifactManifest
   officialDocumentUrls?: string[]
+  officialSearchTerms?: string[]
   factionIds?: string[]
   offline?: boolean
   requestPauseMs?: number
@@ -67,6 +77,7 @@ export interface CandidateAcquisitionReport {
     unknownWeaponTypes: number
     unresolvedTimings: number
     sourcePhaseFallbacks: number
+    reactionFlagMismatches: number
   }
   diagnostics: {
     errors: number
@@ -87,9 +98,38 @@ export interface CandidateAcquisitionResult {
   reportPath: string
   diagnosticsPath: string
   cohortReportPaths: string[]
+  officialDocumentReportPath: string
+}
+
+export interface CandidateOfficialDocumentReport {
+  schemaVersion: 1
+  status: 'blocked' | 'candidate-review-required'
+  documents: Array<{
+    url: string
+    artifactChecksum: string
+    byteLength: number
+    retrievedAt: string
+    mediaType: string
+    extraction: {
+      status: 'blocked' | 'extracted'
+      pages: number
+      sourceRecords: Array<{
+        id: string
+        page: number
+        recordChecksum: string
+      }>
+      matches: Array<{
+        term: string
+        pages: number[]
+      }>
+      diagnostics: GamesWorkshopDiagnostic[]
+    }
+  }>
 }
 
 const FACTION_ID_PATTERN = /^[A-Za-z0-9_-]+$/
+const MAX_OFFICIAL_SEARCH_TERMS = 20
+const MAX_OFFICIAL_SEARCH_TERM_LENGTH = 100
 
 const pause = async (milliseconds: number): Promise<void> => {
   if (milliseconds <= 0) return
@@ -171,6 +211,9 @@ const createCandidateAnalysis = (
       sourcePhaseFallbacks: abilities.filter(ability =>
         ability.diagnostics.some(diagnostic => diagnostic.code === 'source-phase-fallback')
       ).length,
+      reactionFlagMismatches: abilities.filter(ability =>
+        ability.diagnostics.some(diagnostic => diagnostic.code === 'reaction-flag-mismatch')
+      ).length,
     },
     diagnostics: countDiagnostics(diagnostics),
     coverage: {
@@ -202,13 +245,84 @@ const dependencies = (): AcquisitionDependencies => ({
   },
 })
 
+const officialPdfInput = (
+  url: string,
+  bytes: Uint8Array,
+  artifact: ArtifactManifestEntry
+): GamesWorkshopPdfInput => ({
+  bytes,
+  artifact,
+  download: {
+    externalId: `sha256:${artifact.checksum}`,
+    title: new URL(artifact.finalUrl).pathname.split('/').at(-1) ?? 'Games Workshop PDF',
+    url,
+    categories: [],
+    gameSystems: ['warhammer-age-of-sigmar'],
+    topics: [],
+    discoveryMethod: 'page-link',
+  },
+})
+
+export const createCandidateOfficialDocumentReport = (
+  documents: Array<{
+    input: GamesWorkshopPdfInput
+    extraction: GamesWorkshopPdfExtractionResult
+  }>,
+  searchTerms: string[] = []
+): CandidateOfficialDocumentReport => {
+  const reportDocuments = documents
+    .map(({ input, extraction }) => ({
+      url: input.download.url,
+      artifactChecksum: input.artifact.checksum,
+      byteLength: input.artifact.byteLength,
+      retrievedAt: input.artifact.retrievedAt,
+      mediaType: input.artifact.mediaType,
+      extraction: {
+        status: extraction.document ? ('extracted' as const) : ('blocked' as const),
+        pages: extraction.document?.pages.length ?? 0,
+        sourceRecords:
+          extraction.document?.sourceRecords.map(record => ({
+            id: String(record.id),
+            page: record.locator.kind === 'page' ? record.locator.page : 0,
+            recordChecksum: record.recordChecksum,
+          })) ?? [],
+        matches: searchTerms.map(term => ({
+          term,
+          pages:
+            extraction.document?.pages
+              .filter(page => page.text.toLowerCase().includes(term.toLowerCase()))
+              .map(page => page.page) ?? [],
+        })),
+        diagnostics: extraction.diagnostics,
+      },
+    }))
+    .sort((left, right) => left.url.localeCompare(right.url))
+
+  return {
+    schemaVersion: 1,
+    status: reportDocuments.some(
+      document =>
+        document.extraction.status === 'blocked' ||
+        document.extraction.diagnostics.some(diagnostic => diagnostic.severity === 'error')
+    )
+      ? 'blocked'
+      : 'candidate-review-required',
+    documents: reportDocuments,
+  }
+}
+
 export const acquireCandidateData = async (
   options: CandidateAcquisitionOptions
 ): Promise<CandidateAcquisitionResult> => {
   const factionIds = uniqueFactionIds(options.factionIds ?? [])
+  const officialSearchTerms = uniqueOfficialSearchTerms(options.officialSearchTerms ?? [])
   const acquisitionDependencies = dependencies()
   const pauseMs = options.requestPauseMs ?? DEFAULT_REQUEST_PAUSE_MS
   const inputs: WahapediaExportInputs = {}
+  const officialDocuments: Array<{
+    input: GamesWorkshopPdfInput
+    extraction: GamesWorkshopPdfExtractionResult
+  }> = []
   let manifest = createArtifactManifest()
 
   for (let index = 0; index < WAHAPEDIA_EXPORT_FILES.length; index += 1) {
@@ -244,6 +358,15 @@ export const acquireCandidateData = async (
       acquisitionDependencies
     )
     manifest = result.candidateManifest
+    const input = officialPdfInput(url, result.bytes, result.entry)
+    officialDocuments.push({
+      input,
+      extraction: await extractGamesWorkshopPdfText(input, {
+        maxPages: OFFICIAL_PDF_MAX_PAGES,
+        maxTextBytes: OFFICIAL_PDF_MAX_TEXT_BYTES,
+        timeoutMs: OFFICIAL_PDF_TIMEOUT_MS,
+      }),
+    })
     if (!options.offline) await pause(pauseMs)
   }
 
@@ -254,6 +377,8 @@ export const acquireCandidateData = async (
   const manifestPath = path.join(outputDirectory, 'candidate-manifest.json')
   const reportPath = path.join(outputDirectory, 'candidate-report.json')
   const diagnosticsPath = path.join(outputDirectory, 'candidate-diagnostics.json')
+  const officialDocumentReportPath = path.join(outputDirectory, 'official-document-report.json')
+  const officialDocumentReport = createCandidateOfficialDocumentReport(officialDocuments, officialSearchTerms)
   const cohortReportPaths = factionIds.map(factionId =>
     path.join(outputDirectory, `cohort-${factionId}-report.json`)
   )
@@ -273,6 +398,10 @@ export const acquireCandidateData = async (
       encoding: 'utf8',
       flag: 'wx',
     }),
+    writeFile(officialDocumentReportPath, stableJson(officialDocumentReport), {
+      encoding: 'utf8',
+      flag: 'wx',
+    }),
     ...analysis.cohortReports.map((cohortReport, index) =>
       writeFile(cohortReportPaths[index], stableJson(cohortReport), {
         encoding: 'utf8',
@@ -288,6 +417,7 @@ export const acquireCandidateData = async (
     reportPath,
     diagnosticsPath,
     cohortReportPaths,
+    officialDocumentReportPath,
   }
 }
 
@@ -338,6 +468,7 @@ export interface CandidateArguments {
   outputDirectory: string
   acceptedManifestPath?: string
   officialDocumentUrls: string[]
+  officialSearchTerms: string[]
   factionIds: string[]
   offline: boolean
 }
@@ -359,11 +490,32 @@ const uniqueFactionIds = (factionIds: string[]): string[] => {
   return Array.from(new Set(factionIds)).sort((left, right) => left.localeCompare(right))
 }
 
+const uniqueOfficialSearchTerms = (searchTerms: string[]): string[] => {
+  if (searchTerms.length > MAX_OFFICIAL_SEARCH_TERMS) {
+    throw new Error(`At most ${MAX_OFFICIAL_SEARCH_TERMS} official search terms are allowed`)
+  }
+  searchTerms.forEach(searchTerm => {
+    if (
+      searchTerm !== searchTerm.trim() ||
+      searchTerm.length === 0 ||
+      searchTerm.length > MAX_OFFICIAL_SEARCH_TERM_LENGTH ||
+      Array.from(searchTerm).some(character => {
+        const code = character.charCodeAt(0)
+        return code < 32 || code === 127
+      })
+    ) {
+      throw new Error(`Invalid official search term: ${JSON.stringify(searchTerm)}`)
+    }
+  })
+  return Array.from(new Set(searchTerms)).sort((left, right) => left.localeCompare(right))
+}
+
 export const parseCandidateArguments = (arguments_: string[]): CandidateArguments => {
   const defaultLabel = new Date().toISOString().replace(/[:.]/g, '-')
   const parsed: CandidateArguments = {
     outputDirectory: path.join('.cache', 'aos4', 'candidates', defaultLabel),
     officialDocumentUrls: [],
+    officialSearchTerms: [],
     factionIds: [],
     offline: false,
   }
@@ -379,6 +531,9 @@ export const parseCandidateArguments = (arguments_: string[]): CandidateArgument
     } else if (argument === '--official-url') {
       parsed.officialDocumentUrls.push(nextValue(arguments_, index, argument))
       index += 1
+    } else if (argument === '--official-search') {
+      parsed.officialSearchTerms.push(nextValue(arguments_, index, argument))
+      index += 1
     } else if (argument === '--faction') {
       parsed.factionIds.push(nextValue(arguments_, index, argument))
       index += 1
@@ -392,6 +547,7 @@ export const parseCandidateArguments = (arguments_: string[]): CandidateArgument
   if (parsed.offline && !parsed.acceptedManifestPath) {
     throw new Error('--offline requires --accepted-manifest')
   }
+  parsed.officialSearchTerms = uniqueOfficialSearchTerms(parsed.officialSearchTerms)
   parsed.factionIds = uniqueFactionIds(parsed.factionIds)
   return parsed
 }
@@ -405,6 +561,7 @@ const run = async (): Promise<void> => {
     outputDirectory: arguments_.outputDirectory,
     acceptedManifest,
     officialDocumentUrls: arguments_.officialDocumentUrls,
+    officialSearchTerms: arguments_.officialSearchTerms,
     factionIds: arguments_.factionIds,
     offline: arguments_.offline,
   })
@@ -412,6 +569,7 @@ const run = async (): Promise<void> => {
   console.log(`Candidate manifest: ${result.manifestPath}`)
   console.log(`Candidate report: ${result.reportPath}`)
   console.log(`Candidate diagnostics: ${result.diagnosticsPath}`)
+  console.log(`Official document report: ${result.officialDocumentReportPath}`)
   result.cohortReportPaths.forEach(cohortReportPath => {
     console.log(`Faction cohort report: ${cohortReportPath}`)
   })

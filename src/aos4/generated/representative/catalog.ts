@@ -116,13 +116,13 @@ const entities: ContentEntity[] = [
     REPRESENTATIVE_IDS.groups.battleTraits,
     'Battle Traits',
     'battle-traits',
-    REPRESENTATIVE_SOURCE_IDS.celestialRealm
+    REPRESENTATIVE_SOURCE_IDS.battleTraitsGroup
   ),
   group(
     REPRESENTATIVE_IDS.groups.lightningEchelon,
     'Lightning Echelon',
     'battle-formation',
-    REPRESENTATIVE_SOURCE_IDS.oncomingStorm
+    REPRESENTATIVE_SOURCE_IDS.lightningEchelonGroup
   ),
   group(
     REPRESENTATIVE_IDS.groups.quicksilverDraught,
@@ -134,19 +134,19 @@ const entities: ContentEntity[] = [
     REPRESENTATIVE_IDS.groups.loreOfTheStorm,
     'Lore of the Storm',
     'spell-lore',
-    REPRESENTATIVE_SOURCE_IDS.lightningBlast
+    REPRESENTATIVE_SOURCE_IDS.loreOfTheStormGroup
   ),
   group(
     REPRESENTATIVE_IDS.groups.prayersOfTheStormhosts,
     'Prayers of the Stormhosts',
     'prayer-lore',
-    REPRESENTATIVE_SOURCE_IDS.healingStorm
+    REPRESENTATIVE_SOURCE_IDS.prayersOfTheStormhostsGroup
   ),
   group(
     REPRESENTATIVE_IDS.groups.manifestationsOfTheStorm,
     'Manifestations of the Storm',
     'manifestation-lore',
-    REPRESENTATIVE_SOURCE_IDS.summonEverblazeComet
+    REPRESENTATIVE_SOURCE_IDS.manifestationsOfTheStormGroup
   ),
   warscroll(
     {

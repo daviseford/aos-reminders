@@ -25,8 +25,9 @@
     "abilities": 4092,
     "weapons": 2147,
     "unknownWeaponTypes": 0,
-    "unresolvedTimings": 21,
-    "sourcePhaseFallbacks": 200
+    "unresolvedTimings": 0,
+    "sourcePhaseFallbacks": 20,
+    "reactionFlagMismatches": 13
   },
   "diagnostics": {
     "errors": 2,
@@ -45,6 +46,8 @@
     "All live source bytes remain in the ignored checksum cache.",
     "Counts are reconnaissance results, not an assertion that the complete corpus is release-ready.",
     "Empty keyword association sentinels are reported and excluded from the decoded record count.",
+    "Phase-independent Reaction timings are modeled as triggered windows instead of being forced into a turn phase.",
+    "Thirteen records contradict their textual Reaction timing with is_reaction=false and remain blocked for review.",
     "Two Regiment of Renown rows reference the absent LCA faction and remain unresolved.",
     "The Games Workshop private download endpoint returned HTTP 500 during discovery; the official Battle Profiles PDF was independently located and checksummed."
   ]

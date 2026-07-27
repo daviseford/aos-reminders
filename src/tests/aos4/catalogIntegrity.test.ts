@@ -1,6 +1,8 @@
 import candidateManifestJson from '../../../data/aos4/manifests/candidate-2026-07-27.json'
 import candidateReport from '../../../data/aos4/reports/candidate-2026-07-27-summary.json'
+import cohortIndexReport from '../../../data/aos4/reports/cohort-index-2026-07-27.json'
 import stormcastCohortReport from '../../../data/aos4/reports/cohort-stormcast-2026-07-27-summary.json'
+import officialRulesReport from '../../../data/aos4/reports/official-rules-2026-07-27-summary.json'
 import identityRegistryJson from '../../../data/aos4/identities/representative.json'
 import { sourceRecordId, type Ability, type Aos4Catalog } from '../../aos4/domain'
 import type { ArtifactManifest } from '../../aos4/data'
@@ -122,6 +124,11 @@ describe('AoS 4 catalog generation integrity', () => {
     })
     expect(candidateReport).toMatchObject({
       status: 'candidate-review-required',
+      normalization: {
+        unresolvedTimings: 0,
+        sourcePhaseFallbacks: 20,
+        reactionFlagMismatches: 13,
+      },
       coverage: {
         approvedCorpus: 'not-yet-reviewed',
         candidateManifestAccepted: false,
@@ -133,16 +140,66 @@ describe('AoS 4 catalog generation integrity', () => {
     expect(stormcastCohortReport).toMatchObject({
       status: 'blocked',
       normalization: {
-        unresolvedTimings: 11,
-        sourcePhaseFallbacks: 10,
+        unresolvedTimings: 0,
+        sourcePhaseFallbacks: 0,
+        reactionFlagMismatches: 2,
       },
       coverage: {
+        reactionFlagOfficialEvidence: 'supported',
         officialReconciliation: 'not-yet-reviewed',
         candidateManifestAccepted: false,
         runtimeCatalogChanged: false,
       },
     })
-    expect(stormcastCohortReport.blockingSourceRecordIds).toHaveLength(11)
+    expect(stormcastCohortReport.blockingSourceRecordIds).toHaveLength(2)
+  })
+
+  it('inventories every faction without treating reviewable cohorts as accepted', () => {
+    expect(cohortIndexReport).toMatchObject({
+      status: 'candidate-review-required',
+      totals: {
+        factions: 28,
+        blockedFactions: 11,
+        reviewableFactions: 17,
+        decoderErrors: 2,
+        unresolvedTimings: 0,
+        sourcePhaseFallbacks: 20,
+        reactionFlagMismatches: 13,
+      },
+      coverage: {
+        candidateManifestAccepted: false,
+        runtimeCatalogChanged: false,
+      },
+    })
+    expect(cohortIndexReport.cohorts).toHaveLength(28)
+    expect(
+      cohortIndexReport.cohorts.filter(cohort => cohort.status === 'blocked')
+    ).toHaveLength(11)
+  })
+
+  it('records official structural evidence without accepting source data', () => {
+    expect(officialRulesReport).toMatchObject({
+      status: 'candidate-review-required',
+      coverage: {
+        candidateManifestAccepted: false,
+        runtimeCatalogChanged: false,
+        domainModelChanged: true,
+      },
+    })
+    expect(officialRulesReport.artifacts).toHaveLength(2)
+    expect(officialRulesReport.structuralEvidence).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          subject: 'phase-independent-reaction-window',
+          status: 'supported',
+        }),
+        expect.objectContaining({
+          subject: 'stormcast-ruination-reaction',
+          status: 'supported',
+        }),
+      ])
+    )
+    expect(JSON.stringify(officialRulesReport)).not.toMatch(/Use Reactions|Declare step/)
   })
 
   it('emits deterministic runtime JSON without audit-only source payload metadata', () => {

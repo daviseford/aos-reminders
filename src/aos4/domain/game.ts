@@ -21,6 +21,7 @@ export type GameWindow =
   | { kind: 'turn-phase'; phase: TurnPhaseId }
   | { kind: 'battle-round-end' }
   | { kind: 'battle-end' }
+  | { kind: 'reaction' }
   | { kind: 'always' }
   | { kind: 'unknown' }
 

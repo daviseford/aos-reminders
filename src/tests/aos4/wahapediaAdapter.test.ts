@@ -228,8 +228,10 @@ describe('Wahapedia AoS 4 export adapter', () => {
       },
       raw: {
         abilityPhase: 'Defensive reaction',
+        isReaction: true,
       },
     })
+    expect(factionAbility.timings[0].window).toEqual({ kind: 'reaction' })
     expect(factionAbility.timings[0].usage).toEqual({
       limit: 1,
       period: 'turn',
@@ -243,7 +245,7 @@ describe('Wahapedia AoS 4 export adapter', () => {
 
     expect(report).toMatchObject({
       schemaVersion: 1,
-      status: 'blocked',
+      status: 'cohort-review-required',
       faction: { id: 'SCE', name: 'Stormcast Eternals' },
       counts: {
         sources: 1,
@@ -262,9 +264,8 @@ describe('Wahapedia AoS 4 export adapter', () => {
         abilities: 2,
         weapons: 2,
         unknownWeaponSourceRecordIds: [],
-        unresolvedTimingSourceRecordIds: [
-          'source-record:wahapedia:Faction_abilities.csv%3ASCE%3Atype-1%3Asubtype-1%3A1',
-        ],
+        unresolvedTimingSourceRecordIds: [],
+        reactionFlagMismatchSourceRecordIds: [],
       },
       diagnostics: { errors: 0, warnings: 0, byCode: {} },
       sourceIds: ['source-1'],
@@ -272,6 +273,8 @@ describe('Wahapedia AoS 4 export adapter', () => {
     expect(report.sourceRecords).toHaveLength(14)
     report.sourceRecords.forEach(sourceRecord => {
       expect(sourceRecord.recordChecksum).toMatch(/^[0-9a-f]{64}$/)
+      expect(sourceRecord.file).toMatch(/\.csv$/)
+      expect(sourceRecord.row).toBeGreaterThan(1)
     })
     expect(JSON.stringify(report)).not.toMatch(/Pick this unit|Add 1 to save rolls|Move the target/)
   })
@@ -281,6 +284,23 @@ describe('Wahapedia AoS 4 export adapter', () => {
 
     expect(() => createWahapediaFactionCohortReport(decoded.dataset, decoded.diagnostics, 'UNKNOWN')).toThrow(
       'Wahapedia faction UNKNOWN does not exist'
+    )
+  })
+
+  it('uses explicit reaction text but diagnoses a contradictory reaction flag', async () => {
+    const inputs = replaceFile(await loadInputs(), 'Faction_abilities.csv', source =>
+      source.replace('|true|Once Per Turn (Army), Reaction:', '|false|Once Per Turn (Army), Reaction:')
+    )
+    const { dataset } = decodeWahapediaExports(inputs)
+    const fact = normalizeWahapediaAbility(dataset.factionAbilities[0], 'army')
+
+    expect(fact.abilityKind).toBe('reaction')
+    expect(fact.timings[0].window).toEqual({ kind: 'reaction' })
+    expect(fact.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'reaction-flag-mismatch',
+        severity: 'warning',
+      })
     )
   })
 

@@ -54,12 +54,18 @@ cohort reports alongside the full-corpus diagnostics:
 ```powershell
 yarn data:aos4:candidate `
   --official-url <official-pdf-url> `
+  --official-search "rules section heading" `
   --faction SE
 ```
 
 A cohort report inventories linked records with source-record IDs and exact row checksums, then
-blocks the cohort when it contains decoder errors, unknown weapon types, or unresolved timing. It
-never promotes the records or copies rule text into the repository.
+blocks the cohort when it contains decoder errors, unknown weapon types, unresolved timing, or a
+contradictory reaction flag. It never promotes the records or copies rule text into the repository.
+
+`--official-search` is repeatable and performs a bounded, case-insensitive literal search over
+extracted official pages. Reports contain only the requested term and matching page numbers, not
+page text. Use it to locate sections for source review before writing a publication-specific fact
+extractor.
 
 The acquisition layer:
 
@@ -71,6 +77,8 @@ The acquisition layer:
 - pauses between requests
 - writes `candidate-manifest.json`, `candidate-report.json`, and
   `candidate-diagnostics.json`
+- extracts bounded, page-addressable text from each requested official PDF and writes a
+  non-verbatim `official-document-report.json` with page source-record checksums
 - optionally writes `cohort-<faction-id>-report.json` for each requested faction
 
 To replay an accepted manifest entirely from the checksum cache:
@@ -79,6 +87,7 @@ To replay an accepted manifest entirely from the checksum cache:
 yarn data:aos4:candidate `
   --accepted-manifest <accepted-manifest.json> `
   --official-url <official-pdf-url> `
+  --official-search "rules section heading" `
   --faction <Wahapedia-faction-id> `
   --offline
 ```
@@ -122,9 +131,21 @@ The checked-in `candidate-2026-07-27` files are reconnaissance only and explicit
 unaccepted. The representative Stormcast cohort is the current strict-pass proof; it is not a
 complete AoS 4 corpus.
 
-The checked-in `cohort-stormcast-2026-07-27-summary` is the first full-faction inventory. It remains
-blocked by 11 unresolved timings and has not been reconciled against the applicable official
-publication family. It does not change the runtime catalog.
+The checked-in `cohort-stormcast-2026-07-27-summary` is the first full-faction inventory. Official
+core-rule review resolved every phase-independent Reaction timing structurally. The cohort remains
+blocked by two rows whose `is_reaction=false` flag contradicts their explicit Reaction text. The
+current official Stormcast Eternals erratum corroborates that Reaction text, but the evidence still
+needs formal fact linking and the rest of the applicable faction publication family has not been
+reconciled. The cohort does not change the runtime catalog.
+
+The checked-in `official-rules-2026-07-27-summary` records the checksums and page locators supporting
+the triggered Reaction window. The base rules and June 2026 update both extracted without
+diagnostics; neither raw PDF nor page text is committed.
+
+The checked-in `cohort-index-2026-07-27` applies the same non-verbatim inventory to all 28 factions:
+17 have no automated blocker and still require source review, while 11 are blocked by decoder
+errors or contradictory reaction flags. “Reviewable” is not “accepted”; no full faction has entered
+the runtime catalog.
 
 ## Generation gates
 
@@ -164,9 +185,10 @@ yarn build
 ## Current known candidate gaps
 
 The 2026-07-27 live snapshot decodes 28 factions, 1,795 warscrolls, 4,092 abilities, and 2,147
-weapons after excluding 559 empty keyword association sentinels. Twenty-one abilities still have
-unclassified timing, 200 use the lossy source-phase fallback, and two Regiment of Renown joins
-reference the absent `LCA` faction. Those items are review work, not accepted exceptions.
+weapons after excluding 559 empty keyword association sentinels. All timing windows are classified;
+20 abilities still use the lossy source-phase fallback, 13 reaction flags contradict explicit
+Reaction text, and two Regiment of Renown joins reference the absent `LCA` faction. Those items are
+review work, not accepted exceptions.
 
 Official full-corpus discovery, publication-family extraction, identity review, and conflict
 resolution remain cohort work. Expand from the representative faction rather than treating a

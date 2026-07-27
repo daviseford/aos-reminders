@@ -254,6 +254,18 @@ describe('AoS 4 domain', () => {
         abilityKind: 'active',
         text: { effect: 'Retain this rule for curator review.' },
         timings: [{ kind: 'active', window: { kind: 'unknown' }, raw: 'After mustering' }],
+      },
+      {
+        ...ability,
+        id: abilityId('10000000-0000-4000-8000-000000000018'),
+        name: 'Triggered Defence',
+        timings: [
+          {
+            kind: 'reaction',
+            window: { kind: 'reaction' },
+            raw: 'Reaction: This unit was picked as the target of an ability',
+          },
+        ],
       }
     )
 
@@ -282,7 +294,7 @@ describe('AoS 4 domain', () => {
       rulesContextIds: [rulesContextId('10000000-0000-4000-8000-000000000012')],
       timings: [
         {
-          kind: 'active',
+          kind: 'reaction',
           window: { kind: 'turn-phase', phase: 'battleshock' as never },
           raw: 'Battleshock Phase',
         },
@@ -311,6 +323,27 @@ describe('AoS 4 domain', () => {
       kind: 'unknown',
       raw: 'Fan-made compendium',
     })
+  })
+
+  it('rejects timing lanes that contradict the ability classification', () => {
+    const catalog = createCatalog()
+    catalog.entities.push({
+      ...ability,
+      id: abilityId('10000000-0000-4000-8000-000000000019'),
+      abilityKind: 'active',
+      text: { effect: 'Apply the effect.' },
+      timings: [
+        {
+          kind: 'reaction',
+          window: { kind: 'reaction' },
+          raw: 'Reaction: This unit was picked as the target of an ability',
+        },
+      ],
+    })
+
+    expect(validateCatalog(catalog)).toContainEqual(
+      expect.objectContaining({ code: 'ability-timing-kind-mismatch' })
+    )
   })
 
   it('validates source applicability and required entity fields', () => {

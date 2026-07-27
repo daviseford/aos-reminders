@@ -6,6 +6,7 @@ import {
   REPRESENTATIVE_CONTEXT_ID,
   REPRESENTATIVE_IDS,
   REPRESENTATIVE_SOURCE_ARTIFACTS,
+  REPRESENTATIVE_SOURCE_IDS,
 } from '../../aos4/generated'
 import { validateCatalog, type Weapon } from '../../aos4/domain'
 import { projectReminders } from '../../aos4/reminders'
@@ -160,6 +161,28 @@ describe('AoS 4 representative vertical slice', () => {
       authority: { kind: 'official' },
       version: 'June 2026',
       checksum: expect.stringMatching(/^[0-9a-f]{64}$/),
+    })
+  })
+
+  it('traces content groups to their own type or subtype rows', () => {
+    const expectedSources = new Map([
+      [REPRESENTATIVE_IDS.groups.battleTraits, REPRESENTATIVE_SOURCE_IDS.battleTraitsGroup],
+      [REPRESENTATIVE_IDS.groups.lightningEchelon, REPRESENTATIVE_SOURCE_IDS.lightningEchelonGroup],
+      [REPRESENTATIVE_IDS.groups.loreOfTheStorm, REPRESENTATIVE_SOURCE_IDS.loreOfTheStormGroup],
+      [
+        REPRESENTATIVE_IDS.groups.prayersOfTheStormhosts,
+        REPRESENTATIVE_SOURCE_IDS.prayersOfTheStormhostsGroup,
+      ],
+      [
+        REPRESENTATIVE_IDS.groups.manifestationsOfTheStorm,
+        REPRESENTATIVE_SOURCE_IDS.manifestationsOfTheStormGroup,
+      ],
+    ])
+
+    expectedSources.forEach((sourceRecordId, groupId) => {
+      expect(AOS4_CATALOG.entities.find(entity => entity.id === groupId)?.sourceRefs).toEqual([
+        expect.objectContaining({ sourceRecordId }),
+      ])
     })
   })
 

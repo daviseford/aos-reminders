@@ -47,6 +47,7 @@ export interface NormalizedWahapediaAbilityFact {
     condition: string
     abilityPhase: string
     abilityType: string
+    isReaction: boolean | null
     pointsType: string
     points: string
   }
@@ -87,7 +88,7 @@ export const normalizeWahapediaWeapon = (
 }
 
 const abilityKind = (record: WahapediaAbilityRecord): AbilityKind => {
-  if (record.isReaction) return 'reaction'
+  if (record.isReaction || /\breaction\s*:/i.test(record.conditionHtml)) return 'reaction'
   if (/\bpassive\b/i.test(record.conditionHtml)) return 'passive'
   return 'active'
 }
@@ -144,6 +145,16 @@ export const normalizeWahapediaAbility = (
       ]
     : primaryTiming.diagnostics
   const keywords = normalizeKeywords(record.keywordsHtml)
+  const reactionFlagDiagnostics: NormalizationDiagnostic[] =
+    record.isReaction === false && /\breaction\s*:/i.test(record.conditionHtml)
+      ? [
+          {
+            code: 'reaction-flag-mismatch',
+            severity: 'warning',
+            message: 'Wahapedia condition identifies a reaction while is_reaction is false',
+          },
+        ]
+      : []
 
   return {
     sourceRecordId: record.meta.sourceRecordId,
@@ -158,10 +169,16 @@ export const normalizeWahapediaAbility = (
       condition: record.conditionHtml,
       abilityPhase: record.abilityPhase,
       abilityType: record.abilityType,
+      isReaction: record.isReaction,
       pointsType: record.pointsType,
       points: record.points,
     },
-    diagnostics: [...text.diagnostics, ...timingDiagnostics, ...keywords.diagnostics],
+    diagnostics: [
+      ...text.diagnostics,
+      ...timingDiagnostics,
+      ...keywords.diagnostics,
+      ...reactionFlagDiagnostics,
+    ],
   }
 }
 

@@ -150,6 +150,27 @@ describe('AoS 4 timing normalization', () => {
     expect(result.diagnostics.map(diagnostic => diagnostic.code)).not.toContain('conflicting-perspective')
   })
 
+  it('models phase-independent reactions as triggered windows', () => {
+    const result = parseTiming(
+      'Once Per Turn (Army), Reaction: This unit was picked as the target of a non-Core ability',
+      {
+        abilityKind: 'reaction',
+        actor: 'unit',
+      }
+    )
+
+    expect(result.timings).toEqual([
+      {
+        kind: 'reaction',
+        perspective: 'neutral',
+        raw: 'Once Per Turn (Army), Reaction: This unit was picked as the target of a non-Core ability',
+        usage: { limit: 1, period: 'turn', scope: 'army' },
+        window: { kind: 'reaction' },
+      },
+    ])
+    expect(result.diagnostics).toEqual([])
+  })
+
   it('uses polluted markup only as parsing evidence and retains safe raw text', () => {
     const result = parseTiming('%123 <ky>Any Combat Phase</ky> (Reaction)', {
       abilityKind: 'reaction',

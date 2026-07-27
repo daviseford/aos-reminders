@@ -1,0 +1,77 @@
+{
+  "schemaVersion": 1,
+  "status": "candidate-review-required",
+  "retrievedAt": "2026-07-27",
+  "artifacts": [
+    {
+      "title": "Warhammer Age of Sigmar: The Rules",
+      "role": "base-rules",
+      "version": "24.09",
+      "url": "https://assets.warhammer-community.com/ageofsigmar_corerules%26keydownloads_therules_eng_24.09-tbf4egjql3.pdf",
+      "checksum": "e55eff9bca338c99a63b042db11a91ef3ebe648d1c63a5fefde3f6db505d81d4",
+      "byteLength": 44653250,
+      "retrievedAt": "2026-07-27T21:07:27.001Z",
+      "mediaType": "application/pdf",
+      "pages": 66,
+      "extractionDiagnostics": 0
+    },
+    {
+      "title": "Warhammer Age of Sigmar Rules Updates",
+      "role": "current-rules-update",
+      "version": "June 2026",
+      "url": "https://assets.warhammer-community.com/eng_08-07_warhammer_age_of_sigmar_core_rules_rules_updates-kkvoejtuhz-ptj0eews90.pdf",
+      "checksum": "15e050fa3663d3a57da675ecc059b37f7932d48e3dea79012d7260195530b80a",
+      "byteLength": 14535472,
+      "retrievedAt": "2026-07-27T21:21:58.622Z",
+      "mediaType": "application/pdf",
+      "pages": 73,
+      "extractionDiagnostics": 0
+    }
+  ],
+  "structuralEvidence": [
+    {
+      "subject": "phase-independent-reaction-window",
+      "status": "supported",
+      "finding": "Reaction timing is tied to the triggering ability-resolution sequence and does not require a named turn phase.",
+      "sourceRecords": [
+        {
+          "id": "source-record:games-workshop:e55eff9bca338c99a63b042db11a91ef3ebe648d1c63a5fefde3f6db505d81d4%3Apage%3A7",
+          "page": 7,
+          "recordChecksum": "4b4152fb6ce0e665bfc43ecddfa1c9b3e0e99976dcf8b338b458cbdf2100cfde"
+        },
+        {
+          "id": "source-record:games-workshop:15e050fa3663d3a57da675ecc059b37f7932d48e3dea79012d7260195530b80a%3Apage%3A2",
+          "page": 2,
+          "recordChecksum": "e14a736824fe34aa7125cb0becbd4758b9661a541ad6149ab98ca43284e15066"
+        }
+      ]
+    },
+    {
+      "subject": "stormcast-ruination-reaction",
+      "status": "supported",
+      "finding": "The current Stormcast Eternals erratum identifies Ruination Chamber as a once-per-turn Army reaction triggered when the unit is targeted by a non-Core ability.",
+      "sourceRecords": [
+        {
+          "id": "source-record:games-workshop:15e050fa3663d3a57da675ecc059b37f7932d48e3dea79012d7260195530b80a%3Apage%3A67",
+          "page": 67,
+          "recordChecksum": "ba34f6d90df1035a4baf2c09d03c635755e8f9c0e6bc7987966985833c8aedac"
+        }
+      ],
+      "candidateSourceRecordIds": [
+        "source-record:wahapedia:Warscrolls_abilities.csv%3A000001718%3A5",
+        "source-record:wahapedia:Warscrolls_abilities.csv%3A000001884%3A3"
+      ]
+    }
+  ],
+  "coverage": {
+    "candidateManifestAccepted": false,
+    "runtimeCatalogChanged": false,
+    "domainModelChanged": true
+  },
+  "notes": [
+    "Both official PDFs extracted without diagnostics under the bounded page and text limits.",
+    "The checked-in report contains locators and checksums but no page text.",
+    "The current June 2026 update from the live downloads index was reviewed with the base rules when defining the reaction window.",
+    "Its Stormcast Eternals erratum corroborates the explicit Reaction text on both remaining contradictory candidate rows."
+  ]
+}

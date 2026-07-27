@@ -84,6 +84,7 @@ export type DomainValidationIssueCode =
   | 'invalid-turn-phase'
   | 'missing-ability-effect'
   | 'missing-reaction-trigger'
+  | 'ability-timing-kind-mismatch'
   | 'invalid-passive-timing'
   | 'invalid-usage-limit'
   | 'invalid-weapon-profile'
@@ -273,6 +274,14 @@ export const validateCatalog = (catalog: Aos4Catalog): DomainValidationIssue[] =
     }
 
     entity.timings.forEach(timing => {
+      if (timing.kind !== entity.abilityKind) {
+        issues.push({
+          code: 'ability-timing-kind-mismatch',
+          subject: entity.id,
+          message: `Ability ${entity.id} has ${timing.kind} timing but is classified as ${entity.abilityKind}`,
+        })
+      }
+
       if (timing.window.kind === 'turn-phase' && !isTurnPhaseId(timing.window.phase)) {
         issues.push({
           code: 'invalid-turn-phase',

@@ -277,9 +277,10 @@ product to advance without making that decision implicitly.
   through download discovery alone. Born-digital PDFs yield page-addressable candidate records;
   unsupported layouts stop at diagnostics and reviewed overrides. This realizes R14, R16, and R24.
 - KTD16. Preserve the existing phase-first reminder hierarchy. Deployment and battle boundaries are
-  ordered outside the seven turn phases; reactions appear in their triggering phase with a textual
-  Reaction label and trigger; passive abilities have a distinct always-applicable group; combat
-  priority is text plus ordering metadata rather than color alone. This realizes R1-R4 and R12.
+  ordered outside the seven turn phases; phase-scoped reactions appear in that phase, while
+  phase-independent reactions use a distinct triggered-Reaction window with their trigger text;
+  passive abilities have a distinct always-applicable group; combat priority is text plus ordering
+  metadata rather than color alone. This realizes R1-R4 and R12.
 
 ### High-Level Technical Design
 
@@ -770,6 +771,20 @@ integration merge occurred.
 Eternals before expanding by grand alliance or publication family. Detect source removals, renamed
 IDs, category drift, stale secondary records, and duplicate canonical matches. Fail generation when
 diagnostics exceed accepted overrides, and record product checksums in the accepted manifest.
+
+**Progress (2026-07-27):** The first full Stormcast inventory covers 1,486 linked source records
+without promoting them. Exact-row checksums reproduce all previously recorded representative
+checksums. Official base rules and the June 2026 update extract into page-addressable records without
+diagnostics and support a phase-independent triggered-Reaction window. This classifies all 21
+previously unknown candidate timings; the Stormcast cohort remains blocked by two explicit
+Reaction/is_reaction contradictions and pending official faction-publication reconciliation. The
+current Stormcast Eternals erratum corroborates the Reaction text on both rows; formal fact linking
+and the rest of the faction publication review remain.
+
+The same inventory now covers all 28 source factions: 17 have no automated blocker and 11 are
+blocked by the two known join errors and/or 13 contradictory reaction flags. All 20 remaining lossy
+source-phase fallbacks are assigned to a faction review queue. These statuses are review routing,
+not corpus acceptance.
 
 **Test scenarios:**
 

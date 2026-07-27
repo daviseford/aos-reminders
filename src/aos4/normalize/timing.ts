@@ -110,6 +110,9 @@ const findWindows = (value: string, abilityKind: AbilityKind): GameWindow[] => {
   PHASE_PATTERNS.forEach(([phase, pattern]) => {
     if (pattern.test(value)) windows.push({ kind: 'turn-phase', phase })
   })
+  if (abilityKind === 'reaction' && /\breaction\s*:/i.test(value) && windows.length === 0) {
+    windows.push({ kind: 'reaction' })
+  }
 
   return windows
 }

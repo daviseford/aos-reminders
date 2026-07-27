@@ -27,6 +27,7 @@ export interface WahapediaFactionCohortReport {
     unknownWeaponSourceRecordIds: string[]
     unresolvedTimingSourceRecordIds: string[]
     sourcePhaseFallbackSourceRecordIds: string[]
+    reactionFlagMismatchSourceRecordIds: string[]
   }
   diagnostics: {
     errors: number
@@ -36,6 +37,8 @@ export interface WahapediaFactionCohortReport {
   sourceIds: string[]
   sourceRecords: Array<{
     id: string
+    file: string
+    row: number
     recordChecksum: string
   }>
 }
@@ -126,10 +129,16 @@ export const createWahapediaFactionCohortReport = (
   const unknownWeaponSourceRecordIds = uniqueSorted(
     weaponFacts.filter(fact => fact.weaponType === 'unknown').map(fact => String(fact.sourceRecordId))
   )
+  const reactionFlagMismatchSourceRecordIds = uniqueSorted(
+    abilityFacts
+      .filter(fact => fact.diagnostics.some(diagnostic => diagnostic.code === 'reaction-flag-mismatch'))
+      .map(fact => String(fact.sourceRecordId))
+  )
   const blocked =
     diagnosticCounts.errors > 0 ||
     unresolvedTimingSourceRecordIds.length > 0 ||
-    unknownWeaponSourceRecordIds.length > 0
+    unknownWeaponSourceRecordIds.length > 0 ||
+    reactionFlagMismatchSourceRecordIds.length > 0
 
   return {
     schemaVersion: 1,
@@ -157,12 +166,15 @@ export const createWahapediaFactionCohortReport = (
       unknownWeaponSourceRecordIds,
       unresolvedTimingSourceRecordIds,
       sourcePhaseFallbackSourceRecordIds,
+      reactionFlagMismatchSourceRecordIds,
     },
     diagnostics: diagnosticCounts,
     sourceIds: uniqueSorted(sourceIds),
     sourceRecords: records
       .map(record => ({
         id: String(record.meta.sourceRecordId),
+        file: record.meta.file,
+        row: record.meta.row,
         recordChecksum: record.meta.recordChecksum,
       }))
       .sort((left, right) => compare(left.id, right.id)),

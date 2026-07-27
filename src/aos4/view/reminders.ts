@@ -24,6 +24,8 @@ const windowLabel = (timing: AbilityTiming): string => {
       return 'End of Battle Round'
     case 'battle-end':
       return 'End of Battle'
+    case 'reaction':
+      return 'Triggered Reaction'
     case 'always':
       return 'Passive'
     case 'unknown':

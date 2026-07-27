@@ -11,11 +11,7 @@ import {
   type ContentEntity,
   type SourceReference,
 } from '../../aos4/domain'
-import {
-  projectReminders,
-  reminderOccurrenceId,
-  semanticTimingKey,
-} from '../../aos4/reminders'
+import { projectReminders, reminderOccurrenceId, semanticTimingKey } from '../../aos4/reminders'
 import { resolveSelection } from '../../aos4/select'
 
 const contextId = rulesContextId('40000000-0000-4000-8000-000000000001')
@@ -26,6 +22,7 @@ const ids = {
   unitB: contentGroupId('40000000-0000-4000-8000-000000000004'),
   matrix: abilityId('40000000-0000-4000-8000-000000000005'),
   reaction: abilityId('40000000-0000-4000-8000-000000000006'),
+  triggeredReaction: abilityId('40000000-0000-4000-8000-000000000013'),
   passive: abilityId('40000000-0000-4000-8000-000000000007'),
   strikeFirst: abilityId('40000000-0000-4000-8000-000000000008'),
   strikeLast: abilityId('40000000-0000-4000-8000-000000000009'),
@@ -40,10 +37,7 @@ const refs = {
   sharedB: { sourceRecordId: sourceRecordId('fixture', 'shared-b') },
 }
 
-const entity = (
-  id: CanonicalId<'content-group'>,
-  name: string
-): ContentEntity => ({
+const entity = (id: CanonicalId<'content-group'>, name: string): ContentEntity => ({
   id,
   kind: 'content-group',
   revision: 'fixture-1',
@@ -175,6 +169,18 @@ const createCatalog = (): Aos4Catalog => ({
       ],
     }),
     ability({
+      id: ids.triggeredReaction,
+      name: 'Targeted Reaction',
+      abilityKind: 'reaction',
+      timings: [
+        {
+          kind: 'reaction',
+          window: { kind: 'reaction' },
+          raw: 'Reaction: This unit was picked as the target of an ability',
+        },
+      ],
+    }),
+    ability({
       id: ids.passive,
       name: 'Unyielding',
       abilityKind: 'passive',
@@ -237,14 +243,20 @@ const createCatalog = (): Aos4Catalog => ({
       from: ids.army,
       to: ids.unitB,
     },
-    ...[ids.matrix, ids.reaction, ids.passive, ids.strikeFirst, ids.strikeLast, ids.sharedA].map(
-      (to, index) => ({
-        id: `relationship:unit-a-ability-${index}` as const,
-        kind: 'includes' as const,
-        from: ids.unitA,
-        to,
-      })
-    ),
+    ...[
+      ids.matrix,
+      ids.reaction,
+      ids.triggeredReaction,
+      ids.passive,
+      ids.strikeFirst,
+      ids.strikeLast,
+      ids.sharedA,
+    ].map((to, index) => ({
+      id: `relationship:unit-a-ability-${index}` as const,
+      kind: 'includes' as const,
+      from: ids.unitA,
+      to,
+    })),
     {
       id: 'relationship:unit-b-shared',
       kind: 'includes',
@@ -300,9 +312,7 @@ describe('AoS 4 reminder identity', () => {
       raw: 'wording is intentionally excluded',
     }
 
-    expect(semanticTimingKey(timing)).toBe(
-      'turn-phase:combat|reaction|enemy|strike-last|1:turn:unit'
-    )
+    expect(semanticTimingKey(timing)).toBe('turn-phase:combat|reaction|enemy|strike-last|1:turn:unit')
   })
 })
 
@@ -327,19 +337,17 @@ describe('AoS 4 reminder projection', () => {
       'turn-phase',
       'battle-round-end',
       'battle-end',
+      'reaction',
       'always',
     ])
 
     const shooting = reminders.filter(
-      reminder =>
-        reminder.timing.window.kind === 'turn-phase' &&
-        reminder.timing.window.phase === 'shooting'
+      reminder => reminder.timing.window.kind === 'turn-phase' && reminder.timing.window.phase === 'shooting'
     )
     expect(shooting.map(reminder => reminder.lane)).toEqual(['active', 'reaction'])
 
     const combat = reminders.filter(
-      reminder =>
-        reminder.timing.window.kind === 'turn-phase' && reminder.timing.window.phase === 'combat'
+      reminder => reminder.timing.window.kind === 'turn-phase' && reminder.timing.window.phase === 'combat'
     )
     expect(combat.map(reminder => reminder.timing.priority ?? 'normal')).toEqual([
       'strike-first',
