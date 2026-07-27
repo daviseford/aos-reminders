@@ -108,8 +108,10 @@ The static corpus also lacks a reproducible acquisition and reconciliation path.
 
 #### Cutover and scope discipline
 
-- R20. Cut over cleanly to AoS 4 by resetting incompatible persisted state and saved-army schemas
-  rather than carrying AoS 3 compatibility code forward.
+- R20. Treat every AoS 3 rule and structural assumption as untrusted. After the representative
+  proof and before bulk AoS 4 cohort promotion, cut over by resetting incompatible persistence and
+  delete the old rule path rather than carrying compatibility code or parallel faction data
+  forward.
 - R21. Make only the UI and state changes needed to exercise and validate the new domain during
   Phase 1.
 - R22. Defer broad dependency upgrades to Phase 2; a focused parser or command-runner dependency is
@@ -237,10 +239,11 @@ product to advance without making that decision implicitly.
 - KTD5. Project reminders only after resolving the selected content graph. Projection may merge
   equivalent display items, but retains contributing entity IDs and gives each semantic timing
   occurrence a stable ID. This realizes R10-R12.
-- KTD6. Develop the AoS 4 model beside the current runtime until a representative vertical slice
-  proves it, then remove the AoS 3 path at cutover. (session-settled: user-directed — chosen over
-  compatibility migration or dual-edition support: a clean break allows legacy fixes and schemas
-  to be deleted.) The temporary code separation is an implementation seam, not a product mode.
+- KTD6. Develop the AoS 4 model beside the current runtime only until a representative vertical
+  slice proves it, then remove the AoS 3 path before bulk cohort promotion. (session-settled:
+  user-directed — chosen over compatibility migration or dual-edition support: a clean break allows
+  legacy fixes and schemas to be deleted.) The temporary code separation is an implementation seam,
+  not a product mode or permission for two corpora to evolve together.
 - KTD7. Use explicit acquisition, decoding, normalization, reconciliation, override, validation,
   generation, and projection stages. Each stage consumes typed records and emits diagnostics rather
   than mutating source-shaped data in place. This realizes F1-F4.
@@ -367,8 +370,9 @@ The domain has four principal layers:
 
 Phase 1a comprises U1-U4. It establishes domain invariants and a synthetic reminder projection
 without touching the production AoS 3 path. Phase 1b begins with U5-U7, then U8 proves a
-representative end-to-end slice. U9 expands coverage only after that slice passes source review.
-U10 performs the clean product cutover. U11 then removes obsolete code and closes documentation.
+representative end-to-end slice. U9 hardens candidate acquisition, generation gates, and the
+dependency boundary. U10 performs the clean product cutover and removes AoS 3 before bulk entry.
+U11 then expands the approved corpus through the AoS 4-only path and closes documentation.
 
 ## Implementation Units
 
@@ -382,9 +386,9 @@ U10 performs the clean product cutover. U11 then removes obsolete code and close
 | U6 | Wahapedia adapter | `src/aos4/data/wahapedia/` | U5 |
 | U7 | Official discovery, extraction, and reconciliation | `src/aos4/data/gamesWorkshop/`, `src/aos4/reconcile/` | U5-U6 |
 | U8 | Representative vertical slice | `src/aos4/generated/`, existing builder/reminder seams | U1-U7 |
-| U9 | Corpus generation and coverage gates | `data/aos4/`, `src/aos4/generated/` | U8 |
-| U10 | Runtime and persistence cutover | existing state, builder, and reminder modules | U9 |
-| U11 | Legacy removal and documentation | old faction/import modules, `README.md`, `docs/` | U10 |
+| U9 | Generation gates and legacy isolation | `data/aos4/`, `src/aos4/generate/`, `docs/data/` | U8 |
+| U10 | Runtime cutover and AoS 3 removal | state, builder/reminders, old faction/import modules | U9 |
+| U11 | Approved corpus expansion and final documentation | `data/aos4/`, `src/aos4/generated/`, `README.md` | U10 |
 
 ### U1. Canonical AoS 4 domain primitives
 
@@ -674,47 +678,48 @@ meaning available to keyboard and screen-reader users without relying on color.
 **Verification:** The slice passes source review, focused integration tests, browser smoke testing,
 and the repository-wide verification contract.
 
-### U9. Corpus generation and coverage gates
+### U9. Generation gates and legacy isolation
 
-**Goal:** Expand the proven pipeline to the approved AoS 4 corpus without hand-editing generated
-files.
+**Goal:** Make acquisition and generation repeatable and prove that AoS 4 cannot depend on the
+untrusted AoS 3 graph before the clean cutover.
 
 **Requirements:** R7-R19, R22-R25, and F1-F4.
 
 **Files:**
 
-- Add accepted manifests under `data/aos4/manifests/`.
-- Add the accepted canonical/source identity registry under `data/aos4/identities/`.
+- Add candidate manifests and explicit acceptance state under `data/aos4/manifests/`.
+- Add the representative canonical/source identity registry under `data/aos4/identities/`.
 - Add reviewed decisions under `data/aos4/overrides/`.
 - Add non-verbatim validation summaries under `data/aos4/reports/`.
-- Generate the audit catalog under `data/aos4/catalog/`.
-- Generate the compact application projection under `src/aos4/generated/`.
+- Add deterministic audit/runtime serializers under `src/aos4/generate/`.
 - Add `src/tests/aos4/catalogIntegrity.test.ts`.
+- Add `src/tests/aos4/legacyIsolation.test.ts`.
 - Add data-maintenance documentation under `docs/data/`.
 
-**Approach:** Process sources in reviewable cohorts, starting with core rules and the representative
-faction before expanding by grand alliance or publication family. Fail strict generation when
-diagnostics exceed accepted overrides. Enforce R23 when selecting generated fields for Git and
-application delivery. Generate audit and runtime outputs separately under KTD13, and record their
-schema versions and checksums in the accepted manifest.
+**Approach:** Acquire the live export set as a review candidate without promoting it. Fail strict
+generation when source records are unconsumed, unresolved, contradictory, unsafe, or unclassified.
+Generate audit and runtime shapes separately under KTD13. Enforce an import boundary in which
+`src/aos4/` cannot depend on the old application/rules graph, and freeze AoS 3 data changes.
 
 **Test scenarios:**
 
-- Validate all required export joins and official publication links for each accepted cohort.
-- Detect source removals, renamed IDs, category drift, stale secondary records, and duplicate
-  canonical matches.
+- Acquire all documented exports plus explicit official PDF URLs into the checksum cache and replay
+  them offline.
+- Keep live source output marked candidate and unaccepted.
 - Assert every generated entity has provenance and every source record is consumed, ignored with a
   reason, or reported.
-- Regenerate twice from the accepted manifest and assert byte-identical output.
+- Regenerate the representative audit/runtime products twice and assert byte-identical output.
 - Assert generated output contains no raw artifact bytes, unsafe HTML, or fields excluded by R23.
-- Assert the runtime projection omits curator-only evidence and report its bundle contribution.
+- Assert `src/aos4/` imports no AoS 3 application or rule module.
 
-**Verification:** Strict catalog integrity passes with zero unacknowledged errors, cohort coverage
-is reported, regeneration is clean, and the repository-wide verification contract passes.
+**Verification:** The representative catalog has zero unacknowledged errors, the live candidate
+reports unresolved coverage without promotion, the legacy boundary passes, and repository-wide
+verification passes.
 
-### U10. Runtime and persistence cutover
+### U10. Runtime cutover and AoS 3 removal
 
-**Goal:** Make the validated AoS 4 catalog and projection the only production rules path.
+**Goal:** Make the validated AoS 4 catalog the only rule path on the migration branch and delete the
+superseded AoS 3 implementation before bulk data entry.
 
 **Requirements:** R10-R12 and R20-R23.
 
@@ -722,50 +727,59 @@ is reported, regeneration is clean, and the repository-wide verification contrac
 
 - Replace relevant state and saved-army types under `src/store/`, `src/ducks/`, and `src/types/`.
 - Replace reminder and builder wiring under `src/utils/` and `src/components/`.
+- Remove obsolete AoS 3 faction, generic-rule, phase, importer, alias, compatibility modules, and
+  fixtures after their last imports disappear.
+- Remove transitional adapters and development fallbacks introduced by U8-U10.
 - Update tests to assert AoS 4 behavior only.
 
 **Approach:** Bump persistence and remote saved-army schemas, clear incompatible local caches, and
 switch runtime entry points to the AoS 4 catalog. Coordinate remote saved-army API schema changes
-without deploying or merging the integration PR. Keep obsolete modules only until the replacement
-is green, then remove them in U11.
+without deploying or merging the integration PR. Trace runtime imports, delete each superseded
+subsystem rather than adapting it, and accept that the migration branch temporarily exposes only
+the representative AoS 4 cohort.
 
 **Test scenarios:**
 
 - Start with AoS 3 persisted state and verify the app resets safely to a valid AoS 4 default.
 - Load, save, update, share, and reload an AoS 4 army document with stable reminder preferences.
 - Exercise representative builder, reminder, note, hide/order, PDF, offline, and source-trace flows.
+- Search the runtime graph for AoS 3 phase literals, faction registries, aliases, temporary
+  adapters, and dormant data modules.
+- Verify legacy import controls and routes are absent until a dedicated AoS 4 importer is planned.
 
 **Verification:** The AoS 4 path is the production default, clean-reset and save/share tests pass,
-and no production deployment or merge occurs without user approval.
+no AoS 3 rules path remains, and no production deployment or merge occurs without user approval.
 
-### U11. Legacy removal and documentation
+### U11. Approved corpus expansion and final documentation
 
-**Goal:** Delete the superseded AoS 3 implementation and leave a documented AoS 4 maintenance path.
+**Goal:** Expand the AoS 4-only runtime to the reviewed corpus without hand-editing generated files.
 
-**Requirements:** R19-R23.
+**Requirements:** R7-R19, R22-R25, and F1-F4.
 
 **Files:**
 
-- Remove obsolete AoS 3 faction, phase, importer, alias, compatibility modules, and fixtures.
-- Remove transitional adapters and development fallbacks introduced by U8-U10.
+- Add accepted manifests, identities, reviewed dispositions, and overrides under `data/aos4/`.
+- Generate the complete audit catalog under `data/aos4/catalog/`.
+- Generate the compact application projection under `src/aos4/generated/`.
 - Update `README.md`, `docs/CONTRIBUTING.md`, and data attribution.
 - Update repository tests to contain only current AoS 4 behavior.
 
-**Approach:** Trace runtime imports before deletion, remove each superseded subsystem with its tests,
-and use the compiler plus repository search to prove no dormant AoS 3 representation remains.
-Document acquisition, review, regeneration, attribution, and the clean-cut saved-state behavior.
+**Approach:** Process sources in reviewable cohorts, beginning with core rules and Stormcast
+Eternals before expanding by grand alliance or publication family. Detect source removals, renamed
+IDs, category drift, stale secondary records, and duplicate canonical matches. Fail generation when
+diagnostics exceed accepted overrides, and record product checksums in the accepted manifest.
 
 **Test scenarios:**
 
-- Verify legacy import controls and routes are removed until a dedicated AoS 4 army-list importer is
-  planned.
-- Search the runtime graph for dependencies on AoS 3 phase literals, faction registry, aliases,
-  temporary adapters, and data modules.
+- Validate all required export joins and official publication links for each accepted cohort.
+- Regenerate twice from the accepted manifest and assert byte-identical output.
+- Assert the runtime projection omits curator-only evidence and report its bundle contribution.
 - Run the supported data-maintenance flow from documented inputs to deterministic outputs.
 - Verify attribution and source links appear in the published reminder experience.
 
-**Verification:** Obsolete runtime paths and tests are removed, documentation matches the supported
-workflow, and the complete repository verification contract passes.
+**Verification:** Every approved cohort passes strict integrity, documentation matches the supported
+workflow, no parallel AoS 3 counterpart exists, and the complete repository verification contract
+passes.
 
 ## Verification Contract
 

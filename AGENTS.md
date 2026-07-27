@@ -23,6 +23,15 @@ Do not confuse these version numbers:
 - Preserve reusable product infrastructure where it still earns its keep: reminder presentation, offline behavior, notes, hiding/reordering, save/share flows, and import UX are separate decisions from preserving AoS 3 rules behavior.
 - A push to `master` triggers both CI and the production S3/CloudFront deployment. Treat remote `master` as production.
 
+### AoS 3 quarantine and retirement
+
+- Treat every AoS 3 rule, phase, category, alias, importer correction, and data-shape assumption as untrusted legacy behavior. It is not evidence for an AoS 4 fact or schema decision.
+- Keep `src/aos4/` dependency-isolated. AoS 4 source code may depend on its own modules, Node built-ins, and third-party libraries, but must not import the old faction, generic-rule, phase, state, type, importer, or reminder-processing modules. Reusable UI and application infrastructure may depend on the AoS 4 boundary, not the reverse.
+- Freeze the AoS 3 corpus while the replacement is built. Do not “temporarily” add AoS 4 facts to old faction modules or patch old rules so that new data appears to work.
+- The representative cohort is allowed only as a pipeline proof. Before bulk AoS 4 cohort promotion or data entry, cut the migration branch to the AoS 4 runtime and remove the superseded AoS 3 rules corpus and structural utilities. A temporarily incomplete AoS 4-only migration branch is preferable to parallel live rule models.
+- Do not leave migrated factions or rules represented in both models. Delete each superseded AoS 3 counterpart in the same cutover tranche that makes its AoS 4 replacement authoritative.
+- Track any legacy code retained after cutover as an explicit, bounded infrastructure exception with an owner and deletion condition. “Might still be useful” is not a retention reason.
+
 ## Migration program
 
 The revival is intentionally sequenced into two broad phases.
@@ -310,7 +319,7 @@ Baseline observed on 2026-07-27:
 
 - ESLint passed.
 - TypeScript passed.
-- 11 Vitest files passed with 366 tests.
+- 23 Vitest files passed with 494 tests.
 - The Vite production build passed.
 - The production bundle emitted large-chunk warnings; the main application chunk was about 2.19 MB minified (550 KB gzip), reflecting the eagerly bundled rules corpus.
 
@@ -326,7 +335,7 @@ Inspect the diff after any corpus-wide command. Never mix accidental bulk normal
 
 ## Testing guidance
 
-- Most of the test tree is historical import fixture data. There are 11 current test files but hundreds of PDF, JSON, HTML, and text fixtures.
+- Much of the test tree is historical import fixture data. There are 23 current test files plus hundreds of PDF, JSON, HTML, and text fixtures.
 - Existing core coverage exercises faction lookup/composition, mandatory collections, reminder generation, Redux unit side effects, and all four legacy import families.
 - Follow `docs/CONTRIBUTING.md`: avoid tests that fail only because official wording changed. Test relationships, normalization, timing classification, provenance, and reminder projection.
 - For source ingestion, keep small representative fixtures and contract tests. Do not make routine tests depend on live Wahapedia or Games Workshop availability.
@@ -343,6 +352,7 @@ Before bulk data entry:
 4. Define Wahapedia import adapters and freshness/reconciliation checks.
 5. Build a thin vertical slice for one representative faction, including reminders and tests.
 6. Validate the slice against current official documents.
-7. Only then automate or parallelize the rest of the faction corpus.
+7. Cut the migration branch to the AoS 4 runtime and delete the AoS 3 rules path.
+8. Only then automate or parallelize the rest of the faction corpus.
 
 Choose a representative faction that exercises battle traits, a battle formation, heroic traits, artefacts, spell/prayer or manifestation lore, unit abilities, reactions, and current source updates. Do not begin with hundreds of mechanical conversions that merely recreate the AoS 3 shape.
