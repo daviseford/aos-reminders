@@ -66,7 +66,6 @@ describe('AoS 4 representative vertical slice', () => {
         REPRESENTATIVE_IDS.abilities.summonEverblazeComet,
         REPRESENTATIVE_IDS.abilities.stalwartDefenders,
         REPRESENTATIVE_IDS.abilities.navigatorsOfTheStorm,
-        REPRESENTATIVE_IDS.abilities.defensiveReflex,
         REPRESENTATIVE_IDS.battleProfiles.liberators,
         REPRESENTATIVE_IDS.battleProfiles.vigilors,
         REPRESENTATIVE_IDS.weapons.warhammer,
@@ -99,22 +98,15 @@ describe('AoS 4 representative vertical slice', () => {
     ])
   })
 
-  it('places deployment, reaction, passives, and combat priority with accessible labels', () => {
+  it('places deployment, passives, and combat priority with accessible labels', () => {
     const reminders = createAos4ReminderViewModel(AOS4_CATALOG, createDocument())
     const deployment = reminders.find(reminder => reminder.name === 'The Celestial Realm')
-    const reaction = reminders.find(reminder => reminder.name === 'Defensive Reflex')
     const passive = reminders.find(reminder => reminder.name === 'Stalwart Defenders')
     const combat = reminders.filter(reminder => reminder.windowKey === 'turn-phase:combat')
 
     expect(deployment).toMatchObject({
       windowLabel: 'Deployment',
       typeLabel: expect.stringContaining('Active'),
-    })
-    expect(reaction).toMatchObject({
-      windowLabel: 'Shooting Phase',
-      typeLabel: expect.stringContaining('Reaction'),
-      reactionTrigger: expect.stringContaining('SHOOT'),
-      accessibleLabel: expect.stringContaining('Trigger:'),
     })
     expect(passive).toMatchObject({
       windowLabel: 'Passive',
@@ -162,6 +154,9 @@ describe('AoS 4 representative vertical slice', () => {
       version: 'June 2026',
       checksum: expect.stringMatching(/^[0-9a-f]{64}$/),
     })
+    expect(REPRESENTATIVE_SOURCE_ARTIFACTS.every(artifact => artifact.authority.kind !== 'unknown')).toBe(
+      true
+    )
   })
 
   it('traces content groups to their own type or subtype rows', () => {
@@ -186,17 +181,11 @@ describe('AoS 4 representative vertical slice', () => {
     })
   })
 
-  it('keeps unknown timing in the audit report and out of runtime reminders', () => {
+  it('keeps synthetic unknown timing out of the accepted audit and runtime', () => {
     const reminders = createAos4ReminderViewModel(AOS4_CATALOG, createDocument())
 
     expect(reminders.every(reminder => reminder.projected.timing.window.kind !== 'unknown')).toBe(true)
-    expect(AOS4_GENERATION_AUDIT.acknowledgedDiagnostics).toEqual([
-      expect.objectContaining({
-        code: 'unknown-timing',
-        raw: 'When the thunder answers',
-        disposition: 'excluded-from-runtime',
-      }),
-    ])
+    expect(AOS4_GENERATION_AUDIT.acknowledgedDiagnostics).toEqual([])
   })
 
   it('preserves stable notes, hiding, ordering, and print visibility through serialization', () => {

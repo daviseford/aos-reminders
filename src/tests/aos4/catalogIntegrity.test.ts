@@ -98,6 +98,21 @@ describe('AoS 4 catalog generation integrity', () => {
     ).toEqual(expect.arrayContaining(['unknown-timing', 'unsafe-html', 'reconciliation-error']))
   })
 
+  it('blocks unknown-authority fixtures from becoming runtime content', () => {
+    const sourceArtifacts = structuredClone(AOS4_CATALOG.sourceArtifacts)
+    sourceArtifacts[0].authority = {
+      kind: 'unknown',
+      raw: 'repository test fixture',
+    }
+
+    expect(validateGenerationIntegrity(copyCatalog({ sourceArtifacts })).issues).toContainEqual(
+      expect.objectContaining({
+        code: 'untrusted-runtime-source',
+        severity: 'error',
+      })
+    )
+  })
+
   it('keeps one stable canonical identity and at least one source alias per entity', () => {
     expect(validateIdentityRegistry(identityRegistry)).toEqual([])
     expect(

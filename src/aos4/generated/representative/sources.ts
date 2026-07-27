@@ -16,7 +16,6 @@ const CHECKSUMS = {
   factionAbilities: '12c54620832b9cdd4390a3c09ad98010c13dee521f6736b630bc3f4c2347fcdf',
   factionAbilityTypes: '294e0c93164d40d78709b2e5f47eb4db72ebf97df38a6cb0bb2613c748c7b44a',
   factionAbilitySubtypes: '1ba800415ac99371fdc729315033bfef45c36e179a333ccf81c0985e8e3551a5',
-  timingFixture: 'aaf494a92e0a3e87529a758892cc14b7d18db31e47fa60189501035cb5b3ccf2',
 } as const
 
 const wahaArtifact = (file: string, checksum: string): SourceArtifact => ({
@@ -56,19 +55,6 @@ export const REPRESENTATIVE_SOURCE_ARTIFACTS: SourceArtifact[] = [
   wahaArtifact('Faction_abilities.csv', CHECKSUMS.factionAbilities),
   wahaArtifact('Faction_ability_types.csv', CHECKSUMS.factionAbilityTypes),
   wahaArtifact('Faction_ability_subtypes.csv', CHECKSUMS.factionAbilitySubtypes),
-  {
-    id: artifactId(CHECKSUMS.timingFixture),
-    publisher: 'other',
-    authority: { kind: 'unknown', raw: 'repository timing fixture' },
-    title: 'Representative core timing fixture',
-    edition: '4',
-    language: 'en',
-    retrievedAt: '2026-07-27T19:00:00.000Z',
-    sourceUrl: 'fixture:aos4/representative/core-timing.json',
-    checksum: CHECKSUMS.timingFixture,
-    mediaType: 'application/json',
-    version: '1',
-  },
 ]
 
 interface WahaRecordDefinition {
@@ -241,22 +227,7 @@ export const REPRESENTATIVE_SOURCE_RECORDS: SourceRecord[] = [
     rulesContextIds: [REPRESENTATIVE_CONTEXT_ID],
   },
   ...wahaRecords,
-  {
-    id: sourceRecordId('fixture', 'defensive-reflex'),
-    artifactId: artifactId(CHECKSUMS.timingFixture),
-    locator: { kind: 'section', section: 'defensive-reflex' },
-    recordChecksum: '47389d1de945c8a1933fc45a9040ac671a84b5611504c4cc0465318b91d58ab9',
-    rulesContextIds: [REPRESENTATIVE_CONTEXT_ID],
-  },
 ]
-
-export const REPRESENTATIVE_UNCLASSIFIED_SOURCE_RECORD = {
-  id: sourceRecordId('fixture', 'unclassified-thunder'),
-  artifactId: artifactId(CHECKSUMS.timingFixture),
-  locator: { kind: 'section', section: 'unclassified-thunder' } as const,
-  recordChecksum: '8b90e8acbcbfc3d7bd78e051e51df9e49df20d37a82b19eb44375fef8ddc964d',
-  rulesContextIds: [REPRESENTATIVE_CONTEXT_ID],
-}
 
 export const REPRESENTATIVE_SOURCE_IDS = {
   officialProfilesPage: sourceRecordId('games-workshop', `${CHECKSUMS.official}:page:21`),
@@ -282,5 +253,4 @@ export const REPRESENTATIVE_SOURCE_IDS = {
   loreOfTheStormGroup: sourceRecordId('wahapedia', 'Faction_ability_types.csv:SE:000000605'),
   manifestationsOfTheStormGroup: sourceRecordId('wahapedia', 'Faction_ability_types.csv:SE:000000613'),
   prayersOfTheStormhostsGroup: sourceRecordId('wahapedia', 'Faction_ability_types.csv:SE:000000614'),
-  defensiveReflex: sourceRecordId('fixture', 'defensive-reflex'),
 } satisfies Record<string, SourceRecordId>

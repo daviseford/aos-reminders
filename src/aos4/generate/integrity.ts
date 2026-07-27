@@ -21,6 +21,7 @@ export type GenerationIssueCode =
   | 'unknown-source-disposition'
   | 'source-disposition-without-reason'
   | 'unresolved-source-record'
+  | 'untrusted-runtime-source'
   | 'unknown-timing'
   | 'unsafe-html'
   | 'reconciliation-error'
@@ -58,6 +59,8 @@ export const validateGenerationIntegrity = (
     message: `${issue.code}: ${issue.message}`,
   }))
   const sourceRecordIds = new Set(catalog.sourceRecords.map(record => record.id))
+  const artifactsById = new Map(catalog.sourceArtifacts.map(artifact => [artifact.id, artifact]))
+  const sourceRecordsById = new Map(catalog.sourceRecords.map(record => [record.id, record]))
   const consumed = new Set(
     catalog.entities.flatMap(entity => entity.sourceRefs.map(reference => reference.sourceRecordId))
   )
@@ -115,6 +118,19 @@ export const validateGenerationIntegrity = (
         severity: 'error',
         subject: record.id,
         message: 'Source record is neither consumed nor dispositioned',
+      })
+    }
+  })
+
+  consumed.forEach(sourceRecordId => {
+    const sourceRecord = sourceRecordsById.get(sourceRecordId)
+    const artifact = sourceRecord && artifactsById.get(sourceRecord.artifactId)
+    if (artifact?.authority.kind === 'unknown') {
+      issues.push({
+        code: 'untrusted-runtime-source',
+        severity: 'error',
+        subject: sourceRecordId,
+        message: 'Runtime content must not consume a source whose authority is unknown',
       })
     }
   })

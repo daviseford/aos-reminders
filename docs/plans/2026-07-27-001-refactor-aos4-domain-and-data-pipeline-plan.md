@@ -649,7 +649,7 @@ the existing builder and reminder presentation.
 
 **Files:**
 
-- Add reviewed fixture-derived content under `src/aos4/generated/representative/`.
+- Add reviewed source-derived content under `src/aos4/generated/representative/`.
 - Add `src/aos4/generated/catalog.ts`.
 - Add an AoS 4 selection-state seam under `src/aos4/state/`.
 - Adapt the narrow builder/reminder entry points under `src/components/input/` and
@@ -658,21 +658,23 @@ the existing builder and reminder presentation.
 - Add focused component tests if the existing harness can exercise the adapted entry points without
   broad framework changes.
 
-**Approach:** Use Stormcast Eternals as the representative faction, supplemented by compact core
-rules fixtures when a required timing or ability form is absent. The slice must exercise battle
-traits, a battle formation, enhancements, lore or manifestation content, unit abilities, reactions,
-weapons, and a current official update. Keep the old runtime reachable only as a development
-fallback until this slice passes. Render through an adapter at the reminder view-model boundary,
-not by converting canonical entities back into `TEntry` and `TEffects`. Apply KTD16 without
-redesigning the page: preserve the phase hierarchy, show textual type/trigger labels, and keep new
-meaning available to keyboard and screen-reader users without relying on color.
+**Approach:** Use Stormcast Eternals as the representative faction. Synthetic catalogs may exercise
+timing and ability forms in offline tests, but accepted runtime entities must be derived from
+reviewed official or attributed secondary records. The runtime slice exercises battle traits, a
+battle formation, enhancements, lore or manifestation content, unit abilities, weapons, and a
+current official update. Reaction projection remains covered by the structural test matrix until an
+applicable reaction clears cohort review. Render through an adapter at the reminder view-model
+boundary, not by converting canonical entities back into `TEntry` and `TEffects`. Apply KTD16
+without redesigning the page: preserve the phase hierarchy, show textual type/trigger labels, and
+keep new meaning available to keyboard and screen-reader users without relying on color.
 
 **Test scenarios:**
 
 - Generate the representative catalog from accepted fixtures and overrides.
 - Select its content by ID and verify all mandatory relationships and reminder timings.
 - Trace every displayed reminder and weapon fact to source artifacts.
-- Verify deployment, passive, reaction, and combat-priority placement and accessible labels.
+- Verify deployment, passive, reaction, and combat-priority placement and accessible labels across
+  the accepted representative runtime and the synthetic structural matrix.
 - Hide, order, annotate, and print representative reminders using stable IDs.
 - Serialize and deserialize the representative AoS 4 army document without invoking the production
   remote saved-army API.
@@ -785,6 +787,11 @@ The same inventory now covers all 28 source factions: 17 have no automated block
 blocked by the two known join errors and/or 13 contradictory reaction flags. All 20 remaining lossy
 source-phase fallbacks are assigned to a faction review queue. These statuses are review routing,
 not corpus acceptance.
+
+The synthetic reaction previously used to demonstrate runtime placement was removed from the
+accepted representative catalog once official reaction evidence was available. A strict generation
+gate now rejects any player-facing entity that consumes an unknown-authority source; synthetic
+timing coverage remains isolated to offline tests and is absent from accepted audit/runtime data.
 
 **Test scenarios:**
 

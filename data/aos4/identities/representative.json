@@ -244,17 +244,6 @@
       ]
     },
     {
-      "kind": "ability",
-      "canonicalId": "ability:80000000-0000-4000-8000-000000000024",
-      "name": "Defensive Reflex",
-      "aliases": [
-        {
-          "publisher": "other",
-          "externalId": "fixture:defensive-reflex"
-        }
-      ]
-    },
-    {
       "kind": "weapon",
       "canonicalId": "weapon:80000000-0000-4000-8000-000000000025",
       "name": "Warhammer",

@@ -163,7 +163,9 @@ development.
 
 The representative runtime commits short curated reminder summaries, profiles, points, and weapon
 characteristics with source references. It does not commit bulk third-party PDFs or full raw rule
-bodies. Do not broaden that publication boundary without an explicit decision.
+bodies. Test fixtures and unknown-authority artifacts must never supply player-facing runtime
+content; generation integrity rejects them. Do not broaden that publication boundary without an
+explicit decision.
 
 ## AoS 4 architecture
 

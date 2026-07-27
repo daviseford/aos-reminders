@@ -417,28 +417,6 @@ const entities: ContentEntity[] = [
     },
     REPRESENTATIVE_SOURCE_IDS.navigatorsOfTheStorm
   ),
-  ability(
-    {
-      id: REPRESENTATIVE_IDS.abilities.defensiveReflex,
-      name: 'Defensive Reflex',
-      abilityKind: 'reaction',
-      actor: 'unit',
-      text: {
-        reactionTrigger: 'An enemy unit declares a SHOOT ability that targets this unit.',
-        effect: 'Resolve this defensive reaction before the triggering attacks.',
-      },
-      timings: [
-        {
-          kind: 'reaction',
-          window: { kind: 'turn-phase', phase: 'shooting' },
-          perspective: 'enemy',
-          raw: 'Enemy Shooting Phase',
-        },
-      ],
-      keywords: ['REACTION'],
-    },
-    REPRESENTATIVE_SOURCE_IDS.defensiveReflex
-  ),
   weapon(
     {
       id: REPRESENTATIVE_IDS.weapons.warhammer,
@@ -531,7 +509,6 @@ const relationships: ContentRelationship[] = [
     REPRESENTATIVE_IDS.abilities.celestialRealm,
     REPRESENTATIVE_IDS.abilities.scionsOfTheStorm,
     REPRESENTATIVE_IDS.abilities.finestHour,
-    REPRESENTATIVE_IDS.abilities.defensiveReflex,
   ].map((to, index) => ({
     id: `relationship:representative:battle-trait-${index}` as const,
     kind: 'includes' as const,

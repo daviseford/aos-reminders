@@ -41,7 +41,6 @@ export const REPRESENTATIVE_IDS = {
     summonEverblazeComet: abilityId('80000000-0000-4000-8000-000000000021'),
     stalwartDefenders: abilityId('80000000-0000-4000-8000-000000000022'),
     navigatorsOfTheStorm: abilityId('80000000-0000-4000-8000-000000000023'),
-    defensiveReflex: abilityId('80000000-0000-4000-8000-000000000024'),
   },
   weapons: {
     warhammer: weaponId('80000000-0000-4000-8000-000000000025'),

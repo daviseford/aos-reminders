@@ -147,6 +147,11 @@ The checked-in `cohort-index-2026-07-27` applies the same non-verbatim inventory
 errors or contradictory reaction flags. “Reviewable” is not “accepted”; no full faction has entered
 the runtime catalog.
 
+Synthetic timing fixtures remain useful in the offline test matrix, but they are not accepted game
+data. The representative runtime no longer displays the former synthetic reaction, and strict
+generation rejects any consumed source whose authority is unknown. A real reaction enters the
+runtime only with an applicable reviewed cohort and traceable source evidence.
+
 ## Generation gates
 
 Strict generation fails when:
@@ -155,6 +160,7 @@ Strict generation fails when:
 - a source record is neither consumed nor dispositioned
 - a disposition is duplicated, lacks a reason, or contradicts consumption
 - an unresolved source record remains
+- player-facing runtime content consumes an unknown-authority or test-fixture source
 - runtime timing is unclassified
 - normalized entities retain HTML
 - reconciliation contains an error
