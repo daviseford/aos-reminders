@@ -1,0 +1,153 @@
+import type {
+  AbilityActor,
+  AbilityKind,
+  AbilityTiming,
+  GameWindow,
+  TimingPerspective,
+  TurnPhaseId,
+  UsagePeriod,
+  UsageScope,
+} from '../domain'
+import type { NormalizationDiagnostic } from './diagnostics'
+import { normalizeSourceText } from './text'
+
+export interface TimingParseOptions {
+  abilityKind: AbilityKind
+  actor: AbilityActor
+}
+
+export interface TimingParseResult {
+  timings: AbilityTiming[]
+  diagnostics: NormalizationDiagnostic[]
+}
+
+const PHASE_PATTERNS: Array<[TurnPhaseId, RegExp]> = [
+  ['start-of-turn', /\bstart of (?:the )?turn(?: phase)?\b/i],
+  ['hero', /\bhero phase\b/i],
+  ['movement', /\bmovement phase\b/i],
+  ['shooting', /\bshooting phase\b/i],
+  ['charge', /\bcharge phase\b/i],
+  ['combat', /\bcombat phase\b/i],
+  ['end-of-turn', /\bend of (?:the )?turn(?: phase)?\b/i],
+]
+
+const PERSPECTIVE_WINDOW_PATTERN =
+  'deployment(?: phase)?|start of (?:the )?battle(?: round)?|end of (?:the )?battle(?: round)?|' +
+  'start of (?:the )?turn(?: phase)?|hero phase|movement phase|shooting phase|charge phase|' +
+  'combat phase|end of (?:the )?turn(?: phase)?'
+
+const usageScopeFromActor = (actor: AbilityActor): UsageScope => {
+  if (actor === 'army') return 'army'
+  if (actor === 'player') return 'player'
+  return 'unit'
+}
+
+const findPerspective = (
+  value: string,
+  diagnostics: NormalizationDiagnostic[]
+): TimingPerspective => {
+  const perspectives = [
+    [new RegExp(`\\byour\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))`, 'i'), 'your'],
+    [new RegExp(`\\benemy\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))`, 'i'), 'enemy'],
+    [new RegExp(`\\bany\\b(?=[^.!;\\n]{0,40}(?:${PERSPECTIVE_WINDOW_PATTERN}))`, 'i'), 'any'],
+  ]
+    .filter(([pattern]) => (pattern as RegExp).test(value))
+    .map(([, perspective]) => perspective as TimingPerspective)
+
+  if (perspectives.length > 1) {
+    diagnostics.push({
+      code: 'conflicting-perspective',
+      severity: 'error',
+      message: `Timing text contains multiple perspectives: ${perspectives.join(', ')}`,
+    })
+    return 'neutral'
+  }
+
+  return perspectives[0] ?? 'neutral'
+}
+
+const findWindows = (value: string, abilityKind: AbilityKind): GameWindow[] => {
+  if (abilityKind === 'passive' || /\bpassive\b/i.test(value)) return [{ kind: 'always' }]
+
+  const windows: GameWindow[] = []
+  if (/\bdeployment(?: phase)?\b/i.test(value)) windows.push({ kind: 'deployment' })
+  if (/\bstart of (?:the )?battle round\b/i.test(value)) {
+    windows.push({ kind: 'battle-round-start' })
+  }
+  if (/\bend of (?:the )?battle round\b/i.test(value)) {
+    windows.push({ kind: 'battle-round-end' })
+  }
+  if (/\bstart of (?:the )?battle(?! round)\b/i.test(value)) windows.push({ kind: 'battle-start' })
+  if (/\bend of (?:the )?battle(?! round)\b/i.test(value)) windows.push({ kind: 'battle-end' })
+
+  PHASE_PATTERNS.forEach(([phase, pattern]) => {
+    if (pattern.test(value)) windows.push({ kind: 'turn-phase', phase })
+  })
+
+  return windows
+}
+
+const findUsage = (
+  value: string,
+  actor: AbilityActor
+): AbilityTiming['usage'] | undefined => {
+  const match = value.match(/\bonce per (battle round|phase|turn|battle)\b/i)
+  if (!match) return undefined
+
+  const periodLookup: Record<string, UsagePeriod> = {
+    phase: 'phase',
+    turn: 'turn',
+    'battle round': 'battle-round',
+    battle: 'battle',
+  }
+
+  return {
+    limit: 1,
+    period: periodLookup[match[1].toLowerCase()],
+    scope: /\(\s*army\s*\)/i.test(value) ? 'army' : usageScopeFromActor(actor),
+  }
+}
+
+export const parseTiming = (source: string, options: TimingParseOptions): TimingParseResult => {
+  const normalized = normalizeSourceText(source)
+  const diagnostics = [...normalized.diagnostics]
+  const parsingText = normalized.text.replace(/%[A-Za-z0-9_-]+/g, ' ')
+  const windows = findWindows(parsingText, options.abilityKind)
+  let window: GameWindow
+
+  if (windows.length === 0) {
+    window = { kind: 'unknown' }
+    diagnostics.push({
+      code: 'unknown-timing',
+      severity: 'error',
+      message: `Could not classify timing text: ${normalized.text || '(empty)'}`,
+    })
+  } else if (windows.length > 1) {
+    window = { kind: 'unknown' }
+    diagnostics.push({
+      code: 'conflicting-window',
+      severity: 'error',
+      message: `Timing text contains more than one game window: ${normalized.text}`,
+    })
+  } else {
+    window = windows[0]
+  }
+
+  const timing: AbilityTiming = {
+    kind: options.abilityKind,
+    window,
+    perspective: findPerspective(parsingText, diagnostics),
+    raw: normalized.text,
+  }
+
+  if (/\bstrike[\s-]*first\b/i.test(parsingText)) timing.priority = 'strike-first'
+  if (/\bstrike[\s-]*last\b/i.test(parsingText)) timing.priority = 'strike-last'
+
+  const usage = findUsage(parsingText, options.actor)
+  if (usage) timing.usage = usage
+
+  return {
+    timings: [timing],
+    diagnostics,
+  }
+}
