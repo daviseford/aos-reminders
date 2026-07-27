@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "records": [
+    {
+      "id": "defensive-reflex",
+      "name": "Defensive Reflex",
+      "timing": "Enemy Shooting Phase",
+      "kind": "reaction",
+      "trigger": "An enemy unit declares a SHOOT ability that targets this unit.",
+      "summary": "Resolve this defensive reaction before the triggering attacks."
+    },
+    {
+      "id": "unclassified-thunder",
+      "name": "Thunder Answers",
+      "timing": "When the thunder answers",
+      "kind": "active",
+      "summary": "This deliberately unknown timing belongs in the audit report, not runtime data."
+    }
+  ]
+}
