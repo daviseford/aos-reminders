@@ -55,7 +55,6 @@ const PACKET_SHARD_SIZE = 250
 const MAX_EXCERPT_LENGTH = 1_200
 const REQUIRED_HIGH_RISK_COHORTS = [
   'high-risk:policy-or-override',
-  'high-risk:identity-alias-or-rename',
   'high-risk:reaction',
   'high-risk:phase-timing-conflict',
   'high-risk:unknown-or-incomplete',
@@ -69,6 +68,8 @@ const REQUIRED_HIGH_RISK_COHORTS = [
   'high-risk:context-boundary:legends',
   'high-risk:context-boundary:historical',
 ] as const
+
+export const identityAliasesRequireAdversarialReview = (aliasCount: number): boolean => aliasCount > 1
 
 export const assertReviewCacheComplete = async (
   manifest: ArtifactManifest,
@@ -368,11 +369,12 @@ const riskCohorts = (
   ) {
     cohorts.push('high-risk:reaction')
   }
-  if (entities.some(entity => (identitiesByEntity.get(entity.id)?.aliases.length ?? 0) > 0)) {
+  if (
+    entities.some(entity =>
+      identityAliasesRequireAdversarialReview(identitiesByEntity.get(entity.id)?.aliases.length ?? 0)
+    )
+  ) {
     cohorts.push('high-risk:identity-alias-or-rename')
-  }
-  if (entities.some(entity => (identitiesByEntity.get(entity.id)?.aliases.length ?? 0) > 1)) {
-    cohorts.push('high-risk:ambiguous-identity-alias-rename')
   }
   const artifactById = new Map(catalog.sourceArtifacts.map(artifact => [artifact.id, artifact]))
   const sourceRecordById = new Map(catalog.sourceRecords.map(record => [record.id, record]))

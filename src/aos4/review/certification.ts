@@ -21,7 +21,12 @@ import {
   type ReviewerResult,
 } from './records'
 import { ReviewValidationError, validateReviewLedger, type ReviewValidationIssue } from './findings'
-import type { ReviewCandidateCategory, ReviewPacketIndexEntry, ReviewPacketSafeIndex } from './packets'
+import {
+  createHumanSampleManifest,
+  type ReviewCandidateCategory,
+  type ReviewPacketIndexEntry,
+  type ReviewPacketSafeIndex,
+} from './packets'
 
 const SHA256_PATTERN = /^[0-9a-f]{64}$/i
 const ISO_INSTANT_PATTERN = /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d{3})?Z$/
@@ -44,6 +49,7 @@ export const REQUIRED_CERTIFICATION_INPUTS = [
   'review-verifications',
   'review-signoffs',
   'source-inventory',
+  'human-sample',
 ] as const
 export const REQUIRED_CERTIFICATION_INPUT_NAMES = REQUIRED_CERTIFICATION_INPUTS
 
@@ -319,6 +325,8 @@ const indexIssues = (index: ReviewPacketSafeIndex): CertificationIssue[] => {
       typeof entry.calibration === 'boolean' &&
       typeof entry.countsTowardCoverage === 'boolean' &&
       typeof entry.humanSample === 'boolean' &&
+      typeof entry.projectsToRuntime === 'boolean' &&
+      isChecksum(entry.samplingMetadataChecksum) &&
       entry.calibration !== entry.countsTowardCoverage
     if (!valid) {
       issues.push(issue('invalid-review-index', path, 'Review index entry is malformed'))
@@ -388,6 +396,17 @@ const indexIssues = (index: ReviewPacketSafeIndex): CertificationIssue[] => {
         'invalid-review-index',
         'index.coverage',
         'Faction/context or high-risk coverage metadata is malformed'
+      )
+    )
+  }
+  try {
+    createHumanSampleManifest(index)
+  } catch (error) {
+    issues.push(
+      issue(
+        'invalid-review-index',
+        'index.coverage.humanSample',
+        error instanceof Error ? error.message : 'Human sample coverage metadata is malformed'
       )
     )
   }

@@ -13,7 +13,11 @@ import {
   type SourceInventory,
 } from './certification'
 import { parseReviewLedgerSupplement, validateReviewLedger } from './findings'
-import type { ReviewPacketSafeIndex } from './packets'
+import {
+  assertReviewIndexMatchesPacketPairs,
+  createHumanSampleManifest,
+  type ReviewPacketSafeIndex,
+} from './packets'
 import {
   assertCreateOnlyDirectoryComplete,
   loadReviewPacketPairs,
@@ -378,44 +382,6 @@ const rubricDefinition = (): ReviewRubricDefinition => ({
     'Only minor limitations that cannot mislead runtime game meaning may be accepted, and each requires explicit human sign-off.',
 })
 
-const humanSample = (index: ReviewPacketSafeIndex) => {
-  const entries = index.entries.filter(entry => entry.humanSample)
-  const factionContextStrata = Array.from(
-    new Set(
-      entries.flatMap(entry =>
-        entry.factionIds.flatMap(factionId =>
-          entry.rulesContextIds.map(rulesContextId => `${factionId}|${rulesContextId}`)
-        )
-      )
-    )
-  ).sort()
-  const highRiskCohorts = Array.from(
-    new Set(
-      entries.flatMap(entry =>
-        entry.cohortIds.filter(cohort => index.coverage.highRiskCohorts.includes(cohort))
-      )
-    )
-  ).sort()
-  if (
-    !index.coverage.factionContextStrata.every(stratum => factionContextStrata.includes(stratum)) ||
-    !index.coverage.highRiskCohorts.every(cohort => highRiskCohorts.includes(cohort))
-  ) {
-    throw new Error('Human sample does not cover every required faction/context and high-risk cohort')
-  }
-  return {
-    schemaVersion: 1,
-    revision: index.revision,
-    protocolVersion: index.protocolVersion,
-    rubricVersion: index.rubricVersion,
-    rationale:
-      'Deterministic stratified sample covering every faction/context stratum and every required high-risk cohort; no item was selected from its generated outcome.',
-    sampleSize: entries.length,
-    factionContextStrata,
-    highRiskCohorts,
-    entries,
-  }
-}
-
 const textInput = (name: string, filePath: string, content: string): CertificationInput => ({
   name,
   path: filePath,
@@ -506,6 +472,7 @@ export const runCertificationPreparation = async (
   ) {
     throw new Error('Review index, source inventory, protocol, rubric, or revision do not match')
   }
+  assertReviewIndexMatchesPacketPairs(index, pairs)
   const machineLedger = await loadAdversarialLedger(reviewOutput, index.revision)
   const humanLedger = humanLedgerPath
     ? parseReviewLedgerSupplement(await readJson<unknown>(humanLedgerPath))
@@ -537,7 +504,7 @@ export const runCertificationPreparation = async (
     'review-verifications': ledger.verifications,
     'review-signoffs': ledger.signoffs,
     'source-inventory': inventory,
-    'human-sample': humanSample(index),
+    'human-sample': createHumanSampleManifest(index),
   } as const
   const outputRelative = repositoryPath(resolvedRoot, output)
   const generatedTexts = new Map<string, string>([

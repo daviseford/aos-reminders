@@ -8,8 +8,10 @@ import {
   assertCalibrationControlOutcomes,
   assertInterspersedCalibrationControls,
   assertReviewCacheComplete,
+  assertReviewIndexMatchesPacketPairs,
   createComparisonTask,
   createExternalReviewExport,
+  createHumanSampleManifest,
   createReviewAssignment,
   createReviewFinding,
   loadReviewPacketPairs,
@@ -27,7 +29,7 @@ import {
   type ReviewPacketCandidate,
   type ReviewerResult,
 } from '../../aos4/review'
-import { pageExcerpt } from '../../aos4/review/packetCommand'
+import { identityAliasesRequireAdversarialReview, pageExcerpt } from '../../aos4/review/packetCommand'
 import { artifactId, factionId, rulesContextId, sourceRecordId } from '../../aos4/domain'
 
 const SOURCE_CHECKSUM = 'a'.repeat(64)
@@ -40,7 +42,7 @@ const FACTION_B = factionId('10000000-0000-4000-8000-000000000002')
 const candidate = (key: string, overrides: Partial<ReviewPacketCandidate> = {}): ReviewPacketCandidate => ({
   key,
   category: 'source-record',
-  cohortIds: ['secondary-semantic'],
+  cohortIds: ['secondary-semantic', 'source-kind:warscroll'],
   factionIds: [FACTION_A],
   rulesContextIds: [CONTEXT_A],
   independentlyDerivable: true,
@@ -57,7 +59,7 @@ const candidate = (key: string, overrides: Partial<ReviewPacketCandidate> = {}):
   ],
   generatedDestinations: [
     {
-      path: 'data/aos4/catalog/catalog.json',
+      path: 'src/aos4/generated/corpus/runtime.json',
       field: 'attacks',
       value: 2,
     },
@@ -109,6 +111,11 @@ const prepare = (candidates: ReviewPacketCandidate[]) =>
   })
 
 describe('AoS 4 review packet preparation', () => {
+  it('does not classify a required source locator as an identity rename', () => {
+    expect(identityAliasesRequireAdversarialReview(1)).toBe(false)
+    expect(identityAliasesRequireAdversarialReview(2)).toBe(true)
+  })
+
   it('retains every matching official row when a PDF page repeats a fragmented name', () => {
     const prefix = `War Hydra Any Monster ${'unrelated '.repeat(200)}`
     const excerpt = pageExcerpt(`${prefix}Wa r Hyd ra 1 170 Da e m o n Cavalry 120 Ã— 92mm`, 'War Hydra')
@@ -196,6 +203,121 @@ describe('AoS 4 review packet preparation', () => {
       ])
     )
     expect(sampled.some(entry => entry.cohortIds.includes('high-risk:reaction'))).toBe(true)
+  })
+
+  it('uses narrow faction-specific runtime evidence before shared or global evidence', () => {
+    const prepared = prepare([
+      candidate('global', { factionIds: [FACTION_A, FACTION_B] }),
+      candidate('exact-a'),
+      candidate('exact-b', { factionIds: [FACTION_B] }),
+    ])
+    const selections = prepared.safeIndex.coverage.humanSample.factionContextSelections
+
+    expect(selections).toEqual([
+      {
+        stratum: `${FACTION_A}|${CONTEXT_A}`,
+        selectedCandidateKey: 'exact-a',
+        factionScope: 1,
+        rulesContextScope: 1,
+      },
+      {
+        stratum: `${FACTION_B}|${CONTEXT_A}`,
+        selectedCandidateKey: 'exact-b',
+        factionScope: 1,
+        rulesContextScope: 1,
+      },
+    ])
+    expect(prepared.safeIndex.coverage.humanSample.factionContextFallbacks).toEqual([])
+
+    const tampered = structuredClone(prepared.safeIndex)
+    tampered.entries.find(entry => entry.candidateKey === 'exact-a')!.humanSample = false
+    tampered.entries.find(entry => entry.candidateKey === 'global')!.humanSample = true
+    expect(() => createHumanSampleManifest(tampered)).toThrow(
+      'Human sample entries do not match the exact deterministic selection'
+    )
+  })
+
+  it('rejects an equal-scope sample substitution even when its rationale is updated', () => {
+    const prepared = prepare(
+      Array.from({ length: 10 }, (_, index) => candidate(`equal-scope-${String(index).padStart(2, '0')}`))
+    )
+    const factionSelection = prepared.safeIndex.coverage.humanSample.factionContextSelections[0]
+    const replacement = prepared.safeIndex.entries.find(
+      entry =>
+        !entry.humanSample &&
+        entry.factionIds.length === factionSelection.factionScope &&
+        entry.rulesContextIds.length === factionSelection.rulesContextScope
+    )!
+    expect(replacement).toBeDefined()
+
+    const tampered = structuredClone(prepared.safeIndex)
+    tampered.entries.find(
+      entry => entry.candidateKey === factionSelection.selectedCandidateKey
+    )!.humanSample = false
+    tampered.entries.find(entry => entry.candidateKey === replacement.candidateKey)!.humanSample = true
+    tampered.coverage.humanSample.factionContextSelections[0].selectedCandidateKey = replacement.candidateKey
+
+    expect(() => createHumanSampleManifest(tampered)).toThrow(
+      'Human sample coverage metadata does not match deterministic reconstruction'
+    )
+  })
+
+  it('binds source-to-runtime sampling metadata to the packet pair', () => {
+    const prepared = prepare([candidate('runtime-bound')])
+    expect(() =>
+      assertReviewIndexMatchesPacketPairs(prepared.safeIndex, prepared.workspace.pairs)
+    ).not.toThrow()
+
+    const tampered = structuredClone(prepared.safeIndex)
+    tampered.entries.find(entry => entry.candidateKey === 'runtime-bound')!.projectsToRuntime = false
+    expect(() => createHumanSampleManifest(tampered)).toThrow(
+      'Review index sampling metadata checksum is stale'
+    )
+    expect(() => assertReviewIndexMatchesPacketPairs(tampered, prepared.workspace.pairs)).toThrow(
+      'Review index sampling metadata differs from packet semantics'
+    )
+  })
+
+  it('samples every populated category, authority class, and source kind', () => {
+    const officialEvidence = candidate('official-evidence').sourceEvidence.map(evidence => ({
+      ...evidence,
+      sourceRecordId: sourceRecordId('games-workshop', 'official:page:1'),
+      authority: 'official' as const,
+    }))
+    const prepared = prepare([
+      candidate('source'),
+      candidate('publication', {
+        cohortIds: ['source-authority:official', 'source-kind:publication'],
+        sourceEvidence: officialEvidence,
+      }),
+      candidate('official', {
+        category: 'official-record',
+        cohortIds: ['official-fact', 'official-status:effective', 'official-disposition:applied-to-runtime'],
+        sourceEvidence: officialEvidence,
+      }),
+      candidate('reconciliation', { category: 'reconciliation-discrepancy' }),
+      candidate('profile-only', { category: 'profile-only-fact' }),
+      candidate('ignored', { category: 'ignored-record' }),
+      candidate('golden', { category: 'golden-truth' }),
+    ])
+
+    expect(prepared.safeIndex.coverage.humanSample).toMatchObject({
+      categories: [
+        'golden-truth',
+        'ignored-record',
+        'official-record',
+        'profile-only-fact',
+        'reconciliation-discrepancy',
+        'source-record',
+      ],
+      authorityClasses: ['official', 'secondary'],
+      sourceKindCohorts: ['source-kind:publication', 'source-kind:warscroll'],
+      officialCohorts: ['official-disposition:applied-to-runtime', 'official-status:effective'],
+    })
+    const sampled = prepared.safeIndex.entries.filter(entry => entry.humanSample)
+    expect(new Set(sampled.map(entry => entry.category))).toEqual(
+      new Set(prepared.safeIndex.coverage.humanSample.categories)
+    )
   })
 
   it('keeps calibration and blind controls outside live coverage', () => {
@@ -296,7 +418,7 @@ describe('AoS 4 review packet preparation', () => {
         requiredHighRiskCohorts: ['high-risk:reaction'],
         calibrationCases: [],
       })
-    ).toThrow('Required faction/context review strata are missing')
+    ).toThrow('No source-to-runtime human sample candidate exists')
 
     expect(() =>
       prepareReviewPackets({

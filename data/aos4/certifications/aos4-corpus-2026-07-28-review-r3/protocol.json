@@ -1,0 +1,8 @@
+{
+  "blindInterpretationRequired": true,
+  "evidenceHandling": "untrusted-source-data",
+  "promptVersion": "aos4-review-prompt/v1",
+  "protocolVersion": "aos4-review/v1",
+  "rubricVersion": "aos4-rubric/v1",
+  "schemaVersion": 1
+}

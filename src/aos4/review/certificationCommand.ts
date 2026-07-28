@@ -18,7 +18,9 @@ import {
 } from './certification'
 import { parseCertificationManifest, parseReviewLedger, validateReviewLedger } from './findings'
 import {
+  assertReviewIndexMatchesPacketPairs,
   ignoredRecordCandidateKey,
+  createHumanSampleManifest,
   officialRecordCandidateKey,
   profileOnlyFactCandidateKey,
   reconciliationDiscrepancyCandidateKey,
@@ -302,6 +304,33 @@ export const boundReviewPopulationIssues = (
         `${expectedIgnoredChecksum ?? 'missing'}`,
     })
   }
+  const expectedFactionContextStrata = Array.from(
+    new Set(
+      catalog.entities
+        .filter(entity => entity.kind === 'faction')
+        .flatMap(entity => entity.rulesContextIds.map(contextId => `${entity.id}|${contextId}`))
+    )
+  ).sort((left, right) => left.localeCompare(right))
+  const actualFactionContextStrata = Array.from(new Set(index.coverage.factionContextStrata)).sort(
+    (left, right) => left.localeCompare(right)
+  )
+  const expectedFactionContextSet = new Set(expectedFactionContextStrata)
+  const actualFactionContextSet = new Set(actualFactionContextStrata)
+  if (
+    expectedFactionContextStrata.length !== actualFactionContextStrata.length ||
+    expectedFactionContextStrata.some(stratum => !actualFactionContextSet.has(stratum)) ||
+    actualFactionContextStrata.some(stratum => !expectedFactionContextSet.has(stratum))
+  ) {
+    issues.push({
+      code: 'invalid-review-index',
+      state: 'blocked',
+      path: 'index.population.faction-context',
+      subject: 'index.population.faction-context',
+      message:
+        'Faction/context sampling population differs from the bound catalog: ' +
+        `${actualFactionContextStrata.length}/${expectedFactionContextStrata.length}`,
+    })
+  }
   return issues
 }
 
@@ -347,6 +376,19 @@ export const runCertificationCheck = async (
   const protocol = namedJson<ProtocolFile>('review-protocol', manifest.inputs, files)
   const rubric = namedJson<RubricFile>('review-rubric', manifest.inputs, files)
   const inventoryFile = namedJson<SourceInventory>('source-inventory', manifest.inputs, files)
+  const humanSampleFile = namedJson<unknown>('human-sample', manifest.inputs, files)
+  const humanSampleIssues: CertificationIssue[] =
+    stableCompactJson(humanSampleFile) === stableCompactJson(createHumanSampleManifest(index))
+      ? []
+      : [
+          {
+            code: 'stale-input',
+            path: 'manifest.inputs.human-sample',
+            message: 'Checked-in human sample does not match the review index and sampling policy',
+            state: 'stale',
+            subject: 'human-sample',
+          },
+        ]
   const inventoryInput = currentInputs.find(value => value.name === 'source-inventory')
   if (!inventoryInput) throw new Error('Certification source inventory binding is missing')
   const inventoryBinding: CertificationInventoryBinding = {
@@ -397,13 +439,24 @@ export const runCertificationCheck = async (
       subject: 'summary.json',
     })
   }
-  const issues = [...evaluation.issues, ...populationIssues, ...manifestIssues, ...summaryIssues].sort(
+  const issues = [
+    ...evaluation.issues,
+    ...populationIssues,
+    ...humanSampleIssues,
+    ...manifestIssues,
+    ...summaryIssues,
+  ].sort(
     (left, right) =>
       left.path.localeCompare(right.path) ||
       left.code.localeCompare(right.code) ||
       left.message.localeCompare(right.message)
   )
-  const status = combinedStatus(evaluation.status, [...populationIssues, ...manifestIssues, ...summaryIssues])
+  const status = combinedStatus(evaluation.status, [
+    ...populationIssues,
+    ...humanSampleIssues,
+    ...manifestIssues,
+    ...summaryIssues,
+  ])
   const summary = { ...expectedCommittedSummary, status, issues }
   const humanPending = Boolean(arguments_.allowHumanPending) && hasOnlyHumanPendingCertificationIssues(issues)
 
@@ -417,6 +470,7 @@ export const runCertificationCheck = async (
     const pairs = await loadReviewPacketPairs(
       repoPath(repoRoot, arguments_.workspacePath ?? DEFAULT_WORKSPACE)
     )
+    assertReviewIndexMatchesPacketPairs(index, pairs)
     assertAgentBlindDerivations(ledger, pairs)
     const packets = pairs.flatMap(pair => [pair.blindPacket, pair.comparisonPacket])
     const fullLedgerIssues = validateReviewLedger(ledger, packets)

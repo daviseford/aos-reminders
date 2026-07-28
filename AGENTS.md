@@ -105,7 +105,7 @@ has no unresolved timing, dangling reference, unsafe HTML, duplicate identity, s
 conflict, or unreviewed source diagnostic.
 
 Phase 1 is not certified yet. The checksum-bound review attempt has complete machine coverage and
-source inventories but remains blocked on 144 genuine human blind/comparison reviews and matching
+source inventories but remains blocked on 169 genuine human blind/comparison reviews and matching
 sign-off. Do not create the current-certification pointer, claim Phase 1 completion, or begin
 Phase 2 package modernization until `yarn data:aos4:certify` passes. See
 `docs/data/aos4-accuracy-review.md`.

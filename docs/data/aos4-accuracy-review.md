@@ -25,16 +25,22 @@ snapshot. Its machine review is complete:
 | Superseded source-record dispositions | 18,897/18,897 |
 | Live review pairs | 39,723/39,723 |
 | Agent outcomes | 79,446 pass; 0 finding; 0 cannot-verify |
-| Required faction/context strata | 140/140 |
-| Required high-risk cohorts | 17/17 |
-| Deterministic human sample | 144 pairs |
+| Supported faction/context strata | 129/129 |
+| Populated high-risk cohorts | 16/16 |
+| Deterministic human sample | 169 pairs |
 
 The independent source inventory was observed at `2026-07-28T18:21:35.398Z`: 241 entries matched
 accepted checksums and 9 discovery entries received explicit non-material dispositions.
 
-The final certificate remains blocked until a named human AoS reviewer completes and signs all 144
+The final certificate remains blocked until a named human AoS reviewer completes and signs all 169
 sample pairs. Do not describe Phase 1 as certified, enable the CI certificate gate, or begin Phase
 2 implementation before that ledger produces `status: "pass"`.
+
+The 129 faction/context strata are the combinations declared by each faction's catalog
+applicability, not a Cartesian product. The previous 140 count was inflated by global rules that
+were incorrectly allowed to stand in for unsupported or faction-specific strata. Every selected
+stratum now uses faction-specific source evidence that projects to runtime; shared/global faction
+records cannot satisfy it.
 
 These results are evidence-coverage counts, not a statistical accuracy percentage. Official
 reference PDF pages prove inventory and provenance unless a structured fact is extracted from
@@ -148,7 +154,7 @@ yarn data:aos4:review:human start `
 The `start` command fails unless the reviewer finds every planted material defect, proposes no
 unsupported correction, and returns `cannot-verify` for the insufficient-evidence case. Only a
 passing calibration creates `sample-blind/tasks.json` and
-`sample-blind/results.template.json` for the 144 live sample pairs. Reviewers may omit finding `id`
+`sample-blind/results.template.json` for the 169 live sample pairs. Reviewers may omit finding `id`
 and `schemaVersion` fields from entered result files; the command derives those structural fields
 from the finding content before validation.
 

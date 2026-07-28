@@ -12,6 +12,7 @@ import {
   boundReviewPopulationIssues,
   checksumCertificationText,
   checksumReviewRecord,
+  createHumanSampleManifest,
   createCertificationManifest,
   createReviewAssignment,
   createReviewFinding,
@@ -53,6 +54,16 @@ const ACCEPTED_ARTIFACT_CHECKSUM = digest('accepted-artifact')
 const BLIND_REVIEWED_AT = '2026-07-28T12:00:00.000Z'
 const REVIEWED_AT = '2026-07-28T12:01:00.000Z'
 const CALIBRATED_AT = '2026-07-28T11:00:00.000Z'
+const SAMPLING_METADATA_CHECKSUM = checksumReviewRecord({
+  key: 'source-record:fixture',
+  category: 'source-record',
+  cohortIds: ['high-risk:reaction'],
+  authorityClasses: ['secondary'],
+  factionIds: [FACTION_ID],
+  rulesContextIds: [CONTEXT_ID],
+  projectsToRuntime: true,
+})
+const SAMPLING_METADATA_COHORT = `sampling-metadata:sha256:${SAMPLING_METADATA_CHECKSUM}`
 
 const agentReviewer: ReviewerMetadata = {
   id: 'adversarial-agent',
@@ -74,7 +85,7 @@ const packet = (blind: boolean): ReviewPacket =>
   createReviewPacket({
     protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
     rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
-    cohortIds: ['high-risk:reaction'],
+    cohortIds: ['high-risk:reaction', SAMPLING_METADATA_COHORT],
     sourceEvidence: [
       {
         sourceRecordId: SOURCE_RECORD_ID,
@@ -116,7 +127,8 @@ const reviewIndex = (): ReviewPacketSafeIndex => ({
       blindPacketChecksum: BLIND_CHECKSUM,
       comparisonPacketId: COMPARISON_PACKET.id,
       comparisonPacketChecksum: COMPARISON_CHECKSUM,
-      cohortIds: ['high-risk:reaction'],
+      cohortIds: ['high-risk:reaction', SAMPLING_METADATA_COHORT],
+      samplingMetadataChecksum: SAMPLING_METADATA_CHECKSUM,
       authorityClasses: ['secondary'],
       factionIds: [FACTION_ID],
       rulesContextIds: [CONTEXT_ID],
@@ -125,6 +137,7 @@ const reviewIndex = (): ReviewPacketSafeIndex => ({
       calibration: false,
       countsTowardCoverage: true,
       humanSample: true,
+      projectsToRuntime: true,
     },
   ],
   coverage: {
@@ -135,6 +148,24 @@ const reviewIndex = (): ReviewPacketSafeIndex => ({
     ignoredRecords: { assigned: 0, expected: 0 },
     factionContextStrata: [`${FACTION_ID}|${CONTEXT_ID}`],
     highRiskCohorts: ['high-risk:reaction'],
+    humanSample: {
+      selectionPolicy: 'aos4-human-sample/v2',
+      categories: ['source-record'],
+      authorityClasses: ['secondary'],
+      sourceKindCohorts: [],
+      officialCohorts: [],
+      factionContextStrata: [`${FACTION_ID}|${CONTEXT_ID}`],
+      highRiskCohorts: ['high-risk:reaction'],
+      factionContextSelections: [
+        {
+          stratum: `${FACTION_ID}|${CONTEXT_ID}`,
+          selectedCandidateKey: 'source-record:fixture',
+          factionScope: 1,
+          rulesContextScope: 1,
+        },
+      ],
+      factionContextFallbacks: [],
+    },
   },
 })
 
@@ -593,6 +624,18 @@ describe('AoS 4 certification evaluation', () => {
     })
   })
 
+  it('rejects human-sample coverage metadata that omits a populated stratum', () => {
+    const input = passingInput()
+    input.index.coverage.humanSample.categories = []
+
+    expect(evaluateCertification(input).issues).toContainEqual(
+      expect.objectContaining({
+        code: 'invalid-review-index',
+        path: 'index.coverage.humanSample',
+      })
+    )
+  })
+
   it('blocks partial blind/comparison imports', () => {
     const input = passingInput()
     input.ledger.results = input.ledger.results.filter(
@@ -826,6 +869,13 @@ describe('AoS 4 certification evaluation', () => {
         },
         'audit-catalog': {
           sourceRecords: [{ id: 'fixture' }],
+          entities: [
+            {
+              id: FACTION_ID,
+              kind: 'faction',
+              rulesContextIds: [CONTEXT_ID],
+            },
+          ],
         },
         'official-ledger': {
           records: [],
@@ -870,6 +920,7 @@ describe('AoS 4 certification evaluation', () => {
           rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
         },
         'source-inventory': input.inventory,
+        'human-sample': createHumanSampleManifest(input.index),
       }
       const bindings: CertificationInput[] = []
       for (const name of [

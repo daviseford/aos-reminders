@@ -1,0 +1,14 @@
+{
+  "acceptedLimitationPolicy": "Only minor limitations that cannot mislead runtime game meaning may be accepted, and each requires explicit human sign-off.",
+  "allowedOutcomes": [
+    "pass",
+    "finding",
+    "cannot-verify"
+  ],
+  "materialSeverities": [
+    "blocker",
+    "major"
+  ],
+  "rubricVersion": "aos4-rubric/v1",
+  "schemaVersion": 1
+}

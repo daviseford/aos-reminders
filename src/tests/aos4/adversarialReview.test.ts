@@ -95,6 +95,7 @@ const pair = (
   })
   return {
     pairKey: 'review-pair:fixture',
+    samplingMetadataChecksum: RECORD_CHECKSUM,
     candidateKey: 'official-record:fixture',
     category: 'official-record',
     factionIds: [],
@@ -178,6 +179,7 @@ const secondaryPair = (
   })
   return {
     pairKey: 'review-pair:secondary-fixture',
+    samplingMetadataChecksum: RECORD_CHECKSUM,
     candidateKey: `source-record:${SECONDARY_SOURCE_ID}`,
     category: 'source-record',
     factionIds: [],
