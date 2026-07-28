@@ -22,7 +22,12 @@ import {
   type WahapediaHtmlReconciliation,
   type WahapediaHtmlWarscrollRecord,
 } from '../data'
-import { WAHAPEDIA_EXPORT_FILES, decodeWahapediaExports, type WahapediaExportInputs } from '../data/wahapedia'
+import {
+  WAHAPEDIA_EXPORT_FILES,
+  decodeWahapediaExports,
+  type WahapediaDecodeResult,
+  type WahapediaExportInputs,
+} from '../data/wahapedia'
 import { validateCatalog } from '../domain'
 import { buildAos4Corpus, createCorpusIdentityRegistry, type CorpusReview } from './corpus'
 import { validateIdentityRegistry, type IdentityRegistry } from './identityRegistry'
@@ -63,6 +68,25 @@ interface CorpusCommandArguments {
 interface GeneratedProduct {
   path: string
   bytes: string
+}
+
+export interface AcceptedCorpusSourceArguments {
+  acceptedManifestPath: string
+  reviewPath: string
+  cacheDirectory: string
+}
+
+export interface AcceptedCorpusSourceData {
+  manifest: ArtifactManifest
+  review: CorpusReview
+  acceptedDecoded: WahapediaDecodeResult
+  decoded: WahapediaDecodeResult
+  officialBattleProfiles: {
+    effective: GamesWorkshopBattleProfileFact[]
+    reviewed: ReviewedOfficialBattleProfileFact[]
+  }
+  reconciliation: WahapediaHtmlReconciliation
+  officialPageTextBySourceRecordId: Map<string, string>
 }
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -375,7 +399,11 @@ const extractOfficialBattleProfileFacts = async (
   return { effective, reviewed }
 }
 
-const validateOfficialEvidence = async (review: CorpusReview, cache: FileArtifactCache): Promise<void> => {
+const validateOfficialEvidence = async (
+  review: CorpusReview,
+  cache: FileArtifactCache
+): Promise<Map<string, string>> => {
+  const pageTextBySourceRecordId = new Map<string, string>()
   for (const document of review.officialDocuments) {
     const bytes = await cache.get(document.artifact.checksum)
     if (!bytes) {
@@ -405,6 +433,9 @@ const validateOfficialEvidence = async (review: CorpusReview, cache: FileArtifac
       throw new Error(`Official evidence extraction failed for ${document.title}`)
     }
     const extractedById = new Map(extraction.document.sourceRecords.map(record => [record.id, record]))
+    const pageTextByPage = new Map(
+      extraction.document.pages.map(page => [page.page, page.text])
+    )
     document.sourceRecords.forEach(reviewedRecord => {
       const extracted = extractedById.get(reviewedRecord.id)
       if (
@@ -415,8 +446,13 @@ const validateOfficialEvidence = async (review: CorpusReview, cache: FileArtifac
       ) {
         throw new Error(`Official evidence record ${reviewedRecord.id} no longer matches ${document.title}`)
       }
+      pageTextBySourceRecordId.set(
+        reviewedRecord.id,
+        pageTextByPage.get(reviewedRecord.page) ?? ''
+      )
     })
   }
+  return pageTextBySourceRecordId
 }
 
 const checksum = (value: string): string => artifactChecksum(new TextEncoder().encode(value))
@@ -476,7 +512,9 @@ const verifyProduct = async (product: GeneratedProduct): Promise<void> => {
     }
     throw error
   }
-  if (current !== product.bytes) {
+  // Git's text checkout may materialize committed LF JSON as CRLF on Windows.
+  // Product checksums and semantic generation remain LF-normalized.
+  if (current.replaceAll('\r\n', '\n') !== product.bytes) {
     throw new Error(`Generated product has drifted: ${product.path}`)
   }
 }
@@ -534,35 +572,20 @@ export const parseCorpusCommandArguments = (arguments_: string[]): CorpusCommand
 export const generateCorpusProducts = async (
   arguments_: CorpusCommandArguments
 ): Promise<GeneratedProduct[]> => {
-  const [manifest, review] = await Promise.all([
-    loadManifest(arguments_.acceptedManifestPath),
-    loadReview(arguments_.reviewPath),
-  ])
-  validateOfficialDocuments(manifest, review)
-  const cache = new FileArtifactCache(arguments_.cacheDirectory)
-  await verifyAcceptedArtifacts(manifest, cache)
-  await validateOfficialEvidence(review, cache)
-  const decoded = decodeWahapediaExports(await loadWahapediaInputs(manifest, cache))
-  const officialBattleProfiles = await extractOfficialBattleProfileFacts(review, cache)
-  collectGarbage()
-  const wahapediaHtml = await loadWahapediaHtmlPages(manifest, review, cache)
-  collectGarbage()
-  const merged = mergeCurrentWahapediaWarscrollPages(
-    decoded.dataset,
-    wahapediaHtml.warscrolls,
-    officialBattleProfiles.effective,
-    wahapediaHtml.factions
-  )
-  validateReviewedReconciliation(review, merged.reconciliation)
-  const currentDecoded = { ...decoded, dataset: merged.dataset }
+  const {
+    review,
+    decoded,
+    officialBattleProfiles,
+    reconciliation,
+  } = await loadAcceptedCorpusSourceData(arguments_)
   const identities = arguments_.initializeIdentities
-    ? createCorpusIdentityRegistry(currentDecoded.dataset, review)
+    ? createCorpusIdentityRegistry(decoded.dataset, review)
     : await loadIdentities(arguments_.identitiesPath)
   ensureNoErrors(
     'Identity registry validation',
     validateIdentityRegistry(identities).map(issue => ({ ...issue }))
   )
-  const generated = buildAos4Corpus(currentDecoded, identities, review)
+  const generated = buildAos4Corpus(decoded, identities, review)
   ensureNoErrors('Corpus review', generated.diagnostics)
   const entityById = new Map(generated.catalog.entities.map(entity => [entity.id, entity]))
   ensureNoErrors(
@@ -598,7 +621,7 @@ export const generateCorpusProducts = async (
   const officialBattleProfileCatalog = stableJson(
     createOfficialBattleProfileCatalog(
       officialBattleProfiles.reviewed,
-      merged.reconciliation,
+      reconciliation,
       review.generatedAt
     )
   )
@@ -654,7 +677,7 @@ export const generateCorpusProducts = async (
     { path: arguments_.defaultsPath, bytes: defaults },
     {
       path: arguments_.reconciliationPath,
-      bytes: stableJson(merged.reconciliation),
+      bytes: stableJson(reconciliation),
     },
   ]
   const report = stableJson({
@@ -667,6 +690,40 @@ export const generateCorpusProducts = async (
     ),
   })
   return [...products, { path: arguments_.reportPath, bytes: report }]
+}
+
+export const loadAcceptedCorpusSourceData = async (
+  arguments_: AcceptedCorpusSourceArguments
+): Promise<AcceptedCorpusSourceData> => {
+  const [manifest, review] = await Promise.all([
+    loadManifest(arguments_.acceptedManifestPath),
+    loadReview(arguments_.reviewPath),
+  ])
+  validateOfficialDocuments(manifest, review)
+  const cache = new FileArtifactCache(arguments_.cacheDirectory)
+  await verifyAcceptedArtifacts(manifest, cache)
+  const officialPageTextBySourceRecordId = await validateOfficialEvidence(review, cache)
+  const decoded = decodeWahapediaExports(await loadWahapediaInputs(manifest, cache))
+  const officialBattleProfiles = await extractOfficialBattleProfileFacts(review, cache)
+  collectGarbage()
+  const wahapediaHtml = await loadWahapediaHtmlPages(manifest, review, cache)
+  collectGarbage()
+  const merged = mergeCurrentWahapediaWarscrollPages(
+    decoded.dataset,
+    wahapediaHtml.warscrolls,
+    officialBattleProfiles.effective,
+    wahapediaHtml.factions
+  )
+  validateReviewedReconciliation(review, merged.reconciliation)
+  return {
+    manifest,
+    review,
+    acceptedDecoded: decoded,
+    decoded: { ...decoded, dataset: merged.dataset },
+    officialBattleProfiles,
+    reconciliation: merged.reconciliation,
+    officialPageTextBySourceRecordId,
+  }
 }
 
 const run = async (): Promise<void> => {
