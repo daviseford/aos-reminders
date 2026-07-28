@@ -297,7 +297,7 @@ It lost on control:
 - **Pagination varies by browser.** Chrome, Firefox, and Safari break differently, so the result is
   not reproducible.
 
-If it is ever wanted back, it was `printView.tsx` and `print.scss` in commit `0fddbdf7`, and it read
+If it is ever wanted back, it was `printView.tsx` and `print.scss` in PR #1722, and it read
 the same `PrintDocument` that ships today.
 
 ### Using it
