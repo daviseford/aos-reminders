@@ -73,11 +73,50 @@ package are removable when `target` rises to es2020 (U2). `core-js` is imported 
 
 ## Live-site screenshot set (continuity anchor for U3/U6/U7/U9)
 
-Captured from `https://aosreminders.com` 2026-07-28 via agent-browser, stored in
-`docs/data/phase2-baseline/`:
+Captured from `https://aosreminders.com` 2026-07-28 via agent-browser, full-page (not
+viewport-cropped), stored in `docs/data/phase2-baseline/`:
 
-`desktop-{home,faq,subscribe,join,redeem}.png` at 1280×800;
-`mobile-{home,faq,subscribe,join,redeem}.png` at 390×844.
+| Route | Desktop (1280 wide) | Mobile (390 wide) |
+|---|---|---|
+| `/` Home | 1265×3436 | 375×2146 |
+| `/faq` | 1265×924 | 375×1472 |
+| `/subscribe` | 1280×2303 | 390×3498 |
+| `/join` | 1280×800 | 390×844 |
+| `/redeem` | 1280×800 | 390×844 |
 
-Not captured: `Profile` (requires an authenticated session). Capture it with a logged-in browser
-before U6's comparison, or compare Profile against a local signed-in render.
+Join and Redeem equal the viewport because those pages are shorter than one screen, and both were
+captured in their **paramless empty state** (no gift or invite token). A parameterized capture is
+needed if U6 touches those flows' populated states.
+
+Not captured: `Profile` — it requires an authenticated session, and it is the most account-shell-
+dense route in the app. Capture it against a logged-in browser before U6's comparison rather than
+treating this set as complete.
+
+### What these screenshots can and cannot anchor
+
+**The live site is the AoS 3 application, and it is explicitly retired.** Home carries a banner
+reading *"AoS Reminders will **not** be updated to AoS 4th Edition. This website is no longer
+actively maintained."*, and the content beneath it is AoS 3 throughout: Greatfrays, Battalions,
+Monstrous Rampages, Command Traits, Artifacts, Prayers, Spells, Battle Tactics, Endless Spells,
+Incarnates, Triumphs, plus `Download`/`Import List` actions for importers the cutover removed. The
+Subscribe page likewise still advertises Azyr, Warscroll Builder, Battlescribe, and Warhammer App
+imports.
+
+So this set anchors **chrome, not content**:
+
+- **Anchors (a delta here is a defect):** dark-blue masthead and nav, `Subscribe`/`FAQ`/`Log in`
+  affordances, page typography and heading scale, edit/play toggle, faction selector, the teal
+  card header treatment and card geometry, button styling, footer block (PayPal, disclaimer,
+  social icons, version line), and responsive breakpoint behavior at both widths.
+- **Does not anchor (a delta here is expected):** every content group name and card, reminder
+  text, selection lists, the retirement banner (absent in AoS 4), and any copy naming AoS 3
+  importers or features.
+
+This split is what `AGENTS.md` means by "the expected exceptions are data-driven"; it is recorded
+here so U6's comparison does not chase phantom deltas across the whole card grid.
+
+### Pre-existing rendering issues (do not attribute to Phase 2)
+
+`desktop-subscribe` shows a horizontal scrollbar at 1280px — the live site overflows horizontally
+on that route today. Any Bootstrap 5 comparison should treat this as the starting condition, not a
+regression introduced by U6.
