@@ -24,7 +24,6 @@ import Toolbar from 'components/input/toolbar/toolbar'
 import Footer from 'components/page/footer'
 import { Header } from 'components/page/homeHeader'
 import PrintModal from 'components/print/printModal'
-import PrintView from 'components/print/printView'
 import { useEffect, useMemo, useState } from 'react'
 
 const loadDocument = (): Aos4ArmyDocument => {
@@ -79,8 +78,6 @@ const Home = () => {
   const [document, setDocument] = useState(loadDocument)
   const [isGameMode, setIsGameMode] = useState(false)
   const [printModalIsOpen, setPrintModalIsOpen] = useState(false)
-  const [printPresetId, setPrintPresetId] = useState<PrintPreset['id']>('compact')
-  const [printPageSize, setPrintPageSize] = useState<PrintPageSize>('a4')
   const builder = useMemo(() => createAos4BuilderViewModel(AOS4_CATALOG, document), [document])
   const reminders = useMemo(() => createAos4ReminderViewModel(AOS4_CATALOG, document), [document])
   const hiddenCount = reminders.filter(reminder => reminder.hidden).length
@@ -94,19 +91,6 @@ const Home = () => {
       }),
     [builder.warscrolls, document.name, reminders]
   )
-
-  const printPreset = useMemo(
-    () => withPageSize(presetById(printPresetId), printPageSize),
-    [printPageSize, printPresetId]
-  )
-
-  const handlePrintInBrowser = (presetId: PrintPreset['id'], pageSize: PrintPageSize) => {
-    setPrintPresetId(presetId)
-    setPrintPageSize(pageSize)
-    setPrintModalIsOpen(false)
-    // Let the print view re-render with the chosen preset before handing off to the browser.
-    window.setTimeout(() => window.print(), 0)
-  }
 
   const handleDownloadPdf = (presetId: PrintPreset['id'], pageSize: PrintPageSize, fileName: string) => {
     const preset = withPageSize(presetById(presetId), pageSize)
@@ -196,37 +180,35 @@ const Home = () => {
 
   return (
     <div>
-      <div className="PrintScreenOnly">
-        <Header
-          armyName={document.name}
-          factionName={factionName}
-          isGameMode={isGameMode}
-          onToggleGameMode={() => setIsGameMode(current => !current)}
+      <Header
+        armyName={document.name}
+        factionName={factionName}
+        isGameMode={isGameMode}
+        onToggleGameMode={() => setIsGameMode(current => !current)}
+      />
+
+      {!isGameMode && <ArmyBuilder builder={builder} onSetGroupSelections={setSelections} />}
+
+      {!isGameMode && (
+        <Toolbar
+          hiddenCount={hiddenCount}
+          onClearArmy={clearArmy}
+          onDownloadPdf={() => setPrintModalIsOpen(true)}
+          onResetArmy={() => setDocument(createDefaultAos4ArmyDocument())}
+          onShowAll={showAll}
         />
+      )}
 
-        {!isGameMode && <ArmyBuilder builder={builder} onSetGroupSelections={setSelections} />}
+      <Reminders
+        getSources={reminderSources}
+        isGameMode={isGameMode}
+        onHide={toggleReminder}
+        onNote={setReminderNote}
+        onReorder={reorderReminders}
+        reminders={reminders}
+      />
 
-        {!isGameMode && (
-          <Toolbar
-            hiddenCount={hiddenCount}
-            onClearArmy={clearArmy}
-            onPrint={() => setPrintModalIsOpen(true)}
-            onResetArmy={() => setDocument(createDefaultAos4ArmyDocument())}
-            onShowAll={showAll}
-          />
-        )}
-
-        <Reminders
-          getSources={reminderSources}
-          isGameMode={isGameMode}
-          onHide={toggleReminder}
-          onNote={setReminderNote}
-          onReorder={reorderReminders}
-          reminders={reminders}
-        />
-
-        <Footer />
-      </div>
+      <Footer />
 
       {printModalIsOpen && (
         <PrintModal
@@ -234,11 +216,8 @@ const Home = () => {
           defaultFileName={toFileName(document.name)}
           isOpen={printModalIsOpen}
           onDownloadPdf={handleDownloadPdf}
-          onPrintInBrowser={handlePrintInBrowser}
         />
       )}
-
-      <PrintView document={printDocument} pageSize={printPageSize} preset={printPreset} />
     </div>
   )
 }

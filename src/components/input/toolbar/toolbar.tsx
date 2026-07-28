@@ -1,11 +1,11 @@
 import { useTheme } from 'context/useTheme'
-import { FaPrint, FaTrash } from 'react-icons/fa'
-import { MdRefresh, MdVisibility } from 'react-icons/md'
+import { FaTrash } from 'react-icons/fa'
+import { MdFileDownload, MdRefresh, MdVisibility } from 'react-icons/md'
 
 interface ToolbarProps {
   hiddenCount: number
   onClearArmy: () => void
-  onPrint: () => void
+  onDownloadPdf: () => void
   onResetArmy: () => void
   onShowAll: () => void
 }
@@ -25,7 +25,7 @@ const ToolbarButton = ({
   )
 }
 
-const Toolbar = ({ hiddenCount, onClearArmy, onPrint, onResetArmy, onShowAll }: ToolbarProps) => (
+const Toolbar = ({ hiddenCount, onClearArmy, onDownloadPdf, onResetArmy, onShowAll }: ToolbarProps) => (
   <div className="container d-print-none">
     <div className="row justify-content-center pt-3 mx-xl-5 px-xl-5">
       <div className={buttonWrapperClass}>
@@ -41,9 +41,9 @@ const Toolbar = ({ hiddenCount, onClearArmy, onPrint, onResetArmy, onShowAll }: 
         </ToolbarButton>
       </div>
       <div className={buttonWrapperClass}>
-        <ToolbarButton onClick={onPrint}>
-          <FaPrint className="mr-2" />
-          Print Reminders
+        <ToolbarButton onClick={onDownloadPdf}>
+          <MdFileDownload className="mr-2" />
+          Download PDF
         </ToolbarButton>
       </div>
       <div className={buttonWrapperClass}>

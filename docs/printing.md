@@ -232,7 +232,9 @@ Ordered roughly by how much they hurt.
 
 ## The current implementation
 
-Two printing paths again, but they now share a model instead of duplicating content logic.
+Two approaches were built and compared: a planned PDF, and a dedicated print view driven by a CSS
+print stylesheet. **The planned PDF won and is what ships.** The CSS print view was removed; see
+[Why not the CSS print view](#why-not-the-css-print-view) for what it gave up.
 
 ```
 Aos4ReminderViewModel[] + army summary
@@ -240,19 +242,17 @@ Aos4ReminderViewModel[] + army summary
         └─ createAos4PrintDocument()      src/aos4/print/document.ts
               → PrintDocument             sections → rules → labelled paragraphs
                     │
-        ┌───────────┴────────────────────────────────┐
-        │                                            │
-   Option A: PDF                              Option B: browser print
-   planPrintLayout()   layout.ts              components/print/printView.tsx
-     → PrintPlan (positioned lines)             + css/print.scss
-   renderPrintPlanToPdf()  pdf.ts             window.print()
-     → jsPDF
+        └─ planPrintLayout()              src/aos4/print/layout.ts
+              → PrintPlan                 positioned lines, pure
+                    │
+        └─ renderPrintPlanToPdf()         src/aos4/print/pdf.ts
+              → jsPDF                     drawn, saved from the toolbar modal
 ```
 
-`PrintDocument` is presentation-neutral: no jsPDF, no DOM, no React. Both paths read it, so the two
-cannot drift in *what* they print — only in how.
+`PrintDocument` is presentation-neutral: no jsPDF, no DOM, no React. Keeping it separate from the
+layout is what makes the layout testable and would make a second renderer cheap if one is ever wanted.
 
-### Option A — planned PDF (`src/aos4/print/`)
+### Modules (`src/aos4/print/`)
 
 | File | Role |
 | --- | --- |
@@ -280,27 +280,34 @@ What changed from the legacy version:
 - **Columns are balanced** on the trailing page by binary-searching the shortest column height that
   still fits the same pages without breaking an extra rule. Full pages balance themselves.
 
-### Option B — browser print (`components/print/printView.tsx` + `css/print.scss`)
+### Why not the CSS print view
 
-A print-only DOM rendered from the same `PrintDocument`, hidden on screen and revealed by
-`@media print`, with the rest of the app hidden via `.PrintScreenOnly`. `@page` sets the sheet size
-and margins; `break-inside: avoid` on `.PrintView-rule` is what keeps a rule whole; `column-count: 2`
-gives the compact layout, balanced by the browser.
+The rejected alternative was a print-only DOM (`components/print/printView.tsx` + `css/print.scss`)
+rendered from the same `PrintDocument`, using `@page` for the sheet, `break-inside: avoid` to keep a
+rule whole, and `column-count: 2` for the compact layout. It was simpler — a component and a
+stylesheet, no measurement or pagination code — and it got real hyphenation and orphan/widow control
+for free.
 
-Trade-offs versus Option A:
+It lost on control:
 
-- **Simpler** — a component and a stylesheet, no measurement, pagination, or geometry code.
-- **Better typography** — real hyphenation, kerning, orphan/widow control, and any font.
-- **No `(continued)` headings.** CSS cannot repeat a heading when a section spans a page. This is the
-  one behaviour Option A has that Option B structurally cannot.
-- **No page numbers or PDF file** — the user goes through the browser's print dialog, and margins,
-  scaling and headers/footers are ultimately theirs to override.
-- **Output varies by browser.** Chrome, Firefox and Safari paginate differently.
+- **No `(continued)` headings.** CSS cannot repeat a section heading when a section spans a page.
+  This is structural, not a gap in the implementation.
+- **No page numbers, and no file.** Output goes through the browser's print dialog, where margins,
+  scaling, and the browser's own headers and footers are the user's to override.
+- **Pagination varies by browser.** Chrome, Firefox, and Safari break differently, so the result is
+  not reproducible.
 
-### Trying them
+If it is ever wanted back, it was `printView.tsx` and `print.scss` in commit `0fddbdf7`, and it read
+the same `PrintDocument` that ships today.
 
-The toolbar's **Print Reminders** button opens a modal with layout (Standard/Compact) and page size
-(A4/Letter), then either **Print** (Option B) or **Download PDF** (Option A).
+### Using it
+
+The toolbar's **Download PDF** button opens a modal with layout (Standard/Compact), page size
+(A4/Letter), and a file name.
+
+Plain browser printing (`Ctrl+P`) still works against the live app DOM, using the pre-existing
+`@media print` rules and `d-print-none` classes in `css/index.scss`. It is not a designed print
+path — the PDF is.
 
 ### Tests
 
@@ -316,15 +323,13 @@ trap is `wraps to the real column width, not to an implicit font-size-scaled wid
 
 ## Still open
 
-- **Which option wins.** Both are wired up so they can be compared on real armies. If Option B is
-  good enough, deleting Option A removes ~700 lines and the jsPDF dependency. If the `(continued)`
-  headings and the downloadable file matter, Option A stays and Option B becomes the quick path.
 - **The logo.** The legacy PDFs embedded a base64 logo on every page and a full-size one on the last
-  page if it fitted. Neither option carries it yet.
+  page if it fitted. The current PDF has the `aosreminders.com` watermark and page numbers, but no
+  logo.
 - **jsPDF 1.5.3** is still five years stale and still uses `setFontStyle` and the positional `text()`
   signature, both removed in 2.x. The blast radius is now one file (`pdf.ts`) instead of three, but
   it is still Phase 2 work.
-- **A third option not taken:** a layout-engine library (`pdfmake`, `@react-pdf/renderer`) would
-  express "two columns, keep-together, repeat heading on break" as configuration rather than code.
-  Rejected for now against AGENTS.md's "avoid dependency churn during Phase 1", but it is the natural
-  landing spot if Option A grows.
+- **A layout-engine library not taken.** `pdfmake` or `@react-pdf/renderer` would express "two
+  columns, keep-together, repeat heading on break" as configuration rather than code. Rejected
+  against AGENTS.md's "avoid dependency churn during Phase 1", but it is the natural landing spot if
+  `layout.ts` keeps growing.

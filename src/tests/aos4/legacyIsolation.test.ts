@@ -134,7 +134,6 @@ describe('AoS 4 legacy isolation', () => {
       'components/payment/paypal/paypalTypes.ts',
       'components/payment/pricingPlans.tsx',
       'components/print/printModal.tsx',
-      'components/print/printView.tsx',
       'components/routes/Faq.tsx',
       'components/routes/Home.tsx',
       'components/routes/Join.tsx',

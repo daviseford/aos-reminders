@@ -3,7 +3,6 @@ import { PRINT_PRESETS } from '../../aos4/print'
 import GenericModal from 'components/modals/generic/generic_modal'
 import { useTheme } from 'context/useTheme'
 import React, { useState } from 'react'
-import { FaPrint } from 'react-icons/fa'
 import { MdFileDownload } from 'react-icons/md'
 
 interface PrintModalProps {
@@ -11,7 +10,6 @@ interface PrintModalProps {
   defaultFileName: string
   isOpen: boolean
   onDownloadPdf: (presetId: PrintPreset['id'], pageSize: PrintPageSize, fileName: string) => void
-  onPrintInBrowser: (presetId: PrintPreset['id'], pageSize: PrintPageSize) => void
 }
 
 const PAGE_SIZES: { id: PrintPageSize; label: string }[] = [
@@ -49,13 +47,7 @@ const RadioGroup = <T extends string>({
   </div>
 )
 
-const PrintModal = ({
-  closeModal,
-  defaultFileName,
-  isOpen,
-  onDownloadPdf,
-  onPrintInBrowser,
-}: PrintModalProps) => {
+const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: PrintModalProps) => {
   const { theme } = useTheme()
   const [presetId, setPresetId] = useState<PrintPreset['id']>('compact')
   const [pageSize, setPageSize] = useState<PrintPageSize>('a4')
@@ -71,15 +63,11 @@ const PrintModal = ({
     onDownloadPdf(presetId, pageSize, fileName.trim() || defaultFileName)
   }
 
-  const handlePrint = () => {
-    onPrintInBrowser(presetId, pageSize)
-  }
-
   return (
     <GenericModal closeModal={closeModal} isOpen={isOpen} label="Print options">
       <div className={`row justify-content-center text-center ${theme.text}`}>
         <div className="col">
-          <h5>Print Reminders</h5>
+          <h5>Download Reminders</h5>
         </div>
       </div>
 
@@ -123,18 +111,12 @@ const PrintModal = ({
       </div>
 
       <div className="row mx-3 mt-4 pb-3">
-        <div className="col-12 col-sm-4 pb-2">
+        <div className="col-12 col-sm-6 pb-2">
           <button className={`${theme.modalDangerClass} btn-block`} onClick={closeModal} type="button">
             Cancel
           </button>
         </div>
-        <div className="col-12 col-sm-4 pb-2">
-          <button className={`${theme.modalConfirmClass} btn-block`} onClick={handlePrint} type="button">
-            <FaPrint className="mr-2" />
-            Print
-          </button>
-        </div>
-        <div className="col-12 col-sm-4 pb-2">
+        <div className="col-12 col-sm-6 pb-2">
           <button className={`${theme.modalConfirmClass} btn-block`} onClick={handleDownload} type="button">
             <MdFileDownload className="mr-2" />
             Download PDF
