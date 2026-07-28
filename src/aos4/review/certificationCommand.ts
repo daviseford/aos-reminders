@@ -12,7 +12,8 @@ import {
   type SourceInventory,
 } from './certification'
 import { parseCertificationManifest, parseReviewLedger, validateReviewLedger } from './findings'
-import type { ReviewPacketSafeIndex, ReviewPacketWorkspace } from './packets'
+import type { ReviewPacketIndexEntry, ReviewPacketSafeIndex } from './packets'
+import { loadReviewPacketPairs } from './reviewWorkspace'
 import {
   AOS4_REVIEW_SCHEMA_VERSION,
   type CertificationInput,
@@ -47,6 +48,23 @@ interface ProtocolFile {
 
 interface RubricFile {
   rubricVersion: string
+}
+
+interface ShardedReviewIndex {
+  schemaVersion: 1
+  kind: 'review-index-shards'
+  revision: string
+  protocolVersion: string
+  rubricVersion: string
+  coverage: ReviewPacketSafeIndex['coverage']
+  shards: Array<{ inputName: string; entries: number }>
+}
+
+interface ShardedReviewResults {
+  schemaVersion: 1
+  kind: 'review-result-shards'
+  revision: string
+  shards: Array<{ inputName: string; results: number }>
 }
 
 const readJson = async <T>(filePath: string): Promise<T> => JSON.parse(await readFile(filePath, 'utf8')) as T
@@ -116,6 +134,55 @@ const namedJson = <T>(
   return JSON.parse(content) as T
 }
 
+const reviewIndexFromInputs = (
+  inputs: Array<{ name: string; path: string }>,
+  files: ReadonlyMap<string, string>
+): ReviewPacketSafeIndex => {
+  const index = namedJson<ReviewPacketSafeIndex | ShardedReviewIndex>('review-index', inputs, files)
+  if ('entries' in index) return index
+  if (index.schemaVersion !== 1 || index.kind !== 'review-index-shards' || !Array.isArray(index.shards)) {
+    throw new Error('Certification review-index shard manifest is invalid')
+  }
+  const entries: ReviewPacketIndexEntry[] = []
+  for (const reference of index.shards) {
+    const shard = namedJson<ReviewPacketIndexEntry[]>(reference.inputName, inputs, files)
+    if (!Array.isArray(shard) || shard.length !== reference.entries) {
+      throw new Error(`Certification review-index shard is invalid: ${reference.inputName}`)
+    }
+    entries.push(...shard)
+  }
+  return {
+    schemaVersion: index.schemaVersion,
+    revision: index.revision,
+    protocolVersion: index.protocolVersion,
+    rubricVersion: index.rubricVersion,
+    entries,
+    coverage: index.coverage,
+  }
+}
+
+const reviewResultsFromInputs = (
+  inputs: Array<{ name: string; path: string }>,
+  files: ReadonlyMap<string, string>
+): ReviewerResult[] => {
+  const results = namedJson<ReviewerResult[] | ShardedReviewResults>('review-results', inputs, files)
+  if (Array.isArray(results)) return results
+  if (
+    results.schemaVersion !== 1 ||
+    results.kind !== 'review-result-shards' ||
+    !Array.isArray(results.shards)
+  ) {
+    throw new Error('Certification review-results shard manifest is invalid')
+  }
+  return results.shards.flatMap(reference => {
+    const shard = namedJson<ReviewerResult[]>(reference.inputName, inputs, files)
+    if (!Array.isArray(shard) || shard.length !== reference.results) {
+      throw new Error(`Certification review-results shard is invalid: ${reference.inputName}`)
+    }
+    return shard
+  })
+}
+
 const combinedStatus = (
   evaluationStatus: 'pass' | 'blocked' | 'stale',
   issues: CertificationIssue[]
@@ -144,13 +211,13 @@ export const runCertificationCheck = async (
     })
   }
 
-  const index = namedJson<ReviewPacketSafeIndex>('review-index', manifest.inputs, files)
+  const index = reviewIndexFromInputs(manifest.inputs, files)
   const acceptedManifest = namedJson<ArtifactManifest>('accepted-manifest', manifest.inputs, files)
   const ledger = parseReviewLedger({
     schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
     assignments: namedJson<ReviewAssignment[]>('review-assignments', manifest.inputs, files),
     calibrations: namedJson<ReviewCalibration[]>('review-calibrations', manifest.inputs, files),
-    results: namedJson<ReviewerResult[]>('review-results', manifest.inputs, files),
+    results: reviewResultsFromInputs(manifest.inputs, files),
     findings: namedJson<ReviewFinding[]>('review-findings', manifest.inputs, files),
     resolutions: namedJson<FindingResolution[]>('review-resolutions', manifest.inputs, files),
     verifications: namedJson<FindingVerification[]>('review-verifications', manifest.inputs, files),
@@ -196,8 +263,8 @@ export const runCertificationCheck = async (
     if (stableCompactJson(workspaceIndex) !== stableCompactJson(index)) {
       throw new Error('Prepared local review index differs from the checked-in certification index')
     }
-    const workspace = await readJson<ReviewPacketWorkspace>(repoPath(repoRoot, DEFAULT_WORKSPACE))
-    const packets = workspace.pairs.flatMap(pair => [pair.blindPacket, pair.comparisonPacket])
+    const pairs = await loadReviewPacketPairs(repoPath(repoRoot, DEFAULT_WORKSPACE))
+    const packets = pairs.flatMap(pair => [pair.blindPacket, pair.comparisonPacket])
     const fullLedgerIssues = validateReviewLedger(ledger, packets)
     if (fullLedgerIssues.length) {
       throw new Error(

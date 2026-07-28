@@ -277,6 +277,7 @@ describe('AoS 4 corpus generation', () => {
         {
           title: 'Official weapon profile fixture',
           documentKind: 'reference',
+          rulesContextIds: [review.rulesContext.id],
           artifact: {
             requestUrl: 'https://assets.warhammer-community.com/fixture.pdf',
             finalUrl: 'https://assets.warhammer-community.com/fixture.pdf',
@@ -314,6 +315,14 @@ describe('AoS 4 corpus generation', () => {
     )
 
     expect(result.diagnostics).toEqual([])
+    expect(
+      result.catalog.sourceRecords.find(record => record.id === officialSourceRecordId)?.rulesContextIds
+    ).toEqual([review.rulesContext.id])
+    expect(
+      result.catalog.entities.find(
+        entity => entity.kind === 'publication' && entity.name === 'Official weapon profile fixture'
+      )?.rulesContextIds
+    ).toEqual([review.rulesContext.id])
     expect(weapon).toMatchObject({
       kind: 'weapon',
       profile: {

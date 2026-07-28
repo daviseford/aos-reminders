@@ -689,7 +689,7 @@ const calibrationIssues = (ledger: ReviewLedger, index: ReviewPacketSafeIndex): 
   )
   ledger.results.forEach((result, resultIndex) => {
     const assignment = assignments.get(result.assignmentId)
-    if (assignment?.reviewer.kind !== 'agent') return
+    if (!assignment) return
     const expectedConfiguration = reviewerConfigurationId(assignment.reviewer)
     const calibration = calibrations.get(`${expectedConfiguration}:${index.rubricVersion}`)
     const path = `ledger.results[${resultIndex}]`
@@ -698,11 +698,11 @@ const calibrationIssues = (ledger: ReviewLedger, index: ReviewPacketSafeIndex): 
         issue(
           'missing-calibration',
           path,
-          'Agent result has no calibration for the exact reviewer configuration and rubric'
+          'Reviewer result has no calibration for the exact reviewer configuration and rubric'
         )
       )
     } else if (!calibration.passed) {
-      issues.push(issue('failed-calibration', path, 'Agent result uses a failed calibration'))
+      issues.push(issue('failed-calibration', path, 'Reviewer result uses a failed calibration'))
     } else if (new Date(calibration.calibratedAt) > new Date(result.reviewedAt)) {
       issues.push(issue('calibration-after-review', path, 'Agent result predates its recorded calibration'))
     }

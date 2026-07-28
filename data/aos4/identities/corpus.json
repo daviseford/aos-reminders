@@ -80105,6 +80105,17 @@
     {
       "aliases": [
         {
+          "externalId": "official:00f6bad3cd8b976d412f7d9f9029e75051517677cb6e5074cf0b675470f44ca1",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:447151a4-9166-5131-952d-c8dbe174bc82",
+      "kind": "publication",
+      "name": "Spearhead: Sylvaneth - Spitewing Flight"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:031051d7669cc9441cd9ab2b5b137ffff6547089c4568f9233ea5331f7e89a75",
           "publisher": "games-workshop"
         }
@@ -80112,6 +80123,17 @@
       "canonicalId": "publication:30fccd34-f934-5853-a997-17d325d190c3",
       "kind": "publication",
       "name": "Battletome Supplement: Cities of Sigmar"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:037224ee7682732ccfd389016fd3ca81c92c26f10f71ca9d0f842463d2467044",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:f88332af-95a4-5494-90f1-bd6c75fe1c07",
+      "kind": "publication",
+      "name": "Faction Pack: Sons of Behemat"
     },
     {
       "aliases": [
@@ -80127,6 +80149,61 @@
     {
       "aliases": [
         {
+          "externalId": "official:05a37c788d639b2c8741716782d1f83fa4cd5ed1de9732f920155cb77b3863b8",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:7fa9550a-1438-5db5-9713-d8732e579536",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Cities of Sigmar"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:0883493fe1ce0f29066070905a5021f4b7e91caf55be1cad64d714bc99a723d1",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:e6faeb71-a0db-56ed-9dac-1d5f2487719b",
+      "kind": "publication",
+      "name": "Spearhead: City of Ash"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:0ba8c36cd64b1090df06fb2f76d56b226b6cfe85dd28923ea13386b652894d29",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:89992d0d-fbca-56b4-9b27-734fbfcb047e",
+      "kind": "publication",
+      "name": "Legends compendium"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:147f22e0ea8f319948e5e3e79683c395965115a663728d14b31dbd52e93cd1c4",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:1337b4f4-3ef1-51bb-8aab-f17c5d104178",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Gloomspite Gitz"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:14ad0ed8091ba6a01a6cee4b7d226898561ad7be01855fce3e1708af741ee9b1",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:f133868e-8989-56fb-8847-2286efe14b70",
+      "kind": "publication",
+      "name": "Spearhead: Lumineth Realm-lords - Hurakan Vanguard"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:15e050fa3663d3a57da675ecc059b37f7932d48e3dea79012d7260195530b80a",
           "publisher": "games-workshop"
         }
@@ -80134,6 +80211,39 @@
       "canonicalId": "publication:569ff77a-6e58-5e37-be6f-053311fdc852",
       "kind": "publication",
       "name": "Rules Updates"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:19d1a5a884ffff7c2cbc11b21db71a560880c541ac21830f2c608f5492f3fada",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:b7711646-99d7-5e0f-9e77-4b90f151bb96",
+      "kind": "publication",
+      "name": "Spearhead: Soulblight Gravelords – Deathrattle Tomb Host"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:1be8fdf4d50dcabaab12b31d93d2dfd26d3791561ab8caf2574f937883fba98a",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:ba77a53c-3415-52fb-91f2-14c4319a6242",
+      "kind": "publication",
+      "name": "Battletome Supplement: Nighthaunt"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:1cb0c7efde39ae35c19fb9d82083f7625ab14e5c5be5ecb329cd3db7fc3609af",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:44cd0dd2-5c81-577a-a334-d50a6dff879f",
+      "kind": "publication",
+      "name": "Spearhead: Blades of Khorne - Fangs of the Blood God"
     },
     {
       "aliases": [
@@ -80160,6 +80270,17 @@
     {
       "aliases": [
         {
+          "externalId": "official:1e341ef2e67d10c46cf51d3c3138bc48621407b0850d9b65f10192b2499d52ef",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:26375c48-b58c-5225-a57e-f3deb6449740",
+      "kind": "publication",
+      "name": "Spearhead: Daughters of Khaine - Khainite Shadow Coven"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:20b04fa511f9ecb1136613a83fe898416965eef5426f978f466cab53adc87592",
           "publisher": "games-workshop"
         }
@@ -80171,6 +80292,50 @@
     {
       "aliases": [
         {
+          "externalId": "official:2159557463e20ac33614afdbebdf697ce13158d7610cf7a9ee8e74ce42f9e859",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:25521f1a-4510-5cdb-85f5-1c043d575e5a",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Soulblight Gravelords"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:22fa2463399f831fa11e8bb83b1df1210a9d1382d2d5441ab0bd1035292eb711",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:e388bec0-cd6e-5f97-ba8b-149069070c64",
+      "kind": "publication",
+      "name": "Spearhead: Helsmiths of Hashut - Helforge Host"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:256609b95c19f6c5d8c705760f0b580906dc27015368f4ebf3dc3db2f6f757e5",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:a34c95ee-e843-5efe-9275-0e1bb633ab48",
+      "kind": "publication",
+      "name": "Regiments of Renown"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:277f2ab8972c6dc43d73960074bbad3c1cac9b21f99f488614f3a39efefc2c60",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:e66cbfcd-e81b-5aba-a93c-0f3b7d02239e",
+      "kind": "publication",
+      "name": "Spearhead: Orruk Warclans - Ironjawz Bigmob"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:28e13f649ab20a9a26033a4ed66f43efb262568628b493bfd498e3c409625752",
           "publisher": "games-workshop"
         }
@@ -80178,6 +80343,127 @@
       "canonicalId": "publication:5bb3a866-b6e7-581a-a219-5ef87393d16a",
       "kind": "publication",
       "name": "Scourge of Aqshy - Nighthaunt"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:29573197f01e47457ca5db40f4a616a2008d9eee128c4d00cb4f0d2a781b947d",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:c4cb395d-c94f-5808-a72c-5b7ff548b524",
+      "kind": "publication",
+      "name": "Quick Start Guide"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:2bf0e2bcd84a8f8cda8c9876bc948a41d2acf39576db99169cea326931fe2261",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:68aba42e-df0f-5f2d-ab21-529880a5cc41",
+      "kind": "publication",
+      "name": "Regiments of Renown - Daughters of Khaine"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:2cd26633bbd48b1a8b7ba59bbf346f6ea1bdca527dd65186384372aab5deff1e",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:10c4988e-14e7-5e3e-be9e-bfb0ae16c1b0",
+      "kind": "publication",
+      "name": "Chaos Battletome: Beasts of Chaos"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:2e4490a3a02581d685878f49373974e465570437d5e3838b25c4de21e9e84027",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:8bc7db65-ecfd-55af-b243-7d7825b6f299",
+      "kind": "publication",
+      "name": "Spearhead: Ogor Mawtribes - Scrapglutt"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:2f471d48eba1bf405ae0a6bf8fee4fd6e8d987275d008e4fc88ed949702e665c",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:0c8560cd-6d03-5805-8ef8-edbda9f2c7de",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Helsmiths of Hashut"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:2f71586b5e3109cae58ee35474e5fb9f412613d35b879749addae42c06589a28",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:92d5b26b-2089-5b9b-b836-14540f5804f4",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Idoneth Deepkin"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:32312388e377ced6c4389fe9837e38d8033a205b5a09d04233fd3a316c719650",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:b55904b4-20b1-586b-bea3-705204f00386",
+      "kind": "publication",
+      "name": "Spearhead: Fyreslayers - Saga Axeband"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:32d78da93dbb3441406df67a13c7df040f820bb7f97abecba00a045438b3757e",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:31b61d1b-2b07-55b6-9f17-c6df4f8de7c6",
+      "kind": "publication",
+      "name": "Battletome Supplement: Soulblight Gravelords"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:364cd67380a60b661c16846cc47a180d9311a820c6f7a6050f41cc7bdf704de7",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:fab6eb2a-30b8-5166-ac93-1cc3ff650fbb",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Sylvaneth"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:370cd6c1f7daed8bd290c88e698d364046c37233e2cc5a2145ebe8d989c0dd03",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:a3c6ce3a-e229-531f-9521-9e320176fb34",
+      "kind": "publication",
+      "name": "Regiments of Renown - Skaven"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:38acbc1a70d0b5b993666fa24011a3e9491ca9c14f9735fddaa56adae15b04be",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:b4a8c56d-8b2b-55d8-a379-07b7a4894a06",
+      "kind": "publication",
+      "name": "Spearhead: Hedonites of Slaanesh - Epicurean Revellers"
     },
     {
       "aliases": [
@@ -80204,6 +80490,61 @@
     {
       "aliases": [
         {
+          "externalId": "official:398637f848d69e30838d14f77d1e3e7b8dfd6387e1c7cd6bc2f613619b4b6bcb",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:67d19022-7dd9-5fe0-a65c-2c3fa78f0ed5",
+      "kind": "publication",
+      "name": "Battletome Supplement: Blades of Khorne"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:3a3c901779b5fb74d3f6dc11882838a2dd3f96cc664ca0537197c9ad57c987c2",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:0a603dac-ed3f-5509-92fa-6ffe6677b5cd",
+      "kind": "publication",
+      "name": "Spearhead: Stormcast Eternals - Yndrasta’s Spearhead and Vigilant Brotherhood"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:3bb9117c7e4d1c4c7f5b9f5d2d95ee8e84fa2d0e4dda596728ab640fc296ed1d",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:1ecb9f24-22d9-5131-bb54-91e69b4883fc",
+      "kind": "publication",
+      "name": "Spearhead: Flesh Eater-Courts - Carrion Retainers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:3cb8aa7eccf66093163e8a8e098965ff0b44828ee01e9bcc3dc7cb2ce58c3041",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:392224d1-09f9-56ac-9eee-5bfbd0f97f1c",
+      "kind": "publication",
+      "name": "Seraphon - Sunblood Pack Warscroll"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:3d73096eb9a9b0b9bd729796a8a7e596952fcbea1c39e3591c349bcc29f62b2d",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:91c11d63-0d32-58d5-8ce1-6906c1b1cc2c",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Fyreslayers"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:3e1824783634ad97a9a4ad70052fff41ee1851c2565ee3c1d899407c519748ab",
           "publisher": "games-workshop"
         }
@@ -80211,6 +80552,116 @@
       "canonicalId": "publication:ded7eb8f-924e-5e8e-98b1-e70547158d81",
       "kind": "publication",
       "name": "Battletome Supplement: Hedonites of Slaanesh"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:3f9b6818767a57a08c08d010ad72c5f10e984fdbac7de041cdf448a976ae0445",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:db8577ea-b216-54fa-b1c9-2fd9672ee538",
+      "kind": "publication",
+      "name": "Spearhead: Ossiarch Bonereapers - Tithe-Reaper Echelon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:41ef536af8eb36243e322daf3038a72abe0b10906e5b64c17c829dfd616ff229",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:6e04b609-d153-5c15-86cf-2a19a345f64f",
+      "kind": "publication",
+      "name": "Spearhead: Slaves to Darkness - Bloodwind Legion"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:42cc667c51700ab23dc859bfbaf97eb5fab3732f3fdfea3cf88834bdc751baaf",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:e5b5317d-b0af-5a08-aeee-a6f610b94409",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Blades of Khorne"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:443c28385f64d4c58fdba35b406572e42b0c1bbe1379a3da06c168af114412fe",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:b2963d1c-e31d-56eb-97a4-5bde4197ee9a",
+      "kind": "publication",
+      "name": "Regiments of Renown - Stormcast Eternals"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:450f19be74a6a11bde5a74222c62b122b153219841f51718b158cf7a55d59598",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:838bd290-5388-5895-b3bc-d2de20e49753",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Daughters of Khaine"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:4637427e906238a5c5ac38e52f7b7f8b3d6f646d2af2c85717eb8aaf16c95fd0",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:47aedfa5-a4e7-57f6-9d61-c793032a9f1e",
+      "kind": "publication",
+      "name": "Spearhead Reference"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:47363c98528bcb9fb9fb2bf16df4c5ee268c917c55ab519e3780ef0b38e74427",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:671a68d6-656d-503c-b8cc-14870779a45f",
+      "kind": "publication",
+      "name": "Regiments of Renown - Lumineth Realm-lords"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:482bf19382d887439dedd137d12480e6fbc58bbbfc4c32f2166414884de1db87",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:8856e8e3-0117-524c-82c1-9735df14d72d",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Seraphon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:4a09c52988284131c27a686a65301ee25a9c532824f72a4e35fd22d14461df11",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:d052ddd8-8241-5cb7-b8a4-aebcdf78bb18",
+      "kind": "publication",
+      "name": "Armies of Renown"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:4a2a0862eab918613d3aa8722094f5d54f93a757e41fb93af928873ad48ce7e2",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:bd669761-ef64-5193-b3ed-ea010ed62baf",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Slaves to Darkness"
     },
     {
       "aliases": [
@@ -80226,6 +80677,83 @@
     {
       "aliases": [
         {
+          "externalId": "official:4eb7a492d79e69f423e07d3bfb2ce6ff4a9cdb937d4bd67591e9724dfbf4298b",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:8d66792d-88ba-5b9d-84a4-efe762ef02b1",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Ironjawz"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:4fc3186369ec33fd3e57aa061af578a7bba084bab7ba1d8c831fc4f9a12ef54c",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:470c9a10-7793-54ad-8fa9-1dd382947e76",
+      "kind": "publication",
+      "name": "Regiments of Renown - Flesh-eater Courts"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:5491a992d1b984357e93b6f92c548849b39f07e24e5ade0767c53867631e735c",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:39679e35-b6a2-57c6-984a-68fb4014131a",
+      "kind": "publication",
+      "name": "Regiments of Renown - Gloomspite Gitz"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:57dd24b01270ab5fa01b1860db2f30c229016c5e1c4b3e27076ef3e3920942c6",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:ae532339-8b3d-547f-bdf1-16dfb1455a57",
+      "kind": "publication",
+      "name": "Spearhead: Cities of Sigmar - Zenestra's Zealots"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:58233b4000f567a5231474822a5ec0124c57a04c1d1d2544418d1e5575ca76db",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:46ec0204-74f2-5751-83f0-4c76138c4bd0",
+      "kind": "publication",
+      "name": "Spearhead: Cities of Sigmar - Fusil Platoon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:58ec318574e274125ead3e001dcbf9965df6b4f4dbd9286c5feb380420565330",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:2ae7238f-a281-5469-8590-497f2f92e7f5",
+      "kind": "publication",
+      "name": "Spearhead: Seraphon - Sunblooded Prowlers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:59e25557b3429da860cea4550fcec2f10b20d648bbe9c571a89e3612a039fdeb",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:d082bc55-05d9-5e9c-ba58-9f7f5b9fbf05",
+      "kind": "publication",
+      "name": "Regiments of Renown - Soulblight Gravelords"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:5abd7519ff2ae09f528bafaae1545ca2614944890ac055769418060a3b28f9d3",
           "publisher": "games-workshop"
         }
@@ -80233,6 +80761,39 @@
       "canonicalId": "publication:c3db5bd4-306a-57aa-8dd5-a2ba44c6b2a3",
       "kind": "publication",
       "name": "Scourge of Aqshy - Fyreslayers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:5d05c0feae5aceded233544447b5b65075ccb6b42b83e3c0d7fa917b37229c96",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:abadd400-730c-5e58-844f-35af96410c3c",
+      "kind": "publication",
+      "name": "Spearhead: Nighthaunt - Slasher Host"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:607775cab94d2176d4a96c8d30de367fbcecea62cdbe50862dbd129e8a7a83f9",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:5ba475ca-81c7-528d-b2e6-72768e8b2bf6",
+      "kind": "publication",
+      "name": "Spearhead: Hedonites of Slaanesh - Blades of The Lurid Dream"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:61aa2013a8a9154801f0b044f52d4ae40198a39ae02d28b2d1bed1932a12b2a4",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:53f2a89e-e70f-55dc-b53f-dbbe3bbde3cd",
+      "kind": "publication",
+      "name": "Battleplan: The Adamantine Chain Quakes"
     },
     {
       "aliases": [
@@ -80248,6 +80809,83 @@
     {
       "aliases": [
         {
+          "externalId": "official:68341e4a8a700022f8ec8a90ffd8f0e756b37b021ae3920977329d29f986c069",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:75b97b4b-fdcb-5f18-9d15-f85d168484b0",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Ogor Mawtribes"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:68635a5a3a857bfd88a023951e9223f4d40f5bc20c81cd2dc4f3dd01f150cbf7",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:e67de65f-69fe-5304-b301-db450223e40a",
+      "kind": "publication",
+      "name": "Spearhead: Maggotkin of Nurgle - Bleak Host"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:68f1ec961992bf9ede349b994a1f35702c83fe0b037a7717da47a21b680bba07",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:49bf6580-3167-5dcd-9c71-c26b548a7295",
+      "kind": "publication",
+      "name": "Regiments of Renown - Disciples of Tzeentch"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:6a2afe7edb780a60833a2d20575b63494e1fd57a798ade293d5037266c5b290f",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:0f7fddd1-fe71-504b-8378-cc3379428209",
+      "kind": "publication",
+      "name": "Spearhead Rules Module: Desolation of the Mortal Realms"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:6b5d234693e7e822efb548da7cbbe448635133bbcdadab64de9e29c7b60053be",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:9935051f-ffce-5998-b89c-cf4bbffcf350",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Flesheater Courts"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:6b70e56d2cb0afa7febfc26f4290147a6b39b35263c12a9b09069885a6aa455c",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:f7665698-2c77-51e5-9978-dd0d327b2846",
+      "kind": "publication",
+      "name": "Spearhead: Disciples of Tzeentch - Fluxblade Coven"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:6bc1df76393af8b42f3ca7b9ee29ead2cef8a045acb31bb799f6709ae6184465",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:0195b8a6-0283-5cc9-a568-63e8f01ecac2",
+      "kind": "publication",
+      "name": "Spearhead: Skaven – Gnawfeast Clawpack and Warpspark Clawpack"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:6cf9fa689a6e83c60c01c90f1e9ccce027aecb510d526e9074e1ac2fbe09293a",
           "publisher": "games-workshop"
         }
@@ -80259,6 +80897,94 @@
     {
       "aliases": [
         {
+          "externalId": "official:7153de6330d3827f8c86c491f62250470e964feef93145b0fd1cd113e20825be",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:289857f2-ae40-504f-b870-0a26157e95f7",
+      "kind": "publication",
+      "name": "Spearhead: Daughters of Khaine - Heartflayer Troupe"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:718c39109e6a3ddb1ffe54f9bc84531dda70d06d13e6098d917340f37794b431",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:9dfa4886-05ab-5c54-8c75-a623bf6e5daa",
+      "kind": "publication",
+      "name": "Spearhead: Maggotkin of Nurgle - Bubonic Cell"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:7275407dbcd7945ab74fde6e1735282b842cfb67ed205b2b11187b8e3c3d1444",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:5080bdaf-a14f-52c8-8e9a-af5ff5965d72",
+      "kind": "publication",
+      "name": "Spearhead: Idoneth Deepkin - Akhelian Tide Guard"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:72f95be84d13b0b65b9e9529e61cc18525755eafb4f39ed925cceb7618711545",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:3e017729-657e-5c35-9067-bd069defb218",
+      "kind": "publication",
+      "name": "Spearhead: Blades of Khorne - Gore Pilgrims"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:75b197b4afd0d1be2850190dd56e2e43958e4c56ce788cf951634bfc036a81a5",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:317bc67d-653f-5623-80c6-9b11b82cb892",
+      "kind": "publication",
+      "name": "Spearhead: Ossiarch Bonereapers - Kavalos Vanguard"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:78e67dedc50816c4fbc1b8a3f317e75f9aa7f4e84b81e2ad7a59651b371ce804",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:4c9c6fb0-cf2a-560f-bf16-b9f97cfdda30",
+      "kind": "publication",
+      "name": "Spearhead: Flesh-eater Courts - Charnel Watch"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:7d46614bbb1ccf57471c75a9e16bf95a0a4f90afbf371cb4f3fc37d69a1e7f63",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:ca3b66ac-4586-5961-a1b4-f5b08e2793cd",
+      "kind": "publication",
+      "name": "Destruction Battletome: Bonesplitterz"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:809b80ad5db07f193a33312132e2caae0dae8dc47ff604fc3519edfedeafe015",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:7ed431ad-8970-584e-8f96-956f9b7bbfda",
+      "kind": "publication",
+      "name": "Spearhead: Idoneth Deepkin - Soulraid Hunt"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:80b113d5b2e4fcffe13a214d0064de3415e49786537310cd43dacfd3107aa247",
           "publisher": "games-workshop"
         }
@@ -80266,6 +80992,28 @@
       "canonicalId": "publication:f4994395-3eef-5ff4-8beb-9f6aa486f833",
       "kind": "publication",
       "name": "Scourge of Aqshy - Hedonites of Slaanesh"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:84b8b1b4f82ee92372a7214989b418b128608edd571d2985e6cf8ea65ad9b845",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:fb223b1b-b4de-5453-b047-4f5f338db77e",
+      "kind": "publication",
+      "name": "Spearhead: Gloomspite Gitz - Snarlpack Huntaz"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:84dbeb45fa14de8538d54e690f49fcb75868e716193e1aec5985403450e8b186",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:992bc80c-fc81-5473-9a29-9e3d3c898d02",
+      "kind": "publication",
+      "name": "Spearhead Doubles"
     },
     {
       "aliases": [
@@ -80314,6 +81062,28 @@
     {
       "aliases": [
         {
+          "externalId": "official:8cfee3adca0901d6fb08a84ec2e03205f1050cf3cfdb573de7f8cb0ff0c751bc",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:6cd1547d-d402-52b4-9d47-e81e236b3377",
+      "kind": "publication",
+      "name": "Spearhead: Seraphon - Starscale Warhost"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:8e3bf431d5c0ac11dfee45c375455e61513d26284c1bc07c8ae6933195dc0d07",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:c1a934df-d4f5-51ce-8e0f-245d70c6c6b1",
+      "kind": "publication",
+      "name": "Regiments of Renown - Slaves to Darkness"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:90c094676f9cdddd5cd956cf12c72604d01d25beba12d09c2397a466659677e2",
           "publisher": "games-workshop"
         }
@@ -80336,6 +81106,39 @@
     {
       "aliases": [
         {
+          "externalId": "official:92cdb032db024f69674f71c583d51166f268829b733c3a81ff6bc8f26e009af2",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:4b799520-42fa-5140-a7b6-c4b0eace7542",
+      "kind": "publication",
+      "name": "Spearhead: Orruk Warclans - Swampskulka Gang"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:9341256d83906a6e4c044fd8145109706dea06c4dba10b7ec5e5fc664749ce18",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:34eed5e8-317a-510b-959f-3c8658481cb0",
+      "kind": "publication",
+      "name": "Faction Pack: Seraphon"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:9399e542477af8e5abb4d6b384acb123aa7de79c0de6a31d16e6851eb318ad0a",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:57efb7dc-b5c7-5606-a8b6-7bb7564ac50f",
+      "kind": "publication",
+      "name": "Universal Manifestations"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:9470e84348578fe29d35ad56f56c38211a682b28c651a22ed1d9890c9324e46c",
           "publisher": "games-workshop"
         }
@@ -80343,6 +81146,39 @@
       "canonicalId": "publication:cb7bf1d2-1ee5-5621-b3a6-e938c8974a6f",
       "kind": "publication",
       "name": "Regiments of Renown - Ogor Mawtribes"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:9522131a7e0994be1463e0b2ade875d46126fcb0f4b099e72797c26eebc4959d",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:9380d5fc-6177-57f0-b737-4755f1bbf73a",
+      "kind": "publication",
+      "name": "Regiments of Renown - Idoneth Deepkin"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:95b8b992f4f2af8d6714b5006e39e9993999152fbd1f38bd0a7f23bf69035317",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:9d6bb769-3613-5453-8d17-2ab1f68a2968",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Kruleboyz"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:970f1eb4ea669798efec6743862a3a9dd9f9e160ae6bd7343b03644bd855e569",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:bafe058c-fbd6-5df6-88c0-5506c6e5feab",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Stormcast Eternals"
     },
     {
       "aliases": [
@@ -80358,6 +81194,39 @@
     {
       "aliases": [
         {
+          "externalId": "official:991c13020351b83aa76071a049ccb3847f7fd0503daba9a934b1d824ac0fed99",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:32d1d7c3-90be-58fb-b675-43295ca644ff",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Hedonites of Slaanesh"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:9b053b0fabb3f8fb59c4e208c109a6b806622735e7c24e9a8566e46c4ad53142",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:234c73ff-9fee-528a-8362-fe6a5df81784",
+      "kind": "publication",
+      "name": "Spearhead: Kharadron Overlords - Grundstok Trailblazers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:9bded144a62e6b3404e51c5d903f5212b324bcdfd8048eeb68a2e77e4ac6f0a9",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:7f00af3e-22ae-581a-89bf-1fec171596d7",
+      "kind": "publication",
+      "name": "Using the Scourge of Ghyran Rules"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:9dc9f6be519da7b1161556d704ffc2bfa469efc764e0c6c3c464bd069bc03338",
           "publisher": "games-workshop"
         }
@@ -80365,6 +81234,105 @@
       "canonicalId": "publication:d60ccfa4-34a3-5deb-aa99-f2e5ad27704f",
       "kind": "publication",
       "name": "Faction Pack: Fyreslayers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:9e1276ef3d44390ac1c07b7470a6ef3dc737df0af1c5201667443501ac8040a2",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:c5ce97b4-06cd-5e98-a16c-b5ca14010639",
+      "kind": "publication",
+      "name": "Ogor Mawtribes - Mantrapper Warscroll"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:a025f685853b210d678c1d8f9ff28ab7c1c9127a5704ad7de5b061fe2392da64",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:49904ef3-0152-5893-bde0-b88106cc8125",
+      "kind": "publication",
+      "name": "Grotmas Advent: Regiments of Renown"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:a0d45622e6406975fa31df32ffe56176bfe0473579160cf5a3eab63f65924ca5",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:d9870ebd-50a6-50a8-9d91-433fe7ddb092",
+      "kind": "publication",
+      "name": "Spearhead: Ossiarch Bonereapers - Mortisan Elite"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:a5c12f4e25fb00153d881a9bd8c8d40c963b7df219cedd4b04fad15bbe95746e",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:6ff7e77a-d6da-5d83-b575-ff1475a48367",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Skaven"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:a692483ec93371cda07de3d15555f093cf200d84cf6e31ee2b057740eaa02ab3",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:a7e9886a-e0d8-5645-a15d-44785e7c0236",
+      "kind": "publication",
+      "name": "Battletome Supplement: Disciples of Tzeentch"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:a69b20a03a0bced75d372eefa752fd6aba8b78e83048618966b1f2102060e065",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:a2e11e25-a2f3-589f-a216-bfaf9786dddd",
+      "kind": "publication",
+      "name": "Regiments of Renown - Sylvaneth"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:a8618974f8ecdd534cd9bf6b45bca020288a99059b4cdb4d2ed474ae7c700ee3",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:c2334755-2c6a-56d6-a61b-f612267acceb",
+      "kind": "publication",
+      "name": "Regiments of Renown - Maggotkin of Nurgle"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:a9cf1ed5bebd0f2f093496cd41ee79f25b629b73b96dee8cf7452a0b728d6219",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:661815bd-da17-5695-bd5f-24d1ae00a38b",
+      "kind": "publication",
+      "name": "Battletome Supplement: Daughters of Khaine"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:aa33f06b5fbbf848db3ab65a7bc0d7dc9144288d7ecd6c867c432a328ab8d884",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:cafe8e36-1d34-528c-bb50-bcae832ffcea",
+      "kind": "publication",
+      "name": "Spearhead: Cities of Sigmar - Castelite Company"
     },
     {
       "aliases": [
@@ -80380,6 +81348,72 @@
     {
       "aliases": [
         {
+          "externalId": "official:abe36b9c290611c0011ff781462ffe8a38eea8bae7b146fe40afe7df9d6f53e0",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:3f8db323-92dd-5f84-9232-fab2f6dae9f2",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Kharadron Overlords"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:b23c945c96f1a3844824e73ab4e87b60a1cd55247956666ed476a93ba2bb1c53",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:df0b0e26-6518-539f-87da-889143ce779a",
+      "kind": "publication",
+      "name": "Regiments of Renown - Ossiarch Bonereapers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:b4fe9a0b7e405437053ce140da05e0d3e9ea86f6bc19d9dc6ccacabedec2c7b4",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:4fb25f70-8497-5ec7-a050-4121e66fc112",
+      "kind": "publication",
+      "name": "Battletome Supplement: Skaven Eshin"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:b88302276b755f75d06a9d5ba5405035b512118c9ed99461cda3faf9bb2ac3a3",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:91f3a72d-7b2c-55ac-802a-42067f3bd12c",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Maggotkin of Nurgle"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:bbef37c7138dc3fe2f37f2ec50cf32e730f98b989a67dc654bf6a3a7381fd026",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:61487661-e0a9-5535-b21b-10a74612ad28",
+      "kind": "publication",
+      "name": "Darkwater Hero Warscrolls"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:bd35cd9cad654c66b0ce625ad7f5512727d45acf79b66c79412ed00f34b07853",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:ef688e48-feac-5511-ae68-3e77c787ffdf",
+      "kind": "publication",
+      "name": "Spearhead: Kharadron Overlords - Skyhammer Task Force"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:be0b9d4f32135d45f9dfff251beb4940afddb154cfe3416cd8e6ac56994a0798",
           "publisher": "games-workshop"
         }
@@ -80387,6 +81421,17 @@
       "canonicalId": "publication:d0fe4b30-5634-5414-88a6-8fcde18adb87",
       "kind": "publication",
       "name": "Warhammer Age of Sigmar Core Rules, Spearhead Rules, Terrain List and Glossary"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:be7941c0aca09a8b789b978b818fb53e001f5be47a470bfc4c40f6ed9e58875a",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:01451672-e007-5711-ad4a-85057daf28cd",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Nighthaunt"
     },
     {
       "aliases": [
@@ -80402,6 +81447,83 @@
     {
       "aliases": [
         {
+          "externalId": "official:c210be1999d6a29de4da02744fe03cb87bf5c84a194a7a8a6631800cc4796633",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:1da67536-ee75-58b2-8e6a-d6924005d95d",
+      "kind": "publication",
+      "name": "Spearhead: Ogor Mawtribes - Tyrant's Bellow"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:c47f4f681bbc097d5559576de5925b513d99a4ee4a1e0111150e96e1fd27de53",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:58ceeff3-19b3-53ab-8ff2-fad6eafa3672",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Disciples of Tzeentch"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:c4b9bb48d389627b129f218b3d7bcc9e65c1b0f90bf550b6262ef6124fdbff0d",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:dfde8027-368d-5a23-b67c-0c8e80931728",
+      "kind": "publication",
+      "name": "Faction Pack: Ogor Mawtribes"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:c653c64e7f74aff0b550bfe9693b1dadcf9451c80e11af0bf7486d867444e781",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:9e863c86-145d-5c3d-bc13-45a1582f4139",
+      "kind": "publication",
+      "name": "Spearhead: Sons of Behemat - Wallsmasher Stomp"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:c7cb83cc6f631c6599b6f777c5600c8dbe8e0aa0fcc93feb52d8cec29ea9e65b",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:3e994d0c-afc4-567b-89da-2c10dd6c3e16",
+      "kind": "publication",
+      "name": "Spearhead: Slaves To Darkness - Darkoath Raiders"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:ca5a5a1ef763e3864315a28f69936a263efeef1e9a48f6a31c40f35cbf1e52c0",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:4fd1c136-ef94-5cef-88a2-343b679509b4",
+      "kind": "publication",
+      "name": "Regiments of Renown - Blades of Khorne"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:cfdb2e0eba983a4f1bcd328847b56dfb34607cf424c0f99c30f2f51ee2e6eb5b",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:c5eb0a86-f3b7-5227-b0a7-6cfc7405385a",
+      "kind": "publication",
+      "name": "Regiments of Renown - Orruk Warclans"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:d12f678f97e4f0f6786b61b6de7da2ddb9bde93f3a2db80717e02da62105e2b4",
           "publisher": "games-workshop"
         }
@@ -80413,6 +81535,28 @@
     {
       "aliases": [
         {
+          "externalId": "official:d3dfc5ddeb76f425332c0c2aa257a0c28c688865232f163a02663a4ce8744863",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:bb9146c5-2f6c-57e8-bc11-ff36f2692321",
+      "kind": "publication",
+      "name": "Faction Pack: Hedonites of Slaanesh"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:d5afa96ad02d0804dd54ba960792720795359e557281a727932189dc49099340",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:bd35017e-ba39-5e8a-8d00-263f8f537915",
+      "kind": "publication",
+      "name": "Red Gobbo Battleplan"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:d69b032641325e3ac4866121eed4a04348e97ebdf9318d0f858e5f007166890b",
           "publisher": "games-workshop"
         }
@@ -80420,6 +81564,61 @@
       "canonicalId": "publication:203588c0-b78b-540c-bf9d-8bf41484e2c4",
       "kind": "publication",
       "name": "Scourge of Aqshy - Kharadron Overlords"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:d6c38781ac6f38b48adc0add92977c6326720e67301e2bad4a472a2d0a1c275e",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:7203bd8b-69b9-5df7-90b9-d110b9b4ce3d",
+      "kind": "publication",
+      "name": "Spearhead: Disciples of Tzeentch - Tzaangor Warflocks"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:d7d82cb235abe41d8691b87d3cddf06766007d7aad40481c20cfd1d6f3fe6f79",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:e85f93c6-faff-5aed-9d4f-790a296fff2e",
+      "kind": "publication",
+      "name": "Spearhead: Sylvaneth - Bitterbark Copse"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:db30e7a4f25e6e1fbf1e0e187c6c59a358f00475733db1da9f84daa51bdd0a1d",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:da958c7b-ce31-5122-aa16-ab6ae785069a",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Sons of Behemat"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:dec8f536bfde90137bb887e42f22b27584cfa11f6c1715d9380c9cfbac5f6604",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:b24b54f6-0ea5-5d85-81d4-3b1e5da28060",
+      "kind": "publication",
+      "name": "Legends Regiment of Renown - Heroes of the Jade Abbey"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:e04b8c1239d45585ff2fe96aa930fb5dfed7507909699a8435a17aa72a3cc797",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:060acdb5-afc1-5613-b523-70990826207d",
+      "kind": "publication",
+      "name": "Spearhead: Ogor Mawtribes - Warglutt Marauders"
     },
     {
       "aliases": [
@@ -80446,6 +81645,28 @@
     {
       "aliases": [
         {
+          "externalId": "official:e503df628f1fb6079b523effbd627039168585b8a7212c0ffc40a0a07db60f80",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:94befefc-83ab-5fa4-a253-2ab45b7d2268",
+      "kind": "publication",
+      "name": "Regiments of Renown - Helsmiths of Hashut"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:e8bf035b01b53db3b69ca7334b622cdb2a260210ea03384801e29efb32735cea",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:7be67d94-5fa4-5c1e-9a44-cf4a8a0b22f5",
+      "kind": "publication",
+      "name": "Spearhead: Gloomspite Gitz - Bad Moon Madmob"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:ea699bb515551dbd8d4b9d1cf78d22485b06da3702fb06e84d129ca24075dbf1",
           "publisher": "games-workshop"
         }
@@ -80464,6 +81685,28 @@
       "canonicalId": "publication:7129ba12-1506-5132-9c70-216e876f4f7b",
       "kind": "publication",
       "name": "Scourge of Aqshy - Lumineth Realm-lords"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:eaaab843dbb2f434c6bb983da9aee18a284ae466d5daa81e918c62b8da4c03f0",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:061122c2-5d98-580a-a790-85bc7aa28ef0",
+      "kind": "publication",
+      "name": "Spearhead: Soulblight Gravelords - Bloodcrave Hunt"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:eb80980c163c0df176d020302cf76ea65600a22e2761423b0c8451fed5b337ba",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:5c0c4fb0-0109-5b67-819c-bac0ec8fd45e",
+      "kind": "publication",
+      "name": "Regiments of Renown - Kharadron Overlords"
     },
     {
       "aliases": [
@@ -80508,6 +81751,72 @@
       "canonicalId": "publication:bc9513a2-cf12-5f29-9018-6063ddb1e529",
       "kind": "publication",
       "name": "Scourge of Aqshy - Cities of Sigmar"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:fba644a9007a96e5c919c6c4f44404267e882870ed6caf2fe8ff619f01613224",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:5f53e99a-8c1b-5578-80e4-1b6bd70e7bc3",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Ossiarch Bonereapers"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:fc6f7cea3bea9bac3d88796cf7348b8fc0a4d850c9de904f403b9d20fdd69ac7",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:5af307f2-a224-5d3c-8dd6-3f6bc1395476",
+      "kind": "publication",
+      "name": "Scourge of Ghyran - Lumineth Realm-lords"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:fce9460066978d148d0e10913fdfed1740c8eabbc8751e3bccad6650e32fd43e",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:fbabf9a5-d558-5664-9d8e-62ebf1ca39ed",
+      "kind": "publication",
+      "name": "Spearhead: Lumineth Realm-lords - Glittering Phalanx"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:fe2ccdfca34cc282c23ba67f5ea766cfceda2c3dcc0ea5d11c7baeb5664b06df",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:7088ac1d-9c2c-5c90-bbbf-964ff3add075",
+      "kind": "publication",
+      "name": "Battletome Supplement: Stormcast Eternals"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:ff2cc58c2ea49b7bb5e1673a26b7d88903875e0341145be887e0ba790ecfcdd3",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:40a34d54-ad04-5b08-a63b-65f917516305",
+      "kind": "publication",
+      "name": "Regiments of Renown - Nighthaunt"
+    },
+    {
+      "aliases": [
+        {
+          "externalId": "official:ffde34191ec7b50a4bcf98e2e2372205c9b48a1c433eb3fc05d234df81f9c3ef",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:6b8108a8-512b-552b-a934-9a7509f269c8",
+      "kind": "publication",
+      "name": "Spearhead: Nighthaunt - Cursed Shacklehorde"
     },
     {
       "aliases": [

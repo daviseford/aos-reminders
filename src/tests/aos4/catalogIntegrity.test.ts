@@ -105,14 +105,14 @@ describe('AoS 4 catalog generation integrity', () => {
         factions: 28,
         warscrolls: 1268,
         battleProfiles: 1002,
-        abilities: 4260,
+        abilities: 4850,
         weapons: 2247,
-        sourceArtifacts: 104,
-        sourceRecords: 17448,
+        sourceArtifacts: 241,
+        sourceRecords: 19057,
         ignoredSourceRecords: 18897,
       },
       integrity: {
-        consumedSourceRecords: 17448,
+        consumedSourceRecords: 19057,
         issues: [],
         supersededSourceRecords: {
           count: 18897,
@@ -126,17 +126,17 @@ describe('AoS 4 catalog generation integrity', () => {
 
   it('pins every accepted source and keeps official evidence distinguishable', () => {
     expect(acceptedManifest).toMatchObject({ schemaVersion: 1 })
-    expect(acceptedManifest.artifacts).toHaveLength(104)
+    expect(acceptedManifest.artifacts).toHaveLength(241)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'wahapedia-export/1')
     ).toHaveLength(13)
     expect(
       acceptedManifest.artifacts.filter(artifact => artifact.adapterVersion === 'games-workshop-pdf/1')
-    ).toHaveLength(36)
+    ).toHaveLength(156)
     const htmlArtifacts = acceptedManifest.artifacts.filter(
       artifact => artifact.adapterVersion === 'wahapedia-html/1'
     )
-    expect(htmlArtifacts).toHaveLength(55)
+    expect(htmlArtifacts).toHaveLength(72)
     expect(
       htmlArtifacts.filter(artifact => new URL(artifact.finalUrl).pathname.endsWith('/warscrolls.html'))
     ).toHaveLength(27)
@@ -145,6 +145,11 @@ describe('AoS 4 catalog generation integrity', () => {
         /^\/aos4\/factions\/[^/]+\/$/i.test(new URL(artifact.finalUrl).pathname)
       )
     ).toHaveLength(28)
+    expect(
+      htmlArtifacts.filter(artifact =>
+        /^\/aos4\/the-rules\/[^/]+\/$/i.test(new URL(artifact.finalUrl).pathname)
+      )
+    ).toHaveLength(17)
     acceptedManifest.artifacts.forEach(artifact => {
       expect(artifact.requestUrl).toMatch(/^https:\/\//)
       expect(artifact.finalUrl).toMatch(/^https:\/\//)
@@ -267,6 +272,33 @@ describe('AoS 4 catalog generation integrity', () => {
     expect(seasonal.battlepack).toBe('Scourge of Aqshy')
     expect(legends.mode).toBe('other')
     expect(historical.validTo).toBe('2026-07-05')
+
+    const officialPublication = (name: string) => {
+      const publication = AOS4_CATALOG.entities.find(
+        entity =>
+          entity.kind === 'publication' && entity.publisher === 'games-workshop' && entity.name === name
+      )
+      expect(publication).toBeDefined()
+      return publication!
+    }
+    const expectOfficialPublicationContexts = (name: string, expectedContextIds: string[]) => {
+      const publication = officialPublication(name)
+      expect(publication.rulesContextIds).toEqual([...expectedContextIds].sort())
+      publication.sourceRefs.forEach(reference => {
+        expect(
+          AOS4_CATALOG.sourceRecords.find(record => record.id === reference.sourceRecordId)?.rulesContextIds
+        ).toEqual([...expectedContextIds].sort())
+      })
+    }
+    expectOfficialPublicationContexts('Spearhead Reference', [spearhead.id])
+    expectOfficialPublicationContexts('Scourge of Aqshy - Stormcast Eternals', [seasonal.id])
+    expectOfficialPublicationContexts('Scourge of Ghyran - Stormcast Eternals', [historical.id])
+    expectOfficialPublicationContexts('Legends compendium', [legends.id])
+    expectOfficialPublicationContexts('Faction Pack: Fyreslayers', [standard.id, seasonal.id])
+    expectOfficialPublicationContexts(
+      'Warhammer Age of Sigmar Core Rules, Spearhead Rules, Terrain List and Glossary',
+      AOS4_CATALOG.rulesContexts.map(context => context.id)
+    )
 
     const entitiesById = new Map(AOS4_CATALOG.entities.map(entity => [entity.id, entity]))
     const factions = AOS4_CATALOG.entities.filter(

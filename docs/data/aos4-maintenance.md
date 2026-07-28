@@ -1,6 +1,6 @@
 # AoS 4 data maintenance
 
-AoS 4 data moves through three distinct states:
+AoS 4 data moves through four distinct states:
 
 1. Candidate acquisition downloads immutable source bytes into the ignored checksum cache and
    writes manifests, diagnostics, cohort inventories, and official-page locators.
@@ -8,6 +8,8 @@ AoS 4 data moves through three distinct states:
    timing overrides, and stable canonical identities under `data/aos4/`.
 3. Deterministic generation writes a complete curator-facing audit catalog and a compact browser
    projection from exactly the same reviewed inputs.
+4. Checksum-bound certification independently inventories sources, reviews every required record,
+   and requires stratified human sign-off before the corpus can unblock Phase 2.
 
 A successful download never accepts data. Candidate acquisition proves only that an artifact was
 retrieved safely and decoded.
@@ -18,7 +20,7 @@ The accepted 2026-07-27 snapshot is defined by:
 
 | Path | Purpose |
 | --- | --- |
-| `data/aos4/manifests/accepted-2026-07-27.json` | 13 Wahapedia exports, 36 official PDFs, and 55 reviewed Wahapedia pages, pinned by SHA-256 |
+| `data/aos4/manifests/accepted-2026-07-27.json` | 13 Wahapedia exports, 156 official PDFs, and 72 reviewed Wahapedia pages, pinned by SHA-256 |
 | `data/aos4/reviews/corpus-2026-07-27.json` | faction approval, diagnostic policies, exact exceptions, dispositions, and official evidence |
 | `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
 | `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
@@ -32,19 +34,21 @@ The strict report currently records:
 
 - 28 factions
 - 1,268 warscrolls and 1,002 battle profiles
-- 4,260 usable abilities
+- 4,850 usable abilities
 - 2,247 weapons
-- 1,172 content groups, including 48 Spearhead force/unit wrappers
-- 104 source artifacts and 17,443 live source records
+- 1,402 content groups, including 48 Spearhead force/unit wrappers
+- 241 source artifacts and 19,057 live source records
 - every live record consumed, with zero unresolved integrity issues
 - 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
 - 1,350 extracted GW battle-profile facts: 928 applied to runtime, 12 profile-only gaps,
   363 structured references, and 47 superseded facts
 
-The accepted current rules come from 27 faction `warscrolls.html` collection pages and 28 faction
-roots. Collection pages contribute 1,074 native faction warscrolls; faction roots add 194
-Spearhead warscrolls, 1,041 faction-rule groups, and 1,829 faction abilities. The review pins those
-exact counts plus 150 parser warnings so a silent remote-shape change fails generation.
+The accepted current rules come from 27 faction `warscrolls.html` collection pages, 28 faction
+roots, and 17 current rules pages. Collection pages contribute 1,074 native faction warscrolls;
+faction roots add 194 Spearhead warscrolls, 1,041 faction-rule groups, and 1,829 faction abilities.
+The rules pages add the general, seasonal, Spearhead, and reference structures needed for the
+supported game contexts. The review pins exact counts and diagnostics so a silent remote-shape
+change fails generation.
 
 The 13 May 2026 exports remain accepted only for stable faction/publication identities and audit
 history. No bulk warscroll, weapon, ability, keyword, organization, or faction-rule row may enter
@@ -55,10 +59,23 @@ than as a second selectable current context.
 
 The current official Battle Profiles PDF and Ogor Mawtribes supplement contribute 1,303 effective
 facts. Reconciliation applies official unit size, points, regiment options, notes, and bases to 928
-runtime profiles and records 669 field-level secondary discrepancies. Twelve official unit facts
-remain `profile-only` because current warscroll rules were not available; generation preserves
-their exact facts and checksums but does not invent reminders. The official June 2026 Rules Updates
-supplies the missing `Passive` timing for Sanctum of Amyntok's Multiple Parts ability.
+runtime profiles and now records 406 field-level secondary discrepancies after upstream parser and
+normalization corrections. Twelve official unit facts remain `profile-only` because current
+warscroll rules were not available; generation preserves their exact facts and checksums but does
+not invent reminders. The official June 2026 Rules Updates supplies the missing `Passive` timing
+for Sanctum of Amyntok's Multiple Parts ability. The other accepted official documents are
+reference evidence: their pages are available to reviewers but do not invent structured runtime
+facts.
+
+Every official document is limited to the rules contexts it actually governs. Spearhead,
+2026-27 `Scourge of Aqshy`, Legends, and historical `Scourge of Ghyran` records must not leak
+across context boundaries merely because they share the Games Workshop downloads catalog.
+
+The strict generation gate is green, but Phase 1 is not yet certified. The current review attempt
+has complete machine coverage and a complete independent source inventory, and remains blocked on
+144 human blind/comparison reviews. See
+[`aos4-accuracy-review.md`](./aos4-accuracy-review.md) for the review, adjudication, sign-off, and
+staleness workflow.
 
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not
@@ -189,17 +206,42 @@ Inspect the manifest, review, identity, catalog, runtime, and checksum-report di
 hand-edit `catalog.json`, `official-battle-profiles.json`, `identities/corpus.json`, or generated
 corpus JSON.
 
+## Accuracy certification
+
+Generation proves deterministic structure; certification records why the resulting game data is
+accepted. A full campaign must:
+
+- independently inventory current Games Workshop and Wahapedia discovery surfaces
+- cover every official fact, reconciliation decision, live record, superseded disposition,
+  faction/context stratum, and high-risk semantic cohort
+- save blind evidence interpretations before comparing generated values
+- adjudicate and independently verify material corrections
+- obtain real human review and sign-off for the deterministic sample
+- bind the exact source, review, catalog, ledger, runtime, protocol, rubric, inventory, and review
+  records by checksum
+
+Use the commands and file-handling boundaries in
+[`aos4-accuracy-review.md`](./aos4-accuracy-review.md). A changed bound checksum starts a new
+campaign. Do not copy forward an old sign-off.
+
 ## Verification
 
 Routine tests stay offline and use compact fixtures. Before proposing accepted data:
 
 ```powershell
-yarn data:aos4:generate
+yarn data:aos4:generate:candidate
+yarn data:aos4:review:prepare
+yarn data:aos4:certify:full
+yarn data:aos4:certify
 yarn lint
 yarn tsc --noEmit
 yarn test --run
 yarn build
 ```
+
+Normal `data:aos4:generate` fails closed once a current certification pointer exists and a bound
+input becomes stale. Use `data:aos4:generate:candidate` while preparing a replacement revision;
+never weaken or bypass the accepted gate.
 
 Add focused coverage for provider contract changes, malformed HTML, new timing vocabulary,
 incomplete profiles, joins, official precedence, stable identities, selection reachability,

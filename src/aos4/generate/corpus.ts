@@ -79,6 +79,7 @@ export interface CorpusOfficialDocument {
   artifact: ArtifactManifestEntry
   title: string
   documentKind?: 'reference' | 'battle-profiles' | 'battle-profile-supplement'
+  rulesContextIds: RulesContextId[]
   faction?: string
   version?: string
   publicationDate?: string
@@ -780,7 +781,6 @@ const sourceRecords = (
   review: CorpusReview,
   rulesContextIdsBySourceRecord: Map<SourceRecordId, RulesContextId[]>
 ): SourceRecord[] => {
-  const allRulesContextIds = reviewRulesContexts(review).map(context => context.id)
   const wahapedia = allWahapediaMetas(dataset).map(meta => ({
     id: meta.sourceRecordId,
     artifactId: meta.artifactId,
@@ -800,7 +800,7 @@ const sourceRecords = (
         ...(record.section ? { section: record.section } : {}),
       },
       recordChecksum: record.recordChecksum,
-      rulesContextIds: allRulesContextIds,
+      rulesContextIds: document.rulesContextIds,
     }))
   )
   return Array.from(new Map([...wahapedia, ...official].map(record => [record.id, record])).values()).sort(
@@ -1082,7 +1082,7 @@ export const buildAos4Corpus = (
       revision: document.artifact.checksum,
       name: document.title,
       publisher: 'games-workshop',
-      rulesContextIds: allContextIds,
+      rulesContextIds: document.rulesContextIds,
       sourceRefs: document.sourceRecords.map(record => sourceReference(record.id)),
     } satisfies Publication)
   })

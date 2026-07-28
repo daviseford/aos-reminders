@@ -1,4 +1,4 @@
-import { mkdtemp } from 'node:fs/promises'
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
@@ -8,17 +8,16 @@ import {
   createComparisonTask,
   createExternalReviewExport,
   createReviewAssignment,
+  loadReviewPacketPairs,
+  parseHumanReviewArguments,
   prepareReviewPackets,
+  type ReviewPacketShard,
+  type ShardedReviewPacketWorkspace,
   type ReviewPacketCandidate,
   type ReviewerResult,
 } from '../../aos4/review'
 import { pageExcerpt } from '../../aos4/review/packetCommand'
-import {
-  artifactId,
-  factionId,
-  rulesContextId,
-  sourceRecordId,
-} from '../../aos4/domain'
+import { artifactId, factionId, rulesContextId, sourceRecordId } from '../../aos4/domain'
 
 const SOURCE_CHECKSUM = 'a'.repeat(64)
 const ARTIFACT_CHECKSUM = 'b'.repeat(64)
@@ -27,10 +26,7 @@ const CONTEXT_B = rulesContextId('90000000-0000-4000-8000-000000000002')
 const FACTION_A = factionId('10000000-0000-4000-8000-000000000001')
 const FACTION_B = factionId('10000000-0000-4000-8000-000000000002')
 
-const candidate = (
-  key: string,
-  overrides: Partial<ReviewPacketCandidate> = {}
-): ReviewPacketCandidate => ({
+const candidate = (key: string, overrides: Partial<ReviewPacketCandidate> = {}): ReviewPacketCandidate => ({
   key,
   category: 'source-record',
   cohortIds: ['secondary-semantic'],
@@ -66,9 +62,8 @@ const prepare = (candidates: ReviewPacketCandidate[]) =>
     candidates,
     expectedCoverage: {
       officialRecords: candidates.filter(value => value.category === 'official-record').length,
-      reconciliationDiscrepancies: candidates.filter(
-        value => value.category === 'reconciliation-discrepancy'
-      ).length,
+      reconciliationDiscrepancies: candidates.filter(value => value.category === 'reconciliation-discrepancy')
+        .length,
       profileOnlyFacts: candidates.filter(value => value.category === 'profile-only-fact').length,
       sourceRecords: candidates.filter(value => value.category === 'source-record').length,
       ignoredRecords: candidates.filter(value => value.category === 'ignored-record').length,
@@ -93,10 +88,7 @@ const prepare = (candidates: ReviewPacketCandidate[]) =>
 describe('AoS 4 review packet preparation', () => {
   it('retains every matching official row when a PDF page repeats a fragmented name', () => {
     const prefix = `War Hydra Any Monster ${'unrelated '.repeat(200)}`
-    const excerpt = pageExcerpt(
-      `${prefix}Wa r Hyd ra 1 170 Da e m o n Cavalry 120 Ã— 92mm`,
-      'War Hydra'
-    )
+    const excerpt = pageExcerpt(`${prefix}Wa r Hyd ra 1 170 Da e m o n Cavalry 120 Ã— 92mm`, 'War Hydra')
 
     expect(excerpt).toContain('War Hydra Any Monster')
     expect(excerpt).toContain('Wa r Hyd ra')
@@ -168,9 +160,7 @@ describe('AoS 4 review packet preparation', () => {
     const sampled = prepared.safeIndex.entries.filter(entry => entry.humanSample)
     const strata = new Set(
       sampled.flatMap(entry =>
-        entry.factionIds.flatMap(faction =>
-          entry.rulesContextIds.map(context => `${faction}:${context}`)
-        )
+        entry.factionIds.flatMap(faction => entry.rulesContextIds.map(context => `${faction}:${context}`))
       )
     )
 
@@ -182,9 +172,7 @@ describe('AoS 4 review packet preparation', () => {
         `${FACTION_B}:${CONTEXT_B}`,
       ])
     )
-    expect(
-      sampled.some(entry => entry.cohortIds.includes('high-risk:reaction'))
-    ).toBe(true)
+    expect(sampled.some(entry => entry.cohortIds.includes('high-risk:reaction'))).toBe(true)
   })
 
   it('keeps calibration and blind controls outside live coverage', () => {
@@ -193,21 +181,25 @@ describe('AoS 4 review packet preparation', () => {
 
     expect(calibration).toHaveLength(4)
     expect(calibration.every(entry => !entry.countsTowardCoverage)).toBe(true)
+    expect(
+      prepared.workspace.pairs
+        .filter(pair => pair.calibration)
+        .every(
+          pair =>
+            pair.blindPacket.cohortIds.includes('calibration') &&
+            pair.blindPacket.cohortIds.every(cohort => !cohort.startsWith('calibration:'))
+        )
+    ).toBe(true)
     expect(prepared.safeIndex.coverage.sourceRecords).toEqual({ assigned: 1, expected: 1 })
     expect(
       prepared.workspace.batches.every(batch =>
-        batch.packetIds.some(packetId =>
-          calibration.some(entry => entry.blindPacketId === packetId)
-        )
+        batch.packetIds.some(packetId => calibration.some(entry => entry.blindPacketId === packetId))
       )
     ).toBe(true)
     expect(
       prepared.workspace.batches.every(batch =>
         batch.packetIds.every(
-          packetId =>
-            !prepared.safeIndex.entries.some(
-              entry => entry.comparisonPacketId === packetId
-            )
+          packetId => !prepared.safeIndex.entries.some(entry => entry.comparisonPacketId === packetId)
         )
       )
     ).toBe(true)
@@ -246,9 +238,7 @@ describe('AoS 4 review packet preparation', () => {
           sourceRecords: 1,
           ignoredRecords: 0,
         },
-        requiredFactionContextStrata: [
-          { factionId: FACTION_B, rulesContextId: CONTEXT_B },
-        ],
+        requiredFactionContextStrata: [{ factionId: FACTION_B, rulesContextId: CONTEXT_B }],
         requiredHighRiskCohorts: ['high-risk:reaction'],
         calibrationCases: [],
       })
@@ -293,9 +283,52 @@ describe('AoS 4 review packet preparation', () => {
       blindInterpretation: { attacks: 2 },
       comparisonPacketId: pair.comparisonPacket.id,
     })
-    expect(() =>
-      createComparisonTask(pair, { ...result, packetChecksum: 'e'.repeat(64) })
-    ).toThrow('Blind result does not match the packet checksum')
+    expect(() => createComparisonTask(pair, { ...result, packetChecksum: 'e'.repeat(64) })).toThrow(
+      'Blind result does not match the packet checksum'
+    )
+  })
+
+  it('permits an explicit blind exception without inventing an interpretation', () => {
+    const prepared = prepare([
+      candidate('blind-exception', {
+        independentlyDerivable: false,
+        blindExceptionReason: 'The evidence intentionally contains no independently derivable value.',
+      }),
+    ])
+    const pair = prepared.workspace.pairs.find(value => value.candidateKey === 'blind-exception')!
+    const result: ReviewerResult = {
+      schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+      assignmentId: `review-assignment:sha256:${'c'.repeat(64)}`,
+      packetId: pair.blindPacket.id,
+      packetChecksum: pair.blindPacket.packetChecksum,
+      reviewerConfigurationId: `reviewer-configuration:sha256:${'d'.repeat(64)}`,
+      reviewedAt: '2026-07-28T12:00:00.000Z',
+      outcome: 'cannot-verify',
+      rationale: 'The packet declares that blind derivation is impossible.',
+      findings: [],
+    }
+
+    expect(createComparisonTask(pair, result).blindInterpretation).toBeNull()
+  })
+
+  it('parses the staged human review workflow without accepting ambiguous commands', () => {
+    expect(
+      parseHumanReviewArguments([
+        'prepare',
+        '--output',
+        '.cache/aos4/review/human-review',
+        '--reviewer-id',
+        'reviewer@example.test',
+        '--assigned-at',
+        '2026-07-28T12:00:00.000Z',
+      ])
+    ).toMatchObject({
+      command: 'prepare',
+      reviewerId: 'reviewer@example.test',
+    })
+    expect(() => parseHumanReviewArguments(['review'])).toThrow(
+      'Human review command must be prepare, compare, or submit'
+    )
   })
 
   it('rejects reviewer exports without explicit recipient approval', () => {
@@ -363,5 +396,57 @@ describe('AoS 4 review packet preparation', () => {
     ).rejects.toThrow(
       `Accepted artifact ${ARTIFACT_CHECKSUM} is missing from ${cacheDirectory}; populate the local accepted-source cache before preparing review packets`
     )
+  })
+
+  it('loads sharded review workspaces and rejects invalid shard references', async () => {
+    const reviewDirectory = await mkdtemp(path.join(os.tmpdir(), 'aos4-review-workspace-'))
+    try {
+      const prepared = prepare([candidate('sharded')])
+      const shardDirectory = path.join(reviewDirectory, 'packets')
+      const workspacePath = path.join(reviewDirectory, 'workspace.json')
+      const shardPath = path.join(shardDirectory, 'packet-shard-0001.json')
+      const shard: ReviewPacketShard = {
+        schemaVersion: 1,
+        pairs: prepared.workspace.pairs,
+      }
+      const workspace: ShardedReviewPacketWorkspace = {
+        schemaVersion: prepared.workspace.schemaVersion,
+        revision: prepared.workspace.revision,
+        protocolVersion: prepared.workspace.protocolVersion,
+        rubricVersion: prepared.workspace.rubricVersion,
+        evidenceHandling: prepared.workspace.evidenceHandling,
+        batches: prepared.workspace.batches,
+        shards: [{ path: 'packets/packet-shard-0001.json', pairs: shard.pairs.length }],
+      }
+
+      await mkdir(shardDirectory)
+      await writeFile(workspacePath, JSON.stringify(workspace), 'utf8')
+      await writeFile(shardPath, JSON.stringify(shard), 'utf8')
+
+      await expect(loadReviewPacketPairs(workspacePath)).resolves.toEqual(prepared.workspace.pairs)
+
+      await writeFile(
+        workspacePath,
+        JSON.stringify({ ...workspace, shards: [{ path: '../outside.json', pairs: 1 }] }),
+        'utf8'
+      )
+      await expect(loadReviewPacketPairs(workspacePath)).rejects.toThrow(
+        'Review packet shard path escapes the workspace'
+      )
+
+      await writeFile(
+        workspacePath,
+        JSON.stringify({
+          ...workspace,
+          shards: [{ path: 'packets/packet-shard-0001.json', pairs: 2 }],
+        }),
+        'utf8'
+      )
+      await expect(loadReviewPacketPairs(workspacePath)).rejects.toThrow(
+        'Review packet shard does not match its workspace'
+      )
+    } finally {
+      await rm(reviewDirectory, { recursive: true, force: true })
+    }
   })
 })

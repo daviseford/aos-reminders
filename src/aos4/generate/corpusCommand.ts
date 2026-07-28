@@ -238,6 +238,10 @@ const verifyAcceptedArtifacts = async (
 
 const validateOfficialDocuments = (manifest: ArtifactManifest, review: CorpusReview): void => {
   const acceptedByChecksum = new Map(manifest.artifacts.map(artifact => [artifact.checksum, artifact]))
+  const acceptedRulesContextIds = new Set([
+    review.rulesContext.id,
+    ...(review.additionalRulesContexts ?? []).map(context => context.id),
+  ])
   review.officialDocuments.forEach(document => {
     const accepted = acceptedByChecksum.get(document.artifact.checksum)
     const reviewed = document.artifact
@@ -255,6 +259,14 @@ const validateOfficialDocuments = (manifest: ArtifactManifest, review: CorpusRev
       accepted.lastModified !== reviewed.lastModified
     ) {
       throw new Error(`Official document ${document.title} is not pinned in the accepted manifest`)
+    }
+    if (
+      !Array.isArray(document.rulesContextIds) ||
+      !document.rulesContextIds.length ||
+      new Set(document.rulesContextIds).size !== document.rulesContextIds.length ||
+      document.rulesContextIds.some(contextId => !acceptedRulesContextIds.has(contextId))
+    ) {
+      throw new Error(`Official document ${document.title} has invalid reviewed rules contexts`)
     }
   })
   const reviewedChecksums = new Set(review.officialDocuments.map(document => document.artifact.checksum))

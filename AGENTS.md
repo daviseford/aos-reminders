@@ -15,8 +15,8 @@ The migration branch is now an Age of Sigmar fourth-edition-only workbench:
 - old browser state is deleted and replaced with a schema-valid AoS 4 document; it is never
   translated
 - all 28 decoded factions are selectable through one source-complete relationship graph
-- the accepted corpus contains 1,268 warscrolls, 1,002 battle profiles, 4,260 abilities,
-  2,247 weapons, 1,172 content groups, and 17,443 live source records
+- the accepted corpus contains 1,268 warscrolls, 1,002 battle profiles, 4,850 abilities,
+  2,247 weapons, 1,402 content groups, and 19,057 live source records
 - current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and
   historical rules contexts isolate parallel and retired records; the browser defaults to the
   current 2026-27 seasonal context
@@ -98,10 +98,17 @@ Phase 1 has two parts:
 2. Data retrieval and entry: safe acquisition, source-specific decoding, reconciliation, review,
    stable identities, generation, and coverage/freshness reporting.
 
-Phase 1 is complete for the accepted 2026-07-27 snapshot. The manifest, corpus review, stable
-identity registry, complete audit catalog, compact runtime projection, and generation report are
-checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML, duplicate
-identity, silent source conflict, or unreviewed source diagnostic.
+The structural and machine-audit work is complete for the accepted
+`aos4-corpus-2026-07-28` snapshot. The manifest, corpus review, stable identity registry, complete
+audit catalog, compact runtime projection, and generation report are checked in. The strict gate
+has no unresolved timing, dangling reference, unsafe HTML, duplicate identity, silent source
+conflict, or unreviewed source diagnostic.
+
+Phase 1 is not certified yet. The checksum-bound review attempt has complete machine coverage and
+source inventories but remains blocked on 144 genuine human blind/comparison reviews and matching
+sign-off. Do not create the current-certification pointer, claim Phase 1 completion, or begin
+Phase 2 package modernization until `yarn data:aos4:certify` passes. See
+`docs/data/aos4-accuracy-review.md`.
 
 Future data refreshes repeat Phase 1b's candidate-review-accept-generate workflow. Never replace the
 accepted snapshot merely because a newer download decoded successfully. Review changed diagnostics,
@@ -213,10 +220,10 @@ Current export files:
 The files are UTF-8, pipe-delimited, and use string IDs and textual booleans. Descriptive fields may
 contain HTML. Normalize to safe text; never pass downloaded HTML directly to React.
 
-Exports can lag the public AoS 4 faction pages. The accepted 2026-07-27 snapshot keeps the 13
-exports for stable faction/publication identities and audit provenance, but supersedes every bulk
-warscroll and faction-rule row with reviewed current HTML from 27 faction warscroll collections
-and 28 faction roots. Use only the bounded `wahapedia-html/1` adapter and explicit
+Exports can lag the public AoS 4 faction pages. The accepted corpus keeps the 13 exports for
+stable faction/publication identities and audit provenance, but supersedes every bulk warscroll
+and faction-rule row with reviewed current HTML from 27 faction warscroll collections, 28 faction
+roots, and 17 current rules pages. Use only the bounded `wahapedia-html/1` adapter and explicit
 `--wahapedia-page`/`--wahapedia-pages-file` inputs; do not add ad hoc React-side scraping.
 
 Preserve “Powered by Wahapedia” attribution for published features derived from the exports.
@@ -339,6 +346,19 @@ updating accepted manifest and review inputs. Never hand-edit `data/aos4/catalog
 `data/aos4/catalog/official-battle-profiles.json`, `data/aos4/identities/corpus.json`, or
 `src/aos4/generated/corpus/*.json`.
 
+Accuracy review is a separate fail-closed layer:
+
+- full packets and source excerpts stay under `.cache/aos4/review/`
+- machine results cannot accept or mutate data
+- blind interpretations must be saved before generated-value comparison
+- every faction/context and high-risk cohort requires deterministic human sampling
+- blocker/major corrections require an independent verifier
+- only a passing checksum-bound certification may unblock Phase 2
+
+Use `yarn data:aos4:review:prepare`, `yarn data:aos4:review:adversarial`,
+`yarn data:aos4:review:human`, `yarn data:aos4:certify:prepare`, and
+`yarn data:aos4:certify` as documented in `docs/data/aos4-accuracy-review.md`.
+
 ## Retired architecture
 
 The following must remain absent:
@@ -388,6 +408,10 @@ yarn vitest run src/tests/aos4/representativeSlice.test.ts
 yarn data:aos4:generate
 ```
 
+After a passing `data/aos4/certifications/current.json` exists, also run
+`yarn data:aos4:certify`. Until then, validate an explicit review directory and expect only the
+documented human-review blocker.
+
 Tests use small repository fixtures and must not depend on live source availability. Add contract
 tests for provider changes and reconciliation tests for conflicts, stale secondary data, missing
 joins, duplicate identities, unsafe HTML, and source precedence.
@@ -405,5 +429,8 @@ unit-test prerequisite.
 5. Update the accepted manifest/review inputs and regenerate; do not hand-edit products.
 6. Run deterministic generation, catalog integrity, provenance, selection, reminder, browser, and
    production-build checks.
-7. Commit and push only to a migration sub-PR targeting `aos4-migration`.
-8. Keep dependency/package modernization in Phase 2 and separate from rules corrections.
+7. Repeat the checksum-bound machine and human accuracy review; a prior certification is never
+   inherited by a changed corpus.
+8. Commit and push only to a migration sub-PR targeting `aos4-migration`.
+9. Keep dependency/package modernization blocked until the current revision has a passing
+   certification.

@@ -17,9 +17,13 @@ import {
   emptyReviewLedger,
   evaluateCertification,
   importReviewerResultsAtomic,
+  mergeReviewLedgers,
+  parseCertificationPreparationArguments,
+  parseHumanReviewArguments,
   reviewerConfigurationId,
   runCertificationCheck,
   serializeReviewRecord,
+  sourceSafeReviewLedger,
   verifyCertificationManifest,
   type CertificationEvaluationInput,
   type CertificationInput,
@@ -178,6 +182,18 @@ const passingLedger = (): ReviewLedger => {
         correctCannotVerifyCases: 1,
         passed: true,
       },
+      {
+        schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+        reviewerConfigurationId: reviewerConfigurationId(humanReviewer),
+        rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+        calibratedAt: CALIBRATED_AT,
+        seededBlockerMajorDefects: 1,
+        foundSeededBlockerMajorDefects: 1,
+        unsupportedExpectedValues: 0,
+        insufficientEvidenceCases: 1,
+        correctCannotVerifyCases: 1,
+        passed: true,
+      },
     ],
     results: [
       result(agentAssignment.id, agentReviewer, BLIND_PACKET.id, BLIND_CHECKSUM),
@@ -276,6 +292,110 @@ const certificationInputs = (): CertificationInput[] =>
   }))
 
 describe('AoS 4 certification evaluation', () => {
+  it('requires deterministic preparation paths and timestamps', () => {
+    expect(
+      parseCertificationPreparationArguments([
+        '--output',
+        'data/aos4/certifications/fixture',
+        '--evaluated-at',
+        REVIEWED_AT,
+        '--human-ledger',
+        '.cache/aos4/review/human-ledger.json',
+        '--require-pass',
+      ])
+    ).toMatchObject({
+      output: 'data/aos4/certifications/fixture',
+      evaluatedAt: REVIEWED_AT,
+      humanLedger: '.cache/aos4/review/human-ledger.json',
+      requirePass: true,
+    })
+    expect(() =>
+      parseCertificationPreparationArguments([
+        '--output',
+        'data/aos4/certifications/fixture',
+        '--evaluated-at',
+        'not-an-instant',
+      ])
+    ).toThrow('--evaluated-at requires a canonical ISO timestamp')
+  })
+
+  it('keeps human blind review and comparison as explicit separate steps', () => {
+    expect(
+      parseHumanReviewArguments([
+        'prepare',
+        '--output',
+        '.cache/aos4/review/human-davis',
+        '--reviewer-id',
+        'maintainer:davis',
+        '--assigned-at',
+        REVIEWED_AT,
+      ])
+    ).toMatchObject({
+      command: 'prepare',
+      output: '.cache/aos4/review/human-davis',
+      reviewerId: 'maintainer:davis',
+      assignedAt: REVIEWED_AT,
+    })
+    expect(() =>
+      parseHumanReviewArguments(['compare', '--review-dir', '.cache/aos4/review/human-davis'])
+    ).toThrow('compare requires --blind-results')
+  })
+
+  it('merges a separately reviewed human ledger into the machine campaign', () => {
+    const complete = passingLedger()
+    const agentAssignmentId = complete.assignments.find(
+      assignment => assignment.reviewer.kind === 'agent'
+    )!.id
+    const humanAssignmentId = complete.assignments.find(
+      assignment => assignment.reviewer.kind === 'human'
+    )!.id
+    const machine: ReviewLedger = {
+      ...emptyReviewLedger(),
+      assignments: complete.assignments.filter(assignment => assignment.id === agentAssignmentId),
+      calibrations: complete.calibrations.filter(
+        calibration => calibration.reviewerConfigurationId === reviewerConfigurationId(agentReviewer)
+      ),
+      results: complete.results.filter(reviewResult => reviewResult.assignmentId === agentAssignmentId),
+    }
+    const human: ReviewLedger = {
+      ...emptyReviewLedger(),
+      assignments: complete.assignments.filter(assignment => assignment.id === humanAssignmentId),
+      calibrations: complete.calibrations.filter(
+        calibration => calibration.reviewerConfigurationId === reviewerConfigurationId(humanReviewer)
+      ),
+      results: complete.results.filter(reviewResult => reviewResult.assignmentId === humanAssignmentId),
+      signoffs: complete.signoffs,
+    }
+    const input = passingInput()
+    input.ledger = mergeReviewLedgers(machine, human)
+
+    expect(evaluateCertification(input)).toMatchObject({ status: 'pass', issues: [] })
+  })
+
+  it('commits checksums and structure instead of blind source bodies', () => {
+    const ledger = passingLedger()
+    const blind = ledger.results.find(reviewResult => reviewResult.packetId === BLIND_PACKET.id)!
+    blind.blindExpectedInterpretation = {
+      descriptionHtml: '<b>Verbatim source rule that must remain ignored.</b>',
+      attacks: 2,
+    }
+
+    const safe = sourceSafeReviewLedger(ledger)
+    const serialized = JSON.stringify(safe)
+
+    expect(serialized).not.toContain('Verbatim source rule')
+    expect(safe.results.find(result_ => result_.packetId === BLIND_PACKET.id)).toMatchObject({
+      blindExpectedInterpretation: {
+        interpretationChecksum: expect.stringMatching(/^[0-9a-f]{64}$/),
+        shape: {
+          numbers: 1,
+          strings: 1,
+          fieldPaths: ['attacks', 'descriptionHtml'],
+        },
+      },
+    })
+  })
+
   it('passes only complete calibrated machine review plus signed human samples', () => {
     expect(evaluateCertification(passingInput())).toMatchObject({
       status: 'pass',
@@ -518,10 +638,25 @@ describe('AoS 4 certification evaluation', () => {
           schemaVersion: 1,
           artifacts: [{ checksum: ACCEPTED_ARTIFACT_CHECKSUM }],
         },
-        'review-index': input.index,
+        'review-index': {
+          schemaVersion: 1,
+          kind: 'review-index-shards',
+          revision: input.index.revision,
+          protocolVersion: input.index.protocolVersion,
+          rubricVersion: input.index.rubricVersion,
+          coverage: input.index.coverage,
+          shards: [{ inputName: 'review-index-shard-0001', entries: input.index.entries.length }],
+        },
+        'review-index-shard-0001': input.index.entries,
         'review-assignments': input.ledger.assignments,
         'review-calibrations': input.ledger.calibrations,
-        'review-results': input.ledger.results,
+        'review-results': {
+          schemaVersion: 1,
+          kind: 'review-result-shards',
+          revision: input.index.revision,
+          shards: [{ inputName: 'review-results-shard-0001', results: input.ledger.results.length }],
+        },
+        'review-results-shard-0001': input.ledger.results,
         'review-findings': input.ledger.findings,
         'review-resolutions': input.ledger.resolutions,
         'review-verifications': input.ledger.verifications,
@@ -537,7 +672,11 @@ describe('AoS 4 certification evaluation', () => {
         'source-inventory': input.inventory,
       }
       const bindings: CertificationInput[] = []
-      for (const name of REQUIRED_CERTIFICATION_INPUTS) {
+      for (const name of [
+        ...REQUIRED_CERTIFICATION_INPUTS,
+        'review-index-shard-0001',
+        'review-results-shard-0001',
+      ]) {
         const relativePath = `data/aos4/certifications/fixture/inputs/${name}.json`
         const content = serializeReviewRecord(structured[name] ?? { fixture: name })
         await mkdir(path.dirname(path.join(repoRoot, relativePath)), { recursive: true })

@@ -3,7 +3,7 @@
   "generatedAt": "2026-07-28T02:50:49.197Z",
   "identities": "data/aos4/identities/corpus.json",
   "integrity": {
-    "consumedSourceRecords": 18269,
+    "consumedSourceRecords": 19057,
     "dispositions": [],
     "issues": [],
     "supersededSourceRecords": {
@@ -14,16 +14,16 @@
   },
   "products": {
     "data/aos4/catalog/catalog.json": {
-      "byteLength": 29663482,
-      "checksum": "7805396513427ce977408449d4a377090568d1d1685186c593b9086846c0f3a1"
+      "byteLength": 30274495,
+      "checksum": "9e35eee555254188afe1d213a199fd426b8f081cdc148da428f0c69e006d8b6f"
     },
     "data/aos4/catalog/official-battle-profiles.json": {
       "byteLength": 1426482,
       "checksum": "4b3c00c5136adfe20ba879828ab0bea937bf882be40157b5ba04c30edc8715d1"
     },
     "data/aos4/identities/corpus.json": {
-      "byteLength": 3379857,
-      "checksum": "69f7439dbcb56e415c4e05cd58e943338df0a4a297b2857f1a5ce9b6bccfde56"
+      "byteLength": 3422782,
+      "checksum": "0d1067ed19f478f93d2bedb04ca2c65e95906b8ee301049b2fd49205debd49f4"
     },
     "data/aos4/reports/corpus-2026-07-27-reconciliation.json": {
       "byteLength": 164854,
@@ -34,8 +34,8 @@
       "checksum": "56f2897a563b6a9e6a31e83ce8ffd9e3d361d12aa0a8890bf24d374264ffb0a6"
     },
     "src/aos4/generated/corpus/runtime.json": {
-      "byteLength": 12359557,
-      "checksum": "392b42ca5e0b49c1ae17d3aa05c3fdb7f41b6c83431d0099a8790f17d2fa57c6"
+      "byteLength": 12638321,
+      "checksum": "1e5623dd4dc3d35b88a185561e09f777438617ad1968024e4dfd5f3591d9a263"
     }
   },
   "review": "data/aos4/reviews/corpus-2026-07-27.json",
@@ -57,12 +57,12 @@
     "contentGroups": 1402,
     "factions": 28,
     "ignoredSourceRecords": 18897,
-    "publications": 158,
+    "publications": 277,
     "relationships": 11450,
     "revision": "aos4-corpus-2026-07-28",
     "schemaVersion": 1,
-    "sourceArtifacts": 122,
-    "sourceRecords": 18269,
+    "sourceArtifacts": 241,
+    "sourceRecords": 19057,
     "status": "strict-pass",
     "warscrolls": 1268,
     "weapons": 2247

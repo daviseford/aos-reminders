@@ -115,6 +115,20 @@ export interface ReviewPacketWorkspace {
   batches: ReviewPacketBatch[]
 }
 
+export interface ReviewPacketShard {
+  schemaVersion: 1
+  pairs: ReviewPacketPair[]
+}
+
+export interface ReviewPacketShardReference {
+  path: string
+  pairs: number
+}
+
+export interface ShardedReviewPacketWorkspace extends Omit<ReviewPacketWorkspace, 'pairs'> {
+  shards: ReviewPacketShardReference[]
+}
+
 export interface ReviewPacketIndexEntry {
   pairKey: string
   candidateKey: string
@@ -312,7 +326,7 @@ const createPair = (
   const baseCohorts = [
     ...candidate.cohortIds,
     ...(options.humanSample ? ['human-sample'] : []),
-    ...(options.calibration ? [`calibration:${options.calibrationKind ?? 'pass'}`, 'blind-control'] : []),
+    ...(options.calibration ? ['calibration', 'blind-control'] : []),
     ...(!candidate.independentlyDerivable ? ['blind-exception'] : []),
   ]
   const base = {
@@ -532,14 +546,18 @@ export const createComparisonTask = (
   ) {
     throw new Error('Blind result does not match the packet checksum')
   }
-  if (blindResult.blindExpectedInterpretation === undefined) {
+  if (
+    pair.blindDerivationRequired &&
+    (blindResult.blindExpectedInterpretation === undefined ||
+      blindResult.blindExpectedInterpretation === null)
+  ) {
     throw new Error('Blind result does not contain an independently derived interpretation')
   }
   return {
     pairKey: pair.pairKey,
     blindPacketId: pair.blindPacket.id,
     blindPacketChecksum: pair.blindPacket.packetChecksum,
-    blindInterpretation: blindResult.blindExpectedInterpretation,
+    blindInterpretation: blindResult.blindExpectedInterpretation ?? null,
     comparisonPacketId: pair.comparisonPacket.id,
     comparisonPacketChecksum: pair.comparisonPacket.packetChecksum,
   }
