@@ -57,10 +57,8 @@ describe('subscription pricing plans', () => {
     vi.restoreAllMocks()
   })
 
-  it('shows a retryable checkout error instead of silently logging Stripe failures', async () => {
-    stripe.redirectToCheckout.mockResolvedValue({
-      error: { message: 'Checkout could not be started.' },
-    })
+  it('keeps the established plan card stable while handing checkout to Stripe', async () => {
+    stripe.redirectToCheckout.mockResolvedValue({})
 
     await act(async () => {
       render(
@@ -77,7 +75,14 @@ describe('subscription pricing plans', () => {
     })
 
     expect(stripe.redirectToCheckout).toHaveBeenCalledTimes(1)
-    expect(container.querySelector('[role="alert"]')?.textContent).toContain('Checkout could not be started.')
-    expect(container.querySelector('button')?.disabled).toBe(false)
+    expect(stripe.redirectToCheckout).toHaveBeenCalledWith(
+      expect.objectContaining({
+        clientReferenceId: 'general@example.com',
+        customerEmail: 'general@example.com',
+        items: [{ plan: SUBSCRIPTION_PLANS[0].stripe_prod, quantity: 1 }],
+      })
+    )
+    expect(container.querySelector('button')?.textContent).toBe('Subscribe for 1 Month')
+    expect(container.querySelector('[role="alert"]')).toBeNull()
   })
 })

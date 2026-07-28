@@ -1,21 +1,23 @@
 import { useAuth0 } from '@auth0/auth0-react'
 import AlreadySubscribed from 'components/helpers/alreadySubscribed'
+import { LinkNewTab } from 'components/helpers/link'
 import { LoadingBody, LoadingHeader } from 'components/helpers/suspenseFallbacks'
-import GenericButton from 'components/input/generic_button'
 import Contact from 'components/page/contact'
 import { PricingPlans } from 'components/payment/pricingPlans'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect } from 'react'
-import { logPageView } from 'utils/analytics'
-import { GITHUB_URL } from 'utils/env'
+import { Link } from 'react-router-dom'
+import { logClick, logPageView } from 'utils/analytics'
+import { GITHUB_URL, ROUTES } from 'utils/env'
+import useWindowSize from 'utils/hooks/useWindowSize'
 
 const Navbar = lazy(() => import('components/page/navbar'))
 const headerClass = 'col-12 col-lg-8 col-xl-8 pt-5 mx-auto'
 
 const Subscribe = () => {
   const { isLoading } = useAuth0()
-  const { getSubscription, isActive, isSubscribed, subscriptionError } = useSubscription()
+  const { isSubscribed, isActive, getSubscription } = useSubscription()
   const { theme } = useTheme()
 
   useEffect(() => {
@@ -38,30 +40,57 @@ const Subscribe = () => {
         </Suspense>
       </div>
       <Intro />
-      {subscriptionError && (
-        <div className="container">
-          <div className="alert alert-warning" role="alert">
-            <p className="mb-2">{subscriptionError}</p>
-            <GenericButton className="btn btn-sm btn-primary" onClick={() => void getSubscription()}>
-              Try again
-            </GenericButton>
-          </div>
-        </div>
-      )}
       <div className={`container ${theme.bgColor} ${theme.text}`}>
         <div className="row align-items-start justify-content-center mt-3">
           <CurrentFeatures />
           <ComingSoon />
         </div>
       </div>
-      {!subscriptionError && (
-        <div className="row py-5 bg-light justify-content-center jumbotron-fluid">
-          <PricingPlans />
-        </div>
-      )}
+      <div className="row py-5 bg-light justify-content-center jumbotron-fluid">
+        <PricingPlans />
+      </div>
+      <ExamplesRow />
       <div className={`container ${theme.bgColor} ${theme.text} text-center py-4`}>
         <Contact size="small" />
       </div>
+    </div>
+  )
+}
+
+const ExamplesRow = () => (
+  <div className="row py-5 mx-3 bg-light justify-content-center jumbotron-fluid">
+    <MobileDarkModeDemo />
+    <div className="col-12 col-xl-8 col-xxl-5">
+      <WebmWithFallback
+        webmUrl="/img/import_demo.mp4"
+        gifUrl="/img/import_demo.gif"
+        description="Importing Warscroll Builder/Azyr files"
+        label="Demo-Import"
+      />
+    </div>
+    <div className="col-12 col-xl-8 col-xxl-5">
+      <WebmWithFallback
+        webmUrl="/img/save_load_demo.mp4"
+        gifUrl="/img/save_load_demo.gif"
+        description="Saving, loading, and deleting armies"
+        label="Demo-SaveLoad"
+      />
+    </div>
+  </div>
+)
+
+const MobileDarkModeDemo = () => {
+  const { isMobile } = useWindowSize()
+  if (!isMobile) return null
+
+  return (
+    <div className="col-12">
+      <WebmWithFallback
+        webmUrl="/img/dark_mode1.mp4"
+        gifUrl="/img/dark_mode1.gif"
+        description="Dark Mode"
+        label="Demo-DarkMode"
+      />
     </div>
   )
 }
@@ -97,10 +126,22 @@ const CurrentFeatures = () => (
       <strong>What do you get when you subscribe?</strong>
     </p>
     <ul className="lead">
-      <li>Support the fourth-edition migration and ongoing rules updates.</li>
-      <li>Help keep the core reminder experience free for the whole community.</li>
-      <li>Use subscriber dark mode from your familiar Profile page.</li>
-      <li>Manage your existing subscription through the established account experience.</li>
+      <li>
+        <strong>NEW:</strong> Import lists from the new Warhammer App!
+      </li>
+      <li>Write, edit, and save notes!</li>
+      <li>
+        Access to <Link to={ROUTES.STATS}>advanced stats!</Link>
+      </li>
+      <li>Share army lists with your friends!</li>
+      <li>Spare your eyes! Turn on dark mode!</li>
+      <li>
+        Save, load, update, and delete your army lists from <strong>anywhere</strong> on <strong>any</strong>{' '}
+        device - even <strong>offline!</strong>
+      </li>
+      <li>
+        Import your army lists <strong>instantly</strong> from Azyr, Warscroll Builder, and Battlescribe.
+      </li>
     </ul>
   </div>
 )
@@ -112,22 +153,53 @@ const ComingSoon = () => (
     </p>
     <ul className="lead">
       <li>
-        <i>Broader, reviewed AoS 4 faction coverage</i>
+        <i>Add custom reminders to any phase</i>
       </li>
       <li>
-        <i>AoS 4 list import after the game structure stabilizes</i>
+        <i>Attach PDF/HTML lists to your Saved Army</i>
       </li>
       <li>
-        <i>AoS 4 account-backed army saving and sharing</i>
-      </li>
-      <li>
-        Follow migration work{' '}
-        <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
+        <i>
+          <strong>and much more!</strong>
+        </i>{' '}
+        - Check out our list of planned feature enhancements{' '}
+        <LinkNewTab href={`${GITHUB_URL}/labels/enhancement`} label="Github">
           on Github!
-        </a>
+        </LinkNewTab>
       </li>
     </ul>
   </div>
 )
+
+interface WebmWithFallbackProps {
+  webmUrl: string
+  gifUrl: string
+  description: string
+  label: string
+}
+
+const WebmWithFallback = ({ webmUrl, gifUrl, description, label }: WebmWithFallbackProps) => {
+  const supportsWebm = !!document.createElement('video').canPlayType
+
+  return (
+    <figure className="figure">
+      <LinkNewTab href={supportsWebm ? webmUrl : gifUrl} onClick={() => logClick(label)} label="Video URL">
+        <video
+          preload="auto"
+          loop
+          poster={gifUrl}
+          autoPlay
+          className="figure-img img-fluid rounded img-thumbnail"
+        >
+          <source src={webmUrl} type="video/mp4" />
+          <source src={webmUrl} type="video/webm" />
+        </video>
+      </LinkNewTab>
+      <figcaption className="figure-caption text-center">
+        <strong>{description}</strong>
+      </figcaption>
+    </figure>
+  )
+}
 
 export default Subscribe

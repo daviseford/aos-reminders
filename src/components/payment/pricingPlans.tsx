@@ -74,8 +74,6 @@ export const PlanComponent = (props: IPlanProps) => {
   const { user, isAuthenticated } = useAuth0()
   const { login } = useLogin({ origin: supportPlan.title })
   const stripe = useStripe()
-  const [checkoutError, setCheckoutError] = useState<string | null>(null)
-  const [checkoutLoading, setCheckoutLoading] = useState(false)
 
   if (!stripe) return null
 
@@ -87,31 +85,21 @@ export const PlanComponent = (props: IPlanProps) => {
     const plan = isDev ? supportPlan.stripe_dev : supportPlan.stripe_prod
     const url = isDev ? 'localhost:3000' : 'aosreminders.com'
 
-    setCheckoutError(null)
-    setCheckoutLoading(true)
-    try {
-      const result = await stripe.redirectToCheckout({
-        items: [{ plan, quantity: 1 }],
-        customerEmail: user.email,
-        clientReferenceId: user.email,
-        successUrl: `${window.location.protocol}//${url}/?${qs.stringify({
-          subscribed: true,
-          plan: supportPlan.title,
-        })}`,
-        cancelUrl: `${window.location.protocol}//${url}/?${qs.stringify({
-          canceled: true,
-          plan: supportPlan.title,
-        })}`,
-      })
+    const result = await stripe.redirectToCheckout({
+      items: [{ plan, quantity: 1 }],
+      customerEmail: user.email,
+      clientReferenceId: user.email,
+      successUrl: `${window.location.protocol}//${url}/?${qs.stringify({
+        subscribed: true,
+        plan: supportPlan.title,
+      })}`,
+      cancelUrl: `${window.location.protocol}//${url}/?${qs.stringify({
+        canceled: true,
+        plan: supportPlan.title,
+      })}`,
+    })
 
-      if (result.error) {
-        setCheckoutError(result.error.message || 'Unable to start checkout. Please try again.')
-      }
-    } catch {
-      setCheckoutError('Unable to start checkout. Please try again.')
-    } finally {
-      setCheckoutLoading(false)
-    }
+    if (result.error) console.error(result.error)
   }
 
   return (
@@ -140,18 +128,12 @@ export const PlanComponent = (props: IPlanProps) => {
             <GenericButton
               type="button"
               className="btn btn btn-block btn-primary btn-pill py-2"
-              disabled={checkoutLoading}
               onClick={isAuthenticated ? handleStripeCheckout : login}
             >
-              {checkoutLoading ? 'Opening checkout...' : `Subscribe for ${supportPlan.title}`}
+              Subscribe for {supportPlan.title}
             </GenericButton>
           </IconContext.Provider>
         </div>
-        {checkoutError && (
-          <div className="alert alert-danger mx-3 mt-3 mb-0" role="alert">
-            {checkoutError}
-          </div>
-        )}
         <PayPalComponent {...props} />
       </div>
     </div>

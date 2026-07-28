@@ -91,3 +91,4 @@ src/tests/fixtures/intake/*
 
 # Don't ignore the placeholder file
 !src/tests/fixtures/intake/placeholder.txt
+.impeccable/

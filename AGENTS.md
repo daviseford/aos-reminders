@@ -121,8 +121,13 @@ After the AoS 4 domain and data pipeline stabilize:
 - tighten compiler and lint settings
 - redesign API/auth/subscription/save/share capabilities against AoS 4 contracts as needed
 - address bundle and deployment architecture
+- rebuild capabilities the cutover removed against AoS 4 contracts, starting with printing and PDF
+  export (`src/aos4/print/`, documented in `docs/printing.md`)
 
 Keep framework migration separate from rules/data corrections where practical.
+
+The jsPDF upgrade (`1.5.3`, using APIs removed in 2.x) is outstanding Phase 2 work. It is now
+confined to `src/aos4/print/pdf.ts`.
 
 ## Branch and pull-request strategy
 
