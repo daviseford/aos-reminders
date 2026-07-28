@@ -6,6 +6,7 @@ import {
   type Ability,
   type Aos4Catalog,
   type Faction,
+  type Warscroll,
 } from '../../aos4/domain'
 import type { ArtifactManifest } from '../../aos4/data'
 import {
@@ -315,6 +316,17 @@ describe('AoS 4 catalog generation integrity', () => {
       entity => entity.kind === 'warscroll' && entity.name === 'Celestar Ballista'
     )!
     expect(celestarBallista.rulesContextIds).toEqual([legends.id])
+
+    const kragnosWarscrolls = AOS4_CATALOG.entities.filter(
+      (entity): entity is Warscroll =>
+        entity.kind === 'warscroll' &&
+        entity.name === 'Kragnos, the End of Empires' &&
+        entity.rulesContextIds.includes(legends.id)
+    )
+    expect(kragnosWarscrolls).toHaveLength(1)
+    expect(
+      kragnosWarscrolls[0].factionIds.map(factionId => entitiesById.get(factionId)?.name)
+    ).toEqual(['Bonesplitterz'])
 
     const nighthaunt = factions.find(faction => faction.name === 'Nighthaunt')!
     const nighthauntSelection = resolveSelection(AOS4_CATALOG, {

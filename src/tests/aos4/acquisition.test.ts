@@ -24,6 +24,12 @@ const chunks = async function* (...values: Uint8Array[]): AsyncIterable<Uint8Arr
   for (const value of values) yield value
 }
 
+const stalledChunks = (): AsyncIterable<Uint8Array> => ({
+  [Symbol.asyncIterator]: () => ({
+    next: () => new Promise<IteratorResult<Uint8Array>>(() => undefined),
+  }),
+})
+
 const response = (
   status: number,
   body = new Uint8Array(),
@@ -321,6 +327,22 @@ describe('AoS 4 source acquisition', () => {
 
     await expect(
       acquireArtifact({ ...request, timeoutMs: 5 }, dependencies(new FakeTransport(['never']), cache))
+    ).rejects.toMatchObject({ code: 'timeout' })
+
+    await expect(
+      acquireArtifact(
+        { ...request, timeoutMs: 5 },
+        dependencies(
+          new FakeTransport([
+            {
+              status: 200,
+              headers: { 'content-type': 'text/csv' },
+              body: stalledChunks(),
+            },
+          ]),
+          cache
+        )
+      )
     ).rejects.toMatchObject({ code: 'timeout' })
 
     await expect(

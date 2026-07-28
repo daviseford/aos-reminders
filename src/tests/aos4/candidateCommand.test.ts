@@ -1,5 +1,6 @@
-import type { ArtifactManifestEntry, GamesWorkshopPdfInput } from '../../aos4/data'
+import { createArtifactManifest, type ArtifactManifestEntry, type GamesWorkshopPdfInput } from '../../aos4/data'
 import {
+  candidateArtifactUrls,
   createCandidateOfficialDocumentReport,
   parseCandidateArguments,
   uniqueWahapediaPageUrls,
@@ -161,5 +162,40 @@ describe('AoS 4 candidate command arguments', () => {
         Array.from({ length: 2_001 }, (_, index) => `https://wahapedia.ru/page-${index}`)
       )
     ).toThrow('At most 2000 Wahapedia page URLs')
+  })
+
+  it('derives a complete offline replay set instead of copying unverified manifest entries', () => {
+    const official = {
+      requestUrl: 'https://assets.warhammer-community.com/official.pdf',
+      finalUrl: 'https://assets.warhammer-community.com/official.pdf',
+      redirectChain: [],
+      retrievedAt: '2026-07-27T12:00:00.000Z',
+      adapterVersion: 'games-workshop-pdf/1',
+      mediaType: 'application/pdf',
+      byteLength: 1,
+      checksum: 'a'.repeat(64),
+    } satisfies ArtifactManifestEntry
+    const html = {
+      ...official,
+      requestUrl: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html',
+      finalUrl: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html',
+      adapterVersion: 'wahapedia-html/1',
+      mediaType: 'text/html',
+      checksum: 'b'.repeat(64),
+    } satisfies ArtifactManifestEntry
+    const manifest = createArtifactManifest([official, html])
+
+    expect(candidateArtifactUrls([], manifest, 'games-workshop-pdf/1', true)).toEqual([
+      official.requestUrl,
+    ])
+    expect(
+      candidateArtifactUrls(
+        ['https://assets.warhammer-community.com/explicit.pdf'],
+        manifest,
+        'games-workshop-pdf/1',
+        true
+      )
+    ).toEqual(['https://assets.warhammer-community.com/explicit.pdf'])
+    expect(candidateArtifactUrls([], manifest, 'games-workshop-pdf/1', false)).toEqual([])
   })
 })

@@ -91,6 +91,16 @@ const contextForOldWarscroll = (
   return 'other'
 }
 
+const isLegendsOldWarscroll = (
+  record: WahapediaWarscrollRecord | undefined,
+  dataset: WahapediaDataset
+): boolean => {
+  if (!record) return false
+  if (record.meta.rulesContextKinds?.includes('legends')) return true
+  const source = dataset.sources.find(candidate => candidate.id === record.sourceId)
+  return Boolean(source && /\blegends?\b/i.test(source.name)) || /\blegends?\b/i.test(record.notesHtml)
+}
+
 const pathFor = (value: string): string => {
   try {
     return new URL(value, 'https://wahapedia.ru').pathname.replace(/\/+$/, '').toLowerCase()
@@ -157,16 +167,18 @@ const htmlContextKinds = (
 
 const matchingFacts = (
   page: WahapediaHtmlWarscrollRecord,
-  facts: GamesWorkshopUnitProfileFact[]
+  facts: GamesWorkshopUnitProfileFact[],
+  legendsIdentity: boolean
 ): GamesWorkshopUnitProfileFact[] =>
   facts.filter(fact => {
     if (page.context === 'spearhead' || page.context === 'historical') {
       return false
     }
-    if (page.context !== 'standard' && fact.context !== page.context) {
-      return false
-    }
-    if (page.context === 'standard' && fact.context !== 'standard' && fact.context !== 'legends') {
+    const matchingContext =
+      page.context === 'standard'
+        ? fact.context === 'standard' || (fact.context === 'legends' && legendsIdentity)
+        : fact.context === page.context
+    if (!matchingContext) {
       return false
     }
     const officialName = comparableOfficialName(fact.name)
@@ -177,7 +189,7 @@ const matchingFacts = (
       ),
     ])
     if (!pageNames.has(officialName)) return false
-    if (fact.context === 'legends') return true
+    if (fact.context === 'legends') return page.context === 'legends' || legendsIdentity
     return canonical(fact.faction) === canonical(page.factionName)
   })
 
@@ -262,10 +274,6 @@ export const mergeCurrentWahapediaWarscrollPages = (
     .slice()
     .sort((left, right) => left.sourceUrl.localeCompare(right.sourceUrl))
     .forEach(page => {
-      const facts = matchingFacts(page, officialUnits)
-      facts.forEach(fact => matchedOfficialFactChecksums.add(fact.factChecksum))
-      const official = primaryFact(page, facts)
-      const contextKinds = htmlContextKinds(page, facts)
       const nameCandidates = dataset.warscrolls.filter(
         record =>
           canonical(record.name) === canonical(page.name) &&
@@ -289,6 +297,10 @@ export const mergeCurrentWahapediaWarscrollPages = (
               ? nameCandidates[0]
               : undefined))
         : undefined
+      const facts = matchingFacts(page, officialUnits, isLegendsOldWarscroll(old, dataset))
+      facts.forEach(fact => matchedOfficialFactChecksums.add(fact.factChecksum))
+      const official = primaryFact(page, facts)
+      const contextKinds = htmlContextKinds(page, facts)
       const warscrollId =
         old?.id ?? `html-${createHash('sha256').update(page.sourceUrl).digest('hex').slice(0, 16)}`
       const officialSourceRecordIds = facts.map(fact => fact.sourceRecordId)

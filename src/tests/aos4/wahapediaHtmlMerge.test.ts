@@ -169,6 +169,117 @@ describe('current Wahapedia HTML reconciliation', () => {
     )
   })
 
+  it('maps a Legends fact only to the matching retired identity', () => {
+    const dataset = emptyDataset()
+    dataset.factions.push(
+      {
+        id: 'BS',
+        name: 'Bonesplitterz',
+        link: '/aos4/factions/bonesplitterz/',
+        meta: meta('Factions.csv', 'bonesplitterz'),
+      },
+      {
+        id: 'GG',
+        name: 'Gloomspite Gitz',
+        link: '/aos4/factions/gloomspite-gitz/',
+        meta: meta('Factions.csv', 'gloomspite-gitz'),
+      }
+    )
+    dataset.sources.push({
+      id: 'legends',
+      name: 'Legends compendium',
+      type: '',
+      edition: '',
+      version: '',
+      errataDate: '',
+      errataLink: '',
+      meta: meta('Source.csv', 'legends'),
+    })
+    const oldWarscroll = (
+      id: string,
+      factionId: string,
+      sourceId: string
+    ): WahapediaDataset['warscrolls'][number] => ({
+      id,
+      name: 'Kragnos, the End of Empires',
+      factionId,
+      sourceId,
+      legendHtml: '',
+      regimentOptions: '',
+      notesHtml: '',
+      descriptionHtml: '',
+      role: '',
+      virtual: false,
+      noReinforced: false,
+      link: `/aos4/factions/${factionId.toLowerCase()}/Kragnos-the-End-of-Empires`,
+      move: '10"',
+      save: '4+',
+      control: '5',
+      health: '18',
+      ward: '',
+      unitSize: '1',
+      cost: '580',
+      meta: meta('Warscrolls.csv', id),
+    })
+    dataset.warscrolls.push(
+      oldWarscroll('legends-kragnos', 'BS', 'legends'),
+      oldWarscroll('current-kragnos', 'GG', '')
+    )
+    const page = (factionName: string, slug: string): WahapediaHtmlWarscrollRecord => ({
+      recordKind: 'warscroll',
+      externalId: 'Kragnos-the-End-of-Empires',
+      name: 'Kragnos the End of Empires',
+      factionName,
+      sourceTitle: 'Faction Pack',
+      sourceUrl: `https://wahapedia.ru/aos4/factions/${slug}/warscrolls.html#Kragnos-the-End-of-Empires`,
+      context: 'standard',
+      characteristics: { move: '10"', save: '4+', control: '5', health: '18' },
+      descriptionHtml: '',
+      keywords: [],
+      unitSize: 1,
+      points: factionName === 'Bonesplitterz' ? 590 : 610,
+      baseSizes: ['130mm'],
+      regimentOptions: [],
+      notes: [],
+      canBeReinforced: false,
+      weapons: [],
+      abilities: [],
+      meta: htmlMeta(`${slug}/Kragnos/warscroll`),
+      artifact,
+    })
+    const official: GamesWorkshopUnitProfileFact = {
+      kind: 'unit',
+      key: 'legends:kragnos',
+      page: 64,
+      row: 1,
+      faction: 'Warhammer Legends',
+      context: 'legends',
+      name: 'Kragnos, the End of Empires',
+      unitSize: 1,
+      points: 580,
+      regimentOptions: [],
+      relevantKeywords: [],
+      notes: [],
+      baseSizes: ['130mm'],
+      sourceRecordId: sourceRecordId('games-workshop', `${'f'.repeat(64)}:page:64`),
+      factChecksum: '1'.repeat(64),
+    }
+
+    const result = mergeCurrentWahapediaWarscrollPages(
+      dataset,
+      [page('Bonesplitterz', 'bonesplitterz'), page('Gloomspite Gitz', 'gloomspite-gitz')],
+      [official]
+    )
+    const legends = result.dataset.warscrolls.find(record => record.id === 'legends-kragnos')
+    const current = result.dataset.warscrolls.find(record => record.id === 'current-kragnos')
+
+    expect(legends?.cost).toBe('580')
+    expect(legends?.meta.rulesContextKinds).toEqual(['legends'])
+    expect(current?.cost).toBe('610')
+    expect(current?.meta.rulesContextKinds).toEqual(['standard'])
+    expect(result.reconciliation.matchedOfficialUnitFacts).toBe(1)
+  })
+
   it('replaces stale export faction rules and keeps their records dispositionable', () => {
     const dataset = emptyDataset()
     const oldTypeMeta = meta('Faction_ability_types.csv', 'old-type')

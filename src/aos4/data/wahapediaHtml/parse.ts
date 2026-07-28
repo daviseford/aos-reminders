@@ -76,8 +76,10 @@ const cloneWithout = (element: Element, selector: string): Element => {
 
 const profileValues = (element: Element): Map<string, string> => {
   const values = new Map<string, string>()
-  const html = element.innerHTML.replace(/<br\s*\/?>/gi, '\n').replace(/<\/div>/gi, '\n')
-  const text = new JSDOM(`<body>${html}</body>`).window.document.body.textContent ?? ''
+  const clone = element.cloneNode(true) as Element
+  clone.querySelectorAll('br').forEach(lineBreak => lineBreak.replaceWith('\n'))
+  clone.querySelectorAll('div').forEach(block => block.append('\n'))
+  const text = clone.textContent ?? ''
   text
     .split(/\n+/)
     .map(line =>
@@ -88,9 +90,9 @@ const profileValues = (element: Element): Map<string, string> => {
     )
     .filter(Boolean)
     .forEach(line => {
-      const matches = [
-        ...line.matchAll(/(Unit Size|Points|Base size|Can be reinforced|Regiment Options|Notes):\s*/gi),
-      ]
+      const matches = Array.from(
+        line.matchAll(/(Unit Size|Points|Base size|Can be reinforced|Regiment Options|Notes):\s*/gi)
+      )
       matches.forEach((match, index) => {
         const start = (match.index ?? 0) + match[0].length
         const end = matches[index + 1]?.index ?? line.length

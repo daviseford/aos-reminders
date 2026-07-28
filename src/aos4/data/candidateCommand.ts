@@ -142,6 +142,23 @@ export interface CandidateWahapediaHtmlReport {
   }>
 }
 
+export const candidateArtifactUrls = (
+  explicitUrls: string[],
+  acceptedManifest: ArtifactManifest | undefined,
+  adapterVersion: string,
+  offline: boolean
+): string[] => {
+  const urls =
+    offline && explicitUrls.length === 0
+      ? (acceptedManifest?.artifacts
+          .filter(artifact => artifact.adapterVersion === adapterVersion)
+          .map(artifact => artifact.requestUrl) ?? [])
+      : explicitUrls
+  return Array.from(new Set(urls.map(url => url.trim()).filter(Boolean))).sort((left, right) =>
+    left.localeCompare(right)
+  )
+}
+
 export interface CandidateOfficialDocumentReport {
   schemaVersion: 1
   status: 'blocked' | 'candidate-review-required'
@@ -395,7 +412,7 @@ export const acquireCandidateData = async (
     context?: string
     diagnostics: WahapediaHtmlDiagnostic[]
   }> = []
-  let manifest = createArtifactManifest(options.acceptedManifest?.artifacts)
+  let manifest = createArtifactManifest()
 
   for (let index = 0; index < WAHAPEDIA_EXPORT_FILES.length; index += 1) {
     const file = WAHAPEDIA_EXPORT_FILES[index]
@@ -414,7 +431,13 @@ export const acquireCandidateData = async (
     }
   }
 
-  for (const url of options.officialDocumentUrls ?? []) {
+  const officialDocumentUrls = candidateArtifactUrls(
+    options.officialDocumentUrls ?? [],
+    options.acceptedManifest,
+    GAMES_WORKSHOP_ADAPTER_VERSION,
+    options.offline === true
+  )
+  for (const url of officialDocumentUrls) {
     const result = await acquireArtifact(
       {
         url,
@@ -442,7 +465,14 @@ export const acquireCandidateData = async (
     if (!options.offline) await pause(pauseMs)
   }
 
-  const wahapediaPageUrls = uniqueWahapediaPageUrls(options.wahapediaPageUrls ?? [])
+  const wahapediaPageUrls = uniqueWahapediaPageUrls(
+    candidateArtifactUrls(
+      options.wahapediaPageUrls ?? [],
+      options.acceptedManifest,
+      WAHAPEDIA_HTML_ADAPTER_VERSION,
+      options.offline === true
+    )
+  )
   for (let index = 0; index < wahapediaPageUrls.length; index += 1) {
     const url = wahapediaPageUrls[index]
     const result = await acquireArtifact(
