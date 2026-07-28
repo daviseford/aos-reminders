@@ -22,7 +22,12 @@ import type { IdentityRegistry } from '../generate/identityRegistry'
 import type { OfficialBattleProfileCatalog } from '../generate/officialBattleProfiles'
 import { stableCompactJson, stableJson } from '../generate/serialization'
 import {
+  ignoredRecordCandidateKey,
+  officialRecordCandidateKey,
   prepareReviewPackets,
+  profileOnlyFactCandidateKey,
+  reconciliationDiscrepancyCandidateKey,
+  sourceRecordCandidateKey,
   type ReviewCalibrationCase,
   type ReviewCandidateSourceEvidence,
   type ReviewPacketCandidate,
@@ -35,6 +40,7 @@ import {
   type PathologyIssue,
 } from './pathology'
 import { AOS4_REVIEW_PROTOCOL_VERSION, AOS4_REVIEW_RUBRIC_VERSION } from './records'
+import { writeCreateOnlyDirectory } from './reviewWorkspace'
 
 const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-07-27.json')
 const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-07-27.json')
@@ -43,7 +49,8 @@ const DEFAULT_OFFICIAL_PROFILES = path.join('data', 'aos4', 'catalog', 'official
 const DEFAULT_IDENTITIES = path.join('data', 'aos4', 'identities', 'corpus.json')
 const DEFAULT_RUNTIME = path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json')
 const DEFAULT_CACHE = path.join('.cache', 'aos4', 'artifacts')
-const DEFAULT_WORKSPACE = path.join('.cache', 'aos4', 'review')
+const REVIEW_CACHE = path.join('.cache', 'aos4', 'review')
+const DEFAULT_WORKSPACE = path.join(REVIEW_CACHE, 'workspace')
 const PACKET_SHARD_SIZE = 250
 const MAX_EXCERPT_LENGTH = 1_200
 const REQUIRED_HIGH_RISK_COHORTS = [
@@ -114,10 +121,10 @@ interface SourceEntityIndexes {
 const readJson = async <T>(filePath: string): Promise<T> => JSON.parse(await readFile(filePath, 'utf8')) as T
 
 const normalizedWorkspacePath = (workspaceDirectory: string): string => {
-  const allowedRoot = path.resolve(DEFAULT_WORKSPACE)
+  const allowedRoot = path.resolve(REVIEW_CACHE)
   const requested = path.resolve(workspaceDirectory)
   if (requested !== allowedRoot && !requested.startsWith(`${allowedRoot}${path.sep}`)) {
-    throw new Error(`Review packet workspace must remain under ${DEFAULT_WORKSPACE}`)
+    throw new Error(`Review packet workspace must remain under ${REVIEW_CACHE}`)
   }
   return requested
 }
@@ -296,8 +303,7 @@ export const pageExcerpt = (pageText: string | undefined, needle?: string): stri
     }, [])
   return ranges
     .map(
-      ({ start, end }) =>
-        `${start > 0 ? '…' : ''}${text.slice(start, end)}${end < text.length ? '…' : ''}`
+      ({ start, end }) => `${start > 0 ? '…' : ''}${text.slice(start, end)}${end < text.length ? '…' : ''}`
     )
     .join('\n')
 }
@@ -471,7 +477,7 @@ const buildSourceCandidates = (
           })
     const sourceAuthority = authority.get(sourceRecord.artifactId) ?? 'unknown'
     return {
-      key: `source-record:${sourceRecord.id}`,
+      key: sourceRecordCandidateKey(sourceRecord.id),
       category: 'source-record',
       cohortIds: [
         sourceAuthority === 'secondary' ? 'secondary-semantic' : `source-authority:${sourceAuthority}`,
@@ -544,7 +550,7 @@ const buildOfficialCandidates = (
     const sourceRecord = sourceRecordById.get(record.fact.sourceRecordId)
     const entities = entitiesBySourceRecord.get(record.fact.sourceRecordId) ?? []
     return {
-      key: `official-record:${record.id}`,
+      key: officialRecordCandidateKey(record.id),
       category: 'official-record',
       cohortIds: [
         'official-fact',
@@ -609,7 +615,7 @@ const buildReconciliationCandidates = (
       )
     }
     return {
-      key: `reconciliation:discrepancy:${String(index + 1).padStart(4, '0')}`,
+      key: reconciliationDiscrepancyCandidateKey(index),
       category: 'reconciliation-discrepancy' as const,
       cohortIds: [
         'reconciliation-discrepancy',
@@ -651,7 +657,7 @@ const buildReconciliationCandidates = (
     }
     const factionId = factions.get(fact.faction.toLowerCase())
     return {
-      key: `reconciliation:profile-only:${fact.factChecksum}`,
+      key: profileOnlyFactCandidateKey(fact.factChecksum),
       category: 'profile-only-fact' as const,
       cohortIds: ['profile-only-fact', 'high-risk:official-profile-only'],
       factionIds: factionId ? [factionId] : [],
@@ -793,7 +799,7 @@ const buildIgnoredCandidates = (
         ? ({ kind: 'section', section: snapshot!.meta.section } as const)
         : ({ kind: 'row', row: snapshot!.meta.row } as const))
     return {
-      key: `ignored-record:${disposition.sourceRecordId}`,
+      key: ignoredRecordCandidateKey(disposition.sourceRecordId),
       category: 'ignored-record' as const,
       cohortIds: [
         'ignored-record',
@@ -833,7 +839,7 @@ const buildIgnoredCandidates = (
   const reason =
     sourceData.review.supersededSourceRecords?.reason ?? 'Superseded by the accepted current-source snapshot.'
   const superseded: ReviewPacketCandidate[] = supersededMetas.map(meta => ({
-    key: `ignored-record:${meta.sourceRecordId}`,
+    key: ignoredRecordCandidateKey(meta.sourceRecordId),
     category: 'ignored-record' as const,
     cohortIds: [
       'ignored-record',
@@ -931,7 +937,7 @@ const calibrationCases = (
     sourceEvidence: knownPass.sourceEvidence.map(evidence => ({
       ...evidence,
       structuredValue: undefined,
-      excerpt: 'Evidence intentionally withheld for cannot-verify calibration control.',
+      excerpt: undefined,
     })),
     generatedDestinations: [],
   }
@@ -1023,27 +1029,30 @@ const run = async (): Promise<void> => {
     requiredHighRiskCohorts: [...REQUIRED_HIGH_RISK_COHORTS],
     calibrationCases: calibrationCases(officialCandidates, reconciliationCandidates),
   })
-  await mkdir(workspaceDirectory, { recursive: true })
-  const shards = await writePacketShards(workspaceDirectory, prepared.workspace.pairs)
-  await Promise.all([
-    writeFile(path.join(workspaceDirectory, 'index.json'), stableJson(prepared.safeIndex), 'utf8'),
-    writeFile(
-      path.join(workspaceDirectory, 'workspace.json'),
-      stableJson({
-        schemaVersion: prepared.workspace.schemaVersion,
-        revision: prepared.workspace.revision,
-        protocolVersion: prepared.workspace.protocolVersion,
-        rubricVersion: prepared.workspace.rubricVersion,
-        evidenceHandling: prepared.workspace.evidenceHandling,
-        batches: prepared.workspace.batches,
-        shards,
-      }),
-      'utf8'
-    ),
-  ])
+  const shardCount = Math.ceil(prepared.workspace.pairs.length / PACKET_SHARD_SIZE)
+  await writeCreateOnlyDirectory(workspaceDirectory, async staging => {
+    const shards = await writePacketShards(staging, prepared.workspace.pairs)
+    await Promise.all([
+      writeFile(path.join(staging, 'index.json'), stableJson(prepared.safeIndex), 'utf8'),
+      writeFile(
+        path.join(staging, 'workspace.json'),
+        stableJson({
+          schemaVersion: prepared.workspace.schemaVersion,
+          revision: prepared.workspace.revision,
+          protocolVersion: prepared.workspace.protocolVersion,
+          rubricVersion: prepared.workspace.rubricVersion,
+          publication: 'create-only-directory/v1',
+          evidenceHandling: prepared.workspace.evidenceHandling,
+          batches: prepared.workspace.batches,
+          shards,
+        }),
+        'utf8'
+      ),
+    ])
+  })
   console.log(
     `Prepared ${prepared.safeIndex.entries.length} deterministic review packet pairs ` +
-      `in ${workspaceDirectory} (${shards.length} shards)`
+      `in ${workspaceDirectory} (${shardCount} shards)`
   )
 }
 

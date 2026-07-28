@@ -1,4 +1,4 @@
-import { access, mkdir, readFile, rename, rm, writeFile } from 'node:fs/promises'
+import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { ArtifactManifest } from '../data'
@@ -11,9 +11,13 @@ import {
   type ReviewRubricDefinition,
   type SourceInventory,
 } from './certification'
-import { parseReviewLedger, validateReviewLedger } from './findings'
+import { parseReviewLedgerSupplement, validateReviewLedger } from './findings'
 import type { ReviewPacketSafeIndex } from './packets'
-import { loadReviewPacketPairs } from './reviewWorkspace'
+import {
+  assertCreateOnlyDirectoryComplete,
+  loadReviewPacketPairs,
+  writeCreateOnlyFilesDirectory,
+} from './reviewWorkspace'
 import {
   AOS4_REVIEW_PROTOCOL_VERSION,
   AOS4_REVIEW_RUBRIC_VERSION,
@@ -28,8 +32,8 @@ import {
   type ReviewerResult,
 } from './records'
 
-const DEFAULT_INDEX = path.join('.cache', 'aos4', 'review', 'index.json')
-const DEFAULT_WORKSPACE = path.join('.cache', 'aos4', 'review', 'workspace.json')
+const DEFAULT_INDEX = path.join('.cache', 'aos4', 'review', 'workspace', 'index.json')
+const DEFAULT_WORKSPACE = path.join('.cache', 'aos4', 'review', 'workspace', 'workspace.json')
 const DEFAULT_REVIEW_OUTPUT = path.join('.cache', 'aos4', 'review', 'adversarial-review')
 const DEFAULT_INVENTORY = path.join('.cache', 'aos4', 'review', 'source-inventory.json')
 
@@ -212,6 +216,7 @@ const sameJson = (left: unknown, right: unknown): boolean =>
   stableCompactJson(left) === stableCompactJson(right)
 
 const loadAdversarialLedger = async (reviewOutput: string, revision: string): Promise<ReviewLedger> => {
+  await assertCreateOnlyDirectoryComplete(reviewOutput)
   const [assignment, calibration, resultIndex, persistedFindings] = await Promise.all([
     readJson<ReviewAssignment>(path.join(reviewOutput, 'assignment.json')),
     readJson<ReviewCalibration>(path.join(reviewOutput, 'calibration.json')),
@@ -472,26 +477,6 @@ const shardedCertificationFiles = (
   }
 }
 
-const writePreparedDirectory = async (output: string, files: ReadonlyMap<string, string>): Promise<void> => {
-  const exists = await access(output)
-    .then(() => true)
-    .catch(() => false)
-  if (exists) throw new Error(`Certification output already exists: ${output}`)
-
-  await mkdir(path.dirname(output), { recursive: true })
-  const staging = `${output}.tmp-${process.pid}`
-  try {
-    await mkdir(staging)
-    await Promise.all(
-      Array.from(files, ([fileName, content]) => writeFile(path.join(staging, fileName), content, 'utf8'))
-    )
-    await rename(staging, output)
-  } catch (error) {
-    await rm(staging, { recursive: true, force: true })
-    throw error
-  }
-}
-
 export const runCertificationPreparation = async (
   arguments_: CertificationPreparationArguments,
   repoRoot = process.cwd()
@@ -522,7 +507,7 @@ export const runCertificationPreparation = async (
   }
   const machineLedger = await loadAdversarialLedger(reviewOutput, index.revision)
   const humanLedger = humanLedgerPath
-    ? parseReviewLedger(await readJson<unknown>(humanLedgerPath))
+    ? parseReviewLedgerSupplement(await readJson<unknown>(humanLedgerPath))
     : undefined
   const reviewLedger = mergeReviewLedgers(machineLedger, humanLedger)
   const packets = pairs.flatMap(pair => [pair.blindPacket, pair.comparisonPacket])
@@ -612,8 +597,14 @@ export const runCertificationPreparation = async (
     rubricVersion: rubric.rubricVersion,
   })
   generatedTexts.set('manifest.json', stableJson(manifest))
-  generatedTexts.set('summary.json', stableJson(evaluation.summary))
-  await writePreparedDirectory(output, generatedTexts)
+  generatedTexts.set(
+    'summary.json',
+    stableJson({
+      ...evaluation.summary,
+      boundChecksums: manifest.inputs,
+    })
+  )
+  await writeCreateOnlyFilesDirectory(output, generatedTexts)
   return { output: outputRelative, manifest, evaluation }
 }
 

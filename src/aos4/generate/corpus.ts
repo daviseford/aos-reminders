@@ -779,7 +779,8 @@ const sourceArtifacts = (dataset: WahapediaDataset, review: CorpusReview): Sourc
 const sourceRecords = (
   dataset: WahapediaDataset,
   review: CorpusReview,
-  rulesContextIdsBySourceRecord: Map<SourceRecordId, RulesContextId[]>
+  rulesContextIdsBySourceRecord: Map<SourceRecordId, RulesContextId[]>,
+  officialRulesContextIdsBySourceRecord: ReadonlyMap<SourceRecordId, RulesContextId[]>
 ): SourceRecord[] => {
   const wahapedia = allWahapediaMetas(dataset).map(meta => ({
     id: meta.sourceRecordId,
@@ -800,7 +801,7 @@ const sourceRecords = (
         ...(record.section ? { section: record.section } : {}),
       },
       recordChecksum: record.recordChecksum,
-      rulesContextIds: document.rulesContextIds,
+      rulesContextIds: officialRulesContextIdsBySourceRecord.get(record.id) ?? document.rulesContextIds,
     }))
   )
   return Array.from(new Map([...wahapedia, ...official].map(record => [record.id, record])).values()).sort(
@@ -994,7 +995,8 @@ const relationshipId = (
 export const buildAos4Corpus = (
   decoded: WahapediaDecodeResult,
   identities: IdentityRegistry,
-  review: CorpusReview
+  review: CorpusReview,
+  officialRulesContextIdsBySourceRecord: ReadonlyMap<SourceRecordId, RulesContextId[]> = new Map()
 ): CorpusGenerationResult => {
   const diagnostics = reviewDiagnostics(decoded, review)
   const lookup = identityLookup(identities, diagnostics)
@@ -1627,7 +1629,12 @@ export const buildAos4Corpus = (
     generatedAt: review.generatedAt,
     rulesContexts,
     sourceArtifacts: sourceArtifacts(dataset, review),
-    sourceRecords: sourceRecords(dataset, review, rulesContextIdsBySourceRecord),
+    sourceRecords: sourceRecords(
+      dataset,
+      review,
+      rulesContextIdsBySourceRecord,
+      officialRulesContextIdsBySourceRecord
+    ),
     entities: entities.sort(
       (left, right) => left.kind.localeCompare(right.kind) || left.id.localeCompare(right.id)
     ),

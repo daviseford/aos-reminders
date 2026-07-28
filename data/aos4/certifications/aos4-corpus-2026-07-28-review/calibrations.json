@@ -1,11 +1,11 @@
 [
   {
-    "calibratedAt": "2026-07-28T20:11:00.000Z",
+    "calibratedAt": "2026-07-28T22:01:00.000Z",
     "correctCannotVerifyCases": 1,
     "foundSeededBlockerMajorDefects": 1,
     "insufficientEvidenceCases": 1,
     "passed": true,
-    "reviewerConfigurationId": "reviewer-configuration:sha256:507972b8a00ab0c731d6b494b01560d6160cc5f1540f545adedb6201437ff119",
+    "reviewerConfigurationId": "reviewer-configuration:sha256:ba1e51643b9e68a06d39a87e1a672845bda9b1d69492ef626c983619048378f9",
     "rubricVersion": "aos4-rubric/v1",
     "schemaVersion": 1,
     "seededBlockerMajorDefects": 1,

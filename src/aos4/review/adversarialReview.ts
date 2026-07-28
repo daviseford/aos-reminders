@@ -36,9 +36,7 @@ const sameStringSet = (left: unknown, right: unknown): boolean =>
   same(left.map(String).sort(compareText), right.map(String).sort(compareText))
 
 const includesExpectedText = (actual: unknown, expected: unknown): boolean => {
-  const actualText = sourceComparableText(
-    (Array.isArray(actual) ? actual : [actual]).map(String).join(' ')
-  )
+  const actualText = sourceComparableText((Array.isArray(actual) ? actual : [actual]).map(String).join(' '))
   return (Array.isArray(expected) ? expected : [expected]).every(value =>
     actualText.includes(sourceComparableText(value))
   )
@@ -49,6 +47,16 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
 
 const evidenceBlockByRef = (pair: ReviewPacketPair): Map<string, string> =>
   new Map(pair.evidence.map(block => [block.ref, block.content]))
+
+const hasCompleteSourceEvidence = (pair: ReviewPacketPair): boolean => {
+  const evidenceByRef = evidenceBlockByRef(pair)
+  return (
+    pair.blindPacket.sourceEvidence.length > 0 &&
+    pair.blindPacket.sourceEvidence.every(
+      evidence => evidence.excerptRef && evidenceByRef.has(evidence.excerptRef)
+    )
+  )
+}
 
 const sourceComparableText = (value: unknown): string =>
   String(value)
@@ -103,9 +111,7 @@ const evidenceJsonValue = (
   if (!content) return undefined
   try {
     const parsed = JSON.parse(content) as unknown
-    return isRecord(parsed) &&
-      typeof parsed.recordKind === 'string' &&
-      isRecord(parsed.value)
+    return isRecord(parsed) && typeof parsed.recordKind === 'string' && isRecord(parsed.value)
       ? { recordKind: parsed.recordKind, value: parsed.value }
       : undefined
   } catch {
@@ -150,16 +156,16 @@ const unsupportedSourceValue = (
     : []
 }
 
-const unsupportedGeneratedText = (
-  field: string,
-  source: unknown,
-  generated: unknown
-): FailedCheck[] => {
+const unsupportedGeneratedText = (field: string, source: unknown, generated: unknown): FailedCheck[] => {
   if (generated === undefined || generated === null || String(generated).trim() === '') return []
   const sourceTokens: string[] =
-    visibleSourceText(source).toLowerCase().match(/[a-z0-9]+/g) ?? []
+    visibleSourceText(source)
+      .toLowerCase()
+      .match(/[a-z0-9]+/g) ?? []
   const generatedTokens: string[] =
-    visibleSourceText(generated).toLowerCase().match(/[a-z0-9]+/g) ?? []
+    visibleSourceText(generated)
+      .toLowerCase()
+      .match(/[a-z0-9]+/g) ?? []
   let sourceIndex = 0
   const grounded = generatedTokens.every(token => {
     const index = sourceTokens.indexOf(token, sourceIndex)
@@ -244,12 +250,7 @@ const weaponSourceFidelityChecks = (
   if (isRecord(weapon.profile) && !officialOverride) {
     const range = String(source.range ?? '').match(/\d+/)?.[0]
     checks.push(
-      ...unsupportedSourceValue(
-        'weapon-profile.rangeInches',
-        range,
-        weapon.profile.rangeInches,
-        true
-      )
+      ...unsupportedSourceValue('weapon-profile.rangeInches', range, weapon.profile.rangeInches, true)
     )
     const profileFields = ['attacks', 'hit', 'wound', 'rend', 'damage'] as const
     profileFields.forEach(field => {
@@ -313,8 +314,7 @@ const warscrollSourceFidelityChecks = (
       sourceOptions.forEach((option, index) => {
         if (
           !generatedOptions.some(
-            generatedOption =>
-              sourceComparableText(generatedOption) === sourceComparableText(option)
+            generatedOption => sourceComparableText(generatedOption) === sourceComparableText(option)
           )
         ) {
           checks.push(
@@ -385,9 +385,7 @@ const secondarySourceFidelityChecks = (pair: ReviewPacketPair): FailedCheck[] =>
     const warscroll = entityOfKind(entities, 'warscroll')
     const expected = `${String(value.keyword ?? '')}${value.parameter ? ` ${String(value.parameter)}` : ''}`
     const keywords = Array.isArray(warscroll?.keywords) ? warscroll.keywords : []
-    return keywords.some(keyword =>
-      sourceComparableText(keyword).includes(sourceComparableText(expected))
-    )
+    return keywords.some(keyword => sourceComparableText(keyword).includes(sourceComparableText(expected)))
       ? []
       : [
           failed(
@@ -403,9 +401,7 @@ const secondarySourceFidelityChecks = (pair: ReviewPacketPair): FailedCheck[] =>
     const profile = entityOfKind(entities, 'battle-profile')
     const baseSizes = Array.isArray(profile?.baseSizes) ? profile.baseSizes : []
     const expected = [value.base, value.model].filter(Boolean).join(' ')
-    return baseSizes.some(baseSize =>
-      sourceComparableText(baseSize).includes(sourceComparableText(expected))
-    )
+    return baseSizes.some(baseSize => sourceComparableText(baseSize).includes(sourceComparableText(expected)))
       ? []
       : [
           failed(
@@ -431,11 +427,7 @@ const secondarySourceFidelityChecks = (pair: ReviewPacketPair): FailedCheck[] =>
   if (recordKind === 'publication') {
     const publication = entityOfKind(entities, 'publication')
     return publication
-      ? unsupportedSourceValue(
-          'publication-name',
-          value.name ?? value.title,
-          publication.name
-        )
+      ? unsupportedSourceValue('publication-name', value.name ?? value.title, publication.name)
       : [failed('secondary.source-publication', 'Source publication has no generated publication entity')]
   }
   return []
@@ -486,16 +478,14 @@ const sourceRecordId = (pair: ReviewPacketPair): SourceRecordId =>
   ('source-record:review:missing-evidence' as SourceRecordId)
 
 const evidenceIdentity = (evidence: ReviewPacketSourceEvidence[]) =>
-  evidence.map(
-    ({ sourceRecordId: id, recordChecksum, locator, authority, artifactId, excerptRef }) => ({
-      sourceRecordId: id,
-      recordChecksum,
-      locator,
-      authority,
-      ...(artifactId ? { artifactId } : {}),
-      ...(excerptRef ? { excerptRef } : {}),
-    })
-  )
+  evidence.map(({ sourceRecordId: id, recordChecksum, locator, authority, artifactId, excerptRef }) => ({
+    sourceRecordId: id,
+    recordChecksum,
+    locator,
+    authority,
+    ...(artifactId ? { artifactId } : {}),
+    ...(excerptRef ? { excerptRef } : {}),
+  }))
 
 const evidenceReferences = (evidence: ReviewPacketSourceEvidence[]) =>
   evidence.map(value => ({
@@ -791,17 +781,6 @@ const structuralChecks = (pair: ReviewPacketPair): FailedCheck[] => {
 }
 
 const categoryChecks = (pair: ReviewPacketPair): FailedCheck[] => {
-  if (pair.calibrationKind === 'insufficient-evidence') return []
-  if (pair.calibrationKind === 'defect') {
-    return [
-      failed(
-        'calibration.seeded-defect',
-        'Seeded comparison value is intentionally unsupported',
-        pair.blindPacket.sourceEvidence.map(evidence => evidence.structuredValue),
-        pair.comparisonPacket.generatedDestinations.map(destination => destination.value)
-      ),
-    ]
-  }
   switch (pair.category) {
     case 'official-record':
       return officialChecks(pair)
@@ -859,9 +838,7 @@ export const blindInterpretationFor = (pair: ReviewPacketPair): unknown => ({
       } catch {
         interpretation = {
           evidenceChecksum: checksumReviewRecord(content),
-          observedNumbers: Array.from(new Set(content.match(/\b\d+(?:\.\d+)?\b/g) ?? [])).sort(
-            compareText
-          ),
+          observedNumbers: Array.from(new Set(content.match(/\b\d+(?:\.\d+)?\b/g) ?? [])).sort(compareText),
           observedMeasurements: Array.from(
             new Set(content.match(/\b\d+(?:\.\d+)?(?:\s*[Ã—x]\s*\d+(?:\.\d+)?)?\s*mm\b/gi) ?? [])
           ).sort(compareText),
@@ -879,10 +856,10 @@ export const blindInterpretationFor = (pair: ReviewPacketPair): unknown => ({
 })
 
 export const assessAdversarialComparison = (pair: ReviewPacketPair): AdversarialAssessment => {
-  if (pair.calibrationKind === 'insufficient-evidence') {
+  if (!hasCompleteSourceEvidence(pair)) {
     return {
       outcome: 'cannot-verify',
-      rationale: 'The calibration packet intentionally contains insufficient evidence.',
+      rationale: 'The packet contains no complete source evidence from which to verify the comparison.',
       findings: [],
     }
   }
@@ -913,11 +890,7 @@ export const createAdversarialBlindResult = (
   reviewedAt: string
 ): ReviewerResult => {
   const configurationId = reviewerConfigurationId(reviewer)
-  const blindHasEvidence =
-    pair.blindPacket.sourceEvidence.length > 0 &&
-    pair.blindPacket.sourceEvidence.every(
-      evidence => evidence.excerptRef && evidenceBlockByRef(pair).has(evidence.excerptRef)
-    )
+  const blindHasEvidence = hasCompleteSourceEvidence(pair)
   return {
     schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
     assignmentId,
@@ -925,11 +898,10 @@ export const createAdversarialBlindResult = (
     packetChecksum: pair.blindPacket.packetChecksum,
     reviewerConfigurationId: configurationId,
     reviewedAt,
-    outcome: blindHasEvidence && pair.calibrationKind !== 'insufficient-evidence' ? 'pass' : 'cannot-verify',
-    rationale:
-      blindHasEvidence && pair.calibrationKind !== 'insufficient-evidence'
-        ? 'Captured a checksum-bound source-only interpretation before generated values were exposed.'
-        : 'The packet contains no source evidence from which to derive an interpretation.',
+    outcome: blindHasEvidence ? 'pass' : 'cannot-verify',
+    rationale: blindHasEvidence
+      ? 'Captured a checksum-bound source-only interpretation before generated values were exposed.'
+      : 'The packet contains no source evidence from which to derive an interpretation.',
     ...(pair.blindDerivationRequired && blindHasEvidence
       ? { blindExpectedInterpretation: blindInterpretationFor(pair) }
       : {}),
@@ -945,13 +917,16 @@ export const createAdversarialComparisonResult = (
   reviewedAt: string
 ): ReviewerResult => {
   const configurationId = reviewerConfigurationId(reviewer)
+  const savedBlindMatchesEvidence =
+    !pair.blindDerivationRequired ||
+    same(blindResult.blindExpectedInterpretation, blindInterpretationFor(pair))
   const blindIsValid =
     blindResult.assignmentId === assignmentId &&
     blindResult.packetId === pair.blindPacket.id &&
     blindResult.packetChecksum === pair.blindPacket.packetChecksum &&
     blindResult.reviewerConfigurationId === configurationId &&
     new Date(blindResult.reviewedAt).valueOf() < new Date(reviewedAt).valueOf() &&
-    (!pair.blindDerivationRequired || blindResult.blindExpectedInterpretation !== undefined)
+    savedBlindMatchesEvidence
   if (!blindIsValid || (pair.blindDerivationRequired && blindResult.outcome !== 'pass')) {
     return {
       schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
@@ -987,14 +962,5 @@ export const createAdversarialPairResults = (
   comparisonReviewedAt: string
 ): [ReviewerResult, ReviewerResult] => {
   const blind = createAdversarialBlindResult(pair, assignmentId, reviewer, blindReviewedAt)
-  return [
-    blind,
-    createAdversarialComparisonResult(
-      pair,
-      blind,
-      assignmentId,
-      reviewer,
-      comparisonReviewedAt
-    ),
-  ]
+  return [blind, createAdversarialComparisonResult(pair, blind, assignmentId, reviewer, comparisonReviewedAt)]
 }

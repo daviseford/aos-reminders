@@ -199,7 +199,7 @@ After deliberately changing accepted inputs, regenerate:
 
 ```powershell
 yarn data:aos4:generate:write
-yarn data:aos4:generate
+yarn data:aos4:generate:candidate
 ```
 
 Inspect the manifest, review, identity, catalog, runtime, and checksum-report diffs together. Never
@@ -239,9 +239,9 @@ yarn test --run
 yarn build
 ```
 
-Normal `data:aos4:generate` fails closed once a current certification pointer exists and a bound
-input becomes stale. Use `data:aos4:generate:candidate` while preparing a replacement revision;
-never weaken or bypass the accepted gate.
+Normal `data:aos4:generate` always fails closed when the current certification pointer is missing
+or any bound input is stale. Use `data:aos4:generate:candidate` while preparing a replacement
+revision; never weaken or bypass the accepted gate.
 
 Add focused coverage for provider contract changes, malformed HTML, new timing vocabulary,
 incomplete profiles, joins, official precedence, stable identities, selection reachability,

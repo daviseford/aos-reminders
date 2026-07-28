@@ -71,12 +71,14 @@ Populate the accepted checksum cache, then run:
 
 ```powershell
 yarn data:aos4:generate:candidate
-yarn data:aos4:review:prepare
+yarn data:aos4:review:prepare `
+  --workspace .cache/aos4/review/workspace-<revision>
 ```
 
 The first command proves accepted generation from cached immutable bytes without requiring an
-existing passing certificate. The second writes the sharded evidence workspace and safe index to
-`.cache/aos4/review/`.
+existing passing certificate. The second writes the create-only sharded evidence workspace and
+safe index to the specified ignored directory. Use a new revision-specific path for every
+preparation; an existing workspace is immutable and is never resumed or overwritten.
 
 Run independent Games Workshop and Wahapedia observations immediately before sign-off, then
 combine them:
@@ -96,7 +98,7 @@ player-facing meaning.
 
 ```powershell
 yarn data:aos4:review:adversarial `
-  --workspace .cache/aos4/review `
+  --workspace .cache/aos4/review/workspace-<revision> `
   --output .cache/aos4/review/adversarial-<revision> `
   --campaign-at <iso-instant>
 ```
@@ -113,7 +115,9 @@ Use a durable reviewer identity; do not use a placeholder or another person's na
 yarn data:aos4:review:human prepare `
   --output .cache/aos4/review/human-<reviewer>-<revision> `
   --reviewer-id <reviewer-id> `
-  --assigned-at <iso-instant>
+  --assigned-at <iso-instant> `
+  --index .cache/aos4/review/workspace-<revision>/index.json `
+  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
 ```
 
 This initially creates only `calibration-blind-tasks.json` and its result template. For every
@@ -126,49 +130,58 @@ Save the completed calibration blind results, then reveal their comparisons:
 ```powershell
 yarn data:aos4:review:human calibrate `
   --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
-  --blind-results calibration-blind-results.json
+  --blind-results calibration-blind-results.json `
+  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
 ```
 
-Complete `calibration-comparison-results.template.json`, then validate calibration and release the
-live sample:
+The command seals the entered blind results and writes the revealed tasks plus template under
+`calibration-comparison/`. Complete `calibration-comparison/results.template.json`, then validate
+calibration and release the live sample:
 
 ```powershell
 yarn data:aos4:review:human start `
   --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
-  --comparison-results calibration-comparison-results.json
+  --comparison-results calibration-comparison/results.json `
+  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
 ```
 
 The `start` command fails unless the reviewer finds every planted material defect, proposes no
 unsupported correction, and returns `cannot-verify` for the insufficient-evidence case. Only a
-passing calibration creates `blind-tasks.json` and `blind-results.template.json` for the 144 live
-sample pairs. Reviewers may omit finding `id` and `schemaVersion` fields from entered result files;
-the command derives those structural fields from the finding content before validation.
+passing calibration creates `sample-blind/tasks.json` and
+`sample-blind/results.template.json` for the 144 live sample pairs. Reviewers may omit finding `id`
+and `schemaVersion` fields from entered result files; the command derives those structural fields
+from the finding content before validation.
 
-Save the completed blind results as `blind-results.json`, then reveal comparisons:
+Save the completed blind results as `sample-blind/results.json`, then reveal comparisons:
 
 ```powershell
 yarn data:aos4:review:human compare `
   --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
-  --blind-results blind-results.json
+  --blind-results sample-blind/results.json `
+  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
 ```
 
-Complete `comparison-results.template.json` against the generated destinations. A source conflict,
-unclear evidence, or suspected defect must be recorded as `finding` or `cannot-verify`; never turn
-uncertainty into a pass.
+The command seals the entered blind results and writes the revealed tasks plus template under
+`sample-comparison/`. Complete `sample-comparison/results.template.json` against the generated
+destinations. A source conflict, unclear evidence, or suspected defect must be recorded as
+`finding` or `cannot-verify`; never turn uncertainty into a pass.
 
 After all findings have been adjudicated and corrected upstream, submit the clean re-review:
 
 ```powershell
 yarn data:aos4:review:human submit `
   --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
-  --comparison-results comparison-results.json `
+  --comparison-results sample-comparison/results.json `
   --signed-at <iso-instant-after-all-results> `
-  --statement "I independently checked every assigned packet against its cited evidence and applied the AoS 4 source hierarchy."
+  --statement "I independently checked every assigned packet against its cited evidence and applied the AoS 4 source hierarchy." `
+  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
 ```
 
 Submission fails if calibration is wrong, a pair is incomplete, comparison preceded blind review,
 a checksum is stale, any sample result is not `pass`, or the signature does not cover every
-sampled faction and context. The output `ledger.json` is the human input to certification.
+sampled faction and context. Each stage is create-only and carries a checksum receipt, so reruns
+cannot silently replace saved blind work. The output `ledger.json` is the human input to
+certification.
 
 ### 4. Adjudicate findings
 
@@ -192,13 +205,17 @@ After machine and human review pass:
 yarn data:aos4:certify:prepare `
   --output data/aos4/certifications/<revision> `
   --review-output .cache/aos4/review/adversarial-<revision> `
+  --index .cache/aos4/review/workspace-<revision>/index.json `
+  --workspace .cache/aos4/review/workspace-<revision>/workspace.json `
   --human-ledger .cache/aos4/review/human-<reviewer>-<revision>/ledger.json `
   --evaluated-at <iso-instant> `
   --require-pass
 ```
 
 Inspect the manifest and summary. Add `data/aos4/certifications/current.json` only when the
-manifest reports `pass`, pointing it at that immutable revision directory. Then run:
+manifest reports `pass`, pointing it at that immutable revision directory. Certification
+directories are create-only; never edit a summary, ledger, or sign-off in place. Prepare a new
+revision directory after any correction. Then run:
 
 ```powershell
 yarn data:aos4:certify

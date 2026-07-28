@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import { access, mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
+import { access, mkdir, mkdtemp, rm, unlink, writeFile } from 'node:fs/promises'
 import { tmpdir } from 'node:os'
 import path from 'node:path'
 import {
@@ -9,7 +9,9 @@ import {
   REQUIRED_CERTIFICATION_INPUTS,
   appendFindingResolution,
   appendFindingVerification,
+  boundReviewPopulationIssues,
   checksumCertificationText,
+  checksumReviewRecord,
   createCertificationManifest,
   createReviewAssignment,
   createReviewFinding,
@@ -32,6 +34,7 @@ import {
   type CertificationIssue,
   type FindingResolution,
   type ReviewFinding,
+  type ReviewAssignment,
   type ReviewLedger,
   type ReviewPacket,
   type ReviewPacketId,
@@ -39,7 +42,7 @@ import {
   type ReviewerMetadata,
   type ReviewerResult,
 } from '../../aos4/review'
-import type { CanonicalId, RulesContextId, SourceRecordId } from '../../aos4/domain'
+import { artifactId, type CanonicalId, type RulesContextId, type SourceRecordId } from '../../aos4/domain'
 
 const digest = (value: string): string => createHash('sha256').update(value, 'utf8').digest('hex')
 const FACTION_ID = 'faction:151c54f6-a281-5cea-b5ff-3dacd3afec43' as CanonicalId<'faction'>
@@ -156,6 +159,16 @@ const result = (
   findings,
 })
 
+const humanCalibrationEvidence = (assignmentId: ReviewAssignment['id']) => {
+  const receipt = {
+    assignmentId,
+    blindResultsChecksum: digest('human-calibration-blind-results'),
+    comparisonResultsChecksum: digest('human-calibration-comparison-results'),
+    controlPairKeysChecksum: digest('human-calibration-control-pairs'),
+  }
+  return { ...receipt, receiptChecksum: checksumReviewRecord(receipt) }
+}
+
 const passingLedger = (): ReviewLedger => {
   const agentAssignment = createReviewAssignment({
     packetIds: [BLIND_PACKET.id, COMPARISON_PACKET.id],
@@ -196,6 +209,7 @@ const passingLedger = (): ReviewLedger => {
         insufficientEvidenceCases: 1,
         correctCannotVerifyCases: 1,
         passed: true,
+        evidence: humanCalibrationEvidence(humanAssignment.id),
       },
     ],
     results: [
@@ -325,11 +339,20 @@ describe('AoS 4 certification evaluation', () => {
         '--certification-dir',
         'data/aos4/certifications/fixture',
         '--allow-human-pending',
+        '--workspace-index',
+        '.cache/aos4/review/fixture/index.json',
+        '--workspace',
+        '.cache/aos4/review/fixture/workspace.json',
       ])
     ).toMatchObject({
       certificationDirectory: 'data/aos4/certifications/fixture',
       allowHumanPending: true,
+      workspaceIndexPath: '.cache/aos4/review/fixture/index.json',
+      workspacePath: '.cache/aos4/review/fixture/workspace.json',
     })
+    expect(() => parseCertificationCommandArguments(['--write-summary'])).toThrow(
+      'cannot mutate an immutable certification'
+    )
   })
 
   it('requires deterministic preparation paths and timestamps', () => {
@@ -379,6 +402,126 @@ describe('AoS 4 certification evaluation', () => {
     expect(() =>
       parseHumanReviewArguments(['compare', '--review-dir', '.cache/aos4/review/human-davis'])
     ).toThrow('compare requires --blind-results')
+  })
+
+  it('binds human calibration to reviewer identity and agent calibration to configuration', () => {
+    expect(reviewerConfigurationId({ ...humanReviewer, id: 'different-human-reviewer' })).not.toBe(
+      reviewerConfigurationId(humanReviewer)
+    )
+    expect(reviewerConfigurationId({ ...agentReviewer, id: 'replacement-agent-process' })).toBe(
+      reviewerConfigurationId(agentReviewer)
+    )
+  })
+
+  it('rejects an internally consistent index truncated below bound source populations', () => {
+    const index = reviewIndex()
+    const catalog = {
+      schemaVersion: 1 as const,
+      generatedAt: REVIEWED_AT,
+      rulesContexts: [],
+      sourceArtifacts: [],
+      sourceRecords: [
+        {
+          id: SOURCE_RECORD_ID,
+          artifactId: artifactId(digest('artifact')),
+          locator: { kind: 'row' as const, row: 1 },
+          recordChecksum: EVIDENCE_CHECKSUM,
+          rulesContextIds: [CONTEXT_ID],
+        },
+      ],
+      entities: [],
+      relationships: [],
+    }
+    const officialLedger = {
+      schemaVersion: 1 as const,
+      generatedAt: REVIEWED_AT,
+      authority: 'games-workshop' as const,
+      records: [],
+      summary: {
+        records: 0,
+        effective: 0,
+        superseded: 0,
+        units: 0,
+        rosterOptions: 0,
+        regimentsOfRenown: 0,
+        appliedToRuntime: 0,
+        profileOnly: 0,
+        structuredReference: 0,
+      },
+    }
+    const reconciliation = {
+      schemaVersion: 1 as const,
+      pages: 0,
+      matchedOfficialUnitFacts: 0,
+      unmatchedOfficialUnitFacts: [],
+      discrepancies: [],
+    }
+    const review = {
+      schemaVersion: 1 as const,
+      revision: 'fixture',
+      generatedAt: REVIEWED_AT,
+      rulesContext: {
+        id: CONTEXT_ID,
+        name: 'Fixture',
+        mode: 'standard' as const,
+        status: 'current' as const,
+      },
+      approvedFactionIds: [],
+      decoderDiagnosticPolicies: [],
+      normalizationDiagnosticPolicies: [],
+      ignoredSourceRecords: [],
+      timingOverrides: [],
+      officialDocuments: [],
+    }
+    const truncated = {
+      ...index,
+      entries: [],
+      coverage: {
+        ...index.coverage,
+        sourceRecords: { assigned: 0, expected: 0 },
+        factionContextStrata: [],
+        highRiskCohorts: [],
+      },
+    }
+    const issues = boundReviewPopulationIssues(truncated, catalog, officialLedger, reconciliation, review)
+
+    expect(issues).toContainEqual(
+      expect.objectContaining({
+        code: 'invalid-review-index',
+        path: 'index.population.source-record',
+      })
+    )
+
+    const swappedIgnored = {
+      ...index,
+      entries: [
+        {
+          ...index.entries[0],
+          category: 'ignored-record' as const,
+          candidateKey: `ignored-record:${SOURCE_RECORD_ID}`,
+        },
+      ],
+    }
+    const ignoredIssues = boundReviewPopulationIssues(
+      swappedIgnored,
+      { ...catalog, sourceRecords: [] },
+      officialLedger,
+      reconciliation,
+      {
+        ...review,
+        supersededSourceRecords: {
+          expectedCount: 1,
+          checksum: digest('different-ignored-source-record'),
+          reason: 'Fixture superseded-source population.',
+        },
+      }
+    )
+    expect(ignoredIssues).toContainEqual(
+      expect.objectContaining({
+        code: 'invalid-review-index',
+        path: 'index.population.ignored-record',
+      })
+    )
   })
 
   it('merges a separately reviewed human ledger into the machine campaign', () => {
@@ -556,7 +699,10 @@ describe('AoS 4 certification evaluation', () => {
 
     expect(evaluateCertification(input)).toMatchObject({
       status: 'pass',
-      summary: { openLimitations: [{ findingId: reviewFinding.id }] },
+      summary: {
+        openLimitations: [{ findingId: reviewFinding.id, owner: 'maintainer' }],
+        findingCountsByField: { effect: 1 },
+      },
     })
   })
 
@@ -678,6 +824,20 @@ describe('AoS 4 certification evaluation', () => {
           schemaVersion: 1,
           artifacts: [{ checksum: ACCEPTED_ARTIFACT_CHECKSUM }],
         },
+        'audit-catalog': {
+          sourceRecords: [{ id: 'fixture' }],
+        },
+        'official-ledger': {
+          records: [],
+        },
+        'reconciliation-report': {
+          discrepancies: [],
+          unmatchedOfficialUnitFacts: [],
+        },
+        'corpus-review': {
+          ignoredSourceRecords: [],
+          supersededSourceRecords: { expectedCount: 0 },
+        },
         'review-index': {
           schemaVersion: 1,
           kind: 'review-index-shards',
@@ -749,6 +909,19 @@ describe('AoS 4 certification evaluation', () => {
         'utf8'
       )
       await writeFile(
+        path.join(certificationDirectory, 'summary.json'),
+        serializeReviewRecord({
+          ...evaluation.summary,
+          boundChecksums: manifest.inputs,
+        }),
+        'utf8'
+      )
+      await writeFile(
+        path.join(certificationDirectory, '.complete.json'),
+        '{"kind":"aos4-create-only-directory","schemaVersion":1}\n',
+        'utf8'
+      )
+      await writeFile(
         path.join(repoRoot, 'data', 'aos4', 'certifications', 'current.json'),
         serializeReviewRecord({
           schemaVersion: 1,
@@ -768,6 +941,39 @@ describe('AoS 4 certification evaluation', () => {
 
       expect(result).toMatchObject({ ok: true, status: 'pass', issues: [] })
       await expect(access(path.join(repoRoot, '.cache'))).rejects.toThrow()
+
+      await unlink(path.join(certificationDirectory, '.complete.json'))
+      await expect(
+        runCertificationCheck(
+          {
+            currentPath: 'data/aos4/certifications/current.json',
+            full: false,
+            writeSummary: false,
+          },
+          repoRoot
+        )
+      ).rejects.toThrow('Create-only directory is incomplete')
+      await writeFile(
+        path.join(certificationDirectory, '.complete.json'),
+        '{"kind":"aos4-create-only-directory","schemaVersion":1}\n',
+        'utf8'
+      )
+
+      await writeFile(path.join(certificationDirectory, 'summary.json'), '{}', 'utf8')
+      await expect(
+        runCertificationCheck(
+          {
+            currentPath: 'data/aos4/certifications/current.json',
+            full: false,
+            writeSummary: false,
+          },
+          repoRoot
+        )
+      ).resolves.toMatchObject({
+        ok: false,
+        status: 'stale',
+        issues: [expect.objectContaining({ code: 'stale-summary' })],
+      })
     } finally {
       await rm(repoRoot, { recursive: true, force: true })
     }

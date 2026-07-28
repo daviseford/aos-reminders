@@ -30,7 +30,7 @@ import {
   type WahapediaDecodeResult,
   type WahapediaExportInputs,
 } from '../data/wahapedia'
-import { validateCatalog } from '../domain'
+import { validateCatalog, type RulesContextId, type SourceRecordId } from '../domain'
 import { runCertificationCheck } from '../review/certificationCommand'
 import { buildAos4Corpus, createCorpusIdentityRegistry, type CorpusReview } from './corpus'
 import { validateIdentityRegistry, type IdentityRegistry } from './identityRegistry'
@@ -76,10 +76,9 @@ interface CorpusCertificationResult {
 }
 
 export const assertCorpusWriteWorkflow = (
-  hasCertification: boolean,
   arguments_: Pick<CorpusCommandArguments, 'candidate' | 'write'>
 ): void => {
-  if (hasCertification && arguments_.write && !arguments_.candidate) {
+  if (arguments_.write && !arguments_.candidate) {
     throw new Error('Writing a not-yet-certified corpus requires the explicit --candidate workflow')
   }
 }
@@ -89,7 +88,12 @@ export const assertAcceptedCorpusCertification = async (
   candidate: boolean,
   check: () => Promise<CorpusCertificationResult>
 ): Promise<void> => {
-  if (!hasCertification || candidate) return
+  if (candidate) return
+  if (!hasCertification) {
+    throw new Error(
+      'Accepted corpus certification is missing; use the explicit --candidate workflow until certification passes'
+    )
+  }
   const certification = await check()
   if (!certification.ok) {
     throw new Error(`Accepted corpus certification is ${certification.status}`)
@@ -118,6 +122,47 @@ export interface AcceptedCorpusSourceData {
   }
   reconciliation: WahapediaHtmlReconciliation
   officialPageTextBySourceRecordId: Map<string, string>
+}
+
+export const officialSourceRecordContexts = (
+  review: CorpusReview,
+  records: ReviewedOfficialBattleProfileFact[]
+): Map<SourceRecordId, RulesContextId[]> => {
+  const contexts = [review.rulesContext, ...(review.additionalRulesContexts ?? [])]
+  const contextById = new Map(contexts.map(context => [context.id, context]))
+  const documentBySourceRecordId = new Map(
+    review.officialDocuments.flatMap(document =>
+      document.sourceRecords.map(record => [record.id, document] as const)
+    )
+  )
+  const result = new Map<SourceRecordId, Set<RulesContextId>>()
+  records.forEach(record => {
+    const document = documentBySourceRecordId.get(record.fact.sourceRecordId)
+    if (!document) {
+      throw new Error(`Official fact references an unknown source record: ${record.fact.sourceRecordId}`)
+    }
+    const applicable = document.rulesContextIds.filter(contextId => {
+      const context = contextById.get(contextId)
+      if (!context) return false
+      if (record.fact.context === 'legends') return context.status === 'legends'
+      if (record.fact.context === 'seasonal') return context.status === 'seasonal'
+      return (
+        context.mode === 'standard' &&
+        (context.status === 'current' || context.status === 'seasonal' || context.status === 'historical')
+      )
+    })
+    if (!applicable.length) {
+      throw new Error(
+        `Official fact ${record.fact.factChecksum} has no applicable rules context in its document`
+      )
+    }
+    const current = result.get(record.fact.sourceRecordId) ?? new Set()
+    applicable.forEach(contextId => current.add(contextId))
+    result.set(record.fact.sourceRecordId, current)
+  })
+  return new Map(
+    Array.from(result, ([sourceRecordId, contextIds]) => [sourceRecordId, Array.from(contextIds).sort()])
+  )
 }
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -651,7 +696,12 @@ export const generateCorpusProducts = async (
     'Identity registry validation',
     validateIdentityRegistry(identities).map(issue => ({ ...issue }))
   )
-  const generated = buildAos4Corpus(decoded, identities, review)
+  const generated = buildAos4Corpus(
+    decoded,
+    identities,
+    review,
+    officialSourceRecordContexts(review, officialBattleProfiles.reviewed)
+  )
   ensureNoErrors('Corpus review', generated.diagnostics)
   const entityById = new Map(generated.catalog.entities.map(entity => [entity.id, entity]))
   ensureNoErrors(
@@ -795,7 +845,7 @@ const run = async (): Promise<void> => {
   const hasCertification = await access(DEFAULT_CURRENT_CERTIFICATION)
     .then(() => true)
     .catch(() => false)
-  assertCorpusWriteWorkflow(hasCertification, arguments_)
+  assertCorpusWriteWorkflow(arguments_)
   const products = await generateCorpusProducts(arguments_)
   if (arguments_.write) {
     await Promise.all(products.map(writeProduct))

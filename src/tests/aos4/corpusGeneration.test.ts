@@ -18,8 +18,10 @@ import {
 import {
   assertAcceptedCorpusCertification,
   assertCorpusWriteWorkflow,
+  officialSourceRecordContexts,
   parseCorpusCommandArguments,
 } from '../../aos4/generate/corpusCommand'
+import type { ReviewedOfficialBattleProfileFact } from '../../aos4/generate/officialBattleProfiles'
 import { resolveSelection } from '../../aos4/select'
 
 const fixtureRoot = path.join(process.cwd(), 'src', 'tests', 'fixtures', 'aos4', 'wahapedia')
@@ -67,9 +69,12 @@ describe('AoS 4 corpus generation', () => {
   it('keeps candidate preparation available while accepted workflows fail closed', async () => {
     const candidate = parseCorpusCommandArguments(['--candidate', '--write'])
     expect(candidate).toMatchObject({ candidate: true, write: true })
-    expect(() => assertCorpusWriteWorkflow(true, { candidate: false, write: true })).toThrow(
+    expect(() => assertCorpusWriteWorkflow({ candidate: false, write: true })).toThrow(
       'explicit --candidate workflow'
     )
+    await expect(
+      assertAcceptedCorpusCertification(false, false, async () => ({ ok: true, status: 'pass' }))
+    ).rejects.toThrow('certification is missing')
     await expect(
       assertAcceptedCorpusCertification(true, false, async () => ({ ok: false, status: 'stale' }))
     ).rejects.toThrow('certification is stale')
@@ -77,6 +82,73 @@ describe('AoS 4 corpus generation', () => {
     const check = vi.fn(async () => ({ ok: false, status: 'stale' as const }))
     await expect(assertAcceptedCorpusCertification(true, true, check)).resolves.toBeUndefined()
     expect(check).not.toHaveBeenCalled()
+  })
+
+  it('restricts official page records to the reviewed fact context', () => {
+    const standard = review.rulesContext.id
+    const seasonal = rulesContextId('90000000-0000-4000-8000-000000000006')
+    const legends = rulesContextId('90000000-0000-4000-8000-000000000004')
+    const checksum = 'a'.repeat(64)
+    const recordId = sourceRecordId('games-workshop', `${checksum}:page:65`)
+    const reviewed: CorpusReview = {
+      ...review,
+      additionalRulesContexts: [
+        {
+          id: seasonal,
+          name: 'Seasonal',
+          mode: 'standard',
+          status: 'seasonal',
+        },
+        {
+          id: legends,
+          name: 'Legends',
+          mode: 'other',
+          status: 'legends',
+        },
+      ],
+      officialDocuments: [
+        {
+          artifact: {
+            requestUrl: 'https://assets.warhammer-community.com/battle-profiles.pdf',
+            finalUrl: 'https://assets.warhammer-community.com/battle-profiles.pdf',
+            redirectChain: [],
+            retrievedAt: review.generatedAt,
+            adapterVersion: 'games-workshop-pdf/1',
+            mediaType: 'application/pdf',
+            byteLength: 1,
+            checksum,
+          },
+          title: 'Battle Profiles',
+          documentKind: 'battle-profiles',
+          rulesContextIds: [standard, seasonal, legends],
+          sourceRecords: [{ id: recordId, page: 65, recordChecksum: 'b'.repeat(64) }],
+        },
+      ],
+    }
+    const officialFact: ReviewedOfficialBattleProfileFact = {
+      artifactChecksum: checksum,
+      documentTitle: 'Battle Profiles',
+      status: 'effective',
+      fact: {
+        kind: 'unit',
+        key: 'legends-unit',
+        page: 65,
+        row: 1,
+        faction: 'Fixture',
+        context: 'legends',
+        name: 'Legends Unit',
+        unitSize: 1,
+        points: 100,
+        regimentOptions: [],
+        relevantKeywords: [],
+        notes: [],
+        baseSizes: ['40mm'],
+        sourceRecordId: recordId,
+        factChecksum: 'c'.repeat(64),
+      },
+    }
+
+    expect(officialSourceRecordContexts(reviewed, [officialFact]).get(recordId)).toEqual([legends])
   })
 
   it('builds a deterministic, source-complete faction catalog from reviewed exports', async () => {

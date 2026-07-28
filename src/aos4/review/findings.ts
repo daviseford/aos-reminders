@@ -1,6 +1,7 @@
 import {
   AOS4_CERTIFICATION_SCHEMA_VERSION,
   AOS4_REVIEW_SCHEMA_VERSION,
+  checksumReviewRecord,
   createReviewAssignment,
   createReviewFinding,
   expectedReviewPacketChecksum,
@@ -221,6 +222,19 @@ const calibrationIssues = (calibration: ReviewCalibration, path: string): Review
   if (calibration.passed !== actuallyPassed) {
     issues.push(issue('invalid-shape', `${path}.passed`, 'Calibration pass flag does not match its evidence'))
   }
+  if (calibration.evidence) {
+    const { receiptChecksum, ...receipt } = calibration.evidence
+    if (
+      !REVIEW_ASSIGNMENT_ID_PATTERN.test(receipt.assignmentId) ||
+      !isChecksum(receipt.blindResultsChecksum) ||
+      !isChecksum(receipt.comparisonResultsChecksum) ||
+      !isChecksum(receipt.controlPairKeysChecksum) ||
+      !isChecksum(receiptChecksum) ||
+      receiptChecksum !== checksumReviewRecord(receipt)
+    ) {
+      issues.push(issue('invalid-checksum', `${path}.evidence`, 'Calibration evidence receipt is invalid'))
+    }
+  }
   return issues
 }
 
@@ -440,6 +454,9 @@ export const validateReviewLedger = (
   ledger.findings.forEach((value, index) => issues.push(...findingShapeIssues(value, `findings[${index}]`)))
 
   const assignmentById = new Map(ledger.assignments.map(value => [value.id, value]))
+  const packetIdsByAssignmentId = new Map(
+    ledger.assignments.map(value => [value.id, new Set(value.packetIds)])
+  )
   const calibrationById = new Map(
     ledger.calibrations.map(value => [`${value.reviewerConfigurationId}:${value.rubricVersion}`, value])
   )
@@ -457,7 +474,7 @@ export const validateReviewLedger = (
       )
       return
     }
-    if (!assignment.packetIds.includes(result.packetId)) {
+    if (!packetIdsByAssignmentId.get(assignment.id)!.has(result.packetId)) {
       issues.push(issue('packet-not-assigned', `${path}.packetId`, 'Packet is not part of the assignment'))
     }
     if (validatePacketReferences) {
@@ -688,6 +705,40 @@ export const parseReviewLedger = (input: unknown): ReviewLedger => {
     throw new ReviewValidationError('Review ledger is invalid', issues)
   }
   return ledger
+}
+
+export const parseReviewLedgerSupplement = (input: unknown): ReviewLedger => {
+  if (!isRecord(input)) {
+    throw new ReviewValidationError('Review ledger supplement is invalid', [
+      issue('invalid-shape', 'ledger', 'Expected an object'),
+    ])
+  }
+  const collectionNames = [
+    'assignments',
+    'calibrations',
+    'results',
+    'findings',
+    'resolutions',
+    'verifications',
+    'signoffs',
+  ] as const
+  const issues = reviewRecordBaseIssues(input, 'ledger')
+  collectionNames.forEach(name => {
+    const collection = input[name]
+    if (!Array.isArray(collection)) {
+      issues.push(issue('invalid-shape', `ledger.${name}`, 'Expected an array'))
+    } else {
+      collection.forEach((value, index) => {
+        if (!isRecord(value)) {
+          issues.push(issue('invalid-shape', `ledger.${name}[${index}]`, 'Expected an object'))
+        }
+      })
+    }
+  })
+  if (issues.length) {
+    throw new ReviewValidationError('Review ledger supplement is invalid', sortedIssues(issues))
+  }
+  return input as unknown as ReviewLedger
 }
 
 const coverageIssues = (coverage: unknown, path: string): ReviewValidationIssue[] => {

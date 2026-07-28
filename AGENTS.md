@@ -336,13 +336,15 @@ be promoted. Raw artifacts belong under the ignored `.cache/aos4/` tree.
 Accepted generation:
 
 ```powershell
-yarn data:aos4:generate
+yarn data:aos4:generate:candidate
 ```
 
 This verifies every accepted artifact checksum from the local cache, re-extracts reviewed official
 PDF page records, rebuilds the catalog, official battle-profile ledger, and runtime projection in
-memory, and fails if any checked-in product differs. Use `yarn data:aos4:generate:write` only after
-updating accepted manifest and review inputs. Never hand-edit `data/aos4/catalog/catalog.json`,
+memory, and fails if any checked-in product differs. Normal `yarn data:aos4:generate` additionally
+requires a passing `current.json`; use `yarn data:aos4:generate:write` only for the explicit
+candidate workflow after updating accepted manifest and review inputs. Never hand-edit
+`data/aos4/catalog/catalog.json`,
 `data/aos4/catalog/official-battle-profiles.json`, `data/aos4/identities/corpus.json`, or
 `src/aos4/generated/corpus/*.json`.
 
@@ -405,7 +407,7 @@ Focused examples:
 ```powershell
 yarn vitest run src/tests/aos4/legacyIsolation.test.ts
 yarn vitest run src/tests/aos4/representativeSlice.test.ts
-yarn data:aos4:generate
+yarn data:aos4:generate:candidate
 ```
 
 After a passing `data/aos4/certifications/current.json` exists, also run

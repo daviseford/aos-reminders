@@ -126,6 +126,13 @@ export interface ReviewCalibration {
   insufficientEvidenceCases: number
   correctCannotVerifyCases: number
   passed: boolean
+  evidence?: {
+    assignmentId: ReviewAssignmentId
+    blindResultsChecksum: string
+    comparisonResultsChecksum: string
+    controlPairKeysChecksum: string
+    receiptChecksum: string
+  }
 }
 
 export interface FindingResolution {
@@ -255,6 +262,7 @@ export const checksumReviewRecord = (value: unknown): string =>
 export const reviewerConfigurationId = (reviewer: ReviewerMetadata): ReviewerConfigurationId =>
   `reviewer-configuration:sha256:${checksumReviewRecord({
     kind: reviewer.kind,
+    ...(reviewer.kind === 'human' ? { reviewerId: reviewer.id } : {}),
     tool: reviewer.tool ?? null,
     model: reviewer.model ?? null,
     protocolVersion: reviewer.protocolVersion,

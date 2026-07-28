@@ -1,8 +1,12 @@
-import { readFile, writeFile } from 'node:fs/promises'
+import { createHash } from 'node:crypto'
+import { readFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
-import type { ArtifactManifest } from '../data'
-import { stableCompactJson, stableJson } from '../generate/serialization'
+import type { ArtifactManifest, WahapediaHtmlReconciliation } from '../data'
+import type { Aos4Catalog } from '../domain'
+import type { CorpusReview } from '../generate/corpus'
+import type { OfficialBattleProfileCatalog } from '../generate/officialBattleProfiles'
+import { stableCompactJson } from '../generate/serialization'
 import {
   evaluateCertification,
   checksumCertificationText,
@@ -12,8 +16,16 @@ import {
   type SourceInventory,
 } from './certification'
 import { parseCertificationManifest, parseReviewLedger, validateReviewLedger } from './findings'
-import type { ReviewPacketIndexEntry, ReviewPacketSafeIndex } from './packets'
-import { loadReviewPacketPairs } from './reviewWorkspace'
+import {
+  ignoredRecordCandidateKey,
+  officialRecordCandidateKey,
+  profileOnlyFactCandidateKey,
+  reconciliationDiscrepancyCandidateKey,
+  sourceRecordCandidateKey,
+  type ReviewPacketIndexEntry,
+  type ReviewPacketSafeIndex,
+} from './packets'
+import { assertCreateOnlyDirectoryComplete, loadReviewPacketPairs } from './reviewWorkspace'
 import {
   AOS4_REVIEW_SCHEMA_VERSION,
   type CertificationInput,
@@ -27,8 +39,8 @@ import {
 } from './records'
 
 const DEFAULT_CURRENT = path.join('data', 'aos4', 'certifications', 'current.json')
-const DEFAULT_WORKSPACE_INDEX = path.join('.cache', 'aos4', 'review', 'index.json')
-const DEFAULT_WORKSPACE = path.join('.cache', 'aos4', 'review', 'workspace.json')
+const DEFAULT_WORKSPACE_INDEX = path.join('.cache', 'aos4', 'review', 'workspace', 'index.json')
+const DEFAULT_WORKSPACE = path.join('.cache', 'aos4', 'review', 'workspace', 'workspace.json')
 
 export interface CertificationCommandArguments {
   currentPath: string
@@ -36,6 +48,8 @@ export interface CertificationCommandArguments {
   full: boolean
   writeSummary: boolean
   allowHumanPending?: boolean
+  workspaceIndexPath?: string
+  workspacePath?: string
 }
 
 interface CertificationPointer {
@@ -92,12 +106,21 @@ export const parseCertificationCommandArguments = (arguments_: string[]): Certif
     } else if (argument === '--allow-human-pending') {
       parsed.allowHumanPending = true
     } else if (argument === '--write-summary') {
-      parsed.writeSummary = true
-    } else if (argument === '--current' || argument === '--certification-dir') {
+      throw new Error(
+        '--write-summary cannot mutate an immutable certification; prepare a new revision directory'
+      )
+    } else if (
+      argument === '--current' ||
+      argument === '--certification-dir' ||
+      argument === '--workspace-index' ||
+      argument === '--workspace'
+    ) {
       const value = arguments_[index + 1]
       if (!value || value.startsWith('--')) throw new Error(`${argument} requires a value`)
       if (argument === '--current') parsed.currentPath = value
-      else parsed.certificationDirectory = value
+      else if (argument === '--certification-dir') parsed.certificationDirectory = value
+      else if (argument === '--workspace-index') parsed.workspaceIndexPath = value
+      else parsed.workspacePath = value
       index += 1
     } else {
       throw new Error(`Unknown argument: ${argument}`)
@@ -206,11 +229,87 @@ export const hasOnlyHumanPendingCertificationIssues = (issues: CertificationIssu
   )
 }
 
+export const boundReviewPopulationIssues = (
+  index: ReviewPacketSafeIndex,
+  catalog: Aos4Catalog,
+  officialLedger: OfficialBattleProfileCatalog,
+  reconciliation: WahapediaHtmlReconciliation,
+  review: CorpusReview
+): CertificationIssue[] => {
+  const liveEntries = index.entries.filter(entry => entry.countsTowardCoverage && !entry.calibration)
+  const actualByCategory = new Map<string, Set<string>>()
+  liveEntries.forEach(entry => {
+    const keys = actualByCategory.get(entry.category) ?? new Set<string>()
+    keys.add(entry.candidateKey)
+    actualByCategory.set(entry.category, keys)
+  })
+  const expected = new Map<string, Set<string>>([
+    ['official-record', new Set(officialLedger.records.map(record => officialRecordCandidateKey(record.id)))],
+    [
+      'reconciliation-discrepancy',
+      new Set(reconciliation.discrepancies.map((_, index_) => reconciliationDiscrepancyCandidateKey(index_))),
+    ],
+    [
+      'profile-only-fact',
+      new Set(
+        reconciliation.unmatchedOfficialUnitFacts.map(fact => profileOnlyFactCandidateKey(fact.factChecksum))
+      ),
+    ],
+    ['source-record', new Set(catalog.sourceRecords.map(record => sourceRecordCandidateKey(record.id)))],
+  ])
+  const issues: CertificationIssue[] = []
+  expected.forEach((expectedKeys, category) => {
+    const actualKeys = actualByCategory.get(category) ?? new Set()
+    const missing = Array.from(expectedKeys).filter(key => !actualKeys.has(key))
+    const unexpected = Array.from(actualKeys).filter(key => !expectedKeys.has(key))
+    if (actualKeys.size !== expectedKeys.size || missing.length || unexpected.length) {
+      issues.push({
+        code: 'invalid-review-index',
+        state: 'blocked',
+        path: `index.population.${category}`,
+        subject: `index.population.${category}`,
+        message:
+          `${category} population differs from bound products: ` +
+          `${actualKeys.size}/${expectedKeys.size}, ${missing.length} missing, ` +
+          `${unexpected.length} unexpected`,
+      })
+    }
+  })
+  const ignoredKeys = actualByCategory.get('ignored-record') ?? new Set()
+  const explicitIgnoredKeys = review.ignoredSourceRecords.map(record =>
+    ignoredRecordCandidateKey(record.sourceRecordId)
+  )
+  const expectedIgnoredCount = review.supersededSourceRecords?.expectedCount ?? explicitIgnoredKeys.length
+  const ignoredSourceRecordIds = Array.from(ignoredKeys)
+    .map(key => key.slice('ignored-record:'.length))
+    .sort((left, right) => left.localeCompare(right))
+  const ignoredChecksum = createHash('sha256').update(ignoredSourceRecordIds.join('\n'), 'utf8').digest('hex')
+  const expectedIgnoredChecksum = review.supersededSourceRecords?.checksum
+  if (
+    ignoredKeys.size !== expectedIgnoredCount ||
+    explicitIgnoredKeys.some(key => !ignoredKeys.has(key)) ||
+    (expectedIgnoredCount > 0 && ignoredChecksum !== expectedIgnoredChecksum)
+  ) {
+    issues.push({
+      code: 'invalid-review-index',
+      state: 'blocked',
+      path: 'index.population.ignored-record',
+      subject: 'index.population.ignored-record',
+      message:
+        `ignored-record population differs from the bound corpus review: ` +
+        `${ignoredKeys.size}/${expectedIgnoredCount}, checksum ${ignoredChecksum}/` +
+        `${expectedIgnoredChecksum ?? 'missing'}`,
+    })
+  }
+  return issues
+}
+
 export const runCertificationCheck = async (
   arguments_: CertificationCommandArguments,
   repoRoot = process.cwd()
 ) => {
   const directory = await certificationDirectory(repoRoot, arguments_)
+  await assertCreateOnlyDirectoryComplete(directory)
   const manifest = parseCertificationManifest(await readJson<unknown>(path.join(directory, 'manifest.json')))
   const files = new Map<string, string>()
   const currentInputs: CertificationInput[] = []
@@ -226,6 +325,14 @@ export const runCertificationCheck = async (
 
   const index = reviewIndexFromInputs(manifest.inputs, files)
   const acceptedManifest = namedJson<ArtifactManifest>('accepted-manifest', manifest.inputs, files)
+  const catalog = namedJson<Aos4Catalog>('audit-catalog', manifest.inputs, files)
+  const officialLedger = namedJson<OfficialBattleProfileCatalog>('official-ledger', manifest.inputs, files)
+  const reconciliation = namedJson<WahapediaHtmlReconciliation>(
+    'reconciliation-report',
+    manifest.inputs,
+    files
+  )
+  const review = namedJson<CorpusReview>('corpus-review', manifest.inputs, files)
   const ledger = parseReviewLedger({
     schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
     assignments: namedJson<ReviewAssignment[]>('review-assignments', manifest.inputs, files),
@@ -246,6 +353,7 @@ export const runCertificationCheck = async (
     observedAt: inventoryFile.observedAt,
     complete: inventoryFile.complete,
   }
+  files.clear()
 
   const evaluation = evaluateCertification({
     index,
@@ -253,6 +361,7 @@ export const runCertificationCheck = async (
     inventory: inventoryFile,
     acceptedArtifactChecksums: acceptedManifest.artifacts.map(artifact => artifact.checksum),
   })
+  const populationIssues = boundReviewPopulationIssues(index, catalog, officialLedger, reconciliation, review)
   const manifestIssues = verifyCertificationManifest({
     manifest,
     evaluation,
@@ -262,22 +371,51 @@ export const runCertificationCheck = async (
     protocolVersion: protocol.protocolVersion,
     rubricVersion: rubric.rubricVersion,
   })
-  const issues = [...evaluation.issues, ...manifestIssues].sort(
+  const expectedCommittedSummary = {
+    ...evaluation.summary,
+    boundChecksums: manifest.inputs,
+  }
+  const summaryIssues: CertificationIssue[] = []
+  try {
+    const committedSummary = await readJson<unknown>(path.join(directory, 'summary.json'))
+    if (stableCompactJson(committedSummary) !== stableCompactJson(expectedCommittedSummary)) {
+      summaryIssues.push({
+        code: 'stale-summary',
+        path: 'summary.json',
+        message: 'Checked-in certification summary does not match the evaluated evidence',
+        state: 'stale',
+        subject: 'summary.json',
+      })
+    }
+  } catch {
+    summaryIssues.push({
+      code: 'stale-summary',
+      path: 'summary.json',
+      message: 'Checked-in certification summary is missing or malformed',
+      state: 'stale',
+      subject: 'summary.json',
+    })
+  }
+  const issues = [...evaluation.issues, ...populationIssues, ...manifestIssues, ...summaryIssues].sort(
     (left, right) =>
       left.path.localeCompare(right.path) ||
       left.code.localeCompare(right.code) ||
       left.message.localeCompare(right.message)
   )
-  const status = combinedStatus(evaluation.status, manifestIssues)
-  const summary = { ...evaluation.summary, status, issues }
+  const status = combinedStatus(evaluation.status, [...populationIssues, ...manifestIssues, ...summaryIssues])
+  const summary = { ...expectedCommittedSummary, status, issues }
   const humanPending = Boolean(arguments_.allowHumanPending) && hasOnlyHumanPendingCertificationIssues(issues)
 
   if (arguments_.full) {
-    const workspaceIndex = await readJson<unknown>(repoPath(repoRoot, DEFAULT_WORKSPACE_INDEX))
+    const workspaceIndex = await readJson<unknown>(
+      repoPath(repoRoot, arguments_.workspaceIndexPath ?? DEFAULT_WORKSPACE_INDEX)
+    )
     if (stableCompactJson(workspaceIndex) !== stableCompactJson(index)) {
       throw new Error('Prepared local review index differs from the checked-in certification index')
     }
-    const pairs = await loadReviewPacketPairs(repoPath(repoRoot, DEFAULT_WORKSPACE))
+    const pairs = await loadReviewPacketPairs(
+      repoPath(repoRoot, arguments_.workspacePath ?? DEFAULT_WORKSPACE)
+    )
     const packets = pairs.flatMap(pair => [pair.blindPacket, pair.comparisonPacket])
     const fullLedgerIssues = validateReviewLedger(ledger, packets)
     if (fullLedgerIssues.length) {
@@ -286,9 +424,6 @@ export const runCertificationCheck = async (
           `${fullLedgerIssues[0].path}: ${fullLedgerIssues[0].message}`
       )
     }
-  }
-  if (arguments_.writeSummary) {
-    await writeFile(path.join(directory, 'summary.json'), stableJson(summary), 'utf8')
   }
   return {
     ok: (status === 'pass' && !issues.length) || humanPending,

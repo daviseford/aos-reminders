@@ -9,6 +9,7 @@ import {
   importReviewerResultAtomic,
   parseCertificationManifest,
   parseReviewLedger,
+  parseReviewLedgerSupplement,
   reviewerConfigurationId,
   serializeReviewRecord,
   validateReviewLedger,
@@ -21,12 +22,7 @@ import {
   type ReviewerMetadata,
   type ReviewerResult,
 } from '../../aos4/review'
-import {
-  artifactId,
-  factionId,
-  rulesContextId,
-  sourceRecordId,
-} from '../../aos4/domain'
+import { artifactId, factionId, rulesContextId, sourceRecordId } from '../../aos4/domain'
 
 const CHECKSUM_A = 'a'.repeat(64)
 const CHECKSUM_B = 'b'.repeat(64)
@@ -278,16 +274,32 @@ describe('AoS 4 review records', () => {
     ).toThrowError(ReviewValidationError)
   })
 
+  it('accepts supplemental adjudication before machine findings are merged', () => {
+    const supplement = {
+      ...emptyLedger(),
+      resolutions: [
+        {
+          schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+          findingId: finding.id,
+          disposition: 'fixed' as const,
+          rationale: 'The upstream transformation was corrected.',
+          resolvedBy: 'maintainer',
+          resolvedAt: '2026-07-28T13:00:00.000Z',
+          upstreamChangeRefs: ['src/aos4/review/fixture.ts'],
+        },
+      ],
+    }
+
+    expect(parseReviewLedgerSupplement(supplement)).toEqual(supplement)
+    expect(() => parseReviewLedger(supplement)).toThrowError(ReviewValidationError)
+  })
+
   it('rejects stale packet checksums atomically', () => {
     const ledger = emptyLedger()
     const before = serializeReviewRecord(ledger)
 
     expect(() =>
-      importReviewerResultAtomic(
-        ledger,
-        { ...result, packetChecksum: CHECKSUM_C },
-        [packet]
-      )
+      importReviewerResultAtomic(ledger, { ...result, packetChecksum: CHECKSUM_C }, [packet])
     ).toThrowError(ReviewValidationError)
     expect(serializeReviewRecord(ledger)).toBe(before)
   })
@@ -303,17 +315,15 @@ describe('AoS 4 review records', () => {
       ...result,
       assignmentId: unapproved.id,
     }
-    expect(() =>
-      importReviewerResultAtomic(emptyLedger(unapproved), unapprovedResult, [packet])
-    ).toThrow(/approved recipient/i)
+    expect(() => importReviewerResultAtomic(emptyLedger(unapproved), unapprovedResult, [packet])).toThrow(
+      /approved recipient/i
+    )
 
     const uncalibratedLedger = {
       ...emptyLedger(),
       calibrations: [calibration(false)],
     }
-    expect(() =>
-      importReviewerResultAtomic(uncalibratedLedger, result, [packet])
-    ).toThrow(/calibration/i)
+    expect(() => importReviewerResultAtomic(uncalibratedLedger, result, [packet])).toThrow(/calibration/i)
   })
 
   it('reports duplicate identities, illegal limitations, and insufficient role separation', () => {

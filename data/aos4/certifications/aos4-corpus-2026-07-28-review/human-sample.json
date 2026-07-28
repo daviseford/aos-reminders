@@ -4526,40 +4526,6 @@
         "secondary"
       ],
       "blindDerivationRequired": true,
-      "blindPacketChecksum": "951737c80e55126379cbdff940ea1c22ee44554b58bc85cb323f774ca79a0858",
-      "blindPacketId": "review-packet:sha256:951737c80e55126379cbdff940ea1c22ee44554b58bc85cb323f774ca79a0858",
-      "calibration": false,
-      "candidateKey": "source-record:source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fskaven%2Fwarscrolls.html%23Skittershank-s-Clawpack%23base%3A2",
-      "category": "source-record",
-      "cohortIds": [
-        "blind-interpretation",
-        "context-status:legends",
-        "context:other",
-        "high-risk:context-boundary:legends",
-        "high-risk:identity-alias-or-rename",
-        "high-risk:official-override",
-        "human-sample",
-        "secondary-semantic",
-        "source-kind:warscroll-base"
-      ],
-      "comparisonPacketChecksum": "2f073687c2ab2ca1dd6b969aac492847a63e7abb69041f1c451a57517ec3b5f1",
-      "comparisonPacketId": "review-packet:sha256:2f073687c2ab2ca1dd6b969aac492847a63e7abb69041f1c451a57517ec3b5f1",
-      "countsTowardCoverage": true,
-      "factionIds": [
-        "faction:898f1d47-6f98-59f2-b5b7-e6865b2dfb79"
-      ],
-      "humanSample": true,
-      "pairKey": "review-pair:sha256:c31f2edc79c5403c60a1f4a03492e367d0fcd53e1cd73795fa897ea7efb6ca49",
-      "rulesContextIds": [
-        "rules-context:90000000-0000-4000-8000-000000000004"
-      ]
-    },
-    {
-      "assignmentStatus": "unassigned",
-      "authorityClasses": [
-        "secondary"
-      ],
-      "blindDerivationRequired": true,
       "blindPacketChecksum": "14f9840dda6ac2ed43d4918e4b71c0f082848e9f045c8abc2ff152a1ae4597b2",
       "blindPacketId": "review-packet:sha256:14f9840dda6ac2ed43d4918e4b71c0f082848e9f045c8abc2ff152a1ae4597b2",
       "calibration": false,
@@ -5177,6 +5143,41 @@
       ],
       "humanSample": true,
       "pairKey": "review-pair:sha256:d6c7bed5c4584a3a2f2c4cc251848f840177c5faa2f44cc9b042d95d7f2e2965",
+      "rulesContextIds": [
+        "rules-context:90000000-0000-4000-8000-000000000004"
+      ]
+    },
+    {
+      "assignmentStatus": "unassigned",
+      "authorityClasses": [
+        "official"
+      ],
+      "blindDerivationRequired": true,
+      "blindPacketChecksum": "9ba598e6d9bf6263ae5d4743e8a00b070139b7296546baa4a0723152eeaef4ac",
+      "blindPacketId": "review-packet:sha256:9ba598e6d9bf6263ae5d4743e8a00b070139b7296546baa4a0723152eeaef4ac",
+      "calibration": false,
+      "candidateKey": "source-record:source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
+      "category": "source-record",
+      "cohortIds": [
+        "blind-interpretation",
+        "context-status:legends",
+        "context:other",
+        "high-risk:context-boundary:legends",
+        "high-risk:identity-alias-or-rename",
+        "high-risk:official-override",
+        "human-sample",
+        "source-authority:official",
+        "source-kind:official-page"
+      ],
+      "comparisonPacketChecksum": "ec9e0a938904268d03f5950a7f577d036867bb9fcbab3b32cfc20c3dea781025",
+      "comparisonPacketId": "review-packet:sha256:ec9e0a938904268d03f5950a7f577d036867bb9fcbab3b32cfc20c3dea781025",
+      "countsTowardCoverage": true,
+      "factionIds": [
+        "faction:898f1d47-6f98-59f2-b5b7-e6865b2dfb79",
+        "faction:9d9f8a78-e619-5b8c-a4b9-51274734c50b"
+      ],
+      "humanSample": true,
+      "pairKey": "review-pair:sha256:d8eefb92bbc1bdd1e4ce27800c10505fcb3f57a4adb661fd3261dad348f7d196",
       "rulesContextIds": [
         "rules-context:90000000-0000-4000-8000-000000000004"
       ]

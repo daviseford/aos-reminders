@@ -2,6 +2,7 @@ import {
   AOS4_REVIEW_PROTOCOL_VERSION,
   AOS4_REVIEW_RUBRIC_VERSION,
   assessAdversarialComparison,
+  createAdversarialComparisonResult,
   createAdversarialPairResults,
   createReviewAssignment,
   createReviewPacket,
@@ -203,15 +204,21 @@ describe('AoS 4 deterministic adversarial reviewer', () => {
     })
   })
 
+  it('never uses concealed calibration labels as reviewer evidence', () => {
+    const reviewPair = pair()
+
+    expect(
+      assessAdversarialComparison({
+        ...reviewPair,
+        calibrationKind: 'insufficient-evidence',
+      })
+    ).toEqual(assessAdversarialComparison(reviewPair))
+  })
+
   it('allows secondary notes in addition to every official note', () => {
     expect(
       assessAdversarialComparison(
-        pair(
-          ['25mm'],
-          ['25mm'],
-          ['Official note.', 'This unit cannot be reinforced.'],
-          ['Official note.']
-        )
+        pair(['25mm'], ['25mm'], ['Official note.', 'This unit cannot be reinforced.'], ['Official note.'])
       )
     ).toMatchObject({
       outcome: 'pass',
@@ -276,6 +283,24 @@ describe('AoS 4 deterministic adversarial reviewer', () => {
       },
     })
     expect(new Date(blind.reviewedAt).valueOf()).toBeLessThan(new Date(comparison.reviewedAt).valueOf())
+    expect(
+      createAdversarialComparisonResult(
+        {
+          ...reviewPair,
+          blindDerivationRequired: true,
+        },
+        {
+          ...blind,
+          blindExpectedInterpretation: { fabricated: 'placeholder' },
+        },
+        assignment.id,
+        reviewer,
+        '2026-07-28T16:04:00.000Z'
+      )
+    ).toMatchObject({
+      outcome: 'cannot-verify',
+      rationale: 'A valid saved blind interpretation was not available before comparison.',
+    })
   })
 
   it('independently grounds secondary ability semantics in the source-only record', () => {
@@ -283,10 +308,8 @@ describe('AoS 4 deterministic adversarial reviewer', () => {
       'warscroll-ability',
       {
         name: 'ARCANE STRIKE',
-        conditionHtml:
-          '<img class="abLogo" src="/icon.png">Once Per Turn (Army), Your Hero Phase',
-        descriptionHtml:
-          '<b>Declare:</b> Pick an enemy unit.<br><b>Effect:</b> Inflict D3 mortal damage.',
+        conditionHtml: '<img class="abLogo" src="/icon.png">Once Per Turn (Army), Your Hero Phase',
+        descriptionHtml: '<b>Declare:</b> Pick an enemy unit.<br><b>Effect:</b> Inflict D3 mortal damage.',
         keywordsHtml: 'SPELL',
         isReaction: false,
       },

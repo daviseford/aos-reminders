@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import type { CanonicalId, RulesContextId } from '../domain'
+import type { CanonicalId, RulesContextId, SourceRecordId } from '../domain'
 import {
   AOS4_REVIEW_SCHEMA_VERSION,
   checksumReviewRecord,
@@ -24,6 +24,20 @@ export type ReviewCandidateCategory =
   | 'source-record'
   | 'ignored-record'
   | 'golden-truth'
+
+export const sourceRecordCandidateKey = (sourceRecordId: SourceRecordId): string =>
+  `source-record:${sourceRecordId}`
+
+export const officialRecordCandidateKey = (recordId: string): string => `official-record:${recordId}`
+
+export const reconciliationDiscrepancyCandidateKey = (index: number): string =>
+  `reconciliation:discrepancy:${String(index + 1).padStart(4, '0')}`
+
+export const profileOnlyFactCandidateKey = (factChecksum: string): string =>
+  `reconciliation:profile-only:${factChecksum}`
+
+export const ignoredRecordCandidateKey = (sourceRecordId: SourceRecordId): string =>
+  `ignored-record:${sourceRecordId}`
 
 export type CalibrationCaseKind = 'pass' | 'defect' | 'disagreement' | 'insufficient-evidence'
 
@@ -126,6 +140,7 @@ export interface ReviewPacketShardReference {
 }
 
 export interface ShardedReviewPacketWorkspace extends Omit<ReviewPacketWorkspace, 'pairs'> {
+  publication?: 'create-only-directory/v1'
   shards: ReviewPacketShardReference[]
 }
 

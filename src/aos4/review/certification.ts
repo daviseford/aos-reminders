@@ -52,6 +52,7 @@ export type RequiredCertificationInputName = (typeof REQUIRED_CERTIFICATION_INPU
 export type CertificationIssueCode =
   | 'invalid-review-index'
   | 'invalid-ledger'
+  | 'stale-summary'
   | 'protocol-mismatch'
   | 'missing-calibration'
   | 'failed-calibration'
@@ -104,6 +105,7 @@ export interface CertificationOpenLimitation {
   subject: ReviewFinding['subject']
   rationale: string
   resolutionRationale: string
+  owner: string
   signoffIds: string[]
 }
 
@@ -116,6 +118,7 @@ export interface CertificationSummary {
   coverageByFaction: Record<string, CertificationCoverageDetail>
   coverageByContext: Record<string, CertificationCoverageDetail>
   coverageBySourceClass: Record<ReviewAuthority, CertificationCoverageDetail>
+  boundChecksums: CertificationInput[]
   outcomeCounts: Record<ReviewOutcome, number>
   outcomes: {
     pass: number
@@ -123,6 +126,7 @@ export interface CertificationSummary {
     cannotVerify: number
   }
   severityCounts: Record<ReviewSeverity, number>
+  findingCountsByField: Record<string, number>
   findings: {
     total: number
     resolved: number
@@ -135,6 +139,7 @@ export interface CertificationSummary {
     rejected: number
     missing: number
   }
+  regressionCases: CertificationCoverageDetail
   humanSignoffs: {
     count: number
     reviewerIds: string[]
@@ -208,11 +213,13 @@ export interface CertificationEvaluationInput {
   acceptedArtifactChecksums: string[]
 }
 
+export type CertificationEvaluationSummary = Omit<CertificationSummary, 'boundChecksums'>
+
 export interface CertificationEvaluation {
   ok: boolean
   status: CertificationManifest['status']
   issues: CertificationIssue[]
-  summary: CertificationSummary
+  summary: CertificationEvaluationSummary
 }
 
 const compareText = (left: string, right: string): number => (left < right ? -1 : left > right ? 1 : 0)
@@ -703,6 +710,15 @@ const calibrationIssues = (ledger: ReviewLedger, index: ReviewPacketSafeIndex): 
       )
     } else if (!calibration.passed) {
       issues.push(issue('failed-calibration', path, 'Reviewer result uses a failed calibration'))
+    } else if (assignment.reviewer.kind === 'human' && calibration.evidence?.assignmentId !== assignment.id) {
+      issues.push(
+        issue(
+          'failed-calibration',
+          path,
+          `Human result calibration ${calibration.evidence?.assignmentId ?? 'missing'} is not bound ` +
+            `to assignment ${assignment.id} and its sealed control results`
+        )
+      )
     } else if (new Date(calibration.calibratedAt) > new Date(result.reviewedAt)) {
       issues.push(issue('calibration-after-review', path, 'Agent result predates its recorded calibration'))
     }
@@ -754,6 +770,7 @@ const findingIssues = (
         subject: finding.subject,
         rationale: finding.rationale,
         resolutionRationale: resolution.rationale,
+        owner: resolution.resolvedBy,
         signoffIds: signoffs.map(signoff => signoff.id).sort(compareText),
       })
     }
@@ -916,7 +933,7 @@ const humanReviewIssues = (
 const coverageIssues = (
   coverage: CertificationCoverage,
   index: ReviewPacketSafeIndex,
-  summary: Omit<CertificationSummary, 'issues' | 'status'>
+  summary: Omit<CertificationEvaluationSummary, 'issues' | 'status'>
 ): CertificationIssue[] => {
   const issues: CertificationIssue[] = []
   const expectedByIndex: Array<
@@ -1079,7 +1096,14 @@ export const evaluateCertification = (input: CertificationEvaluationInput): Cert
     major: ledger.findings.filter(finding => finding.severity === 'major').length,
     minor: ledger.findings.filter(finding => finding.severity === 'minor').length,
   }
-  const summaryWithoutStatusAndIssues: Omit<CertificationSummary, 'status' | 'issues'> = {
+  const findingCountsByField = Object.fromEntries(
+    uniqueSorted(ledger.findings.map(finding => finding.subject.field)).map(field => [
+      field,
+      ledger.findings.filter(finding => finding.subject.field === field).length,
+    ])
+  )
+  const regressionEntries = liveEntries.filter(entry => entry.category === 'golden-truth')
+  const summaryWithoutStatusAndIssues: Omit<CertificationEvaluationSummary, 'status' | 'issues'> = {
     schemaVersion: AOS4_CERTIFICATION_SCHEMA_VERSION,
     revision: index.revision,
     coverage,
@@ -1090,6 +1114,7 @@ export const evaluateCertification = (input: CertificationEvaluationInput): Cert
     outcomeCounts,
     outcomes,
     severityCounts,
+    findingCountsByField,
     findings: {
       total: ledger.findings.length,
       resolved: ledger.findings.filter(finding =>
@@ -1101,6 +1126,7 @@ export const evaluateCertification = (input: CertificationEvaluationInput): Cert
     },
     openLimitations: findingEvaluation.openLimitations,
     correctionVerification: findingEvaluation.verification,
+    regressionCases: count(regressionEntries.filter(reviewed).length, regressionEntries.length),
     humanSignoffs: {
       count: ledger.signoffs.length,
       reviewerIds: uniqueSorted(ledger.signoffs.map(signoff => signoff.reviewerId)),

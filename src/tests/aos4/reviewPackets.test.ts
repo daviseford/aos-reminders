@@ -4,16 +4,21 @@ import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
   AOS4_REVIEW_SCHEMA_VERSION,
+  assessAdversarialComparison,
+  assertCalibrationControlOutcomes,
+  assertInterspersedCalibrationControls,
   assertReviewCacheComplete,
   createComparisonTask,
   createExternalReviewExport,
   createReviewAssignment,
   createReviewFinding,
   loadReviewPacketPairs,
+  loadReviewPacketPairsByKey,
   parseHumanReviewArguments,
   prepareReviewPackets,
   reviewerConfigurationId,
   runHumanReviewCommand,
+  writeCreateOnlyFilesDirectory,
   type ReviewPacketShard,
   type ShardedReviewPacketWorkspace,
   type ReviewAssignment,
@@ -221,6 +226,37 @@ describe('AoS 4 review packet preparation', () => {
         )
       )
     ).toBe(true)
+
+    const liveBlindPacketIds = new Set(
+      prepared.workspace.pairs.filter(pair => pair.countsTowardCoverage).map(pair => pair.blindPacket.id)
+    )
+    const calibrationBlindPacketIds = new Set(
+      prepared.workspace.pairs.filter(pair => pair.calibration).map(pair => pair.blindPacket.id)
+    )
+    expect(() =>
+      assertInterspersedCalibrationControls(
+        prepared.workspace.batches,
+        liveBlindPacketIds,
+        calibrationBlindPacketIds
+      )
+    ).not.toThrow()
+    expect(() =>
+      assertInterspersedCalibrationControls(
+        prepared.workspace.batches.map(batch => ({
+          ...batch,
+          calibrationControlPacketId: undefined,
+          packetIds: batch.packetIds.filter(packetId => !calibrationBlindPacketIds.has(packetId)),
+        })),
+        liveBlindPacketIds,
+        calibrationBlindPacketIds
+      )
+    ).toThrow('has no valid calibration control')
+    expect(() => assertCalibrationControlOutcomes('defect', 'pass', 'pass')).toThrow(
+      'calibration control defect drifted'
+    )
+    expect(() =>
+      assertCalibrationControlOutcomes('insufficient-evidence', 'cannot-verify', 'cannot-verify')
+    ).not.toThrow()
   })
 
   it('fails closed when a required coverage category is missing', () => {
@@ -377,7 +413,7 @@ describe('AoS 4 review packet preparation', () => {
         workspacePath,
       ])
 
-      await expect(access(path.join(reviewDirectory, 'blind-tasks.json'))).rejects.toThrow()
+      await expect(access(path.join(reviewDirectory, 'sample-blind'))).rejects.toThrow()
 
       const humanWorkspace = JSON.parse(
         await readFile(path.join(reviewDirectory, 'workspace.json'), 'utf8')
@@ -413,31 +449,7 @@ describe('AoS 4 review packet preparation', () => {
       ])
 
       const comparisonResults: ReviewerResult[] = calibration.map((pair, index) => {
-        const source = pair.comparisonPacket.sourceEvidence[0]
-        const findings =
-          pair.calibrationKind === 'defect'
-            ? [
-                createReviewFinding({
-                  packetId: pair.comparisonPacket.id,
-                  subject: {
-                    sourceRecordId: source.sourceRecordId,
-                    field: 'attacks',
-                  },
-                  expectedValue: 2,
-                  actualValue: pair.comparisonPacket.generatedDestinations[0].value,
-                  severity: 'major',
-                  confidence: 'high',
-                  rationale: 'The planted destination differs materially from the source evidence.',
-                  evidence: [
-                    {
-                      sourceRecordId: source.sourceRecordId,
-                      recordChecksum: source.recordChecksum,
-                      locator: source.locator,
-                    },
-                  ],
-                }),
-              ]
-            : []
+        const findings = pair.calibrationKind === 'defect' ? assessAdversarialComparison(pair).findings : []
         return {
           schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
           assignmentId: humanWorkspace.assignment.id,
@@ -511,10 +523,10 @@ describe('AoS 4 review packet preparation', () => {
       ])
 
       const calibrationRecord = JSON.parse(
-        await readFile(path.join(reviewDirectory, 'calibration.json'), 'utf8')
+        await readFile(path.join(reviewDirectory, 'sample-blind', 'calibration.json'), 'utf8')
       ) as ReviewCalibration
       expect(calibrationRecord.passed).toBe(true)
-      await expect(access(path.join(reviewDirectory, 'blind-tasks.json'))).resolves.toBeUndefined()
+      await expect(access(path.join(reviewDirectory, 'sample-blind', 'tasks.json'))).resolves.toBeUndefined()
 
       const sample = prepared.workspace.pairs.find(pair => !pair.calibration)!
       const enteredSampleBlindResults = path.join(reviewDirectory, 'entered-blind-results.json')
@@ -570,6 +582,30 @@ describe('AoS 4 review packet preparation', () => {
         }),
         'utf8'
       )
+      const sealedBlindResultsPath = path.join(reviewDirectory, 'sample-comparison', 'blind-results.json')
+      const sealedBlindResults = await readFile(sealedBlindResultsPath, 'utf8')
+      const changedBlindResults = JSON.parse(sealedBlindResults) as {
+        schemaVersion: 1
+        results: ReviewerResult[]
+      }
+      changedBlindResults.results[0].rationale = 'Changed after comparison values were revealed.'
+      await writeFile(sealedBlindResultsPath, JSON.stringify(changedBlindResults), 'utf8')
+      await expect(
+        runHumanReviewCommand([
+          'submit',
+          '--review-dir',
+          reviewDirectory,
+          '--comparison-results',
+          enteredSampleComparisonResults,
+          '--signed-at',
+          '2026-07-28T14:02:00.000Z',
+          '--statement',
+          'I independently checked every assigned packet against its cited evidence.',
+          '--workspace',
+          workspacePath,
+        ])
+      ).rejects.toThrow('Sample blind results changed after its review stage was published')
+      await writeFile(sealedBlindResultsPath, sealedBlindResults, 'utf8')
       await runHumanReviewCommand([
         'submit',
         '--review-dir',
@@ -668,7 +704,7 @@ describe('AoS 4 review packet preparation', () => {
   it('loads sharded review workspaces and rejects invalid shard references', async () => {
     const reviewDirectory = await mkdtemp(path.join(os.tmpdir(), 'aos4-review-workspace-'))
     try {
-      const prepared = prepare([candidate('sharded')])
+      const prepared = prepare([candidate('sharded'), candidate('not-selected')])
       const shardDirectory = path.join(reviewDirectory, 'packets')
       const workspacePath = path.join(reviewDirectory, 'workspace.json')
       const shardPath = path.join(shardDirectory, 'packet-shard-0001.json')
@@ -691,6 +727,9 @@ describe('AoS 4 review packet preparation', () => {
       await writeFile(shardPath, JSON.stringify(shard), 'utf8')
 
       await expect(loadReviewPacketPairs(workspacePath)).resolves.toEqual(prepared.workspace.pairs)
+      await expect(
+        loadReviewPacketPairsByKey(workspacePath, new Set([prepared.workspace.pairs[0].pairKey]))
+      ).resolves.toEqual([prepared.workspace.pairs[0]])
 
       await writeFile(
         workspacePath,
@@ -712,6 +751,20 @@ describe('AoS 4 review packet preparation', () => {
       await expect(loadReviewPacketPairs(workspacePath)).rejects.toThrow(
         'Review packet shard does not match its workspace'
       )
+    } finally {
+      await rm(reviewDirectory, { recursive: true, force: true })
+    }
+  })
+
+  it('publishes review directories atomically and refuses to replace them', async () => {
+    const reviewDirectory = await mkdtemp(path.join(os.tmpdir(), 'aos4-create-only-review-'))
+    const output = path.join(reviewDirectory, 'workspace')
+    try {
+      await writeCreateOnlyFilesDirectory(output, new Map([['index.json', '{"revision":"first"}']]))
+      await expect(
+        writeCreateOnlyFilesDirectory(output, new Map([['index.json', '{"revision":"second"}']]))
+      ).rejects.toThrow('Create-only output already exists')
+      await expect(readFile(path.join(output, 'index.json'), 'utf8')).resolves.toBe('{"revision":"first"}')
     } finally {
       await rm(reviewDirectory, { recursive: true, force: true })
     }
