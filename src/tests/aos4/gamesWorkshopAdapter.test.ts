@@ -7,11 +7,49 @@ import {
   decodeGamesWorkshopDownloadSearch,
   discoverGamesWorkshopDownloadsFromPage,
   resolveGamesWorkshopDiscovery,
+  searchCurrentGamesWorkshopDownloads,
+  type AddressResolver,
   type GamesWorkshopDownload,
+  type HttpRequest,
+  type HttpResponse,
+  type HttpTransport,
 } from '../../aos4/data'
+import { parseGamesWorkshopCatalogArguments } from '../../aos4/data/gamesWorkshop/catalogCommand'
 
 const fixture = (name: string) =>
   readFile(path.join(process.cwd(), 'src', 'tests', 'fixtures', 'aos4', 'games-workshop', name), 'utf8')
+
+const chunks = async function* (value: Uint8Array): AsyncIterable<Uint8Array> {
+  yield value
+}
+
+const response = (
+  status: number,
+  value: string,
+  headers: Record<string, string> = { 'content-type': 'application/json' }
+): HttpResponse => ({
+  status,
+  headers,
+  body: chunks(new TextEncoder().encode(value)),
+})
+
+class FakeTransport implements HttpTransport {
+  readonly requests: HttpRequest[] = []
+
+  constructor(private readonly response: HttpResponse | Error) {}
+
+  async request(request: HttpRequest): Promise<HttpResponse> {
+    this.requests.push(request)
+    if (this.response instanceof Error) throw this.response
+    return this.response
+  }
+}
+
+const publicResolver: AddressResolver = async () => ['203.0.113.10']
+const searchPolicy = {
+  allowedHosts: ['www.warhammer-community.com'],
+  resolveAddresses: publicResolver,
+}
 
 const download = (overrides: Partial<GamesWorkshopDownload> = {}): GamesWorkshopDownload => ({
   externalId: 'core-rules',
@@ -32,6 +70,55 @@ describe('Games Workshop download discovery', () => {
       searchTerm: '',
       gameSystem: 'warhammer-age-of-sigmar',
       language: 'english',
+    })
+  })
+
+  it('posts the bounded private search request and decodes its response', async () => {
+    const transport = new FakeTransport(response(200, await fixture('downloads-api.json')))
+
+    const result = await searchCurrentGamesWorkshopDownloads({
+      transport,
+      policy: searchPolicy,
+    })
+
+    expect(result.method).toBe('private-api')
+    expect(result.downloads).toHaveLength(1)
+    expect(transport.requests).toHaveLength(1)
+    expect(transport.requests[0]).toMatchObject({
+      url: 'https://www.warhammer-community.com/api/search/downloads/',
+      method: 'POST',
+      approvedAddresses: ['203.0.113.10'],
+      headers: expect.objectContaining({
+        accept: 'application/json',
+        'content-type': 'application/json',
+        origin: 'https://www.warhammer-community.com',
+      }),
+    })
+    expect(JSON.parse(new TextDecoder().decode(transport.requests[0].body))).toEqual(
+      createGamesWorkshopDownloadSearchRequest()
+    )
+  })
+
+  it.each([
+    ['non-success status', response(503, '')],
+    ['unexpected media type', response(200, '<html></html>', { 'content-type': 'text/html' })],
+    ['invalid JSON', response(200, '{')],
+    ['network failure', new Error('offline')],
+  ])('fails closed when private search has a %s', async (_label, privateResponse) => {
+    const result = await searchCurrentGamesWorkshopDownloads({
+      transport: new FakeTransport(privateResponse),
+      policy: searchPolicy,
+    })
+
+    expect(result).toEqual({
+      downloads: [],
+      diagnostics: [
+        expect.objectContaining({
+          code: 'private-api-unavailable',
+          severity: 'error',
+        }),
+      ],
+      method: 'none',
     })
   })
 
@@ -134,5 +221,23 @@ describe('Games Workshop download discovery', () => {
       maxBytes: 64 * 1024 * 1024,
       timeoutMs: 30_000,
     })
+  })
+
+  it('parses the official catalog command without hidden defaults', () => {
+    expect(
+      parseGamesWorkshopCatalogArguments([
+        '--output',
+        'downloads.json',
+        '--language',
+        'german',
+        '--search',
+        'battle profiles',
+      ])
+    ).toEqual({
+      output: 'downloads.json',
+      language: 'german',
+      searchTerm: 'battle profiles',
+    })
+    expect(() => parseGamesWorkshopCatalogArguments(['--unknown'])).toThrow('Unknown argument')
   })
 })

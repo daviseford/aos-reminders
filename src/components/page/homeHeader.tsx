@@ -3,23 +3,31 @@ import Navbar from 'components/page/navbar'
 import { useTheme } from 'context/useTheme'
 import Switch from 'react-switch'
 import Select from 'react-select'
+import type { CanonicalId } from '../../aos4/domain'
 
 interface HeaderProps {
   armyName: string
-  factionName: string
+  factionId: CanonicalId<'faction'>
+  factions: Array<{
+    label: string
+    value: CanonicalId<'faction'>
+  }>
   isGameMode: boolean
+  onFactionChange: (factionId: CanonicalId<'faction'>) => void
   onToggleGameMode: () => void
 }
 
-const headerOption = (factionName: string) => ({
-  label: factionName,
-  value: factionName,
-})
-
-export const Header = ({ armyName, factionName, isGameMode, onToggleGameMode }: HeaderProps) => {
+export const Header = ({
+  armyName,
+  factionId,
+  factions,
+  isGameMode,
+  onFactionChange,
+  onToggleGameMode,
+}: HeaderProps) => {
   const { theme } = useTheme()
   const isMobile = useIsMobile()
-  const option = headerOption(factionName)
+  const option = factions.find(faction => faction.value === factionId) ?? null
   const jumboClass = `jumbotron jumbotron-fluid text-center ${theme.headerColor} d-print-none mb-0 pt-4 ${
     isMobile ? 'pb-2' : 'pb-3'
   }`
@@ -97,9 +105,9 @@ export const Header = ({ armyName, factionName, isGameMode, onToggleGameMode }: 
                   <Select
                     aria-label="Faction"
                     value={option}
-                    options={[option]}
+                    options={factions}
+                    onChange={selected => selected && onFactionChange(selected.value)}
                     isClearable={false}
-                    isSearchable={false}
                     className={theme.text}
                     theme={defaultTheme => ({
                       ...defaultTheme,

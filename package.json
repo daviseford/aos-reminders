@@ -41,6 +41,9 @@
   "scripts": {
     "build": "tsc && vite build",
     "data:aos4:candidate": "vite-node --script src/aos4/data/candidateCommand.ts",
+    "data:aos4:discover-official": "vite-node --script src/aos4/data/gamesWorkshop/catalogCommand.ts",
+    "data:aos4:generate": "node --expose-gc node_modules/vite-node/vite-node.mjs --script src/aos4/generate/corpusCommand.ts",
+    "data:aos4:generate:write": "yarn data:aos4:generate --write",
     "format": "yarn prettier --write \"**/*.*(js|jsx|ts|tsx)\"",
     "gitclean:win": "git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }",
     "gitclean": "git branch | grep -v \"master\" | xargs git branch -D",

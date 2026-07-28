@@ -15,6 +15,13 @@ export interface WahapediaRecordMeta {
   artifactId: ArtifactId
   sourceRecordId: SourceRecordId
   recordChecksum: string
+  section?: string
+  rulesContextKind?: 'standard' | 'seasonal' | 'spearhead' | 'legends' | 'historical'
+  rulesContextKinds?: Array<
+    'standard' | 'seasonal' | 'spearhead' | 'legends' | 'historical'
+  >
+  identitySourceRecordId?: SourceRecordId
+  officialSourceRecordIds?: SourceRecordId[]
 }
 
 export interface WahapediaFactionRecord {
@@ -37,6 +44,7 @@ export interface WahapediaSourceRecord {
 
 export interface WahapediaWarscrollRecord {
   id: string
+  parentWarscrollId?: string
   name: string
   factionId: string
   sourceId: string
@@ -158,6 +166,8 @@ export interface WahapediaLastUpdateRecord {
 
 export interface WahapediaDataset {
   artifacts: Partial<Record<WahapediaExportFileName, ArtifactManifestEntry>>
+  htmlArtifacts?: ArtifactManifestEntry[]
+  supersededMetas?: WahapediaRecordMeta[]
   factions: WahapediaFactionRecord[]
   sources: WahapediaSourceRecord[]
   warscrolls: WahapediaWarscrollRecord[]

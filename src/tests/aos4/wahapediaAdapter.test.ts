@@ -192,6 +192,17 @@ describe('Wahapedia AoS 4 export adapter', () => {
         hasBattleDamage: true,
       }),
     ])
+
+    const incomplete = normalizeWahapediaWeapon({
+      ...dataset.warscrollWeapons[0],
+      rend: '',
+    })
+    expect(incomplete.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'source-incomplete-weapon-profile',
+        severity: 'warning',
+      })
+    )
   })
 
   it('normalizes source timing as evidence while preserving raw fields and reaction triggers', async () => {
@@ -331,15 +342,10 @@ describe('Wahapedia AoS 4 export adapter', () => {
           severity: 'warning',
         })
       )
-      expect(fact.diagnostics).not.toContainEqual(
-        expect.objectContaining({ code: 'source-phase-conflict' })
-      )
+      expect(fact.diagnostics).not.toContainEqual(expect.objectContaining({ code: 'source-phase-conflict' }))
       expect(
-        createWahapediaFactionCohortReport(
-          { ...dataset, warscrollAbilities: [record] },
-          [],
-          'SCE'
-        ).normalization.sourceTimingCorrectionSourceRecordIds
+        createWahapediaFactionCohortReport({ ...dataset, warscrollAbilities: [record] }, [], 'SCE')
+          .normalization.sourceTimingCorrectionSourceRecordIds
       ).toEqual([String(record.meta.sourceRecordId)])
     }
   )
@@ -370,18 +376,12 @@ describe('Wahapedia AoS 4 export adapter', () => {
       expect.objectContaining({ code: 'source-phase-conflict', severity: 'warning' })
     )
     expect(
-      createWahapediaFactionCohortReport(
-        { ...dataset, warscrollAbilities: [record] },
-        [],
-        'SCE'
-      ).normalization.effectPhaseWindowSourceRecordIds
+      createWahapediaFactionCohortReport({ ...dataset, warscrollAbilities: [record] }, [], 'SCE')
+        .normalization.effectPhaseWindowSourceRecordIds
     ).toEqual([String(record.meta.sourceRecordId)])
     expect(
-      createWahapediaFactionCohortReport(
-        { ...dataset, warscrollAbilities: [record] },
-        [],
-        'SCE'
-      ).normalization.sourcePhaseConflictSourceRecordIds
+      createWahapediaFactionCohortReport({ ...dataset, warscrollAbilities: [record] }, [], 'SCE')
+        .normalization.sourcePhaseConflictSourceRecordIds
     ).toEqual([String(record.meta.sourceRecordId)])
   })
 
@@ -404,11 +404,8 @@ describe('Wahapedia AoS 4 export adapter', () => {
       expect.objectContaining({ code: 'source-phase-conflict', severity: 'warning' })
     )
     expect(
-      createWahapediaFactionCohortReport(
-        { ...dataset, warscrollAbilities: [record] },
-        [],
-        'SCE'
-      ).normalization.phaseIndependentSourceRecordIds
+      createWahapediaFactionCohortReport({ ...dataset, warscrollAbilities: [record] }, [], 'SCE')
+        .normalization.phaseIndependentSourceRecordIds
     ).toEqual([String(record.meta.sourceRecordId)])
   })
 
@@ -448,22 +445,13 @@ describe('Wahapedia AoS 4 export adapter', () => {
     expect(fact.diagnostics).toContainEqual(
       expect.objectContaining({ code: 'unknown-timing', severity: 'error' })
     )
-    expect(fact.diagnostics).not.toContainEqual(
-      expect.objectContaining({ code: 'source-timing-correction' })
-    )
+    expect(fact.diagnostics).not.toContainEqual(expect.objectContaining({ code: 'source-timing-correction' }))
     expect(
-      createWahapediaFactionCohortReport(
-        { ...dataset, warscrollAbilities: [record] },
-        [],
-        'SCE'
-      ).normalization.unresolvedTimingSourceRecordIds
+      createWahapediaFactionCohortReport({ ...dataset, warscrollAbilities: [record] }, [], 'SCE')
+        .normalization.unresolvedTimingSourceRecordIds
     ).toEqual([String(record.meta.sourceRecordId)])
     expect(
-      createWahapediaFactionCohortReport(
-        { ...dataset, warscrollAbilities: [record] },
-        [],
-        'SCE'
-      ).status
+      createWahapediaFactionCohortReport({ ...dataset, warscrollAbilities: [record] }, [], 'SCE').status
     ).toBe('blocked')
   })
 

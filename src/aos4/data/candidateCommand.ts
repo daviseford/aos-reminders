@@ -25,13 +25,21 @@ import {
   type WahapediaFactionCohortReport,
 } from './wahapedia'
 import {
+  parseWahapediaFactionHtml,
+  parseWahapediaSpearheadWarscrollsHtml,
+  parseWahapediaWarscrollHtml,
+  parseWahapediaWarscrollCollectionHtml,
+  type WahapediaHtmlDiagnostic,
+} from './wahapediaHtml'
+import {
   extractGamesWorkshopPdfText,
   type GamesWorkshopDiagnostic,
   type GamesWorkshopPdfExtractionResult,
   type GamesWorkshopPdfInput,
 } from './gamesWorkshop'
 
-const GAMES_WORKSHOP_ADAPTER_VERSION = 'games-workshop-pdf/1'
+export const GAMES_WORKSHOP_ADAPTER_VERSION = 'games-workshop-pdf/1'
+export const WAHAPEDIA_HTML_ADAPTER_VERSION = 'wahapedia-html/1'
 const DEFAULT_CACHE_DIRECTORY = path.join('.cache', 'aos4', 'artifacts')
 const DEFAULT_REQUEST_PAUSE_MS = 250
 const OFFICIAL_PDF_MAX_PAGES = 400
@@ -42,6 +50,7 @@ export interface CandidateAcquisitionOptions {
   outputDirectory: string
   acceptedManifest?: ArtifactManifest
   officialDocumentUrls?: string[]
+  wahapediaPageUrls?: string[]
   officialSearchTerms?: string[]
   factionIds?: string[]
   offline?: boolean
@@ -55,6 +64,7 @@ export interface CandidateAcquisitionReport {
   wahapediaExportMarker: string | null
   artifacts: {
     wahapediaExports: number
+    wahapediaPages: number
     gamesWorkshopDocuments: number
   }
   decodedRecords: {
@@ -75,6 +85,7 @@ export interface CandidateAcquisitionReport {
     abilities: number
     weapons: number
     unknownWeaponTypes: number
+    incompleteWeaponProfiles: number
     unresolvedTimings: number
     phaseIndependentAbilities: number
     effectPhaseWindowAbilities: number
@@ -102,6 +113,33 @@ export interface CandidateAcquisitionResult {
   diagnosticsPath: string
   cohortReportPaths: string[]
   officialDocumentReportPath: string
+  wahapediaHtmlReportPath: string
+}
+
+export interface CandidateWahapediaHtmlReport {
+  schemaVersion: 1
+  status: 'blocked' | 'candidate-review-required'
+  documents: Array<{
+    url: string
+    artifactChecksum: string
+    byteLength: number
+    retrievedAt: string
+    parsing: {
+      status: 'blocked' | 'parsed'
+      pages: number
+      warscrolls: number
+      contentGroups: number
+      factionPage: boolean
+      factionGroups: number
+      factionAbilities: number
+      name?: string
+      factionName?: string
+      context?: string
+      abilities: number
+      weapons: number
+      diagnostics: WahapediaHtmlDiagnostic[]
+    }
+  }>
 }
 
 export interface CandidateOfficialDocumentReport {
@@ -133,6 +171,7 @@ export interface CandidateOfficialDocumentReport {
 const FACTION_ID_PATTERN = /^[A-Za-z0-9_-]+$/
 const MAX_OFFICIAL_SEARCH_TERMS = 20
 const MAX_OFFICIAL_SEARCH_TERM_LENGTH = 100
+const MAX_WAHAPEDIA_PAGE_URLS = 2_000
 
 const pause = async (milliseconds: number): Promise<void> => {
   if (milliseconds <= 0) return
@@ -186,6 +225,9 @@ const createCandidateAnalysis = (
     wahapediaExportMarker: decoded.dataset.lastUpdate?.instant ?? decoded.dataset.lastUpdate?.raw ?? null,
     artifacts: {
       wahapediaExports: Object.keys(inputs).length,
+      wahapediaPages: manifest.artifacts.filter(
+        artifact => artifact.adapterVersion === WAHAPEDIA_HTML_ADAPTER_VERSION
+      ).length,
       gamesWorkshopDocuments: manifest.artifacts.filter(
         artifact => artifact.adapterVersion === GAMES_WORKSHOP_ADAPTER_VERSION
       ).length,
@@ -208,6 +250,9 @@ const createCandidateAnalysis = (
       abilities: abilities.length,
       weapons: weapons.length,
       unknownWeaponTypes: weapons.filter(weapon => weapon.weaponType === 'unknown').length,
+      incompleteWeaponProfiles: weapons.filter(weapon =>
+        weapon.diagnostics.some(diagnostic => diagnostic.code === 'source-incomplete-weapon-profile')
+      ).length,
       unresolvedTimings: abilities.filter(ability =>
         ability.timings.some(timing => timing.window.kind === 'unknown')
       ).length,
@@ -335,7 +380,22 @@ export const acquireCandidateData = async (
     input: GamesWorkshopPdfInput
     extraction: GamesWorkshopPdfExtractionResult
   }> = []
-  let manifest = createArtifactManifest()
+  const wahapediaPages: Array<{
+    artifact: ArtifactManifestEntry
+    pageCount: number
+    warscrolls: number
+    contentGroups: number
+    factionPage: boolean
+    factionGroups: number
+    factionAbilities: number
+    abilities: number
+    weapons: number
+    name?: string
+    factionName?: string
+    context?: string
+    diagnostics: WahapediaHtmlDiagnostic[]
+  }> = []
+  let manifest = createArtifactManifest(options.acceptedManifest?.artifacts)
 
   for (let index = 0; index < WAHAPEDIA_EXPORT_FILES.length; index += 1) {
     const file = WAHAPEDIA_EXPORT_FILES[index]
@@ -382,6 +442,72 @@ export const acquireCandidateData = async (
     if (!options.offline) await pause(pauseMs)
   }
 
+  const wahapediaPageUrls = uniqueWahapediaPageUrls(options.wahapediaPageUrls ?? [])
+  for (let index = 0; index < wahapediaPageUrls.length; index += 1) {
+    const url = wahapediaPageUrls[index]
+    const result = await acquireArtifact(
+      {
+        url,
+        adapterVersion: WAHAPEDIA_HTML_ADAPTER_VERSION,
+        allowedMediaTypes: ['text/html'],
+        maxBytes: 32 * 1024 * 1024,
+        timeoutMs: 30_000,
+        maxRedirects: 5,
+        acceptedManifest: options.acceptedManifest,
+        candidateManifest: manifest,
+        offline: options.offline,
+      },
+      acquisitionDependencies
+    )
+    manifest = result.candidateManifest
+    const input = {
+      bytes: result.bytes,
+      artifact: result.entry,
+    }
+    const wahapediaPath = new URL(result.entry.finalUrl).pathname
+    const isFactionPage = /^\/aos4\/factions\/[^/]+\/$/i.test(wahapediaPath)
+    const factionPage = isFactionPage ? parseWahapediaFactionHtml(input) : undefined
+    const parsed = wahapediaPath.endsWith('/warscrolls.html')
+      ? parseWahapediaWarscrollCollectionHtml(input)
+      : isFactionPage
+        ? parseWahapediaSpearheadWarscrollsHtml(input)
+        : (() => {
+            const single = parseWahapediaWarscrollHtml(input)
+            return {
+              pages: single.page ? [single.page] : [],
+              diagnostics: single.diagnostics,
+            }
+          })()
+    if (factionPage) parsed.diagnostics.push(...factionPage.diagnostics)
+    wahapediaPages.push({
+      artifact: result.entry,
+      pageCount: parsed.pages.length,
+      warscrolls: parsed.pages.filter(page => page.recordKind === 'warscroll').length,
+      contentGroups: parsed.pages.filter(page => page.recordKind === 'content-group').length,
+      factionPage: Boolean(factionPage?.page),
+      factionGroups: factionPage?.page?.groups.length ?? 0,
+      factionAbilities: factionPage?.page?.abilities.length ?? 0,
+      abilities: parsed.pages.reduce((sum, page) => sum + page.abilities.length, 0),
+      weapons: parsed.pages.reduce((sum, page) => sum + page.weapons.length, 0),
+      ...(parsed.pages.length === 1
+        ? {
+            name: parsed.pages[0].name,
+            factionName: parsed.pages[0].factionName,
+            context: parsed.pages[0].context,
+          }
+        : parsed.pages.length
+          ? { factionName: parsed.pages[0].factionName }
+          : factionPage?.page
+            ? { factionName: factionPage.page.factionName }
+            : {}),
+      diagnostics: parsed.diagnostics,
+    })
+    if ((index + 1) % 25 === 0 || index + 1 === wahapediaPageUrls.length) {
+      console.log(`Acquired Wahapedia warscroll pages: ${index + 1}/${wahapediaPageUrls.length}`)
+    }
+    if (!options.offline) await pause(pauseMs)
+  }
+
   const retrievedAt = new Date().toISOString()
   const analysis = createCandidateAnalysis(inputs, manifest, retrievedAt, factionIds)
   const report = analysis.report
@@ -390,7 +516,41 @@ export const acquireCandidateData = async (
   const reportPath = path.join(outputDirectory, 'candidate-report.json')
   const diagnosticsPath = path.join(outputDirectory, 'candidate-diagnostics.json')
   const officialDocumentReportPath = path.join(outputDirectory, 'official-document-report.json')
+  const wahapediaHtmlReportPath = path.join(outputDirectory, 'wahapedia-html-report.json')
   const officialDocumentReport = createCandidateOfficialDocumentReport(officialDocuments, officialSearchTerms)
+  const wahapediaHtmlReport: CandidateWahapediaHtmlReport = {
+    schemaVersion: 1,
+    status: wahapediaPages.some(
+      document =>
+        (!document.pageCount && !document.factionPage) ||
+        document.diagnostics.some(diagnostic => diagnostic.severity === 'error')
+    )
+      ? 'blocked'
+      : 'candidate-review-required',
+    documents: wahapediaPages
+      .map(document => ({
+        url: document.artifact.finalUrl,
+        artifactChecksum: document.artifact.checksum,
+        byteLength: document.artifact.byteLength,
+        retrievedAt: document.artifact.retrievedAt,
+        parsing: {
+          status: document.pageCount || document.factionPage ? ('parsed' as const) : ('blocked' as const),
+          pages: document.pageCount,
+          warscrolls: document.warscrolls,
+          contentGroups: document.contentGroups,
+          factionPage: document.factionPage,
+          factionGroups: document.factionGroups,
+          factionAbilities: document.factionAbilities,
+          ...(document.name ? { name: document.name } : {}),
+          ...(document.factionName ? { factionName: document.factionName } : {}),
+          ...(document.context ? { context: document.context } : {}),
+          abilities: document.abilities,
+          weapons: document.weapons,
+          diagnostics: document.diagnostics,
+        },
+      }))
+      .sort((left, right) => left.url.localeCompare(right.url)),
+  }
   const cohortReportPaths = factionIds.map(factionId =>
     path.join(outputDirectory, `cohort-${factionId}-report.json`)
   )
@@ -414,6 +574,10 @@ export const acquireCandidateData = async (
       encoding: 'utf8',
       flag: 'wx',
     }),
+    writeFile(wahapediaHtmlReportPath, stableJson(wahapediaHtmlReport), {
+      encoding: 'utf8',
+      flag: 'wx',
+    }),
     ...analysis.cohortReports.map((cohortReport, index) =>
       writeFile(cohortReportPaths[index], stableJson(cohortReport), {
         encoding: 'utf8',
@@ -430,6 +594,7 @@ export const acquireCandidateData = async (
     diagnosticsPath,
     cohortReportPaths,
     officialDocumentReportPath,
+    wahapediaHtmlReportPath,
   }
 }
 
@@ -480,8 +645,12 @@ export interface CandidateArguments {
   outputDirectory: string
   acceptedManifestPath?: string
   officialDocumentUrls: string[]
+  officialDocumentListPaths: string[]
+  wahapediaPageUrls: string[]
+  wahapediaPageListPaths: string[]
   officialSearchTerms: string[]
   factionIds: string[]
+  requestPauseMs: number
   offline: boolean
 }
 
@@ -527,8 +696,12 @@ export const parseCandidateArguments = (arguments_: string[]): CandidateArgument
   const parsed: CandidateArguments = {
     outputDirectory: path.join('.cache', 'aos4', 'candidates', defaultLabel),
     officialDocumentUrls: [],
+    officialDocumentListPaths: [],
+    wahapediaPageUrls: [],
+    wahapediaPageListPaths: [],
     officialSearchTerms: [],
     factionIds: [],
+    requestPauseMs: DEFAULT_REQUEST_PAUSE_MS,
     offline: false,
   }
 
@@ -543,8 +716,24 @@ export const parseCandidateArguments = (arguments_: string[]): CandidateArgument
     } else if (argument === '--official-url') {
       parsed.officialDocumentUrls.push(nextValue(arguments_, index, argument))
       index += 1
+    } else if (argument === '--official-urls-file') {
+      parsed.officialDocumentListPaths.push(nextValue(arguments_, index, argument))
+      index += 1
     } else if (argument === '--official-search') {
       parsed.officialSearchTerms.push(nextValue(arguments_, index, argument))
+      index += 1
+    } else if (argument === '--wahapedia-page') {
+      parsed.wahapediaPageUrls.push(nextValue(arguments_, index, argument))
+      index += 1
+    } else if (argument === '--wahapedia-pages-file') {
+      parsed.wahapediaPageListPaths.push(nextValue(arguments_, index, argument))
+      index += 1
+    } else if (argument === '--request-pause-ms') {
+      const value = nextValue(arguments_, index, argument)
+      if (!/^\d+$/.test(value) || Number.parseInt(value, 10) > 60_000) {
+        throw new Error('--request-pause-ms must be an integer from 0 through 60000')
+      }
+      parsed.requestPauseMs = Number.parseInt(value, 10)
       index += 1
     } else if (argument === '--faction') {
       parsed.factionIds.push(nextValue(arguments_, index, argument))
@@ -564,24 +753,53 @@ export const parseCandidateArguments = (arguments_: string[]): CandidateArgument
   return parsed
 }
 
+const readUrlList = async (filePath: string, label: string): Promise<string[]> => {
+  const value: unknown = JSON.parse(await readFile(filePath, 'utf8'))
+  if (!Array.isArray(value) || value.some(item => typeof item !== 'string' || !item.trim())) {
+    throw new Error(`${label} ${filePath} must be a JSON array of URLs`)
+  }
+  return value
+}
+
+export const uniqueWahapediaPageUrls = (values: string[]): string[] => {
+  const unique = Array.from(new Set(values.map(value => value.trim()))).sort((left, right) =>
+    left.localeCompare(right)
+  )
+  if (unique.length > MAX_WAHAPEDIA_PAGE_URLS) {
+    throw new Error(`At most ${MAX_WAHAPEDIA_PAGE_URLS} Wahapedia page URLs may be requested`)
+  }
+  return unique
+}
+
 const run = async (): Promise<void> => {
   const arguments_ = parseCandidateArguments(process.argv.slice(2))
   const acceptedManifest = arguments_.acceptedManifestPath
     ? await loadAcceptedManifest(arguments_.acceptedManifestPath)
     : undefined
+  const pageLists = await Promise.all(
+    arguments_.wahapediaPageListPaths.map(filePath => readUrlList(filePath, 'Wahapedia page list'))
+  )
+  const officialLists = await Promise.all(
+    arguments_.officialDocumentListPaths.map(filePath => readUrlList(filePath, 'Official document list'))
+  )
   const result = await acquireCandidateData({
     outputDirectory: arguments_.outputDirectory,
     acceptedManifest,
-    officialDocumentUrls: arguments_.officialDocumentUrls,
+    officialDocumentUrls: Array.from(
+      new Set([...arguments_.officialDocumentUrls, ...officialLists.flat()])
+    ).sort((left, right) => left.localeCompare(right)),
+    wahapediaPageUrls: uniqueWahapediaPageUrls([...arguments_.wahapediaPageUrls, ...pageLists.flat()]),
     officialSearchTerms: arguments_.officialSearchTerms,
     factionIds: arguments_.factionIds,
     offline: arguments_.offline,
+    requestPauseMs: arguments_.requestPauseMs,
   })
 
   console.log(`Candidate manifest: ${result.manifestPath}`)
   console.log(`Candidate report: ${result.reportPath}`)
   console.log(`Candidate diagnostics: ${result.diagnosticsPath}`)
   console.log(`Official document report: ${result.officialDocumentReportPath}`)
+  console.log(`Wahapedia HTML report: ${result.wahapediaHtmlReportPath}`)
   result.cohortReportPaths.forEach(cohortReportPath => {
     console.log(`Faction cohort report: ${cohortReportPath}`)
   })

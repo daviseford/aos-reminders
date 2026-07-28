@@ -31,7 +31,8 @@ export interface Warscroll extends DomainEntity<'warscroll'> {
 export interface BattleProfile extends DomainEntity<'battle-profile'> {
   warscrollId: CanonicalId<'warscroll'>
   unitSize: number
-  points: number
+  points?: number
+  pointsStatus?: 'not-applicable'
   baseSizes: string[]
   regimentOptions: string[]
   notes: string[]
@@ -237,16 +238,21 @@ export const validateCatalog = (catalog: Aos4Catalog): DomainValidationIssue[] =
           message: `Battle profile ${entity.id} refers to missing warscroll ${entity.warscrollId}`,
         })
       }
+      const hasPoints =
+        Number.isInteger(entity.points) &&
+        entity.points !== undefined &&
+        entity.points >= 0 &&
+        entity.pointsStatus === undefined
+      const hasNotApplicablePoints = entity.points === undefined && entity.pointsStatus === 'not-applicable'
       if (
         !Number.isInteger(entity.unitSize) ||
         entity.unitSize < 1 ||
-        !Number.isInteger(entity.points) ||
-        entity.points < 0
+        (!hasPoints && !hasNotApplicablePoints)
       ) {
         issues.push({
           code: 'invalid-battle-profile',
           subject: entity.id,
-          message: `Battle profile ${entity.id} has invalid unit size or points`,
+          message: `Battle profile ${entity.id} has invalid unit size or points applicability`,
         })
       }
       return
@@ -254,11 +260,20 @@ export const validateCatalog = (catalog: Aos4Catalog): DomainValidationIssue[] =
 
     if (entity.kind === 'weapon') {
       const { attacks, hit, wound, rend, damage } = entity.profile
-      if ([attacks, hit, wound, rend, damage].some(value => !value.trim())) {
+      const characteristics = { attacks, hit, wound, rend, damage }
+      const missing = Object.entries(characteristics)
+        .filter(([, value]) => !value.trim())
+        .map(([name]) => name)
+        .sort()
+      const declaredMissing = [...(entity.profile.sourceIncompleteCharacteristics ?? [])].sort()
+      if (
+        missing.join('|') !== declaredMissing.join('|') ||
+        (!missing.length && declaredMissing.length > 0)
+      ) {
         issues.push({
           code: 'invalid-weapon-profile',
           subject: entity.id,
-          message: `Weapon ${entity.id} must retain every profile characteristic`,
+          message: `Weapon ${entity.id} must retain every profile characteristic or explicitly identify source-incomplete fields`,
         })
       }
       return
@@ -292,8 +307,7 @@ export const validateCatalog = (catalog: Aos4Catalog): DomainValidationIssue[] =
       }
 
       if (
-        (timing.window.kind === 'battle-round-start' ||
-          timing.window.kind === 'battle-round-end') &&
+        (timing.window.kind === 'battle-round-start' || timing.window.kind === 'battle-round-end') &&
         timing.window.round !== undefined &&
         (!Number.isInteger(timing.window.round) || timing.window.round < 1)
       ) {

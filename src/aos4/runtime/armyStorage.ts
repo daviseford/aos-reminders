@@ -1,5 +1,5 @@
 import type { Aos4Catalog } from '../domain'
-import { AOS4_DEFAULT_SELECTION_IDS, REPRESENTATIVE_CONTEXT_ID } from '../generated'
+import { AOS4_DEFAULT_RULES_CONTEXT_ID, AOS4_DEFAULT_SELECTION_IDS } from '../generated'
 import {
   createAos4ArmyDocument,
   deserializeAos4ArmyDocument,
@@ -27,7 +27,7 @@ export const createDefaultAos4ArmyDocument = (): Aos4ArmyDocument =>
   createAos4ArmyDocument({
     id: 'army:aos4-migration-preview',
     name: 'Stormcast Eternals',
-    rulesContextId: REPRESENTATIVE_CONTEXT_ID,
+    rulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
     explicitSelectionIds: AOS4_DEFAULT_SELECTION_IDS,
   })
 

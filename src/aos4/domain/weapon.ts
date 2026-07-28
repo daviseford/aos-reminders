@@ -25,6 +25,7 @@ export interface WeaponProfile {
   wound: string
   rend: string
   damage: string
+  sourceIncompleteCharacteristics?: Array<'attacks' | 'hit' | 'wound' | 'rend' | 'damage'>
 }
 
 export interface Weapon extends DomainEntity<'weapon'> {

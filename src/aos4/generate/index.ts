@@ -1,4 +1,6 @@
+export * from './corpus'
 export * from './identityRegistry'
+export * from './officialBattleProfiles'
 export * from './integrity'
 export * from './runtimeProjection'
 export * from './serialization'

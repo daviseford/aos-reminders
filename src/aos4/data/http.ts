@@ -40,6 +40,8 @@ export interface HttpRequest {
   headers: Record<string, string>
   signal: AbortSignal
   approvedAddresses: string[]
+  method?: 'GET' | 'POST'
+  body?: Uint8Array
 }
 
 export interface HttpResponse {
@@ -53,7 +55,7 @@ export interface HttpTransport {
 }
 
 export const createPinnedHttpsTransport = (): HttpTransport => ({
-  request({ url, headers, signal, approvedAddresses }) {
+  request({ url, headers, signal, approvedAddresses, method = 'GET', body }) {
     return new Promise((resolve, reject) => {
       const address = approvedAddresses[0]
       const family = isIP(address)
@@ -68,6 +70,7 @@ export const createPinnedHttpsTransport = (): HttpTransport => ({
           headers,
           signal,
           family,
+          method,
           lookup: (_hostname, _options, callback) => callback(null, address, family),
         },
         incoming => {
@@ -87,6 +90,7 @@ export const createPinnedHttpsTransport = (): HttpTransport => ({
       outgoing.on('error', error => {
         reject(new AcquisitionError('network-error', `Request failed for ${url}`, error))
       })
+      if (body?.byteLength) outgoing.write(body)
       outgoing.end()
     })
   },

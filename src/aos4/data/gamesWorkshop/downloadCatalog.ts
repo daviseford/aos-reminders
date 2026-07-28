@@ -1,11 +1,19 @@
 import type { AcquireArtifactRequest } from '../command'
+import {
+  AcquisitionError,
+  discardResponseBody,
+  getHeader,
+  readResponseBody,
+  requestWithTimeout,
+  type HttpTransport,
+} from '../http'
+import { validateAcquisitionUrl, type UrlPolicy } from '../urlPolicy'
 import type { GamesWorkshopDiagnostic, GamesWorkshopDiscoveryResult, GamesWorkshopDownload } from './records'
 
 export const GAMES_WORKSHOP_DOWNLOADS_PAGE_URL =
   'https://www.warhammer-community.com/en-gb/downloads/warhammer-age-of-sigmar/'
 
-export const GAMES_WORKSHOP_DOWNLOAD_SEARCH_URL =
-  'https://production-api-2024.warhammer-community.com/api/search/downloads/'
+export const GAMES_WORKSHOP_DOWNLOAD_SEARCH_URL = 'https://www.warhammer-community.com/api/search/downloads/'
 
 export const GAMES_WORKSHOP_ASSET_ORIGIN = 'https://assets.warhammer-community.com'
 
@@ -25,6 +33,75 @@ export const createGamesWorkshopDownloadSearchRequest = (
   gameSystem: 'warhammer-age-of-sigmar',
   language,
 })
+
+export interface GamesWorkshopDownloadSearchDependencies {
+  transport: HttpTransport
+  policy: UrlPolicy
+  timeoutMs?: number
+  maxBytes?: number
+}
+
+export const searchCurrentGamesWorkshopDownloads = async (
+  dependencies: GamesWorkshopDownloadSearchDependencies,
+  request: GamesWorkshopDownloadSearchRequest = createGamesWorkshopDownloadSearchRequest()
+): Promise<GamesWorkshopDiscoveryResult> => {
+  try {
+    const validated = await validateAcquisitionUrl(GAMES_WORKSHOP_DOWNLOAD_SEARCH_URL, dependencies.policy)
+    const body = new TextEncoder().encode(JSON.stringify(request))
+    const response = await requestWithTimeout(
+      dependencies.transport,
+      {
+        url: validated.url,
+        method: 'POST',
+        body,
+        headers: {
+          accept: 'application/json',
+          'accept-encoding': 'identity',
+          'content-type': 'application/json',
+          'content-length': String(body.byteLength),
+          origin: 'https://www.warhammer-community.com',
+          referer: GAMES_WORKSHOP_DOWNLOADS_PAGE_URL,
+        },
+        approvedAddresses: validated.approvedAddresses,
+      },
+      dependencies.timeoutMs ?? 30_000
+    )
+    if (response.status < 200 || response.status >= 300) {
+      await discardResponseBody(response)
+      throw new AcquisitionError(
+        'http-status',
+        `Games Workshop download search returned HTTP ${response.status}`
+      )
+    }
+    const mediaType = (getHeader(response.headers, 'content-type') ?? '').split(';')[0].trim().toLowerCase()
+    if (mediaType !== 'application/json') {
+      await discardResponseBody(response)
+      throw new AcquisitionError(
+        'unexpected-media-type',
+        `Games Workshop download search returned ${mediaType || '(missing media type)'}`
+      )
+    }
+    const bytes = await readResponseBody(response, dependencies.maxBytes ?? 4 * 1024 * 1024)
+    return decodeGamesWorkshopDownloadSearch(
+      JSON.parse(new TextDecoder('utf-8', { fatal: true }).decode(bytes)) as unknown
+    )
+  } catch (error) {
+    return {
+      downloads: [],
+      diagnostics: [
+        {
+          code: 'private-api-unavailable',
+          severity: 'error',
+          message: `Games Workshop download search failed: ${
+            error instanceof Error ? error.message : String(error)
+          }`,
+          url: GAMES_WORKSHOP_DOWNLOAD_SEARCH_URL,
+        },
+      ],
+      method: 'none',
+    }
+  }
+}
 
 export const createGamesWorkshopPdfAcquisitionRequest = (
   download: GamesWorkshopDownload

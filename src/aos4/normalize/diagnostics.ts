@@ -15,6 +15,8 @@ export type NormalizationDiagnosticCode =
   | 'effect-phase-windows'
   | 'source-timing-correction'
   | 'source-phase-conflict'
+  | 'source-incomplete-weapon-profile'
+  | 'source-marker-removed'
 
 export type NormalizationDiagnosticSeverity = 'warning' | 'error'
 

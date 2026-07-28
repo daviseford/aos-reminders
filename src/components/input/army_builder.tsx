@@ -34,6 +34,11 @@ const titles: Record<string, { title: string; mobileTitle?: string; order: numbe
   'spell-lore': { title: 'Spell Lores', order: 3 },
   'prayer-lore': { title: 'Prayer Lores', order: 4 },
   'manifestation-lore': { title: 'Manifestation Lores', mobileTitle: 'Manifestations', order: 5 },
+  'regiment-of-renown': {
+    title: 'Regiment Of Renown',
+    mobileTitle: 'Regiments',
+    order: Number.MAX_SAFE_INTEGER,
+  },
 }
 
 const titleCase = (value: string) =>
@@ -107,7 +112,7 @@ const SelectionCard = ({
           <div className={`d-flex justify-content-${isMobile ? 'end' : 'center'} align-items-center`}>
             <div className={`flex-grow-1 text-center ${isMobile ? '' : 'pl-5'}`}>
               {isMobile ? (
-                <h5 className="CardHeaderTitle text-nowrap">
+                <h5 className="CardHeaderTitle">
                   {title}
                   {selectionCount && !isExpanded ? ` (${selectionCount})` : ''}
                 </h5>

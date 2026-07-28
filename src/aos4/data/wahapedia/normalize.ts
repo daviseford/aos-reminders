@@ -64,6 +64,17 @@ export const normalizeWahapediaWeapon = (
   record: WahapediaWarscrollWeaponRecord
 ): NormalizedWahapediaWeaponFact => {
   const abilities = normalizeSourceText(record.abilitiesHtml)
+  const profile = {
+    range: record.range,
+    attacks: record.attacks,
+    hit: record.hit,
+    wound: record.wound,
+    rend: record.rend,
+    damage: record.damage,
+  }
+  const missingCharacteristics = Object.entries(profile)
+    .filter(([name, value]) => name !== 'range' && !value.trim())
+    .map(([name]) => name)
   const weaponType: NormalizedWahapediaWeaponFact['weaponType'] =
     record.weaponType === 'MELEE' ? 'melee' : record.weaponType === 'RANGED' ? 'ranged' : 'unknown'
 
@@ -72,23 +83,27 @@ export const normalizeWahapediaWeapon = (
     warscrollId: record.warscrollId,
     name: record.name.trim(),
     weaponType,
-    profile: {
-      range: record.range,
-      attacks: record.attacks,
-      hit: record.hit,
-      wound: record.wound,
-      rend: record.rend,
-      damage: record.damage,
-    },
+    profile,
     abilityLabels: splitList(abilities.text),
     abilitiesHtml: record.abilitiesHtml,
     hasBattleDamage: record.hasBattleDamage,
-    diagnostics: abilities.diagnostics,
+    diagnostics: [
+      ...abilities.diagnostics,
+      ...(missingCharacteristics.length
+        ? [
+            {
+              code: 'source-incomplete-weapon-profile' as const,
+              severity: 'warning' as const,
+              message: `Wahapedia omitted weapon characteristics: ${missingCharacteristics.join(', ')}`,
+            },
+          ]
+        : []),
+    ],
   }
 }
 
 const abilityKind = (record: WahapediaAbilityRecord): AbilityKind => {
-  if (record.isReaction || /\breaction\s*:/i.test(record.conditionHtml)) return 'reaction'
+  if (/\breaction\s*:/i.test(record.conditionHtml)) return 'reaction'
   if (/\bpassive\b/i.test(record.conditionHtml)) return 'passive'
   return 'active'
 }
@@ -178,9 +193,7 @@ const normalizeKeywords = (
 }
 
 const windowKey = (timing: AbilityTiming): string =>
-  timing.window.kind === 'turn-phase'
-    ? `${timing.window.kind}:${timing.window.phase}`
-    : timing.window.kind
+  timing.window.kind === 'turn-phase' ? `${timing.window.kind}:${timing.window.phase}` : timing.window.kind
 
 const sourcePhaseConflict = (
   record: WahapediaAbilityRecord,
@@ -194,9 +207,7 @@ const sourcePhaseConflict = (
   const sourceWindows = sourcePhaseTiming.timings
     .filter(timing => timing.window.kind !== 'unknown')
     .map(windowKey)
-  const canonicalWindows = timings
-    .filter(timing => timing.window.kind !== 'unknown')
-    .map(windowKey)
+  const canonicalWindows = timings.filter(timing => timing.window.kind !== 'unknown').map(windowKey)
   if (
     !sourceWindows.length ||
     !canonicalWindows.length ||
@@ -240,13 +251,16 @@ export const normalizeWahapediaAbility = (
     : primaryTiming.diagnostics
   const sourcePhaseDiagnostics = sourcePhaseConflict(record, kind, actor, timings)
   const keywords = normalizeKeywords(record.keywordsHtml)
+  const conditionIsReaction = /\breaction\s*:/i.test(record.conditionHtml)
   const reactionFlagDiagnostics: NormalizationDiagnostic[] =
-    record.isReaction === false && /\breaction\s*:/i.test(record.conditionHtml)
+    record.isReaction !== null && record.isReaction !== conditionIsReaction
       ? [
           {
             code: 'reaction-flag-mismatch',
             severity: 'warning',
-            message: 'Wahapedia condition identifies a reaction while is_reaction is false',
+            message: `Wahapedia condition ${
+              conditionIsReaction ? 'identifies' : 'does not identify'
+            } a reaction while is_reaction is ${String(record.isReaction)}`,
           },
         ]
       : []
