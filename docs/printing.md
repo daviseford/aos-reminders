@@ -1,21 +1,22 @@
 # Printing and PDF export
 
-## Status on this branch
+## Status
 
-The AoS 4 cutover removed the entire print/PDF export feature. Nothing under `src/utils/pdf/generate/`,
-`src/components/print/`, `src/components/modals/download_pdf_modal.tsx`, or `src/types/pdf.ts` exists
-here. The only remaining PDF code is `src/aos4/data/gamesWorkshop/pdfText.ts`, which *reads* official
-Games Workshop PDFs during acquisition and is unrelated to printing.
+The AoS 4 cutover deleted the whole print/PDF feature. It has been rebuilt against AoS 4 in
+`src/aos4/print/` — see [The current implementation](#the-current-implementation) below.
 
-This document describes the implementation that ships today on `master` (commit `d585a0a7`), because
-that is the behaviour the community relies on at <https://aosreminders.com/> and the baseline any AoS 4
-reimplementation has to match. Read the source with:
+The AoS 3 code was **not** restored: it depended on `types/army`, `ducks`, `utils/reminderUtils` and
+other retired modules, and AGENTS.md forbids reviving them. What survived is its *behaviour*, which
+the rest of this document records so the rebuild had something to match.
+
+The legacy source is still readable on `master` (commit `d585a0a7`):
 
 ```sh
 git show origin/master:src/utils/pdf/generate/layouts/layoutUtils.ts
 ```
 
-Paths below are `origin/master` paths unless stated otherwise.
+Paths in the next two sections are `origin/master` paths. Everything from
+[The current implementation](#the-current-implementation) onwards is this branch.
 
 ## Two independent printing paths
 
@@ -229,24 +230,101 @@ Ordered roughly by how much they hurt.
 9. **jsPDF 1.5.3** is five years stale and uses removed APIs.
 10. **No tests, no golden files.** Every change is verified by eyeballing a downloaded PDF.
 
-## If we rebuild this for AoS 4
+## The current implementation
 
-The measurement/pagination split is sound and worth keeping — it is the constants and the drawing
-layer that made this painful. Things worth considering, given it all has to be rewritten against AoS 4
-reminders anyway:
+Two printing paths again, but they now share a model instead of duplicating content logic.
 
-- Make the layout **declarative**: one table of block descriptors (font, size, leading, width, colour)
-  and one generic paginator/renderer, with Standard and Compact as data rather than as two files.
-- Derive `spacing` from `fontSize × leading` instead of hand-tuning both.
-- Express widths in **inches** and set the font size before measuring, killing the 16pt factor. Or
-  measure with `getTextWidth()` directly and do the wrapping ourselves.
-- Consider a different generator entirely. jsPDF's imperative cursor model is what forces the manual
-  arithmetic. A layout-engine approach (`pdfmake`, `@react-pdf/renderer`) expresses "two columns,
-  keep-together, repeat phase header on break" as configuration. Weigh that against bundle size and
-  against AGENTS.md's "avoid dependency churn during Phase 1".
-- Alternatively, drop the second engine and print the DOM properly — a real print stylesheet with CSS
-  multi-column and `break-inside: avoid` would give one source of truth for both paths. Loses control
-  of page numbering and the logo, gains everything else.
-- **Get golden-file tests in place first**, whatever the approach: generate a PDF from a fixed army
-  and assert on extracted text positions. There is currently no safety net at all, and any refactor
-  without one repeats the trial and error.
+```
+Aos4ReminderViewModel[] + army summary
+        │
+        └─ createAos4PrintDocument()      src/aos4/print/document.ts
+              → PrintDocument             sections → rules → labelled paragraphs
+                    │
+        ┌───────────┴────────────────────────────────┐
+        │                                            │
+   Option A: PDF                              Option B: browser print
+   planPrintLayout()   layout.ts              components/print/printView.tsx
+     → PrintPlan (positioned lines)             + css/print.scss
+   renderPrintPlanToPdf()  pdf.ts             window.print()
+     → jsPDF
+```
+
+`PrintDocument` is presentation-neutral: no jsPDF, no DOM, no React. Both paths read it, so the two
+cannot drift in *what* they print — only in how.
+
+### Option A — planned PDF (`src/aos4/print/`)
+
+| File | Role |
+| --- | --- |
+| `types.ts` | `PrintDocument`, `PrintPreset`, `PlacedLine`, `PrintTextMeasurer` |
+| `document.ts` | Reminders → `PrintDocument` |
+| `presets.ts` | `STANDARD_PRESET`, `COMPACT_PRESET`, `withPageSize()` |
+| `measure.ts` | jsPDF-backed text measurement, in real inches |
+| `layout.ts` | `planPrintLayout()` — wrapping, keep-together, pagination, column balancing |
+| `pdf.ts` | `renderPrintPlanToPdf()` — draws a plan, makes no layout decisions |
+
+What changed from the legacy version:
+
+- **Layout is a plan, not a side effect.** `planPrintLayout()` is pure and returns positioned lines.
+  Tests assert on geometry directly instead of parsing a PDF, and the renderer is a thin adapter.
+- **Presets are data.** `compact.ts` and `default.ts` collapsed into two entries in `presets.ts`.
+  Adding a layout is a table entry, not a third copy of a render loop.
+- **`spacing` is derived** from `sizePt × leading` rather than hand-tuned alongside the font size.
+- **Widths are inches.** `measure.ts` sets the font size *before* measuring, so the 16pt scale factor
+  documented above is gone. A wrap width of `3.5` means three and a half inches.
+- **Page size is a parameter.** `withPageSize(preset, 'letter')` — A4 and US Letter both work.
+- **Rules never split.** A rule moves to the next column or page whole. It is only broken when it
+  cannot fit in an otherwise empty column, and the continuation is titled `… (continued)`.
+- **Section headings repeat** with `(continued)` at the top of any column or page they spill into,
+  and never strand themselves at the foot of a column.
+- **Columns are balanced** on the trailing page by binary-searching the shortest column height that
+  still fits the same pages without breaking an extra rule. Full pages balance themselves.
+
+### Option B — browser print (`components/print/printView.tsx` + `css/print.scss`)
+
+A print-only DOM rendered from the same `PrintDocument`, hidden on screen and revealed by
+`@media print`, with the rest of the app hidden via `.PrintScreenOnly`. `@page` sets the sheet size
+and margins; `break-inside: avoid` on `.PrintView-rule` is what keeps a rule whole; `column-count: 2`
+gives the compact layout, balanced by the browser.
+
+Trade-offs versus Option A:
+
+- **Simpler** — a component and a stylesheet, no measurement, pagination, or geometry code.
+- **Better typography** — real hyphenation, kerning, orphan/widow control, and any font.
+- **No `(continued)` headings.** CSS cannot repeat a heading when a section spans a page. This is the
+  one behaviour Option A has that Option B structurally cannot.
+- **No page numbers or PDF file** — the user goes through the browser's print dialog, and margins,
+  scaling and headers/footers are ultimately theirs to override.
+- **Output varies by browser.** Chrome, Firefox and Safari paginate differently.
+
+### Trying them
+
+The toolbar's **Print Reminders** button opens a modal with layout (Standard/Compact) and page size
+(A4/Letter), then either **Print** (Option B) or **Download PDF** (Option A).
+
+### Tests
+
+| File | Covers |
+| --- | --- |
+| `src/tests/aos4/printDocument.test.ts` | Hidden reminders, grouping, ordering, paragraphs, summary |
+| `src/tests/aos4/printLayout.test.ts` | Margins, column containment, keep-together, continuations, text preservation, balancing, Letter |
+| `src/tests/aos4/printPdfRenderer.test.ts` | The PDF actually matches the plan, page count, nothing off-page |
+
+The layout suite runs against both presets and asserts *properties* rather than golden files, so it
+fails on a real overflow rather than on an intentional style tweak. The regression guard for the 16pt
+trap is `wraps to the real column width, not to an implicit font-size-scaled width`.
+
+## Still open
+
+- **Which option wins.** Both are wired up so they can be compared on real armies. If Option B is
+  good enough, deleting Option A removes ~700 lines and the jsPDF dependency. If the `(continued)`
+  headings and the downloadable file matter, Option A stays and Option B becomes the quick path.
+- **The logo.** The legacy PDFs embedded a base64 logo on every page and a full-size one on the last
+  page if it fitted. Neither option carries it yet.
+- **jsPDF 1.5.3** is still five years stale and still uses `setFontStyle` and the positional `text()`
+  signature, both removed in 2.x. The blast radius is now one file (`pdf.ts`) instead of three, but
+  it is still Phase 2 work.
+- **A third option not taken:** a layout-engine library (`pdfmake`, `@react-pdf/renderer`) would
+  express "two columns, keep-together, repeat heading on break" as configuration rather than code.
+  Rejected for now against AGENTS.md's "avoid dependency churn during Phase 1", but it is the natural
+  landing spot if Option A grows.
