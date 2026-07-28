@@ -4,12 +4,10 @@ import {
   type ArtifactManifestEntry,
   type GamesWorkshopUnitProfileFact,
   type WahapediaHtmlFactionPageRecord,
+  type WahapediaHtmlRulesPageRecord,
   type WahapediaHtmlWarscrollRecord,
 } from '../../aos4/data'
-import {
-  type WahapediaDataset,
-  type WahapediaRecordMeta,
-} from '../../aos4/data/wahapedia'
+import { type WahapediaDataset, type WahapediaRecordMeta } from '../../aos4/data/wahapedia'
 import { artifactId, sourceRecordId } from '../../aos4/domain'
 
 const bytes = new TextEncoder().encode('<html>reviewed fixture</html>')
@@ -57,10 +55,7 @@ const emptyDataset = (): WahapediaDataset => ({
 
 const htmlMeta = (section: string) => ({
   artifactId: artifactId(artifact.checksum),
-  sourceRecordId: sourceRecordId(
-    'wahapedia',
-    `html:${artifact.finalUrl}#${section}`
-  ),
+  sourceRecordId: sourceRecordId('wahapedia', `html:${artifact.finalUrl}#${section}`),
   recordChecksum: 'c'.repeat(64),
   section,
 })
@@ -97,8 +92,7 @@ describe('current Wahapedia HTML reconciliation', () => {
       name: 'Liberators',
       factionName: 'Stormcast Eternals',
       sourceTitle: 'Battletome: Stormcast Eternals',
-      sourceUrl:
-        'https://wahapedia.ru/aos4/factions/stormcast-eternals/Liberators',
+      sourceUrl: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/Liberators',
       context: 'standard',
       characteristics: { move: '5"', save: '3+', control: '1', health: '2' },
       descriptionHtml: '',
@@ -114,10 +108,7 @@ describe('current Wahapedia HTML reconciliation', () => {
       meta: htmlMeta('Liberators/warscroll'),
       artifact,
     }
-    const officialSourceRecordId = sourceRecordId(
-      'games-workshop',
-      `${'d'.repeat(64)}:page:19`
-    )
+    const officialSourceRecordId = sourceRecordId('games-workshop', `${'d'.repeat(64)}:page:19`)
     const official: GamesWorkshopUnitProfileFact = {
       kind: 'unit',
       key: 'stormcast-eternals:liberators',
@@ -136,12 +127,7 @@ describe('current Wahapedia HTML reconciliation', () => {
       factChecksum: 'e'.repeat(64),
     }
 
-    const result = mergeCurrentWahapediaWarscrollPages(
-      dataset,
-      [page],
-      [official],
-      []
-    )
+    const result = mergeCurrentWahapediaWarscrollPages(dataset, [page], [official], [])
     const merged = result.dataset.warscrolls[0]
 
     expect(merged).toMatchObject({
@@ -343,21 +329,96 @@ describe('current Wahapedia HTML reconciliation', () => {
       ],
     }
 
+    const result = mergeCurrentWahapediaWarscrollPages(dataset, [], [], [factionPage])
+
+    expect(result.dataset.factionAbilities.map(record => record.name)).toEqual(['Current Rule'])
+    expect(result.dataset.factionAbilities[0].meta.rulesContextKinds).toEqual(['standard'])
+    expect(result.dataset.supersededMetas).toEqual(expect.arrayContaining([oldTypeMeta, oldAbilityMeta]))
+  })
+
+  it('requires an explicit application disposition before merging a general rules page', () => {
+    const dataset = emptyDataset()
+    const rulesUrl = 'https://wahapedia.ru/aos4/the-rules/the-core-rules/'
+    const rulesArtifact = {
+      ...artifact,
+      requestUrl: rulesUrl,
+      finalUrl: rulesUrl,
+    }
+    const rulesMeta = (section: string) => ({
+      ...htmlMeta(section),
+      section,
+    })
+    const rulesPage: WahapediaHtmlRulesPageRecord = {
+      title: 'The Core Rules',
+      sourceUrl: rulesUrl,
+      context: 'standard',
+      artifact: rulesArtifact,
+      meta: rulesMeta('rules-page'),
+      groups: [
+        {
+          externalId: 'Universal-Core-Abilities',
+          name: 'Universal Core Abilities',
+          context: 'standard',
+          sourceTitle: 'The Core Rules',
+          meta: rulesMeta('rules-group:Universal-Core-Abilities'),
+        },
+      ],
+      abilities: [
+        {
+          externalId: 'Universal-Core-Abilities:ability:1',
+          groupExternalId: 'Universal-Core-Abilities',
+          context: 'standard',
+          line: 1,
+          name: 'Normal Move',
+          descriptionHtml: '<b>Effect:</b> That unit can move.',
+          conditionHtml: 'Your Movement Phase',
+          keywordsHtml: '',
+          abilityType: '',
+          abilityPhase: 'Your Movement Phase',
+          isReaction: false,
+          pointsType: '',
+          points: '',
+          meta: rulesMeta('rules-ability:Universal-Core-Abilities:ability:1'),
+        },
+      ],
+    }
+
+    expect(() => mergeCurrentWahapediaWarscrollPages(dataset, [], [], [], [rulesPage])).toThrow(
+      'no reviewed application rationale'
+    )
+
     const result = mergeCurrentWahapediaWarscrollPages(
       dataset,
       [],
       [],
-      [factionPage]
+      [],
+      [rulesPage],
+      [
+        {
+          url: rulesUrl,
+          application: 'universal',
+          reason: 'Core rules apply to every army.',
+          contextKinds: {
+            standard: ['standard', 'legends'],
+          },
+        },
+      ]
     )
 
-    expect(result.dataset.factionAbilities.map(record => record.name)).toEqual([
-      'Current Rule',
+    expect(result.dataset.generalRulesPages).toEqual([
+      expect.objectContaining({
+        title: 'The Core Rules',
+        application: 'universal',
+        reason: 'Core rules apply to every army.',
+      }),
     ])
-    expect(result.dataset.factionAbilities[0].meta.rulesContextKinds).toEqual([
-      'standard',
+    expect(result.dataset.generalRuleGroups).toHaveLength(1)
+    expect(result.dataset.generalRuleAbilities).toEqual([
+      expect.objectContaining({
+        name: 'Normal Move',
+        actor: 'unit',
+        meta: expect.objectContaining({ rulesContextKinds: ['standard', 'legends'] }),
+      }),
     ])
-    expect(result.dataset.supersededMetas).toEqual(
-      expect.arrayContaining([oldTypeMeta, oldAbilityMeta])
-    )
   })
 })

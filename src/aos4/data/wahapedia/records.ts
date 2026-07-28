@@ -1,6 +1,8 @@
-import type { ArtifactId, SourceRecordId } from '../../domain'
+import type { AbilityActor, ArtifactId, SourceRecordId } from '../../domain'
 import type { ArtifactManifestEntry } from '../manifest'
 import type { WahapediaExportFileName } from './exportCatalog'
+
+export type WahapediaSourceFileName = WahapediaExportFileName | 'WahapediaRules.html'
 
 export interface WahapediaExportInput {
   bytes: Uint8Array
@@ -10,16 +12,14 @@ export interface WahapediaExportInput {
 export type WahapediaExportInputs = Partial<Record<WahapediaExportFileName, WahapediaExportInput>>
 
 export interface WahapediaRecordMeta {
-  file: WahapediaExportFileName
+  file: WahapediaSourceFileName
   row: number
   artifactId: ArtifactId
   sourceRecordId: SourceRecordId
   recordChecksum: string
   section?: string
   rulesContextKind?: 'standard' | 'seasonal' | 'spearhead' | 'legends' | 'historical'
-  rulesContextKinds?: Array<
-    'standard' | 'seasonal' | 'spearhead' | 'legends' | 'historical'
-  >
+  rulesContextKinds?: Array<'standard' | 'seasonal' | 'spearhead' | 'legends' | 'historical'>
   identitySourceRecordId?: SourceRecordId
   officialSourceRecordIds?: SourceRecordId[]
 }
@@ -158,6 +158,32 @@ export interface WahapediaFactionAbilitySubtypeRecord {
   meta: WahapediaRecordMeta
 }
 
+export type WahapediaGeneralRulesApplication = 'universal' | 'optional' | 'reference'
+
+export interface WahapediaGeneralRulesPageRecord {
+  id: string
+  title: string
+  application: WahapediaGeneralRulesApplication
+  reason: string
+  meta: WahapediaRecordMeta
+}
+
+export interface WahapediaGeneralRuleGroupRecord {
+  id: string
+  pageId: string
+  name: string
+  parentId?: string
+  application: WahapediaGeneralRulesApplication
+  reason: string
+  meta: WahapediaRecordMeta
+}
+
+export interface WahapediaGeneralRuleAbilityRecord extends WahapediaAbilityFields {
+  groupId: string
+  actor: AbilityActor
+  meta: WahapediaRecordMeta
+}
+
 export interface WahapediaLastUpdateRecord {
   raw: string
   instant: string | null
@@ -180,6 +206,9 @@ export interface WahapediaDataset {
   factionAbilityTypes: WahapediaFactionAbilityTypeRecord[]
   factionAbilitySubtypes: WahapediaFactionAbilitySubtypeRecord[]
   factionAbilities: WahapediaFactionAbilityRecord[]
+  generalRulesPages?: WahapediaGeneralRulesPageRecord[]
+  generalRuleGroups?: WahapediaGeneralRuleGroupRecord[]
+  generalRuleAbilities?: WahapediaGeneralRuleAbilityRecord[]
   lastUpdate?: WahapediaLastUpdateRecord
 }
 
@@ -210,7 +239,7 @@ export type WahapediaDiagnosticCode =
 export interface WahapediaDiagnostic {
   code: WahapediaDiagnosticCode
   severity: 'warning' | 'error'
-  file: WahapediaExportFileName
+  file: WahapediaSourceFileName
   message: string
   row?: number
   field?: string

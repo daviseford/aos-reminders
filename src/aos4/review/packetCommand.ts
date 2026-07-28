@@ -368,7 +368,15 @@ const riskCohorts = (
   if (entities.some(entity => (identitiesByEntity.get(entity.id)?.aliases.length ?? 0) > 1)) {
     cohorts.push('high-risk:ambiguous-identity-alias-rename')
   }
-  if (snapshot?.meta.officialSourceRecordIds?.length) {
+  const artifactById = new Map(catalog.sourceArtifacts.map(artifact => [artifact.id, artifact]))
+  const sourceRecordById = new Map(catalog.sourceRecords.map(record => [record.id, record]))
+  const entityHasOfficialSource = entities.some(entity =>
+    entity.sourceRefs.some(reference => {
+      const record = sourceRecordById.get(reference.sourceRecordId)
+      return record && artifactById.get(record.artifactId)?.publisher === 'games-workshop'
+    })
+  )
+  if (snapshot?.meta.officialSourceRecordIds?.length || entityHasOfficialSource) {
     cohorts.push('high-risk:official-override')
   }
   if (

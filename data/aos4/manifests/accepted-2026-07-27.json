@@ -1068,6 +1068,176 @@
       "lastModified": "Mon, 25 May 2026 22:32:08 GMT"
     },
     {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/ascension/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/ascension/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:29.091Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 376956,
+      "checksum": "c40033a3a6561f66c0b5beedeb006aeab1605037c882663442596eb4ac3bc139"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/blighted-wilds/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/blighted-wilds/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:30.514Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 870179,
+      "checksum": "1af0dcf3998d1628bf7e0f2871096ac10438f78ed5c95bdfde137454f320e78a"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/bunker/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/bunker/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:31.929Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 184715,
+      "checksum": "f9522d6fda1d0c382baee481494459fdf8a9c626cee9378b17efb494ffac0ab2"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/city-of-ash/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/city-of-ash/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:32.714Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 188740,
+      "checksum": "0489b39b7207b00013e49b517fd044b5cc6c6c5a41ded5700b93f471a3079fa7"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/faqs/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/faqs/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:33.461Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 340789,
+      "checksum": "6dac3e2240becf6d6d7477e98eac2e6ef68ed7d1dabada7f59bf30437c1b771b"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/fire-and-jade/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/fire-and-jade/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:34.161Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 169811,
+      "checksum": "de7df4a24c8e02a9c2075f294106b9a2e880ca3bd422ef208e4f9a513cac28e7"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/first-blood/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/first-blood/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:34.733Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 59176,
+      "checksum": "08078c4e2c18a6e565c20defca73f58c35470513976af7d272db576c6cd589d3"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/general-s-handbook-2024-25/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/general-s-handbook-2024-25/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:35.889Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 487862,
+      "checksum": "e937f0b7cf64446f69ce2c24aa1724a13aa9132b1ac435689c9fa7020ab5c2d3"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/general-s-handbook-2025-26/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/general-s-handbook-2025-26/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:37.265Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 489364,
+      "checksum": "9abf2aecfa77e7d1793905b546d1fc6e6fb7d34a096c36051f076b0680a1ec5c"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:38.504Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 281850,
+      "checksum": "5cc8f973399696681fbd6328fca97636fe8fdb27eb7e1e0d09af0b649b24bfd8"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/quick-start-guide/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/quick-start-guide/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:39.342Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 173192,
+      "checksum": "e629aeb563f3cf3ea640c321f1e98798ddff4858cd17edcd5102df588bb45c22"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/ravaged-coast/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/ravaged-coast/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:41.690Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 756325,
+      "checksum": "003fe15bb323cd82ffe4a8081fe93d437d5d2d00a3d34e60d0289f690650c801"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/red-gobbo-battleplan/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/red-gobbo-battleplan/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:43.081Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 65507,
+      "checksum": "f375d73d099a39ceb390b84d737cbc730e84d0fac92790412cec60a51de37965"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/sand-and-bone/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/sand-and-bone/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:44.248Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 171404,
+      "checksum": "864fca9eba792484c72c3364f2a3c09fcfeb7be7d807073929e21fc8b581f5ce"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/siege-of-lethis/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/siege-of-lethis/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:45.386Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 163261,
+      "checksum": "86ef2b68aa601f28eaa87e785d5083a9058347ee5a71d6a138ba794975b7e27d"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/spearhead-doubles/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/spearhead-doubles/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:46.114Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 61141,
+      "checksum": "ba581fd9c778b202b24956350f6816a33550da369205b949a684bd56bfb21bfc"
+    },
+    {
+      "requestUrl": "https://wahapedia.ru/aos4/the-rules/the-core-rules/",
+      "finalUrl": "https://wahapedia.ru/aos4/the-rules/the-core-rules/",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T18:51:49.386Z",
+      "adapterVersion": "wahapedia-html/1",
+      "mediaType": "text/html",
+      "byteLength": 702011,
+      "checksum": "c2807953b6f947998b41f078879428d0527d88f88da100f6fe13675b00aabca3"
+    },
+    {
       "requestUrl": "https://wahapedia.ru/aos4/Warscrolls_abilities.csv",
       "finalUrl": "https://wahapedia.ru/aos4/Warscrolls_abilities.csv",
       "redirectChain": [],

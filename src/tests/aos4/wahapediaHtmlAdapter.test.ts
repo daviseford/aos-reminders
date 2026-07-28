@@ -2,6 +2,7 @@ import {
   artifactChecksum,
   filterNativeWahapediaFactionWarscrolls,
   parseWahapediaFactionHtml,
+  parseWahapediaRulesHtml,
   parseWahapediaWarscrollHtml,
   parseWahapediaWarscrollCollectionHtml,
   type ArtifactManifestEntry,
@@ -343,5 +344,78 @@ describe('Wahapedia warscroll HTML decoding', () => {
       ['Call for Reinforcements', 'spearhead'],
     ])
     expect(first.page?.abilities.some(record => record.name === 'Campaign Rule')).toBe(false)
+  })
+
+  it('decodes universal rules without retaining example-only ability cards', () => {
+    const ability = (timing: string, name: string) => `
+      <table><tr><td class="abHeader">${timing}</td></tr></table>
+      <div class="abBody"><b>${name}:</b><span class="ShowFluff">Fluff.</span><b>Effect:</b> Resolve ${name}.</div>
+    `
+    const source = input(`
+      <html><body>
+        <h1 class="page_header"><span class="page_header_span">The Core Rules</span></h1>
+        <a name="Universal-Core-Abilities"></a><h2>14.0 Universal Core Abilities</h2>
+        <a name="Movement-Phase"></a><h3>14.1 Movement Phase</h3>
+        ${ability('Your Movement Phase', 'Normal Move')}
+        <a name="Abilities-Example"></a><h3>Abilities Example</h3>
+        ${ability('Any Combat Phase', 'Example Fight')}
+        <a name="ADVANCED-RULES-2026-27"></a><h3>ADVANCED RULES 2026-27</h3>
+        <a name="Hero-Phase-Commands"></a><h2>2.0 Hero Phase Commands</h2>
+        ${ability('Any Hero Phase', 'Rally')}
+      </body></html>
+    `)
+    source.artifact.requestUrl = 'https://wahapedia.ru/aos4/the-rules/the-core-rules/'
+    source.artifact.finalUrl = source.artifact.requestUrl
+
+    const first = parseWahapediaRulesHtml(source)
+    const second = parseWahapediaRulesHtml(source)
+
+    expect(first).toEqual(second)
+    expect(first.diagnostics).toEqual([])
+    expect(first.page?.title).toBe('The Core Rules')
+    expect(first.page?.abilities.map(record => [record.name, record.context])).toEqual([
+      ['Normal Move', 'standard'],
+      ['Rally', 'seasonal'],
+    ])
+    expect(first.page?.groups).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          externalId: 'Universal-Core-Abilities',
+          context: 'standard',
+        }),
+        expect.objectContaining({
+          externalId: 'Movement-Phase',
+          parentExternalId: 'Universal-Core-Abilities',
+          context: 'standard',
+        }),
+        expect.objectContaining({
+          externalId: 'Hero-Phase-Commands',
+          context: 'seasonal',
+        }),
+      ])
+    )
+  })
+
+  it('retains a page-level record for a rules source with no ability cards', () => {
+    const source = input(`
+      <html><body>
+        <h1 class="page_header"><span class="page_header_span">First Blood</span></h1>
+        <a name="Battleplan"></a><h2>Battleplan</h2>
+        <p>This source is still material review evidence.</p>
+      </body></html>
+    `)
+    source.artifact.requestUrl = 'https://wahapedia.ru/aos4/the-rules/first-blood/'
+    source.artifact.finalUrl = source.artifact.requestUrl
+
+    const result = parseWahapediaRulesHtml(source)
+
+    expect(result.diagnostics).toEqual([])
+    expect(result.page).toMatchObject({
+      title: 'First Blood',
+      context: 'standard',
+      groups: [],
+      abilities: [],
+      meta: expect.objectContaining({ section: 'rules-page' }),
+    })
   })
 })

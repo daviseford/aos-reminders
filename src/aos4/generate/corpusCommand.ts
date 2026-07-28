@@ -12,6 +12,7 @@ import {
   filterNativeWahapediaFactionWarscrolls,
   mergeCurrentWahapediaWarscrollPages,
   parseWahapediaFactionHtml,
+  parseWahapediaRulesHtml,
   parseWahapediaSpearheadWarscrollsHtml,
   parseWahapediaWarscrollCollectionHtml,
   parseWahapediaWarscrollHtml,
@@ -20,6 +21,7 @@ import {
   type GamesWorkshopBattleProfileFact,
   type WahapediaHtmlFactionPageRecord,
   type WahapediaHtmlReconciliation,
+  type WahapediaHtmlRulesPageRecord,
   type WahapediaHtmlWarscrollRecord,
 } from '../data'
 import {
@@ -276,6 +278,7 @@ const loadWahapediaHtmlPages = async (
 ): Promise<{
   warscrolls: WahapediaHtmlWarscrollRecord[]
   factions: WahapediaHtmlFactionPageRecord[]
+  rules: WahapediaHtmlRulesPageRecord[]
 }> => {
   const artifacts = manifest.artifacts.filter(artifact => artifact.adapterVersion === 'wahapedia-html/1')
   const expected = review.currentWahapediaHtml?.expectedArtifacts ?? 0
@@ -302,8 +305,18 @@ const loadWahapediaHtmlPages = async (
       `Accepted Wahapedia collection artifact count ${collectionArtifacts.length} does not match reviewed count ${expectedCollectionArtifacts}`
     )
   }
+  const rulesArtifacts = artifacts.filter(artifact =>
+    /^\/aos4\/the-rules\/[^/]+\/$/i.test(new URL(artifact.finalUrl).pathname)
+  )
+  const expectedRulesArtifacts = review.currentWahapediaHtml?.expectedRulesArtifacts ?? 0
+  if (rulesArtifacts.length !== expectedRulesArtifacts) {
+    throw new Error(
+      `Accepted Wahapedia rules artifact count ${rulesArtifacts.length} does not match reviewed count ${expectedRulesArtifacts}`
+    )
+  }
   const pages: WahapediaHtmlWarscrollRecord[] = []
   const factions: WahapediaHtmlFactionPageRecord[] = []
+  const rules: WahapediaHtmlRulesPageRecord[] = []
   let spearheadWarscrolls = 0
   let warningCount = 0
   for (const artifact of artifacts) {
@@ -311,15 +324,20 @@ const loadWahapediaHtmlPages = async (
     if (!bytes) throw new Error(`Wahapedia HTML artifact ${artifact.checksum} is missing`)
     const isFactionPage = /^\/aos4\/factions\/[^/]+\/$/i.test(new URL(artifact.finalUrl).pathname)
     const isCollectionPage = new URL(artifact.finalUrl).pathname.endsWith('/warscrolls.html')
+    const isRulesPage = /^\/aos4\/the-rules\/[^/]+\/$/i.test(new URL(artifact.finalUrl).pathname)
     const factionPage = isFactionPage ? parseWahapediaFactionHtml({ bytes, artifact }) : undefined
+    const rulesPage = isRulesPage ? parseWahapediaRulesHtml({ bytes, artifact }) : undefined
     const collectionPage = isCollectionPage
       ? parseWahapediaWarscrollCollectionHtml({ bytes, artifact })
       : undefined
     const warscrollPage =
-      !isFactionPage && !isCollectionPage ? parseWahapediaWarscrollHtml({ bytes, artifact }) : undefined
+      !isFactionPage && !isCollectionPage && !isRulesPage
+        ? parseWahapediaWarscrollHtml({ bytes, artifact })
+        : undefined
     const spearhead = isFactionPage ? parseWahapediaSpearheadWarscrollsHtml({ bytes, artifact }) : undefined
     const diagnostics = [
       ...(factionPage?.diagnostics ?? []),
+      ...(rulesPage?.diagnostics ?? []),
       ...(collectionPage?.diagnostics ?? []),
       ...(warscrollPage?.diagnostics ?? []),
       ...(spearhead?.diagnostics ?? []),
@@ -328,7 +346,8 @@ const loadWahapediaHtmlPages = async (
     const parsedPages = collectionPage ? filterNativeWahapediaFactionWarscrolls(collectionPage.pages) : []
     if (
       (isFactionPage && !factionPage?.page) ||
-      (!isFactionPage && !isCollectionPage && !warscrollPage?.page) ||
+      (isRulesPage && !rulesPage?.page) ||
+      (!isFactionPage && !isCollectionPage && !isRulesPage && !warscrollPage?.page) ||
       (isCollectionPage && !parsedPages.length) ||
       diagnostics.some(diagnostic => diagnostic.severity === 'error')
     ) {
@@ -342,6 +361,8 @@ const loadWahapediaHtmlPages = async (
       factions.push(factionPage!.page!)
       pages.push(...(spearhead?.pages ?? []))
       spearheadWarscrolls += spearhead?.pages.filter(page => page.recordKind === 'warscroll').length ?? 0
+    } else if (isRulesPage) {
+      rules.push(rulesPage!.page!)
     } else if (isCollectionPage) {
       pages.push(...parsedPages)
     } else {
@@ -364,6 +385,16 @@ const loadWahapediaHtmlPages = async (
       factions.reduce((sum, page) => sum + page.abilities.length, 0),
       reviewedHtml?.expectedFactionAbilities,
     ],
+    [
+      'rules groups',
+      rules.reduce((sum, page) => sum + page.groups.length, 0),
+      reviewedHtml?.expectedRulesGroups,
+    ],
+    [
+      'rules abilities',
+      rules.reduce((sum, page) => sum + page.abilities.length, 0),
+      reviewedHtml?.expectedRulesAbilities,
+    ],
     ['warnings', warningCount, reviewedHtml?.expectedWarnings],
   ] as const
   checks.forEach(([label, actual, expectedCount]) => {
@@ -373,7 +404,7 @@ const loadWahapediaHtmlPages = async (
       )
     }
   })
-  return { warscrolls: pages, factions }
+  return { warscrolls: pages, factions, rules }
 }
 
 const extractOfficialBattleProfileFacts = async (
@@ -731,7 +762,9 @@ export const loadAcceptedCorpusSourceData = async (
     decoded.dataset,
     wahapediaHtml.warscrolls,
     officialBattleProfiles.effective,
-    wahapediaHtml.factions
+    wahapediaHtml.factions,
+    wahapediaHtml.rules,
+    review.currentWahapediaHtml?.rulesPages ?? []
   )
   validateReviewedReconciliation(review, merged.reconciliation)
   return {

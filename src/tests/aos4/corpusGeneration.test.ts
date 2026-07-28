@@ -8,7 +8,7 @@ import {
   type WahapediaExportFileName,
   type WahapediaExportInputs,
 } from '../../aos4/data/wahapedia'
-import { rulesContextId, sourceRecordId, validateCatalog } from '../../aos4/domain'
+import { artifactId, rulesContextId, sourceRecordId, validateCatalog } from '../../aos4/domain'
 import {
   buildAos4Corpus,
   createCorpusIdentityRegistry,
@@ -152,6 +152,89 @@ describe('AoS 4 corpus generation', () => {
     ).toEqual(expect.arrayContaining(['battle-profile', 'ability', 'weapon']))
   })
 
+  it('auto-selects reviewed universal rules without exposing a fake faction or builder choice', async () => {
+    const decoded = decodeWahapediaExports(await loadInputs())
+    const htmlArtifact: ArtifactManifestEntry = {
+      requestUrl: 'https://wahapedia.ru/aos4/the-rules/the-core-rules/',
+      finalUrl: 'https://wahapedia.ru/aos4/the-rules/the-core-rules/',
+      redirectChain: [],
+      retrievedAt: review.generatedAt,
+      adapterVersion: 'wahapedia-html/1',
+      mediaType: 'text/html',
+      byteLength: 100,
+      checksum: 'c'.repeat(64),
+    }
+    const rulesMeta = (section: string) => ({
+      file: 'WahapediaRules.html' as const,
+      row: 0,
+      artifactId: artifactId(htmlArtifact.checksum),
+      sourceRecordId: sourceRecordId('wahapedia', `fixture:rules:${section}`),
+      recordChecksum: `${section.length}`.padStart(64, 'd'),
+      section,
+      rulesContextKinds: ['standard' as const],
+    })
+    decoded.dataset.htmlArtifacts = [htmlArtifact]
+    decoded.dataset.generalRulesPages = [
+      {
+        id: 'core',
+        title: 'The Core Rules',
+        application: 'universal',
+        reason: 'The reviewed core-rules page applies to every army in this context.',
+        meta: rulesMeta('page'),
+      },
+    ]
+    decoded.dataset.generalRuleGroups = [
+      {
+        id: 'movement',
+        pageId: 'core',
+        name: 'Universal Core Abilities',
+        application: 'universal',
+        reason: 'Core rules apply to every army.',
+        meta: rulesMeta('group'),
+      },
+    ]
+    decoded.dataset.generalRuleAbilities = [
+      {
+        groupId: 'movement',
+        actor: 'unit',
+        line: '1',
+        name: 'Normal Move',
+        descriptionHtml: '<b>Effect:</b> The unit can move.',
+        legendHtml: '',
+        abilityType: '',
+        isReaction: false,
+        conditionHtml: 'Your Movement Phase',
+        keywordsHtml: '',
+        abilityPhase: 'Your Movement Phase',
+        pointsType: '',
+        points: '',
+        meta: rulesMeta('ability'),
+      },
+    ]
+
+    const identities = createCorpusIdentityRegistry(decoded.dataset, review)
+    const result = buildAos4Corpus(decoded, identities, review)
+    const faction = result.catalog.entities.find(entity => entity.kind === 'faction')!
+    const selection = resolveSelection(result.catalog, {
+      explicitIds: [faction.id],
+      rulesContextId: review.rulesContext.id,
+    })
+
+    expect(result.diagnostics).toEqual([])
+    expect(result.catalog.entities.filter(entity => entity.kind === 'faction')).toHaveLength(1)
+    expect(
+      selection.selectedIds
+        .map(id => result.catalog.entities.find(entity => entity.id === id))
+        .filter(entity => entity?.kind === 'ability')
+        .map(entity => entity?.name)
+    ).toContain('Normal Move')
+    expect(
+      selection.availableIds
+        .map(id => result.catalog.entities.find(entity => entity.id === id))
+        .map(entity => entity?.name)
+    ).not.toContain('The Core Rules')
+  })
+
   it('preserves commas inside official notes while retaining semicolon-delimited note boundaries', async () => {
     const decoded = decodeWahapediaExports(await loadInputs())
     decoded.dataset.warscrolls[0].notesHtml =
@@ -169,14 +252,25 @@ describe('AoS 4 corpus generation', () => {
     })
   })
 
+  it('preserves the source reinforcement restriction in the battle-profile notes', async () => {
+    const decoded = decodeWahapediaExports(await loadInputs())
+    decoded.dataset.warscrolls[0].notesHtml = ''
+    decoded.dataset.warscrolls[0].noReinforced = true
+    const identities = createCorpusIdentityRegistry(decoded.dataset, review)
+    const result = buildAos4Corpus(decoded, identities, review)
+    const profile = result.catalog.entities.find(entity => entity.kind === 'battle-profile')
+
+    expect(profile).toMatchObject({
+      kind: 'battle-profile',
+      notes: expect.arrayContaining(['This unit cannot be reinforced.']),
+    })
+  })
+
   it('applies a narrow weapon profile correction only when it cites accepted official evidence', async () => {
     const decoded = decodeWahapediaExports(await loadInputs())
     const target = decoded.dataset.warscrollWeapons[0]
     const officialChecksum = 'f'.repeat(64)
-    const officialSourceRecordId = sourceRecordId(
-      'games-workshop',
-      `${officialChecksum}:page:1`
-    )
+    const officialSourceRecordId = sourceRecordId('games-workshop', `${officialChecksum}:page:1`)
     const reviewed: CorpusReview = {
       ...review,
       officialDocuments: [

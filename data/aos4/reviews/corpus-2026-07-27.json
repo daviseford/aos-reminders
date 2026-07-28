@@ -65,22 +65,198 @@
   ],
   "contextOverrides": [],
   "currentWahapediaHtml": {
-    "expectedArtifacts": 55,
+    "expectedArtifacts": 72,
     "expectedCollectionArtifacts": 27,
     "expectedFactionAbilities": 1829,
     "expectedFactionArtifacts": 28,
     "expectedFactionGroups": 1041,
+    "expectedRulesAbilities": 590,
+    "expectedRulesArtifacts": 17,
+    "expectedRulesGroups": 213,
     "expectedSpearheadWarscrolls": 194,
-    "expectedWarnings": 150,
+    "expectedWarnings": 163,
     "expectedWarscrolls": 1268,
-      "reconciliation": {
-        "checksum": "1ef129500ccd31c59a61551f802c6a4d231f4f70c2cd73d5f80d3e43341bcb12",
-        "expectedDiscrepancies": 406,
+    "reconciliation": {
+      "checksum": "1ef129500ccd31c59a61551f802c6a4d231f4f70c2cd73d5f80d3e43341bcb12",
+      "expectedDiscrepancies": 406,
       "expectedMatchedOfficialUnitFacts": 928,
       "expectedPages": 1268,
       "expectedUnmatchedOfficialUnitFacts": 12
     },
-      "reviewedAt": "2026-07-28T18:06:00.000Z"
+    "reviewedAt": "2026-07-28T19:00:00.000Z",
+    "rulesPages": [
+      {
+        "application": "reference",
+        "reason": "Path to Glory is not a supported runtime context; the page remains structured audit evidence without leaking campaign rules into standard armies.",
+        "url": "https://wahapedia.ru/aos4/the-rules/ascension/"
+      },
+      {
+        "application": "reference",
+        "reason": "Path to Glory is not a supported runtime context; the page remains structured audit evidence without leaking campaign rules into standard armies.",
+        "url": "https://wahapedia.ru/aos4/the-rules/blighted-wilds/"
+      },
+      {
+        "application": "optional",
+        "reason": "Bunker is a standalone battleplan, so its reminder-bearing rules apply only when a player explicitly selects that module.",
+        "url": "https://wahapedia.ru/aos4/the-rules/bunker/"
+      },
+      {
+        "application": "reference",
+        "reason": "City of Ash is an alternate Spearhead campaign and cannot be applied to every Spearhead army without an explicit battlepack selection.",
+        "url": "https://wahapedia.ru/aos4/the-rules/city-of-ash/"
+      },
+      {
+        "application": "reference",
+        "reason": "The FAQ is authoritative secondary validation evidence whose corrections must be applied to their owning rules; its replacement examples are not standalone reminders.",
+        "url": "https://wahapedia.ru/aos4/the-rules/faqs/"
+      },
+      {
+        "application": "reference",
+        "groups": [
+          {
+            "application": "universal",
+            "externalId": "Reinforcements",
+            "reason": "Fire and Jade defines Call for Reinforcements as the shared Spearhead ability for every army with the Reinforcements keyword; card commands remain contextual."
+          }
+        ],
+        "reason": "Fire and Jade contains a shared Spearhead rule plus battlefield- and card-specific content; only independently applicable groups may enter every Spearhead army.",
+        "url": "https://wahapedia.ru/aos4/the-rules/fire-and-jade/"
+      },
+      {
+        "application": "reference",
+        "reason": "First Blood contributes battlepack structure but exposes no standalone ability card in the bounded parser, so it remains material source evidence.",
+        "url": "https://wahapedia.ru/aos4/the-rules/first-blood/"
+      },
+      {
+        "application": "reference",
+        "reason": "The 2024-25 handbook is retained as historical structured evidence; the aggregate historical context cannot safely imply that every prior season applies together.",
+        "url": "https://wahapedia.ru/aos4/the-rules/general-s-handbook-2024-25/"
+      },
+      {
+        "application": "reference",
+        "reason": "The 2025-26 handbook is retained as historical structured evidence; the aggregate historical context cannot safely imply that every prior season applies together.",
+        "url": "https://wahapedia.ru/aos4/the-rules/general-s-handbook-2025-26/"
+      },
+      {
+        "application": "reference",
+        "groups": [
+          {
+            "application": "universal",
+            "externalId": "Season-Rules-2026-27",
+            "reason": "The handbook states that both players can use the Season Rules 2026-27 abilities in this battlepack."
+          },
+          {
+            "application": "optional",
+            "externalId": "Into-the-Fire",
+            "reason": "These abilities apply only when Into the Fire is the chosen battleplan."
+          },
+          {
+            "application": "optional",
+            "externalId": "Bloodstained-Coasts",
+            "reason": "These abilities apply only when Bloodstained Coasts is the chosen battleplan."
+          },
+          {
+            "application": "optional",
+            "externalId": "Avalanche-of-Ash",
+            "reason": "These abilities apply only when Avalanche of Ash is the chosen battleplan."
+          },
+          {
+            "application": "optional",
+            "externalId": "Caverns-of-Slaughter",
+            "reason": "These abilities apply only when Caverns of Slaughter is the chosen battleplan."
+          },
+          {
+            "application": "optional",
+            "externalId": "What-s-Yours-Is-Ours",
+            "reason": "These abilities apply only when What's Yours Is Ours is the chosen battleplan."
+          },
+          {
+            "application": "optional",
+            "externalId": "Hidden-Under-Ash-Clouds",
+            "reason": "These abilities apply only when Hidden Under Ash-Clouds is the chosen battleplan."
+          },
+          {
+            "application": "optional",
+            "externalId": "Warped-Ruins",
+            "reason": "These abilities apply only when Warped Ruins is the chosen battleplan."
+          },
+          {
+            "application": "optional",
+            "externalId": "Curse-of-the-Gnaw",
+            "reason": "These abilities apply only when Curse of the Gnaw is the chosen battleplan."
+          },
+          {
+            "application": "optional",
+            "externalId": "Seize-the-Embers",
+            "reason": "These abilities apply only when Seize the Embers is the chosen battleplan."
+          },
+          {
+            "application": "optional",
+            "externalId": "Treacherous-Ground",
+            "reason": "These abilities apply only when Treacherous Ground is the chosen battleplan."
+          },
+          {
+            "application": "optional",
+            "externalId": "Escape-from-the-Coast",
+            "reason": "These abilities apply only when Escape from the Coast is the chosen battleplan."
+          },
+          {
+            "application": "optional",
+            "externalId": "Power-of-the-Realms",
+            "reason": "These abilities apply only when Power of the Realms is the chosen battleplan."
+          }
+        ],
+        "reason": "The current handbook contains universal season rules and mutually exclusive battleplan rules; page-wide automatic application would be misleading.",
+        "url": "https://wahapedia.ru/aos4/the-rules/general-s-handbook-2026-27/"
+      },
+      {
+        "application": "reference",
+        "reason": "The quick-start page repeats a simplified subset of the Core Rules and is retained for reconciliation without creating duplicate runtime facts.",
+        "url": "https://wahapedia.ru/aos4/the-rules/quick-start-guide/"
+      },
+      {
+        "application": "reference",
+        "reason": "Path to Glory is not a supported runtime context; the page remains structured audit evidence without leaking campaign rules into standard armies.",
+        "url": "https://wahapedia.ru/aos4/the-rules/ravaged-coast/"
+      },
+      {
+        "application": "optional",
+        "reason": "The Red Gobbo scenario is a standalone battleplan, so its abilities apply only when that module is explicitly selected.",
+        "url": "https://wahapedia.ru/aos4/the-rules/red-gobbo-battleplan/"
+      },
+      {
+        "application": "reference",
+        "reason": "Sand and Bone is an alternate Spearhead battlepack and cannot be applied to every Spearhead army without explicit battlefield selection.",
+        "url": "https://wahapedia.ru/aos4/the-rules/sand-and-bone/"
+      },
+      {
+        "application": "optional",
+        "reason": "Siege of Lethis is a Flashpoint module, so its abilities apply only when that module is explicitly selected.",
+        "url": "https://wahapedia.ru/aos4/the-rules/siege-of-lethis/"
+      },
+      {
+        "application": "reference",
+        "reason": "Spearhead Doubles changes battle setup but exposes no standalone ability cards and must not silently replace the single-player Spearhead battlepack.",
+        "url": "https://wahapedia.ru/aos4/the-rules/spearhead-doubles/"
+      },
+      {
+        "application": "universal",
+        "contextKinds": {
+          "seasonal": [
+            "seasonal",
+            "legends"
+          ],
+          "standard": [
+            "standard",
+            "spearhead",
+            "legends",
+            "historical"
+          ]
+        },
+        "reason": "The Core Rules define universal abilities and passive rules for every supported AoS 4 army; 2026-27 Advanced Rules remain restricted to current seasonal and Legends play.",
+        "url": "https://wahapedia.ru/aos4/the-rules/the-core-rules/"
+      }
+    ]
   },
   "decoderDiagnosticPolicies": [
     {
@@ -127,7 +303,27 @@
     },
     {
       "code": "source-timing-correction",
-      "reason": "The bounded normalizer corrects only the reviewed source typos 'Comhat' to 'Combat' and 'Hero Quest' to 'Hero Phase'."
+      "reason": "The bounded normalizer corrects only the reviewed current-source typos 'Comhat' to 'Combat', 'Hero Quest' to 'Hero Phase', and 'Ypur' to 'Your'."
+    },
+    {
+      "code": "source-kind-correction",
+      "reason": "Extremis Chamber is a continuously applicable effect; the contradictory Wahapedia label 'Reaction: Passive' is classified as Passive instead of inventing a reaction trigger.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fstormcast-eternals%2Fwarscrolls.html%23datasheet%3ADrakesworn-Templar%2Fability%3A2"
+    },
+    {
+      "code": "source-kind-correction",
+      "reason": "The War Despot effect applies continuously; the contradictory Wahapedia label 'Reaction: Passive' is classified as Passive instead of inventing a reaction trigger.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fhelsmiths-of-hashut%2Fwarscrolls.html%23datasheet%3AScourge-of-Ghyran-War-Despot%2Fability%3A2"
+    },
+    {
+      "code": "source-kind-correction",
+      "reason": "The Light of Eltharion effect applies continuously; the contradictory Wahapedia label 'Reaction: Passive' is classified as Passive instead of inventing a reaction trigger.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Flumineth-realm-lords%2Fwarscrolls.html%23datasheet%3AScourge-of-Ghyran-The-Light-of-Eltharion%2Fability%3A2"
+    },
+    {
+      "code": "passive-declare-promoted",
+      "reason": "Sparking Claws is explicitly Passive and its complete characteristic effect is mislabeled Declare; the bounded normalizer retains that source sentence as the effect without inventing text.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Fthe-rules%2Fravaged-coast%2F%23rules-ability%3APath-of-the-Pack%3Aability%3A4"
     },
     {
       "code": "effect-phase-windows",

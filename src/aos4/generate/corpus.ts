@@ -1,5 +1,5 @@
 import { createHash } from 'node:crypto'
-import type { ArtifactManifestEntry } from '../data'
+import type { ArtifactManifestEntry, WahapediaRulesPageReview } from '../data'
 import {
   normalizeWahapediaAbility,
   normalizeWahapediaWeapon,
@@ -8,6 +8,7 @@ import {
   type WahapediaDecodeResult,
   type WahapediaDiagnostic,
   type WahapediaFactionAbilityRecord,
+  type WahapediaGeneralRuleAbilityRecord,
   type WahapediaRecordMeta,
   type WahapediaSourceRecord,
   type WahapediaWarscrollAbilityRecord,
@@ -137,7 +138,11 @@ export interface CorpusReview {
     expectedSpearheadWarscrolls?: number
     expectedFactionGroups?: number
     expectedFactionAbilities?: number
+    expectedRulesArtifacts?: number
+    expectedRulesGroups?: number
+    expectedRulesAbilities?: number
     expectedWarnings?: number
+    rulesPages?: WahapediaRulesPageReview[]
     reconciliation?: {
       checksum: string
       expectedPages: number
@@ -202,7 +207,10 @@ export interface CorpusGenerationResult {
   summary: CorpusGenerationSummary
 }
 
-type AbilityRecord = WahapediaWarscrollAbilityRecord | WahapediaFactionAbilityRecord
+type AbilityRecord =
+  | WahapediaWarscrollAbilityRecord
+  | WahapediaFactionAbilityRecord
+  | WahapediaGeneralRuleAbilityRecord
 
 interface IdentityDefinition {
   kind: EntityKind
@@ -359,6 +367,15 @@ const identityDefinitions = (dataset: WahapediaDataset, review: CorpusReview): I
   dataset.factionAbilities.forEach(record =>
     add('ability', record.name, recordAlias(record.meta), 'wahapedia')
   )
+  ;(dataset.generalRulesPages ?? []).forEach(record =>
+    add('content-group', record.title, recordAlias(record.meta), 'wahapedia')
+  )
+  ;(dataset.generalRuleGroups ?? []).forEach(record =>
+    add('content-group', record.name, recordAlias(record.meta), 'wahapedia')
+  )
+  ;(dataset.generalRuleAbilities ?? []).forEach(record =>
+    add('ability', record.name, recordAlias(record.meta), 'wahapedia')
+  )
   dataset.warscrollWeapons.forEach(record =>
     add('weapon', record.name, recordAlias(record.meta), 'wahapedia')
   )
@@ -446,6 +463,9 @@ const allWahapediaMetas = (dataset: WahapediaDataset): WahapediaRecordMeta[] => 
   ...dataset.factionAbilityTypes.map(record => record.meta),
   ...dataset.factionAbilitySubtypes.map(record => record.meta),
   ...dataset.factionAbilities.map(record => record.meta),
+  ...(dataset.generalRulesPages ?? []).map(record => record.meta),
+  ...(dataset.generalRuleGroups ?? []).map(record => record.meta),
+  ...(dataset.generalRuleAbilities ?? []).map(record => record.meta),
   ...(dataset.lastUpdate ? [dataset.lastUpdate.meta] : []),
 ]
 
@@ -663,6 +683,11 @@ const sourceRulesContextIds = (
         currentContextIds
     )
   )
+  ;[
+    ...(dataset.generalRulesPages ?? []),
+    ...(dataset.generalRuleGroups ?? []),
+    ...(dataset.generalRuleAbilities ?? []),
+  ].forEach(record => assign(record.meta, currentContextIds))
   return bySourceRecordId
 }
 
@@ -729,20 +754,24 @@ const sourceArtifacts = (dataset: WahapediaDataset, review: CorpusReview): Sourc
     ...(document.publicationDate ? { publicationDate: document.publicationDate } : {}),
     ...(document.effectiveDate ? { effectiveDate: document.effectiveDate } : {}),
   }))
-  const html = (dataset.htmlArtifacts ?? []).map(entry => ({
-    id: artifactId(entry.checksum),
-    publisher: 'wahapedia' as const,
-    authority: { kind: 'secondary' as const },
-    title: `Wahapedia AoS 4 warscroll: ${decodeURIComponent(
-      new URL(entry.finalUrl).pathname.split('/').at(-1) ?? 'warscroll'
-    ).replaceAll('-', ' ')}`,
-    edition: '4',
-    language: 'en',
-    retrievedAt: entry.retrievedAt,
-    sourceUrl: entry.finalUrl,
-    checksum: entry.checksum,
-    mediaType: entry.mediaType,
-  }))
+  const html = (dataset.htmlArtifacts ?? []).map(entry => {
+    const sourcePath = new URL(entry.finalUrl).pathname
+    const isRulesPage = /^\/aos4\/the-rules\//i.test(sourcePath)
+    return {
+      id: artifactId(entry.checksum),
+      publisher: 'wahapedia' as const,
+      authority: { kind: 'secondary' as const },
+      title: `Wahapedia AoS 4 ${isRulesPage ? 'rules' : 'warscroll'}: ${decodeURIComponent(
+        sourcePath.split('/').filter(Boolean).at(-1) ?? (isRulesPage ? 'rules' : 'warscroll')
+      ).replaceAll('-', ' ')}`,
+      edition: '4',
+      language: 'en',
+      retrievedAt: entry.retrievedAt,
+      sourceUrl: entry.finalUrl,
+      checksum: entry.checksum,
+      mediaType: entry.mediaType,
+    }
+  })
   return [...wahapedia, ...html, ...official].sort((left, right) => left.id.localeCompare(right.id))
 }
 
@@ -849,19 +878,16 @@ const reviewDiagnostics = (
       message: 'The default rules context is not present in the reviewed contexts',
     })
   }
-  const weaponSourceIds = new Set(
-    decoded.dataset.warscrollWeapons.map(record => record.meta.sourceRecordId)
-  )
+  const weaponSourceIds = new Set(decoded.dataset.warscrollWeapons.map(record => record.meta.sourceRecordId))
   const seenWeaponOverrides = new Set<SourceRecordId>()
   ;(review.weaponProfileOverrides ?? []).forEach(override => {
     const profileEntries = Object.entries(override.profile)
     const invalidProfile =
       profileEntries.length === 0 ||
-      profileEntries.some(
-        ([field, value]) =>
-          (field === 'rangeInches'
-            ? !Number.isSafeInteger(value) || (value as number) <= 0
-            : typeof value !== 'string' || !value.trim())
+      profileEntries.some(([field, value]) =>
+        field === 'rangeInches'
+          ? !Number.isSafeInteger(value) || (value as number) <= 0
+          : typeof value !== 'string' || !value.trim()
       )
     if (
       seenWeaponOverrides.has(override.sourceRecordId) ||
@@ -1002,9 +1028,7 @@ export const buildAos4Corpus = (
     .flatMap(policy => policy.officialSourceRecordIds ?? [])
     .concat(review.timingOverrides.flatMap(override => override.officialSourceRecordIds))
     .concat((review.contextOverrides ?? []).flatMap(override => override.officialSourceRecordIds ?? []))
-    .concat(
-      (review.weaponProfileOverrides ?? []).flatMap(override => override.officialSourceRecordIds)
-    )
+    .concat((review.weaponProfileOverrides ?? []).flatMap(override => override.officialSourceRecordIds))
     .forEach(id => {
       if (!officialSourceIds.has(id)) {
         diagnostics.push({
@@ -1199,6 +1223,7 @@ export const buildAos4Corpus = (
           regimentOptions: splitValues(record.regimentOptions),
           notes: uniqueSorted([
             ...splitNotes(record.notesHtml),
+            ...(record.noReinforced ? ['This unit cannot be reinforced.'] : []),
             ...organisationRecords
               .map(item => normalizePlainText([item.unit, item.size].filter(Boolean).join(' ')))
               .filter(Boolean),
@@ -1273,6 +1298,82 @@ export const buildAos4Corpus = (
     }
   })
 
+  const generalRulesPageByExternalId = new Map(
+    (dataset.generalRulesPages ?? []).map(record => [record.id, record])
+  )
+  const generalRuleGroupByExternalId = new Map(
+    (dataset.generalRuleGroups ?? []).map(record => [record.id, record])
+  )
+  const generalRulesPageIdByExternalId = new Map(
+    (dataset.generalRulesPages ?? []).flatMap(record => {
+      const id = lookup('content-group', 'wahapedia', recordAlias(record.meta)) as
+        | CanonicalId<'content-group'>
+        | undefined
+      return id ? [[record.id, id] as const] : []
+    })
+  )
+  const generalRuleGroupIdByExternalId = new Map(
+    (dataset.generalRuleGroups ?? []).flatMap(record => {
+      const id = lookup('content-group', 'wahapedia', recordAlias(record.meta)) as
+        | CanonicalId<'content-group'>
+        | undefined
+      return id ? [[record.id, id] as const] : []
+    })
+  )
+  ;(dataset.generalRulesPages ?? []).forEach(record => {
+    const id = generalRulesPageIdByExternalId.get(record.id)
+    if (!id) return
+    entities.push({
+      id,
+      kind: 'content-group',
+      revision: record.meta.recordChecksum,
+      name: record.title.trim(),
+      groupType: 'rules-module',
+      rulesContextIds: contextsFor(record.meta),
+      sourceRefs: [sourceReference(record.meta.sourceRecordId, record.reason)],
+    } satisfies ContentGroup)
+    if (record.application === 'reference') return
+    const relationshipKind = record.application === 'universal' ? 'includes' : 'offers'
+    dataset.factions.forEach(faction =>
+      addRelationship(relationshipKind, factionByExternalId.get(faction.id), id)
+    )
+  })
+  ;(dataset.generalRuleGroups ?? []).forEach(record => {
+    const id = generalRuleGroupIdByExternalId.get(record.id)
+    if (!id) return
+    entities.push({
+      id,
+      kind: 'content-group',
+      revision: record.meta.recordChecksum,
+      name: record.name.trim(),
+      groupType: 'general-rules',
+      rulesContextIds: contextsFor(record.meta),
+      sourceRefs: [sourceReference(record.meta.sourceRecordId, record.reason)],
+    } satisfies ContentGroup)
+    const page = generalRulesPageByExternalId.get(record.pageId)
+    const parent = record.parentId ? generalRuleGroupByExternalId.get(record.parentId) : undefined
+    const containerApplication = parent?.application ?? page?.application
+    const containerId = record.parentId
+      ? generalRuleGroupIdByExternalId.get(record.parentId)
+      : generalRulesPageIdByExternalId.get(record.pageId)
+    if (record.application === containerApplication && record.application !== 'reference') {
+      addRelationship('includes', containerId, id)
+    } else if (record.application !== 'reference') {
+      const relationshipKind = record.application === 'universal' ? 'includes' : 'offers'
+      dataset.factions.forEach(faction =>
+        addRelationship(relationshipKind, factionByExternalId.get(faction.id), id)
+      )
+    }
+    if (!page) {
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: record.meta.sourceRecordId,
+        message: `General-rules group ${record.name} has no reviewed page`,
+      })
+    }
+  })
+
   const normalizationPolicies = new Map(
     review.normalizationDiagnosticPolicies
       .filter(policy => policy.sourceRecordId)
@@ -1341,6 +1442,7 @@ export const buildAos4Corpus = (
   }
   dataset.warscrollAbilities.forEach(record => addAbility(record, 'unit'))
   dataset.factionAbilities.forEach(record => addAbility(record, 'army'))
+  ;(dataset.generalRuleAbilities ?? []).forEach(record => addAbility(record, record.actor))
 
   dataset.warscrollAbilities.forEach(record =>
     addRelationship(
@@ -1378,6 +1480,13 @@ export const buildAos4Corpus = (
     addRelationship('offers', factionByExternalId.get(record.factionId), choiceId)
     addRelationship('includes', choiceId, abilityId)
   })
+  ;(dataset.generalRuleAbilities ?? []).forEach(record =>
+    addRelationship(
+      'includes',
+      generalRuleGroupIdByExternalId.get(record.groupId),
+      abilityIdBySource.get(record.meta.sourceRecordId)
+    )
+  )
 
   const weaponProfileOverrides = new Map(
     (review.weaponProfileOverrides ?? []).map(override => [override.sourceRecordId, override])

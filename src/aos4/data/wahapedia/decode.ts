@@ -436,7 +436,7 @@ const parseExport = (
 
 const diagnostic = (
   code: WahapediaDiagnostic['code'],
-  file: WahapediaExportFileName,
+  file: WahapediaDiagnostic['file'],
   row: number,
   field: string,
   value: string,

@@ -12,6 +12,7 @@ import type {
   WahapediaHtmlInput,
   WahapediaHtmlParseResult,
   WahapediaHtmlRecordMeta,
+  WahapediaHtmlRulesParseResult,
   WahapediaHtmlWeaponRecord,
   WahapediaHtmlWarscrollRecord,
 } from './records'
@@ -507,12 +508,7 @@ const parseWahapediaWarscrollCollection = (
     return [
       {
         ...value,
-        meta: recordMeta(
-          input,
-          'warscroll',
-          value,
-          `datasheet:${page.parentExternalId}`
-        ),
+        meta: recordMeta(input, 'warscroll', value, `datasheet:${page.parentExternalId}`),
         artifact: input.artifact,
       },
       page,
@@ -743,6 +739,208 @@ export const parseWahapediaFactionHtml = (input: WahapediaHtmlInput): WahapediaH
       sourceUrl: input.artifact.finalUrl,
       groups: retainedGroups,
       abilities,
+      artifact: input.artifact,
+    },
+    diagnostics: decoded.diagnostics,
+  }
+  decoded.cleanup?.()
+  return result
+}
+
+const rulesPageBaseContext = (pageTitle: string): WahapediaHtmlContext => {
+  if (/\b(?:City of Ash|Fire and Jade|Sand and Bone|Spearhead)\b/i.test(pageTitle)) {
+    return 'spearhead'
+  }
+  if (/\b(?:2024-25|2025-26|Scourge of Ghyran)\b/i.test(pageTitle)) return 'historical'
+  if (/\b(?:2026-27|Scourge of Aqshy)\b/i.test(pageTitle)) return 'seasonal'
+  return 'standard'
+}
+
+const rulesPageContext = (
+  pageTitle: string,
+  heading: Element,
+  inherited?: WahapediaHtmlContext
+): WahapediaHtmlContext => {
+  if (heading.closest('.sLegendary')) return 'legends'
+  const sourceTitle = headingSourceTitle(heading)
+  const sourceContext = pageContext(sourceTitle, '')
+  if (sourceContext !== 'standard') return sourceContext
+
+  const text = normalizedText(heading)
+  if (/^(?:ADVANCED RULES|Commands|Terrain|Magic|Army Composition|Command Models) 2026-27$/i.test(text)) {
+    return 'seasonal'
+  }
+  return inherited ?? rulesPageBaseContext(pageTitle)
+}
+
+const isExampleHeading = (value: string): boolean => /\b(?:diagram|example)\b/i.test(value)
+
+const rulesHeadingSlug = (value: string): string =>
+  value
+    .normalize('NFKD')
+    .replace(/[^a-z0-9]+/gi, '-')
+    .replace(/^-|-$/g, '')
+    .toLowerCase() || 'unnamed'
+
+export const parseWahapediaRulesHtml = (input: WahapediaHtmlInput): WahapediaHtmlRulesParseResult => {
+  const decoded = decodeHtml(input)
+  if (!decoded.document) return { diagnostics: decoded.diagnostics }
+  const document = decoded.document
+  const title = normalizedText(document.querySelector('.page_header_span'))
+  if (!title || !/^\/aos4\/the-rules\//i.test(new URL(input.artifact.finalUrl).pathname)) {
+    const result: WahapediaHtmlRulesParseResult = {
+      diagnostics: [
+        ...decoded.diagnostics,
+        {
+          code: 'not-rules-page',
+          severity: 'error',
+          url: input.artifact.finalUrl,
+          message: 'The HTML does not contain an identifiable Wahapedia AoS 4 rules page',
+        },
+      ],
+    }
+    decoded.cleanup?.()
+    return result
+  }
+
+  const headers = Array.from(document.querySelectorAll('.abHeader:not(.abKeywordsBody)'))
+  const bodies = Array.from(document.querySelectorAll('.abBody'))
+  if (headers.length !== bodies.length) {
+    decoded.diagnostics.push({
+      code: 'ability-pair-mismatch',
+      severity: 'error',
+      url: input.artifact.finalUrl,
+      message: `Found ${headers.length} ability headers and ${bodies.length} ability bodies`,
+    })
+  }
+  const bodyByHeader = new Map(
+    headers.slice(0, bodies.length).map((header, index) => [header, bodies[index]])
+  )
+  const groups: WahapediaHtmlFactionGroupRecord[] = []
+  const abilities: WahapediaHtmlFactionAbilityRecord[] = []
+  let inheritedContext: WahapediaHtmlContext = rulesPageBaseContext(title)
+  let typeGroup: WahapediaHtmlFactionGroupRecord | undefined
+  let subgroup: WahapediaHtmlFactionGroupRecord | undefined
+  let excludedSection = false
+  const abilityCountByGroup = new Map<string, number>()
+  const derivedHeadingCounts = new Map<string, number>()
+  const derivedGroupNames = new Map<string, string>()
+
+  const addGroup = (
+    heading: Element,
+    parent?: WahapediaHtmlFactionGroupRecord
+  ): WahapediaHtmlFactionGroupRecord | undefined => {
+    const name = normalizedText(heading)
+    if (!name) {
+      decoded.diagnostics.push({
+        code: 'missing-source-id',
+        severity: 'error',
+        url: input.artifact.finalUrl,
+        message: 'A rules group has no identifiable heading text',
+      })
+      return undefined
+    }
+    const anchoredExternalId = headingExternalId(heading)
+    const slug = rulesHeadingSlug(name)
+    const occurrence = (derivedHeadingCounts.get(slug) ?? 0) + 1
+    derivedHeadingCounts.set(slug, occurrence)
+    const externalId = anchoredExternalId || `derived-${slug}-${occurrence}`
+    if (!anchoredExternalId) derivedGroupNames.set(externalId, name)
+    const context = rulesPageContext(title, heading, parent?.context ?? inheritedContext)
+    const value = {
+      externalId,
+      name,
+      context,
+      sourceTitle: headingSourceTitle(heading) || title,
+      ...(parent ? { parentExternalId: parent.externalId } : {}),
+    }
+    const group: WahapediaHtmlFactionGroupRecord = {
+      ...value,
+      meta: recordMeta(input, `rules-group:${externalId}`, value),
+    }
+    groups.push(group)
+    return group
+  }
+
+  for (const node of Array.from(document.querySelectorAll('h2, h3, .abHeader:not(.abKeywordsBody)'))) {
+    if (node.closest('.tooltip_templates')) continue
+    const text = normalizedText(node)
+    if (node.matches('h2')) {
+      if (/^Books$/i.test(text)) {
+        typeGroup = undefined
+        subgroup = undefined
+        excludedSection = false
+        continue
+      }
+      inheritedContext = rulesPageContext(title, node, inheritedContext)
+      excludedSection = isExampleHeading(text)
+      typeGroup = excludedSection ? undefined : addGroup(node)
+      subgroup = undefined
+      continue
+    }
+    if (node.matches('h3')) {
+      inheritedContext = rulesPageContext(title, node, inheritedContext)
+      excludedSection = isExampleHeading(text)
+      if (excludedSection) {
+        subgroup = undefined
+        continue
+      }
+      subgroup = addGroup(node, typeGroup)
+      continue
+    }
+    if (excludedSection || !node.matches('.abHeader')) continue
+    const group = subgroup ?? typeGroup
+    const body = bodyByHeader.get(node)
+    if (!group || !body) {
+      decoded.diagnostics.push({
+        code: 'orphan-rules-ability',
+        severity: 'error',
+        url: input.artifact.finalUrl,
+        message: `Rules ability ${text || '(unnamed)'} is not attached to a rule group`,
+      })
+      continue
+    }
+    const line = (abilityCountByGroup.get(group.externalId) ?? 0) + 1
+    abilityCountByGroup.set(group.externalId, line)
+    const value = abilityValue(node, body, line)
+    if (!value.name) continue
+    const externalId = `${group.externalId}:ability:${line}`
+    abilities.push({
+      ...value,
+      externalId,
+      groupExternalId: group.externalId,
+      context: group.context,
+      meta: recordMeta(input, `rules-ability:${externalId}`, value),
+    })
+  }
+
+  const retainedGroupIds = new Set(abilities.map(ability => ability.groupExternalId))
+  groups
+    .filter(group => retainedGroupIds.has(group.externalId) && group.parentExternalId)
+    .forEach(group => retainedGroupIds.add(group.parentExternalId!))
+  const retainedGroups = groups.filter(group => retainedGroupIds.has(group.externalId))
+  retainedGroups.forEach(group => {
+    const derivedName = derivedGroupNames.get(group.externalId)
+    if (!derivedName) return
+    decoded.diagnostics.push({
+      code: 'missing-source-id',
+      severity: 'warning',
+      url: input.artifact.finalUrl,
+      section: group.meta.section,
+      message: `Rules group ${derivedName} uses a deterministic page-local heading locator because Wahapedia supplied no anchor`,
+    })
+  })
+  const pageValue = {
+    title,
+    sourceUrl: input.artifact.finalUrl,
+    context: rulesPageBaseContext(title),
+  }
+  const result: WahapediaHtmlRulesParseResult = {
+    page: {
+      ...pageValue,
+      groups: retainedGroups,
+      abilities,
+      meta: recordMeta(input, 'rules-page', pageValue),
       artifact: input.artifact,
     },
     diagnostics: decoded.diagnostics,

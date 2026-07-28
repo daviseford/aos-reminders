@@ -83,6 +83,12 @@ describe('AoS 4 timing normalization', () => {
       raw: 'Passive',
       window: { kind: 'always' },
     })
+    expect(
+      parseTiming('End of Final Battle Round', {
+        abilityKind: 'active',
+        actor: 'player',
+      }).timings[0].window
+    ).toEqual({ kind: 'battle-round-end' })
 
     expect(
       parseTiming('Any Combat Phase - Strike-First', {

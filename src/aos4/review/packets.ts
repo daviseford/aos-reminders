@@ -322,7 +322,10 @@ const createPair = (
     ...(candidate.canonicalEntityId ? { canonicalEntityId: candidate.canonicalEntityId } : {}),
     rulesContextIds: candidate.rulesContextIds,
   }
-  const blindSourceEvidence = evidence.sourceEvidence.map(({ structuredValue: _structuredValue, ...value }) => value)
+  const blindSourceEvidence = evidence.sourceEvidence.map(({ structuredValue, ...value }) => {
+    void structuredValue
+    return value
+  })
   return {
     pairKey,
     candidateKey: candidate.key,

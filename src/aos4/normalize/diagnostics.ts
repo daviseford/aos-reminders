@@ -14,6 +14,8 @@ export type NormalizationDiagnosticCode =
   | 'reaction-flag-mismatch'
   | 'effect-phase-windows'
   | 'source-timing-correction'
+  | 'source-kind-correction'
+  | 'passive-declare-promoted'
   | 'source-phase-conflict'
   | 'source-incomplete-weapon-profile'
   | 'source-marker-removed'

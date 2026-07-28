@@ -320,9 +320,37 @@ describe('Wahapedia AoS 4 export adapter', () => {
     )
   })
 
+  it('classifies the contradictory source label Reaction: Passive as passive', async () => {
+    const { dataset } = decodeWahapediaExports(await loadInputs())
+    const record = {
+      ...dataset.warscrollAbilities[0],
+      conditionHtml: 'Reaction: Passive',
+      isReaction: false,
+    }
+    const fact = normalizeWahapediaAbility(record, 'unit')
+
+    expect(fact.abilityKind).toBe('passive')
+    expect(fact.timings).toEqual([
+      expect.objectContaining({
+        kind: 'passive',
+        window: { kind: 'always' },
+      }),
+    ])
+    expect(fact.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'source-kind-correction',
+        severity: 'warning',
+      })
+    )
+    expect(fact.diagnostics).not.toContainEqual(
+      expect.objectContaining({ code: 'reaction-flag-mismatch' })
+    )
+  })
+
   it.each([
     ['Once Per Turn (Army), Any Comhat Phase', 'Combat Phase', 'combat'],
     ['Your Hero Quest', 'Hero Phase', 'hero'],
+    ['End of Ypur Turn', 'End of Turn', 'end-of-turn'],
   ] as const)(
     'corrects a known source timing typo without using non-canonical phase metadata',
     async (conditionHtml, abilityPhase, phase) => {
@@ -349,6 +377,28 @@ describe('Wahapedia AoS 4 export adapter', () => {
       ).toEqual([String(record.meta.sourceRecordId)])
     }
   )
+
+  it('retains a passive effect when the current source mislabeled it Declare', async () => {
+    const { dataset } = decodeWahapediaExports(await loadInputs())
+    const record = {
+      ...dataset.warscrollAbilities[0],
+      conditionHtml: 'Passive',
+      descriptionHtml: '<b>Declare:</b> This unit’s melee weapons have Crit (Auto-wound).',
+    }
+
+    const fact = normalizeWahapediaAbility(record, 'unit')
+
+    expect(fact.text).toEqual({
+      effect: 'This unit’s melee weapons have Crit (Auto-wound).',
+    })
+    expect(fact.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'passive-declare-promoted',
+        severity: 'warning',
+      })
+    )
+    expect(fact.diagnostics).not.toContainEqual(expect.objectContaining({ code: 'missing-ability-effect' }))
+  })
 
   it('uses explicit effect headings for a once-per-phase multi-window ability', async () => {
     const { dataset } = decodeWahapediaExports(await loadInputs())

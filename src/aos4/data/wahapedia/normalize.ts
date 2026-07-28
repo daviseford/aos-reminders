@@ -9,11 +9,15 @@ import type {
   WahapediaDataset,
   WahapediaDiagnostic,
   WahapediaFactionAbilityRecord,
+  WahapediaGeneralRuleAbilityRecord,
   WahapediaWarscrollAbilityRecord,
   WahapediaWarscrollWeaponRecord,
 } from './records'
 
-type WahapediaAbilityRecord = WahapediaWarscrollAbilityRecord | WahapediaFactionAbilityRecord
+type WahapediaAbilityRecord =
+  | WahapediaWarscrollAbilityRecord
+  | WahapediaFactionAbilityRecord
+  | WahapediaGeneralRuleAbilityRecord
 
 export interface NormalizedWahapediaWeaponFact {
   sourceRecordId: WahapediaWarscrollWeaponRecord['meta']['sourceRecordId']
@@ -103,6 +107,7 @@ export const normalizeWahapediaWeapon = (
 }
 
 const abilityKind = (record: WahapediaAbilityRecord): AbilityKind => {
+  if (/\breaction\s*:\s*passive\b/i.test(record.conditionHtml)) return 'passive'
   if (/\breaction\s*:/i.test(record.conditionHtml)) return 'reaction'
   if (/\bpassive\b/i.test(record.conditionHtml)) return 'passive'
   return 'active'
@@ -117,6 +122,7 @@ const correctKnownSourceTimingTypos = (
   const corrections = [
     { pattern: /\bAny Comhat Phase\b/gi, replacement: 'Any Combat Phase' },
     { pattern: /\bYour Hero Quest\b/gi, replacement: 'Your Hero Phase' },
+    { pattern: /\bEnd of Ypur Turn\b/gi, replacement: 'End of Your Turn' },
   ]
   const diagnostics: NormalizationDiagnostic[] = []
   let corrected = value
@@ -235,13 +241,29 @@ export const normalizeWahapediaAbility = (
     descriptionHtml: record.descriptionHtml,
     reactionTriggerHtml: kind === 'reaction' ? reactionTrigger(record.conditionHtml) : undefined,
   })
+  const promotedPassiveDeclare = kind === 'passive' && !text.text.effect && Boolean(text.text.declare)
+  const normalizedText: AbilityText = promotedPassiveDeclare ? { effect: text.text.declare! } : text.text
+  const textDiagnostics: NormalizationDiagnostic[] = promotedPassiveDeclare
+    ? [
+        ...text.diagnostics.filter(diagnostic => diagnostic.code !== 'missing-ability-effect'),
+        {
+          code: 'passive-declare-promoted',
+          severity: 'warning',
+          message: 'Promoted a passive source section mislabeled Declare to its effect',
+        },
+      ]
+    : text.diagnostics
   const timingOptions = {
     abilityKind: kind,
     actor,
   }
   const timingSource = correctKnownSourceTimingTypos(record.conditionHtml)
   const primaryTiming = parseTiming(timingSource.value, timingOptions)
-  const effectTimings = explicitEffectPhaseTimings(text.text.effect, timingOptions, primaryTiming.timings[0])
+  const effectTimings = explicitEffectPhaseTimings(
+    normalizedText.effect,
+    timingOptions,
+    primaryTiming.timings[0]
+  )
   const timings = effectTimings ? effectTimings.timings : primaryTiming.timings
   const timingDiagnostics = effectTimings
     ? [
@@ -252,8 +274,18 @@ export const normalizeWahapediaAbility = (
   const sourcePhaseDiagnostics = sourcePhaseConflict(record, kind, actor, timings)
   const keywords = normalizeKeywords(record.keywordsHtml)
   const conditionIsReaction = /\breaction\s*:/i.test(record.conditionHtml)
+  const correctedReactionPassive = /\breaction\s*:\s*passive\b/i.test(record.conditionHtml)
+  const sourceKindDiagnostics: NormalizationDiagnostic[] = correctedReactionPassive
+    ? [
+        {
+          code: 'source-kind-correction',
+          severity: 'warning',
+          message: 'Classified the contradictory source label "Reaction: Passive" as passive',
+        },
+      ]
+    : []
   const reactionFlagDiagnostics: NormalizationDiagnostic[] =
-    record.isReaction !== null && record.isReaction !== conditionIsReaction
+    !correctedReactionPassive && record.isReaction !== null && record.isReaction !== conditionIsReaction
       ? [
           {
             code: 'reaction-flag-mismatch',
@@ -270,7 +302,7 @@ export const normalizeWahapediaAbility = (
     name: record.name.trim(),
     abilityKind: kind,
     actor,
-    text: text.text,
+    text: normalizedText,
     timings,
     keywords: keywords.keywords,
     raw: {
@@ -283,10 +315,11 @@ export const normalizeWahapediaAbility = (
       points: record.points,
     },
     diagnostics: [
-      ...text.diagnostics,
+      ...textDiagnostics,
       ...timingSource.diagnostics,
       ...timingDiagnostics,
       ...sourcePhaseDiagnostics,
+      ...sourceKindDiagnostics,
       ...keywords.diagnostics,
       ...reactionFlagDiagnostics,
     ],

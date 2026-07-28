@@ -1,8 +1,10 @@
 import { createHash } from 'node:crypto'
-import { artifactId, sourceRecordId, type SourceRecordId } from '../../domain'
+import { artifactId, sourceRecordId, type AbilityActor, type SourceRecordId } from '../../domain'
+import { normalizeSourceText } from '../../normalize'
 import type { GamesWorkshopBattleProfileFact, GamesWorkshopUnitProfileFact } from '../gamesWorkshop'
 import type {
   WahapediaDataset,
+  WahapediaGeneralRulesApplication,
   WahapediaRecordMeta,
   WahapediaWarscrollAbilityRecord,
   WahapediaWarscrollRecord,
@@ -11,6 +13,7 @@ import type {
 import type {
   WahapediaHtmlFactionPageRecord,
   WahapediaHtmlRecordMeta,
+  WahapediaHtmlRulesPageRecord,
   WahapediaHtmlWarscrollRecord,
 } from './records'
 
@@ -40,6 +43,20 @@ export interface WahapediaHtmlReconciliation {
 export interface WahapediaHtmlMergeResult {
   dataset: WahapediaDataset
   reconciliation: WahapediaHtmlReconciliation
+}
+
+export interface WahapediaRulesPageReview {
+  url: string
+  application: WahapediaGeneralRulesApplication
+  reason: string
+  contextKinds?: Partial<
+    Record<WahapediaHtmlRulesPageRecord['context'], NonNullable<WahapediaRecordMeta['rulesContextKinds']>>
+  >
+  groups?: Array<{
+    externalId: string
+    application: WahapediaGeneralRulesApplication
+    reason: string
+  }>
 }
 
 const checksum = (value: unknown): string =>
@@ -227,12 +244,77 @@ const discrepancy = (
   }
 }
 
+const generalRuleActor = (descriptionHtml: string): AbilityActor => {
+  const text = normalizeSourceText(descriptionHtml).text
+  if (/\bterrain feature\b/i.test(text)) return 'terrain'
+  if (/\bmanifestation\b/i.test(text)) return 'manifestation'
+  if (/\bplayer\b/i.test(text) && !/\bunit\b/i.test(text)) return 'player'
+  if (/\barmy\b/i.test(text) && !/\bunit\b/i.test(text)) return 'army'
+  return 'unit'
+}
+
 export const mergeCurrentWahapediaWarscrollPages = (
   dataset: WahapediaDataset,
   pages: WahapediaHtmlWarscrollRecord[],
   officialFacts: GamesWorkshopBattleProfileFact[],
-  factionPages: WahapediaHtmlFactionPageRecord[] = []
+  factionPages: WahapediaHtmlFactionPageRecord[] = [],
+  rulesPages: WahapediaHtmlRulesPageRecord[] = [],
+  rulesPageReviews: WahapediaRulesPageReview[] = []
 ): WahapediaHtmlMergeResult => {
+  const duplicateReviewUrls = rulesPageReviews
+    .map(review => review.url)
+    .filter((url, index, values) => values.indexOf(url) !== index)
+  if (duplicateReviewUrls.length) {
+    throw new Error(
+      `Duplicate Wahapedia rules-page reviews: ${Array.from(new Set(duplicateReviewUrls)).join(', ')}`
+    )
+  }
+  const reviewByUrl = new Map(rulesPageReviews.map(review => [review.url, review]))
+  const unexpectedReviews = rulesPageReviews.filter(
+    review => !rulesPages.some(page => page.sourceUrl === review.url)
+  )
+  if (unexpectedReviews.length) {
+    throw new Error(
+      `Reviewed Wahapedia rules pages are absent from the accepted artifacts: ${unexpectedReviews
+        .map(review => review.url)
+        .join(', ')}`
+    )
+  }
+  rulesPages.forEach(page => {
+    const review = reviewByUrl.get(page.sourceUrl)
+    if (!review?.reason.trim()) {
+      throw new Error(`Wahapedia rules page ${page.sourceUrl} has no reviewed application rationale`)
+    }
+    const reviewedGroupIds = (review.groups ?? []).map(group => group.externalId)
+    const duplicateGroupIds = reviewedGroupIds.filter(
+      (externalId, index) => reviewedGroupIds.indexOf(externalId) !== index
+    )
+    if (duplicateGroupIds.length) {
+      throw new Error(
+        `Duplicate rules-group reviews for ${page.sourceUrl}: ${Array.from(new Set(duplicateGroupIds)).join(
+          ', '
+        )}`
+      )
+    }
+    const pageGroupIds = new Set(page.groups.map(group => group.externalId))
+    const unexpectedGroups = (review.groups ?? []).filter(group => !pageGroupIds.has(group.externalId))
+    if (unexpectedGroups.length) {
+      throw new Error(
+        `Reviewed rules groups are absent from ${page.sourceUrl}: ${unexpectedGroups
+          .map(group => group.externalId)
+          .join(', ')}`
+      )
+    }
+    const missingRationales = (review.groups ?? []).filter(group => !group.reason.trim())
+    if (missingRationales.length) {
+      throw new Error(
+        `Reviewed rules groups have no application rationale for ${page.sourceUrl}: ${missingRationales
+          .map(group => group.externalId)
+          .join(', ')}`
+      )
+    }
+  })
+
   const officialUnits = officialFacts.filter(
     (fact): fact is GamesWorkshopUnitProfileFact => fact.kind === 'unit'
   )
@@ -601,6 +683,80 @@ export const mergeCurrentWahapediaWarscrollPages = (
       })
     })
 
+  const generalRulesPages: NonNullable<WahapediaDataset['generalRulesPages']> = []
+  const generalRuleGroups: NonNullable<WahapediaDataset['generalRuleGroups']> = []
+  const generalRuleAbilities: NonNullable<WahapediaDataset['generalRuleAbilities']> = []
+  rulesPages
+    .slice()
+    .sort((left, right) => left.sourceUrl.localeCompare(right.sourceUrl))
+    .forEach(page => {
+      const review = reviewByUrl.get(page.sourceUrl)!
+      const contextKindsFor = (
+        context: WahapediaHtmlRulesPageRecord['context']
+      ): NonNullable<WahapediaRecordMeta['rulesContextKinds']> => review.contextKinds?.[context] ?? [context]
+      const pageId = `html-${createHash('sha256')
+        .update(`${page.sourceUrl}#rules-page`)
+        .digest('hex')
+        .slice(0, 16)}`
+      const generatedIdByExternalId = new Map(
+        page.groups.map(group => [
+          group.externalId,
+          `html-${createHash('sha256')
+            .update(`${page.sourceUrl}#${group.externalId}`)
+            .digest('hex')
+            .slice(0, 16)}`,
+        ])
+      )
+      generalRulesPages.push({
+        id: pageId,
+        title: page.title,
+        application: review.application,
+        reason: review.reason,
+        meta: metaFromHtml(page.meta, 'WahapediaRules.html', contextKindsFor(page.context)),
+      })
+      const groupReviewByExternalId = new Map((review.groups ?? []).map(group => [group.externalId, group]))
+      page.groups.forEach(group => {
+        const groupReview = groupReviewByExternalId.get(group.externalId)
+        const parentId = group.parentExternalId
+          ? generatedIdByExternalId.get(group.parentExternalId)
+          : undefined
+        if (group.parentExternalId && !parentId) {
+          throw new Error(`Wahapedia rules group ${group.name} has no parent ${group.parentExternalId}`)
+        }
+        generalRuleGroups.push({
+          id: generatedIdByExternalId.get(group.externalId)!,
+          pageId,
+          name: group.name,
+          ...(parentId ? { parentId } : {}),
+          application: groupReview?.application ?? review.application,
+          reason: groupReview?.reason ?? review.reason,
+          meta: metaFromHtml(group.meta, 'WahapediaRules.html', contextKindsFor(group.context)),
+        })
+      })
+      page.abilities.forEach(ability => {
+        const groupId = generatedIdByExternalId.get(ability.groupExternalId)
+        if (!groupId) {
+          throw new Error(`Wahapedia rules ability ${ability.name} has no group ${ability.groupExternalId}`)
+        }
+        generalRuleAbilities.push({
+          groupId,
+          actor: generalRuleActor(ability.descriptionHtml),
+          line: String(ability.line),
+          name: ability.name,
+          descriptionHtml: ability.descriptionHtml,
+          legendHtml: '',
+          abilityType: ability.abilityType,
+          isReaction: ability.isReaction,
+          conditionHtml: ability.conditionHtml,
+          keywordsHtml: ability.keywordsHtml,
+          abilityPhase: ability.abilityPhase,
+          pointsType: ability.pointsType,
+          points: ability.points,
+          meta: metaFromHtml(ability.meta, 'WahapediaRules.html', contextKindsFor(ability.context)),
+        })
+      })
+    })
+
   const supersededMetas = [
     ...(dataset.supersededMetas ?? []),
     ...dataset.warscrolls.filter(record => replacedWarscrollIds.has(record.id)).map(record => record.meta),
@@ -638,10 +794,11 @@ export const mergeCurrentWahapediaWarscrollPages = (
       ...dataset,
       htmlArtifacts: Array.from(
         new Map(
-          [...pages.map(page => page.artifact), ...factionPages.map(page => page.artifact)].map(artifact => [
-            artifact.checksum,
-            artifact,
-          ])
+          [
+            ...pages.map(page => page.artifact),
+            ...factionPages.map(page => page.artifact),
+            ...rulesPages.map(page => page.artifact),
+          ].map(artifact => [artifact.checksum, artifact])
         ).values()
       ),
       supersededMetas: Array.from(new Map(supersededMetas.map(meta => [meta.sourceRecordId, meta])).values()),
@@ -655,6 +812,9 @@ export const mergeCurrentWahapediaWarscrollPages = (
       factionAbilityTypes: [...retainedFactionAbilityTypes, ...htmlFactionAbilityTypes],
       factionAbilitySubtypes: [...retainedFactionAbilitySubtypes, ...htmlFactionAbilitySubtypes],
       factionAbilities: [...retainedFactionAbilities, ...htmlFactionAbilities],
+      generalRulesPages,
+      generalRuleGroups,
+      generalRuleAbilities,
     },
     reconciliation: {
       schemaVersion: 1,

@@ -26,6 +26,7 @@ import {
 } from './wahapedia'
 import {
   parseWahapediaFactionHtml,
+  parseWahapediaRulesHtml,
   parseWahapediaSpearheadWarscrollsHtml,
   parseWahapediaWarscrollHtml,
   parseWahapediaWarscrollCollectionHtml,
@@ -132,6 +133,9 @@ export interface CandidateWahapediaHtmlReport {
       factionPage: boolean
       factionGroups: number
       factionAbilities: number
+      rulesPage: boolean
+      rulesGroups: number
+      rulesAbilities: number
       name?: string
       factionName?: string
       context?: string
@@ -405,6 +409,9 @@ export const acquireCandidateData = async (
     factionPage: boolean
     factionGroups: number
     factionAbilities: number
+    rulesPage: boolean
+    rulesGroups: number
+    rulesAbilities: number
     abilities: number
     weapons: number
     name?: string
@@ -496,27 +503,34 @@ export const acquireCandidateData = async (
     }
     const wahapediaPath = new URL(result.entry.finalUrl).pathname
     const isFactionPage = /^\/aos4\/factions\/[^/]+\/$/i.test(wahapediaPath)
+    const isRulesPage = /^\/aos4\/the-rules\/[^/]+\/$/i.test(wahapediaPath)
     const factionPage = isFactionPage ? parseWahapediaFactionHtml(input) : undefined
+    const rulesPage = isRulesPage ? parseWahapediaRulesHtml(input) : undefined
     const parsed = wahapediaPath.endsWith('/warscrolls.html')
       ? parseWahapediaWarscrollCollectionHtml(input)
       : isFactionPage
         ? parseWahapediaSpearheadWarscrollsHtml(input)
-        : (() => {
-            const single = parseWahapediaWarscrollHtml(input)
-            return {
-              pages: single.page ? [single.page] : [],
-              diagnostics: single.diagnostics,
-            }
-          })()
+        : isRulesPage
+          ? { pages: [], diagnostics: rulesPage?.diagnostics ?? [] }
+          : (() => {
+              const single = parseWahapediaWarscrollHtml(input)
+              return {
+                pages: single.page ? [single.page] : [],
+                diagnostics: single.diagnostics,
+              }
+            })()
     if (factionPage) parsed.diagnostics.push(...factionPage.diagnostics)
     wahapediaPages.push({
       artifact: result.entry,
-      pageCount: parsed.pages.length,
+      pageCount: parsed.pages.length + (rulesPage?.page ? 1 : 0),
       warscrolls: parsed.pages.filter(page => page.recordKind === 'warscroll').length,
       contentGroups: parsed.pages.filter(page => page.recordKind === 'content-group').length,
       factionPage: Boolean(factionPage?.page),
       factionGroups: factionPage?.page?.groups.length ?? 0,
       factionAbilities: factionPage?.page?.abilities.length ?? 0,
+      rulesPage: Boolean(rulesPage?.page),
+      rulesGroups: rulesPage?.page?.groups.length ?? 0,
+      rulesAbilities: rulesPage?.page?.abilities.length ?? 0,
       abilities: parsed.pages.reduce((sum, page) => sum + page.abilities.length, 0),
       weapons: parsed.pages.reduce((sum, page) => sum + page.weapons.length, 0),
       ...(parsed.pages.length === 1
@@ -527,9 +541,11 @@ export const acquireCandidateData = async (
           }
         : parsed.pages.length
           ? { factionName: parsed.pages[0].factionName }
-          : factionPage?.page
-            ? { factionName: factionPage.page.factionName }
-            : {}),
+          : rulesPage?.page
+            ? { name: rulesPage.page.title, context: rulesPage.page.context }
+            : factionPage?.page
+              ? { factionName: factionPage.page.factionName }
+              : {}),
       diagnostics: parsed.diagnostics,
     })
     if ((index + 1) % 25 === 0 || index + 1 === wahapediaPageUrls.length) {
@@ -571,6 +587,9 @@ export const acquireCandidateData = async (
           factionPage: document.factionPage,
           factionGroups: document.factionGroups,
           factionAbilities: document.factionAbilities,
+          rulesPage: document.rulesPage,
+          rulesGroups: document.rulesGroups,
+          rulesAbilities: document.rulesAbilities,
           ...(document.name ? { name: document.name } : {}),
           ...(document.factionName ? { factionName: document.factionName } : {}),
           ...(document.context ? { context: document.context } : {}),

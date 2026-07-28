@@ -33,7 +33,7 @@ const PHASE_PATTERNS: Array<[TurnPhaseId, RegExp]> = [
 
 const PERSPECTIVE_WINDOW_PATTERN =
   'deployment(?: phase)?|start of (?:the )?(?:(?:first|second|third|fourth|fifth|\\d+(?:st|nd|rd|th)?) )?battle(?: round)?|' +
-  'end of (?:the )?(?:(?:first|second|third|fourth|fifth|\\d+(?:st|nd|rd|th)?) )?battle(?: round)?|' +
+  'end of (?:the )?(?:(?:first|second|third|fourth|fifth|final|\\d+(?:st|nd|rd|th)?) )?battle(?: round)?|' +
   'start of (?:the )?turn(?: phase)?|hero phase|movement phase|shooting phase|charge phase|' +
   'combat phase|end of (?:the )?turn(?: phase)?'
 
@@ -91,16 +91,17 @@ const battleRoundWindow = (
 ): Extract<GameWindow, { kind: 'battle-round-start' | 'battle-round-end' }> | undefined => {
   const match = value.match(
     new RegExp(
-      `\\b${boundary} of (?:the )?(?:(first|second|third|fourth|fifth|\\d+(?:st|nd|rd|th)?) )?battle round\\b`,
+      `\\b${boundary} of (?:the )?(?:(first|second|third|fourth|fifth|final|\\d+(?:st|nd|rd|th)?) )?battle round\\b`,
       'i'
     )
   )
   if (!match) return undefined
 
   const rawRound = match[1]?.toLowerCase()
-  const round = rawRound
-    ? BATTLE_ROUND_VALUES[rawRound] ?? Number.parseInt(rawRound, 10)
-    : undefined
+  const round =
+    rawRound && rawRound !== 'final'
+      ? (BATTLE_ROUND_VALUES[rawRound] ?? Number.parseInt(rawRound, 10))
+      : undefined
   return {
     kind: boundary === 'start' ? 'battle-round-start' : 'battle-round-end',
     ...(round === undefined ? {} : { round }),

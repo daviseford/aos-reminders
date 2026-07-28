@@ -1,12 +1,7 @@
 import type { ArtifactId, SourceRecordId } from '../../domain'
 import type { ArtifactManifestEntry } from '../manifest'
 
-export type WahapediaHtmlContext =
-  | 'standard'
-  | 'seasonal'
-  | 'spearhead'
-  | 'legends'
-  | 'historical'
+export type WahapediaHtmlContext = 'standard' | 'seasonal' | 'spearhead' | 'legends' | 'historical'
 
 export interface WahapediaHtmlInput {
   bytes: Uint8Array
@@ -102,15 +97,27 @@ export interface WahapediaHtmlFactionPageRecord {
   artifact: ArtifactManifestEntry
 }
 
+export interface WahapediaHtmlRulesPageRecord {
+  title: string
+  sourceUrl: string
+  context: WahapediaHtmlContext
+  groups: WahapediaHtmlFactionGroupRecord[]
+  abilities: WahapediaHtmlFactionAbilityRecord[]
+  meta: WahapediaHtmlRecordMeta
+  artifact: ArtifactManifestEntry
+}
+
 export type WahapediaHtmlDiagnosticCode =
   | 'invalid-utf8'
   | 'not-warscroll-page'
   | 'not-faction-page'
+  | 'not-rules-page'
   | 'missing-source-id'
   | 'missing-characteristic'
   | 'malformed-weapon-row'
   | 'ability-pair-mismatch'
   | 'orphan-faction-ability'
+  | 'orphan-rules-ability'
   | 'missing-battle-profile'
 
 export interface WahapediaHtmlDiagnostic {
@@ -133,5 +140,10 @@ export interface WahapediaHtmlCollectionParseResult {
 
 export interface WahapediaHtmlFactionParseResult {
   page?: WahapediaHtmlFactionPageRecord
+  diagnostics: WahapediaHtmlDiagnostic[]
+}
+
+export interface WahapediaHtmlRulesParseResult {
+  page?: WahapediaHtmlRulesPageRecord
   diagnostics: WahapediaHtmlDiagnostic[]
 }

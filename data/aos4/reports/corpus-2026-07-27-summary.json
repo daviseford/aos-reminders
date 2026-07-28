@@ -3,7 +3,7 @@
   "generatedAt": "2026-07-28T02:50:49.197Z",
   "identities": "data/aos4/identities/corpus.json",
   "integrity": {
-    "consumedSourceRecords": 17449,
+    "consumedSourceRecords": 18269,
     "dispositions": [],
     "issues": [],
     "supersededSourceRecords": {
@@ -14,16 +14,16 @@
   },
   "products": {
     "data/aos4/catalog/catalog.json": {
-      "byteLength": 27760359,
-      "checksum": "dbefae0a2e68319549d9539a508513b3a87b51c7341bdba356c19aa0c8ad4316"
+      "byteLength": 29663482,
+      "checksum": "7805396513427ce977408449d4a377090568d1d1685186c593b9086846c0f3a1"
     },
     "data/aos4/catalog/official-battle-profiles.json": {
       "byteLength": 1426482,
       "checksum": "4b3c00c5136adfe20ba879828ab0bea937bf882be40157b5ba04c30edc8715d1"
     },
     "data/aos4/identities/corpus.json": {
-      "byteLength": 3088966,
-      "checksum": "74923e02d95cce3737e916465a44c8976cb593881ec6ab6e0d6040d5982bc8e4"
+      "byteLength": 3379857,
+      "checksum": "69f7439dbcb56e415c4e05cd58e943338df0a4a297b2857f1a5ce9b6bccfde56"
     },
     "data/aos4/reports/corpus-2026-07-27-reconciliation.json": {
       "byteLength": 164854,
@@ -34,8 +34,8 @@
       "checksum": "56f2897a563b6a9e6a31e83ce8ffd9e3d361d12aa0a8890bf24d374264ffb0a6"
     },
     "src/aos4/generated/corpus/runtime.json": {
-      "byteLength": 11549186,
-      "checksum": "0b2763a95bd0763c17ef6e65183aeb3ab2104d93bdbbbb34cc7b716a00e3fd34"
+      "byteLength": 12359557,
+      "checksum": "392b42ca5e0b49c1ae17d3aa05c3fdb7f41b6c83431d0099a8790f17d2fa57c6"
     }
   },
   "review": "data/aos4/reviews/corpus-2026-07-27.json",
@@ -51,18 +51,18 @@
   },
   "status": "strict-pass",
   "summary": {
-    "abilities": 4260,
+    "abilities": 4850,
     "attribution": "Powered by Wahapedia",
     "battleProfiles": 1002,
-    "contentGroups": 1172,
+    "contentGroups": 1402,
     "factions": 28,
     "ignoredSourceRecords": 18897,
     "publications": 158,
-    "relationships": 10331,
+    "relationships": 11450,
     "revision": "aos4-corpus-2026-07-28",
     "schemaVersion": 1,
-    "sourceArtifacts": 105,
-    "sourceRecords": 17449,
+    "sourceArtifacts": 122,
+    "sourceRecords": 18269,
     "status": "strict-pass",
     "warscrolls": 1268,
     "weapons": 2247

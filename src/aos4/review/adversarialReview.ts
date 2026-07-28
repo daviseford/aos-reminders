@@ -53,6 +53,390 @@ const sourceComparableText = (value: unknown): string =>
     .replace(/[^a-z0-9]+/gi, '')
     .toLowerCase()
 
+const decodeHtmlEntities = (value: string): string =>
+  value.replace(
+    /&(?:#(\d+)|#x([0-9a-f]+)|([a-z]+));/gi,
+    (entity, decimal: string | undefined, hexadecimal: string | undefined, named: string | undefined) => {
+      if (decimal) return String.fromCodePoint(Number.parseInt(decimal, 10))
+      if (hexadecimal) return String.fromCodePoint(Number.parseInt(hexadecimal, 16))
+      const entities: Record<string, string> = {
+        amp: '&',
+        apos: "'",
+        gt: '>',
+        hellip: '…',
+        ldquo: '“',
+        lsquo: '‘',
+        lt: '<',
+        mdash: '—',
+        nbsp: ' ',
+        ndash: '–',
+        quot: '"',
+        rdquo: '”',
+        rsquo: '’',
+      }
+      return entities[named?.toLowerCase() ?? ''] ?? entity
+    }
+  )
+
+const visibleSourceText = (value: unknown): string =>
+  decodeHtmlEntities(String(value))
+    .replace(/<(?:script|style)\b[^>]*>[\s\S]*?<\/(?:script|style)>/gi, ' ')
+    .replace(/<[^>]*>/g, ' ')
+    .replace(/\s+/g, ' ')
+    .trim()
+
+const semanticCharacteristic = (value: unknown): string =>
+  visibleSourceText(value)
+    .toLowerCase()
+    .replace(/[\u2010-\u2015\u2212]/g, '-')
+    .replace(/\s+/g, '')
+
+const evidenceJsonValue = (
+  pair: ReviewPacketPair
+): { recordKind: string; value: Record<string, unknown> } | undefined => {
+  const evidence = pair.comparisonPacket.sourceEvidence[0]
+  const content = evidence?.excerptRef ? evidenceBlockByRef(pair).get(evidence.excerptRef) : undefined
+  if (!content) return undefined
+  try {
+    const parsed = JSON.parse(content) as unknown
+    return isRecord(parsed) &&
+      typeof parsed.recordKind === 'string' &&
+      isRecord(parsed.value)
+      ? { recordKind: parsed.recordKind, value: parsed.value }
+      : undefined
+  } catch {
+    return undefined
+  }
+}
+
+const generatedCatalogEntities = (pair: ReviewPacketPair): Record<string, unknown>[] =>
+  pair.comparisonPacket.generatedDestinations.flatMap(destination =>
+    destination.path.endsWith('catalog/catalog.json') &&
+    destination.field === 'entity' &&
+    isRecord(destination.value)
+      ? [destination.value]
+      : []
+  )
+
+const entityOfKind = (
+  entities: Record<string, unknown>[],
+  kind: string
+): Record<string, unknown> | undefined => entities.find(entity => entity.kind === kind)
+
+const unsupportedSourceValue = (
+  field: string,
+  source: unknown,
+  generated: unknown,
+  exact = false
+): FailedCheck[] => {
+  if (source === undefined || source === null || String(source).trim() === '') return []
+  const sourceValue = exact ? semanticCharacteristic(source) : sourceComparableText(visibleSourceText(source))
+  const generatedValue = exact
+    ? semanticCharacteristic(generated)
+    : sourceComparableText(visibleSourceText(generated))
+  return sourceValue && sourceValue !== generatedValue
+    ? [
+        failed(
+          `secondary.source-${field}`,
+          `Generated ${field} is not a faithful interpretation of the source-only record`,
+          visibleSourceText(source),
+          generated
+        ),
+      ]
+    : []
+}
+
+const unsupportedGeneratedText = (
+  field: string,
+  source: unknown,
+  generated: unknown
+): FailedCheck[] => {
+  if (generated === undefined || generated === null || String(generated).trim() === '') return []
+  const sourceTokens: string[] =
+    visibleSourceText(source).toLowerCase().match(/[a-z0-9]+/g) ?? []
+  const generatedTokens: string[] =
+    visibleSourceText(generated).toLowerCase().match(/[a-z0-9]+/g) ?? []
+  let sourceIndex = 0
+  const grounded = generatedTokens.every(token => {
+    const index = sourceTokens.indexOf(token, sourceIndex)
+    if (index < 0) return false
+    sourceIndex = index + 1
+    return true
+  })
+  return grounded
+    ? []
+    : [
+        failed(
+          `secondary.source-${field}`,
+          `Generated ${field} is not grounded in the source-only record`,
+          visibleSourceText(source),
+          generated
+        ),
+      ]
+}
+
+const reviewEquivalentTimingSource = (value: string): string =>
+  value
+    .replace(/\bAny Comhat Phase\b/gi, 'Any Combat Phase')
+    .replace(/\bYour Hero Quest\b/gi, 'Your Hero Phase')
+    .replace(/\bEnd of Ypur Turn\b/gi, 'End of Your Turn')
+
+const abilitySourceFidelityChecks = (
+  source: Record<string, unknown>,
+  ability: Record<string, unknown> | undefined
+): FailedCheck[] => {
+  if (!ability) {
+    return [failed('secondary.source-ability', 'Source ability has no generated ability entity')]
+  }
+  const checks = unsupportedSourceValue('ability-name', source.name, ability.name)
+  const condition = visibleSourceText(source.conditionHtml)
+  const description = visibleSourceText(source.descriptionHtml)
+  const sourceRuleText = `${condition} ${description} ${visibleSourceText(source.keywordsHtml)}`
+  if (Array.isArray(ability.timings)) {
+    ability.timings.forEach((timing, index) => {
+      if (!isRecord(timing) || !condition) return
+      checks.push(
+        ...unsupportedGeneratedText(
+          `ability-timings[${index}].raw`,
+          reviewEquivalentTimingSource(condition),
+          timing.raw
+        )
+      )
+    })
+  }
+  if (isRecord(ability.text)) {
+    Object.entries(ability.text).forEach(([field, value]) => {
+      checks.push(...unsupportedGeneratedText(`ability-text.${field}`, sourceRuleText, value))
+    })
+  }
+  if (Array.isArray(ability.keywords)) {
+    ability.keywords.forEach((keyword, index) => {
+      checks.push(...unsupportedGeneratedText(`ability-keywords[${index}]`, sourceRuleText, keyword))
+    })
+  }
+  const expectedKind = /\bPassive\b/i.test(condition)
+    ? 'passive'
+    : /\bReaction\s*:/i.test(condition) || source.isReaction === true
+      ? 'reaction'
+      : condition
+        ? 'active'
+        : undefined
+  if (expectedKind) {
+    checks.push(...unsupportedSourceValue('ability-kind', expectedKind, ability.abilityKind))
+  }
+  return checks
+}
+
+const weaponSourceFidelityChecks = (
+  source: Record<string, unknown>,
+  weapon: Record<string, unknown> | undefined,
+  officialOverride: boolean
+): FailedCheck[] => {
+  if (!weapon) return [failed('secondary.source-weapon', 'Source weapon has no generated weapon entity')]
+  const checks = [
+    ...unsupportedSourceValue('weapon-name', source.name, weapon.name),
+    ...unsupportedSourceValue('weapon-type', source.weaponType, weapon.weaponType),
+  ]
+  if (isRecord(weapon.profile) && !officialOverride) {
+    const range = String(source.range ?? '').match(/\d+/)?.[0]
+    checks.push(
+      ...unsupportedSourceValue(
+        'weapon-profile.rangeInches',
+        range,
+        weapon.profile.rangeInches,
+        true
+      )
+    )
+    const profileFields = ['attacks', 'hit', 'wound', 'rend', 'damage'] as const
+    profileFields.forEach(field => {
+      checks.push(
+        ...unsupportedSourceValue(`weapon-profile.${field}`, source[field], weapon.profile?.[field], true)
+      )
+    })
+  }
+  const abilityText = visibleSourceText(source.abilitiesHtml)
+  if (Array.isArray(weapon.keywords)) {
+    weapon.keywords.forEach((keyword, index) => {
+      const value = isRecord(keyword) ? keyword.raw : keyword
+      checks.push(...unsupportedGeneratedText(`weapon-keywords[${index}]`, abilityText, value))
+    })
+  }
+  return checks
+}
+
+const warscrollSourceFidelityChecks = (
+  pair: ReviewPacketPair,
+  source: Record<string, unknown>,
+  entities: Record<string, unknown>[]
+): FailedCheck[] => {
+  const warscroll = entityOfKind(entities, 'warscroll')
+  if (!warscroll) {
+    const sourceHasCharacteristics = ['move', 'save', 'control', 'health', 'ward'].some(field =>
+      String(source[field] ?? '').trim()
+    )
+    const group = entityOfKind(entities, 'content-group')
+    if (!sourceHasCharacteristics && group) {
+      return unsupportedSourceValue('content-group-name', source.name, group.name)
+    }
+    return [failed('secondary.source-warscroll', 'Source warscroll has no generated warscroll entity')]
+  }
+  const checks = unsupportedSourceValue('warscroll-name', source.name, warscroll.name)
+  if (isRecord(warscroll.characteristics)) {
+    ;(['move', 'save', 'control', 'health', 'ward'] as const).forEach(field => {
+      checks.push(
+        ...unsupportedSourceValue(
+          `warscroll-characteristics.${field}`,
+          source[field],
+          warscroll.characteristics?.[field],
+          true
+        )
+      )
+    })
+  }
+  if (!pair.comparisonPacket.cohortIds.includes('high-risk:official-override')) {
+    const profile = entityOfKind(entities, 'battle-profile')
+    if (profile) {
+      checks.push(
+        ...unsupportedSourceValue('battle-profile-points', source.cost, profile.points, true),
+        ...unsupportedSourceValue('battle-profile-unit-size', source.unitSize, profile.unitSize, true)
+      )
+      const sourceOptions = String(source.regimentOptions ?? '')
+        .split(/\s*(?:,|;)\s*/)
+        .filter(Boolean)
+      const generatedOptions = Array.isArray(profile.regimentOptions)
+        ? profile.regimentOptions.map(String)
+        : []
+      sourceOptions.forEach((option, index) => {
+        if (
+          !generatedOptions.some(
+            generatedOption =>
+              sourceComparableText(generatedOption) === sourceComparableText(option)
+          )
+        ) {
+          checks.push(
+            failed(
+              `secondary.source-battle-profile-regiment-options[${index}]`,
+              'Source regiment option is absent from the generated battle profile',
+              option,
+              generatedOptions
+            )
+          )
+        }
+      })
+      generatedOptions.forEach((option, index) => {
+        if (
+          !sourceOptions.some(
+            sourceOption => sourceComparableText(sourceOption) === sourceComparableText(option)
+          )
+        ) {
+          checks.push(
+            failed(
+              `secondary.generated-battle-profile-regiment-options[${index}]`,
+              'Generated regiment option is absent from the source-only record',
+              sourceOptions,
+              option
+            )
+          )
+        }
+      })
+      if (source.noReinforced === true) {
+        const generatedNotes = Array.isArray(profile.notes) ? profile.notes.join(' ') : profile.notes
+        if (
+          !sourceComparableText(generatedNotes).includes(
+            sourceComparableText('This unit cannot be reinforced.')
+          )
+        ) {
+          checks.push(
+            failed(
+              'secondary.source-battle-profile-no-reinforcement-note',
+              'Source reinforcement restriction is absent from the generated battle profile',
+              'This unit cannot be reinforced.',
+              generatedNotes
+            )
+          )
+        }
+      }
+    }
+  }
+  return checks
+}
+
+const secondarySourceFidelityChecks = (pair: ReviewPacketPair): FailedCheck[] => {
+  const parsed = evidenceJsonValue(pair)
+  if (!parsed) return []
+  const entities = generatedCatalogEntities(pair)
+  const { recordKind, value } = parsed
+  if (recordKind === 'warscroll-ability' || recordKind === 'faction-ability') {
+    return abilitySourceFidelityChecks(value, entityOfKind(entities, 'ability'))
+  }
+  if (recordKind === 'warscroll-weapon') {
+    return weaponSourceFidelityChecks(
+      value,
+      entityOfKind(entities, 'weapon'),
+      pair.comparisonPacket.cohortIds.includes('high-risk:official-override')
+    )
+  }
+  if (recordKind === 'warscroll') return warscrollSourceFidelityChecks(pair, value, entities)
+  if (recordKind === 'warscroll-keyword') {
+    const warscroll = entityOfKind(entities, 'warscroll')
+    const expected = `${String(value.keyword ?? '')}${value.parameter ? ` ${String(value.parameter)}` : ''}`
+    const keywords = Array.isArray(warscroll?.keywords) ? warscroll.keywords : []
+    return keywords.some(keyword =>
+      sourceComparableText(keyword).includes(sourceComparableText(expected))
+    )
+      ? []
+      : [
+          failed(
+            'secondary.source-warscroll-keyword',
+            'Source keyword is absent from the generated warscroll',
+            expected,
+            keywords
+          ),
+        ]
+  }
+  if (recordKind === 'warscroll-base') {
+    if (pair.comparisonPacket.cohortIds.includes('high-risk:official-override')) return []
+    const profile = entityOfKind(entities, 'battle-profile')
+    const baseSizes = Array.isArray(profile?.baseSizes) ? profile.baseSizes : []
+    const expected = [value.base, value.model].filter(Boolean).join(' ')
+    return baseSizes.some(baseSize =>
+      sourceComparableText(baseSize).includes(sourceComparableText(expected))
+    )
+      ? []
+      : [
+          failed(
+            'secondary.source-warscroll-base',
+            'Source base size is absent from the generated battle profile',
+            expected,
+            baseSizes
+          ),
+        ]
+  }
+  if (recordKind === 'faction-ability-type' || recordKind === 'faction-ability-subtype') {
+    const group = entityOfKind(entities, 'content-group')
+    return group
+      ? unsupportedSourceValue('content-group-name', value.name, group.name)
+      : [failed('secondary.source-content-group', 'Source content group has no generated entity')]
+  }
+  if (recordKind === 'faction') {
+    const faction = entityOfKind(entities, 'faction')
+    return faction
+      ? unsupportedSourceValue('faction-name', value.name, faction.name)
+      : [failed('secondary.source-faction', 'Source faction has no generated faction entity')]
+  }
+  if (recordKind === 'publication') {
+    const publication = entityOfKind(entities, 'publication')
+    return publication
+      ? unsupportedSourceValue(
+          'publication-name',
+          value.name ?? value.title,
+          publication.name
+        )
+      : [failed('secondary.source-publication', 'Source publication has no generated publication entity')]
+  }
+  return []
+}
+
 const sourceFactValues = (fact: Record<string, unknown>): Array<{ field: string; value: unknown }> =>
   [
     'name',
@@ -356,6 +740,9 @@ const sourceRecordChecks = (pair: ReviewPacketPair): FailedCheck[] => {
         entityDestinations.map(destination => destination.canonicalEntityId)
       )
     )
+  }
+  if (evidence.authority === 'secondary') {
+    checks.push(...secondarySourceFidelityChecks(pair))
   }
   return checks
 }
