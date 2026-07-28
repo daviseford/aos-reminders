@@ -1,4 +1,13 @@
-import { TURN_PHASES, type AbilityTiming, type Aos4Catalog } from '../domain'
+import {
+  TURN_PHASES,
+  type AbilityTiming,
+  type Aos4Catalog,
+  type CombatPriority,
+  type TimingKind,
+  type TimingPerspective,
+  type UsageLimit,
+  type UsageScope,
+} from '../domain'
 import {
   gameWindowKey,
   projectReminders,
@@ -50,12 +59,126 @@ const timingDetails = (timing: AbilityTiming): string[] => [
     : []),
 ]
 
+/**
+ * Tone drives colour and fill in both renderers. It names the *facet*, not a palette entry, so the
+ * web theme and the PDF can disagree about the exact colour while agreeing about the meaning.
+ */
+export type Aos4ReminderTagTone =
+  | 'kind-active'
+  | 'kind-reaction'
+  | 'kind-passive'
+  | 'turn-your'
+  | 'turn-enemy'
+  | 'turn-neutral'
+  | 'usage'
+  | 'priority'
+
+export interface Aos4ReminderTag {
+  label: string
+  tone: Aos4ReminderTagTone
+  /** Plain-language expansion. The abbreviated labels are not self-explanatory, least of all the
+   * usage scope, where `unit` and `army` mean very different things at the table. */
+  description: string
+}
+
+const kindDescription: Record<TimingKind, string> = {
+  active: 'Used by declaring it during the listed window.',
+  reaction: 'Used only when its trigger happens, interrupting the current sequence.',
+  passive: 'Always in effect. There is nothing to declare.',
+}
+
+const perspectiveDescription: Record<TimingPerspective, string> = {
+  your: 'Only during your own turn.',
+  enemy: "Only during your opponent's turn.",
+  any: "During either player's turn.",
+  neutral: "Not tied to either player's turn.",
+}
+
+const usageScopeDescription: Record<UsageScope, string> = {
+  unit: 'to each unit separately',
+  army: 'across your whole army',
+  player: 'to you as a player',
+}
+
+const usageDescription = (usage: UsageLimit): string =>
+  `Can be used ${usage.limit} time${usage.limit === 1 ? '' : 's'} per ${usage.period.replace('-', ' ')}. ` +
+  `That limit applies ${usageScopeDescription[usage.scope]}.`
+
+const priorityDescription: Record<CombatPriority, string> = {
+  'strike-first': 'Fights before units that do not strike first.',
+  normal: 'Fights in the normal sequence.',
+  'strike-last': 'Fights after units that do not strike last.',
+}
+
+const kindTone: Record<TimingKind, Aos4ReminderTagTone> = {
+  active: 'kind-active',
+  reaction: 'kind-reaction',
+  passive: 'kind-passive',
+}
+
+const perspectiveTone = (perspective: TimingPerspective): Aos4ReminderTagTone => {
+  switch (perspective) {
+    case 'your':
+      return 'turn-your'
+    case 'enemy':
+      return 'turn-enemy'
+    default:
+      return 'turn-neutral'
+  }
+}
+
+/**
+ * The same four facets `timingDetails` flattens into a string, kept discrete so each can be styled
+ * and scanned on its own.
+ *
+ * Two deliberate differences from `typeLabel`: a `normal` combat priority is dropped because it is
+ * the default and carries no information, and the usage limit is compressed to `1 / turn · army`,
+ * which survives a narrow print column where `1 per turn (army)` does not.
+ */
+const timingTags = (timing: AbilityTiming): Aos4ReminderTag[] => [
+  {
+    label: titleCase(timing.kind),
+    tone: kindTone[timing.kind],
+    description: kindDescription[timing.kind],
+  },
+  ...(timing.perspective
+    ? [
+        {
+          label: `${titleCase(timing.perspective)} turn`,
+          tone: perspectiveTone(timing.perspective),
+          description: perspectiveDescription[timing.perspective],
+        },
+      ]
+    : []),
+  ...(timing.priority && timing.priority !== 'normal'
+    ? [
+        {
+          label: titleCase(timing.priority),
+          tone: 'priority' as const,
+          description: priorityDescription[timing.priority],
+        },
+      ]
+    : []),
+  ...(timing.usage
+    ? [
+        {
+          label: `${timing.usage.limit} / ${timing.usage.period.replace('-', ' ')} · ${timing.usage.scope}`,
+          tone: 'usage' as const,
+          description: usageDescription(timing.usage),
+        },
+      ]
+    : []),
+]
+
 export interface Aos4ReminderViewModel {
   id: ReminderOccurrenceId
   name: string
   windowKey: string
   windowLabel: string
+  /** Flattened facets, retained for the accessible label and any text-only consumer. */
   typeLabel: string
+  /** The same facets, discrete, for tag rendering on screen and in print. */
+  tags: Aos4ReminderTag[]
   accessibleLabel: string
   declare?: string
   reactionTrigger?: string
@@ -77,6 +200,7 @@ const withPreferences = (reminder: ProjectedReminder, document: Aos4ArmyDocument
     windowKey: gameWindowKey(reminder.timing.window),
     windowLabel: label,
     typeLabel: details.join(' · '),
+    tags: timingTags(reminder.timing),
     accessibleLabel: [
       reminder.name,
       label,

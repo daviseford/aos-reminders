@@ -18,6 +18,7 @@ const LightTheme: ITheme = {
   profileCardHeader: `card-header bg-profileHeader text-dark mb-0 pb-1`,
   reminderHeader: `bg-themeDarkBluePrimary`,
   reminderHr: `ReminderHr`,
+  reminderTags: `ReminderTags-Light`,
   secondaryButton: `btn btn-sm btn-outline-secondary`,
   selectTheme: {},
   text: `text-dark`,

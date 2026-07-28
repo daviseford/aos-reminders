@@ -1,9 +1,12 @@
 import type {
   PlacedLine,
+  PlacedTag,
   PrintDocument,
   PrintPlan,
   PrintPreset,
   PrintRoleStyle,
+  PrintRule,
+  PrintTag,
   PrintTextMeasurer,
   PrintTextRole,
 } from './types'
@@ -12,6 +15,8 @@ interface LineDraft {
   role: PrintTextRole
   text: string
   label?: string
+  /** `xIn` is relative to the column origin here; `emit` resolves it to an absolute page position. */
+  tags?: PlacedTag[]
   widthIn: number
   lineHeightIn: number
   spaceBeforeIn: number
@@ -145,6 +150,75 @@ const draftLines = (
   }))
 }
 
+/** Box width for a tag: its text plus symmetric padding. */
+const tagBoxWidthIn = (context: DraftContext, tag: PrintTag): number =>
+  context.measurer.widthIn(tag.label, context.preset.roles.ruleTag) + context.preset.tagPaddingXIn * 2
+
+const TAG_GAP_IN = 0.05
+
+const totalTagWidthIn = (context: DraftContext, tags: PrintTag[]): number =>
+  tags.reduce((total, tag) => total + tagBoxWidthIn(context, tag), 0) + TAG_GAP_IN * (tags.length - 1)
+
+/** Lays tags left to right from `startXIn`, wrapping is the caller's problem. */
+const placeTagsFrom = (context: DraftContext, tags: PrintTag[], startXIn: number): PlacedTag[] => {
+  let cursor = startXIn
+  return tags.map(tag => {
+    const widthIn = tagBoxWidthIn(context, tag)
+    const placed = { ...tag, xIn: cursor, widthIn }
+    cursor += widthIn + TAG_GAP_IN
+    return placed
+  })
+}
+
+/**
+ * The rule title, with its tags either sharing the title line (right-aligned) or occupying their
+ * own line beneath it.
+ *
+ * `title-right` degrades to `below-title` whenever the title and tags would not fit on one line, so
+ * a long ability name never collides with its tags. Tag x-offsets are relative to the column origin
+ * and resolved to absolute inches during placement.
+ */
+const draftTitleWithTags = (context: DraftContext, rule: PrintRule, blockId: string): LineDraft[] => {
+  const tags = rule.tags ?? []
+  const titleDrafts = draftLines(context, 'ruleTitle', rule.title, { blockId })
+  if (!tags.length) return titleDrafts
+
+  const available = context.columnWidthIn
+  const tagsWidthIn = totalTagWidthIn(context, tags)
+  const lastTitleLine = titleDrafts[titleDrafts.length - 1]
+  const fitsBeside =
+    context.preset.tagPlacement === 'title-right' &&
+    titleDrafts.length === 1 &&
+    lastTitleLine.widthIn + TAG_GAP_IN * 2 + tagsWidthIn <= available
+
+  if (fitsBeside) {
+    return titleDrafts.map((draft, index) =>
+      index === titleDrafts.length - 1
+        ? { ...draft, tags: placeTagsFrom(context, tags, available - tagsWidthIn) }
+        : draft
+    )
+  }
+
+  const tagStyle = context.preset.roles.ruleTag
+  return [
+    ...titleDrafts,
+    {
+      role: 'ruleTag' as const,
+      text: '',
+      tags: placeTagsFrom(context, tags, 0),
+      widthIn: Math.min(tagsWidthIn, available),
+      lineHeightIn: lineHeightIn(tagStyle),
+      spaceBeforeIn: 0,
+      spaceAfterIn: tagStyle.spaceAfterIn ?? 0,
+      indentIn: 0,
+      align: 'left' as const,
+      boxed: false,
+      spansColumns: false,
+      blockId,
+    },
+  ]
+}
+
 const buildBlocks = (document: PrintDocument, context: DraftContext): FlowBlock[] => {
   const blocks: FlowBlock[] = []
 
@@ -165,7 +239,7 @@ const buildBlocks = (document: PrintDocument, context: DraftContext): FlowBlock[
         continuationTitle: `${rule.title} (continued)`,
         continuationRole: 'ruleTitle',
         lines: [
-          ...draftLines(context, 'ruleTitle', rule.title, { blockId }),
+          ...draftTitleWithTags(context, rule, blockId),
           ...rule.paragraphs.flatMap((paragraph, paragraphIndex) =>
             draftLines(context, paragraph.role, paragraph.text, {
               ...(paragraph.label ? { label: paragraph.label } : {}),
@@ -279,6 +353,14 @@ export const planPrintLayout = (
         boxed: draft.boxed,
         spansColumns: draft.spansColumns,
         ...(draft.label ? { label: draft.label } : {}),
+        ...(draft.tags
+          ? {
+              tags: draft.tags.map(tag => ({
+                ...tag,
+                xIn: columnOriginsIn[columnIndex] + tag.xIn,
+              })),
+            }
+          : {}),
         text: draft.text,
         ...(draft.blockId ? { blockId: draft.blockId } : {}),
         ...(draft.paragraphIndex === undefined ? {} : { paragraphIndex: draft.paragraphIndex }),

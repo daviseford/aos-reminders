@@ -53,6 +53,53 @@ const RuleText = ({ label, text, muted = false }: { label?: string; text: string
   )
 }
 
+/**
+ * The timing facets as discrete tags. Tag text is real text rather than decoration, so a screen
+ * reader announces the same words the flattened prefix used to supply.
+ *
+ * The abbreviated labels are not self-explanatory, so each tag carries its expansion. `title` covers
+ * mouse hover, `aria-label` covers assistive tech, and tapping toggles the expansion inline because
+ * a touch device never fires hover.
+ */
+const ReminderTags = ({ tags }: { tags: Aos4ReminderViewModel['tags'] }) => {
+  const { theme } = useTheme()
+  const [explained, setExplained] = useState<string | null>(null)
+
+  if (!tags.length) return null
+
+  const handleToggle = (key: string) => setExplained(current => (current === key ? null : key))
+
+  // The explainer is a sibling of the tag row, not a child: nesting it inside the row widens the
+  // flex container and drags the right-aligned tags out of alignment when it opens.
+  return (
+    <>
+      <span className={`ReminderTags ${theme.reminderTags}`}>
+        {tags.map(tag => {
+          const key = `${tag.tone}:${tag.label}`
+          return (
+            <button
+              key={key}
+              type="button"
+              className={`ReminderTag ReminderTag--${tag.tone}`}
+              title={tag.description}
+              aria-label={`${tag.label}. ${tag.description}`}
+              aria-expanded={explained === key}
+              onClick={() => handleToggle(key)}
+            >
+              {tag.label}
+            </button>
+          )
+        })}
+      </span>
+      {explained && (
+        <span className={`ReminderTagExplainer ${theme.reminderTags}`} role="note">
+          {tags.find(tag => `${tag.tone}:${tag.label}` === explained)?.description}
+        </span>
+      )}
+    </>
+  )
+}
+
 const ReminderEntry = ({
   getSources,
   isGameMode,
@@ -69,6 +116,7 @@ const ReminderEntry = ({
   reminder: Aos4ReminderViewModel
 }) => {
   const { theme } = useTheme()
+  const isMobile = useIsMobile()
   const [editingNote, setEditingNote] = useState(false)
   const sources = getSources(reminder)
 
@@ -79,10 +127,13 @@ const ReminderEntry = ({
       className={`mb-2 ${reminder.hidden ? 'd-print-none' : ''}`}
     >
       <div className="d-flex mb-1">
-        <div className="flex-grow-1" {...provided.dragHandleProps}>
-          <span className={`${theme.textMuted} font-weight-bold`}>{reminder.typeLabel} - </span>
-          <strong className={theme.text}>{reminder.name}</strong>
-          {reminder.hidden && <MdVisibilityOff className={`${theme.text} ml-2`} />}
+        <div className="flex-grow-1 ReminderHeading" {...provided.dragHandleProps}>
+          <span className="ReminderHeadingRow">
+            <strong className={theme.text}>{reminder.name}</strong>
+            {reminder.hidden && <MdVisibilityOff className={`${theme.text} ml-2`} />}
+            {!isMobile && <ReminderTags tags={reminder.tags} />}
+          </span>
+          {isMobile && <ReminderTags tags={reminder.tags} />}
         </div>
         <div className="flex-shrink-0 pl-2 mt-1 d-print-none">
           <Dropdown>
