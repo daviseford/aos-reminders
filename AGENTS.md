@@ -129,6 +129,13 @@ Keep framework migration separate from rules/data corrections where practical.
 The jsPDF upgrade (`1.5.3`, using APIs removed in 2.x) is outstanding Phase 2 work. It is now
 confined to `src/aos4/print/pdf.ts`.
 
+The companion API services (`aos-reminders-rest-api`, `aos-reminders-subscription-api`) run on
+`nodejs22.x`/Serverless v4/AWS SDK v3 with characterization tests and CI (plan
+`2026-07-28-002`, units U2/U3). Their deploy pipeline is unresolved — Serverless license key for
+CI, a CI `serverless package` gate, and first dev-stage deploy verification (including a real
+Stripe checkout webhook against the upgraded client) are tracked in issue #1727. `serverless
+package` needs no authentication; deploys do.
+
 ## Branch and pull-request strategy
 
 Use `aos4-migration` as the long-lived integration branch.
