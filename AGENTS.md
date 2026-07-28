@@ -45,6 +45,39 @@ Do not confuse these version numbers:
 `src/tests/aos4/legacyIsolation.test.ts` enforces the AoS 4 dependency boundary and the physical
 absence of retired paths.
 
+## Product and interface continuity
+
+The live application at `https://aosreminders.com/` is the visual and interaction baseline. The
+community trusts that experience; an AoS 4 data/domain migration does not authorize a redesign.
+
+- Preserve the established dark-blue masthead, typography, spacing, edit/play control, faction
+  selector, teal selection cards, reminder cards, notes, hide/show behavior, responsive layout,
+  print behavior, footer, and contact/disclaimer treatment.
+- Preserve the account-facing shell: the signed-out `Subscribe`, `FAQ`, and `Log in` navigation;
+  Auth0 hosted login; authenticated `Profile` and `Log out` navigation; subscription status and
+  cancellation; and subscriber theme behavior.
+- Compare UI changes directly against the live site at desktop and mobile widths before accepting
+  them. Browser snapshots and tests should guard recognizable landmarks and account navigation.
+- Treat every visible UI delta as a code smell during Phase 1. Structural work should leave
+  navigation, authentication, subscription/profile flows, FAQ, footer, typography, spacing,
+  responsive behavior, and interaction labels unchanged.
+- The expected exceptions are data-driven: AoS 4 phase names, content-group cards, selections,
+  reminder text, and other fields whose source data or game structure genuinely changed. Reuse the
+  established visual primitives for those exceptions.
+- Bind the AoS 4 domain and army document to the established presentation with adapters/view
+  models. Do not restore AoS 3 rules, Redux, importers, or saved-army data merely to reuse the UI.
+- Remove or rewrite stale AoS 3 copy and feature claims while retaining the surrounding visual
+  hierarchy and interaction pattern.
+- Do not add a migration-workbench aesthetic, new visual language, or broad reskin unless the user
+  explicitly requests one.
+
+The restored subscription API is a migration-only compatibility risk: its shared browser key is
+public and its account operations are not authorized with the user's Auth0 token. An
+Auth0-protected route is not API authorization. Production launch is blocked until the backend
+verifies Auth0 bearer tokens, derives account ownership server-side, rejects cross-account access,
+rotates the shared key, and passes negative authorization tests. Preserve the familiar account UI
+while this work is explicitly tracked; do not describe the current API as secure.
+
 ## Migration program
 
 ### Phase 1: data and domain correctness
@@ -215,9 +248,11 @@ Reminder IDs derive from canonical ability identity and semantic timing, not mut
 - Loading removes `persist:root`, `loadedArmy`, `reminderOrder`, and `savedArmies` without parsing
   them.
 - Invalid or incompatible AoS 4 documents reset to a clean representative document.
-- `src/components/routes/Home.tsx` is the only live screen and consumes generated data through AoS 4
+- `src/components/routes/Home.tsx` is the live game screen and consumes generated data through AoS 4
   view models.
-- `src/main.tsx` mounts only the theme provider and AoS 4 application.
+- `/faq`, `/subscribe`, and the protected `/profile` route preserve the established non-rules
+  account experience.
+- `src/main.tsx` mounts Auth0, subscription, and theme providers around the AoS 4 application.
 
 Runtime code must not fetch source data. It loads checked-in generated artifacts only.
 
@@ -262,7 +297,7 @@ The following must remain absent:
 - `processGame`, `processReminders`, `reminderUtils`, `getSideEffects`, `withSelect`
 - Azyr, Battlescribe, Warscroll Builder, and old Warhammer App importers
 - name/typo/deprecation lookup tables and historical importer fixtures
-- old saved-army/profile/import/PDF/reminder UI
+- old saved-army, import, and PDF logic; the established visual components may be adapted to AoS 4
 
 Git history is the archive. Do not keep copied “reference” files in the working tree.
 

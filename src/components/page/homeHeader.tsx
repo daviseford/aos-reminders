@@ -1,0 +1,120 @@
+import { useIsMobile } from 'components/aos4/useIsMobile'
+import Navbar from 'components/page/navbar'
+import { useTheme } from 'context/useTheme'
+import Switch from 'react-switch'
+import Select from 'react-select'
+
+interface HeaderProps {
+  armyName: string
+  factionName: string
+  isGameMode: boolean
+  onToggleGameMode: () => void
+}
+
+const headerOption = (factionName: string) => ({
+  label: factionName,
+  value: factionName,
+})
+
+export const Header = ({ armyName, factionName, isGameMode, onToggleGameMode }: HeaderProps) => {
+  const { theme } = useTheme()
+  const isMobile = useIsMobile()
+  const option = headerOption(factionName)
+  const jumboClass = `jumbotron jumbotron-fluid text-center ${theme.headerColor} d-print-none mb-0 pt-4 ${
+    isMobile ? 'pb-2' : 'pb-3'
+  }`
+
+  return (
+    <div className={theme.headerColor}>
+      <Navbar />
+
+      <div className={jumboClass}>
+        <div className="container">
+          <h1 className="display-5 text-white">Age of Sigmar Reminders</h1>
+          <p className="mt-3 mb-1 d-none d-sm-block text-white">
+            By Davis E. Ford -{' '}
+            <a
+              className="text-white"
+              href="//daviseford.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Davis E. Ford website"
+            >
+              daviseford.com
+            </a>
+          </p>
+
+          <div className="d-flex align-items-center justify-content-center text-white">
+            <div className="d-inline-flex flex-row">
+              <span
+                className={`align-self-center pb-2 mr-2 ${isGameMode ? '' : 'font-weight-bold'}`}
+                role="button"
+                tabIndex={0}
+                onClick={() => isGameMode && onToggleGameMode()}
+                onKeyDown={event => event.key === 'Enter' && isGameMode && onToggleGameMode()}
+              >
+                Edit
+              </span>
+              <label htmlFor="game-mode-switch" className="mb-0">
+                <Switch
+                  onChange={onToggleGameMode}
+                  checked={isGameMode}
+                  onColor="#1C7595"
+                  onHandleColor="#E9ECEF"
+                  handleDiameter={30}
+                  uncheckedIcon={false}
+                  checkedIcon={false}
+                  boxShadow="0px 1px 5px rgba(0, 0, 0, 0.6)"
+                  activeBoxShadow="0px 0px 1px 10px rgba(0, 0, 0, 0.2)"
+                  height={20}
+                  width={80}
+                  className="react-switch"
+                  id="game-mode-switch"
+                  aria-label="Edit or play mode"
+                />
+              </label>
+              <span
+                className={`align-self-center pb-2 ml-2 ${isGameMode ? 'font-weight-bold' : ''}`}
+                role="button"
+                tabIndex={0}
+                onClick={() => !isGameMode && onToggleGameMode()}
+                onKeyDown={event => event.key === 'Enter' && !isGameMode && onToggleGameMode()}
+              >
+                Play
+              </span>
+            </div>
+          </div>
+
+          {isGameMode ? (
+            <div className="pt-1 pb-0 justify-content-center">
+              <h2 className="display-5 text-white">{armyName}</h2>
+            </div>
+          ) : (
+            <>
+              <span className="text-white">Select your faction to get started:</span>
+              <div className="d-flex pt-3 pb-2 justify-content-center">
+                <div className="col-12 col-sm-9 col-md-6 col-lg-4 text-left">
+                  <Select
+                    aria-label="Faction"
+                    value={option}
+                    options={[option]}
+                    isClearable={false}
+                    isSearchable={false}
+                    className={theme.text}
+                    theme={defaultTheme => ({
+                      ...defaultTheme,
+                      colors: {
+                        ...defaultTheme.colors,
+                        ...theme.selectTheme,
+                      },
+                    })}
+                  />
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+      </div>
+    </div>
+  )
+}

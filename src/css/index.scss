@@ -1,20 +1,323 @@
-@import './theme.scss';
+@import "./theme.scss";
 
+/* Make sure our document fills the page - important for dark theme! */
 html,
 body,
 #root {
-  min-height: 100%;
-  margin: 0;
+    margin: 0;
+    height: 100%;
 }
 
+/* Elements */
 body {
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans",
+        "Droid Sans", "Helvetica Neue", sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
-button,
-input {
-  font: inherit;
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New", monospace;
+}
+
+small {
+    font-size: 12px;
+}
+
+/* Custom Classes */
+
+.LoadingContainer {
+    padding-top: 35vh;
+}
+
+.CardHeaderTitle {
+    margin-bottom: 0;
+}
+
+.DisclaimerText {
+    font-size: 11px;
+}
+
+.text-white-75 {
+    color: rgba(255, 255, 255, 0.75) !important;
+}
+
+.border-light-gray {
+    border: 1px solid $themeLightGray;
+}
+
+.bg-themeDarkBluePrimary {
+    background-color: $themeDarkBluePrimary;
+}
+.bg-themeDarkBlueSecondary {
+    background-color: $themeDarkBlueSecondary;
+}
+.bg-themeLightBlue {
+    background-color: $themeLightBlue;
+}
+.bg-profileHeader {
+    background-color: rgba(28, 117, 149, 0.15);
+}
+.bg-themeLightGray {
+    background-color: $themeLightGray;
+}
+
+.text-light-gray {
+    color: $themeLightGray !important;
+}
+
+.ReminderEntry {
+    font-size: 1rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0;
+    margin-block-end: 0;
+}
+
+.ReminderHr {
+    background-color: rgba(255, 255, 255, 0.15);
+    &-Dark {
+        @extend .ReminderHr;
+        background-color: rgba(255, 255, 255, 0.2);
+    }
+}
+
+.SelectArmy {
+    margin-block-start: 2rem;
+    margin-inline-end: 5%;
+    margin-inline-start: 5%;
+    text-align: center;
+}
+
+.SelectArmy-Row {
+    margin-block-end: 2px;
+    margin-block-start: 2px;
+}
+
+.ImportTextarea {
+    min-width: 45%;
+    width: 100%;
+    height: 7.6em !important;
+    resize: none;
+    overflow: hidden;
+    padding: 8px;
+    box-sizing: border-box;
+
+    &-Dark {
+        @extend .ImportTextarea;
+        background-color: black !important;
+        color: white !important;
+        border-width: 2px;
+        border-color: $themeLightGray;
+    }
+}
+
+.NoteInput {
+    min-width: 45%;
+    width: 95%;
+    height: 7em;
+    resize: both;
+    padding: 8px;
+    box-sizing: border-box;
+}
+
+.NoteText {
+    font-style: italic;
+}
+
+.NoteBorder {
+    max-width: 95%;
+    width: max-content;
+    border: 1px dashed $themeDarkBlueSecondary;
+    border-width: 1px;
+    border-style: dashed;
+    border-color: $themeDarkBlueSecondary;
+
+    &-Dark {
+        @extend .NoteBorder;
+        border-width: 2px;
+        border-color: $themeLightGray;
+    }
+}
+
+.dropdown-toggle.btn-link::after {
+    display: none;
+}
+
+/* Modal */
+.Modal-Light {
+    padding: 1.5%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    right: auto;
+    bottom: auto;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+    border: 1px solid #000000;
+    background-color: rgba(255, 255, 255, 1);
+}
+
+.Modal-Dark {
+    @extend .Modal-Light;
+    border: 1px solid $themeLightGray;
+    background-color: $themeDarkBlueSecondary;
+}
+
+.Modal-Transparent {
+    @extend .Modal-Light;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+.Modal-Overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+/* Dropzone */
+.dropzone {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border-width: 2px;
+    border-radius: 2px;
+    border-color: #eeeeee;
+    border-style: dashed;
+    background-color: #fafafa;
+    color: #bdbdbd;
+    outline: none;
+    transition: border 0.24s ease-in-out;
+}
+
+.dropzone:focus {
+    border-color: #2196f3;
+}
+
+.dropzone.disabled {
+    opacity: 0.6;
+}
+
+/* Dropzone Dark Mode */
+.dropzone-dark {
+    @extend .dropzone;
+    background-color: black;
+    color: whitesmoke;
+}
+
+.dropzone-dark:focus {
+    border-color: #2196f3;
+}
+
+.dropzone-dark.disabled {
+    opacity: 0.6;
+}
+
+/* IFrame sizes for stats */
+.StatsIFrame {
+    height: 900px;
+}
+
+@media (max-width: 768px) {
+    .StatsIFrame {
+        height: 920px;
+    }
+    .Modal-Light {
+        padding-top: 4%;
+        padding-bottom: 4%;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .CardHeaderTitle {
+        font-size: 1.1rem;
+    }
+    .ReminderCardBody {
+        padding-top: 0.75rem;
+        padding-bottom: 0.75rem;
+    }
+    .StatsIFrame {
+        height: 600px;
+    }
+    .Modal-Light {
+        padding-top: 6%;
+        padding-bottom: 6%;
+    }
+}
+
+@media (max-width: 395px) {
+    .CardHeaderTitle {
+        font-size: 1rem;
+    }
+    .StatsIFrame {
+        height: 540px;
+    }
+    .Modal-Light {
+        padding-top: 5%;
+        padding-bottom: 5%;
+    }
+}
+
+@media (max-width: 374px) {
+    .CardHeaderTitle {
+        font-size: 0.8rem;
+    }
+    .StatsIFrame {
+        height: 480px;
+    }
+}
+
+/* Print styles/helpers below */
+.PageBreak {
+    page-break-inside: avoid !important;
+}
+
+@media print {
+    .text-white,
+    .text-light,
+    .text-white-50,
+    .text-white-75 {
+        color: black !important;
+    }
+
+    header > h1 {
+        font-size: 1.5rem;
+    }
+
+    p {
+        margin-bottom: 0.5rem;
+    }
+
+    .CardHeaderTitle {
+        font-size: 1.1rem;
+    }
+
+    .card-header {
+        background: white;
+        padding: 0.5rem 1.25rem;
+    }
+
+    .card-body {
+        padding-top: 0.5rem;
+        padding-bottom: 0.5rem;
+    }
+
+    .ReminderCardBody {
+        padding-top: 0;
+        padding-bottom: 0;
+    }
+
+    .ReminderContainer {
+        flex: 0 0 90% !important;
+        max-width: 90% !important;
+    }
+
+    .ReminderEntry {
+        font-size: 0.9rem;
+    }
 }
