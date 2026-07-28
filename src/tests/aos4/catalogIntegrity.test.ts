@@ -108,11 +108,11 @@ describe('AoS 4 catalog generation integrity', () => {
         abilities: 4260,
         weapons: 2247,
         sourceArtifacts: 104,
-        sourceRecords: 17443,
+        sourceRecords: 17448,
         ignoredSourceRecords: 18897,
       },
       integrity: {
-        consumedSourceRecords: 17443,
+        consumedSourceRecords: 17448,
         issues: [],
         supersededSourceRecords: {
           count: 18897,
@@ -226,6 +226,24 @@ describe('AoS 4 catalog generation integrity', () => {
     ).toBe(false)
   })
 
+  it('fails generation integrity on hard structured-data pathologies', () => {
+    const battleProfile = AOS4_CATALOG.entities.find(entity => entity.kind === 'battle-profile')!
+    const catalog = copyCatalog({
+      entities: AOS4_CATALOG.entities.map(entity =>
+        entity.id === battleProfile.id ? { ...battleProfile, baseSizes: ['2 5 m m [1]'] } : entity
+      ),
+    })
+
+    expect(validateGenerationIntegrity(catalog).issues).toContainEqual(
+      expect.objectContaining({
+        code: 'pathology-error',
+        severity: 'error',
+        subject: battleProfile.id,
+        message: expect.stringContaining('malformed-measurement-token'),
+      })
+    )
+  })
+
   it('keeps stable canonical identities for every accepted runtime entity', () => {
     expect(validateIdentityRegistry(identityRegistry)).toEqual([])
     const identities = new Set(identityRegistry.entries.map(entry => entry.canonicalId))
@@ -252,8 +270,7 @@ describe('AoS 4 catalog generation integrity', () => {
 
     const entitiesById = new Map(AOS4_CATALOG.entities.map(entity => [entity.id, entity]))
     const factions = AOS4_CATALOG.entities.filter(
-      (entity): entity is Faction =>
-        entity.kind === 'faction' && entity.rulesContextIds.includes(standard.id)
+      (entity): entity is Faction => entity.kind === 'faction' && entity.rulesContextIds.includes(standard.id)
     )
     expect(factions).toHaveLength(27)
     AOS4_CATALOG.rulesContexts.forEach(context => {
@@ -324,9 +341,9 @@ describe('AoS 4 catalog generation integrity', () => {
         entity.rulesContextIds.includes(legends.id)
     )
     expect(kragnosWarscrolls).toHaveLength(1)
-    expect(
-      kragnosWarscrolls[0].factionIds.map(factionId => entitiesById.get(factionId)?.name)
-    ).toEqual(['Bonesplitterz'])
+    expect(kragnosWarscrolls[0].factionIds.map(factionId => entitiesById.get(factionId)?.name)).toEqual([
+      'Bonesplitterz',
+    ])
 
     const nighthaunt = factions.find(faction => faction.name === 'Nighthaunt')!
     const nighthauntSelection = resolveSelection(AOS4_CATALOG, {

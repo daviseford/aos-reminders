@@ -179,6 +179,18 @@ const cleanExtractedText = (value: string): string =>
 const withoutColumnHeader = (value: string, header: RegExp): string =>
   cleanExtractedText(value.replace(header, ' '))
 
+const cleanBaseSizeText = (value: string): string =>
+  cleanExtractedText(value)
+    .replace(/\b(\d(?:\s+\d)+)\s*m\s*m\b/gi, (_match, digits: string) => `${digits.replace(/\s+/g, '')}mm`)
+    .replace(/\b(\d+(?:\.\d+)?)\s*m\s+m\b/gi, '$1mm')
+
+const EXTRACTED_BASE_MEASUREMENT = /(?:\d+(?:\.\d+)?|\d(?:\s+\d)+)(?:\s*[×x]\s*\d+(?:\.\d+)?)?\s*m\s*m\b/i
+
+const containsBaseSizeValue = (value: string): boolean =>
+  EXTRACTED_BASE_MEASUREMENT.test(value) || /\buse model\b/i.test(value)
+
+const BASE_SIZE_QUALIFIER = /^(?:or|and|champion is)$/i
+
 const cleanName = (value: string): string =>
   cleanExtractedText(
     value
@@ -233,6 +245,52 @@ const nearestRowItems = (
     const distanceLimit = Number.isFinite(nearestGap) ? Math.min(30, Math.max(18, nearestGap * 0.75)) : 30
     return nearest.index === rowIndex && nearest.distance <= distanceLimit
   })
+}
+
+const baseSizeItemsForRow = (
+  items: PositionedItem[],
+  rows: NumericRow[],
+  rowIndex: number
+): PositionedItem[] => {
+  const column = items
+    .filter(item => item.x >= 500 && item.x < 570)
+    .sort((left, right) => right.y - left.y || left.x - right.x)
+  const lines = Array.from(new Set(column.map(item => item.y))).map(y =>
+    column.filter(item => Math.abs(item.y - y) < 0.5)
+  )
+  const groups: PositionedItem[][] = []
+  lines.forEach(line => {
+    const previous = groups.at(-1)
+    const previousBottomY = previous ? Math.min(...previous.map(item => item.y)) : undefined
+    const lineTopY = Math.max(...line.map(item => item.y))
+    const isWrappedLine = previousBottomY !== undefined && previousBottomY - lineTopY <= 10
+    if (
+      previous &&
+      isWrappedLine &&
+      (/[,;]\s*$/.test(textValue(previous)) || /^(?:\[\d+\]|or\b|and\b)/i.test(textValue(line)))
+    ) {
+      previous.push(...line)
+    } else {
+      groups.push([...line])
+    }
+  })
+  return groups
+    .filter(group => {
+      const value = textValue(group)
+      return containsBaseSizeValue(value) || BASE_SIZE_QUALIFIER.test(value)
+    })
+    .filter(group => {
+      const centerY = group.reduce((sum, item) => sum + item.y, 0) / group.length
+      const nearest = rows.reduce(
+        (best, row, index) => {
+          const distance = Math.abs(row.y - centerY)
+          return distance < best.distance ? { index, distance } : best
+        },
+        { index: -1, distance: Number.POSITIVE_INFINITY }
+      )
+      return nearest.index === rowIndex && nearest.distance <= 30
+    })
+    .flat()
 }
 
 const sourceId = (checksum: string, page: number): SourceRecordId =>
@@ -301,9 +359,8 @@ const extractUnitFacts = (
       textValue(nearestRowItems(items, rows, rowIndex, 401, 500)),
       /^NOTES\s*/i
     )
-    const baseSizes = withoutColumnHeader(
-      textValue(nearestRowItems(items, rows, rowIndex, 500, 570)),
-      /^BASE SIZE\s*/i
+    const baseSizes = cleanBaseSizeText(
+      withoutColumnHeader(textValue(baseSizeItemsForRow(items, rows, rowIndex)), /^BASE SIZE\s*/i)
     )
     const seasonal =
       /^Scourge of Aqshy\b/i.test(name) || /\bGeneral.s Handbook 20\d{2}[–-]\d{2}\b/i.test(notes)

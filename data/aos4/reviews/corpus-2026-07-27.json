@@ -74,8 +74,8 @@
     "expectedWarnings": 150,
     "expectedWarscrolls": 1268,
     "reconciliation": {
-      "checksum": "c8dfaaa6cac77218ef42ec3a10197602a62d31aeef5090471726ab6be245aee4",
-      "expectedDiscrepancies": 669,
+      "checksum": "24183fc03929e76a3307d698161b5aa125aced08c445df4f648092f4c2466ce4",
+      "expectedDiscrepancies": 634,
       "expectedMatchedOfficialUnitFacts": 928,
       "expectedPages": 1268,
       "expectedUnmatchedOfficialUnitFacts": 12

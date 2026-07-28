@@ -3,7 +3,7 @@
   "generatedAt": "2026-07-28T02:50:49.197Z",
   "identities": "data/aos4/identities/corpus.json",
   "integrity": {
-    "consumedSourceRecords": 17443,
+    "consumedSourceRecords": 17448,
     "dispositions": [],
     "issues": [],
     "supersededSourceRecords": {
@@ -14,28 +14,28 @@
   },
   "products": {
     "data/aos4/catalog/catalog.json": {
-      "byteLength": 27750301,
-      "checksum": "393cc1844173f7dae91a47abd7c42add23eba327d1cfbebbaaa5173e6c0f7635"
+      "byteLength": 27754448,
+      "checksum": "d0e0678e4dbf71d46f13742f4b6ea22bd7d39ba3d207ed424303dbfd532a1014"
     },
     "data/aos4/catalog/official-battle-profiles.json": {
-      "byteLength": 1427715,
-      "checksum": "9d93be5eb5722eac48e5120e14b0cc2a690faeb967cbacbfc0048d489cb6438e"
+      "byteLength": 1427674,
+      "checksum": "d3e0f7934d4aa9a18672d70c41c5afcce270f49819aca6538497ae9fcf511ad6"
     },
     "data/aos4/identities/corpus.json": {
       "byteLength": 3088641,
       "checksum": "fd1090c86d5a28cc147d0b666c747f6811e646425bb0e3d76804cf785d8ff656"
     },
     "data/aos4/reports/corpus-2026-07-27-reconciliation.json": {
-      "byteLength": 269867,
-      "checksum": "c8dfaaa6cac77218ef42ec3a10197602a62d31aeef5090471726ab6be245aee4"
+      "byteLength": 257771,
+      "checksum": "24183fc03929e76a3307d698161b5aa125aced08c445df4f648092f4c2466ce4"
     },
     "src/aos4/generated/corpus/defaults.json": {
       "byteLength": 169,
       "checksum": "56f2897a563b6a9e6a31e83ce8ffd9e3d361d12aa0a8890bf24d374264ffb0a6"
     },
     "src/aos4/generated/corpus/runtime.json": {
-      "byteLength": 11545200,
-      "checksum": "12518d90cb14d3814f205dd139f02edc894914ac67a1f8b3045c77715078cbeb"
+      "byteLength": 11546747,
+      "checksum": "6e5efb5afb409bd6b015aa639627f18316a2dd29bd5bf7a2e564bc2fb01d67ab"
     }
   },
   "review": "data/aos4/reviews/corpus-2026-07-27.json",
@@ -62,7 +62,7 @@
     "revision": "aos4-corpus-2026-07-28",
     "schemaVersion": 1,
     "sourceArtifacts": 104,
-    "sourceRecords": 17443,
+    "sourceRecords": 17448,
     "status": "strict-pass",
     "warscrolls": 1268,
     "weapons": 2247

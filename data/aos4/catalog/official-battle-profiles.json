@@ -11321,10 +11321,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "50mm."
+          "50mm"
         ],
         "context": "standard",
-        "factChecksum": "ea5371aed1901c63767b86e7f79bf96c2a35a595dd2cb1850fe5dcf3aaec9571",
+        "factChecksum": "7b4cf66d9595370de0742396928765585bfeb1d629e41120fab62144aa51c8dd",
         "faction": "Lumineth Realm-lords",
         "key": "page:15:unit:12",
         "kind": "unit",
@@ -11352,10 +11352,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "40mm."
+          "40mm"
         ],
         "context": "standard",
-        "factChecksum": "52f840f0bbe9f42beb2600f23b3c7412bdac9563e15b9cdb750ffe24d1f41b04",
+        "factChecksum": "5ea6cfd73bbf139f63144325cd0f5ff63a0f3d758f77645ab60cde9944f97980",
         "faction": "Lumineth Realm-lords",
         "key": "page:15:unit:13",
         "kind": "unit",
@@ -11382,10 +11382,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm."
+          "32mm"
         ],
         "context": "standard",
-        "factChecksum": "a443cc9358499379ae33a39da29a1e5ccd50fd9264e17c8ea69a4b1242ad5e49",
+        "factChecksum": "82c9a5a0e8901b72182915ce78a4b5413faa0fc0c71da8042f10cde3db737714",
         "faction": "Lumineth Realm-lords",
         "key": "page:15:unit:14",
         "kind": "unit",
@@ -12167,10 +12167,10 @@
         "baseSizes": [
           "40mm [1]",
           "32mm [2]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "standard",
-        "factChecksum": "b5ababcfe93a9d0113b98ca3dc30ba00ed76644fd5141a10ff65b3c378895183",
+        "factChecksum": "41e602c44cee02c722ae9e8370039f3f5c5a5c424a807e1ff9902864232a7867",
         "faction": "Seraphon",
         "key": "page:17:unit:13",
         "kind": "unit",
@@ -13010,10 +13010,10 @@
       "fact": {
         "baseSizes": [
           "28.5mm [2]",
-          "25m m [3]"
+          "25mm [3]"
         ],
         "context": "standard",
-        "factChecksum": "12faeff1537a43ff3378803a561fcff95d4edac25174f09840e44b4d71635750",
+        "factChecksum": "4b2680c88a143d8669f534ede96b8c86499fd9c9aabea33895b0ca4ed336eacc",
         "faction": "Seraphon",
         "key": "page:18:unit:6",
         "kind": "unit",
@@ -13874,10 +13874,10 @@
       "fact": {
         "baseSizes": [
           "40mm [1]",
-          "32 m m [1]"
+          "32mm [1]"
         ],
         "context": "standard",
-        "factChecksum": "3ab3da514972ad4e75b7da63167feffa8710876ebd9aece296e8f23340d4dd1a",
+        "factChecksum": "4408205d4fb632c256e9d10628e9340f2e7030907d8bf877b3355c535cd5891d",
         "faction": "Stormcast Eternals",
         "key": "page:20:unit:4",
         "kind": "unit",
@@ -13938,10 +13938,10 @@
       "fact": {
         "baseSizes": [
           "40mm [1]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "standard",
-        "factChecksum": "9dfd2f76d6ef46afa22808b3c5261c3b7e6d5710fc073c9abfa39b95523207a7",
+        "factChecksum": "45105dc48602ed90845dd96ad49daf0d28fc47904a8f27af2c3dfa0e3e9bbd00",
         "faction": "Stormcast Eternals",
         "key": "page:20:unit:6",
         "kind": "unit",
@@ -15383,10 +15383,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "105 × 70mm 40mm [2]"
+          "105 × 70mm"
         ],
         "context": "standard",
-        "factChecksum": "ca899b121e759ef3b57dcbfd2b30910ab58e9a75a5f8e1cc963ff55dadfae879",
+        "factChecksum": "08eb433506ad1d9ff7c2d62c62b37b1ec47a634c115f335b98402ea887c23b7c",
         "faction": "Sylvaneth",
         "key": "page:23:unit:21",
         "kind": "unit",
@@ -15412,13 +15412,14 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
+          "40mm [2]",
           "32mm [3]",
           "28.5mm [3] or 40mm [1]",
           "32mm [4]",
           "28.5mm [3]"
         ],
         "context": "standard",
-        "factChecksum": "962fbfac729d676bd4f5da91e09022927c17d798d90a9db62057a7040c1c09f8",
+        "factChecksum": "ab9b7ceecd9222ee52ec7390ec76a0d42306965ed9dabbc89fae64ddd3fdcd07",
         "faction": "Sylvaneth",
         "key": "page:23:unit:22",
         "kind": "unit",
@@ -15789,10 +15790,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "40mm."
+          "40mm"
         ],
         "context": "standard",
-        "factChecksum": "530991ba3e528835f992bd68550f7ce6fd57ac0e823caf72bdc99f5ae1674cd7",
+        "factChecksum": "9f96ee9eb9a13c66b010b68f32b74b1c579f506872b2dadcf579b1959dd58bf9",
         "faction": "Blades of Khorne",
         "key": "page:25:unit:13",
         "kind": "unit",
@@ -16323,10 +16324,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm 60 × 35mm"
+          "32mm"
         ],
         "context": "standard",
-        "factChecksum": "6d24d01a485fae312807c1667f704b2ff6fcc792dd303a74fa217b9088377157",
+        "factChecksum": "5e120926ec04cc30a6e2b565531b2b816f5e106a2a3c4ac0c624b6ac191654bf",
         "faction": "Blades of Khorne",
         "key": "page:26:unit:4",
         "kind": "unit",
@@ -16352,12 +16353,13 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "[1]",
+          "60 × 35mm [1]",
           "40mm [1]",
-          "32mm [2]"
+          "32mm [2]",
+          "28.5mm [4]"
         ],
         "context": "standard",
-        "factChecksum": "bc984c3819de409c05f756d9cb0863b746a5352ddc2fefe7a6a6f9dc60139736",
+        "factChecksum": "7f5fecffd6a36525db2e4839c79b349649b2443661bd023c260aa70370473091",
         "faction": "Blades of Khorne",
         "key": "page:26:unit:5",
         "kind": "unit",
@@ -16385,10 +16387,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "28.5mm [4] 60 × 35mm"
+          "60 × 35mm"
         ],
         "context": "standard",
-        "factChecksum": "bbd1f33727d1a6d8101c1bb901e323f895ecbbcd8c923d652ad3ac87b440c910",
+        "factChecksum": "dbf153a15a364e54c549897e58db15fad4f199078bbe38bfff17b5bf3a0b0d83",
         "faction": "Blades of Khorne",
         "key": "page:26:unit:6",
         "kind": "unit",
@@ -17514,10 +17516,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm."
+          "32mm"
         ],
         "context": "standard",
-        "factChecksum": "bd4e3bea86edcfbbc9853fc47b7782768c603d8a6b3d0d007c820b6c1051015a",
+        "factChecksum": "d87582dd6550609b900eb42114a15508d3e615ea95417a3c23b584063e0baa3e",
         "faction": "Hedonites of Slaanesh",
         "key": "page:29:unit:15",
         "kind": "unit",
@@ -17576,10 +17578,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          ". 60 × 35mm"
+          "60 × 35mm"
         ],
         "context": "seasonal",
-        "factChecksum": "e836daa184fa686c664d90e0d824219dda32b6ca6d389ab18fb6bdbe1165b0aa",
+        "factChecksum": "90236a23191cd5d5d952f04e30486bf8e1c7ee912ff5a478a6efdd5b61709845",
         "faction": "Hedonites of Slaanesh",
         "key": "page:29:unit:17",
         "kind": "unit",
@@ -17607,10 +17609,10 @@
       "fact": {
         "baseSizes": [
           "28.5mm [10]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "standard",
-        "factChecksum": "ba6aae358fbfed2bf99fe9a3e9f2761d19cd71f066a5edff3905d32752eb84ae",
+        "factChecksum": "9f1e9a26de39afa3a05db4fada14186850c3dda862d02f3edd1f7f93fe4f0b89",
         "faction": "Hedonites of Slaanesh",
         "key": "page:29:unit:18",
         "kind": "unit",
@@ -18081,10 +18083,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "60 × 35mm."
+          "60 × 35mm"
         ],
         "context": "standard",
-        "factChecksum": "eb76a577f59652f1162543b101714cfd453b81e3f83c664429ceb8e682e92536",
+        "factChecksum": "4c20c88b419921d4a6a34082e5e9ce934cdeef30463fc4790c9eebc34243661a",
         "faction": "Hedonites of Slaanesh",
         "key": "page:29:unit:5",
         "kind": "unit",
@@ -18439,10 +18441,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "75 × 42mm."
+          "75 × 42mm"
         ],
         "context": "standard",
-        "factChecksum": "4e348e00361fd04c13d146045b2e8e2509ecc6a79a30887700accbc2c4dce35d",
+        "factChecksum": "3b778590189b91929c43c859720887273c7ff3a7175cf840363266f9f2692868",
         "faction": "Cities of Sigmar",
         "key": "page:3:unit:16",
         "kind": "unit",
@@ -18535,10 +18537,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "50mm."
+          "50mm"
         ],
         "context": "standard",
-        "factChecksum": "a396582acdbec61a6b5e18910c72a3ec58d28373416ff8c639c9b6b045402df7",
+        "factChecksum": "d01e41b95f5bd3a17bf26155a47167b0d5865dafb89af9f3a4b6e47021ddab3b",
         "faction": "Cities of Sigmar",
         "key": "page:3:unit:19",
         "kind": "unit",
@@ -18656,10 +18658,10 @@
       "fact": {
         "baseSizes": [
           "32mm [1]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "standard",
-        "factChecksum": "1a06f7a32db4d5a05547c323b14d23b090ccf282376804097923c0925fed1535",
+        "factChecksum": "62b72620e6f4786061e3e1a12c25317e5d7bffddaa69319fc0167579edbb021f",
         "faction": "Cities of Sigmar",
         "key": "page:3:unit:22",
         "kind": "unit",
@@ -19016,10 +19018,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "’s 25mm"
+          "25mm"
         ],
         "context": "standard",
-        "factChecksum": "4aa01d5237a05f89e2c2702921753bda014a57ecc80a3d1c3b1c3700c6fdd449",
+        "factChecksum": "cae88e5c7efca2604c1c89135f7886efd3eb7995ceb572a6416a0c83d492963a",
         "faction": "Cities of Sigmar",
         "key": "page:3:unit:9",
         "kind": "unit",
@@ -20624,10 +20626,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm."
+          "32mm"
         ],
         "context": "standard",
-        "factChecksum": "fe6cb04cb3007238ccce519312e02c3184750aeff8951a3459ebdfd6ae4dfa38",
+        "factChecksum": "0f7792ba0b078bf40b8f129809444d8d0ecd845ada3e18c7d7f93a87e468d2af",
         "faction": "Skaven",
         "key": "page:35:unit:10",
         "kind": "unit",
@@ -20858,10 +20860,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm."
+          "32mm"
         ],
         "context": "standard",
-        "factChecksum": "762709fca8c5d8ee4d05652a5b5660ee8b8af7e0059f318817fb9142104cf553",
+        "factChecksum": "e013adb1ec9110b7994afbf09f80e6badf04e609e4c017e9a47133ae0194fbfe",
         "faction": "Skaven",
         "key": "page:35:unit:18",
         "kind": "unit",
@@ -20889,10 +20891,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm."
+          "32mm"
         ],
         "context": "standard",
-        "factChecksum": "db589dc0fbeb911e36ffa082d2a37a6537f7e8cfb2adade95fbe23a2c13fba2a",
+        "factChecksum": "cde9575c90c76644f179b9981a78abe220adf1fb9fb9cc2ffd33ad2f9f9d7ce3",
         "faction": "Skaven",
         "key": "page:35:unit:19",
         "kind": "unit",
@@ -20920,10 +20922,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm."
+          "32mm"
         ],
         "context": "standard",
-        "factChecksum": "40b6305900b5c138883cac67ebf45c2d9850219058734650e6dd8fc8779795d7",
+        "factChecksum": "57670471ba8f5f9c5c8f99adc1303287437843c8b112079b66fdb0370fb2f248",
         "faction": "Skaven",
         "key": "page:35:unit:2",
         "kind": "unit",
@@ -20950,10 +20952,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm."
+          "32mm"
         ],
         "context": "standard",
-        "factChecksum": "881acac837a62fb155dbf7a578169e4093b136548014e5f16883f2dd8486f92d",
+        "factChecksum": "e0356fa486efef94505a344d361f969e45f833a1e34e17f03361befb0dda1ec1",
         "faction": "Skaven",
         "key": "page:35:unit:20",
         "kind": "unit",
@@ -21260,10 +21262,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "75 × 42mm."
+          "75 × 42mm"
         ],
         "context": "standard",
-        "factChecksum": "e4226fb0e3957e04e0ac23f0ac4ce2efcec975ab5bb3f1c4aa68f2b622846e1a",
+        "factChecksum": "77973dd82c2c1efa084a22bf3da8974af46ceab84bf1dafcb028f856bb7e69bc",
         "faction": "Skaven",
         "key": "page:35:unit:3",
         "kind": "unit",
@@ -21379,10 +21381,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm."
+          "32mm"
         ],
         "context": "standard",
-        "factChecksum": "8583e1077420b5dab43ceb46c91a34873b89bb3431368603af2f9e7da7637659",
+        "factChecksum": "07e8f35001a7ff22c5594f086037a6afa0977edc3aa1a364c9c6f9a142ccd350",
         "faction": "Skaven",
         "key": "page:35:unit:4",
         "kind": "unit",
@@ -24058,10 +24060,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm."
+          "32mm"
         ],
         "context": "standard",
-        "factChecksum": "10e3dc45a0b1ab893fd04552972d4d712e4ad3d70923a436fef13f6596e62657",
+        "factChecksum": "51b958fc398f02c2c5e31ec860cce8f4af834287bfe58791dab249eab5967707",
         "faction": "Flesh-eater Courts",
         "key": "page:40:unit:11",
         "kind": "unit",
@@ -24118,10 +24120,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm."
+          "32mm"
         ],
         "context": "standard",
-        "factChecksum": "b7f0926d76bc011b8d7e42f2bc7d961bf0d229fc97eae1f96d976e4c576b5649",
+        "factChecksum": "ed9788c88671bb7fa86b6bfbdb71639e7d295fbee72e333862ca4b190c9b6b43",
         "faction": "Flesh-eater Courts",
         "key": "page:40:unit:13",
         "kind": "unit",
@@ -24178,10 +24180,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          ". 32mm"
+          "32mm"
         ],
         "context": "seasonal",
-        "factChecksum": "57a201d7916d692c46ead1cf33044a5a8f94f4968a37b6a0d90695e43e7a4933",
+        "factChecksum": "cc08000125207b58e2119e2fe00ef743ac9dfeb33463d6d5741e1a143bd9c840",
         "faction": "Flesh-eater Courts",
         "key": "page:40:unit:15",
         "kind": "unit",
@@ -24426,10 +24428,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "75 × 42mm 40mm [2]"
+          "75 × 42mm"
         ],
         "context": "standard",
-        "factChecksum": "01c1fef69d08a4dc113ea7103e7bedddb5f3c0dd88f2cd54ca7ddf46a9435890",
+        "factChecksum": "b9d544133ed98a886f149fa42200de5d0093962f0df111ee1847846749303d06",
         "faction": "Flesh-eater Courts",
         "key": "page:40:unit:22",
         "kind": "unit",
@@ -24455,11 +24457,13 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
+          "40mm [2]",
           "32mm [2]",
-          "28.5mm [3]"
+          "28.5mm [3]",
+          "25mm [3]"
         ],
         "context": "standard",
-        "factChecksum": "b4e117082da08616e501ba78180eb5648020cbe6be63f932ee746125fef13929",
+        "factChecksum": "282d11650264852c78ae334305b86f989721e0133940956a0ef07e44a4875229",
         "faction": "Flesh-eater Courts",
         "key": "page:40:unit:23",
         "kind": "unit",
@@ -24487,10 +24491,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "25m m [3] 130mm"
+          "130mm"
         ],
         "context": "standard",
-        "factChecksum": "62fd705a5eeffcc5ef28f9825cc5c842984afb78764defbea7197b9b99d008a7",
+        "factChecksum": "39cbadcdb8d77f8e3d1b788f72999d7ae542e1edeac0638e832f5515d216e672",
         "faction": "Flesh-eater Courts",
         "key": "page:40:unit:24",
         "kind": "unit",
@@ -24719,10 +24723,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "50mm."
+          "50mm"
         ],
         "context": "standard",
-        "factChecksum": "8322d69dcec43dc92fa0cec970eb0b8d2c1fd30514b71f756c0bf9bbd22f8025",
+        "factChecksum": "fd7c8edccae8eee56c64d9b8e8a7761e365d36813c97a62bd76085f31a0cc5d7",
         "faction": "Flesh-eater Courts",
         "key": "page:40:unit:7",
         "kind": "unit",
@@ -24751,10 +24755,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "50mm."
+          "50mm"
         ],
         "context": "standard",
-        "factChecksum": "9fcdd32f2d975dc0a66e3ec6bd3a2d491d637478600399d30833109ce9a809d2",
+        "factChecksum": "54acb7687d309e13ce89013292c7066fc29fcea420b09c643023e4253cb6275b",
         "faction": "Flesh-eater Courts",
         "key": "page:40:unit:8",
         "kind": "unit",
@@ -24783,10 +24787,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm."
+          "32mm"
         ],
         "context": "standard",
-        "factChecksum": "87952cad2404d7d36c0b7adf19d0eb5edd78ba14b8290f7b2eadbcc00a6f65c6",
+        "factChecksum": "a3cf5af258c05ad368a1dd7c6ca816b22760c80608570add3adc60139e940f81",
         "faction": "Flesh-eater Courts",
         "key": "page:40:unit:9",
         "kind": "unit",
@@ -29777,10 +29781,10 @@
       "fact": {
         "baseSizes": [
           "50mm [1]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "standard",
-        "factChecksum": "22ee553be4c6a9ae05dd54640666627bffca8e751d8d97a2532cf10e5d49b5d2",
+        "factChecksum": "ac1ccf5cf4a64387f20a715ad8fcfeb20e9a617a6b476824ce06442bc266de45",
         "faction": "Ironjawz",
         "key": "page:50:unit:9",
         "kind": "unit",
@@ -29869,10 +29873,10 @@
       "fact": {
         "baseSizes": [
           "40mm [1]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "standard",
-        "factChecksum": "9628e03dcf4ce74a159e31313427c54014ca63e2a9133b37669dbd516e6782b5",
+        "factChecksum": "5ed063910aa8391f5da7253971d0c4fd64434bd053d14d81a7afaefc1c359822",
         "faction": "Kruleboyz",
         "key": "page:52:unit:11",
         "kind": "unit",
@@ -29929,10 +29933,10 @@
       "fact": {
         "baseSizes": [
           "40mm [1]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "seasonal",
-        "factChecksum": "fac4adfbcc289c68b33da1b79758c0959e287d003b16bf88fc28d1cd99abec82",
+        "factChecksum": "8c5b37b2685e2389ab7aa012bafb60514d87b8d5aba5b20b6604df821a3e063b",
         "faction": "Kruleboyz",
         "key": "page:52:unit:13",
         "kind": "unit",
@@ -30085,10 +30089,10 @@
       "fact": {
         "baseSizes": [
           "40mm [1]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "standard",
-        "factChecksum": "54d416a4707491ccba6959fd300f721fe4a3553f906b7a06c9aaa284f5b2d5d2",
+        "factChecksum": "141b7ff7784bb3764cfcd070c2f1279b921f2d4f811d8a184d7d8cbba4159dad",
         "faction": "Kruleboyz",
         "key": "page:52:unit:6",
         "kind": "unit",
@@ -31477,10 +31481,10 @@
         "baseSizes": [
           "40mm [1]",
           "32mm [1]",
-          "25m m [3]"
+          "25mm [3]"
         ],
         "context": "legends",
-        "factChecksum": "e9f7d9aca9f93b41de56a00c28630e079af7e804b9d77293421266331a144ca2",
+        "factChecksum": "18824587317390c009c7cfd4e47e8e4cfac60b1224d89d77cc8aa0a141b72feb",
         "faction": "Warhammer Legends",
         "key": "page:64:unit:1",
         "kind": "unit",
@@ -31510,10 +31514,10 @@
       "fact": {
         "baseSizes": [
           "32mm [4]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "legends",
-        "factChecksum": "c57ae1675b8575b71618a5bee149566eb9a86a567a0c0731b1144a8538a96091",
+        "factChecksum": "13d413656aca74c943fc09fb79d70db58fbc11acce478040d7b2a89e9b183856",
         "faction": "Warhammer Legends",
         "key": "page:64:unit:10",
         "kind": "unit",
@@ -31612,10 +31616,10 @@
       "fact": {
         "baseSizes": [
           "28.5mm [4]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "legends",
-        "factChecksum": "e263645beb1b0a4f79bcc432bd7be808edececc423d9844e945da05bfeaee5c5",
+        "factChecksum": "2ca4e8923585b00d591119380900cb13ed04acd678d96bf5841511177a6403ac",
         "faction": "Warhammer Legends",
         "key": "page:64:unit:13",
         "kind": "unit",
@@ -31647,10 +31651,10 @@
         "baseSizes": [
           "40mm [1]",
           "32mm [2]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "legends",
-        "factChecksum": "09b0a60b80fcd6d3bf687bfa1e02c0c672064ed98814f934499ee1324dbf27a6",
+        "factChecksum": "51b50921317fab5cbca151b2ad59cc3ac6fcdfab5470d27a6aa72d6ce67d69c3",
         "faction": "Warhammer Legends",
         "key": "page:64:unit:14",
         "kind": "unit",
@@ -31746,10 +31750,10 @@
         "baseSizes": [
           "50 × 25mm [1]",
           "32mm [3]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "legends",
-        "factChecksum": "7fe13062896800ac99dbe31cf7c87ed6edb1a029424e10ac4806771cc62aa260",
+        "factChecksum": "5c32524b0bf71bccb6901c5c02e7b635d04b11356b25797786c63348cb4c0c9e",
         "faction": "Warhammer Legends",
         "key": "page:64:unit:17",
         "kind": "unit",
@@ -32747,10 +32751,10 @@
       "fact": {
         "baseSizes": [
           "40mm [3]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "legends",
-        "factChecksum": "a435f4ba5ed149d4c103411d0de2029ba6a59138a73ca4984abd5bf35fb32204",
+        "factChecksum": "c745e5097bd09cb8418c10e361522ab9aa9efb48cea7b2ddb1655a632b77c09b",
         "faction": "Warhammer Legends",
         "key": "page:65:unit:30",
         "kind": "unit",
@@ -34046,10 +34050,10 @@
         "baseSizes": [
           "40mm [1]",
           "32mm [3]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "legends",
-        "factChecksum": "eb5209587673bb999e91f47e9edf41c18e02aad32b8e1d7c642ef3c1b6fdc279",
+        "factChecksum": "4d01124bb40fb7a4c15f21619d43a52626f316168677f3e491335ea06213f356",
         "faction": "Warhammer Legends",
         "key": "page:68:unit:10",
         "kind": "unit",
@@ -34267,10 +34271,10 @@
         "baseSizes": [
           "32mm [1]",
           "28.5mm [3]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "legends",
-        "factChecksum": "064d5976d0168fb67e938d4a22ac229d220fc90f3a6795ff6299f0dff835842a",
+        "factChecksum": "bbba56398ea715aff25323bf5bdd4b5522b7533328dc11446b46360a1f5d7cbb",
         "faction": "Warhammer Legends",
         "key": "page:68:unit:7",
         "kind": "unit",
@@ -34420,10 +34424,10 @@
         "baseSizes": [
           "32mm [1]",
           "28.5mm [4]",
-          "25m m [3]"
+          "25mm [3]"
         ],
         "context": "legends",
-        "factChecksum": "177d93a775e7fcb8ed871f877c0dad8c3d0c90a1bce4bd89dc658fc61df5b6d3",
+        "factChecksum": "7ec32f5762e288930d0397dfbd25f8b22811d951cf1d6852a4df161b8cec75a2",
         "faction": "Warhammer Legends",
         "key": "page:69:unit:11",
         "kind": "unit",
@@ -34449,10 +34453,10 @@
       "fact": {
         "baseSizes": [
           "32mm [5]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "legends",
-        "factChecksum": "f2686346114726b6bb6286c671f60a92a32b900a137065a0d50ae5eca1f2dc6a",
+        "factChecksum": "1b232976ca21e3bb403d450aae11a5018fec53187e7d23c545f64ebf14472871",
         "faction": "Warhammer Legends",
         "key": "page:69:unit:12",
         "kind": "unit",
@@ -34481,10 +34485,10 @@
         "baseSizes": [
           "32mm [3]",
           "28.5mm [4]",
-          "25m m [3]"
+          "25mm [3]"
         ],
         "context": "legends",
-        "factChecksum": "26b447151f82594b5e906c07652bfa33cc2ae26e0593255c51b6ba58b6d99c8c",
+        "factChecksum": "272f3b7d351f98f9dd7a123f7112f13122e9fc87917392201e38c3e9df7c2eea",
         "faction": "Warhammer Legends",
         "key": "page:69:unit:13",
         "kind": "unit",
@@ -34719,10 +34723,10 @@
         "baseSizes": [
           "32mm [1]",
           "28.5mm [2]",
-          "2 5 m m [10]"
+          "25mm [10]"
         ],
         "context": "legends",
-        "factChecksum": "892c675e5782dd8657458059df8ee861f5d9e05e652ddfd6b5ce27e7c27b0c10",
+        "factChecksum": "00ffd0898b7dae3865fc341b0f444284a47f4d87a2cf9c2cdc7fb77c8e861402",
         "faction": "Warhammer Legends",
         "key": "page:69:unit:20",
         "kind": "unit",
@@ -34747,10 +34751,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm 40mm [1]"
+          "32mm"
         ],
         "context": "legends",
-        "factChecksum": "f42a099b20f8095d9ebfb490cb0def398bd8dd462b849e58a71529cff0659968",
+        "factChecksum": "159b7731c84b17d66ff09fdc723127f932674bd7d47d061860e8f83ba016aae9",
         "faction": "Warhammer Legends",
         "key": "page:69:unit:21",
         "kind": "unit",
@@ -34777,12 +34781,13 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
+          "40mm [1]",
           "32mm [1]",
           "28.5mm [3]",
           "25mm [4]"
         ],
         "context": "legends",
-        "factChecksum": "9472156387ef60299692203237aa336332c437683291608260705e7655f06281",
+        "factChecksum": "4e59b2b902473763ada7c00fa59cf6755eb053f516ecd6527cba536b192c0b4d",
         "faction": "Warhammer Legends",
         "key": "page:69:unit:22",
         "kind": "unit",
@@ -34810,10 +34815,10 @@
           "40mm [1]",
           "32mm [3]",
           "28.5mm [2]",
-          "25m m [3]"
+          "25mm [3]"
         ],
         "context": "legends",
-        "factChecksum": "bb14446549c06c32146e032022eb585728eee5217626ef3c33ffbdbe3b771b4b",
+        "factChecksum": "bb9ed067cf4d1fb35ad1cb0ab2fc13bddefeb9698ae5f2fd0afe4c054015901d",
         "faction": "Warhammer Legends",
         "key": "page:69:unit:23",
         "kind": "unit",
@@ -34873,10 +34878,10 @@
       "fact": {
         "baseSizes": [
           "32mm [2]",
-          "25m m [3]"
+          "25mm [3]"
         ],
         "context": "legends",
-        "factChecksum": "6163c68264c837bfb47266347c46d9073e53b7506bc8696b5359bebfa20eedba",
+        "factChecksum": "bc50c5b18327fd64df1801112d4e137ede940c6a7de3a5eec2553031d30d6464",
         "faction": "Warhammer Legends",
         "key": "page:69:unit:4",
         "kind": "unit",
@@ -34939,10 +34944,10 @@
       "fact": {
         "baseSizes": [
           "32mm [2]",
-          "25m m [3]"
+          "25mm [3]"
         ],
         "context": "legends",
-        "factChecksum": "bf59eae5469e2766883a48be83f09e4b9022da2c289081f369b45a425b79041c",
+        "factChecksum": "7ec7342d5bc89ffde3d6180068ad99f2f1e2cb41dd5e8dea478929b2573ece8a",
         "faction": "Warhammer Legends",
         "key": "page:69:unit:6",
         "kind": "unit",
@@ -35146,10 +35151,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          ". 40mm"
+          "40mm"
         ],
         "context": "seasonal",
-        "factChecksum": "2e36a1b6d25e7cfea23a47d5a03037d9a8f9237d8d9ecde521113389a72ec646",
+        "factChecksum": "11bfc085c6fc5c2f19bd258108324f7cabcdea8eb50cb52c75417e1aed6d6247",
         "faction": "Daughters of Khaine",
         "key": "page:7:unit:12",
         "kind": "unit",
@@ -35557,10 +35562,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm."
+          "32mm"
         ],
         "context": "standard",
-        "factChecksum": "cb31abd662575acbc946f8025b0c973d038368fd915daf8689551a16909c4aca",
+        "factChecksum": "5cb9b7261ebf9e14ca025078b68f5c9eafbc9c5eaff4db505adbbd26c0f56dc9",
         "faction": "Daughters of Khaine",
         "key": "page:7:unit:5",
         "kind": "unit",
@@ -35616,10 +35621,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "40mm."
+          "40mm"
         ],
         "context": "standard",
-        "factChecksum": "ca249ec2e317906a019e63bcfd4ba710773d30f44de8955c4f6459ac8351e3b2",
+        "factChecksum": "d29b54524e94238758f1ddf160a82f1daea6e62ea4bed884dfbf161d6137260c",
         "faction": "Daughters of Khaine",
         "key": "page:7:unit:7",
         "kind": "unit",
@@ -35706,10 +35711,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "32mm."
+          "32mm"
         ],
         "context": "legends",
-        "factChecksum": "19e442e3ea529262b191009bb034ee207296780e5da605127baf883c0c7942d9",
+        "factChecksum": "5f8ee88fbb6a5dfc581e58702fc7bcda21f7474a4004d27b8c2292f7924ce72b",
         "faction": "Warhammer Legends",
         "key": "page:70:unit:1",
         "kind": "unit",
@@ -35927,10 +35932,10 @@
         "baseSizes": [
           "40mm [1]",
           "32mm [2]",
-          "2 5 m m [1]"
+          "25mm [1]"
         ],
         "context": "legends",
-        "factChecksum": "f13ad6b64d953a9fc8657fdfe0919ac8c9ae13ca2eb3a3956e1f75a1290d371c",
+        "factChecksum": "ee65fa6668171c54fa77403aeeee6aac6982afcf3bb889e91181e6b57f38f63e",
         "faction": "Warhammer Legends",
         "key": "page:70:unit:7",
         "kind": "unit",
@@ -36052,10 +36057,10 @@
         "baseSizes": [
           "40mm [1]",
           "32mm [1]",
-          "25m m [3]"
+          "25mm [3]"
         ],
         "context": "legends",
-        "factChecksum": "0e30ac8048a6b3bb91bdb25b227a0a4ee921452e79f312fdc38c69550f8c2640",
+        "factChecksum": "955b4c5e6cf4bc93c047953fd6edd6de027ec8bcd0fc5a87c18943d62242884c",
         "faction": "Warhammer Legends",
         "key": "page:71:unit:10",
         "kind": "unit",
@@ -36086,10 +36091,10 @@
         "baseSizes": [
           "32mm [1]",
           "40mm [1]",
-          "25m m [3]"
+          "25mm [3]"
         ],
         "context": "legends",
-        "factChecksum": "d9c289c44e7e218a4576bb0d700ecfe93198b03780556ef3f3b5ebcb09dc0f86",
+        "factChecksum": "a4199548ac38779dafd887ab9762123207c13294de534b772e060173f077801c",
         "faction": "Warhammer Legends",
         "key": "page:71:unit:11",
         "kind": "unit",
@@ -36917,10 +36922,10 @@
         "baseSizes": [
           "40mm [1]",
           "32mm [1]",
-          "25m m [3]"
+          "25mm [3]"
         ],
         "context": "legends",
-        "factChecksum": "c899d4ace45f977eef4e4d710b14c695de9c2c9ccf2f0661c3ce832a77ce823d",
+        "factChecksum": "fba551fece1fc95574bf4b0175038c3e1211245bab9fc9762463bd2d80c4332e",
         "faction": "Warhammer Legends",
         "key": "page:73:unit:12",
         "kind": "unit",
@@ -37067,10 +37072,10 @@
       "fact": {
         "baseSizes": [
           "50mm [1]",
-          "25m m [3]"
+          "25mm [3]"
         ],
         "context": "legends",
-        "factChecksum": "1c62d8d6ded3d265e6eabe86e6026f8987b29361eb374ece843970b2fa9d64ff",
+        "factChecksum": "4865bcda04296182df06408d308208c2587c8659f48317dec27228c8de908ac2",
         "faction": "Warhammer Legends",
         "key": "page:73:unit:3",
         "kind": "unit",
@@ -37402,10 +37407,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          ". 120 × 92mm"
+          "120 × 92mm"
         ],
         "context": "seasonal",
-        "factChecksum": "5673d796389f4f2b000a0a5d3a8ac9b366aaec983038099bad2c87be435a9da3",
+        "factChecksum": "98d0b6583fa77058752d2928720f7d4ac11346e2a4f509b5e30fc501fc3f41b0",
         "faction": "Fyreslayers",
         "key": "page:9:unit:13",
         "kind": "unit",
@@ -37671,10 +37676,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "120 × 92mm."
+          "120 × 92mm"
         ],
         "context": "standard",
-        "factChecksum": "07e4496f81dd928c72a759d7822e2a5eb27682a22120c09f059177201d0cc0a1",
+        "factChecksum": "1708f1260ea93669b0e647d4deaa2eb01d3a83d4446d288adc4995b62ded31cb",
         "faction": "Fyreslayers",
         "key": "page:9:unit:3",
         "kind": "unit",
@@ -37819,10 +37824,10 @@
       "documentTitle": "Battle Profiles",
       "fact": {
         "baseSizes": [
-          "120 × 92mm."
+          "120 × 92mm"
         ],
         "context": "standard",
-        "factChecksum": "e7c436b5a436f269286488af2363be47ee1ccbbd268d0202a03e44ecc4f1bb12",
+        "factChecksum": "a39399453264f252d596c5d50c9b7ab2f634ece0fdf899364f6f25fd299f78cc",
         "faction": "Fyreslayers",
         "key": "page:9:unit:8",
         "kind": "unit",

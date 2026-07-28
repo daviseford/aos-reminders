@@ -7,14 +7,72 @@ import {
 
 const item = (str: string, x: number, y: number): PdfTextItem => ({ str, x, y })
 
-const unitPage = (name: string, unitSize: number, points: number): PdfTextItem[] => [
+const unitPage = (name: string, unitSize: number, points: number, baseSizes = '40mm'): PdfTextItem[] => [
   item('UNIT SIZE', 155, 760),
   item('UNITS', 40, 750),
   item(name, 40, 700),
   item(String(unitSize), 160, 700),
   item(String(points), 210, 700),
   item('Warrior', 260, 700),
-  item('40mm', 520, 700),
+  item(baseSizes, 520, 700),
+]
+
+const lordTerminosPage = (): PdfTextItem[] => [
+  item('UNIT SIZE', 155, 760),
+  item('HEROES', 40, 750),
+  item('Lord-Terminos', 40, 700),
+  item('1', 160, 700),
+  item('140', 210, 700),
+  item('0-1 Stormcast Exemplar', 260, 700),
+  item('40mm [1],', 505, 700),
+  item('2', 525, 700),
+  item('5', 530, 700),
+  item('m', 535, 700),
+  item('m [1]', 540, 700),
+]
+
+const validMultiBasePage = (): PdfTextItem[] => [
+  item('UNIT SIZE', 155, 760),
+  item('UNITS', 40, 750),
+  item('Mixed-base unit', 40, 700),
+  item('4', 160, 700),
+  item('180', 210, 700),
+  item('Warrior', 260, 700),
+  item('.', 505, 712),
+  item('28.5mm [3]', 505, 704),
+  item('or', 525, 700),
+  item('40mm [1]', 505, 696),
+]
+
+const championBasePage = (): PdfTextItem[] => [
+  item('UNIT SIZE', 155, 760),
+  item('UNITS', 40, 750),
+  item('Champion-base unit', 40, 700),
+  item('3', 160, 700),
+  item('170', 210, 700),
+  item('Warrior', 260, 700),
+  item('60 × 35mm.', 505, 708),
+  item('Champion is', 505, 700),
+  item('40mm.', 505, 692),
+]
+
+const continuedMultiBasePage = (): PdfTextItem[] => [
+  ...unitPage('Upper unit', 10, 150, '32mm').map(value => ({
+    ...value,
+    y: value.y === 700 ? 722 : value.y,
+  })),
+  item('Claws of Karanak', 40, 700),
+  item('8', 160, 700),
+  item('100', 210, 700),
+  item('Bloodbound', 260, 700),
+  item('60 × 35mm', 515, 712),
+  item('[1], 40mm [1],', 510, 704),
+  item('32mm [2],', 515, 696),
+  item('28.5mm [4]', 515, 688),
+  ...unitPage('Lower unit', 5, 120, '60mm').map(value => ({
+    ...value,
+    y: value.y === 700 ? 678 : value.y,
+  })),
 ]
 
 const rosterPage = (): PdfTextItem[] => [
@@ -154,6 +212,41 @@ describe('Games Workshop Battle Profiles extraction', () => {
         expect.objectContaining({
           kind: 'regiment-of-renown',
           name: 'Saviours of Cinderfall',
+        }),
+      ])
+    )
+  })
+
+  it('repairs split official base-size measurement tokens without collapsing multi-base entries', async () => {
+    const result = await extractGamesWorkshopBattleProfiles(
+      new Uint8Array([1]),
+      'd'.repeat(64),
+      fakeLoader(57, {
+        20: lordTerminosPage(),
+        21: validMultiBasePage(),
+        22: championBasePage(),
+        26: continuedMultiBasePage(),
+      })
+    )
+
+    expect(result.diagnostics).toEqual([])
+    expect(result.facts).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          name: 'Lord-Terminos',
+          baseSizes: ['40mm [1]', '25mm [1]'],
+        }),
+        expect.objectContaining({
+          name: 'Mixed-base unit',
+          baseSizes: ['28.5mm [3] or 40mm [1]'],
+        }),
+        expect.objectContaining({
+          name: 'Champion-base unit',
+          baseSizes: ['60 × 35mm. Champion is 40mm.'],
+        }),
+        expect.objectContaining({
+          name: 'Claws of Karanak',
+          baseSizes: ['60 × 35mm [1]', '40mm [1]', '32mm [2]', '28.5mm [4]'],
         }),
       ])
     )

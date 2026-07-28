@@ -177,24 +177,10 @@
     },
     {
       "field": "baseSizes",
-      "official": "32mm 60 × 35mm",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A26",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Bloodreavers"
-    },
-    {
-      "field": "baseSizes",
-      "official": "32mm [2]|40mm [1]|[1]",
+      "official": "28.5mm [4]|32mm [2]|40mm [1]|60 × 35mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A26",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Claws-of-Karanak"
-    },
-    {
-      "field": "baseSizes",
-      "official": "28.5mm [4] 60 × 35mm",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A26",
-      "secondary": "60 × 35mm",
-      "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Flesh-Hounds"
     },
     {
       "field": "baseSizes",
@@ -286,13 +272,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A67",
       "secondary": "any daemon cavalry|any war machine",
       "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Skullmaster-Herald-of-Khorne"
-    },
-    {
-      "field": "baseSizes",
-      "official": "40mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A25",
-      "secondary": "40mm",
-      "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Skulltaker"
     },
     {
       "field": "notes",
@@ -491,13 +470,6 @@
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Battlemage-on-Luminark-of-Hysh"
     },
     {
-      "field": "baseSizes",
-      "official": "’s 25mm",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
-      "secondary": "25mm",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Black-Ark-Fleetmaster"
-    },
-    {
       "field": "notes",
       "official": "on black dragon ’s, sorceress ’ or sorceress on black dragon regiment. this unit will move to warhammer legends on",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
@@ -506,7 +478,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "25m m [3]|32mm [1]|40mm [1]",
+      "official": "25mm [3]|32mm [1]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A64",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Brethren-of-the-Bolt"
@@ -545,13 +517,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
       "secondary": "Erasmus Zonn the Enlightened One",
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Erasmus-Zonn-the-Enlightened%C2%A0One"
-    },
-    {
-      "field": "baseSizes",
-      "official": "75 × 42mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
-      "secondary": "75 × 42mm",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Freeguild-Cavalier-Marshal"
     },
     {
       "field": "notes",
@@ -638,13 +603,6 @@
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Freeguild-Marshal-on-Griffon"
     },
     {
-      "field": "baseSizes",
-      "official": "50mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
-      "secondary": "50mm",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Fusil-Major-on-Ogor-Warhulk"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as a freeguild veteran",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
@@ -667,7 +625,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|32mm [1]",
+      "official": "25mm [1]|32mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Jorvan-Kreel-Heir-of-the-Kraken-1"
@@ -750,13 +708,6 @@
       "url": "https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#Gryselle-s-Arenai"
     },
     {
-      "field": "baseSizes",
-      "official": "32mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A7",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#High-Gladiatrix"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as a coven matriarch",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A7",
@@ -792,13 +743,6 @@
       "url": "https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#Maleneth-Witchblade"
     },
     {
-      "field": "baseSizes",
-      "official": "40mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A7",
-      "secondary": "40mm",
-      "url": "https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#Melusai-Ironscale"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as a coven matriarch",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A7",
@@ -825,13 +769,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A7",
       "secondary": "this unit cannot be reinforced.",
       "url": "https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#Scourge-of-Aqshy-Khainite-Shadowstalkers"
-    },
-    {
-      "field": "baseSizes",
-      "official": ". 40mm",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A7",
-      "secondary": "40mm",
-      "url": "https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#Scourge-of-Aqshy-Melusai-Ironscale"
     },
     {
       "field": "notes",
@@ -1002,13 +939,6 @@
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Flayers-2-models-"
     },
     {
-      "field": "baseSizes",
-      "official": "32mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A70",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Ghast-Courtier"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as a flesh-eater noble",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A70",
@@ -1028,13 +958,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Ghouls"
-    },
-    {
-      "field": "baseSizes",
-      "official": "50mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "50mm",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Haunter-Courtier"
     },
     {
       "field": "notes",
@@ -1065,13 +988,6 @@
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Horrors-2-models-"
     },
     {
-      "field": "baseSizes",
-      "official": "50mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "50mm",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Infernal-Courtier"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as a royal attendant",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
@@ -1091,13 +1007,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Cryptguard"
-    },
-    {
-      "field": "baseSizes",
-      "official": "32mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Grand-Justice-Gormayne"
     },
     {
       "field": "notes",
@@ -1121,25 +1030,11 @@
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#High-Falconer-Felgryn"
     },
     {
-      "field": "baseSizes",
-      "official": "32mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Marrowscroll-Herald"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as a royal attendant",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
       "secondary": "this hero can join an eligible regiment as a royal attendant.",
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Marrowscroll-Herald"
-    },
-    {
-      "field": "baseSizes",
-      "official": "75 × 42mm 40mm [2]",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "75 × 42mm",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Morbheg-Knights"
     },
     {
       "field": "name",
@@ -1157,17 +1052,10 @@
     },
     {
       "field": "baseSizes",
-      "official": "28.5mm [3]|32mm [2]",
+      "official": "25mm [3]|28.5mm [3]|32mm [2]|40mm [2]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Royal-Beastflayers"
-    },
-    {
-      "field": "baseSizes",
-      "official": "32mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Royal-Decapitator"
     },
     {
       "field": "notes",
@@ -1175,20 +1063,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
       "secondary": "this hero can join an eligible regiment as a royal attendant.",
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Royal-Decapitator"
-    },
-    {
-      "field": "baseSizes",
-      "official": "25m m [3] 130mm",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "130mm",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Royal-Terrorgheist"
-    },
-    {
-      "field": "baseSizes",
-      "official": ". 32mm",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Scourge-of-Aqshy-Royal-Decapitator"
     },
     {
       "field": "notes",
@@ -1233,25 +1107,11 @@
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Varghulf-Courtier"
     },
     {
-      "field": "baseSizes",
-      "official": "120 × 92mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A9",
-      "secondary": "120 × 92mm",
-      "url": "https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html#Auric-Runefather-on-Magmadroth"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as vulcatrix’s chosen",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A9",
       "secondary": "this hero can join an eligible regiment as vulcatrix’s chosen.",
       "url": "https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html#Auric-Runefather-on-Magmadroth"
-    },
-    {
-      "field": "baseSizes",
-      "official": "120 × 92mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A9",
-      "secondary": "120 × 92mm",
-      "url": "https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html#Auric-Runeson-on-Magmadroth"
     },
     {
       "field": "notes",
@@ -1294,13 +1154,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A9",
       "secondary": "Hearthguard Berzerker with Berzerker Broadaxes",
       "url": "https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html#Hearthguard-Berzerker-with-Berzerker-Broadaxes"
-    },
-    {
-      "field": "baseSizes",
-      "official": ". 120 × 92mm",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A9",
-      "secondary": "120 × 92mm",
-      "url": "https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html#Scourge-of-Aqshy-Auric-Runeson-on-Magmadroth"
     },
     {
       "field": "notes",
@@ -1402,7 +1255,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "25m m [3]|50mm [1]",
+      "official": "25mm [3]|50mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A73",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Mollog"
@@ -1556,7 +1409,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|28.5mm [10]",
+      "official": "25mm [1]|28.5mm [10]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A29",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Blissbarb-Archers"
@@ -1590,13 +1443,6 @@
       "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Glutos-Orscollion-Lord-of-Gluttony"
     },
     {
-      "field": "baseSizes",
-      "official": "60 × 35mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A29",
-      "secondary": "60 × 35mm",
-      "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Infernal-Enrapturess-Herald-of-Slaanesh"
-    },
-    {
       "field": "name",
       "official": "Infernal Enrapturess, Herald of Slaanesh",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A29",
@@ -1609,13 +1455,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A29",
       "secondary": "this hero can join an eligible regiment as a slaaneshi beguiler.",
       "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Infernal-Enrapturess-Herald-of-Slaanesh"
-    },
-    {
-      "field": "baseSizes",
-      "official": ". 60 × 35mm",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A29",
-      "secondary": "60 × 35mm",
-      "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Scourge-of-Aqshy-Infernal-Enrapturess-Herald-of-Slaanesh"
     },
     {
       "field": "name",
@@ -1665,13 +1504,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A68",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#The-Dread-Pageant"
-    },
-    {
-      "field": "baseSizes",
-      "official": "32mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A29",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#The-Masque"
     },
     {
       "field": "notes",
@@ -1724,7 +1556,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|28.5mm [3]|32mm [1]",
+      "official": "25mm [1]|28.5mm [3]|32mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A68",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/helsmiths-of-hashut/warscrolls.html#The-Blood-of-the-Bull"
@@ -1773,7 +1605,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|32mm [4]",
+      "official": "25mm [1]|32mm [4]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A64",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/idoneth-deepkin/warscrolls.html#Elathain-s-Soulraid"
@@ -1906,7 +1738,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|50mm [1]",
+      "official": "25mm [1]|50mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A50",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Zoggrok-Anvilsmasha"
@@ -1941,7 +1773,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "25m m [3]|32mm [1]|40mm [1]",
+      "official": "25mm [3]|32mm [1]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A73",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/kruleboyz/warscrolls.html#Da-Kunnin-Krew"
@@ -1955,7 +1787,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|40mm [1]",
+      "official": "25mm [1]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A52",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/kruleboyz/warscrolls.html#Killaboss-with-Stab-grot"
@@ -1976,7 +1808,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|40mm [1]",
+      "official": "25mm [1]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A52",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/kruleboyz/warscrolls.html#Scourge-of-Aqshy-Killaboss-with-Stab-grot"
@@ -1990,7 +1822,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|40mm [1]",
+      "official": "25mm [1]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A52",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/kruleboyz/warscrolls.html#Swampcalla-Shaman-with-Pot-grot"
@@ -2052,13 +1884,6 @@
       "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Sevireth-Lord-of-the-Seventh-Wind"
     },
     {
-      "field": "baseSizes",
-      "official": "50mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
-      "secondary": "50mm",
-      "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#The-Light-of-Eltharion"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as a lumineth paragon",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
@@ -2074,17 +1899,10 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|28.5mm [4]",
+      "official": "25mm [1]|28.5mm [4]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A64",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Thyrielle-s-Zephyrites-1"
-    },
-    {
-      "field": "baseSizes",
-      "official": "40mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
-      "secondary": "40mm",
-      "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Vanari-Bannerblade"
     },
     {
       "field": "notes",
@@ -2095,7 +1913,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "32mm.",
+      "official": "32mm",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
       "secondary": "90 × 52mm",
       "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Vanari-Lord-Regent"
@@ -2158,7 +1976,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|32mm [3]|40mm [1]",
+      "official": "25mm [1]|32mm [3]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A68",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/maggotkin-of-nurgle/warscrolls.html#Grandfather-s-Gardeners"
@@ -2291,7 +2109,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|32mm [2]|40mm [1]",
+      "official": "25mm [1]|32mm [2]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A70",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/nighthaunt/warscrolls.html#The-Headsmen-s-Curse"
@@ -2767,7 +2585,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "25m m [3]|28.5mm [2]",
+      "official": "25mm [3]|28.5mm [2]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A18",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#Hunters-of-Huanchi-with-Starstone-Bolas"
@@ -2823,7 +2641,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|32mm [2]|40mm [1]",
+      "official": "25mm [1]|32mm [2]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A17",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#Sunblood-Pack"
@@ -2865,7 +2683,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|32mm [2]|40mm [1]",
+      "official": "25mm [1]|32mm [2]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A64",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#The-Jaws-of-Itzl"
@@ -2906,13 +2724,6 @@
       "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Clanrats"
     },
     {
-      "field": "baseSizes",
-      "official": "32mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Clawlord"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as a skaven overclaw",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
@@ -2920,25 +2731,11 @@
       "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Clawlord"
     },
     {
-      "field": "baseSizes",
-      "official": "75 × 42mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "75 × 42mm",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Clawlord-on-Gnaw-beast"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as a skaven overclaw",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
       "secondary": "this hero can join an eligible regiment as a skaven overclaw.",
       "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Clawlord-on-Gnaw-beast"
-    },
-    {
-      "field": "baseSizes",
-      "official": "32mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Deathmaster"
     },
     {
       "field": "notes",
@@ -2995,13 +2792,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
       "secondary": "0-1 skaven overclaw|any skaven",
       "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Lord-Skreech-Verminking"
-    },
-    {
-      "field": "baseSizes",
-      "official": "32mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Master-Moulder"
     },
     {
       "field": "notes",
@@ -3096,7 +2886,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "25m m [3]|32mm [2]",
+      "official": "25mm [3]|32mm [2]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Skittershank-s-Clawpack"
@@ -3186,27 +2976,6 @@
       "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Vizzik-Skour-Prophet-of-the-Horned-Rat"
     },
     {
-      "field": "baseSizes",
-      "official": "32mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Warlock-Bombardier"
-    },
-    {
-      "field": "baseSizes",
-      "official": "32mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Warlock-Engineer"
-    },
-    {
-      "field": "baseSizes",
-      "official": "32mm.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Warlock-Galvaneer"
-    },
-    {
       "field": "notes",
       "official": "1 skryre war machine in a regiment led by a non-skryre hero.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A36",
@@ -3236,7 +3005,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "25m m [3]|32mm [2]",
+      "official": "25mm [3]|32mm [2]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Zikkit-s-Tunnelpack"
@@ -3355,7 +3124,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "25m m [3]|28.5mm [4]|32mm [1]",
+      "official": "25mm [3]|28.5mm [4]|32mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Cypher-Lords"
@@ -3418,7 +3187,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|32mm [5]",
+      "official": "25mm [1]|32mm [5]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Godsworn-Hunt"
@@ -3446,7 +3215,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "25m m [3]|28.5mm [4]|32mm [3]",
+      "official": "25mm [3]|28.5mm [4]|32mm [3]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Horns-of-Hashut"
@@ -3579,7 +3348,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [10]|28.5mm [2]|32mm [1]",
+      "official": "25mm [10]|28.5mm [2]|32mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Tarantulos-Brood"
@@ -3590,13 +3359,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "this unit cannot be reinforced.",
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Tarantulos-Brood"
-    },
-    {
-      "field": "baseSizes",
-      "official": "32mm 40mm [1]",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "32mm",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#The-Gnarlspirit-Pack"
     },
     {
       "field": "notes",
@@ -3614,7 +3376,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "25mm [4]|28.5mm [3]|32mm [1]",
+      "official": "25mm [4]|28.5mm [3]|32mm [1]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#The-Unmade"
@@ -3628,7 +3390,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "25m m [3]|28.5mm [2]|32mm [3]|40mm [1]",
+      "official": "25mm [3]|28.5mm [2]|32mm [3]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Untamed-Beasts"
@@ -3936,7 +3698,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "25m m [3]|32mm [1]|40mm [1]",
+      "official": "25mm [3]|32mm [1]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A71",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#The-Sons-of-Velmorn"
@@ -4020,7 +3782,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "25m m [3]|32mm [1]|40mm [1]",
+      "official": "25mm [3]|32mm [1]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A71",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Zondara-s-Gravebreakers"
@@ -4412,7 +4174,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "32 m m [1]|40mm [1]",
+      "official": "32mm [1]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A20",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Imperatant"
@@ -4454,7 +4216,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|40mm [1]",
+      "official": "25mm [1]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A20",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Terminos"
@@ -4545,7 +4307,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|40mm [3]",
+      "official": "25mm [1]|40mm [3]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
       "secondary": "40mm",
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Xandire-s-Truthseekers"
@@ -4629,7 +4391,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "2 5 m m [1]|32mm [3]|50 × 25mm [1]",
+      "official": "25mm [1]|32mm [3]|50 × 25mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A64",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Skaeth-s-Wild-Hunt"
@@ -4650,7 +4412,7 @@
     },
     {
       "field": "baseSizes",
-      "official": "28.5mm [3]|28.5mm [3] or 40mm [1]|32mm [3]|32mm [4]",
+      "official": "28.5mm [3]|28.5mm [3] or 40mm [1]|32mm [3]|32mm [4]|40mm [2]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#The-Twistweald"
@@ -4661,13 +4423,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
       "secondary": "Tree-Revenants",
       "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Tree-Revenants"
-    },
-    {
-      "field": "baseSizes",
-      "official": "105 × 70mm 40mm [2]",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
-      "secondary": "105 × 70mm",
-      "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Treelord"
     },
     {
       "field": "regimentOptions",

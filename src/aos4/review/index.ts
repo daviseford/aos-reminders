@@ -1,4 +1,5 @@
 export * from './findings'
 export * from './packetCommand'
 export * from './packets'
+export * from './pathology'
 export * from './records'

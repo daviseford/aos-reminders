@@ -28,21 +28,17 @@ import {
   type ReviewPacketCandidate,
   type ReviewPacketPair,
 } from './packets'
+import {
+  AOS4_GOLDEN_TRUTH_CASES,
+  inspectCatalogPathologies,
+  pathologyReviewCohorts,
+  type PathologyIssue,
+} from './pathology'
 
-const DEFAULT_ACCEPTED_MANIFEST = path.join(
-  'data',
-  'aos4',
-  'manifests',
-  'accepted-2026-07-27.json'
-)
+const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-07-27.json')
 const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-07-27.json')
 const DEFAULT_CATALOG = path.join('data', 'aos4', 'catalog', 'catalog.json')
-const DEFAULT_OFFICIAL_PROFILES = path.join(
-  'data',
-  'aos4',
-  'catalog',
-  'official-battle-profiles.json'
-)
+const DEFAULT_OFFICIAL_PROFILES = path.join('data', 'aos4', 'catalog', 'official-battle-profiles.json')
 const DEFAULT_IDENTITIES = path.join('data', 'aos4', 'identities', 'corpus.json')
 const DEFAULT_RUNTIME = path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json')
 const DEFAULT_CACHE = path.join('.cache', 'aos4', 'artifacts')
@@ -57,6 +53,8 @@ const REQUIRED_HIGH_RISK_COHORTS = [
   'high-risk:reaction',
   'high-risk:phase-timing-conflict',
   'high-risk:unknown-or-incomplete',
+  'high-risk:pathology',
+  'high-risk:pathology-regression',
   'high-risk:official-override',
   'high-risk:duplicate-candidate',
   'high-risk:context-boundary:current',
@@ -114,8 +112,7 @@ interface SourceEntityIndexes {
   factionIdsBySourceRecord: Map<SourceRecordId, CanonicalId<'faction'>[]>
 }
 
-const readJson = async <T>(filePath: string): Promise<T> =>
-  JSON.parse(await readFile(filePath, 'utf8')) as T
+const readJson = async <T>(filePath: string): Promise<T> => JSON.parse(await readFile(filePath, 'utf8')) as T
 
 const normalizedWorkspacePath = (workspaceDirectory: string): string => {
   const allowedRoot = path.resolve(DEFAULT_WORKSPACE)
@@ -187,9 +184,7 @@ const datasetSnapshots = (dataset: WahapediaDataset): Map<SourceRecordId, Source
   return snapshots
 }
 
-const factionIdsByEntity = (
-  catalog: Aos4Catalog
-): Map<CanonicalId, Set<CanonicalId<'faction'>>> => {
+const factionIdsByEntity = (catalog: Aos4Catalog): Map<CanonicalId, Set<CanonicalId<'faction'>>> => {
   const byEntity = new Map<CanonicalId, Set<CanonicalId<'faction'>>>()
   catalog.entities.forEach(entity => {
     if (entity.kind === 'faction') {
@@ -226,8 +221,7 @@ const sourceEntityIndexes = (catalog: Aos4Catalog): SourceEntityIndexes => {
       if (!entities.some(existing => existing.id === entity.id)) entities.push(entity)
       entitiesBySourceRecord.set(reference.sourceRecordId, entities)
       const factionIds =
-        factionSetsBySourceRecord.get(reference.sourceRecordId) ??
-        new Set<CanonicalId<'faction'>>()
+        factionSetsBySourceRecord.get(reference.sourceRecordId) ?? new Set<CanonicalId<'faction'>>()
       factionsByEntity.get(entity.id)?.forEach(factionId => factionIds.add(factionId))
       factionSetsBySourceRecord.set(reference.sourceRecordId, factionIds)
     })
@@ -245,9 +239,7 @@ const sourceEntityIndexes = (catalog: Aos4Catalog): SourceEntityIndexes => {
 
 const sourceExcerpt = (value: unknown): string => {
   const compact = stableCompactJson(value)
-  return compact.length <= MAX_EXCERPT_LENGTH
-    ? compact
-    : `${compact.slice(0, MAX_EXCERPT_LENGTH)}…`
+  return compact.length <= MAX_EXCERPT_LENGTH ? compact : `${compact.slice(0, MAX_EXCERPT_LENGTH)}…`
 }
 
 const pageExcerpt = (pageText: string | undefined, needle?: string): string | undefined => {
@@ -265,19 +257,14 @@ const normalizedEntityValue = (entity: Aos4Catalog['entities'][number]): unknown
   )
 }
 
-const contextCohorts = (
-  catalog: Aos4Catalog,
-  rulesContextIds: RulesContextId[]
-): string[] =>
+const contextCohorts = (catalog: Aos4Catalog, rulesContextIds: RulesContextId[]): string[] =>
   rulesContextIds.flatMap(contextId => {
     const context = catalog.rulesContexts.find(value => value.id === contextId)
     if (!context) return []
     return [
       `context:${context.mode}`,
       `context-status:${context.status}`,
-      `high-risk:context-boundary:${
-        context.mode === 'spearhead' ? 'spearhead' : context.status
-      }`,
+      `high-risk:context-boundary:${context.mode === 'spearhead' ? 'spearhead' : context.status}`,
     ]
   })
 
@@ -304,18 +291,10 @@ const riskCohorts = (
   const normalizationPolicyCodes = review.normalizationDiagnosticPolicies
     .filter(policy => policy.sourceRecordId === sourceRecordId)
     .map(policy => policy.code)
-  if (
-    normalizationPolicyCodes.some(code =>
-      /(?:phase|timing|reaction)/i.test(code)
-    )
-  ) {
+  if (normalizationPolicyCodes.some(code => /(?:phase|timing|reaction)/i.test(code))) {
     cohorts.push('high-risk:phase-timing-conflict')
   }
-  if (
-    normalizationPolicyCodes.some(code =>
-      /(?:unknown|incomplete|missing|placeholder)/i.test(code)
-    )
-  ) {
+  if (normalizationPolicyCodes.some(code => /(?:unknown|incomplete|missing|placeholder)/i.test(code))) {
     cohorts.push('high-risk:unknown-or-incomplete')
   }
   if (normalizationPolicyCodes.some(code => /duplicate/i.test(code))) {
@@ -325,8 +304,7 @@ const riskCohorts = (
     entities.some(
       entity =>
         entity.kind === 'ability' &&
-        (entity.abilityKind === 'reaction' ||
-          entity.timings.some(timing => timing.kind === 'reaction'))
+        (entity.abilityKind === 'reaction' || entity.timings.some(timing => timing.kind === 'reaction'))
     ) ||
     snapshot?.structuredValue.isReaction === true
   ) {
@@ -353,9 +331,7 @@ const riskCohorts = (
   }
   if (
     snapshot &&
-    /\b(?:unknown|incomplete|placeholder|tbd)\b|[?]{2,}/i.test(
-      stableCompactJson(snapshot.structuredValue)
-    )
+    /\b(?:unknown|incomplete|placeholder|tbd)\b|[?]{2,}/i.test(stableCompactJson(snapshot.structuredValue))
   ) {
     cohorts.push('high-risk:unknown-or-incomplete')
   }
@@ -363,9 +339,7 @@ const riskCohorts = (
   return Array.from(new Set(cohorts)).sort((left, right) => left.localeCompare(right))
 }
 
-const runtimeDestinationsById = (
-  runtime: RuntimeProjection
-): Map<CanonicalId, Record<string, unknown>> =>
+const runtimeDestinationsById = (runtime: RuntimeProjection): Map<CanonicalId, Record<string, unknown>> =>
   new Map(runtime.entities.map(entity => [entity.id, entity]))
 
 const generatedDestinations = (
@@ -401,12 +375,7 @@ const generatedDestinations = (
 const authorityByArtifact = (
   catalog: Aos4Catalog
 ): Map<SourceRecord['artifactId'], ReviewCandidateSourceEvidence['authority']> =>
-  new Map(
-    catalog.sourceArtifacts.map(sourceArtifact => [
-      sourceArtifact.id,
-      sourceArtifact.authority.kind,
-    ])
-  )
+  new Map(catalog.sourceArtifacts.map(sourceArtifact => [sourceArtifact.id, sourceArtifact.authority.kind]))
 
 const buildSourceCandidates = (
   sourceData: Awaited<ReturnType<typeof loadAcceptedCorpusSourceData>>,
@@ -420,6 +389,11 @@ const buildSourceCandidates = (
   const authority = authorityByArtifact(catalog)
   const identitiesByEntity = new Map(identities.entries.map(entry => [entry.canonicalId, entry]))
   const runtimeById = runtimeDestinationsById(runtime)
+  const pathologiesByEntity = new Map<CanonicalId, PathologyIssue[]>()
+  inspectCatalogPathologies(catalog).forEach(pathology => {
+    const entityId = pathology.subject as CanonicalId
+    pathologiesByEntity.set(entityId, [...(pathologiesByEntity.get(entityId) ?? []), pathology])
+  })
   return catalog.sourceRecords.map(sourceRecord => {
     const snapshot = snapshots.get(sourceRecord.id)
     const entities = entitiesBySourceRecord.get(sourceRecord.id) ?? []
@@ -440,9 +414,7 @@ const buildSourceCandidates = (
       key: `source-record:${sourceRecord.id}`,
       category: 'source-record',
       cohortIds: [
-        sourceAuthority === 'secondary'
-          ? 'secondary-semantic'
-          : `source-authority:${sourceAuthority}`,
+        sourceAuthority === 'secondary' ? 'secondary-semantic' : `source-authority:${sourceAuthority}`,
         ...(snapshot ? [`source-kind:${snapshot.recordKind}`] : ['source-kind:official-page']),
         ...riskCohorts(
           sourceRecord.id,
@@ -454,6 +426,7 @@ const buildSourceCandidates = (
           sourceData.review,
           sourceData.decoded.diagnostics
         ),
+        ...pathologyReviewCohorts(entities.flatMap(entity => pathologiesByEntity.get(entity.id) ?? [])),
       ],
       ...(entities.length === 1 ? { canonicalEntityId: entities[0].id } : {}),
       factionIds: factionIdsBySourceRecord.get(sourceRecord.id) ?? [],
@@ -480,22 +453,14 @@ const buildSourceCandidates = (
   })
 }
 
-const factionByName = (
-  catalog: Aos4Catalog
-): Map<string, CanonicalId<'faction'>> =>
+const factionByName = (catalog: Aos4Catalog): Map<string, CanonicalId<'faction'>> =>
   new Map(
     catalog.entities
       .filter(entity => entity.kind === 'faction')
-      .map(entity => [
-        entity.name.toLowerCase(),
-        entity.id as CanonicalId<'faction'>,
-      ])
+      .map(entity => [entity.name.toLowerCase(), entity.id as CanonicalId<'faction'>])
   )
 
-const contextIdsForLabel = (
-  catalog: Aos4Catalog,
-  label: string
-): RulesContextId[] => {
+const contextIdsForLabel = (catalog: Aos4Catalog, label: string): RulesContextId[] => {
   const normalized = label.toLowerCase()
   const matches = catalog.rulesContexts.filter(context => {
     if (normalized === 'spearhead') return context.mode === 'spearhead'
@@ -525,9 +490,7 @@ const buildOfficialCandidates = (
         'official-fact',
         `official-status:${record.status}`,
         `official-disposition:${record.disposition}`,
-        ...(record.disposition === 'applied-to-runtime'
-          ? ['high-risk:official-override']
-          : []),
+        ...(record.disposition === 'applied-to-runtime' ? ['high-risk:official-override'] : []),
       ],
       ...(entities.length === 1 ? { canonicalEntityId: entities[0].id } : {}),
       factionIds: factions.has(record.fact.faction.toLowerCase())
@@ -551,10 +514,8 @@ const buildOfficialCandidates = (
             disposition: record.disposition,
           },
           excerpt:
-            pageExcerpt(
-              officialPageTextBySourceRecordId.get(record.fact.sourceRecordId),
-              record.fact.name
-            ) ?? sourceExcerpt(record.fact),
+            pageExcerpt(officialPageTextBySourceRecordId.get(record.fact.sourceRecordId), record.fact.name) ??
+            sourceExcerpt(record.fact),
         },
       ],
       generatedDestinations: [
@@ -659,10 +620,83 @@ const buildReconciliationCandidates = (
   return [...discrepancyCandidates, ...profileOnlyCandidates]
 }
 
-const contextIdsForMeta = (
+const buildGoldenTruthCandidates = (
   catalog: Aos4Catalog,
-  meta: WahapediaRecordMeta
-): RulesContextId[] => {
+  runtime: RuntimeProjection,
+  sourceIndexes: SourceEntityIndexes,
+  officialPageTextBySourceRecordId: Map<string, string>
+): ReviewPacketCandidate[] => {
+  const sourceRecordById = new Map(catalog.sourceRecords.map(record => [record.id, record]))
+  const runtimeById = runtimeDestinationsById(runtime)
+  return AOS4_GOLDEN_TRUTH_CASES.map(goldenCase => {
+    const sourceRecord = sourceRecordById.get(goldenCase.sourceRecordId)
+    if (!sourceRecord) {
+      throw new Error(`Golden truth case ${goldenCase.id} references a missing source record`)
+    }
+    const section = goldenCase.locator.kind === 'page' ? goldenCase.locator.section : undefined
+    const matchingEntities = (
+      sourceIndexes.entitiesBySourceRecord.get(goldenCase.sourceRecordId) ?? []
+    ).filter(
+      entity =>
+        (!section || entity.name.toLowerCase().includes(section.toLowerCase())) &&
+        JSON.stringify(entity).includes(JSON.stringify(goldenCase.expectedValue))
+    )
+    if (matchingEntities.length !== 1) {
+      throw new Error(
+        `Golden truth case ${goldenCase.id} resolved to ${matchingEntities.length} generated entities`
+      )
+    }
+    const entity = matchingEntities[0]
+    return {
+      key: goldenCase.id,
+      category: 'golden-truth',
+      cohortIds: ['golden-truth', 'high-risk:pathology-regression'],
+      canonicalEntityId: entity.id,
+      factionIds: sourceIndexes.factionIdsBySourceRecord.get(goldenCase.sourceRecordId) ?? [],
+      rulesContextIds: entity.rulesContextIds,
+      independentlyDerivable: true,
+      sourceEvidence: [
+        {
+          sourceRecordId: sourceRecord.id,
+          artifactId: sourceRecord.artifactId,
+          recordChecksum: sourceRecord.recordChecksum,
+          locator: goldenCase.locator,
+          authority: 'official',
+          structuredValue: { field: goldenCase.field },
+          excerpt:
+            pageExcerpt(officialPageTextBySourceRecordId.get(goldenCase.sourceRecordId), section) ??
+            sourceExcerpt({ locator: goldenCase.locator }),
+        },
+      ],
+      generatedDestinations: [
+        {
+          path: 'src/aos4/review/goldenTruth.json',
+          canonicalEntityId: entity.id,
+          field: goldenCase.field,
+          value: goldenCase.expectedValue,
+        },
+        {
+          path: 'data/aos4/catalog/catalog.json',
+          canonicalEntityId: entity.id,
+          field: 'entity',
+          value: normalizedEntityValue(entity),
+        },
+        ...(runtimeById.has(entity.id)
+          ? [
+              {
+                path: 'src/aos4/generated/corpus/runtime.json',
+                canonicalEntityId: entity.id,
+                field: 'entity',
+                value: runtimeById.get(entity.id),
+              },
+            ]
+          : []),
+      ],
+    }
+  })
+}
+
+const contextIdsForMeta = (catalog: Aos4Catalog, meta: WahapediaRecordMeta): RulesContextId[] => {
   const kinds = meta.rulesContextKinds ?? (meta.rulesContextKind ? [meta.rulesContextKind] : [])
   if (!kinds.length) return catalog.rulesContexts.map(context => context.id)
   return catalog.rulesContexts
@@ -692,9 +726,7 @@ const buildIgnoredCandidates = (
         `Ignored source disposition references unavailable record ${disposition.sourceRecordId}`
       )
     }
-    const rulesContextIds =
-      sourceRecord?.rulesContextIds ??
-      contextIdsForMeta(catalog, snapshot!.meta)
+    const rulesContextIds = sourceRecord?.rulesContextIds ?? contextIdsForMeta(catalog, snapshot!.meta)
     const locator =
       sourceRecord?.locator ??
       (snapshot!.meta.section
@@ -706,9 +738,7 @@ const buildIgnoredCandidates = (
       cohortIds: [
         'ignored-record',
         'high-risk:policy-or-override',
-        ...(supersededIds.has(disposition.sourceRecordId)
-          ? ['superseded-source-record']
-          : []),
+        ...(supersededIds.has(disposition.sourceRecordId) ? ['superseded-source-record'] : []),
       ],
       factionIds: [],
       rulesContextIds,
@@ -741,8 +771,7 @@ const buildIgnoredCandidates = (
     }
   })
   const reason =
-    sourceData.review.supersededSourceRecords?.reason ??
-    'Superseded by the accepted current-source snapshot.'
+    sourceData.review.supersededSourceRecords?.reason ?? 'Superseded by the accepted current-source snapshot.'
   const superseded: ReviewPacketCandidate[] = supersededMetas.map(meta => ({
     key: `ignored-record:${meta.sourceRecordId}`,
     category: 'ignored-record' as const,
@@ -757,9 +786,7 @@ const buildIgnoredCandidates = (
       )
         ? ['high-risk:duplicate-candidate']
         : []),
-      ...(meta.officialSourceRecordIds?.length
-        ? ['high-risk:official-override']
-        : []),
+      ...(meta.officialSourceRecordIds?.length ? ['high-risk:official-override'] : []),
       ...contextCohorts(catalog, contextIdsForMeta(catalog, meta)),
     ],
     factionIds: [],
@@ -804,13 +831,10 @@ const buildIgnoredCandidates = (
       existing
         ? {
             ...candidate,
-            cohortIds: Array.from(
-              new Set([...existing.cohortIds, ...candidate.cohortIds])
-            ).sort((left, right) => left.localeCompare(right)),
-            generatedDestinations: [
-              ...existing.generatedDestinations,
-              ...candidate.generatedDestinations,
-            ],
+            cohortIds: Array.from(new Set([...existing.cohortIds, ...candidate.cohortIds])).sort(
+              (left, right) => left.localeCompare(right)
+            ),
+            generatedDestinations: [...existing.generatedDestinations, ...candidate.generatedDestinations],
           }
         : candidate
     )
@@ -871,11 +895,7 @@ const writePacketShards = async (
     const fileName = `shard-${String(shardNumber).padStart(4, '0')}.json`
     const shardPath = path.join(shardDirectory, fileName)
     const shardPairs = pairs.slice(index, index + PACKET_SHARD_SIZE)
-    await writeFile(
-      shardPath,
-      stableJson({ schemaVersion: 1, pairs: shardPairs }),
-      'utf8'
-    )
+    await writeFile(shardPath, stableJson({ schemaVersion: 1, pairs: shardPairs }), 'utf8')
     shards.push({
       path: path.relative(workspaceDirectory, shardPath).replaceAll('\\', '/'),
       pairs: shardPairs.length,
@@ -899,24 +919,21 @@ const run = async (): Promise<void> => {
     cacheDirectory: arguments_.cacheDirectory,
   })
   const sourceIndexes = sourceEntityIndexes(catalog)
-  const sourceCandidates = buildSourceCandidates(
-    sourceData,
-    catalog,
-    identities,
-    runtime,
-    sourceIndexes
-  )
+  const sourceCandidates = buildSourceCandidates(sourceData, catalog, identities, runtime, sourceIndexes)
   const officialCandidates = buildOfficialCandidates(
     catalog,
     profiles,
     sourceData.officialPageTextBySourceRecordId,
     sourceIndexes.entitiesBySourceRecord
   )
-  const reconciliationCandidates = buildReconciliationCandidates(
-    catalog,
-    sourceData.reconciliation
-  )
+  const reconciliationCandidates = buildReconciliationCandidates(catalog, sourceData.reconciliation)
   const ignoredCandidates = buildIgnoredCandidates(sourceData, catalog)
+  const goldenTruthCandidates = buildGoldenTruthCandidates(
+    catalog,
+    runtime,
+    sourceIndexes,
+    sourceData.officialPageTextBySourceRecordId
+  )
   const prepared = prepareReviewPackets({
     revision: sourceData.review.revision,
     protocolVersion: PROTOCOL_VERSION,
@@ -926,6 +943,7 @@ const run = async (): Promise<void> => {
       ...officialCandidates,
       ...reconciliationCandidates,
       ...ignoredCandidates,
+      ...goldenTruthCandidates,
     ],
     expectedCoverage: {
       officialRecords: profiles.records.length,
@@ -948,11 +966,7 @@ const run = async (): Promise<void> => {
   await mkdir(workspaceDirectory, { recursive: true })
   const shards = await writePacketShards(workspaceDirectory, prepared.workspace.pairs)
   await Promise.all([
-    writeFile(
-      path.join(workspaceDirectory, 'index.json'),
-      stableJson(prepared.safeIndex),
-      'utf8'
-    ),
+    writeFile(path.join(workspaceDirectory, 'index.json'), stableJson(prepared.safeIndex), 'utf8'),
     writeFile(
       path.join(workspaceDirectory, 'workspace.json'),
       stableJson({

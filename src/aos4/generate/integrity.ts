@@ -1,5 +1,6 @@
 import { validateCatalog, type Aos4Catalog, type SourceRecordId } from '../domain'
 import type { ReconciliationDiagnostic } from '../reconcile'
+import { inspectCatalogPathologies } from '../review/pathology'
 
 export type SourceDisposition =
   | {
@@ -24,6 +25,7 @@ export type GenerationIssueCode =
   | 'untrusted-runtime-source'
   | 'unknown-timing'
   | 'unsafe-html'
+  | 'pathology-error'
   | 'reconciliation-error'
 
 export interface GenerationIssue {
@@ -153,6 +155,19 @@ export const validateGenerationIntegrity = (
       })
     }
   })
+
+  inspectCatalogPathologies(catalog)
+    .filter(pathology => pathology.severity === 'error')
+    .forEach(pathology => {
+      issues.push({
+        code: 'pathology-error',
+        severity: 'error',
+        subject: pathology.subject,
+        message: `${pathology.code} at ${pathology.path}: ${pathology.message}${
+          pathology.value === undefined ? '' : ` (${JSON.stringify(pathology.value)})`
+        }`,
+      })
+    })
 
   reconciliationDiagnostics
     .filter(diagnostic => diagnostic.severity === 'error')
