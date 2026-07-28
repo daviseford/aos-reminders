@@ -6,7 +6,7 @@ import {
   saveAos4ArmyDocument,
 } from '../../aos4/runtime'
 import { createAos4ArmyDocument, serializeAos4ArmyDocument } from '../../aos4/state'
-import { AOS4_DEFAULT_SELECTION_IDS, REPRESENTATIVE_CONTEXT_ID } from '../../aos4/generated'
+import { AOS4_DEFAULT_RULES_CONTEXT_ID, AOS4_DEFAULT_SELECTION_IDS } from '../../aos4/generated'
 
 class MemoryStorage implements Storage {
   private readonly values = new Map<string, string>()
@@ -40,7 +40,7 @@ const createStoredDocument = () =>
   createAos4ArmyDocument({
     id: 'army:stored',
     name: 'Stored AoS 4 army',
-    rulesContextId: REPRESENTATIVE_CONTEXT_ID,
+    rulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
     explicitSelectionIds: AOS4_DEFAULT_SELECTION_IDS,
   })
 

@@ -14,18 +14,25 @@ The migration workbench currently provides:
   relationships, rules contexts, and provenance
 - safe Games Workshop and Wahapedia acquisition adapters
 - deterministic reconciliation, identity, audit, and runtime-generation tools
-- a small source-traceable Stormcast Eternals representative catalog
+- an accepted, source-traceable corpus covering all 28 decoded factions, 1,268 warscrolls,
+  1,002 battle profiles, 4,260 abilities, and 2,247 weapons
+- explicit current-standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends,
+  and historical rules contexts so parallel or retired records cannot leak into the current
+  builder
+- an official battle-profile ledger that dispositions all 1,350 extracted GW facts and keeps 12
+  profile-only gaps visible without inventing missing warscroll rules
 - a responsive AoS 4 builder/reminder screen with notes, hiding, focus mode, printing, and local
   persistence
 - a hard clean cut: no AoS 3 rules, state, importers, or compatibility behavior remain
 
-The representative catalog is a pipeline proof, not full game coverage. Do not deploy or merge the
-migration PR to `master` until the migration is explicitly approved for launch.
+Phase 1's game structure and accepted data pipeline are complete for the pinned 2026-07-27
+snapshot. This is not launch authorization: do not deploy or merge the migration PR to `master`
+until the migration is explicitly approved.
 
 ## Sources
 
-Games Workshop publications are authoritative. Wahapedia’s AoS 4 exports provide the coherent
-secondary dataset used for discovery and coverage.
+Games Workshop publications are authoritative. Wahapedia's AoS 4 exports and bounded current
+faction pages provide the coherent secondary dataset used for discovery and coverage.
 
 - [Official Age of Sigmar downloads](https://www.warhammer-community.com/en-gb/downloads/warhammer-age-of-sigmar/)
 - [Wahapedia AoS 4 data export](https://wahapedia.ru/aos4/the-rules/data-export/)
@@ -61,6 +68,12 @@ yarn data:aos4:candidate --output <new-directory>
 
 Candidate output is never accepted automatically. See [AoS 4 data maintenance](docs/data/aos4-maintenance.md)
 for acquisition, offline replay, review, override, identity, and generation policy.
+
+Verify the accepted snapshot and every generated checksum from the local artifact cache:
+
+```bash
+yarn data:aos4:generate
+```
 
 ## Architecture
 

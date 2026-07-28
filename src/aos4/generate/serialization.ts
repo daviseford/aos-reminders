@@ -21,5 +21,7 @@ export const orderedAuditCatalog = (catalog: Aos4Catalog): Aos4Catalog => ({
 
 export const stableJson = (value: unknown): string => `${JSON.stringify(stableValue(value), null, 2)}\n`
 
+export const stableCompactJson = (value: unknown): string => `${JSON.stringify(stableValue(value))}\n`
+
 export const serializeAuditCatalog = (catalog: Aos4Catalog): string =>
   stableJson(orderedAuditCatalog(catalog))

@@ -802,6 +802,37 @@ accepted representative catalog once official reaction evidence was available. A
 gate now rejects any player-facing entity that consumes an unknown-authority source; synthetic
 timing coverage remains isolated to offline tests and is absent from accepted audit/runtime data.
 
+**Completion (2026-07-28):** U11 is complete. The accepted manifest pins 13 reviewed Wahapedia
+exports, 36 Games Workshop PDFs, 27 current Wahapedia faction warscroll collections, and 28 current
+faction roots. Strict generation consumes all 17,443 live source records and separately
+dispositions 18,897 superseded May bulk warscroll/faction-rule rows so they cannot enter runtime.
+It emits byte-stable identities, a complete audit catalog, a compact runtime projection, defaults,
+an official battle-profile ledger, reconciliation evidence, and a summary report. The accepted
+corpus contains 28 source factions, 1,268 warscrolls, 1,002 battle profiles, 4,260 abilities,
+2,247 weapons, and 1,172 content groups.
+
+The runtime models five explicit rules contexts: current standard play, current Spearhead,
+historical standard play (including the superseded 2025-26 season), Legends, and the current
+2026-27 `Scourge of Aqshy` season. The current season is the accepted browser default.
+Context filtering prevents Spearhead variants, retired factions, Legends warscrolls, and historical
+profiles from leaking into current play. Every applicable faction/context selection resolves
+without integrity diagnostics or duplicate selectable warscroll names.
+
+The official battle-profile ledger dispositions every one of 1,350 extracted GW facts. It applies
+928 current unit facts to runtime, preserves 12 profile-only gaps without inventing warscroll rules,
+keeps 363 roster/Regiment-of-Renown facts as structured references, and marks 47 facts superseded.
+Current Games Workshop evidence settles reviewed conflicts including Sanctum of Amyntok's missing
+Passive timing; Wahapedia remains the coherent secondary corpus.
+
+The documented no-write generation command verifies pinned artifact bytes, exact reviewed
+collection/faction-page counts, accepted official PDF pages, official-fact dispositions, source
+coverage, and canonical integrity, and fails on generated-file drift. Tests cover deterministic
+generation, source attribution, the no-stale-bulk boundary, rules-context separation, storage,
+incomplete weapon characteristics, timing normalization, and the complete runtime projection.
+Desktop and mobile browser checks confirm faction selection, reminder ordering, notes, hide/show,
+reload persistence, edit/play mode, responsive builder cards, and parity with the established
+production UI and account shell.
+
 **Test scenarios:**
 
 - Validate all required export joins and official publication links for each accepted cohort.

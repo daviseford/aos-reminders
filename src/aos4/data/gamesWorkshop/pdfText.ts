@@ -12,6 +12,10 @@ import type {
 export interface PdfTextItem {
   str: string
   hasEOL?: boolean
+  x?: number
+  y?: number
+  width?: number
+  height?: number
 }
 
 export interface PdfPageHandle {
@@ -29,7 +33,13 @@ export interface PdfDocumentLoader {
 }
 
 interface PdfJsTextContent {
-  items: Array<{ str?: unknown; hasEOL?: unknown }>
+  items: Array<{
+    str?: unknown
+    hasEOL?: unknown
+    transform?: unknown
+    width?: unknown
+    height?: unknown
+  }>
 }
 
 interface PdfJsPage {
@@ -68,9 +78,24 @@ export const createPdfJsDocumentLoader = (): PdfDocumentLoader => ({
         return {
           async getTextItems() {
             const content = await page.getTextContent({ normalizeWhitespace: true })
-            return content.items.flatMap(item =>
-              typeof item.str === 'string' ? [{ str: item.str, hasEOL: item.hasEOL === true }] : []
-            )
+            return content.items.flatMap(item => {
+              if (typeof item.str !== 'string') return []
+              const transform =
+                Array.isArray(item.transform) &&
+                item.transform.length >= 6 &&
+                item.transform.every(value => typeof value === 'number')
+                  ? item.transform
+                  : undefined
+              return [
+                {
+                  str: item.str,
+                  hasEOL: item.hasEOL === true,
+                  ...(transform ? { x: transform[4], y: transform[5] } : {}),
+                  ...(typeof item.width === 'number' ? { width: item.width } : {}),
+                  ...(typeof item.height === 'number' ? { height: item.height } : {}),
+                },
+              ]
+            })
           },
         }
       },

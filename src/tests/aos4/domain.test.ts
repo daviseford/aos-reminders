@@ -17,6 +17,7 @@ import {
 import type {
   Ability,
   Aos4Catalog,
+  BattleProfile,
   ContentRelationship,
   Faction,
   RulesContext,
@@ -284,6 +285,25 @@ describe('AoS 4 domain', () => {
     expect(validateCatalog(catalog)).toEqual([])
   })
 
+  it('supports battle profiles whose rules context does not use points', () => {
+    const catalog = createCatalog()
+    const profile = catalog.entities.find(
+      (entity): entity is BattleProfile => entity.kind === 'battle-profile'
+    )!
+    delete profile.points
+    profile.pointsStatus = 'not-applicable'
+
+    expect(validateCatalog(catalog)).toEqual([])
+
+    delete profile.pointsStatus
+    expect(validateCatalog(catalog)).toContainEqual(
+      expect.objectContaining({
+        code: 'invalid-battle-profile',
+        subject: profile.id,
+      })
+    )
+  })
+
   it('reports duplicate entity IDs, dangling provenance, relationships, and rules contexts', () => {
     const catalog = createCatalog()
     catalog.entities.push({ ...faction })
@@ -361,9 +381,7 @@ describe('AoS 4 domain', () => {
       id: abilityId('10000000-0000-4000-8000-000000000020'),
     })
 
-    expect(validateCatalog(catalog)).toContainEqual(
-      expect.objectContaining({ code: 'invalid-battle-round' })
-    )
+    expect(validateCatalog(catalog)).toContainEqual(expect.objectContaining({ code: 'invalid-battle-round' }))
   })
 
   it('validates source applicability and required entity fields', () => {
@@ -393,6 +411,23 @@ describe('AoS 4 domain', () => {
         'missing-ability-effect',
         'invalid-weapon-profile',
       ])
+    )
+  })
+
+  it('retains explicitly identified source-incomplete weapon profiles', () => {
+    const catalog = createCatalog()
+    const incomplete = catalog.entities.find((entity): entity is Weapon => entity.kind === 'weapon')!
+    incomplete.profile = {
+      ...incomplete.profile,
+      rend: '',
+      sourceIncompleteCharacteristics: ['rend'],
+    }
+
+    expect(validateCatalog(catalog)).not.toContainEqual(
+      expect.objectContaining({
+        code: 'invalid-weapon-profile',
+        subject: incomplete.id,
+      })
     )
   })
 

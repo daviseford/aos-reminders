@@ -40,6 +40,8 @@ export interface HttpRequest {
   headers: Record<string, string>
   signal: AbortSignal
   approvedAddresses: string[]
+  method?: 'GET' | 'POST'
+  body?: Uint8Array
 }
 
 export interface HttpResponse {
@@ -53,7 +55,7 @@ export interface HttpTransport {
 }
 
 export const createPinnedHttpsTransport = (): HttpTransport => ({
-  request({ url, headers, signal, approvedAddresses }) {
+  request({ url, headers, signal, approvedAddresses, method = 'GET', body }) {
     return new Promise((resolve, reject) => {
       const address = approvedAddresses[0]
       const family = isIP(address)
@@ -68,6 +70,7 @@ export const createPinnedHttpsTransport = (): HttpTransport => ({
           headers,
           signal,
           family,
+          method,
           lookup: (_hostname, _options, callback) => callback(null, address, family),
         },
         incoming => {
@@ -87,6 +90,7 @@ export const createPinnedHttpsTransport = (): HttpTransport => ({
       outgoing.on('error', error => {
         reject(new AcquisitionError('network-error', `Request failed for ${url}`, error))
       })
+      if (body?.byteLength) outgoing.write(body)
       outgoing.end()
     })
   },
@@ -105,18 +109,55 @@ export const requestWithTimeout = async (
 ): Promise<HttpResponse> => {
   const controller = new AbortController()
   let timer: ReturnType<typeof setTimeout> | undefined
+  let timedOut = false
 
   const timeout = new Promise<never>((_, reject) => {
     timer = setTimeout(() => {
+      timedOut = true
       controller.abort()
       reject(new AcquisitionError('timeout', `Request timed out after ${timeoutMs}ms`))
     }, timeoutMs)
   })
 
   try {
-    return await Promise.race([transport.request({ ...request, signal: controller.signal }), timeout])
-  } finally {
+    const response = await Promise.race([
+      transport.request({ ...request, signal: controller.signal }),
+      timeout,
+    ])
+    const iterator = response.body[Symbol.asyncIterator]()
+    const clearTimer = () => {
+      if (timer) {
+        clearTimeout(timer)
+        timer = undefined
+      }
+    }
+    const bodyIterator: AsyncIterator<Uint8Array> = {
+      async next() {
+        try {
+          const result = await Promise.race([iterator.next(), timeout])
+          if (result.done) clearTimer()
+          return result
+        } catch (error) {
+          clearTimer()
+          if (timedOut) {
+            void iterator.return?.()
+            throw new AcquisitionError('timeout', `Request timed out after ${timeoutMs}ms`, error)
+          }
+          throw error
+        }
+      },
+      async return() {
+        clearTimer()
+        return (await iterator.return?.()) ?? { done: true, value: undefined }
+      },
+    }
+    const body: AsyncIterable<Uint8Array> = {
+      [Symbol.asyncIterator]: () => bodyIterator,
+    }
+    return { ...response, body }
+  } catch (error) {
     if (timer) clearTimeout(timer)
+    throw error
   }
 }
 

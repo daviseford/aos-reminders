@@ -1,7 +1,9 @@
-import type { ArtifactManifestEntry, GamesWorkshopPdfInput } from '../../aos4/data'
+import { createArtifactManifest, type ArtifactManifestEntry, type GamesWorkshopPdfInput } from '../../aos4/data'
 import {
+  candidateArtifactUrls,
   createCandidateOfficialDocumentReport,
   parseCandidateArguments,
+  uniqueWahapediaPageUrls,
 } from '../../aos4/data/candidateCommand'
 import { artifactId, sourceRecordId } from '../../aos4/domain'
 
@@ -25,8 +27,12 @@ describe('AoS 4 candidate command arguments', () => {
       outputDirectory: 'candidate-output',
       acceptedManifestPath: 'accepted.json',
       officialDocumentUrls: [],
+      officialDocumentListPaths: [],
+      wahapediaPageUrls: [],
+      wahapediaPageListPaths: [],
       officialSearchTerms: [],
       factionIds: ['OB', 'SE'],
+      requestPauseMs: 250,
       offline: true,
     })
   })
@@ -116,5 +122,80 @@ describe('AoS 4 candidate command arguments', () => {
         Array.from({ length: 21 }, (_, index) => ['--official-search', `term-${index}`]).flat()
       )
     ).toThrow('At most 20 official search terms')
+  })
+
+  it('accepts a bounded pause and repeatable Wahapedia page inputs', () => {
+    expect(
+      parseCandidateArguments([
+        '--wahapedia-page',
+        'https://wahapedia.ru/aos4/factions/ironjawz/Brutes',
+        '--official-urls-file',
+        'official.json',
+        '--wahapedia-pages-file',
+        'pages.json',
+        '--request-pause-ms',
+        '0',
+      ])
+    ).toMatchObject({
+      wahapediaPageUrls: ['https://wahapedia.ru/aos4/factions/ironjawz/Brutes'],
+      officialDocumentListPaths: ['official.json'],
+      wahapediaPageListPaths: ['pages.json'],
+      requestPauseMs: 0,
+    })
+    expect(() => parseCandidateArguments(['--request-pause-ms', '60001'])).toThrow('--request-pause-ms')
+  })
+
+  it('deduplicates and bounds Wahapedia page acquisition', () => {
+    expect(
+      uniqueWahapediaPageUrls([
+        ' https://wahapedia.ru/aos4/factions/stormcast-eternals/Liberators ',
+        'https://wahapedia.ru/aos4/factions/ironjawz/Brutes',
+        'https://wahapedia.ru/aos4/factions/stormcast-eternals/Liberators',
+      ])
+    ).toEqual([
+      'https://wahapedia.ru/aos4/factions/ironjawz/Brutes',
+      'https://wahapedia.ru/aos4/factions/stormcast-eternals/Liberators',
+    ])
+
+    expect(() =>
+      uniqueWahapediaPageUrls(
+        Array.from({ length: 2_001 }, (_, index) => `https://wahapedia.ru/page-${index}`)
+      )
+    ).toThrow('At most 2000 Wahapedia page URLs')
+  })
+
+  it('derives a complete offline replay set instead of copying unverified manifest entries', () => {
+    const official = {
+      requestUrl: 'https://assets.warhammer-community.com/official.pdf',
+      finalUrl: 'https://assets.warhammer-community.com/official.pdf',
+      redirectChain: [],
+      retrievedAt: '2026-07-27T12:00:00.000Z',
+      adapterVersion: 'games-workshop-pdf/1',
+      mediaType: 'application/pdf',
+      byteLength: 1,
+      checksum: 'a'.repeat(64),
+    } satisfies ArtifactManifestEntry
+    const html = {
+      ...official,
+      requestUrl: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html',
+      finalUrl: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html',
+      adapterVersion: 'wahapedia-html/1',
+      mediaType: 'text/html',
+      checksum: 'b'.repeat(64),
+    } satisfies ArtifactManifestEntry
+    const manifest = createArtifactManifest([official, html])
+
+    expect(candidateArtifactUrls([], manifest, 'games-workshop-pdf/1', true)).toEqual([
+      official.requestUrl,
+    ])
+    expect(
+      candidateArtifactUrls(
+        ['https://assets.warhammer-community.com/explicit.pdf'],
+        manifest,
+        'games-workshop-pdf/1',
+        true
+      )
+    ).toEqual(['https://assets.warhammer-community.com/explicit.pdf'])
+    expect(candidateArtifactUrls([], manifest, 'games-workshop-pdf/1', false)).toEqual([])
   })
 })

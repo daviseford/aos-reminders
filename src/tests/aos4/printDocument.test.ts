@@ -86,6 +86,7 @@ describe('createAos4PrintDocument', () => {
       warscrolls: [
         { name: 'Liberators', profile: { points: 110, unitSize: 5 } },
         { name: 'Lord-Imperatant', profile: { points: 150, unitSize: 1 } },
+        { name: 'Profile-Only Thing', profile: { unitSize: 3 } },
         { name: 'Unpointed Thing' },
       ],
     })
@@ -95,6 +96,7 @@ describe('createAos4PrintDocument', () => {
     expect(document.summary?.lines).toEqual([
       'Liberators (5) - 110 pts',
       'Lord-Imperatant (1) - 150 pts',
+      'Profile-Only Thing (3)',
       'Unpointed Thing',
     ])
     expect(document.summary?.heading).toBe('Hammers of Sigmar - 260 pts')

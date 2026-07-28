@@ -25,6 +25,7 @@ export interface WahapediaFactionCohortReport {
     abilities: number
     weapons: number
     unknownWeaponSourceRecordIds: string[]
+    incompleteWeaponSourceRecordIds: string[]
     unresolvedTimingSourceRecordIds: string[]
     phaseIndependentSourceRecordIds: string[]
     effectPhaseWindowSourceRecordIds: string[]
@@ -147,6 +148,13 @@ export const createWahapediaFactionCohortReport = (
   const unknownWeaponSourceRecordIds = uniqueSorted(
     weaponFacts.filter(fact => fact.weaponType === 'unknown').map(fact => String(fact.sourceRecordId))
   )
+  const incompleteWeaponSourceRecordIds = uniqueSorted(
+    weaponFacts
+      .filter(fact =>
+        fact.diagnostics.some(diagnostic => diagnostic.code === 'source-incomplete-weapon-profile')
+      )
+      .map(fact => String(fact.sourceRecordId))
+  )
   const reactionFlagMismatchSourceRecordIds = uniqueSorted(
     abilityFacts
       .filter(fact => fact.diagnostics.some(diagnostic => diagnostic.code === 'reaction-flag-mismatch'))
@@ -182,6 +190,7 @@ export const createWahapediaFactionCohortReport = (
       abilities: abilityFacts.length,
       weapons: weaponFacts.length,
       unknownWeaponSourceRecordIds,
+      incompleteWeaponSourceRecordIds,
       unresolvedTimingSourceRecordIds,
       phaseIndependentSourceRecordIds,
       effectPhaseWindowSourceRecordIds,

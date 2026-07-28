@@ -2,217 +2,212 @@
 
 AoS 4 data moves through three distinct states:
 
-1. **Candidate acquisition** downloads immutable source bytes into the ignored checksum cache and
-   writes a candidate manifest, summary, and row-addressable diagnostics.
-2. **Reviewed source data** records accepted artifact revisions, canonical identities, explicit
-   dispositions, and justified overrides in `data/aos4/`.
-3. **Generated products** separate the complete curator-facing audit catalog from the compact
-   application projection.
+1. Candidate acquisition downloads immutable source bytes into the ignored checksum cache and
+   writes manifests, diagnostics, cohort inventories, and official-page locators.
+2. Reviewed inputs pin accepted artifacts and record approvals, dispositions, official evidence,
+   timing overrides, and stable canonical identities under `data/aos4/`.
+3. Deterministic generation writes a complete curator-facing audit catalog and a compact browser
+   projection from exactly the same reviewed inputs.
 
-Candidate output is never accepted automatically. A successful download only proves that the
-artifact was retrieved safely and decoded; it does not prove that its rules are correct or suitable
-for publication.
+A successful download never accepts data. Candidate acquisition proves only that an artifact was
+retrieved safely and decoded.
+
+## Current accepted snapshot
+
+The accepted 2026-07-27 snapshot is defined by:
+
+| Path | Purpose |
+| --- | --- |
+| `data/aos4/manifests/accepted-2026-07-27.json` | 13 Wahapedia exports, 36 official PDFs, and 55 reviewed Wahapedia pages, pinned by SHA-256 |
+| `data/aos4/reviews/corpus-2026-07-27.json` | faction approval, diagnostic policies, exact exceptions, dispositions, and official evidence |
+| `data/aos4/identities/corpus.json` | deterministic source aliases to stable canonical IDs |
+| `data/aos4/catalog/catalog.json` | complete audit catalog with source artifacts, records, transformations, and structured facts |
+| `data/aos4/catalog/official-battle-profiles.json` | every extracted official profile fact with an explicit runtime/reference/superseded disposition |
+| `src/aos4/generated/corpus/runtime.json` | compact application projection |
+| `src/aos4/generated/corpus/defaults.json` | accepted default faction and rules context |
+| `data/aos4/reports/corpus-2026-07-27-reconciliation.json` | official-to-secondary matches, field discrepancies, and profile-only gaps |
+| `data/aos4/reports/corpus-2026-07-27-summary.json` | strict-gate counts, dispositions, and product checksums |
+
+The strict report currently records:
+
+- 28 factions
+- 1,268 warscrolls and 1,002 battle profiles
+- 4,260 usable abilities
+- 2,247 weapons
+- 1,172 content groups, including 48 Spearhead force/unit wrappers
+- 104 source artifacts and 17,443 live source records
+- every live record consumed, with zero unresolved integrity issues
+- 18,897 May 2026 bulk warscroll/faction-rule records explicitly superseded and excluded
+- 1,350 extracted GW battle-profile facts: 928 applied to runtime, 12 profile-only gaps,
+  363 structured references, and 47 superseded facts
+
+The accepted current rules come from 27 faction `warscrolls.html` collection pages and 28 faction
+roots. Collection pages contribute 1,074 native faction warscrolls; faction roots add 194
+Spearhead warscrolls, 1,041 faction-rule groups, and 1,829 faction abilities. The review pins those
+exact counts plus 150 parser warnings so a silent remote-shape change fails generation.
+
+The 13 May 2026 exports remain accepted only for stable faction/publication identities and audit
+history. No bulk warscroll, weapon, ability, keyword, organization, or faction-rule row may enter
+the live catalog; the strict integrity test enforces that boundary. Current-standard, General's
+Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and historical contexts isolate parallel
+content. The prior 2025-26 season is retained only inside the generic historical boundary rather
+than as a second selectable current context.
+
+The current official Battle Profiles PDF and Ogor Mawtribes supplement contribute 1,303 effective
+facts. Reconciliation applies official unit size, points, regiment options, notes, and bases to 928
+runtime profiles and records 669 field-level secondary discrepancies. Twelve official unit facts
+remain `profile-only` because current warscroll rules were not available; generation preserves
+their exact facts and checksums but does not invent reminders. The official June 2026 Rules Updates
+supplies the missing `Passive` timing for Sanctum of Amyntok's Multiple Parts ability.
+
+The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
+journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not
+the current runtime.
 
 ## Source policy
 
 Use the newest applicable Games Workshop publication as authoritative. Use
-[Wahapedia's AoS 4 exports](https://wahapedia.ru/aos4/the-rules/data-export/) as the coherent
-secondary dataset for discovery, joins, and coverage. Other sources may reveal gaps but must not
-silently override either source.
+[Wahapedia's AoS 4 exports](https://wahapedia.ru/aos4/the-rules/data-export/) and bounded current
+faction pages as the coherent secondary datasets for discovery, joins, and coverage. Other sources
+may identify gaps but must not silently override either source.
 
-Every accepted fact must retain enough provenance to identify:
+Every accepted fact must retain:
 
-- publisher, title, edition, language, version, and effective date
-- source URL, immutable content checksum, and retrieval time
-- page, row, section, or document locator
+- publisher, authority, title, edition, language, version, and effective date when known
+- source URL, immutable artifact checksum, byte length, and retrieval time
+- page, row, section, or document locator and record checksum
 - applicable rules context
-- any transformation or reviewed override
+- transformation, diagnostic approval, disposition, or override rationale
 
-Wahapedia-derived runtime data must retain the `Powered by Wahapedia` attribution. Do not commit
-downloaded PDFs, bulk exports, or full verbatim rules text. Raw artifacts belong in `.cache/aos4/`,
-which is ignored by Git.
+Wahapedia-derived features retain `Powered by Wahapedia`. Raw PDFs, exports, and extracted page
+text stay under ignored `.cache/aos4/`; Git contains structured reviewed facts, manifests, and
+generated application data only.
 
 ## Candidate acquisition
 
 Start official discovery at the
 [Warhammer Community AoS downloads page](https://www.warhammer-community.com/en-gb/downloads/warhammer-age-of-sigmar/).
-The private download-search endpoint is unstable and is isolated behind an adapter; independently
-verify each chosen official PDF URL and pass it explicitly to the maintenance command.
+Independently verify each official PDF and pass its immutable asset URL explicitly.
 
-Acquire all 13 documented Wahapedia exports and one or more reviewed official documents with:
+First discover the current official catalog without downloading documents:
 
 ```powershell
-yarn data:aos4:candidate --official-url <official-pdf-url>
+yarn data:aos4:discover-official `
+  --language english `
+  --output .cache/aos4/games-workshop/downloads.json
 ```
 
-`--official-url` is repeatable. By default, the command writes a new timestamped directory under
-`.cache/aos4/candidates/`. Use `--output <directory>` for a stable review location. The output
-directory must not already exist, so the command fails instead of overwriting an earlier candidate.
-Add one or more `--faction <Wahapedia-faction-id>` arguments to emit bounded, non-verbatim faction
-cohort reports alongside the full-corpus diagnostics:
+Review that result and create explicit JSON URL lists. Then acquire all 13 Wahapedia exports,
+bounded current faction pages, and official documents:
 
 ```powershell
 yarn data:aos4:candidate `
-  --official-url <official-pdf-url> `
+  --official-urls-file <reviewed-official-json-url-list> `
+  --wahapedia-pages-file <reviewed-wahapedia-json-url-list> `
   --official-search "rules section heading" `
-  --faction SE
+  --faction SE `
+  --output <new-directory>
 ```
 
-A cohort report inventories linked records with source-record IDs and exact row checksums, then
-blocks the cohort when it contains decoder errors, unknown weapon types, unresolved timing, or a
-contradictory reaction flag. It never promotes the records or copies rule text into the repository.
+`--official-url`, `--wahapedia-page`, `--official-search`, and `--faction` are repeatable. Output
+directories are create-only. The command:
 
-`--official-search` is repeatable and performs a bounded, case-insensitive literal search over
-extracted official pages. Reports contain only the requested term and matching page numbers, not
-page text. Use it to locate sections for source review before writing a publication-specific fact
-extractor.
-
-The acquisition layer:
-
-- allows HTTPS only and resolves only configured public hosts
-- pins each request to a validated public DNS address
-- bounds redirects, response size, and request duration
-- rejects unexpected media types, encodings, truncation, and checksum mismatches
-- caches bytes by SHA-256 checksum
-- pauses between requests
+- permits only configured HTTPS hosts and public resolved addresses
+- bounds redirects, time, response size, media type, encoding, and PDF extraction
+- pauses between requests and caches immutable bytes by SHA-256
 - writes `candidate-manifest.json`, `candidate-report.json`, and
   `candidate-diagnostics.json`
-- extracts bounded, page-addressable text from each requested official PDF and writes a
-  non-verbatim `official-document-report.json` with page source-record checksums
-- optionally writes `cohort-<faction-id>-report.json` for each requested faction
+- writes a non-verbatim `official-document-report.json` with page IDs/checksums
+- decodes bounded faction collection/root HTML and records diagnostics without accepting it
+- optionally writes `cohort-<faction-id>-report.json`
 
-To replay an accepted manifest entirely from the checksum cache:
+Replay pinned artifacts without network access:
 
 ```powershell
 yarn data:aos4:candidate `
-  --accepted-manifest <accepted-manifest.json> `
-  --official-url <official-pdf-url> `
-  --official-search "rules section heading" `
-  --faction <Wahapedia-faction-id> `
-  --offline
+  --accepted-manifest data/aos4/manifests/accepted-2026-07-27.json `
+  --offline `
+  --output <new-directory>
 ```
 
-Offline replay fails on a missing or corrupt cache entry and never calls the network.
+Offline replay fails when any checksum-addressed cache entry is missing or corrupt.
 
-## Review and promotion
+## Review and acceptance
 
-Review candidate output before copying any metadata into `data/aos4/`:
+For a refresh:
 
-1. Confirm that all 13 Wahapedia exports are present and that each official URL still resolves to
-   the intended publication.
-2. Compare checksums, byte lengths, media types, redirects, `Last_update.csv`, HTTP metadata, and
-   source-level dates with the previously accepted revision.
-3. Review every error and each changed diagnostic cohort by file, field, and row. Repeated
-   identical rows and empty association sentinels may be source-shape warnings; unresolved joins,
-   conflicting keys, header drift, and unknown vocabulary require a decision.
-4. Reconcile candidate facts with the applicable official publication. Preserve both facts when
-   sources disagree, and select the newest applicable official value.
-5. Add or update canonical identities. A source alias is unique within its canonical entity kind;
-   include the export filename when a Wahapedia identifier is only unique within a table.
-6. Record ignored source records with a non-empty reason. Unresolved records remain generation
-   errors. Never disposition a record that is already consumed.
-7. Add a manual override only when it has a reason, author, UTC review time, applicable context,
-   and cited source-record IDs.
-8. Promote the candidate manifest only after review. There is intentionally no automatic
-   `--accept` command.
+1. Confirm that all 13 export files, intended official documents, and bounded current faction
+   pages are present.
+2. Compare artifact checksums, byte lengths, redirects, HTTP metadata, `Last_update.csv`, and
+   source dates with the accepted manifest.
+3. Review every new or changed decoder/normalization diagnostic by source record and cohort.
+4. Reconcile conflicting facts against the newest applicable official publication. Preserve the
+   secondary fact and cite exact official page records. Every extracted official battle-profile
+   fact must receive one disposition.
+5. Preserve existing canonical IDs. Add a deterministic source alias only for genuinely new
+   entities; never derive identity from mutable display text.
+6. Give each ignored record a specific non-empty reason. Unresolved records remain strict errors.
+7. Record semantic corrections as exact reviewed policies or overrides. Broad policies are allowed
+   only for bounded mechanical transformations whose behavior is tested.
+8. Update the accepted manifest/review inputs only after review. There is intentionally no
+   automatic `--accept` command.
 
-Repository locations:
+Candidate data must never write the runtime directly.
 
-| Path | Purpose |
-| --- | --- |
-| `data/aos4/manifests/` | Candidate or explicitly accepted immutable artifact metadata |
-| `data/aos4/identities/` | Reviewed source aliases to stable canonical IDs |
-| `data/aos4/overrides/` | Reviewed, attributable conflict decisions |
-| `data/aos4/reports/` | Non-verbatim coverage and validation summaries |
-| `data/aos4/catalog/` | Future complete curator-facing audit catalog |
-| `src/aos4/generated/` | Compact, offline application data |
+## Generation
 
-The checked-in `candidate-2026-07-27` files are reconnaissance only and explicitly remain
-unaccepted. The representative Stormcast cohort is the current strict-pass proof; it is not a
-complete AoS 4 corpus.
-
-The checked-in `cohort-stormcast-2026-07-27-summary` is the first full-faction inventory. Official
-core-rule review resolved every phase-independent Reaction timing structurally. The cohort remains
-blocked by two rows whose `is_reaction=false` flag contradicts their explicit Reaction text. The
-current official Stormcast Eternals erratum corroborates that Reaction text, but the evidence still
-needs formal fact linking and the rest of the applicable faction publication family has not been
-reconciled. The cohort does not change the runtime catalog.
-
-The checked-in `official-rules-2026-07-27-summary` records the checksums and page locators supporting
-the triggered Reaction window and the phase-independent active window. The base rules, June 2026
-update, and superseded September 2024 Nighthaunt pack extracted without diagnostics; neither raw
-PDF nor page text is committed.
-
-The checked-in `cohort-index-2026-07-27` applies the same non-verbatim inventory to all 28 factions:
-16 have no automated blocker and still require source review, while 12 are blocked by decoder
-errors or contradictory reaction flags. “Reviewable” is not “accepted”; no full faction has entered
-the runtime catalog.
-
-Synthetic timing fixtures remain useful in the offline test matrix, but they are not accepted game
-data. The representative runtime no longer displays the former synthetic reaction, and strict
-generation rejects any consumed source whose authority is unknown. A real reaction enters the
-runtime only with an applicable reviewed cohort and traceable source evidence.
-
-## Generation gates
-
-Strict generation fails when:
-
-- domain references, rules contexts, or provenance are invalid
-- a source record is neither consumed nor dispositioned
-- a disposition is duplicated, lacks a reason, or contradicts consumption
-- an unresolved source record remains
-- player-facing runtime content consumes an unknown-authority or test-fixture source
-- runtime timing is unclassified
-- normalized entities retain HTML
-- reconciliation contains an error
-- canonical IDs or same-kind source aliases collide
-
-Audit and runtime JSON use stable object keys and stable outer collection ordering. The runtime
-projection retains compact source links but omits artifacts, retrieval metadata, checksums, record
-checksums, and transformation notes. Candidate acquisition timestamps are expected to change;
-determinism applies when generating from the same accepted manifest, identity registry, and
-overrides.
-
-Run focused checks while reviewing data:
+Verify the accepted snapshot without writing:
 
 ```powershell
-yarn test src/tests/aos4/catalogIntegrity.test.ts --run
-yarn test src/tests/aos4/acquisition.test.ts src/tests/aos4/wahapediaAdapter.test.ts --run
+yarn data:aos4:generate
 ```
 
-Before proposing a cohort for integration, run:
+The command:
+
+- checks every accepted cache artifact's SHA-256 and byte length
+- re-extracts each reviewed official PDF and verifies cited page IDs/checksums
+- decodes all Wahapedia exports plus reviewed collection/root pages
+- requires exact reviewed counts for HTML artifacts, warscrolls, Spearhead records, faction groups,
+  faction abilities, and warnings
+- reconciles official battle-profile facts, preserves field discrepancies, and emits the complete
+  official fact ledger
+- requires every decoder and normalization diagnostic to match a reviewed policy
+- validates the stable identity registry and approved faction set
+- builds the complete catalog, then requires every source record to be consumed or dispositioned
+- rejects unknown timing, unsafe HTML, missing graph references, duplicate identities, untrusted
+  sources, and unacknowledged incomplete data
+- compares every generated file byte-for-byte with the checked-in product
+
+After deliberately changing accepted inputs, regenerate:
 
 ```powershell
+yarn data:aos4:generate:write
+yarn data:aos4:generate
+```
+
+Inspect the manifest, review, identity, catalog, runtime, and checksum-report diffs together. Never
+hand-edit `catalog.json`, `official-battle-profiles.json`, `identities/corpus.json`, or generated
+corpus JSON.
+
+## Verification
+
+Routine tests stay offline and use compact fixtures. Before proposing accepted data:
+
+```powershell
+yarn data:aos4:generate
 yarn lint
 yarn tsc --noEmit
 yarn test --run
 yarn build
 ```
 
-## Current known candidate gaps
+Add focused coverage for provider contract changes, malformed HTML, new timing vocabulary,
+incomplete profiles, joins, official precedence, stable identities, selection reachability,
+reminder ordering, persistence, attribution, and deterministic serialization.
 
-The 2026-07-27 live snapshot decodes 28 factions, 1,795 warscrolls, 4,092 abilities, and 2,147
-weapons after excluding 559 empty keyword association sentinels. One timing is unresolved pending
-formal official-source reconciliation; 177 disagreements with the non-canonical `ability_phase`
-metadata are reported, 13 reaction flags contradict explicit Reaction text, and two Regiment of
-Renown joins reference the absent `LCA` faction. Those items are review work, not accepted
-exceptions.
+## Refresh boundary
 
-Eighteen earlier fallbacks were resolved from the condition field itself: first/third battle-round
-boundaries now retain their round qualifier, and the adapter corrects only eight instances of the
-two exact observed source typos `Any Comhat Phase` and `Your Hero Quest` while emitting
-`source-timing-correction`. The Ossiarch once-per-phase ability is now projected into the Movement,
-Charge, and Combat windows explicitly labelled in its effect instead of trusting the contradictory
-Start of Turn source column. The current official Nighthaunt update replaces Light a Pyre's older
-End of Any Turn timing with usage-only `Once Per Turn (Army)`, so it is represented by a
-phase-independent active window and the stale Wahapedia `ability_phase` column is ignored. The
-current official Lumineth update also supplies Passive timing for one Multiple Parts row whose
-export condition is empty and whose `ability_phase` value is wrong. The phase metadata can no
-longer create canonical timing. That Lumineth row remains unknown and blocks its cohort until formal
-reconciliation links the exact official and secondary source-record checksums and rules context.
-The checked candidate summary records the exact unresolved, phase-independent, effect-derived, and
-corrected source-record IDs; complete conflict IDs remain in the ignored cohort reports.
-
-Official full-corpus discovery, publication-family extraction, identity review, and conflict
-resolution remain cohort work. Expand from the representative faction rather than treating a
-successful bulk decode as release-ready data.
+The accepted snapshot is a reproducible data decision, not a claim that remote sources will never
+change. A newer Wahapedia export or Games Workshop publication starts a new candidate cycle. Keep
+the existing accepted files reproducible until the replacement passes the same strict gate, and
+keep rules/data changes separate from Phase 2 package modernization.

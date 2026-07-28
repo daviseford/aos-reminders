@@ -1,5 +1,5 @@
-import type { CanonicalId, SourceArtifact } from '../../aos4/domain'
-import { AOS4_CATALOG } from '../../aos4/generated'
+import type { CanonicalId, Faction, SourceArtifact } from '../../aos4/domain'
+import { AOS4_CATALOG, AOS4_DEFAULT_FACTION_ID } from '../../aos4/generated'
 import {
   COMPACT_PRESET,
   STANDARD_PRESET,
@@ -34,9 +34,10 @@ const loadDocument = (): Aos4ArmyDocument => {
   }
 }
 
+const sourceArtifactById = new Map(AOS4_CATALOG.sourceArtifacts.map(artifact => [artifact.id, artifact]))
 const sourceArtifactByRecordId = new Map(
   AOS4_CATALOG.sourceRecords.flatMap(record => {
-    const artifact = AOS4_CATALOG.sourceArtifacts.find(candidate => candidate.id === record.artifactId)
+    const artifact = sourceArtifactById.get(record.artifactId)
     return artifact ? [[String(record.id), artifact] as const] : []
   })
 )
@@ -68,7 +69,8 @@ const reminderSources = (reminder: Aos4ReminderViewModel): ReminderSourceLink[] 
     ).values()
   )
 
-const factionName = AOS4_CATALOG.entities.find(entity => entity.kind === 'faction')?.name ?? 'Age of Sigmar 4'
+const factionEntities = AOS4_CATALOG.entities.filter((entity): entity is Faction => entity.kind === 'faction')
+const factionById = new Map(factionEntities.map(faction => [faction.id, faction]))
 
 const presetById = (id: PrintPreset['id']) => (id === 'compact' ? COMPACT_PRESET : STANDARD_PRESET)
 
@@ -78,9 +80,22 @@ const Home = () => {
   const [document, setDocument] = useState(loadDocument)
   const [isGameMode, setIsGameMode] = useState(false)
   const [printModalIsOpen, setPrintModalIsOpen] = useState(false)
+  const factions = useMemo(
+    () =>
+      factionEntities
+        .filter(faction => faction.rulesContextIds.includes(document.rulesContextId))
+        .map(faction => ({ label: faction.name, value: faction.id }))
+        .sort((left, right) => left.label.localeCompare(right.label)),
+    [document.rulesContextId]
+  )
   const builder = useMemo(() => createAos4BuilderViewModel(AOS4_CATALOG, document), [document])
   const reminders = useMemo(() => createAos4ReminderViewModel(AOS4_CATALOG, document), [document])
   const hiddenCount = reminders.filter(reminder => reminder.hidden).length
+  const selectedFactionId = document.explicitSelectionIds.find(id =>
+    factionById.has(id as CanonicalId<'faction'>)
+  )
+  const factionId = (selectedFactionId as CanonicalId<'faction'> | undefined) ?? AOS4_DEFAULT_FACTION_ID
+  const factionName = factionById.get(factionId)?.name ?? 'Age of Sigmar 4'
 
   const printDocument = useMemo(
     () =>
@@ -89,7 +104,7 @@ const Home = () => {
         factionName,
         warscrolls: builder.warscrolls,
       }),
-    [builder.warscrolls, document.name, reminders]
+    [builder.warscrolls, document.name, factionName, reminders]
   )
 
   const handleDownloadPdf = (presetId: PrintPreset['id'], pageSize: PrintPageSize, fileName: string) => {
@@ -118,13 +133,22 @@ const Home = () => {
   }
 
   const clearArmy = () => {
-    const factionIds = AOS4_CATALOG.entities
-      .filter(entity => entity.kind === 'faction')
-      .map(entity => entity.id)
     setDocument(current =>
       createAos4ArmyDocument({
         ...current,
-        explicitSelectionIds: factionIds,
+        explicitSelectionIds: [factionId],
+        reminderPreferences: {},
+      })
+    )
+  }
+
+  const selectFaction = (nextFactionId: CanonicalId<'faction'>) => {
+    const faction = factionById.get(nextFactionId)
+    setDocument(current =>
+      createAos4ArmyDocument({
+        ...current,
+        name: faction?.name ?? current.name,
+        explicitSelectionIds: [nextFactionId],
         reminderPreferences: {},
       })
     )
@@ -182,8 +206,10 @@ const Home = () => {
     <div>
       <Header
         armyName={document.name}
-        factionName={factionName}
+        factionId={factionId}
+        factions={factions}
         isGameMode={isGameMode}
+        onFactionChange={selectFaction}
         onToggleGameMode={() => setIsGameMode(current => !current)}
       />
 

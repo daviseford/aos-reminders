@@ -1,0 +1,347 @@
+import {
+  artifactChecksum,
+  filterNativeWahapediaFactionWarscrolls,
+  parseWahapediaFactionHtml,
+  parseWahapediaWarscrollHtml,
+  parseWahapediaWarscrollCollectionHtml,
+  type ArtifactManifestEntry,
+} from '../../aos4/data'
+
+const warscrollHtml = (overrides: { sourceTitle?: string; health?: string; bodyCount?: number } = {}) => {
+  const bodies = Array.from({ length: overrides.bodyCount ?? 1 }, (_, index) =>
+    index === 0
+      ? `<div class="abBody"><b>Stalwart Defenders:</b><span class="ShowFluff">Fluff.</span><p>Effect: Add 3 to this unit's control score.</p></div>`
+      : `<div class="abBody"><b>Extra Ability:</b><p>Effect: Extra.</p></div>`
+  ).join('')
+  return `
+    <!doctype html>
+    <html>
+      <body>
+        <span class="page_header_span2">Stormcast Eternals</span>
+        <section class="datasheet">
+          <a name="Liberators"></a>
+          <h1 class="wsHeaderIn">Liberators</h1>
+          <img class="logo3" title="${overrides.sourceTitle ?? 'Battletome: Stormcast Eternals (4th edition)'}">
+          <span class="wsMove">5"</span>
+          <span class="wsWounds">${overrides.health ?? '2'}</span>
+          <span class="wsSave">3+</span>
+          <span class="wsBravery">1</span>
+          <div class="wsDescription"><em>Trusted display text is normalized later.</em></div>
+          <div class="PitchedBattleProfile">
+            <div>Unit Size: 5 Points: 90</div>
+            <div>Base size: 40mm</div>
+            <div>Can be reinforced: Yes</div>
+            <div>Regiment Options: Any Stormcast Eternals</div>
+          </div>
+          <div class="wsTable">
+            <table>
+              <tr class="wsHeaderRow"><th>RANGED WEAPONS</th></tr>
+              <tr class="wsDataRow">
+                <td class="wsDataCell_long">Stormbolt Bow <span class="wsWeaponAbility">Crit (2 Hits)</span></td>
+                <td class="wsCell">18"</td><td class="wsCell">2</td><td class="wsCell">3+</td>
+                <td class="wsCell">3+</td><td class="wsCell">1</td><td class="wsCell">1</td>
+              </tr>
+              <tr class="wsHeaderRow"><th>MELEE WEAPONS</th></tr>
+              <tr class="wsDataRow">
+                <td class="wsDataCell_long">Warhammer</td>
+                <td class="wsCell">2</td><td class="wsCell">3+</td><td class="wsCell">3+</td>
+                <td class="wsCell">1</td><td class="wsCell">1</td>
+              </tr>
+            </table>
+          </div>
+          <div class="abHeader" bgcolor="#fff">Reaction: You declared a FIGHT ability <span class="kwb">CORE</span></div>
+          ${bodies}
+          <div class="wsKeywordLine1">INFANTRY, CHAMPION</div>
+          <div class="wsKeywordLine2">ORDER, STORMCAST ETERNALS</div>
+        </section>
+      </body>
+    </html>
+  `
+}
+
+const input = (html: string) => {
+  const bytes = new TextEncoder().encode(html)
+  const artifact: ArtifactManifestEntry = {
+    requestUrl: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/Liberators',
+    finalUrl: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/Liberators',
+    redirectChain: [],
+    retrievedAt: '2026-07-28T00:00:00.000Z',
+    adapterVersion: 'wahapedia-html/1',
+    mediaType: 'text/html',
+    byteLength: bytes.byteLength,
+    checksum: artifactChecksum(bytes),
+  }
+  return { bytes, artifact }
+}
+
+describe('Wahapedia warscroll HTML decoding', () => {
+  it('decodes a warscroll into provider records with stable section provenance', () => {
+    const source = input(warscrollHtml())
+    const first = parseWahapediaWarscrollHtml(source)
+    const second = parseWahapediaWarscrollHtml(source)
+
+    expect(first).toEqual(second)
+    expect(first.diagnostics).toEqual([])
+    expect(first.page).toMatchObject({
+      name: 'Liberators',
+      factionName: 'Stormcast Eternals',
+      context: 'standard',
+      characteristics: {
+        move: '5"',
+        health: '2',
+        save: '3+',
+        control: '1',
+      },
+      unitSize: 5,
+      points: 90,
+      baseSizes: ['40mm'],
+      regimentOptions: ['Any Stormcast Eternals'],
+      canBeReinforced: true,
+      keywords: ['INFANTRY', 'CHAMPION', 'ORDER', 'STORMCAST ETERNALS'],
+    })
+    expect(first.page?.weapons).toEqual([
+      expect.objectContaining({
+        name: 'Stormbolt Bow',
+        range: '18"',
+        attacks: '2',
+        hit: '3+',
+        wound: '3+',
+        rend: '1',
+        damage: '1',
+        weaponType: 'RANGED',
+        abilitiesHtml: 'Crit (2 Hits)',
+      }),
+      expect.objectContaining({
+        name: 'Warhammer',
+        range: '',
+        attacks: '2',
+        weaponType: 'MELEE',
+      }),
+    ])
+    expect(first.page?.abilities).toEqual([
+      expect.objectContaining({
+        name: 'Stalwart Defenders',
+        isReaction: true,
+        keywordsHtml: 'CORE',
+        descriptionHtml: expect.not.stringContaining('ShowFluff'),
+      }),
+    ])
+    expect(first.page?.meta).toMatchObject({
+      artifactId: `artifact:sha256:${source.artifact.checksum}`,
+      section: 'datasheet:Liberators/warscroll',
+      recordChecksum: expect.stringMatching(/^[0-9a-f]{64}$/),
+    })
+    expect(String(first.page?.weapons[0].meta.sourceRecordId)).toContain('weapon%3A1')
+    expect(String(first.page?.abilities[0].meta.sourceRecordId)).toContain('ability%3A1')
+  })
+
+  it.each([
+    ['Scourge of Aqshy - Stormcast Eternals (4th edition)', 'seasonal'],
+    ['Scourge of Ghyran - Stormcast Eternals (4th edition)', 'historical'],
+    ['Spearhead: Stormcast Eternals', 'spearhead'],
+    ['Legends Warscrolls (4th edition)', 'legends'],
+  ])('classifies %s as %s context', (sourceTitle, context) => {
+    expect(parseWahapediaWarscrollHtml(input(warscrollHtml({ sourceTitle }))).page?.context).toBe(context)
+  })
+
+  it('retains a partial provider record but emits blocking shape diagnostics', () => {
+    const html = warscrollHtml({ health: '', bodyCount: 2 }).replace('<td class="wsCell">18"</td>', '')
+    const result = parseWahapediaWarscrollHtml(input(html))
+
+    expect(result.page).toBeDefined()
+    expect(result.diagnostics).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          code: 'missing-characteristic',
+          severity: 'error',
+          section: 'health',
+        }),
+        expect.objectContaining({ code: 'malformed-weapon-row', severity: 'error' }),
+        expect.objectContaining({ code: 'ability-pair-mismatch', severity: 'error' }),
+      ])
+    )
+  })
+
+  it('decodes collated faction pages into independently scoped warscroll records', () => {
+    const firstSheet = warscrollHtml().match(/<section class="datasheet">[\s\S]*?<\/section>/)?.[0]
+    expect(firstSheet).toBeDefined()
+    const secondSheet = firstSheet!.replaceAll('Liberators', 'Vigilors')
+    const collection = `
+      <html><body>
+        <span class="page_header_span2">Stormcast Eternals</span>
+        ${firstSheet}
+        ${secondSheet}
+      </body></html>
+    `
+    const source = input(collection)
+    const result = parseWahapediaWarscrollCollectionHtml(source)
+
+    expect(result.diagnostics).toEqual([])
+    expect(result.pages.map(page => page.name)).toEqual(['Liberators', 'Vigilors'])
+    expect(result.pages[0].meta.section).toBe('datasheet:Liberators/warscroll')
+    expect(result.pages[1].meta.section).toBe('datasheet:Vigilors/warscroll')
+    expect(result.pages[0].meta.sourceRecordId).not.toBe(result.pages[1].meta.sourceRecordId)
+    const injected = {
+      ...result.pages[0],
+      keywords: result.pages[0].keywords.map(keyword =>
+        keyword === 'STORMCAST ETERNALS' ? 'SYLVANETH' : keyword
+      ),
+    }
+    expect(filterNativeWahapediaFactionWarscrolls([result.pages[0], injected])).toEqual([result.pages[0]])
+    const nativeChild = {
+      ...result.pages[0],
+      externalId: 'Ironsunz:Liberators',
+      parentExternalId: 'Ironsunz',
+    }
+    const nativeGroup = {
+      ...result.pages[0],
+      recordKind: 'content-group' as const,
+      externalId: 'Ironsunz',
+      keywords: [],
+    }
+    expect(filterNativeWahapediaFactionWarscrolls([nativeGroup, nativeChild, injected])).toEqual([
+      nativeGroup,
+      nativeChild,
+    ])
+
+    const singlePageResult = parseWahapediaWarscrollHtml(source)
+    expect(singlePageResult.page).toBeUndefined()
+    expect(singlePageResult.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'not-warscroll-page', severity: 'error' })
+    )
+  })
+
+  it('gives embedded Spearhead warscrolls stable group-scoped identities', () => {
+    const sheet = warscrollHtml()
+      .match(/<section class="datasheet">[\s\S]*?<\/section>/)?.[0]
+      ?.replace('<a name="Liberators"></a>', '')
+      .replace(
+        '<h1 class="wsHeaderIn">',
+        '<div class="nails-header">SPEARHEAD WARSCROLL</div><h1 class="wsHeaderIn">'
+      )
+    expect(sheet).toBeDefined()
+    const source = input(`
+      <html><body>
+        <span class="page_header_span">Stormcast Eternals</span>
+        <a name="Vigilant-Brotherhood"></a><h2>Vigilant Brotherhood</h2>
+        ${sheet}
+      </body></html>
+    `)
+    source.artifact.requestUrl = 'https://wahapedia.ru/aos4/factions/stormcast-eternals/'
+    source.artifact.finalUrl = source.artifact.requestUrl
+
+    const result = parseWahapediaWarscrollCollectionHtml(source)
+
+    expect(result.diagnostics).toEqual([])
+    expect(result.pages[0]).toMatchObject({
+      recordKind: 'content-group',
+      externalId: 'Vigilant-Brotherhood',
+      name: 'Vigilant Brotherhood',
+      context: 'spearhead',
+    })
+    expect(result.pages[1]).toMatchObject({
+      externalId: 'Vigilant-Brotherhood:Liberators',
+      parentExternalId: 'Vigilant-Brotherhood',
+      parentName: 'Vigilant Brotherhood',
+      context: 'spearhead',
+      sourceUrl: 'https://wahapedia.ru/aos4/factions/stormcast-eternals/#Vigilant-Brotherhood%3ALiberators',
+    })
+  })
+
+  it('fails closed for invalid UTF-8 and non-warscroll pages', () => {
+    expect(
+      parseWahapediaWarscrollHtml({
+        bytes: new Uint8Array([0xff]),
+        artifact: {
+          ...input('').artifact,
+          byteLength: 1,
+          checksum: 'f'.repeat(64),
+        },
+      })
+    ).toEqual({
+      diagnostics: [expect.objectContaining({ code: 'invalid-utf8', severity: 'error' })],
+    })
+
+    const result = parseWahapediaWarscrollHtml(input('<html><body>Not a warscroll</body></html>'))
+    expect(result.page).toBeUndefined()
+    expect(result.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'not-warscroll-page', severity: 'error' })
+    )
+  })
+
+  it('decodes grouped faction rules while separating current, seasonal, historical, and Spearhead contexts', () => {
+    const ability = (timing: string, name: string) => `
+      <table><tr><td class="abHeader">${timing}</td></tr></table>
+      <div class="abBody"><b>${name}:</b><span class="ShowFluff">Fluff.</span><b>Effect:</b> Resolve ${name}.</div>
+    `
+    const source = input(`
+      <html><body>
+        <h1 class="page_header"><span class="page_header_span">Stormcast Eternals</span></h1>
+        <a name="Faction-Rules"></a><h2>Faction Rules</h2>
+        <a name="Battle-Traits"></a><h2>Battle Traits</h2>
+        ${ability('Your Hero Phase', 'Their Finest Hour')}
+        <a name="Heroic-Traits"></a><h2>Heroic Traits</h2>
+        <a name="Aspects-of-Azyr"></a><h3>Aspects of Azyr</h3>
+        ${ability('Passive', 'Shock and Awe')}
+        <a name="Stormforged-Qualities"></a>
+        <h3><img title="Expansion. Scourge of Ghyran - Stormcast Eternals (4th edition)">Stormforged Qualities</h3>
+        ${ability('Passive', 'Old Season Rule')}
+        <a name="Scars-of-War"></a>
+        <h2><img title="Expansion. Scourge of Aqshy - Stormcast Eternals (4th edition)">Scars of War</h2>
+        ${ability('Passive', 'Current Season Rule')}
+        <div class="sLegendary">
+          <a name="Astral-Templars"></a><h2>Astral Templars</h2>
+          ${ability('Passive', 'Legendary Rule')}
+        </div>
+        <div class="sShowPathToGlory">
+          <a name="PATH-TO-GLORY"></a><h2>PATH TO GLORY</h2>
+          <a name="Path-Upgrades"></a><h3>Path Upgrades</h3>
+          ${ability('Passive', 'Campaign Rule')}
+        </div>
+        <a name="SPEARHEAD"></a><h2>SPEARHEAD</h2>
+        <a name="Vigilant-Brotherhood"></a>
+        <h2><img title="Expansion. Spearhead: Stormcast Eternals (4th edition)">Vigilant Brotherhood</h2>
+        <a name="Regiment-Abilities"></a><h3>Regiment Abilities</h3>
+        ${ability('Your Movement Phase', 'Call for Reinforcements')}
+      </body></html>
+    `)
+    source.artifact.requestUrl = 'https://wahapedia.ru/aos4/factions/stormcast-eternals/'
+    source.artifact.finalUrl = source.artifact.requestUrl
+
+    const first = parseWahapediaFactionHtml(source)
+    const second = parseWahapediaFactionHtml(source)
+
+    expect(first).toEqual(second)
+    expect(first.diagnostics).toEqual([])
+    expect(first.page?.factionName).toBe('Stormcast Eternals')
+    expect(first.page?.groups).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ externalId: 'Battle-Traits', context: 'standard' }),
+        expect.objectContaining({
+          externalId: 'Aspects-of-Azyr',
+          parentExternalId: 'Heroic-Traits',
+          context: 'standard',
+        }),
+        expect.objectContaining({
+          externalId: 'Stormforged-Qualities',
+          context: 'historical',
+        }),
+        expect.objectContaining({ externalId: 'Scars-of-War', context: 'seasonal' }),
+        expect.objectContaining({ externalId: 'Astral-Templars', context: 'legends' }),
+        expect.objectContaining({
+          externalId: 'Regiment-Abilities',
+          context: 'spearhead',
+        }),
+      ])
+    )
+    expect(first.page?.abilities.map(record => [record.name, record.context])).toEqual([
+      ['Their Finest Hour', 'standard'],
+      ['Shock and Awe', 'standard'],
+      ['Old Season Rule', 'historical'],
+      ['Current Season Rule', 'seasonal'],
+      ['Legendary Rule', 'legends'],
+      ['Call for Reinforcements', 'spearhead'],
+    ])
+    expect(first.page?.abilities.some(record => record.name === 'Campaign Rule')).toBe(false)
+  })
+})

@@ -17,7 +17,7 @@ export interface Aos4BuilderWarscroll {
   characteristics: Warscroll['characteristics']
   profile?: {
     unitSize: number
-    points: number
+    points?: number
     baseSizes: string[]
   }
 }

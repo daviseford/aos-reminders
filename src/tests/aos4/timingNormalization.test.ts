@@ -225,6 +225,13 @@ describe('AoS 4 source text normalization', () => {
     ])
   })
 
+  it('removes encoded Wahapedia keyword wrappers without removing their text', () => {
+    const result = normalizeSourceText('&lt;KY&gt;THE BLACKTALONS&lt;/KY&gt;')
+
+    expect(result.text).toBe('THE BLACKTALONS')
+    expect(result.diagnostics).toContainEqual(expect.objectContaining({ code: 'source-marker-removed' }))
+  })
+
   it('splits Declare and Effect while retaining reaction trigger text', () => {
     const result = normalizeAbilityText({
       descriptionHtml:

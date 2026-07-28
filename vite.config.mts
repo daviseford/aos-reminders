@@ -20,6 +20,7 @@ export default defineConfig({
   },
   test: {
     ...configDefaults,
+    exclude: [...configDefaults.exclude, '**/.worktrees/**', '**/.claude/**'],
     environment: 'jsdom',
     globals: true,
   },

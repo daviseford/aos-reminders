@@ -1,3 +1,4 @@
+export * from './battleProfiles'
 export * from './downloadCatalog'
 export * from './extractFacts'
 export * from './pageDiscovery'

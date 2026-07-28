@@ -15,8 +15,8 @@ AoS Reminders is undergoing a clean fourth-edition migration. Read the root
 
 Do not add hand-authored faction modules or copy AoS 3 structures from Git history.
 
-Games Workshop sources are authoritative. Wahapedia AoS 4 exports are the preferred coherent
-secondary source. A data change should include:
+Games Workshop sources are authoritative. Wahapedia AoS 4 exports and bounded current faction
+pages are the preferred coherent secondary sources. A data change should include:
 
 - source artifact metadata and SHA-256 checksum
 - source-record locator/checksum
@@ -34,7 +34,10 @@ Follow [the data-maintenance runbook](data/aos4-maintenance.md). Candidate acqui
 input and cannot promote itself into runtime:
 
 ```bash
-yarn data:aos4:candidate --output <new-directory>
+yarn data:aos4:candidate \
+  --wahapedia-pages-file <reviewed-json-url-list> \
+  --official-urls-file <reviewed-json-url-list> \
+  --output <new-directory>
 ```
 
 Use accepted-manifest offline replay for reproducible investigation:
@@ -47,8 +50,20 @@ yarn data:aos4:candidate \
   --output <new-directory>
 ```
 
-Use `--faction` to create a bounded, non-verbatim review inventory before proposing a faction
-cohort. A report marked `blocked` must not be promoted.
+Use `--wahapedia-page` for explicitly reviewed faction collection/root pages and `--faction` to
+create a bounded, non-verbatim review inventory before proposing a faction cohort. A report marked
+`blocked` must not be promoted.
+
+The current accepted snapshot is generated with:
+
+```bash
+yarn data:aos4:generate
+```
+
+That command is a no-write drift check. It verifies cached artifact checksums, reviewed official
+PDF page checksums, the identity registry, catalog integrity, and every generated product. After an
+accepted manifest/review change, use `yarn data:aos4:generate:write`, inspect the complete diff, and
+then run the no-write command again. Never edit generated corpus JSON by hand.
 
 ## Code contributions
 
@@ -74,6 +89,7 @@ yarn lint
 yarn tsc --noEmit
 yarn test --run
 yarn build
+yarn data:aos4:generate
 ```
 
 Add focused coverage for:

@@ -9,14 +9,23 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 The migration branch is now an Age of Sigmar fourth-edition-only workbench:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in catalog is a deliberately small Stormcast Eternals representative cohort
+- the checked-in runtime is generated from the accepted 2026-07-27 AoS 4 corpus
 - the AoS 3 faction corpus, rule utilities, Redux state, saved-army schema, importers, and fixtures
   have been removed
 - old browser state is deleted and replaced with a schema-valid AoS 4 document; it is never
   translated
-- full-corpus candidate acquisition exists, but candidate output is not accepted runtime data
-- all 28 factions have non-verbatim cohort inventories; 16 are reviewable and 12 retain automated
-  blockers, while the runtime remains the representative slice
+- all 28 decoded factions are selectable through one source-complete relationship graph
+- the accepted corpus contains 1,268 warscrolls, 1,002 battle profiles, 4,260 abilities,
+  2,247 weapons, 1,172 content groups, and 17,443 live source records
+- current standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends, and
+  historical rules contexts isolate parallel and retired records; the browser defaults to the
+  current 2026-27 seasonal context
+- strict generation consumes every live record and separately dispositions 18,897 superseded
+  May 2026 bulk warscroll/faction-rule records so none can leak into runtime
+- all 1,350 extracted official battle-profile facts have an explicit disposition: 928 apply to
+  runtime, 12 remain profile-only gaps, 363 remain structured references, and 47 are superseded
+- the earlier candidate/cohort reports remain checked-in reconnaissance history, not current
+  blockers
 - package upgrades and broader framework modernization remain Phase 2 work
 
 Do not confuse these version numbers:
@@ -89,13 +98,14 @@ Phase 1 has two parts:
 2. Data retrieval and entry: safe acquisition, source-specific decoding, reconciliation, review,
    stable identities, generation, and coverage/freshness reporting.
 
-The representative vertical slice and AoS 4 runtime cutover are complete. The next body of work is
-reviewed corpus expansion through the AoS 4-only pipeline. Do not promote the live candidate
-snapshot wholesale: resolve or explicitly disposition its diagnostics and review a bounded cohort.
-The current candidate has one unresolved timing pending formal official-source reconciliation, one
-reviewed phase-independent active timing, 177 reported disagreements with the non-canonical
-`ability_phase` metadata, 13 contradictory reaction flags, and two missing Regiment of Renown
-faction joins.
+Phase 1 is complete for the accepted 2026-07-27 snapshot. The manifest, corpus review, stable
+identity registry, complete audit catalog, compact runtime projection, and generation report are
+checked in. The strict gate has no unresolved timing, dangling reference, unsafe HTML, duplicate
+identity, silent source conflict, or unreviewed source diagnostic.
+
+Future data refreshes repeat Phase 1b's candidate-review-accept-generate workflow. Never replace the
+accepted snapshot merely because a newer download decoded successfully. Review changed diagnostics,
+official precedence, dispositions, identities, and generated checksums first.
 
 Avoid dependency churn during Phase 1 unless a package blocks correct data work, the build, or safe
 operation.
@@ -137,7 +147,8 @@ Use `aos4-migration` as the long-lived integration branch.
 Use this precedence:
 
 1. Games Workshop publications and official Warhammer Community downloads are authoritative.
-2. Wahapedia AoS 4 exports are the preferred coherent discovery and coverage source.
+2. Wahapedia AoS 4 exports and bounded faction pages are the preferred coherent discovery and
+   coverage sources.
 3. Other community sources may identify gaps but may not silently override official material.
 
 When sources disagree, preserve the discrepancy. Resolve it in favor of the newest applicable
@@ -172,7 +183,7 @@ silently mutating provenance.
 
 ### Wahapedia
 
-Prefer the published export to presentation-page scraping:
+Start with the published export:
 
 `https://wahapedia.ru/aos4/the-rules/data-export/`
 
@@ -195,17 +206,23 @@ Current export files:
 The files are UTF-8, pipe-delimited, and use string IDs and textual booleans. Descriptive fields may
 contain HTML. Normalize to safe text; never pass downloaded HTML directly to React.
 
+Exports can lag the public AoS 4 faction pages. The accepted 2026-07-27 snapshot keeps the 13
+exports for stable faction/publication identities and audit provenance, but supersedes every bulk
+warscroll and faction-rule row with reviewed current HTML from 27 faction warscroll collections
+and 28 faction roots. Use only the bounded `wahapedia-html/1` adapter and explicit
+`--wahapedia-page`/`--wahapedia-pages-file` inputs; do not add ad hoc React-side scraping.
+
 Preserve “Powered by Wahapedia” attribution for published features derived from the exports.
 Re-check `robots.txt`, rate-limit requests, cache immutable bytes, and prefer offline replay during
 development.
 
 ### Content boundary
 
-The representative runtime commits short curated reminder summaries, profiles, points, and weapon
-characteristics with source references. It does not commit bulk third-party PDFs or full raw rule
-bodies. Test fixtures and unknown-authority artifacts must never supply player-facing runtime
-content; generation integrity rejects them. Do not broaden that publication boundary without an
-explicit decision.
+The accepted runtime commits normalized structured rule facts, profiles, points, weapon
+characteristics, and compact provenance needed by the reminder product. The audit catalog retains
+the corresponding structured facts and full review provenance. It does not commit bulk PDFs, raw
+exports, extracted page text, or other raw source bodies. Test fixtures and unknown-authority
+artifacts must never supply player-facing runtime content; generation integrity rejects them.
 
 ## AoS 4 architecture
 
@@ -223,6 +240,9 @@ explicit decision.
 - factions, content groups, warscrolls, battle profiles, publications, and relationships
 - rules contexts, source artifacts, source records, and field-level references
 - catalog validation
+
+Battle profiles use numeric points only when their rules context defines points. Spearhead profiles
+retain `pointsStatus: "not-applicable"`; never invent a zero-point value.
 
 Unknown source values are retained explicitly for review. Do not coerce them into a nearby known
 enum merely to make generation pass.
@@ -252,7 +272,11 @@ Reminder IDs derive from canonical ability identity and semantic timing, not mut
   `aos-reminders:aos4:army:v1`.
 - Loading removes `persist:root`, `loadedArmy`, `reminderOrder`, and `savedArmies` without parsing
   them.
-- Invalid or incompatible AoS 4 documents reset to a clean representative document.
+- Invalid or incompatible AoS 4 documents reset to a clean Stormcast Eternals document in the
+  current accepted rules context.
+- The runtime contains current-standard, current-seasonal, Spearhead, Legends, and historical
+  facts. The current UI uses the accepted default 2026-27 seasonal context. Context applicability
+  is retained on source records, entities, and relationships.
 - `src/components/routes/Home.tsx` is the live game screen and consumes generated data through AoS 4
   view models.
 - `/faq`, `/subscribe`, and the protected `/profile` route preserve the established non-rules
@@ -273,7 +297,8 @@ Runtime code must not fetch source data. It loads checked-in generated artifacts
   conflicts/diagnostics.
 - `src/aos4/generate/` validates source consumption, identity stability, and catalog integrity, then
   emits deterministic audit/runtime products.
-- `src/aos4/generated/` is the checked-in representative output consumed by the app.
+- `src/aos4/generated/corpus/` is the compact checked-in output consumed by the app.
+- `src/aos4/generated/representative/` remains only as the small offline contract fixture.
 - `data/aos4/` stores identity registries, manifests, reviewed overrides, and reports—not downloaded
   source bodies.
 
@@ -281,16 +306,31 @@ Candidate acquisition:
 
 ```powershell
 yarn data:aos4:candidate `
+  --wahapedia-pages-file <reviewed-json-url-list> `
+  --official-urls-file <reviewed-json-url-list> `
   --official-search "rules section heading" `
   --faction <Wahapedia-faction-id> `
   --output <new-directory>
 ```
 
 The command never accepts data into runtime and refuses to overwrite an output directory. Use
-repeatable `--faction` arguments for bounded, non-verbatim cohort inventories and
-`--official-search` arguments for page locators without page text. Use
+repeatable `--wahapedia-page`/`--faction` arguments for bounded current-page and non-verbatim
+cohort inventories, and `--official-search` arguments for page locators without page text. Use
 `--accepted-manifest <path> --offline` for deterministic replay. A cohort marked `blocked` must not
 be promoted. Raw artifacts belong under the ignored `.cache/aos4/` tree.
+
+Accepted generation:
+
+```powershell
+yarn data:aos4:generate
+```
+
+This verifies every accepted artifact checksum from the local cache, re-extracts reviewed official
+PDF page records, rebuilds the catalog, official battle-profile ledger, and runtime projection in
+memory, and fails if any checked-in product differs. Use `yarn data:aos4:generate:write` only after
+updating accepted manifest and review inputs. Never hand-edit `data/aos4/catalog/catalog.json`,
+`data/aos4/catalog/official-battle-profiles.json`, `data/aos4/identities/corpus.json`, or
+`src/aos4/generated/corpus/*.json`.
 
 ## Retired architecture
 
@@ -338,6 +378,7 @@ Focused examples:
 ```powershell
 yarn vitest run src/tests/aos4/legacyIsolation.test.ts
 yarn vitest run src/tests/aos4/representativeSlice.test.ts
+yarn data:aos4:generate
 ```
 
 Tests use small repository fixtures and must not depend on live source availability. Add contract
@@ -350,13 +391,12 @@ unit-test prerequisite.
 
 ## Current working sequence
 
-1. Keep the AoS 4-only runtime and retirement boundary green.
-2. Re-run candidate acquisition when freshness evidence requires it.
-3. Select a bounded cohort for review.
-4. Resolve or disposition its diagnostics.
-5. verify official facts directly.
-6. allocate stable identities through the registry.
-7. generate audit and runtime output from the same accepted inputs.
-8. run catalog integrity, provenance, selection, reminder, browser, and build checks.
-9. commit and push only to the migration work branch/PR.
-10. Repeat by cohort; do not accept the entire secondary-source corpus mechanically.
+1. Keep the accepted AoS 4 corpus, runtime, UI continuity, and retirement boundary green.
+2. For a data refresh, acquire a new candidate without changing accepted output.
+3. Review changed cohorts and current official publications.
+4. Resolve or disposition every changed diagnostic and preserve official precedence.
+5. Update the accepted manifest/review inputs and regenerate; do not hand-edit products.
+6. Run deterministic generation, catalog integrity, provenance, selection, reminder, browser, and
+   production-build checks.
+7. Commit and push only to a migration sub-PR targeting `aos4-migration`.
+8. Keep dependency/package modernization in Phase 2 and separate from rules corrections.

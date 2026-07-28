@@ -20,7 +20,7 @@ export interface PrintReminderInput {
 export interface PrintWarscrollInput {
   name: string
   profile?: {
-    points: number
+    points?: number
     unitSize: number
   }
 }
@@ -51,10 +51,11 @@ const toRule = (reminder: PrintReminderInput): PrintRule => ({
   paragraphs: paragraphs(reminder),
 })
 
-const summaryLine = (warscroll: PrintWarscrollInput): string =>
-  warscroll.profile
-    ? `${warscroll.name} (${warscroll.profile.unitSize}) - ${warscroll.profile.points} pts`
-    : warscroll.name
+const summaryLine = (warscroll: PrintWarscrollInput): string => {
+  if (!warscroll.profile) return warscroll.name
+  const label = `${warscroll.name} (${warscroll.profile.unitSize})`
+  return warscroll.profile.points === undefined ? label : `${label} - ${warscroll.profile.points} pts`
+}
 
 const buildSummary = (army: PrintArmyInput) => {
   const warscrolls = army.warscrolls ?? []

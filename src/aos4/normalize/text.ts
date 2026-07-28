@@ -118,8 +118,18 @@ export const normalizeSourceText = (source: string): SourceTextNormalizationResu
 
   visit(fragment)
 
+  const text = normalizeWhitespace(output.join(''))
+  const withoutEncodedMarkers = text.replace(/<\/?KY>/gi, '')
+  if (withoutEncodedMarkers !== text) {
+    diagnostics.push({
+      code: 'source-marker-removed',
+      severity: 'warning',
+      message: 'Removed an encoded Wahapedia keyword marker from normalized text',
+    })
+  }
+
   return {
-    text: normalizeWhitespace(output.join('')),
+    text: withoutEncodedMarkers,
     diagnostics,
   }
 }
@@ -136,10 +146,7 @@ export interface AbilityTextNormalizationResult {
 
 type AbilitySectionName = 'declare' | 'effect'
 
-const parseAbilitySections = (
-  text: string,
-  diagnostics: NormalizationDiagnostic[]
-): AbilityText => {
+const parseAbilitySections = (text: string, diagnostics: NormalizationDiagnostic[]): AbilityText => {
   const sectionPattern = /(^|\n)(Declare|Effect):\s*/gi
   const matches = Array.from(text.matchAll(sectionPattern))
   if (!matches.length) {
