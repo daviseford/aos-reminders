@@ -145,6 +145,14 @@ Use `aos4-migration` as the long-lived integration branch.
 - Never merge that integration PR until the user explicitly authorizes launch.
 - Base migration work on the latest `origin/aos4-migration`.
 - Target migration sub-PRs at `aos4-migration`, not `master`.
+
+Phase 2 modernization work uses its own integration branch, separate from Phase 1 traffic:
+
+- `phase2-modernization` (off `aos4-migration`) is the Phase 2 integration branch, with a draft
+  integration PR into `aos4-migration` (tracking issue #1728).
+- Target Phase 2 sub-PRs (plan `2026-07-28-003`, units U1-U10) at `phase2-modernization`.
+- The certification gate in that plan's Goal Capsule governs when Phase 2 execution may begin;
+  only U1 (measurement) is exempt.
 - Local commits and pushes to migration branches are authorized.
 - Merging PRs, pushing `master`, deploying, or changing production services requires explicit
   direction.
