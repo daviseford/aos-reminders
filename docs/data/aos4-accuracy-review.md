@@ -116,10 +116,33 @@ yarn data:aos4:review:human prepare `
   --assigned-at <iso-instant>
 ```
 
-This creates `blind-tasks.json` and `blind-results.template.json` only. For every task, the
-reviewer records a source-derived interpretation, outcome, and substantive rationale explaining
-why the source supports it. The four calibration controls are interspersed without revealing
-their expected outcome.
+This initially creates only `calibration-blind-tasks.json` and its result template. For every
+task, the reviewer records a source-derived interpretation, outcome, and substantive rationale
+explaining why the source supports it. The four calibration controls do not reveal their expected
+outcome.
+
+Save the completed calibration blind results, then reveal their comparisons:
+
+```powershell
+yarn data:aos4:review:human calibrate `
+  --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
+  --blind-results calibration-blind-results.json
+```
+
+Complete `calibration-comparison-results.template.json`, then validate calibration and release the
+live sample:
+
+```powershell
+yarn data:aos4:review:human start `
+  --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
+  --comparison-results calibration-comparison-results.json
+```
+
+The `start` command fails unless the reviewer finds every planted material defect, proposes no
+unsupported correction, and returns `cannot-verify` for the insufficient-evidence case. Only a
+passing calibration creates `blind-tasks.json` and `blind-results.template.json` for the 144 live
+sample pairs. Reviewers may omit finding `id` and `schemaVersion` fields from entered result files;
+the command derives those structural fields from the finding content before validation.
 
 Save the completed blind results as `blind-results.json`, then reveal comparisons:
 
@@ -182,9 +205,15 @@ yarn data:aos4:certify
 yarn data:aos4:certify:full
 ```
 
-`data:aos4:certify` is the checked-in-only gate used by CI. It must pass in a clean checkout with
-no `.cache/aos4/` directory and no network. `data:aos4:certify:full` additionally replays accepted
-generation and the local packet workspace.
+`data:aos4:certify` is the final checked-in-only gate used by CI after the current pointer exists.
+It must pass in a clean checkout with no `.cache/aos4/` directory and no network.
+`data:aos4:certify:full` additionally replays accepted generation and the local packet workspace.
+
+While the committed candidate is blocked only on human review, CI runs
+`yarn data:aos4:certify:pending`. That command still verifies every committed checksum, source
+inventory, machine result, coverage assertion, and manifest binding. It exits successfully only
+when the remaining issues are human review/sign-off gaps; it never turns the manifest into a pass
+or permits Phase 2 to begin.
 
 ## Refreshes and disputes
 

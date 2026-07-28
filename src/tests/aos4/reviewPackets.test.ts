@@ -1,4 +1,4 @@
-import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises'
+import { access, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
@@ -8,11 +8,17 @@ import {
   createComparisonTask,
   createExternalReviewExport,
   createReviewAssignment,
+  createReviewFinding,
   loadReviewPacketPairs,
   parseHumanReviewArguments,
   prepareReviewPackets,
+  reviewerConfigurationId,
+  runHumanReviewCommand,
   type ReviewPacketShard,
   type ShardedReviewPacketWorkspace,
+  type ReviewAssignment,
+  type ReviewCalibration,
+  type ReviewLedger,
   type ReviewPacketCandidate,
   type ReviewerResult,
 } from '../../aos4/review'
@@ -70,7 +76,19 @@ const prepare = (candidates: ReviewPacketCandidate[]) =>
     },
     calibrationCases: [
       { id: 'known-pass', kind: 'pass', candidate: candidate('calibration-pass') },
-      { id: 'known-defect', kind: 'defect', candidate: candidate('calibration-defect') },
+      {
+        id: 'known-defect',
+        kind: 'defect',
+        candidate: candidate('calibration-defect', {
+          generatedDestinations: [
+            {
+              path: 'calibration/seeded-defect.json',
+              field: 'attacks',
+              value: '__SEEDED_BLOCKER_MISMATCH__',
+            },
+          ],
+        }),
+      },
       {
         id: 'known-disagreement',
         kind: 'disagreement',
@@ -327,8 +345,257 @@ describe('AoS 4 review packet preparation', () => {
       reviewerId: 'reviewer@example.test',
     })
     expect(() => parseHumanReviewArguments(['review'])).toThrow(
-      'Human review command must be prepare, compare, or submit'
+      'Human review command must be prepare, calibrate, start, compare, or submit'
     )
+  })
+
+  it('withholds the live human sample until concealed calibration passes', async () => {
+    const prepared = prepare([candidate('human-sample')])
+    const cacheRoot = path.resolve('.cache', 'aos4', 'review')
+    await mkdir(cacheRoot, { recursive: true })
+    const temporary = await mkdtemp(path.join(cacheRoot, 'human-workflow-test-'))
+    const reviewDirectory = path.join(temporary, 'review')
+    const indexPath = path.join(temporary, 'index.json')
+    const workspacePath = path.join(temporary, 'workspace.json')
+
+    try {
+      await Promise.all([
+        writeFile(indexPath, JSON.stringify(prepared.safeIndex), 'utf8'),
+        writeFile(workspacePath, JSON.stringify(prepared.workspace), 'utf8'),
+      ])
+      await runHumanReviewCommand([
+        'prepare',
+        '--output',
+        reviewDirectory,
+        '--reviewer-id',
+        'reviewer@example.test',
+        '--assigned-at',
+        '2026-07-28T12:00:00.000Z',
+        '--index',
+        indexPath,
+        '--workspace',
+        workspacePath,
+      ])
+
+      await expect(access(path.join(reviewDirectory, 'blind-tasks.json'))).rejects.toThrow()
+
+      const humanWorkspace = JSON.parse(
+        await readFile(path.join(reviewDirectory, 'workspace.json'), 'utf8')
+      ) as { assignment: ReviewAssignment }
+      const configurationId = reviewerConfigurationId(humanWorkspace.assignment.reviewer)
+      const calibration = prepared.workspace.pairs.filter(pair => pair.calibration)
+      const blindResults: ReviewerResult[] = calibration.map((pair, index) => ({
+        schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+        assignmentId: humanWorkspace.assignment.id,
+        packetId: pair.blindPacket.id,
+        packetChecksum: pair.blindPacket.packetChecksum,
+        reviewerConfigurationId: configurationId,
+        reviewedAt: `2026-07-28T14:00:0${index}Z`,
+        outcome: pair.calibrationKind === 'insufficient-evidence' ? 'cannot-verify' : 'pass',
+        rationale: 'Independent calibration interpretation recorded before comparison.',
+        blindExpectedInterpretation: { derived: pair.candidateKey },
+        findings: [],
+      }))
+      const enteredBlindResults = path.join(reviewDirectory, 'entered-calibration-blind-results.json')
+      await writeFile(
+        enteredBlindResults,
+        JSON.stringify({ schemaVersion: 1, results: blindResults }),
+        'utf8'
+      )
+      await runHumanReviewCommand([
+        'calibrate',
+        '--review-dir',
+        reviewDirectory,
+        '--blind-results',
+        enteredBlindResults,
+        '--workspace',
+        workspacePath,
+      ])
+
+      const comparisonResults: ReviewerResult[] = calibration.map((pair, index) => {
+        const source = pair.comparisonPacket.sourceEvidence[0]
+        const findings =
+          pair.calibrationKind === 'defect'
+            ? [
+                createReviewFinding({
+                  packetId: pair.comparisonPacket.id,
+                  subject: {
+                    sourceRecordId: source.sourceRecordId,
+                    field: 'attacks',
+                  },
+                  expectedValue: 2,
+                  actualValue: pair.comparisonPacket.generatedDestinations[0].value,
+                  severity: 'major',
+                  confidence: 'high',
+                  rationale: 'The planted destination differs materially from the source evidence.',
+                  evidence: [
+                    {
+                      sourceRecordId: source.sourceRecordId,
+                      recordChecksum: source.recordChecksum,
+                      locator: source.locator,
+                    },
+                  ],
+                }),
+              ]
+            : []
+        return {
+          schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+          assignmentId: humanWorkspace.assignment.id,
+          packetId: pair.comparisonPacket.id,
+          packetChecksum: pair.comparisonPacket.packetChecksum,
+          reviewerConfigurationId: configurationId,
+          reviewedAt: `2026-07-28T14:00:0${index}.001Z`,
+          outcome:
+            pair.calibrationKind === 'defect'
+              ? 'finding'
+              : pair.calibrationKind === 'insufficient-evidence'
+                ? 'cannot-verify'
+                : 'pass',
+          rationale: 'Compared the saved blind interpretation with the generated destination.',
+          findings,
+        }
+      })
+      const enteredComparisonResults = path.join(
+        reviewDirectory,
+        'entered-calibration-comparison-results.json'
+      )
+      const unsupportedComparisonResults = comparisonResults.map(result => ({
+        ...result,
+        findings: result.findings.map(finding =>
+          createReviewFinding({
+            ...finding,
+            id: undefined,
+            expectedValue: 3,
+            actualValue: 2,
+          })
+        ),
+      }))
+      await writeFile(
+        enteredComparisonResults,
+        JSON.stringify({ schemaVersion: 1, results: unsupportedComparisonResults }),
+        'utf8'
+      )
+      await expect(
+        runHumanReviewCommand([
+          'start',
+          '--review-dir',
+          reviewDirectory,
+          '--comparison-results',
+          enteredComparisonResults,
+          '--workspace',
+          workspacePath,
+        ])
+      ).rejects.toThrow('Human reviewer calibration failed')
+
+      const reviewerEnteredComparisonResults = comparisonResults.map(result => ({
+        ...result,
+        findings: result.findings.map(finding =>
+          Object.fromEntries(
+            Object.entries(finding).filter(([key]) => key !== 'id' && key !== 'schemaVersion')
+          )
+        ),
+      }))
+      await writeFile(
+        enteredComparisonResults,
+        JSON.stringify({ schemaVersion: 1, results: reviewerEnteredComparisonResults }),
+        'utf8'
+      )
+      await runHumanReviewCommand([
+        'start',
+        '--review-dir',
+        reviewDirectory,
+        '--comparison-results',
+        enteredComparisonResults,
+        '--workspace',
+        workspacePath,
+      ])
+
+      const calibrationRecord = JSON.parse(
+        await readFile(path.join(reviewDirectory, 'calibration.json'), 'utf8')
+      ) as ReviewCalibration
+      expect(calibrationRecord.passed).toBe(true)
+      await expect(access(path.join(reviewDirectory, 'blind-tasks.json'))).resolves.toBeUndefined()
+
+      const sample = prepared.workspace.pairs.find(pair => !pair.calibration)!
+      const enteredSampleBlindResults = path.join(reviewDirectory, 'entered-blind-results.json')
+      await writeFile(
+        enteredSampleBlindResults,
+        JSON.stringify({
+          schemaVersion: 1,
+          results: [
+            {
+              schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+              assignmentId: humanWorkspace.assignment.id,
+              packetId: sample.blindPacket.id,
+              packetChecksum: sample.blindPacket.packetChecksum,
+              reviewerConfigurationId: configurationId,
+              reviewedAt: '2026-07-28T14:01:00Z',
+              outcome: 'pass',
+              rationale: 'Derived the sample interpretation from the cited source evidence.',
+              blindExpectedInterpretation: { attacks: 2 },
+              findings: [],
+            },
+          ],
+        }),
+        'utf8'
+      )
+      await runHumanReviewCommand([
+        'compare',
+        '--review-dir',
+        reviewDirectory,
+        '--blind-results',
+        enteredSampleBlindResults,
+        '--workspace',
+        workspacePath,
+      ])
+
+      const enteredSampleComparisonResults = path.join(reviewDirectory, 'entered-comparison-results.json')
+      await writeFile(
+        enteredSampleComparisonResults,
+        JSON.stringify({
+          schemaVersion: 1,
+          results: [
+            {
+              schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+              assignmentId: humanWorkspace.assignment.id,
+              packetId: sample.comparisonPacket.id,
+              packetChecksum: sample.comparisonPacket.packetChecksum,
+              reviewerConfigurationId: configurationId,
+              reviewedAt: '2026-07-28T14:01:00.001Z',
+              outcome: 'pass',
+              rationale: 'The saved interpretation matches the generated destination.',
+              findings: [],
+            },
+          ],
+        }),
+        'utf8'
+      )
+      await runHumanReviewCommand([
+        'submit',
+        '--review-dir',
+        reviewDirectory,
+        '--comparison-results',
+        enteredSampleComparisonResults,
+        '--signed-at',
+        '2026-07-28T14:02:00.000Z',
+        '--statement',
+        'I independently checked every assigned packet against its cited evidence.',
+        '--workspace',
+        workspacePath,
+      ])
+
+      const submitted = JSON.parse(
+        await readFile(path.join(reviewDirectory, 'ledger.json'), 'utf8')
+      ) as ReviewLedger
+      expect(submitted.results.map(result => result.packetId)).toEqual(
+        expect.arrayContaining([sample.blindPacket.id, sample.comparisonPacket.id])
+      )
+      expect(submitted.results).toHaveLength(2)
+      expect(submitted.calibrations).toEqual([expect.objectContaining({ passed: true })])
+      expect(submitted.signoffs).toEqual([expect.objectContaining({ reviewerId: 'reviewer@example.test' })])
+    } finally {
+      await rm(temporary, { recursive: true, force: true })
+    }
   })
 
   it('rejects reviewer exports without explicit recipient approval', () => {

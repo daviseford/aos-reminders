@@ -8,13 +8,16 @@ import { createComparisonTask, type ReviewPacketPair, type ReviewPacketSafeIndex
 import { loadReviewPacketPairs } from './reviewWorkspace'
 import {
   AOS4_REVIEW_PROTOCOL_VERSION,
+  AOS4_REVIEW_RUBRIC_VERSION,
   AOS4_REVIEW_SCHEMA_VERSION,
   checksumReviewRecord,
   createReviewAssignment,
+  createReviewFinding,
   reviewerConfigurationId,
   type HumanReviewSignoff,
   type ReviewAssignment,
   type ReviewCalibration,
+  type ReviewFinding,
   type ReviewLedger,
   type ReviewPacket,
   type ReviewerMetadata,
@@ -142,10 +145,7 @@ export const parseHumanReviewArguments = (values: string[]): Arguments => {
     '--workspace',
     ...(command === 'compare' || command === 'calibrate'
       ? ['--blind-results']
-      : [
-          '--comparison-results',
-          ...(command === 'submit' ? ['--signed-at', '--statement'] : []),
-        ]),
+      : ['--comparison-results', ...(command === 'submit' ? ['--signed-at', '--statement'] : [])]),
   ])
   const options = optionMap(values, common)
   const reviewDirectory = options.get('--review-dir')
@@ -193,6 +193,38 @@ const withinDirectory = (directory: string, value: string): string => {
 }
 
 const readJson = async <T>(filePath: string): Promise<T> => JSON.parse(await readFile(filePath, 'utf8')) as T
+const instantValue = (value: string): number => new Date(value).valueOf()
+const isRecord = (value: unknown): value is Record<string, unknown> =>
+  Boolean(value) && typeof value === 'object' && !Array.isArray(value)
+
+const readResultCollection = async (filePath: string): Promise<ResultCollection> => {
+  const input = await readJson<unknown>(filePath)
+  if (!isRecord(input) || input.schemaVersion !== 1 || !Array.isArray(input.results)) {
+    throw new Error(`Human review result collection is invalid: ${filePath}`)
+  }
+  return {
+    schemaVersion: 1,
+    results: input.results.map((value, resultIndex) => {
+      if (!isRecord(value) || !Array.isArray(value.findings)) {
+        throw new Error(`Human review result is invalid at results[${resultIndex}]`)
+      }
+      return {
+        ...value,
+        findings: value.findings.map((finding, findingIndex) => {
+          if (!isRecord(finding)) {
+            throw new Error(
+              `Human review finding is invalid at results[${resultIndex}].findings[${findingIndex}]`
+            )
+          }
+          return createReviewFinding({
+            ...(finding as unknown as ReviewFinding),
+            id: undefined,
+          })
+        }),
+      } as unknown as ReviewerResult
+    }),
+  }
+}
 
 const atomicDirectory = async (output: string, files: ReadonlyMap<string, string>): Promise<void> => {
   const exists = await access(output)
@@ -262,6 +294,7 @@ const prepare = async (arguments_: PrepareArguments): Promise<void> => {
   ])
   const selected = selectedPairs(index, pairs)
   const calibration = calibrationPairs(pairs)
+  if (!selected.length) throw new Error('Prepared workspace contains no human sample pairs')
   if (!calibration.length) throw new Error('Prepared workspace contains no reviewer calibration cases')
   const assignedPairs = [...selected, ...calibration].sort((left, right) =>
     left.pairKey.localeCompare(right.pairKey)
@@ -348,12 +381,14 @@ const importedHumanLedger = (
     pairs.flatMap(pair => [pair.blindPacket, pair.comparisonPacket])
   )
 
-const compare = async (arguments_: CompareArguments): Promise<void> => {
-  const { directory, humanWorkspace, assigned } = await reviewContext(
-    arguments_.reviewDirectory,
-    arguments_.workspace
-  )
-  const target = path.join(directory, 'comparison-tasks.json')
+const writeComparisonStage = async (
+  directory: string,
+  assignment: ReviewAssignment,
+  pairs: ReviewPacketPair[],
+  blindCollection: ResultCollection,
+  prefix: string
+): Promise<void> => {
+  const target = path.join(directory, `${prefix}comparison-tasks.json`)
   if (
     await access(target)
       .then(() => true)
@@ -361,12 +396,9 @@ const compare = async (arguments_: CompareArguments): Promise<void> => {
   ) {
     throw new Error(`Comparison tasks already exist: ${target}`)
   }
-  const blindCollection = await readJson<ResultCollection>(
-    withinDirectory(directory, arguments_.blindResults)
-  )
-  const ledger = importedHumanLedger(humanWorkspace.assignment, blindCollection.results, assigned)
+  const ledger = importedHumanLedger(assignment, blindCollection.results, pairs)
   const blindByPacketId = new Map(ledger.results.map(result => [result.packetId, result]))
-  const tasks = assigned.map(pair => {
+  const tasks = pairs.map(pair => {
     const blindResult = blindByPacketId.get(pair.blindPacket.id)
     if (!blindResult) throw new Error(`Blind result is missing: ${pair.blindPacket.id}`)
     return {
@@ -375,20 +407,42 @@ const compare = async (arguments_: CompareArguments): Promise<void> => {
     }
   })
   await Promise.all([
-    writeFile(path.join(directory, 'blind-results.json'), stableJson(blindCollection), 'utf8'),
+    writeFile(path.join(directory, `${prefix}blind-results.json`), stableJson(blindCollection), 'utf8'),
     writeFile(target, stableJson({ schemaVersion: 1, tasks }), 'utf8'),
     writeFile(
-      path.join(directory, 'comparison-results.template.json'),
+      path.join(directory, `${prefix}comparison-results.template.json`),
       stableJson({
         schemaVersion: 1,
-        results: assigned.map(pair =>
-          templateResult(humanWorkspace.assignment, pair.comparisonPacket, false)
-        ),
+        results: pairs.map(pair => templateResult(assignment, pair.comparisonPacket, false)),
       }),
       'utf8'
     ),
   ])
   console.log(`Prepared ${tasks.length} comparison tasks after blind results were saved`)
+}
+
+const calibrationCompare = async (arguments_: CalibrationCompareArguments): Promise<void> => {
+  const { directory, humanWorkspace, calibration } = await reviewContext(
+    arguments_.reviewDirectory,
+    arguments_.workspace
+  )
+  const blindCollection = await readResultCollection(withinDirectory(directory, arguments_.blindResults))
+  await writeComparisonStage(
+    directory,
+    humanWorkspace.assignment,
+    calibration,
+    blindCollection,
+    'calibration-'
+  )
+}
+
+const compare = async (arguments_: CompareArguments): Promise<void> => {
+  const { directory, humanWorkspace, selected } = await reviewContext(
+    arguments_.reviewDirectory,
+    arguments_.workspace
+  )
+  const blindCollection = await readResultCollection(withinDirectory(directory, arguments_.blindResults))
+  await writeComparisonStage(directory, humanWorkspace.assignment, selected, blindCollection, '')
 }
 
 const assertCompleteSequence = (results: ReviewerResult[], selected: ReviewPacketPair[]): void => {
@@ -405,7 +459,7 @@ const assertCompleteSequence = (results: ReviewerResult[], selected: ReviewPacke
     ) {
       throw new Error(`Blind interpretation is missing: ${pair.blindPacket.id}`)
     }
-    if (blind.reviewedAt >= comparison.reviewedAt) {
+    if (instantValue(blind.reviewedAt) >= instantValue(comparison.reviewedAt)) {
       throw new Error(`Comparison was not recorded after blind review: ${pair.pairKey}`)
     }
   })
@@ -429,16 +483,28 @@ const humanCalibration = (
   }
   const defects = pairs.filter(pair => pair.calibrationKind === 'defect')
   const insufficient = pairs.filter(pair => pair.calibrationKind === 'insufficient-evidence')
+  const matchesSeededDefect = (pair: ReviewPacketPair, finding: ReviewFinding): boolean =>
+    (finding.severity === 'blocker' || finding.severity === 'major') &&
+    pair.comparisonPacket.generatedDestinations.some(
+      destination =>
+        finding.subject.field === destination.field &&
+        finding.actualValue !== undefined &&
+        finding.expectedValue !== undefined &&
+        checksumReviewRecord(finding.actualValue) === checksumReviewRecord(destination.value) &&
+        checksumReviewRecord(finding.expectedValue) !== checksumReviewRecord(destination.value)
+    )
   const foundDefects = defects.filter(pair => {
     const result = comparison(pair)
-    return (
-      result.outcome === 'finding' &&
-      result.findings.some(finding => finding.severity === 'blocker' || finding.severity === 'major')
-    )
+    return result.outcome === 'finding' && result.findings.some(finding => matchesSeededDefect(pair, finding))
   }).length
-  const unsupportedExpectedValues = pairs
-    .filter(pair => pair.calibrationKind !== 'defect')
-    .reduce((total, pair) => total + comparison(pair).findings.length, 0)
+  const unsupportedExpectedValues = pairs.reduce(
+    (total, pair) =>
+      total +
+      comparison(pair).findings.filter(
+        finding => pair.calibrationKind !== 'defect' || !matchesSeededDefect(pair, finding)
+      ).length,
+    0
+  )
   const correctCannotVerify = insufficient.filter(pair => comparison(pair).outcome === 'cannot-verify').length
   const correctBlindOutcomes = pairs.every(pair =>
     pair.calibrationKind === 'insufficient-evidence'
@@ -454,8 +520,7 @@ const humanCalibration = (
   })
   const calibratedAt = pairs
     .map(pair => comparison(pair).reviewedAt)
-    .sort()
-    .at(-1)!
+    .reduce((latest, reviewedAt) => (instantValue(reviewedAt) > instantValue(latest) ? reviewedAt : latest))
   return {
     schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
     reviewerConfigurationId: reviewerConfigurationId(assignment.reviewer),
@@ -475,21 +540,31 @@ const humanCalibration = (
   }
 }
 
-const submit = async (arguments_: SubmitArguments): Promise<void> => {
-  const { directory, humanWorkspace, selected, calibration, assigned } = await reviewContext(
+const start = async (arguments_: StartArguments): Promise<void> => {
+  const { directory, humanWorkspace, selected, calibration } = await reviewContext(
     arguments_.reviewDirectory,
     arguments_.workspace
   )
+  const liveTasksPath = path.join(directory, 'blind-tasks.json')
+  if (
+    await access(liveTasksPath)
+      .then(() => true)
+      .catch(() => false)
+  ) {
+    throw new Error(`Human sample tasks already exist: ${liveTasksPath}`)
+  }
   const [blindCollection, comparisonCollection] = await Promise.all([
-    readJson<ResultCollection>(path.join(directory, 'blind-results.json')),
-    readJson<ResultCollection>(withinDirectory(directory, arguments_.comparisonResults)),
+    readResultCollection(path.join(directory, 'calibration-blind-results.json')),
+    readResultCollection(withinDirectory(directory, arguments_.comparisonResults)),
   ])
   const results = [...blindCollection.results, ...comparisonCollection.results]
-  const reviewed = importedHumanLedger(humanWorkspace.assignment, results, assigned)
-  if (reviewed.results.length !== assigned.length * 2) {
-    throw new Error(`Human review is incomplete: ${reviewed.results.length}/${assigned.length * 2} results`)
+  const reviewed = importedHumanLedger(humanWorkspace.assignment, results, calibration)
+  if (reviewed.results.length !== calibration.length * 2) {
+    throw new Error(
+      `Human calibration is incomplete: ${reviewed.results.length}/${calibration.length * 2} results`
+    )
   }
-  assertCompleteSequence(reviewed.results, assigned)
+  assertCompleteSequence(reviewed.results, calibration)
   const calibrationRecord = humanCalibration(humanWorkspace.assignment, calibration, reviewed.results)
   if (!calibrationRecord.passed) {
     throw new Error(
@@ -500,11 +575,66 @@ const submit = async (arguments_: SubmitArguments): Promise<void> => {
         `${calibrationRecord.insufficientEvidenceCases} cannot-verify`
     )
   }
-  const samplePacketIds = new Set(selected.flatMap(pair => [pair.blindPacket.id, pair.comparisonPacket.id]))
-  const sampleResults = reviewed.results.filter(result => samplePacketIds.has(result.packetId))
-  const ledger = importedHumanLedger(humanWorkspace.assignment, sampleResults, assigned)
-  const firstSampleReviewedAt = [...ledger.results].map(result => result.reviewedAt).sort()[0]
-  if (calibrationRecord.calibratedAt >= firstSampleReviewedAt) {
+  await Promise.all([
+    writeFile(
+      path.join(directory, 'calibration-comparison-results.json'),
+      stableJson(comparisonCollection),
+      'utf8'
+    ),
+    writeFile(path.join(directory, 'calibration.json'), stableJson(calibrationRecord), 'utf8'),
+    writeFile(
+      liveTasksPath,
+      stableJson({
+        schemaVersion: 1,
+        revision: humanWorkspace.revision,
+        instructions:
+          'Calibration passed. Interpret only the delimited source evidence and save every blind sample result before comparison.',
+        tasks: blindTasks(selected),
+      }),
+      'utf8'
+    ),
+    writeFile(
+      path.join(directory, 'blind-results.template.json'),
+      stableJson({
+        schemaVersion: 1,
+        results: selected.map(pair => templateResult(humanWorkspace.assignment, pair.blindPacket, true)),
+      }),
+      'utf8'
+    ),
+  ])
+  console.log(`Calibration passed; prepared ${selected.length} blind human sample tasks`)
+}
+
+const submit = async (arguments_: SubmitArguments): Promise<void> => {
+  const { directory, humanWorkspace, selected } = await reviewContext(
+    arguments_.reviewDirectory,
+    arguments_.workspace
+  )
+  const [blindCollection, comparisonCollection, calibrationRecord] = await Promise.all([
+    readResultCollection(path.join(directory, 'blind-results.json')),
+    readResultCollection(withinDirectory(directory, arguments_.comparisonResults)),
+    readJson<ReviewCalibration>(path.join(directory, 'calibration.json')),
+  ])
+  const results = [...blindCollection.results, ...comparisonCollection.results]
+  const ledger = importedHumanLedger(humanWorkspace.assignment, results, selected)
+  if (ledger.results.length !== selected.length * 2) {
+    throw new Error(`Human review is incomplete: ${ledger.results.length}/${selected.length * 2} results`)
+  }
+  assertCompleteSequence(ledger.results, selected)
+  if (
+    !calibrationRecord.passed ||
+    calibrationRecord.reviewerConfigurationId !==
+      reviewerConfigurationId(humanWorkspace.assignment.reviewer) ||
+    calibrationRecord.rubricVersion !== AOS4_REVIEW_RUBRIC_VERSION
+  ) {
+    throw new Error('Stored human calibration is missing, failed, or stale')
+  }
+  const firstSampleReviewedAt = ledger.results
+    .map(result => result.reviewedAt)
+    .reduce((earliest, reviewedAt) =>
+      instantValue(reviewedAt) < instantValue(earliest) ? reviewedAt : earliest
+    )
+  if (instantValue(calibrationRecord.calibratedAt) >= instantValue(firstSampleReviewedAt)) {
     throw new Error('Human sample review must begin only after reviewer calibration passes')
   }
   const nonPass = ledger.results.filter(result => result.outcome !== 'pass')
@@ -513,11 +643,10 @@ const submit = async (arguments_: SubmitArguments): Promise<void> => {
       `Human review has ${nonPass.length} finding or cannot-verify outcome(s); adjudicate them before sign-off`
     )
   }
-  const lastReviewedAt = [...ledger.results]
+  const lastReviewedAt = ledger.results
     .map(result => result.reviewedAt)
-    .sort()
-    .at(-1)!
-  if (arguments_.signedAt <= lastReviewedAt) {
+    .reduce((latest, reviewedAt) => (instantValue(reviewedAt) > instantValue(latest) ? reviewedAt : latest))
+  if (instantValue(arguments_.signedAt) <= instantValue(lastReviewedAt)) {
     throw new Error('--signed-at must be later than every reviewed result')
   }
   const signoffIdentity = {
@@ -560,15 +689,17 @@ const submit = async (arguments_: SubmitArguments): Promise<void> => {
   console.log(`Prepared signed human ledger for ${selected.length} review pairs`)
 }
 
-const run = async (): Promise<void> => {
-  const arguments_ = parseHumanReviewArguments(process.argv.slice(2))
+export const runHumanReviewCommand = async (values: string[]): Promise<void> => {
+  const arguments_ = parseHumanReviewArguments(values)
   if (arguments_.command === 'prepare') await prepare(arguments_)
+  else if (arguments_.command === 'calibrate') await calibrationCompare(arguments_)
+  else if (arguments_.command === 'start') await start(arguments_)
   else if (arguments_.command === 'compare') await compare(arguments_)
   else await submit(arguments_)
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
-  run().catch(error => {
+  runHumanReviewCommand(process.argv.slice(2)).catch(error => {
     console.error(error)
     process.exitCode = 1
   })

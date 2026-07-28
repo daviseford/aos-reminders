@@ -43,6 +43,7 @@
     "data:aos4:candidate": "vite-node --script src/aos4/data/candidateCommand.ts",
     "data:aos4:discover-official": "vite-node --script src/aos4/data/gamesWorkshop/catalogCommand.ts",
     "data:aos4:certify": "vite-node --script src/aos4/review/certificationCommand.ts",
+    "data:aos4:certify:pending": "yarn data:aos4:certify --certification-dir data/aos4/certifications/aos4-corpus-2026-07-28-review --allow-human-pending",
     "data:aos4:certify:prepare": "vite-node --script src/aos4/review/certificationPrepareCommand.ts",
     "data:aos4:certify:full": "yarn data:aos4:generate:candidate && yarn data:aos4:review:prepare && yarn data:aos4:certify --full",
     "data:aos4:generate": "node --expose-gc node_modules/vite-node/vite-node.mjs --script src/aos4/generate/corpusCommand.ts",

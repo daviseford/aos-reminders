@@ -16,8 +16,10 @@ import {
   createReviewPacket,
   emptyReviewLedger,
   evaluateCertification,
+  hasOnlyHumanPendingCertificationIssues,
   importReviewerResultsAtomic,
   mergeReviewLedgers,
+  parseCertificationCommandArguments,
   parseCertificationPreparationArguments,
   parseHumanReviewArguments,
   reviewerConfigurationId,
@@ -27,6 +29,7 @@ import {
   verifyCertificationManifest,
   type CertificationEvaluationInput,
   type CertificationInput,
+  type CertificationIssue,
   type FindingResolution,
   type ReviewFinding,
   type ReviewLedger,
@@ -292,6 +295,43 @@ const certificationInputs = (): CertificationInput[] =>
   }))
 
 describe('AoS 4 certification evaluation', () => {
+  it('allows the pending CI gate only for genuine human-review blockers', () => {
+    const issue = (
+      code: CertificationIssue['code'],
+      state: CertificationIssue['state'] = 'blocked'
+    ): CertificationIssue => ({
+      code,
+      path: 'fixture',
+      subject: 'fixture',
+      message: code,
+      state,
+    })
+
+    expect(
+      hasOnlyHumanPendingCertificationIssues([issue('missing-human-review'), issue('manifest-not-passing')])
+    ).toBe(true)
+    expect(hasOnlyHumanPendingCertificationIssues([issue('manifest-not-passing')])).toBe(false)
+    expect(
+      hasOnlyHumanPendingCertificationIssues([
+        issue('missing-human-signoff', 'stale'),
+        issue('manifest-not-passing'),
+      ])
+    ).toBe(false)
+    expect(
+      hasOnlyHumanPendingCertificationIssues([issue('missing-human-signoff'), issue('stale-input', 'stale')])
+    ).toBe(false)
+    expect(
+      parseCertificationCommandArguments([
+        '--certification-dir',
+        'data/aos4/certifications/fixture',
+        '--allow-human-pending',
+      ])
+    ).toMatchObject({
+      certificationDirectory: 'data/aos4/certifications/fixture',
+      allowHumanPending: true,
+    })
+  })
+
   it('requires deterministic preparation paths and timestamps', () => {
     expect(
       parseCertificationPreparationArguments([

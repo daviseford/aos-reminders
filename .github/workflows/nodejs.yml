@@ -39,7 +39,7 @@ jobs:
           if [ -f data/aos4/certifications/current.json ]; then
             yarn data:aos4:certify
           else
-            echo "AoS 4 certification is not current; Phase 2 remains blocked."
+            yarn data:aos4:certify:pending
           fi
 
       - name: Build with TypeScript

@@ -1,4 +1,3 @@
-import { createHash } from 'node:crypto'
 import { readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -6,6 +5,7 @@ import type { ArtifactManifest } from '../data'
 import { stableCompactJson, stableJson } from '../generate/serialization'
 import {
   evaluateCertification,
+  checksumCertificationText,
   verifyCertificationManifest,
   type CertificationInventoryBinding,
   type CertificationIssue,
@@ -35,6 +35,7 @@ export interface CertificationCommandArguments {
   certificationDirectory?: string
   full: boolean
   writeSummary: boolean
+  allowHumanPending?: boolean
 }
 
 interface CertificationPointer {
@@ -77,19 +78,19 @@ const repoPath = (repoRoot: string, relativePath: string): string => {
   return resolved
 }
 
-const checksumText = (value: string): string =>
-  createHash('sha256').update(value.replaceAll('\r\n', '\n'), 'utf8').digest('hex')
-
 export const parseCertificationCommandArguments = (arguments_: string[]): CertificationCommandArguments => {
   const parsed: CertificationCommandArguments = {
     currentPath: DEFAULT_CURRENT,
     full: false,
     writeSummary: false,
+    allowHumanPending: false,
   }
   for (let index = 0; index < arguments_.length; index += 1) {
     const argument = arguments_[index]
     if (argument === '--full') {
       parsed.full = true
+    } else if (argument === '--allow-human-pending') {
+      parsed.allowHumanPending = true
     } else if (argument === '--write-summary') {
       parsed.writeSummary = true
     } else if (argument === '--current' || argument === '--certification-dir') {
@@ -193,6 +194,18 @@ const combinedStatus = (
       ? 'blocked'
       : evaluationStatus
 
+export const hasOnlyHumanPendingCertificationIssues = (issues: CertificationIssue[]): boolean => {
+  const humanIssueCodes = new Set(['missing-human-review', 'missing-human-signoff'])
+  return (
+    issues.some(value => humanIssueCodes.has(value.code)) &&
+    issues.every(
+      value =>
+        value.state === 'blocked' &&
+        (humanIssueCodes.has(value.code) || value.code === 'manifest-not-passing')
+    )
+  )
+}
+
 export const runCertificationCheck = async (
   arguments_: CertificationCommandArguments,
   repoRoot = process.cwd()
@@ -207,7 +220,7 @@ export const runCertificationCheck = async (
     currentInputs.push({
       name: input.name,
       path: input.path,
-      checksum: checksumText(content),
+      checksum: checksumCertificationText(content),
     })
   }
 
@@ -257,6 +270,7 @@ export const runCertificationCheck = async (
   )
   const status = combinedStatus(evaluation.status, manifestIssues)
   const summary = { ...evaluation.summary, status, issues }
+  const humanPending = Boolean(arguments_.allowHumanPending) && hasOnlyHumanPendingCertificationIssues(issues)
 
   if (arguments_.full) {
     const workspaceIndex = await readJson<unknown>(repoPath(repoRoot, DEFAULT_WORKSPACE_INDEX))
@@ -277,7 +291,8 @@ export const runCertificationCheck = async (
     await writeFile(path.join(directory, 'summary.json'), stableJson(summary), 'utf8')
   }
   return {
-    ok: status === 'pass' && !issues.length,
+    ok: (status === 'pass' && !issues.length) || humanPending,
+    humanPending,
     status,
     issues,
     summary,
@@ -288,12 +303,14 @@ export const runCertificationCheck = async (
 const run = async (): Promise<void> => {
   const result = await runCertificationCheck(parseCertificationCommandArguments(process.argv.slice(2)))
   console.log(
-    `AoS 4 certification ${result.status}: ` +
+    `AoS 4 certification ${result.humanPending ? 'machine-complete, human-pending' : result.status}: ` +
       `${result.summary.outcomeCounts.pass} pass, ` +
       `${result.summary.outcomeCounts.finding} finding, ` +
       `${result.summary.outcomeCounts['cannot-verify']} cannot-verify`
   )
-  result.issues.forEach(value => console.error(`- ${value.code} ${value.path}: ${value.message}`))
+  if (!result.humanPending) {
+    result.issues.forEach(value => console.error(`- ${value.code} ${value.path}: ${value.message}`))
+  }
   if (!result.ok) process.exitCode = 1
 }
 
