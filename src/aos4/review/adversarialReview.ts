@@ -35,10 +35,13 @@ const sameStringSet = (left: unknown, right: unknown): boolean =>
   Array.isArray(right) &&
   same(left.map(String).sort(compareText), right.map(String).sort(compareText))
 
-const sameJoinedText = (left: unknown, right: unknown): boolean => {
-  const text = (value: unknown): string =>
-    (Array.isArray(value) ? value : [value]).map(String).join(' ').replace(/\s+/g, ' ').trim()
-  return text(left) === text(right)
+const includesExpectedText = (actual: unknown, expected: unknown): boolean => {
+  const actualText = sourceComparableText(
+    (Array.isArray(actual) ? actual : [actual]).map(String).join(' ')
+  )
+  return (Array.isArray(expected) ? expected : [expected]).every(value =>
+    actualText.includes(sourceComparableText(value))
+  )
 }
 
 const isRecord = (value: unknown): value is Record<string, unknown> =>
@@ -81,7 +84,8 @@ const decodeHtmlEntities = (value: string): string =>
 const visibleSourceText = (value: unknown): string =>
   decodeHtmlEntities(String(value))
     .replace(/<(?:script|style)\b[^>]*>[\s\S]*?<\/(?:script|style)>/gi, ' ')
-    .replace(/<[^>]*>/g, ' ')
+    .replace(/<\/?(?:br|div|p|li|tr|td|th|h[1-6])\b[^>]*>/gi, ' ')
+    .replace(/<[^>]*>/g, '')
     .replace(/\s+/g, ' ')
     .trim()
 
@@ -576,7 +580,7 @@ const officialChecks = (pair: ReviewPacketPair): FailedCheck[] => {
       field === 'baseSizes' || field === 'regimentOptions'
         ? sameStringSet(profile[field], fact[field])
         : field === 'notes'
-          ? sameJoinedText(profile[field], fact[field])
+          ? includesExpectedText(profile[field], fact[field])
           : same(profile[field], fact[field])
     if (fact[field] !== undefined && !matches) {
       checks.push(

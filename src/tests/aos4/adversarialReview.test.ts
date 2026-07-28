@@ -17,7 +17,12 @@ const EXCERPT_REF = `review-evidence:sha256:${'c'.repeat(64)}`
 const SECONDARY_SOURCE_ID =
   'source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Ffixture%2Fwarscrolls.html%23fixture' as SourceRecordId
 
-const pair = (baseSizes = ['25mm'], officialBaseSizes = ['25mm']): ReviewPacketPair => {
+const pair = (
+  baseSizes = ['25mm'],
+  officialBaseSizes = ['25mm'],
+  notes: string[] = [],
+  officialNotes: string[] = []
+): ReviewPacketPair => {
   const structuredValue = {
     applicationStatus: 'effective',
     disposition: 'applied-to-runtime',
@@ -28,7 +33,7 @@ const pair = (baseSizes = ['25mm'], officialBaseSizes = ['25mm']): ReviewPacketP
       unitSize: 1,
       baseSizes: officialBaseSizes,
       regimentOptions: ['Any Fixture'],
-      notes: [],
+      notes: officialNotes,
     },
   }
   const sourceEvidence = [
@@ -78,7 +83,7 @@ const pair = (baseSizes = ['25mm'], officialBaseSizes = ['25mm']): ReviewPacketP
           unitSize: 1,
           baseSizes,
           regimentOptions: ['Any Fixture'],
-          notes: [],
+          notes,
         },
       },
     ],
@@ -100,7 +105,7 @@ const pair = (baseSizes = ['25mm'], officialBaseSizes = ['25mm']): ReviewPacketP
         ref: EXCERPT_REF,
         trust: 'untrusted-source-data',
         beginDelimiter: '--- BEGIN UNTRUSTED SOURCE EVIDENCE ---',
-        content: 'Fixture Unit 1 100 Any Fixture 25mm',
+        content: `Fixture Unit 1 100 Any Fixture 25mm ${officialNotes.join(' ')}`,
         endDelimiter: '--- END UNTRUSTED SOURCE EVIDENCE ---',
       },
     ],
@@ -193,6 +198,22 @@ const secondaryPair = (
 describe('AoS 4 deterministic adversarial reviewer', () => {
   it('passes an exact official fact application', () => {
     expect(assessAdversarialComparison(pair())).toMatchObject({
+      outcome: 'pass',
+      findings: [],
+    })
+  })
+
+  it('allows secondary notes in addition to every official note', () => {
+    expect(
+      assessAdversarialComparison(
+        pair(
+          ['25mm'],
+          ['25mm'],
+          ['Official note.', 'This unit cannot be reinforced.'],
+          ['Official note.']
+        )
+      )
+    ).toMatchObject({
       outcome: 'pass',
       findings: [],
     })
