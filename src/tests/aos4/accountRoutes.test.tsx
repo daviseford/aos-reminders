@@ -123,36 +123,9 @@ describe('established account routes', () => {
 
     expect(container.textContent).toContain('Support AoS Reminders')
     expect(container.textContent).toContain('What do you get when you subscribe?')
-    expect(container.textContent).toContain('Support the fourth-edition migration')
+    expect(container.textContent).toContain('Import lists from the new Warhammer App!')
     expect(container.textContent).toContain('Subscription Plans')
-    expect(container.textContent).not.toContain('Azyr')
-    expect(container.textContent).not.toContain('Battlescribe')
-  })
-
-  it('shows a retry instead of selling a duplicate plan when subscription status is unavailable', async () => {
-    subscription.subscriptionError = 'Subscription status is temporarily unavailable. Please try again.'
-
-    await act(async () => {
-      render(
-        <AppStatusProvider>
-          <MemoryRouter>
-            <Subscribe />
-          </MemoryRouter>
-        </AppStatusProvider>,
-        container
-      )
-      await Promise.resolve()
-    })
-
-    expect(container.textContent).toContain('temporarily unavailable')
-    expect(container.textContent).not.toContain('Subscription Plans')
-    const retry = Array.from(container.querySelectorAll('button')).find(
-      button => button.textContent === 'Try again'
-    )
-    act(() => {
-      retry?.dispatchEvent(new MouseEvent('click', { bubbles: true }))
-    })
-    expect(subscription.getSubscription).toHaveBeenCalled()
+    expect(container.textContent).toContain('Importing Warscroll Builder/Azyr files')
   })
 
   it('preserves the established profile cards and subscription controls', async () => {

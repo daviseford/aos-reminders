@@ -93,17 +93,8 @@ const CancelBtn = () => {
 }
 
 const SubscriptionInfo = () => {
-  const {
-    getSubscription,
-    hasActiveGrant,
-    hasExpiredGrant,
-    isActive,
-    isPending,
-    isSubscribed,
-    subscription,
-    subscriptionError,
-    subscriptionLoading,
-  } = useSubscription()
+  const { hasActiveGrant, hasExpiredGrant, isActive, isPending, isSubscribed, subscription } =
+    useSubscription()
   const { theme } = useTheme()
 
   if (hasActiveGrant) return <TemporaryGrantComponent />
@@ -114,11 +105,7 @@ const SubscriptionInfo = () => {
         <h4>
           <span className={centerContentClass}>
             Subscription Status:{' '}
-            {subscriptionLoading ? (
-              'Loading'
-            ) : subscriptionError ? (
-              'Unavailable'
-            ) : isActive ? (
+            {isActive ? (
               <MdCheckCircle className="text-success ml-2" />
             ) : (
               <MdNotInterested className="text-danger ml-2" />
@@ -126,16 +113,6 @@ const SubscriptionInfo = () => {
           </span>
         </h4>
       </div>
-      {subscriptionError && (
-        <div className={theme.cardBody}>
-          <div className="alert alert-warning mb-0" role="alert">
-            <p className="mb-2">{subscriptionError}</p>
-            <GenericButton className="btn btn-sm btn-primary" onClick={() => void getSubscription()}>
-              Try again
-            </GenericButton>
-          </div>
-        </div>
-      )}
       {isActive && !hasExpiredGrant && (
         <div className={theme.cardBody}>
           {typeof subscription.subscriptionStart === 'number' && (
@@ -290,7 +267,7 @@ const Help = () => {
 }
 
 const ToggleTheme = () => {
-  const { isActive, subscriptionError } = useSubscription()
+  const { isActive } = useSubscription()
   const { theme, isDark, toggleTheme } = useTheme()
 
   return (
@@ -318,12 +295,7 @@ const ToggleTheme = () => {
             />
           </label>
         )}
-        {!isActive && subscriptionError && (
-          <div className="alert alert-warning text-center mt-3" role="alert">
-            Theme access is temporarily unavailable while subscription status is checked.
-          </div>
-        )}
-        {!isActive && !subscriptionError && (
+        {!isActive && (
           <div className="alert alert-info text-center mt-3" role="alert">
             <Link to={ROUTES.SUBSCRIBE} onClick={() => logClick('SubscribeDarkTheme')}>
               Subscribe now

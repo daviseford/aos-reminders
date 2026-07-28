@@ -18,7 +18,7 @@ const Navbar = () => {
   const { isOffline } = useAppStatus()
   const { isAuthenticated, logout } = useAuth0()
   const { login, isLoggingIn } = useLogin({ origin: 'Navbar' })
-  const { isActive, subscriptionError, subscriptionLoading } = useSubscription()
+  const { isActive, subscriptionLoading } = useSubscription()
   const { isTinyMobile } = useWindowSize()
   const { pathname } = window.location
   const loginBtnText = !isAuthenticated ? 'Log in' : 'Log out'
@@ -51,7 +51,7 @@ const Navbar = () => {
           Profile
         </Link>
       )}
-      {!isActive && !subscriptionError && pathname !== ROUTES.SUBSCRIBE && (
+      {!isActive && pathname !== ROUTES.SUBSCRIBE && (
         <Link
           to={ROUTES.SUBSCRIBE}
           className={navbarStyles.link}
