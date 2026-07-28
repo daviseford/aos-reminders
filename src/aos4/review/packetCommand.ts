@@ -34,6 +34,7 @@ import {
   pathologyReviewCohorts,
   type PathologyIssue,
 } from './pathology'
+import { AOS4_REVIEW_PROTOCOL_VERSION, AOS4_REVIEW_RUBRIC_VERSION } from './records'
 
 const DEFAULT_ACCEPTED_MANIFEST = path.join('data', 'aos4', 'manifests', 'accepted-2026-07-27.json')
 const DEFAULT_REVIEW = path.join('data', 'aos4', 'reviews', 'corpus-2026-07-27.json')
@@ -43,8 +44,6 @@ const DEFAULT_IDENTITIES = path.join('data', 'aos4', 'identities', 'corpus.json'
 const DEFAULT_RUNTIME = path.join('src', 'aos4', 'generated', 'corpus', 'runtime.json')
 const DEFAULT_CACHE = path.join('.cache', 'aos4', 'artifacts')
 const DEFAULT_WORKSPACE = path.join('.cache', 'aos4', 'review')
-const PROTOCOL_VERSION = 'aos4-review/v1'
-const RUBRIC_VERSION = 'aos4-rubric/v1'
 const PACKET_SHARD_SIZE = 250
 const MAX_EXCERPT_LENGTH = 1_200
 const REQUIRED_HIGH_RISK_COHORTS = [
@@ -936,8 +935,8 @@ const run = async (): Promise<void> => {
   )
   const prepared = prepareReviewPackets({
     revision: sourceData.review.revision,
-    protocolVersion: PROTOCOL_VERSION,
-    rubricVersion: RUBRIC_VERSION,
+    protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
+    rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
     candidates: [
       ...sourceCandidates,
       ...officialCandidates,

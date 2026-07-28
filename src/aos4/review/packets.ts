@@ -5,6 +5,7 @@ import {
   checksumReviewRecord,
   createReviewPacket,
   type ReviewAssignment,
+  type ReviewAuthority,
   type ReviewGeneratedDestination,
   type ReviewPacket,
   type ReviewPacketId,
@@ -24,14 +25,9 @@ export type ReviewCandidateCategory =
   | 'ignored-record'
   | 'golden-truth'
 
-export type CalibrationCaseKind =
-  | 'pass'
-  | 'defect'
-  | 'disagreement'
-  | 'insufficient-evidence'
+export type CalibrationCaseKind = 'pass' | 'defect' | 'disagreement' | 'insufficient-evidence'
 
-export interface ReviewCandidateSourceEvidence
-  extends Omit<ReviewPacketSourceEvidence, 'excerptRef'> {
+export interface ReviewCandidateSourceEvidence extends Omit<ReviewPacketSourceEvidence, 'excerptRef'> {
   excerpt?: string
 }
 
@@ -128,8 +124,11 @@ export interface ReviewPacketIndexEntry {
   comparisonPacketId: ReviewPacketId
   comparisonPacketChecksum: string
   cohortIds: string[]
+  authorityClasses: ReviewAuthority[]
   factionIds: CanonicalId<'faction'>[]
   rulesContextIds: RulesContextId[]
+  blindDerivationRequired: boolean
+  blindExceptionReason?: string
   assignmentStatus: 'unassigned'
   calibration: boolean
   countsTowardCoverage: boolean
@@ -200,9 +199,7 @@ const semanticCandidate = (candidate: ReviewPacketCandidate) => ({
     locator: evidence.locator,
     authority: evidence.authority,
     ...(evidence.artifactId ? { artifactId: evidence.artifactId } : {}),
-    ...(evidence.structuredValue !== undefined
-      ? { structuredValue: evidence.structuredValue }
-      : {}),
+    ...(evidence.structuredValue !== undefined ? { structuredValue: evidence.structuredValue } : {}),
   })),
   generatedDestinations: candidate.generatedDestinations,
 })
@@ -222,14 +219,9 @@ const chooseForStratum = (
       ) || left.key.localeCompare(right.key)
   )[0]
 
-const humanSampleKeys = (
-  revision: string,
-  candidates: ReviewPacketCandidate[]
-): Set<string> => {
+const humanSampleKeys = (revision: string, candidates: ReviewPacketCandidate[]): Set<string> => {
   const selected = new Set<string>()
-  const sourceToRuntimeCandidates = candidates.filter(
-    candidate => candidate.category === 'source-record'
-  )
+  const sourceToRuntimeCandidates = candidates.filter(candidate => candidate.category === 'source-record')
   const factionContextStrata = uniqueSorted(
     sourceToRuntimeCandidates.flatMap(candidate =>
       candidate.factionIds.flatMap(factionId =>
@@ -251,9 +243,7 @@ const humanSampleKeys = (
     if (chosen) selected.add(chosen.key)
   })
   const highRiskCohorts = uniqueSorted(
-    candidates.flatMap(candidate =>
-      candidate.cohortIds.filter(cohortId => cohortId.startsWith('high-risk:'))
-    )
+    candidates.flatMap(candidate => candidate.cohortIds.filter(cohortId => cohortId.startsWith('high-risk:')))
   )
   highRiskCohorts.forEach(cohortId => {
     const chosen = chooseForStratum(
@@ -322,18 +312,14 @@ const createPair = (
   const baseCohorts = [
     ...candidate.cohortIds,
     ...(options.humanSample ? ['human-sample'] : []),
-    ...(options.calibration
-      ? [`calibration:${options.calibrationKind ?? 'pass'}`, 'blind-control']
-      : []),
+    ...(options.calibration ? [`calibration:${options.calibrationKind ?? 'pass'}`, 'blind-control'] : []),
     ...(!candidate.independentlyDerivable ? ['blind-exception'] : []),
   ]
   const base = {
     protocolVersion: input.protocolVersion,
     rubricVersion: input.rubricVersion,
     cohortIds: baseCohorts,
-    ...(candidate.canonicalEntityId
-      ? { canonicalEntityId: candidate.canonicalEntityId }
-      : {}),
+    ...(candidate.canonicalEntityId ? { canonicalEntityId: candidate.canonicalEntityId } : {}),
     sourceEvidence: evidence.sourceEvidence,
     rulesContextIds: candidate.rulesContextIds,
   }
@@ -346,9 +332,7 @@ const createPair = (
     ...(options.calibrationKind ? { calibrationKind: options.calibrationKind } : {}),
     countsTowardCoverage: !options.calibration,
     blindDerivationRequired: candidate.independentlyDerivable,
-    ...(candidate.blindExceptionReason
-      ? { blindExceptionReason: candidate.blindExceptionReason }
-      : {}),
+    ...(candidate.blindExceptionReason ? { blindExceptionReason: candidate.blindExceptionReason } : {}),
     blindPacket: createReviewPacket({
       ...base,
       cohortIds: [...baseCohorts, 'blind-interpretation'],
@@ -372,9 +356,7 @@ const categoryCoverage = (
 ): { assigned: number; expected: number } => {
   const assigned = pairs.filter(pair => pair.category === category && pair.countsTowardCoverage).length
   if (assigned !== expected) {
-    throw new Error(
-      `${category} coverage is incomplete: assigned ${assigned}, expected ${expected}`
-    )
+    throw new Error(`${category} coverage is incomplete: assigned ${assigned}, expected ${expected}`)
   }
   return { assigned, expected }
 }
@@ -392,10 +374,7 @@ const createBatches = (
     const control = calibrationPairs.length
       ? calibrationPairs[batches.length % calibrationPairs.length].blindPacket.id
       : undefined
-    const ids = [
-      ...packetIds.slice(index, index + liveBatchSize),
-      ...(control ? [control] : []),
-    ]
+    const ids = [...packetIds.slice(index, index + liveBatchSize), ...(control ? [control] : [])]
     batches.push({
       id: `review-batch:${String(batches.length + 1).padStart(4, '0')}`,
       packetIds: ids,
@@ -405,9 +384,7 @@ const createBatches = (
   return batches
 }
 
-export const prepareReviewPackets = (
-  input: ReviewPacketPreparationInput
-): PreparedReviewPackets => {
+export const prepareReviewPackets = (input: ReviewPacketPreparationInput): PreparedReviewPackets => {
   if (!input.revision.trim()) throw new Error('Review packet preparation requires a corpus revision')
   const duplicateKeys = input.candidates
     .map(candidate => candidate.key)
@@ -443,31 +420,15 @@ export const prepareReviewPackets = (
     left.pairKey.localeCompare(right.pairKey)
   )
   const coverage = {
-    officialRecords: categoryCoverage(
-      pairs,
-      'official-record',
-      input.expectedCoverage.officialRecords
-    ),
+    officialRecords: categoryCoverage(pairs, 'official-record', input.expectedCoverage.officialRecords),
     reconciliationDiscrepancies: categoryCoverage(
       pairs,
       'reconciliation-discrepancy',
       input.expectedCoverage.reconciliationDiscrepancies
     ),
-    profileOnlyFacts: categoryCoverage(
-      pairs,
-      'profile-only-fact',
-      input.expectedCoverage.profileOnlyFacts
-    ),
-    sourceRecords: categoryCoverage(
-      pairs,
-      'source-record',
-      input.expectedCoverage.sourceRecords
-    ),
-    ignoredRecords: categoryCoverage(
-      pairs,
-      'ignored-record',
-      input.expectedCoverage.ignoredRecords
-    ),
+    profileOnlyFacts: categoryCoverage(pairs, 'profile-only-fact', input.expectedCoverage.profileOnlyFacts),
+    sourceRecords: categoryCoverage(pairs, 'source-record', input.expectedCoverage.sourceRecords),
+    ignoredRecords: categoryCoverage(pairs, 'ignored-record', input.expectedCoverage.ignoredRecords),
     factionContextStrata: uniqueSorted(
       pairs.flatMap(pair =>
         pair.factionIds.flatMap(factionId =>
@@ -476,9 +437,7 @@ export const prepareReviewPackets = (
       )
     ),
     highRiskCohorts: uniqueSorted(
-      pairs.flatMap(pair =>
-        pair.blindPacket.cohortIds.filter(cohortId => cohortId.startsWith('high-risk:'))
-      )
+      pairs.flatMap(pair => pair.blindPacket.cohortIds.filter(cohortId => cohortId.startsWith('high-risk:')))
     ),
   }
   const factionContextSet = new Set(coverage.factionContextStrata)
@@ -487,9 +446,9 @@ export const prepareReviewPackets = (
     .filter(stratum => !factionContextSet.has(stratum))
   if (missingFactionContextStrata.length) {
     throw new Error(
-      `Required faction/context review strata are missing: ${uniqueSorted(
-        missingFactionContextStrata
-      ).join(', ')}`
+      `Required faction/context review strata are missing: ${uniqueSorted(missingFactionContextStrata).join(
+        ', '
+      )}`
     )
   }
   const highRiskSet = new Set(coverage.highRiskCohorts)
@@ -498,9 +457,7 @@ export const prepareReviewPackets = (
   )
   if (missingHighRiskCohorts.length) {
     throw new Error(
-      `Required high-risk review cohorts are missing: ${uniqueSorted(
-        missingHighRiskCohorts
-      ).join(', ')}`
+      `Required high-risk review cohorts are missing: ${uniqueSorted(missingHighRiskCohorts).join(', ')}`
     )
   }
   const indexByPairKey = new Map(
@@ -523,8 +480,11 @@ export const prepareReviewPackets = (
       comparisonPacketId: pair.comparisonPacket.id,
       comparisonPacketChecksum: pair.comparisonPacket.packetChecksum,
       cohortIds: pair.blindPacket.cohortIds,
+      authorityClasses: uniqueSorted(pair.blindPacket.sourceEvidence.map(evidence => evidence.authority)),
       factionIds: pair.factionIds,
       rulesContextIds: pair.blindPacket.rulesContextIds,
+      blindDerivationRequired: pair.blindDerivationRequired,
+      ...(pair.blindExceptionReason ? { blindExceptionReason: pair.blindExceptionReason } : {}),
       assignmentStatus: 'unassigned' as const,
       calibration: pair.calibration,
       countsTowardCoverage: pair.countsTowardCoverage,

@@ -74,16 +74,12 @@ const isRecord = (value: unknown): value is Record<string, unknown> =>
 
 const isString = (value: unknown): value is string => typeof value === 'string'
 const isNonEmptyString = (value: unknown): value is string => isString(value) && Boolean(value.trim())
-const isStringArray = (value: unknown): value is string[] =>
-  Array.isArray(value) && value.every(isString)
+const isStringArray = (value: unknown): value is string[] => Array.isArray(value) && value.every(isString)
 const isNonNegativeInteger = (value: unknown): value is number =>
   typeof value === 'number' && Number.isSafeInteger(value) && value >= 0
 const isIsoInstant = (value: unknown): value is string =>
-  isString(value) &&
-  ISO_INSTANT_PATTERN.test(value) &&
-  !Number.isNaN(new Date(value).valueOf())
-const isChecksum = (value: unknown): value is string =>
-  isString(value) && SHA256_PATTERN.test(value)
+  isString(value) && ISO_INSTANT_PATTERN.test(value) && !Number.isNaN(new Date(value).valueOf())
+const isChecksum = (value: unknown): value is string => isString(value) && SHA256_PATTERN.test(value)
 const isSourceRecordId = (value: unknown): value is string =>
   isString(value) && value.startsWith('source-record:') && value.length > 'source-record:'.length
 const isRulesContextId = (value: unknown): value is string =>
@@ -110,11 +106,11 @@ const isSourceLocator = (value: unknown): boolean => {
   return value.kind === 'document'
 }
 
-const issue = (
-  code: ReviewValidationIssueCode,
-  path: string,
-  message: string
-): ReviewValidationIssue => ({ code, path, message })
+const issue = (code: ReviewValidationIssueCode, path: string, message: string): ReviewValidationIssue => ({
+  code,
+  path,
+  message,
+})
 
 const duplicateIssues = <T>(
   values: T[],
@@ -134,10 +130,7 @@ const duplicateIssues = <T>(
   return issues
 }
 
-const reviewRecordBaseIssues = (
-  value: unknown,
-  path: string
-): ReviewValidationIssue[] => {
+const reviewRecordBaseIssues = (value: unknown, path: string): ReviewValidationIssue[] => {
   if (!isRecord(value)) return [issue('invalid-shape', path, 'Expected an object')]
   return value.schemaVersion === AOS4_REVIEW_SCHEMA_VERSION
     ? []
@@ -176,9 +169,7 @@ const reviewerIssues = (assignment: ReviewAssignment, path: string): ReviewValid
   ) {
     const expectedId = createReviewAssignment({ ...assignment, packetIds, id: undefined }).id
     if (assignment.id !== expectedId) {
-      issues.push(
-        issue('invalid-checksum', `${path}.id`, 'Assignment ID does not match semantic content')
-      )
+      issues.push(issue('invalid-checksum', `${path}.id`, 'Assignment ID does not match semantic content'))
     }
   }
   if (assignment.execution === 'external') {
@@ -203,10 +194,7 @@ const reviewerIssues = (assignment: ReviewAssignment, path: string): ReviewValid
   return issues
 }
 
-const calibrationIssues = (
-  calibration: ReviewCalibration,
-  path: string
-): ReviewValidationIssue[] => {
+const calibrationIssues = (calibration: ReviewCalibration, path: string): ReviewValidationIssue[] => {
   const issues = reviewRecordBaseIssues(calibration, path)
   if (!REVIEWER_CONFIGURATION_ID_PATTERN.test(calibration.reviewerConfigurationId)) {
     issues.push(
@@ -231,9 +219,7 @@ const calibrationIssues = (
     calibration.unsupportedExpectedValues === 0 &&
     calibration.correctCannotVerifyCases === calibration.insufficientEvidenceCases
   if (calibration.passed !== actuallyPassed) {
-    issues.push(
-      issue('invalid-shape', `${path}.passed`, 'Calibration pass flag does not match its evidence')
-    )
+    issues.push(issue('invalid-shape', `${path}.passed`, 'Calibration pass flag does not match its evidence'))
   }
   return issues
 }
@@ -331,24 +317,17 @@ const packetIssues = (packet: ReviewPacket, path: string): ReviewValidationIssue
       (evidence.artifactId !== undefined && !isArtifactId(evidence.artifactId)) ||
       !['official', 'secondary', 'community', 'unknown'].includes(evidence.authority)
     ) {
-      issues.push(
-        issue('invalid-evidence', `${path}.sourceEvidence[${index}]`, 'Invalid packet evidence')
-      )
+      issues.push(issue('invalid-evidence', `${path}.sourceEvidence[${index}]`, 'Invalid packet evidence'))
     }
   })
   packet.generatedDestinations.forEach((destination, index) => {
     if (
       !isRepoRelativePath(destination.path) ||
       !isNonEmptyString(destination.field) ||
-      (destination.canonicalEntityId !== undefined &&
-        !isNonEmptyString(destination.canonicalEntityId))
+      (destination.canonicalEntityId !== undefined && !isNonEmptyString(destination.canonicalEntityId))
     ) {
       issues.push(
-        issue(
-          'invalid-shape',
-          `${path}.generatedDestinations[${index}]`,
-          'Invalid generated destination'
-        )
+        issue('invalid-shape', `${path}.generatedDestinations[${index}]`, 'Invalid generated destination')
       )
     }
   })
@@ -437,12 +416,7 @@ export const validateReviewLedger = (
       'results'
     ),
     ...duplicateIssues(ledger.findings, value => value.id, 'duplicate-finding', 'findings'),
-    ...duplicateIssues(
-      ledger.resolutions,
-      value => value.findingId,
-      'duplicate-resolution',
-      'resolutions'
-    ),
+    ...duplicateIssues(ledger.resolutions, value => value.findingId, 'duplicate-resolution', 'resolutions'),
     ...duplicateIssues(
       ledger.verifications,
       value => `${value.findingId}:${value.verifierId}`,
@@ -454,9 +428,7 @@ export const validateReviewLedger = (
 
   const validatePacketReferences = packets !== undefined
   const packetById = new Map((packets ?? []).map(packet => [packet.id, packet]))
-  ;(packets ?? []).forEach((packet, index) =>
-    issues.push(...packetIssues(packet, `packets[${index}]`))
-  )
+  ;(packets ?? []).forEach((packet, index) => issues.push(...packetIssues(packet, `packets[${index}]`)))
 
   ledger.assignments.forEach((assignment, index) =>
     issues.push(...reviewerIssues(assignment, `assignments[${index}]`))
@@ -464,19 +436,12 @@ export const validateReviewLedger = (
   ledger.calibrations.forEach((value, index) =>
     issues.push(...calibrationIssues(value, `calibrations[${index}]`))
   )
-  ledger.results.forEach((value, index) =>
-    issues.push(...resultShapeIssues(value, `results[${index}]`))
-  )
-  ledger.findings.forEach((value, index) =>
-    issues.push(...findingShapeIssues(value, `findings[${index}]`))
-  )
+  ledger.results.forEach((value, index) => issues.push(...resultShapeIssues(value, `results[${index}]`)))
+  ledger.findings.forEach((value, index) => issues.push(...findingShapeIssues(value, `findings[${index}]`)))
 
   const assignmentById = new Map(ledger.assignments.map(value => [value.id, value]))
   const calibrationById = new Map(
-    ledger.calibrations.map(value => [
-      `${value.reviewerConfigurationId}:${value.rubricVersion}`,
-      value,
-    ])
+    ledger.calibrations.map(value => [`${value.reviewerConfigurationId}:${value.rubricVersion}`, value])
   )
   const findingById = new Map(ledger.findings.map(value => [value.id, value]))
   const originatingReviewerByFindingId = new Map<string, string>()
@@ -487,7 +452,9 @@ export const validateReviewLedger = (
     const assignment = assignmentById.get(result.assignmentId)
     const packet = packetById.get(result.packetId)
     if (!assignment) {
-      issues.push(issue('unknown-assignment', `${path}.assignmentId`, 'Result references an unknown assignment'))
+      issues.push(
+        issue('unknown-assignment', `${path}.assignmentId`, 'Result references an unknown assignment')
+      )
       return
     }
     if (!assignment.packetIds.includes(result.packetId)) {
@@ -511,9 +478,9 @@ export const validateReviewLedger = (
       )
     }
     if (assignment.reviewer.kind === 'agent') {
-      const calibration = calibrationById.get(
-        `${result.reviewerConfigurationId}:${assignment.reviewer.promptVersion}`
-      )
+      const calibration = packet
+        ? calibrationById.get(`${result.reviewerConfigurationId}:${packet.rubricVersion}`)
+        : ledger.calibrations.find(value => value.reviewerConfigurationId === result.reviewerConfigurationId)
       if (!calibration) {
         issues.push(issue('missing-calibration', path, 'Agent result requires a matching calibration'))
       } else if (!calibration.passed) {
@@ -522,11 +489,7 @@ export const validateReviewLedger = (
     }
     if (assignment.execution === 'external' && !assignment.approvedRecipient) {
       issues.push(
-        issue(
-          'unapproved-external-recipient',
-          path,
-          'External result does not have an approved recipient'
-        )
+        issue('unapproved-external-recipient', path, 'External result does not have an approved recipient')
       )
     }
     if ((result.outcome === 'finding') !== Boolean(result.findings.length)) {
@@ -552,10 +515,7 @@ export const validateReviewLedger = (
       }
       if (validatePacketReferences) {
         const packetEvidence = new Map(
-          (packet?.sourceEvidence ?? []).map(evidence => [
-            evidence.sourceRecordId,
-            evidence.recordChecksum,
-          ])
+          (packet?.sourceEvidence ?? []).map(evidence => [evidence.sourceRecordId, evidence.recordChecksum])
         )
         finding.evidence.forEach((evidence, evidenceIndex) => {
           if (packetEvidence.get(evidence.sourceRecordId) !== evidence.recordChecksum) {
@@ -574,11 +534,7 @@ export const validateReviewLedger = (
   ledger.findings.forEach((finding, index) => {
     if (!resultFindingIds.has(finding.id)) {
       issues.push(
-        issue(
-          'orphan-finding',
-          `findings[${index}]`,
-          'Ledger finding is not owned by a reviewer result'
-        )
+        issue('orphan-finding', `findings[${index}]`, 'Ledger finding is not owned by a reviewer result')
       )
     }
   })
@@ -619,10 +575,7 @@ export const validateReviewLedger = (
       issues.push(issue('invalid-resolution', path, 'Invalid finding verification'))
       return
     }
-    if (
-      validatePacketReferences &&
-      (!packet || packet.packetChecksum !== verification.packetChecksum)
-    ) {
+    if (validatePacketReferences && (!packet || packet.packetChecksum !== verification.packetChecksum)) {
       issues.push(issue('invalid-resolution', path, 'Verification packet is missing or stale'))
     }
     if (finding.severity === 'blocker' || finding.severity === 'major') {
@@ -712,19 +665,13 @@ export const importReviewerResultAtomic = (
     ...ledger,
     results: [...ledger.results, result].sort(
       (left, right) =>
-        left.assignmentId.localeCompare(right.assignmentId) ||
-        left.packetId.localeCompare(right.packetId)
+        left.assignmentId.localeCompare(right.assignmentId) || left.packetId.localeCompare(right.packetId)
     ),
-    findings: [...ledger.findings, ...result.findings].sort((left, right) =>
-      left.id.localeCompare(right.id)
-    ),
+    findings: [...ledger.findings, ...result.findings].sort((left, right) => left.id.localeCompare(right.id)),
   }
   const issues = validateReviewLedger(candidate, packets)
   if (issues.length) {
-    throw new ReviewValidationError(
-      `Reviewer result cannot be imported: ${issues[0].message}`,
-      issues
-    )
+    throw new ReviewValidationError(`Reviewer result cannot be imported: ${issues[0].message}`, issues)
   }
   return candidate
 }
@@ -743,10 +690,7 @@ export const parseReviewLedger = (input: unknown): ReviewLedger => {
   return ledger
 }
 
-const coverageIssues = (
-  coverage: unknown,
-  path: string
-): ReviewValidationIssue[] => {
+const coverageIssues = (coverage: unknown, path: string): ReviewValidationIssue[] => {
   if (!isRecord(coverage)) return [issue('invalid-shape', path, 'Expected coverage object')]
   const keys: Array<keyof CertificationCoverage> = [
     'officialRecords',
@@ -759,11 +703,7 @@ const coverageIssues = (
   ]
   return keys.flatMap(key => {
     const value = coverage[key]
-    if (
-      !isRecord(value) ||
-      !isNonNegativeInteger(value.reviewed) ||
-      !isNonNegativeInteger(value.expected)
-    ) {
+    if (!isRecord(value) || !isNonNegativeInteger(value.reviewed) || !isNonNegativeInteger(value.expected)) {
       return [issue('invalid-shape', `${path}.${key}`, 'Invalid certification coverage count')]
     }
     return []
@@ -804,18 +744,11 @@ export const parseCertificationManifest = (input: unknown): CertificationManifes
       !isChecksum(inputValue.checksum) ||
       !isRepoRelativePath(inputValue.path)
     ) {
-      issues.push(
-        issue('invalid-shape', `manifest.inputs[${index}]`, 'Invalid certification input binding')
-      )
+      issues.push(issue('invalid-shape', `manifest.inputs[${index}]`, 'Invalid certification input binding'))
     }
   })
   issues.push(
-    ...duplicateIssues(
-      manifest.inputs ?? [],
-      value => value.name,
-      'invalid-shape',
-      'manifest.inputs'
-    ),
+    ...duplicateIssues(manifest.inputs ?? [], value => value.name, 'invalid-shape', 'manifest.inputs'),
     ...coverageIssues(manifest.coverage, 'manifest.coverage')
   )
   if (issues.length) {

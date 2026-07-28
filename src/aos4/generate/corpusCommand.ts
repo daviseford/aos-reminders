@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { access, mkdir, readFile, writeFile } from 'node:fs/promises'
 import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import {
@@ -29,6 +29,7 @@ import {
   type WahapediaExportInputs,
 } from '../data/wahapedia'
 import { validateCatalog } from '../domain'
+import { runCertificationCheck } from '../review/certificationCommand'
 import { buildAos4Corpus, createCorpusIdentityRegistry, type CorpusReview } from './corpus'
 import { validateIdentityRegistry, type IdentityRegistry } from './identityRegistry'
 import { validateGenerationIntegrity } from './integrity'
@@ -49,6 +50,7 @@ const DEFAULT_DEFAULTS = path.join('src', 'aos4', 'generated', 'corpus', 'defaul
 const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-07-27-summary.json')
 const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-07-27-reconciliation.json')
 const DEFAULT_CACHE = path.join('.cache', 'aos4', 'artifacts')
+const DEFAULT_CURRENT_CERTIFICATION = path.join('data', 'aos4', 'certifications', 'current.json')
 
 interface CorpusCommandArguments {
   acceptedManifestPath: string
@@ -62,7 +64,34 @@ interface CorpusCommandArguments {
   reconciliationPath: string
   cacheDirectory: string
   initializeIdentities: boolean
+  candidate: boolean
   write: boolean
+}
+
+interface CorpusCertificationResult {
+  ok: boolean
+  status: 'pass' | 'blocked' | 'stale'
+}
+
+export const assertCorpusWriteWorkflow = (
+  hasCertification: boolean,
+  arguments_: Pick<CorpusCommandArguments, 'candidate' | 'write'>
+): void => {
+  if (hasCertification && arguments_.write && !arguments_.candidate) {
+    throw new Error('Writing a not-yet-certified corpus requires the explicit --candidate workflow')
+  }
+}
+
+export const assertAcceptedCorpusCertification = async (
+  hasCertification: boolean,
+  candidate: boolean,
+  check: () => Promise<CorpusCertificationResult>
+): Promise<void> => {
+  if (!hasCertification || candidate) return
+  const certification = await check()
+  if (!certification.ok) {
+    throw new Error(`Accepted corpus certification is ${certification.status}`)
+  }
 }
 
 interface GeneratedProduct {
@@ -433,9 +462,7 @@ const validateOfficialEvidence = async (
       throw new Error(`Official evidence extraction failed for ${document.title}`)
     }
     const extractedById = new Map(extraction.document.sourceRecords.map(record => [record.id, record]))
-    const pageTextByPage = new Map(
-      extraction.document.pages.map(page => [page.page, page.text])
-    )
+    const pageTextByPage = new Map(extraction.document.pages.map(page => [page.page, page.text]))
     document.sourceRecords.forEach(reviewedRecord => {
       const extracted = extractedById.get(reviewedRecord.id)
       if (
@@ -446,10 +473,7 @@ const validateOfficialEvidence = async (
       ) {
         throw new Error(`Official evidence record ${reviewedRecord.id} no longer matches ${document.title}`)
       }
-      pageTextBySourceRecordId.set(
-        reviewedRecord.id,
-        pageTextByPage.get(reviewedRecord.page) ?? ''
-      )
+      pageTextBySourceRecordId.set(reviewedRecord.id, pageTextByPage.get(reviewedRecord.page) ?? '')
     })
   }
   return pageTextBySourceRecordId
@@ -538,6 +562,7 @@ export const parseCorpusCommandArguments = (arguments_: string[]): CorpusCommand
     reconciliationPath: DEFAULT_RECONCILIATION,
     cacheDirectory: DEFAULT_CACHE,
     initializeIdentities: false,
+    candidate: false,
     write: false,
   }
   const valueFlags: Record<string, keyof CorpusCommandArguments> = {
@@ -556,6 +581,8 @@ export const parseCorpusCommandArguments = (arguments_: string[]): CorpusCommand
     const argument = arguments_[index]
     if (argument === '--initialize-identities') {
       parsed.initializeIdentities = true
+    } else if (argument === '--candidate') {
+      parsed.candidate = true
     } else if (argument === '--write') {
       parsed.write = true
     } else if (valueFlags[argument]) {
@@ -572,12 +599,8 @@ export const parseCorpusCommandArguments = (arguments_: string[]): CorpusCommand
 export const generateCorpusProducts = async (
   arguments_: CorpusCommandArguments
 ): Promise<GeneratedProduct[]> => {
-  const {
-    review,
-    decoded,
-    officialBattleProfiles,
-    reconciliation,
-  } = await loadAcceptedCorpusSourceData(arguments_)
+  const { review, decoded, officialBattleProfiles, reconciliation } =
+    await loadAcceptedCorpusSourceData(arguments_)
   const identities = arguments_.initializeIdentities
     ? createCorpusIdentityRegistry(decoded.dataset, review)
     : await loadIdentities(arguments_.identitiesPath)
@@ -619,11 +642,7 @@ export const generateCorpusProducts = async (
   )
   const auditCatalog = serializeAuditCatalog(generated.catalog)
   const officialBattleProfileCatalog = stableJson(
-    createOfficialBattleProfileCatalog(
-      officialBattleProfiles.reviewed,
-      reconciliation,
-      review.generatedAt
-    )
+    createOfficialBattleProfileCatalog(officialBattleProfiles.reviewed, reconciliation, review.generatedAt)
   )
   const runtime = serializeRuntimeProjection(
     createRuntimeProjection(generated.catalog, generated.summary.attribution)
@@ -728,6 +747,10 @@ export const loadAcceptedCorpusSourceData = async (
 
 const run = async (): Promise<void> => {
   const arguments_ = parseCorpusCommandArguments(process.argv.slice(2))
+  const hasCertification = await access(DEFAULT_CURRENT_CERTIFICATION)
+    .then(() => true)
+    .catch(() => false)
+  assertCorpusWriteWorkflow(hasCertification, arguments_)
   const products = await generateCorpusProducts(arguments_)
   if (arguments_.write) {
     await Promise.all(products.map(writeProduct))
@@ -736,6 +759,13 @@ const run = async (): Promise<void> => {
     await Promise.all(products.map(verifyProduct))
     products.forEach(product => console.log(`Verified ${product.path} (${checksum(product.bytes)})`))
   }
+  await assertAcceptedCorpusCertification(hasCertification, arguments_.candidate, () =>
+    runCertificationCheck({
+      currentPath: DEFAULT_CURRENT_CERTIFICATION,
+      full: false,
+      writeSummary: false,
+    })
+  )
 }
 
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {

@@ -1,15 +1,11 @@
 import { createHash } from 'node:crypto'
-import type {
-  ArtifactId,
-  CanonicalId,
-  RulesContextId,
-  SourceLocator,
-  SourceRecordId,
-} from '../domain'
+import type { ArtifactId, CanonicalId, RulesContextId, SourceLocator, SourceRecordId } from '../domain'
 import { stableCompactJson, stableJson } from '../generate/serialization'
 
 export const AOS4_REVIEW_SCHEMA_VERSION = 1 as const
 export const AOS4_CERTIFICATION_SCHEMA_VERSION = 1 as const
+export const AOS4_REVIEW_PROTOCOL_VERSION = 'aos4-review/v1' as const
+export const AOS4_REVIEW_RUBRIC_VERSION = 'aos4-rubric/v1' as const
 
 export type ReviewPacketId = `review-packet:sha256:${string}`
 export type ReviewAssignmentId = `review-assignment:sha256:${string}`
@@ -233,8 +229,7 @@ type ReviewFindingDraft = Omit<ReviewFinding, 'schemaVersion' | 'id'> & {
 
 const compare = (left: string, right: string): number => left.localeCompare(right)
 
-const uniqueSorted = <T extends string>(values: Iterable<T>): T[] =>
-  Array.from(new Set(values)).sort(compare)
+const uniqueSorted = <T extends string>(values: Iterable<T>): T[] => Array.from(new Set(values)).sort(compare)
 
 const normalizedEvidence = <T extends ReviewEvidenceReference>(evidence: T[]): T[] =>
   [...evidence].sort(
@@ -244,9 +239,7 @@ const normalizedEvidence = <T extends ReviewEvidenceReference>(evidence: T[]): T
       stableCompactJson(left.locator).localeCompare(stableCompactJson(right.locator))
   )
 
-const normalizedDestinations = (
-  destinations: ReviewGeneratedDestination[]
-): ReviewGeneratedDestination[] =>
+const normalizedDestinations = (destinations: ReviewGeneratedDestination[]): ReviewGeneratedDestination[] =>
   [...destinations].sort(
     (left, right) =>
       left.path.localeCompare(right.path) ||
@@ -259,9 +252,7 @@ export const serializeReviewRecord = (value: unknown): string => stableJson(valu
 export const checksumReviewRecord = (value: unknown): string =>
   createHash('sha256').update(stableCompactJson(value), 'utf8').digest('hex')
 
-export const reviewerConfigurationId = (
-  reviewer: ReviewerMetadata
-): ReviewerConfigurationId =>
+export const reviewerConfigurationId = (reviewer: ReviewerMetadata): ReviewerConfigurationId =>
   `reviewer-configuration:sha256:${checksumReviewRecord({
     kind: reviewer.kind,
     tool: reviewer.tool ?? null,
@@ -344,4 +335,3 @@ export const createReviewFinding = (input: ReviewFindingDraft): ReviewFinding =>
   rationale: input.rationale,
   evidence: normalizedEvidence(input.evidence),
 })
-

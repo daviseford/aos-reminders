@@ -1,0 +1,14 @@
+{
+  "acceptedLimitationPolicy": "Only minor, non-misleading limitations may be accepted, with explicit rationale and human sign-off.",
+  "allowedOutcomes": [
+    "pass",
+    "finding",
+    "cannot-verify"
+  ],
+  "materialSeverities": [
+    "blocker",
+    "major"
+  ],
+  "rubricVersion": "aos4-rubric/v1",
+  "schemaVersion": 1
+}

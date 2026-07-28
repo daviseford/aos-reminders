@@ -1,5 +1,6 @@
 import { readFile } from 'node:fs/promises'
 import path from 'node:path'
+import { vi } from 'vitest'
 import { artifactChecksum, type ArtifactManifestEntry } from '../../aos4/data'
 import {
   WAHAPEDIA_EXPORT_FILES,
@@ -14,6 +15,11 @@ import {
   validateGenerationIntegrity,
   type CorpusReview,
 } from '../../aos4/generate'
+import {
+  assertAcceptedCorpusCertification,
+  assertCorpusWriteWorkflow,
+  parseCorpusCommandArguments,
+} from '../../aos4/generate/corpusCommand'
 import { resolveSelection } from '../../aos4/select'
 
 const fixtureRoot = path.join(process.cwd(), 'src', 'tests', 'fixtures', 'aos4', 'wahapedia')
@@ -58,6 +64,21 @@ const review: CorpusReview = {
 }
 
 describe('AoS 4 corpus generation', () => {
+  it('keeps candidate preparation available while accepted workflows fail closed', async () => {
+    const candidate = parseCorpusCommandArguments(['--candidate', '--write'])
+    expect(candidate).toMatchObject({ candidate: true, write: true })
+    expect(() => assertCorpusWriteWorkflow(true, { candidate: false, write: true })).toThrow(
+      'explicit --candidate workflow'
+    )
+    await expect(
+      assertAcceptedCorpusCertification(true, false, async () => ({ ok: false, status: 'stale' }))
+    ).rejects.toThrow('certification is stale')
+
+    const check = vi.fn(async () => ({ ok: false, status: 'stale' as const }))
+    await expect(assertAcceptedCorpusCertification(true, true, check)).resolves.toBeUndefined()
+    expect(check).not.toHaveBeenCalled()
+  })
+
   it('builds a deterministic, source-complete faction catalog from reviewed exports', async () => {
     const decoded = decodeWahapediaExports(await loadInputs())
     expect(decoded.diagnostics).toEqual([])
