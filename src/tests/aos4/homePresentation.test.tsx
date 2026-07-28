@@ -92,7 +92,8 @@ describe('AoS 4 home presentation', () => {
     expect(container.textContent).toContain('Edit')
     expect(container.textContent).toContain('Play')
     expect(container.textContent).toContain('Clear Army')
-    expect(container.textContent).toContain('Print')
+    // `master` shipped a Download PDF toolbar button, not a browser-print one.
+    expect(container.textContent).toContain('Download PDF')
     expect(container.textContent).toContain('Subscribe')
     expect(container.textContent).toContain('FAQ')
     expect(container.textContent).toContain('Log in')

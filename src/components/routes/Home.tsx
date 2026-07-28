@@ -1,5 +1,16 @@
 import type { CanonicalId, SourceArtifact } from '../../aos4/domain'
 import { AOS4_CATALOG } from '../../aos4/generated'
+import {
+  COMPACT_PRESET,
+  STANDARD_PRESET,
+  createAos4PrintDocument,
+  createJsPdfMeasurer,
+  planPrintLayout,
+  renderPrintPlanToPdf,
+  withPageSize,
+  type PrintPageSize,
+  type PrintPreset,
+} from '../../aos4/print'
 import { createDefaultAos4ArmyDocument, loadAos4ArmyDocument, saveAos4ArmyDocument } from '../../aos4/runtime'
 import { createAos4ArmyDocument, setAos4ReminderPreference, type Aos4ArmyDocument } from '../../aos4/state'
 import {
@@ -12,6 +23,7 @@ import ArmyBuilder from 'components/input/army_builder'
 import Toolbar from 'components/input/toolbar/toolbar'
 import Footer from 'components/page/footer'
 import { Header } from 'components/page/homeHeader'
+import PrintModal from 'components/print/printModal'
 import { useEffect, useMemo, useState } from 'react'
 
 const loadDocument = (): Aos4ArmyDocument => {
@@ -58,12 +70,34 @@ const reminderSources = (reminder: Aos4ReminderViewModel): ReminderSourceLink[] 
 
 const factionName = AOS4_CATALOG.entities.find(entity => entity.kind === 'faction')?.name ?? 'Age of Sigmar 4'
 
+const presetById = (id: PrintPreset['id']) => (id === 'compact' ? COMPACT_PRESET : STANDARD_PRESET)
+
+const toFileName = (name: string) => `${name.trim().split(/\s+/).join('_') || 'AoS'}_Reminders`
+
 const Home = () => {
   const [document, setDocument] = useState(loadDocument)
   const [isGameMode, setIsGameMode] = useState(false)
+  const [printModalIsOpen, setPrintModalIsOpen] = useState(false)
   const builder = useMemo(() => createAos4BuilderViewModel(AOS4_CATALOG, document), [document])
   const reminders = useMemo(() => createAos4ReminderViewModel(AOS4_CATALOG, document), [document])
   const hiddenCount = reminders.filter(reminder => reminder.hidden).length
+
+  const printDocument = useMemo(
+    () =>
+      createAos4PrintDocument(reminders, {
+        armyName: document.name,
+        factionName,
+        warscrolls: builder.warscrolls,
+      }),
+    [builder.warscrolls, document.name, reminders]
+  )
+
+  const handleDownloadPdf = (presetId: PrintPreset['id'], pageSize: PrintPageSize, fileName: string) => {
+    const preset = withPageSize(presetById(presetId), pageSize)
+    const plan = planPrintLayout(printDocument, preset, createJsPdfMeasurer())
+    renderPrintPlanToPdf(plan, { title: printDocument.title }).save(`${fileName}.pdf`)
+    setPrintModalIsOpen(false)
+  }
 
   useEffect(() => {
     try {
@@ -159,7 +193,7 @@ const Home = () => {
         <Toolbar
           hiddenCount={hiddenCount}
           onClearArmy={clearArmy}
-          onPrint={() => window.print()}
+          onDownloadPdf={() => setPrintModalIsOpen(true)}
           onResetArmy={() => setDocument(createDefaultAos4ArmyDocument())}
           onShowAll={showAll}
         />
@@ -175,6 +209,15 @@ const Home = () => {
       />
 
       <Footer />
+
+      {printModalIsOpen && (
+        <PrintModal
+          closeModal={() => setPrintModalIsOpen(false)}
+          defaultFileName={toFileName(document.name)}
+          isOpen={printModalIsOpen}
+          onDownloadPdf={handleDownloadPdf}
+        />
+      )}
     </div>
   )
 }

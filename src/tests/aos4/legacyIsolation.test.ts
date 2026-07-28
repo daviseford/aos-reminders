@@ -66,7 +66,9 @@ describe('AoS 4 legacy isolation', () => {
       'generic_rules',
       'meta',
       'store',
-      'components/print',
+      // `components/print` is deliberately absent from this list. Printing is a live AoS 4 feature
+      // rebuilt on `aos4/print`, not retained AoS 3 code. The retired AoS 3 generator was
+      // `utils/pdf`, which stays retired below.
       'api/preferenceApi.ts',
       'components/input/ally_armies.tsx',
       'components/input/ally_army_builder.tsx',
@@ -131,6 +133,7 @@ describe('AoS 4 legacy isolation', () => {
       'components/payment/paypal/paypalButton.tsx',
       'components/payment/paypal/paypalTypes.ts',
       'components/payment/pricingPlans.tsx',
+      'components/print/printModal.tsx',
       'components/routes/Faq.tsx',
       'components/routes/Home.tsx',
       'components/routes/Join.tsx',
@@ -146,6 +149,7 @@ describe('AoS 4 legacy isolation', () => {
       'components/modals',
       'components/page',
       'components/payment',
+      'components/print',
       'components/routes',
     ].map(root => path.join(sourceRoot, root))
     const unexpectedPresentationFiles = (await Promise.all(presentationRoots.map(sourceFiles)))
