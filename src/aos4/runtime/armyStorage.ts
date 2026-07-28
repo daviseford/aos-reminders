@@ -26,7 +26,7 @@ export interface LoadAos4ArmyDocumentResult {
 export const createDefaultAos4ArmyDocument = (): Aos4ArmyDocument =>
   createAos4ArmyDocument({
     id: 'army:aos4-migration-preview',
-    name: 'Stormcast Eternals migration preview',
+    name: 'Stormcast Eternals',
     rulesContextId: REPRESENTATIVE_CONTEXT_ID,
     explicitSelectionIds: AOS4_DEFAULT_SELECTION_IDS,
   })

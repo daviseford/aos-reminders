@@ -61,18 +61,20 @@ describe('AoS 4 legacy isolation', () => {
 
   it('keeps the retired AoS 3 rules and application graph physically absent', async () => {
     const retiredPaths = [
-      'api',
       'ducks',
       'factions',
       'generic_rules',
       'meta',
       'store',
-      'components/info',
-      'components/input',
-      'components/modals',
-      'components/page',
-      'components/payment',
       'components/print',
+      'api/preferenceApi.ts',
+      'components/input/ally_armies.tsx',
+      'components/input/ally_army_builder.tsx',
+      'components/input/importPdf',
+      'components/input/savedArmies',
+      'components/input/shareArmy',
+      'components/input/toolbar/add_ally_btn.tsx',
+      'components/input/toolbar/import_army_btn.tsx',
       'utils/azyr',
       'utils/battlescribe',
       'utils/getArmy',
@@ -100,6 +102,58 @@ describe('AoS 4 legacy isolation', () => {
       .map(result => result.retiredPath)
 
     expect(survivors).toEqual([])
+
+    const allowedPresentationShell = new Set([
+      'api/subscriptionApi.ts',
+      'components/helpers/alreadySubscribed.tsx',
+      'components/helpers/link.tsx',
+      'components/helpers/spinner.tsx',
+      'components/helpers/suspenseFallbacks.tsx',
+      'components/info/donate.tsx',
+      'components/info/offline.tsx',
+      'components/info/reminders.tsx',
+      'components/input/army_builder.tsx',
+      'components/input/generic_button.tsx',
+      'components/input/toolbar/toolbar.tsx',
+      'components/page/footer.tsx',
+      'components/page/homeHeader.tsx',
+      'components/page/navbar.tsx',
+      'components/page/navbar_wrapper.tsx',
+      'components/page/privateRoute.tsx',
+      'components/page/contact.tsx',
+      'components/page/redemption.tsx',
+      'components/modals/generic/generic_destructive_modal.tsx',
+      'components/modals/generic/generic_modal.tsx',
+      'components/modals/paypal_cancellation_modal.tsx',
+      'components/modals/paypal_post_subscribe_modal.tsx',
+      'components/modals/stripe_cancellation_modal.tsx',
+      'components/payment/giftSubscriptions.tsx',
+      'components/payment/paypal/paypalButton.tsx',
+      'components/payment/paypal/paypalTypes.ts',
+      'components/payment/pricingPlans.tsx',
+      'components/routes/Faq.tsx',
+      'components/routes/Home.tsx',
+      'components/routes/Join.tsx',
+      'components/routes/Profile.tsx',
+      'components/routes/Redeem.tsx',
+      'components/routes/Subscribe.tsx',
+    ])
+    const presentationRoots = [
+      'api',
+      'components/helpers',
+      'components/info',
+      'components/input',
+      'components/modals',
+      'components/page',
+      'components/payment',
+      'components/routes',
+    ].map(root => path.join(sourceRoot, root))
+    const unexpectedPresentationFiles = (await Promise.all(presentationRoots.map(sourceFiles)))
+      .flat()
+      .map(file => path.relative(sourceRoot, file).replaceAll(path.sep, '/'))
+      .filter(file => !allowedPresentationShell.has(file))
+
+    expect(unexpectedPresentationFiles).toEqual([])
 
     const fixtureFamilies = (
       await readdir(path.join(sourceRoot, 'tests', 'fixtures'), {

@@ -1,17 +1,38 @@
 import 'core-js/stable' // organize-imports-ignore
-import 'css/aos4.scss' // organize-imports-ignore
 import 'css/index.scss' // organize-imports-ignore
+import { Auth0Provider } from '@auth0/auth0-react'
 import App from 'components/App'
+import { AppStatusProvider } from 'context/useAppStatus'
+import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
 import React from 'react'
 import { render } from 'react-dom'
 import { installNewWorker } from 'utils/installNewWorker'
+import history from 'utils/history'
 import * as serviceWorkerRegistration from './serviceWorkerRegistration'
+import config from './auth_config.json'
+
+const onRedirectCallback = (appState?: { returnTo?: string }) => {
+  history.replace(appState?.returnTo || window.location.pathname)
+}
 
 render(
-  <ThemeProvider>
-    <App />
-  </ThemeProvider>,
+  <Auth0Provider
+    domain={config.domain}
+    clientId={config.clientId}
+    authorizationParams={{
+      redirect_uri: window.location.origin,
+    }}
+    onRedirectCallback={onRedirectCallback}
+  >
+    <AppStatusProvider>
+      <SubscriptionProvider>
+        <ThemeProvider>
+          <App />
+        </ThemeProvider>
+      </SubscriptionProvider>
+    </AppStatusProvider>
+  </Auth0Provider>,
   document.getElementById('root')
 )
 

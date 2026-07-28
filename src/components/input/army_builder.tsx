@@ -1,0 +1,183 @@
+import type { CanonicalId } from '../../aos4/domain'
+import type { createAos4BuilderViewModel } from '../../aos4/view'
+import { useIsMobile } from 'components/aos4/useIsMobile'
+import { useTheme } from 'context/useTheme'
+import { useMemo, useState } from 'react'
+import Select, { type MultiValue } from 'react-select'
+import { MdExpandMore, MdRemove } from 'react-icons/md'
+
+type BuilderViewModel = ReturnType<typeof createAos4BuilderViewModel>
+type BuilderOption = BuilderViewModel['options'][number]
+
+interface ArmyBuilderProps {
+  builder: BuilderViewModel
+  onSetGroupSelections: (groupIds: CanonicalId[], selectedIds: CanonicalId[]) => void
+}
+
+interface Option {
+  label: string
+  value: CanonicalId
+  disabled: boolean
+}
+
+interface SelectionGroup {
+  key: string
+  title: string
+  mobileTitle?: string
+  options: BuilderOption[]
+}
+
+const titles: Record<string, { title: string; mobileTitle?: string; order: number }> = {
+  warscroll: { title: 'Units', order: 0 },
+  'battle-formation': { title: 'Battle Formations', mobileTitle: 'Formations', order: 1 },
+  'artefact-of-power': { title: 'Artefacts of Power', mobileTitle: 'Artefacts', order: 2 },
+  'spell-lore': { title: 'Spell Lores', order: 3 },
+  'prayer-lore': { title: 'Prayer Lores', order: 4 },
+  'manifestation-lore': { title: 'Manifestation Lores', mobileTitle: 'Manifestations', order: 5 },
+}
+
+const titleCase = (value: string) =>
+  value
+    .split('-')
+    .map(part => `${part.slice(0, 1).toUpperCase()}${part.slice(1)}`)
+    .join(' ')
+
+const groupKey = (option: BuilderOption) => option.groupType ?? option.kind
+
+const groupSelections = (options: BuilderOption[]): SelectionGroup[] => {
+  const grouped = options.reduce((result, option) => {
+    const key = groupKey(option)
+    result.set(key, [...(result.get(key) ?? []), option])
+    return result
+  }, new Map<string, BuilderOption[]>())
+
+  return Array.from(grouped, ([key, groupOptions]) => {
+    const configured = titles[key]
+    return {
+      key,
+      title: configured?.title ?? titleCase(key),
+      ...(configured?.mobileTitle ? { mobileTitle: configured.mobileTitle } : {}),
+      options: groupOptions,
+    }
+  }).sort(
+    (left, right) =>
+      (titles[left.key]?.order ?? Number.MAX_SAFE_INTEGER) -
+        (titles[right.key]?.order ?? Number.MAX_SAFE_INTEGER) || left.title.localeCompare(right.title)
+  )
+}
+
+const SelectionCard = ({
+  group,
+  initiallyExpanded,
+  onSetGroupSelections,
+}: {
+  group: SelectionGroup
+  initiallyExpanded: boolean
+  onSetGroupSelections: ArmyBuilderProps['onSetGroupSelections']
+}) => {
+  const { theme } = useTheme()
+  const isMobile = useIsMobile()
+  const [isExpanded, setIsExpanded] = useState(initiallyExpanded)
+  const options: Option[] = group.options.map(option => ({
+    label: option.name,
+    value: option.id,
+    disabled: !option.available && !option.selected,
+  }))
+  const selectedValues = options.filter(option =>
+    group.options.some(candidate => candidate.id === option.value && candidate.selected)
+  )
+  const title = isMobile && group.mobileTitle ? group.mobileTitle : group.title
+  const selectionCount = selectedValues.length
+  const bodyClass = `${theme.cardBody} ${isExpanded ? '' : 'd-none'} ${isMobile ? 'py-3' : ''}`
+  const colMobile = isMobile && !isExpanded ? 'col w-50 px-1' : 'col-12 px-1'
+  const colDesktop = `col-sm-12 col-md-6 col-lg-4 col-xl-4 ${isMobile ? '' : 'mb-2'}`
+
+  const toggleExpanded = () => setIsExpanded(current => !current)
+
+  return (
+    <div className={`${colMobile} ${colDesktop} ${theme.bgColor} mx-auto mt-1`}>
+      <div className={theme.card}>
+        <div
+          className={`${theme.cardHeader} ${isMobile ? 'py-3 px-3' : 'py-2'}`}
+          role="button"
+          tabIndex={0}
+          onClick={toggleExpanded}
+          onKeyDown={event => event.key === 'Enter' && toggleExpanded()}
+        >
+          <div className={`d-flex justify-content-${isMobile ? 'end' : 'center'} align-items-center`}>
+            <div className={`flex-grow-1 text-center ${isMobile ? '' : 'pl-5'}`}>
+              {isMobile ? (
+                <h5 className="CardHeaderTitle text-nowrap">
+                  {title}
+                  {selectionCount && !isExpanded ? ` (${selectionCount})` : ''}
+                </h5>
+              ) : (
+                <h4 className="CardHeaderTitle text-nowrap">
+                  {title}
+                  {selectionCount && !isExpanded ? ` (${selectionCount})` : ''}
+                </h4>
+              )}
+            </div>
+            <div className={`${isMobile ? 'pr-0' : 'px-3'} d-print-none`}>
+              {isExpanded ? <MdRemove aria-hidden /> : <MdExpandMore aria-hidden />}
+            </div>
+          </div>
+        </div>
+        <div className={bodyClass}>
+          <Select<Option, true>
+            aria-label={group.title}
+            value={selectedValues}
+            options={options}
+            isMulti
+            isClearable
+            closeMenuOnSelect={false}
+            isOptionDisabled={option => option.disabled}
+            onChange={(values: MultiValue<Option>) =>
+              onSetGroupSelections(
+                group.options.map(option => option.id),
+                values.map(option => option.value)
+              )
+            }
+            className={theme.text}
+            theme={defaultTheme => ({
+              ...defaultTheme,
+              colors: {
+                ...defaultTheme.colors,
+                ...theme.selectTheme,
+              },
+            })}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+const ArmyBuilder = ({ builder, onSetGroupSelections }: ArmyBuilderProps) => {
+  const isMobile = useIsMobile()
+  const groups = useMemo(
+    () =>
+      groupSelections(
+        builder.options.filter(option => option.kind === 'warscroll' || option.kind === 'content-group')
+      ),
+    [builder.options]
+  )
+  const rowClass = `row d-print-none pb-1 ${isMobile ? 'mx-1' : 'pt-2 w-75'}`
+
+  return (
+    <div className="d-flex justify-content-center">
+      <div className={rowClass}>
+        {groups.map((group, index) => (
+          <SelectionCard
+            key={group.key}
+            group={group}
+            initiallyExpanded={index === 0}
+            onSetGroupSelections={onSetGroupSelections}
+          />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+export default ArmyBuilder
