@@ -103,6 +103,19 @@ small {
     align-items: baseline;
 }
 
+/**
+ * The options button centres against the heading's first line box rather than the whole heading, so
+ * it stays put whether the tags sit beside the name or wrap beneath it. `min-height` matches the
+ * name's line box; without it the button chases the tallest element on the row.
+ */
+.ReminderOptions {
+    display: flex;
+    align-items: center;
+    align-self: flex-start;
+    min-height: 1.5rem;
+    margin-inline-start: 0.85rem;
+}
+
 .ReminderHeadingRow > .ReminderTags {
     margin-inline-start: auto;
 }

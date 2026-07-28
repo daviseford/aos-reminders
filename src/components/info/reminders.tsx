@@ -135,7 +135,7 @@ const ReminderEntry = ({
           </span>
           {isMobile && <ReminderTags tags={reminder.tags} />}
         </div>
-        <div className="flex-shrink-0 pl-2 mt-1 d-print-none">
+        <div className="flex-shrink-0 ReminderOptions d-print-none">
           <Dropdown>
             <Dropdown.Toggle
               as="button"
