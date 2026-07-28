@@ -272,7 +272,9 @@ versions.
 (`vite build` output plus a visualizer treemap), a verified-unused list (grep plus a build with
 the redux family and `react-dropzone` temporarily aliased out), polyfill reachability for R4/KTD8,
 and the resolved current version for every upgrade target in R1-R11/R17. Record the live-site
-screenshot set (desktop and mobile, every route) that U6 and U12's comparisons will diff against.
+screenshot set (desktop and mobile, every route) that the U3/U6/U7/U9 comparisons will diff
+against — full-page, not viewport-cropped, and scoped to what a retired AoS 3 live site can
+actually anchor.
 
 **Test scenarios.** Test expectation: none — measurement and documentation only; the committed
 baseline is the artifact.
