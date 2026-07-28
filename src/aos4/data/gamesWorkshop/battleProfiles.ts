@@ -169,6 +169,55 @@ const cleanExtractedText = (value: string): string =>
     .replace(/\bVa\s+r\s+gs\s+k\s+y\s+r\b/gi, 'Vargskyr')
     .replace(/\bHed\s+k\s+ra\s+k\s+k\s+a(?=’|')/gi, 'Hedkrakka')
     .replace(/\bMad\s+mob\b/gi, 'Madmob')
+    .replace(/\bS\s+i\s+g\s+m\s+a\s+r\s+i\s+t\s+e\b/gi, 'Sigmarite')
+    .replace(/\bC\s+ava\s+l\s+r\s+y\b/gi, 'Cavalry')
+    .replace(
+      /\bS\s+ou\s+l\s+b\s+l\s+i\s+g\s+h\s+t\s+G\s+r\s+av\s+e\s+l\s+o\s+r\s+d\s+s\b/gi,
+      'Soulblight Gravelords'
+    )
+    .replace(/\bS\s+y\s+lva\s+n\s+e\s+t\s+h\b/gi, 'Sylvaneth')
+    .replace(/\bSpider\s+fa\s+ng\b/gi, 'Spiderfang')
+    .replace(
+      /\bVa\s+n\s+a\s+r\s+i\s+Au\s+r\s+a\s+la\s+n\s+Wa\s+rdens\b/gi,
+      'Vanari Auralan Wardens'
+    )
+    .replace(/\bI\s+ron\s+jaw\s+z\b/gi, 'Ironjawz')
+    .replace(/\bB\s+o\s+s\s+s\s+r\s+o\s+k\s+k\s+Tow\s+e\s+r\b/gi, 'Bossrokk Tower')
+    .replace(
+      /\bC\s+h\s+a\s+r\s+n\s+e\s+l\s+Ve\s+s\s+t\s+m\s+e\s+nt\s+s\b/gi,
+      'Charnel Vestments'
+    )
+    .replace(/\bD\s+ua\s+r\s+d\s+i\s+n\b/gi, 'Duardin')
+    .replace(/\bDa\s+e\s+m\s+o\s+n\b/gi, 'Daemon')
+    .replace(/\bK\s+n\s+i\s+g\s+h\s+t\s+s\b/gi, 'Knights')
+    .replace(/\bNorg\s+r\s+i\s+m\s+m\b/gi, 'Norgrimm')
+    .replace(/\bS\s+p\s+i\s+r\s+e\s+Tyrant\s+s\b/gi, 'Spire Tyrants')
+    .replace(/\bTo\s+p\s+D\s+o\s+g\b/gi, 'Top Dog')
+    .replace(/\bWa\s+r\s+Hyd\s+ra\b/gi, 'War Hydra')
+    .replace(/\bTree-Revena\s+nts\b/gi, 'Tree-Revenants')
+    .replace(/\bTzaa\s+ngors\b/gi, 'Tzaangors')
+    .replace(/\bWa\s+r\s+Despot\b/gi, 'War Despot')
+    .replace(/\bA\s+rch-Wa\s+rlock\b/gi, 'Arch-Warlock')
+    .replace(/\bMor\s+tek\s+Tria\s+xes\b/gi, 'Mortek Triaxes')
+    .replace(/\bWa\s+rcha\s+nter\b/gi, 'Warchanter')
+    .replace(/\bBu\s+l\s+l\s+fat\s+her\s*([’'])s\s+Scor\s+n\b/gi, 'Bullfather$1s Scorn')
+    .replace(/\bG\s+od\s+sw\s+rat\s+h\s+Wa\s+rba\s+nd\b/gi, 'Godswrath Warband')
+    .replace(/\bFool\s*([’'])s\s+C\s+ap\b/gi, 'Fool$1s Cap')
+    .replace(/\bTrophy\s+Sku\s+l\s+ls\b/gi, 'Trophy Skulls')
+    .replace(/\bWa\s+rbeat\s+s\b/gi, 'Warbeats')
+    .replace(/\bWei\s+rd\s+fi\s+st\b/gi, 'Weirdfist')
+    .replace(/\bNu\s+rg\s+le\s*([’'])s\s+Gi\s+ft\b/gi, 'Nurgle$1s Gift')
+    .replace(/\bK\s+r\s+it\s+tok\s*([’'])s\s+Claw\s+pack\b/gi, 'Krittok$1s Clawpack')
+    .replace(/\bPhu\s+lgot\s+h\s*([’'])s\s+Shudderhood\b/gi, 'Phulgoth$1s Shudderhood')
+    .replace(/\bK\s+a\s+ma\s+ndora\s*([’'])s\s+Blades\b/gi, 'Kamandora$1s Blades')
+    .replace(/\bK\s+a\s+i\s+na\s+n\s*([’'])s\s+Reapers\b/gi, 'Kainan$1s Reapers')
+    .replace(/\bZ\s+a\s+rbag\s*([’'])s\s+Git\s+z\b/gi, 'Zarbag$1s Gitz')
+    .replace(/\bS\s+k\s+av\s+e\s+n\b/gi, 'Skaven')
+    .replace(/\bOgor\s+M\s+aw\s+t\s+r\s+i\s+be\s+s\b/gi, 'Ogor Mawtribes')
+    .replace(/\breg\s+i\s+ment\b/gi, 'regiment')
+    .replace(/([A-Za-z])\s*[\u2010-\u2015]\s*(?=[A-Za-z])/g, '$1-')
+    .replace(/\s+([’'])(?=s\b)/gi, '$1')
+    .replace(/s\s+([’'])(?=\s)/gi, 's$1')
     .replace(/\s+-\s*/g, '-')
     .replace(/\s+([,.;:])/g, '$1')
     .replace(/([([]) +/g, '$1')
@@ -179,8 +228,40 @@ const cleanExtractedText = (value: string): string =>
 const withoutColumnHeader = (value: string, header: RegExp): string =>
   cleanExtractedText(value.replace(header, ' '))
 
+const cleanRelevantKeywords = (value: string): string =>
+  cleanExtractedText(value)
+    .replace(/^.*?R\s*E\s*L\s*E\s*V\s*A\s*N\s*T\s+K\s*E\s*Y\s*WOR\s*DS\s*/i, '')
+    .replace(/^NOTES\s*/i, '')
+    .replace(/\s+IDON\s*ETH\s+DEEPK\s*IN\s*$/i, '')
+    .trim()
+
+const splitKeywordNotes = (
+  relevantKeywords: string,
+  notes: string
+): { relevantKeywords: string; notes: string } => {
+  const cleanKeywords = cleanRelevantKeywords(relevantKeywords)
+  const noteMatch = cleanKeywords.match(/\s+(?:NOTES\s+)?((?:This|You)\b.*)$/i)
+  const derived = noteMatch?.[1]?.trim() ?? ''
+  const wrappedKeyword = derived.match(
+    /^(.*[.!?])\s+([A-Z][A-Za-z’'-]*(?:\s+[A-Z][A-Za-z’'-]*)?(?:\s*,\s*[A-Z][A-Za-z’'-]*(?:\s+[A-Z][A-Za-z’'-]*)?)*)$/
+  )
+  const derivedNote = wrappedKeyword?.[1] ?? derived
+  const keywordText = [
+    noteMatch ? cleanKeywords.slice(0, noteMatch.index).trim() : cleanKeywords,
+    wrappedKeyword?.[2],
+  ]
+    .filter(Boolean)
+    .join(', ')
+  return {
+    relevantKeywords: keywordText,
+    notes: [notes, derivedNote].filter(Boolean).join(' '),
+  }
+}
+
 const cleanBaseSizeText = (value: string): string =>
   cleanExtractedText(value)
+    .replace(/^\.\s*(?=\d)/, '')
+    .replace(/,\s*\.\s*(?=\d)/g, ', ')
     .replace(/\b(\d(?:\s+\d)+)\s*m\s*m\b/gi, (_match, digits: string) => `${digits.replace(/\s+/g, '')}mm`)
     .replace(/\b(\d+(?:\.\d+)?)\s*m\s+m\b/gi, '$1mm')
 
@@ -196,9 +277,10 @@ const cleanName = (value: string): string =>
     value
       .replace(/(?:^|\s)(?:✹|NEW|UPDATED|DELETED)(?=\s|$)/gi, ' ')
       .replace(
-        /(?:^|\s)(?:HEROES|UNITS|FACTION TERRAIN|WAR MACHINES|MONSTERS|LEGENDS|R\s*EGIMENTS)(?=\s|$)/gi,
+        /(?:^|\s)(?:HEROES|UNITS|FACTION TERRAIN|WAR MACHINES|MONSTERS|LEGENDS|R\s*EGIMENTS|MERCENARY|NAME)(?=\s|$)/gi,
         ' '
       )
+      .replace(/^(?:CH\s+AOS|OR\s+DER)\s+/i, '')
   )
 
 const leadingIntegerAt = (value: string): number | undefined => {
@@ -247,6 +329,63 @@ const nearestRowItems = (
   })
 }
 
+const centeredWrappedCellItemsForRow = (
+  items: PositionedItem[],
+  rows: NumericRow[],
+  rowIndex: number,
+  minimumX: number,
+  maximumX: number
+): PositionedItem[] => {
+  const row = rows[rowIndex]
+  const column = items.filter(item => item.x >= minimumX && item.x < maximumX)
+  const lines = Array.from(new Set(column.map(item => item.y)))
+    .sort((left, right) => right - left)
+    .map(y => column.filter(item => Math.abs(item.y - y) < 0.5))
+  const blocks: PositionedItem[][] = []
+  lines.forEach(line => {
+    const previous = blocks.at(-1)
+    const previousBottomY = previous ? Math.min(...previous.map(item => item.y)) : undefined
+    const lineTopY = Math.max(...line.map(item => item.y))
+    const previousHeight = previous ? Math.max(...previous.map(item => item.height ?? 8)) : 8
+    if (previous && previousBottomY !== undefined && previousBottomY - lineTopY <= previousHeight + 0.25) {
+      previous.push(...line)
+    } else {
+      blocks.push([...line])
+    }
+  })
+  for (let index = 0; index < blocks.length - 1; index += 1) {
+    const block = blocks[index]
+    const next = blocks[index + 1]
+    const gap = Math.min(...block.map(item => item.y)) - Math.max(...next.map(item => item.y))
+    if (
+      new Set(block.map(item => item.y)).size === 1 &&
+      /^This Regiment of Renown\b/i.test(textValue(block)) &&
+      gap <= 12
+    ) {
+      block.push(...next)
+      blocks.splice(index + 1, 1)
+    }
+  }
+  return blocks.flatMap(block => {
+    const centerY = (Math.max(...block.map(item => item.y)) + Math.min(...block.map(item => item.y))) / 2
+    const nearest = rows.reduce(
+      (best, candidate, index) => {
+        const distance = Math.abs(centerY - candidate.y)
+        return distance < best.distance ? { index, distance } : best
+      },
+      { index: -1, distance: Number.POSITIVE_INFINITY }
+    )
+    const precedingGap = rowIndex > 0 ? Math.abs(rows[rowIndex - 1].y - row.y) : undefined
+    const followingGap = rowIndex < rows.length - 1 ? Math.abs(row.y - rows[rowIndex + 1].y) : undefined
+    const nearestGap = Math.min(
+      precedingGap ?? Number.POSITIVE_INFINITY,
+      followingGap ?? Number.POSITIVE_INFINITY
+    )
+    const distanceLimit = Number.isFinite(nearestGap) ? Math.min(30, Math.max(18, nearestGap)) : 30
+    return nearest.index === rowIndex && nearest.distance <= distanceLimit ? block : []
+  })
+}
+
 const baseSizeItemsForRow = (
   items: PositionedItem[],
   rows: NumericRow[],
@@ -254,6 +393,13 @@ const baseSizeItemsForRow = (
 ): PositionedItem[] => {
   const column = items
     .filter(item => item.x >= 500 && item.x < 570)
+    .filter(
+      item =>
+        item.x >= 510 ||
+        containsBaseSizeValue(item.str) ||
+        BASE_SIZE_QUALIFIER.test(cleanExtractedText(item.str)) ||
+        /^[\d[\].,;Ã—x\s]+$/i.test(item.str)
+    )
     .sort((left, right) => right.y - left.y || left.x - right.x)
   const lines = Array.from(new Set(column.map(item => item.y))).map(y =>
     column.filter(item => Math.abs(item.y - y) < 0.5)
@@ -327,12 +473,14 @@ const sectionForRow = (items: PositionedItem[], row: NumericRow): string => {
         item.x >= 30 &&
         item.x < 150 &&
         item.y > row.y &&
-        /^(?:HEROES|UNITS|FACTION TERRAIN|WAR MACHINES|MONSTERS|LEGENDS)$/i.test(
+        /^(?:LEGENDS\s+)?(?:HEROES|UNITS|FACTION TERRAIN|WAR MACHINES|MONSTERS)$/i.test(
           item.str.replace(/\s+/g, ' ').trim()
         )
     )
     .sort((left, right) => left.y - right.y)
-  return headers[0]?.str.replace(/\s+/g, ' ').trim().toUpperCase() ?? 'UNITS'
+  return (
+    headers[0]?.str.replace(/\s+/g, ' ').trim().toUpperCase().replace(/^LEGENDS\s+/, '') ?? 'UNITS'
+  )
 }
 
 const extractUnitFacts = (
@@ -353,17 +501,22 @@ const extractUnitFacts = (
     const section = sectionForRow(items, row)
     const thirdColumn = withoutColumnHeader(
       textValue(nearestRowItems(items, rows, rowIndex, 250, 401)),
-      /^(?:R\s*EGIMENT OPTIONS|R\s*E\s*L\s*E\s*V\s*A\s*N\s*T K\s*E\s*Y\s*WOR\s*DS)\s*/i
+      /^.*?(?:R\s*EGIMENT OPTIONS|R\s*E\s*L\s*E\s*V\s*A\s*N\s*T K\s*E\s*Y\s*WOR\s*DS)\s*/i
     )
-    const notes = withoutColumnHeader(
-      textValue(nearestRowItems(items, rows, rowIndex, 401, 500)),
+    const extractedNotes = withoutColumnHeader(
+      textValue(centeredWrappedCellItemsForRow(items, rows, rowIndex, 401, 510)),
       /^NOTES\s*/i
     )
+    const splitColumns =
+      section === 'HEROES'
+        ? { relevantKeywords: '', notes: extractedNotes }
+        : splitKeywordNotes(thirdColumn, extractedNotes)
     const baseSizes = cleanBaseSizeText(
       withoutColumnHeader(textValue(baseSizeItemsForRow(items, rows, rowIndex)), /^BASE SIZE\s*/i)
     )
     const seasonal =
-      /^Scourge of Aqshy\b/i.test(name) || /\bGeneral.s Handbook 20\d{2}[–-]\d{2}\b/i.test(notes)
+      /^Scourge of Aqshy\b/i.test(name) ||
+      /\bGeneral.s Handbook 20\d{2}[–-]\d{2}\b/i.test(splitColumns.notes)
     const fact = {
       kind: 'unit' as const,
       key: `page:${page}:unit:${rowIndex + 1}`,
@@ -378,8 +531,8 @@ const extractUnitFacts = (
       unitSize: row.value,
       points,
       regimentOptions: section === 'HEROES' ? listValue(thirdColumn) : [],
-      relevantKeywords: section === 'HEROES' ? [] : listValue(thirdColumn),
-      notes: notes ? [notes] : [],
+      relevantKeywords: section === 'HEROES' ? [] : listValue(splitColumns.relevantKeywords),
+      notes: splitColumns.notes ? [splitColumns.notes] : [],
       baseSizes: baseSizes ? listValue(baseSizes) : [],
       sourceRecordId: sourceId(checksum, page),
     }
@@ -445,9 +598,14 @@ const extractManifestationFacts = (
 ): GamesWorkshopRosterOptionFact[] => {
   const rows = rosterRows(items)
   return rows.flatMap((row, rowIndex) => {
-    const name = cleanName(textValue(nearestRowItems(items, rows, rowIndex, 30, 275)))
+    const name = cleanName(
+      withoutColumnHeader(textValue(nearestRowItems(items, rows, rowIndex, 30, 275)), /^NAME\s*/i)
+    )
     if (!name) return []
-    const notes = cleanExtractedText(textValue(nearestRowItems(items, rows, rowIndex, 310, 570)))
+    const notes = withoutColumnHeader(
+      textValue(nearestRowItems(items, rows, rowIndex, 310, 570)),
+      /^NOTES\s*/i
+    )
     const fact = {
       kind: 'roster-option' as const,
       key: `page:${page}:manifestation-lore:${rowIndex + 1}`,
@@ -481,10 +639,19 @@ const extractRegimentFacts = (
 ): GamesWorkshopRegimentOfRenownFact[] => {
   const rows = regimentRows(items)
   return rows.flatMap((row, rowIndex) => {
-    const name = cleanName(textValue(nearestRowItems(items, rows, rowIndex, 30, 120)))
+    const name = cleanName(textValue(nearestRowItems(items, rows, rowIndex, 30, 120))).replace(
+      /^CH\s+AOS\s+/i,
+      ''
+    )
     if (!name) return []
-    const unitSummary = cleanExtractedText(textValue(nearestRowItems(items, rows, rowIndex, 120, 245)))
-    const notes = cleanExtractedText(textValue(nearestRowItems(items, rows, rowIndex, 290, 570)))
+    const unitSummary = withoutColumnHeader(
+      textValue(nearestRowItems(items, rows, rowIndex, 120, 245)),
+      /^UNIT SUMMARY\s*/i
+    )
+    const notes = withoutColumnHeader(
+      textValue(centeredWrappedCellItemsForRow(items, rows, rowIndex, 290, 570)),
+      /^NOTES\s*/i
+    )
     const fact = {
       kind: 'regiment-of-renown' as const,
       key: `page:${page}:regiment-of-renown:${rowIndex + 1}`,

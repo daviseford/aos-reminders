@@ -92,6 +92,13 @@ export interface CorpusContextOverride {
   officialSourceRecordIds?: SourceRecordId[]
 }
 
+export interface CorpusWeaponProfileOverride {
+  sourceRecordId: SourceRecordId
+  profile: Partial<Pick<Weapon['profile'], 'rangeInches' | 'attacks' | 'hit' | 'wound' | 'rend' | 'damage'>>
+  reason: string
+  officialSourceRecordIds: SourceRecordId[]
+}
+
 export interface CorpusReview {
   schemaVersion: typeof AOS4_CORPUS_REVIEW_SCHEMA_VERSION
   revision: string
@@ -147,6 +154,7 @@ export interface CorpusReview {
   }
   defaultRulesContextId?: RulesContextId
   contextOverrides?: CorpusContextOverride[]
+  weaponProfileOverrides?: CorpusWeaponProfileOverride[]
 }
 
 export type CorpusGenerationDiagnosticCode =
@@ -841,6 +849,37 @@ const reviewDiagnostics = (
       message: 'The default rules context is not present in the reviewed contexts',
     })
   }
+  const weaponSourceIds = new Set(
+    decoded.dataset.warscrollWeapons.map(record => record.meta.sourceRecordId)
+  )
+  const seenWeaponOverrides = new Set<SourceRecordId>()
+  ;(review.weaponProfileOverrides ?? []).forEach(override => {
+    const profileEntries = Object.entries(override.profile)
+    const invalidProfile =
+      profileEntries.length === 0 ||
+      profileEntries.some(
+        ([field, value]) =>
+          (field === 'rangeInches'
+            ? !Number.isSafeInteger(value) || (value as number) <= 0
+            : typeof value !== 'string' || !value.trim())
+      )
+    if (
+      seenWeaponOverrides.has(override.sourceRecordId) ||
+      !weaponSourceIds.has(override.sourceRecordId) ||
+      invalidProfile ||
+      !override.reason.trim() ||
+      override.officialSourceRecordIds.length === 0
+    ) {
+      diagnostics.push({
+        code: 'invalid-review',
+        severity: 'error',
+        subject: override.sourceRecordId,
+        message:
+          'Weapon profile override must uniquely target an accepted weapon, change a non-empty profile field, and cite official evidence',
+      })
+    }
+    seenWeaponOverrides.add(override.sourceRecordId)
+  })
   return diagnostics
 }
 
@@ -872,6 +911,14 @@ const splitValues = (value: string): string[] =>
       .filter(Boolean)
   )
 
+const splitNotes = (value: string): string[] =>
+  uniqueSorted(
+    normalizePlainText(value)
+      .split(/\s*;\s*/)
+      .map(item => item.trim())
+      .filter(Boolean)
+  )
+
 const officialEvidenceFor = (sourceRecordId: SourceRecordId, review: CorpusReview): SourceRecordId[] =>
   uniqueSorted([
     ...review.normalizationDiagnosticPolicies
@@ -883,6 +930,9 @@ const officialEvidenceFor = (sourceRecordId: SourceRecordId, review: CorpusRevie
     ...(review.contextOverrides ?? [])
       .filter(override => override.sourceRecordId === sourceRecordId)
       .flatMap(override => override.officialSourceRecordIds ?? []),
+    ...(review.weaponProfileOverrides ?? [])
+      .filter(override => override.sourceRecordId === sourceRecordId)
+      .flatMap(override => override.officialSourceRecordIds),
   ])
 
 const abilityCost = (record: AbilityRecord): AbilityCost | undefined => {
@@ -952,6 +1002,9 @@ export const buildAos4Corpus = (
     .flatMap(policy => policy.officialSourceRecordIds ?? [])
     .concat(review.timingOverrides.flatMap(override => override.officialSourceRecordIds))
     .concat((review.contextOverrides ?? []).flatMap(override => override.officialSourceRecordIds ?? []))
+    .concat(
+      (review.weaponProfileOverrides ?? []).flatMap(override => override.officialSourceRecordIds)
+    )
     .forEach(id => {
       if (!officialSourceIds.has(id)) {
         diagnostics.push({
@@ -1145,7 +1198,7 @@ export const buildAos4Corpus = (
           baseSizes: uniqueSorted(baseRecords.map(item => normalizePlainText(item.base)).filter(Boolean)),
           regimentOptions: splitValues(record.regimentOptions),
           notes: uniqueSorted([
-            ...splitValues(record.notesHtml),
+            ...splitNotes(record.notesHtml),
             ...organisationRecords
               .map(item => normalizePlainText([item.unit, item.size].filter(Boolean).join(' ')))
               .filter(Boolean),
@@ -1326,6 +1379,9 @@ export const buildAos4Corpus = (
     addRelationship('includes', choiceId, abilityId)
   })
 
+  const weaponProfileOverrides = new Map(
+    (review.weaponProfileOverrides ?? []).map(override => [override.sourceRecordId, override])
+  )
   dataset.warscrollWeapons.forEach(record => {
     if (ignoredSourceRecordIds.has(record.meta.sourceRecordId)) return
     const id = lookup('weapon', 'wahapedia', recordAlias(record.meta)) as CanonicalId<'weapon'> | undefined
@@ -1354,27 +1410,60 @@ export const buildAos4Corpus = (
       return
     }
     const range = normalized.profile.range.match(/\d+/)?.[0]
-    const sourceIncompleteCharacteristics = Object.entries(normalized.profile)
-      .filter(([name, value]) => name !== 'range' && !value.trim())
+    const profileOverride = weaponProfileOverrides.get(record.meta.sourceRecordId)
+    const profile: Weapon['profile'] = {
+      ...(range ? { rangeInches: Number.parseInt(range, 10) } : {}),
+      attacks: normalized.profile.attacks.trim(),
+      hit: normalized.profile.hit.trim(),
+      wound: normalized.profile.wound.trim(),
+      rend: normalized.profile.rend.trim(),
+      damage: normalized.profile.damage.trim(),
+      ...profileOverride?.profile,
+    }
+    const sourceIncompleteCharacteristics = Object.entries(profile)
+      .filter(
+        ([name, value]) =>
+          name !== 'rangeInches' &&
+          name !== 'sourceIncompleteCharacteristics' &&
+          typeof value === 'string' &&
+          !value.trim()
+      )
       .map(([name]) => name) as Array<'attacks' | 'hit' | 'wound' | 'rend' | 'damage'>
+    if (sourceIncompleteCharacteristics.length) {
+      profile.sourceIncompleteCharacteristics = sourceIncompleteCharacteristics
+    }
+    const officialEvidence = officialEvidenceFor(record.meta.sourceRecordId, review)
     entities.push({
       id,
       kind: 'weapon',
-      revision: record.meta.recordChecksum,
+      revision: profileOverride
+        ? createHash('sha256')
+            .update(
+              [
+                record.meta.recordChecksum,
+                profile.rangeInches ?? '',
+                profile.attacks,
+                profile.hit,
+                profile.wound,
+                profile.rend,
+                profile.damage,
+                ...officialEvidence,
+              ].join('\n'),
+              'utf8'
+            )
+            .digest('hex')
+        : record.meta.recordChecksum,
       name: normalized.name,
       weaponType: normalized.weaponType,
-      profile: {
-        ...(range ? { rangeInches: Number.parseInt(range, 10) } : {}),
-        attacks: normalized.profile.attacks.trim(),
-        hit: normalized.profile.hit.trim(),
-        wound: normalized.profile.wound.trim(),
-        rend: normalized.profile.rend.trim(),
-        damage: normalized.profile.damage.trim(),
-        ...(sourceIncompleteCharacteristics.length ? { sourceIncompleteCharacteristics } : {}),
-      },
+      profile,
       keywords: weaponKeywords(normalized.abilityLabels),
       rulesContextIds: contextsFor(record.meta),
-      sourceRefs: [sourceReference(record.meta.sourceRecordId, 'normalized weapon profile')],
+      sourceRefs: sortedSourceReferences([
+        sourceReference(record.meta.sourceRecordId, 'normalized weapon profile'),
+        ...officialEvidence.map(sourceRecordId =>
+          sourceReference(sourceRecordId, 'reviewed official weapon profile evidence')
+        ),
+      ]),
     } satisfies Weapon)
     addRelationship('includes', parentByWarscrollExternalId.get(record.warscrollId), id)
   })

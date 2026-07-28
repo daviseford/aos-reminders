@@ -127,6 +127,45 @@ describe('AoS 4 structured-data pathology validation', () => {
     ).toHaveLength(1)
   })
 
+  it('accepts source-defined See below damage without weakening attacks validation', () => {
+    const valid = inspectCatalogPathologies(
+      catalogWith(
+        {},
+        {
+          profile: {
+            attacks: '2D6',
+            hit: '4+',
+            wound: 'See below',
+            rend: 'See below',
+            damage: 'See below',
+          },
+        }
+      )
+    )
+    const invalid = inspectCatalogPathologies(
+      catalogWith(
+        {},
+        {
+          profile: {
+            attacks: 'See below',
+            hit: '4+',
+            wound: '3+',
+            rend: '-',
+            damage: '1',
+          },
+        }
+      )
+    )
+
+    expect(valid.filter(issue => issue.code === 'suspicious-weapon-characteristic')).toEqual([])
+    expect(invalid).toContainEqual(
+      expect.objectContaining({
+        code: 'suspicious-weapon-characteristic',
+        path: expect.stringContaining('.profile.attacks'),
+      })
+    )
+  })
+
   it('binds the Lord-Terminos correction to official page evidence', () => {
     expect(AOS4_GOLDEN_TRUTH_CASES).toContainEqual({
       id: 'golden-truth:lord-terminos-base-size',

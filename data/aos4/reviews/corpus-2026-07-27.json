@@ -73,14 +73,14 @@
     "expectedSpearheadWarscrolls": 194,
     "expectedWarnings": 150,
     "expectedWarscrolls": 1268,
-    "reconciliation": {
-      "checksum": "24183fc03929e76a3307d698161b5aa125aced08c445df4f648092f4c2466ce4",
-      "expectedDiscrepancies": 634,
+      "reconciliation": {
+        "checksum": "1ef129500ccd31c59a61551f802c6a4d231f4f70c2cd73d5f80d3e43341bcb12",
+        "expectedDiscrepancies": 406,
       "expectedMatchedOfficialUnitFacts": 928,
       "expectedPages": 1268,
       "expectedUnmatchedOfficialUnitFacts": 12
     },
-    "reviewedAt": "2026-07-28T03:00:00.000Z"
+      "reviewedAt": "2026-07-28T18:06:00.000Z"
   },
   "decoderDiagnosticPolicies": [
     {
@@ -313,22 +313,34 @@
     },
     {
       "code": "source-incomplete-weapon-profile",
-      "reason": "The live source intentionally defers the missing Rend and Damage characteristics to the weapon ability; the projection retains the blanks explicitly.",
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:031051d7669cc9441cd9ab2b5b137ffff6547089c4568f9233ea5331f7e89a75%3Apage%3A17"
+      ],
+      "reason": "The secondary source split the official merged 'See below' cells into a malformed Wound value and blank Rend and Damage values; the accepted Games Workshop supplement supplies the canonical profile.",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fcities-of-sigmar%2Fwarscrolls.html%23datasheet%3ABattlemage-on-Luminark-of-Hysh%2Fweapon%3A1"
     },
     {
       "code": "source-incomplete-weapon-profile",
-      "reason": "The live source intentionally defers the missing Rend and Damage characteristics to the weapon ability; the projection retains the blanks explicitly.",
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:031051d7669cc9441cd9ab2b5b137ffff6547089c4568f9233ea5331f7e89a75%3Apage%3A17"
+      ],
+      "reason": "The secondary source split the official merged 'See below' cells into a malformed Wound value and blank Rend and Damage values; the accepted Games Workshop supplement supplies the canonical profile.",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fcities-of-sigmar%2Fwarscrolls.html%23datasheet%3ALuminark-of-Hysh%2Fweapon%3A1"
     },
     {
       "code": "source-incomplete-weapon-profile",
-      "reason": "The Legends warscroll omits the Rend value; the projection retains that source gap instead of inventing a value.",
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:891d4303f7abc9b452d06c067c93ca2a8b1b7888655ff4e40e75a9659f909fae%3Apage%3A39"
+      ],
+      "reason": "The secondary source omitted the official no-Rend dash and lost the Wound target suffix; the accepted Games Workshop Legends warscroll supplies both canonical values.",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fgloomspite-gitz%2Fwarscrolls.html%23datasheet%3ABorgit-s-Beastgrabbaz%2Fweapon%3A2"
     },
     {
       "code": "source-incomplete-weapon-profile",
-      "reason": "The Legends warscroll omits the Rend value; the projection retains that source gap instead of inventing a value.",
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:891d4303f7abc9b452d06c067c93ca2a8b1b7888655ff4e40e75a9659f909fae%3Apage%3A39"
+      ],
+      "reason": "The secondary source omitted the official no-Rend dash and lost the Wound target suffix; the accepted Games Workshop Legends warscroll supplies both canonical values.",
       "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fgloomspite-gitz%2Fwarscrolls.html%23datasheet%3ABorgit-s-Beastgrabbaz%2Fweapon%3A3"
     },
     {
@@ -993,6 +1005,29 @@
         }
       ],
       "title": "Battletome Supplement: Hedonites of Slaanesh"
+    },
+    {
+      "artifact": {
+        "adapterVersion": "games-workshop-pdf/1",
+        "byteLength": 21657570,
+        "checksum": "891d4303f7abc9b452d06c067c93ca2a8b1b7888655ff4e40e75a9659f909fae",
+        "etag": "\"c82483fc164fc2c416205068c01f3e94\"",
+        "finalUrl": "https://assets.warhammer-community.com/eng_29-06_aos_other_rules_legends_warscrolls-nojbj22wbd-3wwntrw29z.pdf",
+        "lastModified": "Thu, 25 Jun 2026 09:53:31 GMT",
+        "mediaType": "application/pdf",
+        "redirectChain": [],
+        "requestUrl": "https://assets.warhammer-community.com/eng_29-06_aos_other_rules_legends_warscrolls-nojbj22wbd-3wwntrw29z.pdf",
+        "retrievedAt": "2026-07-28T17:28:21.826Z"
+      },
+      "documentKind": "reference",
+      "sourceRecords": [
+        {
+          "id": "source-record:games-workshop:891d4303f7abc9b452d06c067c93ca2a8b1b7888655ff4e40e75a9659f909fae%3Apage%3A39",
+          "page": 39,
+          "recordChecksum": "74cd30dd221ac45e14d2d7bfb5bac5e41be2c64ce33ce81f64de77643b07eff0"
+        }
+      ],
+      "title": "Legends Warscrolls"
     },
     {
       "artifact": {
@@ -2806,6 +2841,65 @@
           }
         }
       ]
+    }
+  ],
+  "weaponProfileOverrides": [
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:031051d7669cc9441cd9ab2b5b137ffff6547089c4568f9233ea5331f7e89a75%3Apage%3A17"
+      ],
+      "profile": {
+        "damage": "See below",
+        "rend": "See below",
+        "wound": "See below"
+      },
+      "reason": "The Games Workshop supplement shows one merged 'See below' value spanning Wound, Rend, and Damage.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fcities-of-sigmar%2Fwarscrolls.html%23datasheet%3ABattlemage-on-Luminark-of-Hysh%2Fweapon%3A1"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:031051d7669cc9441cd9ab2b5b137ffff6547089c4568f9233ea5331f7e89a75%3Apage%3A17"
+      ],
+      "profile": {
+        "damage": "See below",
+        "rend": "See below",
+        "wound": "See below"
+      },
+      "reason": "The Games Workshop supplement shows one merged 'See below' value spanning Wound, Rend, and Damage.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fcities-of-sigmar%2Fwarscrolls.html%23datasheet%3ALuminark-of-Hysh%2Fweapon%3A1"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:891d4303f7abc9b452d06c067c93ca2a8b1b7888655ff4e40e75a9659f909fae%3Apage%3A39"
+      ],
+      "profile": {
+        "hit": "4+",
+        "wound": "4+"
+      },
+      "reason": "The Games Workshop Legends warscroll includes the target-number suffixes omitted by the secondary HTML profile.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fgloomspite-gitz%2Fwarscrolls.html%23datasheet%3ABorgit-s-Beastgrabbaz%2Fweapon%3A1"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:891d4303f7abc9b452d06c067c93ca2a8b1b7888655ff4e40e75a9659f909fae%3Apage%3A39"
+      ],
+      "profile": {
+        "rend": "-",
+        "wound": "3+"
+      },
+      "reason": "The Games Workshop Legends warscroll supplies the no-Rend dash and target-number suffix omitted by the secondary HTML profile.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fgloomspite-gitz%2Fwarscrolls.html%23datasheet%3ABorgit-s-Beastgrabbaz%2Fweapon%3A2"
+    },
+    {
+      "officialSourceRecordIds": [
+        "source-record:games-workshop:891d4303f7abc9b452d06c067c93ca2a8b1b7888655ff4e40e75a9659f909fae%3Apage%3A39"
+      ],
+      "profile": {
+        "rend": "-",
+        "wound": "5+"
+      },
+      "reason": "The Games Workshop Legends warscroll supplies the no-Rend dash and target-number suffix omitted by the secondary HTML profile.",
+      "sourceRecordId": "source-record:wahapedia:html%3Ahttps%3A%2F%2Fwahapedia.ru%2Faos4%2Ffactions%2Fgloomspite-gitz%2Fwarscrolls.html%23datasheet%3ABorgit-s-Beastgrabbaz%2Fweapon%3A3"
     }
   ]
 }

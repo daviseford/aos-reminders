@@ -241,13 +241,65 @@ const sourceExcerpt = (value: unknown): string => {
   return compact.length <= MAX_EXCERPT_LENGTH ? compact : `${compact.slice(0, MAX_EXCERPT_LENGTH)}…`
 }
 
-const pageExcerpt = (pageText: string | undefined, needle?: string): string | undefined => {
+const canonicalSearchText = (value: string): { text: string; offsets: number[] } => {
+  const characters: string[] = []
+  const offsets: number[] = []
+  Array.from(value).forEach((character, offset) => {
+    const normalized = character
+      .normalize('NFKD')
+      .toLowerCase()
+      .replace(/[^a-z0-9]/g, '')
+    Array.from(normalized).forEach(value_ => {
+      characters.push(value_)
+      offsets.push(offset)
+    })
+  })
+  return { text: characters.join(''), offsets }
+}
+
+export const pageExcerpt = (pageText: string | undefined, needle?: string): string | undefined => {
   const text = pageText?.replace(/\s+/g, ' ').trim()
   if (!text) return undefined
-  const matchIndex = needle ? text.toLowerCase().indexOf(needle.toLowerCase()) : -1
-  const start = Math.max(0, matchIndex < 0 ? 0 : matchIndex - 300)
-  const excerpt = text.slice(start, start + MAX_EXCERPT_LENGTH)
-  return `${start > 0 ? '…' : ''}${excerpt}${start + excerpt.length < text.length ? '…' : ''}`
+  const searchable = canonicalSearchText(text)
+  const needles = needle
+    ? [needle, needle.replace(/^Scourge of Aqshy\s+/i, '')].map(value => canonicalSearchText(value).text)
+    : []
+  const matchIndexes = Array.from(
+    new Set(
+      needles.flatMap(value => {
+        if (!value) return []
+        const matches: number[] = []
+        let offset = 0
+        while (offset < searchable.text.length) {
+          const match = searchable.text.indexOf(value, offset)
+          if (match < 0) break
+          matches.push(searchable.offsets[match] ?? 0)
+          offset = match + Math.max(1, value.length)
+        }
+        return matches
+      })
+    )
+  ).sort((left, right) => left - right)
+  const ranges = (matchIndexes.length ? matchIndexes : [0])
+    .map(matchIndex => ({
+      start: Math.max(0, matchIndex - 300),
+      end: Math.min(text.length, matchIndex - 300 + MAX_EXCERPT_LENGTH),
+    }))
+    .reduce<Array<{ start: number; end: number }>>((merged, range) => {
+      const previous = merged.at(-1)
+      if (previous && range.start <= previous.end) {
+        previous.end = Math.max(previous.end, range.end)
+      } else {
+        merged.push(range)
+      }
+      return merged
+    }, [])
+  return ranges
+    .map(
+      ({ start, end }) =>
+        `${start > 0 ? '…' : ''}${text.slice(start, end)}${end < text.length ? '…' : ''}`
+    )
+    .join('\n')
 }
 
 const normalizedEntityValue = (entity: Aos4Catalog['entities'][number]): unknown => {
@@ -282,7 +334,8 @@ const riskCohorts = (
     review.decoderDiagnosticPolicies.some(policy => policy.sourceRecordId === sourceRecordId) ||
     review.normalizationDiagnosticPolicies.some(policy => policy.sourceRecordId === sourceRecordId) ||
     review.timingOverrides.some(override => override.sourceRecordId === sourceRecordId) ||
-    review.contextOverrides?.some(override => override.sourceRecordId === sourceRecordId)
+    review.contextOverrides?.some(override => override.sourceRecordId === sourceRecordId) ||
+    review.weaponProfileOverrides?.some(override => override.sourceRecordId === sourceRecordId)
   if (isPolicyOrOverride) cohorts.push('high-risk:policy-or-override')
   if (review.timingOverrides.some(override => override.sourceRecordId === sourceRecordId)) {
     cohorts.push('high-risk:phase-timing-conflict')

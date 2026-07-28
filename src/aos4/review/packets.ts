@@ -320,9 +320,9 @@ const createPair = (
     rubricVersion: input.rubricVersion,
     cohortIds: baseCohorts,
     ...(candidate.canonicalEntityId ? { canonicalEntityId: candidate.canonicalEntityId } : {}),
-    sourceEvidence: evidence.sourceEvidence,
     rulesContextIds: candidate.rulesContextIds,
   }
+  const blindSourceEvidence = evidence.sourceEvidence.map(({ structuredValue: _structuredValue, ...value }) => value)
   return {
     pairKey,
     candidateKey: candidate.key,
@@ -336,12 +336,14 @@ const createPair = (
     blindPacket: createReviewPacket({
       ...base,
       cohortIds: [...baseCohorts, 'blind-interpretation'],
+      sourceEvidence: blindSourceEvidence,
       generatedDestinations: [],
       blind: true,
     }),
     comparisonPacket: createReviewPacket({
       ...base,
       cohortIds: [...baseCohorts, 'comparison'],
+      sourceEvidence: evidence.sourceEvidence,
       generatedDestinations: candidate.generatedDestinations,
       blind: false,
     }),

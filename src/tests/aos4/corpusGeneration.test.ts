@@ -8,7 +8,7 @@ import {
   type WahapediaExportFileName,
   type WahapediaExportInputs,
 } from '../../aos4/data/wahapedia'
-import { rulesContextId, validateCatalog } from '../../aos4/domain'
+import { rulesContextId, sourceRecordId, validateCatalog } from '../../aos4/domain'
 import {
   buildAos4Corpus,
   createCorpusIdentityRegistry,
@@ -150,6 +150,114 @@ describe('AoS 4 corpus generation', () => {
     expect(
       selected.selectedIds.map(id => result.catalog.entities.find(entity => entity.id === id)?.kind)
     ).toEqual(expect.arrayContaining(['battle-profile', 'ability', 'weapon']))
+  })
+
+  it('preserves commas inside official notes while retaining semicolon-delimited note boundaries', async () => {
+    const decoded = decodeWahapediaExports(await loadInputs())
+    decoded.dataset.warscrolls[0].notesHtml =
+      'This Hero can join Alpha, Beta or Gamma; This unit cannot be reinforced.'
+    const identities = createCorpusIdentityRegistry(decoded.dataset, review)
+    const result = buildAos4Corpus(decoded, identities, review)
+    const profile = result.catalog.entities.find(entity => entity.kind === 'battle-profile')
+
+    expect(profile).toMatchObject({
+      kind: 'battle-profile',
+      notes: expect.arrayContaining([
+        'This Hero can join Alpha, Beta or Gamma',
+        'This unit cannot be reinforced.',
+      ]),
+    })
+  })
+
+  it('applies a narrow weapon profile correction only when it cites accepted official evidence', async () => {
+    const decoded = decodeWahapediaExports(await loadInputs())
+    const target = decoded.dataset.warscrollWeapons[0]
+    const officialChecksum = 'f'.repeat(64)
+    const officialSourceRecordId = sourceRecordId(
+      'games-workshop',
+      `${officialChecksum}:page:1`
+    )
+    const reviewed: CorpusReview = {
+      ...review,
+      officialDocuments: [
+        {
+          title: 'Official weapon profile fixture',
+          documentKind: 'reference',
+          artifact: {
+            requestUrl: 'https://assets.warhammer-community.com/fixture.pdf',
+            finalUrl: 'https://assets.warhammer-community.com/fixture.pdf',
+            redirectChain: [],
+            retrievedAt: '2026-07-29T12:00:00.000Z',
+            adapterVersion: 'games-workshop-pdf/1',
+            mediaType: 'application/pdf',
+            byteLength: 1,
+            checksum: officialChecksum,
+          },
+          sourceRecords: [
+            {
+              id: officialSourceRecordId,
+              page: 1,
+              recordChecksum: 'e'.repeat(64),
+            },
+          ],
+        },
+      ],
+      weaponProfileOverrides: [
+        {
+          sourceRecordId: target.meta.sourceRecordId,
+          profile: { hit: '2+', wound: '3+', rend: '-', damage: 'D3' },
+          reason: 'The official warscroll corrects the secondary-source profile.',
+          officialSourceRecordIds: [officialSourceRecordId],
+        },
+      ],
+    }
+    const identities = createCorpusIdentityRegistry(decoded.dataset, reviewed)
+    const result = buildAos4Corpus(decoded, identities, reviewed)
+    const weapon = result.catalog.entities.find(
+      entity =>
+        entity.kind === 'weapon' &&
+        entity.sourceRefs.some(reference => reference.sourceRecordId === target.meta.sourceRecordId)
+    )
+
+    expect(result.diagnostics).toEqual([])
+    expect(weapon).toMatchObject({
+      kind: 'weapon',
+      profile: {
+        attacks: target.attacks,
+        hit: '2+',
+        wound: '3+',
+        rend: '-',
+        damage: 'D3',
+      },
+      sourceRefs: expect.arrayContaining([
+        expect.objectContaining({ sourceRecordId: officialSourceRecordId }),
+      ]),
+    })
+  })
+
+  it('rejects a weapon profile override that is not bound to source and official evidence', async () => {
+    const decoded = decodeWahapediaExports(await loadInputs())
+    const reviewed: CorpusReview = {
+      ...review,
+      weaponProfileOverrides: [
+        {
+          sourceRecordId: sourceRecordId('wahapedia', 'missing-weapon'),
+          profile: { wound: '3+' },
+          reason: '',
+          officialSourceRecordIds: [],
+        },
+      ],
+    }
+    const identities = createCorpusIdentityRegistry(decoded.dataset, reviewed)
+    const result = buildAos4Corpus(decoded, identities, reviewed)
+
+    expect(result.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'invalid-review',
+        subject: sourceRecordId('wahapedia', 'missing-weapon'),
+      })
+    )
+    expect(result.summary.status).toBe('blocked')
   })
 
   it('fails closed when a source diagnostic has not been reviewed', async () => {

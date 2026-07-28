@@ -42,6 +42,7 @@ const UNRESOLVED_PLACEHOLDER = /\{\{[^{}]+\}\}|\$\{[^{}]+\}|\b(?:TODO|TBD)\b|<\s
 const SINGLE_LETTER_TOKEN_RUN = /(?:^|\s)(?:[A-Za-z]\s+){3,}[A-Za-z](?=\s|$)/
 const BASE_COMPONENT = /\d+(?:\.\d+)?(?:\s*[×x]\s*\d+(?:\.\d+)?)?mm(?:\s*\[\d+\])?/gi
 const ATTACK_OR_DAMAGE = /^(?:\d+|\d*D(?:3|6)(?:\+\d+)?)$/i
+const DAMAGE = /^(?:\d+|\d*D(?:3|6)(?:\+\d+)?|See below)$/i
 const HIT_OR_WOUND = /^(?:[2-6]\+|See below)$/i
 const REND = /^(?:-|\d+|See below)$/i
 const MOVE = /^(?:-|\d*D6(?:\+\d+)?"|\d+")$/i
@@ -329,7 +330,7 @@ export const inspectCatalogPathologies = (catalog: Aos4Catalog): PathologyIssue[
         ['hit', profile.hit, HIT_OR_WOUND],
         ['wound', profile.wound, HIT_OR_WOUND],
         ['rend', profile.rend, REND],
-        ['damage', profile.damage, ATTACK_OR_DAMAGE],
+        ['damage', profile.damage, DAMAGE],
       ] as const
       checks.forEach(([field, value, pattern]) => {
         if (!value && declaredMissing.has(field)) return

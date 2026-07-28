@@ -2,7 +2,7 @@
   "discrepancies": [
     {
       "field": "regimentOptions",
-      "official": "",
+      "official": "0-1 herd alpha|any beasts of chaos",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A66",
       "secondary": "0-1 herd alpha. any beasts of chaos",
       "url": "https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#Beastlord"
@@ -72,7 +72,7 @@
     },
     {
       "field": "regimentOptions",
-      "official": "",
+      "official": "0-1 herd alpha|any beasts of chaos",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A66",
       "secondary": "0-1 herd alpha. any beasts of chaos",
       "url": "https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#Doombull"
@@ -86,7 +86,7 @@
     },
     {
       "field": "regimentOptions",
-      "official": "",
+      "official": "0-1 herd alpha|any beasts of chaos",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A66",
       "secondary": "0-1 herd alpha. any beasts of chaos",
       "url": "https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#Dragon-Ogor-Shaggoth"
@@ -124,13 +124,6 @@
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A66",
       "secondary": "this unit will move to warhammer legends on 1 june 2025.",
-      "url": "https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#Great-Bray-Shaman"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A66",
-      "secondary": "0-1 beast|0-1 herd alpha|any brayherd",
       "url": "https://wahapedia.ru/aos4/factions/beasts-of-chaos/warscrolls.html#Great-Bray-Shaman"
     },
     {
@@ -197,24 +190,10 @@
       "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Kamandora-s-Blades"
     },
     {
-      "field": "name",
-      "official": "K a ma ndora’s Blades",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A67",
-      "secondary": "Kamandora’s Blades",
-      "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Kamandora-s-Blades"
-    },
-    {
       "field": "notes",
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A67",
       "secondary": "this unit will move to warhammer legends on 1 june 2026.",
-      "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Lord-of-Khorne-on-Juggernaut"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A67",
-      "secondary": "any bloodbound",
       "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Lord-of-Khorne-on-Juggernaut"
     },
     {
@@ -232,24 +211,10 @@
       "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Scyla-Anfingrimm"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A67",
-      "secondary": "any bloodbound",
-      "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Scyla-Anfingrimm"
-    },
-    {
       "field": "notes",
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A67",
       "secondary": "this unit will move to warhammer legends on 1 june 2026.",
-      "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Skarr-Bloodwrath"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A67",
-      "secondary": "any bloodbound",
       "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Skarr-Bloodwrath"
     },
     {
@@ -267,31 +232,10 @@
       "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Skullmaster-Herald-of-Khorne"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A67",
-      "secondary": "any daemon cavalry|any war machine",
-      "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Skullmaster-Herald-of-Khorne"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a slaughter seeker",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A25",
-      "secondary": "this hero can join an eligible regiment as a slaughter seeker.",
-      "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Skulltaker"
-    },
-    {
       "field": "name",
       "official": "Valkia the Bloody",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A67",
       "secondary": "Valkia The Bloody",
-      "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Valkia-The-Bloody"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A67",
-      "secondary": "0-1 bloodbound warmonger|any bloodbound",
       "url": "https://wahapedia.ru/aos4/factions/blades-of-khorne/warscrolls.html#Valkia-The-Bloody"
     },
     {
@@ -309,13 +253,6 @@
       "url": "https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#Kragnos-the-End-of-Empires"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A72",
-      "secondary": "any bonesplitterz",
-      "url": "https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#Kragnos-the-End-of-Empires"
-    },
-    {
       "field": "notes",
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A72",
@@ -323,24 +260,10 @@
       "url": "https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#Maniak-Weirdnob"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A72",
-      "secondary": "any bonesplitterz",
-      "url": "https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#Maniak-Weirdnob"
-    },
-    {
       "field": "notes",
-      "official": "this hero can join a wurrgog prophet ’s regiment.",
+      "official": "this hero can join a wurrgog prophet’s regiment.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A72",
       "secondary": "this unit will move to warhammer legends on 1 june 2025.",
-      "url": "https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#Savage-Big-Boss"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A72",
-      "secondary": "any bonesplitterz",
       "url": "https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#Savage-Big-Boss"
     },
     {
@@ -393,24 +316,10 @@
       "url": "https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#Wardokk"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A72",
-      "secondary": "any bonesplitterz",
-      "url": "https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#Wardokk"
-    },
-    {
       "field": "notes",
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A72",
       "secondary": "this unit will move to warhammer legends on 1 june 2025.",
-      "url": "https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#Wurrgog-Prophet"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A72",
-      "secondary": "0-1 savage big boss|any bonesplitterz",
       "url": "https://wahapedia.ru/aos4/factions/bonesplitterz/warscrolls.html#Wurrgog-Prophet"
     },
     {
@@ -435,13 +344,6 @@
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Battlemage-on-Celestial-Hurricanum"
     },
     {
-      "field": "regimentOptions",
-      "official": "any s i g m a r i t e c ava l r y|any sigmarite infantry",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
-      "secondary": "any sigmarite cavalry|any sigmarite infantry",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Battlemage-on-Celestial-Hurricanum"
-    },
-    {
       "field": "notes",
       "official": "this unit will move to warhammer legends on 1 june 2027.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
@@ -449,29 +351,15 @@
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Battlemage-on-Griffon"
     },
     {
-      "field": "regimentOptions",
-      "official": "any s i g m a r i t e c ava l r y|any sigmarite infantry",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
-      "secondary": "any sigmarite cavalry|any sigmarite infantry",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Battlemage-on-Griffon"
-    },
-    {
       "field": "notes",
-      "official": "this unit will move to warhammer legends on 1 june 2027. this hero can join a dreadlord",
+      "official": "this unit will move to warhammer legends on 1 june 2027.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
       "secondary": "this unit will move to warhammer legends on 1 june 2027. 120 x 92mm",
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Battlemage-on-Luminark-of-Hysh"
     },
     {
-      "field": "regimentOptions",
-      "official": "any s i g m a r i t e c ava l r y|any sigmarite infantry",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
-      "secondary": "any sigmarite cavalry|any sigmarite infantry",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Battlemage-on-Luminark-of-Hysh"
-    },
-    {
       "field": "notes",
-      "official": "on black dragon ’s, sorceress ’ or sorceress on black dragon regiment. this unit will move to warhammer legends on",
+      "official": "this hero can join a dreadlord on black dragon’s, sorceress’ or sorceress on black dragon’s regiment. this unit will move to warhammer legends on 1 june 2027.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
       "secondary": "sorceress’ or sorceress on black dragon’s regiment.|this hero can join a dreadlord on black dragon’s",
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Black-Ark-Fleetmaster"
@@ -492,14 +380,7 @@
     },
     {
       "field": "notes",
-      "official": "1 june 2027.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Callis-and-Toll"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join a warden king ’s regiment. this unit will move to warhammer legends on 1 june 2027.",
+      "official": "this hero can join a warden king’s regiment. this unit will move to warhammer legends on 1 june 2027.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
       "secondary": "this hero can join a warden king’s regiment.",
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Cogsmith"
@@ -519,13 +400,6 @@
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Erasmus-Zonn-the-Enlightened%C2%A0One"
     },
     {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a freeguild veteran",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
-      "secondary": "this hero can join an eligible regiment as a freeguild veteran.",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Freeguild-Cavalier-Marshal"
-    },
-    {
       "field": "points",
       "official": "150",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A5",
@@ -540,39 +414,11 @@
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Freeguild-Command-Corps-Adjutants"
     },
     {
-      "field": "notes",
-      "official": "this unit cannot be reinforced. this unit cannot be reinforced.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A5",
-      "secondary": "this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Freeguild-Command-Corps-Adjutants"
-    },
-    {
       "field": "baseSizes",
       "official": "28.5mm [1]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A5",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Freeguild-Command-Corps-Auxiliaries"
-    },
-    {
-      "field": "notes",
-      "official": "in a regiment that contains a freeguild command corp adjutant unit and no other freeguild command corp auxiliaries. this unit does not count towards the number of friendly units that can",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A5",
-      "secondary": "this unit cannot be reinforced. this unit can only be taken in a regiment that contains a freeguild command corp adjutant unit and no other freeguild command corp auxiliaries. this unit does not count towards the number of friendly units that can accompany a hero.",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Freeguild-Command-Corps-Auxiliaries"
-    },
-    {
-      "field": "notes",
-      "official": "in a regiment that contains a freeguild command corp adjutant unit and no other freeguild command corp whisperblades. this unit does not count towards the number",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A5",
-      "secondary": "this unit can only be taken in a regiment that contains a freeguild command corp adjutant unit and no other freeguild command corp whisperblades. this unit does not count towards the number of friendly units that can accompany a hero.",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Freeguild-Command-Corps-Whisperblade-1"
-    },
-    {
-      "field": "notes",
-      "official": "of friendly units that can accompany a hero.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A5",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Freeguild-Fusiliers"
     },
     {
       "field": "baseSizes",
@@ -583,16 +429,9 @@
     },
     {
       "field": "baseSizes",
-      "official": ". 28.5mm [1]|32mm [1]",
+      "official": "28.5mm [1]|32mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
       "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Freeguild-Marshal-and-Relic-Envoy"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a freeguild veteran",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
-      "secondary": "this hero can join an eligible regiment as a freeguild veteran.",
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Freeguild-Marshal-and-Relic-Envoy"
     },
     {
@@ -601,13 +440,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
       "secondary": "this unit will move to warhammer legends on 1 june 2027. 120 x 92mm",
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Freeguild-Marshal-on-Griffon"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a freeguild veteran",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A3",
-      "secondary": "this hero can join an eligible regiment as a freeguild veteran.",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Fusil-Major-on-Ogor-Warhulk"
     },
     {
       "field": "baseSizes",
@@ -680,20 +512,6 @@
       "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Toll-s-Companions"
     },
     {
-      "field": "notes",
-      "official": "this unit can only be taken in callis and toll ’s regiment.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A5",
-      "secondary": "this unit can only be taken in callis and toll’s regiment.",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#Toll-s-Companions"
-    },
-    {
-      "field": "name",
-      "official": "Wa r Hyd ra",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A5",
-      "secondary": "War Hydra",
-      "url": "https://wahapedia.ru/aos4/factions/cities-of-sigmar/warscrolls.html#War-Hydra"
-    },
-    {
       "field": "baseSizes",
       "official": "25mm [6]|28.5mm [3]|40mm [2]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A5",
@@ -706,13 +524,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A64",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#Gryselle-s-Arenai"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a coven matriarch",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A7",
-      "secondary": "this hero can join an eligible regiment as a coven matriarch.",
-      "url": "https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#High-Gladiatrix"
     },
     {
       "field": "baseSizes",
@@ -734,20 +545,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A64",
       "secondary": "Knives of the Crone",
       "url": "https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#Knives-of-the-Crone"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A64",
-      "secondary": "any daughters of khaine aelf",
-      "url": "https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#Maleneth-Witchblade"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a coven matriarch",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A7",
-      "secondary": "this hero can join an eligible regiment as a coven matriarch.",
-      "url": "https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#Melusai-Ironscale"
     },
     {
       "field": "baseSizes",
@@ -772,7 +569,7 @@
     },
     {
       "field": "notes",
-      "official": "this hero can join an eligible regiment as a coven matriarch this unit is legal for matched play for battles fought using the general’s handbook 2026-27 battlepack.",
+      "official": "this hero can join an eligible regiment as a coven matriarch. this unit is legal for matched play for battles fought using the general’s handbook 2026-27 battlepack.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A7",
       "secondary": "this hero can join an eligible regiment as a coven matriarch.",
       "url": "https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#Scourge-of-Aqshy-Melusai-Ironscale"
@@ -786,7 +583,7 @@
     },
     {
       "field": "notes",
-      "official": "this unit can only be taken in morathi‑khaine ’s regiment.",
+      "official": "this unit can only be taken in morathi-khaine’s regiment.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A7",
       "secondary": "this unit can only be taken in morathi‐khaine’s regiment.",
       "url": "https://wahapedia.ru/aos4/factions/daughters-of-khaine/warscrolls.html#The-Shadow-Queen"
@@ -827,13 +624,6 @@
       "url": "https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#Eyes-of-the-Nine"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A67",
-      "secondary": "0-1 arcanite cabalist|0-1 chaos spawn of tzeentch|any arcanite",
-      "url": "https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#Fatemaster-on-Disc-of-Tzeentch-1"
-    },
-    {
       "field": "name",
       "official": "Fateskimmer, Herald of Tzeentch on Burning Chariot",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A27",
@@ -845,13 +635,6 @@
       "official": "Fluxmaster, Herald of Tzeentch on Disc",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A67",
       "secondary": "Fluxmaster Herald of Tzeentch on Disc",
-      "url": "https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#Fluxmaster-Herald-of-Tzeentch-on-Disc"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A67",
-      "secondary": "any daemon",
       "url": "https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#Fluxmaster-Herald-of-Tzeentch-on-Disc"
     },
     {
@@ -869,102 +652,11 @@
       "url": "https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#Scourge-of-Aqshy-Ogroid-Thaumaturge"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A67",
-      "secondary": "0-1 tzeentchian deceiver|any daemon",
-      "url": "https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#The-Blue-Scribes"
-    },
-    {
       "field": "notes",
-      "official": "previously tzaangor enlightened. this unit will move to warhammer legends on",
+      "official": "previously tzaangor enlightened. this unit will move to warhammer legends on 1 june 2027.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A28",
       "secondary": "previously tzaangor enlightened.",
       "url": "https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#Tzaangor-Enlightened-on-Foot"
-    },
-    {
-      "field": "notes",
-      "official": "1 june 2027.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A28",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#Tzaangor-Skyfires"
-    },
-    {
-      "field": "name",
-      "official": "Tzaa ngors",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A28",
-      "secondary": "Tzaangors",
-      "url": "https://wahapedia.ru/aos4/factions/disciples-of-tzeentch/warscrolls.html#Tzaangors"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 royal attendant|any flesh‑ eater courts",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "0-1 royal attendant|any flesh-eater courts",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Abhorrant-Archregent"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 royal attendant|any flesh‑ eater courts",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "0-1 royal attendant|any flesh-eater courts",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Abhorrant-Ghoul-King"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 royal attendant|any flesh‑ eater courts",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "0-1 royal attendant|any flesh-eater courts",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Abhorrant-Ghoul-King-on-Royal-Terrorgheist"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 royal attendant|any flesh‑ eater courts",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "0-1 royal attendant|any flesh-eater courts",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Abhorrant-Ghoul-King-on-Royal-Zombie-Dragon"
-    },
-    {
-      "field": "notes",
-      "official": "you can include 1 unit of this",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Flayers"
-    },
-    {
-      "field": "notes",
-      "official": "type for each crypt infernal courtier in your army.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "you can include 1 unit of this type for each crypt infernal courtier in your army. this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Flayers-2-models-"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a flesh-eater noble",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A70",
-      "secondary": "this hero can join an eligible regiment as a flesh-eater noble.",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Ghast-Courtier"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A70",
-      "secondary": "any serfs",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Ghast-Courtier"
-    },
-    {
-      "field": "notes",
-      "official": "this unit cannot be reinforced.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Ghouls"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a royal attendant",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "this hero can join an eligible regiment as a royal attendant.",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Haunter-Courtier"
     },
     {
       "field": "regimentOptions",
@@ -974,27 +666,6 @@
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Haunter-Courtier"
     },
     {
-      "field": "notes",
-      "official": "you can include 1 unit of this",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Horrors"
-    },
-    {
-      "field": "notes",
-      "official": "type for each crypt haunter courtier in your army.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "you can include 1 unit of this type for each crypt haunter courtier in your army. this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Horrors-2-models-"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a royal attendant",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "this hero can join an eligible regiment as a royal attendant.",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Infernal-Courtier"
-    },
-    {
       "field": "regimentOptions",
       "official": "0-1 beast|0-1 serfs|any crypt flayers",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
@@ -1002,52 +673,17 @@
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Crypt-Infernal-Courtier"
     },
     {
-      "field": "notes",
-      "official": "this unit cannot be reinforced.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Cryptguard"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a royal attendant",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "this hero can join an eligible regiment as a royal attendant.",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Grand-Justice-Gormayne"
-    },
-    {
       "field": "baseSizes",
-      "official": ". 28.5mm [1]|32mm [1]",
+      "official": "28.5mm [1]|32mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#High-Falconer-Felgryn"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a royal attendant",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "this hero can join an eligible regiment as a royal attendant.",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#High-Falconer-Felgryn"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a royal attendant",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "this hero can join an eligible regiment as a royal attendant.",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Marrowscroll-Herald"
     },
     {
       "field": "name",
       "official": "Nagash, Supreme Lord of the Undead",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
       "secondary": "Nagash Supreme Lord of the Undead",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Nagash-Supreme-Lord-of-the-Undead"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 royal attendant|any flesh‑ eater courts",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "0-1 royal attendant|any flesh-eater courts",
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Nagash-Supreme-Lord-of-the-Undead"
     },
     {
@@ -1059,14 +695,7 @@
     },
     {
       "field": "notes",
-      "official": "this hero can join an eligible regiment as a royal attendant",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "this hero can join an eligible regiment as a royal attendant.",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Royal-Decapitator"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a royal attendant this unit is legal for matched play for battles fought using the general’s handbook 2026-27 battlepack.",
+      "official": "this hero can join an eligible regiment as a royal attendant. this unit is legal for matched play for battles fought using the general’s handbook 2026-27 battlepack.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
       "secondary": "this hero can join an eligible regiment as a royal attendant.",
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Scourge-of-Aqshy-Royal-Decapitator"
@@ -1093,32 +722,11 @@
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Ushoran-Mortarch-of-Delusion"
     },
     {
-      "field": "regimentOptions",
-      "official": "any flesh‑ eater courts|any royal attendant",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
-      "secondary": "any flesh-eater courts|any royal attendant",
-      "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Ushoran-Mortarch-of-Delusion"
-    },
-    {
       "field": "baseSizes",
       "official": "90 × 52mm",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A40",
       "secondary": "60mm",
       "url": "https://wahapedia.ru/aos4/factions/flesh-eater-courts/warscrolls.html#Varghulf-Courtier"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as vulcatrix’s chosen",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A9",
-      "secondary": "this hero can join an eligible regiment as vulcatrix’s chosen.",
-      "url": "https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html#Auric-Runefather-on-Magmadroth"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as vulcatrix’s chosen",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A9",
-      "secondary": "this hero can join an eligible regiment as vulcatrix’s chosen.",
-      "url": "https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html#Auric-Runeson-on-Magmadroth"
     },
     {
       "field": "notes",
@@ -1157,7 +765,7 @@
     },
     {
       "field": "notes",
-      "official": "this hero can join an eligible regiment as vulcatrix’s chosen this unit is legal for matched play for battles fought using the general’s handbook 2026-27 battlepack.",
+      "official": "this hero can join an eligible regiment as vulcatrix’s chosen. this unit is legal for matched play for battles fought using the general’s handbook 2026-27 battlepack.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A9",
       "secondary": "this hero can join an eligible regiment as vulcatrix’s chosen.",
       "url": "https://wahapedia.ru/aos4/factions/fyreslayers/warscrolls.html#Scourge-of-Aqshy-Auric-Runeson-on-Magmadroth"
@@ -1198,20 +806,6 @@
       "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Borgit-s-Beastgrabbaz"
     },
     {
-      "field": "notes",
-      "official": "this hero can join trugg ’s regiment.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A48",
-      "secondary": "this hero can join trugg’s regiment.",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Dankhold-Troggboss"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 to p d o g|any gloomspite gitz",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A48",
-      "secondary": "0-1 top dog|any gloomspite gitz",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Droggz-Da-Sunchompa"
-    },
-    {
       "field": "baseSizes",
       "official": "25mm [4]|32mm [3]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A73",
@@ -1226,13 +820,6 @@
       "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Kragnos-the-End-of-Empires"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 moonclan agitator|0-1 to p d o g|any gloomspite gitz",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A48",
-      "secondary": "0-1 moonclan agitator|0-1 top dog|any gloomspite gitz",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Kragnos-the-End-of-Empires"
-    },
-    {
       "field": "points",
       "official": "70",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A48",
@@ -1240,38 +827,10 @@
       "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Loonboss"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A73",
-      "secondary": "0-1 moonclan agitator|any moonclan",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Loonboss-with-Giant-Cave-Squig"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A73",
-      "secondary": "any moonclan",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Madcap-Shaman"
-    },
-    {
       "field": "baseSizes",
       "official": "25mm [3]|50mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A73",
       "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Mollog"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join trugg ’s regiment.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A73",
-      "secondary": "this hero can join trugg’s regiment.",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Mollog"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A73",
-      "secondary": "any troggoth",
       "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Mollog"
     },
     {
@@ -1289,39 +848,11 @@
       "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Scourge-of-Aqshy-Sunsteala-Wheelas"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A73",
-      "secondary": "any spiderfang",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Scuttleboss-on-Gigantic-Spider"
-    },
-    {
       "field": "name",
       "official": "Skragrott, the Loonking",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A48",
       "secondary": "Skragrott the Loonking",
       "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Skragrott-the-Loonking"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 moonclan agitator|0-1 to p d o g|any gloomspite gitz",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A48",
-      "secondary": "0-1 moonclan agitator|0-1 top dog|any gloomspite gitz",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Skragrott-the-Loonking"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a to p d o g.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A48",
-      "secondary": "this hero can join an eligible regiment as a top dog.",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Snarlboss"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a to p d o g.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A48",
-      "secondary": "this hero can join an eligible regiment as a top dog.",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Snarlboss-on-War-Wheela"
     },
     {
       "field": "name",
@@ -1331,46 +862,11 @@
       "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Squigboss-with-Gnasha-Squig"
     },
     {
-      "field": "notes",
-      "official": "you can include 1 unit of this",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A49",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Sunsteala-Wheelas"
-    },
-    {
       "field": "name",
       "official": "Trugg, the Troggoth King",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A48",
       "secondary": "Trugg the Troggoth King",
       "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Trugg-the-Troggoth-King"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any moonclan|any spider fa ng",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A48",
-      "secondary": "any moonclan|any spiderfang",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Webspinner-Shaman"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any moonclan|any spider fa ng",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A48",
-      "secondary": "any moonclan|any spiderfang",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Webspinner-Shaman-on-Arachnarok-Spider"
-    },
-    {
-      "field": "notes",
-      "official": "type for each snarlboss in your army. this unit cannot be reinforced.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A49",
-      "secondary": "you can include 1 unit of this type for each snarlboss in your army. this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Wolfgit-Retinue"
-    },
-    {
-      "field": "name",
-      "official": "Z a rbag’s Git z",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A73",
-      "secondary": "Zarbag’s Gitz",
-      "url": "https://wahapedia.ru/aos4/factions/gloomspite-gitz/warscrolls.html#Zarbag-s-Gitz"
     },
     {
       "field": "name",
@@ -1388,7 +884,7 @@
     },
     {
       "field": "regimentOptions",
-      "official": "",
+      "official": "0-1 slaaneshi beguilers|any war machine",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A68",
       "secondary": "0-1 slaaneshi beguiler|any war machine",
       "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Bladebringer-Herald-on-Hellflayer"
@@ -1402,7 +898,7 @@
     },
     {
       "field": "regimentOptions",
-      "official": "",
+      "official": "0-1 slaaneshi beguilers|any war machine",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A68",
       "secondary": "0-1 slaaneshi beguiler|any war machine",
       "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Bladebringer-Herald-on-Seeker-Chariot"
@@ -1419,13 +915,6 @@
       "official": "Dexcessa, the Talon of Slaanesh",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A29",
       "secondary": "Dexcessa The Talon of Slaanesh",
-      "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Dexcessa-the-Talon-of-Slaanesh"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join synessa ’s regiment.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A29",
-      "secondary": "this hero can join synessa’s regiment.",
       "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Dexcessa-the-Talon-of-Slaanesh"
     },
     {
@@ -1450,13 +939,6 @@
       "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Infernal-Enrapturess-Herald-of-Slaanesh"
     },
     {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a slaaneshi beguiler",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A29",
-      "secondary": "this hero can join an eligible regiment as a slaaneshi beguiler.",
-      "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Infernal-Enrapturess-Herald-of-Slaanesh"
-    },
-    {
       "field": "name",
       "official": "Scourge of Aqshy Infernal Enrapturess",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A29",
@@ -1465,7 +947,7 @@
     },
     {
       "field": "notes",
-      "official": "this hero can join an eligible regiment as a slaaneshi beguiler this unit is legal for matched play for battles fought using the general’s handbook 2026-27 battlepack.",
+      "official": "this hero can join an eligible regiment as a slaaneshi beguiler. this unit is legal for matched play for battles fought using the general’s handbook 2026-27 battlepack.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A29",
       "secondary": "this hero can join an eligible regiment as a slaaneshi beguiler.",
       "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Scourge-of-Aqshy-Infernal-Enrapturess-Herald-of-Slaanesh"
@@ -1492,25 +974,11 @@
       "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Synessa-the-Voice-of-Slaanesh"
     },
     {
-      "field": "notes",
-      "official": "this hero can join dexcessa ’s regiment.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A29",
-      "secondary": "this hero can join dexcessa’s regiment.",
-      "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Synessa-the-Voice-of-Slaanesh"
-    },
-    {
       "field": "baseSizes",
       "official": "25mm [2]|32mm [1]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A68",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#The-Dread-Pageant"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a slaaneshi beguiler",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A29",
-      "secondary": "this hero can join an eligible regiment as a slaaneshi beguiler.",
-      "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#The-Masque"
     },
     {
       "field": "baseSizes",
@@ -1531,13 +999,6 @@
       "official": "Viceleader, Herald of Slaanesh",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A68",
       "secondary": "Viceleader Herald of Slaanesh",
-      "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Viceleader-Herald-of-Slaanesh"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A68",
-      "secondary": "any daemon",
       "url": "https://wahapedia.ru/aos4/factions/hedonites-of-slaanesh/warscrolls.html#Viceleader-Herald-of-Slaanesh"
     },
     {
@@ -1574,13 +1035,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A31",
       "secondary": "Urak Taar the First Daemonsmith",
       "url": "https://wahapedia.ru/aos4/factions/helsmiths-of-hashut/warscrolls.html#Urak-Taar-the-First-Daemonsmith"
-    },
-    {
-      "field": "name",
-      "official": "Wa r Despot",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A31",
-      "secondary": "War Despot",
-      "url": "https://wahapedia.ru/aos4/factions/helsmiths-of-hashut/warscrolls.html#War-Despot"
     },
     {
       "field": "baseSizes",
@@ -1653,13 +1107,6 @@
       "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Gordrakk-the-Fist-of-Gork"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 headstompa|0-1 tusk wrangler|any i ron jaw z",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A50",
-      "secondary": "0-1 headstompa|0-1 tusk wrangler|any ironjawz",
-      "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Gordrakk-the-Fist-of-Gork"
-    },
-    {
       "field": "name",
       "official": "Kragnos, the End of Empires",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A50",
@@ -1667,31 +1114,10 @@
       "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Kragnos-the-End-of-Empires"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 headstompa|0-1 tusk wrangler|any i ron jaw z",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A50",
-      "secondary": "0-1 headstompa|0-1 tusk wrangler|any ironjawz",
-      "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Kragnos-the-End-of-Empires"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 headstompa|any i ron jaw z",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A50",
-      "secondary": "0-1 headstompa|any ironjawz",
-      "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Megaboss"
-    },
-    {
       "field": "name",
       "official": "Megaboss on Maw-krusha",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A50",
       "secondary": "Megaboss on Maw-Krusha",
-      "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Megaboss-on-Maw-Krusha"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 headstompa|0-1 tusk wrangler|any i ron jaw z",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A50",
-      "secondary": "0-1 headstompa|0-1 tusk wrangler|any ironjawz",
       "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Megaboss-on-Maw-Krusha"
     },
     {
@@ -1702,52 +1128,10 @@
       "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Scourge-of-Aqshy-Megaboss"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 headstompa|any i ron jaw z",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A50",
-      "secondary": "0-1 headstompa|any ironjawz",
-      "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Scourge-of-Aqshy-Megaboss"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 headstompa|any i ron jaw z",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A50",
-      "secondary": "0-1 headstompa|any ironjawz",
-      "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Tuskboss-on-Maw-grunta"
-    },
-    {
-      "field": "name",
-      "official": "Wa rcha nter",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A50",
-      "secondary": "Warchanter",
-      "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Warchanter"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any i ron jaw z",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A50",
-      "secondary": "any ironjawz",
-      "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Warchanter"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any i ron jaw z",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A50",
-      "secondary": "any ironjawz",
-      "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Weirdnob-Shaman"
-    },
-    {
       "field": "baseSizes",
       "official": "25mm [1]|50mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A50",
       "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Zoggrok-Anvilsmasha"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any i ron jaw z",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A50",
-      "secondary": "any ironjawz",
       "url": "https://wahapedia.ru/aos4/factions/ironjawz/warscrolls.html#Zoggrok-Anvilsmasha"
     },
     {
@@ -1828,13 +1212,6 @@
       "url": "https://wahapedia.ru/aos4/factions/kruleboyz/warscrolls.html#Swampcalla-Shaman-with-Pot-grot"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 lumineth paragon|any lumineth realm‑lords",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
-      "secondary": "0-1 lumineth paragon|any lumineth realm-lords",
-      "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Archmage-Teclis-and-Celennar-Spirit-of-Hysh"
-    },
-    {
       "field": "name",
       "official": "Avalenor, the Stoneheart King",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
@@ -1849,32 +1226,11 @@
       "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Ellania-and-Ellathor-Eclipsian-Warsages"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 lumineth paragon|any lumineth realm‑lords",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
-      "secondary": "0-1 lumineth paragon|any lumineth realm-lords",
-      "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Ellania-and-Ellathor-Eclipsian-Warsages"
-    },
-    {
       "field": "name",
       "official": "Lyrior Uthralle, Warden of Ymetrica",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
       "secondary": "Lyrior Uthralle Warden of Ymetrica",
       "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Lyrior-Uthralle-Warden-of-Ymetrica"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 lumineth paragon|any lumineth realm‑lords",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
-      "secondary": "0-1 lumineth paragon|any lumineth realm-lords",
-      "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Lyrior-Uthralle-Warden-of-Ymetrica"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 ydrilan riverblades|any alarith|any va n a r i au r a la n wa rdens",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
-      "secondary": "0-1 ydrilan riverblades|any alarith|any vanari auralan wardens",
-      "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Scourge-of-Aqshy-Alarith-Stonemage"
     },
     {
       "field": "name",
@@ -1884,20 +1240,6 @@
       "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Sevireth-Lord-of-the-Seventh-Wind"
     },
     {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a lumineth paragon",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
-      "secondary": "this hero can join an eligible regiment as a lumineth paragon.",
-      "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#The-Light-of-Eltharion"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 lumineth paragon|any lumineth realm‑lords",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
-      "secondary": "0-1 lumineth paragon|any lumineth realm-lords",
-      "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#The-Light-of-Eltharion"
-    },
-    {
       "field": "baseSizes",
       "official": "25mm [1]|28.5mm [4]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A64",
@@ -1905,24 +1247,10 @@
       "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Thyrielle-s-Zephyrites-1"
     },
     {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a lumineth paragon",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
-      "secondary": "this hero can join an eligible regiment as a lumineth paragon.",
-      "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Vanari-Bannerblade"
-    },
-    {
       "field": "baseSizes",
       "official": "32mm",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
       "secondary": "90 × 52mm",
-      "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Vanari-Lord-Regent"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a lumineth paragon",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A15",
-      "secondary": "this hero can join an eligible regiment as a lumineth paragon.",
       "url": "https://wahapedia.ru/aos4/factions/lumineth-realm-lords/warscrolls.html#Vanari-Lord-Regent"
     },
     {
@@ -1947,24 +1275,10 @@
       "url": "https://wahapedia.ru/aos4/factions/maggotkin-of-nurgle/warscrolls.html#Belga-the-Cystwitch"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A68",
-      "secondary": "0-1 rotbringer lord|any rotbringers",
-      "url": "https://wahapedia.ru/aos4/factions/maggotkin-of-nurgle/warscrolls.html#Doktor-Festus"
-    },
-    {
       "field": "name",
       "official": "Epidemius, Tallyman of Nurgle",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A68",
       "secondary": "Epidemius Tallyman of Nurgle",
-      "url": "https://wahapedia.ru/aos4/factions/maggotkin-of-nurgle/warscrolls.html#Epidemius-Tallyman-of-Nurgle"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A68",
-      "secondary": "0-1 plague scion|any daemon",
       "url": "https://wahapedia.ru/aos4/factions/maggotkin-of-nurgle/warscrolls.html#Epidemius-Tallyman-of-Nurgle"
     },
     {
@@ -2018,7 +1332,7 @@
     },
     {
       "field": "regimentOptions",
-      "official": "",
+      "official": "0-1 black coach|any infantry",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A70",
       "secondary": "0-1 black coach|0-1 scourge of ghyran black coach|any infantry",
       "url": "https://wahapedia.ru/aos4/factions/nighthaunt/warscrolls.html#Cairn-Wraith"
@@ -2130,7 +1444,7 @@
     },
     {
       "field": "regimentOptions",
-      "official": "",
+      "official": "0-1 black coach|any infantry",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A70",
       "secondary": "0-1 black coach|0-1 scourge of ghyran black coach|any infantry",
       "url": "https://wahapedia.ru/aos4/factions/nighthaunt/warscrolls.html#Tomb-Banshee"
@@ -2248,8 +1562,22 @@
       "url": "https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#Gorlok-Blackpowder"
     },
     {
+      "field": "regimentOptions",
+      "official": "none",
+      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A73",
+      "secondary": "",
+      "url": "https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#Gorlok-Blackpowder"
+    },
+    {
       "field": "baseSizes",
       "official": "25mm [3]|40mm [1]|50 × 25mm [1]",
+      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A73",
+      "secondary": "",
+      "url": "https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#Hrothgorn-Mantrapper"
+    },
+    {
+      "field": "regimentOptions",
+      "official": "none",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A73",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#Hrothgorn-Mantrapper"
@@ -2298,7 +1626,7 @@
     },
     {
       "field": "notes",
-      "official": "this hero can join an eligible regiment as a maw nomad. this unit will move to warhammer",
+      "official": "this hero can join an eligible regiment as a maw nomad. this unit will move to warhammer legends on 1 june 2027.",
       "officialSourceRecordId": "source-record:games-workshop:052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750%3Apage%3A1",
       "secondary": "this hero can join an eligible regiment as a voice of the everwinter.",
       "url": "https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#Icebrow-Hunter"
@@ -2357,13 +1685,6 @@
       "official": "Kragnos, the End of Empires",
       "officialSourceRecordId": "source-record:games-workshop:052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750%3Apage%3A1",
       "secondary": "Kragnos the End of Empires",
-      "url": "https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#Kragnos-the-End-of-Empires"
-    },
-    {
-      "field": "notes",
-      "official": "legends on 1 june 2027.",
-      "officialSourceRecordId": "source-record:games-workshop:052a8f5ca298950eea814ef8795160134aa4eb152896dc894dfdb1553ba55750%3Apage%3A1",
-      "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/ogor-mawtribes/warscrolls.html#Kragnos-the-End-of-Empires"
     },
     {
@@ -2515,13 +1836,6 @@
     },
     {
       "field": "name",
-      "official": "K a i na n’s Reapers",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A70",
-      "secondary": "Kainan’s Reapers",
-      "url": "https://wahapedia.ru/aos4/factions/ossiarch-bonereapers/warscrolls.html#Kainan-s-Reapers"
-    },
-    {
-      "field": "name",
       "official": "Katakros, Mortarch of the Necropolis",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A44",
       "secondary": "Katakros Mortarch of the Necropolis",
@@ -2533,13 +1847,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A44",
       "secondary": "any ossiarch bonereapers",
       "url": "https://wahapedia.ru/aos4/factions/ossiarch-bonereapers/warscrolls.html#Liege-Mortek"
-    },
-    {
-      "field": "name",
-      "official": "Mor tek Tria xes",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A44",
-      "secondary": "Mortek Triaxes",
-      "url": "https://wahapedia.ru/aos4/factions/ossiarch-bonereapers/warscrolls.html#Mortek-Triaxes"
     },
     {
       "field": "name",
@@ -2591,46 +1898,11 @@
       "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#Hunters-of-Huanchi-with-Starstone-Bolas"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 beast|0-1 monster|any skink c ava l r y",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A17",
-      "secondary": "0-1 beast|0-1 monster|any skink cavalry",
-      "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#Ripperdactyl-Chief"
-    },
-    {
-      "field": "notes",
-      "official": "you can include 1 unit of this",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A18",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#Ripperdactyl-Riders"
-    },
-    {
-      "field": "notes",
-      "official": "type for each ripperdactyl chief in your army.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A18",
-      "secondary": "you can include 1 unit of this type for each ripperdactyl chief in your army. this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#Ripperdactyl-Riders-2-models-"
-    },
-    {
-      "field": "notes",
-      "official": "this unit cannot be reinforced.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A18",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#Saurus-Guard"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as a favoured spawning. this unit is legal for matched play for battles fought using the general’s handbook 2026-27 battlepack.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A17",
       "secondary": "this hero can join an eligible regiment as a favoured spawning.",
       "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#Scourge-of-Aqshy-Saurus-Scar-Veteran-on-Aggradon"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join lord kroak ’s or a slann starmaster ’s reg i ment.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A17",
-      "secondary": "this hero can join lord kroak’s or a slann starmaster’s regiment.",
-      "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#Skink-Starpriest"
     },
     {
       "field": "baseSizes",
@@ -2654,34 +1926,6 @@
       "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#Sunblood-Pack"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 beast|0-1 monster|any skink c ava l r y",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A17",
-      "secondary": "0-1 beast|0-1 monster|any skink cavalry",
-      "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#Terradon-Chief"
-    },
-    {
-      "field": "notes",
-      "official": "you can include 1 unit of this",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A18",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#Terradon-Riders"
-    },
-    {
-      "field": "notes",
-      "official": "type for each terradon chief in your army.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A18",
-      "secondary": "you can include 1 unit of this type for each terradon chief in your army. this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#Terradon-Riders-2-models-"
-    },
-    {
-      "field": "notes",
-      "official": "this unit cannot be reinforced. this unit cannot be reinforced.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A18",
-      "secondary": "this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#Terrawings"
-    },
-    {
       "field": "baseSizes",
       "official": "25mm [1]|32mm [2]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A64",
@@ -2694,76 +1938,6 @@
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A64",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/seraphon/warscrolls.html#The-Starblood-Stalkers"
-    },
-    {
-      "field": "notes",
-      "official": "you cannot include more than 1 skryre weapon team in a regiment led by a",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "you cannot include more than 1 skryre weapon team in a regiment led by a non-skryre hero.",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Acolyte-Globadiers"
-    },
-    {
-      "field": "name",
-      "official": "A rch-Wa rlock",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "Arch-Warlock",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Arch-Warlock"
-    },
-    {
-      "field": "notes",
-      "official": "non-skryre hero.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Brood-Terror"
-    },
-    {
-      "field": "notes",
-      "official": "you cannot include more than",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Clanrats"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a skaven overclaw",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "this hero can join an eligible regiment as a skaven overclaw.",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Clawlord"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a skaven overclaw",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "this hero can join an eligible regiment as a skaven overclaw.",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Clawlord-on-Gnaw-beast"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a skaven overclaw",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "this hero can join an eligible regiment as a skaven overclaw.",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Deathmaster"
-    },
-    {
-      "field": "notes",
-      "official": "1 skryre war machine in a regiment led by a non-skryre hero.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "you cannot include more than 1 skryre war machine in a regiment led by a non-skryre hero.",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Doom-Flayers"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 skaven overclaw|any s k av e n",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "0-1 skaven overclaw|any skaven",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Grey-Seer"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 skaven overclaw|any s k av e n",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "0-1 skaven overclaw|any skaven",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Grey-Seer-on-Screaming-Bell"
     },
     {
       "field": "baseSizes",
@@ -2780,27 +1954,6 @@
       "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Gutter-Runners-1"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 skaven overclaw|any s k av e n",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "0-1 skaven overclaw|any skaven",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Krittok-Foulblade"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 skaven overclaw|any s k av e n",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "0-1 skaven overclaw|any skaven",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Lord-Skreech-Verminking"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join an eligible regiment as a skaven overclaw",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "this hero can join an eligible regiment as a skaven overclaw.",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Master-Moulder"
-    },
-    {
       "field": "baseSizes",
       "official": "28.5mm [10]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
@@ -2815,13 +1968,6 @@
       "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Plague-Censer-Bearer"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "0-1 clanrats|any pestilens",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Plague-Priest"
-    },
-    {
       "field": "baseSizes",
       "official": "25mm [4]|28.5mm [1]|32mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A36",
@@ -2829,46 +1975,11 @@
       "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Plaguepack"
     },
     {
-      "field": "notes",
-      "official": "you cannot include more than",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A36",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Rat-Ogors"
-    },
-    {
       "field": "name",
       "official": "Ratling Guns",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A36",
       "secondary": "Ratling Gun",
       "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Ratling-Gun"
-    },
-    {
-      "field": "notes",
-      "official": "1 skryre weapon team in a regiment led by a non-skryre hero.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A36",
-      "secondary": "you cannot include more than 1 skryre weapon team in a regiment led by a non-skryre hero.",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Ratling-Gun"
-    },
-    {
-      "field": "notes",
-      "official": "you cannot include more than 1 skryre war machine in a regiment led by a",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A36",
-      "secondary": "you cannot include more than 1 skryre war machine in a regiment led by a non-skryre hero.",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Ratling-Warpblaster"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 skaven overclaw|any s k av e n",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "0-1 skaven overclaw|any skaven",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Scourge-of-Aqshy-Grey-Seer-on-Screaming-Bell"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 skaven overclaw|any s k av e n",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "0-1 skaven overclaw|any skaven",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Scourge-of-Aqshy-Verminlord-Corruptor"
     },
     {
       "field": "baseSizes",
@@ -2913,55 +2024,6 @@
       "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Spiteclaw-s-Swarm"
     },
     {
-      "field": "notes",
-      "official": "non-skryre hero.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A36",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Stormfiends"
-    },
-    {
-      "field": "notes",
-      "official": "you cannot include more than",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A36",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Stormvermin"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 skaven overclaw|any s k av e n",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "0-1 skaven overclaw|any skaven",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Thanquol-on-Boneripper"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 skaven overclaw|any s k av e n",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "0-1 skaven overclaw|any skaven",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Verminlord-Corruptor"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 skaven overclaw|any s k av e n",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "0-1 skaven overclaw|any skaven",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Verminlord-Deceiver"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 skaven overclaw|any s k av e n",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "0-1 skaven overclaw|any skaven",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Verminlord-Warbringer"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 skaven overclaw|any s k av e n",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "0-1 skaven overclaw|any skaven",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Verminlord-Warpseer"
-    },
-    {
       "field": "name",
       "official": "Vizzik Skour, Prophet of the Horned Rat",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
@@ -2969,39 +2031,25 @@
       "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Vizzik-Skour-Prophet-of-the-Horned-Rat"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 skaven overclaw|any s k av e n",
+      "field": "notes",
+      "official": "this hero can join an eligible regiment as a skaven overclaw.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
-      "secondary": "0-1 skaven overclaw|any skaven",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Vizzik-Skour-Prophet-of-the-Horned-Rat"
+      "secondary": "this hero can join an eligible regiment as a skaven overclaw",
+      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Warlock-Bombardier"
     },
     {
       "field": "notes",
-      "official": "1 skryre war machine in a regiment led by a non-skryre hero.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A36",
-      "secondary": "you cannot include more than 1 skryre war machine in a regiment led by a non-skryre hero.",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Warp-Grinder"
+      "official": "this hero can join an eligible regiment as a skaven overclaw.",
+      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
+      "secondary": "this hero can join an eligible regiment as a skaven overclaw",
+      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Warlock-Engineer"
     },
     {
       "field": "notes",
-      "official": "you cannot include more than 1 skryre weapon team in a regiment led by a",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A36",
-      "secondary": "you cannot include more than 1 skryre weapon team in a regiment led by a non-skryre hero.",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Warpfire-Throwers"
-    },
-    {
-      "field": "notes",
-      "official": "non-skryre hero. you cannot include more than",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A36",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Warplock-Jezzails"
-    },
-    {
-      "field": "notes",
-      "official": "1 skryre weapon team in a regiment led by a non-skryre hero.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A36",
-      "secondary": "you cannot include more than 1 skryre weapon team in a regiment led by a non-skryre hero.",
-      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Warpvolt-Scourgers"
+      "official": "this hero can join an eligible regiment as a skaven overclaw.",
+      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A35",
+      "secondary": "this hero can join an eligible regiment as a skaven overclaw",
+      "url": "https://wahapedia.ru/aos4/factions/skaven/warscrolls.html#Warlock-Galvaneer"
     },
     {
       "field": "baseSizes",
@@ -3088,27 +2136,6 @@
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Chaos-Legionnaires"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "0-1 monster|0-1 ruinous champion|any slaves to darkness",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Chaos-Lord-on-Manticore-1"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "0-1 monster|0-1 ruinous champion|any warriors of chaos",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Chaos-Sorcerer-Lord-on-Manticore"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "0-1 ruinous champion|any warriors of chaos",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Chaos-Warshrine"
-    },
-    {
       "field": "baseSizes",
       "official": "25mm [5]|28.5mm [3]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
@@ -3116,24 +2143,10 @@
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Corvus-Cabal"
     },
     {
-      "field": "notes",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Corvus-Cabal"
-    },
-    {
       "field": "baseSizes",
       "official": "25mm [3]|28.5mm [4]|32mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Cypher-Lords"
-    },
-    {
-      "field": "notes",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "this unit cannot be reinforced.",
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Cypher-Lords"
     },
     {
@@ -3148,13 +2161,6 @@
       "official": "Eternus, Blade of the First Prince",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A37",
       "secondary": "Eternus Blade of the First Prince",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Eternus-Blade-of-the-First-Prince"
-    },
-    {
-      "field": "notes",
-      "official": "this hero can join be’lakor ’s regiment.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A37",
-      "secondary": "this hero can join be’lakor’s regiment.",
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Eternus-Blade-of-the-First-Prince"
     },
     {
@@ -3193,13 +2199,6 @@
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Godsworn-Hunt"
     },
     {
-      "field": "notes",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Godsworn-Hunt"
-    },
-    {
       "field": "name",
       "official": "Legion of the First Prince Hellflayer",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A38",
@@ -3221,32 +2220,11 @@
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Horns-of-Hashut"
     },
     {
-      "field": "notes",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Horns-of-Hashut"
-    },
-    {
       "field": "baseSizes",
       "official": "28.5mm [4]|32mm [3]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Iron-Golem"
-    },
-    {
-      "field": "notes",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Iron-Golem"
-    },
-    {
-      "field": "notes",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Khagra-s-Ravagers"
     },
     {
       "field": "name",
@@ -3267,13 +2245,6 @@
       "official": "25mm [2]|28.5mm [3]|32mm [3]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Scions-of-the-Flame"
-    },
-    {
-      "field": "notes",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "this unit cannot be reinforced.",
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Scions-of-the-Flame"
     },
     {
@@ -3305,31 +2276,10 @@
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Singri-Brand"
     },
     {
-      "field": "notes",
-      "official": "this unit can only be taken in gunnar brand ’s reg i ment.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A37",
-      "secondary": "this unit can only be taken in gunnar brand’s regiment.",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Singri-Brand"
-    },
-    {
       "field": "baseSizes",
       "official": "25mm [2]|28.5mm [4]|32mm [3]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Spire-Tyrants"
-    },
-    {
-      "field": "name",
-      "official": "S p i r e Tyrant s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "Spire Tyrants",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Spire-Tyrants"
-    },
-    {
-      "field": "notes",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "this unit cannot be reinforced.",
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Spire-Tyrants"
     },
     {
@@ -3340,39 +2290,11 @@
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Splintered-Fang"
     },
     {
-      "field": "notes",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Splintered-Fang"
-    },
-    {
       "field": "baseSizes",
       "official": "25mm [10]|28.5mm [2]|32mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Tarantulos-Brood"
-    },
-    {
-      "field": "notes",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Tarantulos-Brood"
-    },
-    {
-      "field": "notes",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#The-Gnarlspirit-Pack"
-    },
-    {
-      "field": "notes",
-      "official": "this unit can only be taken in gunnar brand ’s regiment. this unit cannot be reinforced.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A38",
-      "secondary": "this unit can only be taken in gunnar brand’s regiment. this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#The-Oathsworn-Kin"
     },
     {
       "field": "baseSizes",
@@ -3382,24 +2304,10 @@
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#The-Unmade"
     },
     {
-      "field": "notes",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#The-Unmade"
-    },
-    {
       "field": "baseSizes",
       "official": "25mm [3]|28.5mm [2]|32mm [3]|40mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
       "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Untamed-Beasts"
-    },
-    {
-      "field": "notes",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A69",
-      "secondary": "this unit cannot be reinforced.",
       "url": "https://wahapedia.ru/aos4/factions/slaves-to-darkness/warscrolls.html#Untamed-Beasts"
     },
     {
@@ -3438,13 +2346,6 @@
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Belladamma-Volga-First-of-the-Vyrkos"
     },
     {
-      "field": "regimentOptions",
-      "official": "any s ou l b l i g h t g r av e l o r d s|any vyrkos retainer",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "any soulblight gravelords|any vyrkos retainer",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Belladamma-Volga-First-of-the-Vyrkos"
-    },
-    {
       "field": "baseSizes",
       "official": "40mm [2]|50mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
@@ -3453,16 +2354,9 @@
     },
     {
       "field": "notes",
-      "official": "you cannot include this unit and cado ezechiar, the hollow king in the",
+      "official": "you cannot include this unit and cado ezechiar, the hollow king in the same army.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
       "secondary": "the hollow king in the same army.|you cannot include this unit and cado ezechiar",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Blades-of-the-Hollow-King"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "any soulblight gravelords",
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Blades-of-the-Hollow-King"
     },
     {
@@ -3470,13 +2364,6 @@
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A71",
       "secondary": "this unit will move to warhammer legends on 1 june 2026.",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Bloodseeker-Palanquin"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A71",
-      "secondary": "any soulblight gravelords",
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Bloodseeker-Palanquin"
     },
     {
@@ -3494,27 +2381,6 @@
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Cado-Ezechiar-The-Hollow-King"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A71",
-      "secondary": "any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Cado-Ezechiar-The-Hollow-King"
-    },
-    {
-      "field": "notes",
-      "official": "same army.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Coven-Throne"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Coven-Throne"
-    },
-    {
       "field": "baseSizes",
       "official": "40mm",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A47",
@@ -3522,24 +2388,10 @@
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Fell-Bats"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A71",
-      "secondary": "any deadwalkers",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Gorslav-the-Gravekeeper"
-    },
-    {
       "field": "name",
       "official": "Ivya Volga, the Outcast",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
       "secondary": "Ivya Volga The Outcast",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Ivya-Volga-The-Outcast"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "any soulblight gravelords",
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Ivya-Volga-The-Outcast"
     },
     {
@@ -3550,24 +2402,10 @@
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Kritza-the-Rat-Prince"
     },
     {
-      "field": "regimentOptions",
-      "official": "any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Kritza-the-Rat-Prince"
-    },
-    {
       "field": "name",
       "official": "Lady Annika, the Thirsting Blade",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
       "secondary": "Lady Annika the Thirsting Blade",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Lady-Annika-the-Thirsting-Blade"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "any soulblight gravelords",
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Lady-Annika-the-Thirsting-Blade"
     },
     {
@@ -3578,32 +2416,11 @@
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Lauka-Vai-Mother-of-Nightmares"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 deathrattle overseer|any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "0-1 deathrattle overseer|any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Lauka-Vai-Mother-of-Nightmares"
-    },
-    {
       "field": "name",
       "official": "Mannfred von Carstein, Mortarch of Night",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
       "secondary": "Mannfred von Carstein Mortarch of Night",
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Mannfred-von-Carstein-Mortarch-of-Night"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 deathrattle overseer|any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "0-1 deathrattle overseer|any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Mannfred-von-Carstein-Mortarch-of-Night"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Mortis-Engine"
     },
     {
       "field": "name",
@@ -3613,20 +2430,6 @@
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Nagash-Supreme-Lord-of-the-Undead"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 deathrattle overseer|any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "0-1 deathrattle overseer|any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Nagash-Supreme-Lord-of-the-Undead"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 deathrattle overseer|any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "0-1 deathrattle overseer|any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Necromancer"
-    },
-    {
       "field": "name",
       "official": "Neferata, Mortarch of Blood",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
@@ -3634,52 +2437,10 @@
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Neferata-Mortarch-of-Blood"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 deathrattle overseer|any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "0-1 deathrattle overseer|any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Neferata-Mortarch-of-Blood"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 deathrattle overseer|any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "0-1 deathrattle overseer|any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Prince-Vhordrai"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 vyrkos retainer|any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "0-1 vyrkos retainer|any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Radukar-the-Beast"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 vyrkos retainer|any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "0-1 vyrkos retainer|any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Radukar-the-Wolf"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 deathrattle overseer|any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "0-1 deathrattle overseer|any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Scourge-of-Aqshy-Vengorian-Lord"
-    },
-    {
       "field": "name",
       "official": "Sekhar, Fang of Nulahmia",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
       "secondary": "Sekhar Fang of Nulahmia",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Sekhar-Fang-of-Nulahmia"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "any soulblight gravelords",
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Sekhar-Fang-of-Nulahmia"
     },
     {
@@ -3704,38 +2465,10 @@
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#The-Sons-of-Velmorn"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A71",
-      "secondary": "any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Torgillius-the-Chamberlain"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Vampire-Lord"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Vampire-Lord-on-Nightmare-Steed"
-    },
-    {
       "field": "notes",
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A71",
       "secondary": "this unit will move to warhammer legends on 1 june 2026.",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Vampire-Lord-on-Zombie-Dragon"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A71",
-      "secondary": "any soulblight gravelords",
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Vampire-Lord-on-Zombie-Dragon"
     },
     {
@@ -3746,38 +2479,10 @@
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Vargskyr"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 deathrattle overseer|any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "0-1 deathrattle overseer|any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Vengorian-Lord"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A71",
-      "secondary": "any deathrattle",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Watch-Captain-Halgrim"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "any soulblight gravelords",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Wight-King"
-    },
-    {
       "field": "name",
       "official": "Wight King on Skeletal Steed",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
       "secondary": "Wight King on Skeleton Steed",
-      "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Wight-King-on-Skeleton-Steed"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 deathrattle overseer|any s ou l b l i g h t g r av e l o r d s",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A46",
-      "secondary": "0-1 deathrattle overseer|any soulblight gravelords",
       "url": "https://wahapedia.ru/aos4/factions/soulblight-gravelords/warscrolls.html#Wight-King-on-Skeleton-Steed"
     },
     {
@@ -3795,13 +2500,6 @@
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Astreia-Solbright"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
-      "secondary": "any stormcast eternals",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Astreia-Solbright"
-    },
-    {
       "field": "name",
       "official": "Aventis Firestrike, Magister of Hammerhal",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
@@ -3813,13 +2511,6 @@
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
       "secondary": "this unit will move to warhammer legends on 1 june 2025.",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Aventis-Firestrike-Magister-of-Hammerhal"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
-      "secondary": "any stormcast eternals",
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Aventis-Firestrike-Magister-of-Hammerhal"
     },
     {
@@ -3859,34 +2550,6 @@
     },
     {
       "field": "notes",
-      "official": "you can include 1 unit of this type for each lord‑celestant on dracoth in your army.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A21",
-      "secondary": "you can include 1 unit of this type for each lord-celestant on dracoth in your army.",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Dracothian-Guard-Concussors-1-model-"
-    },
-    {
-      "field": "notes",
-      "official": "you can include 1 unit of this type for each lord‑celestant on dracoth in your army.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A21",
-      "secondary": "you can include 1 unit of this type for each lord-celestant on dracoth in your army.",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Dracothian-Guard-Desolators-1-model-"
-    },
-    {
-      "field": "notes",
-      "official": "you can include 1 unit of this type for each lord‑celestant on dracoth in your army.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A21",
-      "secondary": "you can include 1 unit of this type for each lord-celestant on dracoth in your army.",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Dracothian-Guard-Fulminators-1-model-"
-    },
-    {
-      "field": "notes",
-      "official": "you can include 1 unit of this type for each lord‑celestant on dracoth in your army.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A21",
-      "secondary": "you can include 1 unit of this type for each lord-celestant on dracoth in your army.",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Dracothian-Guard-Tempestors-1-model-"
-    },
-    {
-      "field": "notes",
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
       "secondary": "this unit will move to warhammer legends on 1 june 2025.",
@@ -3907,24 +2570,10 @@
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Gardus-Steel-Soul"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 gryph‑hounds|0-1 stormcast exemplar|any warrior chamber",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A19",
-      "secondary": "0-1 gryph-hounds|0-1 stormcast exemplar|any warrior chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Gardus-Steel-Soul"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as a stormcast exemplar.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
       "secondary": "this hero can join an eligible regiment as a stormcast exemplar",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Gavriel-Sureheart"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
-      "secondary": "0-1 gryph-hounds|any infantry",
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Gavriel-Sureheart"
     },
     {
@@ -3949,13 +2598,6 @@
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Judicators-with-Skybolt-Bows"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 gryph‑hounds|any warrior chamber",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A19",
-      "secondary": "0-1 gryph-hounds|any warrior chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Knight-Arcanum"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as a stormcast exemplar.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A19",
@@ -3970,24 +2612,10 @@
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Knight-Heraldor"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
-      "secondary": "0-1 gryph-hounds|any warrior chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Knight-Heraldor"
-    },
-    {
       "field": "notes",
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
       "secondary": "this unit will move to warhammer legends on 1 june 2025.",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Knight-Incantor"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
-      "secondary": "0-1 gryph-hounds|any sacrosanct chamber infantry",
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Knight-Incantor"
     },
     {
@@ -4012,27 +2640,6 @@
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Knight-Judicator-with-Gryph-Hounds"
     },
     {
-      "field": "regimentOptions",
-      "official": "any gryph‑hounds|any warrior chamber",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A19",
-      "secondary": "any gryph-hounds|any warrior chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Knight-Judicator-with-Gryph-Hounds"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 gryph‑hounds|0-1 questor soulsworn|any ruination chamber",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A19",
-      "secondary": "0-1 gryph-hounds|0-1 questor soulsworn|any ruination chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Knight-Questor"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 gryph‑hounds|any warrior chamber",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A19",
-      "secondary": "0-1 gryph-hounds|any warrior chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Knight-Relictor"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as a stormcast exemplar.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
@@ -4040,31 +2647,10 @@
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Knight-Venator"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
-      "secondary": "0-1 gryph-hounds|any warrior chamber infantry",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Knight-Venator"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 gryph‑hounds|any warrior chamber",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A19",
-      "secondary": "0-1 gryph-hounds|any warrior chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Knight-Vexillor"
-    },
-    {
       "field": "notes",
       "official": "this hero can join an eligible regiment as a stormcast exemplar.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
       "secondary": "this hero can join an eligible regiment as a stormcast exemplar",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Knight-Zephyros"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
-      "secondary": "0-1 gryph-hounds|any vanguard chamber",
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Knight-Zephyros"
     },
     {
@@ -4075,24 +2661,10 @@
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Krondys-Son-of-Dracothion"
     },
     {
-      "field": "regimentOptions",
-      "official": "any gryph‑hounds|any vanguard chamber",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A19",
-      "secondary": "any gryph-hounds|any vanguard chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Aquilor"
-    },
-    {
       "field": "notes",
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
       "secondary": "this unit will move to warhammer legends on 1 june 2025.",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Arcanum"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
-      "secondary": "any sacrosanct chamber infantry",
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Arcanum"
     },
     {
@@ -4103,24 +2675,10 @@
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Arcanum-on-Celestial-Dracoline"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
-      "secondary": "any sacrosanct chamber cavalry",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Arcanum-on-Celestial-Dracoline"
-    },
-    {
       "field": "notes",
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
       "secondary": "this unit will move to warhammer legends on 1 june 2025.",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Arcanum-on-Gryph-charger"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
-      "secondary": "any sacrosanct chamber",
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Arcanum-on-Gryph-charger"
     },
     {
@@ -4131,13 +2689,6 @@
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Arcanum-on-Tauralon"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
-      "secondary": "any sacrosanct chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Arcanum-on-Tauralon"
-    },
-    {
       "field": "notes",
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
@@ -4145,31 +2696,10 @@
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Castellant"
     },
     {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
-      "secondary": "any warrior chamber infantry",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Castellant"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 gryph‑hounds|0-1 stormcast exemplar|any warrior chamber",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A19",
-      "secondary": "0-1 gryph-hounds|0-1 stormcast exemplar|any warrior chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Celestant"
-    },
-    {
       "field": "notes",
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
       "secondary": "this unit will move to warhammer legends on 1 june 2025.",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Exorcist"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
-      "secondary": "any sacrosanct chamber infantry",
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Exorcist"
     },
     {
@@ -4187,32 +2717,11 @@
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Imperatant"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 gryph‑hounds|0-1 stormcast exemplar|any warrior chamber",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A20",
-      "secondary": "0-1 gryph-hounds|0-1 stormcast exemplar|any warrior chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Imperatant"
-    },
-    {
       "field": "notes",
       "official": "",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
       "secondary": "this unit will move to warhammer legends on 1 june 2025.",
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Ordinator"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A65",
-      "secondary": "any sacrosanct chamber infantry|any sacrosanct chamber war machine",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Ordinator"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 gryph‑hounds|0-1 stormcast exemplar|any ruination chamber|any warrior chamber",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A20",
-      "secondary": "0-1 gryph-hounds|0-1 stormcast exemplar|any ruination chamber|any warrior chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Relictor"
     },
     {
       "field": "baseSizes",
@@ -4229,39 +2738,11 @@
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Terminos"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 gryph‑hounds|0-1 stormcast exemplar|any ruination chamber|any warrior chamber",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A20",
-      "secondary": "0-1 gryph-hounds|0-1 stormcast exemplar|any ruination chamber|any warrior chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Terminos"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 gryph‑hounds|0-1 stormcast exemplar|any ruination chamber|any warrior chamber",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A20",
-      "secondary": "0-1 gryph-hounds|0-1 stormcast exemplar|any ruination chamber|any warrior chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Veritant"
-    },
-    {
       "field": "name",
       "official": "Lord-Vigilant on Gryph-stalker",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A20",
       "secondary": "Lord-Vigilant on Gryph-Stalker",
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Vigilant-on-Gryph-Stalker"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 gryph‑hounds|0-1 stormcast exemplar|any ruination chamber|any warrior chamber",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A20",
-      "secondary": "0-1 gryph-hounds|0-1 stormcast exemplar|any ruination chamber|any warrior chamber",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Lord-Vigilant-on-Gryph-Stalker"
-    },
-    {
-      "field": "notes",
-      "official": "this unit can only be taken in neave blacktalon ’s regiment. this unit cannot be reinforced.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A21",
-      "secondary": "this unit can only be taken in neave blacktalon’s regiment. this unit cannot be reinforced.",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Neave-s-Companions"
     },
     {
       "field": "notes",
@@ -4292,13 +2773,6 @@
       "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Stormcoven"
     },
     {
-      "field": "notes",
-      "official": "you can include 1 unit of this type for each knight ‑draconis in your army.",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A21",
-      "secondary": "you can include 1 unit of this type for each knight-draconis in your army.",
-      "url": "https://wahapedia.ru/aos4/factions/stormcast-eternals/warscrolls.html#Stormdrake-Guard-1-model-"
-    },
-    {
       "field": "baseSizes",
       "official": "60 × 35mm. champion is 40mm.",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A21",
@@ -4321,14 +2795,7 @@
     },
     {
       "field": "regimentOptions",
-      "official": "0-1 forest sentinel|any s y lva n e t h",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
-      "secondary": "0-1 forest sentinel|any sylvaneth",
-      "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Alarielle-the-Everqueen"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any non-monster s y lva n e t h",
+      "official": "any non-monster sylvaneth",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
       "secondary": "any sylvaneth non-monster",
       "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Arch-Revenant"
@@ -4341,31 +2808,10 @@
       "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Belthanos-First-Thorn-of-Kurnoth"
     },
     {
-      "field": "regimentOptions",
-      "official": "any s y lva n e t h",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
-      "secondary": "any sylvaneth",
-      "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Belthanos-First-Thorn-of-Kurnoth"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any s y lva n e t h",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
-      "secondary": "any sylvaneth",
-      "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Drycha-Hamadreth"
-    },
-    {
       "field": "baseSizes",
       "official": "105 × 70mm",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
       "secondary": "90 × 52mm",
-      "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Grove-Guardian"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any s y lva n e t h",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
-      "secondary": "any sylvaneth",
       "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Grove-Guardian"
     },
     {
@@ -4383,13 +2829,6 @@
       "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Kurnoth-s-Heralds"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 forest sentinel|any s y lva n e t h",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
-      "secondary": "0-1 forest sentinel|any sylvaneth",
-      "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Scourge-of-Aqshy-Treelord-Ancient"
-    },
-    {
       "field": "baseSizes",
       "official": "25mm [1]|32mm [3]|50 × 25mm [1]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A64",
@@ -4397,46 +2836,11 @@
       "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Skaeth-s-Wild-Hunt"
     },
     {
-      "field": "regimentOptions",
-      "official": "0-1 forest sentinel|any s y lva n e t h",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
-      "secondary": "0-1 forest sentinel|any sylvaneth",
-      "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Spirit-of-Durthu"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any s y lva n e t h",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
-      "secondary": "any sylvaneth",
-      "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#The-Lady-of-Vines"
-    },
-    {
       "field": "baseSizes",
       "official": "28.5mm [3]|28.5mm [3] or 40mm [1]|32mm [3]|32mm [4]|40mm [2]",
       "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
       "secondary": "",
       "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#The-Twistweald"
-    },
-    {
-      "field": "name",
-      "official": "Tree-Revena nts",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
-      "secondary": "Tree-Revenants",
-      "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Tree-Revenants"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "0-1 forest sentinel|any s y lva n e t h",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
-      "secondary": "0-1 forest sentinel|any sylvaneth",
-      "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Treelord-Ancient"
-    },
-    {
-      "field": "regimentOptions",
-      "official": "any s y lva n e t h",
-      "officialSourceRecordId": "source-record:games-workshop:630beeb496884bc7468607a0151962864f516ebcec842a657ea1958e9fc0e11f%3Apage%3A23",
-      "secondary": "any sylvaneth",
-      "url": "https://wahapedia.ru/aos4/factions/sylvaneth/warscrolls.html#Warsong-Revenant"
     }
   ],
   "matchedOfficialUnitFacts": 928,
@@ -4545,7 +2949,7 @@
     },
     {
       "context": "standard",
-      "factChecksum": "87158187a7738cac40218d860b367302344c849f7453015de75549c83939545a",
+      "factChecksum": "d5fe1bf337949ee6e50aa237f2985644eca9346eed15475fcbab92d12bcbbab6",
       "faction": "Stormcast Eternals",
       "name": "Lorai, Child of the Abyss",
       "points": 0,

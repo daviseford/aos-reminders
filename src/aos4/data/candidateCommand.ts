@@ -444,7 +444,7 @@ export const acquireCandidateData = async (
         adapterVersion: GAMES_WORKSHOP_ADAPTER_VERSION,
         allowedMediaTypes: ['application/pdf'],
         maxBytes: 64 * 1024 * 1024,
-        timeoutMs: 30_000,
+        timeoutMs: OFFICIAL_PDF_TIMEOUT_MS,
         maxRedirects: 5,
         acceptedManifest: options.acceptedManifest,
         candidateManifest: manifest,

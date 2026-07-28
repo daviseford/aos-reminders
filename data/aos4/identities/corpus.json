@@ -50268,7 +50268,7 @@
       ],
       "canonicalId": "battle-profile:f97ec113-27f1-5b89-a7ed-9b0f152a8983",
       "kind": "battle-profile",
-      "name": "Wa r Hyd ra battle profile"
+      "name": "War Hydra battle profile"
     },
     {
       "aliases": [
@@ -51280,7 +51280,7 @@
       ],
       "canonicalId": "battle-profile:bbde9518-ffbf-5241-b318-29cb9901d2a0",
       "kind": "battle-profile",
-      "name": "S p i r e Tyrant s battle profile"
+      "name": "Spire Tyrants battle profile"
     },
     {
       "aliases": [
@@ -71261,6 +71261,17 @@
     {
       "aliases": [
         {
+          "externalId": "official:891d4303f7abc9b452d06c067c93ca2a8b1b7888655ff4e40e75a9659f909fae",
+          "publisher": "games-workshop"
+        }
+      ],
+      "canonicalId": "publication:cdf24a0e-7d46-58fa-933e-b15286260b73",
+      "kind": "publication",
+      "name": "Legends Warscrolls"
+    },
+    {
+      "aliases": [
+        {
           "externalId": "official:8ac598a6a720c2dd48dfef2db74c97c516cd626bec15fbeb371bc9445a1615e0",
           "publisher": "games-workshop"
         }
@@ -76745,7 +76756,7 @@
       ],
       "canonicalId": "warscroll:26934086-242d-57e8-9d18-3a414c1900a0",
       "kind": "warscroll",
-      "name": "Wa r Hyd ra"
+      "name": "War Hydra"
     },
     {
       "aliases": [
@@ -77823,7 +77834,7 @@
       ],
       "canonicalId": "warscroll:c35a9a42-c00f-59bf-a670-a52e95bd84d0",
       "kind": "warscroll",
-      "name": "S p i r e Tyrant s"
+      "name": "Spire Tyrants"
     },
     {
       "aliases": [

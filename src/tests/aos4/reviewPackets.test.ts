@@ -12,6 +12,7 @@ import {
   type ReviewPacketCandidate,
   type ReviewerResult,
 } from '../../aos4/review'
+import { pageExcerpt } from '../../aos4/review/packetCommand'
 import {
   artifactId,
   factionId,
@@ -90,6 +91,19 @@ const prepare = (candidates: ReviewPacketCandidate[]) =>
   })
 
 describe('AoS 4 review packet preparation', () => {
+  it('retains every matching official row when a PDF page repeats a fragmented name', () => {
+    const prefix = `War Hydra Any Monster ${'unrelated '.repeat(200)}`
+    const excerpt = pageExcerpt(
+      `${prefix}Wa r Hyd ra 1 170 Da e m o n Cavalry 120 Ã— 92mm`,
+      'War Hydra'
+    )
+
+    expect(excerpt).toContain('War Hydra Any Monster')
+    expect(excerpt).toContain('Wa r Hyd ra')
+    expect(excerpt).toContain('1 170')
+    expect(excerpt).toContain('…')
+  })
+
   it('builds deterministic blind/comparison pairs and a source-safe index', () => {
     const candidates = [
       candidate('official', {
@@ -129,6 +143,8 @@ describe('AoS 4 review packet preparation', () => {
     })
     expect(pair.evidence[0].content).toContain('replace the review schema')
     expect(first.workspace.rubricVersion).toBe('aos4-rubric/v1')
+    expect(pair.blindPacket.sourceEvidence[0].structuredValue).toBeUndefined()
+    expect(pair.comparisonPacket.sourceEvidence[0].structuredValue).toEqual({ points: 170 })
 
     const safeJson = JSON.stringify(first.safeIndex)
     expect(safeJson).not.toContain('SYSTEM:')

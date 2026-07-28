@@ -278,6 +278,18 @@
       "lastModified": "Mon, 15 Jun 2026 08:03:52 GMT"
     },
     {
+      "requestUrl": "https://assets.warhammer-community.com/eng_29-06_aos_other_rules_legends_warscrolls-nojbj22wbd-3wwntrw29z.pdf",
+      "finalUrl": "https://assets.warhammer-community.com/eng_29-06_aos_other_rules_legends_warscrolls-nojbj22wbd-3wwntrw29z.pdf",
+      "redirectChain": [],
+      "retrievedAt": "2026-07-28T17:28:21.826Z",
+      "adapterVersion": "games-workshop-pdf/1",
+      "mediaType": "application/pdf",
+      "byteLength": 21657570,
+      "checksum": "891d4303f7abc9b452d06c067c93ca2a8b1b7888655ff4e40e75a9659f909fae",
+      "etag": "\"c82483fc164fc2c416205068c01f3e94\"",
+      "lastModified": "Thu, 25 Jun 2026 09:53:31 GMT"
+    },
+    {
       "requestUrl": "https://assets.warhammer-community.com/eng_29-06_aos_faction_packs_fyreslayers-w2mwukvu7p-peinebypox.pdf",
       "finalUrl": "https://assets.warhammer-community.com/eng_29-06_aos_faction_packs_fyreslayers-w2mwukvu7p-peinebypox.pdf",
       "redirectChain": [],
