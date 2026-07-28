@@ -2,6 +2,11 @@ name: Deployment
 
 # from https://github.com/linuxacademy/content-github-actions-deep-dive-lab/blob/solution/%20.github/workflows/production.yaml
 
+# This workflow publishes to production (S3 + CloudFront). Keep the trigger list to `master` only.
+#
+# In particular, do NOT add `workflow_run` on "Lint, Test, and Build", and do NOT add
+# `aos4-migration` or any other integration branch here. Lint/test/build coverage for those
+# branches belongs in nodejs.yml, which holds no credentials and ships nothing.
 on:
   push:
     branches:
