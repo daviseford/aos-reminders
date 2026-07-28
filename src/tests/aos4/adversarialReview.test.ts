@@ -2,8 +2,10 @@ import {
   AOS4_REVIEW_PROTOCOL_VERSION,
   AOS4_REVIEW_RUBRIC_VERSION,
   assessAdversarialComparison,
+  assertAgentBlindDerivations,
   createAdversarialComparisonResult,
   createAdversarialPairResults,
+  emptyReviewLedger,
   createReviewAssignment,
   createReviewPacket,
   type ReviewPacketPair,
@@ -283,6 +285,26 @@ describe('AoS 4 deterministic adversarial reviewer', () => {
       },
     })
     expect(new Date(blind.reviewedAt).valueOf()).toBeLessThan(new Date(comparison.reviewedAt).valueOf())
+    const ledger = {
+      ...emptyReviewLedger(),
+      assignments: [assignment],
+      results: [blind],
+    }
+    expect(() => assertAgentBlindDerivations(ledger, [reviewPair])).not.toThrow()
+    expect(() =>
+      assertAgentBlindDerivations(
+        {
+          ...ledger,
+          results: [
+            {
+              ...blind,
+              blindExpectedInterpretation: { fabricated: 'placeholder' },
+            },
+          ],
+        },
+        [reviewPair]
+      )
+    ).toThrow('does not match source evidence')
     expect(
       createAdversarialComparisonResult(
         {

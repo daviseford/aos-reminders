@@ -7,6 +7,7 @@ import {
   reviewerConfigurationId,
   type ReviewAssignmentId,
   type ReviewFinding,
+  type ReviewLedger,
   type ReviewPacketSourceEvidence,
   type ReviewerMetadata,
   type ReviewerResult,
@@ -854,6 +855,40 @@ export const blindInterpretationFor = (pair: ReviewPacketPair): unknown => ({
     }
   }),
 })
+
+export const assertAgentBlindDerivations = (ledger: ReviewLedger, pairs: ReviewPacketPair[]): void => {
+  const agentAssignmentIds = new Set(
+    ledger.assignments.filter(assignment => assignment.reviewer.kind === 'agent').map(value => value.id)
+  )
+  const agentBlindResults = new Map<string, ReviewerResult[]>()
+  ledger.results
+    .filter(result => agentAssignmentIds.has(result.assignmentId))
+    .forEach(result => {
+      const results = agentBlindResults.get(result.packetId) ?? []
+      results.push(result)
+      agentBlindResults.set(result.packetId, results)
+    })
+  pairs
+    .filter(pair => pair.countsTowardCoverage && pair.blindDerivationRequired)
+    .forEach(pair => {
+      const expected = blindInterpretationFor(pair)
+      const expectedChecksum = checksumReviewRecord(expected)
+      const results = agentBlindResults.get(pair.blindPacket.id) ?? []
+      if (!results.length) {
+        throw new Error(`Agent blind derivation is missing for ${pair.blindPacket.id}`)
+      }
+      results.forEach(result => {
+        const value = result.blindExpectedInterpretation
+        const safeChecksum =
+          isRecord(value) && typeof value.interpretationChecksum === 'string'
+            ? value.interpretationChecksum
+            : undefined
+        if (!same(value, expected) && safeChecksum !== expectedChecksum) {
+          throw new Error(`Agent blind derivation does not match source evidence: ${pair.blindPacket.id}`)
+        }
+      })
+    })
+}
 
 export const assessAdversarialComparison = (pair: ReviewPacketPair): AdversarialAssessment => {
   if (!hasCompleteSourceEvidence(pair)) {

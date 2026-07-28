@@ -3,6 +3,7 @@ import path from 'node:path'
 import { fileURLToPath } from 'node:url'
 import type { ArtifactManifest } from '../data'
 import { stableCompactJson, stableJson } from '../generate/serialization'
+import { assertAgentBlindDerivations } from './adversarialReview'
 import {
   checksumCertificationText,
   createCertificationManifest,
@@ -518,6 +519,7 @@ export const runCertificationPreparation = async (
         `${ledgerIssues[0].path}: ${ledgerIssues[0].message}`
     )
   }
+  assertAgentBlindDerivations(reviewLedger, pairs)
   const ledger = sourceSafeReviewLedger(reviewLedger)
 
   const protocol = protocolDefinition()

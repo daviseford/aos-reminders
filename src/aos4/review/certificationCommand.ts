@@ -7,6 +7,7 @@ import type { Aos4Catalog } from '../domain'
 import type { CorpusReview } from '../generate/corpus'
 import type { OfficialBattleProfileCatalog } from '../generate/officialBattleProfiles'
 import { stableCompactJson } from '../generate/serialization'
+import { assertAgentBlindDerivations } from './adversarialReview'
 import {
   evaluateCertification,
   checksumCertificationText,
@@ -416,6 +417,7 @@ export const runCertificationCheck = async (
     const pairs = await loadReviewPacketPairs(
       repoPath(repoRoot, arguments_.workspacePath ?? DEFAULT_WORKSPACE)
     )
+    assertAgentBlindDerivations(ledger, pairs)
     const packets = pairs.flatMap(pair => [pair.blindPacket, pair.comparisonPacket])
     const fullLedgerIssues = validateReviewLedger(ledger, packets)
     if (fullLedgerIssues.length) {
