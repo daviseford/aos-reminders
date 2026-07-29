@@ -1,4 +1,5 @@
 // @vitest-environment jsdom
+// @vitest-environment-options {"url":"http://localhost:5173/subscribe"}
 
 import { PlanComponent } from 'components/payment/pricingPlans'
 import { render, unmountComponentAtNode } from 'react-dom'
@@ -77,9 +78,11 @@ describe('subscription pricing plans', () => {
     expect(stripe.redirectToCheckout).toHaveBeenCalledTimes(1)
     expect(stripe.redirectToCheckout).toHaveBeenCalledWith(
       expect.objectContaining({
+        cancelUrl: 'http://localhost:5173/?canceled=true&plan=1%20Month',
         clientReferenceId: 'general@example.com',
         customerEmail: 'general@example.com',
         items: [{ plan: SUBSCRIPTION_PLANS[0].stripe_prod, quantity: 1 }],
+        successUrl: 'http://localhost:5173/?subscribed=true&plan=1%20Month',
       })
     )
     expect(container.querySelector('button')?.textContent).toBe('Subscribe for 1 Month')
