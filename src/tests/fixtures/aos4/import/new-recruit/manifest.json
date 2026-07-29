@@ -45,6 +45,39 @@
           "sha256": "52431203dce616e10684db810334a5b7f44149ee8d211ef1f58b9f2ceeb4e637"
         }
       }
+    },
+    {
+      "id": "sce-001-minimal",
+      "faction": "Stormcast Eternals",
+      "rulesContext": "General's Handbook 2026-27",
+      "pointsLimit": 0,
+      "legalForPlay": true,
+      "shapes": [
+        "champion-split-model-counts",
+        "composite-entry-id",
+        "empty-army-composition-slots",
+        "minimal-viable-list",
+        "nested-regiment-force",
+        "prayer-lore",
+        "spell-lore",
+        "unique-named-hero",
+        "unit-model-nesting",
+        "zero-cost-limit"
+      ],
+      "files": {
+        "ros": {
+          "bytes": 25883,
+          "sha256": "08053bbced8547e87e9c1e21fae69719c1f0d055ce1a60adca83335f6311e33f"
+        },
+        "rosz": {
+          "bytes": 5385,
+          "sha256": "d6d23f60c08bd244eed83a7e3afa75d4d9eec990266633685df692e0c3982d21"
+        },
+        "json": {
+          "bytes": 22941,
+          "sha256": "d3308b07766189ec14ad0023219aba062648e9a48b5bf39c0d5fdf7da7cf2886"
+        }
+      }
     }
   ],
   "coverage": {
@@ -58,13 +91,18 @@
       "fec-001-ghb-kitchen-sink"
     ],
     "champion-split-model-counts": [
-      "fec-001-ghb-kitchen-sink"
+      "fec-001-ghb-kitchen-sink",
+      "sce-001-minimal"
     ],
     "composite-entry-id": [
-      "fec-001-ghb-kitchen-sink"
+      "fec-001-ghb-kitchen-sink",
+      "sce-001-minimal"
     ],
     "duplicate-units": [
       "fec-001-ghb-kitchen-sink"
+    ],
+    "empty-army-composition-slots": [
+      "sce-001-minimal"
     ],
     "enhancement-artefact": [
       "fec-001-ghb-kitchen-sink"
@@ -81,6 +119,9 @@
     "manifestation-lore": [
       "fec-001-ghb-kitchen-sink"
     ],
+    "minimal-viable-list": [
+      "sce-001-minimal"
+    ],
     "model-count-in-display-name": [
       "fec-001-ghb-kitchen-sink"
     ],
@@ -88,10 +129,12 @@
       "fec-001-ghb-kitchen-sink"
     ],
     "nested-regiment-force": [
-      "fec-001-ghb-kitchen-sink"
+      "fec-001-ghb-kitchen-sink",
+      "sce-001-minimal"
     ],
     "prayer-lore": [
-      "fec-001-ghb-kitchen-sink"
+      "fec-001-ghb-kitchen-sink",
+      "sce-001-minimal"
     ],
     "reinforced-unit-model-counts": [
       "fec-001-ghb-kitchen-sink"
@@ -100,7 +143,8 @@
       "fec-001-ghb-kitchen-sink"
     ],
     "spell-lore": [
-      "fec-001-ghb-kitchen-sink"
+      "fec-001-ghb-kitchen-sink",
+      "sce-001-minimal"
     ],
     "undersize-unit-marker": [
       "fec-001-ghb-kitchen-sink"
@@ -108,17 +152,24 @@
     "unicode-force-name": [
       "fec-001-ghb-kitchen-sink"
     ],
+    "unique-named-hero": [
+      "sce-001-minimal"
+    ],
     "unit-model-nesting": [
-      "fec-001-ghb-kitchen-sink"
+      "fec-001-ghb-kitchen-sink",
+      "sce-001-minimal"
+    ],
+    "zero-cost-limit": [
+      "sce-001-minimal"
     ]
   },
   "totals": {
-    "lists": 1,
+    "lists": 2,
     "bytes": {
-      "ros": 191910,
-      "rosz": 16719,
-      "json": 167421
+      "ros": 217793,
+      "rosz": 22104,
+      "json": 190362
     },
-    "shapes": 21
+    "shapes": 25
   }
 }

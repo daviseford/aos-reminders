@@ -59,15 +59,17 @@ both on purpose. Fail closed on *malformed or hostile files*, never on *illegal 
 
 ## Adding a fixture
 
-1. Build the list in New Recruit. Aim to exercise shapes the corpus is missing — check
-   `manifest.json` → `coverage`.
-2. Export all three formats from the list view.
-3. `mkdir lists/<id>/` and save them as `list.ros`, `list.rosz`, `list.json`. **Do not reformat,
-   re-zip, or pretty-print** — invariant 1 compares bytes.
-4. Write `meta.json` (copy `fec-001`'s as a template). Composition counts are asserted, so get
-   them right or let the test tell you what they are.
-5. Run `yarn fixtures:new-recruit` to regenerate the manifest.
-6. Run `yarn vitest run src/tests/aos4/importFixtures.test.ts`.
+The full step-by-step UI procedure (and the per-army work-list) is in [CAPTURE.md](./CAPTURE.md).
+In short:
+
+1. Build the list in New Recruit, **named with its fixture id**. Aim to exercise shapes the
+   corpus is missing — check `manifest.json` → `coverage`.
+2. Export all three formats from the list view (Export → `.ros`, `.rosz`, `json`). **Do not
+   reformat, re-zip, or pretty-print** — invariant 1 compares bytes.
+3. Run `yarn fixtures:new-recruit:ingest <id>` — it verifies the invariants, writes
+   `lists/<id>/`, computes the `meta.json` composition counts, and regenerates the manifest.
+4. Edit `meta.json`: real `shapes`, real description (`--illegal` captures legality markers).
+5. Run `yarn vitest run src/tests/aos4/importFixtures.test.ts`.
 
 ## Sanitisation
 
