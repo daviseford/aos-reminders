@@ -5,6 +5,7 @@ import { SubscriptionApi } from 'api/subscriptionApi'
 import GenericButton from 'components/input/generic_button'
 import { PaypalPostSubscribeModal } from 'components/modals/paypal_post_subscribe_modal'
 import PayPalButton from 'components/payment/paypal/paypalButton'
+import { IApprovalResponse } from 'components/payment/paypal/paypalTypes'
 import { PaypalProvider } from 'context/usePaypal'
 import qs from 'qs'
 import React, { useState } from 'react'
@@ -163,20 +164,33 @@ const PlanComponent = (props: IPlanProps) => {
 const PayPalComponent = (props: IPlanProps) => {
   const { user } = useAuth0()
   const [modalIsOpen, setModalIsOpen] = useState(false)
+  const [approval, setApproval] = useState<IApprovalResponse | null>(null)
 
   const { paypal_dev, paypal_prod, title } = props.supportPlan
+  const planId = isDev ? paypal_dev : paypal_prod
 
-  const handleSuccess = async () => {
+  // The approval response is proof of payment — passing its subscriptionID
+  // lets the API grant access even before PayPal's webhooks arrive. The modal
+  // retries this every poll tick, so a lost first attempt is not fatal.
+  const requestGrant = async (data: IApprovalResponse | null = approval) => {
+    if (!user?.email) return null
+    return SubscriptionApi.requestGrant({
+      userName: user.email,
+      subscriptionId: data?.subscriptionID,
+      planId: data?.subscriptionID ? planId : undefined,
+    })
+  }
+
+  const handleSuccess = async (data: IApprovalResponse) => {
+    setApproval(data)
     setModalIsOpen(true)
     props.setPaypalModalIsOpen(true)
     logEvent(`Checkout-Subscribed-${title}`)
     logSubscription(title, 'paypal')
     try {
-      if (!user?.email) return null
-      // Request a ten-minute temporary grant while Paypal approvals happen in the background
-      await SubscriptionApi.requestGrant(user.email)
+      await requestGrant(data)
     } catch (err) {
-      // pass
+      // The post-subscribe modal keeps retrying the grant while it polls
     }
   }
 
@@ -199,7 +213,9 @@ const PayPalComponent = (props: IPlanProps) => {
           planTitle={title}
         />
       )}
-      {modalIsOpen && <PaypalPostSubscribeModal modalIsOpen={modalIsOpen} closeModal={closeModal} />}
+      {modalIsOpen && (
+        <PaypalPostSubscribeModal modalIsOpen={modalIsOpen} closeModal={closeModal} retryGrant={requestGrant} />
+      )}
     </div>
   )
 }

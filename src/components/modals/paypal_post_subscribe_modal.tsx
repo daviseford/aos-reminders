@@ -10,9 +10,10 @@ import { useSetInterval } from 'utils/hooks/useInterval'
 interface IModalComponentProps {
   modalIsOpen: boolean
   closeModal: () => void
+  retryGrant?: () => Promise<unknown>
 }
 
-export const PaypalPostSubscribeModal = ({ closeModal, modalIsOpen }: IModalComponentProps) => {
+export const PaypalPostSubscribeModal = ({ closeModal, modalIsOpen, retryGrant }: IModalComponentProps) => {
   const { isActive, subscriptionLoading, getSubscription } = useSubscription()
   const { theme } = useTheme()
 
@@ -29,6 +30,9 @@ export const PaypalPostSubscribeModal = ({ closeModal, modalIsOpen }: IModalComp
 
     if (!isActive && !subscriptionLoading) {
       console.log('Checking for subscription update from Paypal...')
+      // Re-send the grant each tick: the first attempt races PayPal's CREATED
+      // webhook (median 12s behind the approval) and may have found no row yet
+      retryGrant?.().catch(() => undefined)
       getSubscription()
     }
   }, interval)
