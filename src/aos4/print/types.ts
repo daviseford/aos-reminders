@@ -11,6 +11,7 @@ export type PrintTextRole =
   | 'documentSubtitle'
   | 'sectionHeading'
   | 'ruleTitle'
+  | 'ruleTag'
   | 'ruleBody'
   | 'ruleNote'
   | 'summaryHeading'
@@ -24,10 +25,41 @@ export interface PrintParagraph {
   text: string
 }
 
+/** Names the facet, not a colour. `PrintPreset.tagTones` maps it to ink. */
+export type PrintTagTone =
+  | 'kind-active'
+  | 'kind-reaction'
+  | 'kind-passive'
+  | 'turn-your'
+  | 'turn-enemy'
+  | 'turn-neutral'
+  | 'usage'
+  | 'priority'
+
+export interface PrintTag {
+  label: string
+  tone: PrintTagTone
+}
+
+export interface PrintTagStyle {
+  fill?: readonly [number, number, number]
+  text: readonly [number, number, number]
+  border: readonly [number, number, number]
+  /** Dashed borders mark the usage limit, which is a constraint rather than a classification. */
+  dashed?: boolean
+}
+
 export interface PrintRule {
   id: string
   title: string
+  tags?: PrintTag[]
   paragraphs: PrintParagraph[]
+}
+
+/** A tag with its box resolved to absolute inches by the layout. */
+export interface PlacedTag extends PrintTag {
+  xIn: number
+  widthIn: number
 }
 
 export interface PrintSection {
@@ -85,6 +117,15 @@ export interface PrintPreset {
   description: string
   page: PrintPageSpec
   roles: Record<PrintTextRole, PrintRoleStyle>
+  /**
+   * Where a rule's tags sit. `title-right` needs a wide measure to avoid colliding with the title;
+   * `below-title` always fits. Declared per preset rather than derived from the column count, so a
+   * future preset has to make the choice deliberately.
+   */
+  tagPlacement: 'title-right' | 'below-title'
+  tagTones: Record<PrintTagTone, PrintTagStyle>
+  /** Horizontal padding inside a tag box, in inches. */
+  tagPaddingXIn: number
 }
 
 /**
@@ -115,6 +156,8 @@ export interface PlacedLine {
   spansColumns: boolean
   /** Bold run rendered before `text`, if any. Only ever set on the first line of a paragraph. */
   label?: string
+  /** Tag boxes already resolved to absolute inches, so the renderer makes no layout decisions. */
+  tags?: PlacedTag[]
   text: string
   /** Identifies the source block, so callers and tests can regroup wrapped lines. */
   blockId?: string

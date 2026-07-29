@@ -14,6 +14,7 @@ export interface ITheme {
   profileCardHeader: string
   reminderHeader: string
   reminderHr: string
+  reminderTags: string
   secondaryButton: string
   selectTheme: Record<string, string>
   text: string

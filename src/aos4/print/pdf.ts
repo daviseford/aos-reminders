@@ -39,6 +39,40 @@ const drawLine = (doc: jsPDF, plan: PrintPlan, line: PlacedLine) => {
   doc.text(line.text, line.xIn, line.yIn)
 }
 
+/**
+ * Draws a line's tag boxes. Every coordinate arrives resolved from the plan; this only picks ink and
+ * paints. The box is centred on the text baseline so a tag sitting beside a title reads as part of
+ * the same line.
+ */
+const drawTags = (doc: jsPDF, plan: PrintPlan, line: PlacedLine) => {
+  if (!line.tags?.length) return
+  const style = plan.preset.roles.ruleTag
+  const textHeightIn = style.sizePt / 72
+  const boxHeightIn = textHeightIn + 0.05
+  const top = line.yIn - textHeightIn - 0.012
+
+  line.tags.forEach(tag => {
+    const tone = plan.preset.tagTones[tag.tone]
+    doc.setLineWidth(0.005)
+    doc.setDrawColor(tone.border[0], tone.border[1], tone.border[2])
+
+    if (tone.fill) {
+      doc.setFillColor(tone.fill[0], tone.fill[1], tone.fill[2])
+      doc.roundedRect(tag.xIn, top, tag.widthIn, boxHeightIn, 0.02, 0.02, 'FD')
+    } else {
+      doc.roundedRect(tag.xIn, top, tag.widthIn, boxHeightIn, 0.02, 0.02, 'S')
+    }
+
+    doc.setFont('helvetica')
+    doc.setFontStyle(style.weight)
+    doc.setFontSize(style.sizePt)
+    doc.setTextColor(tone.text[0], tone.text[1], tone.text[2])
+    doc.text(tag.label, tag.xIn + plan.preset.tagPaddingXIn, line.yIn - 0.008)
+  })
+
+  doc.setTextColor(BLACK[0], BLACK[1], BLACK[2])
+}
+
 const drawSectionBox = (doc: jsPDF, plan: PrintPlan, line: PlacedLine) => {
   const style = plan.preset.roles[line.role]
   const height = (style.sizePt * style.leading) / 72
@@ -97,7 +131,8 @@ export const renderPrintPlanToPdf = (plan: PrintPlan, options: RenderPdfOptions)
       .filter(line => line.page === pageIndex)
       .forEach(line => {
         if (line.boxed) drawSectionBox(doc, plan, line)
-        drawLine(doc, plan, line)
+        drawTags(doc, plan, line)
+        if (line.text) drawLine(doc, plan, line)
       })
   }
 

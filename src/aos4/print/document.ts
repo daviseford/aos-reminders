@@ -1,4 +1,4 @@
-import type { PrintDocument, PrintParagraph, PrintRule, PrintSection } from './types'
+import type { PrintDocument, PrintParagraph, PrintRule, PrintSection, PrintTag } from './types'
 
 /**
  * Structural subset of `Aos4ReminderViewModel`. Declared here so the print model does not depend on
@@ -10,6 +10,8 @@ export interface PrintReminderInput {
   windowKey: string
   windowLabel: string
   typeLabel: string
+  /** Discrete timing facets. Absent on legacy fixtures, which fall back to `typeLabel`. */
+  tags?: PrintTag[]
   declare?: string
   reactionTrigger?: string
   effect: string
@@ -45,11 +47,22 @@ const paragraphs = (reminder: PrintReminderInput): PrintParagraph[] => [
   ...(reminder.note ? [{ role: 'ruleNote' as const, label: 'Note', text: normalize(reminder.note) }] : []),
 ]
 
-const toRule = (reminder: PrintReminderInput): PrintRule => ({
-  id: reminder.id,
-  title: reminder.typeLabel ? `${reminder.typeLabel} - ${reminder.name}` : reminder.name,
-  paragraphs: paragraphs(reminder),
-})
+/**
+ * With tags present the facets are drawn as boxes, so the title is just the name. Without them the
+ * old flattened prefix is kept, which is what lets legacy fixtures and any caller that has not
+ * adopted tags keep working unchanged.
+ */
+const toRule = (reminder: PrintReminderInput): PrintRule => {
+  const tags = reminder.tags ?? []
+  if (tags.length) {
+    return { id: reminder.id, title: reminder.name, tags, paragraphs: paragraphs(reminder) }
+  }
+  return {
+    id: reminder.id,
+    title: reminder.typeLabel ? `${reminder.typeLabel} - ${reminder.name}` : reminder.name,
+    paragraphs: paragraphs(reminder),
+  }
+}
 
 const summaryLine = (warscroll: PrintWarscrollInput): string => {
   if (!warscroll.profile) return warscroll.name
