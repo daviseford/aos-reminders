@@ -106,6 +106,7 @@ describe('AoS 4 legacy isolation', () => {
     expect(survivors).toEqual([])
 
     const allowedPresentationShell = new Set([
+      'api/armyApi.ts',
       'api/subscriptionApi.ts',
       'components/helpers/alreadySubscribed.tsx',
       'components/helpers/link.tsx',
@@ -119,6 +120,9 @@ describe('AoS 4 legacy isolation', () => {
       'components/input/importArmy/importArmyModal.tsx',
       'components/input/importArmy/importPreview.tsx',
       'components/input/importArmy/subscriberAction.tsx',
+      'components/input/armySharing/shareArmyModal.tsx',
+      'components/input/armySharing/sharedArmyModal.tsx',
+      'components/input/cloudArmies/savedArmiesModal.tsx',
       'components/input/toolbar/toolbar.tsx',
       'components/page/footer.tsx',
       'components/page/homeHeader.tsx',

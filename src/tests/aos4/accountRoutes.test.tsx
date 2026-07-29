@@ -109,7 +109,7 @@ describe('established account routes', () => {
     vi.restoreAllMocks()
   })
 
-  it('advertises only the subscriber benefit that is currently available', async () => {
+  it('advertises the restored subscriber capabilities without retired format claims', async () => {
     Object.defineProperty(window, 'innerWidth', { configurable: true, value: 375 })
 
     await act(async () => {
@@ -127,6 +127,13 @@ describe('established account routes', () => {
     expect(container.textContent).toContain('Support AoS Reminders')
     expect(container.textContent).toContain('What do you get when you subscribe?')
     expect(container.textContent).toContain('Spare your eyes! Turn on dark mode!')
+    expect(container.textContent).toContain(
+      'Import current army lists from the AoS app, Listbot 4.0, and New Recruit.'
+    )
+    expect(container.textContent).toContain(
+      'Save, load, rename, update, and delete AoS 4 armies across your devices.'
+    )
+    expect(container.textContent).toContain('Create read-only army links to share with your friends.')
     expect(container.textContent).toContain('Subscription Plans')
     expect(container.textContent).toContain('Dark Mode')
     expect(container.querySelector('[src="/img/dark_mode1.mp4"]')).not.toBeNull()

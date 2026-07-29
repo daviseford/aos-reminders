@@ -9,6 +9,7 @@ import GenericModal from 'components/modals/generic/generic_modal'
 import { useTheme } from 'context/useTheme'
 import { useMemo, useState } from 'react'
 import { decodeAos4RosterFile, decodeAos4TextRoster } from '../../../importers/aos4'
+import { createAos4DocumentId } from 'utils/createAos4DocumentId'
 import ImportPreview from './importPreview'
 
 interface ImportArmyModalProps {
@@ -19,12 +20,6 @@ interface ImportArmyModalProps {
 }
 
 type ImportMode = 'paste' | 'upload'
-
-const createRandomDocumentId = (): string => {
-  if (typeof crypto.randomUUID === 'function') return `army:${crypto.randomUUID()}`
-  const bytes = crypto.getRandomValues(new Uint8Array(16))
-  return `army:${Array.from(bytes, byte => byte.toString(16).padStart(2, '0')).join('')}`
-}
 
 const unexpectedFileError = (): Aos4ParsedRosterResult => ({
   diagnostics: [
@@ -38,7 +33,7 @@ const unexpectedFileError = (): Aos4ParsedRosterResult => ({
 
 const ImportArmyModal = ({
   closeModal,
-  createDocumentId = createRandomDocumentId,
+  createDocumentId = createAos4DocumentId,
   isOpen,
   onApply,
 }: ImportArmyModalProps) => {

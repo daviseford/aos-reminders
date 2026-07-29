@@ -1,4 +1,5 @@
 {
   "domain": "dev-4yesv5fz.auth0.com",
-  "clientId": "QHLRyZn1I3HltmvLNQtfwTf6WvpMUoNZ"
+  "clientId": "QHLRyZn1I3HltmvLNQtfwTf6WvpMUoNZ",
+  "audience": "https://api.aosreminders.com"
 }
