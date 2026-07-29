@@ -1,11 +1,12 @@
 import type { Aos4ReminderViewModel } from '../../aos4/view'
+import { CollapsibleCardHeader } from 'components/aos4/collapsibleCardHeader'
 import { useIsMobile } from 'components/aos4/useIsMobile'
 import { useTheme } from 'context/useTheme'
 import { Fragment, useEffect, useMemo, useState } from 'react'
 import { DragDropContext, Draggable, Droppable, type DropResult } from 'react-beautiful-dnd'
 import { Dropdown } from 'react-bootstrap'
 import { FaEllipsisH } from 'react-icons/fa'
-import { MdExpandMore, MdRemove, MdVisibilityOff } from 'react-icons/md'
+import { MdVisibilityOff } from 'react-icons/md'
 
 export interface ReminderSourceLink {
   id: string
@@ -139,7 +140,7 @@ const ReminderEntry = ({
           <Dropdown>
             <Dropdown.Toggle
               as="button"
-              className={`btn btn-link border-0 p-0 ${theme.text}`}
+              className={`ReminderMenuToggle btn btn-link border-0 p-0 ${theme.text}`}
               aria-label={`Options for ${reminder.name}`}
             >
               <FaEllipsisH />
@@ -230,6 +231,7 @@ const ReminderCard = ({
 
   const toggleExpanded = () => setIsExpanded(current => !current)
   const printable = group.reminders.some(reminder => !reminder.hidden)
+  const bodyId = `aos4-reminders-${group.key}`
 
   return (
     <DragDropContext onDragEnd={handleDragEnd}>
@@ -241,28 +243,15 @@ const ReminderCard = ({
             className={`row d-block PageBreak ${printable ? '' : 'd-print-none'}`}
           >
             <div className="card border-dark my-2 mx-1">
-              <div
-                className={`${theme.cardHeader} text-white ${isMobile ? 'py-3 px-3' : 'py-2'}`}
-                role="button"
-                tabIndex={0}
-                onClick={toggleExpanded}
-                onKeyDown={event => event.key === 'Enter' && toggleExpanded()}
-              >
-                <div className={`d-flex justify-content-${isMobile ? 'end' : 'center'} align-items-center`}>
-                  <div className={`flex-grow-1 text-center ${isMobile ? '' : 'pl-5'}`}>
-                    {isMobile ? (
-                      <h5 className="CardHeaderTitle text-nowrap">{group.label}</h5>
-                    ) : (
-                      <h4 className="CardHeaderTitle text-nowrap">{group.label}</h4>
-                    )}
-                  </div>
-                  <div className={`${isMobile ? 'pr-0' : 'px-3'} d-print-none`}>
-                    {isExpanded ? <MdRemove aria-hidden /> : <MdExpandMore aria-hidden />}
-                  </div>
-                </div>
-              </div>
+              <CollapsibleCardHeader
+                bodyId={bodyId}
+                isExpanded={isExpanded}
+                onToggle={toggleExpanded}
+                title={group.label}
+              />
               <div
                 className={`${theme.cardBody} ${isExpanded ? '' : 'd-none d-print-block'} ReminderCardBody`}
+                id={bodyId}
               >
                 {group.reminders.map((reminder, index) => (
                   <Fragment key={reminder.id}>

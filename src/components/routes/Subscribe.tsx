@@ -7,9 +7,8 @@ import { PricingPlans } from 'components/payment/pricingPlans'
 import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { logClick, logPageView } from 'utils/analytics'
-import { GITHUB_URL, ROUTES } from 'utils/env'
+import { GITHUB_URL } from 'utils/env'
 import useWindowSize from 'utils/hooks/useWindowSize'
 
 const Navbar = lazy(() => import('components/page/navbar'))
@@ -103,10 +102,11 @@ const Intro = () => {
       <img
         className="d-block mx-auto mb-4 img-fluid rounded-circle bg-white"
         src="/img/logo_medium_padding.png"
-        width="120px"
+        width="120"
         alt="Subscribe to support AoS Reminders"
       />
-      <h2>Support AoS Reminders</h2>
+      {/* Rendered at h2 size so the page gains a top-level heading without a visual change. */}
+      <h1 className="h2">Support AoS Reminders</h1>
       <p className="lead">
         <strong>
           It takes a lot of time, effort, and money to keep this project going. While the core product will{' '}
@@ -130,9 +130,6 @@ const CurrentFeatures = () => (
         <strong>NEW:</strong> Import lists from the new Warhammer App!
       </li>
       <li>Write, edit, and save notes!</li>
-      <li>
-        Access to <Link to={ROUTES.STATS}>advanced stats!</Link>
-      </li>
       <li>Share army lists with your friends!</li>
       <li>Spare your eyes! Turn on dark mode!</li>
       <li>
@@ -184,9 +181,12 @@ const WebmWithFallback = ({ webmUrl, gifUrl, description, label }: WebmWithFallb
   return (
     <figure className="figure">
       <LinkNewTab href={supportsWebm ? webmUrl : gifUrl} onClick={() => logClick(label)} label="Video URL">
+        {/* muted + playsInline are required for autoplay on iOS Safari and Android Chrome. */}
         <video
-          preload="auto"
+          preload="metadata"
           loop
+          muted
+          playsInline
           poster={gifUrl}
           autoPlay
           className="figure-img img-fluid rounded img-thumbnail"

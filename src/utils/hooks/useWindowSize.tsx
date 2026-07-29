@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react'
+import { matchesMobile, matchesTinyMobile } from 'utils/breakpoints'
 
 type WindowSize = { width?: number; height?: number }
 
@@ -9,24 +10,32 @@ const useWindowSize = () => {
   })
 
   useEffect(() => {
+    let frame = 0
+
+    const readSize = () => setWindowSize({ width: window.innerWidth, height: window.innerHeight })
+
+    // Coalesce the burst of resize events a mobile URL bar produces into one state update per frame.
     const handleResize = () => {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      })
+      cancelAnimationFrame(frame)
+      frame = requestAnimationFrame(readSize)
     }
 
+    // The first measurement is synchronous, so mounting leaves no frame pending.
+    readSize()
     window.addEventListener('resize', handleResize)
-    handleResize()
-    return () => window.removeEventListener('resize', handleResize)
+    return () => {
+      cancelAnimationFrame(frame)
+      window.removeEventListener('resize', handleResize)
+    }
   }, [])
 
   return useMemo(
     () => ({
       width: windowSize.width,
       height: windowSize.height,
-      isTinyMobile: windowSize.width ? windowSize.width <= 335 : false,
-      isMobile: windowSize.width ? windowSize.width <= 480 : false,
+      // Derived from the same breakpoints the stylesheet uses, so JS and CSS agree.
+      isTinyMobile: windowSize.width ? matchesTinyMobile() : false,
+      isMobile: windowSize.width ? matchesMobile() : false,
     }),
     [windowSize.width, windowSize.height]
   )

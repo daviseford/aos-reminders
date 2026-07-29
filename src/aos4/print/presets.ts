@@ -100,18 +100,22 @@ const compactRoles: Record<PrintTextRole, PrintRoleStyle> = {
 }
 
 /**
- * Tag ink. Fills stay very light so a greyscale printer renders them near-white and the dark tag
- * text keeps its contrast; the border carries the distinction when colour is lost entirely.
+ * Tag ink. No tone carries a fill: on a printed page a flood-filled box costs far more ink than the
+ * tag is worth, so every tone is an outline. `drawTags` already strokes rather than fills whenever
+ * `fill` is absent, which is how the usage tone has always rendered.
+ *
+ * The border takes the tone's own text colour. The previous light borders were tuned to edge a fill
+ * behind them; standing alone on white at 0.005in they would all but disappear.
  */
 const TAG_TONES: Record<PrintTagTone, PrintTagStyle> = {
-  'kind-active': { fill: [224, 239, 245], text: [12, 74, 96], border: [180, 215, 228] },
-  'kind-reaction': { fill: [248, 236, 217], text: [121, 73, 13], border: [230, 205, 164] },
-  'kind-passive': { fill: [233, 238, 241], text: [70, 88, 95], border: [208, 218, 222] },
-  'turn-your': { fill: [230, 242, 234], text: [31, 83, 52], border: [188, 220, 199] },
-  'turn-enemy': { fill: [249, 232, 232], text: [124, 53, 53], border: [236, 201, 201] },
-  'turn-neutral': { fill: [238, 240, 242], text: [77, 90, 99], border: [216, 222, 226] },
-  priority: { fill: [248, 236, 217], text: [121, 73, 13], border: [230, 205, 164] },
-  usage: { text: [91, 107, 116], border: [185, 197, 204], dashed: true },
+  'kind-active': { text: [12, 74, 96], border: [12, 74, 96] },
+  'kind-reaction': { text: [121, 73, 13], border: [121, 73, 13] },
+  'kind-passive': { text: [70, 88, 95], border: [70, 88, 95] },
+  'turn-your': { text: [31, 83, 52], border: [31, 83, 52] },
+  'turn-enemy': { text: [124, 53, 53], border: [124, 53, 53] },
+  'turn-neutral': { text: [77, 90, 99], border: [77, 90, 99] },
+  priority: { text: [121, 73, 13], border: [121, 73, 13] },
+  usage: { text: [91, 107, 116], border: [91, 107, 116], dashed: true },
 }
 
 export const STANDARD_PRESET: PrintPreset = {

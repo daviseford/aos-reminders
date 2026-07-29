@@ -38,7 +38,7 @@ export const Header = ({
 
       <div className={jumboClass}>
         <div className="container">
-          <h1 className="display-5 text-white">Age of Sigmar Reminders</h1>
+          <h1 className="text-white">Age of Sigmar Reminders</h1>
           <p className="mt-3 mb-1 d-none d-sm-block text-white">
             By Davis E. Ford -{' '}
             <a
@@ -54,12 +54,14 @@ export const Header = ({
 
           <div className="d-flex align-items-center justify-content-center text-white">
             <div className="d-inline-flex flex-row">
+              {/*
+                These labels stay click-to-toggle for the mouse, but they are not focusable: the
+                switch below is the single keyboard control, and a focusable label that only fires
+                in the opposite mode is a dead stop in the tab order.
+              */}
               <span
                 className={`align-self-center pb-2 mr-2 ${isGameMode ? '' : 'font-weight-bold'}`}
-                role="button"
-                tabIndex={0}
                 onClick={() => isGameMode && onToggleGameMode()}
-                onKeyDown={event => event.key === 'Enter' && isGameMode && onToggleGameMode()}
               >
                 Edit
               </span>
@@ -83,10 +85,7 @@ export const Header = ({
               </label>
               <span
                 className={`align-self-center pb-2 ml-2 ${isGameMode ? 'font-weight-bold' : ''}`}
-                role="button"
-                tabIndex={0}
                 onClick={() => !isGameMode && onToggleGameMode()}
-                onKeyDown={event => event.key === 'Enter' && !isGameMode && onToggleGameMode()}
               >
                 Play
               </span>
@@ -95,7 +94,7 @@ export const Header = ({
 
           {isGameMode ? (
             <div className="pt-1 pb-0 justify-content-center">
-              <h2 className="display-5 text-white">{armyName}</h2>
+              <h2 className="text-white">{armyName}</h2>
             </div>
           ) : (
             <>

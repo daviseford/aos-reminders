@@ -1,10 +1,10 @@
 import type { CanonicalId } from '../../aos4/domain'
 import type { createAos4BuilderViewModel } from '../../aos4/view'
+import { CollapsibleCardHeader } from 'components/aos4/collapsibleCardHeader'
 import { useIsMobile } from 'components/aos4/useIsMobile'
 import { useTheme } from 'context/useTheme'
 import { useMemo, useState } from 'react'
 import Select, { type MultiValue } from 'react-select'
-import { MdExpandMore, MdRemove } from 'react-icons/md'
 
 type BuilderViewModel = ReturnType<typeof createAos4BuilderViewModel>
 type BuilderOption = BuilderViewModel['options'][number]
@@ -96,39 +96,20 @@ const SelectionCard = ({
   const bodyClass = `${theme.cardBody} ${isExpanded ? '' : 'd-none'} ${isMobile ? 'py-3' : ''}`
   const colMobile = isMobile && !isExpanded ? 'col w-50 px-1' : 'col-12 px-1'
   const colDesktop = `col-sm-12 col-md-6 col-lg-4 col-xl-4 ${isMobile ? '' : 'mb-2'}`
+  const bodyId = `aos4-builder-${group.key}`
 
   const toggleExpanded = () => setIsExpanded(current => !current)
 
   return (
     <div className={`${colMobile} ${colDesktop} ${theme.bgColor} mx-auto mt-1`}>
       <div className={theme.card}>
-        <div
-          className={`${theme.cardHeader} ${isMobile ? 'py-3 px-3' : 'py-2'}`}
-          role="button"
-          tabIndex={0}
-          onClick={toggleExpanded}
-          onKeyDown={event => event.key === 'Enter' && toggleExpanded()}
-        >
-          <div className={`d-flex justify-content-${isMobile ? 'end' : 'center'} align-items-center`}>
-            <div className={`flex-grow-1 text-center ${isMobile ? '' : 'pl-5'}`}>
-              {isMobile ? (
-                <h5 className="CardHeaderTitle">
-                  {title}
-                  {selectionCount && !isExpanded ? ` (${selectionCount})` : ''}
-                </h5>
-              ) : (
-                <h4 className="CardHeaderTitle text-nowrap">
-                  {title}
-                  {selectionCount && !isExpanded ? ` (${selectionCount})` : ''}
-                </h4>
-              )}
-            </div>
-            <div className={`${isMobile ? 'pr-0' : 'px-3'} d-print-none`}>
-              {isExpanded ? <MdRemove aria-hidden /> : <MdExpandMore aria-hidden />}
-            </div>
-          </div>
-        </div>
-        <div className={bodyClass}>
+        <CollapsibleCardHeader
+          bodyId={bodyId}
+          isExpanded={isExpanded}
+          onToggle={toggleExpanded}
+          title={`${title}${selectionCount && !isExpanded ? ` (${selectionCount})` : ''}`}
+        />
+        <div className={bodyClass} id={bodyId}>
           <Select<Option, true>
             aria-label={group.title}
             value={selectedValues}

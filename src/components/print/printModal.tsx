@@ -17,34 +17,45 @@ const PAGE_SIZES: { id: PrintPageSize; label: string }[] = [
   { id: 'letter', label: 'US Letter' },
 ]
 
+/**
+ * The group label is a <legend> rather than a <label>. A <label> cannot name a set of radios — the
+ * previous htmlFor pointed at an id that never existed, leaving "Layout" and "Page size" orphaned.
+ */
 const RadioGroup = <T extends string>({
+  legend,
   name,
   onChange,
   options,
   value,
 }: {
+  legend: string
   name: string
   onChange: (value: T) => void
   options: { id: T; label: string }[]
   value: T
 }) => (
-  <div className="d-flex justify-content-center">
-    {options.map(option => (
-      <div className="custom-control custom-radio custom-control-inline" key={option.id}>
-        <input
-          checked={value === option.id}
-          className="custom-control-input"
-          id={`${name}-${option.id}`}
-          name={name}
-          onChange={() => onChange(option.id)}
-          type="radio"
-        />
-        <label className="custom-control-label" htmlFor={`${name}-${option.id}`}>
-          {option.label}
-        </label>
-      </div>
-    ))}
-  </div>
+  <fieldset>
+    <legend className="FieldsetLegend">
+      <strong>{legend}</strong>
+    </legend>
+    <div className="d-flex justify-content-center">
+      {options.map(option => (
+        <div className="custom-control custom-radio custom-control-inline" key={option.id}>
+          <input
+            checked={value === option.id}
+            className="custom-control-input"
+            id={`${name}-${option.id}`}
+            name={name}
+            onChange={() => onChange(option.id)}
+            type="radio"
+          />
+          <label className="custom-control-label" htmlFor={`${name}-${option.id}`}>
+            {option.label}
+          </label>
+        </div>
+      ))}
+    </div>
+  </fieldset>
 )
 
 const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: PrintModalProps) => {
@@ -73,10 +84,8 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
 
       <div className={`row mx-3 ${theme.text}`}>
         <div className="col">
-          <label className="mb-1" htmlFor="printLayout">
-            <strong>Layout</strong>
-          </label>
           <RadioGroup
+            legend="Layout"
             name="printLayout"
             onChange={setPresetId}
             options={PRINT_PRESETS.map(option => ({ id: option.id, label: option.label }))}
@@ -88,10 +97,13 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
 
       <div className={`row mx-3 ${theme.text}`}>
         <div className="col">
-          <label className="mb-1" htmlFor="printPageSize">
-            <strong>Page size</strong>
-          </label>
-          <RadioGroup name="printPageSize" onChange={setPageSize} options={PAGE_SIZES} value={pageSize} />
+          <RadioGroup
+            legend="Page size"
+            name="printPageSize"
+            onChange={setPageSize}
+            options={PAGE_SIZES}
+            value={pageSize}
+          />
         </div>
       </div>
 
@@ -110,13 +122,18 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
         </div>
       </div>
 
+      {/*
+        Full width rather than col-sm-6. The modal is shrink-to-fit at ~427px whatever the viewport,
+        so a half column is ~113px — not enough for the icon plus "Download PDF", which wrapped onto
+        three lines. col-sm-6 keys off viewport width, which tells us nothing about the modal's.
+      */}
       <div className="row mx-3 mt-4 pb-3">
-        <div className="col-12 col-sm-6 pb-2">
+        <div className="col-12 pb-2">
           <button className={`${theme.modalDangerClass} btn-block`} onClick={closeModal} type="button">
             Cancel
           </button>
         </div>
-        <div className="col-12 col-sm-6 pb-2">
+        <div className="col-12 pb-2">
           <button className={`${theme.modalConfirmClass} btn-block`} onClick={handleDownload} type="button">
             <MdFileDownload className="mr-2" />
             Download PDF
