@@ -208,18 +208,22 @@ export type RosterNode = Record<string, unknown>
 /**
  * Convert parsed roster XML into the exact shape New Recruit's `.json` export uses.
  *
- * BattleScribe's schema strictly alternates container elements (`<selections>`) and item elements
- * (`<selection>`), so each non-empty container becomes an array keyed by the container's tag.
- * Empty containers are omitted, matching the JSON export.
+ * A child element is transliterated one of three ways, by shape:
+ *
+ * - **Container** (has element children) — becomes an array keyed by the container's tag.
+ *   BattleScribe's schema strictly alternates containers (`<selections>`) and items
+ *   (`<selection>`), so this is the common case.
+ * - **Text-valued property** (no children, has text) — becomes a plain string property. This is
+ *   how `<rule><description>…</description></rule>` serialises: `{name, id, description: "…"}`.
+ *   Note it is *not* `$text`, which carries an element's own text alongside its attributes.
+ * - **Empty** (no children, no text) — omitted, matching the JSON export.
  */
 export const xmlToRosterJson = (element: XmlElement): RosterNode => {
   const node: RosterNode = {}
 
   for (const child of element.children) {
     if (child.children.length === 0) {
-      if (child.text.trim()) {
-        throw new Error(`Unexpected leaf container <${child.tag}> with text`)
-      }
+      if (child.text) node[child.tag] = child.text
       continue // empty container: absent from the JSON export
     }
     node[child.tag] = child.children.map(xmlToRosterJson)
@@ -279,9 +283,7 @@ export const describeDifferences = (left: unknown, right: unknown, limit = 10): 
   a.forEach((value, path) => {
     if (!b.has(path)) report.push(`only in XML:  ${path} = ${JSON.stringify(value)}`)
     else if (JSON.stringify(b.get(path)) !== JSON.stringify(value)) {
-      report.push(
-        `differs: ${path} — XML ${JSON.stringify(value)} vs JSON ${JSON.stringify(b.get(path))}`
-      )
+      report.push(`differs: ${path} — XML ${JSON.stringify(value)} vs JSON ${JSON.stringify(b.get(path))}`)
     }
   })
   b.forEach((value, path) => {

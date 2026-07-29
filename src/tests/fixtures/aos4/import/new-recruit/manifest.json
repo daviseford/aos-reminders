@@ -78,11 +78,44 @@
           "sha256": "d3308b07766189ec14ad0023219aba062648e9a48b5bf39c0d5fdf7da7cf2886"
         }
       }
+    },
+    {
+      "id": "sce-002-units-a",
+      "faction": "Stormcast Eternals",
+      "rulesContext": "General's Handbook 2026-27",
+      "pointsLimit": 0,
+      "legalForPlay": true,
+      "shapes": [
+        "allow-legends-configuration",
+        "auxiliary-force",
+        "every-unit-in-catalogue",
+        "faction-terrain",
+        "over-points-illegal",
+        "rule-description-element"
+      ],
+      "files": {
+        "ros": {
+          "bytes": 646457,
+          "sha256": "f0a4e2aab2037a93b91dd578a017522631133b0605364e0f23fdb5e9b62b8944"
+        },
+        "rosz": {
+          "bytes": 55995,
+          "sha256": "69fc037d0263ac73398c6db60e17da202d9f4c94721a3f020ac6921373164f44"
+        },
+        "json": {
+          "bytes": 556542,
+          "sha256": "8a2d3f4ca62e68674789e1888b8d8b23a3108c83326e03920958f2f60109289f"
+        }
+      }
     }
   ],
   "coverage": {
     "allow-legends-configuration": [
-      "fec-001-ghb-kitchen-sink"
+      "fec-001-ghb-kitchen-sink",
+      "sce-002-units-a"
+    ],
+    "auxiliary-force": [
+      "sce-002-units-a"
     ],
     "battle-formation": [
       "fec-001-ghb-kitchen-sink"
@@ -110,6 +143,12 @@
     "enhancement-heroic-trait": [
       "fec-001-ghb-kitchen-sink"
     ],
+    "every-unit-in-catalogue": [
+      "sce-002-units-a"
+    ],
+    "faction-terrain": [
+      "sce-002-units-a"
+    ],
     "general-upgrade": [
       "fec-001-ghb-kitchen-sink"
     ],
@@ -132,12 +171,18 @@
       "fec-001-ghb-kitchen-sink",
       "sce-001-minimal"
     ],
+    "over-points-illegal": [
+      "sce-002-units-a"
+    ],
     "prayer-lore": [
       "fec-001-ghb-kitchen-sink",
       "sce-001-minimal"
     ],
     "reinforced-unit-model-counts": [
       "fec-001-ghb-kitchen-sink"
+    ],
+    "rule-description-element": [
+      "sce-002-units-a"
     ],
     "seasonal-name-variant-scourge-of-aqshy": [
       "fec-001-ghb-kitchen-sink"
@@ -164,12 +209,12 @@
     ]
   },
   "totals": {
-    "lists": 2,
+    "lists": 3,
     "bytes": {
-      "ros": 217793,
-      "rosz": 22104,
-      "json": 190362
+      "ros": 864250,
+      "rosz": 78099,
+      "json": 746904
     },
-    "shapes": 25
+    "shapes": 30
   }
 }

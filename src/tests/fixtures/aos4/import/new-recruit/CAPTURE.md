@@ -116,9 +116,50 @@ Force contexts available in the same dialog: `✦ General's Handbook 2026-27` (d
 `Path to Glory: Ravaged Coast`, `Path to Glory: Ascension`,
 `Path to Glory: Freeform [UNOFFICIAL]`.
 
+## Coverage captures: every unit in an army
+
+The per-army baseline above is one small list. For **catalogue coverage** — every unit name the
+importer might have to resolve — use [`driver.js`](./driver.js): paste it into the browser console
+on the list page and run `await NRD.buildAll()`. `sce-002-units-a` was produced this way and holds
+all 90 Stormcast entries.
+
+The technique that makes this cheap: add units to an **Auxiliary Units** force rather than a
+Regiment. Regiments constrain what may be taken; auxiliaries do not, so a single list can hold the
+entire catalogue. The result is wildly illegal (90 units, 15,750 pts, no general) and that is
+fine — see "Game legality is not checked" in the README.
+
+Rules of thumb for coverage lists:
+
+- One list per army holds every **unit**. Split into `-002`/`-003` only if the app struggles.
+- **Mutually exclusive** picks (battle formation, each lore) can only hold one value per list, so
+  they need one extra list per alternative, or `NRD.buildAll({optionOffset: n})` to settle them on
+  a different option.
+- `NRD.coverage()` reports catalogue size, what the list holds, and exactly what is missing.
+
 ## Notes for browser automation (Claude in Chrome)
 
-The build-and-export loop is deliberately automatable against a normal browser session:
+Five findings from automating this; all are encoded in `driver.js`, and ignoring any of them
+silently produces an empty or partial capture.
+
+1. **Read through the app's model, write through the DOM.** The Pinia roster model is reachable
+   (`useNuxtApp().$pinia._s.get('lists').getCurrentList()`) and is the reliable way to *enumerate*
+   the catalogue (`book.getUnits()`) and the list (`army.getUnits()`). But writes through it do
+   not stick: `selector.addInstance()` and `instance.setAmount(1)` both return successfully while
+   `getInstancesAmount()` stays 0 and the export is unchanged. Only real DOM gestures commit.
+2. **Add the Auxiliary force through the dialog**, not `addForceInstance()`. A model-created force
+   accepts unit additions and renders correctly, then vanishes on reload along with everything
+   added to it — a whole 90-unit build was lost this way.
+3. **Attempt each option once.** Many option groups are mutually exclusive: ticking a second
+   battle formation unticks the first. "Tick until nothing is unchecked" therefore never
+   converges — it oscillates forever, and since every click recomputes the roster, the tab looks
+   hung.
+4. **A backgrounded tab throttles `setTimeout` to ~1s.** Long chains of short sleeps stretch from
+   seconds to minutes. Keep the tab visible for option passes, or expect them to crawl.
+5. **Wait for the save, then verify by reloading before exporting.** Saving is asynchronous and
+   debounced; navigating away too early discards the build. Reload and re-check
+   `army.getUnits().length` before opening the Export dialog.
+
+The build-and-export loop is otherwise straightforward to automate against a normal session:
 
 - **Give the app settle time.** The editor re-renders heavily after every click — the renderer
   can be unresponsive for several seconds (screenshots time out). Wait 2–5 s after each action
