@@ -20,11 +20,18 @@ import {
 } from '../../aos4/view'
 import Reminders, { type ReminderSourceLink } from 'components/info/reminders'
 import ArmyBuilder from 'components/input/army_builder'
+import { useSubscriberAction } from 'components/input/importArmy/subscriberAction'
 import Toolbar from 'components/input/toolbar/toolbar'
 import Footer from 'components/page/footer'
 import { Header } from 'components/page/homeHeader'
 import PrintModal from 'components/print/printModal'
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+import { consumePendingShareId } from 'utils/shareLink'
+
+const ImportArmyModal = lazy(() => import('components/input/importArmy/importArmyModal'))
+const SavedArmiesModal = lazy(() => import('components/input/cloudArmies/savedArmiesModal'))
+const ShareArmyModal = lazy(() => import('components/input/armySharing/shareArmyModal'))
+const SharedArmyModal = lazy(() => import('components/input/armySharing/sharedArmyModal'))
 
 const loadDocument = (): Aos4ArmyDocument => {
   try {
@@ -79,7 +86,23 @@ const toFileName = (name: string) => `${name.trim().split(/\s+/).join('_') || 'A
 const Home = () => {
   const [document, setDocument] = useState(loadDocument)
   const [isGameMode, setIsGameMode] = useState(false)
+  const [importModalIsOpen, setImportModalIsOpen] = useState(false)
+  const [savedArmiesModalIsOpen, setSavedArmiesModalIsOpen] = useState(false)
+  const [shareModalIsOpen, setShareModalIsOpen] = useState(false)
+  const [pendingShareId, setPendingShareId] = useState(() => consumePendingShareId())
   const [printModalIsOpen, setPrintModalIsOpen] = useState(false)
+  const importAction = useSubscriberAction({
+    onAuthorized: () => setImportModalIsOpen(true),
+    origin: 'ImportArmy',
+  })
+  const savedArmiesAction = useSubscriberAction({
+    onAuthorized: () => setSavedArmiesModalIsOpen(true),
+    origin: 'SavedArmies',
+  })
+  const shareAction = useSubscriberAction({
+    onAuthorized: () => setShareModalIsOpen(true),
+    origin: 'ShareArmy',
+  })
   const factions = useMemo(
     () =>
       factionEntities
@@ -220,8 +243,14 @@ const Home = () => {
           hiddenCount={hiddenCount}
           onClearArmy={clearArmy}
           onDownloadPdf={() => setPrintModalIsOpen(true)}
+          onImportArmy={importAction.run}
+          onOpenSavedArmies={savedArmiesAction.run}
           onResetArmy={() => setDocument(createDefaultAos4ArmyDocument())}
+          onShareArmy={shareAction.run}
           onShowAll={showAll}
+          subscriberActionDisabled={
+            importAction.disabled || savedArmiesAction.disabled || shareAction.disabled
+          }
         />
       )}
 
@@ -243,6 +272,51 @@ const Home = () => {
           isOpen={printModalIsOpen}
           onDownloadPdf={handleDownloadPdf}
         />
+      )}
+
+      {importModalIsOpen && (
+        <Suspense fallback={null}>
+          <ImportArmyModal
+            closeModal={() => setImportModalIsOpen(false)}
+            isOpen={importModalIsOpen}
+            onApply={nextDocument => {
+              setDocument(nextDocument)
+              setImportModalIsOpen(false)
+            }}
+          />
+        </Suspense>
+      )}
+
+      {savedArmiesModalIsOpen && (
+        <Suspense fallback={null}>
+          <SavedArmiesModal
+            closeModal={() => setSavedArmiesModalIsOpen(false)}
+            currentDocument={document}
+            isOpen={savedArmiesModalIsOpen}
+            onApply={setDocument}
+          />
+        </Suspense>
+      )}
+
+      {shareModalIsOpen && (
+        <Suspense fallback={null}>
+          <ShareArmyModal
+            closeModal={() => setShareModalIsOpen(false)}
+            document={document}
+            isOpen={shareModalIsOpen}
+          />
+        </Suspense>
+      )}
+
+      {pendingShareId && (
+        <Suspense fallback={null}>
+          <SharedArmyModal
+            closeModal={() => setPendingShareId(undefined)}
+            isOpen
+            onApply={setDocument}
+            shareId={pendingShareId}
+          />
+        </Suspense>
       )}
     </div>
   )

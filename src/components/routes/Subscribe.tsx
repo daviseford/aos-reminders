@@ -8,7 +8,6 @@ import { useSubscription } from 'context/useSubscription'
 import { useTheme } from 'context/useTheme'
 import React, { lazy, Suspense, useEffect } from 'react'
 import { logClick, logPageView } from 'utils/analytics'
-import { GITHUB_URL } from 'utils/env'
 import useWindowSize from 'utils/hooks/useWindowSize'
 
 const Navbar = lazy(() => import('components/page/navbar'))
@@ -42,7 +41,6 @@ const Subscribe = () => {
       <div className={`container ${theme.bgColor} ${theme.text}`}>
         <div className="row align-items-start justify-content-center mt-3">
           <CurrentFeatures />
-          <ComingSoon />
         </div>
       </div>
       <div className="row py-5 bg-light justify-content-center jumbotron-fluid">
@@ -56,40 +54,20 @@ const Subscribe = () => {
   )
 }
 
-const ExamplesRow = () => (
-  <div className="row py-5 mx-3 bg-light justify-content-center jumbotron-fluid">
-    <MobileDarkModeDemo />
-    <div className="col-12 col-xl-8 col-xxl-5">
-      <WebmWithFallback
-        webmUrl="/img/import_demo.mp4"
-        gifUrl="/img/import_demo.gif"
-        description="Importing Warscroll Builder/Azyr files"
-        label="Demo-Import"
-      />
-    </div>
-    <div className="col-12 col-xl-8 col-xxl-5">
-      <WebmWithFallback
-        webmUrl="/img/save_load_demo.mp4"
-        gifUrl="/img/save_load_demo.gif"
-        description="Saving, loading, and deleting armies"
-        label="Demo-SaveLoad"
-      />
-    </div>
-  </div>
-)
-
-const MobileDarkModeDemo = () => {
+const ExamplesRow = () => {
   const { isMobile } = useWindowSize()
   if (!isMobile) return null
 
   return (
-    <div className="col-12">
-      <WebmWithFallback
-        webmUrl="/img/dark_mode1.mp4"
-        gifUrl="/img/dark_mode1.gif"
-        description="Dark Mode"
-        label="Demo-DarkMode"
-      />
+    <div className="row py-5 mx-3 bg-light justify-content-center jumbotron-fluid">
+      <div className="col-12">
+        <WebmWithFallback
+          webmUrl="/img/dark_mode1.mp4"
+          gifUrl="/img/dark_mode1.gif"
+          description="Dark Mode"
+          label="Demo-DarkMode"
+        />
+      </div>
     </div>
   )
 }
@@ -126,44 +104,11 @@ const CurrentFeatures = () => (
       <strong>What do you get when you subscribe?</strong>
     </p>
     <ul className="lead">
-      <li>
-        <strong>NEW:</strong> Import lists from the new Warhammer App!
-      </li>
-      <li>Write, edit, and save notes!</li>
-      <li>Share army lists with your friends!</li>
+      <li>Import current army lists from the AoS app, Listbot 4.0, and New Recruit.</li>
+      <li>Save, load, rename, update, and delete AoS 4 armies across your devices.</li>
+      <li>Create read-only army links to share with your friends.</li>
       <li>Spare your eyes! Turn on dark mode!</li>
-      <li>
-        Save, load, update, and delete your army lists from <strong>anywhere</strong> on <strong>any</strong>{' '}
-        device - even <strong>offline!</strong>
-      </li>
-      <li>
-        Import your army lists <strong>instantly</strong> from Azyr, Warscroll Builder, and Battlescribe.
-      </li>
-    </ul>
-  </div>
-)
-
-const ComingSoon = () => (
-  <div className={featuresColClass}>
-    <p className="lead">
-      <strong>Coming soon: </strong>
-    </p>
-    <ul className="lead">
-      <li>
-        <i>Add custom reminders to any phase</i>
-      </li>
-      <li>
-        <i>Attach PDF/HTML lists to your Saved Army</i>
-      </li>
-      <li>
-        <i>
-          <strong>and much more!</strong>
-        </i>{' '}
-        - Check out our list of planned feature enhancements{' '}
-        <LinkNewTab href={`${GITHUB_URL}/labels/enhancement`} label="Github">
-          on Github!
-        </LinkNewTab>
-      </li>
+      <li>Help keep AoS Reminders free for everyone.</li>
     </ul>
   </div>
 )

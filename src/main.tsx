@@ -1,8 +1,10 @@
 import 'core-js/stable' // organize-imports-ignore
 import 'css/index.scss' // organize-imports-ignore
+import './bootstrap/captureShareLink' // organize-imports-ignore
 import { Auth0Provider } from '@auth0/auth0-react'
 import App from 'components/App'
 import { AppStatusProvider } from 'context/useAppStatus'
+import { ArmyCollectionProvider } from 'context/useArmyCollection'
 import { SubscriptionProvider } from 'context/useSubscription'
 import { ThemeProvider } from 'context/useTheme'
 import React from 'react'
@@ -21,15 +23,19 @@ render(
     domain={config.domain}
     clientId={config.clientId}
     authorizationParams={{
+      audience: config.audience,
       redirect_uri: window.location.origin,
+      scope: 'openid profile email',
     }}
     onRedirectCallback={onRedirectCallback}
   >
     <AppStatusProvider>
       <SubscriptionProvider>
-        <ThemeProvider>
-          <App />
-        </ThemeProvider>
+        <ArmyCollectionProvider>
+          <ThemeProvider>
+            <App />
+          </ThemeProvider>
+        </ArmyCollectionProvider>
       </SubscriptionProvider>
     </AppStatusProvider>
   </Auth0Provider>,

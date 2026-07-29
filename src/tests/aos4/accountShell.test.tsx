@@ -145,5 +145,6 @@ describe('established account shell', () => {
   it('uses the same Auth0 tenant configured for the established live account flow', () => {
     expect(config.domain).toBe('dev-4yesv5fz.auth0.com')
     expect(config.clientId).toBeTruthy()
+    expect(config.audience).toBe('https://api.aosreminders.com')
   })
 })

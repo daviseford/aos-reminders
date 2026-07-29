@@ -105,10 +105,13 @@ describe('established account routes', () => {
       unmountComponentAtNode(container)
     })
     container.remove()
+    Object.defineProperty(window, 'innerWidth', { configurable: true, value: 1024 })
     vi.restoreAllMocks()
   })
 
-  it('preserves the established subscription page content and pricing placement', async () => {
+  it('advertises the restored subscriber capabilities without retired format claims', async () => {
+    Object.defineProperty(window, 'innerWidth', { configurable: true, value: 375 })
+
     await act(async () => {
       render(
         <AppStatusProvider>
@@ -123,9 +126,72 @@ describe('established account routes', () => {
 
     expect(container.textContent).toContain('Support AoS Reminders')
     expect(container.textContent).toContain('What do you get when you subscribe?')
-    expect(container.textContent).toContain('Import lists from the new Warhammer App!')
+    expect(container.textContent).toContain('Spare your eyes! Turn on dark mode!')
+    expect(container.textContent).toContain(
+      'Import current army lists from the AoS app, Listbot 4.0, and New Recruit.'
+    )
+    expect(container.textContent).toContain(
+      'Save, load, rename, update, and delete AoS 4 armies across your devices.'
+    )
+    expect(container.textContent).toContain('Create read-only army links to share with your friends.')
     expect(container.textContent).toContain('Subscription Plans')
-    expect(container.textContent).toContain('Importing Warscroll Builder/Azyr files')
+    expect(container.textContent).toContain('Dark Mode')
+    expect(container.querySelector('[src="/img/dark_mode1.mp4"]')).not.toBeNull()
+
+    const staleClaims = [
+      'Import lists from the new Warhammer App!',
+      'Write, edit, and save notes!',
+      'Share army lists with your friends!',
+      'Save, load, update, and delete your army lists',
+      'offline!',
+      'Azyr',
+      'Warscroll Builder',
+      'Battlescribe',
+      'Coming soon:',
+      'Add custom reminders',
+      'Attach PDF/HTML lists',
+    ]
+
+    staleClaims.forEach(claim => expect(container.textContent).not.toContain(claim))
+    expect(container.querySelector('[src="/img/import_demo.mp4"]')).toBeNull()
+    expect(container.querySelector('[src="/img/save_load_demo.mp4"]')).toBeNull()
+  })
+
+  it('does not leave an empty examples section on desktop', async () => {
+    await act(async () => {
+      render(
+        <AppStatusProvider>
+          <MemoryRouter>
+            <Subscribe />
+          </MemoryRouter>
+        </AppStatusProvider>,
+        container
+      )
+      await Promise.resolve()
+    })
+
+    expect(container.textContent).toContain('Spare your eyes! Turn on dark mode!')
+    expect(container.querySelector('[src="/img/dark_mode1.mp4"]')).toBeNull()
+  })
+
+  it('preserves the active-subscriber redirect screen', async () => {
+    subscription.isSubscribed = true
+    subscription.isActive = true
+
+    await act(async () => {
+      render(
+        <AppStatusProvider>
+          <MemoryRouter>
+            <Subscribe />
+          </MemoryRouter>
+        </AppStatusProvider>,
+        container
+      )
+      await Promise.resolve()
+    })
+
+    expect(container.textContent).toContain('You are now subscribed :) Thanks!')
+    expect(container.textContent).not.toContain('Subscription Plans')
   })
 
   it('preserves the established profile cards and subscription controls', async () => {
