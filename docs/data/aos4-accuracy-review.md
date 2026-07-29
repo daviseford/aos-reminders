@@ -33,8 +33,9 @@ The independent source inventory was observed at `2026-07-28T18:21:35.398Z`: 241
 accepted checksums and 9 discovery entries received explicit non-material dispositions.
 
 `data/aos4/certifications/beta.json` binds the accepted revision to this automated evidence.
-`yarn data:aos4:verify:beta` is the fail-closed beta gate and must pass before accepted generation,
-CI, or Phase 2 work proceeds.
+`yarn data:aos4:verify:beta` is the fail-closed beta gate. It passes for the current revision, which
+completes Phase 1 under the machine-verified beta standard and allows Phase 2 to proceed. Any bound
+corpus or evidence change must pass a new campaign before accepted generation or CI proceeds.
 
 The 129 faction/context strata are the combinations declared by each faction's catalog
 applicability, not a Cartesian product. A stratum counts as reviewed only when every live packet

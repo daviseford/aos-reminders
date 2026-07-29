@@ -15,7 +15,7 @@ The migration workbench currently provides:
 - safe Games Workshop and Wahapedia acquisition adapters
 - deterministic reconciliation, identity, audit, and runtime-generation tools
 - an accepted, source-traceable corpus covering all 28 decoded factions, 1,268 warscrolls,
-  1,002 battle profiles, 4,260 abilities, and 2,247 weapons
+  1,002 battle profiles, 4,850 abilities, 2,247 weapons, and 1,402 content groups
 - explicit current-standard, General's Handbook 2026-27 (`Scourge of Aqshy`), Spearhead, Legends,
   and historical rules contexts so parallel or retired records cannot leak into the current
   builder
@@ -25,9 +25,22 @@ The migration workbench currently provides:
   persistence
 - a hard clean cut: no AoS 3 rules, state, importers, or compatibility behavior remain
 
-Phase 1's game structure and accepted data pipeline are complete for the pinned 2026-07-27
-snapshot. This is not launch authorization: do not deploy or merge the migration PR to `master`
-until the migration is explicitly approved.
+| Program stage | Status |
+| --- | --- |
+| Phase 1: AoS 4 data and domain | Complete and machine-verified for beta use |
+| Phase 2: package and application modernization | Ready to begin; planned upgrades remain pending |
+| Production launch | Not authorized; backend account authorization remains a release blocker |
+
+The Phase 1 beta gate binds the accepted `aos4-corpus-2026-07-28` revision to a complete automated
+review of 79,446 results across 39,723 source/generated pairs, with zero live findings and zero
+`cannot-verify` outcomes. Run `yarn data:aos4:verify:beta` to verify the committed evidence without
+network or cache access. Future beta reports and source updates reopen only the affected data
+through the candidate pipeline; they do not restart the completed migration.
+
+Phase 2 can now proceed while the accepted AoS 4 data contracts remain stable. This is not launch
+authorization: do not deploy or merge the migration PR to `master` until the migration is
+explicitly approved and the production account API verifies Auth0 bearer tokens and account
+ownership server-side.
 
 ## Sources
 
@@ -73,6 +86,7 @@ Verify the accepted snapshot and every generated checksum from the local artifac
 
 ```bash
 yarn data:aos4:generate
+yarn data:aos4:verify:beta
 ```
 
 ## Architecture
@@ -89,9 +103,9 @@ The AoS 4 implementation lives under `src/aos4/`:
 - `view/` — pure builder/reminder presentation models
 - `generate/` and `generated/` — deterministic accepted outputs
 
-Read [AGENTS.md](AGENTS.md) before changing the migration and
-[the Phase 1 plan](docs/plans/2026-07-27-001-refactor-aos4-domain-and-data-pipeline-plan.md) for
-requirements and sequencing.
+Read [AGENTS.md](AGENTS.md) for the current Phase 2 scope and migration constraints. The
+[Phase 1 plan](docs/plans/2026-07-27-001-refactor-aos4-domain-and-data-pipeline-plan.md) remains the
+completed requirements and decision history.
 
 ## Pull requests and deployment
 

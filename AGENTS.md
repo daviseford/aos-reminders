@@ -26,7 +26,8 @@ The migration branch is now an Age of Sigmar fourth-edition-only workbench:
   runtime, 12 remain profile-only gaps, 363 remain structured references, and 47 are superseded
 - the earlier candidate/cohort reports remain checked-in reconnaissance history, not current
   blockers
-- package upgrades and broader framework modernization remain Phase 2 work
+- Phase 1 is complete and machine-verified for beta use; package upgrades and broader framework
+  modernization are the active Phase 2 program
 
 Do not confuse these version numbers:
 
@@ -115,12 +116,14 @@ Future data refreshes repeat Phase 1b's candidate-review-accept-generate workflo
 accepted snapshot merely because a newer download decoded successfully. Review changed diagnostics,
 official precedence, dispositions, identities, and generated checksums first.
 
-Avoid dependency churn during Phase 1 unless a package blocks correct data work, the build, or safe
-operation.
+For future Phase 1 data refreshes, avoid mixing dependency churn into rules/data corrections unless
+a package blocks correct data work, the build, or safe operation.
 
 ### Phase 2: package and codebase modernization
 
-After the AoS 4 domain and data pipeline stabilize:
+Phase 2 is ready to begin, and its planned package and framework upgrades remain pending. Preserve
+the completed AoS 4 domain, generated-data contracts, beta gate, and familiar interface while
+working through:
 
 - upgrade React, Vite, TypeScript, Sass, PWA tooling, and supporting packages
 - remove packages made unused by the AoS 3 retirement

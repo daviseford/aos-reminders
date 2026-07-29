@@ -1,8 +1,14 @@
 # Contributing to the AoS 4 migration
 
-AoS Reminders is undergoing a clean fourth-edition migration. Read the root
-[AGENTS.md](../AGENTS.md) and the active
-[Phase 1 plan](plans/2026-07-27-001-refactor-aos4-domain-and-data-pipeline-plan.md) first.
+AoS Reminders has completed the data-and-domain phase of its clean fourth-edition migration and is
+ready for Phase 2 modernization. Read the root [AGENTS.md](../AGENTS.md) for current scope and
+constraints. The
+[Phase 1 plan](plans/2026-07-27-001-refactor-aos4-domain-and-data-pipeline-plan.md) is retained as
+completed requirements and decision history.
+
+The accepted corpus is machine-verified for beta use. Beta reports do not justify direct edits to
+generated data: confirm each report against current official sources, correct the candidate
+pipeline, add regression coverage, and produce a new checksum-bound certification.
 
 ## Branching
 
@@ -90,6 +96,7 @@ yarn tsc --noEmit
 yarn test --run
 yarn build
 yarn data:aos4:generate
+yarn data:aos4:verify:beta
 ```
 
 Add focused coverage for:
