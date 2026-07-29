@@ -9,9 +9,15 @@ AoS Reminders turns an Age of Sigmar army configuration into phase-ordered remin
 The migration branch is now an Age of Sigmar fourth-edition-only workbench:
 
 - the browser runtime uses the canonical model under `src/aos4/`
-- the checked-in runtime is generated from the accepted 2026-07-27 AoS 4 corpus
+- the checked-in runtime is generated from the accepted `aos4-corpus-2026-07-28` snapshot
 - the AoS 3 faction corpus, rule utilities, Redux state, saved-army schema, importers, and fixtures
   have been removed
+- importing, cloud armies, and army sharing are rebuilt as AoS 4-native features: roster parsers in
+  `src/importers/aos4/` (official app text, Listbot text and file upload, New Recruit
+  `.ros`/`.rosz`/`.json`), roster resolution in `src/aos4/import/`, and the Auth0-authorized cloud
+  client in `src/api/armyApi.ts`
+- an army document may opt into Legends units (`allowsLegends`); Legends applies as an overlay on
+  the document's rules context during selection resolution
 - old browser state is deleted and replaced with a schema-valid AoS 4 document; it is never
   translated
 - all 28 decoded factions are selectable through one source-complete relationship graph
@@ -26,8 +32,9 @@ The migration branch is now an Age of Sigmar fourth-edition-only workbench:
   runtime, 12 remain profile-only gaps, 363 remain structured references, and 47 are superseded
 - the earlier candidate/cohort reports remain checked-in reconnaissance history, not current
   blockers
-- Phase 1 is complete and machine-verified for beta use; package upgrades and broader framework
-  modernization are the active Phase 2 program
+- Phase 1 is complete and machine-verified for beta use; Phase 2 is underway — capability
+  restoration has delivered printing/PDF export and importing/cloud armies/sharing, while package
+  upgrades and broader framework modernization remain pending
 
 Do not confuse these version numbers:
 
@@ -52,8 +59,9 @@ Do not confuse these version numbers:
 - A push to `master` triggers production deployment. Never push or merge `master` without explicit
   user authorization.
 
-`src/tests/aos4/legacyIsolation.test.ts` enforces the AoS 4 dependency boundary and the physical
-absence of retired paths.
+`src/tests/aos4/legacyIsolation.test.ts` enforces the AoS 4 dependency boundary, the physical
+absence of retired AoS 3 paths, and an explicit allowlist of the AoS 4 presentation shell (print,
+import, sharing, and cloud-army modules).
 
 ## Product and interface continuity
 
@@ -87,10 +95,12 @@ community trusts that experience; an AoS 4 data/domain migration does not author
 
 The restored subscription API is a migration-only compatibility risk: its shared browser key is
 public and its account operations are not authorized with the user's Auth0 token. An
-Auth0-protected route is not API authorization. Production launch is blocked until the backend
-verifies Auth0 bearer tokens, derives account ownership server-side, rejects cross-account access,
-rotates the shared key, and passes negative authorization tests. Preserve the familiar account UI
-while this work is explicitly tracked; do not describe the current API as secure.
+Auth0-protected route is not API authorization. Production launch is blocked until the
+subscription backend verifies Auth0 bearer tokens, derives account ownership server-side, rejects
+cross-account access, rotates the shared key, and passes negative authorization tests. Preserve
+the familiar account UI while this work is explicitly tracked; do not describe the subscription
+API as secure. The newer army/share API is different: `src/api/armyApi.ts` sends the user's Auth0
+bearer token for the `https://api.aosreminders.com` audience on every account operation.
 
 ## Migration program
 
@@ -125,24 +135,27 @@ a package blocks correct data work, the build, or safe operation.
 
 ### Phase 2: package and codebase modernization
 
-Phase 2 is ready to begin, and its planned package and framework upgrades remain pending. Preserve
-the completed AoS 4 domain, generated-data contracts, beta gate, and familiar interface while
-working through:
+Phase 2 is underway. Its capability-restoration track (plan `2026-07-29-001`) has delivered
+printing and PDF export (`src/aos4/print/`, documented in `docs/printing.md`) and importing, cloud
+armies, and sharing; its planned package and framework upgrades remain pending. Checked-in plans
+live under `docs/plans/`. Preserve the completed AoS 4 domain, generated-data contracts, beta
+gate, and familiar interface while working through:
 
 - upgrade React, Vite, TypeScript, Sass, PWA tooling, and supporting packages
 - remove packages made unused by the AoS 3 retirement
 - replace obsolete or unmaintained libraries
 - finish CRA-to-Vite/PWA cleanup
 - tighten compiler and lint settings
-- redesign API/auth/subscription/save/share capabilities against AoS 4 contracts as needed
+- redesign API/auth/subscription capabilities against AoS 4 contracts as needed (save and share
+  are delivered)
 - address bundle and deployment architecture
-- rebuild capabilities the cutover removed against AoS 4 contracts, starting with printing and PDF
-  export (`src/aos4/print/`, documented in `docs/printing.md`)
+- rebuild the remaining capabilities the cutover removed against AoS 4 contracts, following the
+  pattern set by printing and importing
 
 Keep framework migration separate from rules/data corrections where practical.
 
 The jsPDF upgrade (`1.5.3`, using APIs removed in 2.x) is outstanding Phase 2 work. It is now
-confined to `src/aos4/print/pdf.ts`.
+confined to `src/aos4/print/pdf.ts` and `src/aos4/print/measure.ts`.
 
 The companion API services (`aos-reminders-rest-api`, `aos-reminders-subscription-api`) run on
 `nodejs22.x`/Serverless v4/AWS SDK v3 with characterization tests and CI (plan
@@ -189,6 +202,22 @@ Every accepted fact must be traceable to:
 
 Acquisition bytes, normalized facts, accepted domain entities, and reminder projections are
 separate layers. Never make a PDF/HTML/CSV provider shape the application’s permanent model.
+
+A quiet official-first rules radar (official and Wahapedia sentinels plus a lower-authority BSData
+observer) is planned but not implemented; see
+`docs/plans/2026-07-29-003-feat-quiet-official-rules-radar-plan.md`.
+
+### Roster import sources
+
+Importing accepts official Warhammer app text, Listbot 4.0 text or file upload, and New Recruit
+`.ros`/`.rosz`/`.json` rosters. These are roster inputs, never rules authorities: they resolve
+against accepted stable IDs (`src/aos4/import/`) and must not create or override canonical rule
+facts. Roster bracket suffixes such as New Recruit's `[LEGENDS]` are provenance, not identity; the
+per-selection `Legends` category drives context handling. The checked-in New Recruit fixture
+corpus (`src/tests/fixtures/aos4/import/new-recruit/`) is byte-pinned, captured from opted-in
+accounts, and self-checking — all three formats must decode identically, and import fails closed
+on malformed files, never on illegal armies. Full source-derived import corpora belong under the
+ignored `data/aos4/import-corpus/` tree (`yarn corpus:listbot`), not in git.
 
 ### Games Workshop
 
@@ -280,6 +309,9 @@ applicable official and secondary source records, their exact checksums, and the
   diagnostics.
 - `src/aos4/select/` resolves explicit stable-ID selections through relationship edges and records
   causes/diagnostics.
+- `src/aos4/import/` resolves imported roster labels to stable selections through normalized
+  labels and reviewed aliases (`labelAliases.ts`); provider parsers live outside the domain in
+  `src/importers/aos4/`.
 - `src/aos4/reminders/` projects selected abilities to stable reminder occurrences and orders them
   by window, priority, lane, perspective, name, and ID.
 - `src/aos4/view/` creates builder/reminder view models. It contains no React or browser storage.
@@ -289,23 +321,31 @@ Reminder IDs derive from canonical ability identity and semantic timing, not mut
 ### State and runtime
 
 - `src/aos4/state/armyDocument.ts` owns schema-versioned serialization, validation, selections,
-  notes, hiding, and ordering preferences.
+  notes, hiding, ordering preferences, and the optional `allowsLegends` opt-in.
 - `src/aos4/runtime/armyStorage.ts` owns the versioned browser key
   `aos-reminders:aos4:army:v1`.
+- `src/api/armyApi.ts` is the cloud army and sharing client. It calls `VITE_ARMY_API_URL` with the
+  user's Auth0 bearer token (`src/utils/authToken.ts`); `src/context/useArmyCollection.tsx`
+  exposes the collection to the import, sharing, and saved-armies modals.
+- `src/utils/shareLink.ts` owns the sessionStorage key `aos-reminders:aos4:pending-share`;
+  `src/main.tsx` captures incoming share links and `Home` consumes them.
 - Loading removes `persist:root`, `loadedArmy`, `reminderOrder`, and `savedArmies` without parsing
   them.
 - Invalid or incompatible AoS 4 documents reset to a clean Stormcast Eternals document in the
   current accepted rules context.
 - The runtime contains current-standard, current-seasonal, Spearhead, Legends, and historical
   facts. The current UI uses the accepted default 2026-27 seasonal context. Context applicability
-  is retained on source records, entities, and relationships.
+  is retained on source records, entities, and relationships. A document that sets `allowsLegends`
+  resolves Legends records as an overlay on its selected context.
 - `src/components/routes/Home.tsx` is the live game screen and consumes generated data through AoS 4
   view models.
-- `/faq`, `/subscribe`, and the protected `/profile` route preserve the established non-rules
-  account experience.
-- `src/main.tsx` mounts Auth0, subscription, and theme providers around the AoS 4 application.
+- `/faq`, `/subscribe`, `/join`, `/redeem`, and the protected `/profile` route preserve the
+  established non-rules account experience.
+- `src/main.tsx` mounts Auth0, app-status, subscription, army-collection, and theme providers
+  around the AoS 4 application.
 
-Runtime code must not fetch source data. It loads checked-in generated artifacts only.
+Runtime code must not fetch rules source data. It loads checked-in generated artifacts only; the
+army and subscription APIs carry user account data, never rule facts.
 
 ### Acquisition and reconciliation
 
@@ -319,6 +359,8 @@ Runtime code must not fetch source data. It loads checked-in generated artifacts
   conflicts/diagnostics.
 - `src/aos4/generate/` validates source consumption, identity stability, and catalog integrity, then
   emits deterministic audit/runtime products.
+- `src/aos4/review/` implements the machine review, adversarial review, and certification pipeline
+  behind the `data:aos4:review:*`, `data:aos4:certify*`, and `data:aos4:verify:beta` commands.
 - `src/aos4/generated/corpus/` is the compact checked-in output consumed by the app.
 - `src/aos4/generated/representative/` remains only as the small offline contract fixture.
 - `data/aos4/` stores identity registries, manifests, reviewed overrides, and reports—not downloaded
@@ -339,7 +381,9 @@ The command never accepts data into runtime and refuses to overwrite an output d
 repeatable `--wahapedia-page`/`--faction` arguments for bounded current-page and non-verbatim
 cohort inventories, and `--official-search` arguments for page locators without page text. Use
 `--accepted-manifest <path> --offline` for deterministic replay. A cohort marked `blocked` must not
-be promoted. Raw artifacts belong under the ignored `.cache/aos4/` tree.
+be promoted. Raw artifacts belong under the ignored `.cache/aos4/` tree. Use
+`yarn data:aos4:inventory*` and `yarn data:aos4:discover-official` to observe sources without
+accepting anything.
 
 Accepted generation:
 
@@ -370,21 +414,28 @@ Use `yarn data:aos4:review:prepare`, `yarn data:aos4:review:adversarial`,
 
 ## Retired architecture
 
-The following must remain absent:
+The AoS 3 implementations below must remain absent. The features themselves are not retired:
+printing, importing, cloud armies, and sharing have AoS 4-native replacements at new paths, and
+`src/tests/aos4/legacyIsolation.test.ts` allowlists exactly those modules. Rebuild remaining
+capabilities the same way; never revive the AoS 3 code paths:
 
 - `src/factions/`, `src/generic_rules/`, `src/meta/`
 - `src/ducks/`, `src/store/`, Redux Persist state
 - old army/data/phase/selection/saved-army types
 - `processGame`, `processReminders`, `reminderUtils`, `getSideEffects`, `withSelect`
-- Azyr, Battlescribe, Warscroll Builder, and old Warhammer App importers
-- name/typo/deprecation lookup tables and historical importer fixtures
-- old saved-army, import, and PDF logic; the established visual components may be adapted to AoS 4
+- the AoS 3 Azyr, Battlescribe, Warscroll Builder, and Warhammer App importers
+- AoS 3 name/typo/deprecation lookup tables and historical importer fixtures
+  (`src/aos4/import/labelAliases.ts` is the reviewed AoS 4 import alias table, not a revival)
+- AoS 3 saved-army, import, and PDF logic; the established visual components may be adapted to
+  AoS 4
 
 Git history is the archive. Do not keep copied “reference” files in the working tree.
 
 ## Development conventions
 
-- Use Node `v20.15.1` from `.nvmrc` and Yarn Classic with the committed lockfile.
+- Use Node `v20.15.1` from `.nvmrc` and Yarn Classic with the committed lockfile. CI workflows run
+  Node 22 (matching the companion APIs' `nodejs22.x`); reconciling `.nvmrc` with CI is pending
+  Phase 2 work.
 - TypeScript is strict; `noImplicitAny` is still disabled pending Phase 2.
 - Prettier uses two spaces, no semicolons, single quotes, 110 columns, and ES5 trailing commas.
 - Prefer `satisfies` for static dictionaries so keys stay narrow while values are checked.
@@ -414,6 +465,7 @@ Focused examples:
 ```powershell
 yarn vitest run src/tests/aos4/legacyIsolation.test.ts
 yarn vitest run src/tests/aos4/representativeSlice.test.ts
+yarn vitest run src/tests/aos4/importNewRecruitCorpus.test.ts
 yarn data:aos4:generate:candidate
 yarn data:aos4:verify:beta
 ```
@@ -423,6 +475,10 @@ Always run `yarn data:aos4:verify:beta` for the accepted revision.
 Tests use small repository fixtures and must not depend on live source availability. Add contract
 tests for provider changes and reconciliation tests for conflicts, stale secondary data, missing
 joins, duplicate identities, unsafe HTML, and source precedence.
+
+The New Recruit import fixture corpus is self-checking; never hand-edit captured roster bytes.
+Capture new lists per `src/tests/fixtures/aos4/import/new-recruit/CAPTURE.md`, ingest with
+`yarn fixtures:new-recruit:ingest`, and regenerate the manifest with `yarn fixtures:new-recruit`.
 
 After touching acquisition or generation, also replay an accepted manifest offline and compare
 deterministic output. Live candidate retrieval is a deliberate network operation, not a routine
