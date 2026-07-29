@@ -20,11 +20,14 @@ import {
 } from '../../aos4/view'
 import Reminders, { type ReminderSourceLink } from 'components/info/reminders'
 import ArmyBuilder from 'components/input/army_builder'
+import { useSubscriberAction } from 'components/input/importArmy/subscriberAction'
 import Toolbar from 'components/input/toolbar/toolbar'
 import Footer from 'components/page/footer'
 import { Header } from 'components/page/homeHeader'
 import PrintModal from 'components/print/printModal'
-import { useEffect, useMemo, useState } from 'react'
+import { lazy, Suspense, useEffect, useMemo, useState } from 'react'
+
+const ImportArmyModal = lazy(() => import('components/input/importArmy/importArmyModal'))
 
 const loadDocument = (): Aos4ArmyDocument => {
   try {
@@ -79,7 +82,12 @@ const toFileName = (name: string) => `${name.trim().split(/\s+/).join('_') || 'A
 const Home = () => {
   const [document, setDocument] = useState(loadDocument)
   const [isGameMode, setIsGameMode] = useState(false)
+  const [importModalIsOpen, setImportModalIsOpen] = useState(false)
   const [printModalIsOpen, setPrintModalIsOpen] = useState(false)
+  const importAction = useSubscriberAction({
+    onAuthorized: () => setImportModalIsOpen(true),
+    origin: 'ImportArmy',
+  })
   const factions = useMemo(
     () =>
       factionEntities
@@ -220,8 +228,10 @@ const Home = () => {
           hiddenCount={hiddenCount}
           onClearArmy={clearArmy}
           onDownloadPdf={() => setPrintModalIsOpen(true)}
+          onImportArmy={importAction.run}
           onResetArmy={() => setDocument(createDefaultAos4ArmyDocument())}
           onShowAll={showAll}
+          subscriberActionDisabled={importAction.disabled}
         />
       )}
 
@@ -243,6 +253,19 @@ const Home = () => {
           isOpen={printModalIsOpen}
           onDownloadPdf={handleDownloadPdf}
         />
+      )}
+
+      {importModalIsOpen && (
+        <Suspense fallback={null}>
+          <ImportArmyModal
+            closeModal={() => setImportModalIsOpen(false)}
+            isOpen={importModalIsOpen}
+            onApply={nextDocument => {
+              setDocument(nextDocument)
+              setImportModalIsOpen(false)
+            }}
+          />
+        </Suspense>
       )}
     </div>
   )
