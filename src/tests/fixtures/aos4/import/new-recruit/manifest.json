@@ -193,6 +193,60 @@
       }
     },
     {
+      "id": "fs-001-all-units",
+      "faction": "Fyreslayers",
+      "rulesContext": "General's Handbook 2026-27",
+      "pointsLimit": 0,
+      "legalForPlay": true,
+      "shapes": [
+        "auxiliary-force",
+        "every-unit-in-catalogue",
+        "faction-terrain",
+        "over-points-illegal"
+      ],
+      "files": {
+        "ros": {
+          "bytes": 179086,
+          "sha256": "aab96aee3e911c1c72ed380651b82271b825ebacb2e6b1da056b008439dfe8c2"
+        },
+        "rosz": {
+          "bytes": 16416,
+          "sha256": "65b0e4fffabcf9d2fcd02664f9b830be0341666ccf79681d407949352fc228ca"
+        },
+        "json": {
+          "bytes": 155873,
+          "sha256": "fc5a27688ee2173fa204755a09c065ced7338466558ae97481e400955d0375c8"
+        }
+      }
+    },
+    {
+      "id": "gg-001-all-units",
+      "faction": "Gloomspite Gitz",
+      "rulesContext": "General's Handbook 2026-27",
+      "pointsLimit": 0,
+      "legalForPlay": true,
+      "shapes": [
+        "auxiliary-force",
+        "every-unit-in-catalogue",
+        "faction-terrain",
+        "over-points-illegal"
+      ],
+      "files": {
+        "ros": {
+          "bytes": 386785,
+          "sha256": "54247a33d07305b05f0a2285013b11d93beb6877c5bf638939f0d75d04b8b436"
+        },
+        "rosz": {
+          "bytes": 37893,
+          "sha256": "2a471a09a79781e53c47cdd1f1608c3b4d39cb1fa26a5f62e980a6c44577dd96"
+        },
+        "json": {
+          "bytes": 331679,
+          "sha256": "eb033fa3ee38746cae38127ed236200210de1df44960857cf045e5e3c26db943"
+        }
+      }
+    },
+    {
       "id": "sce-001-minimal",
       "faction": "Stormcast Eternals",
       "rulesContext": "General's Handbook 2026-27",
@@ -269,6 +323,8 @@
       "dok-001-all-units",
       "dot-001-all-units",
       "fec-002-all-units",
+      "fs-001-all-units",
+      "gg-001-all-units",
       "sce-002-units-a"
     ],
     "battle-formation": [
@@ -312,6 +368,8 @@
       "dok-001-all-units",
       "dot-001-all-units",
       "fec-002-all-units",
+      "fs-001-all-units",
+      "gg-001-all-units",
       "sce-002-units-a"
     ],
     "faction-terrain": [
@@ -320,6 +378,8 @@
       "dok-001-all-units",
       "dot-001-all-units",
       "fec-002-all-units",
+      "fs-001-all-units",
+      "gg-001-all-units",
       "sce-002-units-a"
     ],
     "general-upgrade": [
@@ -356,6 +416,8 @@
       "dok-001-all-units",
       "dot-001-all-units",
       "fec-002-all-units",
+      "fs-001-all-units",
+      "gg-001-all-units",
       "sce-002-units-a"
     ],
     "prayer-lore": [
@@ -398,11 +460,11 @@
     ]
   },
   "totals": {
-    "lists": 8,
+    "lists": 10,
     "bytes": {
-      "ros": 2445371,
-      "rosz": 223426,
-      "json": 2117659
+      "ros": 3011242,
+      "rosz": 277735,
+      "json": 2605211
     },
     "shapes": 36
   }
