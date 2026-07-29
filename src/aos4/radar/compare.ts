@@ -3,6 +3,8 @@ import type { ArtifactManifest, ArtifactManifestEntry } from '../data'
 import { stableCompactJson } from '../generate/serialization'
 import {
   RADAR_AUTHORITY_BY_SOURCE,
+  RADAR_MATERIAL_CHANGE_KINDS,
+  RADAR_OPERATIONAL_CHANGE_KINDS,
   RADAR_SOURCE_ORDER,
   RADAR_SOURCES,
   type BsDataObservation,
@@ -137,7 +139,11 @@ export const validateRadarEvent = (event: RadarEvent): RadarEvent => {
     throw new Error('Radar event has an invalid class')
   }
   instant(event.observedAt, 'Radar event observedAt')
-  nonEmptyString(event.changeKind, 'Radar event changeKind')
+  const expectedKinds =
+    event.class === 'material' ? RADAR_MATERIAL_CHANGE_KINDS : RADAR_OPERATIONAL_CHANGE_KINDS
+  if (!(expectedKinds as readonly string[]).includes(event.changeKind)) {
+    throw new Error(`Radar event changeKind does not match its ${event.class} class`)
+  }
   nonEmptyString(event.locator, 'Radar event locator')
   if (event.baselineFingerprint !== null) {
     const pattern = event.source === 'bsdata' ? GIT_SHA_PATTERN : SHA256_PATTERN
@@ -446,8 +452,20 @@ export const compareBsDataObservation = (observation: BsDataObservation): RadarL
   return createRadarLane('bsdata', observedAt, events, observation.workflowUrl)
 }
 
-const normalizedLane = (lane: RadarLane): RadarLane =>
-  createRadarLane(lane.source, lane.observedAt, lane.events, lane.workflowUrl)
+const normalizedLane = (lane: RadarLane): RadarLane => {
+  if (!lane || lane.schemaVersion !== 1 || !RADAR_SOURCES.includes(lane.source)) {
+    throw new Error('Radar lane has an incompatible schema or source')
+  }
+  if (lane.authority !== RADAR_AUTHORITY_BY_SOURCE[lane.source]) {
+    throw new Error(`Radar lane authority does not match ${lane.source}`)
+  }
+  const suppliedFingerprint = fingerprint(lane.fingerprint, `${lane.source} lane fingerprint`)
+  const normalized = createRadarLane(lane.source, lane.observedAt, lane.events, lane.workflowUrl)
+  if (suppliedFingerprint !== normalized.fingerprint) {
+    throw new Error(`Radar lane ${lane.source} fingerprint does not match its events`)
+  }
+  return normalized
+}
 
 export const mergeRadarLanes = (existing: RadarLane[], observed: RadarLane[]): RadarLane[] => {
   const bySource = new Map<RadarSource, RadarLane>()

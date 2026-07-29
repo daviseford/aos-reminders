@@ -26,6 +26,8 @@ const CHANGE_LABELS: Record<RadarEvent['changeKind'], string> = {
   'notification-failed': 'Notification failed',
 }
 
+const MAX_EVIDENCE_ARRAY_ITEMS = 20
+
 export const inertMarkdown = (value: string, maxLength = 300): string =>
   Array.from(value)
     .map(character => {
@@ -46,7 +48,12 @@ const evidenceLines = (event: RadarEvent): string[] =>
     .flatMap(([key, value]) => {
       if (value === null || value === false || value === '') return []
       const rendered = Array.isArray(value)
-        ? value.map(item => inertMarkdown(String(item))).join(', ')
+        ? [
+            ...value.slice(0, MAX_EVIDENCE_ARRAY_ITEMS).map(item => inertMarkdown(String(item))),
+            ...(value.length > MAX_EVIDENCE_ARRAY_ITEMS
+              ? [`… ${value.length - MAX_EVIDENCE_ARRAY_ITEMS} more`]
+              : []),
+          ].join(', ')
         : inertMarkdown(String(value))
       return [`  - ${inertMarkdown(key)}: ${rendered}`]
     })

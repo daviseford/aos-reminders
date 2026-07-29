@@ -28,7 +28,7 @@ permissions:
   issues: write
 
 concurrency:
-  group: aos4-rules-radar-${{ github.ref }}-${{ github.event.schedule || inputs.source || 'manual' }}
+  group: aos4-rules-radar-${{ github.ref }}
   cancel-in-progress: false
 
 jobs:
@@ -216,6 +216,8 @@ jobs:
             ${{ env.RUN_ROOT }}/report-only/material-event-count.txt
             ${{ env.RUN_ROOT }}/report-only/operational-event-count.txt
             ${{ env.RUN_ROOT }}/report-only/fingerprint.txt
+            ${{ env.RUN_ROOT }}/report-only/official-urls.json
+            ${{ env.RUN_ROOT }}/report-only/wahapedia-pages.json
             ${{ env.RUN_ROOT }}/candidate-report/report.json
             ${{ env.RUN_ROOT }}/candidate-report/issue-body.md
             ${{ env.RUN_ROOT }}/candidate-report/managed-issue-body.md
@@ -227,6 +229,27 @@ jobs:
             ${{ env.RUN_ROOT }}/candidate-report/candidate-evidence.json
             ${{ env.RUN_ROOT }}/candidate-report/candidate/*/manifest.json
             ${{ env.RUN_ROOT }}/candidate-report/candidate/*/evidence.json
+
+      - name: Write Rules Radar job summary
+        id: summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo "## AoS 4 Rules Radar"
+            echo
+            echo "- Games Workshop observation: \`${{ steps.official.outcome }}\`"
+            echo "- Wahapedia sentinel: \`${{ steps.wahapedia.outcome }}\`"
+            echo "- BSData observation: \`${{ steps.bsdata.outcome }}\`"
+            echo "- Expanded Wahapedia observation: \`${{ steps.full_wahapedia.outcome }}\`"
+            echo "- Candidate preparation: \`${{ steps.candidate.outcome }}\`"
+            echo "- GitHub issue synchronization: \`${{ steps.notify.outcome }}\`"
+            report_directory="${{ steps.final_report.outputs.directory }}"
+            if [[ -n "$report_directory" && -f "$report_directory/material-event-count.txt" ]]; then
+              echo "- Material events: \`$(tr -d '\r\n' < "$report_directory/material-event-count.txt")\`"
+              echo "- Operational events: \`$(tr -d '\r\n' < "$report_directory/operational-event-count.txt")\`"
+            fi
+          } >> "$GITHUB_STEP_SUMMARY"
 
       - name: Preserve Rules Radar failure
         if: always()
@@ -242,6 +265,7 @@ jobs:
             "${{ steps.final_report.outcome }}"
             "${{ steps.notify.outcome }}"
             "${{ steps.upload.outcome }}"
+            "${{ steps.summary.outcome }}"
           )
           for outcome in "${outcomes[@]}"; do
             if [[ "$outcome" == "failure" ]]; then

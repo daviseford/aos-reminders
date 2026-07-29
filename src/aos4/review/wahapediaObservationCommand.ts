@@ -21,15 +21,31 @@ import {
 import {
   createRequestLimiter,
   mapWithConcurrency,
+  RequestBudgetExceededError,
   type RequestLimiter,
 } from '../radar/observers/requestLimiter'
+import { parseRobotsPolicy, robotsAllows, type RobotsPolicy } from '../radar/observers/robots'
+import type { IndependentSourceObservation } from './sourceInventory'
 
-interface Arguments {
+export interface WahapediaObservationCommandInput {
   outputPath: string
   cacheDirectory: string
   concurrency: number
   requestBudget: number
   paceMs: number
+}
+
+type AcquireObservedArtifact = (request: AcquireArtifactRequest) => Promise<AcquireArtifactResult>
+
+export interface WahapediaObservationCommandDependencies {
+  acquire?: AcquireObservedArtifact
+  now?: () => string
+  wait?: (milliseconds: number) => Promise<void>
+}
+
+export interface WahapediaObservationCommandResult {
+  observation: IndependentSourceObservation
+  requestCount: number
 }
 
 interface ObservedAcquisition {
@@ -43,8 +59,8 @@ const nextValue = (values: string[], index: number, flag: string): string => {
   return value
 }
 
-export const parseWahapediaObservationArguments = (values: string[]): Arguments => {
-  const parsed: Arguments = {
+export const parseWahapediaObservationArguments = (values: string[]): WahapediaObservationCommandInput => {
+  const parsed: WahapediaObservationCommandInput = {
     outputPath: path.join('.cache', 'aos4', 'review', 'wahapedia-observation.json'),
     cacheDirectory: path.join('.cache', 'aos4', 'review', 'discovery-artifacts'),
     concurrency: 3,
@@ -121,20 +137,28 @@ const spreadsheetRequest = (url: string): AcquireArtifactRequest => ({
   timeoutMs: 30_000,
 })
 
+const robotsRequest = (): AcquireArtifactRequest => ({
+  url: 'https://wahapedia.ru/robots.txt',
+  adapterVersion: 'wahapedia-discovery/1',
+  allowedMediaTypes: ['text/plain'],
+  maxBytes: 1024 * 1024,
+  timeoutMs: 30_000,
+})
+
 const acquireRequired = async (
   request: AcquireArtifactRequest,
-  cacheDirectory: string,
-  limiter: RequestLimiter
-): Promise<AcquireArtifactResult> => limiter.run(() => acquireArtifact(request, dependencies(cacheDirectory)))
+  limiter: RequestLimiter,
+  acquire: AcquireObservedArtifact
+): Promise<AcquireArtifactResult> => limiter.run(() => acquire(request))
 
 const acquireObserved = async (
   source: WahapediaObservedSource,
   request: AcquireArtifactRequest,
-  cacheDirectory: string,
-  limiter: RequestLimiter
+  limiter: RequestLimiter,
+  acquire: AcquireObservedArtifact
 ): Promise<ObservedAcquisition> => {
   try {
-    const result = await acquireRequired(request, cacheDirectory, limiter)
+    const result = await acquireRequired(request, limiter, acquire)
     return {
       source: {
         ...source,
@@ -144,7 +168,8 @@ const acquireObserved = async (
       },
       result,
     }
-  } catch {
+  } catch (error) {
+    if (error instanceof RequestBudgetExceededError) throw error
     return {
       source: {
         ...source,
@@ -157,44 +182,55 @@ const acquireObserved = async (
 const titleFromExportUrl = (url: string): string =>
   decodeURIComponent(new URL(url).pathname.split('/').filter(Boolean).at(-1) ?? url)
 
-const run = async (): Promise<void> => {
-  const arguments_ = parseWahapediaObservationArguments(process.argv.slice(2))
-  const observedAt = new Date().toISOString()
+const assertRobotsAllows = (policy: RobotsPolicy, url: string): void => {
+  const parsed = new URL(url)
+  if (!robotsAllows(policy, 'aos-reminders-rules-radar', `${parsed.pathname}${parsed.search}`)) {
+    throw new Error(`Wahapedia robots.txt disallows Rules Radar acquisition: ${parsed.pathname}`)
+  }
+}
+
+export const observeWahapediaSources = async (
+  input: WahapediaObservationCommandInput,
+  providedDependencies: WahapediaObservationCommandDependencies = {}
+): Promise<WahapediaObservationCommandResult> => {
+  const observedAt = (providedDependencies.now ?? (() => new Date().toISOString()))()
   const limiter = createRequestLimiter({
-    budget: arguments_.requestBudget,
-    paceMs: arguments_.paceMs,
+    budget: input.requestBudget,
+    paceMs: input.paceMs,
+    wait: providedDependencies.wait,
   })
-  const index = await acquireRequired(
-    htmlRequest(WAHAPEDIA_DATA_EXPORT_URL),
-    arguments_.cacheDirectory,
-    limiter
-  )
+  const acquire =
+    providedDependencies.acquire ??
+    ((request: AcquireArtifactRequest) => acquireArtifact(request, dependencies(input.cacheDirectory)))
+  const robots = await acquireRequired(robotsRequest(), limiter, acquire)
+  const robotsPolicy = parseRobotsPolicy(new TextDecoder('utf-8', { fatal: true }).decode(robots.bytes))
+  assertRobotsAllows(robotsPolicy, WAHAPEDIA_DATA_EXPORT_URL)
+  const index = await acquireRequired(htmlRequest(WAHAPEDIA_DATA_EXPORT_URL), limiter, acquire)
   const navigation = discoverWahapediaNavigation(
     new TextDecoder('utf-8', { fatal: true }).decode(index.bytes),
     index.entry.finalUrl
   )
+  assertRobotsAllows(robotsPolicy, navigation.exportSpecificationUrl)
   const specification = await acquireRequired(
     spreadsheetRequest(navigation.exportSpecificationUrl),
-    arguments_.cacheDirectory,
-    limiter
+    limiter,
+    acquire
   )
   const exportUrls = discoverWahapediaExportUrls(specification.bytes)
+  navigation.factionPages.forEach(faction => assertRobotsAllows(robotsPolicy, faction.url))
 
-  const factionAcquisitions = await mapWithConcurrency(
-    navigation.factionPages,
-    arguments_.concurrency,
-    faction =>
-      acquireObserved(
-        {
-          kind: 'faction-page',
-          url: faction.url,
-          title: faction.title,
-          availability: 'accessible',
-        },
-        htmlRequest(faction.url),
-        arguments_.cacheDirectory,
-        limiter
-      )
+  const factionAcquisitions = await mapWithConcurrency(navigation.factionPages, input.concurrency, faction =>
+    acquireObserved(
+      {
+        kind: 'faction-page',
+        url: faction.url,
+        title: faction.title,
+        availability: 'accessible',
+      },
+      htmlRequest(faction.url),
+      limiter,
+      acquire
+    )
   )
   const collectionSources = factionAcquisitions.flatMap(acquisition => {
     if (!acquisition.result) return []
@@ -228,12 +264,13 @@ const run = async (): Promise<void> => {
       availability: 'accessible' as const,
     })),
   ]
-  const materialAcquisitions = await mapWithConcurrency(materialSources, arguments_.concurrency, source =>
+  materialSources.forEach(source => assertRobotsAllows(robotsPolicy, source.url))
+  const materialAcquisitions = await mapWithConcurrency(materialSources, input.concurrency, source =>
     acquireObserved(
       source,
       source.kind === 'export' ? exportRequest(source.url) : htmlRequest(source.url),
-      arguments_.cacheDirectory,
-      limiter
+      limiter,
+      acquire
     )
   )
   const observation = createWahapediaSourceObservation(observedAt, [
@@ -254,13 +291,19 @@ const run = async (): Promise<void> => {
     ...factionAcquisitions.map(value => value.source),
     ...materialAcquisitions.map(value => value.source),
   ])
+  return { observation, requestCount: limiter.count }
+}
+
+const run = async (): Promise<void> => {
+  const arguments_ = parseWahapediaObservationArguments(process.argv.slice(2))
+  const { observation, requestCount } = await observeWahapediaSources(arguments_)
   const output = path.resolve(arguments_.outputPath)
   await mkdir(path.dirname(output), { recursive: true })
   await writeFile(output, stableJson(observation), 'utf8')
   const inaccessible = observation.entries.filter(entry => entry.availability === 'inaccessible').length
   console.log(
     `Observed ${observation.entries.length} Wahapedia sources: ${output} ` +
-      `(${inaccessible} inaccessible, ${limiter.count} requests)`
+      `(${inaccessible} inaccessible, ${requestCount} requests)`
   )
 }
 

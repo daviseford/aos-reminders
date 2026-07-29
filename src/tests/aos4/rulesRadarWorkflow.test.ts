@@ -18,6 +18,10 @@ describe('AoS 4 Rules Radar workflow contract', () => {
     expect(workflow).toContain('source:')
     expect(workflow).toContain('report_only:')
     expect(workflow).toContain('cancel-in-progress: false')
+    expect(workflow).toContain('group: aos4-rules-radar-${{ github.ref }}')
+    expect(workflow).not.toContain('github.event.schedule || inputs.source')
+    expect(workflow).toMatch(/17 5 \* \* \*[\s\S]+source="official"/)
+    expect(workflow).toMatch(/else\s*\n\s+source="community"/)
   })
 
   it('grants only read-content and write-issue permissions', () => {
@@ -45,6 +49,10 @@ describe('AoS 4 Rules Radar workflow contract', () => {
     expect(workflow).toMatch(/name: Upload Rules Radar evidence[\s\S]{0,80}if: always\(\)/)
     expect(workflow).toContain('material-event-count.txt')
     expect(workflow).toContain('candidate-evidence.json')
+    expect(workflow).toContain('report-only/official-urls.json')
+    expect(workflow).toContain('report-only/wahapedia-pages.json')
+    expect(workflow).toContain('$GITHUB_STEP_SUMMARY')
+    expect(workflow).toContain('GitHub issue synchronization:')
     expect(workflow).not.toContain('.cache/aos4/radar/artifacts')
     expect(workflow).not.toContain('.cache/aos4/review/discovery-artifacts')
     expect(workflow).toMatch(/name: Preserve Rules Radar failure[\s\S]{0,80}if: always\(\)/)

@@ -9,6 +9,13 @@ export interface RequestLimiterOptions {
   wait?: (milliseconds: number) => Promise<void>
 }
 
+export class RequestBudgetExceededError extends Error {
+  constructor(budget: number) {
+    super(`Request budget of ${budget} was exceeded`)
+    this.name = 'RequestBudgetExceededError'
+  }
+}
+
 export const createRequestLimiter = ({
   budget,
   paceMs = 0,
@@ -27,7 +34,7 @@ export const createRequestLimiter = ({
     },
     async run<T>(task: () => Promise<T>): Promise<T> {
       const start = startQueue.then(async () => {
-        if (count >= budget) throw new Error(`Request budget of ${budget} was exceeded`)
+        if (count >= budget) throw new RequestBudgetExceededError(budget)
         if (count && paceMs) await wait(paceMs)
         count += 1
       })

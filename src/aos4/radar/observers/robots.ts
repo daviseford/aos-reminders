@@ -60,12 +60,22 @@ const matchingGroups = (policy: RobotsPolicy, userAgent: string): RobotsGroup[] 
 }
 
 export const robotsAllows = (policy: RobotsPolicy, userAgent: string, pathWithQuery: string): boolean => {
+  const matchesRule = (rule: RobotsRule): boolean => {
+    const anchored = rule.path.endsWith('$')
+    const body = anchored ? rule.path.slice(0, -1) : rule.path
+    const pattern = body
+      .split('*')
+      .map(part => part.replace(/[\\^$+?.()|[\]{}]/g, '\\$&'))
+      .join('.*')
+    return new RegExp(`^${pattern}${anchored ? '$' : ''}`).test(pathWithQuery)
+  }
+  const specificity = (rule: RobotsRule): number => rule.path.replaceAll('*', '').replace(/\$$/, '').length
   const matches = matchingGroups(policy, userAgent)
     .flatMap(group => group.rules)
-    .filter(rule => pathWithQuery.startsWith(rule.path))
+    .filter(matchesRule)
     .sort(
       (left, right) =>
-        right.path.length - left.path.length ||
+        specificity(right) - specificity(left) ||
         (left.directive === 'allow' ? -1 : right.directive === 'allow' ? 1 : 0)
     )
   return matches[0]?.directive !== 'disallow'

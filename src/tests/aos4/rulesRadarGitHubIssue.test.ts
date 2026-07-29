@@ -196,7 +196,24 @@ describe('AoS 4 Rules Radar GitHub issue lifecycle', () => {
     expect(body).toContain('### Operational failures')
     expect(body).toContain('@\u200bmaintainer')
     expect(body).toContain('@\u200beveryone')
-    expect(body.match(/<!-- aos4-rules-radar:state:v1/g)).toHaveLength(1)
+    expect(body.match(/<!-- aos4-rules-radar:state:v2/g)).toHaveLength(1)
+  })
+
+  it('round-trips a large deterministic machine state below GitHub limits', async () => {
+    const events = Array.from({ length: 156 }, (_, index) =>
+      event(
+        'games-workshop',
+        'official',
+        'new-publication',
+        `https://assets.warhammer-community.com/new-rules-${index}.pdf`
+      )
+    )
+    const report = createRadarReport([createRadarLane('games-workshop', observedAt, events)])
+    const body = renderManagedRulesRadarIssueBody(report)
+    const client = new FakeClient([managedIssue(report)])
+
+    expect(body.length).toBeLessThan(60_000)
+    expect((await synchronizeRulesRadarIssue(report, client, options)).action).toBe('noop')
   })
 })
 
@@ -253,6 +270,29 @@ describe('AoS 4 Rules Radar GitHub REST adapter', () => {
       transport: async () => ({ status: 200, headers: {}, body: '{}' }),
     })
     await expect(malformed.listIssues()).rejects.toThrow(/array/i)
+  })
+
+  it('accepts nullable bodies on unrelated GitHub issues', async () => {
+    const client = createGitHubIssueClient({
+      repository: 'daviseford/aos-reminders',
+      token: 'secret-token',
+      transport: async () => ({
+        status: 200,
+        headers: {},
+        body: JSON.stringify([
+          {
+            number: 123,
+            title: 'Bodyless issue',
+            body: null,
+            state: 'open',
+            labels: [],
+            assignees: [],
+          },
+        ]),
+      }),
+    })
+
+    await expect(client.listIssues()).resolves.toEqual([expect.objectContaining({ number: 123, body: '' })])
   })
 })
 

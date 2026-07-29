@@ -151,6 +151,126 @@ describe('AoS 4 Rules Radar command', () => {
     })
   })
 
+  it('prepares Wahapedia exports when a material export changes without HTML pages', async () => {
+    const root = await temporaryDirectory()
+    const prepared: CandidatePreparationInput[] = []
+    const output = path.join(root, 'nested', 'runs', 'report')
+    await runRulesRadar(
+      {
+        lanes: [
+          laneWithEvent(
+            'wahapedia',
+            event('wahapedia', 'secondary', 'export-changed', 'https://wahapedia.ru/aos4/Factions.csv')
+          ),
+        ],
+        outputDirectory: output,
+        acceptedManifest: manifest,
+        wahapediaPageUrls: [],
+        wahapediaPageUrlsAuthoritative: true,
+      },
+      {
+        prepareCandidate: async input => {
+          prepared.push(input)
+          return { source: input.source, artifacts: [] }
+        },
+      }
+    )
+
+    expect(prepared).toEqual([
+      expect.objectContaining({
+        source: 'wahapedia',
+        wahapediaPageUrls: [],
+      }),
+    ])
+    expect(await readFile(path.join(output, 'wahapedia-pages.json'), 'utf8')).toBe('[]\n')
+  })
+
+  it('uses an authoritative Wahapedia page inventory without restoring removed accepted pages', async () => {
+    const root = await temporaryDirectory()
+    const removedPage = 'https://wahapedia.ru/aos4/factions/retired/'
+    const acceptedManifest: ArtifactManifest = {
+      schemaVersion: 1,
+      artifacts: [
+        {
+          requestUrl: removedPage,
+          finalUrl: removedPage,
+          redirectChain: [],
+          retrievedAt: observedAt,
+          adapterVersion: 'wahapedia-html/1',
+          mediaType: 'text/html',
+          byteLength: 1,
+          checksum: checksum('b'),
+        },
+      ],
+    }
+    const removed = event('wahapedia', 'secondary', 'removed-faction', removedPage)
+    removed.observedFingerprint = null
+    removed.baselineFingerprint = checksum('b')
+    const prepared: CandidatePreparationInput[] = []
+
+    await runRulesRadar(
+      {
+        lanes: [laneWithEvent('wahapedia', removed)],
+        outputDirectory: path.join(root, 'report'),
+        acceptedManifest,
+        wahapediaPageUrls: [],
+        wahapediaPageUrlsAuthoritative: true,
+      },
+      {
+        prepareCandidate: async input => {
+          prepared.push(input)
+          return { source: input.source, artifacts: [] }
+        },
+      }
+    )
+
+    expect(prepared[0].wahapediaPageUrls).toEqual([])
+  })
+
+  it('does not restore a sentinel event URL omitted by the authoritative full observation', async () => {
+    const root = await temporaryDirectory()
+    const page = 'https://wahapedia.ru/aos4/factions/inaccessible/'
+    const prepared: CandidatePreparationInput[] = []
+    await runRulesRadar(
+      {
+        lanes: [laneWithEvent('wahapedia', event('wahapedia', 'secondary', 'new-faction', page))],
+        outputDirectory: path.join(root, 'report'),
+        acceptedManifest: manifest,
+        wahapediaPageUrls: [],
+        wahapediaPageUrlsAuthoritative: true,
+      },
+      {
+        prepareCandidate: async input => {
+          prepared.push(input)
+          return { source: input.source, artifacts: [] }
+        },
+      }
+    )
+
+    expect(prepared[0].wahapediaPageUrls).toEqual([])
+  })
+
+  it('requires candidate preparation for applicable material events', async () => {
+    const root = await temporaryDirectory()
+    await expect(
+      runRulesRadar({
+        lanes: [
+          laneWithEvent(
+            'games-workshop',
+            event(
+              'games-workshop',
+              'official',
+              'new-publication',
+              'https://assets.warhammer-community.com/new.pdf'
+            )
+          ),
+        ],
+        outputDirectory: path.join(root, 'report'),
+        acceptedManifest: manifest,
+      })
+    ).rejects.toThrow(/candidate preparation dependency/i)
+  })
+
   it('fails on output collisions and preserves material events when candidate preparation fails', async () => {
     const root = await temporaryDirectory()
     const collision = path.join(root, 'collision')

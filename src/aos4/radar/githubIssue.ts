@@ -1,14 +1,16 @@
+import { deflateRawSync, inflateRawSync } from 'node:zlib'
 import { stableCompactJson } from '../generate/serialization'
 import { createRadarReport, mergeRadarLanes } from './compare'
 import type { RadarLane, RadarReport } from './model'
 import { renderRulesRadarIssueBody } from './report'
 
 export const RULES_RADAR_ISSUE_MARKER = '<!-- aos4-rules-radar:issue:v1 -->'
-const STATE_PREFIX = '<!-- aos4-rules-radar:state:v1 '
+const STATE_PREFIX = '<!-- aos4-rules-radar:state:v2 '
 const STATE_SUFFIX = ' -->'
 const DELTA_PREFIX = '<!-- aos4-rules-radar:delta:v1:'
 const ISSUE_TITLE = 'AoS Rules Radar'
-const MAX_MANAGED_BODY_LENGTH = 120_000
+const MAX_MANAGED_BODY_LENGTH = 60_000
+const MAX_MACHINE_STATE_LENGTH = 2 * 1024 * 1024
 
 export interface RulesRadarGitHubIssue {
   number: number
@@ -49,17 +51,25 @@ export interface RulesRadarIssueSynchronization {
 const count = (value: string, search: string): number => value.split(search).length - 1
 
 const stateMarker = (report: RadarReport): string => {
-  const encoded = Buffer.from(stableCompactJson({ schemaVersion: 1, lanes: report.lanes }), 'utf8').toString(
-    'base64url'
-  )
+  const encoded = deflateRawSync(
+    Buffer.from(stableCompactJson({ schemaVersion: 1, lanes: report.lanes }), 'utf8'),
+    { level: 9 }
+  ).toString('base64url')
   return `${STATE_PREFIX}${encoded}${STATE_SUFFIX}`
 }
 
-export const renderManagedRulesRadarIssueBody = (report: RadarReport): string =>
-  `${RULES_RADAR_ISSUE_MARKER}\n\n${renderRulesRadarIssueBody(report)}\n${stateMarker(report)}\n`
+export const renderManagedRulesRadarIssueBody = (report: RadarReport): string => {
+  const body = `${RULES_RADAR_ISSUE_MARKER}\n\n${renderRulesRadarIssueBody(report)}\n${stateMarker(report)}\n`
+  if (Buffer.byteLength(body, 'utf8') > MAX_MANAGED_BODY_LENGTH) {
+    throw new Error('Rules Radar issue body exceeds the managed GitHub limit')
+  }
+  return body
+}
 
 const parseManagedReport = (body: string): RadarReport => {
-  if (body.length > MAX_MANAGED_BODY_LENGTH) throw new Error('Rules Radar issue body is oversized')
+  if (Buffer.byteLength(body, 'utf8') > MAX_MANAGED_BODY_LENGTH) {
+    throw new Error('Rules Radar issue body is oversized')
+  }
   if (count(body, RULES_RADAR_ISSUE_MARKER) !== 1) {
     throw new Error('Rules Radar issue marker is missing or duplicated')
   }
@@ -76,7 +86,11 @@ const parseManagedReport = (body: string): RadarReport => {
 
   let value: unknown
   try {
-    value = JSON.parse(Buffer.from(encoded, 'base64url').toString('utf8')) as unknown
+    value = JSON.parse(
+      inflateRawSync(Buffer.from(encoded, 'base64url'), {
+        maxOutputLength: MAX_MACHINE_STATE_LENGTH,
+      }).toString('utf8')
+    ) as unknown
   } catch (error) {
     throw new Error('Rules Radar machine state is not valid encoded JSON', { cause: error })
   }
@@ -222,7 +236,7 @@ const parseIssue = (value: unknown): RulesRadarGitHubIssue => {
     !isRecord(value) ||
     !Number.isSafeInteger(value.number) ||
     typeof value.title !== 'string' ||
-    typeof value.body !== 'string' ||
+    !(typeof value.body === 'string' || value.body === null) ||
     !['open', 'closed'].includes(String(value.state))
   ) {
     throw new Error('GitHub returned a malformed issue')
@@ -230,7 +244,7 @@ const parseIssue = (value: unknown): RulesRadarGitHubIssue => {
   return {
     number: Number(value.number),
     title: value.title,
-    body: value.body,
+    body: value.body ?? '',
     state: value.state as 'open' | 'closed',
     labels: stringArray(value.labels, 'name'),
     assignees: stringArray(value.assignees, 'login'),

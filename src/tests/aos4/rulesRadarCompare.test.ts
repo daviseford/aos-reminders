@@ -4,6 +4,7 @@ import {
   compareBsDataObservation,
   compareGamesWorkshopObservation,
   compareWahapediaObservation,
+  createRadarLane,
   createRadarReport,
   mergeRadarLanes,
   readRulesRadarConfig,
@@ -271,6 +272,22 @@ describe('AoS 4 Rules Radar comparison', () => {
     ).toThrow(/authority/i)
   })
 
+  it('rejects event class mismatches and tampered lane envelopes', () => {
+    const valid = lane('games-workshop', 'official')
+    expect(() =>
+      validateRadarEvent({
+        ...valid.events[0],
+        class: 'operational',
+      })
+    ).toThrow(/does not match/i)
+
+    expect(() => createRadarReport([{ ...valid, authority: 'secondary' }])).toThrow(/authority/i)
+    expect(() => createRadarReport([{ ...valid, fingerprint: checksum('f') }])).toThrow(
+      /fingerprint does not match/i
+    )
+    expect(() => createRadarReport([{ ...valid, schemaVersion: 2 as 1 }])).toThrow(/schema/i)
+  })
+
   it('loads the reviewed config and rejects stale repository paths', () => {
     expect(readRulesRadarConfig('data/aos4/radar/config.json', process.cwd()).bsData.baselineSha).toBe(
       '0d3eb56fe21d7893d6865143324509a4fede32c3'
@@ -306,14 +323,4 @@ const lane = (
       evidence: {},
     },
   ]
-): RadarLane =>
-  createRadarReport([
-    {
-      schemaVersion: 1,
-      source,
-      authority,
-      observedAt,
-      events,
-      fingerprint: '',
-    },
-  ]).lanes[0]
+): RadarLane => createRadarLane(source, observedAt, events)

@@ -137,6 +137,22 @@ describe('AoS 4 Rules Radar source observation', () => {
     expect(robotsAllows(policy, 'aos-reminders-rules-radar', '/aos4/private/source')).toBe(false)
   })
 
+  it('supports robots wildcards and end anchors', () => {
+    const policy = parseRobotsPolicy(`
+      User-agent: *
+      Disallow: /aos4/factions/*/warscrolls.html$
+      Allow: /aos4/factions/public/*
+    `)
+
+    expect(robotsAllows(policy, 'aos-reminders-rules-radar', '/aos4/factions/private/warscrolls.html')).toBe(
+      false
+    )
+    expect(
+      robotsAllows(policy, 'aos-reminders-rules-radar', '/aos4/factions/private/warscrolls.html?print=1')
+    ).toBe(true)
+    expect(robotsAllows(policy, 'aos-reminders-rules-radar', '/aos4/factions/public/unit')).toBe(true)
+  })
+
   it('fetches only robots, navigation, the export specification, and Last_update.csv', async () => {
     const requested: string[] = []
     const result = await observeWahapediaRadar(

@@ -40,6 +40,7 @@ export interface RulesRadarRunInput {
   outputDirectory: string
   acceptedManifest: ArtifactManifest
   wahapediaPageUrls?: string[]
+  wahapediaPageUrlsAuthoritative?: boolean
   reportOnly?: boolean
 }
 
@@ -75,13 +76,16 @@ const acceptedWahapediaPages = (manifest: ArtifactManifest): string[] =>
 const wahapediaCandidateUrls = (
   report: RadarReport,
   manifest: ArtifactManifest,
-  explicitUrls: string[]
+  explicitUrls: string[],
+  authoritative: boolean
 ): string[] => {
   if (!report.events.some(event => event.class === 'material' && event.source === 'wahapedia')) {
     return []
   }
   const eventUrls = report.events.flatMap(event => {
-    if (event.class !== 'material' || event.source !== 'wahapedia') return []
+    if (event.class !== 'material' || event.source !== 'wahapedia' || event.observedFingerprint === null) {
+      return []
+    }
     try {
       const url = new URL(event.locator)
       return url.hostname === 'wahapedia.ru' && !url.pathname.endsWith('.csv') ? [url.toString()] : []
@@ -89,7 +93,11 @@ const wahapediaCandidateUrls = (
       return []
     }
   })
-  return Array.from(new Set([...acceptedWahapediaPages(manifest), ...explicitUrls, ...eventUrls])).sort()
+  return Array.from(
+    new Set(
+      authoritative ? explicitUrls : [...acceptedWahapediaPages(manifest), ...explicitUrls, ...eventUrls]
+    )
+  ).sort()
 }
 
 const candidateFailureLane = (lane: RadarLane, error: unknown): RadarLane => {
@@ -118,36 +126,50 @@ export const runRulesRadar = async (
   input: RulesRadarRunInput,
   dependencies: RulesRadarRunDependencies = {}
 ): Promise<RulesRadarRunResult> => {
-  await mkdir(input.outputDirectory, { recursive: false })
   let lanes = mergeRadarLanes([], input.lanes)
   let report = createRadarReport(lanes)
   const officialUrls = officialCandidateUrls(report)
-  const wahapediaUrls = wahapediaCandidateUrls(report, input.acceptedManifest, input.wahapediaPageUrls ?? [])
+  const hasWahapediaMaterial = report.events.some(
+    event => event.class === 'material' && event.source === 'wahapedia'
+  )
+  const wahapediaUrls = wahapediaCandidateUrls(
+    report,
+    input.acceptedManifest,
+    input.wahapediaPageUrls ?? [],
+    input.wahapediaPageUrlsAuthoritative ?? false
+  )
   const candidateEvidence: CandidatePreparationResult[] = []
+  const preparations: CandidatePreparationInput[] = [
+    ...(officialUrls.length
+      ? [
+          {
+            source: 'games-workshop' as const,
+            officialDocumentUrls: officialUrls,
+            wahapediaPageUrls: [],
+            outputDirectory: path.join(input.outputDirectory, 'candidate', 'games-workshop'),
+          },
+        ]
+      : []),
+    ...(hasWahapediaMaterial
+      ? [
+          {
+            source: 'wahapedia' as const,
+            officialDocumentUrls: [],
+            wahapediaPageUrls: wahapediaUrls,
+            outputDirectory: path.join(input.outputDirectory, 'candidate', 'wahapedia'),
+          },
+        ]
+      : []),
+  ]
+
+  if (!input.reportOnly && preparations.length && !dependencies.prepareCandidate) {
+    throw new Error('Rules Radar candidate preparation dependency is required for material events')
+  }
+
+  await mkdir(path.dirname(input.outputDirectory), { recursive: true })
+  await mkdir(input.outputDirectory, { recursive: false })
 
   if (!input.reportOnly && dependencies.prepareCandidate) {
-    const preparations: CandidatePreparationInput[] = [
-      ...(officialUrls.length
-        ? [
-            {
-              source: 'games-workshop' as const,
-              officialDocumentUrls: officialUrls,
-              wahapediaPageUrls: [],
-              outputDirectory: path.join(input.outputDirectory, 'candidate', 'games-workshop'),
-            },
-          ]
-        : []),
-      ...(wahapediaUrls.length
-        ? [
-            {
-              source: 'wahapedia' as const,
-              officialDocumentUrls: [],
-              wahapediaPageUrls: wahapediaUrls,
-              outputDirectory: path.join(input.outputDirectory, 'candidate', 'wahapedia'),
-            },
-          ]
-        : []),
-    ]
     for (const preparation of preparations) {
       try {
         candidateEvidence.push(await dependencies.prepareCandidate(preparation))
@@ -173,7 +195,7 @@ export const runRulesRadar = async (
     ...(officialUrls.length
       ? [writeNew(path.join(input.outputDirectory, 'official-urls.json'), stableJson(officialUrls))]
       : []),
-    ...(wahapediaUrls.length
+    ...(hasWahapediaMaterial
       ? [writeNew(path.join(input.outputDirectory, 'wahapedia-pages.json'), stableJson(wahapediaUrls))]
       : []),
     ...(candidateEvidence.length
@@ -333,6 +355,8 @@ const run = async (): Promise<void> => {
         ...pageLists.flat(),
         ...sourceObservations.flatMap(pagesFromWahapediaSourceObservation),
       ],
+      wahapediaPageUrlsAuthoritative:
+        arguments_.wahapediaPageListPaths.length > 0 || arguments_.wahapediaObservationPaths.length > 0,
       reportOnly: arguments_.reportOnly,
     },
     {

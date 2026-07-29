@@ -5,26 +5,31 @@ export type RadarPublisher = RadarSource
 export type RadarAuthority = 'official' | 'secondary' | 'community'
 export type RadarEventClass = 'material' | 'operational'
 
-export type RadarMaterialChangeKind =
-  | 'new-publication'
-  | 'removed-publication'
-  | 'replaced-publication'
-  | 'new-faction'
-  | 'removed-faction'
-  | 'new-rules-page'
-  | 'removed-rules-page'
-  | 'export-changed'
-  | 'navigation-changed'
-  | 'community-catalog-changed'
+export const RADAR_MATERIAL_CHANGE_KINDS = [
+  'new-publication',
+  'removed-publication',
+  'replaced-publication',
+  'new-faction',
+  'removed-faction',
+  'new-rules-page',
+  'removed-rules-page',
+  'export-changed',
+  'navigation-changed',
+  'community-catalog-changed',
+] as const
 
-export type RadarOperationalChangeKind =
-  | 'source-unavailable'
-  | 'source-contract-changed'
-  | 'comparison-diverged'
-  | 'comparison-truncated'
-  | 'rate-limited'
-  | 'candidate-failed'
-  | 'notification-failed'
+export const RADAR_OPERATIONAL_CHANGE_KINDS = [
+  'source-unavailable',
+  'source-contract-changed',
+  'comparison-diverged',
+  'comparison-truncated',
+  'rate-limited',
+  'candidate-failed',
+  'notification-failed',
+] as const
+
+export type RadarMaterialChangeKind = (typeof RADAR_MATERIAL_CHANGE_KINDS)[number]
+export type RadarOperationalChangeKind = (typeof RADAR_OPERATIONAL_CHANGE_KINDS)[number]
 
 export type RadarChangeKind = RadarMaterialChangeKind | RadarOperationalChangeKind
 
