@@ -126,10 +126,32 @@ yarn data:aos4:review:human prepare `
   --workspace .cache/aos4/review/workspace-<revision>/workspace.json
 ```
 
-This initially creates only `calibration-blind-tasks.json` and its result template. For every
-task, the reviewer records a source-derived interpretation, outcome, and substantive rationale
-explaining why the source supports it. The four calibration controls do not reveal their expected
-outcome.
+This initially creates only `calibration-blind-tasks.json` and its result template. The calibration
+is a four-question practice review with two simple browser stages:
+
+1. Read only the supplied source excerpt. If it answers the question, summarize the relevant fact
+   and point to the supporting words. If it does not, choose “No” rather than guessing.
+2. After those answers are locked, compare the same source with what the website would use. Mark
+   whether they agree, differ in an important way, or still cannot be judged from the source.
+
+The desk determines the internal field name and source authority automatically. Reviewers do not
+need to understand record IDs, checksums, JSON types, or pipeline terminology. The four
+calibration controls do not reveal their expected outcome.
+
+Reviewers do not need to edit those JSON files directly. Start the localhost-only guided review
+desk from the repository root:
+
+```powershell
+yarn data:aos4:review:human:guided `
+  --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
+  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
+```
+
+The browser presents one evidence card at a time, keeps unfinished answers in that browser's local
+storage, records canonical review timestamps, and creates `calibration-blind-results.json` only
+after every question is complete. It binds only to `127.0.0.1`, requires an unguessable per-run
+token, and exits after publishing the create-only result file. The established production
+application and its routes are not involved.
 
 Save the completed calibration blind results, then reveal their comparisons:
 
@@ -140,9 +162,20 @@ yarn data:aos4:review:human calibrate `
   --workspace .cache/aos4/review/workspace-<revision>/workspace.json
 ```
 
-The command seals the entered blind results and writes the revealed tasks plus template under
-`calibration-comparison/`. Complete `calibration-comparison/results.template.json`, then validate
-calibration and release the live sample:
+The command locks the source-reading answers and writes the revealed tasks plus template under
+`calibration-comparison/`. Use the guided desk to compare the source excerpt, the locked answer, and
+what the website would use:
+
+```powershell
+yarn data:aos4:review:human:guided `
+  --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
+  --stage calibration-comparison `
+  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
+```
+
+A `finding` decision must name the affected field and records only the discrepancy the human
+entered; the desk never substitutes an agent-generated finding. After the create-only
+`calibration-comparison/results.json` is sealed, validate calibration and release the live sample:
 
 ```powershell
 yarn data:aos4:review:human start `
@@ -158,6 +191,15 @@ passing calibration creates `sample-blind/tasks.json` and
 and `schemaVersion` fields from entered result files; the command derives those structural fields
 from the finding content before validation.
 
+Use the same guided review desk for the live blind sample:
+
+```powershell
+yarn data:aos4:review:human:guided `
+  --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
+  --stage sample-blind `
+  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
+```
+
 Save the completed blind results as `sample-blind/results.json`, then reveal comparisons:
 
 ```powershell
@@ -168,9 +210,17 @@ yarn data:aos4:review:human compare `
 ```
 
 The command seals the entered blind results and writes the revealed tasks plus template under
-`sample-comparison/`. Complete `sample-comparison/results.template.json` against the generated
-destinations. A source conflict, unclear evidence, or suspected defect must be recorded as
-`finding` or `cannot-verify`; never turn uncertainty into a pass.
+`sample-comparison/`. Complete those comparisons through the guided desk:
+
+```powershell
+yarn data:aos4:review:human:guided `
+  --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
+  --stage sample-comparison `
+  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
+```
+
+A source conflict, unclear evidence, or suspected defect must be recorded as `finding` or
+`cannot-verify`; never turn uncertainty into a pass.
 
 After all findings have been adjudicated and corrected upstream, submit the clean re-review:
 

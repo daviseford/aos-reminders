@@ -55,6 +55,7 @@
     "data:aos4:inventory:observe-wahapedia": "vite-node --script src/aos4/review/wahapediaObservationCommand.ts",
     "data:aos4:review:adversarial": "vite-node --script src/aos4/review/adversarialReviewCommand.ts",
     "data:aos4:review:human": "vite-node --script src/aos4/review/humanReviewCommand.ts",
+    "data:aos4:review:human:guided": "vite-node --script src/aos4/review/humanReviewUiCommand.ts",
     "data:aos4:review:prepare": "vite-node --script src/aos4/review/packetCommand.ts",
     "format": "yarn prettier --write \"**/*.*(js|jsx|ts|tsx)\"",
     "gitclean:win": "git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }",
