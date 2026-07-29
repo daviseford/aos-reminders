@@ -316,27 +316,37 @@ const resolveFaction = (
 }
 
 /**
- * The parenthetical qualifiers that merely restate the rules context being imported into.
+ * The parenthetical or bracketed qualifiers that merely restate the rules context being imported into.
  *
  * New Recruit distinguishes a warscroll's seasonal version in its display name — "Blood Warriors
  * (Scourge of Aqshy)" — but the catalog carries one warscroll whose seasonal differences live in
  * the rules context. Since "Scourge of Aqshy" *is* the battlepack of the context we resolved, the
  * suffix is redundant here and stripping it recovers the base warscroll.
  *
+ * Listbot shortens the same battlepack qualifier to an acronym such as "[SoA]".
+ *
  * Built from the resolved context only, so a qualifier naming some *other* season is left alone
  * and still fails closed rather than silently resolving to the wrong edition of a unit.
  */
-const contextQualifiers = (context: RulesContext): Set<string> =>
-  new Set(
-    [context.battlepack, context.season, context.name]
+const contextQualifiers = (context: RulesContext): Set<string> => {
+  const battlepackAcronym = context.battlepack
+    ?.trim()
+    .split(/\s+/)
+    .map(word => word[0])
+    .join('')
+
+  return new Set(
+    [context.battlepack, context.season, context.name, battlepackAcronym]
       .flatMap(value => (value?.trim() ? [normalizeImportLabel(value)] : []))
       .filter(Boolean)
   )
+}
 
 const stripContextQualifier = (label: string, qualifiers: Set<string>): string | undefined => {
-  const match = /^(.*?)\s*\(([^()]*)\)\s*$/.exec(label.normalize('NFKC'))
+  const match = /^(.*?)\s*(?:\(([^()]*)\)|\[([^[\]]*)\])\s*$/.exec(label.normalize('NFKC'))
   if (!match) return undefined
-  const [, base, qualifier] = match
+  const [, base, parentheticalQualifier, bracketedQualifier] = match
+  const qualifier = parentheticalQualifier ?? bracketedQualifier
   if (!base.trim() || !qualifiers.has(normalizeImportLabel(qualifier))) return undefined
   return base.trim()
 }

@@ -1,5 +1,6 @@
 import type { Aos4ImportDiagnostic, Aos4ParsedRosterResult } from '../../aos4/import'
 import { parseAos4RosterXml } from './rosterXml'
+import { decodeAos4TextRoster } from './textRoster'
 
 export const MAX_ROSTER_FILE_BYTES = 1024 * 1024
 export const MAX_EXPANDED_ROSTER_BYTES = 5 * 1024 * 1024
@@ -26,6 +27,9 @@ class RosterFileError extends Error {
 const inputError = (code: Aos4ImportDiagnostic['code'], message: string): Aos4ParsedRosterResult => ({
   diagnostics: [{ code, severity: 'error', message }],
 })
+
+export const createRosterFileTooLargeResult = (): Aos4ParsedRosterResult =>
+  inputError('input-too-large', `Roster files must be ${MAX_ROSTER_FILE_BYTES} bytes or smaller.`)
 
 const readUint16 = (view: DataView, offset: number): number => {
   if (offset < 0 || offset + 2 > view.byteLength) {
@@ -235,27 +239,30 @@ const extractRosterXml = async (bytes: Uint8Array): Promise<Uint8Array> => {
   return result
 }
 
-const decodeUtf8 = (bytes: Uint8Array): string => {
+const decodeUtf8 = (bytes: Uint8Array, description: string): string => {
   try {
     return new TextDecoder('utf-8', { fatal: true }).decode(bytes)
   } catch {
-    throw new RosterFileError('unsafe-input', 'Roster XML must be valid UTF-8 text.')
+    throw new RosterFileError('unsafe-input', `${description} must be valid UTF-8 text.`)
   }
 }
 
 export const decodeAos4RosterFile = async (input: Aos4RosterFileInput): Promise<Aos4ParsedRosterResult> => {
   if (input.bytes.byteLength > MAX_ROSTER_FILE_BYTES) {
-    return inputError('input-too-large', `Roster files must be ${MAX_ROSTER_FILE_BYTES} bytes or smaller.`)
+    return createRosterFileTooLargeResult()
   }
 
   const extension = input.name.split('.').pop()?.toLocaleLowerCase('en')
-  if (extension !== 'ros' && extension !== 'rosz') {
-    return inputError('unsupported-source', 'Choose a .ros or .rosz roster file.')
+  if (extension !== 'txt' && extension !== 'ros' && extension !== 'rosz') {
+    return inputError('unsupported-source', 'Choose a .txt, .ros, or .rosz roster file.')
   }
 
   try {
+    if (extension === 'txt') {
+      return decodeAos4TextRoster(decodeUtf8(input.bytes, 'Roster text'))
+    }
     const xmlBytes = extension === 'rosz' ? await extractRosterXml(input.bytes) : input.bytes
-    return parseAos4RosterXml(decodeUtf8(xmlBytes))
+    return parseAos4RosterXml(decodeUtf8(xmlBytes, 'Roster XML'))
   } catch (caught) {
     const known = caught instanceof RosterFileError ? caught : undefined
     return inputError(
