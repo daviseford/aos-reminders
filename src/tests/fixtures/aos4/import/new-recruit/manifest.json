@@ -63,6 +63,35 @@
       }
     },
     {
+      "id": "dok-001-all-units",
+      "faction": "Daughters of Khaine",
+      "rulesContext": "General's Handbook 2026-27",
+      "pointsLimit": 0,
+      "legalForPlay": true,
+      "shapes": [
+        "auxiliary-force",
+        "champion-and-musician-model-counts",
+        "every-unit-in-catalogue",
+        "faction-terrain",
+        "over-points-illegal",
+        "seasonal-name-variant-scourge-of-aqshy"
+      ],
+      "files": {
+        "ros": {
+          "bytes": 175731,
+          "sha256": "34dd3d8aca2057bfeba2d1c54826e3ee9096b40eb0488eafcc84c3ee038ff772"
+        },
+        "rosz": {
+          "bytes": 17547,
+          "sha256": "160393c3cc8d3f798a87a5126212f451cbbcd05dbfbf653862449ca42728d80f"
+        },
+        "json": {
+          "bytes": 152903,
+          "sha256": "2406f46281390c241f7292eba56232cd316a2c5d8dd6c792f97c9fed6176332b"
+        }
+      }
+    },
+    {
       "id": "fec-001-ghb-kitchen-sink",
       "faction": "Flesh-eater Courts",
       "rulesContext": "General's Handbook 2026-27",
@@ -178,6 +207,7 @@
     "auxiliary-force": [
       "bok-001-all-units",
       "cos-001-all-units",
+      "dok-001-all-units",
       "sce-002-units-a"
     ],
     "battle-formation": [
@@ -185,6 +215,9 @@
     ],
     "battle-tactic-cards": [
       "fec-001-ghb-kitchen-sink"
+    ],
+    "champion-and-musician-model-counts": [
+      "dok-001-all-units"
     ],
     "champion-split-model-counts": [
       "fec-001-ghb-kitchen-sink",
@@ -212,11 +245,13 @@
     "every-unit-in-catalogue": [
       "bok-001-all-units",
       "cos-001-all-units",
+      "dok-001-all-units",
       "sce-002-units-a"
     ],
     "faction-terrain": [
       "bok-001-all-units",
       "cos-001-all-units",
+      "dok-001-all-units",
       "sce-002-units-a"
     ],
     "general-upgrade": [
@@ -250,6 +285,7 @@
     "over-points-illegal": [
       "bok-001-all-units",
       "cos-001-all-units",
+      "dok-001-all-units",
       "sce-002-units-a"
     ],
     "prayer-lore": [
@@ -264,6 +300,7 @@
     ],
     "seasonal-name-variant-scourge-of-aqshy": [
       "cos-001-all-units",
+      "dok-001-all-units",
       "fec-001-ghb-kitchen-sink"
     ],
     "spell-lore": [
@@ -291,12 +328,12 @@
     ]
   },
   "totals": {
-    "lists": 5,
+    "lists": 6,
     "bytes": {
-      "ros": 1712688,
-      "rosz": 153773,
-      "json": 1481164
+      "ros": 1888419,
+      "rosz": 171320,
+      "json": 1634067
     },
-    "shapes": 34
+    "shapes": 35
   }
 }
