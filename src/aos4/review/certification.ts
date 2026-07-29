@@ -974,13 +974,17 @@ const coverageByValues = (
   values: (entry: ReviewPacketIndexEntry) => string[],
   reviewed: (entry: ReviewPacketIndexEntry) => boolean
 ): Record<string, CertificationCoverageDetail> => {
-  const keys = uniqueSorted(entries.flatMap(values))
-  return Object.fromEntries(
-    keys.map(key => {
-      const matching = entries.filter(entry => values(entry).includes(key))
-      return [key, count(matching.filter(reviewed).length, matching.length)]
+  const coverage = new Map<string, CertificationCoverageDetail>()
+  entries.forEach(entry => {
+    const keys = new Set(values(entry))
+    if (!keys.size) return
+    const entryReviewed = reviewed(entry)
+    keys.forEach(key => {
+      const current = coverage.get(key) ?? count(0, 0)
+      coverage.set(key, count(current.reviewed + Number(entryReviewed), current.expected + 1))
     })
-  )
+  })
+  return Object.fromEntries(uniqueSorted(coverage.keys()).map(key => [key, coverage.get(key)!]))
 }
 
 const categoryCoverage = (

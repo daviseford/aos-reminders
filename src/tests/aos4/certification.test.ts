@@ -605,6 +605,20 @@ describe('AoS 4 certification evaluation', () => {
     })
   })
 
+  it('counts each review entry once per distinct coverage key', () => {
+    const input = passingInput()
+    input.index.entries[0].cohortIds = [
+      'high-risk:reaction',
+      'high-risk:reaction',
+      SAMPLING_METADATA_COHORT,
+    ]
+
+    expect(evaluateCertification(input).summary.coverageByCohort).toMatchObject({
+      'high-risk:reaction': { reviewed: 1, expected: 1 },
+      [SAMPLING_METADATA_COHORT]: { reviewed: 1, expected: 1 },
+    })
+  })
+
   it('rejects safe-index cohort relabeling that is not bound to sampling metadata', () => {
     const input = passingInput()
     input.index.entries[0].cohortIds = [
