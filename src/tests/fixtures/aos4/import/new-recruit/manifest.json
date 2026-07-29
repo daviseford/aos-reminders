@@ -136,6 +136,35 @@
       }
     },
     {
+      "id": "fec-002-all-units",
+      "faction": "Flesh-eater Courts",
+      "rulesContext": "General's Handbook 2026-27",
+      "pointsLimit": 0,
+      "legalForPlay": true,
+      "shapes": [
+        "allow-legends-configuration",
+        "auxiliary-force",
+        "delusion-tracker",
+        "every-unit-in-catalogue",
+        "faction-terrain",
+        "over-points-illegal"
+      ],
+      "files": {
+        "ros": {
+          "bytes": 280566,
+          "sha256": "37516a84e9ddf828cc6725d2f817fe36fcb40b15c8c07dfd6370bb39e6623034"
+        },
+        "rosz": {
+          "bytes": 26134,
+          "sha256": "3f5dd42da2836c9b90874f979e70ae7cb1af63b2c9272c94040b53af6e1ee6e0"
+        },
+        "json": {
+          "bytes": 244638,
+          "sha256": "28a83102651857f746742f5e63d654c7dd2d40bb5b0ca34d504b30edcbfc466d"
+        }
+      }
+    },
+    {
       "id": "sce-001-minimal",
       "faction": "Stormcast Eternals",
       "rulesContext": "General's Handbook 2026-27",
@@ -202,12 +231,14 @@
     "allow-legends-configuration": [
       "bok-001-all-units",
       "fec-001-ghb-kitchen-sink",
+      "fec-002-all-units",
       "sce-002-units-a"
     ],
     "auxiliary-force": [
       "bok-001-all-units",
       "cos-001-all-units",
       "dok-001-all-units",
+      "fec-002-all-units",
       "sce-002-units-a"
     ],
     "battle-formation": [
@@ -226,6 +257,9 @@
     "composite-entry-id": [
       "fec-001-ghb-kitchen-sink",
       "sce-001-minimal"
+    ],
+    "delusion-tracker": [
+      "fec-002-all-units"
     ],
     "duplicate-composition-slots": [
       "bok-001-all-units"
@@ -246,12 +280,14 @@
       "bok-001-all-units",
       "cos-001-all-units",
       "dok-001-all-units",
+      "fec-002-all-units",
       "sce-002-units-a"
     ],
     "faction-terrain": [
       "bok-001-all-units",
       "cos-001-all-units",
       "dok-001-all-units",
+      "fec-002-all-units",
       "sce-002-units-a"
     ],
     "general-upgrade": [
@@ -286,6 +322,7 @@
       "bok-001-all-units",
       "cos-001-all-units",
       "dok-001-all-units",
+      "fec-002-all-units",
       "sce-002-units-a"
     ],
     "prayer-lore": [
@@ -328,12 +365,12 @@
     ]
   },
   "totals": {
-    "lists": 6,
+    "lists": 7,
     "bytes": {
-      "ros": 1888419,
-      "rosz": 171320,
-      "json": 1634067
+      "ros": 2168985,
+      "rosz": 197454,
+      "json": 1878705
     },
-    "shapes": 35
+    "shapes": 36
   }
 }

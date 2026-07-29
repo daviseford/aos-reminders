@@ -174,6 +174,13 @@ silently produces an empty or partial capture.
    page. Each list is three files, so this trips after about five armies. Grant the site's
    "Automatic downloads" permission (address-bar icon) before a long capture run, and **verify
    files actually arrived after each army** rather than trusting the click.
+9. **Export all three formats in one burst, and re-export all three if any is missing.** New
+   Recruit regenerates *derived* ids every time it serialises a roster: the `Illegal Units`
+   category (`entryId="(Illegal Units)"`) came out as `id="vs97vii"` in a `.ros` and `id="skdssgm"`
+   in a `.rosz` taken two minutes later from the same unmodified list. The files were otherwise
+   byte-for-byte identical, same length. Mixing formats from different export moments therefore
+   breaks invariant 1 — which is exactly how this was found. Never top up a partial capture with a
+   single re-exported format; take the set again.
 
 Only one async job at a time: an abandoned in-page loop kept adding units to whatever list was
 open, producing duplicated Army Composition rows in a list built later. If a driver job may still
