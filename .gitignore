@@ -97,3 +97,4 @@ src/tests/fixtures/intake/*
 
 .impeccable/
 /.claude/worktrees
+/.worktrees/
