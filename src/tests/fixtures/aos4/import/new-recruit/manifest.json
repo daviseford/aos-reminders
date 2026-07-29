@@ -92,6 +92,34 @@
       }
     },
     {
+      "id": "dot-001-all-units",
+      "faction": "Disciples of Tzeentch",
+      "rulesContext": "General's Handbook 2026-27",
+      "pointsLimit": 0,
+      "legalForPlay": true,
+      "shapes": [
+        "allow-legends-configuration",
+        "auxiliary-force",
+        "every-unit-in-catalogue",
+        "faction-terrain",
+        "over-points-illegal"
+      ],
+      "files": {
+        "ros": {
+          "bytes": 276386,
+          "sha256": "8002f0c922ee355c47d9f82611576d61d92388b11786fdcda2a995b6b25c1d32"
+        },
+        "rosz": {
+          "bytes": 25972,
+          "sha256": "7ddb85940b38104a123f75daccc50200d77c55a6337a9515f1555cd66fbc12c8"
+        },
+        "json": {
+          "bytes": 238954,
+          "sha256": "b332b3274d53de8ff6e486fd236f02429fc09970c6bc35b931a412f9583b8258"
+        }
+      }
+    },
+    {
       "id": "fec-001-ghb-kitchen-sink",
       "faction": "Flesh-eater Courts",
       "rulesContext": "General's Handbook 2026-27",
@@ -230,6 +258,7 @@
   "coverage": {
     "allow-legends-configuration": [
       "bok-001-all-units",
+      "dot-001-all-units",
       "fec-001-ghb-kitchen-sink",
       "fec-002-all-units",
       "sce-002-units-a"
@@ -238,6 +267,7 @@
       "bok-001-all-units",
       "cos-001-all-units",
       "dok-001-all-units",
+      "dot-001-all-units",
       "fec-002-all-units",
       "sce-002-units-a"
     ],
@@ -280,6 +310,7 @@
       "bok-001-all-units",
       "cos-001-all-units",
       "dok-001-all-units",
+      "dot-001-all-units",
       "fec-002-all-units",
       "sce-002-units-a"
     ],
@@ -287,6 +318,7 @@
       "bok-001-all-units",
       "cos-001-all-units",
       "dok-001-all-units",
+      "dot-001-all-units",
       "fec-002-all-units",
       "sce-002-units-a"
     ],
@@ -322,6 +354,7 @@
       "bok-001-all-units",
       "cos-001-all-units",
       "dok-001-all-units",
+      "dot-001-all-units",
       "fec-002-all-units",
       "sce-002-units-a"
     ],
@@ -365,11 +398,11 @@
     ]
   },
   "totals": {
-    "lists": 7,
+    "lists": 8,
     "bytes": {
-      "ros": 2168985,
-      "rosz": 197454,
-      "json": 1878705
+      "ros": 2445371,
+      "rosz": 223426,
+      "json": 2117659
     },
     "shapes": 36
   }
