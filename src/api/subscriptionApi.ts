@@ -17,10 +17,12 @@ const cancelSubscription = (data: { userName: string; subscriptionId: string }) 
     .send({ ...data, authKey: SUBSCRIPTION_AUTH_KEY })
     .timeout(requestTimeout)
 
-const requestGrant = (userName: string) =>
+// subscriptionId + planId let the API create a provisional row when the
+// CREATED webhook hasn't arrived yet (the grant-vs-webhook race)
+const requestGrant = (data: { userName: string; subscriptionId?: string; planId?: string }) =>
   request
     .post(`${api}/paypal_grant`)
-    .send({ userName, authKey: SUBSCRIPTION_AUTH_KEY })
+    .send({ ...data, authKey: SUBSCRIPTION_AUTH_KEY })
     .timeout(requestTimeout)
 
 const redeemCoupon = (data: { couponId: string; userName: string }) =>
