@@ -1,7 +1,7 @@
 import fs from 'node:fs'
 import path from 'node:path'
 
-import { decodeAos4TextRoster } from '../../importers/aos4'
+import { decodeAos4RosterFile, decodeAos4TextRoster } from '../../importers/aos4'
 
 const fixture = (name: string): string =>
   fs.readFileSync(path.resolve(process.cwd(), 'src/tests/fixtures/aos4/import/listbot', name), 'utf8')
@@ -61,6 +61,29 @@ describe('Listbot 4.0 text import', () => {
     expect(result.parsedRoster).toBeUndefined()
     expect(result.diagnostics).toContainEqual(
       expect.objectContaining({ code: 'input-too-large', severity: 'error' })
+    )
+  })
+
+  it('decodes a Listbot text export from a roster file and rejects invalid UTF-8', async () => {
+    const text = fixture('regiments.txt')
+    const uploaded = await decodeAos4RosterFile({
+      name: 'skaven-listbot.txt',
+      bytes: new TextEncoder().encode(text),
+    })
+    const invalid = await decodeAos4RosterFile({
+      name: 'invalid-listbot.txt',
+      bytes: new Uint8Array([0xc3, 0x28]),
+    })
+
+    expect(uploaded.diagnostics).toEqual([])
+    expect(uploaded.parsedRoster).toMatchObject({
+      source: 'listbot-text',
+      declaredFaction: 'Skaven',
+      proposedName: "Skaven — Thanquol's Mutated Menagerie",
+    })
+    expect(invalid.parsedRoster).toBeUndefined()
+    expect(invalid.diagnostics).toContainEqual(
+      expect.objectContaining({ code: 'unsafe-input', severity: 'error' })
     )
   })
 })

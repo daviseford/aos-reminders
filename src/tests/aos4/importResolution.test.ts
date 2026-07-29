@@ -66,6 +66,20 @@ describe('AoS 4 parsed-roster resolution', () => {
     ])
   })
 
+  it("resolves Listbot's abbreviated seasonal qualifier in the selected context", () => {
+    const preview = resolve(
+      roster({
+        source: 'listbot-text',
+        selections: [{ line: 8, label: 'Shared Guard [SoT]', kindHint: 'warscroll' }],
+      })
+    )
+
+    expect(preview.diagnostics).toEqual([])
+    expect(preview.matches).toEqual([
+      { line: 8, label: 'Shared Guard [SoT]', canonicalId: importFixtureIds.alphaGuard },
+    ])
+  })
+
   it('resolves provider-generic enhancements only within reachable content groups', () => {
     const preview = resolve(
       roster({

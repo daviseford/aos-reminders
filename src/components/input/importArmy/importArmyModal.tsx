@@ -8,7 +8,12 @@ import type { Aos4ArmyDocument } from '../../../aos4/state'
 import GenericModal from 'components/modals/generic/generic_modal'
 import { useTheme } from 'context/useTheme'
 import { useMemo, useState } from 'react'
-import { decodeAos4RosterFile, decodeAos4TextRoster } from '../../../importers/aos4'
+import {
+  createRosterFileTooLargeResult,
+  decodeAos4RosterFile,
+  decodeAos4TextRoster,
+  MAX_ROSTER_FILE_BYTES,
+} from '../../../importers/aos4'
 import { createAos4DocumentId } from 'utils/createAos4DocumentId'
 import ImportPreview from './importPreview'
 
@@ -26,7 +31,7 @@ const unexpectedFileError = (): Aos4ParsedRosterResult => ({
     {
       code: 'unsafe-input',
       severity: 'error',
-      message: 'The roster file could not be read. Choose a different .ros or .rosz file.',
+      message: 'The roster file could not be read. Choose a different roster file.',
     },
   ],
 })
@@ -78,8 +83,12 @@ const ImportArmyModal = ({
 
   const previewFile = async (file?: File) => {
     if (!file) return
-    setIsProcessing(true)
     setSelectedContextId('')
+    if (file.size > MAX_ROSTER_FILE_BYTES) {
+      setDecoded(createRosterFileTooLargeResult())
+      return
+    }
+    setIsProcessing(true)
     try {
       setDecoded(
         await decodeAos4RosterFile({
@@ -106,7 +115,8 @@ const ImportArmyModal = ({
           <div>
             <h2 className="h4 mb-1">Import Army</h2>
             <p className="small mb-0">
-              Import composition from the current AoS app, Listbot 4.0, or a New Recruit .ros/.rosz file.
+              Import composition from the current AoS app or Listbot 4.0 text export, or a New Recruit
+              .ros/.rosz file.
             </p>
           </div>
           <button
@@ -134,7 +144,7 @@ const ImportArmyModal = ({
             onClick={() => chooseMode('upload')}
             type="button"
           >
-            Upload .ros/.rosz
+            Upload roster
           </button>
         </div>
 
@@ -165,10 +175,10 @@ const ImportArmyModal = ({
         ) : (
           <div className={theme.dropzone}>
             <label className="font-weight-bold" htmlFor="import-roster-file">
-              New Recruit roster file (.ros or .rosz)
+              AoS app or Listbot text (.txt), or New Recruit roster (.ros or .rosz)
             </label>
             <input
-              accept=".ros,.rosz,application/xml,application/zip"
+              accept=".txt,.ros,.rosz,text/plain,application/xml,application/zip"
               id="import-roster-file"
               onChange={event => void previewFile(event.target.files?.[0])}
               type="file"
