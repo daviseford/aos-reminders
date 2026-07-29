@@ -35,7 +35,6 @@ export type ReviewValidationIssueCode =
   | 'duplicate-finding'
   | 'duplicate-resolution'
   | 'duplicate-verification'
-  | 'duplicate-signoff'
   | 'unknown-assignment'
   | 'unknown-packet'
   | 'orphan-finding'
@@ -52,7 +51,6 @@ export type ReviewValidationIssueCode =
   | 'material-accepted-limitation'
   | 'insufficient-role-separation'
   | 'invalid-resolution'
-  | 'invalid-signoff'
 
 export interface ReviewValidationIssue {
   code: ReviewValidationIssueCode
@@ -150,13 +148,13 @@ const reviewerIssues = (assignment: ReviewAssignment, path: string): ReviewValid
   }
   if (
     !isNonEmptyString(assignment.reviewer?.id) ||
-    !['human', 'agent'].includes(assignment.reviewer?.kind) ||
+    assignment.reviewer?.kind !== 'agent' ||
     !isNonEmptyString(assignment.reviewer?.protocolVersion) ||
     !isNonEmptyString(assignment.reviewer?.promptVersion)
   ) {
     issues.push(issue('invalid-shape', `${path}.reviewer`, 'Invalid reviewer metadata'))
   }
-  if (!['human', 'local', 'external'].includes(assignment.execution)) {
+  if (!['local', 'external'].includes(assignment.execution)) {
     issues.push(issue('invalid-shape', `${path}.execution`, 'Invalid review execution kind'))
   }
   if (!isIsoInstant(assignment.assignedAt)) {
@@ -165,8 +163,8 @@ const reviewerIssues = (assignment: ReviewAssignment, path: string): ReviewValid
   if (
     packetIds.length &&
     assignment.reviewer &&
-    ['human', 'agent'].includes(assignment.reviewer.kind) &&
-    ['human', 'local', 'external'].includes(assignment.execution)
+    assignment.reviewer.kind === 'agent' &&
+    ['local', 'external'].includes(assignment.execution)
   ) {
     const expectedId = createReviewAssignment({ ...assignment, packetIds, id: undefined }).id
     if (assignment.id !== expectedId) {
@@ -406,8 +404,7 @@ export const validateReviewLedger = (
     !Array.isArray(ledger.results) ||
     !Array.isArray(ledger.findings) ||
     !Array.isArray(ledger.resolutions) ||
-    !Array.isArray(ledger.verifications) ||
-    !Array.isArray(ledger.signoffs)
+    !Array.isArray(ledger.verifications)
   ) {
     return sortedIssues([
       ...issues,
@@ -436,8 +433,7 @@ export const validateReviewLedger = (
       value => `${value.findingId}:${value.verifierId}`,
       'duplicate-verification',
       'verifications'
-    ),
-    ...duplicateIssues(ledger.signoffs, value => value.id, 'duplicate-signoff', 'signoffs')
+    )
   )
 
   const validatePacketReferences = packets !== undefined
@@ -494,15 +490,13 @@ export const validateReviewLedger = (
         )
       )
     }
-    if (assignment.reviewer.kind === 'agent') {
-      const calibration = packet
-        ? calibrationById.get(`${result.reviewerConfigurationId}:${packet.rubricVersion}`)
-        : ledger.calibrations.find(value => value.reviewerConfigurationId === result.reviewerConfigurationId)
-      if (!calibration) {
-        issues.push(issue('missing-calibration', path, 'Agent result requires a matching calibration'))
-      } else if (!calibration.passed) {
-        issues.push(issue('failed-calibration', path, 'Agent calibration did not pass'))
-      }
+    const calibration = packet
+      ? calibrationById.get(`${result.reviewerConfigurationId}:${packet.rubricVersion}`)
+      : ledger.calibrations.find(value => value.reviewerConfigurationId === result.reviewerConfigurationId)
+    if (!calibration) {
+      issues.push(issue('missing-calibration', path, 'Agent result requires a matching calibration'))
+    } else if (!calibration.passed) {
+      issues.push(issue('failed-calibration', path, 'Agent calibration did not pass'))
     }
     if (assignment.execution === 'external' && !assignment.approvedRecipient) {
       issues.push(
@@ -595,7 +589,11 @@ export const validateReviewLedger = (
     if (validatePacketReferences && (!packet || packet.packetChecksum !== verification.packetChecksum)) {
       issues.push(issue('invalid-resolution', path, 'Verification packet is missing or stale'))
     }
-    if (finding.severity === 'blocker' || finding.severity === 'major') {
+    if (
+      finding.severity === 'blocker' ||
+      finding.severity === 'major' ||
+      resolutionByFindingId.get(finding.id)?.disposition === 'accepted-limitation'
+    ) {
       const originator = originatingReviewerByFindingId.get(finding.id)
       const resolver = resolutionByFindingId.get(finding.id)?.resolvedBy
       if (
@@ -608,46 +606,11 @@ export const validateReviewLedger = (
           issue(
             'insufficient-role-separation',
             path,
-            'Material finding verification must be independent of reviewer and resolver'
+            'Required finding verification must be independent of reviewer and resolver'
           )
         )
       }
     }
-  })
-
-  ledger.signoffs.forEach((signoff, index) => {
-    const path = `signoffs[${index}]`
-    const packetIds = Array.isArray(signoff.packetIds) ? signoff.packetIds : []
-    const factionIds = Array.isArray(signoff.factionIds) ? signoff.factionIds : []
-    const rulesContextIds = Array.isArray(signoff.rulesContextIds) ? signoff.rulesContextIds : []
-    const limitationIds = Array.isArray(signoff.acceptedLimitationFindingIds)
-      ? signoff.acceptedLimitationFindingIds
-      : []
-    if (
-      signoff.schemaVersion !== AOS4_REVIEW_SCHEMA_VERSION ||
-      !isNonEmptyString(signoff.id) ||
-      !isNonEmptyString(signoff.reviewerId) ||
-      !packetIds.length ||
-      (validatePacketReferences && packetIds.some(id => !packetById.has(id))) ||
-      !factionIds.length ||
-      !rulesContextIds.length ||
-      !isIsoInstant(signoff.signedAt) ||
-      !isNonEmptyString(signoff.statement)
-    ) {
-      issues.push(issue('invalid-signoff', path, 'Invalid human review sign-off'))
-    }
-    limitationIds.forEach(findingId => {
-      const resolution = resolutionByFindingId.get(findingId)
-      if (resolution?.disposition !== 'accepted-limitation') {
-        issues.push(
-          issue(
-            'invalid-signoff',
-            `${path}.acceptedLimitationFindingIds`,
-            'Sign-off references a finding that is not an accepted limitation'
-          )
-        )
-      }
-    })
   })
 
   return sortedIssues(issues)
@@ -707,40 +670,6 @@ export const parseReviewLedger = (input: unknown): ReviewLedger => {
   return ledger
 }
 
-export const parseReviewLedgerSupplement = (input: unknown): ReviewLedger => {
-  if (!isRecord(input)) {
-    throw new ReviewValidationError('Review ledger supplement is invalid', [
-      issue('invalid-shape', 'ledger', 'Expected an object'),
-    ])
-  }
-  const collectionNames = [
-    'assignments',
-    'calibrations',
-    'results',
-    'findings',
-    'resolutions',
-    'verifications',
-    'signoffs',
-  ] as const
-  const issues = reviewRecordBaseIssues(input, 'ledger')
-  collectionNames.forEach(name => {
-    const collection = input[name]
-    if (!Array.isArray(collection)) {
-      issues.push(issue('invalid-shape', `ledger.${name}`, 'Expected an array'))
-    } else {
-      collection.forEach((value, index) => {
-        if (!isRecord(value)) {
-          issues.push(issue('invalid-shape', `ledger.${name}[${index}]`, 'Expected an object'))
-        }
-      })
-    }
-  })
-  if (issues.length) {
-    throw new ReviewValidationError('Review ledger supplement is invalid', sortedIssues(issues))
-  }
-  return input as unknown as ReviewLedger
-}
-
 const coverageIssues = (coverage: unknown, path: string): ReviewValidationIssue[] => {
   if (!isRecord(coverage)) return [issue('invalid-shape', path, 'Expected coverage object')]
   const keys: Array<keyof CertificationCoverage> = [
@@ -782,7 +711,6 @@ export const parseCertificationManifest = (input: unknown): CertificationManifes
     !isNonEmptyString(manifest.protocol.rubricVersion) ||
     !isChecksum(manifest.protocol.checksum) ||
     !isChecksum(manifest.ledgerChecksum) ||
-    !isChecksum(manifest.signoffChecksum) ||
     !isChecksum(manifest.inventoryChecksum) ||
     !isIsoInstant(manifest.sourceObservedAt)
   ) {

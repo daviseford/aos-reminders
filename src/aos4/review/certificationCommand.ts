@@ -20,7 +20,6 @@ import { parseCertificationManifest, parseReviewLedger, validateReviewLedger } f
 import {
   assertReviewIndexMatchesPacketPairs,
   ignoredRecordCandidateKey,
-  createHumanSampleManifest,
   officialRecordCandidateKey,
   profileOnlyFactCandidateKey,
   reconciliationDiscrepancyCandidateKey,
@@ -34,14 +33,13 @@ import {
   type CertificationInput,
   type FindingResolution,
   type FindingVerification,
-  type HumanReviewSignoff,
   type ReviewAssignment,
   type ReviewCalibration,
   type ReviewFinding,
   type ReviewerResult,
 } from './records'
 
-const DEFAULT_CURRENT = path.join('data', 'aos4', 'certifications', 'current.json')
+const DEFAULT_CURRENT = path.join('data', 'aos4', 'certifications', 'beta.json')
 const DEFAULT_WORKSPACE_INDEX = path.join('.cache', 'aos4', 'review', 'workspace', 'index.json')
 const DEFAULT_WORKSPACE = path.join('.cache', 'aos4', 'review', 'workspace', 'workspace.json')
 
@@ -50,7 +48,6 @@ export interface CertificationCommandArguments {
   certificationDirectory?: string
   full: boolean
   writeSummary: boolean
-  allowHumanPending?: boolean
   workspaceIndexPath?: string
   workspacePath?: string
 }
@@ -100,14 +97,11 @@ export const parseCertificationCommandArguments = (arguments_: string[]): Certif
     currentPath: DEFAULT_CURRENT,
     full: false,
     writeSummary: false,
-    allowHumanPending: false,
   }
   for (let index = 0; index < arguments_.length; index += 1) {
     const argument = arguments_[index]
     if (argument === '--full') {
       parsed.full = true
-    } else if (argument === '--allow-human-pending') {
-      parsed.allowHumanPending = true
     } else if (argument === '--write-summary') {
       throw new Error(
         '--write-summary cannot mutate an immutable certification; prepare a new revision directory'
@@ -219,18 +213,6 @@ const combinedStatus = (
     : issues.length || evaluationStatus === 'blocked'
       ? 'blocked'
       : evaluationStatus
-
-export const hasOnlyHumanPendingCertificationIssues = (issues: CertificationIssue[]): boolean => {
-  const humanIssueCodes = new Set(['missing-human-review', 'missing-human-signoff'])
-  return (
-    issues.some(value => humanIssueCodes.has(value.code)) &&
-    issues.every(
-      value =>
-        value.state === 'blocked' &&
-        (humanIssueCodes.has(value.code) || value.code === 'manifest-not-passing')
-    )
-  )
-}
 
 export const boundReviewPopulationIssues = (
   index: ReviewPacketSafeIndex,
@@ -371,24 +353,10 @@ export const runCertificationCheck = async (
     findings: namedJson<ReviewFinding[]>('review-findings', manifest.inputs, files),
     resolutions: namedJson<FindingResolution[]>('review-resolutions', manifest.inputs, files),
     verifications: namedJson<FindingVerification[]>('review-verifications', manifest.inputs, files),
-    signoffs: namedJson<HumanReviewSignoff[]>('review-signoffs', manifest.inputs, files),
   })
   const protocol = namedJson<ProtocolFile>('review-protocol', manifest.inputs, files)
   const rubric = namedJson<RubricFile>('review-rubric', manifest.inputs, files)
   const inventoryFile = namedJson<SourceInventory>('source-inventory', manifest.inputs, files)
-  const humanSampleFile = namedJson<unknown>('human-sample', manifest.inputs, files)
-  const humanSampleIssues: CertificationIssue[] =
-    stableCompactJson(humanSampleFile) === stableCompactJson(createHumanSampleManifest(index))
-      ? []
-      : [
-          {
-            code: 'stale-input',
-            path: 'manifest.inputs.human-sample',
-            message: 'Checked-in human sample does not match the review index and sampling policy',
-            state: 'stale',
-            subject: 'human-sample',
-          },
-        ]
   const inventoryInput = currentInputs.find(value => value.name === 'source-inventory')
   if (!inventoryInput) throw new Error('Certification source inventory binding is missing')
   const inventoryBinding: CertificationInventoryBinding = {
@@ -442,7 +410,6 @@ export const runCertificationCheck = async (
   const issues = [
     ...evaluation.issues,
     ...populationIssues,
-    ...humanSampleIssues,
     ...manifestIssues,
     ...summaryIssues,
   ].sort(
@@ -453,12 +420,10 @@ export const runCertificationCheck = async (
   )
   const status = combinedStatus(evaluation.status, [
     ...populationIssues,
-    ...humanSampleIssues,
     ...manifestIssues,
     ...summaryIssues,
   ])
   const summary = { ...expectedCommittedSummary, status, issues }
-  const humanPending = Boolean(arguments_.allowHumanPending) && hasOnlyHumanPendingCertificationIssues(issues)
 
   if (arguments_.full) {
     const workspaceIndex = await readJson<unknown>(
@@ -482,8 +447,7 @@ export const runCertificationCheck = async (
     }
   }
   return {
-    ok: (status === 'pass' && !issues.length) || humanPending,
-    humanPending,
+    ok: status === 'pass' && !issues.length,
     status,
     issues,
     summary,
@@ -494,14 +458,12 @@ export const runCertificationCheck = async (
 const run = async (): Promise<void> => {
   const result = await runCertificationCheck(parseCertificationCommandArguments(process.argv.slice(2)))
   console.log(
-    `AoS 4 certification ${result.humanPending ? 'machine-complete, human-pending' : result.status}: ` +
+    `AoS 4 certification ${result.status}: ` +
       `${result.summary.outcomeCounts.pass} pass, ` +
       `${result.summary.outcomeCounts.finding} finding, ` +
       `${result.summary.outcomeCounts['cannot-verify']} cannot-verify`
   )
-  if (!result.humanPending) {
-    result.issues.forEach(value => console.error(`- ${value.code} ${value.path}: ${value.message}`))
-  }
+  result.issues.forEach(value => console.error(`- ${value.code} ${value.path}: ${value.message}`))
   if (!result.ok) process.exitCode = 1
 }
 

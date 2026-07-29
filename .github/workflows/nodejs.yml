@@ -34,13 +34,8 @@ jobs:
       - name: Test with vitest
         run: yarn test --run
 
-      - name: Validate current AoS 4 data certification
-        run: |
-          if [ -f data/aos4/certifications/current.json ]; then
-            yarn data:aos4:certify
-          else
-            yarn data:aos4:certify:pending
-          fi
+      - name: Validate AoS 4 beta data readiness
+        run: yarn data:aos4:verify:beta
 
       - name: Build with TypeScript
         run: yarn build

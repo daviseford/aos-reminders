@@ -52,7 +52,7 @@ const DEFAULT_DEFAULTS = path.join('src', 'aos4', 'generated', 'corpus', 'defaul
 const DEFAULT_REPORT = path.join('data', 'aos4', 'reports', 'corpus-2026-07-27-summary.json')
 const DEFAULT_RECONCILIATION = path.join('data', 'aos4', 'reports', 'corpus-2026-07-27-reconciliation.json')
 const DEFAULT_CACHE = path.join('.cache', 'aos4', 'artifacts')
-const DEFAULT_CURRENT_CERTIFICATION = path.join('data', 'aos4', 'certifications', 'current.json')
+const DEFAULT_BETA_READINESS = path.join('data', 'aos4', 'certifications', 'beta.json')
 
 interface CorpusCommandArguments {
   acceptedManifestPath: string
@@ -70,7 +70,7 @@ interface CorpusCommandArguments {
   write: boolean
 }
 
-interface CorpusCertificationResult {
+interface CorpusBetaReadinessResult {
   ok: boolean
   status: 'pass' | 'blocked' | 'stale'
 }
@@ -79,24 +79,24 @@ export const assertCorpusWriteWorkflow = (
   arguments_: Pick<CorpusCommandArguments, 'candidate' | 'write'>
 ): void => {
   if (arguments_.write && !arguments_.candidate) {
-    throw new Error('Writing a not-yet-certified corpus requires the explicit --candidate workflow')
+    throw new Error('Writing corpus outputs requires the explicit --candidate workflow')
   }
 }
 
-export const assertAcceptedCorpusCertification = async (
-  hasCertification: boolean,
+export const assertAcceptedCorpusBetaReadiness = async (
+  hasBetaReadiness: boolean,
   candidate: boolean,
-  check: () => Promise<CorpusCertificationResult>
+  check: () => Promise<CorpusBetaReadinessResult>
 ): Promise<void> => {
   if (candidate) return
-  if (!hasCertification) {
+  if (!hasBetaReadiness) {
     throw new Error(
-      'Accepted corpus certification is missing; use the explicit --candidate workflow until certification passes'
+      'Accepted corpus beta readiness is missing; use the explicit --candidate workflow until automated verification passes'
     )
   }
-  const certification = await check()
-  if (!certification.ok) {
-    throw new Error(`Accepted corpus certification is ${certification.status}`)
+  const readiness = await check()
+  if (!readiness.ok || readiness.status !== 'pass') {
+    throw new Error(`Accepted corpus beta readiness is ${readiness.status}`)
   }
 }
 
@@ -842,7 +842,7 @@ export const loadAcceptedCorpusSourceData = async (
 
 const run = async (): Promise<void> => {
   const arguments_ = parseCorpusCommandArguments(process.argv.slice(2))
-  const hasCertification = await access(DEFAULT_CURRENT_CERTIFICATION)
+  const hasBetaReadiness = await access(DEFAULT_BETA_READINESS)
     .then(() => true)
     .catch(() => false)
   assertCorpusWriteWorkflow(arguments_)
@@ -854,9 +854,9 @@ const run = async (): Promise<void> => {
     await Promise.all(products.map(verifyProduct))
     products.forEach(product => console.log(`Verified ${product.path} (${checksum(product.bytes)})`))
   }
-  await assertAcceptedCorpusCertification(hasCertification, arguments_.candidate, () =>
+  await assertAcceptedCorpusBetaReadiness(hasBetaReadiness, arguments_.candidate, () =>
     runCertificationCheck({
-      currentPath: DEFAULT_CURRENT_CERTIFICATION,
+      currentPath: DEFAULT_BETA_READINESS,
       full: false,
       writeSummary: false,
     })

@@ -12,12 +12,8 @@ import {
   type ReviewRubricDefinition,
   type SourceInventory,
 } from './certification'
-import { parseReviewLedgerSupplement, validateReviewLedger } from './findings'
-import {
-  assertReviewIndexMatchesPacketPairs,
-  createHumanSampleManifest,
-  type ReviewPacketSafeIndex,
-} from './packets'
+import { validateReviewLedger } from './findings'
+import { assertReviewIndexMatchesPacketPairs, type ReviewPacketSafeIndex } from './packets'
 import {
   assertCreateOnlyDirectoryComplete,
   loadReviewPacketPairs,
@@ -67,9 +63,7 @@ const GENERATED_INPUT_FILES = {
   'review-findings': 'findings.json',
   'review-resolutions': 'resolutions.json',
   'review-verifications': 'verifications.json',
-  'review-signoffs': 'signoffs.json',
   'source-inventory': 'source-inventory.json',
-  'human-sample': 'human-sample.json',
 } as const
 
 const CERTIFICATION_SHARD_SIZE = 5_000
@@ -80,9 +74,7 @@ interface CertificationPreparationArguments {
   inventory: string
   index: string
   workspace: string
-  humanLedger?: string
   evaluatedAt: string
-  requirePass: boolean
 }
 
 interface AdversarialResultIndex {
@@ -137,7 +129,6 @@ export const parseCertificationPreparationArguments = (
     index: DEFAULT_INDEX,
     workspace: DEFAULT_WORKSPACE,
     evaluatedAt: '',
-    requirePass: false,
   }
   for (let index = 0; index < values.length; index += 1) {
     const value = values[index]
@@ -147,7 +138,6 @@ export const parseCertificationPreparationArguments = (
       value === '--inventory' ||
       value === '--index' ||
       value === '--workspace' ||
-      value === '--human-ledger' ||
       value === '--evaluated-at'
     ) {
       const next = nextValue(values, index, value)
@@ -156,11 +146,8 @@ export const parseCertificationPreparationArguments = (
       else if (value === '--inventory') parsed.inventory = next
       else if (value === '--index') parsed.index = next
       else if (value === '--workspace') parsed.workspace = next
-      else if (value === '--human-ledger') parsed.humanLedger = next
       else parsed.evaluatedAt = next
       index += 1
-    } else if (value === '--require-pass') {
-      parsed.requirePass = true
     } else {
       throw new Error(`Unknown argument: ${value}`)
     }
@@ -271,12 +258,8 @@ const loadAdversarialLedger = async (reviewOutput: string, revision: string): Pr
     findings,
     resolutions: [],
     verifications: [],
-    signoffs: [],
   }
 }
-
-const byId = <T>(values: T[], id: (value: T) => string): T[] =>
-  [...values].sort((left, right) => id(left).localeCompare(id(right)))
 
 interface InterpretationShape {
   arrays: number
@@ -341,29 +324,6 @@ export const sourceSafeReviewLedger = (ledger: ReviewLedger): ReviewLedger => ({
   ),
 })
 
-export const mergeReviewLedgers = (machine: ReviewLedger, human?: ReviewLedger): ReviewLedger => {
-  if (!human) return machine
-  return {
-    schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
-    assignments: byId([...machine.assignments, ...human.assignments], value => value.id),
-    calibrations: byId(
-      [...machine.calibrations, ...human.calibrations],
-      value => `${value.reviewerConfigurationId}:${value.calibratedAt}`
-    ),
-    results: byId([...machine.results, ...human.results], value => `${value.assignmentId}:${value.packetId}`),
-    findings: byId([...machine.findings, ...human.findings], value => value.id),
-    resolutions: byId(
-      [...machine.resolutions, ...human.resolutions],
-      value => `${value.findingId}:${value.resolvedAt}`
-    ),
-    verifications: byId(
-      [...machine.verifications, ...human.verifications],
-      value => `${value.findingId}:${value.verifiedAt}`
-    ),
-    signoffs: byId([...machine.signoffs, ...human.signoffs], value => value.id),
-  }
-}
-
 const protocolDefinition = (): ReviewProtocolDefinition => ({
   schemaVersion: 1,
   protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
@@ -379,7 +339,7 @@ const rubricDefinition = (): ReviewRubricDefinition => ({
   allowedOutcomes: ['pass', 'finding', 'cannot-verify'],
   materialSeverities: ['blocker', 'major'],
   acceptedLimitationPolicy:
-    'Only minor limitations that cannot mislead runtime game meaning may be accepted, and each requires explicit human sign-off.',
+    'Only minor, non-misleading limitations may be accepted, with explicit rationale and independent machine verification.',
 })
 
 const textInput = (name: string, filePath: string, content: string): CertificationInput => ({
@@ -454,9 +414,6 @@ export const runCertificationPreparation = async (
   const indexPath = withinRepository(resolvedRoot, arguments_.index)
   const workspacePath = withinRepository(resolvedRoot, arguments_.workspace)
   const inventoryPath = withinRepository(resolvedRoot, arguments_.inventory)
-  const humanLedgerPath = arguments_.humanLedger
-    ? withinRepository(resolvedRoot, arguments_.humanLedger)
-    : undefined
 
   const [index, inventory, acceptedManifest, pairs] = await Promise.all([
     readJson<ReviewPacketSafeIndex>(indexPath),
@@ -473,11 +430,7 @@ export const runCertificationPreparation = async (
     throw new Error('Review index, source inventory, protocol, rubric, or revision do not match')
   }
   assertReviewIndexMatchesPacketPairs(index, pairs)
-  const machineLedger = await loadAdversarialLedger(reviewOutput, index.revision)
-  const humanLedger = humanLedgerPath
-    ? parseReviewLedgerSupplement(await readJson<unknown>(humanLedgerPath))
-    : undefined
-  const reviewLedger = mergeReviewLedgers(machineLedger, humanLedger)
+  const reviewLedger = await loadAdversarialLedger(reviewOutput, index.revision)
   const packets = pairs.flatMap(pair => [pair.blindPacket, pair.comparisonPacket])
   const ledgerIssues = validateReviewLedger(reviewLedger, packets)
   if (ledgerIssues.length) {
@@ -502,9 +455,7 @@ export const runCertificationPreparation = async (
     'review-findings': ledger.findings,
     'review-resolutions': ledger.resolutions,
     'review-verifications': ledger.verifications,
-    'review-signoffs': ledger.signoffs,
     'source-inventory': inventory,
-    'human-sample': createHumanSampleManifest(index),
   } as const
   const outputRelative = repositoryPath(resolvedRoot, output)
   const generatedTexts = new Map<string, string>([
@@ -537,18 +488,10 @@ export const runCertificationPreparation = async (
     inventory,
     acceptedArtifactChecksums: acceptedManifest.artifacts.map(artifact => artifact.checksum),
   })
-  const nonHumanIssues = evaluation.issues.filter(
-    issue => issue.code !== 'missing-human-review' && issue.code !== 'missing-human-signoff'
-  )
-  if (nonHumanIssues.length) {
+  if (!evaluation.ok) {
     throw new Error(
-      `Certification preparation found a non-human blocker: ${nonHumanIssues[0].code} ` +
-        `${nonHumanIssues[0].path}: ${nonHumanIssues[0].message}`
-    )
-  }
-  if (arguments_.requirePass && !evaluation.ok) {
-    throw new Error(
-      `Certification is ${evaluation.status}; ${evaluation.issues.length} human review or sign-off issues remain`
+      `Certification preparation found a blocker: ${evaluation.issues[0].code} ` +
+        `${evaluation.issues[0].path}: ${evaluation.issues[0].message}`
     )
   }
   const inventoryInput = generatedInputs.find(input => input.name === 'source-inventory')!

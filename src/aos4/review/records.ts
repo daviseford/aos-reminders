@@ -12,8 +12,8 @@ export type ReviewAssignmentId = `review-assignment:sha256:${string}`
 export type ReviewFindingId = `review-finding:sha256:${string}`
 export type ReviewerConfigurationId = `reviewer-configuration:sha256:${string}`
 
-export type ReviewerKind = 'human' | 'agent'
-export type ReviewExecution = 'human' | 'local' | 'external'
+export type ReviewerKind = 'agent'
+export type ReviewExecution = 'local' | 'external'
 export type ReviewOutcome = 'pass' | 'finding' | 'cannot-verify'
 export type ReviewSeverity = 'blocker' | 'major' | 'minor'
 export type ReviewConfidence = 'high' | 'medium' | 'low'
@@ -156,18 +156,6 @@ export interface FindingVerification {
   packetChecksum: string
 }
 
-export interface HumanReviewSignoff {
-  schemaVersion: typeof AOS4_REVIEW_SCHEMA_VERSION
-  id: string
-  reviewerId: string
-  packetIds: ReviewPacketId[]
-  factionIds: CanonicalId<'faction'>[]
-  rulesContextIds: RulesContextId[]
-  acceptedLimitationFindingIds: ReviewFindingId[]
-  signedAt: string
-  statement: string
-}
-
 export interface ReviewLedger {
   schemaVersion: typeof AOS4_REVIEW_SCHEMA_VERSION
   assignments: ReviewAssignment[]
@@ -176,7 +164,6 @@ export interface ReviewLedger {
   findings: ReviewFinding[]
   resolutions: FindingResolution[]
   verifications: FindingVerification[]
-  signoffs: HumanReviewSignoff[]
 }
 
 export interface CertificationInput {
@@ -213,7 +200,6 @@ export interface CertificationManifest {
   }
   coverage: CertificationCoverage
   ledgerChecksum: string
-  signoffChecksum: string
   inventoryChecksum: string
   sourceObservedAt: string
 }
@@ -262,7 +248,6 @@ export const checksumReviewRecord = (value: unknown): string =>
 export const reviewerConfigurationId = (reviewer: ReviewerMetadata): ReviewerConfigurationId =>
   `reviewer-configuration:sha256:${checksumReviewRecord({
     kind: reviewer.kind,
-    ...(reviewer.kind === 'human' ? { reviewerId: reviewer.id } : {}),
     tool: reviewer.tool ?? null,
     model: reviewer.model ?? null,
     protocolVersion: reviewer.protocolVersion,

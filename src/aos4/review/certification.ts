@@ -9,7 +9,6 @@ import {
   type CertificationManifest,
   type FindingResolution,
   type FindingVerification,
-  type HumanReviewSignoff,
   type ReviewAssignment,
   type ReviewAuthority,
   type ReviewFinding,
@@ -22,7 +21,6 @@ import {
 } from './records'
 import { ReviewValidationError, validateReviewLedger, type ReviewValidationIssue } from './findings'
 import {
-  createHumanSampleManifest,
   type ReviewCandidateCategory,
   type ReviewPacketIndexEntry,
   type ReviewPacketSafeIndex,
@@ -47,9 +45,7 @@ export const REQUIRED_CERTIFICATION_INPUTS = [
   'review-findings',
   'review-resolutions',
   'review-verifications',
-  'review-signoffs',
   'source-inventory',
-  'human-sample',
 ] as const
 export const REQUIRED_CERTIFICATION_INPUT_NAMES = REQUIRED_CERTIFICATION_INPUTS
 
@@ -76,9 +72,6 @@ export type CertificationIssueCode =
   | 'missing-verification'
   | 'unverified-material-finding'
   | 'rejected-verification'
-  | 'missing-human-review'
-  | 'missing-human-signoff'
-  | 'unsigned-limitation'
   | 'invalid-source-inventory'
   | 'incomplete-source-inventory'
   | 'unmatched-source-artifact'
@@ -87,7 +80,6 @@ export type CertificationIssueCode =
   | 'stale-input'
   | 'stale-bound-input'
   | 'stale-ledger'
-  | 'stale-signoff'
   | 'stale-inventory'
   | 'stale-protocol'
   | 'stale-coverage'
@@ -112,7 +104,6 @@ export interface CertificationOpenLimitation {
   rationale: string
   resolutionRationale: string
   owner: string
-  signoffIds: string[]
 }
 
 export interface CertificationSummary {
@@ -140,19 +131,12 @@ export interface CertificationSummary {
   }
   openLimitations: CertificationOpenLimitation[]
   correctionVerification: {
-    materialFindings: number
+    required: number
     verified: number
     rejected: number
     missing: number
   }
   regressionCases: CertificationCoverageDetail
-  humanSignoffs: {
-    count: number
-    reviewerIds: string[]
-    packetCount: number
-    factionIds: string[]
-    rulesContextIds: string[]
-  }
   sourceInventory: {
     total: number
     matched: number
@@ -324,7 +308,6 @@ const indexIssues = (index: ReviewPacketSafeIndex): CertificationIssue[] => {
       entry.assignmentStatus === 'unassigned' &&
       typeof entry.calibration === 'boolean' &&
       typeof entry.countsTowardCoverage === 'boolean' &&
-      typeof entry.humanSample === 'boolean' &&
       typeof entry.projectsToRuntime === 'boolean' &&
       isChecksum(entry.samplingMetadataChecksum) &&
       entry.calibration !== entry.countsTowardCoverage
@@ -396,17 +379,6 @@ const indexIssues = (index: ReviewPacketSafeIndex): CertificationIssue[] => {
         'invalid-review-index',
         'index.coverage',
         'Faction/context or high-risk coverage metadata is malformed'
-      )
-    )
-  }
-  try {
-    createHumanSampleManifest(index)
-  } catch (error) {
-    issues.push(
-      issue(
-        'invalid-review-index',
-        'index.coverage.humanSample',
-        error instanceof Error ? error.message : 'Human sample coverage metadata is malformed'
       )
     )
   }
@@ -543,18 +515,12 @@ const resultsByPacket = (ledger: ReviewLedger): Map<ReviewPacketId, ReviewerResu
   return results
 }
 
-const reviewerKind = (
-  result: ReviewerResult,
-  assignments: Map<string, ReviewAssignment>
-): 'human' | 'agent' | undefined => assignments.get(result.assignmentId)?.reviewer.kind
-
 const reviewerId = (result: ReviewerResult, assignments: Map<string, ReviewAssignment>): string | undefined =>
   assignments.get(result.assignmentId)?.reviewer.id
 
 const matchingResults = (
   packetId: ReviewPacketId,
   packetChecksum: string,
-  kind: 'human' | 'agent',
   resultIndex: Map<ReviewPacketId, ReviewerResult[]>,
   assignments: Map<string, ReviewAssignment>
 ): ReviewerResult[] =>
@@ -562,12 +528,11 @@ const matchingResults = (
     result =>
       result.packetChecksum === packetChecksum &&
       result.outcome !== 'cannot-verify' &&
-      reviewerKind(result, assignments) === kind
+      assignments.get(result.assignmentId)?.reviewer.kind === 'agent'
   )
 
 const blindSequenceIssues = (
   entry: ReviewPacketIndexEntry,
-  kind: 'human' | 'agent',
   blind: ReviewerResult[],
   comparison: ReviewerResult[],
   assignments: Map<string, ReviewAssignment>,
@@ -587,7 +552,7 @@ const blindSequenceIssues = (
         issue(
           'comparison-before-blind',
           path,
-          `${kind} comparison was recorded before a blind interpretation by the same reviewer`
+          'Agent comparison was recorded before a blind interpretation by the same reviewer'
         ),
       ]
     : []
@@ -604,14 +569,12 @@ const packetOutcomeIssues = (
   const blind = matchingResults(
     entry.blindPacketId,
     entry.blindPacketChecksum,
-    'agent',
     resultIndex,
     assignments
   )
   const comparison = matchingResults(
     entry.comparisonPacketId,
     entry.comparisonPacketChecksum,
-    'agent',
     resultIndex,
     assignments
   )
@@ -622,7 +585,7 @@ const packetOutcomeIssues = (
       result =>
         result.packetChecksum === entry.blindPacketChecksum &&
         result.outcome === 'cannot-verify' &&
-        reviewerKind(result, assignments) === 'agent'
+        assignments.get(result.assignmentId)?.reviewer.kind === 'agent'
     )
     issues.push(
       issue(
@@ -654,7 +617,7 @@ const packetOutcomeIssues = (
       result =>
         result.packetChecksum === entry.comparisonPacketChecksum &&
         result.outcome === 'cannot-verify' &&
-        reviewerKind(result, assignments) === 'agent'
+        assignments.get(result.assignmentId)?.reviewer.kind === 'agent'
     )
     issues.push(
       issue(
@@ -670,7 +633,7 @@ const packetOutcomeIssues = (
     )
   }
   issues.push(
-    ...blindSequenceIssues(entry, 'agent', blind, comparison, assignments, `${entryPath}.comparison`)
+    ...blindSequenceIssues(entry, blind, comparison, assignments, `${entryPath}.comparison`)
   )
   return issues
 }
@@ -729,15 +692,6 @@ const calibrationIssues = (ledger: ReviewLedger, index: ReviewPacketSafeIndex): 
       )
     } else if (!calibration.passed) {
       issues.push(issue('failed-calibration', path, 'Reviewer result uses a failed calibration'))
-    } else if (assignment.reviewer.kind === 'human' && calibration.evidence?.assignmentId !== assignment.id) {
-      issues.push(
-        issue(
-          'failed-calibration',
-          path,
-          `Human result calibration ${calibration.evidence?.assignmentId ?? 'missing'} is not bound ` +
-            `to assignment ${assignment.id} and its sealed control results`
-        )
-      )
     } else if (new Date(calibration.calibratedAt) > new Date(result.reviewedAt)) {
       issues.push(issue('calibration-after-review', path, 'Agent result predates its recorded calibration'))
     }
@@ -754,14 +708,8 @@ const findingIssues = (
 } => {
   const issues: CertificationIssue[] = []
   const resolutions = new Map(ledger.resolutions.map(resolution => [resolution.findingId, resolution]))
-  const signoffsByLimitation = new Map<ReviewFinding['id'], HumanReviewSignoff[]>()
-  ledger.signoffs.forEach(signoff =>
-    signoff.acceptedLimitationFindingIds.forEach(findingId =>
-      signoffsByLimitation.set(findingId, [...(signoffsByLimitation.get(findingId) ?? []), signoff])
-    )
-  )
   const openLimitations: CertificationOpenLimitation[] = []
-  let materialFindings = 0
+  let required = 0
   let verified = 0
   let rejected = 0
   let missing = 0
@@ -774,27 +722,20 @@ const findingIssues = (
       return
     }
     if (resolution.disposition === 'accepted-limitation') {
-      const signoffs = signoffsByLimitation.get(finding.id) ?? []
-      if (!signoffs.length) {
-        issues.push(
-          issue(
-            'unsigned-limitation',
-            `ledger.findings[${findingIndex}]`,
-            `Accepted limitation ${finding.id} has no human sign-off`
-          )
-        )
-      }
       openLimitations.push({
         findingId: finding.id,
         subject: finding.subject,
         rationale: finding.rationale,
         resolutionRationale: resolution.rationale,
         owner: resolution.resolvedBy,
-        signoffIds: signoffs.map(signoff => signoff.id).sort(compareText),
       })
     }
-    if (finding.severity !== 'blocker' && finding.severity !== 'major') return
-    materialFindings += 1
+    const needsVerification =
+      finding.severity === 'blocker' ||
+      finding.severity === 'major' ||
+      resolution.disposition === 'accepted-limitation'
+    if (!needsVerification) return
+    required += 1
     const verifications = ledger.verifications.filter(verification => verification.findingId === finding.id)
     if (verifications.some(verification => verification.outcome === 'verified')) {
       verified += 1
@@ -821,132 +762,8 @@ const findingIssues = (
   return {
     issues,
     openLimitations: openLimitations.sort((left, right) => compareText(left.findingId, right.findingId)),
-    verification: { materialFindings, verified, rejected, missing },
+    verification: { required, verified, rejected, missing },
   }
-}
-
-const humanReviewIssues = (
-  entries: ReviewPacketIndexEntry[],
-  ledger: ReviewLedger,
-  resultIndex: Map<ReviewPacketId, ReviewerResult[]>,
-  assignments: Map<string, ReviewAssignment>
-): CertificationIssue[] => {
-  const issues: CertificationIssue[] = []
-  const knownPacketIds = new Set(entries.flatMap(entry => [entry.blindPacketId, entry.comparisonPacketId]))
-  ledger.signoffs.forEach((signoff, signoffIndex) => {
-    signoff.packetIds.forEach(packetId => {
-      if (!knownPacketIds.has(packetId)) {
-        issues.push(
-          issue(
-            'missing-human-signoff',
-            `ledger.signoffs[${signoffIndex}].packetIds`,
-            `Sign-off references unknown or stale packet ${packetId}`,
-            'stale'
-          )
-        )
-      }
-    })
-  })
-  entries
-    .filter(entry => entry.humanSample)
-    .forEach(entry => {
-      const path = `index.entries.${entry.pairKey}.humanSample`
-      const blind = matchingResults(
-        entry.blindPacketId,
-        entry.blindPacketChecksum,
-        'human',
-        resultIndex,
-        assignments
-      )
-      const comparison = matchingResults(
-        entry.comparisonPacketId,
-        entry.comparisonPacketChecksum,
-        'human',
-        resultIndex,
-        assignments
-      )
-      if (!comparison.length || (entry.blindDerivationRequired && !blind.length)) {
-        issues.push(
-          issue(
-            'missing-human-review',
-            path,
-            'Human sample packet does not have the required blind and comparison review outcomes'
-          )
-        )
-        return
-      }
-      issues.push(
-        ...blindSequenceIssues(entry, 'human', blind, comparison, assignments, `${path}.comparison`)
-      )
-      const humanReviewerIds = new Set(
-        [...blind, ...comparison]
-          .map(result => assignments.get(result.assignmentId)?.reviewer)
-          .filter(reviewer => reviewer?.kind === 'human')
-          .map(reviewer => reviewer!.id)
-      )
-      const signoff = ledger.signoffs.find(
-        value =>
-          value.packetIds.includes(entry.comparisonPacketId) &&
-          humanReviewerIds.has(value.reviewerId) &&
-          entry.factionIds.every(factionId => value.factionIds.includes(factionId)) &&
-          entry.rulesContextIds.every(contextId => value.rulesContextIds.includes(contextId))
-      )
-      if (!signoff) {
-        issues.push(
-          issue(
-            'missing-human-signoff',
-            path,
-            'Human sample packet is not covered by a matching reviewer sign-off'
-          )
-        )
-      }
-    })
-  const resolutionByFindingId = new Map(
-    ledger.resolutions.map(resolution => [resolution.findingId, resolution])
-  )
-  ledger.findings
-    .filter(
-      finding =>
-        finding.severity === 'blocker' ||
-        finding.severity === 'major' ||
-        resolutionByFindingId.get(finding.id)?.disposition === 'accepted-limitation'
-    )
-    .forEach((finding, index) => {
-      const candidatePacketIds = [
-        finding.packetId,
-        ...ledger.verifications
-          .filter(verification => verification.findingId === finding.id)
-          .map(verification => verification.packetId),
-      ]
-      const inspected = candidatePacketIds.some(packetId => {
-        const entry = entries.find(
-          value => value.blindPacketId === packetId || value.comparisonPacketId === packetId
-        )
-        if (!entry) return false
-        const checksum =
-          entry.blindPacketId === packetId ? entry.blindPacketChecksum : entry.comparisonPacketChecksum
-        const humanResults = matchingResults(packetId, checksum, 'human', resultIndex, assignments)
-        const reviewerIds = new Set(
-          humanResults
-            .map(result => assignments.get(result.assignmentId)?.reviewer)
-            .filter(reviewer => reviewer?.kind === 'human')
-            .map(reviewer => reviewer!.id)
-        )
-        return ledger.signoffs.some(
-          signoff => signoff.packetIds.includes(packetId) && reviewerIds.has(signoff.reviewerId)
-        )
-      })
-      if (!inspected) {
-        issues.push(
-          issue(
-            'missing-human-signoff',
-            `ledger.findings[${index}]`,
-            `Material finding or accepted limitation ${finding.id} lacks a matching human review and sign-off`
-          )
-        )
-      }
-    })
-  return issues
 }
 
 const coverageIssues = (
@@ -1042,14 +859,12 @@ export const evaluateCertification = (input: CertificationEvaluationInput): Cert
     const blind = matchingResults(
       entry.blindPacketId,
       entry.blindPacketChecksum,
-      'agent',
       resultIndex,
       assignments
     )
     const comparison = matchingResults(
       entry.comparisonPacketId,
       entry.comparisonPacketChecksum,
-      'agent',
       resultIndex,
       assignments
     )
@@ -1146,13 +961,6 @@ export const evaluateCertification = (input: CertificationEvaluationInput): Cert
     openLimitations: findingEvaluation.openLimitations,
     correctionVerification: findingEvaluation.verification,
     regressionCases: count(regressionEntries.filter(reviewed).length, regressionEntries.length),
-    humanSignoffs: {
-      count: ledger.signoffs.length,
-      reviewerIds: uniqueSorted(ledger.signoffs.map(signoff => signoff.reviewerId)),
-      packetCount: new Set(ledger.signoffs.flatMap(signoff => signoff.packetIds)).size,
-      factionIds: uniqueSorted(ledger.signoffs.flatMap(signoff => signoff.factionIds)),
-      rulesContextIds: uniqueSorted(ledger.signoffs.flatMap(signoff => signoff.rulesContextIds)),
-    },
     sourceInventory: {
       total: inventoryEntries.length,
       matched: inventoryEntries.filter(entry => entry.status === 'matched').length,
@@ -1191,7 +999,6 @@ export const evaluateCertification = (input: CertificationEvaluationInput): Cert
       )
     ),
     ...findingEvaluation.issues,
-    ...humanReviewIssues(liveEntries, ledger, resultIndex, assignments),
     ...coverageIssues(coverage, index, preliminarySummary),
     ...sourceInventoryIssues(inventory, index.revision, input.acceptedArtifactChecksums),
   ])
@@ -1269,7 +1076,6 @@ export const createCertificationManifest = (
   },
   coverage: input.evaluation.summary.coverage,
   ledgerChecksum: checksumReviewRecord(input.ledger),
-  signoffChecksum: checksumReviewRecord(input.ledger.signoffs),
   inventoryChecksum: input.inventory.checksum,
   sourceObservedAt: input.inventory.observedAt,
 })
@@ -1320,9 +1126,6 @@ export const verifyCertificationManifest = (
   }
   if (input.manifest.ledgerChecksum !== checksumReviewRecord(input.ledger)) {
     issues.push(issue('stale-ledger', 'manifest.ledgerChecksum', 'Review ledger has changed', 'stale'))
-  }
-  if (input.manifest.signoffChecksum !== checksumReviewRecord(input.ledger.signoffs)) {
-    issues.push(issue('stale-signoff', 'manifest.signoffChecksum', 'Human sign-offs have changed', 'stale'))
   }
   if (
     input.manifest.inventoryChecksum !== input.inventory.checksum ||
@@ -1414,19 +1217,6 @@ export const appendFindingVerification = (
     packets
   )
 
-export const appendHumanReviewSignoff = (
-  ledger: ReviewLedger,
-  signoff: HumanReviewSignoff,
-  packets?: ReviewPacket[]
-): ReviewLedger =>
-  assertLedgerCandidate(
-    {
-      ...ledger,
-      signoffs: [...ledger.signoffs, signoff].sort((left, right) => compareText(left.id, right.id)),
-    },
-    packets
-  )
-
 export const emptyReviewLedger = (): ReviewLedger => ({
   schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
   assignments: [],
@@ -1435,5 +1225,4 @@ export const emptyReviewLedger = (): ReviewLedger => ({
   findings: [],
   resolutions: [],
   verifications: [],
-  signoffs: [],
 })

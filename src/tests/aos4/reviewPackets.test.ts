@@ -1,31 +1,22 @@
-import { access, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
+import { mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises'
 import os from 'node:os'
 import path from 'node:path'
 import { describe, expect, it } from 'vitest'
 import {
   AOS4_REVIEW_SCHEMA_VERSION,
-  assessAdversarialComparison,
   assertCalibrationControlOutcomes,
   assertInterspersedCalibrationControls,
   assertReviewCacheComplete,
   assertReviewIndexMatchesPacketPairs,
   createComparisonTask,
   createExternalReviewExport,
-  createHumanSampleManifest,
   createReviewAssignment,
-  createReviewFinding,
   loadReviewPacketPairs,
   loadReviewPacketPairsByKey,
-  parseHumanReviewArguments,
   prepareReviewPackets,
-  reviewerConfigurationId,
-  runHumanReviewCommand,
   writeCreateOnlyFilesDirectory,
   type ReviewPacketShard,
   type ShardedReviewPacketWorkspace,
-  type ReviewAssignment,
-  type ReviewCalibration,
-  type ReviewLedger,
   type ReviewPacketCandidate,
   type ReviewerResult,
 } from '../../aos4/review'
@@ -175,94 +166,7 @@ describe('AoS 4 review packet preparation', () => {
     expect(safeJson).not.toContain('"generatedDestinations"')
   })
 
-  it('samples every faction/context stratum and every high-risk cohort deterministically', () => {
-    const candidates = [
-      candidate('a-standard'),
-      candidate('a-spearhead', { rulesContextIds: [CONTEXT_B] }),
-      candidate('b-standard', { factionIds: [FACTION_B] }),
-      candidate('reaction', {
-        factionIds: [FACTION_B],
-        rulesContextIds: [CONTEXT_B],
-        cohortIds: ['secondary-semantic', 'high-risk:reaction'],
-      }),
-    ]
-    const prepared = prepare(candidates)
-    const sampled = prepared.safeIndex.entries.filter(entry => entry.humanSample)
-    const strata = new Set(
-      sampled.flatMap(entry =>
-        entry.factionIds.flatMap(faction => entry.rulesContextIds.map(context => `${faction}:${context}`))
-      )
-    )
-
-    expect(strata).toEqual(
-      new Set([
-        `${FACTION_A}:${CONTEXT_A}`,
-        `${FACTION_A}:${CONTEXT_B}`,
-        `${FACTION_B}:${CONTEXT_A}`,
-        `${FACTION_B}:${CONTEXT_B}`,
-      ])
-    )
-    expect(sampled.some(entry => entry.cohortIds.includes('high-risk:reaction'))).toBe(true)
-  })
-
-  it('uses narrow faction-specific runtime evidence before shared or global evidence', () => {
-    const prepared = prepare([
-      candidate('global', { factionIds: [FACTION_A, FACTION_B] }),
-      candidate('exact-a'),
-      candidate('exact-b', { factionIds: [FACTION_B] }),
-    ])
-    const selections = prepared.safeIndex.coverage.humanSample.factionContextSelections
-
-    expect(selections).toEqual([
-      {
-        stratum: `${FACTION_A}|${CONTEXT_A}`,
-        selectedCandidateKey: 'exact-a',
-        factionScope: 1,
-        rulesContextScope: 1,
-      },
-      {
-        stratum: `${FACTION_B}|${CONTEXT_A}`,
-        selectedCandidateKey: 'exact-b',
-        factionScope: 1,
-        rulesContextScope: 1,
-      },
-    ])
-    expect(prepared.safeIndex.coverage.humanSample.factionContextFallbacks).toEqual([])
-
-    const tampered = structuredClone(prepared.safeIndex)
-    tampered.entries.find(entry => entry.candidateKey === 'exact-a')!.humanSample = false
-    tampered.entries.find(entry => entry.candidateKey === 'global')!.humanSample = true
-    expect(() => createHumanSampleManifest(tampered)).toThrow(
-      'Human sample entries do not match the exact deterministic selection'
-    )
-  })
-
-  it('rejects an equal-scope sample substitution even when its rationale is updated', () => {
-    const prepared = prepare(
-      Array.from({ length: 10 }, (_, index) => candidate(`equal-scope-${String(index).padStart(2, '0')}`))
-    )
-    const factionSelection = prepared.safeIndex.coverage.humanSample.factionContextSelections[0]
-    const replacement = prepared.safeIndex.entries.find(
-      entry =>
-        !entry.humanSample &&
-        entry.factionIds.length === factionSelection.factionScope &&
-        entry.rulesContextIds.length === factionSelection.rulesContextScope
-    )!
-    expect(replacement).toBeDefined()
-
-    const tampered = structuredClone(prepared.safeIndex)
-    tampered.entries.find(
-      entry => entry.candidateKey === factionSelection.selectedCandidateKey
-    )!.humanSample = false
-    tampered.entries.find(entry => entry.candidateKey === replacement.candidateKey)!.humanSample = true
-    tampered.coverage.humanSample.factionContextSelections[0].selectedCandidateKey = replacement.candidateKey
-
-    expect(() => createHumanSampleManifest(tampered)).toThrow(
-      'Human sample coverage metadata does not match deterministic reconstruction'
-    )
-  })
-
-  it('binds source-to-runtime sampling metadata to the packet pair', () => {
+  it('binds source-to-runtime metadata to the packet pair', () => {
     const prepared = prepare([candidate('runtime-bound')])
     expect(() =>
       assertReviewIndexMatchesPacketPairs(prepared.safeIndex, prepared.workspace.pairs)
@@ -270,53 +174,8 @@ describe('AoS 4 review packet preparation', () => {
 
     const tampered = structuredClone(prepared.safeIndex)
     tampered.entries.find(entry => entry.candidateKey === 'runtime-bound')!.projectsToRuntime = false
-    expect(() => createHumanSampleManifest(tampered)).toThrow(
-      'Review index sampling metadata checksum is stale'
-    )
     expect(() => assertReviewIndexMatchesPacketPairs(tampered, prepared.workspace.pairs)).toThrow(
       'Review index sampling metadata differs from packet semantics'
-    )
-  })
-
-  it('samples every populated category, authority class, and source kind', () => {
-    const officialEvidence = candidate('official-evidence').sourceEvidence.map(evidence => ({
-      ...evidence,
-      sourceRecordId: sourceRecordId('games-workshop', 'official:page:1'),
-      authority: 'official' as const,
-    }))
-    const prepared = prepare([
-      candidate('source'),
-      candidate('publication', {
-        cohortIds: ['source-authority:official', 'source-kind:publication'],
-        sourceEvidence: officialEvidence,
-      }),
-      candidate('official', {
-        category: 'official-record',
-        cohortIds: ['official-fact', 'official-status:effective', 'official-disposition:applied-to-runtime'],
-        sourceEvidence: officialEvidence,
-      }),
-      candidate('reconciliation', { category: 'reconciliation-discrepancy' }),
-      candidate('profile-only', { category: 'profile-only-fact' }),
-      candidate('ignored', { category: 'ignored-record' }),
-      candidate('golden', { category: 'golden-truth' }),
-    ])
-
-    expect(prepared.safeIndex.coverage.humanSample).toMatchObject({
-      categories: [
-        'golden-truth',
-        'ignored-record',
-        'official-record',
-        'profile-only-fact',
-        'reconciliation-discrepancy',
-        'source-record',
-      ],
-      authorityClasses: ['official', 'secondary'],
-      sourceKindCohorts: ['source-kind:publication', 'source-kind:warscroll'],
-      officialCohorts: ['official-disposition:applied-to-runtime', 'official-status:effective'],
-    })
-    const sampled = prepared.safeIndex.entries.filter(entry => entry.humanSample)
-    expect(new Set(sampled.map(entry => entry.category))).toEqual(
-      new Set(prepared.safeIndex.coverage.humanSample.categories)
     )
   })
 
@@ -418,7 +277,7 @@ describe('AoS 4 review packet preparation', () => {
         requiredHighRiskCohorts: ['high-risk:reaction'],
         calibrationCases: [],
       })
-    ).toThrow('No source-to-runtime human sample candidate exists')
+    ).toThrow('Required faction/context review strata are missing')
 
     expect(() =>
       prepareReviewPackets({
@@ -485,275 +344,6 @@ describe('AoS 4 review packet preparation', () => {
     }
 
     expect(createComparisonTask(pair, result).blindInterpretation).toBeNull()
-  })
-
-  it('parses the staged human review workflow without accepting ambiguous commands', () => {
-    expect(
-      parseHumanReviewArguments([
-        'prepare',
-        '--output',
-        '.cache/aos4/review/human-review',
-        '--reviewer-id',
-        'reviewer@example.test',
-        '--assigned-at',
-        '2026-07-28T12:00:00.000Z',
-      ])
-    ).toMatchObject({
-      command: 'prepare',
-      reviewerId: 'reviewer@example.test',
-    })
-    expect(() => parseHumanReviewArguments(['review'])).toThrow(
-      'Human review command must be prepare, calibrate, start, compare, or submit'
-    )
-  })
-
-  it('withholds the live human sample until concealed calibration passes', async () => {
-    const prepared = prepare([candidate('human-sample')])
-    const cacheRoot = path.resolve('.cache', 'aos4', 'review')
-    await mkdir(cacheRoot, { recursive: true })
-    const temporary = await mkdtemp(path.join(cacheRoot, 'human-workflow-test-'))
-    const reviewDirectory = path.join(temporary, 'review')
-    const indexPath = path.join(temporary, 'index.json')
-    const workspacePath = path.join(temporary, 'workspace.json')
-
-    try {
-      await Promise.all([
-        writeFile(indexPath, JSON.stringify(prepared.safeIndex), 'utf8'),
-        writeFile(workspacePath, JSON.stringify(prepared.workspace), 'utf8'),
-      ])
-      await runHumanReviewCommand([
-        'prepare',
-        '--output',
-        reviewDirectory,
-        '--reviewer-id',
-        'reviewer@example.test',
-        '--assigned-at',
-        '2026-07-28T12:00:00.000Z',
-        '--index',
-        indexPath,
-        '--workspace',
-        workspacePath,
-      ])
-
-      await expect(access(path.join(reviewDirectory, 'sample-blind'))).rejects.toThrow()
-
-      const humanWorkspace = JSON.parse(
-        await readFile(path.join(reviewDirectory, 'workspace.json'), 'utf8')
-      ) as { assignment: ReviewAssignment }
-      const configurationId = reviewerConfigurationId(humanWorkspace.assignment.reviewer)
-      const calibration = prepared.workspace.pairs.filter(pair => pair.calibration)
-      const blindResults: ReviewerResult[] = calibration.map((pair, index) => ({
-        schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
-        assignmentId: humanWorkspace.assignment.id,
-        packetId: pair.blindPacket.id,
-        packetChecksum: pair.blindPacket.packetChecksum,
-        reviewerConfigurationId: configurationId,
-        reviewedAt: `2026-07-28T14:00:0${index}Z`,
-        outcome: pair.calibrationKind === 'insufficient-evidence' ? 'cannot-verify' : 'pass',
-        rationale: 'Independent calibration interpretation recorded before comparison.',
-        blindExpectedInterpretation: { derived: pair.candidateKey },
-        findings: [],
-      }))
-      const enteredBlindResults = path.join(reviewDirectory, 'entered-calibration-blind-results.json')
-      await writeFile(
-        enteredBlindResults,
-        JSON.stringify({ schemaVersion: 1, results: blindResults }),
-        'utf8'
-      )
-      await runHumanReviewCommand([
-        'calibrate',
-        '--review-dir',
-        reviewDirectory,
-        '--blind-results',
-        enteredBlindResults,
-        '--workspace',
-        workspacePath,
-      ])
-
-      const comparisonResults: ReviewerResult[] = calibration.map((pair, index) => {
-        const findings = pair.calibrationKind === 'defect' ? assessAdversarialComparison(pair).findings : []
-        return {
-          schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
-          assignmentId: humanWorkspace.assignment.id,
-          packetId: pair.comparisonPacket.id,
-          packetChecksum: pair.comparisonPacket.packetChecksum,
-          reviewerConfigurationId: configurationId,
-          reviewedAt: `2026-07-28T14:00:0${index}.001Z`,
-          outcome:
-            pair.calibrationKind === 'defect'
-              ? 'finding'
-              : pair.calibrationKind === 'insufficient-evidence'
-                ? 'cannot-verify'
-                : 'pass',
-          rationale: 'Compared the saved blind interpretation with the generated destination.',
-          findings,
-        }
-      })
-      const enteredComparisonResults = path.join(
-        reviewDirectory,
-        'entered-calibration-comparison-results.json'
-      )
-      const unsupportedComparisonResults = comparisonResults.map(result => ({
-        ...result,
-        findings: result.findings.map(finding =>
-          createReviewFinding({
-            ...finding,
-            id: undefined,
-            expectedValue: 3,
-            actualValue: 2,
-          })
-        ),
-      }))
-      await writeFile(
-        enteredComparisonResults,
-        JSON.stringify({ schemaVersion: 1, results: unsupportedComparisonResults }),
-        'utf8'
-      )
-      await expect(
-        runHumanReviewCommand([
-          'start',
-          '--review-dir',
-          reviewDirectory,
-          '--comparison-results',
-          enteredComparisonResults,
-          '--workspace',
-          workspacePath,
-        ])
-      ).rejects.toThrow('Human reviewer calibration failed')
-
-      const reviewerEnteredComparisonResults = comparisonResults.map(result => ({
-        ...result,
-        findings: result.findings.map(finding =>
-          Object.fromEntries(
-            Object.entries(finding).filter(([key]) => key !== 'id' && key !== 'schemaVersion')
-          )
-        ),
-      }))
-      await writeFile(
-        enteredComparisonResults,
-        JSON.stringify({ schemaVersion: 1, results: reviewerEnteredComparisonResults }),
-        'utf8'
-      )
-      await runHumanReviewCommand([
-        'start',
-        '--review-dir',
-        reviewDirectory,
-        '--comparison-results',
-        enteredComparisonResults,
-        '--workspace',
-        workspacePath,
-      ])
-
-      const calibrationRecord = JSON.parse(
-        await readFile(path.join(reviewDirectory, 'sample-blind', 'calibration.json'), 'utf8')
-      ) as ReviewCalibration
-      expect(calibrationRecord.passed).toBe(true)
-      await expect(access(path.join(reviewDirectory, 'sample-blind', 'tasks.json'))).resolves.toBeUndefined()
-
-      const sample = prepared.workspace.pairs.find(pair => !pair.calibration)!
-      const enteredSampleBlindResults = path.join(reviewDirectory, 'entered-blind-results.json')
-      await writeFile(
-        enteredSampleBlindResults,
-        JSON.stringify({
-          schemaVersion: 1,
-          results: [
-            {
-              schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
-              assignmentId: humanWorkspace.assignment.id,
-              packetId: sample.blindPacket.id,
-              packetChecksum: sample.blindPacket.packetChecksum,
-              reviewerConfigurationId: configurationId,
-              reviewedAt: '2026-07-28T14:01:00Z',
-              outcome: 'pass',
-              rationale: 'Derived the sample interpretation from the cited source evidence.',
-              blindExpectedInterpretation: { attacks: 2 },
-              findings: [],
-            },
-          ],
-        }),
-        'utf8'
-      )
-      await runHumanReviewCommand([
-        'compare',
-        '--review-dir',
-        reviewDirectory,
-        '--blind-results',
-        enteredSampleBlindResults,
-        '--workspace',
-        workspacePath,
-      ])
-
-      const enteredSampleComparisonResults = path.join(reviewDirectory, 'entered-comparison-results.json')
-      await writeFile(
-        enteredSampleComparisonResults,
-        JSON.stringify({
-          schemaVersion: 1,
-          results: [
-            {
-              schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
-              assignmentId: humanWorkspace.assignment.id,
-              packetId: sample.comparisonPacket.id,
-              packetChecksum: sample.comparisonPacket.packetChecksum,
-              reviewerConfigurationId: configurationId,
-              reviewedAt: '2026-07-28T14:01:00.001Z',
-              outcome: 'pass',
-              rationale: 'The saved interpretation matches the generated destination.',
-              findings: [],
-            },
-          ],
-        }),
-        'utf8'
-      )
-      const sealedBlindResultsPath = path.join(reviewDirectory, 'sample-comparison', 'blind-results.json')
-      const sealedBlindResults = await readFile(sealedBlindResultsPath, 'utf8')
-      const changedBlindResults = JSON.parse(sealedBlindResults) as {
-        schemaVersion: 1
-        results: ReviewerResult[]
-      }
-      changedBlindResults.results[0].rationale = 'Changed after comparison values were revealed.'
-      await writeFile(sealedBlindResultsPath, JSON.stringify(changedBlindResults), 'utf8')
-      await expect(
-        runHumanReviewCommand([
-          'submit',
-          '--review-dir',
-          reviewDirectory,
-          '--comparison-results',
-          enteredSampleComparisonResults,
-          '--signed-at',
-          '2026-07-28T14:02:00.000Z',
-          '--statement',
-          'I independently checked every assigned packet against its cited evidence.',
-          '--workspace',
-          workspacePath,
-        ])
-      ).rejects.toThrow('Sample blind results changed after its review stage was published')
-      await writeFile(sealedBlindResultsPath, sealedBlindResults, 'utf8')
-      await runHumanReviewCommand([
-        'submit',
-        '--review-dir',
-        reviewDirectory,
-        '--comparison-results',
-        enteredSampleComparisonResults,
-        '--signed-at',
-        '2026-07-28T14:02:00.000Z',
-        '--statement',
-        'I independently checked every assigned packet against its cited evidence.',
-        '--workspace',
-        workspacePath,
-      ])
-
-      const submitted = JSON.parse(
-        await readFile(path.join(reviewDirectory, 'ledger.json'), 'utf8')
-      ) as ReviewLedger
-      expect(submitted.results.map(result => result.packetId)).toEqual(
-        expect.arrayContaining([sample.blindPacket.id, sample.comparisonPacket.id])
-      )
-      expect(submitted.results).toHaveLength(2)
-      expect(submitted.calibrations).toEqual([expect.objectContaining({ passed: true })])
-      expect(submitted.signoffs).toEqual([expect.objectContaining({ reviewerId: 'reviewer@example.test' })])
-    } finally {
-      await rm(temporary, { recursive: true, force: true })
-    }
   })
 
   it('rejects reviewer exports without explicit recipient approval', () => {

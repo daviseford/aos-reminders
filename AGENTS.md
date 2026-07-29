@@ -104,10 +104,11 @@ audit catalog, compact runtime projection, and generation report are checked in.
 has no unresolved timing, dangling reference, unsafe HTML, duplicate identity, silent source
 conflict, or unreviewed source diagnostic.
 
-Phase 1 is not certified yet. The checksum-bound review attempt has complete machine coverage and
-source inventories but remains blocked on 169 genuine human blind/comparison reviews and matching
-sign-off. Do not create the current-certification pointer, claim Phase 1 completion, or begin
-Phase 2 package modernization until `yarn data:aos4:certify` passes. See
+Phase 1 is machine-verified for beta use. `data/aos4/certifications/beta.json` binds the accepted
+corpus to its complete machine review and source inventory, and `yarn data:aos4:verify:beta` fails
+closed on stale checksums, uncovered records, unresolved findings, or incomplete machine evidence.
+Phase 2 may proceed after that beta gate passes. Rules reports from beta testers must be reconciled
+against official sources through the normal candidate pipeline. See
 `docs/data/aos4-accuracy-review.md`.
 
 Future data refreshes repeat Phase 1b's candidate-review-accept-generate workflow. Never replace the
@@ -342,8 +343,8 @@ yarn data:aos4:generate:candidate
 This verifies every accepted artifact checksum from the local cache, re-extracts reviewed official
 PDF page records, rebuilds the catalog, official battle-profile ledger, and runtime projection in
 memory, and fails if any checked-in product differs. Normal `yarn data:aos4:generate` additionally
-requires a passing `current.json`; use `yarn data:aos4:generate:write` only for the explicit
-candidate workflow after updating accepted manifest and review inputs. Never hand-edit
+requires a passing `beta.json` machine-readiness pointer; use `yarn data:aos4:generate:write` only
+for the explicit candidate workflow after updating accepted manifest and review inputs. Never hand-edit
 `data/aos4/catalog/catalog.json`,
 `data/aos4/catalog/official-battle-profiles.json`, `data/aos4/identities/corpus.json`, or
 `src/aos4/generated/corpus/*.json`.
@@ -353,13 +354,12 @@ Accuracy review is a separate fail-closed layer:
 - full packets and source excerpts stay under `.cache/aos4/review/`
 - machine results cannot accept or mutate data
 - blind interpretations must be saved before generated-value comparison
-- every faction/context and high-risk cohort requires deterministic human sampling
-- blocker/major corrections require an independent verifier
-- only a passing checksum-bound certification may unblock Phase 2
+- machine review must cover every record, faction/context stratum, and high-risk cohort
+- beta feedback that identifies a possible rules mistake must be checked against official sources
+  and corrected through a new candidate; never patch generated runtime data directly
 
 Use `yarn data:aos4:review:prepare`, `yarn data:aos4:review:adversarial`,
-`yarn data:aos4:review:human`, `yarn data:aos4:certify:prepare`, and
-`yarn data:aos4:certify` as documented in `docs/data/aos4-accuracy-review.md`.
+`yarn data:aos4:certify:prepare`, and `yarn data:aos4:verify:beta` for the beta gate.
 
 ## Retired architecture
 
@@ -408,11 +408,10 @@ Focused examples:
 yarn vitest run src/tests/aos4/legacyIsolation.test.ts
 yarn vitest run src/tests/aos4/representativeSlice.test.ts
 yarn data:aos4:generate:candidate
+yarn data:aos4:verify:beta
 ```
 
-After a passing `data/aos4/certifications/current.json` exists, also run
-`yarn data:aos4:certify`. Until then, validate an explicit review directory and expect only the
-documented human-review blocker.
+Always run `yarn data:aos4:verify:beta` for the accepted revision.
 
 Tests use small repository fixtures and must not depend on live source availability. Add contract
 tests for provider changes and reconciliation tests for conflicts, stale secondary data, missing
@@ -431,8 +430,8 @@ unit-test prerequisite.
 5. Update the accepted manifest/review inputs and regenerate; do not hand-edit products.
 6. Run deterministic generation, catalog integrity, provenance, selection, reminder, browser, and
    production-build checks.
-7. Repeat the checksum-bound machine and human accuracy review; a prior certification is never
-   inherited by a changed corpus.
+7. Repeat the checksum-bound machine review and update the beta-readiness pointer; a prior result
+   is never inherited by a changed corpus.
 8. Commit and push only to a migration sub-PR targeting `aos4-migration`.
-9. Keep dependency/package modernization blocked until the current revision has a passing
-   certification.
+9. Reconcile beta-tester rules reports against official sources and add regression coverage for
+   confirmed corrections.

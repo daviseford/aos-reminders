@@ -16,7 +16,7 @@ import {
   type CorpusReview,
 } from '../../aos4/generate'
 import {
-  assertAcceptedCorpusCertification,
+  assertAcceptedCorpusBetaReadiness,
   assertCorpusWriteWorkflow,
   officialSourceRecordContexts,
   parseCorpusCommandArguments,
@@ -66,21 +66,42 @@ const review: CorpusReview = {
 }
 
 describe('AoS 4 corpus generation', () => {
-  it('keeps candidate preparation available while accepted workflows fail closed', async () => {
+  it('keeps candidate preparation available while accepted beta workflows fail closed', async () => {
     const candidate = parseCorpusCommandArguments(['--candidate', '--write'])
     expect(candidate).toMatchObject({ candidate: true, write: true })
     expect(() => assertCorpusWriteWorkflow({ candidate: false, write: true })).toThrow(
       'explicit --candidate workflow'
     )
     await expect(
-      assertAcceptedCorpusCertification(false, false, async () => ({ ok: true, status: 'pass' }))
-    ).rejects.toThrow('certification is missing')
+      assertAcceptedCorpusBetaReadiness(false, false, async () => ({
+        ok: true,
+        status: 'blocked',
+      }))
+    ).rejects.toThrow('beta readiness is missing')
     await expect(
-      assertAcceptedCorpusCertification(true, false, async () => ({ ok: false, status: 'stale' }))
-    ).rejects.toThrow('certification is stale')
+      assertAcceptedCorpusBetaReadiness(true, false, async () => ({
+        ok: false,
+        status: 'stale',
+      }))
+    ).rejects.toThrow('beta readiness is stale')
+    await expect(
+      assertAcceptedCorpusBetaReadiness(true, false, async () => ({
+        ok: true,
+        status: 'blocked',
+      }))
+    ).rejects.toThrow('beta readiness is blocked')
+    await expect(
+      assertAcceptedCorpusBetaReadiness(true, false, async () => ({
+        ok: true,
+        status: 'pass',
+      }))
+    ).resolves.toBeUndefined()
 
-    const check = vi.fn(async () => ({ ok: false, status: 'stale' as const }))
-    await expect(assertAcceptedCorpusCertification(true, true, check)).resolves.toBeUndefined()
+    const check = vi.fn(async () => ({
+      ok: false,
+      status: 'stale' as const,
+    }))
+    await expect(assertAcceptedCorpusBetaReadiness(true, true, check)).resolves.toBeUndefined()
     expect(check).not.toHaveBeenCalled()
   })
 

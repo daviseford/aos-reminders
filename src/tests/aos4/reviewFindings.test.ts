@@ -9,14 +9,12 @@ import {
   importReviewerResultAtomic,
   parseCertificationManifest,
   parseReviewLedger,
-  parseReviewLedgerSupplement,
   reviewerConfigurationId,
   serializeReviewRecord,
   validateReviewLedger,
   type CertificationManifest,
   type FindingResolution,
   type FindingVerification,
-  type HumanReviewSignoff,
   type ReviewCalibration,
   type ReviewLedger,
   type ReviewerMetadata,
@@ -138,7 +136,6 @@ const emptyLedger = (assignment = approvedAssignment): ReviewLedger => ({
   findings: [],
   resolutions: [],
   verifications: [],
-  signoffs: [],
 })
 
 describe('AoS 4 review records', () => {
@@ -178,21 +175,10 @@ describe('AoS 4 review records', () => {
       findingId: finding.id,
       outcome: 'verified',
       rationale: 'The corrected packet and regenerated catalog now agree with page 17.',
-      verifierId: 'reviewer:independent-human',
+      verifierId: 'reviewer:independent-agent',
       verifiedAt: '2026-07-28T14:00:00.000Z',
       packetId: packet.id,
       packetChecksum: packet.packetChecksum,
-    }
-    const signoff: HumanReviewSignoff = {
-      schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
-      id: 'signoff:stormcast-standard',
-      reviewerId: 'reviewer:independent-human',
-      packetIds: [packet.id],
-      factionIds: [ENTITY_ID],
-      rulesContextIds: [CONTEXT_ID],
-      acceptedLimitationFindingIds: [],
-      signedAt: '2026-07-28T15:00:00.000Z',
-      statement: 'The sampled source-to-runtime interpretation is faithful.',
     }
     const ledger: ReviewLedger = {
       ...emptyLedger(),
@@ -200,7 +186,6 @@ describe('AoS 4 review records', () => {
       findings: [finding],
       resolutions: [resolution],
       verifications: [verification],
-      signoffs: [signoff],
     }
     const manifest: CertificationManifest = {
       schemaVersion: AOS4_CERTIFICATION_SCHEMA_VERSION,
@@ -232,7 +217,6 @@ describe('AoS 4 review records', () => {
         highRiskCohorts: { reviewed: 1, expected: 1 },
       },
       ledgerChecksum: checksumReviewRecord(ledger),
-      signoffChecksum: checksumReviewRecord(ledger.signoffs),
       inventoryChecksum: CHECKSUM_A,
       sourceObservedAt: REVIEWED_AT,
     }
@@ -264,7 +248,6 @@ describe('AoS 4 review records', () => {
         findings: [],
         resolutions: [],
         verifications: [],
-        signoffs: [],
       })
     ).toThrowError(ReviewValidationError)
     expect(() =>
@@ -272,26 +255,6 @@ describe('AoS 4 review records', () => {
         schemaVersion: AOS4_CERTIFICATION_SCHEMA_VERSION,
       })
     ).toThrowError(ReviewValidationError)
-  })
-
-  it('accepts supplemental adjudication before machine findings are merged', () => {
-    const supplement = {
-      ...emptyLedger(),
-      resolutions: [
-        {
-          schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
-          findingId: finding.id,
-          disposition: 'fixed' as const,
-          rationale: 'The upstream transformation was corrected.',
-          resolvedBy: 'maintainer',
-          resolvedAt: '2026-07-28T13:00:00.000Z',
-          upstreamChangeRefs: ['src/aos4/review/fixture.ts'],
-        },
-      ],
-    }
-
-    expect(parseReviewLedgerSupplement(supplement)).toEqual(supplement)
-    expect(() => parseReviewLedger(supplement)).toThrowError(ReviewValidationError)
   })
 
   it('rejects stale packet checksums atomically', () => {

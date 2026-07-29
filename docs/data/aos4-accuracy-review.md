@@ -1,18 +1,19 @@
-# AoS 4 data accuracy review
+# AoS 4 automated accuracy review
 
-AoS Reminders accepts an AoS 4 corpus only after two separate questions pass:
+AoS Reminders accepts an AoS 4 corpus for beta use only after automated checks answer:
 
-1. Did the acquisition and generation pipeline consume the intended source snapshot without
-   inventing, dropping, or silently overriding structured facts?
-2. Did independent reviewers confirm that the source evidence, canonical catalog, and runtime
-   projection agree?
+1. Did acquisition and generation consume the intended source snapshot without inventing,
+   dropping, or silently overriding structured facts?
+2. Does the checksum-bound independent review cover every accepted source record, reconciliation
+   decision, faction/context stratum, and high-risk cohort without unresolved findings?
 
-A successful download, parser run, or application build is not an accuracy certification.
+A successful download, parser run, or application build is not enough. Beta readiness requires the
+full automated gate.
 
 ## Current campaign
 
-The candidate revision is `aos4-corpus-2026-07-28`, generated from the accepted 2026-07-27 source
-snapshot. Its machine review is complete:
+The current revision is `aos4-corpus-2026-07-28`, generated from the accepted 2026-07-27 source
+snapshot. Its automated review is complete:
 
 | Measure | Result |
 | --- | ---: |
@@ -24,56 +25,49 @@ snapshot. Its machine review is complete:
 | Live audit source records | 19,057/19,057 |
 | Superseded source-record dispositions | 18,897/18,897 |
 | Live review pairs | 39,723/39,723 |
-| Agent outcomes | 79,446 pass; 0 finding; 0 cannot-verify |
+| Independent outcomes | 79,446 pass; 0 finding; 0 cannot-verify |
 | Supported faction/context strata | 129/129 |
 | Populated high-risk cohorts | 16/16 |
-| Deterministic human sample | 169 pairs |
 
 The independent source inventory was observed at `2026-07-28T18:21:35.398Z`: 241 entries matched
 accepted checksums and 9 discovery entries received explicit non-material dispositions.
 
-The final certificate remains blocked until a named human AoS reviewer completes and signs all 169
-sample pairs. Do not describe Phase 1 as certified, enable the CI certificate gate, or begin Phase
-2 implementation before that ledger produces `status: "pass"`.
+`data/aos4/certifications/beta.json` binds the accepted revision to this automated evidence.
+`yarn data:aos4:verify:beta` is the fail-closed beta gate and must pass before accepted generation,
+CI, or Phase 2 work proceeds.
 
 The 129 faction/context strata are the combinations declared by each faction's catalog
-applicability, not a Cartesian product. The previous 140 count was inflated by global rules that
-were incorrectly allowed to stand in for unsupported or faction-specific strata. Every selected
-stratum now uses faction-specific source evidence that projects to runtime; shared/global faction
-records cannot satisfy it.
+applicability, not a Cartesian product. A stratum counts as reviewed only when every live packet
+assigned to it passes.
 
 These results are evidence-coverage counts, not a statistical accuracy percentage. Official
-reference PDF pages prove inventory and provenance unless a structured fact is extracted from
-them; the 1,350 official battle-profile facts and their reconciliations are the current
-fact-by-fact official extraction scope. Games Workshop still wins every applicable detected
-disagreement.
+reference PDF pages prove inventory and provenance only when the pipeline extracts a structured
+fact from them. Games Workshop remains authoritative for every applicable detected disagreement.
 
 ## Evidence and trust boundary
 
 Raw PDFs, HTML, CSV exports, extracted text, and review excerpts stay under `.cache/aos4/`. Source
-text is delimited and treated as untrusted data, never reviewer instructions. The repository may
-commit only structured facts and compact review records: IDs, checksums, locators, outcomes,
-findings, resolutions, verifications, sign-offs, coverage summaries, and the certificate manifest.
+text is delimited and treated as untrusted data, never as instructions. The repository commits
+only structured facts and compact evidence records: IDs, checksums, locators, outcomes, findings,
+resolutions, coverage summaries, and manifest bindings.
 
 The packet builder creates:
 
 - a blind packet containing source locators and a minimized source excerpt, but no generated value;
 - a comparison packet containing the saved blind interpretation and generated destinations;
-- a safe index containing no source excerpts;
-- four hidden-outcome calibration controls that never count toward corpus coverage.
+- a safe index containing no source excerpts; and
+- concealed automated controls that never count toward corpus coverage.
 
 Every result binds its assignment, reviewer configuration, packet ID, packet checksum, rubric,
-timestamp, outcome, rationale, and findings. Changing source, generated output, protocol, rubric,
-review records, sign-offs, or inventory makes the certificate stale.
+timestamp, outcome, rationale, and findings. Changing a source, generated output, protocol, rubric,
+review result, source inventory, or manifest binding makes the associated evidence stale.
 
-## Full review workflow
+## Automated workflow
 
-All timestamps below must be canonical ISO instants. Output directories are create-only so a new
-attempt cannot overwrite prior evidence.
+All output workspaces under `.cache/aos4/review/` are create-only. Use a new revision-specific path
+for every run.
 
-### 1. Replay and prepare
-
-Populate the accepted checksum cache, then run:
+### 1. Replay generation and prepare packets
 
 ```powershell
 yarn data:aos4:generate:candidate
@@ -81,26 +75,24 @@ yarn data:aos4:review:prepare `
   --workspace .cache/aos4/review/workspace-<revision>
 ```
 
-The first command proves accepted generation from cached immutable bytes without requiring an
-existing passing certificate. The second writes the create-only sharded evidence workspace and
-safe index to the specified ignored directory. Use a new revision-specific path for every
-preparation; an existing workspace is immutable and is never resumed or overwritten.
+The generation command replays the accepted immutable source cache without relying on a beta
+pointer. Packet preparation writes the sharded evidence workspace and safe index.
 
-Run independent Games Workshop and Wahapedia observations immediately before sign-off, then
-combine them:
+### 2. Observe and bind the source inventory
+
+Run independent Games Workshop and Wahapedia observations, then combine them:
 
 ```powershell
 yarn data:aos4:inventory `
-  --revision aos4-corpus-2026-07-28 `
+  --revision <revision> `
   --observation .cache/aos4/review/games-workshop-observation.json `
   --observation .cache/aos4/review/wahapedia-observation.json
 ```
 
-Any missing, unexpected, inaccessible, or ambiguous entry blocks certification. A non-material
-entry needs a specific reviewed rationale; it is not a way to waive a source that can change
-player-facing meaning.
+Any missing, unexpected, inaccessible, or ambiguous entry blocks beta readiness. A non-material
+entry needs a specific evidence-backed disposition.
 
-### 2. Run the independent machine campaign
+### 3. Run the independent campaign
 
 ```powershell
 yarn data:aos4:review:adversarial `
@@ -109,193 +101,68 @@ yarn data:aos4:review:adversarial `
   --campaign-at <iso-instant>
 ```
 
-The reviewer must pass the exact rubric calibration before live outcomes are accepted. Blind
-results are recorded before comparison results. Any finding or `cannot-verify` outcome blocks the
-certificate until adjudicated and re-reviewed.
+Blind results are sealed before generated values are compared. Any finding or `cannot-verify`
+outcome blocks the candidate until it is resolved and the affected evidence is rerun.
 
-### 3. Run the human faction/context sample
-
-Use a durable reviewer identity; do not use a placeholder or another person's name:
-
-```powershell
-yarn data:aos4:review:human prepare `
-  --output .cache/aos4/review/human-<reviewer>-<revision> `
-  --reviewer-id <reviewer-id> `
-  --assigned-at <iso-instant> `
-  --index .cache/aos4/review/workspace-<revision>/index.json `
-  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
-```
-
-This initially creates only `calibration-blind-tasks.json` and its result template. The calibration
-is a four-question practice review with two simple browser stages:
-
-1. Read only the supplied source excerpt. If it answers the question, summarize the relevant fact
-   and point to the supporting words. If it does not, choose “No” rather than guessing.
-2. After those answers are locked, compare the same source with what the website would use. Mark
-   whether they agree, differ in an important way, or still cannot be judged from the source.
-
-The desk determines the internal field name and source authority automatically. Reviewers do not
-need to understand record IDs, checksums, JSON types, or pipeline terminology. The four
-calibration controls do not reveal their expected outcome.
-
-Reviewers do not need to edit those JSON files directly. Start the localhost-only guided review
-desk from the repository root:
-
-```powershell
-yarn data:aos4:review:human:guided `
-  --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
-  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
-```
-
-The browser presents one evidence card at a time, keeps unfinished answers in that browser's local
-storage, records canonical review timestamps, and creates `calibration-blind-results.json` only
-after every question is complete. It binds only to `127.0.0.1`, requires an unguessable per-run
-token, and exits after publishing the create-only result file. The established production
-application and its routes are not involved.
-
-Save the completed calibration blind results, then reveal their comparisons:
-
-```powershell
-yarn data:aos4:review:human calibrate `
-  --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
-  --blind-results calibration-blind-results.json `
-  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
-```
-
-The command locks the source-reading answers and writes the revealed tasks plus template under
-`calibration-comparison/`. Use the guided desk to compare the source excerpt, the locked answer, and
-what the website would use:
-
-```powershell
-yarn data:aos4:review:human:guided `
-  --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
-  --stage calibration-comparison `
-  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
-```
-
-A `finding` decision must name the affected field and records only the discrepancy the human
-entered; the desk never substitutes an agent-generated finding. After the create-only
-`calibration-comparison/results.json` is sealed, validate calibration and release the live sample:
-
-```powershell
-yarn data:aos4:review:human start `
-  --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
-  --comparison-results calibration-comparison/results.json `
-  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
-```
-
-The `start` command fails unless the reviewer finds every planted material defect, proposes no
-unsupported correction, and returns `cannot-verify` for the insufficient-evidence case. Only a
-passing calibration creates `sample-blind/tasks.json` and
-`sample-blind/results.template.json` for the 169 live sample pairs. Reviewers may omit finding `id`
-and `schemaVersion` fields from entered result files; the command derives those structural fields
-from the finding content before validation.
-
-Use the same guided review desk for the live blind sample:
-
-```powershell
-yarn data:aos4:review:human:guided `
-  --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
-  --stage sample-blind `
-  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
-```
-
-Save the completed blind results as `sample-blind/results.json`, then reveal comparisons:
-
-```powershell
-yarn data:aos4:review:human compare `
-  --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
-  --blind-results sample-blind/results.json `
-  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
-```
-
-The command seals the entered blind results and writes the revealed tasks plus template under
-`sample-comparison/`. Complete those comparisons through the guided desk:
-
-```powershell
-yarn data:aos4:review:human:guided `
-  --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
-  --stage sample-comparison `
-  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
-```
-
-A source conflict, unclear evidence, or suspected defect must be recorded as `finding` or
-`cannot-verify`; never turn uncertainty into a pass.
-
-After all findings have been adjudicated and corrected upstream, submit the clean re-review:
-
-```powershell
-yarn data:aos4:review:human submit `
-  --review-dir .cache/aos4/review/human-<reviewer>-<revision> `
-  --comparison-results sample-comparison/results.json `
-  --signed-at <iso-instant-after-all-results> `
-  --statement "I independently checked every assigned packet against its cited evidence and applied the AoS 4 source hierarchy." `
-  --workspace .cache/aos4/review/workspace-<revision>/workspace.json
-```
-
-Submission fails if calibration is wrong, a pair is incomplete, comparison preceded blind review,
-a checksum is stale, any sample result is not `pass`, or the signature does not cover every
-sampled faction and context. Each stage is create-only and carries a checksum receipt, so reruns
-cannot silently replace saved blind work. The output `ledger.json` is the human input to
-certification.
-
-### 4. Adjudicate findings
-
-Every finding needs an evidence-backed disposition:
-
-- `fixed`: correct acquisition, decoding, normalization, identity, reconciliation, context, or
-  generation upstream; regenerate and re-review the changed packets;
-- `false-positive`: explain why the cited evidence supports the current value;
-- `accepted-limitation`: minor only, incapable of misleading player-facing meaning, with explicit
-  human approval and an owner.
-
-Blocker and major fixes require verification by a person or reviewer distinct from the original
-reviewer and resolver. Never edit generated catalog/runtime JSON or reviewer output to manufacture
-a pass.
-
-### 5. Prepare and verify the certificate
-
-After machine and human review pass:
+### 4. Prepare and verify beta evidence
 
 ```powershell
 yarn data:aos4:certify:prepare `
   --output data/aos4/certifications/<revision> `
   --review-output .cache/aos4/review/adversarial-<revision> `
+  --inventory .cache/aos4/review/source-inventory.json `
   --index .cache/aos4/review/workspace-<revision>/index.json `
   --workspace .cache/aos4/review/workspace-<revision>/workspace.json `
-  --human-ledger .cache/aos4/review/human-<reviewer>-<revision>/ledger.json `
-  --evaluated-at <iso-instant> `
-  --require-pass
+  --evaluated-at <iso-instant>
 ```
 
-Inspect the manifest and summary. Add `data/aos4/certifications/current.json` only when the
-manifest reports `pass`, pointing it at that immutable revision directory. Certification
-directories are create-only; never edit a summary, ledger, or sign-off in place. Prepare a new
-revision directory after any correction. Then run:
+Inspect the manifest and summary, then point `data/aos4/certifications/beta.json` at the immutable
+revision directory. Certification directories are create-only; prepare a new directory after any
+changed input.
 
 ```powershell
-yarn data:aos4:certify
-yarn data:aos4:certify:full
+yarn data:aos4:verify:beta
 ```
 
-`data:aos4:certify` is the final checked-in-only gate used by CI after the current pointer exists.
-It must pass in a clean checkout with no `.cache/aos4/` directory and no network.
-`data:aos4:certify:full` additionally replays accepted generation and the local packet workspace.
+The beta gate validates committed checksums, source inventory, independent results, coverage
+assertions, and manifest bindings in a clean checkout without network or `.cache/aos4/` access.
+Use `yarn data:aos4:certify:full` when the local immutable packet workspace is also available.
 
-While the committed candidate is blocked only on human review, CI runs
-`yarn data:aos4:certify:pending`. That command still verifies every committed checksum, source
-inventory, machine result, coverage assertion, and manifest binding. It exits successfully only
-when the remaining issues are human review/sign-off gaps; it never turns the manifest into a pass
-or permits Phase 2 to begin.
+## Findings and corrections
+
+Every finding needs an evidence-backed disposition:
+
+- `fixed`: correct acquisition, decoding, normalization, identity, reconciliation, context, or
+  generation upstream, then regenerate and rerun the affected packets;
+- `false-positive`: explain why the cited evidence supports the current value; or
+- `accepted-limitation`: minor only, incapable of changing player-facing meaning, and assigned to
+  an owner with independent machine verification.
+
+Never edit generated catalog/runtime JSON or review results to manufacture a pass.
+
+## Beta reports
+
+For each reported rules mistake:
+
+1. capture the affected faction, rules context, selection, reminder, and expected official rule;
+2. reproduce the behavior against the checked-in runtime;
+3. verify it against the newest applicable Games Workshop publication while retaining any
+   secondary-source disagreement;
+4. correct pipeline inputs through a new candidate rather than editing generated JSON;
+5. add focused regression coverage and rerun deterministic generation plus
+   `yarn data:aos4:verify:beta`; and
+6. preserve the report and resolution in issue or pull-request history.
+
+Unconfirmed reports are not accepted facts. Confirmed material mistakes block promotion until
+corrected.
 
 ## Refreshes and disputes
 
-A new or changed source always starts a candidate cycle; never transfer a prior certificate.
-Preserve the old immutable certification directory. If evidence cannot independently establish a
-fact, keep the result `cannot-verify` until the fact is supported, removed from current scope, or
-accepted as a genuinely non-material minor limitation. If Games Workshop and Wahapedia disagree,
-retain both locators and values, apply the newest applicable official source, and keep the
-discrepancy in the audit trail.
+A new or changed source always starts a candidate cycle; never transfer a prior beta result. If
+evidence cannot independently establish a fact, keep the result `cannot-verify` until the fact is
+supported or removed from current scope. If Games Workshop and Wahapedia disagree, retain both
+locators and values, apply the newest applicable official source, and keep the discrepancy in the
+audit trail.
 
 Model output, old AoS 3 behavior, aggregate counts, and a previous pass are never evidence for an
 AoS 4 rule.

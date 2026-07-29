@@ -34,10 +34,9 @@ certification gate (below) is cleared; a change would alter AoS 4 generated-data
 `src/aos4/` dependency boundary; a visual delta appears that is not attributable to the approved
 Bootstrap 5 migration; or a change would push or merge `master`.
 
-**Hard gate.** `docs/plans/2026-07-28-001-feat-aos4-data-accuracy-certification-plan.md` blocks
-Phase 2 *execution* ("Phase 2 remains blocked until every item above is satisfied"). This plan may
-be reviewed and revised freely; no unit starts until that plan's Definition of Done is met, except
-U1 (measurement only, no package changes) which may run early.
+**Hard gate.** `yarn data:aos4:verify:beta` must pass before Phase 2 execution begins. This plan may
+be reviewed and revised freely while the gate is red; only U1 (measurement with no package
+changes) may run early.
 
 **Execution profile.** Upgrade steps are smoke-first: the proof for a toolchain or framework bump
 is the full gate (`yarn lint`, `yarn test --run`, `yarn build`) plus a live-site visual comparison,
@@ -220,7 +219,7 @@ U2 removes it.
 - `react-select` 5.x, `react-modal`, `react-switch`, `react-icons`, and `react-ga4` have
   React-19-compatible releases; U1 confirms exact versions. Any package without one gets an
   explicit decision at execution, not a silent pin.
-- The certification plan completes before execution begins; if certification stalls long enough
+- The machine certification gate passes before execution begins; if modernization stalls long enough
   that verified versions drift, U1 re-verifies before U2 starts.
 - Bootstrap 5.3's SCSS variable surface covers the overrides in `src/css/theme.scss` (31 lines of
   theming before the bootstrap import); renamed variables are ported by name, not dropped.

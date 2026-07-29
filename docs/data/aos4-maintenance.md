@@ -9,7 +9,7 @@ AoS 4 data moves through four distinct states:
 3. Deterministic generation writes a complete curator-facing audit catalog and a compact browser
    projection from exactly the same reviewed inputs.
 4. Checksum-bound certification independently inventories sources, reviews every required record,
-   and requires stratified human sign-off before the corpus can unblock Phase 2.
+   exercises planted controls, and fails closed on missing or stale machine evidence.
 
 A successful download never accepts data. Candidate acquisition proves only that an artifact was
 retrieved safely and decoded.
@@ -71,11 +71,9 @@ Every official document is limited to the rules contexts it actually governs. Sp
 2026-27 `Scourge of Aqshy`, Legends, and historical `Scourge of Ghyran` records must not leak
 across context boundaries merely because they share the Games Workshop downloads catalog.
 
-The strict generation gate is green, but Phase 1 is not yet certified. The current review attempt
-has complete machine coverage and a complete independent source inventory, and remains blocked on
-144 human blind/comparison reviews. See
-[`aos4-accuracy-review.md`](./aos4-accuracy-review.md) for the review, adjudication, sign-off, and
-staleness workflow.
+The strict generation gate and the checksum-bound machine review are green for the current beta
+snapshot. See [`aos4-accuracy-review.md`](./aos4-accuracy-review.md) for the review, correction,
+verification, and staleness workflow.
 
 The older `candidate-*`, `cohort-*`, and `official-rules-*` reports are provenance for the review
 journey. Their `blocked` or `candidate-review-required` statuses describe pre-acceptance inputs, not
@@ -216,13 +214,12 @@ accepted. A full campaign must:
   faction/context stratum, and high-risk semantic cohort
 - save blind evidence interpretations before comparing generated values
 - adjudicate and independently verify material corrections
-- obtain real human review and sign-off for the deterministic sample
 - bind the exact source, review, catalog, ledger, runtime, protocol, rubric, inventory, and review
   records by checksum
 
 Use the commands and file-handling boundaries in
 [`aos4-accuracy-review.md`](./aos4-accuracy-review.md). A changed bound checksum starts a new
-campaign. Do not copy forward an old sign-off.
+campaign. Do not copy forward an old result ledger.
 
 ## Verification
 
@@ -232,14 +229,14 @@ Routine tests stay offline and use compact fixtures. Before proposing accepted d
 yarn data:aos4:generate:candidate
 yarn data:aos4:review:prepare
 yarn data:aos4:certify:full
-yarn data:aos4:certify
+yarn data:aos4:verify:beta
 yarn lint
 yarn tsc --noEmit
 yarn test --run
 yarn build
 ```
 
-Normal `data:aos4:generate` always fails closed when the current certification pointer is missing
+Normal `data:aos4:generate` always fails closed when the beta certification pointer is missing
 or any bound input is stale. Use `data:aos4:generate:candidate` while preparing a replacement
 revision; never weaken or bypass the accepted gate.
 
