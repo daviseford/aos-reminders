@@ -9,6 +9,7 @@ import type {
 } from '../domain'
 import { resolveSelection } from '../select'
 import { createAos4ArmyDocument, deserializeAos4ArmyDocument, serializeAos4ArmyDocument } from '../state'
+import { aliasedImportLabel } from './labelAliases'
 import { normalizeImportLabel, normalizeImportLabelExact } from './normalizeLabel'
 import type {
   Aos4ImportDiagnostic,
@@ -270,12 +271,21 @@ const resolveRosterSelection = (
     return eligible.filter(entity => normalizeImportLabel(entity.name) === lenient)
   }
 
-  const base = stripContextQualifier(selection.label, contextQualifiers(context))
-  const contextCandidates = (() => {
-    const direct = matchLabel(selection.label)
-    if (direct.length || !base) return direct
-    return matchLabel(base)
-  })()
+  /**
+   * Labels to try, in descending order of confidence.
+   *
+   * The roster's own wording always wins. A reviewed alias is consulted only when that finds
+   * nothing, and the seasonal-qualifier strip last, so a name the catalog knows verbatim can never
+   * be diverted by a correction meant for a different spelling.
+   */
+  const attempts = [
+    selection.label,
+    aliasedImportLabel(selection.label),
+    stripContextQualifier(selection.label, contextQualifiers(context)),
+  ].filter((label): label is string => Boolean(label))
+
+  const contextCandidates =
+    attempts.reduce<ContentEntity[]>((found, label) => (found.length ? found : matchLabel(label)), []) ?? []
   const candidates = contextCandidates.filter(entity => reachableIds.has(entity.id))
 
   if (!contextCandidates.length) {
