@@ -27,6 +27,7 @@ describe('AoS 4 import label normalization', () => {
   it('normalizes provider formatting without introducing alias corrections', () => {
     expect(normalizeImportLabel(' • 2 × Shared–Guard — 240 pts ')).toBe('shared guard')
     expect(normalizeImportLabel('Knight’s Honour')).toBe('knight s honour')
+    expect(normalizeImportLabel('Crypt Flayers (2 Models)')).toBe('crypt flayers')
   })
 })
 

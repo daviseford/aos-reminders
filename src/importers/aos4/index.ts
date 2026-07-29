@@ -6,6 +6,8 @@ import { parseOfficialAppRoster } from './officialApp'
 export * from './detectTextSource'
 export * from './listbot'
 export * from './officialApp'
+export * from './rosterFile'
+export * from './rosterXml'
 
 const parseDetectedRoster = (
   source: 'official-app-text' | 'listbot-text',
