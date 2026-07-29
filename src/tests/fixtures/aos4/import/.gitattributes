@@ -1,0 +1,5 @@
+# Import fixtures stand in for provider output, so their bytes are the test input rather than
+# source code. Checking them out with native line endings breaks the tests that construct CRLF
+# input themselves: `importOfficialApp.test.ts` does `.replace(/\n/g, '\r\n')`, which turns an
+# already-CRLF fixture into `\r\r\n` and inflates every reported line number.
+*.txt -text

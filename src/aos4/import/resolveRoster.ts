@@ -9,7 +9,7 @@ import type {
 } from '../domain'
 import { resolveSelection } from '../select'
 import { createAos4ArmyDocument, deserializeAos4ArmyDocument, serializeAos4ArmyDocument } from '../state'
-import { normalizeImportLabel } from './normalizeLabel'
+import { normalizeImportLabel, normalizeImportLabelExact } from './normalizeLabel'
 import type {
   Aos4ImportDiagnostic,
   Aos4ImportMatch,
@@ -51,10 +51,22 @@ const relationshipIsApplicable = (
   rulesContextId: RulesContextId
 ): boolean => !relationship.rulesContextIds?.length || relationship.rulesContextIds.includes(rulesContextId)
 
+/**
+ * Kind hints that name an individual enhancement rather than the group offering it.
+ *
+ * A roster names the artefact or heroic trait a hero carries ("Charnel Vestments"), while the
+ * catalog models the individual enhancement as an `ability` and reserves `content-group` for the
+ * container that offers it ("Artefacts of Power"). Matching only the container would mean no
+ * enhancement on any real roster could ever resolve, so these hints accept both.
+ */
+const ENHANCEMENT_KIND_HINTS = new Set<ParsedRosterSelectionKind>(['enhancement', 'artefact-of-power'])
+
 const kindMatches = (entity: ContentEntity, kindHint: ParsedRosterSelectionKind): boolean => {
   if (kindHint === 'faction') return entity.kind === 'faction'
   if (kindHint === 'warscroll') return entity.kind === 'warscroll'
-  if (kindHint === 'enhancement') return entity.kind === 'content-group'
+  if (ENHANCEMENT_KIND_HINTS.has(kindHint)) {
+    return entity.kind === 'ability' || entity.kind === 'content-group'
+  }
   return entity.kind === 'content-group' && entity.groupType === kindHint
 }
 
@@ -203,20 +215,67 @@ const resolveFaction = (
   }
 }
 
+/**
+ * The parenthetical qualifiers that merely restate the rules context being imported into.
+ *
+ * New Recruit distinguishes a warscroll's seasonal version in its display name — "Blood Warriors
+ * (Scourge of Aqshy)" — but the catalog carries one warscroll whose seasonal differences live in
+ * the rules context. Since "Scourge of Aqshy" *is* the battlepack of the context we resolved, the
+ * suffix is redundant here and stripping it recovers the base warscroll.
+ *
+ * Built from the resolved context only, so a qualifier naming some *other* season is left alone
+ * and still fails closed rather than silently resolving to the wrong edition of a unit.
+ */
+const contextQualifiers = (context: RulesContext): Set<string> =>
+  new Set(
+    [context.battlepack, context.season, context.name]
+      .flatMap(value => (value?.trim() ? [normalizeImportLabel(value)] : []))
+      .filter(Boolean)
+  )
+
+const stripContextQualifier = (label: string, qualifiers: Set<string>): string | undefined => {
+  const match = /^(.*?)\s*\(([^()]*)\)\s*$/.exec(label.normalize('NFKC'))
+  if (!match) return undefined
+  const [, base, qualifier] = match
+  if (!base.trim() || !qualifiers.has(normalizeImportLabel(qualifier))) return undefined
+  return base.trim()
+}
+
 const resolveRosterSelection = (
   catalog: Aos4Catalog,
   selection: ParsedRosterSelection,
-  rulesContextId: RulesContextId,
+  context: RulesContext,
   reachableIds: Set<CanonicalId>,
   diagnostics: Aos4ImportDiagnostic[]
 ): Aos4ImportMatch | undefined => {
-  const normalized = normalizeImportLabel(selection.label)
-  const contextCandidates = catalog.entities.filter(
-    entity =>
-      isApplicable(entity, rulesContextId) &&
-      kindMatches(entity, selection.kindHint) &&
-      normalizeImportLabel(entity.name) === normalized
+  const rulesContextId = context.id
+  const eligible = catalog.entities.filter(
+    entity => isApplicable(entity, rulesContextId) && kindMatches(entity, selection.kindHint)
   )
+
+  /**
+   * Match on the exact label first, then on the model-count-stripped form.
+   *
+   * Going lenient-first makes the catalog's deliberate size variants indistinguishable: both
+   * "Crypt Flayers" and "Crypt Flayers (2 models)" reduce to the same string, so every roster
+   * naming either one resolved to two candidates and failed as ambiguous. Preferring the exact
+   * form lets a roster that says "(2 Models)" pick the variant and one that says nothing pick the
+   * base warscroll, while the fallback still absorbs counts the catalog does not model.
+   */
+  const matchLabel = (label: string): ContentEntity[] => {
+    const exact = normalizeImportLabelExact(label)
+    const exactCandidates = eligible.filter(entity => normalizeImportLabelExact(entity.name) === exact)
+    if (exactCandidates.length) return exactCandidates
+    const lenient = normalizeImportLabel(label)
+    return eligible.filter(entity => normalizeImportLabel(entity.name) === lenient)
+  }
+
+  const base = stripContextQualifier(selection.label, contextQualifiers(context))
+  const contextCandidates = (() => {
+    const direct = matchLabel(selection.label)
+    if (direct.length || !base) return direct
+    return matchLabel(base)
+  })()
   const candidates = contextCandidates.filter(entity => reachableIds.has(entity.id))
 
   if (!contextCandidates.length) {
@@ -284,7 +343,7 @@ export const resolveParsedRoster = (
     ...parsedRoster.selections
       .filter(selection => selection.kindHint !== 'faction')
       .flatMap(selection => {
-        const match = resolveRosterSelection(catalog, selection, context.id, reachableIds, diagnostics)
+        const match = resolveRosterSelection(catalog, selection, context, reachableIds, diagnostics)
         return match ? [match] : []
       }),
   ]
