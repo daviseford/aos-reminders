@@ -72,6 +72,9 @@ export const renderRulesRadarIssueBody = (report: RadarReport): string => {
   ]
   report.lanes.forEach(lane => {
     lines.push(`## ${SOURCE_LABELS[lane.source]}`, '')
+    if (lane.workflowUrl) {
+      lines.push(`[Workflow run and curated artifacts](${lane.workflowUrl})`, '')
+    }
     if (!lane.events.length) {
       lines.push('No active events.', '')
       return

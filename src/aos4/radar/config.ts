@@ -8,14 +8,9 @@ export interface RulesRadarConfig {
   schemaVersion: 1
   acceptedManifestPath: string
   sourceClassificationsPath: string
-  acceptedSourceInventoryPath: string
-  gamesWorkshop: {
-    downloadsPageUrl: string
-  }
   wahapedia: {
     rootUrl: string
     navigationUrl: string
-    exportSpecificationUrl: string
     lastUpdateUrl: string
   }
   bsData: {
@@ -85,7 +80,6 @@ export const validateRulesRadarConfig = (
     throw new Error('Rules Radar config has an incompatible schema')
   }
   if (
-    !isRecord(value.gamesWorkshop) ||
     !isRecord(value.wahapedia) ||
     !isRecord(value.bsData) ||
     !isRecord(value.github) ||
@@ -120,21 +114,9 @@ export const validateRulesRadarConfig = (
       'sourceClassificationsPath',
       options.rootPath
     ),
-    acceptedSourceInventoryPath: checkedRepoPath(
-      value.acceptedSourceInventoryPath,
-      'acceptedSourceInventoryPath',
-      options.rootPath
-    ),
-    gamesWorkshop: {
-      downloadsPageUrl: httpsUrl(value.gamesWorkshop.downloadsPageUrl, 'gamesWorkshop.downloadsPageUrl'),
-    },
     wahapedia: {
       rootUrl: httpsUrl(value.wahapedia.rootUrl, 'wahapedia.rootUrl'),
       navigationUrl: httpsUrl(value.wahapedia.navigationUrl, 'wahapedia.navigationUrl'),
-      exportSpecificationUrl: httpsUrl(
-        value.wahapedia.exportSpecificationUrl,
-        'wahapedia.exportSpecificationUrl'
-      ),
       lastUpdateUrl: httpsUrl(value.wahapedia.lastUpdateUrl, 'wahapedia.lastUpdateUrl'),
     },
     bsData: {

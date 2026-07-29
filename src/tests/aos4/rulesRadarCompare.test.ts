@@ -167,6 +167,35 @@ describe('AoS 4 Rules Radar comparison', () => {
     expect(first.fingerprint).toBe(second.fingerprint)
   })
 
+  it('excludes presentation evidence from semantic event fingerprints', () => {
+    const observation = {
+      schemaVersion: 1 as const,
+      source: 'games-workshop' as const,
+      observedAt,
+      entries: [
+        {
+          locator: 'https://assets.warhammer-community.com/new-rules.pdf',
+          title: 'Original display title',
+        },
+      ],
+    }
+    const first = compareGamesWorkshopObservation({
+      acceptedManifest: baseline.manifest,
+      classifications: baseline.classifications,
+      observation,
+    })
+    const second = compareGamesWorkshopObservation({
+      acceptedManifest: baseline.manifest,
+      classifications: baseline.classifications,
+      observation: {
+        ...observation,
+        entries: [{ ...observation.entries[0], title: 'Updated display title' }],
+      },
+    })
+
+    expect(first.fingerprint).toBe(second.fingerprint)
+  })
+
   it('preserves unobserved source lanes when replacing an observed lane', () => {
     const existing = createRadarReport([
       lane('games-workshop', 'official'),

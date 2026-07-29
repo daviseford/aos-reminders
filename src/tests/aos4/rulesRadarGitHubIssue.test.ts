@@ -41,8 +41,11 @@ describe('AoS 4 Rules Radar GitHub issue lifecycle', () => {
   it('creates one assigned, labeled issue with durable locator and checksum evidence', async () => {
     const client = new FakeClient()
     const locator = 'https://assets.warhammer-community.com/new-rules.pdf'
+    const workflowUrl = 'https://github.com/daviseford/aos-reminders/actions/runs/123'
+    const sourceEvent = event('games-workshop', 'official', 'new-publication', locator)
+    sourceEvent.workflowUrl = workflowUrl
     const report = createRadarReport([
-      laneWithEvent('games-workshop', event('games-workshop', 'official', 'new-publication', locator)),
+      createRadarLane('games-workshop', observedAt, [sourceEvent], workflowUrl),
     ])
     const result = await synchronizeRulesRadarIssue(report, client, options)
 
@@ -56,6 +59,7 @@ describe('AoS 4 Rules Radar GitHub issue lifecycle', () => {
     expect(client.issues[0].body).toContain('https://assets\\.warhammer\\-community\\.com/new\\-rules\\.pdf')
     expect(client.issues[0].body).toContain(checksum('a'))
     expect(client.issues[0].body).toContain(RULES_RADAR_ISSUE_MARKER)
+    expect(client.issues[0].body).toContain(`[Workflow run and curated artifacts](${workflowUrl})`)
   })
 
   it('makes no mutation for an unchanged open fingerprint', async () => {

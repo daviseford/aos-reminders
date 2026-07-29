@@ -91,8 +91,8 @@ const pathWithQuery = (value: string): string => {
   return `${url.pathname}${url.search}`
 }
 
-const navigationFingerprint = (entry: Pick<WahapediaRadarObservationEntry, 'locator' | 'title'>) =>
-  artifactChecksum(new TextEncoder().encode(`${entry.locator}\0${entry.title}`))
+const navigationFingerprint = (entry: Pick<WahapediaRadarObservationEntry, 'locator'>) =>
+  artifactChecksum(new TextEncoder().encode(entry.locator))
 
 export const observeWahapediaRadar = async (
   input: WahapediaRadarObserverInput,
@@ -162,13 +162,13 @@ export const observeWahapediaRadar = async (
         kind: 'faction' as const,
         locator: entry.url,
         title: entry.title,
-        fingerprint: navigationFingerprint({ locator: entry.url, title: entry.title }),
+        fingerprint: navigationFingerprint({ locator: entry.url }),
       })),
       ...navigation.rulesPages.map(entry => ({
         kind: 'rules-page' as const,
         locator: entry.url,
         title: entry.title,
-        fingerprint: navigationFingerprint({ locator: entry.url, title: entry.title }),
+        fingerprint: navigationFingerprint({ locator: entry.url }),
       })),
       {
         kind: 'export',

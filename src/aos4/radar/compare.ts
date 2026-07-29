@@ -92,7 +92,6 @@ const eventProjection = (event: RadarEvent): unknown => ({
   locator: event.locator,
   baselineFingerprint: event.baselineFingerprint,
   observedFingerprint: event.observedFingerprint,
-  evidence: event.evidence,
 })
 
 const sortedEvents = (events: RadarEvent[]): RadarEvent[] =>
@@ -155,6 +154,7 @@ export const validateRadarEvent = (event: RadarEvent): RadarEvent => {
   if (!event.evidence || typeof event.evidence !== 'object' || Array.isArray(event.evidence)) {
     throw new Error('Radar event evidence must be an object')
   }
+  if (event.workflowUrl) normalizedUrl(event.workflowUrl, 'Radar event workflowUrl')
   return event
 }
 
@@ -175,12 +175,15 @@ export const createRadarLane = (
     })
   )
   const normalizedObservedAt = instant(observedAt, `${source} lane observedAt`)
+  const normalizedWorkflowUrl = workflowUrl
+    ? normalizedUrl(workflowUrl, `${source} lane workflowUrl`)
+    : undefined
   return {
     schemaVersion: 1,
     source,
     authority,
     observedAt: normalizedObservedAt,
-    workflowUrl,
+    workflowUrl: normalizedWorkflowUrl,
     events: normalizedEvents,
     fingerprint: hash(normalizedEvents.map(eventProjection)),
   }
@@ -214,7 +217,7 @@ export const compareGamesWorkshopObservation = ({
     title: nonEmptyString(entry.title, `Games Workshop entry ${index + 1} title`),
     fingerprint: entry.fingerprint
       ? fingerprint(entry.fingerprint, `Games Workshop entry ${index + 1} fingerprint`)
-      : hash({ locator: normalizedUrl(entry.locator), title: entry.title.trim() }),
+      : hash({ locator: normalizedUrl(entry.locator) }),
   }))
   assertUniqueLocators(
     entries.map(entry => entry.locator),
