@@ -67,9 +67,13 @@ community trusts that experience; an AoS 4 data/domain migration does not author
   cancellation; and subscriber theme behavior.
 - Compare UI changes directly against the live site at desktop and mobile widths before accepting
   them. Browser snapshots and tests should guard recognizable landmarks and account navigation.
-- Treat every visible UI delta as a code smell during Phase 1. Structural work should leave
-  navigation, authentication, subscription/profile flows, FAQ, footer, typography, spacing,
-  responsive behavior, and interaction labels unchanged.
+- Treat any UI change the user did not explicitly ask for as a code smell. This applies in every
+  phase, not only Phase 1, and it does not relax as Phase 2 modernization work begins. Structural,
+  dependency, and framework work should leave navigation, authentication, subscription/profile flows,
+  FAQ, footer, typography, spacing, responsive behavior, and interaction labels unchanged.
+- An accessibility or correctness fix is not a licence to restyle. When a fix has a visible
+  consequence, choose the variant that preserves the current appearance, state the delta explicitly,
+  and let the user accept it. Prefer semantic and behavioral corrections that render identically.
 - The expected exceptions are data-driven: AoS 4 phase names, content-group cards, selections,
   reminder text, and other fields whose source data or game structure genuinely changed. Reuse the
   established visual primitives for those exceptions.
