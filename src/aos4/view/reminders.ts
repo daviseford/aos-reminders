@@ -225,6 +225,7 @@ export const createAos4ReminderViewModel = (
   const selection = resolveSelection(catalog, {
     explicitIds: document.explicitSelectionIds,
     rulesContextId: document.rulesContextId,
+    ...(document.allowsLegends ? { allowsLegends: true } : {}),
   })
   const reminders = projectReminders(catalog, selection).map(reminder => withPreferences(reminder, document))
   const baseOrder = new Map(reminders.map((reminder, index) => [reminder.id, index]))

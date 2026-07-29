@@ -179,3 +179,95 @@ describe('AoS 4 parsed-roster resolution', () => {
     )
   })
 })
+
+describe('AoS 4 Legends resolution', () => {
+  /**
+   * The point of the opt-in: a list that mixes a faction's current units with its retired ones
+   * imports whole, in the roster's own context, and the document remembers the opt-in so the
+   * builder and reminders keep resolving the Legends half after the import.
+   */
+  it('imports a mixed current-and-Legends list when the roster opts in', () => {
+    const preview = resolve(
+      roster({
+        allowsLegends: true,
+        selections: [
+          { line: 3, label: 'Shared Guard', kindHint: 'warscroll' },
+          { line: 4, label: 'Retired Champion', kindHint: 'warscroll', isLegends: true },
+        ],
+      })
+    )
+
+    expect(preview.diagnostics).toEqual([])
+    expect(preview.matches).toEqual([
+      { line: 3, label: 'Shared Guard', canonicalId: importFixtureIds.alphaGuard },
+      { line: 4, label: 'Retired Champion', canonicalId: importFixtureIds.alphaRetired },
+    ])
+    expect(preview.proposedDocument).toMatchObject({
+      rulesContextId: importFixtureContextIds.seasonal,
+      allowsLegends: true,
+      explicitSelectionIds: expect.arrayContaining([importFixtureIds.alphaRetired]),
+    })
+  })
+
+  it('finds Legends content even when the builder did not tag the selection', () => {
+    const preview = resolve(
+      roster({
+        allowsLegends: true,
+        selections: [{ line: 5, label: 'Retired Champion', kindHint: 'warscroll' }],
+      })
+    )
+
+    expect(preview.diagnostics).toEqual([])
+    expect(preview.matches).toEqual([
+      { line: 5, label: 'Retired Champion', canonicalId: importFixtureIds.alphaRetired },
+    ])
+  })
+
+  /**
+   * Names collide across the Legends boundary — a unit retired and later reintroduced keeps its
+   * name but is a different warscroll. The per-selection tag records which side the builder filed
+   * the entry on, so the same label resolves to different canonical IDs.
+   */
+  it('prefers the side of the Legends boundary the builder filed the entry on', () => {
+    const untagged = resolve(
+      roster({
+        allowsLegends: true,
+        selections: [{ line: 6, label: 'Twin Era Guard', kindHint: 'warscroll' }],
+      })
+    )
+    const tagged = resolve(
+      roster({
+        allowsLegends: true,
+        selections: [{ line: 6, label: 'Twin Era Guard', kindHint: 'warscroll', isLegends: true }],
+      })
+    )
+
+    expect(untagged.diagnostics).toEqual([])
+    expect(untagged.matches).toEqual([
+      { line: 6, label: 'Twin Era Guard', canonicalId: importFixtureIds.twinEraCurrent },
+    ])
+    expect(tagged.diagnostics).toEqual([])
+    expect(tagged.matches).toEqual([
+      { line: 6, label: 'Twin Era Guard', canonicalId: importFixtureIds.twinEraLegends },
+    ])
+  })
+
+  it('still skips Legends content, with the reason, when the roster does not opt in', () => {
+    const preview = resolve(
+      roster({
+        selections: [{ line: 7, label: 'Retired Champion', kindHint: 'warscroll' }],
+      })
+    )
+
+    expect(preview.matches).toEqual([])
+    expect(preview.proposedDocument?.allowsLegends).toBeUndefined()
+    expect(preview.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'unknown-selection',
+        severity: 'warning',
+        line: 7,
+        message: expect.stringContaining('does not opt into Legends'),
+      })
+    )
+  })
+})

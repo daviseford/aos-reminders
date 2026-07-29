@@ -230,6 +230,45 @@ describe('AoS 4 selection resolution', () => {
     )
   })
 
+  it('overlays Legends content only when the document opts in', () => {
+    const catalog = createCatalog()
+    const legendsContext = rulesContextId('30000000-0000-4000-8000-000000000013')
+    const legendsAbility = contentGroupId('30000000-0000-4000-8000-000000000014')
+    catalog.rulesContexts.push({
+      id: legendsContext,
+      name: 'Legends',
+      mode: 'other',
+      status: 'legends',
+      publicationIds: [],
+    })
+    catalog.entities.push(entity(legendsAbility, 'Legends Ability', [legendsContext]))
+    catalog.relationships.push({
+      id: 'relationship:unit-includes-legends',
+      kind: 'includes',
+      from: ids.unit,
+      to: legendsAbility,
+      rulesContextIds: [legendsContext],
+    })
+
+    const withoutOptIn = resolveSelection(catalog, {
+      explicitIds: [ids.unit, legendsAbility],
+      rulesContextId: contextIds.standard,
+    })
+    const withOptIn = resolveSelection(catalog, {
+      explicitIds: [ids.unit, legendsAbility],
+      rulesContextId: contextIds.standard,
+      allowsLegends: true,
+    })
+
+    expect(withoutOptIn.selectedIds).not.toContain(legendsAbility)
+    expect(withoutOptIn.diagnostics.map(diagnostic => diagnostic.code)).toEqual(
+      expect.arrayContaining(['inapplicable-explicit-selection'])
+    )
+    expect(withOptIn.explicitIds).toContain(legendsAbility)
+    expect(withOptIn.selectedIds).toContain(legendsAbility)
+    expect(withOptIn.diagnostics).toEqual([])
+  })
+
   it('is deterministic when entity, relationship, and input order changes', () => {
     const catalog = createCatalog()
     const reorderedCatalog: Aos4Catalog = {

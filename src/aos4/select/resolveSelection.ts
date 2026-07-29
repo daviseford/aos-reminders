@@ -14,6 +14,15 @@ import {
 export interface ResolveSelectionInput {
   explicitIds: CanonicalId[]
   rulesContextId: RulesContextId
+  /**
+   * Overlay the Legends rules context(s) on top of `rulesContextId`.
+   *
+   * Legends warscrolls are catalogued in their own context, disjoint from the current and
+   * seasonal ones, so a document whose roster opted into Legends holds entities from two
+   * contexts at once. With the overlay on, an entity or relationship is applicable when it
+   * belongs to *either* context; diagnostics still report against the primary context.
+   */
+  allowsLegends?: boolean
 }
 
 export interface SelectionCause {
@@ -36,14 +45,14 @@ const AUTO_SELECT_RELATIONSHIPS = new Set<ContentRelationship['kind']>(['include
 const sortIds = (ids: Iterable<CanonicalId>): CanonicalId[] =>
   Array.from(ids).sort((left, right) => left.localeCompare(right))
 
-const isEntityApplicable = (entity: ContentEntity, rulesContextId: RulesContextId): boolean =>
-  entity.rulesContextIds.includes(rulesContextId)
+const isEntityApplicable = (entity: ContentEntity, rulesContextIds: ReadonlySet<RulesContextId>): boolean =>
+  entity.rulesContextIds.some(id => rulesContextIds.has(id))
 
 const isRelationshipApplicable = (
   relationship: ContentRelationship,
-  rulesContextId: RulesContextId
+  rulesContextIds: ReadonlySet<RulesContextId>
 ): boolean =>
-  !relationship.rulesContextIds?.length || relationship.rulesContextIds.includes(rulesContextId)
+  !relationship.rulesContextIds?.length || relationship.rulesContextIds.some(id => rulesContextIds.has(id))
 
 const causeSignature = (cause: SelectionCause): string =>
   `${cause.rootId}|${cause.entityPath.join('>')}|${cause.relationshipPath.join('>')}`
@@ -62,6 +71,15 @@ export const resolveSelection = (
 ): ResolvedSelection => {
   const index = createCatalogIndex(catalog)
   const contextIds = new Set(catalog.rulesContexts.map(context => context.id))
+  const applicableContextIds = new Set<RulesContextId>([
+    input.rulesContextId,
+    ...(input.allowsLegends
+      ? catalog.rulesContexts.filter(context => context.status === 'legends').map(context => context.id)
+      : []),
+  ])
+  const availabilityDescription = input.allowsLegends
+    ? `${input.rulesContextId} or Legends`
+    : input.rulesContextId
   const selectedIds = new Set<CanonicalId>()
   const availableIds = new Set<CanonicalId>()
   const diagnostics: SelectionDiagnostic[] = []
@@ -94,7 +112,7 @@ export const resolveSelection = (
   })
 
   const applicableRelationships = catalog.relationships
-    .filter(relationship => isRelationshipApplicable(relationship, input.rulesContextId))
+    .filter(relationship => isRelationshipApplicable(relationship, applicableContextIds))
     .sort((left, right) => left.id.localeCompare(right.id))
 
   applicableRelationships.forEach(relationship => {
@@ -130,12 +148,12 @@ export const resolveSelection = (
       })
       return
     }
-    if (!isEntityApplicable(entity, input.rulesContextId)) {
+    if (!isEntityApplicable(entity, applicableContextIds)) {
       diagnostics.push({
         code: 'inapplicable-explicit-selection',
         severity: 'error',
         subject: entityId,
-        message: `Explicit selection ${entityId} is not available in ${input.rulesContextId}`,
+        message: `Explicit selection ${entityId} is not available in ${availabilityDescription}`,
         entityIds: [entityId],
         rulesContextId: input.rulesContextId,
       })
@@ -159,17 +177,17 @@ export const resolveSelection = (
     const outgoing = index.outgoingByEntityId.get(cause.entityId) ?? []
 
     outgoing
-      .filter(relationship => isRelationshipApplicable(relationship, input.rulesContextId))
+      .filter(relationship => isRelationshipApplicable(relationship, applicableContextIds))
       .forEach(relationship => {
         const target = index.entitiesById.get(relationship.to)
         if (!target) return
 
-        if (!isEntityApplicable(target, input.rulesContextId)) {
+        if (!isEntityApplicable(target, applicableContextIds)) {
           diagnostics.push({
             code: 'inapplicable-relationship-target',
             severity: 'error',
             subject: relationship.id,
-            message: `Relationship ${relationship.id} targets content outside ${input.rulesContextId}`,
+            message: `Relationship ${relationship.id} targets content outside ${availabilityDescription}`,
             entityIds: [relationship.from, relationship.to],
             rulesContextId: input.rulesContextId,
           })
@@ -229,7 +247,7 @@ export const resolveSelection = (
       new Set(
         input.explicitIds.filter(entityId => {
           const entity = index.entitiesById.get(entityId)
-          return Boolean(entity && isEntityApplicable(entity, input.rulesContextId))
+          return Boolean(entity && isEntityApplicable(entity, applicableContextIds))
         })
       )
     ),

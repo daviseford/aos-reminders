@@ -14,6 +14,13 @@ export interface Aos4ArmyDocument {
   id: string
   name: string
   rulesContextId: RulesContextId
+  /**
+   * The army opted into Legends content, so selection resolution overlays the Legends rules
+   * context on top of `rulesContextId`. Absent means false; the field is only serialized when
+   * true, so documents that never touched Legends round-trip byte-identically to schema 1 output
+   * written before the field existed.
+   */
+  allowsLegends?: boolean
   explicitSelectionIds: CanonicalId[]
   reminderPreferences: Partial<Record<ReminderOccurrenceId, Aos4ReminderPreference>>
 }
@@ -59,6 +66,7 @@ export const createAos4ArmyDocument = (
   id: input.id.trim(),
   name: input.name.trim(),
   rulesContextId: input.rulesContextId,
+  ...(input.allowsLegends ? { allowsLegends: true } : {}),
   explicitSelectionIds: sortedUnique(input.explicitSelectionIds),
   reminderPreferences: Object.fromEntries(
     Object.entries(input.reminderPreferences ?? {})
@@ -131,6 +139,7 @@ export const deserializeAos4ArmyDocument = (
     typeof value.name !== 'string' ||
     !value.name.trim() ||
     typeof value.rulesContextId !== 'string' ||
+    (value.allowsLegends !== undefined && typeof value.allowsLegends !== 'boolean') ||
     !Array.isArray(value.explicitSelectionIds) ||
     value.explicitSelectionIds.some(id => typeof id !== 'string') ||
     !isObject(value.reminderPreferences)
@@ -196,6 +205,7 @@ export const deserializeAos4ArmyDocument = (
       id: documentId,
       name: documentName,
       rulesContextId: rulesContext as RulesContextId,
+      ...(value.allowsLegends === true ? { allowsLegends: true } : {}),
       explicitSelectionIds,
       reminderPreferences,
     }),

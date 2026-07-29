@@ -19,6 +19,13 @@ export interface ParsedRosterSelection {
   label: string
   kindHint: ParsedRosterSelectionKind
   count?: number
+  /**
+   * The source builder filed this entry as Legends content. Names can collide across the Legends
+   * boundary — a unit retired and reintroduced keeps its name but gets a new warscroll — and this
+   * flag records which side the roster meant, so resolution can prefer the Legends candidate
+   * instead of guessing from the label.
+   */
+  isLegends?: boolean
 }
 
 export interface ParsedRoster {

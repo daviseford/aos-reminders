@@ -344,11 +344,10 @@ const stripContextQualifier = (label: string, qualifiers: Set<string>): string |
 /**
  * Is this name something the catalog only carries as Legends content?
  *
- * Legends is modelled as its own rules context whose content is disjoint from the current and
- * seasonal ones — a warscroll is in one or the other, never both. A roster that mixes them
- * therefore cannot be expressed as a single-context document, so these units are skipped. Saying
- * so by name is the difference between a player understanding the limitation and assuming the
- * importer is broken.
+ * Legends is modelled as its own rules context whose warscrolls are disjoint from the current and
+ * seasonal ones. A roster that opted into Legends resolves such names through the Legends overlay;
+ * one that did not gets them skipped, and saying *why* by name is the difference between a player
+ * understanding the boundary and assuming the importer is broken.
  */
 const isLegendsOnly = (catalog: Aos4Catalog, label: string, kindHint: ParsedRosterSelectionKind): boolean => {
   const legendsContextIds = new Set(
@@ -364,52 +363,93 @@ const isLegendsOnly = (catalog: Aos4Catalog, label: string, kindHint: ParsedRost
   )
 }
 
+/** A rules context a selection may resolve in, with what this faction can reach inside it. */
+interface ResolutionContext {
+  context: RulesContext
+  reachableIds: Set<CanonicalId>
+}
+
 const resolveRosterSelection = (
   catalog: Aos4Catalog,
   selection: ParsedRosterSelection,
-  context: RulesContext,
-  reachableIds: Set<CanonicalId>,
+  /**
+   * Contexts to try, in descending order of preference.
+   *
+   * A roster that opted into Legends holds names from two catalogues at once, and names collide
+   * across that boundary — a unit retired to Legends and later reintroduced keeps its name but is
+   * a different warscroll. The order encodes which side the roster meant: the document's own
+   * context first for ordinary entries, the Legends context first for entries the builder itself
+   * filed as Legends. The first context that yields a unique reachable match wins, so a collision
+   * resolves to the intended side instead of failing as ambiguous.
+   */
+  resolutionContexts: ResolutionContext[],
   allowsLegends: boolean,
   diagnostics: Aos4ImportDiagnostic[]
 ): Aos4ImportMatch | undefined => {
-  const rulesContextId = context.id
-  const eligible = catalog.entities.filter(
-    entity => isApplicable(entity, rulesContextId) && kindMatches(entity, selection.kindHint)
-  )
+  const matchInContext = ({ context, reachableIds }: ResolutionContext) => {
+    const rulesContextId = context.id
+    const eligible = catalog.entities.filter(
+      entity => isApplicable(entity, rulesContextId) && kindMatches(entity, selection.kindHint)
+    )
 
-  /**
-   * Match on the exact label first, then on the model-count-stripped form.
-   *
-   * Going lenient-first makes the catalog's deliberate size variants indistinguishable: both
-   * "Crypt Flayers" and "Crypt Flayers (2 models)" reduce to the same string, so every roster
-   * naming either one resolved to two candidates and failed as ambiguous. Preferring the exact
-   * form lets a roster that says "(2 Models)" pick the variant and one that says nothing pick the
-   * base warscroll, while the fallback still absorbs counts the catalog does not model.
-   */
-  const matchLabel = (label: string): ContentEntity[] => {
-    const exact = normalizeImportLabelExact(label)
-    const exactCandidates = eligible.filter(entity => normalizeImportLabelExact(entity.name) === exact)
-    if (exactCandidates.length) return exactCandidates
-    const lenient = normalizeImportLabel(label)
-    return eligible.filter(entity => normalizeImportLabel(entity.name) === lenient)
+    /**
+     * Match on the exact label first, then on the model-count-stripped form.
+     *
+     * Going lenient-first makes the catalog's deliberate size variants indistinguishable: both
+     * "Crypt Flayers" and "Crypt Flayers (2 models)" reduce to the same string, so every roster
+     * naming either one resolved to two candidates and failed as ambiguous. Preferring the exact
+     * form lets a roster that says "(2 Models)" pick the variant and one that says nothing pick the
+     * base warscroll, while the fallback still absorbs counts the catalog does not model.
+     */
+    const matchLabel = (label: string): ContentEntity[] => {
+      const exact = normalizeImportLabelExact(label)
+      const exactCandidates = eligible.filter(entity => normalizeImportLabelExact(entity.name) === exact)
+      if (exactCandidates.length) return exactCandidates
+      const lenient = normalizeImportLabel(label)
+      return eligible.filter(entity => normalizeImportLabel(entity.name) === lenient)
+    }
+
+    /**
+     * Labels to try, in descending order of confidence.
+     *
+     * The roster's own wording always wins. A reviewed alias is consulted only when that finds
+     * nothing, and the seasonal-qualifier strip last, so a name the catalog knows verbatim can
+     * never be diverted by a correction meant for a different spelling.
+     */
+    const attempts = [
+      selection.label,
+      aliasedImportLabel(selection.label),
+      stripContextQualifier(selection.label, contextQualifiers(context)),
+    ].filter((label): label is string => Boolean(label))
+
+    const contextCandidates = attempts.reduce<ContentEntity[]>(
+      (found, label) => (found.length ? found : matchLabel(label)),
+      []
+    )
+    return { contextCandidates, candidates: contextCandidates.filter(entity => reachableIds.has(entity.id)) }
   }
 
-  /**
-   * Labels to try, in descending order of confidence.
-   *
-   * The roster's own wording always wins. A reviewed alias is consulted only when that finds
-   * nothing, and the seasonal-qualifier strip last, so a name the catalog knows verbatim can never
-   * be diverted by a correction meant for a different spelling.
-   */
-  const attempts = [
-    selection.label,
-    aliasedImportLabel(selection.label),
-    stripContextQualifier(selection.label, contextQualifiers(context)),
-  ].filter((label): label is string => Boolean(label))
-
-  const contextCandidates =
-    attempts.reduce<ContentEntity[]>((found, label) => (found.length ? found : matchLabel(label)), []) ?? []
-  const candidates = contextCandidates.filter(entity => reachableIds.has(entity.id))
+  let known = false
+  for (const resolutionContext of resolutionContexts) {
+    const { contextCandidates, candidates } = matchInContext(resolutionContext)
+    if (candidates.length === 1) {
+      return {
+        line: selection.line,
+        label: selection.label,
+        canonicalId: candidates[0].id,
+      }
+    }
+    if (candidates.length > 1) {
+      diagnostics.push({
+        code: 'ambiguous-selection',
+        severity: 'warning',
+        message: `"${selection.label}" matches more than one ${selection.kindHint}, so it was not imported. Add it by hand to be sure of the right one.`,
+        line: selection.line,
+      })
+      return undefined
+    }
+    known = known || contextCandidates.length > 0
+  }
 
   /**
    * A name we cannot place is skipped and reported, never fatal.
@@ -421,44 +461,25 @@ const resolveRosterSelection = (
    * act on the refusal. Importing the rest and naming what was dropped is both more useful and
    * more honest: we still never guess, so no wrong reminder is ever produced.
    */
-  if (!contextCandidates.length) {
-    const legendsOnly = isLegendsOnly(catalog, selection.label, selection.kindHint)
+  if (!known) {
+    const legendsOnly = !allowsLegends && isLegendsOnly(catalog, selection.label, selection.kindHint)
     diagnostics.push({
       code: 'unknown-selection',
       severity: 'warning',
       message: legendsOnly
-        ? `"${selection.label}" is Legends content${
-            allowsLegends ? ' and this roster allows Legends' : ''
-          }, but Legends cannot be combined with ${context.name} yet, so it was not imported.`
+        ? `"${selection.label}" is Legends content, but this roster does not opt into Legends, so it was not imported.`
         : `Couldn't find a ${selection.kindHint} named "${selection.label}", so it was not imported.`,
       line: selection.line,
     })
     return undefined
   }
-  if (!candidates.length) {
-    diagnostics.push({
-      code: 'inapplicable-selection',
-      severity: 'warning',
-      message: `"${selection.label}" is not available to this faction in the selected rules context, so it was not imported.`,
-      line: selection.line,
-    })
-    return undefined
-  }
-  if (candidates.length !== 1) {
-    diagnostics.push({
-      code: 'ambiguous-selection',
-      severity: 'warning',
-      message: `"${selection.label}" matches more than one ${selection.kindHint}, so it was not imported. Add it by hand to be sure of the right one.`,
-      line: selection.line,
-    })
-    return undefined
-  }
-
-  return {
+  diagnostics.push({
+    code: 'inapplicable-selection',
+    severity: 'warning',
+    message: `"${selection.label}" is not available to this faction in the selected rules context, so it was not imported.`,
     line: selection.line,
-    label: selection.label,
-    canonicalId: candidates[0].id,
-  }
+  })
+  return undefined
 }
 
 export const resolveParsedRoster = (
@@ -477,7 +498,8 @@ export const resolveParsedRoster = (
   }
 
   const factionResolution = resolveFaction(catalog, parsedRoster, context.id, diagnostics)
-  if (!factionResolution.faction) {
+  const faction = factionResolution.faction
+  if (!faction) {
     return {
       source: parsedRoster.source,
       matches: sortMatches(factionResolution.matches),
@@ -490,7 +512,35 @@ export const resolveParsedRoster = (
    * list are resolved somewhere they can actually exist.
    */
   const effectiveContext = factionResolution.rulesContext ?? context
-  const reachableIds = buildReachableIds(catalog, factionResolution.faction.id, effectiveContext.id)
+  const allowsLegends = Boolean(parsedRoster.allowsLegends)
+
+  /**
+   * A roster that opted into Legends resolves against its own context *and* the Legends overlay.
+   *
+   * Legends warscrolls live in a context of their own, so without the overlay a list that mixes a
+   * faction's current units with its retired ones — exactly what the opt-in is for — could only
+   * import half of itself. Reachability is computed per context, because the relationship edges
+   * that connect a faction to its units are context-scoped too.
+   */
+  const overlayContexts = allowsLegends
+    ? catalog.rulesContexts.filter(
+        rulesContext => rulesContext.status === 'legends' && rulesContext.id !== effectiveContext.id
+      )
+    : []
+  const reachableByContextId = new Map(
+    [effectiveContext, ...overlayContexts].map(rulesContext => [
+      rulesContext.id,
+      buildReachableIds(catalog, faction.id, rulesContext.id),
+    ])
+  )
+  const resolutionContexts = (preferLegends: boolean): ResolutionContext[] =>
+    (preferLegends ? [...overlayContexts, effectiveContext] : [effectiveContext, ...overlayContexts]).map(
+      rulesContext => ({
+        context: rulesContext,
+        reachableIds: reachableByContextId.get(rulesContext.id) ?? new Set<CanonicalId>(),
+      })
+    )
+
   const matches = [
     ...factionResolution.matches,
     ...parsedRoster.selections
@@ -499,9 +549,8 @@ export const resolveParsedRoster = (
         const match = resolveRosterSelection(
           catalog,
           selection,
-          effectiveContext,
-          reachableIds,
-          Boolean(parsedRoster.allowsLegends),
+          resolutionContexts(Boolean(selection.isLegends)),
+          allowsLegends,
           diagnostics
         )
         return match ? [match] : []
@@ -517,11 +566,12 @@ export const resolveParsedRoster = (
   }
 
   const explicitSelectionIds = Array.from(
-    new Set<CanonicalId>([factionResolution.faction.id, ...matches.map(match => match.canonicalId)])
+    new Set<CanonicalId>([faction.id, ...matches.map(match => match.canonicalId)])
   )
   const selection = resolveSelection(catalog, {
     explicitIds: explicitSelectionIds,
     rulesContextId: effectiveContext.id,
+    ...(allowsLegends ? { allowsLegends: true } : {}),
   })
   const selectionErrors = selection.diagnostics.filter(diagnostic => diagnostic.severity === 'error')
   if (selectionErrors.length) {
@@ -546,6 +596,7 @@ export const resolveParsedRoster = (
     id: options.createDocumentId(),
     name: parsedRoster.proposedName.trim() || 'Imported Army',
     rulesContextId: effectiveContext.id,
+    ...(allowsLegends ? { allowsLegends: true } : {}),
     explicitSelectionIds,
   })
   const roundTrip = deserializeAos4ArmyDocument(serializeAos4ArmyDocument(proposedDocument), catalog)

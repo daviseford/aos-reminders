@@ -103,6 +103,41 @@ describe('New Recruit .ros and .rosz import', () => {
     )
   })
 
+  it('carries the Legends opt-in and marks only selections the builder filed as Legends', async () => {
+    const extra = `<selections>
+      <selection id="allow-legends" name="Allow Legends" number="1" type="upgrade" from="entry">
+        <categories><category id="config" name="Configuration" primary="true" /></categories>
+      </selection>
+      <selection id="legends-unit" name="Celestar Ballista" number="1" type="unit">
+        <categories>
+          <category id="acaf-8bb6-d6f-3e2a" name="Legends" entryId="acaf-8bb6-d6f-3e2a" primary="false" />
+        </categories>
+      </selection>
+      <selection id="current-unit" name="Liberators" number="1" type="unit">
+        <selections>
+          <selection id="nested-upgrade" name="Grandhammer" number="1" type="upgrade"
+            from="group" group="Artefacts of Power::Nested">
+            <categories><category id="nested" name="Legends" primary="false" /></categories>
+          </selection>
+        </selections>
+      </selection>
+    </selections>`
+    const result = await decodeAos4RosterFile(asRos(rosterXml({ extra })))
+
+    expect(result.diagnostics).toEqual([])
+    expect(result.parsedRoster?.allowsLegends).toBe(true)
+    expect(result.parsedRoster?.selections).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ label: 'Celestar Ballista', kindHint: 'warscroll', isLegends: true }),
+        expect.objectContaining({ label: 'Liberators', kindHint: 'warscroll' }),
+        // The nested upgrade's category describes the upgrade, and must not tag the unit.
+        expect.objectContaining({ label: 'Grandhammer', isLegends: true }),
+      ])
+    )
+    const liberators = result.parsedRoster?.selections.find(selection => selection.label === 'Liberators')
+    expect(liberators?.isLegends).toBeUndefined()
+  })
+
   it('ignores harmless ZIP metadata but rejects multiple rosters and traversal names', async () => {
     const xml = strToU8(rosterXml())
     const metadata = await decodeAos4RosterFile(
