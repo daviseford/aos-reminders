@@ -190,15 +190,22 @@ export const parseRosterXml = (source: string): XmlElement => {
 
 // --- Transliteration -------------------------------------------------------------------------
 
-/** Attributes New Recruit serialises as JSON numbers rather than strings. */
-const NUMERIC_ATTRIBUTES = new Set([
-  'number',
-  'value',
-  'battleScribeVersion',
-  'gameSystemRevision',
-  'catalogueRevision',
-  'publicationId',
-])
+/**
+ * Does New Recruit serialise this attribute value as a JSON number?
+ *
+ * The rule is **by value, not by attribute name**. It first looked like a fixed set of numeric
+ * attributes (`number`, `value`, `battleScribeVersion`, …), but a Cities of Sigmar capture carried
+ * `id="52408"` — a selection id that happens to be all digits — and the JSON export typed it as
+ * the number `52408`. Meanwhile `id="kanfwh"` and `gameSystemId="e51d-b1a3-75fc-dc3g"` stay
+ * strings, so the serialiser is simply coercing anything that parses cleanly as a number.
+ *
+ * The round-trip check (`String(Number(v)) === v`) is what keeps that from over-reaching: it
+ * rejects `"0151-9c5b-2f1e-32d4"`, and also `"007"`, which would not survive the trip.
+ *
+ * This matters to the importer: ids cannot be assumed to be strings after a JSON decode.
+ */
+const isNumericValue = (value: string): boolean =>
+  value !== '' && Number.isFinite(Number(value)) && String(Number(value)) === value
 
 /** Attributes New Recruit serialises as JSON booleans. */
 const BOOLEAN_ATTRIBUTES = new Set(['primary', 'hidden'])
@@ -230,10 +237,8 @@ export const xmlToRosterJson = (element: XmlElement): RosterNode => {
   }
 
   for (const [key, value] of Object.entries(element.attributes)) {
-    if (NUMERIC_ATTRIBUTES.has(key)) {
-      const numeric = Number(value)
-      if (!Number.isFinite(numeric)) throw new Error(`Attribute ${key} is not numeric: ${value}`)
-      node[key] = numeric
+    if (isNumericValue(value)) {
+      node[key] = Number(value)
     } else if (BOOLEAN_ATTRIBUTES.has(key)) {
       if (value !== 'true' && value !== 'false') {
         throw new Error(`Attribute ${key} is not boolean: ${value}`)
