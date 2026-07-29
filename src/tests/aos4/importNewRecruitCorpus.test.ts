@@ -120,6 +120,36 @@ describe('New Recruit corpus through the production importer', () => {
   })
 
   /**
+   * The captures were built with New Recruit's "Allow Legends" switch on, so the flag has to
+   * survive the import and the resulting warnings have to explain themselves. A player who
+   * deliberately opted into Legends should not be told their units are unrecognised names.
+   */
+  it('carries the Legends opt-in and explains why Legends units are skipped', async () => {
+    const result = await decode('sce-002-units-a', 'ros')
+    const parsedRoster = result.parsedRoster
+    if (!parsedRoster) throw new Error('expected the roster to parse')
+
+    expect(parsedRoster.allowsLegends).toBe(true)
+
+    const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster, {
+      defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      createDocumentId: () => 'legends',
+    })
+
+    const legendsWarnings = preview.diagnostics.filter(diagnostic =>
+      diagnostic.message.includes('is Legends content')
+    )
+    expect(legendsWarnings.length).toBeGreaterThan(0)
+    for (const warning of legendsWarnings) {
+      expect(warning.severity).toEqual('warning')
+      expect(warning.message).toContain('allows Legends')
+    }
+
+    // The rest of the army still arrives.
+    expect(preview.proposedDocument).toBeDefined()
+  })
+
+  /**
    * A list built the way a player actually builds one — a regiment, a leader, a unit — is the
    * case that has to work. The all-units captures deliberately include Legends entries and every
    * size variant, so they are a coverage instrument rather than a pass/fail gate.

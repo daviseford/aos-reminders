@@ -26,6 +26,15 @@ export interface ParsedRoster {
   proposedName: string
   declaredContext?: string
   declaredFaction?: string
+  /**
+   * The roster opted into Legends content.
+   *
+   * New Recruit carries this as an "Allow Legends" configuration entry, and it changes what the
+   * player expects: with it set, retired warscrolls in the list are deliberate rather than
+   * mistakes. Knowing it lets the importer say *why* such a unit was skipped instead of reporting
+   * it as an unrecognised name.
+   */
+  allowsLegends?: boolean
   selections: ParsedRosterSelection[]
 }
 

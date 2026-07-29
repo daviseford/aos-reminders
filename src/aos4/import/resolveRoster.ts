@@ -277,11 +277,35 @@ const stripContextQualifier = (label: string, qualifiers: Set<string>): string |
   return base.trim()
 }
 
+/**
+ * Is this name something the catalog only carries as Legends content?
+ *
+ * Legends is modelled as its own rules context whose content is disjoint from the current and
+ * seasonal ones — a warscroll is in one or the other, never both. A roster that mixes them
+ * therefore cannot be expressed as a single-context document, so these units are skipped. Saying
+ * so by name is the difference between a player understanding the limitation and assuming the
+ * importer is broken.
+ */
+const isLegendsOnly = (catalog: Aos4Catalog, label: string, kindHint: ParsedRosterSelectionKind): boolean => {
+  const legendsContextIds = new Set(
+    catalog.rulesContexts.filter(context => context.status === 'legends').map(context => context.id)
+  )
+  if (!legendsContextIds.size) return false
+  const normalized = normalizeImportLabel(label)
+  return catalog.entities.some(
+    entity =>
+      kindMatches(entity, kindHint) &&
+      normalizeImportLabel(entity.name) === normalized &&
+      entity.rulesContextIds.some(id => legendsContextIds.has(id))
+  )
+}
+
 const resolveRosterSelection = (
   catalog: Aos4Catalog,
   selection: ParsedRosterSelection,
   context: RulesContext,
   reachableIds: Set<CanonicalId>,
+  allowsLegends: boolean,
   diagnostics: Aos4ImportDiagnostic[]
 ): Aos4ImportMatch | undefined => {
   const rulesContextId = context.id
@@ -334,10 +358,15 @@ const resolveRosterSelection = (
    * more honest: we still never guess, so no wrong reminder is ever produced.
    */
   if (!contextCandidates.length) {
+    const legendsOnly = isLegendsOnly(catalog, selection.label, selection.kindHint)
     diagnostics.push({
       code: 'unknown-selection',
       severity: 'warning',
-      message: `Couldn't find a ${selection.kindHint} named "${selection.label}", so it was not imported.`,
+      message: legendsOnly
+        ? `"${selection.label}" is Legends content${
+            allowsLegends ? ' and this roster allows Legends' : ''
+          }, but Legends cannot be combined with ${context.name} yet, so it was not imported.`
+        : `Couldn't find a ${selection.kindHint} named "${selection.label}", so it was not imported.`,
       line: selection.line,
     })
     return undefined
@@ -398,7 +427,14 @@ export const resolveParsedRoster = (
     ...parsedRoster.selections
       .filter(selection => selection.kindHint !== 'faction')
       .flatMap(selection => {
-        const match = resolveRosterSelection(catalog, selection, context, reachableIds, diagnostics)
+        const match = resolveRosterSelection(
+          catalog,
+          selection,
+          context,
+          reachableIds,
+          Boolean(parsedRoster.allowsLegends),
+          diagnostics
+        )
         return match ? [match] : []
       }),
   ]
