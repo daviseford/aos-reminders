@@ -41,6 +41,7 @@
   },
   "scripts": {
     "build": "tsc && vite build",
+    "corpus:listbot": "vite-node --script src/tests/support/listbotCorpusCommand.ts",
     "data:aos4:candidate": "vite-node --script src/aos4/data/candidateCommand.ts",
     "data:aos4:discover-official": "vite-node --script src/aos4/data/gamesWorkshop/catalogCommand.ts",
     "data:aos4:certify": "vite-node --script src/aos4/review/certificationCommand.ts",
