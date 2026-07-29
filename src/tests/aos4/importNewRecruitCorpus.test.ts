@@ -120,33 +120,93 @@ describe('New Recruit corpus through the production importer', () => {
   })
 
   /**
-   * The captures were built with New Recruit's "Allow Legends" switch on, so the flag has to
-   * survive the import and the resulting warnings have to explain themselves. A player who
-   * deliberately opted into Legends should not be told their units are unrecognised names.
+   * The captures were built with New Recruit's "Allow Legends" switch on, so the opt-in has to
+   * survive the import and the Legends units have to arrive. A player who deliberately opted into
+   * Legends gets the army they built, in the roster's own context, and the document remembers the
+   * opt-in so the builder and reminders keep resolving the Legends half afterwards.
    */
-  it('carries the Legends opt-in and explains why Legends units are skipped', async () => {
+  it('imports the Legends units of an opted-in roster alongside the current ones', async () => {
     const result = await decode('sce-002-units-a', 'ros')
     const parsedRoster = result.parsedRoster
     if (!parsedRoster) throw new Error('expected the roster to parse')
 
     expect(parsedRoster.allowsLegends).toBe(true)
+    expect(parsedRoster.selections.some(selection => selection.isLegends)).toBe(true)
 
     const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster, {
       defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
       createDocumentId: () => 'legends',
     })
 
-    const legendsWarnings = preview.diagnostics.filter(diagnostic =>
-      diagnostic.message.includes('is Legends content')
-    )
-    expect(legendsWarnings.length).toBeGreaterThan(0)
-    for (const warning of legendsWarnings) {
-      expect(warning.severity).toEqual('warning')
-      expect(warning.message).toContain('allows Legends')
-    }
+    expect(
+      preview.diagnostics.filter(diagnostic => diagnostic.message.includes('is Legends content'))
+    ).toEqual([])
 
-    // The rest of the army still arrives.
-    expect(preview.proposedDocument).toBeDefined()
+    /**
+     * A builder-tagged Legends unit either resolves through the overlay or is reported as an
+     * ordinary unknown name — catalog drift, not a boundary refusal. "Celestar Ballista" pins the
+     * overlay itself: it is tagged in this capture and only exists in the Legends context.
+     */
+    const matched = new Set(preview.matches.map(match => match.label))
+    expect(matched).toContain('Celestar Ballista')
+    const unknownMessages = preview.diagnostics
+      .filter(diagnostic => diagnostic.code === 'unknown-selection')
+      .map(diagnostic => diagnostic.message)
+    for (const selection of parsedRoster.selections.filter(selection => selection.isLegends)) {
+      if (matched.has(selection.label)) continue
+      expect(unknownMessages).toContainEqual(expect.stringContaining(`"${selection.label}"`))
+      expect(unknownMessages).toContainEqual(expect.stringContaining("Couldn't find"))
+    }
+    expect(preview.proposedDocument).toMatchObject({
+      rulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      allowsLegends: true,
+    })
+  })
+
+  /**
+   * Beasts of Chaos is the trap shape: the faction still exists in the seasonal context (a handful
+   * of endless spells), but its whole army lives in Legends. Before the overlay this list imported
+   * one unit out of twenty-six; now the document stays in the roster's declared context and the
+   * Legends units resolve through the overlay.
+   */
+  it('imports a Legends-army faction fully into its declared context', async () => {
+    const result = await decode('boc-001-all-units', 'ros')
+    const parsedRoster = result.parsedRoster
+    if (!parsedRoster) throw new Error('expected the roster to parse')
+
+    const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster, {
+      defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      createDocumentId: () => 'legends-army',
+    })
+
+    const unresolved = preview.diagnostics.filter(diagnostic =>
+      ['unknown-selection', 'inapplicable-selection', 'ambiguous-selection'].includes(diagnostic.code)
+    )
+    expect(unresolved).toEqual([])
+    expect(preview.matches.length).toBe(parsedRoster.selections.length)
+    expect(preview.proposedDocument).toMatchObject({
+      rulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      allowsLegends: true,
+    })
+  })
+
+  /**
+   * Bonesplitterz has no seasonal presence at all, so the whole document still moves to the
+   * Legends context — the pre-overlay path — and its units resolve there.
+   */
+  it('still moves a Legends-only faction to the Legends context', async () => {
+    const result = await decode('bsz-001-all-units', 'ros')
+    const parsedRoster = result.parsedRoster
+    if (!parsedRoster) throw new Error('expected the roster to parse')
+
+    const preview = resolveParsedRoster(AOS4_CATALOG, parsedRoster, {
+      defaultRulesContextId: AOS4_DEFAULT_RULES_CONTEXT_ID,
+      createDocumentId: () => 'legends-only',
+    })
+
+    const legendsContext = AOS4_CATALOG.rulesContexts.find(context => context.status === 'legends')
+    expect(preview.proposedDocument?.rulesContextId).toBe(legendsContext?.id)
+    expect(preview.matches.length).toBeGreaterThan(0)
   })
 
   /**

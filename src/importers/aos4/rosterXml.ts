@@ -67,6 +67,18 @@ const directModelName = (selection: Element): string | undefined => {
   return Array.from(modelNames)[0]
 }
 
+/**
+ * New Recruit marks each retired entry with a `Legends` category on the selection itself, which is
+ * a far stronger signal than recognising the name later: it says which side of the Legends
+ * boundary *the builder* filed this entry on. Only the selection's direct `categories` child is
+ * consulted — the same category id also appears on nested upgrade children, which describe the
+ * upgrade, not the unit.
+ */
+const hasLegendsCategory = (selection: Element): boolean =>
+  childElements(selection, 'categories')
+    .flatMap(container => childElements(container, 'category'))
+    .some(category => category.getAttribute('name')?.trim().toLocaleLowerCase('en') === 'legends')
+
 const unitLabel = (selection: Element): string => {
   const selectedName = selection.getAttribute('name')?.trim() ?? ''
   const modelName = directModelName(selection)
@@ -140,6 +152,7 @@ export const parseAos4RosterXml = (xml: string): Aos4ParsedRosterResult => {
           line: selectionLine(selection, lineById),
           label,
           kindHint,
+          ...(hasLegendsCategory(selection) ? { isLegends: true } : {}),
         })
       }
       return
@@ -162,6 +175,7 @@ export const parseAos4RosterXml = (xml: string): Aos4ParsedRosterResult => {
       label,
       kindHint: 'warscroll',
       ...(Number.isFinite(count) && count > 1 ? { count } : {}),
+      ...(hasLegendsCategory(selection) ? { isLegends: true } : {}),
     })
   })
 
