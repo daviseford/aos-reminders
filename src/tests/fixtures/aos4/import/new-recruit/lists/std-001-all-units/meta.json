@@ -1,0 +1,49 @@
+{
+  "id": "std-001-all-units",
+  "description": "Slaves to Darkness coverage capture: every unit the AoS 4.0 catalogue offers, added as auxiliary units so no regiment composition rules constrain the set.",
+  "faction": "Slaves to Darkness",
+  "rulesContext": "General's Handbook 2026-27",
+  "pointsLimit": 0,
+  "provenance": {
+    "source": "own-account",
+    "capturedOn": "2026-07-29",
+    "capturedBy": "davis",
+    "formats": [
+      "ros",
+      "rosz",
+      "json"
+    ]
+  },
+  "generator": {
+    "generatedBy": "https://newrecruit.eu",
+    "battleScribeVersion": "2.03",
+    "gameSystemName": "Age of Sigmar 4.0",
+    "gameSystemId": "e51d-b1a3-75fc-dc3g",
+    "gameSystemRevision": 98,
+    "catalogueName": "Slaves to Darkness",
+    "catalogueRevision": 50
+  },
+  "composition": {
+    "forces": 1,
+    "nestedForces": 1,
+    "unitSelections": 59,
+    "modelCount": 217,
+    "totalSelections": 382,
+    "profiles": 414,
+    "characteristics": 1847
+  },
+  "shapes": [
+    "every-unit-in-catalogue",
+    "auxiliary-force",
+    "faction-terrain",
+    "over-points-illegal"
+  ],
+  "legality": {
+    "legalForPlay": true
+  },
+  "sanitisation": {
+    "audited": true,
+    "redactions": [],
+    "note": "Automated audit at ingest found no personal fields. Files are committed byte-for-byte as exported so the .rosz/.ros byte-identity invariant holds."
+  }
+}

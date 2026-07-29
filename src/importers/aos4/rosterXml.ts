@@ -166,12 +166,22 @@ export const parseAos4RosterXml = (xml: string): Aos4ParsedRosterResult => {
   })
 
   const declaredContext = declaredContextFromForce(topForce)
+  /**
+   * New Recruit records the Legends opt-in as an ordinary configuration selection rather than an
+   * attribute, so it is recognised by name. Without it, a roster full of retired warscrolls is
+   * indistinguishable from one full of typos.
+   */
+  const allowsLegends = allSelectionElements.some(
+    selection => selection.getAttribute('name')?.trim().toLocaleLowerCase('en') === 'allow legends'
+  )
+
   return {
     parsedRoster: {
       source: 'roster-xml',
       proposedName: root.getAttribute('name')?.trim() || `${declaredFaction} imported army`,
       declaredFaction,
       ...(declaredContext ? { declaredContext } : {}),
+      ...(allowsLegends ? { allowsLegends } : {}),
       selections,
     },
     diagnostics: [],

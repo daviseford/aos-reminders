@@ -56,6 +56,8 @@
     "data:aos4:review:adversarial": "vite-node --script src/aos4/review/adversarialReviewCommand.ts",
     "data:aos4:review:prepare": "vite-node --script src/aos4/review/packetCommand.ts",
     "data:aos4:verify:beta": "yarn data:aos4:certify --current data/aos4/certifications/beta.json",
+    "fixtures:new-recruit": "vite-node --script src/tests/support/newRecruitManifestCommand.ts",
+    "fixtures:new-recruit:ingest": "vite-node --script src/tests/support/newRecruitIngestCommand.ts --",
     "format": "yarn prettier --write \"**/*.*(js|jsx|ts|tsx)\"",
     "gitclean:win": "git branch | %{ $_.Trim() } | ?{ $_ -ne 'master' } | %{ git branch -D $_ }",
     "gitclean": "git branch | grep -v \"master\" | xargs git branch -D",
