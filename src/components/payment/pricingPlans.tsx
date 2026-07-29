@@ -209,7 +209,7 @@ const PayPalComponent = (props: IPlanProps) => {
         <PayPalButton
           onCancel={handleCancel}
           onSuccess={handleSuccess}
-          planId={isDev ? paypal_dev : paypal_prod}
+          planId={planId}
           planTitle={title}
         />
       )}
