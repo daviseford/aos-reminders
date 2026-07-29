@@ -6,13 +6,18 @@ import {
   AOS4_REVIEW_PROTOCOL_VERSION,
   AOS4_REVIEW_RUBRIC_VERSION,
   AOS4_REVIEW_SCHEMA_VERSION,
+  CALIBRATION_CONTROL_CANDIDATE_KEYS,
   REQUIRED_CERTIFICATION_INPUTS,
+  REQUIRED_HIGH_RISK_COHORTS,
   appendFindingResolution,
   appendFindingVerification,
   boundReviewPopulationIssues,
+  calibrationEvidenceIssues,
+  certificationChronologyIssues,
   checksumCertificationText,
   checksumReviewRecord,
   createCertificationManifest,
+  createCalibrationEvidenceReceipt,
   createReviewAssignment,
   createReviewFinding,
   createReviewPacket,
@@ -22,13 +27,14 @@ import {
   parseCertificationCommandArguments,
   parseCertificationPreparationArguments,
   reviewerConfigurationId,
+  reviewIndexSamplingMetadataChecksum,
   runCertificationCheck,
   serializeReviewRecord,
   sourceSafeReviewLedger,
   verifyCertificationManifest,
   type CertificationEvaluationInput,
   type CertificationInput,
-  type FindingResolution,
+  type CalibrationCaseKind,
   type ReviewFinding,
   type ReviewLedger,
   type ReviewPacket,
@@ -37,6 +43,7 @@ import {
   type ReviewerMetadata,
   type ReviewerResult,
 } from '../../aos4/review'
+import { AOS4_GOLDEN_TRUTH_CASES } from '../../aos4/review/pathology'
 import { artifactId, type CanonicalId, type RulesContextId, type SourceRecordId } from '../../aos4/domain'
 
 const digest = (value: string): string => createHash('sha256').update(value, 'utf8').digest('hex')
@@ -212,6 +219,102 @@ const passingInput = (): CertificationEvaluationInput => ({
   acceptedArtifactChecksums: [ACCEPTED_ARTIFACT_CHECKSUM],
 })
 
+const fixtureIndexEntry = ({
+  candidateKey,
+  category,
+  cohortIds,
+  calibrationKind,
+}: {
+  candidateKey: string
+  category: ReviewPacketSafeIndex['entries'][number]['category']
+  cohortIds: string[]
+  calibrationKind?: CalibrationCaseKind
+}): ReviewPacketSafeIndex['entries'][number] => {
+  const blindPacketChecksum = digest(`${candidateKey}:blind`)
+  const comparisonPacketChecksum = digest(`${candidateKey}:comparison`)
+  const entry: ReviewPacketSafeIndex['entries'][number] = {
+    pairKey: `review-pair:sha256:${digest(`${candidateKey}:pair`)}`,
+    candidateKey,
+    category,
+    blindPacketId: `review-packet:sha256:${blindPacketChecksum}`,
+    blindPacketChecksum,
+    comparisonPacketId: `review-packet:sha256:${comparisonPacketChecksum}`,
+    comparisonPacketChecksum,
+    cohortIds,
+    samplingMetadataChecksum: digest(`${candidateKey}:sampling`),
+    authorityClasses: ['secondary'],
+    factionIds: [FACTION_ID],
+    rulesContextIds: [CONTEXT_ID],
+    blindDerivationRequired: true,
+    assignmentStatus: 'unassigned',
+    calibration: calibrationKind !== undefined,
+    ...(calibrationKind ? { calibrationKind } : {}),
+    countsTowardCoverage: calibrationKind === undefined,
+    projectsToRuntime: calibrationKind === undefined,
+  }
+  return {
+    ...entry,
+    samplingMetadataChecksum: reviewIndexSamplingMetadataChecksum(entry),
+  }
+}
+
+const fixtureResult = ({
+  assignmentId,
+  packetId,
+  packetChecksum,
+  reviewedAt,
+  outcome = 'pass',
+  blind = false,
+  findings = [],
+}: {
+  assignmentId: ReviewerResult['assignmentId']
+  packetId: ReviewPacketId
+  packetChecksum: string
+  reviewedAt: string
+  outcome?: ReviewerResult['outcome']
+  blind?: boolean
+  findings?: ReviewFinding[]
+}): ReviewerResult => ({
+  schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+  assignmentId,
+  packetId,
+  packetChecksum,
+  reviewerConfigurationId: reviewerConfigurationId(agentReviewer),
+  reviewedAt,
+  outcome,
+  rationale:
+    outcome === 'finding'
+      ? 'The seeded comparison defect was detected.'
+      : outcome === 'cannot-verify'
+        ? 'The control intentionally lacks sufficient evidence.'
+        : 'The independently interpreted evidence agrees with the generated value.',
+  ...(blind && outcome !== 'cannot-verify'
+    ? { blindExpectedInterpretation: { value: 'fixture interpretation' } }
+    : {}),
+  findings,
+})
+
+const seededControlFinding = (packetId: ReviewPacketId): ReviewFinding =>
+  createReviewFinding({
+    packetId,
+    subject: {
+      sourceRecordId: SOURCE_RECORD_ID,
+      field: 'effect',
+    },
+    expectedValue: 'correct',
+    actualValue: 'seeded defect',
+    severity: 'major',
+    confidence: 'high',
+    rationale: 'The control deliberately contains a material mismatch.',
+    evidence: [
+      {
+        sourceRecordId: SOURCE_RECORD_ID,
+        recordChecksum: EVIDENCE_CHECKSUM,
+        locator: { kind: 'row', row: 1 },
+      },
+    ],
+  })
+
 const inventoryBinding = (input: CertificationEvaluationInput) => ({
   checksum: digest('inventory'),
   observedAt: input.inventory.observedAt,
@@ -310,6 +413,37 @@ describe('AoS 4 certification evaluation', () => {
     ).toThrow('--evaluated-at requires a canonical ISO timestamp')
   })
 
+  it('requires certification to occur after all bound review evidence', () => {
+    const input = passingInput()
+
+    expect(
+      certificationChronologyIssues(
+        '2026-07-28T12:00:30.000Z',
+        input.ledger,
+        []
+      )
+    ).toContainEqual(
+      expect.objectContaining({
+        code: 'certification-before-evidence',
+        path: 'manifest.certifiedAt',
+      })
+    )
+    expect(certificationChronologyIssues(REVIEWED_AT, input.ledger, [])).toEqual([])
+    expect(
+      certificationChronologyIssues(
+        '2026-07-28T12:04:00.000Z',
+        input.ledger,
+        [],
+        '2026-07-28T12:05:00.000Z'
+      )
+    ).toContainEqual(
+      expect.objectContaining({
+        code: 'certification-before-evidence',
+        path: 'manifest.certifiedAt',
+      })
+    )
+  })
+
   it('binds agent calibration to reviewer configuration instead of process identity', () => {
     expect(reviewerConfigurationId({ ...agentReviewer, id: 'replacement-agent-process' })).toBe(
       reviewerConfigurationId(agentReviewer)
@@ -394,6 +528,12 @@ describe('AoS 4 certification evaluation', () => {
         path: 'index.population.source-record',
       })
     )
+    expect(issues).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ path: 'index.population.golden-truth' }),
+        expect.objectContaining({ path: 'index.population.high-risk' }),
+      ])
+    )
 
     const swappedIgnored = {
       ...index,
@@ -463,6 +603,21 @@ describe('AoS 4 certification evaluation', () => {
         },
       },
     })
+  })
+
+  it('rejects safe-index cohort relabeling that is not bound to sampling metadata', () => {
+    const input = passingInput()
+    input.index.entries[0].cohortIds = [
+      ...input.index.entries[0].cohortIds,
+      'high-risk:unknown-or-incomplete',
+    ]
+
+    expect(evaluateCertification(input).issues).toContainEqual(
+      expect.objectContaining({
+        code: 'invalid-review-index',
+        path: 'index.entries[0]',
+      })
+    )
   })
 
   it('blocks partial blind/comparison imports', () => {
@@ -544,44 +699,7 @@ describe('AoS 4 certification evaluation', () => {
     )
   })
 
-  it('requires independent verification for minor accepted limitations', () => {
-    const input = passingInput()
-    const reviewFinding = finding('minor')
-    attachFinding(input, reviewFinding)
-    const resolution: FindingResolution = {
-      schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
-      findingId: reviewFinding.id,
-      disposition: 'accepted-limitation',
-      rationale: 'The limitation is editorial and cannot mislead runtime play.',
-      resolvedBy: 'maintainer',
-      resolvedAt: REVIEWED_AT,
-      upstreamChangeRefs: [],
-    }
-    input.ledger = appendFindingResolution(input.ledger, resolution)
-    expect(evaluateCertification(input).issues).toContainEqual(
-      expect.objectContaining({ code: 'missing-verification' })
-    )
-    input.ledger = appendFindingVerification(input.ledger, {
-      schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
-      findingId: reviewFinding.id,
-      outcome: 'verified',
-      rationale: 'The limitation is non-semantic and does not alter player-facing game meaning.',
-      verifierId: 'independent-verifier',
-      verifiedAt: REVIEWED_AT,
-      packetId: COMPARISON_PACKET.id,
-      packetChecksum: COMPARISON_CHECKSUM,
-    })
-
-    expect(evaluateCertification(input)).toMatchObject({
-      status: 'pass',
-      summary: {
-        openLimitations: [{ findingId: reviewFinding.id, owner: 'maintainer' }],
-        findingCountsByField: { effect: 1 },
-      },
-    })
-  })
-
-  it('requires independent verification for material corrections', () => {
+  it('requires the automated review to be rerun until no finding remains', () => {
     const input = passingInput()
     const reviewFinding = finding('major')
     attachFinding(input, reviewFinding)
@@ -595,10 +713,6 @@ describe('AoS 4 certification evaluation', () => {
       upstreamChangeRefs: ['commit:fixture'],
     })
 
-    expect(evaluateCertification(input).issues).toContainEqual(
-      expect.objectContaining({ code: 'missing-verification' })
-    )
-
     input.ledger = appendFindingVerification(input.ledger, {
       schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
       findingId: reviewFinding.id,
@@ -609,7 +723,10 @@ describe('AoS 4 certification evaluation', () => {
       packetId: COMPARISON_PACKET.id,
       packetChecksum: COMPARISON_CHECKSUM,
     })
-    expect(evaluateCertification(input)).toMatchObject({ status: 'pass' })
+    expect(evaluateCertification(input)).toMatchObject({
+      status: 'blocked',
+      issues: [expect.objectContaining({ code: 'open-finding' })],
+    })
   })
 
   it('requires calibration for the exact contributing configuration and rubric', () => {
@@ -618,6 +735,118 @@ describe('AoS 4 certification evaluation', () => {
 
     expect(evaluateCertification(input).issues).toEqual(
       expect.arrayContaining([expect.objectContaining({ code: 'missing-calibration' })])
+    )
+  })
+
+  it('rejects calibration evidence when a concealed control result is altered', () => {
+    const index = reviewIndex()
+    const entries = (
+      ['pass', 'defect', 'disagreement', 'insufficient-evidence'] as CalibrationCaseKind[]
+    ).map(kind =>
+      fixtureIndexEntry({
+        candidateKey: CALIBRATION_CONTROL_CANDIDATE_KEYS[kind],
+        category: kind === 'disagreement' ? 'reconciliation-discrepancy' : 'official-record',
+        cohortIds: [`calibration:${kind}`],
+        calibrationKind: kind,
+      })
+    )
+    index.entries.push(...entries)
+    const assignment = createReviewAssignment({
+      packetIds: entries.flatMap(entry => [entry.blindPacketId, entry.comparisonPacketId]),
+      reviewer: agentReviewer,
+      execution: 'local',
+      assignedAt: '2026-07-28T10:49:00.000Z',
+    })
+    const calibrationResults = entries.flatMap((entry, entryIndex) => {
+      const insufficient = entry.calibrationKind === 'insufficient-evidence'
+      return [
+        fixtureResult({
+          assignmentId: assignment.id,
+          packetId: entry.blindPacketId,
+          packetChecksum: entry.blindPacketChecksum,
+          reviewedAt: `2026-07-28T10:5${entryIndex}:00.000Z`,
+          outcome: insufficient ? 'cannot-verify' : 'pass',
+          blind: true,
+        }),
+        fixtureResult({
+          assignmentId: assignment.id,
+          packetId: entry.comparisonPacketId,
+          packetChecksum: entry.comparisonPacketChecksum,
+          reviewedAt: `2026-07-28T10:5${entryIndex}:30.000Z`,
+          outcome:
+            entry.calibrationKind === 'defect'
+              ? 'finding'
+              : insufficient
+                ? 'cannot-verify'
+                : 'pass',
+          findings:
+            entry.calibrationKind === 'defect'
+              ? [seededControlFinding(entry.comparisonPacketId)]
+              : [],
+        }),
+      ]
+    })
+    const ledger: ReviewLedger = {
+      ...emptyReviewLedger(),
+      assignments: [assignment],
+      calibrations: [
+        {
+          schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+          reviewerConfigurationId: reviewerConfigurationId(agentReviewer),
+          rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
+          calibratedAt: CALIBRATED_AT,
+          seededBlockerMajorDefects: 1,
+          foundSeededBlockerMajorDefects: 1,
+          unsupportedExpectedValues: 0,
+          insufficientEvidenceCases: 1,
+          correctCannotVerifyCases: 1,
+          passed: true,
+          evidence: createCalibrationEvidenceReceipt(assignment.id, index, calibrationResults),
+        },
+      ],
+    }
+
+    expect(calibrationEvidenceIssues(index, ledger, calibrationResults)).toEqual([])
+
+    const defectComparisonId = entries.find(entry => entry.calibrationKind === 'defect')!
+      .comparisonPacketId
+    const withEvidenceFor = (results: ReviewerResult[]): ReviewLedger => ({
+      ...ledger,
+      calibrations: ledger.calibrations.map(calibration => ({
+        ...calibration,
+        evidence: createCalibrationEvidenceReceipt(assignment.id, index, results),
+      })),
+    })
+    const minorDefect = calibrationResults.map(reviewResult =>
+      reviewResult.packetId === defectComparisonId
+        ? {
+            ...reviewResult,
+            findings: reviewResult.findings.map(controlFinding => ({
+              ...controlFinding,
+              severity: 'minor' as const,
+            })),
+          }
+        : reviewResult
+    )
+    expect(calibrationEvidenceIssues(index, withEvidenceFor(minorDefect), minorDefect)).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          code: 'invalid-calibration-evidence',
+        }),
+      ])
+    )
+
+    const tampered = calibrationResults.map(reviewResult =>
+      reviewResult.packetId === defectComparisonId
+        ? { ...reviewResult, outcome: 'pass' as const }
+        : reviewResult
+    )
+    expect(calibrationEvidenceIssues(index, withEvidenceFor(tampered), tampered)).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({
+          code: 'invalid-calibration-evidence',
+        }),
+      ])
     )
   })
 
@@ -694,6 +923,93 @@ describe('AoS 4 certification evaluation', () => {
     const repoRoot = await mkdtemp(path.join(tmpdir(), 'aos4-certification-'))
     try {
       const input = passingInput()
+      const calibrationEntries = (
+        ['pass', 'defect', 'disagreement', 'insufficient-evidence'] as CalibrationCaseKind[]
+      ).map(kind =>
+        fixtureIndexEntry({
+          candidateKey: CALIBRATION_CONTROL_CANDIDATE_KEYS[kind],
+          category: kind === 'disagreement' ? 'reconciliation-discrepancy' : 'official-record',
+          cohortIds: [`calibration:${kind}`],
+          calibrationKind: kind,
+        })
+      )
+      const goldenEntry = fixtureIndexEntry({
+        candidateKey: AOS4_GOLDEN_TRUTH_CASES[0].id,
+        category: 'golden-truth',
+        cohortIds: ['golden-truth', ...REQUIRED_HIGH_RISK_COHORTS],
+      })
+      input.index.entries.push(...calibrationEntries, goldenEntry)
+      input.index.coverage.highRiskCohorts = [...REQUIRED_HIGH_RISK_COHORTS]
+      const assignment = createReviewAssignment({
+        packetIds: input.index.entries.flatMap(entry => [
+          entry.blindPacketId,
+          entry.comparisonPacketId,
+        ]),
+        reviewer: agentReviewer,
+        execution: 'local',
+        assignedAt: '2026-07-28T10:49:00.000Z',
+      })
+      input.ledger.assignments = [assignment]
+      input.ledger.results = [
+        ...input.ledger.results.map(reviewResult => ({
+          ...reviewResult,
+          assignmentId: assignment.id,
+        })),
+        fixtureResult({
+          assignmentId: assignment.id,
+          packetId: goldenEntry.blindPacketId,
+          packetChecksum: goldenEntry.blindPacketChecksum,
+          reviewedAt: '2026-07-28T12:02:00.000Z',
+          blind: true,
+        }),
+        fixtureResult({
+          assignmentId: assignment.id,
+          packetId: goldenEntry.comparisonPacketId,
+          packetChecksum: goldenEntry.comparisonPacketChecksum,
+          reviewedAt: '2026-07-28T12:03:00.000Z',
+        }),
+      ]
+      const calibrationResults = calibrationEntries.flatMap((entry, entryIndex) => {
+        const kind = entry.calibrationKind!
+        const comparisonOutcome: ReviewerResult['outcome'] =
+          kind === 'defect'
+            ? 'finding'
+            : kind === 'insufficient-evidence'
+              ? 'cannot-verify'
+              : 'pass'
+        const blindOutcome: ReviewerResult['outcome'] =
+          kind === 'insufficient-evidence' ? 'cannot-verify' : 'pass'
+        const seededFinding =
+          kind === 'defect' ? [seededControlFinding(entry.comparisonPacketId)] : []
+        return [
+          fixtureResult({
+            assignmentId: assignment.id,
+            packetId: entry.blindPacketId,
+            packetChecksum: entry.blindPacketChecksum,
+            reviewedAt: `2026-07-28T10:5${entryIndex}:00.000Z`,
+            outcome: blindOutcome,
+            blind: true,
+          }),
+          fixtureResult({
+            assignmentId: assignment.id,
+            packetId: entry.comparisonPacketId,
+            packetChecksum: entry.comparisonPacketChecksum,
+            reviewedAt: `2026-07-28T10:5${entryIndex}:30.000Z`,
+            outcome: comparisonOutcome,
+            findings: seededFinding,
+          }),
+        ]
+      })
+      input.ledger.calibrations = [
+        {
+          ...input.ledger.calibrations[0],
+          evidence: createCalibrationEvidenceReceipt(
+            assignment.id,
+            input.index,
+            calibrationResults
+          ),
+        },
+      ]
       const structured: Record<string, unknown> = {
         'accepted-manifest': {
           schemaVersion: 1,
@@ -732,6 +1048,7 @@ describe('AoS 4 certification evaluation', () => {
         'review-index-shard-0001': input.index.entries,
         'review-assignments': input.ledger.assignments,
         'review-calibrations': input.ledger.calibrations,
+        'review-calibration-results': calibrationResults,
         'review-results': {
           schemaVersion: 1,
           kind: 'review-result-shards',
@@ -779,7 +1096,7 @@ describe('AoS 4 certification evaluation', () => {
         inputs: bindings,
         ledger: input.ledger,
         inventory: sourceInventoryBinding,
-        certifiedAt: REVIEWED_AT,
+        certifiedAt: '2026-07-28T12:04:00.000Z',
         protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
         rubricVersion: AOS4_REVIEW_RUBRIC_VERSION,
       })

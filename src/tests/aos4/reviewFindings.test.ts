@@ -36,12 +36,12 @@ const reviewer: ReviewerMetadata = {
   tool: 'codex',
   model: 'review-model',
   protocolVersion: 'aos4-review/v1',
-  promptVersion: 'aos4-rubric/v1',
+  promptVersion: 'aos4-review-prompt/v1',
 }
 
 const packetInput = {
   protocolVersion: 'aos4-review/v1',
-  rubricVersion: 'aos4-rubric/v1',
+  rubricVersion: 'aos4-rubric/v2',
   cohortIds: ['official-fact', 'base-size'],
   canonicalEntityId: ENTITY_ID,
   sourceEvidence: [
@@ -85,7 +85,7 @@ const approvedAssignment = createReviewAssignment({
 const calibration = (passed = true): ReviewCalibration => ({
   schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
   reviewerConfigurationId: reviewerConfigurationId(reviewer),
-  rubricVersion: reviewer.promptVersion,
+  rubricVersion: packetInput.rubricVersion,
   calibratedAt: REVIEWED_AT,
   seededBlockerMajorDefects: 2,
   foundSeededBlockerMajorDefects: passed ? 2 : 1,
@@ -201,10 +201,10 @@ describe('AoS 4 review records', () => {
       ],
       protocol: {
         protocolVersion: reviewer.protocolVersion,
-        rubricVersion: reviewer.promptVersion,
+        rubricVersion: packetInput.rubricVersion,
         checksum: checksumReviewRecord({
           protocolVersion: reviewer.protocolVersion,
-          rubricVersion: reviewer.promptVersion,
+          rubricVersion: packetInput.rubricVersion,
         }),
       },
       coverage: {

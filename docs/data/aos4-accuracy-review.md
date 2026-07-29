@@ -59,8 +59,10 @@ The packet builder creates:
 - concealed automated controls that never count toward corpus coverage.
 
 Every result binds its assignment, reviewer configuration, packet ID, packet checksum, rubric,
-timestamp, outcome, rationale, and findings. Changing a source, generated output, protocol, rubric,
-review result, source inventory, or manifest binding makes the associated evidence stale.
+timestamp, outcome, rationale, and findings. Calibration controls and their outcomes are committed
+separately with a checksum receipt, so changing or omitting a control result blocks certification.
+Changing a source, generated output, protocol, rubric, review result, source inventory, or manifest
+binding makes the associated evidence stale.
 
 ## Automated workflow
 
@@ -128,15 +130,20 @@ The beta gate validates committed checksums, source inventory, independent resul
 assertions, and manifest bindings in a clean checkout without network or `.cache/aos4/` access.
 Use `yarn data:aos4:certify:full` when the local immutable packet workspace is also available.
 
+The clean-checkout gate intentionally does not commit source excerpts or reconstruct packet
+semantics from ignored raw artifacts. Certification preparation must therefore run the full
+workspace comparison before `beta.json` is moved. A manually assembled or manually rebound
+certification directory is outside the supported trust boundary; the committed gate proves
+integrity of the prepared safe evidence, not independence from a maintainer who can rewrite the
+repository. Beta rules reports remain an additional correctness signal.
+
 ## Findings and corrections
 
-Every finding needs an evidence-backed disposition:
-
-- `fixed`: correct acquisition, decoding, normalization, identity, reconciliation, context, or
-  generation upstream, then regenerate and rerun the affected packets;
-- `false-positive`: explain why the cited evidence supports the current value; or
-- `accepted-limitation`: minor only, incapable of changing player-facing meaning, and assigned to
-  an owner with independent machine verification.
+A passing beta certification contains zero automated findings and zero `cannot-verify` outcomes.
+When the auditor reports either one, correct acquisition, decoding, normalization, identity,
+reconciliation, context, generation, or the auditor itself, then regenerate and rerun. Preserve the
+original report and correction in issue or pull-request history, but do not disposition a finding
+inside certification evidence to manufacture a pass.
 
 Never edit generated catalog/runtime JSON or review results to manufacture a pass.
 

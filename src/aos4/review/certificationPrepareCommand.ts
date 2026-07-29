@@ -5,9 +5,13 @@ import type { ArtifactManifest } from '../data'
 import { stableCompactJson, stableJson } from '../generate/serialization'
 import { assertAgentBlindDerivations } from './adversarialReview'
 import {
+  calibrationEvidenceIssues,
+  certificationChronologyIssues,
   checksumCertificationText,
+  createCalibrationEvidenceReceipt,
   createCertificationManifest,
   evaluateCertification,
+  reviewLedgerWithResults,
   type ReviewProtocolDefinition,
   type ReviewRubricDefinition,
   type SourceInventory,
@@ -24,6 +28,7 @@ import {
   AOS4_REVIEW_RUBRIC_VERSION,
   AOS4_REVIEW_SCHEMA_VERSION,
   checksumReviewRecord,
+  reviewerConfigurationId,
   type CertificationInput,
   type ReviewAssignment,
   type ReviewCalibration,
@@ -59,6 +64,7 @@ const GENERATED_INPUT_FILES = {
   'review-index': 'review-index.json',
   'review-assignments': 'assignments.json',
   'review-calibrations': 'calibrations.json',
+  'review-calibration-results': 'calibration-results.json',
   'review-results': 'results.json',
   'review-findings': 'findings.json',
   'review-resolutions': 'resolutions.json',
@@ -82,6 +88,9 @@ interface AdversarialResultIndex {
   revision: string
   reviewer: ReviewerMetadata
   assignmentId: ReviewAssignment['id']
+  calibrationResultPath: string
+  calibrationResultCount: number
+  calibrationResultsChecksum: string
   resultShards: Array<{
     path: string
     resultCount: number
@@ -207,7 +216,10 @@ const collectionCounts = (results: ReviewerResult[]) =>
 const sameJson = (left: unknown, right: unknown): boolean =>
   stableCompactJson(left) === stableCompactJson(right)
 
-const loadAdversarialLedger = async (reviewOutput: string, revision: string): Promise<ReviewLedger> => {
+const loadAdversarialLedger = async (
+  reviewOutput: string,
+  revision: string
+): Promise<{ ledger: ReviewLedger; calibrationResults: ReviewerResult[] }> => {
   await assertCreateOnlyDirectoryComplete(reviewOutput)
   const [assignment, calibration, resultIndex, persistedFindings] = await Promise.all([
     readJson<ReviewAssignment>(path.join(reviewOutput, 'assignment.json')),
@@ -223,6 +235,15 @@ const loadAdversarialLedger = async (reviewOutput: string, revision: string): Pr
     throw new Error('Adversarial review output does not match the prepared review index')
   }
 
+  const calibrationResults = await readJson<ReviewerResult[]>(
+    withinDirectory(reviewOutput, resultIndex.calibrationResultPath)
+  )
+  if (
+    calibrationResults.length !== resultIndex.calibrationResultCount ||
+    checksumReviewRecord(calibrationResults) !== resultIndex.calibrationResultsChecksum
+  ) {
+    throw new Error('Adversarial calibration results do not match their result index')
+  }
   const results: ReviewerResult[] = []
   for (const reference of resultIndex.resultShards) {
     const shard = await readJson<ReviewerResultShard>(withinDirectory(reviewOutput, reference.path))
@@ -251,13 +272,16 @@ const loadAdversarialLedger = async (reviewOutput: string, revision: string): Pr
     throw new Error('Adversarial review findings do not match its result shards')
   }
   return {
-    schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
-    assignments: [assignment],
-    calibrations: [calibration],
-    results,
-    findings,
-    resolutions: [],
-    verifications: [],
+    ledger: {
+      schemaVersion: AOS4_REVIEW_SCHEMA_VERSION,
+      assignments: [assignment],
+      calibrations: [calibration],
+      results,
+      findings,
+      resolutions: [],
+      verifications: [],
+    },
+    calibrationResults,
   }
 }
 
@@ -309,9 +333,8 @@ const interpretationShape = (value: unknown): InterpretationShape => {
   return shape
 }
 
-export const sourceSafeReviewLedger = (ledger: ReviewLedger): ReviewLedger => ({
-  ...ledger,
-  results: ledger.results.map(result =>
+export const sourceSafeReviewerResults = (results: ReviewerResult[]): ReviewerResult[] =>
+  results.map(result =>
     result.blindExpectedInterpretation === undefined
       ? result
       : {
@@ -321,7 +344,11 @@ export const sourceSafeReviewLedger = (ledger: ReviewLedger): ReviewLedger => ({
             shape: interpretationShape(result.blindExpectedInterpretation),
           },
         }
-  ),
+  )
+
+export const sourceSafeReviewLedger = (ledger: ReviewLedger): ReviewLedger => ({
+  ...ledger,
+  results: sourceSafeReviewerResults(ledger.results),
 })
 
 const protocolDefinition = (): ReviewProtocolDefinition => ({
@@ -339,7 +366,7 @@ const rubricDefinition = (): ReviewRubricDefinition => ({
   allowedOutcomes: ['pass', 'finding', 'cannot-verify'],
   materialSeverities: ['blocker', 'major'],
   acceptedLimitationPolicy:
-    'Only minor, non-misleading limitations may be accepted, with explicit rationale and independent machine verification.',
+    'No automated finding or cannot-verify outcome may remain in a passing beta certification; correct the pipeline or auditor and rerun.',
 })
 
 const textInput = (name: string, filePath: string, content: string): CertificationInput => ({
@@ -430,17 +457,53 @@ export const runCertificationPreparation = async (
     throw new Error('Review index, source inventory, protocol, rubric, or revision do not match')
   }
   assertReviewIndexMatchesPacketPairs(index, pairs)
-  const reviewLedger = await loadAdversarialLedger(reviewOutput, index.revision)
+  const loadedReview = await loadAdversarialLedger(reviewOutput, index.revision)
+  const calibrationResults = sourceSafeReviewerResults(loadedReview.calibrationResults)
+  const reviewLedger = sourceSafeReviewLedger({
+    ...loadedReview.ledger,
+    calibrations: loadedReview.ledger.calibrations.map(calibration => {
+      const assignment = loadedReview.ledger.assignments.find(
+        value => reviewerConfigurationId(value.reviewer) === calibration.reviewerConfigurationId
+      )
+      if (!assignment) {
+        throw new Error('Calibration has no matching adversarial reviewer assignment')
+      }
+      return {
+        ...calibration,
+        evidence: createCalibrationEvidenceReceipt(assignment.id, index, calibrationResults),
+      }
+    }),
+  })
   const packets = pairs.flatMap(pair => [pair.blindPacket, pair.comparisonPacket])
-  const ledgerIssues = validateReviewLedger(reviewLedger, packets)
+  const validationLedger = reviewLedgerWithResults(reviewLedger, calibrationResults)
+  const ledgerIssues = validateReviewLedger(validationLedger, packets)
   if (ledgerIssues.length) {
     throw new Error(
       `Adversarial review ledger is invalid: ${ledgerIssues[0].code} ` +
         `${ledgerIssues[0].path}: ${ledgerIssues[0].message}`
     )
   }
-  assertAgentBlindDerivations(reviewLedger, pairs)
-  const ledger = sourceSafeReviewLedger(reviewLedger)
+  const calibrationIssues = calibrationEvidenceIssues(index, reviewLedger, calibrationResults)
+  if (calibrationIssues.length) {
+    throw new Error(
+      `Adversarial calibration evidence is invalid: ${calibrationIssues[0].code} ` +
+        `${calibrationIssues[0].path}: ${calibrationIssues[0].message}`
+    )
+  }
+  const chronologyIssues = certificationChronologyIssues(
+    arguments_.evaluatedAt,
+    reviewLedger,
+    calibrationResults,
+    inventory.observedAt
+  )
+  if (chronologyIssues.length) {
+    throw new Error(
+      `Certification timestamp is invalid: ${chronologyIssues[0].code} ` +
+        `${chronologyIssues[0].path}: ${chronologyIssues[0].message}`
+    )
+  }
+  assertAgentBlindDerivations(validationLedger, pairs)
+  const ledger = reviewLedger
 
   const protocol = protocolDefinition()
   const rubric = rubricDefinition()
@@ -451,6 +514,7 @@ export const runCertificationPreparation = async (
     'review-index': sharded.indexManifest,
     'review-assignments': ledger.assignments,
     'review-calibrations': ledger.calibrations,
+    'review-calibration-results': calibrationResults,
     'review-results': sharded.resultManifest,
     'review-findings': ledger.findings,
     'review-resolutions': ledger.resolutions,

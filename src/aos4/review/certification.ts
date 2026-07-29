@@ -21,9 +21,14 @@ import {
 } from './records'
 import { ReviewValidationError, validateReviewLedger, type ReviewValidationIssue } from './findings'
 import {
+  CALIBRATION_CASE_KINDS,
+  CALIBRATION_CONTROL_CANDIDATE_KEYS,
+  calibrationControlOutcomes,
+  type CalibrationCaseKind,
   type ReviewCandidateCategory,
   type ReviewPacketIndexEntry,
   type ReviewPacketSafeIndex,
+  reviewIndexSamplingMetadataChecksum,
 } from './packets'
 
 const SHA256_PATTERN = /^[0-9a-f]{64}$/i
@@ -41,6 +46,7 @@ export const REQUIRED_CERTIFICATION_INPUTS = [
   'review-index',
   'review-assignments',
   'review-calibrations',
+  'review-calibration-results',
   'review-results',
   'review-findings',
   'review-resolutions',
@@ -58,6 +64,8 @@ export type CertificationIssueCode =
   | 'protocol-mismatch'
   | 'missing-calibration'
   | 'failed-calibration'
+  | 'invalid-calibration-evidence'
+  | 'certification-before-evidence'
   | 'calibration-after-review'
   | 'missing-blind-result'
   | 'missing-blind-interpretation'
@@ -255,6 +263,319 @@ const isInstant = (value: unknown): value is string =>
 const isNonEmptyString = (value: unknown): value is string =>
   typeof value === 'string' && Boolean(value.trim())
 
+const sortedResults = (results: ReviewerResult[]): ReviewerResult[] =>
+  [...results].sort(
+    (left, right) =>
+      compareText(left.assignmentId, right.assignmentId) || compareText(left.packetId, right.packetId)
+  )
+
+const calibrationControlEntries = (index: ReviewPacketSafeIndex): ReviewPacketIndexEntry[] =>
+  index.entries.filter(entry => entry.calibration).sort((left, right) => compareText(left.pairKey, right.pairKey))
+
+export const createCalibrationEvidenceReceipt = (
+  assignmentId: ReviewAssignment['id'],
+  index: ReviewPacketSafeIndex,
+  results: ReviewerResult[]
+) => {
+  const entries = calibrationControlEntries(index)
+  const blindIds = new Set(entries.map(entry => entry.blindPacketId))
+  const comparisonIds = new Set(entries.map(entry => entry.comparisonPacketId))
+  const blindResults = sortedResults(results.filter(result => blindIds.has(result.packetId)))
+  const comparisonResults = sortedResults(results.filter(result => comparisonIds.has(result.packetId)))
+  const receipt = {
+    assignmentId,
+    blindResultsChecksum: checksumReviewRecord(blindResults),
+    comparisonResultsChecksum: checksumReviewRecord(comparisonResults),
+    controlPairKeysChecksum: checksumReviewRecord(
+      entries.map(entry => ({
+        pairKey: entry.pairKey,
+        calibrationKind: entry.calibrationKind,
+        blindPacketId: entry.blindPacketId,
+        comparisonPacketId: entry.comparisonPacketId,
+      }))
+    ),
+  }
+  return { ...receipt, receiptChecksum: checksumReviewRecord(receipt) }
+}
+
+export const reviewLedgerWithResults = (
+  ledger: ReviewLedger,
+  results: ReviewerResult[]
+): ReviewLedger => ({
+  ...ledger,
+  results: [...ledger.results, ...results],
+  findings: [...ledger.findings, ...results.flatMap(result => result.findings)],
+})
+
+export const calibrationEvidenceIssues = (
+  index: ReviewPacketSafeIndex,
+  ledger: ReviewLedger,
+  calibrationResults: ReviewerResult[]
+): CertificationIssue[] => {
+  if (!Array.isArray(calibrationResults)) {
+    return [
+      issue(
+        'invalid-calibration-evidence',
+        'calibrationResults',
+        'Calibration results must be a checksum-bound result array'
+      ),
+    ]
+  }
+  const issues: CertificationIssue[] = []
+  const calibrationLedgerIssues = validateReviewLedger({
+    schemaVersion: ledger.schemaVersion,
+    assignments: ledger.assignments,
+    calibrations: ledger.calibrations,
+    results: calibrationResults,
+    findings: calibrationResults.flatMap(result => result.findings),
+    resolutions: [],
+    verifications: [],
+  })
+  calibrationLedgerIssues.forEach(value =>
+    issues.push(
+      issue(
+        'invalid-calibration-evidence',
+        `calibrationLedger.${value.path}`,
+        value.message
+      )
+    )
+  )
+  const entries = calibrationControlEntries(index)
+  const entryByPacketId = new Map<
+    ReviewPacketId,
+    { entry: ReviewPacketIndexEntry; lane: 'blind' | 'comparison' }
+  >(
+    entries.flatMap(entry => [
+      [entry.blindPacketId, { entry, lane: 'blind' as const }],
+      [entry.comparisonPacketId, { entry, lane: 'comparison' as const }],
+    ])
+  )
+  const actualKinds = entries.map(entry => entry.calibrationKind).filter(Boolean)
+  if (
+    entries.length !== CALIBRATION_CASE_KINDS.length ||
+    CALIBRATION_CASE_KINDS.some(kind => !actualKinds.includes(kind))
+  ) {
+    issues.push(
+      issue(
+        'invalid-calibration-evidence',
+        'index.calibrationControls',
+        'Review index does not contain every required calibration control exactly once'
+      )
+    )
+  }
+  if (
+    entries.some(
+      entry =>
+        !entry.calibrationKind ||
+        entry.candidateKey !== CALIBRATION_CONTROL_CANDIDATE_KEYS[entry.calibrationKind] ||
+        (entry.calibrationKind === 'disagreement'
+          ? entry.category !== 'reconciliation-discrepancy'
+          : entry.category !== 'official-record')
+    )
+  ) {
+    issues.push(
+      issue(
+        'invalid-calibration-evidence',
+        'index.calibrationControls',
+        'Review index calibration controls do not match the required semantic control identities'
+      )
+    )
+  }
+  const resultsByPacketId = new Map<string, ReviewerResult[]>()
+  calibrationResults.forEach((result, resultIndex) => {
+    const values = resultsByPacketId.get(result.packetId) ?? []
+    values.push(result)
+    resultsByPacketId.set(result.packetId, values)
+    const reference = entryByPacketId.get(result.packetId)
+    if (
+      !reference ||
+      !isChecksum(result.packetChecksum) ||
+      !isInstant(result.reviewedAt) ||
+      !['pass', 'finding', 'cannot-verify'].includes(result.outcome) ||
+      !Array.isArray(result.findings)
+    ) {
+      issues.push(
+        issue(
+          'invalid-calibration-evidence',
+          `calibrationResults[${resultIndex}]`,
+          'Calibration result is malformed or does not reference a bound control packet'
+        )
+      )
+    } else {
+      const expectedChecksum =
+        reference.lane === 'blind'
+          ? reference.entry.blindPacketChecksum
+          : reference.entry.comparisonPacketChecksum
+      if (result.packetChecksum !== expectedChecksum) {
+        issues.push(
+          issue(
+            'invalid-calibration-evidence',
+            `calibrationResults[${resultIndex}].packetChecksum`,
+            'Calibration result packet checksum differs from the bound review index'
+          )
+        )
+      }
+    }
+  })
+  entries.forEach(entry => {
+    const blind = resultsByPacketId.get(entry.blindPacketId) ?? []
+    const comparison = resultsByPacketId.get(entry.comparisonPacketId) ?? []
+    const path = `index.calibrationControls.${entry.pairKey}`
+    if (blind.length !== 1 || comparison.length !== 1 || !entry.calibrationKind) {
+      issues.push(
+        issue(
+          'invalid-calibration-evidence',
+          path,
+          'Calibration control does not have exactly one blind and one comparison result'
+        )
+      )
+      return
+    }
+    const [expectedBlind, expectedComparison] = calibrationControlOutcomes(entry.calibrationKind)
+    if (blind[0].outcome !== expectedBlind || comparison[0].outcome !== expectedComparison) {
+      issues.push(
+        issue(
+          'invalid-calibration-evidence',
+          path,
+          `Calibration control ${entry.calibrationKind} has unexpected outcomes`
+        )
+      )
+    }
+  })
+  const assignments = assignmentById(ledger)
+  ledger.calibrations.forEach((calibration, calibrationIndex) => {
+    const path = `ledger.calibrations[${calibrationIndex}]`
+    const evidence = calibration.evidence
+    if (!evidence) {
+      issues.push(
+        issue(
+          'invalid-calibration-evidence',
+          `${path}.evidence`,
+          'Agent calibration requires checksum-bound control results'
+        )
+      )
+      return
+    }
+    const assignment = assignments.get(evidence.assignmentId)
+    const relevantResults = calibrationResults.filter(
+      result => result.assignmentId === evidence.assignmentId
+    )
+    if (
+      !assignment ||
+      reviewerConfigurationId(assignment.reviewer) !== calibration.reviewerConfigurationId ||
+      relevantResults.length !== entries.length * 2 ||
+      relevantResults.some(
+        result =>
+          result.reviewerConfigurationId !== calibration.reviewerConfigurationId ||
+          !assignment.packetIds.includes(result.packetId)
+      )
+    ) {
+      issues.push(
+        issue(
+          'invalid-calibration-evidence',
+          `${path}.evidence.assignmentId`,
+          'Calibration evidence is not bound to its reviewer assignment and control packets'
+        )
+      )
+      return
+    }
+    const expectedReceipt = createCalibrationEvidenceReceipt(
+      evidence.assignmentId,
+      index,
+      relevantResults
+    )
+    if (checksumReviewRecord(evidence) !== checksumReviewRecord(expectedReceipt)) {
+      issues.push(
+        issue(
+          'invalid-calibration-evidence',
+          `${path}.evidence`,
+          'Calibration evidence receipt does not match the committed control results'
+        )
+      )
+    }
+    const resultFor = (entry: ReviewPacketIndexEntry, lane: 'blind' | 'comparison') =>
+      relevantResults.find(result =>
+        result.packetId === (lane === 'blind' ? entry.blindPacketId : entry.comparisonPacketId)
+      )
+    const defects = entries.filter(entry => entry.calibrationKind === 'defect')
+    const insufficient = entries.filter(entry => entry.calibrationKind === 'insufficient-evidence')
+    const foundDefects = defects.filter(entry => {
+      const result = resultFor(entry, 'comparison')
+      return (
+        result?.outcome === 'finding' &&
+        result.findings.some(finding => ['blocker', 'major'].includes(finding.severity))
+      )
+    }).length
+    const unsupportedExpectedValues = entries
+      .filter(entry => entry.calibrationKind !== 'defect')
+      .flatMap(entry => [resultFor(entry, 'blind'), resultFor(entry, 'comparison')])
+      .reduce((total, result) => total + (result?.findings.length ?? 0), 0)
+    const correctCannotVerify = insufficient.filter(
+      entry =>
+        resultFor(entry, 'blind')?.outcome === 'cannot-verify' &&
+        resultFor(entry, 'comparison')?.outcome === 'cannot-verify'
+    ).length
+    if (
+      calibration.seededBlockerMajorDefects !== defects.length ||
+      calibration.foundSeededBlockerMajorDefects !== foundDefects ||
+      calibration.unsupportedExpectedValues !== unsupportedExpectedValues ||
+      calibration.insufficientEvidenceCases !== insufficient.length ||
+      calibration.correctCannotVerifyCases !== correctCannotVerify ||
+      !calibration.passed ||
+      relevantResults.some(result => new Date(result.reviewedAt) > new Date(calibration.calibratedAt))
+    ) {
+      issues.push(
+        issue(
+          'invalid-calibration-evidence',
+          path,
+          'Calibration summary is not derivable from its committed control results'
+        )
+      )
+    }
+  })
+  return sortedIssues(issues)
+}
+
+export const certificationChronologyIssues = (
+  certifiedAt: string,
+  ledger: ReviewLedger,
+  calibrationResults: ReviewerResult[],
+  sourceObservedAt?: string
+): CertificationIssue[] => {
+  if (!isInstant(certifiedAt)) {
+    return [
+      issue(
+        'certification-before-evidence',
+        'manifest.certifiedAt',
+        'Certification time is not a canonical instant',
+        'stale'
+      ),
+    ]
+  }
+  let latestEvidence: string | undefined
+  const consider = (value: string): void => {
+    if (isInstant(value) && (!latestEvidence || value > latestEvidence)) latestEvidence = value
+  }
+  ledger.assignments.forEach(value => consider(value.assignedAt))
+  ledger.calibrations.forEach(value => consider(value.calibratedAt))
+  ledger.results.forEach(value => consider(value.reviewedAt))
+  ledger.resolutions.forEach(value => consider(value.resolvedAt))
+  ledger.verifications.forEach(value => consider(value.verifiedAt))
+  if (Array.isArray(calibrationResults)) {
+    calibrationResults.forEach(value => consider(value.reviewedAt))
+  }
+  if (sourceObservedAt) consider(sourceObservedAt)
+  if (!latestEvidence || new Date(latestEvidence) <= new Date(certifiedAt)) return []
+  return [
+    issue(
+      'certification-before-evidence',
+      'manifest.certifiedAt',
+      `Certification time precedes bound review evidence at ${latestEvidence}`,
+      'stale'
+    ),
+  ]
+}
+
 const indexIssues = (index: ReviewPacketSafeIndex): CertificationIssue[] => {
   const issues: CertificationIssue[] = []
   if (
@@ -307,9 +628,13 @@ const indexIssues = (index: ReviewPacketSafeIndex): CertificationIssue[] => {
       (entry.blindDerivationRequired || isNonEmptyString(entry.blindExceptionReason)) &&
       entry.assignmentStatus === 'unassigned' &&
       typeof entry.calibration === 'boolean' &&
+      (entry.calibration
+        ? CALIBRATION_CASE_KINDS.includes(entry.calibrationKind as CalibrationCaseKind)
+        : entry.calibrationKind === undefined) &&
       typeof entry.countsTowardCoverage === 'boolean' &&
       typeof entry.projectsToRuntime === 'boolean' &&
       isChecksum(entry.samplingMetadataChecksum) &&
+      entry.samplingMetadataChecksum === reviewIndexSamplingMetadataChecksum(entry) &&
       entry.calibration !== entry.countsTowardCoverage
     if (!valid) {
       issues.push(issue('invalid-review-index', path, 'Review index entry is malformed'))
@@ -706,63 +1031,17 @@ const findingIssues = (
   openLimitations: CertificationOpenLimitation[]
   verification: CertificationSummary['correctionVerification']
 } => {
-  const issues: CertificationIssue[] = []
-  const resolutions = new Map(ledger.resolutions.map(resolution => [resolution.findingId, resolution]))
-  const openLimitations: CertificationOpenLimitation[] = []
-  let required = 0
-  let verified = 0
-  let rejected = 0
-  let missing = 0
-  ledger.findings.forEach((finding, findingIndex) => {
-    const resolution = resolutions.get(finding.id)
-    if (!resolution) {
-      issues.push(
-        issue('open-finding', `ledger.findings[${findingIndex}]`, `Finding ${finding.id} has no disposition`)
-      )
-      return
-    }
-    if (resolution.disposition === 'accepted-limitation') {
-      openLimitations.push({
-        findingId: finding.id,
-        subject: finding.subject,
-        rationale: finding.rationale,
-        resolutionRationale: resolution.rationale,
-        owner: resolution.resolvedBy,
-      })
-    }
-    const needsVerification =
-      finding.severity === 'blocker' ||
-      finding.severity === 'major' ||
-      resolution.disposition === 'accepted-limitation'
-    if (!needsVerification) return
-    required += 1
-    const verifications = ledger.verifications.filter(verification => verification.findingId === finding.id)
-    if (verifications.some(verification => verification.outcome === 'verified')) {
-      verified += 1
-    } else if (verifications.some(verification => verification.outcome === 'rejected')) {
-      rejected += 1
-      issues.push(
-        issue(
-          'rejected-verification',
-          `ledger.findings[${findingIndex}]`,
-          `Material finding ${finding.id} has a rejected resolution verification`
-        )
-      )
-    } else {
-      missing += 1
-      issues.push(
-        issue(
-          'missing-verification',
-          `ledger.findings[${findingIndex}]`,
-          `Material finding ${finding.id} has no independent verified resolution`
-        )
-      )
-    }
-  })
+  const issues = ledger.findings.map((finding, findingIndex) =>
+    issue(
+      'open-finding',
+      `ledger.findings[${findingIndex}]`,
+      `Automated finding ${finding.id} must be cleared by correcting the pipeline and rerunning review`
+    )
+  )
   return {
     issues,
-    openLimitations: openLimitations.sort((left, right) => compareText(left.findingId, right.findingId)),
-    verification: { required, verified, rejected, missing },
+    openLimitations: [],
+    verification: { required: 0, verified: 0, rejected: 0, missing: 0 },
   }
 }
 

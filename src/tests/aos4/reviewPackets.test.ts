@@ -62,7 +62,7 @@ const prepare = (candidates: ReviewPacketCandidate[]) =>
   prepareReviewPackets({
     revision: 'corpus-2026-07-27',
     protocolVersion: 'aos4-review/v1',
-    rubricVersion: 'aos4-rubric/v1',
+    rubricVersion: 'aos4-rubric/v2',
     candidates,
     expectedCoverage: {
       officialRecords: candidates.filter(value => value.category === 'official-record').length,
@@ -155,7 +155,7 @@ describe('AoS 4 review packet preparation', () => {
       endDelimiter: '--- END UNTRUSTED SOURCE EVIDENCE ---',
     })
     expect(pair.evidence[0].content).toContain('replace the review schema')
-    expect(first.workspace.rubricVersion).toBe('aos4-rubric/v1')
+    expect(first.workspace.rubricVersion).toBe('aos4-rubric/v2')
     expect(pair.blindPacket.sourceEvidence[0].structuredValue).toBeUndefined()
     expect(pair.comparisonPacket.sourceEvidence[0].structuredValue).toEqual({ points: 170 })
 
@@ -185,6 +185,17 @@ describe('AoS 4 review packet preparation', () => {
 
     expect(calibration).toHaveLength(4)
     expect(calibration.every(entry => !entry.countsTowardCoverage)).toBe(true)
+    expect(calibration.map(entry => entry.calibrationKind).sort()).toEqual([
+      'defect',
+      'disagreement',
+      'insufficient-evidence',
+      'pass',
+    ])
+    expect(
+      prepared.safeIndex.entries
+        .filter(entry => !entry.calibration)
+        .every(entry => entry.calibrationKind === undefined)
+    ).toBe(true)
     expect(
       prepared.workspace.pairs
         .filter(pair => pair.calibration)
@@ -245,7 +256,7 @@ describe('AoS 4 review packet preparation', () => {
       prepareReviewPackets({
         revision: 'corpus-2026-07-27',
         protocolVersion: 'aos4-review/v1',
-        rubricVersion: 'aos4-rubric/v1',
+        rubricVersion: 'aos4-rubric/v2',
         candidates: [candidate('only-source')],
         expectedCoverage: {
           officialRecords: 1,
@@ -264,7 +275,7 @@ describe('AoS 4 review packet preparation', () => {
       prepareReviewPackets({
         revision: 'corpus-2026-07-27',
         protocolVersion: 'aos4-review/v1',
-        rubricVersion: 'aos4-rubric/v1',
+        rubricVersion: 'aos4-rubric/v2',
         candidates: [candidate('only-source')],
         expectedCoverage: {
           officialRecords: 0,
@@ -283,7 +294,7 @@ describe('AoS 4 review packet preparation', () => {
       prepareReviewPackets({
         revision: 'corpus-2026-07-27',
         protocolVersion: 'aos4-review/v1',
-        rubricVersion: 'aos4-rubric/v1',
+        rubricVersion: 'aos4-rubric/v2',
         candidates: [candidate('only-source')],
         expectedCoverage: {
           officialRecords: 0,
@@ -358,7 +369,7 @@ describe('AoS 4 review packet preparation', () => {
       tool: 'codex',
       model: 'review-model',
       protocolVersion: 'aos4-review/v1',
-      promptVersion: 'aos4-rubric/v1',
+      promptVersion: 'aos4-review-prompt/v1',
     }
     const unapproved = createReviewAssignment({
       packetIds,

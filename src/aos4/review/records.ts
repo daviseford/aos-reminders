@@ -5,7 +5,7 @@ import { stableCompactJson, stableJson } from '../generate/serialization'
 export const AOS4_REVIEW_SCHEMA_VERSION = 1 as const
 export const AOS4_CERTIFICATION_SCHEMA_VERSION = 1 as const
 export const AOS4_REVIEW_PROTOCOL_VERSION = 'aos4-review/v1' as const
-export const AOS4_REVIEW_RUBRIC_VERSION = 'aos4-rubric/v1' as const
+export const AOS4_REVIEW_RUBRIC_VERSION = 'aos4-rubric/v2' as const
 
 export type ReviewPacketId = `review-packet:sha256:${string}`
 export type ReviewAssignmentId = `review-assignment:sha256:${string}`

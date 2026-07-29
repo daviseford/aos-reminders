@@ -38,7 +38,52 @@ export const profileOnlyFactCandidateKey = (factChecksum: string): string =>
 export const ignoredRecordCandidateKey = (sourceRecordId: SourceRecordId): string =>
   `ignored-record:${sourceRecordId}`
 
-export type CalibrationCaseKind = 'pass' | 'defect' | 'disagreement' | 'insufficient-evidence'
+export const CALIBRATION_CASE_KINDS = [
+  'pass',
+  'defect',
+  'disagreement',
+  'insufficient-evidence',
+] as const
+
+export type CalibrationCaseKind = (typeof CALIBRATION_CASE_KINDS)[number]
+
+export const CALIBRATION_CONTROL_CANDIDATE_KEYS = {
+  pass: 'calibration:known-pass',
+  defect: 'calibration:known-defect',
+  disagreement: 'calibration:known-disagreement',
+  'insufficient-evidence': 'calibration:insufficient-evidence',
+} as const satisfies Record<CalibrationCaseKind, string>
+
+const CALIBRATION_CONTROL_OUTCOMES = {
+  pass: ['pass', 'pass'],
+  defect: ['pass', 'finding'],
+  disagreement: ['pass', 'pass'],
+  'insufficient-evidence': ['cannot-verify', 'cannot-verify'],
+} as const satisfies Record<
+  CalibrationCaseKind,
+  readonly [ReviewerResult['outcome'], ReviewerResult['outcome']]
+>
+
+export const calibrationControlOutcomes = (
+  kind: CalibrationCaseKind
+): readonly [ReviewerResult['outcome'], ReviewerResult['outcome']] =>
+  CALIBRATION_CONTROL_OUTCOMES[kind]
+
+export const REQUIRED_HIGH_RISK_COHORTS = [
+  'high-risk:policy-or-override',
+  'high-risk:reaction',
+  'high-risk:phase-timing-conflict',
+  'high-risk:unknown-or-incomplete',
+  'high-risk:pathology',
+  'high-risk:pathology-regression',
+  'high-risk:official-override',
+  'high-risk:duplicate-candidate',
+  'high-risk:context-boundary:current',
+  'high-risk:context-boundary:seasonal',
+  'high-risk:context-boundary:spearhead',
+  'high-risk:context-boundary:legends',
+  'high-risk:context-boundary:historical',
+] as const
 
 export interface ReviewCandidateSourceEvidence extends Omit<ReviewPacketSourceEvidence, 'excerptRef'> {
   excerpt?: string
@@ -160,6 +205,7 @@ export interface ReviewPacketIndexEntry {
   blindExceptionReason?: string
   assignmentStatus: 'unassigned'
   calibration: boolean
+  calibrationKind?: CalibrationCaseKind
   countsTowardCoverage: boolean
   projectsToRuntime: boolean
   samplingMetadataChecksum: string
@@ -286,6 +332,9 @@ const samplingIndexEntry = (entry: ReviewPacketIndexEntry): ReviewSamplingCandid
 
 const samplingMetadataChecksum = (candidate: ReviewSamplingCandidate): string =>
   checksumReviewRecord(candidate)
+
+export const reviewIndexSamplingMetadataChecksum = (entry: ReviewPacketIndexEntry): string =>
+  samplingMetadataChecksum(samplingIndexEntry(entry))
 
 const packetEvidence = (
   candidate: ReviewPacketCandidate
@@ -519,6 +568,7 @@ export const prepareReviewPackets = (input: ReviewPacketPreparationInput): Prepa
       ...(pair.blindExceptionReason ? { blindExceptionReason: pair.blindExceptionReason } : {}),
       assignmentStatus: 'unassigned' as const,
       calibration: pair.calibration,
+      ...(pair.calibrationKind ? { calibrationKind: pair.calibrationKind } : {}),
       countsTowardCoverage: pair.countsTowardCoverage,
       samplingMetadataChecksum: pair.samplingMetadataChecksum,
       projectsToRuntime: pair.comparisonPacket.generatedDestinations.some(
@@ -594,7 +644,8 @@ export const assertReviewIndexMatchesPacketPairs = (
       comparisonSamplingCohorts.length !== 1 ||
       comparisonSamplingCohorts[0] !== expectedCohort ||
       entry.blindPacketId !== pair.blindPacket.id ||
-      entry.comparisonPacketId !== pair.comparisonPacket.id
+      entry.comparisonPacketId !== pair.comparisonPacket.id ||
+      entry.calibrationKind !== pair.calibrationKind
     ) {
       throw new Error(`Review index sampling metadata differs from packet semantics: ${entry.pairKey}`)
     }

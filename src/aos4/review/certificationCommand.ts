@@ -9,8 +9,11 @@ import type { OfficialBattleProfileCatalog } from '../generate/officialBattlePro
 import { stableCompactJson } from '../generate/serialization'
 import { assertAgentBlindDerivations } from './adversarialReview'
 import {
+  calibrationEvidenceIssues,
+  certificationChronologyIssues,
   evaluateCertification,
   checksumCertificationText,
+  reviewLedgerWithResults,
   verifyCertificationManifest,
   type CertificationInventoryBinding,
   type CertificationIssue,
@@ -23,10 +26,12 @@ import {
   officialRecordCandidateKey,
   profileOnlyFactCandidateKey,
   reconciliationDiscrepancyCandidateKey,
+  REQUIRED_HIGH_RISK_COHORTS,
   sourceRecordCandidateKey,
   type ReviewPacketIndexEntry,
   type ReviewPacketSafeIndex,
 } from './packets'
+import { AOS4_GOLDEN_TRUTH_CASES } from './pathology'
 import { assertCreateOnlyDirectoryComplete, loadReviewPacketPairs } from './reviewWorkspace'
 import {
   AOS4_REVIEW_SCHEMA_VERSION,
@@ -223,10 +228,12 @@ export const boundReviewPopulationIssues = (
 ): CertificationIssue[] => {
   const liveEntries = index.entries.filter(entry => entry.countsTowardCoverage && !entry.calibration)
   const actualByCategory = new Map<string, Set<string>>()
+  const liveCohorts = new Set<string>()
   liveEntries.forEach(entry => {
     const keys = actualByCategory.get(entry.category) ?? new Set<string>()
     keys.add(entry.candidateKey)
     actualByCategory.set(entry.category, keys)
+    entry.cohortIds.forEach(cohort => liveCohorts.add(cohort))
   })
   const expected = new Map<string, Set<string>>([
     ['official-record', new Set(officialLedger.records.map(record => officialRecordCandidateKey(record.id)))],
@@ -241,6 +248,7 @@ export const boundReviewPopulationIssues = (
       ),
     ],
     ['source-record', new Set(catalog.sourceRecords.map(record => sourceRecordCandidateKey(record.id)))],
+    ['golden-truth', new Set(AOS4_GOLDEN_TRUTH_CASES.map(value => value.id))],
   ])
   const issues: CertificationIssue[] = []
   expected.forEach((expectedKeys, category) => {
@@ -260,6 +268,18 @@ export const boundReviewPopulationIssues = (
       })
     }
   })
+  const missingRequiredHighRisk = REQUIRED_HIGH_RISK_COHORTS.filter(
+    cohort => !index.coverage.highRiskCohorts.includes(cohort) || !liveCohorts.has(cohort)
+  )
+  if (missingRequiredHighRisk.length) {
+    issues.push({
+      code: 'invalid-review-index',
+      state: 'blocked',
+      path: 'index.population.high-risk',
+      subject: 'index.population.high-risk',
+      message: `Required high-risk cohorts are missing: ${missingRequiredHighRisk.join(', ')}`,
+    })
+  }
   const ignoredKeys = actualByCategory.get('ignored-record') ?? new Set()
   const explicitIgnoredKeys = review.ignoredSourceRecords.map(record =>
     ignoredRecordCandidateKey(record.sourceRecordId)
@@ -354,6 +374,11 @@ export const runCertificationCheck = async (
     resolutions: namedJson<FindingResolution[]>('review-resolutions', manifest.inputs, files),
     verifications: namedJson<FindingVerification[]>('review-verifications', manifest.inputs, files),
   })
+  const calibrationResults = namedJson<ReviewerResult[]>(
+    'review-calibration-results',
+    manifest.inputs,
+    files
+  )
   const protocol = namedJson<ProtocolFile>('review-protocol', manifest.inputs, files)
   const rubric = namedJson<RubricFile>('review-rubric', manifest.inputs, files)
   const inventoryFile = namedJson<SourceInventory>('source-inventory', manifest.inputs, files)
@@ -372,6 +397,13 @@ export const runCertificationCheck = async (
     inventory: inventoryFile,
     acceptedArtifactChecksums: acceptedManifest.artifacts.map(artifact => artifact.checksum),
   })
+  const calibrationIssues = calibrationEvidenceIssues(index, ledger, calibrationResults)
+  const chronologyIssues = certificationChronologyIssues(
+    manifest.certifiedAt,
+    ledger,
+    calibrationResults,
+    inventoryFile.observedAt
+  )
   const populationIssues = boundReviewPopulationIssues(index, catalog, officialLedger, reconciliation, review)
   const manifestIssues = verifyCertificationManifest({
     manifest,
@@ -409,6 +441,8 @@ export const runCertificationCheck = async (
   }
   const issues = [
     ...evaluation.issues,
+    ...calibrationIssues,
+    ...chronologyIssues,
     ...populationIssues,
     ...manifestIssues,
     ...summaryIssues,
@@ -419,6 +453,8 @@ export const runCertificationCheck = async (
       left.message.localeCompare(right.message)
   )
   const status = combinedStatus(evaluation.status, [
+    ...calibrationIssues,
+    ...chronologyIssues,
     ...populationIssues,
     ...manifestIssues,
     ...summaryIssues,
@@ -436,9 +472,10 @@ export const runCertificationCheck = async (
       repoPath(repoRoot, arguments_.workspacePath ?? DEFAULT_WORKSPACE)
     )
     assertReviewIndexMatchesPacketPairs(index, pairs)
-    assertAgentBlindDerivations(ledger, pairs)
     const packets = pairs.flatMap(pair => [pair.blindPacket, pair.comparisonPacket])
-    const fullLedgerIssues = validateReviewLedger(ledger, packets)
+    const fullLedger = reviewLedgerWithResults(ledger, calibrationResults)
+    assertAgentBlindDerivations(fullLedger, pairs)
+    const fullLedgerIssues = validateReviewLedger(fullLedger, packets)
     if (fullLedgerIssues.length) {
       throw new Error(
         `Full review evidence validation failed: ${fullLedgerIssues[0].code} ` +

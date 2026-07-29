@@ -27,6 +27,7 @@ import {
   prepareReviewPackets,
   profileOnlyFactCandidateKey,
   reconciliationDiscrepancyCandidateKey,
+  REQUIRED_HIGH_RISK_COHORTS,
   sourceRecordCandidateKey,
   type ReviewCalibrationCase,
   type ReviewCandidateSourceEvidence,
@@ -53,22 +54,6 @@ const REVIEW_CACHE = path.join('.cache', 'aos4', 'review')
 const DEFAULT_WORKSPACE = path.join(REVIEW_CACHE, 'workspace')
 const PACKET_SHARD_SIZE = 250
 const MAX_EXCERPT_LENGTH = 1_200
-const REQUIRED_HIGH_RISK_COHORTS = [
-  'high-risk:policy-or-override',
-  'high-risk:reaction',
-  'high-risk:phase-timing-conflict',
-  'high-risk:unknown-or-incomplete',
-  'high-risk:pathology',
-  'high-risk:pathology-regression',
-  'high-risk:official-override',
-  'high-risk:duplicate-candidate',
-  'high-risk:context-boundary:current',
-  'high-risk:context-boundary:seasonal',
-  'high-risk:context-boundary:spearhead',
-  'high-risk:context-boundary:legends',
-  'high-risk:context-boundary:historical',
-] as const
-
 export const identityAliasesRequireAdversarialReview = (aliasCount: number): boolean => aliasCount > 1
 
 export const assertReviewCacheComplete = async (

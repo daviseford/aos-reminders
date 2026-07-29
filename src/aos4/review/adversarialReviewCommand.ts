@@ -7,11 +7,17 @@ import {
   createAdversarialBlindResult,
   createAdversarialComparisonResult,
 } from './adversarialReview'
-import type { CalibrationCaseKind, ReviewPacketBatch, ReviewPacketPair } from './packets'
+import {
+  calibrationControlOutcomes,
+  type CalibrationCaseKind,
+  type ReviewPacketBatch,
+  type ReviewPacketPair,
+} from './packets'
 import {
   AOS4_REVIEW_PROTOCOL_VERSION,
   AOS4_REVIEW_RUBRIC_VERSION,
   AOS4_REVIEW_SCHEMA_VERSION,
+  checksumReviewRecord,
   createReviewAssignment,
   reviewerConfigurationId,
   type ReviewCalibration,
@@ -94,8 +100,8 @@ const withinReviewCache = (value: string): string => {
   return resolved
 }
 
-const timestamp = (campaignAt: string, minutes: number): string =>
-  new Date(new Date(campaignAt).valueOf() + minutes * 60_000).toISOString()
+const timestamp = (campaignAt: string, sequence: number): string =>
+  new Date(new Date(campaignAt).valueOf() + sequence * 1_000).toISOString()
 
 const readJson = async <T>(filePath: string): Promise<T> => JSON.parse(await readFile(filePath, 'utf8')) as T
 
@@ -146,13 +152,7 @@ export const assertCalibrationControlOutcomes = (
   blindOutcome: ReviewerResult['outcome'],
   comparisonOutcome: ReviewerResult['outcome']
 ): void => {
-  const expected: Record<CalibrationCaseKind, [ReviewerResult['outcome'], ReviewerResult['outcome']]> = {
-    pass: ['pass', 'pass'],
-    defect: ['pass', 'finding'],
-    disagreement: ['pass', 'pass'],
-    'insufficient-evidence': ['cannot-verify', 'cannot-verify'],
-  }
-  const [expectedBlind, expectedComparison] = expected[kind]
+  const [expectedBlind, expectedComparison] = calibrationControlOutcomes(kind)
   if (blindOutcome !== expectedBlind || comparisonOutcome !== expectedComparison) {
     throw new Error(
       `Adversarial review calibration control ${kind} drifted: ` +
@@ -218,8 +218,16 @@ const run = async (): Promise<void> => {
     protocolVersion: AOS4_REVIEW_PROTOCOL_VERSION,
     promptVersion: 'aos4-review-prompt/v1',
   }
+  const campaignTimes = {
+    assigned: timestamp(arguments_.campaignAt, 0),
+    calibrationBlind: timestamp(arguments_.campaignAt, 2),
+    calibrationComparison: timestamp(arguments_.campaignAt, 3),
+    calibrated: timestamp(arguments_.campaignAt, 4),
+    liveBlind: timestamp(arguments_.campaignAt, 5),
+    liveComparison: timestamp(arguments_.campaignAt, 6),
+  }
   const calibrationPairs: ReviewPacketPair[] = []
-  const calibrationPairByBlindPacketId = new Map<ReviewPacketId, ReviewPacketPair>()
+  const calibrationBlindPacketIds = new Set<ReviewPacketId>()
   const liveBlindPacketIds = new Set<ReviewPacketId>()
   const livePacketIds: ReviewerResult['packetId'][] = []
   let livePairCount = 0
@@ -228,11 +236,11 @@ const run = async (): Promise<void> => {
     packetShard.pairs
       .filter(pair => pair.calibration)
       .forEach(pair => {
-        if (calibrationPairByBlindPacketId.has(pair.blindPacket.id)) {
+        if (calibrationBlindPacketIds.has(pair.blindPacket.id)) {
           throw new Error(`Duplicate calibration blind packet: ${pair.blindPacket.id}`)
         }
         calibrationPairs.push(pair)
-        calibrationPairByBlindPacketId.set(pair.blindPacket.id, pair)
+        calibrationBlindPacketIds.add(pair.blindPacket.id)
       })
     packetShard.pairs
       .filter(pair => pair.countsTowardCoverage)
@@ -248,9 +256,39 @@ const run = async (): Promise<void> => {
   assertInterspersedCalibrationControls(
     manifest.batches,
     liveBlindPacketIds,
-    new Set(calibrationPairs.map(pair => pair.blindPacket.id))
+    calibrationBlindPacketIds
   )
-  const calibration = calibrationFor(reviewer, calibrationPairs, timestamp(arguments_.campaignAt, 1))
+  const calibrationPacketIds = calibrationPairs.flatMap(pair => [
+    pair.blindPacket.id,
+    pair.comparisonPacket.id,
+  ])
+  const assignment = createReviewAssignment({
+    packetIds: [...livePacketIds, ...calibrationPacketIds],
+    reviewer,
+    execution: 'local',
+    assignedAt: campaignTimes.assigned,
+  })
+  const calibrationResults = calibrationPairs.flatMap(pair => {
+    if (!pair.calibrationKind) {
+      throw new Error(`Calibration pair is missing its control kind: ${pair.pairKey}`)
+    }
+    const blind = createAdversarialBlindResult(
+      pair,
+      assignment.id,
+      reviewer,
+      campaignTimes.calibrationBlind
+    )
+    const comparison = createAdversarialComparisonResult(
+      pair,
+      blind,
+      assignment.id,
+      reviewer,
+      campaignTimes.calibrationComparison
+    )
+    assertCalibrationControlOutcomes(pair.calibrationKind, blind.outcome, comparison.outcome)
+    return [blind, comparison]
+  })
+  const calibration = calibrationFor(reviewer, calibrationPairs, campaignTimes.calibrated)
   if (!calibration.passed) {
     throw new Error(
       `Adversarial reviewer calibration failed: ${calibration.foundSeededBlockerMajorDefects}/` +
@@ -259,12 +297,6 @@ const run = async (): Promise<void> => {
         `${calibration.correctCannotVerifyCases}/${calibration.insufficientEvidenceCases} cannot-verify`
     )
   }
-  const assignment = createReviewAssignment({
-    packetIds: livePacketIds,
-    reviewer,
-    execution: 'local',
-    assignedAt: timestamp(arguments_.campaignAt, 0),
-  })
 
   const resultShards: Array<{
     path: string
@@ -282,35 +314,12 @@ const run = async (): Promise<void> => {
       mkdir(path.join(staging, 'blind-results'), { recursive: true }),
       mkdir(path.join(staging, 'results'), { recursive: true }),
     ])
-    manifest.batches.forEach(batch => {
-      batch.packetIds.forEach(packetId => {
-        if (liveBlindPacketIds.has(packetId)) return
-        const controlPair = calibrationPairByBlindPacketId.get(packetId)
-        if (!controlPair?.calibrationKind) {
-          throw new Error(`Review batch references an unresolved calibration control: ${packetId}`)
-        }
-        const blind = createAdversarialBlindResult(
-          controlPair,
-          assignment.id,
-          reviewer,
-          timestamp(arguments_.campaignAt, 2)
-        )
-        const comparison = createAdversarialComparisonResult(
-          controlPair,
-          blind,
-          assignment.id,
-          reviewer,
-          timestamp(arguments_.campaignAt, 3)
-        )
-        assertCalibrationControlOutcomes(controlPair.calibrationKind, blind.outcome, comparison.outcome)
-      })
-    })
     let processedBlindResults = 0
     for (let shardIndex = 0; shardIndex < manifest.shards.length; shardIndex += 1) {
       const packetShard = await readJson<PacketShard>(path.join(workspace, manifest.shards[shardIndex].path))
       const pairs = packetShard.pairs.filter(pair => pair.countsTowardCoverage)
       const blindResults = pairs.map(pair =>
-        createAdversarialBlindResult(pair, assignment.id, reviewer, timestamp(arguments_.campaignAt, 2))
+        createAdversarialBlindResult(pair, assignment.id, reviewer, campaignTimes.liveBlind)
       )
       processedBlindResults += blindResults.length
       const blindResultPath = path.join(
@@ -340,7 +349,7 @@ const run = async (): Promise<void> => {
             blind,
             assignment.id,
             reviewer,
-            timestamp(arguments_.campaignAt, 3)
+            campaignTimes.liveComparison
           ),
         ]
       })
@@ -373,6 +382,11 @@ const run = async (): Promise<void> => {
     await Promise.all([
       writeFile(path.join(staging, 'assignment.json'), stableJson(assignment), 'utf8'),
       writeFile(path.join(staging, 'calibration.json'), stableJson(calibration), 'utf8'),
+      writeFile(
+        path.join(staging, 'calibration-results.json'),
+        stableJson(calibrationResults),
+        'utf8'
+      ),
       writeFile(path.join(staging, 'findings.json'), stableJson(allFindings), 'utf8'),
       writeFile(
         path.join(staging, 'results-index.json'),
@@ -381,6 +395,9 @@ const run = async (): Promise<void> => {
           revision: manifest.revision,
           reviewer,
           assignmentId: assignment.id,
+          calibrationResultPath: 'calibration-results.json',
+          calibrationResultCount: calibrationResults.length,
+          calibrationResultsChecksum: checksumReviewRecord(calibrationResults),
           resultShards,
           outcomeCounts,
         }),
