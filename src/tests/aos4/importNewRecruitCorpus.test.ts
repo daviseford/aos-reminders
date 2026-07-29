@@ -100,19 +100,21 @@ describe('New Recruit corpus through the production importer', () => {
         unresolved: unresolved.length,
       })
 
-      // The faction itself must always land; everything else is measured, not asserted.
-      expect(preview.diagnostics.filter(diagnostic => diagnostic.code === 'missing-faction')).toEqual([])
-
       /**
-       * The user-facing contract: when every name resolves, dropping the file yields an army.
-       * Resolution failures are errors, so a single unresolved name suppresses the document — a
-       * list that resolves cleanly and *still* produced nothing would mean the graph or
-       * round-trip rejected a composition New Recruit considers real.
+       * The contract, now that only an unreadable file is fatal: every real roster imports.
+       *
+       * Names we cannot place are skipped with a warning, so a list that still produced no
+       * document would mean something structural failed — a faction that would not resolve, or a
+       * document that would not round-trip — and that is worth failing the build over.
        */
-      if (unresolved.length === 0) {
-        expect(preview.diagnostics.filter(diagnostic => diagnostic.severity === 'error')).toEqual([])
-        expect(preview.proposedDocument).toBeDefined()
-        expect(preview.proposedDocument?.explicitSelectionIds.length).toBeGreaterThan(0)
+      expect(preview.diagnostics.filter(diagnostic => diagnostic.severity === 'error')).toEqual([])
+      expect(preview.proposedDocument).toBeDefined()
+      expect(preview.proposedDocument?.explicitSelectionIds.length).toBeGreaterThan(0)
+
+      // Whatever we skipped has to be named, or the player cannot tell what is missing.
+      for (const diagnostic of unresolved) {
+        expect(diagnostic.message.length).toBeGreaterThan(0)
+        expect(diagnostic.severity).toEqual('warning')
       }
     })
   })

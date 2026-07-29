@@ -77,28 +77,56 @@ describe('AoS 4 parsed-roster resolution', () => {
     expect(preview.matches).toEqual([{ line: 9, label: 'Choice A', canonicalId: importFixtureIds.excludedA }])
   })
 
-  it('fails closed on ambiguous, unknown, and inapplicable selections', () => {
+  /**
+   * Skipping is the point: the army still imports, minus the names we could not place. Each one
+   * is a warning rather than a guess, so the result is incomplete instead of wrong.
+   */
+  it('skips ambiguous, unknown, and inapplicable selections with warnings', () => {
     const preview = resolve(
       roster({
         selections: [
           { line: 10, label: 'Twin Formation', kindHint: 'battle-formation' },
           { line: 11, label: 'Unknown Unit', kindHint: 'warscroll' },
           { line: 12, label: 'Beta Only', kindHint: 'warscroll' },
+          { line: 13, label: 'Shared Guard', kindHint: 'warscroll' },
         ],
       })
     )
 
-    expect(preview.proposedDocument).toBeUndefined()
+    expect(preview.proposedDocument).toBeDefined()
+    expect(preview.proposedDocument?.explicitSelectionIds).toEqual([
+      importFixtureIds.alphaFaction,
+      importFixtureIds.alphaGuard,
+    ])
+    expect(preview.diagnostics.every(diagnostic => diagnostic.severity === 'warning')).toBe(true)
     expect(preview.diagnostics).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ code: 'ambiguous-selection', line: 10 }),
-        expect.objectContaining({ code: 'unknown-selection', line: 11 }),
-        expect.objectContaining({ code: 'inapplicable-selection', line: 12 }),
+        expect.objectContaining({ code: 'ambiguous-selection', line: 10, severity: 'warning' }),
+        expect.objectContaining({ code: 'unknown-selection', line: 11, severity: 'warning' }),
+        expect.objectContaining({ code: 'inapplicable-selection', line: 12, severity: 'warning' }),
       ])
     )
   })
 
-  it('defaults an omitted context with a warning and rejects historical contexts', () => {
+  it('names the selection it could not place', () => {
+    const preview = resolve(
+      roster({ selections: [{ line: 11, label: 'Twilit Sorceries', kindHint: 'manifestation-lore' }] })
+    )
+
+    expect(preview.diagnostics).toContainEqual(
+      expect.objectContaining({
+        code: 'unknown-selection',
+        severity: 'warning',
+        message: expect.stringContaining('Twilit Sorceries'),
+      })
+    )
+  })
+
+  /**
+   * A context we do not carry falls back instead of failing — builders ship new battlepacks
+   * before we do, and the preview lets the player correct the guess.
+   */
+  it('defaults an omitted context and falls back from an unsupported one', () => {
     const defaulted = resolve(roster({ declaredContext: undefined }))
     const historical = resolve(roster({ declaredContext: 'Archive 2024' }))
 
@@ -106,13 +134,13 @@ describe('AoS 4 parsed-roster resolution', () => {
     expect(defaulted.diagnostics).toContainEqual(
       expect.objectContaining({ code: 'unsupported-context', severity: 'warning' })
     )
-    expect(historical.proposedDocument).toBeUndefined()
+    expect(historical.proposedDocument?.rulesContextId).toBe(importFixtureContextIds.seasonal)
     expect(historical.diagnostics).toContainEqual(
-      expect.objectContaining({ code: 'unsupported-context', severity: 'error' })
+      expect.objectContaining({ code: 'unsupported-context', severity: 'warning' })
     )
   })
 
-  it('deduplicates repeated selections and blocks an invalid selection graph', () => {
+  it('deduplicates repeated selections and imports a composition the graph objects to', () => {
     const duplicate = resolve(
       roster({
         selections: [
@@ -135,9 +163,10 @@ describe('AoS 4 parsed-roster resolution', () => {
       importFixtureIds.alphaGuard,
     ])
     expect(duplicate.matches).toHaveLength(2)
-    expect(excluded.proposedDocument).toBeUndefined()
+    // Legality belongs to a list builder, not to us — flag it and still hand over the army.
+    expect(excluded.proposedDocument).toBeDefined()
     expect(excluded.diagnostics).toContainEqual(
-      expect.objectContaining({ code: 'invalid-selection-graph', severity: 'error' })
+      expect.objectContaining({ code: 'invalid-selection-graph', severity: 'warning' })
     )
   })
 

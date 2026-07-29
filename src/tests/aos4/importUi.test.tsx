@@ -229,7 +229,12 @@ describe('AoS 4 import modal', () => {
     expect(onApply.mock.calls[0][0].explicitSelectionIds.length).toBeGreaterThan(1)
   })
 
-  it('keeps an omitted-context warning confirmable and blocks unknown selections', () => {
+  /**
+   * A name we cannot place is shown and skipped, not treated as a dead end. The player came from a
+   * builder where the unit exists, so the useful outcome is the rest of the army plus a note about
+   * what was dropped.
+   */
+  it('stays confirmable when a selection cannot be placed, and names it', () => {
     pasteAndPreview(officialRoster('Annihilators', false))
 
     expect(container.textContent).toContain('No rules context was declared')
@@ -238,8 +243,12 @@ describe('AoS 4 import modal', () => {
     pasteAndPreview(officialRoster('Definitely Unknown Unit'))
 
     expect(container.textContent).toContain('Definitely Unknown Unit')
-    expect(findButton(container, 'Import Army').disabled).toBe(true)
-    expect(onApply).not.toHaveBeenCalled()
+    expect(findButton(container, 'Import Army').disabled).toBe(false)
+
+    act(() => {
+      Simulate.click(findButton(container, 'Import Army'))
+    })
+    expect(onApply).toHaveBeenCalledTimes(1)
   })
 
   it('previews a native .ros upload locally', async () => {

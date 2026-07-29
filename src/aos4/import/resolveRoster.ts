@@ -20,6 +20,25 @@ import type {
   ParsedRosterSelectionKind,
 } from './types'
 
+/**
+ * Severity policy: an import fails only when the file cannot be read.
+ *
+ * Everything past a successful read is a judgement about *content*, and content judgements are
+ * reported as warnings so the player still gets their army. Rosters come from other people's
+ * builders, built against catalogs maintained by other people, which are variously stale, ahead of
+ * ours, or simply wrong — refusing an entire list because one name among forty diverges makes the
+ * feature hostage to that drift, and leaves the player staring at a unit they can see in the tool
+ * they exported from.
+ *
+ * This is not a licence to guess. Nothing is ever resolved on a hunch: an unplaceable name is
+ * skipped and named in a warning, so the army is incomplete rather than wrong. Silently importing
+ * the wrong unit would be far worse than importing without it, because a wrong reminder is one the
+ * player has no reason to doubt.
+ *
+ * The remaining errors are the cases where no army can be produced at all: an unreadable file
+ * (raised before this module), no resolvable faction, no usable rules context, or a document that
+ * fails to round-trip. Game legality is deliberately not among them.
+ */
 export interface ResolveParsedRosterOptions {
   defaultRulesContextId: RulesContextId
   createDocumentId: () => string
@@ -107,12 +126,28 @@ const resolveRulesContext = (
   const normalized = normalizeImportLabel(parsedRoster.declaredContext)
   const matches = catalog.rulesContexts.filter(context => contextAliases(context).includes(normalized))
   if (matches.length !== 1 || !IMPORTABLE_CONTEXT_STATUSES.has(matches[0].status)) {
+    /**
+     * An unrecognised battlepack falls back rather than failing.
+     *
+     * Builders publish new seasons before we carry them, and older rosters name packs we have
+     * retired. Neither means the file is unreadable, and the player can change the context in the
+     * preview, so this reports what happened and continues on the default.
+     */
+    const fallback = catalog.rulesContexts.find(context => context.id === defaultRulesContextId)
+    if (!fallback || !IMPORTABLE_CONTEXT_STATUSES.has(fallback.status)) {
+      diagnostics.push({
+        code: 'unsupported-context',
+        severity: 'error',
+        message: 'The default rules context is not available for import.',
+      })
+      return undefined
+    }
     diagnostics.push({
       code: 'unsupported-context',
-      severity: 'error',
-      message: `The declared rules context "${parsedRoster.declaredContext}" is not supported for import.`,
+      severity: 'warning',
+      message: `The rules context "${parsedRoster.declaredContext}" is not one we carry; using ${fallback.name}. Change it above if that is wrong.`,
     })
-    return undefined
+    return fallback
   }
   return matches[0]
 }
@@ -288,11 +323,21 @@ const resolveRosterSelection = (
     attempts.reduce<ContentEntity[]>((found, label) => (found.length ? found : matchLabel(label)), []) ?? []
   const candidates = contextCandidates.filter(entity => reachableIds.has(entity.id))
 
+  /**
+   * A name we cannot place is skipped and reported, never fatal.
+   *
+   * Rosters are built in other people's tools against their own data, which goes stale, carries
+   * typos, and adds entries before we do. Refusing the whole import over one such name would make
+   * the feature hostage to every divergence between two independently maintained catalogs, and
+   * the player — who can see the unit perfectly well in the builder they came from — has no way to
+   * act on the refusal. Importing the rest and naming what was dropped is both more useful and
+   * more honest: we still never guess, so no wrong reminder is ever produced.
+   */
   if (!contextCandidates.length) {
     diagnostics.push({
       code: 'unknown-selection',
-      severity: 'error',
-      message: `No ${selection.kindHint} named "${selection.label}" exists in the selected rules context.`,
+      severity: 'warning',
+      message: `Couldn't find a ${selection.kindHint} named "${selection.label}", so it was not imported.`,
       line: selection.line,
     })
     return undefined
@@ -300,8 +345,8 @@ const resolveRosterSelection = (
   if (!candidates.length) {
     diagnostics.push({
       code: 'inapplicable-selection',
-      severity: 'error',
-      message: `"${selection.label}" is not available to the resolved faction.`,
+      severity: 'warning',
+      message: `"${selection.label}" is not available to this faction in the selected rules context, so it was not imported.`,
       line: selection.line,
     })
     return undefined
@@ -309,8 +354,8 @@ const resolveRosterSelection = (
   if (candidates.length !== 1) {
     diagnostics.push({
       code: 'ambiguous-selection',
-      severity: 'error',
-      message: `"${selection.label}" matches more than one applicable ${selection.kindHint}.`,
+      severity: 'warning',
+      message: `"${selection.label}" matches more than one ${selection.kindHint}, so it was not imported. Add it by hand to be sure of the right one.`,
       line: selection.line,
     })
     return undefined
@@ -375,18 +420,21 @@ export const resolveParsedRoster = (
   })
   const selectionErrors = selection.diagnostics.filter(diagnostic => diagnostic.severity === 'error')
   if (selectionErrors.length) {
+    /**
+     * A composition the selection graph objects to is reported, not rejected.
+     *
+     * Whether an army is legal to field belongs to a list builder and a tournament organiser, not
+     * to us — we turn a list into reminders. Players import part-built lists, over-points lists,
+     * and lists whose legality depends on rules we do not model, and all of them still want their
+     * reminders. The document is only abandoned below if it cannot be built at all.
+     */
     diagnostics.push({
       code: 'invalid-selection-graph',
-      severity: 'error',
-      message: `The imported composition is not valid: ${selectionErrors
+      severity: 'warning',
+      message: `The imported composition may not be legal to field: ${selectionErrors
         .map(diagnostic => diagnostic.code)
         .join(', ')}.`,
     })
-    return {
-      source: parsedRoster.source,
-      matches: sortMatches(matches),
-      diagnostics: sortDiagnostics(diagnostics),
-    }
   }
 
   const proposedDocument = createAos4ArmyDocument({
