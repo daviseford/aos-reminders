@@ -31,8 +31,65 @@ small {
     padding-top: 35vh;
 }
 
+/*
+ * Card titles are <h2> so the document outline is correct at every viewport. The size is set here
+ * rather than by picking a heading level, which is what the h4/h5 swap used to do. 1.5rem matches
+ * the h4 these replaced; the breakpoint overrides further down are unchanged.
+ */
 .CardHeaderTitle {
     margin-bottom: 0;
+    font-size: 1.5rem;
+}
+
+/*
+ * Collapsible card headers are real <button>s. These rules strip the UA button chrome and carry the
+ * padding the .card-header used to own, so the whole header stays clickable and looks identical.
+ */
+.CardHeaderToggle {
+    display: block;
+    width: 100%;
+    margin: 0;
+    padding: 0.5rem 1.25rem;
+    border: 0;
+    background-color: transparent;
+    color: inherit;
+    font: inherit;
+    text-align: inherit;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+.CardHeaderToggle-Mobile {
+    @extend .CardHeaderToggle;
+    padding: 1rem;
+}
+
+/*
+ * The reminder overflow menu is a 16x24 glyph, well under the 24x24 WCAG 2.5.8 minimum. This grows
+ * the hit area without changing layout or the icon's appearance.
+ *
+ * Width is 40px, not 44px: `.ReminderOptions` sits 0.85rem (13.6px) from the tag row, so a 40px
+ * overlay overhangs 12px per side and stays clear of the rightmost `.ReminderTag` button. Height is
+ * unconstrained by neighbours, so it takes the full 44px.
+ */
+.ReminderMenuToggle {
+    position: relative;
+
+    &::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        width: 40px;
+        height: 44px;
+        transform: translate(-50%, -50%);
+    }
+}
+
+/* Reboot sizes <legend> at 1.5rem; these group labels replaced 1rem <label>s. */
+.FieldsetLegend {
+    margin-bottom: 0.25rem;
+    font-size: 1rem;
 }
 
 .DisclaimerText {
@@ -269,8 +326,10 @@ small {
 .NoteInput {
     min-width: 45%;
     width: 95%;
+    max-width: 100%;
     height: 7em;
-    resize: both;
+    /* `both` let the textarea be dragged wider than the card, scrolling the whole page sideways. */
+    resize: vertical;
     padding: 8px;
     box-sizing: border-box;
 }
@@ -310,6 +369,15 @@ small {
     transform: translate(-50%, -50%);
     border: 1px solid #000000;
     background-color: rgba(255, 255, 255, 1);
+    /*
+     * The overlay is fixed and does not scroll, and the modal is centred with a translate. Without
+     * these bounds any modal taller than the viewport pushes its own top above y=0 where it cannot
+     * be reached — the print modal already exceeds a phone held in landscape.
+     */
+    max-height: 90vh;
+    max-width: calc(100vw - 2rem);
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
 }
 
 .Modal-Dark {

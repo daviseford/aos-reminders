@@ -17,34 +17,45 @@ const PAGE_SIZES: { id: PrintPageSize; label: string }[] = [
   { id: 'letter', label: 'US Letter' },
 ]
 
+/**
+ * The group label is a <legend> rather than a <label>. A <label> cannot name a set of radios — the
+ * previous htmlFor pointed at an id that never existed, leaving "Layout" and "Page size" orphaned.
+ */
 const RadioGroup = <T extends string>({
+  legend,
   name,
   onChange,
   options,
   value,
 }: {
+  legend: string
   name: string
   onChange: (value: T) => void
   options: { id: T; label: string }[]
   value: T
 }) => (
-  <div className="d-flex justify-content-center">
-    {options.map(option => (
-      <div className="custom-control custom-radio custom-control-inline" key={option.id}>
-        <input
-          checked={value === option.id}
-          className="custom-control-input"
-          id={`${name}-${option.id}`}
-          name={name}
-          onChange={() => onChange(option.id)}
-          type="radio"
-        />
-        <label className="custom-control-label" htmlFor={`${name}-${option.id}`}>
-          {option.label}
-        </label>
-      </div>
-    ))}
-  </div>
+  <fieldset>
+    <legend className="FieldsetLegend">
+      <strong>{legend}</strong>
+    </legend>
+    <div className="d-flex justify-content-center">
+      {options.map(option => (
+        <div className="custom-control custom-radio custom-control-inline" key={option.id}>
+          <input
+            checked={value === option.id}
+            className="custom-control-input"
+            id={`${name}-${option.id}`}
+            name={name}
+            onChange={() => onChange(option.id)}
+            type="radio"
+          />
+          <label className="custom-control-label" htmlFor={`${name}-${option.id}`}>
+            {option.label}
+          </label>
+        </div>
+      ))}
+    </div>
+  </fieldset>
 )
 
 const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: PrintModalProps) => {
@@ -73,10 +84,8 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
 
       <div className={`row mx-3 ${theme.text}`}>
         <div className="col">
-          <label className="mb-1" htmlFor="printLayout">
-            <strong>Layout</strong>
-          </label>
           <RadioGroup
+            legend="Layout"
             name="printLayout"
             onChange={setPresetId}
             options={PRINT_PRESETS.map(option => ({ id: option.id, label: option.label }))}
@@ -88,10 +97,13 @@ const PrintModal = ({ closeModal, defaultFileName, isOpen, onDownloadPdf }: Prin
 
       <div className={`row mx-3 ${theme.text}`}>
         <div className="col">
-          <label className="mb-1" htmlFor="printPageSize">
-            <strong>Page size</strong>
-          </label>
-          <RadioGroup name="printPageSize" onChange={setPageSize} options={PAGE_SIZES} value={pageSize} />
+          <RadioGroup
+            legend="Page size"
+            name="printPageSize"
+            onChange={setPageSize}
+            options={PAGE_SIZES}
+            value={pageSize}
+          />
         </div>
       </div>
 
